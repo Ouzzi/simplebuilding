@@ -32,6 +32,10 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
 7. **Neue Pixelkunst im Stil des Besitzers**, immer mit Vorschau (16-fach, alt neben neu). Nie an den Rand malen, keine dunklen
    Eckfüllungen in Konturen, alte Besitzer-Texturen respektieren, keine weichgezeichneten Skalierungen.
    Generatoren: `python tools/textures/generate_textures.py` und `--check`.
+   **Aus Vanilla abgeleitete Texturen nur beim Build erzeugen** (Besitzer 12.10.2026): Pixel, die aus dem Client-Jar
+   kommen (Umfärbung/Maske/Kopie eines Mojang-Sprites), nie einchecken – auch keine Wiki-Kopien oder Vorschau-PNGs.
+   Eintragen in `tools/textures/vanilla_derived.py` (`OUTPUTS`, `images()`), Pfade in `.gitignore`; Gradle
+   (`generateVanillaDerived`, `mc26_3/resources.gradle`) und `wiki/generate.py` erzeugen sie (Wiki ohne Jar: Platzhalter).
 8. **Server-Autorität:** alle Gameplay-Stellschrauben serverseitig, mit Obergrenzen, die Vanilla nicht gefährden.
 9. Orchestrator committet auf `master`; Worker auf ihrem Arbeitsbranch (kein Push/Merge). Nachricht endet mit `Co-Authored-By: <Assistent> <noreply@anthropic.com>` (bei Claude), sonst passende Zeile.
 10. Gegenprobe/Mutationstests **nie** mit `git checkout` zurücksetzen – vorher committen. Nie `find` über das ganze Laufwerk.
