@@ -36,6 +36,13 @@ public final class ClaimTests {
         TESTS.put("claims_environment_hopper",EnvironmentClaimTests::hopper);
         TESTS.put("claims_environment_projectiles",EnvironmentClaimTests::projectiles);
         TESTS.put("claims_environment_dispenser",EnvironmentClaimTests::dispenser);
+        TESTS.put("claims_grief_mob_damage",Stage4ClaimTests::mobDamage);
+        TESTS.put("claims_grief_mob_blocks",Stage4ClaimTests::mobBlocks);
+        TESTS.put("claims_grief_enderman",Stage4ClaimTests::enderman);
+        TESTS.put("claims_grief_doors_silverfish",Stage4ClaimTests::doorsSilverfish);
+        TESTS.put("claims_grief_trample",Stage4ClaimTests::trample);
+        TESTS.put("claims_vehicle_boats",Stage4ClaimTests::boats);
+        TESTS.put("claims_automation_composter",Stage4ClaimTests::composter);
 
         TESTS.put("claims_portal_flow",ClaimPortalTests::flow);
         TESTS.put("claims_access_commands",ClaimAccessTests::commandsAndAccess);

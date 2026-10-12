@@ -8,8 +8,12 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(TransportItemsBetweenContainers.class)
 public abstract class ClaimTransportMixin {
- @Inject(method={"pickUpItems","putDownItem"},at=@At("HEAD"),cancellable=true)
- private void claims$transport(PathfinderMob body,Container container,CallbackInfo ci){
-  if(!ClaimAutomation.unowned(body,container))ci.cancel();
+ @Inject(method="pickUpItems",at=@At("HEAD"),cancellable=true)
+ private void claims$pickup(PathfinderMob body,Container container,CallbackInfo ci){
+  if(!ClaimAutomation.carry(body,container,true))ci.cancel();
+ }
+ @Inject(method="putDownItem",at=@At("HEAD"),cancellable=true)
+ private void claims$putdown(PathfinderMob body,Container container,CallbackInfo ci){
+  if(!ClaimAutomation.carry(body,container,false))ci.cancel();
  }
 }

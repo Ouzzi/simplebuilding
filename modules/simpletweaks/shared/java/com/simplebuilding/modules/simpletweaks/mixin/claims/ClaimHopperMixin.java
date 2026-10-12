@@ -11,6 +11,11 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 public abstract class ClaimHopperMixin {
  @Inject(method="ejectItems",at=@At("HEAD"),cancellable=true)
  private static void claims$eject(Level level,BlockPos pos,net.minecraft.world.level.block.entity.HopperBlockEntity hopper,CallbackInfoReturnable<Boolean> cir){if(level instanceof ServerLevel server&&!Claims.transfer(server,pos,pos.relative(hopper.getBlockState().getValue(net.minecraft.world.level.block.HopperBlock.FACING))))cir.setReturnValue(false);}
+ /** Block-backed wrappers (composter) carry no position themselves; remember where the hopper resolved them. */
+ @Inject(method="getBlockContainer",at=@At("RETURN"))
+ private static void claims$worldly(Level level,BlockPos pos,net.minecraft.world.level.block.state.BlockState state,CallbackInfoReturnable<net.minecraft.world.Container> cir){
+  if(state.getBlock() instanceof net.minecraft.world.WorldlyContainerHolder&&level instanceof ServerLevel server)com.simplebuilding.modules.simpletweaks.claims.ClaimAutomation.resolved(cir.getReturnValue(),server,pos);
+ }
  @Inject(method="suckInItems",at=@At("HEAD"),cancellable=true)
  private static void claims$intake(Level level,net.minecraft.world.level.block.entity.Hopper hopper,CallbackInfoReturnable<Boolean> cir){var pos=BlockPos.containing(hopper.getLevelX(),hopper.getLevelY(),hopper.getLevelZ());if(level instanceof ServerLevel server&&!Claims.transfer(server,pos,pos.above()))cir.setReturnValue(false);}
  @Unique private static final ThreadLocal<net.minecraft.world.entity.item.ItemEntity> claims$drop=new ThreadLocal<>();

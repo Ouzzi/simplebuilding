@@ -91,27 +91,34 @@ final class Stage4ClaimTests {
     static void copperGolem(GameTestHelper h){modes(h,(f,enabled)->{
         var behavior=new net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers(1,s->true,s->true,16,8,Map.of(),mob->{},target->false);
         var access=(com.simplebuilding.modules.simpletweaks.mixin.claims.ClaimTransportInvoker)behavior;
-        for(boolean claimed:new boolean[]{true,false}){
-            var pos=claimed?f.edge.east(3):f.edge.west(4);f.set(pos,Blocks.CHEST);
-            var chest=(Container)f.l.getBlockEntity(pos);chest.setItem(0,new ItemStack(Items.APPLE,20));
-            var golem=f.add(EntityTypes.COPPER_GOLEM.create(f.l,EntitySpawnReason.COMMAND),pos.north());
-            access.claims$pickup(golem,chest);boolean denied=enabled&&claimed;
-            yes(h,chest.countItem(Items.APPLE)==(denied?20:4)&&golem.getMainHandItem().getCount()==(denied?0:16),"Actual golem pickup: protected land refuses ownerless mobile automation");
-            chest.clearContent();golem.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.APPLE,7));
-            access.claims$putdown(golem,chest);
-            yes(h,chest.countItem(Items.APPLE)==(denied?0:7)&&golem.getMainHandItem().getCount()==(denied?7:0),"Actual golem putdown retains refused items");
-            chest.clearContent();golem.discard();
-        }
+        var claimed=f.edge.east(3);var wild=f.edge.west(4);f.set(claimed,Blocks.CHEST);f.set(wild,Blocks.CHEST);
+        var inside=(Container)f.l.getBlockEntity(claimed);var outside=(Container)f.l.getBlockEntity(wild);
+        // Provenance: whatever land a load came from, it can only be put down on that same land.
+        var golem=f.add(EntityTypes.COPPER_GOLEM.create(f.l,EntitySpawnReason.COMMAND),wild.east());
+        inside.setItem(0,new ItemStack(Items.APPLE,20));access.claims$pickup(golem,inside);
+        yes(h,inside.countItem(Items.APPLE)==4&&golem.getMainHandItem().getCount()==16,"Actual golem pickup works next to any chest");
+        access.claims$putdown(golem,outside);
+        yes(h,outside.countItem(Items.APPLE)==(enabled?0:16)&&golem.getMainHandItem().getCount()==(enabled?16:0),"Claimed items never leave the claim by golem");
+        if(enabled){access.claims$putdown(golem,inside);yes(h,inside.countItem(Items.APPLE)==20&&golem.getMainHandItem().isEmpty(),"Claimed load returns to a same-owner container");}
+        inside.clearContent();outside.clearContent();
+        outside.setItem(0,new ItemStack(Items.APPLE,5));access.claims$pickup(golem,outside);access.claims$putdown(golem,inside);
+        yes(h,inside.countItem(Items.APPLE)==(enabled?0:5),"Wilderness loads cannot be dumped into a claim");
+        access.claims$putdown(golem,outside);yes(h,golem.getMainHandItem().isEmpty(),"Wilderness load still works in the wilderness");
+        inside.clearContent();outside.clearContent();golem.discard();
+        var legacy=f.add(EntityTypes.COPPER_GOLEM.create(f.l,EntitySpawnReason.COMMAND),claimed.north());legacy.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.APPLE,7));
+        access.claims$putdown(legacy,outside);yes(h,outside.countItem(Items.APPLE)==(enabled?0:7),"Untagged load cannot leave the land the golem stands on");
+        if(enabled){access.claims$putdown(legacy,inside);yes(h,inside.countItem(Items.APPLE)==7,"Untagged load may stay on its current land");}
+        inside.clearContent();outside.clearContent();legacy.discard();
         var near=f.edge.west();var far=f.edge;f.set(near,Blocks.CHEST);f.set(far,Blocks.CHEST);
         var first=(Container)f.l.getBlockEntity(near);var second=(Container)f.l.getBlockEntity(far);
         first.setItem(0,new ItemStack(Items.APPLE,3));var combined=new CompoundContainer(first,second);
         var visitor=f.add(EntityTypes.COPPER_GOLEM.create(f.l,EntitySpawnReason.COMMAND),near.west());
         access.claims$pickup(visitor,combined);
-        yes(h,first.countItem(Items.APPLE)==(enabled?3:0),"Golem checks claimed far half even when queried inventory starts in wilderness");
+        yes(h,first.countItem(Items.APPLE)==(enabled?3:0),"Golem refuses a container whose halves belong to different land");
         visitor.discard();first.clearContent();second.clearContent();
         // Unknown wrappers cannot supply trustworthy positions while protection is enabled.
-        var golem=f.add(EntityTypes.COPPER_GOLEM.create(f.l,EntitySpawnReason.COMMAND),f.edge.west(4));
-        var unknown=new SimpleContainer(new ItemStack(Items.APPLE,3));access.claims$pickup(golem,unknown);
+        var unknownGolem=f.add(EntityTypes.COPPER_GOLEM.create(f.l,EntitySpawnReason.COMMAND),f.edge.west(4));
+        var unknown=new SimpleContainer(new ItemStack(Items.APPLE,3));access.claims$pickup(unknownGolem,unknown);
         yes(h,unknown.countItem(Items.APPLE)==(enabled?3:0),"Positionless mobile target fails closed only while enabled");
     });}
     static void lightning(GameTestHelper h){modes(h,(f,enabled)->{
@@ -296,4 +303,139 @@ final class Stage4ClaimTests {
         }
         });}finally{release.run();}});
     }
+
+    // ---- Completion (2026-10-12): mob griefing, damage policy, vehicles, provenance, positioned wrappers ----
+    private static Object inner(String name,Class<?> type,Object arg){
+        try{var c=Class.forName(name).getDeclaredConstructor(type);c.setAccessible(true);return c.newInstance(arg);}catch(ReflectiveOperationException e){throw new AssertionError(e);}
+    }
+    private static void field(Object target,Class<?> owner,String name,Object value){
+        try{var f=owner.getDeclaredField(name);f.setAccessible(true);f.set(target,value);}catch(ReflectiveOperationException e){throw new AssertionError(e);}
+    }
+    private static void loaded(net.minecraft.server.level.ServerPlayer p){p.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());}
+    static void mobDamage(GameTestHelper h){modes(h,(f,enabled)->{
+        var inside=f.edge.east(4);
+        var zombie=EntityTypes.ZOMBIE.create(f.l,EntitySpawnReason.COMMAND);zombie.setPos(Vec3.atBottomCenterOf(f.edge.west(3)));
+        var cow=f.add(EntityTypes.COW.create(f.l,EntitySpawnReason.COMMAND),inside);cow.setNoAi(true);float before=cow.getHealth();
+        yes(h,cow.hurtServer(f.l,f.l.damageSources().mobAttack(zombie),2)&&cow.getHealth()<before,"Mob attacks on claimed animals stay Vanilla");
+        var visitor=player(h,inside.south(2));f.entities.add(visitor);loaded(visitor);before=visitor.getHealth();
+        yes(h,visitor.hurtServer(f.l,f.l.damageSources().mobAttack(zombie),2)&&visitor.getHealth()<before,"A claim is never a mob-immune zone for players");
+        var skeleton=EntityTypes.SKELETON.create(f.l,EntitySpawnReason.COMMAND);skeleton.setPos(Vec3.atBottomCenterOf(f.edge.west(3)));
+        var arrow=EntityTypes.ARROW.create(f.l,EntitySpawnReason.COMMAND);arrow.setOwner(skeleton);visitor.setInvulnerableTime(0);before=visitor.getHealth();
+        yes(h,visitor.hurtServer(f.l,f.l.damageSources().arrow(arrow,skeleton),2)&&visitor.getHealth()<before,"Mob projectiles still hit players inside a claim");
+        cow.setInvulnerableTime(0);visitor.setInvulnerableTime(0);float cowBefore=cow.getHealth();before=visitor.getHealth();
+        new ServerExplosion(f.l,null,null,null,Vec3.atCenterOf(inside.south()),2,false,Explosion.BlockInteraction.KEEP).explode();
+        yes(h,visitor.getHealth()<before,"Players inside a claim still take unattributed explosion damage");
+        yes(h,(cow.getHealth()==cowBefore)==enabled,"Unattributed explosions spare claimed animals only while enabled");
+        var stranger=player(h,f.edge.west(2));f.entities.add(stranger);cow.setInvulnerableTime(0);
+        yes(h,cow.hurtServer(f.l,f.l.damageSources().playerAttack(stranger),1)==!enabled,"Untrusted player attacks on claimed animals are refused");
+        var bolt=EntityTypes.LIGHTNING_BOLT.create(f.l,EntitySpawnReason.COMMAND);bolt.setCause(stranger);cow.removeAllEffects();
+        yes(h,cow.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.POISON,100),bolt)==!enabled,"A lightning bolt counts as its causing player");
+    });}
+    static void mobBlocks(GameTestHelper h){modes(h,(f,enabled)->{
+        var wither=EntityTypes.WITHER.create(f.l,EntitySpawnReason.COMMAND);wither.setPos(Vec3.atCenterOf(f.edge.west(3)));
+        var ravager=EntityTypes.RAVAGER.create(f.l,EntitySpawnReason.COMMAND);ravager.setPos(Vec3.atCenterOf(f.edge.east(3)));
+        for(var hostile:List.<Entity>of(wither,ravager))for(boolean claimed:new boolean[]{true,false}){
+            var p=claimed?f.edge.east(2):f.edge.west(2);f.set(p,Blocks.STONE);boolean denied=enabled&&claimed;
+            yes(h,f.l.destroyBlock(p,false,hostile)!=denied&&f.l.getBlockState(p).isAir()!=denied,"Hostile block destruction respects claims: "+hostile.getType()+" claimed="+claimed+" enabled="+enabled);
+        }
+        var target=f.edge.east(2);var villager=EntityTypes.VILLAGER.create(f.l,EntitySpawnReason.COMMAND);
+        villager.setPos(Vec3.atCenterOf(f.edge.east(5)));f.set(target,Blocks.STONE);
+        yes(h,f.l.destroyBlock(target,false,villager),"Non-hostile mobs work on the land they stand on");
+        villager.setPos(Vec3.atCenterOf(f.edge.west(2)));f.set(target,Blocks.STONE);
+        yes(h,f.l.destroyBlock(target,false,villager)==!enabled,"Non-hostile mobs cannot reach across a claim border");
+        var stranger=player(h,f.edge.west(2));f.entities.add(stranger);f.set(target,Blocks.STONE);
+        yes(h,f.l.destroyBlock(target,false,stranger)==!enabled,"Player-attributed destruction needs rights");
+        f.set(target,Blocks.STONE);yes(h,f.l.destroyBlock(target,false,f.owner),"Owner-attributed destruction allowed");
+        // Ender Dragon wall check through the real private method.
+        var dragon=EntityTypes.ENDER_DRAGON.create(f.l,EntitySpawnReason.COMMAND);dragon.setPos(Vec3.atCenterOf(f.edge));
+        f.set(f.edge.west(),Blocks.STONE);f.set(f.edge,Blocks.STONE);
+        try{var m=net.minecraft.world.entity.boss.enderdragon.EnderDragon.class.getDeclaredMethod("checkWalls",net.minecraft.server.level.ServerLevel.class,AABB.class);m.setAccessible(true);
+            m.invoke(dragon,f.l,new AABB(Vec3.atLowerCornerOf(f.edge.west()),Vec3.atLowerCornerOf(f.edge.east()).add(0,1,1)).deflate(0.01));}catch(ReflectiveOperationException e){throw new AssertionError(e);}
+        yes(h,f.l.getBlockState(f.edge.west()).isAir()&&f.l.getBlockState(f.edge).is(Blocks.STONE)==enabled,"Ender Dragon breaks wilderness walls only");
+    });}
+    static void enderman(GameTestHelper h){modes(h,(f,enabled)->{
+        for(boolean claimed:new boolean[]{true,false}){
+            var at=claimed?f.edge.east(6):f.edge.west(6);boolean denied=enabled&&claimed;
+            for(int x=-2;x<=1;x++)for(int y=0;y<=2;y++)for(int z=-2;z<=1;z++)if(x!=0||z!=0)f.set(at.offset(x,y,z),Blocks.DIRT);
+            var enderman=EntityTypes.ENDERMAN.create(f.l,EntitySpawnReason.COMMAND);enderman.setPos(Vec3.atBottomCenterOf(at));
+            var take=(net.minecraft.world.entity.ai.goal.Goal)inner("net.minecraft.world.entity.monster.Enderman$EndermanTakeBlockGoal",net.minecraft.world.entity.monster.Enderman.class,enderman);
+            int removed=0;for(int t=0;t<200;t++)take.tick();
+            for(int x=-2;x<=1;x++)for(int y=0;y<=2;y++)for(int z=-2;z<=1;z++)if((x!=0||z!=0)&&f.l.getBlockState(at.offset(x,y,z)).isAir())removed++;
+            yes(h,(removed==0)==denied&&(enderman.getCarriedBlock()==null)==denied,"Actual Enderman take goal respects claims: claimed="+claimed+" removed="+removed);
+            for(int x=-2;x<=1;x++)for(int y=0;y<=2;y++)for(int z=-2;z<=1;z++)f.set(at.offset(x,y,z),Blocks.AIR);
+            for(int x=-1;x<=0;x++)for(int z=-1;z<=0;z++)f.set(at.offset(x,-1,z),Blocks.STONE);
+            enderman.setCarriedBlock(Blocks.DIRT.defaultBlockState());
+            var leave=(net.minecraft.world.entity.ai.goal.Goal)inner("net.minecraft.world.entity.monster.Enderman$EndermanLeaveBlockGoal",net.minecraft.world.entity.monster.Enderman.class,enderman);
+            for(int t=0;t<200&&enderman.getCarriedBlock()!=null;t++)leave.tick();
+            yes(h,(enderman.getCarriedBlock()!=null)==denied,"Actual Enderman leave goal never places into a claim: claimed="+claimed);
+            for(int x=-1;x<=0;x++)for(int y=-1;y<=1;y++)for(int z=-1;z<=0;z++)f.set(at.offset(x,y,z),Blocks.AIR);
+        }
+    });}
+    static void doorsSilverfish(GameTestHelper h){modes(h,(f,enabled)->{
+        for(boolean claimed:new boolean[]{true,false}){
+            var door=claimed?f.edge.east(3):f.edge.west(3);boolean denied=enabled&&claimed;
+            f.set(door.below(),Blocks.STONE);
+            f.set(door,Blocks.OAK_DOOR.defaultBlockState().setValue(DoorBlock.HALF,DoubleBlockHalf.LOWER));
+            f.set(door.above(),Blocks.OAK_DOOR.defaultBlockState().setValue(DoorBlock.HALF,DoubleBlockHalf.UPPER));
+            var zombie=EntityTypes.ZOMBIE.create(f.l,EntitySpawnReason.COMMAND);zombie.setPos(Vec3.atBottomCenterOf(door.west()));
+            var goal=new net.minecraft.world.entity.ai.goal.BreakDoorGoal(zombie,d->true);
+            field(goal,net.minecraft.world.entity.ai.goal.DoorInteractGoal.class,"doorPos",door);
+            field(goal,net.minecraft.world.entity.ai.goal.BreakDoorGoal.class,"breakTime",239);
+            goal.tick();
+            yes(h,f.l.getBlockState(door).is(Blocks.OAK_DOOR)==denied,"Actual door-breaking tick respects claims: claimed="+claimed);
+            f.set(door,Blocks.AIR);f.set(door.above(),Blocks.AIR);
+            var host=claimed?f.edge.east(4):f.edge.west(4);f.set(host,Blocks.STONE);
+            var silverfish=EntityTypes.SILVERFISH.create(f.l,EntitySpawnReason.COMMAND);silverfish.setPos(Vec3.atBottomCenterOf(host.west()));
+            var merge=(net.minecraft.world.entity.ai.goal.Goal)inner("net.minecraft.world.entity.monster.Silverfish$SilverfishMergeWithStoneGoal",net.minecraft.world.entity.monster.Silverfish.class,silverfish);
+            field(merge,merge.getClass(),"doMerge",true);field(merge,merge.getClass(),"selectedDirection",Direction.EAST);
+            merge.start();
+            yes(h,f.l.getBlockState(host).is(Blocks.STONE)==denied&&silverfish.isRemoved()!=denied,"Actual silverfish infestation respects claims: claimed="+claimed);
+            f.set(host,Blocks.AIR);
+        }
+    });}
+    static void trample(GameTestHelper h){modes(h,(f,enabled)->{
+        var stranger=player(h,f.edge.west(2));f.entities.add(stranger);
+        for(boolean claimed:new boolean[]{true,false}){
+            var p=claimed?f.edge.east(3):f.edge.west(3);
+            for(var actor:List.<Entity>of(EntityTypes.SPIDER.create(f.l,EntitySpawnReason.COMMAND),stranger,f.owner)){
+                boolean denied=enabled&&claimed&&actor!=f.owner;
+                f.set(p,Blocks.FARMLAND);Blocks.FARMLAND.fallOn(f.l,f.l.getBlockState(p),p,actor,2);
+                yes(h,f.l.getBlockState(p).is(Blocks.FARMLAND)==denied,"Actual farmland trampling respects claims: "+actor.getType()+" claimed="+claimed);
+            }
+            var spider=EntityTypes.SPIDER.create(f.l,EntitySpawnReason.COMMAND);spider.setPos(Vec3.atBottomCenterOf(p));
+            f.set(p.below(),Blocks.SAND);f.set(p,Blocks.TURTLE_EGG);
+            for(int i=0;i<60&&f.l.getBlockState(p).is(Blocks.TURTLE_EGG);i++)Blocks.TURTLE_EGG.fallOn(f.l,f.l.getBlockState(p),p,spider,2);
+            yes(h,f.l.getBlockState(p).is(Blocks.TURTLE_EGG)==(enabled&&claimed),"Actual turtle egg trampling respects claims: claimed="+claimed);
+            f.set(p,Blocks.AIR);
+        }
+    });}
+    static void boats(GameTestHelper h){modes(h,(f,enabled)->{
+        var water=f.edge.east(3);f.set(water.below(),Blocks.STONE);f.set(water,Blocks.WATER);
+        var stranger=player(h,water.above(2));f.entities.add(stranger);
+        for(var actor:List.of(stranger,f.owner)){
+            actor.setPos(Vec3.atBottomCenterOf(water.above(2)));actor.setXRot(90);actor.setYRot(0);
+            actor.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.OAK_BOAT));
+            Items.OAK_BOAT.use(f.l,actor,InteractionHand.MAIN_HAND);
+            var boats=f.l.getEntitiesOfClass(net.minecraft.world.entity.vehicle.boat.AbstractBoat.class,new AABB(water).inflate(3));
+            boolean allowed=!enabled||actor==f.owner;
+            yes(h,boats.isEmpty()!=allowed&&actor.getMainHandItem().isEmpty()==allowed,"Actual boat placement respects claims: owner="+(actor==f.owner)+" enabled="+enabled);
+            boats.forEach(Entity::discard);
+        }
+    });}
+    @SuppressWarnings({"rawtypes","unchecked"})
+    static void composter(GameTestHelper h){modes(h,(f,enabled)->{
+        var hopperPos=f.edge.east(3);var hopperState=Blocks.HOPPER.defaultBlockState().setValue(HopperBlock.FACING,Direction.DOWN);
+        f.set(hopperPos,hopperState);f.set(hopperPos.above(),Blocks.COMPOSTER.defaultBlockState().setValue(ComposterBlock.LEVEL,8));
+        var be=f.l.getBlockEntity(hopperPos);var ticker=(BlockEntityTicker<BlockEntity>)(BlockEntityTicker)((EntityBlock)Blocks.HOPPER).getTicker(f.l,hopperState,be.getType());
+        for(int t=0;t<16;t++)ticker.tick(f.l,hopperPos,hopperState,be);
+        yes(h,((Container)be).countItem(Items.BONE_MEAL)==1,"Same-owner hopper empties a composter (positioned wrapper resolved)");
+        ((Container)be).clearContent();
+        var border=f.edge.west();var sideState=Blocks.HOPPER.defaultBlockState().setValue(HopperBlock.FACING,Direction.EAST);
+        f.set(border,sideState);f.set(f.edge,Blocks.COMPOSTER.defaultBlockState());
+        var side=f.l.getBlockEntity(border);((Container)side).setItem(0,new ItemStack(Items.WHEAT_SEEDS,4));
+        var sideTicker=(BlockEntityTicker<BlockEntity>)(BlockEntityTicker)((EntityBlock)Blocks.HOPPER).getTicker(f.l,sideState,side.getType());
+        for(int t=0;t<16;t++)sideTicker.tick(f.l,border,sideState,side);
+        yes(h,(((Container)side).countItem(Items.WHEAT_SEEDS)==4)==enabled,"Wilderness hopper cannot feed a claimed composter");
+        ((Container)side).clearContent();
+    });}
 }
