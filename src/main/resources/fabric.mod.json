@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "simplebuilding",
   "version": "${version}",
-  "name": "simplebuilding",
+  "name": "SimpleBuilding",
   "description": "This is a simple building mod.",
   "authors": [
     "Me!"

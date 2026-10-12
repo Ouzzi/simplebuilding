@@ -17,11 +17,13 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
 /**
- * Contents of a copper barrel; on its own it opens as a chest of its tier's size (owner 58). Attached
- * to a crucible it offers only as many slots as the crucible has (owner N12c: 6/9/18/27, reinforced 12 since N30, enderite 30 since N37). The slots beyond are
- * kept, not dropped: nothing reaches them while attached (hoppers, the crucible and its menu only see the first
- * ones), they come back when the barrel is detached, and they drop when it is broken. Detaching keeps the contents
- * within the normal stack limits.
+ * Contents of a copper barrel; on its own it opens as a chest of its tier's size (owner 58). Attached to a crucible it
+ * always has exactly as many slots as the crucible (owner N12c: 6/12/18/30; N37: also when that is more than the barrel
+ * holds on its own - a copper barrel of 27 gets the Enderite crucible's 30). Slots beyond the crucible's count are kept,
+ * not dropped: nothing reaches them while attached (hoppers, the crucible and its menu only see the first ones), they
+ * come back when the barrel is detached, and they drop when it is broken. Detaching moves what lies in the extra slots
+ * beyond the barrel's own size into its free slots and drops only what does not fit (nothing is lost), and keeps the
+ * contents within the normal stack limits.
  */
 public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     private final BarrelTier tier;
@@ -36,7 +38,12 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     public CrucibleBarrelBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.tier = state.getBlock() instanceof CrucibleBarrelBlock block ? block.tier() : BarrelTier.COPPER;
-        this.items = NonNullList.withSize(tier.slots(), ItemStack.EMPTY);
+        this.items = NonNullList.withSize(capacity(), ItemStack.EMPTY);
+    }
+
+    /** Stored slots: the barrel's own, or the largest crucible's if that has more (N37). */
+    private int capacity() {
+        return Math.max(tier.slots(), BarrelTier.MAX_CRUCIBLE_SLOTS);
     }
 
     public BarrelTier tier() {
@@ -67,7 +74,7 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     @Override
     public int getContainerSize() { return attached() ? attachedSlots() : tier.slots(); }
 
-    /** Slots offered while attached: the crucible's slot count (6 if it cannot be found, e.g. while loading). */
+    /** Slots offered while attached: the crucible's slot count, even above the barrel's own (6 if it cannot be found, e.g. while loading). */
     public int attachedSlots() {
         int slots = CrucibleTier.IRON.slots();
         BlockState state = getBlockState();
@@ -75,7 +82,7 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
                 && level.getBlockEntity(worldPosition.relative(state.getValue(CrucibleBarrelBlock.FACING))) instanceof CrucibleBlockEntity crucible) {
             slots = crucible.tier().slots();
         }
-        return Math.min(slots, tier.slots());
+        return Math.min(slots, items.size());
     }
 
     /** Just attached: the slots beyond the crucible's count stay stored (hidden), see the class comment. */
@@ -84,10 +91,32 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
         setChanged();
     }
 
-    /** Just detached: the barrel is normal again; stacks above the normal limit drop their surplus. */
+    /**
+     * Just detached: the barrel is normal again. What lies in slots beyond its own size (only filled by a bigger
+     * crucible, N37) moves into its free slots, the rest drops; stacks above the normal limit drop their surplus.
+     */
     public void onDetached() {
         if (level == null || level.isClientSide()) return;
-        for (int i = 0; i < items.size(); i++) {
+        for (int i = tier.slots(); i < items.size(); i++) {
+            ItemStack extra = items.get(i);
+            if (extra.isEmpty()) continue;
+            items.set(i, ItemStack.EMPTY);
+            for (int k = 0; k < tier.slots() && !extra.isEmpty(); k++) {
+                ItemStack there = items.get(k);
+                if (there.isEmpty()) {
+                    items.set(k, extra);
+                    extra = ItemStack.EMPTY;
+                } else if (ItemStack.isSameItemSameComponents(there, extra)) {
+                    int move = Math.min(extra.getCount(), getMaxStackSize(there) - there.getCount());
+                    if (move > 0) {
+                        there.grow(move);
+                        extra.shrink(move);
+                    }
+                }
+            }
+            if (!extra.isEmpty()) popAll(extra);
+        }
+        for (int i = 0; i < tier.slots(); i++) {
             ItemStack stack = items.get(i);
             int max = getMaxStackSize(stack);
             if (stack.getCount() > max) popAll(stack.split(stack.getCount() - max));
@@ -155,7 +184,7 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
-        items = NonNullList.withSize(tier.slots(), ItemStack.EMPTY);
+        items = NonNullList.withSize(capacity(), ItemStack.EMPTY);
         input.read("Contents", SavedSlot.CODEC.listOf()).ifPresent(list -> {
             for (SavedSlot saved : list) {
                 if (saved.slot() < 0 || saved.slot() >= items.size() || saved.stack().isEmpty()) continue;

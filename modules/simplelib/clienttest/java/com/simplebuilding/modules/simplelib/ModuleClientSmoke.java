@@ -43,18 +43,38 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simplelib-crucible-enderite-barrel-1080");
             context.runOnClient(c -> c.getWindow().setWindowed(854, 480));
             context.waitTicks(3);
-            crucible(context, CrucibleTier.REINFORCED);
-            context.takeScreenshot("simplelib-crucible-reinforced-barrel");
+            // N37: every tier with and without a barrel (7 px margins, compact boxes).
+            // (literal names: the test runner reads them from the source)
+            crucible(context, CrucibleTier.IRON, false);
+            context.takeScreenshot("simplelib-crucible-iron-alone");
+            crucible(context, CrucibleTier.IRON, true);
+            context.takeScreenshot("simplelib-crucible-iron-with-barrel");
+            crucible(context, CrucibleTier.REINFORCED, false);
+            context.takeScreenshot("simplelib-crucible-reinforced-alone");
+            crucible(context, CrucibleTier.REINFORCED, true);
+            context.takeScreenshot("simplelib-crucible-reinforced-with-barrel");
+            crucible(context, CrucibleTier.NETHERITE, false);
+            context.takeScreenshot("simplelib-crucible-netherite-alone");
+            crucible(context, CrucibleTier.NETHERITE, true);
+            context.takeScreenshot("simplelib-crucible-netherite-with-barrel");
+            crucible(context, CrucibleTier.ENDERITE, false);
+            context.takeScreenshot("simplelib-crucible-enderite-alone");
+            crucible(context, CrucibleTier.ENDERITE, true);
+            context.takeScreenshot("simplelib-crucible-enderite-with-barrel");
             context.runOnClient(c -> c.gui.setScreen(null));
         }
     }
 
     /** A client-side crucible menu of {@code tier} with a barrel attached and a few items, opened and rendered. */
     private static void crucible(ClientGameTestContext context, CrucibleTier tier) {
+        crucible(context, tier, true);
+    }
+
+    private static void crucible(ClientGameTestContext context, CrucibleTier tier, boolean barrel) {
         context.runOnClient(c -> {
             Inventory inv = c.player.getInventory();
             CrucibleMenu menu = CrucibleMenu.client(tier, 0, inv);
-            menu.setData(tier.slots() + 3, 1);
+            menu.setData(tier.slots() + 3, barrel ? 1 : 0);
             menu.getSlot(0).set(new ItemStack(Items.RAW_IRON, 12));
             menu.getSlot(menu.wideCrucibleStart()).set(new ItemStack(Items.RAW_IRON, 12));
             menu.getSlot(menu.barrelStart()).set(new ItemStack(Items.IRON_INGOT, 5));
