@@ -801,7 +801,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 44 (2026-10-12, Besitzer)
 - [ ] Astral- und Nihilith-Lampen: neue Texturen fast wie Kupferlampe, aber End-Version (Referenz docs/ai/refs/n44/end_lamp_ref.png). Hinweis: Lampen wurden in Nachtrag 36 entfernt → wieder einführen als Lampe ihrer Redstone-Linie (an/aus wie Kupferlampe), Migration der Alt-Ids anpassen. Erst 3 Textur-Vorschläge.
-- [ ] Neue End-Holzart (grau, leicht braun, blass), alle Holzblöcke (Stamm, entrindet, Holz, Bretter, Treppe, Stufe, Zaun, Tor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Boot/Kistenboot, Blätter?), eigenes End-Design. Quelle: neue Blume (Knospe), mit Knochenmehl auf Endstein, braucht Licht: hell → mächtiger großer End-Baum; dunkel → schmales hohes End-Gestrüpp (Stöcke als Holz). Wächst im End. Erst Textur-Vorschläge + Baumformen.
+- [ ] Neue End-Holzart (grau, leicht braun, blass), alle Holzblöcke (Stamm, entrindet, Holz, Bretter, Treppe, Stufe, Zaun, Tor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Boot/Kistenboot, Blätter?), eigenes End-Design. Quelle: neue Blume (Knospe), mit Knochenmehl auf Endstein, braucht Licht: hell → mächtiger großer End-Baum; dunkel → schmales hohes End-Gestrüpp (Stöcke als Holz). Wächst im End. Erst Textur-Vorschläge + Baumformen. Im End natürlich schmal, chorusartig; neues Biom (Chorus, End-Gras/Büsche, Knospen), Tint grau-braun. Konzept: docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md (Lücken offen).
 
 ## Nachtrag 43 (2026-10-12, Besitzer)
 - [ ] Testzentrale: alle Mods-Mobs testbar (Spawner/Spawn-Eier + passende Umgebung je Mob); Shellker mit End-Gateway-Struktur an einer Stelle. (claude-testcenter-mobs)
