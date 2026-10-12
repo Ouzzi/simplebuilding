@@ -53,17 +53,17 @@ final class HowlerTests {
         for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) h.getLevel().setBlock(h.absolutePos(new BlockPos(x, 0, z)), Blocks.STONE.defaultBlockState(), 3);
     }
 
-    /** A survival mock player standing (or, with {@code ground} false, in the air) at relative x/z on the floor. */
-    private static net.minecraft.server.level.ServerPlayer prey(GameTestHelper h, double x, double z, boolean ground) {
-        var p = h.makeMockServerPlayerInLevel();
-        p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+    /**
+     * Stand-in prey (mock server players are always creative, see NetworkHandlerTests): a still pig tagged as prey,
+     * standing (or, with {@code ground} false, in the air) at relative x/z on the floor.
+     */
+    private static net.minecraft.world.entity.animal.pig.Pig prey(GameTestHelper h, double x, double z, boolean ground) {
+        var p = h.spawn(net.minecraft.world.entity.EntityTypes.PIG, BlockPos.ZERO.above());
+        p.setNoAi(true);
+        p.addTag(HowlerEntity.TEST_PREY_TAG);
         BlockPos o = h.absolutePos(BlockPos.ZERO);
         p.snapTo(o.getX() + x, o.getY() + 1 + (ground ? 0 : 0.8), o.getZ() + z);
         p.setOnGround(ground);
-        // like MobHeadTests: mock players start invulnerable until the client reports it has loaded
-        p.getAbilities().invulnerable = false;
-        p.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());
-        h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(p));
         return p;
     }
 
@@ -296,6 +296,9 @@ final class HowlerTests {
             howler.setNoAi(true);
             var target = prey(h, 4.5, 4.5, true);
             var aside = prey(h, 7.5, 4.5, true);
+            h.assertTrue(howler.canHunt(target), "tagged stand-in is prey");
+            var plainPig = h.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(6, 1, 1));
+            h.assertFalse(howler.canHunt(plainPig), "other mobs are no prey");
             int marks = howler.spitTendrils(l, target);
             h.assertTrue(marks >= 1 && howler.pendingTendrils() == marks, "marks placed, waiting to erupt: " + marks);
             h.assertTrue(target.getHealth() == target.getMaxHealth(), "no damage while the marks pulse");

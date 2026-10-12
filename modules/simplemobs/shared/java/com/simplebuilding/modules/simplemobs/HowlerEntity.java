@@ -197,9 +197,13 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     @Override protected boolean isImmobile() { return super.isImmobile() || emerging(); }
     @Override public boolean canBeAffected(MobEffectInstance effect) { return !effect.is(MobEffects.DARKNESS) && super.canBeAffected(effect); }
 
+    /** GameTest hook: mock server players are always creative, so tests tag a mob as stand-in prey. */
+    public static final String TEST_PREY_TAG = "simplemobs.howler_test_prey";
+
     /** Only players are its prey (Sculk creatures and other mobs are left alone). */
     public boolean canHunt(@Nullable Entity e) {
-        return e instanceof Player p && e.isAlive() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p) && this.level().getWorldBorder().isWithinBounds(p.getBoundingBox());
+        boolean prey = e instanceof Player p ? EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p) : e instanceof LivingEntity && e.entityTags().contains(TEST_PREY_TAG);
+        return prey && e.isAlive() && this.level().getWorldBorder().isWithinBounds(e.getBoundingBox());
     }
 
     @Override
@@ -208,11 +212,11 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         boolean weak = jawsOpening();
         boolean hurt = super.hurtServer(level, source, HowlerLogic.damageTaken(damage, weak));
         if (hurt && weak) level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, this.getX(), this.getY() + 2.1, this.getZ(), 8, 0.3, 0.2, 0.3, 0.05);
-        if (hurt && canHunt(source.getEntity())) hear((Player) source.getEntity());
+        if (hurt && canHunt(source.getEntity())) hear((LivingEntity) source.getEntity());
         return hurt;
     }
 
-    private void hear(Player p) {
+    private void hear(LivingEntity p) {
         this.setTarget(p);
         sinceHeard = 0;
         disturbance = null;
@@ -386,7 +390,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         this.setDeltaMovement(chargeDir.x * HowlerLogic.CHARGE_SPEED, this.getDeltaMovement().y, chargeDir.z * HowlerLogic.CHARGE_SPEED);
         this.setYRot((float) (Math.atan2(chargeDir.z, chargeDir.x) * 180.0 / Math.PI) - 90.0f);
         this.yBodyRot = this.getYRot();
-        for (Player p : level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(0.4).expandTowards(chargeDir.scale(HowlerLogic.CHARGE_SPEED)), this::canHunt)) {
+        for (LivingEntity p : level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.4).expandTowards(chargeDir.scale(HowlerLogic.CHARGE_SPEED)), this::canHunt)) {
             p.hurtServer(level, this.damageSources().mobAttack(this), HowlerLogic.CHARGE_DAMAGE);
             p.push(chargeDir.x * 1.2, 0.45, chargeDir.z * 1.2);
             this.playSound(SoundEvents.WARDEN_ATTACK_IMPACT, 1.5f, 0.8f);
@@ -406,7 +410,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         this.playSound(SoundEvents.WARDEN_ATTACK_IMPACT, 2.0f, 0.6f);
         for (int r = 1; r <= (int) HowlerLogic.SHOCKWAVE_RADIUS; r++) ring(level, ParticleTypes.SCULK_SOUL, r, 6 + r * 4);
         int hit = 0;
-        for (Player p : level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(HowlerLogic.SHOCKWAVE_RADIUS, 2, HowlerLogic.SHOCKWAVE_RADIUS), this::canHunt)) {
+        for (LivingEntity p : level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(HowlerLogic.SHOCKWAVE_RADIUS, 2, HowlerLogic.SHOCKWAVE_RADIUS), this::canHunt)) {
             Vec3 away = p.position().subtract(this.position()).multiply(1, 0, 1);
             if (!HowlerLogic.shockwaveHits(away.length(), p.getY() - this.getY(), p.onGround())) continue;
             if (p.hurtServer(level, this.damageSources().mobAttack(this), HowlerLogic.SHOCKWAVE_DAMAGE)) hit++;
@@ -456,7 +460,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
             level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX() + Math.cos(a) * HowlerLogic.SHRIEK_RADIUS, this.getY() + 0.3, this.getZ() + Math.sin(a) * HowlerLogic.SHRIEK_RADIUS, 1, 0, 0.1, 0, 0.01);
         }
         int hit = 0;
-        for (Player p : level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(HowlerLogic.SHRIEK_RADIUS), this::canHunt)) {
+        for (LivingEntity p : level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(HowlerLogic.SHRIEK_RADIUS), this::canHunt)) {
             if (p.distanceTo(this) > HowlerLogic.SHRIEK_RADIUS || !this.hasLineOfSight(p)) continue;
             if (p.hurtServer(level, this.damageSources().mobAttack(this), HowlerLogic.SHRIEK_DAMAGE)) hit++;
             Vec3 away = p.position().subtract(this.position()).multiply(1, 0, 1);
@@ -557,7 +561,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         level.playSound(null, c.x, c.y, c.z, SoundEvents.SCULK_BLOCK_BREAK, SoundSource.HOSTILE, 1.0f, 0.6f);
         int caught = 0;
         double r = HowlerLogic.TENDRIL_RADIUS;
-        for (Player p : level.getEntitiesOfClass(Player.class, new net.minecraft.world.phys.AABB(c, c).inflate(r, 1.5, r), this::canHunt)) {
+        for (LivingEntity p : level.getEntitiesOfClass(LivingEntity.class, new net.minecraft.world.phys.AABB(c, c).inflate(r, 1.5, r), this::canHunt)) {
             if (p.position().multiply(1, 0, 1).distanceTo(c.multiply(1, 0, 1)) > r) continue;
             p.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, HowlerLogic.TENDRIL_SLOW_TICKS, 1), this);
             p.hurtServer(level, this.damageSources().mobAttack(this), HowlerLogic.TENDRIL_DAMAGE);
@@ -610,7 +614,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         if (this.level() instanceof ServerLevel level) level.broadcastEntityEvent(this, (byte) 61);
         this.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 3.0f, 0.8f);
         if (projectileOwner == null && canHunt(source)) {
-            hear((Player) source);
+            hear((LivingEntity) source);
         } else if (this.getTarget() == null) {
             disturbance = pos.immutable();
         }
