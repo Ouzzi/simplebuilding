@@ -117,6 +117,48 @@ td.mono{overflow-wrap:anywhere}
 .entry .t{font-weight:600;overflow-wrap:anywhere}
 .entry .meta{font-size:12.5px;color:var(--mut);display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin:4px 0 6px}
 .entry .c{font-size:14px;margin:4px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+/* mods + downloads */
+.search{flex:1 1 220px;min-width:0;font:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);min-height:40px}
+.search:focus,select.sel:focus{outline:2px solid var(--acc);outline-offset:1px}
+select.sel{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);min-height:40px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex:none}
+.seg button{background:var(--card);color:var(--mut);border-radius:0;min-height:38px;padding:6px 12px;font-size:13px}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--acc-bg);color:var(--acc)}
+.sw{flex:none;position:relative;width:44px;height:26px;min-height:0;padding:0;border-radius:99px;background:var(--line);border:0;cursor:pointer;transition:background .15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .15s}
+.sw[aria-checked=true]{background:var(--ok)}.sw[aria-checked=true]::after{transform:translateX(18px)}
+.sw:disabled{cursor:not-allowed;opacity:.55}
+.sw:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.sw,.sw::after{transition:none}}
+.mgroup{padding:0;overflow:hidden}
+.mrow{display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--line);min-width:0}
+.mrow:first-child{border-top:0}
+.mrow.head{background:var(--sunk);padding:12px 16px}
+.mrow.child{padding-left:34px}
+.mrow .info{min-width:0;flex:1}
+.mrow .nm{font-weight:650;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.mrow.head .nm{font-size:15.5px}
+.mrow .ds{font-size:13px;color:var(--mut);overflow-wrap:anywhere}
+.mrow .lk{font-size:12.5px;color:var(--run);margin-top:2px}
+.mrow.off .nm{color:var(--mut)}
+.mrow .cnt{flex:none;font-size:12.5px;color:var(--mut);font-variant-numeric:tabular-nums}
+.fold{flex:none;background:none;color:var(--mut);min-height:32px;padding:4px 8px;font-size:14px}
+.savest{font-size:13px;color:var(--mut);display:inline-flex;align-items:center;gap:6px}
+.savest.err{color:var(--bad)}
+.skel{height:56px;border-radius:var(--r);background:linear-gradient(90deg,var(--sunk),var(--card),var(--sunk));background-size:200% 100%;animation:sk 1.2s linear infinite;margin-bottom:var(--gap)}
+@keyframes sk{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}
+.dlgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--gap)}
+.dlcard{margin:0;display:flex;flex-direction:column;gap:8px}
+.dlcard h3{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0}
+.dlfile{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px;min-width:0}
+.dlfile .meta{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.dlfile .btn{flex:none}.dlfile .meta>span{white-space:nowrap}
+.chip.fabric{background:#efe6d6;color:#7a5a2a}.chip.neoforge{background:#f6e2d6;color:#a3461f}.chip.forge{background:#dde6ef;color:#2d5277}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .chip.fabric{background:#3a3020;color:#e3c48f}:root:not([data-theme=light]) .chip.neoforge{background:#3d2619;color:#f0a37a}:root:not([data-theme=light]) .chip.forge{background:#1f2c3a;color:#9cc0e6}}
+:root[data-theme=dark] .chip.fabric{background:#3a3020;color:#e3c48f}:root[data-theme=dark] .chip.neoforge{background:#3d2619;color:#f0a37a}:root[data-theme=dark] .chip.forge{background:#1f2c3a;color:#9cc0e6}
+.buildhead{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 @media (max-width:600px){
  main{padding:12px 12px 40px}.top{padding:8px 12px 0;gap:8px}nav{padding:2px 4px 0}nav a{padding:9px 10px 10px}
  h1{font-size:16px}.stamp .txt{display:none}.stamp.err .txt{display:inline}
@@ -124,6 +166,8 @@ td.mono{overflow-wrap:anywhere}
  .tile .big{font-size:15px}.card{padding:12px}
  .steps .name{width:76px}
  .start .btns a{flex:1 1 100%}
+ .mrow{padding:10px 12px;gap:10px}.mrow.child{padding-left:22px}.mrow.head{padding:12px}
+ .dlgrid{grid-template-columns:1fr}.toolbar .seg{width:100%}.toolbar .seg button{flex:1}
 }
 @media (max-width:360px){.grid{grid-template-columns:1fr}}
 </style>
@@ -137,6 +181,8 @@ td.mono{overflow-wrap:anywhere}
  <nav>
   <a href="#status" data-t="status">Status <span class="badge" id="b-status"></span></a>
   <a href="#start" data-t="start">Laptop-Start</a>
+  <a href="#mods" data-t="mods">Mods <span class="badge" id="b-mods"></span></a>
+  <a href="#downloads" data-t="downloads">Downloads <span class="badge" id="b-downloads"></span></a>
   <a href="#tests" data-t="tests">Tests <span class="badge" id="b-tests"></span></a>
   <a href="#roadmap" data-t="roadmap">Roadmap <span class="badge" id="b-roadmap"></span></a>
   <a href="#links" data-t="links">Links</a>
@@ -151,8 +197,8 @@ td.mono{overflow-wrap:anywhere}
   <div id="problems"></div>
   <div class="card start" style="margin-top:var(--gap)"><h3>Laptop-Start</h3>
    <div class="btns">
-    <a class="btn" href="simplemods://start?ref=wave">▶ Neuester Arbeitsstand starten</a>
-    <a class="btn ghost" href="simplemods://start?ref=master">▶ master (geprüft) starten</a>
+    <a class="btn" href="simplemods://start?ref=wave" data-start>▶ Neuester Arbeitsstand starten</a>
+    <a class="btn ghost" href="simplemods://start?ref=master" data-start>▶ master (geprüft) starten</a>
     <a class="btn ghost" href="simplemods://fetch?ref=wave">⤓ Nur holen</a>
    </div></div>
   <h2>Gates</h2><div id="gates"></div>
@@ -176,11 +222,38 @@ td.mono{overflow-wrap:anywhere}
   <div class="card start"><h3>Dev-Instanz auf diesem Laptop starten</h3>
   <p>Nur wenn der Laptop-Starter eingerichtet ist (<code>simplemods://</code>). Er holt den gewählten Stand und startet den Integration-Client (Fabric 26.3, alle Module).</p>
   <div class="btns">
-   <a class="btn" href="simplemods://start?ref=wave">▶ Neuester Arbeitsstand starten</a>
-   <a class="btn ghost" href="simplemods://start?ref=master">▶ master (geprüft) starten</a>
+   <a class="btn" href="simplemods://start?ref=wave" data-start>▶ Neuester Arbeitsstand starten</a>
+   <a class="btn ghost" href="simplemods://start?ref=master" data-start>▶ master (geprüft) starten</a>
    <a class="btn ghost" href="simplemods://fetch?ref=wave">⤓ Nur holen</a>
   </div>
+  <p class="small" data-modsum></p>
   <p class="mut small">Ohne Starter passiert nichts. Einrichtung: siehe <code>tools/laptop-starter</code> bzw. Claude fragen.</p></div>
+</section>
+<section id="mods">
+  <div class="card start"><h3>Mods für den Spielstart</h3>
+   <p class="small mut" style="margin:0 0 8px">Deine Auswahl wird für dein Konto gespeichert und von den Start-Knöpfen mitgegeben: abgeschaltete Mods bleiben aus dem Mod-Ordner,
+   abgeschaltete Sub-Mods einer laufenden Super-Mod bekommen „Enable Simple X“ = aus. Pflicht-Teile und benötigte Bibliotheken schalten sich selbst mit.</p>
+   <p class="small" data-modsum></p>
+   <div class="btns"><a class="btn" href="simplemods://start?ref=wave" data-start>▶ Arbeitsstand mit Auswahl starten</a>
+    <a class="btn ghost" href="simplemods://start?ref=master" data-start>▶ master mit Auswahl starten</a></div></div>
+  <div class="toolbar">
+   <input class="search" id="mod-q" type="search" placeholder="Mods suchen …" aria-label="Mods suchen" autocomplete="off">
+   <div class="seg" id="mod-f" role="group" aria-label="Filter"><button class="on" data-f="all">Alle</button><button data-f="on">An</button><button data-f="off">Aus</button></div>
+   <button class="ghost sm" id="mod-all">Alle an</button>
+   <span class="savest" id="mod-save" role="status" aria-live="polite"></span>
+  </div>
+  <div id="mod-tree"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+</section>
+<section id="downloads">
+  <div id="dl-head"></div>
+  <div class="toolbar">
+   <input class="search" id="dl-q" type="search" placeholder="Mod oder Datei suchen …" aria-label="Downloads suchen" autocomplete="off">
+   <div class="seg" id="dl-loader" role="group" aria-label="Loader"><button class="on" data-v="">Alle</button><button data-v="fabric">Fabric</button><button data-v="neoforge">NeoForge</button><button data-v="forge">Forge</button></div>
+   <select class="sel" id="dl-mc" aria-label="Minecraft-Version"><option value="">alle MC-Versionen</option></select>
+   <select class="sel" id="dl-kind" aria-label="Art"><option value="">Super- und Einzel-Mods</option><option value="super">nur Super-Mods</option><option value="single">nur Einzel-Mods</option></select>
+   <select class="sel" id="dl-build" aria-label="Stand"></select>
+  </div>
+  <div id="dl-list"><div class="skel"></div><div class="skel"></div></div>
 </section>
 <section id="links">
   <div class="card"><h3>Wiki</h3><div class="btns"><a class="btn" href="https://simplemods-wiki.azarfane.com">Wiki (master)</a><a class="btn ghost" href="https://simplemods-wiki-dev.azarfane.com">Wiki-dev (Arbeitsstand)</a></div></div>
@@ -311,7 +384,7 @@ async function load(){
   }catch(e){$('stamp').classList.add('err');$('livedot').className='dot bad';$('stamptxt').textContent='Status nicht erreichbar';}
 }
 $('onlyred').onchange=()=>state.data&&render(state.data);
-$('reload').onclick=()=>{load();devQueueLoad();};
+$('reload').onclick=()=>{load();devQueueLoad();modsLoad();downloadsLoad();};
 document.addEventListener('click',e=>{const a=e.target.closest('[data-open]');if(!a)return;e.preventDefault();
  const d=[...document.querySelectorAll('#gates details.gate')].find(x=>x.querySelector('.ref').textContent===a.dataset.open);if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'});}});
 load();setInterval(load,30000);
@@ -346,6 +419,111 @@ async function devQueueLoad(){
   const n=live.filter(x=>x.status==='open').length,kb=$('b-kiqueue');kb.textContent=n||'';kb.className='badge '+(n?'run':'');navScroll();
 }
 devQueueLoad();setInterval(devQueueLoad,30000);
+/* Mods: per-user selection for the game start (API /api/mods, stored server-side) */
+const mods={nodes:[],off:new Set(),state:{},open:new Set(),filter:'all',q:'',loaded:false,err:'',saving:0,timer:null,
+  byId(){return Object.fromEntries(this.nodes.map(n=>[n.id,n]));},
+  /* same rules as modselect.resolve (server answer replaces this) */
+  resolve(){const by=this.byId(),st={};for(const n of this.nodes){const p=n.parent&&by[n.parent];
+    if(n.planned)st[n.id]={on:!!(p&&st[p.id].on),locked:'geplant – heute Teil von '+(p?p.name:'')};
+    else if(p&&n.bundle==='required'&&st[p.id].on)st[n.id]={on:true,locked:'Pflicht-Teil von '+p.name};
+    else st[n.id]={on:!this.off.has(n.id),locked:null};}
+   let ch=true;while(ch){ch=false;for(const n of this.nodes){if(!st[n.id].on)continue;for(const r of n.requires){const s=st[r];if(!s)continue;if(!s.on){s.on=true;ch=true;}if(!s.locked)s.locked='benötigt von '+n.name;}}}
+   this.state=st;},
+  query(){const off=[...this.off].filter(i=>{const n=this.byId()[i];return n&&!n.planned;}).sort();return off.length?'&off='+off.map(encodeURIComponent).join(','):'';}
+};
+function modSwitch(n,st){return `<button class="sw" role="switch" aria-checked="${st.on}" aria-label="${esc(n.name)} ${st.on?'ausschalten':'einschalten'}" data-mod="${esc(n.id)}"${st.locked?' disabled title="'+esc(st.locked)+'"':''}></button>`;}
+function modRow(n,cls,extra){const st=mods.state[n.id]||{on:true};
+ const chips=(n.kind==='super'?'<span class="chip acc">Super-Mod</span>':n.kind==='lib'?'<span class="chip">Bibliothek</span>':'')+
+  (n.planned?'<span class="chip run">geplant</span>':n.bundle==='required'?'<span class="chip">Pflicht</span>':n.bundle==='optional'?'<span class="chip">optional</span>':'');
+ return `<div class="mrow ${cls} ${st.on?'':'off'}">${modSwitch(n,st)}<div class="info"><div class="nm">${esc(n.name)} ${chips}</div>`+
+  (n.description?`<div class="ds">${esc(n.description)}</div>`:'')+(st.locked?`<div class="lk">🔒 ${esc(st.locked)}</div>`:'')+`</div>${extra||''}</div>`;}
+function modMatch(n){const q=mods.q,st=mods.state[n.id]||{};if(mods.filter==='on'&&!st.on)return false;if(mods.filter==='off'&&st.on)return false;
+ return !q||(n.name+' '+n.id+' '+n.description).toLowerCase().includes(q);}
+function renderMods(){
+ const box=$('mod-tree');
+ if(mods.err&&!mods.loaded){box.innerHTML=`<div class="card alert"><h3>Mod-Liste nicht erreichbar</h3><p class="small">${esc(mods.err)}</p><button class="sm" id="mod-retry">Erneut versuchen</button></div>`;return;}
+ if(!mods.loaded)return;
+ const top=mods.nodes.filter(n=>!n.parent),kids=p=>mods.nodes.filter(n=>n.parent===p.id);let html='',shown=0;
+ const supers=top.filter(n=>n.kind==='super'),single=top.filter(n=>n.kind!=='super');
+ for(const p of supers){const ks=kids(p),vis=ks.filter(modMatch),selfHit=modMatch(p);if(!selfHit&&!vis.length)continue;shown++;
+  const on=ks.filter(k=>mods.state[k.id].on).length,open=mods.open.has(p.id)||!!mods.q||mods.filter!=='all';
+  html+=`<div class="card mgroup">`+modRow(p,'head',`<span class="cnt">${on}/${ks.length} an</span><button class="fold" aria-expanded="${open}" aria-label="Sub-Mods ${open?'zuklappen':'aufklappen'}" data-fold="${esc(p.id)}">${open?'▾':'▸'}</button>`)+
+   (open?(vis.length?vis:(selfHit?ks:[])).map(k=>modRow(k,'child')).join(''):'')+`</div>`;}
+ const vs=single.filter(modMatch);if(vs.length){shown++;html+=`<h2>Eigenständige Mods &amp; Bibliotheken</h2><div class="card mgroup">${vs.map(n=>modRow(n,'')).join('')}</div>`;}
+ box.innerHTML=shown?html:'<p class="empty">Keine Mod passt zu Suche/Filter.</p>';
+}
+function modSummary(){const live=mods.nodes.filter(n=>!n.planned),on=live.filter(n=>(mods.state[n.id]||{}).on).length;
+ const txt=mods.loaded?(on===live.length?`Auswahl: alle ${live.length} Mods an.`:`Auswahl: ${on} von ${live.length} Mods an.`):'Auswahl: wird geladen …';
+ document.querySelectorAll('[data-modsum]').forEach(e=>e.innerHTML=esc(txt)+' <a href="#mods">ändern</a>');
+ document.querySelectorAll('a[data-start]').forEach(a=>{const base=a.getAttribute('href').replace(/&off=[^&]*/,'');a.setAttribute('href',base+mods.query());});
+ const b=$('b-mods');b.textContent=mods.loaded&&on<live.length?on+'/'+live.length:'';navScroll();}
+function modSaveState(t,err){const e=$('mod-save');e.className='savest'+(err?' err':'');e.innerHTML=t;}
+function modApply(data){mods.nodes=data.nodes;mods.off=new Set(data.off);mods.state=data.state;mods.loaded=true;mods.err='';
+ if(!mods.open.size)mods.nodes.filter(n=>n.kind==='super').forEach(n=>mods.open.add(n.id));renderMods();modSummary();}
+async function modsLoad(){try{const r=await fetch('/api/mods');if(!r.ok)throw new Error(r.status===403?'nicht angemeldet':'Server antwortet '+r.status);modApply(await r.json());}
+ catch(e){mods.err=e.message||'Netzwerkfehler';renderMods();modSummary();}}
+function modsSave(){clearTimeout(mods.timer);modSaveState('<span class="dot run"></span> speichert …');
+ mods.timer=setTimeout(async()=>{const off=[...mods.off];try{const r=await fetch('/api/mods/selection',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({off})});
+  const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||('Fehler '+r.status));modApply(j);modSaveState('<span class="dot ok"></span> gespeichert');}
+  catch(e){modSaveState('⚠ nicht gespeichert: '+esc(e.message)+' <button class="ghost sm" id="mod-resave">Nochmal</button>',true);}},350);}
+function modToggle(id){const by=mods.byId(),n=by[id];if(!n||(mods.state[id]||{}).locked)return;const turnOn=!mods.state[id].on;
+ const set=[n,...mods.nodes.filter(k=>k.parent===id&&!k.planned)];/* parent switches its children with it */
+ for(const x of set){if(turnOn)mods.off.delete(x.id);else mods.off.add(x.id);}
+ mods.resolve();renderMods();modSummary();modsSave();}
+document.addEventListener('click',e=>{const sw=e.target.closest('[data-mod]');if(sw){modToggle(sw.dataset.mod);return;}
+ const f=e.target.closest('[data-fold]');if(f){const id=f.dataset.fold;mods.open.has(id)?mods.open.delete(id):mods.open.add(id);renderMods();return;}
+ if(e.target.id==='mod-retry'){mods.err='';$('mod-tree').innerHTML='<div class="skel"></div><div class="skel"></div>';modsLoad();}
+ if(e.target.id==='mod-resave')modsSave();});
+$('mod-q').oninput=e=>{mods.q=e.target.value.trim().toLowerCase();renderMods();};
+$('mod-f').onclick=e=>{const b=e.target.closest('button');if(!b)return;mods.filter=b.dataset.f;$('mod-f').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));renderMods();};
+$('mod-all').onclick=()=>{if(!mods.loaded)return;mods.off.clear();mods.resolve();renderMods();modSummary();modsSave();};
+modSummary();modsLoad();
+
+/* Downloads: jars of the last gate-green builds (downloads/index.json, written by collect_downloads.py) */
+const dl={index:null,err:'',build:0,loader:'',mc:'',kind:'',q:''};
+const LOADERS={fabric:'Fabric',neoforge:'NeoForge',forge:'Forge'};
+function size(b){return b>=1048576?(b/1048576).toFixed(1).replace('.',',')+' MB':Math.max(1,Math.round(b/1024))+' KB';}
+function mcSort(a,b){const p=v=>v.split('.').map(Number);const x=p(a),y=p(b);for(let i=0;i<3;i++){const d=(y[i]||0)-(x[i]||0);if(d)return d;}return 0;}
+function renderDownloads(){
+ const head=$('dl-head'),list=$('dl-list');
+ if(dl.err){head.innerHTML='';list.innerHTML=`<div class="card alert"><h3>Downloads nicht erreichbar</h3><p class="small">${esc(dl.err)}</p><button class="sm" id="dl-retry">Erneut versuchen</button></div>`;return;}
+ if(!dl.index)return;
+ const builds=dl.index.builds||[];
+ if(!builds.length){head.innerHTML='';list.innerHTML='<div class="card"><h3>Noch keine Downloads</h3><p class="mut small">Fertige Jars erscheinen hier nach dem nächsten grünen Gate (Gate und Standalone grün).</p></div>';$('b-downloads').textContent='';return;}
+ const b=builds[Math.min(dl.build,builds.length-1)];
+ $('dl-build').innerHTML=builds.map((x,i)=>`<option value="${i}"${i===dl.build?' selected':''}>${i?'älter: ':'neuester: '}${esc(x.short)} · ${esc(new Date(x.date).toLocaleDateString('de-DE'))}</option>`).join('');
+ const mcs=[...new Set(b.files.map(f=>f.minecraft))].sort(mcSort);
+ $('dl-mc').innerHTML='<option value="">alle MC-Versionen</option>'+mcs.map(v=>`<option${v===dl.mc?' selected':''}>${esc(v)}</option>`).join('');
+ head.innerHTML=`<div class="card"><div class="buildhead"><h3 style="margin:0">Stand <span class="mono">${esc(b.short)}</span></h3>`+
+  `<span class="chip ok">✓ Gate grün</span><span class="chip ok">✓ Standalone grün</span><span class="chip">${esc(b.ref)}</span>`+
+  `<span class="small mut">${esc(new Date(b.date).toLocaleString('de-DE',{dateStyle:'medium',timeStyle:'short'}))} · ${esc(ago(b.date))}</span></div>`+
+  `<p class="small mut" style="margin:6px 0 0">${b.files.length} Dateien. Nur Stände mit grünem Gate werden veröffentlicht; Super-Mods enthalten ihre Sub-Mods schon.</p></div>`;
+ const q=dl.q,files=b.files.filter(f=>(!dl.loader||f.loader===dl.loader)&&(!dl.mc||f.minecraft===dl.mc)&&
+   (!dl.kind||(dl.kind==='super'?f.kind==='super':f.kind!=='super'))&&(!q||(f.name+' '+f.module+' '+f.file).toLowerCase().includes(q)));
+ const groups={};for(const f of files)(groups[f.module]=groups[f.module]||[]).push(f);
+ const rank=f=>f.kind==='super'?0:f.kind==='sub'?1:f.kind==='lib'?3:2;
+ const mods_=Object.values(groups).sort((a,c)=>rank(a[0])-rank(c[0])||a[0].name.localeCompare(c[0].name));
+ const parentName=id=>{const f=b.files.find(x=>x.module===id);return f?f.name:id;};
+ list.innerHTML=mods_.length?'<div class="dlgrid">'+mods_.map(g=>{const f0=g[0];
+  g.sort((a,c)=>mcSort(a.minecraft,c.minecraft)||Object.keys(LOADERS).indexOf(a.loader)-Object.keys(LOADERS).indexOf(c.loader));
+  return `<div class="card dlcard"><h3>${esc(f0.name)} ${f0.kind==='super'?'<span class="chip acc">Super-Mod</span>':f0.kind==='lib'?'<span class="chip">Bibliothek</span>':'<span class="chip">Einzel-Mod</span>'}</h3>`+
+   (f0.parent?`<div class="small mut">auch enthalten in ${esc(parentName(f0.parent))}</div>`:'')+
+   g.map(f=>`<div class="dlfile"><div class="meta"><span class="chip ${esc(f.loader)}">${esc(LOADERS[f.loader]||f.loader)}</span><span>MC ${esc(f.minecraft)}</span>`+
+    (f.version?`<span class="mono">v${esc(f.version)}</span>`:'')+`<span class="mut small">${size(f.size)}</span></div>`+
+    `<a class="btn sm" href="downloads/${esc(f.url)}" download title="${esc(f.file)} · SHA-256 ${esc(f.sha256)}" aria-label="${esc(f.name)} ${esc(LOADERS[f.loader]||f.loader)} ${esc(f.minecraft)} herunterladen">⤓ Jar</a></div>`).join('')+'</div>';}).join('')+'</div>'
+  :'<p class="empty">Keine Datei passt zu Suche/Filter.</p>';
+ $('b-downloads').textContent='';navScroll();
+}
+async function downloadsLoad(){try{const r=await fetch('downloads/index.json?'+Date.now());
+  if(r.status===404){dl.index={builds:[]};dl.err='';}else if(!r.ok)throw new Error('Server antwortet '+r.status);else{dl.index=await r.json();dl.err='';}}
+ catch(e){dl.err=e.message||'Netzwerkfehler';}renderDownloads();}
+$('dl-q').oninput=e=>{dl.q=e.target.value.trim().toLowerCase();renderDownloads();};
+$('dl-loader').onclick=e=>{const b=e.target.closest('button');if(!b)return;dl.loader=b.dataset.v;$('dl-loader').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));renderDownloads();};
+$('dl-mc').onchange=e=>{dl.mc=e.target.value;renderDownloads();};
+$('dl-kind').onchange=e=>{dl.kind=e.target.value;renderDownloads();};
+$('dl-build').onchange=e=>{dl.build=+e.target.value;dl.mc='';renderDownloads();};
+document.addEventListener('click',e=>{if(e.target.id==='dl-retry'){dl.err='';$('dl-list').innerHTML='<div class="skel"></div>';downloadsLoad();}});
+downloadsLoad();
 </script>
 </body>
 </html>
