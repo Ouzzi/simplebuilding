@@ -33,6 +33,8 @@ import net.minecraft.world.phys.Vec3;
  * Enderite bucket shows only its name, the sculk jaw needs a full block top.
  */
 public final class WorldPolishTests {
+    /** The floating boat test waits 40 ticks for the boat to settle. */
+    public static final int BOAT_MAX_TICKS = 80;
     private WorldPolishTests() {
     }
 

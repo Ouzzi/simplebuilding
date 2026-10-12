@@ -322,7 +322,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("world_polish_game_test_sculk_jaw_needs_full_block_top", WorldPolishTests::sculkJawNeedsFullBlockTop)
                     .build(),
             GameTestSpec.named("world_polish_game_test_standers_stay_on_the_chest_boat_deck", WorldPolishTests::standersStayOnTheChestBoatDeck)
-                    .build(),
+                    .maxTicks(WorldPolishTests.BOAT_MAX_TICKS).build(),
             GameTestSpec.named("fire_game_test_sulfur_fire_burns_on_sulfur_and_gives_nausea", FireTests::sulfurFireBurnsOnSulfurAndGivesNausea)
                     .maxTicks(FireTests.FIRE_MAX_TICKS).build(),
             GameTestSpec.named("fire_game_test_copper_fire_burns_on_copper_without_effect", FireTests::copperFireBurnsOnCopperWithoutEffect)

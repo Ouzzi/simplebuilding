@@ -21,7 +21,7 @@ public final class WorldPolishGameTest {
         WorldPolishTests.sculkJawNeedsFullBlockTop(helper);
     }
 
-    @GameTest
+    @GameTest(maxTicks = WorldPolishTests.BOAT_MAX_TICKS)
     public void standersStayOnTheChestBoatDeck(GameTestHelper helper) {
         WorldPolishTests.standersStayOnTheChestBoatDeck(helper);
     }
