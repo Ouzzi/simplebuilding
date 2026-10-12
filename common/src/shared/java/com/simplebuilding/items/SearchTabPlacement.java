@@ -100,7 +100,7 @@ public final class SearchTabPlacement {
     private static final java.util.Set<String> IN_CHAINS = java.util.Set.of("purpur_block_octet", "smooth_quartz_octet",
             "astralit_bricks_octet", "polished_astralit_block_octet", "nihilith_bricks_octet", "polished_nihilith_block_octet",
             "ender_quartz_block_octet", "ender_quartz_bricks_octet", "polished_ender_quartz_block_octet",
-            "diamond_block_octet", "netherite_block_octet");
+            "diamond_block_octet", "netherite_block_octet", "bone_block_octet");
 
     /** Das Material-Achtel in einer Kette; leer, wo es die Achtel nicht gibt (nur 26.3). */
     private static ItemLike[] octet(String key) {
@@ -242,8 +242,8 @@ public final class SearchTabPlacement {
                 TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
                 TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
                 TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE));
-        out.add(Placement.after(BUILDING_BLOCKS, Items.DIAMOND_BLOCK, chain(octet("diamond_block"),
-                ModItems.CRACKED_DIAMOND_BLOCK, TweaksBlocks.DIAMOND_PRESSURE_PLATE)));
+        out.add(Placement.after(BUILDING_BLOCKS, Items.DIAMOND_BLOCK, chain(ModItems.CRACKED_DIAMOND_BLOCK,
+                octet("diamond_block"), TweaksBlocks.DIAMOND_PRESSURE_PLATE)));
         out.add(Placement.after(BUILDING_BLOCKS, Items.NETHERITE_BLOCK, chain(octet("netherite_block"),
                 TweaksBlocks.NETHERITE_PRESSURE_PLATE, ModItems.ENDERITE_BLOCK_ITEM, TweaksBlocks.ENDERITE_PRESSURE_PLATE)));
 
@@ -325,7 +325,7 @@ public final class SearchTabPlacement {
             out.add(Placement.after(NATURAL_BLOCKS, Items.ICE, ModItems.CRACKED_ICE));
             out.add(Placement.after(NATURAL_BLOCKS, Items.PACKED_ICE, ModItems.CHISELED_PACKED_ICE));
             out.add(Placement.after(NATURAL_BLOCKS, Items.BLUE_ICE, ModItems.CHISELED_BLUE_ICE));
-            out.add(Placement.after(NATURAL_BLOCKS, Items.BONE_BLOCK, ModItems.NAUTILUS_SHELL_BLOCK));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.BONE_BLOCK, chain(ModItems.NAUTILUS_SHELL_BLOCK, octet("bone_block"))));
             out.add(Placement.after(NATURAL_BLOCKS, Items.SCULK_SHRIEKER, ModItems.SCULK_JAW));
             out.add(Placement.after(NATURAL_BLOCKS, Items.PEARLESCENT_FROGLIGHT,
                     ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT));
