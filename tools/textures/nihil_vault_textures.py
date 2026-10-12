@@ -3,6 +3,13 @@ astral diamond is painted over from the neighbouring front panel and an inset ni
 takes its place.
 
 Writes only the nihil_vault textures/models and the labeled preview; deterministic --check.
+
+N46 (owner pick 2026-10-12): both chest sheets (entity/chest/astral_vault.png and nihil_vault.png) are now A2/N2 from
+n46_round3_2026_10_12.py - the Vanilla ender chest structure with an astral / nihil palette, the astral diamond /
+nihil ring as the eye and a secondary colour (astral gold, nihil silver) on the lid rim and lock. Like the blaze book
+D9 the Vanilla sheet is read from the 26.3 client jar in the Gradle cache at generation time (never checked in);
+without the jar the script stops with "26.3 client jar not found in the Gradle cache", also with --check.
+The 16x16 particle textures stay as before.
 """
 import argparse
 import colorsys
@@ -34,17 +41,8 @@ def nihil_tint(image):
 
 
 def images():
-    base = Image.open(ASSETS / "textures/entity/chest/astral_vault.png").convert("RGBA")
-    px = base.load()
-    # The astral diamond (end_system_textures.py): copy the plain panel one front face to the right over it.
-    for x, y in [(18, 38), (19, 37), (20, 36), (21, 35), (22, 36), (23, 37), (24, 38), (23, 39), (22, 40),
-                 (21, 41), (20, 40), (19, 39), (21, 38)]:
-        px[x, y] = px[x + 14, y]
-    chest = nihil_tint(base)
-    d = ImageDraw.Draw(chest)
-    # Chest front UV, same spot as the Astral Vault glyph: inset, never on the rim.
-    d.ellipse((18, 35, 24, 41), outline=RING)
-    d.point((21, 38), fill=CORE)
+    import n46_round3_2026_10_12 as n46
+    chests = n46.game_chests()
     block = Image.open(ASSETS / "textures/block/astral_vault.png").convert("RGBA")
     px = block.load()
     for x, y in [(5, 7), (6, 6), (7, 5), (8, 6), (9, 7), (8, 8), (7, 9), (6, 8)]:
@@ -52,7 +50,8 @@ def images():
     block = nihil_tint(block)
     d = ImageDraw.Draw(block)
     d.ellipse((5, 5, 9, 9), outline=RING)
-    return {"entity/chest/nihil_vault.png": chest, "block/nihil_vault.png": block}
+    return {"entity/chest/astral_vault.png": chests["astral"], "entity/chest/nihil_vault.png": chests["nihil"],
+            "block/nihil_vault.png": block}
 
 
 def models():
@@ -114,7 +113,7 @@ def main():
     if args.check:
         if failures:
             raise SystemExit("Outdated: " + ", ".join(failures))
-        print(f"Nihil Vault: {len(art)} textures and models current")
+        print(f"Astral/Nihil Vault: {len(art)} textures and models current")
         return
     print(f"Nihil Vault: {len(art)} textures, models and preview {preview(art)} generated")
 

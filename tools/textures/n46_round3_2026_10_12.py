@@ -40,9 +40,24 @@ ACCENT = {'astral': ['5a3a9c', '8460c8', 'b496ec', 'e4d4ff'], 'nihil': ['2e6e6a'
 MOTIF = {'astral': ('2a8c8c', '5ad8d0', 'c8fff6'), 'nihil': ('3e8e8a', 'b3dcdd', 'eafcf8')}
 
 
-def vanilla(jar):
+def vanilla(jar=None):
+    """The Vanilla ender chest sheet; like the blaze book D9 it comes from the 26.3 client jar in the Gradle cache
+    (n41_round2_2026_10_12.vanilla, SystemExit when no jar is there), or from an explicit jar."""
+    if jar is None:
+        from n41_round2_2026_10_12 import vanilla as from_cache
+        return from_cache('entity/chest/ender')
     with zipfile.ZipFile(jar) as z:
         return Image.open(io.BytesIO(z.read('assets/minecraft/textures/entity/chest/ender.png'))).convert('RGBA')
+
+
+# Owner pick (2026-10-12): A2 / N2 with a secondary colour on the lid rim dots, the lid seams and the lock.
+SECONDARY = {
+    'astral_gold': ('7a4e12', 'c8902a', 'f2cc5c', 'fff0a8'),
+    'astral_rose': ('7a3a52', 'b8607e', 'e6a0b8', 'ffe0ea'),
+    'nihil_silver': ('4a5258', '8a949a', 'c4ccd0', 'f0f4f6'),
+    'nihil_petrol': ('163a4a', '2a6a80', '4a9ab0', 'b4e0ea'),
+}
+PICK = {'astral': 'astral_gold', 'nihil': 'nihil_silver'}   # built in
 
 
 def lum(c):
@@ -63,12 +78,14 @@ def ramp_at(r, t):
     return mix(H(r[i]), H(r[min(i + 1, len(r) - 1)]), t - i)
 
 
-def sheet(van, mat, v):
+def sheet(van, mat, v, sec=None):
     body = [van.getpixel((x, y)) for y in range(64) for x in range(64)
             if van.getpixel((x, y))[3] and not in_box(x, y, LOCK) and not (in_box(x, y, EYE) and is_eye(
                 van.getpixel((x, y))))]
     lo, hi = min(lum(c) for c in body), max(lum(c) for c in body)
     ramp, acc, mot = RAMP[mat], ACCENT[mat], [H(c) for c in MOTIF[mat]]
+    if sec:
+        acc = SECONDARY[sec]
     out = Image.new('RGBA', (64, 64), (0, 0, 0, 0))
     lock = [van.getpixel((x, y)) for y in range(5) for x in range(6) if van.getpixel((x, y))[3]]
     llo, lhi = min(lum(c) for c in lock), max(lum(c) for c in lock)
@@ -88,8 +105,10 @@ def sheet(van, mat, v):
             if v >= 2:
                 t = round(t * 4) / 4                 # 5 calm tones
             col = ramp_at(ramp, t)
-            if v >= 3 and t >= 0.5 and (in_box(x, y, (14, 0, 28, 14)) or 14 <= y < 19):   # lid rim dots / side seams
+            if (v >= 3 or sec) and t >= 0.5 and (in_box(x, y, (14, 0, 28, 14)) or 14 <= y < 19):   # lid rim dots / side seams
                 col = H(acc[1] if t < 0.75 else acc[2])
+                if sec and v == 2:                   # A2/N2 stay calm: only the brightest rim / seam pixels
+                    col = H(acc[1]) if t >= 0.75 else ramp_at(ramp, t)
             out.putpixel((x, y), col)
 
     def motif(cx, cy):
@@ -102,6 +121,49 @@ def sheet(van, mat, v):
     if v == 4:
         motif(21, 7)
     return out
+
+
+def game_chests(van=None):
+    """The built-in chest sheets (entity/chest/<mat>_vault.png)."""
+    van = van if van is not None else vanilla()
+    return {mat: sheet(van, mat, 2, PICK[mat]) for mat in ('astral', 'nihil')}
+
+
+def page4(path, van):
+    u, rc = r1.uri, r1.render_cell
+    h = ['<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" '
+         'content="width=device-width,initial-scale=1"><title>N46 Runde 4</title>'
+         f'<style>{r1.CSS}</style></head><body><main>',
+         '<h1>Nachtrag 46 · Runde 4: Gewölbe A2/N2 mit Sekundärfarbe</h1>',
+         '<p>Basis A2/N2 (Vanilla-Endertruhe, Palette getauscht, 5 ruhige Töne). Die Sekundärfarbe sitzt nur auf den '
+         'hellsten Punkten des Deckelrands, den Deckel-Nähten und dem Schloss. Favorit (★) ist eingebaut. Die '
+         'Vanilla-Endertruhe wird beim Generieren aus dem 26.3-Client-Jar gelesen (wie das Lohenbuch D9), keine '
+         'Vanilla-Pixel im Repo.</p><h2>Web-Referenzen</h2><ul>'
+         '<li><a href="https://minecraft.wiki/w/Ender_Chest">Minecraft Wiki: Ender Chest</a></li>'
+         '<li><a href="https://www.curseforge.com/minecraft/texture-packs/fancy-end-end-aesthetic-overhaul">Fancy End'
+         '</a></li><li><a href="https://modrinth.com/project/gOkXuy64">Ender Chest Palette</a></li>'
+         '<li><a href="https://minecraft.wiki/w/Gold_Ingot">Minecraft Wiki: Gold (Gold-Töne)</a></li></ul>']
+    labels = {'astral_gold': 'Astral + Gold', 'astral_rose': 'Astral + Rosé', 'nihil_silver': 'Nihil + Silber',
+              'nihil_petrol': 'Nihil + Petrol'}
+    for mat, title in (('astral', 'Astral-Gewölbe'), ('nihil', 'Nihil-Gewölbe')):
+        h.append(f'<h2>{title}</h2>')
+        base = sheet(van, mat, 2)
+        h.append(f'<div class="card"><h3>Vorher ({mat[0].upper()}2 ohne Sekundärfarbe)</h3><div class="row">'
+                 + rc('3D-Truhe', r2.chest_render(base)) + f'<figure><img class="px" src="{u(base, 4)}" alt="">'
+                 '<figcaption>Truhenbild 4×</figcaption></figure></div></div>')
+        for sec in [k for k in SECONDARY if k.startswith(mat)]:
+            s = sheet(van, mat, 2, sec)
+            items = (f'<figure><span class="sizes"><img class="px" src="{u(r2.chest_render(s, 32))}" alt="">'
+                     f'<img class="px" src="{u(r2.chest_render(s, 16))}" alt=""></span>'
+                     '<figcaption>Item 32/16</figcaption></figure>')
+            star = ' ★ eingebaut' if PICK[mat] == sec else ''
+            h.append(f'<div class="card"><h3>{labels[sec]}{star}</h3><div class="row">'
+                     + rc('3D-Truhe', r2.chest_render(s)) + items
+                     + f'<figure><img class="px" src="{u(s, 4)}" alt=""><figcaption>Truhenbild 4×</figcaption>'
+                     '</figure></div></div>')
+    h.append('</main></body></html>')
+    path.write_text(''.join(h), encoding='utf-8')
+    print(path, path.stat().st_size)
 
 
 def page(path, van, out_dir):
@@ -164,7 +226,10 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--html', type=Path)
     ap.add_argument('--jar', type=Path, default=JAR)
+    ap.add_argument('--html4', type=Path)
     ap.add_argument('--out', type=Path, default=Path('/root/previews/n46/r3'))
     a = ap.parse_args()
     if a.html:
         page(a.html, vanilla(a.jar), a.out)
+    if a.html4:
+        page4(a.html4, vanilla())
