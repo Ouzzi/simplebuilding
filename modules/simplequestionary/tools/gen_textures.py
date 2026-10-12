@@ -1,7 +1,6 @@
-"""Block textures and model of the Questionary Table (N37: "much more epic, reminding of the enchanting table"; own
-pixel art in the Vanilla style, no Vanilla sheet copied): an obsidian plinth, a dark wooden cabinet with gold corner
-pillars and a lapis gem window on every side, a gilded obsidian slab with a lapis velvet top, four lapis gems on gold
-sockets at its corners and an open crimson book whose pages rise from the spine.
+"""Block textures and model of the Questionary Table. N46 (owner 2026-10-12): more Vanilla, like the lectern but still
+special - an obsidian plinth, an oak bookshelf cabinet, an oak slab with a low lapis edge and a lapis velvet top, oak
+posts and an open crimson book (own pixel art, no Vanilla sheet copied; earlier N37 look: gold, lapis gems).
 python3 modules/simplequestionary/tools/gen_textures.py [--check] [--preview DIR]"""
 import argparse
 import json
@@ -14,112 +13,123 @@ ASSETS = MODULE / 'shared/resources/assets/simplequestionary'
 OUT = ASSETS / 'textures/block'
 MODEL = ASSETS / 'models/block/questionary_table.json'
 
+# N46 round 3 (owner pick 2026-10-12, proposal R3 from tools/textures/n46_round2_2026_10_12.py qtable_final): a
+# Vanilla-lectern-like oak bookshelf cabinet with a full shelf of books on every side, a low lapis edge on the
+# oak top slab, lapis velvet on top in an obsidian rim, oak posts, an obsidian plinth and a crimson book.
+# Palette symbols are generated, "." is transparent.
 C = {
-    # own obsidian: violet black with lighter specks
-    '0': (0x0E, 0x0A, 0x14), '1': (0x1A, 0x13, 0x24), '2': (0x26, 0x1C, 0x35), '3': (0x35, 0x28, 0x4A), '4': (0x4A, 0x39, 0x66),
-    # lapis
-    'A': (0x9C, 0xC0, 0xFF), 'a': (0x5C, 0x8A, 0xF0), 'b': (0x2E, 0x5C, 0xC8), 'c': (0x1E, 0x3F, 0x9A), 'e': (0x14, 0x2A, 0x6B),
-    # gold
-    'G': (0xFF, 0xE2, 0x7A), 'g': (0xE8, 0xB9, 0x23), 'h': (0xB5, 0x85, 0x1A), 'H': (0x7A, 0x55, 0x10),
-    # dark cabinet wood
-    'W': (0x6B, 0x46, 0x28), 'w': (0x57, 0x38, 0x20), 'm': (0x45, 0x2B, 0x18), 'k': (0x2E, 0x1C, 0x0F),
-    # lapis velvet
-    'v': (0x2E, 0x45, 0x96), 'u': (0x26, 0x39, 0x7E), 'U': (0x1D, 0x2C, 0x64),
-    # pages and ink
-    'p': (0xF4, 0xE9, 0xCF), 'q': (0xE3, 0xD3, 0xAE), 'r': (0xC9, 0xB5, 0x8A), 't': (0x6F, 0x5A, 0x40), 'x': (0x9A, 0x2B, 0x2B),
-    # crimson book leather
-    'R': (0x8E, 0x2B, 0x2B), 'Q': (0x6E, 0x1F, 0x22), 'S': (0x4C, 0x14, 0x18),
+    '0': (0xA4, 0x7C, 0x45), '1': (0x8A, 0x64, 0x36), '2': (0x6A, 0x4A, 0x26), '3': (0xBC, 0x94, 0x58), '4': (0x1E, 0x3F, 0x9A), '5': (0x2E, 0x5C, 0xC8),
+    '6': (0x82, 0x9D, 0xDE), '7': (0x2C, 0x1C, 0x0E), '8': (0x95, 0xA6, 0x85), '9': (0x4E, 0x6A, 0x34), 'a': (0x78, 0x8C, 0xC2), 'b': (0xBB, 0x80, 0x80),
+    'c': (0x8E, 0x2B, 0x2B), 'd': (0x5C, 0x80, 0xD4), 'e': (0x21, 0x42, 0x90), 'f': (0x75, 0x8B, 0x61), 'g': (0x38, 0x4C, 0x25), 'h': (0x50, 0x69, 0xB0),
+    'i': (0x16, 0x2D, 0x6F), 'j': (0xC8, 0xB0, 0x8F), 'k': (0xA7, 0x5A, 0x5A), 'l': (0x66, 0x1F, 0x1F), 'm': (0xA4, 0x9F, 0x87), 'n': (0xB0, 0xA5, 0x4C),
+    'o': (0xD3, 0xAC, 0x53), 'p': (0x76, 0x59, 0x32), 'q': (0xCA, 0x8C, 0x48), 'r': (0x9D, 0x94, 0x75), 's': (0xB8, 0x99, 0x6E), 't': (0x4A, 0x39, 0x66),
+    'u': (0x35, 0x28, 0x4A), 'v': (0x26, 0x1C, 0x35), 'w': (0x1A, 0x13, 0x24), 'x': (0x0E, 0x0A, 0x14), 'y': (0x2E, 0x45, 0x96), 'z': (0x26, 0x39, 0x7E),
+    'A': (0xF2, 0xE8, 0xCC), 'B': (0xDD, 0xD0, 0xAE), 'C': (0x4C, 0x14, 0x18), 'D': (0x5A, 0x4A, 0x3A), 'E': (0xB8, 0xA8, 0x7E), 'F': (0xA8, 0x3A, 0x36),
 }
 
 
 def grid(rows):
     assert len(rows) == 16, len(rows)
-    img = Image.new('RGBA', (16, 16))
+    img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
     for y, row in enumerate(rows):
         assert len(row) == 16, (y, row, len(row))
         for x, ch in enumerate(row):
-            img.putpixel((x, y), C[ch] + (255,))
+            if ch != '.':
+                img.putpixel((x, y), C[ch] + (255,))
     return img
 
 
-def obsidian(seed):
-    """16 rows of own obsidian noise: '1' with darker '0' and lighter '2'/'3' specks, a few '4' glints."""
-    rows = []
-    for y in range(16):
-        row = ''
-        for x in range(16):
-            h = (x * 73 + y * 151 + seed * 37 + (x * y) * 11) % 97
-            row += '4' if h == 0 else '3' if h < 6 else '2' if h < 26 else '0' if h > 84 else '1'
-        rows.append(row)
-    return rows
-
-
-# Rows 0-3 unused; 4: gilded slab edge; 5: slab obsidian with a lapis inlay; 6-12 the cabinet (cols 1-14 used):
-# gold pillars at the corners, wood with grain, a gold-framed lapis gem window in the middle; 13-15 the plinth.
-SIDE = obsidian(3)[:4] + [
-    'hggggggggggggggh',
-    '1221cbb11bbc1221',
-    '1h' + 'k' * 12 + 'h1',
-    '1gh' + 'Ww' + 'hhhhhh' + 'wW' + 'gh1',
-    '1gh' + 'wW' + 'hAabeh' + 'Ww' + 'gh1',
-    '1gh' + 'Ww' + 'habceh' + 'wm' + 'gh1',
-    '1gh' + 'mw' + 'hbcceh' + 'Ww' + 'gh1',
-    '1gh' + 'Ww' + 'hceeeh' + 'wW' + 'gh1',
-    '1gh' + 'wm' + 'hhhhhh' + 'mw' + 'gh1',
-    '3343333433334333',
-    '2122121221221212',
-    '1011101110101101',
-]
-
-
-def top():
-    rows = []
-    for y in range(16):
-        row = ''
-        for x in range(16):
-            if y in (0, 15) or x in (0, 15):
-                row += 'h' if (x in (0, 15) and y in (0, 15)) else 'g'
-            elif y in (1, 14) or x in (1, 14):
-                row += '1'
-            elif (y in (3, 12) and 3 <= x <= 12 or x in (3, 12) and 3 <= y <= 12) and (x + y) % 2 == 0:
-                row += 'h'
-            else:
-                row += 'U' if (x + y) % 4 == 0 else 'u' if (x - y) % 4 == 0 else 'v'
-        rows.append(row)
-    return rows
-
-
-# Gem: sides use uv 0-2 x 0-3 (glint, body, gold socket), the top uv 2-4 x 0-2. Everything else filler lapis.
-GEM = ['Aaab' + 'b' * 12, 'acbc' + 'b' * 12, 'hH' + 'b' * 14] + ['b' * 16] * 13
-
-# Book: rows 0-6 the two pages seen from above (cols 0-4 the reader's left page, 5-9 the right one, the gutter shaded
-# towards the spine, a red initial on the left page), row 7 the page edges, rows 8-15 cols 0-9 the crimson cover with
-# gold corners, cols 10-15 cover edge.
-BOOK = [
-    'ppppqqppppSQQSQS',
-    'pxttqqttppSQQSQS',
-    'pxppqqppppSQQSQS',
-    'pttpqqtttpSQQSQS',
-    'ppppqqppppSQQSQS',
-    'pttpqqttppSQQSQS',
-    'ppppqqppppSQQSQS',
-    'rqrqrqrqrqSQQSQS',
-    'gSSSSSSSSgSQQSQS',
-    'SRRRRRRRRSSQQSQS',
-    'SRQRRRRQRSSQQSQS',
-    'SRRRhhRRRSSQQSQS',
-    'SRRRhhRRRSSQQSQS',
-    'SRQRRRRQRSSQQSQS',
-    'SRRRRRRRRSSQQSQS',
-    'gSSSSSSSSgSQQSQS',
-]
-
 TEXTURES = {
-    'questionary_table_side': SIDE,
-    'questionary_table_top': top(),
-    'questionary_table_bottom': obsidian(11),
-    'questionary_table_gem': GEM,
-    'questionary_table_book': BOOK,
+    'questionary_table_side': [
+        '0000000000000000',
+        '1112111000111111',
+        '1112111111111111',
+        '2222222222222222',
+        '3333333333333333',
+        '4555455545554555',
+        '0222222222222220',
+        '12657789a477bc20',
+        '12debcfghij0kl21',
+        '22meklnghiopkl22',
+        '02deqlfgrispql20',
+        '12deklfghispkl21',
+        '1222222222222221',
+        'tuuuutuuuutuuuut',
+        'vwxvxxwwxxwwwwwv',
+        'wwxxxwvxxxxwxvvx',
+    ],
+    'questionary_table_top': [
+        'xxwwwvwwwxwwvwxw',
+        'xwwxwwwvvvxvvwxv',
+        'ww555555555555uw',
+        'uw5yyyyyyyzyzyww',
+        'wv5yyyyyzyyzzzxv',
+        'xw5zyyzzzzyyzzwx',
+        'ux5zzyzzyyzzyyww',
+        'wx5zyyyyyyzzyywx',
+        'xv5zyyyzzyyyzzxw',
+        'uv5zzyzyyzzzyywx',
+        'vv5yzzzyzyyyyzwx',
+        'wv5zzzyzzyzzzyww',
+        'wx5yyyyyyzyyyyxw',
+        'xx5zzyzzyzzyzyxx',
+        'uwuwxxwvxwxwwwvx',
+        'xwvxxxwwxxxuvxxw',
+    ],
+    'questionary_table_bottom': [
+        'wxwwwxvwwvvwxxuv',
+        'wxwxwvwwwwvwxvxv',
+        'vuwwxwuxvxuwvxxv',
+        'wxwxxvxxxwxxwxww',
+        'wwxvwuvwxvxuxwww',
+        'wuuwwvwwvxuwxvww',
+        'xwxxxwwuwwwwwxwx',
+        'wvvwxwwvvvxuwwux',
+        'uxuvwuwvuxvxwwuv',
+        'wwxwwvwwwwxxwxwx',
+        'wwwxvwwxwvvwxvxw',
+        'wxvwwxvxwxwwwvvu',
+        'xxvuuwwxxuwxwuxx',
+        'wvxuxvxwxxxvuxxw',
+        'wwvxuvwvwuwwvxxx',
+        'xvvwxwwwwvwwxwwv',
+    ],
+    'questionary_table_gem': [
+        '0233............',
+        '0233............',
+        '02..............',
+        '................',
+        '................',
+        '................',
+        '................',
+        '................',
+        '................',
+        '................',
+        '................',
+        '................',
+        '................',
+        '................',
+        '................',
+        '................',
+    ],
+    'questionary_table_book': [
+        'AAAABBAAAACCCCCC',
+        'ADBBBBDBDA......',
+        'AAAABBAAAA......',
+        'ADBDBBDDBA......',
+        'AAAABBAAAA......',
+        'ADDDBBDDDA......',
+        'AAAABBAAAA......',
+        'BEBEBEB.........',
+        'CCCCCCCCCC......',
+        'CFccccFccC......',
+        'CccccFcccC......',
+        'CcccFccccC......',
+        'CccFccccFC......',
+        'CcFccccFcC......',
+        'CFccccFccC......',
+        'CCCCCCCCCC......',
+    ],
 }
 
 
