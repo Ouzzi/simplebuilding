@@ -525,7 +525,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-q-blocks: framework CreativeTabSettings je Mod, Fun/Money/Riding + SimpleBuilding-Option; Handbuch-only-Module ohne eigenen Tab ungeschaltet) **Kreativ-Tab-Struktur:** jede Super-Mod hat einen eigenen Tab; die einzelnen Items werden zusätzlich in die passenden Vanilla-Tabs einsortiert. Config (simplelib-Gerüst, je Mod): „in Vanilla-Tabs einsortieren“ an/aus – aus = Vanilla-Tabs bleiben unverändert (Stock).
 
 ## Nachtrag 23 (2026-10-07 nachts, Besitzer)
-- [ ] **Mob „Shellker“** (End, Gateway-Wächter; Konzept in docs/ai/KONZEPT-MOBS-2026-10-07.md ergänzen, dann Vorschau): Shulker-Variante mit harter Schale; 1×1×1, öffnet zum Schießen alle Seiten, wird dabei NICHT größer (schießt aus 1×1-Loch). Geschlossen kein Schaden (wie Gürteltier), offen normal. Leben 4× Shulker. Teleportiert nie; nur per (Klebe-)Kolben verschiebbar. Je End-Gateway genau 4 Stück rund um die Öffnung (Zugang erst nach Besiegen/Wegschieben). Projektile wie Shulker, 1,5× schneller, Effekt **Schwerkraft (High Gravity)** statt Schweben: alle Aufwärtskräfte (Sprung, Levitation, Elytra-Auftrieb) auf 10 %, Elytra gleitet 10× schlechter. Schwerkraft auch als Trank: Brauzutat **Shellker-Schale**. Vermehrung wie Shulker (Shulker trifft Shulker-Kugel). Erschaffen: Shulker Schale „anziehen“ (Rechtsklick) → wird Shellker. Drop Ø 2,5 Schalen; Farmen nur über Umwandlung von Shulkern. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
+- [x] **Mob „Shellker“** (End, Gateway-Wächter; Konzept in docs/ai/KONZEPT-MOBS-2026-10-07.md ergänzen, dann Vorschau): Shulker-Variante mit harter Schale; 1×1×1, öffnet zum Schießen alle Seiten, wird dabei NICHT größer (schießt aus 1×1-Loch). Geschlossen kein Schaden (wie Gürteltier), offen normal. Leben 4× Shulker. Teleportiert nie; nur per (Klebe-)Kolben verschiebbar. Je End-Gateway genau 4 Stück rund um die Öffnung (Zugang erst nach Besiegen/Wegschieben). Projektile wie Shulker, 1,5× schneller, Effekt **Schwerkraft (High Gravity)** statt Schweben: alle Aufwärtskräfte (Sprung, Levitation, Elytra-Auftrieb) auf 10 %, Elytra gleitet 10× schlechter. Schwerkraft auch als Trank: Brauzutat **Shellker-Schale**. Vermehrung wie Shulker (Shulker trifft Shulker-Kugel). Erschaffen: Shulker Schale „anziehen“ (Rechtsklick) → wird Shellker. Drop Ø 2,5 Schalen; Farmen nur über Umwandlung von Shulkern. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md) (claude-mobs2)
 - [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Struktur Brunnen:** wie der Ausgangsportal-Brunnen (Drachenei-Sockel) der Hauptinsel aus Endsteinziegeln/Endstein; 1 intakte Grundvariante + 2 kaputte Varianten.
 - [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Struktur Fake-Gateway:** aus Endsteinziegeln, gleiche Generierungsregeln/Form wie echtes Gateway, aber verstreut, natürlich wirkend; ohne Funktion.
 - [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Schiffswracks:** selten, Varianten analog Vanilla-Shipwrecks (Bug/Heck/kaputt/gekippt); 1–2 Kisten mit ca. 30 % des End-Schiff-Loots; 50 % Rahmen, davon 10 % (absolut) mit kaputter Elytra im Rahmen; sonst ohne Rahmen.
@@ -548,11 +548,11 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-q-brew; dazu Übelkeits-Trank: Seltsamer Trank + Roter Pilz) Dunkelheits-Trank aus neuem Warden-Drop (Warden-Item als Brauzutat).
 - [x] (claude-q-astralit: Astral-Signale 1 Tick statt 2 pro Block) Schnelleres Redstone (Astralit).
 - [x] (claude-q-astralit: Astralit-Trim-Teile schieben Gleitflug 0,012/Teil in Blickrichtung, Tempo-Cap 1,8) Schnellere Elytra (Astralit).
-- [ ] Shellker-Textur wie Grundgestein (Bedrock-Tarnung).
+- [x] Shellker-Textur wie Grundgestein (Bedrock-Tarnung). (claude-mobs2)
 - [x] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an. (claude-q-traps: Bau-Rezept Knochen+Echo-Splitter+Sculk, kein Beute-Eintrag)
 - [x] Froschlichter in zusätzlichen Farben. (claude-q-blocks: Scharlach/Aqua/Azur, Froschlicht + Farbstoff)
 - [x] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken. (claude-q-place: Boden/Wand, Fackeln + Stäbe, Licht)
-- [ ] Schildkröten-Helm-Äquivalent aus Shellker-Schale. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
+- [x] Schildkröten-Helm-Äquivalent aus Shellker-Schale. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md) (claude-mobs2)
 - [x] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt. (claude-q-stands; Client-Sicht mit echtem Profil offen)
 - [x] Glitzernde Melone essbar; Melone auch als 0,125er-Block (platzierte Melonenscheibe = 0,125er-Block).
 - [x] Farbpinsel? (Idee, offen). (Audit 09.10.: claude-brush3 fa6aa3cf6 (Goldpinsel, Farbkasten 4 Stufen); Textur N28/N29 offen)
@@ -566,7 +566,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Schwefelwürfel (Sulfur Cubes) befüllbar mit allen Ofen-Varianten, Tischen usw. (Easter Egg); dann schwer wie Eisen (schwer zu verschieben). (claude-q-traps: Mob existiert in 26.3; Tag sulfur_cube_archetype/high_resistance = Seelensand-Archetyp)
 - [x] Übelkeits-Trank. (claude-q-brew)
 - [x] Holz auch als 0,125er-Blöcke (falls noch nicht). (claude-q-hammer)
-- [ ] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze). (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
+- [x] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze). (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md) (claude-mobs2)
 - [x] Hammer: Normal-Rechtsklick-Halten (Block → Treppe → Stufe) deaktivieren; nur Schleich-Rechtsklick-Halten transformiert (Teile werden abgebaut). Erreicht die Form eine nicht unterstützte Gestalt (z. B. oben und unten je ein Achtel entfernt), wird sie in 0,125er-Blöcke zerlegt. Hammer wackelt (Hinweis „transformierbar“) nur, wenn transformiert werden kann – also nur beim Schleichen. (claude-q-hammer)
 - [x] Trims bis zu 4 platzierbar; alle anderen so platzierbaren Items ebenfalls bis 4 Stück („Plex“). (claude-q-place: Vorlagen ins Häufchen; Funktions-Items bleiben einzeln)
 - Konzept Farbpinsel/Respawn: docs/ai/KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md. Farbpinsel in Arbeit (v3: Goldpinsel, Farbkasten mit Stufen).
@@ -679,11 +679,11 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-q-maps2) Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“; Config-Tab „Simple Mods“, Neustart nötig).
 - [x] (claude-q-maps2) Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.
 - [ ] Simple Trims als Sub-Mod starten (Plan N18).
-- [ ] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms). (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md)
-- [ ] Seelenfeuer-Lohe: Konzept + Vorschau. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md),
+- [x] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms). (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md) (claude-mobs2)
+- [x] Seelenfeuer-Lohe: Konzept + Vorschau. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md), (claude-mobs2)
 - [x] Simple Trims als Sub-Mod starten (Plan N18). (claude-q-trims: Stufe 1; Rest Stufen 2–4 siehe Plan)
-- [ ] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms).
-- [ ] Seelenfeuer-Lohe: Konzept + Vorschau.
+- [x] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms). (claude-mobs2)
+- [x] Seelenfeuer-Lohe: Konzept + Vorschau. (claude-mobs2)
 - [x] Deceiver umsetzen (Konzept freigegeben) – Stufe 1 fertig (claude-q-deceiver), Rest siehe Nachtrag 20.
 - [ ] Furcht-Mob und niedlicher End-Mob: später.
 - [ ] Stärkerer Wither + Biom-Pinsel: Konzept. (Konzept: docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
