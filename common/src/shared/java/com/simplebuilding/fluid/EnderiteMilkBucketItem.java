@@ -1,7 +1,5 @@
 package com.simplebuilding.fluid;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -11,11 +9,8 @@ import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import org.jspecify.annotations.Nullable;
 
-import java.util.function.Consumer;
 
 /**
  * Milk in the Enderite bucket (queue N32): like water it comes as a half (1/2) and a full (2/2) item. Milking a cow,
@@ -77,12 +72,5 @@ public class EnderiteMilkBucketItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         return full ? InteractionResult.PASS : milk(stack, player, target, hand);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
-        lines.accept(Component.translatable("tooltip.simplebuilding.enderite_bucket.fill", amount(), 2).withStyle(ChatFormatting.GRAY));
-        lines.accept(Component.translatable(full ? "tooltip.simplebuilding.enderite_milk_bucket.full" : "tooltip.simplebuilding.enderite_milk_bucket.half")
-                .withStyle(ChatFormatting.DARK_GRAY));
     }
 }

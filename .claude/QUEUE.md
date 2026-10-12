@@ -871,4 +871,17 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-redlines) Astral- und Nihil-Redstone verhalten sich 1:1 wie Redstone-Draht (alle Vanilla-Quellen speisen, powern dieselben Blöcke, 15→0, Schrägen, Optik); drei getrennte Linien, auch über gepowerte Blöcke (Plan docs/ai/PLAN-REDSTONE-LINIEN-2026-10-11.md).
 - [x] (claude-redlines) Brücken-Redstone (Astralitstaub + Nihilitsplitter + Redstone → 3) verbindet alle drei Linien; Textur aus den drei Farben.
 - [x] (claude-redlines) Astral-/Nihil-Schalter und -Lampen entfernt; alte Blöcke/Items laden als Hebel bzw. Redstone-Lampe (LegacyItemIds.REPLACED_BY_VANILLA); End-Kolben/-Schienen hören auf den Staub ihrer Linie.
-- [x] (claude-redlines) Lang EN/DE, Guide, Wiki, JEI-Info, Simple-Money-Preise, Testzentrale, Gametests (RedstoneLinesTests).
+- [x] (claude-redlines) Lang EN/DE, Guide, Wiki, JEI-Info, Simple-Money-Preise, Testzentrale, Gametests (RedstoneLinesTests).,
+- [ ] Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.
+- [x] Platzierte Bündel: Items 3D (1 px tief) rendern. (claude-n37-world)
+- [ ] UI-Farbvarianten (z. B. braun): Hintergrund-Symbole der Slots nicht korrekt sichtbar (brown_ui_icons.png).
+- [x] Placeables gezielt abbauen: das angeschaute Teil wird abgebaut. (claude-n37-world)
+- [x] Platzierter Ziegenhorn: Textur korrekt, aber nicht schön → verbessern. (claude-n37-world)
+- [x] Kisten von der Seite: Inhalt nicht erkennbar → seitlich Item-Texturen zeigen (crate_side.png). (claude-n37-world)
+- [ ] Astral-Verzauberer: Tooltip der Verzauberungen immer rechts neben dem gesamten UI; Preis bleibt bei 50, obwohl eine Stufe weniger gewählt ist (astral_max.png / astral_one_less.png) → Preis muss bei weniger Stufen sinken.
+- [x] Enderit-Eimer: Tooltip nur Titel. (claude-n37-world)
+- [x] Eimer: keine Haltbarkeitslinie rendern. (claude-n37-world)
+- [ ] Verstärkter Tiegel: Slots 2x6 statt 3x4.
+- [ ] Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
+- [x] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben. (claude-n37-world: Mod-Kistenboote; Vanilla-Boote unverändert)
+- [x] Sculk Jaw nur auf vollen Blöcken platzierbar. (claude-n37-world)

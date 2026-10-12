@@ -61,6 +61,16 @@ public class PlacedSmallPartsBlockEntity extends BlockEntity {
         changed();
     }
 
+    /**
+     * N37: nur noch dieses Teil, ohne Abgleich und Paket - fuer den gezielten Abbau eines Teils, kurz bevor der Block
+     * verschwindet (die Drops und zerbrechenden Eier lesen danach nur noch dieses Teil).
+     */
+    public void keepOnly(ItemStack part) {
+        this.parts.clear();
+        this.parts.add(part.copyWithCount(1));
+        this.shape = null;
+    }
+
     private void accept(List<ItemStack> stacks) {
         for (ItemStack stack : stacks) {
             if (!stack.isEmpty() && this.parts.size() < PlacedSmallParts.MAX_PARTS) {

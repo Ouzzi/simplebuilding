@@ -36,8 +36,12 @@ import org.jetbrains.annotations.Nullable;
 public class PlacedBundleRenderer implements BlockEntityRenderer<PlacedBundleBlockEntity, PlacedBundleRenderer.State> {
     /** Hoehe der Itemmitte ueber der Blockunterkante (das Buendel ist 11 Pixel hoch). */
     private static final float HOVER_Y = 1.0F;
-    /** Groesse des schwebenden Items (dazu kommt Vanillas Boden-Transformation). */
-    private static final float ITEM_SCALE = 1.1F;
+    /**
+     * Groesse des schwebenden Items: ein 16-Pixel-Sprite wird so 8,8 Pixel breit. N37 (Besitzer 2026-10-11): flache Items
+     * sind wie in der Kiste ({@code CrateRenderer}) einen ganzen Pixel tief - nur Breite und Hoehe werden verkleinert;
+     * Block-Items behalten ihre Proportionen.
+     */
+    private static final float ITEM_SCALE = 0.55F;
 
     private final ItemModelResolver itemModelResolver;
 
@@ -53,6 +57,8 @@ public class PlacedBundleRenderer implements BlockEntityRenderer<PlacedBundleBlo
         /** Neigung (Grad, positiv = Kamera hoeher als das Item). */
         public float pitch;
         public float bob;
+        /** Block-Item (eigene Proportionen) statt flachem Sprite. */
+        public boolean block;
         public final ItemStackRenderState item = new ItemStackRenderState();
     }
 
@@ -80,8 +86,9 @@ public class PlacedBundleRenderer implements BlockEntityRenderer<PlacedBundleBlo
         Vec3 item = itemCentre(blockEntity);
         state.yaw = facingYaw(item, cameraPosition);
         state.pitch = facingPitch(item, cameraPosition);
-        this.itemModelResolver.updateForTopItem(state.item, shown, ItemDisplayContext.GROUND,
+        this.itemModelResolver.updateForTopItem(state.item, shown, ItemDisplayContext.NONE,
                 blockEntity.getLevel(), null, (int) blockEntity.getBlockPos().asLong());
+        state.block = state.item.usesBlockLight();
     }
 
     /** Mitte des schwebenden Items in Weltkoordinaten (ohne das leichte Wippen). */
@@ -120,7 +127,8 @@ public class PlacedBundleRenderer implements BlockEntityRenderer<PlacedBundleBlo
         // Erst zur Kamera gieren, dann zu ihr hin neigen: +Z zeigt danach genau auf die Kamera.
         McClientVersion.rotate(poseStack, Axis.YP.rotationDegrees(state.yaw));
         McClientVersion.rotate(poseStack, Axis.XP.rotationDegrees(-state.pitch));
-        poseStack.scale(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE);
+        // Flache Sprites: nur Breite und Hoehe verkleinert, die Tiefe bleibt ein ganzer Pixel (wie in der Kiste).
+        poseStack.scale(ITEM_SCALE, ITEM_SCALE, state.block ? ITEM_SCALE : 1.0F);
         state.item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
     }

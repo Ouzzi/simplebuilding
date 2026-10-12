@@ -216,18 +216,52 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     }
 
     /**
-     * Abbauen durch einen Spieler im Ueberlebensmodus: kurz bevor der Block verschwindet (die Block-Entity steht noch),
-     * zerbrechen ohne Behutsamkeit in der Haupthand die Eier. Die Drops kommen danach aus {@link #getDrops}; dann ist die
-     * Block-Entity schon aus der Welt, {@link #spawnAfterBreak} findet keine mehr - kein Ei zerbricht zweimal. Im
-     * Kreativmodus zerbricht nichts (wie beim alten gelegten Ei).
+     * Abbauen durch einen Spieler: kurz bevor der Block verschwindet (die Block-Entity steht noch).
+     *
+     * <p>Gezielt (N37, Besitzer 2026-10-11): liegen zwei oder mehr Teile, faellt nur das angeschaute
+     * ({@link PlacedSmallParts#lookedAtPart}). Die Block-Entity behaelt dafuer nur dieses Teil (Drops, Eier), die uebrigen
+     * legt {@link #destroy} gleich nach dem Entfernen zurueck - Vanilla und alle Loader rufen {@code playerWillDestroy},
+     * entfernen dann den Block und rufen {@code destroy}; der Client sagt denselben Abbau voraus.
+     *
+     * <p>Ohne Behutsamkeit in der Haupthand zerbricht ein abgebautes Ei im Ueberlebensmodus. Die Drops kommen danach aus
+     * {@link #getDrops}; dann ist die Block-Entity schon aus der Welt, {@link #spawnAfterBreak} findet keine mehr - kein Ei
+     * zerbricht zweimal. Im Kreativmodus zerbricht nichts (wie beim alten gelegten Ei).
      */
     @Override
     public BlockState playerWillDestroy(net.minecraft.world.level.Level level, BlockPos pos, BlockState state, net.minecraft.world.entity.player.Player player) {
+        RESTORE.remove();
+        if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && pile.parts().size() > 1) {
+            List<ItemStack> rest = new java.util.ArrayList<>(pile.parts());
+            ItemStack target = rest.remove(PlacedSmallParts.lookedAtPart(player, rest, state.getValue(FACING), pos));
+            pile.keepOnly(target);
+            RESTORE.set(new Restore(level, pos.immutable(), state, List.copyOf(rest)));
+        }
         if (level instanceof ServerLevel server && !player.isCreative() && level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile
                 && !PlacedSmallParts.silkTouch(server, player.getMainHandItem())) {
             PlacedSmallParts.breakEggs(server, pos, pile.parts(), server.getRandom());
         }
         return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    /** Was ein gezielter Abbau zuruecklegt; je Thread, damit Client und eingebauter Server sich nicht stoeren. */
+    private record Restore(LevelAccessor level, BlockPos pos, BlockState state, List<ItemStack> parts) {
+    }
+
+    private static final ThreadLocal<Restore> RESTORE = new ThreadLocal<>();
+
+    /** Nach dem Entfernen durch einen Spieler: die nicht angeschauten Teile liegen wieder da (N37). */
+    @Override
+    public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
+        super.destroy(level, pos, state);
+        Restore restore = RESTORE.get();
+        if (restore == null || restore.level() != level || !restore.pos().equals(pos)) {
+            return;
+        }
+        RESTORE.remove();
+        level.setBlock(pos, withCounts(restore.state(), restore.parts()), Block.UPDATE_ALL);
+        if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile) {
+            pile.setParts(restore.parts());
+        }
     }
 
     /**
