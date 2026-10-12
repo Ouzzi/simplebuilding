@@ -41,7 +41,8 @@
         "simpledimensions",
         "simpletrims",
         "simplemobs",
-        "simpleend"
+        "simpleend",
+        "simplerespawn"
       ],
       "paths": {
         "root": ".",
