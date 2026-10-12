@@ -322,7 +322,7 @@ final class Stage4ClaimTests {
         var skeleton=EntityTypes.SKELETON.create(f.l,EntitySpawnReason.COMMAND);skeleton.setPos(Vec3.atBottomCenterOf(f.edge.west(3)));
         var arrow=EntityTypes.ARROW.create(f.l,EntitySpawnReason.COMMAND);arrow.setOwner(skeleton);visitor.setInvulnerableTime(0);before=visitor.getHealth();
         var arrowSource=f.l.damageSources().arrow(arrow,skeleton);boolean arrowHit=visitor.hurtServer(f.l,arrowSource,2);
-        yes(h,Claims.damage(arrowSource,visitor)&&Claims.action(arrow,visitor),"Mob projectiles still hit players inside a claim (hit="+arrowHit+", health "+before+"->"+visitor.getHealth()+")");
+        yes(h,Claims.damage(arrowSource,visitor)&&Claims.action(arrow,visitor)&&arrowHit&&visitor.getHealth()<before,"Mob projectiles still hit players inside a claim (hit="+arrowHit+", health "+before+"->"+visitor.getHealth()+")");
         cow.setInvulnerableTime(0);visitor.setInvulnerableTime(0);float cowBefore=cow.getHealth();before=visitor.getHealth();
         new ServerExplosion(f.l,null,null,null,Vec3.atCenterOf(inside.south()),2,false,Explosion.BlockInteraction.KEEP).explode();
         yes(h,visitor.getHealth()<before,"Players inside a claim still take unattributed explosion damage");
