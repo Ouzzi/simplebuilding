@@ -32,7 +32,8 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simpletrims",
       "simplemobs",
-      "simpleend"
+      "simpleend",
+      "simplerespawn"
     ]
   },
   {
@@ -206,7 +207,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "e956175e3dd5"
+    "dataHash": "c5d281ab8ea7"
   },
   {
     "id": "simpletweaks",
@@ -224,7 +225,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "60ec5a90e0d7"
+    "dataHash": "90a77fb5e054"
   },
   {
     "id": "simpledimensions",
@@ -351,7 +352,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "76e76329444c"
+    "dataHash": "4670a9cc2936"
   },
   {
     "id": "simpleweather",
@@ -396,7 +397,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletools",
     "displayName": "Simple Tools",
-    "description": "Full-durability bonus, the Thrift enchantment, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
+    "description": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -412,7 +413,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "fc848f7a3f09"
+    "dataHash": "c67babb79d08"
   },
   {
     "id": "simplefarming",
@@ -541,7 +542,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "d5b2f6125af8"
+    "dataHash": "6024b8b8c7ce"
   },
   {
     "id": "simplerespawn",
