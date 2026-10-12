@@ -566,6 +566,10 @@ public class ModBlocks {
             if ("wool".equals(OCTET_GROUPS.get(cell))) {
                 ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 30, 60);
             }
+            // Staemme brennen wie ihre Staemme (5/5); Nether-Staemme nicht.
+            if ("log".equals(OCTET_GROUPS.get(cell)) && ((MaterialOctetBlock) cell).source().defaultBlockState().ignitedByLava()) {
+                ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 5, 5);
+            }
         }
     }
 
