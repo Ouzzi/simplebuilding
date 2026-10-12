@@ -801,12 +801,16 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
 
 ## Nachtrag 47 (2026-10-12, Besitzer)
+- [ ] Prinzip Entdeckbarkeit umsetzen (docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md): Stufe 1 jedes Item Tooltip/Rezept-Freischaltung + Test; später Welt-Hinweise.
+- [ ] Aschholz/Dämmerholz: alles, was andere Holzarten haben (Regal, Octets, geschnitztes Holz, Holzkessel normal+entrindet, Schach/Checker?, alle SB-Holz-Features) – optional, wenn SB geladen.
+- [x] Death Vault: kein Geld-Shop-Kauf, nur Craften (Besitzer 12.10.).
+- [x] Portierung 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme (bestätigt 12.10.).
 - [ ] Furcht-Mobs (Konzept KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md „Furcht-Mob – Vorschläge“): F-A „Dread“ – spawnt NICHT natürlich, wird per Golem-Mechanik aus Blöcken gebaut/beschworen; F-C „Hollow Watcher“ im End (Außeninseln). Beide mit Zittern-Aura. (claude-fear-mobs)
 - [x] Jar-Weitergabe an Zentrale-Downloads eingerichtet (nach grünem Gate: dist-publish.sh → sb-agent → sb-web, atomar; Backups *.bak-20261012). (claude-jar-dist)
 - [ ] Stärkerer Wither + Biom-Pinsel umsetzen (Konzept docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md, Wither „halt stärker“).
 - [ ] Niedlicher End-Mob: passive Endermite-Varianten in Ash Valley/Dawnlands, knabbern Endstein → durchwühlter Endstein (erholt sich wie Gras nach Schaf). (in claude-simple-end)
 - [ ] Simple Respawn umsetzen (Besitzer 12.10.): niedergeschlagen statt tot; eigener Todesbildschirm mit Buttons Zuschauen (Bildschirm zu, Kamera 360° drehbar), Aufgeben (erst dann echter Tod), Inventar (nur ansehen, nicht bearbeiten; auf/zu); Mitspieler kann innerhalb einer Frist wiederbeleben (danach 3 Herzen, 0 Hunger). Konzept KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md Teil B. (claude-respawn)
-- [ ] Baustab-Kerne: Besitzer-Entscheidung zu Mechanik/Funktionen (docs/BAUWERKZEUGE-INTERAKTIONEN.md Teil 4).
+- [x] Baustab-Kerne: Besitzer 12.10. – bleiben reine Crafting-Zutat, keine Zusatzfunktionen.
 - [ ] Mega-Handbücher erst, wenn alle Mods fertig sind.
 
 ## Nachtrag 46 (2026-10-12, Besitzer; Screenshot docs/ai/refs/n44/n46_inventar.png)
