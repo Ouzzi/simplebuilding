@@ -3020,5 +3020,16 @@
     "secret": [
       "Nur die Basisführer sind echte Gegenstände. Themenbücher sind eingefügter Inhalt, du liest sie also nur im Führer."
     ]
+  },
+  "bridge_redstone": {
+    "lore": [
+      "Redstone, die zwischen drei Sprachen übersetzen gelernt hat."
+    ],
+    "use": [
+      "Astralitstaub, einen Nihilit-Splitter und Redstone formlos zu dritt herstellen. Es verbindet Vanilla-Redstone, Astral-Redstone und Nihil-Redstone, die sich sonst nie mischen."
+    ],
+    "secret": [
+      "Nur dieser Staub lässt einen Hebel der einen Linie eine Lampe der anderen schalten."
+    ]
   }
 }

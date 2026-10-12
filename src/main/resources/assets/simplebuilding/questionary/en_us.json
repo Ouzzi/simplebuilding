@@ -3020,5 +3020,16 @@
     "secret": [
       "Only the base guides are real items. Topic books are inserted content, so you only ever read them inside the guide."
     ]
+  },
+  "bridge_redstone": {
+    "lore": [
+      "Redstone that learned to translate between three tongues."
+    ],
+    "use": [
+      "Craft astralit dust, a nihilit shard and redstone, shapeless, for three. It links vanilla redstone, Astral Redstone and Nihil Redstone, which otherwise never mix."
+    ],
+    "secret": [
+      "It is the only dust that lets a lever in one line switch a lamp in another."
+    ]
   }
 }
