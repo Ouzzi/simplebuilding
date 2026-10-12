@@ -94,6 +94,29 @@ public final class DeceiverLogic {
         return s.length == 0 ? null : s[rnd.nextInt(s.length)];
     }
 
+    // ---- special attack "double" (owner 11.10.) ------------------------------------------
+
+    public static final float DOUBLE_MIN_CHANCE = 0.05f, DOUBLE_MAX_CHANCE = 0.80f;
+    /** Health fraction at and below which the chance is at its maximum. */
+    public static final float DOUBLE_FULL_AT = 0.20f;
+    public static final int DOUBLE_COOLDOWN_TICKS = 600;
+    public static final int DOUBLE_MAX_COPIES = 8;
+
+    /**
+     * Chance after a wave to double its summons: 5 % at full health, rising with the square of the lost health to 80 %
+     * at 20 % health and below (60 % health: about 24 %). Slow at first, steep in the end fight.
+     */
+    public static float doubleChance(float health, float maxHealth) {
+        float f = maxHealth <= 0 ? 0 : health / maxHealth;
+        float t = Math.max(0f, Math.min(1f, (1f - f) / (1f - DOUBLE_FULL_AT)));
+        return DOUBLE_MIN_CHANCE + (DOUBLE_MAX_CHANCE - DOUBLE_MIN_CHANCE) * t * t;
+    }
+
+    /** How many copies one doubling makes: one per living summon, at most 8 and never above the hard cap. */
+    public static int doubleCopies(int alive) {
+        return allowed(Math.min(alive, DOUBLE_MAX_COPIES), alive, HARD_CAP);
+    }
+
     // ---- natural spawning -------------------------------------------------------------
 
     /** Chance per roll (about every 30 s per player) in a given place; 0 elsewhere. */

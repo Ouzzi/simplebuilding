@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 MODULE = Path(__file__).resolve().parents[1]
-ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg')
+ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard')
 for locale in ('en_us', 'de_de'):
     data = json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8'))
     assert 'entity.simplemobs.deceiver' in data and 'entity.simplemobs.hollow_howler' in data
@@ -34,6 +34,17 @@ for tag in ('block/howler_jaw', 'item/howler_jaw_drops'):
     for v in json.loads((MODULE / f'shared/resources/data/simplemobs/tags/{tag}.json').read_text(encoding='utf-8'))['values']:
         if isinstance(v, dict) or not v.startswith(('minecraft:', '#minecraft:', 'simplemobs:')):
             assert isinstance(v, dict) and v.get('required') is False, f'foreign id must be optional: {v}'
+assert (MODULE / 'shared/resources/assets/simplemobs/textures/entity/equipment/humanoid/deceiver_cloak.png').is_file()
+sees = json.loads((MODULE / 'shared/resources/data/simplemobs/tags/entity_type/sees_through_disguise.json').read_text(encoding='utf-8'))['values']
+assert 'minecraft:warden' in sees and 'simplemobs:hollow_howler' in sees
+for v in sees:
+    assert not isinstance(v, dict) or v.get('required') is False, v
+assert loot['pools'][0]['conditions'] == [{'condition': 'minecraft:random_chance', 'chance': 0.5}], 'cloth: 50 %, never doubled'
+assert loot['pools'][1]['entries'][0]['name'] == 'simplemobs:illusion_shard'
+bonus = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entities/deceiver_armor_bonus.json').read_text(encoding='utf-8'))
+assert bonus['pools'] == [loot['pools'][1]], 'armored Deceiver: the shard pool once more (twice the shards)'
+mirage = json.loads((MODULE / 'shared/resources/data/simplemobs/recipe/brewing/potion_awkward_illusion_shard.json').read_text(encoding='utf-8'))
+assert mirage['fabric:load_conditions'] and mirage['neoforge:conditions'] and mirage['forge:conditions'], 'Mirage potion only with Simple Building'
 assert len(list((MODULE / 'shared/resources/data/simplemobs/recipe/brewing').glob('*.json'))) >= 10
 # Shellker + Soulfire Blaze (claude-mobs2)
 for item in ('shellker_shell', 'shellker_helmet', 'shellker_spawn_egg', 'soulfire_rod', 'soulfire_blaze_spawn_egg'):
