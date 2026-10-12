@@ -323,11 +323,11 @@ final class Stage4ClaimTests {
         var arrow=EntityTypes.ARROW.create(f.l,EntitySpawnReason.COMMAND);arrow.setOwner(skeleton);visitor.setInvulnerableTime(0);visitor.damageCooldownTime=0;before=visitor.getHealth();
         var arrowSource=f.l.damageSources().arrow(arrow,skeleton);boolean arrowHit=visitor.hurtServer(f.l,arrowSource,2);
         yes(h,Claims.damage(arrowSource,visitor)&&Claims.action(arrow,visitor)&&arrowHit&&visitor.getHealth()<before,"Mob projectiles still hit players inside a claim (hit="+arrowHit+", health "+before+"->"+visitor.getHealth()+")");
-        cow.setInvulnerableTime(0);visitor.setInvulnerableTime(0);float cowBefore=cow.getHealth();before=visitor.getHealth();
+        cow.setInvulnerableTime(0);cow.damageCooldownTime=0;visitor.setInvulnerableTime(0);visitor.damageCooldownTime=0;float cowBefore=cow.getHealth();before=visitor.getHealth();
         new ServerExplosion(f.l,null,null,null,Vec3.atCenterOf(inside.south()),2,false,Explosion.BlockInteraction.KEEP).explode();
         yes(h,visitor.getHealth()<before,"Players inside a claim still take unattributed explosion damage");
         yes(h,(cow.getHealth()==cowBefore)==enabled,"Unattributed explosions spare claimed animals only while enabled");
-        var stranger=player(h,f.edge.west(2));f.entities.add(stranger);cow.setInvulnerableTime(0);
+        var stranger=player(h,f.edge.west(2));f.entities.add(stranger);cow.setInvulnerableTime(0);cow.damageCooldownTime=0;
         yes(h,cow.hurtServer(f.l,f.l.damageSources().playerAttack(stranger),1)==!enabled,"Untrusted player attacks on claimed animals are refused");
         var bolt=EntityTypes.LIGHTNING_BOLT.create(f.l,EntitySpawnReason.COMMAND);bolt.setCause(stranger);cow.removeAllEffects();
         yes(h,cow.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.POISON,100),bolt)==!enabled,"A lightning bolt counts as its causing player");
