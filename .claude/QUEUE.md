@@ -800,6 +800,15 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
 
+## Nachtrag 49 (2026-10-12, Besitzer)
+- [ ] Seelen-Lohe (Soul Blaze) schießt Seelenfeuer-Kugeln (Soulfire Charge, craftbar mit Seelen-Lohenstaub); Treffer gibt Seelenbrand-Effekt.
+- [ ] Deceiver-Umhang: Kopf-Umhang mit Kapuze, liegt als 3D-Modell auf dem Rücken (ähnlich Elytra); mit Elytra: Elytra darunter gerendert, beim Fliegen ragen die Flügel seitlich heraus, Umhang bleibt auf dem Rücken. Deceiver-Mob trägt ähnlichen Umhang. (claude-deceiver3)
+- [ ] Extra-Kopf-Slot im Inventar (B-Menü) über dem Nebenhand-Slot, auf Höhe des Helm-Slots: nur Mob-Köpfe oder geschnitzter Kürbis; deren Effekte gelten; Helm-Positionierung je Kopf anpassen (Kürbis, Silberfisch-Kopf usw.: Helm sitzt richtig, sichtbar, kein Z-Fighting).
+- [ ] Resonanz-Button: zwischen neuem Kopf-Slot und Nebenhand-Slot, slotgroß, nur Herz (Hover); Stufen Cobble, Stone, Copper, Iron, Gold, Diamond, Netherite, Enderite mit je eigenem Herz-Indikator. Tooltip ohne Fettschrift: Zeile 1 „Resonance: x“ orange (uncommon), dann „(max 2.0x)“ grau; Rest analog, erster Buchstabe fett, L→E (E, S, C); Cap-Zeile analog, letzte Zeile und „the better of …“-Zeile streichen; S = Distanz+Zeit, je max 0.5.
+- [ ] Inventar-Helligkeit als Config: Light (aktuell), Dark, Dawn (zwischen Dark und Light).
+- [ ] Geschnitztes Holz (carved logs): Item-Modell entspricht nicht dem Block-Modell → angleichen.
+- [ ] Shellker-Helm und Schildkrötenpanzer trimmbar.
+
 ## Nachtrag 48 (2026-10-12, Besitzer)
 - [ ] Wayfinder-Karte: Zoom feiner abstufen, Navigation verbessern.
 - [ ] Octet-Blöcke untereinander kombinierbar (verschiedene Materialien in einer Zelle).
