@@ -14,6 +14,7 @@ public final class FabricExample implements ModInitializer {
     @Override public void onInitialize() {
         MobsConfig.load(FabricLoader.getInstance().getConfigDir());
         MobsRegistry.registerAll();
+        DisguiseRegistry.registerAll();
         FabricDefaultAttributeRegistry.register(MobsRegistry.DECEIVER, DeceiverEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MobsRegistry.HOLLOW_HOWLER, HowlerEntity.createAttributes());
         ServerTickEvents.END_SERVER_TICK.register(MobsServer::tick);
@@ -36,9 +37,14 @@ public final class FabricExample implements ModInitializer {
             out.accept(MobsRegistry.EGG);
             out.insertAfter(Items.HOGLIN_SPAWN_EGG, java.util.List.of(new ItemStack(MobsRegistry.HOWLER_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
+            out.accept(DisguiseRegistry.CLOAK);
+            out.accept(DisguiseRegistry.MIRROR);
+        });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!MobsRegistry.on()) return;
             out.accept(MobsRegistry.CLOTH);
+            out.accept(DisguiseRegistry.SHARD);
             out.insertAfter(Items.ECHO_SHARD, java.util.List.of(new ItemStack(MobsRegistry.ECHO_CORE)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
     }

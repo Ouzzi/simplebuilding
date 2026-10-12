@@ -64,10 +64,9 @@ public class CrucibleBlock extends Block implements EntityBlock {
             Block.box(1, 4, 1, 15, 11, 15), Block.box(2, 11, 2, 14, 14, 14)), Block.box(3, 4, 3, 13, 14, 13), BooleanOp.ONLY_FIRST),
             turned(d, 15, 9, 6, 16, 11, 10), turned(d, 0, 9, 6, 1, 11, 10)));
 
-    /** Walk-in pot (owner tweaks P6): foot + floor + belly only up to y 9 (9/16 = 0.5625 <= the 0.6 step height), interior empty, neck open; handles as in the outline. */
-    private static final VoxelShape[] COLLISION = perFacing(d -> Shapes.or(Shapes.join(Shapes.or(Block.box(3, 0, 3, 13, 2, 13), Block.box(2, 2, 2, 14, 4, 14),
-            Block.box(1, 4, 1, 15, 9, 15)), Block.box(3, 4, 3, 13, 9, 13), BooleanOp.ONLY_FIRST),
-            turned(d, 15, 9, 6, 16, 11, 10), turned(d, 0, 9, 6, 1, 11, 10)));
+    /** Walk-in pot (owner tweaks P6): foot + floor + belly only up to y 9 (9/16 = 0.5625 <= the 0.6 step height), interior empty, neck open; the handles are outline only. */
+    private static final VoxelShape[] COLLISION = perFacing(d -> Shapes.join(Shapes.or(Block.box(3, 0, 3, 13, 2, 13), Block.box(2, 2, 2, 14, 4, 14),
+            Block.box(1, 4, 1, 15, 9, 15)), Block.box(3, 4, 3, 13, 9, 13), BooleanOp.ONLY_FIRST));
 
     /** The hollow inside (like the vanilla cauldron's inside shape): lets a click reach the pot through its opening. */
     private static final VoxelShape INTERIOR = Block.box(3, 4, 3, 13, 14, 13);

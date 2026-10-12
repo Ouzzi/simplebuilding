@@ -185,7 +185,8 @@ public final class MoneyTests {
       .filter(c->c instanceof net.minecraft.network.chat.contents.TranslatableContents)
       .map(c->((net.minecraft.network.chat.contents.TranslatableContents)c).getKey())
       .filter(k->k.startsWith("tooltip.simplemoney.")).toList();
-    h.assertValueEqual(keys.size(),name.equals("money_bill")?7:name.equals("special_fiber")?2:1,"complete tooltip lines: "+name);
+    // money_bill: one line since the single-line tooltip rule (b87dcfb7e, AGENTS.md); special_fiber keeps its second line.
+    h.assertValueEqual(keys.size(),name.equals("special_fiber")?2:1,"complete tooltip lines: "+name);
     for(String key:keys)for(var lang:List.of(en,de))h.assertTrue(lang.has(key)&&lang.get(key).getAsString().length()<=48,"short translated tooltip line: "+key);
     for(String path:List.of("items/"+name+".json","models/item/"+name+".json","textures/item/"+name+".png"))h.assertTrue(MoneyTests.class.getResource("/assets/simplemoney/"+path)!=null,"asset "+path);
    }

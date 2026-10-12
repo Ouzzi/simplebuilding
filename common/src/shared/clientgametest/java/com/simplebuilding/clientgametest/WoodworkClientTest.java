@@ -1,7 +1,6 @@
 package com.simplebuilding.clientgametest;
 
 import com.simplebuilding.version.McVersion;
-import com.simplebuilding.woodwork.CarvedLogBlock;
 import com.simplebuilding.woodwork.CrateBlock;
 import com.simplebuilding.woodwork.CrateBlockEntity;
 import com.simplebuilding.woodwork.SherdMotif;
@@ -49,11 +48,14 @@ public final class WoodworkClientTest {
             List<String> found = new ArrayList<>();
             for (WoodBlocks.Family family : WoodBlocks.families()) {
                 for (SherdMotif motif : new SherdMotif[]{SherdMotif.ANGLER, SherdMotif.SNORT}) {
-                    BlockState state = family.carved().only(Direction.NORTH, motif);
-                    Set<String> north = spritesOn(models.get(state), Direction.NORTH);
+                    BlockState state = family.carved().carvedWith(motif);
                     String expected = "minecraft:entity/decorated_pot/" + motif.getSerializedName() + "_pottery_pattern_" + family.wood().id();
-                    if (!north.contains(expected)) {
-                        found.add(state + " shows " + north + ", expected " + expected);
+                    // N40: carved all round - every side shows the motif
+                    for (Direction side : Direction.Plane.HORIZONTAL) {
+                        Set<String> sprites = spritesOn(models.get(state), side);
+                        if (!sprites.contains(expected)) {
+                            found.add(state + " " + side + " shows " + sprites + ", expected " + expected);
+                        }
                     }
                 }
             }
@@ -206,11 +208,10 @@ public final class WoodworkClientTest {
             level.setBlock(new BlockPos(12, 1, 11), lapis.slab().defaultBlockState()
                     .setValue(net.minecraft.world.level.block.SlabBlock.TYPE, net.minecraft.world.level.block.state.properties.SlabType.TOP), 3);
             level.setBlock(new BlockPos(13, 1, 11), lapis.checker().defaultBlockState(), 3);
-            // carved wood: sherd north + west, own motif east + south
+            // carved wood all round (N40): sherd motif on every side, next to it the wood's own motif on every side
             WoodBlocks.Family oak = WoodBlocks.family(WoodKind.OAK);
-            level.setBlock(new BlockPos(5, 1, 15), oak.carved().only(Direction.NORTH, SherdMotif.ANGLER)
-                    .setValue(CarvedLogBlock.EAST, CarvedLogBlock.Carving.WOOD).setValue(CarvedLogBlock.SOUTH, CarvedLogBlock.Carving.WOOD)
-                    .setValue(CarvedLogBlock.WEST, CarvedLogBlock.Carving.SHERD), 3);
+            level.setBlock(new BlockPos(5, 1, 15), oak.carved().carvedWith(SherdMotif.ANGLER), 3);
+            level.setBlock(new BlockPos(5, 1, 16), oak.carved().carvedWith(null), 3);
         });
         script.awaitPackets();
         String[][] views = {
@@ -252,9 +253,8 @@ public final class WoodworkClientTest {
     }
 
     private static BlockState carved(WoodBlocks.Family family, SherdMotif motif) {
-        // north: the sherd motif, east: the wood's own motif, west: a second sherd side (same motif), south: plain
-        return family.carved().only(Direction.NORTH, motif).setValue(CarvedLogBlock.EAST, CarvedLogBlock.Carving.WOOD)
-                .setValue(CarvedLogBlock.WEST, CarvedLogBlock.Carving.SHERD);
+        // carved all round (N40): the sherd motif on every side
+        return family.carved().carvedWith(motif);
     }
 
     private static void set(ServerLevel level, int x, int y, BlockState state) {
