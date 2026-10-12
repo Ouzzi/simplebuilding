@@ -6,7 +6,6 @@ import com.simplebuilding.modules.simpleend.world.EndBiomes;
 import java.util.Objects;
 import java.util.stream.Stream;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.QuartPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.world.level.biome.Biome;
@@ -37,8 +36,10 @@ public abstract class TheEndBiomeSourceMixin {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void simpleend$lookUp(Holder<Biome> end, Holder<Biome> highlands, Holder<Biome> midlands, Holder<Biome> islands,
                                   Holder<Biome> barrens, CallbackInfo ci) {
-        if (highlands instanceof Holder.Reference<Biome> ref && ((HolderReferenceAccessor) (Object) ref).simpleend$owner() instanceof HolderGetter<?> getter) {
-            HolderGetter<Biome> biomes = (HolderGetter<Biome>) getter;
+        // Only a real (loaded) biome registry: a bootstrap lookup (world presets on the create-world screen) would
+        // record the request as a missing holder and fail registry creation.
+        if (highlands instanceof Holder.Reference<Biome> ref && ((HolderReferenceAccessor) (Object) ref).simpleend$owner() instanceof net.minecraft.core.Registry<?> registry) {
+            net.minecraft.core.Registry<Biome> biomes = (net.minecraft.core.Registry<Biome>) registry;
             simpleend$ash = biomes.get(EndBiomes.ASH_VALLEY).orElse(null);
             simpleend$dawn = biomes.get(EndBiomes.DAWNLANDS).orElse(null);
         }
