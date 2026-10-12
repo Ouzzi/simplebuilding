@@ -102,14 +102,15 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         }
         // Weisheitserz wie Diamanterz: Spitzhacke ab Eisen.
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.IRON_ROD));
-            builder(BlockTags.NEEDS_STONE_TOOL).add(key(ModBlocks.IRON_ROD));
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.IRON_POLE));
+            builder(BlockTags.NEEDS_STONE_TOOL).add(key(ModBlocks.IRON_POLE));
             // Goldstab wie der Goldblock: Spitzhacke ab Eisen.
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.GOLD_ROD));
-            builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.GOLD_ROD));
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.GOLD_POLE));
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.DIAMOND_POLE));
+            builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.GOLD_POLE)).add(key(ModBlocks.DIAMOND_POLE));
             // Netherit- und Enderitstab wie ihr Materialblock: Spitzhacke ab Diamant.
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.NETHERITE_ROD)).add(key(ModBlocks.ENDERITE_ROD));
-            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.NETHERITE_ROD)).add(key(ModBlocks.ENDERITE_ROD));
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.NETHERITE_POLE)).add(key(ModBlocks.ENDERITE_POLE));
+            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.NETHERITE_POLE)).add(key(ModBlocks.ENDERITE_POLE));
         }
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.AUTO_SMITHER));

@@ -134,6 +134,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_material_rods_craft_back_and_smith_upward", BlockBehaviourTests::materialRodsCraftBackAndSmithUpward)
                     .build(),
+            GameTestSpec.named("block_behaviour_game_test_old_rod_ids_load_as_poles", BlockBehaviourTests::oldRodIdsLoadAsPoles)
+                    .build(),
             GameTestSpec.named("block_behaviour_game_test_reinforced_and_netherite_furnaces_smelt_faster_than_vanilla", BlockBehaviourTests::reinforcedAndNetheriteFurnacesSmeltFasterThanVanilla)
                     .maxTicks(BlockBehaviourTests.FURNACE_MAX_TICKS)
                     .build(),

@@ -64,7 +64,9 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 - **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Statusfeld im
   Inventar), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
 - **Deko/Platzieren:** abgelegte Vorlagen, Kleinteile-Häufchen, Schachbrett-Blöcke und Schachfiguren (Achtel),
-  senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-/Noten-Verstärker.
+  senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-Verstärker (spielen einen
+  Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla) / Noten-Verstärker, Metall-Stangen (Eisen bis
+  Enderit, Blitzableiter mit eigener Reichweite; früher „Rod“).
 - **Verzauberungen:** Abbau-, Bau-, Lager-/Spieler-Verzauberungen, Luftsprung.
 - **Welt/Wirtschaft:** Loot-Balance, bessere Strukturtruhen, Dorfbewohner-/Händlerangebote.
 - **Pads und Tweaks** (aus Simple Tweaks übernommen): Spawn-/Elytra-/Trank-Pads in Stufen, Server-Optionen.

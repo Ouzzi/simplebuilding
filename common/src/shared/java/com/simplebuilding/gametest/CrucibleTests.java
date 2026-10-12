@@ -243,7 +243,7 @@ public final class CrucibleTests {
         helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.IRON_BLOCK)) && build.inputs().get(0).count() == 1, "an iron block");
         helper.assertTrue(build.inputs().get(1).count() == 4 && build.inputs().get(1).items().contains(Items.HEAVY_WEIGHTED_PRESSURE_PLATE), "four walls");
         helper.assertTrue(build.inputs().get(2).count() == 2 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
-                && build.inputs().get(2).items().contains(ModItems.IRON_ROD), "two handles: iron ingot or iron rod");
+                && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "two handles: iron ingot or iron rod");
         helper.assertTrue(build.output().items().equals(java.util.List.of(item("simplelib:iron_crucible"))), "the iron crucible");
         helper.assertTrue(build.tools().contains(ModItems.IRON_SLEDGEHAMMER) && build.tools().contains(ModItems.ENDERITE_SLEDGEHAMMER), "every sledgehammer");
         helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(6)) && noteArgs(build, 1).equals(java.util.List.of(4, 2)), "notes name 6 strikes, 4 walls and 2 handles");
@@ -392,10 +392,10 @@ public final class CrucibleTests {
         ServerPlayer player = player(helper, hammer, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
         helper.assertTrue(player.getOffhandItem().is(TagKey.create(Registries.ITEM,
                 Identifier.fromNamespaceAndPath("simplelib", "crucible_walls"))), "SimpleLib wall materials loaded");
-        helper.assertTrue(new ItemStack(ModItems.IRON_ROD).is(TagKey.create(Registries.ITEM,
+        helper.assertTrue(new ItemStack(ModItems.IRON_POLE).is(TagKey.create(Registries.ITEM,
                 Identifier.fromNamespaceAndPath("simplelib", "crucible_handles"))), "SimpleBuilding handle materials loaded");
         for (int strike = 0; strike < 6; strike++) {
-            if (strike == 4) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.IRON_ROD, 2));
+            if (strike == 4) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.IRON_POLE, 2));
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(hammer));
             helper.assertTrue(hammer.getItem().useOn(click(helper, player, pos)).consumesAction(), "strike " + (strike + 1) + " not taken");
             helper.assertTrue(hammer.getDamageValue() == (strike + 1) * CrucibleCompat.HAMMER_DAMAGE_PER_STRIKE,

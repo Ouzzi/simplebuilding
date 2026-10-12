@@ -801,13 +801,14 @@ public final class TestCentreSections {
             c.place(6, 0, 0, ModBlocks.PLACED_EGG.defaultBlockState()
                     .setValue(com.simplebuilding.blocks.custom.PlacedEggBlock.EGG, com.simplebuilding.blocks.custom.PlacedEggBlock.Egg.BLUE));
         }
-        if (ModBlocks.IRON_ROD != null) {
-            // Eisen-, Gold-, Netherit- und Enderitstab aufgestellt (ziehen im Gewitter Blitze in 32, 64, 96 bzw. 128
-            // Bloecken an), nach einer Luecke hinter dem einzelnen Ei (x = 6).
-            c.place(8, 0, 0, ModBlocks.IRON_ROD);
-            c.place(9, 0, 0, ModBlocks.GOLD_ROD);
-            c.place(10, 0, 0, ModBlocks.NETHERITE_ROD);
-            c.place(11, 0, 0, ModBlocks.ENDERITE_ROD);
+        if (ModBlocks.IRON_POLE != null) {
+            // Eisen-, Gold-, Diamant-, Netherit- und Enderitstange aufgestellt (ziehen im Gewitter Blitze in 32, 64, 80,
+            // 96 bzw. 128 Bloecken an), nach einer Luecke hinter dem einzelnen Ei (x = 6).
+            c.place(8, 0, 0, ModBlocks.IRON_POLE);
+            c.place(9, 0, 0, ModBlocks.GOLD_POLE);
+            c.place(10, 0, 0, ModBlocks.DIAMOND_POLE);
+            c.place(11, 0, 0, ModBlocks.NETHERITE_POLE);
+            c.place(12, 0, 0, ModBlocks.ENDERITE_POLE);
         }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             c.place(13, -1, 0, Blocks.DIRT);
@@ -1021,9 +1022,9 @@ public final class TestCentreSections {
                             new ItemStack(rod.item()).getHoverName());
                 }
             }
-            if (ModBlocks.NETHERITE_ROD != null) {
-                hammockExhibit(c, hx, index, 3, 2, ModBlocks.NETHERITE_ROD.defaultBlockState()
-                        .setValue(BlockStateProperties.FACING, Direction.UP), ModBlocks.NETHERITE_ROD.getName());
+            if (ModBlocks.NETHERITE_POLE != null) {
+                hammockExhibit(c, hx, index, 3, 2, ModBlocks.NETHERITE_POLE.defaultBlockState()
+                        .setValue(BlockStateProperties.FACING, Direction.UP), ModBlocks.NETHERITE_POLE.getName());
             }
         }
         return c;
@@ -1036,7 +1037,7 @@ public final class TestCentreSections {
         var spot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(
                 new BlockPos(x - Math.min(0, dx), 1, z), dx, dz);
         for (BlockPos anchor : List.of(spot.anchor(), spot.otherAnchor())) {
-            c.place(anchor.getX(), 0, anchor.getZ(), post.is(ModBlocks.NETHERITE_ROD)
+            c.place(anchor.getX(), 0, anchor.getZ(), post.is(ModBlocks.NETHERITE_POLE)
                     ? Blocks.OAK_LOG.defaultBlockState() : post);
             c.place(anchor.getX(), 1, anchor.getZ(), post);
         }

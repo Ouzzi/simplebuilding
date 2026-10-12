@@ -251,8 +251,8 @@ public final class SearchTabPlacement {
                     ModItems.NETHERITE_SHULKER_SHELL, ModItems.ENDERITE_SHULKER_SHELL));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            out.add(Placement.after(REDSTONE_BLOCKS, Items.LIGHTNING_ROD.waxed().unaffected(), ModItems.IRON_ROD, ModItems.GOLD_ROD,
-                    ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.LIGHTNING_ROD.waxed().unaffected(), ModItems.IRON_POLE, ModItems.GOLD_POLE,
+                    ModItems.DIAMOND_POLE, ModItems.NETHERITE_POLE, ModItems.ENDERITE_POLE));
             out.add(Placement.after(INGREDIENTS, Items.BLAZE_ROD, ModItems.DIAMOND_ROD));
         }
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {

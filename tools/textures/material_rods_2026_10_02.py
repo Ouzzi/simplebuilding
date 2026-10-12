@@ -1,10 +1,11 @@
 """Usage: python tools/textures/material_rods_2026_10_02.py <vanilla textures dir> [preview.png]
 
-Material rods (owner 2026-10-02/03, docs/ai/PLAN-RODS-2026-10-02.md), all vanilla retextures:
-- Gold / Netherite / Enderite Rod (blocks): vanilla block/lightning_rod pixel for pixel, each copper tone swapped by
+Material poles and rods (owner 2026-10-02/03, N41: the blocks are "Poles", docs/ai/PLAN-RODS-2026-10-02.md), all vanilla
+retextures:
+- Gold / Diamond (N41) / Netherite / Enderite Pole (blocks): vanilla block/lightning_rod pixel for pixel, each copper tone swapped by
   brightness rank for a tone of the material's ramp - the same method as the Iron Rod
-  (proposals_v3_2026_10_02.iron_rod_textures). Gold uses the vanilla gold block ramp, Netherite and Enderite (blocks
-  since 2026-10-03) the ramp of vanilla item/netherite_ingot and the mod's enderite_ingot. The powered state keeps the
+  (proposals_v3_2026_10_02.iron_rod_textures). Gold uses the vanilla gold block ramp, Diamond the ramp of vanilla item/diamond, Netherite and
+  Enderite (blocks since 2026-10-03) the ramp of vanilla item/netherite_ingot and the mod's enderite_ingot. The powered state keeps the
   vanilla block/lightning_rod_on, like the Iron and Gold Rod.
 - Diamond Rod (item): vanilla item/blaze_rod pixel for pixel, each blaze tone swapped by brightness rank for a tone of
   vanilla item/diamond, sampled like the fletching parts (arrow_part_textures.ramp).
@@ -23,7 +24,7 @@ MOD = os.path.join(ROOT, 'src', 'main', 'resources', 'assets', 'simplebuilding',
 
 # gold block (vanilla block/gold_block) from light to dark, its top highlight and one mid tone left out
 GOLD = [(255, 253, 144), (255, 236, 79), (255, 216, 62), (245, 204, 39), (211, 150, 50), (204, 142, 39)]
-BLOCK_RODS = {'netherite_rod': 'item/netherite_ingot', 'enderite_rod': 'mod:item/enderite_ingot'}
+BLOCK_RODS = {'diamond_pole': 'item/diamond', 'netherite_pole': 'item/netherite_ingot', 'enderite_pole': 'mod:item/enderite_ingot'}
 RODS = {'diamond_rod': 'item/diamond'}
 
 
@@ -75,7 +76,7 @@ def rod_item(material):
 
 
 def main():
-    made = {'block/gold_rod': gold_rod()}
+    made = {'block/gold_pole': gold_rod()}
     for rod, material in BLOCK_RODS.items():
         made['block/' + rod] = rod_block(material)
     for rod, material in RODS.items():
@@ -90,10 +91,10 @@ def main():
 
 def preview(made):
     scale, cell = 8, 18
-    iron = Image.open(os.path.join(OUT, 'block', 'iron_rod.png')).convert('RGBA')
+    iron = Image.open(os.path.join(OUT, 'block', 'iron_pole.png')).convert('RGBA')
     rows = [
-        ('A Blitzableiter  B Eisen  C Gold  D Netherit  E Enderit (Bloecke)',
-         [load('block/lightning_rod'), iron, made['block/gold_rod']] + [made['block/' + rod] for rod in BLOCK_RODS]),
+        ('A Blitzableiter  B Eisen  C Gold  D Diamant  E Netherit  F Enderit (Stangen, Bloecke)',
+         [load('block/lightning_rod'), iron, made['block/gold_pole']] + [made['block/' + rod] for rod in BLOCK_RODS]),
         ('An-Zustand (alle wie Vanilla): lightning_rod_on', [load('block/lightning_rod_on')]),
         ('F Lohenrute  G Diamantstab (Item, Pfeilschaft)',
          [load('item/blaze_rod')] + [made['item/' + rod] for rod in RODS]),

@@ -3239,8 +3239,8 @@ public final class DataIntegrityTests {
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             // Material-Staebe (2026-10-02): in der Zeile der Kleinteile, wenn sie hineinpassen (Row#besides),
             // sonst wie jede andere Kategorie mit einer Trennzelle in der naechsten Zeile.
-            expected.add(CreativeTabLayout.Row.besides("rods", ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD,
-                    ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
+            expected.add(CreativeTabLayout.Row.besides("rods", ModItems.IRON_POLE, ModItems.GOLD_POLE, ModItems.DIAMOND_POLE,
+                    ModItems.NETHERITE_POLE, ModItems.ENDERITE_POLE, ModItems.DIAMOND_ROD));
         }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             expected.add(CreativeTabLayout.Row.of("silent_dandelion", Items.GOLDEN_DANDELION, ModItems.SILENT_DANDELION, ModItems.YARN_BALL));

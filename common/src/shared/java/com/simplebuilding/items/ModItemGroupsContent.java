@@ -412,11 +412,10 @@ public final class ModItemGroupsContent {
                     ModItems.OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            // Material-Staebe (2026-10-02): Eisen-, Gold-, Netherit- und Enderitstab stehen wie ein Blitzableiter
-            // (Netherit/Enderit seit 2026-10-03), der Diamantstab ist ein Item wie die Lohenrute - nach einer Luecke
-            // neben den Kleinteilen, in Material-Reihenfolge.
-            rows.add(CreativeTabLayout.Row.besides("rods", ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD,
-                    ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
+            // Stangen (2026-10-02, N41 "Pole"): Eisen-, Gold-, Diamant-, Netherit- und Enderitstange stehen wie ein
+            // Blitzableiter, dahinter der Diamantstab (Item wie die Lohenrute) - nach einer Luecke neben den Kleinteilen.
+            rows.add(CreativeTabLayout.Row.besides("rods", ModItems.IRON_POLE, ModItems.GOLD_POLE, ModItems.DIAMOND_POLE,
+                    ModItems.NETHERITE_POLE, ModItems.ENDERITE_POLE, ModItems.DIAMOND_ROD));
         }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             rows.add(CreativeTabLayout.Row.of("silent_dandelion", Items.GOLDEN_DANDELION, ModItems.SILENT_DANDELION, ModItems.YARN_BALL));

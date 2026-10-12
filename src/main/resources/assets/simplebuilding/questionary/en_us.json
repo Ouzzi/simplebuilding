@@ -530,26 +530,37 @@
       "Easter egg: right-click stone, deepslate, tuff, netherrack, end stone and the like with it, and there is a tiny chance, 1 in 2000, that the block turns into an ore. The core is not used up."
     ]
   },
-  "iron_rod": {
+  "iron_pole": {
     "lore": [
-      "A rod of iron, thin, straight, and eager to be struck by something."
+      "A pole of iron, thin, straight, and eager to be struck by something."
     ],
     "use": [
-      "Three iron ingots stacked give one iron rod, a lightning rod of iron. Part of the Attractor recipe."
+      "Three iron ingots stacked give one iron pole, a lightning rod of iron that attracts lightning within 32 blocks. Part of the Attractor recipe."
     ],
     "secret": [
-      "The Attractor is built around an iron core, an iron rod, redstone and lapis."
+      "The Attractor is built around an iron core, an iron pole, redstone and lapis."
     ]
   },
-  "gold_rod": {
+  "gold_pole": {
     "lore": [
-      "A rod of gold: too soft for work, too shining to hide."
+      "A pole of gold: too soft for work, too shining to hide."
     ],
     "use": [
-      "Three gold ingots stacked give one gold rod, a lightning rod of gold."
+      "Three gold ingots stacked give one gold pole, a lightning rod of gold (64 blocks)."
     ],
     "secret": [
-      "Rods in this mod come in tiers: iron and gold from ingots, diamond from diamonds, then Netherite and Enderite from the smithing table."
+      "Poles in this mod come in tiers: iron and gold from ingots, diamond from diamonds, then Netherite and Enderite from the smithing table."
+    ]
+  },
+  "diamond_pole": {
+    "lore": [
+      "A pole of diamond, too precious to stand in a storm - which is exactly where it wants to be."
+    ],
+    "use": [
+      "Three diamonds stacked give one diamond pole, a lightning rod of diamond (80 blocks); in the crafting grid it gives the three diamonds back. At the smithing table it becomes the Netherite Pole."
+    ],
+    "secret": [
+      "Do not confuse it with the Diamond Rod: that one is made from two diamonds and is an arrow shaft."
     ]
   },
   "diamond_rod": {
@@ -557,29 +568,29 @@
       "A rod of diamond, as hard as an argument and as clear as a lie."
     ],
     "use": [
-      "Three diamonds stacked give one diamond rod; one diamond rod in the crafting grid gives the diamonds back. It cannot be placed. At the smithing table it becomes the Netherite Rod."
+      "Two diamonds stacked give one diamond rod; one diamond rod in the crafting grid gives the two diamonds back. It cannot be placed."
     ],
     "secret": [
       "At the fletching table it is an arrow shaft: the arrow pierces one more target."
     ]
   },
-  "netherite_rod": {
+  "netherite_pole": {
     "lore": [
-      "A rod that has stood in the fire and does not mind the next one."
+      "A pole that has stood in the fire and does not mind the next one."
     ],
     "use": [
-      "Smithing table: Netherite Upgrade, Diamond Rod and Netherite Ingot give the Netherite Rod, a lightning rod made of netherite."
+      "Smithing table: Netherite Upgrade, Diamond Pole and Netherite Ingot give the Netherite Pole, a lightning rod made of netherite (96 blocks)."
     ],
     "secret": [
-      "It is the base for the Enderite Rod, one tier up."
+      "It is the base for the Enderite Pole, one tier up."
     ]
   },
-  "enderite_rod": {
+  "enderite_pole": {
     "lore": [
-      "A rod that remembers the sky and draws lightning like a promise."
+      "A pole that remembers the sky and draws lightning like a promise."
     ],
     "use": [
-      "Smithing table: Enderite Upgrade, Netherite Rod and Enderite Ingot give the Enderite Rod, a lightning rod made of enderite."
+      "Smithing table: Enderite Upgrade, Netherite Pole and Enderite Ingot give the Enderite Pole, a lightning rod made of enderite (128 blocks)."
     ],
     "secret": [
       "Being enderite, it is fire resistant, floats on lava and is safe from the void if it is dropped."

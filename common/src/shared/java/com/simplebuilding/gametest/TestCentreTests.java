@@ -666,7 +666,7 @@ public final class TestCentreTests {
                 continue;
             }
             metalRods.add(entry.getValue().getBlock());
-            if (entry.getValue().is(ModBlocks.IRON_ROD)) {
+            if (entry.getValue().is(ModBlocks.IRON_POLE)) {
                 rods++;
             }
             for (Map.Entry<BlockPos, BlockState> other : blocks.entrySet()) {
@@ -677,10 +677,10 @@ public final class TestCentreTests {
                 }
             }
         }
-        if (ModBlocks.IRON_ROD != null && rods == 0) {
+        if (ModBlocks.IRON_POLE != null && rods == 0) {
             problems.add("no iron rod stands anywhere");
         }
-        if (ModBlocks.IRON_ROD != null && !metalRods.containsAll(List.of(ModBlocks.GOLD_ROD, ModBlocks.NETHERITE_ROD, ModBlocks.ENDERITE_ROD))) {
+        if (ModBlocks.IRON_POLE != null && !metalRods.containsAll(List.of(ModBlocks.GOLD_POLE, ModBlocks.DIAMOND_POLE, ModBlocks.NETHERITE_POLE, ModBlocks.ENDERITE_POLE))) {
             problems.add("not every metal rod stands in the test centre: " + metalRods);
         }
         if (commands(plan).stream().noneMatch(command -> command.command().equals("weather thunder"))) {
@@ -749,7 +749,7 @@ public final class TestCentreTests {
             for (BlockPos anchor : List.of(spot.anchor(), spot.otherAnchor())) {
                 BlockState post = blocks.get(anchor);
                 anchors.add(post);
-                helper.assertTrue(post != null && (post.is(ModBlocks.NETHERITE_ROD)
+                helper.assertTrue(post != null && (post.is(ModBlocks.NETHERITE_POLE)
                                 ? Blocks.OAK_LOG.defaultBlockState() : post).equals(blocks.get(anchor.below())),
                         "exhibit post is not two blocks tall: " + anchor);
                 cells.add(anchor);
@@ -774,7 +774,7 @@ public final class TestCentreTests {
         helper.assertTrue(colors.containsAll(ModBlocks.HAMMOCKS), "not all hammock colors are displayed");
         helper.assertTrue(anchors.contains(Blocks.OAK_FENCE.defaultBlockState())
                         && anchors.contains(Blocks.OAK_LOG.defaultBlockState())
-                        && anchors.contains(ModBlocks.NETHERITE_ROD.defaultBlockState()
+                        && anchors.contains(ModBlocks.NETHERITE_POLE.defaultBlockState()
                                 .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING, Direction.UP)),
                 "missing fence, log or netherite anchor");
         for (var rod : com.simplebuilding.blocks.custom.StandingRodBlock.Rod.values()) {

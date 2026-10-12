@@ -410,7 +410,7 @@ public final class TestCentreLayout {
         out.add(new TestCentreSections.Control("weather clear", TcText.t("controls.clear", "Clear weather"), Component.empty()));
         out.add(new TestCentreSections.Control("weather rain", TcText.t("controls.rain", "Rain"), Component.empty()));
         out.add(new TestCentreSections.Control("weather thunder", TcText.t("controls.thunder", "Thunder"),
-                TcText.t("controls.thunder.sub", "iron rod test")));
+                TcText.t("controls.thunder.sub", "iron pole test")));
         out.add(new TestCentreSections.Control("gamemode creative @p", TcText.t("controls.creative", "Creative"), Component.empty()));
         out.add(new TestCentreSections.Control("gamemode survival @p", TcText.t("controls.survival", "Survival"), Component.empty()));
         BlockPos spawn = anchors.getOrDefault("mob_spawn", origin);

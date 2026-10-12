@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
  * The iron crucible built in the world (owner addition 8 + answer 7 B): strike an iron block with the
  * off-hand material, one strike per second. Strikes 1-4 each use a heavy weighted pressure plate
  * (the four walls, tag {@code simplelib:crucible_walls}), strikes 5-6 each a handle (tag
- * {@code simplelib:crucible_handles}: iron ingot; SimpleBuilding adds its iron rod). This block is
+ * {@code simplelib:crucible_handles}: iron ingot; SimpleBuilding adds its iron pole). This block is
  * the half-built blank; its loot table returns the iron block and every part used so far.
  * Without SimpleBuilding the tool is an axe (principle 5a); a partner with its own way switches the
  * axe way off through {@link SimpleLibApi#disableAxeWays()} and calls {@link #strike} itself.
