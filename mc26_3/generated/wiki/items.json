@@ -2,6 +2,7 @@
   "blocks": [
     "simplebuilding:acacia_cauldron",
     "simplebuilding:acacia_crate",
+    "simplebuilding:acacia_log_octet",
     "simplebuilding:acacia_octet",
     "simplebuilding:acacia_sheet",
     "simplebuilding:andesite_octet",
@@ -19,6 +20,7 @@
     "simplebuilding:astralit_brick_wall",
     "simplebuilding:astralit_bricks",
     "simplebuilding:astralit_bricks_octet",
+    "simplebuilding:astralit_lamp",
     "simplebuilding:astralit_ore",
     "simplebuilding:astralit_pillar",
     "simplebuilding:astralit_quartz_checker",
@@ -35,10 +37,12 @@
     "simplebuilding:bamboo_sheet",
     "simplebuilding:birch_cauldron",
     "simplebuilding:birch_crate",
+    "simplebuilding:birch_log_octet",
     "simplebuilding:birch_octet",
     "simplebuilding:birch_sheet",
     "simplebuilding:black_concrete_octet",
     "simplebuilding:black_hammock",
+    "simplebuilding:black_terracotta_octet",
     "simplebuilding:black_wool_octet",
     "simplebuilding:blackstone_block_octet",
     "simplebuilding:blackstone_quartz_checker",
@@ -49,16 +53,20 @@
     "simplebuilding:blazing_obsidian",
     "simplebuilding:blue_concrete_octet",
     "simplebuilding:blue_hammock",
+    "simplebuilding:blue_terracotta_octet",
     "simplebuilding:blue_wool_octet",
     "simplebuilding:bogged_skull",
     "simplebuilding:bogged_wall_skull",
+    "simplebuilding:bone_block_octet",
     "simplebuilding:breeze_head",
     "simplebuilding:breeze_wall_head",
     "simplebuilding:bricks_octet",
     "simplebuilding:bridge_redstone",
     "simplebuilding:brown_concrete_octet",
     "simplebuilding:brown_hammock",
+    "simplebuilding:brown_terracotta_octet",
     "simplebuilding:brown_wool_octet",
+    "simplebuilding:calcite_octet",
     "simplebuilding:carved_acacia_log",
     "simplebuilding:carved_bamboo_block",
     "simplebuilding:carved_birch_log",
@@ -76,6 +84,7 @@
     "simplebuilding:checker_octet",
     "simplebuilding:cherry_cauldron",
     "simplebuilding:cherry_crate",
+    "simplebuilding:cherry_log_octet",
     "simplebuilding:cherry_octet",
     "simplebuilding:cherry_sheet",
     "simplebuilding:chess_pieces",
@@ -87,9 +96,11 @@
     "simplebuilding:chunk_loader",
     "simplebuilding:cinnabar_bricks_octet",
     "simplebuilding:cinnabar_octet",
+    "simplebuilding:coal_block_octet",
     "simplebuilding:cobbled_deepslate_octet",
     "simplebuilding:cobblestone_octet",
     "simplebuilding:construction_light",
+    "simplebuilding:copper_block_octet",
     "simplebuilding:copper_fire",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
@@ -100,20 +111,24 @@
     "simplebuilding:crimson_crate",
     "simplebuilding:crimson_octet",
     "simplebuilding:crimson_sheet",
+    "simplebuilding:crimson_stem_octet",
     "simplebuilding:crystalline_astralit",
     "simplebuilding:crystalline_nihilith",
     "simplebuilding:cut_copper_octet",
     "simplebuilding:cyan_concrete_octet",
     "simplebuilding:cyan_hammock",
+    "simplebuilding:cyan_terracotta_octet",
     "simplebuilding:cyan_wool_octet",
     "simplebuilding:dark_oak_cauldron",
     "simplebuilding:dark_oak_crate",
+    "simplebuilding:dark_oak_log_octet",
     "simplebuilding:dark_oak_octet",
     "simplebuilding:dark_oak_sheet",
     "simplebuilding:dark_prismarine_octet",
     "simplebuilding:deepslate_bricks_octet",
     "simplebuilding:deepslate_sage_ore",
     "simplebuilding:deepslate_tiles_octet",
+    "simplebuilding:diamond_block_octet",
     "simplebuilding:diamond_pole",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:dimensional_scrap",
@@ -122,8 +137,10 @@
     "simplebuilding:drowned_head",
     "simplebuilding:drowned_wall_head",
     "simplebuilding:elytra_pad",
+    "simplebuilding:emerald_block_octet",
     "simplebuilding:end_dimensional_scrap",
     "simplebuilding:end_stone_bricks_octet",
+    "simplebuilding:end_stone_octet",
     "simplebuilding:ender_quartz_block",
     "simplebuilding:ender_quartz_block_octet",
     "simplebuilding:ender_quartz_brick_slab",
@@ -159,6 +176,7 @@
     "simplebuilding:enderite_trapped_chest",
     "simplebuilding:enderman_head",
     "simplebuilding:enderman_wall_head",
+    "simplebuilding:exposed_copper_octet",
     "simplebuilding:exposed_copper_pressure_plate",
     "simplebuilding:exposed_cut_copper_octet",
     "simplebuilding:exposed_trapped_copper_chest",
@@ -166,15 +184,18 @@
     "simplebuilding:flypad",
     "simplebuilding:frosted_nihilith",
     "simplebuilding:goat_horn_holder",
+    "simplebuilding:gold_block_octet",
     "simplebuilding:gold_pole",
     "simplebuilding:granite_octet",
     "simplebuilding:grass_slab",
     "simplebuilding:gravel_slab",
     "simplebuilding:gray_concrete_octet",
     "simplebuilding:gray_hammock",
+    "simplebuilding:gray_terracotta_octet",
     "simplebuilding:gray_wool_octet",
     "simplebuilding:green_concrete_octet",
     "simplebuilding:green_hammock",
+    "simplebuilding:green_terracotta_octet",
     "simplebuilding:green_wool_octet",
     "simplebuilding:hammock_rope",
     "simplebuilding:hollow_acacia_log",
@@ -204,12 +225,15 @@
     "simplebuilding:husk_head",
     "simplebuilding:husk_wall_head",
     "simplebuilding:infused_potion_pad",
+    "simplebuilding:iron_block_octet",
     "simplebuilding:iron_pole",
     "simplebuilding:jukebox_amplifier",
     "simplebuilding:jungle_cauldron",
     "simplebuilding:jungle_crate",
+    "simplebuilding:jungle_log_octet",
     "simplebuilding:jungle_octet",
     "simplebuilding:jungle_sheet",
+    "simplebuilding:lapis_block_octet",
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:lapis_quartz_checker_slab",
     "simplebuilding:lapis_quartz_checker_stairs",
@@ -219,18 +243,23 @@
     "simplebuilding:levitating_sand",
     "simplebuilding:light_blue_concrete_octet",
     "simplebuilding:light_blue_hammock",
+    "simplebuilding:light_blue_terracotta_octet",
     "simplebuilding:light_blue_wool_octet",
     "simplebuilding:light_gray_concrete_octet",
     "simplebuilding:light_gray_hammock",
+    "simplebuilding:light_gray_terracotta_octet",
     "simplebuilding:light_gray_wool_octet",
     "simplebuilding:lime_concrete_octet",
     "simplebuilding:lime_hammock",
+    "simplebuilding:lime_terracotta_octet",
     "simplebuilding:lime_wool_octet",
     "simplebuilding:magenta_concrete_octet",
     "simplebuilding:magenta_hammock",
+    "simplebuilding:magenta_terracotta_octet",
     "simplebuilding:magenta_wool_octet",
     "simplebuilding:mangrove_cauldron",
     "simplebuilding:mangrove_crate",
+    "simplebuilding:mangrove_log_octet",
     "simplebuilding:mangrove_octet",
     "simplebuilding:mangrove_sheet",
     "simplebuilding:melon_octet",
@@ -245,6 +274,7 @@
     "simplebuilding:nether_dimensional_scrap",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
+    "simplebuilding:netherite_block_octet",
     "simplebuilding:netherite_chest",
     "simplebuilding:netherite_chunk_loader",
     "simplebuilding:netherite_elytra_pad",
@@ -259,6 +289,7 @@
     "simplebuilding:netherite_shulker_box",
     "simplebuilding:netherite_smoker",
     "simplebuilding:netherite_trapped_chest",
+    "simplebuilding:netherrack_octet",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_piston",
     "simplebuilding:nihil_purpur_block",
@@ -271,6 +302,7 @@
     "simplebuilding:nihilith_brick_wall",
     "simplebuilding:nihilith_bricks",
     "simplebuilding:nihilith_bricks_octet",
+    "simplebuilding:nihilith_lamp",
     "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
@@ -279,20 +311,26 @@
     "simplebuilding:note_amplifier",
     "simplebuilding:oak_cauldron",
     "simplebuilding:oak_crate",
+    "simplebuilding:oak_log_octet",
     "simplebuilding:oak_octet",
     "simplebuilding:oak_sheet",
+    "simplebuilding:obsidian_octet",
     "simplebuilding:orange_concrete_octet",
     "simplebuilding:orange_hammock",
+    "simplebuilding:orange_terracotta_octet",
     "simplebuilding:orange_wool_octet",
+    "simplebuilding:oxidized_copper_octet",
     "simplebuilding:oxidized_copper_pressure_plate",
     "simplebuilding:oxidized_cut_copper_octet",
     "simplebuilding:oxidized_trapped_copper_chest",
     "simplebuilding:pale_oak_cauldron",
     "simplebuilding:pale_oak_crate",
+    "simplebuilding:pale_oak_log_octet",
     "simplebuilding:pale_oak_octet",
     "simplebuilding:pale_oak_sheet",
     "simplebuilding:pink_concrete_octet",
     "simplebuilding:pink_hammock",
+    "simplebuilding:pink_terracotta_octet",
     "simplebuilding:pink_wool_octet",
     "simplebuilding:placed_blueprint",
     "simplebuilding:placed_bundle",
@@ -333,6 +371,7 @@
     "simplebuilding:polished_nihilith_wall",
     "simplebuilding:polished_sulfur_octet",
     "simplebuilding:polished_tuff_octet",
+    "simplebuilding:poplar_log_octet",
     "simplebuilding:poplar_octet",
     "simplebuilding:potion_pad",
     "simplebuilding:potted_silent_dandelion",
@@ -340,6 +379,7 @@
     "simplebuilding:prismarine_octet",
     "simplebuilding:purple_concrete_octet",
     "simplebuilding:purple_hammock",
+    "simplebuilding:purple_terracotta_octet",
     "simplebuilding:purple_wool_octet",
     "simplebuilding:purpur_block_octet",
     "simplebuilding:purpur_quartz_checker",
@@ -353,6 +393,7 @@
     "simplebuilding:red_nether_brick_quartz_checker_stairs",
     "simplebuilding:red_nether_bricks_octet",
     "simplebuilding:red_sandstone_octet",
+    "simplebuilding:red_terracotta_octet",
     "simplebuilding:red_wool_octet",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
@@ -384,6 +425,7 @@
     "simplebuilding:silverfish_wall_head",
     "simplebuilding:slime_head",
     "simplebuilding:slime_wall_head",
+    "simplebuilding:smooth_basalt_octet",
     "simplebuilding:smooth_quartz_octet",
     "simplebuilding:smooth_red_sandstone_octet",
     "simplebuilding:smooth_sandstone_octet",
@@ -396,6 +438,7 @@
     "simplebuilding:spider_wall_head",
     "simplebuilding:spruce_cauldron",
     "simplebuilding:spruce_crate",
+    "simplebuilding:spruce_log_octet",
     "simplebuilding:spruce_octet",
     "simplebuilding:spruce_sheet",
     "simplebuilding:standing_rod",
@@ -406,34 +449,47 @@
     "simplebuilding:stray_skull",
     "simplebuilding:stray_wall_skull",
     "simplebuilding:stripped_acacia_cauldron",
+    "simplebuilding:stripped_acacia_log_octet",
     "simplebuilding:stripped_acacia_sheet",
     "simplebuilding:stripped_bamboo_cauldron",
     "simplebuilding:stripped_bamboo_sheet",
     "simplebuilding:stripped_birch_cauldron",
+    "simplebuilding:stripped_birch_log_octet",
     "simplebuilding:stripped_birch_sheet",
     "simplebuilding:stripped_cherry_cauldron",
+    "simplebuilding:stripped_cherry_log_octet",
     "simplebuilding:stripped_cherry_sheet",
     "simplebuilding:stripped_crimson_cauldron",
     "simplebuilding:stripped_crimson_sheet",
+    "simplebuilding:stripped_crimson_stem_octet",
     "simplebuilding:stripped_dark_oak_cauldron",
+    "simplebuilding:stripped_dark_oak_log_octet",
     "simplebuilding:stripped_dark_oak_sheet",
     "simplebuilding:stripped_jungle_cauldron",
+    "simplebuilding:stripped_jungle_log_octet",
     "simplebuilding:stripped_jungle_sheet",
     "simplebuilding:stripped_mangrove_cauldron",
+    "simplebuilding:stripped_mangrove_log_octet",
     "simplebuilding:stripped_mangrove_sheet",
     "simplebuilding:stripped_oak_cauldron",
+    "simplebuilding:stripped_oak_log_octet",
     "simplebuilding:stripped_oak_sheet",
     "simplebuilding:stripped_pale_oak_cauldron",
+    "simplebuilding:stripped_pale_oak_log_octet",
     "simplebuilding:stripped_pale_oak_sheet",
+    "simplebuilding:stripped_poplar_log_octet",
     "simplebuilding:stripped_spruce_cauldron",
+    "simplebuilding:stripped_spruce_log_octet",
     "simplebuilding:stripped_spruce_sheet",
     "simplebuilding:stripped_warped_cauldron",
     "simplebuilding:stripped_warped_sheet",
+    "simplebuilding:stripped_warped_stem_octet",
     "simplebuilding:sulfur_bricks_octet",
     "simplebuilding:sulfur_fire",
     "simplebuilding:sulfur_octet",
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
+    "simplebuilding:terracotta_octet",
     "simplebuilding:trapped_copper_chest",
     "simplebuilding:tuff_bricks_octet",
     "simplebuilding:tuff_octet",
@@ -445,6 +501,7 @@
     "simplebuilding:warped_crate",
     "simplebuilding:warped_octet",
     "simplebuilding:warped_sheet",
+    "simplebuilding:warped_stem_octet",
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_cut_copper_octet",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
@@ -457,14 +514,17 @@
     "simplebuilding:waxed_weathered_copper_pressure_plate",
     "simplebuilding:waxed_weathered_cut_copper_octet",
     "simplebuilding:waxed_weathered_trapped_copper_chest",
+    "simplebuilding:weathered_copper_octet",
     "simplebuilding:weathered_copper_pressure_plate",
     "simplebuilding:weathered_cut_copper_octet",
     "simplebuilding:weathered_trapped_copper_chest",
     "simplebuilding:white_concrete_octet",
     "simplebuilding:white_hammock",
+    "simplebuilding:white_terracotta_octet",
     "simplebuilding:white_wool_octet",
     "simplebuilding:yellow_concrete_octet",
     "simplebuilding:yellow_hammock",
+    "simplebuilding:yellow_terracotta_octet",
     "simplebuilding:yellow_wool_octet"
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
@@ -474,6 +534,10 @@
     },
     {
       "id": "simplebuilding:acacia_crate"
+    },
+    {
+      "id": "simplebuilding:acacia_log_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:acacia_octet",
@@ -586,6 +650,9 @@
       "id": "simplebuilding:astralit_dust"
     },
     {
+      "id": "simplebuilding:astralit_lamp"
+    },
+    {
       "id": "simplebuilding:astralit_octet",
       "maxStackSize": 99
     },
@@ -644,6 +711,10 @@
       "id": "simplebuilding:birch_crate"
     },
     {
+      "id": "simplebuilding:birch_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:birch_octet",
       "maxStackSize": 99
     },
@@ -657,6 +728,10 @@
     {
       "id": "simplebuilding:black_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:black_terracotta_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:black_wool_octet",
@@ -745,6 +820,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:blue_terracotta_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:blue_wool_octet",
       "maxStackSize": 99
     },
@@ -754,6 +833,10 @@
     },
     {
       "id": "simplebuilding:bogged_skull"
+    },
+    {
+      "id": "simplebuilding:bone_block_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:breeze_head"
@@ -786,7 +869,15 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:brown_terracotta_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:brown_wool_octet",
+      "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:calcite_octet",
       "maxStackSize": 99
     },
     {
@@ -847,6 +938,10 @@
       "id": "simplebuilding:cherry_crate"
     },
     {
+      "id": "simplebuilding:cherry_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:cherry_octet",
       "maxStackSize": 99
     },
@@ -893,6 +988,10 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:coal_block_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:cobbled_deepslate_octet",
       "maxStackSize": 99
     },
@@ -907,6 +1006,10 @@
     },
     {
       "id": "simplebuilding:construction_light"
+    },
+    {
+      "id": "simplebuilding:copper_block_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:copper_bucket",
@@ -1016,6 +1119,10 @@
       "id": "simplebuilding:crimson_sheet"
     },
     {
+      "id": "simplebuilding:crimson_stem_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:crystalline_astralit"
     },
     {
@@ -1034,6 +1141,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:cyan_terracotta_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:cyan_wool_octet",
       "maxStackSize": 99
     },
@@ -1042,6 +1153,10 @@
     },
     {
       "id": "simplebuilding:dark_oak_crate"
+    },
+    {
+      "id": "simplebuilding:dark_oak_log_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:dark_oak_octet",
@@ -1070,6 +1185,10 @@
       "enchantability": 15,
       "id": "simplebuilding:detector",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:diamond_block_octet",
+      "maxStackSize": 99
     },
     {
       "durability": 12488,
@@ -1142,6 +1261,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:emerald_block_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:emitting_trim_template"
     },
     {
@@ -1155,6 +1278,10 @@
     },
     {
       "id": "simplebuilding:end_stone_bricks_octet",
+      "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:end_stone_octet",
       "maxStackSize": 99
     },
     {
@@ -1515,6 +1642,10 @@
       "id": "simplebuilding:enderman_head"
     },
     {
+      "id": "simplebuilding:exposed_copper_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:exposed_copper_pressure_plate"
     },
     {
@@ -1547,6 +1678,10 @@
     },
     {
       "id": "simplebuilding:glowing_trim_template"
+    },
+    {
+      "id": "simplebuilding:gold_block_octet",
+      "maxStackSize": 99
     },
     {
       "durability": 256,
@@ -1605,6 +1740,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:gray_terracotta_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:gray_wool_octet",
       "maxStackSize": 99
     },
@@ -1615,6 +1754,10 @@
     {
       "id": "simplebuilding:green_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:green_terracotta_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:green_wool_octet",
@@ -1707,6 +1850,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:iron_block_octet",
+      "maxStackSize": 99
+    },
+    {
       "durability": 2000,
       "enchantability": 14,
       "id": "simplebuilding:iron_building_wand",
@@ -1754,11 +1901,19 @@
       "id": "simplebuilding:jungle_crate"
     },
     {
+      "id": "simplebuilding:jungle_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:jungle_octet",
       "maxStackSize": 99
     },
     {
       "id": "simplebuilding:jungle_sheet"
+    },
+    {
+      "id": "simplebuilding:lapis_block_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:lapis_chess_bishop",
@@ -1849,6 +2004,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:light_blue_terracotta_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:light_blue_wool_octet",
       "maxStackSize": 99
     },
@@ -1859,6 +2018,10 @@
     {
       "id": "simplebuilding:light_gray_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:light_gray_terracotta_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:light_gray_wool_octet",
@@ -1873,6 +2036,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:lime_terracotta_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:lime_wool_octet",
       "maxStackSize": 99
     },
@@ -1883,6 +2050,10 @@
     {
       "id": "simplebuilding:magenta_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:magenta_terracotta_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:magenta_wool_octet",
@@ -1897,6 +2068,10 @@
     },
     {
       "id": "simplebuilding:mangrove_crate"
+    },
+    {
+      "id": "simplebuilding:mangrove_log_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:mangrove_octet",
@@ -2035,6 +2210,10 @@
       "id": "simplebuilding:netherite_blast_furnace"
     },
     {
+      "id": "simplebuilding:netherite_block_octet",
+      "maxStackSize": 99
+    },
+    {
       "durability": 16248,
       "enchantability": 15,
       "id": "simplebuilding:netherite_building_wand",
@@ -2153,6 +2332,10 @@
       "id": "simplebuilding:netherite_trapped_chest"
     },
     {
+      "id": "simplebuilding:netherrack_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:nihil_end_stone"
     },
     {
@@ -2238,6 +2421,9 @@
       "maxStackSize": 16
     },
     {
+      "id": "simplebuilding:nihilith_lamp"
+    },
+    {
       "id": "simplebuilding:nihilith_octet",
       "maxStackSize": 99
     },
@@ -2269,6 +2455,10 @@
       "id": "simplebuilding:oak_crate"
     },
     {
+      "id": "simplebuilding:oak_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:oak_octet",
       "maxStackSize": 99
     },
@@ -2277,6 +2467,10 @@
     },
     {
       "id": "simplebuilding:obsidian_chip"
+    },
+    {
+      "id": "simplebuilding:obsidian_octet",
+      "maxStackSize": 99
     },
     {
       "durability": 128,
@@ -2389,7 +2583,15 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:orange_terracotta_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:orange_wool_octet",
+      "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:oxidized_copper_octet",
       "maxStackSize": 99
     },
     {
@@ -2413,6 +2615,10 @@
       "id": "simplebuilding:pale_oak_crate"
     },
     {
+      "id": "simplebuilding:pale_oak_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:pale_oak_octet",
       "maxStackSize": 99
     },
@@ -2426,6 +2632,10 @@
     {
       "id": "simplebuilding:pink_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:pink_terracotta_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:pink_wool_octet",
@@ -2702,6 +2912,10 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:poplar_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:poplar_octet",
       "maxStackSize": 99
     },
@@ -2727,6 +2941,10 @@
     {
       "id": "simplebuilding:purple_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:purple_terracotta_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:purple_wool_octet",
@@ -2943,6 +3161,10 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:red_terracotta_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:red_wool_octet",
       "maxStackSize": 99
     },
@@ -3131,6 +3353,10 @@
       "maxStackSize": 16
     },
     {
+      "id": "simplebuilding:smooth_basalt_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:smooth_quartz_octet",
       "maxStackSize": 99
     },
@@ -3174,6 +3400,10 @@
     },
     {
       "id": "simplebuilding:spruce_crate"
+    },
+    {
+      "id": "simplebuilding:spruce_log_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:spruce_octet",
@@ -3235,6 +3465,10 @@
       "id": "simplebuilding:stripped_acacia_cauldron"
     },
     {
+      "id": "simplebuilding:stripped_acacia_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:stripped_acacia_sheet"
     },
     {
@@ -3247,10 +3481,18 @@
       "id": "simplebuilding:stripped_birch_cauldron"
     },
     {
+      "id": "simplebuilding:stripped_birch_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:stripped_birch_sheet"
     },
     {
       "id": "simplebuilding:stripped_cherry_cauldron"
+    },
+    {
+      "id": "simplebuilding:stripped_cherry_log_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:stripped_cherry_sheet"
@@ -3262,7 +3504,15 @@
       "id": "simplebuilding:stripped_crimson_sheet"
     },
     {
+      "id": "simplebuilding:stripped_crimson_stem_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:stripped_dark_oak_cauldron"
+    },
+    {
+      "id": "simplebuilding:stripped_dark_oak_log_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:stripped_dark_oak_sheet"
@@ -3271,10 +3521,18 @@
       "id": "simplebuilding:stripped_jungle_cauldron"
     },
     {
+      "id": "simplebuilding:stripped_jungle_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:stripped_jungle_sheet"
     },
     {
       "id": "simplebuilding:stripped_mangrove_cauldron"
+    },
+    {
+      "id": "simplebuilding:stripped_mangrove_log_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:stripped_mangrove_sheet"
@@ -3283,16 +3541,32 @@
       "id": "simplebuilding:stripped_oak_cauldron"
     },
     {
+      "id": "simplebuilding:stripped_oak_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:stripped_oak_sheet"
     },
     {
       "id": "simplebuilding:stripped_pale_oak_cauldron"
     },
     {
+      "id": "simplebuilding:stripped_pale_oak_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:stripped_pale_oak_sheet"
     },
     {
+      "id": "simplebuilding:stripped_poplar_log_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:stripped_spruce_cauldron"
+    },
+    {
+      "id": "simplebuilding:stripped_spruce_log_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:stripped_spruce_sheet"
@@ -3302,6 +3576,10 @@
     },
     {
       "id": "simplebuilding:stripped_warped_sheet"
+    },
+    {
+      "id": "simplebuilding:stripped_warped_stem_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:sulfur_bricks_octet",
@@ -3316,6 +3594,10 @@
     },
     {
       "id": "simplebuilding:suspended_sand"
+    },
+    {
+      "id": "simplebuilding:terracotta_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:training_dummy",
@@ -3365,6 +3647,10 @@
       "id": "simplebuilding:warped_sheet"
     },
     {
+      "id": "simplebuilding:warped_stem_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:waxed_copper_pressure_plate"
     },
     {
@@ -3405,6 +3691,10 @@
       "id": "simplebuilding:waxed_weathered_trapped_copper_chest"
     },
     {
+      "id": "simplebuilding:weathered_copper_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:weathered_copper_pressure_plate"
     },
     {
@@ -3423,6 +3713,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:white_terracotta_octet",
+      "maxStackSize": 99
+    },
+    {
       "id": "simplebuilding:white_wool_octet",
       "maxStackSize": 99
     },
@@ -3436,6 +3730,10 @@
     {
       "id": "simplebuilding:yellow_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:yellow_terracotta_octet",
+      "maxStackSize": 99
     },
     {
       "id": "simplebuilding:yellow_wool_octet",

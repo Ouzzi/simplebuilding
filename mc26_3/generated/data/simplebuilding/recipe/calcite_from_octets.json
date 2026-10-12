@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:calcite_octet",
+    "simplebuilding:calcite_octet",
+    "simplebuilding:calcite_octet",
+    "simplebuilding:calcite_octet",
+    "simplebuilding:calcite_octet",
+    "simplebuilding:calcite_octet",
+    "simplebuilding:calcite_octet",
+    "simplebuilding:calcite_octet"
+  ],
+  "result": {
+    "id": "minecraft:calcite"
+  }
+}
