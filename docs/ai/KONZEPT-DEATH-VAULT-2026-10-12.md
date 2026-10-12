@@ -152,3 +152,4 @@ Alle Wege nutzen **dieselbe** serverseitige Funktion `DeathVault.redeem(player)`
 - Rückgabe mit Haltbarkeit min(aktuell, 50) wie Soulbound.
 - Config-Schalter zum Abschalten.
 - Notiz: Falls je eine eigene Grabstein-Mod im Modpack geplant wird, wäre Rückgabe einfacher (Items aus dem Grab direkt ins Inventar). Derzeit keine geplant.
+- Umsetzung jetzt in **Simple Tools** (Besitzer 12.10.), gemeinsame Todes-Buchführung mit Soulbound.

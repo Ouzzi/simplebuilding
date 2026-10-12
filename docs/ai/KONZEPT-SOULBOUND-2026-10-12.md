@@ -138,4 +138,5 @@ Vorschlag: **Stufe 1 = Standard, keine Stufen im Spiel** (nur 1, wie Silk Touch)
 - Wirkt bei jedem Tod, auch durch Spieler.
 - Schleifstein entfernt es.
 - Keine feste Obergrenze je Tod; Begrenzung über Seltenheit (alle Items soulbound erst nach vielen Spielstunden).
-- Hardcore: ja (Antwort unvollständig: „ja aber nur …“ – nachfragen).
+- Hardcore: ja, wirkt normal.
+- Bezug: fahrender Händler (~5 % je Besuch, 24–32 Diamanten) + sehr selten in End-City-Truhen.
