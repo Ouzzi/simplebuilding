@@ -94,7 +94,7 @@
           "1x1x1 and it stays that size: to shoot it only opens a thin slit and a violet eye lights up. Closed it takes no damage at all (hits clack like stone); open it takes damage normally. 120 health (4x a Shulker), 10 XP.",
           "It never teleports. Only pistons (and sticky pistons) can push it away - pushing the guards aside is a legitimate way past them.",
           "Every End gateway gets exactly four, in the open cells beside the portal block at portal height, standing on the bedrock below: the dragon-fight ring, the exit gateways on the outer islands and worldgen gateways. Server config simplemobs-server.json: shellkerGatewayGuards.",
-          "Its bullets home in like Shulker bullets but fly 1.5x faster and give High Gravity (10 s) instead of Levitation: jumps, Levitation and Elytra lift keep only 10 %, gliding sinks fast.",
+          "Its bullets home in like Shulker bullets but fly 1.5x faster and give High Gravity instead of Levitation (30 s; 1 min if you already have it): jumps, Levitation and Elytra lift keep only 10 %, gliding sinks fast. For their first 2 s they can be neither knocked away nor shot down. It fires 1.2x as often as a Shulker and almost at once after opening its shell, so hitting it nonstop does not keep it from shooting.",
           "Drops 2-3 Shellker Shells (2.5 on average, Looting +0.5 per level). A Shellker bullet that hits an open Shellker can bud a new one into a free neighbour cell (like Shulkers). It never spawns anywhere else - to farm them, right-click a Shulker with a Shellker Shell: it turns into a Shellker (the shell is used up)."
         ]
       },
@@ -105,7 +105,7 @@
           "1x1x1 und bleibt so groß: zum Schießen öffnet er nur einen schmalen Spalt, ein violettes Auge leuchtet auf. Geschlossen nimmt er gar keinen Schaden (Treffer klacken wie Stein), offen normal. 120 Leben (4x Shulker), 10 EP.",
           "Er teleportiert sich nie. Nur Kolben (auch klebrige) können ihn verschieben - die Wächter wegzuschieben ist ein erlaubter Weg vorbei.",
           "Jedes End-Gateway bekommt genau vier, in den freien Feldern neben dem Portalblock auf Portalhöhe, auf dem Grundgestein darunter: der Ring nach dem Drachenkampf, die Ausgangs-Gateways auf den äußeren Inseln und Gateways aus der Weltgenerierung. Server-Config simplemobs-server.json: shellkerGatewayGuards.",
-          "Seine Geschosse suchen ihr Ziel wie Shulker-Geschosse, fliegen aber 1,5x schneller und geben Schwerkraft (10 s) statt Schweben: Sprünge, Schweben und Elytra-Auftrieb behalten nur 10 %, Gleiten sinkt schnell.",
+          "Seine Geschosse suchen ihr Ziel wie Shulker-Geschosse, fliegen aber 1,5x schneller und geben Schwerkraft statt Schweben (30 s; 1 min, wenn man sie schon hat): Sprünge, Schweben und Elytra-Auftrieb behalten nur 10 %, Gleiten sinkt schnell. In den ersten 2 s lassen sie sich weder wegschlagen noch abschießen. Er schießt 1,2x so oft wie ein Shulker und fast sofort nach dem Öffnen der Schale - Dauerschlagen hält ihn nicht vom Schießen ab.",
           "Lässt 2-3 Shellker-Schalen fallen (im Schnitt 2,5, Plünderung +0,5 je Stufe). Trifft ein Shellker-Geschoss einen offenen Shellker, kann ein neuer in ein freies Nachbarfeld knospen (wie bei Shulkern). Woanders erscheint er nie - zum Farmen einen Shulker mit einer Shellker-Schale rechtsklicken: er wird zum Shellker (die Schale wird verbraucht)."
         ]
       }
@@ -121,7 +121,7 @@
         "title": "High Gravity and the Shellker Helmet",
         "summary": "High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 %. The Shellker Helmet makes you immune.",
         "details": [
-          "From Shellker bullets (10 s) or the Potion of High Gravity: Awkward Potion + Shellker Shell = 3:00, + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions.",
+          "From Shellker bullets (30 s, 1 min if already under High Gravity) or the Potion of High Gravity: Awkward Potion + Shellker Shell = 3:00, + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions.",
           "Shellker Helmet: 5 Shellker Shells in helmet shape. Armor 3, toughness 1, knockback resistance 10 %, iron durability, repaired with Shellker Shells. Its wearer is immune to High Gravity (not to the bullets' damage) and takes 20 % less fall damage. A new helmet - the Turtle Shell stays as it is. Can be trimmed and enchanted like other helmets."
         ]
       },
@@ -129,7 +129,7 @@
         "title": "Schwerkraft und Shellker-Helm",
         "summary": "Schwerkraft zieht nach unten: Sprünge, Schweben und Elytra-Auftrieb behalten 10 %. Der Shellker-Helm macht immun.",
         "details": [
-          "Durch Shellker-Geschosse (10 s) oder den Trank der Schwerkraft: Seltsamer Trank + Shellker-Schale = 3:00, + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank.",
+          "Durch Shellker-Geschosse (30 s, 1 min bei bestehender Schwerkraft) oder den Trank der Schwerkraft: Seltsamer Trank + Shellker-Schale = 3:00, + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank.",
           "Shellker-Helm: 5 Shellker-Schalen in Helmform. Rüstung 3, Härte 1, Rückstoßresistenz 10 %, Haltbarkeit wie Eisen, Reparatur mit Shellker-Schalen. Der Träger ist immun gegen Schwerkraft (nicht gegen den Schaden der Geschosse) und nimmt 20 % weniger Fallschaden. Ein neuer Helm - der Schildkrötenpanzer bleibt unverändert. Lässt sich wie andere Helme verzieren und verzaubern."
         ]
       }
