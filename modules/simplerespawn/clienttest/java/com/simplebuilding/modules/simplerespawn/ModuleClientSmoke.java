@@ -13,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
-import org.lwjgl.glfw.GLFW;
 
 /**
  * Downed screen, spectate camera, view-only inventory and give up, clicked like a player would (screenshots
@@ -54,7 +53,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(10);
             context.takeScreenshot("simplerespawn-spectate");
 
-            context.getInput().pressKey(GLFW.GLFW_KEY_E);
+            context.getInput().pressKey(InputConstants.KEY_E);
             context.waitTicks(25);
             context.runOnClient(c -> require(c.gui.screen() instanceof DownedScreen, "the inventory key opens the downed screen again"));
 
@@ -62,10 +61,10 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(c -> require(c.gui.screen() instanceof ViewOnlyInventoryScreen, "view-only inventory open"));
             context.takeScreenshot("simplerespawn-inventory");
             int before = context.computeOnClient(c -> c.player.getInventory().countItem(Items.BREAD));
-            context.getInput().pressKey(GLFW.GLFW_KEY_Q);
+            context.getInput().pressKey(InputConstants.KEY_Q);
             context.waitTicks(5);
             context.runOnClient(c -> require(c.player.getInventory().countItem(Items.BREAD) == before, "nothing can be dropped from the view"));
-            context.getInput().pressKey(GLFW.GLFW_KEY_E);
+            context.getInput().pressKey(InputConstants.KEY_E);
             context.waitTicks(25);
             context.runOnClient(c -> require(c.gui.screen() instanceof DownedScreen, "E goes back to the downed screen"));
 

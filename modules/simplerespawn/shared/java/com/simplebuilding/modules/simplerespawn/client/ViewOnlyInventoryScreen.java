@@ -7,7 +7,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 /**
  * The Vanilla inventory, only to look at: clicks, drags, scrolling and keys are swallowed (no slot packet ever leaves
@@ -46,7 +46,7 @@ public final class ViewOnlyInventoryScreen extends InventoryScreen {
 
     @Override
     public boolean keyPressed(KeyEvent event) {
-        if (event.key() == GLFW.GLFW_KEY_ESCAPE || this.minecraft.options.keyInventory.matches(event)) {
+        if (event.key() == InputConstants.KEY_ESCAPE || this.minecraft.options.keyInventory.matches(event)) {
             this.minecraft.gui.setScreen(new DownedScreen());
         }
         return true;
