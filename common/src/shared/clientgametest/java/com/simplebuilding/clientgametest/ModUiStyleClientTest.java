@@ -55,6 +55,19 @@ public final class ModUiStyleClientTest {
             return new TieredChestScreen(new TieredChestMenu(0, inv, new TieredChestOpenData(ChestTier.REINFORCED.ordinal(), false, false)),
                     inv, Component.translatable("container.chest"));
         });
+        if (ModScreenStyle.ACTIVE) {
+            // N43 (PLAN-UI-KONZEPTE-2026-10-12): the slotless screens, first with the comparison toggle off (old look),
+            // then in the container style. Literal names again.
+            script.act("style off for the old look", c -> ModScreenStyle.setPanels(false));
+            panel(script, "modui-octant-vanilla", c -> new com.simplebuilding.client.gui.OctantScreen(new ItemStack(com.simplebuilding.items.ModItems.OCTANT)));
+            panel(script, "modui-building-wand-vanilla", c -> new com.simplebuilding.client.gui.BuildingWandScreen(new ItemStack(com.simplebuilding.items.ModItems.NETHERITE_BUILDING_WAND)));
+            panel(script, "modui-trim-reference-vanilla", c -> new com.simplebuilding.client.gui.TrimReferenceScreen(null));
+            script.act("style on again", c -> ModScreenStyle.setPanels(true));
+            panel(script, "modui-octant", c -> new com.simplebuilding.client.gui.OctantScreen(new ItemStack(com.simplebuilding.items.ModItems.OCTANT)));
+            panel(script, "modui-building-wand", c -> new com.simplebuilding.client.gui.BuildingWandScreen(new ItemStack(com.simplebuilding.items.ModItems.NETHERITE_BUILDING_WAND)));
+            panel(script, "modui-building-wand-gold", c -> new com.simplebuilding.client.gui.BuildingWandScreen(new ItemStack(com.simplebuilding.items.ModItems.GOLD_BUILDING_WAND)));
+            panel(script, "modui-trim-reference", c -> new com.simplebuilding.client.gui.TrimReferenceScreen(null));
+        }
         backpack(script, "modui-backpack-basic", BackpackTier.BASIC);
         backpack(script, "modui-backpack-reinforced", BackpackTier.REINFORCED);
         backpack(script, "modui-backpack-netherite", BackpackTier.NETHERITE);
@@ -165,6 +178,16 @@ public final class ModUiStyleClientTest {
             if (!(c.gui.screen() instanceof AbstractContainerScreen<?>)) {
                 throw new AssertionError(name + " closed itself: " + c.gui.screen());
             }
+        });
+        script.shot(name);
+    }
+
+    /** A slotless screen (N43): opened, rendered, still open, shot. */
+    private static void panel(Script script, String name, Function<Minecraft, net.minecraft.client.gui.screens.Screen> screen) {
+        script.act("open " + name, c -> c.gui.setScreen(screen.apply(c)));
+        script.idle("let " + name + " render", 3);
+        script.act(name + " is still open", c -> {
+            if (c.gui.screen() == null) throw new AssertionError(name + " closed itself");
         });
         script.shot(name);
     }

@@ -472,7 +472,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] **Tiegel-Logik:** Items, die schon im Tiegel liegen, bevor das Fass angebaut wird, verhalten sich falsch; reservierte Slots und Berechnung spinnen danach. Reproduzieren (GameTest: erst Items einlegen, dann Fass anbauen, Reservierung/Ergebnis-Slots prüfen) und beheben. (Audit 09.10.: b185d64a6)
 - [x] **Enderit-Tiegel:** Hinweis „2× Stacks“ entfernen (selbst entdeckbar). (Audit 09.10.: 3c119ed23)
 - [x] **Fletching Table – Rezeptbuch-GUI neu:** 3 Kategorien (1. Spitze, 2. Stab, 3. Feder); je Kategorie nur die Wahlmöglichkeiten zum Zusammenstellen des Pfeils; je Material sehr kurzer Tooltip mit den Vorteilen. (teilweise: Befiederung einzeilig wie die Werkbank bed08725f; Rezeptbuch mit 3 Kategorien und Material-Tooltips fehlt) (claude-q-uirest: drei Reiter Spitze/Stab/Feder, je Teil ein Eintrag, Klick legt nur dieses Teil in seinen Slot; Kurz-Tooltip = Wirkung des Teils)
-- [ ] **UI-Konzepte:** für jede Mod-UI ein Konzept ausarbeiten (Vorschaubilder), Aussehen streng wie Referenzbilder (refs-n12 Bild 3/4, Rahmenmaße aus PLAN-CRUCIBLE-N12B). (teilweise: Container-/Mod-UIs über simplecontainers (PLAN-SIMPLECONTAINERS-2026-10-08.md, Vorschauen); Einzelkonzepte übriger UIs fehlen)
+- [x] (claude-ui-concepts: PLAN-UI-KONZEPTE-2026-10-12, Oktant/Bauzauberstab/Trim-Referenz/Modell-Browser im Kasten-Stil; Blaupause/Guide bleiben) **UI-Konzepte:** für jede Mod-UI ein Konzept ausarbeiten (Vorschaubilder), Aussehen streng wie Referenzbilder (refs-n12 Bild 3/4, Rahmenmaße aus PLAN-CRUCIBLE-N12B). (teilweise: Container-/Mod-UIs über simplecontainers (PLAN-SIMPLECONTAINERS-2026-10-08.md, Vorschauen); Einzelkonzepte übriger UIs fehlen)
 - [x] (claude-q-astralit: Rahmen auf allen vier Seiten gleich, Leuchtfläche exakt symmetrisch) **Baulicht:** Motiv nicht mittig → zentrieren.
 - [x] **Neu: Trapped Copper Chest** (Redstone-Signal wie Vanilla-Trapped-Chest, Kupfer-Stil, Oxidation wie Kupfertruhe falls vorhanden). (claude-q-storage: 8 Blöcke, Oxidation/Wachs/Axt, Fallen-Overlay je Stufe; nur 26.3)
 - [x] **Nihil-Gewölbe:** Doppeltruhen-Größe wie das Astral-Gewölbe. (claude-q-storage: 54 Plätze, sechs Reihen)
@@ -842,7 +842,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 43 (2026-10-12, Besitzer)
 - [ ] Testzentrale: alle Mods-Mobs testbar (Spawner/Spawn-Eier + passende Umgebung je Mob); Shellker mit End-Gateway-Struktur an einer Stelle. (claude-testcenter-mobs)
-- [ ] UI-Konzepte in echte UIs übertragen (Nachtrag 16), Start jetzt. (claude-ui-concepts)
+- [x] UI-Konzepte in echte UIs übertragen (Nachtrag 16), Start jetzt. (claude-ui-concepts; Besitzer-Abnahme offen)
 - [ ] Tiegel-Feuer weiterführen (Nachtrag 14). (claude-crucible-fire)
 - [ ] Claim-System fertigstellen und testen. (claude-claims)
 - [ ] Shellker: Besitzer hat ihn noch nicht gesehen → Screenshot nach Testzentrale-Umbau.

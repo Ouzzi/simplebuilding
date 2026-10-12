@@ -20,3 +20,7 @@ werden hier beschrieben. Stil: N12 (Bild 3/4), Maße PLAN-CRUCIBLE-N12B. Alles f
 
 Nutzung: der Mod bündelt SimpleLib (Fabric `include`, NeoForge `jarJar`, Forge `forgeBundleSimplelib`) und importiert
 nur `com.simplelib.api.*`. Erster Nutzer der neuen Bausteine: `modules/simplemaps/.../client/WayfinderScreen.java`.
+
+Screens ohne Slots (N43, PLAN-UI-KONZEPTE-2026-10-12): ein `UiBoxes.box` als Fläche, Titel bei x 8 / y 6 in
+`palette.label()`, Listen/Zusammenfassungen in einem hellen Feld (`UiBoxes.insetColored` mit `INVENTORY.fill`, dunkle
+Schrift), Vanilla-Widgets 8 px vom Kastenrand. SB ruft das über `ModScreenStyle.panel/field/label` (26.2-Zwilling = alt).

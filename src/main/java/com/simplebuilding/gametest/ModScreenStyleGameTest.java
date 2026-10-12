@@ -29,4 +29,9 @@ public final class ModScreenStyleGameTest {
     public void backpackSlotsSitInsideTheOneBox(GameTestHelper helper) {
         ModScreenStyleTests.backpackSlotsSitInsideTheOneBox(helper);
     }
+
+    @GameTest
+    public void slotlessPanelsHoldTheirWidgets(GameTestHelper helper) {
+        ModScreenStyleTests.slotlessPanelsHoldTheirWidgets(helper);
+    }
 }

@@ -2,3 +2,5 @@ plugins { id 'net.fabricmc.fabric-loom' }
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // Bundles the shared framework API (guide-book quest installer) for standalone runs.
 dependencies { include project(':framework') }
+// SimpleLib (style blocks com.simplelib.api.client.ui for the model browser box, N43) nested per principle 6a; compiled against.
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
