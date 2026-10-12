@@ -196,3 +196,42 @@ paths documented. No client runs or main-checkout builds.
   This includes the new full-container cases and the chunk-warmed crafter fixture,
   all existing Claims, portal, compatibility and module tests. Two workers,
   2 GiB heaps, two active processors. Shared final gate remains with the parent.
+
+## Completion (2026-10-12, branch claude-claims)
+
+Plan: close the remaining stage-4 gaps without changing the default (OFF), keep every
+existing regression, add a real-entrypoint GameTest for each new protection path, and
+run the module suites on Fabric, NeoForge and Forge 26.3 plus the standalone targets.
+
+Decisions (taken autonomously, documented for the owner):
+
+- **Damage policy.** The previous rule denied *every* non-player attack on claimed
+  targets, which made claims mob-immune zones (zombies could not hurt a player standing
+  in a claim). Now: a responsible player (resolved through projectiles, clouds and
+  lightning causes) needs rights at the whole target footprint; mob attacks and natural
+  damage stay Vanilla; unattributed explosions spare claimed non-player entities only
+  (players still take explosion damage). PvP against a player standing on someone
+  else's claim needs trust there.
+- **Mob griefing.** `Level.destroyBlock` with a breaker (Wither, Ravager incl. crop
+  trampling, Silverfish wake-up, villager harvest, boat lily pads, modded breakers)
+  plus explicit hooks for Enderman take/place, door-breaking Zombies/Vindicators,
+  `RemoveBlockGoal`, Silverfish infestation, the Ender Dragon's wall check, farmland
+  trampling and turtle eggs. Hostile (`Enemy`) or unattributed causes never change
+  claimed land; other mobs only act within the land they stand on (same-owner rule as
+  automation), so villagers still farm and sheep still graze inside their owner's claim.
+- **Vehicles.** Boats (placed through `use`, not `useOn`) need rights at the boat
+  footprint; minecarts already go through the checked `useOn`. Vehicles are entities:
+  attacking, riding, leashing and explosion damage were already covered.
+- **Copper golem provenance.** Golems carry a persistent entity tag naming the land a
+  load came from and may only put it down on that same land. They work inside a claim,
+  never carry items out of or into one. Untagged (pre-existing) loads may only be put
+  down on the land the golem stands on. Replaces the blanket refusal.
+- **Positioned wrappers.** Containers from `WorldlyContainerHolder` blocks (composter,
+  modded holders) are remembered with their block position when the hopper resolves
+  them, so same-owner hopper/composter automation works instead of failing closed.
+
+Still outside verified coverage (not blockers for the owner's release decision, all
+fail closed or are cosmetic): arbitrary mod machines mutating the world directly,
+remote capability endpoints, non-plain dispenser behaviors near claims (conservatively
+refused), snow golem trails and wither roses (cosmetic additions), lightning
+rod redstone from natural lightning, burning entities melting powder snow.
