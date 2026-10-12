@@ -162,7 +162,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(10);
             world.getConnection().waitForChunksRender();
             context.waitTicks(30);
-            context.takeScreenshot("testcenter-mobs-" + name);
+            String shot = "testcenter-mobs-" + name; // dynamic: cells of absent modules are skipped, so the runner must not expect a literal name
+            context.takeScreenshot(shot);
             if (name.equals("deceiver")) {
                 press(context, run, 1);
                 context.waitTicks(5);
