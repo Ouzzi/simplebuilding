@@ -245,6 +245,23 @@ def blaze_book():
 
 
 def textures():
+    # Owner pick N41 (2026-10-12): A3 with a round top, A6/A9 shelves, A12/A21 planks, A18 blazing obsidian.
+    import n41_proposals_2026_10_12 as n41
+    top, side, bottom = n41.astral_table(2, round_top=True)
+    return {
+        'block/astral_enchanting_table_top': top,
+        'block/astral_enchanting_table_side': side,
+        'block/astral_enchanting_table_bottom': bottom,
+        'block/crimson_blazewood_planks': n41.planks('crimson', 2),
+        'block/warped_blazewood_planks': n41.planks('warped', 2),
+        'block/crimson_blazewood_bookshelf': n41.bookshelf('crimson', 2),
+        'block/warped_blazewood_bookshelf': n41.bookshelf('warped', 2),
+        'block/blazing_obsidian': n41.blazing_obsidian(2),
+        'item/blaze_book': blaze_book(),
+    }
+
+
+def textures_before_n41():
     return {
         'block/astral_enchanting_table_top': table_top(),
         'block/astral_enchanting_table_side': table_side(),

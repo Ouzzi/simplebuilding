@@ -160,8 +160,8 @@ def sparkle(im, x, y, pal, big=False):
             put(im, x + dx, y + dy, pal[-3])
 
 
-def astral_table(v):
-    """Returns (top, side, bottom)."""
+def astral_table(v, round_top=False):
+    """Returns (top, side, bottom). round_top: v2 (A3) with a round gold hem instead of the square one (owner pick)."""
     top, side, bot = new(), new(), new()
     # --- bottom: plain soft obsidian
     obsidian_base(bot, 11 + v, OBS)
@@ -189,9 +189,10 @@ def astral_table(v):
                         a = math.atan2(dy, dx)
                         ray = abs(math.cos(4 * a)) ** 6 * (1 - r / 5.4)
                         top.putpixel((x, y), pick(VIOLET, 0.18 + 0.25 * (1 - r / 5.4) + ray * 0.7))
-            else:           # cloth square with a nebula swirl and a soft gold corner hem
-                if max(abs(dx), abs(dy)) <= 5.6:
-                    if max(abs(dx), abs(dy)) > 4.6:
+            else:           # cloth square (or round) with a nebula swirl and a soft gold hem
+                rr = math.hypot(dx, dy) - 0.4 if round_top else max(abs(dx), abs(dy))
+                if rr <= 5.6 + (0.6 if round_top else 0):
+                    if rr > 4.6 + (0.6 if round_top else 0):
                         top.putpixel((x, y), GOLD[2] if (x + y) % 3 else GOLD[3])
                     else:
                         a = math.atan2(dy, dx)
@@ -790,8 +791,8 @@ EQ_PAL = [
 ]
 
 
-def ender_quartz(v):
-    src = load(SRC / 'item/ender_quartz.png')
+def ender_quartz(v, src=None):
+    src = src if src is not None else load(SRC / 'item/ender_quartz.png')
     cols = sorted({p for p in src.getdata() if p[3]}, key=lambda p: 0.3 * p[0] + 0.59 * p[1] + 0.11 * p[2])
     idx = {c: i for i, c in enumerate(cols)}
     pal = EQ_PAL[v]
