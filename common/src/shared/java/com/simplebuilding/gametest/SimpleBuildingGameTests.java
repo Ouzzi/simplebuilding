@@ -128,6 +128,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("test_centre_game_test_each_button_runs_exactly_its_own_command_block", TestCentreTests::eachButtonRunsExactlyItsOwnCommandBlock)
                     .maxTicks(TestCentreTests.BUTTON_RUN_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_every_mod_mob_has_a_station_that_spawns_it_in_its_habitat", TestCentreTests::everyModMobHasAStationThatSpawnsItInItsHabitat)
+                    .maxTicks(400)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)

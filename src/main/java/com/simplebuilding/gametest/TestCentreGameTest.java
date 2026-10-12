@@ -52,4 +52,9 @@ public final class TestCentreGameTest {
     public void eachButtonRunsExactlyItsOwnCommandBlock(GameTestHelper helper) {
         TestCentreTests.eachButtonRunsExactlyItsOwnCommandBlock(helper);
     }
+
+    @GameTest(maxTicks = 400)
+    public void everyModMobHasAStationThatSpawnsItInItsHabitat(GameTestHelper helper) {
+        TestCentreTests.everyModMobHasAStationThatSpawnsItInItsHabitat(helper);
+    }
 }
