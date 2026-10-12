@@ -101,7 +101,7 @@ public final class Disguise {
 
     private static void tell(Player p, Component message) {
         if (p instanceof net.minecraft.server.level.ServerPlayer sp && sp.connection == null) return; // test players
-        tell(p, message);
+        p.sendOverlayMessage(message);
     }
 
     public static boolean seesThrough(EntityType<?> type) {
