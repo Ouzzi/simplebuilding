@@ -3,7 +3,7 @@
     python tools/textures/deceiver2_textures.py          # write PNGs + previews
     python tools/textures/deceiver2_textures.py --check  # fail if the committed PNGs differ
 
-Worn layer uses the vanilla humanoid armor UV (64x32): body 8x12x4 at (16,16), arms 4x12x4 at (40,16).
+Worn layer uses the vanilla humanoid armor UV (64x32): a hood on the head box 8x8x8 at (0,0) (head slot, owner 12.10.).
 Palette shared with deceiver_textures.py (same cloth as the Deceiver's robe).
 """
 import os
@@ -99,9 +99,10 @@ def shard_item():
 
 
 def worn():
+    """Hood (owner 12.10.: the cloak is worn on the head slot): only the head box of the armor UV is drawn."""
     img = Image.new('RGBA', (64, 32), (0, 0, 0, 0))
 
-    def face(u, v, w, h, k, hem=True):
+    def face(u, v, w, h, k, hem=False):
         for y in range(h):
             for x in range(w):
                 c = tone(u + x, v + y, ROBE, k)
@@ -109,20 +110,26 @@ def worn():
                 if hem and y >= h - 2 and (x * 5 + k) % 4 == 0: c = DEEP
                 img.putpixel((u + x, v + y), c + (255,))
 
-    # body box 8x12x4 at (16,16): top, bottom, right, front, left, back
-    face(20, 16, 8, 4, 1, False); face(28, 16, 8, 4, 2, False)
-    face(16, 20, 4, 12, 3); face(20, 20, 8, 12, 4); face(28, 20, 4, 12, 5); face(32, 20, 8, 12, 6)
-    # arms 4x12x4 at (40,16): wide sleeves
-    face(44, 16, 4, 4, 7, False); face(48, 16, 4, 4, 8, False)
-    for i, u in enumerate((40, 44, 48, 52)): face(u, 20, 4, 12, 9 + i)
-    # front: gold clasp across the collar with the watching eye, dark seam down the middle
-    for x in range(20, 28): img.putpixel((x, 20), TRIM + (255,))
-    for x in (22, 25): img.putpixel((x, 21), TRIM_D + (255,))
-    img.putpixel((23, 21), EYE[0] + (255,)); img.putpixel((24, 21), EYE[1] + (255,))
-    for y in range(22, 31): img.putpixel((23 + (y % 2), y), DEEP + (255,))
-    # back: hood hanging down
-    for y in range(20, 24):
-        for x in range(34 - (y - 20) // 2, 38 + (y - 20) // 2): img.putpixel((x, y), ROBE[2] + (255,))
+    # head box 8x8x8 at (0,0): top (8,0), bottom (16,0) open neck, right (0,8), front (8,8), left (16,8), back (24,8)
+    face(8, 0, 8, 8, 1)
+    face(0, 8, 8, 8, 3, True); face(16, 8, 8, 8, 5, True); face(24, 8, 8, 8, 6, True)
+    # hood rim towards the face: lighter fold on the side faces' front columns
+    for y in range(8, 15):
+        img.putpixel((7, y), ROBE[2] + (255,)); img.putpixel((16, y), ROBE[2] + (255,))
+    # back: the hood's point folds down the middle
+    for y in range(8, 13): img.putpixel((27 + (y % 2), y), DEEP + (255,))
+    # front: open hood - brow with a lighter rim and a shadow line below it, side flaps, face left free
+    for x in range(8, 16):
+        img.putpixel((x, 8), ROBE[2] + (255,))
+        img.putpixel((x, 9), tone(x, 9, ROBE, 4) + (255,))
+    for x in range(9, 15): img.putpixel((x, 10), DEEP + (255,))
+    for y in range(10, 16):
+        img.putpixel((8, y), ROBE[1] + (255,)); img.putpixel((15, y), ROBE[1] + (255,))
+    for y in range(11, 16):
+        img.putpixel((9, y), DEEP + (255,)); img.putpixel((14, y), DEEP + (255,))
+    # gold clasp with the watching eye under the chin
+    img.putpixel((10, 15), TRIM_D + (255,)); img.putpixel((13, 15), TRIM_D + (255,))
+    img.putpixel((11, 15), EYE[0] + (255,)); img.putpixel((12, 15), EYE[1] + (255,))
     return img
 
 

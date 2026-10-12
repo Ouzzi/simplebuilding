@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplemobs.client;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.simplebuilding.modules.simplemobs.CloakLogic;
 import com.simplebuilding.modules.simplemobs.Disguise;
 import com.simplebuilding.modules.simplemobs.mixin.AvatarAccessor;
@@ -8,13 +9,27 @@ import com.simplebuilding.modules.simplemobs.mixin.WalkAnimationAccessor;
 import java.util.Map;
 import java.util.UUID;
 import java.util.WeakHashMap;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.RemotePlayer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -45,6 +60,36 @@ public final class DisguiseLooks {
         }
         follow(player, standIn);
         return standIn;
+    }
+
+    /**
+     * First person (owner 12.10.): draws the hand of the imitated shape at the vanilla hand pose. A player shape shows
+     * its skin, a mob with a humanoid model (zombie, skeleton, piglin ...) its own arm and texture, a shape without
+     * arms no hand at all. False when the local player is not disguised (vanilla hand).
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static boolean renderHand(PoseStack poseStack, SubmitNodeCollector collector, int light, HumanoidArm arm) {
+        Player self = Minecraft.getInstance().player;
+        if (self == null) return false;
+        Entity look = look(self);
+        if (look == self) return false;
+        EntityRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(look);
+        if (look instanceof AbstractClientPlayer other && renderer instanceof AvatarRenderer<?> avatar) {
+            Identifier skin = other.getSkin().body().texturePath();
+            if (arm == HumanoidArm.RIGHT) avatar.renderRightHand(poseStack, collector, light, skin, other.isModelPartShown(PlayerModelPart.RIGHT_SLEEVE));
+            else avatar.renderLeftHand(poseStack, collector, light, skin, other.isModelPartShown(PlayerModelPart.LEFT_SLEEVE));
+            return true;
+        }
+        if (renderer instanceof LivingEntityRenderer living && living.getModel() instanceof HumanoidModel<?> model) {
+            EntityRenderState state = renderer.createRenderState(look, 1.0f);
+            Identifier texture = living.getTextureLocation((net.minecraft.client.renderer.entity.state.LivingEntityRenderState) state);
+            ModelPart part = arm == HumanoidArm.RIGHT ? model.rightArm : model.leftArm;
+            part.resetPose();
+            part.visible = true;
+            part.zRot = arm == HumanoidArm.RIGHT ? 0.1f : -0.1f;
+            collector.submitModelPart(part, poseStack, RenderTypes.entityTranslucent(texture), light, OverlayTexture.NO_OVERLAY, null);
+        }
+        return true;
     }
 
     private static Entity create(Player player, String spec) {

@@ -126,6 +126,12 @@ OUTPUTS = {
     'item/copper_lava_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
     'item/enderite_bucket.png': ((16, 320), 'crucible_art_v2_2026_10_05.derived()'),
 }
+# Module textures (namespace = module id, shipped by that module's own jars through gradle/module-vanilla-derived.gradle):
+# module -> {texture path under assets/<module>/textures/: (size, generator description)}.
+MODULE_OUTPUTS = {
+    'simplemobs': {'item/shellker_shell.png': ((16, 16), 'mobs2_textures.derived() - Vanilla shulker_shell (N48)')},
+}
+MODULE_GENERATORS = {'simplemobs': ('mobs2_textures',)}
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03', 'soul_lava_2026_10_09', 'shulker_shell_textures',
@@ -166,6 +172,17 @@ def extract_vanilla_textures(jar: Path) -> None:
                 target = base / name[len(prefix):]
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(z.read(name))
+
+
+def module_images(jar: Path, module: str) -> dict:
+    """Texture path (under assets/<module>/textures/) -> image for one module."""
+    if str(HERE) not in sys.path:
+        sys.path.append(str(HERE))
+    out = {}
+    for name in MODULE_GENERATORS[module]:
+        out.update(importlib.import_module(name).derived(jar))
+    assert set(out) == set(MODULE_OUTPUTS[module]), f'MODULE_OUTPUTS[{module}] and its generators disagree'
+    return out
 
 
 def images(jar: Path) -> dict:
@@ -221,19 +238,21 @@ SAME_AS = {'block/jukebox_amplifier_top.png': 'block/jukebox_amplifier_side.png'
            'block/note_amplifier_top.png': 'block/note_amplifier_side.png'}
 
 
-def placeholder(rel: str) -> bytes:
-    (w, h), _ = OUTPUTS[rel]
-    return placeholder_png(SAME_AS.get(rel, rel), w, h)
+def placeholder(rel: str, module: str | None = None) -> bytes:
+    (w, h), _ = (MODULE_OUTPUTS[module] if module else OUTPUTS)[rel]
+    return placeholder_png(f'{module}:{rel}' if module else SAME_AS.get(rel, rel), w, h)
 
 
-def write(out_root: Path, jar: Path | None, placeholders: bool = False) -> str:
-    """Writes assets/simplebuilding/textures/<rel> under out_root; returns 'jar' or 'placeholder'."""
+def write(out_root: Path, jar: Path | None, placeholders: bool = False, module: str | None = None) -> str:
+    """Writes assets/<simplebuilding or module>/textures/<rel> under out_root; returns 'jar' or 'placeholder'."""
     if jar is None and not placeholders:
         raise SystemExit('vanilla_derived: 26.3 client jar not found (Gradle cache fabric-loom/26.3 or '
                          'neoformruntime, SB_CLIENT_JAR or -PsbClientJar)')
-    art = {rel: _png(im) for rel, im in images(jar).items()} if jar is not None else \
-        {rel: placeholder(rel) for rel in OUTPUTS}
-    base = out_root / 'assets' / NS / 'textures'
+    outputs = MODULE_OUTPUTS[module] if module else OUTPUTS
+    drawn = (module_images(jar, module) if module else images(jar)) if jar is not None else None
+    art = {rel: _png(im) for rel, im in drawn.items()} if drawn is not None else \
+        {rel: placeholder(rel, module) for rel in outputs}
+    base = out_root / 'assets' / (module or NS) / 'textures'
     for rel, data in art.items():
         p = base / rel
         p.parent.mkdir(parents=True, exist_ok=True)
@@ -258,7 +277,10 @@ def ensure_local() -> tuple[Path, str]:
         jar = find_jar()
     except ImportError:
         jar = None
-    return LOCAL_OUT, write(LOCAL_OUT, jar, placeholders=True)
+    mode = write(LOCAL_OUT, jar, placeholders=True)
+    for module in MODULE_OUTPUTS:
+        write(LOCAL_OUT, jar, placeholders=True, module=module)
+    return LOCAL_OUT, mode
 
 
 def main() -> None:
@@ -267,14 +289,19 @@ def main() -> None:
     ap.add_argument('--jar')
     ap.add_argument('--placeholder-if-missing', action='store_true')
     ap.add_argument('--list', action='store_true')
+    ap.add_argument('--module', choices=sorted(MODULE_OUTPUTS), help='only this module\'s textures (its own jars)')
     a = ap.parse_args()
     if a.list or not a.out:
         for rel, (size, how) in OUTPUTS.items():
             print(f'assets/{NS}/textures/{rel}  {size[0]}x{size[1]}  {how}')
+        for module, outputs in MODULE_OUTPUTS.items():
+            for rel, (size, how) in outputs.items():
+                print(f'assets/{module}/textures/{rel}  {size[0]}x{size[1]}  {how}')
         return
     jar = find_jar(a.jar)
-    mode = write(a.out, jar, a.placeholder_if_missing)
-    print(f'vanilla_derived: {len(OUTPUTS)} textures ({mode}{", " + str(jar) if jar else ""}) -> {a.out}')
+    mode = write(a.out, jar, a.placeholder_if_missing, a.module)
+    count = len(MODULE_OUTPUTS[a.module] if a.module else OUTPUTS)
+    print(f'vanilla_derived: {count} textures ({mode}{", " + str(jar) if jar else ""}) -> {a.out}')
 
 
 if __name__ == '__main__':

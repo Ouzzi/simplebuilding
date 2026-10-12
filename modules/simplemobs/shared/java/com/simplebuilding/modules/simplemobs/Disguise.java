@@ -22,8 +22,8 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Cloak of deception on players (owner 11.10.): worn, mobs notice you only within {@link CloakLogic#DETECT_RADIUS};
- * right-click a mob or player with an empty hand to take its shape; hitting or breaking a block ends the disguise and
- * reveals you to the attacked mob and the 5x5 area around it. Rules live in {@link CloakLogic}.
+ * right-click a mob or player with an empty hand to take its shape; any swing (also into the air) or breaking a block ends
+ * the disguise, a hit also reveals you to the attacked mob and the 5x5 area around it. Rules live in {@link CloakLogic}.
  */
 public final class Disguise {
     public static final EquipmentSlot[] GEAR_SLOTS = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS,
@@ -33,8 +33,11 @@ public final class Disguise {
 
     private static DisguiseHolder holder(Player p) { return (DisguiseHolder) p; }
 
+    /** The cloak is worn on the head (owner 12.10.), so the chest stays free for armor. */
+    public static final EquipmentSlot CLOAK_SLOT = EquipmentSlot.HEAD;
+
     public static boolean wearsCloak(LivingEntity e) {
-        return e.getItemBySlot(EquipmentSlot.CHEST).is(DisguiseRegistry.CLOAK);
+        return e.getItemBySlot(CLOAK_SLOT).is(DisguiseRegistry.CLOAK);
     }
 
     /** The disguise spec ("" when none): server from the player, clients from its {@link DisguiseMarker}. */
@@ -141,7 +144,7 @@ public final class Disguise {
             }
         }
         apply(p, spec, gear);
-        p.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(CloakLogic.MORPH_COST, p, EquipmentSlot.CHEST);
+        p.getItemBySlot(CLOAK_SLOT).hurtAndBreak(CloakLogic.MORPH_COST, p, CLOAK_SLOT);
         level.sendParticles(ParticleTypes.WITCH, p.getX(), p.getY() + p.getBbHeight() / 2, p.getZ(), 24, 0.4, 0.6, 0.4, 0.05);
         level.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1.0f, 1.4f);
         tell(p, Component.translatable("message.simplemobs.disguise.morph", target.getDisplayName()));
@@ -170,10 +173,15 @@ public final class Disguise {
         }
         spotted.put(victim.getUUID(), now + CloakLogic.SPOTTED_TICKS);
         if (holder(p).simplemobs$revealedUntil() < now) {
-            p.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(CloakLogic.REVEAL_COST, p, EquipmentSlot.CHEST);
+            p.getItemBySlot(CLOAK_SLOT).hurtAndBreak(CloakLogic.REVEAL_COST, p, CLOAK_SLOT);
             tell(p, Component.translatable("message.simplemobs.disguise.revealed"));
         }
         holder(p).simplemobs$setRevealedUntil(now + CloakLogic.REVEAL_TICKS);
+    }
+
+    /** Any attack attempt, also a swing into the air (owner 12.10.), ends the disguise; only hits reveal. */
+    public static void punch(Player p) {
+        if (!p.level().isClientSide()) revert(p);
     }
 
     public static boolean revealed(Player p) {

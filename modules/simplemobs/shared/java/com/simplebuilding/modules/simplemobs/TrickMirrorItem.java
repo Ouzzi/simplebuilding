@@ -19,12 +19,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Trick mirror (Deceiver stage 2): held up for 2 s it shows what lies in a 30 degree cone up to 24 blocks: Deceiver
- * fakes and disguised Deceivers or players glow for 5 s, disguises fall. 20 s cooldown, 64 uses.
+ * Trick mirror (Deceiver stage 2, balanced 12.10. so it only eases a fight): held up for 3 s it shows what lies in a
+ * 20 degree cone up to 12 blocks: the nearest {@link #MAX_FOUND} fakes, disguised Deceivers or players glow for 2 s,
+ * their disguises fall. 60 s cooldown, 64 uses.
  */
 public class TrickMirrorItem extends Item {
-    public static final int USE_TICKS = 40, COOLDOWN_TICKS = 400, GLOW_TICKS = 100;
-    public static final double RANGE = 24.0, CONE_COS = Math.cos(Math.toRadians(30.0));
+    public static final int USE_TICKS = 60, COOLDOWN_TICKS = 1200, GLOW_TICKS = 40, MAX_FOUND = 3;
+    public static final double RANGE = 12.0, CONE_COS = Math.cos(Math.toRadians(20.0));
 
     public TrickMirrorItem(Properties properties) { super(properties); }
 
@@ -50,11 +51,14 @@ public class TrickMirrorItem extends Item {
         return stack;
     }
 
-    /** Unmasks every fake, disguised Deceiver and disguised player in the viewer's cone; returns how many. */
+    /** Unmasks the nearest {@link #MAX_FOUND} fakes, disguised Deceivers and disguised players in the viewer's cone; returns how many. */
     public static int reveal(ServerLevel level, Player viewer) {
         Vec3 eye = viewer.getEyePosition(), view = viewer.getViewVector(1.0f).normalize();
         int found = 0;
-        for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, viewer.getBoundingBox().inflate(RANGE), e -> e != viewer)) {
+        var candidates = new java.util.ArrayList<>(level.getEntitiesOfClass(LivingEntity.class, viewer.getBoundingBox().inflate(RANGE), e -> e != viewer));
+        candidates.sort(java.util.Comparator.comparingDouble(e -> e.getBoundingBox().getCenter().distanceToSqr(eye)));
+        for (LivingEntity e : candidates) {
+            if (found >= MAX_FOUND) break;
             Vec3 to = e.getBoundingBox().getCenter().subtract(eye);
             double d = to.length();
             if (d > RANGE || d < 1.0e-3 || view.dot(to.scale(1.0 / d)) < CONE_COS) continue;

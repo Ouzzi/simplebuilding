@@ -1,0 +1,31 @@
+// Vanilla-derived textures of a module (AGENTS.md rule 7, owner 2026-10-12): pixels from a Mojang sprite are never
+// committed; tools/textures/vanilla_derived.py --module <module> draws them from the local 26.3 client jar into
+// build/generated-resources/vanillaDerived, an extra resource root of this loader project. Applied by the loader
+// projects of modules listed in vanilla_derived.MODULE_OUTPUTS. Python, jar and placeholders as in
+// mc26_3/resources.gradle: -PsbPython / SB_PYTHON, -PsbClientJar / SB_CLIENT_JAR, -PsbVanillaDerivedPlaceholders.
+File vdScript = rootProject.file('tools/textures/vanilla_derived.py')
+File vdOut = layout.buildDirectory.dir('generated-resources/vanillaDerived').get().asFile
+String vdPython = (project.findProperty('sbPython') ?: System.getenv('SB_PYTHON')) as String
+if (!vdPython) {
+    List<String> path = (System.getenv('PATH') ?: '').split(File.pathSeparator) as List<String>
+    vdPython = ['python3.12', 'python3', 'python', 'python.exe'].find { n -> path.any { new File(it, n).canExecute() } } ?: 'python3'
+}
+String vdJar = (project.findProperty('sbClientJar') ?: System.getenv('SB_CLIENT_JAR')) as String
+boolean vdPlaceholders = project.hasProperty('sbVanillaDerivedPlaceholders')
+File vdGradleHome = gradle.gradleUserHomeDir
+String vdModule = project.parent.name
+def vdTask = tasks.register('generateVanillaDerived', Exec) {
+    description = "Draws the Vanilla-derived textures of ${vdModule} (never committed) from the local 26.3 client jar."
+    inputs.files(fileTree(vdScript.parentFile) { include '*.py' }).withPropertyName('generators')
+    inputs.property('jar', vdJar ?: '')
+    inputs.property('placeholders', vdPlaceholders)
+    outputs.dir(vdOut)
+    workingDir rootProject.projectDir
+    environment 'GRADLE_USER_HOME', vdGradleHome.absolutePath
+    List<String> cmd = [vdPython, '-B', vdScript.absolutePath, '--out', vdOut.absolutePath, '--module', vdModule]
+    if (vdJar) cmd += ['--jar', vdJar]
+    if (vdPlaceholders) cmd << '--placeholder-if-missing'
+    commandLine cmd
+    doFirst { project.delete(vdOut) }
+}
+sourceSets.main.resources.srcDir(vdTask)

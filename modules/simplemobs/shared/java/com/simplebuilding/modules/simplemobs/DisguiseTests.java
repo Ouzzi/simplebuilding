@@ -7,6 +7,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.protocol.game.ServerboundPunchPacket;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -56,7 +57,7 @@ final class DisguiseTests {
         add.accept("cloak_registered", h -> {
             var cloak = new ItemStack(DisguiseRegistry.CLOAK);
             var eq = cloak.get(DataComponents.EQUIPPABLE);
-            h.assertTrue(eq != null && eq.slot() == EquipmentSlot.CHEST, "cloak sits on the chest slot like the elytra");
+            h.assertTrue(eq != null && eq.slot() == EquipmentSlot.HEAD && Disguise.CLOAK_SLOT == EquipmentSlot.HEAD, "cloak sits on the head slot (owner 12.10.)");
             h.assertTrue(cloak.getMaxDamage() == CloakLogic.DURABILITY, "240 durability");
             h.assertTrue(cloak.isValidRepairItem(new ItemStack(MobsRegistry.CLOTH)), "repaired with Deceiver Cloth");
             h.assertTrue(new ItemStack(DisguiseRegistry.MIRROR).getMaxDamage() == 64, "mirror 64 uses");
@@ -90,7 +91,7 @@ final class DisguiseTests {
             var near = mob(h, EntityTypes.ZOMBIE, 3, 1);
             var warden = mob(h, EntityTypes.WARDEN, 1, 7);
             h.assertTrue(sees(level, far, p), "without cloak a zombie 6 blocks away notices the player");
-            p.setItemSlot(EquipmentSlot.CHEST, new ItemStack(DisguiseRegistry.CLOAK));
+            p.setItemSlot(Disguise.CLOAK_SLOT, new ItemStack(DisguiseRegistry.CLOAK));
             h.assertTrue(!sees(level, far, p), "cloaked: not noticed 6 blocks away");
             h.assertTrue(sees(level, near, p), "cloaked: noticed within 3 blocks");
             h.assertTrue(sees(level, warden, p), "the Warden sees through");
@@ -104,10 +105,10 @@ final class DisguiseTests {
             var zombie = mob(h, EntityTypes.ZOMBIE, 3, 1);
             var skeleton = mob(h, EntityTypes.SKELETON, 1, 3);
             h.assertTrue(!Disguise.morph(p, cow), "no cloak, no disguise");
-            p.setItemSlot(EquipmentSlot.CHEST, new ItemStack(DisguiseRegistry.CLOAK));
+            p.setItemSlot(Disguise.CLOAK_SLOT, new ItemStack(DisguiseRegistry.CLOAK));
             h.assertTrue(Disguise.morph(p, cow) && Disguise.morphType(p) == EntityTypes.COW, "turns into a cow");
             h.assertTrue(p.getBbHeight() == EntityTypes.COW.getHeight() && p.getBbWidth() == EntityTypes.COW.getWidth(), "takes the cow's hit box: " + p.getBbHeight());
-            h.assertTrue(p.getItemBySlot(EquipmentSlot.CHEST).getDamageValue() == CloakLogic.MORPH_COST, "a disguise costs 1 durability");
+            h.assertTrue(p.getItemBySlot(Disguise.CLOAK_SLOT).getDamageValue() == CloakLogic.MORPH_COST, "a disguise costs 1 durability");
             h.assertTrue(sees(level, zombie, p), "as a cow a zombie 2 blocks away still notices");
             h.assertTrue(Disguise.morph(p, zombie) && !sees(level, zombie, p), "as a zombie zombies take him for one of theirs");
             h.assertTrue(sees(level, skeleton, p), "skeletons still notice close up");
@@ -116,10 +117,10 @@ final class DisguiseTests {
             BlockPos stone = h.absolutePos(new BlockPos(7, 0, 7));
             p.gameMode.destroyBlock(stone);
             h.assertTrue(!Disguise.disguised(p) && p.getBbHeight() == 1.8f, "breaking a block ends the disguise");
-            p.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-            p.setItemSlot(EquipmentSlot.CHEST, new ItemStack(DisguiseRegistry.CLOAK));
+            p.setItemSlot(Disguise.CLOAK_SLOT, ItemStack.EMPTY);
+            p.setItemSlot(Disguise.CLOAK_SLOT, new ItemStack(DisguiseRegistry.CLOAK));
             Disguise.morph(p, zombie);
-            p.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+            p.setItemSlot(Disguise.CLOAK_SLOT, ItemStack.EMPTY);
             Disguise.tick(p);
             h.assertTrue(!Disguise.disguised(p), "taking the cloak off ends the disguise");
             h.succeed();
@@ -130,7 +131,7 @@ final class DisguiseTests {
             var other = player(h, 3, 1);
             other.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.DIAMOND_HELMET));
             other.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-            p.setItemSlot(EquipmentSlot.CHEST, new ItemStack(DisguiseRegistry.CLOAK));
+            p.setItemSlot(Disguise.CLOAK_SLOT, new ItemStack(DisguiseRegistry.CLOAK));
             h.assertTrue(Disguise.morph(p, other), "turns into another player");
             String spec = Disguise.spec(p);
             h.assertTrue(CloakLogic.isPlayerSpec(spec) && other.getUUID().equals(CloakLogic.specUuid(spec)) && CloakLogic.specName(spec).equals(other.getGameProfile().name()), "skin of the other player: " + spec);
@@ -145,7 +146,7 @@ final class DisguiseTests {
             var level = h.getLevel();
             floor(h, 0, 8);
             var p = player(h, 0, 0);
-            p.setItemSlot(EquipmentSlot.CHEST, new ItemStack(DisguiseRegistry.CLOAK));
+            p.setItemSlot(Disguise.CLOAK_SLOT, new ItemStack(DisguiseRegistry.CLOAK));
             var victim = mob(h, EntityTypes.ZOMBIE, 2, 0);
             var neighbour = mob(h, EntityTypes.ZOMBIE, 4, 0);
             var mid = mob(h, EntityTypes.SKELETON, 0, 6);
@@ -158,27 +159,84 @@ final class DisguiseTests {
             h.assertTrue(sees(level, neighbour, p), "a zombie in the 5x5 around it knows him (4 blocks away)");
             h.assertTrue(sees(level, mid, p), "others notice within the raised radius (6 blocks)");
             h.assertTrue(!sees(level, distant, p), "but not as far as vanilla (10 blocks)");
-            h.assertTrue(p.getItemBySlot(EquipmentSlot.CHEST).getDamageValue() == CloakLogic.MORPH_COST + CloakLogic.REVEAL_COST, "revealing costs 10 durability");
+            h.assertTrue(p.getItemBySlot(Disguise.CLOAK_SLOT).getDamageValue() == CloakLogic.MORPH_COST + CloakLogic.REVEAL_COST, "revealing costs 10 durability");
             h.assertTrue(CloakLogic.hidden(false, false, false, 7 * 7) && !CloakLogic.hidden(false, false, true, 7 * 7), "radius rule 3 -> 8");
             h.succeed();
         });
         add.accept("trick_mirror", h -> {
             var level = h.getLevel();
-            floor(h, 0, 8);
+            floor(h, 0, 16);
             var p = player(h, 0, 3);
             var front = h.spawn(MobsRegistry.DECEIVER, 6, 1, 3);
             var behind = h.spawn(MobsRegistry.DECEIVER, 0, 1, 7);
             front.setNoAi(true);
             behind.setNoAi(true);
             h.assertTrue(front.disguiseAs(EntityTypes.ZOMBIE) && behind.disguiseAs(EntityTypes.ZOMBIE), "both disguised");
-            var fake = mob(h, EntityTypes.PIG, 4, 4);
+            var fake = mob(h, EntityTypes.PIG, 4, 3);
             fake.addTag(DeceiverEntity.TAG_FAKE);
             var plain = mob(h, EntityTypes.PIG, 3, 2);
+            var far = mob(h, EntityTypes.PIG, 14, 3);
+            far.addTag(DeceiverEntity.TAG_FAKE);
             int found = TrickMirrorItem.reveal(level, p);
             h.assertTrue(front.look() == null, "the Deceiver in the cone is unmasked");
             h.assertTrue(behind.look() == EntityTypes.ZOMBIE, "the one outside the cone stays disguised");
             h.assertTrue(fake.hasEffect(MobEffects.GLOWING) && !plain.hasEffect(MobEffects.GLOWING), "fakes glow, real mobs do not");
+            h.assertTrue(!far.hasEffect(MobEffects.GLOWING), "beyond 12 blocks nothing is found");
             h.assertTrue(found == 2, "two deceptions found: " + found);
+            h.succeed();
+        });
+        add.accept("trick_mirror_balance", h -> {
+            h.assertTrue(TrickMirrorItem.USE_TICKS == 60 && TrickMirrorItem.COOLDOWN_TICKS == 1200 && TrickMirrorItem.GLOW_TICKS == 40,
+                    "3 s to hold up, 60 s cooldown, 2 s glow");
+            h.assertTrue(TrickMirrorItem.RANGE == 12.0 && Math.abs(TrickMirrorItem.CONE_COS - Math.cos(Math.toRadians(20.0))) < 1e-9
+                    && TrickMirrorItem.MAX_FOUND == 3, "20 degree cone, 12 blocks, at most 3");
+            var level = h.getLevel();
+            floor(h, 0, 12);
+            var p = player(h, 0, 3);
+            for (int x = 4; x <= 9; x++) mob(h, EntityTypes.PIG, x, 3).addTag(DeceiverEntity.TAG_FAKE);
+            int found = TrickMirrorItem.reveal(level, p);
+            h.assertTrue(found == TrickMirrorItem.MAX_FOUND, "only three of six fakes: " + found);
+            var lit = level.getEntitiesOfClass(Mob.class, p.getBoundingBox().inflate(16), m -> m.hasEffect(MobEffects.GLOWING));
+            h.assertTrue(lit.size() == 3 && lit.stream().allMatch(m -> m.getX() - p.getX() < 7.0), "the nearest three glow");
+            var glow = lit.getFirst().getEffect(MobEffects.GLOWING);
+            h.assertTrue(glow != null && glow.getDuration() <= TrickMirrorItem.GLOW_TICKS, "glow lasts 2 s");
+            var recipes = level.getServer().getRecipeManager();
+            h.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "trick_mirror"))).isPresent(),
+                    "balanced, so it stays craftable");
+            h.succeed();
+        });
+        add.accept("cloak_head_slot", h -> {
+            var level = h.getLevel();
+            floor(h, 0, 8);
+            var p = player(h, 1, 1);
+            var far = mob(h, EntityTypes.ZOMBIE, 7, 1);
+            p.setItemSlot(EquipmentSlot.CHEST, new ItemStack(DisguiseRegistry.CLOAK));
+            h.assertTrue(!Disguise.wearsCloak(p) && sees(level, far, p), "on the chest it does nothing");
+            p.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
+            p.setItemSlot(EquipmentSlot.HEAD, new ItemStack(DisguiseRegistry.CLOAK));
+            h.assertTrue(Disguise.wearsCloak(p) && !sees(level, far, p), "on the head it hides, the chest keeps its armor");
+            var cow = mob(h, EntityTypes.COW, 4, 4);
+            h.assertTrue(Disguise.morph(p, cow), "disguise from the head slot");
+            h.assertTrue(p.getItemBySlot(EquipmentSlot.HEAD).getDamageValue() == CloakLogic.MORPH_COST, "the head cloak pays the durability");
+            h.succeed();
+        });
+        add.accept("cloak_air_swing", h -> {
+            floor(h, 0, 8);
+            ServerPlayer p = h.makeMockServerPlayerInLevel();
+            BlockPos at = h.absolutePos(new BlockPos(1, 1, 1));
+            p.snapTo(at.getX() + 0.5, at.getY(), at.getZ() + 0.5, -90f, 0f);
+            p.setGameMode(GameType.SURVIVAL);
+            try {
+                p.setItemSlot(Disguise.CLOAK_SLOT, new ItemStack(DisguiseRegistry.CLOAK));
+                var cow = mob(h, EntityTypes.COW, 5, 5);
+                h.assertTrue(Disguise.morph(p, cow) && Disguise.disguised(p), "disguised as a cow");
+                p.connection.handlePunch(ServerboundPunchPacket.INSTANCE);
+                h.assertTrue(!Disguise.disguised(p) && p.getBbHeight() == 1.8f, "a swing into the air ends the disguise");
+                h.assertTrue(!Disguise.revealed(p), "but reveals nothing: nobody was hit");
+                h.assertTrue(p.getItemBySlot(Disguise.CLOAK_SLOT).getDamageValue() == CloakLogic.MORPH_COST, "and costs no durability");
+            } finally {
+                h.getLevel().getServer().getPlayerList().remove(p);
+            }
             h.succeed();
         });
         add.accept("deceiver_drops", h -> {

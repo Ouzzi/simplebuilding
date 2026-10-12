@@ -242,26 +242,39 @@ def egg(base, dark, spot, spot2):
     return img
 
 
-def shell_item():
-    """Shellker Shell: a cracked bedrock half-shell seen from the side, the violet seam on its rim."""
+def shell_item(vanilla):
+    """Shellker Shell (owner 12.10.): Vanilla's item/shulker_shell.png, recoloured - the purple shell becomes the
+    Shellker's bedrock (by brightness rank, with pits and flecks on the big field) and the inner rim (the shell's
+    lightest-but-one purple, the inside) shows the Shellker's violet. Vanilla-derived: built, never committed."""
     img = Image.new('RGBA', (16, 16), T)
-    face = bedrock_face(21)
-    rows = {3: (6, 9), 4: (4, 11), 5: (3, 12), 6: (2, 13), 7: (2, 13), 8: (1, 14), 9: (1, 14), 10: (1, 14), 11: (1, 14)}
-    for y, (a, b) in rows.items():
-        for x in range(a, b + 1):
-            top_edge = y - 1 not in rows or not (rows[y - 1][0] <= x <= rows[y - 1][1])
-            c = K if x in (a, b) or top_edge else face.getpixel((x, y))[:3]
+    colors = sorted({vanilla.getpixel((x, y))[:3] for x in range(16) for y in range(16) if vanilla.getpixel((x, y))[3]},
+                    key=sum)
+    # Vanilla 26.3 has 7 purples: outline dark, outline light, shade, side, inner rim, field, highlight.
+    ramp = [K, BED[1], BED[2], BED[4], None, 'field', BED[5]]
+    if len(colors) != len(ramp):
+        ramp = [BED[min(5, i * 6 // len(colors))] for i in range(len(colors))]
+    for y in range(16):
+        for x in range(16):
+            px = vanilla.getpixel((x, y))
+            if not px[3]:
+                continue
+            c = ramp[colors.index(px[:3])]
+            if c is None:
+                c = VIOLET[2] if (x + y) % 3 else VIOLET[1]
+            elif c == 'field':
+                n = h(x, y, 21)
+                c = BED[1] if n < 30 else BED[2] if n < 80 else BED[4] if n > 225 else BED[3]
             img.putpixel((x, y), c + (255,))
-    for x in range(1, 15):   # rim: dark lip, violet seam, lighter underside
-        img.putpixel((x, 12), VIOLET[1] + (255,) if 3 <= x <= 12 else K + (255,))
-        img.putpixel((x, 13), K + (255,))
-    for x in (5, 6, 9, 10):
-        img.putpixel((x, 12), VIOLET[2] + (255,))
-    img.putpixel((7, 12), VIOLET[3] + (255,))
-    for (x, y) in ((5, 5), (6, 6), (6, 7), (10, 8), (11, 9)):   # crack
-        img.putpixel((x, y), BED[0] + (255,))
-    img.putpixel((7, 4), BED[5] + (255,)); img.putpixel((8, 4), BED[4] + (255,))
     return img
+
+
+def derived(jar):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py (module simplemobs): texture path -> image."""
+    import io
+    import zipfile
+    with zipfile.ZipFile(jar) as z:
+        vanilla = Image.open(io.BytesIO(z.read('assets/minecraft/textures/item/shulker_shell.png'))).convert('RGBA')
+    return {'item/shellker_shell.png': shell_item(vanilla)}
 
 
 def helmet_item():
@@ -344,7 +357,6 @@ def outputs():
         tex / 'entity/shellker/spark.png': spark(),
         tex / 'entity/soulfire_blaze/soulfire_blaze.png': soulfire_blaze(),
         tex / 'entity/equipment/humanoid/shellker.png': armor_layer(),
-        tex / 'item/shellker_shell.png': shell_item(),
         tex / 'item/shellker_helmet.png': helmet_item(),
         tex / 'item/soulfire_rod.png': rod_item(),
         tex / 'item/soul_fire_charge.png': charge_item(),

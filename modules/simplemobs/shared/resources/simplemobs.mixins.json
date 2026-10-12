@@ -12,13 +12,16 @@
     "ServerPlayerGameModeDisguiseMixin",
     "TargetingConditionsCloakMixin",
     "LivingEntityGravityMixin",
-    "EndGatewayFeatureMixin"
+    "EndGatewayFeatureMixin",
+    "ServerPunchDisguiseMixin"
   ],
   "client": [
     "DeceiverLookMixin",
     "WalkAnimationAccessor",
     "AvatarAccessor",
-    "PlayerDisguiseLookMixin"
+    "PlayerDisguiseLookMixin",
+    "FirstPersonHandDisguiseMixin",
+    "InventoryScreenDisguiseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

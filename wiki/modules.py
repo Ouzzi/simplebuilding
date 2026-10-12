@@ -99,6 +99,16 @@ def questionary(resources, ns):
     return out
 
 
+_DERIVED = []
+
+
+def derived_textures(g):
+    """The local Vanilla-derived set (tools/textures/vanilla_derived.py), drawn once per run."""
+    if not _DERIVED:
+        _DERIVED.append(g.vanilla_derived.ensure_local())
+    return _DERIVED[0]
+
+
 def extract(entry, g, check=False):
     """Return the UI schema and completeness problems; absent features are empty."""
     repo, mid, paths = g.REPO, entry['id'], entry['paths']
@@ -224,6 +234,15 @@ def extract(entry, g, check=False):
                     elif not target.exists() or target.read_bytes() != texture.read_bytes():
                         problems.append(f'{relative}: missing or stale texture')
                     value['texture'] = relative
+            # Vanilla-derived module textures (never committed): jar or placeholder, written in both modes, not compared.
+            if f'{prefix}/{name}.png' in g.vanilla_derived.MODULE_OUTPUTS.get(ns, {}):
+                import shutil
+                derived_root, _ = derived_textures(g)
+                texture = derived_root / 'assets' / ns / 'textures' / prefix / (name + '.png')
+                relative = f'assets/textures/{mid}/{prefix}/{name}.png'
+                (g.WIKI / relative).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(texture, g.WIKI / relative)
+                value['texture'] = relative
             values.append(value)
         collections[kind] = values
     for feature in manual.get('features', []):

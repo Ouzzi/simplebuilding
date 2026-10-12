@@ -92,10 +92,10 @@
       "Ein Umhang, der sich jede Gestalt merkt, die er je sah."
     ],
     "use": [
-      "Betrügertuch und Phantomhaut in einem Elytra-ähnlichen Muster herstellen. Im Brustplatz getragen, 240 Haltbarkeit. Rechtsklick mit leerer Hand auf Mob oder Spieler nimmt dessen Gestalt an."
+      "Betrügertuch und Phantomhaut in einem Elytra-ähnlichen Muster herstellen. Als Kapuze im Kopfplatz getragen, 240 Haltbarkeit. Rechtsklick mit leerer Hand auf Mob oder Spieler nimmt dessen Gestalt an."
     ],
     "secret": [
-      "Treffen oder Blockabbau beendet die Verkleidung. Bosse, der Warden und der Heuler durchschauen sie."
+      "Jeder Schlag, auch in die Luft, oder Blockabbau beendet die Verkleidung. Bosse, der Warden und der Heuler durchschauen sie."
     ]
   },
   "trick_mirror": {
@@ -103,7 +103,7 @@
       "Ein Spiegel, der zeigt, was echt ist, und das ist selten schmeichelhaft."
     ],
     "use": [
-      "Gold, Amethystscherbe, Betrügertuch und Stock herstellen. 2 Sekunden hochhalten: In einem 30-Grad-Kegel bis 24 Blöcke leuchten Fälschungen und Verkleidete, jede Verkleidung fällt. 64 Nutzungen, 20 s Abklingzeit."
+      "Gold, Amethystscherbe, Betrügertuch und Stock herstellen. 3 Sekunden hochhalten: In einem 20-Grad-Kegel bis 12 Blöcke leuchten die drei nächsten Fälschungen oder Verkleideten kurz auf, ihre Verkleidung fällt. 64 Nutzungen, 60 s Abklingzeit."
     ],
     "secret": [
       "Er fällt auch mit 8 % vom Betrüger. Kopien des Betrügers leuchten gleich mit."

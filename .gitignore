@@ -72,6 +72,9 @@ wiki/assets/textures/sheets/simplebuilding/simplebuilding/entity/chest/astral_va
 wiki/assets/textures/sheets/simplebuilding/simplebuilding/entity/chest/nihil_vault.png
 docs/ai/previews/n41/r2/D*_blaze_book.png
 docs/ai/previews/n41/r3/D*_blaze_book.png
+# Module textures (vanilla_derived.MODULE_OUTPUTS, gradle/module-vanilla-derived.gradle): Shellker Shell (N48).
+modules/simplemobs/shared/resources/assets/simplemobs/textures/item/shellker_shell.png
+wiki/assets/textures/simplemobs/item/shellker_shell.png
 
 # Older generators (owner 2026-10-12: built as well, the Git history stays): same rule, same build step.
 # tools/textures/vanilla_derived.py OUTPUTS; the repository copy, the wiki copies and sheets, the wiki 3D renders.

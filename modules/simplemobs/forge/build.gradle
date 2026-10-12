@@ -4,3 +4,5 @@ plugins {
 }
 ext.forgeMixinConfigs = ['simplemobs.mixins.json', 'simplemobs.forge.mixins.json']
 apply from: rootProject.file('gradle/module-forge.gradle')
+// Shellker Shell item texture is Vanilla-derived (built, never committed).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

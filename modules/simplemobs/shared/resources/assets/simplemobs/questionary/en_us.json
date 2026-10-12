@@ -92,10 +92,10 @@
       "A cloak that remembers every shape it ever saw."
     ],
     "use": [
-      "Craft deceiver cloth and phantom membrane in an elytra-like pattern. Worn in the chest slot, 240 durability. Right-click a mob or player with an empty hand to take its shape."
+      "Craft deceiver cloth and phantom membrane in an elytra-like pattern. Worn on the head as a hood, 240 durability. Right-click a mob or player with an empty hand to take its shape."
     ],
     "secret": [
-      "Hitting anything or breaking a block ends the disguise. Bosses, the Warden and the Howler see through it."
+      "Any swing, even into the air, or breaking a block ends the disguise. Bosses, the Warden and the Howler see through it."
     ]
   },
   "trick_mirror": {
@@ -103,7 +103,7 @@
       "A mirror that shows what is real, which is rarely flattering."
     ],
     "use": [
-      "Craft gold, amethyst shard, deceiver cloth and a stick. Hold it up for 2 seconds: in a 30 degree cone up to 24 blocks, fakes and disguised foes glow and every disguise falls. 64 uses, 20 s cooldown."
+      "Craft gold, amethyst shard, deceiver cloth and a stick. Hold it up for 3 seconds: in a 20 degree cone up to 12 blocks, the nearest three fakes or disguised foes glow briefly and their disguise falls. 64 uses, 60 s cooldown."
     ],
     "secret": [
       "It also drops from the Deceiver at 8%. Copies of the Deceiver glow along with it."

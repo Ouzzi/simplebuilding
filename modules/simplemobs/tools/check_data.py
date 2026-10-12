@@ -2,6 +2,9 @@
 import json
 from pathlib import Path
 MODULE = Path(__file__).resolve().parents[1]
+DERIVED = {'shellker_shell'}
+_vd = (MODULE.parents[1] / 'tools/textures/vanilla_derived.py').read_text(encoding='utf-8')
+assert "'item/shellker_shell.png'" in _vd, 'Shellker Shell texture is built by vanilla_derived.MODULE_OUTPUTS'
 ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard')
 for locale in ('en_us', 'de_de'):
     data = json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8'))
@@ -52,7 +55,10 @@ for item in ('shellker_shell', 'shellker_helmet', 'shellker_spawn_egg', 'soulfir
         assert f'item.simplemobs.{item}' in json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8')), item
     assert manual['notes'][f'simplemobs:{item}']['en']['summary'] and manual['notes'][f'simplemobs:{item}']['de']['summary'], item
     assert (MODULE / f'shared/resources/assets/simplemobs/items/{item}.json').is_file(), item
-    assert (MODULE / f'shared/resources/assets/simplemobs/textures/item/{item}.png').is_file(), item
+    if item in DERIVED:   # Vanilla-derived (AGENTS.md rule 7): built from the client jar, never committed
+        assert not (MODULE / f'shared/resources/assets/simplemobs/textures/item/{item}.png').is_file(), item
+    else:
+        assert (MODULE / f'shared/resources/assets/simplemobs/textures/item/{item}.png').is_file(), item
 for tex in ('entity/shellker/shellker', 'entity/shellker/shellker_eyes', 'entity/shellker/spark', 'entity/soulfire_blaze/soulfire_blaze',
             'entity/equipment/humanoid/shellker', 'item/soul_fire_charge', 'mob_effect/high_gravity'):
     assert (MODULE / f'shared/resources/assets/simplemobs/textures/{tex}.png').is_file(), tex

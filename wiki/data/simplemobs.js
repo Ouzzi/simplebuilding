@@ -178,12 +178,12 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "title": "Deceiver: cloak, disguise, mirror",
         "summary": "From Deceiver Cloth: a cloak that lets you take any mob's or player's shape, a particle-free invisibility potion and a mirror that sees through deceptions. The Deceiver itself has double life, takes the hit box of the mob it imitates and can double its summons.",
         "details": [
-          "Cloak of Deception (chest slot, like the Elytra, 240 durability, repaired with Deceiver Cloth): recipe Cloth-Cloth-Cloth / Phantom Membrane - . - Phantom Membrane / Cloth - . - Cloth; also dropped by the Deceiver (3 %, +2 % per Looting level).",
+          "Cloak of Deception (worn on the head slot as a hood, so the chest stays free for armor; 240 durability, repaired with Deceiver Cloth): recipe Cloth-Cloth-Cloth / Phantom Membrane - . - Phantom Membrane / Cloth - . - Cloth; also dropped by the Deceiver (3 %, +2 % per Looting level).",
           "Worn, mobs notice you only within 3 blocks. With an empty hand right-click a mob to take its shape (look, hit box and eye height); mobs of that kind take you for one of theirs. Right-click another player to look like them, with their skin and the armor and gear they wore at that moment. Each disguise costs 1 durability.",
-          "Hitting anything or breaking a block ends the disguise. Hurting a mob reveals you: it and every mob in the 5x5 around it know you for 60 s, all others notice you within 8 blocks for 30 s (still less than vanilla); the cloak loses 10 durability.",
+          "Any attack attempt - also a swing into the air - or breaking a block ends the disguise; the disguise shows in third person, on the inventory player model and on the first-person hands (a player shape with its skin, a humanoid mob with its own arm, a shape without arms without hands). Hurting a mob reveals you: it and every mob in the 5x5 around it know you for 60 s, all others notice you within 8 blocks for 30 s (still less than vanilla); the cloak loses 10 durability.",
           "Bosses (Wither, Ender Dragon, Elder Guardian), the Warden and the Hollow Howler see through the cloak and cannot be imitated (entity tag simplemobs:sees_through_disguise).",
           "Potion of Veiled Invisibility: Potion of Invisibility + Deceiver Cloth (also splash and lingering), Redstone for 8:00, Gunpowder / Dragon's Breath as usual. Vanilla invisibility without swirl particles.",
-          "Trick Mirror: Gold Ingot - Amethyst Shard - Gold Ingot / Gold Ingot - Deceiver Cloth - Gold Ingot / - Stick -; also 8 % Deceiver drop. Hold it up for 2 s: in a cone of 30 degrees up to 24 blocks fakes and disguised Deceivers or players glow for 5 s and every disguise falls. 20 s cooldown, 64 uses.",
+          "Trick Mirror: Gold Ingot - Amethyst Shard - Gold Ingot / Gold Ingot - Deceiver Cloth - Gold Ingot / - Stick -; also 8 % Deceiver drop. Hold it up for 3 s: in a cone of 20 degrees up to 12 blocks the nearest three fakes, disguised Deceivers or players glow for 2 s and lose their disguise. 60 s cooldown, 64 uses (balanced 12.10. so it eases a fight without deciding it).",
           "The Deceiver has 200 health (280 armored) and turns into one of its wave's mobs, taking its hit box only where there is room. Special attack: after a wave it may double its summons - 5 % at full health, rising with the square of the lost health to 80 % at 20 % health and below; 30 s cooldown, at most 8 copies and never above 24 summons. Copies are always fakes and vanish with it.",
           "Drops: Deceiver Cloth 2-4 with a 50 % chance (never doubled), Illusion Shard 1-2 (+Looting). An armored Deceiver (chest plate) has 280 health and 6 armor and drops twice the Illusion Shards.",
           "(With SimpleBuilding) Mirage potions from the Illusion Shard: Awkward Potion + Illusion Shard = Potion of the Mirage (\"hostile\": peaceful mobs look hostile); + Fermented Spider Eye = Potion of the Reverse Mirage (\"peaceful\": hostile mobs look peaceful); Redstone lengthens both to 8:00, Gunpowder / Dragon's Breath make splash and lingering potions. No stronger level: the effect has no strength."
@@ -193,12 +193,12 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "title": "Deceiver: Umhang, Verwandlung, Spiegel",
         "summary": "Aus Täuscherstoff: ein Umhang, mit dem du die Gestalt jedes Mobs oder Spielers annimmst, ein Unsichtbarkeitstrank ohne Partikel und ein Spiegel, der Täuschungen durchschaut. Der Deceiver selbst hat doppeltes Leben, nimmt die Hitbox des nachgeahmten Mobs an und kann seine Beschwörungen verdoppeln.",
         "details": [
-          "Tarnumhang (Brustplatz wie die Elytren, 240 Haltbarkeit, Reparatur mit Täuscherstoff): Rezept Stoff-Stoff-Stoff / Phantomhaut - . - Phantomhaut / Stoff - . - Stoff; außerdem Deceiver-Drop (3 %, +2 % je Plünderungsstufe).",
+          "Tarnumhang (als Kapuze im Kopfplatz, der Brustplatz bleibt für Rüstung frei; 240 Haltbarkeit, Reparatur mit Täuscherstoff): Rezept Stoff-Stoff-Stoff / Phantomhaut - . - Phantomhaut / Stoff - . - Stoff; außerdem Deceiver-Drop (3 %, +2 % je Plünderungsstufe).",
           "Getragen bemerken dich Mobs erst im 3-Block-Radius. Mit leerer Hand Rechtsklick auf einen Mob: du nimmst seine Gestalt an (Aussehen, Hitbox, Augenhöhe); Mobs dieser Art halten dich für ihresgleichen. Rechtsklick auf einen Spieler: du siehst aus wie er, mit Skin sowie der Rüstung und Ausrüstung, die er in dem Moment trug. Jede Verwandlung kostet 1 Haltbarkeit.",
-          "Schlagen oder Block abbauen beendet die Verwandlung. Verletzt du einen Mob, bist du enttarnt: er und alle Mobs im 5x5-Bereich um ihn erkennen dich 60 s lang, alle anderen bemerken dich 30 s lang im Umkreis von 8 Blöcken (weiter weniger als Vanilla); der Umhang verliert 10 Haltbarkeit.",
+          "Jeder Angriffsversuch - auch ein Schlag in die Luft - oder Block abbauen beendet die Verwandlung; die Verkleidung sieht man in der Third Person, am Spielermodell im Inventar und an den Händen in der Ego-Ansicht (Spieler-Gestalt mit dessen Skin, humanoider Mob mit eigenem Arm, Gestalt ohne Arme ohne Hände). Verletzt du einen Mob, bist du enttarnt: er und alle Mobs im 5x5-Bereich um ihn erkennen dich 60 s lang, alle anderen bemerken dich 30 s lang im Umkreis von 8 Blöcken (weiter weniger als Vanilla); der Umhang verliert 10 Haltbarkeit.",
           "Bosse (Wither, Enderdrache, Großer Wächter), der Warden und der Hollow Howler durchschauen den Umhang und sind keine Verwandlungsziele (Entity-Tag simplemobs:sees_through_disguise).",
           "Trank der stillen Unsichtbarkeit: Trank der Unsichtbarkeit + Täuscherstoff (auch Wurf- und Verweiltrank), Redstone für 8:00, Schwarzpulver / Drachenatem wie üblich. Vanilla-Unsichtbarkeit ohne Wirbelpartikel.",
-          "Trugbild-Spiegel: Goldbarren - Amethystscherbe - Goldbarren / Goldbarren - Täuscherstoff - Goldbarren / - Stock -; außerdem 8 % Deceiver-Drop. 2 s hochhalten: in einem 30-Grad-Kegel bis 24 Blöcke leuchten Fälschungen und verkleidete Deceiver oder Spieler 5 s lang, jede Verwandlung fällt. 20 s Abklingzeit, 64 Nutzungen.",
+          "Trugbild-Spiegel: Goldbarren - Amethystscherbe - Goldbarren / Goldbarren - Täuscherstoff - Goldbarren / - Stock -; außerdem 8 % Deceiver-Drop. 3 s hochhalten: in einem 20-Grad-Kegel bis 12 Blöcke leuchten die drei nächsten Fälschungen, verkleideten Deceiver oder Spieler 2 s lang und verlieren ihre Verwandlung. 60 s Abklingzeit, 64 Nutzungen (am 12.10. ausbalanciert: erleichtert den Kampf, entscheidet ihn nicht).",
           "Der Deceiver hat 200 Leben (280 mit Platte) und verwandelt sich in einen Mob seiner Welle, mit dessen Hitbox nur wo Platz ist. Spezialangriff: nach einer Welle kann er seine Beschwörungen verdoppeln - 5 % bei vollem Leben, mit dem Quadrat des verlorenen Lebens steigend bis 80 % ab 20 % Leben; 30 s Abklingzeit, höchstens 8 Kopien und nie über 24 Beschwörungen. Kopien sind immer Trugbilder und verschwinden mit ihm.",
           "Drops: Täuscherstoff 2-4 mit 50 % Chance (nie doppelt), Trugsplitter 1-2 (+Plünderung). Ein Deceiver mit Brustplatte hat 280 Leben und 6 Rüstung und droppt doppelt so viele Trugsplitter.",
           "(Mit SimpleBuilding) Trugbild-Tränke aus dem Trugsplitter: Seltsamer Trank + Trugsplitter = Trank des Trugbilds (\"feindlich\": friedliche Mobs wirken feindlich); + Fermentiertes Spinnenauge = Trank des umgekehrten Trugbilds (\"friedlich\": feindliche Mobs wirken friedlich); Redstone verlängert beide auf 8:00, Schwarzpulver / Drachenatem ergeben Wurf- und Verweiltränke. Keine stärkere Stufe: der Effekt hat keine Stärke."
@@ -1300,10 +1300,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       },
       "note": {
         "en": {
-          "summary": "Worn on the chest: mobs notice you only within 3 blocks; empty-handed right-click a mob or player to take its shape. Hitting or breaking a block ends it."
+          "summary": "Worn on the head as a hood: mobs notice you only within 3 blocks; empty-handed right-click a mob or player to take its shape. Any swing (also into the air) or breaking a block ends it."
         },
         "de": {
-          "summary": "Auf dem Brustplatz: Mobs bemerken dich erst im 3-Block-Radius; mit leerer Hand Rechtsklick auf Mob oder Spieler = Verwandlung. Schlagen oder Abbauen beendet sie."
+          "summary": "Als Kapuze auf dem Kopfplatz: Mobs bemerken dich erst im 3-Block-Radius; mit leerer Hand Rechtsklick auf Mob oder Spieler = Verwandlung. Jeder Schlag (auch in die Luft) oder Abbauen beendet sie."
         }
       },
       "texture": "assets/textures/simplemobs/item/deceiver_cloak.png",
@@ -1313,10 +1313,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "A cloak that remembers every shape it ever saw."
           ],
           "use": [
-            "Craft deceiver cloth and phantom membrane in an elytra-like pattern. Worn in the chest slot, 240 durability. Right-click a mob or player with an empty hand to take its shape."
+            "Craft deceiver cloth and phantom membrane in an elytra-like pattern. Worn on the head as a hood, 240 durability. Right-click a mob or player with an empty hand to take its shape."
           ],
           "secret": [
-            "Hitting anything or breaking a block ends the disguise. Bosses, the Warden and the Howler see through it."
+            "Any swing, even into the air, or breaking a block ends the disguise. Bosses, the Warden and the Howler see through it."
           ]
         },
         "de": {
@@ -1324,10 +1324,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "Ein Umhang, der sich jede Gestalt merkt, die er je sah."
           ],
           "use": [
-            "Betrügertuch und Phantomhaut in einem Elytra-ähnlichen Muster herstellen. Im Brustplatz getragen, 240 Haltbarkeit. Rechtsklick mit leerer Hand auf Mob oder Spieler nimmt dessen Gestalt an."
+            "Betrügertuch und Phantomhaut in einem Elytra-ähnlichen Muster herstellen. Als Kapuze im Kopfplatz getragen, 240 Haltbarkeit. Rechtsklick mit leerer Hand auf Mob oder Spieler nimmt dessen Gestalt an."
           ],
           "secret": [
-            "Treffen oder Blockabbau beendet die Verkleidung. Bosse, der Warden und der Heuler durchschauen sie."
+            "Jeder Schlag, auch in die Luft, oder Blockabbau beendet die Verkleidung. Bosse, der Warden und der Heuler durchschauen sie."
           ]
         }
       },
@@ -1601,10 +1601,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       },
       "note": {
         "en": {
-          "summary": "Dropped by Shellkers (2-3). Right-click a Shulker with it to turn the Shulker into a Shellker. Brews the Potion of High Gravity; five make the Shellker Helmet."
+          "summary": "Dropped by Shellkers (2-3); looks like a Shulker Shell of bedrock with the Shellker's violet inside. Right-click a Shulker with it to turn the Shulker into a Shellker. Brews the Potion of High Gravity; five make the Shellker Helmet."
         },
         "de": {
-          "summary": "Lassen Shellker fallen (2-3). Damit einen Shulker rechtsklicken, um ihn zum Shellker zu machen. Braut den Trank der Schwerkraft; fünf ergeben den Shellker-Helm."
+          "summary": "Lassen Shellker fallen (2-3); sieht aus wie eine Shulker-Schale aus Grundgestein mit dem Violett des Shellkers innen. Damit einen Shulker rechtsklicken, um ihn zum Shellker zu machen. Braut den Trank der Schwerkraft; fünf ergeben den Shellker-Helm."
         }
       },
       "texture": "assets/textures/simplemobs/item/shellker_shell.png",
@@ -1771,10 +1771,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       },
       "note": {
         "en": {
-          "summary": "Hold up for 2 s: fakes and disguised Deceivers or players in front of you glow and lose their disguise. 20 s cooldown."
+          "summary": "Hold up for 3 s: the nearest three fakes and disguised Deceivers or players in a narrow cone (12 blocks) glow briefly and lose their disguise. 60 s cooldown."
         },
         "de": {
-          "summary": "2 s hochhalten: Fälschungen und verkleidete Deceiver oder Spieler vor dir leuchten auf und verlieren ihre Tarnung. 20 s Abklingzeit."
+          "summary": "3 s hochhalten: die drei nächsten Fälschungen und verkleideten Deceiver oder Spieler in einem schmalen Kegel (12 Blöcke) leuchten kurz auf und verlieren ihre Tarnung. 60 s Abklingzeit."
         }
       },
       "texture": "assets/textures/simplemobs/item/trick_mirror.png",
@@ -1784,7 +1784,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "A mirror that shows what is real, which is rarely flattering."
           ],
           "use": [
-            "Craft gold, amethyst shard, deceiver cloth and a stick. Hold it up for 2 seconds: in a 30 degree cone up to 24 blocks, fakes and disguised foes glow and every disguise falls. 64 uses, 20 s cooldown."
+            "Craft gold, amethyst shard, deceiver cloth and a stick. Hold it up for 3 seconds: in a 20 degree cone up to 12 blocks, the nearest three fakes or disguised foes glow briefly and their disguise falls. 64 uses, 60 s cooldown."
           ],
           "secret": [
             "It also drops from the Deceiver at 8%. Copies of the Deceiver glow along with it."
@@ -1795,7 +1795,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "Ein Spiegel, der zeigt, was echt ist, und das ist selten schmeichelhaft."
           ],
           "use": [
-            "Gold, Amethystscherbe, Betrügertuch und Stock herstellen. 2 Sekunden hochhalten: In einem 30-Grad-Kegel bis 24 Blöcke leuchten Fälschungen und Verkleidete, jede Verkleidung fällt. 64 Nutzungen, 20 s Abklingzeit."
+            "Gold, Amethystscherbe, Betrügertuch und Stock herstellen. 3 Sekunden hochhalten: In einem 20-Grad-Kegel bis 12 Blöcke leuchten die drei nächsten Fälschungen oder Verkleideten kurz auf, ihre Verkleidung fällt. 64 Nutzungen, 60 s Abklingzeit."
           ],
           "secret": [
             "Er fällt auch mit 8 % vom Betrüger. Kopien des Betrügers leuchten gleich mit."

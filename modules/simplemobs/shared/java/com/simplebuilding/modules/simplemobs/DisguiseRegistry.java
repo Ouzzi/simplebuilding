@@ -49,7 +49,7 @@ public final class DisguiseRegistry {
     public static final Item CLOAK = new Item(new Item.Properties()
             .durability(CloakLogic.DURABILITY)
             .rarity(Rarity.UNCOMMON)
-            .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.CHEST)
+            .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD)
                     .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
                     .setAsset(CLOAK_ASSET)
                     .setDamageOnHurt(false)
