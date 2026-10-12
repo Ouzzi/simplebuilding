@@ -800,6 +800,13 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
 
+## Nachtrag 48 (2026-10-12, Besitzer)
+- [ ] Wayfinder-Karte: Zoom feiner abstufen, Navigation verbessern.
+- [ ] Octet-Blöcke untereinander kombinierbar (verschiedene Materialien in einer Zelle).
+- [ ] Deceiver-Umhang am Kopf (Kopf-Slot statt Brust); Verkleidung überall sichtbar: Spielermodell im Inventar, Hände in der Ego-Ansicht; auch Schlag in die Luft (Versuch zu hauen) hebt Tarnung auf. (claude-deceiver3)
+- [ ] Trick-Spiegel ausbalancieren: Kampf weniger beeinflussen, nur leicht erleichtern; notfalls vorerst entfernen. (claude-deceiver3)
+- [ ] Shellker-Schale: Item-Textur wie Vanilla shulker_shell, angepasst (Mojang-abgeleitet → beim Build erzeugen). (claude-deceiver3)
+
 ## Nachtrag 47 (2026-10-12, Besitzer)
 - [ ] Prinzip Entdeckbarkeit umsetzen (docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md): Stufe 1 jedes Item Tooltip/Rezept-Freischaltung + Test; später Welt-Hinweise.
 - [ ] Aschholz/Dämmerholz: alles, was andere Holzarten haben (Regal, Octets, geschnitztes Holz, Holzkessel normal+entrindet, Schach/Checker?, alle SB-Holz-Features) – optional, wenn SB geladen.
