@@ -1919,6 +1919,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleMobs.@Tooltip": "Turns the bundled Simple Mobs module on or off: its mobs and their behaviour. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.option.enableSimpleEndDragonFight": "Enable Simple End Dragon Fight",
   "text.autoconfig.simplebuilding.option.enableSimpleEndDragonFight.@Tooltip": "Turns the bundled Simple End Dragon Fight module on or off: dragon health per player, a faster dragon, entry animations and Dragonmites. Off restores the Vanilla fight; Dragon Chitin stays in the world. Takes effect after a restart. Default: on.",
+  "text.autoconfig.simplebuilding.option.enableSimpleRespawn": "Enable Simple Respawn",
+  "text.autoconfig.simplebuilding.option.enableSimpleRespawn.@Tooltip": "Turns the bundled Simple Respawn module on or off: downed instead of dead, reviving by teammates. Off restores the Vanilla death. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.category.equipment": "Enchantments & Armor",
   "text.autoconfig.simplebuilding.category.pistons": "Pistons",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

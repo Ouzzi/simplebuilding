@@ -1,0 +1,4 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// framework (SubMods switch of the SimpleBuilding super-mod) nested per principle 3.
+dependencies { include project(':framework') }
