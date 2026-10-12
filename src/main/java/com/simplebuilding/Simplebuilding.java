@@ -55,6 +55,8 @@ public class Simplebuilding implements ModInitializer {
     public void onInitialize() {
         ModEnvironment.setModLoadedCheck(modId -> FabricLoader.getInstance().isModLoaded(modId));
         ModEnvironment.setDevelopmentEnvironment(FabricLoader.getInstance().isDevelopmentEnvironment());
+        // Renamed/moved ids (26.3: into SimpleLib IdMoves; 26.2: nothing to do), before any world loads.
+        com.simplebuilding.datafix.IdMovesHook.register();
         // FTB Quests (optional): copy the SimpleBuilding chapters into its quest book once.
         com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(FabricLoader.getInstance().getConfigDir());
         // Trinkets (optional): backpacks and quivers in the back/belt accessory slots count as worn.

@@ -4,6 +4,7 @@
   "package": "com.simplebuilding.modules.simplelib.forge.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "NamespacedWrapperIdMovesMixin",
     "RegistryLoadTaskMixin"
   ],
   "injectors": {

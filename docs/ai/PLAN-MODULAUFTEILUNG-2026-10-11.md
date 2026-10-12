@@ -259,6 +259,27 @@ Enderit-Ausrüstung und der bessere Bezugsweg bleiben SB-Inhalt.
 - Unit-Test (JUnit) `IdMovesTest`: Tabelle vollständig = alle entfernten `simplebuilding:`-IDs haben ein Ziel (Diff der
   Registry-Dumps vor/nach, Dump über Datagen-Export).
 
+### 3.3a Umsetzung 3a + 3b (Branch `claude-split3`, 2026-10-11)
+
+- **`com.simplelib.api.IdMoves`**: explizite Verschiebungen je Registry (`move`/`moveAll`, auch `minecraft:recipe` und
+  `minecraft:advancement`), Namensraum-Verschiebung (`moveNamespace`, nur über die Mixins), Schleifen-/Doppelziel-Schutz,
+  `adoptConfig` (Config-Übernahme, darunter `framework.api.ConfigFiles.adoptLegacy`, framework 0.1.8).
+- **Mixins in SimpleLib**: `IdMovesRegistryMixin` (MappedRegistry: get/getValue/containsKey, nur Fehlschläge),
+  `IdMovesRecipeBookMixin` (`ServerRecipeBook#loadUntrusted`: unbekannter Schlüssel → verschobener, wenn bekannt),
+  `IdMovesAdvancementsMixin` (`ServerAdvancementManager#get`, darüber liest `PlayerAdvancements` den Fortschritt);
+  Forge: `NamespacedWrapperIdMovesMixin` + `ForgeRegistry.addAlias` für alle expliziten Verschiebungen (`SimpleLibForge`).
+- **SB 26.3**: `datafix/IdMovesHook` (Overlay) speist `LegacyItemIds` unverändert ein (gleiche Tabellen, gleiche Registries);
+  `AliasMixinPlugin` schaltet SBs eigene Alias-Mixins auf 26.3 ab, `ForgeRegistryBootstrap` fügt dort keine Aliase mehr hinzu.
+  26.2 (keine SimpleLib) bleibt beim alten Weg (Twin `IdMovesHook` mit `LIB_ALIASES=false`).
+- **Testwelt (3b, vereinfacht)**: statt gezippter Welt + eigenem Runner-Target liegen die Spielstände als SNBT/JSON unter
+  `testing/fixtures/migration-before/` (Chunk mit Truhen-Stufen, Öfen, Enderit-Tiegel, Octets und gefüllten BEs; Spieler mit
+  allen Hämmern + Rezeptbuch; Advancement-Fortschritt), erzeugt mit `SIMPLEBUILDING_WRITE_MIGRATION_FIXTURES=1`.
+  `MigrationWorldTests` lädt sie über die echten Ladepfade (`SerializableChunkData.parse`, `BlockEntity.loadStatic`,
+  `Player.load`, `PlayerAdvancements`) einmal unverändert (Nullprobe) und einmal mit allen SB-IDs als `simpletest:`
+  (Test-Verschiebung `simpletest → simplebuilding`), Orakel = unverändertes Laden, plus Zurückschreiben unter neuen IDs.
+  Ab Stufe 4 ist dieselbe Welt der Altbestand für echte Verschiebungen.
+- Lib-Tests `module_game_test_id_moves_*` (Item/Block/BE/Komponente, Rezeptbuch, Advancements, Schleifen, Config).
+
 ### 3.4 Rückfallplan
 
 - Vor Release: Hinweis „Welt sichern“ im Changelog/Wiki; SB 2.0 schreibt beim ersten Laden einer alten Welt
