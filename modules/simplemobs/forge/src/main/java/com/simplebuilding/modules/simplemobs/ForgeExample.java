@@ -23,6 +23,7 @@ public final class ForgeExample {
                 r.register(MobsRegistry.DECEIVER_KEY, MobsRegistry.DECEIVER);
                 r.register(MobsRegistry.HOWLER_KEY, MobsRegistry.HOLLOW_HOWLER);
                 r.register(MobsRegistry.RITUAL_KEY, MobsRegistry.HOWLER_RITUAL);
+                r.register(DisguiseRegistry.MARKER_KEY, DisguiseRegistry.MARKER);
             });
             event.register(Registries.ITEM, r -> {
                 r.register(MobsRegistry.CLOTH_KEY, MobsRegistry.CLOTH);
@@ -30,6 +31,8 @@ public final class ForgeExample {
                 r.register(MobsRegistry.ECHO_CORE_KEY, MobsRegistry.ECHO_CORE);
                 r.register(MobsRegistry.HOWLER_EGG_KEY, MobsRegistry.HOWLER_EGG);
             });
+            event.register(Registries.ITEM, r -> DisguiseRegistry.items(r::register));
+            event.register(Registries.POTION, r -> DisguiseRegistry.potions(r::register));
             event.register(Registries.MOB_EFFECT, r -> r.register(MobsRegistry.SILENCE_KEY, MobsRegistry.SILENCE));
             event.register(Registries.POTION, r -> {
                 r.register(MobsRegistry.SILENCE_POTION_KEY, MobsRegistry.silencePotion());
@@ -46,8 +49,13 @@ public final class ForgeExample {
                 e.accept(MobsRegistry.EGG);
                 putAfter(e, new ItemStack(Items.HOGLIN_SPAWN_EGG), new ItemStack(MobsRegistry.HOWLER_EGG));
             }
+            if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
+                e.accept(DisguiseRegistry.CLOAK);
+                e.accept(DisguiseRegistry.MIRROR);
+            }
             if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 e.accept(MobsRegistry.CLOTH);
+                e.accept(DisguiseRegistry.SHARD);
                 putAfter(e, new ItemStack(Items.ECHO_SHARD), new ItemStack(MobsRegistry.ECHO_CORE));
             }
         });

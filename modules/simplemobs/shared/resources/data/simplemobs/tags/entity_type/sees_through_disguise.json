@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:wither",
+    "minecraft:ender_dragon",
+    "minecraft:elder_guardian",
+    "minecraft:warden",
+    "simplemobs:hollow_howler",
+    {
+      "id": "#c:bosses",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "A": "minecraft:amethyst_shard",
+    "C": "simplemobs:deceiver_cloth",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "GAG",
+    "GCG",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplemobs:trick_mirror"
+  }
+}

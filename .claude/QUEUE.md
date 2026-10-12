@@ -509,6 +509,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü) (claude-q-brew)
 - [x] Mob Deceiver, Stufe 1 (claude-q-deceiver): Modul `simplemobs`, Entity auf 3 Loadern, Modell/Renderer/6 Animationen, Textur, Wellen/Eskalation/Teleport/Mirage-Puls, Spawns, Loot (Täuscherstoff), Spawn-Ei
 - [ ] Deceiver Stufe 2: Verwandlung in beliebige Mobs (Renderer-Delegation), Tarnumhang (Drop), Schattenlos-Fakes, Config (Wellen-Obergrenze), Spiegelbild, falsche Truhe, Wiki-Seite/Testzentrale, Client-Abnahme
+- [x] (claude-deceiver2) Deceiver Stufe 2 Teil Besitzer 11.10.: Tarnumhang (3-Block-Erkennung, Verwandlung in Mobs/Spieler mit Skin+Rüstung, Enttarnung 5x5), Trugbild-Spiegel, stille Unsichtbarkeit, Spezialangriff Verdoppeln, Brustplatten-Deceiver (280/6, doppelte Trugsplitter), Trugbild-Trank aus Trugsplitter (mit SB). Offen: Verwandlung des Deceivers in beliebige Mobs per Tag, Schattenlos-Fakes, falsche Truhe, Config.
 - [ ] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt
 
 ## Nachtrag 21 (2026-10-07, Besitzer)
@@ -798,6 +799,18 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Spezialangriff: Mob-Anzahl verdoppeln, Chance 5 % → 80 % bei wenig Leben.
 - [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
+
+## Nachtrag 46 (2026-10-12, Besitzer; Screenshot docs/ai/refs/n44/n46_inventar.png)
+- [ ] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf).
+- [ ] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen.
+- [ ] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher.
+- [ ] Astral- und Nihil-Gewölbe (vault): wirken gar nicht Vanilla → an Vanilla-Vault/Trial-Stil angleichen (Vorschläge).
+
+## Nachtrag 45 (2026-10-12, Besitzer)
+- [ ] Lohen-Obsidian (blazing_obsidian) verbessern: soll klar wie Variante von Crying Obsidian aussehen. (claude-n45-tex: Vorschläge B1–B3 in docs/ai/previews/n45, Besitzer-Wahl offen)
+- [x] Astral-Verzauberer: Modell kleiner als Textur → oben abgeschnitten; Textur an Modellmaße anpassen. (claude-n45-tex: Seite für 16x12-Modell, Motiv in Zeilen 4–15)
+- [ ] Shellker: Gravity-Effekt 30 s (hat man ihn schon: 1 min); schießt ~1,2× schneller; Projektil die ersten 2 s unzerstörbar; nach dem Öffnen der Schale schießt er fast sofort (Schlag-Spam bis zum Tod verhindern).
+- [x] End-Holz/Biom-Antworten komplett (Konzept docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md, Abschnitt Besitzer-Antworten). Umsetzung: claude-simple-end.
 
 ## Nachtrag 44 (2026-10-12, Besitzer)
 - [ ] Astral- und Nihilith-Lampen: neue Texturen fast wie Kupferlampe, aber End-Version (Referenz docs/ai/refs/n44/end_lamp_ref.png). Hinweis: Lampen wurden in Nachtrag 36 entfernt → wieder einführen als Lampe ihrer Redstone-Linie (an/aus wie Kupferlampe), Migration der Alt-Ids anpassen. Erst 3 Textur-Vorschläge.
