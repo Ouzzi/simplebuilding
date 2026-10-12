@@ -79,8 +79,15 @@ def uri(im, scale=8):
     return 'data:image/png;base64,' + base64.b64encode(b.getvalue()).decode()
 
 
+SHOW_1X = [False]
+
+
 def slot(im, cap, cls='slot'):
-    return (f'<figure><div class="{cls}"><img src="{uri(im)}" alt="{html.escape(cap)}"></div>'
+    one = ''
+    if SHOW_1X[0] and im.size == (16, 16):
+        one = (f'<div class="slot one"><img src="{uri(im, 1)}" alt="1x"></div>'
+               f'<div class="slot two"><img src="{uri(im, 2)}" alt="2x"></div>')
+    return (f'<figure><div class="pair">{one}<div class="{cls}"><img src="{uri(im)}" alt="{html.escape(cap)}"></div></div>'
             f'<figcaption>{html.escape(cap)}</figcaption></figure>')
 
 
@@ -106,13 +113,16 @@ figure{margin:0;text-align:center}figcaption{font-size:.75rem;color:var(--muted)
 .slot{background:var(--slot);padding:4px;border:3px solid;border-color:var(--slot-lo) var(--slot-hi) var(--slot-hi) var(--slot-lo);
 display:inline-block;line-height:0}
 .slot img{image-rendering:pixelated;width:128px;height:128px}
+.pair{display:flex;align-items:flex-end;gap:4px}
+.slot.one img{width:16px;height:16px}.slot.two img{width:32px;height:32px}
 .iso img{width:128px;height:128px;image-rendering:pixelated}
 .shot img{width:auto;height:128px;image-rendering:pixelated}
-@media (max-width:600px){.slot img,.iso img{width:96px;height:96px}.shot img{height:96px}}
+@media (max-width:600px){.slot:not(.one):not(.two) img,.iso img{width:96px;height:96px}.shot img{height:96px}}
 """
 
 
-def write(secs, path, title='N41 Texturvorschläge', refs=None, titles=None, sources=None, names=None, lead=None):
+def write(secs, path, title='N41 Texturvorschläge', refs=None, titles=None, sources=None, names=None, lead=None, show_1x=False):
+    SHOW_1X[0] = show_1x
     refs, titles, sources = refs or REFS, titles or TITLES, sources or SOURCES
     names = {**NAMES, **(names or {})}
     out = ['<!doctype html><html lang="de"><head><meta charset="utf-8">',
