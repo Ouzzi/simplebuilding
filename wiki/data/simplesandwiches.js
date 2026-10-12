@@ -196,6 +196,45 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
       }
     },
     {
+      "id": "simplesandwiches:ashwood_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:ashwood_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/ashwood_cutting_board.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleend:ashwood_slab"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "simpleend:ashwood_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_slab",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
       "id": "simplesandwiches:bamboo_cutting_board",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -382,6 +421,45 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           {
             "id": "minecraft:dark_oak_log",
             "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:duskwood_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:duskwood_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/duskwood_cutting_board.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleend:duskwood_slab"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "simpleend:duskwood_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_slab",
+            "count": 2
           },
           {
             "id": "minecraft:oak_log",
@@ -759,6 +837,22 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
       "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/acacia_cutting_board.json"
     },
     {
+      "id": "simplesandwiches:blocks/ashwood_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:ashwood_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/ashwood_cutting_board.json"
+    },
+    {
       "id": "simplesandwiches:blocks/bamboo_cutting_board",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -871,6 +965,22 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         }
       ],
       "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/dark_oak_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/duskwood_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:duskwood_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/duskwood_cutting_board.json"
     },
     {
       "id": "simplesandwiches:blocks/jungle_cutting_board",
@@ -1057,6 +1167,14 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         {
           "id": "simplesandwiches:warped_cutting_board",
           "required": true
+        },
+        {
+          "id": "simplesandwiches:ashwood_cutting_board",
+          "required": false
+        },
+        {
+          "id": "simplesandwiches:duskwood_cutting_board",
+          "required": false
         }
       ],
       "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/tags/block/cutting_boards.json"
@@ -1116,6 +1234,14 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         {
           "id": "simplesandwiches:warped_cutting_board",
           "required": true
+        },
+        {
+          "id": "simplesandwiches:ashwood_cutting_board",
+          "required": false
+        },
+        {
+          "id": "simplesandwiches:duskwood_cutting_board",
+          "required": false
         }
       ],
       "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/tags/item/cutting_boards.json"
@@ -1603,6 +1729,26 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
       "usedIn": []
     },
     {
+      "id": "simplesandwiches:ashwood_cutting_board",
+      "name": {
+        "en_us": "Ashwood Cutting Board",
+        "de_de": "Aschholz-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/ashwood_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:ashwood_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplesandwiches:bamboo_cutting_board",
       "name": {
         "en_us": "Bamboo Cutting Board",
@@ -1781,6 +1927,26 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
       "texture": "assets/textures/simplesandwiches/block/dark_oak_cutting_board.png",
       "craftedBy": [
         "simplesandwiches:dark_oak_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:duskwood_cutting_board",
+      "name": {
+        "en_us": "Duskwood Cutting Board",
+        "de_de": "Dämmerholz-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/duskwood_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:duskwood_cutting_board"
       ],
       "usedIn": []
     },
@@ -1981,13 +2147,13 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
   "incompleteProse": {},
   "counts": {
     "features": 5,
-    "recipes": 15,
-    "lootTables": 16,
+    "recipes": 17,
+    "lootTables": 18,
     "tags": 5,
     "advancements": 0,
     "enchantments": 0,
     "items": 6,
-    "blocks": 16,
+    "blocks": 18,
     "trades": 0,
     "config": 0,
     "quests": 0,
