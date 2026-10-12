@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "EntitySilenceMixin",
-    "SculkSensorBlockMixin"
+    "SculkSensorBlockMixin",
+    "LivingEntityGravityMixin",
+    "EndGatewayFeatureMixin"
   ],
   "client": [
     "DeceiverLookMixin",

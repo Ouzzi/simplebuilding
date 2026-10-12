@@ -34,5 +34,20 @@ for tag in ('block/howler_jaw', 'item/howler_jaw_drops'):
     for v in json.loads((MODULE / f'shared/resources/data/simplemobs/tags/{tag}.json').read_text(encoding='utf-8'))['values']:
         if isinstance(v, dict) or not v.startswith(('minecraft:', '#minecraft:', 'simplemobs:')):
             assert isinstance(v, dict) and v.get('required') is False, f'foreign id must be optional: {v}'
-assert len(list((MODULE / 'shared/resources/data/simplemobs/recipe/brewing').glob('*.json'))) == 10
+assert len(list((MODULE / 'shared/resources/data/simplemobs/recipe/brewing').glob('*.json'))) >= 10
+# Shellker + Soulfire Blaze (claude-mobs2)
+for item in ('shellker_shell', 'shellker_helmet', 'shellker_spawn_egg', 'soulfire_rod', 'soulfire_blaze_spawn_egg'):
+    for locale in ('en_us', 'de_de'):
+        assert f'item.simplemobs.{item}' in json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8')), item
+    assert manual['notes'][f'simplemobs:{item}']['en']['summary'] and manual['notes'][f'simplemobs:{item}']['de']['summary'], item
+    assert (MODULE / f'shared/resources/assets/simplemobs/items/{item}.json').is_file(), item
+    assert (MODULE / f'shared/resources/assets/simplemobs/textures/item/{item}.png').is_file(), item
+for tex in ('entity/shellker/shellker', 'entity/shellker/shellker_eyes', 'entity/shellker/spark', 'entity/soulfire_blaze/soulfire_blaze',
+            'entity/equipment/humanoid/shellker', 'item/soul_fire_charge', 'mob_effect/high_gravity'):
+    assert (MODULE / f'shared/resources/assets/simplemobs/textures/{tex}.png').is_file(), tex
+shell = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entities/shellker.json').read_text(encoding='utf-8'))
+assert shell['pools'][0]['entries'][0]['name'] == 'simplemobs:shellker_shell'
+assert 'simplemobs:shellker_helmet' in json.loads((MODULE / 'shared/resources/data/minecraft/tags/item/head_armor.json').read_text(encoding='utf-8'))['values'], 'helmet must be head armor (trims)'
+for name in ('potion_awkward_shellker_shell', 'potion_high_gravity_redstone', 'potion_awkward_soulfire_rod'):
+    assert (MODULE / f'shared/resources/data/simplemobs/recipe/brewing/{name}.json').is_file(), name
 print('simplemobs: bilingual names, loot and assets valid')

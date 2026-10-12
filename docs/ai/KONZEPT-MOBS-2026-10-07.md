@@ -63,6 +63,18 @@ Queue N24 nennt nur den Namen; alles Folgende ist **Vorschlag**. Vorschau: `<pre
 2. Rute als Tiegel-Hitzequelle „hoch“ (Empfehlung) oder ein eigener Wert?
 3. Soll sie Wasser meiden/Schaden nehmen wie Blaze? (Empfehlung: ja, Wassereimer/Schneeball.)
 
+## Umsetzung Shellker + Seelenfeuer-Lohe (claude-mobs2, 2026-10-11)
+Modul Simple Mobs, eigene Klassen (`EndNetherMobs`, `ShellkerEntity`, `ShellkerBullet`, `ShellkerShellItem`, `HighGravityEffect`,
+`SoulfireBlaze`, `SoulFireball`, `EndNetherLogic`, `EndNetherServer`, `EndNetherTests`, Mixins `EndGatewayFeatureMixin`,
+`LivingEntityGravityMixin`), Registrierung je Loader nur angehängt. Texturen: `tools/textures/mobs2_textures.py`.
+Entscheidungen (Empfehlungen aus den offenen Fragen übernommen):
+- Helm mit Werten (Rüstung 3, Härte 1, Rückstoß 10 %, Haltbarkeit Eisen, −20 % Fallschaden, Schwerkraft-Immunität), neues Item, Schildkrötenpanzer unverändert; Trims über `#minecraft:head_armor`.
+- Schwerkraft 10 s (Geschoss), Trank 3:00/8:00; Sprung per Attribut 10 %, Schweben/Elytra per Mixin gedämpft.
+- Wächter an allen echten Gateways (Mixin auf `EndGatewayFeature.place`, nur im End, Config `shellkerGatewayGuards`); Positionen: die vier freien Felder neben dem Portalblock auf Portalhöhe, auf dem Grundgestein darunter.
+- Öffnen = nur Spalt: Vanilla-Peek bleibt bei 1 % (keine Größenänderung/kein Schieben), der Renderer zeigt einen 1,5-px-Spalt und ein leuchtendes Auge; geschlossen kein Schaden. Kein Teleport; Kolben verschieben ihn (Vanilla-Verhalten).
+- Seelenfeuer-Lohe: Spawn nur Seelensandtäler (eigener Wurf je 10 s, Config `soulfireBlazeSpawns`/`soulfireBlazeChance`), keine Festungs-Spawner. Wasser/Schneeball wie Lohe. Kugel 6 Schaden/6 s Brand, auf Seelenblöcken Seelenfeuer; Optik über Item-Modell-Komponente (kein Extra-Item).
+- Seelenfeuer-Rute: Brauzutat (Seltsamer Trank → lange Feuerresistenz). Tiegel-Hitzequelle offen (bedingte Anbindung in SimpleBuilding später).
+
 ## Nächste Schritte
 - Besitzer wählt Name, Variante und Golems/Bosse.
 - Danach Textur- und Modell-Vorschau (Bild, mehrere Posen, vanilla-nah) für Mob 1 und die gewählten Golems/Bosse.

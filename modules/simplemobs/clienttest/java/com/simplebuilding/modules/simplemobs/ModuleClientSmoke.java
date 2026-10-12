@@ -80,6 +80,54 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             world.getServer().runOnServer(server -> server.getLevel(net.minecraft.world.level.Level.OVERWORLD).getEntities(MobsRegistry.HOLLOW_HOWLER, e -> true).getFirst().startEmerging());
             context.waitTicks(16);
             context.takeScreenshot("simplemobs-howler-emerge");
+            // Shellker closed (bedrock disguise) next to an open one with its slit and eye, a real bedrock block for comparison
+            world.getServer().runOnServer(server -> {
+                var level = server.getLevel(net.minecraft.world.level.Level.OVERWORLD);
+                level.getEntities(MobsRegistry.HOLLOW_HOWLER, e -> true).forEach(e -> e.discard());
+                var p = server.getPlayerList().getPlayers().getFirst();
+                var at = p.blockPosition().offset(0, 0, 3);
+                for (int dx = -2; dx <= 2; dx++) level.setBlockAndUpdate(at.offset(dx, 0, 0), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+                level.setBlockAndUpdate(at.offset(-2, 1, 0), net.minecraft.world.level.block.Blocks.BEDROCK.defaultBlockState());
+                for (int i = 0; i < 2; i++) {
+                    var s = EndNetherMobs.SHELLKER.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+                    if (s == null) throw new AssertionError("Shellker did not spawn");
+                    s.snapTo(at.getX() + 0.5 + (i == 0 ? -1 : 1), at.getY() + 1, at.getZ() + 0.5, 180f, 0f);
+                    s.setNoAi(true);
+                    s.setYHeadRot(180f);
+                    level.addFreshEntity(s);
+                    if (i == 1) s.setOpen(true);
+                }
+            });
+            context.waitTicks(30);
+            context.takeScreenshot("simplemobs-shellker");
+            // Soulfire Blaze charging, and the Shellker helmet on armor stands (plain and gold-trimmed)
+            world.getServer().runOnServer(server -> {
+                var level = server.getLevel(net.minecraft.world.level.Level.OVERWORLD);
+                level.getEntities(EndNetherMobs.SHELLKER, e -> true).forEach(e -> e.discard());
+                var p = server.getPlayerList().getPlayers().getFirst();
+                var at = p.blockPosition().offset(0, 0, 4);
+                var b = EndNetherMobs.SOULFIRE_BLAZE.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+                if (b == null) throw new AssertionError("Soulfire Blaze did not spawn");
+                b.snapTo(at.getX() + 0.5, at.getY() + 1, at.getZ() + 0.5, 180f, 0f);
+                b.setYBodyRot(180f);
+                b.setYHeadRot(180f);
+                b.setNoAi(true);
+                b.setSoulCharged(true);
+                level.addFreshEntity(b);
+                var trims = level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.TRIM_MATERIAL);
+                var patterns = level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.TRIM_PATTERN);
+                for (int i = 0; i < 2; i++) {
+                    var stand = net.minecraft.world.entity.EntityTypes.ARMOR_STAND.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+                    stand.snapTo(at.getX() + 0.5 + (i == 0 ? -2 : 2), at.getY() + 1, at.getZ() + 0.5, 180f, 0f);
+                    var helmet = new net.minecraft.world.item.ItemStack(EndNetherMobs.HELMET);
+                    if (i == 1) helmet.set(net.minecraft.core.component.DataComponents.TRIM, new net.minecraft.world.item.equipment.trim.ArmorTrim(
+                            trims.getOrThrow(net.minecraft.world.item.equipment.trim.TrimMaterials.GOLD), patterns.getOrThrow(net.minecraft.world.item.equipment.trim.TrimPatterns.SENTRY)));
+                    stand.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, helmet);
+                    level.addFreshEntity(stand);
+                }
+            });
+            context.waitTicks(30);
+            context.takeScreenshot("simplemobs-soulfire-blaze");
         }
     }
 }
