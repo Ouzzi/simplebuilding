@@ -76,6 +76,12 @@ public final class DeathTests {
         return p;
     }
 
+    /** A real death: mock players are invulnerable until their client "loaded", so the death runs directly (Vanilla ServerPlayer#die). */
+    private static void die(GameTestHelper h, ServerPlayer p) {
+        p.setHealth(0.0F);
+        p.die(h.getLevel().damageSources().genericKill());
+    }
+
     private static List<ItemEntity> itemsNear(GameTestHelper h, ServerPlayer p) {
         return h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(p.blockPosition()).inflate(4));
     }
@@ -131,7 +137,7 @@ public final class DeathTests {
                 int helmetSlot = -1;
                 for (int i = 0; i < p.getInventory().getContainerSize(); i++) if (p.getInventory().getItem(i).is(Items.IRON_HELMET)) helmetSlot = i;
                 h.assertTrue(helmetSlot >= 0, "helmet sits in an inventory slot");
-                p.kill(h.getLevel());
+                die(h, p);
                 h.assertTrue(p.isDeadOrDying(), "the player died");
                 List<ItemEntity> drops = itemsNear(h, p);
                 h.assertTrue(drops.stream().noneMatch(e -> Soulbound.has(e.getItem())), "no Soulbound item entity exists after the death");
@@ -170,7 +176,7 @@ public final class DeathTests {
             try {
                 SimpleTools.config().enableSoulbound = false;
                 p.getInventory().setItem(0, bound(h, new ItemStack(Items.IRON_SWORD)));
-                p.kill(h.getLevel());
+                die(h, p);
                 h.assertTrue(itemsNear(h, p).stream().anyMatch(e -> Soulbound.has(e.getItem())), "switched off: the sword dropped");
                 h.assertTrue(p.getInventory().getItem(0).isEmpty(), "nothing kept");
             } finally {
@@ -476,7 +482,7 @@ public final class DeathTests {
             ServerPlayer p = living(h, new BlockPos(2, 2, 2));
             try {
                 p.getInventory().setItem(0, new ItemStack(Items.DIRT));
-                p.kill(h.getLevel());
+                die(h, p);
                 h.assertTrue(ledger(h).deaths(p.getUUID()).isEmpty(), "switched off: nothing recorded");
             } finally {
                 h.getLevel().getServer().getPlayerList().remove(p);
