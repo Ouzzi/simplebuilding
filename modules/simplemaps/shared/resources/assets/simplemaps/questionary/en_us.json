@@ -1,0 +1,35 @@
+{
+  "wayfinder_map": {
+    "lore": [
+      "A map that does not end where the paper does."
+    ],
+    "use": [
+      "Craft map, compass, four gold ingots and one echo shard, shapeless. Held in a hand it explores 1:1 around you, one dimension per map. Use it to open the screen: drag, zoom, waypoints."
+    ],
+    "secret": [
+      "It binds to the dimension in which you first use it. Chests of cartographers and shipwrecks hold one at 5%."
+    ]
+  },
+  "nether_wayfinder_map": {
+    "lore": [
+      "A map with scorched edges that was made for ceilings of stone."
+    ],
+    "use": [
+      "Craft map, compass, four gold ingots, two echo shards and a netherite scrap, shapeless. It maps the floor below you in the Nether and takes dimensions in the tag simplemaps:nether_wayfinder."
+    ],
+    "secret": [
+      "Bastions and Nether fortresses hide it at 2% in their chests. Under a ceiling it maps the floor under the holder."
+    ]
+  },
+  "end_wayfinder_map": {
+    "lore": [
+      "A map that draws islands as if they were floating thoughts."
+    ],
+    "use": [
+      "Craft map, compass, four gold ingots, two echo shards and a shulker shell, shapeless. It is made for the End and takes dimensions in the tag simplemaps:end_wayfinder."
+    ],
+    "secret": [
+      "End city treasure chests hold it at 2%. A map binds to the dimension it was first used in, so it works nowhere else."
+    ]
+  }
+}
