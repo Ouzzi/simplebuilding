@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": "simplebuilding:enderite_ingot",
-  "base": "simplebuilding:netherite_rod",
+  "base": "simplebuilding:netherite_pole",
   "result": {
-    "id": "simplebuilding:enderite_rod"
+    "id": "simplebuilding:enderite_pole"
   },
   "template": "simplebuilding:enderite_upgrade_template"
 }

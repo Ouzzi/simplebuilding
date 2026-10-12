@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_rod": {
+    "has_iron_pole": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:iron_rod"
+            "items": "simplebuilding:iron_pole"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:iron_ingot_from_iron_rod"
+        "recipes": "simplebuilding:iron_ingot_from_iron_pole"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron_rod"
+      "has_iron_pole"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:iron_ingot_from_iron_rod"
+      "simplebuilding:iron_ingot_from_iron_pole"
     ]
   }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:enderite_rod_smithing"
+        "recipes": "simplebuilding:enderite_pole_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:enderite_rod_smithing"
+      "simplebuilding:enderite_pole_smithing"
     ]
   }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:netherite_rod_smithing"
+        "recipes": "simplebuilding:netherite_pole_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:netherite_rod_smithing"
+      "simplebuilding:netherite_pole_smithing"
     ]
   }
 }

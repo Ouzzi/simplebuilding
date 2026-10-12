@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "M": "minecraft:gold_ingot"
+    "M": "minecraft:diamond"
   },
   "pattern": [
     "M",
@@ -10,6 +10,6 @@
     "M"
   ],
   "result": {
-    "id": "simplebuilding:gold_rod"
+    "id": "simplebuilding:diamond_pole"
   }
 }

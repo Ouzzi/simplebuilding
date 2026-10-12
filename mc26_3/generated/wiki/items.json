@@ -90,6 +90,7 @@
     "simplebuilding:cobbled_deepslate_octet",
     "simplebuilding:cobblestone_octet",
     "simplebuilding:construction_light",
+    "simplebuilding:copper_fire",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
     "simplebuilding:cracked_ice",
@@ -113,6 +114,7 @@
     "simplebuilding:deepslate_bricks_octet",
     "simplebuilding:deepslate_sage_ore",
     "simplebuilding:deepslate_tiles_octet",
+    "simplebuilding:diamond_pole",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:dimensional_scrap",
     "simplebuilding:diorite_octet",
@@ -149,8 +151,8 @@
     "simplebuilding:enderite_launchpad",
     "simplebuilding:enderite_piston",
     "simplebuilding:enderite_piston_head",
+    "simplebuilding:enderite_pole",
     "simplebuilding:enderite_pressure_plate",
-    "simplebuilding:enderite_rod",
     "simplebuilding:enderite_shulker_box",
     "simplebuilding:enderite_smoker",
     "simplebuilding:enderite_spawn_teleporter",
@@ -164,7 +166,7 @@
     "simplebuilding:flypad",
     "simplebuilding:frosted_nihilith",
     "simplebuilding:goat_horn_holder",
-    "simplebuilding:gold_rod",
+    "simplebuilding:gold_pole",
     "simplebuilding:granite_octet",
     "simplebuilding:grass_slab",
     "simplebuilding:gravel_slab",
@@ -202,7 +204,7 @@
     "simplebuilding:husk_head",
     "simplebuilding:husk_wall_head",
     "simplebuilding:infused_potion_pad",
-    "simplebuilding:iron_rod",
+    "simplebuilding:iron_pole",
     "simplebuilding:jukebox_amplifier",
     "simplebuilding:jungle_cauldron",
     "simplebuilding:jungle_crate",
@@ -252,8 +254,8 @@
     "simplebuilding:netherite_launchpad",
     "simplebuilding:netherite_piston",
     "simplebuilding:netherite_piston_head",
+    "simplebuilding:netherite_pole",
     "simplebuilding:netherite_pressure_plate",
-    "simplebuilding:netherite_rod",
     "simplebuilding:netherite_shulker_box",
     "simplebuilding:netherite_smoker",
     "simplebuilding:netherite_trapped_chest",
@@ -428,6 +430,7 @@
     "simplebuilding:stripped_warped_cauldron",
     "simplebuilding:stripped_warped_sheet",
     "simplebuilding:sulfur_bricks_octet",
+    "simplebuilding:sulfur_fire",
     "simplebuilding:sulfur_octet",
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
@@ -1091,6 +1094,9 @@
       "id": "simplebuilding:diamond_pebble"
     },
     {
+      "id": "simplebuilding:diamond_pole"
+    },
+    {
       "id": "simplebuilding:diamond_pressure_plate"
     },
     {
@@ -1424,15 +1430,15 @@
       "id": "simplebuilding:enderite_piston"
     },
     {
+      "id": "simplebuilding:enderite_pole"
+    },
+    {
       "id": "simplebuilding:enderite_pressure_plate"
     },
     {
       "bundleCapacityItems": 192,
       "id": "simplebuilding:enderite_quiver",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_rod"
     },
     {
       "id": "simplebuilding:enderite_scrap"
@@ -1562,7 +1568,7 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:gold_rod"
+      "id": "simplebuilding:gold_pole"
     },
     {
       "attackDamage": 6.0,
@@ -1720,7 +1726,7 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:iron_rod"
+      "id": "simplebuilding:iron_pole"
     },
     {
       "attackDamage": 9.0,
@@ -2107,15 +2113,15 @@
       "id": "simplebuilding:netherite_piston"
     },
     {
+      "id": "simplebuilding:netherite_pole"
+    },
+    {
       "id": "simplebuilding:netherite_pressure_plate"
     },
     {
       "bundleCapacityItems": 128,
       "id": "simplebuilding:netherite_quiver",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_rod"
     },
     {
       "id": "simplebuilding:netherite_shulker_box",
