@@ -90,6 +90,11 @@ MODULES = [
          name=("Simple Tweaks Guide", "Simple-Tweaks-Handbuch"),
          intro=("Legacy compatibility and staged server-authoritative claims, disabled by default.",
                 "Kompatibilität mit alten Ständen und stufenweise, serverseitige Claims, standardmäßig aus.")),
+    dict(module="simplerespawn", ns="simplerespawn", package="com.simplebuilding.modules.simplerespawn.guide",
+         cls="RespawnGuide", kind="item", author="Simple Respawn", recipe="minecraft:glistering_melon_slice",
+         name=("Simple Respawn Guide", "Simple-Respawn-Handbuch"),
+         intro=("Downed instead of dead: teammates revive you before you bleed out.",
+                "Niedergeschlagen statt tot: Mitspieler beleben dich wieder, bevor du verblutest.")),
     dict(module="simplevisuals", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
          kind="client", author="Simple Visuals",
          intro=("Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. "
@@ -102,6 +107,13 @@ MODULES = [
                 "Open this guide again with /simplesounds guide.",
                 "Begrenzte lokale Vanilla-Klänge zu den zwölf Immersionseffekten von Simple Visuals. "
                 "Dieses Handbuch öffnet /simplesounds guide.")),
+    dict(module="simpleend", ns="simpleend", package="com.simplebuilding.modules.simpleend.guide", cls="EndGuide",
+         kind="item", author="Simple End", recipe="minecraft:chorus_fruit",
+         name=("Simple End Guide", "Simple-End-Handbuch"),
+         intro=("Ashwood and Duskwood, buds that grow End trees or stick scrub, End grass and the Ash Valley and "
+                "Dawnlands biomes on the outer End islands.",
+                "Aschholz und Dämmerholz, Knospen für End-Bäume oder Stöcke-Gestrüpp, End-Gras und die Biome "
+                "Aschental und Dämmerlande auf den äußeren End-Inseln.")),
 ]
 
 SETTINGS = ("Settings", "Einstellungen",
@@ -125,6 +137,8 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:item_frame": ("an item frame", "einem Rahmen"),
     "minecraft:flint_and_steel": ("flint and steel", "einem Feuerzeug"),
     "minecraft:paper": ("paper", "Papier"),
+    "minecraft:chorus_fruit": ("a chorus fruit", "einer Chorusfrucht"),
+    "minecraft:glistering_melon_slice": ("a glistering melon slice", "einer glitzernden Melonenscheibe"),
 }
 
 
@@ -372,6 +386,8 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:gold_nugget": ("gold nugget", "Goldklumpen"), "minecraft:bread": ("bread", "Brot"),
     "minecraft:chest": ("chest", "Truhe"), "minecraft:item_frame": ("item frame", "Rahmen"),
     "minecraft:flint_and_steel": ("flint and steel", "Feuerzeug"), "minecraft:paper": ("paper", "Papier"),
+    "minecraft:chorus_fruit": ("chorus fruit", "Chorusfrucht"),
+    "minecraft:glistering_melon_slice": ("glistering melon slice", "glitzernde Melonenscheibe"),
 }
 
 

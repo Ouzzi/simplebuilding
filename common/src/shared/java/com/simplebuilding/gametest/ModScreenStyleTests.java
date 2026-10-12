@@ -173,6 +173,40 @@ public final class ModScreenStyleTests {
         }
     }
 
+    /**
+     * N43 panels of the slotless screens (PLAN-UI-KONZEPTE-2026-10-12): the wand's buttons and the trim reference's
+     * list field and Done button lie in the fill area of their box on small and large screens, the field above the
+     * button; every wand material has its own colour.
+     */
+    public static void slotlessPanelsHoldTheirWidgets(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        Box wand = new Box(0, 0, ModScreenLayout.WAND_W, ModScreenLayout.WAND_H);
+        int bx = ModScreenLayout.WAND_BUTTON_X;
+        int[][] buttons = {{bx, ModScreenLayout.WAND_RADIUS_Y, ModScreenLayout.WAND_BUTTON_W},
+                {bx, ModScreenLayout.WAND_AXIS_Y, ModScreenLayout.WAND_BUTTON_W},
+                {(ModScreenLayout.WAND_W - ModScreenLayout.WAND_CLOSE_W) / 2, ModScreenLayout.WAND_CLOSE_Y, ModScreenLayout.WAND_CLOSE_W}};
+        for (int[] b : buttons) {
+            if (!wand.holds(b[0], b[1], b[2], 20)) problems.add("wand: button at (" + b[0] + ", " + b[1] + ") leaves " + wand);
+        }
+        if (ModScreenLayout.WAND_RADIUS_Y < ModScreenLayout.WAND_TITLE_Y + 9) problems.add("wand: the radius button covers the title");
+        java.util.Set<Integer> fills = new java.util.HashSet<>();
+        for (String m : new String[] {"copper", "iron", "gold", "diamond", "netherite", "enderite", "creative"}) {
+            fills.add(ModScreenLayout.wandFill(m + "_building_wand"));
+        }
+        if (fills.size() != 7) problems.add("wand: two materials share a colour " + fills);
+        for (int[] size : new int[][] {{320, 240}, {427, 240}, {640, 360}, {960, 540}}) {
+            Box[] t = ModScreenLayout.trimReference(size[0], size[1], 260);
+            Box panel = t[0], field = t[1], button = t[2];
+            String at = size[0] + "x" + size[1];
+            if (panel.x() < 0 || panel.right() > size[0] || panel.bottom() > size[1]) problems.add("trim " + at + ": panel " + panel + " off screen");
+            if (!panel.holds(field.x(), field.y(), field.width() + 1, field.height() + 1)) problems.add("trim " + at + ": field " + field + " leaves " + panel);
+            if (!panel.holds(button.x(), button.y(), button.width(), button.height())) problems.add("trim " + at + ": button " + button + " leaves " + panel);
+            if (field.bottom() + 1 > button.y()) problems.add("trim " + at + ": field " + field + " runs into the button " + button);
+            if (field.height() < 3 * 26) problems.add("trim " + at + ": field " + field + " shows fewer than three rows");
+        }
+        report(helper, problems);
+    }
+
     private static void report(GameTestHelper helper, List<String> problems) {
         helper.assertTrue(problems.isEmpty(), "Mod screen boxes: " + problems);
         helper.succeed();

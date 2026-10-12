@@ -24,25 +24,25 @@
     {
       "id": "claims",
       "en": {
-        "title": "Claims: Disabled by Default",
-        "summary": "Stages 1–3, 5 and 6 plus partial stage-4 protection are implemented: atomic claims, Vanilla/tool checks, owner trust, OP4 administration and the Dimensions adapter. Automation still has unsupported paths, including lightning secondary effects and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
+        "title": "Claims: Complete, Off by Default",
+        "summary": "All six stages are implemented: atomic claims with caps, Vanilla/tool checks at every target, explosions, fire, pistons, fluids, automation, projectiles, mob griefing, vehicles, owner trust, OP4 administration and the Dimensions adapter. Mobs still fight normally inside claims. Off until the owner releases it; disabled hooks do not read claim data. Default: false.",
         "details": [
-          "Stages 1–3, 5 and 6 plus partial stage-4 protection are implemented: atomic claims, Vanilla/tool checks, owner trust, OP4 administration and the Dimensions adapter. Automation still has unsupported paths, including lightning secondary effects and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
-          "Automation checks source and destination ownership, including known bed/chest counterparts. Known Vanilla and SimpleBuilding piston/hopper hooks and placed attractors are guarded. Natural damage remains active. Explosions are blocked on claimed targets regardless of owner.",
-          "Plain dispenser ejection and droppers work within one owner. Other dispenser behaviors remain blocked near claims. Unknown containers are refused when enabled. Copper golems have no trusted owner, so their transfers touching claimed land are blocked. Crafters check destinations before consuming ingredients, preventing refused fallback ejections. Arbitrary remote mod mutations remain unsupported; Claims must remain off.",
-          "Lightning ignition and copper cleaning now check each target, including random neighboring targets. Lightning rod redstone and entity transformations still need protection. Lightning entity damage is currently denied conservatively. Claims is not ready for activation.",
+          "All six stages are implemented: atomic claims with caps, Vanilla/tool checks at every target, explosions, fire, pistons, fluids, automation, projectiles, mob griefing, vehicles, owner trust, OP4 administration and the Dimensions adapter. Mobs still fight normally inside claims. Off until the owner releases it; disabled hooks do not read claim data. Default: false.",
+          "Automation checks source and destination ownership, including known bed/chest counterparts and composters. Known Vanilla and SimpleBuilding piston/hopper hooks and placed attractors are guarded. Explosions never break claimed blocks or hurt claimed animals and decorations; players still take explosion damage.",
+          "Plain dispenser ejection and droppers work within one owner; other dispenser behaviors stay blocked near claims. Copper golems remember the land their load came from and only put it down on that same land, so they work inside a claim but never carry items out or in. Crafters check destinations before consuming ingredients. Unknown containers are refused while enabled.",
+          "Mob griefing: Endermen, Withers, Ravagers, the Ender Dragon, Silverfish and door-breaking Zombies never change claimed land; other mobs (villagers, sheep, boats) only act on the land they stand on. Farmland and turtle eggs need rights to trample. Mob attacks stay Vanilla. Boats need rights to be placed; a lightning bolt counts as the player who caused it.",
           "/claim trust and untrust accept online names or full offline UUIDs. Only the owner can change trust; trusted players cannot delegate. OP4 may use admin listall, list <UUID/name>, or unclaim, independently of the default-off protection bypass. Changes are saved atomically before becoming effective.",
           "Server ticks between successful claim, trust, revocation or removal operations by one player. Range 20–72000, across dimensions; resets on restart. Default: 100 ticks."
         ]
       },
       "de": {
-        "title": "Claims: standardmäßig aus",
-        "summary": "Stufen 1–3, 5 und 6 sowie Teile des Stage-4-Schutzes sind umgesetzt: atomare Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Automation hat weiterhin ungeschützte Pfade, darunter Blitz-Sekundaerfolgen und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
+        "title": "Claims: fertig, standardmäßig aus",
+        "summary": "Alle sechs Stufen sind umgesetzt: atomare Claims mit Limits, Vanilla-/Werkzeugprüfung an jedem Ziel, Explosionen, Feuer, Kolben, Flüssigkeiten, Automation, Projektile, Mob-Griefing, Fahrzeuge, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Mobs kämpfen in Claims weiter normal. Aus, bis der Besitzer freigibt; ausgeschaltete Hooks lesen keine Claim-Daten. Standardwert: false.",
         "details": [
-          "Stufen 1–3, 5 und 6 sowie Teile des Stage-4-Schutzes sind umgesetzt: atomare Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Automation hat weiterhin ungeschützte Pfade, darunter Blitz-Sekundaerfolgen und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
-          "Automation prüft Besitz an Quelle und Ziel einschließlich bekannter Bett-/Truhengegenstücke. Bekannte Vanilla- und SimpleBuilding-Kolben-/Hopper-Hooks sowie platzierte Attractors sind angebunden. Naturschaden bleibt wirksam. Explosionen werden auf beanspruchten Zielen unabhängig vom Besitzer verweigert.",
-          "Einfache Dispenser-Auswürfe und Dropper funktionieren innerhalb desselben Besitzes. Andere Dispenser-Behaviors bleiben in Claim-Nähe gesperrt. Unbekannte Container werden bei aktiviertem Schutz verweigert. Kupfergolems haben keinen verlässlichen Besitzer; ihre Transfers mit beanspruchtem Land sind deshalb gesperrt. Crafter prüfen Ziele vor dem Zutatenverbrauch und verhindern verweigerte Ersatzauswürfe. Beliebige entfernte Mod-Mutationen bleiben ungeschützt; Claims muss aus bleiben.",
-          "Blitzentzündung und Kupferreinigung prüfen nun jedes Ziel, einschließlich zufälliger Nachbarziele. Blitzableiter-Redstone und Entity-Verwandlungen benötigen weiterhin Schutz. Blitzschaden als Entity-Quelle wird momentan konservativ verweigert. Claims ist nicht einschaltbereit.",
+          "Alle sechs Stufen sind umgesetzt: atomare Claims mit Limits, Vanilla-/Werkzeugprüfung an jedem Ziel, Explosionen, Feuer, Kolben, Flüssigkeiten, Automation, Projektile, Mob-Griefing, Fahrzeuge, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Mobs kämpfen in Claims weiter normal. Aus, bis der Besitzer freigibt; ausgeschaltete Hooks lesen keine Claim-Daten. Standardwert: false.",
+          "Automation prüft Besitz an Quelle und Ziel einschließlich bekannter Bett-/Truhengegenstücke und Komposter. Bekannte Vanilla- und SimpleBuilding-Kolben-/Hopper-Hooks sowie platzierte Attractors sind angebunden. Explosionen zerstören keine beanspruchten Blöcke und verletzen keine beanspruchten Tiere oder Dekorationen; Spieler erleiden weiter Explosionsschaden.",
+          "Einfache Dispenser-Auswürfe und Dropper funktionieren innerhalb desselben Besitzes; andere Dispenser-Behaviors bleiben in Claim-Nähe gesperrt. Kupfergolems merken sich, von welchem Land ihre Ladung stammt, und legen sie nur dort wieder ab: innerhalb eines Claims arbeiten sie, tragen aber nichts hinaus oder hinein. Crafter prüfen Ziele vor dem Zutatenverbrauch. Unbekannte Container werden bei aktiviertem Schutz verweigert.",
+          "Mob-Griefing: Endermen, Wither, Verwüster, Enderdrache, Silberfischchen und türbrechende Zombies verändern kein beanspruchtes Land; andere Mobs (Dorfbewohner, Schafe, Boote) wirken nur auf dem Land, auf dem sie stehen. Ackerboden und Schildkröteneier zu zertrampeln braucht Rechte. Mob-Angriffe bleiben Vanilla. Boote zu setzen braucht Rechte; ein Blitz zählt als der Spieler, der ihn ausgelöst hat.",
           "/claim trust und untrust nehmen Online-Namen oder vollständige Offline-UUIDs an. Nur der Besitzer ändert Vertrauen; Vertraute dürfen es nicht weitergeben. OP4 darf admin listall, list <UUID/Name> und unclaim nutzen, unabhängig von der standardmäßig ausgeschalteten Schutzumgehung. Änderungen gelten erst nach atomarem Speichern.",
           "Server-Ticks zwischen erfolgreichen Claim-, Vertrauens-, Widerrufs- oder Löschvorgängen eines Spielers. Bereich 20–72000, dimensionsübergreifend; Neustart setzt zurück. Standard: 100 Ticks."
         ]
@@ -58,7 +58,12 @@
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimAutomation.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimDamageMixin.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimExplosionMixin.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimCommands.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimCommands.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimGriefMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimEndermanTakeMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimDoorMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimBoatMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimTransportMixin.java"
       ]
     },
     {

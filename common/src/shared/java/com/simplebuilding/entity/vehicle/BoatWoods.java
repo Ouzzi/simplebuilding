@@ -14,8 +14,13 @@ import org.jspecify.annotations.Nullable;
  */
 public final class BoatWoods {
     /** Vanilla's boat woods of 26.3, in the order of the creative tab. */
-    public static final List<String> ALL = List.of("oak", "spruce", "birch", "jungle", "acacia", "cherry", "dark_oak",
+    public static final List<String> VANILLA = List.of("oak", "spruce", "birch", "jungle", "acacia", "cherry", "dark_oak",
             "pale_oak", "mangrove", "poplar", "bamboo");
+    /** Simple End's boat woods (its own boat items, {@code simpleend:<wood>_boat}); only while Simple End is loaded. */
+    public static final List<String> END = List.of("ashwood", "duskwood");
+    /** Every boat wood of this game: Vanilla, then the End woods with Simple End (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md). */
+    public static final List<String> ALL = com.simplebuilding.platform.ModEnvironment.isModLoaded(com.simplebuilding.woodwork.WoodKind.SIMPLE_END)
+            ? java.util.stream.Stream.concat(VANILLA.stream(), END.stream()).toList() : VANILLA;
     public static final String DEFAULT = "oak";
 
     private BoatWoods() {
@@ -42,17 +47,22 @@ public final class BoatWoods {
         return stack;
     }
 
-    /** Vanilla's plain boat (or raft) of the wood - the crafting base. */
+    /** The namespace of the wood's own boats: {@code minecraft}, or {@code simpleend} for the End woods. */
+    public static String namespace(String wood) {
+        return END.contains(wood) ? com.simplebuilding.woodwork.WoodKind.SIMPLE_END : "minecraft";
+    }
+
+    /** The wood's plain boat (or raft) - the crafting base. */
     public static Item boat(String wood) {
-        return vanilla(isRaft(wood) ? "bamboo_raft" : wood + "_boat");
+        return item(wood, isRaft(wood) ? "bamboo_raft" : wood + "_boat");
     }
 
-    /** Vanilla's chest boat (or chest raft) of the wood - its name and item sprite. */
+    /** The wood's chest boat (or chest raft) - its name and item sprite. */
     public static Item chestBoat(String wood) {
-        return vanilla(isRaft(wood) ? "bamboo_chest_raft" : wood + "_chest_boat");
+        return item(wood, isRaft(wood) ? "bamboo_chest_raft" : wood + "_chest_boat");
     }
 
-    private static Item vanilla(String path) {
-        return BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(path));
+    private static Item item(String wood, String path) {
+        return BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(namespace(wood), path));
     }
 }

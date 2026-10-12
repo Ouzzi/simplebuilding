@@ -64,6 +64,8 @@ KINDS = {'still': (16, 2), 'flow': (32, 3)}  # frame size, frametime
 
 
 def client_jar() -> Path:
+    if os.environ.get('SB_CLIENT_JAR'):
+        return Path(os.environ['SB_CLIENT_JAR'])
     home = Path(os.environ.get('GRADLE_USER_HOME', Path.home() / '.gradle'))
     jars = sorted(glob.glob(str(home / 'caches/neoformruntime/artifacts/minecraft_26.3_client.jar')))
     jars += sorted(glob.glob(str(home / 'caches/fabric-loom/26.3/minecraft-client.jar')))
@@ -126,13 +128,19 @@ def swap(img: Image.Image, table: dict) -> Image.Image:
     return Image.fromarray(a)
 
 
+def derived(jar) -> dict:
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image (never committed)."""
+    os.environ['SB_CLIENT_JAR'] = str(jar)
+    out = {f'block/soul_lava_{kind}.png': soul_lava(kind) for kind in KINDS}
+    out['item/soul_lava_bucket.png'] = swap(vanilla('item/lava_bucket'), SOUL_FOR_LAVA)
+    return out
+
+
 def outputs() -> dict:
+    """Committed outputs: the .mcmeta files. The PNGs are Vanilla-derived and built (see derived())."""
     out = {}
     for kind in KINDS:
-        img = soul_lava(kind)
-        out[TEX / f'block/soul_lava_{kind}.png'] = img
-        out[TEX / f'block/soul_lava_{kind}.png.mcmeta'] = mcmeta(kind, img.height // KINDS[kind][0])
-    out[TEX / 'item/soul_lava_bucket.png'] = swap(vanilla('item/lava_bucket'), SOUL_FOR_LAVA)
+        out[TEX / f'block/soul_lava_{kind}.png.mcmeta'] = mcmeta(kind, soul_lava(kind).height // KINDS[kind][0])
     return out
 
 
@@ -153,7 +161,7 @@ def frames_of(img: Image.Image, size: int) -> list:
 
 def preview(dest: Path, old: Path | None) -> None:
     dest.mkdir(parents=True, exist_ok=True)
-    new = {k: Image.open(TEX / f'block/soul_lava_{k}.png').convert('RGBA') for k in KINDS}
+    new = {k: soul_lava(k) for k in KINDS}
     van = {k: vanilla('block/lava_' + k) for k in KINDS}
     rows = [('Vanilla', van)]
     if old:
@@ -202,10 +210,14 @@ def preview(dest: Path, old: Path | None) -> None:
     buckets = []
     for name in ('soul_lava_bucket', 'enderite_soul_lava_bucket'):
         for label, base in (('alt', old), ('neu', TEX / 'item')):
-            if base and (base / f'{name}.png').exists():
+            if label == 'neu' and name == 'soul_lava_bucket':
+                im = swap(vanilla('item/lava_bucket'), SOUL_FOR_LAVA).crop((0, 0, 16, 16))
+            elif base and (base / f'{name}.png').exists():
                 im = Image.open(base / f'{name}.png').convert('RGBA').crop((0, 0, 16, 16))
-                bg = Image.new('RGBA', (16, 16), (60, 60, 60, 255))
-                buckets.append(Image.alpha_composite(bg, im).resize((128, 128), Image.NEAREST).convert('RGB'))
+            else:
+                continue
+            bg = Image.new('RGBA', (16, 16), (60, 60, 60, 255))
+            buckets.append(Image.alpha_composite(bg, im).resize((128, 128), Image.NEAREST).convert('RGB'))
     if buckets:
         strip = Image.new('RGB', (90 + len(buckets) * 132, 128), (24, 24, 24))
         ImageDraw.Draw(strip).text((2, 2), 'Eimer\nalt|neu\neisen,\nenderit', fill=(230, 230, 230))

@@ -54,7 +54,7 @@ public final class TestCentreGameTest {
     }
 
     @GameTest(maxTicks = 400)
-    public void everyModMobHasAStationThatSpawnsItInItsHabitat(GameTestHelper helper) {
-        TestCentreTests.everyModMobHasAStationThatSpawnsItInItsHabitat(helper);
+    public void everyModMobHasItsOwnStationThatSpawnsItInItsHabitat(GameTestHelper helper) {
+        TestCentreTests.everyModMobHasItsOwnStationThatSpawnsItInItsHabitat(helper);
     }
 }

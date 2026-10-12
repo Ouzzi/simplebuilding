@@ -41,8 +41,8 @@ public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
-            "materials", "placeables", "arrows", "archery", "music", "crucible", "chess", "astral", "woodwork", "vehicles", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
-            "mining", "enchants", "sinkdamper", "tweaks", "devices",
+            "materials", "placeables", "arrows", "archery", "music", "crucible", "chess", "astral", "woodwork", "simpleend", "vehicles", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
+            "mining", "enchants", "sinkdamper", "tweaks", "deathvault", "respawn", "devices",
             // Mobs of every loaded mod (Queue N43); empty without such mods.
             "mobs",
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
@@ -222,6 +222,8 @@ public final class TestCentreLayout {
         // Holzwerk-Station (2026-10-09); auf 26.2 leer.
         builders.put("woodwork", FeatureStations::woodwork);
         // Fahrzeug-Station (Queue N19/N23); auf 26.2 leer.
+        // Simple-End-Station (2026-10-12); leer ohne das Modul.
+        builders.put("simpleend", FeatureStations::simpleEnd);
         builders.put("vehicles", FeatureStations::vehicles);
         builders.put("chisel", TestCentreSections::chisel);
         builders.put("inworld", TestCentreSections::inWorld);
@@ -235,6 +237,8 @@ public final class TestCentreLayout {
         builders.put("enchants", FeatureStations::enchants);
         builders.put("sinkdamper", FeatureStations::sinkDamper);
         builders.put("tweaks", TweaksStation::build);
+        // Death Vault + Soulbound (Simple Tools, 2026-10-12); leer ohne Simple Tools.
+        builders.put("deathvault", FeatureStations::deathVault);
         builders.put("devices", TestCentreSections::devices);
         builders.put("mobs", MobStations::build);
 

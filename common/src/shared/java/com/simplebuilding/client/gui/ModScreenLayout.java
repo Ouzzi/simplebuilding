@@ -94,4 +94,44 @@ public final class ModScreenLayout {
         return new int[] {layout.vanillaX() + 6, BackpackLayout.FIRST_ROW_Y - 2, layout.vanillaX() + 170,
                 BackpackLayout.FIRST_ROW_Y + rows * BackpackLayout.SLOT};
     }
+
+    // ------------------------------------------------------------------ slotless screens (N16/N43, PLAN-UI-KONZEPTE)
+
+    /** Octant panel: brass-brown of the octant's frame (texture #B36629, a little darker so light labels read). */
+    public static final int OCTANT_FILL = 0xFFA0642E;
+    /** Trim reference: the smithing table's palette (simpleinterfaces {@code StationStyles.SMITHING}). */
+    public static final int TRIM_REFERENCE_FILL = 0xFF4B1E19;
+    /** Building wand panel: Vanilla's widths (200 px buttons) plus 8 px on each side, like a container's slot margin. */
+    public static final int WAND_W = 216, WAND_H = 94;
+    /** Wand rows relative to the panel: title, radius, axis, close (20 high, 24 apart like Vanilla's option lists). */
+    public static final int WAND_TITLE_Y = 6, WAND_RADIUS_Y = 18, WAND_AXIS_Y = 42, WAND_CLOSE_Y = 66;
+    public static final int WAND_BUTTON_X = SIDE, WAND_BUTTON_W = 200, WAND_CLOSE_W = 100;
+    /** Trim reference: rows, side margin, the Done button, the scroll bar. */
+    public static final int TRIM_ROW = 26, TRIM_MARGIN = 8, TRIM_BUTTON_H = 20, TRIM_SCROLL_W = 6;
+
+    /** Fill of a building wand's panel from its item id path ({@code copper_building_wand} ...): its material. */
+    public static int wandFill(String itemPath) {
+        if (itemPath.startsWith("copper")) return 0xFFB4684D;
+        if (itemPath.startsWith("iron")) return 0xFF9A9DA2; // SimpleLib IRON
+        if (itemPath.startsWith("gold")) return 0xFFD1A13A;
+        if (itemPath.startsWith("diamond")) return 0xFF3A9E95;
+        if (itemPath.startsWith("netherite")) return 0xFF5F524C; // SimpleLib NETHERITE
+        if (itemPath.startsWith("enderite")) return 0xFF8E6CB0; // SimpleLib ENDERITE
+        return 0xFF7A5A9E; // creative: the creative tab's purple-ish
+    }
+
+    /**
+     * The trim reference's panel on a {@code screenW x screenH} screen for rows {@code contentW} px wide (icon + text):
+     * {panel, list field, Done button (x, y, w, h as a Box)}; 8 px from the screen edges, the list in a light field
+     * below the title, the Done button at the bottom inside the frame.
+     */
+    public static Box[] trimReference(int screenW, int screenH, int contentW) {
+        int w = Math.min(screenW - 2 * TRIM_MARGIN, contentW + 2 * SIDE + 4 + TRIM_SCROLL_W + 4);
+        int h = screenH - 2 * TRIM_MARGIN;
+        int x = (screenW - w) / 2, y = TRIM_MARGIN;
+        Box panel = new Box(x, y, w, h);
+        Box button = new Box(x + (w - 100) / 2, y + h - FRAME_BOTTOM - 3 - TRIM_BUTTON_H, 100, TRIM_BUTTON_H);
+        Box field = new Box(x + FRAME + 2, y + 18, w - 2 * (FRAME + 2) - 1, button.y() - 4 - (y + 18));
+        return new Box[] {panel, field, button};
+    }
 }

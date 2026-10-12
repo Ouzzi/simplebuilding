@@ -1,0 +1,14 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplerespawn"
+version="${version}"
+displayName="Simple Respawn"
+description="Downed instead of dead: a teammate can revive you before you bleed out (then 3 hearts, no food)."
+[[mixins]]
+config="simplerespawn.mixins.json"
+[[dependencies.simplerespawn]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"

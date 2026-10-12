@@ -52,36 +52,136 @@ ext.mc263ConfigureResources = { SourceSet sourceSet, List<String> extraSharedDir
 // Textures derived from Mojang textures (a recolour/mask of a sprite from the client jar) are never
 // committed (owner rule 2026-10-12, AGENTS.md): tools/textures/vanilla_derived.py draws them from the
 // local 26.3 client jar into build/generated-resources/vanillaDerived, and the merge below takes them
-// before every other layer. Python 3 with Pillow: -PsbPython / SB_PYTHON, else python3.12, python3,
-// python from PATH. Jar: -PsbClientJar / SB_CLIENT_JAR, else the Loom or NeoForm cache of this
-// Gradle user home. Without a jar the build fails (a missing sprite would ship as magenta); only
-// -PsbVanillaDerivedPlaceholders ships labelled placeholders instead.
+// before every other layer. Python 3.8+ with Pillow and numpy: -PsbPython / SB_PYTHON (a path or a command
+// such as "py -3"), else the first of py -3 (Windows launcher), python3.12, python3, python that runs and has
+// both modules (the Microsoft Store stub python.exe does not run and is skipped). The probe happens when the
+// task runs, not at configuration. Jar: -PsbClientJar / SB_CLIENT_JAR, else the Loom, NeoForm or ForgeGradle
+// cache of this Gradle user home (the script searches). Without a jar the build fails (a missing sprite
+// would ship as magenta) only with -PsbVanillaDerivedStrict; by default a missing Python/module/jar or a
+// failing script logs a WARNING and ships grey placeholders (drawn in Groovy, no Python needed);
+// -PsbSkipVanillaDerived does that without trying Python; -PsbVanillaDerivedPlaceholders lets the script
+// write its labelled placeholders when no jar is found.
+// The script's output (stdout + stderr) goes to the Gradle log, and its last lines into the failure message.
+ext.sbPythonCandidates = { String explicit, boolean windows ->
+    if (explicit) {
+        // A path (may contain spaces, e.g. C:\Program Files\Python312\python.exe) or a command line.
+        return [new File(explicit).isFile() ? [explicit] : (explicit.trim().split(/\s+/) as List<String>)]
+    }
+    List<List<String>> c = windows ? [['py', '-3']] : []
+    c += [['python3.12'], ['python3'], ['python']]
+    return c
+}
+ext.sbVanillaDerivedProbe = 'import sys\nmissing = []\nfor m in ("PIL", "numpy"):\n    try:\n        __import__(m)\n' +
+        '    except ImportError:\n        missing.append("pillow" if m == "PIL" else m)\n' +
+        'print("SBPY", "%d.%d" % sys.version_info[:2], " ".join(missing) if sys.version_info >= (3, 8) else "python>=3.8")\n'
+// Runs cmd + args; returns [exit code, merged output]. exit -1 when the command cannot be started.
+ext.sbRunProcess = { List<String> cmd, File dir, Map<String, String> env ->
+    try {
+        ProcessBuilder pb = new ProcessBuilder(cmd).directory(dir).redirectErrorStream(true)
+        pb.environment().putAll(env)
+        Process p = pb.start()
+        p.outputStream.close()
+        String text = new String(p.inputStream.readAllBytes(), 'UTF-8')
+        return [p.waitFor(), text]
+    } catch (IOException e) {
+        return [-1, e.message ?: e.toString()]
+    }
+}
+// [command, null] for the first candidate with Python 3.8+ and the modules; else [null, failure message].
+ext.sbFindPython = { List<List<String>> candidates, boolean needModules, File dir, Map<String, String> env ->
+    List<String> tried = []
+    for (List<String> cmd : candidates) {
+        def (int code, String text) = sbRunProcess(cmd + ['-c', sbVanillaDerivedProbe], dir, env)
+        def m = code == 0 ? (text =~ /SBPY (\d+\.\d+) ?(.*)/) : null
+        if (m == null || !m.find()) {
+            tried << "  ${cmd.join(' ')}: does not run (exit ${code}${text?.trim() ? ', ' + text.trim().readLines()[0] : ''})"
+            continue
+        }
+        String missing = m.group(2).trim()
+        if (!missing || !needModules) return [cmd, null]
+        tried << "  ${cmd.join(' ')} (Python ${m.group(1)}): missing ${missing} -> ${cmd.join(' ')} -m pip install ${missing}"
+    }
+    return [null, 'generateVanillaDerived needs Python 3.8+ with Pillow and numpy. Tried:\n' + tried.join('\n') +
+            '\nInstall Python 3 (python.org, tick "Add python.exe to PATH"; the Microsoft Store alias does not ' +
+            'count), then: py -3 -m pip install pillow numpy (Linux/macOS: python3 -m pip install pillow numpy).\n' +
+            'Or point the build at one: -PsbPython=<path or command> / SB_PYTHON.']
+}
 ext.mcVanillaDerivedTask = { ->
     if (tasks.names.contains('generateVanillaDerived')) return tasks.named('generateVanillaDerived')
     File script = new File(rootDirFile, 'tools/textures/vanilla_derived.py')
     File out = layout.buildDirectory.dir('generated-resources/vanillaDerived').get().asFile
     String python = (project.findProperty('sbPython') ?: System.getenv('SB_PYTHON')) as String
-    if (!python) {
-        List<String> path = (System.getenv('PATH') ?: '').split(File.pathSeparator) as List<String>
-        python = ['python3.12', 'python3', 'python', 'python.exe'].find { n -> path.any { new File(it, n).canExecute() } } ?: 'python3'
-    }
     String jar = (project.findProperty('sbClientJar') ?: System.getenv('SB_CLIENT_JAR')) as String
     boolean placeholders = project.hasProperty('sbVanillaDerivedPlaceholders')
+    boolean skip = project.hasProperty('sbSkipVanillaDerived')
+    boolean strict = project.hasProperty('sbVanillaDerivedStrict')
+    boolean windows = System.getProperty('os.name', '').toLowerCase(Locale.ROOT).contains('windows')
     File gradleHome = gradle.gradleUserHomeDir
-    return tasks.register('generateVanillaDerived', Exec) {
+    def candidates = sbPythonCandidates(python, windows)
+    def findPython = sbFindPython
+    def runProcess = sbRunProcess
+    return tasks.register('generateVanillaDerived') {
         description = 'Draws the Vanilla-derived textures (never committed) from the local 26.3 client jar.'
         inputs.files(fileTree(script.parentFile) { include '*.py' }).withPropertyName('generators')
         inputs.property('jar', jar ?: '')
         inputs.property('placeholders', placeholders)
+        inputs.property('skip', skip)
+        inputs.property('python', python ?: '')
         outputs.dir(out)
-        workingDir rootDirFile
-        environment 'GRADLE_USER_HOME', gradleHome.absolutePath
-        List<String> cmd = [python, '-B', script.absolutePath, '--out', out.absolutePath]
-        if (jar) cmd += ['--jar', jar]
-        if (placeholders) cmd << '--placeholder-if-missing'
-        commandLine cmd
-        doFirst { project.delete(out) }
+        // a fallback run must not stay up to date once Python/the jar is there
+        outputs.upToDateWhen { !new File(out.parentFile, 'vanillaDerived.placeholder').exists() }
+        doLast {
+            project.delete(out)
+            project.delete(new File(out.parentFile, 'vanillaDerived.placeholder'))
+            // Never break the build on a missing Python/Pillow/numpy/jar (owner blocked on Windows 2026-10-12):
+            // warn and ship grey placeholders drawn here in Groovy. -PsbVanillaDerivedStrict fails instead.
+            def fallback = { String why ->
+                if (strict) throw new GradleException(why)
+                logger.warn("WARNING generateVanillaDerived: ${why}\n-> grey placeholder textures instead " +
+                        '(the build goes on; the real textures need Python + Pillow + numpy and a 26.3 client jar).')
+                sbVanillaDerivedPlaceholders(script, out)
+            }
+            if (skip) {
+                logger.lifecycle('generateVanillaDerived: -PsbSkipVanillaDerived -> placeholder textures, no Python.')
+                sbVanillaDerivedPlaceholders(script, out)
+                return
+            }
+            Map<String, String> env = ['GRADLE_USER_HOME': gradleHome.absolutePath, 'PYTHONUTF8': '1',
+                                       'PYTHONIOENCODING': 'utf-8']
+            def (List<String> py, String problem) = findPython(candidates, !placeholders, rootDirFile, env)
+            if (py == null) { fallback(problem); return }
+            List<String> cmd = py + ['-B', script.absolutePath, '--out', out.absolutePath]
+            if (jar) cmd += ['--jar', jar]
+            if (placeholders) cmd << '--placeholder-if-missing'
+            def (int code, String text) = runProcess(cmd, rootDirFile, env)
+            text.readLines().each { logger.lifecycle(it) }
+            if (code != 0) {
+                List<String> lines = text.readLines()
+                project.delete(out)
+                fallback("vanilla_derived.py failed (exit ${code}, ${py.join(' ')}):\n" +
+                        lines.drop(Math.max(0, lines.size() - 25)).join('\n'))
+            }
+        }
     }
+}
+
+// Placeholders without Python: every OUTPUTS entry of vanilla_derived.py ('path': ((w, h), ...)) as a grey
+// checker PNG (no Mojang pixels). Same idea as vanilla_derived.placeholder_png, not the same tints.
+ext.sbVanillaDerivedPlaceholders = { File script, File out ->
+    def entries = (script.getText('UTF-8') =~ /(?m)^\s+'([a-z0-9_\/]+\.png)': \(\((\d+), (\d+)\)/).collect { it }
+    if (!entries) throw new GradleException("no OUTPUTS found in ${script}")
+    entries.each { m ->
+        int w = m[2] as int, h = m[3] as int, step = Math.max(1, w.intdiv(8))
+        def img = new java.awt.image.BufferedImage(w, h, java.awt.image.BufferedImage.TYPE_INT_ARGB)
+        for (int y = 0; y < h; y++) for (int x = 0; x < w; x++) {
+            img.setRGB(x, y, ((x.intdiv(step) + y.intdiv(step)) % 2) ? (int) 0xFF8A8A8AL : (int) 0xFF454545L)
+        }
+        File f = new File(out, "assets/simplebuilding/textures/${m[1]}")
+        f.parentFile.mkdirs()
+        javax.imageio.ImageIO.write(img, 'png', f)
+    }
+    new File(out.parentFile, 'vanillaDerived.placeholder').text = 'placeholders, see generateVanillaDerived\n'
+    println "generateVanillaDerived: ${entries.size()} placeholder textures -> ${out}"
 }
 
 ext.mcLayeredResources = { SourceSet sourceSet, List<String> extraSharedDirs, String tag, List<Map> layers ->
@@ -153,6 +253,8 @@ ext.mcLayeredResources = { SourceSet sourceSet, List<String> extraSharedDirs, St
         }
     }
     sourceSet.resources.setSrcDirs([merged])
+    // sourcesJar packs the merged tree (Gradle 9 validation: declare the dependency).
+    tasks.matching { it.name == 'sourcesJar' }.configureEach { dependsOn merge }
     sourceSet.resources.exclude 'wiki/**'
     tasks.named(sourceSet.processResourcesTaskName, ProcessResources).configure {
         dependsOn merge

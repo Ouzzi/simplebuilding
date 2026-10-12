@@ -18,8 +18,9 @@ sides get a round speaker membrane - a dark wooden rim, a ring and a dome in the
 (Astralit pink from the owner's astralit_dust.png, Nihilit teal-blue from nihilith_shard.png) with one
 highlight pixel; the top keeps the jukebox frame and its disc slot is inlaid with the material.
 
-Output (26.3-only): mc26_3/overlay/resources/assets/simplebuilding/textures/item/music_disc_<song>.png and
-.../textures/block/jukebox_amplifier_side/_top.png and note_amplifier_side/_top.png (the amplifiers, formerly speakers).
+Output (26.3-only, Vanilla-derived, never committed - tools/textures/vanilla_derived.py builds them through
+derived(jar)): item/music_disc_<song>[_b_side|_track_3|_track_4].png and block/jukebox_amplifier_side/_top.png and
+note_amplifier_side/_top.png (the amplifiers, formerly speakers).
 --preview writes C:/Users/o_o/code/minecraft-mods/previews/schallplatten-vorschau.png and
 lautsprecher-vorschau.png (16x, labeled).
 """
@@ -30,9 +31,7 @@ import zipfile
 
 from PIL import Image, ImageDraw
 
-JAR = os.path.expanduser(r"~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar")
-ITEM_OUT = "mc26_3/overlay/resources/assets/simplebuilding/textures/item"
-BLOCK_OUT = "mc26_3/overlay/resources/assets/simplebuilding/textures/block"
+JAR = os.environ.get("SB_CLIENT_JAR") or os.path.expanduser(r"~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar")
 PREVIEWS = r"C:/Users/o_o/code/minecraft-mods/previews"
 
 # Roles of music_disc_13.png by color.
@@ -169,6 +168,14 @@ def outputs():
     return discs, blocks
 
 
+def derived(jar):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    global JAR
+    JAR = str(jar)
+    discs, blocks = outputs()
+    return {**{f"item/{n}.png": im for n, im in discs.items()}, **{f"block/{n}.png": im for n, im in blocks.items()}}
+
+
 def label(draw, x, y, text):
     draw.rectangle([x, y, x + 9 * len(text) + 6, y + 16], fill=(0, 0, 0, 200))
     draw.text((x + 3, y + 2), text, fill=(255, 255, 255, 255))
@@ -213,12 +220,6 @@ def cube(side, top, scale=12):
 
 def main():
     discs, blocks = outputs()
-    os.makedirs(ITEM_OUT, exist_ok=True)
-    os.makedirs(BLOCK_OUT, exist_ok=True)
-    for name, tex in discs.items():
-        tex.save(os.path.join(ITEM_OUT, name + ".png"))
-    for name, tex in blocks.items():
-        tex.save(os.path.join(BLOCK_OUT, name + ".png"))
     if "--preview" in sys.argv:
         vanilla = [("V1", "vanilla 13", jar_image("assets/minecraft/textures/item/music_disc_13.png")),
                    ("V2", "vanilla pigstep", jar_image("assets/minecraft/textures/item/music_disc_pigstep.png"))]
@@ -244,7 +245,7 @@ def main():
             label(draw, x, img.height + 20, "EF"[i])
         out.save(path)
         print("previews written")
-    print(f"{len(discs)} discs, {len(blocks)} speaker textures written")
+    print(f"{len(discs)} discs, {len(blocks)} speaker textures drawn (built by vanilla_derived.py, not written)")
 
 
 if __name__ == "__main__":

@@ -99,7 +99,8 @@ public final class SearchTabPlacement {
     /** Material-Achtel (N19/N15), die schon in den Ketten der End-Paletten und des Glattquarz stehen (sonst brechen deren Reihenfolgen). */
     private static final java.util.Set<String> IN_CHAINS = java.util.Set.of("purpur_block_octet", "smooth_quartz_octet",
             "astralit_bricks_octet", "polished_astralit_block_octet", "nihilith_bricks_octet", "polished_nihilith_block_octet",
-            "ender_quartz_block_octet", "ender_quartz_bricks_octet", "polished_ender_quartz_block_octet");
+            "ender_quartz_block_octet", "ender_quartz_bricks_octet", "polished_ender_quartz_block_octet",
+            "diamond_block_octet", "netherite_block_octet", "bone_block_octet");
 
     /** Das Material-Achtel in einer Kette; leer, wo es die Achtel nicht gibt (nur 26.3). */
     private static ItemLike[] octet(String key) {
@@ -107,6 +108,23 @@ public final class SearchTabPlacement {
             return new ItemLike[0];
         }
         return new ItemLike[]{net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplebuilding", key + "_octet"))};
+    }
+
+    /** Achtel aus Simple-End-Holz (Bretter, Staemme): stehen in der End-Holz-Kette der Holzwerk-Familien. */
+    private static boolean endWoodCell(net.minecraft.world.level.block.Block cell) {
+        String path = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell).getPath();
+        return path.contains("ashwood") || path.contains("duskwood");
+    }
+
+    /** Entrindete Staemme der Holzwerk-Familien: ihr Achtel steht in deren Kette. */
+    private static java.util.Set<Item> woodworkStripped() {
+        java.util.Set<Item> out = new java.util.HashSet<>();
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+                out.add(family.wood().strippedBlock().asItem());
+            }
+        }
+        return out;
     }
 
     private static ItemLike[] chain(Object... parts) {
@@ -187,30 +205,59 @@ public final class SearchTabPlacement {
             // Holz-Achtel (Queue Nachtrag 24) je hinter der Stufe ihrer Holzart.
             for (Item octet : ModItems.WOOD_OCTETS) {
                 String wood = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(octet).getPath().replace("_octet", "");
-                Item slab = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(wood + "_slab"));
+                if (!"minecraft".equals(com.simplebuilding.blocks.ModBlocks.octetWoodNamespace(wood))) {
+                    continue; // Simple-End-Holz: in der End-Holz-Kette unten (seine Bloecke stehen in keinem Vanilla-Tab)
+                }
+                Item slab = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(com.simplebuilding.blocks.ModBlocks.octetWoodNamespace(wood), wood + "_slab"));
                 out.add(Placement.after(BUILDING_BLOCKS, slab, octet));
             }
             // Material-Achtel (N19/N15) je hinter der Vanilla-Stufe ihres Blocks (Mod-Bloecke hinter der eigenen Stufe; Wolle/Beton im Tab Farbbloecke).
             for (net.minecraft.world.level.block.Block cell : com.simplebuilding.blocks.ModBlocks.MATERIAL_OCTETS) {
-                if (IN_CHAINS.contains(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell).getPath())) {
+                if (IN_CHAINS.contains(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell).getPath())
+                        || endWoodCell(cell)) {
                     continue;
                 }
                 net.minecraft.world.level.block.Block full = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
                 net.minecraft.world.level.block.Block stairs = com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(full, false, true).orElse(null);
                 net.minecraft.world.level.block.Block slab = stairs == null ? null
                         : com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(stairs, false, false).orElse(null);
+                String sourcePath = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(full).getPath();
+                Item octetItem = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell));
                 if (slab != null) {
                     // Wolle und Beton stehen bei Vanilla im Tab "Farbbloecke", alles andere in den Bausteinen.
-                    String sourcePath = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(full).getPath();
                     boolean colored = sourcePath.endsWith("_wool") || sourcePath.endsWith("_concrete");
-                    out.add(Placement.after(colored ? COLORED_BLOCKS : BUILDING_BLOCKS, slab.asItem(), net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell))));
+                    out.add(Placement.after(colored ? COLORED_BLOCKS : BUILDING_BLOCKS, slab.asItem(), octetItem));
+                } else if (!woodworkStripped().contains(full.asItem())) {
+                    // Bloecke ohne Treppe (Terrakotta, Kupfer, Erzbloecke, Staemme ...): hinter dem Vollblock im Tab seines Vorbilds.
+                    ResourceKey<CreativeModeTab> tab = sourcePath.endsWith("terracotta") ? COLORED_BLOCKS
+                            : java.util.Set.of("calcite", "obsidian", "bone_block").contains(sourcePath) ? NATURAL_BLOCKS : BUILDING_BLOCKS;
+                    out.add(Placement.after(tab, full.asItem(), octetItem));
                 }
             }
         }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             // Holzwerk: die Familie einer Holzart hinter deren entrindetem Stamm.
+            ItemLike last = null;
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
-                out.add(Placement.after(BUILDING_BLOCKS, family.wood().strippedBlock().asItem(), family.blocks().toArray(new ItemLike[0])));
+                if (family.wood().external()) {
+                    // Simple-End-Holz (Ash-/Duskwood): dessen Staemme stehen in keinem Vanilla-Tab, darum eine Kette hinter
+                    // der vorigen Familie: Bretter-Achtel, Stamm-Achtel, entrindetes Stamm-Achtel, dann die Familie.
+                    String w = family.wood().id();
+                    ItemLike[] chain = chain(octet(w), octet(w + "_log"), octet("stripped_" + w + "_log"),
+                            family.blocks().toArray(new ItemLike[0]));
+                    if (last != null && chain.length > 0) {
+                        out.add(Placement.after(BUILDING_BLOCKS, last, chain));
+                        last = chain[chain.length - 1];
+                    }
+                    continue;
+                }
+                // Das Achtel des entrindeten Stamms (falls es eines gibt) steht direkt hinter dem Stamm, vor der Familie.
+                Item stripped = family.wood().strippedBlock().asItem();
+                String strippedPath = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stripped).getPath();
+                boolean hasOctet = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", strippedPath + "_octet"));
+                ItemLike[] octet = hasOctet ? octet(strippedPath) : new ItemLike[0];
+                out.add(Placement.after(BUILDING_BLOCKS, stripped, chain(octet, family.blocks().toArray(new ItemLike[0]))));
+                last = family.blocks().get(family.blocks().size() - 1);
             }
         }
         // Kupfer folgt in der Erz-Reihenfolge auf Stein: die acht Kupferplatten hinter der Steinplatte.
@@ -219,10 +266,10 @@ public final class SearchTabPlacement {
                 TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
                 TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
                 TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE));
-        out.add(Placement.after(BUILDING_BLOCKS, Items.DIAMOND_BLOCK,
-                ModItems.CRACKED_DIAMOND_BLOCK, TweaksBlocks.DIAMOND_PRESSURE_PLATE));
-        out.add(Placement.after(BUILDING_BLOCKS, Items.NETHERITE_BLOCK,
-                TweaksBlocks.NETHERITE_PRESSURE_PLATE, ModItems.ENDERITE_BLOCK_ITEM, TweaksBlocks.ENDERITE_PRESSURE_PLATE));
+        out.add(Placement.after(BUILDING_BLOCKS, Items.DIAMOND_BLOCK, chain(ModItems.CRACKED_DIAMOND_BLOCK,
+                octet("diamond_block"), TweaksBlocks.DIAMOND_PRESSURE_PLATE)));
+        out.add(Placement.after(BUILDING_BLOCKS, Items.NETHERITE_BLOCK, chain(octet("netherite_block"),
+                TweaksBlocks.NETHERITE_PRESSURE_PLATE, ModItems.ENDERITE_BLOCK_ITEM, TweaksBlocks.ENDERITE_PRESSURE_PLATE)));
 
         // --- Natur: End-Erze hinter dem Antiken Schutt, Schwebe-/Levitationsblöcke bei Kies und Sand.
         // Hinter dem Antiken Schrott: die End-Erze, dann der Dimensions-Schrott (2026-10-01, nur Hauptlinie).
@@ -302,7 +349,7 @@ public final class SearchTabPlacement {
             out.add(Placement.after(NATURAL_BLOCKS, Items.ICE, ModItems.CRACKED_ICE));
             out.add(Placement.after(NATURAL_BLOCKS, Items.PACKED_ICE, ModItems.CHISELED_PACKED_ICE));
             out.add(Placement.after(NATURAL_BLOCKS, Items.BLUE_ICE, ModItems.CHISELED_BLUE_ICE));
-            out.add(Placement.after(NATURAL_BLOCKS, Items.BONE_BLOCK, ModItems.NAUTILUS_SHELL_BLOCK));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.BONE_BLOCK, chain(ModItems.NAUTILUS_SHELL_BLOCK, octet("bone_block"))));
             out.add(Placement.after(NATURAL_BLOCKS, Items.SCULK_SHRIEKER, ModItems.SCULK_JAW));
             out.add(Placement.after(NATURAL_BLOCKS, Items.PEARLESCENT_FROGLIGHT,
                     ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT));

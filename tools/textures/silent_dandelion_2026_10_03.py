@@ -1,5 +1,7 @@
 """Deterministic vanilla-based 16px art; run with Pillow, optionally --preview PATH.
 
+block/silent_dandelion.png recolours Vanilla's golden dandelion: never committed, tools/textures/vanilla_derived.py
+builds it through derived(jar). The yarn ball is the owner's own drawing (hand/yarn_ball.png) and stays in git.
 The yarn sprite also supplies the existing placed_small_parts block renderer.
 No separate block texture is needed: placement retains the item's exact pixels.
 """
@@ -14,18 +16,11 @@ ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding'
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--jar', type=Path, default=Path.home() / '.gradle/caches/fabric-loom/26.3/minecraft-client.jar')
-    parser.add_argument('--preview', type=Path, default=ROOT / '.ai-runs/stiller-loewenzahn-vorschau.png')
-    parser.add_argument('--check', action='store_true')
-    args = parser.parse_args()
-    with zipfile.ZipFile(args.jar) as jar:
-        def sprite(name):
-            return Image.open(io.BytesIO(jar.read(f'assets/minecraft/textures/{name}.png'))).convert('RGBA')
-        golden = sprite('block/golden_dandelion')
-        vanilla = sprite('block/dandelion')
-        string = sprite('item/string')
+def silent_dandelion(sprite):
+    """The silent dandelion (cool ivory petals, sage stem) from Vanilla's golden dandelion; returns it with the sources."""
+    golden = sprite('block/golden_dandelion')
+    vanilla = sprite('block/dandelion')
+    string = sprite('item/string')
     silent = golden.copy()
     for y in range(16):
         for x in range(16):
@@ -44,10 +39,30 @@ def main():
     inset = Image.new('RGBA', (16, 16))
     inset.paste(silent, (0, -1))
     silent = inset
+    return silent, golden, vanilla, string
+
+
+def derived(jar):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    with zipfile.ZipFile(jar) as z:
+        silent = silent_dandelion(lambda name: Image.open(io.BytesIO(z.read(f'assets/minecraft/textures/{name}.png'))).convert('RGBA'))[0]
+    return {'block/silent_dandelion.png': silent}
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--jar', type=Path, default=Path.home() / '.gradle/caches/fabric-loom/26.3/minecraft-client.jar')
+    parser.add_argument('--preview', type=Path, default=ROOT / '.ai-runs/stiller-loewenzahn-vorschau.png')
+    parser.add_argument('--check', action='store_true')
+    args = parser.parse_args()
+    with zipfile.ZipFile(args.jar) as jar:
+        def sprite(name):
+            return Image.open(io.BytesIO(jar.read(f'assets/minecraft/textures/{name}.png'))).convert('RGBA')
+        silent, golden, vanilla, string = silent_dandelion(sprite)
     # 2026-10-05: the owner's own drawing, colours on the vanilla white wool (owner_round_2026_10_05.py).
     yarn = Image.open(Path(__file__).resolve().parent / 'hand' / 'yarn_ball.png').convert('RGBA')
 
-    for name, im in [('block/silent_dandelion', silent), ('item/yarn_ball', yarn)]:
+    for name, im in [('item/yarn_ball', yarn)]:
         path = ASSETS / f'textures/{name}.png'
         if args.check:
             assert path.exists() and Image.open(path).convert('RGBA').tobytes() == im.tobytes(), f'Stale texture: {path}'

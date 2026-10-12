@@ -1,0 +1,23 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_apple"
+    },
+    "title": {
+      "translate": "advancements.simplerespawn.first_aid.title"
+    },
+    "description": {
+      "translate": "advancements.simplerespawn.first_aid.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "revived": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

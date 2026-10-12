@@ -98,4 +98,22 @@ public final class ModScreenStyle {
     public static boolean astralEnchantingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
         return false;
     }
+
+    public static void setPanels(boolean on) {}
+
+    public static boolean panels() {
+        return false;
+    }
+
+    public static boolean panel(GuiGraphicsExtractor g, int fill, int x, int y, int w, int h) {
+        return false;
+    }
+
+    public static boolean field(GuiGraphicsExtractor g, int fill, int x, int y, int w, int h) {
+        return false;
+    }
+
+    public static int label(int fill, int fallback) {
+        return fallback;
+    }
 }

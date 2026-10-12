@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleend",
+  "version": "${version}",
+  "name": "Simple End",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleend.SimpleEndFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpleend.SimpleEndFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleend.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  },
+  "suggests": {
+    "simpleenddragonfight": "*"
+  },
+  "mixins": [
+    "simpleend.mixins.json"
+  ],
+  "description": "End wood (Ashwood, Duskwood), End grass and the Ash Valley and Dawnlands biomes; bundles Simple End Dragon Fight."
+}

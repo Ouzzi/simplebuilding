@@ -7,7 +7,8 @@ grain, the tier shows the way the tier shulker boxes show it (tools/textures/tie
 the outline becomes the tier's plating, the lower rim a plating band, and three studs of the tier's accent sit
 on the lid. Same plating colors as the boxes, so shell, box and the rare shulker's hull match.
 
-Output: mc26_3/overlay/resources/assets/simplebuilding/textures/item/<tier>_shulker_shell.png (26.3-only items).
+Output (Vanilla-derived, never committed): item/<tier>_shulker_shell.png (26.3-only items) and
+entity/rare_shulker/<tier>.png, built by tools/textures/vanilla_derived.py through derived(jar).
 --preview also writes a labeled, 16x upscaled preview: A/B/C the shells next to vanilla, D/E the hull of the
 reinforced and enderite shulker: the existing tier box entity texture with vanilla's shulker head, written to
 textures/entity/rare_shulker/<tier>.png (outside entity/shulker, so the shulker box atlas does not pick it up).
@@ -22,10 +23,8 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, os.path.dirname(__file__))
 from tiered_shulker_box_textures import PLATING  # noqa: E402
 
-JAR = os.path.expanduser(r"~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar")
-OUT = "mc26_3/overlay/resources/assets/simplebuilding/textures/item"
-HULL_OUT = "mc26_3/overlay/resources/assets/simplebuilding/textures/entity/rare_shulker"
-ENTITY = "src/main/resources/assets/simplebuilding/textures/entity/shulker"
+JAR = os.environ.get("SB_CLIENT_JAR") or os.path.expanduser(r"~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar")
+ENTITY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "src/main/resources/assets/simplebuilding/textures/entity/shulker")
 TIERS = ("reinforced", "netherite", "enderite")
 
 # Vanilla shell colors (item/shulker_shell.png) by role.
@@ -76,11 +75,8 @@ def paint(base, tier):
 def preview(path, base, shells):
     scale = 16
     cells = [("vanilla", base)] + [(t, shells[t]) for t in TIERS]
-    entity = []
-    for t in TIERS:
-        p = os.path.join(HULL_OUT, t + ".png")
-        if os.path.exists(p):
-            entity.append((t, Image.open(p).convert("RGBA")))
+    vanilla = vanilla_entity()
+    entity = [(t, hull(t, vanilla)) for t in TIERS]
     width = max(len(cells) * (16 * scale + 20) + 20, 3 * (64 * 6 + 20) + 20)
     height = 16 * scale + 60 + (64 * 6 + 60 if entity else 0)
     sheet = Image.new("RGBA", (max(width, 2 * (64 * 6 + 20) + 20), height), (40, 40, 46, 255))
@@ -101,18 +97,21 @@ def preview(path, base, shells):
     sheet.save(path)
 
 
-def main():
+def derived(jar):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    global JAR
+    JAR = str(jar)
     base = vanilla_shell()
-    shells = {t: paint(base, t) for t in TIERS}
-    os.makedirs(OUT, exist_ok=True)
-    for t, img in shells.items():
-        img.save(os.path.join(OUT, t + "_shulker_shell.png"))
-    os.makedirs(HULL_OUT, exist_ok=True)
+    out = {f"item/{t}_shulker_shell.png": paint(base, t) for t in TIERS}
     vanilla = vanilla_entity()
-    for t in TIERS:
-        hull(t, vanilla).save(os.path.join(HULL_OUT, t + ".png"))
+    out.update({f"entity/rare_shulker/{t}.png": hull(t, vanilla) for t in TIERS})
+    return out
+
+
+def main():
     if "--preview" in sys.argv:
-        preview(sys.argv[sys.argv.index("--preview") + 1], base, shells)
+        base = vanilla_shell()
+        preview(sys.argv[sys.argv.index("--preview") + 1], base, {t: paint(base, t) for t in TIERS})
 
 
 if __name__ == "__main__":

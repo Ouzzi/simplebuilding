@@ -17,6 +17,7 @@ The built-in variant is CHOSEN below (owner can re-pick after the preview).
 import argparse
 import io
 import json
+import os
 import zipfile
 from pathlib import Path
 
@@ -26,7 +27,10 @@ CHOSEN = "C"  # owner 2026-10-04
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
 SRC_BLOCK = ROOT / "src/main/resources/assets/simplebuilding/textures/block"
-CLIENT_JAR = Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar"
+CLIENT_JAR = Path(os.environ.get("SB_CLIENT_JAR") or Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar")
+# Variant C is Vanilla's piston plate recoloured: its textures are built, never committed
+# (tools/textures/vanilla_derived.py calls derived()); A and B are own art and stay in the repository.
+DERIVED_VARIANTS = {"C"}
 PREVIEW = Path("C:/Users/o_o/code/minecraft-mods/previews/astral-nihil-kolben-vorschau.png")
 
 # Gem ramps of the End signal family (end_system_textures.py): dark, mid, light.
@@ -124,6 +128,13 @@ def textures(choice):
             for ch in ["astral", "nihil"] for on in [False, True]}
 
 
+def derived(jar):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    global CLIENT_JAR
+    CLIENT_JAR = Path(jar)
+    return textures(CHOSEN) if CHOSEN in DERIVED_VARIANTS else {}
+
+
 def write_models():
     def write(rel, data):
         p = ASSETS / rel
@@ -176,7 +187,7 @@ def main():
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--install", choices=sorted(VARIANTS), default=CHOSEN)
     args = parser.parse_args()
-    art = textures(args.install)
+    art = {} if args.install in DERIVED_VARIANTS else textures(args.install)
     if args.check:
         bad = [rel for rel, im in art.items() if not (ASSETS / "textures" / rel).exists()
                or Image.open(ASSETS / "textures" / rel).convert("RGBA").tobytes() != im.tobytes()]

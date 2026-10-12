@@ -1,0 +1,98 @@
+{
+  "family:end_wood": {
+    "items": [
+      "regex:(stripped_)?(ashwood|duskwood)_(log|wood|planks|stairs|slab|fence|fence_gate|door|trapdoor|button|pressure_plate|sign|hanging_sign|shelf|boat|chest_boat)"
+    ],
+    "lore": [
+      "{name} stammt von den blassen Bäumen der äußeren End-Inseln. Aschholz wächst im Aschental, das etwas braunere Dämmerholz in den Dämmerlanden. Die Maserung zeigt noch die Knubbel des Chorus, neben dem es aufwuchs."
+    ],
+    "use": [
+      "Funktioniert wie Vanilla-Holz: ein Stamm ergibt vier Bretter, eine Axt entrindet, und jeder Block ist Brennstoff. In die Leere gefallen schwebt es zurück und wartet knapp über dem Weltboden."
+    ],
+    "secret": [
+      "Gedropptes End-Holz bleibt zehn statt fünf Minuten liegen - der Weg zurück ins End ist weit."
+    ]
+  },
+  "family:end_bud": {
+    "items": [
+      "regex:(ash|dusk)_bud"
+    ],
+    "lore": [
+      "{name} ist der Samen der End-Hölzer, eine geschlossene chorusartige Blüte auf knubbeligem Stiel."
+    ],
+    "use": [
+      "Auf Endstein setzen. Ab Lichtstufe 9 wächst sie von selbst zu einem großen End-Baum; im Dunkeln hilft nur Knochenmehl, dann wird daraus hohes Gestrüpp aus End-Stöcken."
+    ],
+    "secret": [
+      "Vier gleiche Knospen im 2x2-Quadrat wachsen zu einem Riesenbaum mit 2x2-Stamm."
+    ]
+  },
+  "family:end_sticks": {
+    "items": [
+      "regex:(ashwood|duskwood)_sticks"
+    ],
+    "lore": [
+      "{name} ist, was eine Knospe ohne Licht aus sich macht: gebündelte Stöcke, die sich wie Tropfstein verjüngen."
+    ],
+    "use": [
+      "Als Säule gesetzt wird sie unten immer dicker. Ein Block ergibt drei Stöcke."
+    ]
+  },
+  "family:end_leaves": {
+    "items": [
+      "regex:(ashwood|duskwood)_leaves"
+    ],
+    "lore": [
+      "{name} nimmt seine grau-braune Farbe vom Biom, in dem es wächst."
+    ],
+    "use": [
+      "Droppt seine Knospe, Stöcke und ab und zu eine Schwebfrucht; die Schere behält das Laub."
+    ]
+  },
+  "drift_fruit": {
+    "lore": [
+      "Eine leichte, blasse Frucht der End-Bäume. Sie scheint davonschweben zu wollen."
+    ],
+    "use": [
+      "Beim Essen gibt sie vier Sekunden Sanfter Fall und einen kleinen Sprung - genug, um von einer End-Insel zum nächsten Vorsprung zu gleiten."
+    ],
+    "secret": [
+      "Sie ist immer essbar, auch mit voller Hungerleiste."
+    ]
+  },
+  "end_grass": {
+    "lore": [
+      "Drahtiges Gras auf Endstein, grau-braun gefärbt wie das Laub ringsum."
+    ],
+    "use": [
+      "Mit der Schere aufsammeln. Knochenmehl verteilt ein paar Büschel auf benachbarten Endstein."
+    ]
+  },
+  "end_bush": {
+    "lore": [
+      "Ein trockener, zweigiger Busch der äußeren End-Inseln."
+    ],
+    "use": [
+      "Mit der Schere aufsammeln; sonst droppt er ein paar Stöcke."
+    ]
+  },
+  "nibblemite_spawn_egg": {
+    "lore": [
+      "Knabbermilben leben in kleinen Gruppen im Aschental und in den Dämmerlanden und tragen die Farben ihres Bioms."
+    ],
+    "use": [
+      "Sie knabbern Endstein an wie Schafe Gras; der Stein erholt sich von selbst. Chorusfrucht lockt sie an und lässt sie Junge bekommen."
+    ],
+    "secret": [
+      "Endermen ignorieren sie - eine Knabbermilbe ist keine Endermilbe."
+    ]
+  },
+  "burrowed_end_stone": {
+    "lore": [
+      "Endstein mit den Spuren einer Knabbermilbe."
+    ],
+    "use": [
+      "Wird abgebaut und droppt wie Endstein; in Ruhe gelassen wird er nach einigen Minuten wieder zu Endstein."
+    ]
+  }
+}

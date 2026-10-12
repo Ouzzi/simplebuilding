@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_center",
+  "textures": {
+    "all": "simpleend:block/duskwood_shelf",
+    "particle": "simpleend:block/stripped_duskwood_log"
+  }
+}

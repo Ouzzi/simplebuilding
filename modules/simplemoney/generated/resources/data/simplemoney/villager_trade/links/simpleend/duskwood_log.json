@@ -1,0 +1,37 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 15
+  },
+  "gives": {
+    "id": "simpleend:duskwood_log",
+    "count": 1
+  },
+  "max_uses": 4,
+  "xp": 0,
+  "reputation_discount": 0,
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "links:simpleend"
+    },
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "links:simpleend"
+    },
+    {
+      "type": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    }
+  ],
+  "merchant_predicate": {
+    "type": "minecraft:random_chance",
+    "chance": 0.15
+  }
+}

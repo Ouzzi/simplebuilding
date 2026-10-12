@@ -1,0 +1,941 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_base"
+      }
+    },
+    {
+      "when": {
+        "carving": "wood"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_wood"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "angler"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_angler"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "archer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_archer"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "arms_up"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_arms_up"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "blade"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_blade"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "brewer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_brewer"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "burn"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_burn"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "danger"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_danger"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "explorer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_explorer"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "flow"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_flow"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "friend"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_friend"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "guster"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_guster"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "heart"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_heart"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "heartbreak"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_heartbreak"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "howl"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_howl"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "miner"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_miner"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "mourner"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_mourner"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "plenty"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_plenty"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "prize"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_prize"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "scrape"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_scrape"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "sheaf"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_sheaf"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "shelter"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_shelter"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "skull"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_skull"
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "snort"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_snort"
+      }
+    },
+    {
+      "when": {
+        "carving": "wood"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_wood",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "angler"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_angler",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "archer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_archer",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "arms_up"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_arms_up",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "blade"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_blade",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "brewer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_brewer",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "burn"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_burn",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "danger"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_danger",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "explorer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_explorer",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "flow"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_flow",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "friend"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_friend",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "guster"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_guster",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "heart"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_heart",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "heartbreak"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_heartbreak",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "howl"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_howl",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "miner"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_miner",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "mourner"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_mourner",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "plenty"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_plenty",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "prize"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_prize",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "scrape"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_scrape",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "sheaf"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_sheaf",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "shelter"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_shelter",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "skull"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_skull",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "snort"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_snort",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "carving": "wood"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_wood",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "angler"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_angler",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "archer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_archer",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "arms_up"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_arms_up",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "blade"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_blade",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "brewer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_brewer",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "burn"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_burn",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "danger"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_danger",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "explorer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_explorer",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "flow"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_flow",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "friend"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_friend",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "guster"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_guster",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "heart"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_heart",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "heartbreak"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_heartbreak",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "howl"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_howl",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "miner"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_miner",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "mourner"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_mourner",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "plenty"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_plenty",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "prize"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_prize",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "scrape"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_scrape",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "sheaf"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_sheaf",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "shelter"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_shelter",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "skull"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_skull",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "snort"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_snort",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "carving": "wood"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_wood",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "angler"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_angler",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "archer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_archer",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "arms_up"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_arms_up",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "blade"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_blade",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "brewer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_brewer",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "burn"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_burn",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "danger"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_danger",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "explorer"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_explorer",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "flow"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_flow",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "friend"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_friend",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "guster"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_guster",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "heart"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_heart",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "heartbreak"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_heartbreak",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "howl"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_howl",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "miner"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_miner",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "mourner"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_mourner",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "plenty"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_plenty",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "prize"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_prize",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "scrape"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_scrape",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "sheaf"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_sheaf",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "shelter"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_shelter",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "skull"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_skull",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "carving": "sherd",
+        "motif": "snort"
+      },
+      "apply": {
+        "model": "simplebuilding:block/carved/carved_ashwood_log_snort",
+        "y": 270
+      }
+    }
+  ]
+}

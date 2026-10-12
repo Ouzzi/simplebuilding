@@ -1024,6 +1024,58 @@
   "de": "Geschälter Wirrstiel"
  },
  {
+  "ns": "simpleend",
+  "base": "ashwood_log",
+  "key": "ashwood_log",
+  "group": "log",
+  "tex": {
+   "up": "simpleend:block/ashwood_log_top",
+   "down": "simpleend:block/ashwood_log_top",
+   "side": "simpleend:block/ashwood_log"
+  },
+  "en": "Ashwood Log",
+  "de": "Aschstamm"
+ },
+ {
+  "ns": "simpleend",
+  "base": "duskwood_log",
+  "key": "duskwood_log",
+  "group": "log",
+  "tex": {
+   "up": "simpleend:block/duskwood_log_top",
+   "down": "simpleend:block/duskwood_log_top",
+   "side": "simpleend:block/duskwood_log"
+  },
+  "en": "Duskwood Log",
+  "de": "Dämmerstamm"
+ },
+ {
+  "ns": "simpleend",
+  "base": "stripped_ashwood_log",
+  "key": "stripped_ashwood_log",
+  "group": "log",
+  "tex": {
+   "up": "simpleend:block/stripped_ashwood_log_top",
+   "down": "simpleend:block/stripped_ashwood_log_top",
+   "side": "simpleend:block/stripped_ashwood_log"
+  },
+  "en": "Stripped Ashwood Log",
+  "de": "Entrindeter Aschstamm"
+ },
+ {
+  "ns": "simpleend",
+  "base": "stripped_duskwood_log",
+  "key": "stripped_duskwood_log",
+  "group": "log",
+  "tex": {
+   "up": "simpleend:block/stripped_duskwood_log_top",
+   "down": "simpleend:block/stripped_duskwood_log_top",
+   "side": "simpleend:block/stripped_duskwood_log"
+  },
+  "en": "Stripped Duskwood Log",
+  "de": "Entrindeter Dämmerstamm"
+ },
+ {
   "ns": "minecraft",
   "base": "white_wool",
   "key": "white_wool",

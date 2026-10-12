@@ -34,7 +34,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 | Simple Loot (`simpleloot`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Creatures (`simplecreatures`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Farming (`simplefarming`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu | – |
-| Simple Tools (`simpletools`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu | – |
+| Simple Tools (`simpletools`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu, Simple Money (Geldscheine als Opfer, optionaler Tag) | – |
 | Simple Movement (`simplemovement`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Riding (`simpleriding`) | Cloth Config | SimpleBuilding (Enderit-Hufeisen), ModMenu | simplelib |
 | Simple Sandwiches (`simplesandwiches`) | – | SimpleBuilding | simplelib |
@@ -100,6 +100,7 @@ Je eigene Config `config/<id>.json` (alte `qOL.*`-Werte werden beim ersten Start
 - **Simple Farming:** Federfall schützt Acker, Schärfe schneidet Pflanzen, Ernten mit Hacke.
 - **Simple Tools:** Haltbarkeitsbonus, Sparsamkeit-Verzauberung (ID bleibt `simplequalityoflife:thrift`), Reparatur hält
   Ambosskosten, Ofen mit Lava füllen.
+  Seit 2026-10-12: **Seelengebunden** (`simpletools:soulbound`, nur Buch: fahrender Händler 5 % für 24–32 Diamanten, End-City-Schatz 2 %; Amboss immer 35 Level, Schleifstein entfernt; bleibt beim Tod im selben Platz, Haltbarkeit danach min(aktuell, 50)) und **Todesgewölbe** (`simpletools:death_vault`, Block mit GUI: Todes-Buchführung aller Tode, nur despawnte/verbrannte/explodierte/ins Leere gefallene Todes-Drops rückkaufbar, Opfer 4 Diamanten je Rückgabe, gewichtet nach Aktualität und Wert). Plan: `docs/ai/PLAN-SOULBOUND-DEATHVAULT-2026-10-12.md`.
 - **Simple Movement:** Kriechen (`/crawl`), Autowalk, schnelles Leiterklettern/-rutschen, Frostläufer auf Pulverschnee;
   alte QoL-Tastenbelegungen werden übernommen.
 - **Simple Interfaces** übernimmt verknüpfte Behälter (Vormerken) und Shulkerkisten/Endertruhen aus dem Inventar
@@ -148,9 +149,10 @@ Kompatibilität alter Welten (ID-Zuordnung), Claim-System in Stufen (standardmä
 |---|---|---|---|
 | Simple Maps (`simplemaps`, Sub-Mod SB) | in Arbeit (`claude-q-maps`) | Wegfinder-Karte (unendlich, Spieler mittig), GUI mit Lesezeichen, Wegpunkte, Locator-Bar, Karte je Dimension, Fundorte | `docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md` |
 | Simple Mobs (`simplemobs`, Sub-Mod SB, optional) | Stufe 1 (`claude-q-deceiver`) | Mob Deceiver (Endgame, Wellen aus Fake-/Echt-Mobs, Mirage-Puls über SB-Effekte, falls SB geladen), Täuscherstoff, Spawn-Ei; Furcht-Mobs Schreckensritter (Golem-Figur Eisenblock/Amboss/Ketten/Witherschädel) und Hohler Wächter (End-Außeninseln, Blickmechanik) mit Zitter-Aura (SB-Effekt `shivering`, ohne SB eigener), Ruhe-Amulett, Trank des Fokus (`claude-fear-mobs`, Plan `docs/ai/PLAN-FURCHT-MOBS-2026-10-12.md`); spielbar auch ohne SB | `docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md` |
-| Simple End Dragon Fight (`simpleenddragonfight`, Sub-Mod SB, optional) | Stufe 1 (`claude-dragon`) | Drache: +1 volle Lebensleiste je Spieler, +15 % je weiterer Beschwörung (300 bzw. 200 je Spieler, Schonfrist 60 s), +20 % Tempo, Eintritts-Animation je Spieler (Warteschlange), ab halbem Leben Dragonmites alle 30 s (Drop Drachen-Chitin); spielbar auch ohne SB | `docs/ai/KONZEPT-END-DRAGON-FIGHT-2026-10-11.md` |
+| Simple End (`simpleend`, Sub-Mod SB, optional; Super-Mod von End Dragon Fight) | `claude-simple-end` | End-Holz Aschholz/Dämmerholz (volles Vanilla-Holzset inkl. Boote, Schilder, Regal, Laub; mit SB zusätzlich Holzwerk, Holz-/Stamm-Achtel, gestufte Kistenboote, mit Sandwiches Schneidebretter – `claude-endwood-full`, `docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md`), Knospen (Licht ≥ 9 großer Baum, 2×2 Riesenbaum, dunkel + Knochenmehl Stöcke-Gestrüpp), End-Stöcke-Block, Schwebfrucht (4 s Sanfter Fall + Sprung), End-Gras/-Busch (N42), Biome Aschental/Dämmerlande auf äußeren End-Inseln, Items leere-sicher + doppelte Liegezeit, Knabbermilbe (passiv, knabbert Endstein → durchwühlter Endstein, erholt sich); spielbar ohne SB | `docs/ai/PLAN-SIMPLE-END-2026-10-12.md` |
+| Simple End Dragon Fight (`simpleenddragonfight`, Sub-Mod von Simple End, optional) | Stufe 1 (`claude-dragon`) | Drache: +1 volle Lebensleiste je Spieler, +15 % je weiterer Beschwörung (300 bzw. 200 je Spieler, Schonfrist 60 s), +20 % Tempo, Eintritts-Animation je Spieler (Warteschlange), ab halbem Leben Dragonmites alle 30 s (Drop Drachen-Chitin); spielbar auch ohne SB | `docs/ai/KONZEPT-END-DRAGON-FIGHT-2026-10-11.md` |
+| Simple Respawn (`simplerespawn`, Sub-Mod SB, optional) | Stufe 1 (`claude-respawn`) | Niedergeschlagen statt tot (nur mit Mitspielern online, Config: immer), Ausbluten 60 s, eigener Bildschirm (Zuschauen mit freier Kamera, Inventar nur ansehen, Aufgeben), Wiederbeleben durch 5 s Rechtsklick-Halten (danach 3 Herzen, 0 Hunger), Monster ignorieren Niedergeschlagene, Logout/Absturz = Vanilla-Tod (kein Dupe), Handbuch, Fortschritt Erste Hilfe; spielbar auch ohne SB | `docs/ai/PLAN-SIMPLE-RESPAWN-2026-10-12.md` |
 | Simple Trims (Sub-Mod SB) | geplant, Frage F1 offen | alle Schmiedevorlagen inkl. Platzieren; Axt ohne SB, Hammer mit SB | PLAN-N18 |
-| Simple Respawn (`simplerespawn`) | wartet auf Besitzer-Konzept | Niedergeschlagen statt Tod im Mehrspieler, Wiederbeleben, danach 3 Herzen/0 Hunger | `docs/ai/KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md` |
 | QoL-Aufteilung | Besitzer entscheidet | Sub-Mods für Container (fertig), Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor (→ Simple Loot); Schärfe/Gras → Simple Combat; Kreaturen-Logik nach simplelib | QUEUE N14 |
 | Mobs/Effekte | Konzepte | End-Mob, Shellker (Schwerkraft), Deceiver, Furcht-Mob, Seelenfeuer-Lohe; Effekte Zittern/Trugbild/Verblasst | `docs/ai/KONZEPT-MOBS-2026-10-07.md`, `KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md` |
 

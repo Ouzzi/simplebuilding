@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_unpowered",
+  "textures": {
+    "all": "simpleend:block/ashwood_shelf",
+    "particle": "simpleend:block/stripped_ashwood_log"
+  }
+}

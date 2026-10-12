@@ -5,7 +5,10 @@ checked in) and only turns the copper ferrule into gold. Its bristle tip is a se
 item model tints with the next dye's colour (color_brush_tip.png), or a rainbow for a paint box
 (color_brush_tip_palette.png). Preview: vanilla | gold brush neutral | some tip colours | paint box tip.
 
-Run: python3.12 tools/textures/color_brush_2026_10_09.py [--preview out.png]
+The three PNGs carry Vanilla pixels, so they are never committed: tools/textures/vanilla_derived.py builds them
+(derived(jar)) for Gradle and the wiki.
+
+Run: python3.12 tools/textures/color_brush_2026_10_09.py --preview out.png
 """
 from __future__ import annotations
 
@@ -19,7 +22,6 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT_DIRS = [ROOT / "src/main/resources/assets/simplebuilding/textures/item", ROOT / "wiki/assets/textures/item"]
 
 # Round 3 (owner 2026-10-09, "reinforced brush"): the vanilla brush unchanged except the copper ferrule, which becomes
 # gold (gold nugget colours, matched by brightness). Handle and bristles stay vanilla.
@@ -50,7 +52,10 @@ DYES = {
 }
 RAINBOW = ["red", "orange", "yellow", "lime", "light_blue", "blue", "purple", "magenta"]
 
-def vanilla_brush() -> Image.Image:
+def vanilla_brush(jar: str | os.PathLike | None = None) -> Image.Image:
+    if jar:
+        with zipfile.ZipFile(jar) as z:
+            return Image.open(io.BytesIO(z.read("assets/minecraft/textures/item/brush.png"))).convert("RGBA")
     home = Path(os.environ.get("GRADLE_USER_HOME", Path.home() / ".gradle"))
     jars = sorted(glob.glob(str(home / "caches/neoformruntime/artifacts/minecraft_26.3_client.jar")))
     jars += sorted(glob.glob(str(home / "caches/fabric-loom/26.3/minecraft-client.jar")))
@@ -64,8 +69,13 @@ def vanilla_brush() -> Image.Image:
     raise SystemExit("26.3 client jar with assets/minecraft/textures/item/brush.png not found in the Gradle cache")
 
 
-def build() -> dict[str, Image.Image]:
-    src = vanilla_brush()
+def derived(jar: str | os.PathLike) -> dict[str, Image.Image]:
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    return {f"item/{name}.png": img for name, img in build(jar).items()}
+
+
+def build(jar: str | os.PathLike | None = None) -> dict[str, Image.Image]:
+    src = vanilla_brush(jar)
     body = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
     tip = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
     rainbow = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
@@ -118,14 +128,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--preview", type=Path)
     args = parser.parse_args()
-    images = build()
-    for out in OUT_DIRS:
-        out.mkdir(parents=True, exist_ok=True)
-        for name, img in images.items():
-            if out == OUT_DIRS[0] or "_tip" not in name:  # the wiki only shows the items
-                img.save(out / f"{name}.png")
     if args.preview:
-        preview(images, args.preview, vanilla_brush())
+        preview(build(), args.preview, vanilla_brush())
 
 
 if __name__ == "__main__":

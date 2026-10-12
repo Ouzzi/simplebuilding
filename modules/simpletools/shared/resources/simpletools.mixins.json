@@ -6,7 +6,16 @@
     "AnvilRepairCostMixin",
     "ThriftDurabilityMixin",
     "FullDurabilityDamageMixin",
-    "FullDurabilityEfficiencyMixin"
+    "FullDurabilityEfficiencyMixin",
+    "AnvilSoulboundMixin",
+    "PlayerDeathDropsMixin",
+    "InventoryDropAllMixin",
+    "LivingDropCaptureMixin",
+    "ServerPlayerRestoreMixin",
+    "ItemEntityLedgerMixin",
+    "EntityRemovedMixin",
+    "WanderingTraderSoulboundMixin",
+    "ItemEntityAgeAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

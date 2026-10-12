@@ -822,13 +822,29 @@ def validate(path, img):
         assert img.size == (16, 16) and (a[:, :, 3] == 255).all(), path
 
 
+def is_derived(path):
+    """simplebuilding textures of this script (enderite crucible/barrel, buckets) are Vanilla-derived: built, never
+    committed (tools/textures/vanilla_derived.py). The simplelib ones (iron/reinforced/netherite tiers, copper barrel,
+    reinforced cauldron item) stay committed until the build ships derived textures for the simplelib module too.
+    item/soul_lava_bucket.png is the same image soul_lava_2026_10_09.py builds, so derived() leaves it out."""
+    return SB in path.parents
+
+
+def derived(jar):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    # build/vanilla-textures (extracted by vanilla_derived.extract_vanilla_textures) must exist before this module is imported
+    return {path.relative_to(SB).as_posix(): img for path, img in resources().items() if is_derived(path) and path.name != 'soul_lava_bucket.png'}
+
+
 def main():
     check = '--check' in sys.argv
     out = resources()
     bad = []
     for path, img in out.items():
         validate(path, img)
-        if check:
+        if is_derived(path):
+            pass
+        elif check:
             with Image.open(path) as actual:
                 if actual.convert('RGBA').tobytes() != img.tobytes():
                     bad.append(path)
@@ -847,7 +863,10 @@ def main():
         for path in bad:
             print('out of date:', path.relative_to(ROOT))
         return 1 if bad else 0
-    print(f'wrote {len(out)} textures; preview {preview()}')
+    try:
+        print(f'wrote {len(out)} textures; preview {preview()}')
+    except FileNotFoundError as e:   # the preview reads textures that are only built, not committed
+        print(f'wrote {len(out)} textures; no preview: {e.filename} is built by vanilla_derived.py')
     return 0
 
 

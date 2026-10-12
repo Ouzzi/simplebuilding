@@ -1,0 +1,64 @@
+{
+  "derivation": "End wood comes from the outer End islands (Ash Valley, Dawnlands): reaching them needs an End gateway, so buds and logs sit at tier 4 like other post-dragon goods. The wandering trader offers buds and logs rarely, like his pale-oak offers; Drift Fruit is a leaf drop. Everything crafted from logs is not sold (craft it).",
+  "excluded": {
+    "simpleend:*": "All other End-wood items are crafted from logs or found in the End."
+  },
+  "module": "simpleend",
+  "prices": [
+    {
+      "item": "simpleend:ash_bud",
+      "tier": 4,
+      "hours": 4.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 2,
+      "chance": 0.2
+    },
+    {
+      "item": "simpleend:dusk_bud",
+      "tier": 4,
+      "hours": 4.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 2,
+      "chance": 0.2
+    },
+    {
+      "item": "simpleend:ashwood_log",
+      "tier": 4,
+      "hours": 3.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 4,
+      "chance": 0.15
+    },
+    {
+      "item": "simpleend:duskwood_log",
+      "tier": 4,
+      "hours": 3.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 4,
+      "chance": 0.15
+    },
+    {
+      "item": "simpleend:drift_fruit",
+      "tier": 4,
+      "hours": 2.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 3,
+      "chance": 0.15
+    }
+  ]
+}

@@ -14,6 +14,11 @@ WOODS = (
     "oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove",
     "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped",
 )
+# Simple End's woods (ModBlocks.END_WOODS): boards only while Simple End is loaded, recipe and loot conditioned on it,
+# tag entries optional (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md).
+END_WOODS = ("ashwood", "duskwood")
+END_CONDITIONS = {"fabric:load_conditions": [{"condition": "fabric:all_mods_loaded", "values": ["simpleend"]}],
+                  "neoforge:conditions": [{"type": "neoforge:mod_loaded", "modid": "simpleend"}]}
 KEYS = (
     "meat_raw", "meat_cooked", "fish_raw", "fish_cooked",
     "beef_raw", "beef_cooked", "pork_raw", "pork_cooked", "chicken_raw", "chicken_cooked", "mutton_raw",
@@ -76,12 +81,16 @@ def resources():
     def asset(path, value):
         files[f"assets/{NS}/{path}.json"] = value
 
-    def data(path, value, namespace=NS):
+    def data(path, value, namespace=NS, end=False):
+        conditions = {"fabric:load_conditions": [], "neoforge:conditions": []}
         if path.startswith("recipe/"):
             # Super-mod switch "Enable Simple Sandwiches": recipes load only while it is on (condition per loader).
-            value = {"fabric:load_conditions": [{"condition": f"{NS}:enabled"}],
-                     "neoforge:conditions": [{"type": f"{NS}:enabled"}], **value}
-        files[f"data/{namespace}/{path}.json"] = value
+            conditions["fabric:load_conditions"].append({"condition": f"{NS}:enabled"})
+            conditions["neoforge:conditions"].append({"type": f"{NS}:enabled"})
+        if end:
+            for key, values in END_CONDITIONS.items():
+                conditions[key].extend(values)
+        files[f"data/{namespace}/{path}.json"] = {**{k: v for k, v in conditions.items() if v}, **value}
 
     def item(name, model):
         asset(f"items/{name}", {"model": model_ref(model)})
@@ -90,8 +99,8 @@ def resources():
         asset(f"models/item/{name}", {"parent": f"minecraft:item/{parent}",
                                      "textures": {"layer0": f"{NS}:item/{name}"}})
 
-    def loot(name, entry):
-        data(f"loot_table/blocks/{name}", {
+    def loot(name, entry, end=False):
+        data(f"loot_table/blocks/{name}", end=end, value={
             "type": "minecraft:block",
             "pools": [{"rolls": 1, "condition": {"type": "minecraft:survives_explosion"}, "entries": [entry]}],
             "random_sequence": f"{NS}:blocks/{name}",
@@ -100,7 +109,8 @@ def resources():
     def tag(kind, name, values, namespace=NS):
         data(f"tags/{kind}/{name}", {"replace": False, "values": values}, namespace)
 
-    for wood in WOODS:
+    for wood in WOODS + END_WOODS:
+        end = wood in END_WOODS
         name = f"{wood}_cutting_board"
         asset(f"blockstates/{name}", {"variants": {
             f"facing={direction}": {"model": f"{NS}:block/{name}", "y": rotation}
@@ -115,12 +125,12 @@ def resources():
                          cuboid([1, 2, 3, 2, 3, 13]), cuboid([14, 2, 3, 15, 3, 13])],
         })
         item(name, f"block/{name}")
-        data(f"recipe/{name}", {
+        data(f"recipe/{name}", end=end, value={
             "type": "minecraft:crafting_shaped", "category": "misc", "group": f"{NS}:cutting_board",
-            "pattern": ["SXX"], "key": {"S": "minecraft:stick", "X": f"minecraft:{wood}_slab"},
+            "pattern": ["SXX"], "key": {"S": "minecraft:stick", "X": f"{'simpleend' if end else 'minecraft'}:{wood}_slab"},
             "result": {"id": f"{NS}:{name}", "count": 1},
         })
-        loot(name, {"type": "minecraft:item", "name": f"{NS}:{name}"})
+        loot(name, {"type": "minecraft:item", "name": f"{NS}:{name}"}, end)
 
     for food in ("cheese", "butter"):
         name = f"{food}_block"
@@ -219,7 +229,8 @@ def resources():
             "netherite_apple", "enchanted_netherite_apple", "netherite_carrot",
             "enderite_apple", "enchanted_enderite_apple", "enderite_carrot")])
     tag("item", "knife_repair_materials", ["minecraft:iron_nugget"])
-    boards = [f"{NS}:{wood}_cutting_board" for wood in WOODS]
+    boards = [f"{NS}:{wood}_cutting_board" for wood in WOODS] + [
+        {"id": f"{NS}:{wood}_cutting_board", "required": False} for wood in END_WOODS]
     for kind in ("item", "block"):
         tag(kind, "cutting_boards", boards)
     for name in ("mining", "durability"):

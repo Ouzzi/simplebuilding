@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside",
+  "textures": {
+    "pane": "simpleend:block/ashwood_log",
+    "edge": "simpleend:block/stripped_ashwood_log"
+  }
+}

@@ -32,7 +32,8 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simpletrims",
       "simplemobs",
-      "simpleenddragonfight"
+      "simpleend",
+      "simplerespawn"
     ]
   },
   {
@@ -206,7 +207,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "e956175e3dd5"
+    "dataHash": "c5d281ab8ea7"
   },
   {
     "id": "simpletweaks",
@@ -224,7 +225,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "60ec5a90e0d7"
+    "dataHash": "90a77fb5e054"
   },
   {
     "id": "simpledimensions",
@@ -264,9 +265,10 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "simpleend"
     ],
-    "dataHash": "a8f02ba09ce4"
+    "dataHash": "74bb9f3e39cc"
   },
   {
     "id": "simplelib",
@@ -396,7 +398,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletools",
     "displayName": "Simple Tools",
-    "description": "Full-durability bonus, the Thrift enchantment, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
+    "description": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -412,7 +414,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "fc848f7a3f09"
+    "dataHash": "c67babb79d08"
   },
   {
     "id": "simplefarming",
@@ -525,5 +527,37 @@ window.WIKI_MODULES = [
     "requires": [],
     "optional": [],
     "dataHash": "8e7329c39870"
+  },
+  {
+    "id": "simpleend",
+    "displayName": "Simple End",
+    "description": "End wood (Ashwood, Duskwood) with buds, trees and stick scrub, End grass, the Ash Valley and Dawnlands biomes on the outer End islands; bundles Simple End Dragon Fight.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simpleenddragonfight"
+    ],
+    "dataHash": "87abd931dd2b"
+  },
+  {
+    "id": "simplerespawn",
+    "displayName": "Simple Respawn",
+    "description": "Downed instead of dead: a teammate can revive you within the bleed-out time (then 3 hearts, no food); own downed screen with spectate, inventory view and give up.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "1dad6da6c5ce"
   }
 ];

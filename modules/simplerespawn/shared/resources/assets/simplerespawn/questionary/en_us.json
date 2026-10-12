@@ -1,0 +1,15 @@
+{
+  "guide_book": {
+    "lore": [
+      "Bound in crimson leather with a white stone: a field manual for those who would rather carry a friend home than bury them."
+    ],
+    "use": [
+      "Explains what happens at lethal damage when a teammate is online: you are downed, lie on the ground and bleed out in 60 seconds unless someone helps.",
+      "A teammate holds right-click on you for 5 seconds; you stand up with 3 hearts and an empty food bar. The downed screen offers Spectate, Inventory and Give up."
+    ],
+    "secret": [
+      "Logging out while downed does not save you: the game counts it as death and your items stay where you fell.",
+      "Monsters lose interest in a downed player, but every hit still costs one second of the time that is left."
+    ]
+  }
+}

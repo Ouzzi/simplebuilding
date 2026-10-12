@@ -175,15 +175,372 @@
         "title": "Sub-Mod von Simple QoL",
         "summary": "Allein spielbar (config/simpletools.json). In Simple QoL gebuendelt, dort mit \"Simple Tools aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig uebernommen."
       }
+    },
+    {
+      "id": "soulbound",
+      "sources": [
+        "modules/simpletools/shared/resources/data/simpletools/enchantment/soulbound.json",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/soulbound/Soulbound.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/InventoryDropAllMixin.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/ServerPlayerRestoreMixin.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/AnvilSoulboundMixin.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/WanderingTraderSoulboundMixin.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsLoot.java"
+      ],
+      "en": {
+        "title": "Soulbound",
+        "summary": "Treasure enchantment, one level, for everything that can carry the Curse of Vanishing (the two exclude each other). An item with Soulbound never drops on death - also in PvP and Hardcore - and is back in the same slot after the respawn, with at most 50 durability left (min(current, 50)). Book only: never from the enchanting table, librarians or random loot; a wandering trader sells one book for 24-32 diamonds now and then (5 % per trader), and End City treasure chests hold one very rarely (2 %). Rarer than Mending. Applying it at the anvil always costs the full 35 levels; the grindstone removes it."
+      },
+      "de": {
+        "title": "Seelengebunden",
+        "summary": "Schatz-Verzauberung, eine Stufe, für alles, was den Fluch des Verschwindens tragen kann (beide schließen sich aus). Ein Gegenstand mit Seelengebunden fällt beim Tod nie - auch im PvP und im Hardcore-Modus - und liegt nach dem Wiedereinstieg im selben Platz, mit höchstens 50 Haltbarkeit (min(aktuell, 50)). Nur als Buch: nie am Verzauberungstisch, beim Bibliothekar oder als Zufallsbeute; ein fahrender Händler verkauft ab und zu ein Buch für 24-32 Diamanten (5 % je Händler), Endsiedlungs-Schatztruhen enthalten sehr selten eines (2 %). Seltener als Reparatur. Am Amboss kostet das Auftragen immer volle 35 Level; der Schleifstein entfernt es."
+      }
+    },
+    {
+      "id": "death_vault",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/vault/DeathVault.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/vault/DeathLedger.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/vault/DeathVaultMenu.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/vault/RemovalContext.java",
+        "modules/simpletools/shared/resources/data/simpletools/recipe/death_vault.json",
+        "modules/simpletools/shared/resources/data/simpletools/tags/item/death_vault_offerings.json"
+      ],
+      "en": {
+        "title": "Death Vault",
+        "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). The server remembers the items that dropped at each of your deaths (the last 20 deaths). The vault shows them: an item still lying in the world is dimmed and cannot be bought back; once it despawned, burned in lava or fire, blew up or fell into the void, it can. Picked up by anyone (also partly, by a hopper or a mob) it leaves the list; items dropped before the death never count. After a death by another player only items that despawned or that this player destroyed count. Put diamonds into the offering slot (with Simple Money also money bills) and press Offer: every 4 return one random lost item, at most 3 per offering - newer deaths and more valuable items are more likely; with enough offerings everything comes back. Returned items leave the list and keep at most 50 durability."
+      },
+      "de": {
+        "title": "Todesgewölbe",
+        "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Der Server merkt sich die Gegenstände, die bei jedem deiner Tode gefallen sind (die letzten 20 Tode). Das Gewölbe zeigt sie: Ein Gegenstand, der noch in der Welt liegt, ist abgedunkelt und nicht rückkaufbar; ist er verschwunden, in Lava oder Feuer verbrannt, explodiert oder ins Leere gefallen, schon. Hebt ihn irgendwer auf (auch teilweise, ein Trichter oder ein Mob), fällt er aus der Liste; vor dem Tod fallen gelassene Gegenstände zählen nie. Nach einem Tod durch einen anderen Spieler zählen nur verschwundene oder von diesem Spieler zerstörte Gegenstände. Diamanten in den Opferplatz legen (mit Simple Money auch Geldscheine) und Opfern drücken: je 4 kommt ein zufälliger verlorener Gegenstand zurück, höchstens 3 je Opfer - neuere Tode und wertvollere Gegenstände sind wahrscheinlicher; mit genug Opfern kommt alles zurück. Zurückgeholte Gegenstände fallen aus der Liste und behalten höchstens 50 Haltbarkeit."
+      }
+    },
+    {
+      "id": "death_vault_money",
+      "sources": [
+        "modules/simpletools/shared/resources/data/simpletools/tags/item/death_vault_offerings.json"
+      ],
+      "en": {
+        "title": "(with Simple Money) Money bills as offering",
+        "summary": "When Simple Money is installed, its money bills count like diamonds in the Death Vault offering slot (optional tag entry, nothing changes without the mod)."
+      },
+      "de": {
+        "title": "(mit Simple Money) Geldscheine als Opfer",
+        "summary": "Ist Simple Money installiert, zählen seine Geldscheine im Opferplatz des Todesgewölbes wie Diamanten (optionaler Tag-Eintrag, ohne die Mod ändert sich nichts)."
+      }
+    },
+    {
+      "id": "config_enableSoulbound",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableSoulbound",
+        "summary": "Server setting. Default: true. Soulbound keeps items on death; off: they drop like any item."
+      },
+      "de": {
+        "title": "enableSoulbound",
+        "summary": "Servereinstellung. Standard: true. Seelengebunden behält Gegenstände beim Tod; aus: sie fallen wie alle anderen."
+      }
+    },
+    {
+      "id": "config_enableDeathVault",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableDeathVault",
+        "summary": "Server setting. Default: true. Records death drops and lets the Death Vault return lost ones; off: nothing is recorded and the vault does not open."
+      },
+      "de": {
+        "title": "enableDeathVault",
+        "summary": "Servereinstellung. Standard: true. Merkt sich Todes-Drops und lässt das Todesgewölbe verlorene zurückgeben; aus: nichts wird gemerkt und das Gewölbe öffnet nicht."
+      }
+    },
+    {
+      "id": "config_deathDurabilityCap",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "deathDurabilityCap",
+        "summary": "Server setting. Default: 50 (1-2031). Soulbound items after a death and Death Vault returns keep at most this much durability."
+      },
+      "de": {
+        "title": "deathDurabilityCap",
+        "summary": "Servereinstellung. Standard: 50 (1-2031). Seelengebundene Gegenstände nach dem Tod und Rückgaben des Todesgewölbes behalten höchstens so viel Haltbarkeit."
+      }
+    },
+    {
+      "id": "config_soulboundAnvilCost",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "soulboundAnvilCost",
+        "summary": "Server setting. Default: 35 (1-39). Levels for every anvil combination that applies Soulbound."
+      },
+      "de": {
+        "title": "soulboundAnvilCost",
+        "summary": "Servereinstellung. Standard: 35 (1-39). Level für jede Amboss-Kombination, die Seelengebunden aufträgt."
+      }
+    },
+    {
+      "id": "config_soulboundTraderChance",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "soulboundTraderChance",
+        "summary": "Server setting. Default: 0.05 (0-1). Chance that a wandering trader also sells one Soulbound book for 24-32 diamonds."
+      },
+      "de": {
+        "title": "soulboundTraderChance",
+        "summary": "Servereinstellung. Standard: 0.05 (0-1). Chance, dass ein fahrender Händler zusätzlich ein Seelengebunden-Buch für 24-32 Diamanten verkauft."
+      }
+    },
+    {
+      "id": "config_soulboundEndCityChance",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "soulboundEndCityChance",
+        "summary": "Server setting. Default: 0.02 (0-1). Chance of a Soulbound book in an End City treasure chest (applied when the data reloads)."
+      },
+      "de": {
+        "title": "soulboundEndCityChance",
+        "summary": "Servereinstellung. Standard: 0.02 (0-1). Chance auf ein Seelengebunden-Buch in einer Endsiedlungs-Schatztruhe (wirkt nach dem Neuladen der Daten)."
+      }
+    },
+    {
+      "id": "config_deathVaultCostPerItem",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "deathVaultCostPerItem",
+        "summary": "Server setting. Default: 4 (1-64). Offering points (diamonds, money bills) per returned item."
+      },
+      "de": {
+        "title": "deathVaultCostPerItem",
+        "summary": "Servereinstellung. Standard: 4 (1-64). Opferpunkte (Diamanten, Geldscheine) je zurückgegebenem Gegenstand."
+      }
+    },
+    {
+      "id": "config_deathVaultMaxPerOffering",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "deathVaultMaxPerOffering",
+        "summary": "Server setting. Default: 3 (1-27). Items one offering returns at most."
+      },
+      "de": {
+        "title": "deathVaultMaxPerOffering",
+        "summary": "Servereinstellung. Standard: 3 (1-27). So viele Gegenstände gibt ein Opfer höchstens zurück."
+      }
+    },
+    {
+      "id": "config_deathVaultMaxDeaths",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "deathVaultMaxDeaths",
+        "summary": "Server setting. Default: 20 (1-100). Deaths remembered per player; older ones are forgotten."
+      },
+      "de": {
+        "title": "deathVaultMaxDeaths",
+        "summary": "Servereinstellung. Standard: 20 (1-100). Gemerkte Tode je Spieler; ältere werden vergessen."
+      }
     }
   ],
-  "recipes": [],
-  "lootTables": [],
-  "tags": [],
+  "recipes": [
+    {
+      "id": "simpletools:death_vault",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpletools:death_vault",
+        "count": 1
+      },
+      "source": "modules/simpletools/shared/resources/data/simpletools/recipe/death_vault.json",
+      "ingredients": [
+        "#minecraft:soul_fire_base_blocks",
+        "minecraft:chest",
+        "minecraft:ender_eye",
+        "minecraft:obsidian"
+      ],
+      "pattern": [
+        "OEO",
+        "SCS",
+        "OOO"
+      ],
+      "key": {
+        "O": [
+          "minecraft:obsidian"
+        ],
+        "E": [
+          "minecraft:ender_eye"
+        ],
+        "S": [
+          "#minecraft:soul_fire_base_blocks"
+        ],
+        "C": [
+          "minecraft:chest"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:obsidian",
+            "count": 5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:soul_sand",
+            "count": 2
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 0.5
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:soul_fire_base_blocks"
+        ]
+      }
+    }
+  ],
+  "lootTables": [
+    {
+      "id": "simpletools:blocks/death_vault",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpletools:death_vault"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpletools/shared/resources/data/simpletools/loot_table/blocks/death_vault.json"
+    }
+  ],
+  "tags": [
+    {
+      "id": "simpletools:item/death_vault_offerings",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:diamond",
+          "required": true
+        },
+        {
+          "id": "simplemoney:money_bill",
+          "required": false
+        }
+      ],
+      "source": "modules/simpletools/shared/resources/data/simpletools/tags/item/death_vault_offerings.json"
+    }
+  ],
   "advancements": [],
-  "enchantments": [],
+  "enchantments": [
+    {
+      "id": "simpletools:soulbound",
+      "name": {
+        "en_us": "Soulbound",
+        "de_de": "Seelengebunden"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "maxLevel": 1,
+      "weight": 1,
+      "anvilCost": 8,
+      "slots": [
+        "any"
+      ],
+      "supportedItems": "#minecraft:enchantable/vanishing",
+      "primaryItems": null,
+      "exclusiveSet": "minecraft:vanishing_curse",
+      "effects": [],
+      "implementedIn": "none",
+      "hasEffect": false,
+      "source": "modules/simpletools/shared/resources/data/simpletools/enchantment/soulbound.json",
+      "note": {
+        "en": {
+          "title": "Soulbound",
+          "summary": "Treasure enchantment, one level, for everything that can carry the Curse of Vanishing (the two exclude each other). An item with Soulbound never drops on death - also in PvP and Hardcore - and is back in the same slot after the respawn, with at most 50 durability left (min(current, 50)). Book only: never from the enchanting table, librarians or random loot; a wandering trader sells one book for 24-32 diamonds now and then (5 % per trader), and End City treasure chests hold one very rarely (2 %). Rarer than Mending. Applying it at the anvil always costs the full 35 levels; the grindstone removes it."
+        },
+        "de": {
+          "title": "Seelengebunden",
+          "summary": "Schatz-Verzauberung, eine Stufe, für alles, was den Fluch des Verschwindens tragen kann (beide schließen sich aus). Ein Gegenstand mit Seelengebunden fällt beim Tod nie - auch im PvP und im Hardcore-Modus - und liegt nach dem Wiedereinstieg im selben Platz, mit höchstens 50 Haltbarkeit (min(aktuell, 50)). Nur als Buch: nie am Verzauberungstisch, beim Bibliothekar oder als Zufallsbeute; ein fahrender Händler verkauft ab und zu ein Buch für 24-32 Diamanten (5 % je Händler), Endsiedlungs-Schatztruhen enthalten sehr selten eines (2 %). Seltener als Reparatur. Am Amboss kostet das Auftragen immer volle 35 Level; der Schleifstein entfernt es."
+        }
+      }
+    }
+  ],
   "items": [],
-  "blocks": [],
+  "blocks": [
+    {
+      "id": "simpletools:death_vault",
+      "name": {
+        "en_us": "Death Vault",
+        "de_de": "Todesgewölbe"
+      },
+      "note": {
+        "en": {
+          "title": "Death Vault",
+          "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). The server remembers the items that dropped at each of your deaths (the last 20 deaths). The vault shows them: an item still lying in the world is dimmed and cannot be bought back; once it despawned, burned in lava or fire, blew up or fell into the void, it can. Picked up by anyone (also partly, by a hopper or a mob) it leaves the list; items dropped before the death never count. After a death by another player only items that despawned or that this player destroyed count. Put diamonds into the offering slot (with Simple Money also money bills) and press Offer: every 4 return one random lost item, at most 3 per offering - newer deaths and more valuable items are more likely; with enough offerings everything comes back. Returned items leave the list and keep at most 50 durability."
+        },
+        "de": {
+          "title": "Todesgewölbe",
+          "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Der Server merkt sich die Gegenstände, die bei jedem deiner Tode gefallen sind (die letzten 20 Tode). Das Gewölbe zeigt sie: Ein Gegenstand, der noch in der Welt liegt, ist abgedunkelt und nicht rückkaufbar; ist er verschwunden, in Lava oder Feuer verbrannt, explodiert oder ins Leere gefallen, schon. Hebt ihn irgendwer auf (auch teilweise, ein Trichter oder ein Mob), fällt er aus der Liste; vor dem Tod fallen gelassene Gegenstände zählen nie. Nach einem Tod durch einen anderen Spieler zählen nur verschwundene oder von diesem Spieler zerstörte Gegenstände. Diamanten in den Opferplatz legen (mit Simple Money auch Geldscheine) und Opfern drücken: je 4 kommt ein zufälliger verlorener Gegenstand zurück, höchstens 3 je Opfer - neuere Tode und wertvollere Gegenstände sind wahrscheinlicher; mit genug Opfern kommt alles zurück. Zurückgeholte Gegenstände fallen aus der Liste und behalten höchstens 50 Haltbarkeit."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "Some say the dead keep a ledger. This shrine is where it is kept, and its soul flame never forgets a name."
+          ],
+          "use": [
+            "Open it to see what your deaths cost you. Items still lying in the world stay dim; those that despawned, burned, blew up or fell into the void can be bought back. Every 4 diamonds return one random lost item, at most 3 per offering."
+          ],
+          "secret": [
+            "Newer deaths and more valuable items come back more often. Whatever anyone picked up is struck from the ledger, and Soulbound items never appear in it: they never left you."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Manche sagen, die Toten führen Buch. Dieser Schrein ist der Ort, an dem es liegt, und seine Seelenflamme vergisst keinen Namen."
+          ],
+          "use": [
+            "Öffne ihn, um zu sehen, was dich deine Tode gekostet haben. Was noch in der Welt liegt, bleibt dunkel; was verschwunden, verbrannt, explodiert oder ins Leere gefallen ist, lässt sich zurückkaufen. Je 4 Diamanten kommt ein zufälliger verlorener Gegenstand zurück, höchstens 3 je Opfer."
+          ],
+          "secret": [
+            "Neuere Tode und wertvollere Gegenstände kommen öfter zurück. Was irgendwer aufgehoben hat, wird gestrichen, und seelengebundene Gegenstände stehen nie darin: Sie haben dich nie verlassen."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpletools:death_vault"
+      ],
+      "usedIn": []
+    }
+  ],
   "trades": [],
   "config": [],
   "quests": [],
@@ -198,14 +555,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 11,
-    "recipes": 0,
-    "lootTables": 0,
-    "tags": 0,
+    "features": 23,
+    "recipes": 1,
+    "lootTables": 1,
+    "tags": 1,
     "advancements": 0,
-    "enchantments": 0,
+    "enchantments": 1,
     "items": 0,
-    "blocks": 0,
+    "blocks": 1,
     "trades": 0,
     "config": 0,
     "quests": 0,

@@ -664,6 +664,11 @@ class Icons:
         if name.endswith("_wall_skull"):
             return self.item(f"{NS}:{name[:-len('_wall_skull')]}_skull")
         relpath = f"{RENDER_DIR}/block/{name}.png"
+        size = vanilla_derived.WIKI_RENDERS.get(f"block/{name}") if is_ours(block_id) else None
+        if size and not self.active and not (WIKI / relpath).exists():
+            # Its render shows a Vanilla-derived texture (not committed): a placeholder without the renderer.
+            (WIKI / relpath).parent.mkdir(parents=True, exist_ok=True)
+            (WIKI / relpath).write_bytes(vanilla_derived.placeholder_png(relpath, size, size))
         if self.active:
             image = None
             if block_id in LYING_ITEM_BLOCKS:

@@ -451,6 +451,29 @@ public final class FeatureStations {
     }
 
     // =====================================================================================
+    // Simple Respawn (Sub-Mod, 2026-10-12): nur wenn das Modul geladen ist (Registry-ID, kein Import)
+    // =====================================================================================
+
+    public static TcCanvas respawn(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        Item guide = net.minecraft.core.registries.BuiltInRegistries.ITEM
+                .getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplerespawn", "guide_book")).orElse(null);
+        if (guide == null) {
+            return c;
+        }
+        TestCentreSections.post(c, 0, 0, new ItemStack(guide), TcText.bold(TcText.t("section.respawn", "Simple Respawn")),
+                TcText.t("section.respawn.sub", "survival: knock down"), TcText.t("section.respawn.sub2", "mate: hold right-click"));
+        // Befehlsbloecke auf Glas mit Glassaeule dazwischen (Isolation wie die Steuerwand).
+        c.command(3, 1, 2, Direction.NORTH, "simplerespawn down @p", TcText.t("respawn.down", "Knock down"),
+                TcText.t("respawn.down.sub", "nearest player"));
+        c.place(4, 0, 2, Blocks.GLASS.defaultBlockState());
+        c.place(4, 1, 2, Blocks.GLASS.defaultBlockState());
+        c.command(6, 1, 2, Direction.NORTH, "simplerespawn revive @p", TcText.t("respawn.revive", "Revive"),
+                TcText.t("respawn.revive.sub", "nearest player"));
+        return c;
+    }
+
+    // =====================================================================================
     // Pfeil-Station: jeder Pfeil gegen Trainingspuppen (Besitzer 2026-10-02)
     // =====================================================================================
 
@@ -660,6 +683,45 @@ public final class FeatureStations {
     }
 
     /**
+     * Death-Vault-Station (Simple Tools, 2026-10-12): nur wenn Simple Tools geladen ist (oeffentliche Registry-ID, kein
+     * Klassenimport), sonst leer. Der Block, davor eine Truhe mit Diamanten und Soulbound-Buechern, ein Amboss zum
+     * Auftragen (35 Level) und ein Schleifstein zum Entfernen.
+     */
+    public static TcCanvas deathVault(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        var vault = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletools", "death_vault"));
+        if (vault.isEmpty()) {
+            return c;
+        }
+        int z = 2;
+        int wallZ = 4;
+        c.place(2, 0, z, vault.get());
+        c.place(4, 0, z, Blocks.ANVIL);
+        c.place(6, 0, z, Blocks.GRINDSTONE);
+        c.place(1, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        List<ItemStack> chest = new ArrayList<>();
+        chest.add(new ItemStack(Items.DIAMOND, 64));
+        ctx.enchantment(ResourceKey.create(net.minecraft.core.registries.Registries.ENCHANTMENT,
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletools", "soulbound")))
+                .ifPresent(soulbound -> {
+                    for (int i = 0; i < 4; i++) chest.add(TcContext.book(soulbound));
+                });
+        chest.add(new ItemStack(Items.DIAMOND_SWORD));
+        chest.add(new ItemStack(Items.EXPERIENCE_BOTTLE, 64));
+        c.contents(1, 0, 1, chest);
+        c.title(0, 2, wallZ, TcText.t("section.deathvault", "Death Vault"), TcText.t("section.deathvault.sub", "Simple Tools"));
+        c.wallSign(2, 1, wallZ, TcText.bold(TcText.t("deathvault.vault", "Death Vault")),
+                TcText.t("deathvault.vault.sub", "lost items back"), TcText.t("deathvault.vault.sub2", "4 diamonds each"));
+        c.wallSign(4, 1, wallZ, TcText.bold(TcText.t("deathvault.anvil", "Soulbound")),
+                TcText.t("deathvault.anvil.sub", "book on anvil"), TcText.t("deathvault.anvil.sub2", "always 35 levels"));
+        c.wallSign(6, 1, wallZ, TcText.bold(TcText.t("deathvault.grind", "Grindstone")),
+                TcText.t("deathvault.grind.sub", "removes Soulbound"));
+        c.backWall(0, 7, wallZ, 4);
+        return c;
+    }
+
+    /**
      * Astral-Verzauberungs-Station (Queue N27, McVersion.ASTRAL_ENCHANTING): links ein fertiger Astral-Tisch der Stufe 50
      * (5x5 Lohen-Obsidian, 15 Lohen-Regale im Ring, vorn mittig frei, Lapis und Lohenstaub gelagert), rechts ein
      * Vanilla-Verzauberungstisch zum Haemmern; die Truhe haelt Netherit-Hammer, Enderit-Nuggets und die Lohen-Familie.
@@ -849,6 +911,85 @@ public final class FeatureStations {
                 TcText.t("woodwork.carve.sub", "sherd in off hand,"), TcText.t("woodwork.carve.sub2", "chisel a stripped log"));
         c.backWall(0, chestX + 1, wallZ, 5);
         return c;
+    }
+
+    /**
+     * Simple-End-Station (docs/ai/PLAN-SIMPLE-END-2026-10-12.md): nur wenn das Modul geladen ist, ueber Registry-Ids
+     * (keine Klassen des Moduls). Endstein-Boden; je Holzart eine Reihe mit dem ganzen Holzset, davor Knospen: eine im
+     * Licht (Leuchtstein), eine 2x2 im Licht, eine in einem dunklen Kasten (Knochenmehl -> Gestruepp); End-Gras und
+     * -Buesche; Truhe mit Booten, Knospen, Schwebfrucht und Knochenmehl.
+     */
+    public static TcCanvas simpleEnd(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        if (!net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", "ashwood_log"))) {
+            return c;
+        }
+        int wallZ = 14;
+        c.fill(0, -1, 0, 22, -1, wallZ - 1, Blocks.END_STONE.defaultBlockState());
+        String[] parts = {"W_log", "W_wood", "stripped_W_log", "stripped_W_wood", "W_planks", "W_stairs", "W_slab", "W_fence",
+                "W_fence_gate", "W_door", "W_trapdoor", "W_pressure_plate", "W_button", "W_sign", "W_leaves", "W_sticks"};
+        String[][] woods = {{"ashwood", "ash_bud"}, {"duskwood", "dusk_bud"}};
+        List<ItemStack> chest = new ArrayList<>();
+        for (int row = 0; row < woods.length; row++) {
+            String w = woods[row][0];
+            int z = 11 - row * 2;
+            for (int i = 0; i < parts.length; i++) {
+                Block b = endBlock(parts[i].replace("W", w));
+                if (b != null) c.place(1 + i, 0, z, b);
+            }
+            Block hanging = endBlock(w + "_hanging_sign");
+            if (hanging != null) c.place(17, 1, z, hanging);
+            c.place(17, 0, z, endBlock(w + "_planks"));
+            Block shelf = endBlock(w + "_shelf");
+            if (shelf != null) c.place(18, 0, z, shelf);
+            Block bud = endBlock(woods[row][1]);
+            int bx = 2 + row * 10;
+            // Licht: eine Knospe neben Leuchtstein waechst von selbst/mit Knochenmehl zum grossen Baum.
+            c.place(bx, 0, 3, bud);
+            c.place(bx + 2, 0, 3, Blocks.GLOWSTONE);
+            // 2x2 Knospen im Licht -> Riesenbaum.
+            for (int dx = 0; dx < 2; dx++) for (int dz = 0; dz < 2; dz++) c.place(bx + 4 + dx, 0, 2 + dz, bud);
+            c.place(bx + 7, 0, 3, Blocks.GLOWSTONE);
+            // Dunkel: Knospe in einem geschlossenen Kasten aus Obsidian (oben eine Falltuer zum Knochenmehl geben).
+            c.fill(bx - 1, 0, 6, bx + 1, 2, 8, Blocks.OBSIDIAN.defaultBlockState());
+            c.place(bx, 0, 7, bud);
+            c.place(bx, 1, 7, Blocks.AIR);
+            for (String id : new String[] {w + "_boat", w + "_chest_boat", woods[row][1], w + "_log"}) {
+                Item it = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", id));
+                if (it != Items.AIR) chest.add(new ItemStack(it, it.getDefaultMaxStackSize()));
+            }
+        }
+        Block grass = endBlock("end_grass"), bush = endBlock("end_bush");
+        for (int x = 12; x <= 20; x += 2) {
+            c.place(x, 0, 5, grass);
+            c.place(x + 1, 0, 6, x % 4 == 0 ? bush : grass);
+        }
+        Item fruit = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", "drift_fruit"));
+        chest.add(new ItemStack(fruit, 16));
+        chest.add(new ItemStack(Items.BONE_MEAL, 64));
+        chest.add(new ItemStack(Items.IRON_AXE));
+        chest.add(new ItemStack(Items.SHEARS));
+        for (String id : new String[] {"nibblemite_spawn_egg", "burrowed_end_stone"}) {
+            Item it = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", id));
+            if (it != Items.AIR) chest.add(new ItemStack(it, 16));
+        }
+        chest.add(new ItemStack(Items.CHORUS_FRUIT, 32));
+        c.place(21, 0, 9, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        c.contents(21, 0, 9, chest);
+        c.title(0, 3, wallZ, TcText.t("section.simpleend", "Simple End"),
+                TcText.t("section.simpleend.sub", "End wood, buds, End grass, Drift Fruit"));
+        c.wallSign(3, 2, wallZ, TcText.bold(TcText.t("simpleend.light", "Buds in light")),
+                TcText.t("simpleend.light.sub", "light 9+: big tree,"), TcText.t("simpleend.light.sub2", "2x2: huge tree"));
+        c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("simpleend.dark", "Bud in the dark")),
+                TcText.t("simpleend.dark.sub", "bone meal through the top"), TcText.t("simpleend.dark.sub2", "grows stick scrub"));
+        c.wallSign(13, 2, wallZ, TcText.bold(TcText.t("simpleend.fruit", "Drift Fruit")),
+                TcText.t("simpleend.fruit.sub", "eat: 4 s Slow Falling"), TcText.t("simpleend.fruit.sub2", "and a small hop"));
+        c.backWall(0, 22, wallZ, 5);
+        return c;
+    }
+
+    private static Block endBlock(String id) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", id)).orElse(Blocks.AIR);
     }
 
     /**

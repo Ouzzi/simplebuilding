@@ -1,0 +1,8 @@
+{
+  "parent": "simplebuilding:block/octet/_corner_sided",
+  "textures": {
+    "up": "simpleend:block/ashwood_log_top",
+    "down": "simpleend:block/ashwood_log_top",
+    "side": "simpleend:block/ashwood_log"
+  }
+}

@@ -1,6 +1,8 @@
 """Tiered vehicles (Queue N19/N23): item sprites and item models of the tiered carts and chest boats.
 
-docs/ai/PLAN-FAHRZEUG-STUFEN-2026-10-10.md. No vanilla pixels are written: every sprite is an overlay that the item
+docs/ai/PLAN-FAHRZEUG-STUFEN-2026-10-10.md. The sprites are Vanilla-derived (their shape and shading are masks of
+Mojang sprites) and therefore never committed: tools/textures/vanilla_derived.py builds them through derived(jar);
+this script writes and checks the models only. No vanilla pixel colours are written: every sprite is an overlay that the item
 model puts as layer1 over vanilla's own sprite (layer0 = minecraft:item/minecart or the chest boat of the wood). The
 overlay covers exactly the pixels where vanilla's chest/furnace/hopper cart (chest boat) differs from the empty cart
 (plain boat). Inside that shape the shading follows vanilla's light (dark outline, dark front, lit top), the colours
@@ -27,9 +29,12 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
 OWN_TEX = ROOT / "src/main/resources/assets/simplebuilding/textures"
-CLIENT_JAR = Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar"
+CLIENT_JAR = Path(os.environ.get("SB_CLIENT_JAR") or Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar")
 TIERS = ["reinforced", "netherite", "enderite"]
 WOODS = ["oak", "spruce", "birch", "jungle", "acacia", "cherry", "dark_oak", "pale_oak", "mangrove", "poplar", "bamboo"]
+# Simple End boat woods (BoatWoods.END, docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): Simple End's own chest boat sprite under
+# the tier overlay; the case only matters while Simple End is loaded.
+END_WOODS = ["ashwood", "duskwood"]
 LOCK = {"reinforced": (90, 220, 210), "netherite": (230, 170, 60), "enderite": (250, 180, 255)}
 LOCK_DARK = {"reinforced": (40, 160, 160), "netherite": (150, 96, 30), "enderite": (200, 90, 210)}
 
@@ -156,11 +161,12 @@ def build():
             img = paint(src, region, shades, LOCK[tier])
             tex[f"{tier}_chest_{shape}_overlay"] = tier_marks(img, region, tier, "boat")
         cases = []
-        for wood in WOODS:
+        for wood in WOODS + END_WOODS:
             raft = wood == "bamboo"
             model = f"{tier}_chest_boat_{wood}"
+            ns = "simpleend" if wood in END_WOODS else "minecraft"
             models[model] = {"parent": "minecraft:item/generated", "textures": {
-                "layer0": "minecraft:item/" + ("bamboo_chest_raft" if raft else f"{wood}_chest_boat"),
+                "layer0": f"{ns}:item/" + ("bamboo_chest_raft" if raft else f"{wood}_chest_boat"),
                 "layer1": f"simplebuilding:item/{tier}_chest_{'raft' if raft else 'boat'}_overlay"}}
             cases.append({"when": wood, "model": {"type": "minecraft:model", "model": f"simplebuilding:item/{model}"}})
         items[f"{tier}_chest_boat"] = {"model": {
@@ -168,6 +174,13 @@ def build():
             "cases": cases,
             "fallback": {"type": "minecraft:model", "model": f"simplebuilding:item/{tier}_chest_boat_oak"}}}
     return tex, models, items
+
+
+def derived(jar):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    global CLIENT_JAR
+    CLIENT_JAR = Path(jar)
+    return {f"item/{name}.png": img for name, img in build()[0].items()}
 
 
 def preview(tex, out_dir):
@@ -200,8 +213,6 @@ def main():
     tex, models, items = build()
     stale = []
     files = {}
-    for name, img in tex.items():
-        files[ASSETS / f"textures/item/{name}.png"] = img
     for name, data in models.items():
         files[ASSETS / f"models/item/{name}.json"] = json.dumps(data, indent=2) + "\n"
     for name, data in items.items():

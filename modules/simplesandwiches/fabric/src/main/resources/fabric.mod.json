@@ -27,6 +27,7 @@
     "fabric-api": "*"
   },
   "suggests": {
-    "simplebuilding": "*"
+    "simplebuilding": "*",
+    "simpleend": "*"
   }
 }

@@ -7,8 +7,10 @@ cuboid's sides show exactly its rows of the sprite - speckles, highlight and sha
 outline (a 3D egg gets its edges from the face shading). The texture is the sprite with the outline replaced by the
 neighbouring shell colour and the transparent rest filled with the nearest shell colour (for the tops of the steps).
 
+The 16x16 shells (textures/block/placed_egg_<white|blue|brown>.png) carry Vanilla pixels: never committed,
+tools/textures/vanilla_derived.py builds them through derived(jar).
+
 Writes into the assets dir (default mc26_3/overlay/resources/assets/simplebuilding):
-  textures/block/placed_egg_<white|blue|brown>.png   16x16 shell
   models/block/placed_egg_<colour>.json              the 3D egg (also the legacy placed_egg block state)
   items/placed_egg_<colour>.json                     item model definition; the small-parts renderer draws the egg
                                                      through it (ITEM_MODEL on a stand-in stack)
@@ -22,8 +24,11 @@ import sys
 import zipfile
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
-VANILLA = sys.argv[2] if len(sys.argv) > 2 else os.path.expanduser('~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar')
+OUT = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
+VANILLA = os.environ.get('SB_CLIENT_JAR') or os.path.expanduser('~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar')
+if __name__ == '__main__':
+    OUT = sys.argv[1] if len(sys.argv) > 1 else OUT
+    VANILLA = sys.argv[2] if len(sys.argv) > 2 else VANILLA
 EGGS = (('egg', 'white'), ('blue_egg', 'blue'), ('brown_egg', 'brown'))
 
 
@@ -104,12 +109,18 @@ def model(colour, cuboids):
     return {'parent': 'minecraft:block/block', 'textures': {'egg': tex, 'particle': tex}, 'elements': elements}
 
 
+def derived(jar):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    global VANILLA
+    VANILLA = str(jar)
+    return {f'block/placed_egg_{colour}.png': shell(sprite(item)) for item, colour in EGGS}
+
+
 if __name__ == '__main__':
-    for sub in ('textures/block', 'models/block', 'items'):
+    for sub in ('models/block', 'items'):
         os.makedirs(os.path.join(OUT, sub), exist_ok=True)
     for item, colour in EGGS:
         im = sprite(item)
-        shell(im).save(os.path.join(OUT, 'textures', 'block', f'placed_egg_{colour}.png'))
         cuboids = boxes(im)
         with open(os.path.join(OUT, 'models', 'block', f'placed_egg_{colour}.json'), 'w', encoding='utf-8', newline='\n') as f:
             json.dump(model(colour, cuboids), f, indent=2)

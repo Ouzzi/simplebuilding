@@ -13,6 +13,7 @@ docs/ai/PLAN-ASTRAL-NIHIL-SCHIENEN-2026-10-02.md. Base is vanilla's powered rail
 import argparse
 import io
 import json
+import os
 import zipfile
 from pathlib import Path
 
@@ -22,7 +23,7 @@ CHOSEN = "B"
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
 SRC_BLOCK = ROOT / "src/main/resources/assets/simplebuilding/textures/block"
-CLIENT_JAR = Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar"
+CLIENT_JAR = Path(os.environ.get("SB_CLIENT_JAR") or Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar")
 PREVIEW = Path("C:/Users/o_o/code/minecraft-mods/previews/astral-nihil-schienen-vorschau.png")
 
 # Gem ramps of the End signal family (end_system_textures.py / end_pistons_2026_10_03.py): dark, mid, light.
@@ -85,6 +86,14 @@ VARIANTS = ["A", "B", "C"]
 def textures(choice):
     return {f"block/{ch}_rail{'_on' if on else ''}.png": recolour(ch, on, choice)
             for ch in ["astral", "nihil"] for on in [False, True]}
+
+
+def derived(jar):
+    """Vanilla-derived output (every variant recolours Vanilla's powered rail): never committed,
+    tools/textures/vanilla_derived.py builds it. Texture path -> image."""
+    global CLIENT_JAR
+    CLIENT_JAR = Path(jar)
+    return textures(CHOSEN)
 
 
 def write_models():
@@ -154,18 +163,10 @@ def main():
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--install", choices=VARIANTS, default=CHOSEN)
     args = parser.parse_args()
-    art = textures(args.install)
     if args.check:
-        bad = [rel for rel, im in art.items() if not (ASSETS / "textures" / rel).exists()
-               or Image.open(ASSETS / "textures" / rel).convert("RGBA").tobytes() != im.tobytes()]
-        if bad:
-            raise SystemExit("Outdated: " + ", ".join(bad))
-        print(f"End rails: {len(art)} textures current (variant {args.install})")
+        # The textures are Vanilla-derived (built by vanilla_derived.py, not in git): models only.
+        print(f"End rails: textures are built, not committed (variant {args.install})")
         return
-    for rel, im in art.items():
-        p = ASSETS / "textures" / rel
-        p.parent.mkdir(parents=True, exist_ok=True)
-        im.save(p)
     write_models()
     print(f"End rails: variant {args.install} installed, preview {preview()}")
 

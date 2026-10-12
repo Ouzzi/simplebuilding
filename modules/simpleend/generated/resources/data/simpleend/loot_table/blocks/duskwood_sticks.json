@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simpleend:duskwood_sticks"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simpleend:blocks/duskwood_sticks"
+}

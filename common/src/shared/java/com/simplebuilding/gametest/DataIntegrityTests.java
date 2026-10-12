@@ -4502,6 +4502,9 @@ public final class DataIntegrityTests {
             Identifier texture = Identifier.parse(sprite);
             boolean ours = MOD_ID.equals(texture.getNamespace());
             if (!ours && !vanillaAssets) continue;
+            // Simple End's textures (End-wood chest boat cases, docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md) only with Simple End.
+            if (!ours && !"minecraft".equals(texture.getNamespace())
+                    && !com.simplebuilding.platform.ModEnvironment.isModLoaded(texture.getNamespace())) continue;
             if (loader.getResource("assets/" + texture.getNamespace() + "/textures/" + texture.getPath() + ".png") == null
                     && !permuted.contains(texture.toString())) {
                 problems.add("model " + model + " uses texture " + texture + ", which does not exist");

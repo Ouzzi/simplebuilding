@@ -25,6 +25,25 @@ public final class ToolsScreen {
                 .setTooltip(tip("anvilRepairKeepsCost")).setSaveConsumer(v -> c.anvilRepairKeepsCost = v).build());
         general.addEntry(e.startBooleanToggle(name("enableFurnaceLavaFill"), c.enableFurnaceLavaFill).setDefaultValue(true)
                 .setTooltip(tip("enableFurnaceLavaFill")).setSaveConsumer(v -> c.enableFurnaceLavaFill = v).build());
+        var death = b.getOrCreateCategory(Component.translatable("simpletools.tab.death"));
+        death.addEntry(e.startBooleanToggle(name("enableSoulbound"), c.enableSoulbound).setDefaultValue(true)
+                .setTooltip(tip("enableSoulbound")).setSaveConsumer(v -> c.enableSoulbound = v).build());
+        death.addEntry(e.startBooleanToggle(name("enableDeathVault"), c.enableDeathVault).setDefaultValue(true)
+                .setTooltip(tip("enableDeathVault")).setSaveConsumer(v -> c.enableDeathVault = v).build());
+        death.addEntry(e.startIntField(name("deathDurabilityCap"), c.deathDurabilityCap).setMin(1).setMax(2031).setDefaultValue(50)
+                .setTooltip(tip("deathDurabilityCap")).setSaveConsumer(v -> c.deathDurabilityCap = v).build());
+        death.addEntry(e.startIntField(name("soulboundAnvilCost"), c.soulboundAnvilCost).setMin(1).setMax(39).setDefaultValue(35)
+                .setTooltip(tip("soulboundAnvilCost")).setSaveConsumer(v -> c.soulboundAnvilCost = v).build());
+        death.addEntry(e.startDoubleField(name("soulboundTraderChance"), c.soulboundTraderChance).setMin(0).setMax(1).setDefaultValue(0.05)
+                .setTooltip(tip("soulboundTraderChance")).setSaveConsumer(v -> c.soulboundTraderChance = v).build());
+        death.addEntry(e.startDoubleField(name("soulboundEndCityChance"), c.soulboundEndCityChance).setMin(0).setMax(1).setDefaultValue(0.02)
+                .setTooltip(tip("soulboundEndCityChance")).setSaveConsumer(v -> c.soulboundEndCityChance = v).build());
+        death.addEntry(e.startIntField(name("deathVaultCostPerItem"), c.deathVaultCostPerItem).setMin(1).setMax(64).setDefaultValue(4)
+                .setTooltip(tip("deathVaultCostPerItem")).setSaveConsumer(v -> c.deathVaultCostPerItem = v).build());
+        death.addEntry(e.startIntField(name("deathVaultMaxPerOffering"), c.deathVaultMaxPerOffering).setMin(1).setMax(27).setDefaultValue(3)
+                .setTooltip(tip("deathVaultMaxPerOffering")).setSaveConsumer(v -> c.deathVaultMaxPerOffering = v).build());
+        death.addEntry(e.startIntField(name("deathVaultMaxDeaths"), c.deathVaultMaxDeaths).setMin(1).setMax(100).setDefaultValue(20)
+                .setTooltip(tip("deathVaultMaxDeaths")).setSaveConsumer(v -> c.deathVaultMaxDeaths = v).build());
         b.setSavingRunnable(() -> {
             SimpleTools.CONFIG = c;
             SimpleTools.save();

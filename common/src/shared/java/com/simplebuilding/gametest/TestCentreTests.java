@@ -916,7 +916,7 @@ public final class TestCentreTests {
      * guard button puts four Shellkers on the bedrock cross around the gateway. SimpleBuilding alone has no mod mobs; then
      * the same cell code runs with a Vanilla pig as stand-in.
      */
-    public static void everyModMobHasAStationThatSpawnsItInItsHabitat(GameTestHelper helper) {
+    public static void everyModMobHasItsOwnStationThatSpawnsItInItsHabitat(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         List<net.minecraft.world.entity.EntityType<?>> found = com.simplebuilding.dev.testcentre.MobStations.modMobs();
         List<net.minecraft.world.entity.EntityType<?>> mobs = found.isEmpty()

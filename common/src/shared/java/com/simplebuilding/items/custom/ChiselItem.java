@@ -303,7 +303,10 @@ public class ChiselItem extends Item {
 
         // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): der Meissel hoehlt entrindete Staemme aus (Steinstufe).
         // Nur entrindete: Staemme mit Rinde entrindet Constructor's Touch bereits (Tabelle touch).
+        // End woods (Simple End) only through the datapack file chisel_transformations/stone_chisel_end_woods.json:
+        // their logs may not be registered yet while this class loads.
         for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+            if (family.wood().external()) continue;
             registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, family.wood().strippedBlock(), family.hollowStripped());
         }
 
