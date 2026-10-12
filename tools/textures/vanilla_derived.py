@@ -105,11 +105,32 @@ OUTPUTS = {
     'item/netherite_chest_raft_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/enderite_chest_boat_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/enderite_chest_raft_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
+    'block/enderite_crucible_side.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'block/enderite_crucible_top.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'block/enderite_barrel_side.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'block/enderite_barrel_top.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'block/enderite_barrel_top_open.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'block/enderite_barrel_bottom.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'block/enderite_barrel_flange.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_water_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_lava_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_bucket_1.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_water_bucket_1.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_lava_bucket_1.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_bucket_2.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_water_bucket_2.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_lava_bucket_2.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_water_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/copper_lava_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
+    'item/enderite_bucket.png': ((16, 320), 'crucible_art_v2_2026_10_05.derived()'),
 }
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03', 'soul_lava_2026_10_09', 'shulker_shell_textures',
-                    'music_disc_textures', 'placed_egg_textures', 'standing_rods_2026_10_04', 'vehicles_2026_10_10')
+                    'music_disc_textures', 'placed_egg_textures', 'standing_rods_2026_10_04', 'vehicles_2026_10_10',
+                    'crucible_art_v2_2026_10_05')
 # Probe file every usable jar contains.
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
 
@@ -132,6 +153,21 @@ def find_jar(explicit: str | None = None) -> Path | None:
     return None
 
 
+def extract_vanilla_textures(jar: Path) -> None:
+    """build/vanilla-textures: the Vanilla textures as files, which the crucible/barrel/bucket generators read at
+    import time (build/ is not committed). Extracted once."""
+    base = ROOT / 'build/vanilla-textures'
+    if (base / 'block/iron_block.png').exists():
+        return
+    prefix = 'assets/minecraft/textures/'
+    with zipfile.ZipFile(jar) as z:
+        for name in z.namelist():
+            if name.startswith(prefix) and name.endswith('.png'):
+                target = base / name[len(prefix):]
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(z.read(name))
+
+
 def images(jar: Path) -> dict:
     """Texture path -> RGBA image, drawn from the given jar."""
     os.environ['SB_CLIENT_JAR'] = str(jar)
@@ -143,6 +179,7 @@ def images(jar: Path) -> dict:
     out = {'item/blaze_book.png': n41.blaze_book(2),
            'entity/chest/astral_vault.png': chests['astral'],
            'entity/chest/nihil_vault.png': chests['nihil']}
+    extract_vanilla_textures(jar)
     for name in OLDER_GENERATORS:
         out.update(importlib.import_module(name).derived(jar))
     assert set(out) == set(OUTPUTS), 'OUTPUTS and images() disagree'
@@ -151,7 +188,7 @@ def images(jar: Path) -> dict:
 
 # Wiki 3D renders (wiki/assets/textures/render/<name>.png, block renders as block/<name>, 128x128) that show a
 # Vanilla-derived texture (or draw over a Mojang sprite): not committed, placeholders without the renderer.
-WIKI_RENDERS = {'astral_vault': 128, 'nihil_vault': 128,
+WIKI_RENDERS = {'astral_vault': 128, 'nihil_vault': 128, 'enderite_barrel': 128, 'enderite_crucible': 128,
                 'astral_piston': 128, 'nihil_piston': 128, 'jukebox_amplifier': 128, 'note_amplifier': 128,
                 'enderite_chest_boat': 128, 'netherite_chest_boat': 128, 'reinforced_chest_boat': 128,
                 'enderite_chest_minecart': 128, 'enderite_furnace_minecart': 128, 'enderite_hopper_minecart': 128,
