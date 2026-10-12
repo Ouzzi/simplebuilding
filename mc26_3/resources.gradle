@@ -126,6 +126,7 @@ ext.mcVanillaDerivedTask = { ->
         inputs.property('jar', jar ?: '')
         inputs.property('placeholders', placeholders)
         inputs.property('skip', skip)
+        inputs.property('python', python ?: '')
         outputs.dir(out)
         // a fallback run must not stay up to date once Python/the jar is there
         outputs.upToDateWhen { !new File(out.parentFile, 'vanillaDerived.placeholder').exists() }
