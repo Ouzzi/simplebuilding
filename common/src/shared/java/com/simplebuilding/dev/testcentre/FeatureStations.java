@@ -601,7 +601,7 @@ public final class FeatureStations {
         }
         c.title(0, 3, wallZ, TcText.t("section.music", "Music"), TcText.t("section.music.sub", "discs, B-sides, speakers"));
         c.wallSign(2, 2, wallZ, TcText.bold(TcText.t("music.jukebox", "Jukebox Amplifier")),
-                TcText.t("music.jukebox.sub", "left: louder jukebox"), TcText.t("music.jukebox.sub2", "right: vanilla"));
+                TcText.t("music.jukebox.sub", "amp plays along"), TcText.t("music.jukebox.sub2", "up to 63 blocks"));
         c.wallSign(7, 2, wallZ, TcText.bold(TcText.t("music.note", "Note Amplifier")),
                 TcText.t("music.note.sub", "left: louder note block"), TcText.t("music.note.sub2", "right: vanilla"));
         c.wallSign(4, 1, wallZ, TcText.bold(TcText.t("music.flip", "B-Side")),

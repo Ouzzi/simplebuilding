@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
  * Lautsprecher (Besitzer 2026-10-03/04, {@code McVersion.MUSIC_DISCS}): Musik-Verstärker gehoeren zum
  * Plattenspieler, Noten-Verstärker zum Notenblock.
  *
- * <p><b>Verstaerkung:</b> direkt angrenzende Lautsprecher der passenden Art (die sechs Nachbarn, hoechstens
+ * <p><b>Verstaerkung (nur Notenblock, seit N41):</b> direkt angrenzende Noten-Verstärker (die sechs Nachbarn, hoechstens
  * {@code server.speakers.maxSpeakers}, Standard 2, hart 3) erhoehen die Hoerweite der Quelle: Faktor =
  * 1 + Anzahl x {@code boostPercent} (Standard 50 %, hart 50 %), also hoechstens 2,5-fach. Lautstaerken ueber 1 heben in
  * Minecraft nicht den Pegel, sondern die Reichweite der linearen Abschwaechung (16 Bloecke je Lautstaerke-Einheit).
@@ -68,10 +68,10 @@ public final class SpeakerBoost {
     /** Hoechstens so viele Ketten im Speicher (danach wird er geleert). */
     public static final int CACHE_SIZE = 256;
     /**
-     * Funk-Reichweite der Musik-Verstärker (Besitzer 2026-10-10): ein Plattenspieler bzw. ein schon gespeister Verstärker
-     * gibt die Musik an jeden Musik-Verstärker in hoechstens so vielen Bloecken weiter (eine Chunk-Breite).
+     * Funk-Reichweite der Musik-Verstärker (Besitzer 2026-10-10, N41: 63 statt 16): ein spielender Plattenspieler bzw. ein
+     * schon gespeister Verstärker gibt die Musik an jeden Musik-Verstärker in hoechstens so vielen Bloecken weiter.
      */
-    public static final int RELAY_RANGE = 16;
+    public static final int RELAY_RANGE = 63;
 
     private static final AtomicLong GENERATION = new AtomicLong();
     private static final Map<ChainKey, CachedChain> CACHE = new LinkedHashMap<>();
@@ -112,9 +112,12 @@ public final class SpeakerBoost {
         return 1.0F + Math.min(Math.max(speakers, 0), ServerTuning.maxSpeakers()) * ServerTuning.speakerBoost();
     }
 
-    /** Faktor fuer die Quelle bei {@code pos}: 1 ohne passende Lautsprecher. */
+    /**
+     * Faktor fuer die Quelle bei {@code pos}: 1 ohne passende Lautsprecher. Der Plattenspieler bleibt seit N41 exakt
+     * Vanilla (immer 1): Musik-Verstärker verstaerken ihn nicht mehr, sie spielen nur mit ({@link #chain}).
+     */
     public static float multiplier(BlockGetter level, BlockPos pos, Source source) {
-        if (!com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+        if (!com.simplebuilding.version.McVersion.MUSIC_DISCS || source == Source.JUKEBOX) {
             return 1.0F;
         }
         return multiplier(adjacentSpeakers(level, pos, source));
@@ -141,12 +144,12 @@ public final class SpeakerBoost {
     }
 
     /**
-     * Bis hierhin muss ein Plattenspieler-Stopp reichen: die groesste Hoerweite plus die laengste Kette (jeder Funk-Sprung
+     * Bis hierhin muss ein Plattenspieler-Stopp reichen: Vanillas Hoerweite (der Plattenspieler wird nicht verstaerkt) plus die laengste Kette (jeder Funk-Sprung
      * reicht hoechstens {@link #RELAY_RANGE} Bloecke). Auch ein inzwischen abgebauter
      * Lautsprecher laesst so kein Stueck weiterlaufen.
      */
     public static double jukeboxStopRange() {
-        return jukeboxEventRange(maxMultiplier()) + (com.simplebuilding.version.McVersion.MUSIC_DISCS ? (double) ServerTuning.maxSpeakerChain() * RELAY_RANGE : 0);
+        return VANILLA_EVENT_RANGE + (com.simplebuilding.version.McVersion.MUSIC_DISCS ? (double) ServerTuning.maxSpeakerChain() * RELAY_RANGE : 0);
     }
 
     // =====================================================================================
