@@ -12,5 +12,3013 @@
       "Hold an Enderite Nugget in your off hand and strike an Enchanting Table 20 times with a Netherite Sledgehammer: it becomes the Astral Enchanter, strong up to 50 with blazewood bookshelves and a Blazing Obsidian floor.",
       "Break it, and table and nugget return. Eight nuggets around a bucket make the Enderite Bucket."
     ]
+  },
+  "chess_pieces": {
+    "lore": [
+      "No hand ever carved this block. It exists only while a chess piece stands on it, and vanishes with the last one."
+    ],
+    "use": [
+      "The technical block that holds the chess pieces: up to four, one per quarter of the block top, each with its own facing. It has no item; placing a piece creates it, and breaking it drops the pieces."
+    ],
+    "secret": [
+      "Lose the floor beneath it, or let a piston push it, and every piece drops at once. Nothing is lost, but the board is gone."
+    ]
+  },
+  "blaze_book": {
+    "lore": [
+      "A book bound with blaze powder instead of leather. It never quite cools down."
+    ],
+    "use": [
+      "Three of them go into a blazewood bookshelf."
+    ],
+    "secret": [
+      "Blazewood shelves reward the {item:simplebuilding:astral_enchanting_table}: each counts for two ordinary shelves there."
+    ]
+  },
+  "blazing_obsidian": {
+    "lore": [
+      "Crying obsidian's glowing sibling: where the other weeps, this one burns."
+    ],
+    "use": [
+      "A decorative block that gives light. Its job is at the Astral Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
+    ],
+    "secret": [
+      "The floor only counts under the Astral Enchanter, not the vanilla table, so build it once the shelves are complete."
+    ]
+  },
+  "hammock_rope": {
+    "lore": [
+      "The rope that holds a hammock up, seen by few and remembered by none."
+    ],
+    "use": [
+      "The upper layer of a hammock: an invisible rope block in every cell the line between the anchors passes through. It has no item and no drops; the cloth head draws the whole hammock."
+    ],
+    "secret": [
+      "A click on the rope lies you down just like a click on the cloth. If an anchor or any part goes, the whole hammock falls and drops once."
+    ]
+  },
+  "astralit_dust": {
+    "lore": [
+      "A pink dust that drifts off the End's outer islands, still warm from the light it carries."
+    ],
+    "use": [
+      "Dropped by Astralit Ore (Fortune adds more). Four dust in a square make a Block of Astralit. Also a trim material (Astralit), the heart of Astral Redstone, and the core of the Jukebox Amplifier."
+    ],
+    "secret": [
+      "Recolor by dye: 8 End Stone around 1 dust make Astral End Stone. Dust plus Nihilit Shard plus quartz, shapeless, makes 2 Ender Quartz."
+    ]
+  },
+  "nihilith_shard": {
+    "lore": [
+      "A blue splinter of the void, cold like a held breath."
+    ],
+    "use": [
+      "Dropped by Nihilit Ore (Fortune adds more). Four shards in a square make a Block of Nihilit. Also a trim material (Nihilit), the heart of Nihil Redstone, and the core of the Note Amplifier."
+    ],
+    "secret": [
+      "Mixed with Astralit Dust and quartz it becomes Ender Quartz. As a trim, Nihilit lets you drop faster when you sneak in mid-air."
+    ]
+  },
+  "ender_quartz": {
+    "lore": [
+      "A crystal of quartz with Astralit and Nihilit caught inside, like two moods in one stone."
+    ],
+    "use": [
+      "Craft 1 Quartz, 1 Astralit Dust and 1 Nihilit Shard, shapeless, for 2. Four make a Block of Ender Quartz. It is the material of the purple End palette."
+    ],
+    "secret": [
+      "It also recolors vanilla quartz: 8 quartz blocks around 1 Ender Quartz make 8 Ender Quartz blocks of the same shape."
+    ]
+  },
+  "astralit_ore": {
+    "lore": [
+      "It waits on the very top of the End's islands, and glints at anyone with a good pickaxe."
+    ],
+    "use": [
+      "Generates in end stone on the surface of the outer islands. Needs a diamond pickaxe or better, hardness 20, drops Astralit Dust and 3 to 7 experience. Fortune raises the drop, Silk Touch keeps the ore."
+    ],
+    "secret": [
+      "It glows with light level 5, so you can spot a vein from far away at night. Its twin, Nihilit Ore, hides on the underside of the islands."
+    ]
+  },
+  "nihilith_ore": {
+    "lore": [
+      "It hangs under the End's islands like a bruise in the dark."
+    ],
+    "use": [
+      "Generates in end stone on the underside of the islands. Needs a diamond pickaxe or better, hardness 25, drops a Nihilit Shard and 3 to 7 experience. Fortune raises the drop, Silk Touch keeps the ore."
+    ],
+    "secret": [
+      "Look down, not up: it forms only where end stone has air below it, and it does not glow, unlike Astralit Ore on the top."
+    ]
+  },
+  "astral_redstone": {
+    "lore": [
+      "Redstone that has learned a second language, and speaks it only to its own kind."
+    ],
+    "use": [
+      "Astralit Dust plus redstone, shapeless, make 2. It carries only the Astralit channel, on horizontal neighbors of the same kind, on a sturdy top face. A switch or lamp of the same channel reads it; vanilla redstone is ignored."
+    ],
+    "secret": [
+      "Signals decay when you remove the source, and closed loops keep no power. Lamps only receive and never relay. The same dust crafts its rails and its piston."
+    ]
+  },
+  "nihil_redstone": {
+    "lore": [
+      "Redstone from the other side of the void, quiet and cold."
+    ],
+    "use": [
+      "Nihilit Shard plus redstone, shapeless, make 2. It carries only the Nihilit channel, on horizontal neighbors of the same kind, on a sturdy top face. A switch or lamp of the same channel reads it; vanilla redstone is ignored."
+    ],
+    "secret": [
+      "Each segment updates every two game ticks, and a switch powers at most 15 segments by default. The same shard crafts the Nihil Rail and the Nihil Piston."
+    ]
+  },
+  "astral_rail": {
+    "lore": [
+      "A rail that has heard the sky and wants to go there."
+    ],
+    "use": [
+      "Six gold ingots, a stick and Astral Redstone make 6. Straight only. Powered by its own channel, it pushes carts to a top speed of 16 blocks per second by default (vanilla 8). Unpowered it is a plain rail."
+    ],
+    "secret": [
+      "The boost fades the closer a cart gets to top speed, so it approaches the limit and never reaches it. On slopes and in water the vanilla limit applies, so brake before a curve."
+    ]
+  },
+  "nihil_rail": {
+    "lore": [
+      "A rail that takes the speed out of the world, politely and completely."
+    ],
+    "use": [
+      "Six gold ingots, a stick and Nihil Redstone make 6. Straight only. Powered by its own channel, it brakes: each tick the cart keeps 80 percent of its speed minus a small amount, stops, and is held while power stays on."
+    ],
+    "secret": [
+      "Unpowered it lets carts roll through. Only its own channel powers it, not vanilla redstone or neighboring rails, so you can build a station that brakes on a signal."
+    ]
+  },
+  "astral_vault": {
+    "lore": [
+      "An ender chest that learned to keep more, and keeps it just for you."
+    ],
+    "use": [
+      "Craft an ender chest with six Enderite Nuggets and two Astralit Dust. It opens 54 personal slots: the first 27 are your vanilla ender inventory, the other 27 belong to you alone."
+    ],
+    "secret": [
+      "The extra slots live in your ender inventory data and survive respawn. Breaking the vault drops the vault, not the contents; hoppers cannot reach them. A solid block on top blocks opening."
+    ]
+  },
+  "nihil_vault": {
+    "lore": [
+      "A chest at the edge of every world, and every world is its edge."
+    ],
+    "use": [
+      "Craft an ender chest with six Enderite Nuggets and two Nihilit Shards. All Nihil Vaults in all dimensions share one 54-slot container; every player who opens any of them sees and changes the same items."
+    ],
+    "secret": [
+      "Break a vault and the shared contents stay, ready in every other or newly placed vault. Open menus stay in sync like players at one chest, so nothing duplicates. Hoppers and comparators get nothing."
+    ]
+  },
+  "astral_enchanting_table": {
+    "lore": [
+      "A table where the stars hold still while you choose."
+    ],
+    "use": [
+      "Pick your enchantments yourself: three random ones that fit the item, each with a slider from 0 to its maximum, paid from a level budget that the bookshelves around it set."
+    ],
+    "secret": [
+      "Hit an enchanting table 20 times with a Netherite Sledgehammer while holding an Enderite Nugget in your off hand: it becomes this. Blazewood shelves count double, a Blazing Obsidian floor adds strength. Break it and table and nugget return."
+    ]
+  },
+  "polished_end_stone": {
+    "lore": [
+      "End stone with its rough edges taken off, ready to be dressed in color."
+    ],
+    "use": [
+      "Craft 4 End Stone Bricks in a square for 4, or cut it from end stone or end stone bricks in the stonecutter. It is the raw material of Astral and Nihil End Stone."
+    ],
+    "secret": [
+      "Put 8 around one Astralit Dust or Nihilit Shard and they take its color: that is how the coated end stones are made."
+    ]
+  },
+  "stone_sledgehammer": {
+    "lore": [
+      "{name}: Stone ground into a head and bound to a handle: slow to lift, simple to love."
+    ],
+    "use": [
+      "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 760 durability, enchantability 5. Sneak while mining takes only the aimed block."
+    ],
+    "secret": [
+      "Made from an iron ingot, two cobblestone and two sticks. It mines like a stone pickaxe, but takes a whole 3x3 face of identical blocks per swing."
+    ]
+  },
+  "copper_sledgehammer": {
+    "lore": [
+      "{name}: Copper takes a dent and keeps the shape, like a good argument."
+    ],
+    "use": [
+      "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 760 durability, enchantability 13. Sneak while mining takes only the aimed block."
+    ],
+    "secret": [
+      "A copper block, two copper ingots and two sticks. Sneak and hold right-click to carve the aimed eighth off a block; stairs and slabs are what remains."
+    ]
+  },
+  "iron_sledgehammer": {
+    "lore": [
+      "{name}: Iron makes a head that has never once been talked out of anything."
+    ],
+    "use": [
+      "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 1000 durability, enchantability 14. Sneak while mining takes only the aimed block."
+    ],
+    "secret": [
+      "The Toolsmith sells iron and diamond sledgehammers at level 4, each with one enchantment out of Break Through, Override, Range, Unbreaking or Efficiency."
+    ]
+  },
+  "gold_sledgehammer": {
+    "lore": [
+      "{name}: Gold hits as hard as anyone, and breaks as soon as anyone looks at it sideways."
+    ],
+    "use": [
+      "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 128 durability, enchantability 22. Sneak while mining takes only the aimed block."
+    ],
+    "secret": [
+      "It has the best enchantability of the line (22) and the fewest uses (128). Gold sledgehammers lie in bastions."
+    ]
+  },
+  "diamond_sledgehammer": {
+    "lore": [
+      "{name}: A head of diamond: it does not hit things, it settles arguments."
+    ],
+    "use": [
+      "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 6244 durability, enchantability 10. Sneak while mining takes only the aimed block."
+    ],
+    "secret": [
+      "Hold right-click on a diamond block to crush it into 81 Diamond Pebbles. At this tier a hammer can raise chests from Reinforced to Netherite (with a nugget) and forge the Netherite Piston."
+    ]
+  },
+  "netherite_sledgehammer": {
+    "lore": [
+      "{name}: Netherite swings like a decision that was already made."
+    ],
+    "use": [
+      "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 8124 durability, enchantability 15. Sneak while mining takes only the aimed block."
+    ],
+    "secret": [
+      "With an Enderite Nugget in the off hand it lifts machines and chests to Enderite. Hit an enchanting table 20 times with it, holding an Enderite Nugget in the other hand, and it becomes the Astral Enchanter."
+    ]
+  },
+  "enderite_sledgehammer": {
+    "lore": [
+      "{name}: It weighs what the End weighs: nothing, until it lands."
+    ],
+    "use": [
+      "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 10000 durability, enchantability 18. Sneak while mining takes only the aimed block."
+    ],
+    "secret": [
+      "Fire resistant, floats on lava, and cannot be lost in the void: dropped Enderite items hang in place and lie twice as long as vanilla allows."
+    ]
+  },
+  "stone_chisel": {
+    "lore": [
+      "{name}: The first tool of every builder: shaped from a stick, a cobblestone and two copper nuggets."
+    ],
+    "use": [
+      "A right-click turns the block into the next one of its chain of related variants; sneaking walks the chain back. 192 durability, base cooldown 30 ticks. Fast Chiseling shortens it."
+    ],
+    "secret": [
+      "Right-click turns stone into chiseled stone bricks or smooth sandstone into cut sandstone. Sneak and right-click walks the chain back for 2 durability."
+    ]
+  },
+  "copper_chisel": {
+    "lore": [
+      "{name}: A copper tip that remembers the shape of everything it touched."
+    ],
+    "use": [
+      "A right-click turns the block into the next one of its chain of related variants; sneaking walks the chain back. 192 durability, base cooldown 25 ticks. Fast Chiseling shortens it."
+    ],
+    "secret": [
+      "The Toolsmith sells copper, iron and gold chisels with Fast Chiseling for 6 emeralds from level 3. Copper and iron work on stone bricks, polished stone, tuff and planks."
+    ]
+  },
+  "iron_chisel": {
+    "lore": [
+      "{name}: Iron sets the edge, the hand sets the line."
+    ],
+    "use": [
+      "A right-click turns the block into the next one of its chain of related variants; sneaking walks the chain back. 256 durability, base cooldown 25 ticks. Fast Chiseling shortens it."
+    ],
+    "secret": [
+      "The Toolsmith sells it with Fast Chiseling for 6 emeralds from level 3. Upgrade a copper chisel with the Basic Upgrade and 2 ingots, keeping its damage, name and enchantments."
+    ]
+  },
+  "gold_chisel": {
+    "lore": [
+      "{name}: A gold chisel is more jewel than tool, and cuts quartz as if it were butter."
+    ],
+    "use": [
+      "A right-click turns the block into the next one of its chain of related variants; sneaking walks the chain back. 128 durability, base cooldown 20 ticks. Fast Chiseling shortens it."
+    ],
+    "secret": [
+      "Gold and diamond chisels handle quartz, tuff bricks, blackstone, basalt and deepslate. Gold chisels lie in buried treasure; the Toolsmith sells them with Fast Chiseling."
+    ]
+  },
+  "diamond_chisel": {
+    "lore": [
+      "{name}: The edge of a diamond finds the seam in any stone."
+    ],
+    "use": [
+      "A right-click turns the block into the next one of its chain of related variants; sneaking walks the chain back. 392 durability, base cooldown 10 ticks. Fast Chiseling shortens it."
+    ],
+    "secret": [
+      "Diamond chisels lie in buried treasure and in igloo chests. It carries quartz, tuff bricks, blackstone, basalt and deepslate chains, and starts the climb to Netherite."
+    ]
+  },
+  "netherite_chisel": {
+    "lore": [
+      "{name}: A chisel that has stood in fire and learned patience."
+    ],
+    "use": [
+      "A right-click turns the block into the next one of its chain of related variants; sneaking walks the chain back. 512 durability, base cooldown 5 ticks. Fast Chiseling shortens it."
+    ],
+    "secret": [
+      "It adds the nether brick cycle, resin bricks and chiseled sandstone back to sand to its chains. Fire resistant, with the shortest cooldown, 5 ticks."
+    ]
+  },
+  "enderite_chisel": {
+    "lore": [
+      "{name}: It cuts stone that was never quarried, only imagined."
+    ],
+    "use": [
+      "A right-click turns the block into the next one of its chain of related variants; sneaking walks the chain back. 600 durability, base cooldown 5 ticks. Fast Chiseling shortens it."
+    ],
+    "secret": [
+      "The only chisel for the End palettes: polished, pillar, bricks, chiseled, then the block itself, and on through the veined, crystalline and layered or frosted patterns. Sneak walks it back."
+    ]
+  },
+  "copper_building_wand": {
+    "lore": [
+      "{name}: The first wand: a copper core, two sticks, and a reach of three blocks."
+    ],
+    "use": [
+      "Right-click a block face to fill a square area with blocks from your inventory, up to 3x3. 1520 durability. The tier of the core sets how large the area can get."
+    ],
+    "secret": [
+      "The Mason sells the finished wand at level 4 for 62 emeralds. Copper Cores come from the Wandering Trader for 24 emeralds."
+    ]
+  },
+  "iron_building_wand": {
+    "lore": [
+      "{name}: Iron stretches the wand to a 5x5 area."
+    ],
+    "use": [
+      "Right-click a block face to fill a square area with blocks from your inventory, up to 5x5. 2000 durability. The tier of the core sets how large the area can get."
+    ],
+    "secret": [
+      "An Iron Building Wand sometimes lies in woodland mansions. Upgrade a copper wand at the smithing table with the Basic Upgrade and an iron core."
+    ]
+  },
+  "gold_building_wand": {
+    "lore": [
+      "{name}: Gold pays for its 7x7 reach with a short life."
+    ],
+    "use": [
+      "Right-click a block face to fill a square area with blocks from your inventory, up to 7x7. 256 durability. The tier of the core sets how large the area can get."
+    ],
+    "secret": [
+      "Upgrade an iron wand with the Basic Upgrade and a gold core. Gold wands are the shortest-lived of the line."
+    ]
+  },
+  "diamond_building_wand": {
+    "lore": [
+      "{name}: A diamond wand fills a 9x9 face in one move."
+    ],
+    "use": [
+      "Right-click a block face to fill a square area with blocks from your inventory, up to 9x9. 12488 durability. The tier of the core sets how large the area can get."
+    ],
+    "secret": [
+      "A Diamond Building Wand can be found in end cities. Upgrading from gold takes the Basic Upgrade and a diamond core."
+    ]
+  },
+  "netherite_building_wand": {
+    "lore": [
+      "{name}: Netherite fills 11x11 and never flinches."
+    ],
+    "use": [
+      "Right-click a block face to fill a square area with blocks from your inventory, up to 11x11. 16248 durability. The tier of the core sets how large the area can get."
+    ],
+    "secret": [
+      "Smithing table: Netherite Upgrade, a Diamond Building Wand and a Netherite Ingot. Fire resistant like all netherite gear."
+    ]
+  },
+  "enderite_building_wand": {
+    "lore": [
+      "{name}: The widest wand a survival builder can hold: 13x13 in a single click."
+    ],
+    "use": [
+      "Right-click a block face to fill a square area with blocks from your inventory, up to 13x13. 20000 durability. The tier of the core sets how large the area can get."
+    ],
+    "secret": [
+      "Smithing table: Enderite Upgrade, a Netherite Building Wand and an Enderite Ingot. Constructor's Touch unlocks the wand menu; a Blueprint in the other hand builds whole structures."
+    ]
+  },
+  "creative_building_wand": {
+    "lore": [
+      "A wand with no limits, handed out by no one in survival."
+    ],
+    "use": [
+      "Creative tab only: fills up to 13x13, with unlimited reach (up to 1024 blocks), no durability and no material use."
+    ],
+    "secret": [
+      "Hold a Creative Blueprint in the off hand and it builds at any distance; a signed blueprint is final."
+    ]
+  },
+  "creative_blueprint": {
+    "lore": [
+      "A blueprint that costs nothing and is worth the world."
+    ],
+    "use": [
+      "A Blueprint only in the creative tab, with no recipe. A building wand with it in the off hand builds the structure at any distance."
+    ],
+    "secret": [
+      "Once signed it is final. Use it for creative builds you want to place from afar."
+    ]
+  },
+  "blueprint": {
+    "lore": [
+      "A sheet that remembers a house before it exists."
+    ],
+    "use": [
+      "Holds a structure as readable build code: write it in the editor, fill it by scanning an Octant selection at a cartography table, and build it with a building wand held in the other hand."
+    ],
+    "secret": [
+      "Sneak and right-click lays it down flat on the floor, on a wall or under a ceiling, as a placed blueprint. The wand then reads it from there."
+    ]
+  },
+  "placed_blueprint": {
+    "lore": [
+      "A blueprint laid out like a map on a table, waiting for its builder."
+    ],
+    "use": [
+      "A blueprint laid down with sneak and right-click: flat on the floor, on a wall or under the ceiling. It has no item of its own; it holds the blueprint itself."
+    ],
+    "secret": [
+      "Break it and you get the blueprint back with everything written in it."
+    ]
+  },
+  "copper_core": {
+    "lore": [
+      "{name}: A nether star set in copper, the humblest star a builder can own."
+    ],
+    "use": [
+      "Craft: a nether star surrounded by four copper ingots in a plus. Part of the Copper Building Wand and the Velocity Gauge. The Wandering Trader sells it for 24 emeralds."
+    ],
+    "secret": [
+      "Easter egg: right-click stone, deepslate, tuff, netherrack, end stone and the like with it, and there is a tiny chance, 1 in 10000, that the block turns into an ore. The core is not used up."
+    ]
+  },
+  "iron_core": {
+    "lore": [
+      "{name}: A star in iron: dull on the outside, bright where it matters."
+    ],
+    "use": [
+      "Craft: a nether star surrounded by four iron ingots in a plus. Part of the Iron Building Wand, Resonance Rod, Attractor and Rotator. The Wandering Trader sometimes sells it for 32 emeralds."
+    ],
+    "secret": [
+      "Easter egg: right-click stone, deepslate, tuff, netherrack, end stone and the like with it, and there is a tiny chance, 1 in 7000, that the block turns into an ore. The core is not used up."
+    ]
+  },
+  "gold_core": {
+    "lore": [
+      "{name}: A star in gold, vain enough to enjoy being looked at."
+    ],
+    "use": [
+      "Craft: a nether star surrounded by four gold ingots in a plus. Part of the Gold Building Wand, the Detector and the Octant. The Wandering Trader sometimes sells it for 48 emeralds."
+    ],
+    "secret": [
+      "Easter egg: right-click stone, deepslate, tuff, netherrack, end stone and the like with it, and there is a tiny chance, 1 in 5000, that the block turns into an ore. The core is not used up."
+    ]
+  },
+  "diamond_core": {
+    "lore": [
+      "{name}: A star in diamond: the light inside it has been counted and found sufficient."
+    ],
+    "use": [
+      "Craft: a nether star surrounded by four diamonds in a plus. Part of the Diamond Building Wand and the base of the Netherite Core. The Wandering Trader sometimes sells it for 64 emeralds."
+    ],
+    "secret": [
+      "Easter egg: right-click stone, deepslate, tuff, netherrack, end stone and the like with it, and there is a tiny chance, 1 in 3500, that the block turns into an ore. The core is not used up."
+    ]
+  },
+  "netherite_core": {
+    "lore": [
+      "{name}: A star in netherite, dark on the outside, loud on the inside."
+    ],
+    "use": [
+      "Forged from a Diamond Core and a Netherite Ingot with the Netherite Upgrade at the smithing table. Part of the Netherite Building Wand. Fire resistant. Stack size 1."
+    ],
+    "secret": [
+      "Easter egg: right-click stone, deepslate, tuff, netherrack, end stone and the like with it, and there is a tiny chance, 1 in 2500, that the block turns into an ore. The core is not used up."
+    ]
+  },
+  "enderite_core": {
+    "lore": [
+      "{name}: A star in enderite. It does not shine; it listens."
+    ],
+    "use": [
+      "Forged from a Netherite Core and an Enderite Ingot with the Enderite Upgrade at the smithing table. Part of the Enderite Building Wand and the Echo Sounder. Fire resistant. Stack size 1."
+    ],
+    "secret": [
+      "Easter egg: right-click stone, deepslate, tuff, netherrack, end stone and the like with it, and there is a tiny chance, 1 in 2000, that the block turns into an ore. The core is not used up."
+    ]
+  },
+  "iron_pole": {
+    "lore": [
+      "A pole of iron, thin, straight, and eager to be struck by something."
+    ],
+    "use": [
+      "Three iron ingots stacked give one iron pole, a lightning rod of iron that attracts lightning within 32 blocks. Part of the Attractor recipe."
+    ],
+    "secret": [
+      "The Attractor is built around an iron core, an iron pole, redstone and lapis."
+    ]
+  },
+  "gold_pole": {
+    "lore": [
+      "A pole of gold: too soft for work, too shining to hide."
+    ],
+    "use": [
+      "Three gold ingots stacked give one gold pole, a lightning rod of gold (64 blocks)."
+    ],
+    "secret": [
+      "Poles in this mod come in tiers: iron and gold from ingots, diamond from diamonds, then Netherite and Enderite from the smithing table."
+    ]
+  },
+  "diamond_pole": {
+    "lore": [
+      "A pole of diamond, too precious to stand in a storm - which is exactly where it wants to be."
+    ],
+    "use": [
+      "Three diamonds stacked give one diamond pole, a lightning rod of diamond (80 blocks); in the crafting grid it gives the three diamonds back. At the smithing table it becomes the Netherite Pole."
+    ],
+    "secret": [
+      "Do not confuse it with the Diamond Rod: that one is made from two diamonds and is an arrow shaft."
+    ]
+  },
+  "diamond_rod": {
+    "lore": [
+      "A rod of diamond, as hard as an argument and as clear as a lie."
+    ],
+    "use": [
+      "Two diamonds stacked give one diamond rod; one diamond rod in the crafting grid gives the two diamonds back. It cannot be placed."
+    ],
+    "secret": [
+      "At the fletching table it is an arrow shaft: the arrow pierces one more target."
+    ]
+  },
+  "netherite_pole": {
+    "lore": [
+      "A pole that has stood in the fire and does not mind the next one."
+    ],
+    "use": [
+      "Smithing table: Netherite Upgrade, Diamond Pole and Netherite Ingot give the Netherite Pole, a lightning rod made of netherite (96 blocks)."
+    ],
+    "secret": [
+      "It is the base for the Enderite Pole, one tier up."
+    ]
+  },
+  "enderite_pole": {
+    "lore": [
+      "A pole that remembers the sky and draws lightning like a promise."
+    ],
+    "use": [
+      "Smithing table: Enderite Upgrade, Netherite Pole and Enderite Ingot give the Enderite Pole, a lightning rod made of enderite (128 blocks)."
+    ],
+    "secret": [
+      "Being enderite, it is fire resistant, floats on lava and is safe from the void if it is dropped."
+    ]
+  },
+  "standing_rod": {
+    "lore": [
+      "A rod put upright, the smallest monument."
+    ],
+    "use": [
+      "A stick, bone, blaze rod, breeze rod or diamond rod standing upright: sneak and right-click the top of a block. It is a thin column of the item's own pixels, and it drops the rod itself."
+    ],
+    "secret": [
+      "Breaking it drops the rod itself, so nothing is lost. A goat horn holder can carry a rod as well."
+    ]
+  },
+  "goat_horn_holder": {
+    "lore": [
+      "A goat horn put down as a holder, still carrying its call."
+    ],
+    "use": [
+      "Sneak and right-click with a goat horn on the top of a block (mouth up) or on a wall (hanging from a peg). It holds a torch or a rod. Not under a ceiling."
+    ],
+    "secret": [
+      "The horn keeps its sound and name, and drops again when you break the holder."
+    ]
+  },
+  "enderite_nugget": {
+    "lore": [
+      "A tiny piece of the End's heaviest metal, small enough to hide."
+    ],
+    "use": [
+      "Nine nuggets make an Enderite Ingot, and the ingot gives nine back. Eight around an iron bucket make the Enderite Bucket. Enderite Apples, Carrots and machine upgrades use it."
+    ],
+    "secret": [
+      "Hammer an Astral Enchanter into being with one in your off hand; it returns when you break the table. A nugget in the off hand also pays for lifting chests and machines to Enderite."
+    ]
+  },
+  "netherite_nugget": {
+    "lore": [
+      "A nugget of ancient debris, forged and still warm."
+    ],
+    "use": [
+      "Nine nuggets make a Netherite Ingot and the ingot gives nine back. Netherite Apples and Carrots use it, and so do machine upgrades."
+    ],
+    "secret": [
+      "Hold one in the off hand and hammer a Reinforced chest or machine with a Diamond Sledgehammer to lift it to Netherite."
+    ]
+  },
+  "raw_enderite": {
+    "lore": [
+      "A fragment of the End's own ore, still rough from the dark."
+    ],
+    "use": [
+      "Craft an Ender Pearl, Astralit Dust and a Nihilit Shard, shapeless. It is the first step toward Enderite."
+    ],
+    "secret": [
+      "One fragment becomes Raw Enderite Scrap, which a furnace melts into Enderite Scrap."
+    ]
+  },
+  "layered_raw_enderite": {
+    "lore": [
+      "Raw Enderite, pressed in layers, ready for the fire."
+    ],
+    "use": [
+      "Craft one Raw Enderite Fragment shapeless to get it. A blast furnace melts it into Enderite Scrap."
+    ],
+    "secret": [
+      "Blast it into Enderite Scrap; four scrap, four diamonds and a Netherite Ingot then make an Enderite Ingot."
+    ]
+  },
+  "enderite_scrap": {
+    "lore": [
+      "What is left when the End's raw ore meets a furnace and loses its illusions."
+    ],
+    "use": [
+      "Smelted from Raw Enderite Scrap. Four scrap, four diamonds and one Netherite Ingot craft an Enderite Ingot."
+    ],
+    "secret": [
+      "Fire resistant and floating on lava, like all Enderite from the ingot upward. Dropped scrap lies for 10 minutes before it despawns."
+    ]
+  },
+  "enderite_block": {
+    "lore": [
+      "Nine ingots of the End, folded into a cube: the heaviest thing a builder can own."
+    ],
+    "use": [
+      "Nine Enderite Ingots in a 3x3 square make a Block of Enderite. It is a storage and decoration block."
+    ],
+    "secret": [
+      "It is part of the enderite item family, so it is safe from the void if it ever drops as an item."
+    ]
+  },
+  "enderite_upgrade_template": {
+    "lore": [
+      "A template stamped with the End's own seal."
+    ],
+    "use": [
+      "Smithing template: with a netherite piece and an Enderite Ingot it makes the Enderite version of tools, armor, spears and containers. Craft: 7 diamonds around an end stone and the template for 2."
+    ],
+    "secret": [
+      "One template, 7 diamonds and an end stone yield 2 templates: you never need to hunt for more. It can also be placed in the world with sneak and right-click."
+    ]
+  },
+  "basic_upgrade_template": {
+    "lore": [
+      "A modest template for modest upgrades, which are the ones everybody needs."
+    ],
+    "use": [
+      "Smithing table: raises copper tools to iron, iron to gold, gold to diamond, and vanilla wood to stone to iron. It costs twice the crafting material. Duplicate: one template, 7 diamonds and an iron block make 2."
+    ],
+    "secret": [
+      "Name, damage and enchantments carry over, and so does a Building Wand's core upgrade: you only add a core of the new tier."
+    ]
+  },
+  "glowing_trim_template": {
+    "lore": [
+      "A trim that holds the light a moment longer than it should."
+    ],
+    "use": [
+      "Craft 4 diamonds, 2 glowstone blocks and a template, or upgrade a placed armor trim template with sledgehammer hits while a Glow Ink Sac or Glowstone Dust sits in the off hand. One template, 7 diamonds and a glowstone block make 2."
+    ],
+    "secret": [
+      "At the smithing table, template, armor and a Glow Ink Sac make the trim glow steadily at full brightness. It only glows visually and gives off no real light."
+    ]
+  },
+  "emitting_trim_template": {
+    "lore": [
+      "A trim that does not just shine, it lights the way for others."
+    ],
+    "use": [
+      "Upgrade a placed armor trim template with sledgehammer hits while a Glow Ink Sac or Glowstone Dust is in the off hand; it consumes 2 blaze powder and 4 diamonds. One template, 7 diamonds and a magma block make 2."
+    ],
+    "secret": [
+      "At the smithing table, with Glowstone Dust, armor becomes a wearable light source: an invisible light block follows your head. More dust raises the radiance, up to level 5."
+    ]
+  },
+  "pulsating_trim_template": {
+    "lore": [
+      "A trim with a heartbeat of its own."
+    ],
+    "use": [
+      "Craft 2 echo shards, 2 sculk, 4 diamonds and any sledgehammer; the hammer stays in the grid and loses 1 durability. One template, 7 diamonds and a sculk block make 2."
+    ],
+    "secret": [
+      "At the smithing table, template, armor and an Echo Shard make the trim pulse from full color to gray every 2.4 seconds. Together with Glowing, the brightness pulses too."
+    ]
+  },
+  "reinforced_chest": {
+    "lore": [
+      "{name}: The first step above the copper chest."
+    ],
+    "use": [
+      "36 slots, 72 as a double chest."
+    ],
+    "secret": [
+      "Craft: 3 copper chests of any oxidation, waxed or not, plus 6 Cracked Diamonds make 3. Or hold right-click for 5 seconds on a placed copper chest with any sledgehammer and a Cracked Diamond in the off hand; the contents stay."
+    ]
+  },
+  "reinforced_trapped_chest": {
+    "lore": [
+      "{name}: a chest with a held breath."
+    ],
+    "use": [
+      "Trapped version of the chest of its tier: 36 slots, 72 in a double chest, and it signals its viewer count like the vanilla trapped chest."
+    ],
+    "secret": [
+      "Craft it shapeless from the chest of the tier and one tripwire hook. Only two trapped chests of the same tier join into a double; normal chests and other tiers stay separate."
+    ]
+  },
+  "reinforced_chest_boat": {
+    "lore": [
+      "{name}: a boat that has stopped being afraid of its cargo."
+    ],
+    "use": [
+      "The chest boat of the Reinforced tier, in every wood (bamboo: raft). 36 slots, the same as the chest."
+    ],
+    "secret": [
+      "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
+    ]
+  },
+  "reinforced_chest_minecart": {
+    "lore": [
+      "{name}: a chest that finally got its rails."
+    ],
+    "use": [
+      "The chest minecart of the tier: 36 slots, the same as the chest of the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the chest of the tier, shapeless. Hoppers and hopper minecarts fill and empty it like the vanilla chest minecart; smithing lifts it a tier."
+    ]
+  },
+  "reinforced_shulker_box": {
+    "lore": [
+      "{name}: a box that has learned to keep more than it shows."
+    ],
+    "use": [
+      "36 slots. Craft any vanilla shulker box with 4 Cracked Diamonds, shapeless, or hold right-click on a placed one for 10 blows with any sledgehammer and 2 Cracked Diamonds in the off hand."
+    ],
+    "secret": [
+      "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
+    ]
+  },
+  "reinforced_shulker_shell": {
+    "lore": [
+      "{name}: a shell that grew another layer while no one watched."
+    ],
+    "use": [
+      "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
+    ],
+    "secret": [
+      "Every tier also comes from the shell one tier below in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+    ]
+  },
+  "netherite_chest": {
+    "lore": [
+      "{name}: Netherite makes the chest hold twice as much per slot."
+    ],
+    "use": [
+      "45 slots, 90 as a double chest. Each slot holds 2x the normal stack size (unstackable items stay at 1)."
+    ],
+    "secret": [
+      "Hold right-click for 5 seconds on a placed Reinforced Chest, with a Netherite Nugget in the off hand and a Diamond Sledgehammer or better. The chest keeps its items, name and lock. Double chests only form from equal tiers."
+    ]
+  },
+  "netherite_trapped_chest": {
+    "lore": [
+      "{name}: a chest with a held breath."
+    ],
+    "use": [
+      "Trapped version of the chest of its tier: 45 slots, 90 in a double chest, and it signals its viewer count like the vanilla trapped chest. Each slot holds 2x the normal stack size (unstackable items stay at 1)."
+    ],
+    "secret": [
+      "Craft it shapeless from the chest of the tier and one tripwire hook. Only two trapped chests of the same tier join into a double; normal chests and other tiers stay separate."
+    ]
+  },
+  "netherite_chest_boat": {
+    "lore": [
+      "{name}: a boat that has stopped being afraid of its cargo."
+    ],
+    "use": [
+      "The chest boat of the Netherite tier, in every wood (bamboo: raft). 45 slots with 2x stacks, the same as the chest."
+    ],
+    "secret": [
+      "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
+    ]
+  },
+  "netherite_chest_minecart": {
+    "lore": [
+      "{name}: a chest that finally got its rails."
+    ],
+    "use": [
+      "The chest minecart of the tier: 45 slots with 2x stacks, the same as the chest of the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the chest of the tier, shapeless. Hoppers and hopper minecarts fill and empty it like the vanilla chest minecart; smithing lifts it a tier."
+    ]
+  },
+  "netherite_shulker_box": {
+    "lore": [
+      "{name}: a box that has learned to keep more than it shows."
+    ],
+    "use": [
+      "45 slots, each with 2x the normal stack size. No recipe: a placed Reinforced one becomes this after 10 blows with a Diamond Sledgehammer or better and 2 Netherite Nuggets in the off hand."
+    ],
+    "secret": [
+      "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
+    ]
+  },
+  "netherite_shulker_shell": {
+    "lore": [
+      "{name}: a shell that grew another layer while no one watched."
+    ],
+    "use": [
+      "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
+    ],
+    "secret": [
+      "Every tier also comes from the shell one tier below in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+    ]
+  },
+  "enderite_chest": {
+    "lore": [
+      "{name}: The End makes a chest as big as a double chest, with fourfold stacks."
+    ],
+    "use": [
+      "54 slots, 108 as a double chest. Each slot holds 4x the normal stack size (unstackable items stay at 1)."
+    ],
+    "secret": [
+      "Hold right-click for 5 seconds on a placed Netherite Chest, with an Enderite Nugget in the off hand and a Netherite Sledgehammer. The chest keeps everything inside. Void-proof and fire resistant as an item."
+    ]
+  },
+  "enderite_trapped_chest": {
+    "lore": [
+      "{name}: a chest with a held breath."
+    ],
+    "use": [
+      "Trapped version of the chest of its tier: 54 slots, 108 in a double chest, and it signals its viewer count like the vanilla trapped chest. Each slot holds 4x the normal stack size (unstackable items stay at 1)."
+    ],
+    "secret": [
+      "Craft it shapeless from the chest of the tier and one tripwire hook. Only two trapped chests of the same tier join into a double; normal chests and other tiers stay separate."
+    ]
+  },
+  "enderite_chest_boat": {
+    "lore": [
+      "{name}: a boat that has stopped being afraid of its cargo."
+    ],
+    "use": [
+      "The chest boat of the Enderite tier, in every wood (bamboo: raft). 54 slots with 4x stacks, the same as the chest."
+    ],
+    "secret": [
+      "Craft a boat (or raft) of any wood with the chest of the tier, shapeless; the wood stays on the item. Sneak and right-click opens the chest menu. Smithing lifts it a tier."
+    ]
+  },
+  "enderite_chest_minecart": {
+    "lore": [
+      "{name}: a chest that finally got its rails."
+    ],
+    "use": [
+      "The chest minecart of the tier: 54 slots with 4x stacks, the same as the chest of the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the chest of the tier, shapeless. Hoppers and hopper minecarts fill and empty it like the vanilla chest minecart; smithing lifts it a tier."
+    ]
+  },
+  "enderite_shulker_box": {
+    "lore": [
+      "{name}: a box that has learned to keep more than it shows."
+    ],
+    "use": [
+      "54 slots, each with 4x the normal stack size. No recipe: a placed Netherite one becomes this after 10 blows with a Netherite Sledgehammer or better and 2 Enderite Nuggets in the off hand."
+    ],
+    "secret": [
+      "Contents, name, lock, facing and color stay through the upgrade. Oversized stacks leave the box one normal stack at a time."
+    ]
+  },
+  "enderite_shulker_shell": {
+    "lore": [
+      "{name}: a shell that grew another layer while no one watched."
+    ],
+    "use": [
+      "The shell of the shulker box tier. Reinforced, Netherite and Enderite Shulkers of end cities drop 0 to 2 of their own shell."
+    ],
+    "secret": [
+      "Every tier also comes from the shell one tier below in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+    ]
+  },
+  "backpack": {
+    "lore": [
+      "{name}: Leather sheet, string, a heavy weighted pressure plate and copper nuggets: every adventure starts with a bag."
+    ],
+    "use": [
+      "Wearable storage with 9 slots; grants 1 armor worn in the chest slot. Right-click puts it on; press B (backpack key) to open it. Craft: copper nuggets, string, heavy weighted pressure plates and leather sheets."
+    ],
+    "secret": [
+      "It only opens while worn, so a chestplate or elytra and a backpack exclude each other. The contents are stored on the item itself, so they travel with it, even when dropped on death."
+    ]
+  },
+  "reinforced_backpack": {
+    "lore": [
+      "{name}: A bag with diamond stitching, built to carry the weight of a long day."
+    ],
+    "use": [
+      "Wearable storage with 18 slots; grants 2 armor worn in the chest slot. Right-click puts it on; press B (backpack key) to open it. Upgrade a backpack in the crafting table with four diamond pebbles; the contents stay."
+    ],
+    "secret": [
+      "It only opens while worn, so a chestplate or elytra and a backpack exclude each other. The contents are stored on the item itself, so they travel with it, even when dropped on death."
+    ]
+  },
+  "netherite_backpack": {
+    "lore": [
+      "{name}: A bag that has been through fire and keeps its contents anyway."
+    ],
+    "use": [
+      "Wearable storage with 33 slots; grants 3 armor worn in the chest slot. Right-click puts it on; press B (backpack key) to open it. Smithing table upgrade of the Reinforced Backpack. It survives explosions as a dropped item."
+    ],
+    "secret": [
+      "It only opens while worn, so a chestplate or elytra and a backpack exclude each other. The contents are stored on the item itself, so they travel with it, even when dropped on death."
+    ]
+  },
+  "enderite_backpack": {
+    "lore": [
+      "{name}: The End has room for anything, and so does this bag."
+    ],
+    "use": [
+      "Wearable storage with 50 slots; grants 4 armor worn in the chest slot. Right-click puts it on; press B (backpack key) to open it. Smithing table upgrade of the Netherite Backpack. It survives explosions and is safe from the void."
+    ],
+    "secret": [
+      "It only opens while worn, so a chestplate or elytra and a backpack exclude each other. The contents are stored on the item itself, so they travel with it, even when dropped on death."
+    ]
+  },
+  "reinforced_bundle": {
+    "lore": [
+      "A bundle that took a leather sheet and diamond pebbles to learn how to hold more."
+    ],
+    "use": [
+      "1.5x the capacity of a vanilla bundle, 96 items at stack size 64. Craft: string above a bundle, a leather sheet below, six diamond pebbles in the side columns. The bundle's contents, enchantments and name carry over."
+    ],
+    "secret": [
+      "The mouse wheel in the inventory picks which entry it hands back. It is the base for the bundle enchantments Deep Pockets, Funnel, Drawer, Master Builder and Color Palette. Sneak and right-click sets it down as a 3D bundle."
+    ]
+  },
+  "netherite_bundle": {
+    "lore": [
+      "A bundle that is not afraid of fire, nor of what it carries."
+    ],
+    "use": [
+      "The smithing table upgrade of the Reinforced Bundle: double the base capacity, fire resistant, and it survives explosions as a dropped item."
+    ],
+    "secret": [
+      "Like the other tiers it takes the bundle enchantments at an anvil. The Enderite Bundle is its next step."
+    ]
+  },
+  "enderite_bundle": {
+    "lore": [
+      "A bundle with the whole End folded into the cloth."
+    ],
+    "use": [
+      "The top bundle tier: triple the base capacity, fire resistant, safe from explosions and from the void as a dropped item, and it takes the bundle enchantments at an anvil."
+    ],
+    "secret": [
+      "Dropped in the void it hangs in place and waits 10 minutes before it despawns, twice the usual time."
+    ]
+  },
+  "placed_bundle": {
+    "lore": [
+      "A bundle set down on a table, as if someone meant to come back."
+    ],
+    "use": [
+      "A bundle set down with sneak and right-click on the top of a block, drawn as a 3D bundle. It has no item of its own; it holds the bundle and its contents."
+    ],
+    "secret": [
+      "Break it and the whole bundle returns, filled as you left it."
+    ]
+  },
+  "quiver": {
+    "lore": [
+      "A bundle that only wants arrows, and has never once been disappointed."
+    ],
+    "use": [
+      "Takes only arrows, both when clicked in and when picked up off the ground, and feeds a bow automatically from the off hand, the chest slot or the hotbar. Craft: string, leather, a copper nugget and a bundle."
+    ],
+    "secret": [
+      "Arrows, spectral arrows and tipped arrows go in; a bow does not. Upgrade it at the crafting table into the Reinforced Quiver and it keeps its arrows."
+    ]
+  },
+  "reinforced_quiver": {
+    "lore": [
+      "A quiver with leather sheet and pebbles of diamond in its seams."
+    ],
+    "use": [
+      "Capacity factor 3/2, 96 arrows. Crafted from a Quiver at the crafting table without losing its arrows. It is the only item the Netherite Quiver can be smithed from."
+    ],
+    "secret": [
+      "Enchantments and name carry over when it is upgraded. At the smithing table it becomes the Netherite Quiver."
+    ]
+  },
+  "netherite_quiver": {
+    "lore": [
+      "A quiver that has met fire and been improved by it."
+    ],
+    "use": [
+      "The smithing table upgrade of the Reinforced Quiver, capacity factor 2, fire resistant, rarity uncommon."
+    ],
+    "secret": [
+      "It survives explosions as a dropped item. Only arrows go in."
+    ]
+  },
+  "enderite_quiver": {
+    "lore": [
+      "A quiver with an end that does not come."
+    ],
+    "use": [
+      "The top quiver tier, smithed from the Netherite Quiver: capacity factor 3, fire resistant, epic. As a dropped item it is immune to explosions and safe from the void."
+    ],
+    "secret": [
+      "It takes the mod's enchantments at an anvil like the lower tiers."
+    ]
+  },
+  "paint_box": {
+    "lore": [
+      "{name}: Three dyes over three planks: a palette in a box."
+    ],
+    "use": [
+      "Keeps dyes like a bundle: only dyes, up to 64 of each of the 16 colors. Craft from a red, a yellow and a blue dye over three planks. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
+    ],
+    "secret": [
+      "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
+    ]
+  },
+  "reinforced_paint_box": {
+    "lore": [
+      "{name}: The same colors, in a stronger box."
+    ],
+    "use": [
+      "Keeps dyes like a bundle: only dyes, up to 128 of each of the 16 colors. Crafting table: the box in the middle, four diamond pebbles beside it, four gold nuggets in the corners; it keeps its dyes. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
+    ],
+    "secret": [
+      "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
+    ]
+  },
+  "netherite_paint_box": {
+    "lore": [
+      "{name}: A paint box that has stood in the fire and kept its colors."
+    ],
+    "use": [
+      "Keeps dyes like a bundle: only dyes, up to 256 of each of the 16 colors. Smithing table: Netherite Upgrade and a netherite ingot. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
+    ],
+    "secret": [
+      "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
+    ]
+  },
+  "enderite_paint_box": {
+    "lore": [
+      "{name}: It holds more colors than the world has names for."
+    ],
+    "use": [
+      "Keeps dyes like a bundle: only dyes, up to 512 of each of the 16 colors. Smithing table: Enderite Upgrade and an Enderite Ingot. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
+    ],
+    "secret": [
+      "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
+    ]
+  },
+  "reinforced_furnace": {
+    "lore": [
+      "{name}: The first step: a furnace with a bit of ambition."
+    ],
+    "use": [
+      "Runs 2 times as fast as the vanilla furnace for smelting, with the same recipes and menu. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "reinforced_blast_furnace": {
+    "lore": [
+      "{name}: The first step: a furnace with a bit of ambition."
+    ],
+    "use": [
+      "Runs 2 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Burns fuel twice as long as the vanilla one. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "reinforced_smoker": {
+    "lore": [
+      "{name}: The first step: a furnace with a bit of ambition."
+    ],
+    "use": [
+      "Runs 2 times as fast as the vanilla smoker for food, with the same recipes and menu. Burns fuel twice as long as the vanilla one. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "reinforced_furnace_minecart": {
+    "lore": [
+      "{name}: a furnace that decided to travel."
+    ],
+    "use": [
+      "One fuel item burns 2 times as long as in the vanilla furnace minecart, and the cart runs faster the higher the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the furnace of the same tier, shapeless; smithing lifts it a tier. Right-click pushes the cart away from you. The Enderite one reaches the full top speed of a plain minecart."
+    ]
+  },
+  "netherite_furnace": {
+    "lore": [
+      "{name}: It cooks like a forge that has forgotten how to cool."
+    ],
+    "use": [
+      "Runs 4 times as fast as the vanilla furnace for smelting, with the same recipes and menu. No recipe: hammer a placed Reinforced one with a Diamond Sledgehammer or better and a Netherite Nugget."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "netherite_blast_furnace": {
+    "lore": [
+      "{name}: It cooks like a forge that has forgotten how to cool."
+    ],
+    "use": [
+      "Runs 4 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Reinforced one with a Diamond Sledgehammer or better and a Netherite Nugget."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "netherite_smoker": {
+    "lore": [
+      "{name}: It cooks like a forge that has forgotten how to cool."
+    ],
+    "use": [
+      "Runs 4 times as fast as the vanilla smoker for food, with the same recipes and menu. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Reinforced one with a Diamond Sledgehammer or better and a Netherite Nugget."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "netherite_furnace_minecart": {
+    "lore": [
+      "{name}: a furnace that decided to travel."
+    ],
+    "use": [
+      "One fuel item burns 4 times as long as in the vanilla furnace minecart, and the cart runs faster the higher the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the furnace of the same tier, shapeless; smithing lifts it a tier. Right-click pushes the cart away from you. The Enderite one reaches the full top speed of a plain minecart."
+    ]
+  },
+  "enderite_furnace": {
+    "lore": [
+      "{name}: The fastest fire in the game, tamed in a box."
+    ],
+    "use": [
+      "Runs 8 times as fast as the vanilla furnace for smelting, with the same recipes and menu. Double experience. No recipe: hammer a placed Netherite one with a Netherite Sledgehammer and an Enderite Nugget."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "enderite_blast_furnace": {
+    "lore": [
+      "{name}: The fastest fire in the game, tamed in a box."
+    ],
+    "use": [
+      "Runs 8 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Double experience. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Netherite one with a Netherite Sledgehammer and an Enderite Nugget."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "enderite_smoker": {
+    "lore": [
+      "{name}: The fastest fire in the game, tamed in a box."
+    ],
+    "use": [
+      "Runs 8 times as fast as the vanilla smoker for food, with the same recipes and menu. Double experience. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Netherite one with a Netherite Sledgehammer and an Enderite Nugget."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "enderite_furnace_minecart": {
+    "lore": [
+      "{name}: a furnace that decided to travel."
+    ],
+    "use": [
+      "One fuel item burns 8 times as long as in the vanilla furnace minecart, and the cart runs faster the higher the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the furnace of the same tier, shapeless; smithing lifts it a tier. Right-click pushes the cart away from you. The Enderite one reaches the full top speed of a plain minecart."
+    ]
+  },
+  "reinforced_hopper": {
+    "lore": [
+      "{name}: a hopper in a hurry."
+    ],
+    "use": [
+      "Waits only 4 ticks after each transfer. It adds an item filter with three modes in its menu: disabled, exact match, type match."
+    ],
+    "secret": [
+      "With a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. Craft: 5 hoppers, a name tag, 3 Cracked Diamonds."
+    ]
+  },
+  "reinforced_hopper_minecart": {
+    "lore": [
+      "{name}: a hopper that rides along."
+    ],
+    "use": [
+      "Takes in up to 2 items per tick (vanilla's hopper minecart takes 1) and filters like the hopper block of its tier."
+    ],
+    "secret": [
+      "It is the same speed-up as the mod hopper over the vanilla hopper, now on rails."
+    ]
+  },
+  "netherite_hopper": {
+    "lore": [
+      "{name}: a hopper with fire in its pipes."
+    ],
+    "use": [
+      "Waits only 2 ticks after each transfer. It adds an item filter with three modes in its menu: disabled, exact match, type match."
+    ],
+    "secret": [
+      "With a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. Hammer a Reinforced Hopper with a Netherite Nugget."
+    ]
+  },
+  "netherite_hopper_minecart": {
+    "lore": [
+      "{name}: a hopper that rides along."
+    ],
+    "use": [
+      "Takes in up to 4 items per tick (vanilla's hopper minecart takes 1) and filters like the hopper block of its tier."
+    ],
+    "secret": [
+      "It is the same speed-up as the mod hopper over the vanilla hopper, now on rails."
+    ]
+  },
+  "enderite_hopper": {
+    "lore": [
+      "{name}: a hopper so fast it seems to have always been done."
+    ],
+    "use": [
+      "Waits only 1 tick after each transfer. It adds an item filter with three modes in its menu: disabled, exact match, type match."
+    ],
+    "secret": [
+      "With a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. Hammer a Netherite Hopper with an Enderite Nugget."
+    ]
+  },
+  "enderite_hopper_minecart": {
+    "lore": [
+      "{name}: a hopper that rides along."
+    ],
+    "use": [
+      "Takes in up to 8 items per tick (vanilla's hopper minecart takes 1) and filters like the hopper block of its tier."
+    ],
+    "secret": [
+      "It is the same speed-up as the mod hopper over the vanilla hopper, now on rails."
+    ]
+  },
+  "reinforced_piston": {
+    "lore": [
+      "A piston that learned the trick of pushing a crowd."
+    ],
+    "use": [
+      "Pushes a line of up to 18 blocks instead of 12. Craft: 3 Cracked Diamonds, 2 Pistons and 4 Iron Ingots make 2. A Redstone Block next to it also pays to push one unbreakable block such as bedrock."
+    ],
+    "secret": [
+      "The Redstone Block is only used up after the push worked. A second unbreakable block in the line, obsidian or a block entity still stops it."
+    ]
+  },
+  "reinforced_sticky_piston": {
+    "lore": [
+      "The sticky twin that does not let go, and pushes eighteen."
+    ],
+    "use": [
+      "A Slime Ball on top of a Reinforced Piston. It pushes up to 18 blocks, pulls a block back when it retracts, and with a Redstone Block next to it pushes one unbreakable block such as bedrock."
+    ],
+    "secret": [
+      "The Redstone Block pays only after the push succeeded. The block pushed stays at its new place when the sticky piston retracts in the same tick."
+    ]
+  },
+  "netherite_piston": {
+    "lore": [
+      "A piston that does not push. It decides."
+    ],
+    "use": [
+      "No recipe: a Reinforced Piston becomes one after 5 seconds of hammering with a Diamond Sledgehammer or better and a Netherite Nugget. As it extends it destroys the block in front of it, if the redstone signal is strong enough for its hardness."
+    ],
+    "secret": [
+      "With a Redstone Block next to it, it sacrifices itself to break up to three blocks deep through unbreakable blocks such as bedrock."
+    ]
+  },
+  "enderite_piston": {
+    "lore": [
+      "A piston that remembers the shape of whatever stood in its way."
+    ],
+    "use": [
+      "Breaks the block in front of it as it extends, like the Netherite Piston. No recipe: hammer a Netherite Piston with an Enderite Nugget and a Netherite Sledgehammer."
+    ],
+    "secret": [
+      "Paid with a Redstone Block next to it, it sacrifices itself to break up to three blocks deep through unbreakable blocks such as bedrock."
+    ]
+  },
+  "flypad": {
+    "lore": [
+      "{name}: A little patch of sky you may stand on."
+    ],
+    "use": [
+      "Grants creative flight inside its area (tier I: 4x4x8 blocks, width, depth, height) and takes it back when you leave. Tier I is crafted shapeless from an Enderite Core, an Enderite Pressure Plate, a Shulker Head and an elytra with Mending."
+    ],
+    "secret": [
+      "Three tiers exist: Flypad I, Reinforced Flypad II and Stellar Flypad III. Pads do not stack, each is a single piece."
+    ]
+  },
+  "reinforced_flypad": {
+    "lore": [
+      "{name}: The sky gets larger when you ask politely."
+    ],
+    "use": [
+      "Grants creative flight inside its area (tier II: 8x8x16 blocks, width, depth, height) and takes it back when you leave. Tier II is smithed from Flypad I at the smithing table."
+    ],
+    "secret": [
+      "Three tiers exist: Flypad I, Reinforced Flypad II and Stellar Flypad III. Pads do not stack, each is a single piece."
+    ]
+  },
+  "stellar_flypad": {
+    "lore": [
+      "{name}: Under a stellar flypad, the ground is merely a suggestion."
+    ],
+    "use": [
+      "Grants creative flight inside its area (tier III: 16x16x32 blocks, width, depth, height) and takes it back when you leave. Tier III is smithed from Flypad II at the smithing table."
+    ],
+    "secret": [
+      "Three tiers exist: Flypad I, Reinforced Flypad II and Stellar Flypad III. Pads do not stack, each is a single piece."
+    ]
+  },
+  "elytra_pad": {
+    "lore": [
+      "{name}: One block of wing for anyone who wants to try."
+    ],
+    "use": [
+      "Hands a Spawn Elytra to every player with an empty chest slot inside its area and keeps it charged. Tier I: area 5x5, from a block below to 5 above the pad."
+    ],
+    "secret": [
+      "The Spawn Elytra exists only in the chest slot, has a flight timer and boosts, and swaps the xp bar for a blue boost bar. Three tiers, Elytra Pad I to Enderite Elytra Pad III."
+    ]
+  },
+  "netherite_elytra_pad": {
+    "lore": [
+      "{name}: Netherite widens the sky to 32 blocks."
+    ],
+    "use": [
+      "Hands a Spawn Elytra to every player with an empty chest slot inside its area and keeps it charged. Tier II: area 32x32, from a block below to 32 above the pad."
+    ],
+    "secret": [
+      "The Spawn Elytra exists only in the chest slot, has a flight timer and boosts, and swaps the xp bar for a blue boost bar. Three tiers, Elytra Pad I to Enderite Elytra Pad III."
+    ]
+  },
+  "enderite_elytra_pad": {
+    "lore": [
+      "{name}: A field of sky that is 128 blocks wide."
+    ],
+    "use": [
+      "Hands a Spawn Elytra to every player with an empty chest slot inside its area and keeps it charged. Tier III: area 128x128, from a block below to 192 above the pad."
+    ],
+    "secret": [
+      "The Spawn Elytra exists only in the chest slot, has a flight timer and boosts, and swaps the xp bar for a blue boost bar. Three tiers, Elytra Pad I to Enderite Elytra Pad III."
+    ]
+  },
+  "spawn_elytra": {
+    "lore": [
+      "An elytra that is only lent, and knows it."
+    ],
+    "use": [
+      "A temporary elytra from the spawn area or an Elytra Pad. It exists only in the chest slot, has a flight timer and boosts, and replaces the experience bar with a blue boost bar and the remaining time."
+    ],
+    "secret": [
+      "A pad keeps it charged for as long as you stay in its area, so the boosts come back while you hover above it."
+    ]
+  },
+  "launchpad": {
+    "lore": [
+      "{name}: a gust that waits for you to arrive."
+    ],
+    "use": [
+      "Charge it with wind charges (tier I: up to 4) and stand on it for 3 seconds: it launches you, higher with more charges. Smithing: Iron Core, a heavy weighted pressure plate and a Trial Chamber mob head, smithed."
+    ],
+    "secret": [
+      "Three tiers: Launchpad I, Netherite Launchpad II and Enderite Launchpad III. Pads do not stack."
+    ]
+  },
+  "netherite_launchpad": {
+    "lore": [
+      "{name}: a gust that waits for you to arrive."
+    ],
+    "use": [
+      "Charge it with wind charges (tier II: up to 8) and stand on it for 3 seconds: it launches you, higher with more charges. Smithing: Netherite Upgrade, Launchpad I and a Netherite Pressure Plate, smithed."
+    ],
+    "secret": [
+      "Three tiers: Launchpad I, Netherite Launchpad II and Enderite Launchpad III. Pads do not stack."
+    ]
+  },
+  "enderite_launchpad": {
+    "lore": [
+      "{name}: a gust that waits for you to arrive."
+    ],
+    "use": [
+      "Charge it with wind charges (tier III: up to 16) and stand on it for 3 seconds: it launches you, higher with more charges. Smithing: Enderite Upgrade, Launchpad II and an Enderite Pressure Plate, smithed."
+    ],
+    "secret": [
+      "Three tiers: Launchpad I, Netherite Launchpad II and Enderite Launchpad III. Pads do not stack."
+    ]
+  },
+  "potion_pad": {
+    "lore": [
+      "{name}: a stone that remembers the last drink."
+    ],
+    "use": [
+      "Stores the effects of a thrown potion and gives them to every player who steps onto it. Tier I: duration cap 45 seconds after a full charge; shorter potions and per-effect limits still apply."
+    ],
+    "secret": [
+      "Three tiers: Potion Pad, Reinforced Potion Pad II and Infused Potion Pad III. Throw a splash potion onto it to charge it."
+    ]
+  },
+  "reinforced_potion_pad": {
+    "lore": [
+      "{name}: a stone that remembers the last drink."
+    ],
+    "use": [
+      "Stores the effects of a thrown potion and gives them to every player who steps onto it. Tier II: duration cap 90 seconds after a full charge; shorter potions and per-effect limits still apply."
+    ],
+    "secret": [
+      "Three tiers: Potion Pad, Reinforced Potion Pad II and Infused Potion Pad III. Throw a splash potion onto it to charge it."
+    ]
+  },
+  "infused_potion_pad": {
+    "lore": [
+      "{name}: a stone that remembers the last drink."
+    ],
+    "use": [
+      "Stores the effects of a thrown potion and gives them to every player who steps onto it. Tier III: duration cap 180 seconds after a full charge; shorter potions and per-effect limits still apply."
+    ],
+    "secret": [
+      "Three tiers: Potion Pad, Reinforced Potion Pad II and Infused Potion Pad III. Throw a splash potion onto it to charge it."
+    ]
+  },
+  "chunk_loader": {
+    "lore": [
+      "{name}: a lantern for the land, so it does not forget to be there."
+    ],
+    "use": [
+      "Keeps chunks loaded. Tier I: only its own chunk. With default server settings, an assigned owner must be online. Smithing: Copper Core, Copper Pressure Plate and a Trial Chamber mob head."
+    ],
+    "secret": [
+      "Three tiers: Chunk Loader I, Netherite II and Enderite III."
+    ]
+  },
+  "netherite_chunk_loader": {
+    "lore": [
+      "{name}: a lantern for the land, so it does not forget to be there."
+    ],
+    "use": [
+      "Keeps chunks loaded. Tier II: 5 chunks in a cross, no diagonals. With default server settings, an assigned owner must be online. Smithing: Netherite Upgrade, Chunk Loader I and a Netherite Pressure Plate."
+    ],
+    "secret": [
+      "Three tiers: Chunk Loader I, Netherite II and Enderite III."
+    ]
+  },
+  "enderite_chunk_loader": {
+    "lore": [
+      "{name}: a lantern for the land, so it does not forget to be there."
+    ],
+    "use": [
+      "Keeps chunks loaded. Tier III: 9 chunks in a 3x3 square. With default server settings, an assigned owner must be online. Smithing: Enderite Upgrade, Chunk Loader II and an Enderite Pressure Plate."
+    ],
+    "secret": [
+      "Three tiers: Chunk Loader I, Netherite II and Enderite III."
+    ]
+  },
+  "spawn_teleporter": {
+    "lore": [
+      "{name}: a stone that knows the way home."
+    ],
+    "use": [
+      "Takes you to your own respawn point after a wait, or to the shared spawn target when powered by redstone. Tier I: 50 seconds by default, set by the server."
+    ],
+    "secret": [
+      "The waiting times of the three tiers are 50, 20 and 5 seconds. A server can change them."
+    ]
+  },
+  "spawn_teleporter_tier_2": {
+    "lore": [
+      "{name}: a stone that knows the way home."
+    ],
+    "use": [
+      "Takes you to your own respawn point after a wait, or to the shared spawn target when powered by redstone. Tier II: 20 seconds by default, set by the server."
+    ],
+    "secret": [
+      "The waiting times of the three tiers are 50, 20 and 5 seconds. A server can change them."
+    ]
+  },
+  "enderite_spawn_teleporter": {
+    "lore": [
+      "{name}: a stone that knows the way home."
+    ],
+    "use": [
+      "Takes you to your own respawn point after a wait, or to the shared spawn target when powered by redstone. Tier III: 5 seconds by default, set by the server."
+    ],
+    "secret": [
+      "The waiting times of the three tiers are 50, 20 and 5 seconds. A server can change them."
+    ]
+  },
+  "home_teleporter": {
+    "lore": [
+      "The name given to the teleporter a new player carries into a world."
+    ],
+    "use": [
+      "It is the Spawn Teleporter, handed out on first join if the server sets the gift to 1 or more (up to 64). Out of the box the gift is 0."
+    ],
+    "secret": [
+      "The server command /simplebuilding tweaks spawn sets how many each new player gets, and how many Elytra Pads."
+    ]
+  },
+  "diamond_pressure_plate": {
+    "lore": [
+      "A plate that only cares about you."
+    ],
+    "use": [
+      "Reacts to players only: mobs and items do not press it."
+    ],
+    "secret": [
+      "It is a quiet way to keep a farm from triggering its own door."
+    ]
+  },
+  "netherite_pressure_plate": {
+    "lore": [
+      "A plate that decides who counts."
+    ],
+    "use": [
+      "Reacts to every player, unless a barrel sits below it: then only players carrying one of the items in the barrel press it."
+    ],
+    "secret": [
+      "The barrel below is the guest list: put in the items that act as a key. It ignores mobs."
+    ]
+  },
+  "enderite_pressure_plate": {
+    "lore": [
+      "A plate that was made for one person, and means it."
+    ],
+    "use": [
+      "A Netherite plate with a player lock. Its owner always presses it; without a barrel nobody else does. With a barrel below, also everyone whose name is on a renamed name tag in the barrel, or who carries one of the other items in it."
+    ],
+    "secret": [
+      "Put a name tag with a player's name in the barrel to give them access without a key item."
+    ]
+  },
+  "detector": {
+    "lore": [
+      "Sonar for the ground: a needle of amethyst that points toward the ore."
+    ],
+    "use": [
+      "Hold it: once every 20 ticks it looks for the nearest ore in a sphere around you and turns toward it like a compass to a lodestone, with a sound and a faint particle trail. Sneak and right-click switches modes."
+    ],
+    "secret": [
+      "Sneak and right-click a block to calibrate Custom mode to that block type, then lay the detector down like a smithing template. Rarer ores give a weaker signal and a shorter range; Astralit and Nihilit ores signal 5 and reach 16."
+    ]
+  },
+  "magnet": {
+    "lore": [
+      "A small thing with a strong opinion about where your items should be."
+    ],
+    "use": [
+      "Pulls loose items toward you while held in either hand, radius 4 blocks. Sneaking pauses it. Range adds 2 blocks per level. Has no durability."
+    ],
+    "secret": [
+      "Only Constructor's Touch enables the item-type filter: sneak-click a block or item to choose it, sneak-click air to clear. An unenchanted one is set down with a sneak-click on a block and pulls within 8 blocks."
+    ]
+  },
+  "rotator": {
+    "lore": [
+      "A tool for those who like things to face the right way."
+    ],
+    "use": [
+      "Right-click an orientable block (logs, furnaces, pistons, hoppers and the like) to turn it in place without breaking it. Built around an iron core."
+    ],
+    "secret": [
+      "It turns the thing you click, not the thing you wish you had clicked. Mind the face you aim at."
+    ]
+  },
+  "velocity_gauge": {
+    "lore": [
+      "A clock for how fast the world goes by."
+    ],
+    "use": [
+      "Shows speed while held in either hand, with a moving needle and a HUD dial. In the air it also shows the distance to the ground and an estimated fall damage before armor."
+    ],
+    "secret": [
+      "Right-click toggles auto-walk. With Constructor's Touch it adds peak and average speed; Range extends the fall depth it can read, up to 64 blocks."
+    ]
+  },
+  "echo_sounder": {
+    "lore": [
+      "A compass that listens for the way back."
+    ],
+    "use": [
+      "Link it to a lodestone with a right-click, then hold use for 3 seconds to jump to it. One jump empties its charge; mending or echo shards recharge it. Cooldown after a jump: 24 seconds."
+    ],
+    "secret": [
+      "Using it before it is fully recharged is possible, but it takes twice as long, with cracking and sparks, and then the echo sounder shatters for good. Craft: seven enderite nuggets, a recovery compass and an enderite core."
+    ]
+  },
+  "octant": {
+    "lore": [
+      "A measuring eye for those who plan before they build."
+    ],
+    "use": [
+      "Mark two corners: right-click sets Pos 1, sneak and right-click sets Pos 2. The HUD reads distance, area or volume, and the selection can be sketched as a cuboid, cylinder, sphere, pyramid or prism. 128 durability."
+    ],
+    "secret": [
+      "G opens the Octant Manager. The sledgehammer can mine inside its selection. The Wandering Trader sells and buys it, and dye colors it."
+    ]
+  },
+  "amethyst_lens": {
+    "lore": [
+      "A rod with a lens of amethyst, made for those who like to aim at things from far away."
+    ],
+    "use": [
+      "While held in use it projects a light amethyst dot up to 512 blocks. Where the beam rests, flammable blocks ignite (about 3 s up close), ice melts and creatures catch fire. Charge 640; empty rods do not break, and 16 amethyst shards recharge one at an anvil."
+    ],
+    "secret": [
+      "The longer the distance, the longer it takes: about 20 s to ignite at 200 blocks. Creatures in water or rain and fire-immune ones are spared. Craft: iron nugget, amethyst shard, redstone, iron core and iron rod."
+    ]
+  },
+  "color_brush": {
+    "lore": [
+      "A brush that came back from the dye vat with opinions."
+    ],
+    "use": [
+      "Brushes like the vanilla brush; with a dye in either hand or inventory, right-click recolors wool, carpet, concrete, terracotta, glass, candles, beds, banners and shulker boxes, keeping their state. Craft: a brush, a gold nugget and a feather."
+    ],
+    "secret": [
+      "A Paint Box with dyes counts as ink: each stroke picks a random other color and the bristles show a rainbow. Holding right-click repeats the stroke."
+    ]
+  },
+  "sage_orb": {
+    "lore": [
+      "A pearl of stored thought, small enough to hold in one hand."
+    ],
+    "use": [
+      "Right-click charges it for 0.3 seconds, then it gives 50 to 100 experience points and is used up. Stacks to 16."
+    ],
+    "secret": [
+      "Sage Ore sometimes drops one when mined: 2 percent, 3, 4 or 5 with Fortune I to III."
+    ]
+  },
+  "auto_smither": {
+    "lore": [
+      "A smith that never sleeps and only works when someone claps."
+    ],
+    "use": [
+      "Smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front of it or stay in its output slot."
+    ],
+    "secret": [
+      "It works from the same three inputs as the smithing table, so any upgrade you could do by hand it can do on a pulse."
+    ]
+  },
+  "autonomous_crafter": {
+    "lore": [
+      "A crafter that finally learned to work on its own."
+    ],
+    "use": [
+      "A Crafter that crafts its grid by itself every 4 ticks as long as a hopper stands below it. A redstone signal stops it; results go into that hopper."
+    ],
+    "secret": [
+      "The hopper below is the machine's only door out: if it is full, nothing is crafted. A redstone signal is the off switch."
+    ]
+  },
+  "storage_crafting_table": {
+    "lore": [
+      "A crafting table that never clears its grid."
+    ],
+    "use": [
+      "Keeps its 3x3 grid: closing the screen leaves the items where they are, and they lie flat on the table's top."
+    ],
+    "secret": [
+      "A tidy way to keep a recipe set up: the items stay on the table, visible, until you pick them up."
+    ]
+  },
+  "crafted_arrow": {
+    "lore": [
+      "An arrow made with attention, tip by tip."
+    ],
+    "use": [
+      "Made at the Fletching Table: one tip, one shaft and one fletching make 4 arrows. Right-click the vanilla Fletching Table to open it."
+    ],
+    "secret": [
+      "At the Fletching Table a Diamond Rod works as an arrow shaft and lets the arrow pierce one more target."
+    ]
+  },
+  "raw_ceramic_bucket": {
+    "lore": [
+      "A bucket of wet clay, still deciding what it wants to be."
+    ],
+    "use": [
+      "Craft 5 clay balls in a V shape. A furnace fires it into a Ceramic Bucket."
+    ],
+    "secret": [
+      "It holds nothing until it is fired, and once fired it wears with every pour."
+    ]
+  },
+  "soul_lava_bucket": {
+    "lore": [
+      "A bucket of the Nether's second fire, hot in a way lava is not."
+    ],
+    "use": [
+      "Scooped from soul lava with an iron bucket, which breaks when you pour it; an Enderite bucket survives. Soul lava burns twice as long as lava and gives Soul Burn for two minutes."
+    ],
+    "secret": [
+      "Soul lava never spreads far and nothing replaces it except creative players: only scooping the source removes it."
+    ]
+  },
+  "soul_lava": {
+    "lore": [
+      "Lava with a soul, which the Nether has kept a secret."
+    ],
+    "use": [
+      "Rare in the Nether: 0.5 percent of lava springs and the lava well of 10 percent of fortress entrances. It flows 2 blocks (5 in the Nether), slower than lava. Touching it burns twice as long and gives Soul Burn for two minutes."
+    ],
+    "secret": [
+      "Water meeting it turns a source into a quartz block and flowing water into blackstone. Only scooping the source removes it."
+    ]
+  },
+  "copper_fire": {
+    "lore": [
+      "A green flame that burns on copper and nothing else."
+    ],
+    "use": [
+      "Lit by flint and steel, a fire charge or igniting lava on a copper block. It exists only on its base block, never spreads, burns nothing and deals 1.5 damage at light level 12."
+    ],
+    "secret": [
+      "Unlike sulfur fire it gives no effect. Both count as fire in the fire tag and drop nothing."
+    ]
+  },
+  "sulfur_fire": {
+    "lore": [
+      "A yellow-green flame that stinks of the deep caves."
+    ],
+    "use": [
+      "Lit on sulfur blocks, polished sulfur, sulfur bricks and chiseled sulfur by flint and steel, a fire charge or igniting lava. It stays on its base block, never spreads, and deals 1.5 damage at light level 12."
+    ],
+    "secret": [
+      "Standing in it gives nausea for 10 seconds, refreshed as long as you stay. Craft gunpowder from 3 sulfur and 1 coal or charcoal."
+    ]
+  },
+  "netherite_apple": {
+    "lore": [
+      "{name}: A golden apple that went through the Nether and came back harder."
+    ],
+    "use": [
+      "Restores 8 hunger points and can always be eaten. Gives fire resistance (4 min), resistance (1 min), absorption (30 s) and regeneration (10 s). Craft: an apple ringed by 8 Netherite Nuggets."
+    ],
+    "secret": [
+      "It is fire resistant as an item, so a drop into lava does not destroy it."
+    ]
+  },
+  "enderite_apple": {
+    "lore": [
+      "{name}: An apple with the End's patience in its skin."
+    ],
+    "use": [
+      "Restores 14 hunger points and can always be eaten. Gives regeneration II (20 s), resistance and fire resistance (2.5 min each) and absorption IV (2 min). Craft: an apple ringed by 8 Enderite Nuggets."
+    ],
+    "secret": [
+      "Epic rarity, fire resistant and void-proof if dropped, like every Enderite item."
+    ]
+  },
+  "enchanted_netherite_apple": {
+    "lore": [
+      "{name}: A netherite apple that was given a glow and kept it."
+    ],
+    "use": [
+      "Restores 8 hunger points. Gives regeneration II (40 s), resistance I and fire resistance (5 min each) and absorption IV (2 min, 8 extra hearts). Rare, with an enchantment glint."
+    ],
+    "secret": [
+      "Stronger than the plain netherite apple in every effect, and fire resistant as an item."
+    ]
+  },
+  "enchanted_enderite_apple": {
+    "lore": [
+      "{name}: The End has only one fruit like it."
+    ],
+    "use": [
+      "Restores 14 hunger points. Gives regeneration III (60 s), resistance II (5 min), fire resistance (10 min) and absorption V (3 min, 10 extra hearts). Epic, with an enchantment glint."
+    ],
+    "secret": [
+      "Its name contains \"enderite\", so it is under the void protection of the enderite tag: it will not fall out of the world."
+    ]
+  },
+  "silverfish_head": {
+    "lore": [
+      "{name}: a trophy for those who hunted it with lightning."
+    ],
+    "use": [
+      "Dropped by the mob when a charged creeper's explosion kills it; one head per explosion. Wearable on the head, and placeable on the ground or a wall."
+    ],
+    "secret": [
+      "Worn on the head, it shrinks you to half your size. The tooltip says nothing about it."
+    ]
+  },
+  "slime_head": {
+    "lore": [
+      "{name}: a trophy for those who hunted it with lightning."
+    ],
+    "use": [
+      "Dropped by the mob when a charged creeper's explosion kills it; one head per explosion. Wearable on the head, and placeable on the ground or a wall."
+    ],
+    "secret": [
+      "Worn on the head, it lets you fall one block farther without damage. The tooltip says nothing about it."
+    ]
+  },
+  "music_disc_voidline": {
+    "lore": [
+      "A disc of the End, pressed with music no jukebox had played before."
+    ],
+    "use": [
+      "Plays Heavy Heart, Monolith and Iron Sonata. Found in end city chests (4 percent). The tooltip names the track."
+    ],
+    "secret": [
+      "A placed disc (sneak and right-click on the ground) switches to its next track when you right-click it with a sledgehammer."
+    ]
+  },
+  "music_disc_brimstone": {
+    "lore": [
+      "A disc of the Nether, pressed with music no jukebox had played before."
+    ],
+    "use": [
+      "Plays Riffstorm and Rally. Found in bastion chests (4 percent). The tooltip names the track."
+    ],
+    "secret": [
+      "A placed disc (sneak and right-click on the ground) switches to its next track when you right-click it with a sledgehammer."
+    ]
+  },
+  "music_disc_driftwood": {
+    "lore": [
+      "A disc of the Overworld, pressed with music no jukebox had played before."
+    ],
+    "use": [
+      "Plays Rainfall and Storytime. Found in woodland mansion chests (5 percent), or from a creeper killed by a skeleton. The tooltip names the track."
+    ],
+    "secret": [
+      "A placed disc (sneak and right-click on the ground) switches to its next track when you right-click it with a sledgehammer."
+    ]
+  },
+  "music_disc_daybreak": {
+    "lore": [
+      "A disc of the Overworld, pressed with music no jukebox had played before."
+    ],
+    "use": [
+      "Plays Soft Breeze and Blockwood. Found in ancient city chests (2.5 percent), or from a creeper killed by a skeleton. The tooltip names the track."
+    ],
+    "secret": [
+      "A placed disc (sneak and right-click on the ground) switches to its next track when you right-click it with a sledgehammer."
+    ]
+  },
+  "jukebox_amplifier": {
+    "lore": [
+      "A horn for a jukebox, built from planks and a pinch of pink dust."
+    ],
+    "use": [
+      "Eight planks around Astralit Dust. A jukebox next to it plays louder and is heard farther, with no echo: each neighbor adds 50 percent reach, at most 2 count by default."
+    ],
+    "secret": [
+      "It also works as a repeater: it picks up a playing jukebox or another amplifier within 16 blocks, no matter what lies between, and shows music notes. Every amplifier is another playback point."
+    ]
+  },
+  "note_amplifier": {
+    "lore": [
+      "A horn for a note block, built from planks and a splinter of void."
+    ],
+    "use": [
+      "Eight planks around a Nihilit Shard. A note block next to it plays louder and is heard farther: each neighbor adds 50 percent reach, at most 2 count by default."
+    ],
+    "secret": [
+      "A Note Amplifier touching the note block, or one already in the chain, passes the sound on. A gap ends a note chain."
+    ]
+  },
+  "cracked_ice": {
+    "lore": [
+      "Ice that has seen too many footsteps."
+    ],
+    "use": [
+      "Cut one ice into one in the stonecutter. A living creature standing on it cracks it one stage per second; after four stages it turns into water (it evaporates in the Nether). Drops only with Silk Touch."
+    ],
+    "secret": [
+      "With nobody on it the cracks stay as they are. So you can lay a trap, or repair the road by leaving."
+    ]
+  },
+  "nautilus_shell_block": {
+    "lore": [
+      "The sea's spiral, stacked into a block."
+    ],
+    "use": [
+      "Four nautilus shells in a square make one; it crafts back into four shells. It is placed along an axis, like the bone block."
+    ],
+    "secret": [
+      "A block of shells is the only way to store the Nautilus's gift compactly."
+    ]
+  },
+  "stone_pebble": {
+    "lore": [
+      "{name}: A small stone, easily lost in the hand."
+    ],
+    "use": [
+      "A small part: one cobblestone gives 9; 9 pebbles in the crafting grid give the cobblestone back."
+    ],
+    "secret": [
+      "Sneak and right-click puts it down as a small part: up to 4 on one block, like sea pickles, mixed with flint chips, eggs, sticks, ingots, candles and more."
+    ]
+  },
+  "flint_chip": {
+    "lore": [
+      "{name}: A flake of flint, sharp enough for a smile."
+    ],
+    "use": [
+      "A small part: one flint gives 4; 4 chips in a 2x2 give the flint back."
+    ],
+    "secret": [
+      "Sneak and right-click puts it down as a small part: up to 4 on one block, like sea pickles, mixed with stone pebbles, eggs, sticks, ingots, candles and more."
+    ]
+  },
+  "fire_chip": {
+    "lore": [
+      "{name}: A piece of a fire charge, still a little warm."
+    ],
+    "use": [
+      "A small part: one fire charge gives 4; 4 chips in a 2x2 give the fire charge back."
+    ],
+    "secret": [
+      "Strike a placed fire charge with a sledgehammer, one chip per strike: four strikes, four chips. The last strike frees them all."
+    ]
+  },
+  "ice_chip": {
+    "lore": [
+      "{name}: A splinter of ice that melts if you look at it too long."
+    ],
+    "use": [
+      "A small part: one ice gives 4 (one packed ice gives 9); 4 chips in a 2x2 give one ice back."
+    ],
+    "secret": [
+      "Strike ice with a sledgehammer, one chip per strike: 4 strikes for ice, 9 for packed ice. The last strike removes the block and frees all chips."
+    ]
+  },
+  "obsidian_chip": {
+    "lore": [
+      "{name}: A shard of volcanic glass, sharp as a decision."
+    ],
+    "use": [
+      "A small part: one obsidian gives 9; 9 chips in the crafting grid give the obsidian back."
+    ],
+    "secret": [
+      "Strike obsidian with a sledgehammer, one chip per strike: 9 strikes in all. The last strike removes the block and frees all chips."
+    ]
+  },
+  "diamond_pebble": {
+    "lore": [
+      "A grain of diamond, with all the cold light of its parent."
+    ],
+    "use": [
+      "Hold right-click on a diamond block with a sledgehammer to crush it into 81 pebbles. 9 pebbles make a Cracked Diamond. The Wandering Trader sells 3 for 5 emeralds. Six go into the Reinforced Bundle and Quiver, four into the Reinforced Backpack."
+    ],
+    "secret": [
+      "It is the road to every Reinforced machine: pebbles, then cracked diamonds, then furnaces, hoppers, chests and pistons."
+    ]
+  },
+  "cracked_diamond": {
+    "lore": [
+      "A diamond with a flaw, which is what makes it useful."
+    ],
+    "use": [
+      "Craft 9 Diamond Pebbles in a 3x3 square. It builds the Reinforced tier: furnaces, blast furnaces, smokers, hoppers, chests, shulker boxes and pistons."
+    ],
+    "secret": [
+      "Nine of them make a Block of Cracked Diamond, which crafts back into nine."
+    ]
+  },
+  "cracked_diamond_block": {
+    "lore": [
+      "Nine flawed diamonds, held together by hope."
+    ],
+    "use": [
+      "Nine Cracked Diamonds in a 3x3 square. It crafts back into nine, shapeless. A compact way to store them."
+    ],
+    "secret": [
+      "The flaws are structural: the block is not made of diamond pebbles directly, but of the diamonds they form."
+    ]
+  },
+  "yarn_ball": {
+    "lore": [
+      "A ball of yarn, the kind a cat would forgive anything for."
+    ],
+    "use": [
+      "One wool block of any color crafts two balls; there is no recipe from string. Eight balls around a dandelion make a Silent Dandelion."
+    ],
+    "secret": [
+      "The wool block can be any of the sixteen colors; the balls do not keep it."
+    ]
+  },
+  "silent_dandelion": {
+    "lore": [
+      "A flower that asks the world to be quiet."
+    ],
+    "use": [
+      "Use it on a living mob to toggle its sounds. It works on adults, babies and hostile mobs, but not on players, armor stands, the Wither or the Ender Dragon. One flower per use except in Creative; wait 2 seconds before using it on the same mob again."
+    ],
+    "secret": [
+      "Eight yarn balls around a dandelion make it. Like the Golden Dandelion it acts on the clicked mob, toggling Silent instead of age lock."
+    ]
+  },
+  "potted_silent_dandelion": {
+    "lore": [
+      "A quiet flower in a pot on a window sill, doing its quiet work."
+    ],
+    "use": [
+      "The Silent Dandelion in a flower pot. You get it back as the flower when you break the pot."
+    ],
+    "secret": [
+      "Put it near a place you want to keep at peace: it looks like any potted dandelion, and does nothing but add quiet to the room."
+    ]
+  },
+  "warden_tendril": {
+    "lore": [
+      "A black tendril cut from something that listens."
+    ],
+    "use": [
+      "Every Warden drops 1 to 2. In the brewing stand an Awkward Potion with a tendril becomes a Potion of Darkness."
+    ],
+    "secret": [
+      "The Warden does not mind; it hears you anyway."
+    ]
+  },
+  "sculk_jaw": {
+    "lore": [
+      "A silent trap in the dark, which only bites once."
+    ],
+    "use": [
+      "Slows anything inside much more than a cobweb and gives Darkness. The jaw snaps shut and bites once for 2 damage, then stays shut and harmless while someone is inside; it reopens 20 ticks after the last one leaves. Wardens are ignored."
+    ],
+    "secret": [
+      "It looks like sculk and makes no sound at all: placing, biting and breaking are silent. Mine it with a hoe. Craft: two bones and an echo shard over three sculk."
+    ]
+  },
+  "construction_light": {
+    "lore": [
+      "A lamp for the builder, which does not invite the dark's children."
+    ],
+    "use": [
+      "A glass-like lamp with light level 15 that does not stop monsters from spawning: its light is left out of the darkness check for spawns."
+    ],
+    "secret": [
+      "Use it to light a build site without making it safe: monsters still spawn around it as if it were dark."
+    ]
+  },
+  "training_dummy": {
+    "lore": [
+      "A straw man with a pumpkin for a head, standing in for your enemies."
+    ],
+    "use": [
+      "Straw Armor Stand plus a carved pumpkin, shapeless, or right-click a carved pumpkin onto a placed Straw Armor Stand. It shows every hit as a floating number."
+    ],
+    "secret": [
+      "The rings on its chest are the target block's: aim there to see how well you hit."
+    ]
+  },
+  "placed_egg": {
+    "lore": [
+      "An egg that stands, which is not a thing eggs usually do."
+    ],
+    "use": [
+      "Sneak and right-click an egg (plain, blue or brown) onto a block to stand it up as a small 3D egg in the vanilla colors. Mined with Silk Touch it comes back."
+    ],
+    "secret": [
+      "Otherwise it breaks and hatches exactly like a thrown egg: a chick in 1 of 8, four chicks in 1 of 32 of those."
+    ]
+  },
+  "placed_small_parts": {
+    "lore": [
+      "Small things on a table, set out as if for an inventory of the day."
+    ],
+    "use": [
+      "Up to 4 small parts on one block, like sea pickles: Stone Pebbles, Flint Chips, eggs, vanilla small parts (sticks, ingots, nuggets, gems, bricks, flint, bones, feathers ...) and, mixed in, candles and sea pickles. Sneak and right-click with a small part."
+    ],
+    "secret": [
+      "It has no item. Break it and every part comes back."
+    ]
+  },
+  "placed_smithing_template": {
+    "lore": [
+      "A template laid down like a plan on a table."
+    ],
+    "use": [
+      "A smithing template laid down with sneak and right-click, flat on the floor, on a wall or under the ceiling. It has no item of its own; it holds the template itself."
+    ],
+    "secret": [
+      "With a sledgehammer in the main hand and Glow Ink Sac or Glowstone Dust in the off hand it cannot be broken, but upgrades an armor trim template instead."
+    ]
+  },
+  "creative_spacer": {
+    "lore": [
+      "Not a thing, but the space between things."
+    ],
+    "use": [
+      "Not a real item: an invisible filler that keeps one empty cell between two categories in the mod's creative tabs."
+    ],
+    "secret": [
+      "You will only ever see it as a gap in the creative inventory."
+    ]
+  },
+  "funny_stick": {
+    "lore": [
+      "A stick. A very funny stick."
+    ],
+    "use": [
+      "In the main or off hand it sends up an End-rod spark every 4 ticks, and now and then a note or a villager sparkle. Otherwise it does nothing at all. Epic, fire resistant, unstackable."
+    ],
+    "secret": [
+      "It sits at the end of a long, hidden chain: the last stage of the pads' hidden Easter levels, a Netherite template and a Netherite Ingot, and a hidden challenge, \"All That for a Stick?\", waits for whoever makes it."
+    ]
+  },
+  "enderite_barrel": {
+    "lore": [
+      "A barrel that was told it could keep more, and believed it."
+    ],
+    "use": [
+      "The Enderite tier of the crucible's barrel: it holds double stacks, 128 of a 64-stack item, in the crucible menu and its own chest menu, for shift-clicks and for hoppers."
+    ],
+    "secret": [
+      "Taking from such a slot gives at most one normal stack. It is the last step of the line from copper through Netherite to Enderite."
+    ]
+  },
+  "enderite_crucible": {
+    "lore": [
+      "A crucible that cooks like the End's own fire."
+    ],
+    "use": [
+      "The Enderite tier of the crucible: 27 slots, double stacks, 8x speed. A Netherite crucible becomes this with Enderite Nuggets and a Netherite Sledgehammer, at twice the strikes of a furnace."
+    ],
+    "secret": [
+      "The sledgehammer replaces the axe of the base mod here: strike the iron crucible onto an iron block, and attach a barrel with 6 strikes."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "A book that has read everything about the world, and wants to tell you."
+    ],
+    "use": [
+      "The Mega Guide: SimpleBuilding. Craft it shapeless from a book and a crafting table. Two separate Mega Guides hold the Minecraft and SimpleBuilding shelves on 26.3."
+    ],
+    "secret": [
+      "Every topic tab opens by itself as soon as one of its gate recipes is in your recipe book. Nothing is consumed and nothing has to be clicked."
+    ]
+  },
+  "leather_sheet": {
+    "lore": [
+      "Nine hides pressed flat, until the leather forgot it was ever a cow."
+    ],
+    "use": [
+      "Nine leather in the crafting grid make one sheet. It goes into the Reinforced Bundle (below the bundle) and the Backpack (three in the bottom row)."
+    ],
+    "secret": [
+      "It is a crafting material only; the next tier of bundle, the Reinforced one, needs diamond pebbles on top of it."
+    ]
+  },
+  "family:octet_astral": {
+    "items": [
+      "regex:(polished_)?astralit(_block|_bricks)?_octet"
+    ],
+    "secret": [
+      "Astralit and polished astralit octets glow with light level 5, like their quartz checkers, so a board built from them lights its own corner of the night."
+    ]
+  },
+  "family:octet": {
+    "items": [
+      "regex:.*_octet"
+    ],
+    "lore": [
+      "{name} is a cube of half a block's edge, the smallest brick this mod builds with. Eight of them make a block again, and builders prize them for what a full block cannot do: corners, steps and fine detail."
+    ],
+    "use": [
+      "The stonecutter cuts 8 from one block of its material (colored ones from their quartz checker). Right-click places it a quarter block in front of the hit point; a cell holds up to 8 of one kind. Sneak and right-click with an empty hand takes one out."
+    ],
+    "secret": [
+      "A cell refuses a second kind, so all eight must match. In water the cell stays waterlogged until the eighth octet fills it. And in the stonecutter every octet turns into the chess pieces of its own color."
+    ]
+  },
+  "family:chess_pawn": {
+    "items": [
+      "regex:.*_chess_pawn(_flat)?"
+    ],
+    "lore": [
+      "{name}: The pawn takes one small step at a time, and still it is the piece every game is won with."
+    ]
+  },
+  "family:chess_rook": {
+    "items": [
+      "regex:.*_chess_rook(_flat)?"
+    ],
+    "lore": [
+      "{name}: The rook is a tower on a board, and it learned long ago that the straight road is the shortest."
+    ]
+  },
+  "family:chess_knight": {
+    "items": [
+      "regex:.*_chess_knight(_flat)?"
+    ],
+    "lore": [
+      "{name}: The knight alone leaps over what stands in its way, and nobody ever saw it take the direct road."
+    ]
+  },
+  "family:chess_bishop": {
+    "items": [
+      "regex:.*_chess_bishop(_flat)?"
+    ],
+    "lore": [
+      "{name}: The bishop keeps to one color all its life and sees the whole board along its diagonals."
+    ]
+  },
+  "family:chess_queen": {
+    "items": [
+      "regex:.*_chess_queen(_flat)?"
+    ],
+    "lore": [
+      "{name}: The queen goes wherever she pleases, and the board bends to her."
+    ]
+  },
+  "family:chess_king": {
+    "items": [
+      "regex:.*_chess_king(_flat)?"
+    ],
+    "lore": [
+      "{name}: The king is the piece the whole game is about, and the one that moves least."
+    ]
+  },
+  "family:chess_flat": {
+    "items": [
+      "regex:.*_chess_.*_flat"
+    ],
+    "use": [
+      "A flat token with a raised symbol that reads from above, for boards seen from the top. Cut from one octet of its color in the stonecutter. Right-click sets it on a quarter of a block top, facing where you look. Stacks of 16."
+    ]
+  },
+  "family:chess": {
+    "items": [
+      "regex:.*_chess_.*"
+    ],
+    "use": [
+      "Cut from one octet of its color in the stonecutter. Right-click sets it on a quarter of a block top, facing where you look; one block holds four pieces, so a 4 x 4 checker board is a full chessboard. Stacks of 16."
+    ],
+    "secret": [
+      "Sneak and right-click with a piece in hand on a standing one swaps them; the old piece goes to your hand or inventory. An empty hand turns a piece a quarter turn clockwise, sneaking picks it up. Pieces can stand in water."
+    ]
+  },
+  "family:checker_stairs": {
+    "items": [
+      "regex:.*_checker_stairs"
+    ],
+    "lore": [
+      "{name} climbs the board square by square, and the pattern climbs with it."
+    ],
+    "use": [
+      "Stairs in the chessboard pattern of their checker block: 6 checkers in a stair shape make 4. Mined with a pickaxe, drops itself, and no mob spawns on it."
+    ],
+    "secret": [
+      "Astralit checkers glow with light level 5, and so do their stairs and slabs. A flight of them makes a lit chessboard stair."
+    ]
+  },
+  "family:checker_slab": {
+    "items": [
+      "regex:.*_checker_slab"
+    ],
+    "lore": [
+      "{name} lies low on the ground, a chessboard cut in half."
+    ],
+    "use": [
+      "Slab in the chessboard pattern of its checker block: 3 checkers in a row make 6. Mined with a pickaxe, drops itself, and no mob spawns on it."
+    ],
+    "secret": [
+      "Astralit checkers glow with light level 5, and so do their slabs and stairs. A floor of them is a lit chessboard."
+    ]
+  },
+  "family:checker": {
+    "items": [
+      "regex:.*_checker"
+    ],
+    "lore": [
+      "{name} is a square of two moods, light and dark in turns, as if a whole game were already waiting on it."
+    ],
+    "use": [
+      "Craft 4 from 2 quartz blocks and 2 blocks of its color set diagonally. Placed like a log: the chessboard pattern follows the axis. Mined with a pickaxe, drops itself, and no mob spawns on it."
+    ],
+    "secret": [
+      "Four of them in a 4 x 4 square are exactly a chessboard for this mod's chess pieces, one piece per field. The stonecutter turns each into 8 octets of its color."
+    ]
+  },
+  "family:cauldron_nether": {
+    "items": [
+      "regex:(stripped_)?(crimson|warped)_cauldron"
+    ],
+    "secret": [
+      "Unlike its sisters of overworld wood, a cauldron of nether stem does not burn: pour lava in and it holds, like an iron cauldron."
+    ]
+  },
+  "family:cauldron": {
+    "items": [
+      "regex:.*_cauldron"
+    ],
+    "lore": [
+      "{name}: a pot of wood, simple and quiet, until fire reminds it what it is made of."
+    ],
+    "use": [
+      "Works like a vanilla cauldron (water, lava, powder snow, bottles, washing, rain, dripstone). Craft a hollow log above a sheet of the same wood, normal or stripped."
+    ],
+    "secret": [
+      "Lava poured into it sets it alight, and after 3 seconds the cauldron is gone and the lava stays behind as a source. Take the lava out in time and the cauldron is saved."
+    ]
+  },
+  "family:crate": {
+    "items": [
+      "regex:.*_crate"
+    ],
+    "lore": [
+      "{name}: an open box of planks where the harvest waits for the pot."
+    ],
+    "use": [
+      "Stores up to 8 stacks of food; the top layers show what lies inside. Craft from 7 planks of one wood in a U. Right-click with food puts the stack in, an empty hand takes the top stack out."
+    ],
+    "secret": [
+      "Sneaking with an empty hand takes just one item. Hoppers fill and empty crates, a comparator reads the fill level, and the tag simplebuilding:crate_storable lets modpacks allow non-food items."
+    ]
+  },
+  "family:sheet": {
+    "items": [
+      "regex:(stripped_)?[a-z_]+_sheet"
+    ],
+    "lore": [
+      "{name} is wood pressed so thin it lets the light through, like a leaf that has forgotten how to fall."
+    ],
+    "use": [
+      "A thin panel that connects like glass panes and iron bars and lets light pass. Craft 6 hollow logs in two rows of three for 16 sheets; hollow stripped logs give the stripped kind. Mined with an axe."
+    ],
+    "secret": [
+      "Burnable woods make burnable sheets: each is furnace fuel for 100 ticks. A pane of them is a window that smells of the forest."
+    ]
+  },
+  "family:hollow_log": {
+    "items": [
+      "regex:hollow_.*"
+    ],
+    "lore": [
+      "{name}: a log with its heart taken out, and yet it stands."
+    ],
+    "use": [
+      "A log with a 12 x 12 pixel tunnel along its axis. Craft 8 logs (or stripped logs) of one wood in a ring for 8. The chisel hollows a stripped log in the world; the sneaking chisel turns it back. Mined with an axe, burns as fuel (300 ticks)."
+    ],
+    "secret": [
+      "Chickens, rabbits and cats fit through the tunnel, bigger mobs do not. You crawl through it yourself by sneaking in front of a lying hollow log, facing along its axis."
+    ]
+  },
+  "family:carved_log": {
+    "items": [
+      "regex:carved_.*"
+    ],
+    "lore": [
+      "{name} remembers the potter's hand: a motif that once lay in clay is now cut into the side of the wood."
+    ],
+    "use": [
+      "Shows the motif of a pottery sherd on one side, in a darker shade of the wood. Made only in the world: sherd in the off hand, chisel in the main hand, right-click the side of a standing stripped log."
+    ],
+    "secret": [
+      "The sherd is not used up; the chisel loses 1 durability. Click carved wood with another sherd and the motif changes. Break it and the log keeps its motif; placed again, the motif faces you."
+    ]
+  },
+  "family:blazewood_planks": {
+    "items": [
+      "regex:(crimson|warped)_blazewood_planks"
+    ],
+    "lore": [
+      "{name}: wood that has been given fire to keep, and keeps it quietly."
+    ],
+    "use": [
+      "Eight blaze powder around one crimson or warped plank give one blazewood plank. It is the material for blazewood bookshelves."
+    ],
+    "secret": [
+      "Only crimson and warped planks take the blaze powder, since only nether wood is at home in the heat."
+    ]
+  },
+  "family:blazewood_bookshelf": {
+    "items": [
+      "regex:(crimson|warped)_blazewood_bookshelf"
+    ],
+    "lore": [
+      "{name} holds books that are bound with fire, and their pages are warm to the touch."
+    ],
+    "use": [
+      "A bookshelf of blazewood: it counts as two bookshelves at the Astral Enchanter and as one at the vanilla enchanting table. Three {item:simplebuilding:blaze_book} go into it."
+    ],
+    "secret": [
+      "Around the Astral Enchanter, a 5 x 5 floor of {item:simplebuilding:blazing_obsidian} adds strength on top of the shelves, once they give 30."
+    ]
+  },
+  "family:hammock": {
+    "items": [
+      "regex:.*_hammock"
+    ],
+    "lore": [
+      "{name}: a strip of cloth between two anchors, and the day drifts past a little faster."
+    ],
+    "use": [
+      "String, stick, string over three wool of one color. Hangs between two anchors at the same height, 2 to 4 free blocks apart, at any angle. Right-click lies you down; the clock of the dimension then runs faster. It is no sleep."
+    ],
+    "secret": [
+      "It never sets your respawn point and never skips the night. Time speeds up 8-fold by default once enough players rest, but crops, furnaces and redstone keep normal speed. A slanted hammock needs two clicks, one per anchor."
+    ]
+  },
+  "family:octant_color": {
+    "items": [
+      "regex:octant_.*"
+    ],
+    "lore": [
+      "{name}: the same measuring eye, only dyed, as if it had a favorite color."
+    ],
+    "use": [
+      "An {item:simplebuilding:octant} dyed by crafting it together with a dye (shapeless). It measures and sketches exactly as the plain one."
+    ],
+    "secret": [
+      "Washing a colored octant in a cauldron turns it back into the plain one."
+    ]
+  },
+  "family:palette_alt": {
+    "items": [
+      "regex:(veined|crystalline|layered|frosted)_(astralit|nihilith)"
+    ],
+    "lore": [
+      "{name} is the same stone in another coat, as if the End had tried a second pattern on it."
+    ],
+    "use": [
+      "The base block with a different pattern, copying its properties; mined with a pickaxe, drops itself. The stonecutter cuts it 1:1 from the base block; 4 in a square make 4 of the next pattern."
+    ],
+    "secret": [
+      "The Enderite Chisel walks the chain base, veined, crystalline, layered or frosted; sneaking walks it back. Astralit ones glow with light level 10, like the base block."
+    ]
+  },
+  "family:palette_base": {
+    "items": [
+      "regex:(astralit|nihilith|ender_quartz)_block"
+    ],
+    "lore": [
+      "{name}: a block as heavy as a small moon, polished by nothing but the dark."
+    ],
+    "use": [
+      "Four of the material in a square make 1. Four blocks make 4 Polished; the stonecutter cuts every other block of its palette from it. Hardness 3, a pickaxe is needed for the drop."
+    ],
+    "secret": [
+      "8 End Stone around 1 material give this block. The Enderite Chisel lifts Chiseled Bricks back up to the block, and walks the chain on to the patterned variants."
+    ]
+  },
+  "family:palette_polished": {
+    "items": [
+      "regex:polished_(astralit|nihilith|ender_quartz)"
+    ],
+    "lore": [
+      "{name}: smooth like a pond at night, with nothing left to say."
+    ],
+    "use": [
+      "4 blocks of the palette make 4 Polished. Cut it in the stonecutter into its stairs, slab, wall, bricks, pillar and chiseled bricks. Hardness 3, pickaxe needed."
+    ],
+    "secret": [
+      "Polished is also the corner piece of the End signal pistons: four Polished Astralit or Nihilit sit in the corners of the Astral and Nihil Piston."
+    ]
+  },
+  "family:palette_bricks": {
+    "items": [
+      "regex:(astralit|nihilith|ender_quartz)_bricks"
+    ],
+    "lore": [
+      "{name}: bricks laid by hands that do not exist, with mortar that fades into the stone."
+    ],
+    "use": [
+      "4 Polished make 4 Bricks. The stonecutter cuts their stairs, slab, wall and chiseled bricks from them. Hardness 3, pickaxe needed for the drop."
+    ],
+    "secret": [
+      "Vanilla End Stone Bricks recolor by dye: 8 around 1 material make 8 of these. Two brick slabs on top of each other become Chiseled Bricks."
+    ]
+  },
+  "family:palette_shapes": {
+    "items": [
+      "regex:(polished_)?(astralit_brick|nihilith_brick|ender_quartz_brick|astralit|nihilith|ender_quartz)_(stairs|slab|wall)"
+    ],
+    "lore": [
+      "{name} follows the lines of its stone, step by step or wall by wall."
+    ],
+    "use": [
+      "6 blocks of the palette in the shape of stairs make 4, 3 in a row make 6 slabs, 6 in two rows make 6 walls; the stonecutter cuts slabs two for one. Walls connect like any vanilla wall. Hardness 3, pickaxe needed."
+    ],
+    "secret": [
+      "A double slab drops two slabs. Stairs, slabs and walls sit in the vanilla tags of their shape, so every mod that reads these tags handles them correctly."
+    ]
+  },
+  "family:palette_pillar": {
+    "items": [
+      "regex:(astralit|nihilith|ender_quartz)_pillar"
+    ],
+    "lore": [
+      "{name} holds up a sky that is not there."
+    ],
+    "use": [
+      "2 Polished on top of each other make 2 Pillars. It can be placed along any axis, like a log. Hardness 3, a pickaxe is needed for the drop."
+    ],
+    "secret": [
+      "Vanilla pillars recolor too: 8 Purpur Pillars (or Quartz Pillars for Ender Quartz) around 1 material make 8 of these."
+    ]
+  },
+  "family:palette_chiseled": {
+    "items": [
+      "regex:chiseled_(astralit|nihilith|ender_quartz)_bricks"
+    ],
+    "lore": [
+      "{name} carries a quiet emblem in its frame: a creature of the End watches from the stone."
+    ],
+    "use": [
+      "2 brick slabs on top of each other make 1. The emblem is a shulker box with its head in the opening (Astralit), an Enderman eye with a horizontal slit (Nihilit) or a dragon eye with a vertical slit (Ender Quartz)."
+    ],
+    "secret": [
+      "The Enderite Chisel turns it into the base block of its palette, and sneaking turns it back into bricks. Hardness 3, a pickaxe is needed."
+    ]
+  },
+  "family:palette_end_stone": {
+    "items": [
+      "regex:(astral|nihil)_end_stone"
+    ],
+    "lore": [
+      "{name}: End stone that has taken on a color and refuses to give it back."
+    ],
+    "use": [
+      "8 Polished End Stone around 1 Astralit Dust or Nihilit Shard give 8 of the coated stone. It cuts into the brick set and the base block of its palette. Hardness 3, pickaxe needed."
+    ],
+    "secret": [
+      "This is the older recipe for the palette and still works: {item:simplebuilding:polished_end_stone} is its raw material."
+    ]
+  },
+  "family:palette_purpur": {
+    "items": [
+      "regex:(astral|nihil)_purpur_block"
+    ],
+    "lore": [
+      "{name} is purpur that was dipped in the light and came back changed."
+    ],
+    "use": [
+      "8 Purpur Blocks around 1 Astralit Dust or Nihilit Shard give 8 of these. The stonecutter turns it into the Polished block of its palette. Hardness 3, a pickaxe is needed."
+    ],
+    "secret": [
+      "A coat of dust is all it takes: the older coating recipe stays beside the newer polished-block recipes."
+    ]
+  },
+  "family:signal_lamp": {
+    "items": [
+      "regex:(astralit|nihilith)_lamp"
+    ],
+    "lore": [
+      "{name} lights only for those who speak its language."
+    ],
+    "use": [
+      "A redstone lamp plus matching channel redstone, shapeless. It receives its own channel only and never relays; vanilla redstone does not light it."
+    ],
+    "secret": [
+      "It reads the channel of its material alone: an Astralit lamp ignores Nihil Redstone completely, so the two channels can run side by side."
+    ]
+  },
+  "family:signal_switch": {
+    "items": [
+      "regex:(astralit|nihilith)_switch"
+    ],
+    "lore": [
+      "{name} flips a thought and the channel hears it."
+    ],
+    "use": [
+      "A lever plus matching channel redstone, shapeless. It powers up to 15 redstone segments of its own channel; vanilla redstone does not see it."
+    ],
+    "secret": [
+      "The range is a server setting between 1 and 15. Remove or switch off a source and the signal fades instead of snapping off."
+    ]
+  },
+  "family:signal_piston": {
+    "items": [
+      "regex:(astral|nihil)_piston"
+    ],
+    "lore": [
+      "{name} pushes when the other side tells it to."
+    ],
+    "use": [
+      "A piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges, four Polished blocks of the palette in the corners. It receives its own channel like a lamp, relays nothing, and fires when the signal switches on."
+    ],
+    "secret": [
+      "It fires on the rising edge only, not for as long as the signal stays on. So a steady channel gives one push, then silence."
+    ]
+  },
+  "family:spatula": {
+    "items": [
+      "regex:(stone|copper|iron|gold|diamond|netherite)_spatula"
+    ],
+    "lore": [
+      "{name}: a tool that retired and was reborn as something sharper."
+    ],
+    "use": [
+      "A legacy item from earlier versions. It is no longer craftable; it turns into the chisel of the same tier on server start and when you join."
+    ],
+    "secret": [
+      "The old spatula walked chains backwards. That job is now the sneaking chisel, so nothing is lost: damage, name and enchantments carry over to the chisel."
+    ]
+  },
+  "family:enderite_tool": {
+    "items": [
+      "regex:enderite_(pickaxe|axe|shovel|hoe|sword|spear)"
+    ],
+    "lore": [
+      "{name}: forged from netherite, it carries the End inside the metal."
+    ],
+    "use": [
+      "Smithing table: Enderite Upgrade, the netherite version of the tool and an Enderite Ingot. Fire resistant, floats on lava, safe from the void when dropped."
+    ],
+    "secret": [
+      "Dropped Enderite items hang in place if they fall into the void and do not despawn for 10 minutes, double the usual time."
+    ]
+  },
+  "family:enderite_armor": {
+    "items": [
+      "regex:enderite_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: a shell for those who intend to fall a long way and walk away."
+    ],
+    "use": [
+      "Smithing table: Enderite Upgrade, the netherite piece and an Enderite Ingot. Resists knockback 0.2 per piece (netherite 0.1). Can be trimmed. Fire resistant."
+    ],
+    "secret": [
+      "Worn pieces blunt void damage and, while you sneak in a fall, slow your sink: 25 percent with one piece, up to 80 with all four."
+    ]
+  },
+  "family:enderite_mount_armor": {
+    "items": [
+      "regex:enderite_(horse|nautilus)_armor"
+    ],
+    "lore": [
+      "{name}: even the mount deserves a coat from the End."
+    ],
+    "use": [
+      "Smithing table: Enderite Upgrade, the Netherite version and an Enderite Ingot. The top tier of mount armor: 22 armor on the body slot instead of netherite's 19."
+    ],
+    "secret": [
+      "It is fire resistant and safe from the void, like every Enderite item that lies in the world."
+    ]
+  },
+  "family:trapped_copper_chest": {
+    "items": [
+      "regex:(waxed_)?(exposed_|weathered_|oxidized_)?trapped_copper_chest"
+    ],
+    "lore": [
+      "{name}: copper that keeps one eye open."
+    ],
+    "use": [
+      "A copper chest of any stage (waxed too) plus a tripwire hook. It signals its viewer count like the vanilla trapped chest and ages through the four copper stages; a pair takes the less oxidized stage."
+    ],
+    "secret": [
+      "Pairs only with other trapped copper chests. Honeycomb waxes it with a plain right-click, an axe scrapes wax or one stage off."
+    ]
+  },
+  "family:piston_head": {
+    "items": [
+      "regex:(reinforced|netherite|enderite)_piston_head"
+    ],
+    "lore": [
+      "{name}: the part of a piston that does the work and gets none of the praise."
+    ],
+    "use": [
+      "The head that appears in front of the piston while it is extended and slides back in with it. It has no item."
+    ],
+    "secret": [
+      "You only ever see it in motion; the piston itself is what you place and break."
+    ]
+  },
+  "family:flypad_legacy": {
+    "items": [
+      "regex:(enderite|netherite)_flypad"
+    ],
+    "lore": [
+      "{name}: an old pad from before the three-tier rework."
+    ],
+    "use": [
+      "A legacy item. It turns into its current tier on its own: the Netherite Flypad becomes the Reinforced Flypad II, the Enderite Flypad becomes the Stellar Flypad III."
+    ],
+    "secret": [
+      "You do not need to do anything; the swap happens in the inventory and the pad keeps flying for you."
+    ]
+  },
+  "family:elytra_pad_legacy": {
+    "items": [
+      "regex:(fine|reinforced)_elytra_pad"
+    ],
+    "lore": [
+      "{name}: an old pad from before the rework, still waiting to be called by its new name."
+    ],
+    "use": [
+      "A legacy item. The old tier II (Reinforced) becomes Elytra Pad I, the old tier V (Fine) becomes Enderite Elytra Pad III; the swap happens on its first tick."
+    ],
+    "secret": [
+      "The item exchanges itself in your inventory; you lose nothing."
+    ]
+  },
+  "family:teleporter_legacy": {
+    "items": [
+      "regex:spawn_teleporter_tier_[34]"
+    ],
+    "lore": [
+      "{name}: an old stage that has moved on."
+    ],
+    "use": [
+      "A legacy item. Tier III became Spawn Teleporter II, tier IV became the Enderite Spawn Teleporter (tier III) after the three-tier rework."
+    ],
+    "secret": [
+      "The swap happens by itself in your inventory."
+    ]
+  },
+  "family:copper_plate": {
+    "items": [
+      "regex:(waxed_)?(exposed_|weathered_|oxidized_)?copper_pressure_plate"
+    ],
+    "lore": [
+      "{name}: a plate that waits to see if you mean it."
+    ],
+    "use": [
+      "Only powers after a player has stood on it for a while: 1 second unoxidized, 2 exposed, 3 weathered, 4 oxidized; the same delay applies on release. Waxed ones keep their stage, unwaxed ones oxidize."
+    ],
+    "secret": [
+      "Honeycomb waxes it; an axe scrapes the wax or one stage off. Use the delay for doors that should only open for someone who stays."
+    ]
+  },
+  "family:sage_ore": {
+    "items": [
+      "regex:(deepslate_)?sage_ore"
+    ],
+    "lore": [
+      "{name}: a vein that holds knowledge and gives it up reluctantly."
+    ],
+    "use": [
+      "An Overworld ore as rare as diamond, hardness 3 (4.5 in deepslate), needs an iron pickaxe or better. It drops only experience, 3 to 7 points, and rarely a Sage Orb."
+    ],
+    "secret": [
+      "Silk Touch keeps the ore block but gives no experience. Fortune raises the orb chance: 2 percent, up to 5 with Fortune III. The stone variant replaces stone and granite, the deepslate variant deepslate and tuff."
+    ]
+  },
+  "family:bucket_enderite": {
+    "items": [
+      "regex:enderite_(water_|lava_|soul_lava_|milk_)?bucket(_full)?"
+    ],
+    "lore": [
+      "{name}: a bucket that holds two and never breaks."
+    ],
+    "use": [
+      "An iron bucket surrounded by 8 Enderite Nuggets. It takes water, lava, soul lava and milk, and holds two buckets of one fluid. Use scoops while there is room; a full one pours one bucket; sneak and use pours one at any fill. The tooltip shows 1/2 or 2/2."
+    ],
+    "secret": [
+      "Unlike an iron bucket it survives soul lava: iron breaks when it pours soul lava, this one never does."
+    ]
+  },
+  "family:bucket_copper": {
+    "items": [
+      "regex:copper_(water_|lava_)?bucket"
+    ],
+    "lore": [
+      "{name}: a bucket that turns green with the years, like the roofs."
+    ],
+    "use": [
+      "Made from 3 copper ingots. It takes water and lava, never soul lava. It oxidizes in 4 stages, only while carried in the hotbar or off hand, at about a copper block's pace. Poured water never makes a source, and pouring lava breaks it."
+    ],
+    "secret": [
+      "Waxed it holds still when empty. With an axe in the off hand it scrapes one stage off, and honeycomb waxes it. A fully oxidized bucket scoops nothing any more, but pouring one that is full still works."
+    ]
+  },
+  "family:bucket_ceramic": {
+    "items": [
+      "regex:(chipped_|cracked_|brittle_)?ceramic_(water_|lava_)?bucket"
+    ],
+    "lore": [
+      "{name}: fired clay shaped like a bucket, as old as the first kitchens."
+    ],
+    "use": [
+      "Takes water and lava, but no soul lava and no milk. It wears like copper: intact, chipped, cracked, brittle, one pour per stage. Scooping does not wear it. The last pour breaks the brittle bucket."
+    ],
+    "secret": [
+      "Lava makes a ceramic bucket brittle at once, so it breaks when poured. A ceramic lava bucket burns up as furnace fuel."
+    ]
+  },
+  "family:super_carrot": {
+    "items": [
+      "regex:(netherite|enderite)_carrot"
+    ],
+    "lore": [
+      "{name}: a carrot that got serious."
+    ],
+    "use": [
+      "A hearty food: netherite carrot restores 6 hunger points, enderite carrot 12, and both can always be eaten. Craft: a carrot with 4 nuggets of the metal around it in a plus."
+    ],
+    "secret": [
+      "Both are fire resistant as items. The enderite one is epic and, like all Enderite, void-proof when dropped."
+    ]
+  },
+  "family:mob_head": {
+    "items": [
+      "regex:(blaze|breeze|cave_spider|drowned|enderman|husk|shulker|spider)_head|(bogged|stray)_skull"
+    ],
+    "lore": [
+      "{name}: a trophy for those who hunted it with lightning."
+    ],
+    "use": [
+      "Dropped by the mob when a charged creeper's explosion kills it; one head per explosion. Wearable on the head (Binding and Vanishing curses apply), and placeable on the ground in 16 rotations or on a wall."
+    ],
+    "secret": [
+      "Only a charged creeper counts, and a charged creeper only comes from a lightning strike. Mobs killed any other way never drop their head. A worn mob head hides you a little from mobs."
+    ]
+  },
+  "family:wall_head": {
+    "items": [
+      "regex:.*_wall_(head|skull)"
+    ],
+    "lore": [
+      "{name}: the same trophy, hung on a wall instead of a shoulder."
+    ],
+    "use": [
+      "The wall version of the mob head. You do not get it as an item; placing the head on a wall creates it, and breaking it drops the head."
+    ],
+    "secret": [
+      "Heads come only from a charged creeper's explosion, one per blast."
+    ]
+  },
+  "family:disc_other_side": {
+    "items": [
+      "regex:music_disc_.*(_b_side|_track_3)"
+    ],
+    "lore": [
+      "{name}: the other side of a disc, with its own song."
+    ],
+    "use": [
+      "The B-side (or third track) of a SimpleBuilding music disc. A placed disc (sneak and right-click on the ground) steps from track to track with a right-click of a sledgehammer, costing 1 durability."
+    ],
+    "secret": [
+      "The order is the first track, the B-side, then tracks 3 and 4 where they exist, then the first again. Each track keeps its own title in the tooltip."
+    ]
+  },
+  "family:nature_slab": {
+    "items": [
+      "regex:(dirt|grass|sand|gravel)_slab"
+    ],
+    "lore": [
+      "{name}: half a block of the ground, and still full of it."
+    ],
+    "use": [
+      "Three of the full block in a row make 6 slabs; there is no stonecutter recipe. Two slabs of the same kind make the full block again, and a shovel mines them fastest."
+    ],
+    "secret": [
+      "Sand and gravel slabs fall like sand; a falling bottom slab landing on a matching one joins it into the full block. The grass slab is tinted by the biome and drops a dirt slab without Silk Touch."
+    ]
+  },
+  "family:chiseled_ice": {
+    "items": [
+      "regex:chiseled_(packed|blue)_ice"
+    ],
+    "lore": [
+      "{name}: ice with a carved sign, as cold as it ever was."
+    ],
+    "use": [
+      "Cut from one packed or blue ice in the stonecutter, one for one. Packed ice shows an ice crystal, blue ice a diamond. As slippery as its base block, and drops only with Silk Touch."
+    ],
+    "secret": [
+      "Slide a boat across a floor of it: the carved block keeps the same friction as the plain one."
+    ]
+  },
+  "family:froglight_color": {
+    "items": [
+      "regex:(scarlet|aqua|azure)_froglight"
+    ],
+    "lore": [
+      "{name}: a lamp the frogs did not make."
+    ],
+    "use": [
+      "Any froglight plus red, cyan or blue dye. It glows at light level 15 like the vanilla froglights."
+    ],
+    "secret": [
+      "The three vanilla colors still come only from frogs; scarlet, aqua and azure only from the dye vat."
+    ]
+  },
+  "family:gravity_sand": {
+    "items": [
+      "regex:levitating_(sand|gravel)"
+    ],
+    "lore": [
+      "{name}: sand that has decided up is the right way to fall."
+    ],
+    "use": [
+      "Sand or gravel with reversed gravity: it climbs one block at a time until something stops it."
+    ],
+    "secret": [
+      "Suspended Sand and Suspended Gravel are its gravity-free twins and stay where they are put."
+    ]
+  },
+  "family:suspended": {
+    "items": [
+      "regex:suspended_(sand|gravel)"
+    ],
+    "lore": [
+      "{name}: sand that forgot to fall."
+    ],
+    "use": [
+      "Sand or gravel without gravity: it stays exactly where you put it. It is solid, and you can stand on it."
+    ],
+    "secret": [
+      "Handy for floating bridges and sculpted ceilings that never collapse."
+    ]
+  },
+  "family:dimensional_scrap": {
+    "items": [
+      "regex:(end_|nether_)?dimensional_scrap"
+    ],
+    "lore": [
+      "{name}: a block found in every dimension, and in none of them quite at home."
+    ],
+    "use": [
+      "Rarer than ancient debris. The Overworld variant sits in deepslate and tuff between Y -64 and -32, the Nether one in netherrack, basalt and blackstone between Y 8 and 24, the End one in end stone between Y 10 and 70."
+    ],
+    "secret": [
+      "It has no recipe and no use yet. It is a block still waiting for its purpose."
+    ]
+  },
+  "family:armor_stand": {
+    "items": [
+      "regex:(small|straw)_armor_stand"
+    ],
+    "lore": [
+      "{name}: a post for the things that need a place to stand."
+    ],
+    "use": [
+      "Small Armor Stand: a wooden post with a cross bar on a smooth stone plate that shows exactly one item, one piece of armor or one horse, wolf or nautilus armor. Craft a column of stick, stick, smooth stone slab. Straw Armor Stand: Armor Stand and Hay Bale, shapeless."
+    ],
+    "secret": [
+      "The Straw Armor Stand works as a scarecrow; a carved pumpkin turns it into a Training Dummy."
+    ]
+  },
+  "family:guide_topic": {
+    "items": [
+      "regex:guide_book_.*"
+    ],
+    "lore": [
+      "{name}: a chapter that learned to stand on its own."
+    ],
+    "use": [
+      "A topic book of the Mega Guide. Its tab opens by itself as soon as one of its gate recipes is in your recipe book; nothing is consumed."
+    ],
+    "secret": [
+      "Only the base guides are real items. Topic books are inserted content, so you only ever read them inside the guide."
+    ]
   }
 }

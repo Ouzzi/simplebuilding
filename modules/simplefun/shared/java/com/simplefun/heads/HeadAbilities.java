@@ -56,7 +56,7 @@ public final class HeadAbilities {
   /** Rechtsklick eines Spielers auf einen anderen ({@code Entity#interact}); null = nichts zu tun. */
   public static InteractionResult interact(Player target, Player user, InteractionHand hand) {
     var fun = SimplefunCommon.getConfig().fun;
-    if (!fun.enableAnimalHeads || target == user) return null;
+    if (!SimplefunCommon.on() || !fun.enableAnimalHeads || target == user) return null;
     ItemStack held = user.getItemInHand(hand);
     if (fun.cowHeadMilking && held.is(Items.BUCKET) && wears(target, AnimalHead.COW)) {
       if (!user.level().isClientSide()) {
@@ -84,7 +84,7 @@ public final class HeadAbilities {
   /** Jeden Server-Tick des Traegers. */
   public static void tick(ServerPlayer player) {
     var fun = SimplefunCommon.getConfig().fun;
-    if (!fun.enableAnimalHeads || player.isSpectator() || !(player.level() instanceof ServerLevel level)) return;
+    if (!SimplefunCommon.on() || !fun.enableAnimalHeads || player.isSpectator() || !(player.level() instanceof ServerLevel level)) return;
     long now = level.getGameTime();
     if (fun.chickenHeadEggs && wears(player, AnimalHead.CHICKEN)) {
       Long next = NEXT_EGG.get(player);

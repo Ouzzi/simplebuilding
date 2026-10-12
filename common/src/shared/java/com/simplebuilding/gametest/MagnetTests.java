@@ -886,7 +886,7 @@ public final class MagnetTests {
         // 2026-09-28: the lapis moved up from the bottom right to the right middle; before 2026-09-27
         // " IR" / "ILI" / "BI " with a lodestone in the middle).
         // 26.3 (owner 2026-10-02): Iron Rods in place of the iron ingots.
-        net.minecraft.world.item.Item iron = com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_ROD : Items.IRON_INGOT;
+        net.minecraft.world.item.Item iron = com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_POLE : Items.IRON_INGOT;
         CraftingInput grid = grid3x3(
                 null, Items.REDSTONE, null,
                 iron, null, Items.LAPIS_LAZULI,

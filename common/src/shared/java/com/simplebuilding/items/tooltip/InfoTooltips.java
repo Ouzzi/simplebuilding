@@ -62,21 +62,14 @@ public final class InfoTooltips {
         Item item = stack.getItem();
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION && item == ModItems.SILENT_DANDELION) {
             out.add(gray("tooltip.simplebuilding.silent_dandelion"));
-            out.add(gray("tooltip.simplebuilding.silent_dandelion.2"));
         }
         if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
                 && item instanceof com.simplebuilding.items.custom.SledgehammerItem) {
             out.add(gray("tooltip.simplebuilding.sledgehammer.corner"));
-            out.add(gray("tooltip.simplebuilding.sledgehammer.corner.2"));
-            out.add(gray("tooltip.simplebuilding.sledgehammer.corner.3"));
-            out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time"));
-            out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time.2"));
-            out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time.3"));
         }
         // Material-Achtel (Queue Nachtrag 24): setzen, Steinmetz, Melonenscheibe, essbare Glitzermelone.
         if (item instanceof com.simplebuilding.items.custom.MaterialOctetItem) {
             out.add(gray("tooltip.simplebuilding.material_octet"));
-            out.add(gray("tooltip.simplebuilding.material_octet.2"));
         }
         if (com.simplebuilding.blocks.ModBlocks.MELON_OCTET != null && item == net.minecraft.world.item.Items.MELON_SLICE) {
             out.add(gray("tooltip.simplebuilding.melon_slice.place"));
@@ -93,10 +86,7 @@ public final class InfoTooltips {
         }
         if (item == ModItems.ENDERITE_HELMET || item == ModItems.ENDERITE_CHESTPLATE
                 || item == ModItems.ENDERITE_LEGGINGS || item == ModItems.ENDERITE_BOOTS) {
-            out.add(gray("tooltip.simplebuilding.enderite_armor.void"));
             out.add(gray("tooltip.simplebuilding.enderite_armor.glide"));
-            out.add(gray("tooltip.simplebuilding.enderite_armor.glide.2"));
-            out.add(gray("tooltip.simplebuilding.enderite_armor.glide.3"));
         }
         if (isModFood(item)) {
             foodLines(stack, out);
@@ -137,7 +127,6 @@ public final class InfoTooltips {
             int t = pad.getTier();
             out.add(tier(t, SpawnTeleporterBlock.MAX_TIER));
             out.add(gray("tooltip.simplebuilding.pad.teleport_wait", seconds(SpawnTeleporterBlockEntity.requiredTicks(t))));
-            out.add(gray("tooltip.simplebuilding.pad.teleport_wait.2", seconds(SpawnTeleporterBlockEntity.requiredTicks(t))));
             // Besitzer 2026-09-29: jede Stufe zum eigenen Spawn, mit Redstone zum Weltspawn.
             out.add(gray("tooltip.simplebuilding.pad.teleport_home"));
         } else if (block instanceof PotionPadBlock pad) {
@@ -147,7 +136,6 @@ public final class InfoTooltips {
             // Abklingzeit wie PotionPadBlock#cooldownAt (Config tweaks.padTuning.potionPadCooldownFactor).
             int cooldown = (int) Math.round(com.simplebuilding.tweaks.SimpleTweaks.config().padTuning.potionPadCooldown() * duration);
             out.add(gray("tooltip.simplebuilding.pad.potion", seconds(duration), seconds(cooldown)));
-            out.add(gray("tooltip.simplebuilding.pad.potion.2", seconds(duration), seconds(cooldown)));
         } else if (block instanceof ModFurnaceBlock || block instanceof ModSmokerBlock || block instanceof ModBlastFurnaceBlock) {
             int t = machineTier(block);
             if (t > 0) {
@@ -163,12 +151,10 @@ public final class InfoTooltips {
                 out.add(cooldown == 1 ? gray("tooltip.simplebuilding.hopper.speed_every_tick")
                         : gray("tooltip.simplebuilding.hopper.speed", cooldown));
                 out.add(gray("tooltip.simplebuilding.hopper.filter"));
-                out.add(gray("tooltip.simplebuilding.hopper.filter.2"));
             }
         } else if (block instanceof ReinforcedPistonBlock) {
             out.add(gray("tooltip.simplebuilding.reinforced_piston.limit", REINFORCED_PUSH_LIMIT));
             out.add(gray("tooltip.simplebuilding.reinforced_piston.breach"));
-            out.add(gray("tooltip.simplebuilding.reinforced_piston.breach.2"));
         } else if (block instanceof LevitatingBlock) {
             out.add(gray("tooltip.simplebuilding.levitating"));
         } else if (block == ModBlocks.SUSPENDED_SAND || block == ModBlocks.SUSPENDED_GRAVEL) {

@@ -75,7 +75,7 @@ def main():
         save(gauge_needle(frame), f'item/velocity_gauge_needle_{frame:02d}')
     save(v3.over(dial, gauge_needle(0)), 'item/velocity_gauge')
     save(v3.sage_ore_a(), 'block/deepslate_sage_ore')  # superseded: run sage_ore_smaller_2026_10_02.py afterwards
-    save(v3.iron_rod_textures(), 'block/iron_rod')
+    save(v3.iron_rod_textures(), 'block/iron_pole')
     print('ok')
 
 

@@ -3,6 +3,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
  @GameTest public void guideBook(GameTestHelper h){com.simplebuilding.modules.simplesounds.guide.SoundsGuide.gameTest(h);}
+ @GameTest public void subModSwitch(GameTestHelper h){SoundTests.subModSwitch(h);}
  @GameTest public void launchSmoke(GameTestHelper h){SoundTests.launch(h);}
  @GameTest public void configBounds(GameTestHelper h){SoundTests.bounds(h);}
  @GameTest public void soundFloodSafety(GameTestHelper h){SoundTests.flood(h);}

@@ -14,13 +14,17 @@ import net.minecraft.resources.ResourceKey;
 public final class ModuleNeoTests {
     private record Case(String name, Consumer<GameTestHelper> body) {}
 
-    private static final List<Case> CASES = List.of(
+    private static final List<Case> CASES = cases();
+
+    private static List<Case> cases() {
+        var out = new java.util.ArrayList<Case>(List.of(
             new Case("module_game_test_box_layouts", ContainerTests::layouts),
             new Case("module_game_test_box_layout_limits", ContainerTests::layoutLimits),
             new Case("module_game_test_narrow_box_layouts", ContainerTests::narrowLayouts),
             new Case("module_game_test_style_registry", ContainerTests::registry),
             new Case("module_game_test_block_palettes", ContainerTests::palettes),
             new Case("module_game_test_box_motifs", ContainerTests::motifs),
+            new Case("module_game_test_sub_mod_switch", ContainerTests::subModSwitch),
             new Case("module_game_test_config_defaults", ContainerTests::config),
             new Case("module_game_test_legacy_migration", ContainerTests::legacyMigration),
             new Case("module_game_test_style_toggle", ContainerTests::styleToggle),
@@ -28,7 +32,10 @@ public final class ModuleNeoTests {
             new Case("module_game_test_station_palettes", ContainerTests::stationPalettes),
             new Case("module_game_test_station_layouts", ContainerTests::stationLayouts),
             new Case("module_game_test_work_layouts", ContainerTests::workLayouts),
-            new Case("module_game_test_work_palettes", ContainerTests::workPalettes));
+            new Case("module_game_test_work_palettes", ContainerTests::workPalettes)));
+        LinkedTests.ALL.forEach((name, body) -> out.add(new Case("module_game_test_" + name, body)));
+        return List.copyOf(out);
+    }
 
     private ModuleNeoTests() {}
 

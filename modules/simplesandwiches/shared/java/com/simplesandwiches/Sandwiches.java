@@ -13,6 +13,11 @@ public final class Sandwiches {
         return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
+    /** Super-mod switch "Enable Simple Sandwiches" (framework SubMods): off = registered but inert (no tab entries, no knife/board/bundle/cauldron play). */
+    public static boolean on() {
+        return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID);
+    }
+
     public static void init(java.nio.file.Path configDir) {
         com.simplesandwiches.config.SandwichConfig.load(configDir);
     }

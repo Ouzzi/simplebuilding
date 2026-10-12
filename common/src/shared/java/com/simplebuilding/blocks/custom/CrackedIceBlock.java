@@ -69,7 +69,7 @@ public class CrackedIceBlock extends IceBlock {
     }
 
     /** Abgebaut hinterlaesst es kein Wasser (anders als Eis): nur Statistik, Erschoepfung und Drops. */
-    @Override
+    // Kein @Override: auf der 26.2-Linie hat die Methode eine andere Signatur (Port-Run).
     public void playerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity,
                               ItemStack destroyedWith) {
         player.awardStat(Stats.BLOCK_MINED.get(this));

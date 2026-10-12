@@ -15,7 +15,8 @@ public final class FunLoot {
       ResourceKey<LootTable> key,
       java.util.function.Consumer<LootPool.Builder> add,
       HolderGetter.Provider registry) {
-    if (!key.equals(BuiltInLootTables.CHARGED_CREEPER)
+    if (!SimplefunCommon.on()
+        || !key.equals(BuiltInLootTables.CHARGED_CREEPER)
         || !SimplefunCommon.getConfig().fun.enableAnimalHeads) return;
     for (var t : AnimalHead.values())
       add.accept(

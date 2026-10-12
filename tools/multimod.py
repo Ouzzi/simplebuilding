@@ -132,6 +132,32 @@ def validate_standalone(entry, standalone, root):
         validate_relative_path(spec.get('report'), root, f'{mid}: standalone report')
 
 
+def validate_bundle(entry, modules, root):
+    """Super-/Sub-Mod (PLAN-MODULAUFTEILUNG): a sub-mod names its super-mod ('parent') and how it is bundled
+    ('bundle': required/optional); the parent lists it in requires/optional and nests it in every shared loader."""
+    if 'parent' not in entry and 'bundle' not in entry:
+        return
+    mid = entry['id']
+    by_id = {module['id']: module for module in modules}
+    parent = by_id.get(entry.get('parent'))
+    if parent is None or parent is entry or entry.get('bundle') not in ('required', 'optional'):
+        raise ValueError(f'invalid parent/bundle: {mid}')
+    field = 'requires' if entry['bundle'] == 'required' else 'optional'
+    if mid not in parent[field]:
+        raise ValueError(f'{parent["id"]} must list {mid} in {field}')
+    nest = {'fabric': 'include', 'neoforge': 'jarJar'}
+    for loader in set(entry['loaders']) & set(parent['loaders']):
+        sub = entry['projects'][loader]
+        build = (root.joinpath(*parent['projects'][loader].strip(':').split(':')) / 'build.gradle').read_text(encoding='utf-8')
+        if loader == 'forge':
+            name = sub.strip(':').split(':')[-2]
+            found = 'forgeBundleModules' in build and (f"'{sub}'" in build or f"'{name}'" in build)
+        else:
+            found = f"{nest[loader]} project('{sub}')" in build
+        if not found:
+            raise ValueError(f'{parent["id"]}/{loader} does not bundle {mid} ({sub})')
+
+
 def registries(root=ROOT):
     manifest = read(root / 'modules/modules.json')
     dev_registry = read(root / 'tools/devmods.json')
@@ -208,6 +234,8 @@ def registries(root=ROOT):
                             raise ValueError(f'local JAR path must remain inside the repository: {mid}')
     for entry in modules:
         validate_optional_metadata(entry, modules, root)
+    for entry in modules:
+        validate_bundle(entry, modules, root)
     return modules, dev
 
 def validate_selection(value, root=ROOT):

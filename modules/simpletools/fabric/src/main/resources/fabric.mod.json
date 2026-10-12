@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "simpletools",
+  "version": "${version}",
+  "name": "Simple Tools",
+  "description": "Tools switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpletools.ToolsFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpletools.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpletools.ToolsFabricClient"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simpletools.ToolsModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "simpletools.mixins.json"
+  ],
+  "suggests": {
+    "simplebuilding": "*",
+    "simplequalityoflife": "*",
+    "modmenu": "*"
+  }
+}

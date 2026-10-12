@@ -17,7 +17,7 @@ public final class RidingLoot {
  public static final String[] TABLES={"chests/bastion_treasure","chests/bastion_other","chests/nether_bridge","chests/trial_chambers/reward_common","chests/trial_chambers/reward_rare"};
  public static final int[][] BASTION={{0,2,20},{0,3,10},{1,2,10},{1,3,5}}, FORTRESS={{0,2,5},{0,3,10}}, TRIAL={{1,2,10},{1,3,3},{0,2,10},{0,3,3},{2,4,10}};
  public static void apply(ResourceKey<LootTable> key,Consumer<LootPool.Builder> add,HolderGetter.Provider registries){
-  if(!Riding.CONFIG.worldGen.enableLootTableChanges)return;
+  if(!Riding.on()||!Riding.CONFIG.worldGen.enableLootTableChanges)return;
   String name=key.identifier().toString(); int[][] entries; int empty,rolls;
   for(String village:VILLAGE_TABLES)if(name.equals("minecraft:"+village)){add.accept(villagePool());return;}
   if(name.equals("minecraft:"+TABLES[0])||name.equals("minecraft:"+TABLES[1])){entries=BASTION;empty=BASTION_EMPTY_WEIGHT;rolls=BASTION_MAX_ROLLS;}
@@ -50,7 +50,7 @@ public final class RidingLoot {
  }
  /** Replaces a brushed find (deterministic per block seed); returns the original when not selected. */
  public static ItemStack archaeology(ResourceKey<LootTable> table,long seed,ItemStack found,HolderLookup.Provider registries){
-  if(!Riding.CONFIG.worldGen.enableLootTableChanges||table==null||Horseshoes.TEMPLATE==null)return found;
+  if(!Riding.on()||!Riding.CONFIG.worldGen.enableLootTableChanges||table==null||Horseshoes.TEMPLATE==null)return found;
   String name=table.identifier().toString();
   var random=net.minecraft.util.RandomSource.create(seed^0x5EED_4005E5L);
   if(name.equals("minecraft:"+TRAIL_RARE))return random.nextInt(TRAIL_RARE_ONE_IN)==0?new ItemStack(Horseshoes.TEMPLATE):found;

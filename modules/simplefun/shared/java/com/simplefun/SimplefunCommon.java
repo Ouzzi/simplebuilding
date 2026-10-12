@@ -7,6 +7,11 @@ import java.nio.file.*;
 public final class SimplefunCommon {
   private static SimplefunConfig config;
 
+  /** Super-mod switch "Enable Simple Fun" (framework SubMods): off = items stay registered but inert, no tabs, no loot. */
+  public static boolean on() {
+    return com.simplebuilding.framework.api.SubMods.enabled("simplefun");
+  }
+
   public static void init() {
     Constants.LOG.info("Initializing Simple Fun 26.3");
   }

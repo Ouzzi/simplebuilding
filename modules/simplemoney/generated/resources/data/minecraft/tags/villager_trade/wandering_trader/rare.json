@@ -38,10 +38,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/astralit_lamp",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/astralit_ore",
       "required": false
     },
@@ -54,11 +50,11 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/astralit_quartz_checker",
+      "id": "simplemoney:links/simplebuilding/bridge_redstone",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/astralit_switch",
+      "id": "simplemoney:links/simplebuilding/astralit_quartz_checker",
       "required": false
     },
     {
@@ -474,10 +470,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/nihilith_lamp",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/nihilith_ore",
       "required": false
     },
@@ -495,10 +487,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/nihilith_shard",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/nihilith_switch",
       "required": false
     },
     {
@@ -611,6 +599,10 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/enderite_bucket",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleenddragonfight/dragon_chitin",
       "required": false
     },
     {

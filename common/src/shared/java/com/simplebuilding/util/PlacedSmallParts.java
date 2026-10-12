@@ -551,6 +551,40 @@ public final class PlacedSmallParts {
         return shape.optimize();
     }
 
+    /**
+     * N37 (Besitzer 2026-10-11, "das angeschaute Teil wird abgebaut"): das Teil, das der Strahl {@code from} -> {@code to}
+     * zuerst trifft, je Teil mit seiner eigenen Trefferform ({@link #partShape}); -1, wenn er keins trifft.
+     */
+    public static int partAt(List<ItemStack> parts, Direction facing, BlockPos pos, net.minecraft.world.phys.Vec3 from,
+                             net.minecraft.world.phys.Vec3 to) {
+        int count = Math.min(parts.size(), MAX_PARTS);
+        boolean stack = ingotStack(parts);
+        int best = -1;
+        double bestDistance = Double.MAX_VALUE;
+        for (int i = 0; i < count; i++) {
+            net.minecraft.world.phys.BlockHitResult hit = partShape(parts.get(i), facing, count, i, stack).clip(from, to, pos);
+            if (hit != null) {
+                double distance = hit.getLocation().distanceToSqr(from);
+                if (distance < bestDistance) {
+                    best = i;
+                    bestDistance = distance;
+                }
+            }
+        }
+        return best;
+    }
+
+    /**
+     * Das Teil, auf das {@code player} schaut (Blickstrahl ueber seine Block-Reichweite, {@link #partAt}); trifft der
+     * Strahl keins (etwa beim schnellen Wegdrehen), das zuletzt dazugelegte - abgebaut wird immer nur ein Teil.
+     */
+    public static int lookedAtPart(Player player, List<ItemStack> parts, Direction facing, BlockPos pos) {
+        net.minecraft.world.phys.Vec3 eye = player.getEyePosition();
+        net.minecraft.world.phys.Vec3 reach = eye.add(player.getViewVector(1.0F).scale(player.blockInteractionRange() + 1.0));
+        int index = partAt(parts, facing, pos, eye, reach);
+        return index >= 0 ? index : Math.min(parts.size(), MAX_PARTS) - 1;
+    }
+
     /** Trefferform eines Teils: die Quader des stehenden Modells bzw. die deckenden Pixel der Item-Textur. */
     public static VoxelShape partShape(ItemStack part, Direction facing, int count, int index) {
         return partShape(part, facing, count, index, false);

@@ -10,7 +10,9 @@
     "LivingEntityDisguiseMixin",
     "PlayerDisguiseMixin",
     "ServerPlayerGameModeDisguiseMixin",
-    "TargetingConditionsCloakMixin"
+    "TargetingConditionsCloakMixin",
+    "LivingEntityGravityMixin",
+    "EndGatewayFeatureMixin"
   ],
   "client": [
     "DeceiverLookMixin",

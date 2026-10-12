@@ -2,7 +2,7 @@
 
 Besitzer N37: die Falle tarnt sich als Sculk. Alle Sculk-Flaechen zeigen die Vanilla-Textur ``minecraft:block/sculk``
 (per Referenz, nichts Vanilla eingecheckt) mit deren eigener Leuchtanimation - das ist zugleich das ruhige "Atmen" der
-Falle. Die Zaehne sind nur eine feine, dunkle Andeutung (eigene Textur ``sculk_jaw.png`` in der Sculk-Palette).
+Falle. Die Zaehne: dunkler Sockel, gedaempfte Knochenspitzen (N38), eigene Textur ``sculk_jaw.png``.
 
 Gegen die hellen Kantenlinien (N37, Bild im Spiel): keine Teilbereiche einer gemeinsamen Textur mehr (die Kanten zogen
 Nachbartexel aus dem Knochen-Feld), sondern Auto-UV aus der Lage wie bei Vanilla-Bloecken; verdeckte Flaechen
@@ -25,7 +25,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
-PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", os.path.expanduser("~/previews") + "/n37"))
+PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", os.path.expanduser("~/previews") + "/n41"))
 WIKI = ROOT / "wiki/assets/textures"
 
 
@@ -46,25 +46,35 @@ def rng(seed):
     return nxt
 
 
+# Besitzer N38: die Spitzen sind gedaempfter Knochen - an der Naht als Zaehne erkennbar, sonst bleibt die Tarnung.
+BONE = [rgb(h) for h in ("3e3c33", "4f4c40", "625e4e", "746f5c")]
+
+
 def texture():
-    """16x16 Zahn-Textur fuer Auto-UV: Zeile v entspricht Modellhoehe 16 - v; die Zaehne reichen bis Hoehe 10."""
+    """16x16 Zahn-Textur fuer Auto-UV: Zeile v entspricht Modellhoehe 16 - v. Zeilen 0..7 (Hoehe ab 9, die Spitzen der
+    geschlossenen Zaehne) Knochen, 8..9 Uebergang, darunter Sculk-dunkel. Die Oberseiten der Zaehne nehmen ein Knochenfeld."""
     img = Image.new("RGBA", (16, 16))
     px = img.load()
     r = rng(17)
     for y in range(16):
         for x in range(16):
-            t = 1 + (1 if r() < 0.3 else 0)
-            if y <= 7:  # Hoehe 9..16: Spitzen, eine Stufe heller
-                t += 1
-            if y <= 6 and (x + y) % 5 == 0:
-                t += 1  # feine Kante, nur bei genauem Hinsehen
-            if y >= 12 and r() < 0.4:
-                t -= 1
-            px[x, y] = TOOTH[max(0, min(4, t))]
+            if y <= 7:
+                t = 2 + (1 if y <= 3 and r() < 0.5 else 0) - (1 if r() < 0.25 else 0)
+                px[x, y] = BONE[max(0, min(3, t))]
+            elif y <= 9 and r() < (0.6 if y == 8 else 0.3):
+                px[x, y] = BONE[0]
+            else:
+                t = 1 + (1 if r() < 0.3 else 0) - (1 if y >= 12 and r() < 0.4 else 0)
+                px[x, y] = TOOTH[max(0, min(4, t))]
     return img
 
 
-SCULK, TEETH = "#sculk", "#teeth"
+TOOTH_TOP_UV = [4, 5, 6, 7]  # Oberseite der Zaehne: Knochen, unabhaengig von der Lage
+# Besitzer N41: offen dezenter - kleinere Zaehne, Oberseite nur aus dem blassen Uebergang (Knochen-Flecken auf Sculk).
+OPEN_TOOTH_TOP_UV = [4, 8, 6, 10]
+
+
+SCULK, TEETH, TEETH_OPEN = "#sculk", "#teeth", "#teeth_open"
 LIPS = [(0, 2, 4, 0), (1, 4, 6, 1), (3, 6, 7, 2.5)]  # (Abstand vom Rand, y0, y1, z-Einzug) je Stufe
 
 
@@ -73,10 +83,13 @@ def jaw_elements(f):
     els = [([0, 0, 0], [16, 2, 16], SCULK)]
     if f == 0:
         els += [([0, 2, 0], [2, 4, 16], SCULK), ([14, 2, 0], [16, 4, 16], SCULK)]
+        # N41: offen kleiner (1,5 breit, 2,5 hoch statt 2 breit, 4 hoch) und blasser, damit die Tarnung haelt.
         for z in (0, 4, 8, 12):
-            els += [([0, 4, z], [2, 6, z + 2], TEETH), ([0.5, 6, z + 0.5], [1.5, 8, z + 1.5], TEETH)]
+            els += [([0.25, 4, z + 0.25], [1.75, 5, z + 1.75], TEETH_OPEN),
+                    ([0.5, 5, z + 0.5], [1.5, 6.5, z + 1.5], TEETH_OPEN)]
         for z in (2, 6, 10, 14):
-            els += [([14, 4, z], [16, 6, z + 2], TEETH), ([14.5, 6, z + 0.5], [15.5, 8, z + 1.5], TEETH)]
+            els += [([14.25, 4, z + 0.25], [15.75, 5, z + 1.75], TEETH_OPEN),
+                    ([14.5, 5, z + 0.5], [15.5, 6.5, z + 1.5], TEETH_OPEN)]
         return els
     inner = 2 + 6 * f  # Innenkante der Lippen wandert vom Rand zur Mitte
     for out, y0, y1, zi in LIPS:
@@ -130,7 +143,11 @@ def model(f):
         for face, (ax, sign) in AXIS.items():
             if covered(i, face, raw):
                 continue
-            entry = {"texture": texture_ref}
+            entry = {"texture": TEETH if texture_ref == TEETH_OPEN else texture_ref}
+            if texture_ref == TEETH and face == "up":
+                entry["uv"] = TOOTH_TOP_UV
+            elif texture_ref == TEETH_OPEN and face == "up":
+                entry["uv"] = OPEN_TOOTH_TOP_UV
             if (sign < 0 and frm[ax] == 0) or (sign > 0 and to[ax] == 16):
                 entry["cullface"] = face
             faces[face] = entry

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * Since 0.1.7. One policy for a broken server config in every module: never crash, move the unreadable file to
@@ -32,6 +33,28 @@ public final class ConfigFiles {
         } catch (Exception e) {
             warn.accept("Unreadable " + file.getFileName() + ", using defaults (" + e + "); old file kept as " + quarantine(file));
             return null;
+        }
+    }
+
+    /**
+     * Since 0.1.8. Config takeover when a sub-mod leaves a bigger mod (split plan 3.2 item 8): if {@code newFile} does
+     * not exist but {@code oldFile} does, {@code extract} turns the old file's text into the new file's text (or
+     * {@code null}: nothing to take over), which is written to {@code newFile}. The old file is never changed; an
+     * unreadable old file or a failing {@code extract} leaves everything as it is. {@code log} gets one line when a file
+     * was written or the takeover failed. Returns whether {@code newFile} was written.
+     */
+    public static boolean adoptLegacy(Path newFile, Path oldFile, UnaryOperator<String> extract, Consumer<String> log) {
+        if (newFile == null || oldFile == null || Files.exists(newFile) || !Files.isRegularFile(oldFile)) return false;
+        try {
+            String text = extract.apply(Files.readString(oldFile));
+            if (text == null) return false;
+            if (newFile.getParent() != null) Files.createDirectories(newFile.getParent());
+            Files.writeString(newFile, text);
+            log.accept("Took over settings from " + oldFile.getFileName() + " into " + newFile.getFileName() + " (old file unchanged)");
+            return true;
+        } catch (Exception e) {
+            log.accept("Could not take over settings from " + oldFile.getFileName() + " (" + e + "); using defaults");
+            return false;
         }
     }
 

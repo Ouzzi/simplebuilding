@@ -1,0 +1,21 @@
+{
+  "simplecreatures.title": "Simple Creatures",
+  "simplecreatures.tab.general": "Allgemein",
+  "simplecreatures.option.mutedEntities": "Stummgeschaltete Entity-Typen",
+  "simplecreatures.option.mutedEntities.tooltip": "Liste von Entity-IDs (z.B. minecraft:cow),\nderen Geräusche stummgeschaltet werden.\nStandard: [].",
+  "simplecreatures.option.nametagMuteSuffixes": "Namensschild-Stummschaltung",
+  "simplecreatures.option.nametagMuteSuffixes.tooltip": "Mobs mit diesen Namenssuffixen sind stumm.\nStandard: [\"_mute\", \"_shhh\"].",
+  "simplecreatures.option.nametagBabySuffixes": "Baby-Suffixe",
+  "simplecreatures.option.nametagBabySuffixes.tooltip": "Babys mit diesen Namenssuffixen werden\nniemals erwachsen (z.B. _baby). Standard:\n[\"_baby\", \"_small\"].",
+  "simplecreatures.option.piglinsIgnoreGoldTrims": "Piglins ignorieren Gold-Trims",
+  "simplecreatures.option.piglinsIgnoreGoldTrims.tooltip": "Piglins greifen nicht an, wenn du Rüstung mit\nGold-Trims trägst. Standard: true. Angriffe\nund Behälterinteraktionen können Piglins\nweiterhin verärgern.",
+  "simplecreatures.option.piglinsIgnoreGoldTools": "Piglins ignorieren Gold-Werkzeuge",
+  "simplecreatures.option.piglinsIgnoreGoldTools.tooltip": "Piglins greifen nicht an, wenn du goldene\nWerkzeuge oder Waffen hältst. Standard: true.\nAngriffe und Behälterinteraktionen können\nPiglins weiterhin verärgern.",
+  "command.simplecreatures.changed": "Konfiguration gespeichert: %s = %s",
+  "command.simplecreatures.list": "Suffixe: %s",
+  "command.simplecreatures.exists": "Suffix existiert bereits.",
+  "command.simplecreatures.added": "Suffix hinzugefügt: %s",
+  "command.simplecreatures.removed": "Suffix entfernt: %s",
+  "command.simplecreatures.missing": "Suffix nicht gefunden.",
+  "command.simplecreatures.cleared": "Suffixliste geleert."
+}

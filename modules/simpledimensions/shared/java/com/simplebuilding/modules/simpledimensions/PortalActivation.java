@@ -10,7 +10,7 @@ import java.util.*;
 public final class PortalActivation {
  public static InteractionResult ignite(ServerPlayer player,InteractionHand hand,BlockHitResult hit){
   var level=player.level();var runtime=DimensionRuntime.get(level.getServer());
-  var item=player.getItemInHand(hand);if(!(item.is(Items.FLINT_AND_STEEL)||item.is(Items.FIRE_CHARGE))||player.isSpectator()||!runtime.settings.accessEnabled)return InteractionResult.PASS;
+  var item=player.getItemInHand(hand);if(!(item.is(Items.FLINT_AND_STEEL)||item.is(Items.FIRE_CHARGE))||player.isSpectator()||!DimensionRegistry.on()||!runtime.settings.accessEnabled)return InteractionResult.PASS;
   if(!runtime.canIgnite(player.getUUID()))return InteractionResult.FAIL;
   var pos=hit.getBlockPos().relative(hit.getDirection());
   if(player.distanceToSqr(pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5)>Math.pow(Math.min(5,player.blockInteractionRange()),2)||!level.mayInteract(player,pos))return InteractionResult.PASS;

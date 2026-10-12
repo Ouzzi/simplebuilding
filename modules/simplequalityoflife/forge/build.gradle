@@ -1,11 +1,11 @@
 plugins { id 'java-library'; id 'net.minecraftforge.gradle' version '7.0.36' }
 ext.moduleVersion = '1.0.6'
 ext.forgeExcludedSources = []
-ext.forgeMixinConfigs = ['simplequalityoflife-common.mixins.json', 'simplequalityoflife.forge.mixins.json']
+ext.forgeMixinConfigs = ['simplequalityoflife.forge.mixins.json']
 // SimpleLib (style blocks for the linked panel) nested next to framework (principle 6a).
 ext.forgeBundleSimplelib = true
 // Super-mod: nests its sub-mods next to framework/SimpleLib.
-ext.forgeBundleModules = [':modules:simpleweather:forge']
+ext.forgeBundleModules = [':modules:simpleweather:forge', ':modules:simpleinterfaces:forge', ':modules:simpleloot:forge', ':modules:simplecreatures:forge', ':modules:simplefarming:forge', ':modules:simpletools:forge', ':modules:simplemovement:forge']
 apply from: rootProject.file('gradle/module-forge.gradle')
 
 // Generate from canonical sources: only platform configuration calls/GUI markers differ.

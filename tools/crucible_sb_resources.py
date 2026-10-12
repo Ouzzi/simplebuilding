@@ -91,7 +91,7 @@ def files():
     out["data/minecraft/tags/fluid/lava.json"] = {"values": [f"{NS}:soul_lava", f"{NS}:flowing_soul_lava"]}
     out["data/simplelib/tags/fluid/extreme_heat.json"] = {"values": [f"{NS}:soul_lava", f"{NS}:flowing_soul_lava"]}
     out["data/simplelib/tags/item/needs_extreme_heat.json"] = {"values": [f"{NS}:layered_raw_enderite", f"{NS}:cracked_diamond"]}
-    out["data/simplelib/tags/item/crucible_handles.json"] = {"values": [f"{NS}:iron_rod"]}
+    out["data/simplelib/tags/item/crucible_handles.json"] = {"values": [f"{NS}:iron_pole"]}
     return out
 
 

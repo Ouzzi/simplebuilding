@@ -21,7 +21,18 @@ window.WIKI_MODULES = [
       "appleskin",
       "mousetweaks",
       "trinkets_updated",
-      "curios"
+      "curios",
+      "simplemaps",
+      "simplequestionary",
+      "simpleriding",
+      "simplesandwiches",
+      "simpletweaks",
+      "simplemoney",
+      "simplefun",
+      "simpledimensions",
+      "simpletrims",
+      "simplemobs",
+      "simpleenddragonfight"
     ]
   },
   {
@@ -67,7 +78,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "07525c14df07"
+    "dataHash": "76bca9c07015"
   },
   {
     "id": "simpleriding",
@@ -173,7 +184,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplequalityoflife",
     "displayName": "Simple Quality of Life",
-    "description": "Server-controlled movement, farming, mob, weather, and vault utilities. Super-mod: bundles Simple Weather.",
+    "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Creatures, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
     "version": "1.0.6",
     "minecraft": "26.3",
     "loaders": [
@@ -183,13 +194,19 @@ window.WIKI_MODULES = [
     ],
     "requires": [
       "cloth_config",
-      "simpleweather"
+      "simpleweather",
+      "simpleinterfaces",
+      "simpleloot",
+      "simplecreatures",
+      "simplefarming",
+      "simpletools",
+      "simplemovement"
     ],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "04d156b0dc40"
+    "dataHash": "aeeac60c4581"
   },
   {
     "id": "simpletweaks",
@@ -202,11 +219,10 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [
-      "simplebuilding"
-    ],
+    "requires": [],
     "optional": [
-      "simpledimensions"
+      "simpledimensions",
+      "simplebuilding"
     ],
     "dataHash": "20ecb63a9a29"
   },
@@ -265,12 +281,12 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "6b28bc6990ca"
+    "dataHash": "a2652f7207e4"
   },
   {
     "id": "simpleinterfaces",
     "displayName": "Simple Interfaces",
-    "description": "Client-only restyle of the Vanilla container screens in the Simple style: a coloured box per block and a light inventory box, drawn in code.",
+    "description": "Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -286,7 +302,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "a663ac27e962"
+    "dataHash": "29d1b7b0d459"
   },
   {
     "id": "simplemaps",
@@ -335,7 +351,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "16172cd7cef2"
+    "dataHash": "cdef72bdc0a6"
   },
   {
     "id": "simpleweather",
@@ -358,6 +374,108 @@ window.WIKI_MODULES = [
     "dataHash": "499e87886520"
   },
   {
+    "id": "simplemovement",
+    "displayName": "Simple Movement",
+    "description": "Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "de52a3d9d645"
+  },
+  {
+    "id": "simpletools",
+    "displayName": "Simple Tools",
+    "description": "Full-durability bonus, the Thrift enchantment, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "fc848f7a3f09"
+  },
+  {
+    "id": "simplefarming",
+    "displayName": "Simple Farming",
+    "description": "Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "5462cf9f9e6b"
+  },
+  {
+    "id": "simplecreatures",
+    "displayName": "Simple Creatures",
+    "description": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "c424ebe5c37c"
+  },
+  {
+    "id": "simpleloot",
+    "displayName": "Simple Loot",
+    "description": "Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplequalityoflife",
+      "modmenu"
+    ],
+    "dataHash": "39b577a27d14"
+  },
+  {
     "id": "simplequestionary",
     "displayName": "Simple Questionary",
     "description": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
@@ -372,6 +490,40 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "d114427fb9ab"
+    "dataHash": "edb709fa1fed"
+  },
+  {
+    "id": "simpleaesthetics",
+    "displayName": "Simple Aesthetics",
+    "description": "Super-mod without content of its own: bundles Simple Visuals, Simple Sounds and Simple Models with one on/off switch each.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplevisuals",
+      "simplesounds",
+      "simplemodels"
+    ],
+    "optional": [],
+    "dataHash": "3f5707f1aac1"
+  },
+  {
+    "id": "simpleenddragonfight",
+    "displayName": "Simple End Dragon Fight",
+    "description": "Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [],
+    "dataHash": "8e7329c39870"
   }
 ];

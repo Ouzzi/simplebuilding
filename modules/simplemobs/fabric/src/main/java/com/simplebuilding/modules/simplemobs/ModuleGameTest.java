@@ -3,6 +3,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
     @GameTest public void registered(GameTestHelper helper) { MobsTests.ALL.get("registered").accept(helper); }
+    @GameTest public void subModSwitch(GameTestHelper helper) { MobsTests.ALL.get("sub_mod_switch").accept(helper); }
     @GameTest public void phases(GameTestHelper helper) { MobsTests.ALL.get("phases").accept(helper); }
     @GameTest public void waveSizes(GameTestHelper helper) { MobsTests.ALL.get("wave_sizes").accept(helper); }
     @GameTest public void waveKinds(GameTestHelper helper) { MobsTests.ALL.get("wave_kinds").accept(helper); }
@@ -31,4 +32,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void deceiverDrops(GameTestHelper helper) { MobsTests.ALL.get("deceiver_drops").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void doubleChance(GameTestHelper helper) { MobsTests.ALL.get("double_chance").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void doubleCap(GameTestHelper helper) { MobsTests.ALL.get("double_cap").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void endnetherRegistered(GameTestHelper helper) { MobsTests.ALL.get("endnether_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void endnetherRules(GameTestHelper helper) { MobsTests.ALL.get("endnether_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void shellkerShell(GameTestHelper helper) { MobsTests.ALL.get("shellker_shell").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void shellkerConvert(GameTestHelper helper) { MobsTests.ALL.get("shellker_convert").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void shellkerGateway(GameTestHelper helper) { MobsTests.ALL.get("shellker_gateway").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void highGravity(GameTestHelper helper) { MobsTests.ALL.get("high_gravity").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void soulfireBlaze(GameTestHelper helper) { MobsTests.ALL.get("soulfire_blaze").accept(helper); }
 }

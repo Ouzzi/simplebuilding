@@ -20,6 +20,7 @@ public final class SoundClient {
   if(!initialized){load();initialized=true;}
   if(world!=mc.level || observedPlayer!=mc.player){world=mc.level;observedPlayer=mc.player;BUDGET.reset();tick=0;health=mc.player==null?0:mc.player.getHealth();}
   if(mc.level==null||mc.player==null||mc.isPaused())return;
+  if(!SoundsRegistry.on()){BUDGET.reset();return;}
   tick++;BUDGET.begin();CONFIG.normalize();
   var p=mc.player;var pos=p.blockPosition();float current=p.getHealth();
   boolean damage=current<health, healing=current>health;health=current;
@@ -43,7 +44,7 @@ public final class SoundClient {
     default->false;
    };
    float volume=CONFIG.volume(e);
-   if(active&&volume>0&&BUDGET.claim(p.getId(),e.id(),tick,CONFIG,e.interval())){
+   if(active&&SoundsRegistry.plays(volume)&&BUDGET.claim(p.getId(),e.id(),tick,CONFIG,e.interval())){
     var sound=BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse(e.sound()));
     if(sound!=null)mc.level.playLocalSound(p.getX(),p.getY(),p.getZ(),sound,SoundSource.AMBIENT,volume,Math.clamp(e.pitch()+(mc.level.getRandom().nextFloat()-.5f)*.1f,.5f,2f),false);
    }

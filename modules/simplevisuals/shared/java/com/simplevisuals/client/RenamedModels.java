@@ -24,13 +24,13 @@ public final class RenamedModels {
     public static boolean modelsLoaded;
     public static List<Entry> entries(Item item){return entries.stream().filter(e->e.item==item).toList();}
     public static ItemStack renderStack(ItemStack stack){
-        if(!Visuals.CONFIG.visuals.enableRenamedItemTextures||modelsLoaded||!stack.has(DataComponents.CUSTOM_NAME))return stack;
+        if(!Visuals.on()||!Visuals.CONFIG.visuals.enableRenamedItemTextures||modelsLoaded||!stack.has(DataComponents.CUSTOM_NAME))return stack;
         for(var entry:entries)if(entry.item==stack.getItem()&&entry.name.equals(stack.getHoverName().getString())){
             var copy=stack.copy();copy.set(DataComponents.ITEM_MODEL,entry.renderedModel);return copy;
         }return stack;
     }
     public static void reload(Minecraft mc){
-        if(!Visuals.CONFIG.visuals.enableRenamedItemTextures||modelsLoaded){entries=List.of();return;}
+        if(!Visuals.on()||!Visuals.CONFIG.visuals.enableRenamedItemTextures||modelsLoaded){entries=List.of();return;}
         try{
             var parsed=new ArrayList<Entry>();var files=new TreeMap<String,String>();
             for(var resource:mc.getResourceManager().listResources("cit",id->id.getPath().endsWith(".json")).entrySet()){

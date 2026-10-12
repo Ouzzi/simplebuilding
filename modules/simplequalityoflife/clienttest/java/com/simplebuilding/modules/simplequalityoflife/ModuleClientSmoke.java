@@ -7,8 +7,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             if (!(c.gui.screen() instanceof net.minecraft.client.gui.screens.TitleScreen)) throw new AssertionError("Title screen missing");
             if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplequalityoflife") || !net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplebuilding")) throw new AssertionError("Both mods must boot");
             try {
-                var type=Class.forName("com.simplequalityoflife.client.SimplequalityoflifeClient");
-                if(type.getField("autoWalkKey").get(null)==null || type.getField("crawlKey").get(null)==null) throw new AssertionError("Both key mappings registered");
+                var type=Class.forName("com.simplebuilding.modules.simplemovement.client.MovementClient");
+                if(type.getField("autoWalkKey").get(null)==null || type.getField("crawlKey").get(null)==null) throw new AssertionError("Both Simple Movement key mappings registered (bundled sub-mod)");
             } catch(ReflectiveOperationException e){throw new AssertionError(e);}
         });
         context.takeScreenshot("simplequalityoflife-title");
@@ -17,8 +17,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(c->{
                 if(c.player==null||c.level==null)throw new AssertionError("Title-to-world failed");
                 try {
-                    var config=Class.forName("com.simplequalityoflife.client.ClientNetworking").getMethod("getSyncedConfig").invoke(null);
-                    if(config==null)throw new AssertionError("Server config was not synchronized");
+                    for(var sub:new String[]{"com.simplebuilding.modules.simpleinterfaces.SimpleInterfaces","com.simplebuilding.modules.simplemovement.SimpleMovement","com.simplebuilding.modules.simpletools.SimpleTools","com.simplebuilding.modules.simplefarming.SimpleFarming"})
+                        if(Class.forName(sub).getMethod("syncedConfig").invoke(null)==null)throw new AssertionError("Sub-mod server config was not synchronized: "+sub);
                 }catch(ReflectiveOperationException e){throw new AssertionError(e);}
             });
             context.takeScreenshot("simplequalityoflife-world");
@@ -44,11 +44,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 box.setItem(11,new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.GOLD_INGOT,30));
                 ((net.minecraft.world.Container)level.getBlockEntity(other)).setItem(2,new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.IRON_INGOT,9));
                 player.setShiftKeyDown(true);
-                try{Class.forName("com.simplequalityoflife.container.LinkedContainers").getMethod("onRightClickBlock",net.minecraft.world.entity.player.Player.class,net.minecraft.world.InteractionHand.class,net.minecraft.core.BlockPos.class).invoke(null,player,net.minecraft.world.InteractionHand.MAIN_HAND,marked);}
+                try{Class.forName("com.simplebuilding.modules.simpleinterfaces.linked.LinkedContainers").getMethod("onRightClickBlock",net.minecraft.world.entity.player.Player.class,net.minecraft.world.InteractionHand.class,net.minecraft.core.BlockPos.class).invoke(null,player,net.minecraft.world.InteractionHand.MAIN_HAND,marked);}
                 catch(ReflectiveOperationException e){throw new AssertionError(e);}
                 player.setShiftKeyDown(false);
             });
-            context.waitFor(c->{try{return (Boolean)Class.forName("com.simplequalityoflife.client.LinkedHud").getMethod("active").invoke(null);}catch(ReflectiveOperationException e){throw new AssertionError(e);}});
+            context.waitFor(c->{try{return (Boolean)Class.forName("com.simplebuilding.modules.simpleinterfaces.client.LinkedHud").getMethod("active").invoke(null);}catch(ReflectiveOperationException e){throw new AssertionError(e);}});
             context.waitTicks(5);
             context.takeScreenshot("linkhud-hud");
             context.runOnClient(c->c.setScreenAndShow(new net.minecraft.client.gui.screens.inventory.InventoryScreen(c.player)));
@@ -85,7 +85,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     }
     private static boolean crawling(net.minecraft.client.Minecraft client){
         if(client.player==null)return false;
-        try{return (Boolean)Class.forName("com.simplequalityoflife.util.CrawlAccessor").getMethod("simpleQualityOfLife$isCrawling").invoke(client.player);}
+        try{return (Boolean)Class.forName("com.simplebuilding.modules.simplemovement.CrawlAccessor").getMethod("simpleQualityOfLife$isCrawling").invoke(client.player);}
         catch(ReflectiveOperationException e){throw new AssertionError(e);}
     }
 }

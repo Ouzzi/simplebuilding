@@ -6,9 +6,7 @@ public final class EndSystemsGameTest {
     @GameTest public void redstoneAliasesResolveItemsAndBlocks(GameTestHelper helper) { EndSystemsTests.redstoneAliasesResolveItemsAndBlocks(helper); }
     @GameTest public void vaultSharesOnlyItsFirstHalfAndPersists(GameTestHelper helper) { EndSystemsTests.vaultSharesOnlyItsFirstHalfAndPersists(helper); }
     @GameTest public void vaultOpensAndConfigPreservesContents(GameTestHelper helper) { EndSystemsTests.vaultOpensAndConfigPreservesContents(helper); }
-    @GameTest(maxTicks = 60) public void astralSignalTravelsFasterThanNihil(GameTestHelper helper) { EndSystemsTests.astralSignalTravelsFasterThanNihil(helper); }
     @GameTest(maxTicks = 220) public void channelsStayIsolatedAndStopAtFifteen(GameTestHelper helper) { EndSystemsTests.channelsStayIsolatedAndStopAtFifteen(helper); }
-    @GameTest public void matchingLampsAndConfigLimits(GameTestHelper helper) { EndSystemsTests.matchingLampsAndConfigLimits(helper); }
     @GameTest(maxTicks = 220) public void powderConnectsLikeRedstoneWire(GameTestHelper helper) { EndSystemsTests.powderConnectsLikeRedstoneWire(helper); }
     @GameTest(maxTicks = 100) public void pistonPushesAllSixAtOnce(GameTestHelper helper) { EndSystemsTests.pistonPushesAllSixAtOnce(helper); }
     @GameTest(maxTicks = 100) public void pistonNeverChains(GameTestHelper helper) { EndSystemsTests.pistonNeverChains(helper); }

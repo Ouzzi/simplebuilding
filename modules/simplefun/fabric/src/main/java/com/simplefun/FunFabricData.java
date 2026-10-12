@@ -16,7 +16,7 @@ public record FunFabricData() implements ResourceCondition {
   }
 
   public boolean test(RegistryOps.RegistryInfoLookup lookup) {
-    return SimplefunCommon.getConfig().fun.enableNoDamageTrades;
+    return SimplefunCommon.on() && SimplefunCommon.getConfig().fun.enableNoDamageTrades;
   }
 
   public static void register() {

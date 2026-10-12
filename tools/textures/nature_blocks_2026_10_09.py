@@ -277,9 +277,12 @@ def build():
     tex = {
         "chiseled_packed_ice": chiseled_packed_ice(),
         "chiseled_blue_ice": chiseled_blue_ice(),
-        "nautilus_shell_block_side": nautilus_side(),
-        "nautilus_shell_block_top": nautilus_top(),
     }
+    # Owner pick N41 (2026-10-12): proposal A15 (ring top, flowing bands with rust-glow edges).
+    import n41_proposals_2026_10_12 as n41
+    top, side = n41.ring_block(2)
+    tex["nautilus_shell_block_side"] = side.convert("RGB")
+    tex["nautilus_shell_block_top"] = top.convert("RGB")
     for i, (name, hue) in enumerate(FROGLIGHT_HUES.items()):
         ramp = froglight_ramp(hue)
         tex[f"{name}_froglight_side"] = froglight_side(ramp, 101 + i)

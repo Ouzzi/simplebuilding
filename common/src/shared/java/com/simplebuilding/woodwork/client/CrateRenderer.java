@@ -31,7 +31,13 @@ import org.jetbrains.annotations.Nullable;
  * lies on the lowest inner side: the bottom of an upright crate, the lower side wall of a crate laid on its side,
  * the ground under an upside-down one ({@link CrateBlock#interior}). Performance: at most
  * {@link #MAX_ITEMS} items per crate, and beyond {@link #NEAR} blocks only the two top layers (the rest hides
- * behind them at that distance). Loader-neutral; registered per loader.
+ * behind them at that distance).
+ *
+ * <p>Labels (Queue N37, owner 2026-10-11 crate_side.png: "from the side you cannot tell what is inside"): on the
+ * middle slat of every side wall, outside, the crate shows up to {@link #LABELS} different items of its content as small
+ * flat sprites (a block item as a thin slice of its model) - from every side one sees what the crate holds. Side walls
+ * are the horizontal ones across the opening's axis (four for an upright crate, two for one laid on its side).
+ * Loader-neutral; registered per loader.
  */
 public class CrateRenderer implements BlockEntityRenderer<CrateBlockEntity, CrateRenderer.State> {
     private static final float PX = 1.0F / 16.0F;
@@ -42,6 +48,10 @@ public class CrateRenderer implements BlockEntityRenderer<CrateBlockEntity, Crat
     public static final int MAX_ITEMS = CrateBlockEntity.SLOTS * PER_LAYER;
     /** Within this many blocks every layer is drawn, further away only the two top layers. */
     private static final double NEAR = 16.0;
+    /** Different items shown on each side wall. */
+    public static final int LABELS = 3;
+    /** Label size: a 16 px sprite drawn 4 px wide, as tall as the middle slat. */
+    private static final float LABEL_SCALE = 0.25F;
 
     private final ItemModelResolver itemModelResolver;
 
@@ -62,10 +72,17 @@ public class CrateRenderer implements BlockEntityRenderer<CrateBlockEntity, Crat
         public float cellX;
         public float cellZ;
         public int seed;
+        /** Opening of the crate, and the labels on its side walls (different items, slot order). */
+        public Direction facing = Direction.UP;
+        public int labelCount;
+        public final ItemStackRenderState[] labels = new ItemStackRenderState[LABELS];
 
         public State() {
             for (int i = 0; i < this.items.length; i++) {
                 this.items[i] = new ItemStackRenderState();
+            }
+            for (int i = 0; i < this.labels.length; i++) {
+                this.labels[i] = new ItemStackRenderState();
             }
         }
     }
@@ -82,7 +99,8 @@ public class CrateRenderer implements BlockEntityRenderer<CrateBlockEntity, Crat
         state.seed = (int) crate.getBlockPos().asLong();
         state.layers = 0;
         BlockState block = crate.getBlockState();
-        double[] in = CrateBlock.interior(block.hasProperty(CrateBlock.FACING) ? block.getValue(CrateBlock.FACING) : Direction.UP);
+        state.facing = block.hasProperty(CrateBlock.FACING) ? block.getValue(CrateBlock.FACING) : Direction.UP;
+        double[] in = CrateBlock.interior(state.facing);
         state.centreX = (float) (in[0] + in[3]) / 2.0F * PX;
         state.centreZ = (float) (in[2] + in[5]) / 2.0F * PX;
         // Cells a quarter of the inner width from the centre: the items reach the walls (and their gaps).
@@ -122,6 +140,22 @@ public class CrateRenderer implements BlockEntityRenderer<CrateBlockEntity, Crat
         for (int i = state.layers; i < CrateBlockEntity.SLOTS; i++) {
             state.items[i].clear();
         }
+        // Labels: the first LABELS different items (with their components), in slot order.
+        java.util.List<ItemStack> kinds = new java.util.ArrayList<>(LABELS);
+        for (int slot = 0; slot < CrateBlockEntity.SLOTS && kinds.size() < LABELS; slot++) {
+            ItemStack stack = crate.getItem(slot);
+            if (!stack.isEmpty() && kinds.stream().noneMatch(k -> ItemStack.isSameItemSameComponents(k, stack))) {
+                kinds.add(stack);
+            }
+        }
+        state.labelCount = kinds.size();
+        for (int i = 0; i < LABELS; i++) {
+            if (i < kinds.size()) {
+                this.itemModelResolver.updateForTopItem(state.labels[i], kinds.get(i), ItemDisplayContext.NONE, crate.getLevel(), null, state.seed + 97 * i);
+            } else {
+                state.labels[i].clear();
+            }
+        }
     }
 
     @Override
@@ -154,6 +188,44 @@ public class CrateRenderer implements BlockEntityRenderer<CrateBlockEntity, Crat
                     poseStack.scale(SCALE, SCALE, 1.0F);
                 }
                 item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+                poseStack.popPose();
+            }
+        }
+        submitLabels(state, poseStack, collector);
+    }
+
+    /**
+     * The labels on the side walls: per wall the items one after the other along the middle slat (4 px apart), the sprite's
+     * front facing out, its back just on the wall. Upright on the wall: the world's up for a standing crate's walls and for
+     * the horizontal walls of one laid on its side.
+     */
+    private static void submitLabels(State state, PoseStack poseStack, SubmitNodeCollector collector) {
+        if (state.labelCount == 0) {
+            return;
+        }
+        for (Direction side : Direction.Plane.HORIZONTAL) {
+            if (side.getAxis() == state.facing.getAxis()) {
+                continue;
+            }
+            for (int i = 0; i < state.labelCount; i++) {
+                ItemStackRenderState label = state.labels[i];
+                if (label.isEmpty()) {
+                    continue;
+                }
+                boolean block = label.usesBlockLight();
+                // A flat sprite (1/16 deep in its model) drawn 0.5 px thick; a block item (a whole cube) as a 1 px slice.
+                float depth = block ? PX : 0.5F;
+                float half = (block ? 1.0F : 0.5F) * PX / 2.0F;
+                float across = (i - (state.labelCount - 1) / 2.0F) * 4.0F * PX;
+                poseStack.pushPose();
+                poseStack.translate(0.5F, 0.5F, 0.5F);
+                // Local +Z to the outside of this wall (Direction.toYRot: south 0, west 90, north 180, east 270).
+                McClientVersion.rotate(poseStack, Axis.YP.rotationDegrees(-side.toYRot()));
+                // A standing crate's middle slat runs across the wall, a laid one's (rotated with the model) up the wall.
+                boolean laid = state.facing.getAxis().isHorizontal();
+                poseStack.translate(laid ? 0.0F : across, laid ? across : 0.0F, 0.5F + half + 0.01F * PX);
+                poseStack.scale(LABEL_SCALE, LABEL_SCALE, depth);
+                label.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
                 poseStack.popPose();
             }
         }

@@ -2,7 +2,7 @@
   "item.simplemaps.wayfinder_map": "Wayfinder Map",
   "item.simplemaps.nether_wayfinder_map": "Nether Wayfinder Map",
   "item.simplemaps.end_wayfinder_map": "End Wayfinder Map",
-  "item.simplemaps.wayfinder_map.tooltip.overworld": "Endless map of the Overworld and other dimensions",
+  "item.simplemaps.wayfinder_map.tooltip.overworld": "Endless map of the Overworld",
   "item.simplemaps.wayfinder_map.tooltip.nether": "Endless map of the Nether",
   "item.simplemaps.wayfinder_map.tooltip.end": "Endless map of the End",
   "item.simplemaps.wayfinder_map.tooltip.waypoints": "Waypoints: %s",

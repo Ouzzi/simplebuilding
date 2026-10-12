@@ -274,11 +274,17 @@ public final class ConfigOptionTests {
         } finally { machines.autoSmitherDelayTicks = old; }
         helper.startSequence().thenExecuteAfter(10, () -> {
             helper.assertTrue(smither.getItem(1).is(Items.DIAMOND_SWORD), "smither ran before configured delay");
-            helper.assertTrue(smither.getItem(3).isEmpty(), "early result");
+            helper.assertTrue(ejected(helper, pos).isEmpty(), "early result");
         }).thenExecuteAfter(35, () -> {
             helper.assertTrue(smither.getItem(1).isEmpty(), "input not consumed");
-            helper.assertTrue(smither.getItem(3).is(Items.NETHERITE_SWORD), "configured pulse did not finish");
+            helper.assertTrue(ejected(helper, pos).stream().anyMatch(e -> e.getItem().is(Items.NETHERITE_SWORD)), "configured pulse did not finish");
         }).thenSucceed();
+    }
+
+    /** Items the smither at {@code pos} ejected (it spits its result out when no container is in front). */
+    private static java.util.List<net.minecraft.world.entity.item.ItemEntity> ejected(GameTestHelper helper, BlockPos pos) {
+        return helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(helper.absolutePos(pos)).inflate(3));
     }
 
     private ConfigOptionTests() {
@@ -639,6 +645,15 @@ public final class ConfigOptionTests {
 
             "root.enableSimpleMaps boolean=true",
             "root.enableSimpleQuestionary boolean=true",
+            "root.enableSimpleRiding boolean=true",
+            "root.enableSimpleSandwiches boolean=true",
+            "root.enableSimpleTweaks boolean=true",
+            "root.enableSimpleMoney boolean=true",
+            "root.enableSimpleFun boolean=true",
+            "root.enableSimpleDimensions boolean=true",
+            "root.enableSimpleTrims boolean=true",
+            "root.enableSimpleMobs boolean=true",
+            "root.enableSimpleEndDragonFight boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=400",
@@ -841,7 +856,6 @@ public final class ConfigOptionTests {
             "server.machines.reinforcedFurnaceSpeed int=2",
             "server.machines.netheriteFurnaceSpeed int=4",
             "server.machines.enderiteFurnaceSpeed int=8",
-            "server.machines.endSignalRange int=15",
             "server.machines.endPistonCooldownTicks int=8",
             "server.machines.astralRailMaxSpeed int=16",
             "server.machines.astralRailBoost double=0.12",
@@ -1231,6 +1245,47 @@ public final class ConfigOptionTests {
     // =====================================================================================
     // THE OPTION SET ITSELF
     // =====================================================================================
+
+    /**
+     * Super-mod (PLAN-MODULAUFTEILUNG stage 1a): every "Enable Simple X" switch of a bundled optional sub-mod reaches
+     * that sub-mod through framework SubMods under its real mod id, defaults on, and a detached config never touches
+     * the live switches unless applied on purpose. The live state is restored from the loaded config afterwards.
+     */
+    public static void superModSwitchesReachTheBundledSubMods(GameTestHelper helper) {
+        String[][] switches = {{"enableSimpleRiding", "simpleriding"}, {"enableSimpleSandwiches", "simplesandwiches"},
+                {"enableSimpleTweaks", "simpletweaks"}, {"enableSimpleMoney", "simplemoney"}, {"enableSimpleFun", "simplefun"},
+                {"enableSimpleDimensions", "simpledimension"}, {"enableSimpleTrims", "simpletrims"}, {"enableSimpleMobs", "simplemobs"},
+                {"enableSimpleEndDragonFight", "simpleenddragonfight"}};
+        try {
+            Class.forName("com.simplebuilding.framework.api.SubMods");
+        } catch (ClassNotFoundException e) {
+            helper.succeed(); // 26.2: no framework and no bundled sub-mods, the switches are only stored.
+            return;
+        }
+        try {
+            for (String[] pair : switches) {
+                SimplebuildingConfig config = new SimplebuildingConfig();
+                java.lang.reflect.Field field = SimplebuildingConfig.class.getField(pair[0]);
+                helper.assertTrue(field.getBoolean(config), pair[0] + " defaults on");
+                SimplebuildingConfig.applySubModSwitches(config);
+                helper.assertTrue(SimplebuildingConfig.subModEnabled(pair[1]), pair[0] + " on reaches " + pair[1]);
+                field.setBoolean(config, false);
+                config.validatePostLoad();
+                helper.assertTrue(SimplebuildingConfig.subModEnabled(pair[1]), "A detached config does not switch " + pair[1]);
+                SimplebuildingConfig.applySubModSwitches(config);
+                helper.assertFalse(SimplebuildingConfig.subModEnabled(pair[1]), pair[0] + " off reaches " + pair[1]);
+                for (String[] other : switches) {
+                    if (other != pair) helper.assertTrue(SimplebuildingConfig.subModEnabled(other[1]), pair[0] + " leaves " + other[1] + " alone");
+                }
+                SimplebuildingConfig.applySubModSwitches(new SimplebuildingConfig());
+            }
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException(e);
+        } finally {
+            SimplebuildingConfig.applySubModSwitches(com.simplebuilding.Simplebuilding.getConfig());
+        }
+        helper.succeed();
+    }
 
     /**
      * Pins the saved config's identity: the file it is written to, and every option's name, group,

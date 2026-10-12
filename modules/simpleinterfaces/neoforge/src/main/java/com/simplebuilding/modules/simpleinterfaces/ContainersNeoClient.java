@@ -17,6 +17,11 @@ public final class ContainersNeoClient {
     }
 
     @net.neoforged.bus.api.SubscribeEvent
+    public static void logout(net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent.LoggingOut event) {
+        SimpleInterfaces.clearSync();
+    }
+
+    @net.neoforged.bus.api.SubscribeEvent
     public static void setup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent event) {
         net.neoforged.fml.ModList.get().getModContainerById("simpleinterfaces").orElseThrow().registerExtensionPoint(
                 net.neoforged.neoforge.client.gui.IConfigScreenFactory.class, (container, parent) -> ContainersScreen.create(parent));

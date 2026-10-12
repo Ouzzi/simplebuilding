@@ -208,7 +208,7 @@ final class Stage4ClaimTests {
             yes(h,((ClaimPistonInvoker)Blocks.STICKY_PISTON).claims$move(f.l,p,Direction.EAST,false)==(!enabled||own),"Actual sticky retraction checks source ownership; enabled="+enabled+", own="+own);
         }
     });}
-    static void customPistons(GameTestHelper h){modes(h,(f,enabled)->{
+    static void customPistons(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims customPistons"))return;modes(h,(f,enabled)->{
         for(String id:List.of("reinforced_piston","netherite_piston","enderite_piston"))for(boolean own:new boolean[]{false,true})for(boolean breach:new boolean[]{false,true}){
             var p=own?f.edge.east(3):f.edge.west();var machine=block(id);var state=machine.defaultBlockState().setValue(PistonBaseBlock.FACING,Direction.EAST);
             for(int x=-1;x<=4;x++){f.set(p.east(x),Blocks.AIR);f.set(p.east(x).below(),Blocks.AIR);}
@@ -228,7 +228,7 @@ final class Stage4ClaimTests {
         var state=l.getBlockState(p);var be=l.getBlockEntity(p);
         var ticker=(BlockEntityTicker<BlockEntity>)(BlockEntityTicker)((EntityBlock)state.getBlock()).getTicker(l,state,be.getType());ticker.tick(l,p,state,be);
     }
-    static void customHoppers(GameTestHelper h){modes(h,(f,enabled)->{
+    static void customHoppers(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims customHoppers"))return;modes(h,(f,enabled)->{
         if(enabled)yes(h,f.claims.create(new ClaimStore.Key(f.l.dimension().identifier().toString(),ChunkPos.pack(f.edge.west())),UUID.randomUUID(),100),"Distinct neighboring machine owner");
         for(String id:List.of("reinforced_hopper","netherite_hopper","enderite_hopper"))for(boolean own:new boolean[]{false,true}){
             var p=own?f.edge.east(3):f.edge.west();var target=p.east();
@@ -250,7 +250,7 @@ final class Stage4ClaimTests {
         var source=(Container)f.l.getBlockEntity(p);source.setItem(0,new ItemStack(Items.WATER_BUCKET));dispenser.tick(f.l,p,RandomSource.create(0));
         yes(h,enabled?source.getItem(0).is(Items.WATER_BUCKET)&&f.l.getFluidState(p.east()).isEmpty():source.getItem(0).is(Items.BUCKET)&&!f.l.getFluidState(p.east()).isEmpty(),"Dispenser denial preserves its item; disabled and absent providers retain bucket behavior");
     });}
-    static void attractor(GameTestHelper h){
+    static void attractor(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims attractor"))return;
         // getChunk alone does not make new entities visible to the attractor's query.
         // Await actual query visibility on both sides before creating any claim fixture.
         var edge=ToolClaimTests.boundary(h).above(90);

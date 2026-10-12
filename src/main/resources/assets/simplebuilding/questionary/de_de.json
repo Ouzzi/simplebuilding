@@ -12,5 +12,3013 @@
       "Halte ein Enderit-Nugget in der Nebenhand und schlage 20-mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch: er wird zum Astral-Verzauberer, mit Lohen-Bücherregalen und Lohen-Obsidian-Boden bis Stärke 50.",
       "Baust du ihn ab, kommen Tisch und Nugget zurück. Acht Nuggets um einen Eimer ergeben den Enderit-Eimer."
     ]
+  },
+  "chess_pieces": {
+    "lore": [
+      "Keine Hand hat diesen Block je geschnitzt. Es gibt ihn nur, solange eine Schachfigur auf ihm steht, und er verschwindet mit der letzten."
+    ],
+    "use": [
+      "Der technische Block, der die Schachfiguren hält: bis zu vier, eine je Viertel der Oberseite, jede mit eigener Blickrichtung. Er hat kein Item; eine Figur erzeugt ihn, und beim Abbauen fallen die Figuren heraus."
+    ],
+    "secret": [
+      "Verlierst du den Boden darunter oder schiebt ihn ein Kolben, fallen alle Figuren auf einmal. Nichts geht verloren, aber das Brett ist weg."
+    ]
+  },
+  "blaze_book": {
+    "lore": [
+      "Ein Buch, mit Lohenstaub statt Leder gebunden. Es kühlt nie ganz ab."
+    ],
+    "use": [
+      "Drei davon gehören in ein Lohenholz-Bücherregal."
+    ],
+    "secret": [
+      "Lohenholz-Regale belohnt der {item:simplebuilding:astral_enchanting_table}: Dort zählt jedes für zwei gewöhnliche."
+    ]
+  },
+  "blazing_obsidian": {
+    "lore": [
+      "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
+    ],
+    "use": [
+      "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Astral-Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
+    ],
+    "secret": [
+      "Der Boden zählt nur unter dem Astral-Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+    ]
+  },
+  "hammock_rope": {
+    "lore": [
+      "Das Seil, das eine Hängematte trägt, von wenigen gesehen und von keinem erinnert."
+    ],
+    "use": [
+      "Die obere Schicht einer Hängematte: ein unsichtbarer Seilblock in jeder Zelle, durch die die Linie zwischen den Ankern führt. Er hat kein Item und keine Drops; der Stoffkopf zeichnet die ganze Hängematte."
+    ],
+    "secret": [
+      "Ein Klick auf das Seil legt dich hin wie ein Klick auf den Stoff. Fällt ein Anker oder ein Teil aus, stürzt die ganze Hängematte und lässt einmal ihre Beute fallen."
+    ]
+  },
+  "astralit_dust": {
+    "lore": [
+      "Ein rosa Staub, der von den äußeren Inseln des Endes treibt, noch warm von dem Licht, das er trägt."
+    ],
+    "use": [
+      "Fällt aus Astralit-Erz (Glück bringt mehr). Vier Staub im Quadrat ergeben einen Astralitblock. Außerdem Rüstungsmaterial (Astralit), Herz des Astral-Redstones und Kern des Plattenspieler-Verstärkers."
+    ],
+    "secret": [
+      "Färben wie mit Farbstoff: 8 Endstein um 1 Staub ergeben Astral-Endstein. Staub, Nihilitsplitter und Quarz, formlos, ergeben 2 Enderquarz."
+    ]
+  },
+  "nihilith_shard": {
+    "lore": [
+      "Ein blauer Splitter der Leere, kalt wie ein angehaltener Atem."
+    ],
+    "use": [
+      "Fällt aus Nihilit-Erz (Glück bringt mehr). Vier Splitter im Quadrat ergeben einen Nihilitblock. Außerdem Rüstungsmaterial (Nihilit), Herz des Nihil-Redstones und Kern des Notenblock-Verstärkers."
+    ],
+    "secret": [
+      "Mit Astralitstaub und Quarz wird daraus Enderquarz. Als Rüstungsbesatz lässt Nihilit dich schneller sinken, wenn du in der Luft schleichst."
+    ]
+  },
+  "ender_quartz": {
+    "lore": [
+      "Ein Quarzkristall, in dem Astralit und Nihilit eingeschlossen sind, zwei Launen in einem Stein."
+    ],
+    "use": [
+      "1 Quarz, 1 Astralitstaub und 1 Nihilitsplitter, formlos, ergeben 2. Vier ergeben einen Enderquarzblock. Es ist das Material der violetten End-Palette."
+    ],
+    "secret": [
+      "Er färbt auch Vanilla-Quarz um: 8 Quarzblöcke um 1 Enderquarz ergeben 8 Enderquarzblöcke gleicher Form."
+    ]
+  },
+  "astralit_ore": {
+    "lore": [
+      "Es wartet ganz oben auf den Inseln des Endes und blitzt jeden an, der eine gute Spitzhacke trägt."
+    ],
+    "use": [
+      "Entsteht in Endstein an der Oberfläche der äußeren Inseln. Braucht eine Diamantspitzhacke oder besser, Härte 20, gibt Astralitstaub und 3 bis 7 Erfahrung. Glück erhöht den Ertrag, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Es leuchtet mit Lichtstärke 5, sodass du eine Ader nachts von weitem siehst. Sein Zwilling, das Nihilit-Erz, versteckt sich an der Unterseite der Inseln."
+    ]
+  },
+  "nihilith_ore": {
+    "lore": [
+      "Es hängt unter den Inseln des Endes wie ein Bluterguss im Dunkeln."
+    ],
+    "use": [
+      "Entsteht in Endstein an der Unterseite der Inseln. Braucht eine Diamantspitzhacke oder besser, Härte 25, gibt einen Nihilitsplitter und 3 bis 7 Erfahrung. Glück erhöht den Ertrag, Behutsamkeit behält das Erz."
+    ],
+    "secret": [
+      "Schau nach unten, nicht nach oben: Es bildet sich nur, wo unter dem Endstein Luft ist, und leuchtet nicht wie das Astralit-Erz oben."
+    ]
+  },
+  "astral_redstone": {
+    "lore": [
+      "Redstone, die eine zweite Sprache gelernt hat und sie nur mit ihresgleichen spricht."
+    ],
+    "use": [
+      "Astralitstaub plus Redstone, formlos, ergeben 2. Er trägt nur den Astralit-Kanal, auf waagerechten Nachbarn gleicher Art, auf fester Oberseite. Ein Schalter oder eine Lampe desselben Kanals liest ihn; Vanilla-Redstone wird ignoriert."
+    ],
+    "secret": [
+      "Das Signal klingt ab, wenn du die Quelle entfernst, und geschlossene Schleifen halten keine Kraft. Lampen empfangen nur und leiten nie weiter. Derselbe Staub macht Schienen und Kolben."
+    ]
+  },
+  "nihil_redstone": {
+    "lore": [
+      "Redstone von der anderen Seite der Leere, still und kalt."
+    ],
+    "use": [
+      "Nihilitsplitter plus Redstone, formlos, ergeben 2. Er trägt nur den Nihilit-Kanal, auf waagerechten Nachbarn gleicher Art, auf fester Oberseite. Ein Schalter oder eine Lampe desselben Kanals liest ihn; Vanilla-Redstone wird ignoriert."
+    ],
+    "secret": [
+      "Jedes Segment aktualisiert alle zwei Spielticks, ein Schalter speist standardmäßig höchstens 15 Segmente. Derselbe Splitter macht die Nihil-Schiene und den Nihil-Kolben."
+    ]
+  },
+  "astral_rail": {
+    "lore": [
+      "Eine Schiene, die den Himmel gehört hat und dorthin will."
+    ],
+    "use": [
+      "Sechs Goldbarren, ein Stock und Astral-Redstone ergeben 6. Nur gerade. Mit ihrem eigenen Kanal gespeist, beschleunigt sie Loren standardmäßig auf bis zu 16 Blöcke pro Sekunde (Vanilla 8). Ohne Kraft ist sie eine gewöhnliche Schiene."
+    ],
+    "secret": [
+      "Der Schub nimmt ab, je näher die Lore der Höchstgeschwindigkeit kommt, sie nähert sich dem Limit und erreicht es nie. An Steigungen und im Wasser gilt das Vanilla-Limit, bremse also vor einer Kurve."
+    ]
+  },
+  "nihil_rail": {
+    "lore": [
+      "Eine Schiene, die der Welt das Tempo nimmt, höflich und vollständig."
+    ],
+    "use": [
+      "Sechs Goldbarren, ein Stock und Nihil-Redstone ergeben 6. Nur gerade. Mit ihrem eigenen Kanal gespeist, bremst sie: Jeden Tick behält die Lore 80 Prozent ihres Tempos abzüglich eines kleinen Betrags, hält an und wird gehalten, solange Kraft anliegt."
+    ],
+    "secret": [
+      "Ohne Kraft lässt sie Loren durchrollen. Nur ihr eigener Kanal speist sie, nicht Vanilla-Redstone oder Nachbarschienen, sodass du einen Bahnhof bauen kannst, der auf Signal bremst."
+    ]
+  },
+  "astral_vault": {
+    "lore": [
+      "Eine Endertruhe, die lernte, mehr zu behalten, und es nur für dich behält."
+    ],
+    "use": [
+      "Eine Endertruhe mit sechs Enderitklumpen und zwei Astralitstaub herstellen. Sie öffnet 54 persönliche Plätze: Die ersten 27 sind dein Vanilla-Enderinventar, die anderen 27 gehören dir allein."
+    ],
+    "secret": [
+      "Die zusätzlichen Plätze liegen in deinen Enderinventar-Daten und überstehen den Respawn. Abbauen lässt das Gewölbe fallen, nicht den Inhalt; Trichter kommen nicht heran. Ein fester Block darüber verhindert das Öffnen."
+    ]
+  },
+  "nihil_vault": {
+    "lore": [
+      "Eine Truhe am Rand jeder Welt, und jede Welt ist ihr Rand."
+    ],
+    "use": [
+      "Eine Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern herstellen. Alle Nihil-Gewölbe in allen Dimensionen teilen einen Behälter mit 54 Plätzen; jeder Spieler, der eines öffnet, sieht und ändert dieselben Dinge."
+    ],
+    "secret": [
+      "Baust du ein Gewölbe ab, bleibt der gemeinsame Inhalt und erscheint in jedem anderen oder neu gesetzten. Offene Menüs bleiben abgeglichen wie Spieler an einer Truhe, nichts dupliziert sich. Trichter und Komparatoren bekommen nichts."
+    ]
+  },
+  "astral_enchanting_table": {
+    "lore": [
+      "Ein Tisch, an dem die Sterne stillhalten, während du wählst."
+    ],
+    "use": [
+      "Wähle deine Verzauberungen selbst: drei zufällige, die zum Gegenstand passen, jede mit einem Regler von 0 bis zu ihrem Maximum, bezahlt aus einem Stufenbudget, das die Bücherregale ringsum festlegen."
+    ],
+    "secret": [
+      "Schlage 20 Mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch, mit einem Enderitklumpen in der Nebenhand: Er wird dazu. Lohenholz-Regale zählen doppelt, ein Boden aus Lohen-Obsidian gibt Stärke. Abgebaut kommen Tisch und Klumpen zurück."
+    ]
+  },
+  "polished_end_stone": {
+    "lore": [
+      "Endstein, dem man die rauen Kanten genommen hat, bereit für ein farbiges Gewand."
+    ],
+    "use": [
+      "4 Endsteinziegel im Quadrat ergeben 4, oder im Steinschneider aus Endstein oder Endsteinziegeln geschnitten. Er ist der Rohstoff von Astral- und Nihil-Endstein."
+    ],
+    "secret": [
+      "Setze 8 davon um einen Astralitstaub oder Nihilitsplitter, und sie nehmen dessen Farbe an: So entstehen die beschichteten Endsteine."
+    ]
+  },
+  "stone_sledgehammer": {
+    "lore": [
+      "{name}: Stein, zum Kopf geschliffen und an einen Stiel gebunden: schwer zu heben, leicht zu mögen."
+    ],
+    "use": [
+      "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 760 Haltbarkeit, Verzauberbarkeit 5. Beim Schleichen wird nur der anvisierte Block abgebaut."
+    ],
+    "secret": [
+      "Aus einem Eisenbarren, zwei Bruchsteinen und zwei Stöcken. Er baut ab wie eine Steinspitzhacke, nimmt aber pro Schlag eine ganze 3x3-Fläche gleicher Blöcke mit."
+    ]
+  },
+  "copper_sledgehammer": {
+    "lore": [
+      "{name}: Kupfer nimmt eine Delle und behält die Form, wie ein gutes Argument."
+    ],
+    "use": [
+      "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 760 Haltbarkeit, Verzauberbarkeit 13. Beim Schleichen wird nur der anvisierte Block abgebaut."
+    ],
+    "secret": [
+      "Ein Kupferblock, zwei Kupferbarren und zwei Stöcke. Schleichen und Rechtsklick halten schnitzt das anvisierte Achtel aus einem Block; übrig bleiben Treppen und Stufen."
+    ]
+  },
+  "iron_sledgehammer": {
+    "lore": [
+      "{name}: Eisen ergibt einen Kopf, den noch nie jemand von etwas abbringen konnte."
+    ],
+    "use": [
+      "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 1000 Haltbarkeit, Verzauberbarkeit 14. Beim Schleichen wird nur der anvisierte Block abgebaut."
+    ],
+    "secret": [
+      "Der Werkzeugschmied verkauft ab Stufe 4 Eisen- und Diamant-Vorschlaghämmer, jeweils mit einer Verzauberung aus Durchbruch, Übersteuerung, Reichweite, Haltbarkeit oder Effizienz."
+    ]
+  },
+  "gold_sledgehammer": {
+    "lore": [
+      "{name}: Gold schlägt so hart wie jeder andere und bricht, sobald man es schief ansieht."
+    ],
+    "use": [
+      "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 128 Haltbarkeit, Verzauberbarkeit 22. Beim Schleichen wird nur der anvisierte Block abgebaut."
+    ],
+    "secret": [
+      "Er hat die beste Verzauberbarkeit der Reihe (22) und die wenigsten Nutzungen (128). Goldene Vorschlaghämmer liegen in Bastionen."
+    ]
+  },
+  "diamond_sledgehammer": {
+    "lore": [
+      "{name}: Ein Kopf aus Diamant: Er schlägt nicht auf Dinge, er beendet Streit."
+    ],
+    "use": [
+      "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 6244 Haltbarkeit, Verzauberbarkeit 10. Beim Schleichen wird nur der anvisierte Block abgebaut."
+    ],
+    "secret": [
+      "Rechtsklick auf einen Diamantblock halten zerschlägt ihn in 81 Diamantkiesel. Ab dieser Stufe hebt ein Hammer Truhen von Verstärkt auf Netherit (mit Klumpen) und schmiedet den Netherit-Kolben."
+    ]
+  },
+  "netherite_sledgehammer": {
+    "lore": [
+      "{name}: Netherit schwingt wie eine Entscheidung, die längst gefallen ist."
+    ],
+    "use": [
+      "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 8124 Haltbarkeit, Verzauberbarkeit 15. Beim Schleichen wird nur der anvisierte Block abgebaut."
+    ],
+    "secret": [
+      "Mit einem Enderitklumpen in der Nebenhand hebt er Maschinen und Truhen auf Enderit. Schlage 20 Mal damit auf einen Zaubertisch, einen Enderitklumpen in der anderen Hand, und er wird zum Astral-Verzauberer."
+    ]
+  },
+  "enderite_sledgehammer": {
+    "lore": [
+      "{name}: Er wiegt, was das Ende wiegt: nichts, bis er landet."
+    ],
+    "use": [
+      "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 10000 Haltbarkeit, Verzauberbarkeit 18. Beim Schleichen wird nur der anvisierte Block abgebaut."
+    ],
+    "secret": [
+      "Feuerfest, schwimmt auf Lava und geht nicht in der Leere verloren: Fallen gelassene Enderit-Gegenstände bleiben schweben und liegen doppelt so lange wie sonst."
+    ]
+  },
+  "stone_chisel": {
+    "lore": [
+      "{name}: Das erste Werkzeug jedes Baumeisters: aus einem Stock, einem Bruchstein und zwei Kupferklumpen gefertigt."
+    ],
+    "use": [
+      "Ein Rechtsklick macht den Block zum nächsten seiner Kette verwandter Varianten; Schleichen geht die Kette zurück. 192 Haltbarkeit, Grundabklingzeit 30 Ticks. Schnelles Meißeln verkürzt sie."
+    ],
+    "secret": [
+      "Rechtsklick macht aus Stein gemeißelte Steinziegel oder aus glattem Sandstein Schnittsandstein. Schleichen + Rechtsklick geht die Kette zurück, für 2 Haltbarkeit."
+    ]
+  },
+  "copper_chisel": {
+    "lore": [
+      "{name}: Eine Kupferspitze, die sich an jede Form erinnert, die sie berührte."
+    ],
+    "use": [
+      "Ein Rechtsklick macht den Block zum nächsten seiner Kette verwandter Varianten; Schleichen geht die Kette zurück. 192 Haltbarkeit, Grundabklingzeit 25 Ticks. Schnelles Meißeln verkürzt sie."
+    ],
+    "secret": [
+      "Der Werkzeugschmied verkauft ab Stufe 3 Kupfer-, Eisen- und Goldmeißel mit Schnellem Meißeln für 6 Smaragde. Kupfer und Eisen bearbeiten Steinziegel, polierten Stein, Tuff und Bretter."
+    ]
+  },
+  "iron_chisel": {
+    "lore": [
+      "{name}: Eisen gibt die Schneide, die Hand die Linie."
+    ],
+    "use": [
+      "Ein Rechtsklick macht den Block zum nächsten seiner Kette verwandter Varianten; Schleichen geht die Kette zurück. 256 Haltbarkeit, Grundabklingzeit 25 Ticks. Schnelles Meißeln verkürzt sie."
+    ],
+    "secret": [
+      "Der Werkzeugschmied verkauft ihn ab Stufe 3 mit Schnellem Meißeln für 6 Smaragde. Einen Kupfermeißel wertest du mit der Basis-Aufwertung und 2 Barren auf; Schaden, Name und Verzauberungen bleiben."
+    ]
+  },
+  "gold_chisel": {
+    "lore": [
+      "{name}: Ein Goldmeißel ist mehr Schmuck als Werkzeug und schneidet Quarz wie Butter."
+    ],
+    "use": [
+      "Ein Rechtsklick macht den Block zum nächsten seiner Kette verwandter Varianten; Schleichen geht die Kette zurück. 128 Haltbarkeit, Grundabklingzeit 20 Ticks. Schnelles Meißeln verkürzt sie."
+    ],
+    "secret": [
+      "Gold- und Diamantmeißel bearbeiten Quarz, Tuffziegel, Schwarzstein, Basalt und Tiefenschiefer. Goldmeißel liegen in vergrabenen Schätzen; der Werkzeugschmied verkauft sie mit Schnellem Meißeln."
+    ]
+  },
+  "diamond_chisel": {
+    "lore": [
+      "{name}: Die Kante eines Diamanten findet die Fuge in jedem Stein."
+    ],
+    "use": [
+      "Ein Rechtsklick macht den Block zum nächsten seiner Kette verwandter Varianten; Schleichen geht die Kette zurück. 392 Haltbarkeit, Grundabklingzeit 10 Ticks. Schnelles Meißeln verkürzt sie."
+    ],
+    "secret": [
+      "Diamantmeißel liegen in vergrabenen Schätzen und Iglu-Truhen. Er beherrscht die Ketten für Quarz, Tuffziegel, Schwarzstein, Basalt und Tiefenschiefer und beginnt den Aufstieg zu Netherit."
+    ]
+  },
+  "netherite_chisel": {
+    "lore": [
+      "{name}: Ein Meißel, der im Feuer stand und Geduld lernte."
+    ],
+    "use": [
+      "Ein Rechtsklick macht den Block zum nächsten seiner Kette verwandter Varianten; Schleichen geht die Kette zurück. 512 Haltbarkeit, Grundabklingzeit 5 Ticks. Schnelles Meißeln verkürzt sie."
+    ],
+    "secret": [
+      "Er ergänzt die Netherziegel-Kette, Harzziegel und das Zurückverwandeln von gemeißeltem Sandstein zu Sand. Feuerfest, mit der kürzesten Abkühlzeit, 5 Ticks."
+    ]
+  },
+  "enderite_chisel": {
+    "lore": [
+      "{name}: Er schneidet Stein, der nie gebrochen, sondern nur gedacht wurde."
+    ],
+    "use": [
+      "Ein Rechtsklick macht den Block zum nächsten seiner Kette verwandter Varianten; Schleichen geht die Kette zurück. 600 Haltbarkeit, Grundabklingzeit 5 Ticks. Schnelles Meißeln verkürzt sie."
+    ],
+    "secret": [
+      "Der einzige Meißel für die End-Paletten: poliert, Säule, Ziegel, gemeißelt, dann der Block selbst und weiter durch die gemusterten Varianten. Schleichen geht zurück."
+    ]
+  },
+  "copper_building_wand": {
+    "lore": [
+      "{name}: Der erste Zauberstab: ein Kupferkern, zwei Stöcke und eine Reichweite von drei Blöcken."
+    ],
+    "use": [
+      "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 3x3. 1520 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
+    ],
+    "secret": [
+      "Der Steinmetz verkauft den fertigen Stab ab Stufe 4 für 62 Smaragde. Kupferkerne gibt es beim Fahrenden Händler für 24 Smaragde."
+    ]
+  },
+  "iron_building_wand": {
+    "lore": [
+      "{name}: Eisen dehnt den Stab auf eine 5x5-Fläche."
+    ],
+    "use": [
+      "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 5x5. 2000 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
+    ],
+    "secret": [
+      "Ein Eisen-Baustab liegt manchmal in Waldanwesen. Einen Kupferstab wertest du am Schmiedetisch mit der Basis-Aufwertung und einem Eisenkern auf."
+    ]
+  },
+  "gold_building_wand": {
+    "lore": [
+      "{name}: Gold bezahlt die 7x7-Fläche mit einem kurzen Leben."
+    ],
+    "use": [
+      "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 7x7. 256 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
+    ],
+    "secret": [
+      "Einen Eisenstab wertest du mit der Basis-Aufwertung und einem Goldkern auf. Goldstäbe sind die kurzlebigsten der Reihe."
+    ]
+  },
+  "diamond_building_wand": {
+    "lore": [
+      "{name}: Ein Diamantstab füllt eine 9x9-Fläche in einem Zug."
+    ],
+    "use": [
+      "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 9x9. 12488 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
+    ],
+    "secret": [
+      "Ein Diamant-Baustab kann in Endstädten liegen. Aufwerten von Gold braucht die Basis-Aufwertung und einen Diamantkern."
+    ]
+  },
+  "netherite_building_wand": {
+    "lore": [
+      "{name}: Netherit füllt 11x11 und zuckt nie."
+    ],
+    "use": [
+      "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 11x11. 16248 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
+    ],
+    "secret": [
+      "Schmiedetisch: Netherit-Aufwertung, ein Diamant-Baustab und ein Netheritbarren. Feuerfest wie alle Netherit-Ausrüstung."
+    ]
+  },
+  "enderite_building_wand": {
+    "lore": [
+      "{name}: Der breiteste Stab, den ein Überlebensbauer halten kann: 13x13 mit einem Klick."
+    ],
+    "use": [
+      "Rechtsklick auf eine Blockseite füllt eine quadratische Fläche mit Blöcken aus deinem Inventar, bis 13x13. 20000 Haltbarkeit. Die Stufe des Kerns bestimmt die Größe der Fläche."
+    ],
+    "secret": [
+      "Schmiedetisch: Enderit-Aufwertung, ein Netherit-Baustab und ein Enderitbarren. Berührung des Konstrukteurs schaltet das Stab-Menü frei; mit einer Blaupause in der anderen Hand baust du ganze Strukturen."
+    ]
+  },
+  "creative_building_wand": {
+    "lore": [
+      "Ein Stab ohne Grenzen, den im Überleben niemand verteilt."
+    ],
+    "use": [
+      "Nur im Kreativ-Tab: füllt bis zu 13x13, mit unbegrenzter Reichweite (bis 1024 Blöcke), ohne Haltbarkeit und Materialverbrauch."
+    ],
+    "secret": [
+      "Mit einer Kreativ-Blaupause in der Nebenhand baut er in jeder Entfernung; eine signierte Blaupause ist endgültig."
+    ]
+  },
+  "creative_blueprint": {
+    "lore": [
+      "Eine Blaupause, die nichts kostet und die Welt wert ist."
+    ],
+    "use": [
+      "Eine Blaupause nur im Kreativ-Tab, ohne Rezept. Ein Baustab mit ihr in der Nebenhand baut die Struktur in jeder Entfernung."
+    ],
+    "secret": [
+      "Einmal signiert ist sie endgültig. Nutze sie für kreative Bauten, die du aus der Ferne platzieren willst."
+    ]
+  },
+  "blueprint": {
+    "lore": [
+      "Ein Blatt, das sich an ein Haus erinnert, bevor es existiert."
+    ],
+    "use": [
+      "Hält eine Struktur als lesbaren Baucode: im Editor schreiben, mit einer Oktant-Auswahl am Kartentisch füllen und mit einem Baustab in der anderen Hand bauen."
+    ],
+    "secret": [
+      "Schleichen + Rechtsklick legt sie flach auf den Boden, an eine Wand oder unter die Decke, als platzierte Blaupause."
+    ]
+  },
+  "placed_blueprint": {
+    "lore": [
+      "Eine Blaupause, ausgebreitet wie eine Karte auf einem Tisch, in Erwartung ihres Bauherrn."
+    ],
+    "use": [
+      "Eine Blaupause, abgelegt mit Schleichen + Rechtsklick: flach auf dem Boden, an der Wand oder unter der Decke. Sie hat kein eigenes Item; sie hält die Blaupause selbst."
+    ],
+    "secret": [
+      "Baust du sie ab, bekommst du die Blaupause mit allem Geschriebenen zurück."
+    ]
+  },
+  "copper_core": {
+    "lore": [
+      "{name}: Ein Netherstern in Kupfer gefasst, der bescheidenste Stern, den ein Baumeister besitzen kann."
+    ],
+    "use": [
+      "Herstellung: ein Netherstern, umgeben von vier Kupferbarren im Plus. Teil des Kupfer-Baustabs und der Messuhr. Der Fahrende Händler verkauft ihn für 24 Smaragde."
+    ],
+    "secret": [
+      "Easter-Egg: Rechtsklick mit ihm auf Stein, Tiefenschiefer, Tuff, Netherrack, Endstein und Ähnliches, und mit winziger Chance, 1 zu 10000, wird der Block zu einem Erz. Der Kern wird nicht verbraucht."
+    ]
+  },
+  "iron_core": {
+    "lore": [
+      "{name}: Ein Stern in Eisen: außen matt, innen hell, wo es zählt."
+    ],
+    "use": [
+      "Herstellung: ein Netherstern, umgeben von vier Eisenbarren im Plus. Teil des Eisen-Baustabs, Resonanzstabs, Attraktors und Rotators. Der Fahrende Händler verkauft ihn manchmal für 32 Smaragde."
+    ],
+    "secret": [
+      "Easter-Egg: Rechtsklick mit ihm auf Stein, Tiefenschiefer, Tuff, Netherrack, Endstein und Ähnliches, und mit winziger Chance, 1 zu 7000, wird der Block zu einem Erz. Der Kern wird nicht verbraucht."
+    ]
+  },
+  "gold_core": {
+    "lore": [
+      "{name}: Ein Stern in Gold, eitel genug, um sich gern ansehen zu lassen."
+    ],
+    "use": [
+      "Herstellung: ein Netherstern, umgeben von vier Goldbarren im Plus. Teil des Gold-Baustabs, des Detektors und des Oktanten. Der Fahrende Händler verkauft ihn manchmal für 48 Smaragde."
+    ],
+    "secret": [
+      "Easter-Egg: Rechtsklick mit ihm auf Stein, Tiefenschiefer, Tuff, Netherrack, Endstein und Ähnliches, und mit winziger Chance, 1 zu 5000, wird der Block zu einem Erz. Der Kern wird nicht verbraucht."
+    ]
+  },
+  "diamond_core": {
+    "lore": [
+      "{name}: Ein Stern in Diamant: Das Licht darin wurde gezählt und für genug befunden."
+    ],
+    "use": [
+      "Herstellung: ein Netherstern, umgeben von vier Diamanten im Plus. Teil des Diamant-Baustabs und Grundlage des Netheritkerns. Der Fahrende Händler verkauft ihn manchmal für 64 Smaragde."
+    ],
+    "secret": [
+      "Easter-Egg: Rechtsklick mit ihm auf Stein, Tiefenschiefer, Tuff, Netherrack, Endstein und Ähnliches, und mit winziger Chance, 1 zu 3500, wird der Block zu einem Erz. Der Kern wird nicht verbraucht."
+    ]
+  },
+  "netherite_core": {
+    "lore": [
+      "{name}: Ein Stern in Netherit, außen dunkel, innen laut."
+    ],
+    "use": [
+      "Geschmiedet aus einem Diamantkern und einem Netheritbarren mit der Netherit-Aufwertung am Schmiedetisch. Teil des Netherit-Baustabs. Feuerfest. Stapelgröße 1."
+    ],
+    "secret": [
+      "Easter-Egg: Rechtsklick mit ihm auf Stein, Tiefenschiefer, Tuff, Netherrack, Endstein und Ähnliches, und mit winziger Chance, 1 zu 2500, wird der Block zu einem Erz. Der Kern wird nicht verbraucht."
+    ]
+  },
+  "enderite_core": {
+    "lore": [
+      "{name}: Ein Stern in Enderit. Er scheint nicht; er lauscht."
+    ],
+    "use": [
+      "Geschmiedet aus einem Netheritkern und einem Enderitbarren mit der Enderit-Aufwertung am Schmiedetisch. Teil des Enderit-Baustabs und des Echolots. Feuerfest. Stapelgröße 1."
+    ],
+    "secret": [
+      "Easter-Egg: Rechtsklick mit ihm auf Stein, Tiefenschiefer, Tuff, Netherrack, Endstein und Ähnliches, und mit winziger Chance, 1 zu 2000, wird der Block zu einem Erz. Der Kern wird nicht verbraucht."
+    ]
+  },
+  "iron_pole": {
+    "lore": [
+      "Eine Stange aus Eisen, dünn, gerade und begierig, von etwas getroffen zu werden."
+    ],
+    "use": [
+      "Drei Eisenbarren übereinander ergeben eine Eisenstange, einen Blitzableiter aus Eisen, der Blitze im Umkreis von 32 Blöcken anzieht. Teil des Attraktor-Rezepts."
+    ],
+    "secret": [
+      "Der Attraktor ist um einen Eisenkern, eine Eisenstange, Redstone und Lapis gebaut."
+    ]
+  },
+  "gold_pole": {
+    "lore": [
+      "Eine Stange aus Gold: zu weich zum Arbeiten, zu glänzend zum Verstecken."
+    ],
+    "use": [
+      "Drei Goldbarren übereinander ergeben eine Goldstange, einen Blitzableiter aus Gold (64 Blöcke)."
+    ],
+    "secret": [
+      "Stangen gibt es in diesem Mod in Stufen: Eisen und Gold aus Barren, Diamant aus Diamanten, dann Netherit und Enderit vom Schmiedetisch."
+    ]
+  },
+  "diamond_pole": {
+    "lore": [
+      "Eine Stange aus Diamant, zu kostbar für ein Gewitter - und genau dort will sie stehen."
+    ],
+    "use": [
+      "Drei Diamanten übereinander ergeben eine Diamantstange, einen Blitzableiter aus Diamant (80 Blöcke); im Handwerksfeld gibt sie die drei Diamanten zurück. Am Schmiedetisch wird sie zur Netheritstange."
+    ],
+    "secret": [
+      "Nicht verwechseln mit dem Diamantstab: der entsteht aus zwei Diamanten und ist ein Pfeilschaft."
+    ]
+  },
+  "diamond_rod": {
+    "lore": [
+      "Ein Stab aus Diamant, hart wie ein Streit und klar wie eine Lüge."
+    ],
+    "use": [
+      "Zwei Diamanten übereinander ergeben einen Diamantstab; ein Diamantstab im Handwerksfeld gibt die zwei Diamanten zurück. Er lässt sich nicht platzieren."
+    ],
+    "secret": [
+      "Am Bogenmachertisch ist er ein Pfeilschaft: Der Pfeil durchdringt ein Ziel mehr."
+    ]
+  },
+  "netherite_pole": {
+    "lore": [
+      "Eine Stange, die im Feuer stand und das nächste nicht scheut."
+    ],
+    "use": [
+      "Schmiedetisch: Netherit-Aufwertung, Diamantstange und Netheritbarren ergeben die Netheritstange, einen Blitzableiter aus Netherit (96 Blöcke)."
+    ],
+    "secret": [
+      "Sie ist die Grundlage der Enderitstange eine Stufe höher."
+    ]
+  },
+  "enderite_pole": {
+    "lore": [
+      "Eine Stange, die sich an den Himmel erinnert und Blitze zieht wie ein Versprechen."
+    ],
+    "use": [
+      "Schmiedetisch: Enderit-Aufwertung, Netheritstange und Enderitbarren ergeben die Enderitstange, einen Blitzableiter aus Enderit (128 Blöcke)."
+    ],
+    "secret": [
+      "Als Enderitgegenstand ist sie feuerfest, schwimmt auf Lava und ist beim Fallenlassen vor der Leere sicher."
+    ]
+  },
+  "standing_rod": {
+    "lore": [
+      "Eine aufgestellte Stange, das kleinste Denkmal."
+    ],
+    "use": [
+      "Ein Stock, Knochen, eine Lohenrute, Brisenrute oder Diamantstange, aufrecht: Schleichen + Rechtsklick auf die Oberseite eines Blocks. Eine dünne Säule aus den Pixeln des Gegenstands; sie lässt die Stange selbst fallen."
+    ],
+    "secret": [
+      "Abgebaut fällt die Stange selbst heraus, nichts geht verloren. Auch ein Ziegenhorn-Halter kann eine Stange tragen."
+    ]
+  },
+  "goat_horn_holder": {
+    "lore": [
+      "Ein Ziegenhorn, als Halter hingestellt, das seinen Ruf noch trägt."
+    ],
+    "use": [
+      "Schleichen + Rechtsklick mit einem Ziegenhorn auf die Oberseite eines Blocks (Mundstück oben) oder an eine Wand (an einem Zapfen hängend). Es hält eine Fackel oder eine Stange. Nicht unter einer Decke."
+    ],
+    "secret": [
+      "Das Horn behält Klang und Namen und fällt wieder heraus, wenn du den Halter abbaust."
+    ]
+  },
+  "enderite_nugget": {
+    "lore": [
+      "Ein winziges Stück des schwersten Metalls des Endes, klein genug zum Verstecken."
+    ],
+    "use": [
+      "Neun Klumpen ergeben einen Enderitbarren, der Barren gibt neun zurück. Acht um einen Eisen-Eimer ergeben den Enderit-Eimer. Enderit-Äpfel, -Karotten und Maschinen-Aufwertungen brauchen ihn."
+    ],
+    "secret": [
+      "Mit einem in der Nebenhand hämmerst du einen Astral-Verzauberer herbei; er kehrt zurück, wenn du den Tisch abbaust. Ein Klumpen in der Nebenhand bezahlt auch das Heben von Truhen und Maschinen auf Enderit."
+    ]
+  },
+  "netherite_nugget": {
+    "lore": [
+      "Ein Klumpen Antiker Trümmer, geschmiedet und noch warm."
+    ],
+    "use": [
+      "Neun Klumpen ergeben einen Netheritbarren, der Barren gibt neun zurück. Netherit-Äpfel und -Karotten brauchen ihn, ebenso Maschinen-Aufwertungen."
+    ],
+    "secret": [
+      "Halte einen in der Nebenhand und hämmere mit einem Diamant-Vorschlaghammer auf eine Verstärkte Truhe oder Maschine, um sie auf Netherit zu heben."
+    ]
+  },
+  "raw_enderite": {
+    "lore": [
+      "Ein Fragment des eigenen Erzes des Endes, noch rau von der Dunkelheit."
+    ],
+    "use": [
+      "Ein Enderperle, Astralitstaub und ein Nihilitsplitter, formlos. Der erste Schritt zu Enderit."
+    ],
+    "secret": [
+      "Ein Fragment wird zu Rohem Enderit-Schrott, den ein Ofen zu Enderit-Schrott schmilzt."
+    ]
+  },
+  "layered_raw_enderite": {
+    "lore": [
+      "Roher Enderit, in Schichten gepresst, bereit fürs Feuer."
+    ],
+    "use": [
+      "Ein Rohes Enderit-Fragment formlos herstellen, um es zu erhalten. Ein Schmelzofen macht daraus Enderit-Schrott."
+    ],
+    "secret": [
+      "Schmilz ihn zu Enderit-Schrott; vier Schrott, vier Diamanten und ein Netheritbarren ergeben dann einen Enderitbarren."
+    ]
+  },
+  "enderite_scrap": {
+    "lore": [
+      "Was übrig bleibt, wenn das Roherz des Endes auf einen Ofen trifft und seine Illusionen verliert."
+    ],
+    "use": [
+      "Geschmolzen aus Rohem Enderit-Schrott. Vier Schrott, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren."
+    ],
+    "secret": [
+      "Feuerfest und auf Lava schwimmend, wie alles Enderit vom Barren aufwärts. Fallen gelassener Schrott liegt 10 Minuten, bevor er verschwindet."
+    ]
+  },
+  "enderite_block": {
+    "lore": [
+      "Neun Barren des Endes, zu einem Würfel gefaltet: das Schwerste, das ein Baumeister besitzen kann."
+    ],
+    "use": [
+      "Neun Enderitbarren im 3x3-Quadrat ergeben einen Enderitblock. Ein Lager- und Dekorationsblock."
+    ],
+    "secret": [
+      "Er gehört zur Enderit-Gegenstandsfamilie und ist beim Fallenlassen vor der Leere sicher."
+    ]
+  },
+  "enderite_upgrade_template": {
+    "lore": [
+      "Eine Vorlage, mit dem eigenen Siegel des Endes gestempelt."
+    ],
+    "use": [
+      "Schmiedevorlage: Mit einem Netherit-Teil und einem Enderitbarren ergibt sie die Enderit-Version von Werkzeugen, Rüstung, Speeren und Behältern. Herstellung: 7 Diamanten um einen Endstein und die Vorlage ergeben 2."
+    ],
+    "secret": [
+      "Eine Vorlage, 7 Diamanten und ein Endstein ergeben 2 Vorlagen: Du musst nie nach mehr suchen. Sie lässt sich auch mit Schleichen + Rechtsklick in der Welt platzieren."
+    ]
+  },
+  "basic_upgrade_template": {
+    "lore": [
+      "Eine bescheidene Vorlage für bescheidene Aufwertungen, die jeder braucht."
+    ],
+    "use": [
+      "Schmiedetisch: hebt Kupferwerkzeuge auf Eisen, Eisen auf Gold, Gold auf Diamant sowie Vanilla-Holz auf Stein auf Eisen. Es kostet das Doppelte des Handwerksmaterials. Kopieren: eine Vorlage, 7 Diamanten und ein Eisenblock ergeben 2."
+    ],
+    "secret": [
+      "Name, Schaden und Verzauberungen bleiben erhalten, ebenso das Kern-Upgrade eines Baustabs: Du fügst nur einen Kern der neuen Stufe hinzu."
+    ]
+  },
+  "glowing_trim_template": {
+    "lore": [
+      "Ein Besatz, der das Licht einen Moment länger hält, als sie sollte."
+    ],
+    "use": [
+      "Herstellung: 4 Diamanten, 2 Glowstone-Blöcke und eine Vorlage, oder eine platzierte Besatzvorlage mit Hammerschlägen aufwerten, während Leuchttinte oder Glowstonestaub in der Nebenhand liegt. Eine Vorlage, 7 Diamanten und ein Glowstone-Block ergeben 2."
+    ],
+    "secret": [
+      "Am Schmiedetisch lassen Vorlage, Rüstung und ein Leuchttintenbeutel den Besatz gleichmäßig mit voller Helligkeit leuchten. Er leuchtet nur optisch und gibt kein echtes Licht ab."
+    ]
+  },
+  "emitting_trim_template": {
+    "lore": [
+      "Ein Besatz, der nicht nur scheint, sondern anderen den Weg leuchtet."
+    ],
+    "use": [
+      "Eine platzierte Besatzvorlage mit Hammerschlägen aufwerten, während Leuchttinte oder Glowstonestaub in der Nebenhand liegt; es verbraucht 2 Lohenstaub und 4 Diamanten. Eine Vorlage, 7 Diamanten und ein Magmablock ergeben 2."
+    ],
+    "secret": [
+      "Am Schmiedetisch wird Rüstung mit Glowstonestaub zur tragbaren Lichtquelle: Ein unsichtbarer Lichtblock folgt deinem Kopf. Mehr Staub erhöht die Strahlkraft, bis Stufe 5."
+    ]
+  },
+  "pulsating_trim_template": {
+    "lore": [
+      "Ein Besatz mit eigenem Herzschlag."
+    ],
+    "use": [
+      "Herstellung: 2 Echoscherben, 2 Sculk, 4 Diamanten und ein beliebiger Vorschlaghammer; der Hammer bleibt im Raster und verliert 1 Haltbarkeit. Eine Vorlage, 7 Diamanten und ein Sculkblock ergeben 2."
+    ],
+    "secret": [
+      "Am Schmiedetisch lassen Vorlage, Rüstung und ein Echoscherben den Besatz alle 2,4 Sekunden von voller Farbe zu Grau pulsieren. Zusammen mit Leuchtend pulsiert auch die Helligkeit."
+    ]
+  },
+  "reinforced_chest": {
+    "lore": [
+      "{name}: Der erste Schritt über der Kupfertruhe."
+    ],
+    "use": [
+      "36 Plätze, 72 als Doppeltruhe."
+    ],
+    "secret": [
+      "Herstellung: 3 Kupfertruhen beliebiger Oxidation, gewachst oder nicht, plus 6 Rissige Diamanten ergeben 3. Oder halte 5 Sekunden Rechtsklick auf einer platzierten Kupfertruhe mit einem Vorschlaghammer und einem Rissigen Diamanten in der Nebenhand; der Inhalt bleibt."
+    ]
+  },
+  "reinforced_trapped_chest": {
+    "lore": [
+      "{name}: eine Truhe, die den Atem anhält."
+    ],
+    "use": [
+      "Redstone-Variante der Truhe ihrer Stufe: 36 Plätze, 72 als Doppeltruhe, und sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe."
+    ],
+    "secret": [
+      "Formlos aus der Truhe der Stufe und einem Haken hergestellt. Nur zwei Redstone-Truhen derselben Stufe bilden eine Doppeltruhe; normale Truhen und andere Stufen bleiben getrennt."
+    ]
+  },
+  "reinforced_chest_boat": {
+    "lore": [
+      "{name}: ein Boot, das keine Angst mehr vor seiner Fracht hat."
+    ],
+    "use": [
+      "Das Truhenboot der Stufe Reinforced, in jeder Holzart (Bambus: Floß). 36 Plätze, wie die Truhe."
+    ],
+    "secret": [
+      "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
+    ]
+  },
+  "reinforced_chest_minecart": {
+    "lore": [
+      "{name}: eine Truhe, die endlich ihre Schienen bekam."
+    ],
+    "use": [
+      "Die Lore mit Truhe der Stufe: 36 Plätze, wie die Truhe der Stufe."
+    ],
+    "secret": [
+      "Eine Lore mit der Truhe der Stufe formlos herstellen. Trichter und Trichterloren füllen und leeren sie wie die Vanilla-Lore mit Truhe; Schmieden hebt sie eine Stufe."
+    ]
+  },
+  "reinforced_shulker_box": {
+    "lore": [
+      "{name}: eine Kiste, die mehr behält, als sie zeigt."
+    ],
+    "use": [
+      "36 Plätze. Eine Vanilla-Shulkerkiste mit 4 Rissigen Diamanten formlos herstellen, oder 10 Schläge Rechtsklick auf eine platzierte mit einem Vorschlaghammer und 2 Rissigen Diamanten in der Nebenhand."
+    ],
+    "secret": [
+      "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
+    ]
+  },
+  "reinforced_shulker_shell": {
+    "lore": [
+      "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
+    ],
+    "use": [
+      "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
+    ],
+    "secret": [
+      "Jede Stufe entsteht auch aus der Schale der Stufe darunter in der Welt. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+    ]
+  },
+  "netherite_chest": {
+    "lore": [
+      "{name}: Netherit lässt die Truhe pro Platz doppelt so viel halten."
+    ],
+    "use": [
+      "45 Plätze, 90 als Doppeltruhe. Jeder Platz fasst das 2-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
+    ],
+    "secret": [
+      "Halte 5 Sekunden Rechtsklick auf einer platzierten Verstärkten Truhe, mit einem Netheritklumpen in der Nebenhand und einem Diamant-Vorschlaghammer oder besser. Die Truhe behält Inhalt, Namen und Schloss. Doppeltruhen entstehen nur aus gleichen Stufen."
+    ]
+  },
+  "netherite_trapped_chest": {
+    "lore": [
+      "{name}: eine Truhe, die den Atem anhält."
+    ],
+    "use": [
+      "Redstone-Variante der Truhe ihrer Stufe: 45 Plätze, 90 als Doppeltruhe, und sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe. Jeder Platz fasst das 2-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
+    ],
+    "secret": [
+      "Formlos aus der Truhe der Stufe und einem Haken hergestellt. Nur zwei Redstone-Truhen derselben Stufe bilden eine Doppeltruhe; normale Truhen und andere Stufen bleiben getrennt."
+    ]
+  },
+  "netherite_chest_boat": {
+    "lore": [
+      "{name}: ein Boot, das keine Angst mehr vor seiner Fracht hat."
+    ],
+    "use": [
+      "Das Truhenboot der Stufe Netherite, in jeder Holzart (Bambus: Floß). 45 Plätze mit 2-fachen Stapeln, wie die Truhe."
+    ],
+    "secret": [
+      "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
+    ]
+  },
+  "netherite_chest_minecart": {
+    "lore": [
+      "{name}: eine Truhe, die endlich ihre Schienen bekam."
+    ],
+    "use": [
+      "Die Lore mit Truhe der Stufe: 45 Plätze mit 2-fachen Stapeln, wie die Truhe der Stufe."
+    ],
+    "secret": [
+      "Eine Lore mit der Truhe der Stufe formlos herstellen. Trichter und Trichterloren füllen und leeren sie wie die Vanilla-Lore mit Truhe; Schmieden hebt sie eine Stufe."
+    ]
+  },
+  "netherite_shulker_box": {
+    "lore": [
+      "{name}: eine Kiste, die mehr behält, als sie zeigt."
+    ],
+    "use": [
+      "45 Plätze, jeder mit dem 2-Fachen der normalen Stapelgröße. Kein Rezept: Eine platzierte Verstärkte wird nach 10 Schlägen mit einem Diamant-Vorschlaghammer oder besser und 2 Netheritklumpen in der Nebenhand zu dieser."
+    ],
+    "secret": [
+      "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
+    ]
+  },
+  "netherite_shulker_shell": {
+    "lore": [
+      "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
+    ],
+    "use": [
+      "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
+    ],
+    "secret": [
+      "Jede Stufe entsteht auch aus der Schale der Stufe darunter in der Welt. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+    ]
+  },
+  "enderite_chest": {
+    "lore": [
+      "{name}: Das Ende macht eine Truhe so groß wie eine Doppeltruhe, mit vierfachen Stapeln."
+    ],
+    "use": [
+      "54 Plätze, 108 als Doppeltruhe. Jeder Platz fasst das 4-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
+    ],
+    "secret": [
+      "Halte 5 Sekunden Rechtsklick auf einer platzierten Netherittruhe, mit einem Enderitklumpen in der Nebenhand und einem Netherit-Vorschlaghammer. Die Truhe behält alles darin. Als Gegenstand leerensicher und feuerfest."
+    ]
+  },
+  "enderite_trapped_chest": {
+    "lore": [
+      "{name}: eine Truhe, die den Atem anhält."
+    ],
+    "use": [
+      "Redstone-Variante der Truhe ihrer Stufe: 54 Plätze, 108 als Doppeltruhe, und sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe. Jeder Platz fasst das 4-Fache der normalen Stapelgröße (nicht stapelbare Gegenstände bleiben bei 1)."
+    ],
+    "secret": [
+      "Formlos aus der Truhe der Stufe und einem Haken hergestellt. Nur zwei Redstone-Truhen derselben Stufe bilden eine Doppeltruhe; normale Truhen und andere Stufen bleiben getrennt."
+    ]
+  },
+  "enderite_chest_boat": {
+    "lore": [
+      "{name}: ein Boot, das keine Angst mehr vor seiner Fracht hat."
+    ],
+    "use": [
+      "Das Truhenboot der Stufe Enderite, in jeder Holzart (Bambus: Floß). 54 Plätze mit 4-fachen Stapeln, wie die Truhe."
+    ],
+    "secret": [
+      "Ein Boot (oder Floß) beliebigen Holzes mit der Truhe der Stufe formlos herstellen; das Holz bleibt am Gegenstand. Schleichen + Rechtsklick öffnet das Truhenmenü. Schmieden hebt es eine Stufe."
+    ]
+  },
+  "enderite_chest_minecart": {
+    "lore": [
+      "{name}: eine Truhe, die endlich ihre Schienen bekam."
+    ],
+    "use": [
+      "Die Lore mit Truhe der Stufe: 54 Plätze mit 4-fachen Stapeln, wie die Truhe der Stufe."
+    ],
+    "secret": [
+      "Eine Lore mit der Truhe der Stufe formlos herstellen. Trichter und Trichterloren füllen und leeren sie wie die Vanilla-Lore mit Truhe; Schmieden hebt sie eine Stufe."
+    ]
+  },
+  "enderite_shulker_box": {
+    "lore": [
+      "{name}: eine Kiste, die mehr behält, als sie zeigt."
+    ],
+    "use": [
+      "54 Plätze, jeder mit dem 4-Fachen der normalen Stapelgröße. Kein Rezept: Eine platzierte Netherit-Kiste wird nach 10 Schlägen mit einem Netherit-Vorschlaghammer oder besser und 2 Enderitklumpen in der Nebenhand zu dieser."
+    ],
+    "secret": [
+      "Inhalt, Name, Schloss, Ausrichtung und Farbe bleiben beim Aufwerten erhalten. Übergroße Stapel verlassen die Kiste jeweils nur als ein normaler Stapel."
+    ]
+  },
+  "enderite_shulker_shell": {
+    "lore": [
+      "{name}: eine Schale, die eine weitere Schicht bekam, während niemand hinsah."
+    ],
+    "use": [
+      "Die Schale der Shulkerkisten-Stufe. Verstärkte, Netherit- und Enderit-Shulker in Endstädten lassen 0 bis 2 ihrer eigenen Schale fallen."
+    ],
+    "secret": [
+      "Jede Stufe entsteht auch aus der Schale der Stufe darunter in der Welt. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+    ]
+  },
+  "backpack": {
+    "lore": [
+      "{name}: Lederplatte, Faden, schwere Druckplatte und Kupferklumpen: Jedes Abenteuer beginnt mit einem Beutel."
+    ],
+    "use": [
+      "Tragbares Lager mit 9 Plätzen; gibt 1 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Herstellung: Kupferklumpen, Faden, schwere Druckplatten und Lederplatten."
+    ],
+    "secret": [
+      "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
+    ]
+  },
+  "reinforced_backpack": {
+    "lore": [
+      "{name}: Ein Beutel mit Diamantnaht, gebaut, das Gewicht eines langen Tages zu tragen."
+    ],
+    "use": [
+      "Tragbares Lager mit 18 Plätzen; gibt 2 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Rucksack am Handwerkstisch mit vier Diamantkieseln aufwerten; der Inhalt bleibt."
+    ],
+    "secret": [
+      "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
+    ]
+  },
+  "netherite_backpack": {
+    "lore": [
+      "{name}: Ein Beutel, der durch Feuer ging und seinen Inhalt trotzdem behält."
+    ],
+    "use": [
+      "Tragbares Lager mit 33 Plätzen; gibt 3 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Schmiedetisch-Aufwertung des Verstärkten Rucksacks. Als Gegenstand übersteht er Explosionen."
+    ],
+    "secret": [
+      "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
+    ]
+  },
+  "enderite_backpack": {
+    "lore": [
+      "{name}: Das Ende hat Platz für alles, und dieser Beutel ebenso."
+    ],
+    "use": [
+      "Tragbares Lager mit 50 Plätzen; gibt 4 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Schmiedetisch-Aufwertung des Netherit-Rucksacks. Er übersteht Explosionen und ist vor der Leere sicher."
+    ],
+    "secret": [
+      "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
+    ]
+  },
+  "reinforced_bundle": {
+    "lore": [
+      "Ein Bündel, das mit Lederplatte und Diamantkieseln lernte, mehr zu halten."
+    ],
+    "use": [
+      "1,5-fache Kapazität eines Vanilla-Bündels, 96 Gegenstände bei Stapelgröße 64. Herstellung: Faden über einem Bündel, Lederplatte darunter, sechs Diamantkiesel in den Seitenspalten. Inhalt, Verzauberungen und Name bleiben erhalten."
+    ],
+    "secret": [
+      "Das Mausrad im Inventar wählt, welchen Eintrag es herausgibt. Es ist die Basis für die Bündel-Verzauberungen Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette. Schleichen + Rechtsklick setzt es als 3D-Bündel ab."
+    ]
+  },
+  "netherite_bundle": {
+    "lore": [
+      "Ein Bündel, das weder Feuer fürchtet noch das, was es trägt."
+    ],
+    "use": [
+      "Die Schmiedetisch-Aufwertung des Verstärkten Bündels: doppelte Grundkapazität, feuerfest, und als Gegenstand explosionssicher."
+    ],
+    "secret": [
+      "Wie die anderen Stufen nimmt es die Bündel-Verzauberungen am Amboss an. Das Enderit-Bündel ist seine nächste Stufe."
+    ]
+  },
+  "enderite_bundle": {
+    "lore": [
+      "Ein Bündel mit dem ganzen Ende in den Stoff gefaltet."
+    ],
+    "use": [
+      "Die höchste Bündelstufe: dreifache Grundkapazität, feuerfest, als Gegenstand explosions- und leeresicher, und sie nimmt die Bündel-Verzauberungen am Amboss an."
+    ],
+    "secret": [
+      "In der Leere fallen gelassen bleibt es schweben und wartet 10 Minuten, bevor es verschwindet, doppelt so lang wie sonst."
+    ]
+  },
+  "placed_bundle": {
+    "lore": [
+      "Ein Bündel, auf einem Tisch abgelegt, als wolle jemand wiederkommen."
+    ],
+    "use": [
+      "Ein Bündel, abgelegt mit Schleichen + Rechtsklick auf die Oberseite eines Blocks, als 3D-Bündel gezeichnet. Es hat kein eigenes Item; es hält das Bündel samt Inhalt."
+    ],
+    "secret": [
+      "Baust du es ab, kehrt das ganze Bündel zurück, so gefüllt, wie du es ließest."
+    ]
+  },
+  "quiver": {
+    "lore": [
+      "Ein Bündel, das nur Pfeile will und noch nie enttäuscht wurde."
+    ],
+    "use": [
+      "Nimmt nur Pfeile auf, beim Hineinklicken wie beim Aufheben vom Boden, und versorgt einen Bogen automatisch aus der Nebenhand, dem Brustplatz oder der Schnellleiste. Herstellung: Faden, Leder, ein Kupferklumpen und ein Bündel."
+    ],
+    "secret": [
+      "Pfeile, Spektralpfeile und getränkte Pfeile passen hinein, ein Bogen nicht. Am Handwerkstisch wird er zum Verstärkten Köcher und behält seine Pfeile."
+    ]
+  },
+  "reinforced_quiver": {
+    "lore": [
+      "Ein Köcher mit Lederplatte und Diamantkieseln in den Nähten."
+    ],
+    "use": [
+      "Kapazitätsfaktor 3/2, 96 Pfeile. Am Handwerkstisch aus einem Köcher hergestellt, ohne Pfeile zu verlieren. Er ist das Einzige, aus dem der Netherit-Köcher geschmiedet werden kann."
+    ],
+    "secret": [
+      "Verzauberungen und Name bleiben beim Aufwerten erhalten. Am Schmiedetisch wird er zum Netherit-Köcher."
+    ]
+  },
+  "netherite_quiver": {
+    "lore": [
+      "Ein Köcher, der dem Feuer begegnete und von ihm verbessert wurde."
+    ],
+    "use": [
+      "Die Schmiedetisch-Aufwertung des Verstärkten Köchers, Kapazitätsfaktor 2, feuerfest, Seltenheit ungewöhnlich."
+    ],
+    "secret": [
+      "Als Gegenstand übersteht er Explosionen. Es passen nur Pfeile hinein."
+    ]
+  },
+  "enderite_quiver": {
+    "lore": [
+      "Ein Köcher, dessen Ende nicht kommt."
+    ],
+    "use": [
+      "Die höchste Köcherstufe, aus dem Netherit-Köcher geschmiedet: Kapazitätsfaktor 3, feuerfest, episch. Als Gegenstand explosionssicher und leeresicher."
+    ],
+    "secret": [
+      "Er nimmt die Verzauberungen des Mods am Amboss an wie die niedrigeren Stufen."
+    ]
+  },
+  "paint_box": {
+    "lore": [
+      "{name}: Drei Farbstoffe über drei Brettern: eine Palette in einer Kiste."
+    ],
+    "use": [
+      "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 64 je 16 Farben. Herstellung aus einem roten, einem gelben und einem blauen Farbstoff über drei Brettern. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
+    ],
+    "secret": [
+      "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
+    ]
+  },
+  "reinforced_paint_box": {
+    "lore": [
+      "{name}: Dieselben Farben, in einer stärkeren Kiste."
+    ],
+    "use": [
+      "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 128 je 16 Farben. Handwerkstisch: die Kiste in der Mitte, vier Diamantkiesel daneben, vier Goldklumpen in den Ecken; sie behält ihre Farben. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
+    ],
+    "secret": [
+      "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
+    ]
+  },
+  "netherite_paint_box": {
+    "lore": [
+      "{name}: Eine Farbkiste, die im Feuer stand und ihre Farben behielt."
+    ],
+    "use": [
+      "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 256 je 16 Farben. Schmiedetisch: Netherit-Aufwertung und ein Netheritbarren. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
+    ],
+    "secret": [
+      "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
+    ]
+  },
+  "enderite_paint_box": {
+    "lore": [
+      "{name}: Sie hält mehr Farben, als die Welt Namen kennt."
+    ],
+    "use": [
+      "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 512 je 16 Farben. Schmiedetisch: Enderit-Aufwertung und ein Enderitbarren. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
+    ],
+    "secret": [
+      "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
+    ]
+  },
+  "reinforced_furnace": {
+    "lore": [
+      "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
+    ],
+    "use": [
+      "Läuft 2-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "reinforced_blast_furnace": {
+    "lore": [
+      "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
+    ],
+    "use": [
+      "Läuft 2-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "reinforced_smoker": {
+    "lore": [
+      "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
+    ],
+    "use": [
+      "Läuft 2-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "reinforced_furnace_minecart": {
+    "lore": [
+      "{name}: ein Ofen, der beschloss zu reisen."
+    ],
+    "use": [
+      "Ein Brennstoff brennt 2-mal so lang wie bei der Vanilla-Lore mit Ofen, die Lore fährt schneller und der Ofen gart 2-mal so schnell."
+    ],
+    "secret": [
+      "Eine Lore mit dem Ofen derselben Stufe formlos herstellen; Schmieden hebt sie eine Stufe. Rechtsklick schiebt die Lore von dir weg. Die Enderit-Lore erreicht die volle Höchstgeschwindigkeit einer einfachen Lore."
+    ]
+  },
+  "netherite_furnace": {
+    "lore": [
+      "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
+    ],
+    "use": [
+      "Läuft 4-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Kein Rezept: Hämmere eine platzierte Verstärkte mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "netherite_blast_furnace": {
+    "lore": [
+      "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
+    ],
+    "use": [
+      "Läuft 4-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Verstärkte mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "netherite_smoker": {
+    "lore": [
+      "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
+    ],
+    "use": [
+      "Läuft 4-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Verstärkte mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "netherite_furnace_minecart": {
+    "lore": [
+      "{name}: ein Ofen, der beschloss zu reisen."
+    ],
+    "use": [
+      "Ein Brennstoff brennt 4-mal so lang wie bei der Vanilla-Lore mit Ofen, die Lore fährt schneller und der Ofen gart 4-mal so schnell."
+    ],
+    "secret": [
+      "Eine Lore mit dem Ofen derselben Stufe formlos herstellen; Schmieden hebt sie eine Stufe. Rechtsklick schiebt die Lore von dir weg. Die Enderit-Lore erreicht die volle Höchstgeschwindigkeit einer einfachen Lore."
+    ]
+  },
+  "enderite_furnace": {
+    "lore": [
+      "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
+    ],
+    "use": [
+      "Läuft 8-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Doppelte Erfahrung. Kein Rezept: Hämmere eine platzierte Netherit-Variante mit einem Netherit-Vorschlaghammer und einem Enderitklumpen."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "enderite_blast_furnace": {
+    "lore": [
+      "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
+    ],
+    "use": [
+      "Läuft 8-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Doppelte Erfahrung. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Netherit-Variante mit einem Netherit-Vorschlaghammer und einem Enderitklumpen."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "enderite_smoker": {
+    "lore": [
+      "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
+    ],
+    "use": [
+      "Läuft 8-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Doppelte Erfahrung. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Netherit-Variante mit einem Netherit-Vorschlaghammer und einem Enderitklumpen."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "enderite_furnace_minecart": {
+    "lore": [
+      "{name}: ein Ofen, der beschloss zu reisen."
+    ],
+    "use": [
+      "Ein Brennstoff brennt 8-mal so lang wie bei der Vanilla-Lore mit Ofen, die Lore fährt schneller und der Ofen gart 8-mal so schnell."
+    ],
+    "secret": [
+      "Eine Lore mit dem Ofen derselben Stufe formlos herstellen; Schmieden hebt sie eine Stufe. Rechtsklick schiebt die Lore von dir weg. Die Enderit-Lore erreicht die volle Höchstgeschwindigkeit einer einfachen Lore."
+    ]
+  },
+  "reinforced_hopper": {
+    "lore": [
+      "{name}: ein Trichter in Eile."
+    ],
+    "use": [
+      "Wartet nach jeder Übertragung nur 4 Ticks. Er bringt einen Gegenstandsfilter mit drei Modi im Menü mit: aus, exakt, Typ."
+    ],
+    "secret": [
+      "Bei aktivem Filter ist der echte Gegenstand im Platz dessen Filter, und einer davon bleibt immer im Platz. Herstellung: 5 Trichter, ein Namensschild, 3 Rissige Diamanten."
+    ]
+  },
+  "reinforced_hopper_minecart": {
+    "lore": [
+      "{name}: ein Trichter, der mitfährt."
+    ],
+    "use": [
+      "Nimmt bis zu 2 Gegenstände pro Tick auf (die Vanilla-Lore mit Trichter nimmt 1) und filtert wie der Trichterblock seiner Stufe."
+    ],
+    "secret": [
+      "Es ist dieselbe Beschleunigung wie beim Mod-Trichter gegenüber dem Vanilla-Trichter, nun auf Schienen."
+    ]
+  },
+  "netherite_hopper": {
+    "lore": [
+      "{name}: ein Trichter mit Feuer in den Rohren."
+    ],
+    "use": [
+      "Wartet nach jeder Übertragung nur 2 Ticks. Er bringt einen Gegenstandsfilter mit drei Modi im Menü mit: aus, exakt, Typ."
+    ],
+    "secret": [
+      "Bei aktivem Filter ist der echte Gegenstand im Platz dessen Filter, und einer davon bleibt immer im Platz. Hämmere einen Verstärkten Trichter mit einem Netheritklumpen."
+    ]
+  },
+  "netherite_hopper_minecart": {
+    "lore": [
+      "{name}: ein Trichter, der mitfährt."
+    ],
+    "use": [
+      "Nimmt bis zu 4 Gegenstände pro Tick auf (die Vanilla-Lore mit Trichter nimmt 1) und filtert wie der Trichterblock seiner Stufe."
+    ],
+    "secret": [
+      "Es ist dieselbe Beschleunigung wie beim Mod-Trichter gegenüber dem Vanilla-Trichter, nun auf Schienen."
+    ]
+  },
+  "enderite_hopper": {
+    "lore": [
+      "{name}: ein Trichter, so schnell, als wäre er immer schon fertig."
+    ],
+    "use": [
+      "Wartet nach jeder Übertragung nur 1 Tick. Er bringt einen Gegenstandsfilter mit drei Modi im Menü mit: aus, exakt, Typ."
+    ],
+    "secret": [
+      "Bei aktivem Filter ist der echte Gegenstand im Platz dessen Filter, und einer davon bleibt immer im Platz. Hämmere einen Netherit-Trichter mit einem Enderitklumpen."
+    ]
+  },
+  "enderite_hopper_minecart": {
+    "lore": [
+      "{name}: ein Trichter, der mitfährt."
+    ],
+    "use": [
+      "Nimmt bis zu 8 Gegenstände pro Tick auf (die Vanilla-Lore mit Trichter nimmt 1) und filtert wie der Trichterblock seiner Stufe."
+    ],
+    "secret": [
+      "Es ist dieselbe Beschleunigung wie beim Mod-Trichter gegenüber dem Vanilla-Trichter, nun auf Schienen."
+    ]
+  },
+  "reinforced_piston": {
+    "lore": [
+      "Ein Kolben, der den Trick lernte, eine Menge zu schieben."
+    ],
+    "use": [
+      "Schiebt eine Reihe aus bis zu 18 Blöcken statt 12. Herstellung: 3 Rissige Diamanten, 2 Kolben und 4 Eisenbarren ergeben 2. Ein Redstoneblock daneben bezahlt auch das Schieben eines unzerstörbaren Blocks wie Grundgestein."
+    ],
+    "secret": [
+      "Der Redstoneblock wird erst verbraucht, wenn der Schub gelang. Ein zweiter unzerstörbarer Block in der Reihe, Obsidian oder eine Blockentität stoppt ihn dennoch."
+    ]
+  },
+  "reinforced_sticky_piston": {
+    "lore": [
+      "Der klebrige Zwilling, der nicht loslässt und achtzehn schiebt."
+    ],
+    "use": [
+      "Ein Schleimball auf einem Verstärkten Kolben. Er schiebt bis zu 18 Blöcke, zieht beim Einfahren einen Block zurück und schiebt mit einem Redstoneblock daneben einen unzerstörbaren Block wie Grundgestein."
+    ],
+    "secret": [
+      "Der Redstoneblock wird erst nach gelungenem Schub bezahlt. Der geschobene Block bleibt an seinem neuen Platz, wenn der Klebekolben im selben Tick einfährt."
+    ]
+  },
+  "netherite_piston": {
+    "lore": [
+      "Ein Kolben, der nicht schiebt. Er entscheidet."
+    ],
+    "use": [
+      "Kein Rezept: Ein Verstärkter Kolben wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen zu einem. Beim Ausfahren zerstört er den Block davor, wenn das Redstone-Signal für dessen Härte stark genug ist."
+    ],
+    "secret": [
+      "Mit einem Redstoneblock daneben opfert er sich, um bis zu drei Blöcke tief durch Unzerstörbares wie Grundgestein zu brechen."
+    ]
+  },
+  "enderite_piston": {
+    "lore": [
+      "Ein Kolben, der sich an die Form dessen erinnert, was ihm im Weg stand."
+    ],
+    "use": [
+      "Zerstört beim Ausfahren den Block davor wie der Netherit-Kolben. Kein Rezept: Hämmere einen Netherit-Kolben mit einem Enderitklumpen und einem Netherit-Vorschlaghammer."
+    ],
+    "secret": [
+      "Mit einem Redstoneblock daneben opfert er sich, um bis zu drei Blöcke tief durch Unzerstörbares wie Grundgestein zu brechen."
+    ]
+  },
+  "flypad": {
+    "lore": [
+      "{name}: Ein kleines Stück Himmel, auf dem du stehen darfst."
+    ],
+    "use": [
+      "Gewährt Kreativflug in seinem Bereich (Stufe I: 4x4x8 Blöcke, Breite, Tiefe, Höhe) und nimmt ihn zurück, wenn du ihn verlässt. Stufe I wird formlos aus einem Enderitkern, einer Enderit-Druckplatte, einem Shulkerkopf und einer Elytra mit Reparatur hergestellt."
+    ],
+    "secret": [
+      "Es gibt drei Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III. Pads stapeln nicht, jedes ist ein Einzelstück."
+    ]
+  },
+  "reinforced_flypad": {
+    "lore": [
+      "{name}: Der Himmel wird größer, wenn man höflich fragt."
+    ],
+    "use": [
+      "Gewährt Kreativflug in seinem Bereich (Stufe II: 8x8x16 Blöcke, Breite, Tiefe, Höhe) und nimmt ihn zurück, wenn du ihn verlässt. Stufe II wird am Schmiedetisch aus Flugpad I geschmiedet."
+    ],
+    "secret": [
+      "Es gibt drei Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III. Pads stapeln nicht, jedes ist ein Einzelstück."
+    ]
+  },
+  "stellar_flypad": {
+    "lore": [
+      "{name}: Unter einem Stellaren Flugpad ist der Boden nur ein Vorschlag."
+    ],
+    "use": [
+      "Gewährt Kreativflug in seinem Bereich (Stufe III: 16x16x32 Blöcke, Breite, Tiefe, Höhe) und nimmt ihn zurück, wenn du ihn verlässt. Stufe III wird am Schmiedetisch aus Flugpad II geschmiedet."
+    ],
+    "secret": [
+      "Es gibt drei Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III. Pads stapeln nicht, jedes ist ein Einzelstück."
+    ]
+  },
+  "elytra_pad": {
+    "lore": [
+      "{name}: Ein Block Flügel für jeden, der es versuchen will."
+    ],
+    "use": [
+      "Gibt jedem Spieler mit freiem Brustplatz in seinem Bereich eine Spawn-Elytra und lädt sie nach. Stufe I: Bereich 5x5, einen Block unter bis 5 über dem Pad."
+    ],
+    "secret": [
+      "Die Spawn-Elytra existiert nur im Brustplatz, hat einen Flugtimer und Schübe und ersetzt die Erfahrungsleiste durch eine blaue Schubleiste. Drei Stufen, Elytra-Pad I bis Enderit-Elytra-Pad III."
+    ]
+  },
+  "netherite_elytra_pad": {
+    "lore": [
+      "{name}: Netherit weitet den Himmel auf 32 Blöcke."
+    ],
+    "use": [
+      "Gibt jedem Spieler mit freiem Brustplatz in seinem Bereich eine Spawn-Elytra und lädt sie nach. Stufe II: Bereich 32x32, einen Block unter bis 32 über dem Pad."
+    ],
+    "secret": [
+      "Die Spawn-Elytra existiert nur im Brustplatz, hat einen Flugtimer und Schübe und ersetzt die Erfahrungsleiste durch eine blaue Schubleiste. Drei Stufen, Elytra-Pad I bis Enderit-Elytra-Pad III."
+    ]
+  },
+  "enderite_elytra_pad": {
+    "lore": [
+      "{name}: Ein Himmelsfeld, 128 Blöcke breit."
+    ],
+    "use": [
+      "Gibt jedem Spieler mit freiem Brustplatz in seinem Bereich eine Spawn-Elytra und lädt sie nach. Stufe III: Bereich 128x128, einen Block unter bis 192 über dem Pad."
+    ],
+    "secret": [
+      "Die Spawn-Elytra existiert nur im Brustplatz, hat einen Flugtimer und Schübe und ersetzt die Erfahrungsleiste durch eine blaue Schubleiste. Drei Stufen, Elytra-Pad I bis Enderit-Elytra-Pad III."
+    ]
+  },
+  "spawn_elytra": {
+    "lore": [
+      "Eine Elytra, die nur geliehen ist und es weiß."
+    ],
+    "use": [
+      "Eine zeitlich begrenzte Elytra vom Spawnbereich oder einem Elytra-Pad. Sie existiert nur im Brustplatz, hat einen Flugtimer und Schübe und ersetzt die Erfahrungsleiste durch eine blaue Schubleiste mit der Restzeit."
+    ],
+    "secret": [
+      "Ein Pad hält sie geladen, solange du in seinem Bereich bleibst, die Schübe kehren also zurück, während du über ihm schwebst."
+    ]
+  },
+  "launchpad": {
+    "lore": [
+      "{name}: ein Windstoß, der auf dich wartet."
+    ],
+    "use": [
+      "Lade es mit Windkugeln auf (Stufe I: bis zu 4) und steh 3 Sekunden darauf: Es schleudert dich hoch, mit mehr Ladungen höher. Schmieden: Eisenkern, schwere Druckplatte und ein Prüfungskammer-Mobkopf, geschmiedet."
+    ],
+    "secret": [
+      "Drei Stufen: Startrampe I, Netherit-Startrampe II und Enderit-Startrampe III. Pads stapeln nicht."
+    ]
+  },
+  "netherite_launchpad": {
+    "lore": [
+      "{name}: ein Windstoß, der auf dich wartet."
+    ],
+    "use": [
+      "Lade es mit Windkugeln auf (Stufe II: bis zu 8) und steh 3 Sekunden darauf: Es schleudert dich hoch, mit mehr Ladungen höher. Schmieden: Netherit-Aufwertung, Startrampe I und eine Netherit-Druckplatte, geschmiedet."
+    ],
+    "secret": [
+      "Drei Stufen: Startrampe I, Netherit-Startrampe II und Enderit-Startrampe III. Pads stapeln nicht."
+    ]
+  },
+  "enderite_launchpad": {
+    "lore": [
+      "{name}: ein Windstoß, der auf dich wartet."
+    ],
+    "use": [
+      "Lade es mit Windkugeln auf (Stufe III: bis zu 16) und steh 3 Sekunden darauf: Es schleudert dich hoch, mit mehr Ladungen höher. Schmieden: Enderit-Aufwertung, Startrampe II und eine Enderit-Druckplatte, geschmiedet."
+    ],
+    "secret": [
+      "Drei Stufen: Startrampe I, Netherit-Startrampe II und Enderit-Startrampe III. Pads stapeln nicht."
+    ]
+  },
+  "potion_pad": {
+    "lore": [
+      "{name}: ein Stein, der sich an den letzten Trank erinnert."
+    ],
+    "use": [
+      "Speichert die Wirkungen eines geworfenen Tranks und gibt sie jedem Spieler, der darauftritt. Stufe I: Dauergrenze 45 Sekunden nach voller Ladung; kürzere Tränke und Grenzen je Wirkung gelten weiter."
+    ],
+    "secret": [
+      "Drei Stufen: Trank-Pad, Verstärktes Trank-Pad II und Durchtränktes Trank-Pad III. Wirf einen Wurftrank darauf, um es zu laden."
+    ]
+  },
+  "reinforced_potion_pad": {
+    "lore": [
+      "{name}: ein Stein, der sich an den letzten Trank erinnert."
+    ],
+    "use": [
+      "Speichert die Wirkungen eines geworfenen Tranks und gibt sie jedem Spieler, der darauftritt. Stufe II: Dauergrenze 90 Sekunden nach voller Ladung; kürzere Tränke und Grenzen je Wirkung gelten weiter."
+    ],
+    "secret": [
+      "Drei Stufen: Trank-Pad, Verstärktes Trank-Pad II und Durchtränktes Trank-Pad III. Wirf einen Wurftrank darauf, um es zu laden."
+    ]
+  },
+  "infused_potion_pad": {
+    "lore": [
+      "{name}: ein Stein, der sich an den letzten Trank erinnert."
+    ],
+    "use": [
+      "Speichert die Wirkungen eines geworfenen Tranks und gibt sie jedem Spieler, der darauftritt. Stufe III: Dauergrenze 180 Sekunden nach voller Ladung; kürzere Tränke und Grenzen je Wirkung gelten weiter."
+    ],
+    "secret": [
+      "Drei Stufen: Trank-Pad, Verstärktes Trank-Pad II und Durchtränktes Trank-Pad III. Wirf einen Wurftrank darauf, um es zu laden."
+    ]
+  },
+  "chunk_loader": {
+    "lore": [
+      "{name}: eine Laterne für das Land, damit es nicht vergisst, da zu sein."
+    ],
+    "use": [
+      "Hält Chunks geladen. Stufe I: nur seinen eigenen Chunk. Mit den Server-Standardeinstellungen muss ein eingetragener Besitzer online sein. Schmieden: Kupferkern, Kupfer-Druckplatte und ein Prüfungskammer-Mobkopf."
+    ],
+    "secret": [
+      "Drei Stufen: Chunk-Lader I, Netherit II und Enderit III."
+    ]
+  },
+  "netherite_chunk_loader": {
+    "lore": [
+      "{name}: eine Laterne für das Land, damit es nicht vergisst, da zu sein."
+    ],
+    "use": [
+      "Hält Chunks geladen. Stufe II: 5 Chunks im Kreuz, ohne Diagonalen. Mit den Server-Standardeinstellungen muss ein eingetragener Besitzer online sein. Schmieden: Netherit-Aufwertung, Chunk-Lader I und eine Netherit-Druckplatte."
+    ],
+    "secret": [
+      "Drei Stufen: Chunk-Lader I, Netherit II und Enderit III."
+    ]
+  },
+  "enderite_chunk_loader": {
+    "lore": [
+      "{name}: eine Laterne für das Land, damit es nicht vergisst, da zu sein."
+    ],
+    "use": [
+      "Hält Chunks geladen. Stufe III: 9 Chunks im 3x3-Quadrat. Mit den Server-Standardeinstellungen muss ein eingetragener Besitzer online sein. Schmieden: Enderit-Aufwertung, Chunk-Lader II und eine Enderit-Druckplatte."
+    ],
+    "secret": [
+      "Drei Stufen: Chunk-Lader I, Netherit II und Enderit III."
+    ]
+  },
+  "spawn_teleporter": {
+    "lore": [
+      "{name}: ein Stein, der den Weg nach Hause kennt."
+    ],
+    "use": [
+      "Bringt dich nach einer Wartezeit zu deinem Respawnpunkt, oder bei Redstone-Kraft zum gemeinsamen Spawnziel. Stufe I: standardmäßig 50 Sekunden, vom Server einstellbar."
+    ],
+    "secret": [
+      "Die Wartezeiten der drei Stufen betragen 50, 20 und 5 Sekunden. Ein Server kann sie ändern."
+    ]
+  },
+  "spawn_teleporter_tier_2": {
+    "lore": [
+      "{name}: ein Stein, der den Weg nach Hause kennt."
+    ],
+    "use": [
+      "Bringt dich nach einer Wartezeit zu deinem Respawnpunkt, oder bei Redstone-Kraft zum gemeinsamen Spawnziel. Stufe II: standardmäßig 20 Sekunden, vom Server einstellbar."
+    ],
+    "secret": [
+      "Die Wartezeiten der drei Stufen betragen 50, 20 und 5 Sekunden. Ein Server kann sie ändern."
+    ]
+  },
+  "enderite_spawn_teleporter": {
+    "lore": [
+      "{name}: ein Stein, der den Weg nach Hause kennt."
+    ],
+    "use": [
+      "Bringt dich nach einer Wartezeit zu deinem Respawnpunkt, oder bei Redstone-Kraft zum gemeinsamen Spawnziel. Stufe III: standardmäßig 5 Sekunden, vom Server einstellbar."
+    ],
+    "secret": [
+      "Die Wartezeiten der drei Stufen betragen 50, 20 und 5 Sekunden. Ein Server kann sie ändern."
+    ]
+  },
+  "home_teleporter": {
+    "lore": [
+      "Der Name des Teleporters, den ein neuer Spieler in eine Welt mitbringt."
+    ],
+    "use": [
+      "Er ist der Spawn-Teleporter, beim ersten Beitritt verteilt, wenn der Server die Gabe auf 1 oder mehr setzt (bis 64). Standardmäßig ist die Gabe 0."
+    ],
+    "secret": [
+      "Der Serverbefehl /simplebuilding tweaks spawn legt fest, wie viele jeder neue Spieler bekommt, und wie viele Elytra-Pads."
+    ]
+  },
+  "diamond_pressure_plate": {
+    "lore": [
+      "Eine Platte, der nur du etwas bedeutest."
+    ],
+    "use": [
+      "Reagiert nur auf Spieler: Mobs und Gegenstände lösen sie nicht aus."
+    ],
+    "secret": [
+      "Ein leiser Weg, damit eine Farm ihre eigene Tür nicht auslöst."
+    ]
+  },
+  "netherite_pressure_plate": {
+    "lore": [
+      "Eine Platte, die entscheidet, wer zählt."
+    ],
+    "use": [
+      "Reagiert auf jeden Spieler, es sei denn, unter ihr steht ein Fass: Dann lösen sie nur Spieler aus, die einen der Gegenstände im Fass tragen."
+    ],
+    "secret": [
+      "Das Fass darunter ist die Gästeliste: Lege die Gegenstände hinein, die als Schlüssel dienen. Mobs ignoriert sie."
+    ]
+  },
+  "enderite_pressure_plate": {
+    "lore": [
+      "Eine Platte, die für eine Person gemacht wurde und es ernst meint."
+    ],
+    "use": [
+      "Eine Netherit-Platte mit Spielerschloss. Ihr Besitzer löst sie immer aus; ohne Fass sonst niemand. Mit einem Fass darunter auch jeder, dessen Name auf einem umbenannten Namensschild im Fass steht oder der einen der anderen Gegenstände darin trägt."
+    ],
+    "secret": [
+      "Lege ein Namensschild mit dem Namen eines Spielers ins Fass, um ihm ohne Schlüsselgegenstand Zutritt zu geben."
+    ]
+  },
+  "detector": {
+    "lore": [
+      "Sonar für den Untergrund: eine Amethystnadel, die zum Erz zeigt."
+    ],
+    "use": [
+      "In der Hand sucht er alle 20 Ticks das nächste Erz in einer Kugel um dich und dreht sich dorthin wie ein Kompass zum Leitstein, mit Klang und leichter Partikelspur. Schleichen + Rechtsklick wechselt den Modus."
+    ],
+    "secret": [
+      "Schleichen + Rechtsklick auf einen Block kalibriert den Eigenmodus auf diese Blockart; dann kannst du den Detektor wie eine Schmiedevorlage ablegen. Seltene Erze geben schwächeres Signal und kürzere Reichweite; Astralit- und Nihilit-Erz signalisieren 5 und reichen 16."
+    ]
+  },
+  "magnet": {
+    "lore": [
+      "Ein kleines Ding mit fester Meinung darüber, wo deine Gegenstände sein sollten."
+    ],
+    "use": [
+      "Zieht lose Gegenstände zu dir, solange er in einer Hand liegt, Radius 4 Blöcke. Schleichen pausiert ihn. Reichweite wächst um 2 Blöcke je Stufe. Er hat keine Haltbarkeit."
+    ],
+    "secret": [
+      "Nur Berührung des Konstrukteurs schaltet den Filter nach Gegenstandsart frei: Schleichklick auf Block oder Gegenstand wählt aus, Schleichklick in die Luft löscht. Ein unverzauberter wird per Schleichklick auf einen Block abgesetzt und zieht im Umkreis von 8 Blöcken."
+    ]
+  },
+  "rotator": {
+    "lore": [
+      "Ein Werkzeug für alle, die Dinge gern richtig ausgerichtet haben."
+    ],
+    "use": [
+      "Rechtsklick auf einen ausrichtbaren Block (Stämme, Öfen, Kolben, Trichter und dergleichen) dreht ihn an Ort und Stelle, ohne ihn abzubauen. Gebaut um einen Eisenkern."
+    ],
+    "secret": [
+      "Er dreht das, was du anklickst, nicht das, was du gern angeklickt hättest. Achte auf die Seite, auf die du zielst."
+    ]
+  },
+  "velocity_gauge": {
+    "lore": [
+      "Eine Uhr dafür, wie schnell die Welt vorbeizieht."
+    ],
+    "use": [
+      "Zeigt das Tempo, solange sie in einer Hand liegt, mit beweglicher Nadel und einer Anzeige im HUD. In der Luft zeigt sie auch den Abstand zum Boden und einen geschätzten Fallschaden vor der Rüstung."
+    ],
+    "secret": [
+      "Rechtsklick schaltet das Selbstgehen um. Mit Berührung des Konstrukteurs zeigt sie zusätzlich Spitzen- und Durchschnittstempo; Reichweite verlängert die lesbare Falltiefe, bis 64 Blöcke."
+    ]
+  },
+  "echo_sounder": {
+    "lore": [
+      "Ein Kompass, der auf den Weg zurück lauscht."
+    ],
+    "use": [
+      "Verbinde ihn per Rechtsklick mit einem Leitstein, dann halte 3 Sekunden Benutzen, um dorthin zu springen. Ein Sprung leert die Ladung; Reparatur oder Echoscherben laden sie wieder. Abklingzeit nach einem Sprung: 24 Sekunden."
+    ],
+    "secret": [
+      "Ihn vor voller Aufladung zu nutzen ist möglich, dauert aber doppelt so lange, mit Rissen und Funken, und danach zerbricht das Echolot für immer. Herstellung: sieben Enderitklumpen, ein Wiederherstellungskompass und ein Enderitkern."
+    ]
+  },
+  "octant": {
+    "lore": [
+      "Ein Messauge für alle, die planen, bevor sie bauen."
+    ],
+    "use": [
+      "Markiere zwei Ecken: Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2. Das HUD liest Abstand, Fläche oder Volumen ab, und die Auswahl lässt sich als Quader, Zylinder, Kugel, Pyramide oder Prisma skizzieren. 128 Haltbarkeit."
+    ],
+    "secret": [
+      "G öffnet den Oktant-Manager. Der Vorschlaghammer kann innerhalb seiner Auswahl abbauen. Der Fahrende Händler verkauft und kauft ihn, und Farbstoff färbt ihn."
+    ]
+  },
+  "amethyst_lens": {
+    "lore": [
+      "Eine Stange mit Amethystlinse, gemacht für alle, die gern aus der Ferne auf Dinge zielen."
+    ],
+    "use": [
+      "Beim Benutzen wirft sie einen hellen Amethystpunkt bis 512 Blöcke weit. Wo der Strahl ruht, entzünden sich brennbare Blöcke (nah etwa 3 s), Eis schmilzt und Kreaturen fangen Feuer. Ladung 640; leere Stäbe brechen nicht, und 16 Amethystsplitter laden einen am Amboss auf."
+    ],
+    "secret": [
+      "Je weiter entfernt, desto länger dauert es: etwa 20 s zum Entzünden bei 200 Blöcken. Kreaturen im Wasser oder Regen und feuerfeste bleiben verschont. Herstellung: Eisenklumpen, Amethystsplitter, Redstone, Eisenkern und Eisenstange."
+    ]
+  },
+  "color_brush": {
+    "lore": [
+      "Ein Pinsel, der mit Meinungen aus der Färberei zurückkam."
+    ],
+    "use": [
+      "Bürstet wie der Vanilla-Pinsel; mit einem Farbstoff in einer Hand oder im Inventar färbt Rechtsklick Wolle, Teppich, Beton, Terrakotta, Glas, Kerzen, Betten, Banner und Shulkerkisten um und behält ihren Zustand. Herstellung: Pinsel, Goldklumpen und Feder."
+    ],
+    "secret": [
+      "Ein Farbkasten mit Farbstoffen zählt als Tinte: Jeder Strich nimmt eine zufällige andere Farbe, die Borsten zeigen einen Regenbogen. Gedrückt gehaltener Rechtsklick wiederholt den Strich."
+    ]
+  },
+  "sage_orb": {
+    "lore": [
+      "Eine Perle gespeicherter Gedanken, klein genug für eine Hand."
+    ],
+    "use": [
+      "Rechtsklick lädt sie 0,3 Sekunden auf, dann gibt sie 50 bis 100 Erfahrungspunkte und ist verbraucht. Stapelt bis 16."
+    ],
+    "secret": [
+      "Weisheitserz lässt beim Abbau manchmal eine fallen: 2 Prozent, 3, 4 oder 5 mit Glück I bis III."
+    ]
+  },
+  "auto_smither": {
+    "lore": [
+      "Ein Schmied, der nie schläft und nur arbeitet, wenn jemand klatscht."
+    ],
+    "use": [
+      "Schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Zutat. Fertige Ergebnisse landen in einem Behälter davor oder bleiben im Ausgabeplatz."
+    ],
+    "secret": [
+      "Er arbeitet mit denselben drei Eingaben wie der Schmiedetisch, jede Aufwertung, die du von Hand machen könntest, schafft er also per Impuls."
+    ]
+  },
+  "autonomous_crafter": {
+    "lore": [
+      "Ein Handwerker, der endlich lernte, allein zu arbeiten."
+    ],
+    "use": [
+      "Ein Crafter, der sein Raster alle 4 Ticks selbst herstellt, solange unter ihm ein Trichter steht. Ein Redstone-Signal stoppt ihn; Ergebnisse gehen in diesen Trichter."
+    ],
+    "secret": [
+      "Der Trichter darunter ist die einzige Tür nach draußen: Ist er voll, wird nichts hergestellt. Ein Redstone-Signal ist der Ausschalter."
+    ]
+  },
+  "storage_crafting_table": {
+    "lore": [
+      "Eine Werkbank, die ihr Raster nie leert."
+    ],
+    "use": [
+      "Behält ihr 3x3-Raster: Beim Schließen des Fensters bleiben die Gegenstände liegen, flach auf der Platte."
+    ],
+    "secret": [
+      "Ein ordentlicher Weg, ein Rezept bereit zu halten: Die Gegenstände bleiben sichtbar auf dem Tisch, bis du sie nimmst."
+    ]
+  },
+  "crafted_arrow": {
+    "lore": [
+      "Ein Pfeil, mit Aufmerksamkeit gebaut, Spitze für Spitze."
+    ],
+    "use": [
+      "Am Bogenmachertisch gefertigt: eine Spitze, ein Schaft und eine Befiederung ergeben 4 Pfeile. Rechtsklick auf den Vanilla-Bogenmachertisch öffnet ihn."
+    ],
+    "secret": [
+      "Am Bogenmachertisch dient eine Diamantstange als Schaft und lässt den Pfeil ein Ziel mehr durchbohren."
+    ]
+  },
+  "raw_ceramic_bucket": {
+    "lore": [
+      "Ein Eimer aus nassem Ton, der noch überlegt, was er werden will."
+    ],
+    "use": [
+      "5 Tonklumpen in V-Form herstellen. Ein Ofen brennt ihn zu einem Keramik-Eimer."
+    ],
+    "secret": [
+      "Er hält nichts, bevor er gebrannt ist, und gebrannt nutzt er sich mit jedem Gießen ab."
+    ]
+  },
+  "soul_lava_bucket": {
+    "lore": [
+      "Ein Eimer vom zweiten Feuer des Nethers, heiß auf eine Art, die Lava nicht ist."
+    ],
+    "use": [
+      "Mit einem Eisen-Eimer aus Seelenlava geschöpft; er bricht beim Ausgießen, ein Enderit-Eimer überlebt es. Seelenlava brennt doppelt so lang wie Lava und gibt zwei Minuten Seelenbrand."
+    ],
+    "secret": [
+      "Seelenlava fließt nie weit, und nichts ersetzt sie außer Kreativspielern: Nur das Schöpfen der Quelle entfernt sie."
+    ]
+  },
+  "soul_lava": {
+    "lore": [
+      "Lava mit Seele, die der Nether geheim gehalten hat."
+    ],
+    "use": [
+      "Selten im Nether: 0,5 Prozent der Lavaquellen und der Lavabrunnen von 10 Prozent der Festungseingänge. Sie fließt 2 Blöcke weit (5 im Nether), langsamer als Lava. Berührung brennt doppelt so lang und gibt zwei Minuten Seelenbrand."
+    ],
+    "secret": [
+      "Trifft Wasser darauf, wird eine Quelle zu Quarzblock und fließendes Wasser zu Schwarzstein. Nur das Schöpfen der Quelle entfernt sie."
+    ]
+  },
+  "copper_fire": {
+    "lore": [
+      "Eine grüne Flamme, die auf Kupfer brennt und sonst nirgends."
+    ],
+    "use": [
+      "Entzündet durch Feuerzeug, Feuerkugel oder zündende Lava auf einem Kupferblock. Sie gibt es nur auf ihrem Grundblock, sie breitet sich nie aus, verbrennt nichts und richtet 1,5 Schaden an, bei Lichtstärke 12."
+    ],
+    "secret": [
+      "Anders als Schwefelfeuer gibt sie keinen Effekt. Beide zählen im Feuer-Tag als Feuer und hinterlassen nichts."
+    ]
+  },
+  "sulfur_fire": {
+    "lore": [
+      "Eine gelbgrüne Flamme, die nach den tiefen Höhlen stinkt."
+    ],
+    "use": [
+      "Auf Schwefelblöcken, poliertem Schwefel, Schwefelziegeln und gemeißeltem Schwefel durch Feuerzeug, Feuerkugel oder zündende Lava entzündet. Sie bleibt auf ihrem Grundblock, breitet sich nie aus und richtet 1,5 Schaden an, bei Lichtstärke 12."
+    ],
+    "secret": [
+      "Darin zu stehen gibt 10 Sekunden Übelkeit, erneuert, solange du bleibst. Schwarzpulver entsteht aus 3 Schwefel und 1 Kohle oder Holzkohle."
+    ]
+  },
+  "netherite_apple": {
+    "lore": [
+      "{name}: Ein goldener Apfel, der durch den Nether ging und härter zurückkam."
+    ],
+    "use": [
+      "Stellt 8 Hungerpunkte her und lässt sich immer essen. Gibt Feuerresistenz (4 Min.), Resistenz (1 Min.), Absorption (30 s) und Regeneration (10 s). Herstellung: ein Apfel, umringt von 8 Netheritklumpen."
+    ],
+    "secret": [
+      "Als Gegenstand ist er feuerfest, ein Sturz in Lava zerstört ihn also nicht."
+    ]
+  },
+  "enderite_apple": {
+    "lore": [
+      "{name}: Ein Apfel mit der Geduld des Endes in der Schale."
+    ],
+    "use": [
+      "Stellt 14 Hungerpunkte her und lässt sich immer essen. Gibt Regeneration II (20 s), Resistenz und Feuerresistenz (je 2,5 Min.) und Absorption IV (2 Min.). Herstellung: ein Apfel, umringt von 8 Enderitklumpen."
+    ],
+    "secret": [
+      "Seltenheit episch, feuerfest und leeresicher beim Fallenlassen, wie jeder Enderit-Gegenstand."
+    ]
+  },
+  "enchanted_netherite_apple": {
+    "lore": [
+      "{name}: Ein Netherit-Apfel, dem man einen Schimmer gab und der ihn behielt."
+    ],
+    "use": [
+      "Stellt 8 Hungerpunkte her. Gibt Regeneration II (40 s), Resistenz I und Feuerresistenz (je 5 Min.) und Absorption IV (2 Min., 8 Extraherzen). Selten, mit Verzauberungsschimmer."
+    ],
+    "secret": [
+      "In jedem Effekt stärker als der einfache Netherit-Apfel, und als Gegenstand feuerfest."
+    ]
+  },
+  "enchanted_enderite_apple": {
+    "lore": [
+      "{name}: Das Ende kennt nur diese eine Frucht."
+    ],
+    "use": [
+      "Stellt 14 Hungerpunkte her. Gibt Regeneration III (60 s), Resistenz II (5 Min.), Feuerresistenz (10 Min.) und Absorption V (3 Min., 10 Extraherzen). Episch, mit Verzauberungsschimmer."
+    ],
+    "secret": [
+      "Sein Name enthält „enderite“, es steht also unter dem Leere-Schutz des Enderit-Tags: Es fällt nicht aus der Welt."
+    ]
+  },
+  "silverfish_head": {
+    "lore": [
+      "{name}: eine Trophäe für alle, die es mit dem Blitz jagten."
+    ],
+    "use": [
+      "Fällt vom Mob, wenn ihn die Explosion eines geladenen Creepers tötet; ein Kopf pro Explosion. Auf dem Kopf tragbar und auf Boden oder Wand platzierbar."
+    ],
+    "secret": [
+      "Auf dem Kopf getragen, schrumpft es dich auf die halbe Größe. Der Tooltip verrät nichts davon."
+    ]
+  },
+  "slime_head": {
+    "lore": [
+      "{name}: eine Trophäe für alle, die es mit dem Blitz jagten."
+    ],
+    "use": [
+      "Fällt vom Mob, wenn ihn die Explosion eines geladenen Creepers tötet; ein Kopf pro Explosion. Auf dem Kopf tragbar und auf Boden oder Wand platzierbar."
+    ],
+    "secret": [
+      "Auf dem Kopf getragen, lässt es dich einen Block tiefer ohne Schaden fallen. Der Tooltip verrät nichts davon."
+    ]
+  },
+  "music_disc_voidline": {
+    "lore": [
+      "Eine Schallplatte der Ende, gepresst mit Musik, die kein Plattenspieler zuvor spielte."
+    ],
+    "use": [
+      "Spielt Heavy Heart, Monolith und Iron Sonata. Zu finden in Truhen der Endstädte (4 Prozent). Der Tooltip nennt den Titel."
+    ],
+    "secret": [
+      "Eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt zum nächsten Titel, wenn du sie mit einem Vorschlaghammer rechtsklickst."
+    ]
+  },
+  "music_disc_brimstone": {
+    "lore": [
+      "Eine Schallplatte der Nether, gepresst mit Musik, die kein Plattenspieler zuvor spielte."
+    ],
+    "use": [
+      "Spielt Riffstorm und Rally. Zu finden in Bastionstruhen (4 Prozent). Der Tooltip nennt den Titel."
+    ],
+    "secret": [
+      "Eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt zum nächsten Titel, wenn du sie mit einem Vorschlaghammer rechtsklickst."
+    ]
+  },
+  "music_disc_driftwood": {
+    "lore": [
+      "Eine Schallplatte der Oberwelt, gepresst mit Musik, die kein Plattenspieler zuvor spielte."
+    ],
+    "use": [
+      "Spielt Rainfall und Storytime. Zu finden in Waldanwesen-Truhen (5 Prozent), oder von einem Creeper, den ein Skelett tötete. Der Tooltip nennt den Titel."
+    ],
+    "secret": [
+      "Eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt zum nächsten Titel, wenn du sie mit einem Vorschlaghammer rechtsklickst."
+    ]
+  },
+  "music_disc_daybreak": {
+    "lore": [
+      "Eine Schallplatte der Oberwelt, gepresst mit Musik, die kein Plattenspieler zuvor spielte."
+    ],
+    "use": [
+      "Spielt Soft Breeze und Blockwood. Zu finden in Antike-Stadt-Truhen (2,5 Prozent), oder von einem Creeper, den ein Skelett tötete. Der Tooltip nennt den Titel."
+    ],
+    "secret": [
+      "Eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt zum nächsten Titel, wenn du sie mit einem Vorschlaghammer rechtsklickst."
+    ]
+  },
+  "jukebox_amplifier": {
+    "lore": [
+      "Ein Horn für einen Plattenspieler, aus Brettern und einer Prise rosa Staub gebaut."
+    ],
+    "use": [
+      "Acht Bretter um Astralitstaub. Ein Plattenspieler daneben spielt lauter und ist weiter zu hören, ohne Echo: Jeder Nachbar gibt 50 Prozent Reichweite, standardmäßig zählen höchstens 2."
+    ],
+    "secret": [
+      "Er wirkt auch als Repeater: Er greift einen spielenden Plattenspieler oder einen anderen Verstärker im Umkreis von 16 Blöcken auf, egal was dazwischen liegt, und zeigt Musiknoten. Jeder Verstärker ist ein weiterer Abspielpunkt."
+    ]
+  },
+  "note_amplifier": {
+    "lore": [
+      "Ein Horn für einen Notenblock, aus Brettern und einem Splitter Leere gebaut."
+    ],
+    "use": [
+      "Acht Bretter um einen Nihilitsplitter. Ein Notenblock daneben spielt lauter und ist weiter zu hören: Jeder Nachbar gibt 50 Prozent Reichweite, standardmäßig zählen höchstens 2."
+    ],
+    "secret": [
+      "Ein Notenverstärker, der den Notenblock oder einen schon in der Kette berührt, gibt den Klang weiter. Eine Lücke beendet eine Notenkette."
+    ]
+  },
+  "cracked_ice": {
+    "lore": [
+      "Eis, das zu viele Schritte gesehen hat."
+    ],
+    "use": [
+      "Im Steinschneider aus einem Eis eines. Ein darauf stehendes Lebewesen lässt es pro Sekunde eine Stufe brechen; nach vier Stufen wird es zu Wasser (im Nether verdampft es). Lässt sich nur mit Behutsamkeit einsammeln."
+    ],
+    "secret": [
+      "Steht niemand darauf, bleiben die Risse, wie sie sind. So legst du eine Falle, oder du reparierst die Straße, indem du gehst."
+    ]
+  },
+  "nautilus_shell_block": {
+    "lore": [
+      "Die Spirale des Meeres, zu einem Block gestapelt."
+    ],
+    "use": [
+      "Vier Nautilusschalen im Quadrat ergeben einen Block; er lässt sich zurück in vier Schalen verwandeln. Er wird entlang einer Achse gesetzt, wie der Knochenblock."
+    ],
+    "secret": [
+      "Ein Block aus Schalen ist die einzige Möglichkeit, die Gabe des Nautilus kompakt zu lagern."
+    ]
+  },
+  "stone_pebble": {
+    "lore": [
+      "{name}: Ein kleiner Stein, den man leicht in der Hand verliert."
+    ],
+    "use": [
+      "Ein Kleinteil: ein Bruchstein ergibt 9; 9 Kiesel im Handwerksraster ergeben den Bruchstein zurück."
+    ],
+    "secret": [
+      "Schleichen + Rechtsklick setzt es als Kleinteil ab: bis zu 4 auf einem Block, wie Meeresgurken, gemischt mit Feuersteinsplittern, Eiern, Stöcken, Barren, Kerzen und mehr."
+    ]
+  },
+  "flint_chip": {
+    "lore": [
+      "{name}: Ein Splitter Feuerstein, scharf genug für ein Lächeln."
+    ],
+    "use": [
+      "Ein Kleinteil: ein Feuerstein ergibt 4; 4 Splitter im 2x2 ergeben den Feuerstein zurück."
+    ],
+    "secret": [
+      "Schleichen + Rechtsklick setzt es als Kleinteil ab: bis zu 4 auf einem Block, wie Meeresgurken, gemischt mit Steinkieseln, Eiern, Stöcken, Barren, Kerzen und mehr."
+    ]
+  },
+  "fire_chip": {
+    "lore": [
+      "{name}: Ein Stück Feuerkugel, noch ein wenig warm."
+    ],
+    "use": [
+      "Ein Kleinteil: eine Feuerkugel ergibt 4; 4 Splitter im 2x2 ergeben die Feuerkugel zurück."
+    ],
+    "secret": [
+      "Schlage mit einem Vorschlaghammer auf eine abgelegte Feuerkugel, ein Splitter pro Schlag: vier Schläge, vier Splitter. Der letzte Schlag befreit alle."
+    ]
+  },
+  "ice_chip": {
+    "lore": [
+      "{name}: Ein Eissplitter, der schmilzt, wenn man ihn zu lange ansieht."
+    ],
+    "use": [
+      "Ein Kleinteil: ein Eis ergibt 4 (ein Packeis 9); 4 Splitter im 2x2 ergeben ein Eis zurück."
+    ],
+    "secret": [
+      "Schlage mit einem Vorschlaghammer auf Eis, ein Splitter pro Schlag: 4 Schläge bei Eis, 9 bei Packeis. Der letzte Schlag entfernt den Block und befreit alle Splitter."
+    ]
+  },
+  "obsidian_chip": {
+    "lore": [
+      "{name}: Ein Splitter vulkanischen Glases, scharf wie ein Entschluss."
+    ],
+    "use": [
+      "Ein Kleinteil: ein Obsidian ergibt 9; 9 Splitter im Handwerksraster ergeben den Obsidian zurück."
+    ],
+    "secret": [
+      "Schlage mit einem Vorschlaghammer auf Obsidian, ein Splitter pro Schlag: insgesamt 9 Schläge. Der letzte Schlag entfernt den Block und befreit alle Splitter."
+    ]
+  },
+  "diamond_pebble": {
+    "lore": [
+      "Ein Diamantkorn, mit dem ganzen kalten Licht seines Ursprungs."
+    ],
+    "use": [
+      "Halte Rechtsklick mit einem Vorschlaghammer auf einem Diamantblock, um ihn in 81 Kiesel zu zerschlagen. 9 Kiesel ergeben einen Rissigen Diamanten. Der Fahrende Händler verkauft 3 für 5 Smaragde. Sechs kommen in Verstärktes Bündel und Köcher, vier in den Verstärkten Rucksack."
+    ],
+    "secret": [
+      "Er ist der Weg zu jeder Verstärkten Maschine: Kiesel, dann Rissige Diamanten, dann Öfen, Trichter, Truhen und Kolben."
+    ]
+  },
+  "cracked_diamond": {
+    "lore": [
+      "Ein Diamant mit Fehler, und gerade das macht ihn nützlich."
+    ],
+    "use": [
+      "9 Diamantkiesel im 3x3-Quadrat herstellen. Er baut die Verstärkte Stufe: Öfen, Schmelzöfen, Räucheröfen, Trichter, Truhen, Shulkerkisten und Kolben."
+    ],
+    "secret": [
+      "Neun davon ergeben einen Rissigen Diamantblock, der sich in neun zurückverwandeln lässt."
+    ]
+  },
+  "cracked_diamond_block": {
+    "lore": [
+      "Neun fehlerhafte Diamanten, von Hoffnung zusammengehalten."
+    ],
+    "use": [
+      "Neun Rissige Diamanten im 3x3-Quadrat. Er lässt sich formlos in neun zurückverwandeln. Eine kompakte Art, sie zu lagern."
+    ],
+    "secret": [
+      "Die Fehler sind strukturell: Der Block besteht nicht direkt aus Diamantkieseln, sondern aus den Diamanten, die sie bilden."
+    ]
+  },
+  "yarn_ball": {
+    "lore": [
+      "Ein Wollknäuel, für das eine Katze alles verzeihen würde."
+    ],
+    "use": [
+      "Ein Wollblock beliebiger Farbe ergibt zwei Knäuel; ein Rezept aus Faden gibt es nicht. Acht Knäuel um einen Löwenzahn ergeben einen Stillen Löwenzahn."
+    ],
+    "secret": [
+      "Der Wollblock kann jede der sechzehn Farben haben; die Knäuel behalten sie nicht."
+    ]
+  },
+  "silent_dandelion": {
+    "lore": [
+      "Eine Blume, die die Welt um Ruhe bittet."
+    ],
+    "use": [
+      "Benutze sie an einem Lebewesen, um seine Geräusche umzuschalten. Sie wirkt bei Erwachsenen, Babys und feindlichen Mobs, aber nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache. Eine Blume pro Nutzung außer im Kreativmodus; 2 Sekunden warten, bevor du sie am selben Mob erneut nutzt."
+    ],
+    "secret": [
+      "Acht Wollknäuel um einen Löwenzahn ergeben sie. Wie der Goldene Löwenzahn wirkt sie am angeklickten Mob, schaltet aber Stumm statt der Alterssperre um."
+    ]
+  },
+  "potted_silent_dandelion": {
+    "lore": [
+      "Eine stille Blume im Topf auf der Fensterbank, bei ihrer stillen Arbeit."
+    ],
+    "use": [
+      "Der Stille Löwenzahn im Blumentopf. Beim Abbauen des Topfes bekommst du die Blume zurück."
+    ],
+    "secret": [
+      "Stelle ihn an einen Ort, den du friedlich halten willst: Er sieht aus wie ein eingetopfter Löwenzahn und schmückt den Raum nur mit Stille."
+    ]
+  },
+  "warden_tendril": {
+    "lore": [
+      "Eine schwarze Ranke, von etwas abgeschnitten, das lauscht."
+    ],
+    "use": [
+      "Jeder Wächter lässt 1 bis 2 fallen. Im Braustand wird ein Seltsamer Trank mit einer Ranke zum Trank der Dunkelheit."
+    ],
+    "secret": [
+      "Der Wächter stört sich nicht daran; er hört dich trotzdem."
+    ]
+  },
+  "sculk_jaw": {
+    "lore": [
+      "Eine stille Falle im Dunkeln, die nur einmal zubeißt."
+    ],
+    "use": [
+      "Bremst alles darin viel stärker als ein Spinnennetz und gibt Dunkelheit. Das Maul schnappt zu und beißt einmal für 2 Schaden, bleibt dann geschlossen und harmlos, solange jemand darin ist; es öffnet sich 20 Ticks nach dem Letzten wieder. Wächter werden ignoriert."
+    ],
+    "secret": [
+      "Es sieht aus wie Sculk und macht gar keine Geräusche: Platzieren, Beißen und Abbauen sind lautlos. Mit einer Hacke abbauen. Herstellung: zwei Knochen und ein Echoscherben über drei Sculk."
+    ]
+  },
+  "construction_light": {
+    "lore": [
+      "Eine Lampe für den Baumeister, die die Kinder der Dunkelheit nicht einlädt."
+    ],
+    "use": [
+      "Eine glasartige Lampe mit Lichtstärke 15, die Monster nicht am Spawnen hindert: Ihr Licht wird bei der Dunkelheitsprüfung für Spawns ausgelassen."
+    ],
+    "secret": [
+      "Beleuchte damit eine Baustelle, ohne sie sicher zu machen: Monster spawnen um sie herum, als wäre es dunkel."
+    ]
+  },
+  "training_dummy": {
+    "lore": [
+      "Ein Strohmann mit einem Kürbis als Kopf, der für deine Feinde einsteht."
+    ],
+    "use": [
+      "Strohrüstungsständer plus geschnitzter Kürbis, formlos, oder rechtsklicke einen geschnitzten Kürbis auf einen aufgestellten Strohrüstungsständer. Er zeigt jeden Treffer als schwebende Zahl."
+    ],
+    "secret": [
+      "Die Ringe auf seiner Brust sind die des Zielblocks: Ziele dorthin, um zu sehen, wie gut du triffst."
+    ]
+  },
+  "placed_egg": {
+    "lore": [
+      "Ein Ei, das steht, was Eier sonst nicht tun."
+    ],
+    "use": [
+      "Schleichen + Rechtsklick mit einem Ei (normal, blau oder braun) auf einen Block stellt es als kleines 3D-Ei in den Vanilla-Farben auf. Mit Behutsamkeit abgebaut, kommt es zurück."
+    ],
+    "secret": [
+      "Sonst zerbricht es und schlüpft genau wie ein geworfenes Ei: ein Küken bei 1 von 8, vier Küken bei 1 von 32 davon."
+    ]
+  },
+  "placed_small_parts": {
+    "lore": [
+      "Kleine Dinge auf einem Tisch, ausgelegt wie ein Inventar des Tages."
+    ],
+    "use": [
+      "Bis zu 4 Kleinteile auf einem Block, wie Meeresgurken: Steinkiesel, Feuersteinsplitter, Eier, Vanilla-Kleinteile (Stöcke, Barren, Klumpen, Edelsteine, Ziegel, Feuerstein, Knochen, Federn ...) und dazwischen Kerzen und Meeresgurken. Schleichen + Rechtsklick mit einem Kleinteil."
+    ],
+    "secret": [
+      "Es hat kein Item. Baust du es ab, kommt jedes Teil zurück."
+    ]
+  },
+  "placed_smithing_template": {
+    "lore": [
+      "Eine Vorlage, wie ein Plan auf einem Tisch abgelegt."
+    ],
+    "use": [
+      "Eine Schmiedevorlage, abgelegt mit Schleichen + Rechtsklick, flach auf den Boden, an eine Wand oder unter die Decke. Sie hat kein eigenes Item; sie hält die Vorlage selbst."
+    ],
+    "secret": [
+      "Mit einem Vorschlaghammer in der Haupt- und Leuchttinte oder Glowstonestaub in der Nebenhand lässt sie sich nicht abbauen, sondern wertet eine Rüstungsvorlage auf."
+    ]
+  },
+  "creative_spacer": {
+    "lore": [
+      "Kein Ding, sondern der Raum zwischen den Dingen."
+    ],
+    "use": [
+      "Kein echtes Item: ein unsichtbarer Füller, der in den Kreativ-Tabs des Mods eine leere Zelle zwischen zwei Kategorien lässt."
+    ],
+    "secret": [
+      "Du siehst ihn nur als Lücke im Kreativ-Inventar."
+    ]
+  },
+  "funny_stick": {
+    "lore": [
+      "Ein Stock. Ein sehr lustiger Stock."
+    ],
+    "use": [
+      "In der Haupt- oder Nebenhand steigt alle 4 Ticks ein Endstab-Funke auf, ab und zu eine Note oder ein Dorfbewohner-Glitzern. Sonst tut er gar nichts. Episch, feuerfest, nicht stapelbar."
+    ],
+    "secret": [
+      "Er steht am Ende einer langen, versteckten Kette: der letzten Stufe der versteckten Easter-Stufen der Pads, einer Netherit-Vorlage und eines Netheritbarrens, und eine versteckte Herausforderung, „Alles für einen Stock?“, wartet auf den, der ihn baut."
+    ]
+  },
+  "enderite_barrel": {
+    "lore": [
+      "Ein Fass, dem gesagt wurde, es dürfe mehr behalten, und das es glaubte."
+    ],
+    "use": [
+      "Die Enderit-Stufe des Fasses der Tiegel: Es fasst doppelte Stapel, 128 eines 64er-Gegenstands, im Tiegelmenü und im eigenen Truhenmenü, bei Shift-Klicks und für Trichter."
+    ],
+    "secret": [
+      "Aus so einem Platz bekommst du höchstens einen normalen Stapel. Es ist der letzte Schritt der Linie von Kupfer über Netherit zu Enderit."
+    ]
+  },
+  "enderite_crucible": {
+    "lore": [
+      "Ein Tiegel, der kocht wie das eigene Feuer des Endes."
+    ],
+    "use": [
+      "Die Enderit-Stufe des Tiegels: 27 Plätze, doppelte Stapel, 8-faches Tempo. Ein Netherit-Tiegel wird mit Enderitklumpen und einem Netherit-Vorschlaghammer dazu, mit doppelt so vielen Schlägen wie ein Ofen."
+    ],
+    "secret": [
+      "Der Vorschlaghammer ersetzt hier die Axt des Grundmods: Schlage den Eisentiegel auf einen Eisenblock und setze mit 6 Schlägen ein Fass an."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein Buch, das alles über die Welt gelesen hat und es dir erzählen will."
+    ],
+    "use": [
+      "Der Mega-Führer: SimpleBuilding. Formlos aus einem Buch und einer Werkbank herstellen. Zwei getrennte Mega-Führer halten auf 26.3 die Minecraft- und die SimpleBuilding-Regale."
+    ],
+    "secret": [
+      "Jeder Themen-Reiter öffnet sich von selbst, sobald eines seiner Tor-Rezepte in deinem Rezeptbuch liegt. Nichts wird verbraucht, nichts muss angeklickt werden."
+    ]
+  },
+  "leather_sheet": {
+    "lore": [
+      "Neun Häute, flachgepresst, bis das Leder vergaß, dass es je eine Kuh war."
+    ],
+    "use": [
+      "Neun Leder im Handwerksraster ergeben eine Platte. Sie kommt ins Verstärkte Bündel (unter das Bündel) und in den Rucksack (dreimal in die untere Reihe)."
+    ],
+    "secret": [
+      "Sie ist nur ein Handwerksmaterial; die nächste Bündelstufe, die Verstärkte, braucht zusätzlich Diamantkiesel."
+    ]
+  },
+  "family:octet_astral": {
+    "items": [
+      "regex:(polished_)?astralit(_block|_bricks)?_octet"
+    ],
+    "secret": [
+      "Astralit- und polierte Astralit-Oktette leuchten mit Lichtstärke 5, wie ihre Quarz-Schachbretter. Ein Brett daraus erhellt seine eigene Ecke der Nacht."
+    ]
+  },
+  "family:octet": {
+    "items": [
+      "regex:.*_octet"
+    ],
+    "lore": [
+      "{name} ist ein Würfel mit halber Kantenlänge, der kleinste Stein, mit dem diese Mod baut. Acht davon ergeben wieder einen Block, und Baumeister schätzen sie für alles, was ein ganzer Block nicht kann: Ecken, Stufen und feine Details."
+    ],
+    "use": [
+      "Der Steinschneider schneidet 8 aus einem Block seines Materials (farbige aus ihrem Quarz-Schachbrett). Rechtsklick setzt es ein Viertelblock vor den Treffpunkt; eine Zelle fasst bis zu 8 gleiche. Schleichen + Rechtsklick mit leerer Hand nimmt eines heraus."
+    ],
+    "secret": [
+      "Eine Zelle lehnt eine zweite Sorte ab, alle acht müssen also gleich sein. Im Wasser bleibt die Zelle gefüllt, bis das achte Oktett sie ausfüllt. Und im Steinschneider wird jedes Oktett zu den Schachfiguren seiner Farbe."
+    ]
+  },
+  "family:chess_pawn": {
+    "items": [
+      "regex:.*_chess_pawn(_flat)?"
+    ],
+    "lore": [
+      "{name}: Der Bauer geht kleine Schritte, und doch gewinnt man jedes Spiel mit ihm."
+    ]
+  },
+  "family:chess_rook": {
+    "items": [
+      "regex:.*_chess_rook(_flat)?"
+    ],
+    "lore": [
+      "{name}: Der Turm ist ein Bollwerk auf dem Brett und weiß längst, dass der gerade Weg der kürzeste ist."
+    ]
+  },
+  "family:chess_knight": {
+    "items": [
+      "regex:.*_chess_knight(_flat)?"
+    ],
+    "lore": [
+      "{name}: Der Springer allein setzt über alles hinweg, was ihm im Weg steht, und den geraden Weg ging er nie."
+    ]
+  },
+  "family:chess_bishop": {
+    "items": [
+      "regex:.*_chess_bishop(_flat)?"
+    ],
+    "lore": [
+      "{name}: Der Läufer bleibt sein Leben lang auf einer Farbe und überblickt das Brett entlang seiner Diagonalen."
+    ]
+  },
+  "family:chess_queen": {
+    "items": [
+      "regex:.*_chess_queen(_flat)?"
+    ],
+    "lore": [
+      "{name}: Die Dame geht, wohin sie will, und das Brett beugt sich ihr."
+    ]
+  },
+  "family:chess_king": {
+    "items": [
+      "regex:.*_chess_king(_flat)?"
+    ],
+    "lore": [
+      "{name}: Der König ist die Figur, um die sich das ganze Spiel dreht, und die, die sich am wenigsten bewegt."
+    ]
+  },
+  "family:chess_flat": {
+    "items": [
+      "regex:.*_chess_.*_flat"
+    ],
+    "use": [
+      "Eine flache Marke mit erhabenem Symbol, die man von oben liest, für Bretter in der Draufsicht. Im Steinschneider aus einem Oktett seiner Farbe geschnitten. Rechtsklick setzt sie auf ein Viertel einer Blockoberseite, in Blickrichtung. Stapel zu 16."
+    ]
+  },
+  "family:chess": {
+    "items": [
+      "regex:.*_chess_.*"
+    ],
+    "use": [
+      "Im Steinschneider aus einem Oktett seiner Farbe geschnitten. Rechtsklick setzt sie auf ein Viertel einer Blockoberseite, in Blickrichtung; ein Block trägt vier Figuren, ein Brett aus 4 x 4 Schachbrettblöcken ist ein volles Schachbrett. Stapel zu 16."
+    ],
+    "secret": [
+      "Schleichen + Rechtsklick mit einer Figur auf eine stehende tauscht beide; die alte landet in Hand oder Inventar. Eine leere Hand dreht eine Figur eine Vierteldrehung im Uhrzeigersinn, Schleichen nimmt sie auf. Figuren können im Wasser stehen."
+    ]
+  },
+  "family:checker_stairs": {
+    "items": [
+      "regex:.*_checker_stairs"
+    ],
+    "lore": [
+      "{name} steigt das Brett Feld für Feld hinauf, und das Muster steigt mit."
+    ],
+    "use": [
+      "Treppe im Schachbrettmuster ihres Schachbrettblocks. Mit der Spitzhacke abgebaut, fällt als sie selbst, und kein Mob spawnt darauf."
+    ],
+    "secret": [
+      "Astralit-Schachbrettblöcke leuchten mit Lichtstärke 5, ihre Treppen und Stufen ebenso. Eine Folge davon ergibt eine beleuchtete Schachbretttreppe."
+    ]
+  },
+  "family:checker_slab": {
+    "items": [
+      "regex:.*_checker_slab"
+    ],
+    "lore": [
+      "{name} liegt flach am Boden, ein Schachbrett, in der Mitte geteilt."
+    ],
+    "use": [
+      "Stufe im Schachbrettmuster ihres Schachbrettblocks. Mit der Spitzhacke abgebaut, fällt als sie selbst, und kein Mob spawnt darauf."
+    ],
+    "secret": [
+      "Astralit-Schachbrettblöcke leuchten mit Lichtstärke 5, ihre Stufen und Treppen ebenso. Ein Boden daraus ist ein beleuchtetes Schachbrett."
+    ]
+  },
+  "family:checker": {
+    "items": [
+      "regex:.*_checker"
+    ],
+    "lore": [
+      "{name} ist ein Quadrat mit zwei Launen, abwechselnd hell und dunkel, als warte schon ein ganzes Spiel darauf."
+    ],
+    "use": [
+      "4 Stück aus 2 Quarzblöcken und 2 Blöcken seiner Farbe, diagonal gesetzt. Wird wie ein Stamm platziert: das Schachbrettmuster folgt der Achse. Mit der Spitzhacke abgebaut, fällt als er selbst, und kein Mob spawnt darauf."
+    ],
+    "secret": [
+      "16 davon im 4 x 4 Quadrat sind genau ein Schachbrett für die Schachfiguren dieser Mod, eine Figur pro Feld. Der Steinschneider macht aus jedem 8 Oktette seiner Farbe."
+    ]
+  },
+  "family:cauldron_nether": {
+    "items": [
+      "regex:(stripped_)?(crimson|warped)_cauldron"
+    ],
+    "secret": [
+      "Anders als seine Schwestern aus Oberweltholz brennt ein Kessel aus Nether-Stamm nicht: Gießt du Lava hinein, hält er sie wie ein Eisenkessel."
+    ]
+  },
+  "family:cauldron": {
+    "items": [
+      "regex:.*_cauldron"
+    ],
+    "lore": [
+      "{name}: ein Topf aus Holz, schlicht und still, bis das Feuer ihn daran erinnert, woraus er ist."
+    ],
+    "use": [
+      "Funktioniert wie der Vanilla-Kessel (Wasser, Lava, Pulverschnee, Flaschen, Waschen, Regen, Tropfstein). Hergestellt aus einem hohlen Stamm über einer Platte derselben Holzart, normal oder entrindet."
+    ],
+    "secret": [
+      "Gießt du Lava hinein, fängt er Feuer; nach 3 Sekunden ist der Kessel weg und die Lava bleibt als Quelle zurück. Nimmst du die Lava rechtzeitig heraus, ist er gerettet."
+    ]
+  },
+  "family:crate": {
+    "items": [
+      "regex:.*_crate"
+    ],
+    "lore": [
+      "{name}: eine offene Kiste aus Brettern, in der die Ernte auf den Topf wartet."
+    ],
+    "use": [
+      "Lagert bis zu 8 Stapel Nahrung; die obersten Lagen zeigen den Inhalt. Hergestellt aus 7 Brettern einer Holzart in U-Form. Rechtsklick mit Essen legt den Stapel hinein, eine leere Hand nimmt den obersten heraus."
+    ],
+    "secret": [
+      "Schleichen mit leerer Hand nimmt nur ein Stück. Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und das Tag simplebuilding:crate_storable erlaubt Modpacks auch Nicht-Nahrung."
+    ]
+  },
+  "family:sheet": {
+    "items": [
+      "regex:(stripped_)?[a-z_]+_sheet"
+    ],
+    "lore": [
+      "{name} ist Holz, so dünn gepresst, dass es das Licht durchlässt, wie ein Blatt, das das Fallen verlernt hat."
+    ],
+    "use": [
+      "Eine dünne Platte, die wie Glasscheiben und Eisengitter verbindet und Licht durchlässt. 6 hohle Stämme in zwei Dreierreihen ergeben 16 Platten; hohle entrindete Stämme die entrindete Art. Mit der Axt abgebaut."
+    ],
+    "secret": [
+      "Brennbare Hölzer ergeben brennbare Platten: Jede ist 100 Ticks lang Ofenbrennstoff. Eine Scheibe daraus ist ein Fenster, das nach Wald riecht."
+    ]
+  },
+  "family:hollow_log": {
+    "items": [
+      "regex:hollow_.*"
+    ],
+    "lore": [
+      "{name}: ein Stamm, dem man das Herz genommen hat, und doch steht er."
+    ],
+    "use": [
+      "Ein Stamm mit 12 x 12 Pixel großem Tunnel entlang der Achse. 8 Stämme (oder entrindete) einer Holzart im Ring ergeben 8. Der Meißel höhlt einen entrindeten Stamm in der Welt aus; der schleichende Meißel macht es rückgängig. Mit der Axt abgebaut, brennt als Brennstoff (300 Ticks)."
+    ],
+    "secret": [
+      "Hühner, Kaninchen und Katzen passen durch den Tunnel, größere Mobs nicht. Du selbst kriechst hindurch, wenn du schleichend vor einem liegenden hohlen Stamm stehst und entlang seiner Achse schaust."
+    ]
+  },
+  "family:carved_log": {
+    "items": [
+      "regex:carved_.*"
+    ],
+    "lore": [
+      "{name} erinnert sich an die Hand des Töpfers: Ein Motiv, das einst im Ton lag, ist nun in die Seite des Holzes geschnitten."
+    ],
+    "use": [
+      "Zeigt das Motiv einer Töpferscherbe auf einer Seite, in dunklerem Ton der Holzart. Nur in der Welt herstellbar: Scherbe in der Nebenhand, Meißel in der Haupthand, Rechtsklick auf die Seite eines stehenden entrindeten Stammes."
+    ],
+    "secret": [
+      "Die Scherbe wird nicht verbraucht, der Meißel verliert 1 Haltbarkeit. Klickst du geschnitztes Holz mit einer anderen Scherbe an, wechselt das Motiv. Abgebaut behält der Stamm sein Motiv; neu gesetzt blickt es dich an."
+    ]
+  },
+  "family:blazewood_planks": {
+    "items": [
+      "regex:(crimson|warped)_blazewood_planks"
+    ],
+    "lore": [
+      "{name}: Holz, dem man Feuer zu hüten gab, und es hütet es still."
+    ],
+    "use": [
+      "Acht Lohenstaub um ein Karmesin- oder Wirrbrett ergeben ein Lohenholzbrett. Es ist das Material für Lohenholz-Bücherregale."
+    ],
+    "secret": [
+      "Nur Karmesin- und Wirrbretter nehmen den Lohenstaub an, denn nur Netherholz ist in der Hitze zu Hause."
+    ]
+  },
+  "family:blazewood_bookshelf": {
+    "items": [
+      "regex:(crimson|warped)_blazewood_bookshelf"
+    ],
+    "lore": [
+      "{name} birgt Bücher, die mit Feuer gebunden sind, und ihre Seiten sind warm unter den Fingern."
+    ],
+    "use": [
+      "Ein Bücherregal aus Lohenholz: Am Astral-Verzauberer zählt es wie zwei Bücherregale, am Vanilla-Zaubertisch wie eines. Drei {item:simplebuilding:blaze_book} kommen hinein."
+    ],
+    "secret": [
+      "Um den Astral-Verzauberer gibt ein 5 x 5 großer Boden aus {item:simplebuilding:blazing_obsidian} zusätzliche Stärke, sobald die Regale 30 geben."
+    ]
+  },
+  "family:hammock": {
+    "items": [
+      "regex:.*_hammock"
+    ],
+    "lore": [
+      "{name}: ein Stoffstreifen zwischen zwei Ankern, und der Tag zieht ein wenig schneller vorbei."
+    ],
+    "use": [
+      "Faden, Stock, Faden über drei Wolle einer Farbe. Hängt zwischen zwei Ankern gleicher Höhe, 2 bis 4 freie Blöcke auseinander, in jedem Winkel. Rechtsklick legt dich hin; die Uhr der Dimension läuft dann schneller. Es ist kein Schlaf."
+    ],
+    "secret": [
+      "Er setzt nie deinen Respawnpunkt und überspringt nie die Nacht. Die Zeit läuft standardmäßig 8-fach, sobald genug Spieler ruhen, doch Pflanzen, Öfen und Redstone behalten ihr Tempo. Eine schräge Hängematte braucht zwei Klicks, einen je Anker."
+    ]
+  },
+  "family:octant_color": {
+    "items": [
+      "regex:octant_.*"
+    ],
+    "lore": [
+      "{name}: dasselbe Messauge, nur gefärbt, als hätte es eine Lieblingsfarbe."
+    ],
+    "use": [
+      "Ein {item:simplebuilding:octant}, gefärbt durch Herstellen mit einem Farbstoff (formlos). Er misst und skizziert genau wie der ungefärbte."
+    ],
+    "secret": [
+      "Wäschst du einen farbigen Oktanten im Kessel, wird er wieder zum ungefärbten."
+    ]
+  },
+  "family:palette_alt": {
+    "items": [
+      "regex:(veined|crystalline|layered|frosted)_(astralit|nihilith)"
+    ],
+    "lore": [
+      "{name} ist derselbe Stein in anderem Gewand, als hätte das Ende ein zweites Muster an ihm probiert."
+    ],
+    "use": [
+      "Der Grundblock mit anderem Muster und denselben Eigenschaften; mit der Spitzhacke abgebaut, fällt als er selbst. Der Steinschneider schneidet ihn 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten Musters."
+    ],
+    "secret": [
+      "Der Enderitmeißel geht die Kette Grundblock, geädert, kristallin, geschichtet oder frostig durch; Schleichen geht sie zurück. Astralit-Varianten leuchten mit Lichtstärke 10 wie der Grundblock."
+    ]
+  },
+  "family:palette_base": {
+    "items": [
+      "regex:(astralit|nihilith|ender_quartz)_block"
+    ],
+    "lore": [
+      "{name}: ein Block so schwer wie ein kleiner Mond, poliert von nichts als der Dunkelheit."
+    ],
+    "use": [
+      "Vier des Materials im Quadrat ergeben 1. Vier Blöcke ergeben 4 Polierte; der Steinschneider schneidet jeden anderen Block seiner Palette daraus. Härte 3, ohne Spitzhacke kein Drop."
+    ],
+    "secret": [
+      "8 Endstein um 1 Material ergeben diesen Block. Der Enderitmeißel hebt Gemeißelte Ziegel zum Block zurück und führt die Kette weiter zu den gemusterten Varianten."
+    ]
+  },
+  "family:palette_polished": {
+    "items": [
+      "regex:polished_(astralit|nihilith|ender_quartz)"
+    ],
+    "lore": [
+      "{name}: glatt wie ein Teich bei Nacht, dem nichts mehr zu sagen bleibt."
+    ],
+    "use": [
+      "4 Blöcke der Palette ergeben 4 Polierte. Im Steinschneider zu Treppe, Stufe, Mauer, Ziegeln, Säule und Gemeißelten Ziegeln geschnitten. Härte 3, Spitzhacke nötig."
+    ],
+    "secret": [
+      "Poliert ist zugleich das Eckstück der Signal-Kolben des Endes: Vier polierte Astralit oder Nihilit sitzen in den Ecken des Astral- und Nihil-Kolbens."
+    ]
+  },
+  "family:palette_bricks": {
+    "items": [
+      "regex:(astralit|nihilith|ender_quartz)_bricks"
+    ],
+    "lore": [
+      "{name}: Ziegel, von Händen gelegt, die es nicht gibt, mit Mörtel, der in den Stein ausläuft."
+    ],
+    "use": [
+      "4 Polierte ergeben 4 Ziegel. Der Steinschneider schneidet Treppe, Stufe, Mauer und Gemeißelte Ziegel daraus. Härte 3, ohne Spitzhacke kein Drop."
+    ],
+    "secret": [
+      "Vanilla-Endsteinziegel lassen sich wie mit Farbstoff umfärben: 8 um 1 Material ergeben 8 davon. Zwei Ziegelstufen übereinander werden zu Gemeißelten Ziegeln."
+    ]
+  },
+  "family:palette_shapes": {
+    "items": [
+      "regex:(polished_)?(astralit_brick|nihilith_brick|ender_quartz_brick|astralit|nihilith|ender_quartz)_(stairs|slab|wall)"
+    ],
+    "lore": [
+      "{name} folgt den Linien seines Steins, Stufe um Stufe oder Mauer um Mauer."
+    ],
+    "use": [
+      "6 Blöcke der Palette in Treppenform ergeben 4, 3 in einer Reihe 6 Stufen, 6 in zwei Reihen 6 Mauern; der Steinschneider schneidet Stufen zwei für einen. Mauern verbinden wie jede Vanilla-Mauer. Härte 3, Spitzhacke nötig."
+    ],
+    "secret": [
+      "Eine Doppelstufe lässt zwei Stufen fallen. Treppen, Stufen und Mauern stehen in den Vanilla-Tags ihrer Form, sodass jede Mod, die diese Tags liest, sie richtig behandelt."
+    ]
+  },
+  "family:palette_pillar": {
+    "items": [
+      "regex:(astralit|nihilith|ender_quartz)_pillar"
+    ],
+    "lore": [
+      "{name} trägt einen Himmel, der nicht da ist."
+    ],
+    "use": [
+      "2 Polierte übereinander ergeben 2 Säulen. Lässt sich wie ein Stamm an jeder Achse platzieren. Härte 3, ohne Spitzhacke kein Drop."
+    ],
+    "secret": [
+      "Auch Vanilla-Säulen lassen sich umfärben: 8 Purpursäulen (bei Enderquarz Quarzsäulen) um 1 Material ergeben 8 dieser Säulen."
+    ]
+  },
+  "family:palette_chiseled": {
+    "items": [
+      "regex:chiseled_(astralit|nihilith|ender_quartz)_bricks"
+    ],
+    "lore": [
+      "{name} trägt ein stilles Wappen im Rahmen: Ein Wesen des Endes blickt aus dem Stein."
+    ],
+    "use": [
+      "2 Ziegelstufen übereinander ergeben 1. Das Wappen ist eine Shulkerkiste mit dem Kopf in der Öffnung (Astralit), ein Endermanauge mit waagerechtem Schlitz (Nihilit) oder ein Drachenauge mit senkrechtem Schlitz (Enderquarz)."
+    ],
+    "secret": [
+      "Der Enderitmeißel macht daraus den Grundblock seiner Palette, Schleichen wieder Ziegel. Härte 3, Spitzhacke nötig."
+    ]
+  },
+  "family:palette_end_stone": {
+    "items": [
+      "regex:(astral|nihil)_end_stone"
+    ],
+    "lore": [
+      "{name}: Endstein, der eine Farbe angenommen hat und sie nicht mehr hergibt."
+    ],
+    "use": [
+      "8 Polierter Endstein um 1 Astralitstaub oder Nihilitsplitter ergeben 8 des beschichteten Steins. Er lässt sich zu Ziegelsatz und Grundblock seiner Palette schneiden. Härte 3, Spitzhacke nötig."
+    ],
+    "secret": [
+      "Dies ist das ältere Rezept der Palette und funktioniert noch: {item:simplebuilding:polished_end_stone} ist sein Rohstoff."
+    ]
+  },
+  "family:palette_purpur": {
+    "items": [
+      "regex:(astral|nihil)_purpur_block"
+    ],
+    "lore": [
+      "{name} ist Purpur, das ins Licht getaucht wurde und verändert zurückkam."
+    ],
+    "use": [
+      "8 Purpurblöcke um 1 Astralitstaub oder Nihilitsplitter ergeben 8 davon. Der Steinschneider macht daraus den Polierten Block seiner Palette. Härte 3, Spitzhacke nötig."
+    ],
+    "secret": [
+      "Ein Überzug aus Staub genügt: Das ältere Beschichtungsrezept steht neben den neueren Rezepten für polierte Blöcke."
+    ]
+  },
+  "family:signal_lamp": {
+    "items": [
+      "regex:(astralit|nihilith)_lamp"
+    ],
+    "lore": [
+      "{name} leuchtet nur für den, der seine Sprache spricht."
+    ],
+    "use": [
+      "Eine Redstone-Lampe plus passendes Kanal-Redstone, formlos. Sie empfängt nur ihren eigenen Kanal und leitet nie weiter; Vanilla-Redstone lässt sie nicht leuchten."
+    ],
+    "secret": [
+      "Sie liest allein den Kanal ihres Materials: Eine Astralit-Lampe ignoriert Nihil-Redstone völlig, beide Kanäle können also nebeneinander laufen."
+    ]
+  },
+  "family:signal_switch": {
+    "items": [
+      "regex:(astralit|nihilith)_switch"
+    ],
+    "lore": [
+      "{name} legt einen Gedanken um, und der Kanal hört ihn."
+    ],
+    "use": [
+      "Ein Hebel plus passendes Kanal-Redstone, formlos. Er speist bis zu 15 Redstone-Segmente seines Kanals; Vanilla-Redstone sieht ihn nicht."
+    ],
+    "secret": [
+      "Die Reichweite ist eine Servereinstellung zwischen 1 und 15. Entfernst du eine Quelle oder schaltest sie aus, klingt das Signal ab, statt abrupt zu enden."
+    ]
+  },
+  "family:signal_piston": {
+    "items": [
+      "regex:(astral|nihil)_piston"
+    ],
+    "lore": [
+      "{name} schiebt, wenn die andere Seite es ihm sagt."
+    ],
+    "use": [
+      "Ein Kolben (Nihil: ein Klebekolben) in der Mitte, vier passende Redstone an den Kanten, vier Polierte Blöcke der Palette in den Ecken. Er empfängt seinen eigenen Kanal wie eine Lampe, leitet nichts weiter und feuert beim Einschalten."
+    ],
+    "secret": [
+      "Er feuert nur bei der steigenden Flanke, nicht solange das Signal anliegt. Ein dauerhafter Kanal ergibt also einen Schub, dann Stille."
+    ]
+  },
+  "family:spatula": {
+    "items": [
+      "regex:(stone|copper|iron|gold|diamond|netherite)_spatula"
+    ],
+    "lore": [
+      "{name}: ein Werkzeug, das in den Ruhestand ging und schärfer wiedergeboren wurde."
+    ],
+    "use": [
+      "Ein Altgegenstand früherer Versionen. Er ist nicht mehr herstellbar; beim Serverstart und beim Beitritt wird er zum Meißel derselben Stufe."
+    ],
+    "secret": [
+      "Der alte Spachtel ging Ketten rückwärts. Das übernimmt nun der schleichende Meißel, es geht also nichts verloren: Schaden, Name und Verzauberungen wandern zum Meißel."
+    ]
+  },
+  "family:enderite_tool": {
+    "items": [
+      "regex:enderite_(pickaxe|axe|shovel|hoe|sword|spear)"
+    ],
+    "lore": [
+      "{name}: aus Netherit geschmiedet, trägt es das Ende im Metall."
+    ],
+    "use": [
+      "Schmiedetisch: Enderit-Aufwertung, die Netherit-Version des Werkzeugs und ein Enderitbarren. Feuerfest, schwimmt auf Lava, beim Fallenlassen vor der Leere sicher."
+    ],
+    "secret": [
+      "Fallen gelassene Enderit-Gegenstände bleiben in der Leere schweben und verschwinden erst nach 10 Minuten, doppelt so lang wie sonst."
+    ]
+  },
+  "family:enderite_armor": {
+    "items": [
+      "regex:enderite_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: eine Hülle für alle, die tief fallen wollen und danach weitergehen."
+    ],
+    "use": [
+      "Schmiedetisch: Enderit-Aufwertung, das Netherit-Teil und ein Enderitbarren. Widersteht Rückstoß mit 0,2 je Teil (Netherit 0,1). Kann verziert werden. Feuerfest."
+    ],
+    "secret": [
+      "Getragene Teile dämpfen Leere-Schaden und verlangsamen beim Schleichen im Fall dein Sinken: 25 Prozent mit einem Teil, bis zu 80 mit allen vier."
+    ]
+  },
+  "family:enderite_mount_armor": {
+    "items": [
+      "regex:enderite_(horse|nautilus)_armor"
+    ],
+    "lore": [
+      "{name}: auch das Reittier verdient einen Mantel aus dem Ende."
+    ],
+    "use": [
+      "Schmiedetisch: Enderit-Aufwertung, die Netherit-Version und ein Enderitbarren. Die höchste Stufe der Reittierrüstung: 22 Rüstung am Körperplatz statt 19 bei Netherit."
+    ],
+    "secret": [
+      "Sie ist feuerfest und vor der Leere sicher, wie jeder Enderit-Gegenstand, der in der Welt liegt."
+    ]
+  },
+  "family:trapped_copper_chest": {
+    "items": [
+      "regex:(waxed_)?(exposed_|weathered_|oxidized_)?trapped_copper_chest"
+    ],
+    "lore": [
+      "{name}: Kupfer, das ein Auge offen hält."
+    ],
+    "use": [
+      "Eine Kupfertruhe beliebiger Stufe (auch gewachst) plus ein Haken. Sie meldet die Zahl der Betrachter wie die Vanilla-Redstone-Truhe und altert durch die vier Kupferstufen; ein Paar nimmt die weniger oxidierte Stufe."
+    ],
+    "secret": [
+      "Verbindet sich nur mit anderen Kupfer-Redstone-Truhen. Wabe wachst sie mit einfachem Rechtsklick, eine Axt kratzt Wachs oder eine Stufe ab."
+    ]
+  },
+  "family:piston_head": {
+    "items": [
+      "regex:(reinforced|netherite|enderite)_piston_head"
+    ],
+    "lore": [
+      "{name}: der Teil eines Kolbens, der die Arbeit tut und kein Lob bekommt."
+    ],
+    "use": [
+      "Der Kopf, der vor dem Kolben erscheint, solange er ausgefahren ist, und mit ihm wieder hineingleitet. Er hat kein Item."
+    ],
+    "secret": [
+      "Du siehst ihn nur in Bewegung; den Kolben selbst setzt und baust du ab."
+    ]
+  },
+  "family:flypad_legacy": {
+    "items": [
+      "regex:(enderite|netherite)_flypad"
+    ],
+    "lore": [
+      "{name}: ein altes Pad aus der Zeit vor dem Drei-Stufen-Umbau."
+    ],
+    "use": [
+      "Ein Altgegenstand. Er wird von selbst zu seiner heutigen Stufe: Das Netherit-Flugpad wird zum Verstärkten Flugpad II, das Enderit-Flugpad zum Stellaren Flugpad III."
+    ],
+    "secret": [
+      "Du musst nichts tun; der Tausch geschieht im Inventar, und das Pad trägt dich weiter."
+    ]
+  },
+  "family:elytra_pad_legacy": {
+    "items": [
+      "regex:(fine|reinforced)_elytra_pad"
+    ],
+    "lore": [
+      "{name}: ein altes Pad aus der Zeit vor dem Umbau, das noch auf seinen neuen Namen wartet."
+    ],
+    "use": [
+      "Ein Altgegenstand. Die alte Stufe II (Verstärkt) wird zum Elytra-Pad I, die alte Stufe V (Fein) zum Enderit-Elytra-Pad III; der Tausch erfolgt beim ersten Tick."
+    ],
+    "secret": [
+      "Der Gegenstand tauscht sich im Inventar von selbst; du verlierst nichts."
+    ]
+  },
+  "family:teleporter_legacy": {
+    "items": [
+      "regex:spawn_teleporter_tier_[34]"
+    ],
+    "lore": [
+      "{name}: eine alte Stufe, die weitergezogen ist."
+    ],
+    "use": [
+      "Ein Altgegenstand. Stufe III wurde nach dem Drei-Stufen-Umbau zum Spawn-Teleporter II, Stufe IV zum Enderit-Spawn-Teleporter (Stufe III)."
+    ],
+    "secret": [
+      "Der Tausch geschieht von selbst im Inventar."
+    ]
+  },
+  "family:copper_plate": {
+    "items": [
+      "regex:(waxed_)?(exposed_|weathered_|oxidized_)?copper_pressure_plate"
+    ],
+    "lore": [
+      "{name}: eine Platte, die abwartet, ob du es ernst meinst."
+    ],
+    "use": [
+      "Gibt erst Kraft, nachdem ein Spieler eine Weile darauf stand: 1 Sekunde unoxidiert, 2 angelaufen, 3 verwittert, 4 oxidiert; dieselbe Verzögerung gilt beim Loslassen. Gewachste behalten ihre Stufe, ungewachste oxidieren."
+    ],
+    "secret": [
+      "Wabe wachst sie; eine Axt kratzt das Wachs oder eine Stufe ab. Nutze die Verzögerung für Türen, die sich nur für jemanden öffnen sollen, der bleibt."
+    ]
+  },
+  "family:sage_ore": {
+    "items": [
+      "regex:(deepslate_)?sage_ore"
+    ],
+    "lore": [
+      "{name}: eine Ader, die Wissen hält und es nur widerwillig hergibt."
+    ],
+    "use": [
+      "Ein Oberwelt-Erz, so selten wie Diamant, Härte 3 (4,5 im Tiefenschiefer), braucht eine Eisenspitzhacke oder besser. Es gibt nur Erfahrung, 3 bis 7 Punkte, und selten eine Weisheitskugel."
+    ],
+    "secret": [
+      "Behutsamkeit behält den Erzblock, gibt aber keine Erfahrung. Glück erhöht die Kugelchance: 2 Prozent, bis 5 mit Glück III. Die Steinvariante ersetzt Stein und Granit, die Tiefenschiefervariante Tiefenschiefer und Tuff."
+    ]
+  },
+  "family:bucket_enderite": {
+    "items": [
+      "regex:enderite_(water_|lava_|soul_lava_|milk_)?bucket(_full)?"
+    ],
+    "lore": [
+      "{name}: ein Eimer, der zwei fasst und nie bricht."
+    ],
+    "use": [
+      "Ein Eisen-Eimer, umgeben von 8 Enderitklumpen. Er nimmt Wasser, Lava, Seelenlava und Milch und hält zwei Eimer einer Flüssigkeit. Benutzen schöpft, solange Platz ist; ein voller gießt einen Eimer; Schleichen + Benutzen gießt einen bei jedem Füllstand. Der Tooltip zeigt 1/2 oder 2/2."
+    ],
+    "secret": [
+      "Anders als ein Eisen-Eimer übersteht er Seelenlava: Eisen bricht beim Ausgießen von Seelenlava, dieser nie."
+    ]
+  },
+  "family:bucket_copper": {
+    "items": [
+      "regex:copper_(water_|lava_)?bucket"
+    ],
+    "lore": [
+      "{name}: ein Eimer, der mit den Jahren grün wird, wie die Dächer."
+    ],
+    "use": [
+      "Aus 3 Kupferbarren hergestellt. Er nimmt Wasser und Lava, nie Seelenlava. Er oxidiert in 4 Stufen, nur solange er in der Schnellleiste oder Nebenhand getragen wird, etwa im Tempo eines Kupferblocks. Gegossenes Wasser bildet nie eine Quelle, und beim Ausgießen von Lava bricht er."
+    ],
+    "secret": [
+      "Gewachst hält er leer still. Mit einer Axt in der Nebenhand schabt er eine Stufe ab, und Wabe wachst ihn. Ein ganz oxidierter Eimer schöpft nichts mehr, doch ein voller lässt sich noch ausgießen."
+    ]
+  },
+  "family:bucket_ceramic": {
+    "items": [
+      "regex:(chipped_|cracked_|brittle_)?ceramic_(water_|lava_)?bucket"
+    ],
+    "lore": [
+      "{name}: gebrannter Ton in Eimerform, so alt wie die ersten Küchen."
+    ],
+    "use": [
+      "Nimmt Wasser und Lava, aber keine Seelenlava und keine Milch. Er verschleißt wie Kupfer: heil, angeschlagen, rissig, brüchig, ein Gießen je Stufe. Schöpfen nutzt ihn nicht ab. Der letzte Guss bricht den brüchigen Eimer."
+    ],
+    "secret": [
+      "Lava macht einen Keramik-Eimer sofort brüchig, er bricht also beim Ausgießen. Ein Keramik-Lavaeimer verbrennt als Ofenbrennstoff."
+    ]
+  },
+  "family:super_carrot": {
+    "items": [
+      "regex:(netherite|enderite)_carrot"
+    ],
+    "lore": [
+      "{name}: eine Karotte, die ernst machte."
+    ],
+    "use": [
+      "Eine herzhafte Nahrung: Die Netherit-Karotte stellt 6 Hungerpunkte her, die Enderit-Karotte 12, beide lassen sich immer essen. Herstellung: eine Karotte mit 4 Klumpen des Metalls im Plus ringsum."
+    ],
+    "secret": [
+      "Beide sind als Gegenstand feuerfest. Die Enderit-Karotte ist episch und wie alles Enderit beim Fallenlassen leeresicher."
+    ]
+  },
+  "family:mob_head": {
+    "items": [
+      "regex:(blaze|breeze|cave_spider|drowned|enderman|husk|shulker|spider)_head|(bogged|stray)_skull"
+    ],
+    "lore": [
+      "{name}: eine Trophäe für alle, die es mit dem Blitz jagten."
+    ],
+    "use": [
+      "Fällt vom Mob, wenn ihn die Explosion eines geladenen Creepers tötet; ein Kopf pro Explosion. Auf dem Kopf tragbar (Bindungs- und Verschwindungsfluch gelten) und auf dem Boden in 16 Drehungen oder an einer Wand platzierbar."
+    ],
+    "secret": [
+      "Nur ein geladener Creeper zählt, und den gibt es nur durch einen Blitzschlag. Auf andere Weise getötete Mobs lassen ihren Kopf nie fallen. Ein getragener Mobkopf verbirgt dich ein wenig vor Mobs."
+    ]
+  },
+  "family:wall_head": {
+    "items": [
+      "regex:.*_wall_(head|skull)"
+    ],
+    "lore": [
+      "{name}: dieselbe Trophäe, an der Wand statt auf der Schulter."
+    ],
+    "use": [
+      "Die Wandversion des Mobkopfes. Du bekommst sie nicht als Gegenstand; der Kopf an einer Wand erzeugt sie, und beim Abbauen fällt der Kopf."
+    ],
+    "secret": [
+      "Köpfe stammen nur aus der Explosion eines geladenen Creepers, einer pro Detonation."
+    ]
+  },
+  "family:disc_other_side": {
+    "items": [
+      "regex:music_disc_.*(_b_side|_track_3)"
+    ],
+    "lore": [
+      "{name}: die andere Seite einer Platte, mit eigenem Lied."
+    ],
+    "use": [
+      "Die B-Seite (oder der dritte Titel) einer SimpleBuilding-Schallplatte. Eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt mit Rechtsklick eines Vorschlaghammers von Titel zu Titel und kostet 1 Haltbarkeit."
+    ],
+    "secret": [
+      "Die Reihenfolge ist erster Titel, B-Seite, dann Titel 3 und 4, wo es sie gibt, dann wieder der erste. Jeder Titel behält seinen eigenen Namen im Tooltip."
+    ]
+  },
+  "family:nature_slab": {
+    "items": [
+      "regex:(dirt|grass|sand|gravel)_slab"
+    ],
+    "lore": [
+      "{name}: ein halber Block vom Boden, und doch voll davon."
+    ],
+    "use": [
+      "Drei Vollblöcke nebeneinander ergeben 6 Stufen; es gibt kein Steinschneider-Rezept. Zwei Stufen gleicher Art ergeben wieder den Vollblock, und eine Schaufel baut sie am schnellsten ab."
+    ],
+    "secret": [
+      "Sand- und Kiesstufen fallen wie Sand; eine fallende untere Stufe, die auf einer passenden landet, verschmilzt zum Vollblock. Die Grasstufe wird vom Biom getönt und lässt ohne Behutsamkeit eine Erdstufe fallen."
+    ]
+  },
+  "family:chiseled_ice": {
+    "items": [
+      "regex:chiseled_(packed|blue)_ice"
+    ],
+    "lore": [
+      "{name}: Eis mit eingeritztem Zeichen, so kalt wie je zuvor."
+    ],
+    "use": [
+      "Im Steinschneider aus einem Pack- oder Blaueis geschnitten, eins zu eins. Packeis zeigt einen Eiskristall, Blaueis einen Diamanten. So rutschig wie der Grundblock und nur mit Behutsamkeit einsammelbar."
+    ],
+    "secret": [
+      "Schick ein Boot über einen Boden daraus: Der geschnitzte Block hat dieselbe Reibung wie der glatte."
+    ]
+  },
+  "family:froglight_color": {
+    "items": [
+      "regex:(scarlet|aqua|azure)_froglight"
+    ],
+    "lore": [
+      "{name}: eine Lampe, die die Frösche nicht machten."
+    ],
+    "use": [
+      "Ein beliebiges Froschlicht plus roter, türkiser oder blauer Farbstoff. Es leuchtet mit Lichtstärke 15 wie die Vanilla-Froschlichter."
+    ],
+    "secret": [
+      "Die drei Vanilla-Farben stammen weiterhin nur von Fröschen; Scharlach, Aqua und Azur nur aus dem Färbebottich."
+    ]
+  },
+  "family:gravity_sand": {
+    "items": [
+      "regex:levitating_(sand|gravel)"
+    ],
+    "lore": [
+      "{name}: Sand, der beschlossen hat, dass oben die richtige Fallrichtung ist."
+    ],
+    "use": [
+      "Sand oder Kies mit umgekehrter Schwerkraft: Er steigt Block für Block, bis etwas ihn stoppt."
+    ],
+    "secret": [
+      "Schwebender Sand und Schwebender Kies sind seine schwerelosen Zwillinge und bleiben, wo man sie hinsetzt."
+    ]
+  },
+  "family:suspended": {
+    "items": [
+      "regex:suspended_(sand|gravel)"
+    ],
+    "lore": [
+      "{name}: Sand, der das Fallen vergaß."
+    ],
+    "use": [
+      "Sand oder Kies ohne Schwerkraft: Er bleibt genau, wo du ihn hinsetzt. Er ist fest, und du kannst darauf stehen."
+    ],
+    "secret": [
+      "Praktisch für schwebende Brücken und geformte Decken, die nie einstürzen."
+    ]
+  },
+  "family:dimensional_scrap": {
+    "items": [
+      "regex:(end_|nether_)?dimensional_scrap"
+    ],
+    "lore": [
+      "{name}: ein Block, der in jeder Dimension vorkommt und in keiner ganz zu Hause ist."
+    ],
+    "use": [
+      "Seltener als Antike Trümmer. Die Oberwelt-Variante liegt in Tiefenschiefer und Tuff zwischen Y -64 und -32, die Nether-Variante in Netherrack, Basalt und Schwarzstein zwischen Y 8 und 24, die End-Variante in Endstein zwischen Y 10 und 70."
+    ],
+    "secret": [
+      "Er hat kein Rezept und noch keine Verwendung. Er ist ein Block, der noch auf seinen Zweck wartet."
+    ]
+  },
+  "family:armor_stand": {
+    "items": [
+      "regex:(small|straw)_armor_stand"
+    ],
+    "lore": [
+      "{name}: ein Pfosten für die Dinge, die einen Platz zum Stehen brauchen."
+    ],
+    "use": [
+      "Kleiner Rüstungsständer: ein Holzpfosten mit Querbalken auf einer glatten Steinplatte, der genau einen Gegenstand zeigt, ein Rüstungsteil oder eine Pferde-, Wolfs- oder Nautilusrüstung. Herstellung: eine Spalte aus Stock, Stock, glatte Steinstufe. Strohrüstungsständer: Rüstungsständer und Strohballen, formlos."
+    ],
+    "secret": [
+      "Der Strohrüstungsständer dient als Vogelscheuche; ein geschnitzter Kürbis macht ihn zur Trainingspuppe."
+    ]
+  },
+  "family:guide_topic": {
+    "items": [
+      "regex:guide_book_.*"
+    ],
+    "lore": [
+      "{name}: ein Kapitel, das gelernt hat, auf eigenen Füßen zu stehen."
+    ],
+    "use": [
+      "Ein Themenbuch des Mega-Führers. Sein Reiter öffnet sich von selbst, sobald eines seiner Tor-Rezepte in deinem Rezeptbuch liegt; nichts wird verbraucht."
+    ],
+    "secret": [
+      "Nur die Basisführer sind echte Gegenstände. Themenbücher sind eingefügter Inhalt, du liest sie also nur im Führer."
+    ]
   }
 }

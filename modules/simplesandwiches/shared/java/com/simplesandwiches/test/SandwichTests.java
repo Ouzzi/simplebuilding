@@ -91,6 +91,7 @@ public final class SandwichTests {
         ALL.put("cauldron_ripens_in_world", SandwichTests::cauldronRipensInWorld);
         ALL.put("reinforced_milk_cauldron", SandwichTests::reinforcedMilkCauldron);
         ALL.put("bundle_eating", SandwichTests::bundleEating);
+        ALL.put("sub_mod_switch", SandwichTests::subModSwitch);
         ALL.put("cake_slice", SandwichTests::cakeSlice);
     }
 
@@ -160,6 +161,26 @@ public final class SandwichTests {
     }
 
     // --- tests -------------------------------------------------------------------------------------
+
+    /** Super-mod switch "Enable Simple Sandwiches" off: registries stay, tab empty, bundle eating and knife inert. */
+    static void subModSwitch(GameTestHelper h) {
+        boolean old = com.simplebuilding.framework.api.SubMods.enabled("simplesandwiches");
+        try {
+            com.simplebuilding.framework.api.SubMods.set("simplesandwiches", false);
+            h.assertTrue(!com.simplesandwiches.Sandwiches.on(), "Switch off reaches Simple Sandwiches");
+            h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.getValue(com.simplesandwiches.Sandwiches.id("kitchen")) != null && ModItems.KNIFE != null, "Registries stay");
+            h.assertTrue(com.simplesandwiches.registry.SandwichRegistry.tabItems().isEmpty() && !com.simplesandwiches.registry.SandwichRegistry.tabStacks().isEmpty(), "Tab shows nothing while off");
+            ItemStack bundle = new ItemStack(Items.BUNDLE);
+            BundleContents.Mutable m = new BundleContents.Mutable();
+            m.tryInsert(new ItemStack(Items.COOKED_BEEF, 3));
+            bundle.set(DataComponents.BUNDLE_CONTENTS, m.toImmutable());
+            h.assertTrue(BundleEating.eating(bundle) == null, "No bundle eating while off");
+        } finally {
+            com.simplebuilding.framework.api.SubMods.set("simplesandwiches", old);
+        }
+        h.assertTrue(com.simplesandwiches.Sandwiches.on() == old, "Switch restored");
+        h.succeed();
+    }
 
     static void configBounds(GameTestHelper h) {
         // Tests share one server: restore the previous values instead of the defaults.

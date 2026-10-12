@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "simplefarming",
+  "version": "${version}",
+  "name": "Simple Farming",
+  "description": "Farming switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplefarming.FarmingFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplefarming.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplefarming.FarmingFabricClient"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simplefarming.FarmingModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "simplefarming.mixins.json"
+  ],
+  "suggests": {
+    "simplebuilding": "*",
+    "simplequalityoflife": "*",
+    "modmenu": "*"
+  }
+}

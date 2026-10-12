@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplecreatures"
+version="${version}"
+displayName="Simple Creatures"
+description="Creatures switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone."
+[[dependencies.simplecreatures]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplecreatures]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplecreatures]]
+modId="simplequalityoflife"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplecreatures]]
+modId="modmenu"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

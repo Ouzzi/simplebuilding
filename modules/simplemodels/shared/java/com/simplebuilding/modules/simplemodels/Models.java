@@ -19,14 +19,16 @@ public final class Models {
         catch (Exception e) { var policy = new ModelPolicy(); policy.enabled = false; server = new ModelCatalogue.Snapshot(policy, List.of());
             org.slf4j.LoggerFactory.getLogger("simplemodels").error("Model catalogue disabled: {}", e.getMessage()); }
     }
+    /** Super-mod switch "Enable Simple Aesthetics" (framework SubMods): off = anvil stays Vanilla, no assignment, no tab. Runtime only. */
+    public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled("simplemodels"); }
     public static boolean request(String name) {
-        return name != null && (name.startsWith(PREFIX) || server.policy().legacyNameMatching
+        return on() && name != null && (name.startsWith(PREFIX) || server.policy().legacyNameMatching
                 && server.models().stream().anyMatch(d -> d.match_name().equals(name)));
     }
     /** Anvil only: copies the input, never accepts an ItemStack or component from the client. */
     public static ItemStack assign(ItemStack input, String name, boolean operator) {
         var p = server.policy();
-        if (input.isEmpty() || name == null || name.length() > 50 || !p.enabled || p.operatorsOnly && !operator) return ItemStack.EMPTY;
+        if (!on() || input.isEmpty() || name == null || name.length() > 50 || !p.enabled || p.operatorsOnly && !operator) return ItemStack.EMPTY;
         var base = BuiltInRegistries.ITEM.getKey(input.getItem()).toString();
         if (!p.allowModItems && !base.startsWith("minecraft:")) return ItemStack.EMPTY;
         if (RESET.equals(name)) {

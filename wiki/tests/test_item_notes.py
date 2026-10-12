@@ -14,7 +14,7 @@ FAMILIES = ['*_chisel', '*_sledgehammer', '*_building_wand', '*_core', '*backpac
             '*elytra_pad', '*flypad', '*spawn_teleporter*', '*chunk_loader', '*launchpad',
             '*potion_pad', '*copper_pressure_plate', '*_quartz_checker', 'chiseled_*_bricks',
             'enderite_*_armor', 'guide_book*', 'nihil_redstone', 'astral_redstone',
-            'nihilith_switch', 'astralit_switch', 'nihilith_lamp', 'astralit_lamp']
+            'bridge_redstone']
 
 
 class ItemNoteTests(unittest.TestCase):

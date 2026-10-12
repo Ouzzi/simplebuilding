@@ -1,0 +1,27 @@
+{
+  "simplebuilding:astral_vault": {
+    "criteria": {
+      "astral_vault": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:blueprint/carbon_copy": {
+    "criteria": {
+      "blueprint_copy": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:blueprint/copy_that": {
+    "criteria": {
+      "blueprint_scan": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:blueprint/instant_architect": {
+    "criteria": {
+      "blueprint_build": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "DataVersion": 5023
+}

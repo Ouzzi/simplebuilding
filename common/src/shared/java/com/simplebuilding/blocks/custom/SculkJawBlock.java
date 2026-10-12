@@ -1,6 +1,7 @@
 package com.simplebuilding.blocks.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -8,7 +9,11 @@ import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.WebBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -36,9 +41,18 @@ public class SculkJawBlock extends WebBlock {
     /** Ticks zwischen zwei Pruefungen der geschlossenen Kiefer; ist dann niemand mehr drin, oeffnet sie sich. */
     public static final int REOPEN_TICKS = 20;
     /** Bremse in der Kiefer (Spinnennetz: 0,25 / 0,05). */
-    public static final Vec3 STUCK = new Vec3(0.12, 0.02, 0.12);
-    /** Dunkelheit in Ticks, aufgefrischt solange das Opfer drinsteht. */
-    public static final int DARKNESS_TICKS = 60;
+    public static final Vec3 STUCK = new Vec3(0.06, 0.015, 0.06);
+    /**
+     * Besitzer N38/N41: Dunkelheit (seit N41 statt Blindheit), die mit der Verweildauer exponentiell waechst. Nach {@code t} Sekunden in der Kiefer haelt
+     * sie {@code d(t) = min(60, max(3, 3 * (5/3)^(t - 2)))} Sekunden an: raus nach 2 s -> 3 s, nach 3 s -> 5 s,
+     * nach 4 s -> 8,3 s, nach 5 s -> 13,9 s, ab knapp 8 s Verweilen das Maximum von 60 s. Waehrend man drinsteht, wird sie
+     * fortlaufend auf d(t) verlaengert, also bleibt nach dem Herauskommen genau d(Verweildauer).
+     */
+    public static final double DARK_BASE_SECONDS = 3.0;
+    public static final double DARK_GROWTH = 5.0 / 3.0;
+    public static final double DARK_MAX_SECONDS = 60.0;
+    /** Verweildauer je Lebewesen: erster und letzter Tick in einer Kiefer (nur Server, schwach referenziert). */
+    private static final java.util.Map<LivingEntity, long[]> DWELL = new java.util.WeakHashMap<>();
     /**
      * Besitzer N37: Bewegungsbild zwischen offen und zu. 0 = in Ruhe (offen oder zu, je nach {@link #SNAPPED}); 2 und 1 sind
      * die Zwischenbilder, die beim Zuschnappen (je {@link #CLOSE_FRAME_TICKS}) und Oeffnen (je {@link #OPEN_FRAME_TICKS})
@@ -60,6 +74,23 @@ public class SculkJawBlock extends WebBlock {
         return SHAPE;
     }
 
+    /** N37 (owner 2026-10-11): only on a block whose top is solid and full - not on slabs, fences, glass panes or air. */
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos below = pos.below();
+        return level.getBlockState(below).isFaceSturdy(level, below, Direction.UP, SupportType.FULL);
+    }
+
+    /** Loses its floor: gone (like a carpet), no drop of its own beyond the normal loot. */
+    @Override
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
+                                     Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+        if (direction == Direction.DOWN && !state.canSurvive(level, pos)) {
+            return Blocks.AIR.defaultBlockState();
+        }
+        return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+    }
+
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity,
                                 InsideBlockEffectApplier effects, boolean intersects) {
@@ -70,11 +101,30 @@ public class SculkJawBlock extends WebBlock {
         if (level instanceof ServerLevel server) {
             bite(state, server, pos, entity);
             if (entity instanceof LivingEntity living) {
-                MobEffectInstance dark = living.getEffect(MobEffects.DARKNESS);
-                if (dark == null || dark.getDuration() < DARKNESS_TICKS - 20) {
-                    living.addEffect(new MobEffectInstance(MobEffects.DARKNESS, DARKNESS_TICKS, 0, false, false, true));
-                }
+                darken(server, living);
             }
+        }
+    }
+
+    /** Dunkelheit in Ticks nach {@code dwellTicks} Ticks in der Kiefer (Formel an {@link #DARK_BASE_SECONDS}). */
+    public static int darknessTicks(long dwellTicks) {
+        double seconds = DARK_BASE_SECONDS * Math.pow(DARK_GROWTH, dwellTicks / 20.0 - 2.0);
+        return (int) Math.round(Math.min(DARK_MAX_SECONDS, Math.max(DARK_BASE_SECONDS, seconds)) * 20.0);
+    }
+
+    /** Zaehlt die Verweildauer (ein Tick Luecke beendet sie) und verlaengert die Dunkelheit auf {@link #darknessTicks}. */
+    private static void darken(ServerLevel level, LivingEntity living) {
+        long now = level.getGameTime();
+        long[] dwell = DWELL.get(living);
+        if (dwell == null || now - dwell[1] > 2) {
+            dwell = new long[] {now, now};
+            DWELL.put(living, dwell);
+        }
+        dwell[1] = now;
+        int ticks = darknessTicks(now - dwell[0]);
+        MobEffectInstance dark = living.getEffect(MobEffects.DARKNESS);
+        if (dark == null || dark.getDuration() < ticks - 10) {
+            living.addEffect(new MobEffectInstance(MobEffects.DARKNESS, ticks, 0, false, false, true));
         }
     }
 

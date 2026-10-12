@@ -63,9 +63,13 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_redstone_aliases_resolve_items_and_blocks", EndSystemsTests::redstoneAliasesResolveItemsAndBlocks).build(),
             GameTestSpec.named("end_systems_game_test_vault_shares_only_its_first_half_and_persists", EndSystemsTests::vaultSharesOnlyItsFirstHalfAndPersists).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_vault_opens_and_config_preserves_contents", EndSystemsTests::vaultOpensAndConfigPreservesContents).maxTicks(220).build(),
-            GameTestSpec.named("end_systems_game_test_astral_signal_travels_faster_than_nihil", EndSystemsTests::astralSignalTravelsFasterThanNihil).maxTicks(60).build(),
+            GameTestSpec.named("redstone_lines_game_test_lines_stay_separate_side_by_side", RedstoneLinesTests::linesStaySeparateSideBySide).build(),
+            GameTestSpec.named("redstone_lines_game_test_lines_stay_separate_through_ablock", RedstoneLinesTests::linesStaySeparateThroughABlock).build(),
+            GameTestSpec.named("redstone_lines_game_test_vanilla_sources_feed_astral_and_nihil", RedstoneLinesTests::vanillaSourcesFeedAstralAndNihil).build(),
+            GameTestSpec.named("redstone_lines_game_test_astral_powers_lamp_and_piston", RedstoneLinesTests::astralPowersLampAndPiston).maxTicks(60).build(),
+            GameTestSpec.named("redstone_lines_game_test_bridge_links_all_lines", RedstoneLinesTests::bridgeLinksAllLines).maxTicks(60).build(),
+            GameTestSpec.named("redstone_lines_game_test_removed_switches_and_lamps_become_vanilla", RedstoneLinesTests::removedSwitchesAndLampsBecomeVanilla).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),
-            GameTestSpec.named("end_systems_game_test_matching_lamps_and_config_limits", EndSystemsTests::matchingLampsAndConfigLimits).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_powder_connects_like_redstone_wire", EndSystemsTests::powderConnectsLikeRedstoneWire).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_piston_pushes_all_six_at_once", EndSystemsTests::pistonPushesAllSixAtOnce).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_piston_never_chains", EndSystemsTests::pistonNeverChains).maxTicks(100).build(),
@@ -129,6 +133,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_material_rods_craft_back_and_smith_upward", BlockBehaviourTests::materialRodsCraftBackAndSmithUpward)
+                    .build(),
+            GameTestSpec.named("block_behaviour_game_test_old_rod_ids_load_as_poles", BlockBehaviourTests::oldRodIdsLoadAsPoles)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_reinforced_and_netherite_furnaces_smelt_faster_than_vanilla", BlockBehaviourTests::reinforcedAndNetheriteFurnacesSmeltFasterThanVanilla)
                     .maxTicks(BlockBehaviourTests.FURNACE_MAX_TICKS)
@@ -317,6 +323,14 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(TrapTests.JAW_MAX_TICKS).build(),
             GameTestSpec.named("trap_game_test_workstations_are_heavy_sulfur_cube_food", TrapTests::workstationsAreHeavySulfurCubeFood)
                     .build(),
+            GameTestSpec.named("world_polish_game_test_piles_break_only_the_looked_at_part", WorldPolishTests::pilesBreakOnlyTheLookedAtPart)
+                    .build(),
+            GameTestSpec.named("world_polish_game_test_buckets_draw_no_bar_and_the_enderite_bucket_shows_only_its_name", WorldPolishTests::bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName)
+                    .build(),
+            GameTestSpec.named("world_polish_game_test_sculk_jaw_needs_full_block_top", WorldPolishTests::sculkJawNeedsFullBlockTop)
+                    .build(),
+            GameTestSpec.named("world_polish_game_test_standers_stay_on_the_chest_boat_deck", WorldPolishTests::standersStayOnTheChestBoatDeck)
+                    .maxTicks(WorldPolishTests.BOAT_MAX_TICKS).build(),
             GameTestSpec.named("fire_game_test_sulfur_fire_burns_on_sulfur_and_gives_nausea", FireTests::sulfurFireBurnsOnSulfurAndGivesNausea)
                     .maxTicks(FireTests.FIRE_MAX_TICKS).build(),
             GameTestSpec.named("fire_game_test_copper_fire_burns_on_copper_without_effect", FireTests::copperFireBurnsOnCopperWithoutEffect)
@@ -390,6 +404,10 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(TradeAndMigrationTests.LEGACY_ITEM_ENTITY_MAX_TICKS)
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_renamed_item_ids_still_load_as_the_renamed_items", TradeAndMigrationTests::renamedItemIdsStillLoadAsTheRenamedItems)
+                    .build(),
+            GameTestSpec.named("migration_world_game_test_fixtures_are_buildable", MigrationWorldTests::fixturesAreBuildable)
+                    .build(),
+            GameTestSpec.named("migration_world_game_test_world_loads_under_moved_ids", MigrationWorldTests::worldLoadsUnderMovedIds)
                     .build(),
             GameTestSpec.named("network_handler_game_test_double_jump_needs_enchanted_boots_and_wears_them", NetworkHandlerTests::doubleJumpNeedsEnchantedBootsAndWearsThem)
                     .build(),
@@ -949,6 +967,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("config_option_game_test_every_option_has_name_tooltip_and_tab", ConfigOptionTests::everyOptionHasNameTooltipAndTab)
                     .build(),
+            GameTestSpec.named("config_option_game_test_super_mod_switches_reach_the_bundled_sub_mods", ConfigOptionTests::superModSwitchesReachTheBundledSubMods)
+                    .build(),
             GameTestSpec.named("config_option_game_test_loot_balance_keeps_every_chest_within_its_budget", ConfigOptionTests::lootBalanceKeepsEveryChestWithinItsBudget)
                     .build(),
             GameTestSpec.named("config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off", ConfigOptionTests::lootTableChangesStopWhenTheOptionIsSwitchedOff)
@@ -1238,13 +1258,14 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("music_disc_game_test_speakers_boost_only_their_own_source", MusicDiscTests::speakersBoostOnlyTheirOwnSource).build(),
             GameTestSpec.named("music_disc_game_test_speaker_range_and_config_caps", MusicDiscTests::speakerRangeAndConfigCaps).build(),
             GameTestSpec.named("music_disc_game_test_speaker_recipes_use_any_planks", MusicDiscTests::speakerRecipesUseAnyPlanks).build(),
+            GameTestSpec.named("music_disc_game_test_amplifiers_have_tooltip_and_full_cube_hitbox", MusicDiscTests::amplifiersHaveTooltipAndFullCubeHitbox).build(),
             GameTestSpec.named("music_disc_game_test_track_cycle_skips_missing_tracks", MusicDiscTests::trackCycleSkipsMissingTracks).build(),
             GameTestSpec.named("music_disc_game_test_speaker_chains_follow_their_kind_up_to_the_limit", MusicDiscTests::speakerChainsFollowTheirKindUpToTheLimit).build(),
-            GameTestSpec.named("music_disc_game_test_amplified_jukebox_reaches_farther_through_the_real_use_path", MusicDiscTests::amplifiedJukeboxReachesFartherThroughTheRealUsePath).build(),
             GameTestSpec.named("music_disc_game_test_amplified_note_block_is_louder_through_the_real_use_path", MusicDiscTests::amplifiedNoteBlockIsLouderThroughTheRealUsePath).build(),
             GameTestSpec.named("music_disc_game_test_chained_sound_reaches_each_player_once_and_stop_reaches_all", MusicDiscTests::chainedSoundReachesEachPlayerOnceAndStopReachesAll).build(),
             GameTestSpec.named("music_disc_game_test_jukebox_amplifiers_relay_by_radio", MusicDiscTests::jukeboxAmplifiersRelayByRadio).build(),
             GameTestSpec.named("music_disc_game_test_relaying_amplifiers_show_notes_and_stop_with_the_jukebox", MusicDiscTests::relayingAmplifiersShowNotesAndStopWithTheJukebox).maxTicks(200).build(),
+            GameTestSpec.named("music_disc_game_test_jukebox_stays_vanilla_and_amplifier_plays_along", MusicDiscTests::jukeboxStaysVanillaAndAmplifierPlaysAlong).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_creative_has_no_wear", SledgehammerTests::hammerChipsCreativeHasNoWear).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_ice_yields_four", SledgehammerTests::hammerChipsIceYieldsFour).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_mixed_pile_preserves_other_parts", SledgehammerTests::hammerChipsMixedPilePreservesOtherParts).build(),

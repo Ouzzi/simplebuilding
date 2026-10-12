@@ -13,6 +13,8 @@ werden hier beschrieben. Stil: N12 (Bild 3/4), Maße PLAN-CRUCIBLE-N12B. Alles f
 | Filter-Knopf | `UiFilterButton` | einheitlicher Filter-Knopf (Filter-Prinzip) |
 | **Kontextmenü** (neu, Simple Maps) | `UiContextMenu` | Rechtsklick-Menü am Cursor, im Bildschirm gehalten; Klick auf Zeile führt aus und schließt, jeder andere Klick schließt und wird verschluckt; deaktivierte Zeilen grau |
 | **Lesezeichen** (neu, Simple Maps) | `UiBookmarks.tab` | Lesezeichen links/rechts am Kasten, aktives in Kastenfarbe, Hover heller |
+| **Lesezeichen im Guide-Stil** (N38, Simple Maps) | `UiBookmarks.ribbon` | Band mit abgerundetem Außenende, heller Oberkante, Schatten unten/außen (wie die Guide-Lesezeichen); vor dem Kasten zeichnen, Innenende liegt unter dem Rahmen; belegt = Kastenfarbe, leer = gedämpft, Hover heller und 2 px weiter draußen |
+| **Werkzeug-Knopf** (N38, Simple Maps) | `UiBookmarks.button` | quadratischer Knopf auf dem Vanilla-Button-Sprite, Hover = highlighted, eingeschaltet = weißer Strich unter dem Symbol (wie Blueprint-Reiter) |
 | **Zweitklick-Bestätigung** (neu) | `UiBookmarks.confirm` | erster Klick färbt rot, zweiter Klick bestätigt (z. B. belegten Wegpunkt ersetzen) |
 | **Ausgrauen** (neu) | `UiBookmarks.greyOut` | Bereiche, die im aktuellen Modus nicht wählbar sind |
 

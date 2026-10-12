@@ -1,0 +1,242 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplemovement",
+    "name": "Simple Movement",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "crawl",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/mixin/PlayerEntityCrawlMixin.java"
+      ],
+      "en": {
+        "title": "Manual crawling",
+        "summary": "P or /crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
+      },
+      "de": {
+        "title": "Manuelles Kriechen",
+        "summary": "P oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Aenderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
+      }
+    },
+    {
+      "id": "autowalk",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/client/MovementClient.java"
+      ],
+      "en": {
+        "title": "Auto-walk",
+        "summary": "R toggles ordinary forward input only when the server enables enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change. It adds no speed or reach. The autowalk and crawl key bindings of Simple QoL are taken over once."
+      },
+      "de": {
+        "title": "Automatisch laufen",
+        "summary": "R schaltet normale Vorwaertseingabe nur bei Serverfreigabe enableAutowalk (Standard false). Bildschirm oeffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Aenderung. Kein Tempo- oder Reichweitenbonus. Die Tastenbelegungen fuer Autowalk und Kriechen aus Simple QoL werden einmalig uebernommen."
+      }
+    },
+    {
+      "id": "climbing",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/mixin/LadderSpeedMixin.java"
+      ],
+      "en": {
+        "title": "Climbing and sliding",
+        "summary": "Climbing speed defaults to 0.4 blocks/tick (range 0.2–0.4). Slide speed defaults to 0.8 (range 0.15–0.8). CAMERA requires looking down and sneaking; ALWAYS requires looking down without sneaking. The server rejects excess vertical movement on climbable blocks with a bounded latency allowance."
+      },
+      "de": {
+        "title": "Klettern und Rutschen",
+        "summary": "Klettertempo standardmaessig 0.4 Bloecke/Tick (0.2–0.4), Rutschtempo 0.8 (0.15–0.8). CAMERA verlangt Blick nach unten und Schleichen; ALWAYS Blick nach unten ohne Schleichen. Der Server weist ueberhoehte Bewegung auf kletterbaren Bloecken mit begrenztem Latenzspielraum ab."
+      }
+    },
+    {
+      "id": "powder_snow",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/mixin/PowderSnowWalkMixin.java"
+      ],
+      "en": {
+        "title": "Frost Walker on powder snow",
+        "summary": "Frost Walker permits walking on powder snow. Enabled by frostWalkerWalkOnPowderSnow, default true."
+      },
+      "de": {
+        "title": "Eislaeufer auf Pulverschnee",
+        "summary": "Eislaeufer erlaubt das Gehen auf Pulverschnee. frostWalkerWalkOnPowderSnow ist standardmaessig true."
+      }
+    },
+    {
+      "id": "config_frostWalkerWalkOnPowderSnow",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementConfig.java"
+      ],
+      "en": {
+        "title": "frostWalkerWalkOnPowderSnow",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "frostWalkerWalkOnPowderSnow",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_enableAutowalk",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementConfig.java"
+      ],
+      "en": {
+        "title": "enableAutowalk",
+        "summary": "Server setting. Default: false."
+      },
+      "de": {
+        "title": "enableAutowalk",
+        "summary": "Servereinstellung. Standard: false."
+      }
+    },
+    {
+      "id": "config_ladderClimbingSpeed",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementConfig.java"
+      ],
+      "en": {
+        "title": "ladderClimbingSpeed",
+        "summary": "Server setting. Default: 0.4."
+      },
+      "de": {
+        "title": "ladderClimbingSpeed",
+        "summary": "Servereinstellung. Standard: 0.4."
+      }
+    },
+    {
+      "id": "config_enableFastLadderSlide",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementConfig.java"
+      ],
+      "en": {
+        "title": "enableFastLadderSlide",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "enableFastLadderSlide",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_ladderSlideSpeed",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementConfig.java"
+      ],
+      "en": {
+        "title": "ladderSlideSpeed",
+        "summary": "Server setting. Default: 0.8."
+      },
+      "de": {
+        "title": "ladderSlideSpeed",
+        "summary": "Servereinstellung. Standard: 0.8."
+      }
+    },
+    {
+      "id": "config_ladderSlideActivation",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementConfig.java"
+      ],
+      "en": {
+        "title": "ladderSlideActivation",
+        "summary": "Server setting. Default: \"CAMERA\"."
+      },
+      "de": {
+        "title": "ladderSlideActivation",
+        "summary": "Servereinstellung. Standard: \"CAMERA\"."
+      }
+    },
+    {
+      "id": "config_enableManualCrawl",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementConfig.java"
+      ],
+      "en": {
+        "title": "Manual Crawling",
+        "summary": "Allow /crawl and the crawl key. The server validates and limits changes. Default: true."
+      },
+      "de": {
+        "title": "Manuelles Kriechen",
+        "summary": "/crawl und die Kriechtaste erlauben. Der Server prüft und begrenzt Änderungen. Standard: true."
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementCommands.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/crawl is available to players. Owner-level /simplemovement autowalk and frostWalkerSnow <true|false> and ladderSpeed <0.2-0.4>; changes are saved to config/simplemovement.json."
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplemovement autowalk und frostWalkerSnow <true|false> sowie ladderSpeed <0.2-0.4>; Speichern in config/simplemovement.json."
+      }
+    },
+    {
+      "id": "submod",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/SimpleMovement.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/SubMods.java"
+      ],
+      "en": {
+        "title": "Sub-mod of Simple QoL",
+        "summary": "Playable alone (config/simplemovement.json). Bundled in Simple QoL, which can switch it off with \"Enable Simple Movement\". On the first start the old Simple QoL settings of this sub-mod are taken over once."
+      },
+      "de": {
+        "title": "Sub-Mod von Simple QoL",
+        "summary": "Allein spielbar (config/simplemovement.json). In Simple QoL gebuendelt, dort mit \"Simple Movement aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig uebernommen."
+      }
+    }
+  ],
+  "recipes": [],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [],
+  "blocks": [],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 13,
+    "recipes": 0,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 0,
+    "blocks": 0,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}

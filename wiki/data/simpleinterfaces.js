@@ -612,6 +612,149 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
           "Dein eigenes Inventar (E) als ein heller Kasten: Rüstungs- und Schild-Slots, eingelassenes Feld hinter deinem Spielermodell, 2x2-Herstellen mit eingraviertem Pfeil. Rezeptbuch und Knöpfe anderer Mods bleiben. Standard: an."
         ]
       }
+    },
+    {
+      "id": "config_enableLinkedContainers",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java"
+      ],
+      "en": {
+        "title": "enableLinkedContainers",
+        "summary": "Server switch for linked containers. Default: true.",
+        "details": [
+          "Server value in config/simpleinterfaces-server.json (formerly Simple QoL), sent to clients for prediction; the local screen style stays in config/simpleinterfaces.json."
+        ]
+      },
+      "de": {
+        "title": "enableLinkedContainers",
+        "summary": "Serverschalter fuer verknuepfte Behaelter. Standard: true.",
+        "details": [
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+        ]
+      }
+    },
+    {
+      "id": "config_linkedContainerRange",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java"
+      ],
+      "en": {
+        "title": "linkedContainerRange",
+        "summary": "Server setting, range 8–128 blocks between player and marked container. Default: 64.",
+        "details": [
+          "Server value in config/simpleinterfaces-server.json (formerly Simple QoL), sent to clients for prediction; the local screen style stays in config/simpleinterfaces.json."
+        ]
+      },
+      "de": {
+        "title": "linkedContainerRange",
+        "summary": "Servereinstellung, 8–128 Bloecke zwischen Spieler und vorgemerktem Behaelter. Standard: 64.",
+        "details": [
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+        ]
+      }
+    },
+    {
+      "id": "config_enableEasyShulkers",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java"
+      ],
+      "en": {
+        "title": "enableEasyShulkers",
+        "summary": "Server switch for opening shulker boxes from the inventory. Default: true.",
+        "details": [
+          "Server value in config/simpleinterfaces-server.json (formerly Simple QoL), sent to clients for prediction; the local screen style stays in config/simpleinterfaces.json."
+        ]
+      },
+      "de": {
+        "title": "enableEasyShulkers",
+        "summary": "Serverschalter fuer Shulkerkisten aus dem Inventar. Standard: true.",
+        "details": [
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+        ]
+      }
+    },
+    {
+      "id": "config_enableEasyEnderChests",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/LinkedConfig.java"
+      ],
+      "en": {
+        "title": "enableEasyEnderChests",
+        "summary": "Server switch for opening ender chests from the inventory. Default: true.",
+        "details": [
+          "Server value in config/simpleinterfaces-server.json (formerly Simple QoL), sent to clients for prediction; the local screen style stays in config/simpleinterfaces.json."
+        ]
+      },
+      "de": {
+        "title": "enableEasyEnderChests",
+        "summary": "Serverschalter fuer Endertruhen aus dem Inventar. Standard: true.",
+        "details": [
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+        ]
+      }
+    },
+    {
+      "id": "linked_containers",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/linked/LinkedContainers.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/LinkedPanel.java"
+      ],
+      "en": {
+        "title": "Linked containers",
+        "summary": "Sneak + right-click a container with an empty main hand to mark it (a double chest counts as one); dust particles at your hand show the mark. The next chest or GUI you open (crafting table, furnace, anvil …) shows the marked container above it, sharing your inventory. Shift-click moves marked → second GUI, else inventory; inventory → second GUI, else the marked container. The mark ends beyond linkedContainerRange (default 64, range 8–128), in another dimension, in an unloaded chunk, when the block is gone, on logout or death, or with another sneak + right-click on it. Claims and locks are checked. The recipe book still only counts your inventory.",
+        "details": [
+          "Server value in config/simpleinterfaces-server.json (formerly Simple QoL), sent to clients for prediction; the local screen style stays in config/simpleinterfaces.json."
+        ]
+      },
+      "de": {
+        "title": "Verknuepfte Behaelter",
+        "summary": "Schleichen + Rechtsklick mit leerer Haupthand merkt einen Behaelter vor (Doppeltruhe zaehlt als einer); Staubpartikel an der Hand zeigen die Vormerkung. Die naechste geoeffnete Truhe oder GUI (Werkbank, Ofen, Amboss …) zeigt den Behaelter darueber, mit gemeinsamem Inventar. Shift-Klick: vorgemerkt → zweites GUI, sonst Inventar; Inventar → zweites GUI, sonst vorgemerkter Behaelter. Die Vormerkung endet jenseits von linkedContainerRange (Standard 64, Bereich 8–128), in anderer Dimension, in ungeladenem Chunk, wenn der Block weg ist, bei Logout oder Tod oder mit erneutem Schleich-Rechtsklick darauf. Claims und Schloesser werden geprueft. Das Rezeptbuch zaehlt weiter nur das Inventar.",
+        "details": [
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+        ]
+      }
+    },
+    {
+      "id": "easy_shulkers",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/linked/PortableContainers.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/linked/PortableMenu.java"
+      ],
+      "en": {
+        "title": "Easy shulker boxes and ender chests",
+        "summary": "Right-click a shulker box (any color, also SimpleBuilding tier boxes) or an ender chest in the air, or right-click it on its own inventory slot, to open it without placing it. The item stays locked in its slot while open; every change is written into the box at once. Shulker boxes do not fit inside. Not from the creative inventory tab. Switches: enableEasyShulkers and enableEasyEnderChests (default true).",
+        "details": [
+          "Server value in config/simpleinterfaces-server.json (formerly Simple QoL), sent to clients for prediction; the local screen style stays in config/simpleinterfaces.json."
+        ]
+      },
+      "de": {
+        "title": "Einfache Shulkerkisten und Endertruhen",
+        "summary": "Rechtsklick mit einer Shulkerkiste (jede Farbe, auch SimpleBuilding-Stufenkisten) oder Endertruhe in die Luft oder auf ihren eigenen Inventarplatz oeffnet sie, ohne sie zu platzieren. Das Item bleibt waehrenddessen in seinem Platz gesperrt; jede Aenderung wird sofort in die Kiste geschrieben. Shulkerkisten passen nicht hinein. Nicht aus dem Kreativ-Inventarreiter. Schalter: enableEasyShulkers und enableEasyEnderChests (Standard true).",
+        "details": [
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+        ]
+      }
+    },
+    {
+      "id": "submod",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/SimpleInterfaces.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/SubMods.java"
+      ],
+      "en": {
+        "title": "Sub-mod of Simple QoL",
+        "summary": "Playable alone. Bundled in Simple QoL, which can switch it off with \"Enable Simple Interfaces\" (Vanilla screens, no linked containers or Easy Shulkers). On the first start the old Simple QoL container settings are taken over once into config/simpleinterfaces-server.json.",
+        "details": [
+          "Server value in config/simpleinterfaces-server.json (formerly Simple QoL), sent to clients for prediction; the local screen style stays in config/simpleinterfaces.json."
+        ]
+      },
+      "de": {
+        "title": "Sub-Mod von Simple QoL",
+        "summary": "Allein spielbar. In Simple QoL gebuendelt, dort mit \"Simple Interfaces aktivieren\" abschaltbar (Vanilla-Bildschirme, keine verknuepften Behaelter, keine Easy Shulkers). Beim ersten Start werden die alten Simple-QoL-Behaelter-Einstellungen einmalig in config/simpleinterfaces-server.json uebernommen.",
+        "details": [
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+        ]
+      }
     }
   ],
   "recipes": [],
@@ -635,7 +778,7 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 27,
+    "features": 34,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "simplemobs:shellker"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "simplemobs:shellker"
+      }
+    ]
+  }
+}

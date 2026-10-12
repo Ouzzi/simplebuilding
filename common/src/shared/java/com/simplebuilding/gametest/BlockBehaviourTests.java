@@ -951,24 +951,26 @@ public final class BlockBehaviourTests {
      * against a rod with more range.
      */
     public static void metalRodsAttractLightningWithinTheirOwnRange(GameTestHelper helper) {
-        if (ModBlocks.IRON_ROD == null) {
+        if (ModBlocks.IRON_POLE == null) {
             helper.succeed();
             return;
         }
         ServerLevel level = helper.getLevel();
-        helper.assertTrue(ModBlocks.IRON_ROD instanceof net.minecraft.world.level.block.LightningRodBlock, "the iron rod is a lightning rod");
-        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.IRON_ROD).range(), 32, "iron rod range");
-        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.GOLD_ROD).range(), 64, "gold rod range");
-        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.NETHERITE_ROD).range(), 96, "netherite rod range");
-        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.ENDERITE_ROD).range(), 128, "enderite rod range");
+        helper.assertTrue(ModBlocks.IRON_POLE instanceof net.minecraft.world.level.block.LightningRodBlock, "the iron rod is a lightning rod");
+        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.IRON_POLE).range(), 32, "iron rod range");
+        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.GOLD_POLE).range(), 64, "gold rod range");
+        helper.assertTrue(ModBlocks.DIAMOND_POLE instanceof net.minecraft.world.level.block.LightningRodBlock, "the diamond pole is a lightning rod");
+        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.DIAMOND_POLE).range(), 80, "diamond pole range");
+        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.NETHERITE_POLE).range(), 96, "netherite rod range");
+        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.ENDERITE_POLE).range(), 128, "enderite rod range");
         helper.assertValueEqual(com.simplebuilding.blocks.custom.MetalRodBlock.MAX_RANGE, 128, "no metal rod reaches further than copper");
-        BlockPos iron = onTop(level, helper.absolutePos(new BlockPos(1, 1, 1)), ModBlocks.IRON_ROD);
+        BlockPos iron = onTop(level, helper.absolutePos(new BlockPos(1, 1, 1)), ModBlocks.IRON_POLE);
         java.util.Optional<BlockPos> near = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(12, 0, 12));
         helper.assertTrue(near.isPresent() && near.get().equals(iron.above()), "an iron rod 17 blocks away attracts the bolt, got " + near);
         java.util.Optional<BlockPos> far = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(40, 0, 0));
         helper.assertTrue(far.isEmpty() || !far.get().equals(iron.above()), "an iron rod 40 blocks away does not");
 
-        BlockPos gold = onTop(level, iron.offset(2, 0, 0), ModBlocks.GOLD_ROD);
+        BlockPos gold = onTop(level, iron.offset(2, 0, 0), ModBlocks.GOLD_POLE);
         java.util.Optional<BlockPos> goldOnly = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(50, 0, 0));
         helper.assertTrue(goldOnly.isPresent() && goldOnly.get().equals(gold.above()),
                 "a gold rod 48 blocks away attracts the bolt the iron rod no longer reaches, got " + goldOnly);
@@ -980,8 +982,8 @@ public final class BlockBehaviourTests {
                 "a gold rod 70 blocks away still attracts the bolt, got " + beyond);
 
         // Netherit rechts vom Eisenstab, Enderit links davon: jeder erreicht, was die kleineren nicht mehr erreichen.
-        BlockPos netherite = onTop(level, iron.offset(4, 0, 0), ModBlocks.NETHERITE_ROD);
-        BlockPos enderite = onTop(level, iron.offset(-2, 0, 0), ModBlocks.ENDERITE_ROD);
+        BlockPos netherite = onTop(level, iron.offset(4, 0, 0), ModBlocks.NETHERITE_POLE);
+        BlockPos enderite = onTop(level, iron.offset(-2, 0, 0), ModBlocks.ENDERITE_POLE);
         java.util.Optional<BlockPos> netheriteOnly = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, netherite.offset(90, 0, 0));
         helper.assertTrue(netheriteOnly.isPresent() && netheriteOnly.get().equals(netherite.above()),
                 "a netherite rod 90 blocks away wins over the enderite rod 96 blocks away, got " + netheriteOnly);
@@ -1008,47 +1010,89 @@ public final class BlockBehaviourTests {
     }
 
     /**
-     * Material rods (owner 2026-10-02): Gold and Diamond Rod from three stacked like the Iron Rod; Iron, Gold and
-     * Diamond Rod fall back into their three pieces; the Netherite Rod is smithed from the Diamond Rod and the Enderite
-     * Rod from the Netherite Rod, with no way back. Netherite and Enderite Rod do not burn and, since 2026-10-03, are
-     * lightning-rod blocks like the Iron and Gold Rod; the Diamond Rod stays an item.
+     * Poles and the Diamond Rod (owner 2026-10-02, N41): Iron, Gold and Diamond Pole from three stacked, and back into their
+     * three pieces; the Diamond Rod (arrow shaft, an item) from two stacked diamonds and back into two. The Netherite Pole
+     * is smithed from the Diamond Pole and the Enderite Pole from the Netherite Pole, with no way back. Netherite and
+     * Enderite Pole do not burn; all poles are lightning-rod blocks, the Diamond Rod stays an item.
      */
     public static void materialRodsCraftBackAndSmithUpward(GameTestHelper helper) {
-        if (com.simplebuilding.items.ModItems.GOLD_ROD == null) {
+        if (com.simplebuilding.items.ModItems.GOLD_POLE == null) {
             helper.succeed();
             return;
         }
-        Item gold = com.simplebuilding.items.ModItems.GOLD_ROD;
-        Item diamond = com.simplebuilding.items.ModItems.DIAMOND_ROD;
-        Item netherite = com.simplebuilding.items.ModItems.NETHERITE_ROD;
-        Item enderite = com.simplebuilding.items.ModItems.ENDERITE_ROD;
-        Item iron = com.simplebuilding.items.ModItems.IRON_ROD;
-        expectCraft(helper, stacked(Items.IRON_INGOT), iron, 1, "simplebuilding:iron_rod");
-        expectCraft(helper, stacked(Items.GOLD_INGOT), gold, 1, "simplebuilding:gold_rod");
-        expectCraft(helper, stacked(Items.DIAMOND), diamond, 1, "simplebuilding:diamond_rod");
-        expectCraft(helper, single(iron), Items.IRON_INGOT, 3, "simplebuilding:iron_ingot_from_iron_rod");
-        expectCraft(helper, single(gold), Items.GOLD_INGOT, 3, "simplebuilding:gold_ingot_from_gold_rod");
-        expectCraft(helper, single(diamond), Items.DIAMOND, 3, "simplebuilding:diamond_from_diamond_rod");
+        Item gold = com.simplebuilding.items.ModItems.GOLD_POLE;
+        Item diamondRod = com.simplebuilding.items.ModItems.DIAMOND_ROD;
+        Item diamond = com.simplebuilding.items.ModItems.DIAMOND_POLE;
+        Item netherite = com.simplebuilding.items.ModItems.NETHERITE_POLE;
+        Item enderite = com.simplebuilding.items.ModItems.ENDERITE_POLE;
+        Item iron = com.simplebuilding.items.ModItems.IRON_POLE;
+        expectCraft(helper, stacked(Items.IRON_INGOT), iron, 1, "simplebuilding:iron_pole");
+        expectCraft(helper, stacked(Items.GOLD_INGOT), gold, 1, "simplebuilding:gold_pole");
+        expectCraft(helper, stacked(Items.DIAMOND), diamond, 1, "simplebuilding:diamond_pole");
+        expectCraft(helper, net.minecraft.world.item.crafting.CraftingInput.of(1, 2, List.of(new ItemStack(Items.DIAMOND), new ItemStack(Items.DIAMOND))),
+                diamondRod, 1, "simplebuilding:diamond_rod");
+        expectCraft(helper, single(iron), Items.IRON_INGOT, 3, "simplebuilding:iron_ingot_from_iron_pole");
+        expectCraft(helper, single(gold), Items.GOLD_INGOT, 3, "simplebuilding:gold_ingot_from_gold_pole");
+        expectCraft(helper, single(diamond), Items.DIAMOND, 3, "simplebuilding:diamond_from_diamond_pole");
+        expectCraft(helper, single(diamondRod), Items.DIAMOND, 2, "simplebuilding:diamond_from_diamond_rod");
+        helper.assertTrue(diamond instanceof net.minecraft.world.item.BlockItem block && block.getBlock() == ModBlocks.DIAMOND_POLE,
+                "the diamond pole places its block");
         for (Item oneWay : List.of(netherite, enderite)) {
             helper.assertTrue(helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING,
                     single(oneWay), helper.getLevel()).isEmpty(), oneWay + " crafts back into something");
         }
+        helper.assertTrue(helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMITHING,
+                new net.minecraft.world.item.crafting.SmithingRecipeInput(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                        new ItemStack(diamondRod), new ItemStack(Items.NETHERITE_INGOT)), helper.getLevel()).isEmpty(),
+                "the diamond rod (arrow shaft) still smiths into a netherite pole");
         expectSmith(helper, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, diamond, Items.NETHERITE_INGOT, netherite);
         expectSmith(helper, com.simplebuilding.items.ModItems.ENDERITE_UPGRADE_TEMPLATE, netherite, com.simplebuilding.items.ModItems.ENDERITE_INGOT, enderite);
         helper.assertTrue(helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMITHING,
                 new net.minecraft.world.item.crafting.SmithingRecipeInput(new ItemStack(com.simplebuilding.items.ModItems.ENDERITE_UPGRADE_TEMPLATE),
                         new ItemStack(diamond), new ItemStack(com.simplebuilding.items.ModItems.ENDERITE_INGOT)), helper.getLevel()).isEmpty(),
-                "the diamond rod skips the netherite step");
+                "the diamond pole skips the netherite step");
         for (Item fireproof : List.of(netherite, enderite)) {
             helper.assertTrue(new ItemStack(fireproof).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), fireproof + " is not fire resistant");
         }
-        helper.assertFalse(new ItemStack(diamond).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), "the diamond rod is fire resistant");
-        helper.assertTrue(netherite instanceof net.minecraft.world.item.BlockItem block && block.getBlock() == ModBlocks.NETHERITE_ROD,
+        helper.assertFalse(new ItemStack(diamond).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), "the diamond pole is fire resistant");
+        helper.assertTrue(netherite instanceof net.minecraft.world.item.BlockItem block && block.getBlock() == ModBlocks.NETHERITE_POLE,
                 "the netherite rod smiths into its block");
-        helper.assertTrue(enderite instanceof net.minecraft.world.item.BlockItem block && block.getBlock() == ModBlocks.ENDERITE_ROD,
+        helper.assertTrue(enderite instanceof net.minecraft.world.item.BlockItem block && block.getBlock() == ModBlocks.ENDERITE_POLE,
                 "the enderite rod smiths into its block");
-        helper.assertFalse(diamond instanceof net.minecraft.world.item.BlockItem, "the diamond rod can be placed");
+        helper.assertFalse(diamondRod instanceof net.minecraft.world.item.BlockItem, "the diamond rod can be placed");
         helper.assertTrue(new ItemStack(enderite).is(com.simplebuilding.util.ModTags.Items.ENDERITE_ITEMS), "the enderite rod is not void-safe");
+        helper.succeed();
+    }
+
+    /**
+     * N41: the poles were called rods. Old stacks and placed blocks under {@code iron_rod}, {@code gold_rod},
+     * {@code netherite_rod} and {@code enderite_rod} load as the matching pole (registry alias, {@code LegacyItemIds}):
+     * an old item stack decodes as the pole and keeps its count, an old block id resolves to the pole block. The Diamond
+     * Rod keeps its id (it is still the arrow shaft).
+     */
+    public static void oldRodIdsLoadAsPoles(GameTestHelper helper) {
+        if (ModBlocks.IRON_POLE == null) {
+            helper.succeed();
+            return;
+        }
+        java.util.Map<String, Item> poles = java.util.Map.of("iron_rod", com.simplebuilding.items.ModItems.IRON_POLE,
+                "gold_rod", com.simplebuilding.items.ModItems.GOLD_POLE, "netherite_rod", com.simplebuilding.items.ModItems.NETHERITE_POLE,
+                "enderite_rod", com.simplebuilding.items.ModItems.ENDERITE_POLE);
+        var ops = helper.getLevel().registryAccess().createSerializationContext(com.mojang.serialization.JsonOps.INSTANCE);
+        for (var entry : poles.entrySet()) {
+            net.minecraft.resources.Identifier old = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", entry.getKey());
+            helper.assertTrue(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(old) == entry.getValue(),
+                    old + " does not load as " + entry.getValue());
+            helper.assertTrue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(old)
+                    == ((net.minecraft.world.item.BlockItem) entry.getValue()).getBlock(), "the placed block " + old + " does not load as a pole");
+            com.google.gson.JsonObject json = new com.google.gson.JsonObject();
+            json.addProperty("id", old.toString());
+            json.addProperty("count", 5);
+            ItemStack decoded = ItemStack.CODEC.parse(ops, json).getOrThrow();
+            helper.assertTrue(decoded.is(entry.getValue()) && decoded.getCount() == 5, "an old " + old + " stack loads as " + decoded);
+        }
+        helper.assertTrue(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(
+                "simplebuilding", "diamond_rod")) == com.simplebuilding.items.ModItems.DIAMOND_ROD, "the diamond rod lost its id");
         helper.succeed();
     }
 

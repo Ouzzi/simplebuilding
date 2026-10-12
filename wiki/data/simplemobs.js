@@ -78,6 +78,93 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "shellker",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ShellkerEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ShellkerBullet.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ShellkerShellItem.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/HighGravityEffect.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/EndNetherLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/EndNetherServer.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/EndNetherMobs.java"
+      ],
+      "en": {
+        "title": "Shellker",
+        "summary": "An End gateway guard: a Shulker in a bedrock-hard shell. Four of them sit beside every End gateway, disguised as bedrock, until you come close.",
+        "details": [
+          "1x1x1 and it stays that size: to shoot it only opens a thin slit and a violet eye lights up. Closed it takes no damage at all (hits clack like stone); open it takes damage normally. 120 health (4x a Shulker), 10 XP.",
+          "It never teleports. Only pistons (and sticky pistons) can push it away - pushing the guards aside is a legitimate way past them.",
+          "Every End gateway gets exactly four, in the open cells beside the portal block at portal height, standing on the bedrock below: the dragon-fight ring, the exit gateways on the outer islands and worldgen gateways. Server config simplemobs-server.json: shellkerGatewayGuards.",
+          "Its bullets home in like Shulker bullets but fly 1.5x faster and give High Gravity (10 s) instead of Levitation: jumps, Levitation and Elytra lift keep only 10 %, gliding sinks fast.",
+          "Drops 2-3 Shellker Shells (2.5 on average, Looting +0.5 per level). A Shellker bullet that hits an open Shellker can bud a new one into a free neighbour cell (like Shulkers). It never spawns anywhere else - to farm them, right-click a Shulker with a Shellker Shell: it turns into a Shellker (the shell is used up)."
+        ]
+      },
+      "de": {
+        "title": "Shellker",
+        "summary": "Ein Wächter der End-Gateways: ein Shulker in einer grundgesteinharten Schale. Vier sitzen an jedem End-Gateway, getarnt als Grundgestein, bis man nahe kommt.",
+        "details": [
+          "1x1x1 und bleibt so groß: zum Schießen öffnet er nur einen schmalen Spalt, ein violettes Auge leuchtet auf. Geschlossen nimmt er gar keinen Schaden (Treffer klacken wie Stein), offen normal. 120 Leben (4x Shulker), 10 EP.",
+          "Er teleportiert sich nie. Nur Kolben (auch klebrige) können ihn verschieben - die Wächter wegzuschieben ist ein erlaubter Weg vorbei.",
+          "Jedes End-Gateway bekommt genau vier, in den freien Feldern neben dem Portalblock auf Portalhöhe, auf dem Grundgestein darunter: der Ring nach dem Drachenkampf, die Ausgangs-Gateways auf den äußeren Inseln und Gateways aus der Weltgenerierung. Server-Config simplemobs-server.json: shellkerGatewayGuards.",
+          "Seine Geschosse suchen ihr Ziel wie Shulker-Geschosse, fliegen aber 1,5x schneller und geben Schwerkraft (10 s) statt Schweben: Sprünge, Schweben und Elytra-Auftrieb behalten nur 10 %, Gleiten sinkt schnell.",
+          "Lässt 2-3 Shellker-Schalen fallen (im Schnitt 2,5, Plünderung +0,5 je Stufe). Trifft ein Shellker-Geschoss einen offenen Shellker, kann ein neuer in ein freies Nachbarfeld knospen (wie bei Shulkern). Woanders erscheint er nie - zum Farmen einen Shulker mit einer Shellker-Schale rechtsklicken: er wird zum Shellker (die Schale wird verbraucht)."
+        ]
+      }
+    },
+    {
+      "id": "high_gravity",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/HighGravityEffect.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/EndNetherLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/LivingEntityGravityMixin.java"
+      ],
+      "en": {
+        "title": "High Gravity and the Shellker Helmet",
+        "summary": "High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 %. The Shellker Helmet makes you immune.",
+        "details": [
+          "From Shellker bullets (10 s) or the Potion of High Gravity: Awkward Potion + Shellker Shell = 3:00, + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions.",
+          "Shellker Helmet: 5 Shellker Shells in helmet shape. Armor 3, toughness 1, knockback resistance 10 %, iron durability, repaired with Shellker Shells. Its wearer is immune to High Gravity (not to the bullets' damage) and takes 20 % less fall damage. A new helmet - the Turtle Shell stays as it is. Can be trimmed and enchanted like other helmets."
+        ]
+      },
+      "de": {
+        "title": "Schwerkraft und Shellker-Helm",
+        "summary": "Schwerkraft zieht nach unten: Sprünge, Schweben und Elytra-Auftrieb behalten 10 %. Der Shellker-Helm macht immun.",
+        "details": [
+          "Durch Shellker-Geschosse (10 s) oder den Trank der Schwerkraft: Seltsamer Trank + Shellker-Schale = 3:00, + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank.",
+          "Shellker-Helm: 5 Shellker-Schalen in Helmform. Rüstung 3, Härte 1, Rückstoßresistenz 10 %, Haltbarkeit wie Eisen, Reparatur mit Shellker-Schalen. Der Träger ist immun gegen Schwerkraft (nicht gegen den Schaden der Geschosse) und nimmt 20 % weniger Fallschaden. Ein neuer Helm - der Schildkrötenpanzer bleibt unverändert. Lässt sich wie andere Helme verzieren und verzaubern."
+        ]
+      }
+    },
+    {
+      "id": "soulfire_blaze",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/SoulfireBlaze.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/SoulFireball.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/EndNetherServer.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/EndNetherLogic.java"
+      ],
+      "en": {
+        "title": "Soulfire Blaze",
+        "summary": "A Blaze of soul fire, found rarely in Soul Sand Valleys. Shoots volleys of soul fireballs and drops the Soulfire Rod.",
+        "details": [
+          "Same size, flight, 20 health and weaknesses as a Blaze: water hurts it, snowballs deal 3 damage. Fire immune, 12 XP.",
+          "Attack: charges for 3 s (soul flames swirl around it), then three soul fireballs. Each deals 6 damage and sets the target on fire for 6 s (Fire Resistance protects); on soul sand or soul soil the fire it lights is soul fire.",
+          "Spawning: only in Soul Sand Valleys, over soul sand or soul soil, in packs of 1-2, at most 3 near a player. Server config simplemobs-server.json: soulfireBlazeSpawns, soulfireBlazeChance (per 10 s roll, default 0.2).",
+          "Drops 0-1 Soulfire Rod when killed by a player (Looting +1). Awkward Potion + Soulfire Rod brews long Fire Resistance (8:00) directly."
+        ]
+      },
+      "de": {
+        "title": "Seelenfeuer-Lohe",
+        "summary": "Eine Lohe aus Seelenfeuer, selten in Seelensandtälern. Schießt Salven aus Seelenfeuerkugeln und lässt die Seelenfeuer-Rute fallen.",
+        "details": [
+          "Gleiche Größe, gleicher Flug, 20 Leben und dieselben Schwächen wie eine Lohe: Wasser schadet ihr, Schneebälle machen 3 Schaden. Feuerimmun, 12 EP.",
+          "Angriff: lädt 3 s auf (Seelenflammen wirbeln um sie), dann drei Seelenfeuerkugeln. Jede macht 6 Schaden und setzt das Ziel 6 s in Brand (Feuerresistenz schützt); auf Seelensand oder Seelenerde wird das gelegte Feuer zu Seelenfeuer.",
+          "Spawn: nur in Seelensandtälern, über Seelensand oder Seelenerde, in Gruppen zu 1-2, höchstens 3 in der Nähe eines Spielers. Server-Config simplemobs-server.json: soulfireBlazeSpawns, soulfireBlazeChance (je 10-s-Wurf, Standard 0,2).",
+          "Lässt 0-1 Seelenfeuer-Rute fallen, wenn ein Spieler sie tötet (Plünderung +1). Seltsamer Trank + Seelenfeuer-Rute braut direkt lange Feuerresistenz (8:00)."
+        ]
+      }
+    },
+    {
       "id": "deceiver_disguise",
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/Disguise.java",
@@ -130,6 +217,63 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_awkward_echo_core.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_awkward_shellker_shell",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_awkward_shellker_shell.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_awkward_soulfire_rod",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_awkward_soulfire_rod.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_high_gravity_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_high_gravity_redstone.json",
       "ingredients": [
         "minecraft:lingering_potion"
       ],
@@ -254,6 +398,82 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "simplemobs:brewing/potion_awkward_shellker_shell",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_awkward_shellker_shell.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_awkward_soulfire_rod",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_awkward_soulfire_rod.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_high_gravity_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_high_gravity_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_high_gravity_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_high_gravity_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_invisibility_deceiver_cloth",
       "type": "minecraft:brewing",
       "category": null,
@@ -263,6 +483,25 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_invisibility_deceiver_cloth.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_long_high_gravity_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_high_gravity_gunpowder.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -425,6 +664,82 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "simplemobs:brewing/splash_potion_awkward_shellker_shell",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_awkward_shellker_shell.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_awkward_soulfire_rod",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_awkward_soulfire_rod.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_high_gravity_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_high_gravity_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_high_gravity_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_high_gravity_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_invisibility_deceiver_cloth",
       "type": "minecraft:brewing",
       "category": null,
@@ -434,6 +749,25 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_invisibility_deceiver_cloth.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_long_high_gravity_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_high_gravity_dragon_breath.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -618,6 +952,38 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "simplemobs:shellker_helmet",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplemobs:shellker_helmet",
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/shellker_helmet.json",
+      "ingredients": [
+        "simplemobs:shellker_shell"
+      ],
+      "pattern": [
+        "XXX",
+        "X X"
+      ],
+      "key": {
+        "X": [
+          "simplemobs:shellker_shell"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplemobs:shellker_shell",
+            "count": 5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplemobs:trick_mirror",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -771,6 +1137,38 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/hollow_howler.json"
     },
     {
+      "id": "simplemobs:entities/shellker",
+      "kind": "entities",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobs:shellker_shell"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/shellker.json"
+    },
+    {
+      "id": "simplemobs:entities/soulfire_blaze",
+      "kind": "entities",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemobs:soulfire_rod"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/soulfire_blaze.json"
+    },
+    {
       "id": "simplemobs:entities/summoned",
       "kind": "entities",
       "type": "minecraft:entity",
@@ -878,6 +1276,17 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       ],
       "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/item/howler_jaw_drops.json"
+    },
+    {
+      "id": "simplemobs:item/repairs_shellker_helmet",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplemobs:shellker_shell",
+          "required": true
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/item/repairs_shellker_helmet.json"
     }
   ],
   "advancements": [],
@@ -997,6 +1406,110 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "usedIn": []
     },
     {
+      "id": "simplemobs:shellker_helmet",
+      "name": {
+        "en_us": "Shellker Helmet",
+        "de_de": "Shellker-Helm"
+      },
+      "note": {
+        "en": {
+          "summary": "Helmet from 5 Shellker Shells: armor 3, toughness 1, knockback resistance 10 %, immune to High Gravity, 20 % less fall damage. Trimmable."
+        },
+        "de": {
+          "summary": "Helm aus 5 Shellker-Schalen: Rüstung 3, Härte 1, Rückstoßresistenz 10 %, immun gegen Schwerkraft, 20 % weniger Fallschaden. Verzierbar."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/shellker_helmet.png",
+      "craftedBy": [
+        "simplemobs:shellker_helmet"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobs:shellker_shell",
+      "name": {
+        "en_us": "Shellker Shell",
+        "de_de": "Shellker-Schale"
+      },
+      "note": {
+        "en": {
+          "summary": "Dropped by Shellkers (2-3). Right-click a Shulker with it to turn the Shulker into a Shellker. Brews the Potion of High Gravity; five make the Shellker Helmet."
+        },
+        "de": {
+          "summary": "Lassen Shellker fallen (2-3). Damit einen Shulker rechtsklicken, um ihn zum Shellker zu machen. Braut den Trank der Schwerkraft; fünf ergeben den Shellker-Helm."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/shellker_shell.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplemobs:shellker_helmet"
+      ]
+    },
+    {
+      "id": "simplemobs:shellker_spawn_egg",
+      "name": {
+        "en_us": "Shellker Spawn Egg",
+        "de_de": "Shellker-Spawn-Ei"
+      },
+      "note": {
+        "en": {
+          "summary": "Spawns a Shellker (creative)."
+        },
+        "de": {
+          "summary": "Erzeugt einen Shellker (Kreativ)."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/shellker_spawn_egg.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobs:soul_fire_charge",
+      "name": {
+        "en_us": "Soul Fire Charge"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemobs/item/soul_fire_charge.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobs:soulfire_blaze_spawn_egg",
+      "name": {
+        "en_us": "Soulfire Blaze Spawn Egg",
+        "de_de": "Seelenfeuer-Lohe-Spawn-Ei"
+      },
+      "note": {
+        "en": {
+          "summary": "Spawns a Soulfire Blaze (creative)."
+        },
+        "de": {
+          "summary": "Erzeugt eine Seelenfeuer-Lohe (Kreativ)."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/soulfire_blaze_spawn_egg.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobs:soulfire_rod",
+      "name": {
+        "en_us": "Soulfire Rod",
+        "de_de": "Seelenfeuer-Rute"
+      },
+      "note": {
+        "en": {
+          "summary": "Dropped by Soulfire Blazes. Brewed into an Awkward Potion it gives long Fire Resistance (8:00)."
+        },
+        "de": {
+          "summary": "Lassen Seelenfeuer-Lohen fallen. In einen Seltsamen Trank gebraut ergibt sie lange Feuerresistenz (8:00)."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/soulfire_rod.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplemobs:trick_mirror",
       "name": {
         "en_us": "Trick Mirror",
@@ -1029,22 +1542,24 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplemobs:soul_fire_charge"
+  ],
   "incompleteProse": {},
   "counts": {
-    "features": 3,
-    "recipes": 26,
-    "lootTables": 4,
-    "tags": 4,
+    "features": 6,
+    "recipes": 40,
+    "lootTables": 6,
+    "tags": 5,
     "advancements": 0,
     "enchantments": 0,
-    "items": 7,
+    "items": 13,
     "blocks": 0,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }

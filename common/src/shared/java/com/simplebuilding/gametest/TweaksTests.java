@@ -1506,12 +1506,12 @@ public final class TweaksTests {
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             // Nachtrag 4: swap redstone/nuggets, remove the pair below/right of the core.
             Item nug = Items.IRON_NUGGET;
-            CraftingInput grid = grid(null, nug, Items.AMETHYST_SHARD, r, ModItems.IRON_CORE, null, ModItems.IRON_ROD, null, null);
+            CraftingInput grid = grid(null, nug, Items.AMETHYST_SHARD, r, ModItems.IRON_CORE, null, ModItems.IRON_POLE, null, null);
             expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:amethyst_lens");
-            helper.assertTrue(craftingResult(helper, grid(null, r, Items.AMETHYST_SHARD, nug, ModItems.IRON_CORE, r, ModItems.IRON_ROD, nug, null)).isEmpty(), "the previous rod recipe still works");
-            helper.assertTrue(craftingResult(helper, grid(null, nug, Items.AMETHYST_SHARD, r, ModItems.IRON_CORE, nug, ModItems.IRON_ROD, r, null)).isEmpty(), "the rod accepts the removed redstone/nugget pair");
-            helper.assertTrue(craftingResult(helper, grid(null, null, Items.AMETHYST_SHARD, r, ModItems.IRON_CORE, null, ModItems.IRON_ROD, null, null)).isEmpty(), "the rod crafts without its nugget");
-            helper.assertTrue(craftingResult(helper, grid(null, nug, Items.AMETHYST_SHARD, null, ModItems.IRON_CORE, null, ModItems.IRON_ROD, null, null)).isEmpty(), "the rod crafts without its redstone");
+            helper.assertTrue(craftingResult(helper, grid(null, r, Items.AMETHYST_SHARD, nug, ModItems.IRON_CORE, r, ModItems.IRON_POLE, nug, null)).isEmpty(), "the previous rod recipe still works");
+            helper.assertTrue(craftingResult(helper, grid(null, nug, Items.AMETHYST_SHARD, r, ModItems.IRON_CORE, nug, ModItems.IRON_POLE, r, null)).isEmpty(), "the rod accepts the removed redstone/nugget pair");
+            helper.assertTrue(craftingResult(helper, grid(null, null, Items.AMETHYST_SHARD, r, ModItems.IRON_CORE, null, ModItems.IRON_POLE, null, null)).isEmpty(), "the rod crafts without its nugget");
+            helper.assertTrue(craftingResult(helper, grid(null, nug, Items.AMETHYST_SHARD, null, ModItems.IRON_CORE, null, ModItems.IRON_POLE, null, null)).isEmpty(), "the rod crafts without its redstone");
             helper.assertTrue(craftingResult(helper, grid(i, i, r, i, ModItems.IRON_CORE, Items.AMETHYST_SHARD, i, i, r)).isEmpty(), "the 26.2 ingot recipe still works on 26.3");
         } else {
             CraftingInput grid = grid(i, i, r, i, ModItems.IRON_CORE, Items.AMETHYST_SHARD, i, i, r);

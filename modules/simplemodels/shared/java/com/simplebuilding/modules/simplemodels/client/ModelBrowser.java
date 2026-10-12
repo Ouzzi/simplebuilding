@@ -41,7 +41,7 @@ public final class ModelBrowser extends Screen {
         var p = new ModelPolicy(); p.enabled = false; catalogue = new ModelCatalogue.Snapshot(p, List.of());
     }
     public static ItemStack displayStack(ItemStack input) {
-        if (catalogue.policy().enabled || input.isEmpty()) return input;
+        if ((com.simplebuilding.modules.simplemodels.Models.on() && catalogue.policy().enabled) || input.isEmpty()) return input;
         var model = input.get(DataComponents.ITEM_MODEL);
         var base = BuiltInRegistries.ITEM.getKey(input.getItem()).toString();
         if (model == null || catalogue.models().stream().noneMatch(d -> d.base_item().equals(base) && d.model().equals(model.toString()))) return input;

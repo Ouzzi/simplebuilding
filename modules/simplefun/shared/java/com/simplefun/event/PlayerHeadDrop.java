@@ -17,7 +17,7 @@ import net.minecraft.world.item.component.ResolvableProfile;
 public class PlayerHeadDrop {
 
   public static void onDeath(LivingEntity entity, DamageSource source) {
-    if (!SimplefunCommon.getConfig().fun.playerHeadDrops) return;
+    if (!SimplefunCommon.on() || !SimplefunCommon.getConfig().fun.playerHeadDrops) return;
 
     if (entity instanceof ServerPlayer victim && source.getEntity() instanceof Player) {
       ItemStack head = new ItemStack(Items.PLAYER_HEAD);

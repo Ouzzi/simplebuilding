@@ -32,12 +32,10 @@ public class ModBlocks {
     public static final Block POTTED_SILENT_DANDELION = McVersion.SILENT_DANDELION
             ? registerBlock("potted_silent_dandelion", Blocks.POTTED_DANDELION,
                     s -> new net.minecraft.world.level.block.FlowerPotBlock(SILENT_DANDELION, s)) : null;
-    public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new com.simplebuilding.blocks.custom.EndSignalPowderBlock(false, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
-    public static final Block NIHILITH_SWITCH = McVersion.END_SYSTEMS ? registerBlock("nihilith_switch", s -> new EndSignalBlock(false, EndSignalBlock.Kind.SWITCH, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
-    public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? registerBlock("nihilith_lamp", s -> new EndSignalBlock(false, EndSignalBlock.Kind.LAMP, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 12 : 0))) : null;
-    public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("astral_redstone", s -> new com.simplebuilding.blocks.custom.EndSignalPowderBlock(true, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
-    public static final Block ASTRALIT_SWITCH = McVersion.END_SYSTEMS ? registerBlock("astralit_switch", s -> new EndSignalBlock(true, EndSignalBlock.Kind.SWITCH, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
-    public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? registerBlock("astralit_lamp", s -> new EndSignalBlock(true, EndSignalBlock.Kind.LAMP, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 12 : 0))) : null;
+    public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, signalDust(s))) : null;
+    public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("astral_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, signalDust(s))) : null;
+    /** Bridge Redstone (2026-10-11): links redstone, Astral and Nihil like one shared wire. */
+    public static final Block BRIDGE_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, signalDust(s))) : null;
     // Astral-/Nihil-Kolben (2026-10-03, docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md): Empfaenger des eigenen Kanals wie
     // die Lampe, bewegen beim Einschalten je einen Block in alle 6 Richtungen; selbst unverschiebbar.
     public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
@@ -265,22 +263,28 @@ public class ModBlocks {
             .pushReaction(McVersion.PUSH_DESTROYS))) : null;
 
     // Eisenstab (2026-10-02): Blitzableiter aus Eisen, zieht Blitze nur in 32 Bloecken an (MetalRodBlock).
-    public static final Block IRON_ROD = McVersion.GADGET_REWORK ? registerBlock("iron_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+    public static final Block IRON_POLE = McVersion.GADGET_REWORK ? registerBlock("iron_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
             com.simplebuilding.blocks.custom.MetalRodBlock.IRON_RANGE, s
             .mapColor(MapColor.METAL).forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F)
             .sound(SoundType.METAL).noOcclusion())) : null;
     // Goldstab (2026-10-02): Blitzableiter aus Gold, zieht Blitze in 64 Bloecken an (MetalRodBlock).
-    public static final Block GOLD_ROD = McVersion.GADGET_REWORK ? registerBlock("gold_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+    public static final Block GOLD_POLE = McVersion.GADGET_REWORK ? registerBlock("gold_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
             com.simplebuilding.blocks.custom.MetalRodBlock.GOLD_RANGE, s
             .mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.0F, 6.0F)
             .sound(SoundType.METAL).noOcclusion())) : null;
+    // Diamantstange (Besitzer N41): Blitzableiter aus drei Diamanten wie die anderen Stangen, Reichweite 80; Haerte, Klang
+    // und Kartenfarbe wie der Diamantblock. Der Diamantstab (Item, Pfeilschaft) bleibt getrennt.
+    public static final Block DIAMOND_POLE = McVersion.GADGET_REWORK ? registerBlock("diamond_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+            com.simplebuilding.blocks.custom.MetalRodBlock.DIAMOND_RANGE, s
+            .mapColor(MapColor.DIAMOND).forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F)
+            .sound(SoundType.METAL).noOcclusion())) : null;
     // Netherit- und Enderitstab (Besitzer 2026-10-03): Blitzableiter wie Eisen-/Goldstab, Reichweite 96 bzw. 128;
     // Haerte, Klang und Kartenfarbe wie der Netherit- bzw. Enderitblock.
-    public static final Block NETHERITE_ROD = McVersion.GADGET_REWORK ? registerBlock("netherite_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+    public static final Block NETHERITE_POLE = McVersion.GADGET_REWORK ? registerBlock("netherite_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
             com.simplebuilding.blocks.custom.MetalRodBlock.NETHERITE_RANGE, s
             .mapColor(MapColor.COLOR_BLACK).forceSolidOn().requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
             .sound(SoundType.NETHERITE_BLOCK).noOcclusion())) : null;
-    public static final Block ENDERITE_ROD = McVersion.GADGET_REWORK ? registerBlock("enderite_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+    public static final Block ENDERITE_POLE = McVersion.GADGET_REWORK ? registerBlock("enderite_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
             com.simplebuilding.blocks.custom.MetalRodBlock.ENDERITE_RANGE, s
             .mapColor(MapColor.COLOR_BLACK).forceSolidOn().requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
             .sound(SoundType.NETHERITE_BLOCK).noOcclusion())) : null;
@@ -704,6 +708,13 @@ public class ModBlocks {
     /**
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
      */
+    /** Astral/Nihil/Bridge Redstone: vanilla dust's properties (no collision, breaks at once, pistons destroy it). */
+    private static BlockBehaviour.Properties signalDust(BlockBehaviour.Properties s) {
+        return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(SoundType.AMETHYST)
+                .isRedstoneConductor((state, world, pos) -> false)
+                .lightLevel(state -> state.getValue(com.simplebuilding.blocks.custom.SignalDustBlock.POWER) > 0 ? 3 : 0);
+    }
+
     private static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> factory) {
         return registerBlock(name, Blocks.GLASS, factory);
     }

@@ -21,6 +21,7 @@ public final class Immersion {
     public static int lastEmitted;
 
     public static void tick(Minecraft client) {
+        if (!Visuals.on()) { lastEmitted = 0; return; }
         if (client.level != level) { health.clear(); tick = 0; level = client.level; }
         lastEmitted = 0;
         if (client.level == null || client.player == null || client.isPaused()) return;
@@ -89,7 +90,7 @@ public final class Immersion {
         return false;
     }
     public static void emit(Minecraft client, EffectRegistry.Effect effect, int player, Vec3 pos) {
-        if (client.level == null || client.player == null || client.player.distanceToSqr(pos) > 256) return;
+        if (!Visuals.on() || client.level == null || client.player == null || client.player.distanceToSqr(pos) > 256) return;
         var type = BuiltInRegistries.PARTICLE_TYPE.getValue(Identifier.parse(effect.particle()));
         if (!(type instanceof SimpleParticleType particle)) return;
         int count = BUDGET.claim(player, EffectRegistry.level(Visuals.CONFIG, effect.id()).count());

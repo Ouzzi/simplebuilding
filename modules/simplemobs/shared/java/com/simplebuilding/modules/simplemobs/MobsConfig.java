@@ -31,6 +31,11 @@ public final class MobsConfig {
     public static boolean howlerHunger = true;
     public static int howlerDespawnMinutes = 10;
     public static List<String> howlerAllowDimensions = new ArrayList<>(List.of("minecraft:overworld"));
+    /** Shellker: four guards at every newly placed End gateway. */
+    public static boolean shellkerGatewayGuards = true;
+    /** Soulfire Blaze: natural spawning in Soul Sand Valleys and its chance per 10 s roll. */
+    public static boolean soulfireBlazeSpawns = true;
+    public static float soulfireBlazeChance = EndNetherLogic.SOUL_CHANCE;
 
     private MobsConfig() {}
 
@@ -76,6 +81,11 @@ public final class MobsConfig {
             dims = new ArrayList<>(List.of("minecraft:overworld"));
         }
         howlerAllowDimensions = dims;
+        shellkerGatewayGuards = bool(json, "shellkerGatewayGuards", true);
+        soulfireBlazeSpawns = bool(json, "soulfireBlazeSpawns", true);
+        float chance;
+        try { chance = json.has("soulfireBlazeChance") ? json.get("soulfireBlazeChance").getAsFloat() : EndNetherLogic.SOUL_CHANCE; } catch (Exception e) { chance = EndNetherLogic.SOUL_CHANCE; }
+        soulfireBlazeChance = Math.max(0.0f, Math.min(1.0f, chance));
     }
 
     public static JsonObject toJson() {
@@ -90,6 +100,9 @@ public final class MobsConfig {
         JsonArray dims = new JsonArray();
         howlerAllowDimensions.forEach(dims::add);
         o.add("howlerAllowDimensions", dims);
+        o.addProperty("shellkerGatewayGuards", shellkerGatewayGuards);
+        o.addProperty("soulfireBlazeSpawns", soulfireBlazeSpawns);
+        o.addProperty("soulfireBlazeChance", soulfireBlazeChance);
         return o;
     }
 

@@ -16,6 +16,7 @@ public final class Riding {
  public static boolean armor(ItemStack s){return s.is(ARMOR)||s.is(NAUTILUS_ARMOR);}
  public static final DataComponentType<BlockPos> COORDINATES=DataComponentType.<BlockPos>builder().persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC).build();
  public static final CreativeModeTab TAB=CreativeModeTab.builder(CreativeModeTab.Row.TOP,0).title(Component.translatable("itemgroup.simpleriding.riding_items")).icon(()->new ItemStack(Items.SADDLE)).displayItems((params,out)->{
+  if(!on())return;
   var lookup=params.holders().lookupOrThrow(Registries.ENCHANTMENT);
   if(com.simpleriding.guide.RidingGuide.book()!=null)out.accept(com.simpleriding.guide.RidingGuide.book());
   for(var key:java.util.List.of(TAILWIND,LEAPING))out.accept(EnchantmentHelper.createBook(new EnchantmentInstance(lookup.getOrThrow(key),3)));
@@ -24,6 +25,8 @@ public final class Riding {
  }).build();
  /** Set by each loader before registration: the Enderite horseshoe only exists alongside SimpleBuilding. */
  public static boolean SIMPLEBUILDING=false;
+ /** Super-mod switch "Enable Simple Riding" (framework SubMods): off = items stay registered but inert, no tabs, no loot. */
+ public static boolean on(){return com.simplebuilding.framework.api.SubMods.enabled("simpleriding");}
  public static void items(){Horseshoes.register(SIMPLEBUILDING);com.simpleriding.guide.RidingGuide.register();}
  public static void components(){Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE,id("coordinates"),COORDINATES);}
  public static void tab(){Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,id("riding_items"),TAB);}
@@ -39,6 +42,7 @@ public final class Riding {
   return null;
  }
  public static java.util.List<ItemStack> vanillaTabStacks(ResourceKey<CreativeModeTab> tab){
+  if(!on())return java.util.List.of();
   if(tab.equals(CreativeModeTabs.COMBAT))return Horseshoes.ITEMS.values().stream().map(ItemStack::new).toList();
   if(tab.equals(CreativeModeTabs.INGREDIENTS)&&Horseshoes.TEMPLATE!=null)return java.util.List.of(new ItemStack(Horseshoes.TEMPLATE));
   return java.util.List.of();

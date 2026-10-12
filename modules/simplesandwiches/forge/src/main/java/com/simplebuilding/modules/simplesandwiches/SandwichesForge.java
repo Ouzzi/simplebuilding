@@ -31,6 +31,7 @@ public final class SandwichesForge {
                 ModBlockEntities.register(new BlockEntityType<>(CuttingBoardBlockEntity::new, Set.of(ModBlocks.boards())));
             }
             if (key.equals(Registries.CREATIVE_MODE_TAB)) SandwichRegistry.tab();
+            event.register(net.minecraftforge.registries.ForgeRegistries.Keys.CONDITION_SERIALIZERS, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplesandwiches", "enabled"), () -> SandwichesEnabledCondition.CODEC);
         });
         SandwichRegistry.setup();
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) SandwichesForgeClient.init();

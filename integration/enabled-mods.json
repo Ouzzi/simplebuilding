@@ -19,7 +19,14 @@
     "simpletrims",
     "simplemobs",
     "simpleweather",
-    "simplequestionary"
+    "simplequestionary",
+    "simpleaesthetics",
+    "simpleenddragonfight",
+    "simpleloot",
+    "simplecreatures",
+    "simplefarming",
+    "simpletools",
+    "simplemovement"
   ],
   "devMods": [
     "jei",

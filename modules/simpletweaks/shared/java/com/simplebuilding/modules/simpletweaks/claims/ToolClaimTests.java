@@ -21,7 +21,7 @@ import static com.simplebuilding.modules.simpletweaks.claims.ClaimTests.*;
 final class ToolClaimTests {
     static Item item(String id){return BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:"+id));}
     static BlockPos boundary(GameTestHelper h){var p=h.absolutePos(new BlockPos(2,64,2));return new BlockPos((p.getX()>>4)*16+16,p.getY(),(p.getZ()>>4)*16+8);}
-    static void bedHeadFootprint(GameTestHelper h){with(h,c->{
+    static void bedHeadFootprint(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims tools bedHeadFootprint"))return;with(h,c->{
         var level=h.getLevel();var inside=boundary(h);var head=inside.west();
         var owner=player(h,head.west(4));var stranger=player(h,head.west(4));
         yes(h,c.create(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Bed head footprint fixture");
@@ -33,7 +33,7 @@ final class ToolClaimTests {
             yes(h,(boolean)mayPlace.invoke(null,level,owner,head,state.setValue(BedBlock.FACING,Direction.WEST)),"Owner may place both bed parts across their own boundary");
         } catch(ReflectiveOperationException e){throw new AssertionError(e);}
     });h.succeed();}
-    static void wandHammer(GameTestHelper h){with(h,c->{
+    static void wandHammer(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims tools wandHammer"))return;with(h,c->{
         var l=h.getLevel();var inside=boundary(h);var origin=inside.west();var owner=player(h,origin.west(4));var other=player(h,origin.west(4));
         yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Tool border fixture");
         var hit=new BlockHitResult(Vec3.atCenterOf(origin).add(0,.5,0),Direction.UP,origin,false);
@@ -50,7 +50,7 @@ final class ToolClaimTests {
             yes(h,l.getBlockState(inside).is(Blocks.STONE)==(actor==other),"Every hammer target honors claim border");
         }
     });h.succeed();}
-    static void bedHammer(GameTestHelper h){with(h,c->{
+    static void bedHammer(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims tools bedHammer"))return;with(h,c->{
         var l=h.getLevel();var head=boundary(h);var foot=head.west();var owner=player(h,foot.west(4));var other=player(h,foot.west(4));
         yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(head)),owner.getUUID(),100),"Hammer bed fixture");
         for(var bed:List.of(Items.BED.red(),Items.STRAW_BED)){
@@ -64,7 +64,7 @@ final class ToolClaimTests {
             yes(h,owner.gameMode.destroyBlock(foot)&&l.getBlockState(head).isAir(),"Owner hammer destroys both bed halves");
         }
     });h.succeed();}
-    static void beam(GameTestHelper h){with(h,c->{
+    static void beam(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims tools beam"))return;with(h,c->{
         // Keep the entity in the GameTest anchor chunk, whose entity sections are already visible. Height 96 is a
         // section of its own: boundary() tests park their mock players at height 64 on the same row (z = 8 in the
         // chunk), and such a stranger between lens and cow took the hit instead of the cow.
@@ -85,7 +85,7 @@ final class ToolClaimTests {
             yes(h,cow.isOnFire()==(actor==owner),"Actual beam ignition, owner="+(actor==owner)+", fire="+cow.getRemainingFireTicks()+", charge="+rod.getDamageValue());
         }cow.discard();
     });h.succeed();}
-    static void echo(GameTestHelper h){with(h,c->{
+    static void echo(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims tools echo"))return;with(h,c->{
         var l=h.getLevel();var target=boundary(h).east(4);var owner=player(h,target.west(10));var other=player(h,target.west(10));
         yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(target)),owner.getUUID(),100),"Echo fixture");
         l.setBlock(target,Blocks.LODESTONE.defaultBlockState(),3);l.setBlock(target.above(),Blocks.AIR.defaultBlockState(),3);l.setBlock(target.above(2),Blocks.AIR.defaultBlockState(),3);
@@ -97,7 +97,7 @@ final class ToolClaimTests {
         }
     });h.succeed();}
     /** SimpleBuilding's hand hint asks the claim like the real tool: no tilt and no turn for a stranger, both for the owner. */
-    static void transformHint(GameTestHelper h){with(h,c->{
+    static void transformHint(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims tools transformHint"))return;with(h,c->{
         var l=h.getLevel();var inside=boundary(h);var owner=player(h,inside.west(3));var other=player(h,inside.west(3));
         yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Hint fixture");
         var hit=new BlockHitResult(Vec3.atCenterOf(inside).add(0,.5,0),Direction.UP,inside,false);
@@ -113,7 +113,7 @@ final class ToolClaimTests {
         }catch(ReflectiveOperationException e){throw new AssertionError(e);}
     });h.succeed();}
     @SuppressWarnings({"unchecked","rawtypes"})
-    static void pad(GameTestHelper h){with(h,c->{
+    static void pad(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims tools pad"))return;with(h,c->{
         var l=h.getLevel();var pos=boundary(h).east(4);var owner=player(h,pos.east(20));var other=player(h,pos);
         yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(pos)),owner.getUUID(),100),"Pad fixture");
         var block=BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:enderite_spawn_teleporter"));l.setBlock(pos,block.defaultBlockState(),3);var be=l.getBlockEntity(pos);

@@ -228,6 +228,20 @@ evaluationDependsOn(':modules:simplequestionary:neoforge')
 dependencies { implementation project(':modules:simplequestionary:neoforge') }
 neoForge.mods { simplequestionary { sourceSet project(':modules:simplequestionary:neoforge').sourceSets.main } }
 neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplequestionary) }
+// Optional Sub-Mods bundled for production (PLAN-MODULAUFTEILUNG stage 1a); switches "Enable Simple X" reach them via
+// framework SubMods. Only jarJar: several of them evaluate this project for their integration runs, so no
+// evaluationDependsOn/dev-run mods here (would be circular); SB code never imports them.
+dependencies {
+    jarJar project(':modules:simpleriding:neoforge')
+    jarJar project(':modules:simplesandwiches:neoforge')
+    jarJar project(':modules:simpletweaks:neoforge')
+    jarJar project(':modules:simplemoney:neoforge')
+    jarJar project(':modules:simplefun:neoforge')
+    jarJar project(':modules:simpledimensions:neoforge')
+    jarJar project(':modules:simpletrims:neoforge')
+    jarJar project(':modules:simplemobs:neoforge')
+    jarJar project(':modules:simpleenddragonfight:neoforge')
+}
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
 

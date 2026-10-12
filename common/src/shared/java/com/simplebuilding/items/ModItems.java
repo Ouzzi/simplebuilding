@@ -102,11 +102,8 @@ import static net.minecraft.world.item.Rarity.UNCOMMON;
 
 public class ModItems {
     public static final Item NIHIL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone", s -> new BlockItem(ModBlocks.NIHIL_REDSTONE, s)) : null;
-    public static final Item NIHILITH_SWITCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_switch", s -> new BlockItem(ModBlocks.NIHILITH_SWITCH, s)) : null;
-    public static final Item NIHILITH_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_lamp", s -> new BlockItem(ModBlocks.NIHILITH_LAMP, s)) : null;
     public static final Item ASTRAL_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone", s -> new BlockItem(ModBlocks.ASTRAL_REDSTONE, s)) : null;
-    public static final Item ASTRALIT_SWITCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_switch", s -> new BlockItem(ModBlocks.ASTRALIT_SWITCH, s)) : null;
-    public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_lamp", s -> new BlockItem(ModBlocks.ASTRALIT_LAMP, s)) : null;
+    public static final Item BRIDGE_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("bridge_redstone", s -> new BlockItem(ModBlocks.BRIDGE_REDSTONE, s)) : null;
     public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_piston", s -> new BlockItem(ModBlocks.NIHIL_PISTON, s)) : null;
     public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_piston", s -> new BlockItem(ModBlocks.ASTRAL_PISTON, s)) : null;
     public static final Item NIHIL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("nihil_rail", s -> new BlockItem(ModBlocks.NIHIL_RAIL, s)) : null;
@@ -371,11 +368,11 @@ public class ModItems {
             ? registerItem("obsidian_chip", settings -> new Item(settings)) : null;
 
     /** Eisenstab (2026-10-02): Blitzableiter aus Eisen, Zutat fuer Resonanzstab und Rotator. */
-    public static final Item IRON_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("iron_rod", settings -> new BlockItem(ModBlocks.IRON_ROD, settings)) : null;
+    public static final Item IRON_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("iron_pole", settings -> new BlockItem(ModBlocks.IRON_POLE, settings)) : null;
     /** Goldstab (2026-10-02): Blitzableiter aus Gold, zieht Blitze in 64 Bloecken an. */
-    public static final Item GOLD_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("gold_rod", settings -> new BlockItem(ModBlocks.GOLD_ROD, settings)) : null;
+    public static final Item GOLD_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("gold_pole", settings -> new BlockItem(ModBlocks.GOLD_POLE, settings)) : null;
     // Haengematten (2026-10-02, McVersion.HAMMOCK): HammockItem haengt alle Bloecke auf einmal auf.
     public static final Item WHITE_HAMMOCK = hammockItem(ModBlocks.WHITE_HAMMOCK);
     public static final Item ORANGE_HAMMOCK = hammockItem(ModBlocks.ORANGE_HAMMOCK);
@@ -400,15 +397,18 @@ public class ModItems {
         return block == null ? null : registerItem(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath(),
                 settings -> new com.simplebuilding.items.custom.HammockItem(block, settings.stacksTo(1)));
     }
-    /** Diamantstab (2026-10-02): Item wie die Lohenrute, Pfeilschaft; drei Diamanten hin, drei zurueck. */
+    /** Diamantstab (2026-10-02, N41: zwei Diamanten hin, zwei zurueck): Item wie die Lohenrute, Pfeilschaft. */
     public static final Item DIAMOND_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
             ? registerItem("diamond_rod", settings -> new Item(settings)) : null;
-    /** Netheritstab (2026-10-03 Block): Blitzableiter (96 Bloecke), geschmiedet aus dem Diamantstab, feuerfest. */
-    public static final Item NETHERITE_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("netherite_rod", settings -> new BlockItem(ModBlocks.NETHERITE_ROD, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
+    /** Diamantstange (N41): Blitzableiter (80 Bloecke) aus drei Diamanten, Basis der Netheritstange. */
+    public static final Item DIAMOND_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("diamond_pole", settings -> new BlockItem(ModBlocks.DIAMOND_POLE, settings)) : null;
+    /** Netheritstange (2026-10-03 Block): Blitzableiter (96 Bloecke), geschmiedet aus der Diamantstange (N41), feuerfest. */
+    public static final Item NETHERITE_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("netherite_pole", settings -> new BlockItem(ModBlocks.NETHERITE_POLE, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
     /** Enderitstab (2026-10-03 Block): Blitzableiter (128 Bloecke), geschmiedet aus dem Netheritstab, feuerfest. */
-    public static final Item ENDERITE_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("enderite_rod", settings -> new BlockItem(ModBlocks.ENDERITE_ROD, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC))) : null;
+    public static final Item ENDERITE_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("enderite_pole", settings -> new BlockItem(ModBlocks.ENDERITE_POLE, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC))) : null;
 
     /** Pfeil vom Befiederungstisch; die Teile stehen in der Komponente {@code arrow_parts}. */
     public static final Item CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING
@@ -494,9 +494,9 @@ public class ModItems {
 
     /** Lautsprecher (2026-10-03): Astralit verstaerkt Plattenspieler, Nihilit Notenbloecke ({@link com.simplebuilding.util.SpeakerBoost}). */
     public static final Item JUKEBOX_AMPLIFIER = com.simplebuilding.version.McVersion.MUSIC_DISCS
-            ? registerItem("jukebox_amplifier", s -> new BlockItem(ModBlocks.JUKEBOX_AMPLIFIER, s)) : null;
+            ? registerItem("jukebox_amplifier", s -> new com.simplebuilding.items.custom.AmplifierItem(ModBlocks.JUKEBOX_AMPLIFIER, s, "tooltip.simplebuilding.jukebox_amplifier")) : null;
     public static final Item NOTE_AMPLIFIER = com.simplebuilding.version.McVersion.MUSIC_DISCS
-            ? registerItem("note_amplifier", s -> new BlockItem(ModBlocks.NOTE_AMPLIFIER, s)) : null;
+            ? registerItem("note_amplifier", s -> new com.simplebuilding.items.custom.AmplifierItem(ModBlocks.NOTE_AMPLIFIER, s, "tooltip.simplebuilding.note_amplifier")) : null;
 
 
 

@@ -40,6 +40,18 @@ public final class TrimsTests {
             h.assertTrue(!TemplateTools.isTemplateTool(new ItemStack(Items.IRON_AXE), true), "with SimpleBuilding the axe steps back");
             h.succeed();
         });
+        ALL.put("sub_mod_switch", h -> {
+            boolean old = com.simplebuilding.framework.api.SubMods.enabled("simpletrims");
+            try {
+                com.simplebuilding.framework.api.SubMods.set("simpletrims", false);
+                h.assertTrue(!SimpleTrims.on(), "Switch off reaches Simple Trims");
+                h.assertTrue(!TemplateTools.isTemplateTool(new ItemStack(Items.IRON_AXE), false), "No template tool while off");
+            } finally {
+                com.simplebuilding.framework.api.SubMods.set("simpletrims", old);
+            }
+            h.assertTrue(SimpleTrims.on() == old, "Switch restored");
+            h.succeed();
+        });
         ALL.put("ids", h -> {
             h.assertTrue("simpletrims:x".equals(SimpleTrims.id("x").toString()), "namespace");
             h.succeed();

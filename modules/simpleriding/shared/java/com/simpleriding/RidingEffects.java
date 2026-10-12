@@ -16,7 +16,7 @@ public final class RidingEffects {
  public static int level(LivingEntity e,ItemStack stack,ResourceKey<Enchantment> key){return Math.min(3,Math.max(0,EnchantmentHelper.getItemEnchantmentLevel(e.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key),stack)));}
  public static void tick(LivingEntity e){
   if(e.level().isClientSide())return;
-  boolean ridden=RidingSecurity.supported(e) && e.isAlive() && e.getControllingPassenger() instanceof Player && (!(e instanceof AbstractNautilus)||Riding.CONFIG.safety.enableNautilus);
+  boolean ridden=Riding.on() && RidingSecurity.supported(e) && e.isAlive() && e.getControllingPassenger() instanceof Player && (!(e instanceof AbstractNautilus)||Riding.CONFIG.safety.enableNautilus);
   ItemStack saddle=e.getItemBySlot(EquipmentSlot.SADDLE);
   boolean ghast=e.getType()==EntityTypes.HAPPY_GHAST;
   if(ghast)saddle=e.getItemBySlot(EquipmentSlot.BODY);

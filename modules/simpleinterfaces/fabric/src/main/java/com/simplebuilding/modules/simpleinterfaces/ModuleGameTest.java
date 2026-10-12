@@ -11,6 +11,7 @@ public final class ModuleGameTest {
     @GameTest public void styleRegistry(GameTestHelper h) { ContainerTests.registry(h); }
     @GameTest public void blockPalettes(GameTestHelper h) { ContainerTests.palettes(h); }
     @GameTest public void boxMotifs(GameTestHelper h) { ContainerTests.motifs(h); }
+    @GameTest public void subModSwitch(GameTestHelper h) { ContainerTests.subModSwitch(h); }
     @GameTest public void configDefaults(GameTestHelper h) { ContainerTests.config(h); }
     @GameTest public void legacyMigration(GameTestHelper h) { ContainerTests.legacyMigration(h); }
     @GameTest public void styleToggle(GameTestHelper h) { ContainerTests.styleToggle(h); }
@@ -19,4 +20,13 @@ public final class ModuleGameTest {
     @GameTest public void stationLayouts(GameTestHelper h) { ContainerTests.stationLayouts(h); }
     @GameTest public void workLayouts(GameTestHelper h) { ContainerTests.workLayouts(h); }
     @GameTest public void workPalettes(GameTestHelper h) { ContainerTests.workPalettes(h); }
+    @GameTest(maxTicks = 100) public void linkedMark(GameTestHelper h) { LinkedTests.linkedMark(h); }
+    @GameTest(maxTicks = 100) public void linkedRange(GameTestHelper h) { LinkedTests.linkedRange(h); }
+    @GameTest(maxTicks = 100) public void linkedTransfer(GameTestHelper h) { LinkedTests.linkedTransfer(h); }
+    @GameTest(maxTicks = 100) public void linkedInventory(GameTestHelper h) { LinkedTests.linkedInventory(h); }
+    @GameTest(maxTicks = 100) public void portableShulker(GameTestHelper h) { LinkedTests.portableShulker(h); }
+    @GameTest(maxTicks = 100) public void portableEnderChest(GameTestHelper h) { LinkedTests.portableEnderChest(h); }
+    @GameTest(maxTicks = 100) public void linkedQolMigration(GameTestHelper h) { LinkedTests.qolMigration(h); }
+    @GameTest(maxTicks = 100) public void linkedSync(GameTestHelper h) { LinkedTests.sync(h); }
+    @GameTest(maxTicks = 100) public void linkedSuperSwitch(GameTestHelper h) { LinkedTests.superSwitch(h); }
 }

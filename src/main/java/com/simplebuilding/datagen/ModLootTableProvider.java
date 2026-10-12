@@ -74,7 +74,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
 
         // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
         dropSelf(ModBlocks.CONSTRUCTION_LIGHT);
-        if (ModBlocks.IRON_ROD != null) dropSelf(ModBlocks.IRON_ROD);
+        if (ModBlocks.IRON_POLE != null) dropSelf(ModBlocks.IRON_POLE);
         if (com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible() != null) {
             // Crucible P5: der Inhalt droppt ueber die Block-Entity (SimpleLib), der Block selbst hier.
             dropSelf(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
@@ -99,9 +99,10 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         if (ModBlocks.STORAGE_CRAFTING_TABLE != null) dropSelf(ModBlocks.STORAGE_CRAFTING_TABLE);
         if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);
         if (ModBlocks.NOTE_AMPLIFIER != null) dropSelf(ModBlocks.NOTE_AMPLIFIER);
-        if (ModBlocks.GOLD_ROD != null) dropSelf(ModBlocks.GOLD_ROD);
-        if (ModBlocks.NETHERITE_ROD != null) dropSelf(ModBlocks.NETHERITE_ROD);
-        if (ModBlocks.ENDERITE_ROD != null) dropSelf(ModBlocks.ENDERITE_ROD);
+        if (ModBlocks.GOLD_POLE != null) dropSelf(ModBlocks.GOLD_POLE);
+        if (ModBlocks.DIAMOND_POLE != null) dropSelf(ModBlocks.DIAMOND_POLE);
+        if (ModBlocks.NETHERITE_POLE != null) dropSelf(ModBlocks.NETHERITE_POLE);
+        if (ModBlocks.ENDERITE_POLE != null) dropSelf(ModBlocks.ENDERITE_POLE);
         // Haengematten wie Betten: nur das Kopfteil des Tuchs gibt das Item (die anderen Teile fallen mit).
         for (net.minecraft.world.level.block.Block hammock : ModBlocks.HAMMOCKS) {
             add(hammock, createSinglePropConditionTable(hammock, com.simplebuilding.blocks.custom.HammockBlock.PART,

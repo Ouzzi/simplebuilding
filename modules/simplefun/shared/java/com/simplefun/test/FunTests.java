@@ -46,6 +46,7 @@ public final class FunTests {
     ALL.put("head_blocks", FunTests::headBlocks);
     ALL.put("head_abilities", FunTests::headAbilities);
     ALL.put("creative_tabs", FunTests::creativeTabs);
+    ALL.put("sub_mod_switch", FunTests::subModSwitch);
     for (var t : AnimalHead.values()) ALL.put(t.path(), h -> head(h, t));
     for (var key :
         List.of(
@@ -83,6 +84,40 @@ public final class FunTests {
                 SimplefunCommon.getConfig().fun = saved;
               }
             });
+  }
+
+  /** Super-mod switch "Enable Simple Fun" off: registries unchanged, empty tab, no vanilla tab entries, no loot. */
+  private static net.minecraft.world.item.CreativeModeTab funTab() {
+    return BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(
+        ResourceKey.create(Registries.CREATIVE_MODE_TAB, AnimalHeads.id("fun")));
+  }
+
+  private static net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters displayParameters(GameTestHelper h) {
+    return new net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters(
+        h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+  }
+
+  public static void subModSwitch(GameTestHelper h) {
+    var sw = com.simplebuilding.framework.api.SubMods.enabled("simplefun");
+    try {
+      com.simplebuilding.framework.api.SubMods.set("simplefun", false);
+      h.assertTrue(!SimplefunCommon.on(), "Switch off reaches Simple Fun");
+      h.assertTrue(
+          BuiltInRegistries.CREATIVE_MODE_TAB.getValue(AnimalHeads.id("fun")) != null
+              && BuiltInRegistries.ITEM.getValue(AnimalHeads.id("brick_snowball")) != null,
+          "Registries stay");
+      // buildContents directly: tryRebuildTabContents is a no-op while its parameters stay the same.
+      funTab().buildContents(displayParameters(h));
+      h.assertTrue(funTab().getDisplayItems().isEmpty(), "Own tab empty while off");
+      var pools = new ArrayList<LootPool.Builder>();
+      FunLoot.apply(BuiltInLootTables.CHARGED_CREEPER, pools::add, h.getLevel().registryAccess());
+      h.assertTrue(pools.isEmpty(), "No loot while off");
+    } finally {
+      com.simplebuilding.framework.api.SubMods.set("simplefun", sw);
+      funTab().buildContents(displayParameters(h));
+    }
+    h.assertTrue(SimplefunCommon.on() == sw, "Switch restored");
+    h.succeed();
   }
 
   /**

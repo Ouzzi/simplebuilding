@@ -37,6 +37,8 @@ public final class SimplebuildingForge {
         BusGroup modBus = context.getModBusGroup();
         ModEnvironment.setModLoadedCheck(ModList::isLoaded);
         ModEnvironment.setDevelopmentEnvironment(!net.minecraftforge.fml.loading.FMLEnvironment.production);
+        // Renamed/moved ids into SimpleLib IdMoves, before the registry events (Forge aliases) and any world.
+        com.simplebuilding.datafix.IdMovesHook.register();
         // FTB Quests (optional): copy the SimpleBuilding chapters into its quest book once.
         com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
         Forge263Events.register();
@@ -81,6 +83,7 @@ public final class SimplebuildingForge {
     private void configure() {
         // The Forge 26.3 compatibility entrypoint loads and validates persistent JSON.
         Simplebuilding.setConfig(AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig());
+        SimplebuildingConfig.applySubModSwitches(Simplebuilding.getConfig());
     }
 
     private void registerContent() {

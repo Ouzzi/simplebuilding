@@ -1,0 +1,25 @@
+{
+  "dragon_chitin": {
+    "lore": [
+      "Shed by the Dragonmites that crawl out of the bedrock fountain once the dragon is badly hurt. The plates are warm, as if the dragon's breath still sat in them."
+    ],
+    "use": [
+      "Dragonmites call no wave before the dragon falls to half health; then a new wave comes every 30 seconds near the exit portal. A mite killed by a player drops up to one piece, Looting adds more.",
+      "For now it is a material. Recipes that use it will follow."
+    ],
+    "secret": [
+      "The more players stand on the island, the more mites answer the dragon: one more per wave for every two further fighters, at most 16 alive at once."
+    ]
+  },
+  "dragonmite_spawn_egg": {
+    "lore": [
+      "An egg that should not exist: Dragonmites hatch only from the dragon's call."
+    ],
+    "use": [
+      "Spawns a Dragonmite that is bound to no dragon and stays like any other monster. It appears in the creative tab only when the server config allows it (exposeSpawnEgg)."
+    ],
+    "secret": [
+      "Mites called by the dragon vanish in smoke, without drops, as soon as their dragon dies."
+    ]
+  }
+}

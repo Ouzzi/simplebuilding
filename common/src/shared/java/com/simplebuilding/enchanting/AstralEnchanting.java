@@ -36,11 +36,12 @@ import net.minecraft.world.level.block.state.BlockState;
  * <p><b>Price (owner N35, 2026-10-11).</b> Points are XP levels. Every enchantment has a value at its maximum level:
  * a base by its Vanilla anvil cost (1: 4, 2: 6, up to 4: 9, more: 12) plus {@value #VALUE_PER_MAX_LEVEL} per maximum
  * level. A slider level costs its share, {@code ceil(value x level / max)}. Combining is taxed: each further chosen
- * enchantment adds a quarter of the sum, {@code price = min(50, ceil(sum x (3 + n) / 4))} with {@code n} chosen
- * enchantments. The budget is the tier ({@value #MIN_BUDGET} without any shelf) up to {@value #MAX_PRICE}; since no price
- * exceeds {@value #MAX_PRICE}, only tier {@value #TIER_MAX} lets every slider reach its maximum at once. Enchanting uses up
- * the price in levels (the player needs them), lapis 1 per started {@value #LEVELS_PER_LAPIS} levels (1-5), blaze powder
- * twice that.
+ * enchantment adds a quarter of the sum, {@code raw = ceil(sum x (3 + n) / 4)} with {@code n} chosen enchantments.
+ * When the full choice of an offer would cost more than {@value #MAX_PRICE}, the price is scaled, not capped (owner
+ * N37: every level less costs less), see {@link #price}. The budget is the tier ({@value #MIN_BUDGET} without any shelf) up to {@value #MAX_PRICE}; since no price
+ * exceeds {@value #MAX_PRICE}, only tier {@value #TIER_MAX} lets every slider reach its maximum at once. The price is the level
+ * the player needs; enchanting uses up only {@link #levelCost} levels (1 per started {@value #LEVELS_PER_LAPIS}, 1-5, owner
+ * N37), lapis 1 per started {@value #LEVELS_PER_LAPIS} levels (1-5), blaze powder twice that.
  */
 public final class AstralEnchanting {
     public static final int MAX_SHELVES = 15;
@@ -153,11 +154,31 @@ public final class AstralEnchanting {
         return n;
     }
 
-    /** The price in levels: the sum plus a quarter of it per further enchantment, at most {@value #MAX_PRICE}. */
-    public static int price(int[] levels, int[] maxLevels, int[] values) {
+    /** The price before the scaling: the sum plus a quarter of it per further enchantment. */
+    public static int rawPrice(int[] levels, int[] maxLevels, int[] values) {
         int n = chosenCount(levels);
         if (n == 0) return 0;
-        return Math.min(MAX_PRICE, Math.ceilDiv(basePrice(levels, maxLevels, values) * (3 + n), 4));
+        return Math.ceilDiv(basePrice(levels, maxLevels, values) * (3 + n), 4);
+    }
+
+    /**
+     * The price in levels (owner N37: every level less must cost less, {@value #MAX_PRICE} only for the full choice).
+     * Offers whose full choice stays within {@value #MAX_PRICE} pay the {@link #rawPrice raw price}. Dearer offers are
+     * scaled instead of capped: one level per chosen slider level plus the raw price scaled so the full choice lands
+     * on exactly {@value #MAX_PRICE}, {@code c + ceil(raw x (50 - M) / full)} with {@code c} chosen and {@code M} all
+     * levels - never above the raw price. Both terms drop with every level taken away, so the price falls strictly.
+     */
+    public static int price(int[] levels, int[] maxLevels, int[] values) {
+        int raw = rawPrice(levels, maxLevels, values);
+        int full = rawPrice(maxLevels, maxLevels, values);
+        if (raw == 0 || full <= MAX_PRICE) return raw;
+        int chosen = 0, all = 0;
+        for (int i = 0; i < levels.length; i++) {
+            int max = Math.max(0, maxLevels[i]);
+            all += max;
+            chosen += Math.clamp(levels[i], 0, max);
+        }
+        return Math.min(raw, chosen + Math.ceilDiv(raw * Math.max(0, MAX_PRICE - all), full));
     }
 
     /** The highest level slider {@code row} may take with the others as they are, within its maximum and the budget. */
@@ -168,6 +189,15 @@ public final class AstralEnchanting {
             if (price(test, maxLevels, values) <= budget) return level;
         }
         return 0;
+    }
+
+    /**
+     * Levels used up by an enchanting of {@code price} (owner N37): the price is only the level the player needs, like
+     * Vanilla's table only a few levels go - one per started {@value #LEVELS_PER_LAPIS} levels of the price (1-5), so
+     * more and stronger enchantments cost more. Same count as the lapis.
+     */
+    public static int levelCost(int price) {
+        return price <= 0 ? 0 : Math.min(5, Math.ceilDiv(price, LEVELS_PER_LAPIS));
     }
 
     /** Lapis lazuli: one per started {@value #LEVELS_PER_LAPIS} levels of the price (1-5). */

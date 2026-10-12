@@ -19,7 +19,7 @@ import net.minecraft.util.Mth;
 public class HowlerModel extends EntityModel<HowlerRenderState> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath("simplemobs", "hollow_howler"), "main");
 
-    private final ModelPart body, neck, skull, jaw, rightArm, leftArm, rightLeg, leftLeg;
+    private final ModelPart body, neck, skull, jaw, rightArm, leftArm, rightLeg, leftLeg, rightTendril, leftTendril;
 
     public HowlerModel(ModelPart root) {
         super(root);
@@ -27,6 +27,8 @@ public class HowlerModel extends EntityModel<HowlerRenderState> {
         this.neck = body.getChild("neck");
         this.skull = neck.getChild("skull");
         this.jaw = neck.getChild("jaw");
+        this.rightTendril = skull.getChild("right_tendril");
+        this.leftTendril = skull.getChild("left_tendril");
         this.rightArm = body.getChild("right_arm");
         this.leftArm = body.getChild("left_arm");
         this.rightLeg = root.getChild("right_leg");
@@ -54,10 +56,11 @@ public class HowlerModel extends EntityModel<HowlerRenderState> {
         PartDefinition skull = neck.addOrReplaceChild("skull",
                 CubeListBuilder.create().texOffs(0, 56).addBox(-5.0F, -9.0F, -10.0F, 10, 9, 10), PartPose.offset(0.0F, -4.0F, 4.0F));
         skull.addOrReplaceChild("upper_teeth", CubeListBuilder.create().texOffs(42, 56).addBox(-4.0F, 0.0F, -9.5F, 8, 1, 1), PartPose.ZERO);
-        skull.addOrReplaceChild("right_tendril", CubeListBuilder.create().texOffs(90, 56).addBox(-1.0F, -6.0F, -1.0F, 2, 6, 2),
-                PartPose.offsetAndRotation(-4.0F, -9.0F, -3.0F, -0.35F, 0.0F, -0.4F));
-        skull.addOrReplaceChild("left_tendril", CubeListBuilder.create().texOffs(100, 56).addBox(-1.0F, -6.0F, -1.0F, 2, 6, 2),
-                PartPose.offsetAndRotation(4.0F, -9.0F, -3.0F, -0.35F, 0.0F, 0.4F));
+        // Antennae like the Warden's: flat forked tendrils beside the skull, they twitch and glow when it hears something.
+        skull.addOrReplaceChild("right_tendril", CubeListBuilder.create().texOffs(90, 56).addBox(-10.0F, -10.0F, 0.0F, 10, 10, 0),
+                PartPose.offset(-4.0F, -6.0F, -4.0F));
+        skull.addOrReplaceChild("left_tendril", CubeListBuilder.create().texOffs(90, 68).addBox(0.0F, -10.0F, 0.0F, 10, 10, 0),
+                PartPose.offset(4.0F, -6.0F, -4.0F));
         return LayerDefinition.create(mesh, 128, 128);
     }
 
@@ -78,6 +81,11 @@ public class HowlerModel extends EntityModel<HowlerRenderState> {
         // The mouth opens between skull and jaw, both hinged at the back of the head.
         this.skull.xRot = -state.jawOpen * 0.55F - state.shriek * 0.2F;
         this.jaw.xRot = state.jawOpen * 0.5F;
+        // listening: the antennae twitch like the Warden's tendrils; at rest they sway slowly
+        float twitch = state.tendril * Mth.cos(age * 2.25F) * Mth.PI * 0.1F;
+        float rest = Mth.sin(age * 0.05F) * 0.04F;
+        this.rightTendril.zRot = twitch + rest;
+        this.leftTendril.zRot = -twitch - rest;
         if (state.emerge < 1.0F) {
             float under = 1.0F - state.emerge;
             this.root().y += under * 40.0F;

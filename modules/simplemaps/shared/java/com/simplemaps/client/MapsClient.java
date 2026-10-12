@@ -64,6 +64,7 @@ public final class MapsClient {
             HANDS.clear();
             FRAMES.values().forEach(ViewTexture::release);
             FRAMES.clear();
+            StaticTexture.releaseAll();
             lastLevel = mc.level;
         }
         if (mc.player == null || mc.level == null) return;
@@ -71,7 +72,7 @@ public final class MapsClient {
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack stack = mc.player.getItemInHand(hand);
             MapsComponents.MapRef ref = stack.get(MapsComponents.MAP_ID);
-            if (!MapsItems.isWayfinder(stack) || ref == null) continue;
+            if (!MapsItems.isWayfinder(stack) || ref == null || jammed(stack, mc.level)) continue;
             ViewTexture view = HANDS.computeIfAbsent(hand, h -> new ViewTexture(h == InteractionHand.MAIN_HAND ? "hand_main" : "hand_off"));
             view.compose(CACHE, ref.id(), 1, Mth.floor(mc.player.getX()), Mth.floor(mc.player.getZ()),
                     stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY));
@@ -84,6 +85,7 @@ public final class MapsClient {
                 it.remove();
             }
         }
+        StaticTexture.tick(ticks);
         CACHE.tick();
     }
 
@@ -101,12 +103,29 @@ public final class MapsClient {
         return player.getLastDeathLocation().filter(p -> p.dimension().equals(player.level().dimension()));
     }
 
+    /**
+     * Whether a map in hand shows the jamming signal (owner N38): it charts another dimension than the holder's,
+     * either by kind (a Nether map in the Overworld) or by the dimension it is bound to.
+     */
+    public static boolean jammed(ItemStack stack, net.minecraft.world.level.Level level) {
+        if (!(stack.getItem() instanceof WayfinderMapItem item)) return false;
+        MapsComponents.MapRef ref = stack.get(MapsComponents.MAP_ID);
+        return !item.accepts(level) || ref != null && !inMapDimension(ref.id());
+    }
+
     /** First-person map in hand: our picture, the holder arrow in the middle and the death cross (Feature 7). */
     public static boolean fillHandState(ItemStack stack, boolean mainHand, MapRenderState state) {
         Minecraft mc = Minecraft.getInstance();
         InteractionHand hand = mainHand ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+        if (mc.player == null || !MapsItems.isWayfinder(stack)) return false;
+        if (jammed(stack, mc.player.level())) {
+            state.texture = StaticTexture.of(((WayfinderMapItem) stack.getItem()).kind, ticks).id;
+            state.decorations.clear();
+            return true;
+        }
         ViewTexture view = HANDS.get(hand);
-        if (view == null || mc.player == null || !MapsItems.isWayfinder(stack)) return false;
+        // No picture of another map: a fresh map without id shows the empty paper until the server binds it.
+        if (view == null || !stack.has(MapsComponents.MAP_ID)) return false;
         state.texture = view.id;
         state.decorations.clear();
         var atlas = mc.getAtlasManager().getAtlasOrThrow(AtlasIds.MAP_DECORATIONS);

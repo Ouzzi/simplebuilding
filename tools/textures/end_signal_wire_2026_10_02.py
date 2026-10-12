@@ -3,10 +3,12 @@
 Astral/Nihil Redstone laid out like vanilla redstone dust (owner 2026-10-02): instead of one 16x16 plane with the
 B7b cross on it, the powder is a multipart like minecraft:redstone_wire (dot, side, side_alt, up) with its own,
 fixed-coloured dot/line textures (no tint). Colours are the owner's pick B7b variant B (vanilla grey dust onto the
-Astralit/Nihilith ramp, off 1..3, on 2..5). The item gets vanilla's redstone pile recoloured. Also rewrites the
-switch (thin plate, gem 4x4 in the middle) and lamp (full cube like the redstone lamp) models, which were a
-floating plane and a cut 14 px box. Writes textures, models, blockstates and item definitions into the 26.3
-overlay and a preview to previews/astral-nihil-redstone-draht-vorschau.png (next to the repo checkout)."""
+Astralit/Nihilith ramp, off 1..3, on 2..5). The item gets vanilla's redstone pile recoloured.
+2026-10-11 (docs/ai/PLAN-REDSTONE-LINIEN-2026-10-11.md): the switches and lamps are gone (vanilla lever and lamp
+work now); Bridge Redstone links all three lines, so its pixels take turns along the diagonals ((x + y) % 3)
+between the Astral, Nihil and a redstone-red ramp - a braided three-colour wire, same brightness steps.
+Writes textures, models, blockstates and item definitions into the 26.3 overlay and a preview to
+astral-nihil-redstone-draht-vorschau.png in SB_PREVIEW_DIR."""
 import json
 import os
 import sys
@@ -22,7 +24,10 @@ import proposals_b7_2026_10_02 as b7  # noqa: E402
 b7.V = V
 A = os.path.join(HERE, '..', '..', 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
 PREVIEW = os.environ.get('SB_PREVIEW_DIR', r'C:\Users\o_o\code\minecraft-mods\previews')
-POWDERS = (('astral', 'astral_redstone', 'astralit'), ('nihil', 'nihil_redstone', 'nihilith'))
+POWDERS = (('astral', 'astral_redstone'), ('nihil', 'nihil_redstone'), ('bridge', 'bridge_redstone'))
+# Redstone red in the same six brightness steps as the B7 ramps (vanilla dust at power 1..15, darker to lighter).
+RED = [(44, 6, 6), (94, 12, 10), (150, 22, 16), (204, 40, 26), (240, 90, 64), (255, 170, 150)]
+BRIDGE = ('astral', 'nihil', 'red')
 ON = '|'.join(str(i) for i in range(1, 16))
 
 
@@ -64,10 +69,40 @@ PARTS = {'dot': ('end_redstone_dust_dot', 'dot'), 'side0': ('end_redstone_dust_s
          'side_alt1': ('end_redstone_dust_side_alt', 'line1'), 'up': ('end_redstone_dust_up', 'line1')}
 
 
+def ramp_at(kind, x, y):
+    """The ramp of a pixel: one fixed ramp, or for the bridge the three lines in turn along the diagonals."""
+    if kind != 'bridge':
+        return b7.RAMPS[kind]
+    name = BRIDGE[(x + y) % 3]
+    return RED if name == 'red' else b7.RAMPS[name]
+
+
+def tint(kind, gray, lo, hi):
+    out = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for y in range(16):
+        for x in range(16):
+            p = gray.getpixel((x, y))
+            if p[3]:
+                out.putpixel((x, y), ramp_at(kind, x, y)[lo + round(p[0] / 255 * (hi - lo))] + (255,))
+    return out
+
+
+def remap(kind, src, lo, hi):
+    """b7.remap with the per-pixel ramp: brightness rank of every distinct colour -> ramp step."""
+    cols = sorted({src.getpixel((x, y))[:3] for y in range(16) for x in range(16) if src.getpixel((x, y))[3]}, key=b7.lum)
+    idx = {c: lo + round(i * (hi - lo) / max(1, len(cols) - 1)) for i, c in enumerate(cols)}
+    out = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for y in range(16):
+        for x in range(16):
+            p = src.getpixel((x, y))
+            if p[3]:
+                out.putpixel((x, y), ramp_at(kind, x, y)[idx[p[:3]]] + (p[3],))
+    return out
+
+
 def powder_textures(kind, active):
-    ramp = b7.RAMPS[kind]
     lo, hi = (2, 5) if active else (1, 3)
-    return {s: b7.tint(b7.load(f'block/redstone_dust_{s}'), ramp, lo, hi) for s in ('dot', 'line0', 'line1')}
+    return {s: tint(kind, b7.load(f'block/redstone_dust_{s}'), lo, hi) for s in ('dot', 'line0', 'line1')}
 
 
 def powder_blockstate(prefix):
@@ -91,25 +126,11 @@ def powder_blockstate(prefix):
     return {'multipart': parts}
 
 
-def variants(block, on_model, off_model):
-    return {'variants': {f'power={i}': {'model': on_model if i else off_model} for i in range(16)}}
-
-
-def switch_model(texture):
-    side = {'uv': [2, 14, 14, 16], 'texture': '#texture'}
-    return {'parent': 'minecraft:block/thin_block',
-            'textures': {'texture': f'simplebuilding:block/{texture}', 'particle': f'simplebuilding:block/{texture}'},
-            'elements': [{'from': [2, 0, 2], 'to': [14, 2, 14],
-                          'faces': {'down': {'uv': [2, 2, 14, 14], 'texture': '#texture', 'cullface': 'down'},
-                                    'up': {'uv': [2, 2, 14, 14], 'texture': '#texture'},
-                                    'north': side, 'south': side, 'west': side, 'east': side}}]}
-
-
 def main():
     for name, elements in TEMPLATES.items():
         write_json(f'models/block/{name}.json', {'ambientocclusion': False, 'elements': elements})
     sheet_rows = []
-    for kind, prefix, block in POWDERS:
+    for kind, prefix in POWDERS:
         row = []
         for active, suffix in ((False, ''), (True, '_on')):
             tex = powder_textures(kind, active)
@@ -122,23 +143,10 @@ def main():
                                  'line': sprite(f'{prefix}_{line}{suffix}')}})
             row.append(tex)
         write_json(f'blockstates/{prefix}.json', powder_blockstate(prefix))
-        item = b7.remap(b7.load('item/redstone'), b7.RAMPS[kind], 0, 5)
+        item = remap(kind, b7.load('item/redstone'), 0, 5)
         save(item, f'item/{prefix}')
         write_json(f'models/item/{prefix}.json', {'parent': 'minecraft:item/generated',
                                                    'textures': {'layer0': f'simplebuilding:item/{prefix}'}})
-        # Switch and lamp: real geometry, the item shows the block like vanilla plates and lamps.
-        for suffix in ('', '_active'):
-            write_json(f'models/block/{block}_switch{suffix}.json', switch_model(f'{block}_switch{suffix}'))
-            write_json(f'models/block/{block}_lamp{suffix}.json', {
-                'parent': 'minecraft:block/cube_all', 'textures': {'all': f'simplebuilding:block/{block}_lamp{suffix}'}})
-        for thing in ('switch', 'lamp'):
-            write_json(f'blockstates/{block}_{thing}.json', variants(block, f'simplebuilding:block/{block}_{thing}_active',
-                                                                     f'simplebuilding:block/{block}_{thing}'))
-            write_json(f'items/{block}_{thing}.json', {'model': {'type': 'minecraft:model',
-                                                                 'model': f'simplebuilding:block/{block}_{thing}'}})
-            stale = os.path.join(A, 'models', 'item', f'{block}_{thing}.json')
-            if os.path.isfile(stale):
-                os.remove(stale)
         sheet_rows.append((prefix, item, row))
     preview(sheet_rows)
     print('ok')
@@ -167,7 +175,7 @@ def preview(rows):
     combos = ['', 'ns', 'ew', 'ne', 'nes', 'nesw']
     scale, pad = 6, 10
     cell = 16 * scale
-    sheet = Image.new('RGBA', (pad + len(labels) * (cell + pad) + 140, pad + 4 * (cell + 24)), (139, 139, 139, 255))
+    sheet = Image.new('RGBA', (pad + len(labels) * (cell + pad) + 140, pad + 2 * len(rows) * (cell + 24)), (139, 139, 139, 255))
     d = ImageDraw.Draw(sheet)
     r = 0
     for prefix, item, (off, on) in rows:

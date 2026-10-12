@@ -92,7 +92,6 @@ public class ServerTuningConfig {
         soulLava.fortressChance = clamp(soulLava.fortressChance, 0.0, 0.5, 0.1);
 
         if (features == null) features = new Features();
-        if (machines != null) machines.endSignalRange = clamp(machines.endSignalRange, 1, 15);
         if (machines != null) machines.endPistonCooldownTicks = clamp(machines.endPistonCooldownTicks, 4, 100);
         if (machines != null) {
             machines.astralRailMaxSpeed = clamp(machines.astralRailMaxSpeed, 8, 20);
@@ -456,8 +455,6 @@ public class ServerTuningConfig {
         @ConfigEntry.BoundedDiscrete(min = 4, max = 100)
         public int autoSmitherDelayTicks = 4;
 
-        @ConfigEntry.Gui.Tooltip
-        public int endSignalRange = 15;
         /** Wartezeit nach dem Ausloesen eines Astral-/Nihil-Kolbens, 4..100 Ticks. */
         @ConfigEntry.Gui.Tooltip
         public int endPistonCooldownTicks = 8;

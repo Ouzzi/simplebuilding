@@ -36,8 +36,13 @@ public final class SandwichRegistry {
                 CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                         .title(Component.translatable("itemgroup.simplesandwiches.kitchen"))
                         .icon(() -> SandwichFormula.create(sample(Items.COOKED_BEEF, ModItems.CHEESE_SLICE)))
-                        .displayItems((params, out) -> tabStacks().forEach(out::accept))
+                        .displayItems((params, out) -> tabItems().forEach(out::accept))
                         .build());
+    }
+
+    /** Creative-tab content: empty while the super-mod switch is off. */
+    public static List<ItemStack> tabItems() {
+        return Sandwiches.on() ? tabStacks() : List.of();
     }
 
     public static List<ItemStack> tabStacks() {

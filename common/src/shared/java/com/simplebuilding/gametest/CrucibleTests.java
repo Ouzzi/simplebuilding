@@ -63,7 +63,7 @@ public final class CrucibleTests {
         int smokingTicks = helper.getLevel().recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMOKING,
                 new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.BEEF)), helper.getLevel()).orElseThrow().value().cookingTime();
         Block[] blocks = {lib("iron_crucible"), lib("reinforced_crucible"), lib("netherite_crucible"), CrucibleCompat.enderiteCrucible()};
-        int[] sizes = {6, 12, 18, 27}; // reinforced 12 since N30
+        int[] sizes = {6, 12, 18, 30}; // reinforced 12 since N30, enderite 30 since N37
         for (int i = 0; i < blocks.length; i++) {
             BlockPos pos = new BlockPos(i + 1, 2, 2);
             helper.setBlock(pos.below(), Blocks.CAMPFIRE);
@@ -243,7 +243,7 @@ public final class CrucibleTests {
         helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.IRON_BLOCK)) && build.inputs().get(0).count() == 1, "an iron block");
         helper.assertTrue(build.inputs().get(1).count() == 4 && build.inputs().get(1).items().contains(Items.HEAVY_WEIGHTED_PRESSURE_PLATE), "four walls");
         helper.assertTrue(build.inputs().get(2).count() == 2 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
-                && build.inputs().get(2).items().contains(ModItems.IRON_ROD), "two handles: iron ingot or iron rod");
+                && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "two handles: iron ingot or iron rod");
         helper.assertTrue(build.output().items().equals(java.util.List.of(item("simplelib:iron_crucible"))), "the iron crucible");
         helper.assertTrue(build.tools().contains(ModItems.IRON_SLEDGEHAMMER) && build.tools().contains(ModItems.ENDERITE_SLEDGEHAMMER), "every sledgehammer");
         helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(6)) && noteArgs(build, 1).equals(java.util.List.of(4, 2)), "notes name 6 strikes, 4 walls and 2 handles");
@@ -252,7 +252,7 @@ public final class CrucibleTests {
         helper.assertTrue(barrel.inputs().get(0).items().contains(item("simplelib:copper_barrel"))
                 && barrel.inputs().get(0).items().contains(item("simplebuilding:enderite_barrel")), "barrels");
         helper.assertTrue(barrel.inputs().get(1).items().contains(item("simplelib:iron_crucible")), "next to a crucible");
-        helper.assertTrue(noteArgs(barrel, 0).equals(java.util.List.of(6)) && noteArgs(barrel, 1).equals(java.util.List.of("6/12/18/27")), "notes name 6 strikes, 6/12/18/27 fields (N12c: as many as the crucible)");
+        helper.assertTrue(noteArgs(barrel, 0).equals(java.util.List.of(6)) && noteArgs(barrel, 1).equals(java.util.List.of("6/12/18/30")), "notes name 6 strikes, 6/12/18/30 fields (N12c: as many as the crucible; enderite 30 since N37)");
 
         var cauldron = entries.get("cauldron_reinforce");
         helper.assertTrue(cauldron.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)), "a cauldron");
@@ -311,11 +311,11 @@ public final class CrucibleTests {
         for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
     }
 
-    /** Enderite crucible: 27 slots and double stacks; Enderite barrel double stacks too (owner F4/F10, 59). */
+    /** Enderite crucible: 30 slots (27 before N37; saves load by index, so old contents stay) and double stacks; Enderite barrel double stacks too (owner F4/F10, 59). */
     public static void enderiteTiersHaveTwentySevenSlotsAndDoubleStacks(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         Block crucible = CrucibleCompat.enderiteCrucible();
-        helper.assertTrue(crucible != null && CrucibleCompat.crucibleSlots(crucible) == 27, "enderite crucible needs 27 slots");
+        helper.assertTrue(crucible != null && CrucibleCompat.crucibleSlots(crucible) == 30, "enderite crucible needs 30 slots (5x6, N37)");
         helper.assertTrue(CrucibleCompat.stackMultiplier(crucible) == 2, "enderite crucible holds double stacks");
         helper.assertTrue(CrucibleCompat.stackMultiplier(CrucibleCompat.enderiteBarrel()) == 2, "enderite barrel holds double stacks");
         helper.setBlock(new BlockPos(1, 1, 1), crucible);
@@ -344,6 +344,20 @@ public final class CrucibleTests {
         helper.assertTrue(CrucibleCompat.isAttached(helper.getBlockState(beside)), "barrel attached to the crucible");
         helper.assertTrue(container.getMaxStackSize(cobble) == 128, "attached, the barrel inherits the double stacks, got " + container.getMaxStackSize(cobble));
         helper.assertTrue(container.getMaxStackSize(new ItemStack(Items.IRON_SWORD)) == 1, "unstackable items stay single");
+        // Owner N37: attached, the copper barrel (27 of its own) has the Enderite crucible's 30 slots.
+        helper.assertTrue(container.getContainerSize() == 30, "attached copper barrel has the crucible's 30 slots, got " + container.getContainerSize());
+        for (int i = 0; i < 27; i++) if (i != 5) container.setItem(i, new ItemStack(Items.DIRT));
+        container.setItem(27, new ItemStack(Items.APPLE, 3));
+        container.setItem(29, new ItemStack(Items.STICK, 2));
+        helper.assertTrue(container.getItem(29).is(Items.STICK), "slot 30 holds items while attached");
+        // Crucible gone: back to 27; the extra slots move into the free slot, what does not fit drops - nothing is lost.
+        helper.setBlock(at, Blocks.AIR);
+        helper.assertTrue(!CrucibleCompat.isAttached(helper.getBlockState(beside)) && container.getContainerSize() == 27,
+                "detached: a 27-slot copper barrel again, got " + container.getContainerSize());
+        helper.assertTrue(container.getItem(5).is(Items.APPLE) && container.getItem(5).getCount() == 3, "the apples moved into the free slot 6");
+        var dropped = helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(helper.absolutePos(beside)).inflate(2), e -> e.getItem().is(Items.STICK));
+        helper.assertTrue(dropped.size() == 1 && dropped.get(0).getItem().getCount() == 2, "the sticks that did not fit dropped, not lost: " + dropped.size());
         helper.succeed();
     }
 
@@ -378,10 +392,10 @@ public final class CrucibleTests {
         ServerPlayer player = player(helper, hammer, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
         helper.assertTrue(player.getOffhandItem().is(TagKey.create(Registries.ITEM,
                 Identifier.fromNamespaceAndPath("simplelib", "crucible_walls"))), "SimpleLib wall materials loaded");
-        helper.assertTrue(new ItemStack(ModItems.IRON_ROD).is(TagKey.create(Registries.ITEM,
+        helper.assertTrue(new ItemStack(ModItems.IRON_POLE).is(TagKey.create(Registries.ITEM,
                 Identifier.fromNamespaceAndPath("simplelib", "crucible_handles"))), "SimpleBuilding handle materials loaded");
         for (int strike = 0; strike < 6; strike++) {
-            if (strike == 4) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.IRON_ROD, 2));
+            if (strike == 4) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.IRON_POLE, 2));
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(hammer));
             helper.assertTrue(hammer.getItem().useOn(click(helper, player, pos)).consumesAction(), "strike " + (strike + 1) + " not taken");
             helper.assertTrue(hammer.getDamageValue() == (strike + 1) * CrucibleCompat.HAMMER_DAMAGE_PER_STRIKE,
@@ -420,7 +434,7 @@ public final class CrucibleTests {
         CrucibleCompat.upgradeInPlace(helper.getLevel(), abs, CrucibleCompat.enderiteCrucible());
         helper.assertBlockPresent(CrucibleCompat.enderiteCrucible(), pos);
         var fresh = (net.minecraft.world.Container) helper.getLevel().getBlockEntity(abs);
-        helper.assertTrue(fresh.getContainerSize() == 27 && fresh.getItem(0).is(Items.RAW_IRON) && fresh.getItem(0).getCount() == 5,
+        helper.assertTrue(fresh.getContainerSize() == 30 && fresh.getItem(0).is(Items.RAW_IRON) && fresh.getItem(0).getCount() == 5,
                 "upgrade kept the contents");
         helper.succeed();
     }

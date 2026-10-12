@@ -11,7 +11,7 @@ public final class ForgeExample {
     public ForgeExample(FMLJavaModLoadingContext context) {
         ModuleForgeTests.register(context.getModBusGroup());
   if(net.minecraftforge.fml.ModList.isLoaded("ftbquests"))com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
-  net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e->{if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))e.accept(com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.book());});
+  net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e->{if(!e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)||!com.simplebuilding.framework.api.SubMods.enabled("simpledimension"))return;var book=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.book());var anchor=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.WRITABLE_BOOK);/* before the writable book: a tail append clashes with other mods' putAfter at the tail */if(e.getEntries().contains(anchor))e.getEntries().putBefore(anchor,book,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);else e.accept(book);});
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> DimensionRuntime.get(e.server()).tick());
         net.minecraftforge.event.server.ServerStoppedEvent.BUS.addListener(e -> DimensionRuntime.stop(e.getServer()));
         net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock.BUS.addListener(net.minecraftforge.eventbus.api.listener.Priority.LOWEST, e -> {

@@ -619,8 +619,8 @@ public final class BundleWiringTests {
             menu.getSlot(AnvilMenu.ADDITIONAL_SLOT).set(sharp);
             helper.assertValueEqual(menu.getSlot(AnvilMenu.RESULT_SLOT).getItem().getOrDefault(DataComponents.REPAIR_COST, 0), 7,
                     "anvil cost after enchanting");
-            // Simple QoL carries the same rule under its own switch; with it loaded the vanilla fallback is not observable.
-            if (!classPresent("com.simplequalityoflife.Simplequalityoflife")) {
+            // Simple Tools (formerly Simple QoL) carries the same rule under its own switch; with it loaded the vanilla fallback is not observable.
+            if (!classPresent("com.simplebuilding.modules.simpletools.SimpleTools")) {
                 features.anvilRepairKeepsCost = false;
                 menu.getSlot(AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(net.minecraft.world.item.Items.IRON_INGOT));
                 helper.assertValueEqual(menu.getSlot(AnvilMenu.RESULT_SLOT).getItem().getOrDefault(DataComponents.REPAIR_COST, 0), 7,
