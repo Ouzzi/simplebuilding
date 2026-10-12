@@ -202,17 +202,24 @@ public final class Claims {
         var b=store.view().get(new ClaimStore.Key(dimension,target));
         return Objects.equals(a==null?null:a.owner(),b==null?null:b.owner());
     }
-    /** Natural damage has no attacking entity. Explosion damage is explicitly environmental grief. */
+    /**
+     * Claims protect land and claimed property from players. A responsible player needs rights at every
+     * chunk of the target. Mobs and natural damage stay Vanilla, so a claim is never a mob-immune zone.
+     * Unattributed explosions are environmental grief: they spare claimed non-player entities only.
+     */
     public static boolean damage(net.minecraft.world.damagesource.DamageSource source,net.minecraft.world.entity.Entity target){
         if(!(target.level() instanceof ServerLevel level)||!enabled(level.getServer()))return true;
-        var actor=source.getEntity()!=null?source.getEntity():source.getDirectEntity();
-        if(actor!=null)return action(actor,target);
-        return !source.is(net.minecraft.tags.DamageTypeTags.IS_EXPLOSION)||action(null,target);
+        var raw=source.getEntity()!=null?source.getEntity():source.getDirectEntity();
+        var actor=responsible(raw);
+        if(actor instanceof ServerPlayer player)return allowEntity(player,target);
+        if(source.is(net.minecraft.tags.DamageTypeTags.IS_EXPLOSION))return action(null,target);
+        return true;
     }
     private static net.minecraft.world.entity.Entity responsible(net.minecraft.world.entity.Entity actor){
         for(int i=0;i<8;i++){
             if(actor instanceof net.minecraft.world.entity.projectile.Projectile p)actor=p.getOwner();
             else if(actor instanceof net.minecraft.world.entity.AreaEffectCloud cloud)actor=cloud.getOwner();
+            else if(actor instanceof net.minecraft.world.entity.LightningBolt bolt)actor=bolt.getCause();
             else return actor;
         }return null;
     }
@@ -223,9 +230,29 @@ public final class Claims {
     public static boolean action(net.minecraft.world.entity.Entity actor,net.minecraft.world.entity.Entity target){
         if(!(target.level() instanceof ServerLevel level)||!enabled(level.getServer()))return true;
         actor=responsible(actor);if(actor instanceof ServerPlayer player)return allowEntity(player,target);
+        // Mob attacks and players hit by the environment remain Vanilla; claimed property is spared.
+        if(actor!=null||target instanceof net.minecraft.world.entity.player.Player)return true;
         var box=target.getBoundingBox();int minX=net.minecraft.util.Mth.floor(box.minX)>>4,maxX=net.minecraft.util.Mth.floor(Math.nextDown(box.maxX))>>4,minZ=net.minecraft.util.Mth.floor(box.minZ)>>4,maxZ=net.minecraft.util.Mth.floor(Math.nextDown(box.maxZ))>>4;
         if((long)(maxX-minX+1)*(maxZ-minZ+1)>256)return false;
         for(int x=minX;x<=maxX;x++)for(int z=minZ;z<=maxZ;z++)if(!environment(level,new BlockPos(x*16,target.blockPosition().getY(),z*16)))return false;return true;
+    }
+    /**
+     * Block changes caused by an entity: players need rights; hostile or unattributed causes never change
+     * claimed land; other mobs (villagers, sheep, boats) only act within the land they stand on.
+     */
+    public static boolean mob(net.minecraft.world.entity.Entity actor,ServerLevel level,BlockPos pos){
+        if(!enabled(level.getServer()))return true;
+        var who=responsible(actor);
+        if(who instanceof ServerPlayer player)return allowBlock(player,level,pos);
+        if(who==null||who instanceof net.minecraft.world.entity.monster.Enemy)return environmentBlock(level,pos);
+        return transfer(level,who.blockPosition(),pos);
+    }
+    /** Land owner at a position: empty for wilderness or inactive claims, null while the ledger is locked. */
+    public static Optional<UUID> owner(ServerLevel level,BlockPos pos){
+        var c=get(level.getServer());if(c==null||!on()||!c.config.enabled())return Optional.empty();
+        if(!c.ready())return null;
+        var claim=c.store.view().get(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(pos)));
+        return claim==null?Optional.empty():Optional.of(claim.owner());
     }
 
     private Claims() { throw new AssertionError(); }

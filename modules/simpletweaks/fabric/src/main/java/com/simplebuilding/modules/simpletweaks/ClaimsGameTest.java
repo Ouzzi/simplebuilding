@@ -22,6 +22,13 @@ public final class ClaimsGameTest {
  @GameTest public void claimsEnvironmentHopper(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_hopper").accept(h); }
  @GameTest public void claimsEnvironmentProjectiles(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_projectiles").accept(h); }
  @GameTest public void claimsEnvironmentDispenser(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_dispenser").accept(h); }
+ @GameTest public void claimsGriefMobDamage(GameTestHelper h) { ClaimTests.TESTS.get("claims_grief_mob_damage").accept(h); }
+ @GameTest public void claimsGriefMobBlocks(GameTestHelper h) { ClaimTests.TESTS.get("claims_grief_mob_blocks").accept(h); }
+ @GameTest public void claimsGriefEnderman(GameTestHelper h) { ClaimTests.TESTS.get("claims_grief_enderman").accept(h); }
+ @GameTest public void claimsGriefDoorsSilverfish(GameTestHelper h) { ClaimTests.TESTS.get("claims_grief_doors_silverfish").accept(h); }
+ @GameTest public void claimsGriefTrample(GameTestHelper h) { ClaimTests.TESTS.get("claims_grief_trample").accept(h); }
+ @GameTest public void claimsVehicleBoats(GameTestHelper h) { ClaimTests.TESTS.get("claims_vehicle_boats").accept(h); }
+ @GameTest public void claimsAutomationComposter(GameTestHelper h) { ClaimTests.TESTS.get("claims_automation_composter").accept(h); }
 
  @GameTest(environment="simpletweaks:claims_portal",maxTicks=400) public void claimsPortalFlow(GameTestHelper h) { ClaimTests.TESTS.get("claims_portal_flow").accept(h); }
  @GameTest public void claimsAccessCommands(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_commands").accept(h); }
