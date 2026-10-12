@@ -51,7 +51,8 @@ python tools/zentrale-web/modselect.py apply --off <off-Liste aus der URL>
 
 Das schreibt `integration/enabled-mods.json` (abgeschaltete Mods bleiben aus dem Mod-Ordner) und setzt in
 `integration/run-fabric-263/config/<super-mod>.json` die Schalter `enableSimpleX` (abgeschaltete Sub-Mods einer laufenden
-Super-Mod, die per Jar-in-Jar ohnehin mitkommen). Ohne `off` = alles an.
+Super-Mod, die per Jar-in-Jar ohnehin mitkommen). Ohne `off` = alles an. Fertiger Baustein für den Windows-Starter:
+`starter-modselect.ps1` (neben `starter.ps1` legen, zwei Zeilen einfügen – steht im Kopf der Datei).
 
 ## Downloads
 Der Reiter liest `downloads/index.json` (neben der Seite, nicht eingecheckt). Nach einem grünen Gate (Gate + Standalone)
