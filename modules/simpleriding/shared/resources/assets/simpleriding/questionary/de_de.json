@@ -1,0 +1,90 @@
+{
+  "copper_horseshoe": {
+    "lore": [
+      "Ein Hufeisen aus Kupfer für einen Huf, der viele Wege gesehen hat."
+    ],
+    "use": [
+      "Die Hufeisen-Aufwertung mit Kupferbarren am Schmiedetisch schmieden. Stufe 1, 1 Punkt wert, Haltbarkeit 120. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+    ],
+    "secret": [
+      "Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter. Je 40 am Boden gerittene Blöcke geht ein Haltbarkeitspunkt verloren."
+    ]
+  },
+  "iron_horseshoe": {
+    "lore": [
+      "Ein Hufeisen aus Eisen für einen Huf, der viele Wege gesehen hat."
+    ],
+    "use": [
+      "Die Hufeisen-Aufwertung mit Eisenbarren am Schmiedetisch schmieden. Stufe 2, 2 Punkte wert, Haltbarkeit 180. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+    ],
+    "secret": [
+      "Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter. Je 40 am Boden gerittene Blöcke geht ein Haltbarkeitspunkt verloren."
+    ]
+  },
+  "golden_horseshoe": {
+    "lore": [
+      "Ein Hufeisen aus Gold für einen Huf, der viele Wege gesehen hat."
+    ],
+    "use": [
+      "Die Hufeisen-Aufwertung mit Goldbarren am Schmiedetisch schmieden. Stufe 3, 4 Punkte wert, Haltbarkeit 80. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+    ],
+    "secret": [
+      "Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter. Je 40 am Boden gerittene Blöcke geht ein Haltbarkeitspunkt verloren."
+    ]
+  },
+  "diamond_horseshoe": {
+    "lore": [
+      "Ein Hufeisen aus Diamant für einen Huf, der viele Wege gesehen hat."
+    ],
+    "use": [
+      "Die Hufeisen-Aufwertung mit Diamant mit einem Eisennugget am Schmiedetisch schmieden. Stufe 4, 8 Punkte wert, Haltbarkeit 400. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+    ],
+    "secret": [
+      "Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter. Je 40 am Boden gerittene Blöcke geht ein Haltbarkeitspunkt verloren."
+    ]
+  },
+  "netherite_horseshoe": {
+    "lore": [
+      "Ein Hufeisen aus Netherit, dem ein Lavaufer nichts ausmacht."
+    ],
+    "use": [
+      "Die Hufeisen-Aufwertung mit einem Diamant-Hufeisen und einem Netheritbarren schmieden. Stufe 5, Haltbarkeit 500, feuerfest. Ein ganzer Satz bringt 86 % des Bonus."
+    ],
+    "secret": [
+      "Verzauberungen und Abnutzung gehen vom Diamanthufeisen über. Vier Eisen geben zudem 5 % Tempo und Sprungkraft, aber lange Stürze tun 10 % mehr weh."
+    ]
+  },
+  "enderite_horseshoe": {
+    "lore": [
+      "Das letzte Hufeisen der Reihe: Es läuft über Seelensand wie über eine Straße."
+    ],
+    "use": [
+      "Die Hufeisen-Aufwertung mit einem Netherit-Hufeisen und einem Enderitbarren schmieden (braucht SimpleBuilding). Stufe 6, Haltbarkeit 620, feuerfest. Ein ganzer Satz bringt 100 % des Bonus."
+    ],
+    "secret": [
+      "Seelensand und Honig bremsen das Pferd deutlich weniger, und es lenkt seitlich viel besser. Verzauberungen und Abnutzung gehen vom Netherit-Hufeisen über."
+    ]
+  },
+  "horseshoe_smithing_template": {
+    "lore": [
+      "Eine Vorlage in Hufeisenform, kalt wie ein Stall in der Morgendämmerung."
+    ],
+    "use": [
+      "Wird am Schmiedetisch zum Herstellen eines Hufeisens verbraucht. Zu finden in Truhen von Dorf-Waffenschmieden und -Gerbereien und beim Bürsten von Pfadruinen. Mit einem Eisenbarren und sieben Kupferbarren verdoppeln."
+    ],
+    "secret": [
+      "Das Bürsten von Pfadruinen-Blöcken gibt auch ein abgenutztes Kupfer- oder Eisen-Hufeisen. Die Vorlage selbst wird wie jede Vanilla-Vorlage verbraucht."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein Buch über Sättel, Geschirre und stille Wege."
+    ],
+    "use": [
+      "Das Simple-Riding-Handbuch behandelt Rückenwind, Sprungkraft, Reittierrüstung und die Hufeisen. Formlos aus einem Buch und einer Werkbank herstellbar."
+    ],
+    "secret": [
+      "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+    ]
+  }
+}
