@@ -12,7 +12,38 @@ from zipfile import ZipFile
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
-TARGET = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures/gui/container/auto_smither.png'
+
+
+def build(asset):
+    """Smither background (Crafter with two input rows cleared) after verifying the 40 menu slot fields."""
+    crafter = asset('gui/container/crafter.png')
+    after = crafter.copy()
+    draw = ImageDraw.Draw(after)
+    # Keep the middle input row, the large output frame, and all inventory slots.
+    background = crafter.getpixel((85, 20))
+    draw.rectangle((25, 16, 78, 33), fill=background)
+    draw.rectangle((25, 52, 78, 69), fill=background)
+    after.alpha_composite(asset('gui/sprites/container/crafter/unpowered_redstone.png'), (97, 35))
+    menu = (ROOT / 'common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java').read_text(encoding='utf-8')
+    inputs = [(int(x), int(y)) for x, y in re.findall(r'new InputSlot\(container, AutoSmitherBlockEntity\.\w+, (\d+), (\d+),', menu)]
+    output = re.search(r'new Slot\(container, RESULT_SLOT, (\d+), (\d+)\)', menu)
+    assert inputs == [(26, 35), (44, 35), (62, 35)]
+    assert output and tuple(map(int, output.groups())) == (134, 35)
+    assert 'addStandardInventorySlots(inventory, 8, 84)' in menu
+    for x, y in [*inputs,
+                 *[(8 + 18 * col, 84 + 18 * row) for row in range(3) for col in range(9)],
+                 *[(8 + 18 * col, 142) for col in range(9)]]:
+        box = (x - 1, y - 1, x + 17, y + 17)
+        assert crafter.crop(box).tobytes() == after.crop(box).tobytes(), (x, y)
+    # The 16x16 item is centered within Crafter's 26x26 result frame.
+    assert crafter.crop((129, 30, 155, 56)).tobytes() == after.crop((129, 30, 155, 56)).tobytes()
+    return crafter, after, inputs
+
+
+def derived(jar):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    with ZipFile(jar) as z:
+        return {'gui/container/auto_smither.png': build(lambda n: Image.open(io.BytesIO(z.read('assets/minecraft/textures/' + n))).convert('RGBA'))[1]}
 
 
 def main():
@@ -24,32 +55,8 @@ def main():
     with ZipFile(args.jar) as jar:
         def asset(name):
             return Image.open(io.BytesIO(jar.read('assets/minecraft/textures/' + name))).convert('RGBA')
-        crafter = asset('gui/container/crafter.png')
-        after = crafter.copy()
-        draw = ImageDraw.Draw(after)
-        # Keep the middle input row, the large output frame, and all inventory slots.
-        background = crafter.getpixel((85, 20))
-        draw.rectangle((25, 16, 78, 33), fill=background)
-        draw.rectangle((25, 52, 78, 69), fill=background)
-        after.alpha_composite(asset('gui/sprites/container/crafter/unpowered_redstone.png'), (97, 35))
-        menu = (ROOT / 'common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java').read_text(encoding='utf-8')
-        inputs = [(int(x), int(y)) for x, y in re.findall(r'new InputSlot\(container, AutoSmitherBlockEntity\.\w+, (\d+), (\d+),', menu)]
-        output = re.search(r'new Slot\(container, RESULT_SLOT, (\d+), (\d+)\)', menu)
-        assert inputs == [(26, 35), (44, 35), (62, 35)]
-        assert output and tuple(map(int, output.groups())) == (134, 35)
-        assert 'addStandardInventorySlots(inventory, 8, 84)' in menu
-        for x, y in [*inputs,
-                     *[(8 + 18 * col, 84 + 18 * row) for row in range(3) for col in range(9)],
-                     *[(8 + 18 * col, 142) for col in range(9)]]:
-            box = (x - 1, y - 1, x + 17, y + 17)
-            assert crafter.crop(box).tobytes() == after.crop(box).tobytes(), (x, y)
-        # The 16x16 item is centered within Crafter's 26x26 result frame.
-        assert crafter.crop((129, 30, 155, 56)).tobytes() == after.crop((129, 30, 155, 56)).tobytes()
-        if args.check:
-            assert TARGET.exists() and Image.open(TARGET).convert('RGBA').tobytes() == after.tobytes(), TARGET
-        else:
-            TARGET.parent.mkdir(parents=True, exist_ok=True)
-            after.save(TARGET)
+        crafter, after, inputs = build(asset)
+        # The texture itself is Vanilla-derived and never committed (tools/textures/vanilla_derived.py builds it).
         if args.preview:
             before = asset('gui/container/smithing.png')
             ImageDraw.Draw(before).rectangle((6, 6, 40, 40), fill=before.getpixel((42, 40)))

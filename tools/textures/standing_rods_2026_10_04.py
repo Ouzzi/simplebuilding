@@ -27,8 +27,11 @@ import zipfile
 
 from PIL import Image, ImageDraw
 
-JAR = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser('~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar')
-PREVIEW = sys.argv[2] if len(sys.argv) > 2 else None
+JAR = os.environ.get('SB_CLIENT_JAR') or os.path.expanduser('~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar')
+PREVIEW = None
+if __name__ == '__main__':
+    JAR = sys.argv[1] if len(sys.argv) > 1 else JAR
+    PREVIEW = sys.argv[2] if len(sys.argv) > 2 else None
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..', '..')
 OUT = os.path.join(ROOT, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
@@ -370,23 +373,36 @@ def height_of(mdl):
 HAMMOCK = None
 
 
+def rod_texture(name, ref, jar):
+    item = load_texture(jar, ref)
+    rows = strip(item)
+    if name in SYMMETRIC:
+        rows = symmetric(rows)
+    runs = boxes(rows)
+    return item, rows, runs, texture(rows, runs)
+
+
+def derived(jar_path):
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image. The standing rods drawn
+    from Vanilla's item sprites (stick, bone, blaze rod, breeze rod); the diamond rod is the mod's own and stays in git."""
+    with zipfile.ZipFile(jar_path) as jar:
+        return {'block/standing_%s.png' % name: rod_texture(name, ref, jar)[3]
+                for name, ref in RODS.items() if ref.startswith('minecraft:')}
+
+
 def main():
     global HAMMOCK
     jar = zipfile.ZipFile(JAR)
     items, mdls, texs = {}, {}, {}
     variants = {}
     for name, ref in RODS.items():
-        item = load_texture(jar, ref)
-        rows = strip(item)
-        if name in SYMMETRIC:
-            rows = symmetric(rows)
-        runs = boxes(rows)
-        tex = texture(rows, runs)
+        item, rows, runs, tex = rod_texture(name, ref, jar)
         mdl = model(name, runs, ref)
         items[name], mdls[name], texs[name] = item, mdl, tex
-        path = os.path.join(OUT, 'textures', 'block', 'standing_%s.png' % name)
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        tex.save(path)
+        if not ref.startswith('minecraft:'):   # Vanilla-derived textures are built (derived()), never committed
+            path = os.path.join(OUT, 'textures', 'block', 'standing_%s.png' % name)
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            tex.save(path)
         write_json('models/block/standing_%s.json' % name, mdl)
         write_json('models/block/standing_%s_up.json' % name, connected(mdl, runs))
         variants['rod=%s,up=false' % name] = {'model': 'simplebuilding:block/standing_%s' % name}
