@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import hashlib
 import json
 import os
 import threading
@@ -7,6 +8,8 @@ import time
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlparse
+
+import modselect
 
 HEADER_NAME = "Cf-Access-Authenticated-User-Email"
 MAX_BODY = 256 * 1024
@@ -78,6 +81,9 @@ class Handler(BaseHTTPRequestHandler):
             with self.server.lock:
                 self.send_json(200, self.server.runs_list())
             return
+        if path == "/api/mods":
+            self.handle_get_mods(self.headers.get(HEADER_NAME))
+            return
         self.send_json(404, {"error": "not found"})
 
     def do_POST(self):
@@ -123,6 +129,59 @@ class Handler(BaseHTTPRequestHandler):
             self.handle_patch_queue(qid, payload)
             return
         self.send_json(404, {"error": "not found"})
+
+    def do_PUT(self):
+        email = self.check_auth()
+        if email is None:
+            return
+        if urlparse(self.path).path != "/api/mods/selection":
+            self.send_json(404, {"error": "not found"})
+            return
+        try:
+            payload = self.read_json()
+        except ValueError as e:
+            self.send_json(400, {"error": str(e)})
+            return
+        try:
+            nodes = modselect.catalog(self.server.repo)
+            off = modselect.normalize_off(payload.get("off"), nodes)
+        except ValueError as e:
+            self.send_json(400, {"error": str(e)})
+            return
+        except (OSError, KeyError):
+            self.send_json(500, {"error": "mod registry unavailable"})
+            return
+        with self.server.lock:
+            atomic_write_json(self.server.selection_path(email), {"by": email, "off": off,
+                                                                  "updatedAt": int(time.time() * 1000)})
+        self.handle_get_mods(email)
+
+    def handle_get_mods(self, email: str):
+        """Catalog tree + this user's stored selection + the resolved state (locks, launch data)."""
+        try:
+            nodes = modselect.catalog(self.server.repo)
+            registry = modselect.load_registry(self.server.repo)
+        except (OSError, KeyError, ValueError):
+            self.send_json(500, {"error": "mod registry unavailable"})
+            return
+        stored = {}
+        path = self.server.selection_path(email)
+        if path.exists():
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    stored = json.load(f)
+            except Exception:
+                stored = {}
+        known = {n["id"] for n in nodes}
+        off = [i for i in stored.get("off", []) if i in known]  # mods removed since then are dropped
+        try:
+            off = modselect.normalize_off(off, nodes)
+        except ValueError:
+            off = []
+        state = modselect.resolve(nodes, off)
+        plan = modselect.launch_plan(nodes, off, registry)
+        self.send_json(200, {"nodes": nodes, "off": off, "state": state, "launch": plan,
+                             "updatedAt": stored.get("updatedAt")})
 
     def do_DELETE(self):
         email = self.check_auth()
@@ -289,6 +348,8 @@ class DevQueueServer(ThreadingHTTPServer):
         self.queue_path = data_dir / "queue.json"
         self.runs_dir = data_dir / "runs"
         self.runs_dir.mkdir(parents=True, exist_ok=True)
+        self.repo = modselect.REPO
+        self.selections_dir = data_dir / "selections"
         self.lock = threading.Lock()
         self.queue = []
         self._runs_cache = []
@@ -307,6 +368,10 @@ class DevQueueServer(ThreadingHTTPServer):
 
     def save_queue(self):
         atomic_write_json(self.queue_path, self.queue)
+
+    def selection_path(self, email: str) -> Path:
+        """One file per user; the name is a hash so addresses never become paths."""
+        return self.selections_dir / (hashlib.sha256(email.strip().lower().encode("utf-8")).hexdigest()[:32] + ".json")
 
     def runs_list(self) -> list:
         return list(self._runs_cache)
@@ -327,10 +392,12 @@ def main():
     parser.add_argument("--port", type=int, default=8090)
     parser.add_argument("--bind", default="127.0.0.1")
     parser.add_argument("--data", default=".")
+    parser.add_argument("--repo", default=str(modselect.REPO), help="checkout with modules/modules.json")
     args = parser.parse_args()
 
     data_dir = Path(args.data).resolve()
     server = DevQueueServer((args.bind, args.port), data_dir)
+    server.repo = Path(args.repo).resolve()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
