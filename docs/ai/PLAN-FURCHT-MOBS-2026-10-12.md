@@ -79,4 +79,10 @@ Detailfragen hat der Agent selbst entschieden (Leitlinie: fair, angekündigte An
 - Testzentralen-Merge bringt fremde Commits mit (`claude-testcenter-mobs`, ohnehin für wave1 vorgesehen).
 
 ## Umsetzung/Abweichungen
-(wird nach der Umsetzung ergänzt)
+- Umgesetzt wie geplant. Abweichungen: kein eigener Fadenkreuz-Versatz in Simple Mobs (das Zielen selbst pendelt; mit SB
+  kommt dessen Fadenkreuz-Zittern dazu). Test-Haken `FearAura.TEST_TAG` gilt auch für Mock-Spieler (die sind immer kreativ).
+- Mitgebracht durch den Merge von `claude-testcenter-mobs`: drei 26.3-Fixes dort (Shellker-Test `damageCooldownTime`,
+  Katalogname `..._has_astation_...`). Offen von dort: Client-Shot `testcenter-mobs-*` im Modul-Clientlauf (ohne SB keine Testzentrale).
+- Belege: simplemobs Fabric/NeoForge/Forge + Standalone Fabric/NeoForge 285/285 grün; Testzentrale 3 Loader 27/27 grün;
+  Client-Smoke: alle 10 Furcht-Screenshots (Figur → Beschwörung, Posen, Watcher, Items), `check_data.py`, Texturen- und Wiki-Check grün.
+- Nicht getestet: Pfad mit geladenem SimpleBuilding (`simplebuilding:shivering`), Aim-Sway im echten Spiel, natürlicher Spawn im End.
