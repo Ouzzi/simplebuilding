@@ -80,5 +80,49 @@ def main():
             r1.iso(fn(s['key']), cols).save(PREVIEW / f'{key}_baum_{fn.__name__}.png')
 
 
+def page(path):
+    """Short before/after page: old lamps (before Nachtrag 36) vs the final lamps, plus the final End wood previews."""
+    import html
+    from PIL import Image
+    import n41_page
+    n41_page.SHOW_1X[0] = True
+    out = ['<!doctype html><html lang="de"><head><meta charset="utf-8">',
+           '<meta name="viewport" content="width=device-width,initial-scale=1">',
+           '<title>N44 Endstand</title>', f'<style>{n41_page.CSS}</style></head><body><main>', '<h1>N44 Endstand</h1>',
+           '<p class="lead">Lampen sind umgesetzt (Branch claude-n44-tex). Rand jetzt rundum gleich hell. '
+           'End-Holz nur als Vorschau, noch nicht im Spiel (wartet auf das Konzept End-Holz/Biom).</p>',
+           '<h2>Astral- und Nihilith-Lampe</h2>']
+    for name, title, block in (('astralit_lamp', 'Astral-Lampe (A1)', 'astralit'), ('nihilith_lamp', 'Nihilith-Lampe (A4.3)', 'nihilith')):
+        out.append(f'<h3>{title}</h3><div class="row">')
+        before = []
+        for cap, rel in (('aus', f'wiki/assets/textures/block/{block}_lamp.png'),
+                         ('an', f'wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/{block}_lamp_active.png')):
+            im = r1.old_lamp(rel)
+            if im:
+                before.append(n41_page.slot(im, cap))
+        out.append(f'<div class="card before"><div class="lab">Vorher</div><div class="faces">{"".join(before)}</div></div>')
+        figs = []
+        for sfx, cap in (('', 'aus'), ('_on', 'an')):
+            figs.append(n41_page.slot(Image.open(TEX / f'{name}{sfx}.png').convert('RGBA'), f'Seite {cap}'))
+            figs.append(n41_page.slot(Image.open(TEX / f'{name}_top{sfx}.png').convert('RGBA'), f'oben {cap}'))
+        for sfx, cap in (('', 'aus'), ('_on', 'an')):
+            figs.append(f'<figure><div class="slot iso"><img src="{n41_page.uri(Image.open(PREVIEW / f"{name}_render{sfx}.png"))}" '
+                        f'alt="Render"></div><figcaption>Würfel {cap}</figcaption></figure>')
+        out.append(f'<div class="card"><div class="lab">Nachher</div><div class="faces">{"".join(figs)}</div></div></div>')
+    out.append('<h2>End-Holz (nur Vorschau)</h2>')
+    for key, s in zip(('aschholz', 'daemmerholz'), WOOD):
+        figs = [n41_page.slot(Image.open(PREVIEW / f'{key}_{face}.png').convert('RGBA'), face.replace('_', ' '))
+                for face in wood_faces(s)]
+        trees = [f'<figure>{r1.big(Image.open(PREVIEW / f"{key}_baum_{n}.png"), 260)}<figcaption>{c}</figcaption></figure>'
+                 for n, c in (('big_tree', 'hell: großer End-Baum'), ('scrub', 'dunkel: Gestrüpp'), ('chorus', 'End-natürlich: chorusartig'))]
+        out.append(f'<h3>{html.escape(s["name"])}</h3><div class="row"><div class="card"><div class="faces">{"".join(figs)}</div></div>'
+                   f'<div class="card"><div class="faces">{"".join(trees)}</div></div></div>')
+    out.append('<p class="muted">Generator: tools/textures/end_lamps_2026_10_12.py · Texturen: mc26_3/overlay/resources/assets/'
+               'simplebuilding/textures/block/*_lamp*.png · Vorschauen: docs/ai/previews/n44/final/</p></main></body></html>')
+    Path(path).write_text('\n'.join(out), encoding='utf-8')
+
+
 if __name__ == '__main__':
     main()
+    if '--html' in sys.argv:
+        page(sys.argv[sys.argv.index('--html') + 1])
