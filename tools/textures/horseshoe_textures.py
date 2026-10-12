@@ -325,6 +325,9 @@ def outputs(item_variant=ITEM_VARIANT, template_variant=TEMPLATE_VARIANT):
     files = {}
     for m in TIERS:
         files[f'item/{m}_horseshoe.png'] = horseshoe_item(m, item_variant)
+        if item_variant == ITEM_VARIANT:   # owner pick N41 (2026-10-12): round-2 proposal E5 over the shipped shape
+            import n41_round2_2026_10_12 as n41r2
+            files[f'item/{m}_horseshoe.png'] = n41r2.horseshoe(m, 1, files[f'item/{m}_horseshoe.png'].convert('RGBA'))
         files[f'entity/horseshoe/{m}.png'] = hoof_layer(m)
     files['item/horseshoe_smithing_template.png'] = template_item(template_variant)
     files['gui/sprites/container/slot/horseshoe.png'] = slot_icon()
