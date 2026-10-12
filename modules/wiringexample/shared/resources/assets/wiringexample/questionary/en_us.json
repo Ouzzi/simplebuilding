@@ -1,0 +1,13 @@
+{
+  "token": {
+    "lore": [
+      "A token that exists to prove that two mods can talk."
+    ],
+    "use": [
+      "An example item of the integration test module. It has no real use in survival."
+    ],
+    "secret": [
+      "If you hold one, you are looking at the test bench."
+    ]
+  }
+}
