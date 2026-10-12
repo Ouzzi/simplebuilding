@@ -308,22 +308,23 @@ REINFORCED_QUIVER_PAL = {
 # Runde 7b (Besitzer: "schraeg wie das Vanilla-Buendel"): Dreiviertelansicht - Vorderseite x3-10, rechts die
 # Seitenflaeche x11-13 im Schatten (1/2, Klappenkante e), Deckel oben angeschnitten, Schlaufe mittig.
 BACKPACK_ITEM = [
+    # Owner pick N41 round 3 (2026-10-12): R4, flat pack in the Vanilla bundle style, smaller handle.
     "................",
-    "......OOOO......",
-    ".....O....O.....",
-    "....OOOOOOOOOO..",
-    "...O554ab4322O..",
-    "..O5544ab43121O.",
-    "..O5444ab43121O.",
-    "..O4444ab33121O.",
-    "..O3222gC22121O.",
-    "..OddddckddeeeO.",
-    "..O35444443121O.",
-    "..O34333331121O.",
-    "..O34322221121O.",
-    "..Ox111111xeeeO.",
-    "...OOOOOOOOOOO..",
     "................",
+    ".......OO.......",
+    "......O..O......",
+    "..OOOOOOOOOOOO..",
+    ".O555555555555O.",
+    ".O544444444443O.",
+    ".O544444444442O.",
+    ".O23333gg33332O.",
+    ".Od1111cc1111dO.",
+    ".O4d33333333d2O.",
+    ".O4d33333333d2O.",
+    ".O4d33333333d2O.",
+    ".O4d33333333d2O.",
+    ".O111111111111O.",
+    "..OOOOOOOOOOOO..",
 ]
 
 # --- Rucksack-Block: vier Flaechen je Stufe (siehe UV-Vertrag oben). '3' fuellt die

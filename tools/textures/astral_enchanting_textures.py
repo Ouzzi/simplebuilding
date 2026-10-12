@@ -257,7 +257,8 @@ def textures():
         'block/crimson_blazewood_bookshelf': n41.bookshelf('crimson', 2),
         'block/warped_blazewood_bookshelf': n41.bookshelf('warped', 2),
         'block/blazing_obsidian': n41.blazing_obsidian(2),
-        'item/blaze_book': blaze_book(),
+        # Owner pick N41 round 3: D9 (Vanilla written-book layout read from the 26.3 client jar, blaze cover, rods).
+        'item/blaze_book': __import__('n41_round3_2026_10_12').blaze_book(2),
     }
 
 

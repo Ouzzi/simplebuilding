@@ -293,8 +293,11 @@ def riding_book(name, variant):
 def outputs():
     out = {}
     # Training dummy: superseded 2026-10-06 by texture_round7_2026_10_06.py (same motif on the straw body).
+    # Owner pick N41 round 3 (2026-10-12): resin fiber = F11, special fiber = F16 (loose fibre tufts).
+    import n41_round3_2026_10_12 as n41r3
+    picks = {'resin_fiber': n41r3.fibre('resin', 0), 'special_fiber': n41r3.fibre('special', 1)}
     for name, m in FIBERS.items():
-        img = fiber(m)
+        img = picks.get(name) or fiber(m)
         out[os.path.join(MONEY_TEX, f'{name}.png')] = img
         out[os.path.join(WIKI_TEX, 'simplemoney', 'item', f'{name}.png')] = img
     for name, v in INSTALL.items():
