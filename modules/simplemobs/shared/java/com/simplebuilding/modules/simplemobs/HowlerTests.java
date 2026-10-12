@@ -62,7 +62,6 @@ final class HowlerTests {
         p.setOnGround(ground);
         // like MobHeadTests: mock players start invulnerable until the client reports it has loaded
         p.getAbilities().invulnerable = false;
-        p.setInvulnerable(false);
         p.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());
         h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(p));
         return p;
