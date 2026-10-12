@@ -3535,6 +3535,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
         "common/src/shared/java/com/simplebuilding/mixin/RedstoneWireEvaluatorLinesMixin.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalLampBlock.java",
         "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
@@ -3548,6 +3549,8 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_redstone",
         "simplebuilding:astral_redstone",
         "simplebuilding:bridge_redstone",
+        "simplebuilding:astralit_lamp",
+        "simplebuilding:nihilith_lamp",
         "simplebuilding:astral_piston",
         "simplebuilding:nihil_piston"
       ],
@@ -3559,7 +3562,7 @@ window.WIKI_DATA = {
           "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
           "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
           "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-          "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+          "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
           "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload.",
           "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They take the signal of their own line's redstone (or Bridge Redstone) lying next to them and relay nothing; they fire when the signal switches on, not while it stays on.",
           "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End pistons, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
@@ -3574,7 +3577,7 @@ window.WIKI_DATA = {
           "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
           "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
           "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-          "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
           "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
           "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie nehmen das Signal des Redstones ihrer eigenen Linie (oder von Brücken-Redstone) direkt daneben und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
           "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Kolben, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
@@ -4408,7 +4411,8 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
-        "simplebuilding:astral_rail"
+        "simplebuilding:astral_rail",
+        "simplebuilding:astralit_lamp"
       ],
       "trades": [],
       "questionary": {
@@ -4450,7 +4454,7 @@ window.WIKI_DATA = {
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
             "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -4462,7 +4466,7 @@ window.WIKI_DATA = {
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
             "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
@@ -8025,7 +8029,7 @@ window.WIKI_DATA = {
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
             "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -8037,7 +8041,7 @@ window.WIKI_DATA = {
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
             "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
@@ -28647,7 +28651,8 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
-        "simplebuilding:nihil_rail"
+        "simplebuilding:nihil_rail",
+        "simplebuilding:nihilith_lamp"
       ],
       "trades": [],
       "questionary": {
@@ -28689,7 +28694,7 @@ window.WIKI_DATA = {
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
             "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -28701,7 +28706,7 @@ window.WIKI_DATA = {
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
             "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
@@ -46037,7 +46042,8 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
-        "simplebuilding:astral_rail"
+        "simplebuilding:astral_rail",
+        "simplebuilding:astralit_lamp"
       ],
       "trades": [],
       "icon": "assets/textures/render/block/astral_redstone.png",
@@ -46084,7 +46090,7 @@ window.WIKI_DATA = {
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
             "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -46096,7 +46102,7 @@ window.WIKI_DATA = {
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
             "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
@@ -48284,7 +48290,7 @@ window.WIKI_DATA = {
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
             "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -48296,7 +48302,7 @@ window.WIKI_DATA = {
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
             "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
@@ -60412,7 +60418,8 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
-        "simplebuilding:nihil_rail"
+        "simplebuilding:nihil_rail",
+        "simplebuilding:nihilith_lamp"
       ],
       "trades": [],
       "icon": "assets/textures/render/block/nihil_redstone.png",
@@ -60459,7 +60466,7 @@ window.WIKI_DATA = {
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
             "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -60471,7 +60478,7 @@ window.WIKI_DATA = {
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
             "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
@@ -73520,6 +73527,49 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:astralit_dust",
             "count": 0.062
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_lamp",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_lamp",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_lamp.json",
+      "ingredients": [
+        "minecraft:redstone_lamp",
+        "simplebuilding:astral_redstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astral_redstone"
+        ],
+        [
+          "minecraft:redstone_lamp"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 4.5
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
           }
         ]
       }
@@ -99860,6 +99910,49 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nihilith_lamp",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_lamp",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_lamp.json",
+      "ingredients": [
+        "minecraft:redstone_lamp",
+        "simplebuilding:nihil_redstone"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihil_redstone"
+        ],
+        [
+          "minecraft:redstone_lamp"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 4.5
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -123501,6 +123594,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_lamp.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -126517,6 +126628,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihilith_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_lamp.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_ore",
@@ -165564,8 +165693,8 @@ window.WIKI_DATA = {
   "counts": {
     "items": 722,
     "blocks": 466,
-    "recipes": 1215,
-    "lootTables": 354,
+    "recipes": 1217,
+    "lootTables": 356,
     "trades": 20,
     "enchantments": 19,
     "tags": 54,
