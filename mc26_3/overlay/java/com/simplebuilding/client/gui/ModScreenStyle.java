@@ -20,6 +20,7 @@ import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiFilterButton;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
+import com.simplelib.api.client.ui.UiSlotIcons;
 import com.simplelib.api.client.ui.UiSymbols;
 import com.simplelib.api.client.ui.UiStyleToggle;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.List;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -57,6 +59,33 @@ public final class ModScreenStyle {
     private static final int ERROR = 0xFFC9503E;
 
     private ModScreenStyle() {}
+
+    static {
+        // N37: empty-slot icons (armour, shield, lapis ...) in the slot colours of these screens; registered once the
+        // first mod screen draws its background, i.e. before any of its slots.
+        UiSlotIcons.register(ModScreenStyle::slotIconPalette);
+    }
+
+    /** The palette slot {@code slot} of a mod screen is drawn in (player slots light), {@code null} for other screens. */
+    static UiPalette slotIconPalette(AbstractContainerScreen<?> screen, Slot slot) {
+        AbstractContainerMenu menu = screen.getMenu();
+        if (menu instanceof BackpackMenu b) {
+            boolean own = slot instanceof BackpackSlot || slot.y < BackpackLayout.FIRST_ROW_Y;
+            return own ? backpack(b.tier(), b.openData().dyeColor()) : UiPalette.INVENTORY;
+        }
+        UiPalette p = switch (menu) {
+            case TieredChestMenu m -> tier(m.tier());
+            case NetheriteHopperScreenHandler m -> tier(hopperTier(m));
+            case AutoSmitherMenu m -> AUTO_SMITHER;
+            case AutonomousCrafterMenu m -> AUTONOMOUS_CRAFTER;
+            case StorageCraftingMenu m -> STORAGE_CRAFTING_TABLE;
+            case FletchingMenu m -> FLETCHING;
+            case com.simplebuilding.screen.AstralEnchantingMenu m -> ASTRAL_ENCHANTING;
+            default -> null;
+        };
+        if (p == null) return null;
+        return slot.container instanceof Inventory ? UiPalette.INVENTORY : p;
+    }
 
     // ------------------------------------------------------------------ palettes
 

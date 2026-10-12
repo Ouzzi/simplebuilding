@@ -310,17 +310,18 @@ def templates() -> None:
         "parent": "minecraft:block/block", "textures": {"particle": "#planks"}, "elements": crate_elements()})
     cube = {"down": "#end", "up": "#end", "north": "#side", "south": "#side", "west": "#side", "east": "#side"}
     faces = {d: {"texture": t, "cullface": d} for d, t in cube.items()}
+    # Carved wood (N34): a plain stripped log plus one overlay per carved side (north, turned by the blockstate).
     put_json(f"{NS}/models/block/template_carved_log.json", {
-        "parent": "minecraft:block/block",
-        "textures": {"particle": "#side"},
+        "parent": "minecraft:block/block", "textures": {"particle": "#side"},
+        "elements": [{"from": [0, 0, 0], "to": [16, 16, 16], "faces": faces}]})
+    put_json(f"{NS}/models/block/template_carved_wood.json", {
+        "parent": "minecraft:block/block", "textures": {"particle": "#carving"},
+        "elements": [{"from": [0, 0, 0], "to": [16, 16, 16], "faces": {"north": {"texture": "#carving", "cullface": "north"}}}]})
+    put_json(f"{NS}/models/block/template_carved_sherd.json", {
+        "parent": "minecraft:block/block", "textures": {"particle": "#frame"},
         "elements": [
-            {"from": [0, 0, 0], "to": [16, 16, 16], "faces": faces},
             {"from": [0, 0, 0], "to": [16, 16, 16], "faces": {"north": {"texture": "#motif", "cullface": "north"}}},
-            {"from": [0, 0, 0], "to": [16, 16, 16], "faces": {
-                "north": {"texture": "#frame", "cullface": "north"}, "east": {"texture": "#carving", "cullface": "east"},
-                "south": {"texture": "#carving", "cullface": "south"}, "west": {"texture": "#carving", "cullface": "west"}}},
-        ],
-    })
+            {"from": [0, 0, 0], "to": [16, 16, 16], "faces": {"north": {"texture": "#frame", "cullface": "north"}}}]})
     w = 2
     walls = [
         # north/south walls between the side walls, side walls full depth (tube along Y)
@@ -414,6 +415,13 @@ def wood_assets(wood: str, log: str) -> None:
     ctex = {"particle": tex["log"], "side": tex["log"], "top": tex["log_top"], "bottom": tex["log_top"],
             "inside": tex["stripped"]}
     put_json(f"{NS}/models/block/{name}.json", {"parent": "minecraft:block/cauldron", "textures": ctex})
+    # Inventory: Vanilla block/cauldron has no parent, hence no GUI transform and a flat icon; give the item the block-style display.
+    put_json(f"{NS}/models/item/{name}.json", {"parent": sb(f"block/{name}"), "display": {
+        "gui": {"rotation": [30, 225, 0], "translation": [0, 0, 0], "scale": [0.625, 0.625, 0.625]},
+        "ground": {"rotation": [0, 0, 0], "translation": [0, 3, 0], "scale": [0.25, 0.25, 0.25]},
+        "fixed": {"rotation": [0, 0, 0], "translation": [0, 0, 0], "scale": [0.5, 0.5, 0.5]},
+        "thirdperson_righthand": {"rotation": [75, 45, 0], "translation": [0, 2.5, 0], "scale": [0.375, 0.375, 0.375]},
+        "firstperson_righthand": {"rotation": [0, 45, 0], "translation": [0, 0, 0], "scale": [0.4, 0.4, 0.4]}}})
     contents = {"water": mc("block/water_still"), "powder_snow": mc("block/powder_snow")}
     for content, content_tex in contents.items():
         for level, template in ((1, "template_cauldron_level1"), (2, "template_cauldron_level2"), (3, "template_cauldron_full")):
@@ -427,7 +435,7 @@ def wood_assets(wood: str, log: str) -> None:
             model = {"empty": name, "lava": f"{name}_lava"}.get(content, f"{name}_{content}_{level}")
             variants[f"content={content},level={level}"] = {"model": sb(f"block/{model}")}
     put_json(f"{NS}/blockstates/{name}.json", {"variants": variants})
-    block_item(name)
+    block_item(name, sb(f"item/{name}"))
     # crate: an open box of plank slats with gaps (template_crate), the opening turned to facing like a barrel
     name = f"{wood}_crate"
     put_json(f"{NS}/models/block/{name}.json", {"parent": sb("block/template_crate"), "textures": {
@@ -439,20 +447,60 @@ def wood_assets(wood: str, log: str) -> None:
     name = f"carved_{log}"
     put_png(f"{NS}/textures/block/carved/{wood}_carving.png", carving(wood))
     put_png(f"{NS}/textures/block/carved/{wood}_frame.png", carving(wood, motif=False))
+    put_json(f"{NS}/models/block/carved/{name}_base.json", {"parent": sb("block/template_carved_log"), "textures": {
+        "side": tex["stripped"], "end": tex["stripped_top"]}})
+    put_json(f"{NS}/models/block/carved/{name}_wood.json", {"parent": sb("block/template_carved_wood"), "textures": {
+        "carving": sb(f"block/carved/{wood}_carving")}})
     for motif in MOTIFS:
-        put_json(f"{NS}/models/block/carved/{name}_{motif}.json", {"parent": sb("block/template_carved_log"), "textures": {
-            "side": tex["stripped"], "end": tex["stripped_top"],
-            "carving": sb(f"block/carved/{wood}_carving"), "frame": sb(f"block/carved/{wood}_frame"),
+        put_json(f"{NS}/models/block/carved/{name}_{motif}.json", {"parent": sb("block/template_carved_sherd"), "textures": {
+            "frame": sb(f"block/carved/{wood}_frame"),
             "motif": mc(f"entity/decorated_pot/{motif}_pottery_pattern_{wood}")}})
-    put_json(f"{NS}/blockstates/{name}.json", {"variants": {
-        f"facing={facing},motif={motif}": ({"model": sb(f"block/carved/{name}_{motif}")} | ({"y": y} if y else {}))
-        for motif in MOTIFS for facing, y in FACING_Y.items()}})
+    # every side is its own multipart overlay (none / wood motif / sherd motif), the motif property shared by the sherd sides
+    parts = [{"apply": {"model": sb(f"block/carved/{name}_base")}}]
+    for side, y in FACING_Y.items():
+        turn = {"y": y} if y else {}
+        parts.append({"when": {side: "wood"}, "apply": {"model": sb(f"block/carved/{name}_wood")} | turn})
+        for motif in MOTIFS:
+            parts.append({"when": {side: "sherd", "motif": motif},
+                          "apply": {"model": sb(f"block/carved/{name}_{motif}")} | turn})
+    put_json(f"{NS}/blockstates/{name}.json", {"multipart": parts})
+
+    def item_model(overlay: str) -> dict:
+        return {"type": "minecraft:composite", "models": [
+            {"type": "minecraft:model", "model": sb(f"block/carved/{name}_base")},
+            {"type": "minecraft:model", "model": sb(f"block/carved/{name}_{overlay}")}]}
+
+    # item: the north side as dropped (sherd motif, else the wood's own motif)
     put_json(f"{NS}/items/{name}.json", {"model": {
-        "type": "minecraft:select", "property": "minecraft:block_state", "block_state_property": "motif",
-        "cases": [{"when": motif, "model": {"type": "minecraft:model", "model": sb(f"block/carved/{name}_{motif}")}}
-                  for motif in MOTIFS],
-        "fallback": {"type": "minecraft:model", "model": sb(f"block/carved/{name}_angler")},
+        "type": "minecraft:select", "property": "minecraft:block_state", "block_state_property": "north",
+        "cases": [{"when": "sherd", "model": {
+            "type": "minecraft:select", "property": "minecraft:block_state", "block_state_property": "motif",
+            "cases": [{"when": motif, "model": item_model(motif)} for motif in MOTIFS],
+            "fallback": item_model("angler")}}],
+        "fallback": item_model("wood"),
     }})
+
+
+def stripped_cauldron(wood: str, log: str) -> None:
+    """N35: the same cauldron in stripped wood (stripped log outside, planks inside)."""
+    stripped = "stripped_" + log
+    name = f"stripped_{wood}_cauldron"
+    ctex = {"particle": mc(f"block/{stripped}"), "side": mc(f"block/{stripped}"), "top": mc(f"block/{stripped}_top"),
+            "bottom": mc(f"block/{stripped}_top"), "inside": mc(f"block/{wood}_planks")}
+    put_json(f"{NS}/models/block/{name}.json", {"parent": "minecraft:block/cauldron", "textures": ctex})
+    for content, content_tex in {"water": mc("block/water_still"), "powder_snow": mc("block/powder_snow")}.items():
+        for level, template in ((1, "template_cauldron_level1"), (2, "template_cauldron_level2"), (3, "template_cauldron_full")):
+            put_json(f"{NS}/models/block/{name}_{content}_{level}.json",
+                     {"parent": mc(f"block/{template}"), "textures": ctex | {"content": content_tex}})
+    put_json(f"{NS}/models/block/{name}_lava.json",
+             {"parent": mc("block/template_cauldron_full"), "textures": ctex | {"content": mc("block/lava_still")}})
+    variants = {}
+    for content in ("empty", "water", "lava", "powder_snow"):
+        for level in (1, 2, 3):
+            model = {"empty": name, "lava": f"{name}_lava"}.get(content, f"{name}_{content}_{level}")
+            variants[f"content={content},level={level}"] = {"model": sb(f"block/{model}")}
+    put_json(f"{NS}/blockstates/{name}.json", {"variants": variants})
+    block_item(name)
 
 
 def preview(jar: str, out: Path) -> None:
@@ -511,6 +559,7 @@ def main() -> int:
     palettes()
     for wood, log, _c in WOODS:
         wood_assets(wood, log)
+        stripped_cauldron(wood, log)
     if "--preview" in sys.argv:
         i = sys.argv.index("--preview")
         preview(sys.argv[i + 1], Path(sys.argv[i + 2]))

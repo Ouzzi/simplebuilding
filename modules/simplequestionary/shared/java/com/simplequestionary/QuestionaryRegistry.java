@@ -33,7 +33,7 @@ public final class QuestionaryRegistry {
         ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, TABLE_ID);
         TABLE = Registry.register(BuiltInRegistries.BLOCK, key, new QuestionaryTableBlock(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD)
-                .ignitedByLava().noOcclusion().setId(key)));
+                .lightLevel(state -> 5).noOcclusion().setId(key)));
     }
 
     public static void registerItems() {

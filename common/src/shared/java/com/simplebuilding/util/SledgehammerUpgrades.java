@@ -874,9 +874,7 @@ public final class SledgehammerUpgrades {
             String key = "tooltip.simplebuilding.hammer_upgrade.shulker_box." + tier;
             return java.util.List.of(
                     Component.translatable(key).withStyle(ChatFormatting.GRAY),
-                    Component.translatable(key + ".2").withStyle(ChatFormatting.GRAY),
-                    Component.translatable(key + ".3", upgrade.materialCost(), blows(upgrade)).withStyle(ChatFormatting.GRAY),
-                    Component.translatable(key + ".4", upgrade.materialCost(), blows(upgrade)).withStyle(ChatFormatting.GRAY));
+                    Component.translatable(key + ".3", upgrade.materialCost(), blows(upgrade)).withStyle(ChatFormatting.GRAY));
         }
         String key = upgrade.toEnderite()
                 ? "tooltip.simplebuilding.hammer_upgrade.enderite"
@@ -884,7 +882,6 @@ public final class SledgehammerUpgrades {
                 : "tooltip.simplebuilding.hammer_upgrade.netherite";
         return java.util.List.of(
                 Component.translatable(key).withStyle(ChatFormatting.GRAY),
-                Component.translatable(key + ".2").withStyle(ChatFormatting.GRAY),
                 Component.translatable(key + ".3", upgrade.materialCost()).withStyle(ChatFormatting.GRAY));
     }
 }

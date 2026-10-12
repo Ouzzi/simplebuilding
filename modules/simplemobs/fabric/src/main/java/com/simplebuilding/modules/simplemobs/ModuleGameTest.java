@@ -11,6 +11,7 @@ public final class ModuleGameTest {
     @GameTest public void pulseAndHeal(GameTestHelper helper) { MobsTests.ALL.get("pulse_and_heal").accept(helper); }
     @GameTest public void spawnRules(GameTestHelper helper) { MobsTests.ALL.get("spawn_rules").accept(helper); }
     @GameTest public void fight(GameTestHelper helper) { MobsTests.ALL.get("fight").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void disguiseHitbox(GameTestHelper helper) { MobsTests.ALL.get("disguise_hitbox").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerRegistered(GameTestHelper helper) { MobsTests.ALL.get("howler_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerRules(GameTestHelper helper) { MobsTests.ALL.get("howler_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerPattern(GameTestHelper helper) { MobsTests.ALL.get("howler_pattern").accept(helper); }

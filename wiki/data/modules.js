@@ -218,11 +218,10 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [
-      "simplebuilding"
-    ],
+    "requires": [],
     "optional": [
-      "simpledimensions"
+      "simpledimensions",
+      "simplebuilding"
     ],
     "dataHash": "20ecb63a9a29"
   },
@@ -281,7 +280,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "6b28bc6990ca"
+    "dataHash": "a2652f7207e4"
   },
   {
     "id": "simpleinterfaces",
@@ -490,7 +489,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "d114427fb9ab"
+    "dataHash": "edb709fa1fed"
   },
   {
     "id": "simpleaesthetics",

@@ -624,6 +624,18 @@ public final class MusicDiscTests {
     }
 
 
+    /** N39: amplifier items carry a tooltip line (en/de lang keys exist), the blocks are full cubes (hitbox = model). */
+    public static void amplifiersHaveTooltipAndFullCubeHitbox(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        Object[][] cases = {{ModItems.JUKEBOX_AMPLIFIER, ModBlocks.JUKEBOX_AMPLIFIER}, {ModItems.NOTE_AMPLIFIER, ModBlocks.NOTE_AMPLIFIER}};
+        for (Object[] c : cases) {
+            helper.assertTrue(c[0] instanceof com.simplebuilding.items.custom.AmplifierItem, "amplifier item has its tooltip class: " + c[0]);
+            net.minecraft.world.level.block.state.BlockState st = ((net.minecraft.world.level.block.Block) c[1]).defaultBlockState();
+            helper.assertTrue(st.getShape(helper.getLevel(), BlockPos.ZERO) == net.minecraft.world.phys.shapes.Shapes.block(), "amplifier outline is the full cube");
+        }
+        helper.succeed();
+    }
+
     // =====================================================================================
     // Verstärker ueber den echten Weg (2026-10-06, Besitzer: Verstärker funktionieren im Spiel nicht)
     // =====================================================================================

@@ -2,10 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "group": "wooden_cauldron",
   "key": {
-    "H": [
-      "simplebuilding:hollow_mangrove_log",
-      "simplebuilding:hollow_stripped_mangrove_log"
-    ],
+    "H": "simplebuilding:hollow_mangrove_log",
     "S": [
       "simplebuilding:mangrove_sheet",
       "simplebuilding:stripped_mangrove_sheet"

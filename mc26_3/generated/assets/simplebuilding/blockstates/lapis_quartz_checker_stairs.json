@@ -1,209 +1,124 @@
 {
   "variants": {
     "facing=east,half=bottom,shape=inner_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_191"
     },
     "facing=east,half=bottom,shape=inner_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner"
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_251"
     },
     "facing=east,half=bottom,shape=outer_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_59"
     },
     "facing=east,half=bottom,shape=outer_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer"
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_179"
     },
     "facing=east,half=bottom,shape=straight": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs"
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_187"
     },
     "facing=east,half=top,shape=inner_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "x": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_239"
     },
     "facing=east,half=top,shape=inner_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "x": 180,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_254"
     },
     "facing=east,half=top,shape=outer_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "x": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_206"
     },
     "facing=east,half=top,shape=outer_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "x": 180,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_236"
     },
     "facing=east,half=top,shape=straight": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs",
-      "uvlock": true,
-      "x": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_238"
     },
     "facing=north,half=bottom,shape=inner_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_127"
     },
     "facing=north,half=bottom,shape=inner_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_191"
     },
     "facing=north,half=bottom,shape=outer_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_55"
     },
     "facing=north,half=bottom,shape=outer_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_59"
     },
     "facing=north,half=bottom,shape=straight": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs",
-      "uvlock": true,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_63"
     },
     "facing=north,half=top,shape=inner_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "x": 180,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_223"
     },
     "facing=north,half=top,shape=inner_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "x": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_239"
     },
     "facing=north,half=top,shape=outer_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "x": 180,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_205"
     },
     "facing=north,half=top,shape=outer_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "x": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_206"
     },
     "facing=north,half=top,shape=straight": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs",
-      "uvlock": true,
-      "x": 180,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_207"
     },
     "facing=south,half=bottom,shape=inner_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner"
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_251"
     },
     "facing=south,half=bottom,shape=inner_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_247"
     },
     "facing=south,half=bottom,shape=outer_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer"
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_179"
     },
     "facing=south,half=bottom,shape=outer_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_115"
     },
     "facing=south,half=bottom,shape=straight": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs",
-      "uvlock": true,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_243"
     },
     "facing=south,half=top,shape=inner_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "x": 180,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_254"
     },
     "facing=south,half=top,shape=inner_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "x": 180,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_253"
     },
     "facing=south,half=top,shape=outer_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "x": 180,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_236"
     },
     "facing=south,half=top,shape=outer_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "x": 180,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_220"
     },
     "facing=south,half=top,shape=straight": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs",
-      "uvlock": true,
-      "x": 180,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_252"
     },
     "facing=west,half=bottom,shape=inner_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_247"
     },
     "facing=west,half=bottom,shape=inner_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_127"
     },
     "facing=west,half=bottom,shape=outer_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "y": 90
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_115"
     },
     "facing=west,half=bottom,shape=outer_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_55"
     },
     "facing=west,half=bottom,shape=straight": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs",
-      "uvlock": true,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_119"
     },
     "facing=west,half=top,shape=inner_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "x": 180,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_253"
     },
     "facing=west,half=top,shape=inner_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_inner",
-      "uvlock": true,
-      "x": 180,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_223"
     },
     "facing=west,half=top,shape=outer_left": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "x": 180,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_220"
     },
     "facing=west,half=top,shape=outer_right": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs_outer",
-      "uvlock": true,
-      "x": 180,
-      "y": 270
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_205"
     },
     "facing=west,half=top,shape=straight": {
-      "model": "simplebuilding:block/lapis_quartz_checker_stairs",
-      "uvlock": true,
-      "x": 180,
-      "y": 180
+      "model": "simplebuilding:block/lapis_quartz_checker_stairs_221"
     }
   }
 }

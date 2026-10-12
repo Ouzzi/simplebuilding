@@ -142,6 +142,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void crucibleHitboxesMatchModel(GameTestHelper h) {
+        LibTests.ALL.get("crucible_hitboxes_match_model").accept(h);
+    }
+
+    @GameTest
     public void crucibleBurnDamageFollowsConfig(GameTestHelper h) {
         LibTests.ALL.get("crucible_burn_damage_follows_config").accept(h);
     }
@@ -162,7 +167,7 @@ public final class ModuleGameTest {
     }
 
     @GameTest
-    public void enderiteBarrelBoxBelowTheCrucible(GameTestHelper h) {
-        LibTests.ALL.get("enderite_barrel_box_below_the_crucible").accept(h);
+    public void crucibleBarrelBesideInventoryCentred(GameTestHelper h) {
+        LibTests.ALL.get("crucible_barrel_beside_inventory_centred").accept(h);
     }
 }

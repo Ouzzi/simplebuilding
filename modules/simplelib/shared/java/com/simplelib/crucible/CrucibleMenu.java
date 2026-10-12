@@ -39,8 +39,6 @@ public class CrucibleMenu extends AbstractContainerMenu {
     public static final int BOX_GAP = 2;
     /** Inventory box: label and first slot row below the box top, total height. */
     public static final int INVENTORY_LABEL = 6, INVENTORY_TOP = 17, INVENTORY_BOX = 100;
-    /** N14 (owner): from enderite on the barrel box sits under the crucible box (no title): grid top and room below. */
-    public static final int STACKED_BARREL_GRID_TOP = 6, STACKED_BARREL_BOTTOM = 8;
 
     /**
      * One panel layout; all positions relative to the reserved box (the screen's image). {@code crucibleWidth} is the
@@ -87,35 +85,18 @@ public class CrucibleMenu extends AbstractContainerMenu {
         return Math.max(176, gridsWidth(tier) + 2 * MARGIN);
     }
 
-    /** N14 (owner): from enderite on the barrel box goes under the crucible box, the window would be too wide beside it. */
-    public static boolean barrelBelow(CrucibleTier tier) {
-        return tier.ordinal() >= CrucibleTier.ENDERITE.ordinal();
-    }
-
     private static int panelWidth(CrucibleTier tier, boolean barrel) {
-        // Barrel below (enderite): the inventory box moves beside the two stacked boxes, or the panel (256 px) would not
-        // fit the 240 px of a 854x480 window at GUI scale 2.
-        int cw = crucibleBoxWidth(tier, barrel);
-        if (barrelBelowHeight(tier, barrel) > 0) return cw + BOX_GAP + cw;
-        return cw + (barrel && !barrelBelow(tier) ? BOX_GAP + barrelBoxWidth(tier) : 0);
-    }
-
-    /** Height of the barrel box under the crucible box (enderite on), 0 when it sits beside it or is missing. */
-    private static int barrelBelowHeight(CrucibleTier tier, boolean barrel) {
-        return barrel && barrelBelow(tier) ? STACKED_BARREL_GRID_TOP + tier.rows() * 18 + STACKED_BARREL_BOTTOM : 0;
+        // N37 (owner, mockup a of N34): the barrel box always sits beside the crucible box, the inventory box centred
+        // under both - also from enderite on (before: N14 stacked them and put the inventory beside).
+        return crucibleBoxWidth(tier, barrel) + (barrel ? BOX_GAP + barrelBoxWidth(tier) : 0);
     }
 
     private static int sectionHeight(CrucibleTier tier) {
         return GRID_TOP + tier.rows() * 18 + FIRE_ROOM;
     }
 
-    private static int panelHeight(CrucibleTier tier) {
-        return sectionHeight(tier) + BOX_GAP + INVENTORY_BOX;
-    }
-
     private static int panelHeight(CrucibleTier tier, boolean barrel) {
-        int below = barrelBelowHeight(tier, barrel);
-        return below > 0 ? sectionHeight(tier) + BOX_GAP + below : panelHeight(tier);
+        return sectionHeight(tier) + BOX_GAP + INVENTORY_BOX;
     }
 
     /** Width of the reserved box: the wider of both layouts. */
@@ -133,16 +114,6 @@ public class CrucibleMenu extends AbstractContainerMenu {
         int cw = crucibleBoxWidth(tier, barrel);
         int gridLeft = x + (cw - gridsWidth(tier)) / 2;
         int section = sectionHeight(tier);
-        int below = barrelBelowHeight(tier, barrel);
-        if (below > 0) {
-            // N14: barrel box as wide as the crucible box right under it, its grid under the crucible's grid.
-            int barrelTop = y + section + BOX_GAP;
-            int invLeft = x + cw + BOX_GAP;
-            return new Layout(x, y, w, h, gridLeft, gridLeft, section,
-                    invLeft + (cw - 162) / 2 + 1, y + INVENTORY_TOP, cw, x,
-                    barrelTop, cw, below, barrelTop + STACKED_BARREL_GRID_TOP,
-                    invLeft, cw, INVENTORY_BOX);
-        }
         int barrelBox = x + cw + BOX_GAP;
         return new Layout(x, y, w, h, gridLeft, barrelBox + MARGIN, section,
                 x + (w - 162) / 2 + 1, y + section + BOX_GAP + INVENTORY_TOP, cw, barrelBox,

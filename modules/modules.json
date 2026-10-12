@@ -838,11 +838,10 @@
         "neoforge",
         "forge"
       ],
-      "requires": [
-        "simplebuilding"
-      ],
+      "requires": [],
       "optional": [
-        "simpledimensions"
+        "simpledimensions",
+        "simplebuilding"
       ],
       "checks": [
         "modules/simpletweaks/tools/check_data.py"
@@ -884,9 +883,7 @@
           }
         },
         "standalone": {
-          "requires": [
-            "simplebuilding"
-          ],
+          "requires": [],
           "devMods": [
             "cloth_config"
           ],
@@ -900,7 +897,7 @@
               "report": "modules/simpletweaks/neoforge/build/standalone-junit.xml"
             }
           },
-          "reason": "Declared SimpleBuilding add-on (alias/claim layer): standalone = Simple Tweaks + SimpleBuilding, without Simple Dimensions."
+          "reason": "Principle 8: standalone = Simple Tweaks alone (claims, legacy deed, guide); SimpleBuilding and Simple Dimensions are optional partners, their checks skip with a note."
         },
         "client": {
           "entrypoints": [

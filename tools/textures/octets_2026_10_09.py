@@ -317,7 +317,7 @@ def outputs():
     a('models/block/octet/_corner_sided.json', js(sided_corner()))
     a('models/item/octet/_sided.json', js({
         'parent': 'minecraft:block/block', 'textures': {'particle': '#side'},
-        'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [1.0, 1.0, 1.0]}},
+        'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [0.9, 0.9, 0.9]}},
         'elements': [{'from': [4, 4, 4], 'to': [12, 12, 12], 'faces': {
             'north': {'texture': '#side'}, 'south': {'texture': '#side'}, 'east': {'texture': '#side'},
             'west': {'texture': '#side'}, 'up': {'texture': '#up'}, 'down': {'texture': '#down'}}}]}))

@@ -13,7 +13,7 @@ Branch `claude-modprinciples` (Basis `2a01fea6`).
 2. **Harte Abhängigkeit nur als erklärtes Add-on.** Ein Modul darf ein anderes nur dann `required`
    machen, wenn es inhaltlich ein Add-on dafür ist – dann identisch in `modules.json` (`requires`),
    `fabric.mod.json` (`depends`), `neoforge.mods.toml`/`mods.toml` (`type="required"`/`mandatory=true`)
-   und im Wiki genannt. Stand 2026-10-11 harte Modulabhängigkeiten: `simpletweaks` → `simplebuilding` (Alias-/Claim-Add-on), `simplequalityoflife` → `simpleweather`, `simpleinterfaces`, `simpleloot`, `simplecreatures`, `simplefarming`, `simpletools`, `simplemovement` (Super-Mod, Standalone-Target `requires` = diese sieben); `simpleinterfaces` und `simplemaps` → `simplelib` (Regel 6a: gebündelt, Mindestversion `>=0.2.0`).
+   und im Wiki genannt. Stand 2026-10-11 harte Modulabhängigkeiten: `simplequalityoflife` → `simpleweather`, `simpleinterfaces`, `simpleloot`, `simplecreatures`, `simplefarming`, `simpletools`, `simplemovement` (Super-Mod, Standalone-Target `requires` = diese sieben); `simpleinterfaces` und `simplemaps` → `simplelib` (Regel 6a: gebündelt, Mindestversion `>=0.2.0`).
 3. **Keine Klassenimporte über Modulgrenzen.** Kein `import` aus fremden Implementierungspaketen
    (`com.simplebuilding.*` außer `framework.api`, `com.simplefun.*` …). Gemeinsames Verhalten läuft
    über `framework/` (reine Java-Verträge, keine Registry-Inhalte) oder über öffentliche Registry-IDs
@@ -69,7 +69,7 @@ Branch `claude-modprinciples` (Basis `2a01fea6`).
 | simplevisuals | Cloth Config | simplesounds (`CosmeticIntensity`, framework) |
 | simpledimensions | Cloth Config | simpletweaks (Claims via `framework Protection`), simplemoney (Preise) |
 | simplefun | Cloth Config | simplemoney (Köpfe/Schneebälle-Trades, `links:simplefun`) |
-| simpletweaks | SimpleBuilding | simplemoney (Preise) |
+| simpletweaks | – (seit Stufe 2 der Modulaufteilung allein spielbar; SimpleBuilding nur optional: Legacy-Aliase `simpletweaks:` → `simplebuilding:`, Tests seiner Werkzeuge/Maschinen) | simplemoney (Preise), simplebuilding (gebündelt, optional) |
 | simplequalityoflife | Cloth Config, die sieben Sub-Mods (Super-Mod, gebündelt) | simplemoney (Preise) |
 | simpleweather, simpleloot, simplecreatures, simplefarming, simpletools, simplemovement | Cloth Config; framework gebündelt (SubMods-Schalter) | simplequalityoflife (Schalter), simplemoney (Preise); Farming/Tools: SimpleBuilding nur in Querprüfungen |
 | simpleinterfaces, simplemaps | Cloth Config (interfaces), simplelib >=0.2.0 (gebündelt) | – |

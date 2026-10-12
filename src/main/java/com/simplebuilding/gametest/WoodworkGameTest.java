@@ -25,6 +25,11 @@ public final class WoodworkGameTest {
     }
 
     @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
+    public void woodenCauldronTakesCrucibleBuckets(GameTestHelper helper) {
+        WoodworkTests.woodenCauldronTakesCrucibleBuckets(helper);
+    }
+
+    @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
     public void cratesStoreFoodForHoppersAndComparators(GameTestHelper helper) {
         WoodworkTests.cratesStoreFoodForHoppersAndComparators(helper);
     }

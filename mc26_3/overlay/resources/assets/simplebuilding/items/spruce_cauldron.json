@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:block/spruce_cauldron"
+    "model": "simplebuilding:item/spruce_cauldron"
   }
 }

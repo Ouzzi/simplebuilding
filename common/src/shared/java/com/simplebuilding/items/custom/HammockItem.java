@@ -205,7 +205,6 @@ public class HammockItem extends BlockItem {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
             java.util.function.Consumer<Component> lines, TooltipFlag flag) {
         lines.accept(Component.translatable("tooltip.simplebuilding.hammock").withStyle(ChatFormatting.GRAY));
-        lines.accept(Component.translatable("tooltip.simplebuilding.hammock.2").withStyle(ChatFormatting.GRAY));
         lines.accept(Component.translatable("tooltip.simplebuilding.hammock.3").withStyle(ChatFormatting.GRAY));
     }
 }

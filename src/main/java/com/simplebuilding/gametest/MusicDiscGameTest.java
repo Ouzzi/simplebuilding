@@ -25,6 +25,10 @@ public final class MusicDiscGameTest {
         MusicDiscTests.speakerRangeAndConfigCaps(helper);
     }
     @GameTest
+    public void amplifiersHaveTooltipAndFullCubeHitbox(GameTestHelper helper) {
+        MusicDiscTests.amplifiersHaveTooltipAndFullCubeHitbox(helper);
+    }
+    @GameTest
     public void speakerRecipesUseAnyPlanks(GameTestHelper helper) {
         MusicDiscTests.speakerRecipesUseAnyPlanks(helper);
     }

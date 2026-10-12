@@ -49,8 +49,7 @@ public final class WoodworkClientTest {
             List<String> found = new ArrayList<>();
             for (WoodBlocks.Family family : WoodBlocks.families()) {
                 for (SherdMotif motif : new SherdMotif[]{SherdMotif.ANGLER, SherdMotif.SNORT}) {
-                    BlockState state = family.carved().defaultBlockState().setValue(CarvedLogBlock.FACING, Direction.NORTH)
-                            .setValue(CarvedLogBlock.MOTIF, motif);
+                    BlockState state = family.carved().only(Direction.NORTH, motif);
                     Set<String> north = spritesOn(models.get(state), Direction.NORTH);
                     String expected = "minecraft:entity/decorated_pot/" + motif.getSerializedName() + "_pottery_pattern_" + family.wood().id();
                     if (!north.contains(expected)) {
@@ -171,10 +170,91 @@ public final class WoodworkClientTest {
         script.command("fill 4 0 " + CRATE_Z + " 16 2 " + CRATE_Z + " minecraft:air", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
         script.awaitPackets();
+        n34(script);
+    }
+
+    /**
+     * N34: checker stairs/slabs next to full checker blocks (the board must continue across the shapes), carved wood
+     * with all four sides carved on their own, and the inventory icons (wooden cauldron 3D, octet 10 % smaller).
+     */
+    private static void n34(Script script) {
+        onServer(script, "place the n34 scene", server -> {
+            ServerLevel level = server.overworld();
+            var shapes = com.simplebuilding.blocks.ModBlocks.CHECKER_SHAPES;
+            if (shapes.isEmpty()) {
+                return;
+            }
+            var lapis = shapes.get(1);
+            net.minecraft.core.Direction[] facings = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
+            for (int row = 0; row < 3; row++) {
+                int z = 11 + row * 2;
+                for (int x = 5; x <= 14; x++) {
+                    level.setBlock(new BlockPos(x, 0, z), lapis.checker().defaultBlockState(), 3);
+                    level.setBlock(new BlockPos(x, 1, z), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3);
+                }
+            }
+            for (int i = 0; i < 4; i++) {
+                BlockState stairs = lapis.stairs().defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.StairBlock.FACING, facings[i]);
+                level.setBlock(new BlockPos(6 + i, 1, 11), stairs, 3);
+                level.setBlock(new BlockPos(6 + i, 1, 13), stairs.setValue(net.minecraft.world.level.block.StairBlock.HALF,
+                        net.minecraft.world.level.block.state.properties.Half.TOP), 3);
+                level.setBlock(new BlockPos(6 + i, 1, 15), stairs.setValue(net.minecraft.world.level.block.StairBlock.SHAPE,
+                        net.minecraft.world.level.block.state.properties.StairsShape.OUTER_RIGHT), 3);
+            }
+            level.setBlock(new BlockPos(11, 1, 11), lapis.slab().defaultBlockState(), 3);
+            level.setBlock(new BlockPos(12, 1, 11), lapis.slab().defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.SlabBlock.TYPE, net.minecraft.world.level.block.state.properties.SlabType.TOP), 3);
+            level.setBlock(new BlockPos(13, 1, 11), lapis.checker().defaultBlockState(), 3);
+            // carved wood: sherd north + west, own motif east + south
+            WoodBlocks.Family oak = WoodBlocks.family(WoodKind.OAK);
+            level.setBlock(new BlockPos(5, 1, 15), oak.carved().only(Direction.NORTH, SherdMotif.ANGLER)
+                    .setValue(CarvedLogBlock.EAST, CarvedLogBlock.Carving.WOOD).setValue(CarvedLogBlock.SOUTH, CarvedLogBlock.Carving.WOOD)
+                    .setValue(CarvedLogBlock.WEST, CarvedLogBlock.Carving.SHERD), 3);
+        });
+        script.awaitPackets();
+        String[][] views = {
+                {"n34-checker-gap12-west", "3.5 1.7 12.0 -90.0 20.0"},
+                {"n34-checker-gap14-west", "3.5 1.7 14.0 -90.0 20.0"},
+                {"n34-checker-gap12-east", "16.5 1.7 12.0 90.0 20.0"},
+                                {"n34-checker-low", "3.5 1.7 13.0 -90.0 25.0"},
+                {"n34-checker-top", "9.5 2.6 12.0 0.0 60.0"},
+                {"n34-carved-east", "8.0 2.0 15.5 90.0 20.0"},
+                {"n34-carved-south", "5.5 2.2 18.5 180.0 20.0"},
+        };
+        for (String[] view : views) {
+            script.command("tp @a " + view[1]);
+            script.awaitPackets();
+            script.idle("let " + view[0] + " settle", 15);
+            script.shot(view[0]);
+        }
+        script.command("fill 4 0 10 15 2 16 minecraft:air", true);
+        script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
+        String[] items = {"oak_cauldron", "dark_oak_cauldron", "acacia_octet", "andesite_octet", "lapis_quartz_checker_stairs",
+                "lapis_quartz_checker_slab", "carved_oak_log", "stone_bricks"};
+        for (int i = 0; i < items.length; i++) {
+            script.command("item replace entity @a hotbar." + i + " with " + (items[i].equals("stone_bricks") ? "minecraft:" : "simplebuilding:") + items[i]);
+        }
+        script.command("gamemode survival @a");
+        script.act("open the inventory", client -> client.gui.setScreen(new net.minecraft.client.gui.screens.inventory.InventoryScreen(client.player)));
+        script.await("wait for the inventory", 100,
+                client -> client.gui.screen() instanceof net.minecraft.client.gui.screens.inventory.InventoryScreen,
+                client -> "the inventory never opened; the current screen is " + client.gui.screen());
+        script.idle("let the item icons settle", 10);
+        script.shot("n34-inventory");
+        script.act("close the inventory", client -> client.gui.setScreen(null));
+        script.await("wait until the inventory is closed", 100, client -> client.gui.screen() == null,
+                client -> "a screen is still open: " + client.gui.screen());
+        script.command("gamemode creative @a");
+        for (int i = 0; i < items.length; i++) {
+            script.command("item replace entity @a hotbar." + i + " with minecraft:air");
+        }
     }
 
     private static BlockState carved(WoodBlocks.Family family, SherdMotif motif) {
-        return family.carved().defaultBlockState().setValue(CarvedLogBlock.FACING, Direction.NORTH).setValue(CarvedLogBlock.MOTIF, motif);
+        // north: the sherd motif, east: the wood's own motif, west: a second sherd side (same motif), south: plain
+        return family.carved().only(Direction.NORTH, motif).setValue(CarvedLogBlock.EAST, CarvedLogBlock.Carving.WOOD)
+                .setValue(CarvedLogBlock.WEST, CarvedLogBlock.Carving.SHERD);
     }
 
     private static void set(ServerLevel level, int x, int y, BlockState state) {

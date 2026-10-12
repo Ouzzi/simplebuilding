@@ -1,9 +1,6 @@
 {
-  "parent": "simplebuilding:block/template_carved_log",
+  "parent": "simplebuilding:block/template_carved_sherd",
   "textures": {
-    "side": "minecraft:block/stripped_oak_log",
-    "end": "minecraft:block/stripped_oak_log_top",
-    "carving": "simplebuilding:block/carved/oak_carving",
     "frame": "simplebuilding:block/carved/oak_frame",
     "motif": "minecraft:entity/decorated_pot/archer_pottery_pattern_oak"
   }

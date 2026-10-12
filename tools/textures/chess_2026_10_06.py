@@ -216,7 +216,7 @@ def outputs():
         'parent': 'minecraft:block/block',
         'textures': {'particle': '#all'},
         'elements': [{'from': [4, 4, 4], 'to': [12, 12, 12], 'faces': faces('#all')}],
-        'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [1.0, 1.0, 1.0]}}}))
+        'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [0.9, 0.9, 0.9]}}}))
     for colour, _ in COLOURS:
         a(f'models/item/chess/{colour}_octet.json', js({
             'parent': 'simplebuilding:item/chess/octet', 'textures': {'all': f'simplebuilding:block/chess/{colour}'}}))

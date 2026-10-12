@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
  * only place in SimpleBuilding that imports SimpleLib - and only its API (principle 6a). The 26.2
  * twin in common/src/mc26_2/java is empty ({@code McVersion.CRUCIBLE} is false there).
  * <ul>
- *   <li>Enderite crucible (27 slots, 8x, double stacks) and Enderite barrel, registered under
+ *   <li>Enderite crucible (30 slots - 5x6 since N37 -, 8x, double stacks) and Enderite barrel, registered under
  *       {@code simplebuilding:} through the SimpleLib factory (SimpleLib's block entity, menu, renderer).</li>
  *   <li>Sledgehammer ways (principle 5a): building the iron crucible (2 durability per strike), attaching a
  *       barrel (6 strikes); upgrades run through the sledgehammer upgrade table

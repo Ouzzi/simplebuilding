@@ -1,6 +1,7 @@
 package com.simplebuilding.woodwork;
 
 import com.mojang.serialization.MapCodec;
+import com.simplebuilding.fluid.CauldronBuckets;
 import com.simplebuilding.version.BlockCodecs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -174,7 +175,9 @@ public class WoodenCauldronBlock extends AbstractCauldronBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
             InteractionHand hand, BlockHitResult hit) {
-        InteractionResult result = interactions(state.getValue(CONTENT)).get(stack).interact(toVanilla(state), level, pos, player, hand, stack);
+        // Copper/Enderite/ceramic buckets are not in the Vanilla tables (the Vanilla cauldron takes them through a mixin).
+        InteractionResult result = CauldronBuckets.interact(stack, toVanilla(state), level, pos, player, hand);
+        if (result == null) result = interactions(state.getValue(CONTENT)).get(stack).interact(toVanilla(state), level, pos, player, hand, stack);
         if (!level.isClientSide()) adopt(level, pos);
         return result;
     }

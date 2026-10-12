@@ -98,6 +98,17 @@ public final class AstralEnchanterClientTest {
         });
         script.idle("let the sliders reach the server", 6);
         script.shot("astral-enchanter-combined");
+        // N37: the enchantment tooltip stands right beside the whole window, whatever the cursor's x.
+        script.harness("hover the first slider", h -> h.setCursorPos(points[0][0], points[0][1]));
+        script.idle("let the hover reach the screen", 4);
+        script.act("the tooltip anchor lies right of the window", c -> {
+            AstralEnchantingScreen screen = (AstralEnchantingScreen) c.gui.screen();
+            int[] at = screen.rowTooltipAnchor(0);
+            if (at[0] <= screen.windowRight()) {
+                throw new AssertionError("tooltip at x " + at[0] + " overlaps the window ending at " + screen.windowRight());
+            }
+        });
+        script.shot("astral-enchanter-tooltip");
 
         script.act("close the screen", c -> c.player.closeContainer());
         script.await("the screen is gone", TIMEOUT, c -> c.gui.screen() == null, c -> "still open: " + c.gui.screen());

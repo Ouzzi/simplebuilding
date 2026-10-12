@@ -68,6 +68,13 @@ public class ModWorldGen {
     public static final ResourceKey<PlacedFeature> SCRAP_NETHER_PLACED_KEY = registerPlacedKey("nether_dimensional_scrap_placed");
     public static final ResourceKey<PlacedFeature> SCRAP_END_PLACED_KEY = registerPlacedKey("end_dimensional_scrap_placed");
 
+    /** Rissiges Eis (Nachtrag 35): Flecken auf Eisflaechen und vereinzelte 1x1-Stellen, nach freeze_top_layer. */
+    public static final ResourceKey<Feature> CRACKED_ICE_PATCH_KEY = registerConfiguredKey("cracked_ice_patch");
+    public static final ResourceKey<Feature> CRACKED_ICE_SINGLE_KEY = registerConfiguredKey("cracked_ice_single");
+    public static final ResourceKey<PlacedFeature> CRACKED_ICE_PATCH_PLACED_KEY = registerPlacedKey("cracked_ice_patch_placed");
+    public static final ResourceKey<PlacedFeature> CRACKED_ICE_SINGLE_PLACED_KEY = registerPlacedKey("cracked_ice_single_placed");
+    public static final int CRACKED_ICE_PATCH_SIZE = 14;
+
     public static void bootstrapConfiguredFeatures(BootstrapContext<Feature> context) {
         RuleTest endStoneReplaceables = new BlockMatchTest(Blocks.END_STONE);
         context.register(ASTRALIT_ORE_KEY, new OreFeature(endStoneReplaceables, ModBlocks.ASTRALIT_ORE.defaultBlockState(), 4));
@@ -81,6 +88,12 @@ public class ModWorldGen {
                     ModBlocks.NETHER_DIMENSIONAL_SCRAP.defaultBlockState())), SCRAP_SIZE, 1.0F));
             context.register(SCRAP_END_KEY, new OreFeature(List.of(net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
                     new BlockMatchTest(Blocks.END_STONE), ModBlocks.END_DIMENSIONAL_SCRAP.defaultBlockState())), SCRAP_SIZE, 1.0F));
+        }
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            context.register(CRACKED_ICE_PATCH_KEY, new OreFeature(new BlockMatchTest(Blocks.ICE),
+                    ModBlocks.CRACKED_ICE.defaultBlockState(), CRACKED_ICE_PATCH_SIZE));
+            context.register(CRACKED_ICE_SINGLE_KEY, new net.minecraft.world.level.levelgen.feature.SimpleBlockFeature(
+                    new net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider(ModBlocks.CRACKED_ICE.defaultBlockState())));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             context.register(SAGE_ORE_KEY, new OreFeature(List.of(
@@ -117,6 +130,15 @@ public class ModWorldGen {
                         OffsetPlacement.vertical(ConstantInt.of(1)),
                         BiomeFilter.biome()
                 ));
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            register(context, CRACKED_ICE_PATCH_PLACED_KEY, features.getOrThrow(CRACKED_ICE_PATCH_KEY), List.of(
+                    net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+                    PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
+            register(context, CRACKED_ICE_SINGLE_PLACED_KEY, features.getOrThrow(CRACKED_ICE_SINGLE_KEY), List.of(
+                    CountPlacement.of(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+                    OffsetPlacement.vertical(ConstantInt.of(-1)),
+                    BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.ICE)), BiomeFilter.biome()));
+        }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             registerSageOre(context, features);
         }

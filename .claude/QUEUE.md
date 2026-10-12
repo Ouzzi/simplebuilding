@@ -702,63 +702,138 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
   Erledigt auf claude-q-astral3: Formel im Konzept (Abschnitt „Stufenregel 10.10.“), `AstralEnchanting.tier/nextStep`, Tooltip über der Stärke zeigt Regal-Punkte, Boden und was für die nächste Stufe fehlt, Lang EN/DE, Handbuch, Wiki, Tests für alle Kombinationen.
 
 ## Nachtrag 33 (2026-10-11, Besitzer)
-- [ ] **Schwefelfeuer (sulfur fire):** Stufe zwischen normalem Feuer und Seelenfeuer (Schaden/Licht/Farbe dazwischen), gibt zusätzlich Übelkeit (Nausea).
-- [ ] **Kupferfeuer (copper fire):** wie Schwefelfeuer, aber ohne Effekt.
-- [ ] **Schwarzpulver aus Schwefel + Kohle** craftbar; Schwefel soll dabei gleich schwer zu bekommen sein wie Creeper-Schwarzpulver (Balance prüfen, ggf. Ausbeute/Zutat anpassen).
+- [x] **Schwefelfeuer (sulfur fire):** Stufe zwischen normalem Feuer und Seelenfeuer (Schaden/Licht/Farbe dazwischen), gibt zusätzlich Übelkeit (Nausea).
+- [x] **Kupferfeuer (copper fire):** wie Schwefelfeuer, aber ohne Effekt.
+- [x] **Schwarzpulver aus Schwefel + Kohle** craftbar; Schwefel soll dabei gleich schwer zu bekommen sein wie Creeper-Schwarzpulver (Balance prüfen, ggf. Ausbeute/Zutat anpassen).
 - [x] (claude-howler) **Neuer Deep-Dark-Mob (Konzept zuerst):** beschwörbar wie der Warden: Konstruktion aus 4 Sculk-Katalysatoren + geschnitzter Kürbis + 2 Sculk Jaws auf den Schultern + Sculk-Sensor vorne (in Reichweite der Katalysatoren und des Kürbisses); dann mit Ziegenhorn Geräusche machen → Konstruktion verwandelt sich in den Mob. Feindlich. Konzept ausdenken und vorlegen.
   Erledigt auf claude-howler: Konzept docs/ai/KONZEPT-SCULK-MOB-2026-10-11.md (Fassung 3, Besitzer 11.10.), umgesetzt in simplemobs als Hollow Howler / Tiefenheuler (Ritual mit Sensor + Ziegenhorn, 240 HP, Phasen, Echokern, Trank der Stille, Config, Wiki, Gametests). Offen: Besitzer-/Client-Abnahme Modell+Textur.,
 - [x] **Schwefelfeuer (sulfur fire):** Stufe zwischen normalem Feuer und Seelenfeuer (Schaden/Licht/Farbe dazwischen), gibt zusätzlich Übelkeit (Nausea). (claude-fires: SB-Kern, ThemedFireBlock; Basis Schwefelbloecke; Torch/Laterne/Lagerfeuer Folgepunkt)
 - [x] **Kupferfeuer (copper fire):** wie Schwefelfeuer, aber ohne Effekt. (claude-fires: Vanilla 26.3 hat kein Kupferfeuer; Basis #minecraft:copper)
 - [x] **Schwarzpulver aus Schwefel + Kohle** craftbar; Schwefel soll dabei gleich schwer zu bekommen sein wie Creeper-Schwarzpulver (Balance prüfen, ggf. Ausbeute/Zutat anpassen). (claude-fires: 3 Schwefel + 1 Kohle = 1 Schwarzpulver)
-- [ ] **Neuer Deep-Dark-Mob (Konzept zuerst):** beschwörbar wie der Warden: Konstruktion aus 4 Sculk-Katalysatoren + geschnitzter Kürbis + 2 Sculk Jaws auf den Schultern + Sculk-Sensor vorne (in Reichweite der Katalysatoren und des Kürbisses); dann mit Ziegenhorn Geräusche machen → Konstruktion verwandelt sich in den Mob. Feindlich. Konzept ausdenken und vorlegen.
+- [x] **Neuer Deep-Dark-Mob (Konzept zuerst):** beschwörbar wie der Warden: Konstruktion aus 4 Sculk-Katalysatoren + geschnitzter Kürbis + 2 Sculk Jaws auf den Schultern + Sculk-Sensor vorne (in Reichweite der Katalysatoren und des Kürbisses); dann mit Ziegenhorn Geräusche machen → Konstruktion verwandelt sich in den Mob. Feindlich. Konzept ausdenken und vorlegen.
 - [x] **Geschnitztes Holz verbessern:** (claude-carved, Besitzer-Feedback offen) andere Mods mit carved/chiseled wood ansehen, jede Holzart eigenes Schnitzmotiv; Vorschau zeigen, Besitzer verbessert dann.
 
 ## Nachtrag 34 (2026-10-11, Besitzer, Screenshots im Vorschauordner n34/)
-- [ ] Verstärkter Kessel: Item-Icon immer noch falsch.
-- [ ] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen.
+- [x] Verstärkter Kessel: Item-Icon immer noch falsch.
+- [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen.
 - [ ] (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.,
 - [x] Verstärkter Kessel: Item-Icon immer noch falsch. (claude-n34-tex: Item zeigt jetzt den 3D-Block wie Tiegel/Fässer/Holzkessel, 2D-Sprite entfernt; Client-Screenshot geprüft; Besitzer-Abnahme offen)
 - [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Besitzer wählte F1 aus E–I/F1–F3/G1–G3 – kurzer Deckel, matte Farben, alle 4 Stufen eingebaut statt D; Client-Abnahme offen)
-- [ ] Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.
+- [x] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell.
+- [x] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png).
+- [x] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern.,
+- [ ] Verstärkter Kessel: Item-Icon immer noch falsch.
+- [ ] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen.
+- [x] (claude-n37-ui: Variante c umgesetzt, Mockup-Klasse entfernt) (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.,
+- [x] Verstärkter Kessel: Item-Icon immer noch falsch. (claude-n34-tex: Item zeigt jetzt den 3D-Block wie Tiegel/Fässer/Holzkessel, 2D-Sprite entfernt; Client-Screenshot geprüft; Besitzer-Abnahme offen)
+- [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Besitzer wählte F1 aus E–I/F1–F3/G1–G3 – kurzer Deckel, matte Farben, alle 4 Stufen eingebaut statt D; Client-Abnahme offen)
+- [x] (claude-n37-ui: Variante c gewählt und umgesetzt) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.
 - [ ] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell.
 - [ ] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png).
 - [ ] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern.
 - [x] Sand-/Kies-Stufen (gravity_slabs.png): untere Stufe – eine Stufe einen Block darüber fällt nicht auf sie; obere Stufe fällt gar nicht (schwebt); platzierte obere Gravity-Stufe teleportiert beim ersten Fall-Tick von oben nach unten, dann fällt sie. (claude-n34-phys: Halbfall auf gleichartige untere Stufe, obere fällt in eigener Zelle, Fall-Entity startet auf sichtbarer Höhe; 2 neue Tests)
-- [ ] Holzkessel nimmt nur Vanilla-Lava: Enderit-Lava-Eimer (und alle Enderit-Eimer) auf Kompatibilität zu Vanilla-Interaktionen prüfen.
-- [ ] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv.
-- [ ] Sculk Jaw: kein Flackern (Öffnen/Schließen) vor jedem Schaden, statisch geschlossen; Spieler stärker verlangsamen + Darkness; nur erster Treffer ~1 Herz Schaden, danach keiner; geschlossene Form schöner.
+- [x] Holzkessel nimmt nur Vanilla-Lava: Enderit-Lava-Eimer (und alle Enderit-Eimer) auf Kompatibilität zu Vanilla-Interaktionen prüfen.
+- [x] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv.,
+- [x] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell. (claude-n34-blocks: Item-Modell mit Block-Parent + GUI-Transform fuer alle Hoelzer; Client-Sicht offen)
+- [x] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png). (claude-n34-blocks: Zellmodelle je Form (weltbuendig, ohne uvlock), Datagen; Client-Sicht offen)
+- [x] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern. (claude-n34-blocks: GUI-Skala 0.9 (Octet- und Schach-Achtel-Item))
+- [x] Sand-/Kies-Stufen (gravity_slabs.png): untere Stufe – eine Stufe einen Block darüber fällt nicht auf sie; obere Stufe fällt gar nicht (schwebt); platzierte obere Gravity-Stufe teleportiert beim ersten Fall-Tick von oben nach unten, dann fällt sie.
+- [x] Holzkessel nimmt nur Vanilla-Lava: Enderit-Lava-Eimer (und alle Enderit-Eimer) auf Kompatibilität zu Vanilla-Interaktionen prüfen. (claude-n34-blocks: CauldronBuckets (Item-Klasse statt Gleichheit) fuer Holzkessel; Gametest woodenCauldronTakesCrucibleBuckets)
+- [x] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv. (claude-n34-blocks: je Seite einzeln (none/wood/sherd + gemeinsames Motiv), Schleichen nimmt ab)
+- [x] Sculk Jaw: kein Flackern (Öffnen/Schließen) vor jedem Schaden, statisch geschlossen; Spieler stärker verlangsamen + Darkness; nur erster Treffer ~1 Herz Schaden, danach keiner; geschlossene Form schöner.
 - [x] (claude-n34-ui) Blaupause-Hilfe: die beiden Buttons (blueprint_help_buttons.png) mit Minecraft-Texturen statt eigenen rendern; Rezeptbuch-/Hilfe-Button unten bekommt einen Rahmen.
-- [ ] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt.
+- [x] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt.
 - [x] Öfen: Flammen-Textur mehr wie Vanilla (jetzt nur Wellenlinien). (claude-n34-tex: simpleinterfaces-Ofen-UIs – Flamme wie Vanilla statt Hitzewellen, brennt mit dem Brennstoff ab; Brennstoff-Slot mit Flammenzungen statt Zickzack; Block-Fronten waren schon Vanilla; Besitzer-Abnahme offen),
 - [x] Sculk Jaw: kein Flackern (Öffnen/Schließen) vor jedem Schaden, statisch geschlossen; Spieler stärker verlangsamen + Darkness; nur erster Treffer ~1 Herz Schaden, danach keiner; geschlossene Form schöner. (claude-n34-phys: bleibt zu solange jemand drin, 2 Schaden einmal, Bremse 0,12/0,02, Dunkelheit; Muschel-Modell, Vorschau n34/jaw.png; Client-Sicht offen)
-- [ ] Blaupause-Hilfe: die beiden Buttons (blueprint_help_buttons.png) mit Minecraft-Texturen statt eigenen rendern; Rezeptbuch-/Hilfe-Button unten bekommt einen Rahmen.
+- [x] Blaupause-Hilfe: die beiden Buttons (blueprint_help_buttons.png) mit Minecraft-Texturen statt eigenen rendern; Rezeptbuch-/Hilfe-Button unten bekommt einen Rahmen.
 - [x] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt. (claude-n34-phys: Ursache Schwebe-Ausgleich je 2-Tick-Takt → 0,02-Sägezahn jeden Tick; jetzt NoGravity solange gehalten + gedämpfte Feder, Freigabe per Mixin; 2 Repro-Tests)
-- [ ] Öfen: Flammen-Textur mehr wie Vanilla (jetzt nur Wellenlinien).
-- [ ] Itemfilter-Button deaktiviert = grau statt rot (rot = Fehler), überall anpassen.
-- [ ] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.,
+- [x] Öfen: Flammen-Textur mehr wie Vanilla (jetzt nur Wellenlinien).
+- [x] Itemfilter-Button deaktiviert = grau statt rot (rot = Fehler), überall anpassen.
+- [x] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.,
 - [x] (claude-own1) Einstellungen-Taste G -> K (kollidierte mit Vanilla „Quick Actions“); KNOWN_COLLISIONS leer; Texte angepasst.
 - [x] (claude-own1) guide_book_vanilla_* komplett entfernt (Lang, Rezepte, Preise, Advancements, Texturen, Wiki); alte IDs -> guide_book (LegacyItemIds).
 - Notiz: Das QoL-Stufe-4-Modul heißt „Simple Loot“ (`simpleloot`), siehe docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md.,
 - [x] (claude-n34-ui) Itemfilter-Button deaktiviert = grau statt rot (rot = Fehler), überall anpassen.
-- [ ] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.,
 - [x] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla. (claude-n34-tex: Aufbau wie Vanilla – rundes Leuchten mit Schlieren / flacher Kern, nur eigene Farbe; Besitzer-Abnahme offen)
 
 ## Nachtrag 35 (2026-10-11, Besitzer, Referenzen im Vorschauordner n35/)
 - [x] (claude-n35-render) Kisten (crates): Items in 3D sichtbar, etwas größer, 1 px Höhe, von überall in der Kiste sichtbar (Mischung aus crate_ref_apples.png und crate_ref_iso.png), nicht nur oben.
-- [ ] Smither wirft Items nicht aus wie der Vanilla-Crafter → wie Crafter.
+- [x] Smither wirft Items nicht aus wie der Vanilla-Crafter → wie Crafter.
 - [x] (claude-n35-render) Kreativ-Baustab sieht nicht gut aus → wie die anderen Stäbe, nur in Sonder-Umfärbung.
-- [ ] Astral-Verzauberer: Schrift der Verzauberungen kleiner wie Vanilla (wirkt gedrängt); Slider-Stufen farblich abstufen (Stufe 1 aktuelle Farbe, jede höhere Stufe dunklerer Shade); "x/∞" erklären/ersetzen; unter dem Buch-Button in einer Zeile Lapis (blauer Punkt) und Lohenstaub (orange-roter Punkt) mit Bedarf; Kosten-Konzept überarbeiten: max. Level 50, erst bei Max alle angezeigten Verzauberungen maximierbar, darunter weniger; Preis je Verzauberung nach Wert, plus „Steuer“ fürs Kombinieren (3 schwache < 50 Level, 3 starke = 50).,
-- [ ] Kreativ-Baustab sieht nicht gut aus → wie die anderen Stäbe, nur in Sonder-Umfärbung.
+- [x] Astral-Verzauberer: Schrift der Verzauberungen kleiner wie Vanilla (wirkt gedrängt); Slider-Stufen farblich abstufen (Stufe 1 aktuelle Farbe, jede höhere Stufe dunklerer Shade); "x/∞" erklären/ersetzen; unter dem Buch-Button in einer Zeile Lapis (blauer Punkt) und Lohenstaub (orange-roter Punkt) mit Bedarf; Kosten-Konzept überarbeiten: max. Level 50, erst bei Max alle angezeigten Verzauberungen maximierbar, darunter weniger; Preis je Verzauberung nach Wert, plus „Steuer“ fürs Kombinieren (3 schwache < 50 Level, 3 starke = 50).,
+- [x] Kreativ-Baustab sieht nicht gut aus → wie die anderen Stäbe, nur in Sonder-Umfärbung.
 - [x] (claude-astral4) Astral-Verzauberer: Schrift der Verzauberungen kleiner wie Vanilla (wirkt gedrängt); Slider-Stufen farblich abstufen (Stufe 1 aktuelle Farbe, jede höhere Stufe dunklerer Shade); "x/∞" erklären/ersetzen; unter dem Buch-Button in einer Zeile Lapis (blauer Punkt) und Lohenstaub (orange-roter Punkt) mit Bedarf; Kosten-Konzept überarbeiten: max. Level 50, erst bei Max alle angezeigten Verzauberungen maximierbar, darunter weniger; Preis je Verzauberung nach Wert, plus „Steuer“ fürs Kombinieren (3 schwache < 50 Level, 3 starke = 50).
-- [ ] End-Schiffswracks ca. 80 % vergraben + Endstein obendrauf (schwerer erkennbar).
+- [x] End-Schiffswracks ca. 80 % vergraben + Endstein obendrauf (schwerer erkennbar).
 - [x] (claude-n35-render) Resonanz-Button im Inventar: Schrift kleiner, Button schmaler.
-- [ ] Kessel aus entrindetem Holz (stripped oak usw.).
+- [x] Kessel aus entrindetem Holz (stripped oak usw.).
 - [x] (claude-n35-render) Gemeißeltes Eis: Motive symmetrischer/ausgewogener.
-- [ ] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis.
+- [x] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis.
 - [x] (claude-n35-buckets) Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
-- [x] (claude-n35-buckets) Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
+- [x] (claude-n35-buckets) Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.,
+- [x] Kisten (crates): Items in 3D sichtbar, etwas größer, 1 px Höhe, von überall in der Kiste sichtbar (Mischung aus crate_ref_apples.png und crate_ref_iso.png), nicht nur oben.
+- [x] Smither wirft Items nicht aus wie der Vanilla-Crafter → wie Crafter. (claude-n35-world)
+- [x] Kreativ-Baustab sieht nicht gut aus → wie die anderen Stäbe, nur in Sonder-Umfärbung.
+- [x] Astral-Verzauberer: Schrift der Verzauberungen kleiner wie Vanilla (wirkt gedrängt); Slider-Stufen farblich abstufen (Stufe 1 aktuelle Farbe, jede höhere Stufe dunklerer Shade); "x/∞" erklären/ersetzen; unter dem Buch-Button in einer Zeile Lapis (blauer Punkt) und Lohenstaub (orange-roter Punkt) mit Bedarf; Kosten-Konzept überarbeiten: max. Level 50, erst bei Max alle angezeigten Verzauberungen maximierbar, darunter weniger; Preis je Verzauberung nach Wert, plus „Steuer“ fürs Kombinieren (3 schwache < 50 Level, 3 starke = 50).
+- [x] End-Schiffswracks ca. 80 % vergraben + Endstein obendrauf (schwerer erkennbar). (claude-n35-world)
+- [x] Resonanz-Button im Inventar: Schrift kleiner, Button schmaler.
+- [x] Kessel aus entrindetem Holz (stripped oak usw.). (claude-n35-world)
+- [x] Gemeißeltes Eis: Motive symmetrischer/ausgewogener.
+- [x] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis. (claude-n35-world)
+- [x] Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
+- [x] Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
 - [ ] Nihilith-Signalschalter überarbeiten; Konzept Astral-/Nihil-Redstone erklären.
 
 ## Nachtrag 36 (2026-10-11, Besitzer)
 - [x] (claude-questionary: Mechanik V1 – Modul simplequestionary, Block/GUI/Datenformat/Fallback/Fakten/Abdeckung/SB-Schalter/Wiki; offen: Texte für alle Items, Besitzer-Abnahme) Questionary Table (Tisch aus Buch + Lapis + Holz; Item links, Buch rechts mit 3 Seiten Lore/Nutzen/Geheim, für jedes Item, Fremd-Mod-Fallback mystisch): Konzept fertig in docs/ai/KONZEPT-QUESTIONARY-TABLE-2026-10-11.md (claude-concept-quest), Umsetzung nach Besitzer-OK (4 offene Fragen im Konzept).
-- [ ] Questionary-Texte befüllen (Generator-Skelett + Wellen je Modul/Familie, Vanilla zuletzt; `tools/questionary/check_data.py --strict` wird dann rot geschaltet).
+- [ ] Questionary-Texte befüllen (Welle 1 SimpleBuilding erledigt: claude-quest-sb, 821/821 EN+DE, `tools/questionary/skeleton.py`; offen: übrige Module, Vanilla; Generator-Skelett + Wellen je Modul/Familie, Vanilla zuletzt; `tools/questionary/check_data.py --strict` wird dann rot geschaltet).
+
+## Nachtrag 37 (2026-10-11, Besitzer, Screenshots im Vorschauordner n37/)
+- [x] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran). (claude-jaw3 E–I gezeigt; Besitzer: Form bleibt)
+- [x] Sculk Jaw (N37): als Sculk tarnen (Vanilla-Sculk-Textur per Referenz, dunkle Zähne), Zuschnappen/Öffnen als Bildfolge (motion 2→0), helle Kantenlinien beseitigt (Auto-UV statt Texturfelder, verdeckte Flächen weg, cullface). (claude-jaw4; Bilder n37/jaw-*.png)
+- [ ] Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.,
+- [ ] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran).
+- [x] (claude-n37-ui: Obsidian/Gold/Lapis-Block mit Buch, Glyphen-Partikel; GUI Lapis-Pult + Guide-Buch-Look) Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.
+- [ ] Platzierte Bündel: Items 3D (1 px tief) rendern.
+- [x] (claude-n37-ui: simplelib UiSlotIcons/UiPalette.slotIcon, Vanilla-Kontrast je Thema, SB-Fenster + simpleinterfaces) UI-Farbvarianten (z. B. braun): Hintergrund-Symbole der Slots nicht korrekt sichtbar (brown_ui_icons.png).
+- [ ] Placeables gezielt abbauen: das angeschaute Teil wird abgebaut.
+- [ ] Platzierter Ziegenhorn: Textur korrekt, aber nicht schön → verbessern.
+- [ ] Kisten von der Seite: Inhalt nicht erkennbar → seitlich Item-Texturen zeigen (crate_side.png).
+- [x] (claude-n37-ui: Tooltip rechts neben dem Fenster; Preis skaliert streng monoton, 50 nur bei voller Wahl; Besitzer-Nachtrag: Preis = benötigte Stufe, kostet 1-5 Level) Astral-Verzauberer: Tooltip der Verzauberungen immer rechts neben dem gesamten UI; Preis bleibt bei 50, obwohl eine Stufe weniger gewählt ist (astral_max.png / astral_one_less.png) → Preis muss bei weniger Stufen sinken.
+- [ ] Enderit-Eimer: Tooltip nur Titel.
+- [ ] Eimer: keine Haltbarkeitslinie rendern.
+- [x] (claude-n37-ui) Verstärkter Tiegel: Slots 2x6 statt 3x4.
+- [x] (claude-n37-ui: Besitzer-Wahl Variante c, 5x6 = 30 Plätze, Fass daneben, Inventar zentriert darunter; alte 27er-Inhalte laden per Index) Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
+- [ ] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben.
+- [ ] Sculk Jaw nur auf vollen Blöcken platzierbar.
+
+## Nachtrag 38 (2026-10-11, Besitzer)
+- [x ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen. (claude-jaw5: Bremse 0,06/0,015; Blindheit d(t)=min(60,max(3,3·(5/3)^(t−2))) s + Dunkelheit; gedämpfte Knochenspitzen; Bilder n38/jaw-*.png. Volle-Blöcke-Regel liegt schon auf claude-n37-world 032663492)
+- [ ] Tooltips überall überarbeiten: nur an wichtigen Stellen Beschreibung, sonst nur Name; Beschreibungen sehr kurz.
+- [x] (claude-n38) Schachfiguren: flache Variante heißt "Flat …" (Flat Rook, Flat Knight, …).
+- [x] (claude-n38) Wayfinder-Karten-GUI: so groß wie möglich; seitliche Lesezeichen-Buttons schöner und weniger gedrängt (rechts), Buttons allgemein hübscher.
+- [x] (claude-n38) Nether-/End-Wayfinder-Karten zeigen in der Hand die Oberwelt → stattdessen Störsignal.
+- [x] (claude-n38) Deceiver: doppeltes Leben; nach Verwandlung in größeren Mob dessen Hitbox.
+- [ ] Guide-Bücher erweitern, alles aktuell.
+
+## Nachtrag 38b (2026-10-11, Besitzer, Deceiver Stufe 2 – in Arbeit auf claude-deceiver2)
+- [ ] Tarn-Umhang (Brustplatz): Erkennung erst im 3-Block-Radius; Rechtsklick auf Mob/Spieler → Verwandlung (Spieler mit Skin + Rüstung); Schlag/Abbauen → Rückverwandlung; Enttarnung: angegriffener Mob + 5x5, danach erhöhter, aber verringerter Radius.
+- [ ] Unsichtbarkeitstrank ohne Partikel; Trugbild-Spiegel.
+- [ ] Spezialangriff: Mob-Anzahl verdoppeln, Chance 5 % → 80 % bei wenig Leben.
+- [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
+- [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
+
+## Nachtrag 40 (2026-10-11, Besitzer)
+- [ ] Neues Sub-Modul Simple End Dragon Fight (Konzept + Skalierungs-Vorschläge zuerst): ab halbem Leben alle 30 s Dragonmites (eigene Endermites, nur mit Drache) nahe dem Brunnen; +1 Leben je Spieler, automatische Anpassung, wenn neue Spieler die End-Insel (mit Puffer) betreten; Eintritts-Animation + Partikel je Spieler (Warteschlange, jeder Trigger sichtbar); Drache allgemein schneller.
+- [ ] Geschnitztes Holz rundherum (alle Seiten), nicht nur eine Seite.
+- [ ] Blaupause: Ziehen (Drag) rotiert das Modell beim geraden Ziehen weiterhin.
+- [ ] Screenshot buggy_end.webp (n40/): verbuggt aussehende Fläche im End prüfen.,
+## Nachtrag 39 (2026-10-11, Besitzer)
+- [x] Tiegel-Hitboxen (alle Stufen, mit angedocktem Fass, SimpleLib + SB): Henkel fehlten im Umriss und drehten nicht mit; Rohling-Stufen waren Vollwürfel; Innenraum-Interaktionsform ergänzt; Gametest `crucible_hitboxes_match_model` (claude-n39-fix)
+- [x] Verstärker einmal durchgeprüft (Funktion/Kette/Noten/Hitbox/Texturen/Tests: ohne Befund außer fehlendem Tooltip); Tooltip für Musik-/Noten-Verstärker (en/de) + Gametest `amplifiers_have_tooltip_and_full_cube_hitbox` (claude-n39-fix),
+- [ ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen.
+- [x] Tooltips überall überarbeiten: nur an wichtigen Stellen Beschreibung, sonst nur Name; Beschreibungen sehr kurz. (claude-n38-text; Regel AGENTS.md Punkt 14)
+- [ ] Schachfiguren: flache Variante heißt "Flat …" (Flat Rook, Flat Knight, …).
+- [ ] Wayfinder-Karten-GUI: so groß wie möglich; seitliche Lesezeichen-Buttons schöner und weniger gedrängt (rechts), Buttons allgemein hübscher.
+- [ ] Nether-/End-Wayfinder-Karten zeigen in der Hand die Oberwelt → stattdessen Störsignal.
+- [ ] Deceiver: doppeltes Leben; nach Verwandlung in größeren Mob dessen Hitbox.
+- [x] Guide-Bücher erweitern, alles aktuell. (claude-n38-text: Keramik-Eimer, Kupfereimer-Regeln, Auto-Schmied, geschnitztes Holz, Holzkessel, rissiges Eis, Schwefel-/Kupferfeuer, Schwarzpulver, Kisten, Sculk Jaw, Astral-Preise; Fragentisch/Tiefenheuler: Module ohne Guide)

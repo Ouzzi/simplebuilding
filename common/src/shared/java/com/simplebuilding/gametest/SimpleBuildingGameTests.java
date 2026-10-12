@@ -309,6 +309,8 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(NatureBlockTests.FALLING_SLAB_MAX_TICKS).build(),
             GameTestSpec.named("nature_block_game_test_natural_slabs_place_into_the_full_block", NatureBlockTests::naturalSlabsPlaceIntoTheFullBlock)
                     .build(),
+            GameTestSpec.named("nature_block_game_test_cracked_ice_leaves_no_water_and_chisel_makes_it", NatureBlockTests::crackedIceLeavesNoWaterAndChiselMakesIt)
+                    .build(),
             GameTestSpec.named("nature_block_game_test_cracked_ice_melts_under_an_entity_after_some_seconds", NatureBlockTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds)
                     .maxTicks(NatureBlockTests.CRACKED_ICE_MAX_TICKS).build(),
             GameTestSpec.named("trap_game_test_sculk_jaw_bites_and_reopens_silently", TrapTests::sculkJawBitesAndReopensSilently)
@@ -328,6 +330,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("woodwork_game_test_sheets_connect_and_let_light_through", WoodworkTests::sheetsConnectAndLetLightThrough)
                     .build(),
             GameTestSpec.named("woodwork_game_test_wooden_cauldron_holds_water_and_burns_with_lava", WoodworkTests::woodenCauldronHoldsWaterAndBurnsWithLava)
+                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("woodwork_game_test_wooden_cauldron_takes_crucible_buckets", WoodworkTests::woodenCauldronTakesCrucibleBuckets)
                     .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
                     .build(),
             GameTestSpec.named("woodwork_game_test_crates_store_food_for_hoppers_and_comparators", WoodworkTests::cratesStoreFoodForHoppersAndComparators)
@@ -882,6 +887,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("workstation_game_test_auto_smither_smiths_once_per_pulse", WorkstationTests::autoSmitherSmithsOncePerPulse)
                     .maxTicks(200).build(),
+            GameTestSpec.named("workstation_game_test_auto_smither_ejects_without_container", WorkstationTests::autoSmitherEjectsWithoutContainer)
+                    .maxTicks(100).build(),
             GameTestSpec.named("workstation_game_test_autonomous_crafter_crafts_only_above_hoppers", WorkstationTests::autonomousCrafterCraftsOnlyAboveHoppers)
                     .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
             GameTestSpec.named("workstation_game_test_autonomous_crafter_stops_on_redstone", WorkstationTests::autonomousCrafterStopsOnRedstone)
@@ -1233,6 +1240,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("music_disc_game_test_speakers_boost_only_their_own_source", MusicDiscTests::speakersBoostOnlyTheirOwnSource).build(),
             GameTestSpec.named("music_disc_game_test_speaker_range_and_config_caps", MusicDiscTests::speakerRangeAndConfigCaps).build(),
             GameTestSpec.named("music_disc_game_test_speaker_recipes_use_any_planks", MusicDiscTests::speakerRecipesUseAnyPlanks).build(),
+            GameTestSpec.named("music_disc_game_test_amplifiers_have_tooltip_and_full_cube_hitbox", MusicDiscTests::amplifiersHaveTooltipAndFullCubeHitbox).build(),
             GameTestSpec.named("music_disc_game_test_track_cycle_skips_missing_tracks", MusicDiscTests::trackCycleSkipsMissingTracks).build(),
             GameTestSpec.named("music_disc_game_test_speaker_chains_follow_their_kind_up_to_the_limit", MusicDiscTests::speakerChainsFollowTheirKindUpToTheLimit).build(),
             GameTestSpec.named("music_disc_game_test_amplified_jukebox_reaches_farther_through_the_real_use_path", MusicDiscTests::amplifiedJukeboxReachesFartherThroughTheRealUsePath).build(),

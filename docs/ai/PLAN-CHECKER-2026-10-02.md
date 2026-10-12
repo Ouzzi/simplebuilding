@@ -66,3 +66,11 @@ Besitzerwelt unberührt, keine Clienttests und kein Push.
 Balance-, Atlas-, Jade- und Modulprüfungen. Vollständiges Log: `.ai-runs/checkui-gate.log`.
 Keine Quelländerung unter mc1_21_11 oder mc26_4. Die beiden Aufgaben wurden gemeinsam
 im finalen Arbeitsstand geprüft und werden in zwei fachlich getrennten Commits abgelegt.
+
+## Nachtrag 34 (2026-10-11): Treppen/Stufen weltbündig
+Das Schachbrett des vollen Blocks ist ein 2x2x2-Raster aus 8-px-Zellen (axis=y: oben/unten/Ost/West Textur, Nord/Süd
+`_mirror`). Ein gedrehtes Treppenmodell mit uvlock behält dieses Raster nicht. Jetzt hat jede Form (Hälfte, Richtung, Ecke) ein
+eigenes Modell aus Zellen (`models/block/checker_cells/<maske>.json`, Generator `tools/textures/checker_shapes_2026_10_11.py`),
+dessen sichtbare Zellflächen genau den Texturausschnitt des Vollblocks zeigen (Normal- oder Mirror-Textur nach Zellparität).
+Modelle je Material + Blockstate (ohne x/y/uvlock) kommen aus dem Datagen (`ModModelProvider.registerCheckerShapes`,
+Maske = `checkerStairMask`). Offen: Client-Sicht aller Drehungen bei der Besitzer-Abnahme.

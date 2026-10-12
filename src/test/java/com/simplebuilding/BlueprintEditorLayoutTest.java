@@ -48,6 +48,7 @@ class BlueprintEditorLayoutTest {
                 Map<String, Rect> signing = new LinkedHashMap<>(top);
                 signing.remove("sign");
                 signing.remove("done");
+                signing.remove("book"); // Done and Help are hidden while signing
                 signing.put("title", l.titleBox);
                 signing.put("confirm", l.confirm);
                 signing.put("cancel", l.cancel);
@@ -75,11 +76,12 @@ class BlueprintEditorLayoutTest {
         assertEquals(92, l.list.w(), "the materials column takes the width of its longest line");
         assertEquals(2, l.materialColumns());
         assertTrue(l.view.w() > l.list.w() && l.view.w() >= l.code.w() * 9 / 10, "the preview is the wide column");
-        assertTrue(l.book.right() == l.code.right(), "the help book sits right-aligned under the code");
+        assertTrue(l.book.right() == l.view.right() && l.book.x() > l.done.right() - 1 && l.book.y() == l.done.y() && l.sign.y() == l.done.bottom(),
+                "Done | Help in row 1 under the help area, Sign below Done");
         assertTrue(l.blocksTab.x() < l.guideTab.x(), "Blocks is the first tab");
         assertTrue(l.insertButton.x() >= l.insertField.right() && l.insertButton.y() == l.insertField.y(),
                 "Insert sits right next to the text field");
-        assertTrue(l.copy.y() == l.blocksTab.y() && l.copy.x() > l.guideTab.right() && l.copy.w() == BlueprintEditorLayout.ICON,
+        assertTrue(l.copy.y() >= l.blocksTab.y() && l.copy.bottom() <= l.blocksTab.bottom() && l.copy.x() > l.guideTab.right() && l.copy.w() == BlueprintEditorLayout.ICON,
                 "the copy icon sits in the tab row, right of the tabs");
         assertTrue(l.blocksTab.w() <= BlueprintEditorLayout.TAB_W && l.guideTab.w() <= BlueprintEditorLayout.TAB_W,
                 "the tabs are icons, not text buttons");

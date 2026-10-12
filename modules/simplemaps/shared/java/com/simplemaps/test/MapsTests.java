@@ -69,6 +69,7 @@ public final class MapsTests {
         ALL.put("loot", MapsTests::loot);
         ALL.put("structure_marks", MapsTests::structureMarks);
         ALL.put("host_switch", MapsTests::hostSwitch);
+        ALL.put("screen_layout", MapsTests::screenLayout);
     }
 
     private MapsTests() {}
@@ -85,6 +86,34 @@ public final class MapsTests {
         h.assertTrue(new ItemStack(Items.ZOMBIE_HEAD).is(MapsItems.WAYPOINT_HEADS) && new ItemStack(Items.DRAGON_HEAD).is(MapsItems.WAYPOINT_HEADS),
                 "every mob head can be a waypoint icon");
         h.assertTrue(!new ItemStack(Items.PUMPKIN).is(MapsItems.WAYPOINT_HEADS), "pumpkin is no head");
+        h.succeed();
+    }
+
+    /**
+     * Owner N38: the map screen fills the window (GUI sizes of 854x480 up to 1920x1080 at the usual GUI scales), never
+     * leaves it, keeps the waypoint bookmarks apart and grows with the window.
+     */
+    private static void screenLayout(GameTestHelper h) {
+        int[][] sizes = {{320, 240}, {427, 240}, {480, 270}, {640, 360}, {854, 480}, {960, 540}, {1920, 1080}};
+        for (int[] size : sizes) {
+            com.simplemaps.WayfinderLayout l = com.simplemaps.WayfinderLayout.of(size[0], size[1]);
+            String at = size[0] + "x" + size[1];
+            h.assertTrue(l.minX() >= 0 && l.maxX() <= size[0], "inside horizontally at " + at);
+            h.assertTrue(l.top() >= 0 && l.top() + l.panelH() <= size[1], "inside vertically at " + at);
+            h.assertTrue(size[0] - (l.maxX() - l.minX()) < com.simplemaps.WayfinderLayout.CELL + 2 * com.simplemaps.WayfinderLayout.MARGIN,
+                    "map as wide as possible at " + at);
+            h.assertTrue(size[1] - l.panelH() < com.simplemaps.WayfinderLayout.CELL + 2 * com.simplemaps.WayfinderLayout.MARGIN,
+                    "map as tall as possible at " + at);
+            h.assertTrue(l.ribH() >= 18 && l.ribStep() - l.ribH() >= 2, "bookmarks not crowded at " + at);
+            int last = l.ribbonY(com.simplemaps.WayfinderLayout.RIGHT_TABS - 1) + l.ribH();
+            h.assertTrue(l.ribbonY(0) >= l.top() + com.simplemaps.WayfinderLayout.FRAME
+                    && last <= l.top() + l.panelH() - com.simplemaps.WayfinderLayout.FRAME, "bookmarks along the panel at " + at);
+            h.assertTrue(l.buttonY(com.simplemaps.WayfinderLayout.LEFT_TABS - 1) + com.simplemaps.WayfinderLayout.BTN <= l.top() + l.panelH(),
+                    "tool buttons along the panel at " + at);
+        }
+        h.assertTrue(com.simplemaps.WayfinderLayout.of(960, 540).cols() > com.simplemaps.WayfinderLayout.of(427, 240).cols()
+                && com.simplemaps.WayfinderLayout.of(960, 540).rows() > com.simplemaps.WayfinderLayout.of(427, 240).rows(), "grows with the window");
+        h.assertTrue(com.simplemaps.WayfinderLayout.of(427, 240).cols() > 12, "larger than the old 12 x 9 map at 854x480");
         h.succeed();
     }
 

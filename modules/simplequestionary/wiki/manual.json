@@ -67,10 +67,10 @@
         "modules/simplequestionary/shared/resources/data/simplequestionary/recipe/questionary_table.json"
       ],
       "en": {
-        "summary": "Low oak table with an open book and a lapis inkwell; opens the questionary book. Shaped: 2 lapis lazuli, 1 book, 5 planks."
+        "summary": "Obsidian-and-gold lectern cabinet with lapis gems and an open book, glyphs drifting into it like at an enchanting table; opens the questionary book. Shaped: 2 lapis lazuli, 1 book, 5 planks."
       },
       "de": {
-        "summary": "Niedriger Eichentisch mit aufgeschlagenem Buch und Lapis-Tintenfass; öffnet das Fragebuch. Geformt: 2 Lapislazuli, 1 Buch, 5 Bretter."
+        "summary": "Schrank aus Obsidian und Gold mit Lapis-Edelsteinen und aufgeschlagenem Buch, in das Zeichen wie am Zaubertisch schweben; öffnet das Fragebuch. Geformt: 2 Lapislazuli, 1 Buch, 5 Bretter."
       }
     }
   }

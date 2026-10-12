@@ -40,14 +40,37 @@ import org.jetbrains.annotations.Nullable;
 public class CrucibleBlock extends Block implements EntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-    /** An open pot: full outline, hollow inside above the floor (like a cauldron). */
-    /** Kettle (owner 2026-10-05): foot 3-13, floor 2-14, belly 1-15, neck 2-14, opening 3-13 down to the floor at y 4. */
-    private static final VoxelShape SHAPE = Shapes.join(Shapes.or(Block.box(3, 0, 3, 13, 2, 13), Block.box(2, 2, 2, 14, 4, 14),
-            Block.box(1, 4, 1, 15, 11, 15), Block.box(2, 11, 2, 14, 14, 14)), Block.box(3, 4, 3, 13, 14, 13), BooleanOp.ONLY_FIRST);
+    /** Y-rotation of a model box like the blockstate variant {@code y} (north 0, east 90, south 180, west 270): (x, z) turns to (16 - z, x). */
+    static VoxelShape turned(Direction facing, double x1, double y1, double z1, double x2, double y2, double z2) {
+        for (int i = 0; i < facing.get2DDataValue(); i++) {
+            double nx1 = 16 - z2, nx2 = 16 - z1, nz1 = x1, nz2 = x2;
+            x1 = nx1; x2 = nx2; z1 = nz1; z2 = nz2;
+        }
+        return Block.box(x1, y1, z1, x2, y2, z2);
+    }
 
-    /** Walk-in pot (owner tweaks P6): foot + floor + belly only up to y 9 (9/16 = 0.5625 <= the 0.6 step height), interior empty, neck open. */
-    private static final VoxelShape COLLISION = Shapes.join(Shapes.or(Block.box(3, 0, 3, 13, 2, 13), Block.box(2, 2, 2, 14, 4, 14),
-            Block.box(1, 4, 1, 15, 9, 15)), Block.box(3, 4, 3, 13, 9, 13), BooleanOp.ONLY_FIRST);
+    private static VoxelShape[] perFacing(java.util.function.Function<Direction, VoxelShape> f) {
+        VoxelShape[] out = new VoxelShape[4];
+        for (Direction d : Direction.Plane.HORIZONTAL) out[d.get2DDataValue()] = f.apply(d);
+        return out;
+    }
+
+    /**
+     * Kettle (owner 2026-10-05) = the model elements: foot 3-13, floor 2-14, belly 1-15, neck 2-14, opening 3-13 down to
+     * the floor at y 4, plus the two side handles (y 9-11, 4 px wide, on the x sides at north/south, the z sides at east/west).
+     * Owner 2026-10-11: the handles were missing from the hitbox and did not turn with the facing.
+     */
+    private static final VoxelShape[] SHAPE = perFacing(d -> Shapes.or(Shapes.join(Shapes.or(Block.box(3, 0, 3, 13, 2, 13), Block.box(2, 2, 2, 14, 4, 14),
+            Block.box(1, 4, 1, 15, 11, 15), Block.box(2, 11, 2, 14, 14, 14)), Block.box(3, 4, 3, 13, 14, 13), BooleanOp.ONLY_FIRST),
+            turned(d, 15, 9, 6, 16, 11, 10), turned(d, 0, 9, 6, 1, 11, 10)));
+
+    /** Walk-in pot (owner tweaks P6): foot + floor + belly only up to y 9 (9/16 = 0.5625 <= the 0.6 step height), interior empty, neck open; handles as in the outline. */
+    private static final VoxelShape[] COLLISION = perFacing(d -> Shapes.or(Shapes.join(Shapes.or(Block.box(3, 0, 3, 13, 2, 13), Block.box(2, 2, 2, 14, 4, 14),
+            Block.box(1, 4, 1, 15, 9, 15)), Block.box(3, 4, 3, 13, 9, 13), BooleanOp.ONLY_FIRST),
+            turned(d, 15, 9, 6, 16, 11, 10), turned(d, 0, 9, 6, 1, 11, 10)));
+
+    /** The hollow inside (like the vanilla cauldron's inside shape): lets a click reach the pot through its opening. */
+    private static final VoxelShape INTERIOR = Block.box(3, 4, 3, 13, 14, 13);
 
     private final CrucibleTier tier;
 
@@ -83,12 +106,17 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return SHAPE[state.getValue(FACING).get2DDataValue()];
+    }
+
+    @Override
+    protected VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+        return INTERIOR;
     }
 
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return COLLISION;
+        return COLLISION[state.getValue(FACING).get2DDataValue()];
     }
 
     /**

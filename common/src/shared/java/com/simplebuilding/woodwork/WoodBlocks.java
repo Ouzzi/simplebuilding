@@ -30,10 +30,10 @@ import org.jspecify.annotations.Nullable;
 public final class WoodBlocks {
     /** All blocks of one wood type. */
     public record Family(WoodKind wood, HollowLogBlock hollow, HollowLogBlock hollowStripped, Block sheet, Block strippedSheet,
-                         WoodenCauldronBlock cauldron, CrateBlock crate, CarvedLogBlock carved) {
+                         WoodenCauldronBlock cauldron, WoodenCauldronBlock strippedCauldron, CrateBlock crate, CarvedLogBlock carved) {
         /** In creative-tab order. */
         public List<Block> blocks() {
-            return List.of(this.hollow, this.hollowStripped, this.sheet, this.strippedSheet, this.cauldron, this.crate, this.carved);
+            return List.of(this.hollow, this.hollowStripped, this.sheet, this.strippedSheet, this.cauldron, this.strippedCauldron, this.crate, this.carved);
         }
     }
 
@@ -52,6 +52,10 @@ public final class WoodBlocks {
 
     public static String cauldronId(WoodKind wood) {
         return wood.id() + "_cauldron";
+    }
+
+    public static String strippedCauldronId(WoodKind wood) {
+        return "stripped_" + wood.id() + "_cauldron";
     }
 
     public static String crateId(WoodKind wood) {
@@ -79,11 +83,13 @@ public final class WoodBlocks {
                     s -> new IronBarsBlock(s.mapColor(stripped.defaultMapColor()).strength(1.0F).noOcclusion()));
             WoodenCauldronBlock cauldron = register(cauldronId(wood), planks,
                     s -> new WoodenCauldronBlock(wood, s.strength(2.0F).noOcclusion()));
+            WoodenCauldronBlock strippedCauldron = register(strippedCauldronId(wood), planks,
+                    s -> new WoodenCauldronBlock(wood, s.strength(2.0F).noOcclusion()));
             CrateBlock crate = register(crateId(wood), planks,
                     s -> new CrateBlock(wood, s.strength(1.5F).noOcclusion()));
             CarvedLogBlock carved = register(carvedId(wood), stripped,
                     s -> new CarvedLogBlock(wood, s.mapColor(stripped.defaultMapColor())));
-            out.add(new Family(wood, hollow, hollowStripped, sheet, strippedSheet, cauldron, crate, carved));
+            out.add(new Family(wood, hollow, hollowStripped, sheet, strippedSheet, cauldron, strippedCauldron, crate, carved));
         }
         return List.copyOf(out);
     }
@@ -125,6 +131,7 @@ public final class WoodBlocks {
             fire.simplebuilding$setFlammable(family.sheet(), 5, 20);
             fire.simplebuilding$setFlammable(family.strippedSheet(), 5, 20);
             fire.simplebuilding$setFlammable(family.cauldron(), 5, 20);
+            fire.simplebuilding$setFlammable(family.strippedCauldron(), 5, 20);
             fire.simplebuilding$setFlammable(family.crate(), 5, 20);
         }
     }
@@ -145,7 +152,7 @@ public final class WoodBlocks {
 
     /** All wooden cauldrons (water tint). */
     public static Block[] cauldrons() {
-        return families().stream().map(Family::cauldron).toArray(Block[]::new);
+        return families().stream().flatMap(f -> java.util.stream.Stream.of(f.cauldron(), f.strippedCauldron())).toArray(Block[]::new);
     }
 
     public static List<Block> blocks() {

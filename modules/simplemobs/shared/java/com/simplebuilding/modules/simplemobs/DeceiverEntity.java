@@ -22,6 +22,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -36,6 +38,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -51,8 +54,11 @@ import org.jspecify.annotations.Nullable;
  * The Deceiver: small hooded trickster. Never attacks itself; it summons mobs that are mostly
  * harmless fakes (one hit kills them) mixed with a few real ones, and clouds the player's
  * perception with Mirage / Reverse Mirage. Fight rules live in {@link DeceiverLogic}.
+ * <p>Owner N38: twice the life (200, armored 240). With every wave it takes the shape of one of the wave's mobs
+ * ({@link #disguiseAs}) and with it that mob's hit box, but only where the larger box is free (never suffocates); a
+ * hit unmasks it. As a monster ({@link Enemy}) Mirage leaves it alone, so what the player sees is the box he hits.
  */
-public class DeceiverEntity extends PathfinderMob {
+public class DeceiverEntity extends PathfinderMob implements Enemy {
     public static final int ACT_NONE = 0, ACT_SUMMON = 1, ACT_TELEPORT = 2, ACT_DRINK = 3, ACT_UNMASK = 4;
     public static final String TAG_SUMMON = "simplemobs_summon";
     public static final String TAG_FAKE = "simplemobs_fake";
@@ -60,6 +66,9 @@ public class DeceiverEntity extends PathfinderMob {
     private static final EntityDataAccessor<Integer> DATA_ACTION = SynchedEntityData.defineId(DeceiverEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_ARMORED = SynchedEntityData.defineId(DeceiverEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_HOSTILE = SynchedEntityData.defineId(DeceiverEntity.class, EntityDataSerializers.BOOLEAN);
+    /** Entity type id of the current disguise; empty = its own shape. */
+    private static final EntityDataAccessor<String> DATA_LOOK = SynchedEntityData.defineId(DeceiverEntity.class, EntityDataSerializers.STRING);
+    public static final double HEALTH = 200.0, ARMORED_HEALTH = 240.0;
 
     public final AnimationState idleState = new AnimationState();
     public final AnimationState summonState = new AnimationState();
@@ -76,6 +85,7 @@ public class DeceiverEntity extends PathfinderMob {
     private boolean peacefulTheme;
     private final List<UUID> summons = new ArrayList<>();
     private final List<Long> summonBorn = new ArrayList<>();
+    private List<String> waveKinds = List.of();
 
     public DeceiverEntity(EntityType<? extends DeceiverEntity> type, Level level) {
         super(type, level);
@@ -84,7 +94,7 @@ public class DeceiverEntity extends PathfinderMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0)
+                .add(Attributes.MAX_HEALTH, HEALTH)
                 .add(Attributes.MOVEMENT_SPEED, 0.34)
                 .add(Attributes.FOLLOW_RANGE, 32.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5);
@@ -105,6 +115,47 @@ public class DeceiverEntity extends PathfinderMob {
         builder.define(DATA_ACTION, ACT_NONE);
         builder.define(DATA_ARMORED, false);
         builder.define(DATA_HOSTILE, false);
+        builder.define(DATA_LOOK, "");
+    }
+
+    // ---- disguise (owner N38: the hit box of the mob it turned into) ---------------------
+
+    /** The mob it currently looks like, or null for its own shape. */
+    public @Nullable EntityType<?> look() {
+        if (this.entityData == null) return null;
+        String id = this.entityData.get(DATA_LOOK);
+        Identifier key = id.isEmpty() ? null : Identifier.tryParse(id);
+        return key == null ? null : BuiltInRegistries.ENTITY_TYPE.getOptional(key).orElse(null);
+    }
+
+    /**
+     * Turns into {@code type} (null = back to its own shape) and takes that mob's hit box. A larger box is only taken
+     * where it is free of blocks; otherwise nothing changes and false comes back.
+     */
+    public boolean disguiseAs(@Nullable EntityType<?> type) {
+        if (type == this.getType()) type = null;
+        if (type != null && !this.level().noCollision(this, type.getDimensions().makeBoundingBox(this.position()))) return false;
+        this.entityData.set(DATA_LOOK, type == null ? "" : BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
+        this.refreshDimensions();
+        return true;
+    }
+
+    @Override
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        EntityType<?> look = look();
+        return look != null ? look.getDimensions() : super.getDefaultDimensions(pose);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (DATA_LOOK.equals(key)) this.refreshDimensions();
+    }
+
+    /** While peaceful it is a hidden trickster: golems and other guards do not go for it. */
+    @Override
+    public boolean canBeSeenAsEnemy() {
+        return isHostileMode() && super.canBeSeenAsEnemy();
     }
 
     public int getAction() { return this.entityData.get(DATA_ACTION); }
@@ -131,6 +182,7 @@ public class DeceiverEntity extends PathfinderMob {
         out.putBoolean("Rolled", rolled);
         out.putBoolean("PeacefulTheme", peacefulTheme);
         out.putInt("PulseIndex", pulseIndex);
+        out.putString("Look", this.entityData.get(DATA_LOOK));
     }
 
     @Override
@@ -141,6 +193,7 @@ public class DeceiverEntity extends PathfinderMob {
         this.rolled = in.getBooleanOr("Rolled", false);
         this.peacefulTheme = in.getBooleanOr("PeacefulTheme", false);
         this.pulseIndex = in.getIntOr("PulseIndex", 0);
+        this.entityData.set(DATA_LOOK, in.getStringOr("Look", ""));
     }
 
     // ---- sounds (vanilla sounds combined) -----------------------------------------------
@@ -183,8 +236,8 @@ public class DeceiverEntity extends PathfinderMob {
             rolled = true;
             if (this.random.nextFloat() < 0.3f) {
                 this.entityData.set(DATA_ARMORED, true);
-                this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(120.0);
-                this.setHealth(120.0f);
+                this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ARMORED_HEALTH);
+                this.setHealth((float) ARMORED_HEALTH);
             }
         }
         if (actionTicks > 0 && --actionTicks == 0) setAction(ACT_NONE, 0);
@@ -236,6 +289,7 @@ public class DeceiverEntity extends PathfinderMob {
         boolean hurt = super.hurtServer(level, source, damage);
         if (hurt && source.getEntity() instanceof Player) {
             boolean wasHostile = isHostileMode();
+            disguiseAs(null);
             becomeHostile();
             setAction(ACT_UNMASK, 16);
             pendingTeleport = 14;
@@ -287,13 +341,29 @@ public class DeceiverEntity extends PathfinderMob {
         } else {
             summonWave(level, target, phase);
             teleportNear(level, target);
+            disguiseAsWave(level);
             setAction(ACT_TELEPORT, 20);
             stage = DeceiverLogic.Stage.OBSERVE;
             stageTicks = DeceiverLogic.observeTicks(phase) + this.random.nextInt(40);
         }
     }
 
+    /** Takes the shape of one of the wave's mobs; when that box does not fit here, tries the others. */
+    private void disguiseAsWave(ServerLevel level) {
+        List<String> kinds = new ArrayList<>(waveKinds);
+        java.util.Collections.shuffle(kinds, new java.util.Random(this.random.nextLong()));
+        for (String kind : kinds) {
+            EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.withDefaultNamespace(kind)).orElse(null);
+            if (type != null && disguiseAs(type)) {
+                this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 1.0f, 1.4f);
+                level.sendParticles(ParticleTypes.WITCH, this.getX(), this.getY() + this.getBbHeight() / 2, this.getZ(), 20, 0.4, 0.6, 0.4, 0.05);
+                return;
+            }
+        }
+    }
+
     private void calmDown() {
+        disguiseAs(null);
         this.entityData.set(DATA_HOSTILE, false);
         stareTicks = 0;
         shoves = 0;
@@ -353,6 +423,7 @@ public class DeceiverEntity extends PathfinderMob {
     private void summonWave(ServerLevel level, Player target, Phase phase) {
         int want = DeceiverLogic.allowed(DeceiverLogic.waveSize(phase, this.random), summons.size(), DeceiverLogic.HARD_CAP);
         List<String> kinds = DeceiverLogic.pickKinds(phase, peacefulTheme, this.random);
+        waveKinds = kinds;
         int specials = 0;
         for (int i = 0; i < want; i++) {
             Vec3 spot = findSpot(level, target.position(), 5.0, 10.0, null);
