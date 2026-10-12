@@ -13,6 +13,12 @@ public final class Sandwiches {
         return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
+    /**
+     * Simple End loaded (set by the loader entry before registration): boards of its Ashwood and Duskwood, too
+     * (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md). Only its public ids are used, never its classes.
+     */
+    public static boolean simpleEnd;
+
     /** Super-mod switch "Enable Simple Sandwiches" (framework SubMods): off = registered but inert (no tab entries, no knife/board/bundle/cauldron play). */
     public static boolean on() {
         return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID);

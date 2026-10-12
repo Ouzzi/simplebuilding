@@ -265,9 +265,10 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "simpleend"
     ],
-    "dataHash": "a8f02ba09ce4"
+    "dataHash": "74bb9f3e39cc"
   },
   {
     "id": "simplelib",
@@ -542,7 +543,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "6024b8b8c7ce"
+    "dataHash": "efb8baa1c262"
   },
   {
     "id": "simplerespawn",

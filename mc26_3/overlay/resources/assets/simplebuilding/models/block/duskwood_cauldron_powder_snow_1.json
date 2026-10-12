@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/template_cauldron_level1",
+  "textures": {
+    "particle": "simpleend:block/duskwood_log",
+    "side": "simpleend:block/duskwood_log",
+    "top": "simpleend:block/duskwood_log_top",
+    "bottom": "simpleend:block/duskwood_log_top",
+    "inside": "simpleend:block/stripped_duskwood_log",
+    "content": "minecraft:block/powder_snow"
+  }
+}

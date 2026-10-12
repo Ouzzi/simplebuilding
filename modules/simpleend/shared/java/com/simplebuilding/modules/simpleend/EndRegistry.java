@@ -150,6 +150,7 @@ public final class EndRegistry {
             STRIPPABLES.put(w.wood, w.strippedWood);
             for (Block b : new Block[] {w.planks, w.slab, w.fenceGate, w.fence, w.stairs}) f.simpleend$setFlammable(b, 5, 20);
             for (Block b : new Block[] {w.log, w.strippedLog, w.wood, w.strippedWood}) f.simpleend$setFlammable(b, 5, 5);
+            f.simpleend$setFlammable(w.shelf, 30, 20);
             f.simpleend$setFlammable(w.leaves, 30, 60);
             f.simpleend$setFlammable(w.sticks, 5, 20);
             DispenserBlock.registerBehavior(w.boat, new BoatDispenseItemBehavior(w.boatType()));

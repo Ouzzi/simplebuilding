@@ -212,7 +212,7 @@ public final class SledgehammerOctetTests {
         int expected = 0;
         for (String wood : ModBlocks.OCTET_WOODS) {
             if (net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
-                    net.minecraft.resources.Identifier.withDefaultNamespace(wood + "_planks")).isPresent()) expected++;
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath(ModBlocks.octetWoodNamespace(wood), wood + "_planks")).isPresent()) expected++;
         }
         helper.assertValueEqual(ModBlocks.WOOD_OCTETS.size(), expected, "one octet cell per wood");
         helper.assertValueEqual(ModItems.WOOD_OCTETS.size(), expected, "one octet item per wood");
@@ -298,6 +298,9 @@ public final class SledgehammerOctetTests {
         int extra = 0;
         for (com.simplebuilding.blocks.OctetMaterials.Material m : com.simplebuilding.blocks.OctetMaterials.ALL) {
             if (!seen.add(m.key())) problems.add("duplicate " + m.key());
+            // Simple-End-Staemme gibt es nur mit Simple End (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md).
+            if (!com.simplebuilding.platform.ModEnvironment.isModLoaded(m.namespace()) && !"minecraft".equals(m.namespace())
+                    && !"simplebuilding".equals(m.namespace())) continue;
             Block full = blocks.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath(m.namespace(), m.base())).orElse(null);
             if (full == null || !full.defaultBlockState().isCollisionShapeFullBlock(helper.getLevel(), BlockPos.ZERO)) { problems.add("no full block " + m.base()); continue; }
             if (java.util.Set.of("log", "metal", "terracotta").contains(m.group())) extra++;

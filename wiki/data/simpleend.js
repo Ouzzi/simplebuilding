@@ -30,22 +30,26 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       ],
       "en": {
         "title": "Ashwood and Duskwood",
-        "summary": "Two End woods with the full Vanilla wood set: log, wood, stripped log and wood, planks, stairs, slab, fence, fence gate, door, trapdoor, button, pressure plate, sign, hanging sign, leaves, boat and boat with chest.",
+        "summary": "Two End woods with the full Vanilla wood set: log, wood, stripped log and wood, planks, stairs, slab, fence, fence gate, door, trapdoor, button, pressure plate, sign, hanging sign, shelf, leaves, boat and boat with chest.",
         "details": [
           "Ashwood is pale warm grey with chorus-like knobs; Duskwood is a little browner, with twisting bark and a purpur-like plank grid.",
           "An axe strips logs and wood; all wood burns like overworld wood and works as fuel (same burn times as oak).",
           "Recipes are the Vanilla wood recipes (logs to 4 planks, planks to stairs, slabs, doors ...; hanging signs from stripped logs and iron chains).",
-          "Leaves are tinted with the dry-foliage colour of the biome: grey-brown in Ash Valley and Dawnlands, the Vanilla dry-leaf tone elsewhere."
+          "Leaves are tinted with the dry-foliage colour of the biome: grey-brown in Ash Valley and Dawnlands, the Vanilla dry-leaf tone elsewhere.",
+          "The shelf is Vanilla's shelf in End wood (six from six stripped logs): it holds three items, and linked shelves swap them with the hotbar when powered.",
+          "(with SimpleBuilding) Both woods also get SimpleBuilding's woodwork - hollow logs, sheets, wooden cauldrons, crate and carved log - plus wood and log octets and tiered chest boats. (with Simple Sandwiches) A cutting board of each wood. Without those mods none of these blocks exists."
         ]
       },
       "de": {
         "title": "Aschholz und Dämmerholz",
-        "summary": "Zwei End-Hölzer mit vollem Vanilla-Holzset: Stamm, Holz, entrindeter Stamm und entrindetes Holz, Bretter, Treppe, Stufe, Zaun, Zauntor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Laub, Boot und Boot mit Truhe.",
+        "summary": "Zwei End-Hölzer mit vollem Vanilla-Holzset: Stamm, Holz, entrindeter Stamm und entrindetes Holz, Bretter, Treppe, Stufe, Zaun, Zauntor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Regal, Laub, Boot und Boot mit Truhe.",
         "details": [
           "Aschholz ist blass warmgrau mit Chorus-Knubbeln; Dämmerholz ist etwas brauner, mit gedrehter Rinde und purpurartigem Bretterraster.",
           "Eine Axt entrindet Stämme und Holz; alles Holz brennt wie Oberwelt-Holz und ist Brennstoff (Brenndauer wie Eiche).",
           "Rezepte sind die Vanilla-Holzrezepte (Stamm zu 4 Brettern, Bretter zu Treppen, Stufen, Türen …; Hängeschilder aus entrindeten Stämmen und Eisenketten).",
-          "Laub wird mit der Trockenlaub-Farbe des Bioms gefärbt: grau-braun in Aschental und Dämmerlande, sonst im Vanilla-Trockenlaub-Ton."
+          "Laub wird mit der Trockenlaub-Farbe des Bioms gefärbt: grau-braun in Aschental und Dämmerlande, sonst im Vanilla-Trockenlaub-Ton.",
+          "Das Regal ist das Vanilla-Regal aus End-Holz (sechs aus sechs entrindeten Stämmen): es hält drei Gegenstände, verbundene Regale tauschen sie mit Redstone-Signal gegen die Schnellleiste.",
+          "(mit SimpleBuilding) Beide Hölzer bekommen auch SimpleBuildings Holzwerk – ausgehöhlte Stämme, Platten, Holzkessel, Kiste und geschnitzten Stamm – dazu Holz- und Stamm-Achtel und gestufte Kistenboote. (mit Simple Sandwiches) Ein Schneidebrett je Holz. Ohne diese Mods gibt es keinen dieser Blöcke."
         ]
       }
     },
@@ -525,6 +529,39 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           {
             "id": "simpleend:ashwood_log",
             "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_shelf",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "shelf",
+      "result": {
+        "id": "simpleend:ashwood_shelf",
+        "count": 6
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_shelf.json",
+      "ingredients": [
+        "simpleend:stripped_ashwood_log"
+      ],
+      "pattern": [
+        "###",
+        "   ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:stripped_ashwood_log"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleend:stripped_ashwood_log",
+            "count": 6
           }
         ]
       }
@@ -1039,6 +1076,39 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       }
     },
     {
+      "id": "simpleend:duskwood_shelf",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "shelf",
+      "result": {
+        "id": "simpleend:duskwood_shelf",
+        "count": 6
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_shelf.json",
+      "ingredients": [
+        "simpleend:stripped_duskwood_log"
+      ],
+      "pattern": [
+        "###",
+        "   ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:stripped_duskwood_log"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleend:stripped_duskwood_log",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleend:duskwood_sign",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -1519,6 +1589,22 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_pressure_plate.json"
     },
     {
+      "id": "simpleend:blocks/ashwood_shelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_shelf"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_shelf.json"
+    },
+    {
       "id": "simpleend:blocks/ashwood_sign",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1806,6 +1892,22 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         }
       ],
       "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_pressure_plate.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_shelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_shelf"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_shelf.json"
     },
     {
       "id": "simpleend:blocks/duskwood_sign",
@@ -2249,6 +2351,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "required": true
         },
         {
+          "id": "simpleend:ashwood_shelf",
+          "required": true
+        },
+        {
           "id": "simpleend:ashwood_leaves",
           "required": true
         },
@@ -2314,6 +2420,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         },
         {
           "id": "simpleend:duskwood_hanging_sign",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_shelf",
           "required": true
         },
         {
@@ -2752,6 +2862,19 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "usedIn": []
     },
     {
+      "id": "simpleend:ashwood_shelf",
+      "name": {
+        "en_us": "Ashwood Shelf",
+        "de_de": "Aschholzregal"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/ashwood_shelf.png",
+      "craftedBy": [
+        "simpleend:ashwood_shelf"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleend:ashwood_sign",
       "name": {
         "en_us": "Ashwood Sign",
@@ -3140,6 +3263,19 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "usedIn": []
     },
     {
+      "id": "simpleend:duskwood_shelf",
+      "name": {
+        "en_us": "Duskwood Shelf",
+        "de_de": "Dämmerholzregal"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/duskwood_shelf.png",
+      "craftedBy": [
+        "simpleend:duskwood_shelf"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleend:duskwood_sign",
       "name": {
         "en_us": "Duskwood Sign",
@@ -3414,6 +3550,7 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "craftedBy": [],
       "usedIn": [
         "simpleend:ashwood_hanging_sign",
+        "simpleend:ashwood_shelf",
         "simpleend:stripped_ashwood_wood"
       ]
     },
@@ -3454,6 +3591,7 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "craftedBy": [],
       "usedIn": [
         "simpleend:duskwood_hanging_sign",
+        "simpleend:duskwood_shelf",
         "simpleend:stripped_duskwood_wood"
       ]
     },
@@ -3488,22 +3626,25 @@ window.WIKI_MODULE_DATA["simpleend"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpleend:ashwood_shelf",
+    "simpleend:duskwood_shelf"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 8,
-    "recipes": 33,
-    "lootTables": 42,
+    "recipes": 35,
+    "lootTables": 44,
     "tags": 7,
     "advancements": 0,
     "enchantments": 0,
     "items": 7,
-    "blocks": 45,
+    "blocks": 47,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 2,
     "inWorld": 0,
     "incompleteProse": 0
   }

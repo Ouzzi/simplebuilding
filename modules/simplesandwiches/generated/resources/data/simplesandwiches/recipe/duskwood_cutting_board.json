@@ -1,0 +1,36 @@
+{
+  "category": "misc",
+  "fabric:load_conditions": [
+    {
+      "condition": "simplesandwiches:enabled"
+    },
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleend"
+      ]
+    }
+  ],
+  "group": "simplesandwiches:cutting_board",
+  "key": {
+    "S": "minecraft:stick",
+    "X": "simpleend:duskwood_slab"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "simplesandwiches:enabled"
+    },
+    {
+      "modid": "simpleend",
+      "type": "neoforge:mod_loaded"
+    }
+  ],
+  "pattern": [
+    "SXX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplesandwiches:duskwood_cutting_board"
+  },
+  "type": "minecraft:crafting_shaped"
+}

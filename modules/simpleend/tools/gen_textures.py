@@ -530,6 +530,72 @@ def nibble_egg():
     return im
 
 
+def shelf(s):
+    """32x32 shelf sheet in Vanilla's UV layout (template_shelf_*: bars 0..16 x 0..4 / 12..16, empty back with three
+    cubbies 0..16 x 4..12, body and edges 16..32 x 0..16, back panels left/right/centre/single 32 x 16..32), drawn from
+    the End wood's own stripped grain and wood ramp (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md)."""
+    w, sd = s['wood'], s['seed']
+    im = Image.new('RGBA', (32, 32), CLEAR)
+    grain = stripped_side(s)
+
+    def g(x, y, dark=0, across=True):
+        # boards run lengthwise: the stripped grain turned on its side (the body keeps it upright)
+        c = grain.getpixel((y % 16, x % 16)) if across else grain.getpixel((x % 16, y % 16))
+        return mix(c, w[0], dark) if dark else c
+
+    def px(x, y, c):
+        im.putpixel((x, y), c)
+
+    # body (back, sides, top/bottom strips): plain grain, a shadow line where the body meets the bars' tops
+    for y in range(16):
+        for x in range(16, 32):
+            px(x, y, g(x, y, across=False))
+    for x in range(16, 32):
+        px(x, 0, w[5])
+        px(x, 15, w[1])
+    # bars: lit top edge, shadowed bottom edge, grain running lengthwise
+    for y0 in (0, 12):
+        for y in range(y0, y0 + 4):
+            for x in range(16):
+                c = g(x, y + 5)
+                if y == y0:
+                    c = w[5]
+                elif y == y0 + 3:
+                    c = w[1]
+                px(x, y, c)
+        for y in range(y0, y0 + 4):
+            px(0, y, w[2])
+            px(15, y, w[2])
+    # empty back between the bars: recessed (darker grain) with three cubbies split by 1 px posts
+    for y in range(4, 12):
+        for x in range(16):
+            px(x, y, g(x, y, 0.35))
+    for x in (0, 5, 10, 15):
+        for y in range(4, 12):
+            px(x, y, w[3])
+    for x in range(16):
+        px(x, 4, w[0])
+    for x0 in (1, 6, 11):
+        for y in range(5, 12):
+            px(x0, y, mix(g(x0, y, 0.35), w[0], 0.5))
+    # back panels (powered/connected): recessed grain, dark frame on the open sides of each piece, light sill below
+    panels = {(0, 16): (True, False), (16, 16): (False, True), (0, 24): (False, False), (16, 24): (True, True)}
+    for (x0, y0), (left, right) in panels.items():
+        for y in range(y0, y0 + 8):
+            for x in range(x0, x0 + 16):
+                px(x, y, g(x, y, 0.3))
+        for x in range(x0, x0 + 16):
+            px(x, y0, w[0])
+            px(x, y0 + 7, w[4])
+        for y in range(y0, y0 + 7):
+            if left:
+                px(x0, y, w[0])
+                px(x0 + 1, y, w[1])
+            if right:
+                px(x0 + 15, y, w[0])
+    return im
+
+
 def write(img, path, written):
     path.parent.mkdir(parents=True, exist_ok=True)
     img.save(path)
@@ -552,7 +618,7 @@ def main(argv=None):
             f'stripped_{n}_log': stripped_side(s), f'stripped_{n}_log_top': rings(s, True),
             f'{n}_planks': planks(s), f'{n}_door_top': door(s, 'top'), f'{n}_door_bottom': door(s, 'bottom'),
             f'{n}_trapdoor': trapdoor(s), f'{n}_leaves': leaves(s), s['bud']: bud(s),
-            f'{n}_sticks': sticks_side(s), f'{n}_sticks_top': sticks_top(s),
+            f'{n}_sticks': sticks_side(s), f'{n}_sticks_top': sticks_top(s), f'{n}_shelf': shelf(s),
             f'{n}_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_sign.png'), s),
             f'{n}_hanging_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_hanging_sign.png'), s, metal=True),
         }

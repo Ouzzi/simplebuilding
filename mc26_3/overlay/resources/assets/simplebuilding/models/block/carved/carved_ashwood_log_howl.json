@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/template_carved_sherd",
+  "textures": {
+    "frame": "simplebuilding:block/carved/ashwood_frame",
+    "motif": "minecraft:entity/decorated_pot/howl_pottery_pattern_ashwood"
+  }
+}

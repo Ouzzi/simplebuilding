@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -66,29 +67,38 @@ public final class WoodBlocks {
         return "carved_" + wood.log();
     }
 
+    /** The block ids of a wood's family in creative-tab order (also for woods that are not loaded, e.g. for datagen tags). */
+    public static List<String> blockIds(WoodKind wood) {
+        return List.of(hollowId(wood, false), hollowId(wood, true), sheetId(wood, false), sheetId(wood, true),
+                cauldronId(wood), strippedCauldronId(wood), crateId(wood), carvedId(wood));
+    }
+
     /** Registers every block; called once from {@code ModBlocks}. */
     public static List<Family> registerBlocks() {
         List<Family> out = new ArrayList<>();
-        for (WoodKind wood : WoodKind.values()) {
-            Block log = wood.logBlock();
-            Block stripped = wood.strippedBlock();
-            Block planks = wood.planks();
+        for (WoodKind wood : WoodKind.active()) {
+            // Templates, never the End woods' own blocks (Simple End may register after this mod).
+            Block log = wood.template(0);
+            Block stripped = wood.template(1);
+            Block planks = wood.template(2);
+            MapColor bark = wood.color(0);
+            MapColor woodColor = wood.color(1);
             HollowLogBlock hollow = register(hollowId(wood, false), log,
-                    s -> new HollowLogBlock(wood, false, tube(s)));
+                    s -> new HollowLogBlock(wood, false, tube(wood.external() ? s.mapColor(bark) : s)));
             HollowLogBlock hollowStripped = register(hollowId(wood, true), stripped,
-                    s -> new HollowLogBlock(wood, true, tube(s)));
+                    s -> new HollowLogBlock(wood, true, tube(wood.external() ? s.mapColor(woodColor) : s)));
             Block sheet = register(sheetId(wood, false), planks,
-                    s -> new IronBarsBlock(s.mapColor(log.defaultMapColor()).strength(1.0F).noOcclusion()));
+                    s -> new IronBarsBlock(s.mapColor(bark).strength(1.0F).noOcclusion()));
             Block strippedSheet = register(sheetId(wood, true), planks,
-                    s -> new IronBarsBlock(s.mapColor(stripped.defaultMapColor()).strength(1.0F).noOcclusion()));
+                    s -> new IronBarsBlock(s.mapColor(woodColor).strength(1.0F).noOcclusion()));
             WoodenCauldronBlock cauldron = register(cauldronId(wood), planks,
-                    s -> new WoodenCauldronBlock(wood, s.strength(2.0F).noOcclusion()));
+                    s -> new WoodenCauldronBlock(wood, (wood.external() ? s.mapColor(woodColor) : s).strength(2.0F).noOcclusion()));
             WoodenCauldronBlock strippedCauldron = register(strippedCauldronId(wood), planks,
-                    s -> new WoodenCauldronBlock(wood, s.strength(2.0F).noOcclusion()));
+                    s -> new WoodenCauldronBlock(wood, (wood.external() ? s.mapColor(woodColor) : s).strength(2.0F).noOcclusion()));
             CrateBlock crate = register(crateId(wood), planks,
-                    s -> new CrateBlock(wood, s.strength(1.5F).noOcclusion()));
+                    s -> new CrateBlock(wood, (wood.external() ? s.mapColor(woodColor) : s).strength(1.5F).noOcclusion()));
             CarvedLogBlock carved = register(carvedId(wood), stripped,
-                    s -> new CarvedLogBlock(wood, s.mapColor(stripped.defaultMapColor())));
+                    s -> new CarvedLogBlock(wood, s.mapColor(woodColor)));
             out.add(new Family(wood, hollow, hollowStripped, sheet, strippedSheet, cauldron, strippedCauldron, crate, carved));
         }
         return List.copyOf(out);

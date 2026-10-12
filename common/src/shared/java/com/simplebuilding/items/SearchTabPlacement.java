@@ -110,6 +110,12 @@ public final class SearchTabPlacement {
         return new ItemLike[]{net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplebuilding", key + "_octet"))};
     }
 
+    /** Achtel aus Simple-End-Holz (Bretter, Staemme): stehen in der End-Holz-Kette der Holzwerk-Familien. */
+    private static boolean endWoodCell(net.minecraft.world.level.block.Block cell) {
+        String path = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell).getPath();
+        return path.contains("ashwood") || path.contains("duskwood");
+    }
+
     /** Entrindete Staemme der Holzwerk-Familien: ihr Achtel steht in deren Kette. */
     private static java.util.Set<Item> woodworkStripped() {
         java.util.Set<Item> out = new java.util.HashSet<>();
@@ -199,12 +205,16 @@ public final class SearchTabPlacement {
             // Holz-Achtel (Queue Nachtrag 24) je hinter der Stufe ihrer Holzart.
             for (Item octet : ModItems.WOOD_OCTETS) {
                 String wood = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(octet).getPath().replace("_octet", "");
-                Item slab = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(wood + "_slab"));
+                if (!"minecraft".equals(com.simplebuilding.blocks.ModBlocks.octetWoodNamespace(wood))) {
+                    continue; // Simple-End-Holz: in der End-Holz-Kette unten (seine Bloecke stehen in keinem Vanilla-Tab)
+                }
+                Item slab = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(com.simplebuilding.blocks.ModBlocks.octetWoodNamespace(wood), wood + "_slab"));
                 out.add(Placement.after(BUILDING_BLOCKS, slab, octet));
             }
             // Material-Achtel (N19/N15) je hinter der Vanilla-Stufe ihres Blocks (Mod-Bloecke hinter der eigenen Stufe; Wolle/Beton im Tab Farbbloecke).
             for (net.minecraft.world.level.block.Block cell : com.simplebuilding.blocks.ModBlocks.MATERIAL_OCTETS) {
-                if (IN_CHAINS.contains(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell).getPath())) {
+                if (IN_CHAINS.contains(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell).getPath())
+                        || endWoodCell(cell)) {
                     continue;
                 }
                 net.minecraft.world.level.block.Block full = ((com.simplebuilding.blocks.custom.MaterialOctetBlock) cell).source();
@@ -227,13 +237,27 @@ public final class SearchTabPlacement {
         }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             // Holzwerk: die Familie einer Holzart hinter deren entrindetem Stamm.
+            ItemLike last = null;
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+                if (family.wood().external()) {
+                    // Simple-End-Holz (Ash-/Duskwood): dessen Staemme stehen in keinem Vanilla-Tab, darum eine Kette hinter
+                    // der vorigen Familie: Bretter-Achtel, Stamm-Achtel, entrindetes Stamm-Achtel, dann die Familie.
+                    String w = family.wood().id();
+                    ItemLike[] chain = chain(octet(w), octet(w + "_log"), octet("stripped_" + w + "_log"),
+                            family.blocks().toArray(new ItemLike[0]));
+                    if (last != null && chain.length > 0) {
+                        out.add(Placement.after(BUILDING_BLOCKS, last, chain));
+                        last = chain[chain.length - 1];
+                    }
+                    continue;
+                }
                 // Das Achtel des entrindeten Stamms (falls es eines gibt) steht direkt hinter dem Stamm, vor der Familie.
                 Item stripped = family.wood().strippedBlock().asItem();
                 String strippedPath = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stripped).getPath();
                 boolean hasOctet = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", strippedPath + "_octet"));
                 ItemLike[] octet = hasOctet ? octet(strippedPath) : new ItemLike[0];
                 out.add(Placement.after(BUILDING_BLOCKS, stripped, chain(octet, family.blocks().toArray(new ItemLike[0]))));
+                last = family.blocks().get(family.blocks().size() - 1);
             }
         }
         // Kupfer folgt in der Erz-Reihenfolge auf Stein: die acht Kupferplatten hinter der Steinplatte.

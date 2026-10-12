@@ -1,0 +1,8 @@
+{
+  "parent": "simplebuilding:block/template_hollow_log",
+  "textures": {
+    "side": "simpleend:block/duskwood_log",
+    "inner": "simpleend:block/stripped_duskwood_log",
+    "end": "simpleend:block/duskwood_log_top"
+  }
+}

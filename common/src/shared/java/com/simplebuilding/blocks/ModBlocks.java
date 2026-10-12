@@ -492,7 +492,21 @@ public class ModBlocks {
     // --- MATERIAL-ACHTEL (Queue Nachtrag 24, docs/ai/PLAN-Q-HAMMER-OCTETS-2026-10-09.md) ---
     /** Holzarten mit Brettern, Treppe und Stufe; was die Version nicht kennt, entfaellt. */
     public static final List<String> OCTET_WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak",
-            "mangrove", "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped");
+            "mangrove", "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped", "ashwood", "duskwood");
+
+    /**
+     * Namensraum der Bretter einer Achtel-Holzart: Ash-/Duskwood gehoeren Simple End (nur mit dem Mod registriert,
+     * docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md), alles andere Vanilla.
+     */
+    public static String octetWoodNamespace(String wood) {
+        return "ashwood".equals(wood) || "duskwood".equals(wood) ? com.simplebuilding.woodwork.WoodKind.SIMPLE_END : "minecraft";
+    }
+
+    /** Die Achtel-Holzarten dieses Spiels (Simple-End-Hoelzer nur mit Simple End). */
+    public static List<String> activeOctetWoods() {
+        return OCTET_WOODS.stream().filter(w -> !octetWoodNamespace(w).equals(com.simplebuilding.woodwork.WoodKind.SIMPLE_END)
+                || com.simplebuilding.platform.ModEnvironment.isModLoaded(com.simplebuilding.woodwork.WoodKind.SIMPLE_END)).toList();
+    }
     /** Je Holzart eine Achtelzelle {@code <holz>_octet} mit den Eigenschaften der Bretter (Klang, Haerte). */
     public static final List<Block> WOOD_OCTETS = McVersion.CHESS ? woodOctets() : List.of();
     /** Melonen-Achtel: eine gesetzte Melonenscheibe (Schleichen + Rechtsklick); droppt Melonenscheiben. */
@@ -510,12 +524,29 @@ public class ModBlocks {
     private static List<Block> materialOctets() {
         List<Block> out = new java.util.ArrayList<>();
         for (OctetMaterials.Material material : OctetMaterials.ALL) {
+            String name = material.key() + "_octet";
+            Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
+            if (com.simplebuilding.woodwork.WoodKind.SIMPLE_END.equals(material.namespace())) {
+                // Simple-End-Staemme (nur mit dem Mod): Eigenschaften des Eichenstamms, Quelle spaet gelesen.
+                if (!com.simplebuilding.platform.ModEnvironment.isModLoaded(material.namespace())) {
+                    continue;
+                }
+                Identifier sourceId = Identifier.fromNamespaceAndPath(material.namespace(), material.base());
+                boolean stripped = material.base().startsWith("stripped_");
+                boolean ash = material.base().contains("ashwood");
+                MapColor color = ash ? (stripped ? MapColor.COLOR_LIGHT_GRAY : MapColor.COLOR_GRAY)
+                        : (stripped ? MapColor.TERRACOTTA_LIGHT_GRAY : MapColor.TERRACOTTA_GRAY);
+                Block cell = registerBlock(name, stripped ? Blocks.STRIPPED_OAK_LOG : Blocks.OAK_LOG, s -> new MaterialOctetBlock(
+                        () -> BuiltInRegistries.BLOCK.getValue(sourceId), () -> BuiltInRegistries.ITEM.getValue(itemId),
+                        octetProperties(s.mapColor(color).lightLevel(state -> 0))));
+                OCTET_GROUPS.put(cell, material.group());
+                out.add(cell);
+                continue;
+            }
             Block source = BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath(material.namespace(), material.base())).orElse(null);
             if (source == null) {
                 continue;
             }
-            String name = material.key() + "_octet";
-            Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
             Block cell = registerBlock(name, source, s -> new MaterialOctetBlock(source,
                     () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s, source)));
             OCTET_GROUPS.put(cell, material.group());
@@ -537,13 +568,22 @@ public class ModBlocks {
 
     private static List<Block> woodOctets() {
         List<Block> out = new java.util.ArrayList<>();
-        for (String wood : OCTET_WOODS) {
-            Block planks = BuiltInRegistries.BLOCK.getOptional(Identifier.withDefaultNamespace(wood + "_planks")).orElse(null);
+        for (String wood : activeOctetWoods()) {
+            String name = wood + "_octet";
+            Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
+            Identifier planksId = Identifier.fromNamespaceAndPath(octetWoodNamespace(wood), wood + "_planks");
+            if (!"minecraft".equals(planksId.getNamespace())) {
+                // Simple-End-Bretter: Eigenschaften der Eichenbretter (die eigenen sind evtl. noch nicht registriert),
+                // die Quelle wird erst beim Gebrauch gelesen.
+                MapColor color = "ashwood".equals(wood) ? MapColor.COLOR_LIGHT_GRAY : MapColor.TERRACOTTA_LIGHT_GRAY;
+                out.add(registerBlock(name, Blocks.OAK_PLANKS, s -> new MaterialOctetBlock(() -> BuiltInRegistries.BLOCK.getValue(planksId),
+                        () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s.mapColor(color).lightLevel(state -> 0)))));
+                continue;
+            }
+            Block planks = BuiltInRegistries.BLOCK.getOptional(planksId).orElse(null);
             if (planks == null) {
                 continue;
             }
-            String name = wood + "_octet";
-            Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
             out.add(registerBlock(name, planks, s -> new MaterialOctetBlock(planks,
                     () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s, planks))));
         }
@@ -567,7 +607,8 @@ public class ModBlocks {
     /** Holz-Achtel brennen wie ihre Bretter (Feuer-Tabelle; Nether-Holz brennt nicht). */
     private static void registerOctetFlammability() {
         for (Block cell : WOOD_OCTETS) {
-            if (((MaterialOctetBlock) cell).source().defaultBlockState().ignitedByLava()) {
+            // Die Zelle traegt die Eigenschaften ihrer Quelle (bzw. der Eichen-Vorlage bei Simple-End-Holz).
+            if (cell.defaultBlockState().ignitedByLava()) {
                 ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 5, 20);
             }
         }
@@ -577,7 +618,7 @@ public class ModBlocks {
                 ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 30, 60);
             }
             // Staemme brennen wie ihre Staemme (5/5); Nether-Staemme nicht.
-            if ("log".equals(OCTET_GROUPS.get(cell)) && ((MaterialOctetBlock) cell).source().defaultBlockState().ignitedByLava()) {
+            if ("log".equals(OCTET_GROUPS.get(cell)) && cell.defaultBlockState().ignitedByLava()) {
                 ((com.simplebuilding.mixin.FireBlockFlammables) Blocks.FIRE).simplebuilding$setFlammable(cell, 5, 5);
             }
         }

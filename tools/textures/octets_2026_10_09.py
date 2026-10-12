@@ -39,7 +39,13 @@ CLIENT_JAR = os.environ.get('SB_VANILLA_DIR', os.path.expanduser('~/vanilla263')
 DE_LANG = os.path.expanduser('~/.gradle/caches') + '/neoformruntime/assets/objects/76/766975253e4de94ffc2e7e6d3b10b209da2f52c4'
 # Order = ModBlocks.OCTET_WOODS
 WOODS = ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'poplar',
-         'bamboo', 'crimson', 'warped']
+         'bamboo', 'crimson', 'warped', 'ashwood', 'duskwood']
+# Simple End woods (registered only with Simple End, docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): planks in its namespace.
+END_WOODS = ('ashwood', 'duskwood')
+
+
+def planks_tex(wood):
+    return f"{'simpleend' if wood in END_WOODS else 'minecraft'}:block/{wood}_planks"
 
 # melon flesh: the reds of the vanilla melon slice, seeds in its darkest red-brown
 FLESH = {'r': (191, 49, 35), 'l': (193, 60, 45), 'h': (202, 113, 93), 'd': (175, 22, 11), 's': (89, 24, 15),
@@ -261,9 +267,19 @@ def scan():
             continue
         out.append({'ns': 'minecraft', 'base': base, 'key': base, 'group': group_of('minecraft', base), 'tex': tex, 'en': en, 'de': de})
     out.sort(key=sort_key)
+    last_log = max(i for i, m in enumerate(out) if m['group'] == 'log')
+    out[last_log + 1:last_log + 1] = END_LOGS
     with open(MATERIALS_JSON, 'w', encoding='utf-8') as f:
         f.write(json.dumps(out, indent=1, ensure_ascii=False) + '\n')
     print(f'scanned {len(out)} materials')
+
+
+# Simple End logs (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): not in the client jar, kept after the Vanilla logs; the game
+# registers their cells only while Simple End is loaded (ModBlocks#materialOctets).
+END_LOGS = [{'ns': 'simpleend', 'base': f'{s}{w}_log', 'key': f'{s}{w}_log', 'group': 'log',
+             'tex': {'up': f'simpleend:block/{s}{w}_log_top', 'down': f'simpleend:block/{s}{w}_log_top', 'side': f'simpleend:block/{s}{w}_log'},
+             'en': ('Stripped ' if s else '') + en + ' Log', 'de': ('Entrindeter ' if s else '') + de + 'stamm'}
+            for s in ('', 'stripped_') for w, en, de in (('ashwood', 'Ashwood', 'Asch'), ('duskwood', 'Duskwood', 'Dämmer'))]
 
 
 def materials():
@@ -335,10 +351,10 @@ def outputs():
     a = lambda rel, data: files.__setitem__(os.path.join(ASSETS, *rel.split('/')), data)
     for wood in WOODS:
         a(f'models/block/octet/{wood}.json', js({
-            'parent': 'simplebuilding:block/chess/octet_corner', 'textures': {'all': f'minecraft:block/{wood}_planks'}}))
+            'parent': 'simplebuilding:block/chess/octet_corner', 'textures': {'all': planks_tex(wood)}}))
         a(f'blockstates/{wood}_octet.json', js(multipart(f'simplebuilding:block/octet/{wood}')))
         a(f'models/item/octet/{wood}_octet.json', js({
-            'parent': 'simplebuilding:item/chess/octet', 'textures': {'all': f'minecraft:block/{wood}_planks'}}))
+            'parent': 'simplebuilding:item/chess/octet', 'textures': {'all': planks_tex(wood)}}))
         a(f'items/{wood}_octet.json', js({'model': {'type': 'minecraft:model', 'model': f'simplebuilding:item/octet/{wood}_octet'}}))
     # Melon: the corner's outer faces (north, west, down) carry the rind, the three cut faces the flesh.
     outer = {'texture': '#side'}
@@ -418,7 +434,7 @@ def textured_face(tex, size=64):
 def preview(files, vanilla, out_dir):
     vt = lambda n: Image.open(os.path.join(vanilla, 'assets', 'minecraft', 'textures', 'block', n + '.png')).convert('RGBA')
     fl = Image.open(io.BytesIO(files[os.path.join(ASSETS, 'textures', 'block', 'melon_flesh.png')])).convert('RGBA')
-    tex = {w: (vt(w + '_planks'), vt(w + '_planks')) for w in WOODS}
+    tex = {w: (vt(w + '_planks'), vt(w + '_planks')) for w in WOODS if w not in END_WOODS}
     tex['melon'] = (vt('melon_top'), vt('melon_side'))
     tex['flesh'] = (fl, fl)
     full = {(x * 0.5, y * 0.5, z * 0.5) for x in (0, 1) for y in (0, 1) for z in (0, 1)}
@@ -453,7 +469,7 @@ def preview(files, vanilla, out_dir):
     y = 40 + 2 * ch
     d.text((8, y), 'neu: melon_flesh.png (x4) | Holz-Achtel nutzen die Vanilla-Bretter:', fill=(0, 0, 0, 255), font=font)
     img.alpha_composite(textured_face(fl), (8, y + 16))
-    for i, w in enumerate(WOODS):
+    for i, w in enumerate(w for w in WOODS if w not in END_WOODS):
         img.alpha_composite(textured_face(tex[w][0], 32), (90 + i * 40, y + 16))
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, 'octets-n24.png')

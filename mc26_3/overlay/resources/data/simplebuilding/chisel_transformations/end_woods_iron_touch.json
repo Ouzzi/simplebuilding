@@ -1,0 +1,18 @@
+{
+  "tier": "iron",
+  "table": "touch",
+  "chains": [
+    {
+      "blocks": [
+        "simpleend:ashwood_wood",
+        "simpleend:stripped_ashwood_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleend:duskwood_wood",
+        "simpleend:stripped_duskwood_wood"
+      ]
+    }
+  ]
+}

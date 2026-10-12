@@ -1,0 +1,36 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleend"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleend"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleend"
+  },
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_cauldron",
+  "key": {
+    "H": "simplebuilding:hollow_duskwood_log",
+    "S": [
+      "simplebuilding:duskwood_sheet",
+      "simplebuilding:stripped_duskwood_sheet"
+    ]
+  },
+  "pattern": [
+    "H",
+    "S"
+  ],
+  "result": {
+    "id": "simplebuilding:duskwood_cauldron"
+  }
+}

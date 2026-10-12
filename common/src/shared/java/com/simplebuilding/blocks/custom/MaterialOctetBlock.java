@@ -13,10 +13,15 @@ import net.minecraft.world.level.block.state.BlockState;
  * ({@link com.simplebuilding.util.HammerCorners}).
  */
 public class MaterialOctetBlock extends OctetCellBlock {
-    private final Block source;
+    private final Supplier<Block> source;
     private final Supplier<Item> piece;
 
     public MaterialOctetBlock(Block source, Supplier<Item> piece, BlockBehaviour.Properties properties) {
+        this(() -> source, piece, properties);
+    }
+
+    /** Mit spaet gelesener Quelle: Bloecke anderer Mods (Simple-End-Holz), die beim Registrieren noch fehlen koennen. */
+    public MaterialOctetBlock(Supplier<Block> source, Supplier<Item> piece, BlockBehaviour.Properties properties) {
         super(properties);
         this.source = source;
         this.piece = piece;
@@ -24,7 +29,7 @@ public class MaterialOctetBlock extends OctetCellBlock {
 
     /** Der volle Block des Materials. */
     public Block source() {
-        return this.source;
+        return this.source.get();
     }
 
     /** Das Item eines Achtels (Holz: {@code <holz>_octet}, Melone: Melonenscheibe). */

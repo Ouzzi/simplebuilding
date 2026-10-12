@@ -80,6 +80,20 @@
           "type": "minecraft:model",
           "model": "simplebuilding:item/reinforced_chest_boat_bamboo"
         }
+      },
+      {
+        "when": "ashwood",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/reinforced_chest_boat_ashwood"
+        }
+      },
+      {
+        "when": "duskwood",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/reinforced_chest_boat_duskwood"
+        }
       }
     ],
     "fallback": {

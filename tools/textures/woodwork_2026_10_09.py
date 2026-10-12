@@ -38,7 +38,12 @@ WOODS = [
     ("crimson", "crimson_stem", 0x89395A),
     ("warped", "warped_stem", 0x399693),
     ("bamboo", "bamboo_block", 0xC1AD50),
+    # Simple End (docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): own textures in the simpleend namespace, average of its
+    # stripped log side measured 2026-10-12; the blocks exist only while Simple End is loaded.
+    ("ashwood", "ashwood_log", 0xC4BBAF),
+    ("duskwood", "duskwood_log", 0xB2A493),
 ]
+END_WOODS = ("ashwood", "duskwood")
 MOTIFS = ["angler", "archer", "arms_up", "blade", "brewer", "burn", "danger", "explorer", "flow", "friend",
           "guster", "heart", "heartbreak", "howl", "miner", "mourner", "plenty", "prize", "scrape", "sheaf",
           "shelter", "skull", "snort"]
@@ -67,6 +72,10 @@ CARVE_PAL = {
     "crimson": (0x3F1E2D, 0x4B2737, 0xA04468),
     "warped": (0x113835, 0x1F5752, 0x3DA9A6),
     "bamboo": (0x73652E, 0x96863D, 0xEFD97E),
+    # End woods: darkest planks colour, second-darkest planks (ash) / darkest stripped-log colour (dusk), lightest
+    # stripped-log colour as the lip (both are light woods: the third-darkest planks colour would vanish on the log).
+    "ashwood": (0x7A7167, 0x92897E, 0xE0D9CF),
+    "duskwood": (0x6C6055, 0x837567, 0xCFC2B2),
 }
 # 12x12 motifs, '#' = cut. One per wood, after its tree.
 CARVINGS = {
@@ -224,6 +233,34 @@ CARVINGS = {
         "..#.....#...",
         "...#####....",
     ],
+    "ashwood": [  # chorus stalk of the Ash Valley: knobbed branches meeting in one trunk
+        "##........##",
+        "##..##....##",
+        ".#..##....#.",
+        ".#...#....#.",
+        ".#####..###.",
+        ".....#..#...",
+        ".....####...",
+        ".....##.....",
+        ".....##.....",
+        ".....##.....",
+        "....####....",
+        "...##..##...",
+    ],
+    "duskwood": [  # the closed dusk bud on its knobby stem, over the rim of an End island
+        ".....##.....",
+        "....####....",
+        "...##..##...",
+        "...#.##.#...",
+        "...##..##...",
+        "....####....",
+        ".....##.....",
+        "....###.....",
+        ".....##.....",
+        ".....###....",
+        ".##..##..##.",
+        "############",
+    ],
     "bamboo": [  # bamboo fence lattice
         "...#....#...",
         "...#....#...",
@@ -289,6 +326,11 @@ def mc(path: str) -> str:
 
 def sb(path: str) -> str:
     return f"{NS}:{path}"
+
+
+def wood_ns(wood: str, path: str) -> str:
+    """A texture of the wood itself: Vanilla, or Simple End's own for the End woods."""
+    return ("simpleend:" if wood in END_WOODS else "minecraft:") + path
 
 
 def put_json(rel: str, data) -> None:
@@ -367,9 +409,9 @@ def palettes() -> None:
 def wood_assets(wood: str, log: str) -> None:
     stripped = "stripped_" + log
     tex = {
-        "log": mc(f"block/{log}"), "log_top": mc(f"block/{log}_top"),
-        "stripped": mc(f"block/{stripped}"), "stripped_top": mc(f"block/{stripped}_top"),
-        "planks": mc(f"block/{wood}_planks"),
+        "log": wood_ns(wood, f"block/{log}"), "log_top": wood_ns(wood, f"block/{log}_top"),
+        "stripped": wood_ns(wood, f"block/{stripped}"), "stripped_top": wood_ns(wood, f"block/{stripped}_top"),
+        "planks": wood_ns(wood, f"block/{wood}_planks"),
     }
     # hollow logs
     for name, side, end in ((f"hollow_{log}", tex["log"], tex["log_top"]),
@@ -488,8 +530,9 @@ def stripped_cauldron(wood: str, log: str) -> None:
     """N35: the same cauldron in stripped wood (stripped log outside, planks inside)."""
     stripped = "stripped_" + log
     name = f"stripped_{wood}_cauldron"
-    ctex = {"particle": mc(f"block/{stripped}"), "side": mc(f"block/{stripped}"), "top": mc(f"block/{stripped}_top"),
-            "bottom": mc(f"block/{stripped}_top"), "inside": mc(f"block/{wood}_planks")}
+    ctex = {"particle": wood_ns(wood, f"block/{stripped}"), "side": wood_ns(wood, f"block/{stripped}"),
+            "top": wood_ns(wood, f"block/{stripped}_top"), "bottom": wood_ns(wood, f"block/{stripped}_top"),
+            "inside": wood_ns(wood, f"block/{wood}_planks")}
     put_json(f"{NS}/models/block/{name}.json", {"parent": "minecraft:block/cauldron", "textures": ctex})
     for content, content_tex in {"water": mc("block/water_still"), "powder_snow": mc("block/powder_snow")}.items():
         for level, template in ((1, "template_cauldron_level1"), (2, "template_cauldron_level2"), (3, "template_cauldron_full")):
@@ -530,7 +573,9 @@ def preview(jar: str, out: Path) -> None:
                 if p[3] and p[:3] in pals[wood]:
                     tile.putpixel((x, y), pals[wood][p[:3]])
         return tile
-    sides = {w: img(f"assets/minecraft/textures/block/stripped_{log}.png").crop((0, 0, 16, 16)) for w, log, _c in WOODS}
+    end_tex = ROOT / "modules/simpleend/shared/resources/assets/simpleend/textures/block"
+    sides = {w: (Image.open(end_tex / f"stripped_{log}.png").convert("RGBA") if w in END_WOODS
+                 else img(f"assets/minecraft/textures/block/stripped_{log}.png")).crop((0, 0, 16, 16)) for w, log, _c in WOODS}
     sheet = Image.new("RGBA", (len(MOTIFS) * 17 + 1, len(WOODS) * 17 + 1), (40, 40, 40, 255))
     for r, (wood, _log, _c) in enumerate(WOODS):
         for c, motif in enumerate(MOTIFS):
