@@ -133,23 +133,53 @@ def worn():
     return img
 
 
+def cape():
+    """Cloak on the back (owner 12.10.): vanilla cape UV 64x32 - box 10x16x1 at (0,0); outer side (1,1), inner (12,1)."""
+    img = Image.new('RGBA', (64, 32), (0, 0, 0, 0))
+
+    def face(u, v, w, h, k, ramp=ROBE, hem=True):
+        for y in range(h):
+            for x in range(w):
+                c = tone(u + x, v + y, ramp, k)
+                if hem and y == h - 1 and (x * 7 + k) % 3 == 0: continue          # torn hem
+                if hem and y >= h - 3 and (x * 5 + k) % 4 == 0: c = DEEP
+                img.putpixel((u + x, v + y), c + (255,))
+
+    face(1, 0, 10, 1, 1, hem=False); face(11, 0, 10, 1, 2, hem=False)
+    face(0, 1, 1, 16, 3); face(11, 1, 1, 16, 5)
+    face(1, 1, 10, 16, 4)
+    face(12, 1, 10, 16, 6, [DEEP, ROBE[0], ROBE[0]])
+    # outer side: gold clasp band at the shoulders with the watching eye, folds running down, a deep middle seam
+    for x in range(1, 11): img.putpixel((x, 1), (TRIM if x % 2 else TRIM_D) + (255,))
+    img.putpixel((5, 2), EYE[0] + (255,)); img.putpixel((6, 2), EYE[1] + (255,))
+    img.putpixel((4, 2), TRIM_D + (255,)); img.putpixel((7, 2), TRIM_D + (255,))
+    for y in range(4, 15):
+        img.putpixel((3, y), ROBE[0] + (255,)); img.putpixel((8, y), ROBE[0] + (255,))
+        if y % 3: img.putpixel((2, y), ROBE[2] + (255,)); img.putpixel((9, y), ROBE[2] + (255,))
+    for y in range(3, 14): img.putpixel((5 + (y % 2), y), DEEP + (255,))
+    return img
+
+
 def outputs():
     return {
         RES / 'textures/item/deceiver_cloak.png': cloak_item(),
         RES / 'textures/item/trick_mirror.png': mirror_item(),
         RES / 'textures/item/illusion_shard.png': shard_item(),
         RES / 'textures/entity/equipment/humanoid/deceiver_cloak.png': worn(),
+        RES / 'textures/entity/deceiver_cloak_cape.png': cape(),
     }
 
 
 def preview(items):
     PREVIEW.mkdir(parents=True, exist_ok=True)
-    sheet = Image.new('RGBA', (16 * 8 * 2 + 64 * 8 + 60, 300), (60, 60, 66, 255))
+    sheet = Image.new('RGBA', (16 * 8 * 2 + 64 * 8 + 60, 440), (60, 60, 66, 255))
     for i, n in enumerate(['deceiver_cloak', 'trick_mirror', 'illusion_shard']):
         t = items[RES / f'textures/item/{n}.png'].resize((128, 128), Image.NEAREST)
         sheet.paste(t, (10 + (i % 2) * 140, 10 + (i // 2) * 140), t)
     w = items[RES / 'textures/entity/equipment/humanoid/deceiver_cloak.png'].resize((512, 256), Image.NEAREST)
     sheet.paste(w, (300, 10), w)
+    c = items[RES / 'textures/entity/deceiver_cloak_cape.png'].resize((256, 128), Image.NEAREST)
+    sheet.paste(c, (10, 300), c)
     sheet.save(PREVIEW / 'textures.png')
 
 

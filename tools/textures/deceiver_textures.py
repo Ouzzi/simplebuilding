@@ -4,7 +4,7 @@
     python tools/textures/deceiver_textures.py --check  # fail if the committed PNGs differ
 
 UV layout (64x64) matches DeceiverModel: robe (0,0) 7x7x5, head/hood (0,12) 6x6x6, hood peak (24,12),
-cloak flap (24,0), chest plate (24,18), right arm (48,0), left arm (48,12), legs (0,24) / (12,24).
+cloak (24,0) 7x10x1, chest plate (24,18), right arm (48,0), left arm (48,12), legs (0,24) / (12,24).
 """
 import os
 import sys
@@ -73,10 +73,15 @@ def body(img):
     img.putpixel((7, 19), ROBE[0]); img.putpixel((10, 19), ROBE[0])
     # hood peak
     box(img, 24, 12, 2, 3, 3, ROBE, 3)
-    # cloak flap with gold hem
-    box(img, 24, 0, 6, 8, 1, ROBE, 4)
-    for xx in range(25, 31): img.putpixel((xx, 8), TRIM if xx % 2 else TRIM_D)
-    for xx in range(32, 38): img.putpixel((xx, 8), TRIM if xx % 2 else TRIM_D)
+    # full cloak down the back (N48, like the player's Cloak of Deception): gold shoulder band, folds, torn hem
+    box(img, 24, 0, 7, 10, 1, ROBE, 4)
+    for xx in range(25, 32): img.putpixel((xx, 1), TRIM if xx % 2 else TRIM_D)
+    for xx in range(33, 40): img.putpixel((xx, 1), TRIM if xx % 2 else TRIM_D)
+    img.putpixel((36, 2), EYE[0]); img.putpixel((37, 2), EYE[1])
+    for yy in range(3, 10):
+        img.putpixel((34, yy), ROBE[0]); img.putpixel((38, yy), ROBE[0]); img.putpixel((26, yy), ROBE[0]); img.putpixel((30, yy), ROBE[0])
+    for xx in (25, 27, 29, 31, 33, 35, 37, 39):
+        img.putpixel((xx, 10), DEEP)
     # chest plate
     box(img, 24, 18, 6, 4, 1, STEEL, 5)
     for (x, y) in [(25, 19), (30, 19), (25, 22), (30, 22)]: img.putpixel((x, y), STEEL[2])

@@ -95,6 +95,23 @@ public final class DisguiseClientSmoke implements FabricClientGameTest {
             context.runOnClient(mc -> mc.options.setCameraType(CameraType.THIRD_PERSON_FRONT));
             context.waitTicks(20);
             context.takeScreenshot("simplemobs-disguise-hood");
+            // N48: the cloak hangs on the back like an Elytra; a worn Elytra lies under it and spreads out in flight.
+            context.runOnClient(mc -> mc.options.setCameraType(CameraType.THIRD_PERSON_BACK));
+            world.getServer().runOnServer(server -> server.getPlayerList().getPlayers().getFirst().setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY));
+            context.waitTicks(20);
+            context.takeScreenshot("simplemobs-cloak-back");
+            world.getServer().runOnServer(server -> server.getPlayerList().getPlayers().getFirst().setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.ELYTRA)));
+            context.waitTicks(20);
+            context.takeScreenshot("simplemobs-cloak-elytra");
+            world.getServer().runOnServer(server -> {
+                ServerPlayer p = server.getPlayerList().getPlayers().getFirst();
+                p.getAbilities().flying = false;
+                p.onUpdateAbilities();
+                p.teleportTo(p.getX(), p.getY() + 40, p.getZ());
+                p.startFallFlying();
+            });
+            context.waitTicks(8);
+            context.takeScreenshot("simplemobs-cloak-flying");
         }
     }
 }

@@ -21,7 +21,10 @@
     "AvatarAccessor",
     "PlayerDisguiseLookMixin",
     "FirstPersonHandDisguiseMixin",
-    "InventoryScreenDisguiseMixin"
+    "InventoryScreenDisguiseMixin",
+    "LivingEntityRendererAccessor",
+    "AvatarRendererCloakMixin",
+    "CapeLayerCloakMixin"
   ],
   "injectors": {
     "defaultRequire": 1

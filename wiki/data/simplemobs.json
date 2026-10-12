@@ -177,7 +177,7 @@
         "title": "Deceiver: cloak, disguise, mirror",
         "summary": "From Deceiver Cloth: a cloak that lets you take any mob's or player's shape, a particle-free invisibility potion and a mirror that sees through deceptions. The Deceiver itself has double life, takes the hit box of the mob it imitates and can double its summons.",
         "details": [
-          "Cloak of Deception (worn on the head slot as a hood, so the chest stays free for armor; 240 durability, repaired with Deceiver Cloth): recipe Cloth-Cloth-Cloth / Phantom Membrane - . - Phantom Membrane / Cloth - . - Cloth; also dropped by the Deceiver (3 %, +2 % per Looting level).",
+          "Cloak of Deception (worn in the head slot: a hood, and the cloak hangs on the back like an Elytra; the chest stays free for armor or an Elytra, which is drawn under the cloak and spreads out sideways in flight; 240 durability, repaired with Deceiver Cloth): recipe Cloth-Cloth-Cloth / Phantom Membrane - . - Phantom Membrane / Cloth - . - Cloth; also dropped by the Deceiver (3 %, +2 % per Looting level).",
           "Worn, mobs notice you only within 3 blocks. With an empty hand right-click a mob to take its shape (look, hit box and eye height); mobs of that kind take you for one of theirs. Right-click another player to look like them, with their skin and the armor and gear they wore at that moment. Each disguise costs 1 durability.",
           "Any attack attempt - also a swing into the air - or breaking a block ends the disguise; the disguise shows in third person, on the inventory player model and on the first-person hands (a player shape with its skin, a humanoid mob with its own arm, a shape without arms without hands). Hurting a mob reveals you: it and every mob in the 5x5 around it know you for 60 s, all others notice you within 8 blocks for 30 s (still less than vanilla); the cloak loses 10 durability.",
           "Bosses (Wither, Ender Dragon, Elder Guardian), the Warden and the Hollow Howler see through the cloak and cannot be imitated (entity tag simplemobs:sees_through_disguise).",
@@ -192,7 +192,7 @@
         "title": "Deceiver: Umhang, Verwandlung, Spiegel",
         "summary": "Aus Täuscherstoff: ein Umhang, mit dem du die Gestalt jedes Mobs oder Spielers annimmst, ein Unsichtbarkeitstrank ohne Partikel und ein Spiegel, der Täuschungen durchschaut. Der Deceiver selbst hat doppeltes Leben, nimmt die Hitbox des nachgeahmten Mobs an und kann seine Beschwörungen verdoppeln.",
         "details": [
-          "Tarnumhang (als Kapuze im Kopfplatz, der Brustplatz bleibt für Rüstung frei; 240 Haltbarkeit, Reparatur mit Täuscherstoff): Rezept Stoff-Stoff-Stoff / Phantomhaut - . - Phantomhaut / Stoff - . - Stoff; außerdem Deceiver-Drop (3 %, +2 % je Plünderungsstufe).",
+          "Tarnumhang (im Kopfplatz: Kapuze, der Umhang hängt wie eine Elytra auf dem Rücken; der Brustplatz bleibt frei für Rüstung oder Elytren, die unter dem Umhang liegen und im Flug seitlich herausragen; 240 Haltbarkeit, Reparatur mit Täuscherstoff): Rezept Stoff-Stoff-Stoff / Phantomhaut - . - Phantomhaut / Stoff - . - Stoff; außerdem Deceiver-Drop (3 %, +2 % je Plünderungsstufe).",
           "Getragen bemerken dich Mobs erst im 3-Block-Radius. Mit leerer Hand Rechtsklick auf einen Mob: du nimmst seine Gestalt an (Aussehen, Hitbox, Augenhöhe); Mobs dieser Art halten dich für ihresgleichen. Rechtsklick auf einen Spieler: du siehst aus wie er, mit Skin sowie der Rüstung und Ausrüstung, die er in dem Moment trug. Jede Verwandlung kostet 1 Haltbarkeit.",
           "Jeder Angriffsversuch - auch ein Schlag in die Luft - oder Block abbauen beendet die Verwandlung; die Verkleidung sieht man in der Third Person, am Spielermodell im Inventar und an den Händen in der Ego-Ansicht (Spieler-Gestalt mit dessen Skin, humanoider Mob mit eigenem Arm, Gestalt ohne Arme ohne Hände). Verletzt du einen Mob, bist du enttarnt: er und alle Mobs im 5x5-Bereich um ihn erkennen dich 60 s lang, alle anderen bemerken dich 30 s lang im Umkreis von 8 Blöcken (weiter weniger als Vanilla); der Umhang verliert 10 Haltbarkeit.",
           "Bosse (Wither, Enderdrache, Großer Wächter), der Warden und der Hollow Howler durchschauen den Umhang und sind keine Verwandlungsziele (Entity-Tag simplemobs:sees_through_disguise).",
@@ -1299,10 +1299,10 @@
       },
       "note": {
         "en": {
-          "summary": "Worn on the head as a hood: mobs notice you only within 3 blocks; empty-handed right-click a mob or player to take its shape. Any swing (also into the air) or breaking a block ends it."
+          "summary": "Worn in the head slot (hood, cloak on the back over any Elytra): mobs notice you only within 3 blocks; empty-handed right-click a mob or player to take its shape. Any swing (also into the air) or breaking a block ends it."
         },
         "de": {
-          "summary": "Als Kapuze auf dem Kopfplatz: Mobs bemerken dich erst im 3-Block-Radius; mit leerer Hand Rechtsklick auf Mob oder Spieler = Verwandlung. Jeder Schlag (auch in die Luft) oder Abbauen beendet sie."
+          "summary": "Im Kopfplatz (Kapuze, Umhang auf dem Rücken über Elytren): Mobs bemerken dich erst im 3-Block-Radius; mit leerer Hand Rechtsklick auf Mob oder Spieler = Verwandlung. Jeder Schlag (auch in die Luft) oder Abbauen beendet sie."
         }
       },
       "texture": "assets/textures/simplemobs/item/deceiver_cloak.png",
@@ -1312,7 +1312,7 @@
             "A cloak that remembers every shape it ever saw."
           ],
           "use": [
-            "Craft deceiver cloth and phantom membrane in an elytra-like pattern. Worn on the head as a hood, 240 durability. Right-click a mob or player with an empty hand to take its shape."
+            "Craft deceiver cloth and phantom membrane in an elytra-like pattern. Worn in the head slot: a hood, with the cloak on your back over any Elytra. 240 durability. Right-click a mob or player with an empty hand to take its shape."
           ],
           "secret": [
             "Any swing, even into the air, or breaking a block ends the disguise. Bosses, the Warden and the Howler see through it."
@@ -1323,7 +1323,7 @@
             "Ein Umhang, der sich jede Gestalt merkt, die er je sah."
           ],
           "use": [
-            "Betrügertuch und Phantomhaut in einem Elytra-ähnlichen Muster herstellen. Als Kapuze im Kopfplatz getragen, 240 Haltbarkeit. Rechtsklick mit leerer Hand auf Mob oder Spieler nimmt dessen Gestalt an."
+            "Betrügertuch und Phantomhaut in einem Elytra-ähnlichen Muster herstellen. Im Kopfplatz getragen: Kapuze, der Umhang liegt auf dem Rücken über Elytren. 240 Haltbarkeit. Rechtsklick mit leerer Hand auf Mob oder Spieler nimmt dessen Gestalt an."
           ],
           "secret": [
             "Jeder Schlag, auch in die Luft, oder Blockabbau beendet die Verkleidung. Bosse, der Warden und der Heuler durchschauen sie."
