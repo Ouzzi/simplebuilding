@@ -512,6 +512,30 @@ window.WIKI_MODULE_DATA["simpletools"] = {
           "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Der Server merkt sich die Gegenstände, die bei jedem deiner Tode gefallen sind (die letzten 20 Tode). Das Gewölbe zeigt sie: Ein Gegenstand, der noch in der Welt liegt, ist abgedunkelt und nicht rückkaufbar; ist er verschwunden, in Lava oder Feuer verbrannt, explodiert oder ins Leere gefallen, schon. Hebt ihn irgendwer auf (auch teilweise, ein Trichter oder ein Mob), fällt er aus der Liste; vor dem Tod fallen gelassene Gegenstände zählen nie. Nach einem Tod durch einen anderen Spieler zählen nur verschwundene oder von diesem Spieler zerstörte Gegenstände. Diamanten in den Opferplatz legen (mit Simple Money auch Geldscheine) und Opfern drücken: je 4 kommt ein zufälliger verlorener Gegenstand zurück, höchstens 3 je Opfer - neuere Tode und wertvollere Gegenstände sind wahrscheinlicher; mit genug Opfern kommt alles zurück. Zurückgeholte Gegenstände fallen aus der Liste und behalten höchstens 50 Haltbarkeit."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "Some say the dead keep a ledger. This shrine is where it is kept, and its soul flame never forgets a name."
+          ],
+          "use": [
+            "Open it to see what your deaths cost you. Items still lying in the world stay dim; those that despawned, burned, blew up or fell into the void can be bought back. Every 4 diamonds return one random lost item, at most 3 per offering."
+          ],
+          "secret": [
+            "Newer deaths and more valuable items come back more often. Whatever anyone picked up is struck from the ledger, and Soulbound items never appear in it: they never left you."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Manche sagen, die Toten führen Buch. Dieser Schrein ist der Ort, an dem es liegt, und seine Seelenflamme vergisst keinen Namen."
+          ],
+          "use": [
+            "Öffne ihn, um zu sehen, was dich deine Tode gekostet haben. Was noch in der Welt liegt, bleibt dunkel; was verschwunden, verbrannt, explodiert oder ins Leere gefallen ist, lässt sich zurückkaufen. Je 4 Diamanten kommt ein zufälliger verlorener Gegenstand zurück, höchstens 3 je Opfer."
+          ],
+          "secret": [
+            "Neuere Tode und wertvollere Gegenstände kommen öfter zurück. Was irgendwer aufgehoben hat, wird gestrichen, und seelengebundene Gegenstände stehen nie darin: Sie haben dich nie verlassen."
+          ]
+        }
+      },
       "craftedBy": [
         "simpletools:death_vault"
       ],

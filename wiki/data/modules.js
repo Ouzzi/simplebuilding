@@ -396,7 +396,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletools",
     "displayName": "Simple Tools",
-    "description": "Full-durability bonus, the Thrift enchantment, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
+    "description": "Full-durability bonus, the Thrift and Soulbound enchantments, the Death Vault, anvil repairs without extra cost and lava buckets into furnaces; a sub-mod of Simple QoL, also playable alone.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -412,7 +412,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "5de17cf9b85a"
+    "dataHash": "c67babb79d08"
   },
   {
     "id": "simplefarming",
