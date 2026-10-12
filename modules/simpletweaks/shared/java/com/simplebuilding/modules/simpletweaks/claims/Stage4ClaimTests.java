@@ -329,7 +329,9 @@ final class Stage4ClaimTests {
         yes(h,(cow.getHealth()==cowBefore)==enabled,"Unattributed explosions spare claimed animals only while enabled");
         var stranger=player(h,f.edge.west(2));f.entities.add(stranger);cow.setInvulnerableTime(0);cow.damageCooldownTime=0;cow.setHealth(cow.getMaxHealth());
         var strangerSource=f.l.damageSources().playerAttack(stranger);String cowState="invulnerableTo="+cow.isInvulnerableTo(f.l,strangerSource)+", cooldown="+cow.damageCooldownTime+", invulnerable="+cow.isInvulnerable()+", health="+cow.getHealth()+", claims="+Claims.damage(strangerSource,cow);
-        boolean strangerHit=cow.hurtServer(f.l,strangerSource,1);
+        var fresh=f.add(EntityTypes.COW.create(f.l,EntitySpawnReason.COMMAND),inside.north(2));fresh.setNoAi(true);
+        boolean freshHit=fresh.hurtServer(f.l,strangerSource,1);cowState+=", freshHit="+freshHit+", dead="+cow.dead;
+        boolean strangerHit=freshHit;
         yes(h,strangerHit==!enabled,"Untrusted player attacks on claimed animals are refused (enabled="+enabled+", hit="+strangerHit+", cow alive="+cow.isAlive()+", "+cowState+")");
         var bolt=EntityTypes.LIGHTNING_BOLT.create(f.l,EntitySpawnReason.COMMAND);bolt.setCause(stranger);cow.removeAllEffects();
         yes(h,cow.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.POISON,100),bolt)==!enabled,"A lightning bolt counts as its causing player");
