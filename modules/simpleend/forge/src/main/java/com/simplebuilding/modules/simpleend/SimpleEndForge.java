@@ -27,6 +27,7 @@ public final class SimpleEndForge {
         FMLCommonSetupEvent.getBus(bus).addListener(event -> event.enqueueWork(EndRegistry::common));
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simpleend.guide.EndGuide.installQuests(FMLPaths.CONFIGDIR.get());
         net.minecraftforge.event.server.ServerAboutToStartEvent.BUS.addListener(event -> { SimpleEnd.applySubSwitches(); com.simplebuilding.modules.simpleend.world.EndBiomes.serverStarting(event.getServer()); });
+        net.minecraftforge.event.server.ServerStoppedEvent.BUS.addListener(event -> com.simplebuilding.modules.simpleend.world.EndBiomes.serverStopped());
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) SimpleEndForgeClient.init();
     }
 }

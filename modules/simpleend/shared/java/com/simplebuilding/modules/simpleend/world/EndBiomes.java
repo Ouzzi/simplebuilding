@@ -30,6 +30,10 @@ public final class EndBiomes {
 
     private EndBiomes() {}
 
+    public static void serverStopped() {
+        serverBiomes = null;
+    }
+
     public static void serverStarting(net.minecraft.server.MinecraftServer server) {
         serverBiomes = server.registryAccess().lookupOrThrow(Registries.BIOME);
     }

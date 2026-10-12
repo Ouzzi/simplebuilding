@@ -30,6 +30,7 @@ public final class SimpleEndNeoForge {
         bus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(EndRegistry::common));
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simpleend.guide.EndGuide.installQuests(FMLPaths.CONFIGDIR.get());
         NeoForge.EVENT_BUS.addListener((ServerAboutToStartEvent event) -> { SimpleEnd.applySubSwitches(); com.simplebuilding.modules.simpleend.world.EndBiomes.serverStarting(event.getServer()); });
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerStoppedEvent event) -> com.simplebuilding.modules.simpleend.world.EndBiomes.serverStopped());
         if (dist == Dist.CLIENT) SimpleEndNeoClient.init(bus);
     }
 }

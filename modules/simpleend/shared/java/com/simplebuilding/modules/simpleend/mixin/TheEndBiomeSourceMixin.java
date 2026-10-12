@@ -17,13 +17,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Ash Valley and Dawnlands replace round patches of the outer highlands/midlands (see {@link EndBiomes}). Both biomes
- * are added to the possible biomes so their features are sorted and placed. The holders come from the registry that
- * owns the Vanilla End holders (datapack biomes, no static state).
+ * are added to the possible biomes so their features are sorted and placed.
  */
 @Mixin(TheEndBiomeSource.class)
 public abstract class TheEndBiomeSourceMixin {
@@ -32,20 +30,11 @@ public abstract class TheEndBiomeSourceMixin {
     @Unique private Holder<Biome> simpleend$ash;
     @Unique private Holder<Biome> simpleend$dawn;
 
-    @SuppressWarnings("unchecked")
-    @Inject(method = "<init>", at = @At("RETURN"))
-    private void simpleend$lookUp(Holder<Biome> end, Holder<Biome> highlands, Holder<Biome> midlands, Holder<Biome> islands,
-                                  Holder<Biome> barrens, CallbackInfo ci) {
-        // Only a real (loaded) biome registry: a bootstrap lookup (world presets on the create-world screen) would
-        // record the request as a missing holder and fail registry creation.
-        if (highlands instanceof Holder.Reference<Biome> ref && ((HolderReferenceAccessor) (Object) ref).simpleend$owner() instanceof net.minecraft.core.Registry<?> registry) {
-            net.minecraft.core.Registry<Biome> biomes = (net.minecraft.core.Registry<Biome>) registry;
-            simpleend$ash = biomes.get(EndBiomes.ASH_VALLEY).orElse(null);
-            simpleend$dawn = biomes.get(EndBiomes.DAWNLANDS).orElse(null);
-        }
-    }
-
-    /** A preset-built source (new world) has no registry behind its holders: take the running server's. */
+    /**
+     * The holders always come from the running server's biome registry (set when it starts, cleared when it stops):
+     * a source built on the create-world screen sees a temporary registry whose holders have no network id on the
+     * server (chunk packets would carry biome id -1).
+     */
     @Unique
     private void simpleend$resolve() {
         if (simpleend$ash != null && simpleend$dawn != null) return;

@@ -8,7 +8,6 @@
     "BlockSetTypeAccessor",
     "BlockTransformerMixin",
     "FireBlockInvoker",
-    "HolderReferenceAccessor",
     "ItemEntityMixin",
     "TheEndBiomeSourceMixin",
     "WoodTypeAccessor"
