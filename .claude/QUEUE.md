@@ -799,6 +799,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
 
+## Nachtrag 46 (2026-10-12, Besitzer; Screenshot docs/ai/refs/n44/n46_inventar.png)
+- [ ] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf).
+- [ ] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen.
+- [ ] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher.
+- [ ] Astral- und Nihil-Gewölbe (vault): wirken gar nicht Vanilla → an Vanilla-Vault/Trial-Stil angleichen (Vorschläge).
+
 ## Nachtrag 45 (2026-10-12, Besitzer)
 - [ ] Lohen-Obsidian (blazing_obsidian) verbessern: soll klar wie Variante von Crying Obsidian aussehen. (claude-n45-tex: Vorschläge B1–B3 in docs/ai/previews/n45, Besitzer-Wahl offen)
 - [x] Astral-Verzauberer: Modell kleiner als Textur → oben abgeschnitten; Textur an Modellmaße anpassen. (claude-n45-tex: Seite für 16x12-Modell, Motiv in Zeilen 4–15)
