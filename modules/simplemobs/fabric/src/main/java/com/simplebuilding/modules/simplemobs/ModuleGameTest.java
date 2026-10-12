@@ -21,6 +21,12 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerAbortSensor(GameTestHelper helper) { MobsTests.ALL.get("howler_abort_sensor").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerSummon(GameTestHelper helper) { MobsTests.ALL.get("howler_summon").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerFight(GameTestHelper helper) { MobsTests.ALL.get("howler_fight").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerAttackChoice(GameTestHelper helper) { MobsTests.ALL.get("howler_attack_choice").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerShockwave(GameTestHelper helper) { MobsTests.ALL.get("howler_shockwave").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerShriekCover(GameTestHelper helper) { MobsTests.ALL.get("howler_shriek_cover").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerTendrils(GameTestHelper helper) { MobsTests.ALL.get("howler_tendrils").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerChargeHit(GameTestHelper helper) { MobsTests.ALL.get("howler_charge_hit").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerChargeWall(GameTestHelper helper) { MobsTests.ALL.get("howler_charge_wall").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void silenceDampens(GameTestHelper helper) { MobsTests.ALL.get("silence_dampens").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void cloakRegistered(GameTestHelper helper) { MobsTests.ALL.get("cloak_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void veiledInvisibility(GameTestHelper helper) { MobsTests.ALL.get("veiled_invisibility").accept(helper); }

@@ -34,6 +34,10 @@ public class HowlerRenderer extends MobRenderer<HowlerEntity, HowlerRenderState,
         float open = entity.phase() == HowlerLogic.Phase.ONE ? 0.0f : 0.35f;
         if (bite > 0) open = Math.max(open, Math.min(1.0f, (HowlerLogic.BITE_WINDUP_TICKS - bite + partialTicks) / 4.0f));
         state.shriek = shriek > 0 ? Math.min(1.0f, shriek / 6.0f) : 0.0f;
+        // telegraphs: arms spread for the ground shockwave, head low with jaws wide for the charge
+        HowlerLogic.Attack attack = entity.attack();
+        if (attack == HowlerLogic.Attack.SHOCKWAVE) state.shriek = Math.max(state.shriek, 0.7f);
+        if (attack == HowlerLogic.Attack.CHARGE) open = 1.0f;
         state.jawOpen = Math.max(open, state.shriek);
         state.tendril = entity.tendrilAnimation(partialTicks);
         state.emerge = emerge > 0 ? 1.0f - Math.max(0.0f, emerge - partialTicks) / HowlerLogic.EMERGE_TICKS : 1.0f;

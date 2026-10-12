@@ -1,5 +1,24 @@
 # Konzept: Neuer Deep-Dark-Mob "Hollow Howler" / "Tiefenheuler" (N33, 2026-10-11, Fassung 3: umgesetzt)
 
+## Nachtrag 46 (Besitzer 12.10.): etwas stärker als der Warden, Spieler auf Trab halten (claude-howler4)
+Geht den 240-HP-Angaben unten vor.
+
+| Wert | vorher | jetzt | Warden |
+|---|---|---|---|
+| Leben | 240 | **550** | 500 |
+| Rüstung | 6 | **8** | 0 |
+| Rückstoßresistenz | 0,6 (Wut 1,0) | **1,0** | 1,0 |
+| Tempo | 0,26 (+15 %/+25 %) | **0,3** (+10 %/+20 %) | 0,3 (wütend 0,36) |
+| Biss | 14, 0,6 s Ankündigung, alle 2,1 s | **20**, sonst gleich | 30, ohne Ankündigung |
+| Echo-Schrei | 8, r 10, sofort | 8, r 10, **1 s Aufladen, Deckung blockt** | Sonic Boom 10, durch Wände |
+
+Neue Muster (alle mit Ankündigung Sound + Partikel, danach 1,5 s Pause `PATTERN_GAP_TICKS`, in Wut Abklingzeit -1/3):
+- **Boden-Schockwelle** (Ziel <= 4 Blöcke, alle 10 s): 1 s Aufladen (Warden-Sonic-Charge-Sound, Partikelring markiert r 5), dann 10 Schaden + Wegstoß für Spieler auf dem Boden im Ring. Ausweichen: springen oder raus.
+- **Ansturm** (6-16 Blöcke, Sichtlinie, alle 9 s): 0,8 s Ducken, Richtung dabei fest (Staubspur zeigt die Linie), dann 1 s geradeaus mit 0,8 Bl./Tick; Treffer 12 + Wegstoß. Ausweichen: zur Seite. Gegen Wand: 1,5 s Taumeln (Konterfenster).
+- **Sculk-Ranken** (<= 16 Blöcke, auch ohne Sicht, alle 8 s): 3 Markierungen (eine unter dem Ziel), pulsieren 1,5 s, dann 4 Schaden + Langsamkeit II 3 s im Radius 1,2. Ausweichen: runtergehen.
+- Licht <= 7 und Sensor <= 5 Blöcke bleiben; Abbruchregeln unverändert.
+- Gametests: howler_registered (Werte vs. Warden), howler_rules, howler_attack_choice, howler_shockwave, howler_shriek_cover, howler_tendrils, howler_charge_hit, howler_charge_wall, howler_abort_light/_sensor.
+
 ## Besitzer-Entscheidungen 11.10. (abschließend, gehen allem unten vor)
 - Name: EN **Hollow Howler**, DE **Tiefenheuler**.
 - Licht: Block- **und** Tageslicht am Kopf (Schädel) <= 7, sonst kein Start bzw. Abbruch.

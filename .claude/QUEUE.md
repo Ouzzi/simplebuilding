@@ -804,7 +804,11 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf).
 - [x] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen. (claude-n46-tex: Stufen im B4-Stil eingebaut)
 - [x] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher. (claude-n46-tex: R3 eingebaut, Bücherreihe an den Seiten, niedrige Lapis-Kante)
-- [x] Astral- und Nihil-Gewölbe (vault): Endertruhen-Stil, bleibt Truhe. (claude-n46-tex: A2 + Gold, N2 + Silber eingebaut; Vanilla-ender.png zur Generierungszeit aus dem Client-Jar wie D9)
+- [x] Astral- und Nihil-Gewölbe (vault): Endertruhen-Stil, bleibt Truhe. (claude-n46-tex: A2 + Gold, N2 + Silber eingebaut; Vanilla-ender.png zur Generierungszeit aus dem Client-Jar wie D9),
+- [x] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf). (claude-howler4: 550 HP/8 Rüstung, Schockwelle/Ansturm/Ranken mit Ankündigung)
+- [ ] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen.
+- [ ] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher.
+- [ ] Astral- und Nihil-Gewölbe (vault): wirken gar nicht Vanilla → an Vanilla-Vault/Trial-Stil angleichen (Vorschläge).
 
 ## Nachtrag 45 (2026-10-12, Besitzer)
 - [x] Lohen-Obsidian (blazing_obsidian): B1 animiert + nahtlos (claude-n45-obsidian); Astral-Tisch Oberseite/Seiten animiert, Nebel unter dem Tuch.

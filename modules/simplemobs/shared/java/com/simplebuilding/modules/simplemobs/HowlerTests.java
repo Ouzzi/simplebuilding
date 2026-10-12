@@ -11,6 +11,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -48,6 +49,24 @@ final class HowlerTests {
         return s;
     }
 
+    private static void floor(GameTestHelper h) {
+        for (int x = 0; x < 8; x++) for (int z = 0; z < 8; z++) h.getLevel().setBlock(h.absolutePos(new BlockPos(x, 0, z)), Blocks.STONE.defaultBlockState(), 3);
+    }
+
+    /**
+     * Stand-in prey (mock server players are always creative, see NetworkHandlerTests): a still pig tagged as prey,
+     * standing (or, with {@code ground} false, in the air) at relative x/z on the floor.
+     */
+    private static net.minecraft.world.entity.animal.pig.Pig prey(GameTestHelper h, double x, double z, boolean ground) {
+        var p = h.spawn(net.minecraft.world.entity.EntityTypes.PIG, BlockPos.ZERO.above());
+        p.setNoAi(true);
+        p.addTag(HowlerEntity.TEST_PREY_TAG);
+        BlockPos o = h.absolutePos(BlockPos.ZERO);
+        p.snapTo(o.getX() + x, o.getY() + 1 + (ground ? 0 : 0.8), o.getZ() + z);
+        p.setOnGround(ground);
+        return p;
+    }
+
     private static boolean partsPresent(ServerLevel l, BlockPos center) { return HowlerPattern.at(l, center).isPresent(); }
 
     private static int rituals(ServerLevel l, BlockPos center) {
@@ -68,8 +87,14 @@ final class HowlerTests {
             h.assertTrue(BuiltInRegistries.POTION.containsKey(MobsRegistry.SILENCE_POTION_KEY.identifier())
                     && BuiltInRegistries.POTION.containsKey(MobsRegistry.LONG_SILENCE_POTION_KEY.identifier()), "silence potions");
             var attrs = HowlerEntity.createAttributes().build();
-            h.assertTrue(attrs.getBaseValue(Attributes.MAX_HEALTH) == 240.0, "240 health");
-            h.assertTrue(attrs.getBaseValue(Attributes.ATTACK_DAMAGE) == 14.0 && attrs.getBaseValue(Attributes.ARMOR) == 6.0, "bite 14, armor 6");
+            h.assertTrue(attrs.getBaseValue(Attributes.MAX_HEALTH) == 550.0, "550 health");
+            h.assertTrue(attrs.getBaseValue(Attributes.ATTACK_DAMAGE) == 20.0 && attrs.getBaseValue(Attributes.ARMOR) == 8.0, "bite 20, armor 8");
+            // Nachtrag 46: a little stronger than the Warden
+            var warden = net.minecraft.world.entity.monster.warden.Warden.createAttributes().build();
+            h.assertTrue(attrs.getBaseValue(Attributes.MAX_HEALTH) > warden.getBaseValue(Attributes.MAX_HEALTH), "more health than the Warden");
+            h.assertTrue(attrs.getBaseValue(Attributes.ARMOR) > warden.getBaseValue(Attributes.ARMOR), "more armor than the Warden");
+            h.assertTrue(attrs.getBaseValue(Attributes.KNOCKBACK_RESISTANCE) >= warden.getBaseValue(Attributes.KNOCKBACK_RESISTANCE), "knockback resistance like the Warden");
+            h.assertTrue(attrs.getBaseValue(Attributes.MOVEMENT_SPEED) >= warden.getBaseValue(Attributes.MOVEMENT_SPEED) - 1.0e-6, "as fast as the Warden");
             h.succeed();
         });
         add.accept("howler_rules", h -> {
@@ -77,7 +102,27 @@ final class HowlerTests {
             h.assertTrue(HowlerLogic.phase(120, 240) == HowlerLogic.Phase.HUNGER, "hunger at 50 %");
             h.assertTrue(HowlerLogic.phase(48, 240) == HowlerLogic.Phase.RAGE, "rage at 20 %");
             h.assertTrue(HowlerLogic.shriekCooldown(HowlerLogic.Phase.RAGE) * 2 == HowlerLogic.shriekCooldown(HowlerLogic.Phase.ONE), "rage shrieks twice as often");
-            h.assertTrue(HowlerLogic.knockbackResistance(HowlerLogic.Phase.RAGE) == 1.0, "rage ignores knockback");
+            h.assertTrue(HowlerLogic.cooldown(180, HowlerLogic.Phase.RAGE) == 120 && HowlerLogic.cooldown(180, HowlerLogic.Phase.HUNGER) == 180, "rage: cooldowns a third shorter");
+            h.assertTrue(HowlerLogic.speedFactor(HowlerLogic.Phase.RAGE) > HowlerLogic.speedFactor(HowlerLogic.Phase.HUNGER), "rage is faster");
+            h.succeed();
+        });
+        add.accept("howler_attack_choice", h -> {
+            // choose(dist, reach, sight, gap, bite, shockwave, shriek, charge, tendrils)
+            h.assertTrue(HowlerLogic.choose(2, 3, true, 0, 0, 0, 0, 0, 0) == HowlerLogic.Attack.BITE, "in reach: bite");
+            h.assertTrue(HowlerLogic.choose(2, 3, true, 20, 0, 0, 0, 0, 0) == HowlerLogic.Attack.BITE, "the bite ignores the pause");
+            h.assertTrue(HowlerLogic.choose(3.5, 3, true, 0, 10, 0, 0, 0, 0) == HowlerLogic.Attack.SHOCKWAVE, "close, bite cooling: shockwave");
+            h.assertTrue(HowlerLogic.choose(3.5, 3, true, 5, 10, 0, 0, 0, 0) == HowlerLogic.Attack.NONE, "pause after a special attack: nothing");
+            h.assertTrue(HowlerLogic.choose(8, 3, true, 0, 0, 0, 0, 0, 0) == HowlerLogic.Attack.SHRIEK, "8 blocks in sight: shriek");
+            h.assertTrue(HowlerLogic.choose(8, 3, true, 0, 0, 0, 50, 0, 0) == HowlerLogic.Attack.CHARGE, "shriek cooling: charge");
+            h.assertTrue(HowlerLogic.choose(14, 3, true, 0, 0, 0, 0, 0, 0) == HowlerLogic.Attack.CHARGE, "14 blocks: charge");
+            h.assertTrue(HowlerLogic.choose(8, 3, false, 0, 0, 0, 0, 0, 0) == HowlerLogic.Attack.TENDRILS, "behind cover: tendrils, no shriek or charge");
+            h.assertTrue(HowlerLogic.choose(20, 3, true, 0, 0, 0, 0, 0, 0) == HowlerLogic.Attack.NONE, "too far: nothing");
+            h.assertTrue(HowlerLogic.shockwaveHits(4.9, 0, true) && !HowlerLogic.shockwaveHits(4.9, 0, false) && !HowlerLogic.shockwaveHits(5.1, 0, true),
+                    "shockwave: on the ground within 5 blocks; jumping or stepping out dodges");
+            // fair: every special attack is announced at least as long as the bite wind-up, then a pause follows
+            for (int w : new int[] {HowlerLogic.SHOCKWAVE_WINDUP_TICKS, HowlerLogic.CHARGE_WINDUP_TICKS, HowlerLogic.SHRIEK_WINDUP_TICKS, HowlerLogic.TENDRIL_WINDUP_TICKS})
+                h.assertTrue(w >= HowlerLogic.BITE_WINDUP_TICKS, "telegraph of " + w + " ticks");
+            h.assertTrue(HowlerLogic.PATTERN_GAP_TICKS > 0, "pause between special attacks");
             h.assertTrue(HowlerLogic.damageTaken(10f, true) == 15f && HowlerLogic.damageTaken(10f, false) == 10f, "open jaws take x1.5");
             h.assertTrue(HowlerLogic.darkEnough(7, 7) && !HowlerLogic.darkEnough(8, 7), "light 7 ok, 8 too bright");
             h.assertTrue(HowlerLogic.sensorInRange(5, -5, 5) && !HowlerLogic.sensorInRange(6, 0, 0), "sensor within 5 blocks");
@@ -191,14 +236,14 @@ final class HowlerTests {
             var player = h.makeMockServerPlayerInLevel();
             var src = l.damageSources().playerAttack(player);
             float before = howler.getHealth();
-            howler.hurtServer(l, src, 10f);
+            howler.hurtServer(l, src, 20f);
             float plain = before - howler.getHealth();
             // a second Howler, so hurt cooldown frames do not mix in
             HowlerEntity biting = h.spawn(MobsRegistry.HOLLOW_HOWLER, 5, 1, 5);
             biting.setNoAi(true);
             biting.startBite();
             before = biting.getHealth();
-            biting.hurtServer(l, src, 10f);
+            biting.hurtServer(l, src, 20f);
             float weak = before - biting.getHealth();
             biting.discard();
             h.assertTrue(Math.abs(weak - plain * 1.5f) < 0.01f, "hits on opening jaws deal x1.5: " + plain + " -> " + weak);
@@ -212,6 +257,88 @@ final class HowlerTests {
             h.assertTrue(howler.getLootTable().map(k -> k.identifier().getPath().equals("entities/hollow_howler")).orElse(false), "uses its loot table");
             howler.discard();
             h.succeed();
+        });
+        add.accept("howler_shockwave", h -> {
+            ServerLevel l = h.getLevel();
+            floor(h);
+            HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 1, 1, 4);
+            howler.setNoAi(true);
+            var near = prey(h, 4.5, 4.5, true);
+            var far = prey(h, 6.5, 0.5, true);
+            var jumping = prey(h, 1.5, 7.5, false);
+            howler.startShockwave(l);
+            h.assertTrue(howler.attack() == HowlerLogic.Attack.SHOCKWAVE && near.getHealth() == near.getMaxHealth(), "wind-up first, no damage yet");
+            h.assertTrue(howler.shockwave(l) == 1, "only the player on the ground inside the ring is hit");
+            h.assertTrue(near.getHealth() < near.getMaxHealth(), "3 blocks away on the ground: hit");
+            h.assertTrue(far.getHealth() == far.getMaxHealth(), "6.4 blocks away: outside the ring");
+            h.assertTrue(jumping.getHealth() == jumping.getMaxHealth(), "in the air: jumped over it");
+            howler.discard();
+            h.succeed();
+        });
+        add.accept("howler_shriek_cover", h -> {
+            ServerLevel l = h.getLevel();
+            floor(h);
+            HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 1, 1, 1);
+            howler.setNoAi(true);
+            var open = prey(h, 1.5, 7.5, true);
+            var covered = prey(h, 7.5, 1.5, true);
+            for (int y = 1; y <= 5; y++) for (int z = 0; z <= 3; z++) l.setBlock(h.absolutePos(new BlockPos(5, y, z)), Blocks.STONE.defaultBlockState(), 3);
+            h.assertTrue(howler.shriek(l, HowlerLogic.Phase.ONE) == 1, "one player in sight hit");
+            h.assertTrue(open.getHealth() < open.getMaxHealth(), "in sight: hit");
+            h.assertTrue(covered.getHealth() == covered.getMaxHealth(), "behind a wall: cover blocks the shriek");
+            howler.discard();
+            h.succeed();
+        });
+        add.accept("howler_tendrils", h -> {
+            ServerLevel l = h.getLevel();
+            floor(h);
+            HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 0);
+            howler.setNoAi(true);
+            var target = prey(h, 4.5, 4.5, true);
+            var aside = prey(h, 7.5, 4.5, true);
+            h.assertTrue(howler.canHunt(target), "tagged stand-in is prey");
+            var plainPig = h.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(6, 1, 1));
+            h.assertFalse(howler.canHunt(plainPig), "other mobs are no prey");
+            int marks = howler.spitTendrils(l, target);
+            h.assertTrue(marks >= 1 && howler.pendingTendrils() == marks, "marks placed, waiting to erupt: " + marks);
+            h.assertTrue(target.getHealth() == target.getMaxHealth(), "no damage while the marks pulse");
+            h.assertTrue(howler.eruptTendril(l, target.position()) == 1, "standing on the mark: caught");
+            h.assertTrue(target.hasEffect(MobEffects.SLOWNESS) && target.getHealth() < target.getMaxHealth(), "caught: damage and Slowness");
+            h.assertFalse(aside.hasEffect(MobEffects.SLOWNESS), "3 blocks aside: stepped off");
+            howler.discard();
+            h.succeed();
+        });
+        add.accept("howler_charge_hit", h -> {
+            ServerLevel l = h.getLevel();
+            floor(h);
+            HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 3);
+            double startX = howler.getX();
+            var target = prey(h, 7.0, 3.5, true);
+            var aside = prey(h, 4.5, 6.8, true);
+            howler.setTarget(target);
+            howler.startCharge(l, target.position().subtract(howler.position()));
+            h.assertTrue(howler.attack() == HowlerLogic.Attack.CHARGE && howler.chargeDirection().x > 0.99, "locked straight ahead");
+            h.runAfterDelay(HowlerLogic.CHARGE_WINDUP_TICKS - 2, () -> h.assertTrue(howler.getX() < startX + 0.5, "stays put during the wind-up"));
+            h.succeedWhen(() -> {
+                h.assertTrue(target.getHealth() < target.getMaxHealth(), "the charge hits the player in its line (moved " + (howler.getX() - startX) + ", " + howler.attack() + ")");
+                h.assertTrue(aside.getHealth() == aside.getMaxHealth(), "a player beside the line is spared");
+                howler.discard();
+            });
+        });
+        add.accept("howler_charge_wall", h -> {
+            ServerLevel l = h.getLevel();
+            floor(h);
+            for (int y = 1; y <= 4; y++) for (int z = 0; z <= 7; z++) l.setBlock(h.absolutePos(new BlockPos(4, y, z)), Blocks.STONE.defaultBlockState(), 3);
+            HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 3);
+            double startX = howler.getX();
+            var target = prey(h, 7.0, 3.5, true);
+            howler.setTarget(target);
+            howler.startCharge(l, target.position().subtract(howler.position()));
+            h.succeedWhen(() -> {
+                h.assertTrue(howler.staggered(), "running into the wall staggers it (moved " + (howler.getX() - startX) + ", " + howler.attack() + ", target " + howler.getTarget() + ")");
+                h.assertTrue(target.getHealth() == target.getMaxHealth(), "the player behind the wall is safe");
+                howler.discard();
+            });
         });
         add.accept("silence_dampens", h -> {
             var player = h.makeMockServerPlayerInLevel();
