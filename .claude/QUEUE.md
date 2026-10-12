@@ -822,6 +822,23 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
 
+## Nachtrag 41 (2026-10-12, Besitzer)
+- [ ] Wollknäuel (ball of yarn) craftbar aus Wollblock: 1 Wolle → 2 Knäuel.
+- [ ] Sculk Jaw: Zähne offen dezenter; Darkness statt Blindness.
+- [ ] Holzkessel entrindet (stripped): 3D-Modell fehlt die Variante → fixen.
+- [ ] Tooltip Basic Upgrade „applies to“ abkürzen (z. B. „Stone–Gold equipment“).
+- [ ] Leather Sheet: Item größer, zentriert, richtige Größe im Slot.
+- [ ] Enderquarz: Form gleich, Farben/Stil anpassen (Vorschläge).
+- [ ] Blaze Book: wie Vanilla-Buch, nur epischer; Rezept 8 Lohenstaub + Buch (Vorschläge).
+- [ ] Hufeisen: Form gleich, Textur überarbeiten (Vorschläge).
+- [ ] Blöcke Bild 1 (docs/ai/refs/n41/bloecke.png): MC-Stil, epischer, fließender, nicht stechend; je 3 Vorschläge, Web-Referenzen.
+- [ ] Bild 2 (docs/ai/refs/n41/items.png: Farbkasten, Rucksack, 2 Faser-Ringe): je 5 Vorschläge; Fasern mehr wie Fasern; Rucksack-Item-Textur zusätzlich als Render des 3D-Modells vorschlagen.
+- [ ] Regel: bei Textur-Überarbeitungen immer Referenzen aus dem Internet suchen.
+- [ ] Trainingspuppe: Körper flackert mit Kürbiskopf (Z-Fighting).
+- [ ] Kleiner Rüstungsständer: Stein-Bodenplatte flackert; Helm zu hoch, Stiefel zu niedrig.
+- [ ] Jukebox wie Vanilla (keine Änderung); Verstärker in Reichweite (63 Blöcke) spielt den Ton ohne Verzögerung mit, Spieler hört ihn vom Verstärker.
+- [ ] Rods/Poles: alle Mod-Rods heißen „Pole“ (Iron/Gold/Netherite/Enderite Pole); Diamond Pole (3 Diamanten, 3D wie Blitzableiter) vs. Diamond Rod (Pfeile usw.) trennen.
+
 ## Nachtrag 40 (2026-10-11, Besitzer)
 - [ ] Neues Sub-Modul Simple End Dragon Fight (Konzept + Skalierungs-Vorschläge zuerst): ab halbem Leben alle 30 s Dragonmites (eigene Endermites, nur mit Drache) nahe dem Brunnen; +1 Leben je Spieler, automatische Anpassung, wenn neue Spieler die End-Insel (mit Puffer) betreten; Eintritts-Animation + Partikel je Spieler (Warteschlange, jeder Trigger sichtbar); Drache allgemein schneller.
 - [ ] Geschnitztes Holz rundherum (alle Seiten), nicht nur eine Seite.
