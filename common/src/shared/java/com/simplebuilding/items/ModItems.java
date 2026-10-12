@@ -226,8 +226,11 @@ public class ModItems {
         java.util.List<Item> out = new java.util.ArrayList<>();
         for (net.minecraft.world.level.block.Block cell : ModBlocks.MATERIAL_OCTETS) {
             String name = BuiltInRegistries.BLOCK.getKey(cell).getPath();
+            // Netherit-Achtel wie der Netheritblock: UNCOMMON und feuerfest (Seltenheitsschema, DataIntegrityTests).
+            boolean netherite = name.startsWith("netherite_");
             out.add(registerItem(name, s -> new com.simplebuilding.items.custom.MaterialOctetItem(() -> cell,
-                    s.stacksTo(com.simplebuilding.items.custom.CheckerOctetItem.MAX_STACK))));
+                    netherite ? s.stacksTo(com.simplebuilding.items.custom.CheckerOctetItem.MAX_STACK).rarity(Rarity.UNCOMMON).fireResistant()
+                            : s.stacksTo(com.simplebuilding.items.custom.CheckerOctetItem.MAX_STACK))));
         }
         return java.util.List.copyOf(out);
     }

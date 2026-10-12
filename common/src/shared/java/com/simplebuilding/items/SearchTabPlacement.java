@@ -99,7 +99,8 @@ public final class SearchTabPlacement {
     /** Material-Achtel (N19/N15), die schon in den Ketten der End-Paletten und des Glattquarz stehen (sonst brechen deren Reihenfolgen). */
     private static final java.util.Set<String> IN_CHAINS = java.util.Set.of("purpur_block_octet", "smooth_quartz_octet",
             "astralit_bricks_octet", "polished_astralit_block_octet", "nihilith_bricks_octet", "polished_nihilith_block_octet",
-            "ender_quartz_block_octet", "ender_quartz_bricks_octet", "polished_ender_quartz_block_octet");
+            "ender_quartz_block_octet", "ender_quartz_bricks_octet", "polished_ender_quartz_block_octet",
+            "diamond_block_octet", "netherite_block_octet");
 
     /** Das Material-Achtel in einer Kette; leer, wo es die Achtel nicht gibt (nur 26.3). */
     private static ItemLike[] octet(String key) {
@@ -107,6 +108,17 @@ public final class SearchTabPlacement {
             return new ItemLike[0];
         }
         return new ItemLike[]{net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplebuilding", key + "_octet"))};
+    }
+
+    /** Entrindete Staemme der Holzwerk-Familien: ihr Achtel steht in deren Kette. */
+    private static java.util.Set<Item> woodworkStripped() {
+        java.util.Set<Item> out = new java.util.HashSet<>();
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+                out.add(family.wood().strippedBlock().asItem());
+            }
+        }
+        return out;
     }
 
     private static ItemLike[] chain(Object... parts) {
@@ -199,18 +211,29 @@ public final class SearchTabPlacement {
                 net.minecraft.world.level.block.Block stairs = com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(full, false, true).orElse(null);
                 net.minecraft.world.level.block.Block slab = stairs == null ? null
                         : com.simplebuilding.items.custom.SledgehammerItem.reshapeTarget(stairs, false, false).orElse(null);
+                String sourcePath = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(full).getPath();
+                Item octetItem = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell));
                 if (slab != null) {
                     // Wolle und Beton stehen bei Vanilla im Tab "Farbbloecke", alles andere in den Bausteinen.
-                    String sourcePath = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(full).getPath();
                     boolean colored = sourcePath.endsWith("_wool") || sourcePath.endsWith("_concrete");
-                    out.add(Placement.after(colored ? COLORED_BLOCKS : BUILDING_BLOCKS, slab.asItem(), net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(cell))));
+                    out.add(Placement.after(colored ? COLORED_BLOCKS : BUILDING_BLOCKS, slab.asItem(), octetItem));
+                } else if (!woodworkStripped().contains(full.asItem())) {
+                    // Bloecke ohne Treppe (Terrakotta, Kupfer, Erzbloecke, Staemme ...): hinter dem Vollblock im Tab seines Vorbilds.
+                    ResourceKey<CreativeModeTab> tab = sourcePath.endsWith("terracotta") ? COLORED_BLOCKS
+                            : java.util.Set.of("calcite", "obsidian", "bone_block").contains(sourcePath) ? NATURAL_BLOCKS : BUILDING_BLOCKS;
+                    out.add(Placement.after(tab, full.asItem(), octetItem));
                 }
             }
         }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             // Holzwerk: die Familie einer Holzart hinter deren entrindetem Stamm.
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
-                out.add(Placement.after(BUILDING_BLOCKS, family.wood().strippedBlock().asItem(), family.blocks().toArray(new ItemLike[0])));
+                // Das Achtel des entrindeten Stamms (falls es eines gibt) steht direkt hinter dem Stamm, vor der Familie.
+                Item stripped = family.wood().strippedBlock().asItem();
+                String strippedPath = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stripped).getPath();
+                boolean hasOctet = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", strippedPath + "_octet"));
+                ItemLike[] octet = hasOctet ? octet(strippedPath) : new ItemLike[0];
+                out.add(Placement.after(BUILDING_BLOCKS, stripped, chain(octet, family.blocks().toArray(new ItemLike[0]))));
             }
         }
         // Kupfer folgt in der Erz-Reihenfolge auf Stein: die acht Kupferplatten hinter der Steinplatte.
@@ -219,10 +242,10 @@ public final class SearchTabPlacement {
                 TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
                 TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
                 TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE));
-        out.add(Placement.after(BUILDING_BLOCKS, Items.DIAMOND_BLOCK,
-                ModItems.CRACKED_DIAMOND_BLOCK, TweaksBlocks.DIAMOND_PRESSURE_PLATE));
-        out.add(Placement.after(BUILDING_BLOCKS, Items.NETHERITE_BLOCK,
-                TweaksBlocks.NETHERITE_PRESSURE_PLATE, ModItems.ENDERITE_BLOCK_ITEM, TweaksBlocks.ENDERITE_PRESSURE_PLATE));
+        out.add(Placement.after(BUILDING_BLOCKS, Items.DIAMOND_BLOCK, chain(octet("diamond_block"),
+                ModItems.CRACKED_DIAMOND_BLOCK, TweaksBlocks.DIAMOND_PRESSURE_PLATE)));
+        out.add(Placement.after(BUILDING_BLOCKS, Items.NETHERITE_BLOCK, chain(octet("netherite_block"),
+                TweaksBlocks.NETHERITE_PRESSURE_PLATE, ModItems.ENDERITE_BLOCK_ITEM, TweaksBlocks.ENDERITE_PRESSURE_PLATE)));
 
         // --- Natur: End-Erze hinter dem Antiken Schutt, Schwebe-/Levitationsblöcke bei Kies und Sand.
         // Hinter dem Antiken Schrott: die End-Erze, dann der Dimensions-Schrott (2026-10-01, nur Hauptlinie).
