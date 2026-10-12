@@ -41,6 +41,15 @@ public final class DragonFightTests {
         return d;
     }
 
+    /**
+     * Runs the mites' dissolve check by hand. The test area sits in freshly loaded chunks that can take longer than the
+     * test's tick budget to start ticking entities, so waiting for the natural once-a-second check is load-dependent.
+     */
+    private static void checkMites(ServerLevel level, BlockPos center) {
+        net.minecraft.world.phys.AABB box = new net.minecraft.world.phys.AABB(center).inflate(DragonFightConfig.islandRadius, 128, DragonFightConfig.islandRadius);
+        for (Dragonmite m : level.getEntities(DragonFightRegistry.DRAGONMITE, box, x -> true)) m.checkBound(level);
+    }
+
     private static Player player(GameTestHelper h, GameType mode, BlockPos rel) {
         Player p = h.makeMockPlayer(mode);
         BlockPos at = h.absolutePos(rel);
@@ -162,7 +171,9 @@ public final class DragonFightTests {
             s.tick(level, d, center, one, t + DragonFightConfig.waveIntervalSeconds * 20L);
             h.assertTrue(FightSession.aliveMites(level, d.getUUID(), center) == 4, "second wave after the interval");
             d.discard();
-            h.succeedWhen(() -> h.assertTrue(FightSession.aliveMites(level, d.getUUID(), center) == 0, "mites dissolve when the dragon is gone"));
+            checkMites(level, center);
+            h.assertTrue(FightSession.aliveMites(level, d.getUUID(), center) == 0, "mites dissolve when the dragon is gone");
+            h.succeed();
         });
         add("mite_cap", h -> {
             ServerLevel level = h.getLevel();
@@ -174,19 +185,21 @@ public final class DragonFightTests {
             int alive = FightSession.aliveMites(level, d.getUUID(), center);
             h.assertTrue(alive <= DragonScaling.maxAlive(DragonFightConfig.maxAliveMites, 1), "living cap holds (" + alive + ")");
             d.discard();
-            h.succeedWhen(() -> h.assertTrue(FightSession.aliveMites(level, d.getUUID(), center) == 0, "cleared"));
+            checkMites(level, center);
+            h.assertTrue(FightSession.aliveMites(level, d.getUUID(), center) == 0, "cleared");
+            h.succeed();
         });
         add("unbound_mite_stays", h -> {
             Dragonmite bound = h.spawn(DragonFightRegistry.DRAGONMITE, new BlockPos(1, 1, 1));
             bound.bindTo(UUID.randomUUID());
             Dragonmite free = h.spawn(DragonFightRegistry.DRAGONMITE, new BlockPos(3, 1, 3));
             free.setNoAi(true);
-            h.runAfterDelay(45, () -> {
-                h.assertTrue(bound.isRemoved(), "a mite without its dragon dissolves");
-                h.assertTrue(!free.isRemoved(), "a spawn-egg mite stays");
-                free.discard();
-                h.succeed();
-            });
+            bound.checkBound(h.getLevel());
+            free.checkBound(h.getLevel());
+            h.assertTrue(bound.isRemoved(), "a mite without its dragon dissolves");
+            h.assertTrue(!free.isRemoved(), "a spawn-egg mite stays");
+            free.discard();
+            h.succeed();
         });
         add("entry_queue", h -> {
             int oldMax = DragonFightConfig.maxQueued;

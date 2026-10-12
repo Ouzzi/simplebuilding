@@ -127,9 +127,12 @@ public class Dragonmite extends Monster {
     public void tick() {
         this.yBodyRot = this.getYRot();
         super.tick();
-        if (this.level() instanceof ServerLevel level && boundDragon != null && this.tickCount % 20 == 0 && !dragonAlive(level, boundDragon)) {
-            dissolve(level);
-        }
+        if (this.level() instanceof ServerLevel level && this.tickCount % 20 == 0) checkBound(level);
+    }
+
+    /** Dissolves this mite if it is bound to a dragon that is gone (the once-a-second check of {@link #tick()}). */
+    public void checkBound(ServerLevel level) {
+        if (boundDragon != null && !dragonAlive(level, boundDragon)) dissolve(level);
     }
 
     @Override
