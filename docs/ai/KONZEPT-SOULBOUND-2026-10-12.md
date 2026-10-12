@@ -129,3 +129,13 @@ Vorschlag: **Stufe 1 = Standard, keine Stufen im Spiel** (nur 1, wie Silk Touch)
 8. Darf Soulbound am Schleifstein entfernt werden (Standard ja) oder wie ein Fluch nicht?
 9. Obergrenze 5 Soulbound-Items je Tod und 25 % Haltbarkeitsabzug: passende Standardwerte?
 10. Hardcore: wirkt Soulbound dort (Standard: nein)?
+
+## Besitzer-Antworten 12.10. (verbindlich)
+- Modul: **Simple Tools**.
+- Beim Tod: Item bleibt im **selben Slot**, wird **nie gedroppt** (kein Dupe); Haltbarkeit danach = min(aktuelle Haltbarkeit, 50).
+- Bezug nur per **Buch**, ähnlich Mending, aber **seltener als Mending** und deutlich teurer (Handel gegen **Diamanten**, z. B. Bibliothekar oder nur fahrender Händler – Vorschläge offen). Erreichbar ab spätem Midgame/Late Game, mit Glück frühes Midgame.
+- Amboss: **immer volle 35 Level** beim Kombinieren.
+- Wirkt bei jedem Tod, auch durch Spieler.
+- Schleifstein entfernt es.
+- Keine feste Obergrenze je Tod; Begrenzung über Seltenheit (alle Items soulbound erst nach vielen Spielstunden).
+- Hardcore: ja (Antwort unvollständig: „ja aber nur …“ – nachfragen).

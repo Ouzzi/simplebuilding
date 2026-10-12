@@ -142,3 +142,13 @@ Alle Wege nutzen **dieselbe** serverseitige Funktion `DeathVault.redeem(player)`
 9. Darf der Schrein Items zurückgeben, wenn das Grab noch existiert (Original wird dann entfernt, Geister-Regel), oder erst nach Despawn/Zerstörung?
 10. Soll `simplerespawn` als eigenes Modul starten (zusammen mit Niederschlagen/Wiederbeleben und Soulbound) oder die Features in ein bestehendes Modul?
 11. Tote Mehrspieler-Server: soll es eine Config geben, die Vault ganz abschaltet (Hardcore-Server)?
+
+## Besitzer-Antworten 12.10. (verbindlich)
+- Craftbarer Block mit GUI. Passiv zeigt die GUI, was man zuletzt (bei Toden) verloren hat.
+- Opfer-Slot: Geld oder Diamanten hineinlegen → zufällige Items aus verlorenen Toden zurück. Wahrscheinlichkeit höher, je **neuer** der Tod und je **wertvoller** das Item; nur eine begrenzte Zahl je Opfer, mit sehr viel Einsatz theoretisch alles. Zurückgeholte Items werden aus der Liste gestrichen.
+- Gilt für **alle Tode** (neuere wahrscheinlicher), nicht nur den letzten.
+- Nur Items, die beim Tod gedroppt wurden und danach **despawnt** oder durch **Lava/Explosion** zerstört sind. Liegen sie noch (Grab/Boden), nicht einlösbar. Vor dem Tod gedroppte Items zählen nie.
+- Tod durch Spieler: nur Items, die direkt despawnt sind oder die der andere Spieler direkt zerstört hat; hebt er sie auf (und droppt erneut), zählen sie nicht mehr.
+- Rückgabe mit Haltbarkeit min(aktuell, 50) wie Soulbound.
+- Config-Schalter zum Abschalten.
+- Notiz: Falls je eine eigene Grabstein-Mod im Modpack geplant wird, wäre Rückgabe einfacher (Items aus dem Grab direkt ins Inventar). Derzeit keine geplant.
