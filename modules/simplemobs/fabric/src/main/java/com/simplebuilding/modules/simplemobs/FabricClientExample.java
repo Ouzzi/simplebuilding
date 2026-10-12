@@ -16,6 +16,7 @@ public final class FabricClientExample implements ClientModInitializer {
         EntityRendererRegistry.register(MobsRegistry.DECEIVER, DeceiverRenderer::new);
         EntityRendererRegistry.register(MobsRegistry.HOLLOW_HOWLER, HowlerRenderer::new);
         EntityRendererRegistry.register(MobsRegistry.HOWLER_RITUAL, NoopRenderer::new);
+        EntityRendererRegistry.register(DisguiseRegistry.MARKER, NoopRenderer::new);
         EntityRendererRegistry.register(EndNetherMobs.SHELLKER, com.simplebuilding.modules.simplemobs.client.ShellkerRenderer::new);
         EntityRendererRegistry.register(EndNetherMobs.SHELLKER_BULLET, com.simplebuilding.modules.simplemobs.client.ShellkerBulletRenderer::new);
         EntityRendererRegistry.register(EndNetherMobs.SOULFIRE_BLAZE, com.simplebuilding.modules.simplemobs.client.SoulfireBlazeRenderer::new);

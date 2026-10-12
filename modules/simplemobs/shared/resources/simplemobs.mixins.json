@@ -6,12 +6,19 @@
   "mixins": [
     "EntitySilenceMixin",
     "SculkSensorBlockMixin",
+    "AvatarDisguiseMixin",
+    "LivingEntityDisguiseMixin",
+    "PlayerDisguiseMixin",
+    "ServerPlayerGameModeDisguiseMixin",
+    "TargetingConditionsCloakMixin",
     "LivingEntityGravityMixin",
     "EndGatewayFeatureMixin"
   ],
   "client": [
     "DeceiverLookMixin",
-    "WalkAnimationAccessor"
+    "WalkAnimationAccessor",
+    "AvatarAccessor",
+    "PlayerDisguiseLookMixin"
   ],
   "injectors": {
     "defaultRequire": 1

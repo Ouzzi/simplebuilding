@@ -22,6 +22,16 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerSummon(GameTestHelper helper) { MobsTests.ALL.get("howler_summon").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerFight(GameTestHelper helper) { MobsTests.ALL.get("howler_fight").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void silenceDampens(GameTestHelper helper) { MobsTests.ALL.get("silence_dampens").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void cloakRegistered(GameTestHelper helper) { MobsTests.ALL.get("cloak_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void veiledInvisibility(GameTestHelper helper) { MobsTests.ALL.get("veiled_invisibility").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void cloakDetection(GameTestHelper helper) { MobsTests.ALL.get("cloak_detection").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void cloakMorph(GameTestHelper helper) { MobsTests.ALL.get("cloak_morph").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void cloakPlayerMorph(GameTestHelper helper) { MobsTests.ALL.get("cloak_player_morph").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void cloakReveal(GameTestHelper helper) { MobsTests.ALL.get("cloak_reveal").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trickMirror(GameTestHelper helper) { MobsTests.ALL.get("trick_mirror").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void deceiverDrops(GameTestHelper helper) { MobsTests.ALL.get("deceiver_drops").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void doubleChance(GameTestHelper helper) { MobsTests.ALL.get("double_chance").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void doubleCap(GameTestHelper helper) { MobsTests.ALL.get("double_cap").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void endnetherRegistered(GameTestHelper helper) { MobsTests.ALL.get("endnether_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void endnetherRules(GameTestHelper helper) { MobsTests.ALL.get("endnether_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 60) public void shellkerN45(GameTestHelper helper) { MobsTests.ALL.get("shellker_n45").accept(helper); }

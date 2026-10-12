@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "simplemobs:deceiver_cloth",
+    "P": "minecraft:phantom_membrane"
+  },
+  "pattern": [
+    "CCC",
+    "P P",
+    "C C"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplemobs:deceiver_cloak"
+  }
+}

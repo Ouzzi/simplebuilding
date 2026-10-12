@@ -68,7 +68,10 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
     private static final EntityDataAccessor<Boolean> DATA_HOSTILE = SynchedEntityData.defineId(DeceiverEntity.class, EntityDataSerializers.BOOLEAN);
     /** Entity type id of the current disguise; empty = its own shape. */
     private static final EntityDataAccessor<String> DATA_LOOK = SynchedEntityData.defineId(DeceiverEntity.class, EntityDataSerializers.STRING);
-    public static final double HEALTH = 200.0, ARMORED_HEALTH = 240.0;
+    public static final double HEALTH = 200.0, ARMORED_HEALTH = 280.0, ARMORED_ARMOR = 6.0;
+    /** Rolled once more for an armored Deceiver: twice the Illusion Shards (owner 11.10.), the cloth stays single. */
+    public static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> ARMOR_BONUS_LOOT =
+            net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("simplemobs", "entities/deceiver_armor_bonus"));
 
     public final AnimationState idleState = new AnimationState();
     public final AnimationState summonState = new AnimationState();
@@ -86,6 +89,7 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
     private final List<UUID> summons = new ArrayList<>();
     private final List<Long> summonBorn = new ArrayList<>();
     private List<String> waveKinds = List.of();
+    private int doubleCooldown;
 
     public DeceiverEntity(EntityType<? extends DeceiverEntity> type, Level level) {
         super(type, level);
@@ -165,7 +169,21 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
     /** Plays one of the ACT_ animations (also used by the client screenshot test). */
     public void playAction(int action, int ticks) { setAction(action, ticks); }
 
-    public void setArmored(boolean armored) { this.entityData.set(DATA_ARMORED, armored); }
+    /** Owner 11.10.: the chest plate makes it tougher - 280 health and 6 armor (iron chestplate). */
+    public void setArmored(boolean armored) {
+        this.entityData.set(DATA_ARMORED, armored);
+        var hp = this.getAttribute(Attributes.MAX_HEALTH);
+        if (hp != null) hp.setBaseValue(armored ? ARMORED_HEALTH : HEALTH);
+        var armor = this.getAttribute(Attributes.ARMOR);
+        if (armor != null) armor.setBaseValue(armored ? ARMORED_ARMOR : 0.0);
+        if (this.getHealth() > this.getMaxHealth()) this.setHealth(this.getMaxHealth());
+    }
+
+    @Override
+    protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean killedByPlayer) {
+        super.dropCustomDeathLoot(level, source, killedByPlayer);
+        if (isArmored()) this.dropFromLootTable(level, source, killedByPlayer, ARMOR_BONUS_LOOT);
+    }
 
     private void setAction(int action, int ticks) {
         this.entityData.set(DATA_ACTION, action);
@@ -188,7 +206,7 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
     @Override
     protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput in) {
         super.readAdditionalSaveData(in);
-        this.entityData.set(DATA_ARMORED, in.getBooleanOr("Armored", false));
+        setArmored(in.getBooleanOr("Armored", false));
         this.entityData.set(DATA_HOSTILE, in.getBooleanOr("Hostile", false));
         this.rolled = in.getBooleanOr("Rolled", false);
         this.peacefulTheme = in.getBooleanOr("PeacefulTheme", false);
@@ -235,14 +253,14 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
         if (!rolled) {
             rolled = true;
             if (this.random.nextFloat() < 0.3f) {
-                this.entityData.set(DATA_ARMORED, true);
-                this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ARMORED_HEALTH);
+                setArmored(true);
                 this.setHealth((float) ARMORED_HEALTH);
             }
         }
         if (actionTicks > 0 && --actionTicks == 0) setAction(ACT_NONE, 0);
         if (shoveCooldown > 0) shoveCooldown--;
         if (healCooldown > 0) healCooldown--;
+        if (doubleCooldown > 0) doubleCooldown--;
         pruneSummons(level);
 
         if (pendingTeleport >= 0 && --pendingTeleport < 0) {
@@ -340,6 +358,7 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
             this.playSound(SoundEvents.EVOKER_PREPARE_SUMMON, 1.0f, 1.2f);
         } else {
             summonWave(level, target, phase);
+            if (doubleCooldown <= 0 && this.random.nextFloat() < DeceiverLogic.doubleChance(getHealth(), getMaxHealth())) doubleSummons(level, target);
             teleportNear(level, target);
             disguiseAsWave(level);
             setAction(ACT_TELEPORT, 20);
@@ -418,6 +437,38 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
         peacefulTheme = peaceful;
         summonWave(level, target, phase());
         return summons.size();
+    }
+
+    /** Test hook: doubles now (ignoring chance and cooldown); returns how many copies appeared. */
+    public int doubleNow(ServerLevel level, Player target) {
+        return doubleSummons(level, target);
+    }
+
+    /**
+     * Special attack (owner 11.10.): every living summon gets a copy next to it. Copies are always fakes (1 health, no
+     * damage) and vanish with the Deceiver; at most {@link DeceiverLogic#DOUBLE_MAX_COPIES}, never above the hard cap.
+     */
+    private int doubleSummons(ServerLevel level, Player target) {
+        doubleCooldown = DeceiverLogic.DOUBLE_COOLDOWN_TICKS;
+        int room = DeceiverLogic.doubleCopies(summons.size());
+        int made = 0;
+        for (UUID id : List.copyOf(summons)) {
+            if (made >= room) break;
+            Entity e = level.getEntity(id);
+            if (e == null || !e.isAlive()) continue;
+            String kind = BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath();
+            if (!DeceiverLogic.fakeSafe(kind)) continue;
+            Vec3 spot = findSpot(level, e.position(), 1.0, 2.5, null);
+            if (spot == null) continue;
+            int before = summons.size();
+            spawnSummon(level, kind, false, spot, phase(), target);
+            if (summons.size() > before) made++;
+        }
+        if (made > 0) {
+            this.playSound(SoundEvents.ILLUSIONER_MIRROR_MOVE, 1.2f, 0.7f);
+            level.sendParticles(ParticleTypes.WITCH, this.getX(), this.getY() + 1.0, this.getZ(), 40, 0.6, 0.8, 0.6, 0.15);
+        }
+        return made;
     }
 
     private void summonWave(ServerLevel level, Player target, Phase phase) {

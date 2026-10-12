@@ -754,7 +754,8 @@ public class BlueprintScreen extends Screen {
         if (!helpOpen && overView(mx, my) && getChildAt(mx, my).isEmpty()) {
             draggingView = true;
             // Strg beim Tastendruck entscheidet fuer den ganzen Ziehvorgang: Verschieben statt Drehen.
-            draggingPan = event.hasControlDown();
+            // Rechte/mittlere Taste verschieben ebenfalls (N40) - nur die linke Taste dreht.
+            draggingPan = event.hasControlDown() || event.button() != com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT;
             if (doubleClick) {
                 controls.reset();
             }

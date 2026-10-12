@@ -89,6 +89,9 @@ public final class TestCentreCommand {
                 .then(Commands.literal("tp")
                         .executes(ctx -> {
                             ServerPlayer player = ctx.getSource().getPlayerOrException();
+                            if (outsideOverworld(ctx.getSource())) {
+                                return 0;
+                            }
                             BlockPos entrance = plan(ctx.getSource().getLevel(), savedOrDefaultOrigin(ctx.getSource().getLevel())).entrance();
                             player.teleportTo(entrance.getX() + 0.5, entrance.getY(), entrance.getZ() + 0.5);
                             return 1;
@@ -126,7 +129,24 @@ public final class TestCentreCommand {
         return TestCentreLayout.plan(level.registryAccess(), origin);
     }
 
+    /**
+     * Queue N40 (Besitzer-Screenshot buggy_end): die Zentrale gehoert in die Oberwelt. Der gespeicherte Ursprung ist
+     * eine Oberwelt-Position; im End gebaut landete der ganze Glattstein-Boden mitsamt Seelaternen auf der
+     * Hauptinsel (von einer Obsidiansaeule durchstossen, chunkweise ohne Blocklicht). Bauen und Hinspringen
+     * gehen daher nur aus der Oberwelt.
+     */
+    private static boolean outsideOverworld(CommandSourceStack source) {
+        if (source.getLevel() == source.getServer().overworld()) {
+            return false;
+        }
+        source.sendFailure(TcText.t("command.overworld_only", "The test centre lives in the Overworld - go there first"));
+        return true;
+    }
+
     private static int build(CommandSourceStack source, BlockPos origin) {
+        if (outsideOverworld(source)) {
+            return 0;
+        }
         ServerLevel level = source.getLevel();
         TestCentreLayout.Plan plan = plan(level, origin);
         TestCentreBuilder.Result result = TestCentreBuilder.build(level, plan);
@@ -144,6 +164,9 @@ public final class TestCentreCommand {
         String id = StringArgumentType.getString(ctx, "id");
         if (!TestCentreLayout.SECTION_IDS.contains(id)) {
             ctx.getSource().sendFailure(TcText.t("command.unknown_section", "Unknown section %s", id));
+            return 0;
+        }
+        if (outsideOverworld(ctx.getSource())) {
             return 0;
         }
         ServerLevel level = ctx.getSource().getLevel();
