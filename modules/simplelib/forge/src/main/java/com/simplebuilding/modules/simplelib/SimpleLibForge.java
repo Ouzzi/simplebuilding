@@ -36,6 +36,12 @@ public final class SimpleLibForge {
             }
             if (key.equals(Registries.MENU)) LibMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) LibRegistry.tab();
+            // Explicit id moves (IdMoves) as Forge registry aliases: the defaulted wrapper answers getValue/containsKey
+            // from the ForgeRegistry, which the mixin never sees, and a world's id snapshot finds old ids. Lazy aliases,
+            // so the order against other mods' registrations does not matter; all mods are constructed by now.
+            if (event.getForgeRegistry() instanceof net.minecraftforge.registries.ForgeRegistry<?> registry) {
+                com.simplelib.api.IdMoves.explicit(key).forEach(registry::addAlias);
+            }
         });
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
             if (!LibRegistry.wantsStacks(event.getTabKey(),

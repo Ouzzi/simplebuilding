@@ -1,9 +1,6 @@
 {
   "item.simpletweaks.claim_deed": "Alte Claim-Urkunde",
   "tooltip.simpletweaks.claim_deed.inactive": "Claims sind standardmäßig aus.",
-  "tooltip.simpletweaks.claim_deed.inactive.2": "Serveradmin zum Schutzumfang fragen.",
-  "tooltip.simpletweaks.claim_deed.data": "Urkundendaten bleiben erhalten.",
-  "tooltip.simpletweaks.claim_deed.data.2": "Nur die Server-Claim-Daten vergeben Rechte.",
   "config.simpletweaks.claims.tab": "Server-Claims",
   "config.simpletweaks.claims.enabled": "Claims aktivieren",
   "config.simpletweaks.claims.enabled.tooltip": "Stufen 1–3, 5 und 6 sowie Teile des\nStage-4-Schutzes sind umgesetzt: atomare\nClaims, Vanilla-/Werkzeugprüfungen,\nBesitzer-Vertrauen, OP4-Verwaltung und\nDimensions-Adapter. Automation hat weiterhin\nungeschützte Pfade, darunter Kupfergolems,\nCrafter und unbekannte Mod-Behaviors. Nicht\neinschaltbereit. Standard aus; ausgeschaltete\nHooks lesen keine Claim-Daten. Nur\nEntwicklungstests. Standardwert: false.",

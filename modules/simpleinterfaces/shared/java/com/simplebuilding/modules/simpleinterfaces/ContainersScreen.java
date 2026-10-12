@@ -27,10 +27,24 @@ public final class ContainersScreen {
             general.addEntry(e.startBooleanToggle(name(key), c.screens.getOrDefault(style.id(), true)).setDefaultValue(true)
                     .setTooltip(tip(key)).setSaveConsumer(v -> c.screens.put(style.id(), v)).build());
         }
+        // Server values (formerly Simple QoL): linked containers and Easy Shulkers / Ender Chests.
+        var s = gson.fromJson(gson.toJson(SimpleInterfaces.CONFIG), LinkedConfig.class);
+        var server = b.getOrCreateCategory(Component.translatable("simpleinterfaces.tab.server"));
+        server.addEntry(e.startBooleanToggle(name("enableLinkedContainers"), s.enableLinkedContainers).setDefaultValue(true)
+                .setTooltip(tip("enableLinkedContainers")).setSaveConsumer(v -> s.enableLinkedContainers = v).build());
+        server.addEntry(e.startIntField(name("linkedContainerRange"), s.linkedContainerRange).setMin(LinkedConfig.MIN_LINKED_RANGE)
+                .setMax(LinkedConfig.MAX_LINKED_RANGE).setDefaultValue(LinkedConfig.DEFAULT_LINKED_RANGE).setTooltip(tip("linkedContainerRange"))
+                .setSaveConsumer(v -> s.linkedContainerRange = v).build());
+        server.addEntry(e.startBooleanToggle(name("enableEasyShulkers"), s.enableEasyShulkers).setDefaultValue(true)
+                .setTooltip(tip("enableEasyShulkers")).setSaveConsumer(v -> s.enableEasyShulkers = v).build());
+        server.addEntry(e.startBooleanToggle(name("enableEasyEnderChests"), s.enableEasyEnderChests).setDefaultValue(true)
+                .setTooltip(tip("enableEasyEnderChests")).setSaveConsumer(v -> s.enableEasyEnderChests = v).build());
         b.setSavingRunnable(() -> {
             c.normalize();
             ContainersClient.CONFIG = c;
             ContainersClient.save();
+            SimpleInterfaces.CONFIG = s;
+            SimpleInterfaces.save();
         });
         return b.build();
     }

@@ -29,6 +29,15 @@ beim Verzauberungstisch). Kreativ-Tab: Funktionsblöcke der Simple-Mods.
 - Eigenschaften: Facing (4 Richtungen), Drops sich selbst, Hardness wie Werkbank (2.5), Tag `mineable/axe`.
 - Rechtsklick öffnet das Menü (kein Redstone, keine BlockEntity-Daten außer ggf. Slot-Inhalt, siehe GUI).
 
+**N37 (Besitzer 11.10.: „viel epischer, an den Zaubertisch erinnernd“):** Obsidian-Sockel, Holzschrank mit goldenen
+Eckpfeilern und Lapis-Edelsteinfenster je Seite, vergoldete Obsidian-Platte mit Lapis-Samt, vier Lapis-Edelsteine auf
+Goldsockeln an den Ecken, darauf ein aufgeschlagenes rotes Buch (Seiten steigen vom Falz an). Zauber-Glyphen schweben
+von den Edelsteinen (und ab und zu von weiter weg) ins Buch, Lichtstufe 5. Generator `modules/simplequestionary/tools/gen_textures.py`
+erzeugt Texturen UND Modell. GUI: links Lapis-Pult-Kasten (SimpleLib `UiBoxes`, Runen-Motiv, großer Slot in einem
+langsam drehenden Goldpunkt-Ring, Name in Seltenheitsfarbe, Mod-Name) über dem Inventar-Kasten; rechts das Buch im
+Guide-Buch-Look (Lapis-Leder mit Goldnaht und Eckkappen, Pergament mit Sprenkeln, innerer Rahmen, Falz mit Goldspangen,
+Trennlinie mit Raute, gepunktete Fußlinie, gezeichnete Pfeile), Lesezeichen per `UiBookmarks`. 424 x 208 px.
+
 ## 4. GUI (Vanilla-Stil, Buchseite wie Guide-Buch/Lesepult)
 Layout (siehe Mockup), GUI-Größe 256 x 200 + Buchblatt; bei kleiner Skala wie beim Enderit-Tiegel prüfen (Audit C3):
 - **Links:** grauer Vanilla-Container-Kasten mit Titel „Item“, EIN Slot (Mitte), darunter der Item-Name in Seltenheits-Farbe;

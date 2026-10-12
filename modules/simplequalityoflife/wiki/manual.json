@@ -1,202 +1,6 @@
 {
   "features": [
     {
-      "id": "crawl",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PlayerEntityCrawlMixin.java"
-      ],
-      "en": {
-        "title": "Manual crawling",
-        "summary": "P or /crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
-      },
-      "de": {
-        "title": "Manuelles Kriechen",
-        "summary": "P oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Aenderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
-      }
-    },
-    {
-      "id": "autowalk",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/client/SimplequalityoflifeClient.java"
-      ],
-      "en": {
-        "title": "Auto-walk",
-        "summary": "R toggles ordinary forward input only when the server enables qOL.enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change. It adds no speed or reach."
-      },
-      "de": {
-        "title": "Automatisch laufen",
-        "summary": "R schaltet normale Vorwaertseingabe nur bei Serverfreigabe qOL.enableAutowalk (Standard false). Bildschirm oeffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Aenderung. Kein Tempo- oder Reichweitenbonus."
-      }
-    },
-    {
-      "id": "climbing",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/LadderSpeedMixin.java"
-      ],
-      "en": {
-        "title": "Climbing and sliding",
-        "summary": "Climbing speed defaults to 0.4 blocks/tick (range 0.2–0.4). Slide speed defaults to 0.8 (range 0.15–0.8). CAMERA requires looking down and sneaking; ALWAYS requires looking down without sneaking. The server rejects excess vertical movement on climbable blocks with a bounded latency allowance."
-      },
-      "de": {
-        "title": "Klettern und Rutschen",
-        "summary": "Klettertempo standardmaessig 0.4 Bloecke/Tick (0.2–0.4), Rutschtempo 0.8 (0.15–0.8). CAMERA verlangt Blick nach unten und Schleichen; ALWAYS Blick nach unten ohne Schleichen. Der Server weist ueberhoehte Bewegung auf kletterbaren Bloecken mit begrenztem Latenzspielraum ab."
-      }
-    },
-    {
-      "id": "powder_snow",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PowderSnowWalkMixin.java"
-      ],
-      "en": {
-        "title": "Frost Walker on powder snow",
-        "summary": "Frost Walker permits walking on powder snow. Enabled by frostWalkerWalkOnPowderSnow, default true."
-      },
-      "de": {
-        "title": "Eislaeufer auf Pulverschnee",
-        "summary": "Eislaeufer erlaubt das Gehen auf Pulverschnee. frostWalkerWalkOnPowderSnow ist standardmaessig true."
-      }
-    },
-    {
-      "id": "farmland",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/util/Protection.java"
-      ],
-      "en": {
-        "title": "Feather Falling farmland protection",
-        "summary": "Feather Falling boots prevent trampling. This complements SimpleBuilding Breeze head protection. Enabled by qOL.preventFarmlandTrampleWithFeatherFalling, default true."
-      },
-      "de": {
-        "title": "Federfall schuetzt Ackerland",
-        "summary": "Federfallstiefel verhindern Zertrampeln. Dies ergaenzt den Breezekopf-Schutz aus SimpleBuilding. qOL.preventFarmlandTrampleWithFeatherFalling ist standardmaessig true."
-      }
-    },
-    {
-      "id": "hoe_harvest",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/event/HoeHarvestHandler.java"
-      ],
-      "en": {
-        "title": "Hoe harvest and replant",
-        "summary": "Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa. One seed is taken from the actual loot; survival costs one durability. Server reach, world border, spawn protection, build rights, loader break vetoes, and a four-tick action limit are enforced."
-      },
-      "de": {
-        "title": "Mit Hacke ernten und nachpflanzen",
-        "summary": "Hacke in der Haupthand erntet reifen Weizen, Karotten, Kartoffeln, Rote Bete, Netherwarzen und Kakao. Ein Samen stammt aus echter Beute; im Ueberleben kostet es eine Haltbarkeit. Server prueft Reichweite, Weltgrenze, Spawnschutz, Baurechte, Loader-Abbruch und vier Ticks Aktionspause."
-      }
-    },
-    {
-      "id": "furnace_lava",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/event/FurnaceLavaFillHandler.java"
-      ],
-      "en": {
-        "title": "Furnace lava fill",
-        "summary": "Either hand inserts one lava bucket into a furnace, blast furnace, or smoker with an empty fuel slot or one leftover empty bucket. Locked furnaces and sneaking are excluded. Survival consumes the lava bucket; an existing empty bucket is returned exactly once. SimpleBuilding furnace subclasses are supported through the Vanilla interface."
-      },
-      "de": {
-        "title": "Ofen mit Lava fuellen",
-        "summary": "Beide Haende koennen einen Lavaeimer in Ofen, Hochofen oder Raeucherofen mit leerem Brennstoffplatz oder einem leeren Eimer einsetzen. Verschlossene Oefen und Schleichen sind ausgeschlossen. Ueberleben verbraucht Lava; ein vorhandener Eimer wird genau einmal zurueckgegeben. SimpleBuilding-Ofenunterklassen nutzen die Vanilla-Schnittstelle."
-      }
-    },
-    {
-      "id": "grass",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/SharpnessGrassCutMixin.java"
-      ],
-      "en": {
-        "title": "Sharpness cuts vegetation",
-        "summary": "Sharpness III or higher on a sword or axe clears explicit small vegetation overlapping the attacked entity. Sneaking disables it. At most 27 positions within 4.5 blocks are considered; loader break vetoes and action cooldown apply. The matching vegetation outline is hidden."
-      },
-      "de": {
-        "title": "Schaerfe schneidet Pflanzen",
-        "summary": "Schaerfe III oder hoeher auf Schwert oder Axt entfernt kleine Pflanzen am angegriffenen Wesen. Schleichen deaktiviert es. Hoechstens 27 Positionen innerhalb 4.5 Bloecken; Loader-Abbruch und Aktionspause gelten. Passende Pflanzenumrisse werden verborgen."
-      }
-    },
-    {
-      "id": "durability",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/FullDurabilityDamageMixin.java"
-      ],
-      "en": {
-        "title": "Durability bonus",
-        "summary": "Damageable held Vanilla and mod tools above the durability threshold can gain attack damage and mining speed. The default multiplier is 1.0 (no bonus), with a server-enforced range of 1–1.5. The threshold defaults to 80% (range 80–100%). Item durability itself is unchanged."
-      },
-      "de": {
-        "title": "Haltbarkeitsbonus",
-        "summary": "Gehaltene beschaedigbare Vanilla- und Mod-Werkzeuge ueber der Haltbarkeitsschwelle koennen mehr Angriffsschaden und Abbaugeschwindigkeit erhalten. Standardfaktor 1.0 (kein Bonus), serverseitiger Bereich 1–1.5. Schwelle standardmaessig 80% (Bereich 80–100%). Die Haltbarkeit selbst bleibt unveraendert."
-      }
-    },
-    {
-      "id": "mute",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/EntityMuteMixin.java"
-      ],
-      "en": {
-        "title": "Mute mobs",
-        "summary": "qOL.mutedEntities selects entity IDs. Names ending in _mute or _shhh are silent by default. Lists accept at most 64 nonempty distinct entries of at most 64 characters. Existing Vanilla silent state remains effective."
-      },
-      "de": {
-        "title": "Kreaturen stummschalten",
-        "summary": "qOL.mutedEntities waehlt Wesen-IDs. Namen mit _mute oder _shhh sind standardmaessig stumm. Listen erlauben maximal 64 verschiedene nichtleere Eintraege mit je 64 Zeichen. Vanilla-Stummzustand bleibt erhalten."
-      }
-    },
-    {
-      "id": "baby",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PassiveEntityMixin.java"
-      ],
-      "en": {
-        "title": "Permanent babies",
-        "summary": "Every 100 ticks, named ageable mobs ending in _baby or _small are set to age -24000. The source also makes named adults young again; this behavior is preserved. Removing the suffix allows aging again."
-      },
-      "de": {
-        "title": "Dauerhafte Jungtiere",
-        "summary": "Alle 100 Ticks werden benannte alternde Wesen mit _baby oder _small auf Alter -24000 gesetzt. Die Quelle macht damit auch Erwachsene wieder jung; das bleibt erhalten. Suffix entfernen erlaubt Altern."
-      }
-    },
-    {
-      "id": "piglins",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PiglinGoldMixin.java"
-      ],
-      "en": {
-        "title": "Piglin gold equipment",
-        "summary": "Gold armor trims or a golden sword, spear, pickaxe, axe, shovel, or hoe in either hand count as safe equipment. The two switches default true. This does not prevent anger caused by attacking or opening containers."
-      },
-      "de": {
-        "title": "Goldausruestung fuer Piglins",
-        "summary": "Goldbesatz oder goldenes Schwert, Speer, Spitzhacke, Axt, Schaufel oder Hacke in einer Hand gelten als sichere Ausruestung. Beide Schalter standardmaessig true. Angriff oder Behaelteroeffnen kann weiterhin Wut ausloesen."
-      }
-    },
-    {
-      "id": "weather",
-      "sources": [
-        "modules/simpleweather/shared/java/com/simplebuilding/modules/simpleweather/mixin/ServerWeatherMixin.java"
-      ],
-      "en": {
-        "title": "Weather controls (Simple Weather)",
-        "summary": "Moved into the bundled sub-mod Simple Weather (simpleweather): disableWeather (default false) clears rain and thunder; clientRainParticleDensity (default 20, 0–100) is a local visual preference. Old settings are taken over once; \"Enable Simple Weather\" switches it off."
-      },
-      "de": {
-        "title": "Wettersteuerung (Simple Weather)",
-        "summary": "In die gebuendelte Sub-Mod Simple Weather (simpleweather) umgezogen: disableWeather (Standard false) loescht Regen und Gewitter; clientRainParticleDensity (Standard 20, 0–100) ist eine lokale Darstellungseinstellung. Alte Einstellungen werden einmalig uebernommen; \"Simple Weather aktivieren\" schaltet sie ab."
-      }
-    },
-    {
-      "id": "vault",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/VaultServerDataMixin.java"
-      ],
-      "en": {
-        "title": "Vault cooldown",
-        "summary": "A player may loot a vault again after qOL.vaultCooldownDays, default 100 Minecraft days, bounded 1–36500. The original SimpleBuildingLootTimes UUID-to-time map is retained. Missing timestamps on already rewarded entries start a cooldown rather than granting free repeat loot; backwards time does not unlock rewards."
-      },
-      "de": {
-        "title": "Tresor-Abklingzeit",
-        "summary": "Ein Spieler darf nach qOL.vaultCooldownDays erneut plundern, Standard 100 Minecraft-Tage, Grenze 1–36500. Die originale SimpleBuildingLootTimes-UUID-Zeitkarte bleibt. Fehlende Zeitstempel bereits belohnter Spieler beginnen eine Pause statt Gratisbeute; rueckwaerts laufende Zeit entsperrt nichts."
-      }
-    },
-    {
       "id": "config_enableSimpleWeather",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
@@ -225,340 +29,73 @@
       }
     },
     {
-      "id": "config_frostWalkerWalkOnPowderSnow",
+      "id": "config_enableSimpleLoot",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
-        "title": "frostWalkerWalkOnPowderSnow",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
+        "title": "enableSimpleLoot",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Loot. Default: true."
       },
       "de": {
-        "title": "frostWalkerWalkOnPowderSnow",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+        "title": "enableSimpleLoot",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Loot. Standard: true."
       }
     },
     {
-      "id": "config_qOL_enableAutowalk",
+      "id": "config_enableSimpleCreatures",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
-        "title": "qOL.enableAutowalk",
-        "summary": "Server setting (rain density is a local visual preference). Default: false."
+        "title": "enableSimpleCreatures",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Creatures. Default: true."
       },
       "de": {
-        "title": "qOL.enableAutowalk",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: false."
+        "title": "enableSimpleCreatures",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Creatures. Standard: true."
       }
     },
     {
-      "id": "config_qOL_mutedEntities",
+      "id": "config_enableSimpleFarming",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
-        "title": "qOL.mutedEntities",
-        "summary": "Server setting (rain density is a local visual preference). Default: []."
+        "title": "enableSimpleFarming",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Farming. Default: true."
       },
       "de": {
-        "title": "qOL.mutedEntities",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: []."
+        "title": "enableSimpleFarming",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Farming. Standard: true."
       }
     },
     {
-      "id": "config_qOL_nametagMuteSuffixes",
+      "id": "config_enableSimpleTools",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
-        "title": "qOL.nametagMuteSuffixes",
-        "summary": "Server setting (rain density is a local visual preference). Default: [\"_mute\", \"_shhh\"]."
+        "title": "enableSimpleTools",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Tools. Default: true."
       },
       "de": {
-        "title": "qOL.nametagMuteSuffixes",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: [\"_mute\", \"_shhh\"]."
+        "title": "enableSimpleTools",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Tools. Standard: true."
       }
     },
     {
-      "id": "config_qOL_nametagBabySuffixes",
+      "id": "config_enableSimpleMovement",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
-        "title": "qOL.nametagBabySuffixes",
-        "summary": "Server setting (rain density is a local visual preference). Default: [\"_baby\", \"_small\"]."
+        "title": "enableSimpleMovement",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Movement. Default: true."
       },
       "de": {
-        "title": "qOL.nametagBabySuffixes",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: [\"_baby\", \"_small\"]."
-      }
-    },
-    {
-      "id": "config_qOL_preventFarmlandTrampleWithFeatherFalling",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.preventFarmlandTrampleWithFeatherFalling",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.preventFarmlandTrampleWithFeatherFalling",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_sharpnessCutsGrass",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.sharpnessCutsGrass",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.sharpnessCutsGrass",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_enableHoeHarvest",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableHoeHarvest",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.enableHoeHarvest",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_enableFurnaceLavaFill",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableFurnaceLavaFill",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.enableFurnaceLavaFill",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_ladderClimbingSpeed",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.ladderClimbingSpeed",
-        "summary": "Server setting (rain density is a local visual preference). Default: 0.4."
-      },
-      "de": {
-        "title": "qOL.ladderClimbingSpeed",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 0.4."
-      }
-    },
-    {
-      "id": "config_qOL_enableFastLadderSlide",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableFastLadderSlide",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.enableFastLadderSlide",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_ladderSlideSpeed",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.ladderSlideSpeed",
-        "summary": "Server setting (rain density is a local visual preference). Default: 0.8."
-      },
-      "de": {
-        "title": "qOL.ladderSlideSpeed",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 0.8."
-      }
-    },
-    {
-      "id": "config_qOL_ladderSlideActivation",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.ladderSlideActivation",
-        "summary": "Server setting (rain density is a local visual preference). Default: \"CAMERA\"."
-      },
-      "de": {
-        "title": "qOL.ladderSlideActivation",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: \"CAMERA\"."
-      }
-    },
-    {
-      "id": "config_qOL_vaultCooldownDays",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.vaultCooldownDays",
-        "summary": "Server setting (rain density is a local visual preference). Default: 100."
-      },
-      "de": {
-        "title": "qOL.vaultCooldownDays",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 100."
-      }
-    },
-    {
-      "id": "config_qOL_enableFullDurabilityBonus",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableFullDurabilityBonus",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.enableFullDurabilityBonus",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_fullDurabilityThreshold",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.fullDurabilityThreshold",
-        "summary": "Server setting (rain density is a local visual preference). Default: 0.8."
-      },
-      "de": {
-        "title": "qOL.fullDurabilityThreshold",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 0.8."
-      }
-    },
-    {
-      "id": "config_qOL_fullDurabilityBonusMultiplier",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.fullDurabilityBonusMultiplier",
-        "summary": "Server setting. Default: 1.0 (no bonus). Range: 1.0–1.5. Saved 1.5 remains 1.5; absent keys use 1.0. Nonfinite values fall back to 1.0; finite out-of-range values are clamped."
-      },
-      "de": {
-        "title": "qOL.fullDurabilityBonusMultiplier",
-        "summary": "Servereinstellung. Standard: 1.0 (kein Bonus). Bereich: 1.0–1.5. Gespeicherte 1.5 bleiben 1.5; fehlende Schluessel nutzen 1.0. Nicht endliche Werte fallen auf 1.0 zurueck; endliche Werte ausserhalb des Bereichs werden begrenzt."
-      }
-    },
-    {
-      "id": "config_qOL_anvilRepairKeepsCost",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java",
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/AnvilRepairCostMixin.java"
-      ],
-      "en": {
-        "title": "qOL.anvilRepairKeepsCost",
-        "summary": "Server setting. Default: true. Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it; only a change of enchantments raises it like vanilla."
-      },
-      "de": {
-        "title": "qOL.anvilRepairKeepsCost",
-        "summary": "Servereinstellung. Standard: true. Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen; nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla."
-      }
-    },
-    {
-      "id": "config_qOL_piglinsIgnoreGoldTrims",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.piglinsIgnoreGoldTrims",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.piglinsIgnoreGoldTrims",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_piglinsIgnoreGoldTools",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.piglinsIgnoreGoldTools",
-        "summary": "Server setting (rain density is a local visual preference). Default: true."
-      },
-      "de": {
-        "title": "qOL.piglinsIgnoreGoldTools",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_enableLinkedContainers",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableLinkedContainers",
-        "summary": "Server switch for linked containers. Default: true."
-      },
-      "de": {
-        "title": "qOL.enableLinkedContainers",
-        "summary": "Serverschalter fuer verknuepfte Behaelter. Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_linkedContainerRange",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.linkedContainerRange",
-        "summary": "Server setting, range 8–128 blocks between player and marked container. Default: 64."
-      },
-      "de": {
-        "title": "qOL.linkedContainerRange",
-        "summary": "Servereinstellung, 8–128 Bloecke zwischen Spieler und vorgemerktem Behaelter. Standard: 64."
-      }
-    },
-    {
-      "id": "config_qOL_enableEasyShulkers",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableEasyShulkers",
-        "summary": "Server switch for opening shulker boxes from the inventory. Default: true."
-      },
-      "de": {
-        "title": "qOL.enableEasyShulkers",
-        "summary": "Serverschalter fuer Shulkerkisten aus dem Inventar. Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_enableEasyEnderChests",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "qOL.enableEasyEnderChests",
-        "summary": "Server switch for opening ender chests from the inventory. Default: true."
-      },
-      "de": {
-        "title": "qOL.enableEasyEnderChests",
-        "summary": "Serverschalter fuer Endertruhen aus dem Inventar. Standard: true."
+        "title": "enableSimpleMovement",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Movement. Standard: true."
       }
     },
     {
@@ -568,39 +105,11 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "/crawl is available to players. Owner-level /simplequalityoflife offers vaults cooldown; tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed; muteSuffixes and babySuffixes list/add/remove/clear. Changes are saved to config/simplequalityoflife.json."
+        "summary": "Owner-level /simplequalityoflife submod <weather|interfaces|loot|creatures|farming|tools|movement> <true|false> switches a bundled sub-mod; the former tweak commands moved with their features into the sub-mods (/simpleloot, /simplecreatures, /simplefarming, /simpletools, /simplemovement). Changes are saved to config/simplequalityoflife.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplequalityoflife mit vaults cooldown; tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed; muteSuffixes und babySuffixes list/add/remove/clear. Speichern in config/simplequalityoflife.json."
-      }
-    },
-    {
-      "id": "config_qOL_enableManualCrawl",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "Manual Crawling",
-        "summary": "Allow /crawl and the crawl key. The server validates and limits changes. Default: true."
-      },
-      "de": {
-        "title": "Manuelles Kriechen",
-        "summary": "/crawl und die Kriechtaste erlauben. Der Server prüft und begrenzt Änderungen. Standard: true."
-      }
-    },
-    {
-      "id": "config_qOL_enableVaultCooldown",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
-      ],
-      "en": {
-        "title": "Repeat Vault Rewards",
-        "summary": "Allow repeat vault rewards after the server cooldown. Disable to retain Vanilla one-time rewards. Default: true."
-      },
-      "de": {
-        "title": "Erneute Tresorbelohnungen",
-        "summary": "Erneute Tresorbelohnungen nach der Serverpause erlauben. Abschalten behält einmalige Vanilla-Belohnungen. Standard: true."
+        "summary": "Besitzerberechtigung: /simplequalityoflife submod <weather|interfaces|loot|creatures|farming|tools|movement> <true|false> schaltet eine gebuendelte Sub-Mod; die frueheren tweak-Befehle sind mit ihren Funktionen in die Sub-Mods gewandert (/simpleloot, /simplecreatures, /simplefarming, /simpletools, /simplemovement). Speichern in config/simplequalityoflife.json."
       }
     },
     {
@@ -625,66 +134,6 @@
           "Der experimentelle Forge-Transport benötigt das Modul derzeit auf Server und Client."
         ]
       }
-    },
-    {
-      "id": "thrift",
-      "sources": [
-        "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/enchantment/thrift.json",
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/ThriftDurabilityMixin.java",
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/registry/Thrift.java"
-      ],
-      "en": {
-        "title": "Thrift",
-        "summary": "Enchantment for every item with durability, levels I-III: +1/3 maximum durability per level, level III doubles it. Not combinable with Mending; Unbreaking still works. Anvil repair with material restores a quarter of the (larger) maximum per item, so the same number of items as without the enchantment repairs it fully. Enchanting table, trades and loot like other non-treasure enchantments."
-      },
-      "de": {
-        "title": "Sparsamkeit",
-        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen."
-      }
-    },
-    {
-      "id": "anvil_repair_cost",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/AnvilRepairCostMixin.java"
-      ],
-      "en": {
-        "title": "Repairing keeps the anvil cost",
-        "summary": "Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it. Only a change of enchantments raises it like vanilla. Server option qOL.anvilRepairKeepsCost (default true)."
-      },
-      "de": {
-        "title": "Reparieren hält die Ambosskosten",
-        "summary": "Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen. Nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla. Server-Option qOL.anvilRepairKeepsCost (Standard true)."
-      }
-    },
-    {
-      "id": "linked_containers",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/container/LinkedContainers.java",
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/client/LinkedPanel.java"
-      ],
-      "en": {
-        "title": "Linked containers",
-        "summary": "Sneak + right-click a container with an empty main hand to mark it (a double chest counts as one); dust particles at your hand show the mark. The next chest or GUI you open (crafting table, furnace, anvil …) shows the marked container above it, sharing your inventory. Shift-click moves marked → second GUI, else inventory; inventory → second GUI, else the marked container. The mark ends beyond qOL.linkedContainerRange (default 64, range 8–128), in another dimension, in an unloaded chunk, when the block is gone, on logout or death, or with another sneak + right-click on it. Claims and locks are checked. The recipe book still only counts your inventory."
-      },
-      "de": {
-        "title": "Verknuepfte Behaelter",
-        "summary": "Schleichen + Rechtsklick mit leerer Haupthand merkt einen Behaelter vor (Doppeltruhe zaehlt als einer); Staubpartikel an der Hand zeigen die Vormerkung. Die naechste geoeffnete Truhe oder GUI (Werkbank, Ofen, Amboss …) zeigt den Behaelter darueber, mit gemeinsamem Inventar. Shift-Klick: vorgemerkt → zweites GUI, sonst Inventar; Inventar → zweites GUI, sonst vorgemerkter Behaelter. Die Vormerkung endet jenseits von qOL.linkedContainerRange (Standard 64, Bereich 8–128), in anderer Dimension, in ungeladenem Chunk, wenn der Block weg ist, bei Logout oder Tod oder mit erneutem Schleich-Rechtsklick darauf. Claims und Schloesser werden geprueft. Das Rezeptbuch zaehlt weiter nur das Inventar."
-      }
-    },
-    {
-      "id": "easy_shulkers",
-      "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/container/PortableContainers.java",
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/container/PortableMenu.java"
-      ],
-      "en": {
-        "title": "Easy shulker boxes and ender chests",
-        "summary": "Right-click a shulker box (any color, also SimpleBuilding tier boxes) or an ender chest in the air, or right-click it on its own inventory slot, to open it without placing it. The item stays locked in its slot while open; every change is written into the box at once. Shulker boxes do not fit inside. Not from the creative inventory tab. Switches: qOL.enableEasyShulkers and qOL.enableEasyEnderChests (default true)."
-      },
-      "de": {
-        "title": "Einfache Shulkerkisten und Endertruhen",
-        "summary": "Rechtsklick mit einer Shulkerkiste (jede Farbe, auch SimpleBuilding-Stufenkisten) oder Endertruhe in die Luft oder auf ihren eigenen Inventarplatz oeffnet sie, ohne sie zu platzieren. Das Item bleibt waehrenddessen in seinem Platz gesperrt; jede Aenderung wird sofort in die Kiste geschrieben. Shulkerkisten passen nicht hinein. Nicht aus dem Kreativ-Inventarreiter. Schalter: qOL.enableEasyShulkers und qOL.enableEasyEnderChests (Standard true)."
-      }
     }
   ],
   "notes": {
@@ -694,10 +143,10 @@
         "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 41 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
+        "summary": "Guide to this mod: 55 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 41 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
+        "summary": "Handbuch zu dieser Mod: 55 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
       }
     }
   }

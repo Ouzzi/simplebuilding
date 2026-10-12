@@ -1,0 +1,25 @@
+{
+  "dragon_chitin": {
+    "lore": [
+      "Abgeworfen von den Dragonmites, die aus dem Bedrock-Brunnen kriechen, sobald der Drache schwer verwundet ist. Die Platten sind warm, als säße noch Drachenatem darin."
+    ],
+    "use": [
+      "Dragonmites kommen erst, wenn der Drache auf halbes Leben fällt; dann alle 30 Sekunden eine neue Welle nahe dem Ausgangsportal. Eine von einem Spieler getötete Mite lässt bis zu ein Stück fallen, Plünderung gibt mehr.",
+      "Vorerst ist es ein Material. Rezepte dafür folgen später."
+    ],
+    "secret": [
+      "Je mehr Spieler auf der Insel stehen, desto mehr Mites folgen dem Ruf: eine mehr je Welle für je zwei weitere Kämpfer, höchstens 16 gleichzeitig."
+    ]
+  },
+  "dragonmite_spawn_egg": {
+    "lore": [
+      "Ein Ei, das es nicht geben dürfte: Dragonmites schlüpfen nur auf den Ruf des Drachen."
+    ],
+    "use": [
+      "Erzeugt eine Dragonmite, die an keinen Drachen gebunden ist und wie jedes Monster bleibt. Im Kreativtab erscheint es nur, wenn die Server-Config es erlaubt (exposeSpawnEgg)."
+    ],
+    "secret": [
+      "Vom Drachen gerufene Mites lösen sich ohne Beute in Rauch auf, sobald ihr Drache stirbt."
+    ]
+  }
+}

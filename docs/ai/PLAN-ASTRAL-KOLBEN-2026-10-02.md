@@ -1,5 +1,7 @@
 # Konzept: Astral-Kolben (drückt) und Nihil-Kolben (zieht) – 2026-10-02
 
+> **Stand 2026-10-11 (Nachtrag 36):** Astral-/Nihil-Redstone ist jetzt Vanilla-artiger Staub (zweite/dritte Redstone-Linie, von allen Vanilla-Quellen gespeist), Schalter und Lampen sind entfernt (laden als Hebel/Redstone-Lampe), Brücken-Redstone verbindet alle Linien. Kolben und Schienen empfangen weiter nur den Staub ihrer Linie (oder Brücken-Redstone) direkt daneben; `endSignalRange` und das Polling der Leitung entfallen. Siehe PLAN-REDSTONE-LINIEN-2026-10-11.md.
+
 Status: **nur Konzept**, nichts implementiert (Besitzer-Queue „erst als Konzept/Plan“). Zielversion 26.3, Fabric zuerst,
 hinter `McVersion.END_SYSTEMS` und einem neuen Server-Schalter `features.endPistons`.
 

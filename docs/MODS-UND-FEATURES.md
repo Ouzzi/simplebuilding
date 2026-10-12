@@ -14,10 +14,10 @@ eine Super-Mod *requires* und bündelt ihre Sub-Mods und enthält nur Übergreif
 Befehle). In ihrer Config steht je Sub-Mod oben „Simple XY aktivieren“. Gemeinsames gehört in **simplelib**.
 
 ```
-SimpleBuilding (Super-Mod, geplant)          Simple Quality of Life (Super-Mod, im Umbau)
- ├─ simplelib (gebündelt)                      ├─ simpleweather (Sub-Mod, gebündelt)
- ├─ Simple Trims (geplant)                     ├─ simpleinterfaces (Sub-Mod, vorhanden)
- └─ Simple Maps (in Arbeit)                    └─ geplant: Movement, Farming, Tools, Creatures, Vaults
+SimpleBuilding (Super-Mod, geplant)          Simple Quality of Life (Super-Mod)
+ ├─ simplelib (gebündelt)                      ├─ simpleweather, simpleinterfaces, simpleloot,
+ ├─ Simple Trims (geplant)                     ├─ simplecreatures, simplefarming, simpletools,
+ └─ Simple Maps (in Arbeit)                    └─ simplemovement (alle Sub-Mods, gebündelt)
                                                  (docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md)
 Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwiches, Tweaks (braucht SB)
 ```
@@ -28,9 +28,14 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 |---|---|---|---|
 | SimpleBuilding (`simplebuilding`) | Cloth Config | JEI, REI, ModMenu, Jade, AppleSkin, Mouse Tweaks, Trinkets, Curios | simplelib |
 | SimpleLib (`simplelib`) | – | – | – |
-| Simple Interfaces (`simpleinterfaces`) | Cloth Config, simplelib | SimpleBuilding, ModMenu | simplelib |
-| Simple Quality of Life (`simplequalityoflife`) | Cloth Config, Simple Weather | SimpleBuilding, ModMenu | simplelib, simpleweather |
+| Simple Interfaces (`simpleinterfaces`) | Cloth Config, simplelib | SimpleBuilding, Simple QoL (Schalter), ModMenu | simplelib |
+| Simple Quality of Life (`simplequalityoflife`) | Cloth Config, alle sieben Sub-Mods | SimpleBuilding, ModMenu | simplelib, simpleweather, simpleinterfaces, simpleloot, simplecreatures, simplefarming, simpletools, simplemovement |
 | Simple Weather (`simpleweather`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
+| Simple Loot (`simpleloot`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
+| Simple Creatures (`simplecreatures`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
+| Simple Farming (`simplefarming`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu | – |
+| Simple Tools (`simpletools`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu | – |
+| Simple Movement (`simplemovement`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Riding (`simpleriding`) | Cloth Config | SimpleBuilding (Enderit-Hufeisen), ModMenu | simplelib |
 | Simple Sandwiches (`simplesandwiches`) | – | SimpleBuilding | simplelib |
 | Simple Money (`simplemoney`) | Cloth Config | alle Simple-Mods (Preislisten), JEI, ModMenu | – |
@@ -64,7 +69,9 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 - **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Statusfeld im
   Inventar), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
 - **Deko/Platzieren:** abgelegte Vorlagen, Kleinteile-Häufchen, Schachbrett-Blöcke und Schachfiguren (Achtel),
-  senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-/Noten-Verstärker.
+  senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-Verstärker (spielen einen
+  Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla) / Noten-Verstärker, Metall-Stangen (Eisen bis
+  Enderit, Blitzableiter mit eigener Reichweite; früher „Rod“).
 - **Verzauberungen:** Abbau-, Bau-, Lager-/Spieler-Verzauberungen, Luftsprung.
 - **Welt/Wirtschaft:** Loot-Balance, bessere Strukturtruhen, Dorfbewohner-/Händlerangebote.
 - **Pads und Tweaks** (aus Simple Tweaks übernommen): Spawn-/Elytra-/Trank-Pads in Stufen, Server-Optionen.
@@ -85,11 +92,22 @@ Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergl
 Wetter abschalten (Server), Regendichte (Client); eigene Config `config/simpleweather.json`, alte QoL-Werte werden
 einmalig übernommen; in QoL mit „Simple Weather aktivieren“ abschaltbar.
 
-### Simple Quality of Life
-Kriechen, Autowalk, schnelles Leiterklettern/-rutschen, Eisläufer auf Pulverschnee, Federfall schützt Acker, Ernten
-mit Hacke, Ofen mit Lava füllen, Schärfe schneidet Pflanzen, Haltbarkeitsbonus, Kreaturen stummschalten, dauerhafte
-Jungtiere, Piglins ignorieren Gold, Wettersteuerung (jetzt Sub-Mod Simple Weather), Tresor-Abklingzeit, Sparsamkeit-Verzauberung, Reparatur hält
-Ambosskosten, verknüpfte Behälter (Vormerken), Shulkerkisten/Endertruhen aus dem Inventar öffnen.
+### Simple Loot / Creatures / Farming / Tools / Movement (Sub-Mods von QoL, 2026-10-11)
+Je eigene Config `config/<id>.json` (alte `qOL.*`-Werte werden beim ersten Start einmalig übernommen), eigener Befehl
+`/<id>`, in QoL mit „Simple XY aktivieren“ abschaltbar, allein spielbar.
+- **Simple Loot:** Tresor-Abklingzeit in Tagen.
+- **Simple Creatures:** Kreaturen stummschalten (Typ/Namenssuffix), dauerhafte Jungtiere, Piglins ignorieren Goldbesatz/-werkzeug.
+- **Simple Farming:** Federfall schützt Acker, Schärfe schneidet Pflanzen, Ernten mit Hacke.
+- **Simple Tools:** Haltbarkeitsbonus, Sparsamkeit-Verzauberung (ID bleibt `simplequalityoflife:thrift`), Reparatur hält
+  Ambosskosten, Ofen mit Lava füllen.
+- **Simple Movement:** Kriechen (`/crawl`), Autowalk, schnelles Leiterklettern/-rutschen, Frostläufer auf Pulverschnee;
+  alte QoL-Tastenbelegungen werden übernommen.
+- **Simple Interfaces** übernimmt verknüpfte Behälter (Vormerken) und Shulkerkisten/Endertruhen aus dem Inventar
+  (Serverwerte in `config/simpleinterfaces-server.json`).
+
+### Simple Quality of Life (Super-Mod)
+Bündelt die sieben Sub-Mods, je ein Schalter „Simple XY aktivieren“ (auch `/simplequalityoflife submod <name> <bool>`),
+Handbuch über alle Sub-Mods und FTB-Startquest.
 
 ### Simple Riding
 Rückenwind und Sprungkraft (Sättel, Geschirre, Nautilus), Rüstungsverzauberungen für Reittiere, Hufeisen
@@ -130,6 +148,7 @@ Kompatibilität alter Welten (ID-Zuordnung), Claim-System in Stufen (standardmä
 |---|---|---|---|
 | Simple Maps (`simplemaps`, Sub-Mod SB) | in Arbeit (`claude-q-maps`) | Wegfinder-Karte (unendlich, Spieler mittig), GUI mit Lesezeichen, Wegpunkte, Locator-Bar, Karte je Dimension, Fundorte | `docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md` |
 | Simple Mobs (`simplemobs`, Sub-Mod SB, optional) | Stufe 1 (`claude-q-deceiver`) | Mob Deceiver (Endgame, Wellen aus Fake-/Echt-Mobs, Mirage-Puls über SB-Effekte, falls SB geladen), Täuscherstoff, Spawn-Ei; spielbar auch ohne SB | `docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md` |
+| Simple End Dragon Fight (`simpleenddragonfight`, Sub-Mod SB, optional) | Stufe 1 (`claude-dragon`) | Drache: +1 volle Lebensleiste je Spieler, +15 % je weiterer Beschwörung (300 bzw. 200 je Spieler, Schonfrist 60 s), +20 % Tempo, Eintritts-Animation je Spieler (Warteschlange), ab halbem Leben Dragonmites alle 30 s (Drop Drachen-Chitin); spielbar auch ohne SB | `docs/ai/KONZEPT-END-DRAGON-FIGHT-2026-10-11.md` |
 | Simple Trims (Sub-Mod SB) | geplant, Frage F1 offen | alle Schmiedevorlagen inkl. Platzieren; Axt ohne SB, Hammer mit SB | PLAN-N18 |
 | Simple Respawn (`simplerespawn`) | wartet auf Besitzer-Konzept | Niedergeschlagen statt Tod im Mehrspieler, Wiederbeleben, danach 3 Herzen/0 Hunger | `docs/ai/KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md` |
 | QoL-Aufteilung | Besitzer entscheidet | Sub-Mods für Container (fertig), Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor (→ Simple Loot); Schärfe/Gras → Simple Combat; Kreaturen-Logik nach simplelib | QUEUE N14 |

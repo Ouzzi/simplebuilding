@@ -239,7 +239,10 @@ public final class MusicDiscTests {
         helper.succeed();
     }
 
-    /** Astralit nur am Plattenspieler, Nihilit nur am Notenblock; Standard: hoechstens zwei zaehlen, +50 % je Stueck. */
+    /**
+     * Nihilit nur am Notenblock; Standard: hoechstens zwei zaehlen, +50 % je Stueck. Der Plattenspieler bleibt seit N41
+     * Vanilla: auch angrenzende Musik-Verstärker verstaerken ihn nicht (sie spielen nur mit).
+     */
     public static void speakersBoostOnlyTheirOwnSource(GameTestHelper helper) {
         if (!enabled(helper)) return;
         ServerLevel level = helper.getLevel();
@@ -261,7 +264,7 @@ public final class MusicDiscTests {
         // Richtige Lautsprecher: einer gibt +50 %.
         helper.setBlock(jukebox.west(), ModBlocks.JUKEBOX_AMPLIFIER);
         helper.setBlock(note.west(), ModBlocks.NOTE_AMPLIFIER);
-        helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.5F, "one astralit speaker");
+        helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.0F, "an astralit speaker boosted the jukebox");
         helper.assertValueEqual(SpeakerBoost.noteBlockVolume(level, n), 4.5F, "one nihilit speaker");
 
         // Vier ringsum: es zaehlen nur zwei (Standard), also hoechstens doppelt.
@@ -269,7 +272,7 @@ public final class MusicDiscTests {
         helper.setBlock(jukebox.north(), ModBlocks.JUKEBOX_AMPLIFIER);
         helper.setBlock(jukebox.above(), ModBlocks.JUKEBOX_AMPLIFIER);
         helper.assertValueEqual(SpeakerBoost.adjacentSpeakers(level, j, SpeakerBoost.Source.JUKEBOX), 4, "adjacent astralit speakers");
-        helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 2.0F, "capped at two speakers");
+        helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.0F, "four astralit speakers boosted the jukebox");
         helper.assertValueEqual(SpeakerBoost.jukeboxEventRange(2.0F), 128.0, "jukebox reach with two speakers");
         helper.assertValueEqual(SpeakerBoost.jukeboxEventRange(1.0F), 64.0, "vanilla jukebox reach");
         helper.succeed();
@@ -363,14 +366,14 @@ public final class MusicDiscTests {
         helper.setBlock(new BlockPos(7, 2, 1), ModBlocks.NOTE_AMPLIFIER);
         helper.setBlock(new BlockPos(8, 2, 1), ModBlocks.JUKEBOX_AMPLIFIER);
         BlockPos j = helper.absolutePos(jukebox);
-        // Musik-Verstärker funken seit 2026-10-10 (16 Bloecke): auch der hinter dem Noten-Verstärker gehoert dazu.
+        // Musik-Verstärker funken seit 2026-10-10 (N41: 63 Bloecke): auch der hinter dem Noten-Verstärker gehoert dazu.
         List<BlockPos> chain = own(helper, SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX));
         helper.assertValueEqual(chain.size(), 7, "radio chain over five speakers, the branch and the one behind: " + chain);
         helper.assertTrue(chain.contains(helper.absolutePos(new BlockPos(8, 2, 1))), "a nihilit speaker blocked the radio");
         helper.assertTrue(!chain.contains(helper.absolutePos(new BlockPos(7, 2, 1))), "a note amplifier joined a jukebox chain");
         helper.assertTrue(SpeakerBoost.chain(level, j, SpeakerBoost.Source.NOTE_BLOCK).isEmpty(), "astralit speakers chain a note block");
-        // Die Verstaerkung an der Quelle bleibt: ein Nachbar = +50 %.
-        helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.5F, "boost at the source");
+        // N41: keine Verstaerkung am Plattenspieler, er bleibt Vanilla.
+        helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.0F, "the jukebox was boosted");
 
         ServerTuningConfig.Speakers live = ServerTuning.local().speakers;
         int oldChain = live.maxChain;
@@ -408,18 +411,18 @@ public final class MusicDiscTests {
     }
 
     /**
-     * Funk-Kette (Besitzer 2026-10-10, Queue N31): der Plattenspieler gibt die Musik an Musik-Verstärker in hoechstens
-     * 16 Bloecken weiter, jeder gespeiste Verstärker wieder an die naechsten. Ausserhalb der Reichweite kein Glied;
-     * faellt ein Zwischenglied weg, reisst die Kette dahinter ab. Noten-Verstärker bleiben Nachbar-Ketten.
+     * Funk-Kette (Besitzer 2026-10-10, Queue N31; N41: 63 Bloecke): der Plattenspieler gibt die Musik an Musik-Verstärker in
+     * hoechstens 63 Bloecken weiter, jeder gespeiste Verstärker wieder an die naechsten. Ausserhalb der Reichweite kein
+     * Glied; faellt ein Zwischenglied weg, reisst die Kette dahinter ab. Noten-Verstärker bleiben Nachbar-Ketten.
      */
     public static void jukeboxAmplifiersRelayByRadio(GameTestHelper helper) {
         if (!enabled(helper)) return;
         ServerLevel level = helper.getLevel();
-        // Hoch ueber dem Testraum: Verstärker anderer Tests (bodennah) liegen dann ausser Funkweite.
-        BlockPos jukebox = new BlockPos(0, 25, 0);
-        BlockPos a = new BlockPos(7, 25, 7);  // 9,9 vom Plattenspieler
-        BlockPos b = new BlockPos(7, 38, 7);  // 16,3 vom Plattenspieler, 13 von a
-        BlockPos c = new BlockPos(0, 44, 0);  // 19 vom Plattenspieler, 21,4 von a, 11,6 von b
+        // Hoch ueber dem Testraum: Verstärker anderer Tests (hoechstens 90 ueber dem Boden) reichen a, b, c nicht.
+        BlockPos jukebox = new BlockPos(0, 130, 0);
+        BlockPos a = new BlockPos(7, 170, 7);  // 41,2 vom Plattenspieler
+        BlockPos b = new BlockPos(7, 210, 7);  // 80,6 vom Plattenspieler, 40 von a
+        BlockPos c = new BlockPos(0, 240, 0);  // 110 vom Plattenspieler, 70,7 von a, 31,6 von b
         helper.setBlock(jukebox, Blocks.JUKEBOX);
         helper.setBlock(a, ModBlocks.JUKEBOX_AMPLIFIER);
         helper.setBlock(c, ModBlocks.JUKEBOX_AMPLIFIER);
@@ -435,16 +438,21 @@ public final class MusicDiscTests {
         helper.setBlock(b, ModBlocks.JUKEBOX_AMPLIFIER);
         helper.assertTrue(own(helper, SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX)).equals(List.of(absA, absB, absC)),
                 "relay a -> b -> c: " + SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX));
-        // Grenze: genau 16 Bloecke zaehlen, 17 nicht.
+        // Grenze: genau 63 Bloecke zaehlen, 64 nicht.
         List<BlockPos> radio = SpeakerBoost.inRelayRange(level, j, SpeakerBoost.Source.JUKEBOX);
         helper.assertTrue(radio.contains(absA) && !radio.contains(absB) && !radio.contains(absC), "radio range of the jukebox: " + radio);
-        helper.setBlock(new BlockPos(0, 41, 0), ModBlocks.JUKEBOX_AMPLIFIER);
-        helper.setBlock(new BlockPos(4, 42, 0), ModBlocks.NOTE_AMPLIFIER);
+        BlockPos edge = new BlockPos(0, 193, 0);
+        BlockPos beyond = new BlockPos(1, 194, 1);
+        helper.setBlock(edge, ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(beyond, ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(new BlockPos(4, 150, 0), ModBlocks.NOTE_AMPLIFIER);
         radio = SpeakerBoost.inRelayRange(level, j, SpeakerBoost.Source.JUKEBOX);
-        helper.assertTrue(radio.contains(helper.absolutePos(new BlockPos(0, 41, 0))), "an amplifier exactly 16 blocks away is out of range");
-        helper.assertTrue(radio.stream().noneMatch(pos -> pos.distSqr(j) > 256.0), "an amplifier beyond 16 blocks is in range: " + radio);
-        helper.assertTrue(!radio.contains(helper.absolutePos(new BlockPos(4, 42, 0))), "a note amplifier is in the jukebox radio");
-        helper.setBlock(new BlockPos(0, 41, 0), Blocks.AIR);
+        helper.assertTrue(radio.contains(helper.absolutePos(edge)), "an amplifier exactly 63 blocks away is out of range");
+        helper.assertTrue(!radio.contains(helper.absolutePos(beyond)), "an amplifier 64 blocks away is in range");
+        helper.assertTrue(radio.stream().noneMatch(pos -> pos.distSqr(j) > 63.0 * 63.0), "an amplifier beyond 63 blocks is in range: " + radio);
+        helper.assertTrue(!radio.contains(helper.absolutePos(new BlockPos(4, 150, 0))), "a note amplifier is in the jukebox radio");
+        helper.setBlock(edge, Blocks.AIR);
+        helper.setBlock(beyond, Blocks.AIR);
 
         // Zwischenglied weg: b und c haengen nur ueber a am Plattenspieler.
         helper.setBlock(a, Blocks.AIR);
@@ -452,14 +460,54 @@ public final class MusicDiscTests {
                 "the chain did not break without a: " + SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX));
 
         // Noten-Verstärker funken nicht: zwei Bloecke Luecke unterbrechen weiterhin.
-        BlockPos note = new BlockPos(3, 25, 3);
+        BlockPos note = new BlockPos(3, 130, 3);
         helper.setBlock(note, Blocks.NOTE_BLOCK);
         helper.setBlock(note.east(2), ModBlocks.NOTE_AMPLIFIER);
         helper.assertTrue(SpeakerBoost.chain(level, helper.absolutePos(note), SpeakerBoost.Source.NOTE_BLOCK).isEmpty(), "note amplifiers went wireless");
 
         // Stopp-Reichweite deckt die laengste Funk-Kette.
-        helper.assertTrue(SpeakerBoost.jukeboxStopRange() >= SpeakerBoost.jukeboxEventRange(SpeakerBoost.maxMultiplier())
+        helper.assertTrue(SpeakerBoost.jukeboxStopRange() >= SpeakerBoost.VANILLA_EVENT_RANGE
                 + ServerTuning.maxSpeakerChain() * (double) SpeakerBoost.RELAY_RANGE, "stop range shorter than the longest radio chain");
+        helper.succeed();
+    }
+
+    /**
+     * Besitzer N41: der Plattenspieler bleibt Vanilla, ein Musik-Verstärker bis 63 Bloecke entfernt spielt ohne
+     * Verzoegerung mit. Ueber den echten Weg (Platte einlegen): ein Spieler 40 Bloecke ueber dem Verstärker, 100 vom
+     * Plattenspieler (ausser Vanilla-Reichweite) bekommt den Start im selben Tick; ohne Kette gibt es keine Pakete ueber
+     * Vanillas 64 Bloecke hinaus, und ein angrenzender Verstärker verstaerkt den Plattenspieler nicht.
+     */
+    public static void jukeboxStaysVanillaAndAmplifierPlaysAlong(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        ServerLevel level = helper.getLevel();
+        // Fremde Verstärker in Funkweite stoeren nicht: der ferne Spieler steht weit ueber allen (>= 64 Bloecke).
+        BlockPos jukebox = new BlockPos(2, 30, 2);
+        BlockPos amp = new BlockPos(2, 90, 2); // 60 Bloecke ueber dem Plattenspieler
+        helper.setBlock(jukebox, Blocks.JUKEBOX);
+        helper.setBlock(jukebox.east(), ModBlocks.JUKEBOX_AMPLIFIER);
+        BlockPos j = helper.absolutePos(jukebox);
+        helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.0F, "an adjacent amplifier boosted the jukebox");
+        helper.setBlock(jukebox.east(), Blocks.AIR);
+        List<net.minecraft.network.protocol.Packet<?>> sink = new ArrayList<>();
+        List<net.minecraft.network.protocol.Packet<?>> farSink = new ArrayList<>();
+        ServerPlayer player = capturingPlayer(helper, sink);
+        ServerPlayer far = capturingPlayer(helper, farSink);
+        BlockPos absAmp = helper.absolutePos(amp);
+        far.snapTo(absAmp.getX() + 0.5, absAmp.getY() + 40.0, absAmp.getZ() + 0.5, 0.0F, 0.0F);
+        helper.assertTrue(far.position().distanceTo(Vec3.atCenterOf(j)) > 64.0, "far player inside vanilla range");
+        java.util.function.BooleanSupplier started = () -> captured(farSink, ClientboundLevelEventPacket.class).stream()
+                .anyMatch(e -> e.getType() == LevelEvent.SOUND_PLAY_JUKEBOX_SONG && e.getPos().equals(j));
+        // Ohne Kette: kein Paket ueber Vanillas 64 Bloecke hinaus (der Plattenspieler bleibt Vanilla).
+        helper.assertTrue(SpeakerBoost.sendBeyondVanilla(level, j, List.of(), new ClientboundLevelEventPacket(
+                LevelEvent.SOUND_PLAY_JUKEBOX_SONG, j, 0, false), SpeakerBoost.VANILLA_EVENT_RANGE).isEmpty(), "vanilla range sends extra packets");
+        helper.setBlock(amp, ModBlocks.JUKEBOX_AMPLIFIER);
+        // Mit Verstärker in 60 Bloecken: Start im selben Tick (keine Verzoegerung).
+        click(helper, player, jukebox, new ItemStack(Items.MUSIC_DISC_CAT));
+        helper.assertTrue(started.getAsBoolean(), "the start did not reach the player near the amplifier in the same tick");
+        // Ungedeckelt (die Kette nimmt hoechstens 16, fremde Verstärker naeher am Plattenspieler koennen zuerst kommen).
+        helper.assertTrue(SpeakerBoost.inRelayRange(level, j, SpeakerBoost.Source.JUKEBOX).contains(absAmp),
+                "the amplifier 60 blocks away is not in radio range");
+        click(helper, player, jukebox, ItemStack.EMPTY);
         helper.succeed();
     }
 
@@ -471,9 +519,10 @@ public final class MusicDiscTests {
     public static void relayingAmplifiersShowNotesAndStopWithTheJukebox(GameTestHelper helper) {
         if (!enabled(helper)) return;
         // Hoch ueber dem Testraum: spielende Plattenspieler anderer Tests funken diese Verstärker dann nicht an.
-        BlockPos jukebox = new BlockPos(1, 27, 1);
-        BlockPos a = new BlockPos(6, 27, 6);
-        BlockPos b = new BlockPos(6, 42, 6);
+        // N41: Funkweite 63, darum deutlich hoeher als die bodennahen Plattenspieler anderer Tests.
+        BlockPos jukebox = new BlockPos(1, 75, 1);
+        BlockPos a = new BlockPos(6, 75, 6);
+        BlockPos b = new BlockPos(6, 90, 6);
         helper.setBlock(jukebox, Blocks.JUKEBOX);
         helper.setBlock(a, ModBlocks.JUKEBOX_AMPLIFIER);
         helper.setBlock(b, ModBlocks.JUKEBOX_AMPLIFIER);
@@ -582,7 +631,8 @@ public final class MusicDiscTests {
                     "no sound outside the range");
         }
 
-        // Plattenspieler mit Kette: Start und Stopp erreichen einen Spieler 92 Bloecke hinter dem Kettenende.
+        // Plattenspieler mit Kette: Start und Stopp erreichen einen Spieler 60 Bloecke hinter dem Kettenende (68 vom
+        // Plattenspieler, N41: Vanilla-Hoerweite 64 ab jedem Abspielpunkt, keine Verstaerkung).
         BlockPos box = new BlockPos(1, 4, 1);
         helper.setBlock(box, Blocks.JUKEBOX);
         for (int x = 2; x <= 9; x++) {
@@ -593,8 +643,9 @@ public final class MusicDiscTests {
         ServerPlayer behind = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(behind));
         BlockPos jend = helper.absolutePos(new BlockPos(9, 4, 1));
-        behind.snapTo(jend.getX() + 0.5 + 92.0, jend.getY(), jend.getZ() + 0.5, 0.0F, 0.0F);
+        behind.snapTo(jend.getX() + 0.5 + 60.0, jend.getY(), jend.getZ() + 0.5, 0.0F, 0.0F);
         float mult = SpeakerBoost.multiplier(level, b, SpeakerBoost.Source.JUKEBOX);
+        helper.assertValueEqual(mult, 1.0F, "an amplifier next to the jukebox boosted it (N41: the jukebox stays vanilla)");
         List<ServerPlayer> started = SpeakerBoost.sendBeyondVanilla(level, b, jchain,
                 new ClientboundLevelEventPacket(LevelEvent.SOUND_PLAY_JUKEBOX_SONG, b, 0, false), SpeakerBoost.jukeboxEventRange(mult));
         helper.assertTrue(started.contains(behind), "the start did not reach the player behind the chain end");
@@ -623,6 +674,18 @@ public final class MusicDiscTests {
         helper.succeed();
     }
 
+
+    /** N39: amplifier items carry a tooltip line (en/de lang keys exist), the blocks are full cubes (hitbox = model). */
+    public static void amplifiersHaveTooltipAndFullCubeHitbox(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        Object[][] cases = {{ModItems.JUKEBOX_AMPLIFIER, ModBlocks.JUKEBOX_AMPLIFIER}, {ModItems.NOTE_AMPLIFIER, ModBlocks.NOTE_AMPLIFIER}};
+        for (Object[] c : cases) {
+            helper.assertTrue(c[0] instanceof com.simplebuilding.items.custom.AmplifierItem, "amplifier item has its tooltip class: " + c[0]);
+            net.minecraft.world.level.block.state.BlockState st = ((net.minecraft.world.level.block.Block) c[1]).defaultBlockState();
+            helper.assertTrue(st.getShape(helper.getLevel(), BlockPos.ZERO) == net.minecraft.world.phys.shapes.Shapes.block(), "amplifier outline is the full cube");
+        }
+        helper.succeed();
+    }
 
     // =====================================================================================
     // Verstärker ueber den echten Weg (2026-10-06, Besitzer: Verstärker funktionieren im Spiel nicht)
@@ -720,60 +783,6 @@ public final class MusicDiscTests {
                 helper.assertTrue(payloads.isEmpty(), "a plain note block sent an amplified note");
                 helper.assertTrue(sounds.size() == 1 && sounds.getFirst().getVolume() == SpeakerBoost.NOTE_BLOCK_VOLUME,
                         "plain note block: " + sounds.size() + " sounds");
-                helper.succeed();
-            });
-        });
-    }
-
-    /**
-     * Musik-Verstärker ueber den echten Weg: ein Spieler legt eine Platte ein (useItemOn), ein Spieler 90 Bloecke weiter
-     * (jenseits von Vanillas 64) bekommt den Start nur vom verstaerkten Plattenspieler; Herausnehmen stoppt auch bei ihm.
-     * Der Pegel, den der Client daraus macht ({@code ChainedJukeboxSound}), liegt neben dem Plattenspieler ueber 1.
-     */
-    public static void amplifiedJukeboxReachesFartherThroughTheRealUsePath(GameTestHelper helper) {
-        if (!enabled(helper)) return;
-        ServerLevel level = helper.getLevel();
-        BlockPos amplified = new BlockPos(1, 2, 1);
-        BlockPos plain = new BlockPos(1, 2, 5);
-        helper.setBlock(amplified, Blocks.JUKEBOX);
-        helper.setBlock(amplified.west(), ModBlocks.JUKEBOX_AMPLIFIER);
-        helper.setBlock(plain, Blocks.JUKEBOX);
-        List<net.minecraft.network.protocol.Packet<?>> nearSink = new ArrayList<>();
-        List<net.minecraft.network.protocol.Packet<?>> farSink = new ArrayList<>();
-        ServerPlayer near = capturingPlayer(helper, nearSink);
-        ServerPlayer far = capturingPlayer(helper, farSink);
-        BlockPos a = helper.absolutePos(amplified);
-        BlockPos p = helper.absolutePos(plain);
-        far.snapTo(a.getX() + 90.5, a.getY(), a.getZ() + 0.5, 0.0F, 0.0F);
-        click(helper, near, amplified, new ItemStack(Items.MUSIC_DISC_CAT));
-        click(helper, near, plain, new ItemStack(Items.MUSIC_DISC_CAT));
-        helper.runAfterDelay(2, () -> {
-            List<ClientboundLevelEventPacket> events = captured(farSink, ClientboundLevelEventPacket.class);
-            long fromAmplified = events.stream().filter(e -> e.getType() == LevelEvent.SOUND_PLAY_JUKEBOX_SONG && e.getPos().equals(a)).count();
-            long fromPlain = events.stream().filter(e -> e.getType() == LevelEvent.SOUND_PLAY_JUKEBOX_SONG && e.getPos().equals(p)).count();
-            helper.assertValueEqual(fromAmplified, 1L, "starts of the amplified jukebox 90 blocks away");
-            helper.assertValueEqual(fromPlain, 0L, "starts of the plain jukebox 90 blocks away");
-
-            // Was der Client daraus macht: Pegel neben dem Plattenspieler = Faktor 1,5 (Vanilla dort knapp unter 1).
-            float multiplier = SpeakerBoost.multiplier(level, a, SpeakerBoost.Source.JUKEBOX);
-            List<Vec3> points = SpeakerBoost.points(a, SpeakerBoost.chain(level, a, SpeakerBoost.Source.JUKEBOX));
-            Vec3 ear = Vec3.atCenterOf(a).add(3.0, 0.0, 0.0);
-            double range = SoundEvents.MUSIC_DISC_CAT.value().getRange(SpeakerBoost.JUKEBOX_VOLUME * multiplier);
-            helper.assertValueEqual(SpeakerBoost.listenerGain(SpeakerBoost.nearest(points, ear), ear, range, multiplier), 1.5F,
-                    "client gain next to the amplified jukebox");
-            Vec3 farEar = far.position();
-            helper.assertTrue(SpeakerBoost.listenerGain(SpeakerBoost.nearest(points, farEar), farEar, range, multiplier) > 0.0F,
-                    "the far player would hear nothing");
-
-            // Platte herausnehmen: der Stopp erreicht den fernen Spieler ebenfalls.
-            synchronized (farSink) {
-                farSink.clear();
-            }
-            click(helper, near, amplified, ItemStack.EMPTY);
-            helper.runAfterDelay(2, () -> {
-                boolean stopped = captured(farSink, ClientboundLevelEventPacket.class).stream()
-                        .anyMatch(e -> e.getType() == LevelEvent.SOUND_STOP_JUKEBOX_SONG && e.getPos().equals(a));
-                helper.assertTrue(stopped, "the stop did not reach the far player");
                 helper.succeed();
             });
         });

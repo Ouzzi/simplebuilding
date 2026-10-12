@@ -291,13 +291,43 @@ public final class GuideContent {
                 var chapters = new ArrayList<>(old.chapters());
                 chapters.add(book == GuideBooks.Book.STORAGE
                         ? ch("simplebuilding:astral_vault", List.of("simplebuilding:astral_vault", "simplebuilding:nihil_vault"), List.of("minecraft:ender_chest"))
-                        : ch("simplebuilding:nihil_redstone", List.of("simplebuilding:nihil_redstone", "simplebuilding:astral_redstone", "simplebuilding:nihilith_switch", "simplebuilding:astralit_switch", "simplebuilding:nihilith_lamp", "simplebuilding:astralit_lamp", "simplebuilding:astral_piston", "simplebuilding:nihil_piston"), List.of()));
+                        : ch("simplebuilding:nihil_redstone", List.of("simplebuilding:nihil_redstone", "simplebuilding:astral_redstone", "simplebuilding:bridge_redstone", "simplebuilding:astral_piston", "simplebuilding:nihil_piston"), List.of()));
                 if (com.simplebuilding.version.McVersion.END_RAILS && book != GuideBooks.Book.STORAGE) {
                     chapters.add(ch("simplebuilding:astral_rail", List.of("simplebuilding:astral_rail", "simplebuilding:nihil_rail"), List.of("minecraft:powered_rail")));
                 }
                 STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
             }
         }
+        // Nachtrag 38: Handbuch auf Stand (Keramik-Eimer, Auto-Schmied, Holzarbeiten, Eis, Feuer, Sculk-Kiefer).
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            addChapter(GuideBooks.Book.MACHINES, ch("simplebuilding:ceramic_bucket", List.of(), List.of("simplebuilding:ceramic_bucket", "simplebuilding:raw_ceramic_bucket")));
+        }
+        if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
+            addChapter(GuideBooks.Book.MACHINES, ch("simplebuilding:auto_smither", List.of("simplebuilding:auto_smither"), List.of()));
+        }
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            addChapter(GuideBooks.Book.BUILDING, ch("minecraft:stripped_oak_log", List.of(), List.of("minecraft:stripped_oak_log", "simplebuilding:stone_chisel", "minecraft:angler_pottery_sherd")));
+            addChapter(GuideBooks.Book.BUILDING, ch("simplebuilding:stripped_oak_cauldron", List.of("simplebuilding:stripped_oak_cauldron"), List.of()));
+        }
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            addChapter(GuideBooks.Book.BUILDING, ch("simplebuilding:cracked_ice", List.of("simplebuilding:cracked_ice"), List.of("minecraft:ice")));
+        }
+        if (com.simplebuilding.version.McVersion.FIRES) {
+            addChapter(GuideBooks.Book.BUILDING, ch("minecraft:flint_and_steel", List.of("minecraft:gunpowder"), List.of("minecraft:sulfur")));
+        }
+        if (com.simplebuilding.version.McVersion.WOODWORK) {
+            addChapter(GuideBooks.Book.STORAGE, ch("simplebuilding:oak_crate", List.of("simplebuilding:oak_crate"), List.of()));
+        }
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            addChapter(GuideBooks.Book.GADGETS, ch("simplebuilding:sculk_jaw", List.of("simplebuilding:sculk_jaw"), List.of()));
+        }
+    }
+
+    private static void addChapter(GuideBooks.Book book, Chapter chapter) {
+        BookStyle old = STYLES.get(book);
+        var chapters = new ArrayList<>(old.chapters());
+        chapters.add(chapter);
+        STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
     }
 
     public static BookStyle style(GuideBooks.Book book) {

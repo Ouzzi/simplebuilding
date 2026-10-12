@@ -63,6 +63,12 @@ public final class ClaimTests {
         TESTS.put("claims_command_collision",ClaimTests::commands);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
+    /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */
+    static boolean simpleBuilding() { return net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding","reinforced_hopper")); }
+    static boolean skipWithoutSimpleBuilding(GameTestHelper h,String what) {
+        if(simpleBuilding())return false;
+        com.mojang.logging.LogUtils.getLogger().info("[standalone] simplebuilding not loaded - skipping {}",what);h.succeed();return true;
+    }
     static Path temp() { try { return Files.createTempDirectory("simpletweaks-claims-test-"); } catch(java.io.IOException e) { throw new AssertionError(e); } }
     static ClaimConfig on() { return new ClaimConfig(true,2,2,3,20,false,0,ClaimConfig.DEFAULT.dimensions()); }
     static void config(GameTestHelper h) {

@@ -1,5 +1,7 @@
 # Plan: Astral- und Nihil-Schienen (Besitzer-Queue Nachtrag 8, umgesetzt 2026-10-04)
 
+> **Stand 2026-10-11 (Nachtrag 36):** Astral-/Nihil-Redstone ist jetzt Vanilla-artiger Staub (zweite/dritte Redstone-Linie, von allen Vanilla-Quellen gespeist), Schalter und Lampen sind entfernt (laden als Hebel/Redstone-Lampe), Brücken-Redstone verbindet alle Linien. Kolben und Schienen empfangen weiter nur den Staub ihrer Linie (oder Brücken-Redstone) direkt daneben; `endSignalRange` und das Polling der Leitung entfallen. Siehe PLAN-REDSTONE-LINIEN-2026-10-11.md.
+
 Branch `claude-rails` (ab 138b0cc4). Wunsch: „Astral- und Nihil-Schienen, die stoppen oder beschleunigen; dann die
 Höchstgeschwindigkeit hochsetzen, dass es sich annähert bzw. wie im realen Leben mit der Reibung verhält – je schneller,
 desto mehr Boost braucht man. Die Astral-Schienen sollen mehr Boost geben als Redstone(-Antriebsschienen).“

@@ -9,7 +9,7 @@ import net.minecraft.gametest.framework.*;
 public final class ModuleForgeTests {
  public static boolean enabled(){return net.minecraftforge.gametest.ForgeGameTestHooks.isGametestServer();}
  public static Identifier id(String path){return Identifier.fromNamespaceAndPath("simplequalityoflife",path);}
- public static Map<String,Consumer<GameTestHelper>> cases(){var out=new LinkedHashMap<String,Consumer<GameTestHelper>>();com.simplequalityoflife.test.QolTests.ALL.forEach((name,body)->out.put("module_game_test_"+name,h->{if(name.equals("permissions_spam"))QolForgeChecks.veto(h);body.accept(h);}));return out;}
+ public static Map<String,Consumer<GameTestHelper>> cases(){var out=new LinkedHashMap<String,Consumer<GameTestHelper>>();com.simplequalityoflife.test.QolTests.ALL.forEach((name,body)->out.put("module_game_test_"+name,body));return out;}
  public static void register(net.minecraftforge.eventbus.api.bus.BusGroup bus){
   if(enabled()) net.minecraftforge.registries.RegisterEvent.getBus(bus).addListener(e->e.<Consumer<GameTestHelper>>register(Registries.TEST_FUNCTION,r->cases().forEach((name,body)->r.register(id(name),body))));
  }

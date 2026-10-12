@@ -274,11 +274,17 @@ public final class ConfigOptionTests {
         } finally { machines.autoSmitherDelayTicks = old; }
         helper.startSequence().thenExecuteAfter(10, () -> {
             helper.assertTrue(smither.getItem(1).is(Items.DIAMOND_SWORD), "smither ran before configured delay");
-            helper.assertTrue(smither.getItem(3).isEmpty(), "early result");
+            helper.assertTrue(ejected(helper, pos).isEmpty(), "early result");
         }).thenExecuteAfter(35, () -> {
             helper.assertTrue(smither.getItem(1).isEmpty(), "input not consumed");
-            helper.assertTrue(smither.getItem(3).is(Items.NETHERITE_SWORD), "configured pulse did not finish");
+            helper.assertTrue(ejected(helper, pos).stream().anyMatch(e -> e.getItem().is(Items.NETHERITE_SWORD)), "configured pulse did not finish");
         }).thenSucceed();
+    }
+
+    /** Items the smither at {@code pos} ejected (it spits its result out when no container is in front). */
+    private static java.util.List<net.minecraft.world.entity.item.ItemEntity> ejected(GameTestHelper helper, BlockPos pos) {
+        return helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(helper.absolutePos(pos)).inflate(3));
     }
 
     private ConfigOptionTests() {
@@ -647,6 +653,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleDimensions boolean=true",
             "root.enableSimpleTrims boolean=true",
             "root.enableSimpleMobs boolean=true",
+            "root.enableSimpleEndDragonFight boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=400",
@@ -849,7 +856,6 @@ public final class ConfigOptionTests {
             "server.machines.reinforcedFurnaceSpeed int=2",
             "server.machines.netheriteFurnaceSpeed int=4",
             "server.machines.enderiteFurnaceSpeed int=8",
-            "server.machines.endSignalRange int=15",
             "server.machines.endPistonCooldownTicks int=8",
             "server.machines.astralRailMaxSpeed int=16",
             "server.machines.astralRailBoost double=0.12",
@@ -1248,7 +1254,8 @@ public final class ConfigOptionTests {
     public static void superModSwitchesReachTheBundledSubMods(GameTestHelper helper) {
         String[][] switches = {{"enableSimpleRiding", "simpleriding"}, {"enableSimpleSandwiches", "simplesandwiches"},
                 {"enableSimpleTweaks", "simpletweaks"}, {"enableSimpleMoney", "simplemoney"}, {"enableSimpleFun", "simplefun"},
-                {"enableSimpleDimensions", "simpledimension"}, {"enableSimpleTrims", "simpletrims"}, {"enableSimpleMobs", "simplemobs"}};
+                {"enableSimpleDimensions", "simpledimension"}, {"enableSimpleTrims", "simpletrims"}, {"enableSimpleMobs", "simplemobs"},
+                {"enableSimpleEndDragonFight", "simpleenddragonfight"}};
         try {
             Class.forName("com.simplebuilding.framework.api.SubMods");
         } catch (ClassNotFoundException e) {

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "simplebuilding",
   "version": "${version}",
-  "name": "simplebuilding",
+  "name": "SimpleBuilding",
   "description": "This is a simple building mod.",
   "authors": [
     "Me!"
@@ -47,6 +47,7 @@
       "com.simplebuilding.gametest.TestCentreGameTest",
       "com.simplebuilding.gametest.BlueprintGameTest",
       "com.simplebuilding.gametest.TradeAndMigrationGameTest",
+      "com.simplebuilding.gametest.MigrationWorldGameTest",
       "com.simplebuilding.gametest.ToolBehaviourGameTest",
       "com.simplebuilding.gametest.BlockBehaviourGameTest",
       "com.simplebuilding.gametest.DataIntegrityGameTest",
@@ -77,6 +78,7 @@
       "com.simplebuilding.gametest.ChessGameTest",
       "com.simplebuilding.gametest.NatureBlockGameTest",
       "com.simplebuilding.gametest.TrapGameTest",
+      "com.simplebuilding.gametest.WorldPolishGameTest",
       "com.simplebuilding.gametest.FireGameTest",
       "com.simplebuilding.gametest.WoodworkGameTest",
       "com.simplebuilding.gametest.VehicleGameTest",
@@ -140,6 +142,7 @@
       "com.simplebuilding.gametest.GuideBookGameTest",
       "com.simplebuilding.gametest.ImmersionGameTest",
       "com.simplebuilding.gametest.EndSystemsGameTest",
+      "com.simplebuilding.gametest.RedstoneLinesGameTest",
       "com.simplebuilding.gametest.EndStructureGameTest"
     ]
   },
@@ -178,6 +181,7 @@
     "simplefun": "*",
     "simpledimension": "*",
     "simpletrims": "*",
-    "simplemobs": "*"
+    "simplemobs": "*",
+    "simpleenddragonfight": "*"
   }
 }

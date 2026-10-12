@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "simplecreatures",
+  "version": "${version}",
+  "name": "Simple Creatures",
+  "description": "Creatures switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplecreatures.CreaturesFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplecreatures.ModuleGameTest"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simplecreatures.CreaturesModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "simplecreatures.mixins.json"
+  ],
+  "suggests": {
+    "simplequalityoflife": "*",
+    "modmenu": "*"
+  }
+}

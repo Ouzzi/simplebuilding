@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simplefarming.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "FarmlandTrampleMixin",
+    "GrassOutlineMixin",
+    "SharpnessGrassCutMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

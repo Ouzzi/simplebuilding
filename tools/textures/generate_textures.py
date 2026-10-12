@@ -158,22 +158,22 @@ CHISEL_WOOD = {"1": "#2b210e", "2": "#3c2c12", "3": "#483515", "4": "#584219",
 
 # --- Lederbogen: zugeschnittene, flach liegende Haut im Stil von Vanilla-Leder/-Kaninchenfell -
 # breiter als hoch, Ecken leicht ausgezogen, wellige Kanten, oben links heller, unten rechts dunkler.
-LEATHER_SHEET = [
+LEATHER_SHEET = [  # N41: fuellt den Slot wie Vanilla-Items (14x14, mittig, 1 px Rand)
     "................",
-    "................",
-    "................",
-    "..RR..RRRR..RR..",
-    "..R5RR5555RR54O.",
-    "...R554545443O..",
-    "...R544444443O..",
-    "..R54444434432O.",
-    "..R44434444332O.",
-    "...R444434332O..",
-    "...R443433332O..",
-    "..R44333332222O.",
-    "..R3OO2222OO22O.",
-    "..OO..OOOO..OO..",
-    "................",
+    ".RRR..RRRR..RRR.",
+    ".R55RR5555RR54O.",
+    "..R5545454544O..",
+    "..R5444444443O..",
+    ".R544444344432O.",
+    ".R444344444432O.",
+    ".R444443443332O.",
+    "..R4444343332O..",
+    "..R4434333322O..",
+    ".R443433332222O.",
+    ".R433333322222O.",
+    ".R332222222222O.",
+    ".R3OO22222OO22O.",
+    ".OOO..OOOO..OOO.",
     "................",
 ]
 LEATHER_SHEET_PAL = {  # Toene von Vanilla-Leder
@@ -2162,7 +2162,9 @@ def end_palette_textures():
         tex[f"block/{mat}_pillar.png"] = end_palette_pillar_side(mat)
         tex[f"block/{mat}_pillar_top.png"] = end_palette_pillar_top(mat)
         tex[f"block/chiseled_{mat}_bricks.png"] = end_palette_chiseled(mat)
-    tex["item/ender_quartz.png"] = render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False)
+    # Owner pick N41 (2026-10-12): same shape, proposal C2 colours (milky lavender quartz).
+    import n41_proposals_2026_10_12 as n41
+    tex["item/ender_quartz.png"] = n41.ender_quartz(1, render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False))
     tex["block/enderite_block.png"] = render("enderite_block", ENDERITE_BLOCK, ENDERITE_BLOCK_PAL, True)
     tex["block/enderite_pressure_plate.png"] = tex["block/enderite_block.png"].copy()
     tex["item/amethyst_lens.png"] = render("amethyst_lens", LASER_POINTER, LASER_POINTER_PAL, False)

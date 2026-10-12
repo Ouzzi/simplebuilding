@@ -1,0 +1,11 @@
+{
+  "simplefarming.title": "Simple Farming",
+  "simplefarming.tab.general": "Allgemein",
+  "simplefarming.option.preventFarmlandTrampleWithFeatherFalling": "Federfall schützt Acker",
+  "simplefarming.option.preventFarmlandTrampleWithFeatherFalling.tooltip": "Federfall-Stiefel verhindern das Zertrampeln\nvon Ackerboden. Standard: true.",
+  "simplefarming.option.sharpnessCutsGrass": "Schärfe schneidet Gras",
+  "simplefarming.option.sharpnessCutsGrass.tooltip": "Waffen mit Schärfe III+ schneiden beim\nAngriff durch Gras/Blumen. Standard: true.",
+  "simplefarming.option.enableHoeHarvest": "Hacke erntet & pflanzt",
+  "simplefarming.option.enableHoeHarvest.tooltip": "Rechtsklick auf ausgewachsene Pflanzen mit\neiner Hacke erntet und pflanzt sie neu.\nVerbraucht Haltbarkeit. Standard: true.",
+  "command.simplefarming.changed": "Konfiguration gespeichert: %s = %s"
+}

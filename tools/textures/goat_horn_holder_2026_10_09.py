@@ -47,36 +47,48 @@ PEG = ([7, 3, 14], [9, 5, 16])
 def palette(jar):
     im = Image.open(io.BytesIO(jar.read('assets/minecraft/textures/item/goat_horn.png'))).convert('RGBA')
     cs = sorted({im.getpixel((x, y))[:3] for y in range(16) for x in range(16) if im.getpixel((x, y))[3] > 128}, key=sum)
-    # dark inside .. light ridge
-    return {'inside': cs[0], 'inside2': cs[1], 'shadow': cs[3], 'outline': cs[4], 'body': cs[5], 'body2': cs[6],
-            'ridge': cs[7], 'light': cs[8]}
+    # the vanilla sprite's nine colours, darkest (the brown-black tip) to lightest (the ridge highlight)
+    return cs
 
 
-def texture(p):
+# Queue N37 (owner 2026-10-11: "texture right, but not pretty"): like the vanilla sprite the horn is light grey at the
+# mouth and turns brown-black towards the tip, and its ridges wind round it. Side row r is model height 9-r-1..9-r, so
+# the rows run from the mouth (row 0) down to the tip (row 9). Per row: (base, groove, ridge, highlight) colour index.
+RAMP = [(6, 4, 7, 8), (6, 4, 7, 8), (6, 4, 7, 8), (5, 3, 6, 7), (5, 3, 6, 7), (5, 3, 6, 7),
+        (4, 2, 5, 6), (4, 2, 5, 6), (3, 1, 4, 5), (2, 0, 3, 4)]
+
+
+def texture(cs):
     im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
 
-    def put(x, y, c):
-        im.putpixel((x, y), c + (255,))
-    # rows 0..9: the horn's sides by height (row r = model y 9-r-1 .. 9-r): body with ridge rings
+    def put(x, y, i):
+        im.putpixel((x, y), cs[i] + (255,))
+    # rows 0..9: the sides. Two-pixel ridges as a 2:1 pixel diagonal (one row down per two pixels), every face with
+    # the same slant, so round the horn they read as one spiral; behind each ridge a darker groove, on it a highlight
+    # every third row.
     for r in range(10):
+        base, groove, ridge, light = RAMP[r]
         for x in range(16):
-            ring = r % 3
-            c = p['ridge'] if ring == 0 else p['body'] if ring == 1 else p['body2']
-            if ring == 2 and x % 4 == 1:
-                c = p['outline']
-            if ring == 0 and x % 5 == 2:
-                c = p['light']
-            put(x, r, c)
-    # mouth top 5x5 at (0,10): rim and the dark opening
+            band = (x + 2 * r) % 6
+            i = ridge if band < 2 else groove if band == 2 else base
+            if band == 0 and r % 3 == 0:
+                i = light
+            put(x, r, i)
+    # mouth top 5x5 at (0,10): a light rim (ridge colour, highlights on the front edge) around the dark opening,
+    # whose far wall catches a little light
     for y in range(5):
         for x in range(5):
-            rim = x in (0, 4) or y in (0, 4)
-            c = (p['light'] if (x + y) % 3 == 0 else p['ridge']) if rim else (p['inside'] if (x + y) % 2 else p['inside2'])
-            put(x, 10 + y, c)
-    # tip / bottom faces and the peg at (8,10)
+            if x in (0, 4) or y in (0, 4):
+                i = 8 if y == 4 and x % 2 == 1 else 7 if (x + y) % 2 == 0 else 6
+            elif y == 1:
+                i = 3
+            else:
+                i = 0 if (x + y) % 2 == 0 else 1
+            put(x, 10 + y, i)
+    # tip / bottom faces and the peg at (8,10): the dark tip colours
     for y in range(10, 16):
         for x in range(8, 16):
-            put(x, y, p['shadow'] if (x + y) % 3 else p['outline'])
+            put(x, y, 1 if (x + y) % 3 else 3)
     return im
 
 

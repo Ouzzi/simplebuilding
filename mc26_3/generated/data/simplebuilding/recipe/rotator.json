@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "C": "simplebuilding:iron_core",
-    "I": "simplebuilding:iron_rod",
+    "I": "simplebuilding:iron_pole",
     "P": "minecraft:ender_pearl"
   },
   "pattern": [

@@ -530,56 +530,67 @@
       "Easter-Egg: Rechtsklick mit ihm auf Stein, Tiefenschiefer, Tuff, Netherrack, Endstein und Ähnliches, und mit winziger Chance, 1 zu 2000, wird der Block zu einem Erz. Der Kern wird nicht verbraucht."
     ]
   },
-  "iron_rod": {
+  "iron_pole": {
     "lore": [
       "Eine Stange aus Eisen, dünn, gerade und begierig, von etwas getroffen zu werden."
     ],
     "use": [
-      "Drei Eisenbarren übereinander ergeben eine Eisenstange, einen Blitzableiter aus Eisen. Teil des Attraktor-Rezepts."
+      "Drei Eisenbarren übereinander ergeben eine Eisenstange, einen Blitzableiter aus Eisen, der Blitze im Umkreis von 32 Blöcken anzieht. Teil des Attraktor-Rezepts."
     ],
     "secret": [
       "Der Attraktor ist um einen Eisenkern, eine Eisenstange, Redstone und Lapis gebaut."
     ]
   },
-  "gold_rod": {
+  "gold_pole": {
     "lore": [
       "Eine Stange aus Gold: zu weich zum Arbeiten, zu glänzend zum Verstecken."
     ],
     "use": [
-      "Drei Goldbarren übereinander ergeben eine Goldstange, einen Blitzableiter aus Gold."
+      "Drei Goldbarren übereinander ergeben eine Goldstange, einen Blitzableiter aus Gold (64 Blöcke)."
     ],
     "secret": [
       "Stangen gibt es in diesem Mod in Stufen: Eisen und Gold aus Barren, Diamant aus Diamanten, dann Netherit und Enderit vom Schmiedetisch."
     ]
   },
-  "diamond_rod": {
+  "diamond_pole": {
     "lore": [
-      "Eine Stange aus Diamant, hart wie ein Streit und klar wie eine Lüge."
+      "Eine Stange aus Diamant, zu kostbar für ein Gewitter - und genau dort will sie stehen."
     ],
     "use": [
-      "Drei Diamanten übereinander ergeben eine Diamantstange; eine Diamantstange im Handwerksfeld gibt die Diamanten zurück. Sie lässt sich nicht platzieren. Am Schmiedetisch wird sie zur Netheritstange."
+      "Drei Diamanten übereinander ergeben eine Diamantstange, einen Blitzableiter aus Diamant (80 Blöcke); im Handwerksfeld gibt sie die drei Diamanten zurück. Am Schmiedetisch wird sie zur Netheritstange."
     ],
     "secret": [
-      "Am Bogenmachertisch ist sie ein Pfeilschaft: Der Pfeil durchdringt ein Ziel mehr."
+      "Nicht verwechseln mit dem Diamantstab: der entsteht aus zwei Diamanten und ist ein Pfeilschaft."
     ]
   },
-  "netherite_rod": {
+  "diamond_rod": {
+    "lore": [
+      "Ein Stab aus Diamant, hart wie ein Streit und klar wie eine Lüge."
+    ],
+    "use": [
+      "Zwei Diamanten übereinander ergeben einen Diamantstab; ein Diamantstab im Handwerksfeld gibt die zwei Diamanten zurück. Er lässt sich nicht platzieren."
+    ],
+    "secret": [
+      "Am Bogenmachertisch ist er ein Pfeilschaft: Der Pfeil durchdringt ein Ziel mehr."
+    ]
+  },
+  "netherite_pole": {
     "lore": [
       "Eine Stange, die im Feuer stand und das nächste nicht scheut."
     ],
     "use": [
-      "Schmiedetisch: Netherit-Aufwertung, Diamantstange und Netheritbarren ergeben die Netheritstange, einen Blitzableiter aus Netherit."
+      "Schmiedetisch: Netherit-Aufwertung, Diamantstange und Netheritbarren ergeben die Netheritstange, einen Blitzableiter aus Netherit (96 Blöcke)."
     ],
     "secret": [
       "Sie ist die Grundlage der Enderitstange eine Stufe höher."
     ]
   },
-  "enderite_rod": {
+  "enderite_pole": {
     "lore": [
       "Eine Stange, die sich an den Himmel erinnert und Blitze zieht wie ein Versprechen."
     ],
     "use": [
-      "Schmiedetisch: Enderit-Aufwertung, Netheritstange und Enderitbarren ergeben die Enderitstange, einen Blitzableiter aus Enderit."
+      "Schmiedetisch: Enderit-Aufwertung, Netheritstange und Enderitbarren ergeben die Enderitstange, einen Blitzableiter aus Enderit (128 Blöcke)."
     ],
     "secret": [
       "Als Enderitgegenstand ist sie feuerfest, schwimmt auf Lava und ist beim Fallenlassen vor der Leere sicher."

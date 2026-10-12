@@ -9,4 +9,6 @@ public class HowlerRenderState extends LivingEntityRenderState {
     public float emerge = 1.0f;
     /** 0 .. 1 while shrieking (arms spread, head thrown back). */
     public float shriek;
+    /** 0 .. 1 right after it heard a vibration (antennae twitch and glow). */
+    public float tendril;
 }

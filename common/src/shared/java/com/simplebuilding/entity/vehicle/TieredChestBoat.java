@@ -65,6 +65,28 @@ public class TieredChestBoat extends AbstractChestBoat implements TieredStorageV
         this.entityData.set(DATA_WOOD, BoatWoods.normalize(wood));
     }
 
+    /** Grid of the entity move packets (1/4096 block): the server keeps the boat's height on it. */
+    public static final double PACKET_GRID = 4096.0;
+
+    /**
+     * Queue N37 (owner 2026-10-11): who stood on the boat (the chest) bugged and walked slowly - in vanilla too. Measured
+     * in {@code BoatDeckClientTest}: the floating boat's height reaches the client only to 1/4096 block, so the client's
+     * deck lay 0.00007 below the server's; the player standing on it overlapped the server's boat, the server refused
+     * every such move ("colliding with something new") and set the player back 0.08 up - he lost the ground every third
+     * tick and walked at air speed (0.17 instead of 0.63 blocks in five ticks). Held on the packet grid, the server's
+     * and the client's boat lie at exactly the same height.
+     */
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.level().isClientSide()) {
+            double y = Math.round(this.getY() * PACKET_GRID) / PACKET_GRID;
+            if (y != this.getY()) {
+                this.setPos(this.getX(), y, this.getZ());
+            }
+        }
+    }
+
     @Override
     protected double rideHeight(EntityDimensions dimensions) {
         return BoatWoods.isRaft(wood()) ? dimensions.height() * 0.8888889F : dimensions.height() / 3.0F;

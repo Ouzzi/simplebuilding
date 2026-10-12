@@ -17,7 +17,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.Container;
-/** Exercises actual registry/codec/container entrypoints, on both loaders with SimpleBuilding. */
+/** Exercises actual registry/codec/container entrypoints, on all loaders with SimpleBuilding; alone (principle 8) the aliases stay inert. */
 public final class CompatibilityTests {
  public static final Map<String, Consumer<GameTestHelper>> TESTS = Map.ofEntries(
   Map.entry("guide_book", com.simplebuilding.modules.simpletweaks.guide.TweaksGuide::gameTest),
@@ -42,9 +42,15 @@ public final class CompatibilityTests {
   return ItemStack.CODEC.parse(ops(h),tag).getOrThrow();
  }
  static void require(GameTestHelper h, boolean condition, String message) { h.assertTrue(condition,message); }
+ /** SimpleBuilding is an optional partner: the aliases only target its public IDs. */
+ static boolean simpleBuilding() { return BuiltInRegistries.BLOCK.containsKey(now("launchpad")); }
+ static boolean skipWithoutSimpleBuilding(GameTestHelper h, String what) {
+  if(simpleBuilding())return false;
+  com.mojang.logging.LogUtils.getLogger().info("[standalone] simplebuilding not loaded - skipping {}",what);h.succeed();return true;
+ }
  static void boot(GameTestHelper h) {
   require(h,BuiltInRegistries.ITEM.containsKey(old("claim_deed")),"Legacy deed registered");
-  require(h,BuiltInRegistries.ITEM.containsKey(now("amethyst_lens")),"SimpleBuilding loaded");
+  if(simpleBuilding())require(h,BuiltInRegistries.ITEM.containsKey(now("amethyst_lens")),"SimpleBuilding loaded");
   require(h,BuiltInRegistries.ITEM.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).count()==2,"Only the deed and the guide are real module items");
   for (Registry<?> r : List.of(BuiltInRegistries.BLOCK,BuiltInRegistries.BLOCK_ENTITY_TYPE,BuiltInRegistries.DATA_COMPONENT_TYPE,BuiltInRegistries.ENTITY_TYPE,BuiltInRegistries.CREATIVE_MODE_TAB))
    require(h,r.keySet().stream().noneMatch(x->x.getNamespace().equals("simpletweaks")),"No duplicate gameplay registry: "+r.key());
@@ -69,12 +75,20 @@ public final class CompatibilityTests {
   require(h,r.getKey(expected.value()).equals(target),"Canonical save ID "+path);
  }
  static void lookups(GameTestHelper h) {
+  if(!simpleBuilding()) {
+   // Alone: legacy names resolve to nothing (vanilla drops unknown entries), never to a module registration.
+   for(String x:LegacyAliases.BLOCKS)for(Registry<?> r:List.of(BuiltInRegistries.ITEM,BuiltInRegistries.BLOCK))require(h,r.get(old(x)).isEmpty() && !r.containsKey(old(x)),"Inert alias without SimpleBuilding "+x);
+   for(String x:LegacyAliases.BLOCK_ENTITIES)require(h,BuiltInRegistries.BLOCK_ENTITY_TYPE.get(old(x)).isEmpty(),"Inert BE alias "+x);
+   for(String x:LegacyAliases.COMPONENTS)require(h,BuiltInRegistries.DATA_COMPONENT_TYPE.get(old(x)).isEmpty(),"Inert component alias "+x);
+   h.succeed();return;
+  }
   for(String x:LegacyAliases.BLOCKS){lookup(h,BuiltInRegistries.ITEM,x);lookup(h,BuiltInRegistries.BLOCK,x);}
   for(String x:LegacyAliases.BLOCK_ENTITIES)lookup(h,BuiltInRegistries.BLOCK_ENTITY_TYPE,x);
   for(String x:LegacyAliases.COMPONENTS)lookup(h,BuiltInRegistries.DATA_COMPONENT_TYPE,x);
   lookup(h,BuiltInRegistries.ITEM,"laser_pointer");lookup(h,BuiltInRegistries.ITEM,"spawn_elytra");h.succeed();
  }
  static void items(GameTestHelper h) {
+  if(skipWithoutSimpleBuilding(h,"old items"))return;
   for(String x:java.util.stream.Stream.concat(LegacyAliases.BLOCKS.stream(),java.util.stream.Stream.of("laser_pointer","spawn_elytra")).toList()) {
    ItemStack s=stack(h,x); require(h,!s.isEmpty(),"Decoded "+x);
    CompoundTag saved=(CompoundTag)ItemStack.CODEC.encodeStart(ops(h),s).getOrThrow();
@@ -82,11 +96,13 @@ public final class CompatibilityTests {
   }h.succeed();
  }
  static void stackCounts(GameTestHelper h) {
+  if(skipWithoutSimpleBuilding(h,"old stack counts"))return;
   CompoundTag tag=new CompoundTag();tag.putString("id",old("elytra_pad").toString());tag.putInt("count",64);
   ItemStack s=ItemStack.CODEC.parse(ops(h),tag).getOrThrow();
   require(h,s.getCount()==64,"Legacy count retained by save codec");h.succeed();
  }
  static void blocks(GameTestHelper h) {
+  if(skipWithoutSimpleBuilding(h,"old block states"))return;
   for(String x:LegacyAliases.BLOCKS) {
    CompoundTag t=new CompoundTag();t.putString("id",old(x).toString());
    BlockState state=BlockState.CODEC.parse(ops(h),t).getOrThrow();
@@ -101,6 +117,7 @@ public final class CompatibilityTests {
   require(h,be!=null,"Legacy block entity loads "+type);return be;
  }
  static void blockEntities(GameTestHelper h) {
+  if(skipWithoutSimpleBuilding(h,"old block entities"))return;
   for(String type:LegacyAliases.BLOCK_ENTITIES) {
    CompoundTag tag=new CompoundTag();tag.putIntArray("Owner",new int[]{1,2,3,4});
    BlockEntity be=loadBE(h,type,tag);CompoundTag saved=be.saveWithoutMetadata(h.getLevel().registryAccess());
@@ -109,11 +126,13 @@ public final class CompatibilityTests {
   }h.succeed();
  }
  static void charges(GameTestHelper h) {
+  if(skipWithoutSimpleBuilding(h,"old launchpad charges"))return;
   CompoundTag tag=new CompoundTag();tag.putInt("Charges",16);
   BlockEntity be=loadBE(h,"launchpad_be",tag);
   require(h,be.saveWithoutMetadata(h.getLevel().registryAccess()).getIntOr("Charges",0)==16,"No charge loss during decode; normal tier upgrade handles surplus");h.succeed();
  }
  static void components(GameTestHelper h) {
+  if(skipWithoutSimpleBuilding(h,"old elytra components"))return;
   CompoundTag tag=new CompoundTag();tag.putString("id",old("spawn_elytra").toString());tag.putInt("count",1);
   CompoundTag c=new CompoundTag();c.putInt("simpletweaks:flight_time",6000);c.putFloat("simpletweaks:boost_level",0.5f);c.putLong("simpletweaks:last_pad_tick",17);c.putBoolean("simpletweaks:is_safe_elytra",true);tag.put("components",c);
   ItemStack s=ItemStack.CODEC.parse(ops(h),tag).getOrThrow();
@@ -131,6 +150,7 @@ public final class CompatibilityTests {
   require(h,loaded.get(DataComponents.CUSTOM_DATA).copyTag().equals(data),"Use preserves data");h.succeed();
  }
  static void storage(GameTestHelper h) {
+  if(skipWithoutSimpleBuilding(h,"SimpleBuilding storage"))return;
   var pos=new BlockPos(1,2,1);h.setBlock(pos,BuiltInRegistries.BLOCK.getValue(now("reinforced_hopper")));
   require(h,h.getBlockEntity(pos,BlockEntity.class) instanceof Container,"Public hopper Container");
   Container container=(Container)h.getBlockEntity(pos,BlockEntity.class);ItemStack s=stack(h,"claim_deed");Item expected=s.getItem();container.setItem(0,s);require(h,container.removeItem(0,1).is(expected),"Module artifact in SimpleBuilding storage");
@@ -147,7 +167,7 @@ public final class CompatibilityTests {
  static void commands(GameTestHelper h) {
   var root=h.getLevel().getServer().getCommands().getDispatcher().getRoot();
   require(h,(root.getChild("claim")==null || !root.getChild("claim").canUse(h.getLevel().getServer().createCommandSourceStack())) && root.getChild("simpletweaks")==null,"No usable disabled claim commands or duplicate old commands");
-  require(h,root.getChild("simplebuilding")!=null && root.getChild("killboats")!=null && root.getChild("killcarts")!=null,"Existing commands present");h.succeed();
+  if(simpleBuilding())require(h,root.getChild("simplebuilding")!=null && root.getChild("killboats")!=null && root.getChild("killcarts")!=null,"Existing commands present");h.succeed();
  }
  private CompatibilityTests() {}
 }

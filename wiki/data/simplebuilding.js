@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 780,
+      "count": 778,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3532,47 +3532,52 @@ window.WIKI_DATA = {
     {
       "id": "end_signals",
       "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/RedstoneWireEvaluatorLinesMixin.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonBlock.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonMoves.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/bridge_redstone.json",
         "mc26_3/generated/data/simplebuilding/recipe/astral_piston.json",
         "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json"
       ],
       "related": [
         "simplebuilding:nihil_redstone",
         "simplebuilding:astral_redstone",
-        "simplebuilding:nihilith_switch",
-        "simplebuilding:astralit_switch",
-        "simplebuilding:nihilith_lamp",
-        "simplebuilding:astralit_lamp",
+        "simplebuilding:bridge_redstone",
         "simplebuilding:astral_piston",
         "simplebuilding:nihil_piston"
       ],
       "en": {
-        "title": "Isolated End Signals",
-        "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+        "title": "Astral, Nihil and Bridge Redstone",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
         "details": [
-          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-          "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access.",
-          "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They receive their own channel like a lamp and relay nothing; they fire when the signal switches on, not while it stays on.",
-          "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End signal blocks, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+          "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+          "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+          "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload.",
+          "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They take the signal of their own line's redstone (or Bridge Redstone) lying next to them and relay nothing; they fire when the signal switches on, not while it stays on.",
+          "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End pistons, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
           "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload."
         ]
       },
       "de": {
-        "title": "Getrennte End-Signale",
-        "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "title": "Astral-, Nihil- und Brücken-Redstone",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
         "details": [
-          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff.",
-          "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie empfangen ihren eigenen Kanal wie eine Lampe und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
-          "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Signalblöcke, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+          "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+          "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+          "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
+          "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie nehmen das Signal des Redstones ihrer eigenen Linie (oder von Brücken-Redstone) direkt daneben und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
+          "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Kolben, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
           "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       }
@@ -3594,14 +3599,15 @@ window.WIKI_DATA = {
         "simplebuilding:astral_rail",
         "simplebuilding:nihil_rail",
         "simplebuilding:astral_redstone",
-        "simplebuilding:nihil_redstone"
+        "simplebuilding:nihil_redstone",
+        "simplebuilding:bridge_redstone"
       ],
       "en": {
         "title": "Astral and Nihil Rails",
         "summary": "Straight rails of the two End channels: the Astral Rail raises the minecart top speed and boosts towards it, the Nihil Rail brakes to a stop.",
         "details": [
           "Recipe like the powered rail: six gold ingots, a stick and Astral Redstone (Astral Rail) or Nihil Redstone (Nihil Rail) make 6 rails. They are straight only (no curves) and minecarts treat them as rails.",
-          "Power comes from the rail's own channel like a lamp: Astral or Nihil Redstone or a switch of the same channel on a horizontal neighbor. Vanilla redstone, the other channel and neighboring rails do not power it. The rail checks its neighbors every two game ticks while a source of its channel lies next to it.",
+          "Power comes from the rail's own line: Astral or Nihil Redstone (or Bridge Redstone) on a horizontal neighbor, which any vanilla source can feed. Vanilla redstone dust, the other line and neighboring rails do not power it. The rail checks its neighbors every two game ticks while such redstone lies next to it.",
           "Astral Rail: on a flat Astral Rail the top speed is server.machines.astralRailMaxSpeed blocks per second (default 16, clamped to 8–20; vanilla 8), or the experimental max_minecart_speed game rule if that is higher. On slopes, in water and on every other rail the vanilla limit applies, so a fast cart meets the normal limit again before a curve. Unpowered it is a plain rail that keeps the cart's momentum; momentum above the limit is cut to the limit.",
           "Powered Astral Rail: every game tick the cart gains boost × (1 − (speed / top speed)²), boost = server.machines.astralRailBoost (default 0.12 blocks per tick, clamped to 0.07–0.25, at most a quarter of the top speed). That is more than a powered rail's 0.06 when slow and less the faster the cart goes; the speed approaches the top speed and never reaches it. Vanilla friction still applies. A cart standing still is pushed away from a solid block at one end of the rail, like on a powered rail.",
           "Powered Nihil Rail: every game tick the cart keeps 80 % of its speed minus server.machines.nihilRailBrake (default 0.08 blocks per tick, clamped to 0.02–0.4); below 0.03 it stops and is held while the power stays on. Unpowered, carts roll through.",
@@ -3613,7 +3619,7 @@ window.WIKI_DATA = {
         "summary": "Gerade Schienen der beiden End-Kanäle: die Astral-Schiene hebt das Höchsttempo der Lore an und beschleunigt darauf zu, die Nihil-Schiene bremst bis zum Halt.",
         "details": [
           "Rezept wie die Antriebsschiene: sechs Goldbarren, ein Stock und Astral-Redstone (Astral-Schiene) bzw. Nihil-Redstone (Nihil-Schiene) ergeben 6 Schienen. Sie sind nur gerade (keine Kurven), Loren behandeln sie als Schienen.",
-          "Strom kommt wie bei einer Lampe aus dem eigenen Kanal: Astral- bzw. Nihil-Redstone oder ein Schalter desselben Kanals auf einem waagerechten Nachbarfeld. Vanilla-Redstone, der andere Kanal und benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange eine Quelle ihres Kanals daneben liegt.",
+          "Strom kommt aus der eigenen Linie: Astral- bzw. Nihil-Redstone (oder Brücken-Redstone) auf einem waagerechten Nachbarfeld, das jede Vanilla-Quelle speisen kann. Vanilla-Redstone-Staub, die andere Linie und benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange solches Redstone daneben liegt.",
           "Astral-Schiene: auf einer flachen Astral-Schiene beträgt das Höchsttempo server.machines.astralRailMaxSpeed Blöcke pro Sekunde (Standard 16, begrenzt auf 8–20; Vanilla 8) oder die experimentelle Spielregel max_minecart_speed, wenn sie höher ist. Auf Steigungen, im Wasser und auf allen anderen Schienen gilt die Vanilla-Grenze, eine schnelle Lore trifft vor einer Kurve also wieder auf die normale Grenze. Ungespeist ist sie eine normale Schiene, die den Schwung erhält; Schwung über der Grenze wird auf die Grenze gekappt.",
           "Gespeiste Astral-Schiene: jeden Spieltick gewinnt die Lore Schub × (1 − (Tempo / Höchsttempo)²), Schub = server.machines.astralRailBoost (Standard 0,12 Blöcke pro Tick, begrenzt auf 0,07–0,25, höchstens ein Viertel des Höchsttempos). Langsam ist das mehr als die 0,06 einer Antriebsschiene, je schneller die Lore, desto weniger; das Tempo nähert sich dem Höchsttempo und erreicht es nie. Die Vanilla-Reibung wirkt weiter. Eine stehende Lore wird wie auf einer Antriebsschiene von einem festen Block am Schienenende weggeschoben.",
           "Gespeiste Nihil-Schiene: jeden Spieltick behält die Lore 80 % ihres Tempos abzüglich server.machines.nihilRailBrake (Standard 0,08 Blöcke pro Tick, begrenzt auf 0,02–0,4); unter 0,03 hält sie an und bleibt stehen, solange der Strom anliegt. Ungespeist rollen Loren durch.",
@@ -3760,24 +3766,24 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Music discs and amplifiers",
-        "summary": "Four music discs, one per dimension, each with several tracks (the owner's music, artist SimpleBuilding), and two amplifiers that make a jukebox or a note block louder and carry it through a building.",
+        "summary": "Four music discs, one per dimension, each with several tracks (the owner's music, artist SimpleBuilding), and two amplifiers: one plays a jukebox's song along through a building, the other makes a note block louder and carries it on.",
         "details": [
           "End disc (tracks Heavy Heart, Monolith, Iron Sonata) in end city chests (4 %), Nether disc (Riffstorm, Rally) in bastion chests (4 %), Overworld disc Rainfall/Storytime in woodland mansion chests (5 %) and Overworld disc Soft Breeze/Blockwood in ancient city chests (2.5 %). Both Overworld discs also drop when a skeleton kills a creeper, like vanilla discs. The tooltip names the track a disc plays.",
           "Tracks: a placed disc (sneak + right-click on the ground) switches to its next track with a right-click of a sledgehammer - B-side, then tracks 3 and 4 where they exist, then the first again (1 durability each).",
-          "Jukebox Amplifiers (eight planks around Astralit Dust) extend jukebox reach; Note Amplifiers (eight planks around a Nihilit Shard) extend note block reach. Each matching neighbor adds 50% reach, at most 2 count by default (server limits: 50%, 3 neighbors). Within range the sound plays louder than vanilla by the same factor (1.5x with one amplifier, 2x with two; player sound settings still apply) - right next to the source too, where vanilla is already at full level.",
-          "Chain: a Note Amplifier touching the note block, or touching one already in the chain, passes the sound on; a Jukebox Amplifier works like a radio repeater: it picks up a playing jukebox or an amplifier already in the chain within 16 blocks, no matter what lies between, and shows the jukebox's music notes while it plays (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind; a gap ends a note chain, more than 16 blocks a jukebox chain). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
-          "A jukebox counts its amplifiers when a song starts, a note block on every note."
+          "Jukebox Amplifiers (eight planks around Astralit Dust) play a jukebox's song along; Note Amplifiers (eight planks around a Nihilit Shard) extend note block reach. Each Note Amplifier touching a note block adds 50% reach, at most 2 count by default (server limits: 50%, 3 neighbors). Within range the note plays louder than vanilla by the same factor (1.5x with one amplifier, 2x with two; player sound settings still apply) - right next to the note block too, where vanilla is already at full level.",
+          "Jukebox Amplifiers leave the jukebox exactly vanilla and play along instead: an amplifier within 63 blocks of a playing jukebox, no matter what lies between, plays the same song without delay and shows its music notes; an amplifier within 63 blocks of one already playing passes it on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only Jukebox Amplifiers). Each player hears the song once, from the nearest playback point (the jukebox or an amplifier), with vanilla volume and falloff (64 blocks). Note Amplifiers chain by touching: one touching the note block, or touching one already in the chain, passes the note on (a gap ends the chain); each player hears the note once at the amplified level inside the existing range of the nearest point, without distance or chain loss, and outside that range it is silent. Player sound settings still apply.",
+          "A note block counts its amplifiers on every note; a playing jukebox looks for amplifiers when the song starts and again every half second."
         ]
       },
       "de": {
         "title": "Schallplatten und Verstärker",
-        "summary": "Vier Schallplatten, eine je Dimension, jede mit mehreren Tracks (Musik des Besitzers, Künstler SimpleBuilding), und zwei Verstärker, die einen Plattenspieler bzw. Notenblock lauter machen und durch ein Gebäude tragen.",
+        "summary": "Vier Schallplatten, eine je Dimension, jede mit mehreren Tracks (Musik des Besitzers, Künstler SimpleBuilding), und zwei Verstärker: einer spielt das Stück eines Plattenspielers durch ein Gebäude mit, der andere macht einen Notenblock lauter und trägt ihn weiter.",
         "details": [
           "End-Platte (Tracks Heavy Heart, Monolith, Iron Sonata) in Endsiedlungs-Truhen (4 %), Nether-Platte (Riffstorm, Rally) in Bastion-Truhen (4 %), Oberwelt-Platte Rainfall/Storytime in Waldanwesen-Truhen (5 %) und Oberwelt-Platte Soft Breeze/Blockwood in Truhen der Antiken Stätte (2,5 %). Beide Oberwelt-Platten fallen auch, wenn ein Skelett einen Creeper tötet, wie Vanilla-Platten. Der Tooltip nennt den Track der Platte.",
           "Tracks: eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt mit einem Rechtsklick des Vorschlaghammers zum nächsten Track - B-Seite, dann Track 3 und 4, wo es sie gibt, dann wieder der erste (je 1 Haltbarkeit).",
-          "Musik-Verstärker (acht Bretter um Astralitstaub) erweitern die Hörweite von Plattenspielern; Noten-Verstärker (acht Bretter um einen Nihilitsplitter) die von Notenblöcken. Jeder passende Nachbar erhöht die Hörweite um 50 %, standardmäßig zählen höchstens 2 (Servergrenzen: 50 %, 3 Nachbarn). In Hörweite klingt es um denselben Faktor lauter als Vanilla (1,5-fach mit einem Verstärker, doppelt mit zwei; die Klangeinstellungen gelten weiter) - auch direkt an der Quelle, wo Vanilla schon vollen Pegel hat.",
-          "Kette: ein Noten-Verstärker am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter; ein Musik-Verstärker arbeitet wie ein Funk-Repeater: er empfängt einen spielenden Plattenspieler oder einen Verstärker der Kette in bis zu 16 Blöcken Entfernung, egal was dazwischen liegt, und zeigt beim Spielen die Musiknoten des Plattenspielers (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte; eine Lücke beendet eine Noten-Kette, mehr als 16 Blöcke eine Plattenspieler-Kette). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
-          "Ein Plattenspieler zÃ¤hlt seine Verstärker beim Start eines StÃ¼cks, ein Notenblock bei jeder Note."
+          "Musik-Verstärker (acht Bretter um Astralitstaub) spielen das Stück eines Plattenspielers mit; Noten-Verstärker (acht Bretter um einen Nihilitsplitter) erweitern die Hörweite von Notenblöcken. Jeder Noten-Verstärker am Notenblock erhöht die Hörweite um 50 %, standardmäßig zählen höchstens 2 (Servergrenzen: 50 %, 3 Nachbarn). In Hörweite klingt der Ton um denselben Faktor lauter als Vanilla (1,5-fach mit einem Verstärker, doppelt mit zwei; die Klangeinstellungen gelten weiter) - auch direkt am Notenblock, wo Vanilla schon vollen Pegel hat.",
+          "Musik-Verstärker lassen den Plattenspieler exakt wie in Vanilla und spielen stattdessen mit: ein Verstärker bis 63 Blöcke um einen spielenden Plattenspieler, egal was dazwischen liegt, spielt dasselbe Stück ohne Verzögerung und zeigt dessen Musiknoten; ein Verstärker bis 63 Blöcke um einen, der schon mitspielt, gibt es weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur Musik-Verstärker). Jeder Spieler hört das Stück einmal, vom nächsten Abspielpunkt (Plattenspieler oder Verstärker), mit Vanilla-Lautstärke und -Abschwächung (64 Blöcke). Noten-Verstärker bilden eine Kette durch Berührung: einer am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter (eine Lücke beendet die Kette); jeder Spieler hört den Ton einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust, außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+          "Ein Notenblock zählt seine Verstärker bei jeder Note; ein spielender Plattenspieler sucht Verstärker beim Start des Stücks und danach jede halbe Sekunde."
         ]
       }
     },
@@ -3806,9 +3812,9 @@ window.WIKI_DATA = {
         "title": "Crucibles, soul lava and buckets",
         "summary": "SimpleBuilding's part of the SimpleLib crucibles: the Enderite tier, sledgehammer ways, soul lava as extreme heat, copper and Enderite buckets.",
         "details": [
-          "Enderite crucible (27 slots, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an iron block (4 heavy weighted pressure plates, then 2 iron rods or iron ingots; 2 durability per strike), attaching a barrel (6 strikes) and upgrading at twice the cost of a furnace (2 material, twice the strikes): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer); copper to reinforced to netherite (netherite nuggets) to Enderite barrel. A cauldron becomes a reinforced cauldron with 8 cracked diamonds.",
+          "Enderite crucible (30 slots in 5x6, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an iron block (4 heavy weighted pressure plates, then 2 iron poles or iron ingots; 2 durability per strike), attaching a barrel (6 strikes) and upgrading at twice the cost of a furnace (2 material, twice the strikes): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer); copper to reinforced to netherite (netherite nuggets) to Enderite barrel. A cauldron becomes a reinforced cauldron with 8 cracked diamonds.",
           "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. While it lasts, a faint dark-blue filter lies over the screen (besides the vanilla effect icon). It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
-          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks; it holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (the tooltip shows 1/2 or 2/2). The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) only while carried in the hotbar or off hand, not when pouring and not in the rest of the inventory; waxed it does not react when empty and weathers at half pace with water inside (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) takes water and lava, wears one stage per pour (shown as a bar) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
+          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks; it holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (a full one is named \"(Full)\"). The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) only while carried in the hotbar or off hand, not when pouring and not in the rest of the inventory; waxed it does not react when empty and weathers at half pace with water inside (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) takes water and lava, wears one stage per pour (shown as a bar) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
           "The sledgehammer crushes a quartz block into 4 quartz, one per strike (4 strikes).",
           "Server config server.soulLava controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files. Jade shows heat, occupied slots and the shortest remaining time of a running slot, including tier speed and the two-block heat penalty. JEI shows the fastest cooking recipe per input and required heat, plus warming for tagged food without a cooking recipe; displayed time assumes an iron crucible at minimum heat without a distance penalty."
         ]
@@ -3817,9 +3823,9 @@ window.WIKI_DATA = {
         "title": "Schmelztiegel, Seelen-Lava und Eimer",
         "summary": "SimpleBuildings Teil der SimpleLib-Schmelztiegel: Enderit-Stufe, Vorschlaghammer-Wege, Seelen-Lava als extreme Hitze, Kupfer- und Enderit-Eimer.",
         "details": [
-          "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem Eisenblock (4 schwere Wägeplatten, dann 2 Eisenstäbe oder Eisenbarren; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Aufwerten zum doppelten Preis eines Ofens (2 Material, doppelte Schläge): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer); Kupfer- zu Verstärktem zu Netherit- (Netheritklumpen) zu Enderit-Fass. Ein Kessel wird mit 8 Rissigen Diamanten zum verstärkten Kessel.",
+          "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem Eisenblock (4 schwere Wägeplatten, dann 2 Eisenstangen oder Eisenbarren; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Aufwerten zum doppelten Preis eines Ofens (2 Material, doppelte Schläge): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer); Kupfer- zu Verstärktem zu Netherit- (Netheritklumpen) zu Enderit-Fass. Ein Kessel wird mit 8 Rissigen Diamanten zum verstärkten Kessel.",
           "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt zwei Minuten Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt; auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) kommt der Wurf alle 1,5 Sekunden. Solange er wirkt, liegt ein leichter dunkelblauer Filter über dem Bild (zusätzlich zum Vanilla-Effektsymbol). Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
-          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie; er fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (der Tooltip zeigt 1/2 oder 2/2). Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock) nur, solange er in der Hotbar oder Nebenhand getragen wird, nicht beim Ausgießen und nicht im übrigen Inventar; gewachst reagiert er leer gar nicht und mit Wasser darin nur mit halbem Tempo (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (als Balken sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
+          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie; er fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (ein voller heißt „(voll)“). Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock) nur, solange er in der Hotbar oder Nebenhand getragen wird, nicht beim Ausgießen und nicht im übrigen Inventar; gewachst reagiert er leer gar nicht und mit Wasser darin nur mit halbem Tempo (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (als Balken sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
           "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz, einem je Schlag (4 Schläge).",
           "Die Server-Config server.soulLava regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien. Jade zeigt Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept; die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag."
         ]
@@ -4113,7 +4119,7 @@ window.WIKI_DATA = {
             "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
             "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
             "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
-            "MC 26.3 recipe: \" NA\" / \"RC \" / \"I  \" (N = iron nugget, A = amethyst shard, R = redstone, C = Iron Core, I = Iron Rod). One nugget and one redstone; the fields right of and below the core are empty.",
+            "MC 26.3 recipe: \" NA\" / \"RC \" / \"I  \" (N = iron nugget, A = amethyst shard, R = redstone, C = Iron Core, I = Iron Pole). One nugget and one redstone; the fields right of and below the core are empty.",
             "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge. On 26.3 the repair material tag simplebuilding:repairs_resonance_rod contains amethyst shards and controls both the repair component and anvil recharging.",
             "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens.",
             "Recipe on MC 26.2: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe."
@@ -4130,7 +4136,7 @@ window.WIKI_DATA = {
             "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
             "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung. Auf 26.3 enthält der Reparaturmaterial-Tag simplebuilding:repairs_resonance_rod Amethystscherben und steuert sowohl die Reparaturkomponente als auch das Aufladen am Amboss.",
             "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens.",
-            "Rezept auf MC 26.3: „ NA“ / „RC “ / „I  “ (N = Eisennugget, A = Amethystscherbe, R = Redstone, C = Eisenkern, I = Eisenstab). Je ein Nugget und Redstone; rechts und unter dem Kern bleibt es frei. MC 26.2 bleibt IIR / ICA / IIR (I = Eisenbarren)."
+            "Rezept auf MC 26.3: „ NA“ / „RC “ / „I  “ (N = Eisennugget, A = Amethystscherbe, R = Redstone, C = Eisenkern, I = Eisenstange). Je ein Nugget und Redstone; rechts und unter dem Kern bleibt es frei. MC 26.2 bleibt IIR / ICA / IIR (I = Eisenbarren)."
           ]
         },
         "sources": [
@@ -4269,8 +4275,8 @@ window.WIKI_DATA = {
           "details": [
             "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
             "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), the best 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Up to 15 points the strength is 2 x points (15 bookshelves = 30), above that it climbs on to 40 at 30 points - so 15 blazewood bookshelves give 40, and every blazewood shelf in place of a bookshelf adds about two thirds of a strength. A 5x5 floor of Blazing Obsidian right under the table adds 10 once the shelves give 30 (15 bookshelves on the floor = 40). So 30 to 40 needs blazewood shelves OR the floor, and the maximum 50 needs both: 15 blazewood bookshelves plus the floor. Hover the strength in the screen: it shows what the next stage lacks.",
-            "The price is in XP levels. Each enchantment has a value at its maximum level: a base by its Vanilla anvil cost (1: 4, 2: 6, 4: 9, 8: 12) plus 2 per maximum level (Sharpness V 14, Looting III 15, Fire Aspect II 13, Unbreaking III 12); a slider level costs its share (Sharpness I 3, III 9). Combining is taxed: each further enchantment adds a quarter of the sum, and no price is above 50. So Sharpness V + Looting III costs 37, Sharpness V + Looting III + Fire Aspect II 50, three weak ones like Protection IV + Knockback II + Loyalty III 48.",
-            "The strength is the budget: you may spend as many levels as the strength (3 without any shelf); dearer slider levels are greyed out. Only at strength 50 can all three sliders stand at their maximum together. The top right of the screen shows price/budget in levels. Enchanting uses up the price in levels (you need them), one lapis lazuli per started 10 levels (blue dot in the button) and twice that in blaze powder (orange-red dot). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
+            "The price is in XP levels. Each enchantment has a value at its maximum level: a base by its Vanilla anvil cost (1: 4, 2: 6, 4: 9, 8: 12) plus 2 per maximum level (Sharpness V 14, Looting III 15, Fire Aspect II 13, Unbreaking III 12); a slider level costs its share (Sharpness I 3, III 9). Combining is taxed: each further enchantment adds a quarter of the sum, and no price is above 50 - when all of an offer together would cost more, prices are scaled down so every level less costs less and only the full choice costs 50. So Sharpness V + Looting III costs 32, Sharpness V + Looting III + Fire Aspect II 50, three weak ones like Protection IV + Knockback II + Loyalty III 48.",
+            "The strength is the budget: you may spend as many levels as the strength (3 without any shelf); dearer slider levels are greyed out. Only at strength 50 can all three sliders stand at their maximum together. The top right of the screen shows price/budget in levels. The price is the level you need; enchanting uses up only 1 level per started 10 of it (1-5, like Vanilla), and one lapis lazuli per started 10 levels (blue dot in the button) and twice that in blaze powder (orange-red dot). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
             "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
             "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
           ]
@@ -4280,8 +4286,8 @@ window.WIKI_DATA = {
           "details": [
             "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
             "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), die besten 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Bis 15 Punkte ist die Stärke 2 x Punkte (15 Bücherregale = 30), darüber steigt sie weiter bis 40 bei 30 Punkten - 15 Lohen-Regale geben also 40, und jedes Lohen-Regal statt eines Bücherregals bringt etwa zwei Drittel Stärke. Ein 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch gibt 10 dazu, sobald die Regale 30 ergeben (15 Bücherregale auf dem Boden = 40). 30 bis 40 braucht also Lohen-Regale ODER den Boden, das Maximum 50 braucht beides: 15 Lohen-Regale plus Boden. Im Bildschirm über der Stärke schweben zeigt, was für die nächste Stufe fehlt.",
-            "Der Preis wird in XP-Level gezahlt. Jede Verzauberung hat einen Wert auf Höchststufe: ein Grundwert nach den Vanilla-Amboss-Kosten (1: 4, 2: 6, 4: 9, 8: 12) plus 2 je Höchststufe (Schärfe V 14, Plünderung III 15, Verbrennung II 13, Haltbarkeit III 12); eine Reglerstufe kostet ihren Anteil (Schärfe I 3, III 9). Kombinieren kostet Steuer: jede weitere Verzauberung schlägt ein Viertel der Summe auf, und kein Preis liegt über 50. Schärfe V + Plünderung III kostet also 37, Schärfe V + Plünderung III + Verbrennung II 50, drei schwache wie Schutz IV + Rückstoß II + Treue III 48.",
-            "Die Stärke ist das Budget: man darf so viele Level ausgeben, wie die Stärke angibt (3 ganz ohne Regal); teurere Reglerstufen sind ausgegraut. Erst bei Stärke 50 stehen alle drei Regler zugleich auf dem Maximum. Oben rechts steht Preis/Budget in Level. Verzaubern verbraucht den Preis in Level (man muss sie haben), einen Lapislazuli je angefangene 10 Level (blauer Punkt im Knopf) und doppelt so viel Lohenstaub (orange-roter Punkt). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
+            "Der Preis wird in XP-Level gezahlt. Jede Verzauberung hat einen Wert auf Höchststufe: ein Grundwert nach den Vanilla-Amboss-Kosten (1: 4, 2: 6, 4: 9, 8: 12) plus 2 je Höchststufe (Schärfe V 14, Plünderung III 15, Verbrennung II 13, Haltbarkeit III 12); eine Reglerstufe kostet ihren Anteil (Schärfe I 3, III 9). Kombinieren kostet Steuer: jede weitere Verzauberung schlägt ein Viertel der Summe auf, und kein Preis liegt über 50 - wäre das ganze Angebot teurer, werden die Preise heruntergerechnet, sodass jede Stufe weniger weniger kostet und nur die volle Auswahl 50 kostet. Schärfe V + Plünderung III kostet also 32, Schärfe V + Plünderung III + Verbrennung II 50, drei schwache wie Schutz IV + Rückstoß II + Treue III 48.",
+            "Die Stärke ist das Budget: man darf so viele Level ausgeben, wie die Stärke angibt (3 ganz ohne Regal); teurere Reglerstufen sind ausgegraut. Erst bei Stärke 50 stehen alle drei Regler zugleich auf dem Maximum. Oben rechts steht Preis/Budget in Level. Der Preis ist die benötigte Stufe; Verzaubern verbraucht nur 1 Level je angefangene 10 davon (1-5, wie Vanilla), und einen Lapislazuli je angefangene 10 Level (blauer Punkt im Knopf) und doppelt so viel Lohenstaub (orange-roter Punkt). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
             "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
             "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
           ]
@@ -4402,9 +4408,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
-        "simplebuilding:astral_rail",
-        "simplebuilding:astralit_lamp",
-        "simplebuilding:astralit_switch"
+        "simplebuilding:astral_rail"
       ],
       "trades": [],
       "questionary": {
@@ -4433,29 +4437,33 @@ window.WIKI_DATA = {
       },
       "note": {
         "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone.json"
         ],
         "en": {
-          "title": "Isolated End Signals",
-          "summary": "Astral Redstone: craft 2 from Astralit Dust and redstone; carries only the Astralit channel. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+          "title": "Astral, Nihil and Bridge Redstone",
+          "summary": "Astral Redstone: craft 2 from Astralit Dust and redstone; the Astral redstone line. Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+            "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
         "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Astral-Redstone: Aus Astralitstaub und Redstone entstehen 2 Stück; leitet nur den Astralit-Kanal. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "title": "Astral-, Nihil- und Brücken-Redstone",
+          "summary": "Astral-Redstone: Aus Astralitstaub und Redstone entstehen 2 Stück; die Astral-Redstone-Linie. Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+            "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -5335,6 +5343,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_bricks_from_end_stone_bricks",
         "simplebuilding:astralit_pillar_from_purpur_pillar",
         "simplebuilding:astralit_quartz_checker",
+        "simplebuilding:bridge_redstone",
         "simplebuilding:ender_quartz",
         "simplebuilding:jukebox_amplifier",
         "simplebuilding:levitating_gravel",
@@ -5369,49 +5378,6 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:astralit_lamp",
-      "name": {
-        "en_us": "Astralit Signal Lamp",
-        "de_de": "Astralit-Signallampe"
-      },
-      "texture": "assets/textures/block/astralit_lamp.png",
-      "craftedBy": [
-        "simplebuilding:astralit_lamp"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/astralit_lamp.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_lamp.json"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Astralit Signal Lamp: a redstone lamp plus Astralit channel redstone makes this channel's receiving lamp. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Astralit-Signallampe: Eine Redstone-Lampe und Redstone des Astralit-Kanals ergeben dessen Empfängerlampe. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_octet",
@@ -5669,49 +5635,6 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:astralit_switch",
-      "name": {
-        "en_us": "Astralit Signal Switch",
-        "de_de": "Astralit-Signalschalter"
-      },
-      "texture": "assets/textures/block/astralit_switch.png",
-      "craftedBy": [
-        "simplebuilding:astralit_switch"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/astralit_switch.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_switch.json"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Astralit Signal Switch: a lever plus Astralit channel redstone makes this channel's switch. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Astralit-Signalschalter: Ein Hebel und Redstone des Astralit-Kanals ergeben dessen Schalter. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:auto_smither",
@@ -8070,6 +7993,52 @@ window.WIKI_DATA = {
             "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
             "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
             "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:bridge_redstone",
+      "name": {
+        "en_us": "Bridge Redstone",
+        "de_de": "Brücken-Redstone"
+      },
+      "texture": "assets/textures/item/bridge_redstone.png",
+      "craftedBy": [
+        "simplebuilding:bridge_redstone"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/bridge_redstone.json"
+        ],
+        "en": {
+          "title": "Astral, Nihil and Bridge Redstone",
+          "summary": "Bridge Redstone: craft 3 from Astralit Dust, a Nihilit Shard and redstone; links all three redstone lines. Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+            "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astral-, Nihil- und Brücken-Redstone",
+          "summary": "Brücken-Redstone: Aus Astralitstaub, einem Nihilitsplitter und Redstone entstehen 3 Stück; verbindet alle drei Redstone-Linien. Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+            "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -10738,7 +10707,7 @@ window.WIKI_DATA = {
           "details": [
             "Tips: flint (vanilla damage), copper nugget (+2 against drowned), iron nugget (+0.5, +2 against zombies), gold nugget (+2 against undead), diamond pebble (+1), netherite nugget (+1.5, pierces one more target), enderite nugget (+1.5, no gravity for the first second), amethyst shard (shatters: 1 damage within 1.5 blocks), prismarine shard (no water drag).",
             "The damage bonus adds to the arrow's base damage like Power and grows with the shot's speed.",
-            "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact); on 26.3 also the diamond rod (pierces one more target). The netherite and enderite rods are lightning rods (blocks) since 2026-10-03 and no shafts; arrows made with them earlier keep their tip and fletching and load with a stick shaft. Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
+            "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact); on 26.3 also the diamond rod (pierces one more target). The Netherite and Enderite Poles (formerly netherite and enderite rods) are lightning rods (blocks) since 2026-10-03 and no shafts; arrows made with them earlier keep their tip and fletching and load with a stick shaft. Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
             "Bow and crossbow enchantments work as on vanilla arrows; Infinity only saves vanilla arrows.",
             "The Fletching Table works like the Crafting Table: the recipe book button at the same spot opens every arrow combination on the left (opening the table unlocks them all). A click moves the tip, shaft and fletching from your inventory into their slots, shift-click as many as possible; missing parts show as ghost items. Nothing is created. All numbers are fixed, nothing is configurable."
           ]
@@ -10748,7 +10717,7 @@ window.WIKI_DATA = {
           "details": [
             "Spitzen: Feuerstein (Vanilla-Schaden), Kupfer-Nugget (+2 gegen Ertrunkene), Eisen-Nugget (+0,5, +2 gegen Zombies), Gold-Nugget (+2 gegen Untote), Diamantkiesel (+1), Netherit-Nugget (+1,5, durchbohrt ein Ziel mehr), Enderit-Nugget (+1,5, die erste Sekunde ohne Schwerkraft), Amethyst-Splitter (zersplittert: 1 Schaden im Umkreis von 1,5 Blöcken), Prismarin-Splitter (kein Wasserwiderstand).",
             "Der Schadensbonus zählt wie Stärke zum Grundschaden des Pfeils und wächst mit der Geschwindigkeit des Schusses.",
-            "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall); auf 26.3 außerdem der Diamantstab (durchbohrt ein Ziel mehr). Netherit- und Enderitstab sind seit 2026-10-03 Blitzableiter (Blöcke) und keine Schäfte; früher damit hergestellte Pfeile behalten Spitze und Befiederung und laden mit Stock-Schaft. Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
+            "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall); auf 26.3 außerdem der Diamantstab (durchbohrt ein Ziel mehr). Netherit- und Enderitstange (früher Netherit- und Enderitstab) sind seit 2026-10-03 Blitzableiter (Blöcke) und keine Schäfte; früher damit hergestellte Pfeile behalten Spitze und Befiederung und laden mit Stock-Schaft. Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
             "Bogen- und Armbrust-Verzauberungen wirken wie bei Vanilla-Pfeilen; Unendlichkeit spart nur Vanilla-Pfeile.",
             "Der Befiederungstisch funktioniert wie die Werkbank: das Rezeptbuch-Symbol an derselben Stelle öffnet links alle Pfeil-Kombinationen (das Öffnen des Tisches schaltet alle frei). Ein Klick legt Spitze, Schaft und Befiederung aus dem Inventar in ihre Slots, Shift-Klick so viele wie möglich; fehlende Teile erscheinen als Geister-Items. Es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar."
           ]
@@ -12901,6 +12870,71 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:diamond_pole",
+      "name": {
+        "en_us": "Diamond Pole",
+        "de_de": "Diamantstange"
+      },
+      "texture": "assets/textures/block/diamond_pole.png",
+      "craftedBy": [
+        "simplebuilding:diamond_pole"
+      ],
+      "usedIn": [
+        "simplebuilding:diamond_from_diamond_pole",
+        "simplebuilding:netherite_pole_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/diamond_pole.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole of diamond, too precious to stand in a storm - which is exactly where it wants to be."
+          ],
+          "use": [
+            "Three diamonds stacked give one diamond pole, a lightning rod of diamond (80 blocks); in the crafting grid it gives the three diamonds back. At the smithing table it becomes the Netherite Pole."
+          ],
+          "secret": [
+            "Do not confuse it with the Diamond Rod: that one is made from two diamonds and is an arrow shaft."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange aus Diamant, zu kostbar für ein Gewitter - und genau dort will sie stehen."
+          ],
+          "use": [
+            "Drei Diamanten übereinander ergeben eine Diamantstange, einen Blitzableiter aus Diamant (80 Blöcke); im Handwerksfeld gibt sie die drei Diamanten zurück. Am Schmiedetisch wird sie zur Netheritstange."
+          ],
+          "secret": [
+            "Nicht verwechseln mit dem Diamantstab: der entsteht aus zwei Diamanten und ist ein Pfeilschaft."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of diamond (MC 26.3, owner N41): three diamonds stacked give one Diamond Pole.",
+          "details": [
+            "It works like the Iron and Gold Pole - placed on any face, a redstone signal when lightning strikes it, no oxidizing - and attracts lightning within 80 blocks (iron: 32, gold: 64, netherite: 96, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles reach the strike, the nearest one wins.",
+            "One Diamond Pole in the crafting grid gives the three diamonds back. Needs an iron pickaxe or better. At the smithing table it becomes the Netherite Pole.",
+            "Not to be confused with the Diamond Rod (two diamonds, an arrow shaft)."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Diamant (MC 26.3, Besitzer N41): drei Diamanten übereinander ergeben eine Diamantstange.",
+          "details": [
+            "Sie arbeitet wie Eisen- und Goldstange - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht - und zieht Blitze im Umkreis von 80 Blöcken an (Eisen: 32, Gold: 64, Netherit: 96, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
+            "Eine Diamantstange im Handwerksfeld gibt die drei Diamanten zurück. Braucht mindestens eine Eisenspitzhacke. Am Schmiedetisch wird sie zur Netheritstange.",
+            "Nicht zu verwechseln mit dem Diamantstab (zwei Diamanten, ein Pfeilschaft)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:diamond_rod",
       "name": {
         "en_us": "Diamond Rod",
@@ -12911,8 +12945,7 @@ window.WIKI_DATA = {
         "simplebuilding:diamond_rod"
       ],
       "usedIn": [
-        "simplebuilding:diamond_from_diamond_rod",
-        "simplebuilding:netherite_rod_smithing"
+        "simplebuilding:diamond_from_diamond_rod"
       ],
       "trades": [],
       "questionary": {
@@ -12921,7 +12954,7 @@ window.WIKI_DATA = {
             "A rod of diamond, as hard as an argument and as clear as a lie."
           ],
           "use": [
-            "Three diamonds stacked give one diamond rod; one diamond rod in the crafting grid gives the diamonds back. It cannot be placed. At the smithing table it becomes the Netherite Rod."
+            "Two diamonds stacked give one diamond rod; one diamond rod in the crafting grid gives the two diamonds back. It cannot be placed."
           ],
           "secret": [
             "At the fletching table it is an arrow shaft: the arrow pierces one more target."
@@ -12929,29 +12962,29 @@ window.WIKI_DATA = {
         },
         "de": {
           "lore": [
-            "Eine Stange aus Diamant, hart wie ein Streit und klar wie eine Lüge."
+            "Ein Stab aus Diamant, hart wie ein Streit und klar wie eine Lüge."
           ],
           "use": [
-            "Drei Diamanten übereinander ergeben eine Diamantstange; eine Diamantstange im Handwerksfeld gibt die Diamanten zurück. Sie lässt sich nicht platzieren. Am Schmiedetisch wird sie zur Netheritstange."
+            "Zwei Diamanten übereinander ergeben einen Diamantstab; ein Diamantstab im Handwerksfeld gibt die zwei Diamanten zurück. Er lässt sich nicht platzieren."
           ],
           "secret": [
-            "Am Bogenmachertisch ist sie ein Pfeilschaft: Der Pfeil durchdringt ein Ziel mehr."
+            "Am Bogenmachertisch ist er ein Pfeilschaft: Der Pfeil durchdringt ein Ziel mehr."
           ]
         }
       },
       "note": {
         "en": {
-          "summary": "A rod of diamond (MC 26.3), an item like the blaze rod: three diamonds stacked give one Diamond Rod, one Diamond Rod in the crafting grid gives the three diamonds back.",
+          "summary": "A rod of diamond (MC 26.3), an item like the blaze rod: two diamonds stacked give one Diamond Rod, one Diamond Rod in the crafting grid gives the two diamonds back.",
           "details": [
             "It cannot be placed. At the Fletching Table it is an arrow shaft: the arrow pierces one more target.",
-            "At the smithing table it becomes the Netherite Rod."
+            "It is not the Diamond Pole (three diamonds, a lightning rod block); since N41 the Netherite Pole is smithed from the Diamond Pole."
           ]
         },
         "de": {
-          "summary": "Ein Stab aus Diamant (MC 26.3), ein Item wie die Lohenrute: drei Diamanten übereinander ergeben einen Diamantstab, ein Diamantstab im Handwerksfeld gibt die drei Diamanten zurück.",
+          "summary": "Ein Stab aus Diamant (MC 26.3), ein Item wie die Lohenrute: zwei Diamanten übereinander ergeben einen Diamantstab, ein Diamantstab im Handwerksfeld gibt die zwei Diamanten zurück.",
           "details": [
             "Er lässt sich nicht aufstellen. Am Befiederungstisch ist er ein Pfeilschaft: der Pfeil durchbohrt ein Ziel mehr.",
-            "Am Schmiedetisch wird er zum Netheritstab."
+            "Er ist nicht die Diamantstange (drei Diamanten, ein Blitzableiter-Block); seit N41 wird die Netheritstange aus der Diamantstange geschmiedet."
           ]
         },
         "sources": [
@@ -16718,9 +16751,9 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_nugget_from_ingot",
         "simplebuilding:enderite_paint_box_smithing",
         "simplebuilding:enderite_pickaxe_smithing",
+        "simplebuilding:enderite_pole_smithing",
         "simplebuilding:enderite_pressure_plate_smithing",
         "simplebuilding:enderite_quiver_smithing",
-        "simplebuilding:enderite_rod_smithing",
         "simplebuilding:enderite_shovel_smithing",
         "simplebuilding:enderite_sledgehammer_smithing",
         "simplebuilding:enderite_spear_smithing",
@@ -17111,6 +17144,69 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_pole",
+      "name": {
+        "en_us": "Enderite Pole",
+        "de_de": "Enderitstange"
+      },
+      "texture": "assets/textures/block/enderite_pole.png",
+      "craftedBy": [
+        "simplebuilding:enderite_pole_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_pole.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole that remembers the sky and draws lightning like a promise."
+          ],
+          "use": [
+            "Smithing table: Enderite Upgrade, Netherite Pole and Enderite Ingot give the Enderite Pole, a lightning rod made of enderite (128 blocks)."
+          ],
+          "secret": [
+            "Being enderite, it is fire resistant, floats on lava and is safe from the void if it is dropped."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange, die sich an den Himmel erinnert und Blitze zieht wie ein Versprechen."
+          ],
+          "use": [
+            "Schmiedetisch: Enderit-Aufwertung, Netheritstange und Enderitbarren ergeben die Enderitstange, einen Blitzableiter aus Enderit (128 Blöcke)."
+          ],
+          "secret": [
+            "Als Enderitgegenstand ist sie feuerfest, schwimmt auf Lava und ist beim Fallenlassen vor der Leere sicher."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of enderite (MC 26.3): smithing table, Enderite Upgrade + Netherite Pole + Enderite Ingot give the Enderite Pole.",
+          "details": [
+            "It works like the other metal poles and reaches as far as the copper lightning rod: it attracts lightning within 128 blocks, as the top block of its column, and only when no copper lightning rod is in range (copper still goes first). If several metal poles reach the strike, the nearest one wins.",
+            "The item is fire resistant and, like every enderite item, protected from the void. No way back, and no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the enderite block.",
+            "Formerly the Enderite Rod (renamed in October 2026): old items and placed blocks load as the pole."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Enderit (MC 26.3): Schmiedetisch, Enderit-Aufwertung + Netheritstange + Enderitbarren ergeben die Enderitstange.",
+          "details": [
+            "Sie arbeitet wie die anderen Metallstangen und reicht so weit wie der Kupfer-Blitzableiter: sie zieht Blitze im Umkreis von 128 Blöcken an, als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist (Kupfer geht weiter vor). Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
+            "Das Item ist feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg und kein Pfeilschaft (seit 2026-10-03). Braucht wie der Enderitblock mindestens eine Diamantspitzhacke.",
+            "Früher Enderitstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_quiver",
       "name": {
         "en_us": "Enderite Quiver",
@@ -17221,67 +17317,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:enderite_rod",
-      "name": {
-        "en_us": "Enderite Rod",
-        "de_de": "Enderitstab"
-      },
-      "texture": "assets/textures/block/enderite_rod.png",
-      "craftedBy": [
-        "simplebuilding:enderite_rod_smithing"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_rod.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "A rod that remembers the sky and draws lightning like a promise."
-          ],
-          "use": [
-            "Smithing table: Enderite Upgrade, Netherite Rod and Enderite Ingot give the Enderite Rod, a lightning rod made of enderite."
-          ],
-          "secret": [
-            "Being enderite, it is fire resistant, floats on lava and is safe from the void if it is dropped."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Stange, die sich an den Himmel erinnert und Blitze zieht wie ein Versprechen."
-          ],
-          "use": [
-            "Schmiedetisch: Enderit-Aufwertung, Netheritstange und Enderitbarren ergeben die Enderitstange, einen Blitzableiter aus Enderit."
-          ],
-          "secret": [
-            "Als Enderitgegenstand ist sie feuerfest, schwimmt auf Lava und ist beim Fallenlassen vor der Leere sicher."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "A lightning rod made of enderite (MC 26.3): smithing table, Enderite Upgrade + Netherite Rod + Enderite Ingot give the Enderite Rod.",
-          "details": [
-            "It works like the other metal rods and reaches as far as the copper lightning rod: it attracts lightning within 128 blocks, as the top block of its column, and only when no copper lightning rod is in range (copper still goes first). If several metal rods reach the strike, the nearest one wins.",
-            "The item is fire resistant and, like every enderite item, protected from the void. No way back, and no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the enderite block."
-          ]
-        },
-        "de": {
-          "summary": "Ein Blitzableiter aus Enderit (MC 26.3): Schmiedetisch, Enderit-Aufwertung + Netheritstab + Enderitbarren ergeben den Enderitstab.",
-          "details": [
-            "Er arbeitet wie die anderen Metallstäbe und reicht so weit wie der Kupfer-Blitzableiter: er zieht Blitze im Umkreis von 128 Blöcken an, als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist (Kupfer geht weiter vor). Erreichen mehrere Metallstäbe den Einschlag, gewinnt der nächste.",
-            "Das Item ist feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg und kein Pfeilschaft (seit 2026-10-03). Braucht wie der Enderitblock mindestens eine Diamantspitzhacke."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
-          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:enderite_scrap",
@@ -18047,9 +18082,9 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_nautilus_armor_smithing",
         "simplebuilding:enderite_paint_box_smithing",
         "simplebuilding:enderite_pickaxe_smithing",
+        "simplebuilding:enderite_pole_smithing",
         "simplebuilding:enderite_pressure_plate_smithing",
         "simplebuilding:enderite_quiver_smithing",
-        "simplebuilding:enderite_rod_smithing",
         "simplebuilding:enderite_shovel_smithing",
         "simplebuilding:enderite_sledgehammer_smithing",
         "simplebuilding:enderite_spawn_teleporter_smithing",
@@ -18977,30 +19012,30 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:gold_rod",
+      "id": "simplebuilding:gold_pole",
       "name": {
-        "en_us": "Gold Rod",
-        "de_de": "Goldstab"
+        "en_us": "Gold Pole",
+        "de_de": "Goldstange"
       },
-      "texture": "assets/textures/block/gold_rod.png",
+      "texture": "assets/textures/block/gold_pole.png",
       "craftedBy": [
-        "simplebuilding:gold_rod"
+        "simplebuilding:gold_pole"
       ],
       "usedIn": [
-        "simplebuilding:gold_ingot_from_gold_rod"
+        "simplebuilding:gold_ingot_from_gold_pole"
       ],
       "trades": [],
-      "icon": "assets/textures/render/gold_rod.png",
+      "icon": "assets/textures/render/gold_pole.png",
       "questionary": {
         "en": {
           "lore": [
-            "A rod of gold: too soft for work, too shining to hide."
+            "A pole of gold: too soft for work, too shining to hide."
           ],
           "use": [
-            "Three gold ingots stacked give one gold rod, a lightning rod of gold."
+            "Three gold ingots stacked give one gold pole, a lightning rod of gold (64 blocks)."
           ],
           "secret": [
-            "Rods in this mod come in tiers: iron and gold from ingots, diamond from diamonds, then Netherite and Enderite from the smithing table."
+            "Poles in this mod come in tiers: iron and gold from ingots, diamond from diamonds, then Netherite and Enderite from the smithing table."
           ]
         },
         "de": {
@@ -19008,7 +19043,7 @@ window.WIKI_DATA = {
             "Eine Stange aus Gold: zu weich zum Arbeiten, zu glänzend zum Verstecken."
           ],
           "use": [
-            "Drei Goldbarren übereinander ergeben eine Goldstange, einen Blitzableiter aus Gold."
+            "Drei Goldbarren übereinander ergeben eine Goldstange, einen Blitzableiter aus Gold (64 Blöcke)."
           ],
           "secret": [
             "Stangen gibt es in diesem Mod in Stufen: Eisen und Gold aus Barren, Diamant aus Diamanten, dann Netherit und Enderit vom Schmiedetisch."
@@ -19017,17 +19052,19 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A lightning rod made of gold (MC 26.3): three gold ingots stacked give one Gold Rod.",
+          "summary": "A lightning rod made of gold (MC 26.3): three gold ingots stacked give one Gold Pole.",
           "details": [
-            "It works like the Iron Rod - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods (iron, gold, netherite, enderite) reach the strike, the nearest one wins.",
-            "One Gold Rod in the crafting grid gives the three gold ingots back. Needs an iron pickaxe or better, like the gold block."
+            "It works like the Iron Pole - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles (iron, gold, diamond, netherite, enderite) reach the strike, the nearest one wins.",
+            "One Gold Pole in the crafting grid gives the three gold ingots back. Needs an iron pickaxe or better, like the gold block.",
+            "Formerly the Gold Rod (renamed in October 2026): old items and placed blocks load as the pole."
           ]
         },
         "de": {
-          "summary": "Ein Blitzableiter aus Gold (MC 26.3): drei Goldbarren übereinander ergeben einen Goldstab.",
+          "summary": "Ein Blitzableiter aus Gold (MC 26.3): drei Goldbarren übereinander ergeben eine Goldstange.",
           "details": [
-            "Er arbeitet wie der Eisenstab - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: er zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe (Eisen, Gold, Netherit, Enderit) den Einschlag, gewinnt der nächste.",
-            "Ein Goldstab im Handwerksfeld gibt die drei Goldbarren zurück. Braucht wie der Goldblock mindestens eine Eisenspitzhacke."
+            "Sie arbeitet wie die Eisenstange - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: sie zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen (Eisen, Gold, Diamant, Netherit, Enderit) den Einschlag, gewinnt die nächste.",
+            "Eine Goldstange im Handwerksfeld gibt die drei Goldbarren zurück. Braucht wie der Goldblock mindestens eine Eisenspitzhacke.",
+            "Früher Goldstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
           ]
         },
         "sources": [
@@ -21636,33 +21673,33 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:iron_rod",
+      "id": "simplebuilding:iron_pole",
       "name": {
-        "en_us": "Iron Rod",
-        "de_de": "Eisenstab"
+        "en_us": "Iron Pole",
+        "de_de": "Eisenstange"
       },
-      "texture": "assets/textures/block/iron_rod.png",
+      "texture": "assets/textures/block/iron_pole.png",
       "craftedBy": [
-        "simplebuilding:iron_rod"
+        "simplebuilding:iron_pole"
       ],
       "usedIn": [
         "simplebuilding:amethyst_lens",
-        "simplebuilding:iron_ingot_from_iron_rod",
+        "simplebuilding:iron_ingot_from_iron_pole",
         "simplebuilding:magnet",
         "simplebuilding:rotator"
       ],
       "trades": [],
-      "icon": "assets/textures/render/iron_rod.png",
+      "icon": "assets/textures/render/iron_pole.png",
       "questionary": {
         "en": {
           "lore": [
-            "A rod of iron, thin, straight, and eager to be struck by something."
+            "A pole of iron, thin, straight, and eager to be struck by something."
           ],
           "use": [
-            "Three iron ingots stacked give one iron rod, a lightning rod of iron. Part of the Attractor recipe."
+            "Three iron ingots stacked give one iron pole, a lightning rod of iron that attracts lightning within 32 blocks. Part of the Attractor recipe."
           ],
           "secret": [
-            "The Attractor is built around an iron core, an iron rod, redstone and lapis."
+            "The Attractor is built around an iron core, an iron pole, redstone and lapis."
           ]
         },
         "de": {
@@ -21670,7 +21707,7 @@ window.WIKI_DATA = {
             "Eine Stange aus Eisen, dünn, gerade und begierig, von etwas getroffen zu werden."
           ],
           "use": [
-            "Drei Eisenbarren übereinander ergeben eine Eisenstange, einen Blitzableiter aus Eisen. Teil des Attraktor-Rezepts."
+            "Drei Eisenbarren übereinander ergeben eine Eisenstange, einen Blitzableiter aus Eisen, der Blitze im Umkreis von 32 Blöcken anzieht. Teil des Attraktor-Rezepts."
           ],
           "secret": [
             "Der Attraktor ist um einen Eisenkern, eine Eisenstange, Redstone und Lapis gebaut."
@@ -21679,19 +21716,21 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
+          "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Pole.",
           "details": [
-            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods (iron, gold, netherite, enderite) reach the strike, the nearest one wins.",
-            "One Iron Rod in the crafting grid gives the three iron ingots back.",
-            "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better."
+            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles (iron, gold, diamond, netherite, enderite) reach the strike, the nearest one wins.",
+            "One Iron Pole in the crafting grid gives the three iron ingots back.",
+            "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better.",
+            "Formerly the Iron Rod (renamed in October 2026): old items and placed blocks load as the pole."
           ]
         },
         "de": {
-          "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben einen Eisenstab.",
+          "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben eine Eisenstange.",
           "details": [
-            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe (Eisen, Gold, Netherit, Enderit) den Einschlag, gewinnt der nächste.",
-            "Ein Eisenstab im Handwerksfeld gibt die drei Eisenbarren zurück.",
-            "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke."
+            "Sie sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen (Eisen, Gold, Diamant, Netherit, Enderit) den Einschlag, gewinnt die nächste.",
+            "Eine Eisenstange im Handwerksfeld gibt die drei Eisenbarren zurück.",
+            "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke.",
+            "Früher Eisenstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
           ]
         },
         "sources": [
@@ -21994,9 +22033,9 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
-            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
-            "Chain: a Note Amplifier touching the note block, or touching one already in the chain, passes the sound on; a Jukebox Amplifier works like a radio repeater: it picks up a playing jukebox or an amplifier already in the chain within 16 blocks, no matter what lies between, and shows the jukebox's music notes while it plays (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind; a gap ends a note chain, more than 16 blocks a jukebox chain). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
-            "A jukebox counts its amplifiers when a song starts, a note block on every note."
+            "It does not make the jukebox louder or carry it farther - the jukebox stays vanilla; the amplifier only plays along (see the chain below). The Note Amplifier does nothing at a jukebox.",
+            "Jukebox Amplifiers leave the jukebox exactly vanilla and play along instead: an amplifier within 63 blocks of a playing jukebox, no matter what lies between, plays the same song without delay and shows its music notes; an amplifier within 63 blocks of one already playing passes it on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only Jukebox Amplifiers). Each player hears the song once, from the nearest playback point (the jukebox or an amplifier), with vanilla volume and falloff (64 blocks). Note Amplifiers chain by touching: one touching the note block, or touching one already in the chain, passes the note on (a gap ends the chain); each player hears the note once at the amplified level inside the existing range of the nearest point, without distance or chain loss, and outside that range it is silent. Player sound settings still apply.",
+            "A note block counts its amplifiers on every note; a playing jukebox looks for amplifiers when the song starts and again every half second."
           ]
         },
         "de": {
@@ -22004,13 +22043,13 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
-            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
-            "Kette: ein Noten-Verstärker am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter; ein Musik-Verstärker arbeitet wie ein Funk-Repeater: er empfängt einen spielenden Plattenspieler oder einen Verstärker der Kette in bis zu 16 Blöcken Entfernung, egal was dazwischen liegt, und zeigt beim Spielen die Musiknoten des Plattenspielers (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte; eine Lücke beendet eine Noten-Kette, mehr als 16 Blöcke eine Plattenspieler-Kette). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
-            "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
+            "Er macht den Plattenspieler weder lauter noch weiter hörbar - der Plattenspieler bleibt Vanilla; der Verstärker spielt nur mit (siehe Kette unten). Der Noten-Verstärker wirkt am Plattenspieler nicht.",
+            "Musik-Verstärker lassen den Plattenspieler exakt wie in Vanilla und spielen stattdessen mit: ein Verstärker bis 63 Blöcke um einen spielenden Plattenspieler, egal was dazwischen liegt, spielt dasselbe Stück ohne Verzögerung und zeigt dessen Musiknoten; ein Verstärker bis 63 Blöcke um einen, der schon mitspielt, gibt es weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur Musik-Verstärker). Jeder Spieler hört das Stück einmal, vom nächsten Abspielpunkt (Plattenspieler oder Verstärker), mit Vanilla-Lautstärke und -Abschwächung (64 Blöcke). Noten-Verstärker bilden eine Kette durch Berührung: einer am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter (eine Lücke beendet die Kette); jeder Spieler hört den Ton einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust, außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+            "Ein Notenblock zählt seine Verstärker bei jeder Note; ein spielender Plattenspieler sucht Verstärker beim Start des Stücks und danach jede halbe Sekunde."
           ]
         }
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:jungle_cauldron",
@@ -27718,6 +27757,73 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:netherite_pole",
+      "name": {
+        "en_us": "Netherite Pole",
+        "de_de": "Netheritstange"
+      },
+      "texture": "assets/textures/block/netherite_pole.png",
+      "craftedBy": [
+        "simplebuilding:netherite_pole_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_pole_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_pole.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole that has stood in the fire and does not mind the next one."
+          ],
+          "use": [
+            "Smithing table: Netherite Upgrade, Diamond Pole and Netherite Ingot give the Netherite Pole, a lightning rod made of netherite (96 blocks)."
+          ],
+          "secret": [
+            "It is the base for the Enderite Pole, one tier up."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange, die im Feuer stand und das nächste nicht scheut."
+          ],
+          "use": [
+            "Schmiedetisch: Netherit-Aufwertung, Diamantstange und Netheritbarren ergeben die Netheritstange, einen Blitzableiter aus Netherit (96 Blöcke)."
+          ],
+          "secret": [
+            "Sie ist die Grundlage der Enderitstange eine Stufe höher."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of netherite (MC 26.3): smithing table, Netherite Upgrade + Diamond Pole + Netherite Ingot give the Netherite Pole.",
+          "details": [
+            "It works like the other metal poles - placed on any face (also in water), a redstone signal when lightning strikes it, no oxidizing - and reaches further: it attracts lightning within 96 blocks (iron: 32, gold: 64, diamond: 80, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles reach the strike, the nearest one wins.",
+            "Like netherite items the item does not burn. There is no way back to the Diamond Pole, and it is no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the netherite block.",
+            "At the smithing table it becomes the Enderite Pole.",
+            "Formerly the Netherite Rod (renamed in October 2026): old items and placed blocks load as the pole."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Netherit (MC 26.3): Schmiedetisch, Netherit-Aufwertung + Diamantstange + Netheritbarren ergeben die Netheritstange.",
+          "details": [
+            "Sie arbeitet wie die anderen Metallstangen - an jede Seite setzbar (auch im Wasser), Redstone-Signal beim Einschlag, oxidiert nicht - und reicht weiter: sie zieht Blitze im Umkreis von 96 Blöcken an (Eisen: 32, Gold: 64, Diamant: 80, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
+            "Wie Netherit-Items verbrennt das Item nicht. Es gibt keinen Rückweg zur Diamantstange, und sie ist kein Pfeilschaft (seit 2026-10-03). Braucht wie der Netheritblock mindestens eine Diamantspitzhacke.",
+            "Am Schmiedetisch wird sie zur Enderitstange.",
+            "Früher Netheritstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:netherite_quiver",
       "name": {
         "en_us": "Netherite Quiver",
@@ -27822,71 +27928,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:netherite_rod",
-      "name": {
-        "en_us": "Netherite Rod",
-        "de_de": "Netheritstab"
-      },
-      "texture": "assets/textures/block/netherite_rod.png",
-      "craftedBy": [
-        "simplebuilding:netherite_rod_smithing"
-      ],
-      "usedIn": [
-        "simplebuilding:enderite_rod_smithing"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_rod.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "A rod that has stood in the fire and does not mind the next one."
-          ],
-          "use": [
-            "Smithing table: Netherite Upgrade, Diamond Rod and Netherite Ingot give the Netherite Rod, a lightning rod made of netherite."
-          ],
-          "secret": [
-            "It is the base for the Enderite Rod, one tier up."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Stange, die im Feuer stand und das nächste nicht scheut."
-          ],
-          "use": [
-            "Schmiedetisch: Netherit-Aufwertung, Diamantstange und Netheritbarren ergeben die Netheritstange, einen Blitzableiter aus Netherit."
-          ],
-          "secret": [
-            "Sie ist die Grundlage der Enderitstange eine Stufe höher."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "A lightning rod made of netherite (MC 26.3): smithing table, Netherite Upgrade + Diamond Rod + Netherite Ingot give the Netherite Rod.",
-          "details": [
-            "It works like the Iron and Gold Rod - placed on any face (also in water), a redstone signal when lightning strikes it, no oxidizing - and reaches further: it attracts lightning within 96 blocks (iron: 32, gold: 64, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods reach the strike, the nearest one wins.",
-            "Like netherite items the item does not burn. There is no way back to the Diamond Rod, and it is no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the netherite block.",
-            "At the smithing table it becomes the Enderite Rod."
-          ]
-        },
-        "de": {
-          "summary": "Ein Blitzableiter aus Netherit (MC 26.3): Schmiedetisch, Netherit-Aufwertung + Diamantstab + Netheritbarren ergeben den Netheritstab.",
-          "details": [
-            "Er arbeitet wie Eisen- und Goldstab - an jede Seite setzbar (auch im Wasser), Redstone-Signal beim Einschlag, oxidiert nicht - und reicht weiter: er zieht Blitze im Umkreis von 96 Blöcken an (Eisen: 32, Gold: 64, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe den Einschlag, gewinnt der nächste.",
-            "Wie Netherit-Items verbrennt das Item nicht. Es gibt keinen Rückweg zum Diamantstab, und er ist kein Pfeilschaft (seit 2026-10-03). Braucht wie der Netheritblock mindestens eine Diamantspitzhacke.",
-            "Am Schmiedetisch wird er zum Enderitstab."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
-          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:netherite_shulker_box",
@@ -28606,9 +28647,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
-        "simplebuilding:nihil_rail",
-        "simplebuilding:nihilith_lamp",
-        "simplebuilding:nihilith_switch"
+        "simplebuilding:nihil_rail"
       ],
       "trades": [],
       "questionary": {
@@ -28637,29 +28676,33 @@ window.WIKI_DATA = {
       },
       "note": {
         "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone.json"
         ],
         "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihil Redstone: craft 2 from a Nihilit Shard and redstone; carries only the Nihilit channel. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+          "title": "Astral, Nihil and Bridge Redstone",
+          "summary": "Nihil Redstone: craft 2 from a Nihilit Shard and redstone; the Nihil redstone line. Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+            "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
         "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihil-Redstone: Aus einem Nihilitsplitter und Redstone entstehen 2 Stück; leitet nur den Nihilit-Kanal. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "title": "Astral-, Nihil- und Brücken-Redstone",
+          "summary": "Nihil-Redstone: Aus einem Nihilitsplitter und Redstone entstehen 2 Stück; die Nihil-Redstone-Linie. Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+            "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -29518,49 +29561,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:nihilith_lamp",
-      "name": {
-        "en_us": "Nihilit Signal Lamp",
-        "de_de": "Nihilit-Signallampe"
-      },
-      "texture": "assets/textures/block/nihilith_lamp.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_lamp"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/nihilith_lamp.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_lamp.json"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihilit Signal Lamp: a redstone lamp plus Nihilit channel redstone makes this channel's receiving lamp. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihilit-Signallampe: Eine Redstone-Lampe und Redstone des Nihilit-Kanals ergeben dessen Empfängerlampe. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:nihilith_octet",
       "name": {
         "en_us": "Nihilit Octet",
@@ -29826,6 +29826,7 @@ window.WIKI_DATA = {
       "texture": "assets/textures/item/nihilith_shard.png",
       "craftedBy": [],
       "usedIn": [
+        "simplebuilding:bridge_redstone",
         "simplebuilding:ender_quartz",
         "simplebuilding:nihil_end_stone",
         "simplebuilding:nihil_purpur_block",
@@ -29872,49 +29873,6 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nihilith_switch",
-      "name": {
-        "en_us": "Nihilit Signal Switch",
-        "de_de": "Nihilit-Signalschalter"
-      },
-      "texture": "assets/textures/block/nihilith_switch.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_switch"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/nihilith_switch.png",
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_switch.json"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihilit Signal Switch: a lever plus Nihilit channel redstone makes this channel's switch. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihilit-Signalschalter: Ein Hebel und Redstone des Nihilit-Kanals ergeben dessen Schalter. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:note_amplifier",
@@ -29967,8 +29925,8 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
             "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
-            "Chain: a Note Amplifier touching the note block, or touching one already in the chain, passes the sound on; a Jukebox Amplifier works like a radio repeater: it picks up a playing jukebox or an amplifier already in the chain within 16 blocks, no matter what lies between, and shows the jukebox's music notes while it plays (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind; a gap ends a note chain, more than 16 blocks a jukebox chain). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
-            "A jukebox counts its amplifiers when a song starts, a note block on every note."
+            "Jukebox Amplifiers leave the jukebox exactly vanilla and play along instead: an amplifier within 63 blocks of a playing jukebox, no matter what lies between, plays the same song without delay and shows its music notes; an amplifier within 63 blocks of one already playing passes it on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only Jukebox Amplifiers). Each player hears the song once, from the nearest playback point (the jukebox or an amplifier), with vanilla volume and falloff (64 blocks). Note Amplifiers chain by touching: one touching the note block, or touching one already in the chain, passes the note on (a gap ends the chain); each player hears the note once at the amplified level inside the existing range of the nearest point, without distance or chain loss, and outside that range it is silent. Player sound settings still apply.",
+            "A note block counts its amplifiers on every note; a playing jukebox looks for amplifiers when the song starts and again every half second."
           ]
         },
         "de": {
@@ -29977,12 +29935,12 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
             "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
-            "Kette: ein Noten-Verstärker am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter; ein Musik-Verstärker arbeitet wie ein Funk-Repeater: er empfängt einen spielenden Plattenspieler oder einen Verstärker der Kette in bis zu 16 Blöcken Entfernung, egal was dazwischen liegt, und zeigt beim Spielen die Musiknoten des Plattenspielers (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte; eine Lücke beendet eine Noten-Kette, mehr als 16 Blöcke eine Plattenspieler-Kette). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
-            "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
+            "Musik-Verstärker lassen den Plattenspieler exakt wie in Vanilla und spielen stattdessen mit: ein Verstärker bis 63 Blöcke um einen spielenden Plattenspieler, egal was dazwischen liegt, spielt dasselbe Stück ohne Verzögerung und zeigt dessen Musiknoten; ein Verstärker bis 63 Blöcke um einen, der schon mitspielt, gibt es weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur Musik-Verstärker). Jeder Spieler hört das Stück einmal, vom nächsten Abspielpunkt (Plattenspieler oder Verstärker), mit Vanilla-Lautstärke und -Abschwächung (64 Blöcke). Noten-Verstärker bilden eine Kette durch Berührung: einer am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter (eine Lücke beendet die Kette); jeder Spieler hört den Ton einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust, außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+            "Ein Notenblock zählt seine Verstärker bei jeder Note; ein spielender Plattenspieler sucht Verstärker beim Start des Stücks und danach jede halbe Sekunde."
           ]
         }
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:oak_cauldron",
@@ -41205,7 +41163,7 @@ window.WIKI_DATA = {
           "summary": "The Rotator is a tool that turns orientable blocks (logs, furnaces, pistons, hoppers and the like) in place with a right-click, without breaking them.",
           "details": [
             "In game the item is called \"Rotator\" in both English and German.",
-            "Recipe (crafting table, shaped \" I \" / \"IPI\" / \"CI \", P = ender pearl, C = Iron Core bottom left): on MC 26.3 the four I are Iron Rods (owner 2026-10-02), on 26.2 iron ingots; recipe category \"equipment\" (RecipeCategory.TOOLS). The item texture shows a small ender pearl inside the arc.",
+            "Recipe (crafting table, shaped \" I \" / \"IPI\" / \"CI \", P = ender pearl, C = Iron Core bottom left): on MC 26.3 the four I are Iron Poles (owner 2026-10-02), on 26.2 iron ingots; recipe category \"equipment\" (RecipeCategory.TOOLS). The item texture shows a small ender pearl inside the arc.",
             "The recipe is unlocked as soon as you have an iron ingot in your inventory.",
             "Charge: 1024 (the durability is the charge); enchantability 15; every successful rotation costs 1 charge (RotatorItem.drain: Unbreaking applies through EnchantmentHelper.processDurabilityChange, creative costs nothing). The Rotator never breaks - at full damage it stays, is empty (RotatorItem.isEmpty), shows item/rotator_empty (range_dispatch on damage) and answers FAIL with a dispenser-fail click instead of turning. Recharge at the anvil (AnvilRechargeable, shared with the Resonance Rod): ender pearls, 0 levels, 64 charge per pearl, 16 pearls = full, only the needed pearls are consumed. The cost is the config option tools.rotatorChargePerTurn (default 1).",
             "Stack size 1.",
@@ -41249,7 +41207,7 @@ window.WIKI_DATA = {
           "summary": "Der Rotator ist ein Werkzeug, mit dem man ausrichtbare Blöcke (Stämme, Öfen, Kolben, Trichter und ähnliche) per Rechtsklick an Ort und Stelle drehen kann, ohne sie abzubauen.",
           "details": [
             "Im Spiel heißt das Item auf Deutsch und Englisch \"Rotator\".",
-            "Rezept (Werkbank, geformt \" I \" / \"IPI\" / \"CI \", P = Enderperle, C = Eisenkern unten links): auf MC 26.3 sind die vier I Eisenstäbe (Besitzer 2026-10-02), auf 26.2 Eisenbarren; Rezeptkategorie \"equipment\". Die Item-Textur zeigt eine kleine Enderperle im Bogen.",
+            "Rezept (Werkbank, geformt \" I \" / \"IPI\" / \"CI \", P = Enderperle, C = Eisenkern unten links): auf MC 26.3 sind die vier I Eisenstangen (Besitzer 2026-10-02), auf 26.2 Eisenbarren; Rezeptkategorie \"equipment\". Die Item-Textur zeigt eine kleine Enderperle im Bogen.",
             "Das Rezept wird freigeschaltet, sobald man einen Eisenbarren im Inventar hat.",
             "Ladung: 1024 (die Haltbarkeit ist die Ladung); Verzauberbarkeit 15; jede erfolgreiche Drehung kostet 1 Ladung (RotatorItem.drain: Haltbarkeit/Unbreaking wirkt über EnchantmentHelper.processDurabilityChange, Kreativ kostet nichts). Der Rotator zerbricht nie - bei vollem Schaden bleibt er, ist leer (RotatorItem.isEmpty), zeigt item/rotator_empty (range_dispatch nach Schaden) und antwortet mit FAIL und einem Werfer-Fehlklick, statt zu drehen. Aufladen im Amboss (AnvilRechargeable, gemeinsam mit der Resonanzstab): Enderperlen, 0 Stufen, 64 Ladung je Perle, 16 Perlen = voll, verbraucht werden nur die nötigen. Die Kosten sind die Config-Option tools.rotatorChargePerTurn (Standard 1).",
             "Stapelgröße 1.",
@@ -41563,8 +41521,8 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A silent trap that slows like a cobweb and bites with sculk fangs.",
           "details": [
-            "Anything that wades into it is slowed much more than in a cobweb and gets Darkness. The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
-            "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and the teeth are only a fine dark hint. It snaps shut in a short motion and opens again just as visibly.",
+            "Anything that wades into it is slowed far more than in a cobweb and gets Darkness. The Darkness grows with the time spent inside: after t seconds it lasts 3 × (5/3)^(t − 2) seconds, at least 3 and at most 60 (out after 2 s: 3 s, after 3 s: 5 s, after 4 s: about 8 s). The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
+            "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and only the bone tips of the teeth along the seam give it away. It snaps shut in a short motion and opens again just as visibly.",
             "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
             "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
           ]
@@ -41572,8 +41530,8 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Eine lautlose Falle, die wie ein Spinnennetz bremst und mit Sculk-Fangzähnen zubeißt.",
           "details": [
-            "Wer hineingerät, wird viel stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit. Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
-            "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, die Zähne sind nur eine feine, dunkle Andeutung. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
+            "Wer hineingerät, wird weit stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit. Die Dunkelheit wächst mit der Verweildauer: nach t Sekunden hält sie 3 × (5/3)^(t − 2) Sekunden, mindestens 3 und höchstens 60 (nach 2 s raus: 3 s, nach 3 s: 5 s, nach 4 s: etwa 8 s). Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
+            "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, nur die Knochenspitzen der Zähne an der Naht verraten sie. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
             "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
             "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
           ]
@@ -45929,8 +45887,8 @@ window.WIKI_DATA = {
           "details": [
             "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
             "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), the best 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Up to 15 points the strength is 2 x points (15 bookshelves = 30), above that it climbs on to 40 at 30 points - so 15 blazewood bookshelves give 40, and every blazewood shelf in place of a bookshelf adds about two thirds of a strength. A 5x5 floor of Blazing Obsidian right under the table adds 10 once the shelves give 30 (15 bookshelves on the floor = 40). So 30 to 40 needs blazewood shelves OR the floor, and the maximum 50 needs both: 15 blazewood bookshelves plus the floor. Hover the strength in the screen: it shows what the next stage lacks.",
-            "The price is in XP levels. Each enchantment has a value at its maximum level: a base by its Vanilla anvil cost (1: 4, 2: 6, 4: 9, 8: 12) plus 2 per maximum level (Sharpness V 14, Looting III 15, Fire Aspect II 13, Unbreaking III 12); a slider level costs its share (Sharpness I 3, III 9). Combining is taxed: each further enchantment adds a quarter of the sum, and no price is above 50. So Sharpness V + Looting III costs 37, Sharpness V + Looting III + Fire Aspect II 50, three weak ones like Protection IV + Knockback II + Loyalty III 48.",
-            "The strength is the budget: you may spend as many levels as the strength (3 without any shelf); dearer slider levels are greyed out. Only at strength 50 can all three sliders stand at their maximum together. The top right of the screen shows price/budget in levels. Enchanting uses up the price in levels (you need them), one lapis lazuli per started 10 levels (blue dot in the button) and twice that in blaze powder (orange-red dot). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
+            "The price is in XP levels. Each enchantment has a value at its maximum level: a base by its Vanilla anvil cost (1: 4, 2: 6, 4: 9, 8: 12) plus 2 per maximum level (Sharpness V 14, Looting III 15, Fire Aspect II 13, Unbreaking III 12); a slider level costs its share (Sharpness I 3, III 9). Combining is taxed: each further enchantment adds a quarter of the sum, and no price is above 50 - when all of an offer together would cost more, prices are scaled down so every level less costs less and only the full choice costs 50. So Sharpness V + Looting III costs 32, Sharpness V + Looting III + Fire Aspect II 50, three weak ones like Protection IV + Knockback II + Loyalty III 48.",
+            "The strength is the budget: you may spend as many levels as the strength (3 without any shelf); dearer slider levels are greyed out. Only at strength 50 can all three sliders stand at their maximum together. The top right of the screen shows price/budget in levels. The price is the level you need; enchanting uses up only 1 level per started 10 of it (1-5, like Vanilla), and one lapis lazuli per started 10 levels (blue dot in the button) and twice that in blaze powder (orange-red dot). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
             "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
             "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
           ]
@@ -45940,8 +45898,8 @@ window.WIKI_DATA = {
           "details": [
             "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
             "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), die besten 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Bis 15 Punkte ist die Stärke 2 x Punkte (15 Bücherregale = 30), darüber steigt sie weiter bis 40 bei 30 Punkten - 15 Lohen-Regale geben also 40, und jedes Lohen-Regal statt eines Bücherregals bringt etwa zwei Drittel Stärke. Ein 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch gibt 10 dazu, sobald die Regale 30 ergeben (15 Bücherregale auf dem Boden = 40). 30 bis 40 braucht also Lohen-Regale ODER den Boden, das Maximum 50 braucht beides: 15 Lohen-Regale plus Boden. Im Bildschirm über der Stärke schweben zeigt, was für die nächste Stufe fehlt.",
-            "Der Preis wird in XP-Level gezahlt. Jede Verzauberung hat einen Wert auf Höchststufe: ein Grundwert nach den Vanilla-Amboss-Kosten (1: 4, 2: 6, 4: 9, 8: 12) plus 2 je Höchststufe (Schärfe V 14, Plünderung III 15, Verbrennung II 13, Haltbarkeit III 12); eine Reglerstufe kostet ihren Anteil (Schärfe I 3, III 9). Kombinieren kostet Steuer: jede weitere Verzauberung schlägt ein Viertel der Summe auf, und kein Preis liegt über 50. Schärfe V + Plünderung III kostet also 37, Schärfe V + Plünderung III + Verbrennung II 50, drei schwache wie Schutz IV + Rückstoß II + Treue III 48.",
-            "Die Stärke ist das Budget: man darf so viele Level ausgeben, wie die Stärke angibt (3 ganz ohne Regal); teurere Reglerstufen sind ausgegraut. Erst bei Stärke 50 stehen alle drei Regler zugleich auf dem Maximum. Oben rechts steht Preis/Budget in Level. Verzaubern verbraucht den Preis in Level (man muss sie haben), einen Lapislazuli je angefangene 10 Level (blauer Punkt im Knopf) und doppelt so viel Lohenstaub (orange-roter Punkt). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
+            "Der Preis wird in XP-Level gezahlt. Jede Verzauberung hat einen Wert auf Höchststufe: ein Grundwert nach den Vanilla-Amboss-Kosten (1: 4, 2: 6, 4: 9, 8: 12) plus 2 je Höchststufe (Schärfe V 14, Plünderung III 15, Verbrennung II 13, Haltbarkeit III 12); eine Reglerstufe kostet ihren Anteil (Schärfe I 3, III 9). Kombinieren kostet Steuer: jede weitere Verzauberung schlägt ein Viertel der Summe auf, und kein Preis liegt über 50 - wäre das ganze Angebot teurer, werden die Preise heruntergerechnet, sodass jede Stufe weniger weniger kostet und nur die volle Auswahl 50 kostet. Schärfe V + Plünderung III kostet also 32, Schärfe V + Plünderung III + Verbrennung II 50, drei schwache wie Schutz IV + Rückstoß II + Treue III 48.",
+            "Die Stärke ist das Budget: man darf so viele Level ausgeben, wie die Stärke angibt (3 ganz ohne Regal); teurere Reglerstufen sind ausgegraut. Erst bei Stärke 50 stehen alle drei Regler zugleich auf dem Maximum. Oben rechts steht Preis/Budget in Level. Der Preis ist die benötigte Stufe; Verzaubern verbraucht nur 1 Level je angefangene 10 davon (1-5, wie Vanilla), und einen Lapislazuli je angefangene 10 Level (blauer Punkt im Knopf) und doppelt so viel Lohenstaub (orange-roter Punkt). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
             "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
             "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
           ]
@@ -46079,9 +46037,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
-        "simplebuilding:astral_rail",
-        "simplebuilding:astralit_lamp",
-        "simplebuilding:astralit_switch"
+        "simplebuilding:astral_rail"
       ],
       "trades": [],
       "icon": "assets/textures/render/block/astral_redstone.png",
@@ -46115,29 +46071,33 @@ window.WIKI_DATA = {
       },
       "note": {
         "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone.json"
         ],
         "en": {
-          "title": "Isolated End Signals",
-          "summary": "Astral Redstone: craft 2 from Astralit Dust and redstone; carries only the Astralit channel. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+          "title": "Astral, Nihil and Bridge Redstone",
+          "summary": "Astral Redstone: craft 2 from Astralit Dust and redstone; the Astral redstone line. Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+            "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
         "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Astral-Redstone: Aus Astralitstaub und Redstone entstehen 2 Stück; leitet nur den Astralit-Kanal. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "title": "Astral-, Nihil- und Brücken-Redstone",
+          "summary": "Astral-Redstone: Aus Astralitstaub und Redstone entstehen 2 Stück; die Astral-Redstone-Linie. Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+            "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -46421,53 +46381,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:astralit_lamp",
-      "name": {
-        "en_us": "Astralit Signal Lamp",
-        "de_de": "Astralit-Signallampe"
-      },
-      "texture": "assets/textures/block/astralit_lamp.png",
-      "craftedBy": [
-        "simplebuilding:astralit_lamp"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/astralit_lamp.png",
-      "lootTable": "simplebuilding:blocks/astralit_lamp",
-      "drops": [
-        "simplebuilding:astralit_lamp"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_lamp.json"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Astralit Signal Lamp: a redstone lamp plus Astralit channel redstone makes this channel's receiving lamp. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Astralit-Signallampe: Eine Redstone-Lampe und Redstone des Astralit-Kanals ergeben dessen Empfängerlampe. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:astralit_ore",
       "name": {
         "en_us": "Astralit Ore",
@@ -46671,53 +46584,6 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:astralit_switch",
-      "name": {
-        "en_us": "Astralit Signal Switch",
-        "de_de": "Astralit-Signalschalter"
-      },
-      "texture": "assets/textures/block/astralit_switch.png",
-      "craftedBy": [
-        "simplebuilding:astralit_switch"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/astralit_switch.png",
-      "lootTable": "simplebuilding:blocks/astralit_switch",
-      "drops": [
-        "simplebuilding:astralit_switch"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_switch.json"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Astralit Signal Switch: a lever plus Astralit channel redstone makes this channel's switch. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Astralit-Signalschalter: Ein Hebel und Redstone des Astralit-Kanals ergeben dessen Schalter. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:auto_smither",
@@ -48387,6 +48253,57 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:bridge_redstone",
+      "name": {
+        "en_us": "Bridge Redstone",
+        "de_de": "Brücken-Redstone"
+      },
+      "texture": "assets/textures/item/bridge_redstone.png",
+      "craftedBy": [
+        "simplebuilding:bridge_redstone"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/bridge_redstone.png",
+      "lootTable": "simplebuilding:blocks/bridge_redstone",
+      "drops": [
+        "simplebuilding:bridge_redstone"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/bridge_redstone.json"
+        ],
+        "en": {
+          "title": "Astral, Nihil and Bridge Redstone",
+          "summary": "Bridge Redstone: craft 3 from Astralit Dust, a Nihilit Shard and redstone; links all three redstone lines. Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+            "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astral-, Nihil- und Brücken-Redstone",
+          "summary": "Brücken-Redstone: Aus Astralitstaub, einem Nihilitsplitter und Redstone entstehen 3 Stück; verbindet alle drei Redstone-Linien. Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+            "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:brown_concrete_octet",
       "name": {
         "en_us": "Brown Concrete Octet Cell",
@@ -50028,6 +49945,43 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:copper_fire",
+      "name": {
+        "en_us": "Copper Fire",
+        "de_de": "Kupferfeuer"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/copper_fire.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A green flame that burns on copper and nothing else."
+          ],
+          "use": [
+            "Lit by flint and steel, a fire charge or igniting lava on a copper block. It exists only on its base block, never spreads, burns nothing and deals 1.5 damage at light level 12."
+          ],
+          "secret": [
+            "Unlike sulfur fire it gives no effect. Both count as fire in the fire tag and drop nothing."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine grüne Flamme, die auf Kupfer brennt und sonst nirgends."
+          ],
+          "use": [
+            "Entzündet durch Feuerzeug, Feuerkugel oder zündende Lava auf einem Kupferblock. Sie gibt es nur auf ihrem Grundblock, sie breitet sich nie aus, verbrennt nichts und richtet 1,5 Schaden an, bei Lichtstärke 12."
+          ],
+          "secret": [
+            "Anders als Schwefelfeuer gibt sie keinen Effekt. Beide zählen im Feuer-Tag als Feuer und hinterlassen nichts."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:copper_pressure_plate",
       "name": {
         "en_us": "Copper Pressure Plate",
@@ -51193,6 +51147,75 @@ window.WIKI_DATA = {
             "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py)."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:diamond_pole",
+      "name": {
+        "en_us": "Diamond Pole",
+        "de_de": "Diamantstange"
+      },
+      "texture": "assets/textures/block/diamond_pole.png",
+      "craftedBy": [
+        "simplebuilding:diamond_pole"
+      ],
+      "usedIn": [
+        "simplebuilding:diamond_from_diamond_pole",
+        "simplebuilding:netherite_pole_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/diamond_pole.png",
+      "lootTable": "simplebuilding:blocks/diamond_pole",
+      "drops": [
+        "simplebuilding:diamond_pole"
+      ],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole of diamond, too precious to stand in a storm - which is exactly where it wants to be."
+          ],
+          "use": [
+            "Three diamonds stacked give one diamond pole, a lightning rod of diamond (80 blocks); in the crafting grid it gives the three diamonds back. At the smithing table it becomes the Netherite Pole."
+          ],
+          "secret": [
+            "Do not confuse it with the Diamond Rod: that one is made from two diamonds and is an arrow shaft."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange aus Diamant, zu kostbar für ein Gewitter - und genau dort will sie stehen."
+          ],
+          "use": [
+            "Drei Diamanten übereinander ergeben eine Diamantstange, einen Blitzableiter aus Diamant (80 Blöcke); im Handwerksfeld gibt sie die drei Diamanten zurück. Am Schmiedetisch wird sie zur Netheritstange."
+          ],
+          "secret": [
+            "Nicht verwechseln mit dem Diamantstab: der entsteht aus zwei Diamanten und ist ein Pfeilschaft."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of diamond (MC 26.3, owner N41): three diamonds stacked give one Diamond Pole.",
+          "details": [
+            "It works like the Iron and Gold Pole - placed on any face, a redstone signal when lightning strikes it, no oxidizing - and attracts lightning within 80 blocks (iron: 32, gold: 64, netherite: 96, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles reach the strike, the nearest one wins.",
+            "One Diamond Pole in the crafting grid gives the three diamonds back. Needs an iron pickaxe or better. At the smithing table it becomes the Netherite Pole.",
+            "Not to be confused with the Diamond Rod (two diamonds, an arrow shaft)."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Diamant (MC 26.3, Besitzer N41): drei Diamanten übereinander ergeben eine Diamantstange.",
+          "details": [
+            "Sie arbeitet wie Eisen- und Goldstange - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht - und zieht Blitze im Umkreis von 80 Blöcken an (Eisen: 32, Gold: 64, Netherit: 96, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
+            "Eine Diamantstange im Handwerksfeld gibt die drei Diamanten zurück. Braucht mindestens eine Eisenspitzhacke. Am Schmiedetisch wird sie zur Netheritstange.",
+            "Nicht zu verwechseln mit dem Diamantstab (zwei Diamanten, ein Pfeilschaft)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -53347,6 +53370,73 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_pole",
+      "name": {
+        "en_us": "Enderite Pole",
+        "de_de": "Enderitstange"
+      },
+      "texture": "assets/textures/block/enderite_pole.png",
+      "craftedBy": [
+        "simplebuilding:enderite_pole_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_pole.png",
+      "lootTable": "simplebuilding:blocks/enderite_pole",
+      "drops": [
+        "simplebuilding:enderite_pole"
+      ],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole that remembers the sky and draws lightning like a promise."
+          ],
+          "use": [
+            "Smithing table: Enderite Upgrade, Netherite Pole and Enderite Ingot give the Enderite Pole, a lightning rod made of enderite (128 blocks)."
+          ],
+          "secret": [
+            "Being enderite, it is fire resistant, floats on lava and is safe from the void if it is dropped."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange, die sich an den Himmel erinnert und Blitze zieht wie ein Versprechen."
+          ],
+          "use": [
+            "Schmiedetisch: Enderit-Aufwertung, Netheritstange und Enderitbarren ergeben die Enderitstange, einen Blitzableiter aus Enderit (128 Blöcke)."
+          ],
+          "secret": [
+            "Als Enderitgegenstand ist sie feuerfest, schwimmt auf Lava und ist beim Fallenlassen vor der Leere sicher."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of enderite (MC 26.3): smithing table, Enderite Upgrade + Netherite Pole + Enderite Ingot give the Enderite Pole.",
+          "details": [
+            "It works like the other metal poles and reaches as far as the copper lightning rod: it attracts lightning within 128 blocks, as the top block of its column, and only when no copper lightning rod is in range (copper still goes first). If several metal poles reach the strike, the nearest one wins.",
+            "The item is fire resistant and, like every enderite item, protected from the void. No way back, and no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the enderite block.",
+            "Formerly the Enderite Rod (renamed in October 2026): old items and placed blocks load as the pole."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Enderit (MC 26.3): Schmiedetisch, Enderit-Aufwertung + Netheritstange + Enderitbarren ergeben die Enderitstange.",
+          "details": [
+            "Sie arbeitet wie die anderen Metallstangen und reicht so weit wie der Kupfer-Blitzableiter: sie zieht Blitze im Umkreis von 128 Blöcken an, als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist (Kupfer geht weiter vor). Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
+            "Das Item ist feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg und kein Pfeilschaft (seit 2026-10-03). Braucht wie der Enderitblock mindestens eine Diamantspitzhacke.",
+            "Früher Enderitstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_pressure_plate",
       "name": {
         "en_us": "Enderite Pressure Plate",
@@ -53420,71 +53510,6 @@ window.WIKI_DATA = {
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_rod",
-      "name": {
-        "en_us": "Enderite Rod",
-        "de_de": "Enderitstab"
-      },
-      "texture": "assets/textures/block/enderite_rod.png",
-      "craftedBy": [
-        "simplebuilding:enderite_rod_smithing"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_rod.png",
-      "lootTable": "simplebuilding:blocks/enderite_rod",
-      "drops": [
-        "simplebuilding:enderite_rod"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A rod that remembers the sky and draws lightning like a promise."
-          ],
-          "use": [
-            "Smithing table: Enderite Upgrade, Netherite Rod and Enderite Ingot give the Enderite Rod, a lightning rod made of enderite."
-          ],
-          "secret": [
-            "Being enderite, it is fire resistant, floats on lava and is safe from the void if it is dropped."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Stange, die sich an den Himmel erinnert und Blitze zieht wie ein Versprechen."
-          ],
-          "use": [
-            "Schmiedetisch: Enderit-Aufwertung, Netheritstange und Enderitbarren ergeben die Enderitstange, einen Blitzableiter aus Enderit."
-          ],
-          "secret": [
-            "Als Enderitgegenstand ist sie feuerfest, schwimmt auf Lava und ist beim Fallenlassen vor der Leere sicher."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "A lightning rod made of enderite (MC 26.3): smithing table, Enderite Upgrade + Netherite Rod + Enderite Ingot give the Enderite Rod.",
-          "details": [
-            "It works like the other metal rods and reaches as far as the copper lightning rod: it attracts lightning within 128 blocks, as the top block of its column, and only when no copper lightning rod is in range (copper still goes first). If several metal rods reach the strike, the nearest one wins.",
-            "The item is fire resistant and, like every enderite item, protected from the void. No way back, and no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the enderite block."
-          ]
-        },
-        "de": {
-          "summary": "Ein Blitzableiter aus Enderit (MC 26.3): Schmiedetisch, Enderit-Aufwertung + Netheritstab + Enderitbarren ergeben den Enderitstab.",
-          "details": [
-            "Er arbeitet wie die anderen Metallstäbe und reicht so weit wie der Kupfer-Blitzableiter: er zieht Blitze im Umkreis von 128 Blöcken an, als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist (Kupfer geht weiter vor). Erreichen mehrere Metallstäbe den Einschlag, gewinnt der nächste.",
-            "Das Item ist feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg und kein Pfeilschaft (seit 2026-10-03). Braucht wie der Enderitblock mindestens eine Diamantspitzhacke."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
-          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -54318,34 +54343,34 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:gold_rod",
+      "id": "simplebuilding:gold_pole",
       "name": {
-        "en_us": "Gold Rod",
-        "de_de": "Goldstab"
+        "en_us": "Gold Pole",
+        "de_de": "Goldstange"
       },
-      "texture": "assets/textures/block/gold_rod.png",
+      "texture": "assets/textures/block/gold_pole.png",
       "craftedBy": [
-        "simplebuilding:gold_rod"
+        "simplebuilding:gold_pole"
       ],
       "usedIn": [
-        "simplebuilding:gold_ingot_from_gold_rod"
+        "simplebuilding:gold_ingot_from_gold_pole"
       ],
       "trades": [],
-      "icon": "assets/textures/render/gold_rod.png",
-      "lootTable": "simplebuilding:blocks/gold_rod",
+      "icon": "assets/textures/render/gold_pole.png",
+      "lootTable": "simplebuilding:blocks/gold_pole",
       "drops": [
-        "simplebuilding:gold_rod"
+        "simplebuilding:gold_pole"
       ],
       "questionary": {
         "en": {
           "lore": [
-            "A rod of gold: too soft for work, too shining to hide."
+            "A pole of gold: too soft for work, too shining to hide."
           ],
           "use": [
-            "Three gold ingots stacked give one gold rod, a lightning rod of gold."
+            "Three gold ingots stacked give one gold pole, a lightning rod of gold (64 blocks)."
           ],
           "secret": [
-            "Rods in this mod come in tiers: iron and gold from ingots, diamond from diamonds, then Netherite and Enderite from the smithing table."
+            "Poles in this mod come in tiers: iron and gold from ingots, diamond from diamonds, then Netherite and Enderite from the smithing table."
           ]
         },
         "de": {
@@ -54353,7 +54378,7 @@ window.WIKI_DATA = {
             "Eine Stange aus Gold: zu weich zum Arbeiten, zu glänzend zum Verstecken."
           ],
           "use": [
-            "Drei Goldbarren übereinander ergeben eine Goldstange, einen Blitzableiter aus Gold."
+            "Drei Goldbarren übereinander ergeben eine Goldstange, einen Blitzableiter aus Gold (64 Blöcke)."
           ],
           "secret": [
             "Stangen gibt es in diesem Mod in Stufen: Eisen und Gold aus Barren, Diamant aus Diamanten, dann Netherit und Enderit vom Schmiedetisch."
@@ -54362,17 +54387,19 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A lightning rod made of gold (MC 26.3): three gold ingots stacked give one Gold Rod.",
+          "summary": "A lightning rod made of gold (MC 26.3): three gold ingots stacked give one Gold Pole.",
           "details": [
-            "It works like the Iron Rod - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods (iron, gold, netherite, enderite) reach the strike, the nearest one wins.",
-            "One Gold Rod in the crafting grid gives the three gold ingots back. Needs an iron pickaxe or better, like the gold block."
+            "It works like the Iron Pole - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles (iron, gold, diamond, netherite, enderite) reach the strike, the nearest one wins.",
+            "One Gold Pole in the crafting grid gives the three gold ingots back. Needs an iron pickaxe or better, like the gold block.",
+            "Formerly the Gold Rod (renamed in October 2026): old items and placed blocks load as the pole."
           ]
         },
         "de": {
-          "summary": "Ein Blitzableiter aus Gold (MC 26.3): drei Goldbarren übereinander ergeben einen Goldstab.",
+          "summary": "Ein Blitzableiter aus Gold (MC 26.3): drei Goldbarren übereinander ergeben eine Goldstange.",
           "details": [
-            "Er arbeitet wie der Eisenstab - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: er zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe (Eisen, Gold, Netherit, Enderit) den Einschlag, gewinnt der nächste.",
-            "Ein Goldstab im Handwerksfeld gibt die drei Goldbarren zurück. Braucht wie der Goldblock mindestens eine Eisenspitzhacke."
+            "Sie arbeitet wie die Eisenstange - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: sie zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen (Eisen, Gold, Diamant, Netherit, Enderit) den Einschlag, gewinnt die nächste.",
+            "Eine Goldstange im Handwerksfeld gibt die drei Goldbarren zurück. Braucht wie der Goldblock mindestens eine Eisenspitzhacke.",
+            "Früher Goldstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
           ]
         },
         "sources": [
@@ -56282,37 +56309,37 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:iron_rod",
+      "id": "simplebuilding:iron_pole",
       "name": {
-        "en_us": "Iron Rod",
-        "de_de": "Eisenstab"
+        "en_us": "Iron Pole",
+        "de_de": "Eisenstange"
       },
-      "texture": "assets/textures/block/iron_rod.png",
+      "texture": "assets/textures/block/iron_pole.png",
       "craftedBy": [
-        "simplebuilding:iron_rod"
+        "simplebuilding:iron_pole"
       ],
       "usedIn": [
         "simplebuilding:amethyst_lens",
-        "simplebuilding:iron_ingot_from_iron_rod",
+        "simplebuilding:iron_ingot_from_iron_pole",
         "simplebuilding:magnet",
         "simplebuilding:rotator"
       ],
       "trades": [],
-      "icon": "assets/textures/render/iron_rod.png",
-      "lootTable": "simplebuilding:blocks/iron_rod",
+      "icon": "assets/textures/render/iron_pole.png",
+      "lootTable": "simplebuilding:blocks/iron_pole",
       "drops": [
-        "simplebuilding:iron_rod"
+        "simplebuilding:iron_pole"
       ],
       "questionary": {
         "en": {
           "lore": [
-            "A rod of iron, thin, straight, and eager to be struck by something."
+            "A pole of iron, thin, straight, and eager to be struck by something."
           ],
           "use": [
-            "Three iron ingots stacked give one iron rod, a lightning rod of iron. Part of the Attractor recipe."
+            "Three iron ingots stacked give one iron pole, a lightning rod of iron that attracts lightning within 32 blocks. Part of the Attractor recipe."
           ],
           "secret": [
-            "The Attractor is built around an iron core, an iron rod, redstone and lapis."
+            "The Attractor is built around an iron core, an iron pole, redstone and lapis."
           ]
         },
         "de": {
@@ -56320,7 +56347,7 @@ window.WIKI_DATA = {
             "Eine Stange aus Eisen, dünn, gerade und begierig, von etwas getroffen zu werden."
           ],
           "use": [
-            "Drei Eisenbarren übereinander ergeben eine Eisenstange, einen Blitzableiter aus Eisen. Teil des Attraktor-Rezepts."
+            "Drei Eisenbarren übereinander ergeben eine Eisenstange, einen Blitzableiter aus Eisen, der Blitze im Umkreis von 32 Blöcken anzieht. Teil des Attraktor-Rezepts."
           ],
           "secret": [
             "Der Attraktor ist um einen Eisenkern, eine Eisenstange, Redstone und Lapis gebaut."
@@ -56329,19 +56356,21 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
+          "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Pole.",
           "details": [
-            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods (iron, gold, netherite, enderite) reach the strike, the nearest one wins.",
-            "One Iron Rod in the crafting grid gives the three iron ingots back.",
-            "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better."
+            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles (iron, gold, diamond, netherite, enderite) reach the strike, the nearest one wins.",
+            "One Iron Pole in the crafting grid gives the three iron ingots back.",
+            "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better.",
+            "Formerly the Iron Rod (renamed in October 2026): old items and placed blocks load as the pole."
           ]
         },
         "de": {
-          "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben einen Eisenstab.",
+          "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben eine Eisenstange.",
           "details": [
-            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe (Eisen, Gold, Netherit, Enderit) den Einschlag, gewinnt der nächste.",
-            "Ein Eisenstab im Handwerksfeld gibt die drei Eisenbarren zurück.",
-            "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke."
+            "Sie sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen (Eisen, Gold, Diamant, Netherit, Enderit) den Einschlag, gewinnt die nächste.",
+            "Eine Eisenstange im Handwerksfeld gibt die drei Eisenbarren zurück.",
+            "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke.",
+            "Früher Eisenstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
           ]
         },
         "sources": [
@@ -56406,9 +56435,9 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
-            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
-            "Chain: a Note Amplifier touching the note block, or touching one already in the chain, passes the sound on; a Jukebox Amplifier works like a radio repeater: it picks up a playing jukebox or an amplifier already in the chain within 16 blocks, no matter what lies between, and shows the jukebox's music notes while it plays (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind; a gap ends a note chain, more than 16 blocks a jukebox chain). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
-            "A jukebox counts its amplifiers when a song starts, a note block on every note."
+            "It does not make the jukebox louder or carry it farther - the jukebox stays vanilla; the amplifier only plays along (see the chain below). The Note Amplifier does nothing at a jukebox.",
+            "Jukebox Amplifiers leave the jukebox exactly vanilla and play along instead: an amplifier within 63 blocks of a playing jukebox, no matter what lies between, plays the same song without delay and shows its music notes; an amplifier within 63 blocks of one already playing passes it on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only Jukebox Amplifiers). Each player hears the song once, from the nearest playback point (the jukebox or an amplifier), with vanilla volume and falloff (64 blocks). Note Amplifiers chain by touching: one touching the note block, or touching one already in the chain, passes the note on (a gap ends the chain); each player hears the note once at the amplified level inside the existing range of the nearest point, without distance or chain loss, and outside that range it is silent. Player sound settings still apply.",
+            "A note block counts its amplifiers on every note; a playing jukebox looks for amplifiers when the song starts and again every half second."
           ]
         },
         "de": {
@@ -56416,13 +56445,13 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
-            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
-            "Kette: ein Noten-Verstärker am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter; ein Musik-Verstärker arbeitet wie ein Funk-Repeater: er empfängt einen spielenden Plattenspieler oder einen Verstärker der Kette in bis zu 16 Blöcken Entfernung, egal was dazwischen liegt, und zeigt beim Spielen die Musiknoten des Plattenspielers (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte; eine Lücke beendet eine Noten-Kette, mehr als 16 Blöcke eine Plattenspieler-Kette). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
-            "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
+            "Er macht den Plattenspieler weder lauter noch weiter hörbar - der Plattenspieler bleibt Vanilla; der Verstärker spielt nur mit (siehe Kette unten). Der Noten-Verstärker wirkt am Plattenspieler nicht.",
+            "Musik-Verstärker lassen den Plattenspieler exakt wie in Vanilla und spielen stattdessen mit: ein Verstärker bis 63 Blöcke um einen spielenden Plattenspieler, egal was dazwischen liegt, spielt dasselbe Stück ohne Verzögerung und zeigt dessen Musiknoten; ein Verstärker bis 63 Blöcke um einen, der schon mitspielt, gibt es weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur Musik-Verstärker). Jeder Spieler hört das Stück einmal, vom nächsten Abspielpunkt (Plattenspieler oder Verstärker), mit Vanilla-Lautstärke und -Abschwächung (64 Blöcke). Noten-Verstärker bilden eine Kette durch Berührung: einer am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter (eine Lücke beendet die Kette); jeder Spieler hört den Ton einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust, außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+            "Ein Notenblock zählt seine Verstärker bei jeder Note; ein spielender Plattenspieler sucht Verstärker beim Start des Stücks und danach jede halbe Sekunde."
           ]
         }
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:jungle_cauldron",
@@ -59784,6 +59813,77 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:netherite_pole",
+      "name": {
+        "en_us": "Netherite Pole",
+        "de_de": "Netheritstange"
+      },
+      "texture": "assets/textures/block/netherite_pole.png",
+      "craftedBy": [
+        "simplebuilding:netherite_pole_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_pole_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_pole.png",
+      "lootTable": "simplebuilding:blocks/netherite_pole",
+      "drops": [
+        "simplebuilding:netherite_pole"
+      ],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pole that has stood in the fire and does not mind the next one."
+          ],
+          "use": [
+            "Smithing table: Netherite Upgrade, Diamond Pole and Netherite Ingot give the Netherite Pole, a lightning rod made of netherite (96 blocks)."
+          ],
+          "secret": [
+            "It is the base for the Enderite Pole, one tier up."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange, die im Feuer stand und das nächste nicht scheut."
+          ],
+          "use": [
+            "Schmiedetisch: Netherit-Aufwertung, Diamantstange und Netheritbarren ergeben die Netheritstange, einen Blitzableiter aus Netherit (96 Blöcke)."
+          ],
+          "secret": [
+            "Sie ist die Grundlage der Enderitstange eine Stufe höher."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of netherite (MC 26.3): smithing table, Netherite Upgrade + Diamond Pole + Netherite Ingot give the Netherite Pole.",
+          "details": [
+            "It works like the other metal poles - placed on any face (also in water), a redstone signal when lightning strikes it, no oxidizing - and reaches further: it attracts lightning within 96 blocks (iron: 32, gold: 64, diamond: 80, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal poles reach the strike, the nearest one wins.",
+            "Like netherite items the item does not burn. There is no way back to the Diamond Pole, and it is no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the netherite block.",
+            "At the smithing table it becomes the Enderite Pole.",
+            "Formerly the Netherite Rod (renamed in October 2026): old items and placed blocks load as the pole."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Netherit (MC 26.3): Schmiedetisch, Netherit-Aufwertung + Diamantstange + Netheritbarren ergeben die Netheritstange.",
+          "details": [
+            "Sie arbeitet wie die anderen Metallstangen - an jede Seite setzbar (auch im Wasser), Redstone-Signal beim Einschlag, oxidiert nicht - und reicht weiter: sie zieht Blitze im Umkreis von 96 Blöcken an (Eisen: 32, Gold: 64, Diamant: 80, Kupfer: 128), als oberster Block ihrer Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstangen den Einschlag, gewinnt die nächste.",
+            "Wie Netherit-Items verbrennt das Item nicht. Es gibt keinen Rückweg zur Diamantstange, und sie ist kein Pfeilschaft (seit 2026-10-03). Braucht wie der Netheritblock mindestens eine Diamantspitzhacke.",
+            "Am Schmiedetisch wird sie zur Enderitstange.",
+            "Früher Netheritstab (umbenannt im Oktober 2026): alte Items und gesetzte Blöcke laden als Stange."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:netherite_pressure_plate",
       "name": {
         "en_us": "Netherite Pressure Plate",
@@ -59857,75 +59957,6 @@ window.WIKI_DATA = {
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:netherite_rod",
-      "name": {
-        "en_us": "Netherite Rod",
-        "de_de": "Netheritstab"
-      },
-      "texture": "assets/textures/block/netherite_rod.png",
-      "craftedBy": [
-        "simplebuilding:netherite_rod_smithing"
-      ],
-      "usedIn": [
-        "simplebuilding:enderite_rod_smithing"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_rod.png",
-      "lootTable": "simplebuilding:blocks/netherite_rod",
-      "drops": [
-        "simplebuilding:netherite_rod"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A rod that has stood in the fire and does not mind the next one."
-          ],
-          "use": [
-            "Smithing table: Netherite Upgrade, Diamond Rod and Netherite Ingot give the Netherite Rod, a lightning rod made of netherite."
-          ],
-          "secret": [
-            "It is the base for the Enderite Rod, one tier up."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Stange, die im Feuer stand und das nächste nicht scheut."
-          ],
-          "use": [
-            "Schmiedetisch: Netherit-Aufwertung, Diamantstange und Netheritbarren ergeben die Netheritstange, einen Blitzableiter aus Netherit."
-          ],
-          "secret": [
-            "Sie ist die Grundlage der Enderitstange eine Stufe höher."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "A lightning rod made of netherite (MC 26.3): smithing table, Netherite Upgrade + Diamond Rod + Netherite Ingot give the Netherite Rod.",
-          "details": [
-            "It works like the Iron and Gold Rod - placed on any face (also in water), a redstone signal when lightning strikes it, no oxidizing - and reaches further: it attracts lightning within 96 blocks (iron: 32, gold: 64, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods reach the strike, the nearest one wins.",
-            "Like netherite items the item does not burn. There is no way back to the Diamond Rod, and it is no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the netherite block.",
-            "At the smithing table it becomes the Enderite Rod."
-          ]
-        },
-        "de": {
-          "summary": "Ein Blitzableiter aus Netherit (MC 26.3): Schmiedetisch, Netherit-Aufwertung + Diamantstab + Netheritbarren ergeben den Netheritstab.",
-          "details": [
-            "Er arbeitet wie Eisen- und Goldstab - an jede Seite setzbar (auch im Wasser), Redstone-Signal beim Einschlag, oxidiert nicht - und reicht weiter: er zieht Blitze im Umkreis von 96 Blöcken an (Eisen: 32, Gold: 64, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe den Einschlag, gewinnt der nächste.",
-            "Wie Netherit-Items verbrennt das Item nicht. Es gibt keinen Rückweg zum Diamantstab, und er ist kein Pfeilschaft (seit 2026-10-03). Braucht wie der Netheritblock mindestens eine Diamantspitzhacke.",
-            "Am Schmiedetisch wird er zum Enderitstab."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
-          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -60381,9 +60412,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
-        "simplebuilding:nihil_rail",
-        "simplebuilding:nihilith_lamp",
-        "simplebuilding:nihilith_switch"
+        "simplebuilding:nihil_rail"
       ],
       "trades": [],
       "icon": "assets/textures/render/block/nihil_redstone.png",
@@ -60417,29 +60446,33 @@ window.WIKI_DATA = {
       },
       "note": {
         "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone.json"
         ],
         "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihil Redstone: craft 2 from a Nihilit Shard and redstone; carries only the Nihilit channel. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+          "title": "Astral, Nihil and Bridge Redstone",
+          "summary": "Nihil Redstone: craft 2 from a Nihilit Shard and redstone; the Nihil redstone line. Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
+            "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
+            "The former Astralit and Nihilit Signal Switches and Signal Lamps are gone: placed or carried ones become a lever or a redstone lamp.",
+            "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
         "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihil-Redstone: Aus einem Nihilitsplitter und Redstone entstehen 2 Stück; leitet nur den Nihilit-Kanal. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "title": "Astral-, Nihil- und Brücken-Redstone",
+          "summary": "Nihil-Redstone: Aus einem Nihilitsplitter und Redstone entstehen 2 Stück; die Nihil-Redstone-Linie. Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
+            "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
+            "Die früheren Astralit- und Nihilit-Signalschalter und -Signallampen entfallen: gesetzte oder getragene werden zu Hebel bzw. Redstone-Lampe.",
+            "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -60722,53 +60755,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:nihilith_lamp",
-      "name": {
-        "en_us": "Nihilit Signal Lamp",
-        "de_de": "Nihilit-Signallampe"
-      },
-      "texture": "assets/textures/block/nihilith_lamp.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_lamp"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/nihilith_lamp.png",
-      "lootTable": "simplebuilding:blocks/nihilith_lamp",
-      "drops": [
-        "simplebuilding:nihilith_lamp"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_lamp.json"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihilit Signal Lamp: a redstone lamp plus Nihilit channel redstone makes this channel's receiving lamp. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihilit-Signallampe: Eine Redstone-Lampe und Redstone des Nihilit-Kanals ergeben dessen Empfängerlampe. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:nihilith_ore",
       "name": {
         "en_us": "Nihilit Ore",
@@ -60974,53 +60960,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:nihilith_switch",
-      "name": {
-        "en_us": "Nihilit Signal Switch",
-        "de_de": "Nihilit-Signalschalter"
-      },
-      "texture": "assets/textures/block/nihilith_switch.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_switch"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/nihilith_switch.png",
-      "lootTable": "simplebuilding:blocks/nihilith_switch",
-      "drops": [
-        "simplebuilding:nihilith_switch"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-          "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_switch.json"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihilit Signal Switch: a lever plus Nihilit channel redstone makes this channel's switch. Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihilit-Signalschalter: Ein Hebel und Redstone des Nihilit-Kanals ergeben dessen Schalter. Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:note_amplifier",
       "name": {
         "en_us": "Note Amplifier",
@@ -61075,8 +61014,8 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
             "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
-            "Chain: a Note Amplifier touching the note block, or touching one already in the chain, passes the sound on; a Jukebox Amplifier works like a radio repeater: it picks up a playing jukebox or an amplifier already in the chain within 16 blocks, no matter what lies between, and shows the jukebox's music notes while it plays (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind; a gap ends a note chain, more than 16 blocks a jukebox chain). Every amplifier is another playback point. Each player hears the sound once at the amplified level inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
-            "A jukebox counts its amplifiers when a song starts, a note block on every note."
+            "Jukebox Amplifiers leave the jukebox exactly vanilla and play along instead: an amplifier within 63 blocks of a playing jukebox, no matter what lies between, plays the same song without delay and shows its music notes; an amplifier within 63 blocks of one already playing passes it on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only Jukebox Amplifiers). Each player hears the song once, from the nearest playback point (the jukebox or an amplifier), with vanilla volume and falloff (64 blocks). Note Amplifiers chain by touching: one touching the note block, or touching one already in the chain, passes the note on (a gap ends the chain); each player hears the note once at the amplified level inside the existing range of the nearest point, without distance or chain loss, and outside that range it is silent. Player sound settings still apply.",
+            "A note block counts its amplifiers on every note; a playing jukebox looks for amplifiers when the song starts and again every half second."
           ]
         },
         "de": {
@@ -61085,12 +61024,12 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
             "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
-            "Kette: ein Noten-Verstärker am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter; ein Musik-Verstärker arbeitet wie ein Funk-Repeater: er empfängt einen spielenden Plattenspieler oder einen Verstärker der Kette in bis zu 16 Blöcken Entfernung, egal was dazwischen liegt, und zeigt beim Spielen die Musiknoten des Plattenspielers (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte; eine Lücke beendet eine Noten-Kette, mehr als 16 Blöcke eine Plattenspieler-Kette). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
-            "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
+            "Musik-Verstärker lassen den Plattenspieler exakt wie in Vanilla und spielen stattdessen mit: ein Verstärker bis 63 Blöcke um einen spielenden Plattenspieler, egal was dazwischen liegt, spielt dasselbe Stück ohne Verzögerung und zeigt dessen Musiknoten; ein Verstärker bis 63 Blöcke um einen, der schon mitspielt, gibt es weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur Musik-Verstärker). Jeder Spieler hört das Stück einmal, vom nächsten Abspielpunkt (Plattenspieler oder Verstärker), mit Vanilla-Lautstärke und -Abschwächung (64 Blöcke). Noten-Verstärker bilden eine Kette durch Berührung: einer am Notenblock oder an einem Verstärker der Kette gibt den Ton weiter (eine Lücke beendet die Kette); jeder Spieler hört den Ton einmal mit dem verstärkten Pegel innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust, außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
+            "Ein Notenblock zählt seine Verstärker bei jeder Note; ein spielender Plattenspieler sucht Verstärker beim Start des Stücks und danach jede halbe Sekunde."
           ]
         }
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:oak_cauldron",
@@ -67046,8 +66985,8 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A silent trap that slows like a cobweb and bites with sculk fangs.",
           "details": [
-            "Anything that wades into it is slowed much more than in a cobweb and gets Darkness. The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
-            "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and the teeth are only a fine dark hint. It snaps shut in a short motion and opens again just as visibly.",
+            "Anything that wades into it is slowed far more than in a cobweb and gets Darkness. The Darkness grows with the time spent inside: after t seconds it lasts 3 × (5/3)^(t − 2) seconds, at least 3 and at most 60 (out after 2 s: 3 s, after 3 s: 5 s, after 4 s: about 8 s). The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
+            "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and only the bone tips of the teeth along the seam give it away. It snaps shut in a short motion and opens again just as visibly.",
             "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
             "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
           ]
@@ -67055,8 +66994,8 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Eine lautlose Falle, die wie ein Spinnennetz bremst und mit Sculk-Fangzähnen zubeißt.",
           "details": [
-            "Wer hineingerät, wird viel stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit. Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
-            "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, die Zähne sind nur eine feine, dunkle Andeutung. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
+            "Wer hineingerät, wird weit stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit. Die Dunkelheit wächst mit der Verweildauer: nach t Sekunden hält sie 3 × (5/3)^(t − 2) Sekunden, mindestens 3 und höchstens 60 (nach 2 s raus: 3 s, nach 3 s: 5 s, nach 4 s: etwa 8 s). Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
+            "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, nur die Knochenspitzen der Zähne an der Naht verraten sie. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
             "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
             "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
           ]
@@ -69459,6 +69398,43 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:sulfur_fire",
+      "name": {
+        "en_us": "Sulfur Fire",
+        "de_de": "Schwefelfeuer"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/sulfur_fire.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A yellow-green flame that stinks of the deep caves."
+          ],
+          "use": [
+            "Lit on sulfur blocks, polished sulfur, sulfur bricks and chiseled sulfur by flint and steel, a fire charge or igniting lava. It stays on its base block, never spreads, and deals 1.5 damage at light level 12."
+          ],
+          "secret": [
+            "Standing in it gives nausea for 10 seconds, refreshed as long as you stay. Craft gunpowder from 3 sulfur and 1 coal or charcoal."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine gelbgrüne Flamme, die nach den tiefen Höhlen stinkt."
+          ],
+          "use": [
+            "Auf Schwefelblöcken, poliertem Schwefel, Schwefelziegeln und gemeißeltem Schwefel durch Feuerzeug, Feuerkugel oder zündende Lava entzündet. Sie bleibt auf ihrem Grundblock, breitet sich nie aus und richtet 1,5 Schaden an, bei Lichtstärke 12."
+          ],
+          "secret": [
+            "Darin zu stehen gibt 10 Sekunden Übelkeit, erneuert, solange du bleibst. Schwarzpulver entsteht aus 3 Schwefel und 1 Kohle oder Holzkohle."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:sulfur_octet",
       "name": {
         "en_us": "Sulfur Octet Cell",
@@ -71413,7 +71389,7 @@ window.WIKI_DATA = {
         "minecraft:iron_nugget",
         "minecraft:redstone",
         "simplebuilding:iron_core",
-        "simplebuilding:iron_rod"
+        "simplebuilding:iron_pole"
       ],
       "pattern": [
         " NA",
@@ -71428,7 +71404,7 @@ window.WIKI_DATA = {
           "simplebuilding:iron_core"
         ],
         "I": [
-          "simplebuilding:iron_rod"
+          "simplebuilding:iron_pole"
         ],
         "N": [
           "minecraft:iron_nugget"
@@ -71450,7 +71426,7 @@ window.WIKI_DATA = {
                 "minecraft:iron_nugget",
                 "minecraft:redstone",
                 "simplebuilding:iron_core",
-                "simplebuilding:iron_rod"
+                "simplebuilding:iron_pole"
               ],
               "other": [
                 "minecraft:amethyst_shard",
@@ -71469,7 +71445,7 @@ window.WIKI_DATA = {
                   "simplebuilding:iron_core"
                 ],
                 "I": [
-                  "simplebuilding:iron_rod"
+                  "simplebuilding:iron_pole"
                 ],
                 "N": [
                   "minecraft:iron_nugget"
@@ -71521,7 +71497,7 @@ window.WIKI_DATA = {
                 "minecraft:iron_nugget",
                 "minecraft:redstone",
                 "simplebuilding:iron_core",
-                "simplebuilding:iron_rod"
+                "simplebuilding:iron_pole"
               ],
               "other": [
                 "minecraft:amethyst_shard",
@@ -71540,7 +71516,7 @@ window.WIKI_DATA = {
                   "simplebuilding:iron_core"
                 ],
                 "I": [
-                  "simplebuilding:iron_rod"
+                  "simplebuilding:iron_pole"
                 ],
                 "N": [
                   "minecraft:iron_nugget"
@@ -73549,49 +73525,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:astralit_lamp",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:astralit_lamp",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_lamp.json",
-      "ingredients": [
-        "minecraft:redstone_lamp",
-        "simplebuilding:astral_redstone"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:astral_redstone"
-        ],
-        [
-          "minecraft:redstone_lamp"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:redstone",
-            "count": 4.5
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 4
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:astralit_octet_from_astralit_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -74001,53 +73934,6 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:astralit_dust",
             "count": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:astralit_switch",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:astralit_switch",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_switch.json",
-      "ingredients": [
-        "minecraft:lever",
-        "simplebuilding:astral_redstone"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:astral_redstone"
-        ],
-        [
-          "minecraft:lever"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cobblestone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:astralit_dust",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.125
           }
         ]
       }
@@ -78380,6 +78266,53 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:bridge_redstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:bridge_redstone",
+        "count": 3
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/bridge_redstone.json",
+      "ingredients": [
+        "minecraft:redstone",
+        "simplebuilding:astralit_dust",
+        "simplebuilding:nihilith_shard"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astralit_dust"
+        ],
+        [
+          "simplebuilding:nihilith_shard"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:brown_concrete_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -82357,13 +82290,44 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:diamond_from_diamond_rod",
+      "id": "simplebuilding:diamond_from_diamond_pole",
       "type": "minecraft:crafting_shapeless",
       "category": null,
       "group": null,
       "result": {
         "id": "minecraft:diamond",
         "count": 3
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/diamond_from_diamond_pole.json",
+      "ingredients": [
+        "simplebuilding:diamond_pole"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:diamond_pole"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pole",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:diamond_from_diamond_rod",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:diamond",
+        "count": 2
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/diamond_from_diamond_rod.json",
       "ingredients": [
@@ -82378,11 +82342,47 @@ window.WIKI_DATA = {
         "26.3"
       ],
       "baseMaterials": {
-        "yield": 3,
+        "yield": 2,
         "materials": [
           {
             "id": "simplebuilding:diamond_rod",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:diamond_pole",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:diamond_pole",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/diamond_pole.json",
+      "ingredients": [
+        "minecraft:diamond"
+      ],
+      "pattern": [
+        "M",
+        "M",
+        "M"
+      ],
+      "key": {
+        "M": [
+          "minecraft:diamond"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 3
           }
         ]
       }
@@ -82438,7 +82438,6 @@ window.WIKI_DATA = {
       ],
       "pattern": [
         "M",
-        "M",
         "M"
       ],
       "key": {
@@ -82454,7 +82453,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:diamond",
-            "count": 3
+            "count": 2
           }
         ]
       }
@@ -87684,6 +87683,61 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:enderite_pole_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_pole",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_pole_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_pole"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_pole"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:enderite_pressure_plate_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -87805,61 +87859,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:copper_ingot",
             "count": 0.111
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:enderite_rod_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_rod",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_rod_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_rod"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_rod"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 3
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:enderite_upgrade_template",
-            "count": 1
           }
         ]
       }
@@ -89288,7 +89287,7 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:gold_ingot_from_gold_rod",
+      "id": "simplebuilding:gold_ingot_from_gold_pole",
       "type": "minecraft:crafting_shapeless",
       "category": null,
       "group": null,
@@ -89296,13 +89295,13 @@ window.WIKI_DATA = {
         "id": "minecraft:gold_ingot",
         "count": 3
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/gold_ingot_from_gold_rod.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gold_ingot_from_gold_pole.json",
       "ingredients": [
-        "simplebuilding:gold_rod"
+        "simplebuilding:gold_pole"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:gold_rod"
+          "simplebuilding:gold_pole"
         ]
       ],
       "lines": [
@@ -89312,22 +89311,22 @@ window.WIKI_DATA = {
         "yield": 3,
         "materials": [
           {
-            "id": "simplebuilding:gold_rod",
+            "id": "simplebuilding:gold_pole",
             "count": 1
           }
         ]
       }
     },
     {
-      "id": "simplebuilding:gold_rod",
+      "id": "simplebuilding:gold_pole",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
       "group": null,
       "result": {
-        "id": "simplebuilding:gold_rod",
+        "id": "simplebuilding:gold_pole",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/gold_rod.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gold_pole.json",
       "ingredients": [
         "minecraft:gold_ingot"
       ],
@@ -91712,7 +91711,7 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:iron_ingot_from_iron_rod",
+      "id": "simplebuilding:iron_ingot_from_iron_pole",
       "type": "minecraft:crafting_shapeless",
       "category": null,
       "group": null,
@@ -91720,13 +91719,13 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_ingot",
         "count": 3
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/iron_ingot_from_iron_rod.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/iron_ingot_from_iron_pole.json",
       "ingredients": [
-        "simplebuilding:iron_rod"
+        "simplebuilding:iron_pole"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:iron_rod"
+          "simplebuilding:iron_pole"
         ]
       ],
       "lines": [
@@ -91743,15 +91742,15 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:iron_rod",
+      "id": "simplebuilding:iron_pole",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
       "group": null,
       "result": {
-        "id": "simplebuilding:iron_rod",
+        "id": "simplebuilding:iron_pole",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/iron_rod.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/iron_pole.json",
       "ingredients": [
         "minecraft:iron_ingot"
       ],
@@ -94825,7 +94824,7 @@ window.WIKI_DATA = {
         "minecraft:lapis_lazuli",
         "minecraft:redstone",
         "simplebuilding:iron_core",
-        "simplebuilding:iron_rod"
+        "simplebuilding:iron_pole"
       ],
       "pattern": [
         " R ",
@@ -94837,7 +94836,7 @@ window.WIKI_DATA = {
           "simplebuilding:iron_core"
         ],
         "I": [
-          "simplebuilding:iron_rod"
+          "simplebuilding:iron_pole"
         ],
         "L": [
           "minecraft:lapis_lazuli"
@@ -94859,7 +94858,7 @@ window.WIKI_DATA = {
                 "minecraft:lapis_lazuli",
                 "minecraft:redstone",
                 "simplebuilding:iron_core",
-                "simplebuilding:iron_rod"
+                "simplebuilding:iron_pole"
               ],
               "other": [
                 "minecraft:iron_ingot",
@@ -94875,7 +94874,7 @@ window.WIKI_DATA = {
                   "simplebuilding:iron_core"
                 ],
                 "I": [
-                  "simplebuilding:iron_rod"
+                  "simplebuilding:iron_pole"
                 ],
                 "L": [
                   "minecraft:lapis_lazuli"
@@ -97741,6 +97740,53 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:netherite_pole_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_pole",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_pole_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:diamond_pole"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:diamond_pole"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:netherite_pressure_plate_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -97846,53 +97892,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:copper_ingot",
             "count": 0.111
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:netherite_rod_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_rod",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_rod_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_ingot",
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:diamond_rod"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template"
-        ],
-        "base": [
-          "simplebuilding:diamond_rod"
-        ],
-        "addition": [
-          "minecraft:netherite_ingot"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 3
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
           }
         ]
       }
@@ -99861,49 +99860,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:nihilith_lamp",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:nihilith_lamp",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_lamp.json",
-      "ingredients": [
-        "minecraft:redstone_lamp",
-        "simplebuilding:nihil_redstone"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:nihil_redstone"
-        ],
-        [
-          "minecraft:redstone_lamp"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:redstone",
-            "count": 4.5
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 4
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:nihilith_octet_from_nihilith_quartz_checker_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -100313,53 +100269,6 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:nihilith_switch",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:nihilith_switch",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_switch.json",
-      "ingredients": [
-        "minecraft:lever",
-        "simplebuilding:nihil_redstone"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:nihil_redstone"
-        ],
-        [
-          "minecraft:lever"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cobblestone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.5
-          },
-          {
-            "id": "simplebuilding:nihilith_shard",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.125
           }
         ]
       }
@@ -114506,7 +114415,7 @@ window.WIKI_DATA = {
       "ingredients": [
         "minecraft:ender_pearl",
         "simplebuilding:iron_core",
-        "simplebuilding:iron_rod"
+        "simplebuilding:iron_pole"
       ],
       "pattern": [
         " I ",
@@ -114518,7 +114427,7 @@ window.WIKI_DATA = {
           "simplebuilding:iron_core"
         ],
         "I": [
-          "simplebuilding:iron_rod"
+          "simplebuilding:iron_pole"
         ],
         "P": [
           "minecraft:ender_pearl"
@@ -114536,7 +114445,7 @@ window.WIKI_DATA = {
               "this": [
                 "minecraft:ender_pearl",
                 "simplebuilding:iron_core",
-                "simplebuilding:iron_rod"
+                "simplebuilding:iron_pole"
               ],
               "other": [
                 "minecraft:ender_pearl",
@@ -114551,7 +114460,7 @@ window.WIKI_DATA = {
                   "simplebuilding:iron_core"
                 ],
                 "I": [
-                  "simplebuilding:iron_rod"
+                  "simplebuilding:iron_pole"
                 ],
                 "P": [
                   "minecraft:ender_pearl"
@@ -123592,24 +123501,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_bricks.json"
     },
     {
-      "id": "simplebuilding:blocks/astralit_lamp",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:astralit_lamp"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_lamp.json"
-    },
-    {
       "id": "simplebuilding:blocks/astralit_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -123689,24 +123580,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_quartz_checker_stairs.json"
-    },
-    {
-      "id": "simplebuilding:blocks/astralit_switch",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:astralit_switch"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_switch.json"
     },
     {
       "id": "simplebuilding:blocks/auto_smither",
@@ -124011,6 +123884,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/breeze_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/bridge_redstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:bridge_redstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/bridge_redstone.json"
     },
     {
       "id": "simplebuilding:blocks/brown_hammock",
@@ -124639,6 +124530,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/deepslate_sage_ore.json"
     },
     {
+      "id": "simplebuilding:blocks/diamond_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:diamond_pole"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/diamond_pole.json"
+    },
+    {
       "id": "simplebuilding:blocks/diamond_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -125119,6 +125026,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_piston.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:enderite_pole"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_pole.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderite_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -125133,22 +125056,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_pressure_plate.json"
-    },
-    {
-      "id": "simplebuilding:blocks/enderite_rod",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_rod"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_rod.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_shulker_box",
@@ -125311,20 +125218,20 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/frosted_nihilith.json"
     },
     {
-      "id": "simplebuilding:blocks/gold_rod",
+      "id": "simplebuilding:blocks/gold_pole",
       "kind": "blocks",
       "type": "minecraft:block",
       "pools": [
         {
           "rolls": 1,
           "items": [
-            "simplebuilding:gold_rod"
+            "simplebuilding:gold_pole"
           ],
           "conditions": [],
           "functions": []
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gold_rod.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gold_pole.json"
     },
     {
       "id": "simplebuilding:blocks/grass_slab",
@@ -125808,20 +125715,20 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/infused_potion_pad.json"
     },
     {
-      "id": "simplebuilding:blocks/iron_rod",
+      "id": "simplebuilding:blocks/iron_pole",
       "kind": "blocks",
       "type": "minecraft:block",
       "pools": [
         {
           "rolls": 1,
           "items": [
-            "simplebuilding:iron_rod"
+            "simplebuilding:iron_pole"
           ],
           "conditions": [],
           "functions": []
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/iron_rod.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/iron_pole.json"
     },
     {
       "id": "simplebuilding:blocks/jukebox_amplifier",
@@ -126352,6 +126259,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_piston.json"
     },
     {
+      "id": "simplebuilding:blocks/netherite_pole",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:netherite_pole"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_pole.json"
+    },
+    {
       "id": "simplebuilding:blocks/netherite_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -126366,22 +126289,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_pressure_plate.json"
-    },
-    {
-      "id": "simplebuilding:blocks/netherite_rod",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:netherite_rod"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_rod.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_shulker_box",
@@ -126612,24 +126519,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
     },
     {
-      "id": "simplebuilding:blocks/nihilith_lamp",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:nihilith_lamp"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_lamp.json"
-    },
-    {
       "id": "simplebuilding:blocks/nihilith_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -126709,24 +126598,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker_stairs.json"
-    },
-    {
-      "id": "simplebuilding:blocks/nihilith_switch",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:nihilith_switch"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_switch.json"
     },
     {
       "id": "simplebuilding:blocks/note_amplifier",
@@ -134807,15 +134678,15 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_pole",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_pressure_plate",
           "required": true
         },
         {
           "id": "simplebuilding:enderite_quiver",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_rod",
           "required": true
         },
         {
@@ -135046,15 +134917,15 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_pole",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_pressure_plate",
           "required": true
         },
         {
           "id": "simplebuilding:enderite_quiver",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_rod",
           "required": true
         },
         {
@@ -136457,6 +136328,26 @@ window.WIKI_DATA = {
       "labelDe": "Simple Mobs aktivieren",
       "tooltip": "Turns the bundled Simple Mobs module on or off: its mobs and their behaviour. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Mobs ein oder aus: seine Kreaturen und ihr Verhalten. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleEndDragonFight",
+      "shortName": "enableSimpleEndDragonFight",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple End Dragon Fight",
+      "labelDe": "Simple End Dragon Fight aktivieren",
+      "tooltip": "Turns the bundled Simple End Dragon Fight module on or off: dragon health per player, a faster dragon, entry animations and Dragonmites. Off restores the Vanilla fight; Dragon Chitin stays in the world. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple End Dragon Fight ein oder aus: Drachenleben je Spieler, schnellerer Drache, Eintritts-Animationen und Dragonmites. Aus stellt den Vanilla-Kampf wieder her; Drachen-Chitin bleibt in der Welt. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -138280,10 +138171,10 @@ window.WIKI_DATA = {
       "categoryDe": "Server & Modpack-Tuning",
       "group": "Features: On/Off",
       "groupDe": "Funktionen: an/aus",
-      "label": "End Signal Channels",
-      "labelDe": "End-Signalkanäle",
-      "tooltip": "Enable isolated End channels. Recipes update\non datapack reload. Default: true.",
-      "tooltipDe": "End-Signalkanäle aktivieren. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
+      "label": "Astral/Nihil Redstone",
+      "labelDe": "Astral-/Nihil-Redstone",
+      "tooltip": "Astral, Nihil and Bridge Redstone conduct.\nRecipes update on datapack reload. Default: true.",
+      "tooltipDe": "Astral-, Nihil- und Brücken-Redstone leiten.\nRezepte nach Datenpaket-Neuladen. Standard: true."
     },
     {
       "range": null,
@@ -139259,8 +139150,8 @@ window.WIKI_DATA = {
       "groupDe": "Musik- und Noten-Verstärker",
       "label": "Max Amplifiers",
       "labelDe": "Angrenzende Verstärker (höchstens)",
-      "tooltip": "Adjacent amplifiers that count per jukebox\nor note block, 0 to 3 (0 = off).\nServer-side. Default: 2.",
-      "tooltipDe": "Angrenzende Verstärker, die je Plattenspieler\noder Notenblock zählen, 0 bis 3 (0 = aus).\nServerseitig. Standard: 2."
+      "tooltip": "Adjacent amplifiers that count per\nnote block, 0 to 3 (0 = off).\nServer-side. Default: 2.",
+      "tooltipDe": "Angrenzende Verstärker, die je Notenblock\nzählen, 0 bis 3 (0 = aus).\nServerseitig. Standard: 2."
     },
     {
       "range": [
@@ -139282,8 +139173,8 @@ window.WIKI_DATA = {
       "groupDe": "Musik- und Noten-Verstärker",
       "label": "Added reach per amplifier (%)",
       "labelDe": "Hörweiten-Plus je Verstärker (%)",
-      "tooltip": "Reach and loudness added per amplifier,\n0 to 50% of vanilla. Same level within range.\nServer-side. Default: 50.",
-      "tooltipDe": "Zusätzliche Hörweite und Lautstärke je Verstärker,\n0 bis 50 % von Vanilla. Gleicher Pegel in Hörweite.\nServerseitig. Standard: 50."
+      "tooltip": "Note block reach and loudness added per\namplifier, 0 to 50% of vanilla.\nServer-side. Default: 50.",
+      "tooltipDe": "Zusätzliche Notenblock-Hörweite und\n-Lautstärke je Verstärker, 0 bis 50 %\nvon Vanilla. Serverseitig. Standard: 50."
     },
     {
       "range": [
@@ -139844,29 +139735,6 @@ window.WIKI_DATA = {
       "labelDe": "Schmied: Verzögerung",
       "tooltip": "Delay after a redstone edge: 4–100 ticks.\nServer-side, MC 26.3. Default: 4. Applies to\nnew pulses; existing scheduled work keeps\nits delay. No restart required.",
       "tooltipDe": "Verzögerung nach Redstone-Flanke: 4–100 Ticks.\nServerseitig, MC 26.3. Standard: 4. Wirkt für\nneue Impulse; bereits geplante Arbeit behält\nihre Frist. Kein Neustart erforderlich."
-    },
-    {
-      "range": [
-        1.0,
-        15.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.machines.endSignalRange",
-      "shortName": "endSignalRange",
-      "type": "int",
-      "default": "15",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "End Signal Range (1–15)",
-      "labelDe": "End-Signalreichweite (1–15)",
-      "tooltip": "Maximum redstone segments per channel,\nlimited to 1-15. Default: 15.",
-      "tooltipDe": "Maximale Redstone-Segmente pro Kanal,\nbegrenzt auf 1-15. Standard: 15."
     },
     {
       "range": [
@@ -160590,12 +160458,12 @@ window.WIKI_DATA = {
       "frame": "task",
       "hidden": false,
       "title": {
-        "en_us": "Private Signals",
-        "de_de": "Eigene Signale"
+        "en_us": "Three Lines",
+        "de_de": "Drei Linien"
       },
       "description": {
-        "en_us": "Craft Astral Redstone and Nihil Redstone; build separate switch-to-lamp channels.",
-        "de_de": "Stelle Astral-Redstone und Nihil-Redstone her; baue getrennte Schalter-Lampen-Kanäle."
+        "en_us": "Craft Astral Redstone and Nihil Redstone: redstone lines that never mix.",
+        "de_de": "Stelle Astral-Redstone und Nihil-Redstone her: Redstone-Linien, die sich nie mischen."
       },
       "criteria": [
         {
@@ -165694,10 +165562,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 724,
+    "items": 722,
     "blocks": 466,
-    "recipes": 1216,
-    "lootTables": 356,
+    "recipes": 1215,
+    "lootTables": 354,
     "trades": 20,
     "enchantments": 19,
     "tags": 54,

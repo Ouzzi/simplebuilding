@@ -117,10 +117,14 @@ public final class ClientTests {
                 new Entry("astral-enchanter", AstralEnchanterClientTest::inWorld),
                 // Fahrzeug-Stufen (Queue N19/N23, 26.3): carts and chest boats in the world, item sprites in the hotbar.
                 new Entry("vehicles", VehicleClientTest::inWorld),
+                // Queue N37 (26.3): a player stands still and walks normally on an Enderite chest boat; measured, no picture.
+                new Entry("boat-deck", BoatDeckClientTest::inWorld),
                 // Queue N23 (26.3): the End structures, one picture per variant; clears them again.
                 new Entry("end-structures", EndStructureClientTest::inWorld),
                 // Owner N37 (26.3): the Sculk Jaw next to real sculk, shut and the bite frames; puts the floor back.
                 new Entry("sculk-jaw", SculkJawClientTest::inWorld),
+                // Nachtrag 36 (26.3): Astral, Nihil and Bridge Redstone lanes into redstone lamps; clears its blocks.
+                new Entry("redstone-lines", RedstoneLinesClientTest::inWorld),
                 // Audit C9/C10: unique key mapping names, our defaults collide with nothing (no picture).
                 new Entry("key-mappings", KeyMappingClientTest::inWorld));
     }

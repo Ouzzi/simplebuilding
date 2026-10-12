@@ -1,0 +1,8 @@
+plugins {
+    id 'java-library'
+    id 'net.minecraftforge.gradle' version '7.0.36'
+}
+ext.forgeMixinConfigs = ['simplefarming.mixins.json', 'simplefarming.forge.mixins.json']
+apply from: rootProject.file('gradle/module-forge.gradle')
+ext.forgeNativeConfig = [id: 'simplefarming', modId: 'simplefarming', root: 'modules/simplefarming/shared/java', screens: ['com/simplebuilding/modules/simplefarming/FarmingScreen.java'], factory: 'com.simplebuilding.modules.simplefarming.FarmingScreen.create(parent)']
+apply from: rootProject.file('gradle/forge-native-config.gradle')

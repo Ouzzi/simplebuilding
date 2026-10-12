@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleenddragonfight",
+  "version": "${version}",
+  "name": "Simple End Dragon Fight",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleenddragonfight.DragonFightFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpleenddragonfight.DragonFightFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleenddragonfight.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  },
+  "mixins": [
+    "simpleenddragonfight.mixins.json"
+  ],
+  "description": "Ender Dragon fight: +1 health bar per player, a faster dragon, entry animations and Dragonmites."
+}

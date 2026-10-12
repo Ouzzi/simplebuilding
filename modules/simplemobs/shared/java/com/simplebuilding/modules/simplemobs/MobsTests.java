@@ -45,6 +45,22 @@ public final class MobsTests {
             check(MobsRegistry.on() == old, "switch restored");
             h.succeed();
         });
+        add("sub_mod_switch", h -> {
+            boolean old = com.simplebuilding.framework.api.SubMods.enabled("simplemobs");
+            try {
+                com.simplebuilding.framework.api.SubMods.set("simplemobs", false);
+                check(!MobsRegistry.on(), "switch off reaches Simple Mobs");
+                check(BuiltInRegistries.ENTITY_TYPE.containsKey(MobsRegistry.DECEIVER_KEY.identifier()) && BuiltInRegistries.ITEM.containsKey(MobsRegistry.EGG_KEY.identifier()), "registries stay");
+                var player = h.makeMockServerPlayerInLevel();
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(MobsRegistry.silence(), 200));
+                check(!player.dampensVibrations(), "silence is inert while off");
+                check(HowlerRitual.onSensorActivated(h.getLevel(), BlockPos.ZERO, player, 0) == null, "no ritual while off");
+            } finally {
+                com.simplebuilding.framework.api.SubMods.set("simplemobs", old);
+            }
+            check(MobsRegistry.on() == old, "switch restored");
+            h.succeed();
+        });
         add("phases", h -> {
             check(DeceiverLogic.phase(100, 100) == Phase.ONE, "full health is phase one");
             check(DeceiverLogic.phase(67, 100) == Phase.ONE, "67 percent still phase one");
@@ -170,6 +186,7 @@ public final class MobsTests {
             h.succeed();
         });
         HowlerTests.addAll(MobsTests::add);
+        EndNetherTests.addAll(MobsTests::add);
     }
 
     private MobsTests() {}

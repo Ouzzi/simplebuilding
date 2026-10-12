@@ -88,6 +88,8 @@ public final class ForgeRegistryBootstrap {
      * the mixin. Aliases can only be added while the registry is open, i.e. in this event.
      */
     private static void registerLegacyAliases(RegisterEvent event) {
+        // 26.3: SimpleLib adds the same tables as Forge aliases (IdMovesHook -> IdMoves, SimpleLibForge).
+        if (com.simplebuilding.datafix.IdMovesHook.LIB_ALIASES) return;
         if (!(event.getForgeRegistry() instanceof ForgeRegistry<?> registry)) {
             return;
         }
@@ -103,5 +105,9 @@ public final class ForgeRegistryBootstrap {
         LegacyItemIds.RENAMED_BLOCKS.forEach((oldPath, newPath) -> registry.addAlias(
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath),
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, newPath)));
+        if (event.getRegistryKey().equals(Registries.ITEM) || event.getRegistryKey().equals(Registries.BLOCK)) {
+            LegacyItemIds.REPLACED_BY_VANILLA.forEach((oldPath, vanilla) -> registry.addAlias(
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath), vanilla));
+        }
     }
 }

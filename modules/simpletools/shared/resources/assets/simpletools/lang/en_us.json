@@ -1,0 +1,16 @@
+{
+  "simpletools.title": "Simple Tools",
+  "simpletools.tab.general": "General",
+  "simpletools.option.enableFullDurabilityBonus": "Full Durability Bonus",
+  "simpletools.option.enableFullDurabilityBonus.tooltip": "Grants a bonus to mining speed and damage\nwhen tools/weapons are near full durability.\nDefault: true.",
+  "simpletools.option.fullDurabilityThreshold": "Durability Threshold (0.8–1.0)",
+  "simpletools.option.fullDurabilityThreshold.tooltip": "The fraction of durability required to\ntrigger the bonus (e.g., 0.9 for 90%).\nDefault: 0.8. Allowed range: 0.8–1.0.",
+  "simpletools.option.fullDurabilityBonusMultiplier": "Bonus Multiplier",
+  "simpletools.option.fullDurabilityBonusMultiplier.tooltip": "The multiplier applied to speed/damage (e.g.,\n1.15 for +15%). Default: 1.0. Allowed range:\n1.0–1.5. Applies to Vanilla and mod tools.\n1.0 means no bonus; saved values are\nretained.",
+  "simpletools.option.anvilRepairKeepsCost": "Repairing Keeps Anvil Cost",
+  "simpletools.option.anvilRepairKeepsCost.tooltip": "Repairing or renaming at the anvil without\nnew enchantments does not raise the item's\nanvil cost. Only enchanting does. Default:\ntrue.",
+  "simpletools.option.enableFurnaceLavaFill": "Fill Furnace with Lava",
+  "simpletools.option.enableFurnaceLavaFill.tooltip": "Insert one lava bucket into an empty fuel\nslot or exchange one leftover bucket. An\nempty bucket remains in the furnace after\nburning. Default: true.",
+  "command.simpletools.changed": "Configuration saved: %s = %s",
+  "enchantment.simplequalityoflife.thrift": "Thrift"
+}

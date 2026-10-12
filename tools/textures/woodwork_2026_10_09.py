@@ -416,12 +416,7 @@ def wood_assets(wood: str, log: str) -> None:
             "inside": tex["stripped"]}
     put_json(f"{NS}/models/block/{name}.json", {"parent": "minecraft:block/cauldron", "textures": ctex})
     # Inventory: Vanilla block/cauldron has no parent, hence no GUI transform and a flat icon; give the item the block-style display.
-    put_json(f"{NS}/models/item/{name}.json", {"parent": sb(f"block/{name}"), "display": {
-        "gui": {"rotation": [30, 225, 0], "translation": [0, 0, 0], "scale": [0.625, 0.625, 0.625]},
-        "ground": {"rotation": [0, 0, 0], "translation": [0, 3, 0], "scale": [0.25, 0.25, 0.25]},
-        "fixed": {"rotation": [0, 0, 0], "translation": [0, 0, 0], "scale": [0.5, 0.5, 0.5]},
-        "thirdperson_righthand": {"rotation": [75, 45, 0], "translation": [0, 2.5, 0], "scale": [0.375, 0.375, 0.375]},
-        "firstperson_righthand": {"rotation": [0, 45, 0], "translation": [0, 0, 0], "scale": [0.4, 0.4, 0.4]}}})
+    put_json(f"{NS}/models/item/{name}.json", {"parent": sb(f"block/{name}"), "display": CAULDRON_ITEM_DISPLAY})
     contents = {"water": mc("block/water_still"), "powder_snow": mc("block/powder_snow")}
     for content, content_tex in contents.items():
         for level, template in ((1, "template_cauldron_level1"), (2, "template_cauldron_level2"), (3, "template_cauldron_full")):
@@ -481,6 +476,14 @@ def wood_assets(wood: str, log: str) -> None:
     }})
 
 
+CAULDRON_ITEM_DISPLAY = {
+    "gui": {"rotation": [30, 225, 0], "translation": [0, 0, 0], "scale": [0.625, 0.625, 0.625]},
+    "ground": {"rotation": [0, 0, 0], "translation": [0, 3, 0], "scale": [0.25, 0.25, 0.25]},
+    "fixed": {"rotation": [0, 0, 0], "translation": [0, 0, 0], "scale": [0.5, 0.5, 0.5]},
+    "thirdperson_righthand": {"rotation": [75, 45, 0], "translation": [0, 2.5, 0], "scale": [0.375, 0.375, 0.375]},
+    "firstperson_righthand": {"rotation": [0, 45, 0], "translation": [0, 0, 0], "scale": [0.4, 0.4, 0.4]}}
+
+
 def stripped_cauldron(wood: str, log: str) -> None:
     """N35: the same cauldron in stripped wood (stripped log outside, planks inside)."""
     stripped = "stripped_" + log
@@ -500,7 +503,10 @@ def stripped_cauldron(wood: str, log: str) -> None:
             model = {"empty": name, "lava": f"{name}_lava"}.get(content, f"{name}_{content}_{level}")
             variants[f"content={content},level={level}"] = {"model": sb(f"block/{model}")}
     put_json(f"{NS}/blockstates/{name}.json", {"variants": variants})
-    block_item(name)
+    # N41: like the bark cauldron, the item needs its own model with the block-style display (Vanilla block/cauldron
+    # has no parent, so the bare block model shows no 3D inventory icon).
+    put_json(f"{NS}/models/item/{name}.json", {"parent": sb(f"block/{name}"), "display": CAULDRON_ITEM_DISPLAY})
+    block_item(name, sb(f"item/{name}"))
 
 
 def preview(jar: str, out: Path) -> None:

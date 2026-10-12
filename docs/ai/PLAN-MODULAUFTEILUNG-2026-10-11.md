@@ -259,6 +259,27 @@ Enderit-Ausrüstung und der bessere Bezugsweg bleiben SB-Inhalt.
 - Unit-Test (JUnit) `IdMovesTest`: Tabelle vollständig = alle entfernten `simplebuilding:`-IDs haben ein Ziel (Diff der
   Registry-Dumps vor/nach, Dump über Datagen-Export).
 
+### 3.3a Umsetzung 3a + 3b (Branch `claude-split3`, 2026-10-11)
+
+- **`com.simplelib.api.IdMoves`**: explizite Verschiebungen je Registry (`move`/`moveAll`, auch `minecraft:recipe` und
+  `minecraft:advancement`), Namensraum-Verschiebung (`moveNamespace`, nur über die Mixins), Schleifen-/Doppelziel-Schutz,
+  `adoptConfig` (Config-Übernahme, darunter `framework.api.ConfigFiles.adoptLegacy`, framework 0.1.8).
+- **Mixins in SimpleLib**: `IdMovesRegistryMixin` (MappedRegistry: get/getValue/containsKey, nur Fehlschläge),
+  `IdMovesRecipeBookMixin` (`ServerRecipeBook#loadUntrusted`: unbekannter Schlüssel → verschobener, wenn bekannt),
+  `IdMovesAdvancementsMixin` (`ServerAdvancementManager#get`, darüber liest `PlayerAdvancements` den Fortschritt);
+  Forge: `NamespacedWrapperIdMovesMixin` + `ForgeRegistry.addAlias` für alle expliziten Verschiebungen (`SimpleLibForge`).
+- **SB 26.3**: `datafix/IdMovesHook` (Overlay) speist `LegacyItemIds` unverändert ein (gleiche Tabellen, gleiche Registries);
+  `AliasMixinPlugin` schaltet SBs eigene Alias-Mixins auf 26.3 ab, `ForgeRegistryBootstrap` fügt dort keine Aliase mehr hinzu.
+  26.2 (keine SimpleLib) bleibt beim alten Weg (Twin `IdMovesHook` mit `LIB_ALIASES=false`).
+- **Testwelt (3b, vereinfacht)**: statt gezippter Welt + eigenem Runner-Target liegen die Spielstände als SNBT/JSON unter
+  `testing/fixtures/migration-before/` (Chunk mit Truhen-Stufen, Öfen, Enderit-Tiegel, Octets und gefüllten BEs; Spieler mit
+  allen Hämmern + Rezeptbuch; Advancement-Fortschritt), erzeugt mit `SIMPLEBUILDING_WRITE_MIGRATION_FIXTURES=1`.
+  `MigrationWorldTests` lädt sie über die echten Ladepfade (`SerializableChunkData.parse`, `BlockEntity.loadStatic`,
+  `Player.load`, `PlayerAdvancements`) einmal unverändert (Nullprobe) und einmal mit allen SB-IDs als `simpletest:`
+  (Test-Verschiebung `simpletest → simplebuilding`), Orakel = unverändertes Laden, plus Zurückschreiben unter neuen IDs.
+  Ab Stufe 4 ist dieselbe Welt der Altbestand für echte Verschiebungen.
+- Lib-Tests `module_game_test_id_moves_*` (Item/Block/BE/Komponente, Rezeptbuch, Advancements, Schleifen, Config).
+
 ### 3.4 Rückfallplan
 
 - Vor Release: Hinweis „Welt sichern“ im Changelog/Wiki; SB 2.0 schreibt beim ersten Laden einer alten Welt
@@ -309,6 +330,16 @@ Schätzung in Agenten-Sitzungen (1 S ≈ ein Queue-Auftrag inkl. Tests).
 - 1b: QoL `requires`+bündelt `simpleinterfaces`, Schalter `enableSimpleInterfaces`, `QolTests.subModSwitch` erweitert.
 - 1c: neues Modul `simpleaesthetics` 1.0.0 (keine Inhalte; `config/simpleaesthetics.json` mit drei Schaltern, ohne
   eigenen Config-Bildschirm), `requires`+bündelt Visuals/Sounds/Models, Standalone-Target, Wiki-Kapitel, Money-Preisliste.
+
+,
+**Status Stufe 2 (11.10., Branch `claude-split2` auf `claude-split1`):** Simple Tweaks hängt nicht mehr hart an SB:
+`modules.json` `requires: []`, `optional` + `simplebuilding`; Fabric `depends` → `suggests`, NeoForge `type="optional"`,
+Forge `mandatory=false`. Standalone-Target lädt nur Simple Tweaks (`standalone.requires: []`). Tests mit SB-Bezug
+(Legacy-Aliase, SB-Werkzeuge/-Kolben/-Trichter/-Magnet, `WorldPermissions`) laufen mit SB unverändert und überspringen
+allein mit Log-Hinweis; allein prüft `every_legacy_registry_lookup`, dass die Aliase leer bleiben (kein Treffer, Vanilla
+verwirft unbekannte Einträge). Die Alias-Suche selbst brauchte keinen `isModLoaded`-Schalter: das Ziel `simplebuilding:*`
+fehlt dann einfach in der Registry. Integrations-Targets (`module-simpletweaks-*-263`) laden SB weiter. Pads/Chunk-Loader
+bleiben in SB (F2).
 
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).

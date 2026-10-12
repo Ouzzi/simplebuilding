@@ -104,7 +104,7 @@ public final class RecipelessJeiInfo {
             map.put("chess", chess);
         }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            map.put("end_signals", List.of(ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
+            map.put("end_signals", List.of(ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE, ModItems.BRIDGE_REDSTONE));
             map.put("astral_vault", List.of(ModItems.ASTRAL_VAULT));
             map.put("nihil_vault", List.of(ModItems.NIHIL_VAULT));
             map.put("end_pistons", List.of(ModItems.ASTRAL_PISTON, ModItems.NIHIL_PISTON));

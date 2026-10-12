@@ -1,0 +1,163 @@
+{
+  "features": [
+    {
+      "id": "furnace_lava",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/FurnaceLavaFillHandler.java"
+      ],
+      "en": {
+        "title": "Furnace lava fill",
+        "summary": "Either hand inserts one lava bucket into a furnace, blast furnace, or smoker with an empty fuel slot or one leftover empty bucket. Locked furnaces and sneaking are excluded. Survival consumes the lava bucket; an existing empty bucket is returned exactly once. SimpleBuilding furnace subclasses are supported through the Vanilla interface."
+      },
+      "de": {
+        "title": "Ofen mit Lava fuellen",
+        "summary": "Beide Haende koennen einen Lavaeimer in Ofen, Hochofen oder Raeucherofen mit leerem Brennstoffplatz oder einem leeren Eimer einsetzen. Verschlossene Oefen und Schleichen sind ausgeschlossen. Ueberleben verbraucht Lava; ein vorhandener Eimer wird genau einmal zurueckgegeben. SimpleBuilding-Ofenunterklassen nutzen die Vanilla-Schnittstelle."
+      }
+    },
+    {
+      "id": "durability",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/FullDurabilityDamageMixin.java"
+      ],
+      "en": {
+        "title": "Durability bonus",
+        "summary": "Damageable held Vanilla and mod tools above the durability threshold can gain attack damage and mining speed. The default multiplier is 1.0 (no bonus), with a server-enforced range of 1–1.5. The threshold defaults to 80% (range 80–100%). Item durability itself is unchanged."
+      },
+      "de": {
+        "title": "Haltbarkeitsbonus",
+        "summary": "Gehaltene beschaedigbare Vanilla- und Mod-Werkzeuge ueber der Haltbarkeitsschwelle koennen mehr Angriffsschaden und Abbaugeschwindigkeit erhalten. Standardfaktor 1.0 (kein Bonus), serverseitiger Bereich 1–1.5. Schwelle standardmaessig 80% (Bereich 80–100%). Die Haltbarkeit selbst bleibt unveraendert."
+      }
+    },
+    {
+      "id": "config_enableFurnaceLavaFill",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableFurnaceLavaFill",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "enableFurnaceLavaFill",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_enableFullDurabilityBonus",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "enableFullDurabilityBonus",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "enableFullDurabilityBonus",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_fullDurabilityThreshold",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "fullDurabilityThreshold",
+        "summary": "Server setting. Default: 0.8."
+      },
+      "de": {
+        "title": "fullDurabilityThreshold",
+        "summary": "Servereinstellung. Standard: 0.8."
+      }
+    },
+    {
+      "id": "config_fullDurabilityBonusMultiplier",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "fullDurabilityBonusMultiplier",
+        "summary": "Server setting. Default: 1.0 (no bonus). Range: 1.0–1.5. Saved 1.5 remains 1.5; absent keys use 1.0. Nonfinite values fall back to 1.0; finite out-of-range values are clamped."
+      },
+      "de": {
+        "title": "fullDurabilityBonusMultiplier",
+        "summary": "Servereinstellung. Standard: 1.0 (kein Bonus). Bereich: 1.0–1.5. Gespeicherte 1.5 bleiben 1.5; fehlende Schluessel nutzen 1.0. Nicht endliche Werte fallen auf 1.0 zurueck; endliche Werte ausserhalb des Bereichs werden begrenzt."
+      }
+    },
+    {
+      "id": "config_anvilRepairKeepsCost",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/AnvilRepairCostMixin.java"
+      ],
+      "en": {
+        "title": "anvilRepairKeepsCost",
+        "summary": "Server setting. Default: true. Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it; only a change of enchantments raises it like vanilla."
+      },
+      "de": {
+        "title": "anvilRepairKeepsCost",
+        "summary": "Servereinstellung. Standard: true. Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen; nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla."
+      }
+    },
+    {
+      "id": "thrift",
+      "sources": [
+        "modules/simpletools/shared/resources/data/simplequalityoflife/enchantment/thrift.json",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/ThriftDurabilityMixin.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/Thrift.java"
+      ],
+      "en": {
+        "title": "Thrift",
+        "summary": "Enchantment for every item with durability, levels I-III: +1/3 maximum durability per level, level III doubles it. Not combinable with Mending; Unbreaking still works. Anvil repair with material restores a quarter of the (larger) maximum per item, so the same number of items as without the enchantment repairs it fully. Enchanting table, trades and loot like other non-treasure enchantments. The id stays simplequalityoflife:thrift, so enchanted items from older worlds keep it; it also works with the sub-mod switched off."
+      },
+      "de": {
+        "title": "Sparsamkeit",
+        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen. Die ID bleibt simplequalityoflife:thrift, damit verzauberte Gegenstaende aus aelteren Welten sie behalten; sie wirkt auch bei abgeschalteter Sub-Mod."
+      }
+    },
+    {
+      "id": "anvil_repair_cost",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/AnvilRepairCostMixin.java"
+      ],
+      "en": {
+        "title": "Repairing keeps the anvil cost",
+        "summary": "Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it. Only a change of enchantments raises it like vanilla. Server option anvilRepairKeepsCost (default true)."
+      },
+      "de": {
+        "title": "Reparieren hält die Ambosskosten",
+        "summary": "Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen. Nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla. Server-Option anvilRepairKeepsCost (Standard true)."
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsCommands.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "Owner-level /simpletools fullDurabilityBonus, anvilRepairKeepsCost and furnaceLava <true|false>; changes are saved to config/simpletools.json."
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "Besitzerberechtigung: /simpletools fullDurabilityBonus, anvilRepairKeepsCost und furnaceLava <true|false>; Speichern in config/simpletools.json."
+      }
+    },
+    {
+      "id": "submod",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/SimpleTools.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/SubMods.java"
+      ],
+      "en": {
+        "title": "Sub-mod of Simple QoL",
+        "summary": "Playable alone (config/simpletools.json). Bundled in Simple QoL, which can switch it off with \"Enable Simple Tools\". On the first start the old Simple QoL settings of this sub-mod are taken over once."
+      },
+      "de": {
+        "title": "Sub-Mod von Simple QoL",
+        "summary": "Allein spielbar (config/simpletools.json). In Simple QoL gebuendelt, dort mit \"Simple Tools aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig uebernommen."
+      }
+    }
+  ],
+  "notes": {}
+}

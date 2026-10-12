@@ -10,6 +10,9 @@
     "BlockDisplayStrikeAccessor",
     "CompoundContainerHalves",
     "HopperStackLimitsMixin",
+    "IdMovesAdvancementsMixin",
+    "IdMovesRecipeBookMixin",
+    "IdMovesRegistryMixin",
     "TemplatePoolAccessor",
     "WarmBundleMixin",
     "WarmClockMixin",
@@ -19,7 +22,8 @@
   ],
   "client": [
     "client.WarmGlowEntityMixin",
-    "client.WarmGlowSlotMixin"
+    "client.WarmGlowSlotMixin",
+    "client.SlotIconTintMixin"
   ],
   "server": [],
   "injectors": {

@@ -355,7 +355,7 @@ def main():
     d.text((6, y + 40), 'Eisenstab (3D)', fill=(255, 255, 255))
     d.text((left, y - 2), 'Kupfer (Vanilla)', fill=(255, 255, 255))
     d.text((left + cell, y - 2), 'Eisen', fill=(255, 255, 255))
-    for i, model in enumerate(('minecraft:block/lightning_rod', 'simplebuilding:block/iron_rod')):
+    for i, model in enumerate(('minecraft:block/lightning_rod', 'simplebuilding:block/iron_pole')):
         img = rod_render(model)
         if img:
             sheet.alpha_composite(img, (left + i * cell, y + 10))

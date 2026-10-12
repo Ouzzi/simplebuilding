@@ -1,0 +1,20 @@
+{
+  "derivation": "Dragon Chitin drops only from Dragonmites during the Ender Dragon fight: end-game tier 5 like the other dragon-fight goods, rare wandering-trader offer (10 %, one per visit). The spawn egg is creative-only.",
+  "excluded": {
+    "simpleenddragonfight:dragonmite_spawn_egg": "Creative-only spawn egg."
+  },
+  "module": "simpleenddragonfight",
+  "prices": [
+    {
+      "item": "simpleenddragonfight:dragon_chitin",
+      "tier": 5,
+      "hours": 30.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    }
+  ]
+}

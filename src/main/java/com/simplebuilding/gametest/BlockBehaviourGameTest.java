@@ -75,4 +75,9 @@ public final class BlockBehaviourGameTest {
     public void materialRodsCraftBackAndSmithUpward(GameTestHelper helper) {
         BlockBehaviourTests.materialRodsCraftBackAndSmithUpward(helper);
     }
+
+    @GameTest
+    public void oldRodIdsLoadAsPoles(GameTestHelper helper) {
+        BlockBehaviourTests.oldRodIdsLoadAsPoles(helper);
+    }
 }

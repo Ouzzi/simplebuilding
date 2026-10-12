@@ -35,6 +35,8 @@ public final class SimplebuildingNeoForge {
     public SimplebuildingNeoForge(IEventBus modEventBus, ModContainer modContainer) {
         ModEnvironment.setModLoadedCheck(modId -> ModList.get().isLoaded(modId));
         ModEnvironment.setDevelopmentEnvironment(!net.neoforged.fml.loading.FMLEnvironment.isProduction());
+        // Renamed/moved ids (26.3: into SimpleLib IdMoves; 26.2: nothing to do), before any world loads.
+        com.simplebuilding.datafix.IdMovesHook.register();
         // FTB Quests (optional): copy the SimpleBuilding chapters into its quest book once.
         com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
         // Curios (optional): backpacks and quivers in the back/belt accessory slots count as worn.

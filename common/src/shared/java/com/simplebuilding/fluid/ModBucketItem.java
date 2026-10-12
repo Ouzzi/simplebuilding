@@ -229,21 +229,13 @@ public class ModBucketItem extends BucketItem {
         }
     }
 
-    /** N35: the ceramic wear is shown as a bar (the tooltip no longer lists the pours left). */
+    /**
+     * N37 (owner 2026-10-11): no bucket draws a durability bar - the ceramic wear shows in its texture (intact,
+     * chipped, cracked, brittle), the others never wear.
+     */
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return kind == Kind.CERAMIC ? ceramicUses(stack) > 0 : super.isBarVisible(stack);
-    }
-
-    @Override
-    public int getBarWidth(ItemStack stack) {
-        return kind == Kind.CERAMIC ? Math.round(13.0F * (CERAMIC_USES - ceramicUses(stack)) / CERAMIC_USES) : super.getBarWidth(stack);
-    }
-
-    @Override
-    public int getBarColor(ItemStack stack) {
-        if (kind != Kind.CERAMIC) return super.getBarColor(stack);
-        return net.minecraft.util.Mth.hsvToRgb(Math.max(0.0F, (float) (CERAMIC_USES - ceramicUses(stack)) / CERAMIC_USES) / 3.0F, 1.0F, 1.0F);
+        return false;
     }
 
     /** Only a bucket in the hotbar or the off hand weathers; the rest of the inventory and bundles do not (N35). */
@@ -400,7 +392,7 @@ public class ModBucketItem extends BucketItem {
         return loaderEmptyContents;
     }
 
-    /** Copper: hint when fully oxidized (unusable until scraped) and when waxed; Enderite: fill 1/2 or 2/2; ceramic: what it holds. */
+    /** Copper: hint when fully oxidized (unusable until scraped) and when waxed; ceramic: what it holds. Enderite: only its name (N37; "(Full)" in the name). */
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
                                 java.util.function.Consumer<net.minecraft.network.chat.Component> lines, net.minecraft.world.item.TooltipFlag flag) {
@@ -414,12 +406,6 @@ public class ModBucketItem extends BucketItem {
                         ? "tooltip.simplebuilding.copper_bucket.waxed_damp" : "tooltip.simplebuilding.copper_bucket.waxed")
                         .withStyle(net.minecraft.ChatFormatting.GOLD));
             }
-        } else if (kind == Kind.ENDERITE && getContent() != Fluids.EMPTY) {
-            lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.enderite_bucket.fill", amount(), 2)
-                    .withStyle(net.minecraft.ChatFormatting.GRAY));
-            lines.accept(net.minecraft.network.chat.Component.translatable(amount() < 2
-                    ? "tooltip.simplebuilding.enderite_bucket.half" : "tooltip.simplebuilding.enderite_bucket.full")
-                    .withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
         } else if (kind == Kind.CERAMIC) {
             lines.accept(net.minecraft.network.chat.Component.translatable(getContent().is(FluidTags.LAVA)
                     ? "tooltip.simplebuilding.ceramic_bucket.brittle" : "tooltip.simplebuilding.ceramic_bucket")

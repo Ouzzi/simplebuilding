@@ -230,7 +230,7 @@ public final class FeatureStations {
                 eggs.add(new ItemStack(egg.item()));
             }
         }
-        if (parts.isEmpty() && eggs.isEmpty() && ModBlocks.IRON_ROD == null) {
+        if (parts.isEmpty() && eggs.isEmpty() && ModBlocks.IRON_POLE == null) {
             return c;
         }
         c.title(0, 4, wallZ, TcText.t("section.placeables", "Placing"), TcText.t("section.placeables.sub", "sneak + use on floor"));
@@ -304,10 +304,10 @@ public final class FeatureStations {
             x += 2;
         }
         // Eisenstab: frei vor der Wand, nichts darueber (zieht Blitze nur als oberster Block seiner Saeule an).
-        if (ModBlocks.IRON_ROD != null) {
-            c.place(x + 1, 0, floorZ - 1, ModBlocks.IRON_ROD);
-            c.wallFrame(x, 2, wallZ, new ItemStack(ModItems.IRON_ROD));
-            c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("placeables.rod", "Iron Rod")), TcText.t("placeables.rod.sub", "open sky, thunder:"),
+        if (ModBlocks.IRON_POLE != null) {
+            c.place(x + 1, 0, floorZ - 1, ModBlocks.IRON_POLE);
+            c.wallFrame(x, 2, wallZ, new ItemStack(ModItems.IRON_POLE));
+            c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("placeables.rod", "Iron Pole")), TcText.t("placeables.rod.sub", "open sky, thunder:"),
                     TcText.t("placeables.rod.sub2", "lightning in %s", com.simplebuilding.blocks.custom.MetalRodBlock.IRON_RANGE));
             x += 3;
         }
@@ -601,7 +601,7 @@ public final class FeatureStations {
         }
         c.title(0, 3, wallZ, TcText.t("section.music", "Music"), TcText.t("section.music.sub", "discs, B-sides, speakers"));
         c.wallSign(2, 2, wallZ, TcText.bold(TcText.t("music.jukebox", "Jukebox Amplifier")),
-                TcText.t("music.jukebox.sub", "left: louder jukebox"), TcText.t("music.jukebox.sub2", "right: vanilla"));
+                TcText.t("music.jukebox.sub", "amp plays along"), TcText.t("music.jukebox.sub2", "up to 63 blocks"));
         c.wallSign(7, 2, wallZ, TcText.bold(TcText.t("music.note", "Note Amplifier")),
                 TcText.t("music.note.sub", "left: louder note block"), TcText.t("music.note.sub2", "right: vanilla"));
         c.wallSign(4, 1, wallZ, TcText.bold(TcText.t("music.flip", "B-Side")),
@@ -632,7 +632,7 @@ public final class FeatureStations {
         List<ItemStack> chest = new ArrayList<>();
         chest.add(new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER));
         chest.add(new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
-        if (ModItems.IRON_ROD != null) chest.add(new ItemStack(ModItems.IRON_ROD, 2));
+        if (ModItems.IRON_POLE != null) chest.add(new ItemStack(ModItems.IRON_POLE, 2));
         chest.add(new ItemStack(ModItems.CRACKED_DIAMOND, 16));
         chest.add(new ItemStack(ModItems.NETHERITE_NUGGET, 4));
         chest.add(new ItemStack(ModItems.ENDERITE_NUGGET, 4));
@@ -652,7 +652,7 @@ public final class FeatureStations {
         c.wallSign(2, 2, wallZ, TcText.bold(TcText.t("crucible.extreme", "Extreme heat")),
                 TcText.t("crucible.extreme.sub", "soul lava in a"), TcText.t("crucible.extreme.sub2", "reinforced cauldron"));
         c.wallSign(5, 2, wallZ, TcText.bold(TcText.t("crucible.build", "Build")),
-                TcText.t("crucible.build.sub", "hammer + 4 plates,"), TcText.t("crucible.build.sub2", "then 2 iron rods"));
+                TcText.t("crucible.build.sub", "hammer + 4 plates,"), TcText.t("crucible.build.sub2", "then 2 iron poles"));
         c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("crucible.hammer", "Hammer")),
                 TcText.t("crucible.hammer.sub", "quartz: 4 quartz"), TcText.t("crucible.hammer.sub2", "cauldron: 8 cracked"));
         c.backWall(0, 10, wallZ, 5);
