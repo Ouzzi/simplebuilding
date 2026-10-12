@@ -1,0 +1,134 @@
+{
+  "echo_core": {
+    "lore": [
+      "Das Herz eines Klangs, der nicht aufhören wollte. Am Ohr hört man ihn noch."
+    ],
+    "use": [
+      "Wird vom Tiefenheuler fallen gelassen. Seltsamer Trank plus Echokern braut einen Trank der Stille, 3:00 (8:00 mit Redstone), als Wurf- und Verweiltrank wie üblich."
+    ],
+    "secret": [
+      "Stille verbirgt dich wie Wolle: Sculk-Sensoren, Wardens und Heuler hören dich nicht."
+    ]
+  },
+  "hollow_howler_spawn_egg": {
+    "lore": [
+      "Ein Ei, das in einer Tonhöhe summt, die nur das Tiefe Dunkel versteht."
+    ],
+    "use": [
+      "Beschwört im Kreativmodus einen Tiefenheuler, den Zwischenboss des Tiefen Dunkels. Im Überleben ruft man ihn selbst mit einer Figur aus Sculk, einem Schädel und einem Ziegenhorn."
+    ],
+    "secret": [
+      "Der Heuler ruft nie Verstärkung, jagt aber alles, was er hört."
+    ]
+  },
+  "shellker_shell": {
+    "lore": [
+      "Eine Schale, die Geschossen und Schwebe gleichermaßen widerstanden hat. Sie ist schwerer, als sie aussieht."
+    ],
+    "use": [
+      "Vom Shellker fallen gelassen, 2 bis 3 Stück. Fünf ergeben einen Shellker-Helm; mit einem Seltsamen Trank braut sie Hohe Schwerkraft. Rechtsklick auf einen Shulker verwandelt ihn in einen Shellker."
+    ],
+    "secret": [
+      "Die Schale wird beim Verwandeln verbraucht. Nur so lassen sich Shellker züchten, denn sie erscheinen sonst nirgends."
+    ]
+  },
+  "shellker_helmet": {
+    "lore": [
+      "Ein Helm aus den Schalen derer, die die Tore bewachen."
+    ],
+    "use": [
+      "Fünf Shellker-Schalen in Helmform herstellen. Rüstung 3, Zähigkeit 1, 10 % Rückstoßresistenz, Eisenhaltbarkeit, mit Schalen reparierbar. Kann verziert und verzaubert werden."
+    ],
+    "secret": [
+      "Der Träger ist immun gegen Hohe Schwerkraft und erleidet 20 % weniger Fallschaden. Den Schaden der Geschosse hält er nicht ab."
+    ]
+  },
+  "shellker_spawn_egg": {
+    "lore": [
+      "Ein Ei in Schalenpanzer, das leise klappert wie ein sich schließender Schlitz."
+    ],
+    "use": [
+      "Beschwört einen Shellker, einen Shulker mit 120 Leben, der einen Block groß bleibt und End-Portale bewacht. Im Überleben gibt es ihn nur an den Toren oder aus Shulker und Schale."
+    ],
+    "secret": [
+      "Geschlossen nimmt ein Shellker keinerlei Schaden; nur Kolben können ihn wegschieben."
+    ]
+  },
+  "soulfire_rod": {
+    "lore": [
+      "Ein Stab mit blauer Feuerzunge, der keine Wärme gibt und doch brennt."
+    ],
+    "use": [
+      "Vom Seelenfeuer-Lohe fallen gelassen, 0 bis 1, mehr mit Plünderung. Seltsamer Trank plus Stab braut direkt langes Feuerresistenz (8:00)."
+    ],
+    "secret": [
+      "Das Feuer ist Seelenfeuer: Auf Seelensand oder Seelenerde entzünden die Flammen der Lohe Seelenfeuer."
+    ]
+  },
+  "soulfire_blaze_spawn_egg": {
+    "lore": [
+      "Ein Ei, das auf Seelensand liegt, als wäre es immer schon dort gewesen."
+    ],
+    "use": [
+      "Beschwört eine Seelenfeuer-Lohe. In freier Wildbahn erscheint sie nur in Seelensandtälern über Seelensand oder Seelenerde, in Gruppen von ein bis zwei."
+    ],
+    "secret": [
+      "Sie feuert drei Seelenfeuerbälle zu je 6 Schaden, doch Wasser verletzt sie und Schneebälle richten 3 Schaden an."
+    ]
+  },
+  "deceiver_cloth": {
+    "lore": [
+      "Ein Tuch aus einem Trick, der nie ganz dieselbe Farbe behält."
+    ],
+    "use": [
+      "Vom Betrüger fallen gelassen, 2 bis 4 mit 50 %. Grundstoff des Täuschungsumhangs und des Trickspiegels, repariert den Umhang und braut mit einem Unsichtbarkeitstrank verschleierte Unsichtbarkeit."
+    ],
+    "secret": [
+      "Diese Unsichtbarkeit hat keine Wirbelpartikel. Es ist das leiseste Verschwinden im Spiel."
+    ]
+  },
+  "deceiver_cloak": {
+    "lore": [
+      "Ein Umhang, der sich jede Gestalt merkt, die er je sah."
+    ],
+    "use": [
+      "Betrügertuch und Phantomhaut in einem Elytra-ähnlichen Muster herstellen. Im Brustplatz getragen, 240 Haltbarkeit. Rechtsklick mit leerer Hand auf Mob oder Spieler nimmt dessen Gestalt an."
+    ],
+    "secret": [
+      "Treffen oder Blockabbau beendet die Verkleidung. Bosse, der Warden und der Heuler durchschauen sie."
+    ]
+  },
+  "trick_mirror": {
+    "lore": [
+      "Ein Spiegel, der zeigt, was echt ist, und das ist selten schmeichelhaft."
+    ],
+    "use": [
+      "Gold, Amethystscherbe, Betrügertuch und Stock herstellen. 2 Sekunden hochhalten: In einem 30-Grad-Kegel bis 24 Blöcke leuchten Fälschungen und Verkleidete, jede Verkleidung fällt. 64 Nutzungen, 20 s Abklingzeit."
+    ],
+    "secret": [
+      "Er fällt auch mit 8 % vom Betrüger. Kopien des Betrügers leuchten gleich mit."
+    ]
+  },
+  "illusion_shard": {
+    "lore": [
+      "Ein Splitter von etwas, das nie ganz da war."
+    ],
+    "use": [
+      "Vom Betrüger fallen gelassen, 1 bis 2 (mehr mit Plünderung; ein gepanzerter lässt doppelt so viele fallen). Mit einem Seltsamen Trank entsteht mit SimpleBuilding der Trank der Fata Morgana."
+    ],
+    "secret": [
+      "Ein Betrüger mit Brustplatte ist die beste Quelle."
+    ]
+  },
+  "deceiver_spawn_egg": {
+    "lore": [
+      "Ein Ei, dessen Schale von jeder Seite anders aussieht."
+    ],
+    "use": [
+      "Beschwört einen Betrüger, der sich in eines der Mobs seiner Welle verwandelt und unterhalb der halben Gesundheit seine Beschwörungen verdoppeln kann. 200 Leben, 280 mit Rüstung."
+    ],
+    "secret": [
+      "Seine Kopien sind immer Fälschungen und verschwinden mit ihm."
+    ]
+  }
+}

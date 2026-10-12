@@ -1,0 +1,134 @@
+{
+  "echo_core": {
+    "lore": [
+      "The heart of a sound that would not stop. It still echoes if you hold it to your ear."
+    ],
+    "use": [
+      "Dropped by the Hollow Howler. Awkward Potion plus Echo Core brews a Potion of Silence, 3:00 (8:00 with redstone), splash and lingering as usual."
+    ],
+    "secret": [
+      "Silence hides you like wool: sculk sensors, Wardens and Howlers do not hear you."
+    ]
+  },
+  "hollow_howler_spawn_egg": {
+    "lore": [
+      "An egg that hums at a pitch only the Deep Dark understands."
+    ],
+    "use": [
+      "Spawns a Hollow Howler, the Deep Dark mid-boss, in creative. In survival you summon it yourself with a figure of sculk, a skull and a goat horn."
+    ],
+    "secret": [
+      "The Howler never calls reinforcements, but it hunts everything it hears."
+    ]
+  },
+  "shellker_shell": {
+    "lore": [
+      "A shell that has stood against bullets and levitation alike. It is heavier than it looks."
+    ],
+    "use": [
+      "Dropped by the Shellker, 2 to 3 pieces. Five make a Shellker Helmet; with an Awkward Potion it brews High Gravity. Right-click a Shulker with a shell to turn it into a Shellker."
+    ],
+    "secret": [
+      "The shell is used up when it turns a Shulker. That is the only way to farm Shellkers, since they never spawn anywhere else."
+    ]
+  },
+  "shellker_helmet": {
+    "lore": [
+      "A helmet made of the shells of those who guard the gateways."
+    ],
+    "use": [
+      "Craft five Shellker Shells in helmet shape. Armor 3, toughness 1, 10% knockback resistance, iron durability, repaired with shells. It can be trimmed and enchanted."
+    ],
+    "secret": [
+      "Its wearer is immune to High Gravity and takes 20% less fall damage. It does not stop the bullets' damage."
+    ]
+  },
+  "shellker_spawn_egg": {
+    "lore": [
+      "An egg wrapped in shell that rattles quietly like a closing slit."
+    ],
+    "use": [
+      "Spawns a Shellker, a 120-health Shulker that stays one block wide and guards End gateways. In survival they come only with the gateway or from a Shulker and a shell."
+    ],
+    "secret": [
+      "Closed, a Shellker takes no damage at all; only pistons can push it away."
+    ]
+  },
+  "soulfire_rod": {
+    "lore": [
+      "A rod with a blue tongue of fire that gives no heat but still burns."
+    ],
+    "use": [
+      "Dropped by the Soulfire Blaze, 0 to 1, more with Looting. Awkward Potion plus rod brews a long Fire Resistance (8:00) directly."
+    ],
+    "secret": [
+      "The fire is soul fire: on soul sand or soul soil the blaze's flames set soul fire."
+    ]
+  },
+  "soulfire_blaze_spawn_egg": {
+    "lore": [
+      "An egg that sits on soul sand as if it had always been there."
+    ],
+    "use": [
+      "Spawns a Soulfire Blaze. In the wild it appears only in Soul Sand Valleys, over soul sand or soul soil, in packs of one or two."
+    ],
+    "secret": [
+      "It shoots three soul fireballs of 6 damage each, but water hurts it and snowballs deal 3 damage."
+    ]
+  },
+  "deceiver_cloth": {
+    "lore": [
+      "A cloth woven from a trick that never quite stays the same colour."
+    ],
+    "use": [
+      "Dropped by the Deceiver, 2 to 4 at 50%. It is the base of the Cloak of Deception and the Trick Mirror, repairs the cloak, and with an Invisibility Potion brews a Veiled Invisibility."
+    ],
+    "secret": [
+      "That invisibility has no swirl particles. It is the quietest vanishing in the game."
+    ]
+  },
+  "deceiver_cloak": {
+    "lore": [
+      "A cloak that remembers every shape it ever saw."
+    ],
+    "use": [
+      "Craft deceiver cloth and phantom membrane in an elytra-like pattern. Worn in the chest slot, 240 durability. Right-click a mob or player with an empty hand to take its shape."
+    ],
+    "secret": [
+      "Hitting anything or breaking a block ends the disguise. Bosses, the Warden and the Howler see through it."
+    ]
+  },
+  "trick_mirror": {
+    "lore": [
+      "A mirror that shows what is real, which is rarely flattering."
+    ],
+    "use": [
+      "Craft gold, amethyst shard, deceiver cloth and a stick. Hold it up for 2 seconds: in a 30 degree cone up to 24 blocks, fakes and disguised foes glow and every disguise falls. 64 uses, 20 s cooldown."
+    ],
+    "secret": [
+      "It also drops from the Deceiver at 8%. Copies of the Deceiver glow along with it."
+    ]
+  },
+  "illusion_shard": {
+    "lore": [
+      "A sliver of something that was never quite there."
+    ],
+    "use": [
+      "Dropped by the Deceiver, 1 to 2 (more with Looting; an armored one drops twice as many). With an Awkward Potion it brews the Potion of the Mirage if SimpleBuilding is present."
+    ],
+    "secret": [
+      "An armored Deceiver in a chest plate is the best source."
+    ]
+  },
+  "deceiver_spawn_egg": {
+    "lore": [
+      "An egg whose shell looks like different things from different sides."
+    ],
+    "use": [
+      "Spawns a Deceiver, a mob that turns into one of its own wave's mobs and may double its summons below half health. 200 health, 280 with armor."
+    ],
+    "secret": [
+      "Its copies are always fakes and vanish with it."
+    ]
+  }
+}
