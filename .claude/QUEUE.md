@@ -673,12 +673,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Guide-Titel DE „Astral-Verzauberer“ (statt „Astraler Verzauberer“), Text kürzen damit es passt. (claude-q-milk)
 - [x] Kreativ-Bauzauberstab ohne Material: bleibt; im Survival nicht herstellbar (kein Rezept).
 - [x] QoL-Aufteilung in Sub-Mods (Container/GUI → „Simple QoG“ o. ä., Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor); jeder Name beginnt mit „Simple“. Name für simplecontainers: „Simple Interfaces“ (Besitzer 10.10.). (claude-q-qolsplit: Umbenennung simpleinterfaces + Migration, Simple Weather als 1. Sub-Mod mit Schalter „Simple Weather aktivieren“; Namen Movement/Farming/Tools/Creatures/Loot im Plan; restliche Sub-Mods auf `claude-qol4`)
-- [ ] Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“).
-- [ ] Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.,
-- [ ] QoL-Aufteilung in Sub-Mods (Container/GUI → „Simple QoG“ o. ä., Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor); jeder Name beginnt mit „Simple“. Name für simplecontainers: Besitzer schlägt „Simple QoG“ (Quality of GUI) vor.
 - [x] (claude-q-maps2) Simple Maps als Sub-Mod in SimpleBuilding bündeln (Schalter „Simple Maps aktivieren“; Config-Tab „Simple Mods“, Neustart nötig).
 - [x] (claude-q-maps2) Simple Maps Feature 3: Struktur-Markierungen (nur entdeckte Strukturen), im Karten-GUI über die linken Lesezeichen abschaltbar.
-- [ ] Simple Trims als Sub-Mod starten (Plan N18).
 - [x] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms). (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md) (claude-mobs2)
 - [x] Seelenfeuer-Lohe: Konzept + Vorschau. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md), (claude-mobs2)
 - [x] Simple Trims als Sub-Mod starten (Plan N18). (claude-q-trims: Stufe 1; Rest Stufen 2–4 siehe Plan)
@@ -716,21 +712,15 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 34 (2026-10-11, Besitzer, Screenshots im Vorschauordner n34/)
 - [x] Verstärkter Kessel: Item-Icon immer noch falsch.
 - [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen.
-- [ ] (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.,
 - [x] Verstärkter Kessel: Item-Icon immer noch falsch. (claude-n34-tex: Item zeigt jetzt den 3D-Block wie Tiegel/Fässer/Holzkessel, 2D-Sprite entfernt; Client-Screenshot geprüft; Besitzer-Abnahme offen)
 - [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Besitzer wählte F1 aus E–I/F1–F3/G1–G3 – kurzer Deckel, matte Farben, alle 4 Stufen eingebaut statt D; Client-Abnahme offen)
 - [x] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell.
 - [x] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png).
 - [x] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern.,
-- [ ] Verstärkter Kessel: Item-Icon immer noch falsch.
-- [ ] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen.
 - [x] (claude-n37-ui: Variante c umgesetzt, Mockup-Klasse entfernt) (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.,
 - [x] Verstärkter Kessel: Item-Icon immer noch falsch. (claude-n34-tex: Item zeigt jetzt den 3D-Block wie Tiegel/Fässer/Holzkessel, 2D-Sprite entfernt; Client-Screenshot geprüft; Besitzer-Abnahme offen)
 - [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Besitzer wählte F1 aus E–I/F1–F3/G1–G3 – kurzer Deckel, matte Farben, alle 4 Stufen eingebaut statt D; Client-Abnahme offen)
 - [x] (claude-n37-ui: Variante c gewählt und umgesetzt) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.
-- [ ] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell.
-- [ ] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png).
-- [ ] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern.
 - [x] Sand-/Kies-Stufen (gravity_slabs.png): untere Stufe – eine Stufe einen Block darüber fällt nicht auf sie; obere Stufe fällt gar nicht (schwebt); platzierte obere Gravity-Stufe teleportiert beim ersten Fall-Tick von oben nach unten, dann fällt sie. (claude-n34-phys: Halbfall auf gleichartige untere Stufe, obere fällt in eigener Zelle, Fall-Entity startet auf sichtbarer Höhe; 2 neue Tests)
 - [x] Holzkessel nimmt nur Vanilla-Lava: Enderit-Lava-Eimer (und alle Enderit-Eimer) auf Kompatibilität zu Vanilla-Interaktionen prüfen.
 - [x] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv.,
@@ -781,7 +771,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis. (claude-n35-world)
 - [x] Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
 - [x] Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
-- [ ] Nihilith-Signalschalter überarbeiten; Konzept Astral-/Nihil-Redstone erklären.
 
 ## Nachtrag 36 (2026-10-11, Besitzer)
 - [x] (claude-questionary: Mechanik V1 – Modul simplequestionary, Block/GUI/Datenformat/Fallback/Fakten/Abdeckung/SB-Schalter/Wiki; offen: Texte für alle Items, Besitzer-Abnahme) Questionary Table (Tisch aus Buch + Lapis + Holz; Item links, Buch rechts mit 3 Seiten Lore/Nutzen/Geheim, für jedes Item, Fremd-Mod-Fallback mystisch): Konzept fertig in docs/ai/KONZEPT-QUESTIONARY-TABLE-2026-10-11.md (claude-concept-quest), Umsetzung nach Besitzer-OK (4 offene Fragen im Konzept).
@@ -790,30 +779,18 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Nachtrag 37 (2026-10-11, Besitzer, Screenshots im Vorschauordner n37/)
 - [x] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran). (claude-jaw3 E–I gezeigt; Besitzer: Form bleibt)
 - [x] Sculk Jaw (N37): als Sculk tarnen (Vanilla-Sculk-Textur per Referenz, dunkle Zähne), Zuschnappen/Öffnen als Bildfolge (motion 2→0), helle Kantenlinien beseitigt (Auto-UV statt Texturfelder, verdeckte Flächen weg, cullface). (claude-jaw4; Bilder n37/jaw-*.png)
-- [ ] Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.,
-- [ ] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran).
 - [x] (claude-n37-ui: Obsidian/Gold/Lapis-Block mit Buch, Glyphen-Partikel; GUI Lapis-Pult + Guide-Buch-Look) Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.
-- [ ] Platzierte Bündel: Items 3D (1 px tief) rendern.
 - [x] (claude-n37-ui: simplelib UiSlotIcons/UiPalette.slotIcon, Vanilla-Kontrast je Thema, SB-Fenster + simpleinterfaces) UI-Farbvarianten (z. B. braun): Hintergrund-Symbole der Slots nicht korrekt sichtbar (brown_ui_icons.png).
-- [ ] Placeables gezielt abbauen: das angeschaute Teil wird abgebaut.
-- [ ] Platzierter Ziegenhorn: Textur korrekt, aber nicht schön → verbessern.
-- [ ] Kisten von der Seite: Inhalt nicht erkennbar → seitlich Item-Texturen zeigen (crate_side.png).
 - [x] (claude-n37-ui: Tooltip rechts neben dem Fenster; Preis skaliert streng monoton, 50 nur bei voller Wahl; Besitzer-Nachtrag: Preis = benötigte Stufe, kostet 1-5 Level) Astral-Verzauberer: Tooltip der Verzauberungen immer rechts neben dem gesamten UI; Preis bleibt bei 50, obwohl eine Stufe weniger gewählt ist (astral_max.png / astral_one_less.png) → Preis muss bei weniger Stufen sinken.
-- [ ] Enderit-Eimer: Tooltip nur Titel.
-- [ ] Eimer: keine Haltbarkeitslinie rendern.
 - [x] (claude-n37-ui) Verstärkter Tiegel: Slots 2x6 statt 3x4.
 - [x] (claude-n37-ui: Besitzer-Wahl Variante c, 5x6 = 30 Plätze, Fass daneben, Inventar zentriert darunter; alte 27er-Inhalte laden per Index) Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
-- [ ] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben.
-- [ ] Sculk Jaw nur auf vollen Blöcken platzierbar.
 
 ## Nachtrag 38 (2026-10-11, Besitzer)
 - [x ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen. (claude-jaw5: Bremse 0,06/0,015; Blindheit d(t)=min(60,max(3,3·(5/3)^(t−2))) s + Dunkelheit; gedämpfte Knochenspitzen; Bilder n38/jaw-*.png. Volle-Blöcke-Regel liegt schon auf claude-n37-world 032663492)
-- [ ] Tooltips überall überarbeiten: nur an wichtigen Stellen Beschreibung, sonst nur Name; Beschreibungen sehr kurz.
 - [x] (claude-n38) Schachfiguren: flache Variante heißt "Flat …" (Flat Rook, Flat Knight, …).
 - [x] (claude-n38) Wayfinder-Karten-GUI: so groß wie möglich; seitliche Lesezeichen-Buttons schöner und weniger gedrängt (rechts), Buttons allgemein hübscher.
 - [x] (claude-n38) Nether-/End-Wayfinder-Karten zeigen in der Hand die Oberwelt → stattdessen Störsignal.
 - [x] (claude-n38) Deceiver: doppeltes Leben; nach Verwandlung in größeren Mob dessen Hitbox.
-- [ ] Guide-Bücher erweitern, alles aktuell.
 
 ## Nachtrag 38b (2026-10-11, Besitzer, Deceiver Stufe 2 – in Arbeit auf claude-deceiver2)
 - [ ] Tarn-Umhang (Brustplatz): Erkennung erst im 3-Block-Radius; Rechtsklick auf Mob/Spieler → Verwandlung (Spieler mit Skin + Rüstung); Schlag/Abbauen → Rückverwandlung; Enttarnung: angegriffener Mob + 5x5, danach erhöhter, aber verringerter Radius.
@@ -834,12 +811,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Holzkessel entrindet (stripped): 3D-Modell fehlt die Variante → fixen. (claude-n41-fix: eigenes Item-Modell mit Block-Darstellung für alle 12 Holzarten)
 - [x] Tooltip Basic Upgrade „applies to“ abkürzen (z. B. „Stone–Gold equipment“). (claude-n41-fix: „Wood–Gold Equipment“ / „Holz- bis Gold-Ausrüstung“, Basen der Rezepte sind Holz bis Gold)
 - [x] Leather Sheet: Item größer, zentriert, richtige Größe im Slot. (claude-n41-fix: 14x14 mittig)
-- [ ] Enderquarz: Form gleich, Farben/Stil anpassen (Vorschläge).
-- [ ] Blaze Book: wie Vanilla-Buch, nur epischer; Rezept 8 Lohenstaub + Buch (Vorschläge).
-- [ ] Hufeisen: Form gleich, Textur überarbeiten (Vorschläge).
-- [ ] Blöcke Bild 1 (docs/ai/refs/n41/bloecke.png): MC-Stil, epischer, fließender, nicht stechend; je 3 Vorschläge, Web-Referenzen.
-- [ ] Bild 2 (docs/ai/refs/n41/items.png: Farbkasten, Rucksack, 2 Faser-Ringe): je 5 Vorschläge; Fasern mehr wie Fasern; Rucksack-Item-Textur zusätzlich als Render des 3D-Modells vorschlagen.
-- [ ] Regel: bei Textur-Überarbeitungen immer Referenzen aus dem Internet suchen.
+- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Enderquarz: Form gleich, Farben/Stil anpassen (Vorschläge).
+- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Blaze Book: wie Vanilla-Buch, nur epischer; Rezept 8 Lohenstaub + Buch (Vorschläge).
+- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Hufeisen: Form gleich, Textur überarbeiten (Vorschläge).
+- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Blöcke Bild 1 (docs/ai/refs/n41/bloecke.png): MC-Stil, epischer, fließender, nicht stechend; je 3 Vorschläge, Web-Referenzen.
+- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Bild 2 (docs/ai/refs/n41/items.png: Farbkasten, Rucksack, 2 Faser-Ringe): je 5 Vorschläge; Fasern mehr wie Fasern; Rucksack-Item-Textur zusätzlich als Render des 3D-Modells vorschlagen.
+- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Regel: bei Textur-Überarbeitungen immer Referenzen aus dem Internet suchen.
 - [x] Trainingspuppe: Körper flackert mit Kürbiskopf (Z-Fighting). (claude-n41-fix)
 - [x] Kleiner Rüstungsständer: Stein-Bodenplatte flackert; Helm zu hoch, Stiefel zu niedrig. (claude-n41-fix: Vanilla-Platte aus, Helm 3 px tiefer, Stiefel auf der Platte)
 - [x] Jukebox wie Vanilla (keine Änderung); Verstärker in Reichweite (63 Blöcke) spielt den Ton ohne Verzögerung mit, Spieler hört ihn vom Verstärker. (claude-n41-fix: keine Verstärkung mehr, Funk 63, Kette bleibt; Gametest `jukebox_stays_vanilla_and_amplifier_plays_along`)
@@ -855,22 +832,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Verstärker einmal durchgeprüft (Funktion/Kette/Noten/Hitbox/Texturen/Tests: ohne Befund außer fehlendem Tooltip); Tooltip für Musik-/Noten-Verstärker (en/de) + Gametest `amplifiers_have_tooltip_and_full_cube_hitbox` (claude-n39-fix),
 - [ ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen.
 - [x] Tooltips überall überarbeiten: nur an wichtigen Stellen Beschreibung, sonst nur Name; Beschreibungen sehr kurz. (claude-n38-text; Regel AGENTS.md Punkt 14)
-- [ ] Schachfiguren: flache Variante heißt "Flat …" (Flat Rook, Flat Knight, …).
-- [ ] Wayfinder-Karten-GUI: so groß wie möglich; seitliche Lesezeichen-Buttons schöner und weniger gedrängt (rechts), Buttons allgemein hübscher.
-- [ ] Nether-/End-Wayfinder-Karten zeigen in der Hand die Oberwelt → stattdessen Störsignal.
-- [ ] Deceiver: doppeltes Leben; nach Verwandlung in größeren Mob dessen Hitbox.
 - [x] Guide-Bücher erweitern, alles aktuell. (claude-n38-text: Keramik-Eimer, Kupfereimer-Regeln, Auto-Schmied, geschnitztes Holz, Holzkessel, rissiges Eis, Schwefel-/Kupferfeuer, Schwarzpulver, Kisten, Sculk Jaw, Astral-Preise; Fragentisch/Tiefenheuler: Module ohne Guide),
-- [ ] Kisten (crates): Items in 3D sichtbar, etwas größer, 1 px Höhe, von überall in der Kiste sichtbar (Mischung aus crate_ref_apples.png und crate_ref_iso.png), nicht nur oben.
-- [ ] Smither wirft Items nicht aus wie der Vanilla-Crafter → wie Crafter.
-- [ ] Kreativ-Baustab sieht nicht gut aus → wie die anderen Stäbe, nur in Sonder-Umfärbung.
-- [ ] Astral-Verzauberer: Schrift der Verzauberungen kleiner wie Vanilla (wirkt gedrängt); Slider-Stufen farblich abstufen (Stufe 1 aktuelle Farbe, jede höhere Stufe dunklerer Shade); "x/∞" erklären/ersetzen; unter dem Buch-Button in einer Zeile Lapis (blauer Punkt) und Lohenstaub (orange-roter Punkt) mit Bedarf; Kosten-Konzept überarbeiten: max. Level 50, erst bei Max alle angezeigten Verzauberungen maximierbar, darunter weniger; Preis je Verzauberung nach Wert, plus „Steuer“ fürs Kombinieren (3 schwache < 50 Level, 3 starke = 50).
-- [ ] End-Schiffswracks ca. 80 % vergraben + Endstein obendrauf (schwerer erkennbar).
-- [ ] Resonanz-Button im Inventar: Schrift kleiner, Button schmaler.
-- [ ] Kessel aus entrindetem Holz (stripped oak usw.).
-- [ ] Gemeißeltes Eis: Motive symmetrischer/ausgewogener.
-- [ ] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis.
-- [ ] Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
-- [ ] Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
 - [x] Nihilith-Signalschalter überarbeiten; Konzept Astral-/Nihil-Redstone erklären. (claude-redlines: entfällt durch Nachtrag 36 – Schalter/Lampen entfernt, Konzept in docs/ai/PLAN-REDSTONE-LINIEN-2026-10-11.md und Wiki „Astral-, Nihil- und Brücken-Redstone“)
 
 ## Nachtrag 36 (2026-10-11, Besitzer: Astral/Nihil als 2./3. Redstone-Linie)
@@ -878,16 +840,11 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] (claude-redlines) Brücken-Redstone (Astralitstaub + Nihilitsplitter + Redstone → 3) verbindet alle drei Linien; Textur aus den drei Farben.
 - [x] (claude-redlines) Astral-/Nihil-Schalter und -Lampen entfernt; alte Blöcke/Items laden als Hebel bzw. Redstone-Lampe (LegacyItemIds.REPLACED_BY_VANILLA); End-Kolben/-Schienen hören auf den Staub ihrer Linie.
 - [x] (claude-redlines) Lang EN/DE, Guide, Wiki, JEI-Info, Simple-Money-Preise, Testzentrale, Gametests (RedstoneLinesTests).,
-- [ ] Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.
 - [x] Platzierte Bündel: Items 3D (1 px tief) rendern. (claude-n37-world)
-- [ ] UI-Farbvarianten (z. B. braun): Hintergrund-Symbole der Slots nicht korrekt sichtbar (brown_ui_icons.png).
 - [x] Placeables gezielt abbauen: das angeschaute Teil wird abgebaut. (claude-n37-world)
 - [x] Platzierter Ziegenhorn: Textur korrekt, aber nicht schön → verbessern. (claude-n37-world)
 - [x] Kisten von der Seite: Inhalt nicht erkennbar → seitlich Item-Texturen zeigen (crate_side.png). (claude-n37-world)
-- [ ] Astral-Verzauberer: Tooltip der Verzauberungen immer rechts neben dem gesamten UI; Preis bleibt bei 50, obwohl eine Stufe weniger gewählt ist (astral_max.png / astral_one_less.png) → Preis muss bei weniger Stufen sinken.
 - [x] Enderit-Eimer: Tooltip nur Titel. (claude-n37-world)
 - [x] Eimer: keine Haltbarkeitslinie rendern. (claude-n37-world)
-- [ ] Verstärkter Tiegel: Slots 2x6 statt 3x4.
-- [ ] Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
 - [x] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben. (claude-n37-world: Mod-Kistenboote; Vanilla-Boote unverändert)
 - [x] Sculk Jaw nur auf vollen Blöcken platzierbar. (claude-n37-world)
