@@ -132,6 +132,7 @@ public final class DragonFightTests {
         });
         add("speed_factor", h -> {
             EnderDragon d = dragon(h);
+            d.getPhaseManager().setPhase(net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhase.HOLDING_PATTERN);
             h.assertTrue(DragonFightServer.speedFactor(d) == 1f, "unmanaged dragon keeps Vanilla speed");
             FightSession s = new FightSession();
             s.scale(d, 1);
@@ -255,6 +256,7 @@ public final class DragonFightTests {
             BlockPos center = h.absolutePos(new BlockPos(1, 1, 1));
             FightSession s = new FightSession();
             s.setSummons(2);
+            d.getPhaseManager().setPhase(net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhase.HOLDING_PATTERN);
             List<Player> two = players(h, 2);
             s.scan(level, d, center, two, 0);
             h.assertTrue(near(d.getMaxHealth(), 600 * 1.3) && near(d.getHealth(), 780), "2 players x 2 summonings: 600 x 1.3 = 780 (got " + d.getMaxHealth() + ")");
