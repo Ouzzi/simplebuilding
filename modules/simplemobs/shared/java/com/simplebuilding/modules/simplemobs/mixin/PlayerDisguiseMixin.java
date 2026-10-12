@@ -25,7 +25,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Player.class)
 public abstract class PlayerDisguiseMixin implements DisguiseHolder {
     @Unique private String simplemobs$spec = "";
-    @Unique private final ItemStack[] simplemobs$gear = {ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY};
+    /** Created lazily: Forge's mixin cannot merge array initializers into constructors. */
+    @Unique private ItemStack @Nullable [] simplemobs$gear;
     @Unique private @Nullable DisguiseMarker simplemobs$marker;
     @Unique private long simplemobs$revealedUntil = Long.MIN_VALUE;
     @Unique private final Map<UUID, Long> simplemobs$spotted = new HashMap<>();
@@ -56,7 +57,13 @@ public abstract class PlayerDisguiseMixin implements DisguiseHolder {
 
     @Override public String simplemobs$spec() { return simplemobs$spec; }
     @Override public void simplemobs$setSpec(String spec) { simplemobs$spec = spec; }
-    @Override public ItemStack[] simplemobs$gear() { return simplemobs$gear; }
+    @Override public ItemStack[] simplemobs$gear() {
+        if (simplemobs$gear == null) {
+            simplemobs$gear = new ItemStack[6];
+            java.util.Arrays.fill(simplemobs$gear, ItemStack.EMPTY);
+        }
+        return simplemobs$gear;
+    }
     @Override public @Nullable DisguiseMarker simplemobs$marker() { return simplemobs$marker; }
     @Override public void simplemobs$setMarker(@Nullable DisguiseMarker marker) { simplemobs$marker = marker; }
     @Override public long simplemobs$revealedUntil() { return simplemobs$revealedUntil; }
