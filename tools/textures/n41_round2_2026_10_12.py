@@ -306,8 +306,8 @@ HS = {
 }
 
 
-def horseshoe(metal, v):
-    src = load(RIDE / f'{metal}_horseshoe.png')
+def horseshoe(metal, v, src=None):
+    src = src if src is not None else load(RIDE / f'{metal}_horseshoe.png')
     cols = sorted({p for p in src.getdata() if p[3]}, key=lambda p: p[0] * .3 + p[1] * .59 + p[2] * .11)
     # current layout: outline (darkest), nail holes, dark, mid, light, highlight
     role = {c: i for i, c in enumerate(cols)}
