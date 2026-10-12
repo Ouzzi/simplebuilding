@@ -1,0 +1,50 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleend"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleend"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleend"
+  },
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hollow_stripped_ashwood_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:hollow_stripped_ashwood_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:stripped_ashwood_cauldron"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_hollow_stripped_ashwood_log"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:stripped_ashwood_cauldron"
+    ]
+  }
+}

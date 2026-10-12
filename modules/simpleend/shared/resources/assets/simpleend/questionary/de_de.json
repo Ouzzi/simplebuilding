@@ -1,7 +1,7 @@
 {
   "family:end_wood": {
     "items": [
-      "regex:(stripped_)?(ashwood|duskwood)_(log|wood|planks|stairs|slab|fence|fence_gate|door|trapdoor|button|pressure_plate|sign|hanging_sign|boat|chest_boat)"
+      "regex:(stripped_)?(ashwood|duskwood)_(log|wood|planks|stairs|slab|fence|fence_gate|door|trapdoor|button|pressure_plate|sign|hanging_sign|shelf|boat|chest_boat)"
     ],
     "lore": [
       "{name} stammt von den blassen Bäumen der äußeren End-Inseln. Aschholz wächst im Aschental, das etwas braunere Dämmerholz in den Dämmerlanden. Die Maserung zeigt noch die Knubbel des Chorus, neben dem es aufwuchs."

@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/template_carved_log",
+  "textures": {
+    "side": "simpleend:block/stripped_duskwood_log",
+    "end": "simpleend:block/stripped_duskwood_log_top"
+  }
+}

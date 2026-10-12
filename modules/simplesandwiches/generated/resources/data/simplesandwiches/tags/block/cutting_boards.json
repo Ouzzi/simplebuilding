@@ -13,6 +13,14 @@
     "simplesandwiches:poplar_cutting_board",
     "simplesandwiches:bamboo_cutting_board",
     "simplesandwiches:crimson_cutting_board",
-    "simplesandwiches:warped_cutting_board"
+    "simplesandwiches:warped_cutting_board",
+    {
+      "id": "simplesandwiches:ashwood_cutting_board",
+      "required": false
+    },
+    {
+      "id": "simplesandwiches:duskwood_cutting_board",
+      "required": false
+    }
   ]
 }

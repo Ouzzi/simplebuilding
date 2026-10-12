@@ -1,0 +1,30 @@
+{
+  "tier": "iron",
+  "table": "chisel",
+  "chains": [
+    {
+      "blocks": [
+        "simpleend:ashwood_planks",
+        "simpleend:ashwood_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleend:ashwood_stairs",
+        "simpleend:ashwood_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleend:duskwood_planks",
+        "simpleend:duskwood_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleend:duskwood_stairs",
+        "simpleend:duskwood_slab"
+      ]
+    }
+  ]
+}

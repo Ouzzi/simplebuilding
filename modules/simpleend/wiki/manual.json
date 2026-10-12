@@ -11,22 +11,26 @@
       ],
       "en": {
         "title": "Ashwood and Duskwood",
-        "summary": "Two End woods with the full Vanilla wood set: log, wood, stripped log and wood, planks, stairs, slab, fence, fence gate, door, trapdoor, button, pressure plate, sign, hanging sign, leaves, boat and boat with chest.",
+        "summary": "Two End woods with the full Vanilla wood set: log, wood, stripped log and wood, planks, stairs, slab, fence, fence gate, door, trapdoor, button, pressure plate, sign, hanging sign, shelf, leaves, boat and boat with chest.",
         "details": [
           "Ashwood is pale warm grey with chorus-like knobs; Duskwood is a little browner, with twisting bark and a purpur-like plank grid.",
           "An axe strips logs and wood; all wood burns like overworld wood and works as fuel (same burn times as oak).",
           "Recipes are the Vanilla wood recipes (logs to 4 planks, planks to stairs, slabs, doors ...; hanging signs from stripped logs and iron chains).",
-          "Leaves are tinted with the dry-foliage colour of the biome: grey-brown in Ash Valley and Dawnlands, the Vanilla dry-leaf tone elsewhere."
+          "Leaves are tinted with the dry-foliage colour of the biome: grey-brown in Ash Valley and Dawnlands, the Vanilla dry-leaf tone elsewhere.",
+          "The shelf is Vanilla's shelf in End wood (six from six stripped logs): it holds three items, and linked shelves swap them with the hotbar when powered.",
+          "(with SimpleBuilding) Both woods also get SimpleBuilding's woodwork - hollow logs, sheets, wooden cauldrons, crate and carved log - plus wood and log octets and tiered chest boats. (with Simple Sandwiches) A cutting board of each wood. Without those mods none of these blocks exists."
         ]
       },
       "de": {
         "title": "Aschholz und Dämmerholz",
-        "summary": "Zwei End-Hölzer mit vollem Vanilla-Holzset: Stamm, Holz, entrindeter Stamm und entrindetes Holz, Bretter, Treppe, Stufe, Zaun, Zauntor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Laub, Boot und Boot mit Truhe.",
+        "summary": "Zwei End-Hölzer mit vollem Vanilla-Holzset: Stamm, Holz, entrindeter Stamm und entrindetes Holz, Bretter, Treppe, Stufe, Zaun, Zauntor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Regal, Laub, Boot und Boot mit Truhe.",
         "details": [
           "Aschholz ist blass warmgrau mit Chorus-Knubbeln; Dämmerholz ist etwas brauner, mit gedrehter Rinde und purpurartigem Bretterraster.",
           "Eine Axt entrindet Stämme und Holz; alles Holz brennt wie Oberwelt-Holz und ist Brennstoff (Brenndauer wie Eiche).",
           "Rezepte sind die Vanilla-Holzrezepte (Stamm zu 4 Brettern, Bretter zu Treppen, Stufen, Türen …; Hängeschilder aus entrindeten Stämmen und Eisenketten).",
-          "Laub wird mit der Trockenlaub-Farbe des Bioms gefärbt: grau-braun in Aschental und Dämmerlande, sonst im Vanilla-Trockenlaub-Ton."
+          "Laub wird mit der Trockenlaub-Farbe des Bioms gefärbt: grau-braun in Aschental und Dämmerlande, sonst im Vanilla-Trockenlaub-Ton.",
+          "Das Regal ist das Vanilla-Regal aus End-Holz (sechs aus sechs entrindeten Stämmen): es hält drei Gegenstände, verbundene Regale tauschen sie mit Redstone-Signal gegen die Schnellleiste.",
+          "(mit SimpleBuilding) Beide Hölzer bekommen auch SimpleBuildings Holzwerk – ausgehöhlte Stämme, Platten, Holzkessel, Kiste und geschnitzten Stamm – dazu Holz- und Stamm-Achtel und gestufte Kistenboote. (mit Simple Sandwiches) Ein Schneidebrett je Holz. Ohne diese Mods gibt es keinen dieser Blöcke."
         ]
       }
     },

@@ -7,6 +7,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void registered(GameTestHelper helper) { EndTests.ALL.get("registered").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void woodTagsAndRecipes(GameTestHelper helper) { EndTests.ALL.get("wood_tags_and_recipes").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void axeStripsAndWoodBurns(GameTestHelper helper) { EndTests.ALL.get("axe_strips_and_wood_burns").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void partnerWoodFeatures(GameTestHelper helper) { EndTests.ALL.get("partner_wood_features").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budLightGrowsTree(GameTestHelper helper) { EndTests.ALL.get("bud_light_grows_tree").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budDarkGrowsScrub(GameTestHelper helper) { EndTests.ALL.get("bud_dark_grows_scrub").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budSquareGrowsHugeTree(GameTestHelper helper) { EndTests.ALL.get("bud_square_grows_huge_tree").accept(helper); }

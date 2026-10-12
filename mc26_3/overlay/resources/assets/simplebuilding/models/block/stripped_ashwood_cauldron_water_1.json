@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/template_cauldron_level1",
+  "textures": {
+    "particle": "simpleend:block/stripped_ashwood_log",
+    "side": "simpleend:block/stripped_ashwood_log",
+    "top": "simpleend:block/stripped_ashwood_log_top",
+    "bottom": "simpleend:block/stripped_ashwood_log_top",
+    "inside": "simpleend:block/ashwood_planks",
+    "content": "minecraft:block/water_still"
+  }
+}

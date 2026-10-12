@@ -212,7 +212,7 @@ public final class SledgehammerOctetTests {
         int expected = 0;
         for (String wood : ModBlocks.OCTET_WOODS) {
             if (net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
-                    net.minecraft.resources.Identifier.withDefaultNamespace(wood + "_planks")).isPresent()) expected++;
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath(ModBlocks.octetWoodNamespace(wood), wood + "_planks")).isPresent()) expected++;
         }
         helper.assertValueEqual(ModBlocks.WOOD_OCTETS.size(), expected, "one octet cell per wood");
         helper.assertValueEqual(ModItems.WOOD_OCTETS.size(), expected, "one octet item per wood");

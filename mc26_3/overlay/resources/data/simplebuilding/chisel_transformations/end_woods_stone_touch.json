@@ -1,0 +1,18 @@
+{
+  "tier": "stone",
+  "table": "touch",
+  "chains": [
+    {
+      "blocks": [
+        "simpleend:ashwood_log",
+        "simpleend:stripped_ashwood_log"
+      ]
+    },
+    {
+      "blocks": [
+        "simpleend:duskwood_log",
+        "simpleend:stripped_duskwood_log"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "simplebuilding:item/chess/octet",
+  "textures": {
+    "all": "simpleend:block/ashwood_planks"
+  }
+}

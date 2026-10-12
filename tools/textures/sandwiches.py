@@ -34,7 +34,11 @@ V = ARGS[0] if ARGS else os.path.join(ROOT, 'build', 'vanilla-textures')
 PREVIEW = ARGS[1] if len(ARGS) > 1 else os.path.join(ROOT, '..', '..', 'code', 'minecraft-mods', 'previews', 'sandwiches-vorschau.png')
 
 WOODS = ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'poplar',
-         'bamboo', 'crimson', 'warped']
+         'bamboo', 'crimson', 'warped', 'ashwood', 'duskwood']
+# Simple End woods (boards only with Simple End, docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): their planks are Simple End's own
+# pixel art in the repo, not Vanilla.
+END_PLANKS = os.path.join(ROOT, 'modules', 'simpleend', 'shared', 'resources', 'assets', 'simpleend', 'textures', 'block')
+END_WOODS = ('ashwood', 'duskwood')
 KEYS = ['meat_raw', 'meat_cooked', 'fish_raw', 'fish_cooked', 'beef_raw', 'beef_cooked', 'pork_raw', 'pork_cooked', 'chicken_raw', 'chicken_cooked', 'mutton_raw', 'mutton_cooked', 'rabbit_raw', 'rabbit_cooked', 'cod_raw', 'cod_cooked', 'salmon_raw', 'salmon_cooked',
         'potato', 'carrot', 'golden', 'apple', 'melon',
         'berries', 'beetroot', 'kelp', 'cookie', 'pie', 'chorus', 'spider_eye', 'rotten', 'cheese', 'cake',
@@ -235,7 +239,7 @@ def cheese_textures():
 
 
 def board_textures(wood):
-    planks = Image.open(os.path.join(V, 'block', wood + '_planks.png')).convert('RGBA')
+    planks = Image.open(os.path.join(END_PLANKS if wood in END_WOODS else os.path.join(V, 'block'), wood + '_planks.png')).convert('RGBA')
     colors = sorted({planks.getpixel((x, y))[:3] for x in range(16) for y in range(16)}, key=sum)
     dark, mid = colors[0], colors[len(colors) // 2]
     lightish = colors[min(len(colors) - 1, len(colors) * 3 // 4)]
@@ -446,8 +450,14 @@ def knife(style=None):
 
 # --- cutting board (derived from each vanilla planks texture) -------------------------------------------
 def plank_ramp(wood):
-    planks = Image.open(os.path.join(V, 'block', wood + '_planks.png')).convert('RGBA')
+    planks = Image.open(os.path.join(END_PLANKS if wood in END_WOODS else os.path.join(V, 'block'), wood + '_planks.png')).convert('RGBA')
     colors = sorted({planks.getpixel((x, y))[:3] for x in range(16) for y in range(16)}, key=sum)
+    if wood in END_WOODS:
+        # Duskwood planks carry violet knots: a ramp tone, they would streak every joint; the grain ramp stays grey-brown.
+        # Their planks have few tones: the stripped log's (same wood) fill the ramp in between.
+        stripped = Image.open(os.path.join(END_PLANKS, f'stripped_{wood}_log.png')).convert('RGBA')
+        colors = sorted({c for c in colors + [stripped.getpixel((x, y))[:3] for x in range(16) for y in range(16)]
+                         if c[2] - c[1] <= 15}, key=sum)
     pick = lambda f: colors[min(len(colors) - 1, int(f * (len(colors) - 1)))] + (255,)
     return planks, [pick(f) for f in (0.0, 0.25, 0.5, 0.75, 1.0)]
 

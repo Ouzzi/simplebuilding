@@ -21,6 +21,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 public final class SandwichesNeoForge {
     public SandwichesNeoForge(IEventBus bus, Dist dist) {
         Sandwiches.init(FMLPaths.CONFIGDIR.get());
+        Sandwiches.simpleEnd = net.neoforged.fml.ModList.get().isLoaded("simpleend");
         ModuleNeoTests.register(bus);
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplesandwiches.guide.SandwichGuide.installQuests(FMLPaths.CONFIGDIR.get());
         bus.addListener((RegisterEvent event) -> {

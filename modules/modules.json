@@ -1050,7 +1050,8 @@
       ],
       "requires": [],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "simpleend"
       ],
       "checks": [
         "modules/simplesandwiches/tools/check_data.py"
