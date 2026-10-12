@@ -26,9 +26,9 @@ public final class RespawnHud {
             graphics.fill(0, 0, w, h, 0x40600000);
             int seconds = (RespawnClient.ticksLeft + 19) / 20;
             graphics.centeredText(mc.font, Component.translatable("hud.simplerespawn.downed", Component.literal(Integer.toString(seconds))
-                    .withStyle(ChatFormatting.YELLOW)), w / 2, 12, 0xFFFF5555);
+                    .withStyle(ChatFormatting.YELLOW)), w / 2, h - 74, 0xFFFF5555);
             graphics.centeredText(mc.font, Component.translatable("hud.simplerespawn.menu", mc.options.keyInventory.getTranslatedKeyMessage()),
-                    w / 2, 24, 0xFFC0C0C0);
+                    w / 2, h - 62, 0xFFC0C0C0);
             if (RespawnClient.progress > 0f) {
                 graphics.centeredText(mc.font, Component.translatable("screen.simplerespawn.helped", RespawnClient.other), w / 2, h / 2 + 12, 0xFF80FF80);
                 bar(graphics, w / 2 - 50, h / 2 + 24, 100, RespawnClient.progress);
