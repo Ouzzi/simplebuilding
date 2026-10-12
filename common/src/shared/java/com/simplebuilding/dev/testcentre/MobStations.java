@@ -76,7 +76,7 @@ public final class MobStations {
     }
 
     /** Which habitat a mob gets (by id; unknown mobs stand on grass). */
-    public enum Habitat { END_GATEWAY, DEEP_DARK, DARK_FOREST, SOUL_VALLEY, END_ISLAND, MEADOW }
+    public enum Habitat { END_GATEWAY, DEEP_DARK, DARK_FOREST, SOUL_VALLEY, END_ISLAND, MEADOW, DREAD_FIGURE }
 
     public static Habitat habitat(Identifier id) {
         return switch (id.getPath()) {
@@ -84,7 +84,8 @@ public final class MobStations {
             case "hollow_howler" -> Habitat.DEEP_DARK;
             case "deceiver" -> Habitat.DARK_FOREST;
             case "soulfire_blaze" -> Habitat.SOUL_VALLEY;
-            case "dragonmite" -> Habitat.END_ISLAND;
+            case "dragonmite", "hollow_watcher" -> Habitat.END_ISLAND;
+            case "dread" -> Habitat.DREAD_FIGURE;
             default -> Habitat.MEADOW;
         };
     }
@@ -158,6 +159,7 @@ public final class MobStations {
             case SOUL_VALLEY -> "Soul sand valley";
             case END_ISLAND -> "End island";
             case MEADOW -> "Meadow";
+            case DREAD_FIGURE -> "Summoning figure";
         };
     }
 
@@ -217,6 +219,15 @@ public final class MobStations {
                 c.place(x0 + 1, 1, 7, Blocks.OBSIDIAN);
             }
             case MEADOW -> floor(c, x0, Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.MOSS_BLOCK.defaultBlockState());
+            case DREAD_FIGURE -> {
+                // Simple Mobs' Dread figure without its head: place the wither skeleton skull from the frame on the anvil
+                floor(c, x0, Blocks.POLISHED_DEEPSLATE.defaultBlockState(), Blocks.DEEPSLATE_TILES.defaultBlockState());
+                c.place(x0 + 7, 0, 6, Blocks.IRON_BLOCK);
+                c.place(x0 + 7, 1, 6, Blocks.ANVIL);
+                c.place(x0 + 6, 1, 6, Blocks.IRON_CHAIN);
+                c.place(x0 + 8, 1, 6, Blocks.IRON_CHAIN);
+                c.wallFrame(x0 + 7, 3, WALL_Z, new ItemStack(net.minecraft.world.item.Items.WITHER_SKELETON_SKULL));
+            }
         }
     }
 

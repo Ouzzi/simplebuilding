@@ -1532,7 +1532,8 @@
         "client": {
           "entrypoints": [
             "com.simplebuilding.modules.simplemobs.ModuleClientSmoke",
-            "com.simplebuilding.modules.simplemobs.DisguiseClientSmoke"
+            "com.simplebuilding.modules.simplemobs.DisguiseClientSmoke",
+            "com.simplebuilding.modules.simplemobs.FearClientSmoke"
           ],
           "sources": "modules/simplemobs/clienttest/java",
           "screenshots": "integration/run-fabric-263/screenshots",

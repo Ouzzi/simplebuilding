@@ -169,6 +169,7 @@ public class HollowWatcherEntity extends Monster {
             this.setDeltaMovement(0, Math.min(0, this.getDeltaMovement().y), 0);
             return;
         }
+        if (this.isNoAi()) return;
         if (gripCooldown > 0) gripCooldown--;
         if (clawCooldown > 0) clawCooldown--;
         if (teleportCooldown > 0) teleportCooldown--;

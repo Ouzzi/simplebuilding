@@ -194,7 +194,9 @@ final class FearTests {
             h.assertTrue(watcher.seenBy(player), "looking at it");
             h.assertTrue(watcher.updateGaze(h.getLevel()) && watcher.watched(), "watched: it stands still");
             watcher.playAction(HollowWatcherEntity.ACT_CLAW, 6);
+            watcher.setNoAi(false);
             watcher.tick();
+            watcher.setNoAi(true);
             h.assertTrue(watcher.action() == HollowWatcherEntity.ACT_NONE, "a wind-up stops while watched");
             player.snapTo(at.x, at.y, at.z, 180.0f, 0.0f);
             player.setYHeadRot(180.0f);
