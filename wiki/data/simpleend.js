@@ -2747,7 +2747,8 @@ window.WIKI_MODULE_DATA["simpleend"] = {
     {
       "id": "simpleend:ashwood_wall_hanging_sign",
       "name": {
-        "en_us": "Ashwood Wall Hanging Sign"
+        "en_us": "Ashwood Wall Hanging Sign",
+        "de_de": "Aschholzwandhängeschild"
       },
       "note": null,
       "craftedBy": [],
@@ -2756,7 +2757,8 @@ window.WIKI_MODULE_DATA["simpleend"] = {
     {
       "id": "simpleend:ashwood_wall_sign",
       "name": {
-        "en_us": "Ashwood Wall Sign"
+        "en_us": "Ashwood Wall Sign",
+        "de_de": "Aschholzwandschild"
       },
       "note": null,
       "craftedBy": [],
@@ -3035,7 +3037,8 @@ window.WIKI_MODULE_DATA["simpleend"] = {
     {
       "id": "simpleend:duskwood_wall_hanging_sign",
       "name": {
-        "en_us": "Duskwood Wall Hanging Sign"
+        "en_us": "Duskwood Wall Hanging Sign",
+        "de_de": "Dämmerholzwandhängeschild"
       },
       "note": null,
       "craftedBy": [],
@@ -3044,7 +3047,8 @@ window.WIKI_MODULE_DATA["simpleend"] = {
     {
       "id": "simpleend:duskwood_wall_sign",
       "name": {
-        "en_us": "Duskwood Wall Sign"
+        "en_us": "Duskwood Wall Sign",
+        "de_de": "Dämmerholzwandschild"
       },
       "note": null,
       "craftedBy": [],
