@@ -161,5 +161,16 @@
         "Über das Geheimnis von {name} schweigen die Sterne. Vielleicht wird es noch geschrieben."
       ]
     }
+  },
+  "questionary_table": {
+    "lore": [
+      "Ein Pult für Fragen, und ein Buch mit Antworten auf alles."
+    ],
+    "use": [
+      "Zwei Lapislazuli, ein Buch und fünf Bretter herstellen. Links ein Item auflegen; das Buch rechts zeigt drei Seiten: Überlieferung, Nutzen und Geheimnis."
+    ],
+    "secret": [
+      "Items aus anderen Mods bekommen einen mystischen Text, der nur von ihrem Namen abhängt und in jeder Welt gleich bleibt."
+    ]
   }
 }

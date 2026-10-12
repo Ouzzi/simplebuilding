@@ -161,5 +161,16 @@
         "Over the secret of {name}, the stars keep silent. Perhaps it is still being written."
       ]
     }
+  },
+  "questionary_table": {
+    "lore": [
+      "A desk for questions, and a book that has answers for everything."
+    ],
+    "use": [
+      "Craft two lapis lazuli, one book and five planks. Put an item on the left; the book on the right opens three pages: Lore, Use and Secret."
+    ],
+    "secret": [
+      "Items from other mods get a mystical text that depends only on their name, so it stays the same in every world."
+    ]
   }
 }
