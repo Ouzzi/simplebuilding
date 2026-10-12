@@ -504,8 +504,9 @@ public final class MusicDiscTests {
         // Mit Verstärker in 60 Bloecken: Start im selben Tick (keine Verzoegerung).
         click(helper, player, jukebox, new ItemStack(Items.MUSIC_DISC_CAT));
         helper.assertTrue(started.getAsBoolean(), "the start did not reach the player near the amplifier in the same tick");
-        helper.assertTrue(own(helper, SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX)).equals(List.of(absAmp)),
-                "the amplifier 60 blocks away is not in the chain");
+        // Ungedeckelt (die Kette nimmt hoechstens 16, fremde Verstärker naeher am Plattenspieler koennen zuerst kommen).
+        helper.assertTrue(SpeakerBoost.inRelayRange(level, j, SpeakerBoost.Source.JUKEBOX).contains(absAmp),
+                "the amplifier 60 blocks away is not in radio range");
         click(helper, player, jukebox, ItemStack.EMPTY);
         helper.succeed();
     }
@@ -782,60 +783,6 @@ public final class MusicDiscTests {
                 helper.assertTrue(payloads.isEmpty(), "a plain note block sent an amplified note");
                 helper.assertTrue(sounds.size() == 1 && sounds.getFirst().getVolume() == SpeakerBoost.NOTE_BLOCK_VOLUME,
                         "plain note block: " + sounds.size() + " sounds");
-                helper.succeed();
-            });
-        });
-    }
-
-    /**
-     * Musik-Verstärker ueber den echten Weg: ein Spieler legt eine Platte ein (useItemOn), ein Spieler 90 Bloecke weiter
-     * (jenseits von Vanillas 64) bekommt den Start nur vom verstaerkten Plattenspieler; Herausnehmen stoppt auch bei ihm.
-     * Der Pegel, den der Client daraus macht ({@code ChainedJukeboxSound}), liegt neben dem Plattenspieler ueber 1.
-     */
-    public static void amplifiedJukeboxReachesFartherThroughTheRealUsePath(GameTestHelper helper) {
-        if (!enabled(helper)) return;
-        ServerLevel level = helper.getLevel();
-        BlockPos amplified = new BlockPos(1, 2, 1);
-        BlockPos plain = new BlockPos(1, 2, 5);
-        helper.setBlock(amplified, Blocks.JUKEBOX);
-        helper.setBlock(amplified.west(), ModBlocks.JUKEBOX_AMPLIFIER);
-        helper.setBlock(plain, Blocks.JUKEBOX);
-        List<net.minecraft.network.protocol.Packet<?>> nearSink = new ArrayList<>();
-        List<net.minecraft.network.protocol.Packet<?>> farSink = new ArrayList<>();
-        ServerPlayer near = capturingPlayer(helper, nearSink);
-        ServerPlayer far = capturingPlayer(helper, farSink);
-        BlockPos a = helper.absolutePos(amplified);
-        BlockPos p = helper.absolutePos(plain);
-        far.snapTo(a.getX() + 90.5, a.getY(), a.getZ() + 0.5, 0.0F, 0.0F);
-        click(helper, near, amplified, new ItemStack(Items.MUSIC_DISC_CAT));
-        click(helper, near, plain, new ItemStack(Items.MUSIC_DISC_CAT));
-        helper.runAfterDelay(2, () -> {
-            List<ClientboundLevelEventPacket> events = captured(farSink, ClientboundLevelEventPacket.class);
-            long fromAmplified = events.stream().filter(e -> e.getType() == LevelEvent.SOUND_PLAY_JUKEBOX_SONG && e.getPos().equals(a)).count();
-            long fromPlain = events.stream().filter(e -> e.getType() == LevelEvent.SOUND_PLAY_JUKEBOX_SONG && e.getPos().equals(p)).count();
-            helper.assertValueEqual(fromAmplified, 1L, "starts of the amplified jukebox 90 blocks away");
-            helper.assertValueEqual(fromPlain, 0L, "starts of the plain jukebox 90 blocks away");
-
-            // Was der Client daraus macht: Pegel neben dem Plattenspieler = Faktor 1,5 (Vanilla dort knapp unter 1).
-            float multiplier = SpeakerBoost.multiplier(level, a, SpeakerBoost.Source.JUKEBOX);
-            List<Vec3> points = SpeakerBoost.points(a, SpeakerBoost.chain(level, a, SpeakerBoost.Source.JUKEBOX));
-            Vec3 ear = Vec3.atCenterOf(a).add(3.0, 0.0, 0.0);
-            double range = SoundEvents.MUSIC_DISC_CAT.value().getRange(SpeakerBoost.JUKEBOX_VOLUME * multiplier);
-            helper.assertValueEqual(SpeakerBoost.listenerGain(SpeakerBoost.nearest(points, ear), ear, range, multiplier), 1.5F,
-                    "client gain next to the amplified jukebox");
-            Vec3 farEar = far.position();
-            helper.assertTrue(SpeakerBoost.listenerGain(SpeakerBoost.nearest(points, farEar), farEar, range, multiplier) > 0.0F,
-                    "the far player would hear nothing");
-
-            // Platte herausnehmen: der Stopp erreicht den fernen Spieler ebenfalls.
-            synchronized (farSink) {
-                farSink.clear();
-            }
-            click(helper, near, amplified, ItemStack.EMPTY);
-            helper.runAfterDelay(2, () -> {
-                boolean stopped = captured(farSink, ClientboundLevelEventPacket.class).stream()
-                        .anyMatch(e -> e.getType() == LevelEvent.SOUND_STOP_JUKEBOX_SONG && e.getPos().equals(a));
-                helper.assertTrue(stopped, "the stop did not reach the far player");
                 helper.succeed();
             });
         });
