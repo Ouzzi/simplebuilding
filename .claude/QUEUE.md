@@ -77,7 +77,7 @@ Audit 2026-10-09 (claude-q-audit): offene Punkte gegen claude-wave1 9c7929ff4 ge
 - [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
 - [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
-- [ ] Besitzer-Abnahme: Mega-Handbuecher im Client ansehen und Testzentrale in der Besitzerwelt neu bauen.
+- [ ] (SPÄTER, erst wenn die Mods fertig sind – Besitzer 12.10.) Besitzer-Abnahme: Mega-Handbuecher im Client ansehen und Testzentrale in der Besitzerwelt neu bauen.
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
 - [x] Weitere Ports als Module: riding, qol, visuals, models, dimensions, tweaks, fun, sounds und Money-Links (siehe Welle 25 unten); Abnahmen im Spiel offen.
 - [x] Forge 26.3 einschließlich simpledimensions integriert; experimentell/opt-in. Clientabnahme bleibt offen.
@@ -463,7 +463,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] **Schrittweiser Umbau je Schlag (universell):** Jeder Schlag verändert sichtbar Richtung Ziel. Fass am Tiegel: bei jedem Schlag ein Stück näher am fertigen angedockten Fass (Zwischenmodelle). Gleiches Modell → Textur-Overlay der Zieltextur, Stück für Stück in einem Anbau-Muster aufgedeckt. Verändertes Modell → je Schlag ein Zwischenmodell oder Keyframes über mehrere Schläge, aber jeder Schlag bringt eine Veränderung. Als universelles System in simplelib für alle In-World-Umwandlungen. (teilweise: Ergebnis-Items je Schlag 9c49fc10f; Zwischenmodelle/Overlay-Aufdeckung fehlen) (erledigt: Branch `claude-q-inworld`, aufwachsende BlockDisplay-Vorschau je Schlag in Lib-Tiegel/Fass/Aufwertungen und SB-Maschinenaufwertungen; Client-Sicht offen; Besatz-Vorlage ohne Block-Vorschau)
 - [x] **Schach:** 0,125er Schachfiguren (0,5×0,5×0,5) rendern nicht bzw. falsch. Checker-Treppen und -Stufen haben im Inventar das falsche Blockmodell (vermutlich Seiten vertauscht). (teilweise: Checker-Treppen/-Stufen gespiegelt e27188645; Achtel-Figuren rendern weiter falsch (Screenshot 08.10.))
   Erledigt auf `claude-q-chess`: Ursache im `ChessPiecesRenderer` (doppelter Halbblock-Abzug gegenüber dem Item-Transform → Figuren einen halben Block tief und neben dem Feld); Client-Test `chess-pieces` prüft jede Figur auf ihrem Viertel, Datenprüfung `tools/check_chess_assets.py`. Vorher/Nachher previews/chess/.
-- [ ] **Mehr 0,125er Blöcke** als Erweiterung der Farbpalette: Teile von Vanilla-Blöcken.
+- [ ] (Besitzer 12.10.: nur notwendige und ästhetisch sinnvolle, claude-octets-more) **Mehr 0,125er Blöcke** als Erweiterung der Farbpalette: Teile von Vanilla-Blöcken.
 - [x] **Enderit-Tiegel Stapelgröße:** zeigt 64 statt 128 an. Modifizierte Stapelgrößen als gemeinsame Lösung in simplelib (Anzeige, Slot-Limit, Transfer automatisch konsistent). (teilweise: Tiegel + angedocktes Fass über simplelib StackLimits 0a84dab08; loses Enderit-Fass, Trichter-Transfers und TieredChests noch auf 64) (claude-q-storage: loses Fass mit eigenem BarrelMenu, generischer Trichter-Mixin in simplelib, LimitedSlot; TieredChests hatten x2/x4 bereits)
 - [x] **Fass erbt Stapelgröße:** Hat ein Tiegel modifizierte Stapelgröße, hat das angedockte Fass dieselbe. (Audit 09.10.: 0a84dab08)
 
@@ -798,6 +798,13 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Spezialangriff: Mob-Anzahl verdoppeln, Chance 5 % → 80 % bei wenig Leben.
 - [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
+
+## Nachtrag 43 (2026-10-12, Besitzer)
+- [ ] Testzentrale: alle Mods-Mobs testbar (Spawner/Spawn-Eier + passende Umgebung je Mob); Shellker mit End-Gateway-Struktur an einer Stelle. (claude-testcenter-mobs)
+- [ ] UI-Konzepte in echte UIs übertragen (Nachtrag 16), Start jetzt. (claude-ui-concepts)
+- [ ] Tiegel-Feuer weiterführen (Nachtrag 14). (claude-crucible-fire)
+- [ ] Claim-System fertigstellen und testen. (claude-claims)
+- [ ] Shellker: Besitzer hat ihn noch nicht gesehen → Screenshot nach Testzentrale-Umbau.
 
 ## Nachtrag 42 (2026-10-12, Besitzer)
 - [ ] End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln.
