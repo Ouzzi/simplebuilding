@@ -13,9 +13,18 @@ import net.minecraft.network.protocol.game.ServerboundRenameItemPacket;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.ItemStack;
 import java.util.List;
+import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiPalette;
 
-/** Searchable server catalogue. Previews are copies; assignment uses the vanilla anvil packet. */
+/**
+ * Searchable server catalogue. Previews are copies; assignment uses the vanilla anvil packet. Drawn as a box in the
+ * container style of the anvil it opens from (SimpleLib style blocks, N43; docs/ai/PLAN-UI-KONZEPTE-2026-10-12.md).
+ */
 public final class ModelBrowser extends Screen {
+    /** The anvil's palette (simpleinterfaces {@code StationStyles.ANVIL}). */
+    static final UiPalette PALETTE = UiPalette.derived(0xFF666666);
+    /** Bottom row of buttons: 3 px above the 7 px bottom frame. */
+    private static final int BOTTOM = 30;
     public static ModelCatalogue.Snapshot catalogue = new ModelCatalogue.Snapshot(new ModelPolicy(), List.of());
     private final Screen parent;
     private final AnvilMenu anvil;
@@ -64,9 +73,9 @@ public final class ModelBrowser extends Screen {
         button("models", x + 6, y + 20, 94, () -> { tab = "models"; rebuildWidgets(); }).active = !tab.equals("models");
         button("policy", x + 102, y + 20, 94, () -> { tab = "policy"; rebuildWidgets(); }).active = !tab.equals("policy");
         button("help", x + 198, y + 20, 94, () -> { tab = "help"; rebuildWidgets(); }).active = !tab.equals("help");
-        button("back", x + panelWidth - 76, y + panelHeight - 26, 70, this::onClose);
+        button("back", x + panelWidth - 76, y + panelHeight - BOTTOM, 70, this::onClose);
         if (tab.equals("help")) {
-            button("folder", x + 6, y + panelHeight - 26, 124, () -> {
+            button("folder", x + 6, y + panelHeight - BOTTOM, 124, () -> {
                 var folder = minecraft.gameDirectory.toPath().resolve("config/simplemodels/catalogue");
                 try { java.nio.file.Files.createDirectories(folder); com.mojang.blaze3d.Blaze3D.openPath(folder); }
                 catch (java.io.IOException e) { org.slf4j.LoggerFactory.getLogger("simplemodels").warn("Cannot open import folder", e); }
@@ -107,11 +116,11 @@ public final class ModelBrowser extends Screen {
             if (minecraft.getConnection() != null) minecraft.getConnection().sendCommand("simplemodels reload");
         });
         reload.active = minecraft.getConnection() != null && minecraft.getConnection().getCommands().getRoot().getChild("simplemodels") != null;
-        var apply = button("assign", x + 6, y + panelHeight - 26, 94, () -> assign(selected == null ? null : Models.PREFIX + selected.id()));
+        var apply = button("assign", x + 6, y + panelHeight - BOTTOM, 94, () -> assign(selected == null ? null : Models.PREFIX + selected.id()));
         apply.active = selected != null && anvil != null && catalogue.policy().enabled
                 && anvil.getSlot(0).getItem().is(BuiltInRegistries.ITEM.getValue(ModelDefinition.safeId(selected.base_item())));
         apply.setTooltip(Tooltip.create(Component.translatable("simplemodels.browser.assign_hint")));
-        button("reset", x + 102, y + panelHeight - 26, 90, () -> assign(Models.RESET)).active = anvil != null;
+        button("reset", x + 102, y + panelHeight - BOTTOM, 90, () -> assign(Models.RESET)).active = anvil != null;
     }
     public void assign(String request) {
         if (request == null || anvil == null || minecraft.player == null || minecraft.player.containerMenu != anvil) return;
@@ -121,37 +130,36 @@ public final class ModelBrowser extends Screen {
     @Override public boolean isPauseScreen() { return false; }
     @Override public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float delta) {
         super.extractBackground(g, mx, my, delta);
-        g.fill(x, y, x + panelWidth, y + panelHeight, 0xFF272B32);
-        g.fill(x + 2, y + 2, x + panelWidth - 2, y + 18, 0xFF414854);
+        UiBoxes.box(g, x, y, panelWidth, panelHeight, PALETTE);
     }
     @Override public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
         super.extractRenderState(g, mx, my, delta);
-        g.text(font, title, x + 6, y + 5, 0xFFFFFFFF, false);
+        g.text(font, title, x + 8, y + 6, PALETTE.label(), false);
         if (tab.equals("models")) {
             var list = filtered();
             for (int i = page * rows(); i < Math.min(list.size(), (page + 1) * rows()); i++)
                 g.item(preview(list.get(i)), x + 7, y + 70 + (i - page * rows()) * 24);
             if (selected != null) {
                 g.item(new ItemStack(BuiltInRegistries.ITEM.getValue(ModelDefinition.safeId(selected.base_item()))), x + 6, y + panelHeight - 52);
-                g.text(font, "→", x + 28, y + panelHeight - 48, 0xFFFFFFFF, false);
+                g.text(font, "→", x + 28, y + panelHeight - 48, PALETTE.label(), false);
                 g.item(preview(selected), x + 44, y + panelHeight - 52);
-                g.text(font, selected.id(), x + 70, y + panelHeight - 48, 0xFFFFFFFF, false);
+                g.text(font, selected.id(), x + 70, y + panelHeight - 48, PALETTE.label(), false);
             }
             int pages = Math.max(1, (list.size() - 1) / rows() + 1);
-            if (pages > 1) g.text(font, (page + 1) + "/" + pages, x + panelWidth - 6 - font.width((page + 1) + "/" + pages), y + 5, 0xFFFFFFFF, false);
-            if (list.isEmpty()) g.textWithWordWrap(font, Component.translatable("simplemodels.browser.empty"), x + 6, y + 72, panelWidth - 12, 0xFFE3E3E3, false);
+            if (pages > 1) g.text(font, (page + 1) + "/" + pages, x + panelWidth - 8 - font.width((page + 1) + "/" + pages), y + 6, PALETTE.label(), false);
+            if (list.isEmpty()) g.textWithWordWrap(font, Component.translatable("simplemodels.browser.empty"), x + 8, y + 72, panelWidth - 16, PALETTE.label(), false);
         } else if (tab.equals("policy")) {
             int row = 0;
             for (var field : ModelPolicy.class.getFields()) {
                 if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) continue;
                 try {
                     var label = Component.translatable("simplemodels.config." + field.getName()).append(": " + field.get(catalogue.policy()));
-                    g.text(font, label, x + 6, y + 48 + row * 23, 0xFFFFFFFF, false);
+                    g.text(font, label, x + 8, y + 48 + row * 23, PALETTE.label(), false);
                     if (my >= y + 48 + row * 23 && my < y + 69 + row * 23)
                         g.setTooltipForNextFrame(font, font.split(Component.translatable("simplemodels.config." + field.getName() + ".tooltip"), Math.min(240, width - 16)), mx, my);
                     row++;
                 } catch (ReflectiveOperationException e) { throw new IllegalStateException(e); }
             }
-        } else g.textWithWordWrap(font, Component.translatable("simplemodels.browser.import"), x + 6, y + 48, panelWidth - 12, 0xFFE3E3E3, false);
+        } else g.textWithWordWrap(font, Component.translatable("simplemodels.browser.import"), x + 8, y + 48, panelWidth - 16, PALETTE.label(), false);
     }
 }

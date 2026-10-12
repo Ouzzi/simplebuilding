@@ -1503,6 +1503,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("mod_screen_style_game_test_backpack_slots_sit_inside_the_one_box", ModScreenStyleTests::backpackSlotsSitInsideTheOneBox)
                     .build(),
+            GameTestSpec.named("mod_screen_style_game_test_slotless_panels_hold_their_widgets", ModScreenStyleTests::slotlessPanelsHoldTheirWidgets)
+                    .build(),
             GameTestSpec.named("hopper_game_test_redstone_power_stops_every_hopper_transfer", HopperTests::redstonePowerStopsEveryHopperTransfer)
                     .maxTicks(HopperTests.REDSTONE_LOCK_MAX_TICKS)
                     .build(),

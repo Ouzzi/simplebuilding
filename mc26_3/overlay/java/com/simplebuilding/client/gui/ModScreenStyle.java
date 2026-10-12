@@ -406,6 +406,43 @@ public final class ModScreenStyle {
         return true;
     }
 
+    // ------------------------------------------------------------------ panels of screens without slots (N16/N43)
+
+    /** Whether the panel style is drawn now (26.3 with the comparison toggle on). */
+    public static boolean panels() {
+        return UiStyleToggle.isEnabled();
+    }
+
+    /**
+     * The palette of a slotless mod screen from its fill colour (docs/ai/PLAN-UI-KONZEPTE-2026-10-12.md); the tier
+     * fills reuse SimpleLib's measured tier palettes, everything else is {@link UiPalette#derived}.
+     */
+    static UiPalette palette(int fill) {
+        for (UiPalette p : new UiPalette[] {UiPalette.IRON, UiPalette.REINFORCED, UiPalette.NETHERITE, UiPalette.ENDERITE}) {
+            if (p.fill() == (fill | 0xFF000000)) return p;
+        }
+        return UiPalette.derived(fill);
+    }
+
+    /** A box in {@code fill} (image 4 frame 5/7 px, rounded corners); {@code false} = not drawn (toggle off). */
+    public static boolean panel(GuiGraphicsExtractor g, int fill, int x, int y, int w, int h) {
+        if (!panels()) return false;
+        UiBoxes.box(g, x, y, w, h, palette(fill));
+        return true;
+    }
+
+    /** A light sunk field (lists, summaries) in the inventory grey, dark text reads on it like on Vanilla's panels. */
+    public static boolean field(GuiGraphicsExtractor g, int fill, int x, int y, int w, int h) {
+        if (!panels()) return false;
+        UiBoxes.insetColored(g, x, y, w, h, palette(fill), UiPalette.INVENTORY.fill());
+        return true;
+    }
+
+    /** Label colour on a {@code fill} panel, {@code fallback} when the style is off. */
+    public static int label(int fill, int fallback) {
+        return panels() ? palette(fill).label() : fallback;
+    }
+
     // ------------------------------------------------------------------ shared pieces
 
     private static void box(GuiGraphicsExtractor g, int left, int top, Box b, UiPalette p) {
