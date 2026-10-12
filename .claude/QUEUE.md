@@ -802,9 +802,9 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 46 (2026-10-12, Besitzer; Screenshot docs/ai/refs/n44/n46_inventar.png)
 - [ ] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf).
-- [ ] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen.
-- [ ] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher.
-- [ ] Astral- und Nihil-Gewölbe (vault): wirken gar nicht Vanilla → an Vanilla-Vault/Trial-Stil angleichen (Vorschläge).
+- [x] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen. (claude-n46-tex: Stufen im B4-Stil eingebaut)
+- [ ] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher. (claude-n46-tex: Vorschläge Q1–Q3 in docs/ai/previews/n46, Besitzer-Wahl offen)
+- [ ] Astral- und Nihil-Gewölbe (vault): wirken gar nicht Vanilla → an Vanilla-Vault/Trial-Stil angleichen (Vorschläge). (claude-n46-tex: Vorschläge A1–A3/N1–N3 in docs/ai/previews/n46, Besitzer-Wahl offen; Einbau = Blockmodell statt Truhe)
 
 ## Nachtrag 45 (2026-10-12, Besitzer)
 - [x] Lohen-Obsidian (blazing_obsidian): B1 animiert + nahtlos (claude-n45-obsidian); Astral-Tisch Oberseite/Seiten animiert, Nebel unter dem Tuch.
