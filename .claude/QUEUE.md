@@ -806,7 +806,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Astral- und Nihil-Gewölbe (vault): wirken gar nicht Vanilla → an Vanilla-Vault/Trial-Stil angleichen (Vorschläge).
 
 ## Nachtrag 45 (2026-10-12, Besitzer)
-- [ ] Lohen-Obsidian (blazing_obsidian) verbessern: soll klar wie Variante von Crying Obsidian aussehen. (claude-n45-tex: Vorschläge B1–B3 in docs/ai/previews/n45, Besitzer-Wahl offen)
+- [x] Lohen-Obsidian (blazing_obsidian): B1 animiert + nahtlos (claude-n45-obsidian); Astral-Tisch Oberseite/Seiten animiert, Nebel unter dem Tuch.
 - [x] Astral-Verzauberer: Modell kleiner als Textur → oben abgeschnitten; Textur an Modellmaße anpassen. (claude-n45-tex: Seite für 16x12-Modell, Motiv in Zeilen 4–15)
 - [ ] Shellker: Gravity-Effekt 30 s (hat man ihn schon: 1 min); schießt ~1,2× schneller; Projektil die ersten 2 s unzerstörbar; nach dem Öffnen der Schale schießt er fast sofort (Schlag-Spam bis zum Tod verhindern).
 - [x] End-Holz/Biom-Antworten komplett (Konzept docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md, Abschnitt Besitzer-Antworten). Umsetzung: claude-simple-end.
