@@ -1,0 +1,90 @@
+{
+  "special_paper": {
+    "lore": [
+      "Paper that was taught to keep a secret. A little honey makes it stiff and slightly sticky."
+    ],
+    "use": [
+      "Craft two paper with one honeycomb between them in a row. At a smithing table it joins an iron ingot and resin fiber to make a banknote blank."
+    ],
+    "secret": [
+      "It is the first of three steps. Without resin fiber and special fiber, the paper stays only paper."
+    ]
+  },
+  "resin_fiber": {
+    "lore": [
+      "Threads pulled from resin, braced with iron and honey. They are the part of a bill nobody sees."
+    ],
+    "use": [
+      "Craft iron nuggets, resin clumps, honeycomb and bone meal in a 3x3 pattern. Stacks to 16. It goes into the smithing step of the banknote blank."
+    ],
+    "secret": [
+      "Resin clumps come from the Pale Garden's creaking hearts and the resin of the new woods. The blank uses a single fiber, so a stack of 16 goes a long way."
+    ]
+  },
+  "special_fiber": {
+    "lore": [
+      "A thread of copper, gold and amethyst, glittering where no light should reach."
+    ],
+    "use": [
+      "Craft copper nuggets, gold nuggets, amethyst shards and diamonds in a 3x3 pattern. Stacks to 16. With a gold ingot it refines a banknote blank."
+    ],
+    "secret": [
+      "It is the costly half of the recipe: diamonds are the only thing in it that cannot be mined from a quick shaft. Make the refined blanks in batches of three."
+    ]
+  },
+  "blank_note": {
+    "lore": [
+      "A banknote without a number: smooth, pale and waiting for someone to give it worth."
+    ],
+    "use": [
+      "Smith special paper, resin fiber and an iron ingot together at the smithing table. Refine the blank with special fiber and a gold ingot."
+    ],
+    "secret": [
+      "It is only an ingredient. It cannot be spent, and no villager takes it."
+    ]
+  },
+  "refined_blank_note": {
+    "lore": [
+      "The same note, but now it shimmers when it turns toward the light."
+    ],
+    "use": [
+      "Made by refining a banknote blank. Combine three of them with green dye and ink sacs to get three raw bills."
+    ],
+    "secret": [
+      "Three blanks become three bills, so nothing is lost. The costly part is the special fiber for each single blank."
+    ]
+  },
+  "raw_bill": {
+    "lore": [
+      "A bill that has not yet decided to be money. The ink is still wet, and it will be for a day."
+    ],
+    "use": [
+      "Blast it in a blast furnace for 24,000 ticks, one full day, to get one money bill and 20 experience points. SimpleBuilding blast furnaces are 2, 4 or 8 times faster."
+    ],
+    "secret": [
+      "The wait is the whole trick: a faster furnace is the only way to print money quickly. The experience is paid out on top."
+    ]
+  },
+  "money_bill": {
+    "lore": [
+      "Printed in a day, valued everywhere. Even the fire does not touch it."
+    ],
+    "use": [
+      "Currency for the extra offers of villagers and wandering traders. Epic, fire resistant and always glinting. Right-click it for a page-turn sound and a happy particle; it is not used up."
+    ],
+    "secret": [
+      "You may wave it at anyone for show: only trade menus take it. It is the one item here whose tooltip does not tell how many days it took."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "A little ledger for a little economy."
+    ],
+    "use": [
+      "The Simple Money Guide explains the bills, the three crafting steps and the added trades. Craft it shapeless from a book and a crafting table."
+    ],
+    "secret": [
+      "Its pages unlock as the matching recipes land in your recipe book. Nothing is consumed."
+    ]
+  }
+}
