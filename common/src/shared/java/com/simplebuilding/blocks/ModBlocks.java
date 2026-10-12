@@ -497,7 +497,7 @@ public class ModBlocks {
     public static final List<Block> WOOD_OCTETS = McVersion.CHESS ? woodOctets() : List.of();
     /** Melonen-Achtel: eine gesetzte Melonenscheibe (Schleichen + Rechtsklick); droppt Melonenscheiben. */
     public static final Block MELON_OCTET = McVersion.CHESS ? registerBlock("melon_octet", Blocks.MELON,
-            s -> new MaterialOctetBlock(Blocks.MELON, () -> net.minecraft.world.item.Items.MELON_SLICE, octetProperties(s))) : null;
+            s -> new MaterialOctetBlock(Blocks.MELON, () -> net.minecraft.world.item.Items.MELON_SLICE, octetProperties(s, Blocks.MELON))) : null;
 
     /**
      * Achtelzellen aller uebrigen Bloecke mit Stufe und Treppe (Queue N19/N15, Liste {@link OctetMaterials}, vom
@@ -517,7 +517,7 @@ public class ModBlocks {
             String name = material.key() + "_octet";
             Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
             Block cell = registerBlock(name, source, s -> new MaterialOctetBlock(source,
-                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s)));
+                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s, source)));
             OCTET_GROUPS.put(cell, material.group());
             out.add(cell);
         }
@@ -545,9 +545,19 @@ public class ModBlocks {
             String name = wood + "_octet";
             Identifier itemId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
             out.add(registerBlock(name, planks, s -> new MaterialOctetBlock(planks,
-                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s))));
+                    () -> BuiltInRegistries.ITEM.getValue(itemId), octetProperties(s, planks))));
         }
         return List.copyOf(out);
+    }
+
+    /**
+     * Octet cells have no blockstate properties of the source, so state-dependent lambdas copied from it (log axis in
+     * the map colour, lit in the light level) would throw: pin both to the source's default state.
+     */
+    private static BlockBehaviour.Properties octetProperties(BlockBehaviour.Properties s, Block source) {
+        net.minecraft.world.level.block.state.BlockState def = source.defaultBlockState();
+        int light = def.getLightEmission();
+        return octetProperties(s.mapColor(source.defaultMapColor()).lightLevel(state -> light));
     }
 
     private static BlockBehaviour.Properties octetProperties(BlockBehaviour.Properties s) {
