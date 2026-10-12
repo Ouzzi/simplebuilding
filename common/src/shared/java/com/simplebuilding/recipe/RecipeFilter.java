@@ -47,7 +47,7 @@ public final class RecipeFilter {
                 || (!f.nihilVault && p.equals("nihil_vault"))
                 || (!f.endPistons && (p.equals("astral_piston") || p.equals("nihil_piston")))
                 || (!f.endRails && (p.equals("astral_rail") || p.equals("nihil_rail")))
-                || (!f.endSignals && java.util.Set.of("nihil_redstone", "astral_redstone", "bridge_redstone").contains(p))
+                || (!f.endSignals && java.util.Set.of("nihil_redstone", "astral_redstone", "bridge_redstone", "nihilith_lamp", "astralit_lamp").contains(p))
                 || (!f.backpack && p.contains("backpack"))
                 || (!f.attractor && (p.contains("magnet") || p.contains("attractor")))
                 || (!f.echoSounder && (p.contains("echo_compass") || p.contains("echo_sounder")))

@@ -7,5 +7,6 @@ public final class RedstoneLinesGameTest {
     @GameTest public void vanillaSourcesFeedAstralAndNihil(GameTestHelper helper) { RedstoneLinesTests.vanillaSourcesFeedAstralAndNihil(helper); }
     @GameTest(maxTicks = 60) public void astralPowersLampAndPiston(GameTestHelper helper) { RedstoneLinesTests.astralPowersLampAndPiston(helper); }
     @GameTest(maxTicks = 60) public void bridgeLinksAllLines(GameTestHelper helper) { RedstoneLinesTests.bridgeLinksAllLines(helper); }
-    @GameTest public void removedSwitchesAndLampsBecomeVanilla(GameTestHelper helper) { RedstoneLinesTests.removedSwitchesAndLampsBecomeVanilla(helper); }
+    @GameTest public void oldSwitchesBecomeLeversLampsReturn(GameTestHelper helper) { RedstoneLinesTests.oldSwitchesBecomeLeversLampsReturn(helper); }
+    @GameTest(maxTicks = 60) public void lampsToggleOnlyOnTheirOwnLine(GameTestHelper helper) { RedstoneLinesTests.lampsToggleOnlyOnTheirOwnLine(helper); }
 }

@@ -54,12 +54,12 @@ public final class LegacyItemIds {
 
     /**
      * Removed blocks (and their items) that now load as a vanilla block (Nachtrag 36, 2026-10-11): Astral/Nihil Redstone
-     * became vanilla-like dust, so their own switches and lamps are replaced by the lever and the redstone lamp. Old
-     * stacks and placed blocks keep working; block state properties that do not exist on the new block are dropped.
+     * became vanilla-like dust, so their own switches are replaced by the lever. Old stacks and placed blocks keep
+     * working; block state properties that do not exist on the new block are dropped. The lamps came back in
+     * Nachtrag 44 (2026-10-12) as {@code EndSignalLampBlock} under their old ids, so they are no longer listed here.
      */
     public static final Map<String, Identifier> REPLACED_BY_VANILLA = com.simplebuilding.version.McVersion.END_SYSTEMS
-            ? Map.of("astralit_switch", Identifier.withDefaultNamespace("lever"), "nihilith_switch", Identifier.withDefaultNamespace("lever"),
-                    "astralit_lamp", Identifier.withDefaultNamespace("redstone_lamp"), "nihilith_lamp", Identifier.withDefaultNamespace("redstone_lamp"))
+            ? Map.of("astralit_switch", Identifier.withDefaultNamespace("lever"), "nihilith_switch", Identifier.withDefaultNamespace("lever"))
             : Map.of();
 
     /**

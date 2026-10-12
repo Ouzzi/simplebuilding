@@ -34,6 +34,9 @@ public class ModBlocks {
                     s -> new net.minecraft.world.level.block.FlowerPotBlock(SILENT_DANDELION, s)) : null;
     public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, signalDust(s))) : null;
     public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("astral_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, signalDust(s))) : null;
+    /** Astral/Nihilith Lamp (Nachtrag 44, 2026-10-12): toggles like a copper bulb on a pulse of its own line's dust. */
+    public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? registerBlock("nihilith_lamp", s -> new EndSignalLampBlock(false, endLamp(s))) : null;
+    public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? registerBlock("astralit_lamp", s -> new EndSignalLampBlock(true, endLamp(s))) : null;
     /** Bridge Redstone (2026-10-11): links redstone, Astral and Nihil like one shared wire. */
     public static final Block BRIDGE_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, signalDust(s))) : null;
     // Astral-/Nihil-Kolben (2026-10-03, docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md): Empfaenger des eigenen Kanals wie
@@ -708,6 +711,13 @@ public class ModBlocks {
     /**
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
      */
+    /** Astral/Nihilith Lamp: redstone lamp strength, no conductor (like the copper bulb), light 15 while lit. */
+    private static BlockBehaviour.Properties endLamp(BlockBehaviour.Properties s) {
+        return s.strength(0.3F).sound(SoundType.AMETHYST).mapColor(MapColor.COLOR_PURPLE)
+                .isRedstoneConductor((state, world, pos) -> false)
+                .lightLevel(state -> state.getValue(EndSignalLampBlock.LIT) ? 15 : 0);
+    }
+
     /** Astral/Nihil/Bridge Redstone: vanilla dust's properties (no collision, breaks at once, pistons destroy it). */
     private static BlockBehaviour.Properties signalDust(BlockBehaviour.Properties s) {
         return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(SoundType.AMETHYST)
