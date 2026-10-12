@@ -59,6 +59,20 @@ build/run/
 # Mojang-Assets gehoeren nicht ins Repository; ein Generatorlauf holt sie lokal.
 wiki/assets/textures/minecraft/
 
+# Aus Vanilla-Texturen abgeleitete Texturen (Umfaerbung/Maske aus dem Client-Jar) - nie ins Repository
+# (Besitzer 12.10.2026, AGENTS.md). tools/textures/vanilla_derived.py erzeugt sie beim Bauen
+# (Gradle: build/generated-resources/vanillaDerived) und fuer das Wiki (build/vanilla-derived).
+mc26_3/overlay/resources/assets/simplebuilding/textures/item/blaze_book.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/entity/chest/astral_vault.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/entity/chest/nihil_vault.png
+wiki/assets/textures/item/blaze_book.png
+wiki/assets/textures/render/astral_vault.png
+wiki/assets/textures/render/nihil_vault.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/entity/chest/astral_vault.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/entity/chest/nihil_vault.png
+docs/ai/previews/n41/r2/D*_blaze_book.png
+docs/ai/previews/n41/r3/D*_blaze_book.png
+
 # Aufzeichnungen der Testlaeufe (tools/testrunner/run.py). Die Oberflaeche
 # testing/index.html gehoert ins Repo, die Laufdaten nicht: sie entstehen bei
 # jedem Lauf neu und wuerden jeden Commit mit Rauschen fuellen.

@@ -28,7 +28,9 @@ UI_DATA_FILE = "data/ui-shots.js"
 MARKER = "window.WIKI_TEXTURES = "
 UI_MARKER = "window.WIKI_UI_SHOTS = "
 # Layers of SimpleBuilding on the 26.3 line, later wins per path (mc26_3/resources.gradle).
-SB_LAYERS = ("src/main/resources", "mc26_3/overlay/resources")
+# build/vanilla-derived/resources: the Vanilla-derived textures (never committed, tools/textures/vanilla_derived.py;
+# generate.py writes them, or placeholders without the client jar, before this runs).
+SB_LAYERS = ("src/main/resources", "mc26_3/overlay/resources", "build/vanilla-derived/resources")
 
 
 def png_size(data: bytes) -> tuple[int, int] | None:
@@ -186,6 +188,8 @@ def build(repo: Path, wiki: Path, entries: list[dict]) -> tuple[dict, dict[str, 
         entry = {"id": texture_id, "module": src["module"], "kind": kind,
                  "name": {"en": pretty(stem), "de": pretty(stem)},
                  "file": file, "source": source, "w": width, "h": height, "bytes": len(payload)}
+        if source.startswith(SB_LAYERS[-1] + "/"):
+            del entry["bytes"]  # built from the client jar or a placeholder: the size is not the same everywhere
         if link:
             entry["name"] = {"en": link["name"].get("en_us") or pretty(stem),
                              "de": link["name"].get("de_de") or link["name"].get("en_us") or pretty(stem)}
@@ -235,10 +239,19 @@ def sync(repo: Path, wiki: Path, entries: list[dict], check: bool = False) -> li
         problems = []
         if without_dates(read_js(target)) != without_dates(index):
             problems.append(f"wiki/{DATA_FILE} is out of date with the textures - run python wiki/generate.py")
+        derived_root = repo / SB_LAYERS[-1] / "assets"
+        derived = {f"{SHEETS}/simplebuilding/{png.relative_to(derived_root).parts[0]}/"
+                   + png.relative_to(derived_root / png.relative_to(derived_root).parts[0] / "textures").as_posix()
+                   for png in derived_root.glob("*/textures/**/*.png")} if derived_root.is_dir() else set()
         for file, payload in writes.items():
             path = wiki / file
             if not path.exists() or path.read_bytes() != payload:
-                problems.append(f"wiki/{file}: missing or stale texture copy")
+                if file in derived:
+                    # Vanilla-derived (ignored by git, jar or placeholder): written, not compared.
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(payload)
+                else:
+                    problems.append(f"wiki/{file}: missing or stale texture copy")
         return problems
     for file, payload in writes.items():
         path = wiki / file

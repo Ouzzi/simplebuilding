@@ -13,6 +13,7 @@ from __future__ import annotations
 import glob
 import io
 import math
+import os
 import sys
 import zipfile
 from pathlib import Path
@@ -27,8 +28,11 @@ OUT = n1.ROOT / 'docs/ai/previews/n41/r2'
 
 
 def vanilla(name):
-    home = Path.home() / '.gradle'
-    jars = sorted(glob.glob(str(home / 'caches/fabric-loom/26.3/minecraft-client.jar')))
+    # SB_CLIENT_JAR: an explicit jar (tools/textures/vanilla_derived.py, the Gradle build passes the one it found).
+    explicit = os.environ.get('SB_CLIENT_JAR')
+    home = Path(os.environ.get('GRADLE_USER_HOME') or Path.home() / '.gradle')
+    jars = [explicit] if explicit else []
+    jars += sorted(glob.glob(str(home / 'caches/fabric-loom/26.3/minecraft-client.jar')))
     jars += sorted(glob.glob(str(home / 'caches/neoformruntime/artifacts/minecraft_26.3_client.jar')))
     for jar in jars:
         with zipfile.ZipFile(jar) as z:

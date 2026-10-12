@@ -262,8 +262,8 @@ def textures():
         **__import__('n45_astral_2026_10_12').textures(),
         # N45 (2026-10-12): B1 animated and seamless (veins run over the tile edges), 8 frames.
         'block/blazing_obsidian': __import__('n45_obsidian_2026_10_12').blazing_strip(),
-        # Owner pick N41 round 3: D9 (Vanilla written-book layout read from the 26.3 client jar, blaze cover, rods).
-        'item/blaze_book': __import__('n41_round3_2026_10_12').blaze_book(2),
+        # item/blaze_book (owner pick N41 round 3, D9) is drawn on the Vanilla written-book layout read from the
+        # client jar: built at build time only, see tools/textures/vanilla_derived.py (never committed).
     }
 
 
@@ -295,7 +295,6 @@ VANILLA_TWIN = {
     'block/crimson_blazewood_bookshelf': 'block/bookshelf',
     'block/warped_blazewood_bookshelf': 'block/bookshelf',
     'block/blazing_obsidian': 'block/crying_obsidian',
-    'item/blaze_book': 'item/book',
 }
 
 

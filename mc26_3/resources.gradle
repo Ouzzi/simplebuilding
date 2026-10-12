@@ -49,8 +49,46 @@ ext.mc263ConfigureResources = { SourceSet sourceSet, List<String> extraSharedDir
 //   - a layer's generated files hide older generated files and src/main/generated;
 //   - a layer's removed list hides generated files of OLDER layers and of src/main/generated that
 //     this version no longer produces.
+// Textures derived from Mojang textures (a recolour/mask of a sprite from the client jar) are never
+// committed (owner rule 2026-10-12, AGENTS.md): tools/textures/vanilla_derived.py draws them from the
+// local 26.3 client jar into build/generated-resources/vanillaDerived, and the merge below takes them
+// before every other layer. Python 3 with Pillow: -PsbPython / SB_PYTHON, else python3.12, python3,
+// python from PATH. Jar: -PsbClientJar / SB_CLIENT_JAR, else the Loom or NeoForm cache of this
+// Gradle user home. Without a jar the build fails (a missing sprite would ship as magenta); only
+// -PsbVanillaDerivedPlaceholders ships labelled placeholders instead.
+ext.mcVanillaDerivedTask = { ->
+    if (tasks.names.contains('generateVanillaDerived')) return tasks.named('generateVanillaDerived')
+    File script = new File(rootDirFile, 'tools/textures/vanilla_derived.py')
+    File out = layout.buildDirectory.dir('generated-resources/vanillaDerived').get().asFile
+    String python = (project.findProperty('sbPython') ?: System.getenv('SB_PYTHON')) as String
+    if (!python) {
+        List<String> path = (System.getenv('PATH') ?: '').split(File.pathSeparator) as List<String>
+        python = ['python3.12', 'python3', 'python', 'python.exe'].find { n -> path.any { new File(it, n).canExecute() } } ?: 'python3'
+    }
+    String jar = (project.findProperty('sbClientJar') ?: System.getenv('SB_CLIENT_JAR')) as String
+    boolean placeholders = project.hasProperty('sbVanillaDerivedPlaceholders')
+    File gradleHome = gradle.gradleUserHomeDir
+    return tasks.register('generateVanillaDerived', Exec) {
+        description = 'Draws the Vanilla-derived textures (never committed) from the local 26.3 client jar.'
+        inputs.files(fileTree(script.parentFile) { include '*.py' }).withPropertyName('generators')
+        inputs.property('jar', jar ?: '')
+        inputs.property('placeholders', placeholders)
+        outputs.dir(out)
+        workingDir rootDirFile
+        environment 'GRADLE_USER_HOME', gradleHome.absolutePath
+        List<String> cmd = [python, '-B', script.absolutePath, '--out', out.absolutePath]
+        if (jar) cmd += ['--jar', jar]
+        if (placeholders) cmd << '--placeholder-if-missing'
+        commandLine cmd
+        doFirst { project.delete(out) }
+    }
+}
+
 ext.mcLayeredResources = { SourceSet sourceSet, List<String> extraSharedDirs, String tag, List<Map> layers ->
     File sharedResources = new File(rootDirFile, 'src/main/resources')
+    def vanillaDerived = sourceSet.name == 'main' ? mcVanillaDerivedTask() : null
+    File derivedDir = vanillaDerived ? layout.buildDirectory.dir('generated-resources/vanillaDerived').get().asFile : null
+    def isDerived = { FileTreeElement e -> derivedDir != null && !e.directory && new File(derivedDir, e.relativePath.pathString).isFile() }
     File sharedGenerated = new File(rootDirFile, 'src/main/generated')
     Map<File, Set<String>> removedCache = [:]
     def removedOf = { Map layer ->
@@ -83,26 +121,35 @@ ext.mcLayeredResources = { SourceSet sourceSet, List<String> extraSharedDirs, St
         (layers.collectMany { [it.overlay as File, it.generated as File] } + [sharedGenerated] + sharedDirs).each { File d ->
             if (d.isDirectory()) inputs.dir(d).withPropertyName('in_' + rootDirFile.toPath().relativize(d.toPath()).toString().replaceAll('[^A-Za-z0-9]', '_'))
         }
+        // Vanilla-derived textures first; a stale local copy under an overlay must not collide with them.
+        if (vanillaDerived) {
+            dependsOn vanillaDerived
+            from(derivedDir)
+        }
         layers.eachWithIndex { Map layer, int i ->
             List<File> newerOverlays = layers.take(i).collect { it.overlay as File }
             from(layer.overlay) {
                 exclude { FileTreeElement e -> !e.directory && newerOverlays.any { new File(it, e.relativePath.pathString).isFile() } }
+                exclude isDerived
             }
         }
         sharedDirs.each { dir ->
             from(dir) {
                 exclude { FileTreeElement e -> !e.directory && layers.any { new File(it.overlay as File, e.relativePath.pathString).isFile() } }
+                exclude isDerived
             }
         }
         layers.eachWithIndex { Map layer, int i ->
             from(layer.generated) {
                 exclude '.cache/**', 'wiki/**'
                 exclude { FileTreeElement e -> !e.directory && (isRemovedList(e.relativePath.pathString) || generatedWinner(e.relativePath.pathString, i) != -1) }
+                exclude isDerived
             }
         }
         from(sharedGenerated) {
             exclude '.cache/**', 'wiki/**'
             exclude { FileTreeElement e -> !e.directory && generatedWinner(e.relativePath.pathString, layers.size()) != -1 }
+            exclude isDerived
         }
     }
     sourceSet.resources.setSrcDirs([merged])
