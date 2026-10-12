@@ -1,35 +1,89 @@
-# Warteschlange SimpleBuilding (Stand 2026-10-01, Hauptlinie 26.3)
+# Warteschlange SimpleBuilding (Stand 2026-10-12, Hauptlinie 26.3)
 
-Regeln: AGENTS.md; aktueller Bestand/Belege in docs/HANDOFF.md. Worker committen auf
-ihrem Branch ohne Push/Merge. Alte Wellen und Run-Details sind in der Git-Historie erhalten.
+Regeln: AGENTS.md; aktueller Bestand/Belege in docs/HANDOFF.md. Worker committen auf ihrem Branch ohne Push/Merge.
 Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
-Audit 2026-10-09 (claude-q-audit): offene Punkte gegen claude-wave1 9c7929ff4 geprüft, erledigte mit
-„Audit 09.10.“ abgehakt, Teilstände als „(teilweise: …)“. Priorisierte Restliste: docs/ai/ROADMAP-2026-10-09.md.
+Audit 2026-10-09 (claude-q-audit): offene Punkte gegen claude-wave1 9c7929ff4 geprüft; Restliste: docs/ai/ROADMAP-2026-10-09.md.
+Queue-Pflege (Besitzer 12.10.): Neue Nachträge OBEN anhängen (direkt unter „Offen – Überblick“), Erledigtes per Haken
+`[x]` + Branch/Commit abhaken (und die Zeile im Überblick streichen), neue offene Punkte zugleich in den Überblick
+eintragen. Abschnitte ohne offene Punkte wandern monatlich unverändert nach `.claude/QUEUE-ARCHIV.md`
+(Reihenfolge erhalten; letzte Archivierung 2026-10-12).
 
-## Worker Befunde 11/12 (2026-10-05)
-- [x] Visuals/Sounds auf GameTest-Assertions umgestellt; Riding-Handling prüft alle Vanilla-Stufen standalone, Enderit nur mit SB. Branch `gpt-befunde`: Module 296/296, Kern 1890/1890 grün, Gate mit `-PskipWiki` grün; kein Push.
+## Offen – Überblick (Stand 2026-10-12)
 
-## Integriert / implementiert
-- [x] Wellen 1–23: Werkzeuge, Lager/Maschinen, Config/Modpack, Erfolge/Quests, Immersion,
-  Balancing-Zentrale und frühere Ports (historische Gate-Zahlen nicht als aktuelles Gate verwenden).
-- [x] Welle 24 BB–GG: Detector/Rezepte, Handbücher, platzierte Bündel/Oktanten,
-  Pad-Aktivzustände, Spawnzielwahl, Kerne und Neunerreihen/Kreativreiter.
-- [x] Welle 24 HH/II/JJ: Materialkern-Padrezepte und Mobköpfe, Shulkerkisten-Stufen,
-  Resonanzstab, Attraktor/Range/Touch und Gauge. GG+: nur Eichen-Holzdruckplatte im Modreiter.
-- [x] Z: Luftsprung 20/10 s, XP-Leisten-Priorität, Linear/Bridge und Oktant-Rezept.
-- [x] Welle 25 KK2/FIX16: zwei isolierte End-Signalkanäle, Schalter/Lampen und Astralgewölbe;
-  EndSystemsTests, Rezept-/Sprach-/Config-/Tab-Integrität und Testzentralen-Abdeckung.
-- [x] BUGS/MM: Hammer-Zeitmodell 1,5/+0,8/+0,7, Oktant 2 je Block, Eckenschlag,
-  Transformationshinweise; Basisbuch-Rezeptfreischaltung und Kapitel per Tab/Itemverbrauch.
-- [x] Verstaerktes Bündel: Rezept/Datagen/Abdeckung, kein Gameplay-Fix auf Verdacht.
-- [x] Spawn: jede Signalstärkeänderung setzt die Ladung sofort zurück (auch kurze Impulse).
-- [x] Multimod-Grundlage, Wiki-Modauswahl, getrennte Balancing-Ablagen, Scaffold/Manifest;
-  Launch Hub integriert, Forge 26.3 opt-in (`-Pforge263=true`).
-- [x] Simple Money als eigenes Modul; Wiki-Vertrag und sieben Item-Notizen korrigiert.
-- [x] Amerikanisches Englisch und Zeilen-Layout umgesetzt; laufende Textpflege bleibt nötig.
-- [x] Launch-Zentrale: alle elf Projektmods standardmäßig ausgewählt, einklappbare Abwahl; tatsächliche Ladung und Abwahl auf Fabric/NeoForge/Forge 26.3 geprüft.
-- [x] Bett-/Tür-/Doppelpflanzenplatzierung mit zweiter Zellenprüfung repariert; 54/54 WandMode-Tests. Oktant-Füllungen überspringen diese Materialien ohne Verbrauch.
-- [x] Claims-Folgeschutz für Crafter, Kupfergolem-Transfers und Blitz-Blockänderungen; 100/100 Modultests. Claims bleiben wegen weiterer offener Pfade AUS.
+Jeder offene Punkt steht hier genau einmal (Ursprungs-Nachtrag in Klammern). Quelle der Wahrheit bleibt der Haken im
+Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile hier streichen.
+
+### (A) In Arbeit (Branch ungemerged)
+- Deceiver Stufe 2 Rest: Verwandlung in beliebige Mobs (Renderer-Delegation), Schattenlos-Fakes, Config (Wellen-Obergrenze), Spiegelbild, falsche Truhe, Wiki/Testzentrale, Client-Abnahme (N20, N38b; claude-deceiver3)
+- Tarn-Umhang (Brustplatz): Erkennung 3-Block-Radius, Rechtsklick = Verwandlung, Schlag/Abbauen = Rückverwandlung, Enttarnungsradius (N38b; claude-deceiver3)
+- Unsichtbarkeitstrank ohne Partikel; Trugbild-Spiegel (N38b; claude-deceiver3)
+- Spezialangriff: Mob-Anzahl verdoppeln, Chance 5 % bis 80 % bei wenig Leben (N38b; claude-deceiver3)
+- Gepanzerter Deceiver: schwerer, doppelter Neben-Drop, Täuscherstoff ~50 % (N38b; claude-deceiver3)
+- Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop (N38b; claude-deceiver3)
+- Deceiver-Umhang: Kopf-Umhang mit Kapuze als 3D-Modell auf dem Rücken, Elytra-Zusammenspiel, Deceiver-Mob trägt ihn (N49; claude-deceiver3)
+- Deceiver-Umhang am Kopf-Slot, Verkleidung überall sichtbar (Inventar, Ego-Hände), Schlag in die Luft hebt Tarnung auf (N48; claude-deceiver3, Teil auf dem Branch)
+- Trick-Spiegel ausbalancieren oder vorerst entfernen (N48; claude-deceiver3)
+- Shellker-Schale: Item-Textur wie Vanilla-shulker_shell, angepasst (N48; claude-deceiver3)
+- Furcht-Mobs F-A „Dread“ (Golem-Mechanik) und F-C „Hollow Watcher“ (End) mit Zittern-Aura (N47, Dubletten N20/N21/N32; claude-fear-mobs)
+- Aschholz/Dämmerholz: alle Holz-Features optional bei geladenem SB (N47; claude-endwood-full, auf dem Branch abgehakt, Merge offen)
+- Info ohne Queue-Punkt: claude-vd-windows (generateVanillaDerived Windows-fest, Memory 12.10.) wartet nur auf Merge nach claude-wave1
+
+### (B) Feststehend – als Nächstes bauen (Reihenfolge = Priorität)
+1. Prinzip Entdeckbarkeit umsetzen, Stufe 1: Tooltip/Rezept-Freischaltung je Item + Test (N47; Konzept PRINZIPIEN-ENTDECKBARKEIT.md)
+2. Seelen-Lohe schießt Seelenfeuer-Kugeln (Soulfire Charge, Seelenbrand-Effekt) (N49)
+3. Geschnitztes Holz: Item-Modell an Block-Modell angleichen (N49)
+4. Shellker-Helm und Schildkrötenpanzer trimmbar (N49)
+5. Inventar-Helligkeit als Config: Light, Dark, Dawn (N49)
+6. Extra-Kopf-Slot im B-Menü (nur Mob-Köpfe/Kürbis, Effekte, Helm-Position je Kopf) (N49)
+7. Resonanz-Button zwischen Kopf- und Nebenhand-Slot, Herz-Stufen, Tooltip-Format (N49; hängt an 6)
+8. Wayfinder-Karte: Zoom feiner, Navigation verbessern (N48)
+9. Octet-Blöcke untereinander kombinierbar (N48)
+10. Simple Creatures umbenennen in „Simple Mob Manners“, Id simplemobmanners, Namespace-/Config-Migration (N42)
+11. Stärkerer Wither + Biom-Pinsel (N47; Konzept KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
+12. Astral Enchanter Stufenregel (0–30 Regale, 30–40 Lohen-Regale/-Obsidian, 50 beides) (N32)
+13. Simple Trims Stufen 2–4 (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) (N18)
+14. Stil-Audit: andere Mods an SimpleBuilding-Stil angleichen (N11, Dubletten N11/N14; Teil: Mod-UIs im Container-Stil)
+
+### (C) Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md; Stufen 1a–3b erledigt: claude-split1/2/3)
+Eigener Abschnitt „Modulaufteilung“ weiter unten (Stufen 3c, 3d, 4 Ovens, 5 Crucibles, 6 Octets, 7 Hammers, 8 Storage, 9 Release; strikt nacheinander).
+
+### (D) Wartet auf Besitzer (Abnahme im Spiel / Entscheidung)
+- Abnahme im Spiel (Client, Testzentrale in der Besitzerwelt neu bauen): Pulsating-Trim, Astralgewölbe, Enderit-Pulver, Mega-Handbücher, Hammer-Tempo (Formel 2/3 oder 3/4?), Attractor/Echolot, Boost/Pads, Architectury-Mixin-Fix (Welle 25; Dubletten N-alt)
+- Abnahme neue Module im Spiel: Models, Fun, Visuals/Sounds, QoL, Riding, Dimensions, Money, Forge-Clients, Mehrspieler (Welle 25)
+- Weitere Sichtabnahme Buch-Screen, Truhen, Kern-Animation, Gadgets; Octant-Manager-Kontrast (Offen-Liste)
+- Abnahme Zeilen-Layout in allen Kreativreitern (Offen-Liste)
+- Abnahme visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen (Offen-Liste)
+- Desktop-/Handy-Sichtprüfung von Wiki und Balancing-Zentrale (Offen-Liste)
+- Forge: Clientdarstellung, Config-Persistenz, Default-Einschaltung abnehmen (Offen-Liste)
+- Abnahme Simple Money; NeoForge-Client/alte Spielwelt prüfen (Offen-Liste)
+- Elytra-Reparatur im Schmiedetisch: soll das mit eigener Rezept-Zutat je Loader gebaut werden? (N11)
+- Sprach-Bridge einrichten (Tailscale, Anbieter/Modell, Headset; Morgenbericht gewünscht?) (Welle 25)
+- Modulaufteilung: Fragen F1 Tiegel-Kern, F2 Tweaks-Port, F3 Grenzfälle (Plan §6; Empfehlungen gelten ohne Gegenwort)
+- Weiter offen als Abnahme (Branches gemergt, Details in Memory uebergabe-2026-10-08.md): UI-Konzepte (claude-ui-concepts), Respawn, Soulbound/Death Vault, Claims, Howler, Shellker, Nibblemite, Texturen N44–N46
+
+### (E) Bewusst später
+- Port-Run 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme (Offen-Liste, Dubletten Welle 25/N32)
+- Port-Run 26.2: Erzdetektor-Texturen auf zentrierte 26.3-Nadel bringen (Nachtrag 2)
+- 26.4: Forge einschalten, Cloth-Config, NeoForge-26.4-Linie, sobald Builds da sind (Offen-Liste)
+- Mega-Handbücher ansehen und Testzentrale neu bauen, erst wenn alle Mods fertig sind (Offen-Liste, Dubletten N47)
+- Wiki-Extras: Beschaffungszeit je Item mit Zeitaltern; Diagramm „Zeit bis k Stück“ (log. Achse); weitere Wiki-UX-Ideen (Offen-Liste)
+- Punkte 64–69: Sprachen, Attractor mit Ladung, neue Blöcke, Baustab über Planer, Kern-Module, Multi-Mod-Repo (Offen-Liste)
+- Rucksack-Sortierung, sobald eine Sortierfunktion kommt (Offen-Liste)
+
+---
+
+## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
+Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
+- [ ] 3c `claude-split-s3-apis`: SimpleLib-Dienste in_world_upgrades, `#simplelib:upgrade_tools`, isHammer, OctetCells, registerUpgradeHandler, TestCentreStations, GuideChapters
+- [ ] 3d `claude-split-s3-materials`: gemeinsame Materialien nach simplelib (§2.5), requestMaterial, Condition material_requested
+- [ ] 4 `claude-split-s4-ovens`: Extraktion Ovens nach modules/simpleovens
+- [ ] 5 `claude-split-s5-crucibles`: Crucibles nach simplecrucibles (Aliase, Seelenlava)
+- [ ] 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
+- [ ] 7 `claude-split-s7-hammers`: Hammers extrahieren (breiteste Kopplung)
+- [ ] 8 `claude-split-s8-storage`: Storage (~93 Klassen, 36 Blöcke) extrahieren
+- [ ] 9 `claude-split-s9-release`: Aufräumen, Wiki-Umzug, Versionen, Changelog, Brücken-Version, volles Gate
+
+---
 
 ## Offen (inklusive Besitzerpunkte)
 - [x] 26.2-Nachtserie Folgefix: Crucible-Ausnahme und Maschinenkapitel 9/10 nach Versionsflag getrennt; 26.2 Fabric/NeoForge/Forge 2932/2932, 26.3-Gegenprobe 1954/1954, Gate/Pflicht-Compiles und Wiki gruen. Worker `gpt-line262b`, Plan `docs/ai/PLAN-LINE262B-2026-10-02.md`. Kein Port/Datagen/Client/Push.
@@ -48,7 +102,7 @@ Audit 2026-10-09 (claude-q-audit): offene Punkte gegen claude-wave1 9c7929ff4 ge
 - [x] Strahlschalter-Rezeptfilter berücksichtigt amethyst_lens und die alte laser_pointer-ID (RecipeFilter.java).
 - [x] Serielle Fabric-/NeoForge-26.3-Clientprüfung und gezielte Nachprüfung der belegten Testfehler; Dimensions/QoL/Sounds/Visuals-Smokes: `docs/ai/CLIENT-ACCEPTANCE-2026-10-01.md`.
 - [ ] Weitere Sichtabnahme für Buch-Screen, Truhen, Kern-Animation und neue Gadgets; Octant-Manager-Kontrast verbessern. Bestehende Screenshots sind keine pauschale Abnahme.
-- [ ] Testzentrale in der Besitzerwelt neu bauen; automatische GameTest-Welten ersetzen keine Abnahme.
+- [x] Testzentrale in der Besitzerwelt neu bauen; automatische GameTest-Welten ersetzen keine Abnahme. (Audit 12.10. Dublette, zusammengeführt mit Zeile 96 / Überblick: (Testzentrale neu bauen))
 - [x] Resonanzstab auf 26.3: Amethystscherben als Amboss-Reparaturmaterial-Tag, Tooltip EN/DE und Wiki; Rotator bleibt ohne Mending. Worker `gpt-answers`, Plan `docs/ai/PLAN-BESITZER-ANTWORTEN-2026-10-02.md`.
 - [x] Rueckfragen Besitzer: alte Excavator/Diamond-Ingots-Texte waren bereits korrigiert; Cover blieb nach der damaligen Besitzerentscheidung im Loot; die neue Option B vom 2026-10-05 ist unten umgesetzt. Belege und Optionen: `docs/ai/RUECKFRAGEN-ERKLAERT-2026-10-05.md`.
 - [x] Liste G (58 Punkte): Run G der Welle 22 belegt, Original der nummerierten Liste in den recherchierten Quellen nicht auffindbar; keine erfundene Rekonstruktion. Siehe Erklaerungsdokument. (aussortiert 10.10.: Originalliste nicht auffindbar, Relevanz nicht prüfbar – Besitzer kann neu diktieren)
@@ -74,14 +128,14 @@ Audit 2026-10-09 (claude-q-audit): offene Punkte gegen claude-wave1 9c7929ff4 ge
 - [ ] Besitzer-Abnahme des bereits implementierten Zeilen-Layouts in allen Kreativreitern.
 - [ ] 26.4: Forge einschalten sobald Build da (-Pmc264_forge_version), Cloth-Config-Screen/Dev-Mods sobald 26.4-Builds da, NeoForge-26.4-Linie
 - [x] Baustab V1: normale Flaechen ueber den Blaupausen-Planer (Schutzpruefung pro Position) - ca. 40 Tests pinnen das heutige Verhalten
-- [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
-- [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
+- [x] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter (Audit 12.10. erledigt: Besitzer 12.10. (N47): Kerne bleiben reine Crafting-Zutat, keine Zusatzfunktionen)
+- [x] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen (Audit 12.10. erledigt: Besitzer 12.10. (N47): Kerne bleiben reine Crafting-Zutat, keine Zusatzfunktionen)
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
 - [ ] (SPÄTER, erst wenn die Mods fertig sind – Besitzer 12.10.) Besitzer-Abnahme: Mega-Handbuecher im Client ansehen und Testzentrale in der Besitzerwelt neu bauen.
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
 - [x] Weitere Ports als Module: riding, qol, visuals, models, dimensions, tweaks, fun, sounds und Money-Links (siehe Welle 25 unten); Abnahmen im Spiel offen.
 - [x] Forge 26.3 einschließlich simpledimensions integriert; experimentell/opt-in. Clientabnahme bleibt offen.
-- [ ] Besitzer-Abnahme: 26.3-Signalkanaele und Astralgewoelbe im Client; Testzentrale in Besitzerwelt neu bauen.
+- [x] Besitzer-Abnahme: 26.3-Signalkanaele und Astralgewoelbe im Client; Testzentrale in Besitzerwelt neu bauen. (Audit 12.10. Dublette, zusammengeführt mit Zeile 96 / Überblick: (Astralgewölbe/Client; Signalkanäle durch N36 ersetzt))
 - [ ] Desktop-/Handy-Sichtprüfung von Wiki und Balancing-Zentrale.
 - [ ] Forge: echte Clientdarstellung, Config-Persistenz/optionale Integrationen und spätere Default-Einschaltung abnehmen.
 - [ ] Besitzer-Abnahme von Simple Money; NeoForge-Client/alte Spielwelt noch prüfen. Forge 26.3 und andere Linien später im Port-Run.
@@ -98,104 +152,7 @@ Audit 2026-10-09 (claude-q-audit): offene Punkte gegen claude-wave1 9c7929ff4 ge
 - [x] Entscheidungen vom 2026-09-30 Abend getroffen (naechster Block): Claims zuerst als ausgeschaltetes Feature, Echo-Kompasse nicht migrieren, Dimensionen (Bogen bleibt Standard, Einzelschalter in den Einstellungen), QoL-Haltbarkeitsbonus Standard 1, Sounds an Visuals koppeln, Forge spaeter. Noch offen: Echolot 3 s halten oder Ein-Klick.
 - [ ] Sprach-Bridge einrichten (docs/ai/VOICE-HANDS-FREE.md): Tailscale am Handy, `tailscale serve`, Anbieter und Modell waehlen, Headset testen; offen ob ein gesprochener Morgenbericht gewuenscht ist.
 - [x] Forge für simpledimensions und Claim-Adapter implementiert. Native Forge-Dialoge ersetzen die inkompatible Cloth-Version; GUI-Abnahme bleibt offen.
-- [ ] Weitere Wiki-UX-Ideen (oben); Port-Run 26.2/1.21.11/26.4 erst nach Release-Ankuendigung des Besitzers.
-
-## Besitzer-Entscheidungen 2026-09-30 Abend (Reihenfolge = Prioritaet; fuer die Laptop-Sitzung, Briefs in docs/ai/briefs/next-*.md)
-- Orchestrierung aktiv: `codex-next-claims`, danach `codex-next-dimensions` und `codex-next-small` gestartet. Plan/Verifikation: `docs/ai/CODEX-PLAN.md`; offene Fortsetzung: `docs/ai/CODEX-HANDOVER.md`. Noch keine neue Feature-Abnahme oder Gate-Freigabe.
-- Fortsetzung 2026-10-01: Claims-Stufen 1–3 auf `7422a3ab` geprüft (36/36 Claims, 70/70 Hammer-Regressionsfälle). `next-claims` bearbeitet Stufe 4; `next-claims-access` parallel Stufen 5–6. Dimensions (`8657e3d2`) und QoL/Sounds (`7faca095`) geprüft und mergebereit. Noch kein Feature-Merge/Push dieser Welle.
-- [ ] 1. CLAIMS (als Allererstes): das Claim-System der Quelle (ClaimState, ClaimProtectionHandler, ClaimDeedItem, /claim-Befehle) jetzt portieren, aber als DEAKTIVIERTES Feature: Hauptschalter standardmaessig aus, Stufe fuer Stufe weiter ausbauen und erst nach Fertigstellung freigeben. Anforderungen, Fallen und Testliste: docs/modules/simpletweaks.md Abschnitt "Sicherheitsbefunde und Entscheidungen" (Caps, atomare Persistenz, Rechte an jedem Ziel, Explosion/Feuer/Kolben/Fluessigkeit, Zwei-Spieler-Tests). Brief: docs/ai/briefs/next-claims.md. Danach ein Claim-Adapter fuer Dimensions. (teilweise: Stufen 1–6 integriert, Hauptschalter AUS; Stufe 4 und Schutzlücken offen, Freigabe fehlt)
-- [x] 2. Alte Echo-Library-Kompasse: NICHT migrieren (entschieden: die neue Loesung ersetzt sie, die alten braucht niemand). Keine Arbeit.
-- [x] 3. DIMENSIONS: (a) Standardform bleibt der Bogen (sechs Glowstone-Boegen mit Zusatzlicht); keine Kupfer/Blaueis-Variante in den Configs anbieten. (b) Die vorinstallierten Dimensionen (Skyblock, Mining, Travel) sind einzeln in den EINSTELLUNGEN (Server-Optionen, eigener Reiter im Config-Bildschirm) ein- und ausschaltbar, nicht ueber die Config-Dateien der Dimensionen. (c) SPAETER, erst nach dem gemeinsamen Durchgehen mit dem Besitzer: beliebige erlaubte Portalformen frei konfigurierbar und ueber waehlbare Mechaniken aktivierbar (nicht jetzt beginnen). Brief fuer (a) und (b): docs/ai/briefs/next-dimensions-settings.md.
-- [x] 4. QUALITY OF LIFE Haltbarkeitsbonus: gilt auch fuer Mod-Werkzeuge (SimpleBuilding und andere), aber der Standard ist 1 (kein Bonus); per Config erhoehbar (serverseitig, harte Obergrenze). Brief: docs/ai/briefs/next-small.md.
-- [x] 5. SOUNDS: Intensitaet an die Stufe von Simple Visuals koppeln (Off/Subtle/Normal/Strong/Maximum); ohne Visuals gilt eine eigene Einstellung. Brief: docs/ai/briefs/next-small.md.
-- [x] 6. FORGE spaeter: Forge 26.3 auch fuer Dimensions, Cloth-Dialog auf Forge und die Frage der Standardaktivierung kommen nach 1 bis 5.
-- [x] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein? → Besitzer: „ja und ja“ (3 s halten bleibt), Morgenbericht vorerst nicht relevant.
-
-## Orchestrator-Abschluss 2026-10-01
-
-- [x] Claims-Stufen 1-6 integriert, Hauptschalter AUS. Stage 4 bleibt teilweise
-  offen; keine Freigabe. Grenzen: modules/simpletweaks/CLAIMS-STAGE4.md.
-- [x] Dimensions: sechs Glowstone-Boegen, drei persistente Serverschalter im
-  eigenen Reiter; Kupfer/Blaueis-Preset entfernt. Freie Formen spaeter.
-- [x] QoL: Standard 1, Cap 1.5, auch Mod-Werkzeuge; bestehende Werte erhalten.
-- [x] Sounds folgt Visuals optional, eigene Stufe ohne Anbieter.
-- [x] Forge integriert mit 39fd85b1 (Worker 6786b545): Dimensions/Claims-Adapter,
-  native Dialoge, validierte Persistenz und korrigierte Laufzeitverpackung.
-  Forge bleibt experimentell/opt-in; kein passendes Cloth-Forge-Artefakt.
-- [x] Default-/Forge-Worker-check gruen; 1039 verschiedene Forge-Faelle belegt,
-  finale Drei-Loader-Regression 264/264, Wiederholung 88/88, Settings bytegleich.
-  Testzentralen in isolierten Welten neu gebaut, SimpleBuilding-Abdeckung komplett.
-- Abschlussgate der zusammengefuehrten SHA: .ai-runs/final-full-gate.log.
-  Push ausschliesslich fuer deren GREEN-SHA; Remote-Bestaetigung im Abschlussbericht.
-- [ ] Claims-Schutzluecken, Client-/Audio-/GUI-Abnahmen und Besitzerwelt bleiben
-  offen. Besitzer-Client laeuft; keine Clients gestartet oder gestoppt.
-  Konkrete Fortsetzung: docs/ai/CODEX-HANDOVER.md.
-- Pruefbelege: docs/ai/CODEX-VERIFICATION-2026-10-01.md und
-  docs/FORGE-FOLLOWUP-RESULTS.md. Erstes rotes Gesamtgate und Korrekturen erhalten.
-
-## B7: End redstone rename (26.3)
-- [x] Renamed both End signal powders to Astral Redstone / Nihil Redstone, yield two per recipe, and preserve item and block aliases. Verified on claude-b7: compile targets, 26.3 datagen, wiki, full check, End systems 6/6, migration 1/1, and test centre rebuild/coverage 4/4. No port or push.
-
-## Queue-Ende (Besitzer 2026-10-02): Rezeptbuch in Befiederungs- und Schmiedetisch
-- [x] Befiederungstisch-GUI wie der Werkbank-Bildschirm: das Rezeptbuch-Symbol an exakt derselben Stelle wie bei der Werkbank, dieselbe Bedienung (Buch öffnet die Rezeptliste links, Klick legt die Teile ein), nur dass man Spitze/Schaft/Befiederung wählt; Layout wie die Werkbank minus der fehlenden Felder. (Branch claude-workstations, wartet auf Abnahme)
-- [x] In den drei Teil-Slots Hintergrund-Silhouetten wie bei den Rüstungsslots (zeigen, was hineingehört: Spitze, Schaft, Befiederung). (Branch claude-workstations, wartet auf Abnahme)
-- [x] Titel über den drei Slots: „Fletching“ / „Befiederung“ statt „Fletching Table“. (Branch claude-workstations, wartet auf Abnahme)
-- [x] Schmiedetisch: statt des Knopfs für die Besatz-Resonanz-Vorschau ein anklickbares Rezeptbuch (über dem dritten Slot gerendert), das wie bei der Werkbank die möglichen Ergebnisse zeigt und einlegt. (Branch claude-workstations, wartet auf Abnahme)
-
-## Queue-Ende (Besitzer 2026-10-02): seltene verstärkte Shulker in End-Städten
-- [x] Spawn: In End-Städten wird ein Shulker sehr selten verstärkt (ca. 2 %) oder zum Enderit-Shulker (ca. 0,5 %); serverseitig konfigurierbar mit Obergrenze.
-- [x] Leben: verstärkt 1,5×, Enderit 3× (oder mehr, wenn es spielerisch nötig ist). Die Hülle zeigt die Stufe.
-- [x] Drops: 0–2 Schalen ihres eigenen Typs.
-- [x] Neue Items: Verstärkte, Netherit- und Enderit-Shulkerschale.
-- [x] Schalen in der Welt aufwerten (wie die anderen In-World-Transformationen): Schale auf den Boden legen und mit einem Nugget rechtsklicken. Eisen/verstärkt → verstärkte Schale, Netherit → Netherit-Schale, Enderit → Enderit-Schale; genau ein Nugget pro Schale.
-- [x] Rezept der Shulkerkisten-Stufen: Kupfertruhe + eine aufgewertete Schale + eine normale Shulkerschale.
-- [x] Geklärt (Besitzer 2026-10-02): Auch die Netherit-Schale entsteht in der Welt mit einem Netherit-Nugget. Das neue Rezept kommt zu den bestehenden Stufenrezepten dazu.
-- [x] Umgesetzt auf `claude-loot` (Plan `docs/ai/PLAN-SELTENE-TRUHEN-SHULKER-2026-10-02.md`), inkl. Nachtrag 4 Endermiten je Spezial-Shulker (einmalig bei Spielernähe, nicht dauerhaft). Abnahme im Client offen (Hüllen-Textur, Schalen-Texturen).
-
-## Queue-Ende (Besitzer 2026-10-02 abends, mit Screenshots)
-- [x] Guide-Buch: Die Tabs haben eine hässliche graue Box als Overlay (Screenshot: linke und rechte Tab-Leiste) → entfernen bzw. sauber zeichnen. (claude-guideui: Box über gesperrten Icons entfernt)
-- [x] Guide-Buch im Kreativmodus: gesperrter Tab zeigt einen Knopf „Trotzdem freischalten“. (claude-guideui: Klick auf gesperrten Tab → Knopf unter dem Buch, Server prüft Kreativ)
-- [x] Astral/Nihil-Redstone soll sich wie Vanilla-Redstone verhalten und dieselben Texturarten haben (Punkt, Linie, Verbindungen – Multipart wie Redstone-Draht). Die Pulver-Textur sieht im Spiel falsch aus (Screenshot: großes, verpixeltes violettes Muster).
-  Erledigt auf claude-astral: Ursache war das Modell (eine 16x16-Ebene mit dem Kreuzbild statt Multipart). Jetzt `EndSignalPowderBlock` mit Seiten none/side/up, Punkt/Linie/Kreuz, Wand hoch, Signal über Stufen, nur eigener Kanal; Item = umgefärbter Redstone-Haufen. Plan/Details: docs/ai/PLAN-ASTRAL-NIHIL-REDSTONE-2026-10-02.md. Abnahme im Client offen.
-- [x] Texturen von Nihil-/Astral-Schalter und -Lampe sind kaputt → reparieren.
-  Erledigt auf claude-astral: Schalter = flache Platte (statt schwebender Ebene), Lampe = voller Würfel wie die Redstone-Lampe, Items zeigen das Blockmodell. Abnahme im Client offen.
-- [x] Neue Blöcke: Astral-Kolben (drückt) und Nihil-Kolben (zieht). Mit Signal wird jeder Block im Abstand 1 in alle 6 Richtungen gleichzeitig um genau 1 Block gedrückt bzw. gezogen. Nie 2 Blöcke hintereinander in derselben Richtung. Erst als Konzept/Plan. (claude-pistons, master 46329ec8; Textur A, B/C zur Wahl)
-  Konzept fertig: docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md (offene Besitzerfragen am Ende). Umsetzung wartet auf Freigabe.
-- [x] Bessere Truhen statt normaler Loot-Truhen, je 1 % Chance:
-  - Verstärkte Truhe in der Festung (Stronghold), Netherit-Truhe in der Bastion oder der Netherfestung, Enderit-Truhe in der End-Stadt oder auf dem End-Schiff.
-  - Inhalt: doppelter oder höherstufiger Loot.
-  - Doppeltruhen: Würfelt die erste Hälfte die bessere Truhe, wird die zweite Hälfte mit 1 % neu gewürfelt. Klappt das, werden beide besser, sonst bleiben beide normale Truhen.
-- [x] Enderit-Nugget-Textur passend zur Barren-Textur und zu Vanilla überarbeiten (10 Vorschläge). Eingebaut (claude-texprop): Runde-1-Vorschlag G mit sauber geschlossener rechter Spitze (generate_textures.py ENDERITE_NUGGET, Hauptbaum; previews/enderit-nugget-G-eingebaut.png). 1.21.11-Kopie und Pfeilspitzen-Ableitung (arrow_part_textures.py) im Port-Run/bei Bedarf nachziehen.
-- [x] Weisheitserz-Textur etwas kleiner und langsamer animieren. claude-texprop: Erzmuster beider Erze ~1/6 kleiner, Weisheitskugel-Puls frametime 1 → 2 (das Erz selbst ist nicht animiert); `sage_ore_smaller_2026_10_02.py`, previews/weisheitserz-vorher-nachher.png. Sichtabnahme im Client offen.
-- [x] Die Advancement-Seite sieht falsch aus (Screenshot: Pink-Schwarz-Fehltextur als Hintergrund im Tab „The Two Shelves“) → Hintergrund-Textur reparieren. (claude-guideui: guides/root.json-Pfad + Test für alle Tab-Hintergründe)
-- [x] 10 Alternativ-Vorschläge für die eigenen Besatzvorlagen (Glowing, Pulsating, Emitting). Eingebaut 2026-10-03 (claude-texprop): Besitzer-Motive aus Resprite (rekonstruiert, tools/textures/hand/owner/) 1:1 auf Hintergrund A (`trim_templates_owner_2026_10_03.py`, previews/besatz-besitzer-motive-vorschau.png); Sichtabnahme im Client offen.
-- [x] 10 Vorschläge für Netherit-Apfel, Enderit-Apfel und Netherit-/Enderit-Karotte. Eingebaut (claude-texprop): Netherit = Satz A, Enderit = Umfärbung + Enderit-Glimmer (`foods_settled_2026_10_02.py`, previews/netherit-enderit-essen-eingebaut.png); 1.21.11-Kopien im Port-Run.
-- [x] Pfeile, die einen Mob getroffen haben, sollen wieder aufsammelbar sein, am besten wenn er gestorben ist (teure Pfeile lohnen sich dann). (claude-combat: fallen beim Tod mit allen Teilen; nur Spieler-Pfeile mit Aufheben erlaubt; `server.arrows`; docs/ai/PLAN-COMBAT-2026-10-02.md)
-- [x] Das Rezept des Spawn-Elytra-Pads wird nicht angezeigt (JEI zeigt nur die Info). → Fabric synchronisierte eigene Rezept-Serializer nicht an JEI; jetzt angemeldet (claude-pads, Plan docs/ai/PLAN-PADS-2026-10-02.md). Client-Sicht offen.
-- [x] Rezepte der Trank-Pads (claude-pads; II jetzt UNCOMMON wie die übrigen Netherit-Stufen):
-- [x] Rezepte der Trank-Pads: (claude-pads, master 8d443a67)
-  - Verstärktes Trank-Pad: Netherit-Aufwertung + Netherit-Druckplatte.
-  - Infundiertes Trank-Pad 3: Enderit-Aufwertung + Enderit-Druckplatte.
-- [x] Das Rezept des Flypads wird auch nicht angezeigt. Höhe je Stufe = Breite der Grundfläche × 2. → gleiche Sync-Ursache; Höhen 8/16/32 (claude-pads).
-- [x] Shulkerkopf: Das 3D-Modell ist nur im Inventar zu groß und wird abgeschnitten (Screenshot). → eigenes GUI-Basismodell 0,8× (claude-pads), Sichtabnahme offen.
-- [x] Silberfischkopf viel kleiner: im Inventar, auf dem Kopf und abgestellt. → Originalgröße statt 2× (claude-pads), Sichtabnahme offen.
-- [x] Guide-Buch-Texturen überarbeiten (10 Vorschläge). Besitzer wählte J (Prachtband), eingebaut auf 26.3 (claude-guideui), Vorschau previews/guide-buecher-J-eingebaut.png.
-- [x] Simple Money: 10 Textur-Vorschläge für Special Fiber, 10 für Resin Fiber. Runde 3 aus dem Vanilla-Faden abgeleitet, je A–J (previews/money-fasern-v3-vorschau.png, `money_fiber_proposals_v3_2026_10_02.py`) – Besitzer wählt. (Audit 09.10.: claude-tex6 33249d183: Fasern I/J-Mix eingebaut)
-- [x] Simple Money: Schmelzzeiten der Geld-Teile erhöhen, damit es in SimpleBuilding-Welten balanciert ist. claude-texprop: roher Schein → Geldschein 10000 → 24000 Ticks (Vanilla-Schmelzofen 1 Schein/Spieltag, SB-Öfen 2/4/8); Begründung in docs/modules/simplemoney.md.
-- [x] Zusätzlicher Weg zu Diamant-Kieseln (In-World): Fällt ein Amboss auf einen Diamantblock, entstehen Diamant-Kiesel. (GPT anvil: 72 Kiesel je Diamantblock, master 8d443a67)
-- [x] Auto-Schmied analog zum Autocrafter: automatisiert den Schmiedetisch. (Branch claude-workstations, wartet auf Abnahme)
-- [x] (claude-tabswiki, wiki/base_materials.py; Geldschein-Wert 3–35 Smaragde aus den Handels-JSONs) Wiki: Auf jeder Item-Seite beim Rezept die benötigten Grundmaterialien insgesamt auflisten (ab Barren, Holzstämmen, Zuckerrohr, Wachs, Bruchstein …), damit klar ist, wie viel Rohmaterial ein Item kostet. Beim Geldschein sein Wert.
-- [x] Strohpuppe / Trainingspuppe (Branch claude-dummy, docs/ai/PLAN-TRAINING-DUMMY-2026-10-02.md; Client-Sichtabnahme und Besitzer-Abnahme der Texturen offen, Vorschau previews/trainingspuppe-vorschau.png):
-- [x] Strohpuppe / Trainingspuppe: (claude-dummy, master 8d443a67; Besitzer: ok)
-  - Rezept: Rüstungsständer + Strohballen ergibt einen Stroh-Rüstungsständer.
-  - Mit aufgesetztem geschnitzten Kürbis wird daraus eine Trainingspuppe mit gutem Minecraft-Namen. Sie ist unzerstörbar, außer beim Abbauen im Schleichen.
-  - Sie zeigt allen Schaden an, auch kritische Treffer.
-  - Je nach aufgesetztem Kopf zeigt sie den Schaden gegen diese Mob-Art (Gliederfüßer, Untote, Endermen …).
-  - Man kann ihr Rüstung anziehen.
-  - Bestehende Konzepte im Internet recherchieren und vervollständigen.
-- [x] Testzentrale: eine Pfeil-Station, an der jeder Pfeil getestet werden kann (Abschnitt `archery`: alle Befiederungs-, Vanilla-, Spektral- und Trank-Pfeile gegen acht Trainingspuppen; Bau in der Besitzerwelt offen).
-- [x] Schachbrett-Blöcke zusätzlich aus poliertem Astralit, poliertem Nihilit und Enderquarz (mit der Textur der polierten Variante; Screenshot der Schachbrett-Zeile).
-  Erledigt auf claude-astral: polished_astralit_checker, polished_nihilith_checker, polished_ender_quartz_checker (Rezept 2 polierter Block + 2 Quarzblock → 4). Vorschau previews/polierte-schachbretter-vorschau.png.
+- [x] Weitere Wiki-UX-Ideen (oben); Port-Run 26.2/1.21.11/26.4 erst nach Release-Ankuendigung des Besitzers. (Audit 12.10. Dublette, zusammengeführt mit Zeile 73 / Überblick: (Port-Run) und 58/60 (Wiki-Ideen))
 
 ## Besitzer 2026-10-02 (Nachtrag)
 
@@ -206,178 +163,6 @@ Audit 2026-10-09 (claude-q-audit): offene Punkte gegen claude-wave1 9c7929ff4 ge
 - [x] Resonanzstab: soll auch Entities anzünden bzw. scannen können. (claude-combat: Punkt/HUD treffen Lebewesen, Scannen = Leuchten, `server.laser.scanEntities/scanPlayers`; Client-Sichtabnahme offen)
 - [x] (claude-tabswiki: Werkzeuge je Stufe, Zweitplatzierungen Kampf/Redstone, Hufeisen; neue Tabs SimpleCombat/SimpleFood; Sichtabnahme offen) Mod-Items zusätzlich an den richtigen Stellen in die Vanilla-Kreativtabs einsortieren; Simple-Building-Tabs weiter aufteilen (Werkzeuge, Waffen, Rüstung usw. wie in Vanilla).
 - [x] Trank „Crafty Shulker“: Effekt – bei Treffer an eine sichere Stelle in der Nähe teleportieren; braubar mit Shulkerkopf, analog zu den anderen Tränken/Effekten. (claude-combat: nur 26.3, Seltsamer Trank + Shulkerkopf, Redstone/Schwarzpulver/Drachenatem; Icon-Abnahme offen: previews/crafty-shulker-vorschau.png)
-
-## Besitzer 2026-10-02 (Nachtrag 2)
-
-- [x] Erzdetektor: Die Auswahl-Animation (läuft heute am Slot-Rand, wenn ein Block gewählt ist) soll stattdessen auf der Nadel laufen. (claude-texprop, master 8d443a67)
-- [x] Erzdetektor: Nadel vorher breiter machen wie beim Bergungskompass (falls noch nicht geschehen). (claude-texprop, 12/6 Uhr mittig, master 8d443a67)
-- [x] Eigene Schallplatte je Dimension, „gehen ab“ wie Pigstep/Otherside: (claude-audio: Voidline/Driftwood/Daybreak/Brimstone mit Platzhalter-Audio, Fundorte, Texturen; echte Musik per `tools/audio/import_discs.py`, Plan `docs/ai/PLAN-SCHALLPLATTEN-2026-10-03.md`; Musik + Client-Abnahme offen)
-  - End: Stil wie das Instrumental von „What I've Done“ (Linkin Park).
-  - Oberwelt: zwei Platten, eine wie „Stan“ (Eminem), eine im NCS-/Alan-Walker-Stil.
-  - Nether: wie „Thunderstruck“.
-  - Musik nur stilistisch angelehnt, keine Melodie- oder Sample-Kopie. Audio als Mono-OGG (positionsabhängig in der Jukebox). Fundorte je Dimension (z. B. End-Stadt, Bastion, Oberwelt-Struktur). Platten-Texturen im Vanilla-Stil (10 Vorschläge?).
-- [x] Stille Löwenzahn („Silent Dandelion“), gleiche Logik wie die goldene Variante: Benutzung am Mob schaltet dessen Geräusche um (statt Wachstumssperre).
-  - Faden → Wollknäuel (auch platzierbar).
-  - 8 Wollknäuel + Löwenzahn = stiller Löwenzahn.
-  - Wolle im Crafting = 2 Wollknäuel.
-- [x] Hängematte: tagsüber darauf liegen lässt die Tageszeit schneller laufen. (claude-hammock, Plan/Stand: `docs/ai/PLAN-HAENGEMATTE-2026-10-02.md`; Client-Sichtabnahme offen)
-  - Korrektur auf `claude-gpt-dandelion` (26.3): Aura/Config entfernt; Benutzung toggelt gespeichertes Vanilla-Silent mit Vanilla-Verbrauch, 40-Tick-Pause, Sounds und Partikeln. Lebende Mobs jeden Alters; Spieler, Rüstungsständer, Wither und Enderdrache ausgeschlossen. Blume/Topf dekorativ; Wollknäuel und Rezepte unverändert. Prüfstand und Historie: `docs/ai/PLAN-SILENT-DANDELION-2026-10-02.md`. Sicht-/Audioabnahme offen, kein Client, kein Push.
-  - Nur 1×2×2 platzierbar, zwischen zwei festen Blöcken mit 2–3 Blöcken Abstand (beliebige Blöcke, auch Stäbe).
-- [x] Tooltips aufräumen: kurze EN/DE-Zeilen, vorhandene Komponenten-/Font-Umbrüche und beide Hauptmod-Lang-Orte gepflegt. Inventur und Prüfungen: `docs/ai/TOOLTIPS-2026-10-02.md`. Client-Sichtabnahme bleibt offen.
-- [x] Spezial-Shulker (verstärkt/Enderit): in derselben Struktur je Spezial-Shulker 4 Endermiten spawnen. (claude-loot, beim Annähern eines Spielers, master 8d443a67)
-
-## Besitzer 2026-10-02 (Nachtrag 3)
-
-- [x] Resonanzstab und Rotator: Idle-Animation und Benutzungs-Animation. (claude-anims: Stab Ruhe-Funkeln + Resonanzwellen bei `using_item`; Rotator Ruhe-Glanz + Drehung, solange ein Klick den anvisierten Block drehen wuerde – `simplebuilding:transform_hint`; leer still. Sichtabnahme im Client offen, `docs/ai/PLAN-GADGET-ANIMATIONEN-2026-10-02.md`)
-- [x] Erzdetektor: Idle-Animation, Nadel pulsiert, solange nichts gewählt ist. Ist etwas gewählt, läuft die Auswahl-Animation auf der Nadel (siehe Nachtrag 2). (claude-texprop Ruhepuls, master 8d443a67)
-- [x] Attractor: Idle-Animation, das Item selbst bleibt unverändert, nur kurz angedeutete Magnetfeldlinien. (claude-anims: ~0,7 s Feldlinien alle ~7 s; Sichtabnahme im Client offen)
-- [x] Hufeisen-Vorlage (simpleriding): Basic-Upgrade-Silhouette mit Eisen-Hufeisen und Kupferplatte, Name „Horseshoe Upgrade“ / „Hufeisen-Aufwertung“, EN/DE-Tooltips nach Rezepten. Generator und 16-fache Vorher-/Nachher-Vorschau vorhanden; Sichtabnahme im Spiel offen. Prüfstand: `docs/ai/PLAN-HORSESHOE-TEMPLATE-2026-10-02.md`.
-- [x] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen.
-  - Umsetzung auf `claude-gpt-echo`: vollständige Entladung auf 26.3 auch mit Unbreaking; Ladezeit, Riss-Stufen und normale Leiste bleiben. 1728/1728 Server-Tests, 26.2-/Forge-26.3-Compile und vollständiges Gate grün. Historie, Entscheidung und Tests: `docs/ai/PLAN-ECHOLOT-HALTBARKEIT-2026-10-02.md`. Besitzerabnahme im Client bleibt offen.
-- [x] Hufeisen-Vorlage (simpleriding): Textur und Name nach derselben Konvention wie die Basic-Upgrade-Vorlage. Der Pfeil wird zu einem Hufeisen; innen Eisen-, außen Kupferfarben. (GPT horseshoe, master 8d443a67)
-- [x] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen. (GPT echo: volle Ladung je Sprung auf 26.3, master 8d443a67)
-
-## Worker Amboss-Kiesel 2026-10-02
-- [x] Zusaetzlicher 26.3-In-World-Weg: fallender Amboss verbraucht Diamantblock fuer 72 Kiesel; JEI/REI/Wiki, EN/DE. Fabric/NeoForge: 1732/1732 Server-Tests, Wiki: 38 Tests, volles Gate und 26.2-/Forge-Compiles gruen. Plan, Nebenbefunde und offene Client-/Integrationsabnahmen: `docs/ai/PLAN-AMBOSS-KIESEL-2026-10-02.md`. Kein Push.
-
-## Besitzer 2026-10-03 (Material-Stäbe)
-- [x] Netherit- und Enderitstab wie der Blitzableiter (aufstellbare Blöcke wie Eisen-/Goldstab, Reichweite 96/128), keine Pfeile mehr daraus; nur der Diamantstab bleibt Item und Pfeilschaft. (claude-rods2: 90 statt 126 Fletching-Rezepte, alte Pfeile laden mit Stock-Schaft; Vorschau previews/netherit-enderit-stab-vorschau.png; Fabric/NeoForge 26.3 je 873/873, 26.2-/Forge-26.3-Compile grün; Plan: docs/ai/PLAN-RODS-2026-10-02.md Nachtrag. Sichtabnahme im Client offen.)
-
-## Besitzer 2026-10-03 (Nachtrag 4)
-
-- [x] Redstone-Truhen (trapped chests) für jede der drei Truhen-Varianten (verstärkt, Netherit, Enderit). (`claude-gpt-trapped`: Vanilla-Signal, gleiche Lager-/Upgrade-Eigenschaften, Rezepte/Tags/Loot, EN/DE, Wiki und Texturvorschau; Fabric/NeoForge 26.3 1784/1784 grün, 26.2-/Forge-26.3-Compile und volles check grün. Plan: `docs/ai/PLAN-REDSTONE-TRUHEN-2026-10-02.md`. Client-Sichtabnahme offen; zwei unveränderte Handbuch-Seitenüberläufe separat dokumentiert.)
-- [x] Resonanzstab-Rezept: Redstone und Nuggets tauschen und unten rechts jeweils einen davon entfernen. (claude-gpt-recipes: ` NA` / `RC ` / `I  `; Annahme: Felder rechts und unterhalb des Kerns entfernen, da die Ecke bereits leer war. Plan: `docs/ai/PLAN-REZEPTE-PAD-FADE-2026-10-02.md`.)
-- [x] Geschwindigkeitsmesser: neues Rezept, gegen den Uhrzeigersinn gedreht. (claude-gpt-recipes: `AN ` / `NCN` / ` NK`; Rezepte, JEI, Wiki und EN/DE in beiden Ressourcenbäumen angepasst.)
-- [x] Trainingspuppe neu denken: (claude-dummy Runde 2, master 46329ec8)
-- [x] Trainingspuppe neu denken: (claude-dummy Runde 2: Sackkopf, jeder Treffer, Schere, eigenes Item)
-  - Ein (verbesserter/Stroh-)Rüstungsständer mit aufgesetztem geschnitzten Kürbis bekommt die Textur einer Trainingspuppe, trägt den Kürbis aber NICHT sichtbar – er wird dadurch zur neuen Entity.
-  - Die Entity reagiert bei JEDEM Treffer (aktuell verbuggt: nur beim ersten Treffer eine Anzeige).
-  - Mit der Schere rückgängig machen.
-  - Beim Abbauen droppt die Trainingspuppe als eigenes Item.
-- [x] Stroh-Rüstungsständer: einen Nutzen im Vanilla-Spiel geben. (Vogelscheuche: kein Feld-Zertrampeln im Radius 8, Config 0–16)
-- [x] Blaupausen überarbeiten, damit sie besser in Vanilla passen. (Kartenblatt B/C/C-signiert eingebaut, Besitzer zufrieden)
-- [x] Pads: Steht man darauf, soll die Textur-Animation einblenden statt mit dem ersten Frame hart zu starten. (claude-gpt-recipes: 26.3, vier Vanilla-Modellstufen über sechs Ticks, keine zusätzlichen Dauerticks; Fabric/NeoForge 1776/1776 grün. Vorschau: `previews/pad-fade-vorschau.png`; Sichtabnahme im Client offen.)
-- [x] Raw Enderite Scrap: neue Textur, 10 Vorschläge. (Besitzer-Textur, Variante D dunkler eingebaut)
-- [x] Raw Enderite Scrap: neue Textur, 10 Vorschläge. (Besitzer-Textur eingebaut; Farb-Feinschliff siehe Nachtrag 5)
-- [x] Astralit und Nihilit: je 3 neue Textur-Vorschläge plus 3 Kontrast-Anpassungen der jetzigen Textur (je 6 Vorschläge). (als Alternativblöcke A–C eingebaut; Material siehe eigener Punkt)
-- [x] Mehr Placeables, auch Kerzen und Seegurken; alle Placeables untereinander mischbar machen. (claude-placeables2: 15 neue Teile, Kerzen/Seegurken mischbar)
-- [x] Besatzvorlagen Glowing, Pulsating und Emitting: Textur-Animation. (auf Besitzer-Texturen eingebaut)
-- [x] Partikeleffekte für manche platzierbare Dinge, z. B. Glowing. (PlacedPartParticles, Client-Option)
-
-## Besitzer 2026-10-03 (claude-texprop)
-- [x] Besatzvorlagen Glowing/Pulsating/Emitting: zweite Besitzer-Leinwände 1:1 (eigener Hintergrund), animiert nur auf seinen Motivpixeln (`trim_template_animation_2026_10_03.py`, previews/besatz-besitzer-final-vorschau.png + besatz-animation-*.gif). Sichtabnahme im Client offen.
-- [x] Raw Enderite Scrap (layered_raw_enderite): Besitzer-Textur eingebaut, Farben auf die Enderit-Schrott-Rampe (`layered_raw_enderite_owner_2026_10_03.py`, previews/enderit-besitzer-vorschau.png).
-- [x] Astralit-/Nihilith-Alternativblöcke A–C eingebaut (veined/crystalline/layered Astralit, veined/crystalline/frosted Nihilith; Meißel-Kette ab Grundblock, Steinmetz, Quadrat-Kette). Grundblock unverändert.
-- [x] Astralit-/Nihilith-MATERIAL: je 10 Vorschläge (previews/astralit-nihilit-material-vorschau.png) – Besitzer wählt. (Besitzer-Texturen 1:1 eingebaut, master 46329ec8)
-- [x] Blaupause eingebaut (Kartenblatt: frisch B, bearbeitet C, signiert C dunkel + Siegel; previews/blaupausen-eingebaut.png). 1.21.11-Kopien im Port-Run.
-
-## Besitzer 2026-10-03 (Nachtrag 5)
-
-- [x] Wollknäuel: Rezept aus Faden entfernen (nur noch aus Wolle). (master 46329ec8)
-- [x] Raw Enderite Scrap (Besitzer-Textur): farblich weiter anpassen, 3 Vorschläge. (überholt durch v3, Wahl D)
-- [x] Blaupausen B/C/C-signiert: Besitzer zufrieden.
-
-## Besitzer 2026-10-03 (Nachtrag 6)
-
-- [x] Schallplatten: alternative Track-Variante. (claude-audio: B-Seiten per Vorschlaghammer, nur Mod-Platten; Client-Abnahme offen) Eine abgelegte (platzierte) Platte mit dem Vorschlaghammer schlagen → wird zur Alternativ-Platte (etwas angepasste Optik, sonst gleich, spielt Track 2); erneut schlagen → zurück zum Original (Endlosschleife).
-- [x] Lautsprecher-Blöcke: (claude-audio: seit 2026-10-04 Jukebox Amplifier/Musik-Verstärker und Note Amplifier/Noten-Verstärker, Ids jukebox_amplifier/note_amplifier; früher Astralit/Nihilit-Lautsprecher, angrenzend, Config `server.speakers`; Hör-Abnahme im Client offen) Astralit bzw. Nihilit mit Holzbrettern außenrum (Rezept analog Notenblock/Plattenspieler). Astralit-Lautsprecher verstärkt nur Plattenspieler-Signale, Nihilit-Lautsprecher nur Notenblock-Signale: höhere Lautstärke/Reichweite beim Spieler, „unverzögerter Lautsprecher“.
-- [x] Raw Enderite Scrap: Variante D leicht dunkler einbauen. (master 46329ec8)
-
-## Besitzer 2026-10-04 (Nachtrag 7)
-
-- [x] Lautsprecher-Texturen dezenter: vom Notenblock ausgehen und daraus eine neue Textur machen; die dunklen Spots des Notenblocks durch Pixel der jeweiligen Rohmaterial-Textur (Astralit/Nihilit) ersetzen. Je 5 Vorschläge, alle Blockseiten gleiche Textur.
-- [x] Schallplatten: auch Track 3 und 4 erlauben, falls vorhanden (Vorschlaghammer-Zyklus 1 → 2 → 3 → 4 → 1, nur über vorhandene Tracks). (claude-audio: Track 3/4 entstehen per Import-Skript; echte Musik importiert)
-- [x] Lautsprecher verketten: Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
-- [x] Lautsprecher verketten: (claude-audio: BFS-Kette, server.speakers.maxChain 16/64, je Spieler nächster Abspielpunkt; Hör-Abnahme offen) Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
-
-## Besitzer 2026-10-04 (Nachtrag 8)
-
-## Besitzer 2026-10-04 (claude-texprop)
-- [x] Astral-/Nihil-Kolben: Variante C eingebaut (previews/kolben-C-eingebaut.png).
-- [x] Texfix-Rücksetzung: spawn_elytra, brick_snowball, alle 7 Simple-Money-Items und die 19 Mod-Verzauberungsbücher wieder auf die Fassung vor dem Textur-Audit (vanilla_style_2026_10_02.py „keep“, generate_textures.py liest hand/q1/books); Vorschau previews/texfix-ruecksetzung.png (inkl. farbreduzierter Vorschläge).
-- [x] (Besitzer 12.10.: ALLE 52 bleiben wie jetzt) Texfix-Entscheidung Besitzer: 52 noch aktive Texfix-Texturen (raw_enderite, Pads, Teleporter, Chunk-Loader, Launchpads, Kupferplatten) – previews/texfix-revert-uebersicht.png, Nummern nennen; Liste: tools/textures/texfix_audit_2026_10_04.py.
-- [x] Hufeisen-Vorlage: 10 Vorschläge (previews/hufeisen-vorlage-10-vorschau.png) – Besitzer wählt. → Runde 3 (kleiner, previews/hufeisen-vorlage-runde3-vorschau.png, Branch claude-horseshoe2 aff11c2d) wartet auf Besitzerwahl. (Audit 09.10.: claude-horseshoe2: Motiv H eingebaut 24546fe2e/04a9e1e54)
-- [x] Simple-Riding-Bücher (Leaping, Tailwind): Vorschläge aus den alten SB-Büchern (previews/simpleriding-buecher-vorschau.png) – Besitzer wählt; Einbau braucht ein eigenes Buchmodell-Mapping im Modul.
-- [x] NEUES MODUL „Simple Sandwiches“ (Konzept + Fragebogen zuerst):
-- [x] NEUES MODUL „Simple Sandwiches“ – gebaut auf Branch `claude-sandwiches` (Plan `docs/ai/PLAN-SIMPLE-SANDWICHES-2026-10-04.md` §19), Merge + Client-Abnahme offen. Essenskorb laut Besitzer gestrichen → Essen direkt aus dem Bündel:
-  - Sandwiches aus Brot + bis zu 5 Zutaten (Kabeljau, Lachs, Kaninchen, Huhn, Hammel, Schwein, Steak, Kartoffel, Karotte, Apfel, Melone, Spinnenauge, verrottetes Fleisch …, auch goldene/verzauberte Früchte; mit SimpleBuilding auch Netherit-/Enderit-Äpfel usw.). Effekte der Zutaten werden kombiniert (Wahrscheinlichkeiten übernommen), Sättigung/Hunger addiert – mehr auf einmal gegen Zubereitungszeit. Nur gleiche Sandwiches stapelbar. Item-Textur zeigt, was drin ist.
-  - Schneidebrett (Block) + Messer (Eisenstufe, wie Schere): Rezept Stock unten links, Nuggets Mitte, rechts oben, unten Mitte, rechts Mitte. ~1/3 Angriffsschaden des Eisenschwerts, wirkt nur auf ausgewählte Dinge: Brot aufschneiden, Butter schmieren, Käse/Melonen/Kuchen schneiden (Kuchenstücke in der Hand essbar), Spinnweben zerstören, Bambus schneller abbauen.
-  - Ablauf: Brot aufs Brett, mit Messer aufschneiden, Zutaten stapeln sich im Inneren (voll = keine mehr), mit Messer rückwärts wieder herausnehmen, Butter muss zuerst geschmiert werden; mit leerer Hand zuklappen und herausnehmen, mit Messer wieder öffnen.
-  - Butter und Käse im Kessel herstellen (Konzept nötig). Käse = platzierbarer ganzer Block, von oben/seitlich in 16 Scheiben schneidbar, Scheiben stapeln zu 64; Butter ebenso, etwas weniger rutschig als Eis. Butter in Haupt-/Nebenhand + Messer = Brot beschmieren; Butter verstärkt Sandwich-Effekte um 10 % (Dauer, Sättigung, Hunger). Käse = Zutat.
-  - Essenskorb (Picknickkorb-Optik): trägt 5 Stacks Essen wie ein Bündel, oberstes Item sichtbar, essbar oder wechselbar, Tooltip wie Bündel.
-- [x] Hängematte: bei 3 Blöcken Abstand nicht zentriert → zentrieren; Abstand auf 2–4 erweitern; auch diagonal (erst einen Anker, dann den anderen anklicken); Rezept mit 2. Faden; ersetzt keinen Schlaf, lässt aber auch nachts die Zeit schneller laufen.
-- [x] Nihil-Gewölbe („Nihil Vault“): wie das Astralgewölbe, aber eine weltweit geteilte Enderkiste (Größe wie Enderkiste), jeder hat Zugriff.
-- [x] Simple QoL: Mit leerer Hand Schleich-Rechtsklick auf eine Truhe merkt sie vor (Partikel an der Hand); öffnet man danach eine 2. Truhe oder GUI (Werkbank usw.), werden beide GUIs untereinander angezeigt (Umräumen, aus Truhe craften). Reichweite ~64 Blöcke. (claude-qolgui: Panel oben/seitlich mit Scrollen, Server-Config 64 (8–128); Rezeptbuch aus Truhe bewusst nicht; Client-Sicht offen)
-- [x] Simple QoL: „Easy Shulkers“ und „Easy Ender Chests“ übernehmen (aus dem Inventar öffnen). (claude-qolgui: Luft + Inventar-Rechtsklick, Slot gesperrt, inkl. Stufen-Shulker; Kreativreiter ausgenommen)
-- [x] Geschwindigkeitsmesser-Rezept: freie Felder mit Kupfer-Nuggets füllen, dann das Muster um einen Slot im Uhrzeigersinn rotieren. (`claude-gpt-gauge`: 26.3 `NAN / NCN / NKN`, sechs Kupfernuggets; 26.2 unverändert. Prüfstand: `docs/ai/PLAN-GAUGE-RESIN-2026-10-02.md`.)
-- [x] Astral-/Nihil-Schienen: bremsen bzw. beschleunigen; Höchstgeschwindigkeit anheben mit realistischer Reibung (je schneller, desto mehr Boost nötig, asymptotische Annäherung); Astral-Schienen boosten stärker als Antriebsschienen.
-- [x] Harz-Schachbrett: Rezept nutzt noch den Platzhalter rote Netherziegel → auf Harzziegel (resin_bricks) umstellen. (`claude-gpt-gauge`: 26.2/26.3 inklusive Freischaltung und EN/DE-Prosa; 1.21.11 bleibt Port-Run. Prüfstand wie oben.)
-
-## Besitzer 2026-10-04 (Nachtrag Modul-Unabhängigkeit)
-Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `claude-modprinciples` gefixt).
-- [x] Standalone-Testziel je Modul: `modules.json` `tests.standalone` (nur Modul + harte Libs), Testrunner `module_targets` erzeugt `module-<id>-standalone-fabric-263` (+ NeoForge mit `loadedMods=[nur Modul]`); Integrations-Targets bleiben. (claude-standalone, 20 Targets grün)
-- [x] Modul-Tests ohne SB lauffähig machen: SB-Asserts hinter `isModLoaded("simplebuilding")` oder in Integrations-Katalog (QoL, Money, Models, Dimensions, Fun, Riding – Zeilen in der Prinzipien-Datei, Befund 3). (claude-standalone; dabei Befunde 9/10 gefixt)
-- [x] Optionale Partner in Loader-Metadaten nachziehen (`suggests` / `type="optional"`, Forge `mandatory=false`) und `tools/multimod.py` prüft Gleichstand mit `modules.json optional` (Befund 5). `gpt-modmeta`: einschließlich ModMenu, Claim-Mod-Erkennung und `simpledimensions`/`simpledimension`-Zuordnung; Prüfstand in `docs/ai/PLAN-MODMETA-2026-10-02.md`.
-- [x] Simple Riding: Enderit-Hufeisen über `#c:ingots/enderite` statt fester SB-ID (Condition bleibt; Befund 6). (Audit 09.10.: Duplikat der nächsten Zeile, erledigt)
-- [x] Simple Riding: Enderit-Hufeisen-Rezept und optionaler Reparaturtag über `#c:ingots/enderite` statt fester SB-ID (Conditions bleiben; Befund 6). SB liefert den Tag bereits; Forge-Konverter und alle drei Riding-Serverziele geprüft.
-- [x] Simple Sandwiches (Branch `claude-sandwiches`): Crucible-Grundrezept mit Axt, SB-Variante mit `#simplebuilding:sledgehammer_tools` nur hinter `mod_loaded` (Regel 5). (Audit 09.10.: überholt: Tiegel liegt in simplelib, Axt-Weg AxeWays, Vorschlaghammer nur mit SB (claude-crucible c2cbe4012))
-
-## Nachtrag 10 (Besitzer 2026-10-04 nachts)
-- [x] Hängematte in beliebigem Winkel platzierbar (nicht nur gerade/45°). (Audit 09.10.: claude-hammock3 02b0df0eb)
-- [x] Trainingspuppe-Icon A–C und Sage Orb kleiner A–C (previews/trainingspuppe-textur-vorschau.png, previews/sage-orb-vorschau.png, Branch claude-tex5 7686802f) – Besitzer wählt. (Audit 09.10.: claude-tex6 33249d183: Puppe C, Sage Orb A)
-- [x] Auto Smither: Ergebnis-Slot nicht befüllbar, UI an Vanilla-Schmiedetisch angleichen (GPT gpt-smither). (Audit 09.10.: gpt-smither 50b61c1f3, gpt-checkui ada721570)
-- [x] Tooltips Basic/Enderite Upgrade Template; Amplifier immer volle Lautstärke; Erz-Ausbeutebonus der Öfen entfernen (GPT gpt-small9). (Audit 09.10.: gpt-small9, Abschnitt small9)
-- [x] Senkrechte Stäbe (Stock, Knochen, Lohen-, Böen-, Diamantstab) inkl. Hängematten-Anker (claude-rods3 f01726cb, gemergt).
-- [x] Crucible (Plan docs/ai/PLAN-CRUCIBLE-2026-10-04.md, Fragebogen komplett beantwortet) – Umsetzung läuft auf claude-crucible. (Audit 09.10.: claude-crucible 6e82038b4 gemergt)
-- [x] Guide-Buch je Modul + FTB-Quest „Buch gratis“ je Modul + gemeinsame Bibliothek (Guide-Plan Schritt 3/4) – Agent claude-guides2. (Audit 09.10.: claude-guides2 69c6c7443; Abnahmen offen)
-- [x] Messer-Rezept wie Besitzer-Diktat (`  N / NN / SN `), Schmiedetisch-Rezeptbuch ohne `*_armor_upgrade_dummy`, Nihil-Gewölbe-Preis/Handel in Simple Money – GPT gpt-gaps. (Audit 09.10.: gpt-gaps 93eb23898/312898459/250e82998)
-## Besitzerauftrag small9 (2026-10-04)
-- [x] Basic-/Enderite-Tooltips wie Vanilla, EN/DE, Strukturtest.
-- [x] Verstärker innerhalb der Hörweite immer voller Pegel.
-- [x] Ofen-Ausbeutebonus entfernen; doppelte XP behalten, Altwelten-Fixtures geprüft.
-  Belege: `docs/ai/PLAN-SMALL9-2026-10-02.md`; 1870/1870 Server grün, Gesamt-Gate grün.
-  Sicht-/Hörabnahme und Testzentrale in der Besitzerwelt bleiben offen; kein Client/Push.
-
-- [x] Crucible / Schmelztiegel (Konzept + Fragebogen zuerst: `docs/ai/PLAN-CRUCIBLE-2026-10-04.md`, Branch `claude-crucible`): (Audit 09.10.: claude-crucible 6e82038b4 + simplelib c2cbe4012, P5/P6; Client-Abnahme offen)
-  - [x] Neue Ofen-Station, so schnell wie ein normaler Ofen, gart mehrere verschiedene Dinge parallel; Ergebnisse in den nächsten freien Slot. (Audit 09.10.: claude-crucible)
-  - [x] Stufen (Runde 1): Eisen 6, Verstärkt 9, Netherit 18, Enderit 27 (nur SB, doppelte Stackgröße); Tempo wie die SB-Ofen-Stufen (1×/2×/4×/8×), Hitzefaktor niedrig 0,5× … extrem 1×. (Audit 09.10.: claude-crucible)
-  - [x] Herstellung in der Welt: Vorschlaghammer auf Eisenblock, Eisenbarren in der Nebenhand; 4 Schläge = 4 Wände (Eisen-Druckplatten), 2 Schläge = 2 Griffe (Eisenstäbe). Höhere Stufen wie die Ofen-Aufwertungen. (Audit 09.10.: claude-crucible, Forge gpt-forgecrucible)
-  - [x] Slot-Indikator im Slot-Hintergrund: gart = heller + Fortschritt; kein Platz = rot (gestoppt); zu wenig Hitze = blau. (Audit 09.10.: claude-crucible, später N12b)
-  - [x] Kein Brennstoff, sondern Hitzequelle: Lagerfeuer/Magma = mittel, Lava = hoch, Seelen-Lava = extrem; niedrige Stufe (Fackel/Kerze/Seelenfeuer) vorgeschlagen. (Audit 09.10.: claude-crucible)
-  - [x] Seelen-Lava (neue Flüssigkeit): Quell- und Fließblock nicht ersetz-/überbaubar, entfernen nur durch Aufnehmen der Quelle mit Eimer. Weltgenerierung nur im Nether: ca. 0,5 % statt einer Lava-Tasche, in Netherfestungen 10 % Chance je Lavaquellen-Raum; sonst nirgends. (Audit 09.10.: claude-crucible P5 5155aee59, SoulLava/SoulLavaFortressMixin)
-  - [x] Kupfer-Eimer: nimmt keine Seelen-Lava, nur normale Lava, zerbricht beim Ausgießen von Lava. Eisen-Eimer zerbricht beim Ausgießen von Seelen-Lava. Enderit-Eimer (Schmiedetisch, direkt vom Eisen-Eimer) zerbricht nicht. (Audit 09.10.: claude-crucible P5, ModBucketItem)
-  - [x] Warmes Essen: Tiegel wärmt Sandwiches und andere warme Speisen auf; warm 15 % schneller essbar; bleibt ca. einen halben Tag-Nacht-Zyklus warm, im Bündel ca. 2 Zyklen; beim Stapeln Mittelwert der Wärme; Glow um die Items (Stärke ~ Restwärme). (Audit 09.10.: simplelib 4e055c063 warm/)
-  - [x] Auch im Modul Simple Sandwiches (eigenständig spielbar): Tiegel + Warm-Food; ohne SB mit der Axt statt dem Vorschlaghammer. Aufteilung SB/Modul/Bibliothek `simplelib` siehe Plan §3 und `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`. (Audit 09.10.: f789ae6f9 warme Sandwiches über SimpleLib)
-  - [x] Fragebogen Runde 1 (F1–F37) beantwortet, eingearbeitet (Plan §2; gemeinsamer Kern als Bibliothek, seit Runde 2 `simplelib`, Dorf-Feldküche neu).
-  - [x] Fragebogen Runde 2, Fragen 1–31 beantwortet und eingearbeitet (Plan §2b: Bibliothek `simplelib`, Axt als Vanilla-Ersatz für den Vorschlaghammer, Hitzestufen neu als Frage 51, BER-Inhalt sichtbar, Seelen-Lava 2/5, Seelenbrand, verstärkter Kessel).
-  - [x] Ofen-Ausbeutebonus (Netherit-/Enderit-Schmelzofen, `FurnaceTierPerks`) aus SB entfernen – macht ein anderer Helfer im Code (Runde 2 Frage 1). (Audit 09.10.: 19b4e9e2a)
-  - [x] Kupfer-Fass (Kupfer/Verstärkt/Enderit, 9 Slots) per Vorschlaghammer (ohne SB Axt) in 6 Schlägen an den Tiegel anbringen, sichtbar verbunden; Tiegel-GUI zeigt die 9 Fass-Felder; Ergebnisse zuerst ins Fass; Trichter unter dem Fass (Plan §8a). (Audit 09.10.: 4e055c063, claude-crucible4 7c9db58e9)
-  - [x] Seelen-Lava: 4× entflammbarer als Lava, doppelte Zündreichweite; „schmilzt 10× mehr“ (★ Brennstoff 10× Lava, Plan §9/§10). (Audit 09.10.: 3e6221811 Seelenlava-Tuning)
-  - [x] Besitzer beantwortet die offenen Fragen 32–61, danach Umsetzung. (Audit 09.10.: fe98860e0)
-  - [x] P5/P6 Textur-Platzhalter (2026-10-05, `claude-crucible-gpt`): 34 PNGs und zwei Vanilla-Animationsmetadaten; Enderit-Tiegel/Fass, Seelenlava, Kupfer-/Enderit-Eimer, Seelenbrand und verstaerkter Kessel. Vier A/B/C-Vergleichstafeln nur in `C:/Users/o_o/code/minecraft-mods/previews/`; Auswahl und Ingame-Abnahme offen.
-  - [x] Eimer-Nacharbeit 2026-10-05 (`claude-crucible-gpt`): Kupfer-/Enderit-Eimer erhalten Vanilla-Kontur und alle Schattierungen der Oeffnung; Wasser/Lava unveraendert. Pixelchecks, Texturgenerator --check, Wiki --check und Gradle check -q gruen (Java 25, vorgegebenes Python im PATH). 16x Alt/Neu und deutlich eigene A/B/C-Beschlaege unter `previews/eimer-*-vorschau.png`; Vorschlaege nicht eingebaut, Besitzer-Abnahme offen.
-## Forge Auto Smither (Besitzer 2026-10-05)
-- [x] Forge 26.3 Auto Smither: Forge-Capability nutzt vorhandene Seitenregeln; Trichter entnehmen nur Ergebnisse, alle drei Eingaben bleiben erhalten. Filter 6/6, volle Server 2839/2839 und `check -q -PskipWiki` gruen. Branch `gpt-forgesmither`, Belege: `docs/ai/PLAN-FORGE-AUTO-SMITHER-2026-10-02.md`; kein Push/Client.
-
-## Guides Schritt 3/4 (Besitzer 2026-10-01: „Zu jeder Mod ein herstellbarer Guide, mit FTB Quests am Anfang gratis“)
-- [x] Guide-Buch je Modul (Branch `claude-guides2`, Plan `docs/ai/PLAN-MODUL-GUIDES-2026-10-05.md`): Vanilla-Buchansicht mit EN/DE-Seiten aus `wiki/manual.json`, Rezept Buch + Vanilla-Item, FTB-Startquest schenkt das Buch (nur mit FTB Quests), Texturen A–H (`previews/modul-buecher-vorschau.png`); Visuals/Sounds als Client-Mods ohne Item über `/simplevisuals guide` bzw. `/simplesounds guide`. Generator `tools/guides/module_guides.py` (`checkModuleGuides`). Offen: Merge, Client-Sichtabnahme (Seitenumbruch, Befehle), FTB-Quests im echten Spiel, Umzug der Vorlage nach `simplelib`.
-## Besitzer 2026-10-04 (Nachtrag 9)
-
-## Forge Crucible (Besitzer 2026-10-05)
-- [x] Forge 26.3: fehlende SimpleLib-Pack-Metadaten ergaenzt; Vorschlaghammer baut Crucible wieder. Bautest prueft Tags, echten Item-Aufruf und jeden Schlag. Forge-Filter 14/14, volle drei Serverziele 2881/2881, Gate und Pflicht-Compiles gruen. Branch gpt-forgecrucible; Plan docs/ai/PLAN-FORGE-CRUCIBLE-2026-10-02.md; kein Push/Client.
-
-## Crucible P6 (2026-10-05)
-- [x] `claude-crucibleart-gpt`: Seelen-Lava-Server-Config, Jade-Tiegelstatus und JEI-Schmelztiegelkategorie umgesetzt. Fabric-Tests Crucible 16/16, Config 15/15, Testzentrale 7/7; Pflicht-Compiles, Wiki, JUnit (inkl. Jade-Split) und einzelne Gate-Prüfungen grün. Gesamtcheck dreimal am 600-s-Limit beendet, kein grüner Gesamt-Gate-Abschluss. Plan/Belege: `docs/ai/PLAN-CRUCIBLE-P6-2026-10-05.md`. Kein Push/Client/Artwork.
-## Checker und Crafter-UI (2026-10-05, gpt-checkui)
-- [x] Netherziegel-/rote-Netherziegel-Quarz-Checker vollständig integriert; EN/DE, Wiki, Money und Testzentralen-Abdeckung. 2881/2881 Server grün, check -q und 26.2-Compile grün. Plan PLAN-CHECKER-2026-10-02.md.
-- [x] Auto Smither im Crafter-Stil: zentrierter Titel, drei Geisterbild-Eingaben, großer Ergebnisrahmen, exakte Slotpositionen. Alle Auto-Smither-Tests auf drei Loadern und volles Gate grün. Plan PLAN-SMITHER-CRAFTER-UI-2026-10-02.md. Keine Clienttests, kein Push; Sichtabnahme offen.
-
-## Riding-Bücher und Hammer-Splitter (2026-10-05, gpt-chips2)
-- [x] Leaping C / Tailwind A; Hammer: Eis 4, Packeis 9, Obsidian 9, abgelegte Feuerkugel 4 Splitter. Plan: `docs/ai/PLAN-CHIPS2-2026-10-02.md`. Nur Branch-Commits, kein Push/Client.
-  Belege: 1986/1986 alles gruen (Fabric/NeoForge 973 je Loader, Riding 40), Gesamt-Gate und Pflicht-Compiles Exit 0, Wiki/Texturen gruen. Sieben neue GameTests je Hauptloader; Testzentralen-Aufbau und Abdeckung gruen.
-
-## Worker Cover/Config 2026-10-05
-- [x] Cover Option B auf 26.3: beide Bucheinträge entfernt, keine Survival-Ersatzquelle. Zwölf neue Config-Ideen bewertet, vier begrenzt umgesetzt (Auto-Schmied, Diamantkiesel, Pfeilchance, Scan). Fabric/NeoForge 1954/1954, alles gruen; check/checkBalance/Pflicht-Compiles/Wiki grün. Branch `gpt-coverconf`, kein Push/Client. Plan: `docs/ai/PLAN-COVER-CONFIG-2026-10-02.md`.
 
 ## Nachtrag 11 (Besitzer 2026-10-06, Screenshots images/16–19)
 - [x] Seelenbrand: Dauer verdoppeln; sichtbarer Statuseffekt (leichter Blau-/Dunkelfilter); auf Kaltem (Eis, Schnee, Wasser …) Schaden im halben Intervall. (Audit 09.10.: claude-oc-tweaks11 2e67933c2 (N11 P1))
@@ -399,7 +184,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Netherit-Fass fehlt. (Audit 09.10.: Duplikat, erledigt claude-crucible4 (unten)),
 - [x] Raw-Enderite-Scrap-Rezept: 4 Fragmente statt 3. – formlos 4 Rohenderit; Leitfaden-/Erfolgstexte nachgezogen (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
 - [x] Kessel-In-World-Umwandlung in JEI (Kategorie `cauldron_world`); Bild 17 = verstärkter Kessel als flache Seitentextur → 2D-Item-Sprite; verstärktes Fass zusätzlich heller wie Truhe (Branch `claude-crucible4`, Plan `docs/ai/PLAN-CRUCIBLE-N11-2026-10-06.md`; Client-Abnahme offen).
-- [ ] Andere Mods an SimpleBuilding-Stil angleichen (sauber, einheitlich).
+- [x] Andere Mods an SimpleBuilding-Stil angleichen (sauber, einheitlich). (Audit 12.10. Dublette, zusammengeführt mit Zeile 396 / Überblick: (Stil-Angleichung))
 - [x] Verstärkter Kessel erbt vom Kessel (alle Funktionen inkl. Milch). – Duplikat, siehe `claude-crucible4` unten (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
 - [x] Milchkessel-JEI/Jade fixen (images/18: „Empty 1B“). – Duplikat, siehe `claude-crucible4` unten (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
 - [x] Netherit-Fass fehlt. – Duplikat, siehe `claude-crucible4` unten; Vorschau previews/gadgets (P1–P8 in `claude-wave1` via `claude-oc-tweaks11`, Plan `docs/ai/PLAN-OC-TWEAKS-2026-10-06.md`; Reste/Nachprüfung `claude-q-gadgets`; Client-Abnahme offen)
@@ -422,68 +207,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Kern-Animationen mit Seltenheit (drehen, Bumerang, hochsteigen …; je cooler desto seltener), eigene längere Animation bei Erz-Umwandlung. → `claude-tex7` (`CoreHandMotion`, Erste Person, Config `tools.enableCoreAnimations`); Client-Sicht offen.
 - [ ] Rückfrage beantwortet: Elytra mit Reparatur im Schmiedetisch – Vanilla-Schmiederezepte prüfen nur Items, keine Verzauberungen; möglich nur mit eigener Rezept-Zutat je Loader (offen: soll das gebaut werden?).
 
-## Nachtrag 12 (2026-10-06, Besitzer, Referenzbilder in minecraft-mods/previews/refs-n12)
-- [x] Keramik-Lavaeimer fehlt (claude-crucible5) (Audit 09.10.: claude-crucible5 041b4bec6)
-- [x] Verstärker (Amplifier) funktionieren nicht (claude-hammer12) (Audit 09.10.: claude-hammer12 a6ae00f92)
-- [x] Kern-Item-Animation ruhiger: nur etwa alle 10 s einmal (claude-tex8) (claude-q-texrest: Glanz einmal je 200 Ticks, .mcmeta hält Bild 0)
-- [x] Verstärkter Kessel: Item-Textur verbessern (claude-tex8) (claude-q-texrest: Diamantplatten wie die Blockseite, Nieten am Rand; Besitzer-Abnahme offen)
-- [x] Kessel doppelt so teuer (z. B. 2 rissige Diamanten statt 1 usw.) (claude-hammer12) (Audit 09.10.: claude-hammer12 df97edc09)
-- [x] Alle In-World-Umwandlungen schrittweise: Ergebnis-Items erscheinen nacheinander je Schlag (pro Schlag ein Item) (claude-hammer12) (Audit 09.10.: claude-hammer12 9c49fc10f)
-- [x] Tiegel-Fortschrittsbalken dezent: untere 2 Pixelreihen des Slots als Fortschritt (Vorschlag) (claude-crucible5) (Audit 09.10.: claude-crucible5 041b4bec6, N12b 3f79a6241 (Ofen-artige Füllung))
-- [x] Tiegel-Feuer im Stil von Bild 1/2 (claude-crucible5) (Audit 09.10.: claude-crucible5 041b4bec6)
-- [x] Tiegel-GUI: unterer Trennstrich trennt die beiden Container, Stil wie Bild 3/4; je ein Vorschlag zu Bild-4-Stil und Slot-Fortschritt (claude-crucible5) (Audit 09.10.: claude-crucible5 041b4bec6/3f79a6241)
-- [x] Alle jetzt entwickelten UIs im Stil von Bild 3/4 (nach Freigabe des Vorschlags) (Audit 09.10.: simplecontainers W0 + G1–G4 717b55ea1…d5ec6b840, cp-scfix 080287f54; Besitzer-Abnahme Runde 2 offen)
-- [x] TODO neue Mod „simplecontainers“: clientseitig, verschönert alle GUI-Container im Stil Bild 3/4, mit Parität für Mod-UIs (Audit 09.10.: 717b55ea1 ff.; braucht simplelib, also nicht rein clientseitig)
-- [x] Angedocktes Fass in jeder Dimension 1 px kleiner, näher an den Tiegel (claude-crucible5) (Audit 09.10.: claude-crucible5 041b4bec6)
-- [x] Speer glimmert immer noch nicht, mit anderen Enderit-Werkzeugen/Barren vergleichen (claude-tex8) (Audit 09.10.: a94ee72d8 sichtbarer Glanz; Glimmerpunkte-Wunsch siehe N21)
-- [x] Platzierter Knochen 3D: wie Knochen, oben/unten symmetrisch (claude-tex8) (claude-q-texrest: beide Gelenke gleich, 14 px; Client-Sicht offen)
-- [ ] Rest Nachtrag 11: Gameplay-Punkte (claude-agy-tweaks11, Antigravity-Test), In-World-Konsistenz (claude-hammer12), Stil-Audit (wartet auf codex login) (teilweise: Gameplay claude-oc-tweaks11 P1–P8 und claude-hammer12 gemergt; Stil-Audit fehlt)
-
-## Nachtrag 14 (2026-10-06, Besitzer) – nur starten, wenn kaum Claude-Tokens nötig (Helfer-CLI opencode/agy/codex); sonst hier liegen lassen
-- [x] **opencode-Probe:** Nachtrag-11-Gameplay (Prompt scratchpad gpt-tweaks11.md) mit `opencode run -m opencode/big-pickle --auto` im eigenen Worktree ab origin/master; braucht Claude-Code-Neustart (Erlaubnisregel). Danach N13 Testzentralen ebenso. (Audit 09.10.: claude-oc-tweaks11 49ab76a2d; N13 Testzentralen weiter offen)
-- [x] **Tiegel-Feuer (claude-crucible-fire):** Mischung aus spitzer (POINTED) und breiter (BROAD) Form; Zungen animiert zwischen spitz und stumpf wechselnd (Verhalten/Rhythmus von Anime-Feuer-Referenzen: uppbeat.io anime-fire-transition-6851 und animated-nime-electricity-element-6826 – nur Bewegungsverhalten übernehmen, Stil bleibt Pixel). Jede Hitzestufe etwas größer; die niedrige Flamme ist zu klein. (teilweise: Form „Mittel“ eingebaut 5037a180a; größere Flammen je Hitzestufe nicht belegt)
-- [x] **Tiegel-Fenster ab Enderit:** Tiegel- und Fass-Kasten untereinander statt nebeneinander (Fenster zu breit). Fass-Kasten bekommt Titel „Crucible Barrel“ bzw. „Crucible Storage“ (DE: „Tiegel-Fass“/„Tiegel-Lager“) – Name wählen. (teilweise: Fass-Titel entfällt (Besitzer 09.10.); Kästen untereinander ab Enderit fehlt, Fass-Kasten steht daneben) (claude-q-uirest: ab Enderit Fass-Kasten unter dem Tiegel-Kasten, gleich breit, ohne Titel; darunter das Inventar)
-- [x] **Vorschau (claude-crucible-fire, /tmp/claude-0/sbx/crucible-fire.html):** Bilder der Tiegel-Hintergründe aller Stufen (ohne/mit Fass) ganz ohne gerenderte Items.
-- [x] **Super-/Sub-Mod-Konzept** festgehalten: docs/ai/KONZEPT-SUPERMOD-SUBMOD-2026-10-06.md. Simple QoL wird Super-Mod; simplecontainers wird Sub-Mod (standalone, Super-Mod requires sie). Config der Super-Mod: oberster Punkt je Sub-Mod „Enable Simple XY“. (Audit 09.10.: Doku docs/ai/KONZEPT-SUPERMOD-SUBMOD-2026-10-06.md)
-- [x] **simplecontainers – Verknüpfte Container neu:** erster Container per Schleich-Rechtsklick vormerken → kleines HUD-Element (nur HUD, kein Screen) oben links: ein Slot im allgemeinen GUI-Stil (Bild 3/4) mit dem Item/Block des vorgemerkten Containers. Inventar öffnen → vorgemerkte GUI wird zusammen mit dem Inventar angezeigt. Anderen Container (normaler Rechtsklick, ohne Schleichen) öffnen → zweite GUI oben, vorgemerkte GUI unten statt Inventar. Nur die Vormerkung braucht Schleichen. Abbruch-Vorschläge (einfach, nicht störend), Besitzer wählt: (a) erneuter Schleich-Rechtsklick auf denselben Container, (b) Schleich-Rechtsklick in die Luft/auf Nicht-Container, (c) Entfernung > Reichweite oder Dimensionswechsel hebt automatisch auf, (d) Zeitlimit (z. B. 60 s, HUD-Slot verblasst), (e) Taste (nicht belegt, im Steuerungsmenü frei wählbar). Empfehlung: a + c als Standard, e optional. → `claude-q-linkhud` (QoL-LinkedPanel umgebaut, Server im Modul simplequalityoflife: HUD-Slot oben links, Inventar-Bildschirm zeigt die vorgemerkte GUI darüber/daneben, anderer Container: vorgemerkte GUI statt Inventar darunter, Shift-Klick zweites GUI → vorgemerkt zuerst; Abbruch a+c umgesetzt (e nicht); Client-/Besitzer-Abnahme offen)
-- [x] **simplecontainers – Stil:** alle Container-GUIs im Stil Bild 3/4 (refs-n12) inkl. Mod-UI-Parität (siehe simplecontainers-todo). (Audit 09.10.: simplecontainers W0 + G1–G4, cp-scfix)
-- [x] **QoL-Aufteilung:** Besitzer entscheidet über Sub-Mods (Vorschlag im Chat 2026-10-06): Container, Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor. (claude-q-qolsplit: Plan docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md, Stufen 1–3 erledigt: simplecontainers → Simple Interfaces, Simple Weather herausgelöst; Stufen 4–10 auf `claude-qol4`: Simple Loot/Creatures/Farming/Tools/Movement, verknüpfte Behälter + Easy Shulkers in Simple Interfaces, QoL nur noch Schalter/Guide/Quest; Merge offen)
-
-### Nachtrag 14 – Besitzer-Entscheidungen (2026-10-06)
-- Vormerkung abbrechen: a (Schleich-Rechtsklick auf denselben Container), b (Schleich-Rechtsklick in die Luft/Nicht-Container), c (außer Reichweite/Dimensionswechsel), d (Zeitlimit, großzügig bemessen, per Config einstellbar mit harten Grenzen).
-- Kreaturen stummschalten bzw. mit Löwenzahn jung halten → Logik in simplelib, Integration aktiv, wenn simplequalityoflife oder „simple mobs“ installiert ist.
-- Tresor-Cooldown → eigene Sub-Mod „simple loot“/„simple looting“ (Name final wählen).
-- Schärfe/Schwert schneidet Gras → Sub-Mod „simple combat“ (passt nicht zu Farming).
-- [x] **Übersichtsdokument** im Repo: alle Mods und Sub-Mods mit detaillierten Features (z. B. docs/MODS-UND-FEATURES.md); muss bei jeder Feature-Änderung aktualisiert werden (Regel in den Projektregeln verankern, ideal mit Prüf-Gate gegen modules.json). Grundlage für die Entscheidung, wohin Features gehören. (teilweise: docs/MODS-UND-FEATURES.md + Regel in AGENTS.md (claude-q-audit); Prüf-Gate gegen modules.json fehlt) (claude-q-audit (docs/MODS-UND-FEATURES.md))
-
-## Nachtrag 15 (2026-10-07, Besitzer)
-- [x] **Bug: Alle Mod-Eimer verschwinden nach dem Benutzen** (Ausgießen/Schöpfen soll leeren bzw. gefüllten Eimer zurückgeben; Keramik nur Abnutzungsstufe). Höchste Priorität. (Audit 09.10.: 6f552f7fc + NeoForge e436faeee, Tests 1cf77e030)
-- [x] **Tiegel-Fass:** Hitbox des angedockten Fasses korrigieren (Outline/Kollision passend zum kleineren Modell); Wallhack/X-Ray-Effekt (durchsichtige Nachbarflächen, falsches Culling/Render-Layer/Occlusion) beheben. (Audit 09.10.: 81a26d24a)
-- [x] **In-World-Umwandlung vereinheitlichen:** Animation und Ablauf (Rechtsklick, Risse, Partikel, Klang, schrittweise Teil-Ergebnisse) exakt wie SimpleBuilding; Logik in simplelib verschieben (InWorldStrikes o. ä.), damit alle Mods dieselbe Implementierung nutzen. (teilweise: gemeinsames InWorldStrikes (Zählung, Risse, Partikel, Klang) 5db8a809a, liegt aber in SB common/src/shared/.../util; Umzug nach simplelib fehlt) (erledigt: Branch `claude-q-inworld`, gemeinsames `com.simplelib.api.InWorldStrikes`, SB-Huelle im 26.3-Overlay; Plan `docs/ai/PLAN-INWORLD-2026-10-10.md`)
-- [x] **Schrittweiser Umbau je Schlag (universell):** Jeder Schlag verändert sichtbar Richtung Ziel. Fass am Tiegel: bei jedem Schlag ein Stück näher am fertigen angedockten Fass (Zwischenmodelle). Gleiches Modell → Textur-Overlay der Zieltextur, Stück für Stück in einem Anbau-Muster aufgedeckt. Verändertes Modell → je Schlag ein Zwischenmodell oder Keyframes über mehrere Schläge, aber jeder Schlag bringt eine Veränderung. Als universelles System in simplelib für alle In-World-Umwandlungen. (teilweise: Ergebnis-Items je Schlag 9c49fc10f; Zwischenmodelle/Overlay-Aufdeckung fehlen) (erledigt: Branch `claude-q-inworld`, aufwachsende BlockDisplay-Vorschau je Schlag in Lib-Tiegel/Fass/Aufwertungen und SB-Maschinenaufwertungen; Client-Sicht offen; Besatz-Vorlage ohne Block-Vorschau)
-- [x] **Schach:** 0,125er Schachfiguren (0,5×0,5×0,5) rendern nicht bzw. falsch. Checker-Treppen und -Stufen haben im Inventar das falsche Blockmodell (vermutlich Seiten vertauscht). (teilweise: Checker-Treppen/-Stufen gespiegelt e27188645; Achtel-Figuren rendern weiter falsch (Screenshot 08.10.))
-  Erledigt auf `claude-q-chess`: Ursache im `ChessPiecesRenderer` (doppelter Halbblock-Abzug gegenüber dem Item-Transform → Figuren einen halben Block tief und neben dem Feld); Client-Test `chess-pieces` prüft jede Figur auf ihrem Viertel, Datenprüfung `tools/check_chess_assets.py`. Vorher/Nachher previews/chess/.
-- [x] (Besitzer 12.10.: nur notwendige und ästhetisch sinnvolle, claude-octets-more) **Mehr 0,125er Blöcke** als Erweiterung der Farbpalette: Teile von Vanilla-Blöcken. (erledigt: Branch `claude-octets-more`, 58 neue Achtel: Keramik 17, Metall 7, Kupferblöcke 4, Stämme 24, Stein 5, Knochen 1; Plan `docs/ai/PLAN-OCTETS-MORE-2026-10-12.md`)
-- [x] **Enderit-Tiegel Stapelgröße:** zeigt 64 statt 128 an. Modifizierte Stapelgrößen als gemeinsame Lösung in simplelib (Anzeige, Slot-Limit, Transfer automatisch konsistent). (teilweise: Tiegel + angedocktes Fass über simplelib StackLimits 0a84dab08; loses Enderit-Fass, Trichter-Transfers und TieredChests noch auf 64) (claude-q-storage: loses Fass mit eigenem BarrelMenu, generischer Trichter-Mixin in simplelib, LimitedSlot; TieredChests hatten x2/x4 bereits)
-- [x] **Fass erbt Stapelgröße:** Hat ein Tiegel modifizierte Stapelgröße, hat das angedockte Fass dieselbe. (Audit 09.10.: 0a84dab08)
-
-## Nachtrag 16 (2026-10-07, Besitzer; Screenshot previews/refs-n12/screenshot-n16-eisentiegel.png)
-- [x] **Tiegel-UI:** gelbe Linie über/auf dem Feuer entfernen (unterer Rand des Flammenbands, siehe Screenshot). (Audit 09.10.: 3c119ed23)
-- [x] **Tiegel-Logik:** Items, die schon im Tiegel liegen, bevor das Fass angebaut wird, verhalten sich falsch; reservierte Slots und Berechnung spinnen danach. Reproduzieren (GameTest: erst Items einlegen, dann Fass anbauen, Reservierung/Ergebnis-Slots prüfen) und beheben. (Audit 09.10.: b185d64a6)
-- [x] **Enderit-Tiegel:** Hinweis „2× Stacks“ entfernen (selbst entdeckbar). (Audit 09.10.: 3c119ed23)
-- [x] **Fletching Table – Rezeptbuch-GUI neu:** 3 Kategorien (1. Spitze, 2. Stab, 3. Feder); je Kategorie nur die Wahlmöglichkeiten zum Zusammenstellen des Pfeils; je Material sehr kurzer Tooltip mit den Vorteilen. (teilweise: Befiederung einzeilig wie die Werkbank bed08725f; Rezeptbuch mit 3 Kategorien und Material-Tooltips fehlt) (claude-q-uirest: drei Reiter Spitze/Stab/Feder, je Teil ein Eintrag, Klick legt nur dieses Teil in seinen Slot; Kurz-Tooltip = Wirkung des Teils)
-- [x] (claude-ui-concepts: PLAN-UI-KONZEPTE-2026-10-12, Oktant/Bauzauberstab/Trim-Referenz/Modell-Browser im Kasten-Stil; Blaupause/Guide bleiben) **UI-Konzepte:** für jede Mod-UI ein Konzept ausarbeiten (Vorschaubilder), Aussehen streng wie Referenzbilder (refs-n12 Bild 3/4, Rahmenmaße aus PLAN-CRUCIBLE-N12B). (teilweise: Container-/Mod-UIs über simplecontainers (PLAN-SIMPLECONTAINERS-2026-10-08.md, Vorschauen); Einzelkonzepte übriger UIs fehlen)
-- [x] (claude-q-astralit: Rahmen auf allen vier Seiten gleich, Leuchtfläche exakt symmetrisch) **Baulicht:** Motiv nicht mittig → zentrieren.
-- [x] **Neu: Trapped Copper Chest** (Redstone-Signal wie Vanilla-Trapped-Chest, Kupfer-Stil, Oxidation wie Kupfertruhe falls vorhanden). (claude-q-storage: 8 Blöcke, Oxidation/Wachs/Axt, Fallen-Overlay je Stufe; nur 26.3)
-- [x] **Nihil-Gewölbe:** Doppeltruhen-Größe wie das Astral-Gewölbe. (claude-q-storage: 54 Plätze, sechs Reihen)
-- [x] (claude-q-texrest: Shulkerkisten, Truhen, Fässer, Öfen/Räucher-/Schmelzöfen, Kolben, Trichter; Goldnieten bleiben) **Netherit-Shulker:** dunkle Highlights statt heller (Netherit-Farben); dasselbe für alle anderen Netherit-Maschinen/-Blöcke.
-- [x] (claude-q-place: Woll-Streifen vom Anker zur Hand, löst sich > 10 Blöcke; Client-Abnahme offen) **Hängematte wie Leine:** erster Befestigungsklick hängt die Hängematte wie eine Leine (mit Hängematten-Textur) an; Modell sichtbar wie Leine/Lichterketten-Mods während des Ziehens; entfernt man sich z. B. > 10 Blöcke, löst sich die Verbindung von der ersten Seite wieder.
-- [x] (claude-q-place: Zustand up, Säule bis Blockoberkante) **Senkrecht platzierte Knochen/Stöcke/Ruten** (Diamant-, Lohen-, Böen-Rute …) verbinden sich nicht: übereinander platzierte sollen nahtlos verbunden sein (lang genug, keine Lücke).
-
-## Nachtrag 17 (2026-10-07, Besitzer – Nachricht unterbrochen, ggf. Fortsetzung folgt)
-- [x] **Shulker-Zustand:** platzierte Shulkerkiste schließt sich bei Rechtsklick; zwei Item-Zustände (offen/geschlossen) wie die Blume im Creaking-Wald (Augenblüte). (claude-q-storage: Shulkerschale öffnet dauerhaft, Rechtsklick schließt, Item-Komponente shulker_open mit offenem Modell; nur Vanilla-Kisten)
-- [ ] **Neue Mobs:** 1. niedlicher End-Mob, der im End liegt (eigener Mob, Textur ähnlich Endstein zur Tarnung), spawnt sehr selten in kleinen Rudeln von 3–5. (Weitere Mobs folgen.)
-
 ## Nachtrag 18 (2026-10-07, Besitzer) – Plan: docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md
 - [ ] Simple Trims als Sub-Mod von SB (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) – Frage F1 (claude-q-trims: Stufe 1 Modulgerüst + Werkzeugregel + Config fertig; Stufen 2-4 offen, siehe Plan „Umsetzungsabschnitt“)
 - [x] Simple Maps als Sub-Mod von SB: Wegfinder-Karte (unendlich, Spieler mittig, erweitern/kopieren/kombinieren, GUI mit Lesezeichen, Wegpunkte 1–8, Kontextmenü, Snap/Raster, Locator-Bar) – Fragebogen F2–F10, Feature-Vorschläge 1–8 (claude-q-maps (Modul simplemaps; Sub-Mod-Bündelung offen))
@@ -498,10 +221,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] 0,125er-Blöcke: maximale Stapelgröße 128 (claude-q-storage: 99 = Engine-Grenze, 128 nicht speicherbar; Schach-Achtel, Material-Achtel aus claude-q-hammer nachziehen)
 - Grundsatz festgehalten: Konsistenz zwischen allen Simple-Mods, Gemeinsames in simplelib, UI-Bausteine (inkl. Kontextmenü) dokumentieren (docs/ai/UI-BAUSTEINE.md anlegen)
 
-## Nachtrag 19 (2026-10-07, Besitzer)
-- [x] (claude-q-vehicles; offen: Merge, Client-/Besitzer-Abnahme) **Stufen für Kistenboote, Kistenloren (Chest Boat / Chest Minecart) und Ofenloren (Furnace Minecart)** – analog zu den Truhen-/Ofen-Stufen (Verstärkt/Netherit/Enderit): mehr Slots bzw. Ofenlore mit stärkerem Antrieb/Brenndauer; Rezepte per Schmiedetisch wie die übrigen Stufen, Kreativtab, JEI, Wiki.
-- [x] **0,125er-Block (Achtel) für jeden Block, der Stufen und Treppen hat** (Vanilla + Mod), ohne Schachfiguren. Generator-basiert (Datagen), Stapelgröße 99 (Engine-Grenze, siehe N18), Kreativtab-Einordnung neben Stufe/Treppe. (claude-q-octets2: 91 Materialien aus tools/textures/octet_materials.json via octets_2026_10_09.py --scan; Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton, SimpleBuilding-Paletten; Vanilla-Tab neben der Stufe, SimpleBlocks-Tab je Gruppe eine Zeile)
-
 ## Nachtrag 20 (2026-10-07, Besitzer) – Konzept: docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md
 - [x] Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten (claude-q-maps)
 - [x] (claude-q-brew) Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü),
@@ -510,163 +229,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Mob Deceiver, Stufe 1 (claude-q-deceiver): Modul `simplemobs`, Entity auf 3 Loadern, Modell/Renderer/6 Animationen, Textur, Wellen/Eskalation/Teleport/Mirage-Puls, Spawns, Loot (Täuscherstoff), Spawn-Ei
 - [ ] Deceiver Stufe 2: Verwandlung in beliebige Mobs (Renderer-Delegation), Tarnumhang (Drop), Schattenlos-Fakes, Config (Wellen-Obergrenze), Spiegelbild, falsche Truhe, Wiki-Seite/Testzentrale, Client-Abnahme
 - [x] (claude-deceiver2) Deceiver Stufe 2 Teil Besitzer 11.10.: Tarnumhang (3-Block-Erkennung, Verwandlung in Mobs/Spieler mit Skin+Rüstung, Enttarnung 5x5), Trugbild-Spiegel, stille Unsichtbarkeit, Spezialangriff Verdoppeln, Brustplatten-Deceiver (280/6, doppelte Trugsplitter), Trugbild-Trank aus Trugsplitter (mit SB). Offen: Verwandlung des Deceivers in beliebige Mobs per Tag, Schattenlos-Fakes, falsche Truhe, Config.
-- [ ] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt
-
-## Nachtrag 21 (2026-10-07, Besitzer)
-- [x] **Enderit-Eimer:** (→ `claude-q-ebucket`, Seelenlava ebenfalls 2 Eimer laut N28/Auftrag) Kapazität genau 2 Eimer. Rechtsklick nur aufnehmen; wenn voll, Rechtsklick platziert wieder. Schleich-Rechtsklick platziert einen halben Eimer (nicht einen vollen). Seelenlava nur einfach aufnehmbar (begrenzt, hebt sich ab). Eigene Texturen für die Zwischenstufen (halbvoll je Flüssigkeit).
-- [x] (claude-q-astralit: Animation entfernt, statische Glimmerpunkte Icon + Handmodell) **Enderit-Speer:** statt des Eimer-Glanzes die hellen Glimmerpunkte auf der Enderit-Textur wie Schwert und die übrigen Enderit-Werkzeuge.
-- [x] **Puppen/Ständer:** (claude-q-stands; Inventar docs/ai/PLAN-PUPPE-INTERAKTIONEN.md + PLAN-STAENDER-2026-10-09.md, Dreizack/Windladung/Streitkolben/Namensschild ergänzt) mehrere Interaktionen Spieler ↔ Trainingspuppe/Ständer sind unsauber oder funktionieren nicht (z. B. Speer) – inventarisieren, reproduzieren (GameTests), beheben.
-- [x] (claude-q-texrest: Weisheitskugel, eigene Handbewegung ORB statt Bogen-Haltung; Client-Sicht offen) **XP-Orbs:** bei Nutzung ähnliche Animation wie die Kerne (gleiches Prinzip, eigene Bewegung).
-- [ ] **Prinzip Entdeckbarkeit:** Jedes herstellbare oder umwandelbare Item soll in erster Linie intuitiv sein und zusätzlich im Spiel gehintet werden (z. B. Tiegel in Dörfern mit erloschenem Lagerfeuer zeigt die Nutzung). Crafting/Umwandlungen bisher nirgends gehintet → Konzept erarbeiten (Ideen: Bücher in Struktur-Truhen, Bilderrahmen/Gemälde mit Rezept, Dorfbewohner-Werkstätten als Vorführung, Fortschritts-Hinweise, Guide-Seiten). Erst Konzept vorlegen. (Konzept: docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md)
-
-## Nachtrag 22 (2026-10-07, Besitzer)
-- [x] **Kreativ-Tabs wieder normal, aber sauber:** Kreativ-Abstandshalter (Spacer/Lücken) entfernen; die Spacer-Logik im Code behalten (abschaltbar, z. B. Konstante/Config), falls sie später wieder gebraucht wird. Ersetzt N11 P8 (eine Lücke zwischen Kategorien). Datenintegritätstests der Tabs entsprechend. (Audit 09.10.: ff143698a (CreativeTabLayout.SPACERS_ENABLED))
-- [x] **Kreativ-Tab-Struktur:** jede Super-Mod hat einen eigenen Tab; die einzelnen Items werden zusätzlich in die passenden Vanilla-Tabs einsortiert. Config (simplelib-Gerüst, je Mod): „in Vanilla-Tabs einsortieren“ an/aus – aus = Vanilla-Tabs bleiben unverändert (Stock). (teilweise: Schalter „in Vanilla-Tabs einsortieren“ nur in SB (ff143698a); eigener Tab je Super-Mod und simplelib-Gerüst fehlen) (claude-q-blocks)
-- [x] (claude-q-blocks: Config creativeTabSpacers, Standard aus) **Kreativ-Tabs wieder normal, aber sauber:** Kreativ-Abstandshalter (Spacer/Lücken) entfernen; die Spacer-Logik im Code behalten (abschaltbar, z. B. Konstante/Config), falls sie später wieder gebraucht wird. Ersetzt N11 P8 (eine Lücke zwischen Kategorien). Datenintegritätstests der Tabs entsprechend.
-- [x] (claude-q-blocks: framework CreativeTabSettings je Mod, Fun/Money/Riding + SimpleBuilding-Option; Handbuch-only-Module ohne eigenen Tab ungeschaltet) **Kreativ-Tab-Struktur:** jede Super-Mod hat einen eigenen Tab; die einzelnen Items werden zusätzlich in die passenden Vanilla-Tabs einsortiert. Config (simplelib-Gerüst, je Mod): „in Vanilla-Tabs einsortieren“ an/aus – aus = Vanilla-Tabs bleiben unverändert (Stock).
-
-## Nachtrag 23 (2026-10-07 nachts, Besitzer)
-- [x] **Mob „Shellker“** (End, Gateway-Wächter; Konzept in docs/ai/KONZEPT-MOBS-2026-10-07.md ergänzen, dann Vorschau): Shulker-Variante mit harter Schale; 1×1×1, öffnet zum Schießen alle Seiten, wird dabei NICHT größer (schießt aus 1×1-Loch). Geschlossen kein Schaden (wie Gürteltier), offen normal. Leben 4× Shulker. Teleportiert nie; nur per (Klebe-)Kolben verschiebbar. Je End-Gateway genau 4 Stück rund um die Öffnung (Zugang erst nach Besiegen/Wegschieben). Projektile wie Shulker, 1,5× schneller, Effekt **Schwerkraft (High Gravity)** statt Schweben: alle Aufwärtskräfte (Sprung, Levitation, Elytra-Auftrieb) auf 10 %, Elytra gleitet 10× schlechter. Schwerkraft auch als Trank: Brauzutat **Shellker-Schale**. Vermehrung wie Shulker (Shulker trifft Shulker-Kugel). Erschaffen: Shulker Schale „anziehen“ (Rechtsklick) → wird Shellker. Drop Ø 2,5 Schalen; Farmen nur über Umwandlung von Shulkern. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md) (claude-mobs2)
-- [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Struktur Brunnen:** wie der Ausgangsportal-Brunnen (Drachenei-Sockel) der Hauptinsel aus Endsteinziegeln/Endstein; 1 intakte Grundvariante + 2 kaputte Varianten.
-- [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Struktur Fake-Gateway:** aus Endsteinziegeln, gleiche Generierungsregeln/Form wie echtes Gateway, aber verstreut, natürlich wirkend; ohne Funktion.
-- [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Schiffswracks:** selten, Varianten analog Vanilla-Shipwrecks (Bug/Heck/kaputt/gekippt); 1–2 Kisten mit ca. 30 % des End-Schiff-Loots; 50 % Rahmen, davon 10 % (absolut) mit kaputter Elytra im Rahmen; sonst ohne Rahmen.
-  - [x] (claude-wrecks2) Besitzer 11.10.: Wracks nach Bauweise des Vanilla-End-Schiffs (Rumpf mit Stufen/Rippen, Bug-Steven mit Galionsfigur, Mast/Krähennest, Heckkajüte mit Glasfenstern, Achterdeck), immer zur Hälfte im Endstein-Hügel vergraben (start_height -4); Vorschau tools/structures/render_preview.py.
-- [x] (claude-q-endstruct: Datapack-Jigsaw, tools/structures/generate_end_structures.py) **End-Pfad:** Formen wie Dorf-Erdpfade, aus Endsteinziegeln (Anspielung End-Dorf).
-- [x] **Verzauberung umbenennen:** `enchantment.simplefun.no_damage` „Damageless“ (DE „Schadlos“, Wiki/Guides mitgezogen; ID unverändert).
-- [ ] **Furcht-/Zitter-Mob:** Vorschläge im Konzept docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md (Abschnitt „Furcht-Mob Vorschläge“) – Besitzer-Entscheidung offen.
-- [x] **Magnete, Konflikt mehrerer Magnete:** liegt ein Item im Bereich mehrerer Magnete, Zielpunkt = Mittelpunkt (Schwerpunkt) aller beteiligten Magnete (1,2,3,…), dort Anziehung mit toter Zone. Dazu Sweetspot für fallende Items: Item tariert sich auf richtiger Höhe aus und bleibt stehen (z. B. Magnet darüber), kein Zittern/Buggen. (Audit 09.10.: 0b238b6ba)
-- [x] (claude-q-blueprint) **Blaupause am Boden:** Rechtsklick auf liegende Blaupause, wenn keine andere Aktion greift → Blaupausen-UI öffnen und bearbeiten.
-- [x] (claude-q-blueprint) **Blaupausen-UI Umbau** (Stil-Guide beachten, Stil ungefähr gleich):
-  - 3D-Vorschau: Drag-Rotation reparieren; Strg+Drag verschiebt; Icon-Button „Ansicht zurücksetzen“ im Vorschaufenster.
-  - Layout: Überschrift, dann 3 Bereiche. (1) **Materials:** „X×Y×Z“ Zeilenumbruch „= n Blöcke“ ohne Überlappung; darunter Stab-Icon + Fortschrittsbalken; Materialliste schmaler (nur Icon + Zahl). (2) **Code:** Codeblock, darunter „Code ok“ Zeilenumbruch „xyz/XYZ Zeichen“; rechtsbündig Buch-Button (Hilfe) – Zeichenzeile wandert dafür unter den Codeblock. (3) **Preview:** breiter, mit Reset-Icon; darunter Signieren und Fertig.
-  - Insert-Feld wandert in das Hilfe-Buch: Tabs tauschen, „Blocks“ zuerst und Standard; im Blocks-Tab statt normaler Suche Textfeld + Insert-Button daneben; beim Öffnen des Buchs ist Insert vorausgewählt. Tab „Guide“: vollständige, leicht verständliche Erklärung, ganz unten Copy-Button (Text kopieren, z. B. für KI-Fragen).
-- [x] (claude-q-models; Compile/Tests/Screenshot noch offen, Testrechner-Platte voll) **Simple Models überarbeiten:** Modul insgesamt verbessern (Audit + Vorschläge zuerst). Models-Button im Stil der Guide-Lesezeichen, immer an der Inventar-UI über den Rüstungsslots angehängt, Icon statt Text (Rüstungsständer oder Namensschild, ggf. Besseres).
-- [x] **Resonanz-Statusfeld:** rechts neben das Buch-Icon verlagern; statt Vorlage ein Herz-Symbol in Steinfarben, Resonanzwert grau daneben, schmalerer Rahmen → kompakter, vanilla-näher. (Audit 09.10.: 916e4d203, claude-brush2 29771970c; Feinschliff N29 offen)
-- [x] (claude-q-hopper) **Truhen:** Fallen-Truhen ohne „Trapped“ im GUI-Titel; generell keine Stapelgröße o. ä. in Truhen-/Container-GUIs; Mod-Fallen-Truhen-Texturen viel zu auffällig → dezenter wie Vanilla (Vorschau).
-- [x] (claude-q-hopper; Lore-Trichter: claude-q-vehicles) **Trichter:** im GUI statt Text „Filter“: Lücke ca. 1 Slot breiter zwischen den 5 Trichterslots, darin Filter-Icon + Doppelpunkt; Gesamtblock mittig (nach links verschieben). Fehlende Lore-Trichter der Mod-Trichter ergänzen. Rezept verstärkter Trichter: Trichter + gesprungener Diamant + Namensschild.
-
-## Nachtrag 24 (2026-10-08 abends, Besitzer)
-- [x] (claude-q-brew; dazu Übelkeits-Trank: Seltsamer Trank + Roter Pilz) Dunkelheits-Trank aus neuem Warden-Drop (Warden-Item als Brauzutat).
-- [x] (claude-q-astralit: Astral-Signale 1 Tick statt 2 pro Block) Schnelleres Redstone (Astralit).
-- [x] (claude-q-astralit: Astralit-Trim-Teile schieben Gleitflug 0,012/Teil in Blickrichtung, Tempo-Cap 1,8) Schnellere Elytra (Astralit).
-- [x] Shellker-Textur wie Grundgestein (Bedrock-Tarnung). (claude-mobs2)
-- [x] Sculk-Kiefer (Falle): lautlos, verhält sich wie Spinnennetz, greift mit Fangzähnen an. (claude-q-traps: Bau-Rezept Knochen+Echo-Splitter+Sculk, kein Beute-Eintrag)
-- [x] Froschlichter in zusätzlichen Farben. (claude-q-blocks: Scharlach/Aqua/Azur, Froschlicht + Farbstoff)
-- [x] Ziegenhorn platzierbar; Fackeln oder stabartige Items hineinstecken. (claude-q-place: Boden/Wand, Fackeln + Stäbe, Licht)
-- [x] Schildkröten-Helm-Äquivalent aus Shellker-Schale. (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md) (claude-mobs2)
-- [x] Trainingspuppe mit Spielernamen umbenennen → Skin wechselt. (claude-q-stands; Client-Sicht mit echtem Profil offen)
-- [x] Glitzernde Melone essbar; Melone auch als 0,125er-Block (platzierte Melonenscheibe = 0,125er-Block).
-- [x] Farbpinsel? (Idee, offen). (Audit 09.10.: claude-brush3 fa6aa3cf6 (Goldpinsel, Farbkasten 4 Stufen); Textur N28/N29 offen)
-- [x] Rüstungsständer per Redstone wie Item-Displays (Schleich-Rechtsklick?): tauscht die ganze Rüstung mit den Rüstungsslots des Spielers. (claude-q-stands: Schleich-Rechtsklick leere Hand oder Rechtsklick auf bestromten Ständer)
-- [x] Rüstungsständer sollen Arme haben. (claude-q-stands, Config server.features.armorStandArms)
-- [x] Weitere Rüstungsständer: mittel (Pferderüstung, oder zwei Rüstungsteile oben/unten), klein (nur ein Teil, z. B. Stiefel oder Nautilus-Rüstung). (claude-q-stands: mittel = Hose+Stiefel, klein = Stiefel; Pferde-/Nautilus-Rüstung offen)
-- [x] Glitzernde Melone essbar; Melone auch als 0,125er-Block (platzierte Melonenscheibe = 0,125er-Block). (claude-q-hammer)
-- [x] Speer im Spender: bei Aktivierung wie Stachelfalle. (claude-q-place: Schaden 2 Blöcke, Haltbarkeit; ohne Stoß-Animation)
-- [ ] Simple Respawn (neues Modul?): beim Tod niedergeschlagen, Mitspieler kann wiederbeleben; danach 3 Herzen und 0 Hunger.
-- [x] Barren als 3D-Modell platzierbar. (claude-q-place: 5 Barren 3D, nur Barren = Stapel bis 4)
-- [x] Schwefelwürfel (Sulfur Cubes) befüllbar mit allen Ofen-Varianten, Tischen usw. (Easter Egg); dann schwer wie Eisen (schwer zu verschieben). (claude-q-traps: Mob existiert in 26.3; Tag sulfur_cube_archetype/high_resistance = Seelensand-Archetyp)
-- [x] Übelkeits-Trank. (claude-q-brew)
-- [x] Holz auch als 0,125er-Blöcke (falls noch nicht). (claude-q-hammer)
-- [x] Mob „Seelenfeuer-Lohe“ (Soulfire Blaze). (Konzept: docs/ai/KONZEPT-MOBS-2026-10-07.md) (claude-mobs2)
-- [x] Hammer: Normal-Rechtsklick-Halten (Block → Treppe → Stufe) deaktivieren; nur Schleich-Rechtsklick-Halten transformiert (Teile werden abgebaut). Erreicht die Form eine nicht unterstützte Gestalt (z. B. oben und unten je ein Achtel entfernt), wird sie in 0,125er-Blöcke zerlegt. Hammer wackelt (Hinweis „transformierbar“) nur, wenn transformiert werden kann – also nur beim Schleichen. (claude-q-hammer)
-- [x] Trims bis zu 4 platzierbar; alle anderen so platzierbaren Items ebenfalls bis 4 Stück („Plex“). (claude-q-place: Vorlagen ins Häufchen; Funktions-Items bleiben einzeln)
-- Konzept Farbpinsel/Respawn: docs/ai/KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md. Farbpinsel in Arbeit (v3: Goldpinsel, Farbkasten mit Stufen).
-
-**Besitzer-Antworten 09.10. (auf Respawn-Fragen bezogen):** 1 ja (Einzelspieler = normaler Tod), 2 Timer: Besitzer hat eigenes älteres Revive-Konzept, sucht Daten raus → Respawn-Modul WARTET darauf, 3 ja (Mobs ignorieren Niedergeschlagene), 4 nein (keine Item-Wiederbelebung vorerst). Farbpinsel-Fragen unbeantwortet → Besitzer: KEINE Holz-Beize, Kreativ unbegrenzt, Pinselstrich-Partikel/Klang ja.
-
-## Nachtrag 25 (2026-10-09, Besitzer)
-- [x] **Crates/Körbe** (Art Komposter/Kessel): Items hineinlegen → eigene Füll-Texturen sichtbar; voll = Aufbewahrung, insgesamt 8 Stacks einlagerbar. Start mit allen Essens-Items. (claude-q-wood/crates2)
-- [x] **Ausgehöhlte Stämme** (auch entrindete Variante): Spieler und kleine Mobs können hindurchkriechen. Craftbar zu Platten/Brettern („sheets/plates“) je Holzart in Normal- und entrindeter Variante; diese verhalten sich wie Eisengitter/Glas(scheibe) und lassen Licht durch. Ausgehöhlter Stamm + Holzplatte → Holz-Kessel: wie normaler Kessel, aber brennbar; Lava kann ihn entzünden (verbrennt → Lava wird frei). (claude-q-wood)
-- [x] (claude-q-blocks) **Gemeißeltes Packeis, gemeißeltes Blaueis, rissiges Eis** (rissiges Eis wird nach ein paar Sekunden Draufstehen zu Wasser).
-- [x] **Töpferscherben-Meißel:** Scherbe in der Nebenhand + Meißel in der Haupthand auf entrindeten Stamm → gemeißeltes Holz mit dem Motiv der Scherbe (jede Scherbe eigenes Motiv, Overlay in dunklerer Holzfarbe). (claude-q-wood)
-- [x] (claude-q-blocks: 4 Schalen 2x2, umkehrbar) **Nautilusschalen-Block.**
-- [x] (claude-q-blocks: Sand/Kies fallen) **Stufen aus Erde und Gras**, ebenso Sand und Kies.,
-- [x] (claude-q-wood) **Crates/Körbe** (Art Komposter/Kessel): Items hineinlegen → eigene Füll-Texturen sichtbar; voll = Aufbewahrung, insgesamt 8 Stacks einlagerbar. Start mit allen Essens-Items.
-- [x] (claude-q-wood) **Ausgehöhlte Stämme** (auch entrindete Variante): Spieler und kleine Mobs können hindurchkriechen. Craftbar zu Platten/Brettern („sheets/plates“) je Holzart in Normal- und entrindeter Variante; diese verhalten sich wie Eisengitter/Glas(scheibe) und lassen Licht durch. Ausgehöhlter Stamm + Holzplatte → Holz-Kessel: wie normaler Kessel, aber brennbar; Lava kann ihn entzünden (verbrennt → Lava wird frei).
-- [x] **Gemeißeltes Packeis, gemeißeltes Blaueis, rissiges Eis** (rissiges Eis wird nach ein paar Sekunden Draufstehen zu Wasser). (claude-q-blocks)
-- [x] (claude-q-wood) **Töpferscherben-Meißel:** Scherbe in der Nebenhand + Meißel in der Haupthand auf entrindeten Stamm → gemeißeltes Holz mit dem Motiv der Scherbe (jede Scherbe eigenes Motiv, Overlay in dunklerer Holzfarbe).
-- [x] **Nautilusschalen-Block.** (claude-q-blocks)
-- [x] **Stufen aus Erde und Gras**, ebenso Sand und Kies. (claude-q-blocks/misc31)
-
-**Simple Maps Antworten 09.10. (in docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md unter „Antworten Besitzer“ ergänzen):** Feature 1 ja (Wegpunkte beim Kopieren), Feature 2 entfällt (Todespunkt nur über Feature 7: Bergungskompass in der Hand), Feature 6 = F8 (eigene Karte je Dimension), Feature 7 ja, Feature 8 ja; Feature 4 (Karte im Rahmen zeigt Umgebung) erklärt, Antwort offen (Empfehlung weglassen). WICHTIG: Besitzer-Antworten stehen meist schon in docs/ai/PLAN-*.md „Antworten Besitzer“ – vor Rückfragen dort nachlesen!
-- Simple Maps Feature 4 (Besitzer 09.10.): Karte im Gegenstandsrahmen → Rechtsklick öffnet die Karten-UI; dort scrollbar; der Rahmen zeigt danach den Ausschnitt, zu dem man gescrollt hat.
-- Tiegel-Flammen: Besitzer will 4. Vorschlag „Mittel“ (50 % zwischen spitz und rund, kein Hybrid) → cp-previews (p-flame3).
-
-## Nachtrag 26 (2026-10-09, Besitzer)
-- [x] (claude-q-hopper) **Autonomer Crafter** (abgewandelter Vanilla-Crafter): craftet automatisch das vorgegebene Rezept, solange ein Trichter darunter liegt; ohne Trichter darunter oder bei Redstone-Signal craftet er nicht. UI: 3x3-Grid, gleiche abschaltbaren Slots wie der Crafter, Filter-Knopf wie beim Mod-Trichter (Modi: exakt / gleiche Art; dieselben Knopf-Texturen). Takt wie Crafter, ca. 4 Ticks Abklingzeit.
-- [x] (claude-q-hopper) **Filter-Prinzip umsetzen** bei Mod-Trichtern und autonomem Crafter: im Filtermodus bleibt immer ein echtes Item fest im Slot (statt Schatten-Item); erst ab dem 2. wird verarbeitet/transportiert. Inklusive Filter-Knopf. (Prinzip: docs/ai/PRINZIPIEN-FILTER.md.)
-- [ ] **Konzept stärkerer Wither**: droppt ein Item, das später für ein Biom-Werkzeug dient („Biom-Pinsel“: Pinsel in der Haupthand, biomspezifisches Material in der Nebenhand; Haltbarkeit, verzauberbar). Erst Konzept vorlegen. (Konzept: docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
-- [x] (claude-q-brew) **Werkbank mit Lager** (verbesserte Werkbank): wie Werkbank, aber Items bleiben beim Schließen im 3x3-Feld liegen und werden auf dem Block angezeigt.
-
-## Weitere Besitzer-Entscheidungen 09.10. (noch in Queue/Roadmap übernehmen)
-- [x] Tiegel-UI: Fass-Titel weglassen (N14). (Audit 09.10.: Fass-Kasten ohne Titel (N12c 1b50ab578))
-- [x] (claude-q-small: geprüft, alle echten Umbenennungen sind migriert und getestet (spawnTeleporterCount -> firstJoin*, Laser-Farbe; beamCostPerSecond bewusst nicht, neuer Standard); Pistonverschleiss-Budgets gab es nur vor Release, nicht migriert) Config-Migration: alte Optionsnamen einmalig beim ersten Start übernehmen (ja).
-- [x] Keramik-Eimer 4× Ausgießen (in Arbeit, Review-Agent). (Audit 09.10.: cf841a41a)
-- [x] Furcht-Mob: später. (Audit 09.10.: entschieden; Umsetzung siehe N20/N23)
-- [x] Tiegel-Flammenform: Besitzer wählt nach Vorschlag „Mittel“ (spitz/mittel/breit). (Audit 09.10.: „Mittel“ 5037a180a)
-- [x] Hufeisen-Reiter: muss gut aussehen (Runde 2 simplecontainers). (Audit 09.10.: cp-scfix Runde 2 20d8b3376; Besitzer-Abnahme offen)
-
-## Nachtrag 27 (2026-10-09, Besitzer)
-- [x] **Befiederungstisch** wie die Werkbank in einer Zeile: Rezeptbuch links, dann Feder, Stock, Spitze, Pfeil, Ergebnis.
-- [x] (→ `claude-q-astral`) **Astral-Verzauberungstisch** (Konzept docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md):
-  - Herstellung: Enderit-Nugget in der Nebenhand, mindestens Netherit-Hammer in der Haupthand, ca. 20 Schläge auf einen Verzauberungstisch.
-  - UI nach den Prinzipien des normalen Tisches, aber: die 3 vorgeschlagenen Verzauberungen sind zufällig (passend zum Item, z. B. Spitzhacke: Haltbarkeit, Effizienz, Glück). Jede hat einen Regler (Stufe 0..max).
-  - Regler-Grenzen je Bücherregal-Stärke: ohne Regale nur Stufe 1 der niedrigen Verzauberungen, hohe ausgegraut (0). Volle Regale: Regler zusammen bis 30 Level wählbar, Kosten skalieren mit der Wahl (0–3 Level verbraucht).
-  - Höhere Stufen: bessere Regale + besonderer Boden 5×5 aus Lohen-Obsidian (leuchtende Variante des weinenden Obsidians, 8 Lohenstaub + 1 weinender Obsidian; später Astralit-/Nihilit-Fliesen): Zwischenstufe 40 (4 Level Verbrauch), Maximum 50 (alle gewählten Verzauberungen bis Max, 5 Level Verbrauch).
-  - Abbauen dauert doppelt so lange wie beim normalen Tisch; Drop: normaler Tisch + eingesetztes Enderit-Teil.
-  - Lagert Lapislazuli und Lohenstaub (je bis 1 Stack), bleibt beim Verlassen erhalten. Lohenstaub wird doppelt so viel benötigt wie Lapis.
-- [x] (→ `claude-q-astral`) **Lohenholz** (Blazewood): 8 Lohenstaub + 1 Nether-Holz (Varianten je Nether-Holzart: Karmesin, Wirr, …).
-- [x] (→ `claude-q-astral`) **Lohenbuch** (Blaze Book): analog zum Buch aus Lohen-Zutaten.
-- [x] (→ `claude-q-astral`) **Lohen-Bücherregal** (Varianten je Lohenholz): doppelter Verzauberungswert eines normalen Regals; ermöglicht die höheren Astral-Stufen.
-
-## Nachtrag 28 (2026-10-09, Besitzer)
-- [x] Farbkasten (paint_box, 4 Stufen) so übernommen.
-- [x] **Farbkasten-Textur überarbeiten** (Besitzer: Funktion ok, Textur soll später neu). (claude-tex12: Variante D = C-Töpfe ohne Lücken im B-Kasten)
-- [x] Enderit-Eimer Variante A: Voll-Wasser bedeckt den Rand und läuft wie Lava über.
-- [x] (→ `claude-q-ebucket`) Enderit-Eimer halb-Texturen (Wasser/Lava/Seelenlava: wie voll, nur die zwei obersten äußeren Flüssigkeitspixel zeigen den Eimer) mit der Kapazität „2 Eimer“ aus Nachtrag 21 einbauen.
-- [x] Seelenlava Textur + Animation neu, fließende Seelenlava vor- und rückwärts (in Arbeit, claude-soullava). (Audit 09.10.: claude-soullava 5037a180a; Rückwärtslauf siehe N29)
-- [x] Platzierte Bündel von oben leicht abgerundet (in Arbeit, claude-soullava). (Audit 09.10.: claude-soullava 5037a180a)
-- [x] Tiegel-Flammen Form „Mittel“ (in Arbeit, claude-soullava). (Audit 09.10.: claude-soullava 5037a180a)
-
-## Nachtrag 29 (2026-10-09 nachmittags, Besitzer; Referenzbilder Ständer: <preview-dir>/refs-stands/ 2–4)
-- [x] Enderit-Eimer voll: bis zum Rand gefüllt, KEINE Tropfen; wie beim Axolotl-Eimer. Halber Lava-/Seelenlava-Eimer nach derselben Regel wie der halbe Wassereimer. (claude-q-texfix29)
-- [x] Stein-Herz wieder 1 px schmaler (9×9); bei maximaler Resonanz ein Diamant-Herz. (claude-q-texfix29),
-- [x] Kreativ-Blaupause und Kreativ-Bauzauberstab: unbegrenzte Reichweite; Kreativ-Blaupause nach dem Signieren nicht mehr bearbeitbar. (claude-q-creative)
-- [x] Blaupausen-UI: im Hilfe-Bereich Reiter „Blocks“/„Guide“ als Icons, „Text kopieren“ ebenfalls als Icon. (claude-q-creative)
-- [x] (claude-q-stands2) Rüstungsständer: mittleren Ständer entfernen; nur noch der kleine Ständer (Pfosten mit Querholz auf Steinplatte, wie Referenz) für genau ein Item: ein Rüstungsteil oder eine Tier-Rüstung (Pferd/Wolf/Nautilus, Referenz Pferderüstung auf Pfosten).
-- [x] Tiegel-Flamme „Mittel“ (bestätigt).
-- [x] Farbkasten-Textur überarbeiten: jede Farbe der Palette als ein Pixel in der Kasten-Textur. (claude-q-texfix29; statisch: 16 Farbpixel, keine Inhalts-Property)
-- [x] Fließende Seelenlava läuft immer noch vor und zurück → nur in eine Richtung fließen (wie Vanilla-Lava). (claude-q-texfix29)
-
-### Texturen-Feedback 09.10. abends (claude-q-texfix30)
-- [x] Enderit-Eimer halb wieder wie vorher (Optik claude-q-ebucket 8c595c074, im Generator als HALF-Tabelle); voll bleibt bis zum Rand. (claude-q-texfix30)
-- [x] Eimer-Glanz bei gefüllten Enderit-Eimern (halb + voll) in der Farbe des Inhalts statt weiß; leerer Eimer unverändert. (claude-q-texfix30)
-- [x] Farbkasten (4 Stufen) im Vanilla-Stil: offene Holzkiste (Truhen-Holztöne, Licht oben links), 16 Farbnäpfe in zwei Reihen, Stufen Holz/Eisenbeschlag+Diamant/Netherit/Enderit. (claude-q-texfix30)
-- [x] Seelenlava (still, flow, alle Seelenlava-Eimer) blau wie Seelenfeuer, keine Braun-/Rottöne, Kruste dunkelblau/petrol. (claude-q-texfix30)
-- [x] Stein-/Diamant-Herz: Vanilla-HUD-Herz (Silhouette, schwarzer Umriss, Lichtpunkt, Schattenkante), Füllung Bruchstein bzw. Diamant. (claude-q-texfix30)
-
-### Texturen-Feedback 09.10. spät (claude-q-texfix31)
-- [x] Halbe Lava-/Seelenlava-Enderit-Eimer mit derselben Maske wie der halbe Wassereimer (Enderit-Rand oben, zwei Randpixel frei), Glanz in Inhaltsfarbe bleibt. Milch: kein Mod-Eimer hält Milch (Entscheidung PLAN-TEX7/N12), daher keine Milch-Textur. (claude-q-texfix31)
-- [x] Farbkasten nochmals: Vorschläge A/B/C (`paint_box_2026_10_09.py --proposals`), A eingebaut (offene Dose, Deckel hinten, 16 Farbpunkte einzeln zwischen Holzstegen). (claude-q-texfix31)
-- [ ] (Farbkasten entschieden 11.10.: D, claude-tex12) Offen: Milch im Enderit-Eimer gewünscht? (wäre neues Feature: Melken, Trinken, halb/voll).
-
-## Nachtrag 30 (2026-10-10, Besitzer)
-
-## Nachtrag 31 (2026-10-10, Besitzer)
-- [x] Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel. (claude-q-amp)
-- [x] Aufgeschnittene Wassermelone (Melonen-Achtel): 1 px schwarzer Rand zwischen Schale und Fruchtfleisch. (claude-q-misc31: dunkle Kante (28,38,14) rund um melon_flesh),
-- [x] (claude-q-amp) Jukebox-Verstärker funktioniert nicht wie gewünscht: soll als Repeater fungieren (wie Lautsprecher per Funk weitergeben); aus den Verstärkern kommen keine Musiknoten-Partikel.
-- [x] Astral-Verzauberungstisch → Name „Astral Enchanter“ (DE „Astral-Verzauberer“): Regler lassen sich nicht ziehen; UI wirkt gequetscht → höher; Verzauberungs-Zeichen (Glyphen wie Vanilla-Tisch) zu den Verzauberungen; Regler-Stufen dezent markieren; Besitzer-Frage: was machen Plus/Minus unter Lapis/Lohenstaub? Lohen-Regale ca. doppelter Wert, d. h. dieselbe Anzahl Lohen-Regale wie normale Max-Anzahl bringt den Astral Enchanter auf Maximum. (claude-q-astral2)
-- [x] (claude-q-crates2) Kisten (Crates): Item-Anzeige flackert (Z-Fighting um die y-Achse) und wirkt in Winkeln verbuggt; Kiste seitlich hinlegbar (Öffnung zur Seite, Items liegen auf der inneren Seitenwand); Kiste durchsichtig wie aus Holzlatten mit Lücken (echte Holzkiste).,
-- [x] (→ `claude-q-astral2`) Astral-Verzauberungstisch → Name „Astral Enchanter“ (DE „Astral-Verzauberer“): Regler lassen sich nicht ziehen; UI wirkt gequetscht → höher; Verzauberungs-Zeichen (Glyphen wie Vanilla-Tisch) zu den Verzauberungen; Regler-Stufen dezent markieren; Besitzer-Frage: was machen Plus/Minus unter Lapis/Lohenstaub? Lohen-Regale ca. doppelter Wert, d. h. dieselbe Anzahl Lohen-Regale wie normale Max-Anzahl bringt den Astral Enchanter auf Maximum.
-  Erledigt auf claude-q-astral2: Name in Lang/Wiki/Handbuch/Testzentrale (IDs bleiben). Ziehen ging nicht, weil der Bildschirm die linke Taste als 0 erwartete – 26.3 zählt Maustasten wie SDL (links = 1); jetzt `InputConstants.MOUSE_BUTTON_LEFT`, abgesichert mit Client-Test `astral-enchanter` (echtes Drücken/Ziehen/Loslassen). UI 36 px höher, Glyphen (Vanilla-Schrift `alt`) unter jedem Namen, Lücken + Striche je Reglerstufe. „Plus/Minus“ war der Verzaubern-Knopf (Stern ≈ „+“, „-“ = nichts gewählt) → jetzt verzaubertes Buch + Level-Kosten. Stärke: 15 Lohen-Regale = 50 ohne Boden, Boden +10 ab 15 Punkten (Konzept-Nachtrag 31).
-- [x] Kisten (Crates): Item-Anzeige flackert (Z-Fighting um die y-Achse) und wirkt in Winkeln verbuggt; Kiste seitlich hinlegbar (Öffnung zur Seite, Items liegen auf der inneren Seitenwand); Kiste durchsichtig wie aus Holzlatten mit Lücken (echte Holzkiste). (claude-q-crates2)
-- [x] Farbkasten (paint_box, alle Stufen) in denselben Kreativ-Tab wie Bündel und Rucksäcke.
-- [x] Inventar-UI (simplecontainers/Mod-UIs, heller Inventar-Kasten) ist zu strahlend weiß: Stil behalten, aber Farben aus Vanilla nehmen (Vanilla-GUI-Grau/Schatten/Licht).
-- [x] Astral-Verzauberungstisch: Herstellung (Hammer-Umwandlung) in JEI anzeigen.
-- [x] Verstärkter Tiegel: auf 12 Slots erhöhen. (claude-q-n30: alle vier Punkte; 3x4-Raster, Inventar-Kasten #C6C6C6/#8B8B8B, Astral-Tisch in der In-World-Kategorie),
-- [x] Sand- und Kies-Stufen: Schwerkraft prüfen; zwei Stufen ergeben wieder einen vollen Block; Erde-Stufen ebenfalls kombinierbar. (claude-q-misc31: zwei Stufen → voller Vanilla-Block beim Setzen und Landen, MergingSlabBlock)
-- [x] Umbenennen: Auto Smither → „Smither“; Autonomous Crafter → „Auto Crafter“ (Vanilla heißt „Crafter“). (claude-q-misc31: nur Anzeigenamen; DE „Schmied“ / „Auto-Crafter“, IDs bleiben)
+- [x] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt (Audit 12.10. Dublette, zusammengeführt mit Zeile 824 / Überblick: (Furcht-Mobs, A))
 
 ## Nachtrag 32 (2026-10-10, Besitzer-Entscheidungen)
 - [x] Enderit-Eimer nimmt auch Milch auf (2 Füllungen wie die anderen; Trinken = 1 Füllung). (claude-q-milk: `enderite_milk_bucket` halb + `_full`, Melken Kuh/Ziege/Pilzkuh, Trinken wie Vanilla-Milch, Milchkessel über Item-Tag `simplesandwiches:milk_buckets` + Crafting-Rest, Texturen im Generator; Client-Abnahme offen)
@@ -682,116 +245,17 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Shellker: Konzept + Vorschau; Schale ergibt eine NEUE Helm-Variante (kein Ersatz des Schildkrötenhelms). (claude-mobs2)
 - [x] Seelenfeuer-Lohe: Konzept + Vorschau. (claude-mobs2)
 - [x] Deceiver umsetzen (Konzept freigegeben) – Stufe 1 fertig (claude-q-deceiver), Rest siehe Nachtrag 20.
-- [ ] Furcht-Mob und niedlicher End-Mob: später.
-- [ ] Stärkerer Wither + Biom-Pinsel: Konzept. (Konzept: docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
-- [ ] Simple Respawn: noch nicht.
-- [ ] Prinzip Entdeckbarkeit: Konzept.
-- [ ] KI-Queue: Lauf per Button in der Zentrale freigeben → automatisch an Claude geben (Besitzer 10.10.).,
-- [ ] Prinzip Entdeckbarkeit: Konzept. (Konzept: docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md)
+- [x] Furcht-Mob und niedlicher End-Mob: später. (Audit 12.10. Dublette, zusammengeführt mit Zeile 824 / Überblick: (Furcht-Mobs; End-Mob erledigt))
+- [x] Stärkerer Wither + Biom-Pinsel: Konzept. (Konzept: docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md) (Audit 12.10. erledigt: Konzept liegt vor (7c51f290b); Umsetzung im Überblick (B))
+- [x] Simple Respawn: noch nicht. (Audit 12.10. erledigt: Simple Respawn in claude-wave1 gemergt (8632d24a7))
+- [x] Prinzip Entdeckbarkeit: Konzept. (Audit 12.10. erledigt: Konzept liegt vor (7c51f290b); Umsetzung im Überblick (B))
+- [x] KI-Queue: Lauf per Button in der Zentrale freigeben → automatisch an Claude geben (Besitzer 10.10.)., (Audit 12.10. erledigt: entschieden: keine automatische Weitergabe an Claude (siehe Zeile darunter))
+- [x] Prinzip Entdeckbarkeit: Konzept. (Konzept: docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md) (Audit 12.10. erledigt: Konzept liegt vor (7c51f290b); Umsetzung im Überblick (B))
 - [x] KI-Queue: keine automatische Weitergabe an Claude (Abarbeitung auf Zuruf).
-- [ ] Port 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme im Spiel.
+- [x] Port 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme im Spiel. (Audit 12.10. Dublette, zusammengeführt mit Zeile 73 / Überblick: (Port-Run))
 
 - [ ] Astral Enchanter Stufenregel (Besitzer 10.10.): 0–30 normale Regale; 30–40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; je Stufe mehr Punkte verteilbar; Konzept erweitern (claude-q-astral3).
 - [x] Alte Verschleiß-Optionen der Brecher-Kolben nicht migrieren (Besitzer: ok).
-
-## Nachtrag 32 (2026-10-10, Besitzer)
-- [x] (claude-q-astral3) Astral Enchanter Stufenregel: 0-30 normale Bücherregale (15 = 30); 30-40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; mehr Regler-Punkte je Stufe.
-  Erledigt auf claude-q-astral3: Formel im Konzept (Abschnitt „Stufenregel 10.10.“), `AstralEnchanting.tier/nextStep`, Tooltip über der Stärke zeigt Regal-Punkte, Boden und was für die nächste Stufe fehlt, Lang EN/DE, Handbuch, Wiki, Tests für alle Kombinationen.
-
-## Nachtrag 33 (2026-10-11, Besitzer)
-- [x] **Schwefelfeuer (sulfur fire):** Stufe zwischen normalem Feuer und Seelenfeuer (Schaden/Licht/Farbe dazwischen), gibt zusätzlich Übelkeit (Nausea).
-- [x] **Kupferfeuer (copper fire):** wie Schwefelfeuer, aber ohne Effekt.
-- [x] **Schwarzpulver aus Schwefel + Kohle** craftbar; Schwefel soll dabei gleich schwer zu bekommen sein wie Creeper-Schwarzpulver (Balance prüfen, ggf. Ausbeute/Zutat anpassen).
-- [x] (claude-howler) **Neuer Deep-Dark-Mob (Konzept zuerst):** beschwörbar wie der Warden: Konstruktion aus 4 Sculk-Katalysatoren + geschnitzter Kürbis + 2 Sculk Jaws auf den Schultern + Sculk-Sensor vorne (in Reichweite der Katalysatoren und des Kürbisses); dann mit Ziegenhorn Geräusche machen → Konstruktion verwandelt sich in den Mob. Feindlich. Konzept ausdenken und vorlegen.
-  Erledigt auf claude-howler: Konzept docs/ai/KONZEPT-SCULK-MOB-2026-10-11.md (Fassung 3, Besitzer 11.10.), umgesetzt in simplemobs als Hollow Howler / Tiefenheuler (Ritual mit Sensor + Ziegenhorn, 240 HP, Phasen, Echokern, Trank der Stille, Config, Wiki, Gametests). Offen: Besitzer-/Client-Abnahme Modell+Textur.,
-- [x] **Schwefelfeuer (sulfur fire):** Stufe zwischen normalem Feuer und Seelenfeuer (Schaden/Licht/Farbe dazwischen), gibt zusätzlich Übelkeit (Nausea). (claude-fires: SB-Kern, ThemedFireBlock; Basis Schwefelbloecke; Torch/Laterne/Lagerfeuer Folgepunkt)
-- [x] **Kupferfeuer (copper fire):** wie Schwefelfeuer, aber ohne Effekt. (claude-fires: Vanilla 26.3 hat kein Kupferfeuer; Basis #minecraft:copper)
-- [x] **Schwarzpulver aus Schwefel + Kohle** craftbar; Schwefel soll dabei gleich schwer zu bekommen sein wie Creeper-Schwarzpulver (Balance prüfen, ggf. Ausbeute/Zutat anpassen). (claude-fires: 3 Schwefel + 1 Kohle = 1 Schwarzpulver)
-- [x] **Neuer Deep-Dark-Mob (Konzept zuerst):** beschwörbar wie der Warden: Konstruktion aus 4 Sculk-Katalysatoren + geschnitzter Kürbis + 2 Sculk Jaws auf den Schultern + Sculk-Sensor vorne (in Reichweite der Katalysatoren und des Kürbisses); dann mit Ziegenhorn Geräusche machen → Konstruktion verwandelt sich in den Mob. Feindlich. Konzept ausdenken und vorlegen.
-- [x] **Geschnitztes Holz verbessern:** (claude-carved, Besitzer-Feedback offen) andere Mods mit carved/chiseled wood ansehen, jede Holzart eigenes Schnitzmotiv; Vorschau zeigen, Besitzer verbessert dann.
-
-## Nachtrag 34 (2026-10-11, Besitzer, Screenshots im Vorschauordner n34/)
-- [x] Verstärkter Kessel: Item-Icon immer noch falsch.
-- [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen.
-- [x] Verstärkter Kessel: Item-Icon immer noch falsch. (claude-n34-tex: Item zeigt jetzt den 3D-Block wie Tiegel/Fässer/Holzkessel, 2D-Sprite entfernt; Client-Screenshot geprüft; Besitzer-Abnahme offen)
-- [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Besitzer wählte F1 aus E–I/F1–F3/G1–G3 – kurzer Deckel, matte Farben, alle 4 Stufen eingebaut statt D; Client-Abnahme offen)
-- [x] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell.
-- [x] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png).
-- [x] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern.,
-- [x] (claude-n37-ui: Variante c umgesetzt, Mockup-Klasse entfernt) (Mockups a/b/c fertig auf claude-n34-ui, previews/n34/tiegel-*; offen: Besitzer-Wahl, dann echte Umsetzung) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.,
-- [x] Verstärkter Kessel: Item-Icon immer noch falsch. (claude-n34-tex: Item zeigt jetzt den 3D-Block wie Tiegel/Fässer/Holzkessel, 2D-Sprite entfernt; Client-Screenshot geprüft; Besitzer-Abnahme offen)
-- [x] Farbkasten: Konzept D bleibt, aber 5 weitere Vorschläge zeigen. (claude-n34-tex: Besitzer wählte F1 aus E–I/F1–F3/G1–G3 – kurzer Deckel, matte Farben, alle 4 Stufen eingebaut statt D; Client-Abnahme offen)
-- [x] (claude-n37-ui: Variante c gewählt und umgesetzt) Enderit-Tiegel-GUI Varianten zeigen: (a) Tiegel + Fass nebeneinander, Inventar darunter; (b) Tiegel 4x7 statt 3x9, Fass im selben Format daneben; (c) 5x6-Format.
-- [x] Sand-/Kies-Stufen (gravity_slabs.png): untere Stufe – eine Stufe einen Block darüber fällt nicht auf sie; obere Stufe fällt gar nicht (schwebt); platzierte obere Gravity-Stufe teleportiert beim ersten Fall-Tick von oben nach unten, dann fällt sie. (claude-n34-phys: Halbfall auf gleichartige untere Stufe, obere fällt in eigener Zelle, Fall-Entity startet auf sichtbarer Höhe; 2 neue Tests)
-- [x] Holzkessel nimmt nur Vanilla-Lava: Enderit-Lava-Eimer (und alle Enderit-Eimer) auf Kompatibilität zu Vanilla-Interaktionen prüfen.
-- [x] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv.,
-- [x] Eichen-Kessel (Holzkessel) hat im Inventar kein 3D-Modell. (claude-n34-blocks: Item-Modell mit Block-Parent + GUI-Transform fuer alle Hoelzer; Client-Sicht offen)
-- [x] Checker-Treppen/-Stufen: Texturen weiterhin falsch orientiert (checker_stairs.png). (claude-n34-blocks: Zellmodelle je Form (weltbuendig, ohne uvlock), Datagen; Client-Sicht offen)
-- [x] Achtel-Blöcke im Inventar ca. 10 % kleiner rendern. (claude-n34-blocks: GUI-Skala 0.9 (Octet- und Schach-Achtel-Item))
-- [x] Sand-/Kies-Stufen (gravity_slabs.png): untere Stufe – eine Stufe einen Block darüber fällt nicht auf sie; obere Stufe fällt gar nicht (schwebt); platzierte obere Gravity-Stufe teleportiert beim ersten Fall-Tick von oben nach unten, dann fällt sie.
-- [x] Holzkessel nimmt nur Vanilla-Lava: Enderit-Lava-Eimer (und alle Enderit-Eimer) auf Kompatibilität zu Vanilla-Interaktionen prüfen. (claude-n34-blocks: CauldronBuckets (Item-Klasse statt Gleichheit) fuer Holzkessel; Gametest woodenCauldronTakesCrucibleBuckets)
-- [x] Geschnitztes Holz: ohne Scherbe gemeißelt → holzeigenes Motiv; mit Scherbe → Vanilla-Scherbenmotiv. (claude-n34-blocks: je Seite einzeln (none/wood/sherd + gemeinsames Motiv), Schleichen nimmt ab)
-- [x] Sculk Jaw: kein Flackern (Öffnen/Schließen) vor jedem Schaden, statisch geschlossen; Spieler stärker verlangsamen + Darkness; nur erster Treffer ~1 Herz Schaden, danach keiner; geschlossene Form schöner.
-- [x] (claude-n34-ui) Blaupause-Hilfe: die beiden Buttons (blueprint_help_buttons.png) mit Minecraft-Texturen statt eigenen rendern; Rezeptbuch-/Hilfe-Button unten bekommt einen Rahmen.
-- [x] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt.
-- [x] Öfen: Flammen-Textur mehr wie Vanilla (jetzt nur Wellenlinien). (claude-n34-tex: simpleinterfaces-Ofen-UIs – Flamme wie Vanilla statt Hitzewellen, brennt mit dem Brennstoff ab; Brennstoff-Slot mit Flammenzungen statt Zickzack; Block-Fronten waren schon Vanilla; Besitzer-Abnahme offen),
-- [x] Sculk Jaw: kein Flackern (Öffnen/Schließen) vor jedem Schaden, statisch geschlossen; Spieler stärker verlangsamen + Darkness; nur erster Treffer ~1 Herz Schaden, danach keiner; geschlossene Form schöner. (claude-n34-phys: bleibt zu solange jemand drin, 2 Schaden einmal, Bremse 0,12/0,02, Dunkelheit; Muschel-Modell, Vorschau n34/jaw.png; Client-Sicht offen)
-- [x] Blaupause-Hilfe: die beiden Buttons (blueprint_help_buttons.png) mit Minecraft-Texturen statt eigenen rendern; Rezeptbuch-/Hilfe-Button unten bekommt einen Rahmen.
-- [x] Magnet: Interaktion eines Items zwischen zwei Magneten weiterhin verbuggt. (claude-n34-phys: Ursache Schwebe-Ausgleich je 2-Tick-Takt → 0,02-Sägezahn jeden Tick; jetzt NoGravity solange gehalten + gedämpfte Feder, Freigabe per Mixin; 2 Repro-Tests)
-- [x] Öfen: Flammen-Textur mehr wie Vanilla (jetzt nur Wellenlinien).
-- [x] Itemfilter-Button deaktiviert = grau statt rot (rot = Fehler), überall anpassen.
-- [x] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla.,
-- [x] (claude-own1) Einstellungen-Taste G -> K (kollidierte mit Vanilla „Quick Actions“); KNOWN_COLLISIONS leer; Texte angepasst.
-- [x] (claude-own1) guide_book_vanilla_* komplett entfernt (Lang, Rezepte, Preise, Advancements, Texturen, Wiki); alte IDs -> guide_book (LegacyItemIds).
-- Notiz: Das QoL-Stufe-4-Modul heißt „Simple Loot“ (`simpleloot`), siehe docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md.,
-- [x] (claude-n34-ui) Itemfilter-Button deaktiviert = grau statt rot (rot = Fehler), überall anpassen.
-- [x] Froglights sehen nicht wie Vanilla aus (froglights.png) → wie Vanilla. (claude-n34-tex: Aufbau wie Vanilla – rundes Leuchten mit Schlieren / flacher Kern, nur eigene Farbe; Besitzer-Abnahme offen)
-
-## Nachtrag 35 (2026-10-11, Besitzer, Referenzen im Vorschauordner n35/)
-- [x] (claude-n35-render) Kisten (crates): Items in 3D sichtbar, etwas größer, 1 px Höhe, von überall in der Kiste sichtbar (Mischung aus crate_ref_apples.png und crate_ref_iso.png), nicht nur oben.
-- [x] Smither wirft Items nicht aus wie der Vanilla-Crafter → wie Crafter.
-- [x] (claude-n35-render) Kreativ-Baustab sieht nicht gut aus → wie die anderen Stäbe, nur in Sonder-Umfärbung.
-- [x] Astral-Verzauberer: Schrift der Verzauberungen kleiner wie Vanilla (wirkt gedrängt); Slider-Stufen farblich abstufen (Stufe 1 aktuelle Farbe, jede höhere Stufe dunklerer Shade); "x/∞" erklären/ersetzen; unter dem Buch-Button in einer Zeile Lapis (blauer Punkt) und Lohenstaub (orange-roter Punkt) mit Bedarf; Kosten-Konzept überarbeiten: max. Level 50, erst bei Max alle angezeigten Verzauberungen maximierbar, darunter weniger; Preis je Verzauberung nach Wert, plus „Steuer“ fürs Kombinieren (3 schwache < 50 Level, 3 starke = 50).,
-- [x] Kreativ-Baustab sieht nicht gut aus → wie die anderen Stäbe, nur in Sonder-Umfärbung.
-- [x] (claude-astral4) Astral-Verzauberer: Schrift der Verzauberungen kleiner wie Vanilla (wirkt gedrängt); Slider-Stufen farblich abstufen (Stufe 1 aktuelle Farbe, jede höhere Stufe dunklerer Shade); "x/∞" erklären/ersetzen; unter dem Buch-Button in einer Zeile Lapis (blauer Punkt) und Lohenstaub (orange-roter Punkt) mit Bedarf; Kosten-Konzept überarbeiten: max. Level 50, erst bei Max alle angezeigten Verzauberungen maximierbar, darunter weniger; Preis je Verzauberung nach Wert, plus „Steuer“ fürs Kombinieren (3 schwache < 50 Level, 3 starke = 50).
-- [x] End-Schiffswracks ca. 80 % vergraben + Endstein obendrauf (schwerer erkennbar).
-- [x] (claude-n35-render) Resonanz-Button im Inventar: Schrift kleiner, Button schmaler.
-- [x] Kessel aus entrindetem Holz (stripped oak usw.).
-- [x] (claude-n35-render) Gemeißeltes Eis: Motive symmetrischer/ausgewogener.
-- [x] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis.
-- [x] (claude-n35-buckets) Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
-- [x] (claude-n35-buckets) Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.,
-- [x] Kisten (crates): Items in 3D sichtbar, etwas größer, 1 px Höhe, von überall in der Kiste sichtbar (Mischung aus crate_ref_apples.png und crate_ref_iso.png), nicht nur oben.
-- [x] Smither wirft Items nicht aus wie der Vanilla-Crafter → wie Crafter. (claude-n35-world)
-- [x] Kreativ-Baustab sieht nicht gut aus → wie die anderen Stäbe, nur in Sonder-Umfärbung.
-- [x] Astral-Verzauberer: Schrift der Verzauberungen kleiner wie Vanilla (wirkt gedrängt); Slider-Stufen farblich abstufen (Stufe 1 aktuelle Farbe, jede höhere Stufe dunklerer Shade); "x/∞" erklären/ersetzen; unter dem Buch-Button in einer Zeile Lapis (blauer Punkt) und Lohenstaub (orange-roter Punkt) mit Bedarf; Kosten-Konzept überarbeiten: max. Level 50, erst bei Max alle angezeigten Verzauberungen maximierbar, darunter weniger; Preis je Verzauberung nach Wert, plus „Steuer“ fürs Kombinieren (3 schwache < 50 Level, 3 starke = 50).
-- [x] End-Schiffswracks ca. 80 % vergraben + Endstein obendrauf (schwerer erkennbar). (claude-n35-world)
-- [x] Resonanz-Button im Inventar: Schrift kleiner, Button schmaler.
-- [x] Kessel aus entrindetem Holz (stripped oak usw.). (claude-n35-world)
-- [x] Gemeißeltes Eis: Motive symmetrischer/ausgewogener.
-- [x] Rissiges Eis: beim Zerbrechen keine Wasserquelle; Weltgenerierung: Flecken in Eisseen u. ä. + vereinzelt 1x1-Stellen; Meißel macht normales Eis zu rissigem Eis. (claude-n35-world)
-- [x] Keramik-Eimer: Tooltip ohne Restgüsse (Abnutzungsbalken zeigt es) – Regel: Füllstand/Haltbarkeit nie doppelt im Tooltip; Lava nur einmal: Lava aufnehmen → spröde Variante, zerbricht beim Ausgießen.
-- [x] Kupfer-Eimer: Oxidation nur in Hotbar/Nebenhand (Tempo etwa wie Kupferblock), nicht im Inventar/Bündel, nicht beim Ausgießen; platzierter Eimer kann verwittern; gewachst: leer keine Reaktion, mit Wasser Reaktion mit halbem Tempo.
-
-## Nachtrag 36 (2026-10-11, Besitzer)
-- [x] (claude-questionary: Mechanik V1 – Modul simplequestionary, Block/GUI/Datenformat/Fallback/Fakten/Abdeckung/SB-Schalter/Wiki; offen: Texte für alle Items, Besitzer-Abnahme) Questionary Table (Tisch aus Buch + Lapis + Holz; Item links, Buch rechts mit 3 Seiten Lore/Nutzen/Geheim, für jedes Item, Fremd-Mod-Fallback mystisch): Konzept fertig in docs/ai/KONZEPT-QUESTIONARY-TABLE-2026-10-11.md (claude-concept-quest), Umsetzung nach Besitzer-OK (4 offene Fragen im Konzept).
-- [x] (claude-quest-modules: alle Module 0 fehlend, Vanilla 1658/1658 über 89 Familien + 250 Einzeleinträge unter `modules/simplequestionary/.../assets/minecraft/questionary`; `check_data.py --strict` grün, prüft Vanilla gegen `tools/questionary/vanilla_items.txt`; offen: Besitzer-Lektorat der Texte, Spiel-Abdeckungstest QuestionaryTests) Questionary-Texte befüllen (Welle 1 SimpleBuilding: claude-quest-sb, 821/821 EN+DE).
-
-## Nachtrag 37 (2026-10-11, Besitzer, Screenshots im Vorschauordner n37/)
-- [x] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran). (claude-jaw3 E–I gezeigt; Besitzer: Form bleibt)
-- [x] Sculk Jaw (N37): als Sculk tarnen (Vanilla-Sculk-Textur per Referenz, dunkle Zähne), Zuschnappen/Öffnen als Bildfolge (motion 2→0), helle Kantenlinien beseitigt (Auto-UV statt Texturfelder, verdeckte Flächen weg, cullface). (claude-jaw4; Bilder n37/jaw-*.png)
-- [x] (claude-n37-ui: Obsidian/Gold/Lapis-Block mit Buch, Glyphen-Partikel; GUI Lapis-Pult + Guide-Buch-Look) Fragentisch: viel epischer, Block an Zaubertisch erinnernd; UI besonders schön, an das Guide-Buch erinnernd, im modernen UI-Stil der Mod.
-- [x] (claude-n37-ui: simplelib UiSlotIcons/UiPalette.slotIcon, Vanilla-Kontrast je Thema, SB-Fenster + simpleinterfaces) UI-Farbvarianten (z. B. braun): Hintergrund-Symbole der Slots nicht korrekt sichtbar (brown_ui_icons.png).
-- [x] (claude-n37-ui: Tooltip rechts neben dem Fenster; Preis skaliert streng monoton, 50 nur bei voller Wahl; Besitzer-Nachtrag: Preis = benötigte Stufe, kostet 1-5 Level) Astral-Verzauberer: Tooltip der Verzauberungen immer rechts neben dem gesamten UI; Preis bleibt bei 50, obwohl eine Stufe weniger gewählt ist (astral_max.png / astral_one_less.png) → Preis muss bei weniger Stufen sinken.
-- [x] (claude-n37-ui) Verstärkter Tiegel: Slots 2x6 statt 3x4.
-- [x] (claude-n37-ui: Besitzer-Wahl Variante c, 5x6 = 30 Plätze, Fass daneben, Inventar zentriert darunter; alte 27er-Inhalte laden per Index) Enderit-Tiegel mit Fass: über dem Inventar rendern, Inventar zentriert.
-
-## Nachtrag 38 (2026-10-11, Besitzer)
-- [x ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen. (claude-jaw5: Bremse 0,06/0,015; Blindheit d(t)=min(60,max(3,3·(5/3)^(t−2))) s + Dunkelheit; gedämpfte Knochenspitzen; Bilder n38/jaw-*.png. Volle-Blöcke-Regel liegt schon auf claude-n37-world 032663492)
-- [x] (claude-n38) Schachfiguren: flache Variante heißt "Flat …" (Flat Rook, Flat Knight, …).
-- [x] (claude-n38) Wayfinder-Karten-GUI: so groß wie möglich; seitliche Lesezeichen-Buttons schöner und weniger gedrängt (rechts), Buttons allgemein hübscher.
-- [x] (claude-n38) Nether-/End-Wayfinder-Karten zeigen in der Hand die Oberwelt → stattdessen Störsignal.
-- [x] (claude-n38) Deceiver: doppeltes Leben; nach Verwandlung in größeren Mob dessen Hitbox.
 
 ## Nachtrag 38b (2026-10-11, Besitzer, Deceiver Stufe 2 – in Arbeit auf claude-deceiver2)
 - [ ] Tarn-Umhang (Brustplatz): Erkennung erst im 3-Block-Radius; Rechtsklick auf Mob/Spieler → Verwandlung (Spieler mit Skin + Rüstung); Schlag/Abbauen → Rückverwandlung; Enttarnung: angegriffener Mob + 5x5, danach erhöhter, aber verringerter Radius.
@@ -824,92 +288,20 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Furcht-Mobs (Konzept KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md „Furcht-Mob – Vorschläge“): F-A „Dread“ – spawnt NICHT natürlich, wird per Golem-Mechanik aus Blöcken gebaut/beschworen; F-C „Hollow Watcher“ im End (Außeninseln). Beide mit Zittern-Aura. (claude-fear-mobs)
 - [x] Jar-Weitergabe an Zentrale-Downloads eingerichtet (nach grünem Gate: dist-publish.sh → sb-agent → sb-web, atomar; Backups *.bak-20261012). (claude-jar-dist)
 - [ ] Stärkerer Wither + Biom-Pinsel umsetzen (Konzept docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md, Wither „halt stärker“).
-- [ ] Niedlicher End-Mob: passive Endermite-Varianten in Ash Valley/Dawnlands, knabbern Endstein → durchwühlter Endstein (erholt sich wie Gras nach Schaf). (in claude-simple-end)
-- [ ] Simple Respawn umsetzen (Besitzer 12.10.): niedergeschlagen statt tot; eigener Todesbildschirm mit Buttons Zuschauen (Bildschirm zu, Kamera 360° drehbar), Aufgeben (erst dann echter Tod), Inventar (nur ansehen, nicht bearbeiten; auf/zu); Mitspieler kann innerhalb einer Frist wiederbeleben (danach 3 Herzen, 0 Hunger). Konzept KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md Teil B. (claude-respawn)
+- [x] Niedlicher End-Mob: passive Endermite-Varianten in Ash Valley/Dawnlands, knabbern Endstein → durchwühlter Endstein (erholt sich wie Gras nach Schaf). (in claude-simple-end) (Audit 12.10. erledigt: Nibblemite in claude-wave1 (cc79c81b9))
+- [x] Simple Respawn umsetzen (Besitzer 12.10.): niedergeschlagen statt tot; eigener Todesbildschirm mit Buttons Zuschauen (Bildschirm zu, Kamera 360° drehbar), Aufgeben (erst dann echter Tod), Inventar (nur ansehen, nicht bearbeiten; auf/zu); Mitspieler kann innerhalb einer Frist wiederbeleben (danach 3 Herzen, 0 Hunger). Konzept KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md Teil B. (claude-respawn) (Audit 12.10. erledigt: Simple Respawn in claude-wave1 gemergt (8632d24a7))
 - [x] Baustab-Kerne: Besitzer 12.10. – bleiben reine Crafting-Zutat, keine Zusatzfunktionen.,
 - [x] Simple Respawn umsetzen (Besitzer 12.10.): niedergeschlagen statt tot; eigener Todesbildschirm mit Buttons Zuschauen (Bildschirm zu, Kamera 360° drehbar), Aufgeben (erst dann echter Tod), Inventar (nur ansehen, nicht bearbeiten; auf/zu); Mitspieler kann innerhalb einer Frist wiederbeleben (danach 3 Herzen, 0 Hunger). Konzept KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md Teil B. (claude-respawn: neues Sub-Mod simplerespawn, Plan docs/ai/PLAN-SIMPLE-RESPAWN-2026-10-12.md)
-- [ ] Baustab-Kerne: Besitzer-Entscheidung zu Mechanik/Funktionen (docs/BAUWERKZEUGE-INTERAKTIONEN.md Teil 4).
-- [ ] Mega-Handbücher erst, wenn alle Mods fertig sind.
-
-## Nachtrag 46 (2026-10-12, Besitzer; Screenshot docs/ai/refs/n44/n46_inventar.png)
-- [ ] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf).
-- [x] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen. (claude-n46-tex: Stufen im B4-Stil eingebaut)
-- [x] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher. (claude-n46-tex: R3 eingebaut, Bücherreihe an den Seiten, niedrige Lapis-Kante)
-- [x] Astral- und Nihil-Gewölbe (vault): Endertruhen-Stil, bleibt Truhe. (claude-n46-tex: A2 + Gold, N2 + Silber eingebaut; Vanilla-ender.png zur Generierungszeit aus dem Client-Jar wie D9),
-- [x] Hollow Howler (Tiefenheuler): etwas stärker als der Warden, hält den Spieler auf Trab (mehr Druck/Abwechslung im Kampf). (claude-howler4: 550 HP/8 Rüstung, Schockwelle/Ansturm/Ranken mit Ankündigung)
-- [ ] Farbkasten: nur die Basis-Stufe hat die neue Textur (B4) → verstärkt/Netherit/Enderit im gleichen Stil angleichen.
-- [ ] Fragentisch (questionary table): wirkt zu „modded“ → Vorschläge, vanillanäher.
-- [ ] Astral- und Nihil-Gewölbe (vault): wirken gar nicht Vanilla → an Vanilla-Vault/Trial-Stil angleichen (Vorschläge).
-
-## Nachtrag 45 (2026-10-12, Besitzer)
-- [x] Lohen-Obsidian (blazing_obsidian): B1 animiert + nahtlos (claude-n45-obsidian); Astral-Tisch Oberseite/Seiten animiert, Nebel unter dem Tuch.
-- [x] Astral-Verzauberer: Modell kleiner als Textur → oben abgeschnitten; Textur an Modellmaße anpassen. (claude-n45-tex: Seite für 16x12-Modell, Motiv in Zeilen 4–15)
-- [ ] Shellker: Gravity-Effekt 30 s (hat man ihn schon: 1 min); schießt ~1,2× schneller; Projektil die ersten 2 s unzerstörbar; nach dem Öffnen der Schale schießt er fast sofort (Schlag-Spam bis zum Tod verhindern).
-- [x] End-Holz/Biom-Antworten komplett (Konzept docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md, Abschnitt Besitzer-Antworten). Umsetzung: claude-simple-end.
-
-## Nachtrag 44 (2026-10-12, Besitzer)
-- [ ] Astral- und Nihilith-Lampen: neue Texturen fast wie Kupferlampe, aber End-Version (Referenz docs/ai/refs/n44/end_lamp_ref.png). Hinweis: Lampen wurden in Nachtrag 36 entfernt → wieder einführen als Lampe ihrer Redstone-Linie (an/aus wie Kupferlampe), Migration der Alt-Ids anpassen. Erst 3 Textur-Vorschläge.
-- [x] (claude-simple-end: Aschholz/Dämmerholz, Knospen, Bäume, Biome Aschental/Dämmerlande, Modul simpleend) Neue End-Holzart (grau, leicht braun, blass), alle Holzblöcke (Stamm, entrindet, Holz, Bretter, Treppe, Stufe, Zaun, Tor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Boot/Kistenboot, Blätter?), eigenes End-Design. Quelle: neue Blume (Knospe), mit Knochenmehl auf Endstein, braucht Licht: hell → mächtiger großer End-Baum; dunkel → schmales hohes End-Gestrüpp (Stöcke als Holz). Wächst im End. Erst Textur-Vorschläge + Baumformen. Im End natürlich schmal, chorusartig; neues Biom (Chorus, End-Gras/Büsche, Knospen), Tint grau-braun. Konzept: docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md (Lücken offen).
-
-## Nachtrag 43 (2026-10-12, Besitzer)
-- [ ] Testzentrale: alle Mods-Mobs testbar (Spawner/Spawn-Eier + passende Umgebung je Mob); Shellker mit End-Gateway-Struktur an einer Stelle. (claude-testcenter-mobs)
-- [x] UI-Konzepte in echte UIs übertragen (Nachtrag 16), Start jetzt. (claude-ui-concepts; Besitzer-Abnahme offen)
-- [ ] Tiegel-Feuer weiterführen (Nachtrag 14). (claude-crucible-fire)
-- [ ] Claim-System fertigstellen und testen. (claude-claims)
-- [ ] Shellker: Besitzer hat ihn noch nicht gesehen → Screenshot nach Testzentrale-Umbau.
+- [x] Baustab-Kerne: Besitzer-Entscheidung zu Mechanik/Funktionen (docs/BAUWERKZEUGE-INTERAKTIONEN.md Teil 4). (Audit 12.10. erledigt: Besitzer 12.10. (N47): Kerne bleiben reine Crafting-Zutat, keine Zusatzfunktionen)
+- [x] Mega-Handbücher erst, wenn alle Mods fertig sind. (Audit 12.10. Dublette, zusammengeführt mit Zeile 80 / Überblick: (Mega-Handbücher, E))
 
 ## Nachtrag 42 (2026-10-12, Besitzer)
-- [ ] End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln.
-- [ ] Death Vault (Besitzer 12.10.: bauen in Simple Tools, Konzept-Antworten verbindlich): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig). Konzept: `docs/ai/KONZEPT-DEATH-VAULT-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.
-- [ ] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst. Konzept: `docs/ai/KONZEPT-SOULBOUND-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.,
+- [x] End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln. (Audit 12.10. erledigt: End-Gras in simpleend (Zwilling oben ist abgehakt))
+- [x] Death Vault (Besitzer 12.10.: bauen in Simple Tools, Konzept-Antworten verbindlich): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig). Konzept: `docs/ai/KONZEPT-DEATH-VAULT-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort. (Audit 12.10. erledigt: Death Vault gebaut (claude-soulbound, bc4d2309c))
+- [x] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst. Konzept: `docs/ai/KONZEPT-SOULBOUND-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort., (Audit 12.10. erledigt: Soulbound gebaut (claude-soulbound, bc4d2309c))
 - [x] (claude-simple-end: end_grass/end_bush in simpleend, Biom-Tint) End-Gras: wie totes Gras/tote Büsche (Vanilla dead bush / short dry grass), Farbe wie Endstein; wächst/platzierbar auf Endstein, Weltgenerierung auf den End-Inseln.
-- [ ] Death Vault (NUR KONZEPT, nicht umsetzen): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig).
-- [ ] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst.,
+- [x] Death Vault (NUR KONZEPT, nicht umsetzen): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig). (Audit 12.10. erledigt: Zwilling: Death Vault gebaut (claude-soulbound))
+- [x] Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst., (Audit 12.10. erledigt: Zwilling: Soulbound gebaut (claude-soulbound))
 - [x] (claude-soulbound) Death Vault (Besitzer 12.10.: bauen in Simple Tools, Konzept-Antworten verbindlich): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig). Konzept: `docs/ai/KONZEPT-DEATH-VAULT-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.
 - [x] (claude-soulbound) Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst. Konzept: `docs/ai/KONZEPT-SOULBOUND-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.
 - [ ] Simple Creatures umbenennen in „Simple Mob Manners“ (Besitzer-Wahl 12.10.), Id simplemobmanners, mit Namespace-/Config-Migration (simplecreatures → simplemobmanners), Zentrale/Wiki/Lang anpassen.
-
-## Nachtrag 41 (2026-10-12, Besitzer)
-- [x] Wollknäuel (ball of yarn) craftbar aus Wollblock: 1 Wolle → 2 Knäuel. (claude-n41-fix: Rezept `yarn_ball_from_wool` gab es auf 26.3 schon, #wool, alle 16 Farben; Gametest `recipes_use_any_wool_and_eight_yarn`)
-- [x] Sculk Jaw: Zähne offen dezenter; Darkness statt Blindness. (claude-n41-fix: offene Zähne kleiner, Oberseite blass; Dunkelheit mit der exponentiellen Dauer, keine Blindheit)
-- [x] Holzkessel entrindet (stripped): 3D-Modell fehlt die Variante → fixen. (claude-n41-fix: eigenes Item-Modell mit Block-Darstellung für alle 12 Holzarten)
-- [x] Tooltip Basic Upgrade „applies to“ abkürzen (z. B. „Stone–Gold equipment“). (claude-n41-fix: „Wood–Gold Equipment“ / „Holz- bis Gold-Ausrüstung“, Basen der Rezepte sind Holz bis Gold)
-- [x] Leather Sheet: Item größer, zentriert, richtige Größe im Slot. (claude-n41-fix: 14x14 mittig)
-- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Enderquarz: Form gleich, Farben/Stil anpassen (Vorschläge).
-- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Blaze Book: wie Vanilla-Buch, nur epischer; Rezept 8 Lohenstaub + Buch (Vorschläge).
-- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Hufeisen: Form gleich, Textur überarbeiten (Vorschläge).
-- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Blöcke Bild 1 (docs/ai/refs/n41/bloecke.png): MC-Stil, epischer, fließender, nicht stechend; je 3 Vorschläge, Web-Referenzen.
-- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Bild 2 (docs/ai/refs/n41/items.png: Farbkasten, Rucksack, 2 Faser-Ringe): je 5 Vorschläge; Fasern mehr wie Fasern; Rucksack-Item-Textur zusätzlich als Render des 3D-Modells vorschlagen.
-- [x] (claude-n41-tex: A3/A6/A9/A12/A15/A18/A21, B4, C2, R4, F11, F16, D9, E5) Regel: bei Textur-Überarbeitungen immer Referenzen aus dem Internet suchen.
-- [x] Trainingspuppe: Körper flackert mit Kürbiskopf (Z-Fighting). (claude-n41-fix)
-- [x] Kleiner Rüstungsständer: Stein-Bodenplatte flackert; Helm zu hoch, Stiefel zu niedrig. (claude-n41-fix: Vanilla-Platte aus, Helm 3 px tiefer, Stiefel auf der Platte)
-- [x] Jukebox wie Vanilla (keine Änderung); Verstärker in Reichweite (63 Blöcke) spielt den Ton ohne Verzögerung mit, Spieler hört ihn vom Verstärker. (claude-n41-fix: keine Verstärkung mehr, Funk 63, Kette bleibt; Gametest `jukebox_stays_vanilla_and_amplifier_plays_along`)
-- [x] Rods/Poles: alle Mod-Rods heißen „Pole“ (Iron/Gold/Netherite/Enderite Pole); Diamond Pole (3 Diamanten, 3D wie Blitzableiter) vs. Diamond Rod (Pfeile usw.) trennen. (claude-n41-fix: neue IDs *_pole mit Alias, Diamantstange 80 Blöcke, Diamantstab 2 Diamanten; Gametest `old_rod_ids_load_as_poles`)
-
-## Nachtrag 40 (2026-10-11, Besitzer)
-- [x] (claude-dragon) Neues Sub-Modul Simple End Dragon Fight (Konzept + Skalierungs-Vorschläge zuerst): ab halbem Leben alle 30 s Dragonmites (eigene Endermites, nur mit Drache) nahe dem Brunnen; +1 Leben je Spieler, automatische Anpassung, wenn neue Spieler die End-Insel (mit Puffer) betreten; Eintritts-Animation + Partikel je Spieler (Warteschlange, jeder Trigger sichtbar); Drache allgemein schneller.
-- [x] (claude-n40) Geschnitztes Holz rundherum (alle Seiten), nicht nur eine Seite. (ein Meißel-Klick schnitzt alle 4 Seiten, Schleichen nimmt alles ab; Zustand carving+motif, alte Zustände migriert)
-- [x] (claude-n40) Blaupause: Ziehen (Drag) rotiert das Modell beim geraden Ziehen weiterhin. (Ursache: Bild-Trackball kippte das geneigte Modell mit und sammelte Rollen an; jetzt Drehteller Gier/Neigung getrennt, rechte/mittlere Taste verschiebt)
-- [x] (claude-n40) Screenshot buggy_end.webp (n40/): verbuggt aussehende Fläche im End prüfen. (Testzentrale im End gebaut: Glattstein+Seelaternen; /sbtestcentre nur noch in der Oberwelt)
-
-## Nachtrag 39 (2026-10-11, Besitzer)
-- [x] Tiegel-Hitboxen (alle Stufen, mit angedocktem Fass, SimpleLib + SB): Henkel fehlten im Umriss und drehten nicht mit; Rohling-Stufen waren Vollwürfel; Innenraum-Interaktionsform ergänzt; Gametest `crucible_hitboxes_match_model` (claude-n39-fix)
-- [x] Verstärker einmal durchgeprüft (Funktion/Kette/Noten/Hitbox/Texturen/Tests: ohne Befund außer fehlendem Tooltip); Tooltip für Musik-/Noten-Verstärker (en/de) + Gametest `amplifiers_have_tooltip_and_full_cube_hitbox` (claude-n39-fix),
-- [ ] Sculk Jaw: Spieler noch langsamer; Blindheits-Dauer wächst exponentiell mit der Zeit drin (raus innerhalb 2 s ≈ 3 s, 3 s ≈ 5 s, max. 60 s); geschlossen die Knochen-Zähne zeigen.
-- [x] Tooltips überall überarbeiten: nur an wichtigen Stellen Beschreibung, sonst nur Name; Beschreibungen sehr kurz. (claude-n38-text; Regel AGENTS.md Punkt 14)
-- [x] Guide-Bücher erweitern, alles aktuell. (claude-n38-text: Keramik-Eimer, Kupfereimer-Regeln, Auto-Schmied, geschnitztes Holz, Holzkessel, rissiges Eis, Schwefel-/Kupferfeuer, Schwarzpulver, Kisten, Sculk Jaw, Astral-Preise; Fragentisch/Tiefenheuler: Module ohne Guide),
-- [x] Nihilith-Signalschalter überarbeiten; Konzept Astral-/Nihil-Redstone erklären. (claude-redlines: entfällt durch Nachtrag 36 – Schalter/Lampen entfernt, Konzept in docs/ai/PLAN-REDSTONE-LINIEN-2026-10-11.md und Wiki „Astral-, Nihil- und Brücken-Redstone“)
-
-## Nachtrag 36 (2026-10-11, Besitzer: Astral/Nihil als 2./3. Redstone-Linie)
-- [x] (claude-redlines) Astral- und Nihil-Redstone verhalten sich 1:1 wie Redstone-Draht (alle Vanilla-Quellen speisen, powern dieselben Blöcke, 15→0, Schrägen, Optik); drei getrennte Linien, auch über gepowerte Blöcke (Plan docs/ai/PLAN-REDSTONE-LINIEN-2026-10-11.md).
-- [x] (claude-redlines) Brücken-Redstone (Astralitstaub + Nihilitsplitter + Redstone → 3) verbindet alle drei Linien; Textur aus den drei Farben.
-- [x] (claude-redlines) Astral-/Nihil-Schalter und -Lampen entfernt; alte Blöcke/Items laden als Hebel bzw. Redstone-Lampe (LegacyItemIds.REPLACED_BY_VANILLA); End-Kolben/-Schienen hören auf den Staub ihrer Linie.
-- [x] (claude-redlines) Lang EN/DE, Guide, Wiki, JEI-Info, Simple-Money-Preise, Testzentrale, Gametests (RedstoneLinesTests).,
-- [x] Platzierte Bündel: Items 3D (1 px tief) rendern. (claude-n37-world)
-- [x] Placeables gezielt abbauen: das angeschaute Teil wird abgebaut. (claude-n37-world)
-- [x] Platzierter Ziegenhorn: Textur korrekt, aber nicht schön → verbessern. (claude-n37-world)
-- [x] Kisten von der Seite: Inhalt nicht erkennbar → seitlich Item-Texturen zeigen (crate_side.png). (claude-n37-world)
-- [x] Enderit-Eimer: Tooltip nur Titel. (claude-n37-world)
-- [x] Eimer: keine Haltbarkeitslinie rendern. (claude-n37-world)
-- [x] Auf der Truhe des Enderit-Boots stehen: man buggt und bewegt sich langsam (Vanilla anscheinend auch) → beheben. (claude-n37-world: Mod-Kistenboote; Vanilla-Boote unverändert)
-- [x] Sculk Jaw nur auf vollen Blöcken platzierbar. (claude-n37-world)
