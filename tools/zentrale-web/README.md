@@ -58,8 +58,9 @@ Super-Mod, die per Jar-in-Jar ohnehin mitkommen). Ohne `off` = alles an. Fertige
 Der Reiter liest `downloads/index.json` (neben der Seite, nicht eingecheckt). Nach einem grünen Gate (Gate + Standalone)
 im Gate-Checkout `publish_downloads.sh <ref> "<VERDICT-Zeile>" "<Standalone-Zeile>" <Gate-Start>` aufrufen; es sammelt die
 Release-Jars aller Loader/MC-Versionen (`*/build/libs`, ohne `-sources`/`-dev`, nur jünger als der Gate-Start) nach
-`files/<commit>/<loader>/<mc>/` und behält die letzten drei Stände. Mit `DOWNLOADS_TARGET` wird per rsync auf den Webserver kopiert;
-der Webserver liefert den Ordner unter `/downloads/` aus (hinter demselben Zugangsschutz).
+`files/<commit>/<loader>/<mc>/` und behält die letzten drei Stände. Der Gate-Lauf ruft das nach GRUEN automatisch auf (baut vorher alle Loader-Jars) und schickt den Ordner per tar ueber ssh an den
+Hub-Rechner; der Webserver holt ihn dort bei geaendertem `index.json` ab und tauscht den Ordner atomar (Symlink). Er liefert ihn
+unter `/downloads/` aus (hinter demselben Zugangsschutz). Die Hosts stehen nur in den Skripten ausserhalb des Repos.
 
 ## Vorschau
 `python3 tests/harness.py --port 8765` (Mock-Status, Mock-Downloads, echte API mit festem Login) und im Browser öffnen;
