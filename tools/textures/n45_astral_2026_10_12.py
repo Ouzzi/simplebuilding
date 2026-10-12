@@ -63,7 +63,7 @@ def side_frame(f):
                 + 0.45 * (0.5 + 0.5 * math.sin(TAU * 3 * x / 16 - 0.5 * y + ph))
             im.putpixel((x, y), pick(VIOLET[:6], 0.1 + 0.5 * v * (1.0 - 0.15 * (y - 4) / 11)))
     for x in range(3, 13):
-        depth = 4 + (3 if 5 <= x <= 10 else 2 if x in (4, 11) else 1)
+        depth = 6 + (3 if 5 <= x <= 10 else 2 if x in (4, 11) else 1)
         if 7 <= x <= 8:
             depth += 1
         for y in range(4, depth):   # cloth = the top's obsidian rim colour

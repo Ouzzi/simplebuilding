@@ -26,17 +26,17 @@ import n45_2026_10_12 as n45  # noqa: E402
 FRAMES = 8
 ANIMATION = {'interpolate': True, 'frametime': 8}
 RIM, GLOW, HOT, WHITE = H('4a1203'), H('b04606'), H('ff8a1c'), H('ffd070')
-WAVE = 7.0   # pixels per glow wave along a vein
+WAVE = 10.0   # pixels per glow wave along a vein
 
 
-def veins(seed=4551, count=4):
+def veins(seed=4551, count=3):
     """Long 8-connected walks on the torus (flow mostly downward/diagonal), each a list of (x, y), no self touching."""
     rnd = random.Random(seed)
     taken = set()
     out = []
     while len(out) < count:
         x, y = rnd.randrange(16), rnd.randrange(16)
-        length = rnd.randint(12, 16)
+        length = rnd.randint(10, 13)
         dx, dy = rnd.choice(((1, 1), (-1, 1), (0, 1), (1, 0)))
         path = []
         for _ in range(length):
@@ -49,7 +49,7 @@ def veins(seed=4551, count=4):
             if rnd.random() < 0.4:   # mostly keep the heading, sometimes bend
                 dx, dy = rnd.choice(((0, 1), (1, 1), (-1, 1), (1, 0), (-1, 0), (1, -1)))
             x, y = (x + dx) % 16, (y + dy) % 16
-        if len(path) >= 9:
+        if len(path) >= 8:
             out.append(path)
         else:
             taken -= set(path)
@@ -73,11 +73,11 @@ def blazing_frame(f, paths=None):
         for s, (x, y) in enumerate(path):
             phase = s / WAVE - f / FRAMES + pi * 0.37
             wave = 0.5 + 0.5 * math.cos(2 * math.pi * phase)
-            cells[(x, y)] = 0.18 + 0.82 * wave ** 1.6
+            cells[(x, y)] = 0.2 + 0.45 * wave
     for (x, y) in cells:   # dark ember rim on the free neighbours, like the dark edge of the tears
         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             p = ((x + dx) % 16, (y + dy) % 16)
-            if p not in cells and n41.hsh(*p, 5) < 0.45:
+            if p not in cells and n41.hsh(*p, 5) < 0.2:
                 im.putpixel(p, RIM)
     for (x, y), t in cells.items():
         im.putpixel((x, y), ramp(t))
@@ -155,6 +155,7 @@ img{{image-rendering:pixelated;max-width:100%;height:auto}} li{{color:var(--mut)
 <figure><figcaption><b>Alle {FRAMES} Frames</b><span>8x, nebeneinander</span></figcaption>
 <div class="row">{''.join(f'<img src="{png(f, 4)}" width="64" height="64" alt="Frame {i}">' for i, f in enumerate(fr))}</div></figure>
 {van}
+{_before_after_html()}
 {_astral_html()}
 <h2>Referenzen</h2><ul>
 <li>Vanilla 26.3 Client-Jar: block/crying_obsidian (nur gelesen, Grund und Aderprinzip)</li>
@@ -179,7 +180,7 @@ def _astral_html():
     """Astral enchanting table before (N41 A3 / N45 side) and after (animated), top and side as GIFs + render."""
     import n45_astral_2026_10_12 as ast
     top0, _old_side, bottom = n41.astral_table(2, round_top=True)
-    old_side = n45.astral_table_side()
+    old_side = frames_of(_prev('astral_enchanting_table_side'))[0]
     new = ast.textures()
     t = frames_of(new['block/astral_enchanting_table_top'])
     sd = frames_of(new['block/astral_enchanting_table_side'])
@@ -195,11 +196,29 @@ def _astral_html():
         frs[0].save(b, 'GIF', save_all=True, append_images=frs[1:], duration=100, loop=0)
         return 'data:image/gif;base64,' + base64.b64encode(b.getvalue()).decode()
     return f'''<h2>Astral-Verzauberungstisch: vorher / nachher</h2>
+<p>Feedback-Tweak: Tischdecke haengt an den Seiten 2 Zeilen weiter herab.</p>
 <p>Oberseite: Nebel-Wirbel dreht sich, Glanzpunkt laeuft ueber den Goldring, Eckkristalle funkeln. Seiten (Modell 12 px hoch, Zeilen 0-3 leer): Nebel-Muster jetzt UNTER dem Tuch, das Tuch hat die Obsidian-Farbe des Oberseiten-Rands; Saum glitzert, Sterne funkeln. Beide 8 Frames, interpolate, frametime 6.</p>
-<figure><figcaption><b>vorher</b><span>statisch (Top N41 A3, Seite N45)</span></figcaption>
+<figure><figcaption><b>vorher</b><span>vorherige Fassung, Frame 0 (Tuch kuerzer)</span></figcaption>
 <div class="row"><img src="{png(top0, 8)}" width="128" height="128" alt="Oberseite vorher"><img src="{png(old_side, 8)}" width="128" height="128" alt="Seite vorher"><img src="{render(top0, old_side)}" width="128" height="128" alt="Render vorher"></div></figure>
 <figure><figcaption><b>nachher</b><span>animiert (GIF)</span></figcaption>
 <div class="row"><img src="{gif(seqt, 8)}" width="128" height="128" alt="Oberseite nachher"><img src="{gif(seqs, 8)}" width="128" height="128" alt="Seite nachher"><img src="{rgif(0)}" width="128" height="128" alt="Render nachher"></div></figure>'''
+
+
+def _prev(name):
+    """Strip as committed in HEAD (the version before the owner's feedback tweak)."""
+    import subprocess
+    root = Path(__file__).resolve().parents[2]
+    d = subprocess.run(['git', 'show', f'HEAD:mc26_3/overlay/resources/assets/simplebuilding/textures/block/{name}.png'],
+                       cwd=root, capture_output=True, check=True).stdout
+    return Image.open(io.BytesIO(d)).convert('RGBA')
+
+
+def _before_after_html():
+    so, sn = interpolated(_prev('blazing_obsidian')), interpolated(blazing_strip())
+    return f'''<h2>Feedback-Tweak: Lohen-Obsidian dezenter</h2>
+<p>3 statt 4 Adern, kuerzer und dunkler, kaum Rand, ruhigere Welle (laengere Wellenlaenge, kleinere Helligkeitsspanne, kein heisser Kern).</p>
+<figure><figcaption><b>vorher / nachher</b><span>3x3 animiert</span></figcaption><div class="row">
+<img src="{gif(so, 6, 3)}" width="288" height="288" alt="vorher 3x3"><img src="{gif(sn, 6, 3)}" width="288" height="288" alt="nachher 3x3"></div></figure>'''
 
 
 if __name__ == '__main__':
