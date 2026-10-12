@@ -28,6 +28,8 @@ import net.minecraft.resources.Identifier;
  */
 public class DummyStuffingLayer extends RenderLayer<ArmorStandRenderState, ArmorStandArmorModel> {
     public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("simplebuilding", "textures/entity/training_dummy/stuffing.png");
+    /** Aufblasen des Rumpfs gegen Z-Fighting mit Kuerbiskopf und Hueftstange (N41), in Modell-Pixeln. */
+    public static final float BODY_INFLATE = 0.02F;
     private final ModelPart head;
     private final ModelPart body;
 
@@ -36,7 +38,11 @@ public class DummyStuffingLayer extends RenderLayer<ArmorStandRenderState, Armor
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
         root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F), PartPose.ZERO);
-        root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F), PartPose.ZERO);
+        // Besitzer N41 (Flackern): der Kopf des Ruestungsstaenders sitzt 1 px tiefer als beim Spieler, Kuerbis und Rumpf
+        // teilen sich dadurch die Seitenflaechen x = +-4 auf 1 px Hoehe; ebenso die Hueftstange (x = +-4, y = 12). Der Rumpf
+        // ist deshalb um BODY_INFLATE aufgeblasen und liegt sauber aussen.
+        root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F,
+                new net.minecraft.client.model.geom.builders.CubeDeformation(BODY_INFLATE)), PartPose.ZERO);
         ModelPart baked = LayerDefinition.create(mesh, 64, 32).bakeRoot();
         this.head = baked.getChild("head");
         this.body = baked.getChild("body");

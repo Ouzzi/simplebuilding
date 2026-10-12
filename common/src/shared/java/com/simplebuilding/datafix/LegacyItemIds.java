@@ -31,9 +31,26 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class LegacyItemIds {
 
-    /** Block items renamed on 26.3; their placed blocks use the same aliases. */
-    public static final Map<String, String> RENAMED_BLOCKS = com.simplebuilding.version.McVersion.END_SYSTEMS
-            ? Map.of("astralit_powder", "astral_redstone", "nihilith_powder", "nihil_redstone") : Map.of();
+    /**
+     * Block items renamed; their placed blocks use the same aliases. End redstone on 26.3; the metal lightning rods
+     * became poles (owner N41, every line with {@code GADGET_REWORK}; the Diamond Rod item keeps its id).
+     */
+    public static final Map<String, String> RENAMED_BLOCKS = renamedBlocks();
+
+    private static Map<String, String> renamedBlocks() {
+        Map<String, String> out = new java.util.LinkedHashMap<>();
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            out.put("astralit_powder", "astral_redstone");
+            out.put("nihilith_powder", "nihil_redstone");
+        }
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            out.put("iron_rod", "iron_pole");
+            out.put("gold_rod", "gold_pole");
+            out.put("netherite_rod", "netherite_pole");
+            out.put("enderite_rod", "enderite_pole");
+        }
+        return java.util.Collections.unmodifiableMap(out);
+    }
 
     /**
      * Removed blocks (and their items) that now load as a vanilla block (Nachtrag 36, 2026-10-11): Astral/Nihil Redstone

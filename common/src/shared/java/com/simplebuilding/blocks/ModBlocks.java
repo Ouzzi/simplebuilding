@@ -263,22 +263,28 @@ public class ModBlocks {
             .pushReaction(McVersion.PUSH_DESTROYS))) : null;
 
     // Eisenstab (2026-10-02): Blitzableiter aus Eisen, zieht Blitze nur in 32 Bloecken an (MetalRodBlock).
-    public static final Block IRON_ROD = McVersion.GADGET_REWORK ? registerBlock("iron_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+    public static final Block IRON_POLE = McVersion.GADGET_REWORK ? registerBlock("iron_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
             com.simplebuilding.blocks.custom.MetalRodBlock.IRON_RANGE, s
             .mapColor(MapColor.METAL).forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F)
             .sound(SoundType.METAL).noOcclusion())) : null;
     // Goldstab (2026-10-02): Blitzableiter aus Gold, zieht Blitze in 64 Bloecken an (MetalRodBlock).
-    public static final Block GOLD_ROD = McVersion.GADGET_REWORK ? registerBlock("gold_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+    public static final Block GOLD_POLE = McVersion.GADGET_REWORK ? registerBlock("gold_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
             com.simplebuilding.blocks.custom.MetalRodBlock.GOLD_RANGE, s
             .mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.0F, 6.0F)
             .sound(SoundType.METAL).noOcclusion())) : null;
+    // Diamantstange (Besitzer N41): Blitzableiter aus drei Diamanten wie die anderen Stangen, Reichweite 80; Haerte, Klang
+    // und Kartenfarbe wie der Diamantblock. Der Diamantstab (Item, Pfeilschaft) bleibt getrennt.
+    public static final Block DIAMOND_POLE = McVersion.GADGET_REWORK ? registerBlock("diamond_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+            com.simplebuilding.blocks.custom.MetalRodBlock.DIAMOND_RANGE, s
+            .mapColor(MapColor.DIAMOND).forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F)
+            .sound(SoundType.METAL).noOcclusion())) : null;
     // Netherit- und Enderitstab (Besitzer 2026-10-03): Blitzableiter wie Eisen-/Goldstab, Reichweite 96 bzw. 128;
     // Haerte, Klang und Kartenfarbe wie der Netherit- bzw. Enderitblock.
-    public static final Block NETHERITE_ROD = McVersion.GADGET_REWORK ? registerBlock("netherite_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+    public static final Block NETHERITE_POLE = McVersion.GADGET_REWORK ? registerBlock("netherite_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
             com.simplebuilding.blocks.custom.MetalRodBlock.NETHERITE_RANGE, s
             .mapColor(MapColor.COLOR_BLACK).forceSolidOn().requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
             .sound(SoundType.NETHERITE_BLOCK).noOcclusion())) : null;
-    public static final Block ENDERITE_ROD = McVersion.GADGET_REWORK ? registerBlock("enderite_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+    public static final Block ENDERITE_POLE = McVersion.GADGET_REWORK ? registerBlock("enderite_pole", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
             com.simplebuilding.blocks.custom.MetalRodBlock.ENDERITE_RANGE, s
             .mapColor(MapColor.COLOR_BLACK).forceSolidOn().requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
             .sound(SoundType.NETHERITE_BLOCK).noOcclusion())) : null;

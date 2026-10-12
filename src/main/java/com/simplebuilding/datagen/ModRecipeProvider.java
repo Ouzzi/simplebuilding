@@ -550,7 +550,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .pattern("CI ")
                         .define('R', Items.REDSTONE)
                         // seit 2026-10-02 (26.3) Eisenstaebe statt der Eisenbarren
-                        .define('I', com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_ROD : Items.IRON_INGOT)
+                        .define('I', com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_POLE : Items.IRON_INGOT)
                         .define('C', ModItems.IRON_CORE)
                         .define('L', Items.LAPIS_LAZULI)
                         .unlockedBy(getHasName(ModItems.IRON_CORE), has(ModItems.IRON_CORE))
@@ -562,7 +562,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .pattern(" I ")
                         .pattern("IPI")
                         .pattern("CI ")
-                        .define('I', com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_ROD : Items.IRON_INGOT)
+                        .define('I', com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_POLE : Items.IRON_INGOT)
                         .define('P', Items.ENDER_PEARL)
                         .define('C', ModItems.IRON_CORE)
                         .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
@@ -596,27 +596,35 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             net.minecraft.world.item.crafting.CookingBookCategory.MISC, com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET,
                             0.3f, 200, "ceramic_bucket");
                 }
-                // Eisenstab (2026-10-02): wie der Blitzableiter, drei Eisenbarren uebereinander.
+                // Eisenstange (2026-10-02, N41 "Pole"): wie der Blitzableiter, drei Eisenbarren uebereinander.
                 if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-                    shaped(RecipeCategory.REDSTONE, ModItems.IRON_ROD)
+                    shaped(RecipeCategory.REDSTONE, ModItems.IRON_POLE)
                             .pattern("I")
                             .pattern("I")
                             .pattern("I")
                             .define('I', Items.IRON_INGOT)
                             .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                             .save(output);
-                    // Material-Staebe (2026-10-02): Gold- und Diamantstab ebenso aus drei uebereinander; Eisen, Gold
-                    // und Diamant zerfallen wieder in ihre drei Teile. Netherit- und Enderitstab (Bloecke seit 2026-10-03) nur am Schmiedetisch
-                    // (Einbahn wie jede Aufwertung).
-                    rod(ModItems.GOLD_ROD, Items.GOLD_INGOT, RecipeCategory.REDSTONE);
-                    rod(ModItems.DIAMOND_ROD, Items.DIAMOND, RecipeCategory.MISC);
-                    rodBack(ModItems.IRON_ROD, Items.IRON_INGOT);
-                    rodBack(ModItems.GOLD_ROD, Items.GOLD_INGOT);
-                    rodBack(ModItems.DIAMOND_ROD, Items.DIAMOND);
-                    createSmithingTransform(output, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.DIAMOND_ROD,
-                            Items.NETHERITE_INGOT, RecipeCategory.MISC, ModItems.NETHERITE_ROD);
-                    createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_ROD,
-                            ModItems.ENDERITE_INGOT, RecipeCategory.MISC, ModItems.ENDERITE_ROD);
+                    // Stangen (2026-10-02, N41): Gold- und Diamantstange ebenso aus drei uebereinander und zurueck in ihre
+                    // drei Teile. Netherit- und Enderitstange (Bloecke seit 2026-10-03) nur am Schmiedetisch (Einbahn wie
+                    // jede Aufwertung), die Netheritstange seit N41 aus der Diamantstange. Der Diamantstab (Item,
+                    // Pfeilschaft) ist seit N41 getrennt: zwei Diamanten uebereinander, zurueck zwei.
+                    rod(ModItems.GOLD_POLE, Items.GOLD_INGOT, RecipeCategory.REDSTONE);
+                    rod(ModItems.DIAMOND_POLE, Items.DIAMOND, RecipeCategory.REDSTONE);
+                    shaped(RecipeCategory.MISC, ModItems.DIAMOND_ROD)
+                            .pattern("M")
+                            .pattern("M")
+                            .define('M', Items.DIAMOND)
+                            .unlockedBy(getHasName(Items.DIAMOND), has(Items.DIAMOND))
+                            .save(output);
+                    rodBack(ModItems.IRON_POLE, Items.IRON_INGOT, 3);
+                    rodBack(ModItems.GOLD_POLE, Items.GOLD_INGOT, 3);
+                    rodBack(ModItems.DIAMOND_POLE, Items.DIAMOND, 3);
+                    rodBack(ModItems.DIAMOND_ROD, Items.DIAMOND, 2);
+                    createSmithingTransform(output, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.DIAMOND_POLE,
+                            Items.NETHERITE_INGOT, RecipeCategory.MISC, ModItems.NETHERITE_POLE);
+                    createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_POLE,
+                            ModItems.ENDERITE_INGOT, RecipeCategory.MISC, ModItems.ENDERITE_POLE);
                 }
 
                 // =================================================================
@@ -1632,7 +1640,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .pattern("I  ")
                             .define('A', Items.AMETHYST_SHARD)
                             .define('C', ModItems.IRON_CORE)
-                            .define('I', ModItems.IRON_ROD)
+                            .define('I', ModItems.IRON_POLE)
                             .define('N', Items.IRON_NUGGET)
                             .define('R', Items.REDSTONE)
                             .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
@@ -1662,9 +1670,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .save(output);
             }
 
-            /** Rueckweg: ein Stab ergibt seine drei Teile ({@code <material>_from_<rod>}). */
-            private void rodBack(Item rod, Item material) {
-                shapeless(RecipeCategory.MISC, material, 3)
+            /** Rueckweg: eine Stange bzw. ein Stab ergibt seine Teile ({@code <material>_from_<rod>}). */
+            private void rodBack(Item rod, Item material, int count) {
+                shapeless(RecipeCategory.MISC, material, count)
                         .requires(rod)
                         .unlockedBy(getHasName(rod), has(rod))
                         .save(output, Simplebuilding.MOD_ID + ":" + getItemName(material) + "_from_" + getItemName(rod));

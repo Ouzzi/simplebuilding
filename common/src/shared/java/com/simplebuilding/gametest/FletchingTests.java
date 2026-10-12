@@ -112,7 +112,7 @@ public final class FletchingTests {
         helper.assertValueEqual(ArrowParts.Shaft.values().length, 5, "shafts: stick, end rod, blaze rod, breeze rod, diamond rod");
         helper.assertValueEqual(ArrowParts.allCombinations().size(), 90, "arrow combinations");
 
-        for (net.minecraft.world.item.Item rod : java.util.List.of(ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD)) {
+        for (net.minecraft.world.item.Item rod : java.util.List.of(ModItems.NETHERITE_POLE, ModItems.ENDERITE_POLE)) {
             helper.assertTrue(ArrowParts.shaftFor(new ItemStack(rod)) == null, rod + " is still an arrow shaft");
             helper.assertValueEqual(FletchingMenu.partSlotFor(new ItemStack(rod)), -1, rod + " fits a part slot");
             helper.assertTrue(FletchingMenu.resultFor(new ItemStack(Items.FLINT), new ItemStack(rod), new ItemStack(Items.FEATHER)).isEmpty(),
@@ -126,7 +126,7 @@ public final class FletchingTests {
         helper.getLevel().getServer().getRecipeManager().getRecipes().stream()
                 .filter(holder -> holder.value() instanceof FletchingRecipe)
                 .map(holder -> (FletchingRecipe) holder.value())
-                .forEach(recipe -> helper.assertTrue(recipe.input() != ModItems.NETHERITE_ROD && recipe.input() != ModItems.ENDERITE_ROD,
+                .forEach(recipe -> helper.assertTrue(recipe.input() != ModItems.NETHERITE_POLE && recipe.input() != ModItems.ENDERITE_POLE,
                         "a fletching recipe takes a netherite or enderite rod: " + recipe.idPath()));
         helper.succeed();
     }

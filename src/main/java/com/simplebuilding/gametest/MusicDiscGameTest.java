@@ -49,12 +49,12 @@ public final class MusicDiscGameTest {
         MusicDiscTests.relayingAmplifiersShowNotesAndStopWithTheJukebox(helper);
     }
     @GameTest
-    public void chainedSoundReachesEachPlayerOnceAndStopReachesAll(GameTestHelper helper) {
-        MusicDiscTests.chainedSoundReachesEachPlayerOnceAndStopReachesAll(helper);
+    public void jukeboxStaysVanillaAndAmplifierPlaysAlong(GameTestHelper helper) {
+        MusicDiscTests.jukeboxStaysVanillaAndAmplifierPlaysAlong(helper);
     }
     @GameTest
-    public void amplifiedJukeboxReachesFartherThroughTheRealUsePath(GameTestHelper helper) {
-        MusicDiscTests.amplifiedJukeboxReachesFartherThroughTheRealUsePath(helper);
+    public void chainedSoundReachesEachPlayerOnceAndStopReachesAll(GameTestHelper helper) {
+        MusicDiscTests.chainedSoundReachesEachPlayerOnceAndStopReachesAll(helper);
     }
     @GameTest
     public void amplifiedNoteBlockIsLouderThroughTheRealUsePath(GameTestHelper helper) {

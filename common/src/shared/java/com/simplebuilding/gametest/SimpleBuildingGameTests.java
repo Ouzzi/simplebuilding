@@ -134,6 +134,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_material_rods_craft_back_and_smith_upward", BlockBehaviourTests::materialRodsCraftBackAndSmithUpward)
                     .build(),
+            GameTestSpec.named("block_behaviour_game_test_old_rod_ids_load_as_poles", BlockBehaviourTests::oldRodIdsLoadAsPoles)
+                    .build(),
             GameTestSpec.named("block_behaviour_game_test_reinforced_and_netherite_furnaces_smelt_faster_than_vanilla", BlockBehaviourTests::reinforcedAndNetheriteFurnacesSmeltFasterThanVanilla)
                     .maxTicks(BlockBehaviourTests.FURNACE_MAX_TICKS)
                     .build(),
@@ -1259,11 +1261,11 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("music_disc_game_test_amplifiers_have_tooltip_and_full_cube_hitbox", MusicDiscTests::amplifiersHaveTooltipAndFullCubeHitbox).build(),
             GameTestSpec.named("music_disc_game_test_track_cycle_skips_missing_tracks", MusicDiscTests::trackCycleSkipsMissingTracks).build(),
             GameTestSpec.named("music_disc_game_test_speaker_chains_follow_their_kind_up_to_the_limit", MusicDiscTests::speakerChainsFollowTheirKindUpToTheLimit).build(),
-            GameTestSpec.named("music_disc_game_test_amplified_jukebox_reaches_farther_through_the_real_use_path", MusicDiscTests::amplifiedJukeboxReachesFartherThroughTheRealUsePath).build(),
             GameTestSpec.named("music_disc_game_test_amplified_note_block_is_louder_through_the_real_use_path", MusicDiscTests::amplifiedNoteBlockIsLouderThroughTheRealUsePath).build(),
             GameTestSpec.named("music_disc_game_test_chained_sound_reaches_each_player_once_and_stop_reaches_all", MusicDiscTests::chainedSoundReachesEachPlayerOnceAndStopReachesAll).build(),
             GameTestSpec.named("music_disc_game_test_jukebox_amplifiers_relay_by_radio", MusicDiscTests::jukeboxAmplifiersRelayByRadio).build(),
             GameTestSpec.named("music_disc_game_test_relaying_amplifiers_show_notes_and_stop_with_the_jukebox", MusicDiscTests::relayingAmplifiersShowNotesAndStopWithTheJukebox).maxTicks(200).build(),
+            GameTestSpec.named("music_disc_game_test_jukebox_stays_vanilla_and_amplifier_plays_along", MusicDiscTests::jukeboxStaysVanillaAndAmplifierPlaysAlong).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_creative_has_no_wear", SledgehammerTests::hammerChipsCreativeHasNoWear).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_ice_yields_four", SledgehammerTests::hammerChipsIceYieldsFour).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_mixed_pile_preserves_other_parts", SledgehammerTests::hammerChipsMixedPilePreservesOtherParts).build(),

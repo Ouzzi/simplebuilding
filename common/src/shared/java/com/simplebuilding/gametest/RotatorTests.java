@@ -880,7 +880,7 @@ public final class RotatorTests {
 
         ItemStack empty = ItemStack.EMPTY;
         // 26.3 (owner 2026-10-02): four Iron Rods in place of the iron ingots.
-        ItemStack iron = new ItemStack(com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_ROD : Items.IRON_INGOT);
+        ItemStack iron = new ItemStack(com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_POLE : Items.IRON_INGOT);
         ItemStack pearl = new ItemStack(Items.ENDER_PEARL);
         ItemStack core = new ItemStack(ModItems.IRON_CORE);
 

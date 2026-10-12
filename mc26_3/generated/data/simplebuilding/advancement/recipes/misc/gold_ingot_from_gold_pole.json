@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gold_pole": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:gold_pole"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:gold_ingot_from_gold_pole"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_gold_pole"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:gold_ingot_from_gold_pole"
+    ]
+  }
+}

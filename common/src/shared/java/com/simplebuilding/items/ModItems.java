@@ -368,11 +368,11 @@ public class ModItems {
             ? registerItem("obsidian_chip", settings -> new Item(settings)) : null;
 
     /** Eisenstab (2026-10-02): Blitzableiter aus Eisen, Zutat fuer Resonanzstab und Rotator. */
-    public static final Item IRON_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("iron_rod", settings -> new BlockItem(ModBlocks.IRON_ROD, settings)) : null;
+    public static final Item IRON_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("iron_pole", settings -> new BlockItem(ModBlocks.IRON_POLE, settings)) : null;
     /** Goldstab (2026-10-02): Blitzableiter aus Gold, zieht Blitze in 64 Bloecken an. */
-    public static final Item GOLD_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("gold_rod", settings -> new BlockItem(ModBlocks.GOLD_ROD, settings)) : null;
+    public static final Item GOLD_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("gold_pole", settings -> new BlockItem(ModBlocks.GOLD_POLE, settings)) : null;
     // Haengematten (2026-10-02, McVersion.HAMMOCK): HammockItem haengt alle Bloecke auf einmal auf.
     public static final Item WHITE_HAMMOCK = hammockItem(ModBlocks.WHITE_HAMMOCK);
     public static final Item ORANGE_HAMMOCK = hammockItem(ModBlocks.ORANGE_HAMMOCK);
@@ -397,15 +397,18 @@ public class ModItems {
         return block == null ? null : registerItem(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath(),
                 settings -> new com.simplebuilding.items.custom.HammockItem(block, settings.stacksTo(1)));
     }
-    /** Diamantstab (2026-10-02): Item wie die Lohenrute, Pfeilschaft; drei Diamanten hin, drei zurueck. */
+    /** Diamantstab (2026-10-02, N41: zwei Diamanten hin, zwei zurueck): Item wie die Lohenrute, Pfeilschaft. */
     public static final Item DIAMOND_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
             ? registerItem("diamond_rod", settings -> new Item(settings)) : null;
-    /** Netheritstab (2026-10-03 Block): Blitzableiter (96 Bloecke), geschmiedet aus dem Diamantstab, feuerfest. */
-    public static final Item NETHERITE_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("netherite_rod", settings -> new BlockItem(ModBlocks.NETHERITE_ROD, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
+    /** Diamantstange (N41): Blitzableiter (80 Bloecke) aus drei Diamanten, Basis der Netheritstange. */
+    public static final Item DIAMOND_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("diamond_pole", settings -> new BlockItem(ModBlocks.DIAMOND_POLE, settings)) : null;
+    /** Netheritstange (2026-10-03 Block): Blitzableiter (96 Bloecke), geschmiedet aus der Diamantstange (N41), feuerfest. */
+    public static final Item NETHERITE_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("netherite_pole", settings -> new BlockItem(ModBlocks.NETHERITE_POLE, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
     /** Enderitstab (2026-10-03 Block): Blitzableiter (128 Bloecke), geschmiedet aus dem Netheritstab, feuerfest. */
-    public static final Item ENDERITE_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("enderite_rod", settings -> new BlockItem(ModBlocks.ENDERITE_ROD, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC))) : null;
+    public static final Item ENDERITE_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("enderite_pole", settings -> new BlockItem(ModBlocks.ENDERITE_POLE, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC))) : null;
 
     /** Pfeil vom Befiederungstisch; die Teile stehen in der Komponente {@code arrow_parts}. */
     public static final Item CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING

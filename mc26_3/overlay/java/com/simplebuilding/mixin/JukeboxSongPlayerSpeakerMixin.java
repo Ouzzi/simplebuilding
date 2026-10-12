@@ -19,12 +19,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * Musik-Verstärker (2026-10-03): Vanilla schickt Start und Stopp eines Plattenspielers nur an Spieler im
- * Umkreis von 64 Bloecken. Spielt er verstaerkt oder mit einer Kette ({@link SpeakerBoost}), bekommen auch die Spieler
- * in Hoerweite irgendeines Abspielpunkts den Start; den Stopp bekommen alle bis zur groessten Reichweite, die die Config
- * zulaesst ({@link SpeakerBoost#jukeboxStopRange}; ein inzwischen abgebauter Lautsprecher darf kein Stueck weiterlaufen
- * lassen). Je Start bzw. Stopp ein Paket je Spieler. Seit 2026-10-10 zeigt jeder Musik-Verstärker der Kette im Takt
- * der Plattenspieler-Noten ebenfalls eine Musiknote ({@link SpeakerBoost#spawnRelayParticles}).
+ * Musik-Verstärker (2026-10-03, N41): Vanilla schickt Start und Stopp eines Plattenspielers nur an Spieler im Umkreis
+ * von 64 Bloecken. Hat er eine Funk-Kette ({@link SpeakerBoost}), bekommen auch die Spieler in Vanilla-Hoerweite
+ * (64 Bloecke) irgendeines Verstärkers den Start; den Stopp bekommen alle bis {@link SpeakerBoost#jukeboxStopRange}
+ * (ein inzwischen abgebauter Verstärker darf kein Stueck weiterlaufen lassen). Je Start bzw. Stopp ein Paket je Spieler.
+ * Der Plattenspieler selbst bleibt Vanilla (keine Verstaerkung, N41). Seit 2026-10-10 zeigt jeder Musik-Verstärker der
+ * Kette im Takt der Plattenspieler-Noten ebenfalls eine Musiknote ({@link SpeakerBoost#spawnRelayParticles}).
  */
 @Mixin(JukeboxSongPlayer.class)
 public abstract class JukeboxSongPlayerSpeakerMixin {
@@ -37,14 +37,13 @@ public abstract class JukeboxSongPlayerSpeakerMixin {
         if (!(level instanceof ServerLevel server)) {
             return;
         }
-        float multiplier = SpeakerBoost.multiplier(server, blockPos, SpeakerBoost.Source.JUKEBOX);
         java.util.List<BlockPos> chain = SpeakerBoost.cachedChain(server, blockPos, SpeakerBoost.Source.JUKEBOX);
-        if (multiplier <= 1.0F && chain.isEmpty()) {
+        if (chain.isEmpty()) {
             return;
         }
         int id = server.registryAccess().lookupOrThrow(Registries.JUKEBOX_SONG).getId(song.value());
         SpeakerBoost.sendBeyondVanilla(server, blockPos, chain, new ClientboundLevelEventPacket(LevelEvent.SOUND_PLAY_JUKEBOX_SONG, blockPos, id, false),
-                SpeakerBoost.jukeboxEventRange(multiplier));
+                SpeakerBoost.VANILLA_EVENT_RANGE);
     }
 
     @Inject(method = "stop", at = @At("TAIL"))

@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Amplified jukebox playback uses full gain inside the existing range, with one sound instance
- * following the nearest playback point. This also covers direct amplification with chains disabled.
- * Jukeboxes without active amplifiers keep vanilla playback.
+ * Besitzer N41: der Plattenspieler bleibt Vanilla. Nur wenn Musik-Verstärker in Funkweite sind
+ * ({@link SpeakerBoost#chain}), spielt statt Vanillas Klang ein gleich lauter, der zum naechsten Abspielpunkt wandert
+ * ({@link com.simplebuilding.client.ChainedJukeboxSound}). Ohne Verstärker: unveraenderter Vanilla-Klang.
  */
 @Mixin(LevelEventHandler.class)
 public abstract class LevelEventHandlerSpeakerMixin {
@@ -29,9 +29,8 @@ public abstract class LevelEventHandlerSpeakerMixin {
             target = "Lnet/minecraft/client/resources/sounds/SimpleSoundInstance;forJukeboxSong(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/client/resources/sounds/SimpleSoundInstance;"))
     private SimpleSoundInstance simplebuilding$speakerVolume(SoundEvent sound, Vec3 at, Operation<SimpleSoundInstance> original) {
         BlockPos pos = BlockPos.containing(at);
-        float multiplier = SpeakerBoost.multiplier(level, pos, SpeakerBoost.Source.JUKEBOX);
-        if (multiplier > 1.0F || !SpeakerBoost.chain(level, pos, SpeakerBoost.Source.JUKEBOX).isEmpty()) {
-            return new com.simplebuilding.client.ChainedJukeboxSound(sound, level, pos, SpeakerBoost.JUKEBOX_VOLUME * multiplier);
+        if (!SpeakerBoost.chain(level, pos, SpeakerBoost.Source.JUKEBOX).isEmpty()) {
+            return new com.simplebuilding.client.ChainedJukeboxSound(sound, level, pos);
         }
         return original.call(sound, at);
     }
