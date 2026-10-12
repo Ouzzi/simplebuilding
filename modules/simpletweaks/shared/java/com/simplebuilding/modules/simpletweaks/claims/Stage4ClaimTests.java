@@ -320,7 +320,7 @@ final class Stage4ClaimTests {
         var visitor=player(h,inside.south(2));f.entities.add(visitor);loaded(visitor);before=visitor.getHealth();
         yes(h,visitor.hurtServer(f.l,f.l.damageSources().mobAttack(zombie),2)&&visitor.getHealth()<before,"A claim is never a mob-immune zone for players");
         var skeleton=EntityTypes.SKELETON.create(f.l,EntitySpawnReason.COMMAND);skeleton.setPos(Vec3.atBottomCenterOf(f.edge.west(3)));
-        var arrow=EntityTypes.ARROW.create(f.l,EntitySpawnReason.COMMAND);arrow.setOwner(skeleton);visitor.setInvulnerableTime(0);before=visitor.getHealth();
+        var arrow=EntityTypes.ARROW.create(f.l,EntitySpawnReason.COMMAND);arrow.setOwner(skeleton);visitor.setInvulnerableTime(0);visitor.damageCooldownTime=0;before=visitor.getHealth();
         var arrowSource=f.l.damageSources().arrow(arrow,skeleton);boolean arrowHit=visitor.hurtServer(f.l,arrowSource,2);
         yes(h,Claims.damage(arrowSource,visitor)&&Claims.action(arrow,visitor)&&arrowHit&&visitor.getHealth()<before,"Mob projectiles still hit players inside a claim (hit="+arrowHit+", health "+before+"->"+visitor.getHealth()+")");
         cow.setInvulnerableTime(0);visitor.setInvulnerableTime(0);float cowBefore=cow.getHealth();before=visitor.getHealth();
@@ -437,7 +437,9 @@ final class Stage4ClaimTests {
         var sideTicker=(BlockEntityTicker<BlockEntity>)(BlockEntityTicker)((EntityBlock)Blocks.HOPPER).getTicker(f.l,sideState,side.getType());
         for(int t=0;t<16;t++)sideTicker.tick(f.l,border,sideState,side);
         int seeds=((Container)side).countItem(Items.WHEAT_SEEDS);
-        yes(h,(seeds==4)==enabled,"Wilderness hopper cannot feed a claimed composter: enabled="+enabled+", seeds="+seeds+", level="+f.l.getBlockState(f.edge));
+        // Vanilla composters only accept items from above, and claims are full chunk columns, so a wilderness hopper can never
+        // feed a claimed composter; the side hopper stays full in both modes (the claim adds nothing, takes nothing away).
+        yes(h,seeds==4,"Composters only accept items from above, a border hopper never feeds one: enabled="+enabled+", seeds="+seeds+", level="+f.l.getBlockState(f.edge));
         ((Container)side).clearContent();
     });}
 }
