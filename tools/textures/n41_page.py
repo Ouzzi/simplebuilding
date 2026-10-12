@@ -112,17 +112,20 @@ display:inline-block;line-height:0}
 """
 
 
-def write(secs, path):
+def write(secs, path, title='N41 Texturvorschläge', refs=None, titles=None, sources=None, names=None, lead=None):
+    refs, titles, sources = refs or REFS, titles or TITLES, sources or SOURCES
+    names = {**NAMES, **(names or {})}
     out = ['<!doctype html><html lang="de"><head><meta charset="utf-8">',
            '<meta name="viewport" content="width=device-width,initial-scale=1">',
-           '<title>N41 Texturvorschläge</title>', f'<style>{CSS}</style></head><body><main>',
-           '<h1>Nachtrag 41 – Texturvorschläge</h1>',
-           '<p class="lead">Nur Vorschläge, nichts ist im Spiel. 16×16, 8× vergrößert auf Inventar-Slot. '
+           f'<title>{html.escape(title)}</title>', f'<style>{CSS}</style></head><body><main>',
+           f'<h1>{html.escape(title)}</h1>',
+           f'<p class="lead">{html.escape(lead)}</p>' if lead else '<p class="lead">Nur Vorschläge, nichts ist im Spiel. 16×16, 8× vergrößert auf Inventar-Slot. '
            'Gestrichelt = jetziger Stand. Zum Auswählen die Buchstaben-Nummern nennen (z. B. „A2, B7, E1“). '
            'Blöcke zusätzlich als Würfel-Render.</p>']
+    out = [o for o in out if o]
     for k, lst in secs.items():
-        out.append(f'<h2>{TITLES[k]}</h2><div class="refs"><b>Referenzen &amp; was übernommen wurde</b><ul>')
-        out += [f'<li><b>{html.escape(a)}:</b> {html.escape(b)}</li>' for a, b in REFS[k]]
+        out.append(f'<h2>{titles[k]}</h2><div class="refs"><b>Referenzen &amp; was übernommen wurde</b><ul>')
+        out += [f'<li><b>{html.escape(a)}:</b> {html.escape(b)}</li>' for a, b in refs[k]]
         out.append('</ul></div>')
         cur = None
         for e in lst:
@@ -130,7 +133,7 @@ def write(secs, path):
                 if cur is not None:
                     out.append('</div>')
                 cur = e['block']
-                out.append(f'<h3>{html.escape(NAMES.get(cur, cur))}</h3><div class="row">')
+                out.append(f'<h3>{html.escape(names.get(cur, cur))}</h3><div class="row">')
             if e.get('before'):
                 figs = []
                 for cap, im in e['before']:
@@ -147,7 +150,7 @@ def write(secs, path):
             out.append(f'<div class="card"><div class="lab">{e["label"]}</div><div class="faces">{"".join(figs)}</div></div>')
         out.append('</div>')
     out.append('<h2>Quellen</h2><ul>')
-    out += [f'<li><a href="{u}">{html.escape(t)}</a></li>' for t, u in SOURCES]
+    out += [f'<li><a href="{u}">{html.escape(t)}</a></li>' for t, u in sources]
     out.append('</ul><p class="muted">Generator: tools/textures/n41_proposals_2026_10_12.py · PNGs: docs/ai/previews/n41/ '
                '(Branch claude-n41-tex). Vanilla-Texturen nur angesehen, nicht eingecheckt.</p></main></body></html>')
     with open(path, 'w', encoding='utf-8') as f:
