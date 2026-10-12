@@ -79,7 +79,9 @@ public class SmallArmorStandRenderer extends ArmorStandRenderer {
         super.extractRenderState(stand, state, partialTick);
         state.isSmall = false;
         state.showArms = false;
-        state.showBasePlate = true;
+        // N41: Vanillas setupAnim schaltet base_plate ueber showBasePlate wieder sichtbar; die Platte zeichnet PostLayer
+        // an derselben Stelle (y 23..24), beide zusammen flackerten (Z-Fighting).
+        state.showBasePlate = false;
         if (state instanceof State own) {
             own.bodyArmor = stand.getItemBySlot(EquipmentSlot.BODY).copy();
             own.animal = SmallArmorStand.animal(own.bodyArmor);
@@ -113,8 +115,9 @@ public class SmallArmorStandRenderer extends ArmorStandRenderer {
     }
 
     /**
-     * Vanillas Ruestungsebene, je Teil verschoben (Pixel, positiv = tiefer): Brust 8 (Schultern auf dem Querholz), Helm 7
-     * (sitzt auf dem T), Hose und Stiefel -1 (stehen auf der Platte, der Guertel umschliesst das Querholz).
+     * Vanillas Ruestungsebene, je Teil verschoben (Pixel, positiv = tiefer): Brust 8 (Schultern auf dem Querholz), Helm
+     * {@link #HELMET_SHIFT} (N41: 3 px tiefer, das T steckt im Helm statt dass er darueber schwebt), Hose und Stiefel
+     * {@link #LEGS_SHIFT} (N41: Stiefelsohle knapp ueber der Platte statt 1 px darin, der Guertel umschliesst das Querholz).
      */
     static final class ShiftedArmorLayer extends RenderLayer<ArmorStandRenderState, ArmorStandArmorModel> {
         private final HumanoidArmorLayer<ArmorStandRenderState, ArmorStandArmorModel, ArmorStandArmorModel> armor;
@@ -125,14 +128,19 @@ public class SmallArmorStandRenderer extends ArmorStandRenderer {
             this.armor = armor;
         }
 
+        static final float CHEST_SHIFT = 8.0F;
+        static final float HELMET_SHIFT = 10.0F;
+        /** Sohle (Bein y 24 + 1 px Aufblasen) auf 22,98: 0,02 px ueber der Plattenoberkante y 23, kein Z-Fighting. */
+        static final float LEGS_SHIFT = -2.02F;
+
         static float shift(ArmorStandRenderState state) {
             if (!state.chestEquipment.isEmpty()) {
-                return 8.0F;
+                return CHEST_SHIFT;
             }
             if (!state.headEquipment.isEmpty()) {
-                return 7.0F;
+                return HELMET_SHIFT;
             }
-            return -1.0F;
+            return LEGS_SHIFT;
         }
 
         @Override
