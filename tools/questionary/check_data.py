@@ -3,7 +3,7 @@
 Reads every assets/<ns>/questionary/<lang>.json of SimpleBuilding and the modules and
 - fails on structure errors: bad JSON, EN/DE key sets differ, a page that is not a list of texts, TODO marks,
   unknown placeholders, pages over 350 characters, a fallback that is not 8 variants per class and page;
-- reports coverage: per namespace how many items (from the lang keys item.<ns>.* / block.<ns>.*) have an own entry or
+- reports coverage: per namespace (and vanilla from vanilla_items.txt, the item ids of the 26.3 client jar) how many items (from the lang keys item.<ns>.* / block.<ns>.*) have an own entry or
   a regex family in English and German. Tag families are resolved only in game (coverage game test).
 Missing texts are a warning while the texts are being written; --strict makes them an error.
 python3 tools/questionary/check_data.py [--strict] [--list NAMESPACE]
@@ -37,9 +37,12 @@ def module_roots():
             dirs += [ROOT / p[l] / 'src/main/resources' for l in m['loaders'] if p.get(l)]
             langs = [ROOT / p['lang']]
         yield ns, dirs, langs
+    yield 'minecraft', [ROOT / 'modules/simplequestionary/shared/resources'], []
 
 
 def items_of(ns, langs):
+    if ns == 'minecraft':  # ids of the 26.3 item registry (assets/minecraft/items), see vanilla_items.txt
+        return {l.strip() for l in (Path(__file__).parent / 'vanilla_items.txt').read_text(encoding='utf-8').splitlines() if l.strip()}
     found = set()
     for d in langs:
         f = d / 'en_us.json'
@@ -137,7 +140,6 @@ def main():
             print('\n'.join(f'{ns}:{i}' for i in missing))
     for ns, total, miss in report:
         print(f'{ns}: {total - miss}/{total} items with questionary text (EN+DE), {miss} missing')
-    print('minecraft: counted in game (coverage game test)')
     for e in errors:
         print('ERROR', e)
     missing_total = sum(m for _, _, m in report)
