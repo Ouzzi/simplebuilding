@@ -104,7 +104,7 @@ final class EndNetherTests {
             first.onHitEntity(new net.minecraft.world.phys.EntityHitResult(pig));
             var effect = pig.getEffect(EndNetherMobs.gravity());
             h.assertTrue(effect != null && effect.getDuration() == 600, "first hit: 30 s gravity, got " + (effect == null ? 0 : effect.getDuration()));
-            pig.invulnerableTime = 0;
+            pig.setInvulnerableTime(0);
             ShellkerBullet second = new ShellkerBullet(l, s, pig, Direction.Axis.Y);
             second.onHitEntity(new net.minecraft.world.phys.EntityHitResult(pig));
             effect = pig.getEffect(EndNetherMobs.gravity());
