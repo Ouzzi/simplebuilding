@@ -43,3 +43,19 @@ Status: Konzept. Offene Punkte stehen am Ende als Liste für den Besitzer (`[?]`
 14. [?] Modul: in SimpleBuilding, eigenes Sub-Mod (z. B. „Simple End“), oder zu Simple End Dragon Fight?
 15. [?] Holzgröße großer Baum (Vorschlag: 2×2-Stamm, 12–18 hoch) und Gestrüpp (1×1, 8–14 hoch)?
 16. [?] Soll das End-Gras (Nachtrag 42) zum Biom gehören und den grau-braunen Tint nutzen statt Endstein-Farbe?
+
+## Besitzer-Antworten 12.10. (verbindlich)
+- Holzarten: Aschholz (Ashwood) und Dämmerholz (Duskwood; etwas brauner). Texturen: Runde-1-Sets B1/B3 (docs/ai/previews/n44/).
+- Knospen: „Ash Bud“ / „Dusk Bud“ (je Holzart eine). Biome: „Ash Valley“ (Aschholz) und „Dawnlands“ (Dämmerholz).
+- Licht: ≥ 9 = großer Baum, < 9 = Gestrüpp.
+- Wachstum: von selbst nur mit Licht, sonst nur per Knochenmehl; in den Biomen bereits ausgewachsen generiert.
+- Blätter: ja; droppen Knospen, Stöcke und die neue Frucht.
+- Gestrüpp: eigener Block „End-Stöcke“ (dicker als platzierbare Stöcke, Form an Tropfstein erinnernd, aus End-Stöcken).
+- Holz brennbar; gedroppte Items „nicht voidbar“ (fallen nicht ins Void verloren – Umsetzung: Item treibt über Y-Grenze zurück / schwebt) und doppelte Despawn-Dauer.
+- Biom-Größe: Flecken 3–6 Chunks; ersetzt Teile der End Highlands oder zusätzlich – was technisch besser ist.
+- Chorus im Biom: weniger als Stöcke-Bäume.
+- Extras: Partikel, Himmels-/Nebelfarbe, Musik ja; Mobs erst später.
+- Frucht: neue Frucht mit eigenem Zweck „kurzer Schwebeflug“ (Essen: 3–5 s Slow Falling + kleiner Sprung).
+- Baum: großer Baum mit 1 Stamm; 2×2 Knospen ergeben einen noch größeren Baum (wie Fichte/Dunkeleiche).
+- End-Gras: grau-brauner Biom-Tint.
+- Modulstruktur: SimpleBuilding enthält neues Sub-Mod **Simple End**; Simple End enthält **Simple End Dragon Fight** als Sub-Mod (verschachtelt, eigener Schalter je Ebene). End-Holz, Biome, End-Gras (N42), Astral/Nihil-Lampen bleiben in SB? → Simple End bekommt End-Holz, Biome, End-Gras.
