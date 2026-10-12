@@ -541,6 +541,6 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "3d896ed4ca32"
+    "dataHash": "6024b8b8c7ce"
   }
 ];
