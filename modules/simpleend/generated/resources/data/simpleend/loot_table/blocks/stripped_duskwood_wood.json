@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simpleend:stripped_duskwood_wood"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simpleend:blocks/stripped_duskwood_wood"
+}

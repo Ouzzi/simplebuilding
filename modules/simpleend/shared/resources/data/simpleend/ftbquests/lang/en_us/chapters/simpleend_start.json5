@@ -1,0 +1,10 @@
+{
+	"chapter.230C790CC7FDA525.title": "{\"translate\": \"quests.simpleend.start.title\"}",
+	"chapter.230C790CC7FDA525.chapter_subtitle": [
+		"{\"translate\": \"quests.simpleend.start.subtitle\"}"
+	],
+	"quest.41DA5449B85EB541.title": "{\"translate\": \"quests.simpleend.start.welcome.title\"}",
+	"quest.41DA5449B85EB541.quest_desc": [
+		"{\"translate\": \"quests.simpleend.start.welcome.description\"}"
+	]
+}

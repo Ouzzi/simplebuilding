@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "simpleend:block/duskwood_pressure_plate"
+    },
+    "powered=true": {
+      "model": "simpleend:block/duskwood_pressure_plate_down"
+    }
+  }
+}

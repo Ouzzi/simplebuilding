@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplebuilding.modules.simpleend.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BlockEntityTypeMixin",
+    "BlockSetTypeAccessor",
+    "BlockTransformerMixin",
+    "FireBlockInvoker",
+    "HolderReferenceAccessor",
+    "ItemEntityMixin",
+    "TheEndBiomeSourceMixin",
+    "WoodTypeAccessor"
+  ],
+  "client": [
+    "BlockColorsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -2652,6 +2652,61 @@
       "chance": 1
     },
     {
+      "item": "simpleend:ash_bud",
+      "tier": 4,
+      "hours": 4.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 2,
+      "chance": 0.2
+    },
+    {
+      "item": "simpleend:dusk_bud",
+      "tier": 4,
+      "hours": 4.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 2,
+      "chance": 0.2
+    },
+    {
+      "item": "simpleend:ashwood_log",
+      "tier": 4,
+      "hours": 3.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 4,
+      "chance": 0.15
+    },
+    {
+      "item": "simpleend:duskwood_log",
+      "tier": 4,
+      "hours": 3.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 4,
+      "chance": 0.15
+    },
+    {
+      "item": "simpleend:drift_fruit",
+      "tier": 4,
+      "hours": 2.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 1,
+      "stock": 3,
+      "chance": 0.15
+    },
+    {
       "item": "simpleenddragonfight:dragon_chitin",
       "tier": 5,
       "hours": 30.0,

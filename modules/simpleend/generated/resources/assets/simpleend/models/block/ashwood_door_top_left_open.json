@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "textures": {
+    "bottom": "simpleend:block/ashwood_door_bottom",
+    "top": "simpleend:block/ashwood_door_top"
+  }
+}

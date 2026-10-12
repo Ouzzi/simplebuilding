@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "thickness=1": {
+      "model": "simpleend:block/duskwood_sticks_1"
+    },
+    "thickness=2": {
+      "model": "simpleend:block/duskwood_sticks_2"
+    },
+    "thickness=3": {
+      "model": "simpleend:block/duskwood_sticks_3"
+    }
+  }
+}

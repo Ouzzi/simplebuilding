@@ -1,0 +1,55 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 6000,
+        "replace_current_music": false,
+        "sound": "simpleend:music.ash_valley"
+      }
+    },
+    "minecraft:visual/ambient_particles": {
+      "argument": [
+        {
+          "particle": {
+            "type": "minecraft:white_ash"
+          },
+          "probability": 0.012
+        }
+      ],
+      "modifier": "append"
+    },
+    "minecraft:visual/fog_color": "#3a332e",
+    "minecraft:visual/sky_color": "#2b2522"
+  },
+  "carvers": [],
+  "downfall": 0.5,
+  "effects": {
+    "dry_foliage_color": "#a89c8a",
+    "foliage_color": "#9a8f80",
+    "grass_color": "#a39886",
+    "water_color": "#3f76e4"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:end_gateway_return"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      "simpleend:sparse_chorus",
+      "simpleend:ash_valley_scrub",
+      "simpleend:ash_valley_trees",
+      "simpleend:ash_valley_big_trees",
+      "simpleend:ash_valley_vegetation"
+    ]
+  ],
+  "has_precipitation": false,
+  "temperature": 0.5
+}

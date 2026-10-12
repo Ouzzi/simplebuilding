@@ -602,6 +602,26 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simpleend/ash_bud",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleend/dusk_bud",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleend/ashwood_log",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleend/duskwood_log",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleend/drift_fruit",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simpleenddragonfight/dragon_chitin",
       "required": false
     },

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleend:block/duskwood_slab"
+    },
+    "type=double": {
+      "model": "simpleend:block/duskwood_planks"
+    },
+    "type=top": {
+      "model": "simpleend:block/duskwood_slab_top"
+    }
+  }
+}

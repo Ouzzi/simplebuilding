@@ -1,0 +1,55 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 6000,
+        "replace_current_music": false,
+        "sound": "simpleend:music.dawnlands"
+      }
+    },
+    "minecraft:visual/ambient_particles": {
+      "argument": [
+        {
+          "particle": {
+            "type": "minecraft:spore_blossom_air"
+          },
+          "probability": 0.006
+        }
+      ],
+      "modifier": "append"
+    },
+    "minecraft:visual/fog_color": "#4a3a40",
+    "minecraft:visual/sky_color": "#33262c"
+  },
+  "carvers": [],
+  "downfall": 0.5,
+  "effects": {
+    "dry_foliage_color": "#958673",
+    "foliage_color": "#8c7c6a",
+    "grass_color": "#988673",
+    "water_color": "#3f76e4"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:end_gateway_return"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      "simpleend:sparse_chorus",
+      "simpleend:dawnlands_scrub",
+      "simpleend:dawnlands_trees",
+      "simpleend:dawnlands_big_trees",
+      "simpleend:dawnlands_vegetation"
+    ]
+  ],
+  "has_precipitation": false,
+  "temperature": 0.5
+}

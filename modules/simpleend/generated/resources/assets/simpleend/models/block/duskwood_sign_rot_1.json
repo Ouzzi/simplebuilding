@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_sign_rot_1",
+  "textures": {
+    "all": "simpleend:block/duskwood_sign",
+    "particle": "simpleend:block/duskwood_planks"
+  }
+}
