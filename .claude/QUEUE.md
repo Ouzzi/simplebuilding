@@ -799,6 +799,12 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
 - [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
 
+## Nachtrag 45 (2026-10-12, Besitzer)
+- [ ] Lohen-Obsidian (blazing_obsidian) verbessern: soll klar wie Variante von Crying Obsidian aussehen.
+- [ ] Astral-Verzauberer: Modell kleiner als Textur → oben abgeschnitten; Textur an Modellmaße anpassen.
+- [ ] Shellker: Gravity-Effekt 30 s (hat man ihn schon: 1 min); schießt ~1,2× schneller; Projektil die ersten 2 s unzerstörbar; nach dem Öffnen der Schale schießt er fast sofort (Schlag-Spam bis zum Tod verhindern).
+- [ ] End-Holz/Biom-Antworten: Holzarten Aschholz + Dämmerholz (geklärt); Biome „Ash Valley“ und „Dawnlands“; Knospen-Name: Vorschläge vorlegen; übrige Konzeptfragen offen.
+
 ## Nachtrag 44 (2026-10-12, Besitzer)
 - [ ] Astral- und Nihilith-Lampen: neue Texturen fast wie Kupferlampe, aber End-Version (Referenz docs/ai/refs/n44/end_lamp_ref.png). Hinweis: Lampen wurden in Nachtrag 36 entfernt → wieder einführen als Lampe ihrer Redstone-Linie (an/aus wie Kupferlampe), Migration der Alt-Ids anpassen. Erst 3 Textur-Vorschläge.
 - [ ] Neue End-Holzart (grau, leicht braun, blass), alle Holzblöcke (Stamm, entrindet, Holz, Bretter, Treppe, Stufe, Zaun, Tor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Boot/Kistenboot, Blätter?), eigenes End-Design. Quelle: neue Blume (Knospe), mit Knochenmehl auf Endstein, braucht Licht: hell → mächtiger großer End-Baum; dunkel → schmales hohes End-Gestrüpp (Stöcke als Holz). Wächst im End. Erst Textur-Vorschläge + Baumformen. Im End natürlich schmal, chorusartig; neues Biom (Chorus, End-Gras/Büsche, Knospen), Tint grau-braun. Konzept: docs/ai/KONZEPT-ENDHOLZ-BIOM-2026-10-12.md (Lücken offen).

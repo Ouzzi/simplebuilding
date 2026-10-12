@@ -27,9 +27,9 @@ Status: Konzept. Offene Punkte stehen am Ende als Liste für den Besitzer (`[?]`
   (Wachstum hell/dunkel, Biom-Generierung, Rezepte, Holzset vollständig).
 
 ## Offene Punkte (Besitzer füllt aus)
-1. [?] Name der Holzart (Vorschläge: „Ashwood“/Aschholz, „Pale End“, „Voidwood“/Leerholz, „Ender Oak“).
+1. [x] Holzarten: Aschholz (Ashwood) und Dämmerholz (Duskwood) – zwei Sets (Besitzer 12.10.). Alt: Name der Holzart (Vorschläge: „Ashwood“/Aschholz, „Pale End“, „Voidwood“/Leerholz, „Ender Oak“).
 2. [?] Name der Knospe (z. B. „End-Knospe“, „Leerknospe“).
-3. [?] Name des Bioms (z. B. „Ashen Thicket“/Aschdickicht, „Chorus Grove“/Chorushain).
+3. [x] Biome: „Ash Valley“ und „Dawnlands“ (Besitzer 12.10.; vermutlich je Holzart ein Biom). Alt: Name des Bioms (z. B. „Ashen Thicket“/Aschdickicht, „Chorus Grove“/Chorushain).
 4. [?] Lichtschwelle hell/dunkel (Vorschlag: Licht ≥ 9 = Baum, < 9 = Gestrüpp; Block- oder Himmelslicht?).
 5. [?] Wächst die Knospe auch ohne Knochenmehl (zufällige Ticks) und auch außerhalb des Ends (Oberwelt/Nether)?
 6. [?] Blätter: hat der große Baum Blätter? Wenn ja: Farbe (Biom-Tint grau-braun) und Drops (Knospe, Stöcke, Frucht?).
