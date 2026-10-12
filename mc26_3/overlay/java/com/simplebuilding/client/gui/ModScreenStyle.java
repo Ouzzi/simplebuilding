@@ -424,6 +424,11 @@ public final class ModScreenStyle {
         return UiPalette.derived(fill);
     }
 
+    /** Client tests: switch the style off and on (the comparison toggle) for before/after screenshots. */
+    public static void setPanels(boolean on) {
+        UiStyleToggle.setEnabled(on);
+    }
+
     /** A box in {@code fill} (image 4 frame 5/7 px, rounded corners); {@code false} = not drawn (toggle off). */
     public static boolean panel(GuiGraphicsExtractor g, int fill, int x, int y, int w, int h) {
         if (!panels()) return false;

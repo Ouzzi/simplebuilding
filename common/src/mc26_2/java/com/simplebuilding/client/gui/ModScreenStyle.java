@@ -99,6 +99,8 @@ public final class ModScreenStyle {
         return false;
     }
 
+    public static void setPanels(boolean on) {}
+
     public static boolean panels() {
         return false;
     }

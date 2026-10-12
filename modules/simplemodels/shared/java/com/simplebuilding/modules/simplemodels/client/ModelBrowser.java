@@ -130,7 +130,11 @@ public final class ModelBrowser extends Screen {
     @Override public boolean isPauseScreen() { return false; }
     @Override public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float delta) {
         super.extractBackground(g, mx, my, delta);
-        UiBoxes.box(g, x, y, panelWidth, panelHeight, PALETTE);
+        if (com.simplelib.api.client.ui.UiStyleToggle.isEnabled()) UiBoxes.box(g, x, y, panelWidth, panelHeight, PALETTE);
+        else { // comparison toggle off: the earlier dark panel
+            g.fill(x, y, x + panelWidth, y + panelHeight, 0xFF272B32);
+            g.fill(x + 2, y + 2, x + panelWidth - 2, y + 18, 0xFF414854);
+        }
     }
     @Override public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
         super.extractRenderState(g, mx, my, delta);
