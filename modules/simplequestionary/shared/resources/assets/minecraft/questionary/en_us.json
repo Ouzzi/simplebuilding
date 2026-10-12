@@ -1,0 +1,3998 @@
+{
+  "activator_rail": {
+    "lore": [
+      "A rail that wakes things up."
+    ],
+    "use": [
+      "Powered by redstone, it activates minecarts, hoppers carts and TNT carts passing over it."
+    ],
+    "secret": [
+      "A powered activator rail ejects the rider of a minecart."
+    ]
+  },
+  "detector_rail": {
+    "lore": [
+      "A rail that notices."
+    ],
+    "use": [
+      "Gives a redstone signal while a minecart is on it."
+    ],
+    "secret": [
+      "A comparator reads what is in the cart."
+    ]
+  },
+  "powered_rail": {
+    "lore": [
+      "A rail with a push in it."
+    ],
+    "use": [
+      "Powered by redstone it speeds minecarts up; unpowered it brakes them."
+    ],
+    "secret": [
+      "Seven powered rails are enough to keep a cart going on flat ground."
+    ]
+  },
+  "rail": {
+    "lore": [
+      "Two lines that go wherever you tell them."
+    ],
+    "use": [
+      "Craft iron ingots and a stick for sixteen. Place rails for minecarts to roll along."
+    ],
+    "secret": [
+      "Rails connect automatically and curve at corners."
+    ]
+  },
+  "air": {
+    "lore": [
+      "Nothing, politely."
+    ],
+    "use": [
+      "The empty block. It has no item in survival."
+    ],
+    "secret": [
+      "Everything is built in it."
+    ]
+  },
+  "amethyst_shard": {
+    "lore": [
+      "A sliver of a crystal that rings."
+    ],
+    "use": [
+      "Mined from amethyst clusters. Craft spyglasses, tinted glass and calibrated sensors."
+    ],
+    "secret": [
+      "Amethyst blocks chime when touched or walked on, which sculk sensors can hear."
+    ]
+  },
+  "ancient_debris": {
+    "lore": [
+      "The Nether's hidden treasure."
+    ],
+    "use": [
+      "Mined with a diamond or netherite pickaxe. Smelt to get netherite scrap."
+    ],
+    "secret": [
+      "It resists explosions, so TNT does not destroy it."
+    ]
+  },
+  "anvil": {
+    "lore": [
+      "A heavy friend of the careful."
+    ],
+    "use": [
+      "Combines and repairs items, renames and merges enchantments. Falling on it damages the anvil and whoever stands beneath."
+    ],
+    "secret": [
+      "An anvil can crush items and break blocks it falls on."
+    ]
+  },
+  "chipped_anvil": {
+    "lore": [
+      "A heavy friend of the careful, with some wear."
+    ],
+    "use": [
+      "The anvil gets more damaged with use and eventually breaks."
+    ],
+    "secret": [
+      "The more damaged it is, the closer its end."
+    ]
+  },
+  "damaged_anvil": {
+    "lore": [
+      "A heavy friend of the careful, with some wear."
+    ],
+    "use": [
+      "The anvil gets more damaged with use and eventually breaks."
+    ],
+    "secret": [
+      "The more damaged it is, the closer its end."
+    ]
+  },
+  "apple": {
+    "lore": [
+      "A bite of morning."
+    ],
+    "use": [
+      "Restores 4 hunger. Dropped by oak and dark oak leaves."
+    ],
+    "secret": [
+      "A golden apple is an apple wrapped in gold nuggets or ingots."
+    ]
+  },
+  "armadillo_scute": {
+    "lore": [
+      "A plate shed by something shy."
+    ],
+    "use": [
+      "Dropped by armadillos brushed with a brush. Craft wolf armor."
+    ],
+    "secret": [
+      "A brush on an armadillo knocks off a scute without hurting it."
+    ]
+  },
+  "armor_stand": {
+    "lore": [
+      "A guest that never speaks."
+    ],
+    "use": [
+      "Place it to display armor, tools and heads."
+    ],
+    "secret": [
+      "Right-click to swap its items; it can be posed with commands."
+    ]
+  },
+  "arrow": {
+    "lore": [
+      "A small, fast opinion."
+    ],
+    "use": [
+      "Fired from a bow or crossbow. Craft flint, a stick and a feather."
+    ],
+    "secret": [
+      "Skeletons shoot arrows that can be picked up again from the ground."
+    ]
+  },
+  "spectral_arrow": {
+    "lore": [
+      "An arrow that shines."
+    ],
+    "use": [
+      "Fired from a bow; the target glows for a time."
+    ],
+    "secret": [
+      "Glowing targets show through walls."
+    ]
+  },
+  "tipped_arrow": {
+    "lore": [
+      "An arrow with a potion on its tip."
+    ],
+    "use": [
+      "Craft arrows around a lingering potion; hits apply the potion effect."
+    ],
+    "secret": [
+      "The effect is shortened to an eighth of the potion's length."
+    ]
+  },
+  "barrel": {
+    "lore": [
+      "A barrel that holds on to what you give it."
+    ],
+    "use": [
+      "Craft planks and slabs. Stores 27 stacks and opens even with a block above."
+    ],
+    "secret": [
+      "Unlike chests, barrels open under a solid block."
+    ]
+  },
+  "barrier": {
+    "lore": [
+      "A wall that is invisible."
+    ],
+    "use": [
+      "Creative-only. Blocks movement but cannot be seen."
+    ],
+    "secret": [
+      "Hold one in the hand to see them as red cubes."
+    ]
+  },
+  "beacon": {
+    "lore": [
+      "A column of light for those who build it right."
+    ],
+    "use": [
+      "Needs a pyramid of iron, gold, emerald, diamond or netherite blocks beneath; grants area effects."
+    ],
+    "secret": [
+      "The beam can be coloured by stained glass above it."
+    ]
+  },
+  "bee_nest": {
+    "lore": [
+      "Home of something that hums."
+    ],
+    "use": [
+      "Found in trees. Bees live here; smoke keeps them calm when harvesting."
+    ],
+    "secret": [
+      "Silk Touch moves the nest with its bees."
+    ]
+  },
+  "beehive": {
+    "lore": [
+      "A home the bees accept."
+    ],
+    "use": [
+      "Craft planks and honeycomb. Bees return here after pollinating."
+    ],
+    "secret": [
+      "A campfire below calms the bees when you harvest."
+    ]
+  },
+  "bell": {
+    "lore": [
+      "A sound that carries."
+    ],
+    "use": [
+      "Ring it to alert villagers; it also highlights nearby raiders."
+    ],
+    "secret": [
+      "A bell shows raiders through walls."
+    ]
+  },
+  "blast_furnace": {
+    "lore": [
+      "A hungry furnace for ore."
+    ],
+    "use": [
+      "Smelts ores and metal gear twice as fast."
+    ],
+    "secret": [
+      "Cannot cook food; that is for the smoker."
+    ]
+  },
+  "smoker": {
+    "lore": [
+      "A furnace that only cares about food."
+    ],
+    "use": [
+      "Cooks food twice as fast."
+    ],
+    "secret": [
+      "Villagers who are butchers use it as a job site."
+    ]
+  },
+  "furnace": {
+    "lore": [
+      "A small fire with a lot of patience."
+    ],
+    "use": [
+      "Smelts ores, cooks food and burns fuel."
+    ],
+    "secret": [
+      "An XP bar fills as you collect results."
+    ]
+  },
+  "blaze_powder": {
+    "lore": [
+      "Fire, ground fine."
+    ],
+    "use": [
+      "Craft from blaze rods; fuels brewing stands and makes eyes of ender."
+    ],
+    "secret": [
+      "One powder is enough for twenty brewing steps."
+    ]
+  },
+  "blaze_rod": {
+    "lore": [
+      "A staff that keeps its warmth."
+    ],
+    "use": [
+      "Dropped by blazes. Used for powder and as a furnace fuel."
+    ],
+    "secret": [
+      "It burns for 120 seconds, longer than coal."
+    ]
+  },
+  "blue_ice": {
+    "lore": [
+      "Ice that has lost all its manners."
+    ],
+    "use": [
+      "Craft nine packed ice. Boats slide on it very quickly."
+    ],
+    "secret": [
+      "It makes the best boat roads."
+    ]
+  },
+  "ice": {
+    "lore": [
+      "Water, after a cold night."
+    ],
+    "use": [
+      "Slippery, melts near light. Silk Touch keeps it."
+    ],
+    "secret": [
+      "It turns to water when mined without Silk Touch."
+    ]
+  },
+  "packed_ice": {
+    "lore": [
+      "Ice that was pressed."
+    ],
+    "use": [
+      "Craft nine ice. Slippery, and does not melt."
+    ],
+    "secret": [
+      "Nine packed ice make blue ice."
+    ]
+  },
+  "bone": {
+    "lore": [
+      "What is left when the rest has gone."
+    ],
+    "use": [
+      "Dropped by skeletons. Craft bone meal; tame wolves with it."
+    ],
+    "secret": [
+      "A wolf given a bone becomes a dog that follows you."
+    ]
+  },
+  "bone_meal": {
+    "lore": [
+      "A powder that makes things grow."
+    ],
+    "use": [
+      "Use on crops, saplings and many plants to grow them."
+    ],
+    "secret": [
+      "It also turns grass blocks into flowering meadows nearby."
+    ]
+  },
+  "book": {
+    "lore": [
+      "A thing that remembers more than you."
+    ],
+    "use": [
+      "Craft three paper and a leather. Needed for enchanting tables, bookshelves and writable books."
+    ],
+    "secret": [
+      "Books pile up as bookshelf decoration."
+    ]
+  },
+  "bookshelf": {
+    "lore": [
+      "A shelf of old opinions."
+    ],
+    "use": [
+      "Craft planks and books. Place around an enchanting table for more power."
+    ],
+    "secret": [
+      "Fifteen shelves around the table unlock the top level."
+    ]
+  },
+  "bow": {
+    "lore": [
+      "A string and a patience."
+    ],
+    "use": [
+      "Hold use to draw, release to shoot. Needs arrows."
+    ],
+    "secret": [
+      "A fully drawn bow shoots further and harder."
+    ]
+  },
+  "crossbow": {
+    "lore": [
+      "A bow with a latch."
+    ],
+    "use": [
+      "Load it with an arrow or a firework, then fire. Multishot and Piercing work well on it."
+    ],
+    "secret": [
+      "A loaded crossbow stays ready until used."
+    ]
+  },
+  "bowl": {
+    "lore": [
+      "A small hollow."
+    ],
+    "use": [
+      "Craft three planks. Holds stews and soups."
+    ],
+    "secret": [
+      "Right-click a mooshroom with it for stew."
+    ]
+  },
+  "breeze_rod": {
+    "lore": [
+      "A twirl of wind pressed hard."
+    ],
+    "use": [
+      "Dropped by breezes. Craft the mace together with a heavy core, and wind charges."
+    ],
+    "secret": [
+      "One rod makes four wind charges."
+    ]
+  },
+  "wind_charge": {
+    "lore": [
+      "Wind that fits in a hand."
+    ],
+    "use": [
+      "Throw it to burst; it knocks back mobs and launches you."
+    ],
+    "secret": [
+      "A wind charge can open doors, buttons and trapdoors."
+    ]
+  },
+  "mace": {
+    "lore": [
+      "A smash with a lot of weight."
+    ],
+    "use": [
+      "Craft a heavy core and a breeze rod. Falling onto a foe multiplies the damage."
+    ],
+    "secret": [
+      "Density and Breach enchantments tune it."
+    ]
+  },
+  "heavy_core": {
+    "lore": [
+      "A core made of dense metal."
+    ],
+    "use": [
+      "Found in ominous vaults. Needed for the mace."
+    ],
+    "secret": [
+      "It cannot be crafted."
+    ]
+  },
+  "brewing_stand": {
+    "lore": [
+      "A small laboratory."
+    ],
+    "use": [
+      "Craft blaze rod and cobblestone. Brews potions with blaze powder fuel."
+    ],
+    "secret": [
+      "Three bottles at once, one ingredient on top."
+    ]
+  },
+  "brush": {
+    "lore": [
+      "A soft way to learn something old."
+    ],
+    "use": [
+      "Craft a feather, a copper ingot and a stick. Brush suspicious sand and gravel to uncover loot."
+    ],
+    "secret": [
+      "It also brushes armadillos for scutes."
+    ]
+  },
+  "suspicious_sand": {
+    "lore": [
+      "A block that is hiding something."
+    ],
+    "use": [
+      "Found in desert wells, pyramids and ocean ruins. Brush it to reveal an item."
+    ],
+    "secret": [
+      "Breaking it with a pickaxe destroys the loot."
+    ]
+  },
+  "suspicious_gravel": {
+    "lore": [
+      "A block that is hiding something."
+    ],
+    "use": [
+      "Found in trail ruins and cold ocean ruins. Brush it to reveal an item."
+    ],
+    "secret": [
+      "Breaking it with a pickaxe destroys the loot."
+    ]
+  },
+  "bucket": {
+    "lore": [
+      "A small ocean you can carry."
+    ],
+    "use": [
+      "Craft three iron ingots. Fill with water, lava or milk and place it again."
+    ],
+    "secret": [
+      "A cauldron takes a whole bucket."
+    ]
+  },
+  "water_bucket": {
+    "lore": [
+      "A pond that moves."
+    ],
+    "use": [
+      "Place water; it flows and can stop falls."
+    ],
+    "secret": [
+      "Placing it in the Nether evaporates it."
+    ]
+  },
+  "lava_bucket": {
+    "lore": [
+      "A fire that flows."
+    ],
+    "use": [
+      "Place lava; it burns, lights and melts. Also fuels a furnace for 100 items."
+    ],
+    "secret": [
+      "A lava bucket is the longest burning fuel."
+    ]
+  },
+  "milk_bucket": {
+    "lore": [
+      "Milk, for the long day."
+    ],
+    "use": [
+      "Drink to clear status effects. Also crafts cakes."
+    ],
+    "secret": [
+      "Milk clears all effects, good and bad."
+    ]
+  },
+  "powder_snow_bucket": {
+    "lore": [
+      "Snow that has made peace with water."
+    ],
+    "use": [
+      "Place powder snow; you sink into it."
+    ],
+    "secret": [
+      "Leather boots let you walk on it."
+    ]
+  },
+  "beetroot": {
+    "lore": [
+      "A red root with a sweet streak."
+    ],
+    "use": [
+      "Grown from beetroot seeds. Eat it or craft it into red dye and soup."
+    ],
+    "secret": [
+      "Six beetroots and a bowl make beetroot soup."
+    ]
+  },
+  "brown_mushroom": {
+    "lore": [
+      "A small cap that likes the dark."
+    ],
+    "use": [
+      "Grows in low light and spreads slowly. Eat in stews; plant on mycelium or in the dark."
+    ],
+    "secret": [
+      "Bone meal turns it into a huge mushroom on mycelium or podzol."
+    ]
+  },
+  "red_mushroom": {
+    "lore": [
+      "A small cap that likes the dark."
+    ],
+    "use": [
+      "Grows in low light and spreads slowly. Eat in stews; plant on mycelium or in the dark."
+    ],
+    "secret": [
+      "Bone meal turns it into a huge mushroom on mycelium or podzol."
+    ]
+  },
+  "brown_mushroom_block": {
+    "lore": [
+      "A piece of a giant mushroom."
+    ],
+    "use": [
+      "Found on giant mushrooms; harvest it with an axe. Silk Touch keeps it."
+    ],
+    "secret": [
+      "The caps of huge mushrooms drop small mushrooms."
+    ]
+  },
+  "red_mushroom_block": {
+    "lore": [
+      "A piece of a giant mushroom."
+    ],
+    "use": [
+      "Found on giant mushrooms; harvest it with an axe. Silk Touch keeps it."
+    ],
+    "secret": [
+      "The caps of huge mushrooms drop small mushrooms."
+    ]
+  },
+  "mushroom_stem": {
+    "lore": [
+      "A piece of a giant mushroom."
+    ],
+    "use": [
+      "Found on giant mushrooms; harvest it with an axe. Silk Touch keeps it."
+    ],
+    "secret": [
+      "The caps of huge mushrooms drop small mushrooms."
+    ]
+  },
+  "bundle": {
+    "lore": [
+      "A pouch that stretches for one more thing."
+    ],
+    "use": [
+      "Craft string and leather. Holds a mix of items up to 64 weight. Right-click to pick things up and out."
+    ],
+    "secret": [
+      "A bundle cannot hold shulker boxes."
+    ]
+  },
+  "calibrated_sculk_sensor": {
+    "lore": [
+      "A sensor that listens for one kind of sound."
+    ],
+    "use": [
+      "Craft an amethyst shard on a sculk sensor. Set it with a redstone signal to react only to a chosen frequency."
+    ],
+    "secret": [
+      "It can filter out vibrations you do not care about."
+    ]
+  },
+  "sculk_sensor": {
+    "lore": [
+      "A heartbeat in the dark."
+    ],
+    "use": [
+      "Detects vibrations within 8 blocks and sends a redstone signal."
+    ],
+    "secret": [
+      "Wool in front of a vibration source mutes it."
+    ]
+  },
+  "sculk_shrieker": {
+    "lore": [
+      "A scream with a short fuse."
+    ],
+    "use": [
+      "Shrieks when a player steps near; enough shrieks summon a Warden."
+    ],
+    "secret": [
+      "Silk Touch keeps it."
+    ]
+  },
+  "sculk_catalyst": {
+    "lore": [
+      "The Deep Dark's slow heart."
+    ],
+    "use": [
+      "Spreads sculk when a mob dies near it."
+    ],
+    "secret": [
+      "Experience from the death feeds the spread."
+    ]
+  },
+  "sculk": {
+    "lore": [
+      "The Deep Dark's soft carpet."
+    ],
+    "use": [
+      "Found in the Deep Dark and spread by catalysts. A hoe breaks it fast."
+    ],
+    "secret": [
+      "It gives experience when mined, and Silk Touch keeps it."
+    ]
+  },
+  "sculk_vein": {
+    "lore": [
+      "The Deep Dark's soft carpet."
+    ],
+    "use": [
+      "Found in the Deep Dark and spread by catalysts. A hoe breaks it fast."
+    ],
+    "secret": [
+      "It gives experience when mined, and Silk Touch keeps it."
+    ]
+  },
+  "campfire": {
+    "lore": [
+      "A fire that says come sit."
+    ],
+    "use": [
+      "Craft sticks, coal or charcoal and logs. Cooks food and sends smoke signals."
+    ],
+    "secret": [
+      "Smoke rises further with a hay bale below."
+    ]
+  },
+  "soul_campfire": {
+    "lore": [
+      "A fire the colour of memory."
+    ],
+    "use": [
+      "Craft with soul sand or soil. Cooks food and deals double damage to anything that walks in it."
+    ],
+    "secret": [
+      "Piglins fear soul fire."
+    ]
+  },
+  "candle": {
+    "lore": [
+      "A small stub of light that likes company."
+    ],
+    "use": [
+      "Craft string and honeycomb. Light with flint and steel; up to four on one block."
+    ],
+    "secret": [
+      "Place a cake and put a candle on it for a birthday."
+    ]
+  },
+  "carrot": {
+    "lore": [
+      "A plain root that ends up everywhere."
+    ],
+    "use": [
+      "Grown from a carrot. Eat it or feed pigs."
+    ],
+    "secret": [
+      "A golden carrot is a carrot wrapped in gold nuggets."
+    ]
+  },
+  "golden_carrot": {
+    "lore": [
+      "A carrot that wants to be remembered."
+    ],
+    "use": [
+      "Restores much hunger and saturation. Used to brew night vision."
+    ],
+    "secret": [
+      "It also breeds horses."
+    ]
+  },
+  "golden_apple": {
+    "lore": [
+      "An apple that thinks it is a king."
+    ],
+    "use": [
+      "Gives Regeneration and Absorption. Craft an apple with eight gold ingots."
+    ],
+    "secret": [
+      "Cure a zombie villager with it and a weakness potion."
+    ]
+  },
+  "enchanted_golden_apple": {
+    "lore": [
+      "An apple with too much glow."
+    ],
+    "use": [
+      "Cannot be crafted. Gives strong Regeneration, Absorption, Resistance and Fire Resistance."
+    ],
+    "secret": [
+      "Found rarely in treasure chests."
+    ]
+  },
+  "carrot_on_a_stick": {
+    "lore": [
+      "A joke that works."
+    ],
+    "use": [
+      "Craft a fishing rod and a carrot. Use it to steer a saddled pig."
+    ],
+    "secret": [
+      "The carrot loses durability as the pig moves."
+    ]
+  },
+  "warped_fungus_on_a_stick": {
+    "lore": [
+      "A fungus that strider cannot resist."
+    ],
+    "use": [
+      "Craft a fishing rod and a warped fungus. Steers a saddled strider."
+    ],
+    "secret": [
+      "The strider speeds up when it is held."
+    ]
+  },
+  "cartography_table": {
+    "lore": [
+      "A table for those who want to see everything."
+    ],
+    "use": [
+      "Craft paper and planks. Copy, zoom and lock maps."
+    ],
+    "secret": [
+      "Cartographer villagers use it."
+    ]
+  },
+  "carved_pumpkin": {
+    "lore": [
+      "A pumpkin with a view."
+    ],
+    "use": [
+      "Craft with shears. Wear it, and endermen can be looked at safely."
+    ],
+    "secret": [
+      "It builds snow and iron golems."
+    ]
+  },
+  "jack_o_lantern": {
+    "lore": [
+      "A pumpkin that kept a candle."
+    ],
+    "use": [
+      "Craft a carved pumpkin and a torch. Gives light."
+    ],
+    "secret": [
+      "Golems can also be built from it."
+    ]
+  },
+  "pumpkin": {
+    "lore": [
+      "A big round guest."
+    ],
+    "use": [
+      "Grown from seeds; shear it to carve it. Craft pumpkin pie."
+    ],
+    "secret": [
+      "Pumpkins and melons need an adjacent block to grow fruit."
+    ]
+  },
+  "melon": {
+    "lore": [
+      "A cool slice of summer."
+    ],
+    "use": [
+      "Craft melon slices into a block; breaking it gives slices."
+    ],
+    "secret": [
+      "Fortune gives more slices."
+    ]
+  },
+  "melon_slice": {
+    "lore": [
+      "A bite of sweetness."
+    ],
+    "use": [
+      "Eat for hunger; a glistering slice is brewed into healing potions."
+    ],
+    "secret": [
+      "Gold nuggets turn slices into glistering ones."
+    ]
+  },
+  "glistering_melon_slice": {
+    "lore": [
+      "A bite of sweetness."
+    ],
+    "use": [
+      "Eat for hunger; a glistering slice is brewed into healing potions."
+    ],
+    "secret": [
+      "Gold nuggets turn slices into glistering ones."
+    ]
+  },
+  "cauldron": {
+    "lore": [
+      "A pot for brewing patience."
+    ],
+    "use": [
+      "Craft seven iron ingots. Holds water, lava or powder snow; washes banners and armor."
+    ],
+    "secret": [
+      "Rain fills it, and dripstone drips lava into it."
+    ]
+  },
+  "charcoal": {
+    "lore": [
+      "What the log remembers of fire."
+    ],
+    "use": [
+      "Smelt logs. Burns as a fuel; used for torches."
+    ],
+    "secret": [
+      "Charcoal cooks eight items."
+    ]
+  },
+  "coal": {
+    "lore": [
+      "A black stone that remembers light."
+    ],
+    "use": [
+      "Mined from coal ore. Fuel for furnaces and torches."
+    ],
+    "secret": [
+      "Coal burns for 80 seconds."
+    ]
+  },
+  "chest": {
+    "lore": [
+      "The oldest answer to 'where did I put it'."
+    ],
+    "use": [
+      "Craft eight planks. Stores 27 stacks; two side by side make a double chest."
+    ],
+    "secret": [
+      "A cat sitting on it blocks it from opening."
+    ]
+  },
+  "trapped_chest": {
+    "lore": [
+      "A chest with a nasty surprise."
+    ],
+    "use": [
+      "Craft a chest and a tripwire hook. Emits a redstone signal when opened."
+    ],
+    "secret": [
+      "The signal grows with the number of viewers."
+    ]
+  },
+  "ender_chest": {
+    "lore": [
+      "A chest with a door to another place."
+    ],
+    "use": [
+      "Craft eight obsidian and an eye of ender. Shared by all your ender chests."
+    ],
+    "secret": [
+      "Silk Touch keeps the chest; the items remain safe."
+    ]
+  },
+  "chorus_flower": {
+    "lore": [
+      "A plant that grows toward the sky of the End."
+    ],
+    "use": [
+      "Grows on end stone in the End's outer islands; break it to harvest chorus fruit."
+    ],
+    "secret": [
+      "A chorus flower grows only while its stalk is not blocked."
+    ]
+  },
+  "chorus_plant": {
+    "lore": [
+      "A plant that grows toward the sky of the End."
+    ],
+    "use": [
+      "Grows on end stone in the End's outer islands; break it to harvest chorus fruit."
+    ],
+    "secret": [
+      "A chorus flower grows only while its stalk is not blocked."
+    ]
+  },
+  "chorus_fruit": {
+    "lore": [
+      "A fruit that moves you."
+    ],
+    "use": [
+      "Eating teleports you a short distance, and can be eaten even when you are full. Smelt it for popped chorus fruit, which crafts purpur."
+    ],
+    "secret": [
+      "Eating it unpredictably can drop you into water or a cave."
+    ]
+  },
+  "popped_chorus_fruit": {
+    "lore": [
+      "A fruit that burst in the fire."
+    ],
+    "use": [
+      "Smelt chorus fruit. Craft purpur blocks from it."
+    ],
+    "secret": [
+      "It is not edible."
+    ]
+  },
+  "clay_ball": {
+    "lore": [
+      "A small lump of earth."
+    ],
+    "use": [
+      "Dropped by clay; craft bricks and clay blocks."
+    ],
+    "secret": [
+      "Four balls make a clay block."
+    ]
+  },
+  "clock": {
+    "lore": [
+      "A circle that knows when."
+    ],
+    "use": [
+      "Craft gold ingots and redstone. Shows the time of day."
+    ],
+    "secret": [
+      "In the Nether and End it spins at random."
+    ]
+  },
+  "compass": {
+    "lore": [
+      "A needle with a home."
+    ],
+    "use": [
+      "Craft iron ingots and redstone. Points to the world spawn."
+    ],
+    "secret": [
+      "In the Nether and End it spins at random."
+    ]
+  },
+  "recovery_compass": {
+    "lore": [
+      "A needle that points to where it ended."
+    ],
+    "use": [
+      "Craft echo shards and a compass. Points to your last death."
+    ],
+    "secret": [
+      "It works in any dimension."
+    ]
+  },
+  "lodestone": {
+    "lore": [
+      "A rock with a will to be found."
+    ],
+    "use": [
+      "Craft netherite ingot and chiseled stone bricks. Link a compass to it by using it."
+    ],
+    "secret": [
+      "The compass points to it in every dimension."
+    ]
+  },
+  "cobweb": {
+    "lore": [
+      "A strand left by something eight-legged."
+    ],
+    "use": [
+      "Shears or swords harvest it. Slows anything that passes through."
+    ],
+    "secret": [
+      "A sword cuts it fastest."
+    ]
+  },
+  "cocoa_beans": {
+    "lore": [
+      "A seed from the jungle's gloom."
+    ],
+    "use": [
+      "Plant on jungle logs. Craft cookies and brown dye."
+    ],
+    "secret": [
+      "Eat them in a cookie, not on their own."
+    ]
+  },
+  "comparator": {
+    "lore": [
+      "A redstone brain that compares."
+    ],
+    "use": [
+      "Craft redstone torches, quartz and stone. Measures container contents and compares signals."
+    ],
+    "secret": [
+      "It subtracts when put in subtract mode."
+    ]
+  },
+  "repeater": {
+    "lore": [
+      "A signal that needs a push."
+    ],
+    "use": [
+      "Craft redstone torches, redstone and stone. Extends a signal and adds a delay."
+    ],
+    "secret": [
+      "Right-click to set the delay between one and four ticks."
+    ]
+  },
+  "observer": {
+    "lore": [
+      "A block that stares until something changes."
+    ],
+    "use": [
+      "Gives a short pulse when the block in front of it changes."
+    ],
+    "secret": [
+      "It watches crops, pistons and lots more."
+    ]
+  },
+  "piston": {
+    "lore": [
+      "A block with a shove in it."
+    ],
+    "use": [
+      "Pushes up to 12 blocks when powered; the sticky one pulls them back."
+    ],
+    "secret": [
+      "Obsidian and bedrock cannot be moved."
+    ]
+  },
+  "sticky_piston": {
+    "lore": [
+      "A block with a shove in it."
+    ],
+    "use": [
+      "Pushes up to 12 blocks when powered; the sticky one pulls them back."
+    ],
+    "secret": [
+      "Obsidian and bedrock cannot be moved."
+    ]
+  },
+  "redstone": {
+    "lore": [
+      "A dust that carries thought."
+    ],
+    "use": [
+      "Mined from redstone ore. Carries signals; crafts repeaters, comparators and more."
+    ],
+    "secret": [
+      "A line of 15 dust loses its signal."
+    ]
+  },
+  "redstone_torch": {
+    "lore": [
+      "A torch that inverts."
+    ],
+    "use": [
+      "Turns off when the block it is attached to is powered."
+    ],
+    "secret": [
+      "It powers adjacent dust and the block above it."
+    ]
+  },
+  "redstone_lamp": {
+    "lore": [
+      "A lamp that obeys."
+    ],
+    "use": [
+      "Craft redstone and glowstone. Lights when powered."
+    ],
+    "secret": [
+      "Once lit it stays lit a moment after power is gone."
+    ]
+  },
+  "light_weighted_pressure_plate": {
+    "lore": [
+      "A plate that counts."
+    ],
+    "use": [
+      "Gives a stronger signal the more items sit on it."
+    ],
+    "secret": [
+      "Heavy takes more items to reach full strength."
+    ]
+  },
+  "heavy_weighted_pressure_plate": {
+    "lore": [
+      "A plate that counts."
+    ],
+    "use": [
+      "Gives a stronger signal the more items sit on it."
+    ],
+    "secret": [
+      "Heavy takes more items to reach full strength."
+    ]
+  },
+  "lever": {
+    "lore": [
+      "A switch for those who like clicks."
+    ],
+    "use": [
+      "Craft a stick and cobblestone. Toggles a redstone signal."
+    ],
+    "secret": [
+      "It can be placed on any side of a block."
+    ]
+  },
+  "tripwire_hook": {
+    "lore": [
+      "A hook that sets a trap."
+    ],
+    "use": [
+      "Place two with string between them. Triggers when something crosses the line."
+    ],
+    "secret": [
+      "Shears cut a string safely."
+    ]
+  },
+  "dispenser": {
+    "lore": [
+      "A block that gives and fires."
+    ],
+    "use": [
+      "Craft with a bow. Fires arrows, places buckets, equips armor and more when powered."
+    ],
+    "secret": [
+      "Dispensers can shear sheep too."
+    ]
+  },
+  "dropper": {
+    "lore": [
+      "A block that lets go."
+    ],
+    "use": [
+      "Drops one item out of its front when powered."
+    ],
+    "secret": [
+      "It feeds hoppers and chests below."
+    ]
+  },
+  "hopper": {
+    "lore": [
+      "A funnel that never lets go."
+    ],
+    "use": [
+      "Craft iron ingots and a chest. Moves items between containers."
+    ],
+    "secret": [
+      "A powered hopper stops moving."
+    ]
+  },
+  "crafter": {
+    "lore": [
+      "A table that works for you."
+    ],
+    "use": [
+      "Craft iron, redstone, a crafting table and a dropper. Crafts when powered."
+    ],
+    "secret": [
+      "Tap a slot to disable it."
+    ]
+  },
+  "crafting_table": {
+    "lore": [
+      "A table of small wonders."
+    ],
+    "use": [
+      "Craft four planks. A 3x3 grid for recipes."
+    ],
+    "secret": [
+      "Carpenter villagers use it as a job site."
+    ]
+  },
+  "smithing_table": {
+    "lore": [
+      "A table where metal learns new forms."
+    ],
+    "use": [
+      "Craft iron ingots and planks. Upgrades gear to netherite and adds armor trims."
+    ],
+    "secret": [
+      "Toolsmith villagers use it as a job site."
+    ]
+  },
+  "stonecutter": {
+    "lore": [
+      "A saw that never tires."
+    ],
+    "use": [
+      "Craft iron and stone. Cuts stone blocks into stairs, slabs and more, one to one."
+    ],
+    "secret": [
+      "Mason villagers use it."
+    ]
+  },
+  "grindstone": {
+    "lore": [
+      "A wheel that forgets."
+    ],
+    "use": [
+      "Craft a stick, slabs and planks. Removes enchantments from items and gives some experience."
+    ],
+    "secret": [
+      "It repairs tools by combining two."
+    ]
+  },
+  "loom": {
+    "lore": [
+      "A frame for the colours."
+    ],
+    "use": [
+      "Craft string and planks. Applies patterns to banners."
+    ],
+    "secret": [
+      "Shepherd villagers use it."
+    ]
+  },
+  "fletching_table": {
+    "lore": [
+      "A bench for arrows."
+    ],
+    "use": [
+      "Craft flint and planks. Villagers who are fletchers use it."
+    ],
+    "secret": [
+      "It has no use for players but is a job site."
+    ]
+  },
+  "lectern": {
+    "lore": [
+      "A stand for a single book."
+    ],
+    "use": [
+      "Craft slabs and a bookshelf. Holds a book and can emit signals as you page."
+    ],
+    "secret": [
+      "Librarian villagers use it."
+    ]
+  },
+  "composter": {
+    "lore": [
+      "A bin that turns scraps into soil."
+    ],
+    "use": [
+      "Craft planks. Fill with plants; it makes bone meal."
+    ],
+    "secret": [
+      "Farmer villagers use it."
+    ]
+  },
+  "conduit": {
+    "lore": [
+      "A heart that makes the sea breathe."
+    ],
+    "use": [
+      "Craft nautilus shells and a heart of the sea. Gives water breathing and underwater mining speed in a prismarine frame."
+    ],
+    "secret": [
+      "It attacks hostile mobs nearby."
+    ]
+  },
+  "heart_of_the_sea": {
+    "lore": [
+      "A prize from the deep."
+    ],
+    "use": [
+      "Found in buried treasure. Craft a conduit."
+    ],
+    "secret": [
+      "Buried treasure maps lead you there."
+    ]
+  },
+  "nautilus_shell": {
+    "lore": [
+      "A spiral of the sea."
+    ],
+    "use": [
+      "Dropped by drowned. Craft a conduit."
+    ],
+    "secret": [
+      "Drowned with tridents may drop a trident too."
+    ]
+  },
+  "trident": {
+    "lore": [
+      "A spear that returns."
+    ],
+    "use": [
+      "Found from drowned. Throw it; with Loyalty it comes back."
+    ],
+    "secret": [
+      "Riptide pulls you through water or rain."
+    ]
+  },
+  "creaking_heart": {
+    "lore": [
+      "The pulse of something that waits."
+    ],
+    "use": [
+      "Found in Pale Garden trees. Breaking it yields resin."
+    ],
+    "secret": [
+      "Creaking heartwood only works at night."
+    ]
+  },
+  "debug_stick": {
+    "lore": [
+      "A stick that knows block states."
+    ],
+    "use": [
+      "Creative-only. Use it on blocks to cycle and read their properties."
+    ],
+    "secret": [
+      "Sneak and use to change which property you edit."
+    ]
+  },
+  "decorated_pot": {
+    "lore": [
+      "A pot with a story on each side."
+    ],
+    "use": [
+      "Craft four bricks or sherds. Stores one stack; shows its sherd pictures."
+    ],
+    "secret": [
+      "Break it with a pickaxe to keep the pot, and it drops its sherds."
+    ]
+  },
+  "disc_fragment_5": {
+    "lore": [
+      "A piece of a song not finished."
+    ],
+    "use": [
+      "Found in ancient cities. Nine make the disc 5."
+    ],
+    "secret": [
+      "The disc 5 is made of nine fragments."
+    ]
+  },
+  "diamond": {
+    "lore": [
+      "A hard, clear promise."
+    ],
+    "use": [
+      "Mined from diamond ore. Crafts tools, armor and blocks."
+    ],
+    "secret": [
+      "Fortune gives more diamonds."
+    ]
+  },
+  "emerald": {
+    "lore": [
+      "The currency of villagers."
+    ],
+    "use": [
+      "Mined from emerald ore or traded. Buys goods from villagers."
+    ],
+    "secret": [
+      "Mountain biomes hold the ore."
+    ]
+  },
+  "lapis_lazuli": {
+    "lore": [
+      "A blue stone for those who want results."
+    ],
+    "use": [
+      "Mined from lapis ore. Used for enchanting and blue dye."
+    ],
+    "secret": [
+      "Place it in the enchanting table slot to pay for enchants."
+    ]
+  },
+  "dragon_breath": {
+    "lore": [
+      "Fire that flows as a mist."
+    ],
+    "use": [
+      "Collect with a glass bottle from the dragon's breath cloud. Brews lingering potions."
+    ],
+    "secret": [
+      "A bottle in the cloud is the only way to get it."
+    ]
+  },
+  "dragon_egg": {
+    "lore": [
+      "A prize the dragon leaves."
+    ],
+    "use": [
+      "Appears at the portal after the first dragon dies. Teleports when clicked."
+    ],
+    "secret": [
+      "It falls like sand when its support is removed."
+    ]
+  },
+  "dried_ghast": {
+    "lore": [
+      "A ghast, after a long dry spell."
+    ],
+    "use": [
+      "Place it and keep it near water to grow it into a ghastling."
+    ],
+    "secret": [
+      "A dried ghast block takes water to hatch."
+    ]
+  },
+  "dried_kelp": {
+    "lore": [
+      "A snack that never rots."
+    ],
+    "use": [
+      "Smelt kelp. Eat quickly."
+    ],
+    "secret": [
+      "Nine dried kelp make a block."
+    ]
+  },
+  "echo_shard": {
+    "lore": [
+      "A sliver of silence from the Deep Dark."
+    ],
+    "use": [
+      "Found in ancient city chests. Craft recovery compasses and calibrated sensors."
+    ],
+    "secret": [
+      "Eight echo shards around a compass make a recovery compass."
+    ]
+  },
+  "elytra": {
+    "lore": [
+      "Wings, for those who dare."
+    ],
+    "use": [
+      "Found in End ships. Fly by jumping and activating in air."
+    ],
+    "secret": [
+      "Repair with phantom membranes."
+    ]
+  },
+  "enchanted_book": {
+    "lore": [
+      "A book that was taught something."
+    ],
+    "use": [
+      "Found in loot or made at an enchanting table. Combine at an anvil to apply."
+    ],
+    "secret": [
+      "Villagers sell them with random enchantments."
+    ]
+  },
+  "enchanting_table": {
+    "lore": [
+      "A table that listens to the stars."
+    ],
+    "use": [
+      "Craft diamonds, obsidian and a book. Spend lapis and levels to enchant items."
+    ],
+    "secret": [
+      "Bookshelves around it raise its power."
+    ]
+  },
+  "end_crystal": {
+    "lore": [
+      "A heart that heals the dragon."
+    ],
+    "use": [
+      "Craft glass, eye of ender and ghast tear. Placed on obsidian or bedrock; explodes when hit."
+    ],
+    "secret": [
+      "Four of them on the portal frame bring the dragon back."
+    ]
+  },
+  "end_portal_frame": {
+    "lore": [
+      "A frame for a doorway."
+    ],
+    "use": [
+      "Found in strongholds. Fill with eyes of ender to open the End portal."
+    ],
+    "secret": [
+      "A comparator reads whether it has an eye."
+    ]
+  },
+  "end_rod": {
+    "lore": [
+      "A lamp from the End."
+    ],
+    "use": [
+      "Craft a blaze rod and popped chorus fruit. Gives light and turns toward the side."
+    ],
+    "secret": [
+      "Light shows in the End as white."
+    ]
+  },
+  "ender_eye": {
+    "lore": [
+      "An eye that looks for home."
+    ],
+    "use": [
+      "Craft ender pearl and blaze powder. Thrown, it flies toward the nearest stronghold."
+    ],
+    "secret": [
+      "It breaks half the time."
+    ]
+  },
+  "ender_pearl": {
+    "lore": [
+      "A thrown thought."
+    ],
+    "use": [
+      "Dropped by endermen. Teleports you to where it lands, for 5 points of damage."
+    ],
+    "secret": [
+      "Looting gives more pearls."
+    ]
+  },
+  "experience_bottle": {
+    "lore": [
+      "A bottle of enough."
+    ],
+    "use": [
+      "Thrown, it releases experience orbs. Found in loot or trades."
+    ],
+    "secret": [
+      "It gives between three and eleven points."
+    ]
+  },
+  "feather": {
+    "lore": [
+      "A light touch."
+    ],
+    "use": [
+      "Dropped by chickens. Craft arrows and brushes."
+    ],
+    "secret": [
+      "Looting gives more feathers."
+    ]
+  },
+  "fermented_spider_eye": {
+    "lore": [
+      "A spider eye that learned to rot properly."
+    ],
+    "use": [
+      "Craft spider eye, sugar and a brown mushroom. Brews weakness and harming potions."
+    ],
+    "secret": [
+      "It turns good potions into their bad opposites."
+    ]
+  },
+  "fire_charge": {
+    "lore": [
+      "A fireball that stays still."
+    ],
+    "use": [
+      "Craft blaze powder, coal and gunpowder. Throw or place to start fires."
+    ],
+    "secret": [
+      "Dispensers fire it as a small fireball."
+    ]
+  },
+  "firework_rocket": {
+    "lore": [
+      "A small festival."
+    ],
+    "use": [
+      "Craft paper, gunpowder and optional stars. Fireworks launch you with elytra."
+    ],
+    "secret": [
+      "Each gunpowder adds flight duration."
+    ]
+  },
+  "firework_star": {
+    "lore": [
+      "A single colour, waiting to explode."
+    ],
+    "use": [
+      "Craft gunpowder and dye. Add effects with extra items."
+    ],
+    "secret": [
+      "Gold nuggets make a star shape."
+    ]
+  },
+  "fishing_rod": {
+    "lore": [
+      "A string and a patient mind."
+    ],
+    "use": [
+      "Craft sticks and string. Cast and reel to catch fish, treasure and junk."
+    ],
+    "secret": [
+      "Lure speeds up bites."
+    ]
+  },
+  "flint": {
+    "lore": [
+      "A sharp edge from the gravel."
+    ],
+    "use": [
+      "Dropped from gravel. Craft arrows and flint and steel."
+    ],
+    "secret": [
+      "Gravel drops flint more often with Fortune."
+    ]
+  },
+  "flint_and_steel": {
+    "lore": [
+      "A spark you can carry."
+    ],
+    "use": [
+      "Craft an iron ingot and flint. Lights fires, portals, TNT and candles."
+    ],
+    "secret": [
+      "Creepers explode when you light them."
+    ]
+  },
+  "flower_pot": {
+    "lore": [
+      "A little garden."
+    ],
+    "use": [
+      "Craft three bricks. Holds a flower or sapling."
+    ],
+    "secret": [
+      "A pot can hold many plants, not only flowers."
+    ]
+  },
+  "frogspawn": {
+    "lore": [
+      "Eggs of a pond."
+    ],
+    "use": [
+      "Laid by frogs. Place on water; tadpoles hatch."
+    ],
+    "secret": [
+      "Tadpoles grow into frogs whose colour depends on the biome they grew up in."
+    ]
+  },
+  "ghast_tear": {
+    "lore": [
+      "A cry in a bottle."
+    ],
+    "use": [
+      "Dropped by ghasts. Brews regeneration potions and end crystals."
+    ],
+    "secret": [
+      "Ghasts drop it when killed with their own fireball."
+    ]
+  },
+  "gilded_blackstone": {
+    "lore": [
+      "A dark stone with gold in it."
+    ],
+    "use": [
+      "Found in bastions. Drops gold nuggets when mined."
+    ],
+    "secret": [
+      "Piglins guard bastions."
+    ]
+  },
+  "glass": {
+    "lore": [
+      "A window made of sand."
+    ],
+    "use": [
+      "Smelt sand. Transparent and does not drop itself."
+    ],
+    "secret": [
+      "Silk Touch keeps it."
+    ]
+  },
+  "glass_pane": {
+    "lore": [
+      "A thin window."
+    ],
+    "use": [
+      "Craft six glass for sixteen. Connects to neighbours."
+    ],
+    "secret": [
+      "Silk Touch keeps it."
+    ]
+  },
+  "glass_bottle": {
+    "lore": [
+      "A small glass cup for what's inside."
+    ],
+    "use": [
+      "Craft three glass. Fill with water, honey or dragon's breath."
+    ],
+    "secret": [
+      "Right-click a beehive for honey."
+    ]
+  },
+  "glow_berries": {
+    "lore": [
+      "Berries with their own light."
+    ],
+    "use": [
+      "Found on cave vines. Eat for hunger; they glow in the dark."
+    ],
+    "secret": [
+      "Use bone meal on vines to grow more."
+    ]
+  },
+  "glow_ink_sac": {
+    "lore": [
+      "Ink that shines."
+    ],
+    "use": [
+      "Dropped by glow squids. Dyes signs to glow."
+    ],
+    "secret": [
+      "Applying it to a sign makes the text glow."
+    ]
+  },
+  "ink_sac": {
+    "lore": [
+      "A squid's final word."
+    ],
+    "use": [
+      "Dropped by squids. Black dye."
+    ],
+    "secret": [
+      "Combine with bone meal for gray."
+    ]
+  },
+  "glowstone": {
+    "lore": [
+      "Light from the Nether's ceiling."
+    ],
+    "use": [
+      "Craft four glowstone dust. Gives full light."
+    ],
+    "secret": [
+      "Mining it gives two to four dust."
+    ]
+  },
+  "glowstone_dust": {
+    "lore": [
+      "A sparkle that's easy to pour."
+    ],
+    "use": [
+      "Dropped from glowstone. Crafts redstone lamps and potions."
+    ],
+    "secret": [
+      "Brewing it extends potency."
+    ]
+  },
+  "goat_horn": {
+    "lore": [
+      "A call that carries."
+    ],
+    "use": [
+      "Dropped when a goat rams a hard block. Use to blow it."
+    ],
+    "secret": [
+      "Each horn has a different tune."
+    ]
+  },
+  "gunpowder": {
+    "lore": [
+      "A dust that holds a bang."
+    ],
+    "use": [
+      "Dropped by creepers. Crafts TNT and fireworks."
+    ],
+    "secret": [
+      "Brewing it makes splash potions."
+    ]
+  },
+  "tnt": {
+    "lore": [
+      "Four sand, five gunpowder, one bad idea."
+    ],
+    "use": [
+      "Lit with flint and steel or redstone; explodes after a short fuse."
+    ],
+    "secret": [
+      "Water prevents block damage from the blast."
+    ]
+  },
+  "honey_bottle": {
+    "lore": [
+      "Sweetness in a glass."
+    ],
+    "use": [
+      "Collected from a beehive with a bottle. Drinking removes poison."
+    ],
+    "secret": [
+      "Four bottles make a honey block."
+    ]
+  },
+  "honeycomb": {
+    "lore": [
+      "A wax and a sweetness."
+    ],
+    "use": [
+      "Harvested with shears from beehives. Waxes copper and signs."
+    ],
+    "secret": [
+      "Four combs make a honeycomb block."
+    ]
+  },
+  "iron_bars": {
+    "lore": [
+      "A window with a grudge."
+    ],
+    "use": [
+      "Craft six iron ingots. Connects to neighbours; mobs cannot pass."
+    ],
+    "secret": [
+      "Villagers in a jail stay put behind them."
+    ]
+  },
+  "iron_chain": {
+    "lore": [
+      "A chain made of iron."
+    ],
+    "use": [
+      "Craft iron ingots and nuggets. Hangs lanterns or bells and can be climbed."
+    ],
+    "secret": [
+      "Chains also connect to blocks horizontally."
+    ]
+  },
+  "item_frame": {
+    "lore": [
+      "A picture of a thing."
+    ],
+    "use": [
+      "Craft sticks and leather. Shows an item on a wall; rotate by right-clicking."
+    ],
+    "secret": [
+      "A comparator reads its rotation."
+    ]
+  },
+  "glow_item_frame": {
+    "lore": [
+      "A picture of a thing that shines."
+    ],
+    "use": [
+      "Craft an item frame and a glow ink sac. Item stays visible in the dark."
+    ],
+    "secret": [
+      "The frame itself does not light up."
+    ]
+  },
+  "painting": {
+    "lore": [
+      "A window to a memory."
+    ],
+    "use": [
+      "Craft sticks and wool. Right-click a wall to hang one of many motifs."
+    ],
+    "secret": [
+      "Larger spaces choose larger paintings."
+    ]
+  },
+  "jukebox": {
+    "lore": [
+      "A box with a record collection."
+    ],
+    "use": [
+      "Craft diamond and planks. Plays music discs."
+    ],
+    "secret": [
+      "Each disc plays once until it ends."
+    ]
+  },
+  "note_block": {
+    "lore": [
+      "A block that knows a note."
+    ],
+    "use": [
+      "Craft redstone and planks. Click to change the pitch; the block below sets the instrument."
+    ],
+    "secret": [
+      "Heads on top play mob sounds."
+    ]
+  },
+  "knowledge_book": {
+    "lore": [
+      "A book that teaches recipes."
+    ],
+    "use": [
+      "Cannot be crafted. Use it to unlock recipes."
+    ],
+    "secret": [
+      "It is a tool for creative worlds and tests."
+    ]
+  },
+  "ladder": {
+    "lore": [
+      "A way up that asks nothing."
+    ],
+    "use": [
+      "Craft sticks. Climb it."
+    ],
+    "secret": [
+      "Sneak to hold on without moving."
+    ]
+  },
+  "lantern": {
+    "lore": [
+      "A candle that learned to hang."
+    ],
+    "use": [
+      "Craft iron nuggets and a torch. Gives steady light."
+    ],
+    "secret": [
+      "Soul lanterns glow blue."
+    ]
+  },
+  "soul_lantern": {
+    "lore": [
+      "A lantern with a quiet blue fire."
+    ],
+    "use": [
+      "Craft iron nuggets and a soul torch. Gives light level 10."
+    ],
+    "secret": [
+      "Piglins dislike soul fire."
+    ]
+  },
+  "torch": {
+    "lore": [
+      "A small flame with a stick."
+    ],
+    "use": [
+      "Craft coal and a stick. Gives light level 14."
+    ],
+    "secret": [
+      "Water extinguishes it."
+    ]
+  },
+  "soul_torch": {
+    "lore": [
+      "A torch with a blue flame."
+    ],
+    "use": [
+      "Craft coal and soul sand or soil. Gives light level 10."
+    ],
+    "secret": [
+      "Piglins dislike soul fire."
+    ]
+  },
+  "leather": {
+    "lore": [
+      "Skin, tanned."
+    ],
+    "use": [
+      "Dropped by cows, horses and others. Crafts armor, books and bundles."
+    ],
+    "secret": [
+      "Rabbit hide crafts into leather too."
+    ]
+  },
+  "rabbit_hide": {
+    "lore": [
+      "A small scrap of fur."
+    ],
+    "use": [
+      "Dropped by rabbits. Four make leather."
+    ],
+    "secret": [
+      "The foot is rarer."
+    ]
+  },
+  "rabbit_foot": {
+    "lore": [
+      "A lucky charm, they say."
+    ],
+    "use": [
+      "Dropped rarely by rabbits. Brews jumping potions."
+    ],
+    "secret": [
+      "Looting raises the chance."
+    ]
+  },
+  "lead": {
+    "lore": [
+      "A rope that keeps friends close."
+    ],
+    "use": [
+      "Craft strings and a slimeball. Leash animals to fences."
+    ],
+    "secret": [
+      "A leashed mob follows you."
+    ]
+  },
+  "slime_ball": {
+    "lore": [
+      "A bouncy blob."
+    ],
+    "use": [
+      "Dropped by slimes. Crafts leads, sticky pistons and slime blocks."
+    ],
+    "secret": [
+      "Nine make a slime block."
+    ]
+  },
+  "magma_cream": {
+    "lore": [
+      "A hot paste."
+    ],
+    "use": [
+      "Dropped by magma cubes. Brews fire resistance."
+    ],
+    "secret": [
+      "Craft with blaze powder and a slimeball."
+    ]
+  },
+  "map": {
+    "lore": [
+      "A paper that shows where you've been."
+    ],
+    "use": [
+      "Craft paper around a compass. Explores as you walk, and can be enlarged."
+    ],
+    "secret": [
+      "A cartography table copies it."
+    ]
+  },
+  "name_tag": {
+    "lore": [
+      "A word that sticks."
+    ],
+    "use": [
+      "Found in loot. Name a mob at an anvil, then use it."
+    ],
+    "secret": [
+      "A named mob does not despawn."
+    ]
+  },
+  "nether_star": {
+    "lore": [
+      "A star that fell in the Nether."
+    ],
+    "use": [
+      "Dropped by the Wither. Crafts beacons."
+    ],
+    "secret": [
+      "It cannot be destroyed by explosions."
+    ]
+  },
+  "nether_wart": {
+    "lore": [
+      "A fungus that likes warm soil."
+    ],
+    "use": [
+      "Found in Nether fortresses. Plant on soul sand; brews awkward potions."
+    ],
+    "secret": [
+      "Fortune adds more."
+    ]
+  },
+  "netherite_scrap": {
+    "lore": [
+      "A fragment of the Nether's heart."
+    ],
+    "use": [
+      "Smelt ancient debris. Four scrap and four gold ingots craft a netherite ingot."
+    ],
+    "secret": [
+      "Scrap floats in lava like all netherite."
+    ]
+  },
+  "netherite_upgrade_smithing_template": {
+    "lore": [
+      "A pattern for a long road."
+    ],
+    "use": [
+      "Found in bastions. Upgrades diamond gear to netherite at a smithing table."
+    ],
+    "secret": [
+      "Craft seven diamonds, netherrack and a template for two."
+    ]
+  },
+  "ominous_bottle": {
+    "lore": [
+      "A bottle that tastes of omens."
+    ],
+    "use": [
+      "Dropped by raid captains. Drink to get Bad Omen."
+    ],
+    "secret": [
+      "A stronger omen means a stronger raid."
+    ]
+  },
+  "ominous_trial_key": {
+    "lore": [
+      "A key that feels heavy."
+    ],
+    "use": [
+      "Dropped by ominous trial spawners. Opens ominous vaults."
+    ],
+    "secret": [
+      "The loot is better."
+    ]
+  },
+  "trial_key": {
+    "lore": [
+      "A key that was earned."
+    ],
+    "use": [
+      "Dropped by trial spawners. Opens vaults."
+    ],
+    "secret": [
+      "Each player may use a vault once per key."
+    ]
+  },
+  "vault": {
+    "lore": [
+      "A box that rewards the brave."
+    ],
+    "use": [
+      "Found in trial chambers. Opens with a key and gives loot."
+    ],
+    "secret": [
+      "Each player gets a reward only once."
+    ]
+  },
+  "trial_spawner": {
+    "lore": [
+      "A cage of trials."
+    ],
+    "use": [
+      "Found in trial chambers. Spawns waves of mobs while players are near."
+    ],
+    "secret": [
+      "When beaten it ejects rewards and a key."
+    ]
+  },
+  "spawner": {
+    "lore": [
+      "A cage that refills."
+    ],
+    "use": [
+      "Found in dungeons and fortresses. Spawns mobs of one type while a player is near."
+    ],
+    "secret": [
+      "A spawn egg used on it changes the mob."
+    ]
+  },
+  "paper": {
+    "lore": [
+      "A page without words."
+    ],
+    "use": [
+      "Craft three sugar canes. Crafts books, maps and fireworks."
+    ],
+    "secret": [
+      "Three canes make three sheets."
+    ]
+  },
+  "phantom_membrane": {
+    "lore": [
+      "A thin skin of the night."
+    ],
+    "use": [
+      "Dropped by phantoms. Repairs elytra and brews slow falling."
+    ],
+    "secret": [
+      "Phantoms appear after sleepless nights."
+    ]
+  },
+  "potion": {
+    "lore": [
+      "A bottle of effects."
+    ],
+    "use": [
+      "Brewed from water, nether wart and ingredients. Drink for its effect."
+    ],
+    "secret": [
+      "Splash and lingering forms spread it."
+    ]
+  },
+  "splash_potion": {
+    "lore": [
+      "A potion that throws well."
+    ],
+    "use": [
+      "Add gunpowder to a potion. Throw to affect mobs nearby."
+    ],
+    "secret": [
+      "Closer targets get stronger effects."
+    ]
+  },
+  "lingering_potion": {
+    "lore": [
+      "A potion that stays."
+    ],
+    "use": [
+      "Add dragon's breath to a splash potion. Leaves a cloud of its effect."
+    ],
+    "secret": [
+      "Fill arrows with it."
+    ]
+  },
+  "prismarine_crystals": {
+    "lore": [
+      "A crystal that shines under water."
+    ],
+    "use": [
+      "Dropped by guardians. Crafts sea lanterns."
+    ],
+    "secret": [
+      "Elder guardians drop more."
+    ]
+  },
+  "prismarine_shard": {
+    "lore": [
+      "A splinter of the deep."
+    ],
+    "use": [
+      "Dropped by guardians. Crafts prismarine."
+    ],
+    "secret": [
+      "Four make prismarine."
+    ]
+  },
+  "sea_lantern": {
+    "lore": [
+      "A lantern the ocean built."
+    ],
+    "use": [
+      "Craft prismarine crystals and shards. Gives full light."
+    ],
+    "secret": [
+      "Found in ocean monuments."
+    ]
+  },
+  "saddle": {
+    "lore": [
+      "A seat for something that runs."
+    ],
+    "use": [
+      "Found in loot. Ride a horse, pig or strider once tamed."
+    ],
+    "secret": [
+      "A saddle is needed to steer."
+    ]
+  },
+  "scaffolding": {
+    "lore": [
+      "A temporary climb."
+    ],
+    "use": [
+      "Craft bamboo and string. Climb up and down; stack it."
+    ],
+    "secret": [
+      "Break the bottom and it all falls."
+    ]
+  },
+  "shears": {
+    "lore": [
+      "Two blades that agree."
+    ],
+    "use": [
+      "Craft two iron ingots. Cuts wool, leaves, vines and cobwebs."
+    ],
+    "secret": [
+      "Dispensers shear sheep too."
+    ]
+  },
+  "shield": {
+    "lore": [
+      "A wall you carry."
+    ],
+    "use": [
+      "Craft planks and an iron ingot. Raise to block attacks."
+    ],
+    "secret": [
+      "Banners can be applied."
+    ]
+  },
+  "shulker_box": {
+    "lore": [
+      "A box with a bad temper and a good memory."
+    ],
+    "use": [
+      "Craft two shulker shells and a chest. Mining it keeps its contents."
+    ],
+    "secret": [
+      "It cannot go inside another."
+    ]
+  },
+  "shulker_shell": {
+    "lore": [
+      "A shell that closes."
+    ],
+    "use": [
+      "Dropped by shulkers. Crafts shulker boxes."
+    ],
+    "secret": [
+      "Shulkers appear in End cities."
+    ]
+  },
+  "snow": {
+    "lore": [
+      "A thin blanket."
+    ],
+    "use": [
+      "Layers stack; a shovel collects snowballs."
+    ],
+    "secret": [
+      "Eight layers fill a block."
+    ]
+  },
+  "snow_block": {
+    "lore": [
+      "A block of cold."
+    ],
+    "use": [
+      "Craft four snowballs. Used in building and for snow golems."
+    ],
+    "secret": [
+      "Snow golems leave a trail of snow."
+    ]
+  },
+  "snowball": {
+    "lore": [
+      "A small cold throw."
+    ],
+    "use": [
+      "Throw it for knockback. Craft snow blocks."
+    ],
+    "secret": [
+      "Blazes take damage from it."
+    ]
+  },
+  "soul_sand": {
+    "lore": [
+      "Ground that holds a memory."
+    ],
+    "use": [
+      "Found in the Nether's valleys. Soul sand slows walkers; place soul fire on both."
+    ],
+    "secret": [
+      "Nether wart grows on soul sand."
+    ]
+  },
+  "soul_soil": {
+    "lore": [
+      "Ground that holds a memory."
+    ],
+    "use": [
+      "Found in the Nether's valleys. Soul sand slows walkers; place soul fire on both."
+    ],
+    "secret": [
+      "Nether wart grows on soul sand."
+    ]
+  },
+  "sponge": {
+    "lore": [
+      "A block that drinks."
+    ],
+    "use": [
+      "Found in ocean monuments. Soaks up nearby water."
+    ],
+    "secret": [
+      "Dry it in a furnace to reuse."
+    ]
+  },
+  "wet_sponge": {
+    "lore": [
+      "A sponge, full."
+    ],
+    "use": [
+      "Soaked sponge. Smelt to dry."
+    ],
+    "secret": [
+      "Place it in the Nether to dry it."
+    ]
+  },
+  "spyglass": {
+    "lore": [
+      "An eye that goes far."
+    ],
+    "use": [
+      "Craft copper and an amethyst shard. Use to zoom."
+    ],
+    "secret": [
+      "Zooming in shows distant mobs."
+    ]
+  },
+  "stick": {
+    "lore": [
+      "A small piece of tree."
+    ],
+    "use": [
+      "Craft two planks. Crafts tools and many things."
+    ],
+    "secret": [
+      "A stick burns briefly."
+    ]
+  },
+  "string": {
+    "lore": [
+      "A thread of the web."
+    ],
+    "use": [
+      "Dropped by spiders. Crafts bows, fishing rods and wool."
+    ],
+    "secret": [
+      "Four make a wool block."
+    ]
+  },
+  "sugar": {
+    "lore": [
+      "A sweet sprinkle."
+    ],
+    "use": [
+      "Craft sugar cane. Used in cakes, potions and pies."
+    ],
+    "secret": [
+      "Honey bottles yield sugar too."
+    ]
+  },
+  "sweet_berries": {
+    "lore": [
+      "A tart bush treat."
+    ],
+    "use": [
+      "Found in taigas. Eat for hunger; plant to grow bushes."
+    ],
+    "secret": [
+      "The bush hurts anything that touches it."
+    ]
+  },
+  "target": {
+    "lore": [
+      "A block that scores."
+    ],
+    "use": [
+      "Craft redstone and hay. Gives a signal depending on how close the hit."
+    ],
+    "secret": [
+      "A bull's-eye gives the strongest signal."
+    ]
+  },
+  "tinted_glass": {
+    "lore": [
+      "A glass that blocks the light."
+    ],
+    "use": [
+      "Craft amethyst shards and glass. Lets no light through."
+    ],
+    "secret": [
+      "Sculk sensors hear through it."
+    ]
+  },
+  "totem_of_undying": {
+    "lore": [
+      "A figure that cheats death."
+    ],
+    "use": [
+      "Dropped by evokers. Hold in hand to survive one lethal hit."
+    ],
+    "secret": [
+      "Consumed when it saves you."
+    ]
+  },
+  "turtle_egg": {
+    "lore": [
+      "A promise on the beach."
+    ],
+    "use": [
+      "Place on sand. Hatches into turtles; zombies and others trample it."
+    ],
+    "secret": [
+      "It hatches faster at night."
+    ]
+  },
+  "sniffer_egg": {
+    "lore": [
+      "A big, warm thing."
+    ],
+    "use": [
+      "Found by sniffing. Place on moss; it hatches into a sniffling."
+    ],
+    "secret": [
+      "Moss speeds it up."
+    ]
+  },
+  "turtle_scute": {
+    "lore": [
+      "A plate of a growing turtle."
+    ],
+    "use": [
+      "Dropped when a baby turtle grows up. Crafts turtle helmets."
+    ],
+    "secret": [
+      "Turtle helmets give water breathing."
+    ]
+  },
+  "turtle_helmet": {
+    "lore": [
+      "A shell you wear."
+    ],
+    "use": [
+      "Craft five turtle scutes. Gives a few seconds of water breathing after you enter water."
+    ],
+    "secret": [
+      "Repair it with scutes."
+    ]
+  },
+  "wolf_armor": {
+    "lore": [
+      "A coat for a pack member."
+    ],
+    "use": [
+      "Craft armadillo scutes. Right-click a tamed wolf to equip."
+    ],
+    "secret": [
+      "It protects the wolf and cracks when damaged."
+    ]
+  },
+  "wheat": {
+    "lore": [
+      "A golden promise."
+    ],
+    "use": [
+      "Grown from seeds. Crafts bread and feeds animals."
+    ],
+    "secret": [
+      "Three make bread."
+    ]
+  },
+  "potato": {
+    "lore": [
+      "A tuber with ambition."
+    ],
+    "use": [
+      "Plant it on farmland. Eat it baked for more hunger."
+    ],
+    "secret": [
+      "A baked potato restores far more than a raw one."
+    ]
+  },
+  "writable_book": {
+    "lore": [
+      "A book that waits for a pen."
+    ],
+    "use": [
+      "Craft book, ink sac and feather. Write pages."
+    ],
+    "secret": [
+      "Sign it to make a written book."
+    ]
+  },
+  "written_book": {
+    "lore": [
+      "A book that said its piece."
+    ],
+    "use": [
+      "Sign a writable book. Cannot be edited again."
+    ],
+    "secret": [
+      "Copy it by combining with a book."
+    ]
+  },
+  "structure_block": {
+    "lore": [
+      "A tool for building worlds."
+    ],
+    "use": [
+      "Creative-only. Saves and loads structures."
+    ],
+    "secret": [
+      "Operators can set its size, offset and mode."
+    ]
+  },
+  "structure_void": {
+    "lore": [
+      "A block for those who build the builders' tools."
+    ],
+    "use": [
+      "Creative-only. Used for structure files and tests."
+    ],
+    "secret": [
+      "It cannot be obtained in survival."
+    ]
+  },
+  "jigsaw": {
+    "lore": [
+      "A block for those who build the builders' tools."
+    ],
+    "use": [
+      "Creative-only. Used for structure files and tests."
+    ],
+    "secret": [
+      "It cannot be obtained in survival."
+    ]
+  },
+  "light": {
+    "lore": [
+      "A block for those who build the builders' tools."
+    ],
+    "use": [
+      "Creative-only. Used for structure files and tests."
+    ],
+    "secret": [
+      "It cannot be obtained in survival."
+    ]
+  },
+  "test_block": {
+    "lore": [
+      "A block for those who build the builders' tools."
+    ],
+    "use": [
+      "Creative-only. Used for structure files and tests."
+    ],
+    "secret": [
+      "It cannot be obtained in survival."
+    ]
+  },
+  "test_instance_block": {
+    "lore": [
+      "A block for those who build the builders' tools."
+    ],
+    "use": [
+      "Creative-only. Used for structure files and tests."
+    ],
+    "secret": [
+      "It cannot be obtained in survival."
+    ]
+  },
+  "respawn_anchor": {
+    "lore": [
+      "A spawn point for the Nether."
+    ],
+    "use": [
+      "Craft crying obsidian and glowstone. Charge with glowstone; sets spawn there."
+    ],
+    "secret": [
+      "It explodes in the Overworld."
+    ]
+  },
+  "straw_bed": {
+    "lore": [
+      "A bed of straw, humble and warm."
+    ],
+    "use": [
+      "A simple bed. Place and sleep to skip the night and set your spawn."
+    ],
+    "secret": [
+      "Beds explode in the Nether and the End."
+    ]
+  },
+  "daylight_detector": {
+    "lore": [
+      "A panel that watches the sky."
+    ],
+    "use": [
+      "Craft glass, quartz and wooden slabs. Gives a redstone signal that follows the sun; right-click to invert."
+    ],
+    "secret": [
+      "It also works at night inverted."
+    ]
+  },
+  "shelf_mushroom": {
+    "lore": [
+      "A bracket on a trunk."
+    ],
+    "use": [
+      "A mushroom that grows on logs. Harvested with a hand or an axe."
+    ],
+    "secret": [
+      "It grows on wood."
+    ]
+  },
+  "filled_map": {
+    "lore": [
+      "A paper that shows where you've been."
+    ],
+    "use": [
+      "Made when you use an empty map; it fills in as you explore."
+    ],
+    "secret": [
+      "Enlarge it at a cartography table, or lock it to keep it as it is."
+    ]
+  },
+  "family:spawn_egg": {
+    "items": [
+      "regex:.*_spawn_egg"
+    ],
+    "lore": [
+      "{name}: a shell with something very patient inside."
+    ],
+    "use": [
+      "Right-click a block to spawn the mob; use it on a spawner to change what that spawner spawns. Creative-only in normal play."
+    ],
+    "secret": [
+      "Use it on a baby-friendly mob of the same kind and a baby appears instead of a grown one."
+    ]
+  },
+  "family:music_disc": {
+    "items": [
+      "regex:music_disc_.*"
+    ],
+    "lore": [
+      "{name}: a round of black wax that remembers a whole room."
+    ],
+    "use": [
+      "Put it in a jukebox to hear it; a comparator next to the jukebox reads whether a disc plays. Found in chests, or from a skeleton killed by a creeper."
+    ],
+    "secret": [
+      "Notes and particles rise above a playing jukebox, and nearby allays dance to it."
+    ]
+  },
+  "family:trim_template": {
+    "items": [
+      "regex:.*_armor_trim_smithing_template"
+    ],
+    "lore": [
+      "{name}: a pattern pressed into stone for those who dress for the occasion."
+    ],
+    "use": [
+      "Smithing table: template, an armor piece and a trim material (ingot, gem or dust) add this trim. The template is used up; copy it with seven diamonds and the block it is made of."
+    ],
+    "secret": [
+      "Same template, any armor, any material: only the combination of pattern and colour makes each look."
+    ]
+  },
+  "family:pottery_sherd": {
+    "items": [
+      "regex:.*_pottery_sherd"
+    ],
+    "lore": [
+      "{name}: a broken piece of a forgotten household."
+    ],
+    "use": [
+      "Found by brushing suspicious sand in desert wells and pyramids, warm ocean ruins and trail ruins. Four sherds or bricks in a diamond make a decorated pot."
+    ],
+    "secret": [
+      "Each side of a decorated pot can show a different sherd."
+    ]
+  },
+  "family:banner_pattern": {
+    "items": [
+      "regex:.*_banner_pattern"
+    ],
+    "lore": [
+      "{name}: a motif waiting for a banner to carry it."
+    ],
+    "use": [
+      "Use it in a loom with a banner and dye to add the pattern."
+    ],
+    "secret": [
+      "A banner can hold up to six patterns."
+    ]
+  },
+  "family:dye": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_dye"
+    ],
+    "lore": [
+      "{name}: colour pressed into a small powder."
+    ],
+    "use": [
+      "Dyes wool, carpets, beds, banners, terracotta, glass, candles, shulker boxes, leather armor, sheep and collars, and mixes into new colours in the crafting grid."
+    ],
+    "secret": [
+      "Fireworks use dyes too: a firework star takes its colours from them."
+    ]
+  },
+  "family:wool": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_wool"
+    ],
+    "lore": [
+      "{name}: soft, cheerful and a little flammable."
+    ],
+    "use": [
+      "Sheared from sheep or crafted from four strings. Dyeable. Wool can be burnt, but it dampens vibrations: sculk sensors do not hear steps and blocks placed on it."
+    ],
+    "secret": [
+      "Wool silences vibrations; a layer under a redstone build or around a sensor makes the area quiet."
+    ]
+  },
+  "family:carpet": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_carpet"
+    ],
+    "lore": [
+      "{name}: a thin skin of colour over the floor."
+    ],
+    "use": [
+      "Craft two wool of the same colour for three carpets. Only a sixteenth of a block thick; llamas wear it as a decoration."
+    ],
+    "secret": [
+      "Carpets muffle vibrations just like wool, so sculk sensors do not hear steps on them."
+    ]
+  },
+  "family:concrete": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_concrete"
+    ],
+    "lore": [
+      "{name}: a hard, flat colour that does not try to be anything else."
+    ],
+    "use": [
+      "Made by pouring water on concrete powder of the same colour. Smooth, sturdy and very uniform."
+    ],
+    "secret": [
+      "It cannot be dyed back; the colour is fixed once the powder meets water."
+    ]
+  },
+  "family:concrete_powder": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_concrete_powder"
+    ],
+    "lore": [
+      "{name}: dust that falls like sand and sets like stone."
+    ],
+    "use": [
+      "Craft sand, gravel and dye. It falls like sand and turns into concrete when touched by water."
+    ],
+    "secret": [
+      "Place it beside water, or let it fall into a pool: a cheap way to build coloured walls."
+    ]
+  },
+  "family:terracotta_colored": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_terracotta"
+    ],
+    "lore": [
+      "{name}: clay that was dyed before it was fired."
+    ],
+    "use": [
+      "Craft eight terracotta around one dye. Used in building and for bright, matte walls. Also found as natural bands in badlands."
+    ],
+    "secret": [
+      "Smelt it again to get glazed terracotta, which has its own patterns."
+    ]
+  },
+  "family:glazed": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_glazed_terracotta"
+    ],
+    "lore": [
+      "{name}: a patterned tile with a mind of its own."
+    ],
+    "use": [
+      "Smelt terracotta of the same colour. Its pattern faces the direction it was placed, so four tiles in a square can join into one picture."
+    ],
+    "secret": [
+      "Pistons can push glazed terracotta, but sticky pistons cannot pull it back."
+    ]
+  },
+  "family:stained_glass": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_stained_glass"
+    ],
+    "lore": [
+      "{name}: a window that learned a colour."
+    ],
+    "use": [
+      "Craft eight glass around one dye. Transparent, tints the light and does not drop itself unless mined with Silk Touch."
+    ],
+    "secret": [
+      "Beacon beams passing through it take on its colour."
+    ]
+  },
+  "family:stained_glass_pane": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_stained_glass_pane"
+    ],
+    "lore": [
+      "{name}: a thin colour, held at the edges."
+    ],
+    "use": [
+      "Craft six stained glass in two rows for sixteen panes. Connects to neighbours like an iron bar."
+    ],
+    "secret": [
+      "Several panes side by side make stained windows with thin frames."
+    ]
+  },
+  "family:banner": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_banner"
+    ],
+    "lore": [
+      "{name}: a flag for anyone who wants to be known."
+    ],
+    "use": [
+      "Craft six wool and a stick. Add patterns at a loom with dye, and carry them on a shield."
+    ],
+    "secret": [
+      "Use a map on a placed banner to mark the spot on that map with a coloured pin."
+    ]
+  },
+  "family:bed": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_bed"
+    ],
+    "lore": [
+      "{name}: a place where the night does not count."
+    ],
+    "use": [
+      "Craft three wool over three planks. Sleep through the night and set your spawn point; in the Nether and the End it explodes."
+    ],
+    "secret": [
+      "Beds can be used to skip the night only when the others in the world are asleep too, in multiplayer."
+    ]
+  },
+  "family:candle": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_candle"
+    ],
+    "lore": [
+      "{name}: a small stub of light that likes company."
+    ],
+    "use": [
+      "Craft string and honeycomb, then dye it. Light with flint and steel; up to four on one block, each adding more light."
+    ],
+    "secret": [
+      "Place a cake and put a candle on it for a birthday."
+    ]
+  },
+  "family:shulker_box": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_shulker_box"
+    ],
+    "lore": [
+      "{name}: a box with a bad temper and a good memory."
+    ],
+    "use": [
+      "Craft two shulker shells with a chest. Mining it keeps its contents, so you can carry 27 stacks."
+    ],
+    "secret": [
+      "A shulker box cannot be put inside another one."
+    ]
+  },
+  "family:bundle": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_bundle"
+    ],
+    "lore": [
+      "{name}: a pouch that stretches for one more thing."
+    ],
+    "use": [
+      "Craft a string and leather, then dye it. Holds a mix of items up to 64 weight. Right-click to pick things up and out."
+    ],
+    "secret": [
+      "A bundle cannot hold shulker boxes."
+    ]
+  },
+  "family:harness": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_harness"
+    ],
+    "lore": [
+      "{name}: a harness for a friend that floats."
+    ],
+    "use": [
+      "Put it on a Happy Ghast so players can ride it, up to four at a time."
+    ],
+    "secret": [
+      "The harness colour shows on the ghast while it floats."
+    ]
+  },
+  "family:cushion": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_cushion"
+    ],
+    "lore": [
+      "{name}: a soft seat that insists on staying put."
+    ],
+    "use": [
+      "A decorative cushion in this colour. Place it on a chair, a bench or the floor."
+    ],
+    "secret": [
+      "Cushions come in all sixteen dye colours."
+    ]
+  },
+  "family:log": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar)_(log|wood)|stripped_(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar)_(log|wood)|(crimson|warped)_(stem|hyphae)|stripped_(crimson|warped)_(stem|hyphae)|bamboo_block|stripped_bamboo_block"
+    ],
+    "lore": [
+      "{name}: the body of a tree, ready to become anything."
+    ],
+    "use": [
+      "Chop with an axe for planks; use an axe on it to strip the bark. Burns in a furnace and makes charcoal. Nether stems do not burn."
+    ],
+    "secret": [
+      "The wood and hyphae variants show the bark on all six sides."
+    ]
+  },
+  "family:planks": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_(planks|mosaic)"
+    ],
+    "lore": [
+      "{name}: wood that has found its shape."
+    ],
+    "use": [
+      "Made from logs. The basis of crafting tables, tools, doors, fences and furniture. Overworld wood burns; Nether wood does not."
+    ],
+    "secret": [
+      "Planks of different kinds do not mix in recipes that want a specific wood."
+    ]
+  },
+  "family:fence_gate": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_fence_gate"
+    ],
+    "lore": [
+      "{name}: a gate that is never quite closed."
+    ],
+    "use": [
+      "A door for fences. Opens with a click or a redstone signal and can be placed anywhere along a wall."
+    ],
+    "secret": [
+      "Animals will not walk through a closed gate, which makes it a farm essential."
+    ]
+  },
+  "family:fence": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_fence|nether_brick_fence"
+    ],
+    "lore": [
+      "{name}: a rail that says no politely."
+    ],
+    "use": [
+      "Connects to blocks and other fences. Prevents walking over; players and mobs cannot step over it because it is 1.5 blocks high."
+    ],
+    "secret": [
+      "A lead can be tied to a fence post to hold an animal."
+    ]
+  },
+  "family:door": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo|iron|copper|waxed_copper|(waxed_)?(exposed|weathered|oxidized)_copper)_door"
+    ],
+    "lore": [
+      "{name}: it stands for what lies behind it."
+    ],
+    "use": [
+      "Opens with a click or a redstone signal. Wooden doors can be opened by hand; iron doors only with redstone."
+    ],
+    "secret": [
+      "Two doors side by side with opposite hinges open together as a double door."
+    ]
+  },
+  "family:trapdoor": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo|iron|copper|waxed_copper|(waxed_)?(exposed|weathered|oxidized)_copper)_trapdoor"
+    ],
+    "lore": [
+      "{name}: a door that lies down."
+    ],
+    "use": [
+      "Opens like a door onto a floor or a wall. Use it as a hatch, a table or a shelf."
+    ],
+    "secret": [
+      "A trapdoor placed on a ladder lets you close a shaft."
+    ]
+  },
+  "family:hanging_sign": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_hanging_sign"
+    ],
+    "lore": [
+      "{name}: words that hang by a chain."
+    ],
+    "use": [
+      "Place it under a block or beam and write on both sides. Can be waxed with honeycomb and dyed."
+    ],
+    "secret": [
+      "A hanging sign can be glowed with a glow ink sac."
+    ]
+  },
+  "family:sign": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_sign"
+    ],
+    "lore": [
+      "{name}: a board that tells you what to think."
+    ],
+    "use": [
+      "Place on a block and write four lines on each side. Dye it with a dye; wax it to lock the text."
+    ],
+    "secret": [
+      "A glow ink sac makes the letters glow in the dark."
+    ]
+  },
+  "family:button": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo|stone|polished_blackstone)_button"
+    ],
+    "lore": [
+      "{name}: a small push that carries a signal."
+    ],
+    "use": [
+      "Gives a short redstone pulse when pressed; wooden ones last 1.5 seconds, stone ones 1 second. Arrows also press wooden buttons."
+    ],
+    "secret": [
+      "Place it on any side of a block, including a ceiling."
+    ]
+  },
+  "family:pressure_plate": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo|stone|polished_blackstone)_pressure_plate"
+    ],
+    "lore": [
+      "{name}: it knows when someone has arrived."
+    ],
+    "use": [
+      "Gives a signal as long as something stands on it. Wooden plates react to any entity, stone plates only to mobs and players."
+    ],
+    "secret": [
+      "Items dropped on a wooden plate also trigger it."
+    ]
+  },
+  "family:boat": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|bamboo)_(boat|raft|chest_boat|chest_raft)"
+    ],
+    "lore": [
+      "{name}: a hull for wanderers."
+    ],
+    "use": [
+      "Place it on water and right-click to ride. Chest versions have 27 slots; bamboo makes rafts."
+    ],
+    "secret": [
+      "Boats travel much faster on ice."
+    ]
+  },
+  "family:shelf": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_shelf"
+    ],
+    "lore": [
+      "{name}: a plank with room for three things."
+    ],
+    "use": [
+      "A wall-mounted shelf that holds up to three items."
+    ],
+    "secret": [
+      "A redstone signal makes the shelf swap its items with your hotbar."
+    ]
+  },
+  "family:leaves": {
+    "items": [
+      "regex:.*_leaves|azalea_leaves|flowering_azalea_leaves"
+    ],
+    "lore": [
+      "{name}: a green crown, full of small things."
+    ],
+    "use": [
+      "Drops saplings, sticks and sometimes apples when broken, more with shears. Shears or Silk Touch keep the block."
+    ],
+    "secret": [
+      "Leaves decay once no log is within six blocks of them."
+    ]
+  },
+  "family:sapling": {
+    "items": [
+      "regex:.*_sapling|mangrove_propagule"
+    ],
+    "lore": [
+      "{name}: a promise that will take a while."
+    ],
+    "use": [
+      "Plant it on grass or dirt with space above. It grows into a tree when the light is high enough. Bone meal speeds it up."
+    ],
+    "secret": [
+      "Four saplings in a 2x2 square can grow a giant tree for some species; dark oak needs it."
+    ]
+  },
+  "family:stairs": {
+    "items": [
+      "regex:.*_stairs"
+    ],
+    "lore": [
+      "{name}: a step, then another, then a view."
+    ],
+    "use": [
+      "Craft six blocks into four stairs. Walk up without jumping; place them upside down for ceilings and arches."
+    ],
+    "secret": [
+      "A stonecutter makes one stair per block, which is cheaper than the crafting grid."
+    ]
+  },
+  "family:slab": {
+    "items": [
+      "regex:.*_slab"
+    ],
+    "lore": [
+      "{name}: half a block, whole usefulness."
+    ],
+    "use": [
+      "Craft three blocks into six slabs. Two slabs of the same kind stack into a full block."
+    ],
+    "secret": [
+      "Slabs let you climb without jumping and make delicate terraces."
+    ]
+  },
+  "family:wall": {
+    "items": [
+      "regex:.*_wall"
+    ],
+    "lore": [
+      "{name}: a barrier built to look old."
+    ],
+    "use": [
+      "Craft six blocks into six walls. Connects to blocks and other walls; too tall to jump."
+    ],
+    "secret": [
+      "Walls grow a post where they meet in a corner or when something sits on them."
+    ]
+  },
+  "family:sword": {
+    "items": [
+      "regex:.*_sword"
+    ],
+    "lore": [
+      "{name}: a sharp opinion."
+    ],
+    "use": [
+      "Its material sets damage and durability. A fully charged swing also sweeps nearby foes. Enchant it at a table or anvil."
+    ],
+    "secret": [
+      "Of all tools a sword cuts cobwebs the fastest."
+    ]
+  },
+  "family:pickaxe": {
+    "items": [
+      "regex:.*_pickaxe"
+    ],
+    "lore": [
+      "{name}: it asks stone to move aside."
+    ],
+    "use": [
+      "Mines stone, ores and metal blocks. The material decides which ores it can harvest and how fast."
+    ],
+    "secret": [
+      "Without a pickaxe of the right tier, ores break but drop nothing."
+    ]
+  },
+  "family:axe": {
+    "items": [
+      "regex:.*_axe"
+    ],
+    "lore": [
+      "{name}: it knows what a tree is thinking."
+    ],
+    "use": [
+      "Chops wood quickly, strips logs and scrapes copper. Hits harder than a sword, but slower."
+    ],
+    "secret": [
+      "A hit with an axe can disable a shield for a few seconds."
+    ]
+  },
+  "family:shovel": {
+    "items": [
+      "regex:.*_shovel"
+    ],
+    "lore": [
+      "{name}: it makes holes, and sometimes paths."
+    ],
+    "use": [
+      "Digs dirt, sand, gravel and snow quickly. Right-click grass to flatten it into a path."
+    ],
+    "secret": [
+      "Shovels also extinguish campfires."
+    ]
+  },
+  "family:hoe": {
+    "items": [
+      "regex:.*_hoe"
+    ],
+    "lore": [
+      "{name}: a farmer's whisper to the soil."
+    ],
+    "use": [
+      "Turns dirt and grass into farmland, and breaks leaves, hay bales, moss and sculk quickly."
+    ],
+    "secret": [
+      "The hoe is the right tool for sculk, moss, hay and leaves, not only for soil."
+    ]
+  },
+  "family:spear": {
+    "items": [
+      "regex:.*_spear"
+    ],
+    "lore": [
+      "{name}: the long way of saying hello."
+    ],
+    "use": [
+      "A spear: jab at foes from a little farther away than a sword. Its material sets damage and durability."
+    ],
+    "secret": [
+      "Enchant it at a table or anvil like other weapons."
+    ]
+  },
+  "family:leather": {
+    "items": [
+      "regex:leather_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: a soft shell for the small hours."
+    ],
+    "use": [
+      "Wear it for protection; each piece adds armor. It can be dyed and keeps you warm in powder snow."
+    ],
+    "secret": [
+      "Leather armor is the only armor that can be dyed in a cauldron or the crafting grid."
+    ]
+  },
+  "family:chain": {
+    "items": [
+      "regex:chainmail_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: rings that add up to a plan."
+    ],
+    "use": [
+      "Wear it for protection; each piece adds armor. Not craftable in the usual way; found from mobs and loot."
+    ],
+    "secret": [
+      "It protects about as much as iron, but with a better enchantment value."
+    ]
+  },
+  "family:iron_armor": {
+    "items": [
+      "regex:iron_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: the dependable default."
+    ],
+    "use": [
+      "Wear it for protection; each piece adds armor. Smelt ingots and craft pieces. Repair with iron ingots on an anvil."
+    ],
+    "secret": [
+      "Iron is the first tier worth enchanting at a table."
+    ]
+  },
+  "family:gold_armor": {
+    "items": [
+      "regex:golden_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: it shines, which is the point."
+    ],
+    "use": [
+      "Wear it for protection; each piece adds armor. It protects less than iron, but piglins do not attack a wearer in gold."
+    ],
+    "secret": [
+      "Wear one gold piece and piglins stay calm; it is the best bribe in the Nether."
+    ]
+  },
+  "family:diamond_armor": {
+    "items": [
+      "regex:diamond_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: a blue edge for the brave."
+    ],
+    "use": [
+      "Wear it for protection; each piece adds armor. High protection with a good enchantment value; repair with diamonds."
+    ],
+    "secret": [
+      "Diamond armor can be upgraded to netherite at a smithing table."
+    ]
+  },
+  "family:netherite_armor": {
+    "items": [
+      "regex:netherite_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: it was forged where nothing else survives."
+    ],
+    "use": [
+      "Wear it for protection; each piece adds armor. Upgrade diamond armor at a smithing table. Highest protection and toughness; does not burn and resists knockback."
+    ],
+    "secret": [
+      "Dropped netherite items float in lava and do not burn."
+    ]
+  },
+  "family:copper_armor": {
+    "items": [
+      "regex:copper_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: a green shine that ages with you."
+    ],
+    "use": [
+      "Wear it for protection; each piece adds armor. Craft from copper ingots; repair with copper ingots. A cheap step up from leather."
+    ],
+    "secret": [
+      "Wear it in the rain for the look; the metal itself protects like cheap iron."
+    ]
+  },
+  "family:horse_armor": {
+    "items": [
+      "regex:.*_horse_armor"
+    ],
+    "lore": [
+      "{name}: a coat for a loyal runner."
+    ],
+    "use": [
+      "Right-click a horse to dress it. Better material gives more protection."
+    ],
+    "secret": [
+      "Dispensers can also put it on a horse."
+    ]
+  },
+  "family:nautilus_armor": {
+    "items": [
+      "regex:.*_nautilus_armor"
+    ],
+    "lore": [
+      "{name}: a shell for a creature of the deep."
+    ],
+    "use": [
+      "Right-click a tamed nautilus to put it on. Better material gives more protection."
+    ],
+    "secret": [
+      "Dispensers can equip it on a nautilus too."
+    ]
+  },
+  "family:lightning_rod": {
+    "items": [
+      "regex:(waxed_)?((exposed|weathered|oxidized)_)?lightning_rod"
+    ],
+    "lore": [
+      "{name}: it wants the sky's attention."
+    ],
+    "use": [
+      "Redirects lightning within a wide radius to itself and sends a redstone pulse. Protects wooden builds from fire."
+    ],
+    "secret": [
+      "Oxidation stage and wax change only the colour; the rod still catches lightning."
+    ]
+  },
+  "family:waxed_copper": {
+    "items": [
+      "regex:waxed_.*"
+    ],
+    "lore": [
+      "{name}: kept at the age it was waxed."
+    ],
+    "use": [
+      "Apply honeycomb to stop the oxidation. An axe scrapes the wax off again."
+    ],
+    "secret": [
+      "Waxing also stops further ageing, so you can keep the exact colour you like."
+    ]
+  },
+  "family:weathered_copper": {
+    "items": [
+      "regex:(exposed|weathered|oxidized)_.*"
+    ],
+    "lore": [
+      "{name}: copper that has been out in the weather."
+    ],
+    "use": [
+      "Copper turns green over time when exposed to air. An axe scrapes it back, honeycomb stops the process."
+    ],
+    "secret": [
+      "Lightning strikes can scrape off the oxidation."
+    ]
+  },
+  "family:copper_block": {
+    "items": [
+      "regex:(cut_|chiseled_)?copper(_block|_bulb|_grate|_chest)?|copper_golem_statue|copper_lantern|copper_chain|copper_bars|copper_torch"
+    ],
+    "lore": [
+      "{name}: a metal that never stops changing."
+    ],
+    "use": [
+      "Craft from copper ingots. Conducts lightning, ages through four stages and can be waxed."
+    ],
+    "secret": [
+      "Copper bulbs flip on and off with each redstone pulse and remember their state."
+    ]
+  },
+  "family:coral_block": {
+    "items": [
+      "regex:(dead_)?(tube|brain|bubble|fire|horn)_coral_block"
+    ],
+    "lore": [
+      "{name}: a reef you can pick up."
+    ],
+    "use": [
+      "Place it near water and it stays alive; dead versions are grey. Silk Touch keeps live coral."
+    ],
+    "secret": [
+      "Coral dies in a few seconds when away from water, even a block away."
+    ]
+  },
+  "family:coral": {
+    "items": [
+      "regex:(dead_)?(tube|brain|bubble|fire|horn)_coral(_fan|_wall_fan)?"
+    ],
+    "lore": [
+      "{name}: a quiet garden at the bottom of the sea."
+    ],
+    "use": [
+      "Decorative sea plant. Needs water to stay alive; Silk Touch is needed to keep it."
+    ],
+    "secret": [
+      "Coral fans can sit on walls as well as on the ground."
+    ]
+  },
+  "family:explorer_map": {
+    "items": [
+      "regex:.+_map"
+    ],
+    "lore": [
+      "{name}: a promise of treasure, drawn by someone who has been there."
+    ],
+    "use": [
+      "Found in cartographer trades and chests. Hold it to read; it shows the way to its goal, marked on the map. Needs a compass heading from the cartographer."
+    ],
+    "secret": [
+      "An explorer map is a special filled map; copy it in a cartography table to share the trail."
+    ]
+  },
+  "family:bucket_mob": {
+    "items": [
+      "regex:(axolotl|cod|pufferfish|salmon|tadpole|tropical_fish|sulfur_cube)_bucket"
+    ],
+    "lore": [
+      "{name}: a pocket pond with a passenger."
+    ],
+    "use": [
+      "Use a water bucket on the creature to catch it; place the bucket on water to release it again."
+    ],
+    "secret": [
+      "Mobs kept in a bucket remember their kind and colour when released."
+    ]
+  },
+  "family:minecart": {
+    "items": [
+      "regex:(chest_|command_block_|furnace_|hopper_|tnt_)?minecart"
+    ],
+    "lore": [
+      "{name}: it rolls where the rail goes."
+    ],
+    "use": [
+      "Place it on rails and ride it, or let it carry cargo. The variants carry chests, furnaces, hoppers, TNT or command blocks."
+    ],
+    "secret": [
+      "Powered rails speed it up, detector rails sense it passing."
+    ]
+  },
+  "family:ore": {
+    "items": [
+      "regex:(deepslate_)?(coal|copper|diamond|emerald|gold|iron|lapis|redstone)_ore|nether_gold_ore|nether_quartz_ore"
+    ],
+    "lore": [
+      "{name}: stone with a promise in it."
+    ],
+    "use": [
+      "Mine with the right pickaxe; Fortune gives more drops for most ores, Silk Touch keeps the block. Smelting the raw material gives ingots."
+    ],
+    "secret": [
+      "Ore veins are bigger deep down; diamonds like depth most."
+    ]
+  },
+  "family:raw_metal": {
+    "items": [
+      "regex:raw_(copper|gold|iron)(_block)?"
+    ],
+    "lore": [
+      "{name}: ore, but ready for the fire."
+    ],
+    "use": [
+      "Dropped by mining ores. Smelt in a furnace or blast furnace for ingots. Nine make a raw block."
+    ],
+    "secret": [
+      "Raw blocks store them compactly and turn back into nine items."
+    ]
+  },
+  "family:ingot": {
+    "items": [
+      "regex:(iron|gold|copper|netherite)_ingot"
+    ],
+    "lore": [
+      "{name}: a bar that has seen fire."
+    ],
+    "use": [
+      "Smelted from raw metal or crafted from nuggets. Nine make a block; used for tools, armor and many recipes."
+    ],
+    "secret": [
+      "Craft nine nuggets into one ingot and one ingot back into nine nuggets."
+    ]
+  },
+  "family:nugget": {
+    "items": [
+      "regex:(iron|gold|copper)_nugget"
+    ],
+    "lore": [
+      "{name}: a crumb of metal."
+    ],
+    "use": [
+      "Nine make an ingot. Dropped by some mobs and used in a few small recipes."
+    ],
+    "secret": [
+      "Nuggets are what zombified piglins drop when they die."
+    ]
+  },
+  "family:flower": {
+    "items": [
+      "regex:allium|azure_bluet|blue_orchid|cornflower|dandelion|golden_dandelion|lilac|lily_of_the_valley|orange_tulip|oxeye_daisy|peony|pink_tulip|poppy|red_tulip|rose_bush|sunflower|torchflower|white_tulip|wither_rose|pitcher_plant|open_eyeblossom|closed_eyeblossom|wildflowers|pink_petals|cactus_flower"
+    ],
+    "lore": [
+      "{name}: a small thing that insists on being pretty."
+    ],
+    "use": [
+      "Bone meal spreads it; craft it into dye or use as decoration. Bees pollinate flowers and grow crops."
+    ],
+    "secret": [
+      "Dandelions and poppies become the dyes yellow and red."
+    ]
+  },
+  "family:cooked_food": {
+    "items": [
+      "regex:cooked_.*|baked_potato|bread|cookie|pumpkin_pie|cake|mushroom_stew|beetroot_soup|rabbit_stew|suspicious_stew"
+    ],
+    "lore": [
+      "{name}: hunger's answer."
+    ],
+    "use": [
+      "Eat it to restore hunger and saturation. Cooked meat restores much more than raw."
+    ],
+    "secret": [
+      "A full hunger bar does not stop you eating a cake: you can always eat food that has a special effect."
+    ]
+  },
+  "family:raw_food": {
+    "items": [
+      "regex:beef|chicken|mutton|porkchop|rabbit|cod|salmon|tropical_fish|pufferfish|rotten_flesh|spider_eye|poisonous_potato"
+    ],
+    "lore": [
+      "{name}: it wants a fire before a plate."
+    ],
+    "use": [
+      "Eat for a little hunger; cook it in a furnace, smoker or campfire for more. Some give bad effects."
+    ],
+    "secret": [
+      "Smokers and campfires cook it faster than a furnace for meat."
+    ]
+  },
+  "family:seeds": {
+    "items": [
+      "regex:.*_seeds|pitcher_pod|nether_sprouts"
+    ],
+    "lore": [
+      "{name}: a handful of patience."
+    ],
+    "use": [
+      "Plant on farmland (or the right ground) with water nearby, and wait. Bone meal speeds growth."
+    ],
+    "secret": [
+      "Chickens follow a player holding wheat seeds."
+    ]
+  },
+  "family:amethyst_bud": {
+    "items": [
+      "regex:(small|medium|large)_amethyst_bud|amethyst_cluster"
+    ],
+    "lore": [
+      "{name}: a crystal still on its way."
+    ],
+    "use": [
+      "Grows on budding amethyst in stages; Silk Touch keeps small buds, a pickaxe breaks clusters into shards."
+    ],
+    "secret": [
+      "Fortune gives more shards from a cluster."
+    ]
+  },
+  "family:froglight": {
+    "items": [
+      "regex:.*_froglight"
+    ],
+    "lore": [
+      "{name}: light that a frog ate and returned."
+    ],
+    "use": [
+      "Dropped when a frog eats a small magma cube; the colour depends on the frog's biome. A bright light block."
+    ],
+    "secret": [
+      "Place it to light a build with soft colours; it shines at light level 15."
+    ]
+  },
+  "family:command_block": {
+    "items": [
+      "regex:(chain_|repeating_)?command_block"
+    ],
+    "lore": [
+      "{name}: a block that speaks in commands."
+    ],
+    "use": [
+      "Creative-only. Holds a command that runs when it gets a signal. Repeating blocks run every tick, chain blocks follow a command block."
+    ],
+    "secret": [
+      "Only operators in creative mode can place or edit it."
+    ]
+  },
+  "family:head": {
+    "items": [
+      "regex:(creeper|piglin|dragon|zombie|player)_head|(skeleton|wither_skeleton)_skull"
+    ],
+    "lore": [
+      "{name}: a trophy of something that once looked back."
+    ],
+    "use": [
+      "Wear it on your head or place it on the ground or a wall. Note blocks play the sound of the mob below it."
+    ],
+    "secret": [
+      "Charged creepers' explosions are the only way to drop most mob heads."
+    ]
+  },
+  "family:egg": {
+    "items": [
+      "regex:(blue_|brown_)?egg"
+    ],
+    "lore": [
+      "{name}: a plain promise of a chick."
+    ],
+    "use": [
+      "Throw it for a chance of a chick; use it to breed chickens, or craft it into cakes."
+    ],
+    "secret": [
+      "A thrown egg has a 1 in 8 chance of a chick, and rarely four."
+    ]
+  },
+  "family:infested": {
+    "items": [
+      "regex:infested_.*"
+    ],
+    "lore": [
+      "{name}: stone that pretends, and bites."
+    ],
+    "use": [
+      "Looks like an ordinary block, but a silverfish hides inside and bursts out when it is mined. Found in strongholds and mountains."
+    ],
+    "secret": [
+      "Silk Touch keeps the block without releasing the silverfish."
+    ]
+  },
+  "family:polished": {
+    "items": [
+      "regex:polished_.*"
+    ],
+    "lore": [
+      "{name}: stone that someone took the time to smooth."
+    ],
+    "use": [
+      "Crafted from four blocks of the rough stone, or cut in a stonecutter. A common building block."
+    ],
+    "secret": [
+      "Polished versions make stairs, slabs and walls too."
+    ]
+  },
+  "family:chiseled": {
+    "items": [
+      "regex:chiseled_.*"
+    ],
+    "lore": [
+      "{name}: stone with a pattern cut into it."
+    ],
+    "use": [
+      "Crafted from slabs or cut in a stonecutter. A decorative block with a carved face."
+    ],
+    "secret": [
+      "Chiseled bookshelves can hold six books and give redstone signals."
+    ]
+  },
+  "family:cracked": {
+    "items": [
+      "regex:cracked_.*"
+    ],
+    "lore": [
+      "{name}: a block that started to give up."
+    ],
+    "use": [
+      "Smelt the normal bricks to get the cracked version. A decorative variant."
+    ],
+    "secret": [
+      "Cracked bricks are also what ruins and fortresses generate for an old look."
+    ]
+  },
+  "family:smooth": {
+    "items": [
+      "regex:smooth_.*|cut_sandstone|cut_red_sandstone"
+    ],
+    "lore": [
+      "{name}: a surface with no opinions."
+    ],
+    "use": [
+      "Smelt the normal block to smooth it. Flat and clean for floors and builds."
+    ],
+    "secret": [
+      "Smooth stone slabs make a good floor for redstone builds."
+    ]
+  },
+  "family:sulfur": {
+    "items": [
+      "regex:.*sulfur.*"
+    ],
+    "lore": [
+      "{name}: a pale mineral with a sharp smell."
+    ],
+    "use": [
+      "Mined with a pickaxe; used for the sulfur stones, the sulfur cube and decoration."
+    ],
+    "secret": [
+      "It comes from the sulfur caves."
+    ]
+  },
+  "family:cinnabar": {
+    "items": [
+      "regex:.*cinnabar.*"
+    ],
+    "lore": [
+      "{name}: a red mineral that stains the fingers."
+    ],
+    "use": [
+      "Mined with a pickaxe; used for building and decoration in the new caves."
+    ],
+    "secret": [
+      "It comes with its own bricks and polished forms."
+    ]
+  },
+  "family:resin": {
+    "items": [
+      "regex:resin_.*|chiseled_resin_bricks"
+    ],
+    "lore": [
+      "{name}: amber from the creaking's tree."
+    ],
+    "use": [
+      "Resin clumps come from creaking hearts and resin blocks; smelt a clump for a resin brick. Used for blocks and as a trim material."
+    ],
+    "secret": [
+      "Resin brick is a trim material too."
+    ]
+  },
+  "family:nether_flora": {
+    "items": [
+      "regex:(crimson|warped)_(fungus|roots|nylium)|weeping_vines|twisting_vines|nether_wart_block|warped_wart_block|shroomlight"
+    ],
+    "lore": [
+      "{name}: the Nether's way of having a garden."
+    ],
+    "use": [
+      "Grows in the Nether's forests; bone meal on a fungus grows a huge fungus, on nylium it spreads roots. Shears harvest vines."
+    ],
+    "secret": [
+      "Vines can be climbed, and weeping vines hang from the Nether's ceilings."
+    ]
+  },
+  "family:ground_plant": {
+    "items": [
+      "regex:short_grass|tall_grass|fern|large_fern|bush|firefly_bush|short_dry_grass|tall_dry_grass|dead_bush|leaf_litter|vine|seagrass|kelp|sea_pickle|lily_pad|glow_lichen|hanging_roots|spore_blossom|azalea|flowering_azalea|big_dripleaf|small_dripleaf|pale_hanging_moss|red_shrub|bamboo|sugar_cane|cactus"
+    ],
+    "lore": [
+      "{name}: green, quiet and always growing."
+    ],
+    "use": [
+      "Breaks instantly by hand. Shears keep it; some drop seeds or can be bone-mealed to spread."
+    ],
+    "secret": [
+      "Many of these plants only grow where the light and ground fit."
+    ]
+  },
+  "family:dirt_family": {
+    "items": [
+      "regex:dirt|coarse_dirt|podzol|rooted_dirt|mud|packed_mud|mycelium|grass_block|farmland|dirt_path|muddy_mangrove_roots|mangrove_roots|gravel|sand|red_sand|clay|moss_block|pale_moss_block|moss_carpet|pale_moss_carpet"
+    ],
+    "lore": [
+      "{name}: the ground, in one of its moods."
+    ],
+    "use": [
+      "Dug with a shovel. Different soils decide what can grow on them and how they feel underfoot."
+    ],
+    "secret": [
+      "Moss and mud change which plants grow in a garden."
+    ]
+  },
+  "family:natural_stone": {
+    "items": [
+      "regex:stone|cobblestone|granite|diorite|andesite|tuff|calcite|deepslate|cobbled_deepslate|basalt|blackstone|netherrack|end_stone|obsidian|crying_obsidian|reinforced_deepslate|dripstone_block|pointed_dripstone|prismarine|dark_prismarine|magma_block|purpur_block|purpur_pillar|bedrock|terracotta"
+    ],
+    "lore": [
+      "{name}: the world's own bones."
+    ],
+    "use": [
+      "Mined with a pickaxe. Used in building and as a base for crafting. Smelt or cut for variants."
+    ],
+    "secret": [
+      "Some of these stones are only found in one biome or one dimension."
+    ]
+  },
+  "family:bricks_family": {
+    "items": [
+      "regex:bricks|stone_bricks|mossy_stone_bricks|deepslate_bricks|deepslate_tiles|nether_bricks|red_nether_bricks|end_stone_bricks|tuff_bricks|quartz_bricks|prismarine_bricks|mud_bricks|brick|nether_brick|quartz_block|quartz_pillar|quartz|sandstone|red_sandstone|mossy_cobblestone"
+    ],
+    "lore": [
+      "{name}: stone, cut to a plan."
+    ],
+    "use": [
+      "Crafted or cut from the matching block or ingot. A building block with stairs, slabs and walls in many cases."
+    ],
+    "secret": [
+      "Stonecutters turn them into stairs and slabs more cheaply."
+    ]
+  },
+  "family:metal_block": {
+    "items": [
+      "regex:(coal|diamond|emerald|gold|iron|lapis|redstone|netherite|amethyst|honey|slime|hay|bone|dried_kelp|resin|raw_.*)_block|amethyst_block|budding_amethyst|honeycomb_block"
+    ],
+    "lore": [
+      "{name}: a whole store of value in one cube."
+    ],
+    "use": [
+      "Crafted from nine items and crafted back into nine. A compact store and a decorative block."
+    ],
+    "secret": [
+      "Beacons use iron, gold, emerald, diamond and netherite blocks as their base."
+    ]
+  }
+}

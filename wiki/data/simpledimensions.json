@@ -340,6 +340,30 @@
         }
       },
       "texture": "assets/textures/simpledimensions/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book that knows the portals and the pocket worlds behind them."
+          ],
+          "use": [
+            "The Simple Dimensions Guide explains the portals and the pocket worlds behind them. Craft it shapeless from a book and a crafting table."
+          ],
+          "secret": [
+            "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch, das die Portale und die Taschenwelten dahinter kennt."
+          ],
+          "use": [
+            "Das Simple Dimensions-Handbuch erklärt die Portale und die Taschenwelten dahinter. Formlos aus einem Buch und einer Werkbank herstellbar."
+          ],
+          "secret": [
+            "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simpledimension:guide_book"
       ],
@@ -362,6 +386,30 @@
           "summary": "Alte Block-, Blockentitäts- und Item-ID bleiben ladbar. Kein Survivalrezept, Beutequelle oder Kreativtab-Eintrag."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A portal that remembers an older version of the world."
+          ],
+          "use": [
+            "A legacy block, block entity and item ID kept so old worlds still load. It has no recipe, no loot source and no creative tab entry."
+          ],
+          "secret": [
+            "You will only ever meet it in an old world. Nothing new is built from it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Portal, das sich an eine ältere Version der Welt erinnert."
+          ],
+          "use": [
+            "Eine alte Block-, Blockentitäts- und Item-ID, damit alte Welten laden. Kein Rezept, keine Beutequelle, kein Kreativ-Tab-Eintrag."
+          ],
+          "secret": [
+            "Man trifft es nur in alten Welten. Neu gebaut wird daraus nichts."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -378,6 +426,30 @@
         },
         "de": {
           "summary": "Gezündete Portalfläche, kein herstellbares Item und kein Survivaldrop. Farbe und Ziel werden in der Blockentität gespeichert."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A portal block through which you can feel the wind of another sky."
+          ],
+          "use": [
+            "The blocks of a Skyblock portal: build a glowstone arch and light it with fire next to an emitting block. It carries only players, never mobs or items, and checks a safe return."
+          ],
+          "secret": [
+            "Glowstone, fire, soul fire and portal blocks do not count as the emitter. Claims you cannot enter also block the trip."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Portalblock, durch den man den Wind eines anderen Himmels spürt."
+          ],
+          "use": [
+            "Die Blöcke eines Skyblock-Portals: einen Glowstone-Bogen bauen und mit Feuer neben einem leuchtenden Block anzünden. Es befördert nur Spieler, nie Mobs oder Items, und prüft einen sicheren Rückweg."
+          ],
+          "secret": [
+            "Glowstone, Feuer, Seelenfeuer und Portalblöcke zählen nicht als Lichtquelle. Auch ein Claim, den man nicht betreten darf, blockiert die Reise."
+          ]
         }
       },
       "craftedBy": [],

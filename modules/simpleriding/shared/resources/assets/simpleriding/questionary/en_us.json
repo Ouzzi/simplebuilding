@@ -1,0 +1,90 @@
+{
+  "copper_horseshoe": {
+    "lore": [
+      "A shoe of copper for a hoof that has seen many roads."
+    ],
+    "use": [
+      "Smith the Horseshoe Upgrade with a copper ingot. Tier 1, worth 1 point, durability 120. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+    ],
+    "secret": [
+      "Two shoes of one tier score the same as four of the tier below. Each loses one point of durability per 40 blocks ridden on the ground."
+    ]
+  },
+  "iron_horseshoe": {
+    "lore": [
+      "A shoe of iron for a hoof that has seen many roads."
+    ],
+    "use": [
+      "Smith the Horseshoe Upgrade with an iron ingot. Tier 2, worth 2 points, durability 180. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+    ],
+    "secret": [
+      "Two shoes of one tier score the same as four of the tier below. Each loses one point of durability per 40 blocks ridden on the ground."
+    ]
+  },
+  "golden_horseshoe": {
+    "lore": [
+      "A shoe of gold for a hoof that has seen many roads."
+    ],
+    "use": [
+      "Smith the Horseshoe Upgrade with a gold ingot. Tier 3, worth 4 points, durability 80. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+    ],
+    "secret": [
+      "Two shoes of one tier score the same as four of the tier below. Each loses one point of durability per 40 blocks ridden on the ground."
+    ]
+  },
+  "diamond_horseshoe": {
+    "lore": [
+      "A shoe of diamond for a hoof that has seen many roads."
+    ],
+    "use": [
+      "Smith the Horseshoe Upgrade with a diamond with an iron nugget. Tier 4, worth 8 points, durability 400. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+    ],
+    "secret": [
+      "Two shoes of one tier score the same as four of the tier below. Each loses one point of durability per 40 blocks ridden on the ground."
+    ]
+  },
+  "netherite_horseshoe": {
+    "lore": [
+      "A shoe of Netherite that does not mind a lava shore."
+    ],
+    "use": [
+      "Smith the Horseshoe Upgrade with a Diamond Horseshoe and a netherite ingot. Tier 5, durability 500, fire resistant. A full set gives 86% of the bonus."
+    ],
+    "secret": [
+      "Enchantments and wear carry over from the diamond shoe. Four shoes also add 5% speed and jump strength and make long falls hurt 10% more."
+    ]
+  },
+  "enderite_horseshoe": {
+    "lore": [
+      "The last shoe of the line: it walks the soul sand as if it were a road."
+    ],
+    "use": [
+      "Smith the Horseshoe Upgrade with a Netherite Horseshoe and an Enderite Ingot (needs SimpleBuilding). Tier 6, durability 620, fire resistant. A full set gives 100% of the bonus."
+    ],
+    "secret": [
+      "Soul sand and honey slow the horse far less, and it steers sideways much better. Enchantments and wear carry over from the Netherite shoe."
+    ]
+  },
+  "horseshoe_smithing_template": {
+    "lore": [
+      "A template shaped like a horseshoe, cold to the touch like a stable at dawn."
+    ],
+    "use": [
+      "Used up in the smithing table to make a horseshoe. Found in village weaponsmith and tannery chests and by brushing trail ruins. Copy it with an iron ingot and seven copper ingots for two."
+    ],
+    "secret": [
+      "Brushing trail-ruin blocks also gives a worn Copper or Iron Horseshoe. The template itself is used up like any Vanilla template."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "A book of saddles, harnesses and quiet roads."
+    ],
+    "use": [
+      "The Simple Riding Guide covers Tailwind, Leaping, mount armor and the horseshoes. Craft it shapeless from a book and a crafting table."
+    ],
+    "secret": [
+      "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+    ]
+  }
+}

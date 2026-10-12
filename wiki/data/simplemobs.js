@@ -1307,6 +1307,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/deceiver_cloak.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A cloak that remembers every shape it ever saw."
+          ],
+          "use": [
+            "Craft deceiver cloth and phantom membrane in an elytra-like pattern. Worn in the chest slot, 240 durability. Right-click a mob or player with an empty hand to take its shape."
+          ],
+          "secret": [
+            "Hitting anything or breaking a block ends the disguise. Bosses, the Warden and the Howler see through it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Umhang, der sich jede Gestalt merkt, die er je sah."
+          ],
+          "use": [
+            "Betrügertuch und Phantomhaut in einem Elytra-ähnlichen Muster herstellen. Im Brustplatz getragen, 240 Haltbarkeit. Rechtsklick mit leerer Hand auf Mob oder Spieler nimmt dessen Gestalt an."
+          ],
+          "secret": [
+            "Treffen oder Blockabbau beendet die Verkleidung. Bosse, der Warden und der Heuler durchschauen sie."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemobs:deceiver_cloak"
       ],
@@ -1327,6 +1351,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/deceiver_cloth.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A cloth woven from a trick that never quite stays the same colour."
+          ],
+          "use": [
+            "Dropped by the Deceiver, 2 to 4 at 50%. It is the base of the Cloak of Deception and the Trick Mirror, repairs the cloak, and with an Invisibility Potion brews a Veiled Invisibility."
+          ],
+          "secret": [
+            "That invisibility has no swirl particles. It is the quietest vanishing in the game."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Tuch aus einem Trick, der nie ganz dieselbe Farbe behält."
+          ],
+          "use": [
+            "Vom Betrüger fallen gelassen, 2 bis 4 mit 50 %. Grundstoff des Täuschungsumhangs und des Trickspiegels, repariert den Umhang und braut mit einem Unsichtbarkeitstrank verschleierte Unsichtbarkeit."
+          ],
+          "secret": [
+            "Diese Unsichtbarkeit hat keine Wirbelpartikel. Es ist das leiseste Verschwinden im Spiel."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simplemobs:deceiver_cloak",
@@ -1348,6 +1396,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/deceiver_spawn_egg.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "An egg whose shell looks like different things from different sides."
+          ],
+          "use": [
+            "Spawns a Deceiver, a mob that turns into one of its own wave's mobs and may double its summons below half health. 200 health, 280 with armor."
+          ],
+          "secret": [
+            "Its copies are always fakes and vanish with it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Ei, dessen Schale von jeder Seite anders aussieht."
+          ],
+          "use": [
+            "Beschwört einen Betrüger, der sich in eines der Mobs seiner Welle verwandelt und unterhalb der halben Gesundheit seine Beschwörungen verdoppeln kann. 200 Leben, 280 mit Rüstung."
+          ],
+          "secret": [
+            "Seine Kopien sind immer Fälschungen und verschwinden mit ihm."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1366,6 +1438,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/echo_core.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "The heart of a sound that would not stop. It still echoes if you hold it to your ear."
+          ],
+          "use": [
+            "Dropped by the Hollow Howler. Awkward Potion plus Echo Core brews a Potion of Silence, 3:00 (8:00 with redstone), splash and lingering as usual."
+          ],
+          "secret": [
+            "Silence hides you like wool: sculk sensors, Wardens and Howlers do not hear you."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Das Herz eines Klangs, der nicht aufhören wollte. Am Ohr hört man ihn noch."
+          ],
+          "use": [
+            "Wird vom Tiefenheuler fallen gelassen. Seltsamer Trank plus Echokern braut einen Trank der Stille, 3:00 (8:00 mit Redstone), als Wurf- und Verweiltrank wie üblich."
+          ],
+          "secret": [
+            "Stille verbirgt dich wie Wolle: Sculk-Sensoren, Wardens und Heuler hören dich nicht."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1384,6 +1480,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/hollow_howler_spawn_egg.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "An egg that hums at a pitch only the Deep Dark understands."
+          ],
+          "use": [
+            "Spawns a Hollow Howler, the Deep Dark mid-boss, in creative. In survival you summon it yourself with a figure of sculk, a skull and a goat horn."
+          ],
+          "secret": [
+            "The Howler never calls reinforcements, but it hunts everything it hears."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Ei, das in einer Tonhöhe summt, die nur das Tiefe Dunkel versteht."
+          ],
+          "use": [
+            "Beschwört im Kreativmodus einen Tiefenheuler, den Zwischenboss des Tiefen Dunkels. Im Überleben ruft man ihn selbst mit einer Figur aus Sculk, einem Schädel und einem Ziegenhorn."
+          ],
+          "secret": [
+            "Der Heuler ruft nie Verstärkung, jagt aber alles, was er hört."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1402,6 +1522,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/illusion_shard.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A sliver of something that was never quite there."
+          ],
+          "use": [
+            "Dropped by the Deceiver, 1 to 2 (more with Looting; an armored one drops twice as many). With an Awkward Potion it brews the Potion of the Mirage if SimpleBuilding is present."
+          ],
+          "secret": [
+            "An armored Deceiver in a chest plate is the best source."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Splitter von etwas, das nie ganz da war."
+          ],
+          "use": [
+            "Vom Betrüger fallen gelassen, 1 bis 2 (mehr mit Plünderung; ein gepanzerter lässt doppelt so viele fallen). Mit einem Seltsamen Trank entsteht mit SimpleBuilding der Trank der Fata Morgana."
+          ],
+          "secret": [
+            "Ein Betrüger mit Brustplatte ist die beste Quelle."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1420,6 +1564,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/shellker_helmet.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A helmet made of the shells of those who guard the gateways."
+          ],
+          "use": [
+            "Craft five Shellker Shells in helmet shape. Armor 3, toughness 1, 10% knockback resistance, iron durability, repaired with shells. It can be trimmed and enchanted."
+          ],
+          "secret": [
+            "Its wearer is immune to High Gravity and takes 20% less fall damage. It does not stop the bullets' damage."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Helm aus den Schalen derer, die die Tore bewachen."
+          ],
+          "use": [
+            "Fünf Shellker-Schalen in Helmform herstellen. Rüstung 3, Zähigkeit 1, 10 % Rückstoßresistenz, Eisenhaltbarkeit, mit Schalen reparierbar. Kann verziert und verzaubert werden."
+          ],
+          "secret": [
+            "Der Träger ist immun gegen Hohe Schwerkraft und erleidet 20 % weniger Fallschaden. Den Schaden der Geschosse hält er nicht ab."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemobs:shellker_helmet"
       ],
@@ -1440,6 +1608,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/shellker_shell.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A shell that has stood against bullets and levitation alike. It is heavier than it looks."
+          ],
+          "use": [
+            "Dropped by the Shellker, 2 to 3 pieces. Five make a Shellker Helmet; with an Awkward Potion it brews High Gravity. Right-click a Shulker with a shell to turn it into a Shellker."
+          ],
+          "secret": [
+            "The shell is used up when it turns a Shulker. That is the only way to farm Shellkers, since they never spawn anywhere else."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Schale, die Geschossen und Schwebe gleichermaßen widerstanden hat. Sie ist schwerer, als sie aussieht."
+          ],
+          "use": [
+            "Vom Shellker fallen gelassen, 2 bis 3 Stück. Fünf ergeben einen Shellker-Helm; mit einem Seltsamen Trank braut sie Hohe Schwerkraft. Rechtsklick auf einen Shulker verwandelt ihn in einen Shellker."
+          ],
+          "secret": [
+            "Die Schale wird beim Verwandeln verbraucht. Nur so lassen sich Shellker züchten, denn sie erscheinen sonst nirgends."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": [
         "simplemobs:shellker_helmet"
@@ -1460,6 +1652,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/shellker_spawn_egg.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "An egg wrapped in shell that rattles quietly like a closing slit."
+          ],
+          "use": [
+            "Spawns a Shellker, a 120-health Shulker that stays one block wide and guards End gateways. In survival they come only with the gateway or from a Shulker and a shell."
+          ],
+          "secret": [
+            "Closed, a Shellker takes no damage at all; only pistons can push it away."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Ei in Schalenpanzer, das leise klappert wie ein sich schließender Schlitz."
+          ],
+          "use": [
+            "Beschwört einen Shellker, einen Shulker mit 120 Leben, der einen Block groß bleibt und End-Portale bewacht. Im Überleben gibt es ihn nur an den Toren oder aus Shulker und Schale."
+          ],
+          "secret": [
+            "Geschlossen nimmt ein Shellker keinerlei Schaden; nur Kolben können ihn wegschieben."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1478,6 +1694,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/soulfire_blaze_spawn_egg.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "An egg that sits on soul sand as if it had always been there."
+          ],
+          "use": [
+            "Spawns a Soulfire Blaze. In the wild it appears only in Soul Sand Valleys, over soul sand or soul soil, in packs of one or two."
+          ],
+          "secret": [
+            "It shoots three soul fireballs of 6 damage each, but water hurts it and snowballs deal 3 damage."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Ei, das auf Seelensand liegt, als wäre es immer schon dort gewesen."
+          ],
+          "use": [
+            "Beschwört eine Seelenfeuer-Lohe. In freier Wildbahn erscheint sie nur in Seelensandtälern über Seelensand oder Seelenerde, in Gruppen von ein bis zwei."
+          ],
+          "secret": [
+            "Sie feuert drei Seelenfeuerbälle zu je 6 Schaden, doch Wasser verletzt sie und Schneebälle richten 3 Schaden an."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1496,6 +1736,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/soulfire_rod.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A rod with a blue tongue of fire that gives no heat but still burns."
+          ],
+          "use": [
+            "Dropped by the Soulfire Blaze, 0 to 1, more with Looting. Awkward Potion plus rod brews a long Fire Resistance (8:00) directly."
+          ],
+          "secret": [
+            "The fire is soul fire: on soul sand or soul soil the blaze's flames set soul fire."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Stab mit blauer Feuerzunge, der keine Wärme gibt und doch brennt."
+          ],
+          "use": [
+            "Vom Seelenfeuer-Lohe fallen gelassen, 0 bis 1, mehr mit Plünderung. Seltsamer Trank plus Stab braut direkt langes Feuerresistenz (8:00)."
+          ],
+          "secret": [
+            "Das Feuer ist Seelenfeuer: Auf Seelensand oder Seelenerde entzünden die Flammen der Lohe Seelenfeuer."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1514,6 +1778,30 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "texture": "assets/textures/simplemobs/item/trick_mirror.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A mirror that shows what is real, which is rarely flattering."
+          ],
+          "use": [
+            "Craft gold, amethyst shard, deceiver cloth and a stick. Hold it up for 2 seconds: in a 30 degree cone up to 24 blocks, fakes and disguised foes glow and every disguise falls. 64 uses, 20 s cooldown."
+          ],
+          "secret": [
+            "It also drops from the Deceiver at 8%. Copies of the Deceiver glow along with it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Spiegel, der zeigt, was echt ist, und das ist selten schmeichelhaft."
+          ],
+          "use": [
+            "Gold, Amethystscherbe, Betrügertuch und Stock herstellen. 2 Sekunden hochhalten: In einem 30-Grad-Kegel bis 24 Blöcke leuchten Fälschungen und Verkleidete, jede Verkleidung fällt. 64 Nutzungen, 20 s Abklingzeit."
+          ],
+          "secret": [
+            "Er fällt auch mit 8 % vom Betrüger. Kopien des Betrügers leuchten gleich mit."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemobs:trick_mirror"
       ],

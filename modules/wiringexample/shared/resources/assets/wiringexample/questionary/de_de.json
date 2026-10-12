@@ -1,0 +1,13 @@
+{
+  "token": {
+    "lore": [
+      "Eine Marke, die nur beweist, dass zwei Mods miteinander sprechen können."
+    ],
+    "use": [
+      "Ein Beispielitem des Integrationstestmoduls. Im Überleben hat es keinen echten Nutzen."
+    ],
+    "secret": [
+      "Wer eines hält, sieht die Werkbank der Tests."
+    ]
+  }
+}

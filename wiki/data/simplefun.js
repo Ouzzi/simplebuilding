@@ -1512,6 +1512,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         }
       },
       "texture": "assets/textures/simplefun/item/brick_snowball.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A snowball with a brick for a heart. Everyone knows it is a bad idea, which is the joke."
+          ],
+          "use": [
+            "Craft four snowballs around one brick. Stacks to 16. Thrown, it deals 0 to 4 damage (default 2) with a cooldown of 10 ticks; both have their own server switch."
+          ],
+          "secret": [
+            "It is mostly a cosmetic gag: it knocks back and hurts a little, and it breaks no blocks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Schneeball mit einem Ziegel als Herz. Alle wissen, dass es eine schlechte Idee ist, das ist der Witz."
+          ],
+          "use": [
+            "Vier Schneebälle um einen Ziegel herstellen. Stapelt bis 16. Geworfen richtet er 0 bis 4 Schaden an (Standard 2), Abklingzeit 10 Ticks; beides hat einen eigenen Serverschalter."
+          ],
+          "secret": [
+            "Er ist vor allem ein kosmetischer Scherz: Er stößt zurück, tut ein wenig weh und zerstört keine Blöcke."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:brick_snowball"
       ],
@@ -1536,6 +1560,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         }
       },
       "texture": "assets/textures/simplefun/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book that knows throwable bricks, heads and other silly joys."
+          ],
+          "use": [
+            "The Simple Fun Guide explains throwable bricks, heads and other silly joys. Craft it shapeless from a book and a crafting table."
+          ],
+          "secret": [
+            "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch, das Wurfziegel, Köpfe und andere alberne Freuden kennt."
+          ],
+          "use": [
+            "Das Simple Fun-Handbuch erklärt Wurfziegel, Köpfe und andere alberne Freuden. Formlos aus einem Buch und einer Werkbank herstellbar."
+          ],
+          "secret": [
+            "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simplefun:guide_book"
       ],
@@ -1559,6 +1607,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a trophy that only a flash of lightning could earn."
+          ],
+          "use": [
+            "Dropped by a chicken killed by a charged creeper, at most one head per creeper. No recipe. Place it on the floor or a wall, wear it, or put it on a note block."
+          ],
+          "secret": [
+            "Sneaking while wearing it gives a quiet, cosmetic greeting. Only a creeper charged by lightning counts."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Trophäe, die nur ein Blitz verdienen kann."
+          ],
+          "use": [
+            "Fällt, wenn ein Huhn durch einen aufgeladenen Creeper stirbt, höchstens ein Kopf pro Creeper. Kein Rezept. Auf Boden oder Wand setzen, aufsetzen oder auf einen Notenblock legen."
+          ],
+          "secret": [
+            "Wer ihn trägt und schleicht, bekommt einen leisen, kosmetischen Gruß. Nur ein vom Blitz aufgeladener Creeper zählt."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1576,6 +1648,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         },
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: the same trophy, hung on a wall."
+          ],
+          "use": [
+            "The wall version of the chicken head. It has no item; placing the head on a wall creates it and breaking it drops the head."
+          ],
+          "secret": [
+            "Heads only come from a charged creeper's explosion, one per blast."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: dieselbe Trophäe, an die Wand gehängt."
+          ],
+          "use": [
+            "Die Wandversion des Huhnkopfs. Sie hat kein Item; der Kopf an einer Wand erzeugt sie, beim Abbauen fällt der Kopf."
+          ],
+          "secret": [
+            "Köpfe fallen nur bei der Explosion eines aufgeladenen Creepers, einer pro Explosion."
+          ]
         }
       },
       "craftedBy": [],
@@ -1597,6 +1693,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a trophy that only a flash of lightning could earn."
+          ],
+          "use": [
+            "Dropped by a cow killed by a charged creeper, at most one head per creeper. No recipe. Place it on the floor or a wall, wear it, or put it on a note block."
+          ],
+          "secret": [
+            "Sneaking while wearing it gives a quiet, cosmetic greeting. Only a creeper charged by lightning counts."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Trophäe, die nur ein Blitz verdienen kann."
+          ],
+          "use": [
+            "Fällt, wenn ein Kuh durch einen aufgeladenen Creeper stirbt, höchstens ein Kopf pro Creeper. Kein Rezept. Auf Boden oder Wand setzen, aufsetzen oder auf einen Notenblock legen."
+          ],
+          "secret": [
+            "Wer ihn trägt und schleicht, bekommt einen leisen, kosmetischen Gruß. Nur ein vom Blitz aufgeladener Creeper zählt."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1614,6 +1734,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         },
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: the same trophy, hung on a wall."
+          ],
+          "use": [
+            "The wall version of the cow head. It has no item; placing the head on a wall creates it and breaking it drops the head."
+          ],
+          "secret": [
+            "Heads only come from a charged creeper's explosion, one per blast."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: dieselbe Trophäe, an die Wand gehängt."
+          ],
+          "use": [
+            "Die Wandversion des Kuhkopfs. Sie hat kein Item; der Kopf an einer Wand erzeugt sie, beim Abbauen fällt der Kopf."
+          ],
+          "secret": [
+            "Köpfe fallen nur bei der Explosion eines aufgeladenen Creepers, einer pro Explosion."
+          ]
         }
       },
       "craftedBy": [],
@@ -1635,6 +1779,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a trophy that only a flash of lightning could earn."
+          ],
+          "use": [
+            "Dropped by a pig killed by a charged creeper, at most one head per creeper. No recipe. Place it on the floor or a wall, wear it, or put it on a note block."
+          ],
+          "secret": [
+            "Sneaking while wearing it gives a quiet, cosmetic greeting. Only a creeper charged by lightning counts."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Trophäe, die nur ein Blitz verdienen kann."
+          ],
+          "use": [
+            "Fällt, wenn ein Schwein durch einen aufgeladenen Creeper stirbt, höchstens ein Kopf pro Creeper. Kein Rezept. Auf Boden oder Wand setzen, aufsetzen oder auf einen Notenblock legen."
+          ],
+          "secret": [
+            "Wer ihn trägt und schleicht, bekommt einen leisen, kosmetischen Gruß. Nur ein vom Blitz aufgeladener Creeper zählt."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1652,6 +1820,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         },
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: the same trophy, hung on a wall."
+          ],
+          "use": [
+            "The wall version of the pig head. It has no item; placing the head on a wall creates it and breaking it drops the head."
+          ],
+          "secret": [
+            "Heads only come from a charged creeper's explosion, one per blast."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: dieselbe Trophäe, an die Wand gehängt."
+          ],
+          "use": [
+            "Die Wandversion des Schweinkopfs. Sie hat kein Item; der Kopf an einer Wand erzeugt sie, beim Abbauen fällt der Kopf."
+          ],
+          "secret": [
+            "Köpfe fallen nur bei der Explosion eines aufgeladenen Creepers, einer pro Explosion."
+          ]
         }
       },
       "craftedBy": [],
@@ -1673,6 +1865,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: a trophy that only a flash of lightning could earn."
+          ],
+          "use": [
+            "Dropped by a sheep killed by a charged creeper, at most one head per creeper. No recipe. Place it on the floor or a wall, wear it, or put it on a note block."
+          ],
+          "secret": [
+            "Sneaking while wearing it gives a quiet, cosmetic greeting. Only a creeper charged by lightning counts."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: eine Trophäe, die nur ein Blitz verdienen kann."
+          ],
+          "use": [
+            "Fällt, wenn ein Schaf durch einen aufgeladenen Creeper stirbt, höchstens ein Kopf pro Creeper. Kein Rezept. Auf Boden oder Wand setzen, aufsetzen oder auf einen Notenblock legen."
+          ],
+          "secret": [
+            "Wer ihn trägt und schleicht, bekommt einen leisen, kosmetischen Gruß. Nur ein vom Blitz aufgeladener Creeper zählt."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1690,6 +1906,30 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         },
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: the same trophy, hung on a wall."
+          ],
+          "use": [
+            "The wall version of the sheep head. It has no item; placing the head on a wall creates it and breaking it drops the head."
+          ],
+          "secret": [
+            "Heads only come from a charged creeper's explosion, one per blast."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: dieselbe Trophäe, an die Wand gehängt."
+          ],
+          "use": [
+            "Die Wandversion des Schafkopfs. Sie hat kein Item; der Kopf an einer Wand erzeugt sie, beim Abbauen fällt der Kopf."
+          ],
+          "secret": [
+            "Köpfe fallen nur bei der Explosion eines aufgeladenen Creepers, einer pro Explosion."
+          ]
         }
       },
       "craftedBy": [],

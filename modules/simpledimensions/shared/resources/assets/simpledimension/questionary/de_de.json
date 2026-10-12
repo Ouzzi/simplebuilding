@@ -1,0 +1,35 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein kurzes Buch, das die Portale und die Taschenwelten dahinter kennt."
+    ],
+    "use": [
+      "Das Simple Dimensions-Handbuch erklärt die Portale und die Taschenwelten dahinter. Formlos aus einem Buch und einer Werkbank herstellbar."
+    ],
+    "secret": [
+      "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+    ]
+  },
+  "sky_portal": {
+    "lore": [
+      "Ein Portalblock, durch den man den Wind eines anderen Himmels spürt."
+    ],
+    "use": [
+      "Die Blöcke eines Skyblock-Portals: einen Glowstone-Bogen bauen und mit Feuer neben einem leuchtenden Block anzünden. Es befördert nur Spieler, nie Mobs oder Items, und prüft einen sicheren Rückweg."
+    ],
+    "secret": [
+      "Glowstone, Feuer, Seelenfeuer und Portalblöcke zählen nicht als Lichtquelle. Auch ein Claim, den man nicht betreten darf, blockiert die Reise."
+    ]
+  },
+  "light_blue_portal": {
+    "lore": [
+      "Ein Portal, das sich an eine ältere Version der Welt erinnert."
+    ],
+    "use": [
+      "Eine alte Block-, Blockentitäts- und Item-ID, damit alte Welten laden. Kein Rezept, keine Beutequelle, kein Kreativ-Tab-Eintrag."
+    ],
+    "secret": [
+      "Man trifft es nur in alten Welten. Neu gebaut wird daraus nichts."
+    ]
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "special_paper": {
+    "lore": [
+      "Papier, dem man beigebracht hat, ein Geheimnis zu wahren. Etwas Honig macht es steif und leicht klebrig."
+    ],
+    "use": [
+      "Zwei Papier mit einer Honigwabe in der Mitte nebeneinander herstellen. Am Schmiedetisch ergibt es mit einem Eisenbarren und Harzfaser einen Banknotenrohling."
+    ],
+    "secret": [
+      "Es ist der erste von drei Schritten. Ohne Harzfaser und Spezialfaser bleibt das Papier nur Papier."
+    ]
+  },
+  "resin_fiber": {
+    "lore": [
+      "Fäden aus Harz, mit Eisen und Honig verstärkt. Sie sind der Teil einer Note, den niemand sieht."
+    ],
+    "use": [
+      "Eisennuggets, Harzklumpen, Honigwaben und Knochenmehl im 3x3-Muster herstellen. Stapelt bis 16. Wird im Schmiedeschritt des Banknotenrohlings gebraucht."
+    ],
+    "secret": [
+      "Harzklumpen stammen aus den Kreakenherzen des Blassen Gartens und dem Harz der neuen Hölzer. Der Rohling braucht nur eine Faser, ein Stapel von 16 reicht also weit."
+    ]
+  },
+  "special_fiber": {
+    "lore": [
+      "Ein Faden aus Kupfer, Gold und Amethyst, der glitzert, wo kein Licht hinkommt."
+    ],
+    "use": [
+      "Kupfernuggets, Goldnuggets, Amethystscherben und Diamanten im 3x3-Muster herstellen. Stapelt bis 16. Veredelt mit einem Goldbarren einen Banknotenrohling."
+    ],
+    "secret": [
+      "Er ist die teure Hälfte des Rezepts: Diamanten gibt es nicht aus einem schnellen Schacht. Die veredelten Rohlinge stellt man am besten dreifach her."
+    ]
+  },
+  "blank_note": {
+    "lore": [
+      "Eine Banknote ohne Zahl: glatt, blass und wartend, dass jemand ihr Wert gibt."
+    ],
+    "use": [
+      "Spezialpapier, Harzfaser und einen Eisenbarren am Schmiedetisch zusammenschmieden. Mit Spezialfaser und einem Goldbarren wird der Rohling veredelt."
+    ],
+    "secret": [
+      "Er ist nur eine Zutat. Man kann ihn nicht ausgeben, und kein Dorfbewohner nimmt ihn."
+    ]
+  },
+  "refined_blank_note": {
+    "lore": [
+      "Dieselbe Note, aber nun schimmert sie, wenn sie sich zum Licht dreht."
+    ],
+    "use": [
+      "Entsteht durch Veredeln eines Banknotenrohlings. Drei davon ergeben mit grünem Farbstoff und Tintenbeuteln drei rohe Geldscheine."
+    ],
+    "secret": [
+      "Aus drei Rohlingen werden drei Scheine, nichts geht verloren. Teuer ist nur die Spezialfaser für jeden einzelnen Rohling."
+    ]
+  },
+  "raw_bill": {
+    "lore": [
+      "Ein Schein, der sich noch nicht entschieden hat, Geld zu sein. Die Tinte ist noch nass und bleibt es einen Tag lang."
+    ],
+    "use": [
+      "Im Hochofen 24.000 Ticks, einen ganzen Tag, schmelzen: ein Geldschein und 20 Erfahrungspunkte. SimpleBuilding-Hochöfen sind 2-, 4- oder 8-mal schneller."
+    ],
+    "secret": [
+      "Das Warten ist der ganze Trick: nur ein schnellerer Ofen druckt Geld schneller. Die Erfahrung gibt es obendrauf."
+    ]
+  },
+  "money_bill": {
+    "lore": [
+      "An einem Tag gedruckt, überall wertvoll. Nicht einmal Feuer kann ihm etwas anhaben."
+    ],
+    "use": [
+      "Währung für die zusätzlichen Angebote von Dorfbewohnern und Fahrenden Händlern. Episch, feuerfest und immer schimmernd. Rechtsklick spielt ein Blätterrascheln und ein Glückspartikel ab; er wird nicht verbraucht."
+    ],
+    "secret": [
+      "Man kann damit zum Spaß winken: nur Handelsmenüs nehmen ihn an. Es ist der einzige Gegenstand hier, dessen Tooltip nicht verrät, wie viele Tage er gebraucht hat."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein kleines Kassenbuch für eine kleine Wirtschaft."
+    ],
+    "use": [
+      "Das Simple-Money-Handbuch erklärt die Geldscheine, die drei Herstellungsschritte und die neuen Handelsangebote. Formlos aus einem Buch und einer Werkbank herstellbar."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+    ]
+  }
+}

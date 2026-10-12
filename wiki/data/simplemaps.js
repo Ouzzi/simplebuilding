@@ -470,6 +470,30 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         }
       },
       "texture": "assets/textures/simplemaps/item/end_wayfinder_map.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A map that draws islands as if they were floating thoughts."
+          ],
+          "use": [
+            "Craft map, compass, four gold ingots, two echo shards and a shulker shell, shapeless. It is made for the End and takes dimensions in the tag simplemaps:end_wayfinder."
+          ],
+          "secret": [
+            "End city treasure chests hold it at 2%. A map binds to the dimension it was first used in, so it works nowhere else."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Karte, die Inseln zeichnet, als wären sie schwebende Gedanken."
+          ],
+          "use": [
+            "Karte, Kompass, vier Goldbarren, zwei Echo-Splitter und eine Shulker-Schale formlos herstellen. Für das End gedacht; sie nimmt Dimensionen aus dem Tag simplemaps:end_wayfinder."
+          ],
+          "secret": [
+            "Schatzkisten der Endstädte enthalten sie zu 2 %. Eine Karte bindet sich an die Dimension ihrer ersten Benutzung und funktioniert sonst nirgends."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemaps:end_wayfinder_map"
       ],
@@ -494,6 +518,30 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         }
       },
       "texture": "assets/textures/simplemaps/item/nether_wayfinder_map.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A map with scorched edges that was made for ceilings of stone."
+          ],
+          "use": [
+            "Craft map, compass, four gold ingots, two echo shards and a netherite scrap, shapeless. It maps the floor below you in the Nether and takes dimensions in the tag simplemaps:nether_wayfinder."
+          ],
+          "secret": [
+            "Bastions and Nether fortresses hide it at 2% in their chests. Under a ceiling it maps the floor under the holder."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Karte mit versengten Rändern, gemacht für Decken aus Stein."
+          ],
+          "use": [
+            "Karte, Kompass, vier Goldbarren, zwei Echo-Splitter und einen Netherit-Schrott formlos herstellen. Sie kartiert im Nether den Boden unter dir und nimmt Dimensionen aus dem Tag simplemaps:nether_wayfinder."
+          ],
+          "secret": [
+            "Bastionen und Netherfestungen verstecken sie zu 2 % in ihren Truhen. Unter einer Decke kartiert sie den Boden unter dem Halter."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemaps:nether_wayfinder_map"
       ],
@@ -518,6 +566,30 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         }
       },
       "texture": "assets/textures/simplemaps/item/wayfinder_map.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A map that does not end where the paper does."
+          ],
+          "use": [
+            "Craft map, compass, four gold ingots and one echo shard, shapeless. Held in a hand it explores 1:1 around you, one dimension per map. Use it to open the screen: drag, zoom, waypoints."
+          ],
+          "secret": [
+            "It binds to the dimension in which you first use it. Chests of cartographers and shipwrecks hold one at 5%."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Karte, die nicht dort endet, wo das Papier endet."
+          ],
+          "use": [
+            "Karte, Kompass, vier Goldbarren und einen Echo-Splitter formlos herstellen. In der Hand erkundet sie 1:1 deine Umgebung, eine Dimension je Karte. Benutzen öffnet die Ansicht: ziehen, zoomen, Wegpunkte."
+          ],
+          "secret": [
+            "Sie bindet sich an die Dimension, in der du sie zuerst benutzt. Kartografen- und Schiffswrack-Truhen enthalten sie zu 5 %."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemaps:wayfinder_map"
       ],

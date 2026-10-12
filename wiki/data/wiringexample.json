@@ -59,6 +59,30 @@
           "summary": "Ein einfaches Item fuer den Integrationstest. Es hat kein eigenes Verhalten oder Kreativtab und verwendet das Vanilla-Papiermodell."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A token that exists to prove that two mods can talk."
+          ],
+          "use": [
+            "An example item of the integration test module. It has no real use in survival."
+          ],
+          "secret": [
+            "If you hold one, you are looking at the test bench."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Marke, die nur beweist, dass zwei Mods miteinander sprechen können."
+          ],
+          "use": [
+            "Ein Beispielitem des Integrationstestmoduls. Im Überleben hat es keinen echten Nutzen."
+          ],
+          "secret": [
+            "Wer eines hält, sieht die Werkbank der Tests."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     }

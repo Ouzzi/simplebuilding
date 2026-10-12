@@ -775,7 +775,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Nachtrag 36 (2026-10-11, Besitzer)
 - [x] (claude-questionary: Mechanik V1 – Modul simplequestionary, Block/GUI/Datenformat/Fallback/Fakten/Abdeckung/SB-Schalter/Wiki; offen: Texte für alle Items, Besitzer-Abnahme) Questionary Table (Tisch aus Buch + Lapis + Holz; Item links, Buch rechts mit 3 Seiten Lore/Nutzen/Geheim, für jedes Item, Fremd-Mod-Fallback mystisch): Konzept fertig in docs/ai/KONZEPT-QUESTIONARY-TABLE-2026-10-11.md (claude-concept-quest), Umsetzung nach Besitzer-OK (4 offene Fragen im Konzept).
-- [ ] Questionary-Texte befüllen (Welle 1 SimpleBuilding erledigt: claude-quest-sb, 821/821 EN+DE, `tools/questionary/skeleton.py`; offen: übrige Module, Vanilla; Generator-Skelett + Wellen je Modul/Familie, Vanilla zuletzt; `tools/questionary/check_data.py --strict` wird dann rot geschaltet).
+- [x] (claude-quest-modules: alle Module 0 fehlend, Vanilla 1658/1658 über 89 Familien + 250 Einzeleinträge unter `modules/simplequestionary/.../assets/minecraft/questionary`; `check_data.py --strict` grün, prüft Vanilla gegen `tools/questionary/vanilla_items.txt`; offen: Besitzer-Lektorat der Texte, Spiel-Abdeckungstest QuestionaryTests) Questionary-Texte befüllen (Welle 1 SimpleBuilding: claude-quest-sb, 821/821 EN+DE).
 
 ## Nachtrag 37 (2026-10-11, Besitzer, Screenshots im Vorschauordner n37/)
 - [x] Sculk Jaw: weitere Beispiele zur Wahl – die aktuelle Form ist bisher die beste (Varianten nah daran). (claude-jaw3 E–I gezeigt; Besitzer: Form bleibt)

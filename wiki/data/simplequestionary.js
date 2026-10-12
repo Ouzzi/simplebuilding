@@ -178,6 +178,30 @@ window.WIKI_MODULE_DATA["simplequestionary"] = {
           "summary": "Schrank aus Obsidian und Gold mit Lapis-Edelsteinen und aufgeschlagenem Buch, in das Zeichen wie am Zaubertisch schweben; öffnet das Fragebuch. Geformt: 2 Lapislazuli, 1 Buch, 5 Bretter."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A desk for questions, and a book that has answers for everything."
+          ],
+          "use": [
+            "Craft two lapis lazuli, one book and five planks. Put an item on the left; the book on the right opens three pages: Lore, Use and Secret."
+          ],
+          "secret": [
+            "Items from other mods get a mystical text that depends only on their name, so it stays the same in every world."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Pult für Fragen, und ein Buch mit Antworten auf alles."
+          ],
+          "use": [
+            "Zwei Lapislazuli, ein Buch und fünf Bretter herstellen. Links ein Item auflegen; das Buch rechts zeigt drei Seiten: Überlieferung, Nutzen und Geheimnis."
+          ],
+          "secret": [
+            "Items aus anderen Mods bekommen einen mystischen Text, der nur von ihrem Namen abhängt und in jeder Welt gleich bleibt."
+          ]
+        }
+      },
       "craftedBy": [
         "simplequestionary:questionary_table"
       ],

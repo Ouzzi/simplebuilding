@@ -1,0 +1,24 @@
+{
+  "guide_book": {
+    "lore": [
+      "A short book that knows legacy names, claims and other tweaks."
+    ],
+    "use": [
+      "The Simple Tweaks Guide explains legacy names, claims and other tweaks. Craft it shapeless from a book and a crafting table."
+    ],
+    "secret": [
+      "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+    ]
+  },
+  "claim_deed": {
+    "lore": [
+      "A deed from an older world, still stamped with its first owner."
+    ],
+    "use": [
+      "A legacy item without a recipe, kept for existing worlds or /give. Stacks to 16. Claims are off by default; once enabled the deed asks the server for ownership."
+    ],
+    "secret": [
+      "Its original texture and custom data are kept exactly, so an old deed still works after an update."
+    ]
+  }
+}

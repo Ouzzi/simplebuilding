@@ -1,0 +1,3998 @@
+{
+  "activator_rail": {
+    "lore": [
+      "Eine Schiene, die Dinge weckt."
+    ],
+    "use": [
+      "Mit Redstone betrieben aktiviert sie darüberfahrende Loren, Trichterloren und TNT-Loren."
+    ],
+    "secret": [
+      "Eine aktive Aktivierungsschiene wirft den Fahrer aus der Lore."
+    ]
+  },
+  "detector_rail": {
+    "lore": [
+      "Eine Schiene, die etwas bemerkt."
+    ],
+    "use": [
+      "Gibt ein Redstone-Signal, solange eine Lore darauf steht."
+    ],
+    "secret": [
+      "Ein Komparator liest, was in der Lore ist."
+    ]
+  },
+  "powered_rail": {
+    "lore": [
+      "Eine Schiene mit Schwung."
+    ],
+    "use": [
+      "Mit Redstone beschleunigt sie Loren; ohne bremst sie."
+    ],
+    "secret": [
+      "Auf ebenem Boden hält eine Antriebsschiene alle sechs Blöcke eine Lore in Fahrt."
+    ]
+  },
+  "rail": {
+    "lore": [
+      "Zwei Linien, die gehen, wohin man sie schickt."
+    ],
+    "use": [
+      "Eisenbarren und ein Stock ergeben sechzehn. Loren rollen darauf."
+    ],
+    "secret": [
+      "Schienen verbinden sich selbst und biegen in Kurven ab."
+    ]
+  },
+  "air": {
+    "lore": [
+      "Nichts, höflich."
+    ],
+    "use": [
+      "Der leere Block. Im Überleben gibt es kein Item davon."
+    ],
+    "secret": [
+      "In ihm wird alles gebaut."
+    ]
+  },
+  "amethyst_shard": {
+    "lore": [
+      "Ein Splitter eines Kristalls, der klingt."
+    ],
+    "use": [
+      "Aus Amethystclustern abgebaut. Für Fernrohre, getöntes Glas und kalibrierte Sensoren."
+    ],
+    "secret": [
+      "Amethystblöcke klingen bei Berührung oder Schritten, was Sculk-Sensoren hören können."
+    ]
+  },
+  "ancient_debris": {
+    "lore": [
+      "Der verborgene Schatz des Nethers."
+    ],
+    "use": [
+      "Mit einer Diamant- oder Netherit-Spitzhacke abgebaut. Geschmolzen ergibt es Netheritschrott."
+    ],
+    "secret": [
+      "Es widersteht Explosionen, TNT zerstört es nicht."
+    ]
+  },
+  "anvil": {
+    "lore": [
+      "Ein schwerer Freund der Sorgfältigen."
+    ],
+    "use": [
+      "Repariert und kombiniert Items, benennt um und verschmilzt Verzauberungen. Fällt er, schadet er dem Amboss und dem, der darunter steht."
+    ],
+    "secret": [
+      "Ein Amboss kann Items zerdrücken und Blöcke zerbrechen, auf die er fällt."
+    ]
+  },
+  "chipped_anvil": {
+    "lore": [
+      "Ein schwerer Freund der Sorgfältigen, mit Gebrauchsspuren."
+    ],
+    "use": [
+      "Der Amboss nutzt sich ab und bricht irgendwann."
+    ],
+    "secret": [
+      "Je weiter beschädigt, desto näher ist sein Ende."
+    ]
+  },
+  "damaged_anvil": {
+    "lore": [
+      "Ein schwerer Freund der Sorgfältigen, mit Gebrauchsspuren."
+    ],
+    "use": [
+      "Der Amboss nutzt sich ab und bricht irgendwann."
+    ],
+    "secret": [
+      "Je weiter beschädigt, desto näher ist sein Ende."
+    ]
+  },
+  "apple": {
+    "lore": [
+      "Ein Biss Morgen."
+    ],
+    "use": [
+      "Stellt 4 Hunger wieder her. Fällt aus Eichen- und Schwarzeichenblättern."
+    ],
+    "secret": [
+      "Der Goldene Apfel ist ein Apfel, der in Goldnuggets oder -barren gehüllt ist."
+    ]
+  },
+  "armadillo_scute": {
+    "lore": [
+      "Eine Platte von etwas Scheuem."
+    ],
+    "use": [
+      "Fällt, wenn man Gürteltiere mit einer Bürste bürstet. Für Wolfsrüstung."
+    ],
+    "secret": [
+      "Die Bürste löst ein Schild vom Gürteltier, ohne es zu verletzen."
+    ]
+  },
+  "armor_stand": {
+    "lore": [
+      "Ein Gast, der nie spricht."
+    ],
+    "use": [
+      "Aufstellen, um Rüstung, Werkzeuge und Köpfe auszustellen."
+    ],
+    "secret": [
+      "Rechtsklick tauscht die Items; mit Befehlen lässt er sich posieren."
+    ]
+  },
+  "arrow": {
+    "lore": [
+      "Eine kleine, schnelle Meinung."
+    ],
+    "use": [
+      "Aus Bogen oder Armbrust abgeschossen. Feuerstein, Stock und Feder."
+    ],
+    "secret": [
+      "Pfeile, die im Boden stecken, kann man wieder aufheben."
+    ]
+  },
+  "spectral_arrow": {
+    "lore": [
+      "Ein Pfeil, der leuchtet."
+    ],
+    "use": [
+      "Mit dem Bogen abgeschossen; das Ziel leuchtet eine Weile."
+    ],
+    "secret": [
+      "Leuchtende Ziele sieht man durch Wände."
+    ]
+  },
+  "tipped_arrow": {
+    "lore": [
+      "Ein Pfeil mit einem Trank an der Spitze."
+    ],
+    "use": [
+      "Pfeile um einen Verweiltrank herstellen; Treffer wenden den Effekt an."
+    ],
+    "secret": [
+      "Der Effekt dauert nur ein Achtel der Tranklänge."
+    ]
+  },
+  "barrel": {
+    "lore": [
+      "Ein Fass, das behält, was man ihm gibt."
+    ],
+    "use": [
+      "Aus Brettern und Platten. Fasst 27 Stapel und lässt sich auch unter einem Block öffnen."
+    ],
+    "secret": [
+      "Anders als Truhen öffnen sich Fässer unter einem festen Block."
+    ]
+  },
+  "barrier": {
+    "lore": [
+      "Eine Wand, die unsichtbar ist."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Blockt Bewegung, ist aber unsichtbar."
+    ],
+    "secret": [
+      "Hält man einen in der Hand, sieht man sie als rote Würfel."
+    ]
+  },
+  "beacon": {
+    "lore": [
+      "Eine Lichtsäule für jene, die richtig bauen."
+    ],
+    "use": [
+      "Braucht darunter eine Pyramide aus Eisen-, Gold-, Smaragd-, Diamant- oder Netheritblöcken; gibt Effekte im Umkreis."
+    ],
+    "secret": [
+      "Buntglas darüber färbt den Strahl."
+    ]
+  },
+  "bee_nest": {
+    "lore": [
+      "Heim von etwas, das summt."
+    ],
+    "use": [
+      "In Bäumen zu finden. Bienen leben hier; Rauch beruhigt sie beim Ernten."
+    ],
+    "secret": [
+      "Mit Behutsamkeit nimmt man das Nest samt Bienen mit."
+    ]
+  },
+  "beehive": {
+    "lore": [
+      "Ein Heim, das Bienen annehmen."
+    ],
+    "use": [
+      "Aus Brettern und Honigwaben. Bienen kehren nach dem Bestäuben hierher zurück."
+    ],
+    "secret": [
+      "Ein Lagerfeuer darunter beruhigt die Bienen beim Ernten."
+    ]
+  },
+  "bell": {
+    "lore": [
+      "Ein Klang, der weit trägt."
+    ],
+    "use": [
+      "Läuten alarmiert Dorfbewohner; es hebt auch nahe Plünderer hervor."
+    ],
+    "secret": [
+      "Eine Glocke zeigt Plünderer durch Wände."
+    ]
+  },
+  "blast_furnace": {
+    "lore": [
+      "Ein hungriger Ofen für Erz."
+    ],
+    "use": [
+      "Schmilzt Erze und Metallausrüstung doppelt so schnell."
+    ],
+    "secret": [
+      "Kocht kein Essen; dafür ist der Räucherofen da."
+    ]
+  },
+  "smoker": {
+    "lore": [
+      "Ein Ofen, dem nur Essen wichtig ist."
+    ],
+    "use": [
+      "Gart Essen doppelt so schnell."
+    ],
+    "secret": [
+      "Metzger-Dorfbewohner nutzen ihn als Arbeitsplatz."
+    ]
+  },
+  "furnace": {
+    "lore": [
+      "Ein kleines Feuer mit viel Geduld."
+    ],
+    "use": [
+      "Schmilzt Erze, gart Essen und verbrennt Brennstoff."
+    ],
+    "secret": [
+      "Beim Entnehmen der Ergebnisse gibt es Erfahrung."
+    ]
+  },
+  "blaze_powder": {
+    "lore": [
+      "Feuer, fein gemahlen."
+    ],
+    "use": [
+      "Aus Lohenruten; treibt den Braustand an und macht Enderaugen."
+    ],
+    "secret": [
+      "Ein Pulver reicht für zwanzig Brauvorgänge."
+    ]
+  },
+  "blaze_rod": {
+    "lore": [
+      "Ein Stab, der seine Wärme behält."
+    ],
+    "use": [
+      "Fällt von Lohen. Für Pulver und als Brennstoff."
+    ],
+    "secret": [
+      "Er brennt 120 Sekunden, länger als Kohle."
+    ]
+  },
+  "blue_ice": {
+    "lore": [
+      "Eis, das jede Höflichkeit verloren hat."
+    ],
+    "use": [
+      "Neun gepacktes Eis. Boote gleiten darauf sehr schnell."
+    ],
+    "secret": [
+      "Daraus entstehen die besten Bootsstraßen."
+    ]
+  },
+  "ice": {
+    "lore": [
+      "Wasser nach einer kalten Nacht."
+    ],
+    "use": [
+      "Rutschig, schmilzt in der Nähe von Licht. Behutsamkeit behält es."
+    ],
+    "secret": [
+      "Ohne Behutsamkeit wird es beim Abbau zu Wasser."
+    ]
+  },
+  "packed_ice": {
+    "lore": [
+      "Eis, das gepresst wurde."
+    ],
+    "use": [
+      "Neun Eis. Rutschig und schmilzt nicht."
+    ],
+    "secret": [
+      "Neun gepacktes Eis ergeben Blaues Eis."
+    ]
+  },
+  "bone": {
+    "lore": [
+      "Was bleibt, wenn der Rest vergangen ist."
+    ],
+    "use": [
+      "Fällt von Skeletten. Ergibt Knochenmehl; zähmt Wölfe."
+    ],
+    "secret": [
+      "Ein Wolf, dem man einen Knochen gibt, wird zum Hund, der dir folgt."
+    ]
+  },
+  "bone_meal": {
+    "lore": [
+      "Ein Pulver, das Dinge wachsen lässt."
+    ],
+    "use": [
+      "Auf Nutzpflanzen, Setzlingen und vielen Pflanzen angewendet lässt es sie wachsen."
+    ],
+    "secret": [
+      "Es verteilt auf Gras auch Blumen und Gräser in der Umgebung."
+    ]
+  },
+  "book": {
+    "lore": [
+      "Ein Ding, das sich mehr merkt als du."
+    ],
+    "use": [
+      "Drei Papier und Leder. Für Verzauberungstische, Bücherregale und Bücher."
+    ],
+    "secret": [
+      "Bücher stapeln sich als Dekor im Bücherregal."
+    ]
+  },
+  "bookshelf": {
+    "lore": [
+      "Ein Regal alter Meinungen."
+    ],
+    "use": [
+      "Bretter und Bücher. Um den Verzauberungstisch gestellt gibt es mehr Kraft."
+    ],
+    "secret": [
+      "Fünfzehn Regale rund um den Tisch schalten die höchste Stufe frei."
+    ]
+  },
+  "bow": {
+    "lore": [
+      "Eine Sehne und eine Geduld."
+    ],
+    "use": [
+      "Benutzen halten zum Spannen, loslassen zum Schießen. Braucht Pfeile."
+    ],
+    "secret": [
+      "Ein voll gespannter Bogen schießt weiter und härter."
+    ]
+  },
+  "crossbow": {
+    "lore": [
+      "Ein Bogen mit Schnapper."
+    ],
+    "use": [
+      "Mit Pfeil oder Feuerwerk laden, dann abfeuern. Mehrfachschuss und Durchdringen passen gut."
+    ],
+    "secret": [
+      "Eine geladene Armbrust bleibt bereit, bis man sie nutzt."
+    ]
+  },
+  "bowl": {
+    "lore": [
+      "Eine kleine Mulde."
+    ],
+    "use": [
+      "Drei Bretter. Trägt Eintöpfe und Suppen."
+    ],
+    "secret": [
+      "Rechtsklick auf eine Pilzkuh gibt Eintopf."
+    ]
+  },
+  "breeze_rod": {
+    "lore": [
+      "Ein Wirbel Wind, hart gepresst."
+    ],
+    "use": [
+      "Fällt von Böen. Für Windkugeln und den Streitkolben."
+    ],
+    "secret": [
+      "Aus einer Rute entstehen vier Windkugeln."
+    ]
+  },
+  "wind_charge": {
+    "lore": [
+      "Wind, der in eine Hand passt."
+    ],
+    "use": [
+      "Werfen lässt ihn platzen; er schleudert Mobs weg und katapultiert dich."
+    ],
+    "secret": [
+      "Eine Windkugel kann Türen, Knöpfe und Falltüren betätigen."
+    ]
+  },
+  "mace": {
+    "lore": [
+      "Ein Hieb mit viel Gewicht."
+    ],
+    "use": [
+      "Aus Schwerem Kern und Lohenrute. Fällt man auf einen Gegner, vervielfacht sich der Schaden."
+    ],
+    "secret": [
+      "Dichte und Durchbruch stimmen ihn ab."
+    ]
+  },
+  "heavy_core": {
+    "lore": [
+      "Ein Kern aus dichtem Metall."
+    ],
+    "use": [
+      "In unheimlichen Tresoren zu finden. Wird für den Streitkolben gebraucht."
+    ],
+    "secret": [
+      "Er lässt sich nicht herstellen."
+    ]
+  },
+  "brewing_stand": {
+    "lore": [
+      "Ein kleines Labor."
+    ],
+    "use": [
+      "Lohenrute und Bruchstein. Braut Tränke mit Lohenpulver als Brennstoff."
+    ],
+    "secret": [
+      "Drei Flaschen gleichzeitig, eine Zutat obendrauf."
+    ]
+  },
+  "brush": {
+    "lore": [
+      "Eine sanfte Art, Altes zu erfahren."
+    ],
+    "use": [
+      "Feder, Kupferbarren und Stock. Verdächtigen Sand und Kies bürsten, um Beute zu entdecken."
+    ],
+    "secret": [
+      "Man kann damit auch Gürteltiere bürsten."
+    ]
+  },
+  "suspicious_sand": {
+    "lore": [
+      "Ein Block, der etwas verbirgt."
+    ],
+    "use": [
+      "In Wüstenbrunnen, Pyramiden und Meeresruinen. Bürsten enthüllt ein Item."
+    ],
+    "secret": [
+      "Mit der Spitzhacke zerstört man die Beute."
+    ]
+  },
+  "suspicious_gravel": {
+    "lore": [
+      "Ein Block, der etwas verbirgt."
+    ],
+    "use": [
+      "In Pfadruinen und kalten Meeresruinen. Bürsten enthüllt ein Item."
+    ],
+    "secret": [
+      "Mit der Spitzhacke zerstört man die Beute."
+    ]
+  },
+  "bucket": {
+    "lore": [
+      "Ein kleiner Ozean zum Mitnehmen."
+    ],
+    "use": [
+      "Drei Eisenbarren. Mit Wasser, Lava oder Milch füllen und wieder entleeren."
+    ],
+    "secret": [
+      "Ein Kessel nimmt einen ganzen Eimer auf."
+    ]
+  },
+  "water_bucket": {
+    "lore": [
+      "Ein Teich, der sich bewegen lässt."
+    ],
+    "use": [
+      "Setzt Wasser, das fließt und Stürze abfängt."
+    ],
+    "secret": [
+      "Im Nether verdampft es."
+    ]
+  },
+  "lava_bucket": {
+    "lore": [
+      "Ein Feuer, das fließt."
+    ],
+    "use": [
+      "Setzt Lava, die brennt, leuchtet und schmilzt. Treibt einen Ofen für 100 Items an."
+    ],
+    "secret": [
+      "Der Lavaeimer ist der am längsten brennende Brennstoff."
+    ]
+  },
+  "milk_bucket": {
+    "lore": [
+      "Milch für den langen Tag."
+    ],
+    "use": [
+      "Trinken entfernt Statuseffekte. Auch für Kuchen."
+    ],
+    "secret": [
+      "Milch löscht alle Effekte, gute wie schlechte."
+    ]
+  },
+  "powder_snow_bucket": {
+    "lore": [
+      "Schnee, der mit Wasser Frieden geschlossen hat."
+    ],
+    "use": [
+      "Setzt Pulverschnee, in dem man versinkt."
+    ],
+    "secret": [
+      "Lederstiefel erlauben es, darauf zu laufen."
+    ]
+  },
+  "beetroot": {
+    "lore": [
+      "Eine rote Wurzel mit süßer Ader."
+    ],
+    "use": [
+      "Aus Rote-Bete-Samen angebaut. Essen oder zu rotem Farbstoff und Suppe verarbeiten."
+    ],
+    "secret": [
+      "Sechs Rote Bete und eine Schüssel ergeben Rote-Bete-Suppe."
+    ]
+  },
+  "brown_mushroom": {
+    "lore": [
+      "Ein kleiner Hut, der das Dunkle mag."
+    ],
+    "use": [
+      "Wächst bei wenig Licht und breitet sich langsam aus. In Eintöpfen verwendbar; auf Myzel oder im Dunkeln pflanzen."
+    ],
+    "secret": [
+      "Knochenmehl macht auf Myzel oder Podsol einen riesigen Pilz daraus."
+    ]
+  },
+  "red_mushroom": {
+    "lore": [
+      "Ein kleiner Hut, der das Dunkle mag."
+    ],
+    "use": [
+      "Wächst bei wenig Licht und breitet sich langsam aus. In Eintöpfen verwendbar; auf Myzel oder im Dunkeln pflanzen."
+    ],
+    "secret": [
+      "Knochenmehl macht auf Myzel oder Podsol einen riesigen Pilz daraus."
+    ]
+  },
+  "brown_mushroom_block": {
+    "lore": [
+      "Ein Stück eines Riesenpilzes."
+    ],
+    "use": [
+      "An Riesenpilzen zu finden; mit der Axt ernten. Behutsamkeit behält es."
+    ],
+    "secret": [
+      "Die Hüte riesiger Pilze geben kleine Pilze."
+    ]
+  },
+  "red_mushroom_block": {
+    "lore": [
+      "Ein Stück eines Riesenpilzes."
+    ],
+    "use": [
+      "An Riesenpilzen zu finden; mit der Axt ernten. Behutsamkeit behält es."
+    ],
+    "secret": [
+      "Die Hüte riesiger Pilze geben kleine Pilze."
+    ]
+  },
+  "mushroom_stem": {
+    "lore": [
+      "Ein Stück eines Riesenpilzes."
+    ],
+    "use": [
+      "An Riesenpilzen zu finden; mit der Axt ernten. Behutsamkeit behält es."
+    ],
+    "secret": [
+      "Die Hüte riesiger Pilze geben kleine Pilze."
+    ]
+  },
+  "bundle": {
+    "lore": [
+      "Ein Beutel, der sich für eine Sache mehr dehnt."
+    ],
+    "use": [
+      "Faden und Leder. Fasst gemischte Items bis zum Gewicht 64. Rechtsklick nimmt Dinge auf und heraus."
+    ],
+    "secret": [
+      "Ein Bündel nimmt keine Shulkerkisten auf."
+    ]
+  },
+  "calibrated_sculk_sensor": {
+    "lore": [
+      "Ein Sensor, der auf eine Art Klang lauscht."
+    ],
+    "use": [
+      "Amethystscherbe auf einen Sculk-Sensor. Mit Redstone-Signal auf eine gewählte Frequenz eingestellt reagiert er nur darauf."
+    ],
+    "secret": [
+      "Er filtert Vibrationen, die dich nicht interessieren."
+    ]
+  },
+  "sculk_sensor": {
+    "lore": [
+      "Ein Herzschlag im Dunkeln."
+    ],
+    "use": [
+      "Erkennt Vibrationen im Umkreis von 8 Blöcken und sendet ein Redstone-Signal."
+    ],
+    "secret": [
+      "Wolle vor der Quelle dämpft die Vibration."
+    ]
+  },
+  "sculk_shrieker": {
+    "lore": [
+      "Ein Schrei mit kurzer Lunte."
+    ],
+    "use": [
+      "Kreischt, wenn ein Spieler nahe tritt; genug Schreie rufen einen Warden."
+    ],
+    "secret": [
+      "Behutsamkeit behält ihn."
+    ]
+  },
+  "sculk_catalyst": {
+    "lore": [
+      "Das langsame Herz des Tiefen Dunkels."
+    ],
+    "use": [
+      "Verbreitet Sculk, wenn ein Mob in der Nähe stirbt."
+    ],
+    "secret": [
+      "Die Erfahrung des Todes füttert die Ausbreitung."
+    ]
+  },
+  "sculk": {
+    "lore": [
+      "Der weiche Teppich des Tiefen Dunkels."
+    ],
+    "use": [
+      "Im Tiefen Dunkel und von Katalysatoren verbreitet. Eine Hacke baut es schnell ab."
+    ],
+    "secret": [
+      "Beim Abbau gibt es Erfahrung, Behutsamkeit behält es."
+    ]
+  },
+  "sculk_vein": {
+    "lore": [
+      "Der weiche Teppich des Tiefen Dunkels."
+    ],
+    "use": [
+      "Im Tiefen Dunkel und von Katalysatoren verbreitet. Eine Hacke baut es schnell ab."
+    ],
+    "secret": [
+      "Beim Abbau gibt es Erfahrung, Behutsamkeit behält es."
+    ]
+  },
+  "campfire": {
+    "lore": [
+      "Ein Feuer, das sagt: Komm, setz dich."
+    ],
+    "use": [
+      "Stöcke, Kohle oder Holzkohle und Stämme. Gart Essen und sendet Rauchsignale."
+    ],
+    "secret": [
+      "Mit Strohballen darunter steigt der Rauch höher."
+    ]
+  },
+  "soul_campfire": {
+    "lore": [
+      "Ein Feuer in der Farbe der Erinnerung."
+    ],
+    "use": [
+      "Mit Seelensand oder -erde. Gart Essen und richtet doppelten Schaden an, wenn man hineintritt."
+    ],
+    "secret": [
+      "Piglins fürchten Seelenfeuer."
+    ]
+  },
+  "candle": {
+    "lore": [
+      "Ein kleiner Stummel Licht, der Gesellschaft mag."
+    ],
+    "use": [
+      "Faden und Honigwabe. Mit Feuerzeug anzünden; bis zu vier auf einem Block."
+    ],
+    "secret": [
+      "Auf einen Kuchen gesteckt wird daraus eine Geburtstagstorte."
+    ]
+  },
+  "carrot": {
+    "lore": [
+      "Eine schlichte Wurzel, die überall landet."
+    ],
+    "use": [
+      "Aus einer Karotte angebaut. Essen oder Schweine füttern."
+    ],
+    "secret": [
+      "Eine Goldene Karotte ist eine Karotte mit Goldnuggets."
+    ]
+  },
+  "golden_carrot": {
+    "lore": [
+      "Eine Karotte, die in Erinnerung bleiben will."
+    ],
+    "use": [
+      "Stellt viel Hunger und Sättigung wieder her. Für Nachtsichttränke."
+    ],
+    "secret": [
+      "Sie kann auch Pferde züchten."
+    ]
+  },
+  "golden_apple": {
+    "lore": [
+      "Ein Apfel, der sich für einen König hält."
+    ],
+    "use": [
+      "Gibt Regeneration und Absorption. Ein Apfel und acht Goldbarren."
+    ],
+    "secret": [
+      "Mit ihm und einem Schwächetrank heilt man Zombie-Dorfbewohner."
+    ]
+  },
+  "enchanted_golden_apple": {
+    "lore": [
+      "Ein Apfel mit zu viel Glanz."
+    ],
+    "use": [
+      "Nicht herstellbar. Gibt starke Regeneration, Absorption, Resistenz und Feuerresistenz."
+    ],
+    "secret": [
+      "Selten in Schatzkisten zu finden."
+    ]
+  },
+  "carrot_on_a_stick": {
+    "lore": [
+      "Ein Scherz, der funktioniert."
+    ],
+    "use": [
+      "Angel und Karotte. Damit lenkt man ein gesatteltes Schwein."
+    ],
+    "secret": [
+      "Die Karotte nutzt sich beim Laufen des Schweins ab."
+    ]
+  },
+  "warped_fungus_on_a_stick": {
+    "lore": [
+      "Ein Pilz, dem kein Schreiter widersteht."
+    ],
+    "use": [
+      "Angel und Wirrpilz. Lenkt einen gesattelten Schreiter."
+    ],
+    "secret": [
+      "Der Schreiter wird schneller, wenn man ihn hält."
+    ]
+  },
+  "cartography_table": {
+    "lore": [
+      "Ein Tisch für jene, die alles sehen wollen."
+    ],
+    "use": [
+      "Papier und Bretter. Karten kopieren, vergrößern und sperren."
+    ],
+    "secret": [
+      "Kartografen-Dorfbewohner nutzen ihn."
+    ]
+  },
+  "carved_pumpkin": {
+    "lore": [
+      "Ein Kürbis mit Aussicht."
+    ],
+    "use": [
+      "Mit der Schere hergestellt. Aufgesetzt kann man Endermen sicher ansehen."
+    ],
+    "secret": [
+      "Er baut Schnee- und Eisengolems."
+    ]
+  },
+  "jack_o_lantern": {
+    "lore": [
+      "Ein Kürbis, der eine Kerze behielt."
+    ],
+    "use": [
+      "Geschnitzter Kürbis und Fackel. Gibt Licht."
+    ],
+    "secret": [
+      "Auch Golems lassen sich daraus bauen."
+    ]
+  },
+  "pumpkin": {
+    "lore": [
+      "Ein großer, runder Gast."
+    ],
+    "use": [
+      "Aus Samen angebaut; mit der Schere schnitzt man ihn. Für Kürbiskuchen."
+    ],
+    "secret": [
+      "Kürbisse und Melonen brauchen einen Nachbarblock für ihre Frucht."
+    ]
+  },
+  "melon": {
+    "lore": [
+      "Eine kühle Scheibe Sommer."
+    ],
+    "use": [
+      "Aus Melonenscheiben; abgebaut gibt sie wieder Scheiben."
+    ],
+    "secret": [
+      "Glück gibt mehr Scheiben."
+    ]
+  },
+  "melon_slice": {
+    "lore": [
+      "Ein Bissen Süße."
+    ],
+    "use": [
+      "Essen stillt Hunger; die Glitzernde Melonenscheibe wird zu Heiltränken gebraut."
+    ],
+    "secret": [
+      "Goldnuggets machen aus Scheiben glitzernde."
+    ]
+  },
+  "glistering_melon_slice": {
+    "lore": [
+      "Ein Bissen Süße."
+    ],
+    "use": [
+      "Essen stillt Hunger; die Glitzernde Melonenscheibe wird zu Heiltränken gebraut."
+    ],
+    "secret": [
+      "Goldnuggets machen aus Scheiben glitzernde."
+    ]
+  },
+  "cauldron": {
+    "lore": [
+      "Ein Topf zum Brauen von Geduld."
+    ],
+    "use": [
+      "Sieben Eisenbarren. Fasst Wasser, Lava oder Pulverschnee; wäscht Banner und Rüstung."
+    ],
+    "secret": [
+      "Regen füllt ihn, und Tropfstein tropft Lava hinein."
+    ]
+  },
+  "charcoal": {
+    "lore": [
+      "Was der Stamm vom Feuer behält."
+    ],
+    "use": [
+      "Stämme schmelzen. Brennt als Brennstoff und dient für Fackeln."
+    ],
+    "secret": [
+      "Eine Holzkohle gart acht Items."
+    ]
+  },
+  "coal": {
+    "lore": [
+      "Ein schwarzer Stein, der sich an Licht erinnert."
+    ],
+    "use": [
+      "Aus Kohleerz. Brennstoff für Öfen und Fackeln."
+    ],
+    "secret": [
+      "Kohle brennt 80 Sekunden."
+    ]
+  },
+  "chest": {
+    "lore": [
+      "Die älteste Antwort auf: Wo hab ich das hingelegt?"
+    ],
+    "use": [
+      "Acht Bretter. Fasst 27 Stapel; zwei nebeneinander ergeben eine Doppeltruhe."
+    ],
+    "secret": [
+      "Eine Katze darauf verhindert das Öffnen."
+    ]
+  },
+  "trapped_chest": {
+    "lore": [
+      "Eine Truhe mit einer fiesen Überraschung."
+    ],
+    "use": [
+      "Truhe und Haken. Gibt beim Öffnen ein Redstone-Signal."
+    ],
+    "secret": [
+      "Das Signal wächst mit der Zahl der Betrachter."
+    ]
+  },
+  "ender_chest": {
+    "lore": [
+      "Eine Truhe mit einer Tür zu einem anderen Ort."
+    ],
+    "use": [
+      "Acht Obsidian und ein Enderauge. Gemeinsam für alle deine Endertruhen."
+    ],
+    "secret": [
+      "Mit Behutsamkeit nimmt man die Truhe mit; die Items bleiben sicher."
+    ]
+  },
+  "chorus_flower": {
+    "lore": [
+      "Eine Pflanze, die zum Himmel des Endes wächst."
+    ],
+    "use": [
+      "Wächst auf Endstein auf den äußeren Inseln; Abbauen liefert Chorusfrucht."
+    ],
+    "secret": [
+      "Eine Chorusblüte wächst nur, solange ihr Stängel frei ist."
+    ]
+  },
+  "chorus_plant": {
+    "lore": [
+      "Eine Pflanze, die zum Himmel des Endes wächst."
+    ],
+    "use": [
+      "Wächst auf Endstein auf den äußeren Inseln; Abbauen liefert Chorusfrucht."
+    ],
+    "secret": [
+      "Eine Chorusblüte wächst nur, solange ihr Stängel frei ist."
+    ]
+  },
+  "chorus_fruit": {
+    "lore": [
+      "Eine Frucht, die dich versetzt."
+    ],
+    "use": [
+      "Beim Essen teleportiert sie dich ein Stück weit, auch bei vollem Hungerbalken. Geschmolzen entsteht Geplatzte Chorusfrucht, aus der Purpur wird."
+    ],
+    "secret": [
+      "Das ungewisse Ziel kann dich in Wasser oder eine Höhle bringen."
+    ]
+  },
+  "popped_chorus_fruit": {
+    "lore": [
+      "Eine Frucht, die im Feuer geplatzt ist."
+    ],
+    "use": [
+      "Chorusfrucht schmelzen. Daraus entstehen Purpurblöcke."
+    ],
+    "secret": [
+      "Sie ist nicht essbar."
+    ]
+  },
+  "clay_ball": {
+    "lore": [
+      "Ein kleiner Erdklumpen."
+    ],
+    "use": [
+      "Fällt von Ton; für Ziegel und Tonblöcke."
+    ],
+    "secret": [
+      "Vier Bälle ergeben einen Tonblock."
+    ]
+  },
+  "clock": {
+    "lore": [
+      "Ein Kreis, der weiß, wann."
+    ],
+    "use": [
+      "Goldbarren und Redstone. Zeigt die Tageszeit."
+    ],
+    "secret": [
+      "Im Nether und End dreht er sich zufällig."
+    ]
+  },
+  "compass": {
+    "lore": [
+      "Eine Nadel mit einer Heimat."
+    ],
+    "use": [
+      "Eisenbarren und Redstone. Zeigt zum Welt-Spawn."
+    ],
+    "secret": [
+      "Im Nether und End dreht sie sich zufällig."
+    ]
+  },
+  "recovery_compass": {
+    "lore": [
+      "Eine Nadel, die dorthin zeigt, wo es endete."
+    ],
+    "use": [
+      "Echo-Splitter und Kompass. Zeigt zu deinem letzten Tod."
+    ],
+    "secret": [
+      "Sie funktioniert in jeder Dimension."
+    ]
+  },
+  "lodestone": {
+    "lore": [
+      "Ein Fels mit dem Willen, gefunden zu werden."
+    ],
+    "use": [
+      "Netheritbarren und gemeißelte Steinziegel. Ein Kompass wird verknüpft, indem man ihn darauf nutzt."
+    ],
+    "secret": [
+      "Der Kompass zeigt in jeder Dimension dorthin."
+    ]
+  },
+  "cobweb": {
+    "lore": [
+      "Ein Faden, hinterlassen von etwas Achtbeinigem."
+    ],
+    "use": [
+      "Scheren oder Schwerter ernten es. Bremst alles, was hindurchgeht."
+    ],
+    "secret": [
+      "Ein Schwert schneidet es am schnellsten."
+    ]
+  },
+  "cocoa_beans": {
+    "lore": [
+      "Ein Samen aus dem Halbdunkel des Dschungels."
+    ],
+    "use": [
+      "Auf Dschungelstämme pflanzen. Für Kekse und braunen Farbstoff."
+    ],
+    "secret": [
+      "Man isst sie am besten im Keks, nicht roh."
+    ]
+  },
+  "comparator": {
+    "lore": [
+      "Ein Redstone-Hirn, das vergleicht."
+    ],
+    "use": [
+      "Redstone-Fackeln, Quarz und Stein. Misst Behälterinhalt und vergleicht Signale."
+    ],
+    "secret": [
+      "Im Subtraktionsmodus zieht er ab."
+    ]
+  },
+  "repeater": {
+    "lore": [
+      "Ein Signal, das einen Schubs braucht."
+    ],
+    "use": [
+      "Redstone-Fackeln, Redstone und Stein. Verlängert ein Signal und fügt eine Verzögerung hinzu."
+    ],
+    "secret": [
+      "Rechtsklick stellt die Verzögerung von einem bis vier Ticks ein."
+    ]
+  },
+  "observer": {
+    "lore": [
+      "Ein Block, der starrt, bis sich etwas ändert."
+    ],
+    "use": [
+      "Gibt einen kurzen Impuls, wenn sich der Block vor ihm ändert."
+    ],
+    "secret": [
+      "Er beobachtet Pflanzen, Kolben und vieles mehr."
+    ]
+  },
+  "piston": {
+    "lore": [
+      "Ein Block mit Schubkraft."
+    ],
+    "use": [
+      "Schiebt bei Strom bis zu 12 Blöcke; der klebrige zieht sie zurück."
+    ],
+    "secret": [
+      "Obsidian und Grundgestein lassen sich nicht bewegen."
+    ]
+  },
+  "sticky_piston": {
+    "lore": [
+      "Ein Block mit Schubkraft."
+    ],
+    "use": [
+      "Schiebt bei Strom bis zu 12 Blöcke; der klebrige zieht sie zurück."
+    ],
+    "secret": [
+      "Obsidian und Grundgestein lassen sich nicht bewegen."
+    ]
+  },
+  "redstone": {
+    "lore": [
+      "Ein Staub, der Gedanken trägt."
+    ],
+    "use": [
+      "Aus Redstone-Erz. Trägt Signale; für Verstärker, Komparatoren und mehr."
+    ],
+    "secret": [
+      "Nach 15 Blöcken Staub erlischt das Signal."
+    ]
+  },
+  "redstone_torch": {
+    "lore": [
+      "Eine Fackel, die umkehrt."
+    ],
+    "use": [
+      "Schaltet ab, wenn der Block, an dem sie hängt, Strom hat."
+    ],
+    "secret": [
+      "Sie versorgt angrenzenden Staub und den Block darüber."
+    ]
+  },
+  "redstone_lamp": {
+    "lore": [
+      "Eine Lampe, die gehorcht."
+    ],
+    "use": [
+      "Redstone und Glowstone. Leuchtet bei Strom."
+    ],
+    "secret": [
+      "Nach dem Abschalten bleibt sie einen Moment an."
+    ]
+  },
+  "light_weighted_pressure_plate": {
+    "lore": [
+      "Eine Platte, die zählt."
+    ],
+    "use": [
+      "Gibt ein stärkeres Signal, je mehr Items darauf liegen."
+    ],
+    "secret": [
+      "Die schwere braucht mehr Items für volle Stärke."
+    ]
+  },
+  "heavy_weighted_pressure_plate": {
+    "lore": [
+      "Eine Platte, die zählt."
+    ],
+    "use": [
+      "Gibt ein stärkeres Signal, je mehr Items darauf liegen."
+    ],
+    "secret": [
+      "Die schwere braucht mehr Items für volle Stärke."
+    ]
+  },
+  "lever": {
+    "lore": [
+      "Ein Schalter für Klickfreunde."
+    ],
+    "use": [
+      "Stock und Bruchstein. Schaltet ein Redstone-Signal um."
+    ],
+    "secret": [
+      "Er lässt sich an jede Seite eines Blocks setzen."
+    ]
+  },
+  "tripwire_hook": {
+    "lore": [
+      "Ein Haken, der eine Falle stellt."
+    ],
+    "use": [
+      "Zwei setzen, dazwischen Faden spannen. Löst aus, wenn etwas die Linie quert."
+    ],
+    "secret": [
+      "Eine Schere durchtrennt den Faden gefahrlos."
+    ]
+  },
+  "dispenser": {
+    "lore": [
+      "Ein Block, der gibt und feuert."
+    ],
+    "use": [
+      "Mit einem Bogen hergestellt. Schießt Pfeile, setzt Eimer, legt Rüstung an und mehr bei Strom."
+    ],
+    "secret": [
+      "Werfer können auch Schafe scheren."
+    ]
+  },
+  "dropper": {
+    "lore": [
+      "Ein Block, der loslässt."
+    ],
+    "use": [
+      "Wirft bei Strom ein Item aus seiner Front."
+    ],
+    "secret": [
+      "Er füttert Trichter und Truhen darunter."
+    ]
+  },
+  "hopper": {
+    "lore": [
+      "Ein Trichter, der nie loslässt."
+    ],
+    "use": [
+      "Eisenbarren und Truhe. Bewegt Items zwischen Behältern."
+    ],
+    "secret": [
+      "Ein mit Strom versorgter Trichter hält an."
+    ]
+  },
+  "crafter": {
+    "lore": [
+      "Ein Tisch, der für dich arbeitet."
+    ],
+    "use": [
+      "Eisen, Redstone, Werkbank und Spender. Stellt bei Strom her."
+    ],
+    "secret": [
+      "Ein Klick auf einen Platz sperrt ihn."
+    ]
+  },
+  "crafting_table": {
+    "lore": [
+      "Ein Tisch kleiner Wunder."
+    ],
+    "use": [
+      "Vier Bretter. Ein 3x3-Raster für Rezepte."
+    ],
+    "secret": [
+      "Tischler-Dorfbewohner nutzen ihn als Arbeitsplatz."
+    ]
+  },
+  "smithing_table": {
+    "lore": [
+      "Ein Tisch, an dem Metall neue Formen lernt."
+    ],
+    "use": [
+      "Eisenbarren und Bretter. Wertet Ausrüstung zu Netherit auf und fügt Rüstungsverzierungen hinzu."
+    ],
+    "secret": [
+      "Waffenschmiede-Dorfbewohner nutzen ihn als Arbeitsplatz."
+    ]
+  },
+  "stonecutter": {
+    "lore": [
+      "Eine Säge, die nie müde wird."
+    ],
+    "use": [
+      "Eisen und Stein. Schneidet Steinblöcke 1:1 zu Treppen, Platten und mehr."
+    ],
+    "secret": [
+      "Steinmetz-Dorfbewohner nutzen sie."
+    ]
+  },
+  "grindstone": {
+    "lore": [
+      "Ein Rad, das vergisst."
+    ],
+    "use": [
+      "Stock, Platten und Bretter. Entfernt Verzauberungen und gibt etwas Erfahrung."
+    ],
+    "secret": [
+      "Es repariert Werkzeuge, indem es zwei kombiniert."
+    ]
+  },
+  "loom": {
+    "lore": [
+      "Ein Rahmen für die Farben."
+    ],
+    "use": [
+      "Faden und Bretter. Fügt Bannern Muster hinzu."
+    ],
+    "secret": [
+      "Schäfer-Dorfbewohner nutzen ihn."
+    ]
+  },
+  "fletching_table": {
+    "lore": [
+      "Eine Bank für Pfeile."
+    ],
+    "use": [
+      "Feuerstein und Bretter. Pfeilmacher-Dorfbewohner nutzen sie."
+    ],
+    "secret": [
+      "Spieler haben keinen Nutzen, aber sie ist ein Arbeitsplatz."
+    ]
+  },
+  "lectern": {
+    "lore": [
+      "Ein Pult für ein einzelnes Buch."
+    ],
+    "use": [
+      "Platten und Bücherregal. Hält ein Buch und kann beim Blättern Signale geben."
+    ],
+    "secret": [
+      "Bibliothekar-Dorfbewohner nutzen es."
+    ]
+  },
+  "composter": {
+    "lore": [
+      "Ein Behälter, der Reste zu Erde macht."
+    ],
+    "use": [
+      "Bretter. Mit Pflanzen füllen; er macht Knochenmehl."
+    ],
+    "secret": [
+      "Bauern-Dorfbewohner nutzen ihn."
+    ]
+  },
+  "conduit": {
+    "lore": [
+      "Ein Herz, das das Meer atmen lässt."
+    ],
+    "use": [
+      "Nautilusschalen und Herz des Meeres. Gibt in einem Prismarin-Rahmen Wasseratmung und Abbautempo unter Wasser."
+    ],
+    "secret": [
+      "Es greift feindliche Mobs in der Nähe an."
+    ]
+  },
+  "heart_of_the_sea": {
+    "lore": [
+      "Ein Preis der Tiefe."
+    ],
+    "use": [
+      "In vergrabenen Schätzen zu finden. Für Aquatoren."
+    ],
+    "secret": [
+      "Schatzkarten führen dorthin."
+    ]
+  },
+  "nautilus_shell": {
+    "lore": [
+      "Eine Spirale des Meeres."
+    ],
+    "use": [
+      "Fällt von Ertrunkenen. Für einen Aquator."
+    ],
+    "secret": [
+      "Ertrunkene mit Dreizack lassen manchmal auch einen fallen."
+    ]
+  },
+  "trident": {
+    "lore": [
+      "Ein Speer, der zurückkehrt."
+    ],
+    "use": [
+      "Von Ertrunkenen. Werfen; mit Treue kehrt er zurück."
+    ],
+    "secret": [
+      "Sog zieht dich durch Wasser oder Regen."
+    ]
+  },
+  "creaking_heart": {
+    "lore": [
+      "Der Puls von etwas, das wartet."
+    ],
+    "use": [
+      "In Bäumen des Blassen Gartens. Abbauen liefert Harz."
+    ],
+    "secret": [
+      "Das Knarrerherz funktioniert nur nachts."
+    ]
+  },
+  "debug_stick": {
+    "lore": [
+      "Ein Stock, der Blockzustände kennt."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Auf Blöcken benutzt wechselt und liest er deren Eigenschaften."
+    ],
+    "secret": [
+      "Schleichen und benutzen wählt, welche Eigenschaft du änderst."
+    ]
+  },
+  "decorated_pot": {
+    "lore": [
+      "Ein Krug mit einer Geschichte auf jeder Seite."
+    ],
+    "use": [
+      "Vier Ziegel oder Scherben. Fasst einen Stapel; zeigt die Bilder seiner Scherben."
+    ],
+    "secret": [
+      "Mit der Spitzhacke bleibt der Krug erhalten, sonst fallen seine Scherben."
+    ]
+  },
+  "disc_fragment_5": {
+    "lore": [
+      "Ein Stück eines unvollendeten Liedes."
+    ],
+    "use": [
+      "In Antiken Städten zu finden. Neun ergeben die Schallplatte 5."
+    ],
+    "secret": [
+      "Die Schallplatte 5 besteht aus neun Fragmenten."
+    ]
+  },
+  "diamond": {
+    "lore": [
+      "Ein hartes, klares Versprechen."
+    ],
+    "use": [
+      "Aus Diamanterz. Für Werkzeuge, Rüstung und Blöcke."
+    ],
+    "secret": [
+      "Glück gibt mehr Diamanten."
+    ]
+  },
+  "emerald": {
+    "lore": [
+      "Die Währung der Dorfbewohner."
+    ],
+    "use": [
+      "Aus Smaragderz oder im Handel. Kauft Waren bei Dorfbewohnern."
+    ],
+    "secret": [
+      "Das Erz liegt in Bergbiomen."
+    ]
+  },
+  "lapis_lazuli": {
+    "lore": [
+      "Ein blauer Stein für jene, die Ergebnisse wollen."
+    ],
+    "use": [
+      "Aus Lapiserz. Zum Verzaubern und für blauen Farbstoff."
+    ],
+    "secret": [
+      "Im Verzauberungstisch bezahlt man damit die Verzauberungen."
+    ]
+  },
+  "dragon_breath": {
+    "lore": [
+      "Feuer, das als Nebel strömt."
+    ],
+    "use": [
+      "Mit einer Glasflasche aus der Wolke des Drachenodems sammeln. Braut Verweiltränke."
+    ],
+    "secret": [
+      "Nur eine Flasche in der Wolke bringt es ein."
+    ]
+  },
+  "dragon_egg": {
+    "lore": [
+      "Ein Preis, den der Drache hinterlässt."
+    ],
+    "use": [
+      "Erscheint am Portal, nachdem der erste Drache stirbt. Teleportiert, wenn man darauf klickt."
+    ],
+    "secret": [
+      "Es fällt wie Sand, wenn man seinen Untergrund entfernt."
+    ]
+  },
+  "dried_ghast": {
+    "lore": [
+      "Ein Ghast nach langer Trockenheit."
+    ],
+    "use": [
+      "Platzieren und in Wassernähe halten, um ein Ghastling aufzuziehen."
+    ],
+    "secret": [
+      "Der trockene Ghast braucht Wasser zum Schlüpfen."
+    ]
+  },
+  "dried_kelp": {
+    "lore": [
+      "Ein Snack, der nie verdirbt."
+    ],
+    "use": [
+      "Seetang schmelzen. Schnell zu essen."
+    ],
+    "secret": [
+      "Neun getrocknete Seetang ergeben einen Block."
+    ]
+  },
+  "echo_shard": {
+    "lore": [
+      "Ein Splitter Stille aus dem Tiefen Dunkel."
+    ],
+    "use": [
+      "In Truhen Antiker Städte. Für Wiederherstellungskompasse."
+    ],
+    "secret": [
+      "Acht Echo-Splitter um einen Kompass ergeben einen Wiederherstellungskompass."
+    ]
+  },
+  "elytra": {
+    "lore": [
+      "Flügel für jene, die es wagen."
+    ],
+    "use": [
+      "In Endschiffen zu finden. Gleiten durch Springen und Aktivieren in der Luft."
+    ],
+    "secret": [
+      "Mit Phantommembranen reparierbar."
+    ]
+  },
+  "enchanted_book": {
+    "lore": [
+      "Ein Buch, dem etwas beigebracht wurde."
+    ],
+    "use": [
+      "In Beute gefunden oder am Verzauberungstisch gemacht. Am Amboss anwenden."
+    ],
+    "secret": [
+      "Bibliothekare verkaufen sie mit zufälligen Verzauberungen."
+    ]
+  },
+  "enchanting_table": {
+    "lore": [
+      "Ein Tisch, der auf die Sterne lauscht."
+    ],
+    "use": [
+      "Diamanten, Obsidian und ein Buch. Mit Lapis und Stufen verzaubert man Items."
+    ],
+    "secret": [
+      "Bücherregale darum erhöhen seine Kraft."
+    ]
+  },
+  "end_crystal": {
+    "lore": [
+      "Ein Herz, das den Drachen heilt."
+    ],
+    "use": [
+      "Glas, Enderauge und Ghastträne. Auf Obsidian oder Grundgestein gesetzt; explodiert bei Treffern."
+    ],
+    "secret": [
+      "Vier davon auf dem Portalrahmen rufen den Drachen zurück."
+    ]
+  },
+  "end_portal_frame": {
+    "lore": [
+      "Ein Rahmen für eine Tür."
+    ],
+    "use": [
+      "In Festungen zu finden. Mit Enderaugen füllen, um das End-Portal zu öffnen."
+    ],
+    "secret": [
+      "Ein Komparator liest, ob ein Auge darin ist."
+    ]
+  },
+  "end_rod": {
+    "lore": [
+      "Eine Lampe aus dem End."
+    ],
+    "use": [
+      "Lohenrute und Geplatzte Chorusfrucht. Gibt Licht und dreht sich zur Seite."
+    ],
+    "secret": [
+      "Das Licht erscheint weiß."
+    ]
+  },
+  "ender_eye": {
+    "lore": [
+      "Ein Auge, das nach Hause sucht."
+    ],
+    "use": [
+      "Enderperle und Lohenpulver. Geworfen fliegt es zur nächsten Festung."
+    ],
+    "secret": [
+      "Es zerbricht etwa jedes zweite Mal."
+    ]
+  },
+  "ender_pearl": {
+    "lore": [
+      "Ein geworfener Gedanke."
+    ],
+    "use": [
+      "Fällt von Endermen. Teleportiert dich dorthin, wo sie landet, für 5 Schadenspunkte."
+    ],
+    "secret": [
+      "Plünderung gibt mehr Perlen."
+    ]
+  },
+  "experience_bottle": {
+    "lore": [
+      "Eine Flasche voller Genug."
+    ],
+    "use": [
+      "Geworfen setzt sie Erfahrungskugeln frei. In Beute oder im Handel."
+    ],
+    "secret": [
+      "Sie gibt zwischen drei und elf Punkte."
+    ]
+  },
+  "feather": {
+    "lore": [
+      "Eine leichte Berührung."
+    ],
+    "use": [
+      "Fällt von Hühnern. Für Pfeile und Bürsten."
+    ],
+    "secret": [
+      "Plünderung gibt mehr Federn."
+    ]
+  },
+  "fermented_spider_eye": {
+    "lore": [
+      "Ein Spinnenauge, das richtig zu faulen lernte."
+    ],
+    "use": [
+      "Spinnenauge, Zucker und brauner Pilz. Braut Schwäche- und Schadenstränke."
+    ],
+    "secret": [
+      "Es verkehrt gute Tränke in ihr schlechtes Gegenteil."
+    ]
+  },
+  "fire_charge": {
+    "lore": [
+      "Ein Feuerball, der stillhält."
+    ],
+    "use": [
+      "Lohenpulver, Kohle und Schießpulver. Zum Werfen oder Setzen von Feuer."
+    ],
+    "secret": [
+      "Werfer feuern ihn als kleinen Feuerball."
+    ]
+  },
+  "firework_rocket": {
+    "lore": [
+      "Ein kleines Fest."
+    ],
+    "use": [
+      "Papier, Schießpulver und optionale Sterne. Mit Elytra beschleunigt es den Flug."
+    ],
+    "secret": [
+      "Jedes Schießpulver verlängert die Flugdauer."
+    ]
+  },
+  "firework_star": {
+    "lore": [
+      "Eine einzelne Farbe, die darauf wartet zu explodieren."
+    ],
+    "use": [
+      "Schießpulver und Farbstoff. Mit Extra-Items fügt man Effekte hinzu."
+    ],
+    "secret": [
+      "Goldnuggets geben eine Sternform."
+    ]
+  },
+  "fishing_rod": {
+    "lore": [
+      "Eine Schnur und ein geduldiger Geist."
+    ],
+    "use": [
+      "Stöcke und Faden. Auswerfen und einholen, um Fische, Schätze und Schrott zu fangen."
+    ],
+    "secret": [
+      "Köder beschleunigt Bisse."
+    ]
+  },
+  "flint": {
+    "lore": [
+      "Eine scharfe Kante aus dem Kies."
+    ],
+    "use": [
+      "Fällt aus Kies. Für Pfeile und Feuerzeug."
+    ],
+    "secret": [
+      "Mit Glück fällt öfter Feuerstein."
+    ]
+  },
+  "flint_and_steel": {
+    "lore": [
+      "Ein Funke zum Mitnehmen."
+    ],
+    "use": [
+      "Eisenbarren und Feuerstein. Entzündet Feuer, Portale, TNT und Kerzen."
+    ],
+    "secret": [
+      "Creeper explodieren, wenn man sie entzündet."
+    ]
+  },
+  "flower_pot": {
+    "lore": [
+      "Ein kleiner Garten."
+    ],
+    "use": [
+      "Drei Ziegel. Hält eine Blume oder einen Setzling."
+    ],
+    "secret": [
+      "Ein Topf kann viele Pflanzen aufnehmen, nicht nur Blumen."
+    ]
+  },
+  "frogspawn": {
+    "lore": [
+      "Eier eines Teichs."
+    ],
+    "use": [
+      "Von Fröschen gelegt. Auf Wasser setzen; Kaulquappen schlüpfen."
+    ],
+    "secret": [
+      "Aus ihnen werden je nach Biom verschiedene Frösche."
+    ]
+  },
+  "ghast_tear": {
+    "lore": [
+      "Ein Schrei in einer Flasche."
+    ],
+    "use": [
+      "Fällt von Ghasts. Braut Regenerationstränke und Endkristalle."
+    ],
+    "secret": [
+      "Ghasts, die durch ihren eigenen Feuerball sterben, lassen es fallen."
+    ]
+  },
+  "gilded_blackstone": {
+    "lore": [
+      "Ein dunkler Stein mit Gold darin."
+    ],
+    "use": [
+      "In Bastionen zu finden. Gibt beim Abbau Goldnuggets."
+    ],
+    "secret": [
+      "Piglins bewachen Bastionen."
+    ]
+  },
+  "glass": {
+    "lore": [
+      "Ein Fenster aus Sand."
+    ],
+    "use": [
+      "Sand schmelzen. Durchsichtig; fällt nicht von selbst."
+    ],
+    "secret": [
+      "Behutsamkeit behält es."
+    ]
+  },
+  "glass_pane": {
+    "lore": [
+      "Ein dünnes Fenster."
+    ],
+    "use": [
+      "Sechs Glas ergeben sechzehn. Verbindet sich mit Nachbarn."
+    ],
+    "secret": [
+      "Behutsamkeit behält es."
+    ]
+  },
+  "glass_bottle": {
+    "lore": [
+      "Ein kleines Glas für das, was darin ist."
+    ],
+    "use": [
+      "Drei Glas. Mit Wasser, Honig oder Drachenodem füllen."
+    ],
+    "secret": [
+      "Rechtsklick auf einen Bienenstock gibt Honig."
+    ]
+  },
+  "glow_berries": {
+    "lore": [
+      "Beeren mit eigenem Licht."
+    ],
+    "use": [
+      "An Höhlenranken zu finden. Essen stillt Hunger; sie leuchten im Dunkeln."
+    ],
+    "secret": [
+      "Knochenmehl auf Ranken lässt mehr wachsen."
+    ]
+  },
+  "glow_ink_sac": {
+    "lore": [
+      "Tinte, die leuchtet."
+    ],
+    "use": [
+      "Fällt von Leuchttintenfischen. Lässt Schilder leuchten."
+    ],
+    "secret": [
+      "Aufs Schild angewendet leuchtet der Text."
+    ]
+  },
+  "ink_sac": {
+    "lore": [
+      "Das letzte Wort eines Tintenfischs."
+    ],
+    "use": [
+      "Fällt von Tintenfischen. Schwarzer Farbstoff."
+    ],
+    "secret": [
+      "Mit Knochenmehl wird er grau."
+    ]
+  },
+  "glowstone": {
+    "lore": [
+      "Licht von der Decke des Nethers."
+    ],
+    "use": [
+      "Vier Glowstonestaub. Gibt volles Licht."
+    ],
+    "secret": [
+      "Abbauen gibt zwei bis vier Staub."
+    ]
+  },
+  "glowstone_dust": {
+    "lore": [
+      "Ein Funkeln, das sich leicht schütten lässt."
+    ],
+    "use": [
+      "Fällt von Glowstone. Für Redstone-Lampen und Tränke."
+    ],
+    "secret": [
+      "Im Brauen verstärkt es die Wirkung."
+    ]
+  },
+  "goat_horn": {
+    "lore": [
+      "Ein Ruf, der weit trägt."
+    ],
+    "use": [
+      "Fällt, wenn eine Ziege gegen einen harten Block rammt. Benutzen lässt es ertönen."
+    ],
+    "secret": [
+      "Jedes Horn hat eine andere Melodie."
+    ]
+  },
+  "gunpowder": {
+    "lore": [
+      "Ein Staub, der einen Knall hält."
+    ],
+    "use": [
+      "Fällt von Creepern. Für TNT und Feuerwerk."
+    ],
+    "secret": [
+      "Beim Brauen entstehen Wurftränke."
+    ]
+  },
+  "tnt": {
+    "lore": [
+      "Vier Sand, fünf Schießpulver, eine schlechte Idee."
+    ],
+    "use": [
+      "Mit Feuerzeug oder Redstone entzündet explodiert es nach kurzer Zündschnur."
+    ],
+    "secret": [
+      "Wasser verhindert Blockschaden durch die Explosion."
+    ]
+  },
+  "honey_bottle": {
+    "lore": [
+      "Süße im Glas."
+    ],
+    "use": [
+      "Mit Flasche aus dem Bienenstock geholt. Trinken entfernt Gift."
+    ],
+    "secret": [
+      "Vier Flaschen ergeben einen Honigblock."
+    ]
+  },
+  "honeycomb": {
+    "lore": [
+      "Wachs und Süße."
+    ],
+    "use": [
+      "Mit der Schere aus Bienenstöcken geerntet. Wachst Kupfer und Schilder."
+    ],
+    "secret": [
+      "Vier Waben ergeben einen Wabenblock."
+    ]
+  },
+  "iron_bars": {
+    "lore": [
+      "Ein Fenster mit Groll."
+    ],
+    "use": [
+      "Sechs Eisenbarren. Verbindet sich mit Nachbarn; Mobs kommen nicht hindurch."
+    ],
+    "secret": [
+      "Dorfbewohner dahinter bleiben, wo sie sind."
+    ]
+  },
+  "iron_chain": {
+    "lore": [
+      "Eine Kette aus Eisen."
+    ],
+    "use": [
+      "Eisenbarren und Nuggets. Hängt Laternen und Glocken auf und lässt sich erklettern."
+    ],
+    "secret": [
+      "Ketten können auch waagerecht liegen."
+    ]
+  },
+  "item_frame": {
+    "lore": [
+      "Ein Bild eines Dings."
+    ],
+    "use": [
+      "Stöcke und Leder. Zeigt ein Item an der Wand; Rechtsklick dreht."
+    ],
+    "secret": [
+      "Ein Komparator liest seine Drehung."
+    ]
+  },
+  "glow_item_frame": {
+    "lore": [
+      "Ein Bild eines Dings, das leuchtet."
+    ],
+    "use": [
+      "Rahmen und Leuchttintenbeutel. Das Item bleibt im Dunkeln sichtbar."
+    ],
+    "secret": [
+      "Der Rahmen selbst leuchtet nicht."
+    ]
+  },
+  "painting": {
+    "lore": [
+      "Ein Fenster zu einer Erinnerung."
+    ],
+    "use": [
+      "Stöcke und Wolle. Rechtsklick an eine Wand hängt eines von vielen Motiven."
+    ],
+    "secret": [
+      "Größere Wände wählen größere Bilder."
+    ]
+  },
+  "jukebox": {
+    "lore": [
+      "Eine Kiste mit Plattensammlung."
+    ],
+    "use": [
+      "Diamant und Bretter. Spielt Schallplatten ab."
+    ],
+    "secret": [
+      "Jede Platte läuft einmal bis zum Ende."
+    ]
+  },
+  "note_block": {
+    "lore": [
+      "Ein Block, der eine Note kennt."
+    ],
+    "use": [
+      "Redstone und Bretter. Klicken ändert die Tonhöhe; der Block darunter bestimmt das Instrument."
+    ],
+    "secret": [
+      "Köpfe darauf spielen Mob-Laute."
+    ]
+  },
+  "knowledge_book": {
+    "lore": [
+      "Ein Buch, das Rezepte lehrt."
+    ],
+    "use": [
+      "Nicht herstellbar. Benutzen schaltet Rezepte frei."
+    ],
+    "secret": [
+      "Es ist ein Werkzeug für Kreativwelten und Tests."
+    ]
+  },
+  "ladder": {
+    "lore": [
+      "Ein Weg nach oben, der nichts verlangt."
+    ],
+    "use": [
+      "Stöcke. Daran hochklettern."
+    ],
+    "secret": [
+      "Schleichen hält dich fest, ohne dich zu bewegen."
+    ]
+  },
+  "lantern": {
+    "lore": [
+      "Eine Kerze, die hängen gelernt hat."
+    ],
+    "use": [
+      "Eisennuggets und Fackel. Gibt stetiges Licht."
+    ],
+    "secret": [
+      "Seelenlaternen leuchten blau."
+    ]
+  },
+  "soul_lantern": {
+    "lore": [
+      "Eine Laterne mit stillem blauem Feuer."
+    ],
+    "use": [
+      "Eisennuggets und Seelenfackel. Gibt Lichtstärke 10."
+    ],
+    "secret": [
+      "Piglins mögen Seelenfeuer nicht."
+    ]
+  },
+  "torch": {
+    "lore": [
+      "Eine kleine Flamme an einem Stock."
+    ],
+    "use": [
+      "Kohle und Stock. Gibt Lichtstärke 14."
+    ],
+    "secret": [
+      "Wasser löscht sie."
+    ]
+  },
+  "soul_torch": {
+    "lore": [
+      "Eine Fackel mit blauer Flamme."
+    ],
+    "use": [
+      "Kohle und Seelensand oder -erde. Gibt Lichtstärke 10."
+    ],
+    "secret": [
+      "Piglins mögen Seelenfeuer nicht."
+    ]
+  },
+  "leather": {
+    "lore": [
+      "Haut, gegerbt."
+    ],
+    "use": [
+      "Fällt von Kühen, Pferden und anderen. Für Rüstung, Bücher und Bündel."
+    ],
+    "secret": [
+      "Kaninchenfell wird ebenfalls zu Leder."
+    ]
+  },
+  "rabbit_hide": {
+    "lore": [
+      "Ein kleiner Fetzen Fell."
+    ],
+    "use": [
+      "Fällt von Kaninchen. Vier ergeben Leder."
+    ],
+    "secret": [
+      "Der Fuß ist seltener."
+    ]
+  },
+  "rabbit_foot": {
+    "lore": [
+      "Ein Glücksbringer, heißt es."
+    ],
+    "use": [
+      "Fällt selten von Kaninchen. Braut Sprungtränke."
+    ],
+    "secret": [
+      "Plünderung erhöht die Chance."
+    ]
+  },
+  "lead": {
+    "lore": [
+      "Ein Seil, das Freunde nah hält."
+    ],
+    "use": [
+      "Fäden und Schleimball. Tiere an Zäune binden."
+    ],
+    "secret": [
+      "Ein angeleintes Mob folgt dir."
+    ]
+  },
+  "slime_ball": {
+    "lore": [
+      "Ein hüpfender Klecks."
+    ],
+    "use": [
+      "Fällt von Schleimen. Für Leinen, klebrige Kolben und Schleimblöcke."
+    ],
+    "secret": [
+      "Neun ergeben einen Schleimblock."
+    ]
+  },
+  "magma_cream": {
+    "lore": [
+      "Eine heiße Paste."
+    ],
+    "use": [
+      "Fällt von Magmawürfeln. Braut Feuerresistenz."
+    ],
+    "secret": [
+      "Mit Lohenpulver und Schleimball herstellbar."
+    ]
+  },
+  "map": {
+    "lore": [
+      "Ein Papier, das zeigt, wo du warst."
+    ],
+    "use": [
+      "Papier um einen Kompass. Erkundet beim Gehen und lässt sich vergrößern."
+    ],
+    "secret": [
+      "Ein Kartentisch kopiert sie."
+    ]
+  },
+  "name_tag": {
+    "lore": [
+      "Ein Wort, das hängen bleibt."
+    ],
+    "use": [
+      "In Beute zu finden. Am Amboss benennen, dann benutzen."
+    ],
+    "secret": [
+      "Ein benanntes Mob verschwindet nicht."
+    ]
+  },
+  "nether_star": {
+    "lore": [
+      "Ein Stern, der im Nether gefallen ist."
+    ],
+    "use": [
+      "Fällt vom Wither. Für Leuchtfeuer."
+    ],
+    "secret": [
+      "Explosionen können ihn nicht zerstören."
+    ]
+  },
+  "nether_wart": {
+    "lore": [
+      "Ein Pilz, der warmen Boden mag."
+    ],
+    "use": [
+      "In Netherfestungen zu finden. Auf Seelensand pflanzen; braut Seltsame Tränke."
+    ],
+    "secret": [
+      "Glück gibt mehr."
+    ]
+  },
+  "netherite_scrap": {
+    "lore": [
+      "Ein Fragment des Nether-Herzens."
+    ],
+    "use": [
+      "Antiken Schrott schmelzen. Vier Schrott und vier Goldbarren ergeben einen Netheritbarren."
+    ],
+    "secret": [
+      "Schrott schwimmt in Lava wie alles aus Netherit."
+    ]
+  },
+  "netherite_upgrade_smithing_template": {
+    "lore": [
+      "Ein Muster für einen langen Weg."
+    ],
+    "use": [
+      "In Bastionen zu finden. Wertet Diamantausrüstung am Schmiedetisch zu Netherit auf."
+    ],
+    "secret": [
+      "Sieben Diamanten, Netherrack und eine Vorlage ergeben zwei."
+    ]
+  },
+  "ominous_bottle": {
+    "lore": [
+      "Eine Flasche, die nach Vorzeichen schmeckt."
+    ],
+    "use": [
+      "Fällt von Anführern der Überfälle. Trinken gibt Schlechtes Omen."
+    ],
+    "secret": [
+      "Ein stärkeres Omen bedeutet einen stärkeren Überfall."
+    ]
+  },
+  "ominous_trial_key": {
+    "lore": [
+      "Ein Schlüssel, der schwer wirkt."
+    ],
+    "use": [
+      "Fällt von unheimlichen Prüfungsspawnern. Öffnet unheimliche Tresore."
+    ],
+    "secret": [
+      "Die Beute ist besser."
+    ]
+  },
+  "trial_key": {
+    "lore": [
+      "Ein Schlüssel, den man sich verdient hat."
+    ],
+    "use": [
+      "Fällt von Prüfungsspawnern. Öffnet Tresore."
+    ],
+    "secret": [
+      "Jeder Spieler kann einen Tresor einmal je Schlüssel nutzen."
+    ]
+  },
+  "vault": {
+    "lore": [
+      "Eine Kiste, die die Mutigen belohnt."
+    ],
+    "use": [
+      "In Prüfungskammern. Öffnet sich mit Schlüssel und gibt Beute."
+    ],
+    "secret": [
+      "Jeder Spieler erhält nur einmal eine Belohnung."
+    ]
+  },
+  "trial_spawner": {
+    "lore": [
+      "Ein Käfig der Prüfungen."
+    ],
+    "use": [
+      "In Prüfungskammern. Lässt Wellen von Mobs erscheinen, solange Spieler nahe sind."
+    ],
+    "secret": [
+      "Besiegt gibt er Belohnungen und einen Schlüssel aus."
+    ]
+  },
+  "spawner": {
+    "lore": [
+      "Ein Käfig, der sich füllt."
+    ],
+    "use": [
+      "In Verliesen und Festungen. Lässt Mobs einer Art erscheinen, solange ein Spieler nahe ist."
+    ],
+    "secret": [
+      "Ein Spawn-Ei darauf ändert das Mob."
+    ]
+  },
+  "paper": {
+    "lore": [
+      "Eine Seite ohne Worte."
+    ],
+    "use": [
+      "Drei Zuckerrohre. Für Bücher, Karten und Feuerwerk."
+    ],
+    "secret": [
+      "Drei Rohre ergeben drei Blatt."
+    ]
+  },
+  "phantom_membrane": {
+    "lore": [
+      "Eine dünne Haut der Nacht."
+    ],
+    "use": [
+      "Fällt von Phantomen. Repariert Elytra und braut Langsames Fallen."
+    ],
+    "secret": [
+      "Phantome erscheinen nach schlaflosen Nächten."
+    ]
+  },
+  "potion": {
+    "lore": [
+      "Eine Flasche voller Effekte."
+    ],
+    "use": [
+      "Aus Wasser, Netherwarze und Zutaten gebraut. Trinken für den Effekt."
+    ],
+    "secret": [
+      "Wurf- und Verweilformen verteilen ihn."
+    ]
+  },
+  "splash_potion": {
+    "lore": [
+      "Ein Trank, der sich gut werfen lässt."
+    ],
+    "use": [
+      "Schießpulver zu einem Trank. Werfen wirkt auf Mobs in der Nähe."
+    ],
+    "secret": [
+      "Nähere Ziele erhalten stärkere Effekte."
+    ]
+  },
+  "lingering_potion": {
+    "lore": [
+      "Ein Trank, der bleibt."
+    ],
+    "use": [
+      "Drachenodem zu einem Wurftrank. Hinterlässt eine Wolke seines Effekts."
+    ],
+    "secret": [
+      "Pfeile lassen sich damit füllen."
+    ]
+  },
+  "prismarine_crystals": {
+    "lore": [
+      "Ein Kristall, der unter Wasser leuchtet."
+    ],
+    "use": [
+      "Fällt von Wächtern. Für Seelaternen."
+    ],
+    "secret": [
+      "Ältere Wächter lassen mehr fallen."
+    ]
+  },
+  "prismarine_shard": {
+    "lore": [
+      "Ein Splitter der Tiefe."
+    ],
+    "use": [
+      "Fällt von Wächtern. Für Prismarin."
+    ],
+    "secret": [
+      "Vier ergeben Prismarin."
+    ]
+  },
+  "sea_lantern": {
+    "lore": [
+      "Eine Laterne, die der Ozean baute."
+    ],
+    "use": [
+      "Prismarinkristalle und -scherben. Gibt volles Licht."
+    ],
+    "secret": [
+      "In Ozeanmonumenten zu finden."
+    ]
+  },
+  "saddle": {
+    "lore": [
+      "Ein Sitz für etwas, das läuft."
+    ],
+    "use": [
+      "In Beute zu finden. Pferd, Schwein oder Schreiter reiten, wenn gesattelt."
+    ],
+    "secret": [
+      "Ohne Sattel lenkt man nicht."
+    ]
+  },
+  "scaffolding": {
+    "lore": [
+      "Ein vorübergehender Aufstieg."
+    ],
+    "use": [
+      "Bambus und Faden. Auf und ab klettern; stapelbar."
+    ],
+    "secret": [
+      "Bricht man den unteren, fällt alles."
+    ]
+  },
+  "shears": {
+    "lore": [
+      "Zwei Klingen, die sich einig sind."
+    ],
+    "use": [
+      "Zwei Eisenbarren. Schneidet Wolle, Blätter, Ranken und Spinnennetze."
+    ],
+    "secret": [
+      "Werfer scheren auch Schafe."
+    ]
+  },
+  "shield": {
+    "lore": [
+      "Eine Wand zum Tragen."
+    ],
+    "use": [
+      "Bretter und Eisenbarren. Heben blockt Angriffe."
+    ],
+    "secret": [
+      "Banner lassen sich anbringen."
+    ]
+  },
+  "shulker_box": {
+    "lore": [
+      "Eine Kiste mit schlechter Laune und gutem Gedächtnis."
+    ],
+    "use": [
+      "Zwei Shulkerschalen und eine Truhe. Beim Abbau bleibt der Inhalt erhalten."
+    ],
+    "secret": [
+      "Sie passt nicht in eine andere."
+    ]
+  },
+  "shulker_shell": {
+    "lore": [
+      "Eine Schale, die sich schließt."
+    ],
+    "use": [
+      "Fällt von Shulkern. Für Shulkerkisten."
+    ],
+    "secret": [
+      "Shulker gibt es in Endstädten."
+    ]
+  },
+  "snow": {
+    "lore": [
+      "Eine dünne Decke."
+    ],
+    "use": [
+      "Schichten stapeln sich; eine Schaufel sammelt Schneebälle."
+    ],
+    "secret": [
+      "Acht Schichten füllen einen Block."
+    ]
+  },
+  "snow_block": {
+    "lore": [
+      "Ein Block aus Kälte."
+    ],
+    "use": [
+      "Vier Schneebälle. Zum Bauen und für Schneegolems."
+    ],
+    "secret": [
+      "Schneegolems hinterlassen eine Schneespur."
+    ]
+  },
+  "snowball": {
+    "lore": [
+      "Ein kleiner kalter Wurf."
+    ],
+    "use": [
+      "Werfen gibt Rückstoß. Für Schneeblöcke."
+    ],
+    "secret": [
+      "Lohen nehmen Schaden davon."
+    ]
+  },
+  "soul_sand": {
+    "lore": [
+      "Boden, der eine Erinnerung hält."
+    ],
+    "use": [
+      "In den Tälern des Nethers. Seelensand bremst Läufer; auf beiden entsteht Seelenfeuer."
+    ],
+    "secret": [
+      "Netherwarze wächst auf Seelensand."
+    ]
+  },
+  "soul_soil": {
+    "lore": [
+      "Boden, der eine Erinnerung hält."
+    ],
+    "use": [
+      "In den Tälern des Nethers. Seelensand bremst Läufer; auf beiden entsteht Seelenfeuer."
+    ],
+    "secret": [
+      "Netherwarze wächst auf Seelensand."
+    ]
+  },
+  "sponge": {
+    "lore": [
+      "Ein Block, der trinkt."
+    ],
+    "use": [
+      "In Ozeanmonumenten. Saugt Wasser der Umgebung auf."
+    ],
+    "secret": [
+      "Im Ofen trocknen, um ihn wiederzuverwenden."
+    ]
+  },
+  "wet_sponge": {
+    "lore": [
+      "Ein Schwamm, voll."
+    ],
+    "use": [
+      "Vollgesogener Schwamm. Im Ofen trocknen."
+    ],
+    "secret": [
+      "Im Nether setzen, damit er trocknet."
+    ]
+  },
+  "spyglass": {
+    "lore": [
+      "Ein Auge, das weit reicht."
+    ],
+    "use": [
+      "Kupfer und Amethystscherbe. Benutzen zoomt."
+    ],
+    "secret": [
+      "So erkennt man ferne Mobs."
+    ]
+  },
+  "stick": {
+    "lore": [
+      "Ein kleines Stück Baum."
+    ],
+    "use": [
+      "Zwei Bretter. Für Werkzeuge und vieles andere."
+    ],
+    "secret": [
+      "Ein Stock brennt kurz."
+    ]
+  },
+  "string": {
+    "lore": [
+      "Ein Faden aus dem Netz."
+    ],
+    "use": [
+      "Fällt von Spinnen. Für Bögen, Angeln und Wolle."
+    ],
+    "secret": [
+      "Vier ergeben Wolle."
+    ]
+  },
+  "sugar": {
+    "lore": [
+      "Ein süßes Streu."
+    ],
+    "use": [
+      "Zuckerrohr. Für Kuchen, Tränke und Pasteten."
+    ],
+    "secret": [
+      "Honigflaschen ergeben auch Zucker."
+    ]
+  },
+  "sweet_berries": {
+    "lore": [
+      "Ein herber Büschel-Leckerbissen."
+    ],
+    "use": [
+      "In Taigen. Essen stillt Hunger; pflanzen für Büsche."
+    ],
+    "secret": [
+      "Der Busch verletzt alles, was ihn berührt."
+    ]
+  },
+  "target": {
+    "lore": [
+      "Ein Block, der zählt."
+    ],
+    "use": [
+      "Redstone und Heu. Gibt ein Signal je nach Nähe des Treffers."
+    ],
+    "secret": [
+      "Ein Volltreffer gibt das stärkste Signal."
+    ]
+  },
+  "tinted_glass": {
+    "lore": [
+      "Ein Glas, das das Licht sperrt."
+    ],
+    "use": [
+      "Amethystscherben und Glas. Lässt kein Licht durch."
+    ],
+    "secret": [
+      "Sculk-Sensoren hören hindurch."
+    ]
+  },
+  "totem_of_undying": {
+    "lore": [
+      "Eine Figur, die den Tod austrickst."
+    ],
+    "use": [
+      "Fällt von Magiern. In der Hand gehalten überlebt man einen tödlichen Treffer."
+    ],
+    "secret": [
+      "Es wird verbraucht, wenn es dich rettet."
+    ]
+  },
+  "turtle_egg": {
+    "lore": [
+      "Ein Versprechen am Strand."
+    ],
+    "use": [
+      "Auf Sand setzen. Schlüpft zu Schildkröten; Zombies und andere zertrampeln es."
+    ],
+    "secret": [
+      "Nachts schlüpft es schneller."
+    ]
+  },
+  "sniffer_egg": {
+    "lore": [
+      "Ein großes, warmes Ding."
+    ],
+    "use": [
+      "Durch Schnüffeln zu finden. Auf Moos setzen; es schlüpft zu einem Schnüfflerchen."
+    ],
+    "secret": [
+      "Moos beschleunigt es."
+    ]
+  },
+  "turtle_scute": {
+    "lore": [
+      "Eine Platte einer wachsenden Schildkröte."
+    ],
+    "use": [
+      "Fällt, wenn ein Jungtier erwachsen wird. Für Schildkrötenpanzer."
+    ],
+    "secret": [
+      "Der Helm gibt Wasseratmung."
+    ]
+  },
+  "turtle_helmet": {
+    "lore": [
+      "Eine Schale zum Tragen."
+    ],
+    "use": [
+      "Fünf Schildkrötenpanzer. Gibt nach dem Eintauchen einige Sekunden Wasseratmung."
+    ],
+    "secret": [
+      "Mit Panzerplatten reparierbar."
+    ]
+  },
+  "wolf_armor": {
+    "lore": [
+      "Ein Mantel für ein Rudelmitglied."
+    ],
+    "use": [
+      "Gürteltierschilde. Rechtsklick auf einen gezähmten Wolf legt ihn an."
+    ],
+    "secret": [
+      "Er schützt den Wolf und bekommt Risse bei Schaden."
+    ]
+  },
+  "wheat": {
+    "lore": [
+      "Ein goldenes Versprechen."
+    ],
+    "use": [
+      "Aus Samen angebaut. Für Brot und zum Füttern."
+    ],
+    "secret": [
+      "Drei ergeben Brot."
+    ]
+  },
+  "potato": {
+    "lore": [
+      "Eine Knolle mit Ehrgeiz."
+    ],
+    "use": [
+      "Auf Ackerland pflanzen. Gebacken stillt sie mehr Hunger."
+    ],
+    "secret": [
+      "Eine Ofenkartoffel stellt viel mehr wieder her als eine rohe."
+    ]
+  },
+  "writable_book": {
+    "lore": [
+      "Ein Buch, das auf eine Feder wartet."
+    ],
+    "use": [
+      "Buch, Tintenbeutel und Feder. Seiten beschreiben."
+    ],
+    "secret": [
+      "Signiert wird es zum Geschriebenen Buch."
+    ]
+  },
+  "written_book": {
+    "lore": [
+      "Ein Buch, das seine Meinung gesagt hat."
+    ],
+    "use": [
+      "Ein beschreibbares Buch signieren. Nicht mehr änderbar."
+    ],
+    "secret": [
+      "Mit einem Buch lässt es sich kopieren."
+    ]
+  },
+  "structure_block": {
+    "lore": [
+      "Ein Werkzeug zum Bauen von Welten."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Speichert und lädt Strukturen."
+    ],
+    "secret": [
+      "Operatoren stellen Größe, Versatz und Modus ein."
+    ]
+  },
+  "structure_void": {
+    "lore": [
+      "Ein Block für jene, die die Werkzeuge der Bauenden bauen."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Für Strukturdateien und Tests."
+    ],
+    "secret": [
+      "Im Überleben nicht erhältlich."
+    ]
+  },
+  "jigsaw": {
+    "lore": [
+      "Ein Block für jene, die die Werkzeuge der Bauenden bauen."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Für Strukturdateien und Tests."
+    ],
+    "secret": [
+      "Im Überleben nicht erhältlich."
+    ]
+  },
+  "light": {
+    "lore": [
+      "Ein Block für jene, die die Werkzeuge der Bauenden bauen."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Für Strukturdateien und Tests."
+    ],
+    "secret": [
+      "Im Überleben nicht erhältlich."
+    ]
+  },
+  "test_block": {
+    "lore": [
+      "Ein Block für jene, die die Werkzeuge der Bauenden bauen."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Für Strukturdateien und Tests."
+    ],
+    "secret": [
+      "Im Überleben nicht erhältlich."
+    ]
+  },
+  "test_instance_block": {
+    "lore": [
+      "Ein Block für jene, die die Werkzeuge der Bauenden bauen."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Für Strukturdateien und Tests."
+    ],
+    "secret": [
+      "Im Überleben nicht erhältlich."
+    ]
+  },
+  "respawn_anchor": {
+    "lore": [
+      "Ein Spawnpunkt für den Nether."
+    ],
+    "use": [
+      "Weinendes Obsidian und Glowstone. Mit Glowstone laden; setzt dort den Spawn."
+    ],
+    "secret": [
+      "In der Oberwelt explodiert er."
+    ]
+  },
+  "straw_bed": {
+    "lore": [
+      "Ein Bett aus Stroh, schlicht und warm."
+    ],
+    "use": [
+      "Ein einfaches Bett. Aufstellen und schlafen, um die Nacht zu überspringen und den Spawn zu setzen."
+    ],
+    "secret": [
+      "Betten explodieren im Nether und im End."
+    ]
+  },
+  "daylight_detector": {
+    "lore": [
+      "Ein Paneel, das den Himmel beobachtet."
+    ],
+    "use": [
+      "Glas, Quarz und Holzplatten. Gibt ein Redstone-Signal, das der Sonne folgt; Rechtsklick kehrt es um."
+    ],
+    "secret": [
+      "Umgekehrt arbeitet es auch nachts."
+    ]
+  },
+  "shelf_mushroom": {
+    "lore": [
+      "Ein Konsolenpilz am Stamm."
+    ],
+    "use": [
+      "Ein Pilz, der an Holz wächst. Mit Hand oder Axt geerntet."
+    ],
+    "secret": [
+      "Er wächst an Holz."
+    ]
+  },
+  "filled_map": {
+    "lore": [
+      "Ein Papier, das zeigt, wo du warst."
+    ],
+    "use": [
+      "Entsteht, wenn du eine leere Karte benutzt; sie füllt sich beim Erkunden."
+    ],
+    "secret": [
+      "Am Kartentisch vergrößern oder sperren, damit sie bleibt, wie sie ist."
+    ]
+  },
+  "family:spawn_egg": {
+    "items": [
+      "regex:.*_spawn_egg"
+    ],
+    "lore": [
+      "{name}: eine Schale mit etwas sehr Geduldigem darin."
+    ],
+    "use": [
+      "Rechtsklick auf einen Block lässt das Mob erscheinen; an einem Spawner ändert es, was dieser spawnt. Im normalen Spiel nur im Kreativmodus."
+    ],
+    "secret": [
+      "Auf ein Mob derselben Art angewendet, das Junge haben kann, erscheint ein Jungtier statt eines ausgewachsenen."
+    ]
+  },
+  "family:music_disc": {
+    "items": [
+      "regex:music_disc_.*"
+    ],
+    "lore": [
+      "{name}: eine runde Scheibe aus schwarzem Wachs, die sich an einen ganzen Raum erinnert."
+    ],
+    "use": [
+      "In einen Plattenspieler legen, um sie zu hören; ein Komparator daneben liest, ob eine Platte läuft. In Truhen zu finden, oder von einem Skelett, das ein Creeper tötet."
+    ],
+    "secret": [
+      "Über einem laufenden Plattenspieler steigen Noten auf, und Hilfsgeister in der Nähe tanzen dazu."
+    ]
+  },
+  "family:trim_template": {
+    "items": [
+      "regex:.*_armor_trim_smithing_template"
+    ],
+    "lore": [
+      "{name}: ein in Stein gepresstes Muster für jene, die sich zum Anlass kleiden."
+    ],
+    "use": [
+      "Am Schmiedetisch fügen Vorlage, ein Rüstungsteil und ein Verzierungsmaterial (Barren, Edelstein oder Staub) diese Verzierung hinzu. Die Vorlage wird verbraucht; mit sieben Diamanten und ihrem Grundblock lässt sie sich kopieren."
+    ],
+    "secret": [
+      "Dieselbe Vorlage, jede Rüstung, jedes Material: erst die Kombination aus Muster und Farbe macht den Look."
+    ]
+  },
+  "family:pottery_sherd": {
+    "items": [
+      "regex:.*_pottery_sherd"
+    ],
+    "lore": [
+      "{name}: ein zerbrochenes Stück eines vergessenen Haushalts."
+    ],
+    "use": [
+      "Durch Bürsten von verdächtigem Sand in Wüstenbrunnen und -pyramiden, warmen Meeresruinen und Pfadruinen zu finden. Vier Scherben oder Ziegel im Rhombus ergeben einen verzierten Krug."
+    ],
+    "secret": [
+      "Jede Seite eines verzierten Krugs kann eine andere Scherbe zeigen."
+    ]
+  },
+  "family:banner_pattern": {
+    "items": [
+      "regex:.*_banner_pattern"
+    ],
+    "lore": [
+      "{name}: ein Motiv, das darauf wartet, von einem Banner getragen zu werden."
+    ],
+    "use": [
+      "Im Webstuhl mit Banner und Farbstoff das Muster hinzufügen."
+    ],
+    "secret": [
+      "Ein Banner kann bis zu sechs Muster tragen."
+    ]
+  },
+  "family:dye": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_dye"
+    ],
+    "lore": [
+      "{name}: Farbe, zu einem kleinen Pulver gepresst."
+    ],
+    "use": [
+      "Färbt Wolle, Teppiche, Betten, Banner, Terrakotta, Glas, Kerzen, Shulkerkisten, Lederrüstung, Schafe und Halsbänder und lässt sich im Handwerksfeld zu neuen Farben mischen."
+    ],
+    "secret": [
+      "Auch Feuerwerk nutzt Farbstoffe: Ein Feuerwerksstern bekommt seine Farben von ihnen."
+    ]
+  },
+  "family:wool": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_wool"
+    ],
+    "lore": [
+      "{name}: weich, fröhlich und ein wenig brennbar."
+    ],
+    "use": [
+      "Von Schafen geschoren oder aus vier Fäden gefertigt. Färbbar. Wolle brennt, dämpft aber Vibrationen: Sculk-Sensoren hören keine Schritte und Blöcke darauf."
+    ],
+    "secret": [
+      "Wolle schluckt Vibrationen; eine Lage unter einer Redstone-Anlage oder um einen Sensor macht die Gegend still."
+    ]
+  },
+  "family:carpet": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_carpet"
+    ],
+    "lore": [
+      "{name}: eine dünne Farbhaut über dem Boden."
+    ],
+    "use": [
+      "Zwei Wolle derselben Farbe ergeben drei Teppiche. Nur ein Sechzehntel Block dick; Lamas tragen ihn als Schmuck."
+    ],
+    "secret": [
+      "Teppiche dämpfen Vibrationen wie Wolle, Sculk-Sensoren hören darauf also keine Schritte."
+    ]
+  },
+  "family:concrete": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_concrete"
+    ],
+    "lore": [
+      "{name}: eine harte, flache Farbe, die nichts anderes sein will."
+    ],
+    "use": [
+      "Entsteht, wenn Wasser auf Zement gleicher Farbe trifft. Glatt, robust und sehr gleichmäßig."
+    ],
+    "secret": [
+      "Sie lässt sich nicht umfärben; die Farbe ist fix, sobald das Pulver Wasser berührt."
+    ]
+  },
+  "family:concrete_powder": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_concrete_powder"
+    ],
+    "lore": [
+      "{name}: Staub, der wie Sand fällt und wie Stein erhärtet."
+    ],
+    "use": [
+      "Sand, Kies und Farbstoff herstellen. Er fällt wie Sand und wird zu Beton, sobald Wasser ihn berührt."
+    ],
+    "secret": [
+      "Neben Wasser stellen oder in ein Becken fallen lassen: eine günstige Art, bunte Wände zu bauen."
+    ]
+  },
+  "family:terracotta_colored": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_terracotta"
+    ],
+    "lore": [
+      "{name}: Ton, der gefärbt wurde, bevor er gebrannt wurde."
+    ],
+    "use": [
+      "Acht Terrakotta um einen Farbstoff herstellen. Zum Bauen und für matte, kräftige Wände. Natürlich auch als Bänder in Tafelbergen."
+    ],
+    "secret": [
+      "Noch einmal geschmolzen ergibt es glasierte Terrakotta mit eigenen Mustern."
+    ]
+  },
+  "family:glazed": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_glazed_terracotta"
+    ],
+    "lore": [
+      "{name}: eine gemusterte Kachel mit eigenem Kopf."
+    ],
+    "use": [
+      "Terrakotta derselben Farbe schmelzen. Das Muster zeigt in die Richtung, in die sie platziert wurde, sodass vier Kacheln im Quadrat ein Bild ergeben."
+    ],
+    "secret": [
+      "Kolben können glasierte Terrakotta schieben, klebrige Kolben ziehen sie aber nicht zurück."
+    ]
+  },
+  "family:stained_glass": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_stained_glass"
+    ],
+    "lore": [
+      "{name}: ein Fenster, das eine Farbe gelernt hat."
+    ],
+    "use": [
+      "Acht Glas um einen Farbstoff herstellen. Durchsichtig, färbt das Licht und fällt nur mit Behutsamkeit als Block."
+    ],
+    "secret": [
+      "Leuchtfeuerstrahlen, die hindurchgehen, nehmen seine Farbe an."
+    ]
+  },
+  "family:stained_glass_pane": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_stained_glass_pane"
+    ],
+    "lore": [
+      "{name}: eine dünne Farbe, an den Rändern gehalten."
+    ],
+    "use": [
+      "Sechs Buntglas in zwei Reihen ergeben sechzehn Scheiben. Verbindet sich mit Nachbarn wie ein Eisengitter."
+    ],
+    "secret": [
+      "Mehrere Scheiben nebeneinander ergeben Buntfenster mit dünnen Rahmen."
+    ]
+  },
+  "family:banner": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_banner"
+    ],
+    "lore": [
+      "{name}: eine Flagge für jeden, der erkannt werden will."
+    ],
+    "use": [
+      "Sechs Wolle und einen Stock herstellen. Am Webstuhl mit Farbstoff Muster hinzufügen; auch auf einem Schild tragbar."
+    ],
+    "secret": [
+      "Eine Karte auf ein aufgestelltes Banner angewendet markiert die Stelle mit einer farbigen Nadel."
+    ]
+  },
+  "family:bed": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_bed"
+    ],
+    "lore": [
+      "{name}: ein Ort, an dem die Nacht nicht zählt."
+    ],
+    "use": [
+      "Drei Wolle über drei Brettern herstellen. Die Nacht verschlafen und den Spawnpunkt setzen; im Nether und im End explodiert es."
+    ],
+    "secret": [
+      "In Mehrspielerwelten wird die Nacht übersprungen, wenn genug Spieler schlafen."
+    ]
+  },
+  "family:candle": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_candle"
+    ],
+    "lore": [
+      "{name}: ein kleiner Stummel Licht, der Gesellschaft mag."
+    ],
+    "use": [
+      "Faden und Honigwabe herstellen, dann färben. Mit Feuerzeug anzünden; bis zu vier auf einem Block, jede erhöht das Licht."
+    ],
+    "secret": [
+      "Auf einen Kuchen gesteckt wird daraus eine Geburtstagstorte."
+    ]
+  },
+  "family:shulker_box": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_shulker_box"
+    ],
+    "lore": [
+      "{name}: eine Kiste mit schlechter Laune und gutem Gedächtnis."
+    ],
+    "use": [
+      "Zwei Shulkerschalen mit einer Truhe herstellen. Beim Abbauen bleibt der Inhalt erhalten, man trägt also 27 Stapel mit."
+    ],
+    "secret": [
+      "Eine Shulkerkiste lässt sich nicht in eine andere legen."
+    ]
+  },
+  "family:bundle": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_bundle"
+    ],
+    "lore": [
+      "{name}: ein Beutel, der sich für eine Sache mehr dehnt."
+    ],
+    "use": [
+      "Faden und Leder herstellen, dann färben. Fasst gemischte Items bis zum Gewicht 64. Rechtsklick nimmt Dinge auf und heraus."
+    ],
+    "secret": [
+      "Ein Bündel nimmt keine Shulkerkisten auf."
+    ]
+  },
+  "family:harness": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_harness"
+    ],
+    "lore": [
+      "{name}: ein Geschirr für einen Freund, der schwebt."
+    ],
+    "use": [
+      "Einem Glücklichen Ghast anlegen, damit Spieler ihn reiten können, bis zu vier gleichzeitig."
+    ],
+    "secret": [
+      "Die Farbe des Geschirrs sieht man am schwebenden Ghast."
+    ]
+  },
+  "family:cushion": {
+    "items": [
+      "regex:(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_cushion"
+    ],
+    "lore": [
+      "{name}: ein weiches Kissen, das auf seinem Platz besteht."
+    ],
+    "use": [
+      "Ein Dekokissen in dieser Farbe. Auf Stuhl, Bank oder Boden stellen."
+    ],
+    "secret": [
+      "Kissen gibt es in allen sechzehn Farbstofffarben."
+    ]
+  },
+  "family:log": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar)_(log|wood)|stripped_(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar)_(log|wood)|(crimson|warped)_(stem|hyphae)|stripped_(crimson|warped)_(stem|hyphae)|bamboo_block|stripped_bamboo_block"
+    ],
+    "lore": [
+      "{name}: der Körper eines Baums, bereit, alles zu werden."
+    ],
+    "use": [
+      "Mit der Axt für Bretter fällen; mit der Axt entrindet. Brennt im Ofen und ergibt Holzkohle. Nether-Stämme brennen nicht."
+    ],
+    "secret": [
+      "Holz- und Hyphen-Varianten zeigen die Rinde auf allen sechs Seiten."
+    ]
+  },
+  "family:planks": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_(planks|mosaic)"
+    ],
+    "lore": [
+      "{name}: Holz, das seine Form gefunden hat."
+    ],
+    "use": [
+      "Aus Stämmen hergestellt. Grundlage für Werkbänke, Werkzeuge, Türen, Zäune und Möbel. Holz der Oberwelt brennt, das des Nethers nicht."
+    ],
+    "secret": [
+      "Bretter verschiedener Arten mischen sich nicht in Rezepten, die eine bestimmte Holzart verlangen."
+    ]
+  },
+  "family:fence_gate": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_fence_gate"
+    ],
+    "lore": [
+      "{name}: ein Tor, das nie ganz zu ist."
+    ],
+    "use": [
+      "Eine Tür für Zäune. Öffnet sich per Klick oder Redstone-Signal und passt überall in eine Mauer."
+    ],
+    "secret": [
+      "Tiere gehen nicht durch ein geschlossenes Tor, daher ist es auf jeder Farm unentbehrlich."
+    ]
+  },
+  "family:fence": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_fence|nether_brick_fence"
+    ],
+    "lore": [
+      "{name}: ein Zaun, der höflich Nein sagt."
+    ],
+    "use": [
+      "Verbindet sich mit Blöcken und anderen Zäunen. Man kann nicht hinüberlaufen, denn er ist 1,5 Blöcke hoch."
+    ],
+    "secret": [
+      "An einem Zaunpfahl lässt sich eine Leine festbinden."
+    ]
+  },
+  "family:door": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo|iron|copper|waxed_copper|(waxed_)?(exposed|weathered|oxidized)_copper)_door"
+    ],
+    "lore": [
+      "{name}: sie steht für das, was dahinter liegt."
+    ],
+    "use": [
+      "Öffnet per Klick oder Redstone-Signal. Holztüren kann man von Hand öffnen; Eisentüren nur mit Redstone."
+    ],
+    "secret": [
+      "Zwei Türen nebeneinander mit gegenüberliegenden Scharnieren öffnen sich gemeinsam als Doppeltür."
+    ]
+  },
+  "family:trapdoor": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo|iron|copper|waxed_copper|(waxed_)?(exposed|weathered|oxidized)_copper)_trapdoor"
+    ],
+    "lore": [
+      "{name}: eine Tür, die sich hinlegt."
+    ],
+    "use": [
+      "Öffnet wie eine Tür in Boden oder Wand. Als Luke, Tisch oder Regal verwendbar."
+    ],
+    "secret": [
+      "Auf eine Leiter gesetzt verschließt sie einen Schacht."
+    ]
+  },
+  "family:hanging_sign": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_hanging_sign"
+    ],
+    "lore": [
+      "{name}: Worte an einer Kette."
+    ],
+    "use": [
+      "Unter einem Block oder Balken anbringen und auf beiden Seiten beschriften. Mit Honigwaben wachsbar, färbbar."
+    ],
+    "secret": [
+      "Mit einem Leuchttintenbeutel leuchtet die Schrift."
+    ]
+  },
+  "family:sign": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_sign"
+    ],
+    "lore": [
+      "{name}: ein Brett, das einem sagt, was man denken soll."
+    ],
+    "use": [
+      "Auf einen Block setzen und vier Zeilen je Seite beschriften. Mit Farbstoff färben; mit Wachs sperren."
+    ],
+    "secret": [
+      "Ein Leuchttintenbeutel lässt die Buchstaben im Dunkeln leuchten."
+    ]
+  },
+  "family:button": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo|stone|polished_blackstone)_button"
+    ],
+    "lore": [
+      "{name}: ein kleiner Druck, der ein Signal trägt."
+    ],
+    "use": [
+      "Gibt beim Drücken einen kurzen Redstone-Impuls; hölzerne dauern 1,5 Sekunden, steinerne 1 Sekunde. Auch Pfeile drücken hölzerne Knöpfe."
+    ],
+    "secret": [
+      "Lässt sich an jede Seite eines Blocks setzen, auch an eine Decke."
+    ]
+  },
+  "family:pressure_plate": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo|stone|polished_blackstone)_pressure_plate"
+    ],
+    "lore": [
+      "{name}: sie weiß, wenn jemand angekommen ist."
+    ],
+    "use": [
+      "Gibt ein Signal, solange etwas darauf steht. Holzplatten reagieren auf jede Entität, Steinplatten nur auf Mobs und Spieler."
+    ],
+    "secret": [
+      "Auch fallen gelassene Items lösen eine Holzplatte aus."
+    ]
+  },
+  "family:boat": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|bamboo)_(boat|raft|chest_boat|chest_raft)"
+    ],
+    "lore": [
+      "{name}: ein Rumpf für Wanderer."
+    ],
+    "use": [
+      "Aufs Wasser setzen und per Rechtsklick fahren. Die Truhenvarianten haben 27 Plätze; aus Bambus entstehen Flöße."
+    ],
+    "secret": [
+      "Auf Eis sind Boote deutlich schneller."
+    ]
+  },
+  "family:shelf": {
+    "items": [
+      "regex:(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|pale_oak|poplar|crimson|warped|bamboo)_shelf"
+    ],
+    "lore": [
+      "{name}: ein Brett mit Platz für drei Dinge."
+    ],
+    "use": [
+      "Ein Wandregal für bis zu drei Items."
+    ],
+    "secret": [
+      "Ein Redstone-Signal lässt das Regal seine Items mit deiner Schnellleiste tauschen."
+    ]
+  },
+  "family:leaves": {
+    "items": [
+      "regex:.*_leaves|azalea_leaves|flowering_azalea_leaves"
+    ],
+    "lore": [
+      "{name}: eine grüne Krone voller kleiner Dinge."
+    ],
+    "use": [
+      "Gibt beim Abbauen Setzlinge, Stöcke und manchmal Äpfel, mehr mit Schere. Schere oder Behutsamkeit behalten den Block."
+    ],
+    "secret": [
+      "Blätter verfallen, wenn kein Stamm innerhalb von sechs Blöcken ist."
+    ]
+  },
+  "family:sapling": {
+    "items": [
+      "regex:.*_sapling|mangrove_propagule"
+    ],
+    "lore": [
+      "{name}: ein Versprechen, das eine Weile dauert."
+    ],
+    "use": [
+      "Auf Gras oder Erde mit Platz darüber pflanzen. Wird zum Baum, wenn das Licht reicht. Knochenmehl beschleunigt es."
+    ],
+    "secret": [
+      "Vier Setzlinge im 2x2-Quadrat lassen bei manchen Arten einen Riesenbaum wachsen; Schwarzeiche braucht es."
+    ]
+  },
+  "family:stairs": {
+    "items": [
+      "regex:.*_stairs"
+    ],
+    "lore": [
+      "{name}: eine Stufe, dann noch eine, dann eine Aussicht."
+    ],
+    "use": [
+      "Sechs Blöcke ergeben vier Treppen. Man geht hinauf, ohne zu springen; umgedreht für Decken und Bögen."
+    ],
+    "secret": [
+      "Ein Steinmetz macht eine Treppe je Block, günstiger als das Handwerksfeld."
+    ]
+  },
+  "family:slab": {
+    "items": [
+      "regex:.*_slab"
+    ],
+    "lore": [
+      "{name}: ein halber Block, ganze Nützlichkeit."
+    ],
+    "use": [
+      "Drei Blöcke ergeben sechs Platten. Zwei gleiche Platten stapeln sich zu einem vollen Block."
+    ],
+    "secret": [
+      "Platten lassen einen ohne Springen steigen und ermöglichen feine Terrassen."
+    ]
+  },
+  "family:wall": {
+    "items": [
+      "regex:.*_wall"
+    ],
+    "lore": [
+      "{name}: eine Barriere, die alt wirken soll."
+    ],
+    "use": [
+      "Sechs Blöcke ergeben sechs Mauern. Verbindet sich mit Blöcken und anderen Mauern; zu hoch zum Springen."
+    ],
+    "secret": [
+      "Mauern bekommen einen Pfosten an Ecken oder wenn etwas darauf steht."
+    ]
+  },
+  "family:sword": {
+    "items": [
+      "regex:.*_sword"
+    ],
+    "lore": [
+      "{name}: eine scharfe Meinung."
+    ],
+    "use": [
+      "Das Material bestimmt Schaden und Haltbarkeit. Ein voll aufgeladener Schlag trifft auch Gegner daneben. Am Tisch oder Amboss verzauberbar."
+    ],
+    "secret": [
+      "Von allen Werkzeugen zerschneidet das Schwert Spinnennetze am schnellsten."
+    ]
+  },
+  "family:pickaxe": {
+    "items": [
+      "regex:.*_pickaxe"
+    ],
+    "lore": [
+      "{name}: sie bittet Stein, zur Seite zu gehen."
+    ],
+    "use": [
+      "Baut Stein, Erze und Metallblöcke ab. Das Material bestimmt, welche Erze sie ernten kann und wie schnell."
+    ],
+    "secret": [
+      "Ohne Spitzhacke der richtigen Stufe brechen Erze, geben aber nichts."
+    ]
+  },
+  "family:axe": {
+    "items": [
+      "regex:.*_axe"
+    ],
+    "lore": [
+      "{name}: sie weiß, was ein Baum denkt."
+    ],
+    "use": [
+      "Fällt Holz schnell, entrindet Stämme und schabt Kupfer ab. Schlägt härter als ein Schwert, aber langsamer."
+    ],
+    "secret": [
+      "Ein Axthieb kann einen Schild für ein paar Sekunden außer Gefecht setzen."
+    ]
+  },
+  "family:shovel": {
+    "items": [
+      "regex:.*_shovel"
+    ],
+    "lore": [
+      "{name}: sie macht Löcher, manchmal Pfade."
+    ],
+    "use": [
+      "Gräbt Erde, Sand, Kies und Schnee schnell. Rechtsklick auf Gras macht daraus einen Pfad."
+    ],
+    "secret": [
+      "Mit Schaufeln lassen sich Lagerfeuer löschen."
+    ]
+  },
+  "family:hoe": {
+    "items": [
+      "regex:.*_hoe"
+    ],
+    "lore": [
+      "{name}: das Flüstern eines Bauern an die Erde."
+    ],
+    "use": [
+      "Macht Erde und Gras zu Ackerland und baut Blätter, Strohballen, Moos und Sculk schnell ab."
+    ],
+    "secret": [
+      "Die Hacke ist das richtige Werkzeug für Sculk, Moos, Stroh und Blätter, nicht nur für Erde."
+    ]
+  },
+  "family:spear": {
+    "items": [
+      "regex:.*_spear"
+    ],
+    "lore": [
+      "{name}: die lange Art, Hallo zu sagen."
+    ],
+    "use": [
+      "Ein Speer: sticht Gegner aus etwas größerer Entfernung als ein Schwert. Das Material bestimmt Schaden und Haltbarkeit."
+    ],
+    "secret": [
+      "Wie andere Waffen am Tisch oder Amboss verzauberbar."
+    ]
+  },
+  "family:leather": {
+    "items": [
+      "regex:leather_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: eine weiche Hülle für die kleinen Stunden."
+    ],
+    "use": [
+      "Tragen für Schutz; jedes Teil erhöht die Rüstung. Lässt sich färben und hält in Pulverschnee warm."
+    ],
+    "secret": [
+      "Lederrüstung ist die einzige, die im Kessel oder Handwerksfeld gefärbt werden kann."
+    ]
+  },
+  "family:chain": {
+    "items": [
+      "regex:chainmail_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: Ringe, die sich zu einem Plan fügen."
+    ],
+    "use": [
+      "Tragen für Schutz; jedes Teil erhöht die Rüstung. Nicht normal herstellbar; von Mobs und aus Beute."
+    ],
+    "secret": [
+      "Sie schützt ungefähr wie Eisen, ist aber besser verzauberbar."
+    ]
+  },
+  "family:iron_armor": {
+    "items": [
+      "regex:iron_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: der zuverlässige Standard."
+    ],
+    "use": [
+      "Tragen für Schutz; jedes Teil erhöht die Rüstung. Barren schmelzen und Teile herstellen. Mit Eisenbarren am Amboss reparieren."
+    ],
+    "secret": [
+      "Eisen ist die erste Stufe, die sich am Tisch zu verzaubern lohnt."
+    ]
+  },
+  "family:gold_armor": {
+    "items": [
+      "regex:golden_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: es glänzt, und das ist der Sinn."
+    ],
+    "use": [
+      "Tragen für Schutz; jedes Teil erhöht die Rüstung. Schützt weniger als Eisen, doch Piglins greifen Träger von Gold nicht an."
+    ],
+    "secret": [
+      "Ein goldenes Teil genügt, und Piglins bleiben ruhig; die beste Bestechung im Nether."
+    ]
+  },
+  "family:diamond_armor": {
+    "items": [
+      "regex:diamond_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: eine blaue Kante für die Mutigen."
+    ],
+    "use": [
+      "Tragen für Schutz; jedes Teil erhöht die Rüstung. Hoher Schutz bei gutem Verzauberungswert; mit Diamanten reparierbar."
+    ],
+    "secret": [
+      "Diamantrüstung wird am Schmiedetisch zu Netherit aufgewertet."
+    ]
+  },
+  "family:netherite_armor": {
+    "items": [
+      "regex:netherite_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: im Feuer geschmiedet, wo sonst nichts überlebt."
+    ],
+    "use": [
+      "Tragen für Schutz; jedes Teil erhöht die Rüstung. Diamantrüstung am Schmiedetisch aufwerten. Höchster Schutz und höchste Zähigkeit; brennt nicht und widersteht Rückstoß."
+    ],
+    "secret": [
+      "Fallen gelassene Netherit-Items schwimmen in Lava und brennen nicht."
+    ]
+  },
+  "family:copper_armor": {
+    "items": [
+      "regex:copper_(helmet|chestplate|leggings|boots)"
+    ],
+    "lore": [
+      "{name}: ein grüner Schimmer, der mit dir altert."
+    ],
+    "use": [
+      "Tragen für Schutz; jedes Teil erhöht die Rüstung. Aus Kupferbarren herstellbar; mit Kupferbarren reparierbar. Ein günstiger Schritt über Leder."
+    ],
+    "secret": [
+      "Im Regen getragen sieht sie gut aus; das Metall schützt wie billiges Eisen."
+    ]
+  },
+  "family:horse_armor": {
+    "items": [
+      "regex:.*_horse_armor"
+    ],
+    "lore": [
+      "{name}: ein Mantel für einen treuen Läufer."
+    ],
+    "use": [
+      "Rechtsklick auf ein Pferd legt ihn an. Besseres Material gibt mehr Schutz."
+    ],
+    "secret": [
+      "Auch Werfer können ihn einem Pferd anlegen."
+    ]
+  },
+  "family:nautilus_armor": {
+    "items": [
+      "regex:.*_nautilus_armor"
+    ],
+    "lore": [
+      "{name}: ein Panzer für ein Wesen der Tiefe."
+    ],
+    "use": [
+      "Rechtsklick auf einen gezähmten Nautilus zum Anlegen. Besseres Material gibt mehr Schutz."
+    ],
+    "secret": [
+      "Auch Werfer können ihn einem Nautilus anlegen."
+    ]
+  },
+  "family:lightning_rod": {
+    "items": [
+      "regex:(waxed_)?((exposed|weathered|oxidized)_)?lightning_rod"
+    ],
+    "lore": [
+      "{name}: er will die Aufmerksamkeit des Himmels."
+    ],
+    "use": [
+      "Lenkt Blitze in weitem Umkreis auf sich und sendet einen Redstone-Impuls. Schützt Holzbauten vor Feuer."
+    ],
+    "secret": [
+      "Oxidationsstufe und Wachs ändern nur die Farbe; der Stab fängt trotzdem Blitze."
+    ]
+  },
+  "family:waxed_copper": {
+    "items": [
+      "regex:waxed_.*"
+    ],
+    "lore": [
+      "{name}: bleibt in dem Alter, in dem es gewachst wurde."
+    ],
+    "use": [
+      "Mit Honigwabe stoppt die Oxidation. Eine Axt kratzt das Wachs wieder ab."
+    ],
+    "secret": [
+      "Wachs stoppt auch die weitere Alterung, sodass die gewählte Farbe bleibt."
+    ]
+  },
+  "family:weathered_copper": {
+    "items": [
+      "regex:(exposed|weathered|oxidized)_.*"
+    ],
+    "lore": [
+      "{name}: Kupfer, das im Wetter gestanden hat."
+    ],
+    "use": [
+      "Kupfer wird mit der Zeit an der Luft grün. Eine Axt kratzt es zurück, Honigwabe stoppt den Vorgang."
+    ],
+    "secret": [
+      "Blitzeinschläge können die Oxidation abtragen."
+    ]
+  },
+  "family:copper_block": {
+    "items": [
+      "regex:(cut_|chiseled_)?copper(_block|_bulb|_grate|_chest)?|copper_golem_statue|copper_lantern|copper_chain|copper_bars|copper_torch"
+    ],
+    "lore": [
+      "{name}: ein Metall, das nie aufhört, sich zu verändern."
+    ],
+    "use": [
+      "Aus Kupferbarren herstellbar. Leitet Blitze, altert in vier Stufen und lässt sich wachsen."
+    ],
+    "secret": [
+      "Kupferlampen schalten bei jedem Redstone-Impuls um und merken sich ihren Zustand."
+    ]
+  },
+  "family:coral_block": {
+    "items": [
+      "regex:(dead_)?(tube|brain|bubble|fire|horn)_coral_block"
+    ],
+    "lore": [
+      "{name}: ein Riff zum Mitnehmen."
+    ],
+    "use": [
+      "In Wassernähe bleibt es lebendig; tote Varianten sind grau. Behutsamkeit erhält lebende Korallen."
+    ],
+    "secret": [
+      "Korallen sterben nach wenigen Sekunden ab, wenn sie ohne Wasser sind."
+    ]
+  },
+  "family:coral": {
+    "items": [
+      "regex:(dead_)?(tube|brain|bubble|fire|horn)_coral(_fan|_wall_fan)?"
+    ],
+    "lore": [
+      "{name}: ein stiller Garten am Meeresgrund."
+    ],
+    "use": [
+      "Dekorative Meerespflanze. Braucht Wasser, um zu leben; Behutsamkeit erhält sie."
+    ],
+    "secret": [
+      "Korallenfächer passen an Wände ebenso wie auf den Boden."
+    ]
+  },
+  "family:explorer_map": {
+    "items": [
+      "regex:.+_map"
+    ],
+    "lore": [
+      "{name}: ein Schatzversprechen, gezeichnet von jemandem, der dort war."
+    ],
+    "use": [
+      "In Kartografenhandeln und Truhen zu finden. In der Hand gelesen zeigt sie den Weg zum Ziel, auf der Karte markiert."
+    ],
+    "secret": [
+      "Eine Entdeckerkarte ist eine besondere Karte; am Kartentisch lässt sie sich kopieren, um die Spur zu teilen."
+    ]
+  },
+  "family:bucket_mob": {
+    "items": [
+      "regex:(axolotl|cod|pufferfish|salmon|tadpole|tropical_fish|sulfur_cube)_bucket"
+    ],
+    "lore": [
+      "{name}: ein Taschenteich mit Passagier."
+    ],
+    "use": [
+      "Einen Wassereimer auf das Wesen anwenden, um es zu fangen; auf Wasser entleert, wird es wieder frei."
+    ],
+    "secret": [
+      "Wesen im Eimer behalten Art und Farbe, wenn sie freigelassen werden."
+    ]
+  },
+  "family:minecart": {
+    "items": [
+      "regex:(chest_|command_block_|furnace_|hopper_|tnt_)?minecart"
+    ],
+    "lore": [
+      "{name}: sie rollt, wohin die Schiene führt."
+    ],
+    "use": [
+      "Auf Schienen setzen und fahren oder Fracht tragen lassen. Die Varianten tragen Truhen, Öfen, Trichter, TNT oder Befehlsblöcke."
+    ],
+    "secret": [
+      "Antriebsschienen beschleunigen sie, Sensorschienen erkennen sie."
+    ]
+  },
+  "family:ore": {
+    "items": [
+      "regex:(deepslate_)?(coal|copper|diamond|emerald|gold|iron|lapis|redstone)_ore|nether_gold_ore|nether_quartz_ore"
+    ],
+    "lore": [
+      "{name}: Stein mit einem Versprechen darin."
+    ],
+    "use": [
+      "Mit der richtigen Spitzhacke abbauen; Glück gibt bei den meisten Erzen mehr, Behutsamkeit behält den Block. Das Rohmaterial schmilzt zu Barren."
+    ],
+    "secret": [
+      "Erzadern sind tief unten größer; Diamanten lieben die Tiefe am meisten."
+    ]
+  },
+  "family:raw_metal": {
+    "items": [
+      "regex:raw_(copper|gold|iron)(_block)?"
+    ],
+    "lore": [
+      "{name}: Erz, bereit für das Feuer."
+    ],
+    "use": [
+      "Fällt beim Abbau von Erzen. Im Ofen oder Hochofen zu Barren schmelzen. Neun ergeben einen Rohblock."
+    ],
+    "secret": [
+      "Rohblöcke speichern sie kompakt und werden wieder zu neun Items."
+    ]
+  },
+  "family:ingot": {
+    "items": [
+      "regex:(iron|gold|copper|netherite)_ingot"
+    ],
+    "lore": [
+      "{name}: ein Barren, der das Feuer gesehen hat."
+    ],
+    "use": [
+      "Aus Rohmetall geschmolzen oder aus Nuggets hergestellt. Neun ergeben einen Block; für Werkzeuge, Rüstung und viele Rezepte."
+    ],
+    "secret": [
+      "Neun Nuggets ergeben einen Barren, ein Barren wieder neun Nuggets."
+    ]
+  },
+  "family:nugget": {
+    "items": [
+      "regex:(iron|gold|copper)_nugget"
+    ],
+    "lore": [
+      "{name}: ein Krümel Metall."
+    ],
+    "use": [
+      "Neun ergeben einen Barren. Von manchen Mobs fallen gelassen und in einigen kleinen Rezepten benutzt."
+    ],
+    "secret": [
+      "Goldnuggets fallen, wenn Zombifizierte Piglins sterben."
+    ]
+  },
+  "family:flower": {
+    "items": [
+      "regex:allium|azure_bluet|blue_orchid|cornflower|dandelion|golden_dandelion|lilac|lily_of_the_valley|orange_tulip|oxeye_daisy|peony|pink_tulip|poppy|red_tulip|rose_bush|sunflower|torchflower|white_tulip|wither_rose|pitcher_plant|open_eyeblossom|closed_eyeblossom|wildflowers|pink_petals|cactus_flower"
+    ],
+    "lore": [
+      "{name}: ein kleines Ding, das darauf besteht, hübsch zu sein."
+    ],
+    "use": [
+      "Knochenmehl verbreitet sie; zu Farbstoff verarbeiten oder als Schmuck nutzen. Bienen bestäuben Blumen und lassen Pflanzen wachsen."
+    ],
+    "secret": [
+      "Löwenzahn und Mohn werden zu den Farbstoffen Gelb und Rot."
+    ]
+  },
+  "family:cooked_food": {
+    "items": [
+      "regex:cooked_.*|baked_potato|bread|cookie|pumpkin_pie|cake|mushroom_stew|beetroot_soup|rabbit_stew|suspicious_stew"
+    ],
+    "lore": [
+      "{name}: die Antwort auf den Hunger."
+    ],
+    "use": [
+      "Essen stellt Hunger und Sättigung wieder her. Gegartes Fleisch bringt viel mehr als rohes."
+    ],
+    "secret": [
+      "Ein voller Hungerbalken verbietet das Essen nicht, wenn die Speise einen besonderen Effekt hat."
+    ]
+  },
+  "family:raw_food": {
+    "items": [
+      "regex:beef|chicken|mutton|porkchop|rabbit|cod|salmon|tropical_fish|pufferfish|rotten_flesh|spider_eye|poisonous_potato"
+    ],
+    "lore": [
+      "{name}: es will ein Feuer, bevor es auf den Teller kommt."
+    ],
+    "use": [
+      "Roh gegessen stillt es wenig Hunger; im Ofen, Räucherofen oder Lagerfeuer gegart mehr. Manche haben schlechte Effekte."
+    ],
+    "secret": [
+      "Räucheröfen garen Fleisch schneller als Öfen."
+    ]
+  },
+  "family:seeds": {
+    "items": [
+      "regex:.*_seeds|pitcher_pod|nether_sprouts"
+    ],
+    "lore": [
+      "{name}: eine Handvoll Geduld."
+    ],
+    "use": [
+      "Auf Ackerland (oder passendem Boden) mit Wasser in der Nähe pflanzen und warten. Knochenmehl beschleunigt das Wachstum."
+    ],
+    "secret": [
+      "Hühner folgen einem Spieler, der Weizensamen hält."
+    ]
+  },
+  "family:amethyst_bud": {
+    "items": [
+      "regex:(small|medium|large)_amethyst_bud|amethyst_cluster"
+    ],
+    "lore": [
+      "{name}: ein Kristall auf dem Weg."
+    ],
+    "use": [
+      "Wächst in Stufen auf Knospendem Amethyst; Behutsamkeit behält kleine Knospen, eine Spitzhacke bricht Cluster zu Scherben."
+    ],
+    "secret": [
+      "Glück gibt mehr Scherben aus einem Cluster."
+    ]
+  },
+  "family:froglight": {
+    "items": [
+      "regex:.*_froglight"
+    ],
+    "lore": [
+      "{name}: Licht, das ein Frosch gefressen und zurückgegeben hat."
+    ],
+    "use": [
+      "Fällt, wenn ein Frosch einen kleinen Magmawürfel frisst; die Farbe hängt vom Frosch ab. Ein heller Lichtblock."
+    ],
+    "secret": [
+      "Als Beleuchtung für Bauwerke mit sanften Farben, Lichtstärke 15."
+    ]
+  },
+  "family:command_block": {
+    "items": [
+      "regex:(chain_|repeating_)?command_block"
+    ],
+    "lore": [
+      "{name}: ein Block, der in Befehlen spricht."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Hält einen Befehl, der bei einem Signal läuft. Wiederholende laufen jeden Tick, Kettenblöcke folgen einem Befehlsblock."
+    ],
+    "secret": [
+      "Nur Operatoren im Kreativmodus können ihn setzen oder bearbeiten."
+    ]
+  },
+  "family:head": {
+    "items": [
+      "regex:(creeper|piglin|dragon|zombie|player)_head|(skeleton|wither_skeleton)_skull"
+    ],
+    "lore": [
+      "{name}: eine Trophäe von etwas, das einmal zurückgeblickt hat."
+    ],
+    "use": [
+      "Aufsetzen oder auf Boden oder Wand setzen. Notenblöcke unter ihm spielen den Klang des Mobs."
+    ],
+    "secret": [
+      "Die Explosion eines aufgeladenen Creepers ist meist der einzige Weg, Mob-Köpfe zu erhalten."
+    ]
+  },
+  "family:egg": {
+    "items": [
+      "regex:(blue_|brown_)?egg"
+    ],
+    "lore": [
+      "{name}: ein schlichtes Versprechen eines Kükens."
+    ],
+    "use": [
+      "Werfen für eine Chance auf ein Küken; zum Züchten von Hühnern oder für Kuchen."
+    ],
+    "secret": [
+      "Ein geworfenes Ei hat eine Chance von 1 zu 8 auf ein Küken, selten vier."
+    ]
+  },
+  "family:infested": {
+    "items": [
+      "regex:infested_.*"
+    ],
+    "lore": [
+      "{name}: Stein, der sich verstellt und beißt."
+    ],
+    "use": [
+      "Sieht aus wie ein gewöhnlicher Block, doch ein Silberfischchen versteckt sich darin und bricht beim Abbau hervor. In Festungen und Bergen zu finden."
+    ],
+    "secret": [
+      "Behutsamkeit behält den Block, ohne das Silberfischchen zu befreien."
+    ]
+  },
+  "family:polished": {
+    "items": [
+      "regex:polished_.*"
+    ],
+    "lore": [
+      "{name}: Stein, den sich jemand die Zeit nahm zu glätten."
+    ],
+    "use": [
+      "Aus vier Blöcken des rohen Steins hergestellt oder im Steinmetz geschnitten. Ein verbreiteter Baublock."
+    ],
+    "secret": [
+      "Auch polierte Varianten ergeben Treppen, Platten und Mauern."
+    ]
+  },
+  "family:chiseled": {
+    "items": [
+      "regex:chiseled_.*"
+    ],
+    "lore": [
+      "{name}: Stein mit einem hineingeschnittenen Muster."
+    ],
+    "use": [
+      "Aus Platten hergestellt oder im Steinmetz geschnitten. Ein Dekoblock mit gemeißelter Fläche."
+    ],
+    "secret": [
+      "Gemeißelte Bücherregale halten sechs Bücher und geben Redstone-Signale ab."
+    ]
+  },
+  "family:cracked": {
+    "items": [
+      "regex:cracked_.*"
+    ],
+    "lore": [
+      "{name}: ein Block, der zu verzagen begann."
+    ],
+    "use": [
+      "Die normalen Ziegel schmelzen, um die rissige Version zu erhalten. Eine Dekovariante."
+    ],
+    "secret": [
+      "Rissige Ziegel erzeugen Ruinen und Festungen für einen alten Look."
+    ]
+  },
+  "family:smooth": {
+    "items": [
+      "regex:smooth_.*|cut_sandstone|cut_red_sandstone"
+    ],
+    "lore": [
+      "{name}: eine Oberfläche ohne Meinung."
+    ],
+    "use": [
+      "Den normalen Block schmelzen, um ihn zu glätten. Flach und sauber für Böden und Bauwerke."
+    ],
+    "secret": [
+      "Glatte Steinplatten sind ein guter Boden für Redstone-Bauten."
+    ]
+  },
+  "family:sulfur": {
+    "items": [
+      "regex:.*sulfur.*"
+    ],
+    "lore": [
+      "{name}: ein blasses Mineral mit scharfem Geruch."
+    ],
+    "use": [
+      "Mit der Spitzhacke abgebaut; für die Schwefelsteine, den Schwefelwürfel und Dekoration."
+    ],
+    "secret": [
+      "Es stammt aus den Schwefelhöhlen."
+    ]
+  },
+  "family:cinnabar": {
+    "items": [
+      "regex:.*cinnabar.*"
+    ],
+    "lore": [
+      "{name}: ein rotes Mineral, das die Finger färbt."
+    ],
+    "use": [
+      "Mit der Spitzhacke abgebaut; für Bau und Dekoration der neuen Höhlen."
+    ],
+    "secret": [
+      "Es hat eigene Ziegel und polierte Formen."
+    ]
+  },
+  "family:resin": {
+    "items": [
+      "regex:resin_.*|chiseled_resin_bricks"
+    ],
+    "lore": [
+      "{name}: Bernstein vom Baum des Knarrers."
+    ],
+    "use": [
+      "Harzklumpen stammen von Knarrerherzen und Harzblöcken; geschmolzen ergibt ein Klumpen einen Harzziegel. Für Blöcke und als Verzierungsmaterial."
+    ],
+    "secret": [
+      "Auch Harzziegel sind ein Verzierungsmaterial."
+    ]
+  },
+  "family:nether_flora": {
+    "items": [
+      "regex:(crimson|warped)_(fungus|roots|nylium)|weeping_vines|twisting_vines|nether_wart_block|warped_wart_block|shroomlight"
+    ],
+    "lore": [
+      "{name}: die Art des Nethers, einen Garten zu haben."
+    ],
+    "use": [
+      "Wächst in den Wäldern des Nethers; Knochenmehl auf einem Pilz lässt einen riesigen wachsen, auf Nylium verbreitet es Wurzeln. Scheren ernten Ranken."
+    ],
+    "secret": [
+      "Ranken lassen sich erklettern, Trauerranken hängen von den Decken des Nethers."
+    ]
+  },
+  "family:ground_plant": {
+    "items": [
+      "regex:short_grass|tall_grass|fern|large_fern|bush|firefly_bush|short_dry_grass|tall_dry_grass|dead_bush|leaf_litter|vine|seagrass|kelp|sea_pickle|lily_pad|glow_lichen|hanging_roots|spore_blossom|azalea|flowering_azalea|big_dripleaf|small_dripleaf|pale_hanging_moss|red_shrub|bamboo|sugar_cane|cactus"
+    ],
+    "lore": [
+      "{name}: grün, still und immer wachsend."
+    ],
+    "use": [
+      "Bricht sofort von Hand. Scheren behalten es; manche geben Samen oder lassen sich mit Knochenmehl verbreiten."
+    ],
+    "secret": [
+      "Viele dieser Pflanzen wachsen nur, wo Licht und Boden passen."
+    ]
+  },
+  "family:dirt_family": {
+    "items": [
+      "regex:dirt|coarse_dirt|podzol|rooted_dirt|mud|packed_mud|mycelium|grass_block|farmland|dirt_path|muddy_mangrove_roots|mangrove_roots|gravel|sand|red_sand|clay|moss_block|pale_moss_block|moss_carpet|pale_moss_carpet"
+    ],
+    "lore": [
+      "{name}: der Boden in einer seiner Launen."
+    ],
+    "use": [
+      "Mit der Schaufel gegraben. Verschiedene Böden bestimmen, was darauf wachsen kann und wie sie sich anfühlen."
+    ],
+    "secret": [
+      "Moos und Schlamm verändern, welche Pflanzen in einem Garten wachsen."
+    ]
+  },
+  "family:natural_stone": {
+    "items": [
+      "regex:stone|cobblestone|granite|diorite|andesite|tuff|calcite|deepslate|cobbled_deepslate|basalt|blackstone|netherrack|end_stone|obsidian|crying_obsidian|reinforced_deepslate|dripstone_block|pointed_dripstone|prismarine|dark_prismarine|magma_block|purpur_block|purpur_pillar|bedrock|terracotta"
+    ],
+    "lore": [
+      "{name}: die Knochen der Welt selbst."
+    ],
+    "use": [
+      "Mit der Spitzhacke abgebaut. Zum Bauen und als Grundlage fürs Herstellen. Schmelzen oder Schneiden ergibt Varianten."
+    ],
+    "secret": [
+      "Manche dieser Steine gibt es nur in einem Biom oder einer Dimension."
+    ]
+  },
+  "family:bricks_family": {
+    "items": [
+      "regex:bricks|stone_bricks|mossy_stone_bricks|deepslate_bricks|deepslate_tiles|nether_bricks|red_nether_bricks|end_stone_bricks|tuff_bricks|quartz_bricks|prismarine_bricks|mud_bricks|brick|nether_brick|quartz_block|quartz_pillar|quartz|sandstone|red_sandstone|mossy_cobblestone"
+    ],
+    "lore": [
+      "{name}: Stein, nach Plan geschnitten."
+    ],
+    "use": [
+      "Aus dem passenden Block oder Barren hergestellt oder geschnitten. Ein Baublock, oft mit Treppen, Platten und Mauern."
+    ],
+    "secret": [
+      "Steinmetze machen daraus günstiger Treppen und Platten."
+    ]
+  },
+  "family:metal_block": {
+    "items": [
+      "regex:(coal|diamond|emerald|gold|iron|lapis|redstone|netherite|amethyst|honey|slime|hay|bone|dried_kelp|resin|raw_.*)_block|amethyst_block|budding_amethyst|honeycomb_block"
+    ],
+    "lore": [
+      "{name}: ein ganzer Vorrat in einem Würfel."
+    ],
+    "use": [
+      "Aus neun Items hergestellt und wieder in neun zurückverwandelbar. Ein kompakter Vorrat und ein Dekoblock."
+    ],
+    "secret": [
+      "Leuchtfeuer nutzen Eisen-, Gold-, Smaragd-, Diamant- und Netheritblöcke als Basis."
+    ]
+  }
+}

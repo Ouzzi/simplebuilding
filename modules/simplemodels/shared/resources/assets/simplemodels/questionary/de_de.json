@@ -1,0 +1,13 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein kurzes Buch, das die zusätzlichen Item-Modelle der Module kennt."
+    ],
+    "use": [
+      "Das Simple Models-Handbuch erklärt die zusätzlichen Item-Modelle der Module. Formlos aus einem Buch und einer Werkbank herstellbar."
+    ],
+    "secret": [
+      "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+    ]
+  }
+}

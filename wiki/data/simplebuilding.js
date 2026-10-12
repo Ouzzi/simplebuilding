@@ -8364,6 +8364,30 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "Redstone that learned to translate between three tongues."
+          ],
+          "use": [
+            "Craft astralit dust, a nihilit shard and redstone, shapeless, for three. It links vanilla redstone, Astral Redstone and Nihil Redstone, which otherwise never mix."
+          ],
+          "secret": [
+            "It is the only dust that lets a lever in one line switch a lamp in another."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Redstone, die zwischen drei Sprachen übersetzen gelernt hat."
+          ],
+          "use": [
+            "Astralitstaub, einen Nihilit-Splitter und Redstone formlos zu dritt herstellen. Es verbindet Vanilla-Redstone, Astral-Redstone und Nihil-Redstone, die sich sonst nie mischen."
+          ],
+          "secret": [
+            "Nur dieser Staub lässt einen Hebel der einen Linie eine Lampe der anderen schalten."
+          ]
+        }
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",
@@ -52305,6 +52329,30 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:bridge_redstone"
       ],
+      "questionary": {
+        "en": {
+          "lore": [
+            "Redstone that learned to translate between three tongues."
+          ],
+          "use": [
+            "Craft astralit dust, a nihilit shard and redstone, shapeless, for three. It links vanilla redstone, Astral Redstone and Nihil Redstone, which otherwise never mix."
+          ],
+          "secret": [
+            "It is the only dust that lets a lever in one line switch a lamp in another."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Redstone, die zwischen drei Sprachen übersetzen gelernt hat."
+          ],
+          "use": [
+            "Astralitstaub, einen Nihilit-Splitter und Redstone formlos zu dritt herstellen. Es verbindet Vanilla-Redstone, Astral-Redstone und Nihil-Redstone, die sich sonst nie mischen."
+          ],
+          "secret": [
+            "Nur dieser Staub lässt einen Hebel der einen Linie eine Lampe der anderen schalten."
+          ]
+        }
+      },
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/SignalDustBlock.java",

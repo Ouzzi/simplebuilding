@@ -1,0 +1,112 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein kurzes Buch, das Wurfziegel, Köpfe und andere alberne Freuden kennt."
+    ],
+    "use": [
+      "Das Simple Fun-Handbuch erklärt Wurfziegel, Köpfe und andere alberne Freuden. Formlos aus einem Buch und einer Werkbank herstellbar."
+    ],
+    "secret": [
+      "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+    ]
+  },
+  "brick_snowball": {
+    "lore": [
+      "Ein Schneeball mit einem Ziegel als Herz. Alle wissen, dass es eine schlechte Idee ist, das ist der Witz."
+    ],
+    "use": [
+      "Vier Schneebälle um einen Ziegel herstellen. Stapelt bis 16. Geworfen richtet er 0 bis 4 Schaden an (Standard 2), Abklingzeit 10 Ticks; beides hat einen eigenen Serverschalter."
+    ],
+    "secret": [
+      "Er ist vor allem ein kosmetischer Scherz: Er stößt zurück, tut ein wenig weh und zerstört keine Blöcke."
+    ]
+  },
+  "pig_head": {
+    "lore": [
+      "{name}: eine Trophäe, die nur ein Blitz verdienen kann."
+    ],
+    "use": [
+      "Fällt, wenn ein Schwein durch einen aufgeladenen Creeper stirbt, höchstens ein Kopf pro Creeper. Kein Rezept. Auf Boden oder Wand setzen, aufsetzen oder auf einen Notenblock legen."
+    ],
+    "secret": [
+      "Wer ihn trägt und schleicht, bekommt einen leisen, kosmetischen Gruß. Nur ein vom Blitz aufgeladener Creeper zählt."
+    ]
+  },
+  "pig_wall_head": {
+    "lore": [
+      "{name}: dieselbe Trophäe, an die Wand gehängt."
+    ],
+    "use": [
+      "Die Wandversion des Schweinkopfs. Sie hat kein Item; der Kopf an einer Wand erzeugt sie, beim Abbauen fällt der Kopf."
+    ],
+    "secret": [
+      "Köpfe fallen nur bei der Explosion eines aufgeladenen Creepers, einer pro Explosion."
+    ]
+  },
+  "cow_head": {
+    "lore": [
+      "{name}: eine Trophäe, die nur ein Blitz verdienen kann."
+    ],
+    "use": [
+      "Fällt, wenn ein Kuh durch einen aufgeladenen Creeper stirbt, höchstens ein Kopf pro Creeper. Kein Rezept. Auf Boden oder Wand setzen, aufsetzen oder auf einen Notenblock legen."
+    ],
+    "secret": [
+      "Wer ihn trägt und schleicht, bekommt einen leisen, kosmetischen Gruß. Nur ein vom Blitz aufgeladener Creeper zählt."
+    ]
+  },
+  "cow_wall_head": {
+    "lore": [
+      "{name}: dieselbe Trophäe, an die Wand gehängt."
+    ],
+    "use": [
+      "Die Wandversion des Kuhkopfs. Sie hat kein Item; der Kopf an einer Wand erzeugt sie, beim Abbauen fällt der Kopf."
+    ],
+    "secret": [
+      "Köpfe fallen nur bei der Explosion eines aufgeladenen Creepers, einer pro Explosion."
+    ]
+  },
+  "chicken_head": {
+    "lore": [
+      "{name}: eine Trophäe, die nur ein Blitz verdienen kann."
+    ],
+    "use": [
+      "Fällt, wenn ein Huhn durch einen aufgeladenen Creeper stirbt, höchstens ein Kopf pro Creeper. Kein Rezept. Auf Boden oder Wand setzen, aufsetzen oder auf einen Notenblock legen."
+    ],
+    "secret": [
+      "Wer ihn trägt und schleicht, bekommt einen leisen, kosmetischen Gruß. Nur ein vom Blitz aufgeladener Creeper zählt."
+    ]
+  },
+  "chicken_wall_head": {
+    "lore": [
+      "{name}: dieselbe Trophäe, an die Wand gehängt."
+    ],
+    "use": [
+      "Die Wandversion des Huhnkopfs. Sie hat kein Item; der Kopf an einer Wand erzeugt sie, beim Abbauen fällt der Kopf."
+    ],
+    "secret": [
+      "Köpfe fallen nur bei der Explosion eines aufgeladenen Creepers, einer pro Explosion."
+    ]
+  },
+  "sheep_head": {
+    "lore": [
+      "{name}: eine Trophäe, die nur ein Blitz verdienen kann."
+    ],
+    "use": [
+      "Fällt, wenn ein Schaf durch einen aufgeladenen Creeper stirbt, höchstens ein Kopf pro Creeper. Kein Rezept. Auf Boden oder Wand setzen, aufsetzen oder auf einen Notenblock legen."
+    ],
+    "secret": [
+      "Wer ihn trägt und schleicht, bekommt einen leisen, kosmetischen Gruß. Nur ein vom Blitz aufgeladener Creeper zählt."
+    ]
+  },
+  "sheep_wall_head": {
+    "lore": [
+      "{name}: dieselbe Trophäe, an die Wand gehängt."
+    ],
+    "use": [
+      "Die Wandversion des Schafkopfs. Sie hat kein Item; der Kopf an einer Wand erzeugt sie, beim Abbauen fällt der Kopf."
+    ],
+    "secret": [
+      "Köpfe fallen nur bei der Explosion eines aufgeladenen Creepers, einer pro Explosion."
+    ]
+  }
+}
