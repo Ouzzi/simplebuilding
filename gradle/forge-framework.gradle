@@ -55,3 +55,5 @@ tasks.register('prepareForgeFramework') {
 // dependency would collide with a dependency mod's embedded copy in Forge's JPMS layer.
 sourceSets.main.resources.srcDir(metadata)
 tasks.named('processResources') { dependsOn 'prepareForgeFramework' }
+// sourcesJar packs the srcDirs this task fills (Gradle 9 validation: no implicit dependency)
+tasks.matching { it.name == 'sourcesJar' }.configureEach { dependsOn 'prepareForgeFramework' }

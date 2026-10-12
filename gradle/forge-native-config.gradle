@@ -35,3 +35,5 @@ sourceSets.main.java.srcDir(generated)
 sourceSets.main.java.exclude { e -> spec.screens.any { e.file == new File(canonical, it) } }
 sourceSets.main.resources.srcDir(rootProject.file('gradle/native-config/resources'))
 tasks.named('compileJava') { dependsOn 'prepareForgeNativeConfig' }
+// sourcesJar packs the srcDirs this task fills (Gradle 9 validation: no implicit dependency)
+tasks.matching { it.name == 'sourcesJar' }.configureEach { dependsOn 'prepareForgeNativeConfig' }

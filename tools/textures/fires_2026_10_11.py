@@ -1,6 +1,6 @@
 """Sulfur fire and copper fire (queue N33): animated fire textures plus their blockstates and models.
 
-Like the soul lava script, the flames follow Vanilla frame by frame: every opaque pixel keeps the brightness rank it
+Like the soul lava script (the PNGs are built by vanilla_derived.py, never committed), the flames follow Vanilla frame by frame: every opaque pixel keeps the brightness rank it
 has in the Vanilla fire_0 / fire_1 animation (read at run time from the 26.3 client jar in the Gradle cache, never
 checked in); only the colours change. The ramps sit between orange fire and blue soul fire:
 * sulfur fire: olive -> lemon -> yellow-green -> pale yellow (yellow-greenish);
@@ -52,6 +52,8 @@ VARIANTS = ('0', '1')
 
 
 def client_jar() -> Path:
+    if os.environ.get('SB_CLIENT_JAR'):
+        return Path(os.environ['SB_CLIENT_JAR'])
     home = Path(os.environ.get('GRADLE_USER_HOME', Path.home() / '.gradle'))
     jars = sorted(glob.glob(str(home / 'caches/fabric-loom/26.3/minecraft-client.jar')))
     jars += sorted(glob.glob(str(home / 'caches/neoformruntime/artifacts/minecraft_26.3_client.jar')))
@@ -109,12 +111,18 @@ def models(name: str) -> dict:
     return out
 
 
+def derived(jar) -> dict:
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> PNG bytes (never committed)."""
+    os.environ['SB_CLIENT_JAR'] = str(jar)
+    return {f'block/{name}_{v}.png': png_bytes(recolor(v, stops)) for name, stops in RAMPS.items() for v in VARIANTS}
+
+
 def outputs() -> dict:
+    """Committed outputs: .mcmeta, blockstates, models. The PNGs are Vanilla-derived and built (see derived())."""
     out = {}
     state = vanilla('blockstates/soul_fire.json').decode()
     for name, stops in RAMPS.items():
         for v in VARIANTS:
-            out[RES / f'textures/block/{name}_{v}.png'] = recolor(v, stops)
             meta = vanilla(f'textures/block/soul_fire_{v}.png.mcmeta').decode()
             out[RES / f'textures/block/{name}_{v}.png.mcmeta'] = meta if meta.endswith('\n') else meta + '\n'
         out[RES / f'blockstates/{name}.json'] = state.replace('minecraft:block/soul_fire', f'simplebuilding:block/{name}')
