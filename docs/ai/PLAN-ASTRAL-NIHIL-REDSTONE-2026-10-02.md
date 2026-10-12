@@ -1,5 +1,7 @@
 # Plan: Astral/Nihil-Redstone wie Vanilla-Draht, Schalter/Lampe, polierte Schachbretter (2026-10-02)
 
+> **Stand 2026-10-11 (Nachtrag 36):** Astral-/Nihil-Redstone ist jetzt Vanilla-artiger Staub (zweite/dritte Redstone-Linie, von allen Vanilla-Quellen gespeist), Schalter und Lampen sind entfernt (laden als Hebel/Redstone-Lampe), Brücken-Redstone verbindet alle Linien. Kolben und Schienen empfangen weiter nur den Staub ihrer Linie (oder Brücken-Redstone) direkt daneben; `endSignalRange` und das Polling der Leitung entfallen. Siehe PLAN-REDSTONE-LINIEN-2026-10-11.md.
+
 Branch `claude-astral`. Queue-Punkte (Besitzer 2026-10-02 abends): Pulver wie Redstone-Draht, kaputte
 Schalter-/Lampentexturen, Schachbrett-Blöcke aus poliertem Astralit/Nihilith/Enderquarz. Kolben-Konzept
 getrennt in `PLAN-ASTRAL-KOLBEN-2026-10-02.md`.

@@ -121,6 +121,8 @@ public final class ClientTests {
                 new Entry("end-structures", EndStructureClientTest::inWorld),
                 // Owner N37 (26.3): the Sculk Jaw next to real sculk, shut and the bite frames; puts the floor back.
                 new Entry("sculk-jaw", SculkJawClientTest::inWorld),
+                // Nachtrag 36 (26.3): Astral, Nihil and Bridge Redstone lanes into redstone lamps; clears its blocks.
+                new Entry("redstone-lines", RedstoneLinesClientTest::inWorld),
                 // Audit C9/C10: unique key mapping names, our defaults collide with nothing (no picture).
                 new Entry("key-mappings", KeyMappingClientTest::inWorld));
     }

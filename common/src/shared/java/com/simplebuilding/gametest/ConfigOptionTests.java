@@ -855,7 +855,6 @@ public final class ConfigOptionTests {
             "server.machines.reinforcedFurnaceSpeed int=2",
             "server.machines.netheriteFurnaceSpeed int=4",
             "server.machines.enderiteFurnaceSpeed int=8",
-            "server.machines.endSignalRange int=15",
             "server.machines.endPistonCooldownTicks int=8",
             "server.machines.astralRailMaxSpeed int=16",
             "server.machines.astralRailBoost double=0.12",

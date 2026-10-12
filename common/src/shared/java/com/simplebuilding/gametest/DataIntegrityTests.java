@@ -2846,8 +2846,6 @@ public final class DataIntegrityTests {
         neighbours.put(Items.FURNACE, ModItems.REINFORCED_FURNACE);
         if (McVersion.END_SYSTEMS) {
             neighbours.put(Items.REDSTONE, ModItems.NIHIL_REDSTONE);
-            neighbours.put(Items.LEVER, ModItems.NIHILITH_SWITCH);
-            neighbours.put(Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP);
             neighbours.put(Items.ENDER_CHEST, ModItems.ASTRAL_VAULT);
         }
         neighbours.forEach((vanilla, mod) -> {
@@ -2983,8 +2981,8 @@ public final class DataIntegrityTests {
                 : CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX,
                         ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
         if (McVersion.END_SYSTEMS) {
-            expected.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP,
-                    ModItems.NIHIL_PISTON, gap, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
+            expected.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHIL_PISTON, gap,
+                    ModItems.BRIDGE_REDSTONE, gap, ModItems.ASTRAL_REDSTONE, ModItems.ASTRAL_PISTON));
         }
         if (McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen (2026-10-04) direkt unter den End-Signalen.

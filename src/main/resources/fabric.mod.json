@@ -141,6 +141,7 @@
       "com.simplebuilding.gametest.GuideBookGameTest",
       "com.simplebuilding.gametest.ImmersionGameTest",
       "com.simplebuilding.gametest.EndSystemsGameTest",
+      "com.simplebuilding.gametest.RedstoneLinesGameTest",
       "com.simplebuilding.gametest.EndStructureGameTest"
     ]
   },

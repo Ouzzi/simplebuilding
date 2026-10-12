@@ -1331,23 +1331,27 @@ public final class TestCentreSections {
     public static TcCanvas devices(TcContext ctx) {
         TcCanvas c = new TcCanvas();
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            for (int lane = 0; lane < 2; lane++) {
-                Block source = lane == 0 ? ModBlocks.NIHILITH_SWITCH : ModBlocks.ASTRALIT_SWITCH;
-                Block powder = lane == 0 ? ModBlocks.NIHIL_REDSTONE : ModBlocks.ASTRAL_REDSTONE;
-                Block lamp = lane == 0 ? ModBlocks.NIHILITH_LAMP : ModBlocks.ASTRALIT_LAMP;
+            // Redstone-Linien (2026-10-11): Hebel (aus) - 15 Pulver - Redstone-Lampe je Linie; die dritte Spur
+            // fuehrt Redstone ueber Bruecken-Redstone in Astral-Redstone.
+            BlockState lever = Blocks.LEVER.defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.LeverBlock.FACE, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR);
+            for (int lane = 0; lane < 3; lane++) {
                 int z = 5 + lane;
                 for (int x = 0; x <= 17; x++) c.place(x, -1, z, Blocks.STONE);
-                c.place(0, 0, z, source);
-                for (int x = 1; x <= 15; x++) c.place(x, 0, z, powder);
-                c.place(16, 0, z, lamp);
+                c.place(0, 0, z, lever);
+                for (int x = 1; x <= 15; x++) {
+                    c.place(x, 0, z, lane == 0 ? ModBlocks.NIHIL_REDSTONE : lane == 1 ? ModBlocks.ASTRAL_REDSTONE
+                            : x <= 5 ? Blocks.REDSTONE_WIRE : x <= 10 ? ModBlocks.BRIDGE_REDSTONE : ModBlocks.ASTRAL_REDSTONE);
+                }
+                c.place(16, 0, z, Blocks.REDSTONE_LAMP);
             }
-            // Astral-/Nihil-Kolben (2026-10-03): Schalter (aus) - Pulver - Kolben auf Obsidian (unbeweglich),
+            // Astral-/Nihil-Kolben (2026-10-03): Hebel (aus) - Pulver - Kolben auf Obsidian (unbeweglich),
             // Sandstein drumherum: Astral drueckt die anliegenden weg, Nihil holt die mit einem Feld Luecke heran.
             for (int lane = 0; lane < 2; lane++) {
                 boolean astral = lane == 0;
                 int z = 9 + lane * 5;
                 for (int x = 0; x <= 6; x++) for (int dz = -2; dz <= 2; dz++) c.place(x, -1, z + dz, Blocks.STONE);
-                c.place(0, 0, z, astral ? ModBlocks.ASTRALIT_SWITCH : ModBlocks.NIHILITH_SWITCH);
+                c.place(0, 0, z, lever);
                 // Zwei Pulver: das hintere liegt fuer den Nihil-Kolben im Zugabstand, sein Zielfeld ist aber belegt.
                 for (int x = 1; x <= 2; x++) c.place(x, 0, z, astral ? ModBlocks.ASTRAL_REDSTONE : ModBlocks.NIHIL_REDSTONE);
                 c.place(3, -1, z, Blocks.OBSIDIAN);
@@ -1361,8 +1365,8 @@ public final class TestCentreSections {
         }
         if (com.simplebuilding.version.McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen (2026-10-04): Teststrecke Ost-West. Stein als Anschlag, 14 Astral-Schienen mit
-            // Astral-Pulver daneben (Schalter aus), 12 ungespeiste Astral-Schienen zum Ausrollen mit hoher Grenze,
-            // 4 Nihil-Schienen mit Nihil-Pulver (Schalter aus), 4 normale Schienen, Stein als Ende.
+            // Astral-Pulver daneben (Hebel aus), 12 ungespeiste Astral-Schienen zum Ausrollen mit hoher Grenze,
+            // 4 Nihil-Schienen mit Nihil-Pulver (Hebel aus), 4 normale Schienen, Stein als Ende.
             int z = 19;
             BlockState astralRail = ModBlocks.ASTRAL_RAIL.defaultBlockState()
                     .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
@@ -1372,7 +1376,9 @@ public final class TestCentreSections {
                     .setValue(net.minecraft.world.level.block.RailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
             for (int x = 0; x <= 35; x++) for (int dz = 0; dz <= 1; dz++) c.place(x, -1, z + dz, Blocks.STONE);
             c.place(0, 0, z, Blocks.STONE);
-            c.place(0, 0, z + 1, ModBlocks.ASTRALIT_SWITCH);
+            BlockState railLever = Blocks.LEVER.defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.LeverBlock.FACE, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR);
+            c.place(0, 0, z + 1, railLever);
             for (int x = 1; x <= 14; x++) {
                 c.place(x, 0, z, astralRail);
                 c.place(x, 0, z + 1, ModBlocks.ASTRAL_REDSTONE);
@@ -1382,7 +1388,7 @@ public final class TestCentreSections {
                 c.place(x, 0, z, nihilRail);
                 c.place(x, 0, z + 1, ModBlocks.NIHIL_REDSTONE);
             }
-            c.place(31, 0, z + 1, ModBlocks.NIHILITH_SWITCH);
+            c.place(31, 0, z + 1, railLever);
             for (int x = 31; x <= 34; x++) c.place(x, 0, z, rail);
             c.place(35, 0, z, Blocks.STONE);
         }
