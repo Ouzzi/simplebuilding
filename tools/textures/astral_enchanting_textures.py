@@ -248,6 +248,8 @@ def textures():
     # Owner pick N41 (2026-10-12): A3 with a round top, A6/A9 shelves, A12/A21 planks, A18 blazing obsidian.
     import n41_proposals_2026_10_12 as n41
     top, side, bottom = n41.astral_table(2, round_top=True)
+    # N45 (2026-10-12): the model is 12 px high (uv 0,4..16,16 like Vanilla), so the side motif sits in rows 4-15.
+    side = __import__('n45_2026_10_12').astral_table_side()
     return {
         'block/astral_enchanting_table_top': top,
         'block/astral_enchanting_table_side': side,

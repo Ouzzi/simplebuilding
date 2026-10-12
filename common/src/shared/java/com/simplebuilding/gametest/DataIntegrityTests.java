@@ -4138,6 +4138,9 @@ public final class DataIntegrityTests {
         for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ItemTags.TRIMMABLE_ARMOR)) {
             Item item = holder.value();
             Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            // Only vanilla and SimpleBuilding armour: another mod (e.g. a bundled sub-mod like simplemobs on Forge) must
+            // stay playable alone and cannot select on SimpleBuilding's client property (PRINZIPIEN-MODUL-UNABHAENGIGKEIT).
+            if (!id.getNamespace().equals("minecraft") && !id.getNamespace().equals(MOD_ID)) continue;
             String slot = holder.is(ItemTags.HEAD_ARMOR) ? "helmet" : holder.is(ItemTags.CHEST_ARMOR) ? "chestplate"
                     : holder.is(ItemTags.LEG_ARMOR) ? "leggings" : holder.is(ItemTags.FOOT_ARMOR) ? "boots" : null;
             var equippable = new ItemStack(item).get(DataComponents.EQUIPPABLE);

@@ -561,7 +561,8 @@ public final class TradeAndMigrationTests {
      * roll our trade, the copper building wand. The trade set picks a random subset of the merged
      * pool, so the offers are regenerated a bounded number of times; missing every single time
      * means the mod trade is not part of the pool the merchant draws from. (Level 2 used to sell
-     * the copper and the diamond core; since 2026-09-28 the mason sells no cores.)
+     * the copper and the diamond core; since 2026-09-28 the mason sells no cores.) 256 rolls: with Simple Money bundled
+     * (Forge) its SimpleBuilding link trades join the level-4 pool (~50 entries, 2 picks), and 64 rolls missed ~7% of runs.
      */
     public static void masonVillagerCanRollAModTrade(GameTestHelper helper) {
         Villager villager = helper.spawnWithNoFreeWill(EntityTypes.VILLAGER, new BlockPos(1, 2, 1));
@@ -571,7 +572,7 @@ public final class TradeAndMigrationTests {
         boolean rolledModTrade = false;
         int emptyRolls = 0;
 
-        for (int attempt = 0; attempt < 64 && !rolledModTrade; attempt++) {
+        for (int attempt = 0; attempt < 256 && !rolledModTrade; attempt++) {
             // Switching the profession clears the cached offers; the next getOffers() re-rolls them.
             setProfession(helper, villager, VillagerProfession.NITWIT, 1);
             setProfession(helper, villager, VillagerProfession.MASON, 4);
@@ -592,7 +593,7 @@ public final class TradeAndMigrationTests {
 
         helper.assertValueEqual(emptyRolls, 0, "mason level 4 produced empty offer lists");
         helper.assertTrue(rolledModTrade,
-                "a mason villager (level 4) never offered the copper building wand in 64 rolls; "
+                "a mason villager (level 4) never offered the copper building wand in 256 rolls; "
                         + "results seen were " + seen);
 
         helper.succeed();

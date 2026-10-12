@@ -7,7 +7,7 @@
     },
     {
       "when": {
-        "north": "wood"
+        "carving": "wood"
       },
       "apply": {
         "model": "simplebuilding:block/carved/carved_warped_stem_wood"
@@ -15,7 +15,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "angler"
       },
       "apply": {
@@ -24,7 +24,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "archer"
       },
       "apply": {
@@ -33,7 +33,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "arms_up"
       },
       "apply": {
@@ -42,7 +42,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "blade"
       },
       "apply": {
@@ -51,7 +51,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "brewer"
       },
       "apply": {
@@ -60,7 +60,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "burn"
       },
       "apply": {
@@ -69,7 +69,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "danger"
       },
       "apply": {
@@ -78,7 +78,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "explorer"
       },
       "apply": {
@@ -87,7 +87,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "flow"
       },
       "apply": {
@@ -96,7 +96,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "friend"
       },
       "apply": {
@@ -105,7 +105,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "guster"
       },
       "apply": {
@@ -114,7 +114,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "heart"
       },
       "apply": {
@@ -123,7 +123,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "heartbreak"
       },
       "apply": {
@@ -132,7 +132,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "howl"
       },
       "apply": {
@@ -141,7 +141,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "miner"
       },
       "apply": {
@@ -150,7 +150,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "mourner"
       },
       "apply": {
@@ -159,7 +159,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "plenty"
       },
       "apply": {
@@ -168,7 +168,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "prize"
       },
       "apply": {
@@ -177,7 +177,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "scrape"
       },
       "apply": {
@@ -186,7 +186,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "sheaf"
       },
       "apply": {
@@ -195,7 +195,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "shelter"
       },
       "apply": {
@@ -204,7 +204,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "skull"
       },
       "apply": {
@@ -213,7 +213,7 @@
     },
     {
       "when": {
-        "north": "sherd",
+        "carving": "sherd",
         "motif": "snort"
       },
       "apply": {
@@ -222,7 +222,7 @@
     },
     {
       "when": {
-        "east": "wood"
+        "carving": "wood"
       },
       "apply": {
         "model": "simplebuilding:block/carved/carved_warped_stem_wood",
@@ -231,7 +231,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "angler"
       },
       "apply": {
@@ -241,7 +241,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "archer"
       },
       "apply": {
@@ -251,7 +251,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "arms_up"
       },
       "apply": {
@@ -261,7 +261,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "blade"
       },
       "apply": {
@@ -271,7 +271,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "brewer"
       },
       "apply": {
@@ -281,7 +281,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "burn"
       },
       "apply": {
@@ -291,7 +291,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "danger"
       },
       "apply": {
@@ -301,7 +301,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "explorer"
       },
       "apply": {
@@ -311,7 +311,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "flow"
       },
       "apply": {
@@ -321,7 +321,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "friend"
       },
       "apply": {
@@ -331,7 +331,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "guster"
       },
       "apply": {
@@ -341,7 +341,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "heart"
       },
       "apply": {
@@ -351,7 +351,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "heartbreak"
       },
       "apply": {
@@ -361,7 +361,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "howl"
       },
       "apply": {
@@ -371,7 +371,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "miner"
       },
       "apply": {
@@ -381,7 +381,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "mourner"
       },
       "apply": {
@@ -391,7 +391,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "plenty"
       },
       "apply": {
@@ -401,7 +401,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "prize"
       },
       "apply": {
@@ -411,7 +411,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "scrape"
       },
       "apply": {
@@ -421,7 +421,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "sheaf"
       },
       "apply": {
@@ -431,7 +431,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "shelter"
       },
       "apply": {
@@ -441,7 +441,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "skull"
       },
       "apply": {
@@ -451,7 +451,7 @@
     },
     {
       "when": {
-        "east": "sherd",
+        "carving": "sherd",
         "motif": "snort"
       },
       "apply": {
@@ -461,7 +461,7 @@
     },
     {
       "when": {
-        "south": "wood"
+        "carving": "wood"
       },
       "apply": {
         "model": "simplebuilding:block/carved/carved_warped_stem_wood",
@@ -470,7 +470,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "angler"
       },
       "apply": {
@@ -480,7 +480,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "archer"
       },
       "apply": {
@@ -490,7 +490,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "arms_up"
       },
       "apply": {
@@ -500,7 +500,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "blade"
       },
       "apply": {
@@ -510,7 +510,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "brewer"
       },
       "apply": {
@@ -520,7 +520,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "burn"
       },
       "apply": {
@@ -530,7 +530,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "danger"
       },
       "apply": {
@@ -540,7 +540,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "explorer"
       },
       "apply": {
@@ -550,7 +550,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "flow"
       },
       "apply": {
@@ -560,7 +560,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "friend"
       },
       "apply": {
@@ -570,7 +570,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "guster"
       },
       "apply": {
@@ -580,7 +580,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "heart"
       },
       "apply": {
@@ -590,7 +590,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "heartbreak"
       },
       "apply": {
@@ -600,7 +600,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "howl"
       },
       "apply": {
@@ -610,7 +610,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "miner"
       },
       "apply": {
@@ -620,7 +620,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "mourner"
       },
       "apply": {
@@ -630,7 +630,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "plenty"
       },
       "apply": {
@@ -640,7 +640,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "prize"
       },
       "apply": {
@@ -650,7 +650,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "scrape"
       },
       "apply": {
@@ -660,7 +660,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "sheaf"
       },
       "apply": {
@@ -670,7 +670,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "shelter"
       },
       "apply": {
@@ -680,7 +680,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "skull"
       },
       "apply": {
@@ -690,7 +690,7 @@
     },
     {
       "when": {
-        "south": "sherd",
+        "carving": "sherd",
         "motif": "snort"
       },
       "apply": {
@@ -700,7 +700,7 @@
     },
     {
       "when": {
-        "west": "wood"
+        "carving": "wood"
       },
       "apply": {
         "model": "simplebuilding:block/carved/carved_warped_stem_wood",
@@ -709,7 +709,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "angler"
       },
       "apply": {
@@ -719,7 +719,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "archer"
       },
       "apply": {
@@ -729,7 +729,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "arms_up"
       },
       "apply": {
@@ -739,7 +739,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "blade"
       },
       "apply": {
@@ -749,7 +749,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "brewer"
       },
       "apply": {
@@ -759,7 +759,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "burn"
       },
       "apply": {
@@ -769,7 +769,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "danger"
       },
       "apply": {
@@ -779,7 +779,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "explorer"
       },
       "apply": {
@@ -789,7 +789,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "flow"
       },
       "apply": {
@@ -799,7 +799,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "friend"
       },
       "apply": {
@@ -809,7 +809,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "guster"
       },
       "apply": {
@@ -819,7 +819,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "heart"
       },
       "apply": {
@@ -829,7 +829,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "heartbreak"
       },
       "apply": {
@@ -839,7 +839,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "howl"
       },
       "apply": {
@@ -849,7 +849,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "miner"
       },
       "apply": {
@@ -859,7 +859,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "mourner"
       },
       "apply": {
@@ -869,7 +869,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "plenty"
       },
       "apply": {
@@ -879,7 +879,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "prize"
       },
       "apply": {
@@ -889,7 +889,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "scrape"
       },
       "apply": {
@@ -899,7 +899,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "sheaf"
       },
       "apply": {
@@ -909,7 +909,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "shelter"
       },
       "apply": {
@@ -919,7 +919,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "skull"
       },
       "apply": {
@@ -929,7 +929,7 @@
     },
     {
       "when": {
-        "west": "sherd",
+        "carving": "sherd",
         "motif": "snort"
       },
       "apply": {

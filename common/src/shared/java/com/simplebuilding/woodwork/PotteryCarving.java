@@ -21,11 +21,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Carving wood with the chisel (docs/ai/PLAN-HOLZWERK-2026-10-09.md, N34), side by side: chisel in the main hand,
- * right-click a side of a standing stripped log (or of carved wood). Without a sherd the side gets the wood's own
- * motif, with a pottery sherd in the off hand the sherd's pattern (the sherd is a stencil and stays); every side is
- * carved on its own. Sneaking with the chisel takes the carving off that side again (the last one turns the log
- * back into the stripped log). The chisel takes one point of damage and its usual cooldown. Top and bottom clicks
+ * Carving wood with the chisel (docs/ai/PLAN-HOLZWERK-2026-10-09.md, N34, N40): chisel in the main hand,
+ * right-click a side of a standing stripped log (or of carved wood) and all four sides are carved at once (N40).
+ * Without a sherd they get the wood's own motif, with a pottery sherd in the off hand the sherd's pattern (the sherd
+ * is a stencil and stays). Sneaking with the chisel takes the whole carving off again (the stripped log comes back).
+ * The chisel takes one point of damage and its usual cooldown. Top and bottom clicks
  * keep the chisel's old job (without sherd it hollows the log).
  */
 public final class PotteryCarving {
@@ -33,30 +33,20 @@ public final class PotteryCarving {
     }
 
     /**
-     * The carved state for {@code target} clicked on {@code face}: {@code motif} null = the wood's own motif; with
-     * {@code remove} the side's carving is taken off (the stripped log comes back when nothing is left). Null if it
-     * cannot be carved. All sherd sides share one motif, so a new sherd changes the motif of the other sherd sides too.
+     * The carved state for {@code target} clicked on a side: {@code motif} null = the wood's own motif, else the
+     * sherd's pattern - always on all four sides at once (N40). With {@code remove} the whole carving comes off (the
+     * stripped log comes back). Null if it cannot be carved or nothing would change.
      */
-    public static @Nullable BlockState carve(BlockState target, Direction face, @Nullable SherdMotif motif, boolean remove) {
-        if (!face.getAxis().isHorizontal()) {
-            return null;
-        }
+    public static @Nullable BlockState carve(BlockState target, @Nullable SherdMotif motif, boolean remove) {
         if (target.getBlock() instanceof CarvedLogBlock block) {
-            BlockState next = target.setValue(CarvedLogBlock.side(face), remove ? CarvedLogBlock.Carving.NONE
-                    : motif == null ? CarvedLogBlock.Carving.WOOD : CarvedLogBlock.Carving.SHERD);
-            if (motif != null && !remove) {
-                next = next.setValue(CarvedLogBlock.MOTIF, motif);
-            }
-            if (!CarvedLogBlock.carved(next)) {
-                return strippedOf(block).defaultBlockState();
-            }
-            return next;
+            BlockState next = remove ? strippedOf(block).defaultBlockState() : block.carvedWith(motif);
+            return next == target ? null : next;
         }
         if (remove || !target.hasProperty(RotatedPillarBlock.AXIS) || target.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) {
             return null;
         }
         CarvedLogBlock carved = WoodBlocks.carvedFor(target.getBlock());
-        return carved == null ? null : carved.only(face, motif);
+        return carved == null ? null : carved.carvedWith(motif);
     }
 
     private static Block strippedOf(CarvedLogBlock block) {
@@ -89,8 +79,8 @@ public final class PotteryCarving {
         if (remove && !alreadyCarved) {
             return null; // sneaking on a plain stripped log: the chisel's own reverse action
         }
-        BlockState carved = carve(target, face, motif, remove);
-        if (carved == null || carved == target) {
+        BlockState carved = carve(target, motif, remove);
+        if (carved == null) {
             return InteractionResult.PASS;
         }
         if (level.isClientSide()) {
