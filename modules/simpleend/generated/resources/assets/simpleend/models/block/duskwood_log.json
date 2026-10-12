@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simpleend:block/duskwood_log_top",
+    "side": "simpleend:block/duskwood_log"
+  }
+}

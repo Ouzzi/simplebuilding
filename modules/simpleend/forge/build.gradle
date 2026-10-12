@@ -1,0 +1,8 @@
+plugins {
+    id 'java-library'
+    id 'net.minecraftforge.gradle' version '7.0.36'
+}
+ext.forgeMixinConfigs = ['simpleend.mixins.json', 'simpleend.forge.mixins.json']
+// Super-mod level 2: nests its optional sub-mod next to framework.
+ext.forgeBundleModules = [':modules:simpleenddragonfight:forge']
+apply from: rootProject.file('gradle/module-forge.gradle')

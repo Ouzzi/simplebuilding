@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "simpleend:block/burrowed_end_stone_top",
+    "side": "minecraft:block/end_stone",
+    "bottom": "minecraft:block/end_stone"
+  }
+}

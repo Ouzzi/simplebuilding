@@ -1,0 +1,3278 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simpleend",
+    "name": "Simple End",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "end_wood",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/EndWood.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/EndRegistry.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/BlockTransformerMixin.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/BlockEntityTypeMixin.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/FireBlockInvoker.java"
+      ],
+      "en": {
+        "title": "Ashwood and Duskwood",
+        "summary": "Two End woods with the full Vanilla wood set: log, wood, stripped log and wood, planks, stairs, slab, fence, fence gate, door, trapdoor, button, pressure plate, sign, hanging sign, leaves, boat and boat with chest.",
+        "details": [
+          "Ashwood is pale warm grey with chorus-like knobs; Duskwood is a little browner, with twisting bark and a purpur-like plank grid.",
+          "An axe strips logs and wood; all wood burns like overworld wood and works as fuel (same burn times as oak).",
+          "Recipes are the Vanilla wood recipes (logs to 4 planks, planks to stairs, slabs, doors ...; hanging signs from stripped logs and iron chains).",
+          "Leaves are tinted with the dry-foliage colour of the biome: grey-brown in Ash Valley and Dawnlands, the Vanilla dry-leaf tone elsewhere."
+        ]
+      },
+      "de": {
+        "title": "Aschholz und Dämmerholz",
+        "summary": "Zwei End-Hölzer mit vollem Vanilla-Holzset: Stamm, Holz, entrindeter Stamm und entrindetes Holz, Bretter, Treppe, Stufe, Zaun, Zauntor, Tür, Falltür, Knopf, Druckplatte, Schild, Hängeschild, Laub, Boot und Boot mit Truhe.",
+        "details": [
+          "Aschholz ist blass warmgrau mit Chorus-Knubbeln; Dämmerholz ist etwas brauner, mit gedrehter Rinde und purpurartigem Bretterraster.",
+          "Eine Axt entrindet Stämme und Holz; alles Holz brennt wie Oberwelt-Holz und ist Brennstoff (Brenndauer wie Eiche).",
+          "Rezepte sind die Vanilla-Holzrezepte (Stamm zu 4 Brettern, Bretter zu Treppen, Stufen, Türen …; Hängeschilder aus entrindeten Stämmen und Eisenketten).",
+          "Laub wird mit der Trockenlaub-Farbe des Bioms gefärbt: grau-braun in Aschental und Dämmerlande, sonst im Vanilla-Trockenlaub-Ton."
+        ]
+      }
+    },
+    {
+      "id": "buds_and_trees",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/EndBudBlock.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/world/EndTrees.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/EndSticksBlock.java"
+      ],
+      "en": {
+        "title": "Buds, End trees and stick scrub",
+        "summary": "Ash Bud and Dusk Bud grow on End stone. In light level 9 or more a bud becomes a big End tree; below 9 bone meal turns it into tall End-stick scrub.",
+        "details": [
+          "By itself (random ticks) a bud grows only in light 9 or more (config budsGrowAlone); in the dark only bone meal helps.",
+          "Big tree: one trunk 8-11 blocks high with 3-4 chorus-like branches and leaf clusters. Four buds of the same wood in a 2x2 square grow a huge tree on a 2x2 trunk, 13-17 high.",
+          "Scrub: columns of End sticks, 8-13 high, thick at the bottom and thin at the top like dripstone, with up to two shorter side columns. End sticks are their own block; one block crafts into 3 sticks.",
+          "A bud only grows when the trunk has room; otherwise it stays."
+        ]
+      },
+      "de": {
+        "title": "Knospen, End-Bäume und Stöcke-Gestrüpp",
+        "summary": "Aschknospe und Dämmerknospe wachsen auf Endstein. Ab Lichtstufe 9 wird eine Knospe zum großen End-Baum; darunter macht Knochenmehl daraus hohes Gestrüpp aus End-Stöcken.",
+        "details": [
+          "Von selbst (Zufallsticks) wächst eine Knospe nur ab Licht 9 (Config budsGrowAlone); im Dunkeln hilft nur Knochenmehl.",
+          "Großer Baum: ein Stamm, 8-11 Blöcke hoch, 3-4 chorusartige Äste mit Laubbüscheln. Vier gleiche Knospen im 2x2-Quadrat ergeben einen Riesenbaum mit 2x2-Stamm, 13-17 hoch.",
+          "Gestrüpp: Säulen aus End-Stöcken, 8-13 hoch, unten dick und oben dünn wie Tropfstein, mit bis zu zwei kürzeren Nebensäulen. End-Stöcke sind ein eigener Block; ein Block ergibt 3 Stöcke.",
+          "Eine Knospe wächst nur, wenn der Stamm Platz hat; sonst bleibt sie."
+        ]
+      }
+    },
+    {
+      "id": "leaves_and_fruit",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/DriftFruitItem.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/EndRegistry.java"
+      ],
+      "en": {
+        "title": "Leaves and Drift Fruit",
+        "summary": "End leaves drop their bud (5 %), sticks and rarely Drift Fruit. Eating Drift Fruit gives 4 seconds of Slow Falling and a small hop - a short glide.",
+        "details": [
+          "Drift Fruit is always edible (3 hunger points) and drops like apples from oak leaves (0.5 %, more with Fortune)."
+        ]
+      },
+      "de": {
+        "title": "Laub und Schwebfrucht",
+        "summary": "End-Laub droppt seine Knospe (5 %), Stöcke und selten Schwebfrucht. Schwebfrucht gibt beim Essen 4 Sekunden Sanfter Fall und einen kleinen Sprung - ein kurzer Schwebeflug.",
+        "details": [
+          "Schwebfrucht ist immer essbar (3 Hungerpunkte) und droppt wie Äpfel aus Eichenlaub (0,5 %, mehr mit Glück)."
+        ]
+      }
+    },
+    {
+      "id": "void_safe",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/ItemEntityMixin.java"
+      ],
+      "en": {
+        "title": "Void-safe wood",
+        "summary": "Dropped End-wood items (logs, planks, everything of the sets, buds, End grass, Drift Fruit) are not lost in the void: below the world they float back up and hover just above the bottom. They also stay 10 instead of 5 minutes.",
+        "details": [
+          "Config voidSafeItems and longerDespawn switch the two parts off."
+        ]
+      },
+      "de": {
+        "title": "Leere-sicheres Holz",
+        "summary": "Gedroppte End-Holz-Items (Stämme, Bretter, alles aus den Sets, Knospen, End-Gras, Schwebfrucht) gehen in der Leere nicht verloren: unter der Welt schweben sie zurück und bleiben knapp über dem Boden. Außerdem bleiben sie 10 statt 5 Minuten liegen.",
+        "details": [
+          "Config voidSafeItems und longerDespawn schalten die beiden Teile ab."
+        ]
+      }
+    },
+    {
+      "id": "end_grass",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/EndPlantBlock.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/client/EndTints.java"
+      ],
+      "en": {
+        "title": "End grass and End bushes",
+        "summary": "Wiry End grass and twiggy End bushes, like Vanilla dry grass and dead bushes, standing on End stone. They grow in Ash Valley and Dawnlands and sparsely on all outer End islands.",
+        "details": [
+          "Shears pick them up; End bushes drop sticks otherwise. Bone meal on End grass spreads a few tufts onto neighbouring End stone.",
+          "Their colour is the biome tint (grey-brown in the two End biomes)."
+        ]
+      },
+      "de": {
+        "title": "End-Gras und End-Büsche",
+        "summary": "Drahtiges End-Gras und zweigige End-Büsche, wie Vanilla-Trockengras und tote Büsche, auf Endstein. Sie wachsen in Aschental und Dämmerlande und vereinzelt auf allen äußeren End-Inseln.",
+        "details": [
+          "Mit der Schere aufsammeln; End-Büsche droppen sonst Stöcke. Knochenmehl auf End-Gras verteilt ein paar Büschel auf benachbarten Endstein.",
+          "Ihre Farbe ist der Biom-Tint (grau-braun in den beiden End-Biomen)."
+        ]
+      }
+    },
+    {
+      "id": "biomes",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/world/EndBiomes.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/TheEndBiomeSourceMixin.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/world/EndFlora.java"
+      ],
+      "en": {
+        "title": "Ash Valley and Dawnlands",
+        "summary": "Two End biomes on the outer islands (never on the dragon island): round patches 3-6 chunks across replace parts of the End highlands/midlands. Ash Valley grows Ashwood, Dawnlands Duskwood.",
+        "details": [
+          "Each holds narrow chorus-like natural trees, grown big trees, stick scrub, End grass, bushes and buds; chorus is rarer than the scrub. Return gateways and End cities still appear.",
+          "Own fog and sky colour, ash (Ash Valley) or drifting spores (Dawnlands) and their own music; the only mob is the passive Nibblemite.",
+          "Config biomes switches the patches off for new chunks, biomeChance sets how many 12x12-chunk areas hold a patch (default 0.4)."
+        ]
+      },
+      "de": {
+        "title": "Aschental und Dämmerlande",
+        "summary": "Zwei End-Biome auf den äußeren Inseln (nie auf der Dracheninsel): runde Flecken mit 3-6 Chunks Durchmesser ersetzen Teile der End-Highlands/-Midlands. Im Aschental wächst Aschholz, in den Dämmerlanden Dämmerholz.",
+        "details": [
+          "Darin stehen schmale chorusartige Naturbäume, ausgewachsene große Bäume, Stöcke-Gestrüpp, End-Gras, Büsche und Knospen; Chorus ist seltener als das Gestrüpp. Rückkehr-Portale und End-Städte erscheinen weiterhin.",
+          "Eigene Nebel- und Himmelsfarbe, Asche (Aschental) bzw. schwebende Sporen (Dämmerlande) und eigene Musik; einziger Mob ist die friedliche Knabbermilbe.",
+          "Config biomes schaltet die Flecken für neue Chunks ab, biomeChance legt fest, wie viele 12x12-Chunk-Felder einen Fleck haben (Standard 0,4)."
+        ]
+      }
+    },
+    {
+      "id": "nibblemite",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/entity/Nibblemite.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/BurrowedEndStoneBlock.java"
+      ],
+      "en": {
+        "title": "Nibblemite",
+        "summary": "A small, passive Endermite kin that lives in Ash Valley and Dawnlands in groups of 2-4, coloured after its biome (pale grey with lavender, taupe with rose). It nibbles End stone like sheep graze: the block under it becomes Burrowed End Stone, which turns back into End stone after a few minutes.",
+        "details": [
+          "Never hurts players, flees when hit; it is no Endermite, so Endermen leave it alone.",
+          "Chorus fruit (also popped) tempts it and breeds two; the young keep a parent's colouring and grow faster while nibbling.",
+          "Drops 0-1 chorus fruit (more with Looting). Burrowed End Stone mines and drops like End stone.",
+          "The only mob of the two biomes for now; it spawns there like Vanilla animals when the chunks are created."
+        ]
+      },
+      "de": {
+        "title": "Knabbermilbe",
+        "summary": "Eine kleine, friedliche Verwandte der Endermilbe, die in Gruppen von 2-4 im Aschental und in den Dämmerlanden lebt, gefärbt nach ihrem Biom (blassgrau mit Lavendel, taupe mit Rosa). Sie knabbert Endstein an wie Schafe Gras: der Block unter ihr wird zu durchwühltem Endstein, der nach einigen Minuten wieder zu Endstein wird.",
+        "details": [
+          "Greift Spieler nie an und flieht, wenn sie getroffen wird; sie ist keine Endermilbe, Endermen lassen sie in Ruhe.",
+          "Chorusfrucht (auch geplatzte) lockt sie an und lässt zwei Junge zeugen; Junge behalten die Färbung eines Elternteils und wachsen beim Knabbern schneller.",
+          "Droppt 0-1 Chorusfrucht (mehr mit Plünderung). Durchwühlter Endstein wird abgebaut und droppt wie Endstein.",
+          "Vorerst der einzige Mob der beiden Biome; er erscheint dort wie Vanilla-Tiere beim Erzeugen der Chunks."
+        ]
+      }
+    },
+    {
+      "id": "submods",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEnd.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEndConfig.java"
+      ],
+      "en": {
+        "title": "Simple End and its sub-mod",
+        "summary": "SimpleBuilding bundles Simple End (\"Enable Simple End\"); Simple End bundles Simple End Dragon Fight (\"Enable Simple End Dragon Fight\" in config/simpleend.json). Each level has its own switch; Dragon Fight runs only while Simple End is on. Simple End also plays alone.",
+        "details": [
+          "Config keys (config/simpleend.json): enabled, enableSimpleEndDragonFight, biomes, biomeChance, budsGrowAlone, voidSafeItems, longerDespawn."
+        ]
+      },
+      "de": {
+        "title": "Simple End und seine Sub-Mod",
+        "summary": "SimpleBuilding bündelt Simple End („Simple End aktivieren“); Simple End bündelt Simple End Dragon Fight („Simple End Dragon Fight aktivieren“ in config/simpleend.json). Jede Ebene hat einen eigenen Schalter; Dragon Fight läuft nur, solange Simple End an ist. Simple End ist auch allein spielbar.",
+        "details": [
+          "Config-Schlüssel (config/simpleend.json): enabled, enableSimpleEndDragonFight, biomes, biomeChance, budsGrowAlone, voidSafeItems, longerDespawn."
+        ]
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "simpleend:ashwood_boat",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "boat",
+      "result": {
+        "id": "simpleend:ashwood_boat",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_boat.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "# #",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_button",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "wooden_button",
+      "result": {
+        "id": "simpleend:ashwood_button",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_button.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleend:ashwood_planks"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_chest_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "chest_boat",
+      "result": {
+        "id": "simpleend:ashwood_chest_boat",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_chest_boat.json",
+      "ingredients": [
+        "minecraft:chest",
+        "simpleend:ashwood_boat"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:chest"
+        ],
+        [
+          "simpleend:ashwood_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_door",
+      "result": {
+        "id": "simpleend:ashwood_door",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_door.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_fence",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_fence",
+      "result": {
+        "id": "simpleend:ashwood_fence",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_fence.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "W#W",
+        "W#W"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "W": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_fence_gate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_fence_gate",
+      "result": {
+        "id": "simpleend:ashwood_fence_gate",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_fence_gate.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "#W#",
+        "#W#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "W": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.5
+          },
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_hanging_sign",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_hanging_sign",
+      "result": {
+        "id": "simpleend:ashwood_hanging_sign",
+        "count": 6
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_hanging_sign.json",
+      "ingredients": [
+        "minecraft:iron_chain",
+        "simpleend:stripped_ashwood_log"
+      ],
+      "pattern": [
+        "X X",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:stripped_ashwood_log"
+        ],
+        "X": [
+          "minecraft:iron_chain"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleend:stripped_ashwood_log",
+            "count": 6
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2.444
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_planks",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "planks",
+      "result": {
+        "id": "simpleend:ashwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_planks.json",
+      "ingredients": [
+        "#simpleend:ashwood_logs"
+      ],
+      "ingredientGroups": [
+        [
+          "#simpleend:ashwood_logs"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleend:ashwood_logs"
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_pressure_plate",
+      "result": {
+        "id": "simpleend:ashwood_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_pressure_plate.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_sign",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_sign",
+      "result": {
+        "id": "simpleend:ashwood_sign",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_sign.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        " X "
+      ],
+      "key": {
+        "#": [
+          "simpleend:ashwood_planks"
+        ],
+        "X": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "wooden_slab",
+      "result": {
+        "id": "simpleend:ashwood_slab",
+        "count": 6
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_slab.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 0.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "wooden_stairs",
+      "result": {
+        "id": "simpleend:ashwood_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_stairs.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_sticks_to_sticks",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "sticks",
+      "result": {
+        "id": "minecraft:stick",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_sticks_to_sticks.json",
+      "ingredients": [
+        "simpleend:ashwood_sticks"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleend:ashwood_sticks"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_sticks",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_trapdoor",
+      "result": {
+        "id": "simpleend:ashwood_trapdoor",
+        "count": 2
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_trapdoor.json",
+      "ingredients": [
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:ashwood_wood",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "bark",
+      "result": {
+        "id": "simpleend:ashwood_wood",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_wood.json",
+      "ingredients": [
+        "simpleend:ashwood_log"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleend:ashwood_log"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_boat",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "boat",
+      "result": {
+        "id": "simpleend:duskwood_boat",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_boat.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "# #",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_button",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "wooden_button",
+      "result": {
+        "id": "simpleend:duskwood_button",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_button.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleend:duskwood_planks"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_chest_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "chest_boat",
+      "result": {
+        "id": "simpleend:duskwood_chest_boat",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_chest_boat.json",
+      "ingredients": [
+        "minecraft:chest",
+        "simpleend:duskwood_boat"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:chest"
+        ],
+        [
+          "simpleend:duskwood_boat"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_door",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_door",
+      "result": {
+        "id": "simpleend:duskwood_door",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_door.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "##",
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_fence",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_fence",
+      "result": {
+        "id": "simpleend:duskwood_fence",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_fence.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "W#W",
+        "W#W"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "W": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_fence_gate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_fence_gate",
+      "result": {
+        "id": "simpleend:duskwood_fence_gate",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_fence_gate.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "#W#",
+        "#W#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "W": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.5
+          },
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_hanging_sign",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_hanging_sign",
+      "result": {
+        "id": "simpleend:duskwood_hanging_sign",
+        "count": 6
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_hanging_sign.json",
+      "ingredients": [
+        "minecraft:iron_chain",
+        "simpleend:stripped_duskwood_log"
+      ],
+      "pattern": [
+        "X X",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:stripped_duskwood_log"
+        ],
+        "X": [
+          "minecraft:iron_chain"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleend:stripped_duskwood_log",
+            "count": 6
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2.444
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_planks",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "planks",
+      "result": {
+        "id": "simpleend:duskwood_planks",
+        "count": 4
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_planks.json",
+      "ingredients": [
+        "#simpleend:duskwood_logs"
+      ],
+      "ingredientGroups": [
+        [
+          "#simpleend:duskwood_logs"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simpleend:duskwood_logs"
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_pressure_plate",
+      "result": {
+        "id": "simpleend:duskwood_pressure_plate",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_pressure_plate.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_sign",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "wooden_sign",
+      "result": {
+        "id": "simpleend:duskwood_sign",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_sign.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        " X "
+      ],
+      "key": {
+        "#": [
+          "simpleend:duskwood_planks"
+        ],
+        "X": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "wooden_slab",
+      "result": {
+        "id": "simpleend:duskwood_slab",
+        "count": 6
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_slab.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 0.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "wooden_stairs",
+      "result": {
+        "id": "simpleend:duskwood_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_stairs.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_sticks_to_sticks",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "sticks",
+      "result": {
+        "id": "minecraft:stick",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_sticks_to_sticks.json",
+      "ingredients": [
+        "simpleend:duskwood_sticks"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleend:duskwood_sticks"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_sticks",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_trapdoor",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": "wooden_trapdoor",
+      "result": {
+        "id": "simpleend:duskwood_trapdoor",
+        "count": 2
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_trapdoor.json",
+      "ingredients": [
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_wood",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "bark",
+      "result": {
+        "id": "simpleend:duskwood_wood",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_wood.json",
+      "ingredients": [
+        "simpleend:duskwood_log"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleend:duskwood_log"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleend:guide_book",
+        "count": 1
+      },
+      "source": "modules/simpleend/shared/resources/data/simpleend/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:chorus_fruit"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:chorus_fruit"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:stripped_ashwood_wood",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "bark",
+      "result": {
+        "id": "simpleend:stripped_ashwood_wood",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/stripped_ashwood_wood.json",
+      "ingredients": [
+        "simpleend:stripped_ashwood_log"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleend:stripped_ashwood_log"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:stripped_ashwood_log",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:stripped_duskwood_wood",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": "bark",
+      "result": {
+        "id": "simpleend:stripped_duskwood_wood",
+        "count": 3
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/stripped_duskwood_wood.json",
+      "ingredients": [
+        "simpleend:stripped_duskwood_log"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simpleend:stripped_duskwood_log"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simpleend:stripped_duskwood_log",
+            "count": 4
+          }
+        ]
+      }
+    }
+  ],
+  "lootTables": [
+    {
+      "id": "simpleend:blocks/ash_bud",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ash_bud"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ash_bud.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_button",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_button"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_button.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_door"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_door.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_fence",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_fence"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_fence.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_fence_gate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_fence_gate"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_fence_gate.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_hanging_sign",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_hanging_sign"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_hanging_sign.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_leaves",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_leaves",
+            "simpleend:ash_bud"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:stick"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:drift_fruit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_leaves.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_log"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_log.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_planks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_planks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_planks.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_pressure_plate"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_pressure_plate.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_sign",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_sign"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_sign.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_slab.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_stairs"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_stairs.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_sticks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_sticks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_sticks.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_trapdoor"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_trapdoor.json"
+    },
+    {
+      "id": "simpleend:blocks/ashwood_wood",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_wood"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_wood.json"
+    },
+    {
+      "id": "simpleend:blocks/burrowed_end_stone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:end_stone"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/burrowed_end_stone.json"
+    },
+    {
+      "id": "simpleend:blocks/dusk_bud",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:dusk_bud"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/dusk_bud.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_button",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_button"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_button.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_door",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_door"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_door.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_fence",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_fence"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_fence.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_fence_gate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_fence_gate"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_fence_gate.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_hanging_sign",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_hanging_sign"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_hanging_sign.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_leaves",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_leaves",
+            "simpleend:dusk_bud"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:stick"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:drift_fruit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_leaves.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_log"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_log.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_planks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_planks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_planks.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_pressure_plate"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_pressure_plate.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_sign",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_sign"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_sign.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_slab.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_stairs"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_stairs.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_sticks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_sticks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_sticks.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_trapdoor",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_trapdoor"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_trapdoor.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_wood",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_wood"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_wood.json"
+    },
+    {
+      "id": "simpleend:blocks/end_bush",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:end_bush",
+            "minecraft:stick"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/end_bush.json"
+    },
+    {
+      "id": "simpleend:blocks/end_grass",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:end_grass"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/end_grass.json"
+    },
+    {
+      "id": "simpleend:blocks/potted_ash_bud",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:flower_pot"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ash_bud"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/potted_ash_bud.json"
+    },
+    {
+      "id": "simpleend:blocks/potted_dusk_bud",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:flower_pot"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:dusk_bud"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/potted_dusk_bud.json"
+    },
+    {
+      "id": "simpleend:blocks/stripped_ashwood_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:stripped_ashwood_log"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/stripped_ashwood_log.json"
+    },
+    {
+      "id": "simpleend:blocks/stripped_ashwood_wood",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:stripped_ashwood_wood"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/stripped_ashwood_wood.json"
+    },
+    {
+      "id": "simpleend:blocks/stripped_duskwood_log",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:stripped_duskwood_log"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/stripped_duskwood_log.json"
+    },
+    {
+      "id": "simpleend:blocks/stripped_duskwood_wood",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:stripped_duskwood_wood"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/stripped_duskwood_wood.json"
+    },
+    {
+      "id": "simpleend:entities/nibblemite",
+      "kind": "entities",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:chorus_fruit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/entities/nibblemite.json"
+    }
+  ],
+  "tags": [
+    {
+      "id": "simpleend:block/ashwood_logs",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleend:ashwood_log",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_wood",
+          "required": true
+        },
+        {
+          "id": "simpleend:stripped_ashwood_log",
+          "required": true
+        },
+        {
+          "id": "simpleend:stripped_ashwood_wood",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/tags/block/ashwood_logs.json"
+    },
+    {
+      "id": "simpleend:block/bud_may_place_on",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:end_stone",
+          "required": true
+        },
+        {
+          "id": "simpleend:burrowed_end_stone",
+          "required": true
+        },
+        {
+          "id": "#minecraft:dirt",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/tags/block/bud_may_place_on.json"
+    },
+    {
+      "id": "simpleend:block/duskwood_logs",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleend:duskwood_log",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_wood",
+          "required": true
+        },
+        {
+          "id": "simpleend:stripped_duskwood_log",
+          "required": true
+        },
+        {
+          "id": "simpleend:stripped_duskwood_wood",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/tags/block/duskwood_logs.json"
+    },
+    {
+      "id": "simpleend:block/end_plants_may_place_on",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:end_stone",
+          "required": true
+        },
+        {
+          "id": "simpleend:burrowed_end_stone",
+          "required": true
+        },
+        {
+          "id": "#minecraft:dirt",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/tags/block/end_plants_may_place_on.json"
+    },
+    {
+      "id": "simpleend:item/ashwood_logs",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleend:ashwood_log",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_wood",
+          "required": true
+        },
+        {
+          "id": "simpleend:stripped_ashwood_log",
+          "required": true
+        },
+        {
+          "id": "simpleend:stripped_ashwood_wood",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/tags/item/ashwood_logs.json"
+    },
+    {
+      "id": "simpleend:item/duskwood_logs",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleend:duskwood_log",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_wood",
+          "required": true
+        },
+        {
+          "id": "simpleend:stripped_duskwood_log",
+          "required": true
+        },
+        {
+          "id": "simpleend:stripped_duskwood_wood",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/tags/item/duskwood_logs.json"
+    },
+    {
+      "id": "simpleend:item/void_safe",
+      "replace": false,
+      "values": [
+        {
+          "id": "#simpleend:ashwood_logs",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_planks",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_stairs",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_slab",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_fence",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_fence_gate",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_door",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_trapdoor",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_button",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_sign",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_hanging_sign",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_leaves",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_boat",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_chest_boat",
+          "required": true
+        },
+        {
+          "id": "simpleend:ashwood_sticks",
+          "required": true
+        },
+        {
+          "id": "simpleend:ash_bud",
+          "required": true
+        },
+        {
+          "id": "#simpleend:duskwood_logs",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_planks",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_stairs",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_slab",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_fence",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_fence_gate",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_door",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_trapdoor",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_button",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_sign",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_hanging_sign",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_leaves",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_boat",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_chest_boat",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_sticks",
+          "required": true
+        },
+        {
+          "id": "simpleend:dusk_bud",
+          "required": true
+        },
+        {
+          "id": "simpleend:end_grass",
+          "required": true
+        },
+        {
+          "id": "simpleend:end_bush",
+          "required": true
+        },
+        {
+          "id": "simpleend:drift_fruit",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/tags/item/void_safe.json"
+    }
+  ],
+  "advancements": [],
+  "enchantments": [],
+  "items": [
+    {
+      "id": "simpleend:ashwood_boat",
+      "name": {
+        "en_us": "Ashwood Boat",
+        "de_de": "Aschholzboot"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/item/ashwood_boat.png",
+      "craftedBy": [
+        "simpleend:ashwood_boat"
+      ],
+      "usedIn": [
+        "simpleend:ashwood_chest_boat"
+      ]
+    },
+    {
+      "id": "simpleend:ashwood_chest_boat",
+      "name": {
+        "en_us": "Ashwood Boat with Chest",
+        "de_de": "Aschholzboot mit Truhe"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/item/ashwood_chest_boat.png",
+      "craftedBy": [
+        "simpleend:ashwood_chest_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:drift_fruit",
+      "name": {
+        "en_us": "Drift Fruit",
+        "de_de": "Schwebfrucht"
+      },
+      "note": {
+        "en": {
+          "summary": "Drift Fruit: 4 s Slow Falling and a small hop."
+        },
+        "de": {
+          "summary": "Schwebfrucht: 4 s Sanfter Fall und ein kleiner Sprung."
+        }
+      },
+      "texture": "assets/textures/simpleend/item/drift_fruit.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A light, pale fruit of the End trees. It seems to want to float away."
+          ],
+          "use": [
+            "Eating it gives four seconds of Slow Falling and a small hop - enough to glide from one End island to the next ledge."
+          ],
+          "secret": [
+            "It is always edible, even with a full hunger bar."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine leichte, blasse Frucht der End-Bäume. Sie scheint davonschweben zu wollen."
+          ],
+          "use": [
+            "Beim Essen gibt sie vier Sekunden Sanfter Fall und einen kleinen Sprung - genug, um von einer End-Insel zum nächsten Vorsprung zu gleiten."
+          ],
+          "secret": [
+            "Sie ist immer essbar, auch mit voller Hungerleiste."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_boat",
+      "name": {
+        "en_us": "Duskwood Boat",
+        "de_de": "Dämmerholzboot"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/item/duskwood_boat.png",
+      "craftedBy": [
+        "simpleend:duskwood_boat"
+      ],
+      "usedIn": [
+        "simpleend:duskwood_chest_boat"
+      ]
+    },
+    {
+      "id": "simpleend:duskwood_chest_boat",
+      "name": {
+        "en_us": "Duskwood Boat with Chest",
+        "de_de": "Dämmerholzboot mit Truhe"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/item/duskwood_chest_boat.png",
+      "craftedBy": [
+        "simpleend:duskwood_chest_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:guide_book",
+      "name": {
+        "en_us": "Simple End Guide",
+        "de_de": "Simple-End-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/guide/EndGuide.java",
+          "modules/simpleend/shared/resources/data/simpleend/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
+        }
+      },
+      "texture": "assets/textures/simpleend/item/guide_book.png",
+      "craftedBy": [
+        "simpleend:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:nibblemite_spawn_egg",
+      "name": {
+        "en_us": "Nibblemite Spawn Egg",
+        "de_de": "Knabbermilben-Spawn-Ei"
+      },
+      "note": {
+        "en": {
+          "summary": "Spawns a Nibblemite, the passive End-stone nibbler of Ash Valley and Dawnlands."
+        },
+        "de": {
+          "summary": "Erzeugt eine Knabbermilbe, die friedliche Endstein-Knabberin von Aschental und Dämmerlande."
+        }
+      },
+      "texture": "assets/textures/simpleend/item/nibblemite_spawn_egg.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Nibblemites live in small groups in Ash Valley and the Dawnlands and wear the colours of their biome."
+          ],
+          "use": [
+            "They nibble End stone like sheep graze; the stone recovers by itself. Chorus fruit tempts and breeds them."
+          ],
+          "secret": [
+            "Endermen ignore them - a Nibblemite is no Endermite."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Knabbermilben leben in kleinen Gruppen im Aschental und in den Dämmerlanden und tragen die Farben ihres Bioms."
+          ],
+          "use": [
+            "Sie knabbern Endstein an wie Schafe Gras; der Stein erholt sich von selbst. Chorusfrucht lockt sie an und lässt sie Junge bekommen."
+          ],
+          "secret": [
+            "Endermen ignorieren sie - eine Knabbermilbe ist keine Endermilbe."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    }
+  ],
+  "blocks": [
+    {
+      "id": "simpleend:ash_bud",
+      "name": {
+        "en_us": "Ash Bud",
+        "de_de": "Aschknospe"
+      },
+      "note": {
+        "en": {
+          "summary": "Ash Bud: plant on End stone. Light 9+ grows a big tree (2x2 buds: huge tree), darker plus bone meal grows stick scrub."
+        },
+        "de": {
+          "summary": "Aschknospe: auf Endstein setzen. Ab Licht 9 wächst ein großer Baum (2x2 Knospen: Riesenbaum), dunkler mit Knochenmehl Stöcke-Gestrüpp."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/ash_bud.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_button",
+      "name": {
+        "en_us": "Ashwood Button",
+        "de_de": "Aschholzknopf"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:ashwood_button"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_door",
+      "name": {
+        "en_us": "Ashwood Door",
+        "de_de": "Aschholztür"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:ashwood_door"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_fence",
+      "name": {
+        "en_us": "Ashwood Fence",
+        "de_de": "Aschholzzaun"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:ashwood_fence"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_fence_gate",
+      "name": {
+        "en_us": "Ashwood Fence Gate",
+        "de_de": "Aschholzzauntor"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:ashwood_fence_gate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_hanging_sign",
+      "name": {
+        "en_us": "Ashwood Hanging Sign",
+        "de_de": "Aschholzhängeschild"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/ashwood_hanging_sign.png",
+      "craftedBy": [
+        "simpleend:ashwood_hanging_sign"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_leaves",
+      "name": {
+        "en_us": "Ashwood Leaves",
+        "de_de": "Aschlaub"
+      },
+      "note": {
+        "en": {
+          "summary": "End leaves; drop the bud, sticks and rarely Drift Fruit."
+        },
+        "de": {
+          "summary": "End-Laub; droppt die Knospe, Stöcke und selten Schwebfrucht."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/ashwood_leaves.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_log",
+      "name": {
+        "en_us": "Ashwood Log",
+        "de_de": "Aschstamm"
+      },
+      "note": {
+        "en": {
+          "summary": "Ashwood log from End trees (Simple End). Burns, floats back up from the void."
+        },
+        "de": {
+          "summary": "Aschholzstamm von End-Bäumen (Simple End). Brennt, schwebt aus der Leere zurück."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/ashwood_log.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleend:ashwood_wood"
+      ]
+    },
+    {
+      "id": "simpleend:ashwood_planks",
+      "name": {
+        "en_us": "Ashwood Planks",
+        "de_de": "Aschholzbretter"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/ashwood_planks.png",
+      "craftedBy": [
+        "simpleend:ashwood_planks"
+      ],
+      "usedIn": [
+        "simpleend:ashwood_boat",
+        "simpleend:ashwood_button",
+        "simpleend:ashwood_door",
+        "simpleend:ashwood_fence",
+        "simpleend:ashwood_fence_gate",
+        "simpleend:ashwood_pressure_plate",
+        "simpleend:ashwood_sign",
+        "simpleend:ashwood_slab",
+        "simpleend:ashwood_stairs",
+        "simpleend:ashwood_trapdoor"
+      ]
+    },
+    {
+      "id": "simpleend:ashwood_pressure_plate",
+      "name": {
+        "en_us": "Ashwood Pressure Plate",
+        "de_de": "Aschholzdruckplatte"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:ashwood_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_sign",
+      "name": {
+        "en_us": "Ashwood Sign",
+        "de_de": "Aschholzschild"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/ashwood_sign.png",
+      "craftedBy": [
+        "simpleend:ashwood_sign"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_slab",
+      "name": {
+        "en_us": "Ashwood Slab",
+        "de_de": "Aschholzstufe"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:ashwood_slab"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_stairs",
+      "name": {
+        "en_us": "Ashwood Stairs",
+        "de_de": "Aschholztreppe"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:ashwood_stairs"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_sticks",
+      "name": {
+        "en_us": "Ashwood Sticks",
+        "de_de": "Aschholz-Stöcke"
+      },
+      "note": {
+        "en": {
+          "summary": "End sticks: the scrub block of dark buds, tapering like dripstone. Crafts into 3 sticks."
+        },
+        "de": {
+          "summary": "End-Stöcke: der Gestrüpp-Block dunkler Knospen, verjüngt sich wie Tropfstein. Ergibt 3 Stöcke."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/ashwood_sticks.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleend:ashwood_sticks_to_sticks"
+      ]
+    },
+    {
+      "id": "simpleend:ashwood_trapdoor",
+      "name": {
+        "en_us": "Ashwood Trapdoor",
+        "de_de": "Aschholzfalltür"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/ashwood_trapdoor.png",
+      "craftedBy": [
+        "simpleend:ashwood_trapdoor"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_wall_hanging_sign",
+      "name": {
+        "en_us": "Ashwood Wall Hanging Sign"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_wall_sign",
+      "name": {
+        "en_us": "Ashwood Wall Sign"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:ashwood_wood",
+      "name": {
+        "en_us": "Ashwood",
+        "de_de": "Aschholz"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:ashwood_wood"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:burrowed_end_stone",
+      "name": {
+        "en_us": "Burrowed End Stone",
+        "de_de": "Durchwühlter Endstein"
+      },
+      "note": {
+        "en": {
+          "summary": "End stone nibbled by a Nibblemite; turns back into End stone after a few minutes."
+        },
+        "de": {
+          "summary": "Von einer Knabbermilbe angeknabberter Endstein; wird nach einigen Minuten wieder zu Endstein."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "End stone with a Nibblemite's tracks on top."
+          ],
+          "use": [
+            "Mines and drops like End stone; left alone it turns back into End stone after a few minutes."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Endstein mit den Spuren einer Knabbermilbe."
+          ],
+          "use": [
+            "Wird abgebaut und droppt wie Endstein; in Ruhe gelassen wird er nach einigen Minuten wieder zu Endstein."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:dusk_bud",
+      "name": {
+        "en_us": "Dusk Bud",
+        "de_de": "Dämmerknospe"
+      },
+      "note": {
+        "en": {
+          "summary": "Dusk Bud: plant on End stone. Light 9+ grows a big tree (2x2 buds: huge tree), darker plus bone meal grows stick scrub."
+        },
+        "de": {
+          "summary": "Dämmerknospe: auf Endstein setzen. Ab Licht 9 wächst ein großer Baum (2x2 Knospen: Riesenbaum), dunkler mit Knochenmehl Stöcke-Gestrüpp."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/dusk_bud.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_button",
+      "name": {
+        "en_us": "Duskwood Button",
+        "de_de": "Dämmerholzknopf"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:duskwood_button"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_door",
+      "name": {
+        "en_us": "Duskwood Door",
+        "de_de": "Dämmerholztür"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:duskwood_door"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_fence",
+      "name": {
+        "en_us": "Duskwood Fence",
+        "de_de": "Dämmerholzzaun"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:duskwood_fence"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_fence_gate",
+      "name": {
+        "en_us": "Duskwood Fence Gate",
+        "de_de": "Dämmerholzzauntor"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:duskwood_fence_gate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_hanging_sign",
+      "name": {
+        "en_us": "Duskwood Hanging Sign",
+        "de_de": "Dämmerholzhängeschild"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/duskwood_hanging_sign.png",
+      "craftedBy": [
+        "simpleend:duskwood_hanging_sign"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_leaves",
+      "name": {
+        "en_us": "Duskwood Leaves",
+        "de_de": "Dämmerlaub"
+      },
+      "note": {
+        "en": {
+          "summary": "End leaves; drop the bud, sticks and rarely Drift Fruit."
+        },
+        "de": {
+          "summary": "End-Laub; droppt die Knospe, Stöcke und selten Schwebfrucht."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/duskwood_leaves.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_log",
+      "name": {
+        "en_us": "Duskwood Log",
+        "de_de": "Dämmerstamm"
+      },
+      "note": {
+        "en": {
+          "summary": "Duskwood log from End trees (Simple End). Burns, floats back up from the void."
+        },
+        "de": {
+          "summary": "Dämmerholzstamm von End-Bäumen (Simple End). Brennt, schwebt aus der Leere zurück."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/duskwood_log.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleend:duskwood_wood"
+      ]
+    },
+    {
+      "id": "simpleend:duskwood_planks",
+      "name": {
+        "en_us": "Duskwood Planks",
+        "de_de": "Dämmerholzbretter"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/duskwood_planks.png",
+      "craftedBy": [
+        "simpleend:duskwood_planks"
+      ],
+      "usedIn": [
+        "simpleend:duskwood_boat",
+        "simpleend:duskwood_button",
+        "simpleend:duskwood_door",
+        "simpleend:duskwood_fence",
+        "simpleend:duskwood_fence_gate",
+        "simpleend:duskwood_pressure_plate",
+        "simpleend:duskwood_sign",
+        "simpleend:duskwood_slab",
+        "simpleend:duskwood_stairs",
+        "simpleend:duskwood_trapdoor"
+      ]
+    },
+    {
+      "id": "simpleend:duskwood_pressure_plate",
+      "name": {
+        "en_us": "Duskwood Pressure Plate",
+        "de_de": "Dämmerholzdruckplatte"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:duskwood_pressure_plate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_sign",
+      "name": {
+        "en_us": "Duskwood Sign",
+        "de_de": "Dämmerholzschild"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/duskwood_sign.png",
+      "craftedBy": [
+        "simpleend:duskwood_sign"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_slab",
+      "name": {
+        "en_us": "Duskwood Slab",
+        "de_de": "Dämmerholzstufe"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:duskwood_slab"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_stairs",
+      "name": {
+        "en_us": "Duskwood Stairs",
+        "de_de": "Dämmerholztreppe"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:duskwood_stairs"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_sticks",
+      "name": {
+        "en_us": "Duskwood Sticks",
+        "de_de": "Dämmerholz-Stöcke"
+      },
+      "note": {
+        "en": {
+          "summary": "End sticks: the scrub block of dark buds, tapering like dripstone. Crafts into 3 sticks."
+        },
+        "de": {
+          "summary": "End-Stöcke: der Gestrüpp-Block dunkler Knospen, verjüngt sich wie Tropfstein. Ergibt 3 Stöcke."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/duskwood_sticks.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleend:duskwood_sticks_to_sticks"
+      ]
+    },
+    {
+      "id": "simpleend:duskwood_trapdoor",
+      "name": {
+        "en_us": "Duskwood Trapdoor",
+        "de_de": "Dämmerholzfalltür"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/duskwood_trapdoor.png",
+      "craftedBy": [
+        "simpleend:duskwood_trapdoor"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_wall_hanging_sign",
+      "name": {
+        "en_us": "Duskwood Wall Hanging Sign"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_wall_sign",
+      "name": {
+        "en_us": "Duskwood Wall Sign"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_wood",
+      "name": {
+        "en_us": "Duskwood",
+        "de_de": "Dämmerholz"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:duskwood_wood"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:end_bush",
+      "name": {
+        "en_us": "End Bush",
+        "de_de": "End-Busch"
+      },
+      "note": {
+        "en": {
+          "summary": "Dry End bush on End stone; drops sticks."
+        },
+        "de": {
+          "summary": "Trockener End-Busch auf Endstein; droppt Stöcke."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/end_bush.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A dry, twiggy bush of the outer End islands."
+          ],
+          "use": [
+            "Shears pick it up; otherwise it drops a few sticks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein trockener, zweigiger Busch der äußeren End-Inseln."
+          ],
+          "use": [
+            "Mit der Schere aufsammeln; sonst droppt er ein paar Stöcke."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:end_grass",
+      "name": {
+        "en_us": "End Grass",
+        "de_de": "End-Gras"
+      },
+      "note": {
+        "en": {
+          "summary": "End grass on End stone; tinted by the biome."
+        },
+        "de": {
+          "summary": "End-Gras auf Endstein; vom Biom gefärbt."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/end_grass.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Wiry grass that grows on End stone, tinted grey-brown like the leaves around it."
+          ],
+          "use": [
+            "Shears pick it up. Bone meal spreads a few tufts onto neighbouring End stone."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Drahtiges Gras auf Endstein, grau-braun gefärbt wie das Laub ringsum."
+          ],
+          "use": [
+            "Mit der Schere aufsammeln. Knochenmehl verteilt ein paar Büschel auf benachbarten Endstein."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:potted_ash_bud",
+      "name": {
+        "en_us": "Potted Ash Bud",
+        "de_de": "Eingetopfte Aschknospe"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:potted_dusk_bud",
+      "name": {
+        "en_us": "Potted Dusk Bud",
+        "de_de": "Eingetopfte Dämmerknospe"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:stripped_ashwood_log",
+      "name": {
+        "en_us": "Stripped Ashwood Log",
+        "de_de": "Entrindeter Aschstamm"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/stripped_ashwood_log.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleend:ashwood_hanging_sign",
+        "simpleend:stripped_ashwood_wood"
+      ]
+    },
+    {
+      "id": "simpleend:stripped_ashwood_wood",
+      "name": {
+        "en_us": "Stripped Ashwood",
+        "de_de": "Entrindetes Aschholz"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:stripped_ashwood_wood"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:stripped_duskwood_log",
+      "name": {
+        "en_us": "Stripped Duskwood Log",
+        "de_de": "Entrindeter Dämmerstamm"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleend/block/stripped_duskwood_log.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleend:duskwood_hanging_sign",
+        "simpleend:stripped_duskwood_wood"
+      ]
+    },
+    {
+      "id": "simpleend:stripped_duskwood_wood",
+      "name": {
+        "en_us": "Stripped Duskwood",
+        "de_de": "Entrindetes Dämmerholz"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleend:stripped_duskwood_wood"
+      ],
+      "usedIn": []
+    }
+  ],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [
+    "simpleend:ashwood_boat",
+    "simpleend:ashwood_button",
+    "simpleend:ashwood_chest_boat",
+    "simpleend:ashwood_door",
+    "simpleend:ashwood_fence",
+    "simpleend:ashwood_fence_gate",
+    "simpleend:ashwood_hanging_sign",
+    "simpleend:ashwood_planks",
+    "simpleend:ashwood_pressure_plate",
+    "simpleend:ashwood_sign",
+    "simpleend:ashwood_slab",
+    "simpleend:ashwood_stairs",
+    "simpleend:ashwood_trapdoor",
+    "simpleend:ashwood_wall_hanging_sign",
+    "simpleend:ashwood_wall_sign",
+    "simpleend:ashwood_wood",
+    "simpleend:duskwood_boat",
+    "simpleend:duskwood_button",
+    "simpleend:duskwood_chest_boat",
+    "simpleend:duskwood_door",
+    "simpleend:duskwood_fence",
+    "simpleend:duskwood_fence_gate",
+    "simpleend:duskwood_hanging_sign",
+    "simpleend:duskwood_planks",
+    "simpleend:duskwood_pressure_plate",
+    "simpleend:duskwood_sign",
+    "simpleend:duskwood_slab",
+    "simpleend:duskwood_stairs",
+    "simpleend:duskwood_trapdoor",
+    "simpleend:duskwood_wall_hanging_sign",
+    "simpleend:duskwood_wall_sign",
+    "simpleend:duskwood_wood",
+    "simpleend:potted_ash_bud",
+    "simpleend:potted_dusk_bud",
+    "simpleend:stripped_ashwood_log",
+    "simpleend:stripped_ashwood_wood",
+    "simpleend:stripped_duskwood_log",
+    "simpleend:stripped_duskwood_wood"
+  ],
+  "incompleteProse": {},
+  "counts": {
+    "features": 8,
+    "recipes": 33,
+    "lootTables": 42,
+    "tags": 7,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 7,
+    "blocks": 45,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 38,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}

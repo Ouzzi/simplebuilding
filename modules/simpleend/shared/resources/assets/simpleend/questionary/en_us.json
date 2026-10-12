@@ -1,0 +1,98 @@
+{
+  "family:end_wood": {
+    "items": [
+      "regex:(stripped_)?(ashwood|duskwood)_(log|wood|planks|stairs|slab|fence|fence_gate|door|trapdoor|button|pressure_plate|sign|hanging_sign|boat|chest_boat)"
+    ],
+    "lore": [
+      "{name} comes from the pale trees of the outer End islands. Ashwood grows in Ash Valley, Duskwood, a little browner, in the Dawnlands. The grain still shows the knobs of the chorus it grew up beside."
+    ],
+    "use": [
+      "Works like any Vanilla wood: logs give four planks, an axe strips logs, and every block burns as fuel. Dropped into the void it floats back up and waits just above the bottom of the world."
+    ],
+    "secret": [
+      "A dropped piece of End wood lies around for ten minutes instead of five - the End is a long way to walk back."
+    ]
+  },
+  "family:end_bud": {
+    "items": [
+      "regex:(ash|dusk)_bud"
+    ],
+    "lore": [
+      "{name} is the seed of the End woods, a closed chorus-like blossom on a knobby stem."
+    ],
+    "use": [
+      "Plant it on End stone. In light level 9 or more it grows by itself into a big End tree; in the dark only bone meal helps, and then it grows tall End-stick scrub instead."
+    ],
+    "secret": [
+      "Four buds of the same wood in a 2x2 square grow one huge tree on a 2x2 trunk."
+    ]
+  },
+  "family:end_sticks": {
+    "items": [
+      "regex:(ashwood|duskwood)_sticks"
+    ],
+    "lore": [
+      "{name} is what a bud makes of itself without light: bundled sticks that taper like dripstone."
+    ],
+    "use": [
+      "Placed in a column it always gets thicker at the bottom. One block crafts into three sticks."
+    ]
+  },
+  "family:end_leaves": {
+    "items": [
+      "regex:(ashwood|duskwood)_leaves"
+    ],
+    "lore": [
+      "{name} takes its grey-brown colour from the biome it grows in."
+    ],
+    "use": [
+      "Drops its bud, sticks and now and then a Drift Fruit; shears keep the leaves."
+    ]
+  },
+  "drift_fruit": {
+    "lore": [
+      "A light, pale fruit of the End trees. It seems to want to float away."
+    ],
+    "use": [
+      "Eating it gives four seconds of Slow Falling and a small hop - enough to glide from one End island to the next ledge."
+    ],
+    "secret": [
+      "It is always edible, even with a full hunger bar."
+    ]
+  },
+  "end_grass": {
+    "lore": [
+      "Wiry grass that grows on End stone, tinted grey-brown like the leaves around it."
+    ],
+    "use": [
+      "Shears pick it up. Bone meal spreads a few tufts onto neighbouring End stone."
+    ]
+  },
+  "end_bush": {
+    "lore": [
+      "A dry, twiggy bush of the outer End islands."
+    ],
+    "use": [
+      "Shears pick it up; otherwise it drops a few sticks."
+    ]
+  },
+  "nibblemite_spawn_egg": {
+    "lore": [
+      "Nibblemites live in small groups in Ash Valley and the Dawnlands and wear the colours of their biome."
+    ],
+    "use": [
+      "They nibble End stone like sheep graze; the stone recovers by itself. Chorus fruit tempts and breeds them."
+    ],
+    "secret": [
+      "Endermen ignore them - a Nibblemite is no Endermite."
+    ]
+  },
+  "burrowed_end_stone": {
+    "lore": [
+      "End stone with a Nibblemite's tracks on top."
+    ],
+    "use": [
+      "Mines and drops like End stone; left alone it turns back into End stone after a few minutes."
+    ]
+  }
+}

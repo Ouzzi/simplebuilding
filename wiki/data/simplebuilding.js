@@ -148766,8 +148766,8 @@ window.WIKI_DATA = {
       "reload": "restart",
       "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "enableSimpleEndDragonFight",
-      "shortName": "enableSimpleEndDragonFight",
+      "name": "enableSimpleEnd",
+      "shortName": "enableSimpleEnd",
       "type": "boolean",
       "default": "true",
       "note": null,
@@ -148775,10 +148775,10 @@ window.WIKI_DATA = {
       "categoryDe": "Simple Mods",
       "group": null,
       "groupDe": null,
-      "label": "Enable Simple End Dragon Fight",
-      "labelDe": "Simple End Dragon Fight aktivieren",
-      "tooltip": "Turns the bundled Simple End Dragon Fight module on or off: dragon health per player, a faster dragon, entry animations and Dragonmites. Off restores the Vanilla fight; Dragon Chitin stays in the world. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple End Dragon Fight ein oder aus: Drachenleben je Spieler, schnellerer Drache, Eintritts-Animationen und Dragonmites. Aus stellt den Vanilla-Kampf wieder her; Drachen-Chitin bleibt in der Welt. Gilt nach einem Neustart. Standard: an."
+      "label": "Enable Simple End",
+      "labelDe": "Simple End aktivieren",
+      "tooltip": "Turns the bundled Simple End module on or off: End wood, End grass, the Ash Valley and Dawnlands biomes, and its own sub-mod Simple End Dragon Fight. Off keeps its blocks and items in the world but they no longer grow, and the biomes stop spreading into new chunks. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple End ein oder aus: End-Holz, End-Gras, die Biome Aschental und Dämmerlande sowie seine eigene Sub-Mod Simple End Dragon Fight. Aus lässt Blöcke und Items in der Welt, sie wachsen aber nicht mehr, und die Biome breiten sich nicht in neue Chunks aus. Wirkt nach einem Neustart. Standard: an."
     },
     {
       "range": null,

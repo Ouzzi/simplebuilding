@@ -177,7 +177,7 @@ versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.${modId}]]
-modId="simpleenddragonfight"
+modId="simpleend"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"

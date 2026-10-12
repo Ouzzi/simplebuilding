@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_pressure_plate",
+  "key": {
+    "#": "simpleend:duskwood_planks"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "simpleend:duskwood_pressure_plate"
+  }
+}

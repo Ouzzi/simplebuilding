@@ -73,7 +73,7 @@ public class SimplebuildingConfig implements ConfigData {
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleEndDragonFight = true;
+    public boolean enableSimpleEnd = true;
 
     /**
      * Super-mod (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md, stage 1a): hands the "Enable Simple X" switches of the
@@ -90,7 +90,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simpledimension", c.enableSimpleDimensions);
         setSubMod("simpletrims", c.enableSimpleTrims);
         setSubMod("simplemobs", c.enableSimpleMobs);
-        setSubMod("simpleenddragonfight", c.enableSimpleEndDragonFight);
+        setSubMod("simpleend", c.enableSimpleEnd);
     }
 
     /**

@@ -37,6 +37,15 @@ class ModSelectTest(unittest.TestCase):
                 self.assertIn(n['parent'], seen)
             seen.add(n['id'])
 
+    def test_nested_super_mod(self):
+        # SimpleBuilding > Simple End > Simple End Dragon Fight (docs/ai/PLAN-SIMPLE-END-2026-10-12.md)
+        self.assertEqual(self.by['simpleend']['parent'], 'simplebuilding')
+        self.assertEqual(self.by['simpleend']['kind'], 'super')
+        self.assertEqual(self.by['simpleenddragonfight']['parent'], 'simpleend')
+        plan = modselect.launch_plan(self.nodes, ['simpleenddragonfight'], modselect.load_registry())
+        self.assertEqual(plan['configSwitches']['simpleend.json']['enableSimpleEndDragonFight'], False)
+        self.assertTrue(plan['configSwitches']['simplebuilding.json']['enableSimpleEnd'])
+
     def test_default_all_on(self):
         state = modselect.resolve(self.nodes, [])
         self.assertTrue(all(s['on'] for s in state.values()))

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simpleend:block/stripped_ashwood_log",
+    "side": "simpleend:block/stripped_ashwood_log"
+  }
+}

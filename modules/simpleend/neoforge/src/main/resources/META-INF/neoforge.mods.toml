@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleend"
+version="${version}"
+displayName="Simple End"
+description="End wood (Ashwood, Duskwood), End grass and the Ash Valley and Dawnlands biomes; bundles Simple End Dragon Fight."
+[[mixins]]
+config="simpleend.mixins.json"
+[[dependencies.simpleend]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+[[dependencies.simpleend]]
+modId="simpleenddragonfight"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

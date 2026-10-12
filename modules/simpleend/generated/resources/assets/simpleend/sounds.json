@@ -1,0 +1,26 @@
+{
+  "music.ash_valley": {
+    "sounds": [
+      {
+        "name": "minecraft:music.overworld.deep_dark",
+        "type": "event"
+      },
+      {
+        "name": "minecraft:music.end",
+        "type": "event"
+      }
+    ]
+  },
+  "music.dawnlands": {
+    "sounds": [
+      {
+        "name": "minecraft:music.overworld.cherry_grove",
+        "type": "event"
+      },
+      {
+        "name": "minecraft:music.overworld.grove",
+        "type": "event"
+      }
+    ]
+  }
+}
