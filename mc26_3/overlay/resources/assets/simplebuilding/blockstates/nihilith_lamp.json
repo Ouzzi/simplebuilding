@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simplebuilding:block/nihilith_lamp"
+    },
+    "lit=true": {
+      "model": "simplebuilding:block/nihilith_lamp_on"
+    }
+  }
+}
