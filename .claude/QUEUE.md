@@ -14,12 +14,6 @@ Jeder offene Punkt steht hier genau einmal (Ursprungs-Nachtrag in Klammern). Que
 Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile hier streichen.
 
 ### (A) In Arbeit (Branch ungemerged)
-- Deceiver Stufe 2 Rest: Verwandlung in beliebige Mobs (Renderer-Delegation), Schattenlos-Fakes, Config (Wellen-Obergrenze), Spiegelbild, falsche Truhe, Wiki/Testzentrale, Client-Abnahme (N20, N38b; claude-deceiver3)
-- Tarn-Umhang (Brustplatz): Erkennung 3-Block-Radius, Rechtsklick = Verwandlung, Schlag/Abbauen = Rückverwandlung, Enttarnungsradius (N38b; claude-deceiver3)
-- Unsichtbarkeitstrank ohne Partikel; Trugbild-Spiegel (N38b; claude-deceiver3)
-- Spezialangriff: Mob-Anzahl verdoppeln, Chance 5 % bis 80 % bei wenig Leben (N38b; claude-deceiver3)
-- Gepanzerter Deceiver: schwerer, doppelter Neben-Drop, Täuscherstoff ~50 % (N38b; claude-deceiver3)
-- Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop (N38b; claude-deceiver3)
 - Deceiver-Umhang: Kopf-Umhang mit Kapuze als 3D-Modell auf dem Rücken, Elytra-Zusammenspiel, Deceiver-Mob trägt ihn (N49; claude-deceiver3)
 - Deceiver-Umhang am Kopf-Slot, Verkleidung überall sichtbar (Inventar, Ego-Hände), Schlag in die Luft hebt Tarnung auf (N48; claude-deceiver3, Teil auf dem Branch)
 - Trick-Spiegel ausbalancieren oder vorerst entfernen (N48; claude-deceiver3)
@@ -227,7 +221,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] (claude-q-maps) Simple Maps: Rezept A + seltene Fundorte (auch Nether-/End-Karte) – in PLAN-N18 festgehalten
 - [x] Neue Effekte (zuerst als Tränke): Zittern I/II, Trugbild, Umgekehrtes Trugbild, Verblasst (Graustufen inkl. Inventare, ohne Esc-Menü) (claude-q-brew)
 - [x] Mob Deceiver, Stufe 1 (claude-q-deceiver): Modul `simplemobs`, Entity auf 3 Loadern, Modell/Renderer/6 Animationen, Textur, Wellen/Eskalation/Teleport/Mirage-Puls, Spawns, Loot (Täuscherstoff), Spawn-Ei
-- [ ] Deceiver Stufe 2: Verwandlung in beliebige Mobs (Renderer-Delegation), Tarnumhang (Drop), Schattenlos-Fakes, Config (Wellen-Obergrenze), Spiegelbild, falsche Truhe, Wiki-Seite/Testzentrale, Client-Abnahme
+- [x] Deceiver Stufe 2: Verwandlung in beliebige Mobs (Renderer-Delegation), Tarnumhang (Drop), Schattenlos-Fakes, Config (Wellen-Obergrenze), Spiegelbild, falsche Truhe, Wiki-Seite/Testzentrale, Client-Abnahme (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] (claude-deceiver2) Deceiver Stufe 2 Teil Besitzer 11.10.: Tarnumhang (3-Block-Erkennung, Verwandlung in Mobs/Spieler mit Skin+Rüstung, Enttarnung 5x5), Trugbild-Spiegel, stille Unsichtbarkeit, Spezialangriff Verdoppeln, Brustplatten-Deceiver (280/6, doppelte Trugsplitter), Trugbild-Trank aus Trugsplitter (mit SB). Offen: Verwandlung des Deceivers in beliebige Mobs per Tag, Schattenlos-Fakes, falsche Truhe, Config.
 - [x] Später: Furcht-Mob (extrem stark, verursacht Zittern) – Konzept folgt (Audit 12.10. Dublette, zusammengeführt mit Zeile 824 / Überblick: (Furcht-Mobs, A))
 
@@ -258,11 +252,11 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Alte Verschleiß-Optionen der Brecher-Kolben nicht migrieren (Besitzer: ok).
 
 ## Nachtrag 38b (2026-10-11, Besitzer, Deceiver Stufe 2 – in Arbeit auf claude-deceiver2)
-- [ ] Tarn-Umhang (Brustplatz): Erkennung erst im 3-Block-Radius; Rechtsklick auf Mob/Spieler → Verwandlung (Spieler mit Skin + Rüstung); Schlag/Abbauen → Rückverwandlung; Enttarnung: angegriffener Mob + 5x5, danach erhöhter, aber verringerter Radius.
-- [ ] Unsichtbarkeitstrank ohne Partikel; Trugbild-Spiegel.
-- [ ] Spezialangriff: Mob-Anzahl verdoppeln, Chance 5 % → 80 % bei wenig Leben.
-- [ ] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt.
-- [ ] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop.
+- [x] Tarn-Umhang (Brustplatz): Erkennung erst im 3-Block-Radius; Rechtsklick auf Mob/Spieler → Verwandlung (Spieler mit Skin + Rüstung); Schlag/Abbauen → Rückverwandlung; Enttarnung: angegriffener Mob + 5x5, danach erhöhter, aber verringerter Radius. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
+- [x] Unsichtbarkeitstrank ohne Partikel; Trugbild-Spiegel. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
+- [x] Spezialangriff: Mob-Anzahl verdoppeln, Chance 5 % → 80 % bei wenig Leben. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
+- [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
+- [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
 ## Nachtrag 49 (2026-10-12, Besitzer)
 - [ ] Seelen-Lohe (Soul Blaze) schießt Seelenfeuer-Kugeln (Soulfire Charge, craftbar mit Seelen-Lohenstaub); Treffer gibt Seelenbrand-Effekt.
