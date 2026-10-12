@@ -4869,8 +4869,8 @@ public final class DataIntegrityTests {
      *
      * <p>Derived from the loaded recipes: every {@code count_based_smithing} recipe whose template
      * is the basic template contributes the tool kind of its result (the base is the same kind one
-     * tier lower) and the material of its addition. The English "applies to" line has to list
-     * exactly those kinds, and the "ingredients" line has to name every material.
+     * tier lower) and the material of its addition. The English "applies to" line names the tier span of the
+     * bases (N41: "Wood–Gold Equipment"), and the "ingredients" line has to name every material.
      */
     public static void basicUpgradeTemplateTextNamesOnlyRealToolsAndMaterials(GameTestHelper helper) {
         Map<String, String> kindNames = new LinkedHashMap<>();
@@ -4923,10 +4923,32 @@ public final class DataIntegrityTests {
         helper.assertTrue(recipes >= 30, "only " + recipes + " basic template recipes loaded");
 
         JsonObject en = langFile(helper, "en_us");
-        Set<String> listed = new java.util.TreeSet<>(List.of(
-                en.get("item.simplebuilding.basic_upgrade_template.applies_to").getAsString().split(",\\s*")));
-        if (!listed.equals(kinds)) {
-            problems.add("applies_to lists " + listed + " but the recipes upgrade " + kinds);
+        // Besitzer N41: kurz als Stufenspanne ("Wood–Gold Equipment") statt Werkzeugliste; die Spanne muss genau die
+        // niedrigste und hoechste Basisstufe der geladenen Rezepte nennen.
+        List<String> tiers = List.of("wooden", "stone", "copper", "iron", "gold");
+        List<String> tierNames = List.of("Wood", "Stone", "Copper", "Iron", "Gold");
+        int low = Integer.MAX_VALUE, high = -1;
+        for (RecipeHolder<?> holder : helper.getLevel().getServer().getRecipeManager().getRecipes()) {
+            if (!(holder.value() instanceof CountBasedSmithingRecipe recipe)
+                    || recipe.templateIngredient().isEmpty() || !recipe.templateIngredient().get().test(template)) {
+                continue;
+            }
+            String id = holder.id().identifier().getPath().replace("upgrade_golden_", "upgrade_gold_");
+            int tier = -1;
+            for (int i = 0; i < tiers.size(); i++) {
+                if (id.startsWith("upgrade_" + tiers.get(i) + "_")) tier = i;
+            }
+            if (tier < 0) {
+                problems.add(holder.id().identifier() + " starts from a tier this test does not know");
+            } else {
+                low = Math.min(low, tier);
+                high = Math.max(high, tier);
+            }
+        }
+        String appliesTo = en.get("item.simplebuilding.basic_upgrade_template.applies_to").getAsString();
+        if (high >= 0 && !appliesTo.equals(tierNames.get(low) + "\u2013" + tierNames.get(high) + " Equipment")) {
+            problems.add("applies_to \"" + appliesTo + "\" does not name the tier span " + tierNames.get(low) + "-"
+                    + tierNames.get(high) + " of the recipes (kinds " + kinds + ")");
         }
         String ingredients = en.get("item.simplebuilding.basic_upgrade_template.ingredients").getAsString();
         for (String material : materials) {

@@ -585,7 +585,7 @@
   "upgrade.simplebuilding.emitting_trim_base_slot_description": "Leuchtende Rüstung hinzufügen",
   "upgrade.simplebuilding.emitting_trim_additions_slot_description": "Glowstonestaub hinzufügen",
   "item.simplebuilding.basic_upgrade_template": "Basis-Aufwertung",
-  "item.simplebuilding.basic_upgrade_template.applies_to": "Spitzhacke, Axt, Schaufel, Hacke, Schwert, Vorschlaghammer, Meißel, Baustab",
+  "item.simplebuilding.basic_upgrade_template.applies_to": "Holz- bis Gold-Ausrüstung",
   "item.simplebuilding.basic_upgrade_template.ingredients": "Bruchstein, Eisenbarren, Goldbarren, Diamanten oder Kerne",
   "item.simplebuilding.basic_upgrade_template.upgrade_description": "Werkzeugstufe aufwerten",
   "upgrade.simplebuilding.count_based": "Stufen-Aufwertung",
@@ -3692,5 +3692,5 @@
   "book.simplebuilding.storage.11.title": "Kisten",
   "book.simplebuilding.storage.11.text": "Bretter in U-Form ergeben eine offene Kiste für Essen.\nFasst 8 Stapel, in 3D sichtbar. Trichter füllen sie. Aufrecht oder seitlich platzierbar.",
   "book.simplebuilding.gadgets.15.title": "Sculk-Kiefer",
-  "book.simplebuilding.gadgets.15.text": "Knochen, Echo-Splitter, 3 Sculk. Nur auf vollen Blöcken; sieht aus wie Sculk.\nWer eintritt, wird wie im Netz verlangsamt und geblendet. Beißt einmal."
+  "book.simplebuilding.gadgets.15.text": "Knochen, Echo-Splitter, 3 Sculk. Nur auf vollen Blöcken; sieht aus wie Sculk.\nWer eintritt, wird wie im Netz verlangsamt und in Dunkelheit gehüllt. Beißt einmal."
 }

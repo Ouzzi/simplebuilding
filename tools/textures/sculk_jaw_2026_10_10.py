@@ -25,7 +25,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
-PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", os.path.expanduser("~/previews") + "/n38"))
+PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", os.path.expanduser("~/previews") + "/n41"))
 WIKI = ROOT / "wiki/assets/textures"
 
 
@@ -70,9 +70,11 @@ def texture():
 
 
 TOOTH_TOP_UV = [4, 5, 6, 7]  # Oberseite der Zaehne: Knochen, unabhaengig von der Lage
+# Besitzer N41: offen dezenter - kleinere Zaehne, Oberseite nur aus dem blassen Uebergang (Knochen-Flecken auf Sculk).
+OPEN_TOOTH_TOP_UV = [4, 8, 6, 10]
 
 
-SCULK, TEETH = "#sculk", "#teeth"
+SCULK, TEETH, TEETH_OPEN = "#sculk", "#teeth", "#teeth_open"
 LIPS = [(0, 2, 4, 0), (1, 4, 6, 1), (3, 6, 7, 2.5)]  # (Abstand vom Rand, y0, y1, z-Einzug) je Stufe
 
 
@@ -81,10 +83,13 @@ def jaw_elements(f):
     els = [([0, 0, 0], [16, 2, 16], SCULK)]
     if f == 0:
         els += [([0, 2, 0], [2, 4, 16], SCULK), ([14, 2, 0], [16, 4, 16], SCULK)]
+        # N41: offen kleiner (1,5 breit, 2,5 hoch statt 2 breit, 4 hoch) und blasser, damit die Tarnung haelt.
         for z in (0, 4, 8, 12):
-            els += [([0, 4, z], [2, 6, z + 2], TEETH), ([0.5, 6, z + 0.5], [1.5, 8, z + 1.5], TEETH)]
+            els += [([0.25, 4, z + 0.25], [1.75, 5, z + 1.75], TEETH_OPEN),
+                    ([0.5, 5, z + 0.5], [1.5, 6.5, z + 1.5], TEETH_OPEN)]
         for z in (2, 6, 10, 14):
-            els += [([14, 4, z], [16, 6, z + 2], TEETH), ([14.5, 6, z + 0.5], [15.5, 8, z + 1.5], TEETH)]
+            els += [([14.25, 4, z + 0.25], [15.75, 5, z + 1.75], TEETH_OPEN),
+                    ([14.5, 5, z + 0.5], [15.5, 6.5, z + 1.5], TEETH_OPEN)]
         return els
     inner = 2 + 6 * f  # Innenkante der Lippen wandert vom Rand zur Mitte
     for out, y0, y1, zi in LIPS:
@@ -138,9 +143,11 @@ def model(f):
         for face, (ax, sign) in AXIS.items():
             if covered(i, face, raw):
                 continue
-            entry = {"texture": texture_ref}
+            entry = {"texture": TEETH if texture_ref == TEETH_OPEN else texture_ref}
             if texture_ref == TEETH and face == "up":
                 entry["uv"] = TOOTH_TOP_UV
+            elif texture_ref == TEETH_OPEN and face == "up":
+                entry["uv"] = OPEN_TOOTH_TOP_UV
             if (sign < 0 and frm[ax] == 0) or (sign > 0 and to[ax] == 16):
                 entry["cullface"] = face
             faces[face] = entry

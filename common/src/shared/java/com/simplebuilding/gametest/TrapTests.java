@@ -35,12 +35,12 @@ public final class TrapTests {
             return;
         }
         helper.assertTrue(ModBlocks.SCULK_JAW.defaultBlockState().getSoundType() == SoundType.EMPTY, "sculk jaw is not silent");
-        // Besitzer N38: Blindheit waechst exponentiell mit der Verweildauer (2 s -> 3 s, 3 s -> 5 s, Deckel 60 s).
-        helper.assertTrue(SculkJawBlock.blindnessTicks(0) == 60 && SculkJawBlock.blindnessTicks(40) == 60
-                        && SculkJawBlock.blindnessTicks(60) == 100 && SculkJawBlock.blindnessTicks(80) == 167
-                        && SculkJawBlock.blindnessTicks(20 * 30) == 1200,
-                "blindness curve: " + SculkJawBlock.blindnessTicks(40) + "/" + SculkJawBlock.blindnessTicks(60) + "/"
-                        + SculkJawBlock.blindnessTicks(80) + "/" + SculkJawBlock.blindnessTicks(600));
+        // Besitzer N38/N41: Dunkelheit (statt Blindheit) waechst exponentiell mit der Verweildauer (2 s -> 3 s, 3 s -> 5 s, Deckel 60 s).
+        helper.assertTrue(SculkJawBlock.darknessTicks(0) == 60 && SculkJawBlock.darknessTicks(40) == 60
+                        && SculkJawBlock.darknessTicks(60) == 100 && SculkJawBlock.darknessTicks(80) == 167
+                        && SculkJawBlock.darknessTicks(20 * 30) == 1200,
+                "darkness curve: " + SculkJawBlock.darknessTicks(40) + "/" + SculkJawBlock.darknessTicks(60) + "/"
+                        + SculkJawBlock.darknessTicks(80) + "/" + SculkJawBlock.darknessTicks(600));
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, ModBlocks.SCULK_JAW);
         Pig pig = helper.spawn(EntityTypes.PIG, new BlockPos(1, 1, 1));
@@ -62,9 +62,10 @@ public final class TrapTests {
             helper.assertTrue(Math.abs(pig.getHealth() - (full - SculkJawBlock.BITE_DAMAGE)) < 0.01F,
                     "one bite of " + SculkJawBlock.BITE_DAMAGE + " expected: pig health " + pig.getHealth() + " of " + full);
             helper.assertTrue(dark[0], "the pig in the jaw got no darkness");
-            var blind = pig.getEffect(net.minecraft.world.effect.MobEffects.BLINDNESS);
-            helper.assertTrue(blind != null && blind.getDuration() >= SculkJawBlock.blindnessTicks(60),
-                    "after 3+ s in the jaw the pig should stay blind for at least 5 s: " + blind);
+            helper.assertFalse(pig.hasEffect(net.minecraft.world.effect.MobEffects.BLINDNESS), "the jaw still blinds (N41: darkness only)");
+            var darkness = pig.getEffect(net.minecraft.world.effect.MobEffects.DARKNESS);
+            helper.assertTrue(darkness != null && darkness.getDuration() >= SculkJawBlock.darknessTicks(60),
+                    "after 3+ s in the jaw the pig should stay in darkness for at least 5 s: " + darkness);
             helper.assertTrue(moved[0], "the jaw snapped shut without its closing frames");
             helper.assertTrue(helper.getBlockState(pos).getValue(SculkJawBlock.MOTION) == 0, "the shut jaw is still moving: "
                     + helper.getBlockState(pos));

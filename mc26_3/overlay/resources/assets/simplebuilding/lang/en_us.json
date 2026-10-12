@@ -611,7 +611,7 @@
   "upgrade.simplebuilding.emitting_trim_base_slot_description": "Add Glowing Armor",
   "upgrade.simplebuilding.emitting_trim_additions_slot_description": "Add Glowstone Dust",
   "item.simplebuilding.basic_upgrade_template": "Basic Upgrade",
-  "item.simplebuilding.basic_upgrade_template.applies_to": "Pickaxe, Axe, Shovel, Hoe, Sword, Sledgehammer, Chisel, Building Wand",
+  "item.simplebuilding.basic_upgrade_template.applies_to": "Wood–Gold Equipment",
   "item.simplebuilding.basic_upgrade_template.ingredients": "Cobblestone, Iron Ingots, Gold Ingots, Diamonds or Cores",
   "item.simplebuilding.basic_upgrade_template.upgrade_description": "Upgrade Tool Tier",
   "upgrade.simplebuilding.count_based": "Tier Upgrade",
@@ -3690,5 +3690,5 @@
   "book.simplebuilding.storage.11.title": "Crates",
   "book.simplebuilding.storage.11.text": "Planks in a U make an open crate for food.\nHolds 8 stacks, shown in 3D. Hoppers fill it. Place it upright or on its side.",
   "book.simplebuilding.gadgets.15.title": "Sculk Jaw",
-  "book.simplebuilding.gadgets.15.text": "Bone, echo shard and 3 sculk. Only on full blocks; looks like sculk.\nWhoever steps in is slowed like in a web and blinded. It bites once."
+  "book.simplebuilding.gadgets.15.text": "Bone, echo shard and 3 sculk. Only on full blocks; looks like sculk.\nWhoever steps in is slowed like in a web and plunged into darkness. It bites once."
 }

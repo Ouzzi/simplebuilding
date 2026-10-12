@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:block/stripped_oak_cauldron"
+    "model": "simplebuilding:item/stripped_oak_cauldron"
   }
 }
