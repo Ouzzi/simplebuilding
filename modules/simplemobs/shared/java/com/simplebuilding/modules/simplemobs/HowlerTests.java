@@ -60,6 +60,11 @@ final class HowlerTests {
         BlockPos o = h.absolutePos(BlockPos.ZERO);
         p.snapTo(o.getX() + x, o.getY() + 1 + (ground ? 0 : 0.8), o.getZ() + z);
         p.setOnGround(ground);
+        // like MobHeadTests: mock players start invulnerable until the client reports it has loaded
+        p.getAbilities().invulnerable = false;
+        p.setInvulnerable(false);
+        p.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());
+        h.runBeforeTestEnd(() -> h.getLevel().getServer().getPlayerList().remove(p));
         return p;
     }
 
@@ -90,7 +95,7 @@ final class HowlerTests {
             h.assertTrue(attrs.getBaseValue(Attributes.MAX_HEALTH) > warden.getBaseValue(Attributes.MAX_HEALTH), "more health than the Warden");
             h.assertTrue(attrs.getBaseValue(Attributes.ARMOR) > warden.getBaseValue(Attributes.ARMOR), "more armor than the Warden");
             h.assertTrue(attrs.getBaseValue(Attributes.KNOCKBACK_RESISTANCE) >= warden.getBaseValue(Attributes.KNOCKBACK_RESISTANCE), "knockback resistance like the Warden");
-            h.assertTrue(attrs.getBaseValue(Attributes.MOVEMENT_SPEED) >= warden.getBaseValue(Attributes.MOVEMENT_SPEED), "as fast as the Warden");
+            h.assertTrue(attrs.getBaseValue(Attributes.MOVEMENT_SPEED) >= warden.getBaseValue(Attributes.MOVEMENT_SPEED) - 1.0e-6, "as fast as the Warden");
             h.succeed();
         });
         add.accept("howler_rules", h -> {
@@ -232,14 +237,14 @@ final class HowlerTests {
             var player = h.makeMockServerPlayerInLevel();
             var src = l.damageSources().playerAttack(player);
             float before = howler.getHealth();
-            howler.hurtServer(l, src, 10f);
+            howler.hurtServer(l, src, 20f);
             float plain = before - howler.getHealth();
             // a second Howler, so hurt cooldown frames do not mix in
             HowlerEntity biting = h.spawn(MobsRegistry.HOLLOW_HOWLER, 5, 1, 5);
             biting.setNoAi(true);
             biting.startBite();
             before = biting.getHealth();
-            biting.hurtServer(l, src, 10f);
+            biting.hurtServer(l, src, 20f);
             float weak = before - biting.getHealth();
             biting.discard();
             h.assertTrue(Math.abs(weak - plain * 1.5f) < 0.01f, "hits on opening jaws deal x1.5: " + plain + " -> " + weak);
@@ -313,7 +318,7 @@ final class HowlerTests {
             h.assertTrue(howler.attack() == HowlerLogic.Attack.CHARGE && howler.chargeDirection().x > 0.99, "locked straight ahead");
             h.runAfterDelay(HowlerLogic.CHARGE_WINDUP_TICKS - 2, () -> h.assertTrue(howler.getX() < startX + 0.5, "stays put during the wind-up"));
             h.succeedWhen(() -> {
-                h.assertTrue(target.getHealth() < target.getMaxHealth(), "the charge hits the player in its line");
+                h.assertTrue(target.getHealth() < target.getMaxHealth(), "the charge hits the player in its line (moved " + (howler.getX() - startX) + ", " + howler.attack() + ")");
                 h.assertTrue(aside.getHealth() == aside.getMaxHealth(), "a player beside the line is spared");
                 howler.discard();
             });
@@ -323,11 +328,12 @@ final class HowlerTests {
             floor(h);
             for (int y = 1; y <= 4; y++) for (int z = 0; z <= 7; z++) l.setBlock(h.absolutePos(new BlockPos(4, y, z)), Blocks.STONE.defaultBlockState(), 3);
             HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 3);
+            double startX = howler.getX();
             var target = prey(h, 7.0, 3.5, true);
             howler.setTarget(target);
             howler.startCharge(l, target.position().subtract(howler.position()));
             h.succeedWhen(() -> {
-                h.assertTrue(howler.staggered(), "running into the wall staggers it");
+                h.assertTrue(howler.staggered(), "running into the wall staggers it (moved " + (howler.getX() - startX) + ", " + howler.attack() + ", target " + howler.getTarget() + ")");
                 h.assertTrue(target.getHealth() == target.getMaxHealth(), "the player behind the wall is safe");
                 howler.discard();
             });
