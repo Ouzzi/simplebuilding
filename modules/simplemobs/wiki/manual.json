@@ -1,4 +1,7 @@
 {
+  "modelOnly": {
+    "simplemobs:soul_fire_charge": "SoulFireball shows a Vanilla fire charge stack with this item model (ITEM_MODEL); no separate item is registered."
+  },
   "features": [
     {
       "id": "hollow_howler",

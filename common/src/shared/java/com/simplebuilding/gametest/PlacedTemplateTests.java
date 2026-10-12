@@ -1205,7 +1205,7 @@ public final class PlacedTemplateTests {
                     "the hitbox leaves the block or towers: " + bounds);
             helper.assertTrue(bounds.maxX - bounds.minX > 0.5 && bounds.maxZ - bounds.minZ > 0.5, "the hitbox does not cover the four spots: " + bounds);
             player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-            player.gameMode.destroyBlock(abs);
+            breakPartByPart(helper, player, spot);
             helper.assertTrue(helper.getBlockState(spot).isAir(), "the pile was not broken");
             helper.assertValueEqual(droppedCount(helper, spot, ModItems.STONE_PEBBLE), 1, "pebbles dropped");
             helper.assertValueEqual(droppedCount(helper, spot, ModItems.FLINT_CHIP), 2, "flint chips dropped");
@@ -1215,6 +1215,16 @@ public final class PlacedTemplateTests {
             features.placeDisabledItems = disabled;
         }
         helper.succeed();
+    }
+
+    /**
+     * N37 (owner 2026-10-11): a player breaks only the looked-at part of a pile, so a whole pile takes one break per part;
+     * the drops of all breaks together are what the old whole-pile break gave.
+     */
+    private static void breakPartByPart(GameTestHelper helper, ServerPlayer player, BlockPos spot) {
+        for (int i = 0; i <= PlacedSmallParts.MAX_PARTS && helper.getBlockState(spot).is(ModBlocks.PLACED_SMALL_PARTS); i++) {
+            player.gameMode.destroyBlock(helper.absolutePos(spot));
+        }
     }
 
     /**
@@ -1231,7 +1241,7 @@ public final class PlacedTemplateTests {
         player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         BlockPos silkSpot = pile(helper, new BlockPos(1, 1, 1), new ItemStack(Items.BLUE_EGG), new ItemStack(Items.BROWN_EGG), new ItemStack(ModItems.STONE_PEBBLE));
         player.setItemInHand(InteractionHand.MAIN_HAND, silkPickaxe(helper));
-        player.gameMode.destroyBlock(helper.absolutePos(silkSpot));
+        breakPartByPart(helper, player, silkSpot);
         helper.assertTrue(helper.getBlockState(silkSpot).isAir(), "the silk touch pickaxe did not break the pile");
         helper.assertValueEqual(droppedCount(helper, silkSpot, Items.BLUE_EGG), 1, "blue eggs back from silk touch");
         helper.assertValueEqual(droppedCount(helper, silkSpot, Items.BROWN_EGG), 1, "brown eggs back from silk touch");
@@ -1436,7 +1446,7 @@ public final class PlacedTemplateTests {
 
         // breaking by hand gives every part back (candles as candles)
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-        player.gameMode.destroyBlock(helper.absolutePos(litSpot));
+        breakPartByPart(helper, player, litSpot);
         helper.assertTrue(helper.getBlockState(litSpot).isAir(), "the pile was not broken");
         helper.assertValueEqual(droppedCount(helper, litSpot, Items.CANDLE), 2, "candles dropped");
         helper.assertValueEqual(droppedCount(helper, litSpot, redCandle), 1, "red candles dropped");

@@ -939,16 +939,6 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "usedIn": []
     },
     {
-      "id": "simplemobs:soul_fire_charge",
-      "name": {
-        "en_us": "Soul Fire Charge"
-      },
-      "note": null,
-      "texture": "assets/textures/simplemobs/item/soul_fire_charge.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
       "id": "simplemobs:soulfire_blaze_spawn_egg",
       "name": {
         "en_us": "Soulfire Blaze Spawn Egg",
@@ -997,9 +987,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplemobs:soul_fire_charge"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 5,
@@ -1008,13 +996,13 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
     "tags": 4,
     "advancements": 0,
     "enchantments": 0,
-    "items": 10,
+    "items": 9,
     "blocks": 0,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
