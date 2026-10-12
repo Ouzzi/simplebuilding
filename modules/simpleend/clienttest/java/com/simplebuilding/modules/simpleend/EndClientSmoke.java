@@ -72,15 +72,28 @@ public final class EndClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simpleend-garden");
             for (var biome : new net.minecraft.resources.ResourceKey[] {EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS}) {
                 @SuppressWarnings("unchecked") var key = (net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>) biome;
+                BlockPos[] spot = new BlockPos[1];
                 world.getServer().runOnServer(server -> {
                     ServerLevel end = server.getLevel(Level.END);
                     var found = end.findClosestBiome3d(h -> h.is(key), new BlockPos(1600, 64, 0), 6400, 32, 64);
                     if (found == null) throw new AssertionError("no " + key.identifier() + " within 6400 blocks");
-                    BlockPos at = found.getFirst();
-                    int y = end.getHeight(Heightmap.Types.MOTION_BLOCKING, at.getX(), at.getZ());
-                    cmd(server, "execute in minecraft:the_end run tp @a " + (at.getX() - 10) + " " + (Math.max(y, 50) + 10) + " " + (at.getZ() - 10) + " -45 25");
+                    spot[0] = found.getFirst();
+                    cmd(server, "execute in minecraft:the_end run tp @a " + spot[0].getX() + " 140 " + spot[0].getZ() + " -45 60");
                 });
                 context.waitTicks(100);
+                world.getServer().runOnServer(server -> {
+                    ServerLevel end = server.getLevel(Level.END);
+                    // chunks are loaded around the player now: find the island surface and step back from it
+                    int best = 0;
+                    BlockPos at = spot[0];
+                    for (int dx = -24; dx <= 24; dx += 4)
+                        for (int dz = -24; dz <= 24; dz += 4) {
+                            int y = end.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, at.getX() + dx, at.getZ() + dz);
+                            if (y > best) { best = y; }
+                        }
+                    cmd(server, "execute in minecraft:the_end run tp @a " + (at.getX() - 14) + " " + (best + 12) + " " + (at.getZ() - 14) + " -45 30");
+                });
+                context.waitTicks(80);
                 world.getConnection().waitForChunksRender();
                 context.takeScreenshot("simpleend-" + key.identifier().getPath());
             }
