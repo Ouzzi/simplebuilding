@@ -65,6 +65,7 @@ public final class RespawnTests {
 
     static void lethal(GameTestHelper h, ServerPlayer player) {
         player.setInvulnerableTime(0);
+        player.damageCooldownTime = 0;
         player.hurtServer(h.getLevel(), player.damageSources().generic(), 1000f);
     }
 
@@ -126,6 +127,7 @@ public final class RespawnTests {
             lethal(h, holder);
             h.assertTrue(!RespawnServer.isDowned(holder) && holder.isAlive() && holder.getMainHandItem().isEmpty(), "the totem works first");
             voidVictim.setInvulnerableTime(0);
+        voidVictim.damageCooldownTime = 0;
             voidVictim.hurtServer(h.getLevel(), voidVictim.damageSources().fellOutOfWorld(), 1000f);
             h.assertTrue(!RespawnServer.isDowned(voidVictim) && voidVictim.isDeadOrDying(), "the void kills at once");
             h.succeed();
@@ -147,6 +149,7 @@ public final class RespawnTests {
             h.assertTrue(!RespawnServer.isDowned(victim) && victim.isDeadOrDying(), "1000 damage while downed uses up the time: dead");
             ServerPlayer second = downedPair(h, "hurt2");
             second.setInvulnerableTime(0);
+        second.damageCooldownTime = 0;
             second.hurtServer(h.getLevel(), second.damageSources().generic(), 5f);
             h.assertTrue(RespawnServer.isDowned(second) && RespawnServer.state(second).ticksLeft == before - 100 && second.getHealth() == 1f,
                     "5 damage costs 5 seconds, still down at 1 health");
