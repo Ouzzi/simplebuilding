@@ -1,0 +1,16 @@
+{
+  "simpletools.title": "Simple Tools",
+  "simpletools.tab.general": "Allgemein",
+  "simpletools.option.enableFullDurabilityBonus": "Voll-Haltbarkeits-Bonus",
+  "simpletools.option.enableFullDurabilityBonus.tooltip": "Gewährt einen Bonus auf Abbaugeschwindigkeit\nund Schaden, wenn Werkzeuge/Waffen nahezu\nvolle Haltbarkeit haben. Standard: true.",
+  "simpletools.option.fullDurabilityThreshold": "Haltbarkeitsschwelle (0.8–1.0)",
+  "simpletools.option.fullDurabilityThreshold.tooltip": "Benötigter Haltbarkeits-Anteil, um den Bonus\nauszulösen (z.B. 0.9 für 90%). Standard: 0.8.\nErlaubter Bereich: 0.8–1.0.",
+  "simpletools.option.fullDurabilityBonusMultiplier": "Bonus-Multiplikator",
+  "simpletools.option.fullDurabilityBonusMultiplier.tooltip": "Multiplikator für Geschwindigkeit/Schaden\n(z.B. 1.15 für +15%). Standard: 1.0.\nErlaubter Bereich: 1.0–1.5. Gilt für Vanilla-\nund Mod-Werkzeuge. 1.0 bedeutet keinen Bonus;\ngespeicherte Werte bleiben erhalten.",
+  "simpletools.option.anvilRepairKeepsCost": "Reparieren hält Ambosskosten",
+  "simpletools.option.anvilRepairKeepsCost.tooltip": "Reparieren oder Umbenennen am Amboss ohne\nneue Verzauberung erhöht die Ambosskosten des\nGegenstands nicht. Nur Verzaubern tut das.\nStandard: true.",
+  "simpletools.option.enableFurnaceLavaFill": "Ofen mit Lava befüllen",
+  "simpletools.option.enableFurnaceLavaFill.tooltip": "Einen Lavaeimer in den leeren Brennstoffplatz\neinsetzen oder einen verbliebenen Eimer\ntauschen. Der leere Eimer bleibt nach dem\nVerbrennen im Ofen. Standard: true.",
+  "command.simpletools.changed": "Konfiguration gespeichert: %s = %s",
+  "enchantment.simplequalityoflife.thrift": "Sparsamkeit"
+}

@@ -2,6 +2,11 @@
   "required": true,
   "package": "com.simplebuilding.modules.simpleinterfaces.mixin",
   "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ContainerMenuLinkedMixin",
+    "ServerPlayerLinkedMixin",
+    "ItemUsePortableMixin"
+  ],
   "client": [
     "ContainerLabelsMixin",
     "StyleToggleMixin",
@@ -25,7 +30,10 @@
     "BeaconButtonMixin",
     "BeaconIconMixin",
     "EnchantmentBackgroundMixin",
-    "SlotIconMixin"
+    "SlotIconMixin",
+    "ContainerScreenLinkedMixin",
+    "HudLinkedMixin",
+    "SlotPositionAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

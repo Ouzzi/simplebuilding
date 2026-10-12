@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleloot",
+  "version": "${version}",
+  "name": "Simple Loot",
+  "description": "Loot switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleloot.LootFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleloot.ModuleGameTest"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simpleloot.LootModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "simpleloot.mixins.json"
+  ],
+  "suggests": {
+    "simplequalityoflife": "*",
+    "modmenu": "*"
+  }
+}

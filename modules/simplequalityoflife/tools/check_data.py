@@ -13,27 +13,26 @@ def unique(p):
 en=unique(MODULE/'shared/resources/assets/simplequalityoflife/lang/en_us.json')
 de=unique(MODULE/'shared/resources/assets/simplequalityoflife/lang/de_de.json')
 assert en.keys()==de.keys()
-bonus='text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityBonusMultiplier.@Tooltip'
-for lang in (en,de):
- assert '1.0' in lang[bonus] and '1.0–1.5' in lang[bonus], 'Bonus default/range documented'
 assert all(chr(195) not in v and chr(194) not in v for v in de.values()), 'German text has mojibake'
 config=(MODULE/'shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java').read_text()
-nested=False
-for line in config.splitlines():
- if 'public static class QOL' in line:nested=True
- match=re.search(r'public (boolean|double|int|SlideActivationMode|List<String>) (\w+) = (.*?);',line)
- if not match:continue
- kind,key,value=match.groups();key=('qOL.' if nested else '')+key
+switches=re.findall(r'public boolean (enableSimple\w+) = true;',config)
+assert len(switches)==7 and not re.search(r'public (double|int|List<String>|static class)',config), 'Super-mod config holds only the sub-mod switches'
+manual=unique(MODULE/'wiki/manual.json')
+ids={f['id'] for f in manual['features']}
+for key in switches:
  k='text.autoconfig.simplequalityoflife.option.'+key
  for lang in (en,de):assert k in lang and k+'.@Tooltip' in lang and ('Default:' in lang[k+'.@Tooltip'] or 'Standard:' in lang[k+'.@Tooltip']),key
-manual=unique(MODULE/'wiki/manual.json')
-assert len(manual['features'])>=35
+ assert 'config_'+key in ids, 'wiki feature for '+key
+# Every switch names a bundled, required sub-mod.
+modules={m['id']:m for m in json.loads((MODULE.parents[0]/'modules.json').read_text(encoding='utf-8'))['modules']}
+subs={m['id'] for m in modules.values() if m.get('parent')=='simplequalityoflife'}
+assert len(subs)==7 and subs<=set(modules['simplequalityoflife']['requires']), subs
 for feature in manual['features']:
  assert feature['en']['summary'] and feature['de']['summary']
  for source in feature['sources']:assert (MODULE.parents[1]/source).is_file(),source
 # The only item is the generated guide (tools/guides/module_guides.py).
 assert [p.stem for p in (MODULE/'shared/resources/assets/simplequalityoflife/items').glob('*.json')]==['guide_book'], 'No invented items besides the guide'
 assert not any(k.startswith(('item.','block.','itemgroup.')) and k!='item.simplequalityoflife.guide_book' for k in en), 'No stale registry names'
-mix=unique(MODULE/'shared/resources/simplequalityoflife-common.mixins.json')
-for name in mix['mixins']+mix['client']:assert (MODULE/'shared/java/com/simplequalityoflife/mixin'/Path(name.replace('.','/')+'.java')).is_file()
+# Super-mod: the gameplay mixins live in the bundled sub-mods (docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md).
+assert not (MODULE/'shared/resources/simplequalityoflife-common.mixins.json').exists() and not (MODULE/'shared/java/com/simplequalityoflife/mixin').exists(), 'No gameplay mixins in the super-mod'
 print('simplequalityoflife: bilingual config/wiki, source evidence, mixin catalogue and empty registry inventory valid')

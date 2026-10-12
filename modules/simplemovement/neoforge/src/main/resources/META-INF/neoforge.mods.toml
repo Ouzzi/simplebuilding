@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplemovement"
+version="${version}"
+displayName="Simple Movement"
+description="Movement switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone."
+[[dependencies.simplemovement]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[mixins]]
+config="simplemovement.mixins.json"
+[[dependencies.simplemovement]]
+modId="cloth_config"
+type="required"
+versionRange="[26.3,)"
+
+[[dependencies.simplemovement]]
+modId="simplequalityoflife"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplemovement]]
+modId="modmenu"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

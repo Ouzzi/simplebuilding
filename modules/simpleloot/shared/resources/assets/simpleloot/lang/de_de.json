@@ -1,0 +1,10 @@
+{
+  "simpleloot.title": "Simple Loot",
+  "simpleloot.tab.general": "Allgemein",
+  "simpleloot.option.enableVaultCooldown": "Erneute Tresorbelohnungen",
+  "simpleloot.option.enableVaultCooldown.tooltip": "Erneute Tresorbelohnungen nach der\nServerpause erlauben. Abschalten behält\neinmalige Vanilla-Belohnungen. Standard:\ntrue.",
+  "simpleloot.option.vaultCooldownDays": "Tresor-Abklingzeit (Tage)",
+  "simpleloot.option.vaultCooldownDays.tooltip": "Zeit in Minecraft-Tagen, bis ein Spieler\neinen Tresor erneut plündern kann. Standard:\n100. Erlaubter Bereich: 1–36500.",
+  "command.simpleloot.days": "Tresorpause gespeichert: %s Tage",
+  "command.simpleloot.changed": "Konfiguration gespeichert: %s = %s"
+}

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simpletools.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "AnvilRepairCostMixin",
+    "ThriftDurabilityMixin",
+    "FullDurabilityDamageMixin",
+    "FullDurabilityEfficiencyMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

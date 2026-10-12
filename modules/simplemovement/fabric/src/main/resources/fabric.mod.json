@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "simplemovement",
+  "version": "${version}",
+  "name": "Simple Movement",
+  "description": "Movement switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplemovement.MovementFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplemovement.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplemovement.MovementFabricClient"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simplemovement.MovementModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "simplemovement.mixins.json"
+  ],
+  "suggests": {
+    "simplequalityoflife": "*",
+    "modmenu": "*"
+  }
+}

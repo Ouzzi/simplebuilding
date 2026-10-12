@@ -1,0 +1,23 @@
+{
+  "simplemovement.title": "Simple Movement",
+  "simplemovement.tab.general": "General",
+  "simplemovement.option.enableManualCrawl": "Manual Crawling",
+  "simplemovement.option.enableManualCrawl.tooltip": "Allow /crawl and the crawl key. The server\nvalidates and limits changes. Default: true.",
+  "simplemovement.option.enableAutowalk": "Enable Auto-Walk",
+  "simplemovement.option.enableAutowalk.tooltip": "Allows automatic walking via keybind.\nDefault: false.",
+  "simplemovement.option.ladderClimbingSpeed": "Ladder Climbing Speed",
+  "simplemovement.option.ladderClimbingSpeed.tooltip": "Adjusts the vertical speed when climbing\nladders. Vanilla default is ~0.2. Default:\n0.4. Allowed range: 0.2–0.4.",
+  "simplemovement.option.enableFastLadderSlide": "Fast Ladder Slide",
+  "simplemovement.option.enableFastLadderSlide.tooltip": "If enabled, allows faster sliding down\nladders. Default: true.",
+  "simplemovement.option.ladderSlideSpeed": "Ladder Slide Speed",
+  "simplemovement.option.ladderSlideSpeed.tooltip": "Adjusts the vertical speed when sliding down\nladders. Default: 0.8. Allowed range:\n0.15–0.8.",
+  "simplemovement.option.ladderSlideActivation": "Slide Activation Mode",
+  "simplemovement.option.ladderSlideActivation.tooltip": "Determines how ladder sliding is activated\n(CAMERA = look down + sneak, ALWAYS = look\ndown unless sneaking). Default: \"CAMERA\".",
+  "simplemovement.option.frostWalkerWalkOnPowderSnow": "Frost Walker Walk on Powder Snow",
+  "simplemovement.option.frostWalkerWalkOnPowderSnow.tooltip": "Allows players wearing Frost Walker boots to\nwalk on powder snow without sinking. Default:\ntrue.",
+  "command.simplemovement.changed": "Configuration saved: %s = %s",
+  "command.simplemovement.speed": "Climbing speed saved: %s",
+  "key.simplemovement.autowalk": "Auto Walk",
+  "key.simplemovement.crawl": "Crawl",
+  "key.category.simplemovement.general": "Simple Quality of Life"
+}
