@@ -153,6 +153,8 @@ ext.mcLayeredResources = { SourceSet sourceSet, List<String> extraSharedDirs, St
         }
     }
     sourceSet.resources.setSrcDirs([merged])
+    // sourcesJar packs the merged tree (Gradle 9 validation: declare the dependency).
+    tasks.matching { it.name == 'sourcesJar' }.configureEach { dependsOn merge }
     sourceSet.resources.exclude 'wiki/**'
     tasks.named(sourceSet.processResourcesTaskName, ProcessResources).configure {
         dependsOn merge
