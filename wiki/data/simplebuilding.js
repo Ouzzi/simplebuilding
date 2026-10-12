@@ -31492,8 +31492,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_lamp",
       "name": {
-        "en_us": "Nihilith Lamp",
-        "de_de": "Nihilith-Lampe"
+        "en_us": "Nihilit Lamp",
+        "de_de": "Nihilit-Lampe"
       },
       "texture": "assets/textures/block/nihilith_lamp.png",
       "craftedBy": [
@@ -66392,8 +66392,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_lamp",
       "name": {
-        "en_us": "Nihilith Lamp",
-        "de_de": "Nihilith-Lampe"
+        "en_us": "Nihilit Lamp",
+        "de_de": "Nihilit-Lampe"
       },
       "texture": "assets/textures/block/nihilith_lamp.png",
       "craftedBy": [
