@@ -564,6 +564,30 @@
           "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, zeigt jeder Schlag Risse, dann dockt das Fass mit Flansch und Rinne am Tiegel an, bietet nur so viele Plätze wie der Tiegel (6/12/18/27; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da) und öffnet das Tiegel-Fenster; der Tiegel legt seine Ergebnisse zuerst dort ab, ein Trichter unter dem Fass nimmt sie heraus. Fass abbauen gibt Inhalt und normales Fass, Tiegel abbauen macht es wieder zum normalen Fass."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A barrel clad in copper, a little greener each year."
+          ],
+          "use": [
+            "The copper tier of the crucible barrel: it attaches to a crucible as extra storage, and works as a normal barrel on its own."
+          ],
+          "secret": [
+            "It is the first step of the barrel line, from copper through netherite to enderite."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Fass mit Kupferhülle, jedes Jahr ein wenig grüner."
+          ],
+          "use": [
+            "Die Kupferstufe des Tiegelfasses: Es lässt sich als Zusatzlager an einen Tiegel hängen und dient allein als normales Fass."
+          ],
+          "secret": [
+            "Es ist die erste Stufe der Fassreihe, von Kupfer über Netherit zu Enderit."
+          ]
+        }
+      },
       "craftedBy": [
         "simplelib:copper_barrel"
       ],
@@ -583,6 +607,30 @@
           "summary": "Ein halb gebauter Eisen-Schmelztiegel; abgebaut gibt er den Eisenblock und alle bisher verbrauchten Teile zurück."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A block of metal that has not yet become a pot."
+          ],
+          "use": [
+            "The crucible while it is being built: each strike on the blank adds a stage (base, four walls, handle) and cracks it further. The last strike turns it into an Iron Crucible."
+          ],
+          "secret": [
+            "It is the block you see halfway through building a crucible in the world. It has no recipe of its own."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Metallklotz, der noch kein Topf geworden ist."
+          ],
+          "use": [
+            "Der Tiegel im Bau: Jeder Schlag auf den Rohling fügt eine Stufe hinzu (Boden, vier Wände, Griff) und lässt ihn weiter reißen. Der letzte Schlag macht daraus einen Eisentiegel."
+          ],
+          "secret": [
+            "Es ist der Block, den man mitten im Bau eines Tiegels in der Welt sieht. Er hat kein eigenes Rezept."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -598,6 +646,30 @@
         },
         "de": {
           "summary": "Schmelztiegel mit 6 Plätzen in Ofen-Tempo; wird in der Welt aus einem Eisenblock gebaut (siehe Schmelztiegel)."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pot of iron that cooks without a fire of its own."
+          ],
+          "use": [
+            "A cooking station without fuel: every slot cooks at once, heated by the block below or two blocks below. 6 slots, speed 1x."
+          ],
+          "secret": [
+            "Build it in the world: an axe in the main hand, a heavy weighted pressure plate in the off hand, four strikes on an iron block, then two with an iron ingot. Walk into it like a cauldron."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Topf aus Eisen, der ohne eigenes Feuer kocht."
+          ],
+          "use": [
+            "Eine Kochstelle ohne Brennstoff: Alle Plätze kochen gleichzeitig, beheizt vom Block darunter oder zwei Blöcke darunter. 6 Plätze, Tempo 1x."
+          ],
+          "secret": [
+            "Im Spiel gebaut: Axt in der Haupthand, Schwere Druckplatte in der Nebenhand, vier Schläge auf einen Eisenblock, dann zwei mit einem Eisenbarren. Man kann wie in einen Kessel hineintreten."
+          ]
         }
       },
       "craftedBy": [],
@@ -617,6 +689,30 @@
           "summary": "Ein in der Welt aufgewertetes verstärktes Fass (Axt, 1 Netheritbarren, zehn Schläge; mit SimpleBuilding Vorschlaghammer und 2 Netheritklumpen): allein 45 Plätze, am Tiegel 9; als Gegenstand feuer- und lavafest."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A barrel of dark metal that does not burn."
+          ],
+          "use": [
+            "The Netherite tier of the crucible barrel: attach it to a crucible for even more storage."
+          ],
+          "secret": [
+            "It is fire resistant, like all Netherite blocks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Fass aus dunklem Metall, das nicht brennt."
+          ],
+          "use": [
+            "Die Netherit-Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es noch mehr Lagerplatz."
+          ],
+          "secret": [
+            "Es ist feuerfest wie alle Netherit-Blöcke."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -632,6 +728,30 @@
         },
         "de": {
           "summary": "Schmelztiegel mit 18 Plätzen in vierfachem Tempo; zählt die Erfahrung doppelt."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pot that cooks at the speed of a Nether fire."
+          ],
+          "use": [
+            "The Netherite tier of the crucible: 18 slots, speed 4x, experience is counted twice. A reinforced crucible becomes this with 1 netherite ingot and ten strikes."
+          ],
+          "secret": [
+            "Lava or soul lava underneath makes it cook furnace and blast furnace recipes, and soul lava also ancient debris."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Topf, der mit der Geschwindigkeit eines Netherfeuers kocht."
+          ],
+          "use": [
+            "Die Netherit-Stufe des Tiegels: 18 Plätze, Tempo 4x, Erfahrung zählt doppelt. Ein verstärkter Tiegel wird mit 1 Netheritbarren und zehn Schlägen dazu."
+          ],
+          "secret": [
+            "Lava oder Seelenlava darunter lässt ihn Ofen- und Hochofenrezepte kochen, Seelenlava auch Antiken Schrott."
+          ]
         }
       },
       "craftedBy": [],
@@ -651,6 +771,30 @@
           "summary": "Ein in der Welt aufgewertetes Kupfer-Fass (Axt, 2 Diamanten, zehn Schläge): allein 36 Plätze, am Tiegel 9."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A barrel that has been told to hold more."
+          ],
+          "use": [
+            "The Reinforced tier of the crucible barrel: attach it to a crucible for more storage."
+          ],
+          "secret": [
+            "Hoppers fill it like a chest, from above and the sides."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Fass, dem gesagt wurde, es solle mehr halten."
+          ],
+          "use": [
+            "Die verstärkte Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es mehr Lagerplatz."
+          ],
+          "secret": [
+            "Trichter füllen es wie eine Truhe, von oben und von der Seite."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -668,6 +812,30 @@
           "summary": "Ein Vanilla-Kessel, der (mit SimpleBuilding) auch Seelen-Lava fasst; heizt einen Schmelztiegel wie sein Inhalt (siehe Verstärkter Kessel)."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A cauldron reinforced against its own contents."
+          ],
+          "use": [
+            "Works like a vanilla cauldron (buckets, bottles, washing, rain, snow, dripstone) and holds lava and powder snow. With SimpleBuilding it also holds soul lava. Lava underneath a crucible heats it."
+          ],
+          "secret": [
+            "Make it with an axe and 8 diamonds in the off hand, five uses on a cauldron. With SimpleBuilding the sledgehammer and cracked diamonds replace them."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Kessel, verstärkt gegen seinen eigenen Inhalt."
+          ],
+          "use": [
+            "Funktioniert wie ein Vanilla-Kessel (Eimer, Flaschen, Waschen, Regen, Schnee, Tropfstein) und fasst Lava und Pulverschnee. Mit SimpleBuilding auch Seelenlava. Lava darin heizt einen Tiegel."
+          ],
+          "secret": [
+            "Herstellen mit einer Axt und 8 Diamanten in der Nebenhand, fünfmal auf einen Kessel. Mit SimpleBuilding ersetzen Vorschlaghammer und rissige Diamanten beides."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -683,6 +851,30 @@
         },
         "de": {
           "summary": "Schmelztiegel mit 9 Plätzen in doppeltem Tempo."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pot that learned to take twice the load."
+          ],
+          "use": [
+            "The Reinforced tier of the crucible: 12 slots (2x6), speed 2x. An iron crucible becomes this with 2 diamonds in the off hand and ten axe strikes (the sledgehammer with SimpleBuilding)."
+          ],
+          "secret": [
+            "Contents, progress and experience stay when you upgrade in place."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Topf, der gelernt hat, die doppelte Last zu tragen."
+          ],
+          "use": [
+            "Die verstärkte Stufe des Tiegels: 12 Plätze (2x6), Tempo 2x. Ein Eisentiegel wird mit 2 Diamanten in der Nebenhand und zehn Axtschlägen dazu."
+          ],
+          "secret": [
+            "Inhalt, Fortschritt und Erfahrung bleiben beim Aufrüsten an Ort und Stelle erhalten."
+          ]
         }
       },
       "craftedBy": [],

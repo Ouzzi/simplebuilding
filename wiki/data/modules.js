@@ -48,7 +48,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "bac8a93adf8c"
+    "dataHash": "f0135533e672"
   },
   {
     "id": "simplemoney",
@@ -78,7 +78,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "76bca9c07015"
+    "dataHash": "e784cd437db7"
   },
   {
     "id": "simpleriding",
@@ -98,7 +98,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "814349a1b94c"
+    "dataHash": "0bd92118313a"
   },
   {
     "id": "simplemodels",
@@ -116,7 +116,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "076a664a480e"
+    "dataHash": "5173fcf52c53"
   },
   {
     "id": "simplefun",
@@ -137,7 +137,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "d6b752e0f54c"
+    "dataHash": "4092c8008f32"
   },
   {
     "id": "simplevisuals",
@@ -206,7 +206,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "aeeac60c4581"
+    "dataHash": "e956175e3dd5"
   },
   {
     "id": "simpletweaks",
@@ -224,7 +224,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "20ecb63a9a29"
+    "dataHash": "60ec5a90e0d7"
   },
   {
     "id": "simpledimensions",
@@ -249,7 +249,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
-    "dataHash": "f690c64083e7"
+    "dataHash": "bc9c308c3a61"
   },
   {
     "id": "simplesandwiches",
@@ -266,7 +266,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "5b987c6eee4d"
+    "dataHash": "a8f02ba09ce4"
   },
   {
     "id": "simplelib",
@@ -281,7 +281,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "a2652f7207e4"
+    "dataHash": "7dc676b0b902"
   },
   {
     "id": "simpleinterfaces",
@@ -319,7 +319,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "9b87a510e53f"
+    "dataHash": "09e4918b0d3a"
   },
   {
     "id": "simpletrims",
@@ -351,7 +351,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "3825d06068c3"
+    "dataHash": "8e496a9bd387"
   },
   {
     "id": "simpleweather",
@@ -490,7 +490,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "edb709fa1fed"
+    "dataHash": "40fa7fc72008"
   },
   {
     "id": "simpleaesthetics",

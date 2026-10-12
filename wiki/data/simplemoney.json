@@ -3097,6 +3097,30 @@
         ]
       },
       "texture": "assets/textures/simplemoney/item/blank_note.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A banknote without a number: smooth, pale and waiting for someone to give it worth."
+          ],
+          "use": [
+            "Smith special paper, resin fiber and an iron ingot together at the smithing table. Refine the blank with special fiber and a gold ingot."
+          ],
+          "secret": [
+            "It is only an ingredient. It cannot be spent, and no villager takes it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Banknote ohne Zahl: glatt, blass und wartend, dass jemand ihr Wert gibt."
+          ],
+          "use": [
+            "Spezialpapier, Harzfaser und einen Eisenbarren am Schmiedetisch zusammenschmieden. Mit Spezialfaser und einem Goldbarren wird der Rohling veredelt."
+          ],
+          "secret": [
+            "Er ist nur eine Zutat. Man kann ihn nicht ausgeben, und kein Dorfbewohner nimmt ihn."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemoney:blank_note_smithing"
       ],
@@ -3123,6 +3147,30 @@
         }
       },
       "texture": "assets/textures/simplemoney/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A little ledger for a little economy."
+          ],
+          "use": [
+            "The Simple Money Guide explains the bills, the three crafting steps and the added trades. Craft it shapeless from a book and a crafting table."
+          ],
+          "secret": [
+            "Its pages unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kleines Kassenbuch für eine kleine Wirtschaft."
+          ],
+          "use": [
+            "Das Simple-Money-Handbuch erklärt die Geldscheine, die drei Herstellungsschritte und die neuen Handelsangebote. Formlos aus einem Buch und einer Werkbank herstellbar."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemoney:guide_book"
       ],
@@ -3161,6 +3209,30 @@
         ]
       },
       "texture": "assets/textures/simplemoney/item/money_bill.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Printed in a day, valued everywhere. Even the fire does not touch it."
+          ],
+          "use": [
+            "Currency for the extra offers of villagers and wandering traders. Epic, fire resistant and always glinting. Right-click it for a page-turn sound and a happy particle; it is not used up."
+          ],
+          "secret": [
+            "You may wave it at anyone for show: only trade menus take it. It is the one item here whose tooltip does not tell how many days it took."
+          ]
+        },
+        "de": {
+          "lore": [
+            "An einem Tag gedruckt, überall wertvoll. Nicht einmal Feuer kann ihm etwas anhaben."
+          ],
+          "use": [
+            "Währung für die zusätzlichen Angebote von Dorfbewohnern und Fahrenden Händlern. Episch, feuerfest und immer schimmernd. Rechtsklick spielt ein Blätterrascheln und ein Glückspartikel ab; er wird nicht verbraucht."
+          ],
+          "secret": [
+            "Man kann damit zum Spaß winken: nur Handelsmenüs nehmen ihn an. Es ist der einzige Gegenstand hier, dessen Tooltip nicht verrät, wie viele Tage er gebraucht hat."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemoney:money_bill_from_blasting"
       ],
@@ -3210,6 +3282,30 @@
         ]
       },
       "texture": "assets/textures/simplemoney/item/raw_bill.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A bill that has not yet decided to be money. The ink is still wet, and it will be for a day."
+          ],
+          "use": [
+            "Blast it in a blast furnace for 24,000 ticks, one full day, to get one money bill and 20 experience points. SimpleBuilding blast furnaces are 2, 4 or 8 times faster."
+          ],
+          "secret": [
+            "The wait is the whole trick: a faster furnace is the only way to print money quickly. The experience is paid out on top."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Schein, der sich noch nicht entschieden hat, Geld zu sein. Die Tinte ist noch nass und bleibt es einen Tag lang."
+          ],
+          "use": [
+            "Im Hochofen 24.000 Ticks, einen ganzen Tag, schmelzen: ein Geldschein und 20 Erfahrungspunkte. SimpleBuilding-Hochöfen sind 2-, 4- oder 8-mal schneller."
+          ],
+          "secret": [
+            "Das Warten ist der ganze Trick: nur ein schnellerer Ofen druckt Geld schneller. Die Erfahrung gibt es obendrauf."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemoney:raw_bill_from_crafting_table"
       ],
@@ -3248,6 +3344,30 @@
         ]
       },
       "texture": "assets/textures/simplemoney/item/refined_blank_note.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "The same note, but now it shimmers when it turns toward the light."
+          ],
+          "use": [
+            "Made by refining a banknote blank. Combine three of them with green dye and ink sacs to get three raw bills."
+          ],
+          "secret": [
+            "Three blanks become three bills, so nothing is lost. The costly part is the special fiber for each single blank."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Dieselbe Note, aber nun schimmert sie, wenn sie sich zum Licht dreht."
+          ],
+          "use": [
+            "Entsteht durch Veredeln eines Banknotenrohlings. Drei davon ergeben mit grünem Farbstoff und Tintenbeuteln drei rohe Geldscheine."
+          ],
+          "secret": [
+            "Aus drei Rohlingen werden drei Scheine, nichts geht verloren. Teuer ist nur die Spezialfaser für jeden einzelnen Rohling."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemoney:refined_bank_note_blank_smithing"
       ],
@@ -3286,6 +3406,30 @@
         ]
       },
       "texture": "assets/textures/simplemoney/item/resin_fiber.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Threads pulled from resin, braced with iron and honey. They are the part of a bill nobody sees."
+          ],
+          "use": [
+            "Craft iron nuggets, resin clumps, honeycomb and bone meal in a 3x3 pattern. Stacks to 16. It goes into the smithing step of the banknote blank."
+          ],
+          "secret": [
+            "Resin clumps come from the Pale Garden's creaking hearts and the resin of the new woods. The blank uses a single fiber, so a stack of 16 goes a long way."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Fäden aus Harz, mit Eisen und Honig verstärkt. Sie sind der Teil einer Note, den niemand sieht."
+          ],
+          "use": [
+            "Eisennuggets, Harzklumpen, Honigwaben und Knochenmehl im 3x3-Muster herstellen. Stapelt bis 16. Wird im Schmiedeschritt des Banknotenrohlings gebraucht."
+          ],
+          "secret": [
+            "Harzklumpen stammen aus den Kreakenherzen des Blassen Gartens und dem Harz der neuen Hölzer. Der Rohling braucht nur eine Faser, ein Stapel von 16 reicht also weit."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemoney:resin_fiber_from_crafting_table"
       ],
@@ -3324,6 +3468,30 @@
         ]
       },
       "texture": "assets/textures/simplemoney/item/special_fiber.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A thread of copper, gold and amethyst, glittering where no light should reach."
+          ],
+          "use": [
+            "Craft copper nuggets, gold nuggets, amethyst shards and diamonds in a 3x3 pattern. Stacks to 16. With a gold ingot it refines a banknote blank."
+          ],
+          "secret": [
+            "It is the costly half of the recipe: diamonds are the only thing in it that cannot be mined from a quick shaft. Make the refined blanks in batches of three."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Faden aus Kupfer, Gold und Amethyst, der glitzert, wo kein Licht hinkommt."
+          ],
+          "use": [
+            "Kupfernuggets, Goldnuggets, Amethystscherben und Diamanten im 3x3-Muster herstellen. Stapelt bis 16. Veredelt mit einem Goldbarren einen Banknotenrohling."
+          ],
+          "secret": [
+            "Er ist die teure Hälfte des Rezepts: Diamanten gibt es nicht aus einem schnellen Schacht. Die veredelten Rohlinge stellt man am besten dreifach her."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemoney:special_fiber_from_crafting_table"
       ],
@@ -3362,6 +3530,30 @@
         ]
       },
       "texture": "assets/textures/simplemoney/item/special_paper.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Paper that was taught to keep a secret. A little honey makes it stiff and slightly sticky."
+          ],
+          "use": [
+            "Craft two paper with one honeycomb between them in a row. At a smithing table it joins an iron ingot and resin fiber to make a banknote blank."
+          ],
+          "secret": [
+            "It is the first of three steps. Without resin fiber and special fiber, the paper stays only paper."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Papier, dem man beigebracht hat, ein Geheimnis zu wahren. Etwas Honig macht es steif und leicht klebrig."
+          ],
+          "use": [
+            "Zwei Papier mit einer Honigwabe in der Mitte nebeneinander herstellen. Am Schmiedetisch ergibt es mit einem Eisenbarren und Harzfaser einen Banknotenrohling."
+          ],
+          "secret": [
+            "Es ist der erste von drei Schritten. Ohne Harzfaser und Spezialfaser bleibt das Papier nur Papier."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemoney:special_paper_from_crafting_table"
       ],

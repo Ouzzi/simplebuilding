@@ -1335,6 +1335,30 @@
         }
       },
       "texture": "assets/textures/simplesandwiches/item/butter_slice.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A thin slice of golden calm."
+          ],
+          "use": [
+            "Not edible. Hold a knife in one hand and the slice in the other to butter opened bread: +10% hunger, saturation and effect duration by default, one slice used."
+          ],
+          "secret": [
+            "Butter is the only ingredient that lengthens effects, up to twice the longest."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine dünne Scheibe goldener Ruhe."
+          ],
+          "use": [
+            "Nicht essbar. Messer in der einen, Scheibe in der anderen Hand: Das offene Brot wird gestrichen, standardmäßig +10 % Hunger, Sättigung und Effektdauer, eine Scheibe wird verbraucht."
+          ],
+          "secret": [
+            "Butter ist die einzige Zutat, die Effekte verlängert, höchstens auf das Doppelte der längsten."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1353,6 +1377,30 @@
         }
       },
       "texture": "assets/textures/simplesandwiches/item/cake_slice.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A slice of celebration, small enough to carry."
+          ],
+          "use": [
+            "A slice of cake. It counts as a sandwich ingredient."
+          ],
+          "secret": [
+            "Yes, a cake sandwich is legal."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Stück Feier, klein genug zum Mitnehmen."
+          ],
+          "use": [
+            "Ein Stück Kuchen. Zählt als Sandwichzutat."
+          ],
+          "secret": [
+            "Ja, ein Kuchensandwich ist erlaubt."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1371,6 +1419,30 @@
         }
       },
       "texture": "assets/textures/simplesandwiches/item/cheese_slice.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A slice with holes, and each hole a story."
+          ],
+          "use": [
+            "Cut with a knife from a cheese block. Restores 2 hunger and 1.2 saturation, and is a sandwich ingredient."
+          ],
+          "secret": [
+            "Slices only come off with a knife; breaking a cut block keeps its state in the item."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Scheibe mit Löchern, und jedes Loch eine Geschichte."
+          ],
+          "use": [
+            "Mit dem Messer von einem Käseblock geschnitten. Stellt 2 Hunger und 1,2 Sättigung wieder her und ist eine Sandwichzutat."
+          ],
+          "secret": [
+            "Scheiben lösen sich nur mit dem Messer; ein angeschnittener Block behält seinen Zustand im Item."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1393,6 +1465,30 @@
         }
       },
       "texture": "assets/textures/simplesandwiches/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A book that tells how to stack a lunch properly."
+          ],
+          "use": [
+            "The Simple Sandwiches Guide explains cutting boards, butter, cheese and sandwiches. Craft it shapeless from a book and a crafting table."
+          ],
+          "secret": [
+            "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Buch, das erzählt, wie man ein Mittagessen richtig stapelt."
+          ],
+          "use": [
+            "Das Simple-Sandwiches-Handbuch erklärt Schneidebretter, Butter, Käse und Sandwiches. Formlos aus einem Buch und einer Werkbank herstellbar."
+          ],
+          "secret": [
+            "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simplesandwiches:guide_book"
       ],
@@ -1413,6 +1509,30 @@
         }
       },
       "texture": "assets/textures/simplesandwiches/item/knife.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A knife that cuts only what is meant to be cut."
+          ],
+          "use": [
+            "Craft one stick and four iron nuggets. 250 durability, damage 2, speed 2.0, anvil repair with iron nuggets. It opens bread on a cutting board and cuts cheese, butter, melons and cakes."
+          ],
+          "secret": [
+            "With butter in the other hand it butters opened bread before the toppings go on."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Messer, das nur schneidet, was geschnitten werden soll."
+          ],
+          "use": [
+            "Einen Stock und vier Eisennuggets herstellen. 250 Haltbarkeit, Schaden 2, Tempo 2,0, am Amboss mit Eisennuggets reparierbar. Öffnet Brot auf dem Schneidebrett und schneidet Käse, Butter, Melonen und Kuchen."
+          ],
+          "secret": [
+            "Mit Butter in der anderen Hand streicht es offenes Brot, bevor die Beläge darauf kommen."
+          ]
+        }
+      },
       "craftedBy": [
         "simplesandwiches:knife"
       ],
@@ -1430,6 +1550,30 @@
         },
         "de": {
           "summary": "Brot plus bis zu fünf Zutaten, optional zuerst Butter. Hunger und Sättigung werden ohne Formeldeckel addiert; gleiche Effekte zusammengeführt. Bei gleichen Komponenten bis 16 stapelbar."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "Bread that took on a life of its own, and then a filling."
+          ],
+          "use": [
+            "Built on a cutting board: one bread plus up to five ingredients, butter first for +10%. Hunger and saturation add up; eating takes 1.6 s plus 0.2 s per ingredient. Equal ones stack to 16."
+          ],
+          "secret": [
+            "Effects of equal ingredients merge: strongest level, summed duration. Butter lengthens them, capped at twice the longest."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Brot, das ein Eigenleben bekam, und dann eine Füllung."
+          ],
+          "use": [
+            "Auf dem Schneidebrett gebaut: ein Brot plus bis zu fünf Zutaten, zuerst Butter für +10 %. Hunger und Sättigung addieren sich; Essen dauert 1,6 s plus 0,2 s je Zutat. Gleiche stapeln bis 16."
+          ],
+          "secret": [
+            "Effekte gleicher Zutaten verschmelzen: höchste Stufe, summierte Dauer. Butter verlängert sie, begrenzt auf das Doppelte der längsten."
+          ]
         }
       },
       "craftedBy": [],
@@ -1511,6 +1655,30 @@
           "summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel ernten. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9."
         }
       },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A block that remembers being milk."
+          ],
+          "use": [
+            "Ripens from milk in a cauldron after about 2.5 minutes; harvest it with an empty hand. It holds 16 slices, cut one by one with a knife. Butter never spoils."
+          ],
+          "secret": [
+            "A matching slice restores a cut layer. Its friction is 0.9, so it is slippery underfoot."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Block, der sich noch an die Milch erinnert."
+          ],
+          "use": [
+            "Reift aus Milch im Kessel nach etwa 2,5 Minuten; mit leerer Hand ernten. Er fasst 16 Scheiben, die einzeln mit dem Messer geschnitten werden. Butter verdirbt nie."
+          ],
+          "secret": [
+            "Eine passende Scheibe stellt eine Lage wieder her. Seine Reibung ist 0,9, er ist also rutschig."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -1526,6 +1694,30 @@
         },
         "de": {
           "summary": "Milch mit fermentiertem Spinnenauge reift zu Käse. Vor dem Verderben mit leerer Hand ernten. Enthält 16 Scheiben; der erste Messerschnitt legt die Richtung fest, bis der Block wieder voll ist."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A wheel of patience."
+          ],
+          "use": [
+            "Add a fermented spider eye to milk in a cauldron; after about 7.5 minutes harvest the cheese with an empty hand. It holds 16 slices and bounces like a bed."
+          ],
+          "secret": [
+            "Be quick: cheese spoils 1.5 minutes after it is ripe and gives nothing."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Rad aus Geduld."
+          ],
+          "use": [
+            "Ein fermentiertes Spinnenauge in Milch im Kessel geben; nach etwa 7,5 Minuten den Käse mit leerer Hand ernten. Er fasst 16 Scheiben und federt wie ein Bett."
+          ],
+          "secret": [
+            "Sei schnell: Käse verdirbt 1,5 Minuten nach der Reife und gibt dann nichts."
+          ]
         }
       },
       "craftedBy": [],
@@ -1643,6 +1835,30 @@
         },
         "de": {
           "summary": "Leeren Kessel mit Milch füllen. Standardzeiten: Butter 3.000 Ticks; Käse nach fermentiertem Spinnenauge 9.000 Ticks, danach 1.800 Ticks zum Ernten. Butter verdirbt nie; verdorbene Milch nur ausleeren."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A cauldron full of patience."
+          ],
+          "use": [
+            "An empty cauldron filled with a milk bucket. After four stages it becomes butter; an empty bucket gets the milk back before that. With SimpleLib it is a reinforced milk cauldron."
+          ],
+          "secret": [
+            "A fermented spider eye turns the milk to cheese instead."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Kessel voller Geduld."
+          ],
+          "use": [
+            "Ein leerer Kessel, mit einem Milcheimer gefüllt. Nach vier Stufen wird Butter daraus; vorher holt ein leerer Eimer die Milch zurück. Mit SimpleLib ist es ein verstärkter Milchkessel."
+          ],
+          "secret": [
+            "Ein fermentiertes Spinnenauge macht stattdessen Käse aus der Milch."
+          ]
         }
       },
       "craftedBy": [],

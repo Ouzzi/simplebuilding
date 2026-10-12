@@ -1530,6 +1530,30 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         }
       },
       "texture": "assets/textures/simpleriding/item/copper_horseshoe.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A shoe of copper for a hoof that has seen many roads."
+          ],
+          "use": [
+            "Smith the Horseshoe Upgrade with a copper ingot. Tier 1, worth 1 point, durability 120. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+          ],
+          "secret": [
+            "Two shoes of one tier score the same as four of the tier below. Each loses one point of durability per 40 blocks ridden on the ground."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Hufeisen aus Kupfer für einen Huf, der viele Wege gesehen hat."
+          ],
+          "use": [
+            "Die Hufeisen-Aufwertung mit Kupferbarren am Schmiedetisch schmieden. Stufe 1, 1 Punkt wert, Haltbarkeit 120. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+          ],
+          "secret": [
+            "Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter. Je 40 am Boden gerittene Blöcke geht ein Haltbarkeitspunkt verloren."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleriding:copper_horseshoe_smithing"
       ],
@@ -1553,6 +1577,30 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         }
       },
       "texture": "assets/textures/simpleriding/item/diamond_horseshoe.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A shoe of diamond for a hoof that has seen many roads."
+          ],
+          "use": [
+            "Smith the Horseshoe Upgrade with a diamond with an iron nugget. Tier 4, worth 8 points, durability 400. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+          ],
+          "secret": [
+            "Two shoes of one tier score the same as four of the tier below. Each loses one point of durability per 40 blocks ridden on the ground."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Hufeisen aus Diamant für einen Huf, der viele Wege gesehen hat."
+          ],
+          "use": [
+            "Die Hufeisen-Aufwertung mit Diamant mit einem Eisennugget am Schmiedetisch schmieden. Stufe 4, 8 Punkte wert, Haltbarkeit 400. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+          ],
+          "secret": [
+            "Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter. Je 40 am Boden gerittene Blöcke geht ein Haltbarkeitspunkt verloren."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleriding:diamond_horseshoe_smithing"
       ],
@@ -1578,6 +1626,30 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         }
       },
       "texture": "assets/textures/simpleriding/item/enderite_horseshoe.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "The last shoe of the line: it walks the soul sand as if it were a road."
+          ],
+          "use": [
+            "Smith the Horseshoe Upgrade with a Netherite Horseshoe and an Enderite Ingot (needs SimpleBuilding). Tier 6, durability 620, fire resistant. A full set gives 100% of the bonus."
+          ],
+          "secret": [
+            "Soul sand and honey slow the horse far less, and it steers sideways much better. Enchantments and wear carry over from the Netherite shoe."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Das letzte Hufeisen der Reihe: Es läuft über Seelensand wie über eine Straße."
+          ],
+          "use": [
+            "Die Hufeisen-Aufwertung mit einem Netherit-Hufeisen und einem Enderitbarren schmieden (braucht SimpleBuilding). Stufe 6, Haltbarkeit 620, feuerfest. Ein ganzer Satz bringt 100 % des Bonus."
+          ],
+          "secret": [
+            "Seelensand und Honig bremsen das Pferd deutlich weniger, und es lenkt seitlich viel besser. Verzauberungen und Abnutzung gehen vom Netherit-Hufeisen über."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleriding:enderite_horseshoe_smithing"
       ],
@@ -1601,6 +1673,30 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         }
       },
       "texture": "assets/textures/simpleriding/item/golden_horseshoe.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A shoe of gold for a hoof that has seen many roads."
+          ],
+          "use": [
+            "Smith the Horseshoe Upgrade with a gold ingot. Tier 3, worth 4 points, durability 80. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+          ],
+          "secret": [
+            "Two shoes of one tier score the same as four of the tier below. Each loses one point of durability per 40 blocks ridden on the ground."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Hufeisen aus Gold für einen Huf, der viele Wege gesehen hat."
+          ],
+          "use": [
+            "Die Hufeisen-Aufwertung mit Goldbarren am Schmiedetisch schmieden. Stufe 3, 4 Punkte wert, Haltbarkeit 80. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+          ],
+          "secret": [
+            "Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter. Je 40 am Boden gerittene Blöcke geht ein Haltbarkeitspunkt verloren."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleriding:golden_horseshoe_smithing"
       ],
@@ -1625,6 +1721,30 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         }
       },
       "texture": "assets/textures/simpleriding/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A book of saddles, harnesses and quiet roads."
+          ],
+          "use": [
+            "The Simple Riding Guide covers Tailwind, Leaping, mount armor and the horseshoes. Craft it shapeless from a book and a crafting table."
+          ],
+          "secret": [
+            "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Buch über Sättel, Geschirre und stille Wege."
+          ],
+          "use": [
+            "Das Simple-Riding-Handbuch behandelt Rückenwind, Sprungkraft, Reittierrüstung und die Hufeisen. Formlos aus einem Buch und einer Werkbank herstellbar."
+          ],
+          "secret": [
+            "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleriding:guide_book"
       ],
@@ -1649,6 +1769,30 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         }
       },
       "texture": "assets/textures/simpleriding/item/horseshoe_smithing_template.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A template shaped like a horseshoe, cold to the touch like a stable at dawn."
+          ],
+          "use": [
+            "Used up in the smithing table to make a horseshoe. Found in village weaponsmith and tannery chests and by brushing trail ruins. Copy it with an iron ingot and seven copper ingots for two."
+          ],
+          "secret": [
+            "Brushing trail-ruin blocks also gives a worn Copper or Iron Horseshoe. The template itself is used up like any Vanilla template."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Vorlage in Hufeisenform, kalt wie ein Stall in der Morgendämmerung."
+          ],
+          "use": [
+            "Wird am Schmiedetisch zum Herstellen eines Hufeisens verbraucht. Zu finden in Truhen von Dorf-Waffenschmieden und -Gerbereien und beim Bürsten von Pfadruinen. Mit einem Eisenbarren und sieben Kupferbarren verdoppeln."
+          ],
+          "secret": [
+            "Das Bürsten von Pfadruinen-Blöcken gibt auch ein abgenutztes Kupfer- oder Eisen-Hufeisen. Die Vorlage selbst wird wie jede Vanilla-Vorlage verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleriding:horseshoe_smithing_template"
       ],
@@ -1680,6 +1824,30 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         }
       },
       "texture": "assets/textures/simpleriding/item/iron_horseshoe.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A shoe of iron for a hoof that has seen many roads."
+          ],
+          "use": [
+            "Smith the Horseshoe Upgrade with an iron ingot. Tier 2, worth 2 points, durability 180. Four go into the hoof slots of a horse, donkey, mule or undead horse."
+          ],
+          "secret": [
+            "Two shoes of one tier score the same as four of the tier below. Each loses one point of durability per 40 blocks ridden on the ground."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Hufeisen aus Eisen für einen Huf, der viele Wege gesehen hat."
+          ],
+          "use": [
+            "Die Hufeisen-Aufwertung mit Eisenbarren am Schmiedetisch schmieden. Stufe 2, 2 Punkte wert, Haltbarkeit 180. Vier kommen in die Hufplätze von Pferd, Esel, Maultier oder untoten Pferden."
+          ],
+          "secret": [
+            "Zwei Eisen einer Stufe zählen so viel wie vier der Stufe darunter. Je 40 am Boden gerittene Blöcke geht ein Haltbarkeitspunkt verloren."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleriding:iron_horseshoe_smithing"
       ],
@@ -1703,6 +1871,30 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         }
       },
       "texture": "assets/textures/simpleriding/item/netherite_horseshoe.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A shoe of Netherite that does not mind a lava shore."
+          ],
+          "use": [
+            "Smith the Horseshoe Upgrade with a Diamond Horseshoe and a netherite ingot. Tier 5, durability 500, fire resistant. A full set gives 86% of the bonus."
+          ],
+          "secret": [
+            "Enchantments and wear carry over from the diamond shoe. Four shoes also add 5% speed and jump strength and make long falls hurt 10% more."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Hufeisen aus Netherit, dem ein Lavaufer nichts ausmacht."
+          ],
+          "use": [
+            "Die Hufeisen-Aufwertung mit einem Diamant-Hufeisen und einem Netheritbarren schmieden. Stufe 5, Haltbarkeit 500, feuerfest. Ein ganzer Satz bringt 86 % des Bonus."
+          ],
+          "secret": [
+            "Verzauberungen und Abnutzung gehen vom Diamanthufeisen über. Vier Eisen geben zudem 5 % Tempo und Sprungkraft, aber lange Stürze tun 10 % mehr weh."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleriding:netherite_horseshoe_smithing"
       ],

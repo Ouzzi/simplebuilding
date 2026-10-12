@@ -275,6 +275,30 @@
         }
       },
       "texture": "assets/textures/simplemodels/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book that knows the extra item models of the modules."
+          ],
+          "use": [
+            "The Simple Models Guide explains the extra item models of the modules. Craft it shapeless from a book and a crafting table."
+          ],
+          "secret": [
+            "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch, das die zusätzlichen Item-Modelle der Module kennt."
+          ],
+          "use": [
+            "Das Simple Models-Handbuch erklärt die zusätzlichen Item-Modelle der Module. Formlos aus einem Buch und einer Werkbank herstellbar."
+          ],
+          "secret": [
+            "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simplemodels:guide_book"
       ],

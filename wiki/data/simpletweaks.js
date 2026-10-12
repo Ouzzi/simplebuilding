@@ -161,6 +161,30 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
         }
       },
       "texture": "assets/textures/simpletweaks/item/claim_deed.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A deed from an older world, still stamped with its first owner."
+          ],
+          "use": [
+            "A legacy item without a recipe, kept for existing worlds or /give. Stacks to 16. Claims are off by default; once enabled the deed asks the server for ownership."
+          ],
+          "secret": [
+            "Its original texture and custom data are kept exactly, so an old deed still works after an update."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Urkunde aus einer älteren Welt, noch mit dem ersten Besitzer gestempelt."
+          ],
+          "use": [
+            "Ein altes Item ohne Rezept, nur für bestehende Welten oder /give. Stapelt bis 16. Claims sind standardmäßig aus; sind sie aktiv, beantragt die Urkunde Besitz beim Server."
+          ],
+          "secret": [
+            "Originaltextur und Zusatzdaten bleiben unverändert erhalten, eine alte Urkunde funktioniert also nach einem Update weiter."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -183,6 +207,30 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
         }
       },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book that knows legacy names, claims and other tweaks."
+          ],
+          "use": [
+            "The Simple Tweaks Guide explains legacy names, claims and other tweaks. Craft it shapeless from a book and a crafting table."
+          ],
+          "secret": [
+            "Its chapters unlock as the matching recipes land in your recipe book. Nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch, das alte Namen, Claims und weitere Anpassungen kennt."
+          ],
+          "use": [
+            "Das Simple Tweaks-Handbuch erklärt alte Namen, Claims und weitere Anpassungen. Formlos aus einem Buch und einer Werkbank herstellbar."
+          ],
+          "secret": [
+            "Die Kapitel öffnen sich, sobald die passenden Rezepte im Rezeptbuch erscheinen. Nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simpletweaks:guide_book"
       ],
