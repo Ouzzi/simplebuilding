@@ -135,7 +135,7 @@ select.sel{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--l
 .mrow{display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--line);min-width:0}
 .mrow:first-child{border-top:0}
 .mrow.head{background:var(--sunk);padding:12px 16px}
-.mrow.child{padding-left:34px}
+.mrow.child{padding-left:34px}.mrow.grand{padding-left:58px}
 .mrow .info{min-width:0;flex:1}
 .mrow .nm{font-weight:650;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .mrow.head .nm{font-size:15.5px}
@@ -166,7 +166,7 @@ select.sel{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--l
  .tile .big{font-size:15px}.card{padding:12px}
  .steps .name{width:76px}
  .start .btns a{flex:1 1 100%}
- .mrow{padding:10px 12px;gap:10px}.mrow.child{padding-left:22px}.mrow.head{padding:12px}
+ .mrow{padding:10px 12px;gap:10px}.mrow.child{padding-left:22px}.mrow.grand{padding-left:40px}.mrow.head{padding:12px}
  .dlgrid{grid-template-columns:1fr}.toolbar .seg{width:100%}.toolbar .seg button{flex:1}
 }
 @media (max-width:360px){.grid{grid-template-columns:1fr}}
@@ -448,7 +448,7 @@ function renderMods(){
  for(const p of supers){const ks=kids(p),vis=ks.filter(modMatch),selfHit=modMatch(p);if(!selfHit&&!vis.length)continue;shown++;
   const on=ks.filter(k=>mods.state[k.id].on).length,open=mods.open.has(p.id)||!!mods.q||mods.filter!=='all';
   html+=`<div class="card mgroup">`+modRow(p,'head',`<span class="cnt">${on}/${ks.length} an</span><button class="fold" aria-expanded="${open}" aria-label="Sub-Mods ${open?'zuklappen':'aufklappen'}" data-fold="${esc(p.id)}">${open?'▾':'▸'}</button>`)+
-   (open?(vis.length?vis:(selfHit?ks:[])).map(k=>modRow(k,'child')).join(''):'')+`</div>`;}
+   (open?(vis.length?vis:(selfHit?ks:[])).map(k=>modRow(k,'child')+kids(k).map(g=>modRow(g,'child grand')).join('')).join(''):'')+`</div>`;}
  const vs=single.filter(modMatch);if(vs.length){shown++;html+=`<h2>Eigenständige Mods &amp; Bibliotheken</h2><div class="card mgroup">${vs.map(n=>modRow(n,'')).join('')}</div>`;}
  box.innerHTML=shown?html:'<p class="empty">Keine Mod passt zu Suche/Filter.</p>';
 }
@@ -467,7 +467,7 @@ function modsSave(){clearTimeout(mods.timer);modSaveState('<span class="dot run"
   const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||('Fehler '+r.status));modApply(j);modSaveState('<span class="dot ok"></span> gespeichert');}
   catch(e){modSaveState('⚠ nicht gespeichert: '+esc(e.message)+' <button class="ghost sm" id="mod-resave">Nochmal</button>',true);}},350);}
 function modToggle(id){const by=mods.byId(),n=by[id];if(!n||(mods.state[id]||{}).locked)return;const turnOn=!mods.state[id].on;
- const set=[n,...mods.nodes.filter(k=>k.parent===id&&!k.planned)];/* parent switches its children with it */
+ const under=p=>mods.nodes.filter(k=>k.parent===p&&!k.planned).flatMap(k=>[k,...under(k.id)]);const set=[n,...under(id)];/* parent switches its children (and theirs) with it */
  for(const x of set){if(turnOn)mods.off.delete(x.id);else mods.off.add(x.id);}
  mods.resolve();renderMods();modSummary();modsSave();}
 document.addEventListener('click',e=>{const sw=e.target.closest('[data-mod]');if(sw){modToggle(sw.dataset.mod);return;}

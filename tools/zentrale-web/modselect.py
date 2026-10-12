@@ -63,11 +63,16 @@ def catalog(repo=REPO):
     top = [n for n in nodes if not n["parent"]]
     top.sort(key=lambda n: ({"super": 0, "mod": 1, "lib": 2}[n["kind"]], order[n["id"]]))
     result = []
-    for n in top:
+
+    def add(n):  # depth first: a sub-mod may be a super-mod itself (SimpleBuilding > Simple End > End Dragon Fight)
         result.append(n)
         kids = [c for c in nodes if c["parent"] == n["id"]]
         kids.sort(key=lambda c: (c["bundle"] != "required", c["planned"], c["name"].lower()))
-        result.extend(kids)
+        for c in kids:
+            add(c)
+
+    for n in top:
+        add(n)
     return result
 
 
