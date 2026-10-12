@@ -286,6 +286,15 @@ public final class BlueprintViewClientTest {
                         + "Screen.mouseDragged was never called or draggingView was cleared in between. "
                         + viewDiagnosis(client, point.get()));
             }
+            // Queue N40: the drag went straight to the right, so the building may only turn about its own
+            // up axis - its up axis stays where it was on screen and the tilt is unchanged.
+            org.joml.Vector3f upBefore = new Quaternionf(rotationBefore.get()).transform(new org.joml.Vector3f(0, 1, 0));
+            org.joml.Vector3f upAfter = new Quaternionf(after).transform(new org.joml.Vector3f(0, 1, 0));
+            if (!upBefore.equals(upAfter, 1.0e-4f)) {
+                throw new AssertionError("A straight drag to the right in the " + where + " also tilted or rolled "
+                        + "the building: its up axis moved on screen from " + upBefore + " to " + upAfter
+                        + " (pitch now " + controls(client).pitch() + ").");
+            }
         });
 
         script.harness("release the left button", harness ->

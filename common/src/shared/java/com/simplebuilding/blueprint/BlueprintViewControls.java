@@ -3,7 +3,7 @@ package com.simplebuilding.blueprint;
 import org.joml.Quaternionf;
 
 /**
- * Reine Logik der 3D-Vorschau im Blaupausen-Editor: Drehen beim Ziehen, Verschieben bei gehaltener
+ * Reine Logik der 3D-Vorschau im Blaupausen-Editor: Drehen beim Ziehen (Drehteller), Verschieben bei gehaltener
  * Strg-Taste, Zoomen mit dem Mausrad, Zuruecksetzen der Ansicht.
  *
  * <p>Bewusst ohne jede Minecraft-Client-Abhaengigkeit (nur JOML), damit die ganze Zahlenlogik ohne
@@ -13,7 +13,10 @@ import org.joml.Quaternionf;
  */
 public final class BlueprintViewControls {
 
-    /** Bogenmass pro GUI-Pixel beim Ziehen. Waagerecht um die Bild-Hochachse, senkrecht um die Querachse. */
+    /**
+     * Bogenmass pro GUI-Pixel beim Ziehen. Waagerecht dreht um die Hochachse des Bauwerks (Drehteller),
+     * senkrecht kippt um die Bild-Querachse.
+     */
     public static final float DRAG_RAD_PER_PIXEL = 0.012f;
 
     /** Zoomfaktor je Mausrad-Schritt; derselbe Wert wie seit jeher im Editor. */
@@ -26,6 +29,15 @@ public final class BlueprintViewControls {
     /** Hoechstverschiebung in GUI-Pixeln, damit die Ansicht nicht aus dem Fenster wandert. */
     public static final float PAN_LIMIT = 96f;
 
+    /** Neigung (um die Bild-Querachse) und Drehung (um die Hochachse des Bauwerks) des Standard-Blicks. */
+    public static final float DEFAULT_PITCH = (float) Math.toRadians(28);
+    public static final float DEFAULT_YAW = (float) Math.toRadians(-35);
+
+    /** Die Neigung bleibt zwischen senkrecht von oben und senkrecht von unten, damit nichts ueberschlaegt. */
+    public static final float PITCH_LIMIT = (float) (Math.PI / 2);
+
+    private float pitch = DEFAULT_PITCH;
+    private float yaw = DEFAULT_YAW;
     private final Quaternionf rotation = defaultRotation();
     private float zoom = 1f;
     private float panX;
@@ -36,7 +48,7 @@ public final class BlueprintViewControls {
      * Winkel - der Editor und das Zeichnen greifen beide hierher zu.
      */
     public static Quaternionf defaultRotation() {
-        return new Quaternionf().rotateX((float) Math.toRadians(28)).rotateY((float) Math.toRadians(-35));
+        return orbit(DEFAULT_PITCH, DEFAULT_YAW);
     }
 
     public Quaternionf rotation() {
@@ -55,12 +67,31 @@ public final class BlueprintViewControls {
         return panY;
     }
 
-    /** Ziehen ohne Strg: die Ansicht dreht sich wie eine Kugel unter der Hand. */
+    /**
+     * Ziehen ohne Strg: Drehteller statt Kugel (Queue N40). Waagerecht dreht das Bauwerk nur um seine
+     * eigene Hochachse, senkrecht kippt es nur um die Bild-Querachse; beide Winkel werden getrennt
+     * gefuehrt. Frueher wurde jede Mausbewegung als Bild-Drehung vorn an die Gesamtdrehung multipliziert:
+     * weil der Standard-Blick schon geneigt ist, liegt die Bild-Hochachse schraeg zur Hochachse des
+     * Bauwerks - ein gerades Ziehen nach rechts drehte es deshalb auch schraeg weg, und jedes kleine
+     * Zittern sammelte sich als Rollen um die Blickachse an.
+     */
     public void drag(double dx, double dy) {
-        rotation.set(new Quaternionf()
-                .rotateX((float) (dy * DRAG_RAD_PER_PIXEL))
-                .rotateY((float) (dx * DRAG_RAD_PER_PIXEL))
-                .mul(rotation));
+        yaw = (float) ((yaw + dx * DRAG_RAD_PER_PIXEL) % (2 * Math.PI));
+        pitch = Math.max(-PITCH_LIMIT, Math.min(PITCH_LIMIT, (float) (pitch + dy * DRAG_RAD_PER_PIXEL)));
+        rotation.set(orbit(pitch, yaw));
+    }
+
+    public float pitch() {
+        return pitch;
+    }
+
+    public float yaw() {
+        return yaw;
+    }
+
+    /** Erst um die Hochachse des Bauwerks drehen, dann um die Bild-Querachse neigen. */
+    public static Quaternionf orbit(float pitch, float yaw) {
+        return new Quaternionf().rotateX(pitch).rotateY(yaw);
     }
 
     /** Ziehen mit Strg: die Ansicht wandert mit dem Finger; die Drehung bleibt unangetastet. */
@@ -76,6 +107,8 @@ public final class BlueprintViewControls {
 
     /** Drehung, Zoom und Verschiebung auf den Ausgangszustand. */
     public void reset() {
+        pitch = DEFAULT_PITCH;
+        yaw = DEFAULT_YAW;
         rotation.set(defaultRotation());
         zoom = 1f;
         panX = 0f;
