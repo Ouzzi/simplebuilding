@@ -14,15 +14,16 @@ import net.minecraft.world.entity.player.Player;
  * Amulet) are skipped and lose Shivering they already have.
  */
 public final class FearAura {
-    /** GameTest hook: mock players are creative, tests tag a mob as a stand-in target. */
+    /** GameTest hook: mock players are always creative, tests tag them (or a mob) as a stand-in target. */
     public static final String TEST_TAG = "simplemobs.fear_test_target";
 
     private FearAura() {}
 
-    /** Who the aura and the fear mobs' attacks reach: survival/adventure players, or tagged test mobs. */
+    /** Who the aura and the fear mobs' attacks reach: survival/adventure players, or tagged test entities. */
     public static boolean affects(LivingEntity e) {
-        if (e instanceof Player p) return !p.isSpectator() && !p.isCreative() && e.isAlive();
-        return e.isAlive() && e.entityTags().contains(TEST_TAG);
+        if (!e.isAlive()) return false;
+        if (e.entityTags().contains(TEST_TAG)) return true;
+        return e instanceof Player p && !p.isSpectator() && !p.isCreative();
     }
 
     /** One pulse; returns how many entities got Shivering. */

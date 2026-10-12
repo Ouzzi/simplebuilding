@@ -84,11 +84,13 @@ public final class NeoForgeExample {
             if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) insertAfter(event, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
         });
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> EndNetherServer.tick(event.getServer()));
-        FearMobs.simplebuildingPresent = net.neoforged.fml.ModList.get().isLoaded("simplebuilding");
         bus.addListener((RegisterEvent event) -> {
             event.register(Registries.ENTITY_TYPE, h -> FearMobs.entityTypes(h::register));
             event.register(Registries.ITEM, h -> FearMobs.items(h::register));
-            event.register(Registries.MOB_EFFECT, h -> FearMobs.effects(h::register));
+            event.register(Registries.MOB_EFFECT, h -> {
+                FearMobs.simplebuildingPresent = net.neoforged.fml.ModList.get().isLoaded("simplebuilding");
+                FearMobs.effects(h::register);
+            });
             event.register(Registries.POTION, h -> FearMobs.potions(h::register));
         });
         bus.addListener((EntityAttributeCreationEvent event) -> {
