@@ -45,8 +45,8 @@ import org.jetbrains.annotations.Nullable;
  * Material-Achtel ({@link MaterialOctetBlock}, ein Block je Material, z. B. Holz und Melone).
  *
  * <p>Wasserbindbar, solange die Zelle nicht voll ist; voll (8/8) ist sie ein ganzer Wuerfel ohne Wasser und bleibt
- * Achtelzelle. Ein Spieler baut nur das angeschaute Achtel ab ({@link #playerWillDestroy}); ohne Spieler droppt jedes
- * Achtel ({@link #getDrops}, keine Loot-Tabelle); Schleichen + leere Hand nimmt das angeklickte Achtel heraus. Achtel
+ * Achtelzelle. Ein Spieler baut die ganze Zelle ab, schleichend nur das angeschaute Achtel ({@link #playerWillDestroy});
+ * ohne Spieler droppt jedes Achtel ({@link #getDrops}, keine Loot-Tabelle); Schleichen + leere Hand nimmt das angeklickte Achtel heraus. Achtel
  * verschiedener Materialien in einer Zelle ergeben die gemischte Zelle {@link MixedOctetBlock} ({@link OctetCells}).
  */
 public abstract class OctetCellBlock extends Block implements SimpleWaterloggedBlock {
@@ -272,9 +272,9 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
     private static final ThreadLocal<Breaking> BREAKING = new ThreadLocal<>();
 
     /**
-     * Abbauen durch einen Spieler nimmt nur das angeschaute Achtel ({@link OctetCells#lookedAt}); das letzte Achtel
-     * nimmt die Zelle mit. Schleichend faellt die ganze Zelle (alle Achtel, alle Drops) - auch beim Vorschlaghammer, der
-     * schleichend genau einen Block abbaut; sein Flaechenabbau ohne Schleichen nimmt je Zelle ein Achtel. Vanilla und alle Loader rufen {@code playerWillDestroy}, entfernen dann den Block und rufen
+     * Abbauen durch einen Spieler nimmt die ganze Zelle (alle Achtel, alle Drops); schleichend nur das angeschaute Achtel
+     * ({@link OctetCells#lookedAt}), das letzte Achtel nimmt die Zelle mit. Der Vorschlaghammer folgt derselben Regel:
+     * sein Flaechenabbau nimmt ganze Zellen, schleichend baut er genau einen Block ab, also ein Achtel. Vanilla und alle Loader rufen {@code playerWillDestroy}, entfernen dann den Block und rufen
      * {@link #destroy}; Explosionen, Kolben und {@code Level#destroyBlock} ohne Spieler droppen weiter alles.
      */
     @Override
@@ -282,8 +282,8 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
         BREAKING.remove();
         BlockState[] parts = OctetCells.parts(level, pos, state);
         int index = OctetCells.lookedAt(player, pos, state);
-        // Schleichen (Besitzer 13.10.): die ganze Zelle mit allen Achteln und Drops, auch beim Hammer.
-        if (parts[index] != null && !player.isShiftKeyDown()) {
+        // Besitzer 13.10.: normal die ganze Zelle mit allen Achteln und Drops, schleichend nur das angeschaute Achtel.
+        if (parts[index] != null && player.isShiftKeyDown()) {
             BREAKING.set(new Breaking(level, pos.immutable(), OctetCells.without(parts, index), OctetCells.wet(state),
                     parts[index], index, level.getGameTime()));
         }

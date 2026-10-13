@@ -314,7 +314,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("chess_game_test_octets_old_cells_migrate_and_mixed_cells_persist", OctetMixTests::octetsOldCellsMigrateAndMixedCellsPersist)
                     .build(),
-            GameTestSpec.named("chess_game_test_octets_sneaking_breaks_the_whole_cell", OctetMixTests::octetsSneakingBreaksTheWholeCell)
+            GameTestSpec.named("chess_game_test_octets_normal_break_takes_the_whole_cell", OctetMixTests::octetsNormalBreakTakesTheWholeCell)
                     .build(),
             GameTestSpec.named("chess_game_test_octets_sledgehammer_follows_the_sneak_rule", OctetMixTests::octetsSledgehammerFollowsTheSneakRule)
                     .build(),

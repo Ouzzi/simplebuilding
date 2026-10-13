@@ -55,8 +55,8 @@ public final class ChessGameTest {
     }
 
     @GameTest
-    public void octetsSneakingBreaksTheWholeCell(GameTestHelper helper) {
-        OctetMixTests.octetsSneakingBreaksTheWholeCell(helper);
+    public void octetsNormalBreakTakesTheWholeCell(GameTestHelper helper) {
+        OctetMixTests.octetsNormalBreakTakesTheWholeCell(helper);
     }
 
     @GameTest
