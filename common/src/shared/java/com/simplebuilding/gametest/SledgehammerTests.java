@@ -112,7 +112,42 @@ import net.minecraft.world.phys.Vec3;
 public final class SledgehammerTests {
 
     public static void hammerChipsIceYieldsFour(GameTestHelper helper) {
-        hammerChipsBlock(helper, Blocks.ICE, ModItems.ICE_CHIP, 4);
+        hammerChipsBlock(helper, chippedIce(), ModItems.ICE_CHIP, 4);
+    }
+
+    /** N53: the hammer cracks plain ice first, the chips come from the cracked ice (lines without cracked ice: plain ice). */
+    private static Block chippedIce() {
+        return com.simplebuilding.version.McVersion.NATURE_VARIANTS ? com.simplebuilding.blocks.ModBlocks.CRACKED_ICE : Blocks.ICE;
+    }
+
+    /**
+     * N53 (owner): one hammer strike on plain ice turns it into cracked ice (stage 0) - no chips, no drop, one durability
+     * and the cooldown; adventure mode changes nothing. The next strike on the cracked ice starts the chip crushing.
+     */
+    public static void hammerCracksPlainIce(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.NATURE_VARIANTS || !com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        BlockPos pos = new BlockPos(2, 2, 2);
+        ServerPlayer player = chipPlayer(helper);
+        ItemStack hammer = new ItemStack(ModItems.STONE_SLEDGEHAMMER);
+        helper.setBlock(pos, Blocks.ICE);
+        player.setGameMode(GameType.ADVENTURE);
+        useChipHammerOnce(helper, player, hammer, pos);
+        helper.assertBlockPresent(Blocks.ICE, pos);
+        player.setGameMode(GameType.SURVIVAL);
+        helper.assertTrue(useChipHammerOnce(helper, player, hammer, pos).consumesAction(), "hammer did not handle ice");
+        var state = helper.getBlockState(pos);
+        helper.assertTrue(state.is(com.simplebuilding.blocks.ModBlocks.CRACKED_ICE)
+                && state.getValue(com.simplebuilding.blocks.custom.CrackedIceBlock.AGE) == 0, "struck ice should be cracked ice, is " + state);
+        helper.assertTrue(chipDrops(helper, ModItems.ICE_CHIP) == 0 && chipDrops(helper, Items.ICE) == 0, "cracking dropped items");
+        helper.assertTrue(hammer.getDamageValue() == 1 && player.getCooldowns().isOnCooldown(hammer), "one strike: one durability and the cooldown");
+        player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(hammer));
+        helper.assertTrue(useChipHammer(helper, player, hammer, pos).consumesAction(), "hammer did not crush the cracked ice");
+        helper.assertBlockPresent(Blocks.AIR, pos);
+        helper.assertTrue(chipDrops(helper, ModItems.ICE_CHIP) == com.simplebuilding.util.SledgehammerChips.ICE_CHIPS, "cracked ice gave the ice chips");
+        helper.succeed();
     }
 
     public static void hammerChipsPackedIceYieldsNine(GameTestHelper helper) {
@@ -1581,7 +1616,7 @@ public final class SledgehammerTests {
         cases.add(new StepCase("diamond", new BlockPos(1, 1, 1), Blocks.DIAMOND_BLOCK, ModItems.IRON_SLEDGEHAMMER,
                 ModItems.DIAMOND_PEBBLE, SledgehammerItem.DIAMOND_BLOCK_STRIKES,
                 com.simplebuilding.config.ServerTuning.diamondBlockPebbles()));
-        cases.add(new StepCase("ice", new BlockPos(4, 1, 1), Blocks.ICE, ModItems.STONE_SLEDGEHAMMER,
+        cases.add(new StepCase("ice", new BlockPos(4, 1, 1), chippedIce(), ModItems.STONE_SLEDGEHAMMER,
                 ModItems.ICE_CHIP, com.simplebuilding.util.SledgehammerChips.ICE_CHIPS, com.simplebuilding.util.SledgehammerChips.ICE_CHIPS));
         cases.add(new StepCase("obsidian", new BlockPos(7, 1, 1), Blocks.OBSIDIAN, ModItems.COPPER_SLEDGEHAMMER,
                 ModItems.OBSIDIAN_CHIP, com.simplebuilding.util.SledgehammerChips.OBSIDIAN_CHIPS, com.simplebuilding.util.SledgehammerChips.OBSIDIAN_CHIPS));
@@ -1593,7 +1628,7 @@ public final class SledgehammerTests {
             helper.setBlock(c.rel(), c.block());
         }
         BlockPos abandoned = new BlockPos(7, 1, 5);
-        helper.setBlock(abandoned, Blocks.ICE);
+        helper.setBlock(abandoned, chippedIce());
         stepStrike(helper, player, cases, abandoned, 1);
     }
 
@@ -1645,7 +1680,7 @@ public final class SledgehammerTests {
         BlockPos abs = helper.absolutePos(abandoned);
         helper.runAfterDelay(InWorldStrikes.RESET_TICKS + 25, () -> {
             net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(abs).inflate(1.5);
-            helper.assertTrue(level.getBlockState(abs).is(Blocks.ICE), "the abandoned ice block is gone");
+            helper.assertTrue(level.getBlockState(abs).is(chippedIce()), "the abandoned ice block is gone");
             helper.assertTrue(level.getEntitiesOfClass(ItemEntity.class, around).isEmpty(), "the abandoned ice dropped items");
             helper.assertTrue(level.getEntitiesOfClass(net.minecraft.world.entity.Display.ItemDisplay.class, around,
                     d -> d.entityTags().contains(InWorldStrikes.PENDING_TAG)).isEmpty(), "floating parts of the abandoned ice stayed");

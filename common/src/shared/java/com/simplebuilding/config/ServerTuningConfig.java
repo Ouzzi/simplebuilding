@@ -361,6 +361,9 @@ public class ServerTuningConfig {
         /** Dimensions-Schrott in Oberwelt, Nether und End. */
         @ConfigEntry.Gui.Tooltip
         public boolean dimensionalScrap = true;
+        /** Grosse Flaechen rissigen Eises als Falle in Eiszapfen-Biomen und auf gefrorenen Ozeanen (N53). */
+        @ConfigEntry.Gui.Tooltip
+        public boolean crackedIceFields = true;
     }
 
     /** Wie lange Fremde (nicht der Besitzer, nicht Kreativ) zum Abbauen fremder Platten brauchen. */

@@ -41,7 +41,8 @@ public final class SledgehammerChips {
     public static java.util.List<Crush> crushes() {
         java.util.List<Crush> out = new ArrayList<>();
         if (McVersion.SMALL_PLACEABLES) {
-            out.add(new Crush(Items.ICE, ModItems.ICE_CHIP, ICE_CHIPS));
+            // N53: the hammer cracks ice first (Ice -> Cracked Ice), the chips come from the cracked ice.
+            out.add(new Crush(McVersion.NATURE_VARIANTS ? ModItems.CRACKED_ICE : Items.ICE, ModItems.ICE_CHIP, ICE_CHIPS));
             out.add(new Crush(Items.PACKED_ICE, ModItems.ICE_CHIP, PACKED_ICE_CHIPS));
             out.add(new Crush(Items.OBSIDIAN, ModItems.OBSIDIAN_CHIP, OBSIDIAN_CHIPS));
             out.add(new Crush(Items.FIRE_CHARGE, ModItems.FIRE_CHIP, FIRE_CHIPS));
@@ -70,7 +71,10 @@ public final class SledgehammerChips {
         var entity = level.getBlockEntity(pos);
         ItemStack result = ItemStack.EMPTY;
         int fireIndex = -1;
-        if (state.is(Blocks.ICE)) {
+        if (McVersion.NATURE_VARIANTS && state.is(Blocks.ICE)) {
+            return crackIce(context);
+        }
+        if (state.is(Blocks.ICE) || (McVersion.NATURE_VARIANTS && state.is(com.simplebuilding.blocks.ModBlocks.CRACKED_ICE))) {
             result = new ItemStack(ModItems.ICE_CHIP, ICE_CHIPS);
         } else if (state.is(Blocks.PACKED_ICE)) {
             result = new ItemStack(ModItems.ICE_CHIP, PACKED_ICE_CHIPS);
@@ -123,6 +127,26 @@ public final class SledgehammerChips {
         level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 0.8F);
         ((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, result.getItem()),
                 pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 12, 0.2, 0.2, 0.2, 0.05);
+        context.getItemInHand().hurtAndBreak(DAMAGE, player, context.getHand());
+        player.getCooldowns().addCooldown(context.getItemInHand(), COOLDOWN_TICKS);
+        level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+        return InteractionResult.SUCCESS;
+    }
+
+    /**
+     * N53 (owner 2026-10-13): one hammer strike on normal ice cracks it - it becomes Cracked Ice (crack stage 0), like the
+     * stone chisel does. Striking the cracked ice again crushes it into ice chips. Durability and cooldown as one strike.
+     */
+    private static InteractionResult crackIce(UseOnContext context) {
+        var level = context.getLevel();
+        var player = context.getPlayer();
+        var pos = context.getClickedPos();
+        if (level.isClientSide() || player.getCooldowns().isOnCooldown(context.getItemInHand())) {
+            return InteractionResult.SUCCESS;
+        }
+        level.setBlock(pos, com.simplebuilding.blocks.ModBlocks.CRACKED_ICE.defaultBlockState(), Block.UPDATE_ALL);
+        McVersion.swing(player, context.getHand(), true);
+        level.playSound(null, pos, SoundEvents.GLASS_HIT, SoundSource.BLOCKS, 1.0F, 0.7F);
         context.getItemInHand().hurtAndBreak(DAMAGE, player, context.getHand());
         player.getCooldowns().addCooldown(context.getItemInHand(), COOLDOWN_TICKS);
         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);

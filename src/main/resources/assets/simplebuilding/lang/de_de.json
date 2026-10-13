@@ -2075,6 +2075,8 @@
   "item.simplebuilding.sage_orb": "Weisheitskugel",
   "text.autoconfig.simplebuilding.option.server.oreGeneration.dimensionalScrap": "Dimensionsschrott",
   "text.autoconfig.simplebuilding.option.server.oreGeneration.dimensionalScrap.@Tooltip": "Aus: kein Dimensionsschrott in Oberwelt,\nNether und End. Wirkt beim nächsten Weltstart\nin neu erzeugten Chunks. Standard: an.",
+  "text.autoconfig.simplebuilding.option.server.oreGeneration.crackedIceFields": "Rissiges-Eis-Felder",
+  "text.autoconfig.simplebuilding.option.server.oreGeneration.crackedIceFields.@Tooltip": "Aus: keine großen Fallen aus rissigem Eis in\nEiszapfen-Biomen und auf gefrorenen Ozeanen.\nWirkt beim nächsten Weltstart in neu erzeugten\nChunks. Standard: an.",
   "block.simplebuilding.dimensional_scrap": "Dimensionsschrott",
   "item.simplebuilding.dimensional_scrap": "Dimensionsschrott",
   "block.simplebuilding.nether_dimensional_scrap": "Nether-Dimensionsschrott",

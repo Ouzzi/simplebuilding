@@ -80,7 +80,9 @@ public final class RecipelessJeiInfo {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             map.put("hammer_fire_chips", List.of(ModItems.FIRE_CHIP, net.minecraft.world.item.Items.FIRE_CHARGE));
-            map.put("hammer_ice_chips", List.of(ModItems.ICE_CHIP, net.minecraft.world.item.Items.ICE, net.minecraft.world.item.Items.PACKED_ICE));
+            map.put("hammer_ice_chips", com.simplebuilding.version.McVersion.NATURE_VARIANTS
+                    ? List.of(ModItems.ICE_CHIP, net.minecraft.world.item.Items.ICE, ModItems.CRACKED_ICE, net.minecraft.world.item.Items.PACKED_ICE)
+                    : List.of(ModItems.ICE_CHIP, net.minecraft.world.item.Items.ICE, net.minecraft.world.item.Items.PACKED_ICE));
             map.put("hammer_obsidian_chips", List.of(ModItems.OBSIDIAN_CHIP, net.minecraft.world.item.Items.OBSIDIAN));
         }
         map.put("furnace_tiers", List.of(ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE,

@@ -23,6 +23,8 @@ public final class ConfigFlags {
     public static final String NIHILIT_ORE = "nihilitOre";
     public static final String SAGE_ORE = "sageOre";
     public static final String DIMENSIONAL_SCRAP = "dimensionalScrap";
+    /** Rissiges-Eis-Felder (N53): Pfad der Schalter-Option, ueber den allgemeinen Zweig von {@link #test}. */
+    public static final String CRACKED_ICE_FIELDS = "server.oreGeneration.crackedIceFields";
 
     private ConfigFlags() {
     }

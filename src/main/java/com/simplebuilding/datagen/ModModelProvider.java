@@ -1053,9 +1053,8 @@ public class ModModelProvider extends FabricModelProvider {
                 PropertyDispatch.initial(com.simplebuilding.blocks.custom.CrackedIceBlock.AGE);
         Identifier firstCrack = null;
         for (int age = 0; age <= com.simplebuilding.blocks.custom.CrackedIceBlock.MAX_AGE; age++) {
-            // N52: own translucent ice with cracks (tools/textures/n52_cracked_ice_2026_10_13.py), layer forced to translucent.
             TextureMapping frosted = new TextureMapping().put(TextureSlot.ALL,
-                    new Material(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/cracked_ice_" + age), true));
+                    new Material(Identifier.withDefaultNamespace("block/frosted_ice_" + age)));
             Identifier model = ModelTemplates.CUBE_ALL.createWithSuffix(ModBlocks.CRACKED_ICE, "_" + age, frosted, generator.modelOutput);
             cracks.select(age, BlockModelGenerators.plainVariant(model));
             if (firstCrack == null) {

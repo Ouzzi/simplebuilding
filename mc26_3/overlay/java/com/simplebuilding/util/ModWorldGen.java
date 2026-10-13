@@ -74,6 +74,22 @@ public class ModWorldGen {
     public static final ResourceKey<PlacedFeature> CRACKED_ICE_PATCH_PLACED_KEY = registerPlacedKey("cracked_ice_patch_placed");
     public static final ResourceKey<PlacedFeature> CRACKED_ICE_SINGLE_PLACED_KEY = registerPlacedKey("cracked_ice_single_placed");
     public static final int CRACKED_ICE_PATCH_SIZE = 14;
+    /**
+     * Rissiges-Eis-Felder (N53, Besitzer 2026-10-13): sehr grosse Flaechen in Eiszapfen-Biomen und auf gefrorenen Ozeanen
+     * ({@code #simplebuilding:has_cracked_ice_fields}) - eine Falle. Je Treffer {@link #CRACKED_ICE_FIELD_DISCS} Scheiben
+     * (Radius {@link #CRACKED_ICE_FIELD_MIN_RADIUS}..{@link #CRACKED_ICE_FIELD_MAX_RADIUS}) im selben Chunk, die zusammen
+     * ein Feld von gut 20-30 Bloecken bilden; nur in jedem {@link #CRACKED_ICE_FIELD_RARITY}. Chunk dieser Biome. Die
+     * Oberflaeche (Eis, Schneeblock, Schnee, Erde, Pulverschnee unter Luft) wird rissiges Eis (Stufe 1), was darunter
+     * liegt bis {@link #CRACKED_ICE_FIELD_DEPTH} tief Luft: wer einbricht, faellt in eine Grube und muss sich
+     * hochbauen; unter Meereis bleibt das Wasser. Schalter: {@code server.oreGeneration.crackedIceFields}.
+     */
+    public static final ResourceKey<Feature> CRACKED_ICE_FIELD_KEY = registerConfiguredKey("cracked_ice_field");
+    public static final ResourceKey<PlacedFeature> CRACKED_ICE_FIELD_PLACED_KEY = registerPlacedKey("cracked_ice_field_placed");
+    public static final int CRACKED_ICE_FIELD_RARITY = 12;
+    public static final int CRACKED_ICE_FIELD_DISCS = 4;
+    public static final int CRACKED_ICE_FIELD_MIN_RADIUS = 5;
+    public static final int CRACKED_ICE_FIELD_MAX_RADIUS = 8;
+    public static final int CRACKED_ICE_FIELD_DEPTH = 4;
 
     /** Sculk Jaws on the floors of the Deep Dark (N50): about 6 attempts per chunk, only where the block can stand. */
     public static final ResourceKey<Feature> SCULK_JAW_KEY = registerConfiguredKey("sculk_jaw");
@@ -99,6 +115,7 @@ public class ModWorldGen {
                     ModBlocks.CRACKED_ICE.defaultBlockState(), CRACKED_ICE_PATCH_SIZE));
             context.register(CRACKED_ICE_SINGLE_KEY, new net.minecraft.world.level.levelgen.feature.SimpleBlockFeature(
                     new net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider(ModBlocks.CRACKED_ICE.defaultBlockState())));
+            context.register(CRACKED_ICE_FIELD_KEY, crackedIceField());
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             context.register(SCULK_JAW_KEY, new net.minecraft.world.level.levelgen.feature.SimpleBlockFeature(
@@ -149,6 +166,13 @@ public class ModWorldGen {
                     BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.ICE)), BiomeFilter.biome()));
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            // The rarity filter decides per chunk, then several discs inside that chunk make one big field.
+            register(context, CRACKED_ICE_FIELD_PLACED_KEY, features.getOrThrow(CRACKED_ICE_FIELD_KEY), List.of(
+                    net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery(CRACKED_ICE_FIELD_RARITY),
+                    CountPlacement.of(CRACKED_ICE_FIELD_DISCS), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+                    OffsetPlacement.vertical(ConstantInt.of(-1)), BiomeFilter.biome()));
+        }
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             // Pick a random spot, scan down to the floor, stand on it; the block's own survival rule decides.
             register(context, SCULK_JAW_PLACED_KEY, features.getOrThrow(SCULK_JAW_KEY), List.of(
                     CountPlacement.of(SCULK_JAW_COUNT), InSquarePlacement.spread(),
@@ -166,6 +190,29 @@ public class ModWorldGen {
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             registerScrap(context, features);
         }
+    }
+
+    /**
+     * One disc of a cracked ice field: a Vanilla disk feature whose state provider works top-down through each column -
+     * snow layers go, the topmost block under open air becomes cracked ice (stage 1), what lies under it turns into cave
+     * air (the pit). Blocks under water are never targets, so frozen ocean water stays where it is.
+     */
+    private static Feature crackedIceField() {
+        net.minecraft.core.Vec3i up = Direction.UP.getUnitVec3i();
+        // Carved blocks become cave air, so a block under the pit never mistakes it for the open sky; columns still
+        // covered by other ground (a slope higher than the disc) match no rule and stay as they are.
+        var provider = net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider.builder()
+                .ifTrueThenProvide(BlockPredicate.matchesBlocks(Blocks.SNOW), Blocks.AIR)
+                .ifTrueThenProvide(BlockPredicate.matchesBlocks(up, List.of(Blocks.AIR)),
+                        ModBlocks.CRACKED_ICE.defaultBlockState().setValue(com.simplebuilding.blocks.custom.CrackedIceBlock.AGE, 1))
+                .ifTrueThenProvide(BlockPredicate.matchesBlocks(up, List.of(ModBlocks.CRACKED_ICE, Blocks.CAVE_AIR)), Blocks.CAVE_AIR)
+                .build();
+        BlockPredicate target = BlockPredicate.allOf(
+                BlockPredicate.matchesBlocks(Blocks.ICE, Blocks.SNOW_BLOCK, Blocks.SNOW, Blocks.DIRT, Blocks.POWDER_SNOW),
+                BlockPredicate.not(BlockPredicate.matchesFluids(up, List.of(net.minecraft.world.level.material.Fluids.WATER))));
+        return new net.minecraft.world.level.levelgen.feature.DiskFeature(Holder.direct(provider), target,
+                net.minecraft.util.valueproviders.UniformInt.of(CRACKED_ICE_FIELD_MIN_RADIUS, CRACKED_ICE_FIELD_MAX_RADIUS),
+                CRACKED_ICE_FIELD_DEPTH);
     }
 
     /** Placements of the Dimensional Scrap: Overworld deep in deepslate, Nether like ancient debris, End inside the islands. */

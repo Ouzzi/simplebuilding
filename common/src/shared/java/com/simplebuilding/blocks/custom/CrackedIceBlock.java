@@ -23,8 +23,12 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Rissiges Eis (Besitzer N25): wer darauf steht, laesst es reissen - jede Sekunde mit jemandem darauf eine Stufe mehr
- * (Modelle auf Vanillas {@code frosted_ice_0..3}), nach der letzten Stufe bricht es weg (ohne Wasserquelle, Nachtrag 35). Steht niemand mehr darauf, bleibt der erreichte Riss stehen. Sonst verhaelt es sich wie Eis
+ * (Modelle auf Vanillas {@code frosted_ice_0..3}, N53 wieder wie vor N52), nach der letzten Stufe bricht es weg (ohne Wasserquelle, Nachtrag 35). Steht niemand mehr darauf, bleibt der erreichte Riss stehen. Sonst verhaelt es sich wie Eis
  * (Licht schmilzt es, abgebaut hinterlaesst es anders als Eis kein Wasser).
+ *
+ * <p>N53 (Besitzer 2026-10-13): zwischen Eis getarnt - Eis und rissiges Eis blenden die gemeinsamen Flaechen aus wie
+ * Eis neben Eis ({@link #hidesFaceTowards}, HalfTransparentBlockMixin), sonst zeichneten sich die Innenflaechen als
+ * dunkler Rand ab. An keine Seite eines rissigen Eisblocks laesst sich ein Block setzen ({@link #blocksPlacementAt}).
  */
 public class CrackedIceBlock extends IceBlock {
     public static final int MAX_AGE = 3;
@@ -60,6 +64,32 @@ public class CrackedIceBlock extends IceBlock {
             // Einbrechen: das Eis bricht weg und hinterlaesst keine Wasserquelle (Nachtrag 35).
             level.destroyBlock(pos, false);
         }
+    }
+
+    /**
+     * N53: Eis und rissiges Eis gelten fuer das Ausblenden der Flaechen als derselbe Block (Vanilla tut das nur fuer
+     * gleiche Bloecke), damit rissiges Eis in einer Eisflaeche keine sichtbaren Innenflaechen/Raender hat.
+     */
+    public static boolean hidesFaceTowards(Block self, BlockState neighbor) {
+        Block cracked = com.simplebuilding.blocks.ModBlocks.CRACKED_ICE;
+        if (cracked == null || !(self == net.minecraft.world.level.block.Blocks.ICE || self == cracked)) {
+            return false;
+        }
+        return neighbor.is(net.minecraft.world.level.block.Blocks.ICE) || neighbor.is(cracked);
+    }
+
+    /** N53: an keine der sechs Seiten eines rissigen Eisblocks darf ein Block gesetzt werden (BlockItemMixin). */
+    public static boolean blocksPlacementAt(net.minecraft.world.level.LevelReader level, BlockPos pos) {
+        Block cracked = com.simplebuilding.blocks.ModBlocks.CRACKED_ICE;
+        if (cracked == null) {
+            return false;
+        }
+        for (net.minecraft.core.Direction direction : net.minecraft.core.Direction.values()) {
+            if (level.getBlockState(pos.relative(direction)).is(cracked)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Steht ein Lebewesen (kein Zuschauer) auf der Oberseite? */

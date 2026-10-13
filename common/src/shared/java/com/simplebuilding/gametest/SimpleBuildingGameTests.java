@@ -338,6 +338,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("nature_block_game_test_cracked_ice_melts_under_an_entity_after_some_seconds", NatureBlockTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds)
                     .maxTicks(NatureBlockTests.CRACKED_ICE_MAX_TICKS).build(),
+            GameTestSpec.named("nature_block_game_test_cracked_ice_blocks_placement_on_all_sides_and_blends_with_ice", NatureBlockTests::crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce)
+                    .build(),
+            GameTestSpec.named("nature_block_game_test_cracked_ice_drops_itself_with_silk_touch", NatureBlockTests::crackedIceDropsItselfWithSilkTouch)
+                    .build(),
+            GameTestSpec.named("nature_block_game_test_cracked_ice_fields_generate_in_ice_spikes_and_frozen_oceans", NatureBlockTests::crackedIceFieldsGenerateInIceSpikesAndFrozenOceans)
+                    .build(),
             GameTestSpec.named("trap_game_test_sculk_jaw_bites_and_reopens_silently", TrapTests::sculkJawBitesAndReopensSilently)
                     .maxTicks(TrapTests.JAW_MAX_TICKS).build(),
             GameTestSpec.named("trap_game_test_workstations_are_heavy_sulfur_cube_food", TrapTests::workstationsAreHeavySulfurCubeFood)
@@ -1291,6 +1297,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("music_disc_game_test_jukebox_stays_vanilla_and_amplifier_plays_along", MusicDiscTests::jukeboxStaysVanillaAndAmplifierPlaysAlong).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_creative_has_no_wear", SledgehammerTests::hammerChipsCreativeHasNoWear).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_ice_yields_four", SledgehammerTests::hammerChipsIceYieldsFour).build(),
+            GameTestSpec.named("sledgehammer_game_test_hammer_cracks_plain_ice", SledgehammerTests::hammerCracksPlainIce).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_mixed_pile_preserves_other_parts", SledgehammerTests::hammerChipsMixedPilePreservesOtherParts).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_obsidian_yields_nine", SledgehammerTests::hammerChipsObsidianYieldsNine).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_packed_ice_yields_nine", SledgehammerTests::hammerChipsPackedIceYieldsNine).build(),

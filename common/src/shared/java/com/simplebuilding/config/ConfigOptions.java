@@ -118,7 +118,8 @@ public final class ConfigOptions {
             "server.oreGeneration.astralitOre",
             "server.oreGeneration.nihilitOre",
             "server.oreGeneration.sageOre",
-            "server.oreGeneration.dimensionalScrap");
+            "server.oreGeneration.dimensionalScrap",
+            "server.oreGeneration.crackedIceFields");
 
     private static final List<Option> ALL;
 

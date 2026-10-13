@@ -45,6 +45,15 @@ public abstract class BlockItemMixin {
         }
     }
 
+    /** N53: an keine Seite eines rissigen Eisblocks laesst sich ein Block setzen (Client und Server gleich). */
+    @Inject(method = "place", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$noPlacingAgainstCrackedIce(BlockPlaceContext context, CallbackInfoReturnable<InteractionResult> cir) {
+        if (com.simplebuilding.blocks.custom.CrackedIceBlock.blocksPlacementAt(context.getLevel(), context.getClickedPos())) {
+            SIMPLEBUILDING_PLACING.remove();
+            cir.setReturnValue(InteractionResult.FAIL);
+        }
+    }
+
     @Inject(method = "place", at = @At("HEAD"))
     private void simplebuilding$rememberPlacedStack(BlockPlaceContext context, CallbackInfoReturnable<InteractionResult> cir) {
         SIMPLEBUILDING_PLACING.set(context.getItemInHand().copy());

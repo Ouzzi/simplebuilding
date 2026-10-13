@@ -27,6 +27,11 @@ public final class SledgehammerGameTest {
     }
 
     @GameTest
+    public void hammerCracksPlainIce(GameTestHelper helper) {
+        SledgehammerTests.hammerCracksPlainIce(helper);
+    }
+
+    @GameTest
     public void hammerChipsMixedPilePreservesOtherParts(GameTestHelper helper) {
         SledgehammerTests.hammerChipsMixedPilePreservesOtherParts(helper);
     }
