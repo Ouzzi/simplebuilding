@@ -33,10 +33,10 @@ import net.minecraft.world.entity.player.Inventory;
  */
 public class StrongBeaconScreen extends BeaconScreen {
     /** Panel size and offset to the right of Vanilla's 230 px image. */
-    public static final int PANEL_X = 232, PANEL_WIDTH = 100, PANEL_HEIGHT = 132;
+    public static final int PANEL_X = 232, PANEL_WIDTH = 108, PANEL_HEIGHT = 132;
     /** Vanilla's image width; the screen reports {@link #FULL_WIDTH} except while Vanilla lays out or draws its image. */
-    public static final int VANILLA_WIDTH = 230, FULL_WIDTH = 332;
-    public static final int ROW_Y = 30, ROW_STEP = 30, BUTTON_X = 22, BUTTON_STEP = 24, BUTTON_SIZE = 22;
+    public static final int VANILLA_WIDTH = 230, FULL_WIDTH = PANEL_X + PANEL_WIDTH;
+    public static final int ROW_Y = 30, ROW_STEP = 30, BUTTON_X = 26, BUTTON_STEP = 24, BUTTON_SIZE = 22;
     private static final int LABEL = 0xFFE0E0E0;
     private static final int DIM = 0xFF8A8A8A;
     private static final Identifier BUTTON_DISABLED = Identifier.withDefaultNamespace("container/beacon/button_disabled");
@@ -61,10 +61,8 @@ public class StrongBeaconScreen extends BeaconScreen {
 
     @Override
     protected void init() {
-        // Vanilla's image stays centred where it always is; the panel hangs on its right.
-        reportWidth(VANILLA_WIDTH);
+        // Centred as one 332 px image: Vanilla's part on the left, the panel on its right.
         super.init();
-        reportWidth(FULL_WIDTH);
         this.strongButtons.clear();
         for (int tier = 5; tier <= 6; tier++) {
             List<Holder<MobEffect>> effects = StrongBeaconLogic.EFFECTS.get(tier - 1);
@@ -95,12 +93,19 @@ public class StrongBeaconScreen extends BeaconScreen {
 
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        // Vanilla (and the Simple Interfaces styling) draw the 230 px image centred in "width": for the draw both see
+        // the Vanilla width and a screen width that centres it at leftPos; the dimmed strip that leaves out is filled after.
+        int full = this.width;
+        int shifted = 2 * this.leftPos + VANILLA_WIDTH;
         reportWidth(VANILLA_WIDTH);
+        this.width = shifted;
         try {
             super.extractBackground(graphics, mouseX, mouseY, a);
         } finally {
+            this.width = full;
             reportWidth(FULL_WIDTH);
         }
+        if (shifted < full) graphics.fillGradient(shifted, 0, full, this.height, -1072689136, -804253680);
         int x = this.leftPos + PANEL_X, y = this.topPos;
         UiBoxes.box(graphics, x, y, PANEL_WIDTH, PANEL_HEIGHT, UiPalette.INVENTORY);
         // The dark power field like Vanilla's (#212121), sunk into the box.
@@ -116,7 +121,7 @@ public class StrongBeaconScreen extends BeaconScreen {
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.pyramid", levels, max),
                 PANEL_X + PANEL_WIDTH / 2, 8, UiPalette.DARK_LABEL);
         for (int tier = 5; tier <= 6; tier++) {
-            graphics.text(this.font, String.valueOf(tier), PANEL_X + 12, ROW_Y + (tier - 5) * ROW_STEP + 7, tier <= levels ? LABEL : DIM, false);
+            graphics.text(this.font, String.valueOf(tier), PANEL_X + 15, ROW_Y + (tier - 5) * ROW_STEP + 7, tier <= levels ? LABEL : DIM, false);
         }
         int shown = Math.max(1, levels);
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.range", StrongBeaconLogic.range(shown)),
