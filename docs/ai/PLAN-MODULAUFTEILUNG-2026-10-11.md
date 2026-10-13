@@ -420,6 +420,37 @@ als `simplebuilding:<Material>` (`migration_world*` grün). Neue Tests: Lib `mod
   brauchen die eigenen).
 - Offen: Loot-Einspeisung und Lib-eigener Reload/Sync (Stufe 4), Sichtbarkeit (Tab/JEI) nach Anfrage, `prices.json`-Umzug.
 
+**Status Stufe 4 (13.10., Branch `claude-split-s4-ovens` auf `claude-wave1`):** _Plan_
+- Vorher-Welt zuerst (eigener Commit, Stand vor dem Umzug): `MigrationWorldTests` legt alle drei Familien in mehreren
+  Stufen ab (Ofen mit Eingabe/Brennstoff/Ausgabe), dazu `entities.snbt` mit je einer Ofen-Lore je Stufe (Brennstoff,
+  Schub), die 8 Ofen-Rezepte im Rezeptbuch und ihre Rezept-Advancements; Fixture neu geschrieben.
+- Neues Modul `modules/simpleovens` (1.0.0, `simpleovens:`), `requires simplelib`, optional `simplebuilding`; SB
+  `requires`+bündelt es (Pflicht-Sub-Mod, `bundle: required`, Fabric `depends`, NeoForge/Forge `required`/`mandatory`,
+  SB-Dev-/Testläufe laden es). Inhalt: 9 Öfen (gleiche Pfade), 3 Block-Entities (`simpleovens:furnace|smoker|blast_furnace`
+  ← `simplebuilding:mod_*`), 3 Ofen-Loren (Entity + Item, gleiche Pfade), Stufen-Vorteile (doppelte Erfahrung ab
+  Netherit, Tag `simpleovens:furnace_bonus_excluded` ⊇ `#simplebuilding:furnace_bonus_excluded` optional), Tempo aus
+  eigener Config `config/simpleovens.json` (übernimmt beim ersten Start `server.machines.*FurnaceSpeed` aus SBs Config),
+  `AbstractFurnaceMenuMixin` + `LongCookContainerData` (SB wendet sein Mixin auf 26.3 nicht mehr an), 8 Rezepte +
+  Rezept-Advancements, Loot, Modelle/Texturen (Kopie), Lang EN/DE, eigener Tab + Vanilla-Tabs, Guide-Buch, Fragentisch,
+  Discover, Testzentrale-Station (framework `TestCentreStations`), Wiki, Money-Preise (`money/simpleovens`).
+  `blast_furnace_bonus` gibt es auf 26.3 nicht mehr (nur 1.21.11) – nichts zu verschieben.
+- Aufwertung: `data/simpleovens/in_world_upgrades/ovens.json` (Netherit-Nugget / Enderit-Nugget wie bisher, Werkzeug
+  `#simplelib:upgrade_tools`). Mit SB führt der Vorschlaghammer sie aus (SB liest alle Namensräume); allein die Axt
+  (Regel 5a) über neuen Lib-Dienst `InWorldUpgrades.axeStrike` (`InWorldStrikes`-Vorschau, Schläge wie SB). Lib bekommt
+  eigenen Reload-Listener + Client-Sync der `in_world_upgrades` (alle drei Loader); SB meldet `InWorldUpgrades.loadedByPartner()`
+  an, dann lädt/synct nur SB (Altordner `sledgehammer_upgrades` bleibt so wirksam).
+- Enderit allein: Ovens fordert `cracked_diamond`, `netherite_nugget`, `enderite`, `upgrade_templates` an; Lib speist
+  die Enderit-Beute (Endstadt: Schrott, Rohenderit/Nugget, Enderit-Vorlage) ein, solange kein Partner das übernimmt
+  (`SimpleLibApi.materialLootByPartner()`, SB ruft es auf – SB behält seine Pools).
+- SB 26.3: `McVersion.OVENS_IN_SB=false`, `OVENS_NAMESPACE`; SB registriert Öfen/BE/Loren/Items nicht mehr (Felder
+  `null`, Muster Trims), alle verbleibenden Verweise (Tabs, Suchtab, JEI-Info, Jade-Tempo, Testzentrale-Kisten,
+  Advancement-Symbole, Tests) gehen über `util/OvenRefs` (Registry-ID, 26.2 `simplebuilding:`), Datagen 26.3 lässt
+  Ofen-Modelle/Loot/Rezepte/Tags/Aufwertungen weg. 26.2 bleibt monolithisch. IdMoves im Modul-Konstruktor: Items,
+  Blöcke, BE-Typen, Entity-Typen, 8 Rezepte, 8 Rezept-Advancements.
+- Prüfung: Compile 3 Loader + 26.2, Datagen 26.3, SB-Filter furnace*/smelting*/data_integrity*/test_centre*/migration*,
+  Modul (3 Loader) + Standalone (Fabric/NeoForge), simplelib-Modul, Wiki --strict, discover/module_guides --check,
+  Money-Links --check, check_data.
+
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
 

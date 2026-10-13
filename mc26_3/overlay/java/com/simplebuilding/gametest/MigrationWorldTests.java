@@ -85,12 +85,26 @@ public final class MigrationWorldTests {
     static final String CHUNK = "chunk.snbt";
     static final String PLAYER = "player.snbt";
     static final String ADVANCEMENTS = "advancements.json";
+    static final String ENTITIES = "entities.snbt";
     static final String OLD = IdMovesHook.TEST_NAMESPACE + ":";
     static final String NOW = Simplebuilding.MOD_ID + ":";
     static final int SECTION_Y = 4;
     static final List<String> PLAYER_KEYS = List.of("Inventory", "recipeBook");
     /** Namespace the shared materials moved to (stage 3d). */
     static final String LIB = "simplelib";
+    /** Stage 4: the nine furnaces (blocks and items) - paths unchanged when they move to Simple Ovens. */
+    static final List<String> OVEN_BLOCKS = List.of("reinforced_furnace", "netherite_furnace", "enderite_furnace",
+            "reinforced_smoker", "netherite_smoker", "enderite_smoker",
+            "reinforced_blast_furnace", "netherite_blast_furnace", "enderite_blast_furnace");
+    /** Stage 4: the furnace minecarts (entity types and items). */
+    static final List<String> OVEN_CARTS = List.of("reinforced_furnace_minecart", "netherite_furnace_minecart", "enderite_furnace_minecart");
+    /** Stage 4: SimpleBuilding's block entity types of the furnaces (renamed in Simple Ovens). */
+    static final List<String> OVEN_BLOCK_ENTITIES = List.of("mod_furnace", "mod_smoker", "mod_blast_furnace");
+    /** Stage 4: recipe path -> recipe-book folder of its unlock advancement. */
+    static final Map<String, String> OVEN_RECIPES = Map.of("reinforced_furnace", "redstone", "reinforced_smoker", "redstone",
+            "reinforced_blast_furnace", "redstone", "reinforced_furnace_minecart", "transportation",
+            "netherite_furnace_minecart", "transportation", "netherite_furnace_minecart_smithing", "transportation",
+            "enderite_furnace_minecart", "transportation", "enderite_furnace_minecart_smithing", "transportation");
     /** Compound keys whose children are registry ids (component types, enchantments). */
     static final Set<String> ID_KEYED = Set.of("components", "minecraft:enchantments", "minecraft:stored_enchantments");
     /** String fields that hold a registry id (item/block entity/entity id, palette block name). */
@@ -106,14 +120,35 @@ public final class MigrationWorldTests {
     /** The placed blocks, x = index in section (z = 1, y = 64). */
     static List<Block> sampleBlocks() {
         List<Block> blocks = new ArrayList<>(List.of(ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST,
-                ModBlocks.REINFORCED_FURNACE, ModBlocks.ENDERITE_FURNACE, ModBlocks.CHECKER_OCTET));
+                oven("reinforced_furnace"), oven("enderite_furnace"), ModBlocks.CHECKER_OCTET));
         if (!ModBlocks.MATERIAL_OCTETS.isEmpty()) blocks.add(ModBlocks.MATERIAL_OCTETS.get(0));
         if (!ModBlocks.WOOD_OCTETS.isEmpty()) blocks.add(ModBlocks.WOOD_OCTETS.get(0));
         if (CrucibleCompat.enderiteCrucible() != null) blocks.add(CrucibleCompat.enderiteCrucible());
         // Stage 3d: the shared material blocks (SimpleBuilding's before the move, SimpleLib's after).
         blocks.add(ModBlocks.CRACKED_DIAMOND_BLOCK);
         blocks.add(ModBlocks.ENDERITE_BLOCK);
+        // Stage 4: the other two furnace families (SimpleBuilding's before the move, Simple Ovens' after).
+        blocks.add(oven("netherite_smoker"));
+        blocks.add(oven("reinforced_blast_furnace"));
+        blocks.add(oven("enderite_blast_furnace"));
         return blocks;
+    }
+
+    /**
+     * A furnace by its SimpleBuilding id: SimpleBuilding's block before the move, the moved one after (the lookup
+     * of the old id resolves through SimpleLib's IdMoves).
+     */
+    static Block oven(String path) {
+        return BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, path));
+    }
+
+    /** Namespace the furnaces live in now: simplebuilding before stage 4, simpleovens after. */
+    static String ovenNamespace() {
+        return BuiltInRegistries.BLOCK.getKey(oven("reinforced_furnace")).getNamespace();
+    }
+
+    static boolean ovensMoved() {
+        return !ovenNamespace().equals(Simplebuilding.MOD_ID);
     }
 
     static BlockPos samplePos(int index) {
@@ -150,6 +185,15 @@ public final class MigrationWorldTests {
             "enderite_scrap_from_blasting_layered_raw_enderite", "enderite_ingot_from_scrap", "enderite_block", "enderite_ingot",
             "enderite_upgrade_template");
 
+    static boolean ovenRecipe(Identifier id) {
+        return OVEN_RECIPES.containsKey(id.getPath()) && (id.getNamespace().equals(Simplebuilding.MOD_ID) || id.getNamespace().equals(ovenNamespace()));
+    }
+
+    static boolean ovenRecipeAdvancement(Identifier id) {
+        String path = id.getPath();
+        return path.startsWith("recipes/") && ovenRecipe(Identifier.fromNamespaceAndPath(id.getNamespace(), path.substring(path.lastIndexOf('/') + 1)));
+    }
+
     static boolean materialRecipe(Identifier id) {
         return MATERIAL_RECIPES.contains(id.getPath()) && (id.getNamespace().equals(Simplebuilding.MOD_ID) || id.getNamespace().equals("simplelib"));
     }
@@ -175,6 +219,7 @@ public final class MigrationWorldTests {
         CompoundTag chunk = writeChunk(helper);
         CompoundTag player = writePlayer(helper);
         JsonObject advancements = writeAdvancements(helper);
+        CompoundTag entities = writeEntities(helper);
         helper.assertTrue(chunk.toString().contains(NOW) && player.toString().contains(NOW) && advancements.toString().contains(NOW),
                 "the built fixture holds no SimpleBuilding ids");
         Path dir = fixtureDir(helper);
@@ -183,6 +228,7 @@ public final class MigrationWorldTests {
                 Files.createDirectories(dir);
                 Files.writeString(dir.resolve(CHUNK), new SnbtPrinterTagVisitor().visit(chunk) + "\n", StandardCharsets.UTF_8);
                 Files.writeString(dir.resolve(PLAYER), new SnbtPrinterTagVisitor().visit(player) + "\n", StandardCharsets.UTF_8);
+                Files.writeString(dir.resolve(ENTITIES), new SnbtPrinterTagVisitor().visit(entities) + "\n", StandardCharsets.UTF_8);
                 Files.writeString(dir.resolve(ADVANCEMENTS), new com.google.gson.GsonBuilder().setPrettyPrinting().create()
                         .toJson(advancements) + "\n", StandardCharsets.UTF_8);
             } catch (IOException e) {
@@ -192,6 +238,7 @@ public final class MigrationWorldTests {
             readFixture(helper, CHUNK);
             readFixture(helper, PLAYER);
             readJson(helper, ADVANCEMENTS);
+            readFixture(helper, ENTITIES);
         }
         helper.succeed();
     }
@@ -209,12 +256,24 @@ public final class MigrationWorldTests {
             if (!(blocks.get(i) instanceof EntityBlock entityBlock)) continue;
             BlockEntity be = entityBlock.newBlockEntity(pos, state);
             if (be == null) continue;
-            if (be instanceof Container container) {
+            if (be instanceof net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity furnace) {
+                // Stage 4: a running furnace - input (a mod item), fuel, output, and its timers below.
+                furnace.setItem(0, new ItemStack(oven("reinforced_furnace").asItem(), 2));
+                furnace.setItem(1, new ItemStack(net.minecraft.world.item.Items.COAL, 3));
+                furnace.setItem(2, new ItemStack(net.minecraft.world.item.Items.IRON_INGOT, 2));
+            } else if (be instanceof Container container) {
                 for (int slot = 0; slot < Math.min(container.getContainerSize(), contents.size()); slot++) {
                     if (container.canPlaceItem(slot, contents.get(slot))) container.setItem(slot, contents.get(slot).copy());
                 }
             }
-            blockEntities.add(be.saveWithFullMetadata(helper.getLevel().registryAccess()));
+            CompoundTag saved = be.saveWithFullMetadata(helper.getLevel().registryAccess());
+            if (be instanceof net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity) {
+                saved.putInt("cooking_time_spent", 57);
+                saved.putInt("cooking_total_time", 100);
+                saved.putInt("lit_time_remaining", 800);
+                saved.putInt("lit_total_time", 1600);
+            }
+            blockEntities.add(saved);
         }
         CompoundTag sectionTag = new CompoundTag();
         sectionTag.putByte("Y", (byte) SECTION_Y);
@@ -275,7 +334,7 @@ public final class MigrationWorldTests {
         List<RecipeHolder<?>> out = new ArrayList<>(server.getRecipeManager().getRecipes().stream()
                 .filter(r -> r.id().identifier().getNamespace().equals(Simplebuilding.MOD_ID))
                 .sorted(Comparator.comparing(r -> r.id().identifier().toString())).limit(6).toList());
-        server.getRecipeManager().getRecipes().stream().filter(r -> materialRecipe(r.id().identifier()) && !out.contains(r))
+        server.getRecipeManager().getRecipes().stream().filter(r -> (materialRecipe(r.id().identifier()) || ovenRecipe(r.id().identifier())) && !out.contains(r))
                 .sorted(Comparator.comparing(r -> r.id().identifier().toString())).forEach(out::add);
         return out;
     }
@@ -284,9 +343,47 @@ public final class MigrationWorldTests {
         List<AdvancementHolder> out = new ArrayList<>(server.getAdvancements().getAllAdvancements().stream()
                 .filter(a -> a.id().getNamespace().equals(Simplebuilding.MOD_ID) && !a.value().criteria().isEmpty())
                 .sorted(Comparator.comparing(a -> a.id().toString())).limit(4).toList());
-        server.getAdvancements().getAllAdvancements().stream().filter(a -> materialRecipeAdvancement(a.id()) && !out.contains(a))
+        server.getAdvancements().getAllAdvancements().stream().filter(a -> (materialRecipeAdvancement(a.id()) || ovenRecipeAdvancement(a.id())) && !out.contains(a))
                 .sorted(Comparator.comparing(a -> a.id().toString())).forEach(out::add);
         return out;
+    }
+
+    /**
+     * Stage 4: one furnace minecart per tier with fuel and a push, as {@code ChunkMap} saves entities
+     * ({@code saveAsPassenger}: id first), in an entity chunk's {@code Entities} list.
+     */
+    private static CompoundTag writeEntities(GameTestHelper helper) {
+        ListTag list = new ListTag();
+        for (int i = 0; i < OVEN_CARTS.size(); i++) {
+            net.minecraft.world.entity.EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, OVEN_CARTS.get(i)));
+            net.minecraft.world.entity.Entity cart = type.create(helper.getLevel(), net.minecraft.world.entity.EntitySpawnReason.LOAD);
+            helper.assertTrue(cart != null, "no entity for " + OVEN_CARTS.get(i));
+            cart.setPos(i + 0.5, SECTION_Y * 16 + 1, 3.5);
+            TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
+            helper.assertTrue(cart.saveAsPassenger(output), OVEN_CARTS.get(i) + " does not save");
+            CompoundTag tag = output.buildResult();
+            tag.putInt("Fuel", 3600 * (i + 1));
+            tag.putDouble("PushX", 0.5);
+            tag.putDouble("PushZ", 0.0);
+            list.add(tag);
+        }
+        CompoundTag entities = new CompoundTag();
+        entities.putInt("DataVersion", currentDataVersion());
+        entities.put("Entities", list);
+        return entities;
+    }
+
+    private static CompoundTag saveEntity(GameTestHelper helper, net.minecraft.world.entity.Entity entity) {
+        TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
+        entity.saveAsPassenger(output);
+        return output.buildResult();
+    }
+
+    private static net.minecraft.world.entity.Entity loadEntity(GameTestHelper helper, CompoundTag tag) {
+        return net.minecraft.world.entity.EntityType.loadEntityRecursive(TagValueInput.create(ProblemReporter.DISCARDING,
+                helper.getLevel().registryAccess(), tag), helper.getLevel(), net.minecraft.world.entity.EntitySpawnReason.LOAD,
+                net.minecraft.world.entity.EntityProcessor.NOP);
     }
 
     // ===================================================================================== the test
@@ -382,6 +479,16 @@ public final class MigrationWorldTests {
                     Identifier.fromNamespaceAndPath(LIB, id.substring(NOW.length())));
             if (!want.getRecipeBook().contains(libKey)) problems.add("the old recipe book lost " + id + " (now " + libKey.identifier() + ")");
         }
+        // Stage 4: the old world's furnace recipes are known under Simple Ovens' ids.
+        int ovenRecipesInBook = 0;
+        for (Tag entry : playerBefore.getCompoundOrEmpty("recipeBook").getListOrEmpty("recipes")) {
+            if (!(entry instanceof StringTag(String id)) || !id.startsWith(NOW) || !OVEN_RECIPES.containsKey(id.substring(NOW.length()))) continue;
+            ovenRecipesInBook++;
+            ResourceKey<Recipe<?>> ovenKey = ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                    Identifier.fromNamespaceAndPath(ovenNamespace(), id.substring(NOW.length())));
+            if (!want.getRecipeBook().contains(ovenKey)) problems.add("the old recipe book lost " + id + " (now " + ovenKey.identifier() + ")");
+        }
+        if (ovenRecipesInBook < OVEN_RECIPES.size()) problems.add("null probe: the recipe book fixture holds " + ovenRecipesInBook + " furnace recipes");
         TagValueOutput wantOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
         want.saveWithoutId(wantOutput);
         CompoundTag wantResaved = wantOutput.buildResult();
@@ -426,9 +533,39 @@ public final class MigrationWorldTests {
                 if (materialRecipeAdvancement(id) && !resaved.contains(LIB + ":" + id.getPath())) {
                     problems.add("moved recipe advancement " + id + " is not saved as " + LIB + ":" + id.getPath());
                 }
+                if (ovenRecipeAdvancement(id) && !resaved.contains(ovenNamespace() + ":" + id.getPath())) {
+                    problems.add("moved recipe advancement " + id + " is not saved as " + ovenNamespace() + ":" + id.getPath());
+                }
             }
         } catch (IOException e) {
             throw helper.assertionException("advancement fixture: " + e);
+        }
+
+        // --- entities (stage 4): furnace minecarts keep their type, fuel and push
+        CompoundTag entitiesBefore = readFixture(helper, ENTITIES);
+        CompoundTag entitiesMoved = entitiesBefore.copy();
+        rewrite(entitiesMoved, "");
+        ListTag oldEntities = entitiesBefore.getListOrEmpty("Entities");
+        ListTag movedEntities = entitiesMoved.getListOrEmpty("Entities");
+        if (oldEntities.size() < OVEN_CARTS.size()) problems.add("null probe: the entity fixture holds " + oldEntities.size() + " entities");
+        for (int i = 0; i < oldEntities.size(); i++) {
+            CompoundTag oldTag = oldEntities.getCompoundOrEmpty(i);
+            net.minecraft.world.entity.Entity wantEntity = loadEntity(helper, oldTag);
+            net.minecraft.world.entity.Entity gotEntity = loadEntity(helper, movedEntities.getCompoundOrEmpty(i));
+            String what = oldTag.getStringOr("id", "?");
+            if (wantEntity == null) {
+                problems.add("null probe: entity " + what + " does not load");
+                continue;
+            }
+            CompoundTag wantSaved = saveEntity(helper, wantEntity);
+            if (wantSaved.getIntOr("Fuel", -1) != oldTag.getIntOr("Fuel", -2)) problems.add("entity " + what + " lost its fuel: " + wantSaved);
+            for (String old : materialIdsIn(wantSaved.toString())) problems.add("entity " + what + " saves the moved id " + old);
+            if (gotEntity == null || gotEntity.getType() != wantEntity.getType()) {
+                problems.add("entity " + what + " loads as " + gotEntity + " instead of " + wantEntity.getType());
+                continue;
+            }
+            CompoundTag gotSaved = saveEntity(helper, gotEntity);
+            if (!gotSaved.equals(wantSaved)) problems.add("entity " + what + " saves back as " + gotSaved + ", old world " + wantSaved);
         }
 
         // --- control: the move is a namespace move, unknown paths stay unknown
@@ -479,12 +616,23 @@ public final class MigrationWorldTests {
         return count;
     }
 
-    /** Stage 3d: ids of the moved shared materials and their recipes still spelled {@code simplebuilding:} in saved text. */
+    /**
+     * Ids that moved out of SimpleBuilding (stage 3d: shared materials and their recipes; stage 4: furnaces, furnace
+     * carts, their block entity types, recipes and recipe advancements) still spelled {@code simplebuilding:} in saved text.
+     */
     static List<String> materialIdsIn(String text) {
         List<String> found = new ArrayList<>();
         List<String> paths = new ArrayList<>(SharedMaterials.ITEMS);
         paths.addAll(SharedMaterials.RECIPES.keySet());
         SharedMaterials.RECIPES.forEach((path, folder) -> paths.add("recipes/" + folder + "/" + path));
+        if (ovensMoved()) {
+            // Stage 4: the furnaces, their carts, block entity types, recipes and recipe advancements.
+            paths.addAll(OVEN_BLOCKS);
+            paths.addAll(OVEN_CARTS);
+            paths.addAll(OVEN_BLOCK_ENTITIES);
+            paths.addAll(OVEN_RECIPES.keySet());
+            OVEN_RECIPES.forEach((path, folder) -> paths.add("recipes/" + folder + "/" + path));
+        }
         for (String path : paths) {
             java.util.regex.Matcher m = java.util.regex.Pattern.compile(java.util.regex.Pattern.quote(NOW + path) + "(?![a-z0-9_/.-])").matcher(text);
             if (m.find() && !found.contains(NOW + path)) found.add(NOW + path);
