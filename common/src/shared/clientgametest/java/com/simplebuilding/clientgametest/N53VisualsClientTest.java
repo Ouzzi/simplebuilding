@@ -60,7 +60,7 @@ public final class N53VisualsClientTest {
         script.awaitPackets();
         script.command("gamemode spectator", true);
         script.command("time set noon", true);
-        script.command("tp @a 3.5 4.5 " + (Z + 8.5) + " 180.0 55.0");
+        script.command("tp @a 3.5 7.0 " + (Z + 9.5) + " 180.0 50.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("settle", 60);
@@ -69,7 +69,7 @@ public final class N53VisualsClientTest {
         script.awaitPackets();
         script.idle("settle", 20);
         script.shot("n53-ice-side");
-        script.command("tp @a 5.5 6.0 " + (Z + 11.5) + " 180.0 90.0");
+        script.command("tp @a 5.5 10.0 " + (Z + 11.5) + " 180.0 90.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("settle", 20);
