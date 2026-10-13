@@ -7,7 +7,7 @@
   "simpleinterfaces.option.showStyleToggle": "Stil-Vergleichsknopf anzeigen",
   "simpleinterfaces.option.showStyleToggle.tooltip": "Knopf und Taste zum Umschalten zwischen Simple- und Vanilla-Stil anzeigen. Standard: aus.",
   "simpleinterfaces.option.inventoryBrightness": "Inventar-Helligkeit",
-  "simpleinterfaces.option.inventoryBrightness.tooltip": "Helligkeit der Mod-Inventar- und\nBehälter-Hintergründe: Hell (Standard), Dämmerung oder Dunkel.",
+  "simpleinterfaces.option.inventoryBrightness.tooltip": "Helligkeit der Mod-Inventar- und\nBehälter-Hintergründe: Hell (Standard),\nDämmerung oder Dunkel.",
   "simpleinterfaces.option.inventoryBrightness.light": "Hell",
   "simpleinterfaces.option.inventoryBrightness.dawn": "Dämmerung",
   "simpleinterfaces.option.inventoryBrightness.dark": "Dunkel",
