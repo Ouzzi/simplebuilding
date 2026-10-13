@@ -188,7 +188,7 @@ def leaves():
         path = OUT / f'data/{NS}/loot_table/blocks/{n}_leaves.json'
         template = json.loads(path.read_text(encoding='utf-8'))
         sticks = next(pool for pool in template['pools'] if 'minecraft:stick' in json.dumps(pool))
-        marked = lambda drop: {'type': 'minecraft:block_state_property', 'block': f'{NS}:{n}_leaves', 'properties': {'drop': str(drop)}}
+        marked = lambda drop: {'type': 'minecraft:match_block', 'blocks': f'{NS}:{n}_leaves', 'state': {'drop': str(drop)}}
         dump(path, {'type': 'minecraft:block', 'pools': [
             {'rolls': 1, 'entries': [{'type': 'minecraft:item', 'condition': SHEARS, 'name': f'{NS}:{n}_leaves'}]},
             {'rolls': 1, 'condition': marked(1), 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{w["bud"]}'}]},
