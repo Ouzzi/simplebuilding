@@ -133,7 +133,12 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
         this.extractCarriedItem(graphics, mouseX, mouseY);
         this.extractTooltip(graphics, mouseX, mouseY);
         this.recipeBookComponent.extractTooltip(graphics, mouseX, mouseY, this.hoveredSlot);
-        this.trimStats.render(graphics, this.font, this.minecraft, recipeButtonX(), recipeButtonY(), mouseX, mouseY);
+        // N49: resonance button between the extra head slot and the off-hand slot, as in the inventory
+        this.trimStats.render(graphics, this.font, this.minecraft, this.leftPos + this.layout.vanillaX() + com.simplebuilding.util.TrimStatsLayout.INVENTORY_X,
+                this.topPos + com.simplebuilding.util.TrimStatsLayout.INVENTORY_Y, mouseX, mouseY);
+        if (this.hoveredSlot instanceof com.simplebuilding.util.ExtraHead.HeadSlot && !this.hoveredSlot.hasItem() && this.menu.getCarried().isEmpty()) {
+            graphics.setTooltipForNextFrame(this.font, net.minecraft.network.chat.Component.translatable("gui.simplebuilding.extra_head_slot"), mouseX, mouseY);
+        }
         this.xMouse = mouseX;
         this.yMouse = mouseY;
     }
@@ -183,6 +188,7 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
             }
         }
 
+        TrimStatsPanel.slotFrame(graphics, x + com.simplebuilding.util.TrimStatsLayout.HEAD_SLOT_X - 1, y + com.simplebuilding.util.TrimStatsLayout.HEAD_SLOT_Y - 1);
         InventoryScreen.extractEntityInInventoryFollowsMouse(graphics, x + 26, y + 8, x + 75, y + 78, 30, 0.0625F,
                 this.xMouse, this.yMouse, this.minecraft.player);
     }

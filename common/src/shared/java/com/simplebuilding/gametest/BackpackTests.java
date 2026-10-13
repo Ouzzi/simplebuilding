@@ -220,7 +220,8 @@ public final class BackpackTests {
             BackpackTier tier = ((BackpackItem) items[i]).getTier();
             helper.assertValueEqual(tier.slotCount(), slots[i], "slots of " + items[i]);
             BackpackMenu menu = menuFor(player, tier);
-            helper.assertValueEqual(menu.slots.size(), FIRST_BACKPACK_SLOT + slots[i], "menu slots of " + items[i]);
+            // + 1: the extra head slot after the backpack (owner N49)
+            helper.assertValueEqual(menu.slots.size(), FIRST_BACKPACK_SLOT + slots[i] + 1, "menu slots of " + items[i]);
             assertVanillaPart(helper, player, menu, tier == BackpackTier.BASIC);
         }
 
@@ -455,7 +456,7 @@ public final class BackpackTests {
         ModMessageHandlers.handleOpenBackpack(new OpenBackpackPayload(), player);
         helper.assertTrue(player.containerMenu == player.inventoryMenu,
                 "the backpack key opened " + player.containerMenu + " without a backpack");
-        helper.assertValueEqual(player.inventoryMenu.slots.size(), 46, "slots of the vanilla inventory menu");
+        helper.assertValueEqual(player.inventoryMenu.slots.size(), 47, "slots of the vanilla inventory menu (+ the extra head slot, N49)");
 
         // --- only in the inventory: the first one found is opened, and its slot is locked ---
         ItemStack carried = new ItemStack(ModItems.BACKPACK);

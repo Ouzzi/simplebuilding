@@ -1,33 +1,26 @@
 package com.simplebuilding.util;
 
 /**
- * Pure geometry of the compact resonance field right of a vanilla recipe-book button (owner 2026-10-08): as high as
- * the button and framed like it (round 2, 2026-10-09: vanilla style), a 9x9 cobblestone heart (round 4, N29) centred vertically -
- * a diamond heart at maximum resonance - the white
- * value with shadow after it.
+ * Pure geometry of the resonance button (owner N49, 2026-10-12): a slot-sized button between the extra head slot and
+ * the off-hand slot of the inventory, framed like the recipe-book button (blue when hovered) and showing only a 9x9
+ * heart. The heart has one of eight tiers - cobblestone, stone, copper, iron, gold, diamond, netherite, enderite -
+ * picked from the resonance; the value itself is in the tooltip.
  */
 public final class TrimStatsLayout {
-    public static final int BOOK_BUTTON_WIDTH = 20;
-    public static final int GAP = 2;
-    public static final int HEIGHT = 18;
-    /** The heart sprite: 9 wide, 9 high (owner N29, 2026-10-09: one pixel narrower again than round 3). */
+    /** The button is as big as a slot frame (18x18). */
+    public static final int SIZE = 18, HEIGHT = SIZE;
+    /** The heart sprite: 9 wide, 9 high (owner N29). */
     public static final int ICON_WIDTH = 9, ICON_HEIGHT = 9;
-    /** GUI sprites of the heart: cobblestone, and diamond at maximum resonance (owner N29). */
-    public static final String HEART_SPRITE = "resonance_heart", HEART_SPRITE_MAX = "resonance_heart_max";
-    /** Heart: 3 px from the left edge, vertically centred ((18 - 9) / 2 = 4). */
-    public static final int ICON_INSET_X = 3, ICON_INSET_Y = (HEIGHT - ICON_HEIGHT) / 2;
-    public static final int TEXT_X = ICON_INSET_X + ICON_WIDTH + 2;
-    /** 3 px inside the right edge (the value has no shadow). */
-    public static final int TEXT_PAD_RIGHT = 3;
-    /** The value is drawn at three quarters of the font size (owner N35, 2026-10-11: smaller text, narrower field). */
-    public static final float TEXT_SCALE = 0.75F;
-    /** Text row: the scaled font height 6 centred in the field ((18 - 6) / 2 = 6). */
-    public static final int TEXT_Y = (HEIGHT - 6) / 2;
+    /** Heart 4 px in from the left and the top (the frame's bottom/right shadow takes the fifth pixel). */
+    public static final int ICON_INSET = (SIZE - ICON_WIDTH) / 2;
+    /** Heart tiers from the lowest to the highest resonance; sprite {@code resonance_heart_<tier>}. */
+    public static final String[] TIERS = {"cobblestone", "stone", "copper", "iron", "gold", "diamond", "netherite", "enderite"};
+    /** Inventory position of the button relative to leftPos/topPos: between head slot (y 8) and off-hand slot (y 62). */
+    public static final int INVENTORY_X = 76, INVENTORY_Y = 34;
+    /** The extra head slot in the inventory: above the off-hand slot (x 77), level with the helmet slot (y 8). */
+    public static final int HEAD_SLOT_X = 77, HEAD_SLOT_Y = 8;
 
     private TrimStatsLayout() {
-    }
-
-    public record Panel(int x, int y, int width, int height, int iconX, int iconY, int textX, int textY) {
     }
 
     /**
@@ -38,20 +31,28 @@ public final class TrimStatsLayout {
         return total >= base - 0.005;
     }
 
-    /** The heart sprite for this resonance: the diamond heart once it is at its maximum. */
+    /**
+     * The heart tier (index into {@link #TIERS}) for this resonance: the band 0.1..1.0 of the base (the three factors'
+     * floor to their full value) in eight equal steps; the maximum is always the last tier.
+     */
+    public static int heartTier(double total, double base) {
+        if (base <= 0) {
+            return 0;
+        }
+        if (isMaxResonance(total, base)) {
+            return TIERS.length - 1;
+        }
+        double fraction = (total / base - 0.1) / 0.9;
+        return Math.max(0, Math.min(TIERS.length - 1, (int) Math.floor(fraction * TIERS.length)));
+    }
+
+    /** The GUI sprite of the heart for this resonance. */
     public static String heartSprite(double total, double base) {
-        return isMaxResonance(total, base) ? HEART_SPRITE_MAX : HEART_SPRITE;
+        return "resonance_heart_" + TIERS[heartTier(total, base)];
     }
 
-    /** The width the value takes when drawn at {@link #TEXT_SCALE}. */
-    public static int scaledWidth(int textWidth) {
-        return (int) Math.ceil(Math.max(0, textWidth) * TEXT_SCALE);
-    }
-
-    /** The field for a value whose unscaled font width is {@code textWidth}. */
-    public static Panel panel(int bookX, int bookY, int textWidth) {
-        int width = TEXT_X + scaledWidth(textWidth) + TEXT_PAD_RIGHT;
-        int x = bookX + BOOK_BUTTON_WIDTH + GAP;
-        return new Panel(x, bookY, width, HEIGHT, x + ICON_INSET_X, bookY + ICON_INSET_Y, x + TEXT_X, bookY + TEXT_Y);
+    /** Whether ({@code mouseX}, {@code mouseY}) is over the button at ({@code x}, {@code y}). */
+    public static boolean hovered(int x, int y, double mouseX, double mouseY) {
+        return mouseX >= x && mouseX < x + SIZE && mouseY >= y && mouseY < y + SIZE;
     }
 }

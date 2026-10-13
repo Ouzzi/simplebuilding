@@ -10,6 +10,8 @@ import net.minecraft.world.entity.player.Player;
  * Die "Resonanz" der Besatz-Boni: waechst mit Erfahrungsstufe, Ueberleben (Weg und Zeit seit dem
  * letzten Tod) und Kampf (Kills und eingesteckter Schaden seit dem letzten Tod).
  *
+ * <p>Ueberleben ist seit N49 die SUMME aus Weg- und Zeit-Haelfte (je 0,05..0,5), nicht mehr das Bessere von beiden.
+ *
  * <p>Jeder der drei Faktoren liegt in 0,1..1,0; die Resonanz ist ihr MITTELWERT mal der
  * konfigurierten Basis (Standard 2,0), also 0,2..2,0. Frueher war es das Produkt - ein frischer
  * Spieler lag dann bei 0,002 und selbst ein ordentlich gespielter (Stufe 30, eine Stunde am Leben,
@@ -93,10 +95,21 @@ public class TrimMultiplierLogic {
         int distSinceDeath = Math.max(0, currentDist - baseDist);
         int timeSinceDeath = Math.max(0, currentTime - baseTime);
 
-        double distFactor = calculateCurve(distSinceDeath, 4000.0);
-        double timeFactor = calculateCurve(timeSinceDeath, 72000.0);
+        // N49 (owner 2026-10-12): S = distance + time, each half 0.05..0.5 (sum 0.1..1.0, the band of the other factors).
+        return distancePart(distSinceDeath) + timePart(timeSinceDeath);
+    }
 
-        return Math.max(distFactor, timeFactor);
+    /** Highest value of each survival half (distance, time): together they make the full factor 1.0. */
+    public static final double SURVIVAL_PART_MAX = 0.5;
+
+    /** The distance half of the survival factor: 0.05 at 0 m, towards {@link #SURVIVAL_PART_MAX} (scale 4000 m). */
+    public static double distancePart(int metres) {
+        return calculateCurve(Math.max(0, metres), 4000.0) / 2.0d;
+    }
+
+    /** The time half of the survival factor: 0.05 at 0 ticks, towards {@link #SURVIVAL_PART_MAX} (scale one hour of active time). */
+    public static double timePart(int ticks) {
+        return calculateCurve(Math.max(0, ticks), 72000.0) / 2.0d;
     }
 
     public static double calculateCombatMultiplier(Player player) {

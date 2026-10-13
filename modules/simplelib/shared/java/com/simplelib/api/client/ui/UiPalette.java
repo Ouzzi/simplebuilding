@@ -27,6 +27,38 @@ public record UiPalette(int fill, int light, int shade, int slot, int slotTop, i
     /** Label colour on dark boxes. */
     public static final int LIGHT_LABEL = 0xFFF2EEE8;
 
+    // N49: the inventory brightness (UiBrightness, light / dawn / dark) is applied here, so every box, slot and label
+    // drawn from a palette follows it; the stored components stay the light colours (equals, derived palettes).
+    @Override
+    public int fill() {
+        return UiBrightness.current().tone(this.fill);
+    }
+
+    @Override
+    public int light() {
+        return UiBrightness.current().tone(this.light);
+    }
+
+    @Override
+    public int shade() {
+        return UiBrightness.current().tone(this.shade);
+    }
+
+    @Override
+    public int slot() {
+        return UiBrightness.current().tone(this.slot);
+    }
+
+    @Override
+    public int slotTop() {
+        return UiBrightness.current().tone(this.slotTop);
+    }
+
+    @Override
+    public int label() {
+        return UiBrightness.current().label(this.fill, this.label);
+    }
+
     /**
      * A palette from one fill colour with the crucible's ratios - light inner line ~1.27 x fill (mixed towards white
      * for very dark or very light fills), shade 0.82, slot 0.78, slot top line 0.64 - and a label readable on it.
@@ -46,8 +78,9 @@ public record UiPalette(int fill, int light, int shade, int slot, int slotTop, i
      * gets the same contrast in its own hue; very dark slots keep at least 30 % of the slot colour.
      */
     public int slotIcon() {
-        double l = luminance(slot);
-        return l <= 0 ? 0xFF000000 : scale(slot, Math.max(0.3, (l - 54 + 0.5) / l));
+        int shown = slot();
+        double l = luminance(shown);
+        return l <= 0 ? 0xFF000000 : scale(shown, Math.max(0.3, (l - 54 + 0.5) / l));
     }
 
     /** {@code color} with its RGB scaled by {@code f} (clamped), alpha opaque. */

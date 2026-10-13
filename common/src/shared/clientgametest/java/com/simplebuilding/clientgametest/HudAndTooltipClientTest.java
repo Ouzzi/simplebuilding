@@ -258,10 +258,107 @@ public final class HudAndTooltipClientTest {
         hopperFilterButtonAndFilterSlots(script);
         inventoryShowsTheResonanceFieldAndItsDetails(script);
         oreDetectorGlintMarksTheCalibratedSlot(script);
+        extraHeadSlotAndInventoryBrightness(script);
 
         // What a finally block used to do. As steps these run only when everything above them
         // passed; see the port notes in the class javadoc for what a failure leaves behind.
         TestScene.showHudAgain(script);
+    }
+
+    // ------------------------------------------------------------------------------------------
+    // Owner N49: extra head slot, resonance button, inventory brightness
+    // ------------------------------------------------------------------------------------------
+
+    /**
+     * Owner N49 pictures: the inventory with a head in the extra head slot and the resonance button, its tooltip, the
+     * player from the front with a head under an iron helmet (carved pumpkin, silverfish head, zombie head, dragon
+     * head, pumpkin without helmet), and a styled mod screen in the three inventory brightnesses. Asserted: the client
+     * sees the synced extra head, the slot holds it in the open inventory. Everything is put back at the end.
+     */
+    private static void extraHeadSlotAndInventoryBrightness(Script script) {
+        TestScene.build(script, "minecraft:stone", "survival");
+        extraHead(script, "a carved pumpkin under an iron helmet", net.minecraft.world.item.Items.CARVED_PUMPKIN, true);
+        openInventoryScreen(script);
+        parkCursor(script);
+        script.act("the open inventory holds the pumpkin in the extra head slot", client -> {
+            boolean shown = containerScreen(client).getMenu().slots.stream().anyMatch(slot ->
+                    slot instanceof com.simplebuilding.util.ExtraHead.HeadSlot && slot.getItem().is(net.minecraft.world.item.Items.CARVED_PUMPKIN));
+            if (!shown) {
+                throw new AssertionError("The extra head slot of the open inventory does not show the carved pumpkin");
+            }
+        });
+        script.idle("let the inventory settle", 10);
+        script.shot("n49-inventory-extra-head");
+        moveCursorToGui(script, "the resonance button", client -> {
+            AbstractContainerScreen<?> screen = containerScreen(client);
+            return new int[] {leftPos(screen) + com.simplebuilding.util.TrimStatsLayout.INVENTORY_X + 9,
+                    topPos(screen) + com.simplebuilding.util.TrimStatsLayout.INVENTORY_Y + 9};
+        });
+        script.idle("let the resonance tooltip appear", 10);
+        script.shot("n49-resonance-tooltip");
+        parkCursor(script);
+        script.act("close the inventory", client -> client.gui.setScreen(null));
+        script.command("execute as @a at @s run tp @s ~ ~ ~ 0 0");
+        script.awaitPackets();
+        script.act("look at the player from the front", client -> client.options.setCameraType(net.minecraft.client.CameraType.THIRD_PERSON_FRONT));
+        script.idle("let the third person view settle", 20);
+        script.shot("n49-player-pumpkin-helmet");
+        extraHead(script, "a silverfish head under an iron helmet",
+                com.simplebuilding.tweaks.item.TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SILVERFISH), true);
+        script.shot("n49-player-silverfish-helmet");
+        extraHead(script, "a zombie head under a diamond helmet", net.minecraft.world.item.Items.ZOMBIE_HEAD, true);
+        script.shot("n49-player-zombie-helmet");
+        extraHead(script, "a dragon head under an iron helmet", net.minecraft.world.item.Items.DRAGON_HEAD, true);
+        script.shot("n49-player-dragon-helmet");
+        extraHead(script, "a carved pumpkin without helmet", net.minecraft.world.item.Items.CARVED_PUMPKIN, false);
+        script.shot("n49-player-pumpkin");
+        script.act("back to first person", client -> client.options.setCameraType(net.minecraft.client.CameraType.FIRST_PERSON));
+        runOnServer(script, "take the extra head and the helmet off again", server -> {
+            ServerPlayer player = firstPlayer(server);
+            com.simplebuilding.util.ExtraHead.set(player, ItemStack.EMPTY);
+            player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, ItemStack.EMPTY);
+        });
+
+        // The three inventory brightnesses on a styled mod screen (SimpleLib palettes). Literal shot names.
+        script.act("brightness light", client -> com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.LIGHT));
+        brightnessScreen(script);
+        script.shot("n49-brightness-light");
+        script.act("brightness dawn", client -> com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.DAWN));
+        brightnessScreen(script);
+        script.shot("n49-brightness-dawn");
+        script.act("brightness dark", client -> com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.DARK));
+        brightnessScreen(script);
+        script.shot("n49-brightness-dark");
+        script.act("brightness light again, screen closed", client -> {
+            com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.LIGHT);
+            client.gui.setScreen(null);
+        });
+    }
+
+    /** Puts {@code head} into the extra head slot (and an iron or diamond helmet on, or takes the helmet off). */
+    private static void extraHead(Script script, String what, net.minecraft.world.item.Item head, boolean helmet) {
+        runOnServer(script, "wear " + what, server -> {
+            ServerPlayer player = firstPlayer(server);
+            player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, !helmet ? ItemStack.EMPTY
+                    : new ItemStack(head == net.minecraft.world.item.Items.ZOMBIE_HEAD ? net.minecraft.world.item.Items.DIAMOND_HELMET
+                    : net.minecraft.world.item.Items.IRON_HELMET));
+            com.simplebuilding.util.ExtraHead.set(player, new ItemStack(head));
+        });
+        script.awaitPackets();
+        script.await("the client sees " + what, 100, client -> com.simplebuilding.util.ExtraHead.get(client.player).is(head),
+                client -> "the client's extra head is " + com.simplebuilding.util.ExtraHead.get(client.player));
+        script.idle("let " + what + " settle", 20);
+    }
+
+    /** A reinforced backpack screen in the container style (26.3), with a chest of items, opened client side. */
+    private static void brightnessScreen(Script script) {
+        script.act("open the backpack screen", client -> {
+            net.minecraft.world.entity.player.Inventory inv = client.player.getInventory();
+            client.gui.setScreen(new com.simplebuilding.client.gui.BackpackScreen(new com.simplebuilding.screen.BackpackMenu(0, inv,
+                    com.simplebuilding.screen.BackpackOpenData.worn(com.simplebuilding.items.custom.BackpackTier.REINFORCED, 1)), inv,
+                    net.minecraft.network.chat.Component.empty()));
+        });
+        script.idle("let the backpack screen render", 5);
     }
 
     // ------------------------------------------------------------------------------------------
@@ -1729,7 +1826,7 @@ public final class HudAndTooltipClientTest {
      * mixin only sits on the survival screen.
      *
      * <p>What breaks this test: the mixin no longer drawing the field, the field moving (it sits
-     * right of the recipe book button, {@link TrimStatsPanel#BOOK_X}/{@link TrimStatsPanel#BOOK_Y}), the value no longer being the compact resonance, a leftover 20x20 button, or the
+     * the 18x18 button between the extra head slot and the off-hand slot, owner N49), the value showing again, a leftover 20x20 button, or the
      * hover no longer showing the details with their maximum values.
      */
     private static void inventoryShowsTheResonanceFieldAndItsDetails(Script script) {
@@ -1754,8 +1851,8 @@ public final class HudAndTooltipClientTest {
         script.idle("let the parked cursor settle", 10);
         clearWidgetFocus(script);
 
-        Later<int[]> field = new Later<>("the resonance field (x, y, width)");
-        script.act("the resonance field shows its heart and the compact value, and no button is left", client -> {
+        Later<int[]> field = new Later<>("the resonance button (x, y, width)");
+        script.act("the resonance button shows only its tier heart, beside the extra head slot", client -> {
             AbstractContainerScreen<?> screen = containerScreen(client);
             for (GuiEventListener child : screen.children()) {
                 if (child instanceof Button button && button.getWidth() == 20 && button.getHeight() == 20) {
@@ -1763,43 +1860,42 @@ public final class HudAndTooltipClientTest {
                             + " - the resonance toggle was removed on 2026-09-29");
                 }
             }
-            String value = TrimStatsPanel.compact(com.simplebuilding.util.TrimMultiplierLogic.getMultiplier(client.player));
-            com.simplebuilding.util.TrimStatsLayout.Panel panel = TrimStatsPanel.panel(client.font, value,
-                    leftPos(screen) + TrimStatsPanel.BOOK_X, topPos(screen) + TrimStatsPanel.BOOK_Y);
-            int width = panel.width();
-            int x = panel.x();
-            int y = panel.y();
+            boolean headSlot = screen.getMenu().slots.stream().anyMatch(slot -> slot instanceof com.simplebuilding.util.ExtraHead.HeadSlot
+                    && slot.x == com.simplebuilding.util.TrimStatsLayout.HEAD_SLOT_X && slot.y == com.simplebuilding.util.TrimStatsLayout.HEAD_SLOT_Y);
+            if (!headSlot) {
+                throw new AssertionError("The inventory has no extra head slot at 77/8 (owner N49)");
+            }
+            int x = leftPos(screen) + com.simplebuilding.util.TrimStatsLayout.INVENTORY_X;
+            int y = topPos(screen) + com.simplebuilding.util.TrimStatsLayout.INVENTORY_Y;
+            int iconX = x + com.simplebuilding.util.TrimStatsLayout.ICON_INSET, iconY = y + com.simplebuilding.util.TrimStatsLayout.ICON_INSET;
             GuiRenderState state = extractScreenState(client);
-
-            // The heart is a GUI sprite, not an item: look for an element with exactly its bounds.
             int size = com.simplebuilding.util.TrimStatsLayout.ICON_HEIGHT;
             int heartWidth = com.simplebuilding.util.TrimStatsLayout.ICON_WIDTH;
             boolean[] heart = {false};
             state.forEachElement(element -> {
                 var bounds = element.bounds();
-                if (bounds != null && bounds.left() == panel.iconX() && bounds.top() == panel.iconY()
+                if (bounds != null && bounds.left() == iconX && bounds.top() == iconY
                         && bounds.width() == heartWidth && bounds.height() == size) {
                     heart[0] = true;
                 }
             }, GuiRenderState.TraverseRange.ALL);
             if (!heart[0]) {
-                throw new AssertionError("The resonance field at " + x + "/" + y + " draws no " + heartWidth + "x" + size
-                        + " heart at " + panel.iconX() + "/" + panel.iconY());
+                throw new AssertionError("The resonance button at " + x + "/" + y + " draws no " + heartWidth + "x" + size
+                        + " heart at " + iconX + "/" + iconY);
             }
-            List<String> texts = new ArrayList<>();
+            String value = TrimStatsPanel.compact(com.simplebuilding.util.TrimMultiplierLogic.getMultiplier(client.player));
             for (DrawnText text : drawnTexts(state)) {
-                texts.add(text.text());
+                if (text.text().equals(value)) {
+                    throw new AssertionError("The inventory still shows the value '" + value + "' - the button shows only the heart (owner N49)");
+                }
             }
-            if (!texts.contains(value)) {
-                throw new AssertionError("The resonance field does not show the compact value '" + value + "'; the screen drew " + texts);
-            }
-            field.set(new int[] {x, y, width});
+            field.set(new int[] {x, y, com.simplebuilding.util.TrimStatsLayout.SIZE});
         });
 
         script.act("hovering the resonance field lists the factors with their maximum and the cap", client -> {
             int[] f = field.get();
             List<String> texts = new ArrayList<>();
-            for (DrawnText text : drawnTexts(extractScreenStateWithTooltip(client, f[0] + f[2] / 2, f[1] + TrimStatsPanel.HEIGHT / 2))) {
+            for (DrawnText text : drawnTexts(extractScreenStateWithTooltip(client, f[0] + f[2] / 2, f[1] + com.simplebuilding.util.TrimStatsLayout.SIZE / 2))) {
                 texts.add(text.text());
             }
             List<String> expected = new ArrayList<>();
@@ -2067,8 +2163,7 @@ public final class HudAndTooltipClientTest {
      * {@code leftPos + 75 / topPos + 78}.
      *
      * <p>Before handing the rectangle out it is checked against the resonance field
-     * ({@link TrimStatsPanel}: right of the recipe book button, {@link TrimStatsPanel#HEIGHT} high; 80 GUI
-     * pixels are reserved for its width). If the two ever overlapped the mask would swallow part of
+     * ({@link TrimStatsPanel}: the 18x18 button right of the player model, owner N49). If the two ever overlapped the mask would swallow part of
      * that field in every masked comparison.
      */
     private static Later<int[]> playerModelBox(Script script) {
@@ -2087,11 +2182,11 @@ public final class HudAndTooltipClientTest {
             };
 
             int[] panel = {
-                    // The field right of the recipe book button, generously 80 GUI pixels wide.
-                    (int) Math.floor((leftPos(screen) + TrimStatsPanel.BOOK_X + 20) * scaleX),
-                    (int) Math.floor((topPos(screen) + TrimStatsPanel.BOOK_Y) * scaleY),
-                    (int) Math.ceil((leftPos(screen) + TrimStatsPanel.BOOK_X + 20 + 80) * scaleX),
-                    (int) Math.ceil((topPos(screen) + TrimStatsPanel.BOOK_Y + TrimStatsPanel.HEIGHT) * scaleY),
+                    // N49: the slot-sized resonance button between the extra head slot and the off-hand slot.
+                    (int) Math.floor((leftPos(screen) + com.simplebuilding.util.TrimStatsLayout.INVENTORY_X) * scaleX),
+                    (int) Math.floor((topPos(screen) + com.simplebuilding.util.TrimStatsLayout.INVENTORY_Y) * scaleY),
+                    (int) Math.ceil((leftPos(screen) + com.simplebuilding.util.TrimStatsLayout.INVENTORY_X + com.simplebuilding.util.TrimStatsLayout.SIZE) * scaleX),
+                    (int) Math.ceil((topPos(screen) + com.simplebuilding.util.TrimStatsLayout.INVENTORY_Y + com.simplebuilding.util.TrimStatsLayout.SIZE) * scaleY),
             };
 
             boolean overlaps = model[0] < panel[2] && panel[0] < model[2]

@@ -190,4 +190,9 @@ public final class ModuleGameTest {
     public void idMovesAdoptConfig(GameTestHelper h) {
         LibTests.ALL.get("id_moves_adopt_config").accept(h);
     }
+
+    @GameTest
+    public void inventoryBrightnessTonesPalettes(GameTestHelper h) {
+        LibTests.ALL.get("inventory_brightness_tones_palettes").accept(h);
+    }
 }

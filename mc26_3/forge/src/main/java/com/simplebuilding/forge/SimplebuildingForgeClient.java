@@ -143,6 +143,7 @@ public final class SimplebuildingForgeClient {
             if (event.getPlayerRenderer(type) instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> player) {
                 player.addLayer(new com.simplebuilding.client.render.BackpackLayer(player));
                 player.addLayer(new com.simplebuilding.client.render.QuiverLayer(player));
+                player.addLayer(new com.simplebuilding.client.render.ExtraHeadLayer(player)); // N49 extra head slot
             }
             if (event.getMannequinRenderer(type) instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> mannequin) {
                 mannequin.addLayer(new com.simplebuilding.client.render.BackpackLayer(mannequin));

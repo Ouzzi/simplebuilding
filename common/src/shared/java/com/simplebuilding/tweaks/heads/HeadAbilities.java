@@ -8,7 +8,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -46,7 +45,8 @@ public final class HeadAbilities {
 
     /** Ob {@code entity} den Kopf dieses Typs im Kopf-Slot traegt. */
     public static boolean wears(Entity entity, BlazeHeadType type) {
-        return entity instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.HEAD).is(TweaksItems.head(type));
+        // N49: the extra head slot of the inventory counts like the helmet slot
+        return entity instanceof LivingEntity living && com.simplebuilding.util.ExtraHead.wears(living, TweaksItems.head(type));
     }
 
     /**
