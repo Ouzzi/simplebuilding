@@ -7,6 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
@@ -27,6 +28,15 @@ public final class WitherMobs {
                     .fireImmune().immuneTo(BlockTags.WITHER_IMMUNE_TO).sized(0.9f, 3.5f).clientTrackingRange(10)
                     .notInPeaceful().dontTrackDeltas()
                     .build(BLIGHTED_WITHER_KEY);
+    public static final ResourceKey<EntityType<?>> ABYSSAL_WITHER_KEY =
+            ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(ID, "abyssal_wither"));
+    public static final EntityType<AbyssalWither> ABYSSAL_WITHER =
+            EntityType.Builder.<AbyssalWither>of(AbyssalWither::new, MobCategory.MONSTER)
+                    .fireImmune().immuneTo(BlockTags.WITHER_IMMUNE_TO).sized(0.9f, 3.5f).clientTrackingRange(10)
+                    .notInPeaceful().dontTrackDeltas()
+                    .build(ABYSSAL_WITHER_KEY);
+    /** Helmets that summon the Abyssal Wither (optional Enderite Helmets of other mods; empty when none is installed). */
+    public static final TagKey<Item> ABYSSAL_CROWNS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, "abyssal_wither_crowns"));
 
     public static final ResourceKey<Item> HEART_KEY = itemKey("wither_heart");
     public static final ResourceKey<Item> BRUSH_KEY = itemKey("biome_brush");
@@ -42,6 +52,7 @@ public final class WitherMobs {
 
     public static void entityTypes(BiConsumer<ResourceKey<EntityType<?>>, EntityType<?>> sink) {
         sink.accept(BLIGHTED_WITHER_KEY, BLIGHTED_WITHER);
+        sink.accept(ABYSSAL_WITHER_KEY, ABYSSAL_WITHER);
     }
 
     public static void items(BiConsumer<ResourceKey<Item>, Item> sink) {

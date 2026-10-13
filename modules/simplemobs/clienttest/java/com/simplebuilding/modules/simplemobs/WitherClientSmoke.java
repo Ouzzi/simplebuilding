@@ -15,7 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
-/** Blighted Wither and Biome Brush on screen: the Netherite figure, the Blighted Wither next to a Vanilla Wither, the nova warning, the brush in hand before and after a stroke, the items. */
+/** Blighted Wither and Biome Brush on screen: the figure with the Netherite Helmet on the middle skull, the Abyssal Wither, the Blighted Wither next to a Vanilla Wither, the nova warning, the brush in hand before and after a stroke, the items. */
 public final class WitherClientSmoke implements FabricClientGameTest {
     private static ServerLevel level(MinecraftServer server) { return server.getLevel(Level.OVERWORLD); }
 
@@ -25,6 +25,7 @@ public final class WitherClientSmoke implements FabricClientGameTest {
 
     private static void clear(MinecraftServer server) {
         level(server).getEntities(WitherMobs.BLIGHTED_WITHER, e -> true).forEach(e -> e.discard());
+        level(server).getEntities(WitherMobs.ABYSSAL_WITHER, e -> true).forEach(e -> e.discard());
         level(server).getEntities(EntityTypes.WITHER, e -> true).forEach(e -> e.discard());
         level(server).getEntities(EntityTypes.ARMOR_STAND, e -> true).forEach(e -> e.discard());
     }
@@ -48,21 +49,19 @@ public final class WitherClientSmoke implements FabricClientGameTest {
                 server.setDifficulty(net.minecraft.world.Difficulty.NORMAL, true);
                 var l = level(server);
                 var at = front(server, 7);
-                l.setBlockAndUpdate(at.below(), Blocks.NETHERITE_BLOCK.defaultBlockState());
                 l.setBlockAndUpdate(at, Blocks.SOUL_SAND.defaultBlockState());
-                for (int dx = -1; dx <= 1; dx++) {
-                    l.setBlockAndUpdate(at.offset(dx, 1, 0), Blocks.SOUL_SOIL.defaultBlockState());
-                    l.setBlockAndUpdate(at.offset(dx, 2, 0), Blocks.WITHER_SKELETON_SKULL.defaultBlockState());
-                }
+                for (int dx = -1; dx <= 1; dx++) l.setBlockAndUpdate(at.offset(dx, 1, 0), Blocks.SOUL_SOIL.defaultBlockState());
+                for (int dx = -1; dx <= 0; dx++) l.setBlockAndUpdate(at.offset(dx, 2, 0), Blocks.WITHER_SKELETON_SKULL.defaultBlockState());
+                if (!BlightedPattern.crown(l, at.above(2), new ItemStack(Items.NETHERITE_HELMET))) throw new AssertionError("helmet not put on the middle skull");
             });
             context.waitTicks(20);
             context.takeScreenshot("simplemobs-wither-figure");
             world.getServer().runOnServer(server -> {
                 var l = level(server);
-                l.setBlockAndUpdate(front(server, 7).above(2), Blocks.AIR.defaultBlockState());
-                l.setBlockAndUpdate(front(server, 7).above(2), Blocks.WITHER_SKELETON_SKULL.defaultBlockState());
-                net.minecraft.world.level.block.WitherSkullBlock.checkSpawn(l, front(server, 7).above(2));
-                if (l.getEntities(WitherMobs.BLIGHTED_WITHER, e -> true).isEmpty()) throw new AssertionError("no Blighted Wither from the Netherite figure");
+                var third = front(server, 7).offset(1, 2, 0);
+                l.setBlockAndUpdate(third, Blocks.WITHER_SKELETON_SKULL.defaultBlockState());
+                net.minecraft.world.level.block.WitherSkullBlock.checkSpawn(l, third);
+                if (l.getEntities(WitherMobs.BLIGHTED_WITHER, e -> true).isEmpty()) throw new AssertionError("no Blighted Wither from the crowned figure");
                 l.getEntities(WitherMobs.BLIGHTED_WITHER, e -> true).forEach(w -> w.setNoAi(true));
             });
             context.waitTicks(30);
@@ -70,10 +69,12 @@ public final class WitherClientSmoke implements FabricClientGameTest {
             world.getServer().runOnServer(server -> {
                 clear(server);
                 var at = front(server, 9);
-                var blighted = place(level(server), WitherMobs.BLIGHTED_WITHER, at.getX() - 1.5, at.getY() + 1, at.getZ() + 0.5);
+                var blighted = place(level(server), WitherMobs.BLIGHTED_WITHER, at.getX() - 3.0, at.getY() + 1, at.getZ() + 0.5);
                 blighted.setInvulnerableTicks(0);
-                var vanilla = place(level(server), EntityTypes.WITHER, at.getX() + 2.5, at.getY() + 1, at.getZ() + 0.5);
+                var vanilla = place(level(server), EntityTypes.WITHER, at.getX() + 0.5, at.getY() + 1, at.getZ() + 0.5);
                 vanilla.setInvulnerableTicks(0);
+                var abyssal = place(level(server), WitherMobs.ABYSSAL_WITHER, at.getX() + 4.0, at.getY() + 1, at.getZ() + 0.5);
+                abyssal.setInvulnerableTicks(0);
             });
             context.waitTicks(30);
             context.takeScreenshot("simplemobs-wither-blighted-vs-vanilla");

@@ -132,7 +132,8 @@ MODULE_OUTPUTS = {
     'simplemobs': {'item/shellker_shell.png': ((16, 16), 'mobs2_textures.derived() - Vanilla shulker_shell (N48)'),
                    'item/soul_fire_charge.png': ((16, 16), 'mobs2_textures.derived() - Vanilla fire_charge (N49)'),
                    'item/soulfire_powder.png': ((16, 16), 'mobs2_textures.derived() - Vanilla blaze_powder (N49)'),
-                   'entity/blighted_wither/blighted_wither.png': ((64, 64), 'wither_textures.derived() - Vanilla wither skin (N26)')},
+                   'entity/blighted_wither/blighted_wither.png': ((64, 64), 'wither_textures.derived() - Vanilla wither skin (N26)'),
+                   'entity/blighted_wither/abyssal_wither.png': ((64, 64), 'wither_textures.derived() - Vanilla wither skin (N50)')},
 }
 MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures')}
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.

@@ -145,13 +145,40 @@ def blighted(skin):
     return out
 
 
+def abyssal(skin):
+    """Abyssal Wither (owner N50, Enderite stage): the same shading order as the Blighted skin, but an End ramp from
+    void black over chorus violet to end-stone pale, the eye pixels become ender magenta."""
+    void = [(14, (0x14, 0x0c, 0x1e)), (52, (0x3e, 0x24, 0x58)), (83, (0x7a, 0x52, 0x9a)), (231, (0xe8, 0xe2, 0xbe))]
+    eyes = [(100, (0xa0, 0x3c, 0xd8)), (125, (0xd8, 0x6c, 0xff)), (140, (0xf6, 0xc8, 0xff))]
+
+    def ramp(points, v):
+        if v <= points[0][0]:
+            return points[0][1]
+        for (v0, c0), (v1, c1) in zip(points, points[1:]):
+            if v <= v1:
+                t = (v - v0) / (v1 - v0)
+                return tuple(round(a + (b - a) * t) for a, b in zip(c0, c1))
+        return points[-1][1]
+
+    out = Image.new('RGBA', skin.size, (0, 0, 0, 0))
+    for y in range(skin.height):
+        for x in range(skin.width):
+            r, g, b, a = skin.getpixel((x, y))
+            if a == 0:
+                continue
+            c = ramp(eyes, (g + b) // 2) if b > r + 15 else ramp(void, (r + g + b) // 3)
+            out.putpixel((x, y), c + (a,))
+    return out
+
+
 def derived(jar):
     """Vanilla-derived output for tools/textures/vanilla_derived.py (module simplemobs): texture path -> image."""
     import io
     import zipfile
     with zipfile.ZipFile(jar) as z:
         skin = Image.open(io.BytesIO(z.read('assets/minecraft/textures/entity/wither/wither.png'))).convert('RGBA')
-    return {'entity/blighted_wither/blighted_wither.png': blighted(skin)}
+    return {'entity/blighted_wither/blighted_wither.png': blighted(skin),
+            'entity/blighted_wither/abyssal_wither.png': abyssal(skin)}
 
 
 def preview(items):
@@ -175,8 +202,9 @@ def main():
     preview(items)
     jar = os.environ.get('SB_CLIENT_JAR')
     if jar and Path(jar).is_file():
-        skin = derived(jar)['entity/blighted_wither/blighted_wither.png']
-        skin.resize((skin.width * 8, skin.height * 8), Image.NEAREST).save(PREVIEW / 'blighted_wither_skin_8x.png')
+        for name, skin in derived(jar).items():
+            stem = name.rsplit('/', 1)[1][:-4]
+            skin.resize((skin.width * 8, skin.height * 8), Image.NEAREST).save(PREVIEW / f'{stem}_skin_8x.png')
 
 
 if __name__ == '__main__':

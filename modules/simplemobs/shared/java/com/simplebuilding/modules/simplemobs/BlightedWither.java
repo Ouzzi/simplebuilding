@@ -3,6 +3,8 @@ package com.simplebuilding.modules.simplemobs;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.damagesource.DamageSource;
@@ -31,6 +34,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.skeleton.WitherSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.hurtingprojectile.WitherSkull;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -41,17 +47,18 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Blighted Wither (concept N26, owner 13.10.): the Vanilla Wither, only stronger. Summoned like the Wither, but with a
- * Block of Netherite under the foot of the T ({@link BlightedPattern}). 600 health, armor 8, three phases; every special
- * attack is announced by a sound and particles at the spot before it hits:
+ * Blighted Wither (concept N26, owner 13.10. and N50): the Vanilla Wither, only stronger. Summoned like the Wither, but a
+ * Netherite Helmet is put on the middle skull before the third skull ({@link BlightedPattern}); an Enderite Helmet
+ * summons the even stronger {@link AbyssalWither} (its numbers: {@link #stage()}). 600 health, armor 8, three phases;
+ * every special attack is announced by a sound and particles at the spot before it hits:
  * <ul>
  *   <li>Phase 1 (over half health): Vanilla skulls plus a twin volley - both side heads glow, then fire at once.</li>
  *   <li>Phase 2 (half health and below): the Vanilla shield (arrows bounce off), and every 20 s three Wither Skeletons rise
- *       where soul flames burned for 2 s before (never more than six near; they drop nothing).</li>
+ *       where soul flames burned for 2 s before (never more than six near; they drop nothing; armored from 30 %).</li>
  *   <li>Phase 3 "Blight" (below 15 %): a nova - a ring of soul smoke marks 8 blocks for 2 s, who is still inside gets
- *       Wither II and is pushed away - and the wilt: plants and natural leaves around it wither (mobGriefing, config).</li>
+ *       Wither II and is thrown far away - and the wilt: plants and natural leaves around it wither (mobGriefing, config).</li>
  * </ul>
- * Drops a Wither Heart besides the Nether Star (one per kill, Looting does not change it).
+ * Drops a Wither Heart, 1-2 Nether Stars and 3-5 nuggets of the helmet's metal (Looting does not change it).
  */
 public class BlightedWither extends WitherBoss {
     private static final Identifier NO_LOOT = Identifier.fromNamespaceAndPath(MobsRegistry.ID, "entities/summoned");
@@ -66,13 +73,22 @@ public class BlightedWither extends WitherBoss {
 
     public BlightedWither(EntityType<? extends WitherBoss> type, Level level) {
         super(type, level);
-        this.xpReward = WitherLogic.XP;
+        this.xpReward = stage().xp();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
+        return createAttributes(WitherLogic.NETHERITE);
+    }
+
+    public static AttributeSupplier.Builder createAttributes(WitherLogic.Stage stage) {
         return WitherBoss.createAttributes()
-                .add(Attributes.MAX_HEALTH, WitherLogic.HEALTH)
-                .add(Attributes.ARMOR, WitherLogic.ARMOR);
+                .add(Attributes.MAX_HEALTH, stage.health())
+                .add(Attributes.ARMOR, stage.armor());
+    }
+
+    /** The summoning stage and its numbers (Netherite Helmet; the Abyssal Wither overrides it). */
+    public WitherLogic.Stage stage() {
+        return WitherLogic.NETHERITE;
     }
 
     public int phase() {
@@ -91,8 +107,8 @@ public class BlightedWither extends WitherBoss {
     protected void customServerAiStep(ServerLevel level) {
         boolean waking = this.getInvulnerableTicks() > 0;
         super.customServerAiStep(level);
-        // Vanilla heals 10 every 10 ticks while waking (enough for 300 from a third); twice as much reaches 600.
-        if (waking && this.tickCount % 10 == 0) this.heal(10.0F);
+        // Vanilla heals 10 every 10 ticks while waking (enough for 300 from a third); scaled up it reaches full health.
+        if (waking && this.tickCount % 10 == 0) this.heal(10.0F * (float) (stage().health() / 300.0 - 1.0));
         if (!waking) tickAbilities(level);
     }
 
@@ -129,10 +145,10 @@ public class BlightedWither extends WitherBoss {
     public void announce(ServerLevel level, Attack attack) {
         pending = attack;
         switch (attack) {
-            case VOLLEY -> volleyTimer = WitherLogic.VOLLEY_INTERVAL;
-            case MINIONS -> minionTimer = WitherLogic.MINION_INTERVAL;
-            case NOVA -> novaTimer = WitherLogic.NOVA_INTERVAL;
-            case WILT -> wiltTimer = WitherLogic.WILT_INTERVAL;
+            case VOLLEY -> volleyTimer = stage().interval(WitherLogic.VOLLEY_INTERVAL);
+            case MINIONS -> minionTimer = stage().interval(WitherLogic.MINION_INTERVAL);
+            case NOVA -> novaTimer = stage().interval(WitherLogic.NOVA_INTERVAL);
+            case WILT -> wiltTimer = stage().interval(WitherLogic.WILT_INTERVAL);
         }
         pendingTicks = switch (attack) {
             case VOLLEY -> WitherLogic.VOLLEY_WARN;
@@ -144,7 +160,7 @@ public class BlightedWither extends WitherBoss {
             case VOLLEY -> this.playSound(SoundEvents.WITHER_AMBIENT, 1.5F, 1.6F);
             case MINIONS -> {
                 minionSpots.clear();
-                int n = WitherLogic.minionsToCall(level.getEntitiesOfClass(WitherSkeleton.class, this.getBoundingBox().inflate(32.0)).size());
+                int n = stage().minionsToCall(level.getEntitiesOfClass(WitherSkeleton.class, this.getBoundingBox().inflate(32.0)).size());
                 for (int i = 0; i < n; i++) {
                     double a = (Math.PI * 2 * i) / Math.max(1, n) + this.random.nextDouble();
                     Vec3 spot = ground(level, this.getX() + Math.cos(a) * 4.0, this.getZ() + Math.sin(a) * 4.0);
@@ -161,7 +177,7 @@ public class BlightedWither extends WitherBoss {
     private void telegraph(ServerLevel level, Attack attack) {
         switch (attack) {
             case VOLLEY -> {
-                for (int head = 1; head <= 2; head++) particle(level, ParticleTypes.SOUL_FIRE_FLAME, headX(head), headY(head), headZ(head), 6, 0.2);
+                for (int head = firstVolleyHead(); head <= 2; head++) particle(level, ParticleTypes.SOUL_FIRE_FLAME, headX(head), headY(head), headZ(head), 6, 0.2);
             }
             case MINIONS -> {
                 for (Vec3 s : minionSpots) particle(level, ParticleTypes.SOUL_FIRE_FLAME, s.x, s.y + 0.2, s.z, 6, 0.3);
@@ -198,11 +214,16 @@ public class BlightedWither extends WitherBoss {
         }
     }
 
-    /** Twin volley: one skull from each side head at the target, at the same time. Returns the skulls fired. */
+    /** Side heads only (two skulls), or all three heads at a stage with three volley skulls. */
+    private int firstVolleyHead() {
+        return 3 - stage().volleySkulls();
+    }
+
+    /** Twin volley: one skull from each side head (and the middle one at stage 2) at the target at once. Returns the skulls fired. */
     public int volley(ServerLevel level, LivingEntity target) {
         if (!this.isSilent()) level.levelEvent(null, 1024, this.blockPosition(), 0);
         int fired = 0;
-        for (int head = 1; head <= WitherLogic.VOLLEY_SKULLS; head++) {
+        for (int head = firstVolleyHead(); head <= 2; head++) {
             double hx = headX(head), hy = headY(head), hz = headZ(head);
             Vec3 dir = new Vec3(target.getX() - hx, target.getY() + target.getEyeHeight() * 0.5 - hy, target.getZ() - hz);
             WitherSkull skull = new WitherSkull(level, this, dir.normalize());
@@ -213,7 +234,7 @@ public class BlightedWither extends WitherBoss {
         return fired;
     }
 
-    /** Raises one Wither Skeleton at a marked spot (no loot, no drops). */
+    /** Raises one Wither Skeleton at a marked spot (no loot, no drops; armored at low health, by stage). */
     public @Nullable Entity summonMinion(ServerLevel level, Vec3 spot) {
         CompoundTag tag = new CompoundTag();
         tag.putString("DeathLootTable", NO_LOOT.toString());
@@ -223,6 +244,7 @@ public class BlightedWither extends WitherBoss {
         e.snapTo(spot.x, spot.y, spot.z, this.random.nextFloat() * 360f, 0f);
         if (e instanceof Mob mob) {
             mob.finalizeSpawn(level, level.getCurrentDifficultyAt(BlockPos.containing(spot)), EntitySpawnReason.MOB_SUMMONED, null);
+            if (WitherLogic.armoredMinions(this.getHealth(), this.getMaxHealth())) arm(mob, stage());
             for (EquipmentSlot s : EquipmentSlot.values()) mob.setDropChance(s, 0.0f);
             if (this.getTarget() != null) mob.setTarget(this.getTarget());
         }
@@ -231,7 +253,17 @@ public class BlightedWither extends WitherBoss {
         return e;
     }
 
-    /** Nova: everything hostile to the Wither within 8 blocks gets Wither II for 6 s and is pushed away. Returns the hits. */
+    /** Full armor and a sword for a called Wither Skeleton: iron at the Netherite stage, diamond at the Enderite stage. */
+    public static void arm(Mob mob, WitherLogic.Stage stage) {
+        boolean diamond = stage == WitherLogic.ENDERITE;
+        mob.setItemSlot(EquipmentSlot.HEAD, new ItemStack(diamond ? Items.DIAMOND_HELMET : Items.IRON_HELMET));
+        mob.setItemSlot(EquipmentSlot.CHEST, new ItemStack(diamond ? Items.DIAMOND_CHESTPLATE : Items.IRON_CHESTPLATE));
+        mob.setItemSlot(EquipmentSlot.LEGS, new ItemStack(diamond ? Items.DIAMOND_LEGGINGS : Items.IRON_LEGGINGS));
+        mob.setItemSlot(EquipmentSlot.FEET, new ItemStack(diamond ? Items.DIAMOND_BOOTS : Items.IRON_BOOTS));
+        mob.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(diamond ? Items.DIAMOND_SWORD : Items.IRON_SWORD));
+    }
+
+    /** Nova: everything hostile to the Wither within 8 blocks gets Wither II for 6 s and is thrown far away. Returns the hits. */
     public int nova(ServerLevel level) {
         this.playSound(SoundEvents.WITHER_BREAK_BLOCK, 1.5F, 0.8F);
         level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + 1.5, this.getZ(), 40, 3.0, 1.0, 3.0, 0.1);
@@ -243,7 +275,7 @@ public class BlightedWither extends WitherBoss {
             e.addEffect(new MobEffectInstance(MobEffects.WITHER, WitherLogic.NOVA_WITHER_TICKS, WitherLogic.NOVA_WITHER_AMPLIFIER), this);
             Vec3 away = new Vec3(e.getX() - this.getX(), 0, e.getZ() - this.getZ());
             away = away.lengthSqr() < 1.0E-4 ? new Vec3(1, 0, 0) : away.normalize();
-            e.push(away.x * 1.2, 0.4, away.z * 1.2);
+            e.push(away.x * stage().novaPush(), stage().novaLift(), away.z * stage().novaPush());
             e.needsSync = true;
             hits++;
         }
@@ -282,8 +314,25 @@ public class BlightedWither extends WitherBoss {
     @Override
     protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean killedByPlayer) {
         super.dropCustomDeathLoot(level, source, killedByPlayer);
-        ItemEntity heart = this.spawnAtLocation(level, new net.minecraft.world.item.ItemStack(WitherMobs.HEART, WitherLogic.HEARTS));
-        if (heart != null) heart.setExtendedLifetime();
+        keep(this.spawnAtLocation(level, new ItemStack(WitherMobs.HEART, WitherLogic.HEARTS)));
+        int stars = WitherLogic.STARS_MIN + this.random.nextInt(WitherLogic.STARS_MAX - WitherLogic.STARS_MIN + 1);
+        if (stars > 1) keep(this.spawnAtLocation(level, new ItemStack(Items.NETHER_STAR, stars - 1)));
+        ItemStack nuggets = nuggets(stage(), WitherLogic.NUGGETS_MIN + this.random.nextInt(WitherLogic.NUGGETS_MAX - WitherLogic.NUGGETS_MIN + 1));
+        if (!nuggets.isEmpty()) keep(this.spawnAtLocation(level, nuggets));
+    }
+
+    private static void keep(@Nullable ItemEntity drop) {
+        if (drop != null) drop.setExtendedLifetime();
+    }
+
+    /**
+     * Nuggets of the stage's metal from {@code c:nuggets/<metal>} (Simple Mobs has none of its own). Without a mod that
+     * adds Netherite nuggets one Netherite Scrap instead; Enderite nuggets only when a mod adds them, else nothing.
+     */
+    public static ItemStack nuggets(WitherLogic.Stage stage, int count) {
+        TagKey<Item> tag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "nuggets/" + stage.metal()));
+        for (var holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) return new ItemStack(holder, count);
+        return stage == WitherLogic.NETHERITE ? new ItemStack(Items.NETHERITE_SCRAP) : ItemStack.EMPTY;
     }
 
     /** Standing spot (block top with room for a skeleton) below the given column, searched downward from the Wither. */
@@ -304,6 +353,7 @@ public class BlightedWither extends WitherBoss {
     }
 
     private double headX(int head) {
+        if (head <= 0) return this.getX();
         float a = (this.yBodyRot + 180 * (head - 1)) * Mth.DEG_TO_RAD;
         return this.getX() + Mth.cos(a) * 1.3 * this.getScale();
     }
@@ -313,6 +363,7 @@ public class BlightedWither extends WitherBoss {
     }
 
     private double headZ(int head) {
+        if (head <= 0) return this.getZ();
         float a = (this.yBodyRot + 180 * (head - 1)) * Mth.DEG_TO_RAD;
         return this.getZ() + Mth.sin(a) * 1.3 * this.getScale();
     }

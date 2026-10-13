@@ -28,6 +28,36 @@ public final class WitherLogic {
     /** Blight: plants and natural leaves within 12 blocks wilt (never placed blocks of a build). */
     public static final int WILT_RADIUS = 12;
 
+    /** Owner N50: below this share the called Wither Skeletons come armored (iron at stage 1, diamond at stage 2). */
+    public static final float ARMORED_SHARE = 0.3f;
+    /** Owner N50: drops besides the heart - 3 to 5 nuggets of the helmet's metal and 1 to 2 Nether Stars. */
+    public static final int NUGGETS_MIN = 3, NUGGETS_MAX = 5, STARS_MIN = 1, STARS_MAX = 2;
+
+    /**
+     * The two summoning stages (owner N50): a Netherite Helmet on the middle skull summons the Blighted Wither, an
+     * Enderite Helmet the Abyssal Wither. Warnings stay the same at both stages (fair), only the numbers grow.
+     */
+    public record Stage(String metal, double health, double armor, int xp, int volleySkulls, int minions, int minionCap,
+                        float pause, double novaPush, double novaLift) {
+        /** Pause between attacks of a kind at this stage (ticks). */
+        public int interval(int base) {
+            return Math.round(base * pause);
+        }
+
+        /** Minions to call: never past the cap of Wither Skeletons already near. */
+        public int minionsToCall(int nearby) {
+            return Math.max(0, Math.min(minions, minionCap - nearby));
+        }
+    }
+
+    public static final Stage NETHERITE = new Stage("netherite", HEALTH, ARMOR, XP, VOLLEY_SKULLS, MINIONS, MINION_CAP, 1.0f, 2.8, 0.6);
+    public static final Stage ENDERITE = new Stage("enderite", 1000.0, 14.0, 200, 3, 4, 8, 0.75f, 3.4, 0.7);
+
+    /** Whether minions called at this health share come armored. */
+    public static boolean armoredMinions(float health, float max) {
+        return max > 0 && health / max <= ARMORED_SHARE;
+    }
+
     private WitherLogic() {}
 
     /** Phase 1, 2 or 3 for a health share. */

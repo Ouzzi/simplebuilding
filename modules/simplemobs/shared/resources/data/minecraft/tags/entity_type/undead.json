@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "simplemobs:blighted_wither"
+    "simplemobs:blighted_wither",
+    "simplemobs:abyssal_wither"
   ]
 }
