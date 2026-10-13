@@ -80,7 +80,23 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 s.mouseClicked(new MouseButtonEvent(s.leftTabCenterX(), s.leftTabCenterY(4), new MouseButtonInfo(0, 0)), false);
             });
             screen(context, "simplemaps-contour", true, false, true, 0);
-            screen(context, "simplemaps-zoom", false, true, false, 2);
+            screen(context, "simplemaps-zoom", false, true, false, 3);
+            // N48: every zoom level, then keyboard panning and wheel zoom on the cursor.
+            for (int level = 0; level < com.simplemaps.WayfinderData.ZOOMS.length; level++) {
+                screen(context, "simplemaps-zoom-level" + level, false, true, false, level);
+            }
+            screen(context, "simplemaps-nav", false, true, false, 1);
+            context.runOnClient(c -> {
+                WayfinderScreen s = (WayfinderScreen) c.gui.screen();
+                int bx = s.blockAtMapCenterX();
+                s.keyPressed(new net.minecraft.client.input.KeyEvent(com.mojang.blaze3d.platform.InputConstants.KEY_D, 0, 0));
+                if (s.blockAtMapCenterX() <= bx) throw new AssertionError("D did not pan right");
+                s.mouseScrolled(s.mapCenterX() + 30, s.mapCenterY() + 20, 0, 1);
+                if (WayfinderScreen.zoom() != 1) throw new AssertionError("wheel up did not zoom in to 1:1, got 1:" + WayfinderScreen.zoom());
+                s.keyPressed(new net.minecraft.client.input.KeyEvent(com.mojang.blaze3d.platform.InputConstants.KEY_HOME, 0, 0));
+            });
+            context.waitTicks(2);
+            context.takeScreenshot("simplemaps-nav-home");
             // GUI scale 1: the same window has twice the GUI pixels, the map grows with it.
             context.runOnClient(c -> {
                 c.options.guiScale().set(1);

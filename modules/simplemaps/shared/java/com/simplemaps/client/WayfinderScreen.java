@@ -40,7 +40,7 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * The wayfinder map screen (N18 plan, part B): a map area whose 16 px grid always fits, as large as the window allows
- * ({@link WayfinderLayout}, owner N38), drag to pan, wheel or +/- to zoom (1, 4, 8, 16, 64 blocks per pixel). Left
+ * ({@link WayfinderLayout}, owner N38), drag to pan, wheel or +/- to zoom (1, 2, 4, 8, 16, 32, 64 blocks per pixel; wheel steps accumulate, zoom centres on the cursor; arrows/WASD pan, Home/C = player, 1-8 = waypoints). Left
  * tool buttons (Vanilla button sprites): snap, grid, zoom, height lines, discovered structures (Feature 3).
  * Right bookmarks: player and waypoints 1-8 (click centres). Right-click on the map: "create waypoint" → every
  * bookmark except the eight waypoints is greyed out; a free one is taken at once, an occupied one turns red first
@@ -71,7 +71,9 @@ public final class WayfinderScreen extends Screen {
     /** Top-left of the map area in blocks. */
     private double originX, originZ;
     private boolean placed, dragging, moved;
-    private double dragStartX, dragStartY;
+    private double dragStartX, dragStartY, wheel;
+    /** Panning limit: the world border (blocks from the origin). */
+    private static final double LIMIT = 30_000_000;
     /** Waypoint creation: the target block, and the occupied slot that was clicked once (-1 = none). */
     private boolean picking;
     private int pickX, pickZ, confirmSlot = -1;
@@ -128,6 +130,11 @@ public final class WayfinderScreen extends Screen {
         grid = gridOn;
         contour = contourOn;
         zoomIndex = Mth.clamp(zoomLevel, 0, WayfinderData.ZOOMS.length - 1);
+    }
+
+    /** Client smoke: block X in the middle of the map. */
+    public int blockAtMapCenterX() {
+        return (int) Math.floor(originX + mapW / 2.0 * zoom());
     }
 
     /** Client smoke: screen position of the map area's centre. */
@@ -207,6 +214,7 @@ public final class WayfinderScreen extends Screen {
         int bpp = zoom();
         originX = x - mapW / 2.0 * bpp;
         originZ = z - mapH / 2.0 * bpp;
+        clampOrigin();
         if (snapToCell) snapOrigin();
     }
 
@@ -222,10 +230,18 @@ public final class WayfinderScreen extends Screen {
         }
     }
 
+    /** Keeps the map centre inside the world border. */
+    private void clampOrigin() {
+        double halfW = mapW / 2.0 * zoom(), halfH = mapH / 2.0 * zoom();
+        originX = Mth.clamp(originX, -LIMIT - halfW, LIMIT - halfW);
+        originZ = Mth.clamp(originZ, -LIMIT - halfH, LIMIT - halfH);
+    }
+
     private void snapOrigin() {
         double cell = CELL * zoom();
         originX = Math.round(originX / cell) * cell;
         originZ = Math.round(originZ / cell) * cell;
+        clampOrigin();
     }
 
     /** Map pixel (at the current zoom) of the area's left/top edge. */
@@ -265,6 +281,7 @@ public final class WayfinderScreen extends Screen {
         zoomIndex = next;
         originX = bx - ax * zoom();
         originZ = bz - ay * zoom();
+        clampOrigin();
         if (snap) snapOrigin();
     }
 
@@ -429,7 +446,7 @@ public final class WayfinderScreen extends Screen {
 
     private void drawFooter(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         int y = mapY + mapH + 3;
-        g.text(font, Component.translatable("screen.simplemaps.zoom", zoom()), mapX, y, PALETTE.label(), false);
+        g.text(font, Component.translatable("screen.simplemaps.zoom", zoom(), zoomIndex + 1, WayfinderData.ZOOMS.length), mapX, y, PALETTE.label(), false);
         if (overMap(mouseX, mouseY)) {
             String pos = blockX(mouseX) + ", " + blockZ(mouseY);
             g.text(font, pos, mapX + mapW - font.width(pos), y, PALETTE.label(), false);
@@ -681,7 +698,7 @@ public final class WayfinderScreen extends Screen {
                     if (snap) snapOrigin();
                 }
                 case 1 -> grid = !grid;
-                case 2 -> zoomBy(button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT ? -1 : 1, mapX + mapW / 2.0, mapY + mapH / 2.0);
+                case 2 -> zoomBy(button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT ? 1 : -1, mapX + mapW / 2.0, mapY + mapH / 2.0);
                 case 3 -> contour = !contour;
                 default -> structures = !structures;
             }
@@ -730,6 +747,7 @@ public final class WayfinderScreen extends Screen {
         if (dragging) {
             originX -= dx * zoom();
             originZ -= dy * zoom();
+            clampOrigin();
             moved = moved || Math.abs(event.x() - dragStartX) + Math.abs(event.y() - dragStartY) > 2;
             return true;
         }
@@ -749,7 +767,13 @@ public final class WayfinderScreen extends Screen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         if (editSlot < 0 && overMap(mouseX, mouseY) && scrollY != 0) {
-            zoomBy(scrollY > 0 ? -1 : 1, mouseX, mouseY);
+            // Fine wheels and touchpads send fractions: collect them until a whole step is reached.
+            wheel += scrollY;
+            int steps = (int) wheel;
+            if (steps != 0) {
+                wheel -= steps;
+                zoomBy(-steps, mouseX, mouseY);
+            }
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
@@ -774,6 +798,24 @@ public final class WayfinderScreen extends Screen {
                 return true;
             }
             return super.keyPressed(event);
+        }
+        int dx = key == InputConstants.KEY_LEFT || key == InputConstants.KEY_A ? -1 : key == InputConstants.KEY_RIGHT || key == InputConstants.KEY_D ? 1 : 0;
+        int dz = key == InputConstants.KEY_UP || key == InputConstants.KEY_W ? -1 : key == InputConstants.KEY_DOWN || key == InputConstants.KEY_S ? 1 : 0;
+        if (dx != 0 || dz != 0) {
+            // Snap: one grid cell per press; free: half a cell. Held keys repeat.
+            double step = CELL * zoom() * (snap ? 1 : 0.5);
+            originX += dx * step;
+            originZ += dz * step;
+            clampOrigin();
+            return true;
+        }
+        if (key == InputConstants.KEY_HOME || key == InputConstants.KEY_C) {
+            centerOnPlayer();
+            return true;
+        }
+        if (key >= InputConstants.KEY_1 && key <= InputConstants.KEY_8) {
+            waypoints().get(key - InputConstants.KEY_1).ifPresent(w -> centerOn(w.x(), w.z(), snap));
+            return true;
         }
         if (key == InputConstants.KEY_EQUALS || key == InputConstants.KEY_ADD) {
             zoomBy(-1, mapX + mapW / 2.0, mapY + mapH / 2.0);
