@@ -61,7 +61,7 @@ public class StrongBeaconScreen extends BeaconScreen {
 
     @Override
     protected void init() {
-        // Centred as one 332 px image: Vanilla's part on the left, the panel on its right.
+        // Centred as one image (FULL_WIDTH): Vanilla's part on the left, the panel on its right.
         super.init();
         this.strongButtons.clear();
         for (int tier = 5; tier <= 6; tier++) {
