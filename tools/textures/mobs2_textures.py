@@ -268,13 +268,29 @@ def shell_item(vanilla):
     return img
 
 
+def soul_recolor(vanilla):
+    """Soulfire Charge / Soulfire Powder (N49): Vanilla's fire charge / blaze powder with the same pixels and outline,
+    the oranges replaced by the soul-blue ramp in order of brightness. Vanilla-derived: built, never committed."""
+    img = Image.new('RGBA', (16, 16), T)
+    px = {(x, y): vanilla.getpixel((x, y)) for x in range(16) for y in range(16)}
+    colors = sorted({c[:3] for c in px.values() if c[3]}, key=lambda c: 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2])
+    for (x, y), c in px.items():
+        if c[3]:
+            rank = colors.index(c[:3]) * (len(SOUL) - 1) // max(1, len(colors) - 1)
+            img.putpixel((x, y), SOUL[rank] + (c[3],))
+    return img
+
+
 def derived(jar):
     """Vanilla-derived output for tools/textures/vanilla_derived.py (module simplemobs): texture path -> image."""
     import io
     import zipfile
     with zipfile.ZipFile(jar) as z:
         vanilla = Image.open(io.BytesIO(z.read('assets/minecraft/textures/item/shulker_shell.png'))).convert('RGBA')
-    return {'item/shellker_shell.png': shell_item(vanilla)}
+        charge = Image.open(io.BytesIO(z.read('assets/minecraft/textures/item/fire_charge.png'))).convert('RGBA')
+        powder = Image.open(io.BytesIO(z.read('assets/minecraft/textures/item/blaze_powder.png'))).convert('RGBA')
+    return {'item/shellker_shell.png': shell_item(vanilla), 'item/soul_fire_charge.png': soul_recolor(charge),
+            'item/soulfire_powder.png': soul_recolor(powder)}
 
 
 def helmet_item():
@@ -318,24 +334,6 @@ def rod_item():
     return img
 
 
-def charge_item():
-    img = Image.new('RGBA', (16, 16), T)
-    for y in range(16):
-        for x in range(16):
-            dx, dy = x - 7.5, y - 7.5
-            r = (dx * dx + dy * dy) ** 0.5
-            if r > 6.2:
-                continue
-            n = h(x, y, 41)
-            c = SOUL[0] if r > 5.4 else SOUL[1] if n < 90 else SOUL[2] if n < 180 else SOUL[3]
-            if r < 2.2:
-                c = SOUL[5] if r < 1.3 else SOUL[4]
-            img.putpixel((x, y), c + (255,))
-    for (x, y) in ((4, 5), (5, 4), (10, 10), (11, 9), (9, 4), (5, 10)):   # swirls
-        img.putpixel((x, y), SOUL[4] + (255,))
-    return img
-
-
 def gravity_icon():
     """18x18 effect icon: a heavy violet-grey weight pressing a downward arrow onto the ground."""
     img = Image.new('RGBA', (18, 18), T)
@@ -359,7 +357,6 @@ def outputs():
         tex / 'entity/equipment/humanoid/shellker.png': armor_layer(),
         tex / 'item/shellker_helmet.png': helmet_item(),
         tex / 'item/soulfire_rod.png': rod_item(),
-        tex / 'item/soul_fire_charge.png': charge_item(),
         tex / 'item/shellker_spawn_egg.png': egg(BED[2], BED[1], VIOLET[2], VIOLET[1]),
         tex / 'item/soulfire_blaze_spawn_egg.png': egg(SOUL[2], SOUL[1], SOUL[5], SOUL[4]),
         tex / 'mob_effect/high_gravity.png': gravity_icon(),

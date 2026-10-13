@@ -75,6 +75,11 @@ docs/ai/previews/n41/r3/D*_blaze_book.png
 # Module textures (vanilla_derived.MODULE_OUTPUTS, gradle/module-vanilla-derived.gradle): Shellker Shell (N48).
 modules/simplemobs/shared/resources/assets/simplemobs/textures/item/shellker_shell.png
 wiki/assets/textures/simplemobs/item/shellker_shell.png
+# N49: Soulfire Charge and Soulfire Powder (recoloured fire charge / blaze powder).
+modules/simplemobs/shared/resources/assets/simplemobs/textures/item/soul_fire_charge.png
+modules/simplemobs/shared/resources/assets/simplemobs/textures/item/soulfire_powder.png
+wiki/assets/textures/simplemobs/item/soul_fire_charge.png
+wiki/assets/textures/simplemobs/item/soulfire_powder.png
 
 # Older generators (owner 2026-10-12: built as well, the Git history stays): same rule, same build step.
 # tools/textures/vanilla_derived.py OUTPUTS; the repository copy, the wiki copies and sheets, the wiki 3D renders.

@@ -80,8 +80,12 @@ public final class NeoForgeExample {
             if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 insertAfter(event, new ItemStack(Items.SHULKER_SHELL), new ItemStack(EndNetherMobs.SHELL));
                 insertAfter(event, new ItemStack(Items.BLAZE_ROD), new ItemStack(EndNetherMobs.ROD));
+                insertAfter(event, new ItemStack(Items.BLAZE_POWDER), new ItemStack(EndNetherMobs.POWDER));
             }
-            if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) insertAfter(event, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
+            if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
+                insertAfter(event, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
+                insertAfter(event, new ItemStack(Items.FIRE_CHARGE), new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE));
+            }
         });
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> EndNetherServer.tick(event.getServer()));
         bus.addListener((RegisterEvent event) -> {

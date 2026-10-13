@@ -185,5 +185,21 @@
     "secret": [
       "It only moves while nobody looks at it. A look through a spyglass freezes it for 3 seconds - but stare too long and it screams."
     ]
+  },
+  "soulfire_powder": {
+    "lore": [
+      "Ground soulfire rod, blue and cold to the eye."
+    ],
+    "use": [
+      "Craft one Soulfire Rod into 2 powder. Combine with gunpowder and coal or charcoal for Soulfire Charges."
+    ]
+  },
+  "soul_fire_charge": {
+    "lore": [
+      "A fire charge with a blue heart."
+    ],
+    "use": [
+      "Gunpowder, Soulfire Powder and coal or charcoal make 3. Use it on a block to light fire; a dispenser shoots it like the Soulfire Blaze does. A hit burns and, with Simple Building, adds Soul Burn."
+    ]
   }
 }

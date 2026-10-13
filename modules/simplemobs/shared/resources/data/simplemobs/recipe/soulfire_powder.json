@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simplemobs:soulfire_rod"
+  ],
+  "result": {
+    "id": "simplemobs:soulfire_powder",
+    "count": 2
+  }
+}

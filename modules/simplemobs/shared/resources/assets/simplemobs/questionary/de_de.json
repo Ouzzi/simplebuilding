@@ -185,5 +185,21 @@
     "secret": [
       "Er bewegt sich nur, solange ihn niemand ansieht. Ein Blick durchs Fernrohr friert ihn 3 Sekunden ein – aber wer ihn zu lange anstarrt, bringt ihn zum Schreien."
     ]
+  },
+  "soulfire_powder": {
+    "lore": [
+      "Zermahlene Seelenfeuer-Rute, blau und kalt anzusehen."
+    ],
+    "use": [
+      "Eine Seelenfeuer-Rute ergibt 2 Staub. Mit Schießpulver und Kohle oder Holzkohle entstehen Seelenfeuerkugeln."
+    ]
+  },
+  "soul_fire_charge": {
+    "lore": [
+      "Eine Feuerkugel mit blauem Herzen."
+    ],
+    "use": [
+      "Schießpulver, Seelenfeuer-Lohenstaub und Kohle oder Holzkohle ergeben 3. Auf einen Block benutzt entzündet sie Feuer; ein Dispenser verschießt sie wie die Seelenfeuer-Lohe. Ein Treffer brennt und gibt mit Simple Building Seelenbrand."
+    ]
   }
 }

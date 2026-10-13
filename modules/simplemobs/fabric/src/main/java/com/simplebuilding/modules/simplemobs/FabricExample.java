@@ -41,9 +41,12 @@ public final class FabricExample implements ModInitializer {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             out.insertAfter(Items.SHULKER_SHELL, java.util.List.of(new ItemStack(EndNetherMobs.SHELL)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             out.insertAfter(Items.BLAZE_ROD, java.util.List.of(new ItemStack(EndNetherMobs.ROD)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            out.insertAfter(Items.BLAZE_POWDER, java.util.List.of(new ItemStack(EndNetherMobs.POWDER)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(out ->
-            out.insertAfter(Items.TURTLE_HELMET, java.util.List.of(new ItemStack(EndNetherMobs.HELMET)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(out -> {
+            out.insertAfter(Items.TURTLE_HELMET, java.util.List.of(new ItemStack(EndNetherMobs.HELMET)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            out.insertAfter(Items.FIRE_CHARGE, java.util.List.of(new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
             if (!MobsRegistry.on()) return;
             out.accept(MobsRegistry.EGG);

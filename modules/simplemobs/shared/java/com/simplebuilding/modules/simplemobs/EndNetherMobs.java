@@ -71,6 +71,8 @@ public final class EndNetherMobs {
     public static final ResourceKey<Item> SHELLKER_EGG_KEY = itemKey("shellker_spawn_egg");
     public static final ResourceKey<Item> ROD_KEY = itemKey("soulfire_rod");
     public static final ResourceKey<Item> SOULFIRE_EGG_KEY = itemKey("soulfire_blaze_spawn_egg");
+    public static final ResourceKey<Item> POWDER_KEY = itemKey("soulfire_powder");
+    public static final ResourceKey<Item> SOUL_FIRE_CHARGE_KEY = itemKey("soul_fire_charge");
     public static final Item SHELL = new ShellkerShellItem(new Item.Properties().setId(SHELL_KEY));
     public static final Item HELMET = new Item(new Item.Properties().humanoidArmor(SHELLKER_MATERIAL, ArmorType.HELMET)
             .attributes(SHELLKER_MATERIAL.createAttributes(ArmorType.HELMET).withModifierAdded(Attributes.FALL_DAMAGE_MULTIPLIER,
@@ -80,6 +82,9 @@ public final class EndNetherMobs {
     public static final Item SHELLKER_EGG = new SpawnEggItem(new Item.Properties().spawnEgg(SHELLKER).setId(SHELLKER_EGG_KEY));
     public static final Item ROD = new Item(new Item.Properties().fireResistant().setId(ROD_KEY));
     public static final Item SOULFIRE_EGG = new SpawnEggItem(new Item.Properties().spawnEgg(SOULFIRE_BLAZE).setId(SOULFIRE_EGG_KEY));
+    /** Soulfire Powder (from the rod, like blaze powder) and the Soulfire Charge made of it (dispensable like a fire charge). */
+    public static final Item POWDER = new Item(new Item.Properties().fireResistant().setId(POWDER_KEY));
+    public static final Item SOUL_FIRE_CHARGE = new SoulFireChargeItem(new Item.Properties().setId(SOUL_FIRE_CHARGE_KEY));
 
     public static final ResourceKey<MobEffect> GRAVITY_KEY = ResourceKey.create(Registries.MOB_EFFECT, Identifier.fromNamespaceAndPath(ID, "high_gravity"));
     public static final MobEffect GRAVITY = new HighGravityEffect();
@@ -141,6 +146,9 @@ public final class EndNetherMobs {
         sink.accept(SHELLKER_EGG_KEY, SHELLKER_EGG);
         sink.accept(ROD_KEY, ROD);
         sink.accept(SOULFIRE_EGG_KEY, SOULFIRE_EGG);
+        sink.accept(POWDER_KEY, POWDER);
+        sink.accept(SOUL_FIRE_CHARGE_KEY, SOUL_FIRE_CHARGE);
+        net.minecraft.world.level.block.DispenserBlock.registerProjectileBehavior(SOUL_FIRE_CHARGE);
     }
 
     public static void effects(BiConsumer<ResourceKey<MobEffect>, MobEffect> sink) {

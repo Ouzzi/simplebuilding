@@ -22,7 +22,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_angler"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_angler_all"
                   }
                 ]
               }
@@ -38,7 +38,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_archer"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_archer_all"
                   }
                 ]
               }
@@ -54,7 +54,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_arms_up"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_arms_up_all"
                   }
                 ]
               }
@@ -70,7 +70,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_blade"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_blade_all"
                   }
                 ]
               }
@@ -86,7 +86,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_brewer"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_brewer_all"
                   }
                 ]
               }
@@ -102,7 +102,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_burn"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_burn_all"
                   }
                 ]
               }
@@ -118,7 +118,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_danger"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_danger_all"
                   }
                 ]
               }
@@ -134,7 +134,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_explorer"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_explorer_all"
                   }
                 ]
               }
@@ -150,7 +150,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_flow"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_flow_all"
                   }
                 ]
               }
@@ -166,7 +166,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_friend"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_friend_all"
                   }
                 ]
               }
@@ -182,7 +182,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_guster"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_guster_all"
                   }
                 ]
               }
@@ -198,7 +198,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_heart"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_heart_all"
                   }
                 ]
               }
@@ -214,7 +214,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_heartbreak"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_heartbreak_all"
                   }
                 ]
               }
@@ -230,7 +230,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_howl"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_howl_all"
                   }
                 ]
               }
@@ -246,7 +246,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_miner"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_miner_all"
                   }
                 ]
               }
@@ -262,7 +262,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_mourner"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_mourner_all"
                   }
                 ]
               }
@@ -278,7 +278,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_plenty"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_plenty_all"
                   }
                 ]
               }
@@ -294,7 +294,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_prize"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_prize_all"
                   }
                 ]
               }
@@ -310,7 +310,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_scrape"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_scrape_all"
                   }
                 ]
               }
@@ -326,7 +326,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_sheaf"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_sheaf_all"
                   }
                 ]
               }
@@ -342,7 +342,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_shelter"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_shelter_all"
                   }
                 ]
               }
@@ -358,7 +358,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_skull"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_skull_all"
                   }
                 ]
               }
@@ -374,7 +374,7 @@
                   },
                   {
                     "type": "minecraft:model",
-                    "model": "simplebuilding:block/carved/carved_spruce_log_snort"
+                    "model": "simplebuilding:block/carved/carved_spruce_log_snort_all"
                   }
                 ]
               }
@@ -389,7 +389,7 @@
               },
               {
                 "type": "minecraft:model",
-                "model": "simplebuilding:block/carved/carved_spruce_log_angler"
+                "model": "simplebuilding:block/carved/carved_spruce_log_angler_all"
               }
             ]
           }
@@ -405,7 +405,7 @@
         },
         {
           "type": "minecraft:model",
-          "model": "simplebuilding:block/carved/carved_spruce_log_wood"
+          "model": "simplebuilding:block/carved/carved_spruce_log_wood_all"
         }
       ]
     }

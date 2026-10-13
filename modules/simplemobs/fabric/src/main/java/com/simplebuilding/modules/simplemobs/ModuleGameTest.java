@@ -48,6 +48,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void shellkerConvert(GameTestHelper helper) { MobsTests.ALL.get("shellker_convert").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void shellkerGateway(GameTestHelper helper) { MobsTests.ALL.get("shellker_gateway").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void highGravity(GameTestHelper helper) { MobsTests.ALL.get("high_gravity").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void soulfireCharge(GameTestHelper helper) { MobsTests.ALL.get("soulfire_charge").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void soulfireBlaze(GameTestHelper helper) { MobsTests.ALL.get("soulfire_blaze").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearRegistered(GameTestHelper helper) { MobsTests.ALL.get("fear_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearDreadSummon(GameTestHelper helper) { MobsTests.ALL.get("fear_dread_summon").accept(helper); }

@@ -345,6 +345,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("woodwork_game_test_hollow_logs_let_small_mobs_and_crawlers_through", WoodworkTests::hollowLogsLetSmallMobsAndCrawlersThrough)
                     .build(),
+            GameTestSpec.named("woodwork_game_test_carved_log_item_shows_all_four_sides", WoodworkTests::carvedLogItemShowsAllFourSides)
+                    .build(),
             GameTestSpec.named("woodwork_game_test_sheets_connect_and_let_light_through", WoodworkTests::sheetsConnectAndLetLightThrough)
                     .build(),
             GameTestSpec.named("woodwork_game_test_wooden_cauldron_holds_water_and_burns_with_lava", WoodworkTests::woodenCauldronHoldsWaterAndBurnsWithLava)

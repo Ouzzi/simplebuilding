@@ -1325,6 +1325,81 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "simplemobs:soul_fire_charge",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemobs:soul_fire_charge",
+        "count": 3
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/soul_fire_charge.json",
+      "ingredients": [
+        "#minecraft:coals",
+        "minecraft:gunpowder",
+        "simplemobs:soulfire_powder"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:gunpowder"
+        ],
+        [
+          "simplemobs:soulfire_powder"
+        ],
+        [
+          "#minecraft:coals"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "minecraft:coal",
+            "count": 1
+          },
+          {
+            "id": "minecraft:gunpowder",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:soulfire_rod",
+            "count": 0.5
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:coals"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:soulfire_powder",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemobs:soulfire_powder",
+        "count": 2
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/soulfire_powder.json",
+      "ingredients": [
+        "simplemobs:soulfire_rod"
+      ],
+      "ingredientGroups": [
+        [
+          "simplemobs:soulfire_rod"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplemobs:soulfire_rod",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplemobs:trick_mirror",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -2225,6 +2300,44 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "usedIn": []
     },
     {
+      "id": "simplemobs:soul_fire_charge",
+      "name": {
+        "en_us": "Soulfire Charge",
+        "de_de": "Seelenfeuerkugel"
+      },
+      "note": {
+        "en": {
+          "summary": "Gunpowder, Soulfire Powder and coal or charcoal make 3. Works like a fire charge (lights fire, dispensers shoot it) but flies as the Soulfire Blaze's soul fireball: burns and gives Soul Burn when Simple Building is loaded."
+        },
+        "de": {
+          "summary": "Schießpulver, Seelenfeuer-Lohenstaub und Kohle oder Holzkohle ergeben 3. Wirkt wie eine Feuerkugel (entzündet Feuer, Dispenser verschießen sie), fliegt aber als Seelenfeuerball der Seelenfeuer-Lohe: brennt und gibt Seelenbrand, wenn Simple Building geladen ist."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/soul_fire_charge.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A fire charge with a blue heart."
+          ],
+          "use": [
+            "Gunpowder, Soulfire Powder and coal or charcoal make 3. Use it on a block to light fire; a dispenser shoots it like the Soulfire Blaze does. A hit burns and, with Simple Building, adds Soul Burn."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Feuerkugel mit blauem Herzen."
+          ],
+          "use": [
+            "Schießpulver, Seelenfeuer-Lohenstaub und Kohle oder Holzkohle ergeben 3. Auf einen Block benutzt entzündet sie Feuer; ein Dispenser verschießt sie wie die Seelenfeuer-Lohe. Ein Treffer brennt und gibt mit Simple Building Seelenbrand."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplemobs:soul_fire_charge"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemobs:soulfire_blaze_spawn_egg",
       "name": {
         "en_us": "Soulfire Blaze Spawn Egg",
@@ -2267,6 +2380,46 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       "usedIn": []
     },
     {
+      "id": "simplemobs:soulfire_powder",
+      "name": {
+        "en_us": "Soulfire Powder",
+        "de_de": "Seelenfeuer-Lohenstaub"
+      },
+      "note": {
+        "en": {
+          "summary": "Crafted from a Soulfire Rod (2 powder). Ingredient of the Soulfire Charge."
+        },
+        "de": {
+          "summary": "Wird aus einer Seelenfeuer-Rute gecraftet (2 Staub). Zutat der Seelenfeuerkugel."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/soulfire_powder.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Ground soulfire rod, blue and cold to the eye."
+          ],
+          "use": [
+            "Craft one Soulfire Rod into 2 powder. Combine with gunpowder and coal or charcoal for Soulfire Charges."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Zermahlene Seelenfeuer-Rute, blau und kalt anzusehen."
+          ],
+          "use": [
+            "Eine Seelenfeuer-Rute ergibt 2 Staub. Mit Schießpulver und Kohle oder Holzkohle entstehen Seelenfeuerkugeln."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplemobs:soulfire_powder"
+      ],
+      "usedIn": [
+        "simplemobs:soul_fire_charge"
+      ]
+    },
+    {
       "id": "simplemobs:soulfire_rod",
       "name": {
         "en_us": "Soulfire Rod",
@@ -2306,7 +2459,9 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         }
       },
       "craftedBy": [],
-      "usedIn": []
+      "usedIn": [
+        "simplemobs:soulfire_powder"
+      ]
     },
     {
       "id": "simplemobs:trick_mirror",
@@ -2411,12 +2566,12 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "incompleteProse": {},
   "counts": {
     "features": 9,
-    "recipes": 51,
+    "recipes": 53,
     "lootTables": 8,
     "tags": 5,
     "advancements": 0,
     "enchantments": 0,
-    "items": 17,
+    "items": 19,
     "blocks": 0,
     "trades": 0,
     "config": 0,

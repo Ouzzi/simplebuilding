@@ -129,7 +129,9 @@ OUTPUTS = {
 # Module textures (namespace = module id, shipped by that module's own jars through gradle/module-vanilla-derived.gradle):
 # module -> {texture path under assets/<module>/textures/: (size, generator description)}.
 MODULE_OUTPUTS = {
-    'simplemobs': {'item/shellker_shell.png': ((16, 16), 'mobs2_textures.derived() - Vanilla shulker_shell (N48)')},
+    'simplemobs': {'item/shellker_shell.png': ((16, 16), 'mobs2_textures.derived() - Vanilla shulker_shell (N48)'),
+                   'item/soul_fire_charge.png': ((16, 16), 'mobs2_textures.derived() - Vanilla fire_charge (N49)'),
+                   'item/soulfire_powder.png': ((16, 16), 'mobs2_textures.derived() - Vanilla blaze_powder (N49)')},
 }
 MODULE_GENERATORS = {'simplemobs': ('mobs2_textures',)}
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.
