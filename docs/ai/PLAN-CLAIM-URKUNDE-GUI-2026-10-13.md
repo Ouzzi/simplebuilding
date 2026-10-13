@@ -360,3 +360,10 @@ Läufe nacheinander auf sb-test: simpletweaks Fabric 26.3 → NeoForge 26.3 → 
 - Downgrade nach v2 sperrt Claims (fail closed) – v1-Kopie bleibt, Changelog.
 - Kartendaten: Rate- und Größengrenzen, Sichtbarkeit serverseitig gefiltert, nie Codes/Mitglieder fremder Länder.
 - Abklingzeit 100 Ticks → Editor zeigt Restzeit statt „hängt“.
+
+
+## Besitzer-Entscheidungen 2026-10-13
+- Plan Fassung 2 freigegeben (Code-Form, Claim-Tisch, Maps-Ebene, Kopie, Erweiterung).
+- Kostenkurve wie Tabelle (4 → 64 Chunks, Kupfer … Netherstern + XP).
+- Sichtbarkeit Standard `all` (Mitgliederlisten nie gesendet).
+- Übrige offene Punkte nach Empfehlung: Ernten (H) später, Kopie der Kopie verboten, Erweitern nur Besitzer, gerahmte Karten ohne Claims, keine Rückerstattung bei unclaim, Syntaxfarben später.

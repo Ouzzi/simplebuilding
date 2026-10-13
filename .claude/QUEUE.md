@@ -25,7 +25,7 @@ Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile 
 - Info ohne Queue-Punkt: claude-vd-windows (generateVanillaDerived Windows-fest, Memory 12.10.) wartet nur auf Merge nach claude-wave1
 
 ### (B) Feststehend – als Nächstes bauen (Reihenfolge = Priorität)
-0. Claim-Urkunde wie Blaupause: eigene GUI, Personen hinzufügen, Rechte je Person (bauen, abbauen, Container, …) (N54; Plan zur Bestätigung)
+0. Claim-Urkunde (N54; Plan docs/ai/PLAN-CLAIM-URKUNDE-GUI-2026-10-13.md Fassung 2 freigegeben): Rechte-Code B/D/U/C/R/A/M, Claim-Tisch (Karte+Liste, Erweitern mit steigenden Kosten), Maps-Ebene Claims, Kopie in Werkbank; 4–5 Branches nacheinander
 1. Prinzip Entdeckbarkeit umsetzen, Stufe 1: Tooltip/Rezept-Freischaltung je Item + Test (N47; Konzept PRINZIPIEN-ENTDECKBARKEIT.md)
 2. Seelen-Lohe schießt Seelenfeuer-Kugeln (Soulfire Charge, Seelenbrand-Effekt) (N49)
 3. Geschnitztes Holz: Item-Modell an Block-Modell angleichen (N49)
@@ -259,7 +259,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
 ## Nachtrag 54 (2026-10-13, Besitzer)
-- [ ] Claim-Urkunde ähnlich wie die Blaupause handhaben: eigene GUI, dort Personen hinzufügen und ihnen Fähigkeiten geben (bauen, zerstören, Container öffnen usw.); Code- oder Checkbox-Form – was sich als bessere Lösung erweist. (Plan zur Besitzer-Bestätigung)
+- [ ] Claim-Urkunde ähnlich wie die Blaupause handhaben: eigene GUI, dort Personen hinzufügen und ihnen Fähigkeiten geben (bauen, zerstören, Container öffnen usw.); Besitzer: Code-Form (B Build, D Destroy, U Use …), dazu Claim-Tisch (Karte/Liste aller Claims), Claims in Simple Maps, Kopie auf leere Urkunde, Erweiterung mit steigenden Kosten, Vanilla-nah. (Plan Fassung 2 freigegeben)
 - [x] Hammer-Tempo: aktuell gut, bleibt so (Formel 1,5x / +0,8x / +0,7x; E8 = A).
 - [ ] (SPÄTER, nur als Hinweis) Hammer-Tempo-Variante testen: Basis 1. Block 2x, jeder weitere bis Block 9 +0,6x, ab Block 10 +0,5x oder +0,4x – bei vielen Blöcken viel Ersparnis, bei wenigen wenig.
 
