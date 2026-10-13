@@ -111,6 +111,18 @@ public final class ForgeExample {
             if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(FearMobs.AMULET);
         });
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> FearServer.tick(e.server()));
+        RegisterEvent.getBus(bus).addListener(event -> {
+            event.register(Registries.ENTITY_TYPE, r -> WitherMobs.entityTypes(r::register));
+            event.register(Registries.ITEM, r -> WitherMobs.items(r::register));
+            if (event.getRegistryKey().equals(Registries.ITEM)) com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
+        });
+        EntityAttributeCreationEvent.BUS.addListener(event -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
+        BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
+            if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) putAfter(e, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART));
+            if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) putAfter(e, new ItemStack(Items.BRUSH), new ItemStack(WitherMobs.BRUSH));
+            if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());
+        });
+        if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FMLPaths.CONFIGDIR.get());
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) ForgeClientExample.init();
     }
 

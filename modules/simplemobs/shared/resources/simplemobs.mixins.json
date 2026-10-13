@@ -14,7 +14,8 @@
     "LivingEntityGravityMixin",
     "EndGatewayFeatureMixin",
     "ItemHelmetDreadMixin",
-    "ServerPunchDisguiseMixin"
+    "ServerPunchDisguiseMixin",
+    "WitherSkullBlightedMixin"
   ],
   "client": [
     "DeceiverLookMixin",

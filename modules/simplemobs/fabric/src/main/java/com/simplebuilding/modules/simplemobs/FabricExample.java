@@ -27,6 +27,15 @@ public final class FabricExample implements ModInitializer {
         FabricDefaultAttributeRegistry.register(FearMobs.DREAD, DreadEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(FearMobs.WATCHER, HollowWatcherEntity.createAttributes());
         ServerTickEvents.END_SERVER_TICK.register(FearServer::tick);
+        WitherMobs.registerAll();
+        com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
+        if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FabricLoader.getInstance().getConfigDir());
+        FabricDefaultAttributeRegistry.register(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes());
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out ->
+            out.insertAfter(Items.NETHER_STAR, java.util.List.of(new ItemStack(WitherMobs.HEART)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out ->
+            out.insertAfter(Items.BRUSH, java.util.List.of(new ItemStack(WitherMobs.BRUSH)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> out.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack()));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
             out.insertAfter(Items.WITHER_SKELETON_SPAWN_EGG, java.util.List.of(new ItemStack(FearMobs.DREAD_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             out.insertAfter(Items.ENDERMAN_SPAWN_EGG, java.util.List.of(new ItemStack(FearMobs.WATCHER_EGG)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

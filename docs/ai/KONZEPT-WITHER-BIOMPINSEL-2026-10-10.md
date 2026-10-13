@@ -24,3 +24,21 @@ Queue: „Konzept stärkerer Wither: droppt ein Item, das später für ein Biom-
 3. Biom-Pinsel Radius 1 Zelle + Verzauberung „Weite“ (Empfehlung) oder festes Raster?
 4. Biom-Pinsel auch im Überleben ohne Wither (z. B. Truhen-Beute der Bastion)? (Empfehlung: nein, nur Wither.)
 5. Name: „Biom-Pinsel“ (Empfehlung) und „Witherherz“ ok?
+
+## Umsetzung 13.10. (Branch `claude-wither`)
+Besitzer: „Wither wie im Konzept, nur halt stärker (mehr Leben/Phasen/Angriffe, fair angekündigt), droppt das Item für den Biom-Pinsel.“ Offene Fragen selbst entschieden (vanillanah, fair, angekündigt):
+
+- **Modul:** beides in **Simple Mobs** (`simplemobs`), nicht Wither in Mobs + Pinsel in SB. Grund: das Witherherz ist Pflichtzutat; läge der Pinsel in SB, wäre SB allein ohne Bezugsweg (Prinzip 1). So bleibt Simple Mobs allein voll spielbar, Claims laufen über `framework` `Protection` (gebündelt).
+- **Frage 1 Beschwörung:** Netheritblock unter dem Fuß des T (Empfehlung). Wird mit verbraucht. Ohne Netherit: Vanilla-Wither. Config `witherSummonEnabled`.
+- **Frage 2 Werte:** 600 Leben, Rüstung 8, 100 XP, erwacht wie Vanilla (11 s) und heilt dabei voll. Drei Phasen; jeder Spezialangriff hat ≥1 s Warnung (Klang + Partikel genau dort, wo er trifft):
+  - Phase 1 (>50 %): Vanilla-Schädel + **Doppelsalve** alle 5 s (Seitenköpfe glühen 1 s mit Seelenfeuer, dann 2 Schädel gleichzeitig).
+  - Phase 2 (≤50 %): Vanilla-Schild + alle 20 s **3 Witherskelette** (Seelenflammen markieren 2 s die Plätze), höchstens 6 in der Nähe, ohne Beute (kein Schädel-Farmen).
+  - Phase 3 „Welken“ (<15 %): **Nova** alle 12 s (Seelenrauch-Ring 8 Blöcke warnt 2 s, wer drin bleibt: Ausdörrung II 6 s + Rückstoß) und **Welken** alle 30 s (2 s Asche vorher): Gras/Farn/Blumen → toter Busch, natürliches Laub fällt, jeder 5. Grasblock → grobe Erde. Gesetztes Laub, Feldfrüchte, Setzlinge, alles andere bleibt. Braucht `mobGriefing`, Config `witherWilt`.
+  - Phasenwechsel kündigt sich mit dem Wither-Schrei an.
+- **Drop:** genau 1 Witherherz + Netherstern, Plünderung wirkt nicht; nur der Verdorrte Wither.
+- **Frage 3 Radius:** Strich = 3×3×3 Biomzellen (12 Blöcke breit, Config `biomeBrushRadius` 0–2). Verzauberung „Weite“ **nicht** gebaut (Config reicht, keine neue Verzauberung); verzauberbar mit Haltbarkeit/Reparatur (`#enchantable/durability`).
+- **Frage 4:** nur über den Wither (kein Truhenloot). **Frage 5:** Namen „Biom-Pinsel“/„Witherherz“, Boss „Verdorrter Wither“ (EN Blighted Wither, Wither Heart, Biome Brush).
+- **Pinsel:** Rezept Witherherz / Netheritbarren / Pinsel (eine Spalte), Haltbarkeit 512, Reparatur Netheritbarren. Haupthand Pinsel, Nebenhand Material; 1 Material + 1 Haltbarkeit je Strich, Kreativ gratis; gedrückt halten malt weiter (1 Strich je 5 Ticks). Zuordnung als Daten `data/<ns>/biome_brush/*.json` (Items oder Item-Tags, Partikelfarbe), 23 Einträge (Oberwelt 16, Nether 5, End 2), nach /reload neu gelesen. **Pipette (Schleichen) nicht gebaut** (ohne Text nicht sinnvoll anzeigbar, Regel 4).
+- **Grenzen/Sicherheit:** Biome nur in ihrer Dimension (`#is_overworld/#is_nether/#is_end`, sonst BiomeSource), Höhlenbiome (`simplemobs:biome_brush_locked`) und Bauwerke nie. Jede Zelle wie ein Blockeingriff geprüft: `framework` `Protection` (Claims), Spawnschutz, Abenteuermodus; verweigerte Zellen bleiben, verweigerte Klickzelle = kein Strich, nichts verbraucht (Rauch statt Text). Config `biomeBrushEnabled`, `biomeBrushOpsOnly`. Chunks werden per Vanilla-Biome-Paket neu gesendet.
+- **Texturen:** Witherherz und Biom-Pinsel eigene Pixel-Art (`tools/textures/wither_textures.py`); Haut des Verdorrten Withers aus der Vanilla-Haut abgeleitet (Asche-Rampe, Seelen-Augen) → nur beim Build (`vanilla_derived.py`), nie eingecheckt.
+- **Geld:** Witherherz und Pinsel nicht handelbar (Boss-Beute, wie die übrigen Simple-Mobs-Drops). Simple Mobs bekommt ein Handbuch (`module_guides.py`).

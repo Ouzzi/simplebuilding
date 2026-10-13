@@ -1,0 +1,7 @@
+{
+  "biome": "minecraft:jungle",
+  "items": [
+    "#minecraft:jungle_logs"
+  ],
+  "color": "#30BB0B"
+}

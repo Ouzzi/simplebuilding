@@ -1,0 +1,7 @@
+{
+  "biome": "minecraft:birch_forest",
+  "items": [
+    "#minecraft:birch_logs"
+  ],
+  "color": "#6BA941"
+}
