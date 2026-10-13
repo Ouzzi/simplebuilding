@@ -139,10 +139,14 @@ def own_tags():
     safe = []
     for w in WOODS:
         safe += [f'#{NS}:{w["name"]}_logs'] + [f'{NS}:{w["name"]}_{p}' for p in PARTS if p not in ('log', 'wood', 'stripped_log', 'stripped_wood')] + [f'{NS}:{w["bud"]}']
-    safe += [f'{NS}:end_grass', f'{NS}:end_bush', f'{NS}:drift_fruit']
+    safe += [f'{NS}:end_grass', f'{NS}:end_bush', f'{NS}:drift_fruit', f'{NS}:spoiled_drift_fruit']
     dump(OUT / f'data/{NS}/tags/item/void_safe.json', {'values': safe})
     for biome_tag in ('is_end', 'has_structure/end_city'):
-        dump(OUT / f'data/minecraft/tags/worldgen/biome/{biome_tag}.json', {'values': [f'{NS}:ash_valley', f'{NS}:dawnlands']})
+        dump(OUT / f'data/minecraft/tags/worldgen/biome/{biome_tag}.json', {'values': [f'{NS}:{b}' for b in BIOMES]})
+    # The foggy cores (Umbau 13.10.): Simple Mobs spawns Hollow Watchers there when it is loaded.
+    dump(OUT / f'data/{NS}/tags/worldgen/biome/watcher_core.json', {'values': [f'{NS}:{b}' for b, d in BIOMES.items() if d['core']]})
+    # Leaves on stick trees hold on while the sticks stand; after a stick tree falls they decay like Vanilla leaves.
+    dump(OUT / 'data/minecraft/tags/block/prevents_nearby_leaf_decay.json', {'values': [f'{NS}:{w["name"]}_sticks' for w in WOODS]})
 
 
 def plants(loot):
@@ -155,14 +159,57 @@ def plants(loot):
         (OUT / f'data/{NS}/loot_table/blocks/{plant}.json').parent.mkdir(parents=True, exist_ok=True)
         (OUT / f'data/{NS}/loot_table/blocks/{plant}.json').write_text(
             loot[src].replace(f'minecraft:{src}', f'{NS}:{plant}').replace(f'minecraft:blocks/{src}', f'{NS}:blocks/{plant}'), encoding='utf-8')
-    dump(OUT / f'assets/{NS}/models/item/drift_fruit.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/drift_fruit'}})
-    dump(OUT / f'assets/{NS}/items/drift_fruit.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/drift_fruit'}})
+    for fruit in ('drift_fruit', 'spoiled_drift_fruit'):
+        dump(OUT / f'assets/{NS}/models/item/{fruit}.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/{fruit}'}})
+        dump(OUT / f'assets/{NS}/items/{fruit}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{fruit}'}})
+
+SHEARS = {'type': 'minecraft:any_of', 'terms': ['minecraft:tool/can_shear', 'minecraft:tool/can_silk_touch']}
+
+
+def leaves():
+    """End leaves (Umbau 13.10.): see-through star of tendril planes around a small crystal (no full cube), and a loot
+    table where only leaves a grown tree marked (state drop=1/2) give a bud or a fruit - the fruit ripens only in the End."""
+    plane = lambda frm, to, faces, rot=None: {k: v for k, v in (('from', frm), ('to', to), ('rotation', rot), ('shade', False), ('faces', faces)) if v is not None}
+    tinted = lambda tex: {'uv': [0, 0, 16, 16], 'texture': tex, 'tintindex': 0}
+    rot = {'origin': [8, 8, 8], 'axis': 'y', 'angle': 45, 'rescale': True}
+    core = {'uv': [5, 5, 11, 11], 'texture': '#crystal'}
+    for w in WOODS:
+        n = w['name']
+        dump(OUT / f'assets/{NS}/models/block/{n}_leaves.json', {
+            'parent': 'minecraft:block/block', 'ambientocclusion': False,
+            'textures': {'particle': f'{NS}:block/{n}_leaves', 'fronds': f'{NS}:block/{n}_leaves', 'crystal': f'{NS}:block/{n}_leaves_crystal'},
+            'elements': [
+                plane([0.8, 0, 8], [15.2, 16, 8], {'north': tinted('#fronds'), 'south': tinted('#fronds')}, rot),
+                plane([8, 0, 0.8], [8, 16, 15.2], {'west': tinted('#fronds'), 'east': tinted('#fronds')}, rot),
+                plane([0, 0, 8], [16, 16, 8], {'north': tinted('#fronds'), 'south': tinted('#fronds')}),
+                plane([8, 0, 0], [8, 16, 16], {'west': tinted('#fronds'), 'east': tinted('#fronds')}),
+                {'from': [6, 6, 6], 'to': [10, 10, 10], 'faces': {f: core for f in ('north', 'south', 'east', 'west', 'up', 'down')}},
+            ]})
+        path = OUT / f'data/{NS}/loot_table/blocks/{n}_leaves.json'
+        template = json.loads(path.read_text(encoding='utf-8'))
+        sticks = next(pool for pool in template['pools'] if 'minecraft:stick' in json.dumps(pool))
+        marked = lambda drop: {'type': 'minecraft:match_block', 'blocks': f'{NS}:{n}_leaves', 'state': {'drop': str(drop)}}
+        dump(path, {'type': 'minecraft:block', 'pools': [
+            {'rolls': 1, 'entries': [{'type': 'minecraft:item', 'condition': SHEARS, 'name': f'{NS}:{n}_leaves'}]},
+            {'rolls': 1, 'condition': marked(1), 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{w["bud"]}'}]},
+            {'rolls': 1, 'condition': marked(2), 'entries': [{'type': 'minecraft:alternatives', 'children': [
+                {'type': 'minecraft:item', 'condition': {'type': 'minecraft:location_check', 'predicate': {'dimension': 'minecraft:the_end'}},
+                 'name': f'{NS}:drift_fruit'},
+                {'type': 'minecraft:item', 'name': f'{NS}:spoiled_drift_fruit'}]}]},
+            sticks,
+        ], 'random_sequence': f'{NS}:blocks/{n}_leaves'})
 
 
 def sticks(loot):
     for w in WOODS:
         n = f'{w["name"]}_sticks'
-        dump(OUT / f'assets/{NS}/blockstates/{n}.json', {'variants': {f'thickness={t}': {'model': f'{NS}:block/{n}_{t}'} for t in (1, 2, 3)}})
+        # upright, and lying along x/z (branches of stick trees, Umbau 13.10.)
+        variants = {}
+        for t in (1, 2, 3):
+            variants[f'axis=x,thickness={t}'] = {'model': f'{NS}:block/{n}_{t}', 'x': 90, 'y': 90}
+            variants[f'axis=y,thickness={t}'] = {'model': f'{NS}:block/{n}_{t}'}
+            variants[f'axis=z,thickness={t}'] = {'model': f'{NS}:block/{n}_{t}', 'x': 90}
+        dump(OUT / f'assets/{NS}/blockstates/{n}.json', {'variants': variants})
         for t, width in ((1, 6), (2, 10), (3, 14)):
             a, b = 8 - width / 2, 8 + width / 2
             side = {'uv': [a, 0, b, 16], 'texture': '#side'}
@@ -195,12 +242,24 @@ def nibblemite(loot):
     dump(OUT / f'assets/{NS}/items/nibblemite_spawn_egg.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/nibblemite_spawn_egg'}})
 
 
+# Umbau 13.10.: two foggy cores (Hollow Watcher area, tag watcher_core) and their fringes; no wood trees in the End.
 BIOMES = {
-    'ash_valley': dict(wood='ashwood', sky='#2b2522', fog='#3a332e', dry='#a89c8a', foliage='#9a8f80', grass='#a39886',
-                       particle='minecraft:white_ash', p=0.012, music='music.ash_valley'),
-    'dawnlands': dict(wood='duskwood', sky='#33262c', fog='#4a3a40', dry='#958673', foliage='#8c7c6a', grass='#988673',
-                      particle='minecraft:spore_blossom_air', p=0.006, music='music.dawnlands'),
+    'ash_valley': dict(wood='ashwood', core=True, sky='#221d1b', fog='#2e2925', fog_start=0.0, fog_end=20.0, dry='#a89c8a', foliage='#9a8f80',
+                       grass='#a39886', particle='minecraft:white_ash', p=0.02, music='music.ash_valley'),
+    'dawnlands': dict(wood='duskwood', core=True, sky='#2a1f25', fog='#3a2d33', fog_start=0.0, fog_end=20.0, dry='#958673', foliage='#8c7c6a',
+                      grass='#988673', particle='minecraft:spore_blossom_air', p=0.01, music='music.dawnlands'),
+    'ash_valley_fringe': dict(wood='ashwood', core=False, sky='#2b2522', fog='#3a332e', fog_start=6.0, fog_end=56.0, dry='#a89c8a', foliage='#9a8f80',
+                              grass='#a39886', particle='minecraft:white_ash', p=0.008, music='music.ash_valley'),
+    'dawnlands_fringe': dict(wood='duskwood', core=False, sky='#33262c', fog='#4a3a40', fog_start=6.0, fog_end=56.0, dry='#958673', foliage='#8c7c6a',
+                             grass='#988673', particle='minecraft:spore_blossom_air', p=0.004, music='music.dawnlands'),
 }
+# feature -> (end_flora kind, placement in the core, placement in the fringe); list order = feature order in every biome
+FLORA = [
+    ('scrub', 'scrub', 'count:1:1', 'count:1:2'),
+    ('stick_trees', 'stick_tree', 'count:1:1', 'rarity:2'),
+    ('giant_stick_trees', 'giant_stick_tree', 'rarity:3', 'rarity:8'),
+    ('vegetation', 'vegetation', 'count:10:14', 'count:6:9'),
+]
 
 
 def placed(name, feature, mods):
@@ -212,20 +271,26 @@ def count(lo, hi):
     return {'type': 'minecraft:count', 'count': {'type': 'minecraft:uniform', 'min_inclusive': lo, 'max_inclusive': hi}}
 
 
+def placement(spec):
+    kind, *args = spec.split(':')
+    if kind == 'count':
+        return [count(int(args[0]), int(args[1]))]
+    return [{'type': 'minecraft:rarity_filter', 'chance': int(args[0])}]
+
+
 def worldgen():
-    placed('sparse_chorus', 'minecraft:chorus_plant', [{'type': 'minecraft:rarity_filter', 'chance': 3}])
+    placed('sparse_chorus', 'minecraft:chorus_plant', [{'type': 'minecraft:rarity_filter', 'chance': 4}])
+    placed('fringe_chorus', 'minecraft:chorus_plant', [{'type': 'minecraft:rarity_filter', 'chance': 3}])
     dump(OUT / f'data/{NS}/worldgen/feature/end_grass_patch.json', {'type': f'{NS}:end_flora', 'kind': 'grass'})
     placed('end_grass_sparse', f'{NS}:end_grass_patch', [{'type': 'minecraft:rarity_filter', 'chance': 4}])
     for biome, b in BIOMES.items():
         w = b['wood']
-        for kind, mods in (('scrub', [count(1, 2)]), ('trees', [count(2, 3)]), ('big_trees', [{'type': 'minecraft:rarity_filter', 'chance': 2}]),
-                           ('vegetation', [count(3, 5)])):
-            feature_kind = {'trees': 'natural_tree', 'big_trees': 'big_tree'}.get(kind, kind)
-            dump(OUT / f'data/{NS}/worldgen/feature/{biome}_{kind}.json', {'type': f'{NS}:end_flora', 'kind': feature_kind, 'wood': w})
-            placed(f'{biome}_{kind}', f'{NS}:{biome}_{kind}', mods)
+        for name, kind, core_spec, fringe_spec in FLORA:
+            dump(OUT / f'data/{NS}/worldgen/feature/{biome}_{name}.json', {'type': f'{NS}:end_flora', 'kind': kind, 'wood': w})
+            placed(f'{biome}_{name}', f'{NS}:{biome}_{name}', placement(core_spec if b['core'] else fringe_spec))
         features = [[] for _ in range(10)]
         features[4] = ['minecraft:end_gateway_return']
-        features[9] = [f'{NS}:sparse_chorus'] + [f'{NS}:{biome}_{k}' for k in ('scrub', 'trees', 'big_trees', 'vegetation')]
+        features[9] = [f'{NS}:{"sparse_chorus" if b["core"] else "fringe_chorus"}'] + [f'{NS}:{biome}_{f[0]}' for f in FLORA]
         dump(OUT / f'data/{NS}/worldgen/biome/{biome}.json', {
             'attributes': {
                 'minecraft:audio/background_music': {'default': {'max_delay': 24000, 'min_delay': 6000, 'replace_current_music': False,
@@ -235,6 +300,8 @@ def worldgen():
                     {'type': f'{NS}:nibblemite', 'count': {'type': 'minecraft:uniform', 'min_inclusive': 2, 'max_inclusive': 4}, 'weight': 10}]}},
                     'modifier': 'overlay'},
                 'minecraft:visual/fog_color': b['fog'],
+                'minecraft:visual/fog_end_distance': b['fog_end'],
+                'minecraft:visual/fog_start_distance': b['fog_start'],
                 'minecraft:visual/sky_color': b['sky'],
             },
             'carvers': [], 'downfall': 0.5,
@@ -255,10 +322,10 @@ CONFIG = {
     'enableSimpleEndDragonFight': ('Enable Simple End Dragon Fight', 'Simple End Dragon Fight aktivieren',
                                    'Turns the bundled sub-mod Simple End Dragon Fight on or off (only while Simple End itself is on).',
                                    'Schaltet die gebündelte Sub-Mod Simple End Dragon Fight ein oder aus (nur solange Simple End selbst an ist).'),
-    'biomes': ('Ash Valley and Dawnlands', 'Aschental und Dämmerlande', 'Lets the two biomes replace patches of the outer End islands in new chunks.',
-               'Lässt die beiden Biome in neuen Chunks Flecken der äußeren End-Inseln ersetzen.'),
-    'biomeChance': ('Biome patch chance', 'Biom-Fleck-Chance', 'Share of 12x12-chunk areas on the outer islands that hold one patch (0 to 1). Default: 0.4.',
-                    'Anteil der 12x12-Chunk-Felder auf den äußeren Inseln mit einem Fleck (0 bis 1). Standard: 0,4.'),
+    'biomes': ('Ash Valley and Dawnlands', 'Aschental und Dämmerlande', 'Lets the two biomes (foggy core and fringe) replace large patches of the outer End islands in new chunks.',
+               'Lässt die beiden Biome (nebliger Kern und Saum) in neuen Chunks große Flecken der äußeren End-Inseln ersetzen.'),
+    'biomeChance': ('Biome patch chance', 'Biom-Fleck-Chance', 'Share of 40x40-chunk areas on the outer islands that hold one patch, 14-24 chunks across (0 to 1). Default: 0.3.',
+                    'Anteil der 40x40-Chunk-Felder auf den äußeren Inseln mit einem Fleck von 14-24 Chunks Durchmesser (0 bis 1). Standard: 0,3.'),
     'budsGrowAlone': ('Buds grow by themselves', 'Knospen wachsen von selbst', 'Buds grow into trees on their own in light level 9 or more; bone meal always works.',
                       'Knospen wachsen ab Lichtstufe 9 von selbst zu Bäumen; Knochenmehl wirkt immer.'),
     'voidSafeItems': ('Void-safe wood items', 'Leere-sichere Holz-Items', 'Dropped End-wood items float back up when they fall below the world.',
@@ -291,6 +358,10 @@ def lang():
     for k, e, d in (('block.simpleend.end_grass', 'End Grass', 'End-Gras'), ('block.simpleend.end_bush', 'End Bush', 'End-Busch'),
                     ('item.simpleend.drift_fruit', 'Drift Fruit', 'Schwebfrucht'), ('itemgroup.simpleend.main', 'Simple End', 'Simple End'),
                     ('biome.simpleend.ash_valley', 'Ash Valley', 'Aschental'), ('biome.simpleend.dawnlands', 'Dawnlands', 'Dämmerlande'),
+                    ('biome.simpleend.ash_valley_fringe', 'Ash Valley Fringe', 'Aschental-Saum'),
+                    ('biome.simpleend.dawnlands_fringe', 'Dawnlands Fringe', 'Dämmerlande-Saum'),
+                    ('item.simpleend.spoiled_drift_fruit', 'Spoiled Drift Fruit', 'Verdorbene Schwebfrucht'),
+                    ('effect.simpleend.drifting', 'Drifting', 'Treiben'),
                     ('subtitles.simpleend.music', 'End music plays', 'End-Musik spielt'),
                     ('entity.simpleend.nibblemite', 'Nibblemite', 'Knabbermilbe'),
                     ('item.simpleend.nibblemite_spawn_egg', 'Nibblemite Spawn Egg', 'Knabbermilben-Spawn-Ei'),
@@ -318,6 +389,7 @@ def main(argv=None):
     vanilla_tags(tags)
     own_tags()
     plants(loot)
+    leaves()
     sticks(loot)
     nibblemite(loot)
     worldgen()

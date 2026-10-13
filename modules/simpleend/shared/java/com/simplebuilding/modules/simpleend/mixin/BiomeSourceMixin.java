@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * The End biome source of a new world is built (and its possible biomes memoised) on the create-world screen, before
- * the server and its biome registry exist. Ash Valley and Dawnlands are added here once the running server's registry
+ * the server and its biome registry exist. Ash Valley and Dawnlands (cores and fringes) are added here once the running server's registry
  * is known, so /locate, biome search and the feature order see them.
  */
 @Mixin(BiomeSource.class)
@@ -33,6 +33,8 @@ public abstract class BiomeSourceMixin {
             Set<Holder<Biome>> all = new LinkedHashSet<>(cir.getReturnValue());
             biomes.get(EndBiomes.ASH_VALLEY).ifPresent(all::add);
             biomes.get(EndBiomes.DAWNLANDS).ifPresent(all::add);
+            biomes.get(EndBiomes.ASH_VALLEY_FRINGE).ifPresent(all::add);
+            biomes.get(EndBiomes.DAWNLANDS_FRINGE).ifPresent(all::add);
             simpleend$possible = Set.copyOf(all);
             simpleend$from = biomes;
         }

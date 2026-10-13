@@ -296,7 +296,11 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [ ] End-Biome: seltener, viel größer; Grasdichte höher; Stöcke-Bäume wie normale Bäume aus Stöcken, gigantisch; Stamm abbauen → alle Stöcke brechen; im End keine Holzbäume, nur Stöcke-Bäume + Drift-Frucht; Oberwelt-gepflanzte End-Bäume gigantisch, 4×4 → größter Baum im Spiel; Setzling-Rückgabe ~0,8 je Baum (Oberwelt), im End ~1,5 je Stöcke-Baum; Früchte gedeihen nur im End, in der Oberwelt verdorbene Variante (Drifting-Effekt); Blätter durchsichtig/exotisch, kein Vollblock. (claude-endbiome2)
 - [x] Hollow Watcher teleportiert sich 1 s nach einem Treffer weg. (claude-n50-small)
 - [x] Erhöhte Schwerkraft (Gravity-Effekt): mehr Fallschaden (Federfall mit einrechnen), „High Gravity“ gerecht. (claude-n50-small)
-- [x] Resonanz-Button: Cap-Zeile im Tooltip weg; Herz-Texturen überarbeiten (richtig aussehen); Button-Textur wie ein deaktivierter Slot. (claude-n50-small)
+- [x] Resonanz-Button: Cap-Zeile im Tooltip weg; Herz-Texturen überarbeiten (richtig aussehen); Button-Textur wie ein deaktivierter Slot. (claude-n50-small),
+- [x] End-Biome: seltener, viel größer; Grasdichte höher; Stöcke-Bäume wie normale Bäume aus Stöcken, gigantisch; Stamm abbauen → alle Stöcke brechen; im End keine Holzbäume, nur Stöcke-Bäume + Drift-Frucht; Oberwelt-gepflanzte End-Bäume gigantisch, 4×4 → größter Baum im Spiel; Setzling-Rückgabe ~0,8 je Baum (Oberwelt), im End ~1,5 je Stöcke-Baum; Früchte gedeihen nur im End, in der Oberwelt verdorbene Variante (Drifting-Effekt); Blätter durchsichtig/exotisch, kein Vollblock. (claude-endbiome2: Plan PLAN-SIMPLE-END „Umbau 13.10.“; + Kern/Saum-Biome mit dichtem Nebel, Tag simpleend:watcher_core für Hollow Watcher)
+- [ ] Hollow Watcher teleportiert sich 1 s nach einem Treffer weg. (claude-n50-small)
+- [ ] Erhöhte Schwerkraft (Gravity-Effekt): mehr Fallschaden (Federfall mit einrechnen), „High Gravity“ gerecht. (claude-n50-small)
+- [ ] Resonanz-Button: Cap-Zeile im Tooltip weg; Herz-Texturen überarbeiten (richtig aussehen); Button-Textur wie ein deaktivierter Slot. (claude-n50-small)
 
 ## Nachtrag 49 (2026-10-12, Besitzer)
 - [x] (claude-n49-small) Seelen-Lohe (Soul Blaze) schießt Seelenfeuer-Kugeln (Soulfire Charge, craftbar mit Seelen-Lohenstaub); Treffer gibt Seelenbrand-Effekt.

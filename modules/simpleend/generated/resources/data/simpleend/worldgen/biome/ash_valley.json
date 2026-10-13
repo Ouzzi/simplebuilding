@@ -14,7 +14,7 @@
           "particle": {
             "type": "minecraft:white_ash"
           },
-          "probability": 0.012
+          "probability": 0.02
         }
       ],
       "modifier": "append"
@@ -38,8 +38,10 @@
       },
       "modifier": "overlay"
     },
-    "minecraft:visual/fog_color": "#3a332e",
-    "minecraft:visual/sky_color": "#2b2522"
+    "minecraft:visual/fog_color": "#2e2925",
+    "minecraft:visual/fog_end_distance": 20.0,
+    "minecraft:visual/fog_start_distance": 0.0,
+    "minecraft:visual/sky_color": "#221d1b"
   },
   "carvers": [],
   "downfall": 0.5,
@@ -64,8 +66,8 @@
     [
       "simpleend:sparse_chorus",
       "simpleend:ash_valley_scrub",
-      "simpleend:ash_valley_trees",
-      "simpleend:ash_valley_big_trees",
+      "simpleend:ash_valley_stick_trees",
+      "simpleend:ash_valley_giant_stick_trees",
       "simpleend:ash_valley_vegetation"
     ]
   ],

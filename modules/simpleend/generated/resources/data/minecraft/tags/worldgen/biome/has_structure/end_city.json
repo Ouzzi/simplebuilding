@@ -1,6 +1,8 @@
 {
   "values": [
     "simpleend:ash_valley",
-    "simpleend:dawnlands"
+    "simpleend:dawnlands",
+    "simpleend:ash_valley_fringe",
+    "simpleend:dawnlands_fringe"
   ]
 }

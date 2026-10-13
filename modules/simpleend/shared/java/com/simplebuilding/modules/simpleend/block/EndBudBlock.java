@@ -20,9 +20,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * Ash Bud / Dusk Bud (owner 2026-10-12): grows on End stone. In light >= 9 it becomes a big End tree (2x2 buds of the
- * same wood: a still bigger tree on a 2x2 trunk); below 9 it becomes End-stick scrub. By itself (random ticks) it grows
- * only in light, otherwise only with bone meal.
+ * Ash Bud / Dusk Bud (owner 2026-10-12/13): grows on End stone (and dirt). Outside the End light >= 9 grows a gigantic
+ * wood tree (2x2 buds: huge, 4x4: colossal), darkness End-stick scrub; in the End it always grows a stick tree.
+ * By itself (random ticks) it grows only in light, otherwise only with bone meal.
  */
 public class EndBudBlock extends VegetationBlock implements BonemealableBlock {
     public static final int LIGHT = 9;
@@ -72,21 +72,37 @@ public class EndBudBlock extends VegetationBlock implements BonemealableBlock {
         if (SimpleEnd.on()) grow(level, pos, random);
     }
 
-    /** Light decides the shape; a 2x2 of this bud in light gives the huge tree. Returns whether something grew. */
+    /**
+     * In the End a bud always becomes a stick tree (the End grows no wood, owner 2026-10-13); elsewhere light >= 9 gives
+     * a wood tree and darkness stick scrub. 4x4 buds of this kind grow the colossal tree, 2x2 the huge one.
+     */
     public boolean grow(ServerLevel level, BlockPos pos, RandomSource random) {
-        EndWood w = wood();
-        if (!bright(level, pos)) return EndTrees.growScrub(level, pos, w, random, true);
-        for (int dx = 0; dx >= -1; dx--) {
-            for (int dz = 0; dz >= -1; dz--) {
-                BlockPos corner = pos.offset(dx, 0, dz);
-                if (isSquare(level, corner)) return EndTrees.growHuge(level, corner, w, random, true);
-            }
-        }
-        return EndTrees.growBig(level, pos, w, random, true);
+        return grow(level, pos, random, level.dimension() == Level.END);
     }
 
-    private boolean isSquare(BlockGetter level, BlockPos corner) {
-        return level.getBlockState(corner).is(this) && level.getBlockState(corner.east()).is(this)
-                && level.getBlockState(corner.south()).is(this) && level.getBlockState(corner.south().east()).is(this);
+    public boolean grow(ServerLevel level, BlockPos pos, RandomSource random, boolean inEnd) {
+        EndWood w = wood();
+        if (!inEnd && !bright(level, pos)) return EndTrees.growScrub(level, pos, w, random, true);
+        for (EndTrees.Size size : new EndTrees.Size[] {EndTrees.Size.COLOSSAL, EndTrees.Size.HUGE}) {
+            int n = size.width;
+            for (int dx = 0; dx > -n; dx--) {
+                for (int dz = 0; dz > -n; dz--) {
+                    BlockPos corner = pos.offset(dx, 0, dz);
+                    if (isSquare(level, corner, n)) return EndTrees.grow(level, corner, w, size, inEnd, random, square(corner, n)) != null;
+                }
+            }
+        }
+        return EndTrees.grow(level, pos, w, EndTrees.Size.BIG, inEnd, random, pos) != null;
+    }
+
+    private static BlockPos[] square(BlockPos corner, int n) {
+        BlockPos[] out = new BlockPos[n * n];
+        for (int i = 0; i < n * n; i++) out[i] = corner.offset(i % n, 0, i / n);
+        return out;
+    }
+
+    private boolean isSquare(BlockGetter level, BlockPos corner, int n) {
+        for (int i = 0; i < n * n; i++) if (!level.getBlockState(corner.offset(i % n, 0, i / n)).is(this)) return false;
+        return true;
     }
 }

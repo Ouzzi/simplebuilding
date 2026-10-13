@@ -1,5 +1,5 @@
 {
   "type": "simpleend:end_flora",
-  "kind": "natural_tree",
+  "kind": "vegetation",
   "wood": "ashwood"
 }

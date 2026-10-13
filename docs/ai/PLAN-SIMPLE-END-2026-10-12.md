@@ -78,3 +78,51 @@ Reihenfolge in beiden Biomen und den Vanilla-End-Biomen); NeoForge/Forge-Patches
 - Knabbern (Goal wie Schaf-Grasen, ~1/600 je Tick): Endstein darunter → `burrowed_end_stone` (Oberseite eigene Textur,
   Seiten Vanilla-Endstein), erholt sich per Zufallstick (1/4 → ~4-5 min). Futter/Zucht: Chorusfrucht; Drop 0-1 Chorusfrucht.
 - Tests: Knabbern → Block, Erholung, passiv (kein Enemy/Endermite, CREATURE, Chorus-Futter).
+
+## Umbau 13.10. (Besitzer N50, Branch `claude-endbiome2`)
+Besitzer-Vorgaben (N50 + Ergänzung 13.10.): Biome seltener, viel größer, mehr Gras; dichter, unheimlicher Nebel; Kern- und
+Randbiom (Kern = Hollow-Watcher-Bereich, Spawn macht Simple Mobs bedingt über einen Tag); im End nur Stöcke-Bäume und
+Schwebfrucht, Holz nur aus der Oberwelt; Oberwelt-Bäume gigantisch (2x2 größer, 4x4 = größter Baum im Spiel); Knospen-
+Rückgabe ~0,8 je Oberwelt-Baum, ~1,5 je Stöcke-Baum; Früchte gedeihen nur im End, sonst „Spoiled Drift Fruit“ mit Treiben-
+Effekt; Blätter durchsichtig/exotisch, kein Vollblock.
+
+Entscheidungen (selbst getroffen):
+1. **Biom-Flecken**: Zellen 40x40 Chunks, Standard-Chance 0,3 (Config `biomeChance`, gleiche Taste), Radius 7-12 Chunks
+   (Durchmesser 14-24 Chunks statt 3-6) mit welligem Rand (zwei Sinus-Harmonische), auf Quart-Genauigkeit (4 Blöcke) statt
+   ganzer Chunks. Ersetzt Highlands/Midlands/Barrens innerhalb des Flecks (kleine Inseln/Void bleiben Vanilla). Innere
+   62 % des Radius = **Kern** (`ash_valley`, `dawnlands`), außen = **Saum** (`ash_valley_fringe`/„Aschental-Saum“,
+   `dawnlands_fringe`/„Dämmerlande-Saum“). Fläche je Fleck ~17x größer, Flecken ~11x seltener (Abdeckung ~5 %).
+2. **Nebel** über Biom-Attribute `visual/fog_start_distance`/`fog_end_distance`: Kern 0-20 Blöcke (dicht), Saum 6-56
+   (Übergang); Nebelfarben dunkler. Biom-Tag `simpleend:watcher_core` = nur die beiden Kernbiome (für Simple Mobs);
+   `is_end`/`has_structure/end_city` enthalten alle vier.
+3. **Weltgen im End**: keine Holzbäume mehr. Kern: Stöcke-Bäume (Größe „groß“ je Chunk 1, „riesig“ 1/3), Gestrüpp,
+   dichte Vegetation (10-14 Büschel x 40 Versuche, vorher 3-5 x 24), Chorus 1/4. Saum: Stöcke-Bäume 1/2, Gestrüpp 1-2,
+   Vegetation 6-9, Chorus 1/3. Weltgen-Bäume bleiben innerhalb ±16 Blöcke (Schreibbereich des Weltgen-Bereichs).
+4. **Baumformen** (`EndTrees`, ein Code für Holz und Stöcke): Stamm + 5-16 schräg aufsteigende Äste (6er-verbunden) mit
+   Laubkugeln + Kronenkugel + Wurzeln. Groß (1 Knospe) Stamm 15-19, Riesig (2x2) Stamm 23-28, Kolossal (4x4 Knospen) Stamm
+   38-46 mit 4x4 bis 60 %, dann 2x2, Äste bis 10 weit, Krone bis ~58 hoch und ~34 breit (größter Baum im Spiel). Stamm
+   muss frei sein, Äste werden an Hindernissen gekappt; nur geladene Chunks werden beschrieben.
+5. **Knospe**: im End wächst immer ein Stöcke-Baum (gleiche Größenregel 1/2x2/4x4); außerhalb: Licht ≥ 9 Holzbaum,
+   darunter weiter Stöcke-Gestrüpp. Selbstwachstum weiter nur bei Licht.
+6. **End-Stöcke** bekommen `axis` (Äste liegen waagrecht) und `natural`. Baum-Stöcke (`natural=true`) fallen wie Chorus:
+   wird ein Stück entfernt, bricht jeder angrenzende Teil, der über Stöcke keinen festen Boden mehr erreicht (Suche
+   begrenzt auf 8192 Blöcke, Drops zusammengefasst zu wenigen Item-Stapeln, Partikel für max. 48 Blöcke, kein
+   rekursives Auslösen). Gesetzte Stöcke (`natural=false`) fallen nie. Stöcke stehen in
+   `#minecraft:prevents_nearby_leaf_decay`: Laub an Stöcke-Bäumen hält, nach der Kaskade zerfällt es normal (Vanilla).
+7. **Rückgabe statt Zufall je Blatt**: Laub hat `drop` (0 nichts, 1 Knospe, 2 Frucht). Beim Wachsen werden unter den
+   gesetzten Blättern ⌊m⌋ bzw. ⌊m⌋+1 Blätter markiert (Mittel genau m): Knospen m = 0,8 (Holzbaum), 1,5 (Stöcke-Baum);
+   Früchte 1,0 bzw. 2,0. Markierte Blätter droppen ihr Item immer (auch mit Schere/Behutsamkeit; Zerfall genauso).
+   Frucht: `location_check` Dimension End → Schwebfrucht, sonst Verdorbene Schwebfrucht. Gesetztes Laub hat `drop=0`.
+   Stöcke-Chance (Vanilla wie Eiche) bleibt.
+8. **Verdorbene Schwebfrucht** (`spoiled_drift_fruit`, „Spoiled Drift Fruit“/„Verdorbene Schwebfrucht“): 1 Hunger,
+   gibt 5 s **Treiben** (`simpleend:drifting`: Schwerkraft −90 %, Bewegung −40 %, alle 10 Ticks ein zufälliger Stoß,
+   Fallhöhe wird zurückgesetzt) + 8 s Sanfter Fall (nie tödlich).
+9. **Laub** (`EndLeavesBlock`, Unterklasse von Vanillas Partikel-Laub): eigenes Modell aus vier Ranken-Ebenen (Stern)
+   und einem kleinen Kristallkern, Cutout (kein Translucent: billiger bei Riesenkronen), keine Verdeckung, selten ein
+   End-Stab-Partikel. Kollision bleibt voll (Kronen begehbar).
+10. Performance: Bäume setzen Laub/Äste mit Flag 18 (keine Nachbar-Updates, Distanz selbst berechnet), Stamm mit 19.
+
+Tests (`simpleend:*`): Wachstum je Größe (groß/riesig real, kolossal in der Luft + aufgeräumt), Stöcke-Baum im End
+ohne Holz, Kaskade (Baum fällt, Wurzeln bleiben, gesetzte Stöcke bleiben, wenige Item-Stapel), Rückgabe statistisch
+(Mittelwert 0,8/1,5 über 20 000 Ziehungen, markierte Blätter am echten Baum), Frucht End/Oberwelt über echte Loot,
+Treiben-Effekt, Biom-Kern/Saum/Tag, Weltgen-Feature ohne Holz.

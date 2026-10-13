@@ -227,25 +227,117 @@ def door_item(top, bot):
 
 
 def leaves(s):
-    """Grey leaves for the grey-brown biome tint (dry foliage colour of Ash Valley/Dawnlands)."""
+    """Tendril fronds (Umbau 13.10.): curling grey tendrils with small leaflets and open gaps, drawn on the star-shaped
+    leaves model; grey so the grey-brown biome tint colours them. Ashwood: thin wisps with pale tips, Duskwood: fuller
+    fronds with hanging droplets."""
+    import math
     im = new()
     sd = s['seed']
+    dusk = s['key'] == 'b3'
+    shade = lambda t: int(255 * max(0.5, min(1.0, t)))
+    roots = (2, 7, 12) if not dusk else (1, 5, 9, 13)
+    for k, x0 in enumerate(roots):
+        sway = 1.4 + hsh(k, 1, sd) * 1.2
+        phase = hsh(k, 2, sd) * math.tau
+        top = 2 + int(hsh(k, 3, sd) * 4)
+        last = None
+        for y in range(15, top - 1, -1):
+            x = int(round(x0 + sway * math.sin(phase + (15 - y) * 0.45)))
+            x = max(0, min(15, x))
+            v = shade(0.62 + 0.25 * (15 - y) / 15 + 0.08 * hsh(x, y, sd))
+            put(im, x, y, (v, v, v, 255))
+            if last is not None and abs(last - x) > 1:
+                put(im, (last + x) // 2, y, (v, v, v, 255))
+            last = x
+            # leaflets every few pixels, alternating sides
+            if (y + k) % 2 == 0 and y < 14:
+                side = 1 if (y // 2 + k) % 2 else -1
+                lv = shade(0.74 + 0.2 * hsh(x, y, sd + 5))
+                for dx, dy in ((side, 0), (2 * side, -1), (side, -1)) if not dusk else ((side, 0), (2 * side, 0), (side, -1), (2 * side, 1)):
+                    if 0 <= x + dx < 16 and 0 <= y + dy < 16:
+                        put(im, x + dx, y + dy, (lv, lv, lv, 255))
+        # curl at the tip
+        tip = max(0, min(15, int(round(x0 + sway * math.sin(phase + (15 - top) * 0.45)))))
+        curl = 1 if hsh(k, 4, sd) > 0.5 else -1
+        for dx, dy in ((curl, -1), (2 * curl, -1), (2 * curl, 0)):
+            if 0 <= tip + dx < 16 and 0 <= top + dy < 16:
+                put(im, tip + dx, top + dy, (255, 255, 255, 255) if not dusk else (236, 236, 236, 255))
+        if dusk:   # a hanging droplet under a leaflet
+            dy = top + 4 + int(hsh(k, 6, sd) * 5)
+            dx = max(0, min(15, tip + (2 if k % 2 else -2)))
+            if dy < 15:
+                put(im, dx, dy, (255, 255, 255, 255))
+                put(im, dx, dy + 1, (214, 214, 214, 255))
+    return im
+
+
+def leaves_crystal(s):
+    """Small faceted crystal in the heart of the leaves (untinted): Ashwood lilac, Duskwood rose."""
+    c = ramp('4e3f5c', '7a6890', 'a998c4', 'd9cdea', 'f6f0ff') if s['key'] == 'b1' else ramp('5a3a4c', '86607a', 'b38ca4', 'dcbfd0', 'fbeef5')
+    im = new()
     for y in range(16):
         for x in range(16):
-            n = vnoise(x, y, 3, sd + 30)
-            if hsh(x, y, sd + 31) < 0.14 and n < 0.55:
+            lx, ly = (x - 5) % 6, (y - 5) % 6
+            t = 2
+            if lx + ly < 3:
+                t = 4 if lx + ly == 0 else 3
+            elif lx + ly > 7:
+                t = 0 if lx + ly == 10 else 1
+            if lx == ly and 1 <= lx <= 4:
+                t = min(4, t + 1)
+            put(im, x, y, c[t])
+    return im
+
+
+def spoiled_drift_fruit():
+    """Verdorbene Schwebfrucht: smaller, shrivelled and wrinkled, brown-grey with a mould spot and a wilted wing leaf."""
+    im = new()
+    body = ramp('3e352f', '5a4c42', '766556', '8f7e6a', 'a8977f')
+    for y in range(6, 15):
+        for x in range(4, 12):
+            dx, dy = x - 7.6, y - 10.2
+            wob = 0.45 * ((x * 7 + y * 3) % 3 - 1)
+            r = (dx * dx * 1.15 + dy * dy) ** 0.5 + wob * 0.4
+            if r > 4.0:
                 continue
-            g = 0.82 + 0.5 * (n - 0.5) + (0.15 if hsh(x, y, sd + 32) > 0.85 else 0)
-            if (x + y * 3 + sd) % 7 == 0:
-                g -= 0.22
-            v = int(255 * max(0.45, min(1.0, g)))
-            put(im, x, y, (v, v, v, 255))
-    if s['key'] == 'b1':   # pale chorus buds in the canopy (stay light under the tint)
-        for x, y in ((4, 5), (11, 12)):
-            put(im, x, y, (255, 255, 255, 255))
-    else:
-        for x, y in ((5, 3), (12, 10), (3, 12)):
-            put(im, x, y, (255, 255, 255, 255))
+            light = 0.6 - (dx * 0.08 + dy * 0.1) - r * 0.06
+            col = body[min(4, max(0, int(light * 5)))]
+            if r > 3.2:
+                col = body[0]
+            put(im, x, y, col)
+    for x, y in ((6, 9), (7, 10), (9, 11), (8, 12)):            # wrinkles
+        put(im, x, y, body[1])
+    for x, y, c in ((9, 8, '9aa28a'), (10, 9, '7f8a72'), (9, 9, 'b9c2a6')):   # mould
+        put(im, x, y, H(c))
+    wilt = ramp('4e4a3c', '6b6650', '8a8468')
+    for x, y, c in ((7, 6, 0), (6, 5, 1), (5, 5, 1), (4, 6, 2), (3, 7, 2), (8, 6, 0), (9, 5, 1)):
+        put(im, x, y, wilt[c])
+    put(im, 8, 7, H('2f2a26'))
+    return im
+
+
+def drifting_icon():
+    """18x18 effect icon: a pale feather drifting diagonally, quill in the middle, with two little wind curls."""
+    im = Image.new('RGBA', (18, 18), CLEAR)
+    c = ramp('4e3f5c', '7a6890', 'a998c4', 'd9cdea', 'f6f0ff')
+    for y in range(18):
+        for x in range(18):
+            t = ((x - 4) + (13 - y)) / 18.0            # 0 at the quill end, 1 at the tip
+            d = ((x - 4) - (13 - y)) / 1.4142          # signed distance from the quill line
+            if not 0.0 <= t <= 1.0:
+                continue
+            half = 3.2 * (t * (1.15 - t)) ** 0.5 if t > 0.12 else 0.5
+            if abs(d) > half:
+                continue
+            if abs(d) < 0.55:
+                col = c[1] if t < 0.2 else c[4]
+            else:
+                col = c[3] if d < 0 else c[2]
+                if int(t * 18) % 3 == 0 and abs(d) > 1.2:
+                    col = c[2] if d < 0 else c[1]
+            im.putpixel((x, y), col)
+    for x, y in ((2, 5), (3, 4), (4, 4), (5, 5), (14, 13), (13, 14), (14, 14), (15, 13)):
+        im.putpixel((x, y), c[1])
     return im
 
 
@@ -617,7 +709,7 @@ def main(argv=None):
             f'{n}_log': log_side(s), f'{n}_log_top': rings(s, False),
             f'stripped_{n}_log': stripped_side(s), f'stripped_{n}_log_top': rings(s, True),
             f'{n}_planks': planks(s), f'{n}_door_top': door(s, 'top'), f'{n}_door_bottom': door(s, 'bottom'),
-            f'{n}_trapdoor': trapdoor(s), f'{n}_leaves': leaves(s), s['bud']: bud(s),
+            f'{n}_trapdoor': trapdoor(s), f'{n}_leaves': leaves(s), f'{n}_leaves_crystal': leaves_crystal(s), s['bud']: bud(s),
             f'{n}_sticks': sticks_side(s), f'{n}_sticks_top': sticks_top(s), f'{n}_shelf': shelf(s),
             f'{n}_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_sign.png'), s),
             f'{n}_hanging_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_hanging_sign.png'), s, metal=True),
@@ -639,6 +731,8 @@ def main(argv=None):
     write(end_grass(), TEX / 'block/end_grass.png', out)
     write(end_bush(), TEX / 'block/end_bush.png', out)
     write(drift_fruit(), TEX / 'item/drift_fruit.png', out)
+    write(spoiled_drift_fruit(), TEX / 'item/spoiled_drift_fruit.png', out)
+    write(drifting_icon(), TEX / 'mob_effect/drifting.png', out)
     write(burrowed_top(), TEX / 'block/burrowed_end_stone_top.png', out)
     write(nibblemite('ash'), TEX / 'entity/nibblemite/ash.png', out)
     write(nibblemite('dusk'), TEX / 'entity/nibblemite/dusk.png', out)
@@ -674,7 +768,7 @@ def preview(dest):
         names = [f'block/{n}_log', f'block/{n}_log_top', f'block/stripped_{n}_log', f'block/{n}_planks', f'block/{n}_door_top',
                  f'block/{n}_door_bottom', f'block/{n}_trapdoor', f'block/{n}_leaves', f'block/{s["bud"]}', f'block/{n}_sticks',
                  f'item/{n}_sign', f'item/{n}_hanging_sign', f'item/{n}_boat', f'item/{n}_chest_boat', f'item/{n}_door',
-                 'block/end_grass', 'block/end_bush', 'item/drift_fruit']
+                 'block/end_grass', 'block/end_bush', 'item/drift_fruit', f'block/{n}_leaves_crystal', 'item/spoiled_drift_fruit']
         sheet = Image.new('RGBA', (len(names) * 136, 136), (40, 36, 44, 255))
         for i, k in enumerate(names):
             im = Image.open(TEX / f'{k}.png').convert('RGBA')
