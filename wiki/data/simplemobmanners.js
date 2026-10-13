@@ -1,0 +1,201 @@
+window.WIKI_MODULE_DATA = window.WIKI_MODULE_DATA || {};
+window.WIKI_MODULE_DATA["simplemobmanners"] = {
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplemobmanners",
+    "name": "Simple Mob Manners",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "mute",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/mixin/EntityMuteMixin.java"
+      ],
+      "en": {
+        "title": "Mute mobs",
+        "summary": "mutedEntities selects entity IDs. Names ending in _mute or _shhh are silent by default. Lists accept at most 64 nonempty distinct entries of at most 64 characters. Existing Vanilla silent state remains effective."
+      },
+      "de": {
+        "title": "Kreaturen stummschalten",
+        "summary": "mutedEntities waehlt Wesen-IDs. Namen mit _mute oder _shhh sind standardmaessig stumm. Listen erlauben maximal 64 verschiedene nichtleere Eintraege mit je 64 Zeichen. Vanilla-Stummzustand bleibt erhalten."
+      }
+    },
+    {
+      "id": "baby",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/mixin/PassiveEntityMixin.java"
+      ],
+      "en": {
+        "title": "Permanent babies",
+        "summary": "Every 100 ticks, named ageable mobs ending in _baby or _small are set to age -24000. The source also makes named adults young again; this behavior is preserved. Removing the suffix allows aging again."
+      },
+      "de": {
+        "title": "Dauerhafte Jungtiere",
+        "summary": "Alle 100 Ticks werden benannte alternde Wesen mit _baby oder _small auf Alter -24000 gesetzt. Die Quelle macht damit auch Erwachsene wieder jung; das bleibt erhalten. Suffix entfernen erlaubt Altern."
+      }
+    },
+    {
+      "id": "piglins",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/mixin/PiglinGoldMixin.java"
+      ],
+      "en": {
+        "title": "Piglin gold equipment",
+        "summary": "Gold armor trims or a golden sword, spear, pickaxe, axe, shovel, or hoe in either hand count as safe equipment. The two switches default true. This does not prevent anger caused by attacking or opening containers."
+      },
+      "de": {
+        "title": "Goldausruestung fuer Piglins",
+        "summary": "Goldbesatz oder goldenes Schwert, Speer, Spitzhacke, Axt, Schaufel oder Hacke in einer Hand gelten als sichere Ausruestung. Beide Schalter standardmaessig true. Angriff oder Behaelteroeffnen kann weiterhin Wut ausloesen."
+      }
+    },
+    {
+      "id": "config_mutedEntities",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java"
+      ],
+      "en": {
+        "title": "mutedEntities",
+        "summary": "Server setting. Default: []."
+      },
+      "de": {
+        "title": "mutedEntities",
+        "summary": "Servereinstellung. Standard: []."
+      }
+    },
+    {
+      "id": "config_nametagMuteSuffixes",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java"
+      ],
+      "en": {
+        "title": "nametagMuteSuffixes",
+        "summary": "Server setting. Default: [\"_mute\", \"_shhh\"]."
+      },
+      "de": {
+        "title": "nametagMuteSuffixes",
+        "summary": "Servereinstellung. Standard: [\"_mute\", \"_shhh\"]."
+      }
+    },
+    {
+      "id": "config_nametagBabySuffixes",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java"
+      ],
+      "en": {
+        "title": "nametagBabySuffixes",
+        "summary": "Server setting. Default: [\"_baby\", \"_small\"]."
+      },
+      "de": {
+        "title": "nametagBabySuffixes",
+        "summary": "Servereinstellung. Standard: [\"_baby\", \"_small\"]."
+      }
+    },
+    {
+      "id": "config_piglinsIgnoreGoldTrims",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java"
+      ],
+      "en": {
+        "title": "piglinsIgnoreGoldTrims",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "piglinsIgnoreGoldTrims",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_piglinsIgnoreGoldTools",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java"
+      ],
+      "en": {
+        "title": "piglinsIgnoreGoldTools",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "piglinsIgnoreGoldTools",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersCommands.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "Owner-level /simplemobmanners muteSuffixes, babySuffixes and mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims and piglinsIgnoreGoldTools <true|false>. Changes are saved to config/simplemobmanners.json. Formerly Simple Creatures: /simplecreatures still works as an alias with a hint, config/simplecreatures.json and the super-mod switch are taken over once."
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "Besitzerberechtigung: /simplemobmanners muteSuffixes, babySuffixes und mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims und piglinsIgnoreGoldTools <true|false>. Speichern in config/simplemobmanners.json. Frueher Simple Creatures: /simplecreatures bleibt als Alias mit Hinweis, config/simplecreatures.json und der Super-Mod-Schalter werden einmalig uebernommen."
+      }
+    },
+    {
+      "id": "submod",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/SimpleMobManners.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/SubMods.java"
+      ],
+      "en": {
+        "title": "Sub-mod of Simple QoL",
+        "summary": "Playable alone (config/simplemobmanners.json). Bundled in Simple QoL, which can switch it off with \"Enable Simple Mob Manners\". On the first start the old Simple QoL settings of this sub-mod are taken over once."
+      },
+      "de": {
+        "title": "Sub-Mod von Simple QoL",
+        "summary": "Allein spielbar (config/simplemobmanners.json). In Simple QoL gebuendelt, dort mit \"Simple Mob Manners aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig uebernommen."
+      }
+    }
+  ],
+  "recipes": [],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [],
+  "blocks": [],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 10,
+    "recipes": 0,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 0,
+    "blocks": 0,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+};

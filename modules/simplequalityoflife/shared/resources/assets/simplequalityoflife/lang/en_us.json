@@ -47,7 +47,7 @@
   "simplequalityoflife.guide.page.14.title": "Commands",
   "simplequalityoflife.guide.page.14": "Owner-level /simplemobmanners muteSuffixes, babySuffixes and mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims and piglinsIgnoreGoldTools <true|false>.",
   "simplequalityoflife.guide.page.15.title": "Commands",
-  "simplequalityoflife.guide.page.15": "Changes are saved to config/simplemobmanners.json.",
+  "simplequalityoflife.guide.page.15": "Changes are saved to config/simplemobmanners.json. Formerly Simple Creatures: /simplecreatures still works as an alias with a hint, config/simplecreatures.json and the super-mod switch are taken over once.",
   "simplequalityoflife.guide.page.16.title": "Feather Falling farmland protection",
   "simplequalityoflife.guide.page.16": "Feather Falling boots prevent trampling. This complements SimpleBuilding Breeze head protection. Enabled by preventFarmlandTrampleWithFeatherFalling, default true.",
   "simplequalityoflife.guide.page.17.title": "Hoe harvest and replant",

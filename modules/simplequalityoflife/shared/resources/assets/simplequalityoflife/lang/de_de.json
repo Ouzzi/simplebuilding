@@ -47,7 +47,7 @@
   "simplequalityoflife.guide.page.14.title": "Befehle",
   "simplequalityoflife.guide.page.14": "Besitzerberechtigung: /simplemobmanners muteSuffixes, babySuffixes und mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims und piglinsIgnoreGoldTools <true|false>.",
   "simplequalityoflife.guide.page.15.title": "Befehle",
-  "simplequalityoflife.guide.page.15": "Speichern in config/simplemobmanners.json.",
+  "simplequalityoflife.guide.page.15": "Speichern in config/simplemobmanners.json. Frueher Simple Creatures: /simplecreatures bleibt als Alias mit Hinweis, config/simplecreatures.json und der Super-Mod-Schalter werden einmalig uebernommen.",
   "simplequalityoflife.guide.page.16.title": "Federfall schuetzt Ackerland",
   "simplequalityoflife.guide.page.16": "Federfallstiefel verhindern Zertrampeln. Dies ergaenzt den Breezekopf-Schutz aus SimpleBuilding. preventFarmlandTrampleWithFeatherFalling ist standardmaessig true.",
   "simplequalityoflife.guide.page.17.title": "Mit Hacke ernten und nachpflanzen",

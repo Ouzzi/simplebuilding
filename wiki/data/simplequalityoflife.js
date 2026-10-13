@@ -62,17 +62,17 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     },
     {
-      "id": "config_enableSimpleCreatures",
+      "id": "config_enableSimpleMobManners",
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java"
       ],
       "en": {
-        "title": "enableSimpleCreatures",
-        "summary": "Super-mod switch for the bundled sub-mod Simple Creatures. Default: true."
+        "title": "enableSimpleMobManners",
+        "summary": "Super-mod switch for the bundled sub-mod Simple Mob Manners. Default: true."
       },
       "de": {
-        "title": "enableSimpleCreatures",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Creatures. Standard: true."
+        "title": "enableSimpleMobManners",
+        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Mob Manners. Standard: true."
       }
     },
     {
@@ -124,11 +124,11 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       ],
       "en": {
         "title": "Commands",
-        "summary": "Owner-level /simplequalityoflife submod <weather|interfaces|loot|creatures|farming|tools|movement> <true|false> switches a bundled sub-mod; the former tweak commands moved with their features into the sub-mods (/simpleloot, /simplecreatures, /simplefarming, /simpletools, /simplemovement). Changes are saved to config/simplequalityoflife.json."
+        "summary": "Owner-level /simplequalityoflife submod <weather|interfaces|loot|mobmanners|farming|tools|movement> <true|false> switches a bundled sub-mod; the former tweak commands moved with their features into the sub-mods (/simpleloot, /simplemobmanners, /simplefarming, /simpletools, /simplemovement). Changes are saved to config/simplequalityoflife.json."
       },
       "de": {
         "title": "Befehle",
-        "summary": "Besitzerberechtigung: /simplequalityoflife submod <weather|interfaces|loot|creatures|farming|tools|movement> <true|false> schaltet eine gebuendelte Sub-Mod; die frueheren tweak-Befehle sind mit ihren Funktionen in die Sub-Mods gewandert (/simpleloot, /simplecreatures, /simplefarming, /simpletools, /simplemovement). Speichern in config/simplequalityoflife.json."
+        "summary": "Besitzerberechtigung: /simplequalityoflife submod <weather|interfaces|loot|mobmanners|farming|tools|movement> <true|false> schaltet eine gebuendelte Sub-Mod; die frueheren tweak-Befehle sind mit ihren Funktionen in die Sub-Mods gewandert (/simpleloot, /simplemobmanners, /simplefarming, /simpletools, /simplemovement). Speichern in config/simplequalityoflife.json."
       }
     },
     {
