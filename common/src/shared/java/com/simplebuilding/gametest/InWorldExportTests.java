@@ -189,7 +189,9 @@ public final class InWorldExportTests {
         for (String section : described.keySet()) {
             InWorldRecipeCatalog.Kind kind = InWorldRecipeCatalog.Kind.bySection(section);
             helper.assertTrue(kind != null, "in-world section " + section + " has no JEI category");
-            helper.assertTrue(!catalog.of(kind).isEmpty(), "JEI category " + kind + " is empty");
+            // 26.3: forging trim templates moved to Simple Trims (N18); the section only lists the templates.
+            boolean movedAway = kind == InWorldRecipeCatalog.Kind.TRIM_TEMPLATE && !com.simplebuilding.version.McVersion.TRIMS_IN_SB;
+            helper.assertTrue(movedAway || !catalog.of(kind).isEmpty(), "JEI category " + kind + " is empty");
         }
 
         JsonObject up = described.getAsJsonObject("sledgehammerUpgrade");

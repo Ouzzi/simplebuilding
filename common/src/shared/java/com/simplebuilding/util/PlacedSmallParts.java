@@ -303,8 +303,33 @@ public final class PlacedSmallParts {
         if (state.is(Blocks.SEA_PICKLE)) {
             return !stack.is(Items.SEA_PICKLE);
         }
-        return state.is(ModBlocks.PLACED_SMITHING_TEMPLATE) && state.getValue(PlacedTemplateBlock.FACE) == AttachFace.FLOOR
-                && level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity be && joinsLying(be.getTemplate(), stack);
+        ItemStack lying = lyingTemplate(level, pos, state);
+        return !lying.isEmpty() && joinsLying(lying, stack);
+    }
+
+    /** Simple Trims' placed trim template (26.3, N18), found by id: no class import, its block entity saves "Template". */
+    private static final net.minecraft.resources.Identifier SIMPLE_TRIMS_PLACED =
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletrims", "placed_template");
+
+    /**
+     * The template lying flat on the floor at {@code pos}: SimpleBuilding's own placed template or, on 26.3, Simple
+     * Trims' (trim templates belong to it there; a second template on top still makes a pile, N24). Empty otherwise.
+     */
+    private static ItemStack lyingTemplate(Level level, BlockPos pos, BlockState state) {
+        if (state.is(ModBlocks.PLACED_SMITHING_TEMPLATE)) {
+            return state.getValue(PlacedTemplateBlock.FACE) == AttachFace.FLOOR
+                    && level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity be ? be.getTemplate() : ItemStack.EMPTY;
+        }
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB || !SIMPLE_TRIMS_PLACED.equals(BuiltInRegistries.BLOCK.getKey(state.getBlock()))
+                || !state.hasProperty(net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock.FACE)
+                || state.getValue(net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock.FACE) != AttachFace.FLOOR
+                || level.getBlockEntity(pos) == null) {
+            return ItemStack.EMPTY;
+        }
+        net.minecraft.nbt.CompoundTag saved = level.getBlockEntity(pos).saveCustomOnly(level.registryAccess());
+        net.minecraft.nbt.Tag template = saved.get("Template");
+        return template == null ? ItemStack.EMPTY : ItemStack.CODEC.parse(
+                level.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), template).result().orElse(ItemStack.EMPTY);
     }
 
     /**
@@ -351,10 +376,9 @@ public final class PlacedSmallParts {
         boolean vanillaBlock = false;
         if (ModBlocks.PLACED_EGG != null && state.is(ModBlocks.PLACED_EGG)) {
             old.add(new ItemStack(state.getValue(PlacedEggBlock.EGG).item()));
-        } else if (state.is(ModBlocks.PLACED_SMITHING_TEMPLATE) && level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity template
-                && joinsLying(template.getTemplate(), stack)) {
-            old.add(template.getTemplate().copyWithCount(1));
-            facing = state.getValue(PlacedTemplateBlock.FACING);
+        } else if (!lyingTemplate(level, pos, state).isEmpty() && joinsLying(lyingTemplate(level, pos, state), stack)) {
+            old.add(lyingTemplate(level, pos, state).copyWithCount(1));
+            facing = state.getValue(net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock.FACING);
         } else if (isCandleBlock(state) && !stack.is(state.getBlock().asItem())) {
             for (int i = 0; i < state.getValue(CandleBlock.CANDLES); i++) {
                 old.add(new ItemStack(state.getBlock().asItem()));

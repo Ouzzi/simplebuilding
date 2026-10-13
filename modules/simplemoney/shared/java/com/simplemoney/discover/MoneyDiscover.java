@@ -98,7 +98,6 @@ public final class MoneyDiscover {
             "simplebuilding:drowned_head",
             "simplebuilding:echo_sounder",
             "simplebuilding:elytra_pad",
-            "simplebuilding:emitting_trim_template",
             "simplebuilding:enchanted_enderite_apple",
             "simplebuilding:enchanted_netherite_apple",
             "simplebuilding:ender_quartz",
@@ -155,7 +154,6 @@ public final class MoneyDiscover {
             "simplebuilding:fine_elytra_pad",
             "simplebuilding:flypad",
             "simplebuilding:funny_stick",
-            "simplebuilding:glowing_trim_template",
             "simplebuilding:gold_building_wand",
             "simplebuilding:gold_chisel",
             "simplebuilding:gold_core",
@@ -244,7 +242,6 @@ public final class MoneyDiscover {
             "simplebuilding:polished_nihilith_stairs",
             "simplebuilding:polished_nihilith_wall",
             "simplebuilding:potion_pad",
-            "simplebuilding:pulsating_trim_template",
             "simplebuilding:purpur_quartz_checker",
             "simplebuilding:quiver",
             "simplebuilding:raw_enderite",
@@ -305,6 +302,7 @@ public final class MoneyDiscover {
             "simplemoney:money_links_simplequalityoflife",
             "simplemoney:money_links_simpleriding",
             "simplemoney:money_links_simplesounds",
+            "simplemoney:money_links_simpletrims",
             "simplemoney:money_links_simpletweaks",
             "simplemoney:money_links_simplevisuals",
             "simplemoney:money_links_wiringexample",
@@ -360,7 +358,10 @@ public final class MoneyDiscover {
             "simplemoney:trade_wandering_trader_43",
             "simplemoney:trade_wandering_trader_44",
             "simplemoney:trade_wandering_trader_45",
-            "simplemoney:trade_wandering_trader_46");
+            "simplemoney:trade_wandering_trader_46",
+            "simpletrims:emitting_trim_template",
+            "simpletrims:glowing_trim_template",
+            "simpletrims:pulsating_trim_template");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {

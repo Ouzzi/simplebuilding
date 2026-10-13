@@ -1047,12 +1047,23 @@ public final class GuideBookTests {
 
     private static JsonObject langFile(GameTestHelper helper, String locale) {
         String path = "assets/simplebuilding/lang/" + locale + ".json";
+        JsonObject lang;
         try (InputStream in = GuideBookTests.class.getClassLoader().getResourceAsStream(path)) {
             helper.assertTrue(in != null, path + " is not on the classpath");
-            return JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+            lang = JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (java.io.IOException e) {
             throw new IllegalStateException("cannot read " + path, e);
         }
+        // 26.3 (N18): the trims guide names the bundled Simple Trims' templates; their names live in its own lang file.
+        try (InputStream in = GuideBookTests.class.getClassLoader().getResourceAsStream("assets/simpletrims/lang/" + locale + ".json")) {
+            if (in != null) {
+                JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject().entrySet()
+                        .forEach(entry -> { if (!lang.has(entry.getKey())) lang.add(entry.getKey(), entry.getValue()); });
+            }
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read the Simple Trims lang file", e);
+        }
+        return lang;
     }
 
     private static int placeholders(String text) {

@@ -24,8 +24,13 @@ public final class TrimsFabric implements ModInitializer {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleTrims.MOD_ID)) return;
             var stacks = TrimsRegistry.tabStacks();
-            if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))) {
-                out.insertAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            // Behind the last Vanilla armor trim template (where SimpleBuilding had them); a tail append clashes with
+            // other mods' insertAfter at the tail.
+            var lastTrim = out.getDisplayStacks().stream().filter(com.simpletrims.TemplateTools::isTrimTemplate)
+                    .filter(s -> "minecraft".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(s.getItem()).getNamespace()))
+                    .reduce((first, second) -> second);
+            if (lastTrim.isPresent()) {
+                out.insertAfter(lastTrim.get().getItem(), stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             } else {
                 stacks.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
             }
