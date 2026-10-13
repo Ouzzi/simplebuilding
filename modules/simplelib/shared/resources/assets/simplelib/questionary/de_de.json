@@ -18,7 +18,7 @@
       "Eine Kochstelle ohne Brennstoff: Alle Plätze kochen gleichzeitig, beheizt vom Block darunter oder zwei Blöcke darunter. 6 Plätze, Tempo 1x."
     ],
     "secret": [
-      "Im Spiel gebaut: Axt in der Haupthand, Schwere Druckplatte in der Nebenhand, vier Schläge auf einen Eisenblock, dann zwei mit einem Eisenbarren. Man kann wie in einen Kessel hineintreten."
+      "Im Spiel gebaut: Axt in der Haupthand, Eisenbarren in der Nebenhand, sechzehn Schläge auf einen Eisenblock - Seitenplatten, Griffe, Rand, je ein Barren. Man kann wie in einen Kessel hineintreten."
     ]
   },
   "reinforced_crucible": {
@@ -26,7 +26,7 @@
       "Ein Topf, der gelernt hat, die doppelte Last zu tragen."
     ],
     "use": [
-      "Die verstärkte Stufe des Tiegels: 12 Plätze (2x6), Tempo 2x. Ein Eisentiegel wird mit 2 Diamanten in der Nebenhand und zehn Axtschlägen dazu."
+      "Die verstärkte Stufe des Tiegels: 12 Plätze (2x6), Tempo 2x. Ein Eisentiegel wird in zwölf Axtschlägen dazu, jeder dritte nimmt einen rissigen Diamanten (oder Diamanten) aus der Nebenhand (mit SimpleBuilding der Vorschlaghammer)."
     ],
     "secret": [
       "Inhalt, Fortschritt und Erfahrung bleiben beim Aufrüsten an Ort und Stelle erhalten."
@@ -37,7 +37,7 @@
       "Ein Topf, der mit der Geschwindigkeit eines Netherfeuers kocht."
     ],
     "use": [
-      "Die Netherit-Stufe des Tiegels: 18 Plätze, Tempo 4x, Erfahrung zählt doppelt. Ein verstärkter Tiegel wird mit 1 Netheritbarren und zehn Schlägen dazu."
+      "Die Netherit-Stufe des Tiegels: 18 Plätze, Tempo 4x, Erfahrung zählt doppelt. Ein verstärkter Tiegel wird in zwölf Schlägen dazu, jeder dritte nimmt einen Netheritklumpen (oder Netheritschrott)."
     ],
     "secret": [
       "Lava oder Seelenlava darunter lässt ihn Ofen- und Hochofenrezepte kochen, Seelenlava auch Antiken Schrott."

@@ -769,6 +769,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_builds_the_iron_crucible", CrucibleTests::sledgehammerBuildsTheIronCrucible)
                     .build(),
+            GameTestSpec.named("crucible_game_test_hammer_upgrade_goes_strike_by_strike", CrucibleTests::hammerUpgradeGoesStrikeByStrike)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_broken_mid_upgrade_returns_the_units", CrucibleTests::brokenMidUpgradeReturnsTheUnits)
+                    .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_crushes_quartz_block_into_four_quartz", CrucibleTests::sledgehammerCrushesQuartzBlockIntoFourQuartz)
                     .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_upgrades_cost_double", CrucibleTests::sledgehammerUpgradesCostDouble)

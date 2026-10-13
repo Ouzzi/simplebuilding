@@ -166,9 +166,18 @@ public final class SledgehammerUpgrades {
         return blows() * HIT_INTERVAL;
     }
 
-    /** Schlaege dieser Stufe: {@link #blows()} mal ihr Faktor (Shulkerkisten: doppelt so viele). */
+    /**
+     * Schlaege dieser Stufe: {@link #blows()} mal ihr Faktor (Shulkerkisten: doppelt so viele). Tiegel (Besitzer N51)
+     * fest 12 Schlaege, alle 3 Schlaege eine Material-Einheit ({@link #staged}); ihr Faktor zaehlt dort nicht.
+     */
     public static int blows(Upgrade upgrade) {
+        if (staged(upgrade)) return com.simplebuilding.crucible.CrucibleCompat.crucibleUpgradeStrikes();
         return blows() * upgrade.durationFactor();
+    }
+
+    /** Tiegel-Aufwertung Schlag fuer Schlag (Besitzer N51): das Material geht einzeln alle 3 Schlaege hinein. */
+    public static boolean staged(Upgrade upgrade) {
+        return com.simplebuilding.crucible.CrucibleCompat.stagedUpgrade(upgrade.from());
     }
 
     /** Dauer dieser Stufe in Ticks. */
@@ -185,6 +194,8 @@ public final class SledgehammerUpgrades {
      * Die Render-Mixins lesen ihn ueber {@link #blowPhase} und {@link #drawBack}.
      */
     public static final float STRIKE_PHASE = 0.8F;
+    /** Tiegel (Besitzer N51): eine Material-Einheit alle so viele Schlaege. */
+    public static final int STRIKES_PER_UNIT = 3;
 
     /** Ein laufender Auftrag eines Spielers. */
     private static final class Job {
@@ -302,9 +313,11 @@ public final class SledgehammerUpgrades {
         if (iron == null || enderite == null || enderiteBarrel == null || netheriteBarrel == null) return;
         int factor = CRUCIBLE_UPGRADE_DURATION_FACTOR;
         int cost = CRUCIBLE_UPGRADE_MATERIAL_COST;
-        map.put(iron, new Upgrade(iron, reinforced, ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
-        map.put(reinforced, new Upgrade(reinforced, netherite, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
-        map.put(netherite, new Upgrade(netherite, enderite, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
+        // Owner N51: crucibles go up strike by strike, 12 strikes, one of 4 units every 3 strikes (blows() ignores the factor).
+        int units = CRUCIBLE_STAGED_MATERIAL_COST;
+        map.put(iron, new Upgrade(iron, reinforced, ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, 1, units));
+        map.put(reinforced, new Upgrade(reinforced, netherite, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, 1, units));
+        map.put(netherite, new Upgrade(netherite, enderite, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, 1, units));
         map.put(copperBarrel, new Upgrade(copperBarrel, reinforcedBarrel, ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
         map.put(reinforcedBarrel, new Upgrade(reinforcedBarrel, netheriteBarrel, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
         map.put(netheriteBarrel, new Upgrade(netheriteBarrel, enderiteBarrel, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
@@ -315,6 +328,8 @@ public final class SledgehammerUpgrades {
     /** Crucible/barrel upgrades cost twice a furnace upgrade (owner F9); the cauldron takes 8 cracked diamonds (owner 56: 4, doubled 2026-10-06). */
     public static final int CRUCIBLE_UPGRADE_DURATION_FACTOR = 2;
     public static final int CRUCIBLE_UPGRADE_MATERIAL_COST = 2;
+    /** Crucibles (owner N51): 4 units (cracked diamonds / netherite nuggets / enderite nuggets), one every 3 of the 12 strikes. */
+    public static final int CRUCIBLE_STAGED_MATERIAL_COST = 4;
     public static final int CAULDRON_UPGRADE_MATERIAL_COST = 8;
     /** Astral Enchanting Table: four times the blows of a machine upgrade (about 20, owner N27). */
     public static final int ASTRAL_TABLE_DURATION_FACTOR = 4;
@@ -408,6 +423,7 @@ public final class SledgehammerUpgrades {
      * Doppeltruhe also zwei (beide Haelften werden zugleich umgebaut, siehe {@link TieredChests}).
      */
     public static int materialNeeded(Level level, BlockPos pos, BlockState state, Upgrade upgrade) {
+        if (staged(upgrade)) return 1; // Tiegel: jede Einheit geht einzeln hinein, die naechste genuegt
         int blocks = upgrade.isChest() ? TieredChests.halves(level, pos, state, upgrade.to()).size() : 1;
         return blocks * upgrade.materialCost();
     }
@@ -597,8 +613,12 @@ public final class SledgehammerUpgrades {
         if (!permitted(level, player, pos, state, upgrade) || !player.mayUseItemAt(pos, context.getClickedFace(), context.getItemInHand())) {
             return InteractionResult.FAIL;
         }
-        int startHits = level instanceof ServerLevel serverLevel
-                ? Math.clamp(SledgehammerProgress.hits(serverLevel, pos, upgrade.from()), 0, blows(upgrade) - 1) : 0;
+        int saved = level instanceof ServerLevel serverLevel ? SledgehammerProgress.hits(serverLevel, pos, upgrade.from()) : 0;
+        if (staged(upgrade)) {
+            // Die eingeschlagenen Einheiten zaehlen immer mit (auch wenn der gespeicherte Fortschritt fehlt).
+            saved = Math.max(saved, com.simplebuilding.crucible.CrucibleCompat.crucibleUpgradeUnits(state) * STRIKES_PER_UNIT);
+        }
+        int startHits = level instanceof ServerLevel ? Math.clamp(saved, 0, blows(upgrade) - 1) : 0;
         jobs(level).put(player.getUUID(), new Job(pos.immutable(), upgrade, context.getClickLocation(), context.getClickedFace(), startHits));
         player.startUsingItem(InteractionHand.MAIN_HAND);
         return InteractionResult.CONSUME;
@@ -668,9 +688,15 @@ public final class SledgehammerUpgrades {
         }
         if (com.simplebuilding.crucible.CrucibleCompat.upgradesInPlace(job.upgrade.to())) {
             // Crucibles and barrels (SimpleLib): contents, progress and experience move to the next tier (owner 11).
-            LibServices.replace(serverLevel, job.pos, job.upgrade.to());
+            if (staged(job.upgrade)) {
+                // Crucibles (owner N51): the last blow strikes in the 4th unit and upgrades in place.
+                com.simplebuilding.crucible.CrucibleCompat.crucibleUpgradeStrike(serverLevel, job.pos, job.upgrade.to(), blows(job.upgrade),
+                        player.hasInfiniteMaterials() ? ItemStack.EMPTY : player.getOffhandItem());
+            } else {
+                LibServices.replace(serverLevel, job.pos, job.upgrade.to());
+                player.getOffhandItem().consume(job.upgrade.materialCost(), player);
+            }
             SledgehammerProgress.clear(serverLevel, job.pos);
-            player.getOffhandItem().consume(job.upgrade.materialCost(), player);
             finishEffects(serverLevel, job, old);
             if (!job.upgrade.toReinforced()) {
                 com.simplebuilding.advancement.ModTriggers.feature(player, job.upgrade.toEnderite() ? com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE : com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE);
@@ -771,8 +797,14 @@ public final class SledgehammerUpgrades {
 
         // Erst merken, dann bezahlen: der Schlag ist gefallen, auch wenn der Hammer dabei zerbricht.
         SledgehammerProgress.record(level, job.pos, job.upgrade.from(), hitNumber);
-        // Growing preview of the upgraded block (shared in-world system, owner 2026-10-10): each blow reveals more of it.
-        InWorldStrikes.preview(level, job.pos, previewOf(state, job.upgrade.to()), hitNumber, blows(job.upgrade));
+        if (staged(job.upgrade)) {
+            // Crucibles (owner N51): SimpleLib shows the preview and takes one unit every 3 blows (a band per unit).
+            com.simplebuilding.crucible.CrucibleCompat.crucibleUpgradeStrike(level, job.pos, job.upgrade.to(), hitNumber,
+                    player.hasInfiniteMaterials() ? ItemStack.EMPTY : player.getOffhandItem());
+        } else {
+            // Growing preview of the upgraded block (shared in-world system, owner 2026-10-10): each blow reveals more of it.
+            InWorldStrikes.preview(level, job.pos, previewOf(state, job.upgrade.to()), hitNumber, blows(job.upgrade));
+        }
 
         McVersion.swing(player, InteractionHand.MAIN_HAND, true);
         hammer.hurtAndBreak(damagePerHit(job.upgrade), player, EquipmentSlot.MAINHAND);

@@ -20,14 +20,19 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Upgrading a crucible in place without SimpleBuilding (principle 5a, owner 50): an axe in the main
- * hand, the Vanilla material in the off hand, ten strikes (owner F9: twice the furnace upgrade):
- * Iron -> Reinforced with 2 diamonds, Reinforced -> Netherite with 1 netherite ingot (barrels the same:
- * copper -> reinforced -> netherite). The material
- * is used on the last strike; contents, progress and experience stay. SimpleBuilding replaces this
- * with its sledgehammer way and calls {@link #upgradeInPlace} itself.
+ * hand, the material in the off hand. Crucibles (owner N51): {@value #CRUCIBLE_STRIKES} strikes, every
+ * {@value #STRIKES_PER_UNIT}rd strikes one unit in ({@link CrucibleBlock#UPGRADE} shows it as a band), four units:
+ * Iron -> Reinforced with cracked diamonds (or diamonds), Reinforced -> Netherite with netherite nuggets (or netherite
+ * scrap). Barrels keep ten strikes (owner F9) with the material on the last strike: copper -> reinforced (2 diamonds)
+ * -> netherite (1 netherite ingot). Contents, progress and experience stay. SimpleBuilding replaces this with its
+ * sledgehammer way and calls {@link #upgradeInPlace} / {@link #strikeInUnit} itself.
  */
 public final class CrucibleUpgrades {
     public static final int STRIKES = 10;
+    /** Crucible upgrades (owner N51): 12 strikes, one unit every 3 strikes = 4 units. */
+    public static final int CRUCIBLE_STRIKES = 12;
+    public static final int STRIKES_PER_UNIT = 3;
+    public static final int CRUCIBLE_UNITS = CRUCIBLE_STRIKES / STRIKES_PER_UNIT;
     /** The cauldron has no block entity: its strikes are counted here per position (cleared after 30 s). */
     public static final int CAULDRON_STRIKES = 5;
     public static final int CAULDRON_COST = 8;
@@ -37,10 +42,10 @@ public final class CrucibleUpgrades {
 
     public static @Nullable Step stepFor(BlockState state, ItemStack material) {
         if (material.isEmpty()) return null;
-        if (state.is(LibBlocks.IRON_CRUCIBLE) && material.is(LibTags.UPGRADE_REINFORCED))
-            return new Step(LibBlocks.IRON_CRUCIBLE, LibBlocks.REINFORCED_CRUCIBLE, LibTags.UPGRADE_REINFORCED, 2);
-        if (state.is(LibBlocks.REINFORCED_CRUCIBLE) && material.is(LibTags.UPGRADE_NETHERITE))
-            return new Step(LibBlocks.REINFORCED_CRUCIBLE, LibBlocks.NETHERITE_CRUCIBLE, LibTags.UPGRADE_NETHERITE, 1);
+        if (state.is(LibBlocks.IRON_CRUCIBLE) && material.is(LibTags.CRUCIBLE_UPGRADE_REINFORCED))
+            return new Step(LibBlocks.IRON_CRUCIBLE, LibBlocks.REINFORCED_CRUCIBLE, LibTags.CRUCIBLE_UPGRADE_REINFORCED, 1);
+        if (state.is(LibBlocks.REINFORCED_CRUCIBLE) && material.is(LibTags.CRUCIBLE_UPGRADE_NETHERITE))
+            return new Step(LibBlocks.REINFORCED_CRUCIBLE, LibBlocks.NETHERITE_CRUCIBLE, LibTags.CRUCIBLE_UPGRADE_NETHERITE, 1);
         if (state.is(LibBlocks.COPPER_BARREL) && material.is(LibTags.UPGRADE_REINFORCED))
             return new Step(LibBlocks.COPPER_BARREL, LibBlocks.REINFORCED_BARREL, LibTags.UPGRADE_REINFORCED, 2);
         if (state.is(LibBlocks.REINFORCED_BARREL) && material.is(LibTags.UPGRADE_NETHERITE))
@@ -60,7 +65,13 @@ public final class CrucibleUpgrades {
         if (!(level instanceof ServerLevel server)) return true;
         int done;
         int needed = STRIKES;
-        if (level.getBlockEntity(pos) instanceof CrucibleBlockEntity be) done = be.addUpgradeStrike();
+        if (level.getBlockEntity(pos) instanceof CrucibleBlockEntity be) {
+            done = be.addUpgradeStrike(unitsIn(state) * STRIKES_PER_UNIT);
+            strikeInUnit(server, pos, state, step.to(), done, player.getAbilities().instabuild ? ItemStack.EMPTY : material);
+            if (!player.getAbilities().instabuild) tool.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+            player.getCooldowns().addCooldown(tool, CrucibleBlankBlock.STRIKE_COOLDOWN);
+            return true;
+        }
         else if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity barrel) done = barrel.addAttachStrike();
         else if (state.is(net.minecraft.world.level.block.Blocks.CAULDRON)) {
             done = cauldronStrike(server, pos);
@@ -83,8 +94,39 @@ public final class CrucibleUpgrades {
         return true;
     }
 
+    /** Upgrade units already struck into a crucible (0 on anything else). */
+    public static int unitsIn(BlockState state) {
+        return state.hasProperty(CrucibleBlock.UPGRADE) ? state.getValue(CrucibleBlock.UPGRADE) : 0;
+    }
+
+    /**
+     * Crucible upgrade strike number {@code done} (1..{@value #CRUCIBLE_STRIKES}) - shared by the axe way and partner ways
+     * (SimpleBuilding's sledgehammer): cracks, sound and the growing preview of {@code to}; every
+     * {@value #STRIKES_PER_UNIT}rd strike takes one unit from {@code material} (empty = creative, nothing taken) and
+     * shows it as a band ({@link CrucibleBlock#UPGRADE}); the last one upgrades in place. Returns the units struck in.
+     */
+    public static int strikeInUnit(ServerLevel server, BlockPos pos, BlockState state, Block to, int done, ItemStack material) {
+        done = Math.max(1, Math.min(done, CRUCIBLE_STRIKES));
+        com.simplelib.api.InWorldStrikes.feedback(server, pos, state, SoundEvents.ANVIL_PLACE, 0.4F, done, CRUCIBLE_STRIKES);
+        com.simplelib.api.InWorldStrikes.preview(server, pos, previewState(state, to), done, CRUCIBLE_STRIKES);
+        if (done % STRIKES_PER_UNIT != 0) return unitsIn(state);
+        ItemStack unit = material.isEmpty() ? ItemStack.EMPTY : material.split(1);
+        if (done >= CRUCIBLE_STRIKES) {
+            upgradeInPlace(server, pos, to);
+            server.playSound(null, pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            return CRUCIBLE_UNITS;
+        }
+        int units = Math.min(CRUCIBLE_UNITS - 1, done / STRIKES_PER_UNIT);
+        if (server.getBlockEntity(pos) instanceof CrucibleBlockEntity be) be.addUpgradeUnit(unit);
+        if (state.hasProperty(CrucibleBlock.UPGRADE) && state.getValue(CrucibleBlock.UPGRADE) != units) {
+            server.setBlock(pos, state.setValue(CrucibleBlock.UPGRADE, units), Block.UPDATE_ALL);
+        }
+        server.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.5F, 1.2F + 0.1F * units);
+        return units;
+    }
+
     /** The upgraded block as the preview shows it: the target's default state with the old facing kept. */
-    private static BlockState previewState(BlockState from, Block to) {
+    public static BlockState previewState(BlockState from, Block to) {
         BlockState next = to.defaultBlockState();
         if (from.hasProperty(CrucibleBarrelBlock.FACING) && next.hasProperty(CrucibleBarrelBlock.FACING)) {
             next = next.setValue(CrucibleBarrelBlock.FACING, from.getValue(CrucibleBarrelBlock.FACING));
