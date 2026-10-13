@@ -25,6 +25,7 @@ final class ForgeClientExample {
             event.registerEntityRenderer(EndNetherMobs.SHELLKER_BULLET, com.simplebuilding.modules.simplemobs.client.ShellkerBulletRenderer::new);
             event.registerEntityRenderer(EndNetherMobs.SOULFIRE_BLAZE, com.simplebuilding.modules.simplemobs.client.SoulfireBlazeRenderer::new);
             event.registerEntityRenderer(WitherMobs.BLIGHTED_WITHER, com.simplebuilding.modules.simplemobs.client.BlightedWitherRenderer::new);
+            event.registerEntityRenderer(WitherMobs.ABYSSAL_WITHER, com.simplebuilding.modules.simplemobs.client.BlightedWitherRenderer::abyssal);
             event.registerEntityRenderer(FearMobs.DREAD, com.simplebuilding.modules.simplemobs.client.DreadRenderer::new);
             event.registerEntityRenderer(FearMobs.WATCHER, com.simplebuilding.modules.simplemobs.client.WatcherRenderer::new);
             event.registerEntityRenderer(EndNetherMobs.SOUL_FIREBALL, ctx -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(ctx, 0.75F, true));

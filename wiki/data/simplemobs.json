@@ -313,30 +313,37 @@
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherLogic.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BlightedPattern.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherMobs.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/WitherSkullBlightedMixin.java"
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/WitherSkullBlightedMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/AbyssalWither.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/ItemHelmetWitherMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/DisplayWitherCrownMixin.java"
       ],
       "en": {
         "title": "Blighted Wither and Wither Heart",
-        "summary": "The Wither, only stronger: build the Wither figure on a Block of Netherite and the Blighted Wither rises - 600 health, armor 8, three phases, and every special attack is announced before it hits. It drops a Wither Heart.",
+        "summary": "The Wither, only stronger: put a Netherite Helmet on the middle skull of the Wither figure before the third skull and the Blighted Wither rises - 600 health, armor 8, three phases, and every special attack is announced before it hits. An Enderite Helmet calls the even stronger Abyssal Wither. Both drop a Wither Heart.",
         "details": [
-          "Summoning: the Vanilla T of soul sand or soul soil with three wither skeleton skulls, plus a Block of Netherite under the foot of the T. The last skull summons the Blighted Wither and uses up the Netherite block; without it the Vanilla Wither comes. Not on Peaceful; server config witherSummonEnabled.",
+          "Summoning: build the Vanilla T of soul sand or soul soil and place the middle wither skeleton skull. Right-click that skull with a Netherite Helmet: the helmet sits on it. Then place the other skulls as usual; the third one summons the Blighted Wither and uses up the helmet. The helmet must sit before the third skull - on a finished figure the Vanilla Wither has already come. A side skull or a finished figure refuses the helmet (smoke, it stays in your hand); breaking the crowned skull drops the helmet again. Without a helmet the Vanilla Wither comes. Not on Peaceful; server config witherSummonEnabled.",
+          "Changed: the old figure with a Block of Netherite under the foot of the T no longer works - use the helmet on the middle skull instead.",
+          "Abyssal Wither (second stage): the same figure with an Enderite Helmet (needs a mod that adds one, e.g. Simple Building; tag simplemobs:abyssal_wither_crowns). 1000 health, armor 14, 200 experience, its volley comes from all three heads, attacks come a quarter sooner and it calls four Wither Skeletons (at most eight near). The warnings stay as long as at the first stage.",
           "Health 600 (Vanilla 300), armor 8 (Vanilla 4), 100 experience. It wakes like the Wither (11 s, then the explosion) and heals to full while waking.",
           "Phase 1 (above half health): the Vanilla skulls, plus a twin volley every 5 s - both side heads burn with soul fire for 1 s, then fire at the target at once.",
-          "Phase 2 (half health and below): the Vanilla shield (arrows and wind charges bounce off), and every 20 s three Wither Skeletons: soul flames mark their spots for 2 s before they rise. Never more than six near it; they drop nothing.",
-          "Phase 3 \"Blight\" (below 15 %): a nova every 12 s - a ring of soul smoke 8 blocks wide warns for 2 s, whoever is still inside gets Wither II for 6 s and is pushed away. Every 30 s the wilt (ash falls for 2 s first): short grass, ferns and flowers within 12 blocks turn into dead bushes, natural leaves fall, one in five grass blocks becomes coarse dirt. Placed leaves, crops, saplings and all other blocks stay. Needs the mobGriefing game rule; server config witherWilt.",
-          "Drops exactly one Wither Heart besides the Nether Star (Looting does not change it). Only the Blighted Wither drops it. The Wither Heart is the core of the Biome Brush."
+          "Phase 2 (half health and below): the Vanilla shield (arrows and wind charges bounce off), and every 20 s three Wither Skeletons: soul flames mark their spots for 2 s before they rise. Never more than six near it; they drop nothing. From 30 % health they come in full armor with a sword - iron from the Blighted Wither, diamond from the Abyssal Wither.",
+          "Phase 3 \"Blight\" (below 15 %): a nova every 12 s - a ring of soul smoke 8 blocks wide warns for 2 s, whoever is still inside gets Wither II for 6 s and is thrown far away (knockback resistance does not help). Every 30 s the wilt (ash falls for 2 s first): short grass, ferns and flowers within 12 blocks turn into dead bushes, natural leaves fall, one in five grass blocks becomes coarse dirt. Placed leaves, crops, saplings and all other blocks stay. Needs the mobGriefing game rule; server config witherWilt.",
+          "Drops exactly one Wither Heart, 1-2 Nether Stars and 3-5 nuggets of the helmet's metal: Netherite nuggets from the Blighted Wither (without a mod that adds them one Netherite Scrap), Enderite nuggets from the Abyssal Wither (tag c:nuggets/enderite, only when a mod adds them). Looting does not change it. Only these two drop the heart. The Wither Heart is the core of the Biome Brush."
         ]
       },
       "de": {
         "title": "Verdorrter Wither und Witherherz",
-        "summary": "Der Wither, nur stärker: Baue die Wither-Figur auf einen Netheritblock, dann erscheint der Verdorrte Wither - 600 Leben, Rüstung 8, drei Phasen, und jeder Spezialangriff wird angekündigt, bevor er trifft. Er lässt ein Witherherz fallen.",
+        "summary": "Der Wither, nur stärker: Setz vor dem dritten Schädel einen Netherithelm auf den mittleren Schädel der Wither-Figur, dann erscheint der Verdorrte Wither - 600 Leben, Rüstung 8, drei Phasen, und jeder Spezialangriff wird angekündigt, bevor er trifft. Ein Enderithelm ruft den noch stärkeren Abgrund-Wither. Beide lassen ein Witherherz fallen.",
         "details": [
-          "Beschwörung: das Vanilla-T aus Seelensand oder Seelenerde mit drei Witherskelettschädeln, dazu ein Netheritblock unter dem Fuß des T. Der letzte Schädel ruft den Verdorrten Wither und verbraucht den Netheritblock; ohne ihn kommt der Vanilla-Wither. Nicht auf Friedlich; Server-Config witherSummonEnabled.",
+          "Beschwörung: Baue das Vanilla-T aus Seelensand oder Seelenerde und setz den mittleren Witherskelettschädel. Rechtsklick mit einem Netherithelm auf diesen Schädel: der Helm sitzt darauf. Dann die übrigen Schädel wie gewohnt; der dritte ruft den Verdorrten Wither und verbraucht den Helm. Der Helm muss vor dem dritten Schädel sitzen - auf einer fertigen Figur ist der Vanilla-Wither schon da. Ein Seitenschädel oder eine fertige Figur nimmt den Helm nicht (Rauch, er bleibt in der Hand); baust du den Schädel mit Helm ab, fällt der Helm wieder heraus. Ohne Helm kommt der Vanilla-Wither. Nicht auf Friedlich; Server-Config witherSummonEnabled.",
+          "Geändert: Die alte Figur mit einem Netheritblock unter dem Fuß des T funktioniert nicht mehr - nimm stattdessen den Helm auf dem mittleren Schädel.",
+          "Abgrund-Wither (zweite Stufe): dieselbe Figur mit einem Enderithelm (braucht eine Mod, die ihn hinzufügt, z. B. Simple Building; Tag simplemobs:abyssal_wither_crowns). 1000 Leben, Rüstung 14, 200 Erfahrung, seine Salve kommt aus allen drei Köpfen, Angriffe kommen ein Viertel früher und er ruft vier Witherskelette (höchstens acht in der Nähe). Die Warnungen dauern so lang wie bei der ersten Stufe.",
           "Leben 600 (Vanilla 300), Rüstung 8 (Vanilla 4), 100 Erfahrung. Er erwacht wie der Wither (11 s, dann die Explosion) und heilt sich dabei voll.",
           "Phase 1 (über halbem Leben): die Vanilla-Schädel, dazu alle 5 s eine Doppelsalve - beide Seitenköpfe brennen 1 s mit Seelenfeuer, dann schießen sie gleichzeitig auf das Ziel.",
-          "Phase 2 (ab halbem Leben): der Vanilla-Schild (Pfeile und Windkugeln prallen ab), und alle 20 s drei Witherskelette: Seelenflammen markieren 2 s vorher ihre Plätze. Nie mehr als sechs in seiner Nähe; sie lassen nichts fallen.",
-          "Phase 3 „Welken“ (unter 15 %): alle 12 s eine Nova - ein Ring aus Seelenrauch mit 8 Blöcken Radius warnt 2 s, wer dann noch drinsteht, bekommt 6 s Ausdörrung II und wird weggestoßen. Alle 30 s das Welken (vorher fällt 2 s Asche): Gras, Farne und Blumen im Umkreis von 12 Blöcken werden zu toten Büschen, natürliches Laub fällt ab, jeder fünfte Grasblock wird zu grober Erde. Gesetztes Laub, Feldfrüchte, Setzlinge und alle anderen Blöcke bleiben. Braucht die Spielregel mobGriefing; Server-Config witherWilt.",
-          "Lässt neben dem Netherstern genau ein Witherherz fallen (Plünderung ändert das nicht). Nur der Verdorrte Wither lässt es fallen. Das Witherherz ist der Kern des Biom-Pinsels."
+          "Phase 2 (ab halbem Leben): der Vanilla-Schild (Pfeile und Windkugeln prallen ab), und alle 20 s drei Witherskelette: Seelenflammen markieren 2 s vorher ihre Plätze. Nie mehr als sechs in seiner Nähe; sie lassen nichts fallen. Ab 30 % Leben kommen sie in voller Rüstung mit Schwert - Eisen beim Verdorrten Wither, Diamant beim Abgrund-Wither.",
+          "Phase 3 „Welken“ (unter 15 %): alle 12 s eine Nova - ein Ring aus Seelenrauch mit 8 Blöcken Radius warnt 2 s, wer dann noch drinsteht, bekommt 6 s Ausdörrung II und wird weit weggeschleudert (Rückstoßresistenz hilft nicht). Alle 30 s das Welken (vorher fällt 2 s Asche): Gras, Farne und Blumen im Umkreis von 12 Blöcken werden zu toten Büschen, natürliches Laub fällt ab, jeder fünfte Grasblock wird zu grober Erde. Gesetztes Laub, Feldfrüchte, Setzlinge und alle anderen Blöcke bleiben. Braucht die Spielregel mobGriefing; Server-Config witherWilt.",
+          "Lässt genau ein Witherherz, 1-2 Nethersterne und 3-5 Nuggets aus dem Metall des Helms fallen: Netheritnuggets beim Verdorrten Wither (ohne Mod, die sie hinzufügt, eine Netheritplatte), Enderitnuggets beim Abgrund-Wither (Tag c:nuggets/enderite, nur wenn eine Mod sie hinzufügt). Plünderung ändert das nicht. Nur diese beiden lassen das Herz fallen. Das Witherherz ist der Kern des Biom-Pinsels."
         ]
       }
     },
@@ -1905,6 +1912,17 @@
       "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/entity_type/sees_through_disguise.json"
     },
     {
+      "id": "simplemobs:item/abyssal_wither_crowns",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:enderite_helmet",
+          "required": false
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/item/abyssal_wither_crowns.json"
+    },
+    {
       "id": "simplemobs:item/howler_jaw_drops",
       "replace": false,
       "values": [
@@ -2312,10 +2330,10 @@
           "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+          "summary": "Guide to this mod: 17 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+          "summary": "Handbuch zu dieser Mod: 17 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
         }
       },
       "craftedBy": [
@@ -2850,10 +2868,10 @@
             "It still beats, slowly, long after the Wither has stopped. Ash falls from it if you shake it."
           ],
           "use": [
-            "Dropped by the Blighted Wither, exactly one per kill. With a Netherite Ingot and a Brush it becomes the Biome Brush."
+            "Dropped by the Blighted and the Abyssal Wither, exactly one per kill. With a Netherite Ingot and a Brush it becomes the Biome Brush."
           ],
           "secret": [
-            "Only the Blighted Wither has one. Summon it by building the Wither figure on a Block of Netherite."
+            "Only the stronger Withers have one. Put a Netherite Helmet on the middle skull of the Wither figure before the third skull; an Enderite Helmet calls the Abyssal Wither."
           ]
         },
         "de": {
@@ -2861,10 +2879,10 @@
             "Es schlägt noch, langsam, lange nachdem der Wither verstummt ist. Schüttelt man es, rieselt Asche heraus."
           ],
           "use": [
-            "Fällt vom Verdorrten Wither, genau eins pro Kampf. Mit einem Netheritbarren und einem Pinsel wird daraus der Biom-Pinsel."
+            "Fällt vom Verdorrten und vom Abgrund-Wither, genau eins pro Kampf. Mit einem Netheritbarren und einem Pinsel wird daraus der Biom-Pinsel."
           ],
           "secret": [
-            "Nur der Verdorrte Wither hat eins. Du rufst ihn, indem du die Wither-Figur auf einen Netheritblock baust."
+            "Nur die stärkeren Wither haben eins. Setz vor dem dritten Schädel einen Netherithelm auf den mittleren Schädel der Wither-Figur; ein Enderithelm ruft den Abgrund-Wither."
           ]
         }
       },
@@ -2892,7 +2910,7 @@
     "features": 12,
     "recipes": 55,
     "lootTables": 8,
-    "tags": 6,
+    "tags": 7,
     "advancements": 0,
     "enchantments": 0,
     "items": 22,

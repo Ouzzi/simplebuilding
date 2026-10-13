@@ -119,6 +119,7 @@ public final class NeoForgeExample {
             if (event.getRegistryKey().equals(Registries.ITEM)) com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
         });
         bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
+        bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE).build()));
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
             if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) insertAfter(event, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART));
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) insertAfter(event, new ItemStack(Items.BRUSH), new ItemStack(WitherMobs.BRUSH));

@@ -117,6 +117,7 @@ public final class ForgeExample {
             if (event.getRegistryKey().equals(Registries.ITEM)) com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
         });
         EntityAttributeCreationEvent.BUS.addListener(event -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
+        EntityAttributeCreationEvent.BUS.addListener(event -> event.put(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE).build()));
         BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
             if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) putAfter(e, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART));
             if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) putAfter(e, new ItemStack(Items.BRUSH), new ItemStack(WitherMobs.BRUSH));

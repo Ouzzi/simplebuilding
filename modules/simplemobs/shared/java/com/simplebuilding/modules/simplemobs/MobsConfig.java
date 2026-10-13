@@ -41,7 +41,7 @@ public final class MobsConfig {
     /** Hollow Watcher: natural spawning on the outer End islands and its chance per 30 s roll. */
     public static boolean hollowWatcherSpawns = true;
     public static float hollowWatcherChance = FearLogic.WATCHER_CHANCE;
-    /** Blighted Wither: the Netherite-foot figure on/off (off: the figure summons the Vanilla Wither). */
+    /** Blighted/Abyssal Wither: the helmet on the middle skull on/off (off: the figure summons the Vanilla Wither). */
     public static boolean witherSummonEnabled = true;
     /** Blighted Wither phase 3 wilts plants and natural leaves (also needs the mobGriefing game rule). */
     public static boolean witherWilt = true;

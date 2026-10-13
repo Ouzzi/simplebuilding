@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** The last wither skeleton skull on a Wither figure that stands on a Block of Netherite summons the Blighted Wither. */
+/** The last wither skeleton skull on a Wither figure whose middle skull wears a Netherite or Enderite Helmet summons the Blighted or Abyssal Wither. */
 @Mixin(WitherSkullBlock.class)
 public abstract class WitherSkullBlightedMixin {
     @Inject(method = "checkSpawn(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/SkullBlockEntity;)V",
