@@ -355,7 +355,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "e52a4af1a7de"
+    "dataHash": "8d81d449a4de"
   },
   {
     "id": "simpleweather",
@@ -494,7 +494,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "40fa7fc72008"
+    "dataHash": "d835ecdff71a"
   },
   {
     "id": "simpleaesthetics",

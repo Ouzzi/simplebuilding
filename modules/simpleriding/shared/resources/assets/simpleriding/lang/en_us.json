@@ -56,7 +56,7 @@
   "item.simpleriding.netherite_horseshoe": "Netherite Horseshoe",
   "item.simpleriding.enderite_horseshoe": "Enderite Horseshoe",
   "item.simpleriding.horseshoe_smithing_template": "Horseshoe Upgrade",
-  "item.simpleriding.horseshoe_smithing_template.applies_to": "Copper Ingots, Iron Ingots, Gold Ingots, Diamonds, Diamond Horseshoes, Netherite Horseshoes",
+  "item.simpleriding.horseshoe_smithing_template.applies_to": "Copper–Enderite Ingots",
   "item.simpleriding.horseshoe_smithing_template.ingredients": "Iron Nuggets, Netherite Ingots or Enderite Ingots",
   "item.simpleriding.horseshoe_smithing_template.base_slot_description": "Add a copper, iron or gold ingot, a diamond, or a diamond or netherite horseshoe",
   "item.simpleriding.horseshoe_smithing_template.additions_slot_description": "Add an iron nugget, a netherite ingot or an enderite ingot",

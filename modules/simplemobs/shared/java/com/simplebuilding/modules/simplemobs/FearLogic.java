@@ -33,6 +33,9 @@ public final class FearLogic {
     public static final int FREEZE_TICKS = 60, GRIP_TICKS = 40, GRIP_WINDUP = 10, GRIP_COOLDOWN = 200;
     public static final int CLAW_WINDUP = 6, CLAW_COOLDOWN = 30;
     public static final int TELEPORT_WINDUP = 12, TELEPORT_COOLDOWN = 120;
+    /** After a hit the Watcher blinks away 1 s later, 12 to 20 blocks off (N50). */
+    public static final int HIT_TELEPORT_TICKS = 20;
+    public static final double HIT_TELEPORT_MIN = 12.0, HIT_TELEPORT_MAX = 20.0;
     public static final double TELEPORT_MIN_DIST = 8.0, TELEPORT_BEHIND = 2.5, WATCHER_REACH = 1.8;
     public static final int SCREAM_WINDUP = 20, SCREAM_COOLDOWN = 400, STARE_LIMIT = 100;
     public static final double SCREAM_RADIUS = 12.0;

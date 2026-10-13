@@ -68,16 +68,23 @@ FIELD = [
     ".oSSSSSSSSSSSSSSSSo.",
     "..oooooooooooooooo..",
 ]
-FIELD_COLOURS = {  # vanilla recipe_book/button and button_highlighted frame colours
-    False: {"o": (0, 0, 0, 255), "H": (255, 255, 255, 255), "f": (0xC6, 0xC6, 0xC6, 255), "S": (0x55, 0x55, 0x55, 255)},
-    True: {"o": (0x00, 0x07, 0x3E, 255), "H": (255, 255, 255, 255), "f": (0x88, 0x92, 0xC9, 255), "S": (0x34, 0x3E, 0x75, 255)},
+FIELD_COLOURS = {  # N50: the Vanilla widget button (dark grey, light bevel) so it no longer reads as a disabled slot
+    False: {"o": (0, 0, 0, 255), "H": (0xAA, 0xAA, 0xAA, 255), "f": (0x6F, 0x6F, 0x6F, 255), "S": (0x56, 0x56, 0x56, 255)},
+    True: {"o": (255, 255, 255, 255), "H": (0xAF, 0xAF, 0xAF, 255), "f": (0x75, 0x75, 0x75, 255), "S": (0x5C, 0x5C, 0x5C, 255)},
 }
-# N49 tier hearts: (pattern, colours); cobblestone and diamond are the round-5 hearts above.
-STONE = ["..##.##..", ".#hl#lm#.", "#hllmlmm#", "#lmmmmdm#", "#mmdmmms#", ".#mmmms#.", "..#mss#..", "...#s#...", "....#...."]
-COPPER = ["..##.##..", ".#hl#hl#.", "#hllllmm#", "#llmlmxm#", "#lmmmmxd#", ".#mmmdd#.", "..#mdd#..", "...#d#...", "....#...."]
-IRON = ["..##.##..", ".#hh#hl#.", "#hhllhlm#", "#hllhlmm#", "#llhlmmd#", ".#lhmmd#.", "..#mmd#..", "...#d#...", "....#...."]
-GOLD = ["..##.##..", ".#hl#hl#.", "#lhlllhm#", "#llllmlm#", "#hllmmmd#", ".#lmmhd#.", "..#mdd#..", "...#d#...", "....#...."]
-NETHERITE = ["..##.##..", ".#lm#lm#.", "#hlllllm#", "#dddmddd#", "#lmmmmmd#", ".#ddmdd#.", "..#mmd#..", "...#d#...", "....#...."]
+# N50 (owner 2026-10-13): the eight tier hearts redrawn cleanly. All use the Vanilla HUD heart silhouette (9x9, pure
+# black outline; same cells as the round-5 heart) and light from the top left: highlight 'h' near (2, 2), the lower
+# edges one tone darker like the Vanilla heart's #BB1313. Each tier keeps its own motif instead of a recolour:
+# cobblestone = cells with dark mortar, stone = smooth with a few chips, copper = ingot facets with a verdigris patch,
+# iron = a diagonal bright bar, gold = a glint cross, diamond = cut facets, netherite = dark plates with a warm
+# edge, enderite = purple with teal ender sparks.
+COBBLE = ["..##.##..", ".#hl#lm#.", "#hllDmmm#", "#lmDllDm#", "#mDlllDl#", ".#llDmd#.", "..#mDd#..", "...#d#...", "....#...."]
+STONE = ["..##.##..", ".#hl#ll#.", "#hllllml#", "#llmllld#", "#llllmmd#", ".#mlldd#.", "..#mmd#..", "...#d#...", "....#...."]
+COPPER = ["..##.##..", ".#hl#lm#.", "#hlllmmm#", "#lllmmgm#", "#llmmmgd#", ".#mmmdd#.", "..#mdd#..", "...#d#...", "....#...."]
+IRON = ["..##.##..", ".#hh#lm#.", "#hhllmmm#", "#lhhlmmd#", "#llhhlmd#", ".#mlhhd#.", "..#mmhd#.", "...#d#...", "....#...."]
+GOLD = ["..##.##..", ".#hh#lm#.", "#hhlllmm#", "#lhlllmd#", "#llllmmd#", ".#lhmmd#.", "..#mmdd#.", "...#d#...", "....#...."]
+DIAMOND = ["..##.##..", ".#hl#lm#.", "#hllllmm#", "#lllmlmd#", "#llmmmdd#", ".#lmmdd#.", "..#mdd#..", "...#d#...", "....#...."]
+NETHERITE = ["..##.##..", ".#hl#lm#.", "#hlllmmm#", "#DDDDDDD#", "#lllmmmd#", ".#DDDDD#.", "..#mmd#..", "...#d#...", "....#...."]
 ENDERITE = ["..##.##..", ".#hl#lm#.", "#hlmllmm#", "#lmxxmmd#", "#mmxemdd#", ".#mmmdd#.", "..#mdd#..", "...#d#...", "....#...."]
 BLACK = (0, 0, 0, 255)
 
@@ -87,13 +94,13 @@ def tones(**kw):
 
 
 TIER_HEARTS = {
-    "cobblestone": (HEART, HEART_COLOURS),
-    "stone": (STONE, tones(h="BEBEBE", l="A4A4A4", m="8F8F8F", d="6E6E6E", s="5E5E5E")),
-    "copper": (COPPER, tones(h="FC9982", l="E77C56", m="C15A36", d="8A3E26", x="4F9E7E")),
+    "cobblestone": (COBBLE, tones(h="D0D0D0", l="ACACAC", m="8C8C8C", d="707070", D="505050")),
+    "stone": (STONE, tones(h="BEBEBE", l="A4A4A4", m="8F8F8F", d="6E6E6E")),
+    "copper": (COPPER, tones(h="FC9982", l="E77C56", m="C15A36", d="8A3E26", g="4F9E7E")),
     "iron": (IRON, tones(h="FFFFFF", l="D8D8D8", m="A8A8A8", d="727272")),
     "gold": (GOLD, tones(h="FFFFB5", l="FDF55F", m="E9B115", d="B26411")),
-    "diamond": (HEART_MAX, HEART_MAX_COLOURS),
-    "netherite": (NETHERITE, tones(h="7D7579", l="5A5257", m="443D41", d="2B2528")),
+    "diamond": (DIAMOND, tones(h="D5FFF6", l="4AEDD9", m="20C5B5", d="169C96")),
+    "netherite": (NETHERITE, tones(h="8A7F84", l="665C61", m="4C4348", d="372F33", D="241E21")),
     "enderite": (ENDERITE, tones(h="E2C2FF", l="B47FE0", m="8550B8", d="5A2F86", x="2F9C8C", e="B6FFF0")),
 }
 EXTRA_HEAD_ICON = [  # 16x16 skull silhouette, eyes/nose/teeth cut out
@@ -130,7 +137,7 @@ def paint(rows, colours) -> Image.Image:
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     paint(HEART, HEART_COLOURS).save(OUT / "resonance_heart.png")
-    paint(HEART_MAX, HEART_MAX_COLOURS).save(OUT / "resonance_heart_max.png")
+    paint(DIAMOND, TIER_HEARTS["diamond"][1]).save(OUT / "resonance_heart_max.png")
     for tier, (rows, colours) in TIER_HEARTS.items():
         paint(rows, colours).save(OUT / f"resonance_heart_{tier}.png")
     (OUT / "container/slot").mkdir(parents=True, exist_ok=True)

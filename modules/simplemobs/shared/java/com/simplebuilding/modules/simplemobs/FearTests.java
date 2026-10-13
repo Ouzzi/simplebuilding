@@ -229,6 +229,19 @@ final class FearTests {
             watcher.discard();
             h.succeed();
         });
+        add.accept("fear_watcher_hit_teleport", h -> {
+            floor(h, -24, -24, 28, 28);
+            var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 3));
+            Vec3 start = watcher.position();
+            h.assertTrue(watcher.hurtServer(h.getLevel(), h.getLevel().damageSources().generic(), 1.0f), "the hit lands");
+            for (int i = 0; i < FearLogic.HIT_TELEPORT_TICKS - 2; i++) watcher.tick();
+            h.assertTrue(watcher.position().distanceTo(start) < 1.0, "still there before the second is up");
+            for (int i = 0; i < 4; i++) watcher.tick();
+            double d = watcher.position().distanceTo(start);
+            h.assertTrue(d >= FearLogic.HIT_TELEPORT_MIN - 1.0 && d <= FearLogic.HIT_TELEPORT_MAX + 1.0, "blinked 12-20 blocks away: " + d);
+            watcher.discard();
+            h.succeed();
+        });
         add.accept("fear_watcher_scream", h -> {
             floor(h, 0, 0, 7, 4);
             var s = shivering(h);

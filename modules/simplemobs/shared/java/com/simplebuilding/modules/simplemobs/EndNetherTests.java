@@ -196,6 +196,9 @@ final class EndNetherTests {
             h.assertTrue(pig.addEffect(new MobEffectInstance(EndNetherMobs.gravity(), 200)), "effect applies");
             h.assertTrue(Math.abs(pig.getAttributeValue(Attributes.JUMP_STRENGTH) - base * EndNetherLogic.UPWARD_FACTOR) < 1e-6, "jump keeps 10 %");
             h.assertTrue(EndNetherMobs.heavy(pig), "heavy");
+            h.assertTrue(Math.abs(pig.getAttributeValue(Attributes.FALL_DAMAGE_MULTIPLIER) - 1.5) < 1e-6, "fall damage x1.5 at level I");
+            pig.addEffect(new MobEffectInstance(EndNetherMobs.gravity(), 200, 1));
+            h.assertTrue(Math.abs(pig.getAttributeValue(Attributes.FALL_DAMAGE_MULTIPLIER) - 2.0) < 1e-6, "fall damage x2 at level II");
             pig.removeAllEffects();
             pig.setItemSlot(EquipmentSlot.HEAD, new ItemStack(EndNetherMobs.HELMET));
             h.assertFalse(pig.addEffect(new MobEffectInstance(EndNetherMobs.gravity(), 200)), "the helmet blocks High Gravity");

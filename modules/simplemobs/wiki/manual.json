@@ -101,7 +101,7 @@
       ],
       "en": {
         "title": "High Gravity and the Shellker Helmet",
-        "summary": "High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 %. The Shellker Helmet makes you immune.",
+        "summary": "High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 % and falls hurt 50 % more per level (Feather Falling still helps). The Shellker Helmet makes you immune.",
         "details": [
           "From Shellker bullets (30 s, 1 min if already under High Gravity) or the Potion of High Gravity: Awkward Potion + Shellker Shell = 3:00, + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions.",
           "Shellker Helmet: 5 Shellker Shells in helmet shape. Armor 3, toughness 1, knockback resistance 10 %, iron durability, repaired with Shellker Shells. Its wearer is immune to High Gravity (not to the bullets' damage) and takes 20 % less fall damage. A new helmet - the Turtle Shell stays as it is. Can be trimmed and enchanted like other helmets."
@@ -109,7 +109,7 @@
       },
       "de": {
         "title": "Schwerkraft und Shellker-Helm",
-        "summary": "Schwerkraft zieht nach unten: Sprünge, Schweben und Elytra-Auftrieb behalten 10 %. Der Shellker-Helm macht immun.",
+        "summary": "Schwerkraft zieht nach unten: Sprünge, Schweben und Elytra-Auftrieb behalten 10 %, Stürze tun je Stufe 50 % mehr weh (Federfall hilft weiter). Der Shellker-Helm macht immun.",
         "details": [
           "Durch Shellker-Geschosse (30 s, 1 min bei bestehender Schwerkraft) oder den Trank der Schwerkraft: Seltsamer Trank + Shellker-Schale = 3:00, + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank.",
           "Shellker-Helm: 5 Shellker-Schalen in Helmform. Rüstung 3, Härte 1, Rückstoßresistenz 10 %, Haltbarkeit wie Eisen, Reparatur mit Shellker-Schalen. Der Träger ist immun gegen Schwerkraft (nicht gegen den Schaden der Geschosse) und nimmt 20 % weniger Fallschaden. Ein neuer Helm - der Schildkrötenpanzer bleibt unverändert. Lässt sich wie andere Helme verzieren und verzaubern."
@@ -240,6 +240,7 @@
           "Teleport: unwatched and more than 8 blocks away, portal particles mark a spot 2.5 blocks behind its target for 0.6 s, then it appears there. If someone looks at it meanwhile, the jump is cancelled. Cooldown 6 s.",
           "Grip, announced by reaching arms for 0.5 s: 6 damage and held in place for 2 s, then 4 damage and thrown away. Cooldown 10 s. Claw: 10 damage after 0.3 s.",
           "Scream, announced for 1 s (head thrown back, low Enderman scream): Shivering II for 10 s and Blindness for 3 s to everyone within 12 blocks. It screams when its target stares at it for 5 s in a row, or unwatched every 20 s when its target is within 12 blocks in sight.",
+          "Hit and run: 1 s after it takes a hit it blinks 12-20 blocks away (portal particles and a low stare sound announce it; even a freeze does not stop it).",
           "Drops 1 Watcher Eye when a player lands the last hit (Looting +1)."
         ]
       },
@@ -253,6 +254,7 @@
           "Teleport: unbeobachtet und weiter als 8 Blöcke entfernt markieren Portalpartikel 0,6 s lang eine Stelle 2,5 Blöcke hinter seinem Ziel, dann erscheint er dort. Sieht ihn währenddessen jemand an, bricht der Sprung ab. Abklingzeit 6 s.",
           "Griff, 0,5 s angekündigt durch ausgestreckte Arme: 6 Schaden und 2 s festgehalten, dann 4 Schaden und weggeschleudert. Abklingzeit 10 s. Kralle: 10 Schaden nach 0,3 s.",
           "Schrei, 1 s angekündigt (Kopf zurück, tiefer Enderman-Schrei): Zittern II für 10 s und Blindheit für 3 s für alle im Umkreis von 12 Blöcken. Er schreit, wenn sein Ziel ihn 5 s am Stück anstarrt, oder unbeobachtet alle 20 s, wenn sein Ziel in Sichtweite innerhalb von 12 Blöcken ist.",
+          "Zuschlagen und weg: 1 s nach einem Treffer springt er 12-20 Blöcke weit weg (Portalpartikel und ein tiefer Blick-Laut kündigen es an; auch Einfrieren hält ihn nicht auf).",
           "Lässt 1 Wächterauge fallen, wenn ein Spieler den letzten Treffer setzt (Plünderung +1)."
         ]
       }

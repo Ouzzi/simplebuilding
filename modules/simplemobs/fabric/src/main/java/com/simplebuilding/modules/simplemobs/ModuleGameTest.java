@@ -57,6 +57,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void fearDreadShield(GameTestHelper helper) { MobsTests.ALL.get("fear_dread_shield").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearDreadStomp(GameTestHelper helper) { MobsTests.ALL.get("fear_dread_stomp").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherGaze(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_gaze").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherHitTeleport(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_hit_teleport").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherSpyglass(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_spyglass").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherScream(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_scream").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherTeleport(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_teleport").accept(helper); }
