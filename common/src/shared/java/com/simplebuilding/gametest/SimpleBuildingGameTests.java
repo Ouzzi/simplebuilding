@@ -123,6 +123,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_every_creative_tab_has_its_item_browser_wall", TestCentreTests::everyCreativeTabHasItsItemBrowserWall)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_foreign_module_stations_get_their_own_section", TestCentreTests::foreignModuleStationsGetTheirOwnSection)
+                    .build(),
             GameTestSpec.named("test_centre_game_test_every_feature_station_sets_up_its_scenario", TestCentreTests::everyFeatureStationSetsUpItsScenario)
                     .build(),
             GameTestSpec.named("test_centre_game_test_command_blocks_are_isolated_and_every_station_has_its_give_button", TestCentreTests::commandBlocksAreIsolatedAndEveryStationHasItsGiveButton)

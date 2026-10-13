@@ -96,6 +96,29 @@ public final class SimpleLibApi {
         return !axeWaysDisabled;
     }
 
+    /** Whether {@code stack} is a hammer of any mod ({@code #simplelib:hammers}, filled by the hammer mod). */
+    public static boolean isHammer(ItemStack stack) {
+        return stack.is(InWorldUpgrades.HAMMERS);
+    }
+
+    /** Whether {@code stack} runs in-world upgrades: {@code #simplelib:upgrade_tools}, or an axe while the axe ways are on. */
+    public static boolean isUpgradeTool(ItemStack stack) {
+        return InWorldUpgrades.isUpgradeTool(stack);
+    }
+
+    /**
+     * A partner's way to move a block entity's contents when an in-world upgrade turns a block into {@code targets}
+     * (see {@link InWorldUpgrades#replace}).
+     */
+    public static void registerUpgradeHandler(java.util.function.Predicate<Block> targets, InWorldUpgrades.Handler handler) {
+        InWorldUpgrades.registerHandler(targets, handler);
+    }
+
+    /** As above, for the blocks of a block tag. */
+    public static void registerUpgradeHandler(net.minecraft.tags.TagKey<Block> targets, InWorldUpgrades.Handler handler) {
+        InWorldUpgrades.registerHandler(targets, handler);
+    }
+
     /** Upgrades a crucible or barrel in place to {@code to}, keeping contents, progress and experience (for a partner's own way). */
     public static void upgradeCrucible(ServerLevel level, BlockPos pos, Block to) {
         com.simplelib.crucible.CrucibleUpgrades.upgradeInPlace(level, pos, to);

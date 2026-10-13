@@ -341,6 +341,25 @@ verwirft unbekannte Einträge). Die Alias-Suche selbst brauchte keinen `isModLoa
 fehlt dann einfach in der Registry. Integrations-Targets (`module-simpletweaks-*-263`) laden SB weiter. Pads/Chunk-Loader
 bleiben in SB (F2).
 
+**Status Stufe 3c (13.10., Branch `claude-split-s3-apis` auf `claude-wave1`):** _Plan (vor der Umsetzung)_
+- SimpleLib `api/InWorldUpgrades`: Datentyp `data/<ns>/in_world_upgrades/*.json` (`from`, `to`, `material`,
+  `material_count`, `duration_factor`, `tool` = Item-Tag, Standard `#simplelib:upgrade_tools`, `min_tool` (alt
+  `min_hammer`), `damage_per_hit`, `tier`; `remove`), Parser + wirksame Tabelle, Reihenfolge „Standard-Namespaces zuerst“
+  (`registerDefaults`), Übergabe-Dienst `registerUpgradeHandler(Block-Prädikat/Tag, handler)` + `replace(level, pos, to)`
+  (SimpleLib meldet seine Tiegel/Fässer selbst an). Tags `#simplelib:hammers` (leer, SB füllt mit
+  `#simplebuilding:sledgehammer_tools`) und `#simplelib:upgrade_tools` (= `#simplelib:hammers`; Axt nur solange die
+  Axt-Wege an sind), `SimpleLibApi.isHammer/isUpgradeTool/registerUpgradeHandler`. `api/OctetCells`
+  (`register(base, cell, piece)`, `cellFor`, `pieceOf`).
+- framework 0.1.10: `TestCentreStations`, `GuideChapters` (reine Java-Verträge, JUnit im framework).
+- SB 26.3 (Brücke `util/LibServices`, 26.2-Zwilling ohne SimpleLib): Aufwertungsdateien ziehen von
+  `sledgehammer_upgrades/` nach `in_world_upgrades/` (Datagen; alter Ordner wird weiter gelesen, gleiche ID gewinnt
+  der alte = Modpack-Überschreibungen wirken wie bisher), `SledgehammerUpgradeData` liest über SimpleLib,
+  Truhe/Shulker/Tiegel ziehen über `replace` um, Hammer-Werkzeugprüfung über den Eintrag, Octet-Zellen über
+  `OctetCells`, `CrucibleCompat` erkennt den Hammer über `isHammer`; Testzentrale zeigt angemeldete fremde Stationen
+  (Abschnitt `modules`, nur wenn welche angemeldet sind).
+- Verhalten unverändert; Prüfung: Compile 3 Loader + 26.2, SB-Filter inworld*, sledgehammer*, crucible*, data_integrity*
+  (+ modpack*, testcentre*), neue Lib-Tests, simplelib-Module + Standalone, Wiki --strict, discover/module_guides --check.
+
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
 

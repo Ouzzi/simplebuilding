@@ -222,7 +222,7 @@ public final class SledgehammerUpgrades {
     // =====================================================================================
 
     /**
-     * The effective table: the datapack files {@code data/<ns>/sledgehammer_upgrades/}
+     * The effective table: the datapack files {@code data/<ns>/sledgehammer_upgrades/} (26.3: {@code in_world_upgrades/})
      * ({@link com.simplebuilding.data.SledgehammerUpgradeData}), or {@link #builtInTable()} before
      * the first datapack load.
      */
@@ -390,7 +390,8 @@ public final class SledgehammerUpgrades {
         if (!player.getOffhandItem().is(upgrade.nugget())) {
             return "wrong_nugget";
         }
-        if (hammerRank(player.getMainHandItem()) < upgrade.minHammerRank()) {
+        if (hammerRank(player.getMainHandItem()) < upgrade.minHammerRank()
+                || !LibServices.toolFits(upgrade.from(), player.getMainHandItem())) {
             return "hammer_too_weak";
         }
         if (isBusyPiston(level, pos, state)) {
@@ -636,7 +637,7 @@ public final class SledgehammerUpgrades {
         if (job.upgrade.isChest()) {
             // Truhen wechseln die Block-Entity (27 -> 36 -> 45 -> 54 Plaetze): Inhalt umziehen,
             // eine Doppeltruhe mit beiden Haelften, und je Block ein Material verbrauchen.
-            int blocks = TieredChests.upgradeInPlace(serverLevel, job.pos, job.upgrade.to());
+            int blocks = LibServices.replace(serverLevel, job.pos, job.upgrade.to());
             player.getOffhandItem().consume(blocks * job.upgrade.materialCost(), player);
             finishEffects(serverLevel, job, old);
             if (!job.upgrade.toReinforced()) {
@@ -652,7 +653,7 @@ public final class SledgehammerUpgrades {
         if (job.upgrade.isShulkerBox()) {
             // Shulkerkisten wechseln die Block-Entity (27 -> 36 -> 45 -> 54 Plaetze): Inhalt, Name und
             // Farbe ziehen um; die Stufe kostet ihr Material auf einmal.
-            TieredShulkerBoxes.upgradeInPlace(serverLevel, job.pos, job.upgrade.to());
+            LibServices.replace(serverLevel, job.pos, job.upgrade.to());
             player.getOffhandItem().consume(job.upgrade.materialCost(), player);
             finishEffects(serverLevel, job, old);
             if (!job.upgrade.toReinforced()) {
@@ -667,7 +668,7 @@ public final class SledgehammerUpgrades {
         }
         if (com.simplebuilding.crucible.CrucibleCompat.upgradesInPlace(job.upgrade.to())) {
             // Crucibles and barrels (SimpleLib): contents, progress and experience move to the next tier (owner 11).
-            com.simplebuilding.crucible.CrucibleCompat.upgradeInPlace(serverLevel, job.pos, job.upgrade.to());
+            LibServices.replace(serverLevel, job.pos, job.upgrade.to());
             SledgehammerProgress.clear(serverLevel, job.pos);
             player.getOffhandItem().consume(job.upgrade.materialCost(), player);
             finishEffects(serverLevel, job, old);

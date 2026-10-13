@@ -72,7 +72,7 @@ public final class TestCentreCommand {
                                 .executes(ctx -> build(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin")))))
                 .then(Commands.literal("section")
                         .then(Commands.argument("id", StringArgumentType.word())
-                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(TestCentreLayout.SECTION_IDS, builder))
+                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(TestCentreLayout.sectionIds(), builder))
                                 .executes(ctx -> section(ctx, savedOrDefaultOrigin(ctx.getSource().getLevel())))
                                 .then(Commands.argument("origin", BlockPosArgument.blockPos())
                                         .executes(ctx -> section(ctx, BlockPosArgument.getBlockPos(ctx, "origin"))))))
@@ -82,7 +82,7 @@ public final class TestCentreCommand {
                                 .executes(ctx -> kit(ctx.getSource(), EntityArgument.getPlayers(ctx, "targets")))))
                 .then(Commands.literal("give")
                         .then(Commands.argument("station", StringArgumentType.word())
-                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(TestCentreLayout.SECTION_IDS, builder))
+                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(TestCentreLayout.sectionIds(), builder))
                                 .executes(ctx -> give(ctx, List.of(ctx.getSource().getPlayerOrException())))
                                 .then(Commands.argument("targets", EntityArgument.players())
                                         .executes(ctx -> give(ctx, EntityArgument.getPlayers(ctx, "targets"))))))
@@ -162,7 +162,7 @@ public final class TestCentreCommand {
 
     private static int section(CommandContext<CommandSourceStack> ctx, BlockPos origin) throws CommandSyntaxException {
         String id = StringArgumentType.getString(ctx, "id");
-        if (!TestCentreLayout.SECTION_IDS.contains(id)) {
+        if (!TestCentreLayout.sectionIds().contains(id)) {
             ctx.getSource().sendFailure(TcText.t("command.unknown_section", "Unknown section %s", id));
             return 0;
         }

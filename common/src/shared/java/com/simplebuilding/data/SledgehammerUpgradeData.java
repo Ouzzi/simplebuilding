@@ -3,6 +3,7 @@ package com.simplebuilding.data;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.simplebuilding.util.LibServices;
 import com.simplebuilding.util.SledgehammerUpgrades;
 import com.simplebuilding.util.SledgehammerUpgrades.Upgrade;
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The sledgehammer machine upgrades as datapack data:
- * {@code data/<namespace>/sledgehammer_upgrades/<name>.json}.
+ * {@code data/<namespace>/sledgehammer_upgrades/<name>.json} on 26.2; on 26.3 SimpleLib's data type
+ * {@code data/<namespace>/in_world_upgrades/<name>.json} (module split stage 3c, {@link LibServices}: same fields,
+ * {@code min_tool} for {@code min_hammer} (both read), plus an optional {@code tool} item tag; the old folder is still read).
  *
  * <pre>{@code
  * {
@@ -50,7 +53,7 @@ public final class SledgehammerUpgradeData {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("simplebuilding/sledgehammer_upgrades");
 
-    public static final String DIRECTORY = "sledgehammer_upgrades";
+    public static final String DIRECTORY = LibServices.UPGRADE_DIRECTORY;
     public static final List<String> DEFAULT_FILES = List.of("reinforced", "netherite", "enderite");
     private static final List<String> HAMMERS = List.of("any", "diamond", "netherite", "enderite");
 
@@ -75,6 +78,12 @@ public final class SledgehammerUpgradeData {
 
     /** Replaces the effective table with what {@code files} say. */
     public static void apply(Map<Identifier, JsonElement> files) {
+        Map<Block, Upgrade> viaLib = LibServices.applyUpgrades(files);
+        if (viaLib != null) {
+            // 26.3: SimpleLib parses (same order, defaults and skips), SimpleBuilding keeps its view of the table.
+            loaded = Map.copyOf(viaLib);
+            return;
+        }
         Map<Block, Upgrade> table = new LinkedHashMap<>();
         for (Map.Entry<Identifier, JsonElement> file : ModDataTables.inApplyOrder(files)) {
             try {
@@ -122,6 +131,21 @@ public final class SledgehammerUpgradeData {
                 durationFactor, materialCount);
     }
 
+    /**
+     * One upgrade from SimpleLib's parsed entry (26.3): the hammer grade and the tier word read as in the files; null
+     * (entry skipped, logged) for an unknown hammer grade.
+     */
+    public static @Nullable Upgrade upgrade(Block from, Block to, Item material, String minHammer, int damagePerHit,
+                                            String tier, int durationFactor, int materialCount) {
+        int rank = HAMMERS.indexOf(minHammer);
+        if (rank < 0) {
+            LOGGER.warn("Skipping sledgehammer upgrade from {}: unknown min_tool {}", BuiltInRegistries.BLOCK.getKey(from), minHammer);
+            return null;
+        }
+        return new Upgrade(from, to, material, rank, Math.max(0, damagePerHit), "enderite".equals(tier), "reinforced".equals(tier),
+                durationFactor, materialCount);
+    }
+
     private static @Nullable Block block(Identifier file, String id) {
         Identifier key = Identifier.tryParse(id);
         if (key == null || !BuiltInRegistries.BLOCK.containsKey(key)) {
@@ -151,7 +175,7 @@ public final class SledgehammerUpgradeData {
             entry.addProperty("from", BuiltInRegistries.BLOCK.getKey(upgrade.from()).toString());
             entry.addProperty("to", BuiltInRegistries.BLOCK.getKey(upgrade.to()).toString());
             entry.addProperty("material", BuiltInRegistries.ITEM.getKey(upgrade.nugget()).toString());
-            entry.addProperty("min_hammer", HAMMERS.get(upgrade.minHammerRank()));
+            entry.addProperty(LibServices.MIN_TOOL_FIELD, HAMMERS.get(upgrade.minHammerRank()));
             entry.addProperty("damage_per_hit", upgrade.damagePerHit());
             entry.addProperty("tier", fileOf(upgrade));
             if (upgrade.durationFactor() != 1) {

@@ -73,6 +73,9 @@ public final class LibTests {
         ALL.put("id_moves_recipe_book_and_advancements", IdMovesTests::recipeBookAndAdvancements);
         ALL.put("id_moves_refuse_loops", IdMovesTests::refuseLoops);
         ALL.put("id_moves_adopt_config", IdMovesTests::adoptConfig);
+        ALL.put("in_world_upgrades_data_type", InWorldUpgradeTests::dataType);
+        ALL.put("in_world_upgrade_handlers", InWorldUpgradeTests::handlers);
+        ALL.put("octet_cells", InWorldUpgradeTests::octetCells);
     }
 
     // ------------------------------------------------------------ helpers

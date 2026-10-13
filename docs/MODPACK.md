@@ -119,7 +119,11 @@ namespaces after them in id order; override a shipped file by using the same pat
 Shipped: `stone_chisel`, `stone_touch`, `iron_chisel`, `iron_touch`, `diamond_chisel`,
 `diamond_touch`, `netherite_chisel`, `netherite_touch`, `enderite_chisel`.
 
-### 4.2 Sledgehammer upgrades: `data/<namespace>/sledgehammer_upgrades/<name>.json`
+### 4.2 Sledgehammer upgrades: `data/<namespace>/in_world_upgrades/<name>.json`
+
+Since the module split (stage 3c) this is SimpleLib's data type `in_world_upgrades`; on MC 26.2 the folder is still
+`sledgehammer_upgrades`. On 26.3 the old folder is still read, and a file there wins over a same-named file in
+the new folder (an old override of a shipped file keeps working). `min_hammer` is still read as `min_tool`.
 
 ```json
 {
@@ -128,7 +132,7 @@ Shipped: `stone_chisel`, `stone_touch`, `iron_chisel`, `iron_touch`, `diamond_ch
       "from": "simplebuilding:reinforced_hopper",
       "to": "simplebuilding:netherite_hopper",
       "material": "simplebuilding:netherite_nugget",
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "damage_per_hit": 4,
       "tier": "netherite"
     }
@@ -138,7 +142,10 @@ Shipped: `stone_chisel`, `stone_touch`, `iron_chisel`, `iron_touch`, `diamond_ch
 ```
 
 - `material`: held in the off hand, used up when the fifth blow lands.
-- `min_hammer`: `any`, `diamond`, `netherite`, `enderite`.
+- `min_tool` (old name `min_hammer`): `any`, `diamond`, `netherite`, `enderite`.
+- `tool` (optional): item tag of the tool, default `#simplelib:upgrade_tools` (= `#simplelib:hammers`, which
+  SimpleBuilding fills with its sledgehammers).
+- `material_count`, `duration_factor` (optional, default 1): material per block, times the blows.
 - `damage_per_hit`: sledgehammer durability per blow (five blows).
 - `tier`: `reinforced`, `netherite` or `enderite` (which advancement the upgrade counts for).
 - The block keeps its properties and its block entity; the target block has to allow that (every
