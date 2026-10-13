@@ -329,13 +329,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:abyssal_wither_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -347,13 +345,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:allay_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -365,13 +361,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:armadillo_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -383,13 +377,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:axolotl_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -401,13 +393,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:bat_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -419,13 +409,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:bee_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -437,13 +425,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:blaze_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -455,13 +441,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:blighted_wither_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -473,13 +457,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:bogged_skull"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -491,13 +473,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:breeze_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -509,13 +489,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:camel_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -527,13 +505,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:camel_husk_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -545,13 +521,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:cat_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -563,13 +537,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:cave_spider_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -581,13 +553,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:chicken_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -599,13 +569,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:cod_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -617,13 +585,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:copper_golem_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -635,13 +601,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:cow_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -653,13 +617,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:creaking_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -671,13 +633,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:deceiver_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -689,13 +649,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:dolphin_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -707,13 +665,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:donkey_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -725,13 +681,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:dragonmite_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -743,13 +697,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:dread_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -761,13 +713,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:drowned_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -779,13 +729,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:elder_guardian_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -797,13 +745,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:enderman_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -815,13 +761,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:endermite_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -833,13 +777,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:evoker_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -851,13 +793,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:fox_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -869,13 +809,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:frog_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -887,13 +825,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:ghast_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -905,13 +841,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:glow_squid_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -923,13 +857,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:goat_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -941,13 +873,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:guardian_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -959,13 +889,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:happy_ghast_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -977,13 +905,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:hoglin_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -995,13 +921,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:hollow_howler_skull"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1013,13 +937,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:hollow_watcher_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1031,13 +953,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:horse_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1049,13 +969,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:husk_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1067,13 +985,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:illusioner_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1085,13 +1001,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:iron_golem_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1103,13 +1017,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:llama_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1121,13 +1033,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:magma_cube_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1139,13 +1049,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:mooshroom_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1157,13 +1065,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:mule_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1175,13 +1081,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:nautilus_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1193,13 +1097,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:nibblemite_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1211,13 +1113,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:ocelot_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1229,13 +1129,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:panda_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1247,13 +1145,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:parched_skull"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1265,13 +1161,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:parrot_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1283,13 +1177,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:phantom_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1301,13 +1193,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:pig_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1319,13 +1209,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:piglin_brute_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1337,13 +1225,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:pillager_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1355,13 +1241,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:polar_bear_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1373,13 +1257,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:pufferfish_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1391,13 +1273,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:rabbit_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1409,13 +1289,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:ravager_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1427,13 +1305,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:salmon_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1445,13 +1321,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:sheep_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1463,13 +1337,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:shellker_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1481,13 +1353,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:shulker_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1499,13 +1369,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:silverfish_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1517,13 +1385,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:skeleton_horse_skull"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1535,13 +1401,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:slime_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1553,13 +1417,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:sniffer_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1571,13 +1433,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:snow_golem_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1589,13 +1449,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:soulfire_blaze_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1607,13 +1465,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:spider_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1625,13 +1481,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:squid_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1643,13 +1497,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:stray_skull"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1661,13 +1513,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:strider_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1679,13 +1529,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:sulfur_cube_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1697,13 +1545,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:tadpole_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1715,13 +1561,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:trader_llama_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1733,13 +1577,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:tropical_fish_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1751,13 +1593,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:turtle_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1769,13 +1609,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:vex_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1787,13 +1625,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:villager_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1805,13 +1641,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:vindicator_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1823,13 +1657,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:wandering_trader_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1841,13 +1673,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:warden_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1859,13 +1689,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:witch_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1877,13 +1705,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:wither_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1895,13 +1721,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:wolf_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1913,13 +1737,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:zoglin_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1931,13 +1753,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:zombie_horse_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1949,13 +1769,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:zombie_nautilus_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1967,13 +1785,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:zombie_villager_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1985,13 +1801,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplemobheads:zombified_piglin_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
