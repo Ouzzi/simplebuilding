@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 814,
+      "count": 802,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -50487,67 +50487,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:blaze_head",
-      "name": {
-        "en_us": "Blaze Head",
-        "de_de": "Lohenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:potion_pad_smithing"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/blaze_head.png",
-      "lootTable": "simplebuilding:blocks/blaze_head",
-      "drops": [
-        "simplebuilding:blaze_head"
-      ],
-      "note": {
-        "en": {
-          "summary": "The Blaze Head is a mob head like the vanilla ones: a blaze killed by the explosion of a charged creeper drops it.",
-          "details": [
-            "Only a charged creeper's explosion drops it, and like the vanilla heads only one head per explosion; blazes killed any other way (players, uncharged creepers) never drop one.",
-            "Placeable on the ground (16 rotations) and on walls, wearable on the head (the curses of Binding and Vanishing apply like on the vanilla heads); on top of a note block it plays the blaze sound.",
-            "Used for the Potion Pad: any template + Netherite Pressure Plate + Blaze Head at the smithing table."
-          ]
-        },
-        "de": {
-          "summary": "Der Lohenkopf ist ein Mob-Kopf wie die Vanilla-Köpfe: eine Lohe, die von der Explosion eines geladenen Creepers getötet wird, lässt ihn fallen.",
-          "details": [
-            "Nur die Explosion eines geladenen Creepers lässt ihn fallen, und wie bei den Vanilla-Köpfen nur einen je Explosion; auf jede andere Art getötete Lohen (Spieler, ungeladene Creeper) nie.",
-            "Auf den Boden (16 Drehungen) und an Wände setzbar, auf dem Kopf tragbar (Fluch der Bindung und des Verschwindens wie bei den Vanilla-Köpfen); auf einem Notenblock spielt er das Lohen-Geräusch.",
-            "Zutat des Trank-Pads: beliebige Vorlage + Netherit-Druckplatte + Lohenkopf im Schmiedetisch."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/tweaks/block/BlazeHeadType.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksItems.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/mixin/SkullBlockEntityTypeMixin.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/mixin/client/SkullModelMixin.java",
-          "common/src/shared/java/com/simplebuilding/gametest/PotionPadTests.java",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:blaze_wall_head",
-      "name": {
-        "en_us": "Blaze Head",
-        "de_de": "Lohenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/blaze_head.png",
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:blazing_obsidian",
       "name": {
         "en_us": "Blazing Obsidian",
@@ -50887,36 +50826,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:bogged_skull",
-      "name": {
-        "en_us": "Bogged Skull",
-        "de_de": "Sumpfskelettschädel"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/bogged_skull.png",
-      "lootTable": "simplebuilding:blocks/bogged_skull",
-      "drops": [
-        "simplebuilding:bogged_skull"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:bogged_wall_skull",
-      "name": {
-        "en_us": "Bogged Skull",
-        "de_de": "Sumpfskelettschädel"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/bogged_skull.png",
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:bone_block_octet",
       "name": {
         "en_us": "Bone Block Octet Cell",
@@ -50978,36 +50887,6 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:breeze_head",
-      "name": {
-        "en_us": "Breeze Head",
-        "de_de": "Breeze-Kopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/breeze_head.png",
-      "lootTable": "simplebuilding:blocks/breeze_head",
-      "drops": [
-        "simplebuilding:breeze_head"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:breeze_wall_head",
-      "name": {
-        "en_us": "Breeze Head",
-        "de_de": "Breeze-Kopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/breeze_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -52063,36 +51942,6 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:cave_spider_head",
-      "name": {
-        "en_us": "Cave Spider Head",
-        "de_de": "Höhlenspinnenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cave_spider_head.png",
-      "lootTable": "simplebuilding:blocks/cave_spider_head",
-      "drops": [
-        "simplebuilding:cave_spider_head"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:cave_spider_wall_head",
-      "name": {
-        "en_us": "Cave Spider Head",
-        "de_de": "Höhlenspinnenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cave_spider_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -54954,36 +54803,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:drowned_head",
-      "name": {
-        "en_us": "Drowned Head",
-        "de_de": "Ertrunkenenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/drowned_head.png",
-      "lootTable": "simplebuilding:blocks/drowned_head",
-      "drops": [
-        "simplebuilding:drowned_head"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:drowned_wall_head",
-      "name": {
-        "en_us": "Drowned Head",
-        "de_de": "Ertrunkenenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/drowned_head.png",
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:elytra_pad",
       "name": {
         "en_us": "Elytra Pad I",
@@ -57175,68 +56994,6 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderman_head",
-      "name": {
-        "en_us": "Enderman Head",
-        "de_de": "Endermankopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:spawn_teleporter_smithing"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/enderman_head.png",
-      "lootTable": "simplebuilding:blocks/enderman_head",
-      "drops": [
-        "simplebuilding:enderman_head"
-      ],
-      "note": {
-        "en": {
-          "summary": "The Enderman Head (2026-09-28) is a mob head like the vanilla ones: an enderman killed by the explosion of a charged creeper drops it.",
-          "details": [
-            "Only a charged creeper's explosion drops it, and like the vanilla heads only one head per explosion; endermen killed any other way never drop one.",
-            "Placeable on the ground (16 rotations) and on walls, wearable on the head (the curses of Binding and Vanishing apply like on the vanilla heads); on top of a note block it plays the enderman sound.",
-            "Used for the Spawn Teleporter I: any template + light weighted pressure plate + Enderman Head at the smithing table."
-          ]
-        },
-        "de": {
-          "summary": "Der Endermankopf (2026-09-28) ist ein Mob-Kopf wie die Vanilla-Köpfe: ein Enderman, der von der Explosion eines geladenen Creepers getötet wird, lässt ihn fallen.",
-          "details": [
-            "Nur die Explosion eines geladenen Creepers lässt ihn fallen, und wie bei den Vanilla-Köpfen nur einen je Explosion; auf jede andere Art getötete Endermen nie.",
-            "Auf den Boden (16 Drehungen) und an Wände setzbar, auf dem Kopf tragbar (Fluch der Bindung und des Verschwindens wie bei den Vanilla-Köpfen); auf einem Notenblock spielt er das Enderman-Geräusch.",
-            "Zutat des Spawn-Teleporters I: beliebige Vorlage + leichte Wägeplatte + Endermankopf im Schmiedetisch."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/tweaks/block/BlazeHeadType.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksItems.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/mixin/SkullBlockEntityTypeMixin.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/mixin/client/SkullModelMixin.java",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "common/src/shared/java/com/simplebuilding/gametest/PadOverhaulTests.java",
-          "tools/textures/potion_pad_textures.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderman_wall_head",
-      "name": {
-        "en_us": "Enderman Head",
-        "de_de": "Endermankopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderman_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -59790,36 +59547,6 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:husk_head",
-      "name": {
-        "en_us": "Husk Head",
-        "de_de": "Wüstenzombiekopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/husk_head.png",
-      "lootTable": "simplebuilding:blocks/husk_head",
-      "drops": [
-        "simplebuilding:husk_head"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:husk_wall_head",
-      "name": {
-        "en_us": "Husk Head",
-        "de_de": "Wüstenzombiekopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/husk_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -71281,38 +71008,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:shulker_head",
-      "name": {
-        "en_us": "Shulker Head",
-        "de_de": "Shulkerkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:flypad_tier1_crafting"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/shulker_head.png",
-      "lootTable": "simplebuilding:blocks/shulker_head",
-      "drops": [
-        "simplebuilding:shulker_head"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:shulker_wall_head",
-      "name": {
-        "en_us": "Shulker Head",
-        "de_de": "Shulkerkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/shulker_head.png",
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:silent_dandelion",
       "name": {
         "en_us": "Silent Dandelion",
@@ -71372,114 +71067,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:silverfish_head",
-      "name": {
-        "en_us": "Silverfish Head",
-        "de_de": "Silberfischchenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/silverfish_head.png",
-      "lootTable": "simplebuilding:blocks/silverfish_head",
-      "drops": [
-        "simplebuilding:silverfish_head"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a trophy for those who hunted it with lightning."
-          ],
-          "use": [
-            "Dropped by the mob when a charged creeper's explosion kills it; one head per explosion. Wearable on the head, and placeable on the ground or a wall."
-          ],
-          "secret": [
-            "Worn on the head, it shrinks you to half your size. The tooltip says nothing about it."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Trophäe für alle, die es mit dem Blitz jagten."
-          ],
-          "use": [
-            "Fällt vom Mob, wenn ihn die Explosion eines geladenen Creepers tötet; ein Kopf pro Explosion. Auf dem Kopf tragbar und auf Boden oder Wand platzierbar."
-          ],
-          "secret": [
-            "Auf dem Kopf getragen, schrumpft es dich auf die halbe Größe. Der Tooltip verrät nichts davon."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:silverfish_wall_head",
-      "name": {
-        "en_us": "Silverfish Head",
-        "de_de": "Silberfischchenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/silverfish_head.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:slime_head",
-      "name": {
-        "en_us": "Slime Head",
-        "de_de": "Schleimkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/slime_head.png",
-      "lootTable": "simplebuilding:blocks/slime_head",
-      "drops": [
-        "simplebuilding:slime_head"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a trophy for those who hunted it with lightning."
-          ],
-          "use": [
-            "Dropped by the mob when a charged creeper's explosion kills it; one head per explosion. Wearable on the head, and placeable on the ground or a wall."
-          ],
-          "secret": [
-            "Worn on the head, it lets you fall one block farther without damage. The tooltip says nothing about it."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: eine Trophäe für alle, die es mit dem Blitz jagten."
-          ],
-          "use": [
-            "Fällt vom Mob, wenn ihn die Explosion eines geladenen Creepers tötet; ein Kopf pro Explosion. Auf dem Kopf tragbar und auf Boden oder Wand platzierbar."
-          ],
-          "secret": [
-            "Auf dem Kopf getragen, lässt es dich einen Block tiefer ohne Schaden fallen. Der Tooltip verrät nichts davon."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:slime_wall_head",
-      "name": {
-        "en_us": "Slime Head",
-        "de_de": "Schleimkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/slime_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -72066,36 +71653,6 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/item/LegacyTierBlockItem.java"
         ]
       },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:spider_head",
-      "name": {
-        "en_us": "Spider Head",
-        "de_de": "Spinnenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/spider_head.png",
-      "lootTable": "simplebuilding:blocks/spider_head",
-      "drops": [
-        "simplebuilding:spider_head"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:spider_wall_head",
-      "name": {
-        "en_us": "Spider Head",
-        "de_de": "Spinnenkopf"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/spider_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -72702,36 +72259,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:stray_skull",
-      "name": {
-        "en_us": "Stray Skull",
-        "de_de": "Eiswandererschädel"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/stray_skull.png",
-      "lootTable": "simplebuilding:blocks/stray_skull",
-      "drops": [
-        "simplebuilding:stray_skull"
-      ],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:stray_wall_skull",
-      "name": {
-        "en_us": "Stray Skull",
-        "de_de": "Eiswandererschädel"
-      },
-      "texture": null,
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/stray_skull.png",
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:stripped_acacia_cauldron",
@@ -86326,27 +85853,7 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 22
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:zombie_head",
-            "count": 1
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:trial_chamber_heads"
-        ]
-      }
+      ]
     },
     {
       "id": "simplebuilding:cinnabar_bricks_from_octets",
@@ -94642,10 +94149,6 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 22
-          },
-          {
             "id": "minecraft:diamond",
             "count": 4
           },
@@ -94662,11 +94165,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:zombie_head",
+            "id": "simplebuilding:chunk_loader",
             "count": 1
           },
           {
@@ -95384,10 +94883,6 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 6
-          },
-          {
             "id": "minecraft:diamond",
             "count": 4
           },
@@ -95404,11 +94899,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:zombie_head",
+            "id": "simplebuilding:launchpad",
             "count": 1
           },
           {
@@ -96460,11 +95951,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:enderman_head",
+            "id": "simplelib:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplemobheads:enderman_head",
             "count": 1
           }
         ]
@@ -97327,12 +96818,12 @@ window.WIKI_DATA = {
         "id": "simplebuilding:flypad",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier1_crafting.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/flypad_tier1_crafting.json",
       "ingredients": [
         "minecraft:elytra",
         "simplebuilding:enderite_core",
         "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:shulker_head"
+        "simplemobheads:shulker_head"
       ],
       "ingredientGroups": [
         [
@@ -97342,14 +96833,69 @@ window.WIKI_DATA = {
           "simplebuilding:enderite_pressure_plate"
         ],
         [
-          "simplebuilding:shulker_head"
+          "simplemobheads:shulker_head"
         ],
         [
           "minecraft:elytra"
         ]
       ],
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:enderite_core"
+                ],
+                [
+                  "simplebuilding:enderite_pressure_plate"
+                ],
+                [
+                  "simplemobheads:shulker_head"
+                ],
+                [
+                  "minecraft:elytra"
+                ]
+              ],
+              "other": [
+                [
+                  "simplebuilding:enderite_core"
+                ],
+                [
+                  "simplebuilding:enderite_pressure_plate"
+                ],
+                [
+                  "simplebuilding:shulker_head"
+                ],
+                [
+                  "minecraft:elytra"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:elytra",
+                "simplebuilding:enderite_core",
+                "simplebuilding:enderite_pressure_plate",
+                "simplemobheads:shulker_head"
+              ],
+              "other": [
+                "minecraft:elytra",
+                "simplebuilding:enderite_core",
+                "simplebuilding:enderite_pressure_plate",
+                "simplebuilding:shulker_head"
+              ]
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier1_crafting.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -97384,7 +96930,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:shulker_head",
+            "id": "simplemobheads:shulker_head",
             "count": 1
           }
         ]
@@ -97500,7 +97046,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:shulker_head",
+            "id": "simplemobheads:shulker_head",
             "count": 1
           }
         ]
@@ -100438,11 +99984,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:blaze_head",
+            "id": "simplelib:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplemobheads:blaze_head",
             "count": 1
           }
         ]
@@ -101967,27 +101513,7 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 6
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:zombie_head",
-            "count": 1
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:trial_chamber_heads"
-        ]
-      }
+      ]
     },
     {
       "id": "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
@@ -106878,10 +106404,6 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:copper_ingot",
-            "count": 22
-          },
-          {
             "id": "minecraft:diamond",
             "count": 2
           },
@@ -106890,15 +106412,11 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
             "id": "minecraft:netherite_ingot",
             "count": 1
           },
           {
-            "id": "minecraft:zombie_head",
+            "id": "simplebuilding:chunk_loader",
             "count": 1
           }
         ]
@@ -107198,10 +106716,6 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:iron_ingot",
-            "count": 6
-          },
-          {
             "id": "minecraft:diamond",
             "count": 2
           },
@@ -107210,15 +106724,11 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
             "id": "minecraft:netherite_ingot",
             "count": 1
           },
           {
-            "id": "minecraft:zombie_head",
+            "id": "simplebuilding:launchpad",
             "count": 1
           }
         ]
@@ -118263,11 +117773,11 @@ window.WIKI_DATA = {
         "id": "simplebuilding:potion_pad",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/potion_pad_smithing.json",
       "ingredients": [
-        "simplebuilding:blaze_head",
         "simplebuilding:netherite_core",
-        "simplebuilding:netherite_pressure_plate"
+        "simplebuilding:netherite_pressure_plate",
+        "simplemobheads:blaze_head"
       ],
       "slots": {
         "template": [
@@ -118277,7 +117787,7 @@ window.WIKI_DATA = {
           "simplebuilding:netherite_pressure_plate"
         ],
         "addition": [
-          "simplebuilding:blaze_head"
+          "simplemobheads:blaze_head"
         ]
       },
       "variants": [
@@ -118289,9 +117799,9 @@ window.WIKI_DATA = {
             {
               "field": "ingredients",
               "this": [
-                "simplebuilding:blaze_head",
                 "simplebuilding:netherite_core",
-                "simplebuilding:netherite_pressure_plate"
+                "simplebuilding:netherite_pressure_plate",
+                "simplemobheads:blaze_head"
               ],
               "other": [
                 "minecraft:bolt_armor_trim_smithing_template",
@@ -118327,7 +117837,7 @@ window.WIKI_DATA = {
                   "simplebuilding:netherite_pressure_plate"
                 ],
                 "addition": [
-                  "simplebuilding:blaze_head"
+                  "simplemobheads:blaze_head"
                 ]
               },
               "other": {
@@ -118362,10 +117872,55 @@ window.WIKI_DATA = {
             }
           ],
           "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json"
+        },
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "simplebuilding:netherite_core",
+                "simplebuilding:netherite_pressure_plate",
+                "simplemobheads:blaze_head"
+              ],
+              "other": [
+                "simplebuilding:blaze_head",
+                "simplebuilding:netherite_core",
+                "simplebuilding:netherite_pressure_plate"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:netherite_core"
+                ],
+                "base": [
+                  "simplebuilding:netherite_pressure_plate"
+                ],
+                "addition": [
+                  "simplemobheads:blaze_head"
+                ]
+              },
+              "other": {
+                "template": [
+                  "simplebuilding:netherite_core"
+                ],
+                "base": [
+                  "simplebuilding:netherite_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:blaze_head"
+                ]
+              }
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json"
         }
       ],
       "lines": [
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -118388,7 +117943,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:blaze_head",
+            "id": "simplemobheads:blaze_head",
             "count": 1
           }
         ]
@@ -123380,7 +122935,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:blaze_head",
+            "id": "simplemobheads:blaze_head",
             "count": 1
           }
         ]
@@ -126345,11 +125900,11 @@ window.WIKI_DATA = {
         "id": "simplebuilding:spawn_teleporter",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json",
       "ingredients": [
         "minecraft:light_weighted_pressure_plate",
-        "simplebuilding:enderman_head",
-        "simplebuilding:gold_core"
+        "simplebuilding:gold_core",
+        "simplemobheads:enderman_head"
       ],
       "slots": {
         "template": [
@@ -126359,7 +125914,7 @@ window.WIKI_DATA = {
           "minecraft:light_weighted_pressure_plate"
         ],
         "addition": [
-          "simplebuilding:enderman_head"
+          "simplemobheads:enderman_head"
         ]
       },
       "variants": [
@@ -126372,8 +125927,8 @@ window.WIKI_DATA = {
               "field": "ingredients",
               "this": [
                 "minecraft:light_weighted_pressure_plate",
-                "simplebuilding:enderman_head",
-                "simplebuilding:gold_core"
+                "simplebuilding:gold_core",
+                "simplemobheads:enderman_head"
               ],
               "other": [
                 "minecraft:bolt_armor_trim_smithing_template",
@@ -126409,7 +125964,7 @@ window.WIKI_DATA = {
                   "minecraft:light_weighted_pressure_plate"
                 ],
                 "addition": [
-                  "simplebuilding:enderman_head"
+                  "simplemobheads:enderman_head"
                 ]
               },
               "other": {
@@ -126444,10 +125999,55 @@ window.WIKI_DATA = {
             }
           ],
           "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json"
+        },
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:light_weighted_pressure_plate",
+                "simplebuilding:gold_core",
+                "simplemobheads:enderman_head"
+              ],
+              "other": [
+                "minecraft:light_weighted_pressure_plate",
+                "simplebuilding:enderman_head",
+                "simplebuilding:gold_core"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:gold_core"
+                ],
+                "base": [
+                  "minecraft:light_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "simplemobheads:enderman_head"
+                ]
+              },
+              "other": {
+                "template": [
+                  "simplebuilding:gold_core"
+                ],
+                "base": [
+                  "minecraft:light_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:enderman_head"
+                ]
+              }
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json"
         }
       ],
       "lines": [
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -126462,7 +126062,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:enderman_head",
+            "id": "simplemobheads:enderman_head",
             "count": 1
           }
         ]
@@ -126523,7 +126123,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:enderman_head",
+            "id": "simplemobheads:enderman_head",
             "count": 1
           }
         ]
@@ -126914,7 +126514,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplebuilding:shulker_head",
+            "id": "simplemobheads:shulker_head",
             "count": 2
           }
         ]
@@ -138000,6 +137600,40 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:flypad_tier1_crafting",
+      "type": "simplebuilding:enchanted_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:flypad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier1_crafting.json",
+      "ingredients": [
+        "minecraft:elytra",
+        "simplebuilding:enderite_core",
+        "simplebuilding:enderite_pressure_plate",
+        "simplebuilding:shulker_head"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_core"
+        ],
+        [
+          "simplebuilding:enderite_pressure_plate"
+        ],
+        [
+          "simplebuilding:shulker_head"
+        ],
+        [
+          "minecraft:elytra"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:flypad_tier1_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -138936,6 +138570,36 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:potion_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:potion_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json",
+      "ingredients": [
+        "simplebuilding:blaze_head",
+        "simplebuilding:netherite_core",
+        "simplebuilding:netherite_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:netherite_core"
+        ],
+        "base": [
+          "simplebuilding:netherite_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:blaze_head"
+        ]
+      },
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -140171,6 +139835,36 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:spawn_teleporter",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json",
+      "ingredients": [
+        "minecraft:light_weighted_pressure_plate",
+        "simplebuilding:enderman_head",
+        "simplebuilding:gold_core"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:gold_core"
+        ],
+        "base": [
+          "minecraft:light_weighted_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:enderman_head"
+        ]
+      },
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -142031,22 +141725,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blackstone_quartz_checker_stairs.json"
     },
     {
-      "id": "simplebuilding:blocks/blaze_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:blaze_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blaze_head.json"
-    },
-    {
       "id": "simplebuilding:blocks/blazing_obsidian",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -142077,38 +141755,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blue_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/bogged_skull",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:bogged_skull"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/bogged_skull.json"
-    },
-    {
-      "id": "simplebuilding:blocks/breeze_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:breeze_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/breeze_head.json"
     },
     {
       "id": "simplebuilding:blocks/bridge_redstone",
@@ -142383,22 +142029,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/carved_warped_stem.json"
-    },
-    {
-      "id": "simplebuilding:blocks/cave_spider_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:cave_spider_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cave_spider_head.json"
     },
     {
       "id": "simplebuilding:blocks/cherry_cauldron",
@@ -142849,22 +142479,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/dirt_slab.json"
-    },
-    {
-      "id": "simplebuilding:blocks/drowned_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:drowned_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/drowned_head.json"
     },
     {
       "id": "simplebuilding:blocks/duskwood_cauldron",
@@ -143361,22 +142975,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_trapped_chest.json"
-    },
-    {
-      "id": "simplebuilding:blocks/enderman_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderman_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderman_head.json"
     },
     {
       "id": "simplebuilding:blocks/exposed_copper_pressure_plate",
@@ -143986,22 +143584,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/hollow_warped_stem.json"
-    },
-    {
-      "id": "simplebuilding:blocks/husk_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:husk_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/husk_head.json"
     },
     {
       "id": "simplebuilding:blocks/infused_potion_pad",
@@ -145860,22 +145442,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/sculk_jaw.json"
     },
     {
-      "id": "simplebuilding:blocks/shulker_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:shulker_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/shulker_head.json"
-    },
-    {
       "id": "simplebuilding:blocks/silent_dandelion",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -145890,38 +145456,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/silent_dandelion.json"
-    },
-    {
-      "id": "simplebuilding:blocks/silverfish_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:silverfish_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/silverfish_head.json"
-    },
-    {
-      "id": "simplebuilding:blocks/slime_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:slime_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/slime_head.json"
     },
     {
       "id": "simplebuilding:blocks/spawn_teleporter",
@@ -145986,22 +145520,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_4.json"
-    },
-    {
-      "id": "simplebuilding:blocks/spider_head",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:spider_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/spider_head.json"
     },
     {
       "id": "simplebuilding:blocks/spruce_cauldron",
@@ -146082,22 +145600,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/storage_crafting_table.json"
-    },
-    {
-      "id": "simplebuilding:blocks/stray_skull",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:stray_skull"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stray_skull.json"
     },
     {
       "id": "simplebuilding:blocks/stripped_acacia_cauldron",
@@ -146927,110 +146429,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/chests/end_wreck.json"
-    },
-    {
-      "id": "simplebuilding:inject/charged_creeper/root",
-      "kind": "inject",
-      "type": "minecraft:entity",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:blaze_head"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderman_head"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:husk_head"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:spider_head"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:cave_spider_head"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:stray_skull"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:bogged_skull"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:slime_head"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:silverfish_head"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:breeze_head"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:shulker_head"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:drowned_head"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/charged_creeper/root.json"
     },
     {
       "id": "simplebuilding:inject/chests/abandoned_mineshaft",
@@ -153902,47 +153300,11 @@ window.WIKI_DATA = {
       "replace": false,
       "values": [
         {
-          "id": "minecraft:zombie_head",
-          "required": true
-        },
-        {
-          "id": "minecraft:skeleton_skull",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:husk_head",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:spider_head",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:cave_spider_head",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:stray_skull",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:bogged_skull",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:slime_head",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:silverfish_head",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:breeze_head",
+          "id": "#simplemobheads:trial_chamber_heads",
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/trial_chamber_heads.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/trial_chamber_heads.json"
     },
     {
       "id": "simplebuilding:item/veinmine_enchantable",
@@ -174242,330 +173604,6 @@ window.WIKI_DATA = {
     "sources": [
       {
         "type": "mob",
-        "item": "simplebuilding:blaze_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 0,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:blaze",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:enderman_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 1,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:enderman",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:husk_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 2,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:husk",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:spider_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 3,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:spider",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:cave_spider_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 4,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:cave_spider",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:stray_skull",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 5,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:stray",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:bogged_skull",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 6,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:bogged",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:slime_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 7,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:slime",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:silverfish_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 8,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:silverfish",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:breeze_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 9,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:breeze",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:shulker_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 10,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:shulker",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
-        "item": "simplebuilding:drowned_head",
-        "table": "minecraft:charged_creeper/root",
-        "label": {
-          "en": "Charged creeper explosion",
-          "de": "Explosion eines geladenen Creepers"
-        },
-        "chance": 100.0,
-        "perChest": 1.0,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 1,
-        "totalWeight": 1,
-        "rolls": {
-          "type": "exactly",
-          "n": 1
-        },
-        "pool": 11,
-        "sharedTables": [],
-        "configFlag": null,
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "victim": "minecraft:drowned",
-        "how": "charged_creeper"
-      },
-      {
-        "type": "mob",
         "item": "simplebuilding:warden_tendril",
         "table": "minecraft:entities/warden",
         "label": {
@@ -180293,7 +179331,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:pads/heads_up",
       "parent": "simplebuilding:pads/hot_head",
-      "icon": "simplebuilding:silverfish_head",
+      "icon": "simplemobheads:silverfish_head",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -180309,22 +179347,22 @@ window.WIKI_DATA = {
           "name": "mob_head",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:enderman_head",
-            "simplebuilding:husk_head",
-            "simplebuilding:spider_head",
-            "simplebuilding:cave_spider_head",
-            "simplebuilding:stray_skull",
-            "simplebuilding:bogged_skull",
-            "simplebuilding:slime_head",
-            "simplebuilding:silverfish_head",
-            "simplebuilding:breeze_head",
-            "simplebuilding:shulker_head",
-            "simplebuilding:drowned_head"
+            "simplemobheads:enderman_head",
+            "simplemobheads:husk_head",
+            "simplemobheads:spider_head",
+            "simplemobheads:cave_spider_head",
+            "simplemobheads:stray_skull",
+            "simplemobheads:bogged_skull",
+            "simplemobheads:slime_head",
+            "simplemobheads:silverfish_head",
+            "simplemobheads:breeze_head",
+            "simplemobheads:shulker_head",
+            "simplemobheads:drowned_head"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/pads/heads_up.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/pads/heads_up.json"
     },
     {
       "id": "simplebuilding:pads/higher_ground",
@@ -180380,7 +179418,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:pads/hot_head",
       "parent": "simplebuilding:tweaks/root",
-      "icon": "simplebuilding:blaze_head",
+      "icon": "simplemobheads:blaze_head",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -180396,12 +179434,12 @@ window.WIKI_DATA = {
           "name": "blaze_head",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:blaze_head"
+            "simplemobheads:blaze_head"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/pads/hot_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/pads/hot_head.json"
     },
     {
       "id": "simplebuilding:pads/infusion",
@@ -181158,12 +180196,12 @@ window.WIKI_DATA = {
             "simplebuilding:amethyst_lens",
             "simplebuilding:netherite_apple",
             "simplebuilding:netherite_carrot",
-            "simplebuilding:blaze_head"
+            "simplemobheads:blaze_head"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/root.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/tweaks/root.json"
     },
     {
       "id": "simplebuilding:wand/core_values",
@@ -183620,9 +182658,9 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 758,
-    "blocks": 518,
+    "blocks": 494,
     "recipes": 1341,
-    "lootTables": 364,
+    "lootTables": 351,
     "trades": 20,
     "enchantments": 19,
     "tags": 55,
