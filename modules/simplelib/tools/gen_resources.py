@@ -221,13 +221,8 @@ def files():
                 variant["y"] = rot
             blank_variants[f"facing={name},stage={stage}"] = variant
     out[f"{a}/blockstates/crucible_blank.json"] = {"variants": blank_variants}
-    # Blank: the iron block plus one iron ingot per strike done (owner N51: breaking it gives the ingots back). One
-    # ingot entry whose count follows the stage, like Vanilla's sea pickle (set_count per state condition).
-    counts = [{"function": "minecraft:set_count", "count": stage, "add": False,
-               "conditions": [{"condition": "minecraft:block_state_property", "block": f"{NS}:crucible_blank",
-                               "properties": {"stage": str(stage)}}]} for stage in range(1, BLANK_STRIKES)]
-    pools = [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": "minecraft:iron_block"}]},
-             {"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": "minecraft:iron_ingot", "functions": counts}]}]
+    # Blank: the iron block; CrucibleBlankBlock#getDrops adds one iron ingot per strike done (owner N51).
+    pools = [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": "minecraft:iron_block"}]}]
     out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
                                                          "random_sequence": f"{NS}:blocks/crucible_blank"}
     # Barrels (plan section 8a, owner addition 11): plain barrel cube; attached, a flange on the crucible's belly and a

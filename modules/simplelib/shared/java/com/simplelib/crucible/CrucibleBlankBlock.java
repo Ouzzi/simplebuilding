@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
  * half plate, then the full one), strikes 9-12 the two handles (east, west; half, then full), strikes 13-16 the four
  * rim pieces; the 16th sets the iron crucible. Plates and rim take tag {@code simplelib:crucible_walls}, handles tag
  * {@code simplelib:crucible_handles} (iron ingot; SimpleBuilding adds its iron pole). This block is the half-built
- * blank (stage 1-15 = strikes done, one model per stage); its loot table returns the iron block and one iron ingot
+ * blank (stage 1-15 = strikes done, one model per stage); breaking it returns the iron block and one iron ingot
  * per strike. Without SimpleBuilding the tool is an axe (principle 5a); a partner with its own way switches the axe
  * way off through {@link SimpleLibApi#disableAxeWays()} and calls {@link #strike} itself.
  */
@@ -102,6 +102,14 @@ public class CrucibleBlankBlock extends Block {
     protected net.minecraft.world.phys.shapes.VoxelShape getShape(BlockState state, net.minecraft.world.level.BlockGetter level,
             net.minecraft.core.BlockPos pos, net.minecraft.world.phys.shapes.CollisionContext context) {
         return SHAPES[state.getValue(STAGE) - 1][state.getValue(FACING).get2DDataValue()];
+    }
+
+    /** The loot table gives the iron block; every strike done gives its iron ingot back (owner N51). */
+    @Override
+    protected java.util.List<ItemStack> getDrops(BlockState state, net.minecraft.world.level.storage.loot.LootParams.Builder params) {
+        java.util.List<ItemStack> drops = new java.util.ArrayList<>(super.getDrops(state, params));
+        drops.add(new ItemStack(net.minecraft.world.item.Items.IRON_INGOT, state.getValue(STAGE)));
+        return drops;
     }
 
     @Override
