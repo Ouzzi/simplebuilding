@@ -382,13 +382,19 @@ public final class PulsatingTrimTests {
         return table.getSlot(table.getResultSlot()).getItem().copy();
     }
 
+    /** SimpleBuilding's lang file plus SimpleLib's, which holds the upgrade templates since split 3d. */
     private static JsonObject lang(GameTestHelper helper, String locale) {
-        String path = "assets/simplebuilding/lang/" + locale + ".json";
-        try (InputStream in = PulsatingTrimTests.class.getClassLoader().getResourceAsStream(path)) {
-            helper.assertTrue(in != null, path + " is not on the classpath");
-            return JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
-        } catch (java.io.IOException e) {
-            throw new IllegalStateException("cannot read " + path, e);
+        JsonObject lang = new JsonObject();
+        for (String mod : List.of("simplebuilding", "simplelib")) {
+            String path = "assets/" + mod + "/lang/" + locale + ".json";
+            try (InputStream in = PulsatingTrimTests.class.getClassLoader().getResourceAsStream(path)) {
+                helper.assertTrue(in != null, path + " is not on the classpath");
+                JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject().entrySet()
+                        .forEach(entry -> { if (!lang.has(entry.getKey())) lang.add(entry.getKey(), entry.getValue()); });
+            } catch (java.io.IOException e) {
+                throw new IllegalStateException("cannot read " + path, e);
+            }
         }
+        return lang;
     }
 }

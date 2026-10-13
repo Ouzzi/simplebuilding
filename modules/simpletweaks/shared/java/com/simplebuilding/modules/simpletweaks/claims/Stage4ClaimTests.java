@@ -413,7 +413,11 @@ final class Stage4ClaimTests {
             f.set(p,Blocks.AIR);
         }
     });}
-    static void boats(GameTestHelper h){modes(h,(f,enabled)->{
+    static void boats(GameTestHelper h){
+        // Like the crafter: a freshly loaded workspace chunk only shows its new entities after a server tick, so the
+        // first (enabled) pass sometimes did not find the owner's boat on tick 0.
+        var edge=ToolClaimTests.boundary(h);h.getLevel().getChunk(edge);h.getLevel().getChunk(edge.west(16));
+        h.runAfterDelay(5,()->modes(h,(f,enabled)->{
         var water=f.edge.east(3);f.set(water.below(),Blocks.STONE);f.set(water,Blocks.WATER);
         var stranger=player(h,f.edge.west(8));f.entities.add(stranger);f.owner.setPos(Vec3.atBottomCenterOf(f.edge.west(8)));
         for(var actor:List.of(stranger,f.owner)){
@@ -425,7 +429,7 @@ final class Stage4ClaimTests {
             yes(h,boats.isEmpty()!=allowed&&actor.getMainHandItem().isEmpty()==allowed,"Actual boat placement respects claims: owner="+(actor==f.owner)+" enabled="+enabled);
             boats.forEach(Entity::discard);actor.setPos(Vec3.atBottomCenterOf(f.edge.west(8)));// never block the next actor's view
         }
-    });}
+    }));}
     @SuppressWarnings({"rawtypes","unchecked"})
     static void composter(GameTestHelper h){modes(h,(f,enabled)->{
         var hopperPos=f.edge.east(3);var hopperState=Blocks.HOPPER.defaultBlockState().setValue(HopperBlock.FACING,Direction.DOWN);

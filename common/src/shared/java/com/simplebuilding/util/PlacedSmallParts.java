@@ -115,7 +115,7 @@ public final class PlacedSmallParts {
 
     /** Barren mit eigenem 3D-Modell ({@code simplebuilding:placed_<id>}); andere Barren liegen als flache Platte. */
     public static final java.util.Set<String> MODELLED_INGOTS = java.util.Set.of("minecraft:copper_ingot", "minecraft:iron_ingot",
-            "minecraft:gold_ingot", "minecraft:netherite_ingot", "simplebuilding:enderite_ingot");
+            "minecraft:gold_ingot", "minecraft:netherite_ingot", "simplelib:enderite_ingot");
 
     /** Quader einer Vanilla-Kerze ({@code block/template_candle}, ohne Docht): {y0, y1, halbe Breite}. */
     public static final float[][] CANDLE_BOXES = {{0.0F, 6.0F, 1.0F}};

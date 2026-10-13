@@ -156,7 +156,8 @@ public class ModTags {
 
         /** Die Regel fuer {@link #ENDERITE_INGOT_TIER}; Datagen und Gametest teilen sie. */
         public static boolean isEnderiteIngotTierByRule(Identifier id) {
-            return Simplebuilding.MOD_ID.equals(id.getNamespace())
+            // split 3d: the enderite materials (ingot, nugget, block) are SimpleLib's now
+            return (Simplebuilding.MOD_ID.equals(id.getNamespace()) || "simplelib".equals(id.getNamespace()))
                     && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))
                     && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
         }
