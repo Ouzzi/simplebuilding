@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
 
 /**
  * {@code /simplequalityoflife submod <name> <true|false>} (owners): the super-mod switches. The former tweak commands
- * moved with their features into the sub-mods ({@code /simpleloot}, {@code /simplecreatures}, {@code /simplefarming},
+ * moved with their features into the sub-mods ({@code /simpleloot}, {@code /simplemobmanners}, {@code /simplefarming},
  * {@code /simpletools}, {@code /simplemovement}, {@code /simpleinterfaces}; {@code /crawl} belongs to Simple Movement).
  */
 public class ModCommands {
@@ -21,7 +21,9 @@ public class ModCommands {
         submod.then(toggle("weather", (c, v) -> c.enableSimpleWeather = v));
         submod.then(toggle("interfaces", (c, v) -> c.enableSimpleInterfaces = v));
         submod.then(toggle("loot", (c, v) -> c.enableSimpleLoot = v));
-        submod.then(toggle("creatures", (c, v) -> c.enableSimpleCreatures = v));
+        submod.then(toggle("mobmanners", (c, v) -> c.enableSimpleMobManners = v));
+        // Name before the rename (Simple Creatures), kept so old scripts keep working.
+        submod.then(toggle("creatures", (c, v) -> c.enableSimpleMobManners = v));
         submod.then(toggle("farming", (c, v) -> c.enableSimpleFarming = v));
         submod.then(toggle("tools", (c, v) -> c.enableSimpleTools = v));
         submod.then(toggle("movement", (c, v) -> c.enableSimpleMovement = v));

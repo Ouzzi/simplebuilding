@@ -16,7 +16,7 @@ Befehle). In ihrer Config steht je Sub-Mod oben „Simple XY aktivieren“. Geme
 ```
 SimpleBuilding (Super-Mod, geplant)          Simple Quality of Life (Super-Mod)
  ├─ simplelib (gebündelt)                      ├─ simpleweather, simpleinterfaces, simpleloot,
- ├─ Simple Trims (geplant)                     ├─ simplecreatures, simplefarming, simpletools,
+ ├─ Simple Trims (geplant)                     ├─ simplemobmanners, simplefarming, simpletools,
  └─ Simple Maps (in Arbeit)                    └─ simplemovement (alle Sub-Mods, gebündelt)
                                                  (docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md)
 Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwiches, Tweaks (braucht SB)
@@ -29,10 +29,10 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 | SimpleBuilding (`simplebuilding`) | Cloth Config | JEI, REI, ModMenu, Jade, AppleSkin, Mouse Tweaks, Trinkets, Curios | simplelib |
 | SimpleLib (`simplelib`) | – | – | – |
 | Simple Interfaces (`simpleinterfaces`) | Cloth Config, simplelib | SimpleBuilding, Simple QoL (Schalter), ModMenu | simplelib |
-| Simple Quality of Life (`simplequalityoflife`) | Cloth Config, alle sieben Sub-Mods | SimpleBuilding, ModMenu | simplelib, simpleweather, simpleinterfaces, simpleloot, simplecreatures, simplefarming, simpletools, simplemovement |
+| Simple Quality of Life (`simplequalityoflife`) | Cloth Config, alle sieben Sub-Mods | SimpleBuilding, ModMenu | simplelib, simpleweather, simpleinterfaces, simpleloot, simplemobmanners, simplefarming, simpletools, simplemovement |
 | Simple Weather (`simpleweather`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Loot (`simpleloot`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
-| Simple Creatures (`simplecreatures`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
+| Simple Mob Manners (`simplemobmanners`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
 | Simple Farming (`simplefarming`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu | – |
 | Simple Tools (`simpletools`) | Cloth Config | SimpleBuilding, Simple QoL (Schalter), ModMenu, Simple Money (Geldscheine als Opfer, optionaler Tag) | – |
 | Simple Movement (`simplemovement`) | Cloth Config | Simple QoL (Schalter), ModMenu | – |
@@ -96,7 +96,7 @@ einmalig übernommen; in QoL mit „Simple Weather aktivieren“ abschaltbar.
 Je eigene Config `config/<id>.json` (alte `qOL.*`-Werte werden beim ersten Start einmalig übernommen), eigener Befehl
 `/<id>`, in QoL mit „Simple XY aktivieren“ abschaltbar, allein spielbar.
 - **Simple Loot:** Tresor-Abklingzeit in Tagen.
-- **Simple Creatures:** Kreaturen stummschalten (Typ/Namenssuffix), dauerhafte Jungtiere, Piglins ignorieren Goldbesatz/-werkzeug.
+- **Simple Mob Manners** (bis 13.10. Simple Creatures, `simplecreatures`; Config, Befehl und Schalter werden übernommen): Kreaturen stummschalten (Typ/Namenssuffix), dauerhafte Jungtiere, Piglins ignorieren Goldbesatz/-werkzeug.
 - **Simple Farming:** Federfall schützt Acker, Schärfe schneidet Pflanzen, Ernten mit Hacke.
 - **Simple Tools:** Haltbarkeitsbonus, Sparsamkeit-Verzauberung (ID bleibt `simplequalityoflife:thrift`), Reparatur hält
   Ambosskosten, Ofen mit Lava füllen.

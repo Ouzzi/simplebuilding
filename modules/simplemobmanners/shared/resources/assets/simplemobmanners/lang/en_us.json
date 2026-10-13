@@ -1,0 +1,22 @@
+{
+  "simplemobmanners.title": "Simple Mob Manners",
+  "simplemobmanners.tab.general": "General",
+  "simplemobmanners.option.mutedEntities": "Muted Entity Types",
+  "simplemobmanners.option.mutedEntities.tooltip": "List of entity IDs (e.g. minecraft:cow) whose\nsounds are silenced. Default: [].",
+  "simplemobmanners.option.nametagMuteSuffixes": "Nametag Mute Suffixes",
+  "simplemobmanners.option.nametagMuteSuffixes.tooltip": "List of name suffixes. Mobs named with one of\nthese will be silenced.\nDefault: [\"_mute\", \"_shhh\"].",
+  "simplemobmanners.option.nametagBabySuffixes": "Baby Suffixes",
+  "simplemobmanners.option.nametagBabySuffixes.tooltip": "Babies named with one of these suffixes will\nnever grow up (e.g., _baby). Default:\n[\"_baby\", \"_small\"].",
+  "simplemobmanners.option.piglinsIgnoreGoldTrims": "Piglins Ignore Gold Trims",
+  "simplemobmanners.option.piglinsIgnoreGoldTrims.tooltip": "Piglins won't attack if you wear armor with\ngold trims. Default: true. Attacks and\ncontainer interactions can still anger\npiglins.",
+  "simplemobmanners.option.piglinsIgnoreGoldTools": "Piglins Ignore Gold Tools",
+  "simplemobmanners.option.piglinsIgnoreGoldTools.tooltip": "Piglins won't attack if you hold gold tools\nor weapons. Default: true. Attacks and\ncontainer interactions can still anger\npiglins.",
+  "command.simplemobmanners.changed": "Configuration saved: %s = %s",
+  "command.simplemobmanners.list": "Suffixes: %s",
+  "command.simplemobmanners.exists": "Suffix already exists.",
+  "command.simplemobmanners.added": "Added suffix: %s",
+  "command.simplemobmanners.removed": "Removed suffix: %s",
+  "command.simplemobmanners.missing": "Suffix not found.",
+  "command.simplemobmanners.cleared": "Suffix list cleared.",
+  "command.simplemobmanners.renamed": "/%s is now /%s: Simple Creatures was renamed to Simple Mob Manners."
+}

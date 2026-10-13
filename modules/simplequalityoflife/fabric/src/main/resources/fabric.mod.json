@@ -21,7 +21,7 @@
     "simplemovement": "*",
     "simpletools": "*",
     "simplefarming": "*",
-    "simplecreatures": "*",
+    "simplemobmanners": "*",
     "simpleloot": "*",
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",

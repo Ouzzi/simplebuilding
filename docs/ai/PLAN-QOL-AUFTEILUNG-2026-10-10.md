@@ -8,7 +8,7 @@ Auftrag Besitzer 10.10. (Queue Nachtrag 14 / N32). Grundlagen: `docs/ai/KONZEPT-
 ROADMAP-2026-10-09 nennt außerdem „Simple Combat (Schärfe schneidet Gras)“ und „Kreaturen-Logik in simplelib“:
 Schärfe/Gras bleibt hier in Farming (Ernte-/Pflanzenthema, kein Kampf); wünscht der Besitzer Simple Combat, wandert
 nur `SharpnessGrassCutMixin`+`GrassOutlineMixin` um. Kreaturen-Code, den mehrere Mods brauchen, geht nach simplelib,
-der Rest in Simple Creatures.
+der Rest in Simple Creatures (seit 13.10. umbenannt in Simple Mob Manners, `simplemobmanners`, Branch `claude-mobmanners`).
 
 | Sub-Mod | Mod-ID | Inhalt (EN-Kurzname) |
 |---|---|---|

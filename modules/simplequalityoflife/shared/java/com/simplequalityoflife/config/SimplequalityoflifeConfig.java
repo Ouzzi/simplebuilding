@@ -23,7 +23,7 @@ public class SimplequalityoflifeConfig implements ConfigData {
     public boolean enableSimpleLoot = true;
 
     @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleCreatures = true;
+    public boolean enableSimpleMobManners = true;
 
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleFarming = true;

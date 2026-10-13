@@ -15,9 +15,9 @@ neoForge { mods { simpleinterfaces { sourceSet project(':modules:simpleinterface
 evaluationDependsOn(':modules:simpleloot:neoforge')
 dependencies { jarJar project(':modules:simpleloot:neoforge'); runtimeOnly project(':modules:simpleloot:neoforge') }
 neoForge { mods { simpleloot { sourceSet project(':modules:simpleloot:neoforge').sourceSets.main } } }
-evaluationDependsOn(':modules:simplecreatures:neoforge')
-dependencies { jarJar project(':modules:simplecreatures:neoforge'); runtimeOnly project(':modules:simplecreatures:neoforge') }
-neoForge { mods { simplecreatures { sourceSet project(':modules:simplecreatures:neoforge').sourceSets.main } } }
+evaluationDependsOn(':modules:simplemobmanners:neoforge')
+dependencies { jarJar project(':modules:simplemobmanners:neoforge'); runtimeOnly project(':modules:simplemobmanners:neoforge') }
+neoForge { mods { simplemobmanners { sourceSet project(':modules:simplemobmanners:neoforge').sourceSets.main } } }
 evaluationDependsOn(':modules:simplefarming:neoforge')
 dependencies { jarJar project(':modules:simplefarming:neoforge'); runtimeOnly project(':modules:simplefarming:neoforge') }
 neoForge { mods { simplefarming { sourceSet project(':modules:simplefarming:neoforge').sourceSets.main } } }
@@ -44,4 +44,4 @@ dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootPr
 dependencies { implementation project(':common') }
 evaluationDependsOn(':mc26_3:neoforge')
 neoForge { mods { simplebuilding { sourceSet project(':mc26_3:neoforge').sourceSets.main } } }
-neoForge.runs.moduleIntegrationGameTest.loadedMods=[neoForge.mods.simplequalityoflife,neoForge.mods.simplebuilding,neoForge.mods.simpleweather,neoForge.mods.simpleinterfaces,neoForge.mods.simpleloot,neoForge.mods.simplecreatures,neoForge.mods.simplefarming,neoForge.mods.simpletools,neoForge.mods.simplemovement]
+neoForge.runs.moduleIntegrationGameTest.loadedMods=[neoForge.mods.simplequalityoflife,neoForge.mods.simplebuilding,neoForge.mods.simpleweather,neoForge.mods.simpleinterfaces,neoForge.mods.simpleloot,neoForge.mods.simplemobmanners,neoForge.mods.simplefarming,neoForge.mods.simpletools,neoForge.mods.simplemovement]

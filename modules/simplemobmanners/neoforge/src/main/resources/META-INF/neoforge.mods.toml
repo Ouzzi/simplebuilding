@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplemobmanners"
+version="${version}"
+displayName="Simple Mob Manners"
+description="Mob manners: muted mobs, named babies that stay young and piglins that accept gold trims and tools; a sub-mod of Simple QoL, also playable alone."
+[[dependencies.simplemobmanners]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[mixins]]
+config="simplemobmanners.mixins.json"
+[[dependencies.simplemobmanners]]
+modId="cloth_config"
+type="required"
+versionRange="[26.3,)"
+
+[[dependencies.simplemobmanners]]
+modId="simplequalityoflife"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplemobmanners]]
+modId="modmenu"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"
