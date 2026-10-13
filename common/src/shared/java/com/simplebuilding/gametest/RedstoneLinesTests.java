@@ -335,7 +335,7 @@ public final class RedstoneLinesTests {
     private record Device(String name, java.util.function.BiConsumer<GameTestHelper, BlockPos> place,
                           java.util.function.Predicate<BlockState> on) {
         static Device of(String name, BlockState state, java.util.function.Predicate<BlockState> on) {
-            return new Device(name, (helper, pos) -> helper.setBlock(pos, state), on);
+            return new Device(name, (helper, pos) -> helper.setBlock(pos, state), current -> current.is(state.getBlock()) && on.test(current));
         }
     }
 
@@ -348,6 +348,8 @@ public final class RedstoneLinesTests {
         list.add(Device.of("redstone_lamp", Blocks.REDSTONE_LAMP.defaultBlockState(), s -> s.getValue(RedstoneLampBlock.LIT)));
         list.add(new Device("nihil_piston", (helper, pos) -> {
             helper.setBlock(pos.below(), Blocks.OBSIDIAN);
+            // It pulls from two cells away: keep the upper layer's floor (and what stands on it) in place.
+            helper.setBlock(pos.above(2), Blocks.OBSIDIAN);
             helper.setBlock(pos, ModBlocks.NIHIL_PISTON);
         }, s -> s.getValue(com.simplebuilding.blocks.custom.EndSignalBlock.POWER) > 0));
         list.add(Device.of("piston", Blocks.PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.UP),
