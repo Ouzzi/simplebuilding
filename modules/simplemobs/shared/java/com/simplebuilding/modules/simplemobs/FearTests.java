@@ -345,13 +345,13 @@ final class FearTests {
             Vec3 at = h.absoluteVec(new Vec3(4.5, 2, 4.5));
             player.snapTo(at.x, at.y, at.z, 0.0f, 0.0f);
             FearAura.pulse(h.getLevel(), dread, false);
-            h.assertTrue(level(player, s) == 2, "Shivering II without protection: " + level(player, s));
+            h.assertTrue(level(player, s) == 4, "Shivering IV at 5 blocks without protection: " + level(player, s));
             player.getInventory().add(new ItemStack(FearMobs.AMULET));
             FearAura.pulse(h.getLevel(), dread, false);
             h.assertTrue(level(player, s) == 0, "the Calm Amulet in the inventory removes and blocks Shivering");
             player.getInventory().clearContent();
             FearAura.pulse(h.getLevel(), dread, false);
-            h.assertTrue(level(player, s) == 2, "without it again");
+            h.assertTrue(level(player, s) == 4, "without it again");
             player.addEffect(new MobEffectInstance(FearMobs.focus(), FearLogic.FOCUS_TICKS));
             FearAura.cure(player);
             h.assertTrue(level(player, s) == 0, "Focus cures Shivering");
