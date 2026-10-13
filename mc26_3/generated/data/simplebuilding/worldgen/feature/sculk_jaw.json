@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "id": "simplebuilding:sculk_jaw",
+    "properties": {
+      "motion": "0",
+      "triggered": "false"
+    }
+  }
+}
