@@ -201,3 +201,11 @@ SimpleLib (Regel 6a: `IdMoves`, `InWorldStrikes`, Axt-Schalter) wie Simple Maps.
 `fabric-263` gefiltert auf die angepassten Testklassen; Datagen 26.3; `wiki/generate.py --all --check --strict`,
 `tools/guides/module_guides.py --check`, `tools/check_tooltip_text.py`, Money-`generate_links.py --check`,
 `modules/simpletrims/tools/check_data.py`.
+
+**Ergebnis (13.10.).** `module-simpletrims-{fabric,neoforge,forge}-263` und Standalone Fabric/NeoForge je 16/16 grün
+(Fabric mit SB = Hammer-Modus, sonst Axt-Modus), Client-Smoke 2/2 (Leuchten/Puls am Rüstungsständer, Platten,
+Tooltips). SB 3 Loader voll: alle Trims-bezogenen Tests grün; offen nur zwei Fehler aus wave1 (Testzentrale kennt
+`mixed_octet` nicht, Echolot-Tipp aus dem Entdeckbarkeits-Branch) sowie ein 26.2-Compilefehler in `OctetCellBlock`
+(wave1). Nicht umgezogen: Besatz-Boni/Stats-Panel; im Modul fehlen JEI-Kategorie und Hammer-Neigung auf Platten; alte
+SB-Platten mit Besatzvorlage lassen sich nicht mehr schmieden (aufheben, neu ablegen); Häufchen aus Besatzvorlagen nur
+mit SB.
