@@ -1,9 +1,12 @@
-# Plan: Claim-Urkunde mit eigener GUI und Rechten je Person (Queue N54, 13.10.)
+# Plan: Claim-Urkunde mit Rechte-Code, Claim-Tisch, Karten-Anzeige und Erweiterung (Queue N54, 13.10.)
 
-Stand 2026-10-13 · Branch `claude-claimdeed-plan` (von `claude-wave1` 4f1d5a8e2) · nur Plan, nichts umgesetzt.
-Besitzer-Wunsch: Die Claim-Urkunde (Simple Tweaks) soll wie die Blaupause (SimpleBuilding) eine eigene GUI bekommen,
-dort Personen hinzufügen und ihnen Fähigkeiten geben (bauen, abbauen, Container öffnen …). „Code-Form oder
-Checkbox-Form – was am Ende die bessere Entscheidung ist.“ Mockup beider Varianten: Artifact-Seite „Claim-Urkunde Entwurf“.
+Stand 2026-10-13, Fassung 2 (Besitzer-Änderungen vom selben Tag eingearbeitet) · Branch `claude-claimdeed-plan`
+(von `claude-wave1` 4f1d5a8e2) · nur Plan, nichts umgesetzt.
+
+Besitzer-Wunsch: Die Claim-Urkunde (Simple Tweaks) wird wie die Blaupause (SimpleBuilding) gehandhabt: eigene GUI,
+Personen hinzufügen, Fähigkeiten vergeben. **Entscheidung Besitzer (Fassung 2): Code-Form**, wie der Blaupausen-Editor.
+Dazu neu: Claim-Tisch (Block, alle Claims als Karte/Liste), Claims auf der Simple-Maps-Karte, Urkunde kopieren,
+so Vanilla-nah wie möglich, Gebietserweiterung mit steigenden Kosten. Mockup: Artifact-Seite „Claim-Urkunde Entwurf“.
 
 ## 1. Ist-Zustand
 
@@ -60,222 +63,300 @@ volle UUID, keine blockierende Namensauflösung), `/claim admin [unclaim|listall
 - Screens ohne Slots (N43): `UiBoxes.box` als Fläche, Titel x 8 / y 6 in `palette.label()`, Listen im hellen Feld
   (`insetColored` mit `INVENTORY.fill`, dunkle Schrift), Vanilla-Widgets 8 px vom Rand.
 - Helligkeit N49: `UiBrightness` LIGHT/DAWN/DARK wirkt zentral über `UiPalette`, Labels werden bei dunkel hell.
-- **Kein Checkbox-Baustein** in simplelib. Simple Tweaks bündelt simplelib heute **nicht** (Vorbild für das Bündeln:
-  `modules/simplemaps` – `include`/`jarJar`, `WaypointEditPayload`, `WayfinderScreen`, `MapsFabricClient`).
+- Simple Tweaks bündelt simplelib heute **nicht** (Vorbild für das Bündeln: `modules/simplemaps` – `include`/`jarJar`,
+  `WaypointEditPayload`, `WayfinderScreen`, `MapsFabricClient`).
+- Vanilla hat ein mehrzeiliges Textfeld (`MultiLineEditBox`) – Grundlage für einen schlichten, Vanilla-nahen Editor.
 
-## 2. Entscheidung Code-Form vs. Checkbox-Form
+### 1.7 Simple Maps (Wayfinder-Karte)
+- `modules/simplemaps`, `requires: [simplelib]`, keine Kenntnis von Simple Tweaks. Karte aus Kacheln
+  (`TileDataPayload`, 128×128 Farben + Höhen), Zustand `MapStatePayload(mapId, dimension, tiles, marks)`.
+- `WayfinderScreen` zeichnet Ebenen nacheinander: Kacheln → Raster → **Strukturen** (`drawStructures`, Rauten in
+  Farbe aus der ID, Werkzeugknopf an/aus) → Wegpunkte → Fußzeile. Eine Claims-Ebene passt genau in dieses Muster.
+- Kopplung zwischen Mods läuft bisher über `com.simplelib.api.SimpleLibApi` (Register-Muster, z. B.
+  `registerHeatSource`/`heatOf`, `registerToolUse`): ein Mod meldet einen Dienst an, ein anderer fragt ihn ab, keiner
+  importiert den anderen.
 
-| Kriterium | Code-Form (Text wie Blaupause, z. B. `alex PBCU`) | Checkbox-Form (Matrix Person × Recht) |
-|---|---|---|
-| Verständlich ohne Anleitung | nein – Buchstaben lernen, Syntax | ja – Symbol + Tooltip, sofort sichtbar |
-| Fehler möglich | Tippfehler, unbekannte Namen, Syntaxfehler | keine (nur gültige Zustände klickbar) |
-| Überblick „wer darf was“ | muss gelesen werden | auf einen Blick (8 Zeilen × 7 Spalten) |
-| Viele Claims gleich einstellen | Code kopieren/einfügen | über Geltungsbereich „Grundstück/alle“ + Vorlage auf der Urkunde |
-| Teilen mit anderen Spielern | Text im Chat | Urkunden-Kopie (Rezept) oder Text-Export |
-| Server-Sicherheit | Parser auf dem Server nötig (Länge, Namen auflösen) | feste Bitmaske, triviale Prüfung |
-| Bezug zur Blaupause | gleiches Bedienmuster | gleiches Muster (Item → Screen → Payload), anderer Editor |
-| Aufwand | Parser, Syntaxfarben, Hilfe-Buch | Checkbox-Baustein + Liste |
+## 2. Entscheidung: Code-Form (Besitzer, Fassung 2)
 
-Die Blaupause braucht Code, weil Bauwerke beliebig groß und frei formbar sind. Rechte sind eine **kleine feste Menge**
-(≤ 65 Personen × 7 Flags) – dafür ist eine Checkbox-Matrix das passende Werkzeug; Code bringt nur Fehlerquellen.
+Gebaut wird der **Rechte-Code** in einem Textfeld, wie der Blaupausen-Editor. Kein Checkbox-Raster. Gründe, die für die
+Code-Form sprechen: ein Bedienmuster mit der Blaupause, Text lässt sich kopieren, einfügen, im Chat teilen und von
+Admins/KI lesen, ein Code kann Abschnitte (einzelne Chunks) ausdrücken, ohne zusätzliche Knöpfe.
+Die Schwächen (Tippfehler, Buchstaben lernen) fängt der Editor ab: Kommentarkopf mit Erklärung, Prüfung beim Tippen,
+Fehlerzeile mit Grund, Speichern nur ohne Fehler (alles oder nichts), Hilfe im Guide.
 
-**Empfehlung: Kombi, Checkboxen führen.**
-1. GUI mit Checkbox-Matrix (Bearbeiten).
-2. Übertragen ohne Code: Geltungsbereich (Chunk / Grundstück / alle meine Claims) + die Urkunde merkt sich die zuletzt
-   gespeicherte Liste als **Vorlage** („Vorlage anwenden“ in einem anderen Claim) + Urkunden-Kopie per Rezept.
-3. Nur **Export** als Text (Knopf „Als Text kopieren“, Zwischenablage, Format unten §5) – für Chat/Admins/KI-Fragen,
-   wie „Text kopieren“ bei der Blaupause. **Kein Code-Import** in Phase 1/2; nur falls der Besitzer ihn später will (§11).
+## 3. Rechte-Code
 
-## 3. Datenmodell
-
-### 3.1 Rechte-Flags (Bitmaske `int`, 7 Bits)
-| Bit | Recht (DE / EN) | Schlüssel | Deckt ab |
+### 3.1 Rechte-Buchstaben (englisch, Bitmaske `int`)
+| Bit | Buchstabe | Name (EN / DE) | Deckt ab |
 |---|---|---|---|
-| 0 | Bauen / Build | `P` | Blöcke platzieren, Eimer ausgießen, SB-Baustab/Pads platzieren |
-| 1 | Abbauen / Break | `B` | Blöcke abbauen, Eimer füllen, SB Hammer/Vein/Strip/Laser, Feldtrampeln durch Spieler |
-| 2 | Container / Containers | `C` | Truhen, Fässer, Öfen, Trichter-GUI, Shulker, Lesepult, Bücherregal, Topf; Rahmen & Rüstungsständer; Gegenstände aufheben, Attractor |
-| 3 | Benutzen / Use | `U` | Türen, Falltüren, Tore, Knöpfe, Hebel, Druckplatten, Glocke, Werkbänke/Amboss/Zaubertisch, Betten |
-| 4 | Redstone / Redstone | `R` | Verstärker, Komparator, Notenblock, Tageslichtsensor, Crafter, Kolben-/Schaltungen einstellen |
-| 5 | Tiere & Fahrzeuge / Animals & vehicles | `A` | Tiere/Dorfbewohner füttern, scheren, anleinen, handeln, verletzen; Boote/Loren setzen, fahren, abbauen |
-| 6 | Verwalten / Manage | `M` | Personen hinzufügen/entfernen und Rechte vergeben (§3.4) |
+| 0 | **B** | Build / Bauen | Blöcke platzieren, Eimer ausgießen, SB-Baustab/Pads platzieren |
+| 1 | **D** | Destroy / Abbauen | Blöcke abbauen, Eimer füllen, SB Hammer/Vein/Strip/Laser, Feldtrampeln durch Spieler |
+| 2 | **U** | Use / Benutzen | Türen, Falltüren, Tore, Knöpfe, Hebel, Druckplatten, Glocke, Werkbänke/Amboss/Zaubertisch, Betten |
+| 3 | **C** | Container / Container | Truhen, Fässer, Öfen, Trichter-GUI, Shulker, Lesepult, Bücherregal, Topf, Rahmen, Rüstungsständer, Aufheben, Attractor |
+| 4 | **R** | Redstone / Redstone | Verstärker, Komparator, Notenblock, Tageslichtsensor, Crafter einstellen |
+| 5 | **A** | Animals & vehicles / Tiere & Fahrzeuge | füttern, scheren, anleinen, handeln, verletzen; Boote/Loren setzen, fahren, abbauen |
+| 6 | **M** | Manage / Verwalten | Code der Urkunde ändern (Grenzen §3.5), Urkunden-Kopie benutzen |
 
-- `ALL = 0b1111111`, `LEGACY = ALL & ~M` (alles außer Verwalten = bisheriges „vertraut“).
-- Ernten (Getreide ohne Abbaurecht) ist **nicht** dabei → offene Frage F2.
-- Zuordnung der Hooks über Block-/Entity-Tags `simpletweaks:claim_use`, `claim_redstone`, `claim_containers`
-  (anpassbar per Datapack); Block mit `MenuProvider`/`Container`-Block-Entity → Container; sonst `useItemOn` mit Block-Item
-  in der Hand → Bauen; übriges `useItemOn` → Benutzen. Unbekannte Fälle **streng**: Bauen **und** Abbauen nötig.
-- PvP/Schaden an Spielern im Claim: wie bisher (jedes Mitglied mit Rechten ≠ 0 gilt wie früher „vertraut“).
+Kollisionsprüfung: sieben verschiedene Buchstaben, keiner ist zugleich Rollen-Präfix (`@`) oder Abschnittszeichen
+(`[`). Groß/klein egal (`bdu` = `BDU`), doppelte Buchstaben sind ein Hinweis, kein Fehler. Kein Buchstabe = Person
+ohne Rechte (Zeile wird beim Speichern entfernt, Hinweis). Unbekannter Buchstabe (z. B. `P`) = Fehler mit Vorschlag.
+`ALL = BDUCRAM`, `LEGACY = BDUCRA` (= bisher „vertraut“).
 
-### 3.2 Claim-Datensatz
-`Claim(owner UUID, Map<UUID,Integer> members, int everyone)` – `everyone` = Rechte für alle Spieler (Zeile „Alle“,
-Standard 0; z. B. nur „Benutzen“ für einen Laden). `members.size() ≤ maxTrustedPlayers`, Owner nie in `members`,
-Null-UUID verboten, Maske `& ALL`, Einträge mit 0 werden entfernt.
-
-### 3.3 Geltungsbereich
-Rechte bleiben **pro Chunk gespeichert** (kein Rechte-Gewinn durch Migration). Die GUI schreibt auf einen Bereich:
-- **Grundstück** (Standard): alle über Kanten verbundenen Chunks desselben Besitzers in derselben Dimension
-  (Flood-Fill, ≤ `maxClaimsPerPlayer` ≤ 256).
-- **Dieser Chunk** oder **Alle meine Claims** (alle Dimensionen).
-Gemischte Bereiche (Chunks mit unterschiedlichen Listen) zeigt die GUI als „gemischt“ (Kästchen halb gefüllt); Speichern
-setzt nur geänderte Zellen, unveränderte Zellen bleiben je Chunk wie sie sind.
-
-### 3.4 Verwalten
-Verwalter dürfen Personen **ohne** Verwalten-Recht hinzufügen, ändern, entfernen und nur Rechte vergeben, die sie selbst
-haben. Sie dürfen keine Verwalter ernennen, nicht `unclaim`en, „Alle“ nicht ändern, den Besitzer nicht ändern. Nur der
-Besitzer vergibt `M` (bisheriger Grundsatz „Trust never delegates administration“ bleibt für den Besitzer-Teil).
-
-### 3.5 Ledger v2 und Migration
-- Datei bleibt `simpletweaks-claims.json`, `version: 2`, Zeile `{dimension, chunk, Owner, Members:[{id, rights}], Everyone}`.
-- Lesen v1: jeder `Whitelist`-Eintrag → `LEGACY` (alles außer Verwalten), `Everyone 0`. Gleiches für alte NBT-Dateien.
-  Damit ändert sich für bestehende Welten **nichts** am Verhalten.
-- Vor dem ersten v2-Schreiben einmalig Kopie `simpletweaks-claims.v1.json` (atomar, nie überschrieben).
-- Unbekannte Bits/Version > 2 → `locked` wie heute (fail closed). Downgrade auf alte Mod-Fassung → alte Fassung sperrt
-  (liest v2 nicht) – Kopie v1 liegt bereit; im Changelog nennen.
-
-### 3.6 Rollen (Vorlagen in der GUI, keine gespeicherte Rolle)
-| Rolle | Rechte |
-|---|---|
-| Gast | Benutzen |
-| Helfer | Benutzen, Container, Tiere & Fahrzeuge |
-| Mitbewohner (Standard bei „Hinzufügen“ und `/claim trust`) | alles außer Verwalten (= bisher „vertraut“) |
-| Verwalter (nur Besitzer) | alles |
-Rollen sind nur Knöpfe, die Kästchen setzen; gespeichert wird die Maske.
-
-### 3.7 Urkunden-Item
-- Umbenennen „Claim-Urkunde“ / „Claim Deed“ (ohne „Legacy“), Stapel 1 (trägt Daten), in den Kreativ-Tab von Simple Tweaks.
-- Komponente `simpletweaks:deed_template = {members:[{id, name, rights}], everyone}` (≤ 65 Einträge, Name ≤ 16 Zeichen,
-  nur Anzeige/Vorlage, **nie Berechtigung**). Alte Stapel ohne Komponente bleiben gültig (leere Vorlage).
-- Klasse `LegacyDeed` → `ClaimDeedItem` (Registry-ID bleibt `simpletweaks:claim_deed`, keine Alias-Änderung nötig).
-
-## 4. Beschaffung im Survival
-- **Rezept formlos:** Papier + Tintenbeutel + Honigwabe (Siegelwachs) → 1 Claim-Urkunde. Nur Vanilla-Material (Regel 1/5),
-  keine SB-Variante nötig. Die Urkunde wird beim Beanspruchen **nicht** verbraucht (Werkzeug wie die Blaupause);
-  Begrenzung über `maxClaimsPerPlayer`/`globalCap`/Abklingzeit. → F3.
-- **Kopie:** formloses Sonderrezept „beschriebene Urkunde + leere Urkunde → 2 Urkunden mit gleicher Vorlage“ (wie Buch-
-  Kopie; Kartentisch-Weg der Blaupause liegt in SB und ist hier nicht nutzbar). Rezeptbuch-Freischaltung über Papier.
-- Rezept-Advancement `advancement/recipes/misc/claim_deed.json`, JEI-Info-Text.
-
-## 5. GUI (Variante A, empfohlen) – Layout 256 × 196 px (GUI-Skala 1)
+### 3.2 Syntax
 ```
-┌ Claim-Urkunde ─ Grundstück „Nord“ · 5 Chunks · Overworld ─────────── [?] ┐
-│ [Grundstück ▾]  Besitzer: Ouzzi                                          │
-│ ┌ Person ───────────── P  B  C  U  R  A  M ┐  ┌ Hinzufügen ────────────┐ │
-│ │ ★ Alle                □  □  □  ■  □  □  · │  │ [Name/UUID______] [+]  │ │
-│ │ ☺ Alex                ■  ■  ■  ■  ■  ■  □ │  │ Online:                │ │
-│ │ ☺ Steve               □  □  ■  ■  □  ■  □ │  │  ☺ Lena     [+]        │ │
-│ │ ☺ Mira (offline)      ■  ■  ■  ■  ■  ■  ■ │  │  ☺ Tom      [+]        │ │
-│ │ …  (Scrollleiste, max 8 sichtbar)         │  │ Rolle für Neue:        │ │
-│ └───────────────────────── 4 / 8 Personen ─┘  │ [Mitbewohner ▾]        │ │
-│ Zeile Rechtsklick: Gast | Helfer | Mitbewohner | Verwalter | Entfernen    │ │
-│ [Vorlage anwenden] [Als Text kopieren]               [Abbrechen] [Fertig] │
-└───────────────────────────────────────────────────────────────────────────┘
+# Claim-Urkunde von Ouzzi
+# Rechte: Buchstaben einfach aneinanderreihen hinter Name oder UUID, z. B.  Steve: BDU
+#   B Build  D Destroy  U Use  C Container  R Redstone  A Animals/vehicles  M Manage
+# Rollen statt Buchstaben: @guest (U)  @helper (UCA)  @member (BDUCRA)  @manager (alles)
+# Jeder Spieler: *: U      Nur ein Chunk: [x,z] darunter Zeilen      # = Kommentar
+*: U
+Steve: BDU
+Alex: @member
+069a79f4-44e9-4726-a5be-fca90e38aaf5: UC
+[12,-4]
+Steve: BDUC
 ```
-- Kasten `UiBoxes.box` in Papier/Siegel-Palette (`UiPalette.derived(#C9B48A)` o. ä.), folgt `UiBrightness`.
-- Liste im hellen Feld (`insetColored`, dunkle Schrift), Spaltenköpfe = `UiSymbols`-Pixel-Symbole (Kelle, Spitzhacke,
-  Truhe, Tür, Redstone-Fackel, Pfote/Lore, Siegel) mit Tooltip „Bauen – Blöcke platzieren …“.
-- Kästchen: neuer simplelib-Baustein **`UiCheckbox`** (eingelassenes 9×9-Feld, Pixel-Haken; Zustände an/aus/gemischt/
-  gesperrt-grau). Klick schaltet, Klick auf Spaltenkopf schaltet die ganze Spalte, Rechtsklick auf Zeile =
-  `UiContextMenu` mit Rollen und „Entfernen“ (Zweitklick-Bestätigung `UiBookmarks.confirm`).
-- Gesperrt/grau (`greyOut`): `M`-Spalte für Verwalter, alles für Nicht-Besitzer ohne `M`, „Alle“-Zeile `M`.
-- Geltungsbereich-Knopf oben links (Chunk / Grundstück / Alle meine Claims).
-- Hinzufügen: Textfeld (Online-Name oder volle UUID, wie `/claim trust`) + Online-Liste (≤ 64 Namen, ohne sich selbst
-  und ohne vorhandene Mitglieder). Offline-Namen nur aus dem **Server-Namens-Cache**, nie Netzwerk-Abfrage.
-- Wildnis: statt Liste ein Feld „Hier ist kein Claim“ + Knopf **„Chunk beanspruchen“** (= `/claim create`); die Vorlage
-  der Urkunde ist dann direkt editierbar und wird beim Beanspruchen angewendet.
-- Fremder Claim ohne `M`: nur Anzeige „Besitzer: X – du darfst: Benutzen, Container“ (hilft beim Verstehen, keine Liste
-  fremder Mitglieder).
-- Text-Export (Zwischenablage), Format eine Zeile je Person: `Alex: PBCURA` / `Alle: U` + Kopfzeile Grundstück.
-- Hilfe `[?]`: kurze Seite im Guide (TweaksGuide) statt eigenem Hilfe-Buch.
-- Variante B (Code-Form) ist im Mockup daneben gezeigt; wird nicht gebaut.
+- Zeile = `<Spieler>: <Buchstaben|@rolle>`; Spieler = Online-Name, Name aus dem Server-Namens-Cache oder volle UUID
+  (nie Netzwerk-Abfrage, gleiche Regel wie `/claim trust`). `*` = alle Spieler.
+- Oberer Teil gilt für **alle Claims des Besitzers**; `[x,z]` (Chunk-Koordinaten, Dimension = aktuelle, optional
+  `[nether 3,7]`) beginnt einen Abschnitt, der für diesen Chunk die Zeilen **ersetzt** (je Person: Abschnitt vor oberem Teil).
+- Der Kommentarkopf wird bei jeder neuen Urkunde vorbelegt und bleibt stehen (wie Vanilla-Buch-Vorlage).
+- Speichern normalisiert: Namen bleiben lesbar, der Server merkt sich UUIDs; Anzeige mit aktuellem Namen.
 
-## 6. Netzwerk und Server-Sicherheit
-- `ClaimDeedOpenPayload` (S→C, Antwort auf Rechtsklick): Modus (eigen/verwalten/fremd/wildnis), Bereich, Chunkzahl,
-  Besitzername, Mitglieder `(uuid, name ≤16, rights, gemischt-Maske)` ≤ 65, Online-Namen ≤ 64, `revision` (Hash der
-  Rechte im Bereich), Grenzen (maxTrusted). Keine fremden Daten außerhalb des Bereichs.
-- `ClaimRightsEditPayload` (C→S): `slot`, `scope`, `revision`, Änderungen `List<(uuid, setMask, clearMask)>` ≤ 66,
-  `adds List<String name|uuid>` ≤ 8, `everyone (set/clear)`, `saveTemplate bool`. Codec mit festen Längen
-  (`stringUtf8(36)`, `list(…, 66)`), sonst Verbindungsabbruch.
-- `ClaimCreatePayload` (C→S) nur Slot; Server ruft vorhandenes `Claims.claim`.
-- Server prüft **alles neu**: Spieler hält eine Urkunde im Slot (wie Blaupause), steht im Bereich bzw. hat Reichweite,
-  ist Besitzer oder Verwalter (§3.4), `revision` stimmt (sonst „Daten haben sich geändert“ + neue Open-Antwort), Masken
-  `& ALL`, Cap `maxTrustedPlayers`, Null-UUID/Besitzer abgelehnt, Namen nur online/Cache, Abklingzeit
-  `mutationReady` (eine Speicherung = ein Commit, egal wie viele Kästchen), Claims nicht `locked`, Hauptschalter an.
-  Ein Commit pro Speichern für den ganzen Bereich (atomar, alles oder nichts).
-- Client sendet nur beim „Fertig“ (nicht je Klick); „Abbrechen“/Esc verwirft.
-- `/claim`-Befehle laufen über dieselbe Server-Methode `Claims.setRights(actor, scope, changes)`.
+### 3.3 Grenzen und Parser (`ClaimCode`, shared, ohne Client-Klassen)
+- ≤ 4096 Zeichen, ≤ 200 Zeilen, Zeile ≤ 96 Zeichen, ≤ `maxTrustedPlayers` (8, ≤64) Personen oben, ≤ 32 Abschnitte,
+  je Abschnitt ≤ `maxTrustedPlayers` Personen, nur Chunks des Besitzers.
+- Der Client parst live für die Statuszeile („Code OK“ / „Zeile 7: unbekannter Name ‚Tomm‘“). **Der Server parst neu und
+  entscheidet**; Namen löst nur der Server auf. Antwort `ClaimCodeResultPayload(ok, List<(line, key, arg)>)` ≤ 16 Fehler.
+- Fehlerarten: Syntax, unbekannter Buchstabe, unbekannter Name/UUID, Null-UUID, Besitzer selbst, zu viele Personen,
+  fremder/ungültiger Chunk im Abschnitt, Abschnitt doppelt, M ohne Besitzerrecht, Rechte über eigene (Verwalter).
 
-## 7. Befehle (Zusammenspiel)
-- `/claim trust <Spieler> [rolle|rechte]` – ohne Angabe Mitbewohner (= bisheriges Verhalten), Rolle `guest|helper|
-  member|manager` oder Buchstaben `PBCURAM`; `/claim untrust <Spieler>` unverändert.
-- `/claim rights <Spieler> <+P-B…>` ändert Einzelrechte; `/claim info` zeigt Mitglieder + Rechte des Chunks.
-- Neues optionales Argument `scope` (`chunk|plot|all`, Standard `chunk` – Befehle bleiben rückwärtskompatibel).
-- Admin-Befehle unverändert; `listall` zeigt Mitgliederzahl.
+### 3.4 Datenmodell (Ledger v2)
+- Neu je Besitzer ein **Landrecht**: `Land(owner, Map<UUID,Integer> members, int everyone, Map<Key, Section> sections,
+  String code, int budget)`; `code` = gespeicherter Quelltext (Kommentare bleiben erhalten), Rechte daraus abgeleitet.
+- Chunk-Zeilen bleiben `{dimension, chunk, Owner}`; die Rechte-Abfrage: Abschnitt des Chunks → sonst oberer Teil → sonst
+  `*` → sonst nichts. Besitzer immer alles.
+- Datei `simpletweaks-claims.json` `version: 2`: `claims[]` + `lands[]`. Größe bleibt unter 32 MiB
+  (10000 Claims + ≤10000 Länder × 4 KiB Code ≈ 40 MiB Spitze → Code-Grenze je Land 4096, `globalCap` begrenzt Länder;
+  Grenze `MAX_BYTES` auf 64 MiB anheben, offene Frage F9).
 
-## 8. Dateien (Umsetzung)
-- `modules/simpletweaks/shared/java/.../claims/ClaimRights.java` (neu: Bits, Rollen, Text-Export, Parser für Befehle),
-  `ClaimStore.java` (v2 + Migration + v1-Kopie), `Claims.java` (`allowed(…, right)`, `setRights`, Bereich-Flood-Fill),
-  `ClaimCommands.java`, Hook-Zuordnung in `ClaimGameModeMixin`, `ClaimPlayerMixin`, `ClaimBlockItemMixin`,
-  `ClaimBucketMixin`, `ClaimBoatMixin`, `ClaimPickupMixin`, `ClaimLevelMixin`, `ClaimProjectileMixin`.
-- `LegacyDeed.java` → `ClaimDeedItem.java`; `net/` (3 Payloads + `ClaimNetwork`), `client/ClaimDeedScreen.java`.
-- Loader: Fabric `client`-Entrypoint + Payload-Registrierung, NeoForge Client-Event + Payload; Forge erst auf Anforderung
-  (Memory „Ports erst auf Anforderung“).
-- simplelib bündeln (Regel 6a): `modules.json` `requires: [simplelib]`, Fabric `include`, NeoForge `jarJar`,
-  `fabric.mod.json`/`neoforge.mods.toml` `>=0.2.0`; Standalone-Target anpassen.
-- simplelib: `UiCheckbox` (+ Eintrag in `docs/ai/UI-BAUSTEINE.md`), 7 neue `UiSymbols` falls nicht vorhanden.
-- Framework `Protection`: `enum Action {PLACE, BREAK, CONTAINER, USE, REDSTONE, ENTITY, ANY}` + Überladung
-  `allows(server, target, action)`; `Check` bekommt `default allows(target, action) → allows(target)`. Alte Aufrufe =
-  `ANY` = streng (Bauen **und** Abbauen). SB `WorldPermissions` gibt die Aktion mit (Hammer → BREAK, Baustab → PLACE,
-  Attractor → CONTAINER, `mayAffectEntity` → ENTITY). Dimensions-Adapter/`mayTeleport` bleibt Mitgliedschaft ≠ 0.
-- Daten: Rezept + Kopier-Rezept-Serializer, Tags `claim_use/claim_redstone/claim_containers`, Lang EN/DE,
-  Item-Modell + Textur (Leer / mit Vorlage), `wiki/manual.json`, `TweaksGuide`, Doku `CLAIMS-*.md`.
+### 3.5 Verwalten (M)
+Verwalter dürfen den Code ändern, aber nur Personen **ohne M** hinzufügen/ändern/entfernen und nur Rechte vergeben, die sie
+selbst haben; `*`-Zeile, M-Vergabe, Abschnitte für Chunks und `unclaim` bleiben dem Besitzer. Der Server vergleicht alten
+und neuen Zustand und lehnt jede Änderung außerhalb dieser Grenzen ab (Fehlerzeile „nur der Besitzer“).
 
-## 9. Tests
-- JUnit (ohne MC): `ClaimRights` (Masken, Rollen, Export, Befehls-Parser), Ledger-Migration v1 → v2 (Whitelist → LEGACY,
-  v1-Kopie, Unbekannte Bits → locked), Bereich-Flood-Fill (Lücken, Ecken, Dimensionsgrenze).
+### 3.6 Migration v1 → v2
+- Je Besitzer: haben alle seine Chunks dieselbe `Whitelist`, wird sie oberer Teil mit `BDUCRA`; sonst bekommt jeder Chunk
+  mit eigener Liste einen `[x,z]`-Abschnitt mit genau dieser Liste und der obere Teil bleibt leer.
+  **Kein Rechte-Gewinn**, Verhalten bleibt gleich. Der Code wird mit Kommentarkopf erzeugt.
+- Budget (§7): `max(startChunks, Anzahl vorhandener Claims)` – niemand verliert Land.
+- Vorher einmalig Kopie `simpletweaks-claims.v1.json`; unbekannte Version/Bits → `locked` (fail closed).
+
+## 4. Urkunde (Item, Vanilla-nah)
+- „Claim-Urkunde“ / „Claim Deed“ (statt „Legacy Claim Deed“), Registry-ID bleibt `simpletweaks:claim_deed`, Stapel 1,
+  Kreativ-Tab Simple Tweaks. Optik wie Vanilla-Papier/Buch mit rotem Wachssiegel (Textur-Abnahme F7).
+- **Rezept formlos:** Papier + Tintenbeutel + Honigwabe → 1 leere Urkunde (nur Vanilla-Material).
+- **Leer:** Rechtsklick → Bildschirm „Hier beanspruchen“ (= `/claim create`); danach ist die Urkunde an den Besitzer
+  gebunden (Komponente `simpletweaks:deed = {owner, ownerName, generation}`; Anzeige, **keine** Berechtigung).
+- **Gebunden:** Rechtsklick öffnet den Code-Editor des Landes. Wer weder Besitzer noch M hat, sieht nur
+  „Urkunde von X – du darfst hier: U C“.
+- Die Urkunde wird beim Beanspruchen nicht verbraucht; Land begrenzt das Budget (§7).
+- **Kopieren (Vanilla wie Karten/Bücher):** Werkbank, formlos: gebundene Urkunde + leere Urkunde → beide gebunden
+  (Original bleibt, wie `MapCloningRecipe`/`BookCloningRecipe`). `generation` Original → Kopie → Kopie einer Kopie;
+  Kopien einer Kopie sind nicht möglich (wie Vanilla-Bücher), damit Kopien nachvollziehbar bleiben.
+  Rezept kennt den Spieler nicht; deshalb gilt: kopieren darf jeder mit einer gebundenen Urkunde, **wirken** tut die
+  Kopie nur bei Besitzer oder M (Server prüft beim Öffnen/Speichern). Eine weitergegebene Kopie ohne M zeigt nur Lesesicht.
+
+## 5. Editor (Urkunde) – Vanilla-nah
+```
+┌ Claim-Urkunde von Ouzzi ─────────────── Land 6 / 8 Chunks ─┐
+│ ┌ Code (Vanilla MultiLineEditBox, Schrift wie Buch) ──────┐ │
+│ │ # Rechte: Buchstaben aneinanderreihen …  Steve: BDU      │ │
+│ │ *: U                                                    │ │
+│ │ Steve: BDU                                              │ │
+│ │ Alex: @member                                           │ │
+│ └─────────────────────────────────────────────────────────┘ │
+│ ✔ Code OK · 3 Personen · 1 Abschnitt          412 / 4096    │
+│ Online: [Lena +] [Tom +]        (fügt „Name: U“ ein)        │
+│ [?]  [Kopieren] [Einfügen]                [Abbrechen] [Fertig] │
+└─────────────────────────────────────────────────────────────┘
+```
+- Kasten `UiBoxes.box` (simplelib) in Papierfarbe, folgt `UiBrightness`; Textfeld = Vanilla `MultiLineEditBox`
+  (keine Syntaxfarben in Phase 1, Vanilla-nah, wenig Aufwand; Farben optional Phase 3).
+- Statuszeile unter dem Feld (wie Blaupause „Code OK“ / Fehler mit Zeile, Klick springt zur Zeile).
+- Online-Knöpfe fügen eine Zeile `Name: U` ein (Hilfe gegen Tippfehler bei Namen).
+- Kopieren/Einfügen: Zwischenablage (Text-Export/Import ist der Hauptweg zum Übertragen).
+- `[?]` öffnet die Guide-Seite (TweaksGuide) mit Buchstaben, Rollen, Beispielen.
+- Senden nur bei „Fertig“; Server-Antwort mit Fehlern → Editor bleibt offen, Fehler markiert.
+
+## 6. Claim-Tisch (neuer Block)
+- **Zweck:** zeigt alle aktiven Claims (wer hat was), dient als Ort zum **Erweitern** (§7). Vanilla-Vorbild Kartentisch.
+- **Rezept:** wie Kartentisch, oben Papier + Urkunde statt 2 Papier: `Papier, leere Urkunde / 4 Bretter` (geformt 2×3) →
+  1 Claim-Tisch. Abbaubar mit Axt, Optik Holztisch mit Karte und Siegel.
+- **Empfehlung Ansicht: Karte mit Liste daneben** (Reiter „Karte“ | „Erweitern“).
+  - Karte: Chunk-Raster um den Tisch, je Besitzer eine Farbe (aus UUID abgeleitet, wie Strukturen in Simple Maps), eigenes
+    Land hervorgehoben, Hover = Besitzer + Chunk-Koordinaten, Ziehen/Zoom 3 Stufen (8/16/32 Chunks Radius).
+    **Ohne Gelände** (Simple Tweaks hat keine Kacheln); das Gelände ist Aufgabe von Simple Maps (§8).
+  - Liste: Besitzer, Anzahl Chunks, Dimensionen; Klick zentriert die Karte; Filter „nur meine“.
+  - Eigene Zeile: Budget „6 / 8 Chunks“, nächste Stufe.
+- **Datenschutz (Server-Config `claimVisibility`):** `all` (Standard: alle Claims mit Besitzername sichtbar – Besitzer will
+  „wer was geclaimt hat“), `owners_hidden` (Umrisse sichtbar, Name „Fremder Claim“), `own` (nur eigene + Claims, auf
+  denen man Rechte hat), `off` (Tisch zeigt nur Erweitern). **Mitgliederlisten/Codes fremder Länder werden nie gesendet.**
+  OP sieht immer `all`.
+- **Sync-Grenzen:** Anfrage `ClaimAreaRequest(dimension, minChunkX, minChunkZ, w, h)` mit `w,h ≤ 64`; Antwort
+  `ClaimAreaPayload` = Besitzer-Palette (≤ 255 Einträge: UUID, Name ≤16, Farbe) + Zellen als Byte-Index (≤ 4096 Bytes,
+  Lauflängen-kodiert). Höchstens 4 Anfragen/s je Spieler (Token-Bucket wie Blaupause), Liste seitenweise je 50 Einträge.
+  Nur während das Menü offen ist und der Spieler ≤ 8 Blöcke vom Tisch steht; Dimension = Dimension des Tisches.
+
+## 7. Erweiterung mit steigenden Kosten
+- **Budget je Spieler** (im Ledger, `Land.budget` = erlaubte Chunks). Neue Spieler: `startChunks` (Standard 4).
+  Jede Stufe erhöht das Budget; je größer das Land, desto teurer. Budget gehört dem Spieler, nicht der Urkunde
+  (Kopien verdoppeln nichts). `unclaim` gibt keine Kosten zurück, das Budget bleibt.
+- **Bedienung (Vanilla-nah wie Kartentisch/Amboss):** Claim-Tisch, Reiter „Erweitern“: Slot Urkunde + Slot Material →
+  Ergebnis = Urkunde mit Text „Land: 8 → 12 Chunks“, dazu XP-Kosten wie beim Amboss. Beim Herausnehmen
+  (`ResultSlot.onTake`, Server, Spieler bekannt) wird das Material verbraucht und das Budget im Ledger erhöht
+  (atomar, erst nach erfolgreichem Speichern gebucht; scheitert das Speichern, bleibt das Material). Nur der Besitzer
+  kann mit seiner Urkunde erweitern (M reicht nicht – Kosten trägt der Besitzer, F11).
+- **Vorschlag Kostenkurve (Server-Config `expansionTiers`):**
+
+| Stufe | Land danach | Material | XP-Level |
+|---|---|---|---|
+| Start | 4 Chunks | Urkunde (Papier, Tintenbeutel, Honigwabe) | – |
+| 1 | 6 | 8 Kupferbarren | 1 |
+| 2 | 8 | 8 Eisenbarren | 2 |
+| 3 | 12 | 8 Goldbarren | 3 |
+| 4 | 16 (= bisheriges Limit) | 4 Diamanten | 5 |
+| 5 | 24 | 8 Diamanten + 8 Smaragde | 8 |
+| 6 | 32 | 2 Netheritbarren | 10 |
+| 7 | 48 | 4 Netheritbarren | 15 |
+| 8 | 64 | 1 Netherstern | 20 |
+Kosten je Chunk steigen damit von ~4 Kupfer auf ~1/16 Netherstern; die Kurve ist absichtlich konvex.
+
+- **Config** (`config/simpletweaks-claims.json`, serverweit, Neustart, validiert wie bisher):
+  `startChunks` 4 (1..256), `expansionTiers` Liste `{chunks, items:[{id, count}], levels}` (≤ 32 Stufen, `chunks` streng
+  steigend, Item-IDs müssen existieren, Anzahl 1..64·9), `expansionEnabled` true. `false` = altes Verhalten: Budget =
+  `maxClaimsPerPlayer`.
+- **Zusammenspiel mit Limits:** `maxClaimsPerPlayer` bleibt **harte Obergrenze** (Standard von 16 auf 64 angehoben, ≤ 256);
+  wirksam ist `min(budget, maxClaimsPerPlayer)`. Bestehende Server mit `16` in der Datei bleiben bei 16 (Datei gewinnt) –
+  Stufen über 16 werden dann im Tisch grau mit „Server-Grenze“ angezeigt. `globalCap`, Abklingzeit, Spawnpuffer,
+  Weltgrenze, Dimensionsliste unverändert. OP mit `opBypass` braucht kein Budget.
+- Befehle: `/claim budget` (eigenes Budget + nächste Stufe), `/claim admin budget <Spieler> <n>` (OP4).
+
+## 8. Simple Maps zeigt Claims
+- **Kopplung nur über simplelib** (Regel 6a, keine Importe zwischen Maps und Tweaks):
+  `SimpleLibApi.registerClaimView(ClaimView)` / `SimpleLibApi.claimView()` (Optional). `ClaimView` (serverseitig):
+  `ownersIn(ServerLevel, minChunkX, minChunkZ, w, h, ServerPlayer viewer)` → Palette + Zellen (gleiches Format wie §6),
+  bereits nach `claimVisibility` gefiltert. Simple Tweaks registriert beim Serverstart, wenn Claims aktiv sind.
+- Simple Maps fragt den Dienst beim Senden des Kartenzustands ab und schickt ein eigenes `ClaimOverlayPayload`
+  (Maps-Namensraum). Ohne Simple Tweaks: Dienst leer → keine Ebene, kein Knopf. Ohne Simple Maps: nichts passiert.
+- Darstellung im `WayfinderScreen`: neue Ebene `drawClaims` nach den Kacheln, vor Strukturen: halbtransparente Füllung
+  (25 %) + 1-px-Umriss an Besitzergrenzen, Farbe je Besitzer (gleiche Ableitung wie Claim-Tisch), eigenes Land mit
+  hellerem Umriss. Tooltip beim Hover: „Claim von Steve“ (bzw. „Fremder Claim“ bei `owners_hidden`). Werkzeugknopf
+  „Claims“ an/aus wie „Strukturen“ (`UiBookmarks.button`), Zustand lokal.
+- Nur sichtbarer Bereich, gleiche Grenzen wie §6 (≤ 64×64 Chunks je Anfrage, ≤ 4/s), Cache im Client je Karte, verfällt
+  beim Schließen. Gerahmte Karten (Item-Rahmen) zeigen keine Claims (keine Last für Zuschauer), F12.
+- simplelib-Version anheben (`>=0.3.0` bei beiden Nutzern), Test im Standalone-Target beider Mods.
+
+## 9. Netzwerk und Server-Sicherheit (Zusammenfassung)
+| Paket | Richtung | Grenzen |
+|---|---|---|
+| `ClaimDeedOpenPayload` | S→C | Modus, Besitzername, Code ≤ 4096, Budget, Online-Namen ≤ 64 × 16 |
+| `ClaimCodeEditPayload(slot, code, revision)` | C→S | `stringUtf8(4096)`, Slot gültig, Urkunde gebunden |
+| `ClaimCodeResultPayload` | S→C | ≤ 16 Fehler |
+| `ClaimCreatePayload(slot)` | C→S | ruft `Claims.claim` |
+| `ClaimAreaRequest/ClaimAreaPayload` | C↔S | w,h ≤ 64, Palette ≤ 255, ≤ 4/s, nur am Tisch |
+| `ClaimOverlayPayload` (Maps) | S→C | wie oben, nur mit offener Karte |
+Server prüft immer neu: Urkunde im Slot und gebunden, Besitzer oder M (§3.5), `revision` (Hash des Landes; sonst
+„Daten haben sich geändert“), vollständiges Parsen, Namensauflösung nur online/Cache, Grenzen §3.3, Abklingzeit
+(`mutationReady`, ein Commit je Speichern), Hauptschalter an, Ledger nicht `locked`. Alles oder nichts.
+
+## 10. Befehle
+- `/claim trust <Spieler> [@rolle|Buchstaben]` – ohne Angabe `@member` (= bisheriges Verhalten); ändert die Zeile im Code
+  (oberer Teil); `/claim untrust <Spieler>` entfernt sie.
+- `/claim code` – zeigt den Code im Chat (klickbar „Kopieren“); `/claim info` – Rechte am aktuellen Chunk.
+- `/claim budget`, `/claim admin budget …` (§7); übrige Befehle unverändert.
+- Befehle und Editor schreiben über dieselbe Server-Methode `Claims.applyCode(actor, newCode)`.
+
+## 11. Hook-Zuordnung und Framework
+- Spieler-Hooks fragen ein Recht ab: `destroyBlock` → D; `useItemOn`: Block mit Container/MenuProvider → C, Tags
+  `simpletweaks:claim_redstone` → R, `simpletweaks:claim_use` (Türen, Schalter, Arbeitsblöcke, Betten) → U, Block-Item in
+  der Hand/Platzieren → B, sonst **streng** B+D. Eimer: ausgießen B, füllen D. Entities: Tiere/Fahrzeuge → A,
+  Rahmen/Rüstungsständer → C, Aufheben → C. PvP im Claim: wie bisher (jedes Recht ≠ 0 = früher „vertraut“).
+- Framework `Protection`: `enum Action {BUILD, DESTROY, USE, CONTAINER, REDSTONE, ENTITY, ANY}` + Überladung
+  `allows(server, target, action)`, `Check` mit Default auf `allows(target)`; alte Aufrufe = `ANY` = B+D (streng).
+  SB `WorldPermissions` gibt die Aktion mit (Hammer → DESTROY, Baustab → BUILD, Attractor → CONTAINER,
+  `mayAffectEntity` → ENTITY). Automation/Umgebung (gleicher Besitzer) unverändert.
+
+## 12. Dateien
+- simpletweaks: `claims/ClaimRights.java` (Buchstaben, Rollen), `claims/ClaimCode.java` (Parser, Fehler, Normalisieren),
+  `ClaimStore.java` (v2, Länder, Migration, v1-Kopie), `Claims.java` (`allowed(…, right)`, `applyCode`, Budget),
+  `ClaimCommands.java`, `ClaimConfig.java` (`startChunks`, `expansionTiers`, `claimVisibility`, `expansionEnabled`),
+  Mixins aus §11; `LegacyDeed.java` → `deed/ClaimDeedItem.java`, `deed/DeedCloningRecipe.java`;
+  `table/ClaimTableBlock.java` + `ClaimTableMenu.java` (Erweitern-Slots) + Block-Entity nicht nötig;
+  `net/*` (Pakete §9), `client/ClaimDeedScreen.java`, `client/ClaimTableScreen.java`; Fabric-`client`-Entrypoint,
+  NeoForge-Client-Event; Forge erst auf Anforderung.
+- simplelib: `SimpleLibApi.ClaimView` + `registerClaimView/claimView`; Version 0.3.0; `UI-BAUSTEINE.md`.
+- simplemaps: `net/ClaimOverlayPayload.java`, `client/WayfinderScreen#drawClaims` + Knopf, Lang.
+- framework: `Protection.Action`; SB `api/WorldPermissions` Aktion durchreichen.
+- Daten: Rezepte (Urkunde, Kopie-Serializer, Claim-Tisch), Tags, Loot-Table Tisch, Modelle/Texturen (Urkunde leer/
+  gebunden, Tisch), Lang EN/DE, `modules.json` (`simpletweaks requires simplelib`), Mod-Metadaten, Wiki, Guide.
+
+## 13. Tests
+- JUnit (ohne MC): `ClaimCode` (jede Fehlerart mit Zeile, Rollen, `*`, Abschnitte, Groß/klein, Grenzen 4096/200/96,
+  Normalisieren), Migration v1 → v2 (gleiche Listen → oberer Teil; verschiedene → Abschnitte; kein Rechte-Gewinn; Budget),
+  Config-Validierung `expansionTiers`, Farbe je Besitzer stabil, Lauflängen-Kodierung Zellen.
 - GameTests (Fabric + NeoForge 26.3, Filter `*claim*`):
-  - je Recht: Mitglied **mit** nur diesem Recht darf genau diese Aktion, **ohne** wird abgelehnt (Platzieren, Abbauen,
-    Truhe öffnen, Tür, Hebel, Verstärker, Schaf scheren, Boot setzen), Doppeltruhe über Chunkgrenze, Bett.
-  - „Alle“-Zeile (Fremder darf nur Tür), Verwalter darf keinen Verwalter ernennen / keine fehlenden Rechte vergeben.
-  - Payload: falscher Slot, keine Urkunde, fremder Claim ohne M, veraltete `revision`, zu lange Liste, Null-UUID,
-    Abklingzeit, `locked` – alles abgelehnt, Ledger unverändert.
-  - Bereich: Grundstück ändert alle verbundenen Chunks in einem Commit; „gemischt“ bleibt pro Chunk erhalten.
-  - Befehle: `trust` ohne Rolle = LEGACY, `rights +P-B`, `info`.
-  - Bestehende 61 Claim-GameTests unverändert grün (Migration = gleiches Verhalten).
-  - SB-Filter `*attractor*`, `*hammer*`, `*wand*` mit Aktionsarten.
-- Client-Test (`clienttest`): Screen öffnet, Kästchen klicken, Fertig sendet; Screenshot hell/dunkel nach `previews/`.
-- Standalone-Target simpletweaks (+ simplelib) grün.
+  - je Buchstabe: mit nur diesem Recht genau diese Aktion erlaubt, ohne abgelehnt (Platzieren, Abbauen, Tür, Truhe,
+    Verstärker, Schaf, Boot); Abschnitt `[x,z]` ersetzt oberen Teil; `*`-Zeile.
+  - Verwalter: kein M vergeben, keine fremden Rechte, kein `*`, keine Abschnitte.
+  - Edit-Paket: falscher Slot, leere/fremde Urkunde, Kopie ohne M, veraltete `revision`, 4097 Zeichen, unbekannter Name,
+    Abklingzeit, `locked` → abgelehnt, Ledger unverändert; Fehlerliste mit richtiger Zeile.
+  - Kopie: Werkbank gebunden + leer → zwei; Kopie der Kopie nicht möglich; Kopie öffnet bei M den Editor, sonst Lesesicht.
+  - Budget: Claim über Budget abgelehnt; Erweitern verbraucht Material + XP und hebt Budget; Speichern scheitert → kein
+    Verbrauch; `maxClaimsPerPlayer` deckelt; `expansionEnabled=false` = altes Verhalten.
+  - Claim-Tisch: Bereichsanfrage > 64 abgelehnt, Rate-Grenze, `claimVisibility own/owners_hidden` filtert, keine Codes.
+  - Bestehende 61 Claim-GameTests grün (Migration ändert nichts).
+  - Maps: Overlay nur mit Tweaks; Maps-Standalone ohne Ebene; Tweaks-Standalone ohne Maps.
+- Client-Tests: Editor öffnen/tippen/Fehlerzeile, Tisch-Karte, Maps-Knopf; Screenshots hell/dunkel nach `previews/`.
 
-## 10. Wiki, Guide, Tooltip
-- Tooltip (AGENTS Punkt 14: nichts wiederholen, was sichtbar ist): „Rechtsklick: Urkunde öffnen“; mit Vorlage zusätzlich
-  „Vorlage: 3 Personen“. Keine Rechte-Liste im Tooltip (steht in der GUI).
-- Wiki `modules/simpletweaks/wiki/manual.json`: Abschnitt „Claim-Urkunde“ (Rezept, GUI, Rechte-Tabelle, Rollen,
-  Bereich, Kopie, Befehle), EN + DE; Guide-Seite in `TweaksGuide`; Questionary-Eintrag falls Schema es verlangt.
+## 14. Wiki, Guide, Tooltip
+- Tooltip (AGENTS 14): leer „Rechtsklick: Chunk beanspruchen“; gebunden „Urkunde von Ouzzi“ (+ „Kopie“). Kein Budget/
+  keine Rechte im Tooltip (stehen im Editor/Tisch).
+- Wiki `modules/simpletweaks/wiki/manual.json`: Urkunde, Rechte-Code (Buchstaben-Tabelle, Rollen, Beispiele), Kopieren,
+  Claim-Tisch, Erweiterung mit Tabelle, Befehle, Config; „mit Simple Maps: Claims auf der Karte“ (Regel 7).
+  Simple-Maps-Wiki: „mit Simple Tweaks: Claims-Ebene“. Guide-Seiten in TweaksGuide.
 
-## 11. Offene Fragen (mit Empfehlung)
-- **F1 Code-Import?** Empfehlung: nein, nur Text-Export; Übertragen über Vorlage/Kopie/Bereich.
-- **F2 Eigenes Recht „Ernten“** (reife Pflanzen ernten + neu säen ohne Abbaurecht)? Empfehlung: ja, als 8. Bit in Phase 2,
-  wenn der Besitzer es will; Phase 1 nicht.
-- **F3 Rezept/Verbrauch:** Empfehlung Papier + Tintenbeutel + Honigwabe, Urkunde wird nicht verbraucht.
-- **F4 Standard-Bereich:** Empfehlung „Grundstück“ (verbundene Chunks); Befehle bleiben bei „Chunk“.
-- **F5 Verwalten-Recht** in Phase 1? Empfehlung: ja, mit den Grenzen aus §3.4.
-- **F6 Zeile „Alle“** (öffentliche Rechte)? Empfehlung: ja, Standard leer.
-- **F7 Textur:** Besitzer-Motiv (Pergament + rotes Siegel, analog Blaupause signiert)? Empfehlung: 2 Entwürfe als
-  Artifact-Abnahme vor dem Merge.
-- **F8 simplelib bündeln** (Simple Tweaks bekommt harte Lib-Abhängigkeit nach Regel 6a)? Empfehlung: ja, sonst wäre der
-  Container-Stil nicht einheitlich.
+## 15. Offene Fragen (mit Empfehlung)
+- **F1 Syntaxfarben im Editor?** Empfehlung: Phase 3; Phase 1 Vanilla `MultiLineEditBox` + Statuszeile.
+- **F2 Recht „Ernten“** (reife Pflanzen ohne D)? Empfehlung: später als Buchstabe **H** (Harvest), frei, keine Kollision.
+- **F3 Startgröße/Kurve:** Empfehlung 4 Chunks Start und Tabelle §7; Besitzer bestätigt Materialien.
+- **F4 Standard `claimVisibility`:** Empfehlung `all` (Wunsch „wer was geclaimt hat“), Mitgliederlisten nie.
+- **F5 Kopie der Kopie** verbieten (wie Bücher)? Empfehlung: ja.
+- **F6 Abschnitte `[x,z]`** in Phase 1? Empfehlung: ja (nötig für verlustfreie Migration).
+- **F7 Texturen** Urkunde (leer/gebunden) und Claim-Tisch: 2 Entwürfe als Artifact-Abnahme.
+- **F8 simplelib bündeln** in Simple Tweaks: ja (UI-Kasten + ClaimView-Dienst).
+- **F9 Ledger-Grenze** 32 → 64 MiB: ja, oder Code je Land auf 2048 Zeichen.
+- **F10 `maxClaimsPerPlayer`-Standard** 16 → 64 (nur neue Configs): ja.
+- **F11 Erweitern nur Besitzer** (nicht M)? Empfehlung: ja.
+- **F12 Claims auf gerahmten Karten?** Empfehlung: nein (Last, Datenschutz).
+- **F13 Rückerstattung bei `unclaim`?** Empfehlung: nein, Budget bleibt.
 
-## 12. Aufwand und Phasen
+## 16. Aufwand und Phasen
 | Phase | Inhalt | Aufwand |
 |---|---|---|
-| 1 | Rechte-Bits, Ledger v2 + Migration, Hook-Zuordnung, Framework-Aktion, Befehle, JUnit + GameTests | ~2 Agent-Tage (Hook-Zuordnung ist der größte Teil) |
-| 2 | Urkunden-Item, Rezept/Kopie, Payloads, Screen + `UiCheckbox`, simplelib-Bündeln, Lang/Wiki/Guide, Client-Test | ~2 Agent-Tage |
-| 3 | Vorlage anwenden, Text-Export, Textur-Abnahme, ggf. „Ernten“ | ~0,5–1 Agent-Tag |
-Gesamt ~4,5–5 Agent-Tage, 2–3 Branches nacheinander (Phase 1 zuerst allein mergen, weil sie Verhalten aller Claims berührt).
-Läufe: simpletweaks Fabric 26.3, dann NeoForge 26.3, dann SB-Filter; nie parallel (sb-test).
+| 1 | Rechte-Bits, `ClaimCode`-Parser, Ledger v2 + Migration, Hook-Zuordnung, Framework-Aktion, Befehle, Tests | ~2,5 Agent-Tage |
+| 2 | Urkunde (Rezept, Bindung, Kopie), Editor, Pakete, simplelib bündeln, Lang/Wiki/Guide | ~1,5 Agent-Tage |
+| 3 | Claim-Tisch (Block, Karte+Liste, Sichtbarkeit) + Erweiterung (Budget, Tiers, Menü) | ~2 Agent-Tage |
+| 4 | Simple-Maps-Ebene über simplelib-`ClaimView` | ~1 Agent-Tag |
+| 5 | Texturen-Abnahme, Syntaxfarben, ggf. „Ernten“ | ~0,5–1 Agent-Tag |
+Gesamt ~7,5–8 Agent-Tage auf 4–5 Branches nacheinander; Phase 1 zuerst allein mergen (berührt alle Claims).
+Läufe nacheinander auf sb-test: simpletweaks Fabric 26.3 → NeoForge 26.3 → SB-Filter → simplemaps → Standalone-Targets.
 
-## 13. Risiken
-- Falsche Zuordnung eines Hooks lockert Schutz → Standard „streng“ (unbekannt = Bauen + Abbauen) und je Recht ein
-  Negativtest.
-- Mod-Blöcke anderer Mods: Tag-basierte Zuordnung, sonst streng.
-- Downgrade nach v2 sperrt Claims (fail closed) – v1-Kopie bleibt, Changelog-Hinweis.
-- Abklingzeit 100 Ticks wirkt in der GUI wie „hängt“ → GUI zeigt Restzeit, Speichern bündelt.
+## 17. Risiken
+- Falsche Hook-Zuordnung lockert Schutz → unbekannt = streng (B+D), je Buchstabe ein Negativtest.
+- Code-Parser auf dem Server: harte Grenzen vor dem Parsen (Länge, Zeilen), keine Regex mit Rückverfolgung, keine
+  Namensabfragen übers Netz.
+- Erweitern: Material-Verlust bei Speicherfehler → erst buchen, dann verbrauchen; Test dafür.
+- Downgrade nach v2 sperrt Claims (fail closed) – v1-Kopie bleibt, Changelog.
+- Kartendaten: Rate- und Größengrenzen, Sichtbarkeit serverseitig gefiltert, nie Codes/Mitglieder fremder Länder.
+- Abklingzeit 100 Ticks → Editor zeigt Restzeit statt „hängt“.
