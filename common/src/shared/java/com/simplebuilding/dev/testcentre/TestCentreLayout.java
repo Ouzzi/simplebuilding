@@ -78,6 +78,9 @@ public final class TestCentreLayout {
             "simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item",
             "simplebuilding:enderite_piston_head", "technischer Block (Kopf des Enderit-Kolbens), kein Item",
             "simplebuilding:funny_stick", "Easter Egg, bewusst versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md)"));
+        if (com.simplebuilding.version.McVersion.CHESS) {
+            excluded.put("simplebuilding:mixed_octet", "technischer Block ohne Item: entsteht, wenn Achtel verschiedener Materialien in einer Zelle landen (Station Schach/Achtel)");
+        }
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
             excluded.put("simplebuilding:soul_lava", "Fluessigkeitsblock wie Lava; die Station zeigt sie im verstaerkten Kessel, Eimer liegen in der Truhe");
         }
