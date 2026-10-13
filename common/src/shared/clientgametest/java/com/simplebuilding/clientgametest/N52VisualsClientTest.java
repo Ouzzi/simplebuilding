@@ -53,6 +53,7 @@ public final class N52VisualsClientTest {
             }
         });
         script.awaitPackets();
+        script.command("gamemode spectator", true);
         script.command("tp @a 3.5 5.0 " + (Z_ICE + 6.5) + " 180.0 50.0");
         script.awaitPackets();
         script.awaitChunks();
@@ -73,6 +74,7 @@ public final class N52VisualsClientTest {
                 server.overworld().setBlock(new BlockPos(x, -1, z), Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
             }
         });
+        script.command("gamemode creative", true);
         script.command("tp @a 10.5 0.0 15.5 0.0 0.0");
         script.awaitPackets();
     }
