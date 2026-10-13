@@ -23,8 +23,8 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
  */
 public final class WayfinderData extends SavedData {
     public static final int TILE = 128, AREA = TILE * TILE;
-    /** Zoom levels in blocks per map pixel (owner F9: 1, then 4, 8, 16, 64). */
-    public static final int[] ZOOMS = {1, 4, 8, 16, 64};
+    /** Zoom levels in blocks per map pixel (owner F9 started at 1, 4, 8, 16, 64; N48 added 2 and 32; powers of two so a 128 px tile samples evenly). */
+    public static final int[] ZOOMS = {1, 2, 4, 8, 16, 32, 64};
 
     public static final class Tile {
         public final byte[] colors, heights;
