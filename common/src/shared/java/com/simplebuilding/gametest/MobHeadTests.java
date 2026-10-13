@@ -551,7 +551,7 @@ public final class MobHeadTests {
         travelled.restoreFrom(player, true);
         helper.assertTrue(com.simplebuilding.util.ExtraHead.get(travelled).is(Items.CREEPER_HEAD), "the extra head was lost in the End portal");
 
-        player.die(player.damageSources().generic());
+        player.kill(helper.getLevel()); // the full death path (Forge captures the drops there)
         helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).isEmpty(), "the dead player still has the extra head");
         boolean dropped = !helper.getLevel().getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(4.0),
                 e -> e.getItem().is(Items.CREEPER_HEAD)).isEmpty();

@@ -356,6 +356,8 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Baukern: Erz-Umwandlung spielt die lange Hand-Animation (Nachtrag 11).
         ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.CoreMotionPayload.ID,
                 (payload, context) -> context.client().execute(() -> com.simplebuilding.client.CoreMotionClient.apply(payload)));
+        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.ExtraHeadPayload.ID, // N49 extra head slot
+                (payload, context) -> context.client().execute(() -> com.simplebuilding.networking.ExtraHeadPayload.receive(payload)));
         ClientPlayNetworking.registerGlobalReceiver(SurvivalSyncPayload.ID, (payload, context) -> {
             context.client().execute(() -> {
                 if (context.player() instanceof SurvivalTracerAccessor accessor) {

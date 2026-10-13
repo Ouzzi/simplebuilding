@@ -1,18 +1,20 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.networking.ExtraHeadPayload;
+import com.simplebuilding.platform.PlatformServices;
 import com.simplebuilding.util.ExtraHead;
 import com.simplebuilding.version.McVersion;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,36 +22,56 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * The extra head slot's stack (owner N49, {@link ExtraHead}): synced entity data of the player, so the owner's menus
- * and every client that sees the player share one value; saved with the player, dropped on death (unless
- * {@code keepInventory}; Curse of Vanishing destroys it like any equipment).
+ * The extra head slot's stack (owner N49, {@link ExtraHead}): a field of the player, saved with it, dropped on death
+ * (unless {@code keepInventory}; Curse of Vanishing destroys it like any equipment). The server sends every change -
+ * and the current head after a dimension change - to the players of the level ({@link ExtraHeadPayload}); a client
+ * that starts seeing the player gets it from {@code EntityExtraHeadSeenMixin}. No synced entity data: NeoForge
+ * forbids adding it to a foreign entity.
  */
 @Mixin(Player.class)
 public abstract class PlayerExtraHeadMixin implements ExtraHead.Holder {
     @Unique
-    private static final EntityDataAccessor<ItemStack> SIMPLEBUILDING_EXTRA_HEAD =
-            SynchedEntityData.defineId(Player.class, EntityDataSerializers.ITEM_STACK);
-
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void simplebuilding$defineExtraHead(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(SIMPLEBUILDING_EXTRA_HEAD, ItemStack.EMPTY);
-    }
+    private ItemStack simplebuilding$extraHead = ItemStack.EMPTY;
+    @Unique
+    private @Nullable ItemStack simplebuilding$sentHead;
+    @Unique
+    private @Nullable Level simplebuilding$sentLevel;
 
     @Override
     public ItemStack simplebuilding$getExtraHead() {
-        return ((Player) (Object) this).getEntityData().get(SIMPLEBUILDING_EXTRA_HEAD);
+        return this.simplebuilding$extraHead;
     }
 
     @Override
     public void simplebuilding$setExtraHead(ItemStack stack) {
-        ((Player) (Object) this).getEntityData().set(SIMPLEBUILDING_EXTRA_HEAD, stack == null ? ItemStack.EMPTY : stack);
+        this.simplebuilding$extraHead = stack == null ? ItemStack.EMPTY : stack;
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void simplebuilding$syncExtraHead(CallbackInfo ci) {
+        Player self = (Player) (Object) this;
+        if (!(self.level() instanceof ServerLevel level)) {
+            return;
+        }
+        ItemStack head = this.simplebuilding$extraHead;
+        if (this.simplebuilding$sentHead != null && level == this.simplebuilding$sentLevel
+                && ItemStack.matches(head, this.simplebuilding$sentHead)) {
+            return;
+        }
+        this.simplebuilding$sentHead = head.copy();
+        this.simplebuilding$sentLevel = level;
+        ExtraHeadPayload payload = new ExtraHeadPayload(self.getId(), head.copy());
+        for (ServerPlayer viewer : level.players()) {
+            if (PlatformServices.canSendToPlayer(viewer, ExtraHeadPayload.ID)) {
+                PlatformServices.sendToPlayer(viewer, payload);
+            }
+        }
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void simplebuilding$saveExtraHead(ValueOutput output, CallbackInfo ci) {
-        ItemStack head = simplebuilding$getExtraHead();
-        if (!head.isEmpty()) {
-            output.store(ExtraHead.SAVE_KEY, ItemStack.CODEC, head);
+        if (!this.simplebuilding$extraHead.isEmpty()) {
+            output.store(ExtraHead.SAVE_KEY, ItemStack.CODEC, this.simplebuilding$extraHead);
         }
     }
 
@@ -60,7 +82,7 @@ public abstract class PlayerExtraHeadMixin implements ExtraHead.Holder {
 
     @Inject(method = "dropEquipment", at = @At("TAIL"))
     private void simplebuilding$dropExtraHead(ServerLevel level, CallbackInfo ci) {
-        ItemStack head = simplebuilding$getExtraHead();
+        ItemStack head = this.simplebuilding$extraHead;
         if (head.isEmpty() || level.getGameRules().get(GameRules.KEEP_INVENTORY)) {
             return;
         }

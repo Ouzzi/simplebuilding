@@ -78,6 +78,7 @@
     "SmithingScreenHandlerMixin",
     "SurvivalTracerMixin",
     "PlayerExtraHeadMixin",
+    "EntityExtraHeadSeenMixin",
     "ServerPlayerExtraHeadMixin",
     "InventoryMenuExtraHeadMixin",
     "EndermanExtraHeadMixin",

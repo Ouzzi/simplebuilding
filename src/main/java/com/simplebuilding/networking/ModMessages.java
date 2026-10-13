@@ -46,6 +46,7 @@ public class ModMessages {
         PayloadTypeRegistry.clientboundPlay().register(PistonConfigPayload.ID, PistonConfigPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(GuideStatePayload.ID, GuideStatePayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.networking.ExtraHeadPayload.ID, com.simplebuilding.networking.ExtraHeadPayload.CODEC); // N49
         PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.networking.DataTablesSyncPayload.ID, com.simplebuilding.networking.DataTablesSyncPayload.CODEC);
 
         // --- 2. SERVER-RECEIVER ---

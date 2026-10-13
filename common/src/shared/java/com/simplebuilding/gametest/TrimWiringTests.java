@@ -1249,7 +1249,8 @@ public final class TrimWiringTests {
         // And it feeds the curve: an hour of active time is the same as the old hour of play time.
         tracker.simplebuilding$setActiveTime(72_000);
         tracker.simplebuilding$setBaseValues(0, 0, 0, 0, 0);
-        helper.assertTrue(TrimMultiplierLogic.calculateSurvivalMultiplier(player) > 0.6,
+        // N49: time is one half of S (distance + time); an hour fills it to about 0.33 of its 0.5.
+        helper.assertTrue(TrimMultiplierLogic.calculateSurvivalMultiplier(player) > 0.3,
                 "an hour of active time did not move the survival factor");
         clearProgress(helper, player);
         helper.succeed();
