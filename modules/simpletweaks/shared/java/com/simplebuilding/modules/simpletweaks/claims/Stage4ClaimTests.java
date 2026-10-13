@@ -34,6 +34,24 @@ final class Stage4ClaimTests {
         });
         h.succeed();
     }
+    /**
+     * Entity tests on the high workspace: a freshly loaded chunk only lists new entities once its entity section
+     * is ticking (flaky boats/indirect cloud on tick 0). Force-load both sides of the border and wait until a probe
+     * on each side is queryable, as the attractor test does, then run the synchronous modes.
+     */
+    private static void warmEntityModes(GameTestHelper h,java.util.function.BiConsumer<Fixture,Boolean> test){
+        var edge=ToolClaimTests.boundary(h).above(90);var forced=new ArrayList<ChunkPos>();var probes=new ArrayList<ItemEntity>();
+        for(var chunk:List.of(ChunkPos.containing(edge),ChunkPos.containing(edge.west(16)))){
+            if(h.getLevel().setChunkForced(chunk.x(),chunk.z(),true))forced.add(chunk);h.getLevel().getChunk(chunk.x(),chunk.z());
+        }
+        for(var pos:List.of(edge.west(5),edge.east(3))){
+            var probe=new ItemEntity(h.getLevel(),pos.getX()+.5,pos.getY(),pos.getZ()+.5,new ItemStack(Items.STICK),0,0,0);
+            probe.setNoGravity(true);probe.setNeverPickUp();h.getLevel().addFreshEntity(probe);probes.add(probe);
+        }
+        h.runBeforeTestEnd(()->{probes.forEach(Entity::discard);for(var chunk:forced)h.getLevel().setChunkForced(chunk.x(),chunk.z(),false);});
+        h.startSequence().thenWaitUntil(()->yes(h,h.getLevel().getEntitiesOfClass(ItemEntity.class,new AABB(edge).inflate(8)).containsAll(probes),"Workspace entities are not queryable yet"))
+                .thenExecute(()->{probes.forEach(Entity::discard);modes(h,test);});
+    }
     private static final class Fixture implements AutoCloseable {
         final GameTestHelper h;final ServerLevel l;final BlockPos edge;final Claims claims;
         final net.minecraft.server.level.ServerPlayer owner;
@@ -171,7 +189,7 @@ final class Stage4ClaimTests {
             }
         }
     });}
-    static void indirectCloud(GameTestHelper h){modes(h,(f,enabled)->{
+    static void indirectCloud(GameTestHelper h){warmEntityModes(h,(f,enabled)->{
         var stranger=player(h,f.edge.west(5));f.entities.add(stranger);
         for(var actor:List.of(stranger,f.owner)){
             var cow=f.add(EntityTypes.COW.create(f.l,EntitySpawnReason.COMMAND),f.edge.east(3));cow.setNoAi(true);
@@ -415,9 +433,8 @@ final class Stage4ClaimTests {
     });}
     static void boats(GameTestHelper h){
         // Like the crafter: a freshly loaded workspace chunk only shows its new entities after a server tick, so the
-        // first (enabled) pass sometimes did not find the owner's boat on tick 0.
-        var edge=ToolClaimTests.boundary(h);h.getLevel().getChunk(edge);h.getLevel().getChunk(edge.west(16));
-        h.runAfterDelay(5,()->modes(h,(f,enabled)->{
+        // first (enabled) pass sometimes did not find the owner's boat on tick 0; a 5-tick delay was not enough either.
+        warmEntityModes(h,(f,enabled)->{
         var water=f.edge.east(3);f.set(water.below(),Blocks.STONE);f.set(water,Blocks.WATER);
         var stranger=player(h,f.edge.west(8));f.entities.add(stranger);f.owner.setPos(Vec3.atBottomCenterOf(f.edge.west(8)));
         for(var actor:List.of(stranger,f.owner)){
@@ -429,7 +446,7 @@ final class Stage4ClaimTests {
             yes(h,boats.isEmpty()!=allowed&&actor.getMainHandItem().isEmpty()==allowed,"Actual boat placement respects claims: owner="+(actor==f.owner)+" enabled="+enabled);
             boats.forEach(Entity::discard);actor.setPos(Vec3.atBottomCenterOf(f.edge.west(8)));// never block the next actor's view
         }
-    }));}
+    });}
     @SuppressWarnings({"rawtypes","unchecked"})
     static void composter(GameTestHelper h){modes(h,(f,enabled)->{
         var hopperPos=f.edge.east(3);var hopperState=Blocks.HOPPER.defaultBlockState().setValue(HopperBlock.FACING,Direction.DOWN);

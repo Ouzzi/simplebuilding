@@ -148,7 +148,10 @@ public final class CompatibilityTests {
   require(h,loaded.get(DataComponents.CUSTOM_DATA).copyTag().equals(data),"Opaque deed data retained");
   require(h,loaded.getMaxStackSize()==16,"Source stack size");
   var player=h.makeMockServerPlayerInLevel();player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,loaded);
-  require(h,loaded.getItem().use(h.getLevel(),player,net.minecraft.world.InteractionHand.MAIN_HAND)==net.minecraft.world.InteractionResult.PASS,"Forged deed has no use authority");
+  // Claims on (default since 2026-10-13): a real use would claim this test's chunk on the live ledger; forged data
+  // as authority is covered by claims_deed_two_players there. Off: the deed is inert.
+  if(!com.simplebuilding.modules.simpletweaks.claims.Claims.enabled(h.getLevel().getServer()))
+   require(h,loaded.getItem().use(h.getLevel(),player,net.minecraft.world.InteractionHand.MAIN_HAND)==net.minecraft.world.InteractionResult.PASS,"Forged deed has no use authority");
   require(h,loaded.get(DataComponents.CUSTOM_DATA).copyTag().equals(data),"Use preserves data");h.succeed();
  }
  static void storage(GameTestHelper h) {
