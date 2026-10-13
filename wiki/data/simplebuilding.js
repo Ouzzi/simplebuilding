@@ -11257,6 +11257,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/cracked_ice.png",
       "questionary": {
         "en": {
           "lore": [
@@ -53169,6 +53170,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/cracked_ice.png",
       "lootTable": "simplebuilding:blocks/cracked_ice",
       "drops": [
         "simplebuilding:cracked_ice"
