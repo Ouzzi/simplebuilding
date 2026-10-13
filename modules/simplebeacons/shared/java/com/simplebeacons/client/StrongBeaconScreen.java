@@ -47,6 +47,11 @@ public class StrongBeaconScreen extends BeaconScreen {
         super(menu, inventory, title);
     }
 
+    /** Screen factory for the menu type (the Vanilla screen is typed on {@code BeaconMenu}). */
+    public static StrongBeaconScreen create(net.minecraft.world.inventory.BeaconMenu menu, Inventory inventory, Component title) {
+        return new StrongBeaconScreen((StrongBeaconMenu) menu, inventory, title);
+    }
+
     @Override
     protected void init() {
         super.init();

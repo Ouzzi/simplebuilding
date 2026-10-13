@@ -5,7 +5,7 @@ import com.simplebeacons.BeaconsRegistry;
 import com.simplebeacons.SimpleBeacons;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -117,7 +117,8 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         int lastSetBlock = level.getHeight(Heightmap.Types.WORLD_SURFACE, x, z);
         for (int i = 0; i < 10 && checkPos.getY() <= lastSetBlock; i++) {
             BlockState above = level.getBlockState(checkPos);
-            Integer color = above.getBeaconColorMultiplier(level, checkPos, pos);
+            // Vanilla rule (the NeoForge hook getBeaconColorMultiplier is not on Fabric/Forge): beam blocks tint.
+            Integer color = above.getBlock() instanceof net.minecraft.world.level.block.BeaconBeamBlock beam ? beam.getColor().getTextureDiffuseColor() : null;
             if (color != null) {
                 if (entity.checkingBeamSections.size() <= 1) {
                     last = new BeaconBeamOwner.Section(color);

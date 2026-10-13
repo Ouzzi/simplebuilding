@@ -12,10 +12,10 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 final class BeaconsNeoClient {
     static void init(IEventBus bus) {
         bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
-            event.registerBlockEntityRenderer(BeaconsRegistry.STRONG_BEACON_BE, context -> new BeaconRenderer<>());
+            event.registerBlockEntityRenderer(BeaconsRegistry.STRONG_BEACON_BE, ctx -> new BeaconRenderer<>());
             event.registerBlockEntityRenderer(BeaconsRegistry.STRONG_CONDUIT_BE, StrongConduitRenderer::new);
         });
-        bus.addListener((RegisterMenuScreensEvent event) -> event.register(BeaconsRegistry.STRONG_BEACON_MENU, StrongBeaconScreen::new));
+        bus.addListener((RegisterMenuScreensEvent event) -> event.<net.minecraft.world.inventory.BeaconMenu, StrongBeaconScreen>register(BeaconsRegistry.STRONG_BEACON_MENU, StrongBeaconScreen::create));
     }
 
     private BeaconsNeoClient() {}

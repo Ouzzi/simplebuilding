@@ -10,11 +10,11 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 final class BeaconsForgeClient {
     static void init(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext context) {
         EntityRenderersEvent.RegisterRenderers.BUS.addListener(event -> {
-            event.registerBlockEntityRenderer(BeaconsRegistry.STRONG_BEACON_BE, context -> new BeaconRenderer<>());
+            event.registerBlockEntityRenderer(BeaconsRegistry.STRONG_BEACON_BE, ctx -> new BeaconRenderer<>());
             event.registerBlockEntityRenderer(BeaconsRegistry.STRONG_CONDUIT_BE, StrongConduitRenderer::new);
         });
         net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(event ->
-                event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.register(BeaconsRegistry.STRONG_BEACON_MENU, StrongBeaconScreen::new)));
+                event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.<net.minecraft.world.inventory.BeaconMenu, StrongBeaconScreen>register(BeaconsRegistry.STRONG_BEACON_MENU, StrongBeaconScreen::create)));
     }
 
     private BeaconsForgeClient() {}
