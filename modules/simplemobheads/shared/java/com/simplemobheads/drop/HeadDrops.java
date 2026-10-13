@@ -104,7 +104,7 @@ public final class HeadDrops {
         if (config.playerHeadDrops && entity instanceof ServerPlayer victim && source.getEntity() instanceof Player killer && killer != victim) {
             ItemStack head = new ItemStack(Items.PLAYER_HEAD);
             head.set(DataComponents.PROFILE, ResolvableProfile.createResolved(victim.getGameProfile()));
-            victim.drop(head, true, net.minecraft.util.Prediction.SERVER_ONLY);
+            victim.spawnAtLocation(level, head);
             return;
         }
         if (config.playerKillDrops && !(entity instanceof Player) && source.getEntity() instanceof Player killer

@@ -43,6 +43,22 @@ if (standaloneSpec) {
 // SimpleBuilding 26.3 needs SimpleLib at runtime (principle 6a, nested in production). A module whose dev/test runs
 // load SimpleBuilding from its sourceSet loads SimpleLib the same way; so does a module that nests SimpleLib itself
 // (its standalone run included - a nested lib counts as part of the module).
+// Simple Mobheads is a required sub-mod of SimpleBuilding 26.3: a run that loads SimpleBuilding loads it too.
+def mobheadsPath = ':modules:simplemobheads:neoforge'
+if (!(project.path in [':modules:simplelib:neoforge', mobheadsPath]) && rootProject.findProject(mobheadsPath) != null) {
+    evaluationDependsOn(mobheadsPath)
+    afterEvaluate {
+        if (!neoForge.mods.any { it.name.startsWith('simplebuilding') }) return
+        if (neoForge.mods.findByName('simplemobheads') == null) {
+            neoForge.mods.create('simplemobheads') { sourceSet rootProject.project(mobheadsPath).sourceSets.main }
+        }
+        neoForge.runs.configureEach { run ->
+            if (run.loadedMods.get().any { it.name.startsWith('simplebuilding') }) {
+                run.loadedMods.set((run.loadedMods.get() + [neoForge.mods.simplemobheads]).unique())
+            }
+        }
+    }
+}
 afterEvaluate {
     if (project.path == ':modules:simplelib:neoforge') return
     boolean nestsLib = configurations.jarJar.dependencies.any { it instanceof org.gradle.api.artifacts.ProjectDependency && it.path == ':modules:simplelib:neoforge' }

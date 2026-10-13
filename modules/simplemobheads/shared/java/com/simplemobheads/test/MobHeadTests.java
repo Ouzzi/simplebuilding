@@ -322,7 +322,7 @@ public final class MobHeadTests {
         Creeper plain = helper.spawn(EntityTypes.CREEPER, new BlockPos(1, 2, 1));
         LivingEntity byCreeper = helper.spawn(EntityTypes.CAT, new BlockPos(4, 2, 4));
         byCreeper.hurtServer(level, level.damageSources().explosion(plain, plain), 100000.0F);
-        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        ServerPlayer player = player(helper);
         LivingEntity byPlayer = helper.spawn(EntityTypes.CAT, new BlockPos(5, 2, 5));
         byPlayer.hurtServer(level, level.damageSources().playerAttack(player), 100000.0F);
         HeadDrops.onDeath(byPlayer, level.damageSources().playerAttack(player));
@@ -371,8 +371,8 @@ public final class MobHeadTests {
 
     /** PvP (moved in from Simple Fun): the victim drops their head with their skin; the switch turns it off. */
     public static void pvpPlayerHead(GameTestHelper helper) {
-        ServerPlayer victim = helper.makeMockServerPlayerInLevel();
-        ServerPlayer killer = helper.makeMockServerPlayerInLevel();
+        ServerPlayer victim = player(helper);
+        ServerPlayer killer = player(helper);
         clearAll(helper);
         HeadDrops.onDeath(victim, helper.getLevel().damageSources().playerAttack(killer));
         List<ItemEntity> heads = helper.getLevel().getEntitiesOfClass(ItemEntity.class, victim.getBoundingBox().inflate(16.0),
@@ -438,8 +438,8 @@ public final class MobHeadTests {
                 if (!stack.is(MobHeads.item(head.id())) || stack.getCount() != 2) {
                     problems.add(oldItem + " (saved stack -> " + stack + ")");
                 }
-                CompoundTag stateTag = TagParser.parseCompoundFully("{Name:\"" + oldWall + "\",Properties:{facing:\"east\"}}");
-                var parsed = BlockState.CODEC.parse(NbtOps.INSTANCE, stateTag);
+                // 26.3 writes a palette entry as "namespace:path[property=value]".
+                var parsed = BlockState.CODEC.parse(NbtOps.INSTANCE, net.minecraft.nbt.StringTag.valueOf(oldWall + "[facing=east]"));
                 BlockState state = parsed.result().orElse(null);
                 if (state == null || !state.is(MobHeads.wall(head.id()))) {
                     problems.add(oldWall + " (chunk palette -> " + state + " " + parsed.error().map(e -> e.message()).orElse("") + ")");
@@ -711,6 +711,8 @@ public final class MobHeadTests {
 
     private static ServerPlayer player(GameTestHelper helper) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        // The mock player starts outside the test structure (maybe in unloaded chunks): drops would vanish there.
+        player.snapTo(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
         HeadAbilities.resetForTests(player);
         return player;
     }
