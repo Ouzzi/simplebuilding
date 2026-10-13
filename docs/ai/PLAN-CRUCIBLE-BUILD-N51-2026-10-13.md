@@ -40,3 +40,9 @@ SB: `util/SledgehammerUpgrades`, `crucible/CrucibleCompat` (26.3 + 26.2-Zwilling
 Compile 3 Loader; SB-Filter crucible*, inworld*, sledgehammer*, data_integrity*; simplelib-Modultests; Datagen-Diff;
 `gen_resources.py --check`, `wiki/generate.py --all --check`, `tools/discover/discover.py --check`, Fragentisch-Check;
 Client-Screenshots aller Stufen nach `~/previews/crucible-build/`.
+
+## Korrektur Besitzer (13.10., Branch `claude-crucible-build2`)
+- Grundlage ist ein **leerer Vanilla-Kessel**, nicht der Eisenblock. Ein Kessel mit Wasser/Lava/Pulverschnee wird nicht
+  angenommen (erst leeren, nichts geht verloren). Rohling-Eigenschaft `cauldron` (true bei neuen Bauten); alte Rohlinge
+  (ohne Eigenschaft = false) bleiben weiter baubar und geben ihren Eisenblock zurück. Abbau-Rückgabe in
+  `CrucibleBlankBlock#getDrops` (Kessel bzw. Eisenblock + je Schlag ein Barren), Loot-Tabelle leer.

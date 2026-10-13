@@ -221,8 +221,9 @@ def files():
                 variant["y"] = rot
             blank_variants[f"facing={name},stage={stage}"] = variant
     out[f"{a}/blockstates/crucible_blank.json"] = {"variants": blank_variants}
-    # Blank: the iron block; CrucibleBlankBlock#getDrops adds one iron ingot per strike done (owner N51).
-    pools = [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": "minecraft:iron_block"}]}]
+    # Blank: CrucibleBlankBlock#getDrops gives the base (cauldron; iron block for older blanks) and one iron ingot per
+    # strike done (owner N51) - in code, a block_state_property condition on the stage did not match here.
+    pools = []
     out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
                                                          "random_sequence": f"{NS}:blocks/crucible_blank"}
     # Barrels (plan section 8a, owner addition 11): plain barrel cube; attached, a flange on the crucible's belly and a

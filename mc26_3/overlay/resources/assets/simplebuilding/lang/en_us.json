@@ -2969,7 +2969,7 @@
   "jade.simplebuilding.cauldron.level": "Fill level: %s/%s",
   "jei.simplebuilding.category.cauldron_world": "Cauldron and Crucible",
   "jei.simplebuilding.note.cauldron_world.strike_damage": "Each strike costs the hammer %s durability.",
-  "jei.simplebuilding.note.cauldron_world.crucible_build.how": "Sledgehammer in the main hand, parts in the off hand, strike the iron block: %s strikes in total.",
+  "jei.simplebuilding.note.cauldron_world.crucible_build.how": "Sledgehammer in the main hand, iron ingots in the off hand, strike an empty cauldron: %s strikes in total.",
   "jei.simplebuilding.note.cauldron_world.crucible_build.parts": "One iron ingot per strike: %s for the side plates (half, then full) and the rim, %s for the two handles (iron ingot or iron pole).",
   "jei.simplebuilding.note.cauldron_world.crucible_upgrade.units": "One unit goes in every %s blows and shows as a band; breaking the crucible midway gives the units back.",
   "jei.simplebuilding.note.cauldron_world.barrel_attach.how": "Place a barrel next to a crucible and strike it %s times with a sledgehammer.",
