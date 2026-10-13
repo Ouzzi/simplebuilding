@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "B": "simplebuilding:paint_box",
-    "D": "simplebuilding:diamond_pebble",
+    "D": "simplelib:diamond_pebble",
     "N": "minecraft:gold_nugget"
   },
   "pattern": [

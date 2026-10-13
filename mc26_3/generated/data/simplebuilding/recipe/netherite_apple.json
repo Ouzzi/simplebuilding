@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": "minecraft:apple",
+    "N": "simplelib:netherite_nugget"
+  },
+  "pattern": [
+    "NNN",
+    "NAN",
+    "NNN"
+  ],
+  "result": {
+    "id": "simplebuilding:netherite_apple"
+  }
+}

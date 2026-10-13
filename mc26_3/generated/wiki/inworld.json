@@ -9261,7 +9261,7 @@
       "simplebuilding:iron_sledgehammer",
       "simplebuilding:netherite_sledgehammer"
     ],
-    "result": "simplebuilding:diamond_pebble",
+    "result": "simplelib:diamond_pebble",
     "strikeResetTicks": 100,
     "strikes": 8
   },
@@ -9301,13 +9301,13 @@
     "steps": [
       {
         "durability": 281,
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "piston": "simplebuilding:enderite_piston"
       },
       {
         "durability": 226,
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "piston": "simplebuilding:netherite_piston"
       }
@@ -9359,13 +9359,13 @@
         "shell": "minecraft:shulker_shell"
       },
       {
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "result": "simplebuilding:netherite_shulker_shell",
         "shell": "simplebuilding:reinforced_shulker_shell"
       },
       {
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "result": "simplebuilding:enderite_shulker_shell",
         "shell": "simplebuilding:netherite_shulker_shell"
@@ -9452,7 +9452,7 @@
         "from": "minecraft:copper_chest",
         "hits": 5,
         "minimumHammer": "simplebuilding:copper_sledgehammer",
-        "nugget": "simplebuilding:cracked_diamond",
+        "nugget": "simplelib:cracked_diamond",
         "nuggetCount": 1,
         "to": "simplebuilding:reinforced_chest",
         "totalDamage": 10
@@ -9463,7 +9463,7 @@
         "from": "minecraft:shulker_box",
         "hits": 10,
         "minimumHammer": "simplebuilding:copper_sledgehammer",
-        "nugget": "simplebuilding:cracked_diamond",
+        "nugget": "simplelib:cracked_diamond",
         "nuggetCount": 2,
         "to": "simplebuilding:reinforced_shulker_box",
         "totalDamage": 20
@@ -9474,7 +9474,7 @@
         "from": "minecraft:enchanting_table",
         "hits": 20,
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:astral_enchanting_table",
         "totalDamage": 200
@@ -9485,7 +9485,7 @@
         "from": "simplebuilding:netherite_blast_furnace",
         "hits": 5,
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_blast_furnace",
         "totalDamage": 50
@@ -9496,7 +9496,7 @@
         "from": "simplebuilding:netherite_chest",
         "hits": 5,
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_chest",
         "totalDamage": 50
@@ -9507,7 +9507,7 @@
         "from": "simplebuilding:netherite_furnace",
         "hits": 5,
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_furnace",
         "totalDamage": 50
@@ -9518,7 +9518,7 @@
         "from": "simplebuilding:netherite_hopper",
         "hits": 5,
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_hopper",
         "totalDamage": 50
@@ -9529,7 +9529,7 @@
         "from": "simplebuilding:netherite_piston",
         "hits": 5,
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_piston",
         "totalDamage": 50
@@ -9540,7 +9540,7 @@
         "from": "simplebuilding:netherite_shulker_box",
         "hits": 10,
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 2,
         "to": "simplebuilding:enderite_shulker_box",
         "totalDamage": 100
@@ -9551,7 +9551,7 @@
         "from": "simplebuilding:netherite_smoker",
         "hits": 5,
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_smoker",
         "totalDamage": 50
@@ -9562,7 +9562,7 @@
         "from": "simplebuilding:netherite_trapped_chest",
         "hits": 5,
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
-        "nugget": "simplebuilding:enderite_nugget",
+        "nugget": "simplelib:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_trapped_chest",
         "totalDamage": 50
@@ -9573,7 +9573,7 @@
         "from": "simplebuilding:reinforced_blast_furnace",
         "hits": 5,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_blast_furnace",
         "totalDamage": 20
@@ -9584,7 +9584,7 @@
         "from": "simplebuilding:reinforced_chest",
         "hits": 5,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_chest",
         "totalDamage": 20
@@ -9595,7 +9595,7 @@
         "from": "simplebuilding:reinforced_furnace",
         "hits": 5,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_furnace",
         "totalDamage": 20
@@ -9606,7 +9606,7 @@
         "from": "simplebuilding:reinforced_hopper",
         "hits": 5,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_hopper",
         "totalDamage": 20
@@ -9617,7 +9617,7 @@
         "from": "simplebuilding:reinforced_piston",
         "hits": 5,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_piston",
         "totalDamage": 20
@@ -9628,7 +9628,7 @@
         "from": "simplebuilding:reinforced_shulker_box",
         "hits": 10,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 2,
         "to": "simplebuilding:netherite_shulker_box",
         "totalDamage": 40
@@ -9639,7 +9639,7 @@
         "from": "simplebuilding:reinforced_smoker",
         "hits": 5,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_smoker",
         "totalDamage": 20
@@ -9650,7 +9650,7 @@
         "from": "simplebuilding:reinforced_sticky_piston",
         "hits": 5,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_piston",
         "totalDamage": 20
@@ -9661,7 +9661,7 @@
         "from": "simplebuilding:reinforced_trapped_chest",
         "hits": 5,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
-        "nugget": "simplebuilding:netherite_nugget",
+        "nugget": "simplelib:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_trapped_chest",
         "totalDamage": 20

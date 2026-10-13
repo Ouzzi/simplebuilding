@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplebuilding:nihilith_shard",
+    "simplebuilding:nihilith_shard",
+    "simplebuilding:nihilith_shard",
+    "simplebuilding:nihilith_shard",
+    "simplebuilding:astralit_dust",
+    "simplebuilding:astralit_dust",
+    "simplebuilding:astralit_dust",
+    "simplebuilding:astralit_dust",
+    "minecraft:ender_pearl"
+  ],
+  "result": {
+    "id": "simplelib:raw_enderite"
+  }
+}
