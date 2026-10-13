@@ -13,6 +13,7 @@
     "simplebuilding:astral_purpur_block",
     "simplebuilding:astral_rail",
     "simplebuilding:astral_redstone",
+    "simplebuilding:astral_redstone_block",
     "simplebuilding:astral_vault",
     "simplebuilding:astralit_block",
     "simplebuilding:astralit_brick_slab",
@@ -62,6 +63,7 @@
     "simplebuilding:breeze_wall_head",
     "simplebuilding:bricks_octet",
     "simplebuilding:bridge_redstone",
+    "simplebuilding:bridge_redstone_block",
     "simplebuilding:brown_concrete_octet",
     "simplebuilding:brown_hammock",
     "simplebuilding:brown_terracotta_octet",
@@ -294,6 +296,7 @@
     "simplebuilding:nihil_purpur_block",
     "simplebuilding:nihil_rail",
     "simplebuilding:nihil_redstone",
+    "simplebuilding:nihil_redstone_block",
     "simplebuilding:nihil_vault",
     "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
@@ -576,6 +579,9 @@
       "id": "simplebuilding:astral_redstone"
     },
     {
+      "id": "simplebuilding:astral_redstone_block"
+    },
+    {
       "id": "simplebuilding:astral_vault"
     },
     {
@@ -843,6 +849,9 @@
     },
     {
       "id": "simplebuilding:bridge_redstone"
+    },
+    {
+      "id": "simplebuilding:bridge_redstone_block"
     },
     {
       "id": "simplebuilding:brittle_ceramic_bucket",
@@ -2309,6 +2318,9 @@
     },
     {
       "id": "simplebuilding:nihil_redstone"
+    },
+    {
+      "id": "simplebuilding:nihil_redstone_block"
     },
     {
       "id": "simplebuilding:nihil_vault"

@@ -4,7 +4,7 @@
       "regex:(stripped_)?(ashwood|duskwood)_(log|wood|planks|stairs|slab|fence|fence_gate|door|trapdoor|button|pressure_plate|sign|hanging_sign|shelf|boat|chest_boat)"
     ],
     "lore": [
-      "{name} comes from the pale trees of the outer End islands. Ashwood grows in Ash Valley, Duskwood, a little browner, in the Dawnlands. The grain still shows the knobs of the chorus it grew up beside."
+      "{name} grows only where a bud was planted outside the End: in the End itself the buds give nothing but stick trees. Ashwood is the paler one, Duskwood a little browner."
     ],
     "use": [
       "Works like any Vanilla wood: logs give four planks, an axe strips logs, and every block burns as fuel. Dropped into the void it floats back up and waits just above the bottom of the world."
@@ -21,10 +21,10 @@
       "{name} is the seed of the End woods, a closed chorus-like blossom on a knobby stem."
     ],
     "use": [
-      "Plant it on End stone. In light level 9 or more it grows by itself into a big End tree; in the dark only bone meal helps, and then it grows tall End-stick scrub instead."
+      "Plant it on End stone or dirt. Outside the End, in light level 9 or more, it grows a gigantic tree; in the dark bone meal gives stick scrub. In the End it always grows a tree of End sticks."
     ],
     "secret": [
-      "Four buds of the same wood in a 2x2 square grow one huge tree on a 2x2 trunk."
+      "Four buds of the same wood in a 2x2 square grow a still bigger tree - and sixteen in a 4x4 square the biggest tree in the game. A tree gives back fewer buds than it took."
     ]
   },
   "family:end_sticks": {
@@ -32,10 +32,10 @@
       "regex:(ashwood|duskwood)_sticks"
     ],
     "lore": [
-      "{name} is what a bud makes of itself without light: bundled sticks that taper like dripstone."
+      "{name} is the wood of the End: its trees are bundles of sticks with a trunk, branches and a crown."
     ],
     "use": [
-      "Placed in a column it always gets thicker at the bottom. One block crafts into three sticks."
+      "Cut the trunk of a stick tree and everything above falls at once, like chorus. Placed sticks never fall; upright they taper like dripstone. One block crafts into three sticks."
     ]
   },
   "family:end_leaves": {
@@ -43,15 +43,15 @@
       "regex:(ashwood|duskwood)_leaves"
     ],
     "lore": [
-      "{name} takes its grey-brown colour from the biome it grows in."
+      "{name} is no solid block but a see-through star of tendrils around a small crystal, tinted grey-brown by its biome."
     ],
     "use": [
-      "Drops its bud, sticks and now and then a Drift Fruit; shears keep the leaves."
+      "Only a few leaves of each tree carry its bud or fruit, and they always drop it; the rest gives sticks now and then. Shears keep the leaves."
     ]
   },
   "drift_fruit": {
     "lore": [
-      "A light, pale fruit of the End trees. It seems to want to float away."
+      "A light, pale fruit that only ripens on the stick trees of the End. It seems to want to float away."
     ],
     "use": [
       "Eating it gives four seconds of Slow Falling and a small hop - enough to glide from one End island to the next ledge."
@@ -93,6 +93,17 @@
     ],
     "use": [
       "Mines and drops like End stone; left alone it turns back into End stone after a few minutes."
+    ]
+  },
+  "spoiled_drift_fruit": {
+    "lore": [
+      "A Drift Fruit that grew outside the End: shrivelled, brown and a little mouldy."
+    ],
+    "use": [
+      "Eating it lets you drift for five seconds - almost weightless, pushed about by nothing at all. Slow Falling afterwards makes sure you land softly."
+    ],
+    "secret": [
+      "End fruit only ripens in the End; plant your buds there if you want the real thing."
     ]
   }
 }

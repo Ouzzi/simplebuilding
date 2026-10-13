@@ -80,7 +80,7 @@ public final class StorageDecors {
                 } else {
                     UiSymbols.engrave(g, UiSymbols.REDSTONE, left + REDSTONE_X, top + REDSTONE_Y, block);
                 }
-                UiSymbols.engrave(g, UiSymbols.ARROW, left + ARROW_X, top + ARROW_Y, block);
+                UiSymbols.engrave(g, UiSymbols.ARROW_DOTTED, left + ARROW_X, top + ARROW_Y, block);
             }
         };
     }

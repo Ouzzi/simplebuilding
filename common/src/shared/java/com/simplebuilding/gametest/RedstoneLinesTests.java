@@ -279,22 +279,22 @@ public final class RedstoneLinesTests {
     }
 
     /**
-     * The Astral/Nihilith Lamp listens only to its own line (or Bridge Redstone) and toggles like a copper bulb: the
-     * first pulse lights it, it stays lit when the signal goes, the next pulse switches it off. Other lines, redstone
-     * dust and a powered lever right beside the lamp do nothing.
+     * The Astral/Nihilith Lamp takes every line (N51: own line, the other line, redstone dust, Bridge Redstone and a
+     * lever right beside it) and toggles like a copper bulb: the first pulse lights it, it stays lit when the signal
+     * goes, the next pulse switches it off.
      */
-    public static void lampsToggleOnlyOnTheirOwnLine(GameTestHelper helper) {
+    public static void lampsToggleOnEveryLine(GameTestHelper helper) {
         if (!active(helper)) return;
         floor(helper);
         // {y, z, dust or null for a lever beside the lamp, lamp, should toggle}
         Object[][] lanes = {
                 {1, 0, ModBlocks.ASTRAL_REDSTONE, ModBlocks.ASTRALIT_LAMP, true},
                 {1, 2, ModBlocks.NIHIL_REDSTONE, ModBlocks.NIHILITH_LAMP, true},
-                {1, 4, ModBlocks.NIHIL_REDSTONE, ModBlocks.ASTRALIT_LAMP, false},
-                {1, 6, Blocks.REDSTONE_WIRE, ModBlocks.ASTRALIT_LAMP, false},
+                {1, 4, ModBlocks.NIHIL_REDSTONE, ModBlocks.ASTRALIT_LAMP, true},
+                {1, 6, Blocks.REDSTONE_WIRE, ModBlocks.ASTRALIT_LAMP, true},
                 {4, 0, ModBlocks.BRIDGE_REDSTONE, ModBlocks.NIHILITH_LAMP, true},
-                {4, 3, ModBlocks.ASTRAL_REDSTONE, ModBlocks.NIHILITH_LAMP, false},
-                {4, 6, null, ModBlocks.ASTRALIT_LAMP, false}};
+                {4, 3, ModBlocks.ASTRAL_REDSTONE, ModBlocks.NIHILITH_LAMP, true},
+                {4, 6, null, ModBlocks.ASTRALIT_LAMP, true}};
         BlockState off = Blocks.LEVER.defaultBlockState().setValue(LeverBlock.FACE, AttachFace.FLOOR);
         for (Object[] lane : lanes) {
             int y = (int) lane[0], z = (int) lane[1];
@@ -327,5 +327,196 @@ public final class RedstoneLinesTests {
                 .thenExecute(flip[0]).thenIdle(4).thenExecute(() -> expectLit.accept(true))
                 .thenExecute(flip[0]).thenIdle(4).thenExecute(() -> expectLit.accept(false))
                 .thenSucceed();
+    }
+
+    // ---- N51 (2026-10-13): every device takes every line; the line redstone blocks ----
+
+    /** A device under test: how it is placed at a position and whether it reacted (End lamps: their stored input). */
+    private record Device(String name, java.util.function.BiConsumer<GameTestHelper, BlockPos> place,
+                          java.util.function.Predicate<BlockState> on) {
+        static Device of(String name, BlockState state, java.util.function.Predicate<BlockState> on) {
+            return new Device(name, (helper, pos) -> helper.setBlock(pos, state), current -> current.is(state.getBlock()) && on.test(current));
+        }
+    }
+
+    /**
+     * Vanilla devices, one mod machine and the End devices (lamps, pistons, rails). The Nihil piston comes second, so it
+     * lands in an east slot (it pulls from two cells away; the west slot's neighbour lane would be in reach).
+     */
+    private static List<Device> devices() {
+        List<Device> list = new ArrayList<>();
+        list.add(Device.of("redstone_lamp", Blocks.REDSTONE_LAMP.defaultBlockState(), s -> s.getValue(RedstoneLampBlock.LIT)));
+        list.add(new Device("nihil_piston", (helper, pos) -> {
+            helper.setBlock(pos.below(), Blocks.OBSIDIAN);
+            // It pulls from two cells away: keep the upper layer's floor (and what stands on it) in place.
+            helper.setBlock(pos.above(2), Blocks.OBSIDIAN);
+            helper.setBlock(pos, ModBlocks.NIHIL_PISTON);
+        }, s -> s.getValue(com.simplebuilding.blocks.custom.EndSignalBlock.POWER) > 0));
+        list.add(Device.of("piston", Blocks.PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.UP),
+                s -> s.getValue(PistonBaseBlock.EXTENDED)));
+        list.add(Device.of("dispenser", Blocks.DISPENSER.defaultBlockState().setValue(net.minecraft.world.level.block.DispenserBlock.FACING, Direction.UP),
+                s -> s.getValue(net.minecraft.world.level.block.DispenserBlock.TRIGGERED)));
+        list.add(new Device("iron_door", (helper, pos) -> {
+            BlockState door = Blocks.IRON_DOOR.defaultBlockState().setValue(net.minecraft.world.level.block.DoorBlock.FACING, Direction.NORTH);
+            helper.setBlock(pos, door);
+            helper.setBlock(pos.above(), door.setValue(net.minecraft.world.level.block.DoorBlock.HALF,
+                    net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER));
+        }, s -> s.getValue(net.minecraft.world.level.block.DoorBlock.OPEN)));
+        // A repeater's FACING points at its input: the dust (or block) lies west of it.
+        list.add(Device.of("repeater", Blocks.REPEATER.defaultBlockState().setValue(net.minecraft.world.level.block.RepeaterBlock.FACING, Direction.WEST),
+                s -> s.getValue(net.minecraft.world.level.block.RepeaterBlock.POWERED)));
+        list.add(Device.of("astralit_lamp", ModBlocks.ASTRALIT_LAMP.defaultBlockState(), s -> s.getValue(EndSignalLampBlock.POWER) > 0));
+        list.add(Device.of("nihilith_lamp", ModBlocks.NIHILITH_LAMP.defaultBlockState(), s -> s.getValue(EndSignalLampBlock.POWER) > 0));
+        list.add(new Device("astral_piston", (helper, pos) -> {
+            helper.setBlock(pos.below(), Blocks.OBSIDIAN);
+            helper.setBlock(pos, ModBlocks.ASTRAL_PISTON);
+        }, s -> s.getValue(com.simplebuilding.blocks.custom.EndSignalBlock.POWER) > 0));
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            list.add(Device.of("astral_rail", ModBlocks.ASTRAL_RAIL.defaultBlockState(), s -> s.getValue(com.simplebuilding.blocks.custom.EndRailBlock.POWERED)));
+            list.add(Device.of("nihil_rail", ModBlocks.NIHIL_RAIL.defaultBlockState(), s -> s.getValue(com.simplebuilding.blocks.custom.EndRailBlock.POWERED)));
+        }
+        if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) {
+            list.add(Device.of("autonomous_crafter", ModBlocks.AUTONOMOUS_CRAFTER.defaultBlockState(),
+                    s -> s.getValue(com.simplebuilding.blocks.custom.AutonomousCrafterBlock.TRIGGERED)));
+        }
+        return list;
+    }
+
+    /** Sixteen lanes in the 8x8 room: two per row (west x 0..2, east x 4..6), rows z 0/2/4/6, layers y 1 and 4. */
+    private static List<BlockPos> slots() {
+        List<BlockPos> slots = new ArrayList<>();
+        for (int y : new int[]{1, 4}) for (int z = 0; z <= 6; z += 2) for (int x : new int[]{0, 4}) slots.add(new BlockPos(x, y, z));
+        return slots;
+    }
+
+    /**
+     * Builds one lane per device: {@code source} at the slot, {@code dust} (or nothing) in the middle, the device two
+     * cells east; after a while every device must have reacted. With {@code dust == null} the source sits in the middle,
+     * right next to the device.
+     */
+    private static void everyDeviceReacts(GameTestHelper helper, Block source, Block dust, String what) {
+        floor(helper);
+        List<Device> devices = devices();
+        List<BlockPos> slots = slots();
+        for (int i = 0; i < devices.size(); i++) {
+            BlockPos slot = slots.get(i);
+            if (dust != null) {
+                helper.setBlock(slot, source);
+                helper.setBlock(slot.east(), dust);
+            } else {
+                helper.setBlock(slot.east(), source);
+            }
+            devices.get(i).place().accept(helper, slot.east(2));
+        }
+        reshape(helper);
+        // A diode only looks at its input on a neighbour update (setBlock placed it unpowered): poke every device.
+        for (int i = 0; i < devices.size(); i++) helper.getLevel().updateNeighborsAt(helper.absolutePos(slots.get(i).east()), Blocks.AIR);
+        helper.startSequence().thenIdle(12).thenExecute(() -> {
+            for (int i = 0; i < devices.size(); i++) {
+                BlockPos at = slots.get(i).east(2);
+                helper.assertTrue(devices.get(i).on().test(helper.getBlockState(at)),
+                        what + ": " + devices.get(i).name() + " did not react (" + helper.getBlockState(at) + ")");
+            }
+        }).thenSucceed();
+    }
+
+    /** N51: vanilla redstone dust powers every device, the End lamps, pistons and rails included. */
+    public static void everyDeviceTakesRedstone(GameTestHelper helper) {
+        if (!active(helper)) return;
+        everyDeviceReacts(helper, Blocks.REDSTONE_BLOCK, Blocks.REDSTONE_WIRE, "redstone_wire");
+    }
+
+    /** N51: Astral Redstone powers every device (vanilla, mod machine, both End lamps, pistons and rails). */
+    public static void everyDeviceTakesAstral(GameTestHelper helper) {
+        if (!active(helper)) return;
+        everyDeviceReacts(helper, Blocks.REDSTONE_BLOCK, ModBlocks.ASTRAL_REDSTONE, "astral_redstone");
+    }
+
+    /** N51: Nihil Redstone powers every device. */
+    public static void everyDeviceTakesNihil(GameTestHelper helper) {
+        if (!active(helper)) return;
+        everyDeviceReacts(helper, Blocks.REDSTONE_BLOCK, ModBlocks.NIHIL_REDSTONE, "nihil_redstone");
+    }
+
+    /** N51: Bridge Redstone powers every device. */
+    public static void everyDeviceTakesBridge(GameTestHelper helper) {
+        if (!active(helper)) return;
+        everyDeviceReacts(helper, Blocks.REDSTONE_BLOCK, ModBlocks.BRIDGE_REDSTONE, "bridge_redstone");
+    }
+
+    /** N51: each line redstone block powers every device right next to it, like the redstone block. */
+    public static void lineBlocksPowerEveryDevice(GameTestHelper helper) {
+        if (!active(helper)) return;
+        // The three blocks take turns in the same lanes: place, check, remove, wait.
+        Block[] blocks = {ModBlocks.ASTRAL_REDSTONE_BLOCK, ModBlocks.NIHIL_REDSTONE_BLOCK, ModBlocks.BRIDGE_REDSTONE_BLOCK};
+        floor(helper);
+        List<Device> devices = devices();
+        List<BlockPos> slots = slots();
+        for (int i = 0; i < devices.size(); i++) devices.get(i).place().accept(helper, slots.get(i).east(2));
+        var sequence = helper.startSequence();
+        for (Block block : blocks) {
+            sequence = sequence.thenExecute(() -> {
+                for (int i = 0; i < devices.size(); i++) helper.setBlock(slots.get(i).east(), block);
+            // Checked within the End pistons' cooldown: an Astral piston that fired has pushed the block away again.
+            }).thenIdle(6).thenExecute(() -> {
+                for (int i = 0; i < devices.size(); i++) {
+                    BlockPos at = slots.get(i).east(2);
+                    helper.assertTrue(devices.get(i).on().test(helper.getBlockState(at)),
+                            name(block) + ": " + devices.get(i).name() + " did not react (" + helper.getBlockState(at) + ")");
+                }
+                for (int i = 0; i < devices.size(); i++) helper.setBlock(slots.get(i).east(), Blocks.AIR);
+            }).thenIdle(12);
+        }
+        sequence.thenSucceed();
+    }
+
+    /**
+     * N51: a line redstone block feeds dust of its own line and Bridge Redstone at full strength, never dust of another
+     * line (the Bridge block feeds all three).
+     */
+    public static void lineBlocksFeedOnlyTheirLine(GameTestHelper helper) {
+        if (!active(helper)) return;
+        floor(helper);
+        Block[] blocks = {ModBlocks.ASTRAL_REDSTONE_BLOCK, ModBlocks.NIHIL_REDSTONE_BLOCK, ModBlocks.BRIDGE_REDSTONE_BLOCK};
+        Block[] dusts = {Blocks.REDSTONE_WIRE, ModBlocks.ASTRAL_REDSTONE, ModBlocks.NIHIL_REDSTONE, ModBlocks.BRIDGE_REDSTONE};
+        List<BlockPos> slots = slots();
+        List<Block[]> lanes = new ArrayList<>();
+        for (Block block : blocks) for (Block dust : dusts) lanes.add(new Block[]{block, dust});
+        for (int i = 0; i < lanes.size(); i++) {
+            helper.setBlock(slots.get(i), lanes.get(i)[0]);
+            for (int x = 1; x <= 2; x++) helper.setBlock(slots.get(i).east(x), lanes.get(i)[1]);
+        }
+        reshape(helper);
+        helper.runAfterDelay(6, () -> {
+            for (int i = 0; i < lanes.size(); i++) {
+                Block block = lanes.get(i)[0], dust = lanes.get(i)[1];
+                boolean feeds = ((com.simplebuilding.blocks.custom.LineRedstoneBlock) block).line().links(SignalDustBlock.lineOf(dust.defaultBlockState()));
+                int first = power(helper, slots.get(i).east()), second = power(helper, slots.get(i).east(2));
+                String lane = name(block) + " -> " + name(dust);
+                helper.assertTrue(feeds ? first == 15 && second == 14 : first == 0 && second == 0,
+                        lane + (feeds ? " not fed" : " fed") + ": " + first + "/" + second);
+            }
+            helper.succeed();
+        });
+    }
+
+    /** N51: nine dust craft the block and the block gives the nine back, for every line. */
+    public static void lineBlockRecipesRoundTrip(GameTestHelper helper) {
+        if (!active(helper)) return;
+        Block[][] pairs = {{ModBlocks.ASTRAL_REDSTONE, ModBlocks.ASTRAL_REDSTONE_BLOCK}, {ModBlocks.NIHIL_REDSTONE, ModBlocks.NIHIL_REDSTONE_BLOCK},
+                {ModBlocks.BRIDGE_REDSTONE, ModBlocks.BRIDGE_REDSTONE_BLOCK}};
+        var recipes = helper.getLevel().getServer().getRecipeManager();
+        for (Block[] pair : pairs) {
+            var nine = net.minecraft.world.item.crafting.CraftingInput.of(3, 3,
+                    java.util.Collections.nCopies(9, new net.minecraft.world.item.ItemStack(pair[0].asItem())));
+            var packed = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, nine, helper.getLevel())
+                    .map(r -> r.value().assemble(nine)).orElse(net.minecraft.world.item.ItemStack.EMPTY);
+            helper.assertTrue(packed.is(pair[1].asItem()) && packed.getCount() == 1, "nine " + name(pair[0]) + " gave " + packed);
+            var one = net.minecraft.world.item.crafting.CraftingInput.of(1, 1, List.of(new net.minecraft.world.item.ItemStack(pair[1].asItem())));
+            var unpacked = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, one, helper.getLevel())
+                    .map(r -> r.value().assemble(one)).orElse(net.minecraft.world.item.ItemStack.EMPTY);
+            helper.assertTrue(unpacked.is(pair[0].asItem()) && unpacked.getCount() == 9, name(pair[1]) + " gave " + unpacked);
+        }
+        helper.succeed();
     }
 }

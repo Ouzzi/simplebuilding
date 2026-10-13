@@ -2992,6 +2992,8 @@ public final class DataIntegrityTests {
         if (McVersion.END_SYSTEMS) {
             expected.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, gap,
                     ModItems.BRIDGE_REDSTONE, gap, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
+            expected.add(CreativeTabLayout.Row.of("end_signal_blocks", ModItems.NIHIL_REDSTONE_BLOCK, gap, gap, gap,
+                    ModItems.BRIDGE_REDSTONE_BLOCK, gap, ModItems.ASTRAL_REDSTONE_BLOCK));
         }
         if (McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen (2026-10-04) direkt unter den End-Signalen.

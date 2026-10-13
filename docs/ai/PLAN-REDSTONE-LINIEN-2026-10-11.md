@@ -67,3 +67,41 @@ Migration der alten IDs. Bestehende End-Tests auf Redstone-Block statt Schalter 
 Compile 3 Loader 26.3 + 26.2; `run.py --filter 'simplebuilding:end_systems*'`, `'simplebuilding:redstone_lines*'`,
 `'simplebuilding:data_integrity*'` auf fabric-263, neoforge-263, forge-263; Client-Screenshot einer
 Testschaltung; Texturen-/Wiki-Checks.
+
+## Nachtrag N51 (2026-10-13): Geräte nehmen jede Linie, Redstone-Blöcke der Linien
+Branch `claude-redstone-compat` (von `claude-wave1`).
+
+### Besitzer-Wunsch
+1. Astral-/Nihil-Geräte (End-Kolben, End-Schienen, Astral-/Nihilith-Lampe) nehmen Signale aller drei
+   Linien (Vanilla, Astral, Nihil) und des Brücken-Redstones an.
+2. Alle Redstone-Geräte (Vanilla und Mod) nehmen alle Mod-Linien an.
+3. Astral-, Nihil- und Brücken-Redstone-Block analog Vanillas Redstone-Block (9 Staub ↔ Block).
+
+### Widerspricht das „drei getrennte Linien“? Nein.
+Getrennt bleiben die **Drähte**: Draht nimmt nur von Draht verbundener Linie Signal an (direkt und über einen
+gepowerten Block), verbindet sich optisch nur mit verbundener Linie. **Geräte** (Empfänger: Lampen, Kolben, Türen,
+Werfer, Schienen, Verstärker-/Komparator-Eingang, Mod-Maschinen) sind neutral und nehmen jede Linie an. Das galt für
+Vanilla-Geräte schon seit N36 (Draht powert über `getSignal`/`getDirectSignal` wie Redstone-Staub, Mod-Geräte lesen
+`hasNeighborSignal`/`getBestNeighborSignal`, keine Stelle prüft `REDSTONE_WIRE`); neu ist nur, dass auch die
+End-Geräte nicht mehr auf ihre eigene Linie beschränkt sind. Die Linien-Blöcke sind Quellen: Sie speisen Draht nur
+der eigenen Linie (und Brücke), Geräte aber immer – wie ein Repeater, den eine Linie speist.
+
+### Technik
+- `EndSignalBlock.receiverPower(level, pos)`: Maximum aus `level.getBestNeighborSignal(pos)` (jede Vanilla-Quelle,
+  Draht jeder Linie, der auf das Gerät zeigt, Linien-Blöcke) und der Leistung jedes waagerecht anliegenden Drahts
+  (alle vier Linien, auch Vanilla-`redstone_wire`, egal wohin er zeigt – das bisherige „liegt daneben“ bleibt).
+  Lampe: zusätzlich Draht jeder Linie obendrauf. Schienen: `hasSourceNeighbour` zählt jeden Draht.
+- Draht verbindet sich optisch mit End-Geräten jeder Linie; Vanilla-Draht verbindet sich mit End-Kolben, -Lampen
+  und -Schienen (`shouldRedstoneWireConnectTo` 26.3/NeoForge, `canConnectRedstone` Forge).
+- Neue Klasse `LineRedstoneBlock(Line)`: `isSignalSource`, `getSignal` = 15, außer der Empfänger ist Draht einer
+  nicht verbundenen Linie (dann 0); kein starkes Signal (wie Vanillas Redstone-Block). `features.endSignals` aus:
+  0. Brücken-Block = alle Linien. Registrierung `astral_redstone_block`, `nihil_redstone_block`,
+  `bridge_redstone_block` (Eigenschaften wie Redstone-Block), Rezepte 9 ↔ 1, Beute, Modelle, Lang EN/DE, Tabs,
+  JEI-Info, Wiki, Fragentisch, Preise, Entdeckbarkeit, Testzentrale.
+- Texturen: eigene Pixel-Art (Generator `tools/textures/end_redstone_blocks_2026_10_13.py`, keine Vanilla-Pixel).
+
+### Tests (`RedstoneLinesTests`)
+Jedes Gerät (Redstone-Lampe, Kolben, Eisentür, Werfer, Verstärker, Autonome Werkbank als Mod-Gerät,
+Astral-/Nihilith-Lampe, Astral-/Nihil-Kolben, Astral-/Nihil-Schiene) mit jeder Linie (Redstone, Astral, Nihil,
+Brücke); jeder Linien-Block als Quelle für jedes Gerät; Linien-Blöcke speisen nur ihre Linie (+ Brücke); Drähte
+bleiben getrennt (bestehende Tests); Rezepte 9 ↔ 1.

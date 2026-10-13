@@ -139,7 +139,7 @@
       "Eine Schiene, die den Himmel gehört hat und dorthin will."
     ],
     "use": [
-      "Sechs Goldbarren, ein Stock und Astral-Redstone ergeben 6. Nur gerade. Mit ihrem eigenen Kanal gespeist, beschleunigt sie Loren standardmäßig auf bis zu 16 Blöcke pro Sekunde (Vanilla 8). Ohne Kraft ist sie eine gewöhnliche Schiene."
+      "Sechs Goldbarren, ein Stock und Astral-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, beschleunigt sie Loren standardmäßig auf bis zu 16 Blöcke pro Sekunde (Vanilla 8). Ohne Kraft ist sie eine gewöhnliche Schiene."
     ],
     "secret": [
       "Der Schub nimmt ab, je näher die Lore der Höchstgeschwindigkeit kommt, sie nähert sich dem Limit und erreicht es nie. An Steigungen und im Wasser gilt das Vanilla-Limit, bremse also vor einer Kurve."
@@ -150,10 +150,10 @@
       "Eine Schiene, die der Welt das Tempo nimmt, höflich und vollständig."
     ],
     "use": [
-      "Sechs Goldbarren, ein Stock und Nihil-Redstone ergeben 6. Nur gerade. Mit ihrem eigenen Kanal gespeist, bremst sie: Jeden Tick behält die Lore 80 Prozent ihres Tempos abzüglich eines kleinen Betrags, hält an und wird gehalten, solange Kraft anliegt."
+      "Sechs Goldbarren, ein Stock und Nihil-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, bremst sie: Jeden Tick behält die Lore 80 Prozent ihres Tempos abzüglich eines kleinen Betrags, hält an und wird gehalten, solange Kraft anliegt."
     ],
     "secret": [
-      "Ohne Kraft lässt sie Loren durchrollen. Nur ihr eigener Kanal speist sie, nicht Vanilla-Redstone oder Nachbarschienen, sodass du einen Bahnhof bauen kannst, der auf Signal bremst."
+      "Ohne Kraft lässt sie Loren durchrollen. Jede Redstone-Linie speist sie (Redstone, Astral, Nihil, Brücke), nie aber eine Nachbarschiene, sodass du einen Bahnhof bauen kannst, der auf Signal bremst."
     ]
   },
   "astral_vault": {
@@ -2623,10 +2623,10 @@
       "{name} leuchtet nur für den, der seine Sprache spricht."
     ],
     "use": [
-      "Eine Redstone-Lampe plus passendes Kanal-Redstone, formlos. Sie empfängt nur ihren eigenen Kanal und leitet nie weiter; Vanilla-Redstone lässt sie nicht leuchten."
+      "Eine Redstone-Lampe plus passendes Linien-Redstone, formlos. Sie nimmt jede Redstone-Linie an und leitet nie weiter; jeder Puls schaltet sie wie eine Kupferlampe um."
     ],
     "secret": [
-      "Sie liest allein den Kanal ihres Materials: Eine Astralit-Lampe ignoriert Nihil-Redstone völlig, beide Kanäle können also nebeneinander laufen."
+      "Die Staub-Linien bleiben getrennt, Geräte nehmen aber alle an: Hebel, Redstone-Staub, Astral- oder Nihil-Redstone schalten sie jeweils um."
     ]
   },
   "family:signal_switch": {
@@ -2651,7 +2651,7 @@
       "{name} schiebt, wenn die andere Seite es ihm sagt."
     ],
     "use": [
-      "Ein Kolben (Nihil: ein Klebekolben) in der Mitte, vier passende Redstone an den Kanten, vier Polierte Blöcke der Palette in den Ecken. Er empfängt seinen eigenen Kanal wie eine Lampe, leitet nichts weiter und feuert beim Einschalten."
+      "Ein Kolben (Nihil: ein Klebekolben) in der Mitte, vier passende Redstone an den Kanten, vier Polierte Blöcke der Palette in den Ecken. Er nimmt wie eine Lampe jede Redstone-Linie an, leitet nichts weiter und feuert beim Einschalten."
     ],
     "secret": [
       "Er feuert nur bei der steigenden Flanke, nicht solange das Signal anliegt. Ein dauerhafter Kanal ergibt also einen Schub, dann Stille."
@@ -3029,7 +3029,21 @@
       "Astralitstaub, einen Nihilit-Splitter und Redstone formlos zu dritt herstellen. Es verbindet Vanilla-Redstone, Astral-Redstone und Nihil-Redstone, die sich sonst nie mischen."
     ],
     "secret": [
-      "Nur dieser Staub lässt einen Hebel der einen Linie eine Lampe der anderen schalten."
+      "Nur dieser Staub reicht ein Signal vom Staub der einen Linie in den Staub einer anderen weiter."
+    ]
+  },
+  "family:line_redstone_block": {
+    "items": [
+      "regex:(astral|nihil|bridge)_redstone_block"
+    ],
+    "lore": [
+      "{name}: neun Staub, die nie aufhören, ihre Linie zu sprechen."
+    ],
+    "use": [
+      "Neun Redstone der Linie ergeben einen, einer gibt die neun zurück. Wie ein Redstone-Block ist er eine dauerhafte Quelle: Er speist nur Staub seiner eigenen Linie (der Brücken-Block alle drei) und schaltet jedes Gerät daneben."
+    ],
+    "secret": [
+      "Staub einer anderen Linie daneben bleibt dunkel, eine Lampe, Tür oder ein Kolben daneben reagiert trotzdem. Kolben können ihn schieben, wie einen Redstone-Block."
     ]
   }
 }

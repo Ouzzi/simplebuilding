@@ -58,26 +58,27 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "sources": [
         "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/EndBudBlock.java",
         "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/world/EndTrees.java",
-        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/EndSticksBlock.java"
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/EndSticksBlock.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/block/EndLeavesBlock.java"
       ],
       "en": {
-        "title": "Buds, End trees and stick scrub",
-        "summary": "Ash Bud and Dusk Bud grow on End stone. In light level 9 or more a bud becomes a big End tree; below 9 bone meal turns it into tall End-stick scrub.",
+        "title": "Buds, gigantic End trees and stick trees",
+        "summary": "Ash Bud and Dusk Bud grow on End stone or dirt. Outside the End, in light 9 or more, a bud becomes a gigantic wood tree; in the dark bone meal turns it into stick scrub. In the End every bud grows a stick tree - wood comes only from buds planted outside the End.",
         "details": [
           "By itself (random ticks) a bud grows only in light 9 or more (config budsGrowAlone); in the dark only bone meal helps.",
-          "Big tree: one trunk 8-11 blocks high with 3-4 chorus-like branches and leaf clusters. Four buds of the same wood in a 2x2 square grow a huge tree on a 2x2 trunk, 13-17 high.",
-          "Scrub: columns of End sticks, 8-13 high, thick at the bottom and thin at the top like dripstone, with up to two shorter side columns. End sticks are their own block; one block crafts into 3 sticks.",
-          "A bud only grows when the trunk has room; otherwise it stays."
+          "Big tree (1 bud): trunk 15-19 with root flares, 5-7 rising branches with leaf clusters and a crown. 2x2 buds of one wood: huge tree on a 2x2 trunk 23-28 high. 4x4 buds: colossal tree on a 4x4 trunk (2x2 above 60 %), 38-46 high, with long forked branches - the biggest tree in the game.",
+          "Stick trees have the same shape but are made of End sticks (lying branches, thin twigs). Cut the trunk and every stick above falls at once, like chorus; the drops land as a few stacks. Placed sticks never fall.",
+          "Returns: a wood tree keeps on average 0.8 buds and 1 fruit in a few marked leaves, a stick tree 1.5 buds and 2 fruits. A tree only grows when its trunk has room; branches stop at obstacles."
         ]
       },
       "de": {
-        "title": "Knospen, End-Bäume und Stöcke-Gestrüpp",
-        "summary": "Aschknospe und Dämmerknospe wachsen auf Endstein. Ab Lichtstufe 9 wird eine Knospe zum großen End-Baum; darunter macht Knochenmehl daraus hohes Gestrüpp aus End-Stöcken.",
+        "title": "Knospen, gigantische End-Bäume und Stöcke-Bäume",
+        "summary": "Aschknospe und Dämmerknospe wachsen auf Endstein oder Erde. Außerhalb des Ends wird eine Knospe ab Licht 9 zu einem gigantischen Holzbaum; im Dunkeln macht Knochenmehl daraus Stöcke-Gestrüpp. Im End wächst aus jeder Knospe ein Stöcke-Baum - Holz gibt es nur von Knospen außerhalb des Ends.",
         "details": [
           "Von selbst (Zufallsticks) wächst eine Knospe nur ab Licht 9 (Config budsGrowAlone); im Dunkeln hilft nur Knochenmehl.",
-          "Großer Baum: ein Stamm, 8-11 Blöcke hoch, 3-4 chorusartige Äste mit Laubbüscheln. Vier gleiche Knospen im 2x2-Quadrat ergeben einen Riesenbaum mit 2x2-Stamm, 13-17 hoch.",
-          "Gestrüpp: Säulen aus End-Stöcken, 8-13 hoch, unten dick und oben dünn wie Tropfstein, mit bis zu zwei kürzeren Nebensäulen. End-Stöcke sind ein eigener Block; ein Block ergibt 3 Stöcke.",
-          "Eine Knospe wächst nur, wenn der Stamm Platz hat; sonst bleibt sie."
+          "Großer Baum (1 Knospe): Stamm 15-19 mit Wurzeln, 5-7 aufsteigende Äste mit Laubbüscheln und eine Krone. 2x2 gleiche Knospen: Riesenbaum mit 2x2-Stamm, 23-28 hoch. 4x4 Knospen: Kolossbaum mit 4x4-Stamm (ab 60 % 2x2), 38-46 hoch, mit langen gegabelten Ästen - der größte Baum im Spiel.",
+          "Stöcke-Bäume haben dieselbe Form, aber aus End-Stöcken (liegende Äste, dünne Zweige). Wird der Stamm gefällt, fällt alles darüber auf einmal, wie Chorus; die Drops landen als wenige Stapel. Gesetzte Stöcke fallen nie.",
+          "Rückgabe: ein Holzbaum trägt im Schnitt 0,8 Knospen und 1 Frucht in wenigen markierten Blättern, ein Stöcke-Baum 1,5 Knospen und 2 Früchte. Ein Baum wächst nur, wenn sein Stamm Platz hat; Äste enden an Hindernissen."
         ]
       }
     },
@@ -85,20 +86,24 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       "id": "leaves_and_fruit",
       "sources": [
         "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/DriftFruitItem.java",
-        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/EndRegistry.java"
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/EndRegistry.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SpoiledDriftFruitItem.java",
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/DriftingEffect.java"
       ],
       "en": {
-        "title": "Leaves and Drift Fruit",
-        "summary": "End leaves drop their bud (5 %), sticks and rarely Drift Fruit. Eating Drift Fruit gives 4 seconds of Slow Falling and a small hop - a short glide.",
+        "title": "Leaves, Drift Fruit and Spoiled Drift Fruit",
+        "summary": "End leaves are no full block: a see-through star of tendrils around a small crystal, tinted by the biome. Only the few leaves a tree marked drop its bud or fruit (always); all drop sticks now and then. Drift Fruit ripens only in the End - elsewhere the fruit is Spoiled Drift Fruit.",
         "details": [
-          "Drift Fruit is always edible (3 hunger points) and drops like apples from oak leaves (0.5 %, more with Fortune)."
+          "Drift Fruit: always edible (3 hunger points), 4 seconds of Slow Falling and a small hop - a short glide.",
+          "Spoiled Drift Fruit: 1 hunger point, then 5 seconds of Drifting - almost weightless, slow to steer and pushed about at random - followed by 8 seconds of Slow Falling, so it never ends in a deadly fall."
         ]
       },
       "de": {
-        "title": "Laub und Schwebfrucht",
-        "summary": "End-Laub droppt seine Knospe (5 %), Stöcke und selten Schwebfrucht. Schwebfrucht gibt beim Essen 4 Sekunden Sanfter Fall und einen kleinen Sprung - ein kurzer Schwebeflug.",
+        "title": "Laub, Schwebfrucht und Verdorbene Schwebfrucht",
+        "summary": "End-Laub ist kein Vollblock: ein durchsichtiger Stern aus Ranken um einen kleinen Kristall, getönt vom Biom. Nur die wenigen Blätter, die ein Baum markiert hat, droppen seine Knospe oder Frucht (immer); alle geben ab und zu Stöcke. Schwebfrucht reift nur im End - anderswo wird die Frucht zur Verdorbenen Schwebfrucht.",
         "details": [
-          "Schwebfrucht ist immer essbar (3 Hungerpunkte) und droppt wie Äpfel aus Eichenlaub (0,5 %, mehr mit Glück)."
+          "Schwebfrucht: immer essbar (3 Hungerpunkte), 4 Sekunden Sanfter Fall und ein kleiner Sprung - ein kurzer Schwebeflug.",
+          "Verdorbene Schwebfrucht: 1 Hungerpunkt, dann 5 Sekunden Treiben - fast schwerelos, schwer zu steuern und zufällig geschubst - und danach 8 Sekunden Sanfter Fall, also nie ein tödlicher Sturz."
         ]
       }
     },
@@ -154,20 +159,20 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       ],
       "en": {
         "title": "Ash Valley and Dawnlands",
-        "summary": "Two End biomes on the outer islands (never on the dragon island): round patches 3-6 chunks across replace parts of the End highlands/midlands. Ash Valley grows Ashwood, Dawnlands Duskwood.",
+        "summary": "Two large End biomes on the outer islands (never on the dragon island): rare patches 14-24 chunks across with a wavy rim replace the End highlands/midlands/barrens. Each has a foggy core (Ash Valley, Dawnlands) inside a fringe (Ash Valley Fringe, Dawnlands Fringe).",
         "details": [
-          "Each holds narrow chorus-like natural trees, grown big trees, stick scrub, End grass, bushes and buds; chorus is rarer than the scrub. Return gateways and End cities still appear.",
-          "Own fog and sky colour, ash (Ash Valley) or drifting spores (Dawnlands) and their own music; the only mob is the passive Nibblemite.",
-          "Config biomes switches the patches off for new chunks, biomeChance sets how many 12x12-chunk areas hold a patch (default 0.4)."
+          "The End grows no wood trees: the biomes hold stick trees (core: one per chunk plus a giant one now and then; fringe: fewer), stick scrub, dense End grass and bushes, a few buds and a little chorus. Return gateways and End cities still appear.",
+          "The core is filled with thick fog (visible for about 20 blocks); the fringe fades from clear to foggy. Ash (Ash Valley) or drifting spores (Dawnlands) and their own music; the passive Nibblemite lives in both. Biome tag simpleend:watcher_core lists only the two cores (other mods may spawn there).",
+          "Config biomes switches the patches off for new chunks, biomeChance sets how many 40x40-chunk areas hold a patch (default 0.3)."
         ]
       },
       "de": {
         "title": "Aschental und Dämmerlande",
-        "summary": "Zwei End-Biome auf den äußeren Inseln (nie auf der Dracheninsel): runde Flecken mit 3-6 Chunks Durchmesser ersetzen Teile der End-Highlands/-Midlands. Im Aschental wächst Aschholz, in den Dämmerlanden Dämmerholz.",
+        "summary": "Zwei große End-Biome auf den äußeren Inseln (nie auf der Dracheninsel): seltene Flecken mit 14-24 Chunks Durchmesser und welligem Rand ersetzen End-Highlands/-Midlands/-Barrens. Jeder hat einen nebligen Kern (Aschental, Dämmerlande) in einem Saum (Aschental-Saum, Dämmerlande-Saum).",
         "details": [
-          "Darin stehen schmale chorusartige Naturbäume, ausgewachsene große Bäume, Stöcke-Gestrüpp, End-Gras, Büsche und Knospen; Chorus ist seltener als das Gestrüpp. Rückkehr-Portale und End-Städte erscheinen weiterhin.",
-          "Eigene Nebel- und Himmelsfarbe, Asche (Aschental) bzw. schwebende Sporen (Dämmerlande) und eigene Musik; einziger Mob ist die friedliche Knabbermilbe.",
-          "Config biomes schaltet die Flecken für neue Chunks ab, biomeChance legt fest, wie viele 12x12-Chunk-Felder einen Fleck haben (Standard 0,4)."
+          "Im End wachsen keine Holzbäume: in den Biomen stehen Stöcke-Bäume (Kern: einer je Chunk und ab und zu ein riesiger; Saum: weniger), Stöcke-Gestrüpp, dichtes End-Gras und Büsche, einige Knospen und etwas Chorus. Rückkehr-Portale und End-Städte erscheinen weiterhin.",
+          "Der Kern ist von dichtem Nebel erfüllt (Sicht etwa 20 Blöcke); im Saum wird es vom Klaren zum Nebel. Asche (Aschental) bzw. schwebende Sporen (Dämmerlande) und eigene Musik; die friedliche Knabbermilbe lebt in beiden. Der Biom-Tag simpleend:watcher_core enthält nur die beiden Kerne (andere Mods können dort spawnen lassen).",
+          "Config biomes schaltet die Flecken für neue Chunks ab, biomeChance legt fest, wie viele 40x40-Chunk-Felder einen Fleck haben (Standard 0,3)."
         ]
       }
     },
@@ -1515,7 +1520,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         {
           "rolls": 1,
           "items": [
-            "simpleend:ashwood_leaves",
+            "simpleend:ashwood_leaves"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
             "simpleend:ash_bud"
           ],
           "conditions": [],
@@ -1524,7 +1536,8 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         {
           "rolls": 1,
           "items": [
-            "minecraft:stick"
+            "simpleend:drift_fruit",
+            "simpleend:spoiled_drift_fruit"
           ],
           "conditions": [],
           "functions": []
@@ -1532,7 +1545,7 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         {
           "rolls": 1,
           "items": [
-            "simpleend:drift_fruit"
+            "minecraft:stick"
           ],
           "conditions": [],
           "functions": []
@@ -1820,7 +1833,14 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         {
           "rolls": 1,
           "items": [
-            "simpleend:duskwood_leaves",
+            "simpleend:duskwood_leaves"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
             "simpleend:dusk_bud"
           ],
           "conditions": [],
@@ -1829,7 +1849,8 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         {
           "rolls": 1,
           "items": [
-            "minecraft:stick"
+            "simpleend:drift_fruit",
+            "simpleend:spoiled_drift_fruit"
           ],
           "conditions": [],
           "functions": []
@@ -1837,7 +1858,7 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         {
           "rolls": 1,
           "items": [
-            "simpleend:drift_fruit"
+            "minecraft:stick"
           ],
           "conditions": [],
           "functions": []
@@ -2457,9 +2478,28 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         {
           "id": "simpleend:drift_fruit",
           "required": true
+        },
+        {
+          "id": "simpleend:spoiled_drift_fruit",
+          "required": true
         }
       ],
       "source": "modules/simpleend/generated/resources/data/simpleend/tags/item/void_safe.json"
+    },
+    {
+      "id": "simpleend:worldgen/biome/watcher_core",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleend:ash_valley",
+          "required": true
+        },
+        {
+          "id": "simpleend:dawnlands",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/tags/worldgen/biome/watcher_core.json"
     }
   ],
   "advancements": [],
@@ -2515,17 +2555,17 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       },
       "note": {
         "en": {
-          "summary": "Drift Fruit: 4 s Slow Falling and a small hop."
+          "summary": "Drift Fruit (ripens only in the End): 4 s Slow Falling and a small hop."
         },
         "de": {
-          "summary": "Schwebfrucht: 4 s Sanfter Fall und ein kleiner Sprung."
+          "summary": "Schwebfrucht (reift nur im End): 4 s Sanfter Fall und ein kleiner Sprung."
         }
       },
       "texture": "assets/textures/simpleend/item/drift_fruit.png",
       "questionary": {
         "en": {
           "lore": [
-            "A light, pale fruit of the End trees. It seems to want to float away."
+            "A light, pale fruit that only ripens on the stick trees of the End. It seems to want to float away."
           ],
           "use": [
             "Eating it gives four seconds of Slow Falling and a small hop - enough to glide from one End island to the next ledge."
@@ -2536,7 +2576,7 @@ window.WIKI_MODULE_DATA["simpleend"] = {
         },
         "de": {
           "lore": [
-            "Eine leichte, blasse Frucht der End-Bäume. Sie scheint davonschweben zu wollen."
+            "Eine leichte, blasse Frucht, die nur an den Stöcke-Bäumen des Ends reift. Sie scheint davonschweben zu wollen."
           ],
           "use": [
             "Beim Essen gibt sie vier Sekunden Sanfter Fall und einen kleinen Sprung - genug, um von einer End-Insel zum nächsten Vorsprung zu gleiten."
@@ -2603,10 +2643,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "modules/simpleend/shared/resources/data/simpleend/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
+          "summary": "Guide to this mod: 17 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
+          "summary": "Handbuch zu dieser Mod: 17 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
         }
       },
       "texture": "assets/textures/simpleend/item/guide_book.png",
@@ -2656,6 +2696,48 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       },
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simpleend:spoiled_drift_fruit",
+      "name": {
+        "en_us": "Spoiled Drift Fruit",
+        "de_de": "Verdorbene Schwebfrucht"
+      },
+      "note": {
+        "en": {
+          "summary": "Spoiled Drift Fruit (End fruit grown outside the End): 5 s Drifting - nearly weightless, pushed about - then Slow Falling."
+        },
+        "de": {
+          "summary": "Verdorbene Schwebfrucht (End-Frucht außerhalb des Ends gewachsen): 5 s Treiben - fast schwerelos, geschubst - dann Sanfter Fall."
+        }
+      },
+      "texture": "assets/textures/simpleend/item/spoiled_drift_fruit.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A Drift Fruit that grew outside the End: shrivelled, brown and a little mouldy."
+          ],
+          "use": [
+            "Eating it lets you drift for five seconds - almost weightless, pushed about by nothing at all. Slow Falling afterwards makes sure you land softly."
+          ],
+          "secret": [
+            "End fruit only ripens in the End; plant your buds there if you want the real thing."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Schwebfrucht, die außerhalb des Ends gewachsen ist: verschrumpelt, braun und etwas schimmlig."
+          ],
+          "use": [
+            "Beim Essen treibt man fünf Sekunden lang fast schwerelos herum, von nichts geschubst. Danach sorgt Sanfter Fall für eine weiche Landung."
+          ],
+          "secret": [
+            "End-Früchte reifen nur im End; wer die echte will, pflanzt seine Knospen dort."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
     }
   ],
   "blocks": [
@@ -2667,10 +2749,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       },
       "note": {
         "en": {
-          "summary": "Ash Bud: plant on End stone. Light 9+ grows a big tree (2x2 buds: huge tree), darker plus bone meal grows stick scrub."
+          "summary": "Ash Bud: plant on End stone or dirt. Outside the End light 9+ grows a gigantic tree (2x2: huge, 4x4: colossal), dark + bone meal stick scrub; in the End always a stick tree."
         },
         "de": {
-          "summary": "Aschknospe: auf Endstein setzen. Ab Licht 9 wächst ein großer Baum (2x2 Knospen: Riesenbaum), dunkler mit Knochenmehl Stöcke-Gestrüpp."
+          "summary": "Aschknospe: auf Endstein oder Erde setzen. Außerhalb des Ends ab Licht 9 ein gigantischer Baum (2x2: Riesenbaum, 4x4: Kolossbaum), dunkel mit Knochenmehl Stöcke-Gestrüpp; im End immer ein Stöcke-Baum."
         }
       },
       "texture": "assets/textures/simpleend/block/ash_bud.png",
@@ -2781,10 +2863,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       },
       "note": {
         "en": {
-          "summary": "End leaves; drop the bud, sticks and rarely Drift Fruit."
+          "summary": "See-through End leaves (tendrils around a crystal, no full block); marked leaves drop the tree's bud or fruit, all drop sticks now and then."
         },
         "de": {
-          "summary": "End-Laub; droppt die Knospe, Stöcke und selten Schwebfrucht."
+          "summary": "Durchsichtiges End-Laub (Ranken um einen Kristall, kein Vollblock); markierte Blätter droppen Knospe oder Frucht des Baums, alle ab und zu Stöcke."
         }
       },
       "texture": "assets/textures/simpleend/block/ashwood_leaves.png",
@@ -2947,10 +3029,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       },
       "note": {
         "en": {
-          "summary": "End sticks: the scrub block of dark buds, tapering like dripstone. Crafts into 3 sticks."
+          "summary": "End sticks: the wood of the End trees (trunk, lying branches, twigs). A cut stick tree falls like chorus; placed sticks stay. Crafts into 3 sticks."
         },
         "de": {
-          "summary": "End-Stöcke: der Gestrüpp-Block dunkler Knospen, verjüngt sich wie Tropfstein. Ergibt 3 Stöcke."
+          "summary": "End-Stöcke: das Holz der End-Bäume (Stamm, liegende Äste, Zweige). Ein gefällter Stöcke-Baum fällt wie Chorus; gesetzte Stöcke bleiben. Ergibt 3 Stöcke."
         }
       },
       "texture": "assets/textures/simpleend/block/ashwood_sticks.png",
@@ -3075,10 +3157,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       },
       "note": {
         "en": {
-          "summary": "Dusk Bud: plant on End stone. Light 9+ grows a big tree (2x2 buds: huge tree), darker plus bone meal grows stick scrub."
+          "summary": "Dusk Bud: plant on End stone or dirt. Outside the End light 9+ grows a gigantic tree (2x2: huge, 4x4: colossal), dark + bone meal stick scrub; in the End always a stick tree."
         },
         "de": {
-          "summary": "Dämmerknospe: auf Endstein setzen. Ab Licht 9 wächst ein großer Baum (2x2 Knospen: Riesenbaum), dunkler mit Knochenmehl Stöcke-Gestrüpp."
+          "summary": "Dämmerknospe: auf Endstein oder Erde setzen. Außerhalb des Ends ab Licht 9 ein gigantischer Baum (2x2: Riesenbaum, 4x4: Kolossbaum), dunkel mit Knochenmehl Stöcke-Gestrüpp; im End immer ein Stöcke-Baum."
         }
       },
       "texture": "assets/textures/simpleend/block/dusk_bud.png",
@@ -3189,10 +3271,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       },
       "note": {
         "en": {
-          "summary": "End leaves; drop the bud, sticks and rarely Drift Fruit."
+          "summary": "See-through End leaves (tendrils around a crystal, no full block); marked leaves drop the tree's bud or fruit, all drop sticks now and then."
         },
         "de": {
-          "summary": "End-Laub; droppt die Knospe, Stöcke und selten Schwebfrucht."
+          "summary": "Durchsichtiges End-Laub (Ranken um einen Kristall, kein Vollblock); markierte Blätter droppen Knospe oder Frucht des Baums, alle ab und zu Stöcke."
         }
       },
       "texture": "assets/textures/simpleend/block/duskwood_leaves.png",
@@ -3355,10 +3437,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
       },
       "note": {
         "en": {
-          "summary": "End sticks: the scrub block of dark buds, tapering like dripstone. Crafts into 3 sticks."
+          "summary": "End sticks: the wood of the End trees (trunk, lying branches, twigs). A cut stick tree falls like chorus; placed sticks stay. Crafts into 3 sticks."
         },
         "de": {
-          "summary": "End-Stöcke: der Gestrüpp-Block dunkler Knospen, verjüngt sich wie Tropfstein. Ergibt 3 Stöcke."
+          "summary": "End-Stöcke: das Holz der End-Bäume (Stamm, liegende Äste, Zweige). Ein gefällter Stöcke-Baum fällt wie Chorus; gesetzte Stöcke bleiben. Ergibt 3 Stöcke."
         }
       },
       "texture": "assets/textures/simpleend/block/duskwood_sticks.png",
@@ -3646,10 +3728,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
     "features": 8,
     "recipes": 35,
     "lootTables": 44,
-    "tags": 7,
+    "tags": 8,
     "advancements": 0,
     "enchantments": 0,
-    "items": 7,
+    "items": 8,
     "blocks": 47,
     "trades": 0,
     "config": 0,

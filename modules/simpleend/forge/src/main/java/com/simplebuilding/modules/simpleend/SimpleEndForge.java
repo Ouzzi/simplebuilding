@@ -18,6 +18,7 @@ public final class SimpleEndForge {
             var key = event.getRegistryKey();
             if (key.equals(Registries.BLOCK)) EndRegistry.blocks();
             if (key.equals(Registries.ITEM)) EndRegistry.items();
+            if (key.equals(Registries.MOB_EFFECT)) EndRegistry.effects();
             if (key.equals(Registries.ENTITY_TYPE)) EndRegistry.entities();
             if (key.equals(Registries.FEATURE_TYPE)) EndRegistry.featureTypes();
             if (key.equals(Registries.SOUND_EVENT)) EndRegistry.sounds();

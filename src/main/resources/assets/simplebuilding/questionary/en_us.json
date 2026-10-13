@@ -139,7 +139,7 @@
       "A rail that has heard the sky and wants to go there."
     ],
     "use": [
-      "Six gold ingots, a stick and Astral Redstone make 6. Straight only. Powered by its own channel, it pushes carts to a top speed of 16 blocks per second by default (vanilla 8). Unpowered it is a plain rail."
+      "Six gold ingots, a stick and Astral Redstone make 6. Straight only. Powered by any redstone line, it pushes carts to a top speed of 16 blocks per second by default (vanilla 8). Unpowered it is a plain rail."
     ],
     "secret": [
       "The boost fades the closer a cart gets to top speed, so it approaches the limit and never reaches it. On slopes and in water the vanilla limit applies, so brake before a curve."
@@ -150,10 +150,10 @@
       "A rail that takes the speed out of the world, politely and completely."
     ],
     "use": [
-      "Six gold ingots, a stick and Nihil Redstone make 6. Straight only. Powered by its own channel, it brakes: each tick the cart keeps 80 percent of its speed minus a small amount, stops, and is held while power stays on."
+      "Six gold ingots, a stick and Nihil Redstone make 6. Straight only. Powered by any redstone line, it brakes: each tick the cart keeps 80 percent of its speed minus a small amount, stops, and is held while power stays on."
     ],
     "secret": [
-      "Unpowered it lets carts roll through. Only its own channel powers it, not vanilla redstone or neighboring rails, so you can build a station that brakes on a signal."
+      "Unpowered it lets carts roll through. Every redstone line powers it (redstone, Astral, Nihil, Bridge), but never a neighboring rail, so you can build a station that brakes on a signal."
     ]
   },
   "astral_vault": {
@@ -2623,10 +2623,10 @@
       "{name} lights only for those who speak its language."
     ],
     "use": [
-      "A redstone lamp plus matching channel redstone, shapeless. It receives its own channel only and never relays; vanilla redstone does not light it."
+      "A redstone lamp plus matching line redstone, shapeless. It takes every redstone line and never relays; each pulse toggles it like a copper bulb."
     ],
     "secret": [
-      "It reads the channel of its material alone: an Astralit lamp ignores Nihil Redstone completely, so the two channels can run side by side."
+      "The dust lines stay apart, but devices take them all: a lever, redstone dust, Astral or Nihil Redstone each toggle it."
     ]
   },
   "family:signal_switch": {
@@ -2651,7 +2651,7 @@
       "{name} pushes when the other side tells it to."
     ],
     "use": [
-      "A piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges, four Polished blocks of the palette in the corners. It receives its own channel like a lamp, relays nothing, and fires when the signal switches on."
+      "A piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges, four Polished blocks of the palette in the corners. It takes every redstone line like a lamp, relays nothing, and fires when the signal switches on."
     ],
     "secret": [
       "It fires on the rising edge only, not for as long as the signal stays on. So a steady channel gives one push, then silence."
@@ -3029,7 +3029,21 @@
       "Craft astralit dust, a nihilit shard and redstone, shapeless, for three. It links vanilla redstone, Astral Redstone and Nihil Redstone, which otherwise never mix."
     ],
     "secret": [
-      "It is the only dust that lets a lever in one line switch a lamp in another."
+      "It is the only dust that passes a signal from the dust of one line into the dust of another."
+    ]
+  },
+  "family:line_redstone_block": {
+    "items": [
+      "regex:(astral|nihil|bridge)_redstone_block"
+    ],
+    "lore": [
+      "{name}: nine dust that never stop speaking their line."
+    ],
+    "use": [
+      "Nine of the line's redstone make one, and one gives the nine back. Like a redstone block it is a permanent source: it feeds dust of its own line only (the Bridge block feeds all three) and powers every device next to it."
+    ],
+    "secret": [
+      "Dust of another line beside it stays dark, yet a lamp, door or piston on the same block reacts. Pistons can push it, like a redstone block."
     ]
   }
 }

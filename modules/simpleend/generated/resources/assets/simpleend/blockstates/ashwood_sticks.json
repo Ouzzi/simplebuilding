@@ -1,13 +1,40 @@
 {
   "variants": {
-    "thickness=1": {
+    "axis=x,thickness=1": {
+      "model": "simpleend:block/ashwood_sticks_1",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,thickness=1": {
       "model": "simpleend:block/ashwood_sticks_1"
     },
-    "thickness=2": {
+    "axis=z,thickness=1": {
+      "model": "simpleend:block/ashwood_sticks_1",
+      "x": 90
+    },
+    "axis=x,thickness=2": {
+      "model": "simpleend:block/ashwood_sticks_2",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,thickness=2": {
       "model": "simpleend:block/ashwood_sticks_2"
     },
-    "thickness=3": {
+    "axis=z,thickness=2": {
+      "model": "simpleend:block/ashwood_sticks_2",
+      "x": 90
+    },
+    "axis=x,thickness=3": {
+      "model": "simpleend:block/ashwood_sticks_3",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,thickness=3": {
       "model": "simpleend:block/ashwood_sticks_3"
+    },
+    "axis=z,thickness=3": {
+      "model": "simpleend:block/ashwood_sticks_3",
+      "x": 90
     }
   }
 }

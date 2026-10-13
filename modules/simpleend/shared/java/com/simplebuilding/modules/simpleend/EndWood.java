@@ -38,7 +38,6 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.StandingSignBlock;
-import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
@@ -144,7 +143,7 @@ public final class EndWood {
         // Vanilla's shelf (Blocks.OAK_SHELF): planks colour, shelf sound, Vanilla shelf block entity (BlockEntityTypeMixin).
         shelf = block(id("W_shelf"), ShelfBlock::new,
                 Properties.of().mapColor(plankColor).instrument(NoteBlockInstrument.BASS).sound(SoundType.SHELF).ignitedByLava().strength(2.0F, 3.0F));
-        leaves = block(id("W_leaves"), p -> new TintedParticleLeavesBlock(0.01F, p),
+        leaves = block(id("W_leaves"), com.simplebuilding.modules.simpleend.block.EndLeavesBlock::new,
                 Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()
                         .isValidSpawn((s, g, p2, e) -> false).isSuffocating((s, g, p2) -> false)
                         .ignitedByLava().pushReaction(PushReaction.POPPED).isRedstoneConductor((s, g, p2) -> false));

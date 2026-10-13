@@ -79,7 +79,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT)).add(key(ModBlocks.NIHIL_VAULT))
-                    .add(key(ModBlocks.ASTRAL_PISTON)).add(key(ModBlocks.NIHIL_PISTON));
+                    .add(key(ModBlocks.ASTRAL_PISTON)).add(key(ModBlocks.NIHIL_PISTON))
+                    .add(key(ModBlocks.ASTRAL_REDSTONE_BLOCK)).add(key(ModBlocks.NIHIL_REDSTONE_BLOCK)).add(key(ModBlocks.BRIDGE_REDSTONE_BLOCK));
             // Astral-/Nihil-Kolben: zusaetzlich zu ihren festen Regeln (unzerstoerbar, Block-Entity, Kolben,
             // Doppelbloecke, BLOCK/DESTROY) nie bewegt - Portalrahmen, verstaerkter Tiefenschiefer, Durchbruch-Extras.
             builder(ModTags.Blocks.END_PISTON_IMMOVABLE)

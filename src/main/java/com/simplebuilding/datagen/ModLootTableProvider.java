@@ -60,6 +60,9 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             dropSelf(ModBlocks.ASTRAL_PISTON);
             dropSelf(ModBlocks.NIHIL_PISTON);
+            dropSelf(ModBlocks.ASTRAL_REDSTONE_BLOCK);
+            dropSelf(ModBlocks.NIHIL_REDSTONE_BLOCK);
+            dropSelf(ModBlocks.BRIDGE_REDSTONE_BLOCK);
         }
         if (com.simplebuilding.version.McVersion.END_RAILS) {
             dropSelf(ModBlocks.ASTRAL_RAIL);

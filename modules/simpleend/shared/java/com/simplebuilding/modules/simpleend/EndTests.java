@@ -60,6 +60,21 @@ public final class EndTests {
         return BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals(namespace));
     }
 
+    /** Removes a grown tree again (tests in the sky must not leave it for later batches). */
+    private static void clear(GameTestHelper h, com.simplebuilding.modules.simpleend.world.EndTrees.Grown grown, BlockPos groundRel, int radius) {
+        ServerLevel level = h.getLevel();
+        for (BlockPos p : grown.leaves()) level.setBlock(p, Blocks.AIR.defaultBlockState(), 18);
+        for (BlockPos p : grown.wood()) level.setBlock(p, Blocks.AIR.defaultBlockState(), 18);
+        for (int dx = -radius; dx <= radius; dx++)
+            for (int dz = -radius; dz <= radius; dz++) level.setBlock(h.absolutePos(groundRel.offset(dx, -1, dz)), Blocks.AIR.defaultBlockState(), 18);
+    }
+
+    private static int countAbs(ServerLevel level, java.util.List<BlockPos> list, Block block) {
+        int n = 0;
+        for (BlockPos p : list) if (level.getBlockState(p).is(block)) n++;
+        return n;
+    }
+
     private static void waitForLight(GameTestHelper h, BlockPos rel, boolean bright, Runnable then) {
         h.succeedWhen(() -> {
             h.assertTrue(EndBudBlock.bright(h.getLevel(), h.absolutePos(rel)) == bright, "light around the bud not settled yet");
@@ -153,17 +168,27 @@ public final class EndTests {
             }
             h.succeed();
         });
+        // Umbau 13.10.: buds outside the End grow gigantic wood trees. Tree tests grow in the sky, each in its own height
+        // band (50, 85, 120, 155, 200, 265) above the barrier roof of the test structure, so trees of neighbouring
+        // tests never meet.
         add("bud_light_grows_tree", h -> {
             EndWood w = EndWood.ASHWOOD;
-            ground(h, BUD, 3);
-            h.setBlock(BUD, w.bud);
-            h.setBlock(BUD.offset(2, 0, 0), Blocks.GLOWSTONE);
-            waitForLight(h, BUD, true, () -> {
-                boolean grown = ((EndBudBlock) w.bud).grow(h.getLevel(), h.absolutePos(BUD), h.getLevel().getRandom());
-                h.assertTrue(grown, "a lit bud grows");
-                h.assertTrue(h.getBlockState(BUD).is(w.log) && h.getBlockState(BUD.above(7)).is(w.log), "trunk of at least 8 logs");
-                h.assertTrue(count(h, w.leaves, BUD.offset(-7, 0, -7), BUD.offset(7, 16, 7)) > 20, "leaf clusters");
-                h.assertTrue(count(h, w.sticks, BUD.offset(-3, 0, -3), BUD.offset(3, 14, 3)) == 0, "no scrub in the light");
+            BlockPos at = BUD.above(85);
+            ground(h, at, 3);
+            h.setBlock(at, w.bud);
+            waitForLight(h, at, true, () -> {
+                BlockPos abs = h.absolutePos(at);
+                var grown = com.simplebuilding.modules.simpleend.world.EndTrees.grow(h.getLevel(), abs, w,
+                        com.simplebuilding.modules.simpleend.world.EndTrees.Size.BIG, false, h.getLevel().getRandom(), abs);
+                h.assertTrue(grown != null, "a lit bud grows");
+                h.assertTrue(h.getBlockState(at).is(w.log) && h.getBlockState(at.above(14)).is(w.log), "gigantic trunk of at least 15 logs");
+                h.assertTrue(grown.leaves().size() > 150, "big leaf crown, got " + grown.leaves().size());
+                h.assertTrue(countAbs(h.getLevel(), grown.wood(), w.sticks) == 0, "a wood tree outside the End has no sticks");
+                h.assertTrue(grown.buds() <= 1 && grown.fruits() <= 1, "0.8 buds and 1 fruit on average: 0-1 each, got " + grown.buds() + "/" + grown.fruits());
+                int marked = 0;
+                for (BlockPos p : grown.leaves()) if (h.getLevel().getBlockState(p).getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.DROP) != 0) marked++;
+                h.assertTrue(marked == grown.buds() + grown.fruits(), "marked leaves = buds + fruits");
+                clear(h, grown, at, 3);
             });
         });
         add("bud_dark_grows_scrub", h -> {
@@ -187,15 +212,57 @@ public final class EndTests {
         });
         add("bud_square_grows_huge_tree", h -> {
             EndWood w = EndWood.ASHWOOD;
-            ground(h, BUD, 4);
-            for (BlockPos p : new BlockPos[] {BUD, BUD.east(), BUD.south(), BUD.south().east()}) h.setBlock(p, w.bud);
-            h.setBlock(BUD.offset(-2, 0, 0), Blocks.GLOWSTONE);
-            waitForLight(h, BUD, true, () -> {
-                boolean grown = ((EndBudBlock) w.bud).grow(h.getLevel(), h.absolutePos(BUD.south().east()), h.getLevel().getRandom());
+            BlockPos at = BUD.above(155);
+            ground(h, at, 5);
+            for (BlockPos p : new BlockPos[] {at, at.east(), at.south(), at.south().east()}) h.setBlock(p, w.bud);
+            waitForLight(h, at, true, () -> {
+                boolean grown = ((EndBudBlock) w.bud).grow(h.getLevel(), h.absolutePos(at.south().east()), h.getLevel().getRandom(), false);
                 h.assertTrue(grown, "2x2 buds grow");
-                for (BlockPos p : new BlockPos[] {BUD, BUD.east(), BUD.south(), BUD.south().east()})
-                    h.assertTrue(h.getBlockState(p.above(12)).is(w.log), "2x2 trunk at least 13 high at " + p);
+                for (BlockPos p : new BlockPos[] {at, at.east(), at.south(), at.south().east()})
+                    h.assertTrue(h.getBlockState(p.above(22)).is(w.log), "2x2 trunk at least 23 high at " + p);
+                for (BlockPos p : BlockPos.betweenClosed(h.absolutePos(at.offset(-16, 0, -16)), h.absolutePos(at.offset(17, 45, 17))))
+                    if (!h.getLevel().getBlockState(p).isAir()) h.getLevel().setBlock(p, Blocks.AIR.defaultBlockState(), 18);
             });
+        });
+        add("colossal_tree_from_sixteen_buds", h -> {
+            EndWood w = EndWood.DUSKWOOD;
+            BlockPos at = BUD.above(200);
+            ground(h, at, 6);
+            for (int i = 0; i < 16; i++) h.setBlock(at.offset(i % 4, 0, i / 4), w.bud);
+            waitForLight(h, at, true, () -> {
+                BlockPos abs = h.absolutePos(at.offset(2, 0, 1));
+                var plan = com.simplebuilding.modules.simpleend.world.EndTrees.plan(com.simplebuilding.modules.simpleend.world.EndTrees.Size.COLOSSAL, w, false,
+                        h.getLevel().getRandom(), abs);
+                h.assertTrue(plan.height >= 38 && plan.reach(abs) >= 6, "colossal plan: trunk " + plan.height + ", reach " + plan.reach(abs));
+                boolean grown = ((EndBudBlock) w.bud).grow(h.getLevel(), abs, h.getLevel().getRandom(), false);
+                h.assertTrue(grown, "4x4 buds grow");
+                for (int i = 0; i < 16; i++) h.assertTrue(h.getBlockState(at.offset(i % 4, 20, i / 4)).is(w.log), "4x4 trunk 20 up");
+                h.assertTrue(h.getBlockState(at.offset(1, 37, 1)).is(w.log), "trunk at least 38 high");
+                int leaves = 0;
+                for (BlockPos p : BlockPos.betweenClosed(h.absolutePos(at.offset(-20, 0, -20)), h.absolutePos(at.offset(23, 64, 23)))) {
+                    BlockState s2 = h.getLevel().getBlockState(p);
+                    if (s2.is(w.leaves)) leaves++;
+                    if (!s2.isAir()) h.getLevel().setBlock(p, Blocks.AIR.defaultBlockState(), 18);
+                }
+                h.assertTrue(leaves > 1500, "biggest crown in the game, got " + leaves + " leaves");
+            });
+        });
+        add("bud_in_end_grows_stick_tree", h -> {
+            EndWood w = EndWood.DUSKWOOD;
+            BlockPos at = BUD.above(265);
+            ground(h, at, 3);
+            h.setBlock(at, w.bud);
+            BlockPos abs = h.absolutePos(at);
+            var grown = com.simplebuilding.modules.simpleend.world.EndTrees.grow(h.getLevel(), abs, w,
+                    com.simplebuilding.modules.simpleend.world.EndTrees.Size.BIG, true, h.getLevel().getRandom(), abs);
+            h.assertTrue(grown != null, "stick tree grows");
+            h.assertTrue(countAbs(h.getLevel(), grown.wood(), w.log) == 0, "no wood in the End");
+            h.assertTrue(h.getBlockState(at.above(12)).is(w.sticks) && h.getBlockState(at).getValue(EndSticksBlock.NATURAL), "natural stick trunk");
+            h.assertTrue(grown.wood().stream().anyMatch(p -> h.getLevel().getBlockState(p).getValue(EndSticksBlock.AXIS) != Direction.Axis.Y), "lying branches");
+            h.assertTrue(grown.leaves().size() > 100, "crown of End leaves");
+            h.assertTrue(grown.buds() >= 1 && grown.buds() <= 2, "1.5 buds on average: 1-2, got " + grown.buds());
+            clear(h, grown, at, 3);
+            h.succeed();
         });
         add("sticks_taper_like_dripstone", h -> {
             EndWood w = EndWood.ASHWOOD;
@@ -211,28 +278,114 @@ public final class EndTests {
             h.assertTrue(h.getBlockState(at).getValue(EndSticksBlock.THICKNESS) == 3, "thick base");
             h.succeed();
         });
-        add("natural_tree_feature", h -> {
-            BlockPos at = new BlockPos(12, 2, 12);
+        add("stick_tree_feature", h -> {
+            BlockPos at = BUD.above(120);
             ground(h, at, 3);
-            boolean placed = new EndFlora("natural_tree", "duskwood").place(h.getLevel(), null, h.getLevel().getRandom(), h.absolutePos(at));
-            h.assertTrue(placed && h.getBlockState(at).is(EndWood.DUSKWOOD.log) && h.getBlockState(at.above(3)).is(EndWood.DUSKWOOD.log), "narrow natural tree");
-            h.assertTrue(count(h, EndWood.DUSKWOOD.log, at.offset(-3, 0, -3), at.offset(3, 12, 3)) == count(h, EndWood.DUSKWOOD.log, at.offset(-12, 0, -12), at.offset(12, 20, 12)), "stays narrow (within 3 blocks)");
+            BlockPos abs = h.absolutePos(at);
+            boolean placed = new EndFlora("stick_tree", "duskwood").place(h.getLevel(), null, h.getLevel().getRandom(), abs);
+            h.assertTrue(placed && h.getBlockState(at).is(EndWood.DUSKWOOD.sticks) && h.getBlockState(at.above(12)).is(EndWood.DUSKWOOD.sticks), "stick tree in the biome");
+            int logs = 0;
+            for (BlockPos p : BlockPos.betweenClosed(abs.offset(-16, 0, -16), abs.offset(16, 30, 16))) {
+                BlockState s2 = h.getLevel().getBlockState(p);
+                if (s2.is(EndWood.DUSKWOOD.log)) logs++;
+                if (!s2.isAir()) h.getLevel().setBlock(p, Blocks.AIR.defaultBlockState(), 18);
+            }
+            h.assertTrue(logs == 0, "the End grows no wood trees");
+            h.succeed();
+        });
+        add("stick_tree_falls_like_chorus", h -> {
+            EndWood w = EndWood.ASHWOOD;
+            BlockPos at = BUD.above(50);
+            ground(h, at, 3);
+            BlockPos abs = h.absolutePos(at);
+            ServerLevel level = h.getLevel();
+            var grown = com.simplebuilding.modules.simpleend.world.EndTrees.grow(level, abs, w,
+                    com.simplebuilding.modules.simpleend.world.EndTrees.Size.BIG, true, level.getRandom());
+            h.assertTrue(grown != null, "stick tree grows");
+            int before = countAbs(level, grown.wood(), w.sticks);
+            level.destroyBlock(abs, true);
+            int high = 0;
+            for (BlockPos p : grown.wood()) if (p.getY() >= abs.getY() + 2 && level.getBlockState(p).is(w.sticks)) high++;
+            h.assertTrue(high == 0, "the whole stick tree fell, " + high + " of " + before + " left");
+            var items = level.getEntitiesOfClass(ItemEntity.class, new net.minecraft.world.phys.AABB(abs).inflate(24));
+            int sticks = items.stream().filter(e -> e.getItem().is(w.sticks.asItem())).mapToInt(e -> e.getItem().getCount()).sum();
+            h.assertTrue(sticks >= before - 12, "the sticks dropped (" + sticks + " of " + before + ")");
+            h.assertTrue(items.size() <= 6, "drops merged into a few stacks, got " + items.size());
+            items.forEach(ItemEntity::discard);
+            clear(h, grown, at, 3);
+            h.succeed();
+        });
+        add("placed_sticks_stay", h -> {
+            EndWood w = EndWood.ASHWOOD;
+            BlockPos at = new BlockPos(2, 3, 9);
+            for (int i = 0; i < 3; i++) h.setBlock(at.above(i), w.sticks.defaultBlockState());
+            h.getLevel().destroyBlock(h.absolutePos(at), false);
+            h.assertTrue(h.getBlockState(at.above(1)).is(w.sticks) && h.getBlockState(at.above(2)).is(w.sticks), "placed sticks never fall");
+            h.assertTrue(w.sticks.defaultBlockState().is(BlockTags.PREVENTS_NEARBY_LEAF_DECAY), "sticks keep leaves alive");
+            h.succeed();
+        });
+        add("bud_return_expectation", h -> {
+            var r = net.minecraft.util.RandomSource.create(42);
+            int n = 20000;
+            double wood = 0, sticks = 0;
+            for (int i = 0; i < n; i++) {
+                wood += com.simplebuilding.modules.simpleend.world.EndTrees.marks(r, com.simplebuilding.modules.simpleend.world.EndTrees.BUDS_WOOD);
+                sticks += com.simplebuilding.modules.simpleend.world.EndTrees.marks(r, com.simplebuilding.modules.simpleend.world.EndTrees.BUDS_STICKS);
+            }
+            h.assertTrue(Math.abs(wood / n - 0.8) < 0.02, "about 0.8 buds per wood tree, got " + wood / n);
+            h.assertTrue(Math.abs(sticks / n - 1.5) < 0.02, "about 1.5 buds per stick tree, got " + sticks / n);
             h.succeed();
         });
         add("leaves_drop_bud_sticks_fruit", h -> {
             EndWood w = EndWood.ASHWOOD;
-            BlockPos at = new BlockPos(5, 2, 5);
-            h.setBlock(at, w.leaves);
-            BlockPos abs = h.absolutePos(at);
-            boolean bud = false, stick = false, fruit = false;
-            for (int i = 0; i < 3000 && !(bud && stick && fruit); i++) {
-                for (ItemStack s : Block.getDrops(h.getLevel().getBlockState(abs), h.getLevel(), abs, null)) {
-                    bud |= s.is(w.bud.asItem());
-                    stick |= s.is(Items.STICK);
-                    fruit |= s.is(EndRegistry.DRIFT_FRUIT);
+            ServerLevel level = h.getLevel();
+            BlockPos abs = h.absolutePos(new BlockPos(5, 2, 5));
+            BlockState plain = w.leaves.defaultBlockState();
+            boolean stick = false, budFromPlain = false;
+            for (int i = 0; i < 400; i++)
+                for (ItemStack s2 : Block.getDrops(plain, level, abs, null)) {
+                    stick |= s2.is(Items.STICK);
+                    budFromPlain |= s2.is(w.bud.asItem()) || s2.is(EndRegistry.DRIFT_FRUIT) || s2.is(EndRegistry.SPOILED_DRIFT_FRUIT);
                 }
+            h.assertTrue(stick && !budFromPlain, "unmarked leaves: sticks only (stick " + stick + ", bud/fruit " + budFromPlain + ")");
+            BlockState bud = plain.setValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.DROP, 1);
+            for (int i = 0; i < 20; i++)
+                h.assertTrue(Block.getDrops(bud, level, abs, null).stream().filter(s2 -> s2.is(w.bud.asItem())).mapToInt(ItemStack::getCount).sum() == 1,
+                        "a bud-marked leaf always drops exactly one bud");
+            h.succeed();
+        });
+        add("fruit_ripens_only_in_the_end", h -> {
+            BlockState fruit = EndWood.DUSKWOOD.leaves.defaultBlockState().setValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.DROP, 2);
+            ServerLevel over = h.getLevel();
+            ServerLevel end = over.getServer().getLevel(net.minecraft.world.level.Level.END);
+            h.assertTrue(end != null, "test server has the End");
+            var overDrops = Block.getDrops(fruit, over, h.absolutePos(BlockPos.ZERO), null);
+            var endDrops = Block.getDrops(fruit, end, new BlockPos(100, 64, 0), null);
+            h.assertTrue(overDrops.stream().anyMatch(s2 -> s2.is(EndRegistry.SPOILED_DRIFT_FRUIT)) && overDrops.stream().noneMatch(s2 -> s2.is(EndRegistry.DRIFT_FRUIT)),
+                    "outside the End the fruit is spoiled: " + overDrops);
+            h.assertTrue(endDrops.stream().anyMatch(s2 -> s2.is(EndRegistry.DRIFT_FRUIT)) && endDrops.stream().noneMatch(s2 -> s2.is(EndRegistry.SPOILED_DRIFT_FRUIT)),
+                    "in the End it ripens: " + endDrops);
+            h.succeed();
+        });
+        add("spoiled_fruit_drifting", h -> {
+            Player p = h.makeMockPlayer(GameType.SURVIVAL);
+            BlockPos abs = h.absolutePos(new BlockPos(4, 2, 6));
+            p.snapTo(abs.getX() + 0.5, abs.getY(), abs.getZ() + 0.5, 0, 0);
+            float health = p.getHealth();
+            new ItemStack(EndRegistry.SPOILED_DRIFT_FRUIT).finishUsingItem(h.getLevel(), p);
+            var drift = p.getEffect(EndRegistry.drifting());
+            h.assertTrue(drift != null && drift.getDuration() <= 120, "short Drifting effect");
+            h.assertTrue(p.hasEffect(MobEffects.SLOW_FALLING) && p.getEffect(MobEffects.SLOW_FALLING).getDuration() > drift.getDuration(), "Slow Falling outlasts the drift");
+            h.assertTrue(p.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.GRAVITY) < 0.02, "nearly weightless");
+            h.assertTrue(p.getHealth() >= health, "not harmful");
+            h.succeed();
+        });
+        add("end_leaves_not_full_block", h -> {
+            for (EndWood w : EndWood.ALL) {
+                BlockState s2 = w.leaves.defaultBlockState();
+                h.assertTrue(!s2.canOcclude(), w.name + " leaves never occlude");
+                h.assertTrue(s2.getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.DROP) == 0, "placed leaves carry nothing");
             }
-            h.assertTrue(bud && stick && fruit, "leaves drop bud " + bud + ", sticks " + stick + ", Drift Fruit " + fruit);
             h.succeed();
         });
         add("drift_fruit_glide", h -> {
@@ -264,20 +417,41 @@ public final class EndTests {
         });
         add("biome_patches", h -> {
             EndBiomes.Noise flat = (x, z) -> 0.1;
-            int some = 0;
-            for (int x = 0; x < EndBiomes.CELL * 6; x++)
-                for (int z = 0; z < EndBiomes.CELL * 6; z++) {
+            int some = 0, core = 0, fringe = 0;
+            for (int x = 0; x < EndBiomes.CELL * 4; x++)
+                for (int z = 0; z < EndBiomes.CELL * 4; z++) {
                     h.assertTrue(EndBiomes.pick(x, z, flat, 0.0) == EndBiomes.NONE, "chance 0 means no patch");
-                    if (EndBiomes.pick(x, z, flat, 1.0) != EndBiomes.NONE) some++;
-                    h.assertTrue(EndBiomes.pick(x, z, flat, 1.0) == EndBiomes.pick(x, z, flat, 1.0), "deterministic");
+                    int pick = EndBiomes.pick(x, z, flat, 1.0);
+                    h.assertTrue(pick == EndBiomes.pick(x, z, flat, 1.0), "deterministic");
+                    if (pick != EndBiomes.NONE) some++;
+                    if (pick == EndBiomes.ASH || pick == EndBiomes.DAWN) core++;
+                    if (pick == EndBiomes.ASH_FRINGE || pick == EndBiomes.DAWN_FRINGE) fringe++;
                 }
-            // 36 cells, each patch 3-6 chunks across (area ~7..29 chunks)
-            h.assertTrue(some >= 36 * 5 && some <= 36 * 32, "patch area per cell, got " + some + " chunks in 36 cells");
+            // 16 cells, each patch 14-24 chunks across with a wavy rim (area ~110..640 chunks)
+            h.assertTrue(some >= 16 * 100 && some <= 16 * 640, "patch area per cell, got " + some + " chunks in 16 cells");
+            h.assertTrue(core > some / 5 && fringe > some / 5, "core " + core + " and fringe " + fringe);
             var biomes = h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
             TheEndBiomeSource source = TheEndBiomeSource.create(biomes);
-            boolean ash = source.possibleBiomes().stream().anyMatch(b -> b.is(EndBiomes.ASH_VALLEY));
-            boolean dawn = source.possibleBiomes().stream().anyMatch(b -> b.is(EndBiomes.DAWNLANDS));
-            h.assertTrue(ash && dawn, "End biome source lists Ash Valley and Dawnlands");
+            for (var key : java.util.List.of(EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS, EndBiomes.ASH_VALLEY_FRINGE, EndBiomes.DAWNLANDS_FRINGE))
+                h.assertTrue(source.possibleBiomes().stream().anyMatch(b -> b.is(key)), "End biome source lists " + key.identifier());
+            h.assertTrue(biomes.getOrThrow(EndBiomes.ASH_VALLEY).is(EndBiomes.WATCHER_CORE) && biomes.getOrThrow(EndBiomes.DAWNLANDS).is(EndBiomes.WATCHER_CORE),
+                    "cores in simpleend:watcher_core");
+            h.assertTrue(!biomes.getOrThrow(EndBiomes.ASH_VALLEY_FRINGE).is(EndBiomes.WATCHER_CORE), "fringe not in watcher_core");
+            // a real End biome source with real End noise (the test server's own End may use a fixed biome):
+            // cores and fringes appear on the outer islands
+            if (SimpleEndConfig.biomes && SimpleEnd.on()) {
+                var access = h.getLevel().registryAccess();
+                var settings = access.lookupOrThrow(Registries.NOISE_SETTINGS).getOrThrow(net.minecraft.world.level.levelgen.NoiseGeneratorSettings.END).value();
+                var state = net.minecraft.world.level.levelgen.RandomState.create(access.lookupOrThrow(Registries.NOISE), 12345L, settings);
+                var resolver = source.createUncachedResolver(state);
+                java.util.Map<String, Integer> seen = new java.util.TreeMap<>();
+                for (int x = -12000; x <= 12000; x += 128)
+                    for (int z = -12000; z <= 12000; z += 128)
+                        seen.merge(resolver.getNoiseBiome(net.minecraft.core.QuartPos.fromBlock(x), net.minecraft.core.QuartPos.fromBlock(64),
+                                net.minecraft.core.QuartPos.fromBlock(z)).unwrapKey().map(k -> k.identifier().toString()).orElse("?"), 1, Integer::sum);
+                for (var key : java.util.List.of(EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS, EndBiomes.ASH_VALLEY_FRINGE, EndBiomes.DAWNLANDS_FRINGE))
+                    h.assertTrue(seen.containsKey(key.identifier().toString()), key.identifier() + " in a real End (seen " + seen + ")");
+            }
             h.succeed();
         });
         add("submod_switch", h -> {

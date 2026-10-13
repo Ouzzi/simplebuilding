@@ -79,7 +79,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "4a432e662540"
+    "dataHash": "b2e135d81edf"
   },
   {
     "id": "simpleriding",
@@ -545,7 +545,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "87abd931dd2b"
+    "dataHash": "1cd6eac43d04"
   },
   {
     "id": "simplerespawn",
