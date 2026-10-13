@@ -257,12 +257,21 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 51 (2026-10-13, Besitzer)
+- [ ] Redstone-Kompatibilität: Astral-/Nihil-Geräte akzeptieren alle 3 Redstone-Arten + Brücken-Redstone (Connector); alle Redstone-Geräte (Vanilla + Mod) akzeptieren alle Mod-Redstone-Linien. Fehlende Blöcke ergänzen: Astral-Redstone-Block, Nihil-Redstone-Block (usw., analog Vanilla-Redstone-Block) und Brücken-Redstone-Block.
+- [ ] Astral-Verzauberer Seitentextur: Tuch (Goldsaum) bis an den Rand ziehen.
+- [ ] Eisen-Tiegel In-World-Bau: Tiegel + 16 Eisenbarren; jede Seitenplatte 2 Barren (erst halbe Platte, dann ganze, jeder Schritt sichtbar) = 8; jeder Griff 2 Schläge/Barren = 12; letzte 4 für die Wölbungen am oberen Rand (je Schlag eine). Jedes weitere Upgrade: 12 Schläge, alle 3 Schläge 1 Material (4 rissige Diamanten / 4 Netherit-Nuggets / 4 Enderit-Nuggets), jeder Schritt sichtbar.
+- [ ] Crafter-, Smither-, Auto-Crafter-UIs verbessern: Pfeil immer als gepunkteter Redstone-Pfeil (vorhandene Textur aus den Redstone-Linien); Filter beim Auto-Crafter über den Pfeil (nicht gedrängt).
+
 ## Nachtrag 50 (2026-10-13, Besitzer)
+- [ ] End-Biome mit dichtem Nebel; Randbiom + Kern, im Kern spawnen Hollow Watcher (Tag simpleend:watcher_core) – gruseliger Bereich. (claude-endbiome2 + claude-n50-small)
+- [ ] Zittern aktiv, solange Furcht-Mob dich ansieht/getriggert ist; 3–5 Stufen nach Nähe. Watcher besser getarnt. (claude-n50-small)
+- [ ] Sculk Jaws spawnen natürlich im Deep Dark. (claude-n50-small)
 - [ ] Fragentisch-Rezept: unten Mitte zusätzlich Obsidian. (claude-n50-small)
 - [ ] Verdorrter Wither: Beschwörung per Netherit-Helm auf dem MITTLEREN Schädel (vor dem dritten Schädel aufsetzen) statt Netheritblock; zweite, stärkere Stufe mit Enderit-Helm; bei wenig Leben stärkere Witherskelette (mit Rüstung); Rückstoß unter 15 % stark; Drops: Witherherz, 3–5 Netherit- bzw. Enderit-Nuggets, 1–2 Nethersterne. (claude-wither2)
-- [ ] Netherstern + neue Upgrade-Vorlage („Strong Upgrade“) auf Leuchtfeuer: 6 weitere Effekte, 2 Ebenen größer baubar, entsprechend mehr Reichweite; dasselbe für Conduit soweit möglich. (Konzept zuerst)
+- [ ] Netherstern + neue Upgrade-Vorlage („Strong Upgrade“) auf Leuchtfeuer: 6 weitere Effekte, 2 Ebenen größer baubar, entsprechend mehr Reichweite; dasselbe für Conduit soweit möglich. (Konzept fertig, alle Empfehlungen übernommen 13.10.; Umsetzung offen)
 - [ ] Upgrade-Vorlagen-Tooltips: Hufeisen-Upgrade „applies to: Iron–Enderite ingots“; Enderit-Upgrade „Netherite equipment and blocks“ (+ Diamant-Ausrüstung/-Blöcke). (claude-n50-small)
-- [ ] Mob-Köpfe in neues Sub-Mod „Simple Mobheads“, alle Mob-Köpfe implementieren; SimpleBuilding requires es; aus Simple Fun entfernen. (Konzept zuerst)
+- [ ] Mob-Köpfe in neues Sub-Mod „Simple Mobheads“, alle Mob-Köpfe implementieren; SimpleBuilding requires es; aus Simple Fun entfernen. (Konzept fertig, alle Empfehlungen übernommen 13.10.; Umsetzung offen)
 - [ ] End-Biome: seltener, viel größer; Grasdichte höher; Stöcke-Bäume wie normale Bäume aus Stöcken, gigantisch; Stamm abbauen → alle Stöcke brechen; im End keine Holzbäume, nur Stöcke-Bäume + Drift-Frucht; Oberwelt-gepflanzte End-Bäume gigantisch, 4×4 → größter Baum im Spiel; Setzling-Rückgabe ~0,8 je Baum (Oberwelt), im End ~1,5 je Stöcke-Baum; Früchte gedeihen nur im End, in der Oberwelt verdorbene Variante (Drifting-Effekt); Blätter durchsichtig/exotisch, kein Vollblock. (claude-endbiome2)
 - [ ] Hollow Watcher teleportiert sich 1 s nach einem Treffer weg. (claude-n50-small)
 - [ ] Erhöhte Schwerkraft (Gravity-Effekt): mehr Fallschaden (Federfall mit einrechnen), „High Gravity“ gerecht. (claude-n50-small)
