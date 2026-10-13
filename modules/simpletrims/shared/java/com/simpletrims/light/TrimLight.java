@@ -9,6 +9,8 @@ import java.util.function.IntSupplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -18,13 +20,15 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Radiance (Emitting upgrade, moved from SimpleBuilding's {@code DynamicLightHandler}): worn emitting armor sets an
+ * Radiance (Emitting upgrade, moved from SimpleBuilding's {@code DynamicLightHandler}): worn emitting armor (or a torch, lantern or lava bucket in hand, N52) sets an
  * invisible light block at head height, an item frame with such a piece in its own block. Players: position in a table,
  * moves along every 2 ticks; armor stands, mobs and frames: position stored in the entity ({@link OwnedLightHolder}).
  * Light only replaces air, an existing light block or a water source (waterlogged then). Switched off ({@link #enabled})
@@ -61,6 +65,31 @@ public final class TrimLight {
         return total;
     }
 
+    /**
+     * Held light (N52, owner 2026-10-13): torches (also soul, copper, redstone), lanterns and lava buckets in the main or
+     * off hand shine like the block (redstone torch weak, 7). Joins the radiance light with max, never adds.
+     */
+    public static int heldLight(LivingEntity entity) {
+        return Math.max(itemLight(entity.getMainHandItem()), itemLight(entity.getOffhandItem()));
+    }
+
+    public static int itemLight(ItemStack stack) {
+        if (stack.isEmpty()) return 0;
+        Identifier id = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        String ns = id.getNamespace();
+        String path = id.getPath();
+        if (path.endsWith("lava_bucket") && (ns.equals("minecraft") || ns.equals("simplebuilding"))) {
+            return path.contains("soul") ? 10 : 15;
+        }
+        if (!ns.equals("minecraft") || !(path.endsWith("torch") || path.endsWith("lantern"))) return 0;
+        return Block.byItem(stack.getItem()).defaultBlockState().getLightEmission();
+    }
+
+    /** The light a carrier shines with: radiance of the worn armor or what it holds, whichever is brighter. */
+    public static int lightOf(LivingEntity entity) {
+        return Math.max(lightLevelFor(wornEmission(entity)), heldLight(entity));
+    }
+
     /** Every tick from the entity tick mixin (server): players, armor stands and mobs. */
     public static void tickLiving(LivingEntity entity) {
         if (entity.level().isClientSide() || entity.isRemoved()) return;
@@ -68,7 +97,7 @@ public final class TrimLight {
             if (Math.floorMod(player.level().getGameTime(), PLAYER_INTERVAL) == 0) tickPlayer(player);
         } else if (entity instanceof OwnedLightHolder holder && !(entity instanceof Player)) {
             int interval = entity instanceof ArmorStand ? HOLDER_INTERVAL : MOB_INTERVAL;
-            if (isHolderTick(entity, interval)) tickHolder(entity.level(), holder, entity.blockPosition().above(), wornEmission(entity));
+            if (isHolderTick(entity, interval)) tickHolderLight(entity.level(), holder, entity.blockPosition().above(), lightOf(entity));
         }
     }
 
@@ -76,7 +105,7 @@ public final class TrimLight {
         Level level = player.level();
         UUID uuid = player.getUUID();
         BlockPos head = player.blockPosition().above();
-        int light = enabled() ? lightLevelFor(wornEmission(player)) : 0;
+        int light = enabled() ? lightOf(player) : 0;
         BlockPos old = PLAYER_LIGHTS.get(uuid);
         if (old != null && !old.equals(head)) {
             removeLight(level, old);
@@ -103,7 +132,11 @@ public final class TrimLight {
     }
 
     public static void tickHolder(Level level, OwnedLightHolder holder, BlockPos target, int emissionPoints) {
-        int light = enabled() ? lightLevelFor(emissionPoints) : 0;
+        tickHolderLight(level, holder, target, lightLevelFor(emissionPoints));
+    }
+
+    public static void tickHolderLight(Level level, OwnedLightHolder holder, BlockPos target, int lightLevel) {
+        int light = enabled() ? lightLevel : 0;
         BlockPos owned = holder.simpletrims$getOwnedLight();
         if (owned != null && (light == 0 || !owned.equals(target))) {
             removeLight(level, owned);

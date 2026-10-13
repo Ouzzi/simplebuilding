@@ -339,6 +339,41 @@ public final class TrimsTests {
             h.assertTrue(TrimLight.lightLevelFor(5) == 15 && TrimLight.lightLevelFor(1) == 3 && TrimLight.lightLevelFor(9) == 15, "3 light per level, max 15");
             h.succeed();
         });
+        // N52: torches, lanterns and lava buckets in either hand shine like the block; radiance and held light never add.
+        ALL.put("held_light", h -> {
+            ServerPlayer player = mockPlayer(h);
+            Vec3 at = h.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+            player.snapTo(at.x, at.y, at.z, 0.0F, 0.0F);
+            BlockPos head = player.blockPosition().above();
+            Object[][] cases = {{Items.TORCH, 14}, {Items.SOUL_TORCH, 10}, {Items.REDSTONE_TORCH, 7}, {Items.LANTERN, 15},
+                    {Items.SOUL_LANTERN, 10}, {Items.LAVA_BUCKET, 15}, {Items.COPPER_TORCH, 14}, {Items.STICK, 0}, {Items.GLOWSTONE, 0}};
+            try {
+                for (Object[] c : cases) {
+                    player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack((net.minecraft.world.item.Item) c[0]));
+                    TrimLight.tickPlayer(player);
+                    BlockState st = h.getLevel().getBlockState(head);
+                    int got = st.is(Blocks.LIGHT) ? st.getValue(LightBlock.LEVEL) : 0;
+                    h.assertTrue(got == (int) c[1], c[0] + " in the main hand gives light " + c[1] + ", got " + got);
+                }
+                player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.TORCH));
+                TrimLight.tickPlayer(player);
+                h.assertTrue(h.getLevel().getBlockState(head).getValue(LightBlock.LEVEL) == 14, "the off hand shines too");
+                ItemStack boots = new ItemStack(Items.IRON_BOOTS);
+                for (int i = 0; i < 2; i++) TrimGlow.incrementEmissionLevel(boots);
+                player.setItemSlot(EquipmentSlot.FEET, boots);
+                player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.REDSTONE_TORCH));
+                TrimLight.tickPlayer(player);
+                h.assertTrue(h.getLevel().getBlockState(head).getValue(LightBlock.LEVEL) == 7, "the brighter of radiance 6 and torch 7 wins, not the sum");
+                player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                player.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
+                TrimLight.tickPlayer(player);
+                h.assertTrue(h.getLevel().getBlockState(head).isAir(), "the light goes out with the torch");
+            } finally {
+                TrimLight.forget(player);
+            }
+            h.succeed();
+        });
         ALL.put("guide_book", com.simpletrims.guide.TrimsGuide::gameTest);
         ALL.put("glow_rules", h -> {
             int environment = TrimGlow.packLight(4, 9);
