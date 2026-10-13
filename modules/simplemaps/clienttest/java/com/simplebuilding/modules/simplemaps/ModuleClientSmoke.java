@@ -82,9 +82,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             screen(context, "simplemaps-contour", true, false, true, 0);
             screen(context, "simplemaps-zoom", false, true, false, 3);
             // N48: every zoom level, then keyboard panning and wheel zoom on the cursor.
-            for (int level = 0; level < com.simplemaps.WayfinderData.ZOOMS.length; level++) {
-                screen(context, "simplemaps-zoom-level" + level, false, true, false, level);
-            }
+            screen(context, "simplemaps-zoom-1", false, true, false, 0);
+            screen(context, "simplemaps-zoom-2", false, true, false, 1);
+            screen(context, "simplemaps-zoom-4", false, true, false, 2);
+            screen(context, "simplemaps-zoom-8", false, true, false, 3);
+            screen(context, "simplemaps-zoom-16", false, true, false, 4);
+            screen(context, "simplemaps-zoom-32", false, true, false, 5);
+            screen(context, "simplemaps-zoom-64", false, true, false, 6);
             screen(context, "simplemaps-nav", false, true, false, 1);
             context.runOnClient(c -> {
                 WayfinderScreen s = (WayfinderScreen) c.gui.screen();
