@@ -12,8 +12,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
-    public void everyMobHasAHead(GameTestHelper helper) {
-        MobHeadTests.ALL.get("every_mob_has_a_head").accept(helper);
+    public void mobsHaveHeads(GameTestHelper helper) {
+        MobHeadTests.ALL.get("mobs_have_heads").accept(helper);
     }
 
     @GameTest(structure = "simplemobheads:empty", maxTicks = 400)

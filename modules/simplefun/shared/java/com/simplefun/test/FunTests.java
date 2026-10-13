@@ -184,7 +184,10 @@ public final class FunTests {
   public static void launch(GameTestHelper h) {
     RegistryExport.writeIfRequested();
     // Simple Fun 1.4.0: the animal heads moved to Simple Mobheads.
-    h.assertTrue(!BuiltInRegistries.ITEM.containsKey(FunContent.id("pig_head")), "Fun registers no heads any more");
+    // (A lookup of simplefun:pig_head may answer with Simple Mobheads' head: SimpleLib IdMoves.)
+    h.assertTrue(
+        !"simplefun".equals(BuiltInRegistries.ITEM.getKey(BuiltInRegistries.ITEM.getValue(FunContent.id("pig_head"))).getNamespace()),
+        "Fun registers no heads any more");
     h.assertTrue(
         BuiltInRegistries.ENTITY_TYPE.getValue(FunContent.id("brick_projectile"))
             == ModEntities.BRICK_PROJECTILE,

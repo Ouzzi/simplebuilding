@@ -2,30 +2,22 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplemobheads:spider_head",
-          "functions": [
-            {
-              "function": "minecraft:copy_components",
-              "source": "block_entity",
-              "include": [
-                "minecraft:custom_name",
-                "minecraft:note_block_sound",
-                "simplemobheads:variant"
-              ]
-            }
-          ]
+          "modifier": {
+            "type": "minecraft:copy_components",
+            "include": [
+              "minecraft:custom_name",
+              "minecraft:note_block_sound",
+              "simplemobheads:variant"
+            ],
+            "source": "block_entity"
+          },
+          "name": "simplemobheads:spider_head"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "simplemobheads:blocks/spider_head"

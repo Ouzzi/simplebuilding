@@ -211,11 +211,12 @@ def resources():
         out[GEN / f"assets/{NS}/items/{item}.json"] = {"model": model}
         out[GEN / f"data/{NS}/loot_table/blocks/{item}.json"] = {
             "type": "minecraft:block",
-            "pools": [{"bonus_rolls": 0.0, "conditions": [{"condition": "minecraft:survives_explosion"}],
-                       "entries": [{"type": "minecraft:item", "name": f"{NS}:{item}", "functions": [
-                           {"function": "minecraft:copy_components", "source": "block_entity",
-                            "include": ["minecraft:custom_name", "minecraft:note_block_sound", f"{NS}:variant"]}]}],
-                       "rolls": 1.0}],
+            "pools": [{"entries": [{"type": "minecraft:item",
+                                    "modifier": {"type": "minecraft:copy_components",
+                                                 "include": ["minecraft:custom_name", "minecraft:note_block_sound", f"{NS}:variant"],
+                                                 "source": "block_entity"},
+                                    "name": f"{NS}:{item}"}],
+                       "rolls": 1}],
             "random_sequence": f"{NS}:blocks/{item}"}
         out[GEN / f"data/{NS}/advancement/heads/{h['id']}.json"] = {
             "parent": f"{NS}:heads/root",
