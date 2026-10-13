@@ -65,7 +65,7 @@ public class ExtraHeadLayer extends RenderLayer<AvatarRenderState, PlayerModel> 
         }
         if (head.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof AbstractSkullBlock skull) {
             SkullBlock.Type type = skull.getType();
-            poseStack.scale(CustomHeadLayer.SKULL_SCALE, CustomHeadLayer.SKULL_SCALE, CustomHeadLayer.SKULL_SCALE);
+            poseStack.scale(1.1875F, 1.1875F, 1.1875F); // CustomHeadLayer.SKULL_SCALE (private on 26.2)
             SkullModelBase skullModel = this.skullModels.computeIfAbsent(type,
                     t -> SkullBlockRenderer.createModel(Minecraft.getInstance().getEntityModels(), t));
             SkullBlockRenderer.submitSkull(state.walkAnimationPos, poseStack, collector, lightCoords, skullModel,

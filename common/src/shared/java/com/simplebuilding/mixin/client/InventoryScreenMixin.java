@@ -33,7 +33,7 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen<Inven
 
     @Inject(method = "extractBackground", at = @At("TAIL"))
     private void simplebuilding$extraHeadFrame(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (!com.simplebuilding.framework.api.ContainerStyleHints.isRestyled(this)) {
+        if (!com.simplebuilding.api.ModuleScreenStyles.isRestyled(this)) {
             TrimStatsPanel.slotFrame(context, this.leftPos + TrimStatsLayout.HEAD_SLOT_X - 1, this.topPos + TrimStatsLayout.HEAD_SLOT_Y - 1);
         }
     }
