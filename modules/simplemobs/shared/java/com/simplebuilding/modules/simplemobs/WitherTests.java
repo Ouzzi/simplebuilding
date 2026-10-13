@@ -87,6 +87,14 @@ final class WitherTests {
         return p;
     }
 
+    /** Test worlds are kept between runs: paint the area back to Plains first (two cells around, no checks). */
+    private static void reset(GameTestHelper h, BlockPos rel) {
+        ServerPlayer p = h.makeMockServerPlayerInLevel();
+        var plains = BiomeBrush.biome(h.getLevel(), Biomes.PLAINS.identifier());
+        BiomeBrush.paint(h.getLevel(), p, h.absolutePos(rel), plains, 2);
+        h.assertTrue(cellBiome(h, rel) == Biomes.PLAINS, "reset to plains");
+    }
+
     private static BiomeBrush.Result stroke(GameTestHelper h, ServerPlayer p, BlockPos rel) {
         return BiomeBrushItem.stroke(h.getLevel(), p, h.absolutePos(rel), p.getMainHandItem(), p.getOffhandItem());
     }
@@ -246,58 +254,62 @@ final class WitherTests {
             ServerLevel level = h.getLevel();
             BlockPos at = new BlockPos(3, 2, 3);
             level.setBlock(h.absolutePos(at), Blocks.STONE.defaultBlockState(), 3);
-            // sand -> desert: the clicked cell and its neighbours change, one sand and one durability point are used
-            ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SAND, 4));
+            reset(h, at);
+            // snow -> snowy plains: the clicked cell and its neighbours change, one snow and one durability point are used
+            ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 4));
             var first = stroke(h, p, at);
-            h.assertTrue(first == BiomeBrush.Result.PAINTED, "stroke painted: " + first);
-            h.assertTrue(cellBiome(h, at) == Biomes.DESERT, "clicked cell is desert: " + cellBiome(h, at));
-            h.assertTrue(cellBiome(h, at.offset(4, 0, 0)) == Biomes.DESERT, "neighbouring cell too (radius 1 cell)");
+            h.assertTrue(first == BiomeBrush.Result.PAINTED, "stroke painted: " + first + " (was " + cellBiome(h, at) + ")");
+            h.assertTrue(cellBiome(h, at) == Biomes.SNOWY_PLAINS, "clicked cell is snowy plains: " + cellBiome(h, at));
+            h.assertTrue(cellBiome(h, at.offset(4, 0, 0)) == Biomes.SNOWY_PLAINS, "neighbouring cell too (radius 1 cell)");
             h.assertTrue(p.getOffhandItem().getCount() == 3, "one material per stroke: " + p.getOffhandItem().getCount());
             h.assertTrue(p.getMainHandItem().getDamageValue() == 1, "one durability point per stroke");
+            ServerPlayer again = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 4));
+            h.assertTrue(stroke(h, again, at) == BiomeBrush.Result.UNCHANGED && again.getOffhandItem().getCount() == 4, "same biome again: nothing used");
             // a Nether material in the Overworld: refused, nothing used
             ServerPlayer q = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.NETHERRACK, 2));
             h.assertTrue(stroke(h, q, at) == BiomeBrush.Result.WRONG_DIMENSION && q.getOffhandItem().getCount() == 2, "Nether biome refused in the Overworld");
             ServerPlayer r = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.DIRT, 2));
             h.assertTrue(stroke(h, r, at) == BiomeBrush.Result.NO_MATERIAL && r.getMainHandItem().getDamageValue() == 0, "no biome material: nothing");
             // creative: no material, no durability
-            ServerPlayer c = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 1));
+            ServerPlayer c = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SAND, 1));
             c.getAbilities().instabuild = true;
-            h.assertTrue(stroke(h, c, at) == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.SNOWY_PLAINS, "snow paints snowy plains");
+            h.assertTrue(stroke(h, c, at) == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.DESERT, "sand paints desert");
             h.assertTrue(c.getOffhandItem().getCount() == 1 && c.getMainHandItem().getDamageValue() == 0, "creative uses nothing");
             // the last durability point breaks the brush
             ItemStack worn = new ItemStack(WitherMobs.BRUSH);
             worn.setDamageValue(worn.getMaxDamage() - 1);
-            ServerPlayer b = painter(h, worn, new ItemStack(Items.SAND, 1));
+            ServerPlayer b = painter(h, worn, new ItemStack(Items.MYCELIUM, 1));
             h.assertTrue(stroke(h, b, at) == BiomeBrush.Result.PAINTED && b.getMainHandItem().isEmpty(), "brush breaks at 0 durability");
             h.succeed();
         });
         add.accept("biome_brush_claims", h -> {
             ServerLevel level = h.getLevel();
             BlockPos at = new BlockPos(3, 2, 3);
-            ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SAND, 4));
+            reset(h, at);
+            ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 4));
             var first = stroke(h, p, at);
-            h.assertTrue(first == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.DESERT, "unclaimed: painted: " + first + " " + cellBiome(h, at));
+            h.assertTrue(first == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.SNOWY_PLAINS, "unclaimed: painted: " + first + " " + cellBiome(h, at));
             String id = "simplemobs_test_claim";
             Object server = level.getServer();
             try {
                 Protection.register(server, id, t -> false);
-                ServerPlayer q = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.GRASS_BLOCK, 4));
+                ServerPlayer q = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.MYCELIUM, 4));
                 h.assertTrue(stroke(h, q, at) == BiomeBrush.Result.DENIED, "claimed: refused");
-                h.assertTrue(cellBiome(h, at) == Biomes.DESERT, "claimed: biome unchanged");
+                h.assertTrue(cellBiome(h, at) == Biomes.SNOWY_PLAINS, "claimed: biome unchanged");
                 h.assertTrue(q.getOffhandItem().getCount() == 4 && q.getMainHandItem().getDamageValue() == 0, "claimed: nothing used");
                 // a claim on part of the stroke: only the free cells change
                 BlockPos claimed = h.absolutePos(at.offset(4, 0, 0));
                 int cx = QuartPos.fromBlock(claimed.getX());
                 Protection.unregister(server, id);
                 Protection.register(server, id, t -> QuartPos.fromBlock(t.x()) != cx);
-                ServerPlayer s = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.GRASS_BLOCK, 4));
-                h.assertTrue(stroke(h, s, at) == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.PLAINS, "free cells painted");
-                h.assertTrue(cellBiome(h, at.offset(4, 0, 0)) == Biomes.DESERT, "claimed cell keeps its biome");
+                ServerPlayer s = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.MYCELIUM, 4));
+                h.assertTrue(stroke(h, s, at) == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.MUSHROOM_FIELDS, "free cells painted");
+                h.assertTrue(cellBiome(h, at.offset(4, 0, 0)) == Biomes.SNOWY_PLAINS, "claimed cell keeps its biome");
             } finally {
                 Protection.unregister(server, id);
             }
             // adventure mode cannot paint
-            ServerPlayer adv = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SNOW_BLOCK, 4));
+            ServerPlayer adv = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SAND, 4));
             adv.setGameMode(net.minecraft.world.level.GameType.ADVENTURE);
             h.assertTrue(stroke(h, adv, at) == BiomeBrush.Result.DENIED, "adventure mode: refused");
             boolean ops = MobsConfig.biomeBrushOpsOnly;
