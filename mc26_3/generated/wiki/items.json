@@ -49,18 +49,12 @@
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:blackstone_quartz_checker_slab",
     "simplebuilding:blackstone_quartz_checker_stairs",
-    "simplebuilding:blaze_head",
-    "simplebuilding:blaze_wall_head",
     "simplebuilding:blazing_obsidian",
     "simplebuilding:blue_concrete_octet",
     "simplebuilding:blue_hammock",
     "simplebuilding:blue_terracotta_octet",
     "simplebuilding:blue_wool_octet",
-    "simplebuilding:bogged_skull",
-    "simplebuilding:bogged_wall_skull",
     "simplebuilding:bone_block_octet",
-    "simplebuilding:breeze_head",
-    "simplebuilding:breeze_wall_head",
     "simplebuilding:bricks_octet",
     "simplebuilding:bridge_redstone",
     "simplebuilding:bridge_redstone_block",
@@ -81,8 +75,6 @@
     "simplebuilding:carved_pale_oak_log",
     "simplebuilding:carved_spruce_log",
     "simplebuilding:carved_warped_stem",
-    "simplebuilding:cave_spider_head",
-    "simplebuilding:cave_spider_wall_head",
     "simplebuilding:checker_octet",
     "simplebuilding:cherry_cauldron",
     "simplebuilding:cherry_crate",
@@ -135,8 +127,6 @@
     "simplebuilding:dimensional_scrap",
     "simplebuilding:diorite_octet",
     "simplebuilding:dirt_slab",
-    "simplebuilding:drowned_head",
-    "simplebuilding:drowned_wall_head",
     "simplebuilding:elytra_pad",
     "simplebuilding:emerald_block_octet",
     "simplebuilding:end_dimensional_scrap",
@@ -174,8 +164,6 @@
     "simplebuilding:enderite_smoker",
     "simplebuilding:enderite_spawn_teleporter",
     "simplebuilding:enderite_trapped_chest",
-    "simplebuilding:enderman_head",
-    "simplebuilding:enderman_wall_head",
     "simplebuilding:exposed_copper_octet",
     "simplebuilding:exposed_copper_pressure_plate",
     "simplebuilding:exposed_cut_copper_octet",
@@ -222,8 +210,6 @@
     "simplebuilding:hollow_stripped_spruce_log",
     "simplebuilding:hollow_stripped_warped_stem",
     "simplebuilding:hollow_warped_stem",
-    "simplebuilding:husk_head",
-    "simplebuilding:husk_wall_head",
     "simplebuilding:infused_potion_pad",
     "simplebuilding:iron_block_octet",
     "simplebuilding:iron_pole",
@@ -420,13 +406,7 @@
     "simplebuilding:sandstone_octet",
     "simplebuilding:scarlet_froglight",
     "simplebuilding:sculk_jaw",
-    "simplebuilding:shulker_head",
-    "simplebuilding:shulker_wall_head",
     "simplebuilding:silent_dandelion",
-    "simplebuilding:silverfish_head",
-    "simplebuilding:silverfish_wall_head",
-    "simplebuilding:slime_head",
-    "simplebuilding:slime_wall_head",
     "simplebuilding:smooth_basalt_octet",
     "simplebuilding:smooth_quartz_octet",
     "simplebuilding:smooth_red_sandstone_octet",
@@ -436,8 +416,6 @@
     "simplebuilding:spawn_teleporter_tier_2",
     "simplebuilding:spawn_teleporter_tier_3",
     "simplebuilding:spawn_teleporter_tier_4",
-    "simplebuilding:spider_head",
-    "simplebuilding:spider_wall_head",
     "simplebuilding:spruce_cauldron",
     "simplebuilding:spruce_crate",
     "simplebuilding:spruce_log_octet",
@@ -448,8 +426,6 @@
     "simplebuilding:stone_bricks_octet",
     "simplebuilding:stone_octet",
     "simplebuilding:storage_crafting_table",
-    "simplebuilding:stray_skull",
-    "simplebuilding:stray_wall_skull",
     "simplebuilding:stripped_acacia_cauldron",
     "simplebuilding:stripped_acacia_log_octet",
     "simplebuilding:stripped_acacia_sheet",
@@ -808,9 +784,6 @@
       "id": "simplebuilding:blaze_book"
     },
     {
-      "id": "simplebuilding:blaze_head"
-    },
-    {
       "id": "simplebuilding:blazing_obsidian"
     },
     {
@@ -834,14 +807,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:bogged_skull"
-    },
-    {
       "id": "simplebuilding:bone_block_octet",
       "maxStackSize": 99
-    },
-    {
-      "id": "simplebuilding:breeze_head"
     },
     {
       "id": "simplebuilding:bricks_octet",
@@ -920,9 +887,6 @@
     },
     {
       "id": "simplebuilding:carved_warped_stem"
-    },
-    {
-      "id": "simplebuilding:cave_spider_head"
     },
     {
       "id": "simplebuilding:ceramic_bucket",
@@ -1242,9 +1206,6 @@
     },
     {
       "id": "simplebuilding:dirt_slab"
-    },
-    {
-      "id": "simplebuilding:drowned_head"
     },
     {
       "durability": 1500,
@@ -1617,9 +1578,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderman_head"
-    },
-    {
       "id": "simplebuilding:exposed_copper_octet",
       "maxStackSize": 99
     },
@@ -1813,9 +1771,6 @@
     },
     {
       "id": "simplebuilding:hollow_warped_stem"
-    },
-    {
-      "id": "simplebuilding:husk_head"
     },
     {
       "id": "simplebuilding:ice_chip"
@@ -3303,16 +3258,7 @@
       "id": "simplebuilding:sculk_jaw"
     },
     {
-      "id": "simplebuilding:shulker_head"
-    },
-    {
       "id": "simplebuilding:silent_dandelion"
-    },
-    {
-      "id": "simplebuilding:silverfish_head"
-    },
-    {
-      "id": "simplebuilding:slime_head"
     },
     {
       "id": "simplebuilding:small_armor_stand",
@@ -3357,9 +3303,6 @@
     {
       "id": "simplebuilding:spawn_teleporter_tier_4",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:spider_head"
     },
     {
       "id": "simplebuilding:spruce_cauldron"
@@ -3423,9 +3366,6 @@
     {
       "id": "simplebuilding:straw_armor_stand",
       "maxStackSize": 16
-    },
-    {
-      "id": "simplebuilding:stray_skull"
     },
     {
       "id": "simplebuilding:stripped_acacia_cauldron"

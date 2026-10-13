@@ -15,6 +15,6 @@
     "id": "minecraft:potion"
   },
   "reagent": {
-    "item": "simplebuilding:shulker_head"
+    "item": "simplemobheads:shulker_head"
   }
 }

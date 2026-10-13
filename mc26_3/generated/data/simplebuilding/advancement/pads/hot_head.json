@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:tweaks/root",
+  "criteria": {
+    "blaze_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobheads:blaze_head"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.hot_head.description"
+    },
+    "icon": {
+      "id": "simplemobheads:blaze_head"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.hot_head.title"
+    }
+  },
+  "requirements": [
+    [
+      "blaze_head"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

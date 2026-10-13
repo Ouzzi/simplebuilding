@@ -1,0 +1,8 @@
+{
+  "type": "simplebuilding:easter_smithing",
+  "addition": "simplemobheads:blaze_head",
+  "base": "simplebuilding:infused_potion_pad",
+  "result": "simplebuilding:potion_pad",
+  "result_stage": 1,
+  "template": "simplebuilding:netherite_core"
+}

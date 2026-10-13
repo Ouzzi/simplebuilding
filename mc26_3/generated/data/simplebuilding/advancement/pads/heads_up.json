@@ -1,0 +1,44 @@
+{
+  "parent": "simplebuilding:pads/hot_head",
+  "criteria": {
+    "mob_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplemobheads:enderman_head",
+              "simplemobheads:husk_head",
+              "simplemobheads:spider_head",
+              "simplemobheads:cave_spider_head",
+              "simplemobheads:stray_skull",
+              "simplemobheads:bogged_skull",
+              "simplemobheads:slime_head",
+              "simplemobheads:silverfish_head",
+              "simplemobheads:breeze_head",
+              "simplemobheads:shulker_head",
+              "simplemobheads:drowned_head"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.heads_up.description"
+    },
+    "icon": {
+      "id": "simplemobheads:silverfish_head"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.heads_up.title"
+    }
+  },
+  "requirements": [
+    [
+      "mob_head"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
