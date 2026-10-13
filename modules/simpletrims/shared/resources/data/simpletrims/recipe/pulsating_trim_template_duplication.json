@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:sculk",
+    "D": "minecraft:diamond",
+    "T": "simpletrims:pulsating_trim_template"
+  },
+  "pattern": [
+    "DTD",
+    "DBD",
+    "DDD"
+  ],
+  "result": {
+    "count": 2,
+    "id": "simpletrims:pulsating_trim_template"
+  }
+}

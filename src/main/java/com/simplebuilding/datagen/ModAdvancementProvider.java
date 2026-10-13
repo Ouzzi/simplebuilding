@@ -142,8 +142,10 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     "cracked_diamond", any(ModItems.CRACKED_DIAMOND));
             node("hammer/diamond_in_the_rough", cracked, ModItems.CRACKED_DIAMOND_BLOCK, AdvancementType.TASK,
                     "cracked_diamond_block", any(ModItems.CRACKED_DIAMOND_BLOCK));
-            AdvancementHolder glow = feature("hammer/glow_up", stairs, ModItems.GLOWING_TRIM_TEMPLATE, AdvancementType.TASK, ModTriggers.TRIM_TEMPLATE_FORGED);
-            AdvancementHolder bright = node("hammer/bright_idea", glow, ModItems.EMITTING_TRIM_TEMPLATE, AdvancementType.TASK,
+            // 26.3: Glow Up, Bright Idea and Full Radiance moved to Simple Trims (simpletrims:*, N18).
+            AdvancementHolder glow = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null
+                    : feature("hammer/glow_up", stairs, ModItems.GLOWING_TRIM_TEMPLATE, AdvancementType.TASK, ModTriggers.TRIM_TEMPLATE_FORGED);
+            AdvancementHolder bright = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : node("hammer/bright_idea", glow, ModItems.EMITTING_TRIM_TEMPLATE, AdvancementType.TASK,
                     "emitting_trim_template", any(ModItems.EMITTING_TRIM_TEMPLATE));
             node("hammer/heavy_metal", stairs, ModItems.NETHERITE_SLEDGEHAMMER, AdvancementType.GOAL,
                     "netherite_sledgehammer", any(ModItems.NETHERITE_SLEDGEHAMMER));
@@ -152,7 +154,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             // Radiance V: an armor piece whose emission level (GlowingTrimUtils) reached the maximum.
             CompoundTag radiance = new CompoundTag();
             radiance.putInt(com.simplebuilding.util.GlowingTrimUtils.EMISSION_LEVEL_KEY, 5);
-            node("hammer/full_radiance", bright, Items.GLOWSTONE,
+            if (bright != null) node("hammer/full_radiance", bright, Items.GLOWSTONE,
                     AdvancementType.GOAL, "radiance_5", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
                             .withComponents(DataComponentMatchers.Builder.components()
                                     .partial(DataComponentPredicates.CUSTOM_DATA, CustomDataPredicate.customData(new NbtPredicate(radiance)))

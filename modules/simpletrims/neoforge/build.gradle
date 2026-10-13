@@ -5,6 +5,9 @@ plugins {
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 // Bundles the shared framework API for standalone runs.
 dependencies { jarJar project(':framework') }
+// SimpleLib (IdMoves migration, InWorldStrikes, axe-way switch) nested per principle 6a; compiled against.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
 
 neoForge.runs {
     moduleIntegrationGameTest {

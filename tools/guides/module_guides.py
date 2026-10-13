@@ -114,6 +114,13 @@ MODULES = [
                 "Dawnlands biomes on the outer End islands.",
                 "Aschholz und Dämmerholz, Knospen für End-Bäume oder Stöcke-Gestrüpp, End-Gras und die Biome "
                 "Aschental und Dämmerlande auf den äußeren End-Inseln.")),
+    dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
+         author="Simple Trims", recipe="minecraft:glow_ink_sac",
+         name=("Simple Trims Guide", "Simple-Trims-Handbuch"),
+         intro=("Glowing, Emitting and Pulsating armor trims, placeable trim templates and forging them with an axe "
+                "(with SimpleBuilding: the sledgehammer).",
+                "Leuchtender, strahlender und pulsierender Rüstungsbesatz, ablegbare Besatzvorlagen und ihr Schmieden "
+                "mit der Axt (mit SimpleBuilding: dem Vorschlaghammer).")),
     dict(module="simplemobs", ns="simplemobs", package="com.simplebuilding.modules.simplemobs.guide", cls="MobsGuide",
          kind="item", author="Simple Mobs", recipe="minecraft:bone",
          name=("Simple Mobs Guide", "Simple-Mobs-Handbuch"),
@@ -146,6 +153,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:chorus_fruit": ("a chorus fruit", "einer Chorusfrucht"),
     "minecraft:glistering_melon_slice": ("a glistering melon slice", "einer glitzernden Melonenscheibe"),
     "minecraft:bone": ("a bone", "einem Knochen"),
+    "minecraft:glow_ink_sac": ("a glow ink sac", "einem Leuchttintenbeutel"),
 }
 
 
@@ -396,6 +404,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:chorus_fruit": ("chorus fruit", "Chorusfrucht"),
     "minecraft:glistering_melon_slice": ("glistering melon slice", "glitzernde Melonenscheibe"),
     "minecraft:bone": ("bone", "Knochen"),
+    "minecraft:glow_ink_sac": ("glow ink sac", "Leuchttintenbeutel"),
 }
 
 

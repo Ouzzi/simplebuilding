@@ -1,0 +1,10 @@
+{
+	"chapter.088A28F5B7545ED0.title": "{\"translate\": \"quests.simpletrims.start.title\"}",
+	"chapter.088A28F5B7545ED0.chapter_subtitle": [
+		"{\"translate\": \"quests.simpletrims.start.subtitle\"}"
+	],
+	"quest.2419C865CE981878.title": "{\"translate\": \"quests.simpletrims.start.welcome.title\"}",
+	"quest.2419C865CE981878.quest_desc": [
+		"{\"translate\": \"quests.simpletrims.start.welcome.description\"}"
+	]
+}

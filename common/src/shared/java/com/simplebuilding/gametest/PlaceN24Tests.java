@@ -97,8 +97,11 @@ public final class PlaceN24Tests {
         helper.setBlock(floor, Blocks.STONE);
         ItemStack trims = new ItemStack(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, 5);
         helper.assertTrue(use(helper, player, trims, floor, Direction.UP).consumesAction(), "the first trim was not laid down");
-        helper.assertTrue(helper.getBlockState(floor.above()).is(ModBlocks.PLACED_SMITHING_TEMPLATE), "the first trim is no lone template: "
-                + helper.getBlockState(floor.above()));
+        // 26.3 (N18): with Simple Trims loaded the lone trim template lies in its block; the pile still forms on top.
+        var lone0 = helper.getBlockState(floor.above());
+        helper.assertTrue(lone0.is(ModBlocks.PLACED_SMITHING_TEMPLATE) || !McVersion.TRIMS_IN_SB
+                        && "simpletrims:placed_template".equals(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(lone0.getBlock()).toString()),
+                "the first trim is no lone template: " + lone0);
         for (int n = 2; n <= 4; n++) {
             helper.assertTrue(use(helper, player, trims, floor.above(), Direction.UP).consumesAction(), "trim " + n + " was refused");
             helper.assertTrue(helper.getBlockState(floor.above()).getBlock() instanceof PlacedSmallPartsBlock, "no pile after trim " + n);

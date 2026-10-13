@@ -31,7 +31,8 @@ public final class TrimUpgrades {
     public record Upgrade(Item template, Item material) {
     }
 
-    public static final List<Upgrade> ALL = List.of(
+    /** Empty on 26.3: the upgrades belong to Simple Trims there (recipe type {@code simpletrims:trim_upgrade}). */
+    public static final List<Upgrade> ALL = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? List.of() : List.of(
             new Upgrade(ModItems.GLOWING_TRIM_TEMPLATE, Items.GLOW_INK_SAC),
             new Upgrade(ModItems.EMITTING_TRIM_TEMPLATE, Items.GLOWSTONE_DUST),
             new Upgrade(ModItems.PULSATING_TRIM_TEMPLATE, Items.ECHO_SHARD));
@@ -50,7 +51,7 @@ public final class TrimUpgrades {
      * Vorlage, falsches Material, kein Ruestungsteil) - dann entscheidet Vanilla.
      */
     public static @Nullable ItemStack result(ItemStack template, ItemStack armor, ItemStack material) {
-        if (!isValidArmor(armor)) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB || !isValidArmor(armor)) {
             return null;
         }
         if (template.is(ModItems.GLOWING_TRIM_TEMPLATE) && material.is(Items.GLOW_INK_SAC)) {

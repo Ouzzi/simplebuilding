@@ -1,0 +1,6 @@
+{
+  "type": "simpletrims:trim_upgrade",
+  "addition": "minecraft:glow_ink_sac",
+  "base": "#minecraft:trimmable_armor",
+  "template": "simpletrims:glowing_trim_template"
+}

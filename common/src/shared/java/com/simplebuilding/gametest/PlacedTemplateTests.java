@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
@@ -80,12 +82,13 @@ public final class PlacedTemplateTests {
 
         // Wand: die Nordseite eines Steins, die Vorlage zeigt nach Norden
         helper.setBlock(new BlockPos(3, 2, 2), Blocks.STONE);
-        use(helper, player, new ItemStack(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE), new BlockPos(3, 2, 2), Direction.NORTH);
+        Item wallTemplate = sbTemplate(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, ModItems.BASIC_UPGRADE_TEMPLATE);
+        use(helper, player, new ItemStack(wallTemplate), new BlockPos(3, 2, 2), Direction.NORTH);
         BlockState wall = helper.getBlockState(new BlockPos(3, 2, 1));
         helper.assertTrue(wall.is(ModBlocks.PLACED_SMITHING_TEMPLATE) && wall.getValue(PlacedTemplateBlock.FACE) == AttachFace.WALL
                         && wall.getValue(PlacedTemplateBlock.FACING) == Direction.NORTH,
                 "the wall template is " + wall + " instead of hanging on the wall facing north");
-        helper.assertTrue(template(helper, new BlockPos(3, 2, 1)).is(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE),
+        helper.assertTrue(template(helper, new BlockPos(3, 2, 1)).is(wallTemplate),
                 "the wall template lost its item");
 
         // Decke
@@ -95,11 +98,13 @@ public final class PlacedTemplateTests {
         helper.assertTrue(ceiling.is(ModBlocks.PLACED_SMITHING_TEMPLATE) && ceiling.getValue(PlacedTemplateBlock.FACE) == AttachFace.CEILING,
                 "the enderite upgrade template under the ceiling is " + ceiling);
 
-        // Die leuchtende Vorlage der Mod geht auch.
-        helper.setBlock(new BlockPos(1, 1, 4), Blocks.STONE);
-        use(helper, player, new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE), new BlockPos(1, 1, 4), Direction.UP);
-        helper.assertTrue(template(helper, new BlockPos(1, 2, 4)).is(ModItems.GLOWING_TRIM_TEMPLATE),
-                "the glowing trim template was not placed");
+        // Die leuchtende Vorlage der Mod geht auch (26.2; auf 26.3 gehoert sie Simple Trims, N18).
+        if (McVersion.TRIMS_IN_SB) {
+            helper.setBlock(new BlockPos(1, 1, 4), Blocks.STONE);
+            use(helper, player, new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE), new BlockPos(1, 1, 4), Direction.UP);
+            helper.assertTrue(template(helper, new BlockPos(1, 2, 4)).is(ModItems.GLOWING_TRIM_TEMPLATE),
+                    "the glowing trim template was not placed");
+        }
         helper.succeed();
     }
 
@@ -141,25 +146,27 @@ public final class PlacedTemplateTests {
         // Becken aus Stein: innen nur die Vorlage (1,2,1) und die Wasserquelle daneben (2,2,1) - das
         // Wasser kann nirgends hin als in die Vorlage.
         basin(helper, 0, 0, 3, 2);
-        use(helper, player, new ItemStack(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE), new BlockPos(1, 1, 1), Direction.UP);
+        Item flooded = sbTemplate(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, ModItems.BASIC_UPGRADE_TEMPLATE);
+        use(helper, player, new ItemStack(flooded), new BlockPos(1, 1, 1), Direction.UP);
         helper.setBlock(new BlockPos(2, 2, 1), Blocks.WATER);
 
         // In eine Wasserquelle abgelegt (eigenes Becken): wassergefuellt.
         basin(helper, 4, 0, 6, 2);
         helper.setBlock(new BlockPos(5, 2, 1), Blocks.WATER);
-        use(helper, player, new ItemStack(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE), new BlockPos(5, 1, 1), Direction.UP);
+        use(helper, player, new ItemStack(sbTemplate(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE)), new BlockPos(5, 1, 1), Direction.UP);
         BlockState soaked = helper.getBlockState(new BlockPos(5, 2, 1));
         helper.assertTrue(soaked.is(ModBlocks.PLACED_SMITHING_TEMPLATE) && soaked.getValue(PlacedTemplateBlock.WATERLOGGED),
                 "a template placed into a water source is " + soaked + " instead of waterlogged");
 
         // Abbauen: derselbe Stapel mit Namen.
         helper.setBlock(new BlockPos(1, 1, 4), Blocks.STONE);
-        ItemStack named = new ItemStack(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE);
+        Item kept = sbTemplate(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE);
+        ItemStack named = new ItemStack(kept);
         named.set(DataComponents.CUSTOM_NAME, Component.literal("Keep me"));
         use(helper, player, named, new BlockPos(1, 1, 4), Direction.UP);
-        helper.assertTrue(template(helper, new BlockPos(1, 2, 4)).is(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE), "the named template was not placed");
+        helper.assertTrue(template(helper, new BlockPos(1, 2, 4)).is(kept), "the named template was not placed");
         helper.getLevel().destroyBlock(helper.absolutePos(new BlockPos(1, 2, 4)), true);
-        ItemEntity broken = dropped(helper, Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE);
+        ItemEntity broken = dropped(helper, kept);
         helper.assertTrue(broken != null && ItemStack.isSameItemSameComponents(broken.getItem(), named) && broken.getItem().getCount() == 1,
                 "breaking the placed template dropped " + (broken == null ? "nothing (items: " + items(helper) + ")" : broken.getItem())
                         + " instead of the named template");
@@ -175,7 +182,7 @@ public final class PlacedTemplateTests {
         helper.runAfterDelay(30, () -> {
             BlockState state = helper.getBlockState(new BlockPos(1, 2, 1));
             helper.assertTrue(state.is(ModBlocks.PLACED_SMITHING_TEMPLATE), "flowing water washed the template away: " + state);
-            helper.assertTrue(template(helper, new BlockPos(1, 2, 1)).is(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE),
+            helper.assertTrue(template(helper, new BlockPos(1, 2, 1)).is(flooded),
                     "the template under flowing water lost its item");
             helper.assertTrue(helper.getBlockState(new BlockPos(2, 2, 1)).is(Blocks.WATER),
                     "the water next to the template is gone, the test proves nothing");
@@ -198,6 +205,7 @@ public final class PlacedTemplateTests {
      * gilt nur fuer aufwertbare Vorlagen.
      */
     public static void placedTrimTemplatesNeedThreeHammerHits(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         // makeMockServerPlayerInLevel hard-codes gameMode() to CREATIVE even after setGameMode.
         var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
                 new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "template-costs"), false);
@@ -329,6 +337,7 @@ public final class PlacedTemplateTests {
      * Schlag macht aus der Spire-Vorlage die leuchtende Vorlage.
      */
     public static void placedTrimTemplateUpgradesOnRightClickOnly(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
                 new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "template-rightclick"), false);
         ServerLevel level = helper.getLevel();
@@ -390,6 +399,7 @@ public final class PlacedTemplateTests {
      * Ferne, und eine Aufwertungsvorlage nie.
      */
     public static void hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
         player.setShiftKeyDown(true);
         helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
@@ -444,7 +454,7 @@ public final class PlacedTemplateTests {
         player.setShiftKeyDown(true);
         helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
         helper.setBlock(new BlockPos(3, 1, 1), Blocks.STONE);
-        ItemStack glowing = new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE);
+        ItemStack glowing = new ItemStack(McVersion.TRIMS_IN_SB ? ModItems.GLOWING_TRIM_TEMPLATE : ModItems.ENDERITE_UPGRADE_TEMPLATE);
         use(helper, player, glowing.copy(), new BlockPos(1, 1, 1), Direction.UP);
         ItemStack named = new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
         named.set(DataComponents.CUSTOM_NAME, Component.literal("Anvil note"));
@@ -478,6 +488,7 @@ public final class PlacedTemplateTests {
      * leuchtenden Vorlage).
      */
     public static void theHitboxCoversOnlyThePixelsOfThePlate(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5));
         player.setShiftKeyDown(true);
         double thin = PlacedPlate.SCALE * PlacedPlate.THICKNESS_SCALE / 16.0 + PlacedPlate.GAP + 1.0E-3;
@@ -1047,6 +1058,14 @@ public final class PlacedTemplateTests {
     }
 
     @SuppressWarnings("removal")
+    /**
+     * 26.3 (N18): Besatzvorlagen legt Simple Trims in seinen eigenen Block; SimpleBuildings eigenes Ablegen zeigen die
+     * Tests dort mit einer seiner Aufwertungsvorlagen.
+     */
+    private static Item sbTemplate(Item trim, Item upgrade) {
+        return McVersion.TRIMS_IN_SB ? trim : upgrade;
+    }
+
     private static ServerPlayer mockPlayer(GameTestHelper helper, Vec3 relative) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         Vec3 pos = helper.absoluteVec(relative);

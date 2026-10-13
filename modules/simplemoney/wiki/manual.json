@@ -1388,7 +1388,7 @@
       "id": "money_links_simplebuilding",
       "en": {
         "title": "Linked Price Table: simplebuilding",
-        "summary": "238 item prices; loaded-mod condition: simplebuilding.",
+        "summary": "240 item prices; loaded-mod condition: simplebuilding.",
         "details": [
           "simplebuilding:amethyst_lens: tier 1, hours 6.7, craft 9; 19 bills; toolsmith 2; stock 2; chance 1.",
           "simplebuilding:astral_end_stone: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1437,7 +1437,6 @@
           "simplebuilding:drowned_head: tier 3, hours 15.0, craft 0; 24 bills; wandering_trader 4; stock 1; chance 0.1.",
           "simplebuilding:echo_sounder: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:elytra_pad: tier 3, hours 21.0, craft 3; 33 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:emitting_trim_template: tier 0, hours 0.5, craft 3; 8 bills; librarian 1; stock 2; chance 1.",
           "simplebuilding:enchanted_enderite_apple: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enchanted_netherite_apple: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:ender_quartz: tier 4, hours 25.0, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1494,7 +1493,6 @@
           "simplebuilding:fine_elytra_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:flypad: tier 5, hours 38.1, craft 4; 58 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:funny_stick: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:glowing_trim_template: tier 0, hours 0.5, craft 3; 8 bills; librarian 1; stock 2; chance 1.",
           "simplebuilding:gold_building_wand: tier 2, hours 12.5, craft 3; 22 bills; toolsmith 3; stock 2; chance 1.",
           "simplebuilding:gold_chisel: tier 2, hours 12.5, craft 4; 23 bills; toolsmith 3; stock 2; chance 1.",
           "simplebuilding:gold_core: tier 2, hours 12.5, craft 5; 24 bills; wandering_trader 3; stock 2; chance 0.25.",
@@ -1582,7 +1580,6 @@
           "simplebuilding:polished_nihilith_stairs: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:polished_nihilith_wall: tier 4, hours 25.0, craft 6; 43 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:pulsating_trim_template: tier 0, hours 0.5, craft 3; 8 bills; librarian 1; stock 2; chance 1.",
           "simplebuilding:purpur_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:quiver: tier 0, hours 0.5, craft 6; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:raw_enderite: tier 5, hours 38.1, craft 9; 63 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1630,7 +1627,7 @@
       },
       "de": {
         "title": "Verknuepfte Preisliste: simplebuilding",
-        "summary": "238 Itempreise; Mod-Ladebedingung: simplebuilding.",
+        "summary": "240 Itempreise; Mod-Ladebedingung: simplebuilding.",
         "details": [
           "simplebuilding:amethyst_lens: Stufe 1, Stunden 6.7, Rezeptplaetze 9; 19 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
           "simplebuilding:astral_end_stone: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1679,7 +1676,6 @@
           "simplebuilding:drowned_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
           "simplebuilding:echo_sounder: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:elytra_pad: Stufe 3, Stunden 21.0, Rezeptplaetze 3; 33 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:emitting_trim_template: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; librarian 1; Vorrat 2; Chance 1.",
           "simplebuilding:enchanted_enderite_apple: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enchanted_netherite_apple: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:ender_quartz: Stufe 4, Stunden 25.0, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1736,7 +1732,6 @@
           "simplebuilding:fine_elytra_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 4; 58 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:funny_stick: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:glowing_trim_template: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; librarian 1; Vorrat 2; Chance 1.",
           "simplebuilding:gold_building_wand: Stufe 2, Stunden 12.5, Rezeptplaetze 3; 22 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
           "simplebuilding:gold_chisel: Stufe 2, Stunden 12.5, Rezeptplaetze 4; 23 Scheine; toolsmith 3; Vorrat 2; Chance 1.",
           "simplebuilding:gold_core: Stufe 2, Stunden 12.5, Rezeptplaetze 5; 24 Scheine; wandering_trader 3; Vorrat 2; Chance 0.25.",
@@ -1824,7 +1819,6 @@
           "simplebuilding:polished_nihilith_stairs: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:polished_nihilith_wall: Stufe 4, Stunden 25.0, Rezeptplaetze 6; 43 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:pulsating_trim_template: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; librarian 1; Vorrat 2; Chance 1.",
           "simplebuilding:purpur_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:quiver: Stufe 0, Stunden 0.5, Rezeptplaetze 6; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:raw_enderite: Stufe 5, Stunden 38.1, Rezeptplaetze 9; 63 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1919,7 +1913,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/drowned_head.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/echo_sounder.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/elytra_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/emitting_trim_template.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enchanted_enderite_apple.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enchanted_netherite_apple.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/ender_quartz.json",
@@ -1976,7 +1969,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/fine_elytra_pad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/flypad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/funny_stick.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/glowing_trim_template.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/gold_building_wand.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/gold_chisel.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/gold_core.json",
@@ -2064,7 +2056,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_nihilith_stairs.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/polished_nihilith_wall.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/potion_pad.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/pulsating_trim_template.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/purpur_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/quiver.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/raw_enderite.json",
@@ -2157,7 +2148,6 @@
         "simplebuilding:drowned_head",
         "simplebuilding:echo_sounder",
         "simplebuilding:elytra_pad",
-        "simplebuilding:emitting_trim_template",
         "simplebuilding:enchanted_enderite_apple",
         "simplebuilding:enchanted_netherite_apple",
         "simplebuilding:ender_quartz",
@@ -2214,7 +2204,6 @@
         "simplebuilding:fine_elytra_pad",
         "simplebuilding:flypad",
         "simplebuilding:funny_stick",
-        "simplebuilding:glowing_trim_template",
         "simplebuilding:gold_building_wand",
         "simplebuilding:gold_chisel",
         "simplebuilding:gold_core",
@@ -2302,7 +2291,6 @@
         "simplebuilding:polished_nihilith_stairs",
         "simplebuilding:polished_nihilith_wall",
         "simplebuilding:potion_pad",
-        "simplebuilding:pulsating_trim_template",
         "simplebuilding:purpur_quartz_checker",
         "simplebuilding:quiver",
         "simplebuilding:raw_enderite",
@@ -2471,6 +2459,38 @@
         "modules/simplemoney/shared/resources/data/simplemoney/money/simplesounds/prices.json"
       ],
       "related": []
+    },
+    {
+      "id": "money_links_simpletrims",
+      "en": {
+        "title": "Linked Price Table: simpletrims",
+        "summary": "3 item prices; loaded-mod condition: simpletrims.",
+        "details": [
+          "simpletrims:emitting_trim_template: tier 0, hours 0.5, craft 3; 8 bills; librarian 1; stock 2; chance 1.",
+          "simpletrims:glowing_trim_template: tier 0, hours 0.5, craft 3; 8 bills; librarian 1; stock 2; chance 1.",
+          "simpletrims:pulsating_trim_template: tier 0, hours 0.5, craft 3; 8 bills; librarian 1; stock 2; chance 1."
+        ]
+      },
+      "de": {
+        "title": "Verknuepfte Preisliste: simpletrims",
+        "summary": "3 Itempreise; Mod-Ladebedingung: simpletrims.",
+        "details": [
+          "simpletrims:emitting_trim_template: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; librarian 1; Vorrat 2; Chance 1.",
+          "simpletrims:glowing_trim_template: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; librarian 1; Vorrat 2; Chance 1.",
+          "simpletrims:pulsating_trim_template: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; librarian 1; Vorrat 2; Chance 1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simpletrims/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpletrims/emitting_trim_template.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpletrims/glowing_trim_template.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpletrims/pulsating_trim_template.json"
+      ],
+      "related": [
+        "simpletrims:emitting_trim_template",
+        "simpletrims:glowing_trim_template",
+        "simpletrims:pulsating_trim_template"
+      ]
     },
     {
       "id": "money_links_simpletweaks",

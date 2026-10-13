@@ -516,7 +516,7 @@ public final class TestCentreSections {
         c.wallSign(x, 3, wallZ, TcText.bold(TcText.t("inworld.trim", "Trim template")),
                 TcText.t("inworld.trim.sub", "place it, hammer it"), TcText.t("inworld.trim.sub2", "catalyst in off hand"));
         x++;
-        for (Map.Entry<Item, Item> upgrade : SledgehammerEntityInteraction.trimUpgrades().entrySet()) {
+        for (Map.Entry<Item, Item> upgrade : trimUpgradesShown().entrySet()) {
             if (template != null) {
                 c.wallFrame(x, 2, wallZ, new ItemStack(template));
             }
@@ -566,7 +566,7 @@ public final class TestCentreSections {
         // a) Uebungsreihe: aufwertbare Besatzvorlagen flach auf dem Boden (Oberkante vom Gang weg).
         c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("templates.hit", "Hammer them")),
                 TcText.t("templates.hit.sub", "glowstone / glow ink"), TcText.t("templates.hit.sub2", "in off hand: 5 hits"));
-        for (Map.Entry<Item, Item> upgrade : SledgehammerEntityInteraction.trimUpgrades().entrySet()) {
+        for (Map.Entry<Item, Item> upgrade : trimUpgradesShown().entrySet()) {
             c.wallFrame(x, 2, wallZ, new ItemStack(upgrade.getKey()));
             x++;
         }
@@ -583,9 +583,9 @@ public final class TestCentreSections {
         kinds.add(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE));
         kinds.add(new ItemStack(ModItems.BASIC_UPGRADE_TEMPLATE));
         kinds.add(new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE));
-        kinds.add(new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE));
-        kinds.add(new ItemStack(ModItems.EMITTING_TRIM_TEMPLATE));
-        kinds.add(new ItemStack(ModItems.PULSATING_TRIM_TEMPLATE));
+        for (Item upgraded : upgradedTrimTemplates()) {
+            kinds.add(new ItemStack(upgraded));
+        }
         kinds.add(new ItemStack(ModItems.MAGNET));
         for (ItemStack kind : kinds) {
             placedTemplate(c, x, 0, 3, AttachFace.FLOOR, Direction.SOUTH, kind);
@@ -616,10 +616,45 @@ public final class TestCentreSections {
      */
     private static void placedTemplate(TcCanvas c, int x, int y, int z, AttachFace face, Direction facing, ItemStack template) {
         net.minecraft.world.level.block.Block block = com.simplebuilding.util.PlacedTemplates.placedBlockFor(template);
+        if (block == null && com.simplebuilding.util.PlacedTemplates.leftToSimpleTrims(template)) {
+            // 26.3 (N18): trim templates lie in Simple Trims' own block (same face/facing properties, found by id).
+            block = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(SIMPLE_TRIMS_PLACED).orElse(null);
+        }
         c.place(x, y, z, (block == null ? ModBlocks.PLACED_SMITHING_TEMPLATE : block).defaultBlockState()
-                .setValue(com.simplebuilding.blocks.custom.PlacedTemplateBlock.FACE, face)
-                .setValue(com.simplebuilding.blocks.custom.PlacedTemplateBlock.FACING, facing));
+                .setValue(net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock.FACE, face)
+                .setValue(net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock.FACING, facing));
         c.contents(x, y, z, List.of(template));
+    }
+
+    /** Glowing, Emitting, Pulsating template: SB's own (26.2) or Simple Trims' by id (26.3, missing ids skipped). */
+    static List<Item> upgradedTrimTemplates() {
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) {
+            return List.of(ModItems.GLOWING_TRIM_TEMPLATE, ModItems.EMITTING_TRIM_TEMPLATE, ModItems.PULSATING_TRIM_TEMPLATE);
+        }
+        List<Item> out = new ArrayList<>();
+        for (String path : List.of("glowing_trim_template", "emitting_trim_template", "pulsating_trim_template")) {
+            net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletrims", path)).ifPresent(out::add);
+        }
+        return out;
+    }
+
+    /** Simple Trims' placed template block (26.3); {@code TestCentreBuilder} fills it through its saved key {@code Template}. */
+    public static final net.minecraft.resources.Identifier SIMPLE_TRIMS_PLACED =
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletrims", "placed_template");
+
+    /**
+     * Catalyst -> result of forging a placed trim template: SimpleBuilding's table on 26.2; on 26.3 Simple Trims'
+     * templates by id (glow ink: Glowing, glowstone dust: Emitting), empty without the module.
+     */
+    static Map<Item, Item> trimUpgradesShown() {
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) return SledgehammerEntityInteraction.trimUpgrades();
+        Map<Item, Item> shown = new java.util.LinkedHashMap<>();
+        for (var entry : Map.of(Items.GLOW_INK_SAC, "glowing_trim_template", Items.GLOWSTONE_DUST, "emitting_trim_template").entrySet()) {
+            net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletrims", entry.getValue())).ifPresent(item -> shown.put(entry.getKey(), item));
+        }
+        return shown;
     }
 
     // =====================================================================================

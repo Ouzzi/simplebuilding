@@ -158,3 +158,54 @@ Besitzer: F1 mit „ja, starten“ beantwortet; IDs wechseln auf `simpletrims:*`
 - **Stufe 4:** Besatz-Effekte, Stats-Panel, Referenzbildschirm, Netzwerk, AutoSmither-Anbindung, JEI/REI, Guide; SB bündelt Simple Trims (Fabric `include`, NeoForge `jarJar`, Forge Bundle) mit Schalter „Simple Trims aktivieren“; SB-Tests `trim*`/`data_integrity*` ziehen auf `simpletrims:`-Namespace um.
 
 **Was in SB bleibt:** Hammer, Rüstungs-/Material-Katalog (Enderit, Nihilith, Astralit), Gesamt-Guide-Einstieg, Schalter. **Risiken:** Welt-Migration (Items und Komponenten), 1.21.11-Port nur im Port-Run, Datagen-Provider zerlegen.
+
+## Simple Trims Stufen 2–4: Plan und Umsetzung (claude-trims2, 2026-10-13)
+
+**Abgrenzung (Entscheidung Agent).** Umgezogen wird der *Vorlagen*-Teil: die drei Vorlagen, ihre Komponenten und
+Wirkung (Schmiedetisch, Leuchten/Pulsieren im Renderer, Strahlkraft-Licht), Rezepte, Platzierbarkeit, Aufwerten in der
+Welt, Fortschritte, Preise, Wiki/Guide/Fragentisch, Tests. Die **Besatz-Effekte** (Boni je Material/Muster:
+`TrimEffectUtil`, Stats-Panel, Referenzbildschirm, `Trim*Payload`) bleiben vorerst in SB: sie hängen an SB-Inventar-UI,
+`ServerTuning.trimStrength` und SB-Rüstungsmaterialien und gehören nicht zu den Vorlagen (eigene spätere Stufe).
+Der Plan für die Modulaufteilung (§2.2) behält die *allgemeine* abgelegte Vorlage (Blaupause, Oktant, Attractor,
+Detector, SB-Aufwertungsvorlagen, Kleinteile) in SB; Simple Trims legt nur Besatzvorlagen (`#minecraft:trim_templates`)
+ab, mit eigenem Block.
+
+**26.2/26.3.** Module gibt es nur auf 26.3. Neuer Schalter `McVersion.TRIMS_IN_SB` (26.2 `true`, 26.3 `false`): auf 26.3
+registriert SB die drei Vorlagen und die vier Komponenten nicht mehr (Felder `null`, Muster wie `CRUCIBLE`),
+`GlowingTrimUtils`/`TrimUpgrades`/Hammer-Tabelle liefern neutrale Werte (kein Licht, kein Leuchten, keine Aufwertung),
+SB-Tests der umgezogenen Teile laufen auf 26.3 als `succeed` und haben ihr Gegenstück in `TrimsTests`. 26.2 bleibt
+unverändert monolithisch. SB legt Besatzvorlagen nur noch selbst ab, wenn Simple Trims fehlt.
+
+**IDs und Migration (Besitzer F1).** `simplebuilding:{glowing,emitting,pulsating}_trim_template` → `simpletrims:*`
+(Items), Komponenten `simplebuilding:{glow_level,visual_glow,light_source,pulsating}` → `simpletrims:*`
+(`DATA_COMPONENT_TYPE`), Fortschritte `simplebuilding:hammer/{glow_up,bright_idea,full_radiance}` →
+`simpletrims:{glow_up,bright_idea,full_radiance}`, Rezepte (Rezeptbuch) der Vorlagen ebenso. Alles über
+`simplelib.api.IdMoves` im Konstruktor von Simple Trims (Forge: Aliase über SimpleLib). Die Strahlkraft liegt wie bisher
+in `custom_data` unter `SimpleBuildingEmissionLevel` (Stapel-Daten, keine Registry-ID → keine Migration nötig; Schlüssel
+bleibt bewusst gleich). Lichtblöcke alter Welten: SB räumt seine gespeicherten Lichtpositionen beim nächsten Takt ab
+(Strahlkraft 0), Simple Trims setzt eigene (`SimpleTrimsOwnedLight`).
+
+**Werkzeugregel (wie Tiegel, §2.6 Modulaufteilung).** `TemplateTools`: solange `SimpleLibApi.axeWaysEnabled()` (kein
+Partner mit Hammer geladen) die Axt (`#minecraft:axes`), sonst nur Hämmer aus `#simpletrims:template_hammers`
+(enthält `#simplebuilding:sledgehammer_tools`, `required:false`; Simple Hammers trägt sich später dort ein). Gilt für
+das Aufwerten abgelegter Vorlagen (5 Schläge über `simplelib.api.InWorldStrikes`-Risse, Material wie bisher) und das
+Pulsating-Rezept (`simpletrims:tool_shapeless`: Werkzeug bleibt mit 1 Haltbarkeit weniger im Raster).
+
+**Schmiedetisch.** Statt Platzhalter-Rezept + Mixin ein eigener Rezepttyp `simpletrims:trim_upgrade`
+(`SmithingRecipe`): Vanillas Schmiedetisch, der Auto-Smither von SB und Rezeptanzeigen nutzen ihn ohne Sonderweg.
+
+**Bündelung.** SB bündelt Simple Trims weiter (optional, Schalter „Simple Trims aktivieren“). Simple Trims bündelt
+SimpleLib (Regel 6a: `IdMoves`, `InWorldStrikes`, Axt-Schalter) wie Simple Maps.
+
+**Prüfung.** Compile 3 Loader; `module-simpletrims-{fabric,neoforge,forge}-263` und Standalone (Fabric/NeoForge); SB
+`fabric-263` gefiltert auf die angepassten Testklassen; Datagen 26.3; `wiki/generate.py --all --check --strict`,
+`tools/guides/module_guides.py --check`, `tools/check_tooltip_text.py`, Money-`generate_links.py --check`,
+`modules/simpletrims/tools/check_data.py`.
+
+**Ergebnis (13.10.).** `module-simpletrims-{fabric,neoforge,forge}-263` und Standalone Fabric/NeoForge je 16/16 grün
+(Fabric mit SB = Hammer-Modus, sonst Axt-Modus), Client-Smoke 2/2 (Leuchten/Puls am Rüstungsständer, Platten,
+Tooltips). SB 3 Loader voll: alle Trims-bezogenen Tests grün; offen nur zwei Fehler aus wave1 (Testzentrale kennt
+`mixed_octet` nicht, Echolot-Tipp aus dem Entdeckbarkeits-Branch) sowie ein 26.2-Compilefehler in `OctetCellBlock`
+(wave1). Nicht umgezogen: Besatz-Boni/Stats-Panel; im Modul fehlen JEI-Kategorie und Hammer-Neigung auf Platten; alte
+SB-Platten mit Besatzvorlage lassen sich nicht mehr schmieden (aufheben, neu ablegen); Häufchen aus Besatzvorlagen nur
+mit SB.

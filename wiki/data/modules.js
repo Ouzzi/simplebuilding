@@ -79,7 +79,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "e784cd437db7"
+    "dataHash": "4a432e662540"
   },
   {
     "id": "simpleriding",
@@ -326,7 +326,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletrims",
     "displayName": "Simple Trims",
-    "description": "Armor trim templates and trim upgrades (stage 1: module frame; content moves in from SimpleBuilding). Axe on its own, sledgehammer with SimpleBuilding.",
+    "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with SimpleBuilding.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -334,11 +334,13 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "42845eb634f7"
+    "dataHash": "6710bc09d694"
   },
   {
     "id": "simplemobs",

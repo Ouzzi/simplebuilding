@@ -18,7 +18,9 @@ public class GlowingTrimUtils {
      * Dies ist für den DynamicLightHandler relevant.
      */
     public static int getEmissionLevel(ItemStack stack) {
-        if (stack.isEmpty()) return 0;
+        // 26.3: radiance belongs to Simple Trims (same custom_data key); SB neither lights nor shows it, and its old
+        // light blocks go away with the carriers' next tick (level 0).
+        if (stack.isEmpty() || !com.simplebuilding.version.McVersion.TRIMS_IN_SB) return 0;
 
         // Prüfen, ob das generelle Upgrade überhaupt vorhanden ist (optional, falls du eine strikte Trennung willst)
         // Wenn du nur über den Level gehen willst, reicht der NBT Check.
@@ -30,6 +32,7 @@ public class GlowingTrimUtils {
     }
 
     public static void incrementEmissionLevel(ItemStack stack) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) return;
         CustomData component = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         CompoundTag nbt = component.copyTag();
         int current = nbt.getIntOr(EMISSION_LEVEL_KEY, 0);
@@ -53,7 +56,7 @@ public class GlowingTrimUtils {
      * Dies ist NUR für den EquipmentRendererMixin relevant.
      */
     public static boolean hasVisualGlow(ItemStack stack) {
-        if (stack.isEmpty()) return false;
+        if (stack.isEmpty() || !com.simplebuilding.version.McVersion.TRIMS_IN_SB) return false;
         // Nutzt deine existierende DataComponent für das visuelle Upgrade
         return stack.getOrDefault(ModDataComponentTypes.VISUAL_GLOW, false);
     }
@@ -62,7 +65,7 @@ public class GlowingTrimUtils {
      * Aktiviert das visuelle Leuchten für ein Item.
      */
     public static void setVisualGlow(ItemStack stack, boolean glowing) {
-        if (stack.isEmpty()) return;
+        if (stack.isEmpty() || !com.simplebuilding.version.McVersion.TRIMS_IN_SB) return;
         stack.set(ModDataComponentTypes.VISUAL_GLOW, glowing);
     }
 
@@ -80,7 +83,7 @@ public class GlowingTrimUtils {
     }
 
     public static int getGlowLevel(ItemStack stack) {
-        if (stack.isEmpty()) return 0;
+        if (stack.isEmpty() || !com.simplebuilding.version.McVersion.TRIMS_IN_SB) return 0;
 
         // 1. Prüfe auf das neue Level-System
         Integer level = stack.get(ModDataComponentTypes.GLOW_LEVEL);
@@ -97,7 +100,7 @@ public class GlowingTrimUtils {
     }
 
     public  static void setGlowLevel(ItemStack stack, int level) {
-        if (stack.isEmpty()) return;
+        if (stack.isEmpty() || !com.simplebuilding.version.McVersion.TRIMS_IN_SB) return;
         stack.set(ModDataComponentTypes.GLOW_LEVEL, normalizeGlowLevel(level));
     }
 
@@ -164,11 +167,11 @@ public class GlowingTrimUtils {
 
     /** Pulsiert der Besatz dieses Stapels? (Pulsating Armor Trim, Besitzer 2026-09-28) */
     public static boolean isPulsating(ItemStack stack) {
-        return !stack.isEmpty() && stack.getOrDefault(ModDataComponentTypes.PULSATING, false);
+        return !stack.isEmpty() && com.simplebuilding.version.McVersion.TRIMS_IN_SB && stack.getOrDefault(ModDataComponentTypes.PULSATING, false);
     }
 
     public static void setPulsating(ItemStack stack, boolean pulsating) {
-        if (stack.isEmpty()) return;
+        if (stack.isEmpty() || !com.simplebuilding.version.McVersion.TRIMS_IN_SB) return;
         if (pulsating) {
             stack.set(ModDataComponentTypes.PULSATING, true);
         } else {

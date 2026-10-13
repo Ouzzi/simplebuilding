@@ -319,10 +319,12 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         TagKey<Item> TRIM_TEMPLATES = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("trim_templates"));
 
-        builder(TRIM_TEMPLATES)
-                .add(key(ModItems.GLOWING_TRIM_TEMPLATE))
-                .add(key(ModItems.EMITTING_TRIM_TEMPLATE))
-                .add(key(ModItems.PULSATING_TRIM_TEMPLATE));
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) { // 26.3: Simple Trims adds its own (N18)
+            builder(TRIM_TEMPLATES)
+                    .add(key(ModItems.GLOWING_TRIM_TEMPLATE))
+                    .add(key(ModItems.EMITTING_TRIM_TEMPLATE))
+                    .add(key(ModItems.PULSATING_TRIM_TEMPLATE));
+        }
 
         // Optional: Damit der Leuchtbeutel generell als "Trim Material" erkannt wird (hilft bei der GUI-Validierung)
         builder(ItemTags.TRIM_MATERIALS)

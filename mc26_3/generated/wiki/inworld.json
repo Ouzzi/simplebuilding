@@ -9700,37 +9700,6 @@
       "minecraft:wayfinder_armor_trim_smithing_template",
       "minecraft:wild_armor_trim_smithing_template"
     ],
-    "upgrades": [
-      {
-        "catalyst": "minecraft:glow_ink_sac",
-        "catalystCount": 2,
-        "extraMaterials": [
-          {
-            "count": 4,
-            "id": "minecraft:diamond"
-          },
-          {
-            "count": 2,
-            "id": "minecraft:glowstone"
-          }
-        ],
-        "result": "simplebuilding:glowing_trim_template"
-      },
-      {
-        "catalyst": "minecraft:glowstone_dust",
-        "catalystCount": 2,
-        "extraMaterials": [
-          {
-            "count": 4,
-            "id": "minecraft:diamond"
-          },
-          {
-            "count": 2,
-            "id": "minecraft:blaze_powder"
-          }
-        ],
-        "result": "simplebuilding:emitting_trim_template"
-      }
-    ]
+    "upgrades": []
   }
 }

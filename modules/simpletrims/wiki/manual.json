@@ -3,18 +3,181 @@
     {
       "id": "trims_module",
       "sources": [
-        "modules/simpletrims/shared/java/com/simpletrims/TemplateTools.java",
+        "modules/simpletrims/shared/java/com/simpletrims/SimpleTrims.java",
         "modules/simpletrims/shared/java/com/simpletrims/config/TrimsConfig.java"
       ],
       "en": {
         "title": "Simple Trims",
-        "summary": "Sub-mod for armor trim templates and trim upgrades. Stage 1: module frame, config switch and the tool rule (axe on its own, sledgehammer with SimpleBuilding)."
+        "summary": "Sub-mod with the Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and the trim upgrades. Playable on its own (axe); bundled by SimpleBuilding (sledgehammer).",
+        "details": [
+          "Config simpletrims-server.json: enabled (default on). With SimpleBuilding also its switch Enable Simple Trims. Off: no upgrades, no placing, no radiance light, empty tab entries; registrations stay so worlds keep loading."
+        ]
       },
       "de": {
         "title": "Simple Trims",
-        "summary": "Sub-Mod für Rüstungsbesatz-Vorlagen und Besatz-Aufwertungen. Stufe 1: Modulgerüst, Config-Schalter und Werkzeugregel (allein die Axt, mit SimpleBuilding der Vorschlaghammer)."
+        "summary": "Sub-Mod mit den Vorlagen Leuchtender, Strahlender und Pulsierender Rüstungsbesatz, ablegbaren Besatzvorlagen und den Besatz-Aufwertungen. Allein spielbar (Axt); von SimpleBuilding gebündelt (Vorschlaghammer).",
+        "details": [
+          "Config simpletrims-server.json: enabled (Standard an). Mit SimpleBuilding zusätzlich dessen Schalter „Simple Trims aktivieren“. Aus: keine Aufwertungen, kein Ablegen, kein Strahlkraft-Licht, keine Tab-Einträge; Registrierungen bleiben, Welten laden weiter."
+        ]
+      }
+    },
+    {
+      "id": "trim_upgrades",
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/TrimUpgrades.java",
+        "modules/simpletrims/shared/java/com/simpletrims/recipe/TrimUpgradeRecipe.java",
+        "modules/simpletrims/shared/java/com/simpletrims/TrimGlow.java",
+        "modules/simpletrims/shared/resources/data/simpletrims/recipe/glowing_armor_upgrade.json"
+      ],
+      "en": {
+        "title": "Trim upgrades at the smithing table",
+        "summary": "Template + armor + material: Glowing (Glow Ink Sac, once), Radiance (Glowstone Dust, up to level 5), Pulsating (Echo Shard, once). The template is used up like any smithing template.",
+        "details": [
+          "Glowing draws the trim at full light. Pulsating alone fades the trim colors to gray and back; with Glowing its brightness swells between 1 and 15.",
+          "Radiance gives 3 light per level to an invisible light block over the wearer's head (sum of all worn pieces, at most 15).",
+          "A real smithing recipe (simpletrims:trim_upgrade): the Vanilla smithing table and SimpleBuilding's Auto Smither both use it."
+        ]
+      },
+      "de": {
+        "title": "Besatz-Aufwertungen am Schmiedetisch",
+        "summary": "Vorlage + Rüstung + Material: Leuchtend (Leuchttintenbeutel, einmal), Strahlkraft (Glowstonestaub, bis Stufe 5), Pulsierend (Echoscherbe, einmal). Die Vorlage wird verbraucht wie jede Schmiedevorlage.",
+        "details": [
+          "Leuchtend zeichnet den Besatz voll hell. Pulsierend allein lässt die Besatzfarben zu Grau verblassen und zurückkehren; mit Leuchtend schwillt die Helligkeit zwischen 1 und 15 an und ab.",
+          "Strahlkraft gibt 3 Licht je Stufe an einen unsichtbaren Lichtblock über dem Kopf (Summe aller getragenen Teile, höchstens 15).",
+          "Echtes Schmiederezept (simpletrims:trim_upgrade): Vanilla-Schmiedetisch und der Auto-Schmied von SimpleBuilding nutzen es gleich."
+        ]
+      }
+    },
+    {
+      "id": "placed_trim_templates",
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java",
+        "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTrimTemplateBlock.java",
+        "modules/simpletrims/shared/java/com/simpletrims/mixin/ItemUseOnMixin.java"
+      ],
+      "en": {
+        "title": "Placed trim templates",
+        "summary": "Sneak + use with any armor trim template lays it flat on the floor, against a wall or under a ceiling. Breaking it gives back exactly that template.",
+        "details": [
+          "Other smithing templates (Netherite Upgrade, SimpleBuilding's upgrade templates) are placed by SimpleBuilding, if installed."
+        ]
+      },
+      "de": {
+        "title": "Abgelegte Besatzvorlagen",
+        "summary": "Schleichen + Benutzen mit einer Rüstungsbesatzvorlage legt sie flach auf den Boden, an eine Wand oder unter eine Decke. Abbauen gibt genau diese Vorlage zurück.",
+        "details": [
+          "Andere Schmiedevorlagen (Netherit-Aufwertung, Aufwertungsvorlagen von SimpleBuilding) legt SimpleBuilding ab, falls installiert."
+        ]
+      }
+    },
+    {
+      "id": "template_tool_rule",
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/TemplateTools.java",
+        "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java",
+        "modules/simpletrims/shared/java/com/simpletrims/recipe/ToolShapelessRecipe.java",
+        "modules/simpletrims/shared/resources/data/simpletrims/tags/item/template_hammers.json"
+      ],
+      "en": {
+        "title": "Forging templates: axe or sledgehammer",
+        "summary": "A placed Vanilla armor trim template becomes the Glowing one (Glow Ink Sac in the off hand) or the Emitting one (Glowstone Dust): 5 right clicks with the tool, then 2 of the off-hand material, 4 diamonds and 2 glowstone (Glowing) or 2 blaze powder (Emitting) from the inventory.",
+        "details": [
+          "The tool is any axe on its own; with SimpleBuilding (or another mod in simpletrims:template_hammers that switches the axe ways off) only the sledgehammer - the same rule as SimpleLib's crucibles. Each strike costs the tool 1 durability.",
+          "Pulsating template (shapeless): the tool + 2 echo shards + 2 sculk + 4 diamonds; the tool stays in the grid with 1 durability less.",
+          "Copies: template + 7 diamonds + glowstone block / magma block / sculk = 2 templates."
+        ]
+      },
+      "de": {
+        "title": "Vorlagen schmieden: Axt oder Vorschlaghammer",
+        "summary": "Eine abgelegte Vanilla-Besatzvorlage wird zur Leuchtenden (Leuchttintenbeutel in der Nebenhand) oder Strahlenden (Glowstonestaub): 5 Rechtsklicks mit dem Werkzeug, dann 2 vom Nebenhand-Material, 4 Diamanten und 2 Glowstone (Leuchtend) bzw. 2 Lohenstaub (Strahlend) aus dem Inventar.",
+        "details": [
+          "Werkzeug ist allein jede Axt; mit SimpleBuilding (oder einer anderen Mod in simpletrims:template_hammers, die die Axt-Wege abschaltet) nur der Vorschlaghammer - dieselbe Regel wie bei den Tiegeln von SimpleLib. Jeder Schlag kostet das Werkzeug 1 Haltbarkeit.",
+          "Pulsierende Vorlage (formlos): Werkzeug + 2 Echoscherben + 2 Sculk + 4 Diamanten; das Werkzeug bleibt mit 1 Haltbarkeit weniger im Raster.",
+          "Kopien: Vorlage + 7 Diamanten + Glowsteinblock / Magmablock / Sculk = 2 Vorlagen."
+        ]
+      }
+    },
+    {
+      "id": "trims_migration",
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/SimpleTrims.java"
+      ],
+      "en": {
+        "title": "Moved from SimpleBuilding",
+        "summary": "The templates, their upgrade data, recipes and advancements used to be simplebuilding:*. Old worlds load them as simpletrims:* (SimpleLib id moves); radiance keeps its stored value.",
+        "details": [
+          "Advancements Glow Up, Bright Idea and Full Radiance now hang below the Vanilla trim advancement; earned progress carries over."
+        ]
+      },
+      "de": {
+        "title": "Aus SimpleBuilding umgezogen",
+        "summary": "Die Vorlagen, ihre Aufwertungsdaten, Rezepte und Fortschritte hießen früher simplebuilding:*. Alte Welten laden sie als simpletrims:* (SimpleLib-ID-Umzug); die Strahlkraft behält ihren Wert.",
+        "details": [
+          "Die Fortschritte Glanzleistung, Geistesblitz und Volle Strahlkraft hängen jetzt unter dem Vanilla-Besatzfortschritt; erreichter Fortschritt bleibt."
+        ]
       }
     }
   ],
-  "notes": {}
+  "notes": {
+    "simpletrims:guide_book": {
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/guide/TrimsGuide.java",
+        "modules/simpletrims/shared/resources/data/simpletrims/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + glow ink sac. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Trims\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Leuchttintenbeutel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Trims\" eins."
+      }
+    },
+    "simpletrims:glowing_trim_template": {
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/TrimsRegistry.java",
+        "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java"
+      ],
+      "en": {
+        "summary": "Smithing: armor + Glow Ink Sac = Glowing trim. Made by forging a placed armor trim template with Glow Ink Sac."
+      },
+      "de": {
+        "summary": "Schmieden: Rüstung + Leuchttintenbeutel = leuchtender Besatz. Entsteht beim Schmieden einer abgelegten Besatzvorlage mit Leuchttintenbeutel."
+      }
+    },
+    "simpletrims:emitting_trim_template": {
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/TrimsRegistry.java",
+        "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java"
+      ],
+      "en": {
+        "summary": "Smithing: armor + Glowstone Dust = +1 Radiance (up to 5). Made by forging a placed armor trim template with Glowstone Dust."
+      },
+      "de": {
+        "summary": "Schmieden: Rüstung + Glowstonestaub = +1 Strahlkraft (bis 5). Entsteht beim Schmieden einer abgelegten Besatzvorlage mit Glowstonestaub."
+      }
+    },
+    "simpletrims:pulsating_trim_template": {
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/TrimsRegistry.java",
+        "modules/simpletrims/shared/resources/data/simpletrims/recipe/pulsating_trim_template.json"
+      ],
+      "en": {
+        "summary": "Smithing: armor + Echo Shard = Pulsating trim. Crafted from the tool, 2 echo shards, 2 sculk and 4 diamonds."
+      },
+      "de": {
+        "summary": "Schmieden: Rüstung + Echoscherbe = pulsierender Besatz. Hergestellt aus Werkzeug, 2 Echoscherben, 2 Sculk und 4 Diamanten."
+      }
+    },
+    "simpletrims:placed_template": {
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTrimTemplateBlock.java",
+        "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java"
+      ],
+      "en": {
+        "summary": "A laid-down armor trim template (sneak + use). Breaking it returns the template; tool + Glow Ink Sac or Glowstone Dust forge it."
+      },
+      "de": {
+        "summary": "Eine abgelegte Rüstungsbesatzvorlage (Schleichen + Benutzen). Abbauen gibt die Vorlage zurück; Werkzeug + Leuchttintenbeutel oder Glowstonestaub schmieden sie."
+      }
+    }
+  }
 }

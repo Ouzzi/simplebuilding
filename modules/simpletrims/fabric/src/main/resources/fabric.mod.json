@@ -3,22 +3,29 @@
   "id": "simpletrims",
   "version": "${version}",
   "name": "Simple Trims",
-  "description": "Armor trim templates and trim upgrades. Works on its own with the axe; SimpleBuilding adds the sledgehammer.",
+  "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades. Works on its own with the axe; SimpleBuilding adds the sledgehammer.",
   "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {
     "main": [
       "com.simplebuilding.modules.simpletrims.TrimsFabric"
     ],
+    "client": [
+      "com.simplebuilding.modules.simpletrims.TrimsFabricClient"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpletrims.ModuleGameTest"
     ]
   },
+  "mixins": [
+    "simpletrims.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
     "java": ">=25",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "simplelib": ">=0.2.0"
   },
   "suggests": {
     "simplebuilding": "*"

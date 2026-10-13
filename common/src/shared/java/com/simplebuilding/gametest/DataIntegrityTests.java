@@ -2686,7 +2686,7 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_HORSE_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR));
         pinned.put(ModItemGroupsContent.Tab.MATERIALS, List.of(
                 ModItems.ENDERITE_INGOT, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ, ModItems.NIHILITH_ORE_ITEM,
-                ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.GLOWING_TRIM_TEMPLATE));
+                ModItems.BASIC_UPGRADE_TEMPLATE, McVersion.TRIMS_IN_SB ? ModItems.GLOWING_TRIM_TEMPLATE : ModItems.ENDERITE_UPGRADE_TEMPLATE));
         pinned.put(ModItemGroupsContent.Tab.FOOD, List.of(
                 ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
         pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(
@@ -3222,9 +3222,8 @@ public final class DataIntegrityTests {
                 .filter(item -> !trims.contains(item))
                 .sorted(Comparator.comparing(item -> BuiltInRegistries.ITEM.getKey(item).getPath()))
                 .forEach(trims::add);
-        trims.add(ModItems.GLOWING_TRIM_TEMPLATE);
-        trims.add(ModItems.EMITTING_TRIM_TEMPLATE);
-        trims.add(ModItems.PULSATING_TRIM_TEMPLATE);
+        // 26.2: SimpleBuilding's own; 26.3: Simple Trims' templates by id (N18), the same list the tab uses.
+        trims.addAll(ModItemGroupsContent.upgradedTrimTemplates());
         List<CreativeTabLayout.Row> expected = new ArrayList<>();
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             expected.add(CreativeTabLayout.Row.of("overworld_ores", ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM, ModItems.SAGE_ORB));

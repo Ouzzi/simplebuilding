@@ -91,6 +91,26 @@ public final class GuideContent {
 
     private static final Map<GuideBooks.Book, BookStyle> STYLES = new EnumMap<>(GuideBooks.Book.class);
 
+    /**
+     * Id of the Glowing/Emitting/Pulsating trim template ({@code kind}): SimpleBuilding's own on 26.2; on 26.3 Simple
+     * Trims' (N18), and without that module the Vanilla material of the upgrade, so the chapter still shows something.
+     */
+    static String trimTemplate(String kind) {
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) return "simplebuilding:" + kind + "_trim_template";
+        if (com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletrims")) return "simpletrims:" + kind + "_trim_template";
+        return switch (kind) {
+            case "glowing" -> "minecraft:glow_ink_sac";
+            case "emitting" -> "minecraft:glowstone_dust";
+            default -> "minecraft:echo_shard";
+        };
+    }
+
+    /** Recipe specs of a trim template recipe: SimpleBuilding's, Simple Trims' (26.3) or none without the module. */
+    static List<String> trimRecipes(String path) {
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) return List.of("simplebuilding:" + path);
+        return com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletrims") ? List.of("simpletrims:" + path) : List.of();
+    }
+
     private static Chapter ch(String icon, List<String> recipes, List<String> items) {
         return new Chapter(icon, recipes, items);
     }
@@ -233,9 +253,9 @@ public final class GuideContent {
                 ch("minecraft:skeleton_skull", List.of(), List.of("minecraft:skeleton_skull", "minecraft:totem_of_undying")),
                 ch("minecraft:shield", List.of(), List.of("minecraft:diamond_chestplate", "minecraft:netherite_chestplate")),
                 ch("simplebuilding:astralit_dust", List.of(), List.of("simplebuilding:astralit_dust", "simplebuilding:nihilith_shard", "simplebuilding:enderite_ingot")),
-                ch("simplebuilding:emitting_trim_template", List.of(), List.of("minecraft:coast_armor_trim_smithing_template", "simplebuilding:iron_sledgehammer", "minecraft:glowstone_dust", "simplebuilding:emitting_trim_template")),
-                ch("simplebuilding:glowing_trim_template", List.of(), List.of("minecraft:glow_ink_sac", "simplebuilding:glowing_trim_template")),
-                ch("simplebuilding:pulsating_trim_template", List.of("simplebuilding:pulsating_trim_template"), List.of("minecraft:echo_shard", "simplebuilding:glowing_trim_template")),
+                ch(trimTemplate("emitting"), List.of(), List.of("minecraft:coast_armor_trim_smithing_template", "simplebuilding:iron_sledgehammer", "minecraft:glowstone_dust", trimTemplate("emitting"))),
+                ch(trimTemplate("glowing"), List.of(), List.of("minecraft:glow_ink_sac", trimTemplate("glowing"))),
+                ch(trimTemplate("pulsating"), trimRecipes("pulsating_trim_template"), List.of("minecraft:echo_shard", trimTemplate("glowing"))),
                 ch("minecraft:coast_armor_trim_smithing_template", List.of(), List.of("minecraft:coast_armor_trim_smithing_template", "simplebuilding:iron_sledgehammer", "minecraft:glow_ink_sac")),
                 ch("minecraft:diamond_chestplate", List.of(), List.of("minecraft:diamond_chestplate", "minecraft:netherite_chestplate")))));
         STYLES.put(GuideBooks.Book.ADMIN, new BookStyle(0xA9B1BC, List.of(

@@ -280,55 +280,58 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .save(output);
                 }
 
-                // =================================================================
-                // FIX: DUMMY REZEPT FÜR SCHMIEDETISCH (Glowing Ink)
-                // =================================================================
-                // Wir erstellen Ingredients über die Registry (ofTag statt fromTag)
-                Ingredient armorIngredient = Ingredient.of(itemRegistry.getOrThrow(ItemTags.TRIMMABLE_ARMOR));
+                // Trim templates (26.3: Simple Trims owns them and their recipes - McVersion.TRIMS_IN_SB, N18).
+                if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) {
+                    // =================================================================
+                    // FIX: DUMMY REZEPT FÜR SCHMIEDETISCH (Glowing Ink)
+                    // =================================================================
+                    // Wir erstellen Ingredients über die Registry (ofTag statt fromTag)
+                    Ingredient armorIngredient = Ingredient.of(itemRegistry.getOrThrow(ItemTags.TRIMMABLE_ARMOR));
 
-                SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(ModItems.GLOWING_TRIM_TEMPLATE), // Slot 1: nur die eigene Vorlage (sonst passt Glowing + Glowstone aufs Emitting-Rezept)
-                        armorIngredient,                        // Slot 2: Rüstung
-                        Ingredient.of(Items.GLOW_INK_SAC), // Slot 3: Leuchttinte
-                        RecipeCategory.MISC,
-                        ModItems.GLOWING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
-                )
-                .unlocks("has_glowing_template", has(ModItems.GLOWING_TRIM_TEMPLATE))
-                .save(output, "glowing_armor_upgrade_dummy");
+                    SmithingTransformRecipeBuilder.smithing(
+                            Ingredient.of(ModItems.GLOWING_TRIM_TEMPLATE), // Slot 1: nur die eigene Vorlage (sonst passt Glowing + Glowstone aufs Emitting-Rezept)
+                            armorIngredient,                        // Slot 2: Rüstung
+                            Ingredient.of(Items.GLOW_INK_SAC), // Slot 3: Leuchttinte
+                            RecipeCategory.MISC,
+                            ModItems.GLOWING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
+                    )
+                    .unlocks("has_glowing_template", has(ModItems.GLOWING_TRIM_TEMPLATE))
+                    .save(output, "glowing_armor_upgrade_dummy");
 
-                SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(ModItems.EMITTING_TRIM_TEMPLATE), // Slot 1: nur die eigene Vorlage
-                        armorIngredient,                        // Slot 2: Rüstung
-                        Ingredient.of(Items.GLOWSTONE_DUST), // Slot 3: Leuchttinte
-                        RecipeCategory.MISC,
-                        ModItems.EMITTING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
-                )
-                .unlocks("has_emitting_template", has(ModItems.EMITTING_TRIM_TEMPLATE))
-                .save(output, "emitting_armor_upgrade_dummy");
+                    SmithingTransformRecipeBuilder.smithing(
+                            Ingredient.of(ModItems.EMITTING_TRIM_TEMPLATE), // Slot 1: nur die eigene Vorlage
+                            armorIngredient,                        // Slot 2: Rüstung
+                            Ingredient.of(Items.GLOWSTONE_DUST), // Slot 3: Leuchttinte
+                            RecipeCategory.MISC,
+                            ModItems.EMITTING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
+                    )
+                    .unlocks("has_emitting_template", has(ModItems.EMITTING_TRIM_TEMPLATE))
+                    .save(output, "emitting_armor_upgrade_dummy");
 
-                // Pulsating Armor Trim (Besitzer 2026-09-28): Vorlage + Ruestung + Echoscherbe; das Ergebnis
-                // (Ruestung mit pulsierendem Besatz) setzt SmithingScreenHandlerMixin / TrimUpgrades.
-                SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(ModItems.PULSATING_TRIM_TEMPLATE),
-                        armorIngredient,
-                        Ingredient.of(Items.ECHO_SHARD),
-                        RecipeCategory.MISC,
-                        ModItems.PULSATING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
-                )
-                .unlocks("has_pulsating_template", has(ModItems.PULSATING_TRIM_TEMPLATE))
-                .save(output, "pulsating_armor_upgrade_dummy");
+                    // Pulsating Armor Trim (Besitzer 2026-09-28): Vorlage + Ruestung + Echoscherbe; das Ergebnis
+                    // (Ruestung mit pulsierendem Besatz) setzt SmithingScreenHandlerMixin / TrimUpgrades.
+                    SmithingTransformRecipeBuilder.smithing(
+                            Ingredient.of(ModItems.PULSATING_TRIM_TEMPLATE),
+                            armorIngredient,
+                            Ingredient.of(Items.ECHO_SHARD),
+                            RecipeCategory.MISC,
+                            ModItems.PULSATING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
+                    )
+                    .unlocks("has_pulsating_template", has(ModItems.PULSATING_TRIM_TEMPLATE))
+                    .save(output, "pulsating_armor_upgrade_dummy");
 
-                // Der Hammer bleibt beschaedigt im Raster; 26.2 behaelt das alte Rezept.
-                var pulsating = shapeless(RecipeCategory.MISC, ModItems.PULSATING_TRIM_TEMPLATE)
-                        .requires(Ingredient.of(itemRegistry.getOrThrow(com.simplebuilding.util.ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)))
-                        .requires(Items.ECHO_SHARD);
-                if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
-                    pulsating.requires(Items.ECHO_SHARD).requires(Items.SCULK, 2).requires(Items.DIAMOND, 4);
-                    copyTrimTemplate(ModItems.GLOWING_TRIM_TEMPLATE, Items.GLOWSTONE);
-                    copyTrimTemplate(ModItems.EMITTING_TRIM_TEMPLATE, Items.MAGMA_BLOCK);
-                    copyTrimTemplate(ModItems.PULSATING_TRIM_TEMPLATE, Items.SCULK);
+                    // Der Hammer bleibt beschaedigt im Raster; 26.2 behaelt das alte Rezept.
+                    var pulsating = shapeless(RecipeCategory.MISC, ModItems.PULSATING_TRIM_TEMPLATE)
+                            .requires(Ingredient.of(itemRegistry.getOrThrow(com.simplebuilding.util.ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)))
+                            .requires(Items.ECHO_SHARD);
+                    if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+                        pulsating.requires(Items.ECHO_SHARD).requires(Items.SCULK, 2).requires(Items.DIAMOND, 4);
+                        copyTrimTemplate(ModItems.GLOWING_TRIM_TEMPLATE, Items.GLOWSTONE);
+                        copyTrimTemplate(ModItems.EMITTING_TRIM_TEMPLATE, Items.MAGMA_BLOCK);
+                        copyTrimTemplate(ModItems.PULSATING_TRIM_TEMPLATE, Items.SCULK);
+                    }
+                    pulsating.unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD)).save(output);
                 }
-                pulsating.unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD)).save(output);
 
                 // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): 8 Staemme im Ring -> 8 Roehren, 6 Roehren -> 16 Platten,
                 // Roehre ueber Platte -> Holzkessel, Bretter wie ein Kessel -> Kiste.

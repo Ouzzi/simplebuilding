@@ -853,11 +853,11 @@ public class ModItems {
 
     // =================================================================================
 
-    // Trim Templates
+    // Trim Templates (26.3: in Simple Trims, simpletrims:*; null here - McVersion.TRIMS_IN_SB)
 
     // =================================================================================
 
-    public static final Item GLOWING_TRIM_TEMPLATE = registerItem("glowing_trim_template", settings -> new SmithingTemplateItem(
+    public static final Item GLOWING_TRIM_TEMPLATE = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : registerItem("glowing_trim_template", settings -> new SmithingTemplateItem(
 
             Component.translatable("item.simplebuilding.glowing_trim_template.applies_to").withStyle(ChatFormatting.GRAY),
 
@@ -875,7 +875,7 @@ public class ModItems {
 
     ));
 
-    public static final Item EMITTING_TRIM_TEMPLATE = registerItem("emitting_trim_template", settings -> new SmithingTemplateItem(
+    public static final Item EMITTING_TRIM_TEMPLATE = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : registerItem("emitting_trim_template", settings -> new SmithingTemplateItem(
 
             Component.translatable("item.simplebuilding.emitting_trim_template.applies_to").withStyle(ChatFormatting.GOLD),
 
@@ -896,7 +896,7 @@ public class ModItems {
     // Pulsating Armor Trim (Besitzer 2026-09-28): Warden-Motiv, an der Werkbank aus Echoscherbe und
     // Vorschlaghammer (der Hammer bleibt, verliert Haltbarkeit); am Schmiedetisch mit einer Echoscherbe
     // pulsiert der Besatz - ohne Glowing Farbe <-> Schwarz, mit Glowing leuchtend.
-    public static final Item PULSATING_TRIM_TEMPLATE = registerItem("pulsating_trim_template", settings -> new SmithingTemplateItem(
+    public static final Item PULSATING_TRIM_TEMPLATE = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : registerItem("pulsating_trim_template", settings -> new SmithingTemplateItem(
             Component.translatable("item.simplebuilding.pulsating_trim_template.applies_to").withStyle(ChatFormatting.DARK_AQUA),
             Component.translatable("item.simplebuilding.pulsating_trim_template.ingredients").withStyle(ChatFormatting.GRAY),
             Component.translatable("item.simplebuilding.pulsating_trim_template.base_slot_description").withStyle(ChatFormatting.GRAY),

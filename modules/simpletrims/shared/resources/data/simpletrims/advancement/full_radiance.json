@@ -1,0 +1,35 @@
+{
+  "parent": "simpletrims:bright_idea",
+  "criteria": {
+    "radiance_5": {
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:custom_data": "{SimpleBuildingEmissionLevel:5}"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simpletrims.full_radiance.description"
+    },
+    "icon": {
+      "id": "minecraft:glowstone"
+    },
+    "title": {
+      "translate": "advancements.simpletrims.full_radiance.title"
+    },
+    "frame": "goal"
+  },
+  "requirements": [
+    [
+      "radiance_5"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
