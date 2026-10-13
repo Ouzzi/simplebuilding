@@ -551,10 +551,16 @@ public final class MobHeadTests {
         travelled.restoreFrom(player, true);
         helper.assertTrue(com.simplebuilding.util.ExtraHead.get(travelled).is(Items.CREEPER_HEAD), "the extra head was lost in the End portal");
 
-        player.kill(helper.getLevel()); // the full death path (Forge captures the drops there)
-        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).isEmpty(), "the dead player still has the extra head (dead "
-                + player.isDeadOrDying() + ", keepInventory " + helper.getLevel().getGameRules().get(net.minecraft.world.level.gamerules.GameRules.KEEP_INVENTORY)
-                + ", inventory dropped " + player.getInventory().isEmpty() + ")");
+        // The death drop step itself (Player.dropEquipment, what die() runs without keepInventory): a mock player's
+        // die() is not reliable across loaders (Forge's drop capture, Simple Respawn's downed state).
+        try {
+            java.lang.reflect.Method drop = net.minecraft.world.entity.player.Player.class.getDeclaredMethod("dropEquipment", ServerLevel.class);
+            drop.setAccessible(true);
+            drop.invoke(player, helper.getLevel());
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).isEmpty(), "the dead player still has the extra head");
         boolean dropped = !helper.getLevel().getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(4.0),
                 e -> e.getItem().is(Items.CREEPER_HEAD)).isEmpty();
         helper.assertTrue(dropped, "the extra head was not dropped on death");
