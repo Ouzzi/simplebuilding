@@ -258,9 +258,9 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
 ## Nachtrag 52 (2026-10-13, Besitzer)
-- [ ] Astral-Verzauberer umbenennen in „Enchanter“ / „Verzauberer“ (Besitzer-Wahl). Seiten und Unterseite bekommen eine Randlinie bis zum Tuch; Unterseite aus Obsidian. (claude-n52)
-- [ ] Brücken-Redstone-Textur: Schichten z-fighten in der Höhe → einfache Textur ohne Überlagerung. (claude-n52)
-- [ ] Dynamisches Licht auch für Fackel in der Hand (wie Laterne/Lava). (claude-n52)
+- [x] Astral-Verzauberer umbenennen in „Enchanter“ / „Verzauberer“ (Besitzer-Wahl). Seiten und Unterseite bekommen eine Randlinie bis zum Tuch; Unterseite aus Obsidian. (claude-n52)
+- [x] Brücken-Redstone-Textur: Schichten z-fighten in der Höhe → einfache Textur ohne Überlagerung. (claude-n52)
+- [x] Dynamisches Licht auch für Fackel in der Hand (wie Laterne/Lava). (claude-n52)
 - [ ] Rissiges Eis wird nicht richtig gerendert (Besitzer-Screenshot 13.10.: platzierter Block fast unsichtbar, nur Umriss sichtbar, Inhalt wirkt wie durchsichtig/fehlende Textur bzw. falscher Render-Layer). (claude-n52)
 - [ ] Rissiger Diamant + Vorschlaghammer In-World → 9 Diamant-Kiesel (nach Aufteilung 3d, da rissiger Diamant nach SimpleLib zieht).
 
