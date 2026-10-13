@@ -3,7 +3,7 @@
   "textures": {
     "particle": "simplebuilding:block/bridge_redstone_dot_on",
     "line": {
-      "sprite": "simplebuilding:block/bridge_redstone_line0_on",
+      "sprite": "simplebuilding:block/bridge_redstone_line1_on",
       "force_translucent": true
     }
   }

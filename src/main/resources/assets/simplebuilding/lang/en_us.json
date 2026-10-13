@@ -2075,6 +2075,8 @@
   "item.simplebuilding.sage_orb": "Sage Orb",
   "text.autoconfig.simplebuilding.option.server.oreGeneration.dimensionalScrap": "Dimensional Scrap",
   "text.autoconfig.simplebuilding.option.server.oreGeneration.dimensionalScrap.@Tooltip": "Off: no Dimensional Scrap in the Overworld,\nthe Nether or the End. Takes effect at the\nnext world start in newly generated chunks.\nDefault: on.",
+  "text.autoconfig.simplebuilding.option.server.oreGeneration.crackedIceFields": "Cracked Ice Fields",
+  "text.autoconfig.simplebuilding.option.server.oreGeneration.crackedIceFields.@Tooltip": "Off: no large Cracked Ice traps in Ice Spikes\nand on frozen oceans. Takes effect at the next\nworld start in newly generated chunks.\nDefault: on.",
   "block.simplebuilding.dimensional_scrap": "Dimensional Scrap",
   "item.simplebuilding.dimensional_scrap": "Dimensional Scrap",
   "block.simplebuilding.nether_dimensional_scrap": "Nether Dimensional Scrap",

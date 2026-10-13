@@ -51,6 +51,11 @@ public class ModOreGeneration {
                     ModWorldGen.CRACKED_ICE_PATCH_PLACED_KEY);
             BiomeModifications.addFeature(BiomeSelectors.tag(crackedIceBiomes), GenerationStep.Decoration.TOP_LAYER_MODIFICATION,
                     ModWorldGen.CRACKED_ICE_SINGLE_PLACED_KEY);
+            // Rissiges-Eis-Felder (N53): grosse Fallen in Eiszapfen-Biomen und auf gefrorenen Ozeanen, abschaltbar.
+            BiomeModifications.addFeature(BiomeSelectors.tag(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BIOME,
+                            net.minecraft.resources.Identifier.fromNamespaceAndPath(com.simplebuilding.Simplebuilding.MOD_ID, "has_cracked_ice_fields")))
+                            .and(context -> com.simplebuilding.config.ConfigFlags.test(com.simplebuilding.config.ConfigFlags.CRACKED_ICE_FIELDS)),
+                    GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModWorldGen.CRACKED_ICE_FIELD_PLACED_KEY);
             // Sculk-Kiefern auf dem Boden der Deep Dark (N50); NeoForge/Forge: biome_modifier-JSON.
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(net.minecraft.world.level.biome.Biomes.DEEP_DARK),
                     GenerationStep.Decoration.UNDERGROUND_DECORATION, ModWorldGen.SCULK_JAW_PLACED_KEY);

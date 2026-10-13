@@ -1,0 +1,84 @@
+{
+  "type": "minecraft:disk",
+  "half_height": 4,
+  "radius": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 8,
+    "min_inclusive": 5
+  },
+  "state_provider": {
+    "type": "minecraft:rule_based",
+    "rules": [
+      {
+        "if_true": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:snow"
+        },
+        "then": {
+          "id": "minecraft:air"
+        }
+      },
+      {
+        "if_true": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air",
+          "offset": [
+            0,
+            1,
+            0
+          ]
+        },
+        "then": {
+          "id": "simplebuilding:cracked_ice",
+          "properties": {
+            "age": "1"
+          }
+        }
+      },
+      {
+        "if_true": {
+          "type": "minecraft:matching_blocks",
+          "blocks": [
+            "simplebuilding:cracked_ice",
+            "minecraft:cave_air"
+          ],
+          "offset": [
+            0,
+            1,
+            0
+          ]
+        },
+        "then": {
+          "id": "minecraft:cave_air"
+        }
+      }
+    ]
+  },
+  "target": {
+    "type": "minecraft:all_of",
+    "predicates": [
+      {
+        "type": "minecraft:matching_blocks",
+        "blocks": [
+          "minecraft:ice",
+          "minecraft:snow_block",
+          "minecraft:snow",
+          "minecraft:dirt",
+          "minecraft:powder_snow"
+        ]
+      },
+      {
+        "type": "minecraft:not",
+        "predicate": {
+          "type": "minecraft:matching_fluids",
+          "fluids": "minecraft:water",
+          "offset": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -48,4 +48,19 @@ public final class NatureBlockGameTest {
     public void crackedIceMeltsUnderAnEntityAfterSomeSeconds(GameTestHelper helper) {
         NatureBlockTests.crackedIceMeltsUnderAnEntityAfterSomeSeconds(helper);
     }
+
+    @GameTest
+    public void crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(GameTestHelper helper) {
+        NatureBlockTests.crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(helper);
+    }
+
+    @GameTest
+    public void crackedIceDropsItselfWithSilkTouch(GameTestHelper helper) {
+        NatureBlockTests.crackedIceDropsItselfWithSilkTouch(helper);
+    }
+
+    @GameTest
+    public void crackedIceFieldsGenerateInIceSpikesAndFrozenOceans(GameTestHelper helper) {
+        NatureBlockTests.crackedIceFieldsGenerateInIceSpikesAndFrozenOceans(helper);
+    }
 }

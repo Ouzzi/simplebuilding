@@ -1,0 +1,10 @@
+{
+  "forge:condition": {
+    "type": "simplebuilding:config",
+    "flag": "server.oreGeneration.crackedIceFields"
+  },
+  "type": "forge:add_features",
+  "biomes": "#simplebuilding:has_cracked_ice_fields",
+  "features": "simplebuilding:cracked_ice_field_placed",
+  "step": "top_layer_modification"
+}

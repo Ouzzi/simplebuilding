@@ -314,6 +314,115 @@ public final class NatureBlockTests {
         helper.succeed();
     }
 
+    /**
+     * N53: an keine der sechs Seiten eines rissigen Eisblocks laesst sich ein Block setzen (neben normalem Eis schon), und
+     * Eis und rissiges Eis blenden die Flaechen zueinander aus wie Eis neben Eis (getarnt, keine Innenraender).
+     */
+    public static void crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS) {
+            helper.succeed();
+            return;
+        }
+        BlockPos centre = new BlockPos(3, 3, 3);
+        helper.setBlock(centre, ModBlocks.CRACKED_ICE);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        for (Direction direction : Direction.values()) {
+            BlockPos target = centre.relative(direction);
+            helper.setBlock(target, Blocks.AIR);
+            ItemStack stone = new ItemStack(Items.STONE, 4);
+            var result = placeAt(helper, player, stone, target);
+            helper.assertTrue(!result.consumesAction() && helper.getBlockState(target).isAir() && stone.getCount() == 4,
+                    "placing stone " + direction + " of cracked ice gave " + result + ", block " + helper.getBlockState(target));
+        }
+        BlockPos ice = new BlockPos(6, 3, 6);
+        helper.setBlock(ice, Blocks.ICE);
+        ItemStack stone = new ItemStack(Items.STONE, 4);
+        var control = placeAt(helper, player, stone, ice.above());
+        helper.assertTrue(control.consumesAction() && helper.getBlockState(ice.above()).is(Blocks.STONE),
+                "control: stone on normal ice must still be placed, gave " + control);
+        BlockState cracked = ModBlocks.CRACKED_ICE.defaultBlockState();
+        BlockState plain = Blocks.ICE.defaultBlockState();
+        for (Direction direction : Direction.values()) {
+            helper.assertTrue(plain.skipRendering(cracked, direction), "ice draws its face towards cracked ice (" + direction + ")");
+            helper.assertTrue(cracked.skipRendering(plain, direction), "cracked ice draws its face towards ice (" + direction + ")");
+            helper.assertTrue(cracked.skipRendering(cracked.setValue(CrackedIceBlock.AGE, 3), direction), "cracked ice towards cracked ice");
+        }
+        helper.assertTrue(!plain.skipRendering(Blocks.GLASS.defaultBlockState(), Direction.UP), "control: ice still draws its face towards glass");
+        helper.succeed();
+    }
+
+    private static net.minecraft.world.InteractionResult placeAt(GameTestHelper helper, ServerPlayer player, ItemStack stack, BlockPos target) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        BlockPos abs = helper.absolutePos(target);
+        var hit = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        return ((net.minecraft.world.item.BlockItem) stack.getItem()).place(
+                new net.minecraft.world.item.context.BlockPlaceContext(player, InteractionHand.MAIN_HAND, stack, hit));
+    }
+
+    /** N53: mit Behutsamkeit abgebaut droppt rissiges Eis sich selbst (auch auf dem echten Abbauweg), ohne nichts. */
+    public static void crackedIceDropsItselfWithSilkTouch(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        ItemStack silk = new ItemStack(Items.IRON_PICKAXE);
+        silk.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
+        BlockPos pos = new BlockPos(2, 2, 2);
+        helper.setBlock(pos.below(), Blocks.STONE);
+        helper.assertValueEqual(drops(level, helper.absolutePos(pos), ModBlocks.CRACKED_ICE.defaultBlockState().setValue(CrackedIceBlock.AGE, 2), silk),
+                "1 cracked_ice", "cracked ice mined with silk touch");
+        helper.assertValueEqual(drops(level, helper.absolutePos(pos), ModBlocks.CRACKED_ICE.defaultBlockState(), new ItemStack(Items.IRON_PICKAXE)), "",
+                "cracked ice mined without silk touch");
+        helper.setBlock(pos, ModBlocks.CRACKED_ICE);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, silk);
+        player.gameMode.destroyBlock(helper.absolutePos(pos));
+        helper.assertTrue(helper.getBlockState(pos).isAir(), "mined cracked ice leaves " + helper.getBlockState(pos));
+        int dropped = level.getEntitiesOfClass(ItemEntity.class, new net.minecraft.world.phys.AABB(helper.absolutePos(pos)).inflate(2))
+                .stream().filter(e -> e.getItem().is(ModItems.CRACKED_ICE)).mapToInt(e -> e.getItem().getCount()).sum();
+        helper.assertValueEqual(dropped, 1, "cracked ice items dropped by a silk touch pickaxe");
+        helper.succeed();
+    }
+
+    /**
+     * N53: die Rissiges-Eis-Felder haengen (Schalter an) im Schritt top_layer_modification an Eiszapfen und gefrorenen
+     * Ozeanen, nicht an Ebenen; eine kleine Scheibe des registrierten Features macht aus einer Schneeflaeche rissiges Eis
+     * ueber einer Grube (CrackedIceFieldChecks).
+     */
+    public static void crackedIceFieldsGenerateInIceSpikesAndFrozenOceans(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS) {
+            helper.succeed();
+            return;
+        }
+        helper.assertTrue(com.simplebuilding.config.ConfigFlags.test(com.simplebuilding.config.ConfigFlags.CRACKED_ICE_FIELDS),
+                "the crackedIceFields switch is on by default");
+        int top = net.minecraft.world.level.levelgen.GenerationStep.Decoration.TOP_LAYER_MODIFICATION.ordinal();
+        for (var biome : List.of(net.minecraft.world.level.biome.Biomes.ICE_SPIKES, net.minecraft.world.level.biome.Biomes.FROZEN_OCEAN,
+                net.minecraft.world.level.biome.Biomes.DEEP_FROZEN_OCEAN)) {
+            helper.assertValueEqual(fieldStep(helper, biome), top, "cracked_ice_field_placed step in " + biome.identifier());
+        }
+        helper.assertValueEqual(fieldStep(helper, net.minecraft.world.level.biome.Biomes.PLAINS), -1, "cracked_ice_field_placed in plains");
+        CrackedIceFieldChecks.placeSmallField(helper);
+        helper.succeed();
+    }
+
+    private static int fieldStep(GameTestHelper helper, net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome> key) {
+        var biome = helper.getLevel().registryAccess().lookupOrThrow(Registries.BIOME).getValue(key);
+        helper.assertTrue(biome != null, "biome " + key.identifier() + " missing");
+        var steps = biome.getGenerationSettings().features();
+        for (int step = 0; step < steps.size(); step++) {
+            for (var holder : steps.get(step)) {
+                if (holder.is(com.simplebuilding.util.ModWorldGen.CRACKED_ICE_FIELD_PLACED_KEY)) {
+                    return step;
+                }
+            }
+        }
+        return -1;
+    }
+
     private static void expectSlab(GameTestHelper helper, BlockPos pos, Block slab, SlabType type) {
         BlockState state = helper.getBlockState(pos);
         helper.assertTrue(state.is(slab) && state.getValue(SlabBlock.TYPE) == type,
