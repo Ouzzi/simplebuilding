@@ -155879,6 +155879,34 @@ window.WIKI_DATA = {
         {
           "id": "simplebuilding:stellar_flypad",
           "required": true
+        },
+        {
+          "id": "simplelib:enderite_block",
+          "required": true
+        },
+        {
+          "id": "simplelib:enderite_ingot",
+          "required": true
+        },
+        {
+          "id": "simplelib:enderite_nugget",
+          "required": true
+        },
+        {
+          "id": "simplelib:enderite_scrap",
+          "required": true
+        },
+        {
+          "id": "simplelib:enderite_upgrade_template",
+          "required": true
+        },
+        {
+          "id": "simplelib:layered_raw_enderite",
+          "required": true
+        },
+        {
+          "id": "simplelib:raw_enderite",
+          "required": true
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/enderite_items.json"
