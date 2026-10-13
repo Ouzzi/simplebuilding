@@ -105,6 +105,10 @@ public class BlightedWither extends WitherBoss {
             level.sendParticles(ParticleTypes.SOUL, this.getX(), this.getY() + 2.0, this.getZ(), 40, 1.5, 1.5, 1.5, 0.05);
             if (phase == 3) wiltTimer = 0;
         }
+        volleyTimer--;
+        minionTimer--;
+        novaTimer--;
+        wiltTimer--;
         if (pending != null) {
             pendingTicks--;
             if (pendingTicks % 4 == 0) telegraph(level, pending);
@@ -115,10 +119,6 @@ public class BlightedWither extends WitherBoss {
             }
             return;
         }
-        volleyTimer--;
-        minionTimer--;
-        novaTimer--;
-        wiltTimer--;
         if (phase == 3 && wiltTimer <= 0) announce(level, Attack.WILT);
         else if (phase == 3 && novaTimer <= 0) announce(level, Attack.NOVA);
         else if (phase >= 2 && minionTimer <= 0) announce(level, Attack.MINIONS);
@@ -128,6 +128,12 @@ public class BlightedWither extends WitherBoss {
     /** Starts the warning of an attack; it hits when the warning ran out. */
     public void announce(ServerLevel level, Attack attack) {
         pending = attack;
+        switch (attack) {
+            case VOLLEY -> volleyTimer = WitherLogic.VOLLEY_INTERVAL;
+            case MINIONS -> minionTimer = WitherLogic.MINION_INTERVAL;
+            case NOVA -> novaTimer = WitherLogic.NOVA_INTERVAL;
+            case WILT -> wiltTimer = WitherLogic.WILT_INTERVAL;
+        }
         pendingTicks = switch (attack) {
             case VOLLEY -> WitherLogic.VOLLEY_WARN;
             case MINIONS -> WitherLogic.MINION_WARN;
@@ -176,21 +182,17 @@ public class BlightedWither extends WitherBoss {
     private void execute(ServerLevel level, Attack attack) {
         switch (attack) {
             case VOLLEY -> {
-                volleyTimer = WitherLogic.VOLLEY_INTERVAL;
                 LivingEntity target = this.getTarget();
                 if (target != null && target.isAlive()) volley(level, target);
             }
             case MINIONS -> {
-                minionTimer = WitherLogic.MINION_INTERVAL;
                 for (Vec3 s : minionSpots) summonMinion(level, s);
                 minionSpots.clear();
             }
             case NOVA -> {
-                novaTimer = WitherLogic.NOVA_INTERVAL;
                 nova(level);
             }
             case WILT -> {
-                wiltTimer = WitherLogic.WILT_INTERVAL;
                 wilt(level);
             }
         }
@@ -236,13 +238,13 @@ public class BlightedWither extends WitherBoss {
         int hits = 0;
         double r = WitherLogic.NOVA_RADIUS;
         for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(r), e -> e != this && e.isAlive())) {
-            if (e.getType().is(EntityTypeTags.WITHER_FRIENDS) || e instanceof Player p && (p.isCreative() || p.isSpectator())) continue;
+            if (e.is(EntityTypeTags.WITHER_FRIENDS) || e instanceof Player p && (p.isCreative() || p.isSpectator())) continue;
             if (e.distanceToSqr(this.getX(), e.getY(), this.getZ()) > r * r) continue;
             e.addEffect(new MobEffectInstance(MobEffects.WITHER, WitherLogic.NOVA_WITHER_TICKS, WitherLogic.NOVA_WITHER_AMPLIFIER), this);
             Vec3 away = new Vec3(e.getX() - this.getX(), 0, e.getZ() - this.getZ());
             away = away.lengthSqr() < 1.0E-4 ? new Vec3(1, 0, 0) : away.normalize();
             e.push(away.x * 1.2, 0.4, away.z * 1.2);
-            e.hurtMarked = true;
+            e.needsSync = true;
             hits++;
         }
         return hits;

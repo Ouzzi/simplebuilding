@@ -83,7 +83,7 @@ public final class MobStations {
             case "shellker" -> Habitat.END_GATEWAY;
             case "hollow_howler" -> Habitat.DEEP_DARK;
             case "deceiver" -> Habitat.DARK_FOREST;
-            case "soulfire_blaze" -> Habitat.SOUL_VALLEY;
+            case "soulfire_blaze", "blighted_wither" -> Habitat.SOUL_VALLEY;
             case "dragonmite", "hollow_watcher" -> Habitat.END_ISLAND;
             case "dread" -> Habitat.DREAD_FIGURE;
             default -> Habitat.MEADOW;

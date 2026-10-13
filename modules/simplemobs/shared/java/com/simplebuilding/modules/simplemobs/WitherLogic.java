@@ -16,7 +16,7 @@ public final class WitherLogic {
 
     /** Every special attack is announced this long before it hits (sound + particles at the spot). */
     public static final int VOLLEY_WARN = 20, MINION_WARN = 40, NOVA_WARN = 40, WILT_WARN = 40;
-    /** Pause between attacks of a kind (ticks). */
+    /** Pause between attacks of a kind (ticks, from one warning to the next). */
     public static final int VOLLEY_INTERVAL = 100, MINION_INTERVAL = 400, NOVA_INTERVAL = 240, WILT_INTERVAL = 600;
     /** Twin volley: one skull from each side head at the target at once. */
     public static final int VOLLEY_SKULLS = 2;

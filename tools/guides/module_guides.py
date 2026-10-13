@@ -114,6 +114,12 @@ MODULES = [
                 "Dawnlands biomes on the outer End islands.",
                 "Aschholz und Dämmerholz, Knospen für End-Bäume oder Stöcke-Gestrüpp, End-Gras und die Biome "
                 "Aschental und Dämmerlande auf den äußeren End-Inseln.")),
+    dict(module="simplemobs", ns="simplemobs", package="com.simplebuilding.modules.simplemobs.guide", cls="MobsGuide",
+         kind="item", author="Simple Mobs", recipe="minecraft:bone",
+         name=("Simple Mobs Guide", "Simple-Mobs-Handbuch"),
+         intro=("New bosses and mobs with fair, announced attacks, their drops, the Blighted Wither and the Biome Brush.",
+                "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der "
+                "Biom-Pinsel.")),
 ]
 
 SETTINGS = ("Settings", "Einstellungen",
@@ -139,6 +145,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:paper": ("paper", "Papier"),
     "minecraft:chorus_fruit": ("a chorus fruit", "einer Chorusfrucht"),
     "minecraft:glistering_melon_slice": ("a glistering melon slice", "einer glitzernden Melonenscheibe"),
+    "minecraft:bone": ("a bone", "einem Knochen"),
 }
 
 
@@ -388,6 +395,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:flint_and_steel": ("flint and steel", "Feuerzeug"), "minecraft:paper": ("paper", "Papier"),
     "minecraft:chorus_fruit": ("chorus fruit", "Chorusfrucht"),
     "minecraft:glistering_melon_slice": ("glistering melon slice", "glitzernde Melonenscheibe"),
+    "minecraft:bone": ("bone", "Knochen"),
 }
 
 
