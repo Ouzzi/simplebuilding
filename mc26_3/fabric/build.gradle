@@ -239,6 +239,9 @@ dependencies {
     include project(':modules:simplequestionary:fabric')
     implementation project(':modules:simplequestionary:fabric')
 }
+// Simple Trims: SB worlds hold trim data that migrates to simpletrims:* (N18 stage 2-4); SB's dev/test runs load the
+// module like Simple Maps so those worlds and fixtures keep their items (SB code still never imports it).
+dependencies { implementation project(':modules:simpletrims:fabric') }
 // Optional Sub-Mods bundled for production (PLAN-MODULAUFTEILUNG stage 1a); switches "Enable Simple X" reach them via
 // framework SubMods. Only nested (no implementation): SB code never imports them, and SB's own dev/test runs stay as
 // before; each sub-mod's integration target loads it together with SimpleBuilding.

@@ -342,11 +342,12 @@ public final class ItemRenderingClientTest {
         });
 
         enchantedBookModelPerEnchantment(script);
-        radianceAndGlowTooltips(script);
+        // 26.3: Glowing/Radiance/Pulsating belong to Simple Trims (N18); its own checks run in the module.
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) radianceAndGlowTooltips(script);
         armourTrimTooltipNumbers(script);
         chiselHandAnimation(script, originalToolAnimations, originalChiselAnimation);
         sledgehammerUpgradeAnimation(script);
-        glowingArmourTrim(script, originalGamma);
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) glowingArmourTrim(script, originalGamma);
 
         // What the old finally block did. These are ordinary last steps, because a step list has no
         // hook to hang a finally on: on a FAILING run they do not run at all. See the class javadoc

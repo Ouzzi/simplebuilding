@@ -386,11 +386,20 @@ public final class ModItemGroupsContent {
      * Netherit, Enderit), dann die Besatzvorlagen (alle Vanilla-Besaetze in Vanillas Reihenfolge, dann
      * Leuchtend und Strahlend). Die Nahrung steht seit 2026-10-02 in SimpleFood ({@link #foodRows()}).
      */
+    /**
+     * Glowing, Emitting and Pulsating trim templates in SimpleBuilding's tab: its own on 26.2; none on 26.3, where they
+     * belong to the bundled Simple Trims (N18), which sorts them into the Vanilla tab itself - SB tabs hold SB items only.
+     */
+    public static List<ItemLike> upgradedTrimTemplates() {
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) {
+            return List.of(ModItems.GLOWING_TRIM_TEMPLATE, ModItems.EMITTING_TRIM_TEMPLATE, ModItems.PULSATING_TRIM_TEMPLATE);
+        }
+        return List.of();
+    }
+
     public static List<CreativeTabLayout.Row> materialsRows() {
         List<ItemLike> trims = new java.util.ArrayList<>(vanillaTrimTemplates());
-        trims.add(ModItems.GLOWING_TRIM_TEMPLATE);
-        trims.add(ModItems.EMITTING_TRIM_TEMPLATE);
-        trims.add(ModItems.PULSATING_TRIM_TEMPLATE);
+        trims.addAll(upgradedTrimTemplates());
         List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>();
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             // Oberwelt-Erz der Welle 2026-10-01 vor den End-Erzen: Erz, Tiefenschiefer-Erz, seine Kugel.

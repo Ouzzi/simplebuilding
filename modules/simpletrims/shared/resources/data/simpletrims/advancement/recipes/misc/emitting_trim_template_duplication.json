@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_emitting_trim_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpletrims:emitting_trim_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpletrims:emitting_trim_template_duplication"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_emitting_trim_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpletrims:emitting_trim_template_duplication"
+    ]
+  }
+}

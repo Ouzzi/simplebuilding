@@ -281,7 +281,9 @@ public final class InWorldExportTests {
         helper.assertTrue(vanillaTemplates == 18 && trim.getAsJsonArray("templates").size() == 18,
                 "18 vanilla armor trim templates, all exported: registry " + vanillaTemplates
                         + ", export " + trim.getAsJsonArray("templates").size());
-        for (Object[] upgrade : new Object[][]{
+        // 26.3: forging trim templates belongs to Simple Trims (N18) - SB exports no upgrade rows there.
+        boolean trimsInSb = com.simplebuilding.version.McVersion.TRIMS_IN_SB;
+        for (Object[] upgrade : !trimsInSb ? new Object[0][] : new Object[][]{
                 {net.minecraft.world.item.Items.GLOW_INK_SAC, ModItems.GLOWING_TRIM_TEMPLATE},
                 {net.minecraft.world.item.Items.GLOWSTONE_DUST, ModItems.EMITTING_TRIM_TEMPLATE}}) {
             Item result = (Item) upgrade[1];
@@ -304,7 +306,7 @@ public final class InWorldExportTests {
                     "any trim template + " + InWorldTransformations.id((Item) upgrade[0]) + " under any sledgehammer -> "
                             + InWorldTransformations.id(result) + " in JEI, but was " + describe(entry));
         }
-        helper.assertTrue(catalog.of(InWorldRecipeCatalog.Kind.TRIM_TEMPLATE).size() == 2,
+        helper.assertTrue(catalog.of(InWorldRecipeCatalog.Kind.TRIM_TEMPLATE).size() == (trimsInSb ? 2 : 0),
                 "two trim template upgrades in JEI: " + catalog.of(InWorldRecipeCatalog.Kind.TRIM_TEMPLATE).size());
 
         InWorldRecipeCatalog.Entry wash = byId.get("cauldron_wash");

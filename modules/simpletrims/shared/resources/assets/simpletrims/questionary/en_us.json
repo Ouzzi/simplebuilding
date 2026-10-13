@@ -1,0 +1,57 @@
+{
+  "glowing_trim_template": {
+    "lore": [
+      "A trim that holds the light a moment longer than it should."
+    ],
+    "use": [
+      "Lay down an armor trim template, hold 2 Glow Ink Sacs in the off hand and hit it 5 times with an axe (with SimpleBuilding: a sledgehammer); it also takes 4 diamonds and 2 glowstone. One template, 7 diamonds and a glowstone block make 2."
+    ],
+    "secret": [
+      "At the smithing table, template, armor and a Glow Ink Sac make the trim glow steadily at full brightness. It only glows visually and gives off no real light."
+    ]
+  },
+  "emitting_trim_template": {
+    "lore": [
+      "A trim that does not just shine, it lights the way for others."
+    ],
+    "use": [
+      "Lay down an armor trim template, hold 2 Glowstone Dust in the off hand and hit it 5 times with an axe (with SimpleBuilding: a sledgehammer); it also takes 4 diamonds and 2 blaze powder. One template, 7 diamonds and a magma block make 2."
+    ],
+    "secret": [
+      "At the smithing table, with Glowstone Dust, armor becomes a wearable light source: an invisible light block follows your head. More dust raises the radiance, up to level 5."
+    ]
+  },
+  "pulsating_trim_template": {
+    "lore": [
+      "A trim with a heartbeat of its own."
+    ],
+    "use": [
+      "Craft 2 echo shards, 2 sculk, 4 diamonds and an axe (with SimpleBuilding: a sledgehammer); the tool stays in the grid and loses 1 durability. One template, 7 diamonds and a sculk block make 2."
+    ],
+    "secret": [
+      "At the smithing table, template, armor and an Echo Shard make the trim pulse from full color to gray every 2.4 seconds. Together with Glowing, the brightness pulses too."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "A book that keeps the shine of every trim on record."
+    ],
+    "use": [
+      "The Simple Trims Guide explains the three trim templates, placing templates and forging them. Craft it shapeless from a book and a Glow Ink Sac."
+    ],
+    "secret": [
+      "The pages follow your language and update with the mod, even in old copies of the book."
+    ]
+  },
+  "placed_template": {
+    "lore": [
+      "A template laid down like a note on the table."
+    ],
+    "use": [
+      "Sneak and use an armor trim template on a floor, wall or ceiling. Breaking it gives back exactly that template, name included."
+    ],
+    "secret": [
+      "With the template tool in the main hand and Glow Ink or Glowstone Dust in the off hand, right clicks forge it instead of breaking it."
+    ]
+  }
+}

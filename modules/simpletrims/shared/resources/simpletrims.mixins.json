@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simpletrims.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "BlockAttachedEntityTrimsMixin",
+    "EntityRemovedTrimsMixin",
+    "ItemFrameTrimsMixin",
+    "ItemUseOnMixin",
+    "LivingEntityTrimsMixin"
+  ],
+  "client": [
+    "client.EquipmentLayerRendererMixin",
+    "client.ItemTooltipMixin"
+  ],
+  "server": [],
+  "mixinextras": {
+    "minVersion": "0.5.5"
+  },
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

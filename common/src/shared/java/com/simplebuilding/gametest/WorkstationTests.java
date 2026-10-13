@@ -54,7 +54,8 @@ public final class WorkstationTests {
         }
         var recipes = helper.getLevel().getServer().getRecipeManager();
         var player = helper.makeMockServerPlayerInLevel();
-        for (var id : com.simplebuilding.util.TrimUpgrades.DUMMY_RECIPES) {
+        // 26.3: no dummies left - Simple Trims has a real recipe type for the upgrades (N18).
+        for (var id : McVersion.TRIMS_IN_SB ? com.simplebuilding.util.TrimUpgrades.DUMMY_RECIPES : List.<net.minecraft.resources.Identifier>of()) {
             var key = ResourceKey.create(Registries.RECIPE, id);
             var recipe = recipes.byKey(key).orElseThrow();
             helper.assertTrue(recipe.value() instanceof SmithingRecipe, "slot-enabling recipe still exists: " + id);

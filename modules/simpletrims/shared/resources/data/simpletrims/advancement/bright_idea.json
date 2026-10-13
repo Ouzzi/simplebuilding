@@ -1,0 +1,32 @@
+{
+  "parent": "simpletrims:glow_up",
+  "criteria": {
+    "emitting_trim_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpletrims:emitting_trim_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simpletrims.bright_idea.description"
+    },
+    "icon": {
+      "id": "simpletrims:emitting_trim_template"
+    },
+    "title": {
+      "translate": "advancements.simpletrims.bright_idea.title"
+    }
+  },
+  "requirements": [
+    [
+      "emitting_trim_template"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

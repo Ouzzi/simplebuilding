@@ -23,7 +23,8 @@ public class ModDataComponentTypes {
     // Glowing hat nur noch eine Stufe (Besitzer 2026-09-29): der Codec liest alte Stufe-2-Ruestung als 1,
     // beim naechsten Speichern steht dann 1 da (GlowingTrimUtils.normalizeGlowLevel). Ohne eigenen
     // Netzwerk-Codec leitet Vanilla ihn aus diesem ab, der Client sieht also ebenfalls nur 1.
-    public static final DataComponentType<Integer> GLOW_LEVEL = register("glow_level", builder -> builder.persistent(
+    // Glowing/Emitting/Pulsating (26.3: simpletrims:*, McVersion.TRIMS_IN_SB - null here).
+    public static final DataComponentType<Integer> GLOW_LEVEL = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : register("glow_level", builder -> builder.persistent(
             Codec.INT.xmap(com.simplebuilding.util.GlowingTrimUtils::normalizeGlowLevel, level -> level)));
 
     /** Kupfer-Eimer (Crucible P5, 26.3): Oxidationsstufe 0-3 (Optik) und gewachst. */
@@ -43,15 +44,15 @@ public class ModDataComponentTypes {
             .persistent(Codec.STRING).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.STRING_UTF8)) : null;
 
     // NEU: Visueller Glow (RGB Effekt)
-    public static final DataComponentType<Boolean> VISUAL_GLOW = register("visual_glow", builder -> builder.persistent(Codec.BOOL));
+    public static final DataComponentType<Boolean> VISUAL_GLOW = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : register("visual_glow", builder -> builder.persistent(Codec.BOOL));
 
     // NEU: Lichtquelle (Fackel-Effekt)
-    public static final DataComponentType<Boolean> LIGHT_SOURCE = register("light_source", builder -> builder.persistent(Codec.BOOL));
+    public static final DataComponentType<Boolean> LIGHT_SOURCE = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : register("light_source", builder -> builder.persistent(Codec.BOOL));
 
     // Pulsierender Besatz (Besitzer 2026-09-28): der Besatz blendet im Takt nach Schwarz und zurueck,
     // mit Glowing leuchtend. Gesetzt am Schmiedetisch (Pulsating Armor Trim + Echoscherbe), gelesen
     // nur vom Client (EquipmentRendererMixin) - deshalb auch zum Client synchronisiert.
-    public static final DataComponentType<Boolean> PULSATING = register("pulsating", builder -> builder
+    public static final DataComponentType<Boolean> PULSATING = !com.simplebuilding.version.McVersion.TRIMS_IN_SB ? null : register("pulsating", builder -> builder
             .persistent(Codec.BOOL)
             .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL));
 

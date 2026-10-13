@@ -22,6 +22,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void toolModeFollowsThePartner(GameTestHelper h) {
+        TrimsTests.ALL.get("tool_mode_follows_the_partner").accept(h);
+    }
+
+    @GameTest
     public void subModSwitch(GameTestHelper h) {
         TrimsTests.ALL.get("sub_mod_switch").accept(h);
     }
@@ -29,5 +34,55 @@ public final class ModuleGameTest {
     @GameTest
     public void ids(GameTestHelper h) {
         TrimsTests.ALL.get("ids").accept(h);
+    }
+
+    @GameTest
+    public void registered(GameTestHelper h) {
+        TrimsTests.ALL.get("registered").accept(h);
+    }
+
+    @GameTest
+    public void migrationFromSimplebuilding(GameTestHelper h) {
+        TrimsTests.ALL.get("migration_from_simplebuilding").accept(h);
+    }
+
+    @GameTest
+    public void smithingUpgrades(GameTestHelper h) {
+        TrimsTests.ALL.get("smithing_upgrades").accept(h);
+    }
+
+    @GameTest
+    public void pulsatingRecipeKeepsTheTool(GameTestHelper h) {
+        TrimsTests.ALL.get("pulsating_recipe_keeps_the_tool").accept(h);
+    }
+
+    @GameTest
+    public void duplicationRecipes(GameTestHelper h) {
+        TrimsTests.ALL.get("duplication_recipes").accept(h);
+    }
+
+    @GameTest
+    public void placingTrimTemplates(GameTestHelper h) {
+        TrimsTests.ALL.get("placing_trim_templates").accept(h);
+    }
+
+    @GameTest
+    public void inWorldUpgrade(GameTestHelper h) {
+        TrimsTests.ALL.get("in_world_upgrade").accept(h);
+    }
+
+    @GameTest
+    public void radianceLight(GameTestHelper h) {
+        TrimsTests.ALL.get("radiance_light").accept(h);
+    }
+
+    @GameTest
+    public void guideBook(GameTestHelper h) {
+        TrimsTests.ALL.get("guide_book").accept(h);
+    }
+
+    @GameTest
+    public void glowRules(GameTestHelper h) {
+        TrimsTests.ALL.get("glow_rules").accept(h);
     }
 }

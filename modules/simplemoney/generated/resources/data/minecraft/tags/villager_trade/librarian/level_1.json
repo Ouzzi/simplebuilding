@@ -10,19 +10,19 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/emitting_trim_template",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/glowing_trim_template",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/guide_book",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/pulsating_trim_template",
+      "id": "simplemoney:links/simpletrims/emitting_trim_template",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpletrims/glowing_trim_template",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpletrims/pulsating_trim_template",
       "required": false
     }
   ]

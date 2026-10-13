@@ -1,0 +1,18 @@
+{
+  "type": "simpletrims:tool_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#simpletrims:template_tools",
+    "minecraft:echo_shard",
+    "minecraft:echo_shard",
+    "minecraft:sculk",
+    "minecraft:sculk",
+    "minecraft:diamond",
+    "minecraft:diamond",
+    "minecraft:diamond",
+    "minecraft:diamond"
+  ],
+  "result": {
+    "id": "simpletrims:pulsating_trim_template"
+  }
+}

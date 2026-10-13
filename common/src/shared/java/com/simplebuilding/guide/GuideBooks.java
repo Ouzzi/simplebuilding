@@ -292,8 +292,11 @@ public final class GuideBooks {
             case PADS -> List.of("minecraft:stone_pressure_plate", "simplebuilding:copper_pressure_plate", "minecraft:oak_pressure_plate",
                     "minecraft:light_weighted_pressure_plate", "minecraft:heavy_weighted_pressure_plate");
             case GADGETS -> List.of("simplebuilding:copper_core_plus", "simplebuilding:velocity_gauge", "simplebuilding:detector", "simplebuilding:magnet");
-            case TRIMS -> List.of("simplebuilding:pulsating_trim_template", "simplebuilding:glowing_armor_upgrade_dummy",
-                    "simplebuilding:emitting_armor_upgrade_dummy");
+            case TRIMS -> McVersion.TRIMS_IN_SB ? List.of("simplebuilding:pulsating_trim_template", "simplebuilding:glowing_armor_upgrade_dummy",
+                    "simplebuilding:emitting_armor_upgrade_dummy")
+                    // 26.3: the mod's templates live in Simple Trims (N18); Vanilla's trim copies open the tab.
+                    : List.of("minecraft:sentry_armor_trim_smithing_template", "minecraft:coast_armor_trim_smithing_template",
+                    "minecraft:wild_armor_trim_smithing_template");
         };
     }
 
@@ -308,7 +311,7 @@ public final class GuideBooks {
             case END -> ModItems.ENDERITE_INGOT;
             case PADS -> Items.STONE_PRESSURE_PLATE;
             case GADGETS -> ModItems.COPPER_CORE;
-            case TRIMS -> ModItems.PULSATING_TRIM_TEMPLATE;
+            case TRIMS -> McVersion.TRIMS_IN_SB ? ModItems.PULSATING_TRIM_TEMPLATE : Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE;
             case GUIDE, ADMIN -> keyItem(book);
         };
     }

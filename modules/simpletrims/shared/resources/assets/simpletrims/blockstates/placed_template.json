@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpletrims:block/placed_template"
+    }
+  }
+}

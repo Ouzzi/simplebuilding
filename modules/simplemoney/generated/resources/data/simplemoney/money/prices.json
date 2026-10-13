@@ -540,17 +540,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:emitting_trim_template",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "librarian",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:enchanted_enderite_apple",
       "tier": 5,
       "hours": 38.1,
@@ -1162,17 +1151,6 @@
       "craft": 0,
       "safetyFloor": 8,
       "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:glowing_trim_template",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "librarian",
       "level": 1,
       "stock": 2,
       "chance": 1
@@ -2146,17 +2124,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:pulsating_trim_template",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "librarian",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:purpur_quartz_checker",
       "tier": 0,
       "hours": 0.5,
@@ -3002,6 +2969,39 @@
       "safetyFloor": 8,
       "stock": 2,
       "tier": 1
+    },
+    {
+      "item": "simpletrims:emitting_trim_template",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "librarian",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simpletrims:glowing_trim_template",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "librarian",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simpletrims:pulsating_trim_template",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "librarian",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
     }
   ]
 }

@@ -67,7 +67,7 @@ final class InWorldCategory implements IRecipeCategory<InWorldRecipeCatalog.Entr
             case DIAMOND_CRUSH -> ModItems.DIAMOND_PEBBLE;
             case CHISEL -> ModItems.IRON_CHISEL;
             case SHEAR_WOOL -> Items.SHEARS;
-            case TRIM_TEMPLATE -> ModItems.GLOWING_TRIM_TEMPLATE;
+            case TRIM_TEMPLATE -> com.simplebuilding.version.McVersion.TRIMS_IN_SB ? ModItems.GLOWING_TRIM_TEMPLATE : net.minecraft.world.item.Items.GLOW_INK_SAC;
             case CAULDRON_WASH -> Items.CAULDRON;
             case PISTON_REPAIR -> ModItems.NETHERITE_NUGGET;
             case COPPER_PLATE -> Items.HONEYCOMB;

@@ -97,8 +97,10 @@ public final class ModTriggers {
 
     /** The crucible features exist only where their advancements are generated (McVersion.CRUCIBLE, 26.3). */
     private static List<String> withCrucible(List<String> base) {
-        if (!com.simplebuilding.version.McVersion.CRUCIBLE) return base;
         List<String> all = new java.util.ArrayList<>(base);
+        // 26.3: forging trim templates (and its advancement Glow Up) moved to Simple Trims (N18).
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) all.remove(TRIM_TEMPLATE_FORGED);
+        if (!com.simplebuilding.version.McVersion.CRUCIBLE) return List.copyOf(all);
         all.add(CRUCIBLE_BUILT);
         all.add(SOUL_LAVA_SCOOPED);
         return List.copyOf(all);

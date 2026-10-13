@@ -97,6 +97,8 @@ public final class McVersion {
     public static final boolean END_RAILS = true;
     /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */
     public static final boolean CRUCIBLE = true;
+    /** Trim templates in SimpleBuilding (N18 stage 2-4): on 26.3 they live in the bundled sub-mod Simple Trims ({@code simpletrims:*}, migrated through SimpleLib id moves); SB registers neither the three templates nor their four components and its trim-template code paths stay neutral. */
+    public static final boolean TRIMS_IN_SB = false;
     /** Sulfur fire and copper fire (queue N33): burn on sulfur / copper blocks, sulfur fire gives nausea. */
     public static final boolean FIRES = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

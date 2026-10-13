@@ -1,0 +1,185 @@
+package com.simpletrims.light;
+
+import com.simpletrims.SimpleTrims;
+import com.simpletrims.TrimGlow;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.IntSupplier;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LightBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+/**
+ * Radiance (Emitting upgrade, moved from SimpleBuilding's {@code DynamicLightHandler}): worn emitting armor sets an
+ * invisible light block at head height, an item frame with such a piece in its own block. Players: position in a table,
+ * moves along every 2 ticks; armor stands, mobs and frames: position stored in the entity ({@link OwnedLightHolder}).
+ * Light only replaces air, an existing light block or a water source (waterlogged then). Switched off ({@link #enabled})
+ * every carrier sets level 0, so standing lights go away with the next tick of their carrier.
+ */
+public final class TrimLight {
+    private static final Map<UUID, BlockPos> PLAYER_LIGHTS = new HashMap<>();
+    /** Resting carriers check only every so many ticks (offset by entity id). */
+    public static final int HOLDER_INTERVAL = 10;
+    /** Walking carriers check more often so the light follows them. */
+    public static final int MOB_INTERVAL = 4;
+    public static final int PLAYER_INTERVAL = 2;
+    /** Chance per tick and radiance level of a whole carrier: level 1 = one glint every 200 ticks on average. */
+    public static final float MOTE_CHANCE_PER_LEVEL = 0.005f;
+    /** Cap per carrier: at most one glint every 40 ticks on average. */
+    public static final float MAX_MOTE_CHANCE = 0.025f;
+
+    private TrimLight() {}
+
+    public static boolean enabled() {
+        return SimpleTrims.on();
+    }
+
+    /** 3 light points per level -> 5 levels = 15. */
+    public static int lightLevelFor(int emissionPoints) {
+        return Math.min(15, Math.max(0, emissionPoints) * 3);
+    }
+
+    public static int wornEmission(LivingEntity entity) {
+        int total = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) total += TrimGlow.getEmissionLevel(entity.getItemBySlot(slot));
+        }
+        return total;
+    }
+
+    /** Every tick from the entity tick mixin (server): players, armor stands and mobs. */
+    public static void tickLiving(LivingEntity entity) {
+        if (entity.level().isClientSide() || entity.isRemoved()) return;
+        if (entity instanceof ServerPlayer player) {
+            if (Math.floorMod(player.level().getGameTime(), PLAYER_INTERVAL) == 0) tickPlayer(player);
+        } else if (entity instanceof OwnedLightHolder holder && !(entity instanceof Player)) {
+            int interval = entity instanceof ArmorStand ? HOLDER_INTERVAL : MOB_INTERVAL;
+            if (isHolderTick(entity, interval)) tickHolder(entity.level(), holder, entity.blockPosition().above(), wornEmission(entity));
+        }
+    }
+
+    public static void tickPlayer(Player player) {
+        Level level = player.level();
+        UUID uuid = player.getUUID();
+        BlockPos head = player.blockPosition().above();
+        int light = enabled() ? lightLevelFor(wornEmission(player)) : 0;
+        BlockPos old = PLAYER_LIGHTS.get(uuid);
+        if (old != null && !old.equals(head)) {
+            removeLight(level, old);
+            PLAYER_LIGHTS.remove(uuid);
+            old = null;
+        }
+        if (light > 0) {
+            if (placeOrUpdate(level, head, light)) PLAYER_LIGHTS.put(uuid, head);
+        } else if (old != null) {
+            removeLight(level, old);
+            PLAYER_LIGHTS.remove(uuid);
+        }
+    }
+
+    /** Item frame: light in the frame's block, fed by the framed item. */
+    public static void tickItemFrame(ItemFrame frame) {
+        if (frame instanceof OwnedLightHolder holder && isHolderTick(frame, HOLDER_INTERVAL)) {
+            tickHolder(frame.level(), holder, frame.getPos(), TrimGlow.getEmissionLevel(frame.getItem()));
+        }
+    }
+
+    private static boolean isHolderTick(Entity entity, int interval) {
+        return !entity.level().isClientSide() && !entity.isRemoved() && Math.floorMod(entity.level().getGameTime() + entity.getId(), interval) == 0;
+    }
+
+    public static void tickHolder(Level level, OwnedLightHolder holder, BlockPos target, int emissionPoints) {
+        int light = enabled() ? lightLevelFor(emissionPoints) : 0;
+        BlockPos owned = holder.simpletrims$getOwnedLight();
+        if (owned != null && (light == 0 || !owned.equals(target))) {
+            removeLight(level, owned);
+            holder.simpletrims$setOwnedLight(null);
+        }
+        if (light > 0 && placeOrUpdate(level, target, light)) holder.simpletrims$setOwnedLight(target);
+    }
+
+    /** Sets or updates the light block - only in air, a standing light block or a water source. */
+    private static boolean placeOrUpdate(Level level, BlockPos pos, int light) {
+        BlockState current = level.getBlockState(pos);
+        boolean water = current.getFluidState().is(FluidTags.WATER);
+        if (!(current.isAir() || current.is(Blocks.LIGHT) || (water && current.getFluidState().isSource()))) return false;
+        if (!current.is(Blocks.LIGHT) || current.getValue(LightBlock.LEVEL) != light) {
+            level.setBlock(pos, Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, light).setValue(LightBlock.WATERLOGGED, water), 3);
+        }
+        return true;
+    }
+
+    private static void removeLight(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (state.is(Blocks.LIGHT)) {
+            level.setBlock(pos, state.getValue(LightBlock.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 3);
+        }
+    }
+
+    /** Drops a player's light and table entry (tests: mock players are never removed through the level). */
+    public static void forget(Player player) {
+        BlockPos pos = PLAYER_LIGHTS.remove(player.getUUID());
+        if (pos != null) removeLight(player.level(), pos);
+    }
+
+    /**
+     * From {@code Entity#setRemoved} (HEAD, still in its old level). A player cleans up for every reason (also a
+     * dimension change or disconnect); resting carriers only when really destroyed - unloading keeps their light and
+     * its stored position.
+     */
+    public static void onEntityRemoved(Entity entity, Entity.RemovalReason reason) {
+        Level level = entity.level();
+        if (level == null || level.isClientSide()) return;
+        if (entity instanceof ServerPlayer) {
+            BlockPos pos = PLAYER_LIGHTS.remove(entity.getUUID());
+            if (pos != null) removeLight(level, pos);
+        } else if (entity instanceof OwnedLightHolder holder) {
+            BlockPos owned = holder.simpletrims$getOwnedLight();
+            if (owned != null && reason.shouldDestroy()) {
+                removeLight(level, owned);
+                holder.simpletrims$setOwnedLight(null);
+            }
+        }
+    }
+
+    /** Fine warm glints on emitting pieces (client), rare on purpose and capped per carrier. Invisible carriers show nothing. */
+    public static void tickGlowMotes(Entity entity, IntSupplier emissionPoints) {
+        Level level = entity.level();
+        if (!level.isClientSide() || !enabled() || (entity.isInvisible() && !(entity instanceof ItemFrame))) return;
+        RandomSource random = entity.getRandom();
+        float roll = random.nextFloat();
+        if (roll >= MAX_MOTE_CHANCE || roll >= moteChance(emissionPoints.getAsInt())) return;
+        double x;
+        double y;
+        double z;
+        if (entity instanceof ItemFrame frame) {
+            Direction face = frame.getDirection();
+            x = frame.getX() + face.getStepX() * 0.15 + (random.nextDouble() - 0.5) * 0.6;
+            y = frame.getY() + face.getStepY() * 0.15 + (random.nextDouble() - 0.5) * 0.6;
+            z = frame.getZ() + face.getStepZ() * 0.15 + (random.nextDouble() - 0.5) * 0.6;
+        } else {
+            x = entity.getRandomX(0.6);
+            y = entity.getRandomY();
+            z = entity.getRandomZ(0.6);
+        }
+        level.addParticle(ParticleTypes.WAX_ON, x, y, z, 0.0, 0.01, 0.0);
+    }
+
+    public static float moteChance(int emissionPoints) {
+        return Math.min(MAX_MOTE_CHANCE, MOTE_CHANCE_PER_LEVEL * Math.max(0, emissionPoints));
+    }
+}

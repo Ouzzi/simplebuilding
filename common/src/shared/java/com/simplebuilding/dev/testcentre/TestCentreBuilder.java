@@ -175,6 +175,17 @@ public final class TestCentreBuilder {
                         container.setChanged();
                     } else if (level.getBlockEntity(fill.pos()) instanceof PlacedTemplateBlockEntity placed && !fill.contents().isEmpty()) {
                         placed.setTemplate(fill.contents().getFirst());
+                    } else if (level.getBlockEntity(fill.pos()) instanceof net.minecraft.world.level.block.entity.BlockEntity other
+                            && TestCentreSections.SIMPLE_TRIMS_PLACED.equals(net.minecraft.core.registries.BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(other.getType()))
+                            && !fill.contents().isEmpty()) {
+                        // Simple Trims (26.3, N18): no class import - its block entity reads the template from the key "Template".
+                        net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+                        tag.put("Template", net.minecraft.world.item.ItemStack.CODEC.encodeStart(
+                                level.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), fill.contents().getFirst()).getOrThrow());
+                        other.loadCustomOnly(net.minecraft.world.level.storage.TagValueInput.create(
+                                net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(), tag));
+                        other.setChanged();
+                        level.sendBlockUpdated(fill.pos(), other.getBlockState(), other.getBlockState(), net.minecraft.world.level.block.Block.UPDATE_ALL);
                     } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity pieces) {
                         pieces.setPieces(fill.contents());
                     } else if (level.getBlockEntity(fill.pos()) instanceof com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity pile) {

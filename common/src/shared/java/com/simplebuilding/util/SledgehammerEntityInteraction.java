@@ -28,6 +28,8 @@ public final class SledgehammerEntityInteraction {
     /** Nebenhand-Material -> Ergebnis, in fester Reihenfolge. */
     public static Map<Item, Item> trimUpgrades() {
         Map<Item, Item> upgrades = new LinkedHashMap<>();
+        // 26.3: forging trim templates belongs to Simple Trims (its placed template, axe or hammer by tag).
+        if (!McVersion.TRIMS_IN_SB) return upgrades;
         upgrades.put(Items.GLOW_INK_SAC, ModItems.GLOWING_TRIM_TEMPLATE);
         upgrades.put(Items.GLOWSTONE_DUST, ModItems.EMITTING_TRIM_TEMPLATE);
         return upgrades;

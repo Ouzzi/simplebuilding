@@ -79,6 +79,7 @@ public final class PulsatingTrimTests {
      * andere formlose Rezepte behalten ihre Vanilla-Reste (Eimer beim Kuchen).
      */
     public static void thePulsatingTemplateIsCraftedFromAnEchoShardAndAnySledgehammerThatStays(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         List<String> problems = new ArrayList<>();
         for (Item hammerItem : List.of(ModItems.STONE_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, ModItems.ENDERITE_SLEDGEHAMMER)) {
             for (boolean hammerFirst : new boolean[]{true, false}) {
@@ -150,6 +151,7 @@ public final class PulsatingTrimTests {
     }
 
     public static void templateRecipesRequireEveryMaterialAndCopyExactlyOne(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         if (!com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
             helper.succeed();
             return;
@@ -196,6 +198,7 @@ public final class PulsatingTrimTests {
      * nur beide zusammen schwanken zwischen 15 und 1; allein pulsiert die Saettigung (Farbe -> grau).
      */
     public static void thePulsatingUpgradeMakesTheTrimPulseOnceAndCombinesWithGlowing(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         SmithingMenu table = new SmithingMenu(1, menuPlayer(helper).getInventory());
         ItemStack chest = new ItemStack(ModItems.ENDERITE_CHESTPLATE);
         GlowingTrimUtils.setGlowLevel(chest, 1);
@@ -307,13 +310,15 @@ public final class PulsatingTrimTests {
     public static void templatesAndTheAttractorCarryTheirNewNames(GameTestHelper helper) {
         JsonObject en = lang(helper, "en_us");
         JsonObject de = lang(helper, "de_de");
-        Map<Item, String[]> names = Map.of(
-                ModItems.GLOWING_TRIM_TEMPLATE, new String[]{"Glowing Armor Trim", "Leuchtender Rüstungsbesatz"},
-                ModItems.EMITTING_TRIM_TEMPLATE, new String[]{"Emitting Armor Trim", "Strahlender Rüstungsbesatz"},
-                ModItems.PULSATING_TRIM_TEMPLATE, new String[]{"Pulsating Armor Trim", "Pulsierender Rüstungsbesatz"},
-                ModItems.BASIC_UPGRADE_TEMPLATE, new String[]{"Basic Upgrade", "Basis-Aufwertung"},
-                ModItems.ENDERITE_UPGRADE_TEMPLATE, new String[]{"Enderite Upgrade", "Enderit-Aufwertung"},
-                ModItems.MAGNET, new String[]{"Attractor", "Attraktor"});
+        Map<Item, String[]> names = new java.util.LinkedHashMap<>();
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) { // 26.3: the trim templates and their names live in Simple Trims (N18)
+            names.put(ModItems.GLOWING_TRIM_TEMPLATE, new String[]{"Glowing Armor Trim", "Leuchtender Rüstungsbesatz"});
+            names.put(ModItems.EMITTING_TRIM_TEMPLATE, new String[]{"Emitting Armor Trim", "Strahlender Rüstungsbesatz"});
+            names.put(ModItems.PULSATING_TRIM_TEMPLATE, new String[]{"Pulsating Armor Trim", "Pulsierender Rüstungsbesatz"});
+        }
+        names.put(ModItems.BASIC_UPGRADE_TEMPLATE, new String[]{"Basic Upgrade", "Basis-Aufwertung"});
+        names.put(ModItems.ENDERITE_UPGRADE_TEMPLATE, new String[]{"Enderite Upgrade", "Enderit-Aufwertung"});
+        names.put(ModItems.MAGNET, new String[]{"Attractor", "Attraktor"});
         List<String> problems = new ArrayList<>();
         names.forEach((item, pair) -> {
             String key = item.getDescriptionId();

@@ -229,6 +229,7 @@ public final class DynamicLightTests {
      * letting a stored glow level of 0 count as "set" and swallow the fallback.
      */
     public static void theTwoLevelCountersKeepTheirOwnStorageAndCaps(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         // --- emission: nothing there means nothing shines ---
         helper.assertValueEqual(GlowingTrimUtils.getEmissionLevel(ItemStack.EMPTY), 0,
                 "emission level of an empty stack");
@@ -356,6 +357,7 @@ public final class DynamicLightTests {
      * previous result in the slot; or the upgrade writing into the base stack.
      */
     public static void bothSmithingUpgradesAddOneLevelPerStepAndStopAtTheirCap(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         SmithingMenu table = smithingTable(helper);
 
         // --- emitting: five steps ---
@@ -444,6 +446,7 @@ public final class DynamicLightTests {
      * catch is a result slot that is not emptied once the inputs stop matching.
      */
     public static void theSmithingUpgradeOnlyFiresForArmourAndTheMatchingMaterial(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         SmithingMenu table = smithingTable(helper);
 
         // --- in #minecraft:trimmable_armor: upgraded ---
@@ -567,6 +570,7 @@ public final class DynamicLightTests {
      * {@code createResult} for inputs that are none of its business.
      */
     public static void theSmithingTableTakesTheModTemplatesAndKeepsTheVanillaOnes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         SmithingMenu table = smithingTable(helper);
         Slot template = table.getSlot(SmithingMenu.TEMPLATE_SLOT);
         Slot base = table.getSlot(SmithingMenu.BASE_SLOT);
@@ -679,6 +683,7 @@ public final class DynamicLightTests {
      * or narrowing so that one armour slot stops counting.
      */
     public static void wornEmissionLevelsAddUpIntoTheLightBlockOverThePlayersHead(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         ServerLevel level = helper.getLevel();
         ServerPlayer player = lightTestPlayer(helper);
 
@@ -777,6 +782,7 @@ public final class DynamicLightTests {
      * {@code removeLight} dropping its waterlogged branch.
      */
     public static void theLightBlockOnlyReplacesAirOrWaterSourcesAndPutsTheWaterBack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         ServerLevel level = helper.getLevel();
         ServerPlayer player = lightTestPlayer(helper);
         BlockPos head = player.blockPosition().above();
@@ -865,6 +871,7 @@ public final class DynamicLightTests {
      * second {@code onDisconnect} below would then act on a stale position).
      */
     public static void theLightFollowsThePlayerAndGoesOutWithTheArmour(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         ServerLevel level = helper.getLevel();
         ServerPlayer player = lightTestPlayer(helper);
 
@@ -958,6 +965,7 @@ public final class DynamicLightTests {
      */
     @SuppressWarnings("removal")
     public static void theServerTickWiringLightsTheWearerOnItsOwn(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         ServerLevel level = helper.getLevel();
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         Vec3 pos = helper.absoluteVec(STAND);
@@ -1006,6 +1014,7 @@ public final class DynamicLightTests {
      * block they placed.
      */
     public static void armourStandsAndItemFramesLightTheirBlockAndCleanUp(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         ServerLevel level = helper.getLevel();
         int settle = HOLDER_SETTLE;
 
@@ -1075,6 +1084,7 @@ public final class DynamicLightTests {
      * the LivingEntityMixin tick, or the removal hook forgetting the mob's block.
      */
     public static void mobsWearingRadiantArmourLightTheBlockAboveThem(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         Mob zombie = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, new BlockPos(6, 2, 1));
         helper.getLevel().setBlock(zombie.blockPosition().above(), Blocks.AIR.defaultBlockState(), 3);
         zombie.setItemSlot(EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 2));
@@ -1260,6 +1270,7 @@ public final class DynamicLightTests {
      * wearer without radiance glint at all.
      */
     public static void radianceGlintsStayRareAndFullSetsDoNotAddUp(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         helper.assertValueEqual(DynamicLightHandler.moteChance(0), 0.0f, "glint chance without radiance");
         helper.assertValueEqual(DynamicLightHandler.moteChance(-3), 0.0f, "glint chance for a negative level");
         double levelOne = 1.0 / DynamicLightHandler.moteChance(1);
@@ -1296,6 +1307,7 @@ public final class DynamicLightTests {
      * renamed key, or a second placeholder the mixin does not fill.
      */
     public static void theRadianceTooltipShowsOnlyTheLevel(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) { helper.succeed(); return; } // 26.3: moved to Simple Trims (TrimsTests, N18)
         for (String[] expected : List.of(new String[]{"en_us", "Radiance: 3"}, new String[]{"de_de", "Strahlkraft: 3"})) {
             String path = "assets/simplebuilding/lang/" + expected[0] + ".json";
             String pattern;

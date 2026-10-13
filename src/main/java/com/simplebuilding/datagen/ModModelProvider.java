@@ -842,9 +842,11 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_HOPPER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HOPPER, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.generateFlatItem(ModItems.GLOWING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.EMITTING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.PULSATING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) { // 26.3: Simple Trims (N18)
+            itemModelGenerator.generateFlatItem(ModItems.GLOWING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(ModItems.EMITTING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(ModItems.PULSATING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        }
 
         itemModelGenerator.generateFlatItem(ModItems.BASIC_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM);
 

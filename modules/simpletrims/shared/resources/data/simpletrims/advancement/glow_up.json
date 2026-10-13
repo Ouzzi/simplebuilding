@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:adventure/trim_with_any_armor_pattern",
+  "criteria": {
+    "glowing_trim_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpletrims:glowing_trim_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simpletrims.glow_up.description"
+    },
+    "icon": {
+      "id": "simpletrims:glowing_trim_template"
+    },
+    "title": {
+      "translate": "advancements.simpletrims.glow_up.title"
+    }
+  },
+  "requirements": [
+    [
+      "glowing_trim_template"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

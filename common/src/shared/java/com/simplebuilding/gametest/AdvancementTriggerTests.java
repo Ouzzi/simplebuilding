@@ -239,22 +239,26 @@ public final class AdvancementTriggerTests {
      */
     public static void radianceDyedStorageAndAllOctantColorsFollowTheInventory(GameTestHelper helper) {
         ServerAdvancementManager manager = helper.getLevel().getServer().getAdvancements();
-        AdvancementHolder radiance = require(helper, manager, "hammer/full_radiance");
+        // 26.3: Full Radiance moved to Simple Trims (simpletrims:full_radiance, TrimsTests) with the trim templates (N18).
+        boolean trims = com.simplebuilding.version.McVersion.TRIMS_IN_SB;
+        AdvancementHolder radiance = trims ? require(helper, manager, "hammer/full_radiance") : null;
         AdvancementHolder dyed = require(helper, manager, "storage/splash_of_color");
         AdvancementHolder spectrum = require(helper, manager, "octant/full_spectrum");
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 2.0, 1.5));
         player.getInventory().clearContent();
 
-        ItemStack helmet = new ItemStack(Items.IRON_HELMET);
-        for (int i = 0; i < 4; i++) {
+        if (trims) {
+            ItemStack helmet = new ItemStack(Items.IRON_HELMET);
+            for (int i = 0; i < 4; i++) {
+                GlowingTrimUtils.incrementEmissionLevel(helmet);
+            }
+            give(player, helmet.copy(), 0);
+            helper.assertTrue(!done(player, radiance), "Radiance 4 earned Full Radiance");
             GlowingTrimUtils.incrementEmissionLevel(helmet);
+            helper.assertValueEqual(GlowingTrimUtils.getEmissionLevel(helmet), 5, "Radiance after five upgrades");
+            give(player, helmet, 1);
+            helper.assertTrue(done(player, radiance), "an armor piece at Radiance 5 did not earn Full Radiance");
         }
-        give(player, helmet.copy(), 0);
-        helper.assertTrue(!done(player, radiance), "Radiance 4 earned Full Radiance");
-        GlowingTrimUtils.incrementEmissionLevel(helmet);
-        helper.assertValueEqual(GlowingTrimUtils.getEmissionLevel(helmet), 5, "Radiance after five upgrades");
-        give(player, helmet, 1);
-        helper.assertTrue(done(player, radiance), "an armor piece at Radiance 5 did not earn Full Radiance");
 
         give(player, new ItemStack(ModItems.QUIVER), 2);
         helper.assertTrue(!done(player, dyed), "an undyed quiver earned A Splash of Color");

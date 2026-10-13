@@ -228,6 +228,12 @@ evaluationDependsOn(':modules:simplequestionary:neoforge')
 dependencies { implementation project(':modules:simplequestionary:neoforge') }
 neoForge.mods { simplequestionary { sourceSet project(':modules:simplequestionary:neoforge').sourceSets.main } }
 neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplequestionary) }
+// Simple Trims: SB worlds hold trim data that migrates to simpletrims:* (N18 stage 2-4); loaded in SB's dev/test runs
+// like Simple Maps (it does not evaluate this project, so no cycle). SB code never imports it.
+evaluationDependsOn(':modules:simpletrims:neoforge')
+dependencies { implementation project(':modules:simpletrims:neoforge') }
+neoForge.mods { simpletrims { sourceSet project(':modules:simpletrims:neoforge').sourceSets.main } }
+neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simpletrims) }
 // Optional Sub-Mods bundled for production (PLAN-MODULAUFTEILUNG stage 1a); switches "Enable Simple X" reach them via
 // framework SubMods. Only jarJar: several of them evaluate this project for their integration runs, so no
 // evaluationDependsOn/dev-run mods here (would be circular); SB code never imports them.

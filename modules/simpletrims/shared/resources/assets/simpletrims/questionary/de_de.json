@@ -1,0 +1,57 @@
+{
+  "glowing_trim_template": {
+    "lore": [
+      "Ein Besatz, der das Licht einen Moment länger hält, als er sollte."
+    ],
+    "use": [
+      "Lege eine Rüstungsbesatzvorlage ab, halte 2 Leuchttintenbeutel in der Nebenhand und schlage sie 5-mal mit einer Axt (mit SimpleBuilding: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Glowstone weg. Eine Vorlage, 7 Diamanten und ein Glowstone-Block ergeben 2."
+    ],
+    "secret": [
+      "Am Schmiedetisch lassen Vorlage, Rüstung und ein Leuchttintenbeutel den Besatz gleichmäßig mit voller Helligkeit leuchten. Er leuchtet nur optisch und gibt kein echtes Licht ab."
+    ]
+  },
+  "emitting_trim_template": {
+    "lore": [
+      "Ein Besatz, der nicht nur scheint, sondern anderen den Weg leuchtet."
+    ],
+    "use": [
+      "Lege eine Rüstungsbesatzvorlage ab, halte 2 Glowstonestaub in der Nebenhand und schlage sie 5-mal mit einer Axt (mit SimpleBuilding: dem Vorschlaghammer); dazu gehen 4 Diamanten und 2 Lohenstaub weg. Eine Vorlage, 7 Diamanten und ein Magmablock ergeben 2."
+    ],
+    "secret": [
+      "Am Schmiedetisch wird Rüstung mit Glowstonestaub zur tragbaren Lichtquelle: Ein unsichtbarer Lichtblock folgt deinem Kopf. Mehr Staub erhöht die Strahlkraft, bis Stufe 5."
+    ]
+  },
+  "pulsating_trim_template": {
+    "lore": [
+      "Ein Besatz mit eigenem Herzschlag."
+    ],
+    "use": [
+      "Herstellung: 2 Echoscherben, 2 Sculk, 4 Diamanten und eine Axt (mit SimpleBuilding: ein Vorschlaghammer); das Werkzeug bleibt im Raster und verliert 1 Haltbarkeit. Eine Vorlage, 7 Diamanten und ein Sculkblock ergeben 2."
+    ],
+    "secret": [
+      "Am Schmiedetisch lassen Vorlage, Rüstung und eine Echoscherbe den Besatz alle 2,4 Sekunden von voller Farbe zu Grau pulsieren. Zusammen mit Leuchtend pulsiert auch die Helligkeit."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein Buch, das den Glanz jedes Besatzes festhält."
+    ],
+    "use": [
+      "Das Simple-Trims-Handbuch erklärt die drei Besatzvorlagen, das Ablegen und das Schmieden. Herstellung formlos aus einem Buch und einem Leuchttintenbeutel."
+    ],
+    "secret": [
+      "Die Seiten folgen deiner Sprache und wachsen mit der Mod mit, auch in alten Exemplaren."
+    ]
+  },
+  "placed_template": {
+    "lore": [
+      "Eine Vorlage, abgelegt wie ein Zettel auf dem Tisch."
+    ],
+    "use": [
+      "Schleichen und eine Rüstungsbesatzvorlage auf Boden, Wand oder Decke benutzen. Abbauen gibt genau diese Vorlage zurück, samt Namen."
+    ],
+    "secret": [
+      "Mit dem Vorlagen-Werkzeug in der Haupthand und Leuchttinte oder Glowstonestaub in der Nebenhand schmieden Rechtsklicks sie, statt sie abzubauen."
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "type": "simpletrims:trim_upgrade",
+  "addition": "minecraft:glowstone_dust",
+  "base": "#minecraft:trimmable_armor",
+  "template": "simpletrims:emitting_trim_template"
+}

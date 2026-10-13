@@ -1,6 +1,40 @@
 {
   "module": "simpletrims",
-  "derivation": "Age-of-game tier from KERNE-SELTENHEIT section 5.3. Stage 1 of Simple Trims has no items of its own yet; trim templates still come from SimpleBuilding and are priced there.",
+  "derivation": "Age-of-game tier from KERNE-SELTENHEIT section 5.3. The three trim templates moved here from SimpleBuilding with the same rows (N18 stage 2-4): early game, librarian level 1.",
   "excluded": {},
-  "prices": []
+  "prices": [
+    {
+      "item": "simpletrims:emitting_trim_template",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "librarian",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simpletrims:glowing_trim_template",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "librarian",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simpletrims:pulsating_trim_template",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "librarian",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    }
+  ]
 }

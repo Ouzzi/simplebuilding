@@ -490,7 +490,8 @@ public final class SearchTabPlacement {
         out.add(Placement.before(INGREDIENTS, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.BASIC_UPGRADE_TEMPLATE));
         out.add(Placement.after(INGREDIENTS, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE));
         List<ItemLike> vanillaTrims = ModItemGroupsContent.vanillaTrimTemplates();
-        if (!vanillaTrims.isEmpty()) {
+        // 26.3: Simple Trims sorts its templates into the Vanilla tab itself (N18).
+        if (!vanillaTrims.isEmpty() && com.simplebuilding.version.McVersion.TRIMS_IN_SB) {
             out.add(Placement.after(INGREDIENTS, vanillaTrims.getLast(),
                     ModItems.GLOWING_TRIM_TEMPLATE, ModItems.EMITTING_TRIM_TEMPLATE, ModItems.PULSATING_TRIM_TEMPLATE));
         }

@@ -456,6 +456,16 @@ public final class WorldUpgradeTests {
      * detector reading only one block-state spelling, backpack_contents entries not being fixed
      * (26.3: the explorer map entry is dropped).
      */
+    /**
+     * A trim upgrade component of the stack: SimpleBuilding's own on 26.2; on 26.3 Simple Trims' (N18, loaded in SB's
+     * test runs; old {@code simplebuilding:} ids migrate there through SimpleLib's id moves). Read by id, no class import.
+     */
+    private static Object trimComponent(ItemStack stack, String path) {
+        var type = net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(
+                com.simplebuilding.version.McVersion.TRIMS_IN_SB ? "simplebuilding" : "simpletrims", path));
+        return type == null ? null : stack.get(type);
+    }
+
     public static void modItemsSurviveTheUpgrade(GameTestHelper helper) {
         List<CompoundTag> blockEntities = upgradedChunkBlockEntities(helper);
         List<ItemStack> oracle = chestOracle(helper, blockEntities.get(0));
@@ -494,8 +504,8 @@ public final class WorldUpgradeTests {
         helper.assertValueEqual(enchantmentLevel(helper, chestplate, "simplebuilding:kinetic_protection"), 2, "kinetic protection level");
         helper.assertValueEqual(enchantmentLevel(helper, chestplate, "minecraft:unbreaking"), 3, "unbreaking level");
         // Glowing II and above no longer exist (owner 2026-09-29): the saved 3 migrates to plain Glowing.
-        helper.assertValueEqual(chestplate.get(ModDataComponentTypes.GLOW_LEVEL), 1, "glow level (migrated to plain Glowing)");
-        helper.assertValueEqual(chestplate.get(ModDataComponentTypes.VISUAL_GLOW), Boolean.TRUE, "visual glow");
+        helper.assertValueEqual(trimComponent(chestplate, "glow_level"), 1, "glow level (migrated to plain Glowing)");
+        helper.assertValueEqual(trimComponent(chestplate, "visual_glow"), Boolean.TRUE, "visual glow");
         helper.assertValueEqual(chestplate.getDamageValue(), 11, "chestplate damage");
 
         ItemStack hammer = chest.getItem(SLEDGEHAMMER);
