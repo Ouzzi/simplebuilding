@@ -801,6 +801,7 @@
   "item.simplebuilding.enderite_nautilus_armor": "Enderit-Nautilusrüstung",
   "item.simplebuilding.enderite_upgrade_template": "Enderit-Aufwertung",
   "upgrade.simplebuilding.enderite_upgrade": "Enderitaufwertung",
+  "item.minecraft.smithing_template.netherite_upgrade.applies_to": "Diamant-Ausrüstung und -Blöcke",
   "item.minecraft.smithing_template.enderite_upgrade.applies_to": "Netherit-Ausrüstung",
   "item.minecraft.smithing_template.enderite_upgrade.ingredients": "Enderitbarren",
   "item.minecraft.smithing_template.enderite_upgrade.base_slot_description": "Netherit-Rüstung, -Waffe oder -Werkzeug hinzufügen",

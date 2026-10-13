@@ -796,6 +796,7 @@
   "item.simplebuilding.enderite_nautilus_armor": "Enderite Nautilus Armor",
   "item.simplebuilding.enderite_upgrade_template": "Enderite Upgrade",
   "upgrade.simplebuilding.enderite_upgrade": "Enderite Upgrade",
+  "item.minecraft.smithing_template.netherite_upgrade.applies_to": "Diamond Equipment and Blocks",
   "item.minecraft.smithing_template.enderite_upgrade.applies_to": "Netherite Equipment",
   "item.minecraft.smithing_template.enderite_upgrade.ingredients": "Enderite Ingot",
   "item.minecraft.smithing_template.enderite_upgrade.base_slot_description": "Add netherite armor, weapon or tool",
