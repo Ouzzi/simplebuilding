@@ -12,6 +12,14 @@ public final class SharedMaterials {
     private SharedMaterials() {
     }
 
+    public static boolean isShared(Item item) {
+        return false;
+    }
+
+    public static boolean isShared(Block block) {
+        return false;
+    }
+
     public static Item item(String id, Supplier<Item> own) {
         return own.get();
     }

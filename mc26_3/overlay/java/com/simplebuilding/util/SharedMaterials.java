@@ -35,6 +35,17 @@ public final class SharedMaterials {
     private SharedMaterials() {
     }
 
+    /** Whether {@code item} is one of the shared materials (SimpleLib's, not SimpleBuilding's own registration). */
+    public static boolean isShared(Item item) {
+        var id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item);
+        return id != null && "simplelib".equals(id.getNamespace()) && ITEMS.contains(id.getPath());
+    }
+
+    public static boolean isShared(Block block) {
+        var id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block);
+        return id != null && "simplelib".equals(id.getNamespace()) && BLOCKS.contains(id.getPath());
+    }
+
     public static Item item(String id, Supplier<Item> own) {
         return SimpleLibApi.materialItem(id);
     }

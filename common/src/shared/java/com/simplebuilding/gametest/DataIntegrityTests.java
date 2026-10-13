@@ -1642,7 +1642,8 @@ public final class DataIntegrityTests {
                 continue;
             }
             try {
-                if (field.get(null) instanceof Item item) {
+                // 26.3: the shared materials are SimpleLib's (split stage 3d) - SimpleLib's own checks cover them.
+                if (field.get(null) instanceof Item item && !com.simplebuilding.util.SharedMaterials.isShared(item)) {
                     items.add(item);
                 }
             } catch (IllegalAccessException e) {
@@ -1685,7 +1686,7 @@ public final class DataIntegrityTests {
                 continue;
             }
             try {
-                if (field.get(null) instanceof Block block) {
+                if (field.get(null) instanceof Block block && !com.simplebuilding.util.SharedMaterials.isShared(block)) {
                     blocks.add(block);
                 }
             } catch (IllegalAccessException e) {
@@ -2662,7 +2663,8 @@ public final class DataIntegrityTests {
             }
         });
         for (Item item : where.keySet()) {
-            if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)) {
+            if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)
+                    && !com.simplebuilding.util.SharedMaterials.isShared(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
