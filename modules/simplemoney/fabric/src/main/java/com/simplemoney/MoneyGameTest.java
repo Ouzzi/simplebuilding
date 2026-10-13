@@ -22,4 +22,6 @@ public final class MoneyGameTest {
  @GameTest(maxTicks=100) public void linkBudgets(GameTestHelper h) { com.simplemoney.testing.LinkTests.budgets(h); }
  @GameTest(maxTicks=100) public void linkMenu(GameTestHelper h) { com.simplemoney.testing.LinkTests.menu(h); }
  @GameTest(maxTicks=100) public void linkNoArbitrage(GameTestHelper h) { com.simplemoney.testing.LinkTests.noArbitrage(h); }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplemoney.discover.MoneyDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplemoney.discover.MoneyDiscover.behaviourHints(h); }
 }

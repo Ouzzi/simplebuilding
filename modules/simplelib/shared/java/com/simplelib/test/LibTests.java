@@ -778,4 +778,11 @@ public final class LibTests {
     }
 
     private LibTests() {}
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplelib.discover.LibDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplelib.discover.LibDiscover::behaviourHints);
+        ALL.put("discover_first_pickup_tips", com.simplelib.discover.LibDiscover::firstPickupTips);
+    }
 }

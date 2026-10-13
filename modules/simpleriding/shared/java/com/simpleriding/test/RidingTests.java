@@ -350,4 +350,10 @@ public final class RidingTests {
   p.connection.handleMoveVehicle(new net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket(claim(e.position().add(.1,0,0)),true));
   h.assertTrue(!e.onGround(),"Forged on-ground flag cannot reset riding fall state in midair");p.stopRiding();h.succeed();
  }
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simpleriding.discover.RidingDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simpleriding.discover.RidingDiscover::behaviourHints);
+    }
 }

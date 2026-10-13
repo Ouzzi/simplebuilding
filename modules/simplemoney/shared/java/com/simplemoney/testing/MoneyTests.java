@@ -198,4 +198,10 @@ public final class MoneyTests {
   var block=BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:reinforced_hopper"));var pos=new BlockPos(2,2,2);h.setBlock(pos,block);var container=(Container)h.getLevel().getBlockEntity(h.absolutePos(pos));
   for(var item:MoneyItems.ITEMS.values()) {container.setItem(0,new ItemStack(item,3));h.assertTrue(container.removeItem(0,2).is(item)&&container.getItem(0).getCount()==1,"foreign item round trip");}h.succeed();
  }
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplemoney.discover.MoneyDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplemoney.discover.MoneyDiscover::behaviourHints);
+    }
 }

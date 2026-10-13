@@ -43,4 +43,6 @@ public final class RidingGameTest {
  @GameTest(maxTicks=100) public void horseshoeMending(GameTestHelper h){com.simpleriding.test.HorseshoeTests.mending(h);}
  @GameTest(maxTicks=100) public void horseshoeFall(GameTestHelper h){com.simpleriding.test.HorseshoeTests.fall(h);}
  @GameTest(maxTicks=100) public void horseshoeLoot(GameTestHelper h){com.simpleriding.test.HorseshoeTests.loot(h);}
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simpleriding.discover.RidingDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simpleriding.discover.RidingDiscover.behaviourHints(h); }
 }

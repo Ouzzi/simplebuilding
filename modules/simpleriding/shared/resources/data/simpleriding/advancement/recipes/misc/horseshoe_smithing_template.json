@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_horseshoe_smithing_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleriding:horseshoe_smithing_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simpleriding:horseshoe_smithing_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_horseshoe_smithing_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleriding:horseshoe_smithing_template"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_deceiver_cloth": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobs:deceiver_cloth"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplemobs:deceiver_cloak"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_deceiver_cloth"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemobs:deceiver_cloak"
+    ]
+  }
+}

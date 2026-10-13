@@ -1,5 +1,6 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.discover.SimpleBuildingDiscover;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -2414,8 +2415,16 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("modpack_game_test_mod_statistics_are_registered_and_count_chisel_use_and_teleports", ModpackTests::modStatisticsAreRegisteredAndCountChiselUseAndTeleports)
                     .rotation(Rotation.NONE)
-                    .build()
+                    .build(),
             // --- /modpack ---
+            // --- discover (docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md, generated bodies: tools/discover/discover.py) ---
+            GameTestSpec.named("discover_game_test_every_book_recipe_has_an_unlock", SimpleBuildingDiscover::recipeUnlocks)
+                    .build(),
+            GameTestSpec.named("discover_game_test_behaviour_items_have_tooltip_or_wiki_entry", SimpleBuildingDiscover::behaviourHints)
+                    .build(),
+            GameTestSpec.named("discover_game_test_first_pickup_tips_show_once", SimpleBuildingDiscover::firstPickupTips)
+                    .build()
+            // --- /discover ---
             );
 
     private SimpleBuildingGameTests() {

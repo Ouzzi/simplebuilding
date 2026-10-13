@@ -126,4 +126,10 @@ public final class ToolsTests {
   var hammer=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:diamond_sledgehammer")));h.assertTrue(hammer.isDamageableItem(),"Public foreign damageable tool ID");p.setItemSlot(EquipmentSlot.MAINHAND,hammer);SimpleTools.config().enableFullDurabilityBonus=false;double base=p.getAttributeValue(Attributes.ATTACK_DAMAGE);SimpleTools.config().enableFullDurabilityBonus=true;SimpleTools.config().fullDurabilityBonusMultiplier=1.5;close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),base*1.5,"Foreign tool receives exactly one capped bonus");
  });h.succeed();}
 // MOVED-END
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplebuilding.modules.simpletools.discover.ToolsDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simpletools.discover.ToolsDiscover::behaviourHints);
+    }
 }

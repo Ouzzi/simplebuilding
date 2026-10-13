@@ -192,4 +192,11 @@ public final class MobsTests {
     }
 
     private MobsTests() {}
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplebuilding.modules.simplemobs.discover.MobsDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simplemobs.discover.MobsDiscover::behaviourHints);
+        ALL.put("discover_first_pickup_tips", com.simplebuilding.modules.simplemobs.discover.MobsDiscover::firstPickupTips);
+    }
 }

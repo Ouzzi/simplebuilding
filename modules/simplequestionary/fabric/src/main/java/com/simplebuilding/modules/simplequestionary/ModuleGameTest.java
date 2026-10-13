@@ -55,4 +55,6 @@ public final class ModuleGameTest {
     public void hostSwitch(GameTestHelper h) {
         QuestionaryTests.ALL.get("host_switch").accept(h);
     }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplequestionary.discover.QuestionaryDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplequestionary.discover.QuestionaryDiscover.behaviourHints(h); }
 }

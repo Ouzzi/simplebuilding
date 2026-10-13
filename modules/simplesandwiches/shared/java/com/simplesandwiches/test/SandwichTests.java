@@ -771,4 +771,11 @@ public final class SandwichTests {
     }
 
     private SandwichTests() {}
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplesandwiches.discover.SandwichDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplesandwiches.discover.SandwichDiscover::behaviourHints);
+        ALL.put("discover_first_pickup_tips", com.simplesandwiches.discover.SandwichDiscover::firstPickupTips);
+    }
 }

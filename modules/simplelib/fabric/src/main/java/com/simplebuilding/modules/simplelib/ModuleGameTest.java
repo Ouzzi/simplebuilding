@@ -190,4 +190,7 @@ public final class ModuleGameTest {
     public void idMovesAdoptConfig(GameTestHelper h) {
         LibTests.ALL.get("id_moves_adopt_config").accept(h);
     }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplelib.discover.LibDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplelib.discover.LibDiscover.behaviourHints(h); }
+    @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplelib.discover.LibDiscover.firstPickupTips(h); }
 }

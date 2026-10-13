@@ -557,4 +557,10 @@ public final class FunTests {
     com.simplefun.heads.HeadAbilities.resetForTests(wearer);
     h.succeed();
   }
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplefun.discover.FunDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplefun.discover.FunDiscover::behaviourHints);
+    }
 }

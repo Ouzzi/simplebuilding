@@ -57,5 +57,8 @@
   "item.minecraft.potion.effect.focus": "Potion of Focus",
   "item.minecraft.splash_potion.effect.focus": "Splash Potion of Focus",
   "item.minecraft.lingering_potion.effect.focus": "Lingering Potion of Focus",
-  "item.minecraft.tipped_arrow.effect.focus": "Arrow of Focus"
+  "item.minecraft.tipped_arrow.effect.focus": "Arrow of Focus",
+  "tip.simplemobs.trick_mirror": "Hold use for 3 s: reveals disguises ahead",
+  "tip.simplemobs.deceiver_cloak": "Wear it; empty hand on a mob takes its shape",
+  "tip.simplemobs.shellker_shell": "Use on a Shulker to turn it into a Shellker"
 }

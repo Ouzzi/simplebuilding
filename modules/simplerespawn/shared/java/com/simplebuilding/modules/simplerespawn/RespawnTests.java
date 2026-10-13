@@ -240,4 +240,10 @@ public final class RespawnTests {
             h.succeed();
         });
     }
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplebuilding.modules.simplerespawn.discover.RespawnDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simplerespawn.discover.RespawnDiscover::behaviourHints);
+    }
 }

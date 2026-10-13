@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_soulfire_powder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobs:soulfire_powder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplemobs:soul_fire_charge"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_soulfire_powder"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemobs:soul_fire_charge"
+    ]
+  }
+}

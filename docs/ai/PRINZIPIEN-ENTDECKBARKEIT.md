@@ -48,3 +48,25 @@ Queue N21: Jedes herstellbare oder umwandelbare Item soll **zuerst intuitiv** se
 2. Dorf-Vorführung Tiegel als erstes Beispiel (Empfehlung) – welche weiteren Maschinen zuerst?
 3. Geheimnisse (Biom-Pinsel, Shellker) bewusst ohne JEI-Rezept bis zum Fortschritt (Empfehlung) oder sofort sichtbar?
 4. Registry-Prüfer als verpflichtendes Gate (Empfehlung: Warnung zuerst, später Pflicht)?
+
+## Stufe 1 – Umsetzung (claude-discover1, 2026-10-13)
+Besitzer-Auftrag: Ebenen B (Rezeptbuch-Freischaltung) und H (einmaliger Tipp) für alle Module; Tooltips nur nach Regel 14
+(kein Tooltip-Zwang); Welt-Hinweise (E) nicht in dieser Stufe.
+
+**Quelle der Wahrheit:** `tools/discover/discover.py` (`--check` läuft in `gradlew check` als `checkDiscover`).
+1. **Rezept-Freischaltungen (B):** Für jedes Rezept eines Rezeptbuch-Typs (Werkbank, Ofen-Familie, Schmiede, Steinsäge)
+   ohne Freischaltung schreibt das Skript ein Datapack-Advancement `data/<ns>/advancement/recipes/<kategorie>/<rezept>.json`
+   in den handgepflegten Ressourcenbaum des Mods (SB: neben dem Rezept, Module: `shared/resources`). Auslöser:
+   `has_<zutat>` (`inventory_changed`) für jede eigene Zutat des Mods, sonst jede Zutat; dazu `has_the_recipe`.
+   Lade-Bedingungen des Rezepts (`fabric:load_conditions`, `neoforge:conditions`, `forge:conditions`) werden kopiert.
+   Bewusst ohne Freischaltung (Geheimnis, Regel 5): Easter-Schmiedekette (eigener Typ, nicht im Rezeptbuch).
+2. **Registry-Test je Modul (Gametest `discover_*`):** generierte Klasse je Mod (`…/discover/*Discover.java`):
+   `recipe_unlocks` – jedes Rezept des Namensraums, das das Rezeptbuch zeigen kann (`!isSpecial()`, `display()` nicht leer),
+   wird von einem geladenen Advancement freigeschaltet; `behaviour_hints` – jedes Item, dessen Item-/Blockklasse aus dem
+   eigenen Paket stammt (Logik wie `behavioural_ids` in `wiki/generate.py`), hat einen Tooltip-Schlüssel oder einen
+   Wiki-/Guide-Eintrag (`manual.json` Notiz/Feature, ins Java übernommen); bei Mods mit Tipps `first_pickup_tips`.
+3. **Einmaliger Tipp (H):** Mixin auf `InventoryChangeTrigger.trigger` (Vanilla-Auslöser beim Aufnehmen): Item mit Tipp und
+   Spieler ohne Markierung → Aktionsleiste mit kurzem Text (EN/DE, ≤ 48 Zeichen), Markierung als Entity-Tag
+   `<ns>.tip.<gruppe>` (einmal je Spieler und Welt). Abschaltbar je Mod in `config/simple-tips.properties`
+   (`<modid>.firstPickupTips=false`, framework `FirstUseTips`, gleiches Muster wie `simple-creative-tabs.properties`).
+   Tipps nur für Maschinen/Werkzeuge mit nicht offensichtlicher Bedienung; Texte aus den Wiki-Notizen abgeleitet.

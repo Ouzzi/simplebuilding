@@ -3909,5 +3909,19 @@
   "book.simplebuilding.storage.11.title": "Kisten",
   "book.simplebuilding.storage.11.text": "Bretter in U-Form ergeben eine offene Kiste für Essen.\nFasst 8 Stapel, in 3D sichtbar. Trichter füllen sie. Aufrecht oder seitlich platzierbar.",
   "book.simplebuilding.gadgets.15.title": "Sculk-Kiefer",
-  "book.simplebuilding.gadgets.15.text": "Knochen, Echo-Splitter, 3 Sculk. Nur auf vollen Blöcken; sieht aus wie Sculk.\nWer eintritt, wird wie im Netz verlangsamt und in Dunkelheit gehüllt. Beißt einmal."
+  "book.simplebuilding.gadgets.15.text": "Knochen, Echo-Splitter, 3 Sculk. Nur auf vollen Blöcken; sieht aus wie Sculk.\nWer eintritt, wird wie im Netz verlangsamt und in Dunkelheit gehüllt. Beißt einmal.",
+  "tip.simplebuilding.sledgehammer": "Baut 3x3 ab. Benutzen halten: Block zu Treppe zu Stufe",
+  "tip.simplebuilding.chisel": "Auf Block benutzen: nächste Variante; Schleichen: zurück",
+  "tip.simplebuilding.building_wand": "Auf Blockseite benutzen: füllt Fläche aus dem Inventar",
+  "tip.simplebuilding.blueprint": "Mit einem Baustab in der anderen Hand bauen",
+  "tip.simplebuilding.magnet": "Halten zieht Items an; Schleichen pausiert",
+  "tip.simplebuilding.rotator": "Auf Block benutzen: dreht ihn an Ort und Stelle",
+  "tip.simplebuilding.backpack": "Benutzen zum Anlegen, dann Rucksack-Taste (B)",
+  "tip.simplebuilding.autonomous_crafter": "Craftet selbst in einen Trichter darunter; Redstone stoppt",
+  "tip.simplebuilding.auto_smither": "Schmiedet einmal pro Redstone-Impuls",
+  "tip.simplebuilding.detector": "Halten: die Nadel zeigt zum nächsten Erz",
+  "tip.simplebuilding.echo_sounder": "Am Leitstein verknüpfen, dann 3 s Benutzen halten",
+  "tip.simplebuilding.silent_dandelion": "An einem Mob benutzen: Geräusche aus oder an",
+  "tip.simplebuilding.hopper_filter": "Im Menü einen Item-Filter einstellen",
+  "tip.simplebuilding.fletching": "Benutzen für Pfeile: Spitze, Schaft, Befiederung"
 }

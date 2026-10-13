@@ -6,4 +6,6 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void launch(GameTestHelper h){com.simplequalityoflife.test.QolTests.launch(h);}
  @GameTest(maxTicks=100) public void configLang(GameTestHelper h){com.simplequalityoflife.test.QolTests.configLang(h);}
  @GameTest public void subModSwitch(GameTestHelper h){com.simplequalityoflife.test.QolTests.subModSwitch(h);}
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplequalityoflife.discover.QolDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplequalityoflife.discover.QolDiscover.behaviourHints(h); }
 }

@@ -57,5 +57,8 @@
   "item.minecraft.potion.effect.focus": "Trank des Fokus",
   "item.minecraft.splash_potion.effect.focus": "Wurftrank des Fokus",
   "item.minecraft.lingering_potion.effect.focus": "Verweiltrank des Fokus",
-  "item.minecraft.tipped_arrow.effect.focus": "Pfeil des Fokus"
+  "item.minecraft.tipped_arrow.effect.focus": "Pfeil des Fokus",
+  "tip.simplemobs.trick_mirror": "3 s Benutzen halten: enttarnt Verkleidete",
+  "tip.simplemobs.deceiver_cloak": "Tragen; leere Hand am Mob: seine Gestalt annehmen",
+  "tip.simplemobs.shellker_shell": "An einem Shulker benutzen: wird zum Shellker"
 }

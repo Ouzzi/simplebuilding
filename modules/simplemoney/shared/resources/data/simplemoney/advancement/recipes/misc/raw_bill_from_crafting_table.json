@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_refined_blank_note": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemoney:refined_blank_note"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplemoney:raw_bill_from_crafting_table"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_refined_blank_note"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemoney:raw_bill_from_crafting_table"
+    ]
+  }
+}

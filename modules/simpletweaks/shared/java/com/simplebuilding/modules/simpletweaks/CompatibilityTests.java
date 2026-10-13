@@ -32,7 +32,9 @@ public final class CompatibilityTests {
   Map.entry("deed_custom_data_survives_without_claim_authority", CompatibilityTests::deed),
   Map.entry("legacy_items_work_in_simplebuilding_storage", CompatibilityTests::storage),
   Map.entry("unknown_names_and_wrong_registries_are_refused", CompatibilityTests::refusal),
-  Map.entry("claims_and_old_commands_are_not_registered", CompatibilityTests::commands));
+  Map.entry("claims_and_old_commands_are_not_registered", CompatibilityTests::commands),
+  Map.entry("discover_recipe_unlocks", com.simplebuilding.modules.simpletweaks.discover.TweaksDiscover::recipeUnlocks),
+  Map.entry("discover_behaviour_hints", com.simplebuilding.modules.simpletweaks.discover.TweaksDiscover::behaviourHints));
  static Identifier id(String namespace, String path) { return Identifier.fromNamespaceAndPath(namespace, path); }
  static Identifier old(String path) { return id("simpletweaks", path); }
  static Identifier now(String path) { return id("simplebuilding", path); }
