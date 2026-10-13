@@ -8,7 +8,9 @@ Queue-Pflege (Besitzer 12.10.): Neue Nachträge OBEN anhängen (direkt unter „
 eintragen. Abschnitte ohne offene Punkte wandern monatlich unverändert nach `.claude/QUEUE-ARCHIV.md`
 (Reihenfolge erhalten; letzte Archivierung 2026-10-12).
 
-## Offen – Überblick (Stand 2026-10-12)
+## Offen – Überblick (Stand 2026-10-13)
+
+Besitzer 13.10.: Elytra-Reparatur erledigt (Werkbank-Rezept bleibt); Sprach-Bridge gestrichen; Modulaufteilung F1–F3 = Empfehlungen angenommen; Claims-Hauptschalter freigegeben (Default an nach Prüfung, claude-claims-on).
 
 Jeder offene Punkt steht hier genau einmal (Ursprungs-Nachtrag in Klammern). Quelle der Wahrheit bleibt der Haken im
 Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile hier streichen.
@@ -49,9 +51,6 @@ Eigener Abschnitt „Modulaufteilung“ weiter unten (Stufen 3c, 3d, 4 Ovens, 5 
 - Desktop-/Handy-Sichtprüfung von Wiki und Balancing-Zentrale (Offen-Liste)
 - Forge: Clientdarstellung, Config-Persistenz, Default-Einschaltung abnehmen (Offen-Liste)
 - Abnahme Simple Money; NeoForge-Client/alte Spielwelt prüfen (Offen-Liste)
-- Elytra-Reparatur im Schmiedetisch: soll das mit eigener Rezept-Zutat je Loader gebaut werden? (N11)
-- Sprach-Bridge einrichten (Tailscale, Anbieter/Modell, Headset; Morgenbericht gewünscht?) (Welle 25)
-- Modulaufteilung: Fragen F1 Tiegel-Kern, F2 Tweaks-Port, F3 Grenzfälle (Plan §6; Empfehlungen gelten ohne Gegenwort)
 - Weiter offen als Abnahme (Branches gemergt, Details in Memory uebergabe-2026-10-08.md): UI-Konzepte (claude-ui-concepts), Respawn, Soulbound/Death Vault, Claims, Howler, Shellker, Nibblemite, Texturen N44–N46
 
 ### (E) Bewusst später
