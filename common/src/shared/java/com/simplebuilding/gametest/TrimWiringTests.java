@@ -1441,15 +1441,15 @@ public final class TrimWiringTests {
 
     /** Resonance button (owner N49): slot-sized, between the extra head slot and the off-hand slot, heart only. */
     public static void resonancePanelLayoutSitsBesideRecipeBook(GameTestHelper helper) {
-        helper.assertValueEqual(TrimStatsLayout.SIZE, 18, "the resonance button is as big as a slot frame");
-        helper.assertValueEqual(TrimStatsLayout.ICON_INSET, 4, "the heart sits four pixels in");
+        helper.assertValueEqual(TrimStatsLayout.SIZE, 19, "the resonance button is 19x19 so the 9x9 heart is exactly centred");
+        helper.assertValueEqual(TrimStatsLayout.ICON_INSET * 2 + TrimStatsLayout.ICON_WIDTH, TrimStatsLayout.SIZE, "the heart sits exactly in the middle");
         helper.assertValueEqual(TrimStatsLayout.HEAD_SLOT_X, 77, "the head slot is in the off-hand column");
         helper.assertValueEqual(TrimStatsLayout.HEAD_SLOT_Y, 8, "the head slot is level with the helmet slot");
         // between the head slot frame (7..25) and the off-hand slot frame (61..79), centred in the 36 px gap
-        helper.assertValueEqual(TrimStatsLayout.INVENTORY_Y - (TrimStatsLayout.HEAD_SLOT_Y + 17),
-                61 - (TrimStatsLayout.INVENTORY_Y + TrimStatsLayout.SIZE), "the button is centred between the two slots");
-        helper.assertTrue(TrimStatsLayout.hovered(76, 34, 76, 34) && TrimStatsLayout.hovered(76, 34, 93.9, 51.9)
-                && !TrimStatsLayout.hovered(76, 34, 94, 40), "hover area is the 18x18 button");
+        helper.assertTrue(Math.abs((TrimStatsLayout.INVENTORY_Y - (TrimStatsLayout.HEAD_SLOT_Y + 17))
+                - (61 - (TrimStatsLayout.INVENTORY_Y + TrimStatsLayout.SIZE))) <= 1, "the button is centred between the two slots (odd gap: 1 px tolerance)");
+        helper.assertTrue(TrimStatsLayout.hovered(76, 34, 76, 34) && TrimStatsLayout.hovered(76, 34, 94.9, 52.9)
+                && !TrimStatsLayout.hovered(76, 34, 95, 40), "hover area is the 19x19 button");
         helper.assertValueEqual(TrimStatsLayout.ICON_WIDTH, 9, "the heart is 9 wide again (owner N29)");
         helper.assertValueEqual(TrimStatsLayout.ICON_HEIGHT, 9, "the heart is 9 high");
         helper.succeed();
