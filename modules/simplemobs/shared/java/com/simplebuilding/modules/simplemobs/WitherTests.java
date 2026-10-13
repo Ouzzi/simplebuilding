@@ -164,10 +164,10 @@ final class WitherTests {
                 w.setHealth(299);
                 h.assertTrue(w.isPowered() && w.phase() == 2, "Vanilla shield (arrows bounce) from half health");
                 w.discard();
-                AbyssalWither a = h.spawn(WitherMobs.ABYSSAL_WITHER, 3, 2, 3);
-                a.setNoAi(true);
-                h.assertTrue(a.getMaxHealth() == 1000.0f && a.stage() == WitherLogic.ENDERITE, "an Abyssal Wither with 1000 health");
-                a.discard();
+                AbyssalWither abyssal = h.spawn(WitherMobs.ABYSSAL_WITHER, 3, 2, 3);
+                abyssal.setNoAi(true);
+                h.assertTrue(abyssal.getMaxHealth() == 1000.0f && abyssal.stage() == WitherLogic.ENDERITE, "an Abyssal Wither with 1000 health");
+                abyssal.discard();
             });
             h.succeed();
         });

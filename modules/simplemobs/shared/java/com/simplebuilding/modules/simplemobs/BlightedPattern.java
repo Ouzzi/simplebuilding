@@ -53,7 +53,7 @@ public final class BlightedPattern {
 
     private BlightedPattern() {}
 
-    private static BlockStatePredicate skull() {
+    private static java.util.function.Predicate<BlockState> skull() {
         return BlockStatePredicate.forBlock(Blocks.WITHER_SKELETON_SKULL).or(BlockStatePredicate.forBlock(Blocks.WITHER_SKELETON_WALL_SKULL));
     }
 
