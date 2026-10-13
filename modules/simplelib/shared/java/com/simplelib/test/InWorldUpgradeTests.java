@@ -98,7 +98,7 @@ public final class InWorldUpgradeTests {
             h.assertTrue(SimpleLibApi.isHammer(hammer) && SimpleLibApi.isUpgradeTool(hammer) && InWorldUpgrades.toolFits(cauldron, hammer),
                     "SimpleBuilding's sledgehammer is no #simplelib:hammers / upgrade tool");
             h.assertTrue(!SimpleLibApi.axeWaysEnabled(), "SimpleBuilding is loaded, yet the axe ways are on");
-            InWorldUpgrades.Entry chest = InWorldUpgrades.entryFor(Blocks.COPPER_CHEST.unaffected());
+            InWorldUpgrades.Entry chest = InWorldUpgrades.entryFor(BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("copper_chest")));
             h.assertTrue(chest != null && chest.material() == BuiltInRegistries.ITEM.getValue(
                             Identifier.fromNamespaceAndPath("simplebuilding", "cracked_diamond")) && chest.tier().equals("reinforced"),
                     "SimpleBuilding's in_world_upgrades files did not reach the effective table: " + chest);
