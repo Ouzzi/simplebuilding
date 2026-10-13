@@ -24,7 +24,7 @@ import proposals_b7_2026_10_02 as b7  # noqa: E402
 b7.V = V
 A = os.path.join(HERE, '..', '..', 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
 PREVIEW = os.environ.get('SB_PREVIEW_DIR', r'C:\Users\o_o\code\minecraft-mods\previews')
-POWDERS = (('astral', 'astral_redstone'), ('nihil', 'nihil_redstone'))   # bridge: n52_bridge_wire_2026_10_13.py
+POWDERS = (('astral', 'astral_redstone'), ('nihil', 'nihil_redstone'))   # bridge: n53_bridge_wire_2026_10_13.py (own PNGs)
 # Redstone red in the same six brightness steps as the B7 ramps (vanilla dust at power 1..15, darker to lighter).
 RED = [(44, 6, 6), (94, 12, 10), (150, 22, 16), (204, 40, 26), (240, 90, 64), (255, 170, 150)]
 BRIDGE = ('astral', 'nihil', 'red')
