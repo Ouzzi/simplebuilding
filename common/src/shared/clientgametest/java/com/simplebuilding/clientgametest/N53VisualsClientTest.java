@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Queue N53 (26.3): cracked ice set into a frozen floor of normal ice (two blocks deep, stages 0 and 3 in the top layer,
- * one in the lower layer) from above and from the side - it must hide in the ice without dark edges; Bridge Redstone in
+ * one in the lower layer, stone under it) from above and from the side - it must hide in the ice without dark edges; Bridge Redstone in
  * a line, a corner, a T and a cross; the Enchanter (dark edge line). Clears its blocks again.
  */
 public final class N53VisualsClientTest {
@@ -30,7 +30,7 @@ public final class N53VisualsClientTest {
         onServer(script, "lay out the ice floor, the bridge wire and the enchanter", server -> {
             ServerLevel level = server.overworld();
             for (int z = Z; z <= Z + 6; z++) for (int x = 0; x <= 6; x++) {
-                level.setBlock(new BlockPos(x, -2, z), Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
+                level.setBlock(new BlockPos(x, -2, z), Blocks.STONE.defaultBlockState(), Block.UPDATE_CLIENTS);
                 level.setBlock(new BlockPos(x, -1, z), Blocks.ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
                 level.setBlock(new BlockPos(x, 0, z), Blocks.ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
             }
@@ -39,6 +39,10 @@ public final class N53VisualsClientTest {
             level.setBlock(new BlockPos(3, 0, Z + 5), ModBlocks.CRACKED_ICE.defaultBlockState().setValue(CrackedIceBlock.AGE, 1), Block.UPDATE_CLIENTS);
             level.setBlock(new BlockPos(3, -1, Z + 3), ModBlocks.CRACKED_ICE.defaultBlockState().setValue(CrackedIceBlock.AGE, 2), Block.UPDATE_CLIENTS);
             int zb = Z + 10;
+            for (int z = zb - 1; z <= zb + 4; z++) for (int x = -1; x <= 15; x++) {   // ground for the wire and the table
+                level.setBlock(new BlockPos(x, -1, z), Blocks.DIRT.defaultBlockState(), Block.UPDATE_CLIENTS);
+                level.setBlock(new BlockPos(x, 0, z), Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
             BlockPos[] bridge = {new BlockPos(0, 0, zb), new BlockPos(0, 0, zb + 1), new BlockPos(0, 0, zb + 2),
                     new BlockPos(2, 0, zb), new BlockPos(3, 0, zb), new BlockPos(2, 0, zb + 1),
                     new BlockPos(6, 0, zb), new BlockPos(5, 0, zb), new BlockPos(7, 0, zb), new BlockPos(6, 0, zb + 1),
@@ -50,7 +54,7 @@ public final class N53VisualsClientTest {
                 level.setBlock(pos, Block.updateFromNeighbourShapes(state, level, pos), Block.UPDATE_ALL);
             }
             if (ModBlocks.ASTRAL_ENCHANTING_TABLE != null) {
-                level.setBlock(new BlockPos(14, 1, zb + 1), ModBlocks.ASTRAL_ENCHANTING_TABLE.defaultBlockState(), Block.UPDATE_ALL);
+                level.setBlock(new BlockPos(14, 0, zb + 1), ModBlocks.ASTRAL_ENCHANTING_TABLE.defaultBlockState(), Block.UPDATE_ALL);
             }
         });
         script.awaitPackets();
@@ -70,7 +74,7 @@ public final class N53VisualsClientTest {
         script.awaitChunks();
         script.idle("settle", 20);
         script.shot("n53-bridge-wire");
-        script.command("tp @a 15.9 1.9 " + (Z + 13.0) + " 150.0 25.0");
+        script.command("tp @a 15.9 1.4 " + (Z + 13.6) + " 150.0 25.0");
         script.awaitPackets();
         script.idle("settle", 20);
         script.shot("n53-enchanter");
