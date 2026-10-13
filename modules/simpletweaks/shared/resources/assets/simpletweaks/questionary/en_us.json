@@ -15,7 +15,7 @@
       "A deed from an older world, still stamped with its first owner."
     ],
     "use": [
-      "A legacy item without a recipe, kept for existing worlds or /give. Stacks to 16. Claims are off by default; once enabled the deed asks the server for ownership."
+      "A legacy item without a recipe, kept for existing worlds or /give. Stacks to 16. Using it claims the chunk you stand in, like /claim create."
     ],
     "secret": [
       "Its original texture and custom data are kept exactly, so an old deed still works after an update."

@@ -54,6 +54,8 @@ public final class ClaimTests {
         TESTS.put("claims_tools_echo",ToolClaimTests::echo);
         TESTS.put("claims_tools_pad",ToolClaimTests::pad);
         TESTS.put("claims_tools_transform_hint",ToolClaimTests::transformHint);
+        TESTS.put("claims_tools_held_attractor",ToolClaimTests::heldAttractor);
+        TESTS.put("claims_access_create",ToolClaimTests::create);
 
         TESTS.put("claims_config_bounds",ClaimTests::config);
         TESTS.put("claims_vanilla_border",ClaimTests::vanilla);
@@ -79,7 +81,7 @@ public final class ClaimTests {
     static Path temp() { try { return Files.createTempDirectory("simpletweaks-claims-test-"); } catch(java.io.IOException e) { throw new AssertionError(e); } }
     static ClaimConfig on() { return new ClaimConfig(true,2,2,3,20,false,0,ClaimConfig.DEFAULT.dimensions()); }
     static void config(GameTestHelper h) {
-        yes(h,!ClaimConfig.DEFAULT.enabled()&&!ClaimConfig.DEFAULT.opBypass(),"Default off, no implicit OP bypass");
+        yes(h,ClaimConfig.DEFAULT.enabled()&&!ClaimConfig.DEFAULT.opBypass()&&!ClaimConfig.OFF.enabled(),"Default on (owner release 2026-10-13), no implicit OP bypass");
         var c=new ClaimConfig(true,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,true,Integer.MAX_VALUE,List.of());
         yes(h,c.maxClaimsPerPlayer()==256&&c.maxTrustedPlayers()==64&&c.globalCap()==10000&&c.cooldownTicks()==72000&&c.spawnBuffer()==256,"All upper bounds");
         c=new ClaimConfig(true,-1,-1,-1,-1,false,-1,List.of());
@@ -88,6 +90,8 @@ public final class ClaimTests {
         try {
             Path p=temp().resolve("config.json"); var d=ClaimConfig.load(p); yes(h,d.equals(ClaimConfig.DEFAULT),"First config defaults");
             byte[] original=Files.readAllBytes(p); yes(h,ClaimConfig.load(p).equals(d)&&Arrays.equals(original,Files.readAllBytes(p)),"Read does not rewrite config");
+            Files.writeString(p,"{\"enabled\":false}");yes(h,ClaimConfig.load(p).equals(ClaimConfig.OFF),"An existing explicit false stays off after the default changed");
+            Files.writeString(p,"{\"maxClaimsPerPlayer\":4}");yes(h,ClaimConfig.load(p).enabled(),"A config without the switch takes the new default (on)");
             Files.writeString(p,"{\"enabled\":\"true\"}");
             try { ClaimConfig.load(p); throw new AssertionError("Nonboolean switch accepted"); } catch(IllegalStateException expected) {}
         } catch(java.io.IOException e) {throw new AssertionError(e);}
@@ -125,7 +129,7 @@ public final class ClaimTests {
         }catch(java.io.IOException e){throw new AssertionError(e);}h.succeed();
     }
     static void disabled(GameTestHelper h) {
-        Path dir=temp();var c=new Claims(ClaimConfig.DEFAULT,dir,Map.of("minecraft:overworld",dir.resolve("unreadable.dat")));
+        Path dir=temp();var c=new Claims(ClaimConfig.OFF,dir,Map.of("minecraft:overworld",dir.resolve("unreadable.dat")));
         try {Files.writeString(dir.resolve("simpletweaks-claims.json"),"malformed archived data");}catch(java.io.IOException e){throw new AssertionError(e);}
         yes(h,c.allowed("minecraft:overworld",null,0)&&c.view().isEmpty()&&!c.dataLoaded(),"Disabled lookup never opens data");
         yes(h,!c.create(new ClaimStore.Key("minecraft:overworld",0),UUID.randomUUID(),100)&&!c.dataLoaded(),"Disabled mutations do nothing");
@@ -250,7 +254,7 @@ public final class ClaimTests {
         h.succeed();
     }
     static void disabledHooks(GameTestHelper h) {
-        with(h,ClaimConfig.DEFAULT,c->{
+        with(h,ClaimConfig.OFF,c->{
             var level=h.getLevel();var pos=h.absolutePos(new BlockPos(1,3,1));var p=player(h,pos);
             level.setBlock(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
             yes(h,p.gameMode.destroyBlock(pos)&&level.getBlockState(pos).isAir(),"Disabled break hook preserves Vanilla");
@@ -279,13 +283,13 @@ public final class ClaimTests {
         var dispatcher=new com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack>();
         var foreign=dispatcher.register(net.minecraft.commands.Commands.literal("claim").executes(c->7));
         var handler=foreign.getCommand();
-        ClaimCommands.register(dispatcher,ClaimConfig.DEFAULT);
+        ClaimCommands.register(dispatcher,ClaimConfig.OFF);
         yes(h,dispatcher.getRoot().getChild("claim")==foreign&&foreign.getCommand()==handler&&foreign.getChildren().isEmpty(),"Disabled registration preserves foreign node, handler and children");
         try {yes(h,dispatcher.execute("claim",h.getLevel().getServer().createCommandSourceStack())==7,"Foreign command still executes");}
         catch(com.mojang.brigadier.exceptions.CommandSyntaxException e){throw new AssertionError(e);}
-        try {ClaimCommands.register(dispatcher,on());throw new AssertionError("Enabled collision accepted");}catch(IllegalStateException expected){}
-        yes(h,foreign.getCommand()==handler&&foreign.getChildren().isEmpty(),"Enabled collision cannot replace foreign handler");
-        var empty=new com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack>();ClaimCommands.register(empty,ClaimConfig.DEFAULT);
+        ClaimCommands.register(dispatcher,on());
+        yes(h,dispatcher.getRoot().getChild("claim")==foreign&&foreign.getCommand()==handler&&foreign.getChildren().isEmpty(),"Enabled collision keeps the foreign command and does not stop the server");
+        var empty=new com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack>();ClaimCommands.register(empty,ClaimConfig.OFF);
         yes(h,empty.getRoot().getChildren().isEmpty(),"Disabled registration adds no command");h.succeed();
     }
 }

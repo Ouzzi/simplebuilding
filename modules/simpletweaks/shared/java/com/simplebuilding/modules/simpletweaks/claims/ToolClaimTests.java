@@ -7,6 +7,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.LodestoneTracker;
 import net.minecraft.world.item.context.UseOnContext;
@@ -124,5 +125,27 @@ final class ToolClaimTests {
             for(int t=0;t<1200;t++)ticker.tick(l,pos,l.getBlockState(pos),be);
             yes(h,actor.position().equals(before)==(actor==other),"Actual pad ticker checks source claim before teleporting");
         }
+    });h.succeed();}
+    /** The held attractor (magnet) must not pull items off land the holder may not touch (13.10.: claims on by default). */
+    static void heldAttractor(GameTestHelper h){if(skipWithoutSimpleBuilding(h,"claims tools heldAttractor"))return;with(h,c->{
+        var l=h.getLevel();var inside=boundary(h);var owner=player(h,inside.west(4));var stranger=player(h,inside.west(4));
+        yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Held attractor fixture");
+        var claimed=new ItemEntity(l,inside.getX()+4.5,inside.getY()+1,inside.getZ()+.5,new ItemStack(Items.APPLE));
+        var wild=new ItemEntity(l,inside.getX()-4.5,inside.getY()+1,inside.getZ()+.5,new ItemStack(Items.APPLE));
+        try {
+            var may=Class.forName("com.simplebuilding.util.AttractorFilter").getMethod("mayAttract",ItemEntity.class,net.minecraft.world.entity.player.Player.class);
+            yes(h,!(boolean)may.invoke(null,claimed,stranger),"Stranger's attractor leaves items on foreign land");
+            yes(h,(boolean)may.invoke(null,wild,stranger),"Stranger's attractor still pulls wilderness items");
+            yes(h,(boolean)may.invoke(null,claimed,owner),"Owner's attractor pulls items on own land");
+        } catch(ReflectiveOperationException e){throw new AssertionError(e);}
+    });h.succeed();}
+    /** Survival way to claim: /claim create, same rules as the deed (limits, cooldown, spawn buffer, border). */
+    static void create(GameTestHelper h){with(h,c->{
+        var pos=h.absolutePos(new BlockPos(1,2,1)).offset(2048,0,2048);var owner=player(h,pos);var stranger=player(h,pos);
+        var d=ClaimAccessTests.dispatcher(on());
+        yes(h,ClaimAccessTests.execute(d,owner,"claim create")==1,"/claim create claims the chunk under the player");
+        yes(h,c.view().get(ClaimAccessTests.key(owner)).owner().equals(owner.getUUID()),"Ledger names the creator as owner");
+        yes(h,ClaimAccessTests.execute(d,stranger,"claim create")==0,"A claimed chunk cannot be claimed again");
+        yes(h,!Claims.allow(stranger,h.getLevel(),pos)&&Claims.allow(owner,h.getLevel(),pos),"New claim protects at once");
     });h.succeed();}
 }

@@ -50,7 +50,12 @@ public final class AttractorFilter {
             }
         }
         UUID deadOwner = deathDropOwner(item);
-        return deadOwner == null || deadOwner.equals(player.getUUID());
+        if (deadOwner != null && !deadOwner.equals(player.getUUID())) {
+            return false;
+        }
+        // Claims: items lying on land the player may not touch stay there (else the magnet would pull them
+        // into the wilderness, where anyone may pick them up).
+        return com.simplebuilding.api.WorldPermissions.mayAffectEntity(player, item);
     }
 
     /** The player whose death drop {@code item} is, or null. */
