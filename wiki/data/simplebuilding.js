@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 823,
+      "count": 838,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -401,7 +401,7 @@ window.WIKI_DATA = {
           "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
-          "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. A Cracked Diamond placed on the ground (sneak-click) breaks back into 9 Diamond Pebbles with 9 strikes of any sledgehammer. Nine pebbles make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+          "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
           "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
           "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
           "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -429,7 +429,7 @@ window.WIKI_DATA = {
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
-          "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+          "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
           "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
           "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
           "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -3540,6 +3540,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/mixin/RedstoneWireEvaluatorLinesMixin.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalLampBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneBlock.java",
         "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
@@ -3547,12 +3548,18 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonMoves.java",
         "mc26_3/overlay/resources/data/simplebuilding/recipe/bridge_redstone.json",
         "mc26_3/generated/data/simplebuilding/recipe/astral_piston.json",
-        "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json"
+        "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json",
+        "mc26_3/generated/data/simplebuilding/recipe/astral_redstone_block.json",
+        "mc26_3/generated/data/simplebuilding/recipe/nihil_redstone_block.json",
+        "mc26_3/generated/data/simplebuilding/recipe/bridge_redstone_block.json"
       ],
       "related": [
         "simplebuilding:nihil_redstone",
         "simplebuilding:astral_redstone",
         "simplebuilding:bridge_redstone",
+        "simplebuilding:nihil_redstone_block",
+        "simplebuilding:astral_redstone_block",
+        "simplebuilding:bridge_redstone_block",
         "simplebuilding:astralit_lamp",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:astral_piston",
@@ -3560,30 +3567,32 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Astral, Nihil and Bridge Redstone",
-        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three.",
+        "summary": "Astral Redstone and Nihil Redstone are a second and a third redstone line that never mix with redstone dust or with each other; Bridge Redstone links all three; devices take every line, and each line has its own redstone block.",
         "details": [
           "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
           "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
-          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+          "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
           "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-          "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
+          "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
+          "Nine Astral, Nihil or Bridge Redstone craft a Block of Astral, Nihil or Bridge Redstone, and the block gives the nine back. Like the redstone block it is a permanent source (signal 15 to every side, no strong power, pistons push it): it feeds dust of its own line and Bridge Redstone only - the Block of Bridge Redstone feeds all three lines - and every device next to it. Switched off with server.features.endSignals.",
           "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload.",
-          "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They take the signal of their own line's redstone (or Bridge Redstone) lying next to them and relay nothing; they fire when the signal switches on, not while it stays on.",
+          "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They take every line - dust of any line lying next to them, levers, redstone blocks and the line blocks - and relay nothing; they fire when the signal switches on, not while it stays on.",
           "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End pistons, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
           "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload."
         ]
       },
       "de": {
         "title": "Astral-, Nihil- und Brücken-Redstone",
-        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei.",
+        "summary": "Astral-Redstone und Nihil-Redstone sind eine zweite und dritte Redstone-Linie, die sich nie mit Redstone-Staub oder untereinander mischen; Brücken-Redstone verbindet alle drei; Geräte nehmen jede Linie an, und jede Linie hat ihren eigenen Redstone-Block.",
         "details": [
           "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
           "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
-          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+          "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
           "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-          "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
+          "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
+          "Neun Astral-, Nihil- oder Brücken-Redstone ergeben einen Astral-, Nihil- oder Brücken-Redstone-Block, der Block gibt die neun zurück. Wie der Redstone-Block ist er eine dauerhafte Quelle (Signal 15 zu jeder Seite, kein starkes Signal, Kolben schieben ihn): Er speist nur Staub seiner eigenen Linie und Brücken-Redstone - der Brücken-Redstone-Block alle drei Linien - und jedes Gerät daneben. Abschaltbar mit server.features.endSignals.",
           "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen.",
-          "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie nehmen das Signal des Redstones ihrer eigenen Linie (oder von Brücken-Redstone) direkt daneben und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
+          "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie nehmen jede Linie an - Staub jeder Linie direkt daneben, Hebel, Redstone-Blöcke und die Blöcke der Linien - und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
           "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Kolben, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
           "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
@@ -3614,7 +3623,7 @@ window.WIKI_DATA = {
         "summary": "Straight rails of the two End channels: the Astral Rail raises the minecart top speed and boosts towards it, the Nihil Rail brakes to a stop.",
         "details": [
           "Recipe like the powered rail: six gold ingots, a stick and Astral Redstone (Astral Rail) or Nihil Redstone (Nihil Rail) make 6 rails. They are straight only (no curves) and minecarts treat them as rails.",
-          "Power comes from the rail's own line: Astral or Nihil Redstone (or Bridge Redstone) on a horizontal neighbor, which any vanilla source can feed. Vanilla redstone dust, the other line and neighboring rails do not power it. The rail checks its neighbors every two game ticks while such redstone lies next to it.",
+          "Every redstone line powers it: any vanilla signal (levers, redstone blocks, the line blocks) and dust of any line - redstone, Astral, Nihil or Bridge Redstone - on a horizontal neighbor. Neighboring rails do not power it. The rail checks its neighbors every two game ticks while dust lies next to it.",
           "Astral Rail: on a flat Astral Rail the top speed is server.machines.astralRailMaxSpeed blocks per second (default 16, clamped to 8–20; vanilla 8), or the experimental max_minecart_speed game rule if that is higher. On slopes, in water and on every other rail the vanilla limit applies, so a fast cart meets the normal limit again before a curve. Unpowered it is a plain rail that keeps the cart's momentum; momentum above the limit is cut to the limit.",
           "Powered Astral Rail: every game tick the cart gains boost × (1 − (speed / top speed)²), boost = server.machines.astralRailBoost (default 0.12 blocks per tick, clamped to 0.07–0.25, at most a quarter of the top speed). That is more than a powered rail's 0.06 when slow and less the faster the cart goes; the speed approaches the top speed and never reaches it. Vanilla friction still applies. A cart standing still is pushed away from a solid block at one end of the rail, like on a powered rail.",
           "Powered Nihil Rail: every game tick the cart keeps 80 % of its speed minus server.machines.nihilRailBrake (default 0.08 blocks per tick, clamped to 0.02–0.4); below 0.03 it stops and is held while the power stays on. Unpowered, carts roll through.",
@@ -3626,7 +3635,7 @@ window.WIKI_DATA = {
         "summary": "Gerade Schienen der beiden End-Kanäle: die Astral-Schiene hebt das Höchsttempo der Lore an und beschleunigt darauf zu, die Nihil-Schiene bremst bis zum Halt.",
         "details": [
           "Rezept wie die Antriebsschiene: sechs Goldbarren, ein Stock und Astral-Redstone (Astral-Schiene) bzw. Nihil-Redstone (Nihil-Schiene) ergeben 6 Schienen. Sie sind nur gerade (keine Kurven), Loren behandeln sie als Schienen.",
-          "Strom kommt aus der eigenen Linie: Astral- bzw. Nihil-Redstone (oder Brücken-Redstone) auf einem waagerechten Nachbarfeld, das jede Vanilla-Quelle speisen kann. Vanilla-Redstone-Staub, die andere Linie und benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange solches Redstone daneben liegt.",
+          "Jede Redstone-Linie speist sie: jedes Vanilla-Signal (Hebel, Redstone-Blöcke, die Blöcke der Linien) und Staub jeder Linie - Redstone, Astral-, Nihil- oder Brücken-Redstone - auf einem waagerechten Nachbarfeld. Benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange Staub daneben liegt.",
           "Astral-Schiene: auf einer flachen Astral-Schiene beträgt das Höchsttempo server.machines.astralRailMaxSpeed Blöcke pro Sekunde (Standard 16, begrenzt auf 8–20; Vanilla 8) oder die experimentelle Spielregel max_minecart_speed, wenn sie höher ist. Auf Steigungen, im Wasser und auf allen anderen Schienen gilt die Vanilla-Grenze, eine schnelle Lore trifft vor einer Kurve also wieder auf die normale Grenze. Ungespeist ist sie eine normale Schiene, die den Schwung erhält; Schwung über der Grenze wird auf die Grenze gekappt.",
           "Gespeiste Astral-Schiene: jeden Spieltick gewinnt die Lore Schub × (1 − (Tempo / Höchsttempo)²), Schub = server.machines.astralRailBoost (Standard 0,12 Blöcke pro Tick, begrenzt auf 0,07–0,25, höchstens ein Viertel des Höchsttempos). Langsam ist das mehr als die 0,06 einer Antriebsschiene, je schneller die Lore, desto weniger; das Tempo nähert sich dem Höchsttempo und erreicht es nie. Die Vanilla-Reibung wirkt weiter. Eine stehende Lore wird wie auf einer Antriebsschiene von einem festen Block am Schienenende weggeschoben.",
           "Gespeiste Nihil-Schiene: jeden Spieltick behält die Lore 80 % ihres Tempos abzüglich server.machines.nihilRailBrake (Standard 0,08 Blöcke pro Tick, begrenzt auf 0,02–0,4); unter 0,03 hält sie an und bleibt stehen, solange der Strom anliegt. Ungespeist rollen Loren durch.",
@@ -4347,8 +4356,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astral_enchanting_table",
       "name": {
-        "en_us": "Enchanter",
-        "de_de": "Verzauberer"
+        "en_us": "Astral Enchanter",
+        "de_de": "Astral-Verzauberer"
       },
       "texture": "assets/textures/block/astral_enchanting_table_side.png",
       "craftedBy": [],
@@ -4381,7 +4390,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
+          "summary": "The Astral Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
           "details": [
             "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
             "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), the best 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Up to 15 points the strength is 2 x points (15 bookshelves = 30), above that it climbs on to 40 at 30 points - so 15 blazewood bookshelves give 40, and every blazewood shelf in place of a bookshelf adds about two thirds of a strength. A 5x5 floor of Blazing Obsidian right under the table adds 10 once the shelves give 30 (15 bookshelves on the floor = 40). So 30 to 40 needs blazewood shelves OR the floor, and the maximum 50 needs both: 15 blazewood bookshelves plus the floor. Hover the strength in the screen: it shows what the next stage lacks.",
@@ -4392,7 +4401,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Am Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
+          "summary": "Am Astral-Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
           "details": [
             "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
             "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), die besten 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Bis 15 Punkte ist die Stärke 2 x Punkte (15 Bücherregale = 30), darüber steigt sie weiter bis 40 bei 30 Punkten - 15 Lohen-Regale geben also 40, und jedes Lohen-Regal statt eines Bücherregals bringt etwa zwei Drittel Stärke. Ein 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch gibt 10 dazu, sobald die Regale 30 ergeben (15 Bücherregale auf dem Boden = 40). 30 bis 40 braucht also Lohen-Regale ODER den Boden, das Maximum 50 braucht beides: 15 Lohen-Regale plus Boden. Im Bildschirm über der Stärke schweben zeigt, was für die nächste Stufe fehlt.",
@@ -4486,7 +4495,7 @@ window.WIKI_DATA = {
             "A rail that has heard the sky and wants to go there."
           ],
           "use": [
-            "Six gold ingots, a stick and Astral Redstone make 6. Straight only. Powered by its own channel, it pushes carts to a top speed of 16 blocks per second by default (vanilla 8). Unpowered it is a plain rail."
+            "Six gold ingots, a stick and Astral Redstone make 6. Straight only. Powered by any redstone line, it pushes carts to a top speed of 16 blocks per second by default (vanilla 8). Unpowered it is a plain rail."
           ],
           "secret": [
             "The boost fades the closer a cart gets to top speed, so it approaches the limit and never reaches it. On slopes and in water the vanilla limit applies, so brake before a curve."
@@ -4497,7 +4506,7 @@ window.WIKI_DATA = {
             "Eine Schiene, die den Himmel gehört hat und dorthin will."
           ],
           "use": [
-            "Sechs Goldbarren, ein Stock und Astral-Redstone ergeben 6. Nur gerade. Mit ihrem eigenen Kanal gespeist, beschleunigt sie Loren standardmäßig auf bis zu 16 Blöcke pro Sekunde (Vanilla 8). Ohne Kraft ist sie eine gewöhnliche Schiene."
+            "Sechs Goldbarren, ein Stock und Astral-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, beschleunigt sie Loren standardmäßig auf bis zu 16 Blöcke pro Sekunde (Vanilla 8). Ohne Kraft ist sie eine gewöhnliche Schiene."
           ],
           "secret": [
             "Der Schub nimmt ab, je näher die Lore der Höchstgeschwindigkeit kommt, sie nähert sich dem Limit und erreicht es nie. An Steigungen und im Wasser gilt das Vanilla-Limit, bremse also vor einer Kurve."
@@ -4514,11 +4523,13 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/astral_redstone.png",
       "craftedBy": [
-        "simplebuilding:astral_redstone"
+        "simplebuilding:astral_redstone",
+        "simplebuilding:astral_redstone_from_astral_redstone_block"
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
         "simplebuilding:astral_rail",
+        "simplebuilding:astral_redstone_block",
         "simplebuilding:astralit_lamp"
       ],
       "trades": [],
@@ -4559,9 +4570,9 @@ window.WIKI_DATA = {
           "details": [
             "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
-            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -4571,10 +4582,52 @@ window.WIKI_DATA = {
           "details": [
             "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
-            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_redstone_block",
+      "name": {
+        "en_us": "Block of Astral Redstone",
+        "de_de": "Astral-Redstone-Block"
+      },
+      "texture": "assets/textures/block/astral_redstone_block.png",
+      "craftedBy": [
+        "simplebuilding:astral_redstone_block"
+      ],
+      "usedIn": [
+        "simplebuilding:astral_redstone_from_astral_redstone_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/astral_redstone_block.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneBlock.java",
+          "mc26_3/generated/data/simplebuilding/recipe/astral_redstone_block.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Block of Astral Redstone",
+          "summary": "Nine Astral Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Astral) and Bridge Redstone and every device.",
+          "details": [
+            "Nine Astral Redstone craft one; one gives the nine back.",
+            "Signal 15 to every side, like the redstone block (no strong power, pistons push it). Dust of its own line (Astral) and Bridge Redstone takes it; dust of any other line next to it stays dark, but lamps, pistons, doors, End pistons and rails react.",
+            "server.features.endSignals (default true) switched off: the block gives no signal and its recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astral-Redstone-Block",
+          "summary": "Neun Astral-Redstone als Block: eine dauerhafte Quelle wie der Redstone-Block, die Staub von seiner Linie (Astral) und Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Neun Astral-Redstone ergeben einen; einer gibt die neun zurück.",
+            "Signal 15 zu jeder Seite, wie der Redstone-Block (kein starkes Signal, Kolben schieben ihn). Staub von seiner Linie (Astral) und Brücken-Redstone nimmt es an; Staub jeder anderen Linie daneben bleibt dunkel, Lampen, Kolben, Türen, End-Kolben und -Schienen reagieren aber.",
+            "server.features.endSignals (Standard an) abgeschaltet: Der Block gibt kein Signal, und seine Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -5513,18 +5566,18 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Astral Lamp",
-          "summary": "The lamp of the Astral line: a redstone lamp plus Astral Redstone crafts one; it toggles like a copper bulb on each pulse of its own line.",
+          "summary": "The lamp of the Astral line: a redstone lamp plus Astral Redstone crafts one; it toggles like a copper bulb on each pulse of any redstone line.",
           "details": [
-            "It listens only to Astral Redstone or Bridge Redstone lying beside it or on top of it; redstone dust, the other line and a lever or button on the lamp itself do nothing.",
+            "It takes every redstone line: redstone, Astral, Nihil or Bridge Redstone beside it or on top of it, a lever or button on it, a redstone block or a line block next to it.",
             "Each rising signal switches it on or off, like a copper bulb; while lit it gives light 15. It is no redstone conductor.",
             "server.features.endSignals (default true) switched off: the lamp does not switch and its recipe disappears on datapack reload."
           ]
         },
         "de": {
           "title": "Astral-Lampe",
-          "summary": "Die Lampe der Astral-Linie: Redstone-Lampe und Astral-Redstone ergeben eine; sie schaltet bei jedem Puls ihrer eigenen Linie um wie eine Kupferlampe.",
+          "summary": "Die Lampe der Astral-Linie: Redstone-Lampe und Astral-Redstone ergeben eine; sie schaltet bei jedem Puls einer beliebigen Redstone-Linie um wie eine Kupferlampe.",
           "details": [
-            "Sie hört nur auf Astral-Redstone oder Brücken-Redstone daneben oder obendrauf; Redstone-Staub, die andere Linie und ein Hebel oder Knopf an der Lampe selbst tun nichts.",
+            "Sie nimmt jede Redstone-Linie an: Redstone, Astral-, Nihil- oder Brücken-Redstone daneben oder obendrauf, einen Hebel oder Knopf an ihr, einen Redstone-Block oder Block einer Linie daneben.",
             "Jedes einschaltende Signal schaltet sie an oder aus, wie eine Kupferlampe; leuchtend gibt sie Licht 15. Sie leitet kein Redstone weiter.",
             "server.features.endSignals (Standard an) abgeschaltet: Die Lampe schaltet nicht, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
           ]
@@ -6381,6 +6434,80 @@ window.WIKI_DATA = {
           "details": [
             "Herstellung: 6 ausgehöhlte Stämme (zwei Reihen zu drei) ergeben 16 Platten; ausgehöhlte entrindete Stämme ergeben entrindete Platten.",
             "Abbau mit der Axt; brennbare Hölzer brennen und dienen als Brennstoff (100 Ticks)."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:basic_upgrade_template",
+      "name": {
+        "en_us": "Basic Upgrade",
+        "de_de": "Basis-Aufwertung"
+      },
+      "texture": "assets/textures/item/basic_upgrade_template.png",
+      "craftedBy": [
+        "simplebuilding:basic_upgrade_template"
+      ],
+      "usedIn": [
+        "simplebuilding:basic_upgrade_template",
+        "simplebuilding:upgrade_copper_axe_to_iron_axe",
+        "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand",
+        "simplebuilding:upgrade_copper_chisel_to_iron_chisel",
+        "simplebuilding:upgrade_copper_hoe_to_iron_hoe",
+        "simplebuilding:upgrade_copper_pickaxe_to_iron_pickaxe",
+        "simplebuilding:upgrade_copper_shovel_to_iron_shovel",
+        "simplebuilding:upgrade_copper_sledgehammer_to_iron_sledgehammer",
+        "simplebuilding:upgrade_copper_sword_to_iron_sword",
+        "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand",
+        "simplebuilding:upgrade_gold_chisel_to_diamond_chisel",
+        "simplebuilding:upgrade_gold_sledgehammer_to_diamond_sledgehammer",
+        "simplebuilding:upgrade_golden_axe_to_diamond_axe",
+        "simplebuilding:upgrade_golden_hoe_to_diamond_hoe",
+        "simplebuilding:upgrade_golden_pickaxe_to_diamond_pickaxe",
+        "simplebuilding:upgrade_golden_shovel_to_diamond_shovel",
+        "simplebuilding:upgrade_golden_sword_to_diamond_sword",
+        "simplebuilding:upgrade_iron_axe_to_golden_axe",
+        "simplebuilding:upgrade_iron_building_wand_to_gold_building_wand",
+        "simplebuilding:upgrade_iron_chisel_to_gold_chisel",
+        "simplebuilding:upgrade_iron_hoe_to_golden_hoe",
+        "simplebuilding:upgrade_iron_pickaxe_to_golden_pickaxe",
+        "simplebuilding:upgrade_iron_shovel_to_golden_shovel",
+        "simplebuilding:upgrade_iron_sledgehammer_to_gold_sledgehammer",
+        "simplebuilding:upgrade_iron_sword_to_golden_sword",
+        "simplebuilding:upgrade_stone_axe_to_iron_axe",
+        "simplebuilding:upgrade_stone_hoe_to_iron_hoe",
+        "simplebuilding:upgrade_stone_pickaxe_to_iron_pickaxe",
+        "simplebuilding:upgrade_stone_shovel_to_iron_shovel",
+        "simplebuilding:upgrade_stone_sword_to_iron_sword",
+        "simplebuilding:upgrade_wooden_axe_to_stone_axe",
+        "simplebuilding:upgrade_wooden_hoe_to_stone_hoe",
+        "simplebuilding:upgrade_wooden_pickaxe_to_stone_pickaxe",
+        "simplebuilding:upgrade_wooden_shovel_to_stone_shovel",
+        "simplebuilding:upgrade_wooden_sword_to_stone_sword"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A modest template for modest upgrades, which are the ones everybody needs."
+          ],
+          "use": [
+            "Smithing table: raises copper tools to iron, iron to gold, gold to diamond, and vanilla wood to stone to iron. It costs twice the crafting material. Duplicate: one template, 7 diamonds and an iron block make 2."
+          ],
+          "secret": [
+            "Name, damage and enchantments carry over, and so does a Building Wand's core upgrade: you only add a core of the new tier."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine bescheidene Vorlage für bescheidene Aufwertungen, die jeder braucht."
+          ],
+          "use": [
+            "Schmiedetisch: hebt Kupferwerkzeuge auf Eisen, Eisen auf Gold, Gold auf Diamant sowie Vanilla-Holz auf Stein auf Eisen. Es kostet das Doppelte des Handwerksmaterials. Kopieren: eine Vorlage, 7 Diamanten und ein Eisenblock ergeben 2."
+          ],
+          "secret": [
+            "Name, Schaden und Verzauberungen bleiben erhalten, ebenso das Kern-Upgrade eines Baustabs: Du fügst nur einen Kern der neuen Stufe hinzu."
           ]
         }
       },
@@ -7852,10 +7979,10 @@ window.WIKI_DATA = {
             "Crying obsidian's glowing sibling: where the other weeps, this one burns."
           ],
           "use": [
-            "A decorative block that gives light. Its job is at the Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
+            "A decorative block that gives light. Its job is at the Astral Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
           ],
           "secret": [
-            "The floor only counts under the Enchanter, not the vanilla table, so build it once the shelves are complete."
+            "The floor only counts under the Astral Enchanter, not the vanilla table, so build it once the shelves are complete."
           ]
         },
         "de": {
@@ -7863,23 +7990,23 @@ window.WIKI_DATA = {
             "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
           ],
           "use": [
-            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
+            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Astral-Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
           ],
           "secret": [
-            "Der Boden zählt nur unter dem Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+            "Der Boden zählt nur unter dem Astral-Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
           ]
         }
       },
       "note": {
         "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Enchanter adds 10 strength once the shelves give 30.",
+          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Astral Enchanter adds 10 strength once the shelves give 30.",
           "details": [
             "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
             "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
           ]
         },
         "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
+          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Astral-Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
           "details": [
             "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
             "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
@@ -8375,9 +8502,12 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/bridge_redstone.png",
       "craftedBy": [
-        "simplebuilding:bridge_redstone"
+        "simplebuilding:bridge_redstone",
+        "simplebuilding:bridge_redstone_from_bridge_redstone_block"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:bridge_redstone_block"
+      ],
       "trades": [],
       "questionary": {
         "en": {
@@ -8388,7 +8518,7 @@ window.WIKI_DATA = {
             "Craft astralit dust, a nihilit shard and redstone, shapeless, for three. It links vanilla redstone, Astral Redstone and Nihil Redstone, which otherwise never mix."
           ],
           "secret": [
-            "It is the only dust that lets a lever in one line switch a lamp in another."
+            "It is the only dust that passes a signal from the dust of one line into the dust of another."
           ]
         },
         "de": {
@@ -8399,7 +8529,7 @@ window.WIKI_DATA = {
             "Astralitstaub, einen Nihilit-Splitter und Redstone formlos zu dritt herstellen. Es verbindet Vanilla-Redstone, Astral-Redstone und Nihil-Redstone, die sich sonst nie mischen."
           ],
           "secret": [
-            "Nur dieser Staub lässt einen Hebel der einen Linie eine Lampe der anderen schalten."
+            "Nur dieser Staub reicht ein Signal vom Staub der einen Linie in den Staub einer anderen weiter."
           ]
         }
       },
@@ -8416,9 +8546,9 @@ window.WIKI_DATA = {
           "details": [
             "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
-            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -8428,10 +8558,52 @@ window.WIKI_DATA = {
           "details": [
             "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
-            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:bridge_redstone_block",
+      "name": {
+        "en_us": "Block of Bridge Redstone",
+        "de_de": "Brücken-Redstone-Block"
+      },
+      "texture": "assets/textures/block/bridge_redstone_block.png",
+      "craftedBy": [
+        "simplebuilding:bridge_redstone_block"
+      ],
+      "usedIn": [
+        "simplebuilding:bridge_redstone_from_bridge_redstone_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/bridge_redstone_block.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneBlock.java",
+          "mc26_3/generated/data/simplebuilding/recipe/bridge_redstone_block.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Block of Bridge Redstone",
+          "summary": "Nine Bridge Redstone as a block: a permanent source like the redstone block that feeds the dust of all three lines (redstone, Astral, Nihil) and Bridge Redstone and every device.",
+          "details": [
+            "Nine Bridge Redstone craft one; one gives the nine back.",
+            "Signal 15 to every side, like the redstone block (no strong power, pistons push it). Dust of all three lines (redstone, Astral, Nihil) and Bridge Redstone takes it; dust of any other line next to it stays dark, but lamps, pistons, doors, End pistons and rails react.",
+            "server.features.endSignals (default true) switched off: the block gives no signal and its recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Brücken-Redstone-Block",
+          "summary": "Neun Brücken-Redstone als Block: eine dauerhafte Quelle wie der Redstone-Block, die Staub von allen drei Linien (Redstone, Astral, Nihil) und Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Neun Brücken-Redstone ergeben einen; einer gibt die neun zurück.",
+            "Signal 15 zu jeder Seite, wie der Redstone-Block (kein starkes Signal, Kolben schieben ihn). Staub von allen drei Linien (Redstone, Astral, Nihil) und Brücken-Redstone nimmt es an; Staub jeder anderen Linie daneben bleibt dunkel, Lampen, Kolben, Türen, End-Kolben und -Schienen reagieren aber.",
+            "server.features.endSignals (Standard an) abgeschaltet: Der Block gibt kein Signal, und seine Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -11087,7 +11259,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -11264,6 +11436,112 @@ window.WIKI_DATA = {
       "trades": [],
       "properties": {
         "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_diamond",
+      "name": {
+        "en_us": "Cracked Diamond",
+        "de_de": "Rissiger Diamant"
+      },
+      "texture": "assets/textures/item/cracked_diamond.png",
+      "craftedBy": [
+        "simplebuilding:cracked_diamond",
+        "simplebuilding:cracked_diamond_from_cracked_diamond_block"
+      ],
+      "usedIn": [
+        "simplebuilding:cracked_diamond_block",
+        "simplebuilding:diamond_from_blasting_cracked_diamond",
+        "simplebuilding:reinforced_blast_furnace",
+        "simplebuilding:reinforced_chest",
+        "simplebuilding:reinforced_furnace",
+        "simplebuilding:reinforced_hopper_from_crafting",
+        "simplebuilding:reinforced_piston",
+        "simplebuilding:reinforced_shulker_box_from_black_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_blue_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_brown_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_cyan_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_gray_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_green_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_light_blue_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_light_gray_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_lime_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_magenta_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_orange_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_pink_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_purple_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_red_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_white_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_yellow_shulker_box",
+        "simplebuilding:reinforced_smoker"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A diamond with a flaw, which is what makes it useful."
+          ],
+          "use": [
+            "Craft 9 Diamond Pebbles in a 3x3 square. It builds the Reinforced tier: furnaces, blast furnaces, smokers, hoppers, chests, shulker boxes and pistons."
+          ],
+          "secret": [
+            "Nine of them make a Block of Cracked Diamond, which crafts back into nine."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Diamant mit Fehler, und gerade das macht ihn nützlich."
+          ],
+          "use": [
+            "9 Diamantkiesel im 3x3-Quadrat herstellen. Er baut die Verstärkte Stufe: Öfen, Schmelzöfen, Räucheröfen, Trichter, Truhen, Shulkerkisten und Kolben."
+          ],
+          "secret": [
+            "Neun davon ergeben einen Rissigen Diamantblock, der sich in neun zurückverwandeln lässt."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cracked_diamond_block",
+      "name": {
+        "en_us": "Block of Cracked Diamond",
+        "de_de": "Rissiger Diamantblock"
+      },
+      "texture": "assets/textures/block/cracked_diamond_block.png",
+      "craftedBy": [
+        "simplebuilding:cracked_diamond_block"
+      ],
+      "usedIn": [
+        "simplebuilding:cracked_diamond_from_cracked_diamond_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_diamond_block.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Nine flawed diamonds, held together by hope."
+          ],
+          "use": [
+            "Nine Cracked Diamonds in a 3x3 square. It crafts back into nine, shapeless. A compact way to store them."
+          ],
+          "secret": [
+            "The flaws are structural: the block is not made of diamond pebbles directly, but of the diamonds they form."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Neun fehlerhafte Diamanten, von Hoffnung zusammengehalten."
+          ],
+          "use": [
+            "Neun Rissige Diamanten im 3x3-Quadrat. Er lässt sich formlos in neun zurückverwandeln. Eine kompakte Art, sie zu lagern."
+          ],
+          "secret": [
+            "Die Fehler sind strukturell: Der Block besteht nicht direkt aus Diamantkieseln, sondern aus den Diamanten, die sie bilden."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -11815,14 +12093,14 @@ window.WIKI_DATA = {
       "icon": "assets/textures/render/crimson_blazewood_bookshelf.png",
       "note": {
         "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanter, one at the Vanilla table.",
           "details": [
             "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
             "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
           ]
         },
         "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
           "details": [
             "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
             "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
@@ -13773,6 +14051,50 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:diamond_pebble",
+      "name": {
+        "en_us": "Diamond Pebble",
+        "de_de": "Diamantkiesel"
+      },
+      "texture": "assets/textures/item/diamond_pebble.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:cracked_diamond",
+        "simplebuilding:reinforced_backpack",
+        "simplebuilding:reinforced_bundle",
+        "simplebuilding:reinforced_paint_box",
+        "simplebuilding:reinforced_quiver"
+      ],
+      "trades": [
+        "simplebuilding:wandering_trader/emerald_diamond_pebbles"
+      ],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A grain of diamond, with all the cold light of its parent."
+          ],
+          "use": [
+            "Hold right-click on a diamond block with a sledgehammer to crush it into 81 pebbles. 9 pebbles make a Cracked Diamond. The Wandering Trader sells 3 for 5 emeralds. Six go into the Reinforced Bundle and Quiver, four into the Reinforced Backpack."
+          ],
+          "secret": [
+            "It is the road to every Reinforced machine: pebbles, then cracked diamonds, then furnaces, hoppers, chests and pistons."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Diamantkorn, mit dem ganzen kalten Licht seines Ursprungs."
+          ],
+          "use": [
+            "Halte Rechtsklick mit einem Vorschlaghammer auf einem Diamantblock, um ihn in 81 Kiesel zu zerschlagen. 9 Kiesel ergeben einen Rissigen Diamanten. Der Fahrende Händler verkauft 3 für 5 Smaragde. Sechs kommen in Verstärktes Bündel und Köcher, vier in den Verstärkten Rucksack."
+          ],
+          "secret": [
+            "Er ist der Weg zu jeder Verstärkten Maschine: Kiesel, dann Rissige Diamanten, dann Öfen, Trichter, Truhen und Kolben."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:diamond_pole",
       "name": {
         "en_us": "Diamond Pole",
@@ -14020,7 +14342,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -16211,6 +16533,47 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_block",
+      "name": {
+        "en_us": "Block of Enderite",
+        "de_de": "Enderitblock"
+      },
+      "texture": "assets/textures/block/enderite_block.png",
+      "craftedBy": [
+        "simplebuilding:enderite_block"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_ingot"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_block.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Nine ingots of the End, folded into a cube: the heaviest thing a builder can own."
+          ],
+          "use": [
+            "Nine Enderite Ingots in a 3x3 square make a Block of Enderite. It is a storage and decoration block."
+          ],
+          "secret": [
+            "It is part of the enderite item family, so it is safe from the void if it ever drops as an item."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Neun Barren des Endes, zu einem Würfel gefaltet: das Schwerste, das ein Baumeister besitzen kann."
+          ],
+          "use": [
+            "Neun Enderitbarren im 3x3-Quadrat ergeben einen Enderitblock. Ein Lager- und Dekorationsblock."
+          ],
+          "secret": [
+            "Er gehört zur Enderit-Gegenstandsfamilie und ist beim Fallenlassen vor der Leere sicher."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_boots",
       "name": {
         "en_us": "Enderite Boots",
@@ -16661,7 +17024,7 @@ window.WIKI_DATA = {
         "en_us": "Enderite Chest",
         "de_de": "Enderittruhe"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_block.png",
       "craftedBy": [],
       "usedIn": [
         "simplebuilding:enderite_chest_boat_acacia",
@@ -17682,6 +18045,81 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_ingot",
+      "name": {
+        "en_us": "Enderite Ingot",
+        "de_de": "Enderitbarren"
+      },
+      "texture": "assets/textures/item/enderite_ingot.png",
+      "craftedBy": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_ingot_from_nugget",
+        "simplebuilding:enderite_ingot_from_scrap"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_axe_smithing",
+        "simplebuilding:enderite_backpack_smithing",
+        "simplebuilding:enderite_block",
+        "simplebuilding:enderite_boots_smithing",
+        "simplebuilding:enderite_building_wand_smithing",
+        "simplebuilding:enderite_bundle_smithing",
+        "simplebuilding:enderite_chest_boat_smithing",
+        "simplebuilding:enderite_chest_minecart_smithing",
+        "simplebuilding:enderite_chestplate_smithing",
+        "simplebuilding:enderite_chisel_smithing",
+        "simplebuilding:enderite_core_smithing",
+        "simplebuilding:enderite_furnace_minecart_smithing",
+        "simplebuilding:enderite_helmet_smithing",
+        "simplebuilding:enderite_hoe_smithing",
+        "simplebuilding:enderite_hopper_minecart_smithing",
+        "simplebuilding:enderite_horse_armor_smithing",
+        "simplebuilding:enderite_leggings_smithing",
+        "simplebuilding:enderite_nautilus_armor_smithing",
+        "simplebuilding:enderite_nugget_from_ingot",
+        "simplebuilding:enderite_paint_box_smithing",
+        "simplebuilding:enderite_pickaxe_smithing",
+        "simplebuilding:enderite_pole_smithing",
+        "simplebuilding:enderite_pressure_plate_smithing",
+        "simplebuilding:enderite_quiver_smithing",
+        "simplebuilding:enderite_shovel_smithing",
+        "simplebuilding:enderite_sledgehammer_smithing",
+        "simplebuilding:enderite_spear_smithing",
+        "simplebuilding:enderite_sword_smithing"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "Forged where the End forgets its own edges. Four shards of scrap, four diamonds and the weight of Netherite were pressed into one bar, and it has been humming ever since.",
+            "Miners of the outer islands say it keeps a note only the void can hear."
+          ],
+          "use": [
+            "Blast Raw Enderite Scrap into Enderite Scrap. Four scrap, four diamonds and a Netherite Ingot make one ingot; nine nuggets make one, too.",
+            "At a Smithing Table the Enderite Upgrade lifts Netherite gear and many blocks to Enderite. Enderite items are safe from the void; the armor lets you drift down while you hold jump."
+          ],
+          "secret": [
+            "Hold an Enderite Nugget in your off hand and strike an Enchanting Table 20 times with a Netherite Sledgehammer: it becomes the Astral Enchanter, strong up to 50 with blazewood bookshelves and a Blazing Obsidian floor.",
+            "Break it, and table and nugget return. Eight nuggets around a bucket make the Enderite Bucket."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Geschmiedet dort, wo das Ende seine eigenen Kanten vergisst. Vier Platten, vier Diamanten und das Gewicht von Netherit wurden zu einem Barren gepresst, und er summt seitdem.",
+            "Die Bergleute der äußeren Inseln sagen, er hält einen Ton, den nur die Leere hört."
+          ],
+          "use": [
+            "Schmilz Rohe Enderitplatten im Hochofen zu Enderitplatten. Vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Barren, neun Nuggets ebenso.",
+            "Am Schmiedetisch hebt die Enderit-Aufwertung Netherit-Ausrüstung und viele Blöcke auf Enderit. Enderit ist vor der Leere sicher; mit der Rüstung schwebst du bei gedrückter Sprungtaste hinab."
+          ],
+          "secret": [
+            "Halte ein Enderit-Nugget in der Nebenhand und schlage 20-mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch: er wird zum Astral-Verzauberer, mit Lohen-Bücherregalen und Lohen-Obsidian-Boden bis Stärke 50.",
+            "Baust du ihn ab, kommen Tisch und Nugget zurück. Acht Nuggets um einen Eimer ergeben den Enderit-Eimer."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_lava_bucket",
       "name": {
         "en_us": "Enderite Lava Bucket",
@@ -17802,6 +18240,52 @@ window.WIKI_DATA = {
           "tools/textures/mount_armor_textures.py",
           "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_nugget",
+      "name": {
+        "en_us": "Enderite Nugget",
+        "de_de": "Enderitklumpen"
+      },
+      "texture": "assets/textures/item/enderite_nugget.png",
+      "craftedBy": [
+        "simplebuilding:enderite_nugget_from_ingot"
+      ],
+      "usedIn": [
+        "simplebuilding:astral_vault",
+        "simplebuilding:echo_sounder",
+        "simplebuilding:enderite_apple",
+        "simplebuilding:enderite_bucket",
+        "simplebuilding:enderite_carrot",
+        "simplebuilding:enderite_ingot_from_nugget",
+        "simplebuilding:nihil_vault"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A tiny piece of the End's heaviest metal, small enough to hide."
+          ],
+          "use": [
+            "Nine nuggets make an Enderite Ingot, and the ingot gives nine back. Eight around an iron bucket make the Enderite Bucket. Enderite Apples, Carrots and machine upgrades use it."
+          ],
+          "secret": [
+            "Hammer an Astral Enchanter into being with one in your off hand; it returns when you break the table. A nugget in the off hand also pays for lifting chests and machines to Enderite."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein winziges Stück des schwersten Metalls des Endes, klein genug zum Verstecken."
+          ],
+          "use": [
+            "Neun Klumpen ergeben einen Enderitbarren, der Barren gibt neun zurück. Acht um einen Eisen-Eimer ergeben den Enderit-Eimer. Enderit-Äpfel, -Karotten und Maschinen-Aufwertungen brauchen ihn."
+          ],
+          "secret": [
+            "Mit einem in der Nebenhand hämmerst du einen Astral-Verzauberer herbei; er kehrt zurück, wenn du den Tisch abbaust. Ein Klumpen in der Nebenhand bezahlt auch das Heben von Truhen und Maschinen auf Enderit."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -18162,6 +18646,46 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_scrap",
+      "name": {
+        "en_us": "Enderite Scrap",
+        "de_de": "Enderitplatten"
+      },
+      "texture": "assets/textures/item/enderite_scrap.png",
+      "craftedBy": [
+        "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_ingot_from_scrap"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "What is left when the End's raw ore meets a furnace and loses its illusions."
+          ],
+          "use": [
+            "Smelted from Raw Enderite Scrap. Four scrap, four diamonds and one Netherite Ingot craft an Enderite Ingot."
+          ],
+          "secret": [
+            "Fire resistant and floating on lava, like all Enderite from the ingot upward. Dropped scrap lies for 10 minutes before it despawns."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Was übrig bleibt, wenn das Roherz des Endes auf einen Ofen trifft und seine Illusionen verliert."
+          ],
+          "use": [
+            "Geschmolzen aus Rohem Enderit-Schrott. Vier Schrott, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren."
+          ],
+          "secret": [
+            "Feuerfest und auf Lava schwimmend, wie alles Enderit vom Barren aufwärts. Fallen gelassener Schrott liegt 10 Minuten, bevor er verschwindet."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_shovel",
       "name": {
         "en_us": "Enderite Shovel",
@@ -18485,7 +19009,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -18786,7 +19310,7 @@ window.WIKI_DATA = {
         "en_us": "Enderite Trapped Chest",
         "de_de": "Enderit-Redstone-Truhe"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_block.png",
       "craftedBy": [
         "simplebuilding:enderite_trapped_chest"
       ],
@@ -18847,6 +19371,79 @@ window.WIKI_DATA = {
             "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
             "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
             "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_upgrade_template",
+      "name": {
+        "en_us": "Enderite Upgrade",
+        "de_de": "Enderit-Aufwertung"
+      },
+      "texture": "assets/textures/item/enderite_upgrade_template.png",
+      "craftedBy": [
+        "simplebuilding:enderite_upgrade_template"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_axe_smithing",
+        "simplebuilding:enderite_backpack_smithing",
+        "simplebuilding:enderite_boots_smithing",
+        "simplebuilding:enderite_building_wand_smithing",
+        "simplebuilding:enderite_bundle_smithing",
+        "simplebuilding:enderite_chest_boat_smithing",
+        "simplebuilding:enderite_chest_minecart_smithing",
+        "simplebuilding:enderite_chestplate_smithing",
+        "simplebuilding:enderite_chisel_smithing",
+        "simplebuilding:enderite_chunk_loader_smithing",
+        "simplebuilding:enderite_core_smithing",
+        "simplebuilding:enderite_elytra_pad_smithing",
+        "simplebuilding:enderite_furnace_minecart_smithing",
+        "simplebuilding:enderite_helmet_smithing",
+        "simplebuilding:enderite_hoe_smithing",
+        "simplebuilding:enderite_hopper_minecart_smithing",
+        "simplebuilding:enderite_horse_armor_smithing",
+        "simplebuilding:enderite_launchpad_smithing",
+        "simplebuilding:enderite_leggings_smithing",
+        "simplebuilding:enderite_nautilus_armor_smithing",
+        "simplebuilding:enderite_paint_box_smithing",
+        "simplebuilding:enderite_pickaxe_smithing",
+        "simplebuilding:enderite_pole_smithing",
+        "simplebuilding:enderite_pressure_plate_smithing",
+        "simplebuilding:enderite_quiver_smithing",
+        "simplebuilding:enderite_shovel_smithing",
+        "simplebuilding:enderite_sledgehammer_smithing",
+        "simplebuilding:enderite_spawn_teleporter_smithing",
+        "simplebuilding:enderite_spear_smithing",
+        "simplebuilding:enderite_sword_smithing",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:flypad_tier2_smithing",
+        "simplebuilding:infused_potion_pad_smithing",
+        "simplebuilding:stellar_flypad_smithing"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A template stamped with the End's own seal."
+          ],
+          "use": [
+            "Smithing template: with a netherite piece and an Enderite Ingot it makes the Enderite version of tools, armor, spears and containers. Craft: 7 diamonds around an end stone and the template for 2."
+          ],
+          "secret": [
+            "One template, 7 diamonds and an end stone yield 2 templates: you never need to hunt for more. It can also be placed in the world with sneak and right-click."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Vorlage, mit dem eigenen Siegel des Endes gestempelt."
+          ],
+          "use": [
+            "Schmiedevorlage: Mit einem Netherit-Teil und einem Enderitbarren ergibt sie die Enderit-Version von Werkzeugen, Rüstung, Speeren und Behältern. Herstellung: 7 Diamanten um einen Endstein und die Vorlage ergeben 2."
+          ],
+          "secret": [
+            "Eine Vorlage, 7 Diamanten und ein Endstein ergeben 2 Vorlagen: Du musst nie nach mehr suchen. Sie lässt sich auch mit Schleichen + Rechtsklick in der Welt platzieren."
           ]
         }
       },
@@ -20013,7 +20610,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -22955,7 +23552,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -24276,6 +24873,46 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/layered_astralit.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:layered_raw_enderite",
+      "name": {
+        "en_us": "Raw Enderite Scrap",
+        "de_de": "Rohe Enderitplatten"
+      },
+      "texture": "assets/textures/item/layered_raw_enderite.png",
+      "craftedBy": [
+        "simplebuilding:layered_raw_enderite"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "Raw Enderite, pressed in layers, ready for the fire."
+          ],
+          "use": [
+            "Craft one Raw Enderite Fragment shapeless to get it. A blast furnace melts it into Enderite Scrap."
+          ],
+          "secret": [
+            "Blast it into Enderite Scrap; four scrap, four diamonds and a Netherite Ingot then make an Enderite Ingot."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Roher Enderit, in Schichten gepresst, bereit fürs Feuer."
+          ],
+          "use": [
+            "Ein Rohes Enderit-Fragment formlos herstellen, um es zu erhalten. Ein Schmelzofen macht daraus Enderit-Schrott."
+          ],
+          "secret": [
+            "Schmilz ihn zu Enderit-Schrott; vier Schrott, vier Diamanten und ein Netheritbarren ergeben dann einen Enderitbarren."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -29136,6 +29773,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:netherite_nugget",
+      "name": {
+        "en_us": "Netherite Nugget",
+        "de_de": "Netheritklumpen"
+      },
+      "texture": "assets/textures/item/netherite_nugget.png",
+      "craftedBy": [
+        "simplebuilding:netherite_nugget"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_apple",
+        "simplebuilding:netherite_carrot",
+        "simplebuilding:netherite_ingot"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A nugget of ancient debris, forged and still warm."
+          ],
+          "use": [
+            "Nine nuggets make a Netherite Ingot and the ingot gives nine back. Netherite Apples and Carrots use it, and so do machine upgrades."
+          ],
+          "secret": [
+            "Hold one in the off hand and hammer a Reinforced chest or machine with a Diamond Sledgehammer to lift it to Netherite."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Klumpen Antiker Trümmer, geschmiedet und noch warm."
+          ],
+          "use": [
+            "Neun Klumpen ergeben einen Netheritbarren, der Barren gibt neun zurück. Netherit-Äpfel und -Karotten brauchen ihn, ebenso Maschinen-Aufwertungen."
+          ],
+          "secret": [
+            "Halte einen in der Nebenhand und hämmere mit einem Diamant-Vorschlaghammer auf eine Verstärkte Truhe oder Maschine, um sie auf Netherit zu heben."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:netherite_paint_box",
       "name": {
         "en_us": "Netherite Paint Box",
@@ -29719,7 +30398,7 @@ window.WIKI_DATA = {
             "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 8124 durability, enchantability 15. Sneak while mining takes only the aimed block."
           ],
           "secret": [
-            "With an Enderite Nugget in the off hand it lifts machines and chests to Enderite. Hit an enchanting table 20 times with it, holding an Enderite Nugget in the other hand, and it becomes the Enchanter."
+            "With an Enderite Nugget in the off hand it lifts machines and chests to Enderite. Hit an enchanting table 20 times with it, holding an Enderite Nugget in the other hand, and it becomes the Astral Enchanter."
           ]
         },
         "de": {
@@ -29730,7 +30409,7 @@ window.WIKI_DATA = {
             "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 8124 Haltbarkeit, Verzauberbarkeit 15. Beim Schleichen wird nur der anvisierte Block abgebaut."
           ],
           "secret": [
-            "Mit einem Enderitklumpen in der Nebenhand hebt er Maschinen und Truhen auf Enderit. Schlage 20 Mal damit auf einen Zaubertisch, einen Enderitklumpen in der anderen Hand, und er wird zum Verzauberer."
+            "Mit einem Enderitklumpen in der Nebenhand hebt er Maschinen und Truhen auf Enderit. Schlage 20 Mal damit auf einen Zaubertisch, einen Enderitklumpen in der anderen Hand, und er wird zum Astral-Verzauberer."
           ]
         }
       },
@@ -29808,7 +30487,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -30251,10 +30930,10 @@ window.WIKI_DATA = {
             "A rail that takes the speed out of the world, politely and completely."
           ],
           "use": [
-            "Six gold ingots, a stick and Nihil Redstone make 6. Straight only. Powered by its own channel, it brakes: each tick the cart keeps 80 percent of its speed minus a small amount, stops, and is held while power stays on."
+            "Six gold ingots, a stick and Nihil Redstone make 6. Straight only. Powered by any redstone line, it brakes: each tick the cart keeps 80 percent of its speed minus a small amount, stops, and is held while power stays on."
           ],
           "secret": [
-            "Unpowered it lets carts roll through. Only its own channel powers it, not vanilla redstone or neighboring rails, so you can build a station that brakes on a signal."
+            "Unpowered it lets carts roll through. Every redstone line powers it (redstone, Astral, Nihil, Bridge), but never a neighboring rail, so you can build a station that brakes on a signal."
           ]
         },
         "de": {
@@ -30262,10 +30941,10 @@ window.WIKI_DATA = {
             "Eine Schiene, die der Welt das Tempo nimmt, höflich und vollständig."
           ],
           "use": [
-            "Sechs Goldbarren, ein Stock und Nihil-Redstone ergeben 6. Nur gerade. Mit ihrem eigenen Kanal gespeist, bremst sie: Jeden Tick behält die Lore 80 Prozent ihres Tempos abzüglich eines kleinen Betrags, hält an und wird gehalten, solange Kraft anliegt."
+            "Sechs Goldbarren, ein Stock und Nihil-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, bremst sie: Jeden Tick behält die Lore 80 Prozent ihres Tempos abzüglich eines kleinen Betrags, hält an und wird gehalten, solange Kraft anliegt."
           ],
           "secret": [
-            "Ohne Kraft lässt sie Loren durchrollen. Nur ihr eigener Kanal speist sie, nicht Vanilla-Redstone oder Nachbarschienen, sodass du einen Bahnhof bauen kannst, der auf Signal bremst."
+            "Ohne Kraft lässt sie Loren durchrollen. Jede Redstone-Linie speist sie (Redstone, Astral, Nihil, Brücke), nie aber eine Nachbarschiene, sodass du einen Bahnhof bauen kannst, der auf Signal bremst."
           ]
         }
       },
@@ -30279,11 +30958,13 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/nihil_redstone.png",
       "craftedBy": [
-        "simplebuilding:nihil_redstone"
+        "simplebuilding:nihil_redstone",
+        "simplebuilding:nihil_redstone_from_nihil_redstone_block"
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
         "simplebuilding:nihil_rail",
+        "simplebuilding:nihil_redstone_block",
         "simplebuilding:nihilith_lamp"
       ],
       "trades": [],
@@ -30324,9 +31005,9 @@ window.WIKI_DATA = {
           "details": [
             "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
-            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -30336,10 +31017,52 @@ window.WIKI_DATA = {
           "details": [
             "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
-            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_redstone_block",
+      "name": {
+        "en_us": "Block of Nihil Redstone",
+        "de_de": "Nihil-Redstone-Block"
+      },
+      "texture": "assets/textures/block/nihil_redstone_block.png",
+      "craftedBy": [
+        "simplebuilding:nihil_redstone_block"
+      ],
+      "usedIn": [
+        "simplebuilding:nihil_redstone_from_nihil_redstone_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_redstone_block.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneBlock.java",
+          "mc26_3/generated/data/simplebuilding/recipe/nihil_redstone_block.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Block of Nihil Redstone",
+          "summary": "Nine Nihil Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Nihil) and Bridge Redstone and every device.",
+          "details": [
+            "Nine Nihil Redstone craft one; one gives the nine back.",
+            "Signal 15 to every side, like the redstone block (no strong power, pistons push it). Dust of its own line (Nihil) and Bridge Redstone takes it; dust of any other line next to it stays dark, but lamps, pistons, doors, End pistons and rails react.",
+            "server.features.endSignals (default true) switched off: the block gives no signal and its recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Redstone-Block",
+          "summary": "Neun Nihil-Redstone als Block: eine dauerhafte Quelle wie der Redstone-Block, die Staub von seiner Linie (Nihil) und Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Neun Nihil-Redstone ergeben einen; einer gibt die neun zurück.",
+            "Signal 15 zu jeder Seite, wie der Redstone-Block (kein starkes Signal, Kolben schieben ihn). Staub von seiner Linie (Nihil) und Brücken-Redstone nimmt es an; Staub jeder anderen Linie daneben bleibt dunkel, Lampen, Kolben, Türen, End-Kolben und -Schienen reagieren aber.",
+            "server.features.endSignals (Standard an) abgeschaltet: Der Block gibt kein Signal, und seine Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -31220,18 +31943,18 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Nihilith Lamp",
-          "summary": "The lamp of the Nihil line: a redstone lamp plus Nihil Redstone crafts one; it toggles like a copper bulb on each pulse of its own line.",
+          "summary": "The lamp of the Nihil line: a redstone lamp plus Nihil Redstone crafts one; it toggles like a copper bulb on each pulse of any redstone line.",
           "details": [
-            "It listens only to Nihil Redstone or Bridge Redstone lying beside it or on top of it; redstone dust, the other line and a lever or button on the lamp itself do nothing.",
+            "It takes every redstone line: redstone, Astral, Nihil or Bridge Redstone beside it or on top of it, a lever or button on it, a redstone block or a line block next to it.",
             "Each rising signal switches it on or off, like a copper bulb; while lit it gives light 15. It is no redstone conductor.",
             "server.features.endSignals (default true) switched off: the lamp does not switch and its recipe disappears on datapack reload."
           ]
         },
         "de": {
           "title": "Nihilith-Lampe",
-          "summary": "Die Lampe der Nihil-Linie: Redstone-Lampe und Nihil-Redstone ergeben eine; sie schaltet bei jedem Puls ihrer eigenen Linie um wie eine Kupferlampe.",
+          "summary": "Die Lampe der Nihil-Linie: Redstone-Lampe und Nihil-Redstone ergeben eine; sie schaltet bei jedem Puls einer beliebigen Redstone-Linie um wie eine Kupferlampe.",
           "details": [
-            "Sie hört nur auf Nihil-Redstone oder Brücken-Redstone daneben oder obendrauf; Redstone-Staub, die andere Linie und ein Hebel oder Knopf an der Lampe selbst tun nichts.",
+            "Sie nimmt jede Redstone-Linie an: Redstone, Astral-, Nihil- oder Brücken-Redstone daneben oder obendrauf, einen Hebel oder Knopf an ihr, einen Redstone-Block oder Block einer Linie daneben.",
             "Jedes einschaltende Signal schaltet sie an oder aus, wie eine Kupferlampe; leuchtend gibt sie Licht 15. Sie leitet kein Redstone weiter.",
             "server.features.endSignals (Standard an) abgeschaltet: Die Lampe schaltet nicht, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
           ]
@@ -39335,6 +40058,46 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:raw_enderite",
+      "name": {
+        "en_us": "Raw Enderite Fragment",
+        "de_de": "Rohes Enderitfragment"
+      },
+      "texture": "assets/textures/item/raw_enderite.png",
+      "craftedBy": [
+        "simplebuilding:raw_enderite_synthesis"
+      ],
+      "usedIn": [
+        "simplebuilding:layered_raw_enderite"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "A fragment of the End's own ore, still rough from the dark."
+          ],
+          "use": [
+            "Craft an Ender Pearl, Astralit Dust and a Nihilit Shard, shapeless. It is the first step toward Enderite."
+          ],
+          "secret": [
+            "One fragment becomes Raw Enderite Scrap, which a furnace melts into Enderite Scrap."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Fragment des eigenen Erzes des Endes, noch rau von der Dunkelheit."
+          ],
+          "use": [
+            "Ein Enderperle, Astralitstaub und ein Nihilitsplitter, formlos. Der erste Schritt zu Enderit."
+          ],
+          "secret": [
+            "Ein Fragment wird zu Rohem Enderit-Schrott, den ein Ofen zu Enderit-Schrott schmilzt."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:red_concrete_octet",
       "name": {
         "en_us": "Red Concrete Octet",
@@ -42452,7 +43215,7 @@ window.WIKI_DATA = {
         "en_us": "Reinforced Trapped Chest",
         "de_de": "Verstärkte Redstone-Truhe"
       },
-      "texture": null,
+      "texture": "assets/textures/block/cracked_diamond_block.png",
       "craftedBy": [
         "simplebuilding:reinforced_trapped_chest"
       ],
@@ -43794,8 +44557,7 @@ window.WIKI_DATA = {
             "Anything that wades into it is slowed far more than in a cobweb and gets Darkness. The Darkness grows with the time spent inside: after t seconds it lasts 3 × (5/3)^(t − 2) seconds, at least 3 and at most 60 (out after 2 s: 3 s, after 3 s: 5 s, after 4 s: about 8 s). The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
             "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and only the bone tips of the teeth along the seam give it away. It snaps shut in a short motion and opens again just as visibly.",
             "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
-            "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare.",
-            "It also generates naturally on the floors of the Deep Dark (about six tries per chunk, only where it can stand), so every step there can be a trap."
+            "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
           ]
         },
         "de": {
@@ -43804,8 +44566,7 @@ window.WIKI_DATA = {
             "Wer hineingerät, wird weit stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit. Die Dunkelheit wächst mit der Verweildauer: nach t Sekunden hält sie 3 × (5/3)^(t − 2) Sekunden, mindestens 3 und höchstens 60 (nach 2 s raus: 3 s, nach 3 s: 5 s, nach 4 s: etwa 8 s). Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
             "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, nur die Knochenspitzen der Zähne an der Naht verraten sie. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
             "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
-            "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten.",
-            "Sie wächst außerdem natürlich auf dem Boden der Deep Dark (etwa sechs Versuche je Chunk, nur wo sie stehen kann): dort kann jeder Schritt in eine Falle führen."
+            "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
           ]
         },
         "sources": [
@@ -45080,7 +45841,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -47771,14 +48532,14 @@ window.WIKI_DATA = {
       "icon": "assets/textures/render/warped_blazewood_bookshelf.png",
       "note": {
         "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanter, one at the Vanilla table.",
           "details": [
             "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
             "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
           ]
         },
         "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
           "details": [
             "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
             "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
@@ -49494,8 +50255,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astral_enchanting_table",
       "name": {
-        "en_us": "Enchanter",
-        "de_de": "Verzauberer"
+        "en_us": "Astral Enchanter",
+        "de_de": "Astral-Verzauberer"
       },
       "texture": "assets/textures/block/astral_enchanting_table_side.png",
       "craftedBy": [],
@@ -49505,7 +50266,7 @@ window.WIKI_DATA = {
       "lootTable": "simplebuilding:blocks/astral_enchanting_table",
       "drops": [
         "minecraft:enchanting_table",
-        "simplelib:enderite_nugget"
+        "simplebuilding:enderite_nugget"
       ],
       "questionary": {
         "en": {
@@ -49533,7 +50294,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
+          "summary": "The Astral Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
           "details": [
             "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
             "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), the best 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Up to 15 points the strength is 2 x points (15 bookshelves = 30), above that it climbs on to 40 at 30 points - so 15 blazewood bookshelves give 40, and every blazewood shelf in place of a bookshelf adds about two thirds of a strength. A 5x5 floor of Blazing Obsidian right under the table adds 10 once the shelves give 30 (15 bookshelves on the floor = 40). So 30 to 40 needs blazewood shelves OR the floor, and the maximum 50 needs both: 15 blazewood bookshelves plus the floor. Hover the strength in the screen: it shows what the next stage lacks.",
@@ -49544,7 +50305,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Am Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
+          "summary": "Am Astral-Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
           "details": [
             "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
             "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), die besten 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Bis 15 Punkte ist die Stärke 2 x Punkte (15 Bücherregale = 30), darüber steigt sie weiter bis 40 bei 30 Punkten - 15 Lohen-Regale geben also 40, und jedes Lohen-Regal statt eines Bücherregals bringt etwa zwei Drittel Stärke. Ein 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch gibt 10 dazu, sobald die Regale 30 ergeben (15 Bücherregale auf dem Boden = 40). 30 bis 40 braucht also Lohen-Regale ODER den Boden, das Maximum 50 braucht beides: 15 Lohen-Regale plus Boden. Im Bildschirm über der Stärke schweben zeigt, was für die nächste Stufe fehlt.",
@@ -49655,7 +50416,7 @@ window.WIKI_DATA = {
             "A rail that has heard the sky and wants to go there."
           ],
           "use": [
-            "Six gold ingots, a stick and Astral Redstone make 6. Straight only. Powered by its own channel, it pushes carts to a top speed of 16 blocks per second by default (vanilla 8). Unpowered it is a plain rail."
+            "Six gold ingots, a stick and Astral Redstone make 6. Straight only. Powered by any redstone line, it pushes carts to a top speed of 16 blocks per second by default (vanilla 8). Unpowered it is a plain rail."
           ],
           "secret": [
             "The boost fades the closer a cart gets to top speed, so it approaches the limit and never reaches it. On slopes and in water the vanilla limit applies, so brake before a curve."
@@ -49666,7 +50427,7 @@ window.WIKI_DATA = {
             "Eine Schiene, die den Himmel gehört hat und dorthin will."
           ],
           "use": [
-            "Sechs Goldbarren, ein Stock und Astral-Redstone ergeben 6. Nur gerade. Mit ihrem eigenen Kanal gespeist, beschleunigt sie Loren standardmäßig auf bis zu 16 Blöcke pro Sekunde (Vanilla 8). Ohne Kraft ist sie eine gewöhnliche Schiene."
+            "Sechs Goldbarren, ein Stock und Astral-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, beschleunigt sie Loren standardmäßig auf bis zu 16 Blöcke pro Sekunde (Vanilla 8). Ohne Kraft ist sie eine gewöhnliche Schiene."
           ],
           "secret": [
             "Der Schub nimmt ab, je näher die Lore der Höchstgeschwindigkeit kommt, sie nähert sich dem Limit und erreicht es nie. An Steigungen und im Wasser gilt das Vanilla-Limit, bremse also vor einer Kurve."
@@ -49683,11 +50444,13 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/astral_redstone.png",
       "craftedBy": [
-        "simplebuilding:astral_redstone"
+        "simplebuilding:astral_redstone",
+        "simplebuilding:astral_redstone_from_astral_redstone_block"
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
         "simplebuilding:astral_rail",
+        "simplebuilding:astral_redstone_block",
         "simplebuilding:astralit_lamp"
       ],
       "trades": [],
@@ -49733,9 +50496,9 @@ window.WIKI_DATA = {
           "details": [
             "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
-            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -49745,10 +50508,56 @@ window.WIKI_DATA = {
           "details": [
             "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
-            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_redstone_block",
+      "name": {
+        "en_us": "Block of Astral Redstone",
+        "de_de": "Astral-Redstone-Block"
+      },
+      "texture": "assets/textures/block/astral_redstone_block.png",
+      "craftedBy": [
+        "simplebuilding:astral_redstone_block"
+      ],
+      "usedIn": [
+        "simplebuilding:astral_redstone_from_astral_redstone_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/astral_redstone_block.png",
+      "lootTable": "simplebuilding:blocks/astral_redstone_block",
+      "drops": [
+        "simplebuilding:astral_redstone_block"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneBlock.java",
+          "mc26_3/generated/data/simplebuilding/recipe/astral_redstone_block.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Block of Astral Redstone",
+          "summary": "Nine Astral Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Astral) and Bridge Redstone and every device.",
+          "details": [
+            "Nine Astral Redstone craft one; one gives the nine back.",
+            "Signal 15 to every side, like the redstone block (no strong power, pistons push it). Dust of its own line (Astral) and Bridge Redstone takes it; dust of any other line next to it stays dark, but lamps, pistons, doors, End pistons and rails react.",
+            "server.features.endSignals (default true) switched off: the block gives no signal and its recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astral-Redstone-Block",
+          "summary": "Neun Astral-Redstone als Block: eine dauerhafte Quelle wie der Redstone-Block, die Staub von seiner Linie (Astral) und Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Neun Astral-Redstone ergeben einen; einer gibt die neun zurück.",
+            "Signal 15 zu jeder Seite, wie der Redstone-Block (kein starkes Signal, Kolben schieben ihn). Staub von seiner Linie (Astral) und Brücken-Redstone nimmt es an; Staub jeder anderen Linie daneben bleibt dunkel, Lampen, Kolben, Türen, End-Kolben und -Schienen reagieren aber.",
+            "server.features.endSignals (Standard an) abgeschaltet: Der Block gibt kein Signal, und seine Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -50058,18 +50867,18 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Astral Lamp",
-          "summary": "The lamp of the Astral line: a redstone lamp plus Astral Redstone crafts one; it toggles like a copper bulb on each pulse of its own line.",
+          "summary": "The lamp of the Astral line: a redstone lamp plus Astral Redstone crafts one; it toggles like a copper bulb on each pulse of any redstone line.",
           "details": [
-            "It listens only to Astral Redstone or Bridge Redstone lying beside it or on top of it; redstone dust, the other line and a lever or button on the lamp itself do nothing.",
+            "It takes every redstone line: redstone, Astral, Nihil or Bridge Redstone beside it or on top of it, a lever or button on it, a redstone block or a line block next to it.",
             "Each rising signal switches it on or off, like a copper bulb; while lit it gives light 15. It is no redstone conductor.",
             "server.features.endSignals (default true) switched off: the lamp does not switch and its recipe disappears on datapack reload."
           ]
         },
         "de": {
           "title": "Astral-Lampe",
-          "summary": "Die Lampe der Astral-Linie: Redstone-Lampe und Astral-Redstone ergeben eine; sie schaltet bei jedem Puls ihrer eigenen Linie um wie eine Kupferlampe.",
+          "summary": "Die Lampe der Astral-Linie: Redstone-Lampe und Astral-Redstone ergeben eine; sie schaltet bei jedem Puls einer beliebigen Redstone-Linie um wie eine Kupferlampe.",
           "details": [
-            "Sie hört nur auf Astral-Redstone oder Brücken-Redstone daneben oder obendrauf; Redstone-Staub, die andere Linie und ein Hebel oder Knopf an der Lampe selbst tun nichts.",
+            "Sie nimmt jede Redstone-Linie an: Redstone, Astral-, Nihil- oder Brücken-Redstone daneben oder obendrauf, einen Hebel oder Knopf an ihr, einen Redstone-Block oder Block einer Linie daneben.",
             "Jedes einschaltende Signal schaltet sie an oder aus, wie eine Kupferlampe; leuchtend gibt sie Licht 15. Sie leitet kein Redstone weiter.",
             "server.features.endSignals (Standard an) abgeschaltet: Die Lampe schaltet nicht, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
           ]
@@ -51731,10 +52540,10 @@ window.WIKI_DATA = {
             "Crying obsidian's glowing sibling: where the other weeps, this one burns."
           ],
           "use": [
-            "A decorative block that gives light. Its job is at the Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
+            "A decorative block that gives light. Its job is at the Astral Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
           ],
           "secret": [
-            "The floor only counts under the Enchanter, not the vanilla table, so build it once the shelves are complete."
+            "The floor only counts under the Astral Enchanter, not the vanilla table, so build it once the shelves are complete."
           ]
         },
         "de": {
@@ -51742,23 +52551,23 @@ window.WIKI_DATA = {
             "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
           ],
           "use": [
-            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
+            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Astral-Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
           ],
           "secret": [
-            "Der Boden zählt nur unter dem Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+            "Der Boden zählt nur unter dem Astral-Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
           ]
         }
       },
       "note": {
         "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Enchanter adds 10 strength once the shelves give 30.",
+          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Astral Enchanter adds 10 strength once the shelves give 30.",
           "details": [
             "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
             "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
           ]
         },
         "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
+          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Astral-Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
           "details": [
             "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
             "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
@@ -52243,9 +53052,12 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/bridge_redstone.png",
       "craftedBy": [
-        "simplebuilding:bridge_redstone"
+        "simplebuilding:bridge_redstone",
+        "simplebuilding:bridge_redstone_from_bridge_redstone_block"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:bridge_redstone_block"
+      ],
       "trades": [],
       "icon": "assets/textures/render/block/bridge_redstone.png",
       "lootTable": "simplebuilding:blocks/bridge_redstone",
@@ -52261,7 +53073,7 @@ window.WIKI_DATA = {
             "Craft astralit dust, a nihilit shard and redstone, shapeless, for three. It links vanilla redstone, Astral Redstone and Nihil Redstone, which otherwise never mix."
           ],
           "secret": [
-            "It is the only dust that lets a lever in one line switch a lamp in another."
+            "It is the only dust that passes a signal from the dust of one line into the dust of another."
           ]
         },
         "de": {
@@ -52272,7 +53084,7 @@ window.WIKI_DATA = {
             "Astralitstaub, einen Nihilit-Splitter und Redstone formlos zu dritt herstellen. Es verbindet Vanilla-Redstone, Astral-Redstone und Nihil-Redstone, die sich sonst nie mischen."
           ],
           "secret": [
-            "Nur dieser Staub lässt einen Hebel der einen Linie eine Lampe der anderen schalten."
+            "Nur dieser Staub reicht ein Signal vom Staub der einen Linie in den Staub einer anderen weiter."
           ]
         }
       },
@@ -52289,9 +53101,9 @@ window.WIKI_DATA = {
           "details": [
             "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
-            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -52301,10 +53113,56 @@ window.WIKI_DATA = {
           "details": [
             "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
-            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:bridge_redstone_block",
+      "name": {
+        "en_us": "Block of Bridge Redstone",
+        "de_de": "Brücken-Redstone-Block"
+      },
+      "texture": "assets/textures/block/bridge_redstone_block.png",
+      "craftedBy": [
+        "simplebuilding:bridge_redstone_block"
+      ],
+      "usedIn": [
+        "simplebuilding:bridge_redstone_from_bridge_redstone_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/bridge_redstone_block.png",
+      "lootTable": "simplebuilding:blocks/bridge_redstone_block",
+      "drops": [
+        "simplebuilding:bridge_redstone_block"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneBlock.java",
+          "mc26_3/generated/data/simplebuilding/recipe/bridge_redstone_block.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Block of Bridge Redstone",
+          "summary": "Nine Bridge Redstone as a block: a permanent source like the redstone block that feeds the dust of all three lines (redstone, Astral, Nihil) and Bridge Redstone and every device.",
+          "details": [
+            "Nine Bridge Redstone craft one; one gives the nine back.",
+            "Signal 15 to every side, like the redstone block (no strong power, pistons push it). Dust of all three lines (redstone, Astral, Nihil) and Bridge Redstone takes it; dust of any other line next to it stays dark, but lamps, pistons, doors, End pistons and rails react.",
+            "server.features.endSignals (default true) switched off: the block gives no signal and its recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Brücken-Redstone-Block",
+          "summary": "Neun Brücken-Redstone als Block: eine dauerhafte Quelle wie der Redstone-Block, die Staub von allen drei Linien (Redstone, Astral, Nihil) und Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Neun Brücken-Redstone ergeben einen; einer gibt die neun zurück.",
+            "Signal 15 zu jeder Seite, wie der Redstone-Block (kein starkes Signal, Kolben schieben ihn). Staub von allen drei Linien (Redstone, Astral, Nihil) und Brücken-Redstone nimmt es an; Staub jeder anderen Linie daneben bleibt dunkel, Lampen, Kolben, Türen, End-Kolben und -Schienen reagieren aber.",
+            "server.features.endSignals (Standard an) abgeschaltet: Der Block gibt kein Signal, und seine Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -54421,6 +55279,51 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:cracked_diamond_block",
+      "name": {
+        "en_us": "Block of Cracked Diamond",
+        "de_de": "Rissiger Diamantblock"
+      },
+      "texture": "assets/textures/block/cracked_diamond_block.png",
+      "craftedBy": [
+        "simplebuilding:cracked_diamond_block"
+      ],
+      "usedIn": [
+        "simplebuilding:cracked_diamond_from_cracked_diamond_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/cracked_diamond_block.png",
+      "lootTable": "simplebuilding:blocks/cracked_diamond_block",
+      "drops": [
+        "simplebuilding:cracked_diamond_block"
+      ],
+      "questionary": {
+        "en": {
+          "lore": [
+            "Nine flawed diamonds, held together by hope."
+          ],
+          "use": [
+            "Nine Cracked Diamonds in a 3x3 square. It crafts back into nine, shapeless. A compact way to store them."
+          ],
+          "secret": [
+            "The flaws are structural: the block is not made of diamond pebbles directly, but of the diamonds they form."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Neun fehlerhafte Diamanten, von Hoffnung zusammengehalten."
+          ],
+          "use": [
+            "Neun Rissige Diamanten im 3x3-Quadrat. Er lässt sich formlos in neun zurückverwandeln. Eine kompakte Art, sie zu lagern."
+          ],
+          "secret": [
+            "Die Fehler sind strukturell: Der Block besteht nicht direkt aus Diamantkieseln, sondern aus den Diamanten, die sie bilden."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:cracked_ice",
       "name": {
         "en_us": "Cracked Ice",
@@ -54507,14 +55410,14 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanter, one at the Vanilla table.",
           "details": [
             "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
             "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
           ]
         },
         "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
           "details": [
             "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
             "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
@@ -57248,12 +58151,57 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_block",
+      "name": {
+        "en_us": "Block of Enderite",
+        "de_de": "Enderitblock"
+      },
+      "texture": "assets/textures/block/enderite_block.png",
+      "craftedBy": [
+        "simplebuilding:enderite_block"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_ingot"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_block.png",
+      "lootTable": "simplebuilding:blocks/enderite_block",
+      "drops": [
+        "simplebuilding:enderite_block"
+      ],
+      "questionary": {
+        "en": {
+          "lore": [
+            "Nine ingots of the End, folded into a cube: the heaviest thing a builder can own."
+          ],
+          "use": [
+            "Nine Enderite Ingots in a 3x3 square make a Block of Enderite. It is a storage and decoration block."
+          ],
+          "secret": [
+            "It is part of the enderite item family, so it is safe from the void if it ever drops as an item."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Neun Barren des Endes, zu einem Würfel gefaltet: das Schwerste, das ein Baumeister besitzen kann."
+          ],
+          "use": [
+            "Neun Enderitbarren im 3x3-Quadrat ergeben einen Enderitblock. Ein Lager- und Dekorationsblock."
+          ],
+          "secret": [
+            "Er gehört zur Enderit-Gegenstandsfamilie und ist beim Fallenlassen vor der Leere sicher."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_chest",
       "name": {
         "en_us": "Enderite Chest",
         "de_de": "Enderittruhe"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_block.png",
       "craftedBy": [],
       "usedIn": [
         "simplebuilding:enderite_chest_boat_acacia",
@@ -58562,7 +59510,7 @@ window.WIKI_DATA = {
         "en_us": "Enderite Trapped Chest",
         "de_de": "Enderit-Redstone-Truhe"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_block.png",
       "craftedBy": [
         "simplebuilding:enderite_trapped_chest"
       ],
@@ -63740,6 +64688,62 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:mixed_octet",
+      "name": {
+        "en_us": "Mixed Octet Cell",
+        "de_de": "Gemischte Achtelzelle"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CheckerOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CheckerOctetItem.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessColor.java",
+          "common/src/shared/java/com/simplebuilding/chess/ChessItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/chess_2026_10_06.py",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MaterialOctetBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/MaterialOctetItem.java",
+          "tools/textures/octets_2026_10_09.py"
+        ],
+        "en": {
+          "summary": "Octets are half-block cubes (0.5 x 0.5 x 0.5) in the colors of the quartz checkers plus quartz, for finer detail when building. The stonecutter cuts 8 from a quartz checker of the color (quartz octets: from a quartz block).",
+          "details": [
+            "Right-click places the octet a quarter block in front of the hit point: in the clicked corner of a block top or side, or right next to the clicked octet - in the same cell or the neighboring one.",
+            "A cell holds up to 8 octets of one color; another color or an occupied octet is refused. A full cell (8/8) is a full cube and stays an octet cell.",
+            "Placed into water, a cell is waterlogged until the eighth octet fills it; a full cell takes no water.",
+            "Breaking a cell drops one octet per filled octet. Sneak + right-click with an empty hand takes the clicked octet out into the hand.",
+            "No tool is needed (hardness 0.8, faster with a pickaxe). Astralit and polished astralit octets glow with light level 5 like their checkers.",
+            "Each octet cuts into every chess piece of its color in the stonecutter.",
+            "Wood octets (26.3, Queue Nachtrag 24): one per wood (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak, poplar, bamboo, crimson, warped) with the planks texture; each wood is its own cell block, so they never mix with another wood. The stonecutter cuts 8 from the planks, 8 craft back into planks (shapeless). They burn like planks (not crimson and warped), are mined with an axe, and the sneaking sledgehammer drops them when it cuts planks, wooden stairs or slabs.",
+            "Melon: sneak + right-click a block with a melon slice to place it as a melon octet (without sneaking it is eaten). The cell shows rind outside and flesh on the cut faces and drops one melon slice per octet; the sneaking sledgehammer cuts a melon block into melon octets.",
+            "Material octets (26.3, queue N19/N15): every block that has stairs and slabs - stone, bricks, sandstone, deepslate, tuff, prismarine, quartz, copper, wool, concrete and the SimpleBuilding palettes, but not planks and chess pieces - has its own octet with the block's texture (stack of 99). The stonecutter cuts 8 from the full block, 8 craft back into it (shapeless), the sneaking sledgehammer drops them when it cuts the block, its stairs or its slab. They sit next to the slab in the creative tab, grouped by material in the SimpleBlocks tab. The list is generated (tools/textures/octets_2026_10_09.py).",
+            "(with Simple End) Ashwood and Duskwood octets (planks) and octets of their logs and stripped logs."
+          ]
+        },
+        "de": {
+          "summary": "Achtel sind halbe Blockwürfel (0,5 x 0,5 x 0,5) in den Farben der Quarz-Schachbretter und in Quarz, für feinere Details beim Bauen. Der Steinmetz schneidet 8 aus einem Quarz-Schachbrett der Farbe (Quarz-Achtel: aus einem Quarzblock).",
+          "details": [
+            "Rechtsklick setzt das Achtel ein Viertel Block vor den Trefferpunkt: in die angeklickte Ecke einer Blockoberseite oder -seite oder direkt neben das angeklickte Achtel - in derselben Zelle oder der benachbarten.",
+            "Eine Zelle fasst bis zu 8 Achtel einer Farbe; eine andere Farbe oder ein belegtes Achtel wird abgelehnt. Eine volle Zelle (8/8) ist ein voller Würfel und bleibt Achtelzelle.",
+            "In Wasser gesetzt ist eine Zelle wassergefüllt, bis das achte Achtel sie füllt; eine volle Zelle nimmt kein Wasser.",
+            "Abbauen droppt je gesetztes Achtel eines. Schleichen + Rechtsklick mit leerer Hand nimmt das angeklickte Achtel in die Hand.",
+            "Kein Werkzeug nötig (Härte 0,8, mit der Spitzhacke schneller). Astralit- und polierte Astralit-Achtel leuchten wie ihre Schachbretter mit Lichtstufe 5.",
+            "Jedes Achtel wird im Steinmetz zu jeder Schachfigur seiner Farbe.",
+            "Holz-Achtel (26.3, Queue Nachtrag 24): eines je Holzart (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche, Pappel, Bambus, Karmesin, Wirr) mit der Brettertextur; jede Holzart ist ein eigener Zellenblock, sie mischen sich nicht. Der Steinmetz schneidet 8 aus den Brettern, 8 ergeben formlos wieder Bretter. Sie brennen wie Bretter (nicht Karmesin und Wirr), werden mit der Axt abgebaut, und der schleichende Vorschlaghammer lässt sie fallen, wenn er Bretter, Holztreppen oder -stufen abträgt.",
+            "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
+            "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py).",
+            "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:mossy_cobblestone_octet",
       "name": {
         "en_us": "Mossy Cobblestone Octet Cell",
@@ -66121,10 +67125,10 @@ window.WIKI_DATA = {
             "A rail that takes the speed out of the world, politely and completely."
           ],
           "use": [
-            "Six gold ingots, a stick and Nihil Redstone make 6. Straight only. Powered by its own channel, it brakes: each tick the cart keeps 80 percent of its speed minus a small amount, stops, and is held while power stays on."
+            "Six gold ingots, a stick and Nihil Redstone make 6. Straight only. Powered by any redstone line, it brakes: each tick the cart keeps 80 percent of its speed minus a small amount, stops, and is held while power stays on."
           ],
           "secret": [
-            "Unpowered it lets carts roll through. Only its own channel powers it, not vanilla redstone or neighboring rails, so you can build a station that brakes on a signal."
+            "Unpowered it lets carts roll through. Every redstone line powers it (redstone, Astral, Nihil, Bridge), but never a neighboring rail, so you can build a station that brakes on a signal."
           ]
         },
         "de": {
@@ -66132,10 +67136,10 @@ window.WIKI_DATA = {
             "Eine Schiene, die der Welt das Tempo nimmt, höflich und vollständig."
           ],
           "use": [
-            "Sechs Goldbarren, ein Stock und Nihil-Redstone ergeben 6. Nur gerade. Mit ihrem eigenen Kanal gespeist, bremst sie: Jeden Tick behält die Lore 80 Prozent ihres Tempos abzüglich eines kleinen Betrags, hält an und wird gehalten, solange Kraft anliegt."
+            "Sechs Goldbarren, ein Stock und Nihil-Redstone ergeben 6. Nur gerade. Von jeder Redstone-Linie gespeist, bremst sie: Jeden Tick behält die Lore 80 Prozent ihres Tempos abzüglich eines kleinen Betrags, hält an und wird gehalten, solange Kraft anliegt."
           ],
           "secret": [
-            "Ohne Kraft lässt sie Loren durchrollen. Nur ihr eigener Kanal speist sie, nicht Vanilla-Redstone oder Nachbarschienen, sodass du einen Bahnhof bauen kannst, der auf Signal bremst."
+            "Ohne Kraft lässt sie Loren durchrollen. Jede Redstone-Linie speist sie (Redstone, Astral, Nihil, Brücke), nie aber eine Nachbarschiene, sodass du einen Bahnhof bauen kannst, der auf Signal bremst."
           ]
         }
       },
@@ -66149,11 +67153,13 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/nihil_redstone.png",
       "craftedBy": [
-        "simplebuilding:nihil_redstone"
+        "simplebuilding:nihil_redstone",
+        "simplebuilding:nihil_redstone_from_nihil_redstone_block"
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
         "simplebuilding:nihil_rail",
+        "simplebuilding:nihil_redstone_block",
         "simplebuilding:nihilith_lamp"
       ],
       "trades": [],
@@ -66199,9 +67205,9 @@ window.WIKI_DATA = {
           "details": [
             "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone. Astralit Dust, a Nihilit Shard and redstone craft three Bridge Redstone.",
             "Each line behaves like redstone dust: levers, buttons, torches, redstone blocks, observers, pressure plates, repeaters and comparators feed it; it powers the block below it and the block it points at, so lamps, pistons, doors, dispensers and repeaters react. The signal loses one level per block (15 to 0), climbs and drops one block on slopes, and the dust shows dots, lines and crosses like redstone dust. It needs a sturdy top face or a hopper below; a right click turns a lone cross into a dot and back.",
-            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
+            "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
             "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
-            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp listens only to dust of its own line (or Bridge Redstone) beside it or on top of it, never to redstone dust, the other line or a lever on the lamp, and toggles like a copper bulb - each pulse switches it on or off (light 15).",
+            "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
             "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload."
           ]
         },
@@ -66211,10 +67217,56 @@ window.WIKI_DATA = {
           "details": [
             "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Astralitstaub, ein Nihilitsplitter und Redstone ergeben drei Brücken-Redstone.",
             "Jede Linie verhält sich wie Redstone-Staub: Hebel, Knöpfe, Fackeln, Redstone-Blöcke, Beobachter, Druckplatten, Verstärker und Komparatoren speisen sie; sie speist den Block darunter und den Block, auf den sie zeigt, sodass Lampen, Kolben, Türen, Werfer und Verstärker reagieren. Das Signal verliert je Block eine Stufe (15 bis 0), steigt und fällt an Stufen um einen Block, und der Staub zeigt Punkte, Linien und Kreuze wie Redstone-Staub. Er braucht darunter eine tragfähige Oberseite oder einen Trichter; ein Rechtsklick macht aus einem einzelnen Kreuz einen Punkt und zurück.",
-            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
+            "Die Linien bleiben getrennt: Staub nimmt nur von Staub seiner eigenen Linie Signal an. Er liest nie Staub einer anderen Linie, weder direkt noch über einen Block, den Staub speist, und Staub verschiedener Linien verbindet sich optisch nicht. Geräte nehmen jede Linie an: Lampen, Kolben, Türen, Werfer, Verstärker, Komparatoren, die Maschinen der Mod sowie End-Kolben, End-Schienen und die Lampen der Linien reagieren auf Redstone, Astral-, Nihil- und Brücken-Redstone gleich. Verstärker, Komparatoren, Fackeln und andere Bauteile sind neutral: Welche Linie sie auch speist, ihr Ausgang speist jede Linie.",
             "Brücken-Redstone verbindet sich mit allen drei Linien und reicht das Signal wie ein gemeinsamer Draht weiter, je Block eine Stufe schwächer. Redstone-Staub liest eine Brücke nur direkt daneben, nicht über eine Stufe.",
-            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe hört nur auf Staub ihrer eigenen Linie (oder Brücken-Redstone) daneben oder obendrauf, nie auf Redstone-Staub, die andere Linie oder einen Hebel an der Lampe, und schaltet wie eine Kupferlampe - jeder Puls schaltet sie an oder aus (Licht 15).",
+            "Die früheren Astralit- und Nihilit-Signalschalter entfallen: gesetzte oder getragene werden zu Hebeln. Astral-Lampe und Nihilith-Lampe sind unter ihren alten IDs zurück (Redstone-Lampe und Astral- bzw. Nihil-Redstone ergeben eine): Die Lampe nimmt jede Linie an - Staub jeder Linie daneben oder obendrauf, Hebel, Knöpfe, Redstone-Blöcke und die Blöcke der Linien - und schaltet wie eine Kupferlampe: Jeder Puls schaltet sie an oder aus (Licht 15).",
             "server.features.endSignals (Standard an) abgeschaltet: Astral-, Nihil- und Brücken-Redstone leiten kein Signal, und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_redstone_block",
+      "name": {
+        "en_us": "Block of Nihil Redstone",
+        "de_de": "Nihil-Redstone-Block"
+      },
+      "texture": "assets/textures/block/nihil_redstone_block.png",
+      "craftedBy": [
+        "simplebuilding:nihil_redstone_block"
+      ],
+      "usedIn": [
+        "simplebuilding:nihil_redstone_from_nihil_redstone_block"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_redstone_block.png",
+      "lootTable": "simplebuilding:blocks/nihil_redstone_block",
+      "drops": [
+        "simplebuilding:nihil_redstone_block"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LineRedstoneBlock.java",
+          "mc26_3/generated/data/simplebuilding/recipe/nihil_redstone_block.json",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Block of Nihil Redstone",
+          "summary": "Nine Nihil Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Nihil) and Bridge Redstone and every device.",
+          "details": [
+            "Nine Nihil Redstone craft one; one gives the nine back.",
+            "Signal 15 to every side, like the redstone block (no strong power, pistons push it). Dust of its own line (Nihil) and Bridge Redstone takes it; dust of any other line next to it stays dark, but lamps, pistons, doors, End pistons and rails react.",
+            "server.features.endSignals (default true) switched off: the block gives no signal and its recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Redstone-Block",
+          "summary": "Neun Nihil-Redstone als Block: eine dauerhafte Quelle wie der Redstone-Block, die Staub von seiner Linie (Nihil) und Brücken-Redstone und jedes Gerät speist.",
+          "details": [
+            "Neun Nihil-Redstone ergeben einen; einer gibt die neun zurück.",
+            "Signal 15 zu jeder Seite, wie der Redstone-Block (kein starkes Signal, Kolben schieben ihn). Staub von seiner Linie (Nihil) und Brücken-Redstone nimmt es an; Staub jeder anderen Linie daneben bleibt dunkel, Lampen, Kolben, Türen, End-Kolben und -Schienen reagieren aber.",
+            "server.features.endSignals (Standard an) abgeschaltet: Der Block gibt kein Signal, und seine Rezepte verschwinden beim Datenpaket-Neuladen."
           ]
         }
       },
@@ -66523,18 +67575,18 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Nihilith Lamp",
-          "summary": "The lamp of the Nihil line: a redstone lamp plus Nihil Redstone crafts one; it toggles like a copper bulb on each pulse of its own line.",
+          "summary": "The lamp of the Nihil line: a redstone lamp plus Nihil Redstone crafts one; it toggles like a copper bulb on each pulse of any redstone line.",
           "details": [
-            "It listens only to Nihil Redstone or Bridge Redstone lying beside it or on top of it; redstone dust, the other line and a lever or button on the lamp itself do nothing.",
+            "It takes every redstone line: redstone, Astral, Nihil or Bridge Redstone beside it or on top of it, a lever or button on it, a redstone block or a line block next to it.",
             "Each rising signal switches it on or off, like a copper bulb; while lit it gives light 15. It is no redstone conductor.",
             "server.features.endSignals (default true) switched off: the lamp does not switch and its recipe disappears on datapack reload."
           ]
         },
         "de": {
           "title": "Nihilith-Lampe",
-          "summary": "Die Lampe der Nihil-Linie: Redstone-Lampe und Nihil-Redstone ergeben eine; sie schaltet bei jedem Puls ihrer eigenen Linie um wie eine Kupferlampe.",
+          "summary": "Die Lampe der Nihil-Linie: Redstone-Lampe und Nihil-Redstone ergeben eine; sie schaltet bei jedem Puls einer beliebigen Redstone-Linie um wie eine Kupferlampe.",
           "details": [
-            "Sie hört nur auf Nihil-Redstone oder Brücken-Redstone daneben oder obendrauf; Redstone-Staub, die andere Linie und ein Hebel oder Knopf an der Lampe selbst tun nichts.",
+            "Sie nimmt jede Redstone-Linie an: Redstone, Astral-, Nihil- oder Brücken-Redstone daneben oder obendrauf, einen Hebel oder Knopf an ihr, einen Redstone-Block oder Block einer Linie daneben.",
             "Jedes einschaltende Signal schaltet sie an oder aus, wie eine Kupferlampe; leuchtend gibt sie Licht 15. Sie leitet kein Redstone weiter.",
             "server.features.endSignals (Standard an) abgeschaltet: Die Lampe schaltet nicht, und ihr Rezept verschwindet beim Datenpaket-Neuladen."
           ]
@@ -71776,7 +72828,7 @@ window.WIKI_DATA = {
         "en_us": "Reinforced Chest",
         "de_de": "Verstärkte Truhe"
       },
-      "texture": "assets/textures/block/reinforced_chest.png",
+      "texture": "assets/textures/block/cracked_diamond_block.png",
       "craftedBy": [
         "simplebuilding:reinforced_chest"
       ],
@@ -72941,7 +73993,7 @@ window.WIKI_DATA = {
         "en_us": "Reinforced Trapped Chest",
         "de_de": "Verstärkte Redstone-Truhe"
       },
-      "texture": null,
+      "texture": "assets/textures/block/cracked_diamond_block.png",
       "craftedBy": [
         "simplebuilding:reinforced_trapped_chest"
       ],
@@ -73430,8 +74482,7 @@ window.WIKI_DATA = {
             "Anything that wades into it is slowed far more than in a cobweb and gets Darkness. The Darkness grows with the time spent inside: after t seconds it lasts 3 × (5/3)^(t − 2) seconds, at least 3 and at most 60 (out after 2 s: 3 s, after 3 s: 5 s, after 4 s: about 8 s). The open jaw snaps shut and bites once for 2 damage (1 heart), then stays shut and harmless while someone is still inside; it reopens 20 ticks after the last one has left. Wardens and spectators are ignored.",
             "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and only the bone tips of the teeth along the seam give it away. It snaps shut in a short motion and opens again just as visibly.",
             "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
-            "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare.",
-            "It also generates naturally on the floors of the Deep Dark (about six tries per chunk, only where it can stand), so every step there can be a trap."
+            "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare."
           ]
         },
         "de": {
@@ -73440,8 +74491,7 @@ window.WIKI_DATA = {
             "Wer hineingerät, wird weit stärker als im Spinnennetz verlangsamt und bekommt Dunkelheit. Die Dunkelheit wächst mit der Verweildauer: nach t Sekunden hält sie 3 × (5/3)^(t − 2) Sekunden, mindestens 3 und höchstens 60 (nach 2 s raus: 3 s, nach 3 s: 5 s, nach 4 s: etwa 8 s). Die offene Kiefer schnappt zu und beißt einmal für 2 Schaden (1 Herz), bleibt dann geschlossen und harmlos, solange noch jemand drinsteht, und öffnet sich erst 20 Ticks nachdem der Letzte draußen ist. Wardens und Zuschauer ignoriert sie.",
             "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, nur die Knochenspitzen der Zähne an der Naht verraten sie. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
             "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
-            "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten.",
-            "Sie wächst außerdem natürlich auf dem Boden der Deep Dark (etwa sechs Versuche je Chunk, nur wo sie stehen kann): dort kann jeder Schritt in eine Falle führen."
+            "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten."
           ]
         },
         "sources": [
@@ -77313,14 +78363,14 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanter, one at the Vanilla table.",
           "details": [
             "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
             "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
           ]
         },
         "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
           "details": [
             "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
             "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
@@ -80072,6 +81122,77 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:astral_redstone_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_redstone_block",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_redstone_block.json",
+      "ingredients": [
+        "simplebuilding:astral_redstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astral_redstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 4.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_redstone_from_astral_redstone_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_redstone",
+        "count": 9
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_redstone_from_astral_redstone_block.json",
+      "ingredients": [
+        "simplebuilding:astral_redstone_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astral_redstone_block"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplebuilding:astral_redstone_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:astral_vault",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -80113,16 +81234,16 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:enderite_nugget",
-            "count": 6
-          },
-          {
             "id": "simplebuilding:astralit_dust",
             "count": 2
           },
           {
             "id": "minecraft:ender_pearl",
             "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.667
           },
           {
             "id": "minecraft:blaze_rod",
@@ -82590,6 +83711,90 @@ window.WIKI_DATA = {
           }
         ]
       }
+    },
+    {
+      "id": "simplebuilding:basic_upgrade_template",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:basic_upgrade_template",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/basic_upgrade_template.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:iron_block",
+        "simplebuilding:basic_upgrade_template"
+      ],
+      "pattern": [
+        "ABA",
+        "ACA",
+        "AAA"
+      ],
+      "key": {
+        "A": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "simplebuilding:basic_upgrade_template"
+        ],
+        "C": [
+          "minecraft:iron_block"
+        ]
+      },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:diamond",
+                "minecraft:iron_block",
+                "simplebuilding:basic_upgrade_template"
+              ],
+              "other": [
+                "minecraft:gold_ingot",
+                "minecraft:iron_block",
+                "simplebuilding:basic_upgrade_template"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "A": [
+                  "minecraft:diamond"
+                ],
+                "B": [
+                  "simplebuilding:basic_upgrade_template"
+                ],
+                "C": [
+                  "minecraft:iron_block"
+                ]
+              },
+              "other": {
+                "A": [
+                  "minecraft:gold_ingot"
+                ],
+                "B": [
+                  "simplebuilding:basic_upgrade_template"
+                ],
+                "C": [
+                  "minecraft:iron_block"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/basic_upgrade_template.json"
+        }
+      ],
+      "lines": [
+        "26.3"
+      ]
     },
     {
       "id": "simplebuilding:birch_cauldron",
@@ -86721,6 +87926,81 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:bridge_redstone_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:bridge_redstone_block",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/bridge_redstone_block.json",
+      "ingredients": [
+        "simplebuilding:bridge_redstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:bridge_redstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:bridge_redstone_from_bridge_redstone_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:bridge_redstone",
+        "count": 9
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/bridge_redstone_from_bridge_redstone_block.json",
+      "ingredients": [
+        "simplebuilding:bridge_redstone_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:bridge_redstone_block"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplebuilding:bridge_redstone_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:brown_concrete_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -89285,6 +90565,115 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:cracked_diamond",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cracked_diamond",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
+      "ingredients": [
+        "simplebuilding:diamond_pebble"
+      ],
+      "pattern": [
+        "PPP",
+        "PPP",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "simplebuilding:diamond_pebble"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cracked_diamond_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cracked_diamond_block",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/cracked_diamond_block.json",
+      "ingredients": [
+        "simplebuilding:cracked_diamond"
+      ],
+      "pattern": [
+        "CCC",
+        "CCC",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:cracked_diamond"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cracked_diamond_from_cracked_diamond_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "cracked_diamond_from_block",
+      "result": {
+        "id": "simplebuilding:cracked_diamond",
+        "count": 9
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/cracked_diamond_from_cracked_diamond_block.json",
+      "ingredients": [
+        "simplebuilding:cracked_diamond_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:cracked_diamond_block"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplebuilding:cracked_diamond_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:cracked_ice_from_ice_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -91312,6 +92701,42 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:diamond_from_blasting_cracked_diamond",
+      "type": "minecraft:blasting",
+      "category": null,
+      "group": "diamond_from_cracked",
+      "result": {
+        "id": "minecraft:diamond",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
+      "ingredients": [
+        "simplebuilding:cracked_diamond"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:cracked_diamond"
+        ]
+      },
+      "cookingtime": 100,
+      "experience": 1.0,
+      "storedCookingtime": 200,
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:diamond_from_diamond_pole",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -91938,11 +93363,11 @@ window.WIKI_DATA = {
         "id": "simplebuilding:echo_sounder",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/echo_sounder.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/echo_sounder.json",
       "ingredients": [
         "minecraft:recovery_compass",
         "simplebuilding:enderite_core",
-        "simplelib:enderite_nugget"
+        "simplebuilding:enderite_nugget"
       ],
       "pattern": [
         "NNN",
@@ -91954,7 +93379,7 @@ window.WIKI_DATA = {
           "simplebuilding:enderite_core"
         ],
         "N": [
-          "simplelib:enderite_nugget"
+          "simplebuilding:enderite_nugget"
         ],
         "R": [
           "minecraft:recovery_compass"
@@ -91966,44 +93391,6 @@ window.WIKI_DATA = {
             "1.21.11"
           ],
           "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:recovery_compass",
-                "simplebuilding:enderite_core",
-                "simplelib:enderite_nugget"
-              ],
-              "other": [
-                "minecraft:recovery_compass",
-                "simplebuilding:enderite_core",
-                "simplebuilding:enderite_nugget"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "E": [
-                  "simplebuilding:enderite_core"
-                ],
-                "N": [
-                  "simplelib:enderite_nugget"
-                ],
-                "R": [
-                  "minecraft:recovery_compass"
-                ]
-              },
-              "other": {
-                "E": [
-                  "simplebuilding:enderite_core"
-                ],
-                "N": [
-                  "simplebuilding:enderite_nugget"
-                ],
-                "R": [
-                  "minecraft:recovery_compass"
-                ]
-              }
-            },
             {
               "field": "pattern",
               "this": [
@@ -92019,55 +93406,10 @@ window.WIKI_DATA = {
             }
           ],
           "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/echo_sounder.json"
-        },
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:recovery_compass",
-                "simplebuilding:enderite_core",
-                "simplelib:enderite_nugget"
-              ],
-              "other": [
-                "minecraft:recovery_compass",
-                "simplebuilding:enderite_core",
-                "simplebuilding:enderite_nugget"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "E": [
-                  "simplebuilding:enderite_core"
-                ],
-                "N": [
-                  "simplelib:enderite_nugget"
-                ],
-                "R": [
-                  "minecraft:recovery_compass"
-                ]
-              },
-              "other": {
-                "E": [
-                  "simplebuilding:enderite_core"
-                ],
-                "N": [
-                  "simplebuilding:enderite_nugget"
-                ],
-                "R": [
-                  "minecraft:recovery_compass"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/echo_sounder.json"
         }
       ],
       "lines": [
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -92078,16 +93420,16 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplelib:enderite_nugget",
-            "count": 7
-          },
-          {
             "id": "minecraft:diamond",
             "count": 4
           },
           {
             "id": "minecraft:iron_ingot",
             "count": 4
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1.778
           },
           {
             "id": "minecraft:nether_star",
@@ -92106,11 +93448,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -94922,10 +96260,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_apple",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_apple.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_apple.json",
       "ingredients": [
         "minecraft:apple",
-        "simplelib:enderite_nugget"
+        "simplebuilding:enderite_nugget"
       ],
       "pattern": [
         "NNN",
@@ -94937,63 +96275,24 @@ window.WIKI_DATA = {
           "minecraft:apple"
         ],
         "N": [
-          "simplelib:enderite_nugget"
+          "simplebuilding:enderite_nugget"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:apple",
-                "simplelib:enderite_nugget"
-              ],
-              "other": [
-                "minecraft:apple",
-                "simplebuilding:enderite_nugget"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "A": [
-                  "minecraft:apple"
-                ],
-                "N": [
-                  "simplelib:enderite_nugget"
-                ]
-              },
-              "other": {
-                "A": [
-                  "minecraft:apple"
-                ],
-                "N": [
-                  "simplebuilding:enderite_nugget"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_apple.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "simplelib:enderite_nugget",
-            "count": 8
-          },
-          {
             "id": "minecraft:apple",
             "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.889
           }
         ]
       }
@@ -95007,73 +96306,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_axe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_axe_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_axe_smithing.json",
       "ingredients": [
         "minecraft:netherite_axe",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_axe"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_axe",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_axe",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_axe"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_axe"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_axe_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -95092,11 +96344,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -95115,73 +96367,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_backpack",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_backpack",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_backpack"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_backpack"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_backpack",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_backpack"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_backpack"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_backpack"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -95196,7 +96401,7 @@ window.WIKI_DATA = {
             "count": 6
           },
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 4
           },
           {
@@ -95212,16 +96417,54 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
             "id": "minecraft:copper_ingot",
             "count": 0.222
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_block",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_block",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_block.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 9
           }
         ]
       }
@@ -95235,73 +96478,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_boots",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_boots_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_boots_smithing.json",
       "ingredients": [
         "minecraft:netherite_boots",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_boots"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_boots",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_boots",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_boots"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_boots"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_boots_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -95320,11 +96516,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -95342,7 +96538,7 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_bucket.json",
       "ingredients": [
         "minecraft:bucket",
-        "simplelib:enderite_nugget"
+        "simplebuilding:enderite_nugget"
       ],
       "pattern": [
         "NNN",
@@ -95354,7 +96550,7 @@ window.WIKI_DATA = {
           "minecraft:bucket"
         ],
         "N": [
-          "simplelib:enderite_nugget"
+          "simplebuilding:enderite_nugget"
         ]
       },
       "lines": [
@@ -95364,12 +96560,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplelib:enderite_nugget",
-            "count": 8
-          },
-          {
             "id": "minecraft:iron_ingot",
             "count": 3
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.889
           }
         ]
       }
@@ -95383,73 +96579,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_building_wand",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_building_wand_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_building_wand_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_building_wand",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_building_wand"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_building_wand"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_building_wand",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_building_wand"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_building_wand"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_building_wand_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -95472,11 +96621,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -95495,73 +96644,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_bundle",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_bundle_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_bundle_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_bundle",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_bundle"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_bundle"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_bundle",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_bundle"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_bundle"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_bundle"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_bundle_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -95572,7 +96674,7 @@ window.WIKI_DATA = {
             "count": 10
           },
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 6
           },
           {
@@ -95588,11 +96690,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -95607,10 +96709,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_carrot",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_carrot.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_carrot.json",
       "ingredients": [
         "minecraft:carrot",
-        "simplelib:enderite_nugget"
+        "simplebuilding:enderite_nugget"
       ],
       "pattern": [
         " N ",
@@ -95622,63 +96724,24 @@ window.WIKI_DATA = {
           "minecraft:carrot"
         ],
         "N": [
-          "simplelib:enderite_nugget"
+          "simplebuilding:enderite_nugget"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:carrot",
-                "simplelib:enderite_nugget"
-              ],
-              "other": [
-                "minecraft:carrot",
-                "simplebuilding:enderite_nugget"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "minecraft:carrot"
-                ],
-                "N": [
-                  "simplelib:enderite_nugget"
-                ]
-              },
-              "other": {
-                "C": [
-                  "minecraft:carrot"
-                ],
-                "N": [
-                  "simplebuilding:enderite_nugget"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_carrot.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "simplelib:enderite_nugget",
-            "count": 4
-          },
-          {
             "id": "minecraft:carrot",
             "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.444
           }
         ]
       }
@@ -96198,19 +97261,19 @@ window.WIKI_DATA = {
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_boat_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_chest_boat",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_chest_boat"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_chest_boat"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
       "lines": [
@@ -96224,15 +97287,15 @@ window.WIKI_DATA = {
             "count": 1.25
           },
           {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
             "id": "simplebuilding:netherite_chest",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -96330,19 +97393,19 @@ window.WIKI_DATA = {
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chest_minecart_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_chest_minecart",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_chest_minecart"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_chest_minecart"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
       "lines": [
@@ -96356,15 +97419,15 @@ window.WIKI_DATA = {
             "count": 5
           },
           {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
             "id": "simplebuilding:netherite_chest",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -96379,73 +97442,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_chestplate",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chestplate_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_chestplate_smithing.json",
       "ingredients": [
         "minecraft:netherite_chestplate",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_chestplate"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_chestplate",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_chestplate",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_chestplate"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_chestplate"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_chestplate_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -96464,11 +97480,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -96483,73 +97499,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_chisel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chisel_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_chisel_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_chisel",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_chisel"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_chisel"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_chisel",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_chisel"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_chisel"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_chisel"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_chisel_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -96568,11 +97537,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -96595,15 +97564,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_chunk_loader",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_chunk_loader_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_chunk_loader_smithing.json",
       "ingredients": [
         "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:netherite_chunk_loader",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_chunk_loader"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_chunk_loader"
@@ -96612,56 +97581,9 @@ window.WIKI_DATA = {
           "simplebuilding:enderite_pressure_plate"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:netherite_chunk_loader",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_chunk_loader"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_chunk_loader"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_chunk_loader"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_chunk_loader_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -96684,7 +97606,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 2
           },
           {
@@ -96696,7 +97618,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           }
         ]
@@ -96711,73 +97633,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_core",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_core_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_core_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_core",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_core"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_core"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_core",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_core"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_core"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_core"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_core_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -96800,11 +97675,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -96819,15 +97694,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_elytra_pad",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_elytra_pad_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_elytra_pad_smithing.json",
       "ingredients": [
         "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:netherite_elytra_pad",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_elytra_pad"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_elytra_pad"
@@ -96836,56 +97711,9 @@ window.WIKI_DATA = {
           "simplebuilding:enderite_pressure_plate"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:netherite_elytra_pad",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_elytra_pad"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_elytra_pad"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_elytra_pad"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_elytra_pad_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -96904,7 +97732,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 2
           },
           {
@@ -96916,7 +97744,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           }
         ]
@@ -96972,19 +97800,19 @@ window.WIKI_DATA = {
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_furnace_minecart_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_furnace_minecart",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_furnace_minecart"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_furnace_minecart"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
       "lines": [
@@ -96998,15 +97826,15 @@ window.WIKI_DATA = {
             "count": 5
           },
           {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
             "id": "simplebuilding:netherite_furnace",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -97021,73 +97849,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_helmet",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_helmet_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_helmet_smithing.json",
       "ingredients": [
         "minecraft:netherite_helmet",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_helmet"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_helmet",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_helmet",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_helmet"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_helmet"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_helmet_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -97106,11 +97887,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -97125,73 +97906,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_hoe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_hoe_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_hoe_smithing.json",
       "ingredients": [
         "minecraft:netherite_hoe",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_hoe"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_hoe",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_hoe",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_hoe"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_hoe"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_hoe_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -97210,11 +97944,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -97274,19 +98008,19 @@ window.WIKI_DATA = {
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_hopper_minecart_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_hopper_minecart",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_hopper_minecart"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_hopper_minecart"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
       "lines": [
@@ -97300,15 +98034,15 @@ window.WIKI_DATA = {
             "count": 5
           },
           {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
             "id": "simplebuilding:netherite_hopper",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -97323,73 +98057,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_horse_armor",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_horse_armor_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_horse_armor_smithing.json",
       "ingredients": [
         "minecraft:netherite_horse_armor",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_horse_armor"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_horse_armor",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_horse_armor",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_horse_armor"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_horse_armor"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_horse_armor_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -97408,11 +98095,144 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_ingot",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_ingot",
+        "count": 9
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_ingot.json",
+      "ingredients": [
+        "simplebuilding:enderite_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_block"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplebuilding:enderite_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_ingot_from_nugget",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_ingot",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_ingot_from_nugget.json",
+      "ingredients": [
+        "simplebuilding:enderite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "simplebuilding:enderite_nugget"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_ingot_from_scrap",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_ingot",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_ingot_from_scrap.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:netherite_ingot",
+        "simplebuilding:enderite_scrap"
+      ],
+      "pattern": [
+        "SDS",
+        "DND",
+        "SDS"
+      ],
+      "key": {
+        "D": [
+          "minecraft:diamond"
+        ],
+        "N": [
+          "minecraft:netherite_ingot"
+        ],
+        "S": [
+          "simplebuilding:enderite_scrap"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 64
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 64
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 16
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_ingot",
             "count": 1
           }
         ]
@@ -97427,15 +98247,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_launchpad",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_launchpad_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_launchpad_smithing.json",
       "ingredients": [
         "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:netherite_launchpad",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_launchpad"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_launchpad"
@@ -97444,56 +98264,9 @@ window.WIKI_DATA = {
           "simplebuilding:enderite_pressure_plate"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:netherite_launchpad",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_launchpad"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_launchpad"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_launchpad"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_launchpad_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -97516,7 +98289,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 2
           },
           {
@@ -97528,7 +98301,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           }
         ]
@@ -97543,73 +98316,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_leggings",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_leggings_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_leggings_smithing.json",
       "ingredients": [
         "minecraft:netherite_leggings",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_leggings"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_leggings",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_leggings",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_leggings"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_leggings"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_leggings_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -97628,11 +98354,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -97647,73 +98373,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_nautilus_armor",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_nautilus_armor_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_nautilus_armor_smithing.json",
       "ingredients": [
         "minecraft:netherite_nautilus_armor",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_nautilus_armor"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_nautilus_armor",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_nautilus_armor",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_nautilus_armor"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_nautilus_armor"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_nautilus_armor_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -97732,11 +98411,44 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_nugget_from_ingot",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_nugget",
+        "count": 9
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_nugget_from_ingot.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_ingot"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           }
         ]
@@ -97753,19 +98465,19 @@ window.WIKI_DATA = {
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_paint_box_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_paint_box",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_paint_box"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_paint_box"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
       "lines": [
@@ -97775,7 +98487,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 4
           },
           {
@@ -97799,11 +98511,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -97826,73 +98538,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_pickaxe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_pickaxe_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_pickaxe_smithing.json",
       "ingredients": [
         "minecraft:netherite_pickaxe",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_pickaxe"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_pickaxe",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_pickaxe",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_pickaxe"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_pickaxe"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_pickaxe_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -97911,11 +98576,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -97936,19 +98601,19 @@ window.WIKI_DATA = {
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_pole_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_pole",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_pole"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_pole"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
       "lines": [
@@ -97970,11 +98635,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -97989,73 +98654,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_pressure_plate",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_pressure_plate_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_pressure_plate_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_pressure_plate",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_pressure_plate"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_pressure_plate"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_pressure_plate",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_pressure_plate"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_pressure_plate"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_pressure_plate"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_pressure_plate_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -98074,11 +98692,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           }
         ]
@@ -98093,73 +98711,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_quiver",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_quiver_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_quiver_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_quiver",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_quiver"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_quiver"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_quiver",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_quiver"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_quiver"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_quiver"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_quiver_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -98170,7 +98741,7 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 6
           },
           {
@@ -98186,16 +98757,60 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
             "id": "minecraft:copper_ingot",
             "count": 0.111
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite",
+      "type": "minecraft:blasting",
+      "category": null,
+      "group": "enderite_scrap",
+      "result": {
+        "id": "simplebuilding:enderite_scrap",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
+      "ingredients": [
+        "simplebuilding:layered_raw_enderite"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:layered_raw_enderite"
+        ]
+      },
+      "cookingtime": 144000,
+      "experience": 10.0,
+      "storedCookingtime": 288000,
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 16
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 4
           }
         ]
       }
@@ -98209,73 +98824,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_shovel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_shovel_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_shovel_smithing.json",
       "ingredients": [
         "minecraft:netherite_shovel",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_shovel"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_shovel",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_shovel",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_shovel"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_shovel"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_shovel_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -98294,11 +98862,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -98371,73 +98939,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_sledgehammer",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
       "ingredients": [
-        "simplebuilding:netherite_sledgehammer",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_sledgehammer"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:netherite_sledgehammer"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:netherite_sledgehammer",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:netherite_sledgehammer"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_sledgehammer"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:netherite_sledgehammer"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -98456,11 +98977,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -98479,15 +99000,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_spawn_teleporter",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_spawn_teleporter_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_spawn_teleporter_smithing.json",
       "ingredients": [
         "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:spawn_teleporter_tier_2",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:spawn_teleporter_tier_2"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:spawn_teleporter_tier_2"
@@ -98496,56 +99017,9 @@ window.WIKI_DATA = {
           "simplebuilding:enderite_pressure_plate"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:spawn_teleporter_tier_2",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:spawn_teleporter_tier_2"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:spawn_teleporter_tier_2"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:spawn_teleporter_tier_2"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_spawn_teleporter_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -98568,7 +99042,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 2
           },
           {
@@ -98576,11 +99050,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplebuilding:enderman_head",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderman_head",
             "count": 1
           }
         ]
@@ -98595,73 +99069,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_spear",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_spear_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_spear_smithing.json",
       "ingredients": [
         "minecraft:netherite_spear",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_spear"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_spear",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_spear",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_spear"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_spear"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_spear_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -98680,11 +99107,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -98703,73 +99130,26 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_sword",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_sword_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_sword_smithing.json",
       "ingredients": [
         "minecraft:netherite_sword",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "minecraft:netherite_sword"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simplebuilding:enderite_ingot"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:netherite_sword",
-                "simplelib:enderite_ingot",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "minecraft:netherite_sword",
-                "simplebuilding:enderite_ingot",
-                "simplebuilding:enderite_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_sword"
-                ],
-                "addition": [
-                  "simplelib:enderite_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:netherite_sword"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_sword_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -98788,11 +99168,11 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -98844,6 +99224,43 @@ window.WIKI_DATA = {
           }
         ]
       }
+    },
+    {
+      "id": "simplebuilding:enderite_upgrade_template",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_upgrade_template",
+        "count": 2
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_upgrade_template.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:end_stone",
+        "simplebuilding:enderite_upgrade_template"
+      ],
+      "pattern": [
+        "ATA",
+        "AEA",
+        "AAA"
+      ],
+      "key": {
+        "A": [
+          "minecraft:diamond"
+        ],
+        "E": [
+          "minecraft:end_stone"
+        ],
+        "T": [
+          "simplebuilding:enderite_upgrade_template"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
     },
     {
       "id": "simplebuilding:exposed_copper_from_octets",
@@ -99484,11 +99901,11 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 2
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 2
           },
           {
@@ -99515,15 +99932,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_flypad",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/flypad_tier2_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier2_smithing.json",
       "ingredients": [
         "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:flypad",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:flypad"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:flypad"
@@ -99532,56 +99949,9 @@ window.WIKI_DATA = {
           "simplebuilding:enderite_pressure_plate"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:flypad",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:flypad"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:flypad"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:flypad"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/flypad_tier2_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -99592,7 +99962,7 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 4
           },
           {
@@ -99604,7 +99974,7 @@ window.WIKI_DATA = {
             "count": 3
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 3
           },
           {
@@ -102416,15 +102786,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:infused_potion_pad",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/infused_potion_pad_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/infused_potion_pad_smithing.json",
       "ingredients": [
         "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:reinforced_potion_pad",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:reinforced_potion_pad"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:reinforced_potion_pad"
@@ -102443,8 +102813,8 @@ window.WIKI_DATA = {
               "field": "ingredients",
               "this": [
                 "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:reinforced_potion_pad",
-                "simplelib:enderite_upgrade_template"
+                "simplebuilding:enderite_upgrade_template",
+                "simplebuilding:reinforced_potion_pad"
               ],
               "other": [
                 "simplebuilding:enderite_core",
@@ -102456,7 +102826,7 @@ window.WIKI_DATA = {
               "field": "slots",
               "this": {
                 "template": [
-                  "simplelib:enderite_upgrade_template"
+                  "simplebuilding:enderite_upgrade_template"
                 ],
                 "base": [
                   "simplebuilding:reinforced_potion_pad"
@@ -102479,55 +102849,10 @@ window.WIKI_DATA = {
             }
           ],
           "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/infused_potion_pad_smithing.json"
-        },
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:reinforced_potion_pad",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_pressure_plate",
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:reinforced_potion_pad"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:reinforced_potion_pad"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:reinforced_potion_pad"
-                ],
-                "addition": [
-                  "simplebuilding:enderite_pressure_plate"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/infused_potion_pad_smithing.json"
         }
       ],
       "lines": [
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -102546,7 +102871,7 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 2
           },
           {
@@ -102558,7 +102883,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           }
         ]
@@ -104169,6 +104494,106 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:astralit_dust",
             "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:layered_raw_enderite",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:layered_raw_enderite",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
+      "ingredients": [
+        "simplebuilding:raw_enderite"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:raw_enderite"
+        ],
+        [
+          "simplebuilding:raw_enderite"
+        ],
+        [
+          "simplebuilding:raw_enderite"
+        ],
+        [
+          "simplebuilding:raw_enderite"
+        ]
+      ],
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:raw_enderite"
+                ],
+                [
+                  "simplebuilding:raw_enderite"
+                ],
+                [
+                  "simplebuilding:raw_enderite"
+                ],
+                [
+                  "simplebuilding:raw_enderite"
+                ]
+              ],
+              "other": null
+            },
+            {
+              "field": "key",
+              "this": null,
+              "other": {
+                "R": [
+                  "simplebuilding:raw_enderite"
+                ]
+              }
+            },
+            {
+              "field": "pattern",
+              "this": null,
+              "other": [
+                "R",
+                "R",
+                "R"
+              ]
+            },
+            {
+              "field": "type",
+              "this": "minecraft:crafting_shapeless",
+              "other": "minecraft:crafting_shaped"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json"
+        }
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 16
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 4
           }
         ]
       }
@@ -107776,10 +108201,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:netherite_apple",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_apple.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_apple.json",
       "ingredients": [
         "minecraft:apple",
-        "simplelib:netherite_nugget"
+        "simplebuilding:netherite_nugget"
       ],
       "pattern": [
         "NNN",
@@ -107791,63 +108216,24 @@ window.WIKI_DATA = {
           "minecraft:apple"
         ],
         "N": [
-          "simplelib:netherite_nugget"
+          "simplebuilding:netherite_nugget"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:apple",
-                "simplelib:netherite_nugget"
-              ],
-              "other": [
-                "minecraft:apple",
-                "simplebuilding:netherite_nugget"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "A": [
-                  "minecraft:apple"
-                ],
-                "N": [
-                  "simplelib:netherite_nugget"
-                ]
-              },
-              "other": {
-                "A": [
-                  "minecraft:apple"
-                ],
-                "N": [
-                  "simplebuilding:netherite_nugget"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_apple.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "simplelib:netherite_nugget",
-            "count": 8
-          },
-          {
             "id": "minecraft:apple",
             "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 0.889
           }
         ]
       }
@@ -107895,7 +108281,7 @@ window.WIKI_DATA = {
             "count": 6
           },
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 4
           },
           {
@@ -108096,7 +108482,7 @@ window.WIKI_DATA = {
             "count": 10
           },
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 6
           },
           {
@@ -108123,10 +108509,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:netherite_carrot",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_carrot.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_carrot.json",
       "ingredients": [
         "minecraft:carrot",
-        "simplelib:netherite_nugget"
+        "simplebuilding:netherite_nugget"
       ],
       "pattern": [
         " N ",
@@ -108138,63 +108524,24 @@ window.WIKI_DATA = {
           "minecraft:carrot"
         ],
         "N": [
-          "simplelib:netherite_nugget"
+          "simplebuilding:netherite_nugget"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:carrot",
-                "simplelib:netherite_nugget"
-              ],
-              "other": [
-                "minecraft:carrot",
-                "simplebuilding:netherite_nugget"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "minecraft:carrot"
-                ],
-                "N": [
-                  "simplelib:netherite_nugget"
-                ]
-              },
-              "other": {
-                "C": [
-                  "minecraft:carrot"
-                ],
-                "N": [
-                  "simplebuilding:netherite_nugget"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_carrot.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "simplelib:netherite_nugget",
-            "count": 4
-          },
-          {
             "id": "minecraft:carrot",
             "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 0.444
           }
         ]
       }
@@ -108736,15 +109083,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -108876,6 +109223,10 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
@@ -108885,10 +109236,6 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -109249,16 +109596,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:cobblestone",
             "count": 8
           },
           {
             "id": "minecraft:iron_ingot",
             "count": 5
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
           },
           {
             "id": "minecraft:netherite_ingot",
@@ -109347,6 +109694,10 @@ window.WIKI_DATA = {
             "count": 10
           },
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 9
+          },
+          {
             "id": "minecraft:oak_log",
             "count": 2
           },
@@ -109363,12 +109714,46 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:cracked_diamond",
-            "count": 1
-          },
-          {
             "id": "minecraft:copper_ingot",
             "count": 0.111
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_ingot",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:netherite_ingot",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_ingot.json",
+      "ingredients": [
+        "simplebuilding:netherite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "simplebuilding:netherite_nugget"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
           }
         ]
       }
@@ -109435,6 +109820,39 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:netherite_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_nugget",
+        "count": 9
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_nugget.json",
+      "ingredients": [
+        "minecraft:netherite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:netherite_ingot"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:netherite_paint_box_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -109467,7 +109885,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 4
           },
           {
@@ -109636,7 +110054,7 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 6
           },
           {
@@ -110143,6 +110561,77 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nihil_redstone_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_redstone_block",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_redstone_block.json",
+      "ingredients": [
+        "simplebuilding:nihil_redstone"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihil_redstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 4.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_redstone_from_nihil_redstone_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_redstone",
+        "count": 9
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_redstone_from_nihil_redstone_block.json",
+      "ingredients": [
+        "simplebuilding:nihil_redstone_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihil_redstone_block"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplebuilding:nihil_redstone_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihil_vault",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -110184,16 +110673,16 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
-            "id": "simplebuilding:enderite_nugget",
-            "count": 6
-          },
-          {
             "id": "simplebuilding:nihilith_shard",
             "count": 2
           },
           {
             "id": "minecraft:ender_pearl",
             "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.667
           },
           {
             "id": "minecraft:blaze_rod",
@@ -122530,10 +123019,10 @@ window.WIKI_DATA = {
       "category": null,
       "group": null,
       "result": {
-        "id": "simplelib:raw_enderite",
+        "id": "simplebuilding:raw_enderite",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/raw_enderite_synthesis.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/raw_enderite_synthesis.json",
       "ingredients": [
         "minecraft:ender_pearl",
         "simplebuilding:astralit_dust",
@@ -122568,29 +123057,9 @@ window.WIKI_DATA = {
           "minecraft:ender_pearl"
         ]
       ],
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "result",
-              "this": {
-                "id": "simplelib:raw_enderite",
-                "count": 1
-              },
-              "other": {
-                "id": "simplebuilding:raw_enderite",
-                "count": 1
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/raw_enderite_synthesis.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -124008,12 +124477,12 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_backpack",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
       "ingredients": [
         "minecraft:string",
         "simplebuilding:backpack",
-        "simplebuilding:leather_sheet",
-        "simplelib:diamond_pebble"
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:leather_sheet"
       ],
       "pattern": [
         "DSD",
@@ -124025,7 +124494,7 @@ window.WIKI_DATA = {
           "simplebuilding:backpack"
         ],
         "D": [
-          "simplelib:diamond_pebble"
+          "simplebuilding:diamond_pebble"
         ],
         "L": [
           "simplebuilding:leather_sheet"
@@ -124034,64 +124503,9 @@ window.WIKI_DATA = {
           "minecraft:string"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:string",
-                "simplebuilding:backpack",
-                "simplebuilding:leather_sheet",
-                "simplelib:diamond_pebble"
-              ],
-              "other": [
-                "minecraft:string",
-                "simplebuilding:backpack",
-                "simplebuilding:diamond_pebble",
-                "simplebuilding:leather_sheet"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "B": [
-                  "simplebuilding:backpack"
-                ],
-                "D": [
-                  "simplelib:diamond_pebble"
-                ],
-                "L": [
-                  "simplebuilding:leather_sheet"
-                ],
-                "S": [
-                  "minecraft:string"
-                ]
-              },
-              "other": {
-                "B": [
-                  "simplebuilding:backpack"
-                ],
-                "D": [
-                  "simplebuilding:diamond_pebble"
-                ],
-                "L": [
-                  "simplebuilding:leather_sheet"
-                ],
-                "S": [
-                  "minecraft:string"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -124106,7 +124520,7 @@ window.WIKI_DATA = {
             "count": 6
           },
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 4
           },
           {
@@ -124129,10 +124543,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_blast_furnace",
         "count": 3
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_blast_furnace.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_blast_furnace.json",
       "ingredients": [
         "minecraft:blast_furnace",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "pattern": [
         "DDD",
@@ -124144,56 +124558,21 @@ window.WIKI_DATA = {
           "minecraft:blast_furnace"
         ],
         "D": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:blast_furnace",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:blast_furnace",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "B": [
-                  "minecraft:blast_furnace"
-                ],
-                "D": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "B": [
-                  "minecraft:blast_furnace"
-                ],
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_blast_furnace.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 3,
         "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 54
+          },
           {
             "id": "minecraft:cobblestone",
             "count": 24
@@ -124205,10 +124584,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stone",
             "count": 9
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 6
           }
         ]
       }
@@ -124222,12 +124597,12 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_bundle",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_bundle.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_bundle.json",
       "ingredients": [
         "minecraft:bundle",
         "minecraft:string",
-        "simplebuilding:leather_sheet",
-        "simplelib:diamond_pebble"
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:leather_sheet"
       ],
       "pattern": [
         "DSD",
@@ -124239,7 +124614,7 @@ window.WIKI_DATA = {
           "minecraft:bundle"
         ],
         "D": [
-          "simplelib:diamond_pebble"
+          "simplebuilding:diamond_pebble"
         ],
         "S": [
           "minecraft:string"
@@ -124248,64 +124623,9 @@ window.WIKI_DATA = {
           "simplebuilding:leather_sheet"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:bundle",
-                "minecraft:string",
-                "simplebuilding:leather_sheet",
-                "simplelib:diamond_pebble"
-              ],
-              "other": [
-                "minecraft:bundle",
-                "minecraft:string",
-                "simplebuilding:diamond_pebble",
-                "simplebuilding:leather_sheet"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "B": [
-                  "minecraft:bundle"
-                ],
-                "D": [
-                  "simplelib:diamond_pebble"
-                ],
-                "S": [
-                  "minecraft:string"
-                ],
-                "X": [
-                  "simplebuilding:leather_sheet"
-                ]
-              },
-              "other": {
-                "B": [
-                  "minecraft:bundle"
-                ],
-                "D": [
-                  "simplebuilding:diamond_pebble"
-                ],
-                "S": [
-                  "minecraft:string"
-                ],
-                "X": [
-                  "simplebuilding:leather_sheet"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_bundle.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -124316,7 +124636,7 @@ window.WIKI_DATA = {
             "count": 10
           },
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 6
           },
           {
@@ -124335,10 +124655,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_chest",
         "count": 3
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_chest.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_chest.json",
       "ingredients": [
         "#simplebuilding:copper_chests",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "pattern": [
         "DDD",
@@ -124350,66 +124670,27 @@ window.WIKI_DATA = {
           "#simplebuilding:copper_chests"
         ],
         "D": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "#simplebuilding:copper_chests",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "#simplebuilding:copper_chests",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "C": [
-                  "#simplebuilding:copper_chests"
-                ],
-                "D": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "C": [
-                  "#simplebuilding:copper_chests"
-                ],
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_chest.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 3,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 54
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 24
           },
           {
             "id": "minecraft:oak_log",
-            "count": 6
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 6
           }
         ],
@@ -124450,15 +124731,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -124500,15 +124781,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -124554,15 +124835,15 @@ window.WIKI_DATA = {
             "count": 22.5
           },
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           }
         ]
@@ -124600,15 +124881,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -124650,15 +124931,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -124700,15 +124981,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -124750,15 +125031,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -124800,15 +125081,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -124850,15 +125131,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -124900,16 +125181,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
             "count": 3.25
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
           }
         ]
       }
@@ -124946,15 +125227,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -124996,15 +125277,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -125046,15 +125327,15 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
@@ -125093,6 +125374,10 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
@@ -125102,10 +125387,6 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 2
           }
         ]
@@ -125120,10 +125401,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_furnace",
         "count": 3
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_furnace.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_furnace.json",
       "ingredients": [
         "minecraft:furnace",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "pattern": [
         "DDD",
@@ -125132,66 +125413,27 @@ window.WIKI_DATA = {
       ],
       "key": {
         "D": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ],
         "F": [
           "minecraft:furnace"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:furnace",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:furnace",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "D": [
-                  "simplelib:cracked_diamond"
-                ],
-                "F": [
-                  "minecraft:furnace"
-                ]
-              },
-              "other": {
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ],
-                "F": [
-                  "minecraft:furnace"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_furnace.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 3,
         "materials": [
           {
-            "id": "minecraft:cobblestone",
-            "count": 24
+            "id": "simplebuilding:diamond_pebble",
+            "count": 54
           },
           {
-            "id": "simplelib:cracked_diamond",
-            "count": 6
+            "id": "minecraft:cobblestone",
+            "count": 24
           }
         ]
       }
@@ -125225,16 +125467,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:cobblestone",
             "count": 8
           },
           {
             "id": "minecraft:iron_ingot",
             "count": 5
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
           }
         ]
       }
@@ -125248,18 +125490,18 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_hopper",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
       "ingredients": [
         "minecraft:hopper",
         "minecraft:name_tag",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "ingredientGroups": [
         [
           "minecraft:hopper"
         ],
         [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ],
         [
           "minecraft:name_tag"
@@ -125278,26 +125520,13 @@ window.WIKI_DATA = {
                   "minecraft:hopper"
                 ],
                 [
-                  "simplelib:cracked_diamond"
+                  "simplebuilding:cracked_diamond"
                 ],
                 [
                   "minecraft:name_tag"
                 ]
               ],
               "other": null
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:hopper",
-                "minecraft:name_tag",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:hopper",
-                "minecraft:name_tag",
-                "simplebuilding:cracked_diamond"
-              ]
             },
             {
               "field": "key",
@@ -125341,60 +125570,19 @@ window.WIKI_DATA = {
             }
           ],
           "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json"
-        },
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "minecraft:hopper"
-                ],
-                [
-                  "simplelib:cracked_diamond"
-                ],
-                [
-                  "minecraft:name_tag"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:hopper"
-                ],
-                [
-                  "simplebuilding:cracked_diamond"
-                ],
-                [
-                  "minecraft:name_tag"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:hopper",
-                "minecraft:name_tag",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:hopper",
-                "minecraft:name_tag",
-                "simplebuilding:cracked_diamond"
-              ]
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json"
         }
       ],
       "lines": [
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 9
+          },
           {
             "id": "minecraft:iron_ingot",
             "count": 5
@@ -125405,10 +125593,6 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:sugar_cane",
-            "count": 1
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 1
           },
           {
@@ -125451,15 +125635,15 @@ window.WIKI_DATA = {
             "count": 10
           },
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 9
+          },
+          {
             "id": "minecraft:oak_log",
             "count": 2
           },
           {
             "id": "minecraft:sugar_cane",
-            "count": 1
-          },
-          {
-            "id": "simplelib:cracked_diamond",
             "count": 1
           },
           {
@@ -125481,8 +125665,8 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_paint_box.json",
       "ingredients": [
         "minecraft:gold_nugget",
-        "simplebuilding:paint_box",
-        "simplelib:diamond_pebble"
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:paint_box"
       ],
       "pattern": [
         "NDN",
@@ -125494,7 +125678,7 @@ window.WIKI_DATA = {
           "simplebuilding:paint_box"
         ],
         "D": [
-          "simplelib:diamond_pebble"
+          "simplebuilding:diamond_pebble"
         ],
         "N": [
           "minecraft:gold_nugget"
@@ -125507,7 +125691,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 4
           },
           {
@@ -125542,11 +125726,11 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_piston",
         "count": 2
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_piston.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_piston.json",
       "ingredients": [
         "minecraft:iron_ingot",
         "minecraft:piston",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "pattern": [
         "DDD",
@@ -125555,7 +125739,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "D": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ],
         "I": [
           "minecraft:iron_ingot"
@@ -125564,61 +125748,18 @@ window.WIKI_DATA = {
           "minecraft:piston"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:iron_ingot",
-                "minecraft:piston",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:iron_ingot",
-                "minecraft:piston",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "D": [
-                  "simplelib:cracked_diamond"
-                ],
-                "I": [
-                  "minecraft:iron_ingot"
-                ],
-                "P": [
-                  "minecraft:piston"
-                ]
-              },
-              "other": {
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ],
-                "I": [
-                  "minecraft:iron_ingot"
-                ],
-                "P": [
-                  "minecraft:piston"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_piston.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 2,
         "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 27
+          },
           {
             "id": "minecraft:cobblestone",
             "count": 8
@@ -125626,10 +125767,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:iron_ingot",
             "count": 6
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 3
           },
           {
             "id": "minecraft:redstone",
@@ -125755,12 +125892,12 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_quiver",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_quiver.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
       "ingredients": [
         "minecraft:string",
+        "simplebuilding:diamond_pebble",
         "simplebuilding:leather_sheet",
-        "simplebuilding:quiver",
-        "simplelib:diamond_pebble"
+        "simplebuilding:quiver"
       ],
       "pattern": [
         "DSD",
@@ -125769,7 +125906,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "D": [
-          "simplelib:diamond_pebble"
+          "simplebuilding:diamond_pebble"
         ],
         "Q": [
           "simplebuilding:quiver"
@@ -125781,64 +125918,9 @@ window.WIKI_DATA = {
           "simplebuilding:leather_sheet"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:string",
-                "simplebuilding:leather_sheet",
-                "simplebuilding:quiver",
-                "simplelib:diamond_pebble"
-              ],
-              "other": [
-                "minecraft:string",
-                "simplebuilding:diamond_pebble",
-                "simplebuilding:leather_sheet",
-                "simplebuilding:quiver"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "D": [
-                  "simplelib:diamond_pebble"
-                ],
-                "Q": [
-                  "simplebuilding:quiver"
-                ],
-                "S": [
-                  "minecraft:string"
-                ],
-                "X": [
-                  "simplebuilding:leather_sheet"
-                ]
-              },
-              "other": {
-                "D": [
-                  "simplebuilding:diamond_pebble"
-                ],
-                "Q": [
-                  "simplebuilding:quiver"
-                ],
-                "S": [
-                  "minecraft:string"
-                ],
-                "X": [
-                  "simplebuilding:leather_sheet"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -125849,7 +125931,7 @@ window.WIKI_DATA = {
             "count": 12
           },
           {
-            "id": "simplelib:diamond_pebble",
+            "id": "simplebuilding:diamond_pebble",
             "count": 6
           },
           {
@@ -125875,60 +125957,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "black"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_black_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_black_shulker_box.json",
       "ingredients": [
         "minecraft:black_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:black_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:black_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:black_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:black_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:black_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_black_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -125944,60 +125987,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "blue"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_blue_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_blue_shulker_box.json",
       "ingredients": [
         "minecraft:blue_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:blue_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:blue_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:blue_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:blue_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:blue_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_blue_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126013,60 +126017,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "brown"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_brown_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_brown_shulker_box.json",
       "ingredients": [
         "minecraft:brown_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:brown_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:brown_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:brown_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:brown_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:brown_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_brown_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126082,60 +126047,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "cyan"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_cyan_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_cyan_shulker_box.json",
       "ingredients": [
         "minecraft:cyan_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:cyan_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:cyan_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:cyan_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:cyan_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:cyan_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_cyan_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126151,60 +126077,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "gray"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_gray_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_gray_shulker_box.json",
       "ingredients": [
         "minecraft:gray_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:gray_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gray_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:gray_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:gray_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:gray_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_gray_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126220,60 +126107,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "green"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_green_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_green_shulker_box.json",
       "ingredients": [
         "minecraft:green_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:green_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:green_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:green_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:green_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:green_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_green_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126289,60 +126137,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "light_blue"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_blue_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_blue_shulker_box.json",
       "ingredients": [
         "minecraft:light_blue_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:light_blue_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:light_blue_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:light_blue_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:light_blue_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:light_blue_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_blue_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126358,60 +126167,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "light_gray"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_gray_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_gray_shulker_box.json",
       "ingredients": [
         "minecraft:light_gray_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:light_gray_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:light_gray_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:light_gray_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:light_gray_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:light_gray_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_gray_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126427,60 +126197,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "lime"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_lime_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_lime_shulker_box.json",
       "ingredients": [
         "minecraft:lime_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:lime_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:lime_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:lime_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:lime_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:lime_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_lime_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126496,60 +126227,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "magenta"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_magenta_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_magenta_shulker_box.json",
       "ingredients": [
         "minecraft:magenta_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:magenta_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:magenta_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:magenta_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:magenta_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:magenta_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_magenta_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126565,60 +126257,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "orange"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_orange_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_orange_shulker_box.json",
       "ingredients": [
         "minecraft:orange_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:orange_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:orange_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:orange_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:orange_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:orange_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_orange_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126634,60 +126287,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "pink"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_pink_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_pink_shulker_box.json",
       "ingredients": [
         "minecraft:pink_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:pink_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:pink_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:pink_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:pink_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:pink_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_pink_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126703,60 +126317,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "purple"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_purple_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_purple_shulker_box.json",
       "ingredients": [
         "minecraft:purple_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:purple_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:purple_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:purple_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:purple_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:purple_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_purple_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126772,60 +126347,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "red"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_red_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_red_shulker_box.json",
       "ingredients": [
         "minecraft:red_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:red_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:red_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:red_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:red_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:red_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_red_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126892,60 +126428,21 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_shulker_box",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_shulker_box.json",
       "ingredients": [
         "minecraft:shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -126961,60 +126458,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "white"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_white_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_white_shulker_box.json",
       "ingredients": [
         "minecraft:white_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:white_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:white_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:white_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:white_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:white_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_white_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -127030,60 +126488,21 @@ window.WIKI_DATA = {
           "minecraft:base_color": "yellow"
         }
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_yellow_shulker_box.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_yellow_shulker_box.json",
       "ingredients": [
         "minecraft:yellow_shulker_box",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "slots": {
         "input": [
           "minecraft:yellow_shulker_box"
         ],
         "material": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:yellow_shulker_box",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:yellow_shulker_box",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "input": [
-                  "minecraft:yellow_shulker_box"
-                ],
-                "material": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "input": [
-                  "minecraft:yellow_shulker_box"
-                ],
-                "material": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_yellow_shulker_box.json"
-        }
-      ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -127096,10 +126515,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:reinforced_smoker",
         "count": 3
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_smoker.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_smoker.json",
       "ingredients": [
         "minecraft:smoker",
-        "simplelib:cracked_diamond"
+        "simplebuilding:cracked_diamond"
       ],
       "pattern": [
         "DDD",
@@ -127108,59 +126527,24 @@ window.WIKI_DATA = {
       ],
       "key": {
         "D": [
-          "simplelib:cracked_diamond"
+          "simplebuilding:cracked_diamond"
         ],
         "S": [
           "minecraft:smoker"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:smoker",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:smoker",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "D": [
-                  "simplelib:cracked_diamond"
-                ],
-                "S": [
-                  "minecraft:smoker"
-                ]
-              },
-              "other": {
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ],
-                "S": [
-                  "minecraft:smoker"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_smoker.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 3,
         "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 54
+          },
           {
             "id": "minecraft:cobblestone",
             "count": 24
@@ -127168,10 +126552,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 12
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 6
           }
         ]
       }
@@ -127211,16 +126591,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 13.5
+          },
+          {
             "id": "minecraft:cobblestone",
             "count": 4
           },
           {
             "id": "minecraft:iron_ingot",
             "count": 3
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 1.5
           },
           {
             "id": "minecraft:redstone",
@@ -127266,16 +126646,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
             "id": "minecraft:copper_ingot",
             "count": 8
           },
           {
             "id": "minecraft:oak_log",
             "count": 2.188
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
           },
           {
             "id": "minecraft:iron_ingot",
@@ -129265,14 +128645,14 @@ window.WIKI_DATA = {
         "id": "simplebuilding:stellar_flypad",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/stellar_flypad_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/stellar_flypad_smithing.json",
       "ingredients": [
-        "simplebuilding:reinforced_flypad",
-        "simplelib:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:reinforced_flypad"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:reinforced_flypad"
@@ -129281,54 +128661,9 @@ window.WIKI_DATA = {
           "simplebuilding:reinforced_flypad"
         ]
       },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:reinforced_flypad",
-                "simplelib:enderite_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:enderite_upgrade_template",
-                "simplebuilding:reinforced_flypad"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:reinforced_flypad"
-                ],
-                "addition": [
-                  "simplebuilding:reinforced_flypad"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:enderite_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:reinforced_flypad"
-                ],
-                "addition": [
-                  "simplebuilding:reinforced_flypad"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/stellar_flypad_smithing.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -129339,7 +128674,7 @@ window.WIKI_DATA = {
             "count": 16
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simplebuilding:enderite_upgrade_template",
             "count": 9
           },
           {
@@ -129351,7 +128686,7 @@ window.WIKI_DATA = {
             "count": 6
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simplebuilding:enderite_ingot",
             "count": 6
           },
           {
@@ -132640,15 +131975,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_axe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_axe_to_iron_axe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_axe_to_iron_axe.json",
       "ingredients": [
         "minecraft:copper_axe",
         "minecraft:iron_ingot",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:copper_axe"
@@ -132658,56 +131993,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:copper_axe",
-                "minecraft:iron_ingot",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:copper_axe",
-                "minecraft:iron_ingot",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_axe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_axe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_axe_to_iron_axe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -132722,7 +132010,7 @@ window.WIKI_DATA = {
             "count": 3
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -132741,15 +132029,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:iron_building_wand",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_building_wand_to_iron_building_wand.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_building_wand_to_iron_building_wand.json",
       "ingredients": [
+        "simplebuilding:basic_upgrade_template",
         "simplebuilding:copper_building_wand",
-        "simplebuilding:iron_core",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:iron_core"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "simplebuilding:copper_building_wand"
@@ -132759,56 +132047,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 1,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:copper_building_wand",
-                "simplebuilding:iron_core",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:copper_building_wand",
-                "simplebuilding:iron_core"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:iron_core"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:iron_core"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_building_wand_to_iron_building_wand.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -132827,7 +132068,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -132846,15 +132087,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:iron_chisel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_chisel_to_iron_chisel.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_chisel_to_iron_chisel.json",
       "ingredients": [
         "minecraft:iron_ingot",
-        "simplebuilding:copper_chisel",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template",
+        "simplebuilding:copper_chisel"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "simplebuilding:copper_chisel"
@@ -132864,56 +132105,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 2,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:iron_ingot",
-                "simplebuilding:copper_chisel",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:iron_ingot",
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:copper_chisel"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_chisel"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_chisel"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_chisel_to_iron_chisel.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -132928,7 +132122,7 @@ window.WIKI_DATA = {
             "count": 1.222
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -132947,15 +132141,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_hoe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_hoe_to_iron_hoe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_hoe_to_iron_hoe.json",
       "ingredients": [
         "minecraft:copper_hoe",
         "minecraft:iron_ingot",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:copper_hoe"
@@ -132965,56 +132159,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:copper_hoe",
-                "minecraft:iron_ingot",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:copper_hoe",
-                "minecraft:iron_ingot",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_hoe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_hoe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_hoe_to_iron_hoe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133029,7 +132176,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133048,15 +132195,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_pickaxe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_pickaxe_to_iron_pickaxe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_pickaxe_to_iron_pickaxe.json",
       "ingredients": [
         "minecraft:copper_pickaxe",
         "minecraft:iron_ingot",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:copper_pickaxe"
@@ -133066,56 +132213,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:copper_pickaxe",
-                "minecraft:iron_ingot",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:copper_pickaxe",
-                "minecraft:iron_ingot",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_pickaxe_to_iron_pickaxe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133130,7 +132230,7 @@ window.WIKI_DATA = {
             "count": 3
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133149,15 +132249,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_shovel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_shovel_to_iron_shovel.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_shovel_to_iron_shovel.json",
       "ingredients": [
         "minecraft:copper_shovel",
         "minecraft:iron_ingot",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:copper_shovel"
@@ -133167,56 +132267,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 2,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:copper_shovel",
-                "minecraft:iron_ingot",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:copper_shovel",
-                "minecraft:iron_ingot",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_shovel"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_shovel"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_shovel_to_iron_shovel.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133231,7 +132284,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133250,15 +132303,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:iron_sledgehammer",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
       "ingredients": [
         "minecraft:iron_ingot",
-        "simplebuilding:copper_sledgehammer",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template",
+        "simplebuilding:copper_sledgehammer"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "simplebuilding:copper_sledgehammer"
@@ -133268,56 +132321,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 22,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:iron_ingot",
-                "simplebuilding:copper_sledgehammer",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:iron_ingot",
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:copper_sledgehammer"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:copper_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133332,7 +132338,7 @@ window.WIKI_DATA = {
             "count": 11
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133351,15 +132357,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_sword",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_copper_sword_to_iron_sword.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sword_to_iron_sword.json",
       "ingredients": [
         "minecraft:copper_sword",
         "minecraft:iron_ingot",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:copper_sword"
@@ -133369,56 +132375,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:copper_sword",
-                "minecraft:iron_ingot",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:copper_sword",
-                "minecraft:iron_ingot",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_sword"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:copper_sword"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_sword_to_iron_sword.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133433,7 +132392,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133452,15 +132411,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:diamond_building_wand",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_gold_building_wand_to_diamond_building_wand.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_gold_building_wand_to_diamond_building_wand.json",
       "ingredients": [
+        "simplebuilding:basic_upgrade_template",
         "simplebuilding:diamond_core",
-        "simplebuilding:gold_building_wand",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:gold_building_wand"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "simplebuilding:gold_building_wand"
@@ -133470,56 +132429,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 1,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:diamond_core",
-                "simplebuilding:gold_building_wand",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:diamond_core",
-                "simplebuilding:gold_building_wand"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:diamond_core"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:diamond_core"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_gold_building_wand_to_diamond_building_wand.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133538,7 +132450,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133557,15 +132469,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:diamond_chisel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_gold_chisel_to_diamond_chisel.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_gold_chisel_to_diamond_chisel.json",
       "ingredients": [
         "minecraft:diamond",
-        "simplebuilding:gold_chisel",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template",
+        "simplebuilding:gold_chisel"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "simplebuilding:gold_chisel"
@@ -133575,56 +132487,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 2,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:diamond",
-                "simplebuilding:gold_chisel",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:diamond",
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:gold_chisel"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_chisel"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_chisel"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_gold_chisel_to_diamond_chisel.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133639,7 +132504,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133662,15 +132527,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:diamond_sledgehammer",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
       "ingredients": [
         "minecraft:diamond",
-        "simplebuilding:gold_sledgehammer",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template",
+        "simplebuilding:gold_sledgehammer"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "simplebuilding:gold_sledgehammer"
@@ -133680,56 +132545,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 22,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:diamond",
-                "simplebuilding:gold_sledgehammer",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:diamond",
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:gold_sledgehammer"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:gold_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133744,7 +132562,7 @@ window.WIKI_DATA = {
             "count": 11
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133763,15 +132581,15 @@ window.WIKI_DATA = {
         "id": "minecraft:diamond_axe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_golden_axe_to_diamond_axe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_golden_axe_to_diamond_axe.json",
       "ingredients": [
         "minecraft:diamond",
         "minecraft:golden_axe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:golden_axe"
@@ -133781,56 +132599,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:diamond",
-                "minecraft:golden_axe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:diamond",
-                "minecraft:golden_axe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_axe"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_axe"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_axe_to_diamond_axe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133845,7 +132616,7 @@ window.WIKI_DATA = {
             "count": 3
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133864,15 +132635,15 @@ window.WIKI_DATA = {
         "id": "minecraft:diamond_hoe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_golden_hoe_to_diamond_hoe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_golden_hoe_to_diamond_hoe.json",
       "ingredients": [
         "minecraft:diamond",
         "minecraft:golden_hoe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:golden_hoe"
@@ -133882,56 +132653,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:diamond",
-                "minecraft:golden_hoe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:diamond",
-                "minecraft:golden_hoe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_hoe"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_hoe"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_hoe_to_diamond_hoe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -133946,7 +132670,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -133965,15 +132689,15 @@ window.WIKI_DATA = {
         "id": "minecraft:diamond_pickaxe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_golden_pickaxe_to_diamond_pickaxe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_golden_pickaxe_to_diamond_pickaxe.json",
       "ingredients": [
         "minecraft:diamond",
         "minecraft:golden_pickaxe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:golden_pickaxe"
@@ -133983,56 +132707,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:diamond",
-                "minecraft:golden_pickaxe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:diamond",
-                "minecraft:golden_pickaxe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_pickaxe_to_diamond_pickaxe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134047,7 +132724,7 @@ window.WIKI_DATA = {
             "count": 3
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134066,15 +132743,15 @@ window.WIKI_DATA = {
         "id": "minecraft:diamond_shovel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_golden_shovel_to_diamond_shovel.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_golden_shovel_to_diamond_shovel.json",
       "ingredients": [
         "minecraft:diamond",
         "minecraft:golden_shovel",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:golden_shovel"
@@ -134084,56 +132761,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 2,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:diamond",
-                "minecraft:golden_shovel",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:diamond",
-                "minecraft:golden_shovel",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_shovel"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_shovel"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_shovel_to_diamond_shovel.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134148,7 +132778,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134167,15 +132797,15 @@ window.WIKI_DATA = {
         "id": "minecraft:diamond_sword",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_golden_sword_to_diamond_sword.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_golden_sword_to_diamond_sword.json",
       "ingredients": [
         "minecraft:diamond",
         "minecraft:golden_sword",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:golden_sword"
@@ -134185,56 +132815,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:diamond",
-                "minecraft:golden_sword",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:diamond",
-                "minecraft:golden_sword",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_sword"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:golden_sword"
-                ],
-                "addition": [
-                  "minecraft:diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_sword_to_diamond_sword.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134249,7 +132832,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134268,15 +132851,15 @@ window.WIKI_DATA = {
         "id": "minecraft:golden_axe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_axe_to_golden_axe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_iron_axe_to_golden_axe.json",
       "ingredients": [
         "minecraft:gold_ingot",
         "minecraft:iron_axe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:iron_axe"
@@ -134286,56 +132869,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_axe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_axe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_axe"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_axe"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_axe_to_golden_axe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134350,7 +132886,7 @@ window.WIKI_DATA = {
             "count": 3
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134369,15 +132905,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:gold_building_wand",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_building_wand_to_gold_building_wand.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_iron_building_wand_to_gold_building_wand.json",
       "ingredients": [
+        "simplebuilding:basic_upgrade_template",
         "simplebuilding:gold_core",
-        "simplebuilding:iron_building_wand",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:iron_building_wand"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "simplebuilding:iron_building_wand"
@@ -134387,56 +132923,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 1,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:gold_core",
-                "simplebuilding:iron_building_wand",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:gold_core",
-                "simplebuilding:iron_building_wand"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:gold_core"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_building_wand"
-                ],
-                "addition": [
-                  "simplebuilding:gold_core"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_building_wand_to_gold_building_wand.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134455,7 +132944,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134474,15 +132963,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:gold_chisel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_chisel_to_gold_chisel.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_iron_chisel_to_gold_chisel.json",
       "ingredients": [
         "minecraft:gold_ingot",
-        "simplebuilding:iron_chisel",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template",
+        "simplebuilding:iron_chisel"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "simplebuilding:iron_chisel"
@@ -134492,56 +132981,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 2,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gold_ingot",
-                "simplebuilding:iron_chisel",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:gold_ingot",
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:iron_chisel"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_chisel"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_chisel"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_chisel_to_gold_chisel.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134556,7 +132998,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134579,15 +133021,15 @@ window.WIKI_DATA = {
         "id": "minecraft:golden_hoe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_hoe_to_golden_hoe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_iron_hoe_to_golden_hoe.json",
       "ingredients": [
         "minecraft:gold_ingot",
         "minecraft:iron_hoe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:iron_hoe"
@@ -134597,56 +133039,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_hoe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_hoe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_hoe"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_hoe"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_hoe_to_golden_hoe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134661,7 +133056,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134680,15 +133075,15 @@ window.WIKI_DATA = {
         "id": "minecraft:golden_pickaxe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_pickaxe_to_golden_pickaxe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_iron_pickaxe_to_golden_pickaxe.json",
       "ingredients": [
         "minecraft:gold_ingot",
         "minecraft:iron_pickaxe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:iron_pickaxe"
@@ -134698,56 +133093,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_pickaxe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_pickaxe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_pickaxe_to_golden_pickaxe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134762,7 +133110,7 @@ window.WIKI_DATA = {
             "count": 3
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134781,15 +133129,15 @@ window.WIKI_DATA = {
         "id": "minecraft:golden_shovel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_shovel_to_golden_shovel.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_iron_shovel_to_golden_shovel.json",
       "ingredients": [
         "minecraft:gold_ingot",
         "minecraft:iron_shovel",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:iron_shovel"
@@ -134799,56 +133147,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 2,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_shovel",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_shovel",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_shovel"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_shovel"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_shovel_to_golden_shovel.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134863,7 +133164,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134882,15 +133183,15 @@ window.WIKI_DATA = {
         "id": "simplebuilding:gold_sledgehammer",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
       "ingredients": [
         "minecraft:gold_ingot",
-        "simplebuilding:iron_sledgehammer",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template",
+        "simplebuilding:iron_sledgehammer"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "simplebuilding:iron_sledgehammer"
@@ -134900,56 +133201,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 22,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gold_ingot",
-                "simplebuilding:iron_sledgehammer",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:gold_ingot",
-                "simplebuilding:basic_upgrade_template",
-                "simplebuilding:iron_sledgehammer"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "simplebuilding:iron_sledgehammer"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -134964,7 +133218,7 @@ window.WIKI_DATA = {
             "count": 11
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -134983,15 +133237,15 @@ window.WIKI_DATA = {
         "id": "minecraft:golden_sword",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_iron_sword_to_golden_sword.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_iron_sword_to_golden_sword.json",
       "ingredients": [
         "minecraft:gold_ingot",
         "minecraft:iron_sword",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:iron_sword"
@@ -135001,56 +133255,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_sword",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:gold_ingot",
-                "minecraft:iron_sword",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_sword"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:iron_sword"
-                ],
-                "addition": [
-                  "minecraft:gold_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_sword_to_golden_sword.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135065,7 +133272,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -135084,15 +133291,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_axe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_stone_axe_to_iron_axe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_stone_axe_to_iron_axe.json",
       "ingredients": [
         "minecraft:iron_ingot",
         "minecraft:stone_axe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:stone_axe"
@@ -135102,56 +133309,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_axe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_axe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_axe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_axe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_axe_to_iron_axe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135166,7 +133326,7 @@ window.WIKI_DATA = {
             "count": 3
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -135185,15 +133345,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_hoe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_stone_hoe_to_iron_hoe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_stone_hoe_to_iron_hoe.json",
       "ingredients": [
         "minecraft:iron_ingot",
         "minecraft:stone_hoe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:stone_hoe"
@@ -135203,56 +133363,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_hoe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_hoe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_hoe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_hoe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_hoe_to_iron_hoe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135267,7 +133380,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -135286,15 +133399,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_pickaxe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_stone_pickaxe_to_iron_pickaxe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_stone_pickaxe_to_iron_pickaxe.json",
       "ingredients": [
         "minecraft:iron_ingot",
         "minecraft:stone_pickaxe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:stone_pickaxe"
@@ -135304,56 +133417,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_pickaxe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_pickaxe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_pickaxe_to_iron_pickaxe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135368,7 +133434,7 @@ window.WIKI_DATA = {
             "count": 3
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -135387,15 +133453,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_shovel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_stone_shovel_to_iron_shovel.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_stone_shovel_to_iron_shovel.json",
       "ingredients": [
         "minecraft:iron_ingot",
         "minecraft:stone_shovel",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:stone_shovel"
@@ -135405,56 +133471,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 2,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_shovel",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_shovel",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_shovel"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_shovel"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_shovel_to_iron_shovel.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135469,7 +133488,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -135488,15 +133507,15 @@ window.WIKI_DATA = {
         "id": "minecraft:iron_sword",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_stone_sword_to_iron_sword.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_stone_sword_to_iron_sword.json",
       "ingredients": [
         "minecraft:iron_ingot",
         "minecraft:stone_sword",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:stone_sword"
@@ -135506,56 +133525,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_sword",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:iron_ingot",
-                "minecraft:stone_sword",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_sword"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:stone_sword"
-                ],
-                "addition": [
-                  "minecraft:iron_ingot"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_sword_to_iron_sword.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135570,7 +133542,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -135589,15 +133561,15 @@ window.WIKI_DATA = {
         "id": "minecraft:stone_axe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_wooden_axe_to_stone_axe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_wooden_axe_to_stone_axe.json",
       "ingredients": [
         "minecraft:cobblestone",
         "minecraft:wooden_axe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:wooden_axe"
@@ -135607,56 +133579,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_axe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_axe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_axe"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_axe"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_axe_to_stone_axe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135671,7 +133596,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           }
         ]
@@ -135686,15 +133611,15 @@ window.WIKI_DATA = {
         "id": "minecraft:stone_hoe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_wooden_hoe_to_stone_hoe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_wooden_hoe_to_stone_hoe.json",
       "ingredients": [
         "minecraft:cobblestone",
         "minecraft:wooden_hoe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:wooden_hoe"
@@ -135704,56 +133629,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_hoe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_hoe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_hoe"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_hoe"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_hoe_to_stone_hoe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135764,7 +133642,7 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -135783,15 +133661,15 @@ window.WIKI_DATA = {
         "id": "minecraft:stone_pickaxe",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_wooden_pickaxe_to_stone_pickaxe.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_wooden_pickaxe_to_stone_pickaxe.json",
       "ingredients": [
         "minecraft:cobblestone",
         "minecraft:wooden_pickaxe",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:wooden_pickaxe"
@@ -135801,56 +133679,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 6,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_pickaxe",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_pickaxe",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_pickaxe"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_pickaxe_to_stone_pickaxe.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135865,7 +133696,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           }
         ]
@@ -135880,15 +133711,15 @@ window.WIKI_DATA = {
         "id": "minecraft:stone_shovel",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_wooden_shovel_to_stone_shovel.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_wooden_shovel_to_stone_shovel.json",
       "ingredients": [
         "minecraft:cobblestone",
         "minecraft:wooden_shovel",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:wooden_shovel"
@@ -135898,56 +133729,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 2,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_shovel",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_shovel",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_shovel"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_shovel"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_shovel_to_stone_shovel.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -135958,7 +133742,7 @@ window.WIKI_DATA = {
             "count": 2
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -135977,15 +133761,15 @@ window.WIKI_DATA = {
         "id": "minecraft:stone_sword",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/upgrade_wooden_sword_to_stone_sword.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_wooden_sword_to_stone_sword.json",
       "ingredients": [
         "minecraft:cobblestone",
         "minecraft:wooden_sword",
-        "simplelib:basic_upgrade_template"
+        "simplebuilding:basic_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:basic_upgrade_template"
+          "simplebuilding:basic_upgrade_template"
         ],
         "base": [
           "minecraft:wooden_sword"
@@ -135995,56 +133779,9 @@ window.WIKI_DATA = {
         ]
       },
       "addition_count": 4,
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_sword",
-                "simplelib:basic_upgrade_template"
-              ],
-              "other": [
-                "minecraft:cobblestone",
-                "minecraft:wooden_sword",
-                "simplebuilding:basic_upgrade_template"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplelib:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_sword"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              },
-              "other": {
-                "template": [
-                  "simplebuilding:basic_upgrade_template"
-                ],
-                "base": [
-                  "minecraft:wooden_sword"
-                ],
-                "addition": [
-                  "minecraft:cobblestone"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_sword_to_stone_sword.json"
-        }
-      ],
       "lines": [
+        "1.21.11",
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -136055,7 +133792,7 @@ window.WIKI_DATA = {
             "count": 4
           },
           {
-            "id": "simplelib:basic_upgrade_template",
+            "id": "simplebuilding:basic_upgrade_template",
             "count": 1
           },
           {
@@ -139056,85 +136793,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:cracked_diamond",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:cracked_diamond",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
-      "ingredients": [
-        "simplebuilding:diamond_pebble"
-      ],
-      "pattern": [
-        "PPP",
-        "PPP",
-        "PPP"
-      ],
-      "key": {
-        "P": [
-          "simplebuilding:diamond_pebble"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:cracked_diamond_block",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:cracked_diamond_block",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/cracked_diamond_block.json",
-      "ingredients": [
-        "simplebuilding:cracked_diamond"
-      ],
-      "pattern": [
-        "CCC",
-        "CCC",
-        "CCC"
-      ],
-      "key": {
-        "C": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:cracked_diamond_from_cracked_diamond_block",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": "cracked_diamond_from_block",
-      "result": {
-        "id": "simplebuilding:cracked_diamond",
-        "count": 9
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/cracked_diamond_from_cracked_diamond_block.json",
-      "ingredients": [
-        "simplebuilding:cracked_diamond_block"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:cracked_diamond_block"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:detector",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -139174,31 +136832,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:diamond_from_blasting_cracked_diamond",
-      "type": "minecraft:blasting",
-      "category": "misc",
-      "group": "diamond_from_cracked",
-      "result": {
-        "id": "minecraft:diamond",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
-      "ingredients": [
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "ingredient": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "cookingtime": 100,
-      "experience": 1.0,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:echo_sounder",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -139231,41 +136864,6 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
-      ]
-    },
-    {
-      "id": "simplebuilding:echo_sounder",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:echo_sounder",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/echo_sounder.json",
-      "ingredients": [
-        "minecraft:recovery_compass",
-        "simplebuilding:enderite_core",
-        "simplebuilding:enderite_nugget"
-      ],
-      "pattern": [
-        "NNN",
-        "NRN",
-        "ENN"
-      ],
-      "key": {
-        "E": [
-          "simplebuilding:enderite_core"
-        ],
-        "N": [
-          "simplebuilding:enderite_nugget"
-        ],
-        "R": [
-          "minecraft:recovery_compass"
-        ]
-      },
-      "lines": [
-        "26.2"
       ]
     },
     {
@@ -139366,69 +136964,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:enderite_apple",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_apple",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_apple.json",
-      "ingredients": [
-        "minecraft:apple",
-        "simplebuilding:enderite_nugget"
-      ],
-      "pattern": [
-        "NNN",
-        "NAN",
-        "NNN"
-      ],
-      "key": {
-        "A": [
-          "minecraft:apple"
-        ],
-        "N": [
-          "simplebuilding:enderite_nugget"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_axe_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_axe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_axe_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_axe",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_axe"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:enderite_backpack_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -139440,127 +136975,6 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/enderite_backpack_dyed.json",
       "ingredients": [],
       "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_backpack_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_backpack",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_backpack"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_backpack"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_block",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_block",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_block.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot"
-      ],
-      "pattern": [
-        "###",
-        "###",
-        "###"
-      ],
-      "key": {
-        "#": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_boots_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_boots",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_boots_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_boots",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_boots"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_building_wand_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_building_wand",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_building_wand_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_building_wand"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_building_wand"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
         "26.2"
       ]
     },
@@ -139580,582 +136994,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:enderite_bundle_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_bundle",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_bundle_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_bundle"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_bundle"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_carrot",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_carrot",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_carrot.json",
-      "ingredients": [
-        "minecraft:carrot",
-        "simplebuilding:enderite_nugget"
-      ],
-      "pattern": [
-        " N ",
-        "NCN",
-        " N "
-      ],
-      "key": {
-        "C": [
-          "minecraft:carrot"
-        ],
-        "N": [
-          "simplebuilding:enderite_nugget"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_chestplate_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_chestplate",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_chestplate_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_chestplate",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_chestplate"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_chisel_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_chisel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_chisel_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_chisel"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_chisel"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_chunk_loader_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_chunk_loader",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_chunk_loader_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_chunk_loader"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_chunk_loader"
-        ],
-        "addition": [
-          "simplebuilding:enderite_pressure_plate"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_core_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_core",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_core_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_core"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_core"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_elytra_pad_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_elytra_pad",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_elytra_pad_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_elytra_pad"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_elytra_pad"
-        ],
-        "addition": [
-          "simplebuilding:enderite_pressure_plate"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_helmet_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_helmet",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_helmet_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_helmet",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_helmet"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_hoe_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_hoe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_hoe_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_hoe",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_hoe"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_horse_armor_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_horse_armor",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_horse_armor_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_horse_armor",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_horse_armor"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_ingot",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_ingot",
-        "count": 9
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_ingot.json",
-      "ingredients": [
-        "simplebuilding:enderite_block"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:enderite_block"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_ingot_from_nugget",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_ingot",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_ingot_from_nugget.json",
-      "ingredients": [
-        "simplebuilding:enderite_nugget"
-      ],
-      "pattern": [
-        "NNN",
-        "NNN",
-        "NNN"
-      ],
-      "key": {
-        "N": [
-          "simplebuilding:enderite_nugget"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_ingot_from_scrap",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_ingot",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_ingot_from_scrap.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:netherite_ingot",
-        "simplebuilding:enderite_scrap"
-      ],
-      "pattern": [
-        "SDS",
-        "DND",
-        "SDS"
-      ],
-      "key": {
-        "D": [
-          "minecraft:diamond"
-        ],
-        "N": [
-          "minecraft:netherite_ingot"
-        ],
-        "S": [
-          "simplebuilding:enderite_scrap"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_launchpad_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_launchpad",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_launchpad_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_launchpad"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_launchpad"
-        ],
-        "addition": [
-          "simplebuilding:enderite_pressure_plate"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_leggings_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_leggings",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_leggings_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_leggings",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_leggings"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_nautilus_armor_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_nautilus_armor",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_nautilus_armor_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_nautilus_armor",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_nautilus_armor"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_nugget_from_ingot",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_nugget",
-        "count": 9
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_nugget_from_ingot.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:enderite_ingot"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_pickaxe_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_pickaxe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_pickaxe_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_pickaxe",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_pickaxe"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_pressure_plate_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_pressure_plate",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_pressure_plate_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_pressure_plate"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_pressure_plate"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:enderite_quiver_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -140167,253 +137005,6 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/enderite_quiver_dyed.json",
       "ingredients": [],
       "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_quiver_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_quiver",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_quiver_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_quiver"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_quiver"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite",
-      "type": "minecraft:blasting",
-      "category": "misc",
-      "group": "enderite_scrap",
-      "result": {
-        "id": "simplebuilding:enderite_scrap",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
-      "ingredients": [
-        "simplebuilding:layered_raw_enderite"
-      ],
-      "slots": {
-        "ingredient": [
-          "simplebuilding:layered_raw_enderite"
-        ]
-      },
-      "cookingtime": 144000,
-      "experience": 10.0,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_shovel_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_shovel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_shovel_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_shovel",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_shovel"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_sledgehammer_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_sledgehammer",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_sledgehammer_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_sledgehammer"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_sledgehammer"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_spawn_teleporter_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_spawn_teleporter",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_spawn_teleporter_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:spawn_teleporter_tier_2"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:spawn_teleporter_tier_2"
-        ],
-        "addition": [
-          "simplebuilding:enderite_pressure_plate"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_spear_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_spear",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_spear_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_spear",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_spear"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_sword_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_sword",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_sword_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_sword",
-        "simplebuilding:enderite_ingot",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "minecraft:netherite_sword"
-        ],
-        "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_upgrade_template",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_upgrade_template",
-        "count": 2
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/enderite_upgrade_template.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:end_stone",
-        "simplebuilding:enderite_upgrade_template"
-      ],
-      "pattern": [
-        "ATA",
-        "AEA",
-        "AAA"
-      ],
-      "key": {
-        "A": [
-          "minecraft:diamond"
-        ],
-        "E": [
-          "minecraft:end_stone"
-        ],
-        "T": [
-          "simplebuilding:enderite_upgrade_template"
-        ]
-      },
-      "lines": [
-        "1.21.11",
         "26.2"
       ]
     },
@@ -140476,37 +137067,6 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
-      ]
-    },
-    {
-      "id": "simplebuilding:flypad_tier2_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_flypad",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/flypad_tier2_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:flypad"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:flypad"
-        ],
-        "addition": [
-          "simplebuilding:enderite_pressure_plate"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
       ]
     },
     {
@@ -140859,36 +137419,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:infused_potion_pad_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:infused_potion_pad",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/infused_potion_pad_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:reinforced_potion_pad"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:reinforced_potion_pad"
-        ],
-        "addition": [
-          "simplebuilding:enderite_pressure_plate"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:launchpad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -141023,38 +137553,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:netherite_apple",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_apple",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_apple.json",
-      "ingredients": [
-        "minecraft:apple",
-        "simplebuilding:netherite_nugget"
-      ],
-      "pattern": [
-        "NNN",
-        "NAN",
-        "NNN"
-      ],
-      "key": {
-        "A": [
-          "minecraft:apple"
-        ],
-        "N": [
-          "simplebuilding:netherite_nugget"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:netherite_backpack_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -141085,38 +137583,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:netherite_carrot",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_carrot",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_carrot.json",
-      "ingredients": [
-        "minecraft:carrot",
-        "simplebuilding:netherite_nugget"
-      ],
-      "pattern": [
-        " N ",
-        "NCN",
-        " N "
-      ],
-      "key": {
-        "C": [
-          "minecraft:carrot"
-        ],
-        "N": [
-          "simplebuilding:netherite_nugget"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:netherite_elytra_pad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -141142,57 +137608,6 @@ window.WIKI_DATA = {
           "simplebuilding:netherite_pressure_plate"
         ]
       },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:netherite_ingot",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "minecraft:netherite_ingot",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_ingot.json",
-      "ingredients": [
-        "simplebuilding:netherite_nugget"
-      ],
-      "pattern": [
-        "NNN",
-        "NNN",
-        "NNN"
-      ],
-      "key": {
-        "N": [
-          "simplebuilding:netherite_nugget"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:netherite_nugget",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_nugget",
-        "count": 9
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/netherite_nugget.json",
-      "ingredients": [
-        "minecraft:netherite_ingot"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:netherite_ingot"
-        ]
-      ],
       "lines": [
         "1.21.11",
         "26.2"
@@ -141461,95 +137876,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:raw_enderite_synthesis",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:raw_enderite",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/raw_enderite_synthesis.json",
-      "ingredients": [
-        "minecraft:ender_pearl",
-        "simplebuilding:astralit_dust",
-        "simplebuilding:nihilith_shard"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:nihilith_shard"
-        ],
-        [
-          "simplebuilding:nihilith_shard"
-        ],
-        [
-          "simplebuilding:nihilith_shard"
-        ],
-        [
-          "simplebuilding:nihilith_shard"
-        ],
-        [
-          "simplebuilding:astralit_dust"
-        ],
-        [
-          "simplebuilding:astralit_dust"
-        ],
-        [
-          "simplebuilding:astralit_dust"
-        ],
-        [
-          "simplebuilding:astralit_dust"
-        ],
-        [
-          "minecraft:ender_pearl"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_backpack",
-      "type": "simplebuilding:backpack_upgrade",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_backpack",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
-      "ingredients": [
-        "minecraft:string",
-        "simplebuilding:backpack",
-        "simplebuilding:diamond_pebble",
-        "simplebuilding:leather_sheet"
-      ],
-      "pattern": [
-        "DSD",
-        "DBD",
-        "LLL"
-      ],
-      "key": {
-        "B": [
-          "simplebuilding:backpack"
-        ],
-        "D": [
-          "simplebuilding:diamond_pebble"
-        ],
-        "L": [
-          "simplebuilding:leather_sheet"
-        ],
-        "S": [
-          "minecraft:string"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:reinforced_backpack_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -141565,78 +137891,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:reinforced_blast_furnace",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_blast_furnace",
-        "count": 3
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_blast_furnace.json",
-      "ingredients": [
-        "minecraft:blast_furnace",
-        "simplebuilding:cracked_diamond"
-      ],
-      "pattern": [
-        "DDD",
-        "BBB",
-        "DDD"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blast_furnace"
-        ],
-        "D": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_bundle",
-      "type": "simplebuilding:reinforced_bundle",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_bundle",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_bundle.json",
-      "ingredients": [
-        "minecraft:bundle",
-        "minecraft:string",
-        "simplebuilding:diamond_pebble",
-        "simplebuilding:leather_sheet"
-      ],
-      "pattern": [
-        "DSD",
-        "DBD",
-        "DXD"
-      ],
-      "key": {
-        "B": [
-          "minecraft:bundle"
-        ],
-        "D": [
-          "simplebuilding:diamond_pebble"
-        ],
-        "S": [
-          "minecraft:string"
-        ],
-        "X": [
-          "simplebuilding:leather_sheet"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:reinforced_bundle_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -141648,38 +137902,6 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_bundle_dyed.json",
       "ingredients": [],
       "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_chest",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_chest",
-        "count": 3
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_chest.json",
-      "ingredients": [
-        "#simplebuilding:copper_chests",
-        "simplebuilding:cracked_diamond"
-      ],
-      "pattern": [
-        "DDD",
-        "CCC",
-        "DDD"
-      ],
-      "key": {
-        "C": [
-          "#simplebuilding:copper_chests"
-        ],
-        "D": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "1.21.11",
         "26.2"
       ]
     },
@@ -141751,38 +137973,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:reinforced_furnace",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_furnace",
-        "count": 3
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_furnace.json",
-      "ingredients": [
-        "minecraft:furnace",
-        "simplebuilding:cracked_diamond"
-      ],
-      "pattern": [
-        "DDD",
-        "FFF",
-        "DDD"
-      ],
-      "key": {
-        "D": [
-          "simplebuilding:cracked_diamond"
-        ],
-        "F": [
-          "minecraft:furnace"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:reinforced_hopper_from_crafting",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -141818,72 +138008,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:reinforced_hopper_from_crafting",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_hopper",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-      "ingredients": [
-        "minecraft:hopper",
-        "minecraft:name_tag",
-        "simplebuilding:cracked_diamond"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:hopper"
-        ],
-        [
-          "simplebuilding:cracked_diamond"
-        ],
-        [
-          "minecraft:name_tag"
-        ]
-      ],
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_piston",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_piston",
-        "count": 2
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_piston.json",
-      "ingredients": [
-        "minecraft:iron_ingot",
-        "minecraft:piston",
-        "simplebuilding:cracked_diamond"
-      ],
-      "pattern": [
-        "DDD",
-        "PIP",
-        "III"
-      ],
-      "key": {
-        "D": [
-          "simplebuilding:cracked_diamond"
-        ],
-        "I": [
-          "minecraft:iron_ingot"
-        ],
-        "P": [
-          "minecraft:piston"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:reinforced_potion_pad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -141914,46 +138038,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:reinforced_quiver",
-      "type": "simplebuilding:reinforced_bundle",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_quiver",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
-      "ingredients": [
-        "minecraft:string",
-        "simplebuilding:diamond_pebble",
-        "simplebuilding:leather_sheet",
-        "simplebuilding:quiver"
-      ],
-      "pattern": [
-        "DSD",
-        "DQD",
-        "DXD"
-      ],
-      "key": {
-        "D": [
-          "simplebuilding:diamond_pebble"
-        ],
-        "Q": [
-          "simplebuilding:quiver"
-        ],
-        "S": [
-          "minecraft:string"
-        ],
-        "X": [
-          "simplebuilding:leather_sheet"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
       "id": "simplebuilding:reinforced_quiver_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -141965,528 +138049,6 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_quiver_dyed.json",
       "ingredients": [],
       "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_black_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "black"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_black_shulker_box.json",
-      "ingredients": [
-        "minecraft:black_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:black_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_blue_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "blue"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_blue_shulker_box.json",
-      "ingredients": [
-        "minecraft:blue_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:blue_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_brown_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "brown"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_brown_shulker_box.json",
-      "ingredients": [
-        "minecraft:brown_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:brown_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_cyan_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "cyan"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_cyan_shulker_box.json",
-      "ingredients": [
-        "minecraft:cyan_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:cyan_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_gray_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "gray"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_gray_shulker_box.json",
-      "ingredients": [
-        "minecraft:gray_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:gray_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_green_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "green"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_green_shulker_box.json",
-      "ingredients": [
-        "minecraft:green_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:green_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_light_blue_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_blue"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_blue_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_blue_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:light_blue_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_light_gray_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "light_gray"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_gray_shulker_box.json",
-      "ingredients": [
-        "minecraft:light_gray_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:light_gray_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_lime_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "lime"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_lime_shulker_box.json",
-      "ingredients": [
-        "minecraft:lime_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lime_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_magenta_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "magenta"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_magenta_shulker_box.json",
-      "ingredients": [
-        "minecraft:magenta_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:magenta_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_orange_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "orange"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_orange_shulker_box.json",
-      "ingredients": [
-        "minecraft:orange_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:orange_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_pink_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "pink"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_pink_shulker_box.json",
-      "ingredients": [
-        "minecraft:pink_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:pink_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_purple_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "purple"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_purple_shulker_box.json",
-      "ingredients": [
-        "minecraft:purple_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:purple_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_red_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "red"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_red_shulker_box.json",
-      "ingredients": [
-        "minecraft:red_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:red_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_shulker_box.json",
-      "ingredients": [
-        "minecraft:shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_white_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "white"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_white_shulker_box.json",
-      "ingredients": [
-        "minecraft:white_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:white_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_shulker_box_from_yellow_shulker_box",
-      "type": "minecraft:crafting_transmute",
-      "category": null,
-      "group": "reinforced_shulker_box",
-      "result": {
-        "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1,
-        "components": {
-          "minecraft:base_color": "yellow"
-        }
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_yellow_shulker_box.json",
-      "ingredients": [
-        "minecraft:yellow_shulker_box",
-        "simplebuilding:cracked_diamond"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:yellow_shulker_box"
-        ],
-        "material": [
-          "simplebuilding:cracked_diamond"
-        ]
-      },
-      "lines": [
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_smoker",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_smoker",
-        "count": 3
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_smoker.json",
-      "ingredients": [
-        "minecraft:smoker",
-        "simplebuilding:cracked_diamond"
-      ],
-      "pattern": [
-        "DDD",
-        "SSS",
-        "DDD"
-      ],
-      "key": {
-        "D": [
-          "simplebuilding:cracked_diamond"
-        ],
-        "S": [
-          "minecraft:smoker"
-        ]
-      },
-      "lines": [
-        "1.21.11",
         "26.2"
       ]
     },
@@ -142620,1124 +138182,6 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
-      ]
-    },
-    {
-      "id": "simplebuilding:stellar_flypad_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:stellar_flypad",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/stellar_flypad_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:reinforced_flypad"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:reinforced_flypad"
-        ],
-        "addition": [
-          "simplebuilding:reinforced_flypad"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_copper_axe_to_iron_axe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_axe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_axe_to_iron_axe.json",
-      "ingredients": [
-        "minecraft:copper_axe",
-        "minecraft:iron_ingot",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:copper_axe"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:iron_building_wand",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_building_wand_to_iron_building_wand.json",
-      "ingredients": [
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:copper_building_wand",
-        "simplebuilding:iron_core"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:copper_building_wand"
-        ],
-        "addition": [
-          "simplebuilding:iron_core"
-        ]
-      },
-      "addition_count": 1,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_copper_chisel_to_iron_chisel",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:iron_chisel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_chisel_to_iron_chisel.json",
-      "ingredients": [
-        "minecraft:iron_ingot",
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:copper_chisel"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:copper_chisel"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 2,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_copper_hoe_to_iron_hoe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_hoe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_hoe_to_iron_hoe.json",
-      "ingredients": [
-        "minecraft:copper_hoe",
-        "minecraft:iron_ingot",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:copper_hoe"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_copper_pickaxe_to_iron_pickaxe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_pickaxe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_pickaxe_to_iron_pickaxe.json",
-      "ingredients": [
-        "minecraft:copper_pickaxe",
-        "minecraft:iron_ingot",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:copper_pickaxe"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_copper_shovel_to_iron_shovel",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_shovel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_shovel_to_iron_shovel.json",
-      "ingredients": [
-        "minecraft:copper_shovel",
-        "minecraft:iron_ingot",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:copper_shovel"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 2,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_copper_sledgehammer_to_iron_sledgehammer",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:iron_sledgehammer",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_sledgehammer_to_iron_sledgehammer.json",
-      "ingredients": [
-        "minecraft:iron_ingot",
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:copper_sledgehammer"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:copper_sledgehammer"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 22,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_copper_sword_to_iron_sword",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_sword",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_copper_sword_to_iron_sword.json",
-      "ingredients": [
-        "minecraft:copper_sword",
-        "minecraft:iron_ingot",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:copper_sword"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:diamond_building_wand",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_gold_building_wand_to_diamond_building_wand.json",
-      "ingredients": [
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:diamond_core",
-        "simplebuilding:gold_building_wand"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:gold_building_wand"
-        ],
-        "addition": [
-          "simplebuilding:diamond_core"
-        ]
-      },
-      "addition_count": 1,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_gold_chisel_to_diamond_chisel",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:diamond_chisel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_gold_chisel_to_diamond_chisel.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:gold_chisel"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:gold_chisel"
-        ],
-        "addition": [
-          "minecraft:diamond"
-        ]
-      },
-      "addition_count": 2,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_gold_sledgehammer_to_diamond_sledgehammer",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:diamond_sledgehammer",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_gold_sledgehammer_to_diamond_sledgehammer.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:gold_sledgehammer"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:gold_sledgehammer"
-        ],
-        "addition": [
-          "minecraft:diamond"
-        ]
-      },
-      "addition_count": 22,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_golden_axe_to_diamond_axe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:diamond_axe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_axe_to_diamond_axe.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:golden_axe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:golden_axe"
-        ],
-        "addition": [
-          "minecraft:diamond"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_golden_hoe_to_diamond_hoe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:diamond_hoe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_hoe_to_diamond_hoe.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:golden_hoe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:golden_hoe"
-        ],
-        "addition": [
-          "minecraft:diamond"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_golden_pickaxe_to_diamond_pickaxe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:diamond_pickaxe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_pickaxe_to_diamond_pickaxe.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:golden_pickaxe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:golden_pickaxe"
-        ],
-        "addition": [
-          "minecraft:diamond"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_golden_shovel_to_diamond_shovel",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:diamond_shovel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_shovel_to_diamond_shovel.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:golden_shovel",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:golden_shovel"
-        ],
-        "addition": [
-          "minecraft:diamond"
-        ]
-      },
-      "addition_count": 2,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_golden_sword_to_diamond_sword",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:diamond_sword",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_golden_sword_to_diamond_sword.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:golden_sword",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:golden_sword"
-        ],
-        "addition": [
-          "minecraft:diamond"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_axe_to_golden_axe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:golden_axe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_axe_to_golden_axe.json",
-      "ingredients": [
-        "minecraft:gold_ingot",
-        "minecraft:iron_axe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:iron_axe"
-        ],
-        "addition": [
-          "minecraft:gold_ingot"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_building_wand_to_gold_building_wand",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gold_building_wand",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_building_wand_to_gold_building_wand.json",
-      "ingredients": [
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:gold_core",
-        "simplebuilding:iron_building_wand"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:iron_building_wand"
-        ],
-        "addition": [
-          "simplebuilding:gold_core"
-        ]
-      },
-      "addition_count": 1,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_chisel_to_gold_chisel",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gold_chisel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_chisel_to_gold_chisel.json",
-      "ingredients": [
-        "minecraft:gold_ingot",
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:iron_chisel"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:iron_chisel"
-        ],
-        "addition": [
-          "minecraft:gold_ingot"
-        ]
-      },
-      "addition_count": 2,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_hoe_to_golden_hoe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:golden_hoe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_hoe_to_golden_hoe.json",
-      "ingredients": [
-        "minecraft:gold_ingot",
-        "minecraft:iron_hoe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:iron_hoe"
-        ],
-        "addition": [
-          "minecraft:gold_ingot"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_pickaxe_to_golden_pickaxe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:golden_pickaxe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_pickaxe_to_golden_pickaxe.json",
-      "ingredients": [
-        "minecraft:gold_ingot",
-        "minecraft:iron_pickaxe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:iron_pickaxe"
-        ],
-        "addition": [
-          "minecraft:gold_ingot"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_shovel_to_golden_shovel",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:golden_shovel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_shovel_to_golden_shovel.json",
-      "ingredients": [
-        "minecraft:gold_ingot",
-        "minecraft:iron_shovel",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:iron_shovel"
-        ],
-        "addition": [
-          "minecraft:gold_ingot"
-        ]
-      },
-      "addition_count": 2,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_sledgehammer_to_gold_sledgehammer",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gold_sledgehammer",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_sledgehammer_to_gold_sledgehammer.json",
-      "ingredients": [
-        "minecraft:gold_ingot",
-        "simplebuilding:basic_upgrade_template",
-        "simplebuilding:iron_sledgehammer"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:iron_sledgehammer"
-        ],
-        "addition": [
-          "minecraft:gold_ingot"
-        ]
-      },
-      "addition_count": 22,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_iron_sword_to_golden_sword",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:golden_sword",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_iron_sword_to_golden_sword.json",
-      "ingredients": [
-        "minecraft:gold_ingot",
-        "minecraft:iron_sword",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:iron_sword"
-        ],
-        "addition": [
-          "minecraft:gold_ingot"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_stone_axe_to_iron_axe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_axe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_axe_to_iron_axe.json",
-      "ingredients": [
-        "minecraft:iron_ingot",
-        "minecraft:stone_axe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:stone_axe"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_stone_hoe_to_iron_hoe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_hoe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_hoe_to_iron_hoe.json",
-      "ingredients": [
-        "minecraft:iron_ingot",
-        "minecraft:stone_hoe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:stone_hoe"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_stone_pickaxe_to_iron_pickaxe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_pickaxe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_pickaxe_to_iron_pickaxe.json",
-      "ingredients": [
-        "minecraft:iron_ingot",
-        "minecraft:stone_pickaxe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:stone_pickaxe"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_stone_shovel_to_iron_shovel",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_shovel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_shovel_to_iron_shovel.json",
-      "ingredients": [
-        "minecraft:iron_ingot",
-        "minecraft:stone_shovel",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:stone_shovel"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 2,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_stone_sword_to_iron_sword",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:iron_sword",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_stone_sword_to_iron_sword.json",
-      "ingredients": [
-        "minecraft:iron_ingot",
-        "minecraft:stone_sword",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:stone_sword"
-        ],
-        "addition": [
-          "minecraft:iron_ingot"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_wooden_axe_to_stone_axe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:stone_axe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_axe_to_stone_axe.json",
-      "ingredients": [
-        "minecraft:cobblestone",
-        "minecraft:wooden_axe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:wooden_axe"
-        ],
-        "addition": [
-          "minecraft:cobblestone"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_wooden_hoe_to_stone_hoe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:stone_hoe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_hoe_to_stone_hoe.json",
-      "ingredients": [
-        "minecraft:cobblestone",
-        "minecraft:wooden_hoe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:wooden_hoe"
-        ],
-        "addition": [
-          "minecraft:cobblestone"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_wooden_pickaxe_to_stone_pickaxe",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:stone_pickaxe",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_pickaxe_to_stone_pickaxe.json",
-      "ingredients": [
-        "minecraft:cobblestone",
-        "minecraft:wooden_pickaxe",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:wooden_pickaxe"
-        ],
-        "addition": [
-          "minecraft:cobblestone"
-        ]
-      },
-      "addition_count": 6,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_wooden_shovel_to_stone_shovel",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:stone_shovel",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_shovel_to_stone_shovel.json",
-      "ingredients": [
-        "minecraft:cobblestone",
-        "minecraft:wooden_shovel",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:wooden_shovel"
-        ],
-        "addition": [
-          "minecraft:cobblestone"
-        ]
-      },
-      "addition_count": 2,
-      "lines": [
-        "1.21.11",
-        "26.2"
-      ]
-    },
-    {
-      "id": "simplebuilding:upgrade_wooden_sword_to_stone_sword",
-      "type": "simplebuilding:count_based_smithing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:stone_sword",
-        "count": 1
-      },
-      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/upgrade_wooden_sword_to_stone_sword.json",
-      "ingredients": [
-        "minecraft:cobblestone",
-        "minecraft:wooden_sword",
-        "simplebuilding:basic_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:basic_upgrade_template"
-        ],
-        "base": [
-          "minecraft:wooden_sword"
-        ],
-        "addition": [
-          "minecraft:cobblestone"
-        ]
-      },
-      "addition_count": 4,
-      "lines": [
-        "1.21.11",
-        "26.2"
       ]
     },
     {
@@ -143952,7 +138396,7 @@ window.WIKI_DATA = {
         {
           "rolls": 1,
           "items": [
-            "simplelib:enderite_nugget"
+            "simplebuilding:enderite_nugget"
           ],
           "conditions": [],
           "functions": []
@@ -144041,6 +138485,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astral_redstone.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astral_redstone_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_redstone_block"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_redstone_block.json"
     },
     {
       "id": "simplebuilding:blocks/astral_vault",
@@ -144562,6 +139022,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/bridge_redstone.json"
     },
     {
+      "id": "simplebuilding:blocks/bridge_redstone_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:bridge_redstone_block"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/bridge_redstone_block.json"
+    },
+    {
       "id": "simplebuilding:blocks/brown_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -144992,6 +139468,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/cracked_diamond_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:cracked_diamond_block"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
     },
     {
       "id": "simplebuilding:blocks/cracked_ice",
@@ -145586,6 +140078,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
+    },
+    {
+      "id": "simplebuilding:blocks/enderite_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:enderite_block"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_block.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_chest",
@@ -147189,6 +141697,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_redstone.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_redstone_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_redstone_block"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_redstone_block.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_vault",
@@ -149595,7 +144119,7 @@ window.WIKI_DATA = {
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "simplebuilding:reinforced_bundle",
-            "simplelib:diamond_pebble"
+            "simplebuilding:diamond_pebble"
           ],
           "conditions": [],
           "functions": []
@@ -149638,8 +144162,8 @@ window.WIKI_DATA = {
             "simplebuilding:quiver",
             "simplebuilding:netherite_apple",
             "simplebuilding:enchanted_netherite_apple",
-            "simplelib:netherite_nugget",
-            "simplelib:diamond_pebble"
+            "simplebuilding:netherite_nugget",
+            "simplebuilding:diamond_pebble"
           ],
           "conditions": [],
           "functions": []
@@ -149670,7 +144194,7 @@ window.WIKI_DATA = {
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "simplebuilding:gold_sledgehammer",
-            "simplelib:netherite_nugget",
+            "simplebuilding:netherite_nugget",
             "simplebuilding:netherite_carrot"
           ],
           "conditions": [],
@@ -149702,7 +144226,7 @@ window.WIKI_DATA = {
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "simplebuilding:gold_sledgehammer",
-            "simplelib:netherite_nugget",
+            "simplebuilding:netherite_nugget",
             "simplebuilding:netherite_carrot"
           ],
           "conditions": [],
@@ -149753,7 +144277,7 @@ window.WIKI_DATA = {
             "minecraft:enchanted_book",
             "simplebuilding:gold_chisel",
             "simplebuilding:diamond_chisel",
-            "simplelib:diamond_pebble"
+            "simplebuilding:diamond_pebble"
           ],
           "conditions": [],
           "functions": []
@@ -149781,7 +144305,7 @@ window.WIKI_DATA = {
             "p": 0.15
           },
           "items": [
-            "simplelib:enderite_scrap"
+            "simplebuilding:enderite_scrap"
           ],
           "conditions": [],
           "functions": []
@@ -149801,7 +144325,7 @@ window.WIKI_DATA = {
             "p": 0.3
           },
           "items": [
-            "simplelib:enderite_upgrade_template"
+            "simplebuilding:enderite_upgrade_template"
           ],
           "conditions": [],
           "functions": []
@@ -149809,8 +144333,8 @@ window.WIKI_DATA = {
         {
           "rolls": 1,
           "items": [
-            "simplelib:raw_enderite",
-            "simplelib:enderite_nugget",
+            "simplebuilding:raw_enderite",
+            "simplebuilding:enderite_nugget",
             "simplebuilding:astralit_dust",
             "simplebuilding:nihilith_shard"
           ],
@@ -149881,7 +144405,7 @@ window.WIKI_DATA = {
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "simplebuilding:octant",
-            "simplelib:netherite_nugget",
+            "simplebuilding:netherite_nugget",
             "simplebuilding:netherite_carrot"
           ],
           "conditions": [],
@@ -149934,7 +144458,7 @@ window.WIKI_DATA = {
             "min": 0
           },
           "items": [
-            "simplelib:netherite_nugget",
+            "simplebuilding:netherite_nugget",
             "simplebuilding:gold_chisel",
             "simplebuilding:netherite_carrot"
           ],
@@ -149958,7 +144482,7 @@ window.WIKI_DATA = {
           "items": [
             "minecraft:enchanted_book",
             "simplebuilding:reinforced_bundle",
-            "simplelib:diamond_pebble"
+            "simplebuilding:diamond_pebble"
           ],
           "conditions": [],
           "functions": []
@@ -149985,8 +144509,8 @@ window.WIKI_DATA = {
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "simplebuilding:reinforced_bundle",
-            "simplelib:basic_upgrade_template",
-            "simplelib:diamond_pebble"
+            "simplebuilding:basic_upgrade_template",
+            "simplebuilding:diamond_pebble"
           ],
           "conditions": [],
           "functions": []
@@ -150031,7 +144555,7 @@ window.WIKI_DATA = {
           "items": [
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplelib:diamond_pebble"
+            "simplebuilding:diamond_pebble"
           ],
           "conditions": [],
           "functions": []
@@ -150084,7 +144608,7 @@ window.WIKI_DATA = {
           "items": [
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplelib:diamond_pebble"
+            "simplebuilding:diamond_pebble"
           ],
           "conditions": [],
           "functions": []
@@ -150185,7 +144709,7 @@ window.WIKI_DATA = {
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "simplelib:diamond_pebble"
+            "simplebuilding:diamond_pebble"
           ],
           "conditions": [],
           "functions": []
@@ -155390,6 +149914,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_block",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_boots",
           "required": true
         },
@@ -155478,6 +150006,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_ingot",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_launchpad",
           "required": true
         },
@@ -155503,6 +150035,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_nautilus_armor",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_nugget",
           "required": true
         },
         {
@@ -155617,6 +150153,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_block",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_boots",
           "required": true
         },
@@ -155705,6 +150245,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_ingot",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_launchpad",
           "required": true
         },
@@ -155733,6 +150277,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_nugget",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_paint_box",
           "required": true
         },
@@ -155754,6 +150302,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_scrap",
           "required": true
         },
         {
@@ -155801,6 +150353,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_upgrade_template",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_water_bucket",
           "required": true
         },
@@ -155821,39 +150377,19 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:layered_raw_enderite",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:raw_enderite",
+          "required": true
+        },
+        {
           "id": "simplebuilding:reinforced_flypad",
           "required": true
         },
         {
           "id": "simplebuilding:stellar_flypad",
-          "required": true
-        },
-        {
-          "id": "simplelib:enderite_block",
-          "required": true
-        },
-        {
-          "id": "simplelib:enderite_ingot",
-          "required": true
-        },
-        {
-          "id": "simplelib:enderite_nugget",
-          "required": true
-        },
-        {
-          "id": "simplelib:enderite_scrap",
-          "required": true
-        },
-        {
-          "id": "simplelib:enderite_upgrade_template",
-          "required": true
-        },
-        {
-          "id": "simplelib:layered_raw_enderite",
-          "required": true
-        },
-        {
-          "id": "simplelib:raw_enderite",
           "required": true
         }
       ],
@@ -155949,11 +150485,11 @@ window.WIKI_DATA = {
       "replace": false,
       "values": [
         {
-          "id": "simplelib:cracked_diamond",
+          "id": "simplebuilding:cracked_diamond",
           "required": true
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json"
+      "source": "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json"
     },
     {
       "id": "simplebuilding:item/indestructible",
@@ -156209,19 +150745,19 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplelib:diamond_pebble",
+          "id": "simplebuilding:diamond_pebble",
           "required": true
         },
         {
-          "id": "simplelib:netherite_nugget",
+          "id": "simplebuilding:netherite_nugget",
           "required": true
         },
         {
-          "id": "simplelib:enderite_nugget",
+          "id": "simplebuilding:enderite_nugget",
           "required": true
         },
         {
-          "id": "simplelib:enderite_ingot",
+          "id": "simplebuilding:enderite_ingot",
           "required": true
         },
         {
@@ -156297,15 +150833,15 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplelib:raw_enderite",
+          "id": "simplebuilding:raw_enderite",
           "required": true
         },
         {
-          "id": "simplelib:enderite_scrap",
+          "id": "simplebuilding:enderite_scrap",
           "required": true
         },
         {
-          "id": "simplelib:cracked_diamond",
+          "id": "simplebuilding:cracked_diamond",
           "required": true
         },
         {
@@ -162629,7 +157165,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:cracked_diamond",
+            "id": "simplebuilding:cracked_diamond",
             "count": 1
           }
         ],
@@ -162662,7 +157198,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:cracked_diamond",
+            "id": "simplebuilding:cracked_diamond",
             "count": 2
           }
         ],
@@ -162694,7 +157230,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
@@ -162725,7 +157261,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
@@ -162758,7 +157294,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
@@ -162791,7 +157327,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
@@ -162824,7 +157360,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
@@ -162857,7 +157393,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
@@ -162890,7 +157426,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 2
           }
         ],
@@ -162922,7 +157458,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
@@ -162955,7 +157491,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
@@ -162986,7 +157522,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
@@ -163019,7 +157555,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
@@ -163052,7 +157588,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
@@ -163085,7 +157621,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
@@ -163118,7 +157654,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
@@ -163151,7 +157687,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 2
           }
         ],
@@ -163183,7 +157719,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
@@ -163216,7 +157752,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
@@ -163248,7 +157784,7 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
@@ -163287,7 +157823,7 @@ window.WIKI_DATA = {
           "simplebuilding:netherite_sledgehammer"
         ],
         "output": {
-          "id": "simplelib:diamond_pebble",
+          "id": "simplebuilding:diamond_pebble",
           "count": 81
         },
         "stats": {
@@ -163465,7 +158001,7 @@ window.WIKI_DATA = {
           "minecraft:damaged_anvil"
         ],
         "output": {
-          "id": "simplelib:diamond_pebble",
+          "id": "simplebuilding:diamond_pebble",
           "count": 72
         },
         "stats": {
@@ -163568,12 +158104,12 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
         "tools": [
-          "simplelib:enderite_nugget"
+          "simplebuilding:enderite_nugget"
         ],
         "output": {
           "id": "simplebuilding:enderite_piston",
@@ -163596,12 +158132,12 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
         "tools": [
-          "simplelib:netherite_nugget"
+          "simplebuilding:netherite_nugget"
         ],
         "output": {
           "id": "simplebuilding:netherite_piston",
@@ -164790,12 +159326,12 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simplebuilding:netherite_nugget",
             "count": 1
           }
         ],
         "tools": [
-          "simplelib:netherite_nugget"
+          "simplebuilding:netherite_nugget"
         ],
         "output": {
           "id": "simplebuilding:netherite_shulker_shell",
@@ -164815,12 +159351,12 @@ window.WIKI_DATA = {
             "count": 1
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplebuilding:enderite_nugget",
             "count": 1
           }
         ],
         "tools": [
-          "simplelib:enderite_nugget"
+          "simplebuilding:enderite_nugget"
         ],
         "output": {
           "id": "simplebuilding:enderite_shulker_shell",
@@ -177462,7 +171998,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:enderite_scrap",
+        "item": "simplebuilding:enderite_scrap",
         "table": "minecraft:chests/end_city_treasure",
         "label": {
           "en": "End city",
@@ -177522,7 +172058,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:enderite_upgrade_template",
+        "item": "simplebuilding:enderite_upgrade_template",
         "table": "minecraft:chests/end_city_treasure",
         "label": {
           "en": "End city",
@@ -177552,7 +172088,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:raw_enderite",
+        "item": "simplebuilding:raw_enderite",
         "table": "minecraft:chests/end_city_treasure",
         "label": {
           "en": "End city",
@@ -177577,7 +172113,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:enderite_nugget",
+        "item": "simplebuilding:enderite_nugget",
         "table": "minecraft:chests/end_city_treasure",
         "label": {
           "en": "End city",
@@ -178142,7 +172678,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:netherite_nugget",
+        "item": "simplebuilding:netherite_nugget",
         "table": "minecraft:chests/ancient_city",
         "label": {
           "en": "Ancient city",
@@ -178168,7 +172704,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:diamond_pebble",
+        "item": "simplebuilding:diamond_pebble",
         "table": "minecraft:chests/ancient_city",
         "label": {
           "en": "Ancient city",
@@ -178285,7 +172821,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:netherite_nugget",
+        "item": "simplebuilding:netherite_nugget",
         "table": "minecraft:chests/bastion_treasure",
         "label": {
           "en": "Bastion treasure room",
@@ -178467,7 +173003,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:netherite_nugget",
+        "item": "simplebuilding:netherite_nugget",
         "table": "minecraft:chests/bastion_other",
         "label": {
           "en": "Bastion (other chests)",
@@ -178812,7 +173348,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:netherite_nugget",
+        "item": "simplebuilding:netherite_nugget",
         "table": "minecraft:chests/nether_bridge",
         "label": {
           "en": "Nether fortress",
@@ -179358,7 +173894,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:diamond_pebble",
+        "item": "simplebuilding:diamond_pebble",
         "table": "minecraft:chests/buried_treasure",
         "label": {
           "en": "Buried treasure",
@@ -179578,7 +174114,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:basic_upgrade_template",
+        "item": "simplebuilding:basic_upgrade_template",
         "table": "minecraft:chests/simple_dungeon",
         "label": {
           "en": "Dungeon",
@@ -179604,7 +174140,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:diamond_pebble",
+        "item": "simplebuilding:diamond_pebble",
         "table": "minecraft:chests/simple_dungeon",
         "label": {
           "en": "Dungeon",
@@ -179684,7 +174220,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:diamond_pebble",
+        "item": "simplebuilding:diamond_pebble",
         "table": "minecraft:chests/shipwreck_treasure",
         "label": {
           "en": "Shipwreck treasure",
@@ -179959,7 +174495,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:diamond_pebble",
+        "item": "simplebuilding:diamond_pebble",
         "table": "minecraft:chests/abandoned_mineshaft",
         "label": {
           "en": "Mineshaft",
@@ -180077,7 +174613,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "vault",
-        "item": "simplelib:diamond_pebble",
+        "item": "simplebuilding:diamond_pebble",
         "table": "minecraft:chests/trial_chambers/reward_common",
         "label": {
           "en": "Trial chamber vault",
@@ -180168,7 +174704,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "vault",
-        "item": "simplelib:diamond_pebble",
+        "item": "simplebuilding:diamond_pebble",
         "table": "minecraft:chests/trial_chambers/reward_rare",
         "label": {
           "en": "Trial chamber vault (rare)",
@@ -180495,7 +175031,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
-        "item": "simplelib:netherite_nugget",
+        "item": "simplebuilding:netherite_nugget",
         "table": "minecraft:chests/ruined_portal",
         "label": {
           "en": "Ruined portal",
@@ -180681,7 +175217,7 @@ window.WIKI_DATA = {
       },
       {
         "type": "fishing",
-        "item": "simplelib:diamond_pebble",
+        "item": "simplebuilding:diamond_pebble",
         "table": "minecraft:gameplay/fishing/treasure",
         "label": {
           "en": "Fishing (treasure catch)",
@@ -181253,7 +175789,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite/beyond_netherite",
       "parent": "simplebuilding:enderite/patience_is_a_virtue",
-      "icon": "simplelib:enderite_ingot",
+      "icon": "simplebuilding:enderite_ingot",
       "frame": "goal",
       "hidden": false,
       "title": {
@@ -181269,17 +175805,17 @@ window.WIKI_DATA = {
           "name": "enderite_ingot",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:enderite_ingot"
+            "simplebuilding:enderite_ingot"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/enderite/beyond_netherite.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/beyond_netherite.json"
     },
     {
       "id": "simplebuilding:enderite/block_party",
       "parent": "simplebuilding:enderite/beyond_netherite",
-      "icon": "simplelib:enderite_block",
+      "icon": "simplebuilding:enderite_block",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -181295,12 +175831,12 @@ window.WIKI_DATA = {
           "name": "enderite_block",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:enderite_block"
+            "simplebuilding:enderite_block"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/enderite/block_party.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/block_party.json"
     },
     {
       "id": "simplebuilding:enderite/broken_record",
@@ -181544,7 +176080,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite/patience_is_a_virtue",
       "parent": "simplebuilding:enderite/raw_deal",
-      "icon": "simplelib:enderite_scrap",
+      "icon": "simplebuilding:enderite_scrap",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -181560,17 +176096,17 @@ window.WIKI_DATA = {
           "name": "enderite_scrap",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:enderite_scrap"
+            "simplebuilding:enderite_scrap"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/enderite/patience_is_a_virtue.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/patience_is_a_virtue.json"
     },
     {
       "id": "simplebuilding:enderite/pocket_change",
       "parent": "simplebuilding:enderite/beyond_netherite",
-      "icon": "simplelib:enderite_nugget",
+      "icon": "simplebuilding:enderite_nugget",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -181586,17 +176122,17 @@ window.WIKI_DATA = {
           "name": "enderite_nugget",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:enderite_nugget"
+            "simplebuilding:enderite_nugget"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/enderite/pocket_change.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/pocket_change.json"
     },
     {
       "id": "simplebuilding:enderite/raw_deal",
       "parent": "simplebuilding:end/stardust",
-      "icon": "simplelib:raw_enderite",
+      "icon": "simplebuilding:raw_enderite",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -181612,17 +176148,17 @@ window.WIKI_DATA = {
           "name": "raw_enderite",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:raw_enderite"
+            "simplebuilding:raw_enderite"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/enderite/raw_deal.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/raw_deal.json"
     },
     {
       "id": "simplebuilding:enderite/template_of_the_end",
       "parent": "simplebuilding:enderite/beyond_netherite",
-      "icon": "simplelib:enderite_upgrade_template",
+      "icon": "simplebuilding:enderite_upgrade_template",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -181638,12 +176174,12 @@ window.WIKI_DATA = {
           "name": "enderite_upgrade_template",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:enderite_upgrade_template"
+            "simplebuilding:enderite_upgrade_template"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/enderite/template_of_the_end.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/template_of_the_end.json"
     },
     {
       "id": "simplebuilding:enderite/the_last_bite",
@@ -182130,7 +176666,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hammer/cracked_up",
       "parent": "simplebuilding:hammer/pebble_dash",
-      "icon": "simplelib:cracked_diamond",
+      "icon": "simplebuilding:cracked_diamond",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -182146,12 +176682,12 @@ window.WIKI_DATA = {
           "name": "cracked_diamond",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:cracked_diamond"
+            "simplebuilding:cracked_diamond"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/hammer/cracked_up.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/cracked_up.json"
     },
     {
       "id": "simplebuilding:hammer/demolition_crew",
@@ -182179,7 +176715,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hammer/diamond_in_the_rough",
       "parent": "simplebuilding:hammer/cracked_up",
-      "icon": "simplelib:cracked_diamond_block",
+      "icon": "simplebuilding:cracked_diamond_block",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -182195,12 +176731,12 @@ window.WIKI_DATA = {
           "name": "cracked_diamond_block",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:cracked_diamond_block"
+            "simplebuilding:cracked_diamond_block"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/hammer/diamond_in_the_rough.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/diamond_in_the_rough.json"
     },
     {
       "id": "simplebuilding:hammer/heavy_metal",
@@ -182231,7 +176767,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:hammer/pebble_dash",
       "parent": "simplebuilding:hammer/stair_master",
-      "icon": "simplelib:diamond_pebble",
+      "icon": "simplebuilding:diamond_pebble",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -182250,7 +176786,7 @@ window.WIKI_DATA = {
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/hammer/pebble_dash.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/pebble_dash.json"
     },
     {
       "id": "simplebuilding:hammer/stair_master",
@@ -182529,7 +177065,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nether/nugget_of_wisdom",
       "parent": "minecraft:nether/root",
-      "icon": "simplelib:netherite_nugget",
+      "icon": "simplebuilding:netherite_nugget",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -182545,12 +177081,12 @@ window.WIKI_DATA = {
           "name": "netherite_nugget",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:netherite_nugget"
+            "simplebuilding:netherite_nugget"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/nether/nugget_of_wisdom.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/nether/nugget_of_wisdom.json"
     },
     {
       "id": "simplebuilding:nihil_vault",
@@ -183625,7 +178161,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:tiers/step_by_step",
       "parent": "simplebuilding:tiers/copper_crafter",
-      "icon": "simplelib:basic_upgrade_template",
+      "icon": "simplebuilding:basic_upgrade_template",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -183641,12 +178177,12 @@ window.WIKI_DATA = {
           "name": "basic_upgrade_template",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplelib:basic_upgrade_template"
+            "simplebuilding:basic_upgrade_template"
           ]
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/tiers/step_by_step.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/step_by_step.json"
     },
     {
       "id": "simplebuilding:trims/fashion_statement",
@@ -186261,10 +180797,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 767,
-    "blocks": 524,
-    "recipes": 1343,
-    "lootTables": 370,
+    "items": 782,
+    "blocks": 530,
+    "recipes": 1364,
+    "lootTables": 375,
     "trades": 20,
     "enchantments": 19,
     "tags": 54,

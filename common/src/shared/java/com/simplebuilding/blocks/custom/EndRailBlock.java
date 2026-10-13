@@ -19,10 +19,10 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 
 /**
  * Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), docs/ai/PLAN-ASTRAL-NIHIL-SCHIENEN-2026-10-02.md.
- * Straight only, like the powered rail. {@link #POWERED} is fed by the rail's own End channel exactly like a lamp:
- * powder or a switch of the same channel on a horizontal neighbour, never vanilla redstone and never another rail.
- * The End signal blocks change their state without neighbour updates, so a rail polls every two ticks while a source of
- * its channel lies next to it and falls asleep otherwise; placing or removing a neighbour wakes it up again.
+ * Straight only, like the powered rail. {@link #POWERED} is fed by every redstone line (N51, 2026-10-13,
+ * {@link EndSignalBlock#receiverPower}): any vanilla signal, and dust of any line (redstone, Astral, Nihil, Bridge) on a
+ * horizontal neighbour - never by another rail. A rail polls every two ticks while dust lies next to it and falls
+ * asleep otherwise; placing or removing a neighbour (or any neighbour update) wakes it up again.
  *
  * <p>It extends {@link BaseRailBlock}, not the powered rail: vanilla (and NeoForge/Forge, which test for
  * {@code PoweredRailBlock}) give it neither boost nor halt; what it does to a minecart is {@link EndRailPhysics}.
@@ -78,8 +78,20 @@ public class EndRailBlock extends BaseRailBlock {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        boolean powered = EndRailPhysics.enabled() && EndSignalBlock.receiverPower(astral, level, pos) > 0;
+        boolean powered = EndRailPhysics.enabled() && EndSignalBlock.receiverPower(level, pos) > 0;
         if (powered != state.getValue(POWERED)) level.setBlock(pos, state.setValue(POWERED, powered), Block.UPDATE_CLIENTS);
-        if (EndSignalBlock.hasSourceNeighbour(astral, level, pos)) level.scheduleTick(pos, this, 2);
+        if (EndSignalBlock.hasSourceNeighbour(level, pos)) level.scheduleTick(pos, this, 2);
+    }
+
+    /** 26.3/NeoForge: vanilla dust connects to End rails (they take every line). */
+    protected boolean shouldRedstoneWireConnectTo(BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos,
+                                                  @org.jetbrains.annotations.Nullable net.minecraft.core.Direction direction) {
+        return direction != null;
+    }
+
+    /** Forge's IForgeBlock hook for the same question. */
+    public boolean canConnectRedstone(BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos,
+                                      @org.jetbrains.annotations.Nullable net.minecraft.core.Direction direction) {
+        return direction != null;
     }
 }

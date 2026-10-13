@@ -54,6 +54,18 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/nihil_redstone_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_redstone_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/bridge_redstone_block",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/nihilith_lamp",
       "required": false
     },

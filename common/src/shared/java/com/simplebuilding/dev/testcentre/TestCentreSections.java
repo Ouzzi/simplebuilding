@@ -1399,6 +1399,21 @@ public final class TestCentreSections {
                 c.place(3, 0, z + gap, Blocks.SANDSTONE);
                 c.place(3, 0, z - gap, Blocks.SANDSTONE);
             }
+            // Redstone-Bloecke der Linien (N51): drei Stationen nebeneinander (z 10..12), je ein Block, westlich
+            // Nihil-Pulver + Nihilith-Lampe, oestlich Astral-Pulver + Astral-Lampe, noerdlich Redstone + Redstone-Lampe.
+            // Der Block speist nur Pulver seiner Linie (Bruecke: alle drei), es leuchtet also nur die passende Lampe.
+            net.minecraft.world.level.block.Block[] lineBlocks = {ModBlocks.NIHIL_REDSTONE_BLOCK, ModBlocks.ASTRAL_REDSTONE_BLOCK, ModBlocks.BRIDGE_REDSTONE_BLOCK};
+            for (int i = 0; i < lineBlocks.length; i++) {
+                int bx = 10 + i * 6, z = 12;
+                for (int x = bx - 2; x <= bx + 2; x++) for (int dz = -2; dz <= 0; dz++) c.place(x, -1, z + dz, Blocks.STONE);
+                c.place(bx, 0, z, lineBlocks[i]);
+                c.place(bx - 1, 0, z, ModBlocks.NIHIL_REDSTONE);
+                c.place(bx - 2, 0, z, ModBlocks.NIHILITH_LAMP);
+                c.place(bx + 1, 0, z, ModBlocks.ASTRAL_REDSTONE);
+                c.place(bx + 2, 0, z, ModBlocks.ASTRALIT_LAMP);
+                c.place(bx, 0, z - 1, Blocks.REDSTONE_WIRE);
+                c.place(bx, 0, z - 2, Blocks.REDSTONE_LAMP);
+            }
         }
         if (com.simplebuilding.version.McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen (2026-10-04): Teststrecke Ost-West. Stein als Anschlag, 14 Astral-Schienen mit

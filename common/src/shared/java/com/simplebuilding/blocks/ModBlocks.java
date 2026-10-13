@@ -39,6 +39,10 @@ public class ModBlocks {
     public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? registerBlock("astralit_lamp", s -> new EndSignalLampBlock(true, endLamp(s))) : null;
     /** Bridge Redstone (2026-10-11): links redstone, Astral and Nihil like one shared wire. */
     public static final Block BRIDGE_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone", s -> new com.simplebuilding.blocks.custom.SignalDustBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, signalDust(s))) : null;
+    /** Astral/Nihil/Bridge Redstone Block (N51, 2026-10-13): nine dust, a permanent source of its line(s) like the redstone block. */
+    public static final Block ASTRAL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("astral_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.ASTRAL, s.mapColor(MapColor.COLOR_PINK))) : null;
+    public static final Block NIHIL_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.NIHIL, s.mapColor(MapColor.COLOR_CYAN))) : null;
+    public static final Block BRIDGE_REDSTONE_BLOCK = McVersion.END_SYSTEMS ? registerBlock("bridge_redstone_block", Blocks.REDSTONE_BLOCK, s -> new com.simplebuilding.blocks.custom.LineRedstoneBlock(com.simplebuilding.blocks.custom.SignalDustBlock.Line.BRIDGE, s.mapColor(MapColor.COLOR_MAGENTA))) : null;
     // Astral-/Nihil-Kolben (2026-10-03, docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md): Empfaenger des eigenen Kanals wie
     // die Lampe, bewegen beim Einschalten je einen Block in alle 6 Richtungen; selbst unverschiebbar.
     public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;

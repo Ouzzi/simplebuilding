@@ -11,9 +11,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Astral piston (pushes) and Nihil piston (pulls), docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md. A
- * receiver of its own line: {@link #POWER} is the signal it receives from horizontally adjacent Astral (Nihil) or
- * Bridge Redstone, which vanilla sources feed (the dust connects to it); it passes nothing on
- * and reads no other vanilla redstone. On the rising edge (power 0 to more) it moves one block in each of the
+ * receiver of every redstone line (N51, 2026-10-13): {@link #POWER} is what {@link EndSignalBlock#receiverPower} gives -
+ * any vanilla signal and horizontally adjacent dust of any line (redstone, Astral, Nihil, Bridge); it passes nothing
+ * on. On the rising edge (power 0 to more) it moves one block in each of the
  * six directions ({@link EndPistonMoves}); after firing it does not look at its input again for
  * {@link #cooldown()} ticks, so a clock cannot flood the server. No block entity, no direction.
  */

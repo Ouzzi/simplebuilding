@@ -155,6 +155,39 @@
       "chance": 0.1
     },
     {
+      "item": "simplebuilding:nihil_redstone_block",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:astral_redstone_block",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:bridge_redstone_block",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplebuilding:nihilith_lamp",
       "tier": 4,
       "hours": 25.0,
