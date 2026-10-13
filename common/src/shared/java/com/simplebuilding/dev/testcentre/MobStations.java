@@ -76,14 +76,15 @@ public final class MobStations {
     }
 
     /** Which habitat a mob gets (by id; unknown mobs stand on grass). */
-    public enum Habitat { END_GATEWAY, DEEP_DARK, DARK_FOREST, SOUL_VALLEY, END_ISLAND, MEADOW, DREAD_FIGURE }
+    public enum Habitat { END_GATEWAY, DEEP_DARK, DARK_FOREST, SOUL_VALLEY, END_ISLAND, MEADOW, DREAD_FIGURE, WITHER_FIGURE }
 
     public static Habitat habitat(Identifier id) {
         return switch (id.getPath()) {
             case "shellker" -> Habitat.END_GATEWAY;
             case "hollow_howler" -> Habitat.DEEP_DARK;
             case "deceiver" -> Habitat.DARK_FOREST;
-            case "soulfire_blaze", "blighted_wither" -> Habitat.SOUL_VALLEY;
+            case "soulfire_blaze" -> Habitat.SOUL_VALLEY;
+            case "blighted_wither", "abyssal_wither" -> Habitat.WITHER_FIGURE;
             case "dragonmite", "hollow_watcher" -> Habitat.END_ISLAND;
             case "dread" -> Habitat.DREAD_FIGURE;
             default -> Habitat.MEADOW;
@@ -96,6 +97,7 @@ public final class MobStations {
         // Where the still mob stands (cell coordinates, standing level).
         int sx = habitat == Habitat.END_GATEWAY ? 7 : 4, sy = 0, sz = habitat == Habitat.END_GATEWAY ? 3 : 4;
         habitat(c, x0, habitat);
+        if (habitat == Habitat.WITHER_FIGURE) witherHelmet(c, x0, id);
 
         String still = summon(id, BUTTON_X[0], sx, sy, sz, "{NoAI:1b,PersistenceRequired:1b,Rotation:[180f,0f]}");
         c.command(x0 + BUTTON_X[0], 1, BUTTON_Z, Direction.NORTH, still,
@@ -160,6 +162,7 @@ public final class MobStations {
             case END_ISLAND -> "End island";
             case MEADOW -> "Meadow";
             case DREAD_FIGURE -> "Summoning figure";
+            case WITHER_FIGURE -> "Wither figure + helmet";
         };
     }
 
@@ -230,7 +233,30 @@ public final class MobStations {
                 c.place(x0 + 7, 2, 6, Blocks.SKELETON_SKULL);
                 c.wallFrame(x0 + 5, 2, WALL_Z, new ItemStack(net.minecraft.world.item.Items.IRON_HELMET));
             }
+            case WITHER_FIGURE -> {
+                // the Wither T with the middle skull and one side skull: helmet on the middle skull, then the third skull
+                floor(c, x0, Blocks.SOUL_SOIL.defaultBlockState(), Blocks.SOUL_SAND.defaultBlockState());
+                c.place(x0 + 7, 0, 6, Blocks.SOUL_SAND);
+                for (int x = 6; x <= 8; x++) {
+                    c.place(x0 + x, 1, 6, Blocks.SOUL_SAND);
+                }
+                c.place(x0 + 7, 2, 6, Blocks.WITHER_SKELETON_SKULL);
+                c.place(x0 + 6, 2, 6, Blocks.WITHER_SKELETON_SKULL);
+                c.place(x0 + 1, 0, 7, Blocks.SOUL_FIRE);
+            }
         }
+    }
+
+    /**
+     * Simple Mobs' stronger Withers (owner N50): the frames hold the helmet - Netherite for the Blighted Wither, Enderite
+     * (if a mod adds it) for the Abyssal Wither - and the third skull. Put the helmet on the middle skull, then the skull.
+     */
+    private static void witherHelmet(TcCanvas c, int x0, Identifier id) {
+        Identifier enderite = Identifier.fromNamespaceAndPath("simplebuilding", "enderite_helmet");
+        ItemStack helmet = id.getPath().equals("abyssal_wither") && BuiltInRegistries.ITEM.containsKey(enderite)
+                ? new ItemStack(BuiltInRegistries.ITEM.getValue(enderite)) : new ItemStack(net.minecraft.world.item.Items.NETHERITE_HELMET);
+        c.wallFrame(x0 + 5, 2, WALL_Z, helmet);
+        c.wallFrame(x0 + 6, 2, WALL_Z, new ItemStack(net.minecraft.world.item.Items.WITHER_SKELETON_SKULL));
     }
 
     /** The cell's floor (x 1..8, z 2..7) in a loose checker of two blocks. */

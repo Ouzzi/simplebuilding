@@ -16,7 +16,9 @@
     "ItemHelmetDreadMixin",
     "ServerPunchDisguiseMixin",
     "WitherSkullBlightedMixin",
-    "DiscoverTipMixin"
+    "DiscoverTipMixin",
+    "ItemHelmetWitherMixin",
+    "DisplayWitherCrownMixin"
   ],
   "client": [
     "DeceiverLookMixin",

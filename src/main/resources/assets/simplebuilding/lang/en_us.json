@@ -1690,6 +1690,7 @@
   "simplebuilding.testcentre.mobs.habitat.end_island": "End island",
   "simplebuilding.testcentre.mobs.habitat.meadow": "Meadow",
   "simplebuilding.testcentre.mobs.habitat.dread_figure": "Summoning figure",
+  "simplebuilding.testcentre.mobs.habitat.wither_figure": "Wither figure + helmet",
   "simplebuilding.testcentre.command.unknown_anchor": "Unknown place %s",
   "simplebuilding.testcentre.section.gallery": "More blocks",
   "simplebuilding.testcentre.section.gallery.sub": "placed nowhere else",

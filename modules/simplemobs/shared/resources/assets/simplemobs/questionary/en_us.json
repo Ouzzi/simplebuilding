@@ -207,10 +207,10 @@
       "It still beats, slowly, long after the Wither has stopped. Ash falls from it if you shake it."
     ],
     "use": [
-      "Dropped by the Blighted Wither, exactly one per kill. With a Netherite Ingot and a Brush it becomes the Biome Brush."
+      "Dropped by the Blighted and the Abyssal Wither, exactly one per kill. With a Netherite Ingot and a Brush it becomes the Biome Brush."
     ],
     "secret": [
-      "Only the Blighted Wither has one. Summon it by building the Wither figure on a Block of Netherite."
+      "Only the stronger Withers have one. Put a Netherite Helmet on the middle skull of the Wither figure before the third skull; an Enderite Helmet calls the Abyssal Wither."
     ]
   },
   "biome_brush": {

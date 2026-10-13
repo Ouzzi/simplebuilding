@@ -207,10 +207,10 @@
       "Es schlägt noch, langsam, lange nachdem der Wither verstummt ist. Schüttelt man es, rieselt Asche heraus."
     ],
     "use": [
-      "Fällt vom Verdorrten Wither, genau eins pro Kampf. Mit einem Netheritbarren und einem Pinsel wird daraus der Biom-Pinsel."
+      "Fällt vom Verdorrten und vom Abgrund-Wither, genau eins pro Kampf. Mit einem Netheritbarren und einem Pinsel wird daraus der Biom-Pinsel."
     ],
     "secret": [
-      "Nur der Verdorrte Wither hat eins. Du rufst ihn, indem du die Wither-Figur auf einen Netheritblock baust."
+      "Nur die stärkeren Wither haben eins. Setz vor dem dritten Schädel einen Netherithelm auf den mittleren Schädel der Wither-Figur; ein Enderithelm ruft den Abgrund-Wither."
     ]
   },
   "biome_brush": {

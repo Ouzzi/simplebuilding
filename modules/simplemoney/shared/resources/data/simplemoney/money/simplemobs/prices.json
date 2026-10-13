@@ -11,7 +11,7 @@
     "simplemobs:hollow_howler_spawn_egg": "Creative-only spawn egg.",
     "simplemobs:hollow_watcher_spawn_egg": "Creative-only spawn egg.",
     "simplemobs:watcher_eye": "Hollow Watcher drop only; not for sale.",
-    "simplemobs:wither_heart": "Blighted Wither boss drop only (one per kill); not for sale."
+    "simplemobs:wither_heart": "Blighted and Abyssal Wither boss drop only (one per kill); not for sale."
   },
   "module": "simplemobs",
   "prices": []
