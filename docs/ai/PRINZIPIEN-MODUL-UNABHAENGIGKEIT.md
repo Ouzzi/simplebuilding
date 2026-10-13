@@ -68,7 +68,8 @@ Branch `claude-modprinciples` (Basis `2a01fea6`).
 | framework (API, keine Items) | – | simpledimensions, simplequalityoflife und ihre Sub-Mods, simplesounds, simpletweaks, simplevisuals (gebündelt) |
 | simplevisuals | Cloth Config | simplesounds (`CosmeticIntensity`, framework) |
 | simpledimensions | Cloth Config | simpletweaks (Claims via `framework Protection`), simplemoney (Preise) |
-| simplefun | Cloth Config | simplemoney (Köpfe/Schneebälle-Trades, `links:simplefun`) |
+| simplefun | Cloth Config | simplemoney (Schneeball-Trades, `links:simplefun`; Köpfe seit 1.4.0 in Simple Mobheads) |
+| simplemobheads | Cloth Config, simplelib + framework (gebündelt) | simplebuilding (**hart**, Pflicht-Sub-Mod; Extra-Kopf-Slot über framework `WornHeads`), simplemoney (Preise, `links:simplemobheads`), Mobs der Simple-Mods (Köpfe immer registriert, Drop nur mit Mob) |
 | simpletweaks | – (seit Stufe 2 der Modulaufteilung allein spielbar; SimpleBuilding nur optional: Legacy-Aliase `simpletweaks:` → `simplebuilding:`, Tests seiner Werkzeuge/Maschinen) | simplemoney (Preise), simplebuilding (gebündelt, optional) |
 | simplequalityoflife | Cloth Config, die sieben Sub-Mods (Super-Mod, gebündelt) | simplemoney (Preise) |
 | simpleweather, simpleloot, simplemobmanners, simplefarming, simpletools, simplemovement | Cloth Config; framework gebündelt (SubMods-Schalter) | simplequalityoflife (Schalter), simplemoney (Preise); Farming/Tools: SimpleBuilding nur in Querprüfungen |

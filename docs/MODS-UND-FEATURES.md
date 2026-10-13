@@ -16,6 +16,7 @@ Befehle). In ihrer Config steht je Sub-Mod oben „Simple XY aktivieren“. Geme
 ```
 SimpleBuilding (Super-Mod, geplant)          Simple Quality of Life (Super-Mod)
  ├─ simplelib (gebündelt)                      ├─ simpleweather, simpleinterfaces, simpleloot,
+ ├─ Simple Mobheads (Pflicht, gebündelt)      │
  ├─ Simple Trims (gebündelt)                   ├─ simplemobmanners, simplefarming, simpletools,
  └─ Simple Maps (in Arbeit)                    └─ simplemovement (alle Sub-Mods, gebündelt)
                                                  (docs/ai/PLAN-QOL-AUFTEILUNG-2026-10-10.md)
@@ -41,6 +42,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 | Simple Money (`simplemoney`) | Cloth Config | alle Simple-Mods (Preislisten), JEI, ModMenu | – |
 | Simple Models (`simplemodels`) | – | SimpleBuilding, ModMenu | – |
 | Simple Fun (`simplefun`) | Cloth Config | ModMenu, JEI, Jade | – |
+| Simple Mobheads (`simplemobheads`, Pflicht-Sub-Mod SB) | Cloth Config, simplelib | SimpleBuilding (Extra-Kopf-Slot), Simple Mobs/End/End Dragon Fight (Köpfe ihrer Mobs), JEI, ModMenu | simplelib, framework |
 | Simple Visuals (`simplevisuals`) | Cloth Config | SimpleBuilding, Simple Models, ModMenu | – |
 | Simple Sounds (`simplesounds`) | Cloth Config | Simple Visuals (Stufe koppeln), SimpleBuilding, ModMenu | – |
 | Simple Dimensions (`simpledimensions`) | Cloth Config | SimpleBuilding, ModMenu, Claim-Mods (Flan, FTB Chunks, OPAC, GriefDefender, ClaimChunk) | – |
@@ -134,7 +136,16 @@ Server-freigegebene eigene Item-Modelle, Zuweisung am Amboss, durchsuchbarer Mod
 
 ### Simple Fun
 Schleichwurf (Yeet), Wurfziegel und Ziegelschneeball, Schweinverwandlung, „Schadlos“-Verzauberung, Rückstoß V,
-Spieler- und Tierköpfe (mit Fähigkeiten: melken, scheren, Eier, Trüffelnase), kleine kosmetische Freuden.
+kleine kosmetische Freuden. Seit 1.4.0 ohne Köpfe (Tier- und Spielerköpfe → Simple Mobheads).
+
+### Simple Mobheads (Pflicht-Sub-Mod von SimpleBuilding, allein spielbar)
+93 Mob-Köpfe aus `modules/simplemobheads/data/mobs.json` (Generator `tools/generate_heads.py`): jeder 26.3-Mob ohne
+Vanilla-Kopf, die Mobs der Simple-Mods, die 4 Tierköpfe aus Simple Fun und die 12 Köpfe aus SimpleBuilding
+(`simplefun:*`/`simplebuilding:*` → `simplemobheads:*` über IdMoves). Drop nur durch geladenen Creeper (Variante des
+Mobs als Komponente, Babys normaler Kopf, Wither aus/Warden an, Spieler-Kill-Chance optional aus), PvP-Spielerkopf,
+Tarnung gegen den eigenen Mob, Notenblock-Stimme, Gruß beim Schleichen, 28 Fähigkeiten mit Schaltern, eigener Tab +
+Suchtab hinter dem Drachenkopf, `/simplemobheads` (Alias `/simplefun pvp headDrops`). Plan
+`docs/ai/PLAN-SIMPLE-MOBHEADS-2026-10-13.md`.
 
 ### Simple Visuals (clientseitig)
 Geschwindigkeitslinien, Aufnahmehinweise, Elytra-Neigungshilfe, Effekt-Zeitleisten, Spielerköpfe in Locator und Chat,
