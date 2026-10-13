@@ -37,6 +37,16 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void hammerUpgradeGoesStrikeByStrike(GameTestHelper helper) {
+        CrucibleTests.hammerUpgradeGoesStrikeByStrike(helper);
+    }
+
+    @GameTest
+    public void brokenMidUpgradeReturnsTheUnits(GameTestHelper helper) {
+        CrucibleTests.brokenMidUpgradeReturnsTheUnits(helper);
+    }
+
+    @GameTest
     public void sledgehammerUpgradesCostDouble(GameTestHelper helper) {
         CrucibleTests.sledgehammerUpgradesCostDouble(helper);
     }

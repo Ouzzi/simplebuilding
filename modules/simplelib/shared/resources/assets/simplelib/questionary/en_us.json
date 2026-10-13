@@ -18,7 +18,7 @@
       "A cooking station without fuel: every slot cooks at once, heated by the block below or two blocks below. 6 slots, speed 1x."
     ],
     "secret": [
-      "Build it in the world: an axe in the main hand, a heavy weighted pressure plate in the off hand, four strikes on an iron block, then two with an iron ingot. Walk into it like a cauldron."
+      "Build it in the world: an axe in the main hand, iron ingots in the off hand, sixteen strikes on an iron block - side plates, handles, rim, one ingot each. Walk into it like a cauldron."
     ]
   },
   "reinforced_crucible": {
@@ -26,7 +26,7 @@
       "A pot that learned to take twice the load."
     ],
     "use": [
-      "The Reinforced tier of the crucible: 12 slots (2x6), speed 2x. An iron crucible becomes this with 2 diamonds in the off hand and ten axe strikes (the sledgehammer with SimpleBuilding)."
+      "The Reinforced tier of the crucible: 12 slots (2x6), speed 2x. An iron crucible becomes this in twelve axe strikes, one cracked diamond (or diamond) every third strike (the sledgehammer with SimpleBuilding)."
     ],
     "secret": [
       "Contents, progress and experience stay when you upgrade in place."
@@ -37,7 +37,7 @@
       "A pot that cooks at the speed of a Nether fire."
     ],
     "use": [
-      "The Netherite tier of the crucible: 18 slots, speed 4x, experience is counted twice. A reinforced crucible becomes this with 1 netherite ingot and ten strikes."
+      "The Netherite tier of the crucible: 18 slots, speed 4x, experience is counted twice. A reinforced crucible becomes this in twelve strikes, one netherite nugget (or netherite scrap) every third strike."
     ],
     "secret": [
       "Lava or soul lava underneath makes it cook furnace and blast furnace recipes, and soul lava also ancient debris."

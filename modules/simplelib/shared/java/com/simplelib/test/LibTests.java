@@ -227,10 +227,10 @@ public final class LibTests {
                 check(h, coll.maxY == 9 / 16.0 && !st.getShape(level, pos).isEmpty() && !st.getInteractionShape(level, pos).isEmpty(),
                         "collision stays 9/16 (handles outline only), interior shape set: " + coll);
             }
-            for (int stage = 1; stage <= 5; stage++) {
+            for (int stage = 1; stage < CrucibleBlankBlock.STRIKES; stage++) {
                 var b = LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(CrucibleBlankBlock.STAGE, stage)
                         .setValue(CrucibleBlankBlock.FACING, d).getShape(level, pos).bounds();
-                check(h, b.minY == 0 && b.maxY == 14 / 16.0 && b.maxX <= 1 && b.minX >= 0, "blank stage " + stage + " " + d + " is no full cube: " + b);
+                check(h, b.minY == 0 && b.maxY == (stage > 12 ? 14 : stage > 1 ? 11 : 8) / 16.0 && b.maxX <= 1 && b.minX >= 0, "blank stage " + stage + " " + d + " is no full cube: " + b);
             }
         }
         BlockState north = LibBlocks.COPPER_BARREL.defaultBlockState().setValue(com.simplelib.crucible.CrucibleBarrelBlock.ATTACHED, true)
@@ -470,24 +470,43 @@ public final class LibTests {
         h.succeed();
     }
 
+    /** Owner N51: 16 iron ingots, one per strike - plates half/full, handles half/full, rim; every stage is its own state. */
     private static void axeBuild(GameTestHelper h) {
         BlockPos rel = new BlockPos(1, 1, 1);
         h.setBlock(rel, Blocks.IRON_BLOCK);
         BlockPos abs = h.absolutePos(rel);
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
-        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
-        ItemStack[] axes = {new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE),
-                new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.NETHERITE_AXE)};
-        check(h, !CrucibleBlankBlock.fitsNext(0, new ItemStack(Items.IRON_INGOT)), "first strikes need walls");
-        for (int i = 0; i < 4; i++) {
-            check(h, CrucibleBlankBlock.strike(h.getLevel(), abs, player, axes[i], 1), "wall strike " + (i + 1));
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 16));
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        check(h, !CrucibleBlankBlock.fitsNext(0, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE)), "pressure plates are no longer a part");
+        for (int i = 1; i <= CrucibleBlankBlock.STRIKES; i++) {
+            check(h, CrucibleBlankBlock.strike(h.getLevel(), abs, player, axe, 1), "strike " + i);
+            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
+            BlockState state = h.getLevel().getBlockState(abs);
+            check(h, i < CrucibleBlankBlock.STRIKES ? state.is(LibBlocks.CRUCIBLE_BLANK) && state.getValue(CrucibleBlankBlock.STAGE) == i
+                    : state.is(LibBlocks.IRON_CRUCIBLE), "after strike " + i + ": " + state);
+            check(h, player.getOffhandItem().getCount() == 16 - i, "one ingot per strike, " + player.getOffhandItem().getCount() + " left after " + i);
         }
-        check(h, h.getLevel().getBlockState(abs).getValue(CrucibleBlankBlock.STAGE) == 4, "four walls");
-        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 2));
-        check(h, CrucibleBlankBlock.strike(h.getLevel(), abs, player, axes[4], 1), "handle 1");
-        check(h, CrucibleBlankBlock.strike(h.getLevel(), abs, player, axes[5], 1), "handle 2");
-        check(h, h.getLevel().getBlockState(abs).is(LibBlocks.IRON_CRUCIBLE), "iron crucible built");
-        check(h, player.getOffhandItem().isEmpty() && axes[0].getDamageValue() == 1, "parts used, axe damaged");
+        check(h, axe.getDamageValue() == CrucibleBlankBlock.STRIKES, "one durability per strike: " + axe.getDamageValue());
+        // Broken half-built (stage 7): the iron block and the seven ingots come back.
+        BlockPos half = new BlockPos(3, 1, 1);
+        h.setBlock(half, LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(CrucibleBlankBlock.STAGE, 7));
+        int before = 0;
+        for (var item : h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(h.absolutePos(half)).inflate(2))) {
+            if (item.getItem().is(Items.IRON_INGOT)) before += item.getItem().getCount();
+        }
+        BlockState halfState = h.getLevel().getBlockState(h.absolutePos(half));
+        var loot = net.minecraft.world.level.block.Block.getDrops(halfState, h.getLevel(), h.absolutePos(half), null);
+        h.getLevel().destroyBlock(h.absolutePos(half), true);
+        int ingots = -before;
+        boolean block = false;
+        for (var item : h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(h.absolutePos(half)).inflate(2))) {
+            if (item.getItem().is(Items.IRON_INGOT)) ingots += item.getItem().getCount();
+            if (item.getItem().is(Items.IRON_BLOCK)) block = true;
+        }
+        check(h, block && ingots == 7, "blank stage 7 drops the iron block and 7 ingots: block " + block + ", ingots " + ingots + " (lying there before: " + before + "), state " + halfState + ", loot " + loot);
         h.succeed();
     }
 
@@ -501,23 +520,52 @@ public final class LibTests {
         h.succeed();
     }
 
+    /**
+     * Owner N51: 12 strikes, one cracked diamond every 3 strikes, each shows as a band (state {@code upgrade}); contents
+     * stay; a crucible broken mid-way gives the struck-in units back.
+     */
     private static void axeUpgrade(GameTestHelper h) {
         BlockPos rel = new BlockPos(1, 2, 1);
         CrucibleBlockEntity be = crucible(h, rel, Blocks.STONE.defaultBlockState(), LibBlocks.IRON_CRUCIBLE);
         be.setItem(4, new ItemStack(Items.RAW_COPPER, 3));
         BlockPos abs = h.absolutePos(rel);
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
-        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.DIAMOND, 2));
+        net.minecraft.world.item.Item cracked = com.simplelib.api.SimpleLibApi.materialItem("cracked_diamond");
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(cracked, 5));
         ItemStack axe = new ItemStack(Items.IRON_AXE);
-        for (int i = 0; i < com.simplelib.crucible.CrucibleUpgrades.STRIKES; i++) {
-            check(h, com.simplelib.crucible.CrucibleUpgrades.strike(h.getLevel(), abs, player, axe), "strike " + (i + 1));
+        int strikes = com.simplelib.crucible.CrucibleUpgrades.CRUCIBLE_STRIKES;
+        for (int i = 1; i <= strikes; i++) {
+            check(h, com.simplelib.crucible.CrucibleUpgrades.strike(h.getLevel(), abs, player, axe), "strike " + i);
+            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
+            if (i < strikes) {
+                BlockState state = h.getLevel().getBlockState(abs);
+                check(h, state.is(LibBlocks.IRON_CRUCIBLE) && state.getValue(CrucibleBlock.UPGRADE) == i / 3,
+                        "after strike " + i + " the crucible shows " + (i / 3) + " bands: " + state);
+                check(h, player.getOffhandItem().getCount() == 5 - i / 3, "units used after strike " + i + ": " + player.getOffhandItem().getCount());
+            }
+        }
+        check(h, h.getLevel().getBlockState(abs).is(LibBlocks.REINFORCED_CRUCIBLE)
+                && h.getLevel().getBlockState(abs).getValue(CrucibleBlock.UPGRADE) == 0, "upgraded to reinforced (owner N51: 4 cracked diamonds, 12 strikes)");
+        CrucibleBlockEntity fresh = (CrucibleBlockEntity) h.getLevel().getBlockEntity(abs);
+        check(h, fresh != null && fresh.getContainerSize() == 12 && fresh.getItem(4).is(Items.RAW_COPPER) && fresh.getItem(4).getCount() == 3
+                && fresh.upgradeUnits().isEmpty(), "contents kept in the same slot, no units left over");
+        check(h, player.getOffhandItem().getCount() == 1, "four cracked diamonds used");
+        // Broken after 6 strikes: the two struck-in units come back with the crucible.
+        BlockPos rel2 = new BlockPos(3, 2, 1);
+        crucible(h, rel2, Blocks.STONE.defaultBlockState(), LibBlocks.IRON_CRUCIBLE);
+        BlockPos abs2 = h.absolutePos(rel2);
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.DIAMOND, 2));
+        for (int i = 1; i <= 6; i++) {
+            check(h, com.simplelib.crucible.CrucibleUpgrades.strike(h.getLevel(), abs2, player, axe), "second crucible strike " + i);
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
         }
-        check(h, h.getLevel().getBlockState(abs).is(LibBlocks.REINFORCED_CRUCIBLE), "upgraded to reinforced (owner 50: 2 diamonds, 10 strikes)");
-        CrucibleBlockEntity fresh = (CrucibleBlockEntity) h.getLevel().getBlockEntity(abs);
-        check(h, fresh != null && fresh.getContainerSize() == 12 && fresh.getItem(4).is(Items.RAW_COPPER) && fresh.getItem(4).getCount() == 3,
-                "contents kept in the same slot");
-        check(h, player.getOffhandItem().isEmpty(), "two diamonds used");
+        check(h, h.getLevel().getBlockState(abs2).getValue(CrucibleBlock.UPGRADE) == 2 && player.getOffhandItem().isEmpty(), "two diamonds in");
+        h.getLevel().destroyBlock(abs2, true);
+        int diamonds = 0;
+        for (var item : h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, new net.minecraft.world.phys.AABB(abs2).inflate(2))) {
+            if (item.getItem().is(Items.DIAMOND)) diamonds += item.getItem().getCount();
+        }
+        check(h, diamonds == 2, "breaking it mid-way gives the 2 diamonds back, got " + diamonds);
         h.succeed();
     }
 

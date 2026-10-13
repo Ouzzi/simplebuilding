@@ -236,17 +236,17 @@ public final class CrucibleTests {
         // 2026-10-06: the crucible/barrel hammer upgrades are in JEI too (2 material, from the upgrade table).
         var ironUp = entries.get("hammer_upgrade/simplelib:iron_crucible");
         helper.assertTrue(ironUp.inputs().get(0).items().equals(java.util.List.of(item("simplelib:iron_crucible")))
-                && ironUp.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && ironUp.inputs().get(1).count() == 2
+                && ironUp.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && ironUp.inputs().get(1).count() == 4
                 && ironUp.output().items().equals(java.util.List.of(item("simplelib:reinforced_crucible"))), "iron -> reinforced crucible entry");
 
         var build = entries.get("crucible_build");
         helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.IRON_BLOCK)) && build.inputs().get(0).count() == 1, "an iron block");
-        helper.assertTrue(build.inputs().get(1).count() == 4 && build.inputs().get(1).items().contains(Items.HEAVY_WEIGHTED_PRESSURE_PLATE), "four walls");
-        helper.assertTrue(build.inputs().get(2).count() == 2 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
-                && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "two handles: iron ingot or iron rod");
+        helper.assertTrue(build.inputs().get(1).count() == 12 && build.inputs().get(1).items().contains(Items.IRON_INGOT), "12 ingots for plates and rim (N51)");
+        helper.assertTrue(build.inputs().get(2).count() == 4 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
+                && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "4 handle strikes: iron ingot or iron rod");
         helper.assertTrue(build.output().items().equals(java.util.List.of(item("simplelib:iron_crucible"))), "the iron crucible");
         helper.assertTrue(build.tools().contains(ModItems.IRON_SLEDGEHAMMER) && build.tools().contains(ModItems.ENDERITE_SLEDGEHAMMER), "every sledgehammer");
-        helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(6)) && noteArgs(build, 1).equals(java.util.List.of(4, 2)), "notes name 6 strikes, 4 walls and 2 handles");
+        helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(16)) && noteArgs(build, 1).equals(java.util.List.of(12, 4)), "notes name 16 strikes, 12 plate/rim and 4 handle ingots");
 
         var barrel = entries.get("barrel_attach");
         helper.assertTrue(barrel.inputs().get(0).items().contains(item("simplelib:copper_barrel"))
@@ -383,28 +383,140 @@ public final class CrucibleTests {
         helper.succeed();
     }
 
-    /** Sledgehammer on an iron block: 4 weighted plates, then 2 iron rods; 2 durability per strike. */
+    /**
+     * Owner N51: sledgehammer on an iron block, 16 strikes with one iron ingot each - 8 for the side plates (half, then
+     * full), 4 for the handles (iron poles count), 4 for the rim; each strike is its own blank stage; 2 durability each.
+     */
     public static void sledgehammerBuildsTheIronCrucible(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(2, 1, 2);
         helper.setBlock(pos, Blocks.IRON_BLOCK);
         ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
-        ServerPlayer player = player(helper, hammer, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
+        ServerPlayer player = player(helper, hammer, new ItemStack(Items.IRON_INGOT, 8));
         helper.assertTrue(player.getOffhandItem().is(TagKey.create(Registries.ITEM,
-                Identifier.fromNamespaceAndPath("simplelib", "crucible_walls"))), "SimpleLib wall materials loaded");
+                Identifier.fromNamespaceAndPath("simplelib", "crucible_walls"))), "SimpleLib plate material (iron ingot) loaded");
         helper.assertTrue(new ItemStack(ModItems.IRON_POLE).is(TagKey.create(Registries.ITEM,
                 Identifier.fromNamespaceAndPath("simplelib", "crucible_handles"))), "SimpleBuilding handle materials loaded");
-        for (int strike = 0; strike < 6; strike++) {
-            if (strike == 4) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.IRON_POLE, 2));
+        Block blank = lib("crucible_blank");
+        var stage = (net.minecraft.world.level.block.state.properties.IntegerProperty) blank.getStateDefinition().getProperty("stage");
+        int strikes = CrucibleCompat.buildStrikes();
+        helper.assertTrue(strikes == 16 && CrucibleCompat.buildWallStrikes() == 12, "16 strikes, 12 of them plates and rim: " + strikes);
+        for (int strike = 1; strike <= strikes; strike++) {
+            if (strike == 9) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.IRON_POLE, 4));
+            if (strike == 13) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 4));
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(hammer));
-            helper.assertTrue(hammer.getItem().useOn(click(helper, player, pos)).consumesAction(), "strike " + (strike + 1) + " not taken");
-            helper.assertTrue(hammer.getDamageValue() == (strike + 1) * CrucibleCompat.HAMMER_DAMAGE_PER_STRIKE,
-                    "strike " + (strike + 1) + " must build and damage the hammer");
+            helper.assertTrue(hammer.getItem().useOn(click(helper, player, pos)).consumesAction(), "strike " + strike + " not taken");
+            helper.assertTrue(hammer.getDamageValue() == strike * CrucibleCompat.HAMMER_DAMAGE_PER_STRIKE,
+                    "strike " + strike + " must build and damage the hammer");
+            BlockState now = helper.getBlockState(pos);
+            helper.assertTrue(strike < strikes ? now.is(blank) && now.getValue(stage) == strike : now.is(lib("iron_crucible")),
+                    "after strike " + strike + ": " + now);
         }
-        helper.assertBlockPresent(lib("iron_crucible"), pos);
-        helper.assertTrue(hammer.getDamageValue() == 6 * CrucibleCompat.HAMMER_DAMAGE_PER_STRIKE, "hammer damage " + hammer.getDamageValue());
-        helper.assertTrue(player.getOffhandItem().isEmpty(), "both iron rods used");
+        helper.assertTrue(player.getOffhandItem().isEmpty(), "every ingot used");
+        // Broken half-built (stage 11): the iron block and 11 iron ingots come back.
+        BlockPos half = new BlockPos(5, 1, 2);
+        helper.setBlock(half, blank.defaultBlockState().setValue(stage, 11));
+        int before = 0;
+        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(helper.absolutePos(half)).inflate(2))) {
+            if (item.getItem().is(Items.IRON_INGOT)) before += item.getItem().getCount();
+        }
+        BlockState halfState = helper.getLevel().getBlockState(helper.absolutePos(half));
+        var loot = Block.getDrops(halfState, helper.getLevel(), helper.absolutePos(half), null);
+        helper.getLevel().destroyBlock(helper.absolutePos(half), true);
+        int ingots = -before;
+        boolean ironBlock = false;
+        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(helper.absolutePos(half)).inflate(2))) {
+            if (item.getItem().is(Items.IRON_INGOT)) ingots += item.getItem().getCount();
+            if (item.getItem().is(Items.IRON_BLOCK)) ironBlock = true;
+        }
+        helper.assertTrue(ironBlock && ingots == 11, "blank stage 11 gives back the iron block and 11 ingots: " + ironBlock + ", " + ingots + " (lying there before: " + before + "), state " + halfState + ", loot " + loot);
         helper.succeed();
+    }
+
+    /**
+     * Owner N51: a crucible upgrade by sledgehammer takes 12 blows; every third blow strikes one unit in (4 cracked
+     * diamonds), shown as a band (state {@code upgrade}). Contents and the attached barrel with its contents stay.
+     */
+    public static void hammerUpgradeGoesStrikeByStrike(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        BlockPos pos = new BlockPos(2, 1, 2);
+        BlockPos barrelPos = new BlockPos(2, 1, 3);
+        helper.setBlock(pos, lib("iron_crucible"));
+        BlockState barrelState = lib("copper_barrel").defaultBlockState();
+        barrelState = withValue(barrelState, "attached", "true");
+        barrelState = withValue(barrelState, "facing", "north");
+        helper.setBlock(barrelPos, barrelState);
+        ((net.minecraft.world.Container) helper.getLevel().getBlockEntity(helper.absolutePos(pos))).setItem(0, new ItemStack(Items.RAW_IRON, 5));
+        ((net.minecraft.world.Container) helper.getLevel().getBlockEntity(helper.absolutePos(barrelPos))).setItem(2, new ItemStack(Items.COAL, 9));
+        var upgrade = SledgehammerUpgrades.upgradeOf(lib("iron_crucible"));
+        int blows = SledgehammerUpgrades.blows(upgrade);
+        helper.assertTrue(blows == 12 && upgrade.materialCost() == 4 && SledgehammerUpgrades.staged(upgrade), "12 blows, 4 units: " + blows);
+        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        ServerPlayer player = smith(helper, hammer, new ItemStack(ModItems.CRACKED_DIAMOND, 5), pos);
+        helper.assertTrue(SledgehammerUpgrades.hasJob(player) && player.isUsingItem(), "the click started the hammer");
+        var units = (net.minecraft.world.level.block.state.properties.IntegerProperty) lib("iron_crucible").getStateDefinition().getProperty("upgrade");
+        int ticks = blows * SledgehammerUpgrades.HIT_INTERVAL;
+        for (int tick = 1; tick < ticks; tick++) {
+            player.connection.tick();
+            int done = tick / SledgehammerUpgrades.HIT_INTERVAL;
+            BlockState now = helper.getBlockState(pos);
+            helper.assertTrue(now.is(lib("iron_crucible")) && now.getValue(units) == done / 3, "after " + done + " blows: " + now);
+            helper.assertTrue(player.getOffhandItem().getCount() == 5 - done / 3, "units used after " + done + " blows: " + player.getOffhandItem().getCount());
+        }
+        player.connection.tick();
+        helper.assertBlockPresent(lib("reinforced_crucible"), pos);
+        helper.assertTrue(player.getOffhandItem().getCount() == 1, "four cracked diamonds used: " + player.getOffhandItem().getCount());
+        var crucible = (net.minecraft.world.Container) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
+        helper.assertTrue(crucible.getContainerSize() == 12 && crucible.getItem(0).is(Items.RAW_IRON) && crucible.getItem(0).getCount() == 5, "crucible contents kept");
+        BlockState barrelNow = helper.getBlockState(barrelPos);
+        var barrel = (net.minecraft.world.Container) helper.getLevel().getBlockEntity(helper.absolutePos(barrelPos));
+        helper.assertTrue(CrucibleCompat.isAttached(barrelNow) && barrel.getItem(2).is(Items.COAL) && barrel.getItem(2).getCount() == 9,
+                "barrel stays attached with its contents: " + barrelNow);
+        helper.succeed();
+    }
+
+    /** Owner N51: a crucible broken mid-upgrade gives back the units struck in so far; nothing is lost on release. */
+    public static void brokenMidUpgradeReturnsTheUnits(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        BlockPos pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos, lib("reinforced_crucible"));
+        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        ServerPlayer player = smith(helper, hammer, new ItemStack(ModItems.NETHERITE_NUGGET, 4), pos);
+        for (int tick = 1; tick <= 7 * SledgehammerUpgrades.HIT_INTERVAL; tick++) player.connection.tick();
+        player.releaseUsingItem();
+        var units = (net.minecraft.world.level.block.state.properties.IntegerProperty) lib("reinforced_crucible").getStateDefinition().getProperty("upgrade");
+        helper.assertTrue(helper.getBlockState(pos).getValue(units) == 2 && player.getOffhandItem().getCount() == 2,
+                "7 blows: 2 netherite nuggets in, 2 left: " + helper.getBlockState(pos) + " / " + player.getOffhandItem().getCount());
+        helper.getLevel().destroyBlock(helper.absolutePos(pos), true);
+        int nuggets = 0;
+        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(helper.absolutePos(pos)).inflate(2))) {
+            if (item.getItem().is(ModItems.NETHERITE_NUGGET)) nuggets += item.getItem().getCount();
+        }
+        helper.assertTrue(nuggets == 2, "breaking it returns the 2 struck-in nuggets, got " + nuggets);
+        helper.succeed();
+    }
+
+    private static <T extends Comparable<T>> BlockState withValue(BlockState state, String name, String value) {
+        @SuppressWarnings("unchecked")
+        Property<T> property = (Property<T>) state.getBlock().getStateDefinition().getProperty(name);
+        return property == null ? state : property.getValue(value).map(v -> state.setValue(property, v)).orElse(state);
+    }
+
+    /** A mock smith standing on {@code machine}, looking straight down, who right-clicks it once (vanilla's use path). */
+    @SuppressWarnings("removal")
+    private static ServerPlayer smith(GameTestHelper helper, ItemStack hammer, ItemStack material, BlockPos machine) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        player.setShiftKeyDown(false);
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+        player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+        player.setItemInHand(InteractionHand.OFF_HAND, material);
+        Vec3 feet = helper.absoluteVec(new Vec3(machine.getX() + 0.5, machine.getY() + 1.0, machine.getZ() + 0.5));
+        player.snapTo(feet.x, feet.y, feet.z, 0.0F, 90.0F);
+        BlockPos abs = helper.absolutePos(machine);
+        player.gameMode.useItemOn(player, helper.getLevel(), hammer, InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(abs).add(0.0, 0.5, 0.0), Direction.UP, abs, false));
+        return player;
     }
 
     /** Crucible and barrel upgrades cost twice a furnace upgrade; the chain ends at Enderite (owner F9-F11, 56, 59). */
@@ -416,7 +528,7 @@ public final class CrucibleTests {
         var netheriteBarrel = SledgehammerUpgrades.upgradeOf(lib("netherite_barrel"));
         var cauldron = SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON);
         helper.assertTrue(iron != null && iron.to() == lib("reinforced_crucible") && iron.nugget() == ModItems.CRACKED_DIAMOND
-                && iron.materialCost() == 2 && iron.durationFactor() == 2, "iron -> reinforced: 2 cracked diamonds, double strikes");
+                && iron.materialCost() == 4 && SledgehammerUpgrades.blows(iron) == 12, "iron -> reinforced: 4 cracked diamonds, 12 strikes (owner N51)");
         helper.assertTrue(netherite != null && netherite.to() == CrucibleCompat.enderiteCrucible() && netherite.nugget() == ModItems.ENDERITE_NUGGET
                 && netherite.minHammerRank() == SledgehammerUpgrades.RANK_NETHERITE, "netherite -> enderite with enderite nuggets, netherite hammer");
         helper.assertTrue(barrel != null && barrel.to() == lib("netherite_barrel") && barrel.nugget() == ModItems.NETHERITE_NUGGET

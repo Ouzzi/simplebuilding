@@ -86,10 +86,9 @@
     },
     {
       "damage_per_hit": 4,
-      "duration_factor": 2,
       "from": "simplelib:reinforced_crucible",
       "material": "simplelib:netherite_nugget",
-      "material_count": 2,
+      "material_count": 4,
       "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplelib:netherite_crucible"

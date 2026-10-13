@@ -80,7 +80,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   „in Vanilla-Tabs einsortieren“.
 
 ### SimpleLib (gemeinsame Bibliothek)
-Schmelztiegel (Eisen/Verstärkt/Netherit, beheizt vom Block darunter, Axt-Weg ohne SB), Kupfer-/Netherit-Fässer am
+Schmelztiegel (Eisen/Verstärkt/Netherit, beheizt vom Block darunter, Axt-Weg ohne SB; In-World-Bau aus 16 Eisenbarren
+mit Stufe je Schlag, Tiegel-Upgrades 12 Schläge mit sichtbarer Material-Einheit alle 3 Schläge, N51), Kupfer-/Netherit-Fässer am
 Tiegel, warmes Essen, verstärkter Kessel (erbt Vanilla-Kessel inkl. Milch), Dorf-Feldküchen, Stapelgrößen-Regel
 (`StackLimits`), UI-Bausteine des Simple-Stils (Kästen, Slots, Symbole, Flammen, Filter-Knopf). Dienste der
 Modulaufteilung: `IdMoves` (ID-Umzüge), Datentyp `in_world_upgrades` mit Übergabe-Handlern und Tags
