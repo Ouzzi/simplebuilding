@@ -1390,13 +1390,15 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Trims",
-      "description": "Armor trim templates and trim upgrades (stage 1: module frame; content moves in from SimpleBuilding). Axe on its own, sledgehammer with SimpleBuilding.",
+      "description": "Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with SimpleBuilding.",
       "loaders": [
         "fabric",
         "neoforge",
         "forge"
       ],
-      "requires": [],
+      "requires": [
+        "simplelib"
+      ],
       "optional": [
         "simplebuilding"
       ],
