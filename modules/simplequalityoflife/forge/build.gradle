@@ -22,6 +22,7 @@ tasks.register('prepareForgeConfig') {
        .replace(' implements ConfigData', '')
        .replace('AutoConfig.register(SimplequalityoflifeConfig.class,GsonConfigSerializer::new)', 'com.simplebuilding.modules.simplequalityoflife.forge.QolForgeConfig.load()')
        .replace('AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class)', 'com.simplebuilding.modules.simplequalityoflife.forge.QolForgeConfig.HOLDER')
+       .replace('me.shedaniel.autoconfig.util.Utils.getConfigFolder()', 'net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get()')
    def target = output.get().file(path).asFile; target.parentFile.mkdirs(); target.setText(text, 'UTF-8')
   }
  }
