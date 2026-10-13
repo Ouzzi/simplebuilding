@@ -90,7 +90,12 @@ public final class ClaimTests {
         try {
             Path p=temp().resolve("config.json"); var d=ClaimConfig.load(p); yes(h,d.equals(ClaimConfig.DEFAULT),"First config defaults");
             byte[] original=Files.readAllBytes(p); yes(h,ClaimConfig.load(p).equals(d)&&Arrays.equals(original,Files.readAllBytes(p)),"Read does not rewrite config");
-            Files.writeString(p,"{\"enabled\":false}");yes(h,ClaimConfig.load(p).equals(ClaimConfig.OFF),"An existing explicit false stays off after the default changed");
+            yes(h,Files.readString(p).contains("\"configVersion\": "+ClaimConfig.CONFIG_VERSION),"New file carries the config version");
+            Files.writeString(p,"{\"configVersion\":"+ClaimConfig.CONFIG_VERSION+",\"enabled\":false}");yes(h,ClaimConfig.load(p).equals(ClaimConfig.OFF),"A versioned explicit false stays off");
+            Files.writeString(p,"{\"enabled\":false,\"maxClaimsPerPlayer\":4}");var m=ClaimConfig.load(p);
+            yes(h,m.enabled()&&m.maxClaimsPerPlayer()==4&&Files.readString(p).contains("\"configVersion\": "+ClaimConfig.CONFIG_VERSION),"Old unversioned false migrates once to on, version written, other values kept");
+            yes(h,ClaimConfig.load(p).enabled(),"Migrated file loads on again");
+            Files.writeString(p,"{\"configVersion\":"+ClaimConfig.CONFIG_VERSION+",\"enabled\":false}");ClaimConfig.load(p);yes(h,!ClaimConfig.load(p).enabled(),"Opt-out after migration stays off");
             Files.writeString(p,"{\"maxClaimsPerPlayer\":4}");yes(h,ClaimConfig.load(p).enabled(),"A config without the switch takes the new default (on)");
             Files.writeString(p,"{\"enabled\":\"true\"}");
             try { ClaimConfig.load(p); throw new AssertionError("Nonboolean switch accepted"); } catch(IllegalStateException expected) {}

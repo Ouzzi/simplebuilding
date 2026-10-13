@@ -28,3 +28,10 @@ Besitzer gibt den Claims-Hauptschalter frei (Entscheidung 30.09. „zuerst aus�
 Tests, die DEFAULT als „aus“ nutzten, nutzen `ClaimConfig.OFF`. Neu: `/claim create`,
 Attractor (gehalten) an der Grenze. Kompatibilitätstest: `/claim` nur nutzbar, wenn aktiv.
 Läufe: simpletweaks Fabric 26.3, dann NeoForge 26.3, plus SB-Filter *attractor*/*magnet*.
+
+## Migration der alten Datei (Besitzer-Entscheidung, Branch claude-claims-migrate)
+Der alte Build schrieb beim ersten Start `"enabled": false` automatisch. Das war nie eine Wahl.
+`ClaimConfig.load`: Datei ohne `configVersion` (oder < 2) wird einmalig migriert: `enabled:false`
+wird `true`, `configVersion: 2` wird (atomar, übrige Werte bleiben) geschrieben, eine Info-Zeile
+geloggt. Mit `configVersion: 2` bleibt `false` aus (bewusster Opt-out). Fehlender Schlüssel = an.
+Neue Dateien erhalten `configVersion` sofort. Tests: ClaimTests (Config-Test).
