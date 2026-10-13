@@ -34,6 +34,8 @@ import net.minecraft.world.entity.player.Inventory;
 public class StrongBeaconScreen extends BeaconScreen {
     /** Panel size and offset to the right of Vanilla's 230 px image. */
     public static final int PANEL_X = 232, PANEL_WIDTH = 100, PANEL_HEIGHT = 132;
+    /** Vanilla's image width; the screen reports {@link #FULL_WIDTH} except while Vanilla lays out or draws its image. */
+    public static final int VANILLA_WIDTH = 230, FULL_WIDTH = 332;
     public static final int ROW_Y = 30, ROW_STEP = 30, BUTTON_X = 22, BUTTON_STEP = 24, BUTTON_SIZE = 22;
     private static final int LABEL = 0xFFE0E0E0;
     private static final int DIM = 0xFF8A8A8A;
@@ -45,6 +47,11 @@ public class StrongBeaconScreen extends BeaconScreen {
 
     public StrongBeaconScreen(StrongBeaconMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
+        reportWidth(FULL_WIDTH);
+    }
+
+    private void reportWidth(int imageWidth) {
+        ((com.simplebeacons.mixin.client.ContainerScreenWidthAccessor) this).simplebeacons$setImageWidth(imageWidth);
     }
 
     /** Screen factory for the menu type (the Vanilla screen is typed on {@code BeaconMenu}). */
@@ -54,7 +61,10 @@ public class StrongBeaconScreen extends BeaconScreen {
 
     @Override
     protected void init() {
+        // Vanilla's image stays centred where it always is; the panel hangs on its right.
+        reportWidth(VANILLA_WIDTH);
         super.init();
+        reportWidth(FULL_WIDTH);
         this.strongButtons.clear();
         for (int tier = 5; tier <= 6; tier++) {
             List<Holder<MobEffect>> effects = StrongBeaconLogic.EFFECTS.get(tier - 1);
@@ -85,7 +95,12 @@ public class StrongBeaconScreen extends BeaconScreen {
 
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        super.extractBackground(graphics, mouseX, mouseY, a);
+        reportWidth(VANILLA_WIDTH);
+        try {
+            super.extractBackground(graphics, mouseX, mouseY, a);
+        } finally {
+            reportWidth(FULL_WIDTH);
+        }
         int x = this.leftPos + PANEL_X, y = this.topPos;
         UiBoxes.box(graphics, x, y, PANEL_WIDTH, PANEL_HEIGHT, UiPalette.INVENTORY);
         // The dark power field like Vanilla's (#212121), sunk into the box.
