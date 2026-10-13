@@ -376,7 +376,7 @@ Abweichungen/Grenzen (bewusst):
 - Die ~40 `instanceof SledgehammerItem`-Stellen bleiben bis Stufe 7; `isHammer` nutzt bisher `CrucibleCompat`.
 - simplelib-Version bleibt 0.2.0 (wie bei 3a); framework 0.1.10.
 
-**Status Stufe 3d (13.10., Branch `claude-split-s3-materials` auf `claude-wave1`):** _Plan_
+**Status Stufe 3d (13.10., Branch `claude-split-s3-materials` auf `claude-wave1`):** _Plan_ (vorab)
 - Erst die Vorher-Welt: `MigrationWorldTests` legt zusätzlich die Material-Blöcke, -Items, ihre 15 Rezepte (Rezeptbuch)
   und deren Rezept-Advancements ab; Fixture mit dem Stand **vor** dem Umzug neu geschrieben (eigener Commit).
 - SimpleLib `registry/LibMaterials`: registriert immer (Welten bleiben ladbar) `diamond_pebble`, `cracked_diamond`,
@@ -404,6 +404,21 @@ Abweichungen/Grenzen (bewusst):
 - Prüfung: Compile 3 Loader + 26.2, `migration_world*`, Lib `module_game_test_material_requests*` (allein: keine
   Rezepte/kein Zerschlagen; mit SB: alles), SB-Filter data_integrity*, sledgehammer*, crucible*, modpack*, inworld*,
   anvil*, smelting*, Riding/Money/Sandwiches/Lib je Modul + Standalone, Wiki --strict, discover/module_guides --check.
+
+_Umgesetzt (13.10.):_ wie geplant. Migrationsnachweis: die Vorher-Welt (vor dem Umzug geschrieben) lädt auf allen drei
+Loadern Blöcke, BE-Inhalte, Inventar, Rezeptbuch und Advancement-Fortschritt unter `simplelib:` und speichert nichts mehr
+als `simplebuilding:<Material>` (`migration_world*` grün). Neue Tests: Lib `module_game_test_material_requests_registered`,
+`_recipes`, `_anvil_crushing` (allein: keine Rezepte, kein Zerschlagen), Sandwiches `no_enderite_without_requester`
+(allein und mit SB). Zusätzlich nötig (Abweichungen):
+- Simple Money: Preise lösen verschobene IDs über die Registry auf (`MoneyLinks.priceOf`), sonst verloren die Material-
+  Trades Preisboden und Budget; `prices.json` nennt weiter `simplebuilding:<id>` (Link-Bedingung `links:simplebuilding`).
+- Wiki: Loot-Quellen kennen die Lib-Materialien (`obtain_sources`, nur bei `MATERIALS_IN_LIB`).
+- SB-Prüfungen (DataIntegrity, Enderit-Regel, Suchtab, In-World-Export, Schmelzen) zählen die geteilten Materialien als
+  eigene bzw. nennen den Namensraum über `McVersion.MATERIAL_NAMESPACE`; die Void-Schutz-Regel umfasst `simplelib:*enderite*`.
+- Hand-Ressourcen von SB (26.2 und 26.3 gemeinsam, z. B. `c:`-Tags, Handel, FTB-Quests) nennen weiter `simplebuilding:<id>`;
+  auf 26.3 lösen sie über IdMoves auf (Tags/Rezepte/Handel). Texturen liegen als Kopie in SimpleLib (SB-Modelle und 26.2
+  brauchen die eigenen).
+- Offen: Loot-Einspeisung und Lib-eigener Reload/Sync (Stufe 4), Sichtbarkeit (Tab/JEI) nach Anfrage, `prices.json`-Umzug.
 
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
