@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "simpleovens:block/enderite_smoker_front_on",
+    "side": "simpleovens:block/enderite_smoker_side",
+    "top": "simpleovens:block/enderite_smoker_top"
+  }
+}

@@ -773,17 +773,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderite_blast_furnace",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enderite_block",
       "tier": 5,
       "hours": 38.1,
@@ -906,17 +895,6 @@
     },
     {
       "item": "simplebuilding:enderite_flypad",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:enderite_furnace",
       "tier": 5,
       "hours": 38.1,
       "craft": 0,
@@ -1107,17 +1085,6 @@
       "tier": 5,
       "hours": 38.1,
       "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:enderite_smoker",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 0,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -1466,17 +1433,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:netherite_blast_furnace",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:netherite_building_wand",
       "tier": 4,
       "hours": 24.9,
@@ -1576,17 +1532,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:netherite_furnace",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:netherite_hopper",
       "tier": 4,
       "hours": 24.9,
@@ -1668,17 +1613,6 @@
       "tier": 4,
       "hours": 24.9,
       "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:netherite_smoker",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 0,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -2236,17 +2170,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:reinforced_blast_furnace",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:reinforced_bundle",
       "tier": 3,
       "hours": 21.0,
@@ -2289,17 +2212,6 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:reinforced_furnace",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
     },
     {
       "item": "simplebuilding:reinforced_hopper",
@@ -2354,17 +2266,6 @@
       "merchant": "mason",
       "level": 1,
       "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:reinforced_smoker",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
       "chance": 1
     },
     {

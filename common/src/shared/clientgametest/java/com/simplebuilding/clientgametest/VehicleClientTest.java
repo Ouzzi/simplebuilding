@@ -42,8 +42,8 @@ public final class VehicleClientTest {
                 level.setBlock(new BlockPos(x, 0, Z), Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, RailShape.EAST_WEST), 3);
             }
             List<EntityType<?>> carts = List.of(ModEntities.REINFORCED_CHEST_MINECART, ModEntities.NETHERITE_CHEST_MINECART,
-                    ModEntities.ENDERITE_CHEST_MINECART, ModEntities.REINFORCED_FURNACE_MINECART, ModEntities.NETHERITE_FURNACE_MINECART,
-                    ModEntities.ENDERITE_FURNACE_MINECART, ModEntities.REINFORCED_HOPPER_MINECART, ModEntities.NETHERITE_HOPPER_MINECART,
+                    ModEntities.ENDERITE_CHEST_MINECART, com.simplebuilding.util.OvenRefs.entityType("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.entityType("netherite_furnace_minecart"),
+                    com.simplebuilding.util.OvenRefs.entityType("enderite_furnace_minecart"), ModEntities.REINFORCED_HOPPER_MINECART, ModEntities.NETHERITE_HOPPER_MINECART,
                     ModEntities.ENDERITE_HOPPER_MINECART);
             for (int i = 0; i < carts.size(); i++) {
                 Entity cart = carts.get(i).create(level, EntitySpawnReason.COMMAND);
@@ -64,7 +64,7 @@ public final class VehicleClientTest {
             }
             // Item frames on the wall behind the rail: the nine cart sprites, then the boats in several woods.
             List<Item> cartItems = List.of(ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_CHEST_MINECART,
-                    ModItems.REINFORCED_FURNACE_MINECART, ModItems.NETHERITE_FURNACE_MINECART, ModItems.ENDERITE_FURNACE_MINECART,
+                    com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"),
                     ModItems.REINFORCED_HOPPER_MINECART, ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART);
             List<Item> boatItems = List.of(ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT);
             String[] woods = {"oak", "spruce", "cherry", "mangrove", "pale_oak", "dark_oak", "bamboo", "bamboo", "bamboo"};

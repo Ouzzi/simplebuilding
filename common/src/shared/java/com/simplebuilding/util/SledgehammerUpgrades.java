@@ -246,16 +246,20 @@ public final class SledgehammerUpgrades {
         if (table == null) {
             Map<Block, Upgrade> map = new HashMap<>();
             toNetherite(map, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER);
-            toNetherite(map, ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE);
-            toNetherite(map, ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER);
-            toNetherite(map, ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE);
+            if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: data/simpleovens/in_world_upgrades
+                toNetherite(map, ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE);
+                toNetherite(map, ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER);
+                toNetherite(map, ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE);
+            }
             toNetherite(map, ModBlocks.REINFORCED_PISTON, ModBlocks.NETHERITE_PISTON);
             // Besitzer 2026-09-29: auch der verstaerkte klebrige Kolben wird zum Netherit-Kolben (Brecher, nicht klebrig).
             toNetherite(map, ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.NETHERITE_PISTON);
             toEnderite(map, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER);
-            toEnderite(map, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE);
-            toEnderite(map, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER);
-            toEnderite(map, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE);
+            if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: data/simpleovens/in_world_upgrades
+                toEnderite(map, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE);
+                toEnderite(map, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER);
+                toEnderite(map, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE);
+            }
             toEnderite(map, ModBlocks.NETHERITE_PISTON, ModBlocks.ENDERITE_PISTON);
             // Truhen: jede der acht Vanilla-Kupfertruhen (vier Oxidationsstufen, gewachst oder nicht)
             // -> Verstaerkt -> Netherit -> Enderit. Der Umbau behaelt den Inhalt (TieredChests).

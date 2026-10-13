@@ -53,11 +53,11 @@ public final class ModEntities {
             ? registerCart("netherite_chest_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredChestMinecart(t, l, ChestTier.NETHERITE)) : null;
     public static final EntityType<com.simplebuilding.entity.vehicle.TieredChestMinecart> ENDERITE_CHEST_MINECART = vehicles()
             ? registerCart("enderite_chest_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredChestMinecart(t, l, ChestTier.ENDERITE)) : null;
-    public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> REINFORCED_FURNACE_MINECART = vehicles()
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> REINFORCED_FURNACE_MINECART = vehicles() && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerCart("reinforced_furnace_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredFurnaceMinecart(t, l, ChestTier.REINFORCED)) : null;
-    public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> NETHERITE_FURNACE_MINECART = vehicles()
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> NETHERITE_FURNACE_MINECART = vehicles() && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerCart("netherite_furnace_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredFurnaceMinecart(t, l, ChestTier.NETHERITE)) : null;
-    public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> ENDERITE_FURNACE_MINECART = vehicles()
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> ENDERITE_FURNACE_MINECART = vehicles() && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerCart("enderite_furnace_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredFurnaceMinecart(t, l, ChestTier.ENDERITE)) : null;
     public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> REINFORCED_HOPPER_MINECART = vehicles()
             ? registerCart("reinforced_hopper_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredHopperMinecart(t, l, ChestTier.REINFORCED)) : null;

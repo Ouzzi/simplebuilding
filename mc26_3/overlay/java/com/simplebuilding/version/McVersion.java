@@ -103,6 +103,10 @@ public final class McVersion {
     public static final boolean MATERIALS_IN_LIB = true;
     /** Namespace of the shared materials and their recipes ({@link #MATERIALS_IN_LIB}). */
     public static final String MATERIAL_NAMESPACE = "simplelib";
+    /** Furnaces in SimpleBuilding: split stage 4: on 26.3 the nine furnaces, their block entities and the furnace minecarts live in the required, bundled sub-mod Simple Ovens ({@code simpleovens:*}, migrated through SimpleLib id moves); SB registers none of them and reaches them by id ({@code util/OvenRefs}). */
+    public static final boolean OVENS_IN_SB = false;
+    /** Namespace of the furnaces, their carts and recipes ({@link #OVENS_IN_SB}). */
+    public static final String OVENS_NAMESPACE = "simpleovens";
     /** Sulfur fire and copper fire (queue N33): burn on sulfur / copper blocks, sulfur fire gives nausea. */
     public static final boolean FIRES = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

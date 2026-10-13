@@ -152,8 +152,8 @@ public final class SmeltingTests {
         helper.assertValueEqual("per scrap: " + CookingChecks.vanillaCookTime(recipe.cookingTime(), true) / out.getCount() + " ticks", "per scrap: " + 2 * 72000 + " ticks", "blast time per scrap, twice the old direct route");
         helper.assertValueEqual("smelting: " + recipes.getRecipeFor(RecipeType.SMELTING, single, level).map(found -> found.id().identifier().toString()).orElse("none") + ", smoking: " + recipes.getRecipeFor(RecipeType.SMOKING, single, level).map(found -> found.id().identifier().toString()).orElse("none"), "smelting: none, smoking: none", "the recipes an ordinary furnace or a smoker would use for layered raw enderite");
 
-        List<Block> blastFurnaces = List.of(Blocks.BLAST_FURNACE, ModBlocks.REINFORCED_BLAST_FURNACE,
-                ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE);
+        List<Block> blastFurnaces = List.of(Blocks.BLAST_FURNACE, com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"),
+                com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"));
         StringBuilder totals = new StringBuilder();
         for (int index = 0; index < blastFurnaces.size(); index++) {
             BlockPos pos = new BlockPos(1 + 2 * index, 1, 2);
@@ -191,7 +191,7 @@ public final class SmeltingTests {
         BlockPos vanilla = new BlockPos(2, 1, 2);
         BlockPos netherite = new BlockPos(5, 1, 2);
         helper.setBlock(vanilla, Blocks.BLAST_FURNACE);
-        helper.setBlock(netherite, ModBlocks.NETHERITE_BLAST_FURNACE);
+        helper.setBlock(netherite, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"));
 
         for (BlockPos pos : List.of(vanilla, netherite)) {
             AbstractFurnaceBlockEntity entity = furnace(helper, pos);
@@ -234,8 +234,8 @@ public final class SmeltingTests {
     public static void furnaceMenuScalesLongCooksIntoTheShortRange(GameTestHelper helper) {
         BlockPos longCook = new BlockPos(2, 1, 2);
         BlockPos shortCook = new BlockPos(5, 1, 2);
-        helper.setBlock(longCook, ModBlocks.NETHERITE_BLAST_FURNACE);
-        helper.setBlock(shortCook, ModBlocks.NETHERITE_FURNACE);
+        helper.setBlock(longCook, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"));
+        helper.setBlock(shortCook, com.simplebuilding.util.OvenRefs.block("netherite_furnace"));
         AbstractFurnaceBlockEntity longEntity = furnace(helper, longCook);
         longEntity.setItem(0, new ItemStack(ModItems.LAYERED_RAW_ENDERITE));
         inject(helper, longEntity, LIT_REMAINING, LIT_TOTAL, COOK_SPENT, SCRAP_COOK_TICKS, -1);
@@ -297,19 +297,19 @@ public final class SmeltingTests {
         record Case(String label, BlockPos pos, Block block, Item input, String expected) {
         }
         List<Case> cases = List.of(
-                new Case("reinforced furnace", new BlockPos(1, 1, 1), ModBlocks.REINFORCED_FURNACE, Items.RAW_GOLD, "1x, 1 xp"),
-                new Case("netherite furnace", new BlockPos(3, 1, 1), ModBlocks.NETHERITE_FURNACE, Items.RAW_GOLD, "2x, 2 xp"),
-                new Case("enderite furnace", new BlockPos(5, 1, 1), ModBlocks.ENDERITE_FURNACE, Items.RAW_GOLD, "2x, 2 xp"),
-                new Case("reinforced smoker", new BlockPos(1, 1, 3), ModBlocks.REINFORCED_SMOKER, Items.BEEF, "1x"),
-                new Case("netherite smoker", new BlockPos(3, 1, 3), ModBlocks.NETHERITE_SMOKER, Items.BEEF, "2x"),
-                new Case("enderite smoker", new BlockPos(5, 1, 3), ModBlocks.ENDERITE_SMOKER, Items.BEEF, "2x"),
-                new Case("reinforced blast furnace", new BlockPos(1, 1, 5), ModBlocks.REINFORCED_BLAST_FURNACE, Items.RAW_GOLD, "1x, 1 xp"),
-                new Case("netherite blast furnace", new BlockPos(3, 1, 5), ModBlocks.NETHERITE_BLAST_FURNACE, Items.RAW_GOLD, "2x, 2 xp"),
-                new Case("enderite blast furnace", new BlockPos(5, 1, 5), ModBlocks.ENDERITE_BLAST_FURNACE, Items.RAW_GOLD, "2x, 2 xp"),
+                new Case("reinforced furnace", new BlockPos(1, 1, 1), com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), Items.RAW_GOLD, "1x, 1 xp"),
+                new Case("netherite furnace", new BlockPos(3, 1, 1), com.simplebuilding.util.OvenRefs.block("netherite_furnace"), Items.RAW_GOLD, "2x, 2 xp"),
+                new Case("enderite furnace", new BlockPos(5, 1, 1), com.simplebuilding.util.OvenRefs.block("enderite_furnace"), Items.RAW_GOLD, "2x, 2 xp"),
+                new Case("reinforced smoker", new BlockPos(1, 1, 3), com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), Items.BEEF, "1x"),
+                new Case("netherite smoker", new BlockPos(3, 1, 3), com.simplebuilding.util.OvenRefs.block("netherite_smoker"), Items.BEEF, "2x"),
+                new Case("enderite smoker", new BlockPos(5, 1, 3), com.simplebuilding.util.OvenRefs.block("enderite_smoker"), Items.BEEF, "2x"),
+                new Case("reinforced blast furnace", new BlockPos(1, 1, 5), com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), Items.RAW_GOLD, "1x, 1 xp"),
+                new Case("netherite blast furnace", new BlockPos(3, 1, 5), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), Items.RAW_GOLD, "2x, 2 xp"),
+                new Case("enderite blast furnace", new BlockPos(5, 1, 5), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"), Items.RAW_GOLD, "2x, 2 xp"),
                 new Case("netherite blast furnace, cracked diamond", new BlockPos(1, 1, 7),
-                        ModBlocks.NETHERITE_BLAST_FURNACE, ModItems.CRACKED_DIAMOND, "1x, 1 xp"),
+                        com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), ModItems.CRACKED_DIAMOND, "1x, 1 xp"),
                 new Case("enderite blast furnace, cracked diamond", new BlockPos(3, 1, 7),
-                        ModBlocks.ENDERITE_BLAST_FURNACE, ModItems.CRACKED_DIAMOND, "1x, 1 xp"));
+                        com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"), ModItems.CRACKED_DIAMOND, "1x, 1 xp"));
 
         for (Case c : cases) {
             helper.setBlock(c.pos(), c.block());
@@ -356,24 +356,24 @@ public final class SmeltingTests {
         BlockPos injectedIron = new BlockPos(3, 1, 7);
         record MetalCase(BlockPos pos, Block block, Item input, Item output) {}
         List<MetalCase> metals = List.of(
-                new MetalCase(new BlockPos(5, 1, 7), ModBlocks.NETHERITE_BLAST_FURNACE, Items.RAW_GOLD, Items.GOLD_INGOT),
-                new MetalCase(new BlockPos(7, 1, 7), ModBlocks.ENDERITE_BLAST_FURNACE, Items.RAW_GOLD, Items.GOLD_INGOT),
-                new MetalCase(new BlockPos(7, 1, 1), ModBlocks.NETHERITE_BLAST_FURNACE, Items.RAW_COPPER, Items.COPPER_INGOT),
-                new MetalCase(new BlockPos(7, 1, 4), ModBlocks.ENDERITE_BLAST_FURNACE, Items.RAW_COPPER, Items.COPPER_INGOT));
+                new MetalCase(new BlockPos(5, 1, 7), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), Items.RAW_GOLD, Items.GOLD_INGOT),
+                new MetalCase(new BlockPos(7, 1, 7), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"), Items.RAW_GOLD, Items.GOLD_INGOT),
+                new MetalCase(new BlockPos(7, 1, 1), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), Items.RAW_COPPER, Items.COPPER_INGOT),
+                new MetalCase(new BlockPos(7, 1, 4), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"), Items.RAW_COPPER, Items.COPPER_INGOT));
         for (MetalCase metal : metals) {
             loadSmelt(helper, metal.pos(), metal.block(), metal.input(), 9);
         }
 
-        loadSmelt(helper, netherite, ModBlocks.NETHERITE_BLAST_FURNACE, Items.RAW_IRON, 9);
-        loadSmelt(helper, enderite, ModBlocks.ENDERITE_BLAST_FURNACE, Items.RAW_IRON, 9);
-        loadSmelt(helper, reinforced, ModBlocks.REINFORCED_BLAST_FURNACE, Items.RAW_IRON, 4);
-        loadSmelt(helper, enderiteFurnace, ModBlocks.ENDERITE_FURNACE, Items.RAW_IRON, 4);
-        loadSmelt(helper, crackedDiamond, ModBlocks.ENDERITE_BLAST_FURNACE, ModItems.CRACKED_DIAMOND, 4);
+        loadSmelt(helper, netherite, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), Items.RAW_IRON, 9);
+        loadSmelt(helper, enderite, com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"), Items.RAW_IRON, 9);
+        loadSmelt(helper, reinforced, com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), Items.RAW_IRON, 4);
+        loadSmelt(helper, enderiteFurnace, com.simplebuilding.util.OvenRefs.block("enderite_furnace"), Items.RAW_IRON, 4);
+        loadSmelt(helper, crackedDiamond, com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"), ModItems.CRACKED_DIAMOND, 4);
 
-        helper.setBlock(rawEnderite, ModBlocks.ENDERITE_BLAST_FURNACE);
+        helper.setBlock(rawEnderite, com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"));
         furnace(helper, rawEnderite).setItem(0, new ItemStack(ModItems.LAYERED_RAW_ENDERITE));
         inject(helper, furnace(helper, rawEnderite), 800, 1600, SCRAP_COOK_TICKS - 2, SCRAP_COOK_TICKS, 1);
-        helper.setBlock(injectedIron, ModBlocks.ENDERITE_BLAST_FURNACE);
+        helper.setBlock(injectedIron, com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"));
         furnace(helper, injectedIron).setItem(0, new ItemStack(Items.RAW_IRON));
         int ironBlast = helper.getLevel().getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.BLASTING, new SingleRecipeInput(new ItemStack(Items.RAW_IRON)), helper.getLevel())

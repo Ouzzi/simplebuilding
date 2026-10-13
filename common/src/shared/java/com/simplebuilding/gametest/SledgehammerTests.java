@@ -1289,7 +1289,7 @@ public final class SledgehammerTests {
         }
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.NETHERITE_NUGGET));
-        level.setBlockAndUpdate(pos, com.simplebuilding.blocks.ModBlocks.REINFORCED_FURNACE.defaultBlockState());
+        level.setBlockAndUpdate(pos, com.simplebuilding.blocks.com.simplebuilding.util.OvenRefs.block("reinforced_furnace").defaultBlockState());
         for (InteractionHand hand : InteractionHand.values()) helper.assertTrue(
                 com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "upgrade material/tool hint missing");
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -1325,7 +1325,7 @@ public final class SledgehammerTests {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.setGameMode(GameType.SURVIVAL);
         var hit = new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0.5, 0), Direction.UP, pos, false);
-        level.setBlockAndUpdate(pos, com.simplebuilding.blocks.ModBlocks.REINFORCED_FURNACE.defaultBlockState());
+        level.setBlockAndUpdate(pos, com.simplebuilding.blocks.com.simplebuilding.util.OvenRefs.block("reinforced_furnace").defaultBlockState());
         InteractionHand main = InteractionHand.MAIN_HAND;
         InteractionHand off = InteractionHand.OFF_HAND;
 

@@ -719,7 +719,7 @@ def machine_tuning_defaults(code: Path) -> dict:
         return {}
     return {(t, k): int(v) for t, k, v in MACHINE_TUNING_FIELD.findall(path.read_text(encoding="utf-8"))}
 MOD_BLOCK_REGISTRATION = re.compile(
-    r'public\s+static\s+final\s+Block\s+([A-Z0-9_]+)\s*=\s*registerBlock\(\s*"([a-z0-9_]+)"\s*,\s*Blocks\.([A-Z0-9_]+)')
+    r'public\s+static\s+final\s+Block\s+([A-Z0-9_]+)\s*=\s*(?:McVersion\.OVENS_IN_SB\s*\?\s*)?registerBlock\(\s*"([a-z0-9_]+)"\s*,\s*Blocks\.([A-Z0-9_]+)')
 
 
 def load_vanilla_constants(roots: dict) -> dict:
@@ -751,7 +751,11 @@ def collect_machine_speeds(roots: dict, vanilla_constants: dict) -> tuple[dict, 
                      in MOD_BLOCK_REGISTRATION.findall(registry_path.read_text(encoding="utf-8"))}
     out: dict[str, dict] = {}
     tuning = machine_tuning_defaults(code)
+    # Split stage 4: where Simple Ovens owns the furnaces (OVENS_IN_SB false, 26.3) their speeds are its wiki's.
+    ovens_moved = (version_flags(roots) or {}).get("OVENS_IN_SB") is False
     for relative, kind in MACHINE_TICK_CODE.items():
+        if ovens_moved and kind == "cooking":
+            continue
         path = code / relative
         if not path.exists():
             problems.append(f"{rel(path)} is missing - machine speeds cannot be read")

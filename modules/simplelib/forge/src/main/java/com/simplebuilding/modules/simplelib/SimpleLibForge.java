@@ -19,6 +19,7 @@ import net.minecraftforge.registries.RegisterEvent;
 /** Forge 26.3 entry; same registration order as Fabric/NeoForge. */
 @Mod(SimpleLib.MOD_ID)
 public final class SimpleLibForge {
+    static net.minecraftforge.network.Channel<net.minecraft.network.protocol.common.custom.CustomPacketPayload> channel;
     public SimpleLibForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplelib.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleLib.init(FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
@@ -63,6 +64,25 @@ public final class SimpleLibForge {
                 com.simplelib.api.InWorldStrikes.tick(event.server()));
         net.minecraftforge.event.server.ServerAboutToStartEvent.BUS.addListener(event ->
                 com.simplelib.village.VillageKitchen.inject(event.getServer().registryAccess()));
+        // In-world upgrade files: SimpleLib's own load and client sync (idle while a partner such as SimpleBuilding loads them).
+        net.minecraftforge.event.AddReloadListenerEvent.BUS.addListener(event -> event.addListener(com.simplelib.api.InWorldUpgrades.reloadListener()));
+        channel = net.minecraftforge.network.ChannelBuilder.named(SimpleLib.id("main")).payloadChannel()
+                .protocol(net.minecraftforge.network.NetworkProtocol.PLAY)
+                .clientbound()
+                    .add(com.simplelib.net.UpgradeTablePayload.TYPE, com.simplelib.net.UpgradeTablePayload.CODEC.cast(), (payload, ctx) -> {
+                        ctx.setPacketHandled(true);
+                        ctx.enqueueWork(() -> com.simplelib.api.InWorldUpgrades.receive(payload.files()));
+                    })
+                .build();
+        net.minecraftforge.event.OnDatapackSyncEvent.BUS.addListener(event -> {
+            var payload = com.simplelib.net.UpgradeTablePayload.current();
+            if (payload == null) return;
+            event.getPlayers().forEach(player -> {
+                if (player.connection != null && channel.isRemotePresent(player.connection.getConnection())) {
+                    channel.send(payload, net.minecraftforge.network.PacketDistributor.PLAYER.with(player));
+                }
+            });
+        });
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) {
             SimpleLibForgeClient.init(context);
         }

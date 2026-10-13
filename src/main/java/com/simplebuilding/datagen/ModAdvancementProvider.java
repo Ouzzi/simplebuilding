@@ -161,13 +161,13 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                                     .build())));
             feature("trims/fashion_statement", root, Items.DIAMOND_CHESTPLATE, AdvancementType.GOAL, ModTriggers.FULL_TRIM_SET);
 
-            AdvancementHolder reinforced = node("machines/reinforcements", cracked, ModItems.REINFORCED_FURNACE, AdvancementType.TASK,
-                    "reinforced_machine", any(ModItems.REINFORCED_FURNACE, ModItems.REINFORCED_SMOKER, ModItems.REINFORCED_BLAST_FURNACE,
+            AdvancementHolder reinforced = node("machines/reinforcements", cracked, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), AdvancementType.TASK,
+                    "reinforced_machine", any(com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("reinforced_smoker"), com.simplebuilding.util.OvenRefs.item("reinforced_blast_furnace"),
                             ModItems.REINFORCED_HOPPER, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
                             ModItems.REINFORCED_CHEST));
-            AdvancementHolder netherite = feature("machines/forged_in_place", reinforced, ModItems.NETHERITE_FURNACE, AdvancementType.GOAL,
+            AdvancementHolder netherite = feature("machines/forged_in_place", reinforced, com.simplebuilding.util.OvenRefs.item("netherite_furnace"), AdvancementType.GOAL,
                     ModTriggers.HAMMER_UPGRADE_NETHERITE);
-            feature("machines/end_of_the_line", netherite, ModItems.ENDERITE_FURNACE, AdvancementType.CHALLENGE,
+            feature("machines/end_of_the_line", netherite, com.simplebuilding.util.OvenRefs.item("enderite_furnace"), AdvancementType.CHALLENGE,
                     ModTriggers.HAMMER_UPGRADE_ENDERITE);
             feature("machines/good_as_new", netherite, ModItems.NETHERITE_PISTON, AdvancementType.TASK, ModTriggers.PISTON_REPAIR);
             if (com.simplebuilding.version.McVersion.CRUCIBLE) {

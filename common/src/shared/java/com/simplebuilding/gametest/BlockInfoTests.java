@@ -198,11 +198,11 @@ public final class BlockInfoTests {
 
     /** Reinforced 2x, netherite 4x, enderite 8x the vanilla machine, in all three families; vanilla gets no line. */
     public static void furnaceSpeedFollowsTheTier(GameTestHelper helper) {
-        expect(helper, BlockInfo.stateLines(Topic.FURNACE_SPEED, ModBlocks.REINFORCED_FURNACE.defaultBlockState()),
+        expect(helper, BlockInfo.stateLines(Topic.FURNACE_SPEED, com.simplebuilding.util.OvenRefs.block("reinforced_furnace").defaultBlockState()),
                 List.of("jade.simplebuilding.furnace.speed [2]"), "reinforced furnace");
-        expect(helper, BlockInfo.stateLines(Topic.FURNACE_SPEED, ModBlocks.NETHERITE_SMOKER.defaultBlockState()),
+        expect(helper, BlockInfo.stateLines(Topic.FURNACE_SPEED, com.simplebuilding.util.OvenRefs.block("netherite_smoker").defaultBlockState()),
                 List.of("jade.simplebuilding.furnace.speed [4]"), "netherite smoker");
-        expect(helper, BlockInfo.stateLines(Topic.FURNACE_SPEED, ModBlocks.ENDERITE_BLAST_FURNACE.defaultBlockState()),
+        expect(helper, BlockInfo.stateLines(Topic.FURNACE_SPEED, com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace").defaultBlockState()),
                 List.of("jade.simplebuilding.furnace.speed [8]"), "enderite blast furnace");
         expect(helper, BlockInfo.stateLines(Topic.FURNACE_SPEED, Blocks.FURNACE.defaultBlockState()), List.of(), "vanilla furnace");
         helper.succeed();

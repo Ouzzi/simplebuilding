@@ -443,11 +443,11 @@ public class ModItems {
             ? registerItem("netherite_chest_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_CHEST_MINECART)) : null;
     public static final Item ENDERITE_CHEST_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
             ? registerItem("enderite_chest_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_MINECART)) : null;
-    public static final Item REINFORCED_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+    public static final Item REINFORCED_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerItem("reinforced_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_FURNACE_MINECART)) : null;
-    public static final Item NETHERITE_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+    public static final Item NETHERITE_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerItem("netherite_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_FURNACE_MINECART)) : null;
-    public static final Item ENDERITE_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
+    public static final Item ENDERITE_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerItem("enderite_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_FURNACE_MINECART)) : null;
     public static final Item REINFORCED_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
             ? registerItem("reinforced_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_HOPPER_MINECART)) : null;
@@ -829,28 +829,28 @@ public class ModItems {
 
     public static final Item ENDERITE_PISTON = registerItem("enderite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.ENDERITE_PISTON, s.fireResistant().rarity(Rarity.EPIC), "tooltip.simplebuilding.enderite_piston"));
 
-    public static final Item REINFORCED_BLAST_FURNACE = registerItem("reinforced_blast_furnace", s -> new BlockItem(ModBlocks.REINFORCED_BLAST_FURNACE, s));
+    public static final Item REINFORCED_BLAST_FURNACE = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("reinforced_blast_furnace", s -> new BlockItem(ModBlocks.REINFORCED_BLAST_FURNACE, s)) : null;
 
-    public static final Item NETHERITE_BLAST_FURNACE = registerItem("netherite_blast_furnace", s -> new BlockItem(ModBlocks.NETHERITE_BLAST_FURNACE, s.fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_BLAST_FURNACE = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("netherite_blast_furnace", s -> new BlockItem(ModBlocks.NETHERITE_BLAST_FURNACE, s.fireResistant().rarity(UNCOMMON))) : null;
 
-    public static final Item REINFORCED_FURNACE = registerItem("reinforced_furnace", s -> new BlockItem(ModBlocks.REINFORCED_FURNACE, s));
+    public static final Item REINFORCED_FURNACE = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("reinforced_furnace", s -> new BlockItem(ModBlocks.REINFORCED_FURNACE, s)) : null;
 
-    public static final Item NETHERITE_FURNACE = registerItem("netherite_furnace", s -> new BlockItem(ModBlocks.NETHERITE_FURNACE, s.fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_FURNACE = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("netherite_furnace", s -> new BlockItem(ModBlocks.NETHERITE_FURNACE, s.fireResistant().rarity(UNCOMMON))) : null;
 
-    public static final Item REINFORCED_SMOKER = registerItem("reinforced_smoker", s -> new BlockItem(ModBlocks.REINFORCED_SMOKER, s));
+    public static final Item REINFORCED_SMOKER = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("reinforced_smoker", s -> new BlockItem(ModBlocks.REINFORCED_SMOKER, s)) : null;
 
-    public static final Item NETHERITE_SMOKER = registerItem("netherite_smoker", s -> new BlockItem(ModBlocks.NETHERITE_SMOKER, s.fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_SMOKER = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("netherite_smoker", s -> new BlockItem(ModBlocks.NETHERITE_SMOKER, s.fireResistant().rarity(UNCOMMON))) : null;
 
     // Enderit-Maschinen: feuerfest und EPIC wie die uebrigen Enderit-Gegenstaende (Buendel, Koecher,
     // Rucksack, Enderitkolben). Kein Werkbankrezept - sie entstehen nur in der Welt, siehe
     // SledgehammerUpgrades.
     public static final Item ENDERITE_HOPPER = registerItem("enderite_hopper", s -> new BlockItem(ModBlocks.ENDERITE_HOPPER, s.fireResistant().rarity(Rarity.EPIC)));
 
-    public static final Item ENDERITE_FURNACE = registerItem("enderite_furnace", s -> new BlockItem(ModBlocks.ENDERITE_FURNACE, s.fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_FURNACE = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("enderite_furnace", s -> new BlockItem(ModBlocks.ENDERITE_FURNACE, s.fireResistant().rarity(Rarity.EPIC))) : null;
 
-    public static final Item ENDERITE_SMOKER = registerItem("enderite_smoker", s -> new BlockItem(ModBlocks.ENDERITE_SMOKER, s.fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_SMOKER = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("enderite_smoker", s -> new BlockItem(ModBlocks.ENDERITE_SMOKER, s.fireResistant().rarity(Rarity.EPIC))) : null;
 
-    public static final Item ENDERITE_BLAST_FURNACE = registerItem("enderite_blast_furnace", s -> new BlockItem(ModBlocks.ENDERITE_BLAST_FURNACE, s.fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_BLAST_FURNACE = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("enderite_blast_furnace", s -> new BlockItem(ModBlocks.ENDERITE_BLAST_FURNACE, s.fireResistant().rarity(Rarity.EPIC))) : null;
 
 
 

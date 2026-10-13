@@ -1,0 +1,13 @@
+{
+  "values": [
+    "simpleovens:reinforced_furnace",
+    "simpleovens:netherite_furnace",
+    "simpleovens:enderite_furnace",
+    "simpleovens:reinforced_smoker",
+    "simpleovens:netherite_smoker",
+    "simpleovens:enderite_smoker",
+    "simpleovens:reinforced_blast_furnace",
+    "simpleovens:netherite_blast_furnace",
+    "simpleovens:enderite_blast_furnace"
+  ]
+}

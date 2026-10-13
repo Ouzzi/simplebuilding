@@ -2,7 +2,6 @@ package com.simplebuilding.compat;
 
 import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
 import com.simplebuilding.blocks.custom.TieredChestBlock;
-import com.simplebuilding.blocks.entity.custom.FurnaceTierPerks;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.tweaks.block.LaunchpadBlock;
 import com.simplebuilding.tweaks.block.entity.ChunkLoaderBlockEntity;
@@ -316,7 +315,7 @@ public final class BlockInfo {
                 }
             }
             case FURNACE_SPEED -> {
-                int factor = FurnaceTierPerks.speedFactor(state);
+                int factor = com.simplebuilding.util.OvenRefs.speedFactor(state);
                 if (factor > 1) {
                     lines.add(Line.of("jade.simplebuilding.furnace.speed", Arg.literal(factor)));
                 }

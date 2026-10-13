@@ -145,14 +145,21 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         // Aus Simple Tweaks: alle Platten mit der Spitzhacke (Abbautempo regelt sonst der Besitz).
         com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
 
+        // Split stage 4: on 26.3 Simple Ovens tags its furnaces itself.
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) {
+            var ovens = builder(BlockTags.MINEABLE_WITH_PICKAXE);
+            for (Block oven : java.util.List.of(ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE,
+                    ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE,
+                    ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER)) {
+                ovens.add(key(oven));
+            }
+        }
         // 1. Der Block soll mit einer Spitzhacke SCHNELLER abbaubar sein
         // Das behalten wir bei.
         builder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(key(ModBlocks.CRACKED_DIAMOND_BLOCK))
                 .add(key(ModBlocks.REINFORCED_HOPPER))
                 .add(key(ModBlocks.NETHERITE_HOPPER))
-                .add(key(ModBlocks.REINFORCED_BLAST_FURNACE))
-                .add(key(ModBlocks.NETHERITE_BLAST_FURNACE))
                 .add(key(ModBlocks.REINFORCED_PISTON))
                 .add(key(ModBlocks.REINFORCED_STICKY_PISTON))
                 .add(key(ModBlocks.NETHERITE_PISTON))
@@ -160,14 +167,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(key(ModBlocks.REINFORCED_PISTON_HEAD))
                 .add(key(ModBlocks.NETHERITE_PISTON_HEAD))
                 .add(key(ModBlocks.ENDERITE_PISTON_HEAD))
-                .add(key(ModBlocks.REINFORCED_FURNACE))
-                .add(key(ModBlocks.NETHERITE_FURNACE))
-                .add(key(ModBlocks.REINFORCED_SMOKER))
-                .add(key(ModBlocks.NETHERITE_SMOKER))
                 .add(key(ModBlocks.ENDERITE_HOPPER))
-                .add(key(ModBlocks.ENDERITE_FURNACE))
-                .add(key(ModBlocks.ENDERITE_SMOKER))
-                .add(key(ModBlocks.ENDERITE_BLAST_FURNACE))
                 .add(key(ModBlocks.REINFORCED_CHEST))
                 .add(key(ModBlocks.NETHERITE_CHEST))
                 .add(key(ModBlocks.ENDERITE_CHEST))

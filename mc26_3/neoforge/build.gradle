@@ -190,6 +190,8 @@ tasks.named('processResources', ProcessResources).configure {
     filesMatching('META-INF/neoforge.mods.toml') {
         expand replaceProperties
         filter { String line -> line.replace('SimpleBuilding for NeoForge 26.2', 'SimpleBuilding for NeoForge 26.3') }
+        // Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), nested below.
+        filter { String line -> line.startsWith('# Bundled optional Sub-Mods') ? '# Required Sub-Mods (26.3, split stage 4), nested.\n[[dependencies.simplebuilding]]\nmodId="simpleovens"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n\n' + line : line }
     }
 }
 
@@ -216,6 +218,13 @@ evaluationDependsOn(':modules:simplelib:neoforge')
 dependencies { implementation project(':modules:simplelib:neoforge') }
 neoForge.mods { simplelib { sourceSet project(':modules:simplelib:neoforge').sourceSets.main } }
 neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplelib) }
+// Simple Ovens: required Sub-Mod (PLAN-MODULAUFTEILUNG stage 4), nested and loaded in every dev/test run (it does not
+// evaluate this project, so no cycle). SB code never imports it.
+dependencies { jarJar project(':modules:simpleovens:neoforge') }
+evaluationDependsOn(':modules:simpleovens:neoforge')
+dependencies { implementation project(':modules:simpleovens:neoforge') }
+neoForge.mods { simpleovens { sourceSet project(':modules:simpleovens:neoforge').sourceSets.main } }
+neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simpleovens) }
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
 dependencies { jarJar project(':modules:simplemaps:neoforge') }
 evaluationDependsOn(':modules:simplemaps:neoforge')

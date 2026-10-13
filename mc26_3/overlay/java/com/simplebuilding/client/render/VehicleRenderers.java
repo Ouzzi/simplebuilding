@@ -63,9 +63,11 @@ public final class VehicleRenderers {
         registrar.register(ModEntities.REINFORCED_CHEST_MINECART, ChestCartRenderer::new);
         registrar.register(ModEntities.NETHERITE_CHEST_MINECART, ChestCartRenderer::new);
         registrar.register(ModEntities.ENDERITE_CHEST_MINECART, ChestCartRenderer::new);
-        registrar.register(ModEntities.REINFORCED_FURNACE_MINECART, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART));
-        registrar.register(ModEntities.NETHERITE_FURNACE_MINECART, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART));
-        registrar.register(ModEntities.ENDERITE_FURNACE_MINECART, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART));
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // split stage 4: Simple Ovens renders its furnace carts
+            registrar.register(ModEntities.REINFORCED_FURNACE_MINECART, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART));
+            registrar.register(ModEntities.NETHERITE_FURNACE_MINECART, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART));
+            registrar.register(ModEntities.ENDERITE_FURNACE_MINECART, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART));
+        }
         registrar.register(ModEntities.REINFORCED_HOPPER_MINECART, c -> new MinecartRenderer(c, ModelLayers.HOPPER_MINECART));
         registrar.register(ModEntities.NETHERITE_HOPPER_MINECART, c -> new MinecartRenderer(c, ModelLayers.HOPPER_MINECART));
         registrar.register(ModEntities.ENDERITE_HOPPER_MINECART, c -> new MinecartRenderer(c, ModelLayers.HOPPER_MINECART));

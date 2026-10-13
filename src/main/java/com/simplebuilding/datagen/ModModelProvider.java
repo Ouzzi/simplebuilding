@@ -175,29 +175,31 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ASTRALIT_ORE, ModelLocationUtils.getModelLocation(ModBlocks.ASTRALIT_ORE));
 
 
-        // --- 2. Blast Furnaces ---
-        blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
-        blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_BLAST_FURNACE));
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_BLAST_FURNACE));
-        blockStateModelGenerator.createFurnace(ModBlocks.ENDERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_BLAST_FURNACE));
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens ships the furnace models
+            // --- 2. Blast Furnaces ---
+            blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+            blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+            blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_BLAST_FURNACE));
+            blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_BLAST_FURNACE));
+            blockStateModelGenerator.createFurnace(ModBlocks.ENDERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+            blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_BLAST_FURNACE));
 
-        // --- Standard Furnaces ---
-        blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
-        blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_FURNACE));
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_FURNACE));
-        blockStateModelGenerator.createFurnace(ModBlocks.ENDERITE_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_FURNACE));
+            // --- Standard Furnaces ---
+            blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+            blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+            blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_FURNACE));
+            blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_FURNACE));
+            blockStateModelGenerator.createFurnace(ModBlocks.ENDERITE_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+            blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_FURNACE));
 
-        // --- Smokers ---
-        blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
-        blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_SMOKER));
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_SMOKER));
-        blockStateModelGenerator.createFurnace(ModBlocks.ENDERITE_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
-        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_SMOKER));
+            // --- Smokers ---
+            blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
+            blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
+            blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_SMOKER));
+            blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_SMOKER));
+            blockStateModelGenerator.createFurnace(ModBlocks.ENDERITE_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
+            blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_SMOKER));
+        }
 
 
 

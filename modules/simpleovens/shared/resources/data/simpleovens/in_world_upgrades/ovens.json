@@ -1,0 +1,52 @@
+{
+  "upgrades": [
+    {
+      "from": "simpleovens:reinforced_furnace",
+      "to": "simpleovens:netherite_furnace",
+      "material": "simplelib:netherite_nugget",
+      "min_tool": "diamond",
+      "damage_per_hit": 4,
+      "tier": "netherite"
+    },
+    {
+      "from": "simpleovens:netherite_furnace",
+      "to": "simpleovens:enderite_furnace",
+      "material": "simplelib:enderite_nugget",
+      "min_tool": "netherite",
+      "damage_per_hit": 10,
+      "tier": "enderite"
+    },
+    {
+      "from": "simpleovens:reinforced_smoker",
+      "to": "simpleovens:netherite_smoker",
+      "material": "simplelib:netherite_nugget",
+      "min_tool": "diamond",
+      "damage_per_hit": 4,
+      "tier": "netherite"
+    },
+    {
+      "from": "simpleovens:netherite_smoker",
+      "to": "simpleovens:enderite_smoker",
+      "material": "simplelib:enderite_nugget",
+      "min_tool": "netherite",
+      "damage_per_hit": 10,
+      "tier": "enderite"
+    },
+    {
+      "from": "simpleovens:reinforced_blast_furnace",
+      "to": "simpleovens:netherite_blast_furnace",
+      "material": "simplelib:netherite_nugget",
+      "min_tool": "diamond",
+      "damage_per_hit": 4,
+      "tier": "netherite"
+    },
+    {
+      "from": "simpleovens:netherite_blast_furnace",
+      "to": "simpleovens:enderite_blast_furnace",
+      "material": "simplelib:enderite_nugget",
+      "min_tool": "netherite",
+      "damage_per_hit": 10,
+      "tier": "enderite"
+    }
+  ]
+}

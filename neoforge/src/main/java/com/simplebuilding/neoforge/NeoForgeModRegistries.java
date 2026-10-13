@@ -255,13 +255,13 @@ public final class NeoForgeModRegistries {
             BLOCK_ENTITIES.register("mod_hopper", () -> new BlockEntityType<>(
                     ModHopperBlockEntity::new, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER));
     public static final Supplier<BlockEntityType<ModBlastFurnaceBlockEntity>> MOD_BLAST_FURNACE_BE =
-            BLOCK_ENTITIES.register("mod_blast_furnace", () -> new BlockEntityType<>(
+            com.simplebuilding.version.McVersion.OVENS_IN_SB ? BLOCK_ENTITIES.register("mod_blast_furnace", () -> new BlockEntityType<>(
                     ModBlastFurnaceBlockEntity::new, ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE));
     public static final Supplier<BlockEntityType<ModFurnaceBlockEntity>> MOD_FURNACE_BE =
-            BLOCK_ENTITIES.register("mod_furnace", () -> new BlockEntityType<>(
+            com.simplebuilding.version.McVersion.OVENS_IN_SB ? BLOCK_ENTITIES.register("mod_furnace", () -> new BlockEntityType<>(
                     ModFurnaceBlockEntity::new, ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE));
     public static final Supplier<BlockEntityType<ModSmokerBlockEntity>> MOD_SMOKER_BE =
-            BLOCK_ENTITIES.register("mod_smoker", () -> new BlockEntityType<>(
+            com.simplebuilding.version.McVersion.OVENS_IN_SB ? BLOCK_ENTITIES.register("mod_smoker", () -> new BlockEntityType<>(
                     ModSmokerBlockEntity::new, ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER));
 
     public static final Supplier<RecipeSerializer<CountBasedSmithingRecipe>> COUNT_BASED_SMITHING_SERIALIZER =
@@ -296,10 +296,10 @@ public final class NeoForgeModRegistries {
                 CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, tab.ordinal())
                         .icon(tab.icon)
                         .title(Component.translatable(tab.translationKey()))
-                        .displayItems((displayContext, entries) -> ModItemGroupsContent.populate(tab, entries, displayContext.holders()));
+                        .displayItems((displayContext, entries) -> ModItemGroupsContent.populate(tab, entries, displayContext.holders())) : null;
                 if (before != null) {
                     builder.withTabsBefore(net.minecraft.resources.ResourceKey.create(Registries.CREATIVE_MODE_TAB,
-                            net.minecraft.resources.Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, before.id)));
+                            net.minecraft.resources.Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, before.id))) : null;
                 }
                 return builder.build();
             }));
@@ -369,13 +369,13 @@ public final class NeoForgeModRegistries {
         if (CRATE_BE != null) ModBlockEntities.CRATE_BE = CRATE_BE.get();
         if (HAMMOCK_BE != null) ModBlockEntities.HAMMOCK_BE = HAMMOCK_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
-        ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
-        ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();
-        ModBlockEntities.MOD_SMOKER_BE = MOD_SMOKER_BE.get();
+        if (MOD_BLAST_FURNACE_BE != null) ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
+        if (MOD_FURNACE_BE != null) ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();
+        if (MOD_SMOKER_BE != null) ModBlockEntities.MOD_SMOKER_BE = MOD_SMOKER_BE.get();
         ModRecipes.COUNT_BASED_SMITHING_SERIALIZER = COUNT_BASED_SMITHING_SERIALIZER.get();
         ModRecipes.COUNT_BASED_SMITHING = COUNT_BASED_SMITHING.get();
         ModRecipes.UPGRADE_SMITHING_SERIALIZER = UPGRADE_SMITHING_SERIALIZER.get();
         ModRegistries.REINFORCED_BUNDLE_SERIALIZER = REINFORCED_BUNDLE_SERIALIZER.get();
-        TABS.forEach((tab, holder) -> ModItemGroups.GROUPS.put(tab, holder.get()));
+        TABS.forEach((tab, holder) -> ModItemGroups.GROUPS.put(tab, holder.get())) : null;
     }
 }

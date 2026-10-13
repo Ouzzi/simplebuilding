@@ -10,6 +10,8 @@ import net.minecraft.client.gui.screens.MenuScreens;
 public final class SimpleLibFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.simplelib.net.UpgradeTablePayload.TYPE,
+                (payload, context) -> context.client().execute(() -> com.simplelib.api.InWorldUpgrades.receive(payload.files())));
         LibMenus.CRUCIBLES.values().forEach(type -> MenuScreens.register(type, CrucibleScreen::new));
         LibMenus.BARRELS.values().forEach(type -> MenuScreens.register(type, net.minecraft.client.gui.screens.inventory.ContainerScreen::new));
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(LibBlockEntities.CRUCIBLE, CrucibleRenderer::new);

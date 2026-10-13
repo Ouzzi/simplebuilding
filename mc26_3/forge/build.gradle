@@ -116,6 +116,8 @@ tasks.named('processResources', ProcessResources).configure {
     inputs.property 'forgeMixinLevel', 'JAVA_21'
     filesMatching('META-INF/mods.toml') {
         expand replaceProperties
+        // Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), nested below.
+        filter { String line -> line.startsWith('# Bundled optional Sub-Mods') ? '# Required Sub-Mods (26.3, split stage 4), nested.\n[[dependencies.simplebuilding]]\nmodId="simpleovens"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"\n\n' + line : line }
     }
     // Forges Mixin 0.8.7 kennt hoechstens JAVA_21; die gemeinsamen Konfigs (Fabric/NeoForge) sagen JAVA_25.
     filesMatching('*.mixins.json') {
@@ -165,7 +167,8 @@ tasks.named('check') { dependsOn 'checkForgeOverlay' }
 // SimpleLib nested next to framework (principle 6a).
 ext.forgeBundleSimplelib = true
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept).
-ext.forgeBundleModules = [':modules:simplemaps:forge', ':modules:simplequestionary:forge'] +
+// Simple Ovens: required Sub-Mod (split stage 4), nested like the optional ones.
+ext.forgeBundleModules = [':modules:simplemaps:forge', ':modules:simplequestionary:forge', ':modules:simpleovens:forge'] +
         // Optional Sub-Mods (PLAN-MODULAUFTEILUNG stage 1a), switches via framework SubMods.
         ['simpleriding', 'simplesandwiches', 'simpletweaks', 'simplemoney', 'simplefun', 'simpledimensions', 'simpletrims', 'simplemobs', 'simpleend', 'simplerespawn', 'simplebeacons'].collect { ":modules:${it}:forge" }
 apply from: rootProject.file('gradle/forge-framework.gradle')

@@ -51,7 +51,7 @@ public final class VehicleTiers {
     }
 
     public static Item furnaceMinecart(ChestTier tier) {
-        return pick(tier, ModItems.REINFORCED_FURNACE_MINECART, ModItems.NETHERITE_FURNACE_MINECART, ModItems.ENDERITE_FURNACE_MINECART);
+        return pick(tier, com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"));
     }
 
     public static Item hopperMinecart(ChestTier tier) {
@@ -67,7 +67,7 @@ public final class VehicleTiers {
     }
 
     public static Block furnace(ChestTier tier) {
-        return pick(tier, ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE);
+        return pick(tier, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_furnace"));
     }
 
     public static Block hopper(ChestTier tier) {

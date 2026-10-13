@@ -37,9 +37,11 @@ public final class NeoForgeItemAutomation implements ItemAutomation {
     }
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_FURNACE_BE.get(), WorldlyContainerWrapper::new);
-        event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_SMOKER_BE.get(), WorldlyContainerWrapper::new);
-        event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_BLAST_FURNACE_BE.get(), WorldlyContainerWrapper::new);
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens registers its own
+            event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_FURNACE_BE.get(), WorldlyContainerWrapper::new);
+            event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_SMOKER_BE.get(), WorldlyContainerWrapper::new);
+            event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_BLAST_FURNACE_BE.get(), WorldlyContainerWrapper::new);
+        }
         event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_HOPPER_BE.get(),
                 (hopper, side) -> VanillaContainerWrapper.of(hopper));
         // Mod-Truhen wie NeoForges eigene Truhen-Anbindung (CapabilityHooks): eine Doppeltruhe ist
