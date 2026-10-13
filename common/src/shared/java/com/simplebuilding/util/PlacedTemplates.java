@@ -91,7 +91,9 @@ public final class PlacedTemplates {
      * eigenem Block und dem Schmieden in der Welt. SimpleBuilding legt sie nur noch ab, wenn Simple Trims fehlt.
      */
     public static boolean leftToSimpleTrims(ItemStack stack) {
-        return !McVersion.TRIMS_IN_SB && !stack.isEmpty() && stack.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, net.minecraft.resources.Identifier.withDefaultNamespace("trim_templates")))
+        return !McVersion.TRIMS_IN_SB && !stack.isEmpty() && (stack.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+                        net.minecraft.resources.Identifier.withDefaultNamespace("trim_templates")))
+                        || net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath().endsWith("_armor_trim_smithing_template"))
                 && com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletrims");
     }
 

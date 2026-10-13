@@ -292,6 +292,8 @@ public final class TrimsTests {
             h.assertTrue(!PlacedTemplates.isToolTarget(h.getLevel(), pos, player) && !PlacedTemplates.hit(h.getLevel(), pos, player), "a pickaxe strikes");
             // Right click through the game mode: the block takes the click, one strike per click interval.
             player.setItemInHand(InteractionHand.MAIN_HAND, tool());
+            player.getInventory().add(new ItemStack(Items.DIAMOND, 4));
+            player.getInventory().add(new ItemStack(Items.GLOWSTONE, 2));
             BlockHitResult target = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
             player.gameMode.useItemOn(player, h.getLevel(), player.getMainHandItem(), InteractionHand.MAIN_HAND, target);
             player.gameMode.useItemOn(player, h.getLevel(), player.getMainHandItem(), InteractionHand.MAIN_HAND, target);

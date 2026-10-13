@@ -19,8 +19,17 @@ public final class TemplateTools {
     /** Axes and hammers: the ingredient of the tool slot in recipes (the mode decides which half counts). */
     public static final TagKey<Item> TOOLS = TagKey.create(Registries.ITEM, SimpleTrims.id("template_tools"));
 
-    /** Vanilla's {@code #minecraft:trim_templates} (no constant in 26.3's ItemTags). */
+    /**
+     * {@code #minecraft:trim_templates}: 26.3 has no such Vanilla tag any more (no ItemTags constant, no Vanilla
+     * entries); this mod and others add their templates to it, the Vanilla ones are found by id ({@link #isTrimTemplate}).
+     */
     public static final TagKey<Item> TRIM_TEMPLATES = TagKey.create(Registries.ITEM, net.minecraft.resources.Identifier.withDefaultNamespace("trim_templates"));
+
+    /** An armor trim template: in {@link #TRIM_TEMPLATES} or a Vanilla-style {@code *_armor_trim_smithing_template}. */
+    public static boolean isTrimTemplate(ItemStack stack) {
+        return !stack.isEmpty() && (stack.is(TRIM_TEMPLATES)
+                || net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath().endsWith("_armor_trim_smithing_template"));
+    }
 
     /** Hammer mode: a partner switched the axe ways off. */
     public static boolean hammerMode() {
