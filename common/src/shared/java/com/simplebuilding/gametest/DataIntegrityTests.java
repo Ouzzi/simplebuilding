@@ -2516,6 +2516,16 @@ public final class DataIntegrityTests {
      * item moved into a second tab or listed twice; an item dropped from every tab; books spread
      * into another tab.
      */
+    /** Split stage 4: the furnaces and furnace carts SimpleBuilding's tabs keep listing (Simple Ovens' on 26.3). */
+    static Set<Identifier> ovenItemIds() {
+        Set<Identifier> ids = new HashSet<>();
+        for (String tier : com.simplebuilding.util.OvenRefs.TIERS) {
+            for (String family : com.simplebuilding.util.OvenRefs.FAMILIES) ids.add(com.simplebuilding.util.OvenRefs.id(tier + "_" + family));
+            ids.add(com.simplebuilding.util.OvenRefs.id(tier + "_furnace_minecart"));
+        }
+        return ids;
+    }
+
     public static void everyModItemIsInExactlyOneCreativeTab(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
 
@@ -2568,7 +2578,7 @@ public final class DataIntegrityTests {
         Set<Identifier> modItems = new TreeSet<>(Comparator.comparing(Identifier::toString));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             // Split stage 4: the furnaces of the required sub-mod Simple Ovens keep their place in SimpleBuilding's tabs.
-            if (MOD_ID.equals(id.getNamespace()) || McVersion.OVENS_NAMESPACE.equals(id.getNamespace())) {
+            if (MOD_ID.equals(id.getNamespace()) || ovenItemIds().contains(id)) {
                 modItems.add(id);
             }
         }
@@ -2680,7 +2690,7 @@ public final class DataIntegrityTests {
         });
         for (Item item : where.keySet()) {
             if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)
-                    && !com.simplebuilding.util.SharedMaterials.isShared(item)) {
+                    && !com.simplebuilding.util.SharedMaterials.isShared(item) && !ovenItemIds().contains(BuiltInRegistries.ITEM.getKey(item))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
