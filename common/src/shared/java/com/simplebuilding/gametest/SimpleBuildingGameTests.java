@@ -316,6 +316,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("chess_game_test_octets_old_cells_migrate_and_mixed_cells_persist", OctetMixTests::octetsOldCellsMigrateAndMixedCellsPersist)
                     .build(),
+            GameTestSpec.named("chess_game_test_octets_normal_break_takes_the_whole_cell", OctetMixTests::octetsNormalBreakTakesTheWholeCell)
+                    .build(),
+            GameTestSpec.named("chess_game_test_octets_sledgehammer_follows_the_sneak_rule", OctetMixTests::octetsSledgehammerFollowsTheSneakRule)
+                    .build(),
             GameTestSpec.named("chess_game_test_chess_recipes_cut_from_checkers_and_octets", ChessTests::chessRecipesCutFromCheckersAndOctets)
                     .build(),
             GameTestSpec.named("nature_block_game_test_nature_variants_have_their_recipes", NatureBlockTests::natureVariantsHaveTheirRecipes)

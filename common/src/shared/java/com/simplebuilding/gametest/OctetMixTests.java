@@ -120,7 +120,7 @@ public final class OctetMixTests {
         helper.getBlockState(CELL).useWithoutItem(helper.getLevel(), player, hit);
     }
 
-    /** A survival player (real game mode) breaks only the octet it looks at; drops are exactly that octet. */
+    /** A sneaking survival player (real game mode) breaks only the octet it looks at; drops are exactly that octet. */
     public static void octetsBreakOnlyTheLookedAtOctet(GameTestHelper helper) {
         if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
         ServerLevel level = helper.getLevel();
@@ -133,6 +133,7 @@ public final class OctetMixTests {
         helper.assertTrue(helper.getBlockState(CELL).is(ModBlocks.MIXED_OCTET), "stone below, oak above is mixed");
         ServerPlayer player = survivalPlayer(helper);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
+        player.setShiftKeyDown(true);
         // the four oak octets, each looked at from above
         for (int x = 0; x < 2; x++) {
             for (int z = 0; z < 2; z++) {
@@ -150,6 +151,70 @@ public final class OctetMixTests {
         helper.assertTrue(three.is(cell(Blocks.STONE)) && OctetCellBlock.mask(three) == (OctetCellBlock.BOTTOM_HALF & ~bit(1, 0, 1)),
                 "the looked-at stone octet is gone: " + three);
         helper.assertValueEqual(dropped(helper, piece(Blocks.STONE)), 1, "one stone octet dropped");
+        player.setShiftKeyDown(false);
+        helper.succeed();
+    }
+
+    /** Owner 2026-10-13: breaking without sneaking takes the whole cell - every octet of every material drops. */
+    public static void octetsNormalBreakTakesTheWholeCell(GameTestHelper helper) {
+        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        BlockPos pos = helper.absolutePos(CELL);
+        BlockState[] parts = new BlockState[8];
+        for (int i = 0; i < 8; i++) {
+            parts[i] = OctetCellBlock.y(i) == 0 ? material(Blocks.STONE) : material(Blocks.OAK_PLANKS);
+        }
+        OctetCells.set(helper.getLevel(), pos, parts, false, Block.UPDATE_ALL);
+        ServerPlayer player = survivalPlayer(helper);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
+        Vec3 top = new Vec3(pos.getX() + 0.25, pos.getY() + 1.0, pos.getZ() + 0.25);
+        player.snapTo(top.x, top.y + 1.0 - player.getEyeHeight(), top.z, 0.0F, 90.0F);
+        player.setShiftKeyDown(false);
+        player.gameMode.destroyBlock(pos);
+        helper.assertBlockPresent(Blocks.AIR, CELL);
+        helper.assertValueEqual(dropped(helper, piece(Blocks.OAK_PLANKS)), 4, "every oak octet");
+        helper.assertValueEqual(dropped(helper, piece(Blocks.STONE)), 4, "every stone octet");
+        // a pure cell too
+        helper.setBlock(CELL, OctetCellBlock.withMask(cell(Blocks.OAK_PLANKS).defaultBlockState(), 0x0F));
+        player.gameMode.destroyBlock(pos);
+        helper.assertBlockPresent(Blocks.AIR, CELL);
+        helper.assertValueEqual(dropped(helper, piece(Blocks.OAK_PLANKS)), 8, "the pure cell drops its four octets");
+        helper.succeed();
+    }
+
+    /**
+     * The sledgehammer follows the same rule: its area swing (not sneaking) takes the neighbouring cells whole,
+     * sneaking it mines just the hit block - one octet of it.
+     */
+    public static void octetsSledgehammerFollowsTheSneakRule(GameTestHelper helper) {
+        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        BlockState full = OctetCellBlock.withMask(cell(Blocks.STONE).defaultBlockState(), OctetCellBlock.FULL);
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                helper.setBlock(CELL.offset(dx, 0, dz), full);
+            }
+        }
+        ServerPlayer player = survivalPlayer(helper);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.items.ModItems.DIAMOND_SLEDGEHAMMER));
+        BlockPos origin = helper.absolutePos(CELL);
+        player.snapTo(origin.getX() + 0.5, origin.getY() + 2.0, origin.getZ() + 0.5, 0.0F, 90.0F);
+        player.setShiftKeyDown(false);
+        com.simplebuilding.util.SledgehammerUsageEvent.handleBeforeBlockBreak(helper.getLevel(), player, origin, helper.getBlockState(CELL), null);
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                if (dx != 0 || dz != 0) {
+                    helper.assertBlockPresent(Blocks.AIR, CELL.offset(dx, 0, dz));
+                }
+            }
+        }
+        helper.assertValueEqual(dropped(helper, piece(Blocks.STONE)), 8 * 8, "the area swing takes the neighbouring cells whole");
+        player.setShiftKeyDown(true);
+        helper.assertValueEqual(com.simplebuilding.items.custom.SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 1,
+                "sneaking, the hammer mines one block");
+        player.snapTo(origin.getX() + 0.25, origin.getY() + 2.0 - player.getEyeHeight(), origin.getZ() + 0.25, 0.0F, 90.0F);
+        player.gameMode.destroyBlock(origin);
+        helper.assertValueEqual(OctetCellBlock.count(helper.getBlockState(CELL)), 7, "sneaking takes one octet");
+        helper.assertValueEqual(dropped(helper, piece(Blocks.STONE)), 8 * 8 + 1, "one more stone octet");
+        player.setShiftKeyDown(false);
         helper.succeed();
     }
 

@@ -45,11 +45,11 @@ import org.jetbrains.annotations.Nullable;
  * Material-Achtel ({@link MaterialOctetBlock}, ein Block je Material, z. B. Holz und Melone).
  *
  * <p>Wasserbindbar, solange die Zelle nicht voll ist; voll (8/8) ist sie ein ganzer Wuerfel ohne Wasser und bleibt
- * Achtelzelle. Ein Spieler baut nur das angeschaute Achtel ab ({@link #playerWillDestroy}); ohne Spieler droppt jedes
- * Achtel ({@link #getDrops}, keine Loot-Tabelle); Schleichen + leere Hand nimmt das angeklickte Achtel heraus. Achtel
+ * Achtelzelle. Ein Spieler baut die ganze Zelle ab, schleichend nur das angeschaute Achtel ({@link #playerWillDestroy});
+ * ohne Spieler droppt jedes Achtel ({@link #getDrops}, keine Loot-Tabelle); Schleichen + leere Hand nimmt das angeklickte Achtel heraus. Achtel
  * verschiedener Materialien in einer Zelle ergeben die gemischte Zelle {@link MixedOctetBlock} ({@link OctetCells}).
  */
-public abstract class OctetCellBlock extends Block implements SimpleWaterloggedBlock {
+public abstract class OctetCellBlock extends OctetParticleBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     /** Die acht Achtel; Index {@code x | y << 1 | z << 2} (0 = unten, Nord, West). */
     public static final BooleanProperty[] OCTETS = new BooleanProperty[8];
@@ -272,8 +272,9 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
     private static final ThreadLocal<Breaking> BREAKING = new ThreadLocal<>();
 
     /**
-     * Abbauen durch einen Spieler nimmt nur das angeschaute Achtel ({@link OctetCells#lookedAt}); das letzte Achtel
-     * nimmt die Zelle mit. Vanilla und alle Loader rufen {@code playerWillDestroy}, entfernen dann den Block und rufen
+     * Abbauen durch einen Spieler nimmt die ganze Zelle (alle Achtel, alle Drops); schleichend nur das angeschaute Achtel
+     * ({@link OctetCells#lookedAt}), das letzte Achtel nimmt die Zelle mit. Der Vorschlaghammer folgt derselben Regel:
+     * sein Flaechenabbau nimmt ganze Zellen, schleichend baut er genau einen Block ab, also ein Achtel. Vanilla und alle Loader rufen {@code playerWillDestroy}, entfernen dann den Block und rufen
      * {@link #destroy}; Explosionen, Kolben und {@code Level#destroyBlock} ohne Spieler droppen weiter alles.
      */
     @Override
@@ -281,22 +282,21 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
         BREAKING.remove();
         BlockState[] parts = OctetCells.parts(level, pos, state);
         int index = OctetCells.lookedAt(player, pos, state);
-        if (parts[index] != null) {
+        // Besitzer 13.10.: normal die ganze Zelle mit allen Achteln und Drops, schleichend nur das angeschaute Achtel.
+        if (parts[index] != null && player.isShiftKeyDown()) {
             BREAKING.set(new Breaking(level, pos.immutable(), OctetCells.without(parts, index), OctetCells.wet(state),
                     parts[index], index, level.getGameTime()));
         }
         return super.playerWillDestroy(level, pos, state, player);
     }
 
-    /** Partikel des abgebauten Achtels (bei gemischten Zellen sonst die neutralen der Zelle). */
-    @Override
-    public void spawnDestroyParticles(Level level, BlockPos pos, BlockState state) {
+    /** State whose break particles are shown: the mined eighth while it is being broken (mixed cells), else the cell itself. */
+    public static BlockState particleState(Level level, BlockPos pos, BlockState state) {
         Breaking breaking = BREAKING.get();
         if (breaking != null && breaking.level() == level && breaking.pos().equals(pos)) {
-            super.spawnDestroyParticles(level, pos, OctetCells.single(breaking.part(), breaking.index()));
-            return;
+            return OctetCells.single(breaking.part(), breaking.index());
         }
-        super.spawnDestroyParticles(level, pos, state);
+        return state;
     }
 
     /** Nach dem Entfernen durch einen Spieler: die uebrigen Achtel kommen zurueck (gemischt oder rein). */
