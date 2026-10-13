@@ -54,6 +54,7 @@ public final class LibDiscover {
             "simplelib:copper_barrel",
             "simplelib:crucible",
             "simplelib:crucible_blank",
+            "simplelib:first_pickup_tips",
             "simplelib:iron_crucible",
             "simplelib:netherite_barrel",
             "simplelib:netherite_crucible",

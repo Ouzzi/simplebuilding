@@ -3891,6 +3891,35 @@ window.WIKI_DATA = {
           "Ein Stoß, der trifft, kostet den Speer einen Haltbarkeitspunkt; ein abgenutzter Speer zerbricht wie ein Werkzeug. Ein Stoß ohne Ziel macht nur den Angriffsklang des Speers. Der Speer bleibt im Spender."
         ]
       }
+    },
+    {
+      "id": "first_pickup_tips",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/discover/SimpleBuildingDiscover.java",
+        "common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/FirstUseTips.java",
+        "tools/discover/discover.py"
+      ],
+      "en": {
+        "title": "First pickup tips",
+        "summary": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
+        "details": [
+          "Tips exist for sledgehammers, chisels, building wands, the Blueprint, the Attractor, the Rotator, backpacks, the Auto Crafter, the Smither, the Detector, the Echo Sounder, the Silent Dandelion, the filter of the Reinforced, Netherite and Enderite Hopper, and the Vanilla Fletching Table.",
+          "A tip counts as seen through an entity tag on the player (simplebuilding.tip.<group>); removing the tag with /tag shows it again.",
+          "Switch: config/simple-tips.properties, key simplebuilding.firstPickupTips=false turns the tips of this mod off. The file is read at every tip, so no restart is needed; every Simple mod with tips has its own key there. On Minecraft 26.2 the file is not read and the tips are always on.",
+          "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe."
+        ]
+      },
+      "de": {
+        "title": "Tipps beim ersten Aufheben",
+        "summary": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
+        "details": [
+          "Tipps gibt es für Vorschlaghämmer, Meißel, Baustäbe, die Blaupause, den Attraktor, den Rotator, Rucksäcke, den Auto-Crafter, den Schmied, den Detektor, das Echolot, den Stillen Löwenzahn, den Filter des Verstärkten, Netherit- und Enderit-Trichters und den Vanilla-Befiederungstisch.",
+          "Ein Tipp gilt über ein Entity-Tag am Spieler (simplebuilding.tip.<gruppe>) als gesehen; entfernt man das Tag mit /tag, erscheint er wieder.",
+          "Schalter: config/simple-tips.properties, Schlüssel simplebuilding.firstPickupTips=false schaltet die Tipps dieser Mod ab. Die Datei wird bei jedem Tipp gelesen, ein Neustart ist nicht nötig; jede Simple-Mod mit Tipps hat dort ihren eigenen Schlüssel. Auf Minecraft 26.2 wird die Datei nicht gelesen, die Tipps sind immer an.",
+          "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei."
+        ]
+      }
     }
   ],
   "items": [
@@ -180707,7 +180736,7 @@ window.WIKI_DATA = {
     "config": 233,
     "inWorld": 495,
     "advancements": 119,
-    "features": 51,
+    "features": 52,
     "undocumented": 0,
     "incompleteProse": 0
   },

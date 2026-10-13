@@ -348,9 +348,10 @@ def tip_entries(mod: dict, lang_dir: str, locale: str) -> dict:
 
 
 def updated_lang(path: Path, mod: dict, entries: dict) -> str:
+    # Existing tip keys keep their place (the guide generator also rewrites these files); new ones go last.
     owned = f"tip.{mod['ns'][0]}."
     data = load(path)
-    items = {k: v for k, v in data.items() if not k.startswith(owned)}
+    items = {k: v for k, v in data.items() if not k.startswith(owned) or k in entries}
     items.update(entries)
     return json.dumps(items, indent=2, ensure_ascii=False) + "\n"
 

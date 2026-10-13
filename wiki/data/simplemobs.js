@@ -306,6 +306,35 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Trank des Fokus: Seltsamer Trank + Wächterauge = 3:00 Immunität gegen Zittern; + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank."
         ]
       }
+    },
+    {
+      "id": "first_pickup_tips",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/discover/MobsDiscover.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/DiscoverTipMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/FirstUseTips.java",
+        "tools/discover/discover.py"
+      ],
+      "en": {
+        "title": "First pickup tips",
+        "summary": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
+        "details": [
+          "Tips exist for the Trick Mirror, the Deceiver Cloak and the Shellker Shell.",
+          "A tip counts as seen through an entity tag on the player (simplemobs.tip.<group>); removing the tag with /tag shows it again.",
+          "Switch: config/simple-tips.properties, key simplemobs.firstPickupTips=false turns the tips of this mod off. The file is read at every tip, so no restart is needed; every Simple mod with tips has its own key there.",
+          "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe."
+        ]
+      },
+      "de": {
+        "title": "Tipps beim ersten Aufheben",
+        "summary": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
+        "details": [
+          "Tipps gibt es für den Trickspiegel, den Täuschermantel und die Shellker-Schale.",
+          "Ein Tipp gilt über ein Entity-Tag am Spieler (simplemobs.tip.<gruppe>) als gesehen; entfernt man das Tag mit /tag, erscheint er wieder.",
+          "Schalter: config/simple-tips.properties, Schlüssel simplemobs.firstPickupTips=false schaltet die Tipps dieser Mod ab. Die Datei wird bei jedem Tipp gelesen, ein Neustart ist nicht nötig; jede Simple-Mod mit Tipps hat dort ihren eigenen Schlüssel.",
+          "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -2565,7 +2594,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 9,
+    "features": 10,
     "recipes": 53,
     "lootTables": 8,
     "tags": 5,

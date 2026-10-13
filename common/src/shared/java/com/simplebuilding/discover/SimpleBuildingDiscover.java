@@ -245,6 +245,7 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:fast_chiseling",
             "simplebuilding:fine_elytra_pad",
             "simplebuilding:fire_chip",
+            "simplebuilding:first_pickup_tips",
             "simplebuilding:flint_chip",
             "simplebuilding:flypad",
             "simplebuilding:frosted_nihilith",

@@ -60,6 +60,7 @@ public final class SandwichDiscover {
             "simplesandwiches:cheese_slice",
             "simplesandwiches:cutting_board",
             "simplesandwiches:eating_from_bundles",
+            "simplesandwiches:first_pickup_tips",
             "simplesandwiches:guide_book",
             "simplesandwiches:knife",
             "simplesandwiches:milk_cauldron",
