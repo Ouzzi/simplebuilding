@@ -7,6 +7,11 @@ Writes three GUI sprites:
   1 px black outline, white bevel top/left, dark bevel bottom/right, fill #C6C6C6; the highlighted one in the blue
   hover colours) without the book, as nine-slice sprites (border 3) so the field can grow with its text.
 
+N49 (owner 2026-10-12): the resonance button beside the off-hand slot shows one of eight tier hearts
+(resonance_heart_<tier>.png: cobblestone, stone, copper, iron, gold, diamond, netherite, enderite), each with its own
+fill pattern in the Vanilla heart silhouette, and the extra head slot gets its empty-slot icon
+(container/slot/extra_head.png, a skull silhouette in the #555555 of Vanilla's empty-slot icons).
+
 Run: python3.12 tools/textures/resonance_heart_2026_10_09.py
 """
 import json
@@ -67,6 +72,48 @@ FIELD_COLOURS = {  # vanilla recipe_book/button and button_highlighted frame col
     False: {"o": (0, 0, 0, 255), "H": (255, 255, 255, 255), "f": (0xC6, 0xC6, 0xC6, 255), "S": (0x55, 0x55, 0x55, 255)},
     True: {"o": (0x00, 0x07, 0x3E, 255), "H": (255, 255, 255, 255), "f": (0x88, 0x92, 0xC9, 255), "S": (0x34, 0x3E, 0x75, 255)},
 }
+# N49 tier hearts: (pattern, colours); cobblestone and diamond are the round-5 hearts above.
+STONE = ["..##.##..", ".#hl#lm#.", "#hllmlmm#", "#lmmmmdm#", "#mmdmmms#", ".#mmmms#.", "..#mss#..", "...#s#...", "....#...."]
+COPPER = ["..##.##..", ".#hl#hl#.", "#hllllmm#", "#llmlmxm#", "#lmmmmxd#", ".#mmmdd#.", "..#mdd#..", "...#d#...", "....#...."]
+IRON = ["..##.##..", ".#hh#hl#.", "#hhllhlm#", "#hllhlmm#", "#llhlmmd#", ".#lhmmd#.", "..#mmd#..", "...#d#...", "....#...."]
+GOLD = ["..##.##..", ".#hl#hl#.", "#lhlllhm#", "#llllmlm#", "#hllmmmd#", ".#lmmhd#.", "..#mdd#..", "...#d#...", "....#...."]
+NETHERITE = ["..##.##..", ".#lm#lm#.", "#hlllllm#", "#dddmddd#", "#lmmmmmd#", ".#ddmdd#.", "..#mmd#..", "...#d#...", "....#...."]
+ENDERITE = ["..##.##..", ".#hl#lm#.", "#hlmllmm#", "#lmxxmmd#", "#mmxemdd#", ".#mmmdd#.", "..#mdd#..", "...#d#...", "....#...."]
+BLACK = (0, 0, 0, 255)
+
+
+def tones(**kw):
+    return {"#": BLACK, **{k: tuple(int(v[i:i + 2], 16) for i in (0, 2, 4)) + (255,) for k, v in kw.items()}}
+
+
+TIER_HEARTS = {
+    "cobblestone": (HEART, HEART_COLOURS),
+    "stone": (STONE, tones(h="BEBEBE", l="A4A4A4", m="8F8F8F", d="6E6E6E", s="5E5E5E")),
+    "copper": (COPPER, tones(h="FC9982", l="E77C56", m="C15A36", d="8A3E26", x="4F9E7E")),
+    "iron": (IRON, tones(h="FFFFFF", l="D8D8D8", m="A8A8A8", d="727272")),
+    "gold": (GOLD, tones(h="FFFFB5", l="FDF55F", m="E9B115", d="B26411")),
+    "diamond": (HEART_MAX, HEART_MAX_COLOURS),
+    "netherite": (NETHERITE, tones(h="7D7579", l="5A5257", m="443D41", d="2B2528")),
+    "enderite": (ENDERITE, tones(h="E2C2FF", l="B47FE0", m="8550B8", d="5A2F86", x="2F9C8C", e="B6FFF0")),
+}
+EXTRA_HEAD_ICON = [  # 16x16 skull silhouette, eyes/nose/teeth cut out
+    "................",
+    "................",
+    ".....######.....",
+    "...##########...",
+    "...#.##..##.#...",
+    "...#.##..##.#...",
+    "..###..##..###..",
+    "..###..##..###..",
+    "...#.##..##.#...",
+    "..#####..#####..",
+    "...###....###...",
+    "....########....",
+    "...#.##..##.#...",
+    "....########....",
+    "................",
+    "................",
+]
 OUT = Path(__file__).resolve().parents[2] / "src/main/resources/assets/simplebuilding/textures/gui/sprites"
 NINE_SLICE = {"gui": {"scaling": {"type": "nine_slice", "width": 20, "height": 18, "border": 3}}}
 
@@ -84,6 +131,10 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     paint(HEART, HEART_COLOURS).save(OUT / "resonance_heart.png")
     paint(HEART_MAX, HEART_MAX_COLOURS).save(OUT / "resonance_heart_max.png")
+    for tier, (rows, colours) in TIER_HEARTS.items():
+        paint(rows, colours).save(OUT / f"resonance_heart_{tier}.png")
+    (OUT / "container/slot").mkdir(parents=True, exist_ok=True)
+    paint(EXTRA_HEAD_ICON, {"#": (0x55, 0x55, 0x55, 255)}).save(OUT / "container/slot/extra_head.png")
     for highlighted, name in ((False, "resonance_field"), (True, "resonance_field_highlighted")):
         paint(FIELD, FIELD_COLOURS[highlighted]).save(OUT / f"{name}.png")
         (OUT / f"{name}.png.mcmeta").write_text(json.dumps(NINE_SLICE, indent=2) + "\n", encoding="utf-8")

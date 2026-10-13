@@ -105,6 +105,7 @@ public final class SimplebuildingNeoForgeClient {
             if (player != null) {
                 player.addLayer(new com.simplebuilding.client.render.BackpackLayer(player));
                 player.addLayer(new com.simplebuilding.client.render.QuiverLayer(player));
+                player.addLayer(new com.simplebuilding.client.render.ExtraHeadLayer(player)); // N49 extra head slot
             }
             net.minecraft.client.renderer.entity.player.AvatarRenderer<?> mannequin = event.getMannequinRenderer(skin);
             if (mannequin != null) {

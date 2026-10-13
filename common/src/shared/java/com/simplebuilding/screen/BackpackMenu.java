@@ -66,6 +66,8 @@ public class BackpackMenu extends AbstractCraftingMenu {
     private final List<Slot> storageSlots;
     /** Inventar-Index des geoeffneten Rucksacks, der gesperrt bleibt; -1 = keiner (abgestellt). */
     private final int lockedSlot;
+    /** The extra head slot (owner N49), the last slot of the menu. */
+    private final Slot headSlot;
 
     /** Client: der Server schickt Stufe und Faktor, den Inhalt liefern die normalen Slot-Pakete. */
     public BackpackMenu(int containerId, Inventory inventory, BackpackOpenData data) {
@@ -125,6 +127,10 @@ public class BackpackMenu extends AbstractCraftingMenu {
             this.addSlot(new BackpackSlot(backpack, i, this.layout.backpackSlotX(i), this.layout.backpackSlotY(i)));
         }
         this.backpackSlotEnd = this.slots.size();
+
+        // N49: the extra head slot, after the backpack (its indices stay), at the same place as in the inventory
+        this.headSlot = this.addSlot(new com.simplebuilding.util.ExtraHead.HeadSlot(this.owner,
+                vx + com.simplebuilding.util.TrimStatsLayout.HEAD_SLOT_X, com.simplebuilding.util.TrimStatsLayout.HEAD_SLOT_Y));
 
         // Hauptinventar + Rucksack als ein Lager in Bildreihenfolge (oben nach unten, links nach rechts).
         List<Slot> storage = new ArrayList<>(this.slots.subList(INV_SLOT_START, INV_SLOT_END));
@@ -281,6 +287,12 @@ public class BackpackMenu extends AbstractCraftingMenu {
             }
         } else if (equipmentSlot == EquipmentSlot.OFFHAND && !this.slots.get(SHIELD_SLOT).hasItem()) {
             if (!this.moveItemStackTo(stack, SHIELD_SLOT, SHIELD_SLOT + 1, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if ((storage || hotbar) && com.simplebuilding.util.ExtraHead.fits(clicked) && !this.headSlot.hasItem()
+                && this.slots.get(ARMOR_SLOT_START).hasItem()) {
+            // N49: helmet slot taken - a head goes into the extra head slot
+            if (!this.moveItemStackTo(stack, this.headSlot.index, this.headSlot.index + 1, false)) {
                 return ItemStack.EMPTY;
             }
         } else if (storage) {

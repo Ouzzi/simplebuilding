@@ -206,8 +206,7 @@ public final class TrimWiringTests {
      *       the floor and the ceiling this same test measures. The pair is what makes an hour of
      *       play worth as much as four kilometres of walking; if either scale moves, one half of
      *       the mechanic quietly stops mattering.</li>
-     *   <li><b>{@code max}, not {@code min} and not a sum.</b> Checked in both directions, so that
-     *       neither "distance always wins" nor "time always wins" can pass.</li>
+     *   <li><b>A sum (owner N49).</b> Distance and time are two halves of at most 0.5 each; both count.</li>
      * </ol>
      *
      * <p>The last block is the baseline arithmetic: with the base set to the current reading the
@@ -217,7 +216,7 @@ public final class TrimWiringTests {
      *
      * <p>What breaks this: a changed scale, a changed floor or a changed amplitude in one curve
      * only, the {@code /100} disappearing, one of the five distance counters being dropped,
-     * {@code max} turning into {@code min}, or the {@code Math.max(0, ...)} clamps going away.
+     * the sum turning back into {@code max}, or the {@code Math.max(0, ...)} clamps going away.
      */
     public static void theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -237,6 +236,7 @@ public final class TrimWiringTests {
 
         // --- the ceiling, needed below to invert the curve ---
         setStat(player, Stats.WALK_ONE_CM, 100_000_000);
+        tracker.simplebuilding$setActiveTime(100_000_000);
         double ceiling = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
         helper.assertTrue(ceiling > floor && ceiling <= 1.0 + 1.0e-6,
                 "the survival factor saturates at " + ceiling + "; it has to converge on a value "
@@ -253,6 +253,8 @@ public final class TrimWiringTests {
                         + "no longer share one 0.1..1.0 band, so a fully progressed player gets a "
                         + "fraction of the multiplier the design promises");
         player.totalExperience = 0;
+        // N49: S = distance half + time half, each half covers half of the band above the floor.
+        double halfCeiling = floor + (ceiling - floor) / 2.0;
 
         // --- centimetres into metres, and all five counters into one sum ---
         clearProgress(helper, player);
@@ -279,33 +281,33 @@ public final class TrimWiringTests {
         clearProgress(helper, player);
         setStat(player, Stats.WALK_ONE_CM, 400_000);
         double atFourThousandMetres = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        assertRelative(helper, curveScale(4000.0, atFourThousandMetres, floor, ceiling), 4000.0,
+        assertRelative(helper, curveScale(4000.0, atFourThousandMetres, floor, halfCeiling), 4000.0,
                 "the distance scale of the survival curve");
 
         // --- the play time scale ---
         clearProgress(helper, player);
         tracker.simplebuilding$setActiveTime(72_000);
         double atOneHour = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        assertRelative(helper, curveScale(72_000.0, atOneHour, floor, ceiling), 72_000.0,
+        assertRelative(helper, curveScale(72_000.0, atOneHour, floor, halfCeiling), 72_000.0,
                 "the play time scale of the survival curve");
 
-        // --- max(), in both directions ---
-        // 400 m against an hour, then 4000 m against six minutes: whichever half is the weaker one
-        // has to be ignored completely, not averaged in and not added on.
+        // --- the sum (owner N49): distance and time both count, each half on its own ---
         clearProgress(helper, player);
         setStat(player, Stats.WALK_ONE_CM, 40_000);
         double atFourHundredMetres = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
-        helper.assertTrue(atFourHundredMetres < atOneHour,
-                "test setup broken: 400 m is no longer the weaker half against an hour of play");
         tracker.simplebuilding$setActiveTime(72_000);
-        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), atOneHour,
-                "an hour of play plus 400 m walked did not come out as the better of the two");
+        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), atFourHundredMetres + atOneHour - floor,
+                "an hour of play plus 400 m walked is not the sum of both halves");
 
         clearProgress(helper, player);
-        setStat(player, Stats.WALK_ONE_CM, 400_000);
         tracker.simplebuilding$setActiveTime(7_200);
-        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), atFourThousandMetres,
-                "4000 m walked plus six minutes of play did not come out as the better of the two");
+        double atSixMinutes = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
+        setStat(player, Stats.WALK_ONE_CM, 400_000);
+        assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), atFourThousandMetres + atSixMinutes - floor,
+                "4000 m walked plus six minutes of play is not the sum of both halves");
+        helper.assertTrue(TrimMultiplierLogic.distancePart(100_000_000) <= TrimMultiplierLogic.SURVIVAL_PART_MAX + 1.0e-9
+                        && TrimMultiplierLogic.timePart(Integer.MAX_VALUE) <= TrimMultiplierLogic.SURVIVAL_PART_MAX + 1.0e-9,
+                "a survival half goes above its maximum of 0.5");
 
         // --- the baselines, which is what "since the last death" means ---
         tracker.simplebuilding$setBaseValues(4000, 7_200, 0, 0, 0);
@@ -1436,42 +1438,43 @@ public final class TrimWiringTests {
         }
     }
 
-    /** Resonance field (owner 2026-10-08): right of the recipe book button, compact, heart and value centred. */
+    /** Resonance button (owner N49): slot-sized, between the extra head slot and the off-hand slot, heart only. */
     public static void resonancePanelLayoutSitsBesideRecipeBook(GameTestHelper helper) {
-        TrimStatsLayout.Panel shortPanel = TrimStatsLayout.panel(100, 60, 24);
-        helper.assertValueEqual(shortPanel.x(), 122, "resonance panel starts two pixels after the book button");
-        helper.assertValueEqual(shortPanel.y(), 60, "resonance panel keeps the book button y position");
-        // N35: the value is drawn at 0.75 - 24 px of text take 18 px, plus 3 px padding (was 42 at full size).
-        helper.assertValueEqual(shortPanel.width(), 35, "resonance panel width follows the scaled value text");
-        helper.assertValueEqual(shortPanel.height(), 18, "resonance panel stays compact");
-        helper.assertValueEqual(shortPanel.iconX(), 125, "the heart sits three pixels in");
-        helper.assertValueEqual(shortPanel.iconY(), 64, "the heart is centred vertically");
-        helper.assertValueEqual(shortPanel.textX(), 136, "value follows the heart");
-        helper.assertValueEqual(shortPanel.textY(), 66, "the scaled value is vertically centered in the field");
-
-        TrimStatsLayout.Panel longPanel = TrimStatsLayout.panel(-17, 12, 80);
-        helper.assertValueEqual(longPanel.x(), 5, "panel x depends only on the book anchor");
-        helper.assertValueEqual(longPanel.width(), 77, "longer values receive the required extra width");
-        helper.assertTrue(longPanel.width() > shortPanel.width(), "panel width grows with text width");
+        helper.assertValueEqual(TrimStatsLayout.SIZE, 18, "the resonance button is as big as a slot frame");
+        helper.assertValueEqual(TrimStatsLayout.ICON_INSET, 4, "the heart sits four pixels in");
+        helper.assertValueEqual(TrimStatsLayout.HEAD_SLOT_X, 77, "the head slot is in the off-hand column");
+        helper.assertValueEqual(TrimStatsLayout.HEAD_SLOT_Y, 8, "the head slot is level with the helmet slot");
+        // between the head slot frame (7..25) and the off-hand slot frame (61..79), centred in the 36 px gap
+        helper.assertValueEqual(TrimStatsLayout.INVENTORY_Y - (TrimStatsLayout.HEAD_SLOT_Y + 17),
+                61 - (TrimStatsLayout.INVENTORY_Y + TrimStatsLayout.SIZE), "the button is centred between the two slots");
+        helper.assertTrue(TrimStatsLayout.hovered(76, 34, 76, 34) && TrimStatsLayout.hovered(76, 34, 93.9, 51.9)
+                && !TrimStatsLayout.hovered(76, 34, 94, 40), "hover area is the 18x18 button");
         helper.assertValueEqual(TrimStatsLayout.ICON_WIDTH, 9, "the heart is 9 wide again (owner N29)");
         helper.assertValueEqual(TrimStatsLayout.ICON_HEIGHT, 9, "the heart is 9 high");
         helper.succeed();
     }
 
-    /** Owner N29: at maximum resonance (all factors 1.0, value = base) the heart turns into a diamond heart. */
+    /** Owner N29/N49: tier hearts, at maximum resonance (all factors 1.0, value = base) the enderite heart. */
     public static void maxResonanceShowsTheDiamondHeart(GameTestHelper helper) {
         helper.assertTrue(TrimStatsLayout.isMaxResonance(3.0, 3.0), "value equal to the base is the maximum");
         helper.assertTrue(TrimStatsLayout.isMaxResonance(2.996, 3.0), "a value shown as the base (3.00x) is the maximum");
         helper.assertFalse(TrimStatsLayout.isMaxResonance(2.99, 3.0), "2.99x below a base of 3.00 is not the maximum");
-        helper.assertValueEqual(TrimStatsLayout.heartSprite(1.5, 1.5), "resonance_heart_max", "diamond heart at the maximum");
-        helper.assertValueEqual(TrimStatsLayout.heartSprite(0.4, 1.5), "resonance_heart", "cobblestone heart below it");
+        helper.assertValueEqual(TrimStatsLayout.heartSprite(1.5, 1.5), "resonance_heart_enderite", "enderite heart at the maximum");
+        helper.assertValueEqual(TrimStatsLayout.heartSprite(0.15, 1.5), "resonance_heart_cobblestone", "cobblestone heart at the floor");
+        // N49: eight tiers in equal steps over the band 0.1..1.0 of the base
+        String[] expected = TrimStatsLayout.TIERS;
+        for (int i = 0; i < expected.length; i++) {
+            double fraction = 0.1 + 0.9 * (i + 0.5) / expected.length;
+            helper.assertValueEqual(TrimStatsLayout.heartSprite(2.0 * fraction, 2.0), "resonance_heart_" + expected[i],
+                    "heart tier in the middle of band " + i);
+        }
         ServerPlayer player = mockPlayer(helper);
         double base = TrimMultiplierLogic.baseMultiplier(false);
         double total = TrimMultiplierLogic.getMultiplier(player);
         helper.assertFalse(TrimStatsLayout.isMaxResonance(total, base),
                 "a fresh player (" + total + " of " + base + ") has no maximum resonance yet");
-        helper.assertValueEqual(TrimStatsLayout.heartSprite(base * (1.0 + 1.0 + 1.0) / 3.0, base), "resonance_heart_max",
-                "all three factors at 1.0 give the diamond heart");
+        helper.assertValueEqual(TrimStatsLayout.heartSprite(base * (1.0 + 1.0 + 1.0) / 3.0, base), "resonance_heart_enderite",
+                "all three factors at 1.0 give the enderite heart");
         helper.succeed();
     }
 

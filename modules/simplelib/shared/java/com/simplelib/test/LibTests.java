@@ -68,6 +68,7 @@ public final class LibTests {
         ALL.put("hoppers_fill_raised_slots", LibTests::hoppersFillRaisedSlots);
         ALL.put("reinforced_crucible_loads_old_nine_slots", LibTests::reinforcedCrucibleLoadsOldNineSlots);
         ALL.put("crucible_barrel_beside_inventory_centred", LibTests::barrelBesideInventoryCentred);
+        ALL.put("inventory_brightness_tones_palettes", LibTests::inventoryBrightness);
         ALL.put("id_moves_registries", IdMovesTests::registries);
         ALL.put("id_moves_recipe_book_and_advancements", IdMovesTests::recipeBookAndAdvancements);
         ALL.put("id_moves_refuse_loops", IdMovesTests::refuseLoops);
@@ -117,6 +118,46 @@ public final class LibTests {
         h.assertTrue(!com.simplelib.registry.LibRegistry.wantsStacks(other, true), "an unrelated tab gets crucibles");
         h.assertTrue(!com.simplelib.registry.LibRegistry.tabStacks().isEmpty(), "nothing to route");
         h.succeed();
+    }
+
+    /**
+     * N49: the inventory brightness tones every palette colour (light = unchanged, dawn between, dark darkest), turns
+     * the labels light on dark boxes, keeps the stored colours, and survives a save and load of its file.
+     */
+    private static void inventoryBrightness(GameTestHelper h) {
+        com.simplelib.api.client.ui.UiBrightness before = com.simplelib.api.client.ui.UiBrightness.current();
+        com.simplelib.api.client.ui.UiPalette inv = com.simplelib.api.client.ui.UiPalette.INVENTORY;
+        try {
+            com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.LIGHT);
+            check(h, inv.fill() == 0xFFC6C6C6 && inv.label() == 0xFF404040, "light changed the Vanilla inventory colours");
+            double light = com.simplelib.api.client.ui.UiPalette.luminance(inv.fill());
+            com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.DAWN);
+            double dawn = com.simplelib.api.client.ui.UiPalette.luminance(inv.fill());
+            com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.DARK);
+            double dark = com.simplelib.api.client.ui.UiPalette.luminance(inv.fill());
+            check(h, light > dawn && dawn > dark, "brightness order wrong: " + light + " / " + dawn + " / " + dark);
+            check(h, dark < 100, "dark is not dark: " + dark);
+            check(h, inv.label() == com.simplelib.api.client.ui.UiPalette.LIGHT_LABEL, "dark box keeps a dark label");
+            check(h, com.simplelib.api.client.ui.UiPalette.luminance(inv.slot()) < com.simplelib.api.client.ui.UiPalette.luminance(inv.fill()),
+                    "slots no longer sunk below the box");
+            check(h, inv.equals(new com.simplelib.api.client.ui.UiPalette(0xFFC6C6C6, 0xFFFFFFFF, 0xFF555555, 0xFF8B8B8B, 0xFF373737, 0xFF404040)),
+                    "the stored palette colours changed");
+            java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("simplelib-brightness");
+            com.simplelib.api.client.ui.UiBrightness.load(dir);
+            check(h, com.simplelib.api.client.ui.UiBrightness.current() == com.simplelib.api.client.ui.UiBrightness.LIGHT, "missing file is not light");
+            com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.DAWN);
+            com.simplelib.api.client.ui.UiBrightness.save();
+            com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.LIGHT);
+            com.simplelib.api.client.ui.UiBrightness.load(dir);
+            check(h, com.simplelib.api.client.ui.UiBrightness.current() == com.simplelib.api.client.ui.UiBrightness.DAWN, "dawn not saved and loaded");
+            check(h, com.simplelib.api.client.ui.UiBrightness.parse("DARK") == com.simplelib.api.client.ui.UiBrightness.DARK
+                    && com.simplelib.api.client.ui.UiBrightness.parse("nonsense") == com.simplelib.api.client.ui.UiBrightness.LIGHT, "parse");
+            h.succeed();
+        } catch (java.io.IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            com.simplelib.api.client.ui.UiBrightness.set(before);
+        }
     }
 
     private static void configBounds(GameTestHelper h) {

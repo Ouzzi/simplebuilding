@@ -84,4 +84,24 @@ public final class MobHeadGameTest {
     public void drownedHeadResistsDownwardBubbleColumns(GameTestHelper helper) {
         MobHeadTests.drownedHeadResistsDownwardBubbleColumns(helper);
     }
+
+    @GameTest
+    public void extraHeadSlotTakesOnlyHeadsAndCarvedPumpkins(GameTestHelper helper) {
+        MobHeadTests.extraHeadSlotTakesOnlyHeadsAndCarvedPumpkins(helper);
+    }
+
+    @GameTest
+    public void extraHeadShiftClickMovesWithoutDuplicating(GameTestHelper helper) {
+        MobHeadTests.extraHeadShiftClickMovesWithoutDuplicating(helper);
+    }
+
+    @GameTest
+    public void extraHeadIsSavedKeptAndDroppedOnDeath(GameTestHelper helper) {
+        MobHeadTests.extraHeadIsSavedKeptAndDroppedOnDeath(helper);
+    }
+
+    @GameTest
+    public void extraHeadEffectsWorkLikeTheHelmetSlot(GameTestHelper helper) {
+        MobHeadTests.extraHeadEffectsWorkLikeTheHelmetSlot(helper);
+    }
 }

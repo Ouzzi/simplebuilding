@@ -27,6 +27,8 @@
     "LaserCrosshairMixin",
     "LaserSteadyViewMixin",
     "InventoryScreenMixin",
+    "CreativeInventoryExtraHeadMixin",
+    "HumanoidArmorLayerExtraHeadMixin",
     "ItemDecorationsMixin",
     "ItemFrameEntityRendererMixin",
     "ItemMixin",

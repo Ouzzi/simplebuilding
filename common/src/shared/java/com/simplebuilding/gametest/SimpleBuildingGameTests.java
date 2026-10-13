@@ -2083,6 +2083,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("mob_head_game_test_charged_creepers_drop_the_new_heads_and_no_other_death_does", MobHeadTests::chargedCreepersDropTheNewHeadsAndNoOtherDeathDoes)
                     .build(),
+            GameTestSpec.named("mob_head_game_test_extra_head_slot_takes_only_heads_and_carved_pumpkins", MobHeadTests::extraHeadSlotTakesOnlyHeadsAndCarvedPumpkins)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_extra_head_shift_click_moves_without_duplicating", MobHeadTests::extraHeadShiftClickMovesWithoutDuplicating)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_extra_head_is_saved_kept_and_dropped_on_death", MobHeadTests::extraHeadIsSavedKeptAndDroppedOnDeath)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_extra_head_effects_work_like_the_helmet_slot", MobHeadTests::extraHeadEffectsWorkLikeTheHelmetSlot)
+                    .build(),
             GameTestSpec.named("mob_head_game_test_every_mod_head_is_wearable_like_vanilla_skulls_and_keeps_its_secret", MobHeadTests::everyModHeadIsWearableLikeVanillaSkullsAndKeepsItsSecret)
                     .build(),
             GameTestSpec.named("mob_head_game_test_flypad_one_needs_the_shulker_head_and_an_elytra_with_mending", MobHeadTests::flypadOneNeedsTheShulkerHeadAndAnElytraWithMending)

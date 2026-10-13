@@ -4780,10 +4780,11 @@ public final class DataIntegrityTests {
                 "witch_hut", "stronghold")) {
             keys.add("item.simplebuilding.structure_compass." + compass);
         }
-        for (String part : List.of("title", "level", "xp_gathered", "survival", "distance", "time_alive", "survival_hint",
-                "combat", "hostiles", "passives", "damage_taken", "cap", "capped", "death")) {
+        for (String part : List.of("title", "max", "formula", "max_factor", "level", "xp_gathered", "survival", "distance_part",
+                "time_part", "combat", "hostiles", "passives", "damage_taken", "cap_name", "cap_hint", "capped_name", "capped_hint")) {
             keys.add("gui.simplebuilding.trim_stats." + part);
         }
+        keys.add("gui.simplebuilding.extra_head_slot");
         for (String tier : List.of("stone", "copper", "iron", "gold", "diamond", "netherite")) {
             keys.add("item.simplebuilding." + tier + "_spatula");
         }
