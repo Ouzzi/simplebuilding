@@ -1,0 +1,10 @@
+{
+	"chapter.49B73C8FED8040AE.title": "{\"translate\": \"quests.simplebeacons.start.title\"}",
+	"chapter.49B73C8FED8040AE.chapter_subtitle": [
+		"{\"translate\": \"quests.simplebeacons.start.subtitle\"}"
+	],
+	"quest.519E67EF99D868AB.title": "{\"translate\": \"quests.simplebeacons.start.welcome.title\"}",
+	"quest.519E67EF99D868AB.quest_desc": [
+		"{\"translate\": \"quests.simplebeacons.start.welcome.description\"}"
+	]
+}

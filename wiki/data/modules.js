@@ -33,7 +33,8 @@ window.WIKI_MODULES = [
       "simpletrims",
       "simplemobs",
       "simpleend",
-      "simplerespawn"
+      "simplerespawn",
+      "simplebeacons"
     ]
   },
   {
@@ -561,5 +562,24 @@ window.WIKI_MODULES = [
     "requires": [],
     "optional": [],
     "dataHash": "1dad6da6c5ce"
+  },
+  {
+    "id": "simplebeacons",
+    "displayName": "Simple Beacons",
+    "description": "Strong Beacon (6 pyramid levels, 6 more effects, two-column screen), Strong Conduit (7x7x7 frame, up to 144 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "43d91b680862"
   }
 ];

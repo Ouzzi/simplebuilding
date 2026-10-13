@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplebeacons.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ServerPlayerGameModeMixin",
+    "DiscoverTipMixin"
+  ],
+  "client": [
+    "client.BeaconScreenAccessor",
+    "client.ContainerScreenWidthAccessor"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

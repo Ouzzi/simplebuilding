@@ -95,6 +95,13 @@ MODULES = [
          name=("Simple Respawn Guide", "Simple-Respawn-Handbuch"),
          intro=("Downed instead of dead: teammates revive you before you bleed out.",
                 "Niedergeschlagen statt tot: Mitspieler beleben dich wieder, bevor du verblutest.")),
+    dict(module="simplebeacons", ns="simplebeacons", package="com.simplebeacons.guide", cls="BeaconsGuide", kind="item",
+         author="Simple Beacons", recipe="minecraft:prismarine_shard",
+         name=("Simple Beacons Guide", "Simple-Beacons-Handbuch"),
+         intro=("The Strong Upgrade turns a beacon into a Strong Beacon with six pyramid levels and six more powers, and a "
+                "conduit into a Strong Conduit with a 7x7x7 frame.",
+                "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen "
+                "und sechs weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen.")),
     dict(module="simplevisuals", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
          kind="client", author="Simple Visuals",
          intro=("Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. "
@@ -154,6 +161,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:glistering_melon_slice": ("a glistering melon slice", "einer glitzernden Melonenscheibe"),
     "minecraft:bone": ("a bone", "einem Knochen"),
     "minecraft:glow_ink_sac": ("a glow ink sac", "einem Leuchttintenbeutel"),
+    "minecraft:prismarine_shard": ("a prismarine shard", "einer Prismarinscherbe"),
 }
 
 
@@ -405,6 +413,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:glistering_melon_slice": ("glistering melon slice", "glitzernde Melonenscheibe"),
     "minecraft:bone": ("bone", "Knochen"),
     "minecraft:glow_ink_sac": ("glow ink sac", "Leuchttintenbeutel"),
+    "minecraft:prismarine_shard": ("prismarine shard", "Prismarinscherbe"),
 }
 
 

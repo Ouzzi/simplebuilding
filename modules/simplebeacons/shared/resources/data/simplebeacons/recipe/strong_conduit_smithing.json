@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:nether_star",
+  "base": "minecraft:conduit",
+  "result": {
+    "id": "simplebeacons:strong_conduit"
+  },
+  "template": "simplebeacons:strong_upgrade_template"
+}
