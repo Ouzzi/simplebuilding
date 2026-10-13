@@ -1462,11 +1462,11 @@ public final class TestCentreSections {
      * Stationen anderer Module ({@code framework.api.TestCentreStations}, Modulaufteilung 3c): je Station Titel und
      * Rahmen der genannten Items nebeneinander; unbekannte Ids fallen weg. Nur geplant, wenn welche angemeldet sind.
      */
-    public static TcCanvas modules(List<com.simplebuilding.framework.api.TestCentreStations.Station> stations) {
+    public static TcCanvas modules(List<ModuleStations.Station> stations) {
         TcCanvas c = new TcCanvas();
         int wallZ = 2;
         int x = 0;
-        for (com.simplebuilding.framework.api.TestCentreStations.Station station : stations) {
+        for (ModuleStations.Station station : stations) {
             List<ItemStack> stacks = new ArrayList<>();
             List<List<Component>> labels = new ArrayList<>();
             for (String id : station.items()) {

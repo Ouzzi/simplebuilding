@@ -462,13 +462,17 @@ public final class TestCentreTests {
      * plan has exactly {@link TestCentreLayout#SECTION_IDS}. Registered and taken out within this one call.
      */
     public static void foreignModuleStationsGetTheirOwnSection(GameTestHelper helper) {
-        com.simplebuilding.framework.api.TestCentreStations.register("simpletest", "station", "section.simpletest.station",
+        if (!com.simplebuilding.dev.testcentre.ModuleStations.SUPPORTED) {
+            helper.succeed(); // 26.2: no framework, no foreign stations
+            return;
+        }
+        com.simplebuilding.dev.testcentre.ModuleStations.register("simpletest", "station", "section.simpletest.station",
                 List.of("minecraft:diamond", "nomod:missing", "minecraft:emerald"));
         TestCentreLayout.Plan plan;
         try {
             plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
         } finally {
-            com.simplebuilding.framework.api.TestCentreStations.unregister("simpletest", "station");
+            com.simplebuilding.dev.testcentre.ModuleStations.unregister("simpletest", "station");
         }
         List<String> ids = plan.sections().stream().map(TestCentreLayout.Section::id).toList();
         helper.assertTrue(ids.indexOf(TestCentreLayout.MODULES_SECTION) == ids.indexOf("mobs") - 1,

@@ -57,7 +57,7 @@ public final class TestCentreLayout {
      * Modul Stationen angemeldet hat (Modulaufteilung 3c; ohne Anmeldung unveraendert).
      */
     public static List<String> sectionIds() {
-        if (com.simplebuilding.framework.api.TestCentreStations.all().isEmpty()) {
+        if (ModuleStations.all().isEmpty()) {
             return SECTION_IDS;
         }
         List<String> ids = new ArrayList<>(SECTION_IDS);
@@ -260,7 +260,7 @@ public final class TestCentreLayout {
         builders.put("mobs", MobStations::build);
         List<String> sectionIds = sectionIds();
         if (sectionIds.contains(MODULES_SECTION)) {
-            var stations = com.simplebuilding.framework.api.TestCentreStations.all();
+            var stations = ModuleStations.all();
             builders.put(MODULES_SECTION, context -> TestCentreSections.modules(stations));
         }
 
