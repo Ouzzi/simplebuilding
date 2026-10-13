@@ -131,9 +131,10 @@ OUTPUTS = {
 MODULE_OUTPUTS = {
     'simplemobs': {'item/shellker_shell.png': ((16, 16), 'mobs2_textures.derived() - Vanilla shulker_shell (N48)'),
                    'item/soul_fire_charge.png': ((16, 16), 'mobs2_textures.derived() - Vanilla fire_charge (N49)'),
-                   'item/soulfire_powder.png': ((16, 16), 'mobs2_textures.derived() - Vanilla blaze_powder (N49)')},
+                   'item/soulfire_powder.png': ((16, 16), 'mobs2_textures.derived() - Vanilla blaze_powder (N49)'),
+                   'entity/blighted_wither/blighted_wither.png': ((64, 64), 'wither_textures.derived() - Vanilla wither skin (N26)')},
 }
-MODULE_GENERATORS = {'simplemobs': ('mobs2_textures',)}
+MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures')}
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03', 'soul_lava_2026_10_09', 'shulker_shell_textures',

@@ -1,0 +1,8 @@
+{
+  "biome": "minecraft:soul_sand_valley",
+  "items": [
+    "minecraft:soul_sand",
+    "minecraft:soul_soil"
+  ],
+  "color": "#4FC5D1"
+}

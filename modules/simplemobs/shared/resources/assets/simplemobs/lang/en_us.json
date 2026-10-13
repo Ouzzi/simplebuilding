@@ -57,5 +57,9 @@
   "item.minecraft.potion.effect.focus": "Potion of Focus",
   "item.minecraft.splash_potion.effect.focus": "Splash Potion of Focus",
   "item.minecraft.lingering_potion.effect.focus": "Lingering Potion of Focus",
-  "item.minecraft.tipped_arrow.effect.focus": "Arrow of Focus"
+  "item.minecraft.tipped_arrow.effect.focus": "Arrow of Focus",
+  "entity.simplemobs.blighted_wither": "Blighted Wither",
+  "item.simplemobs.wither_heart": "Wither Heart",
+  "item.simplemobs.biome_brush": "Biome Brush",
+  "item.simplemobs.biome_brush.tooltip": "Biome material in off hand"
 }

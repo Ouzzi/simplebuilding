@@ -41,6 +41,14 @@ public final class MobsConfig {
     /** Hollow Watcher: natural spawning on the outer End islands and its chance per 30 s roll. */
     public static boolean hollowWatcherSpawns = true;
     public static float hollowWatcherChance = FearLogic.WATCHER_CHANCE;
+    /** Blighted Wither: the Netherite-foot figure on/off (off: the figure summons the Vanilla Wither). */
+    public static boolean witherSummonEnabled = true;
+    /** Blighted Wither phase 3 wilts plants and natural leaves (also needs the mobGriefing game rule). */
+    public static boolean witherWilt = true;
+    /** Biome Brush on/off, only for operators, and its radius in 4-block biome cells (0 = one cell, max 2). */
+    public static boolean biomeBrushEnabled = true;
+    public static boolean biomeBrushOpsOnly = false;
+    public static int biomeBrushRadius = 1;
 
     private MobsConfig() {}
 
@@ -96,6 +104,11 @@ public final class MobsConfig {
         float watcher;
         try { watcher = json.has("hollowWatcherChance") ? json.get("hollowWatcherChance").getAsFloat() : FearLogic.WATCHER_CHANCE; } catch (Exception e) { watcher = FearLogic.WATCHER_CHANCE; }
         hollowWatcherChance = Math.max(0.0f, Math.min(1.0f, watcher));
+        witherSummonEnabled = bool(json, "witherSummonEnabled", true);
+        witherWilt = bool(json, "witherWilt", true);
+        biomeBrushEnabled = bool(json, "biomeBrushEnabled", true);
+        biomeBrushOpsOnly = bool(json, "biomeBrushOpsOnly", false);
+        biomeBrushRadius = Math.max(0, Math.min(2, integer(json, "biomeBrushRadius", 1)));
     }
 
     public static JsonObject toJson() {
@@ -116,6 +129,11 @@ public final class MobsConfig {
         o.addProperty("dreadSummonEnabled", dreadSummonEnabled);
         o.addProperty("hollowWatcherSpawns", hollowWatcherSpawns);
         o.addProperty("hollowWatcherChance", hollowWatcherChance);
+        o.addProperty("witherSummonEnabled", witherSummonEnabled);
+        o.addProperty("witherWilt", witherWilt);
+        o.addProperty("biomeBrushEnabled", biomeBrushEnabled);
+        o.addProperty("biomeBrushOpsOnly", biomeBrushOpsOnly);
+        o.addProperty("biomeBrushRadius", biomeBrushRadius);
         return o;
     }
 

@@ -1,0 +1,7 @@
+{
+  "biome": "minecraft:savanna",
+  "items": [
+    "#minecraft:acacia_logs"
+  ],
+  "color": "#AEA42A"
+}

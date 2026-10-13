@@ -189,6 +189,7 @@ public final class MobsTests {
         DisguiseTests.addAll(MobsTests::add);
         EndNetherTests.addAll(MobsTests::add);
         FearTests.addAll(MobsTests::add);
+        WitherTests.addAll(MobsTests::add);
     }
 
     private MobsTests() {}

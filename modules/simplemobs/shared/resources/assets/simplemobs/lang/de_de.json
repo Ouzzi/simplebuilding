@@ -57,5 +57,9 @@
   "item.minecraft.potion.effect.focus": "Trank des Fokus",
   "item.minecraft.splash_potion.effect.focus": "Wurftrank des Fokus",
   "item.minecraft.lingering_potion.effect.focus": "Verweiltrank des Fokus",
-  "item.minecraft.tipped_arrow.effect.focus": "Pfeil des Fokus"
+  "item.minecraft.tipped_arrow.effect.focus": "Pfeil des Fokus",
+  "entity.simplemobs.blighted_wither": "Verdorrter Wither",
+  "item.simplemobs.wither_heart": "Witherherz",
+  "item.simplemobs.biome_brush": "Biom-Pinsel",
+  "item.simplemobs.biome_brush.tooltip": "Biom-Material in der Nebenhand"
 }
