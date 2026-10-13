@@ -440,8 +440,8 @@ public final class EndTests {
             // the real End of the test server: cores and fringes appear on the outer islands
             ServerLevel end = h.getLevel().getServer().getLevel(net.minecraft.world.level.Level.END);
             if (end != null && SimpleEndConfig.biomes && SimpleEnd.on()) {
-                var source = end.getChunkSource().getGenerator().getBiomeSource();
-                var resolver = source.createUncachedResolver(end.getChunkSource().randomState());
+                var endSource = end.getChunkSource().getGenerator().getBiomeSource();
+                var resolver = endSource.createUncachedResolver(end.getChunkSource().randomState());
                 java.util.Set<net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>> seen = new java.util.HashSet<>();
                 for (int x = -12000; x <= 12000; x += 128)
                     for (int z = -12000; z <= 12000; z += 128)
@@ -449,7 +449,7 @@ public final class EndTests {
                                 .unwrapKey().ifPresent(seen::add);
                 for (var key : java.util.List.of(EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS, EndBiomes.ASH_VALLEY_FRINGE, EndBiomes.DAWNLANDS_FRINGE))
                     h.assertTrue(seen.contains(key), key.identifier() + " in the real End (seen " + seen + ")");
-                h.assertTrue(source.possibleBiomes().stream().anyMatch(b -> b.is(EndBiomes.DAWNLANDS_FRINGE)), "fringe in the End's possible biomes");
+                h.assertTrue(endSource.possibleBiomes().stream().anyMatch(b -> b.is(EndBiomes.DAWNLANDS_FRINGE)), "fringe in the End's possible biomes");
             }
             h.succeed();
         });
