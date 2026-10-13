@@ -9220,7 +9220,7 @@
       {
         "count": 4,
         "damage": 1,
-        "input": "minecraft:ice",
+        "input": "simplebuilding:cracked_ice",
         "result": "simplebuilding:ice_chip",
         "strikes": 4
       },
@@ -9244,6 +9244,13 @@
         "input": "minecraft:fire_charge",
         "result": "simplebuilding:fire_chip",
         "strikes": 4
+      },
+      {
+        "count": 9,
+        "damage": 1,
+        "input": "simplelib:cracked_diamond",
+        "result": "simplelib:diamond_pebble",
+        "strikes": 9
       },
       {
         "count": 4,
