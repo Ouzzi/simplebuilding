@@ -29,7 +29,7 @@ public class AutonomousCrafterMenu extends AbstractContainerMenu implements Cont
     public static final int BUTTON_FILTER = 9;
     public static final int INV_START = 9, INV_END = 36, HOTBAR_END = 45, RESULT_SLOT = 45;
     /** Filter key (relative to the image): under the arrow, caption in front of it. */
-    public static final int FILTER_BUTTON_X = 110, FILTER_BUTTON_Y = 52;
+    public static final int FILTER_BUTTON_X = 110, FILTER_BUTTON_Y = 16;
 
     private final Container container;
     private final ContainerData data;

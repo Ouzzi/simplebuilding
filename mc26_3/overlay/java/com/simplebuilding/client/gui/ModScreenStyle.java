@@ -198,15 +198,15 @@ public final class ModScreenStyle {
         Slot result = menu.getSlot(AutoSmitherMenu.RESULT_SLOT);
         List<int[]> avoid = slotRects(menu, left, top);
         avoid.add(titleRect(font, title, left, top));
-        avoid.add(new int[] {left + 98, top + 22, left + 110, top + 34});
-        avoid.add(new int[] {left + 99, top + 36, left + 121, top + 51});
+        avoid.add(new int[] {left + 104, top + 20, left + 116, top + 32});
+        avoid.add(new int[] {left + 99, top + 36, left + 121, top + 52});
         avoid.add(bigRect(result, left, top));
         motif(g, left, top, container, p, UiMotifs.Kind.REDSTONE, avoid, 4);
         slots(g, menu, left, top, p, result);
-        if (menu.isPowered()) UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p, REDSTONE_ON, true);
-        else UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p);
-        if (menu.hasRecipeError()) UiSymbols.engrave(g, UiSymbols.ARROW, left + 99, top + 36, p, ERROR, true);
-        else UiSymbols.engrave(g, UiSymbols.ARROW, left + 99, top + 36, p);
+        if (menu.isPowered()) UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 104, top + 20, p, REDSTONE_ON, true);
+        else UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 104, top + 20, p);
+        if (menu.hasRecipeError()) UiSymbols.engrave(g, UiSymbols.ARROW_DOTTED, left + 99, top + 36, p, ERROR, true);
+        else UiSymbols.engrave(g, UiSymbols.ARROW_DOTTED, left + 99, top + 36, p);
         return true;
     }
 
@@ -224,7 +224,7 @@ public final class ModScreenStyle {
 
     /**
      * The crafter's layout in the container style: 3x3 grid, redstone sign (red while a signal stops it), arrow, the
-     * recipe result as the big slot, and under the arrow the filter caption (funnel + colon) and the filter key.
+     * recipe result as the big slot, and over the arrow the filter caption (funnel + colon) and the filter key.
      */
     public static boolean autonomousCrafter(GuiGraphicsExtractor g, AutonomousCrafterMenu menu, Font font, Component title, int left,
             int top, int imageWidth) {
@@ -239,15 +239,15 @@ public final class ModScreenStyle {
         int captionX = keyX - 3 - UiFilterButton.LABEL_WIDTH;
         List<int[]> avoid = slotRects(menu, left, top);
         avoid.add(titleRect(font, title, left, top));
-        avoid.add(new int[] {left + 98, top + 22, left + 110, top + 34});
-        avoid.add(new int[] {left + 99, top + 36, left + 121, top + 51});
+        avoid.add(new int[] {left + 104, top + 56, left + 116, top + 68});
+        avoid.add(new int[] {left + 99, top + 36, left + 121, top + 52});
         avoid.add(new int[] {captionX - 2, keyY, keyX + UiFilterButton.SIZE + 1, keyY + UiFilterButton.SIZE});
         avoid.add(bigRect(result, left, top));
         motif(g, left, top, container, p, UiMotifs.Kind.REDSTONE, avoid, 5);
         slots(g, menu, left, top, p, result);
-        if (menu.isPowered()) UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p, REDSTONE_ON, true);
-        else UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 98, top + 22, p);
-        UiSymbols.engrave(g, UiSymbols.ARROW, left + 99, top + 36, p);
+        if (menu.isPowered()) UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 104, top + 56, p, REDSTONE_ON, true);
+        else UiSymbols.engrave(g, UiSymbols.REDSTONE, left + 104, top + 56, p);
+        UiSymbols.engrave(g, UiSymbols.ARROW_DOTTED, left + 99, top + 36, p);
         UiFilterButton.label(g, captionX, keyY + 3, p);
         return true;
     }
@@ -280,7 +280,7 @@ public final class ModScreenStyle {
                 left + ModScreenLayout.CRAFTING_BOOK_X + 20, top + ModScreenLayout.CRAFTING_BOOK_Y + 18});
         motif(g, left, top, container, p, UiMotifs.Kind.WOOD, avoid, 7);
         slots(g, menu, left, top, p, result);
-        UiSymbols.engrave(g, UiSymbols.ARROW, left + 90, top + 35, p);
+        UiSymbols.engrave(g, UiSymbols.ARROW_DOTTED, left + 90, top + 35, p);
         return true;
     }
 

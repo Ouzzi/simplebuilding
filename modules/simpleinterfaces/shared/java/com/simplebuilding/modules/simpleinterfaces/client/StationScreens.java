@@ -150,7 +150,7 @@ public final class StationScreens {
                 UiBoxes.inset(g, l + 67, t + 13, 66, 66, p);
             }
             case "smithing_table" -> {
-                UiSymbols.progress(g, UiSymbols.ARROW, l + 68, t + 49, p, 0, false);
+                UiSymbols.progress(g, UiSymbols.ARROW_DOTTED, l + 68, t + 49, p, 0, false);
                 UiBoxes.inset(g, l + 121, t + 8, 48, 68, p);
             }
             case "merchant" -> {
