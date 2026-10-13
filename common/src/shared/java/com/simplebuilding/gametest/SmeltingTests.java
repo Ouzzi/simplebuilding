@@ -140,7 +140,7 @@ public final class SmeltingTests {
                 "two raw enderite on top of each other still craft something - the shapeless recipe takes four");
 
         ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE,
-                Identifier.fromNamespaceAndPath(MOD_ID, "enderite_scrap_from_blasting_layered_raw_enderite"));
+                Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE, "enderite_scrap_from_blasting_layered_raw_enderite"));
         SingleRecipeInput single = new SingleRecipeInput(new ItemStack(ModItems.LAYERED_RAW_ENDERITE));
         RecipeHolder<?> blasting = recipes.getRecipeFor(RecipeType.BLASTING, single, level).orElse(null);
         helper.assertTrue(blasting != null && blasting.id().equals(key),
@@ -148,7 +148,7 @@ public final class SmeltingTests {
         AbstractCookingRecipe recipe = (AbstractCookingRecipe) blasting.value();
         ItemStack out = recipe.assemble(single);
         // Machine time: 26.3 stores the furnace time in blasting recipes and halves it in the blast furnace.
-        helper.assertValueEqual(CookingChecks.vanillaCookTime(recipe.cookingTime(), true) + " ticks, " + recipe.experience() + " experience, " + out.getCount() + " " + BuiltInRegistries.ITEM.getKey(out.getItem()), SCRAP_COOK_TICKS + " ticks, 10.0 experience, " + SCRAP_PER_LAYERED + " simplebuilding:enderite_scrap", "the layered raw enderite blast");
+        helper.assertValueEqual(CookingChecks.vanillaCookTime(recipe.cookingTime(), true) + " ticks, " + recipe.experience() + " experience, " + out.getCount() + " " + BuiltInRegistries.ITEM.getKey(out.getItem()), SCRAP_COOK_TICKS + " ticks, 10.0 experience, " + SCRAP_PER_LAYERED + " " + com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE + ":enderite_scrap", "the layered raw enderite blast");
         helper.assertValueEqual("per scrap: " + CookingChecks.vanillaCookTime(recipe.cookingTime(), true) / out.getCount() + " ticks", "per scrap: " + 2 * 72000 + " ticks", "blast time per scrap, twice the old direct route");
         helper.assertValueEqual("smelting: " + recipes.getRecipeFor(RecipeType.SMELTING, single, level).map(found -> found.id().identifier().toString()).orElse("none") + ", smoking: " + recipes.getRecipeFor(RecipeType.SMOKING, single, level).map(found -> found.id().identifier().toString()).orElse("none"), "smelting: none, smoking: none", "the recipes an ordinary furnace or a smoker would use for layered raw enderite");
 
@@ -410,7 +410,7 @@ public final class SmeltingTests {
                                 + "; reinforced blast furnace 4 minecraft:iron_ingot"
                                 + "; enderite furnace 4 minecraft:iron_ingot"
                                 + "; cracked diamonds 4 minecraft:diamond"
-                                + "; layered raw enderite 1 simplebuilding:enderite_scrap owing 0"
+                                + "; layered raw enderite 1 " + com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE + ":enderite_scrap owing 0"
                                 + "; injected raw iron 1 minecraft:iron_ingot",
                         "what each device put out"))
                 .thenSucceed();

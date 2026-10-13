@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": "simplelib:enderite_ingot"
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "id": "simplelib:enderite_block"
+  }
+}

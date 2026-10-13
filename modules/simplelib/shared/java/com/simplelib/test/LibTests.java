@@ -76,6 +76,9 @@ public final class LibTests {
         ALL.put("in_world_upgrades_data_type", InWorldUpgradeTests::dataType);
         ALL.put("in_world_upgrade_handlers", InWorldUpgradeTests::handlers);
         ALL.put("octet_cells", InWorldUpgradeTests::octetCells);
+        ALL.put("material_requests_registered", MaterialRequestTests::registered);
+        ALL.put("material_requests_recipes", MaterialRequestTests::recipesFollowRequests);
+        ALL.put("material_requests_anvil_crushing", MaterialRequestTests::anvilCrushingFollowsRequest);
     }
 
     // ------------------------------------------------------------ helpers

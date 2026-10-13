@@ -1,0 +1,23 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "cracked_diamond"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "cracked_diamond"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "cracked_diamond_from_block",
+  "ingredients": [
+    "simplelib:cracked_diamond_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "simplelib:cracked_diamond"
+  }
+}

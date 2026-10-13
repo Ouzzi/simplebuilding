@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplebuilding:enderite_ingot",
+  "addition": "simplelib:enderite_ingot",
   "base": "simplebuilding:netherite_furnace_minecart",
   "result": {
     "id": "simplebuilding:enderite_furnace_minecart"
   },
-  "template": "simplebuilding:enderite_upgrade_template"
+  "template": "simplelib:enderite_upgrade_template"
 }

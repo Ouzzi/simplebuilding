@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplelib:enderite_ingot",
+  "base": "simplebuilding:netherite_bundle",
+  "result": {
+    "id": "simplebuilding:enderite_bundle"
+  },
+  "template": "simplelib:enderite_upgrade_template"
+}

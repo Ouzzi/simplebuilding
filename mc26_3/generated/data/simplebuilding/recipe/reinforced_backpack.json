@@ -1,0 +1,18 @@
+{
+  "type": "simplebuilding:backpack_upgrade",
+  "category": "equipment",
+  "key": {
+    "B": "simplebuilding:backpack",
+    "D": "simplelib:diamond_pebble",
+    "L": "simplebuilding:leather_sheet",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "DSD",
+    "DBD",
+    "LLL"
+  ],
+  "result": {
+    "id": "simplebuilding:reinforced_backpack"
+  }
+}

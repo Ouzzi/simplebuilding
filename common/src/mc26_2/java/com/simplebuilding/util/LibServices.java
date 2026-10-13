@@ -26,6 +26,10 @@ public final class LibServices {
     private LibServices() {
     }
 
+    /** Principle 5a, axe/hammer switch: nothing to switch on 26.2 (no SimpleLib). */
+    public static void hammersReplaceAxes() {
+    }
+
     public static void init() {
     }
 

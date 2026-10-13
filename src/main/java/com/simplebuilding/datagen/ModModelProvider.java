@@ -149,12 +149,16 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(ModBlocks.CONSTRUCTION_LIGHT);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelLocationUtils.getModelLocation(ModBlocks.CONSTRUCTION_LIGHT));
 
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib's block
         blockStateModelGenerator.createTrivialCube(ModBlocks.CRACKED_DIAMOND_BLOCK);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CRACKED_DIAMOND_BLOCK, ModelLocationUtils.getModelLocation(ModBlocks.CRACKED_DIAMOND_BLOCK));
+        }
 
         // --- NEW: Enderite Blocks ---
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib's block
         blockStateModelGenerator.createTrivialCube(ModBlocks.ENDERITE_BLOCK);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_BLOCK, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_BLOCK));
+        }
 
         blockStateModelGenerator.createTrivialCube(ModBlocks.NIHILITH_ORE);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NIHILITH_ORE, ModelLocationUtils.getModelLocation(ModBlocks.NIHILITH_ORE));
@@ -792,16 +796,16 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- NEW: ENDERITE MATERIALS (GENERATED) ---
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CORE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.RAW_ENDERITE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.LAYERED_RAW_ENDERITE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_INGOT, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SCRAP, ModelTemplates.FLAT_ITEM);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.RAW_ENDERITE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.LAYERED_RAW_ENDERITE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_INGOT, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SCRAP, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HORSE_ARMOR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NAUTILUS_ARMOR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NIHILITH_SHARD, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ASTRALIT_DUST, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDER_QUARTZ, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
 
 
         // --- CORES & MISC ---
@@ -828,14 +832,14 @@ public class ModModelProvider extends FabricModelProvider {
         }
         // Layout-Platzhalter der Kreativ-Tabs: zeichnet nichts (minecraft:empty).
         itemModelGenerator.itemModelOutput.accept(ModItems.CREATIVE_SPACER, new net.minecraft.client.renderer.item.EmptyModel.Unbaked());
-        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_PEBBLE, ModelTemplates.FLAT_ITEM);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.DIAMOND_PEBBLE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             // Splitter-Kleinteile (2026-10-05); Steinkiesel/Feuersteinsplitter haben handgeschriebene Modelle im Overlay.
             for (net.minecraft.world.item.Item chip : java.util.List.of(ModItems.FIRE_CHIP, ModItems.ICE_CHIP, ModItems.OBSIDIAN_CHIP)) {
                 itemModelGenerator.generateFlatItem(chip, ModelTemplates.FLAT_ITEM);
             }
         }
-        itemModelGenerator.generateFlatItem(ModItems.CRACKED_DIAMOND, ModelTemplates.FLAT_ITEM);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.CRACKED_DIAMOND, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
 
         // Hoppers hier auch, da Generated Item Model für Inventory
         itemModelGenerator.generateFlatItem(ModItems.REINFORCED_HOPPER, ModelTemplates.FLAT_ITEM);
@@ -848,10 +852,10 @@ public class ModModelProvider extends FabricModelProvider {
             itemModelGenerator.generateFlatItem(ModItems.PULSATING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
         }
 
-        itemModelGenerator.generateFlatItem(ModItems.BASIC_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.BASIC_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
 
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_NUGGET, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NUGGET, ModelTemplates.FLAT_ITEM);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.NETHERITE_NUGGET, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NUGGET, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         if (ModItems.REINFORCED_SHULKER_SHELL != null) {
             itemModelGenerator.generateFlatItem(ModItems.REINFORCED_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
             itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);

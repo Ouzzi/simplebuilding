@@ -23,8 +23,8 @@
                             "minecraft:unbreaking": 3,
                             "simplebuilding:kinetic_protection": 2
                         },
-                        "simplebuilding:glow_level": 1,
-                        "simplebuilding:visual_glow": 1b
+                        "simpletrims:glow_level": 1,
+                        "simpletrims:visual_glow": 1b
                     },
                     count: 1,
                     id: "simplebuilding:enderite_chestplate"
@@ -63,6 +63,66 @@
                     Slot: 8b,
                     count: 3,
                     id: "simplebuilding:enderite_crucible"
+                },
+                {
+                    Slot: 9b,
+                    count: 3,
+                    id: "simplebuilding:cracked_diamond_block"
+                },
+                {
+                    Slot: 10b,
+                    count: 3,
+                    id: "simplebuilding:enderite_block"
+                },
+                {
+                    Slot: 11b,
+                    count: 5,
+                    id: "simplebuilding:diamond_pebble"
+                },
+                {
+                    Slot: 12b,
+                    count: 5,
+                    id: "simplebuilding:cracked_diamond"
+                },
+                {
+                    Slot: 13b,
+                    count: 5,
+                    id: "simplebuilding:netherite_nugget"
+                },
+                {
+                    Slot: 14b,
+                    count: 5,
+                    id: "simplebuilding:enderite_nugget"
+                },
+                {
+                    Slot: 15b,
+                    count: 5,
+                    id: "simplebuilding:raw_enderite"
+                },
+                {
+                    Slot: 16b,
+                    count: 5,
+                    id: "simplebuilding:layered_raw_enderite"
+                },
+                {
+                    Slot: 17b,
+                    count: 5,
+                    id: "simplebuilding:enderite_scrap"
+                },
+                {
+                    Slot: 18b,
+                    count: 5,
+                    id: "simplebuilding:enderite_ingot"
+                },
+                {
+                    Slot: 19b,
+                    count: 5,
+                    id: "simplebuilding:basic_upgrade_template"
+                },
+                {
+                    Slot: 20b,
+                    count: 5,
+                    id: "simplebuilding:enderite_upgrade_template"
                 }
             ],
             components: {},
@@ -92,8 +152,8 @@
                             "minecraft:unbreaking": 3,
                             "simplebuilding:kinetic_protection": 2
                         },
-                        "simplebuilding:glow_level": 1,
-                        "simplebuilding:visual_glow": 1b
+                        "simpletrims:glow_level": 1,
+                        "simpletrims:visual_glow": 1b
                     },
                     count: 1,
                     id: "simplebuilding:enderite_chestplate"
@@ -132,6 +192,66 @@
                     Slot: 8b,
                     count: 3,
                     id: "simplebuilding:enderite_crucible"
+                },
+                {
+                    Slot: 9b,
+                    count: 3,
+                    id: "simplebuilding:cracked_diamond_block"
+                },
+                {
+                    Slot: 10b,
+                    count: 3,
+                    id: "simplebuilding:enderite_block"
+                },
+                {
+                    Slot: 11b,
+                    count: 5,
+                    id: "simplebuilding:diamond_pebble"
+                },
+                {
+                    Slot: 12b,
+                    count: 5,
+                    id: "simplebuilding:cracked_diamond"
+                },
+                {
+                    Slot: 13b,
+                    count: 5,
+                    id: "simplebuilding:netherite_nugget"
+                },
+                {
+                    Slot: 14b,
+                    count: 5,
+                    id: "simplebuilding:enderite_nugget"
+                },
+                {
+                    Slot: 15b,
+                    count: 5,
+                    id: "simplebuilding:raw_enderite"
+                },
+                {
+                    Slot: 16b,
+                    count: 5,
+                    id: "simplebuilding:layered_raw_enderite"
+                },
+                {
+                    Slot: 17b,
+                    count: 5,
+                    id: "simplebuilding:enderite_scrap"
+                },
+                {
+                    Slot: 18b,
+                    count: 5,
+                    id: "simplebuilding:enderite_ingot"
+                },
+                {
+                    Slot: 19b,
+                    count: 5,
+                    id: "simplebuilding:basic_upgrade_template"
+                },
+                {
+                    Slot: 20b,
+                    count: 5,
+                    id: "simplebuilding:enderite_upgrade_template"
                 }
             ],
             components: {},
@@ -161,8 +281,8 @@
                             "minecraft:unbreaking": 3,
                             "simplebuilding:kinetic_protection": 2
                         },
-                        "simplebuilding:glow_level": 1,
-                        "simplebuilding:visual_glow": 1b
+                        "simpletrims:glow_level": 1,
+                        "simpletrims:visual_glow": 1b
                     },
                     count: 1,
                     id: "simplebuilding:enderite_chestplate"
@@ -201,6 +321,66 @@
                     Slot: 8b,
                     count: 3,
                     id: "simplebuilding:enderite_crucible"
+                },
+                {
+                    Slot: 9b,
+                    count: 3,
+                    id: "simplebuilding:cracked_diamond_block"
+                },
+                {
+                    Slot: 10b,
+                    count: 3,
+                    id: "simplebuilding:enderite_block"
+                },
+                {
+                    Slot: 11b,
+                    count: 5,
+                    id: "simplebuilding:diamond_pebble"
+                },
+                {
+                    Slot: 12b,
+                    count: 5,
+                    id: "simplebuilding:cracked_diamond"
+                },
+                {
+                    Slot: 13b,
+                    count: 5,
+                    id: "simplebuilding:netherite_nugget"
+                },
+                {
+                    Slot: 14b,
+                    count: 5,
+                    id: "simplebuilding:enderite_nugget"
+                },
+                {
+                    Slot: 15b,
+                    count: 5,
+                    id: "simplebuilding:raw_enderite"
+                },
+                {
+                    Slot: 16b,
+                    count: 5,
+                    id: "simplebuilding:layered_raw_enderite"
+                },
+                {
+                    Slot: 17b,
+                    count: 5,
+                    id: "simplebuilding:enderite_scrap"
+                },
+                {
+                    Slot: 18b,
+                    count: 5,
+                    id: "simplebuilding:enderite_ingot"
+                },
+                {
+                    Slot: 19b,
+                    count: 5,
+                    id: "simplebuilding:basic_upgrade_template"
+                },
+                {
+                    Slot: 20b,
+                    count: 5,
+                    id: "simplebuilding:enderite_upgrade_template"
                 }
             ],
             components: {},
@@ -287,8 +467,8 @@
                                 "minecraft:unbreaking": 3,
                                 "simplebuilding:kinetic_protection": 2
                             },
-                            "simplebuilding:glow_level": 1,
-                            "simplebuilding:visual_glow": 1b
+                            "simpletrims:glow_level": 1,
+                            "simpletrims:visual_glow": 1b
                         },
                         count: 1,
                         id: "simplebuilding:enderite_chestplate"
@@ -350,13 +530,109 @@
                         id: "simplebuilding:enderite_crucible"
                     },
                     Slot: 8
+                },
+                {
+                    Count: 3,
+                    Item: {
+                        count: 3,
+                        id: "simplebuilding:cracked_diamond_block"
+                    },
+                    Slot: 9
+                },
+                {
+                    Count: 3,
+                    Item: {
+                        count: 3,
+                        id: "simplebuilding:enderite_block"
+                    },
+                    Slot: 10
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:diamond_pebble"
+                    },
+                    Slot: 11
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:cracked_diamond"
+                    },
+                    Slot: 12
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:netherite_nugget"
+                    },
+                    Slot: 13
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:enderite_nugget"
+                    },
+                    Slot: 14
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:raw_enderite"
+                    },
+                    Slot: 15
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:layered_raw_enderite"
+                    },
+                    Slot: 16
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:enderite_scrap"
+                    },
+                    Slot: 17
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:enderite_ingot"
+                    },
+                    Slot: 18
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:basic_upgrade_template"
+                    },
+                    Slot: 19
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplebuilding:enderite_upgrade_template"
+                    },
+                    Slot: 20
                 }
             ],
             Experience: 0.0f,
             Heat: 0,
-            Progress: [I; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            Results: [I; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            Targets: [I; -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+            Progress: [I; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            Results: [I; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            Targets: [I; -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
             components: {},
             id: "simplelib:crucible",
             x: 8,
@@ -368,7 +644,7 @@
         {
             Y: 4b,
             block_states: {
-                data: [L; 0L, 40926266145L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L],
+                data: [L; 0L, 12822748939041L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L],
                 palette: [
                     "minecraft:air",
                     "simplebuilding:reinforced_chest",
@@ -379,7 +655,9 @@
                     "simplebuilding:checker_octet",
                     "simplebuilding:andesite_octet",
                     "simplebuilding:oak_octet",
-                    "simplebuilding:enderite_crucible"
+                    "simplebuilding:enderite_crucible",
+                    "simplebuilding:cracked_diamond_block",
+                    "simplebuilding:enderite_block"
                 ]
             }
         }

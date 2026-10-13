@@ -58,9 +58,8 @@ public final class CrucibleCompat {
         item("enderite_barrel", enderiteBarrel);
     }
 
-    /** After registration: switch the axe ways off and plug the sledgehammer and the buckets into SimpleLib. */
+    /** After registration: plug the sledgehammer and the buckets into SimpleLib (axe ways: LibServices.hammersReplaceAxes). */
     public static void init() {
-        SimpleLibApi.disableAxeWays();
         SimpleLibApi.registerToolUse(CrucibleCompat::hammerWants);
         SimpleLibApi.registerCauldronBucket(new SbCauldronBuckets());
         SimpleLibApi.setExtremeCauldronEffect(CrucibleCompat::soulLavaInside);

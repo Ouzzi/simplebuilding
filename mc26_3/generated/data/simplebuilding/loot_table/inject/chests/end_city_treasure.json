@@ -19,7 +19,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enderite_scrap"
+          "name": "simplelib:enderite_scrap"
         }
       ],
       "rolls": {
@@ -45,7 +45,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enderite_upgrade_template"
+          "name": "simplelib:enderite_upgrade_template"
         }
       ],
       "rolls": {
@@ -66,7 +66,7 @@
               "min": 1
             }
           },
-          "name": "simplebuilding:raw_enderite",
+          "name": "simplelib:raw_enderite",
           "weight": 4
         },
         {
@@ -79,7 +79,7 @@
               "min": 2
             }
           },
-          "name": "simplebuilding:enderite_nugget",
+          "name": "simplelib:enderite_nugget",
           "weight": 6
         },
         {

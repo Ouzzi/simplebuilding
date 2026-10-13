@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "cracked_diamond"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "cracked_diamond"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": "simplelib:diamond_pebble"
+  },
+  "pattern": [
+    "PPP",
+    "PPP",
+    "PPP"
+  ],
+  "result": {
+    "id": "simplelib:cracked_diamond"
+  }
+}

@@ -1689,6 +1689,9 @@ def collect_obtain(roots: dict, line: str, items, blocks, enchantments, check: b
     """
     problems: list[str] = []
     item_ids = {e["id"] for e in items} | {e["id"] for e in blocks}
+    if (version_flags(roots) or {}).get("MATERIALS_IN_LIB"):
+        # Split stage 3d: the shared materials SimpleBuilding's loot hands out are SimpleLib items.
+        item_ids |= {"simplelib:" + p.stem for p in (REPO / "modules/simplelib/generated/resources/assets/simplelib/items").glob("*.json")}
     ench_ids = {e["id"] for e in enchantments}
     sources: list[dict] = []
     loot_file = next((REPO / root / "loot" / "ModLootTableModifications.java" for root in roots["code_roots"]

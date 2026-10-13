@@ -90,8 +90,10 @@ public class ModTags {
          * {@link #ENDERITE_ITEMS_EXTRA_PATHS}. Datagen und Gametest teilen sie.
          */
         public static boolean isEnderiteItemByRule(Identifier id) {
-            return Simplebuilding.MOD_ID.equals(id.getNamespace())
-                    && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
+            // 26.3: the enderite base materials are SimpleLib's (split stage 3d) and stay protected with SimpleBuilding.
+            boolean own = Simplebuilding.MOD_ID.equals(id.getNamespace())
+                    || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace());
+            return own && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
         }
 
         /**

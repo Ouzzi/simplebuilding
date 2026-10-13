@@ -39,7 +39,7 @@
               "min": 2
             }
           },
-          "name": "simplebuilding:diamond_pebble",
+          "name": "simplelib:diamond_pebble",
           "weight": 3
         },
         {

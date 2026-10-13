@@ -1,0 +1,44 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_layered_raw_enderite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplelib:layered_raw_enderite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplelib:enderite_scrap_from_blasting_layered_raw_enderite"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_layered_raw_enderite"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplelib:enderite_scrap_from_blasting_layered_raw_enderite"
+    ]
+  }
+}

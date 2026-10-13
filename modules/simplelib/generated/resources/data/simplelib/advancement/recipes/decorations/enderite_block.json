@@ -1,0 +1,44 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enderite_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplelib:enderite_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplelib:enderite_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enderite_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplelib:enderite_block"
+    ]
+  }
+}

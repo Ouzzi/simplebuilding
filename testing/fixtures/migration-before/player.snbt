@@ -55,8 +55,8 @@
                     "minecraft:unbreaking": 3,
                     "simplebuilding:kinetic_protection": 2
                 },
-                "simplebuilding:glow_level": 1,
-                "simplebuilding:visual_glow": 1b
+                "simpletrims:glow_level": 1,
+                "simpletrims:visual_glow": 1b
             },
             count: 1,
             id: "simplebuilding:enderite_chestplate"
@@ -95,16 +95,91 @@
             Slot: 17b,
             count: 3,
             id: "simplebuilding:enderite_crucible"
+        },
+        {
+            Slot: 18b,
+            count: 3,
+            id: "simplebuilding:cracked_diamond_block"
+        },
+        {
+            Slot: 19b,
+            count: 3,
+            id: "simplebuilding:enderite_block"
+        },
+        {
+            Slot: 20b,
+            count: 5,
+            id: "simplebuilding:diamond_pebble"
+        },
+        {
+            Slot: 21b,
+            count: 5,
+            id: "simplebuilding:cracked_diamond"
+        },
+        {
+            Slot: 22b,
+            count: 5,
+            id: "simplebuilding:netherite_nugget"
+        },
+        {
+            Slot: 23b,
+            count: 5,
+            id: "simplebuilding:enderite_nugget"
+        },
+        {
+            Slot: 24b,
+            count: 5,
+            id: "simplebuilding:raw_enderite"
+        },
+        {
+            Slot: 25b,
+            count: 5,
+            id: "simplebuilding:layered_raw_enderite"
+        },
+        {
+            Slot: 26b,
+            count: 5,
+            id: "simplebuilding:enderite_scrap"
+        },
+        {
+            Slot: 27b,
+            count: 5,
+            id: "simplebuilding:enderite_ingot"
+        },
+        {
+            Slot: 28b,
+            count: 5,
+            id: "simplebuilding:basic_upgrade_template"
+        },
+        {
+            Slot: 29b,
+            count: 5,
+            id: "simplebuilding:enderite_upgrade_template"
         }
     ],
     recipeBook: {
         recipes: [
+            "simplebuilding:acacia_planks_from_octets",
+            "simplebuilding:enderite_ingot",
+            "simplebuilding:enderite_ingot_from_nugget",
+            "simplebuilding:netherite_ingot",
+            "simplebuilding:acacia_log_from_octets",
+            "simplebuilding:cracked_diamond_block",
+            "simplebuilding:enderite_upgrade_template",
+            "simplebuilding:layered_raw_enderite",
             "simplebuilding:acacia_cauldron",
-            "simplebuilding:acacia_crate",
+            "simplebuilding:basic_upgrade_template",
+            "simplebuilding:enderite_ingot_from_scrap",
+            "simplebuilding:diamond_from_blasting_cracked_diamond",
+            "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite",
             "simplebuilding:acacia_octet_from_acacia_planks_stonecutting",
-            "simplebuilding:acacia_sheet",
-            "simplebuilding:amethyst_lens",
-            "simplebuilding:acacia_planks_from_octets"
+            "simplebuilding:enderite_block",
+            "simplebuilding:enderite_nugget_from_ingot",
+            "simplebuilding:netherite_nugget",
+            "simplebuilding:acacia_crate",
+            "simplebuilding:cracked_diamond",
+            "simplebuilding:cracked_diamond_from_cracked_diamond_block",
+            "simplebuilding:acacia_log_octet_from_acacia_log_stonecutting"
         ],
         toBeDisplayed: []
     }

@@ -24,8 +24,18 @@ public final class SimpleLibForge {
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.DATA_COMPONENT_TYPE)) LibComponents.register();
-            if (key.equals(Registries.BLOCK)) LibBlocks.register();
-            if (key.equals(Registries.ITEM)) LibItems.register();
+            if (key.equals(Registries.BLOCK)) {
+                LibBlocks.register();
+                com.simplelib.registry.LibMaterials.ensureBlocks();
+            }
+            if (key.equals(Registries.ITEM)) {
+                LibItems.register();
+                com.simplelib.registry.LibMaterials.ensureItems();
+            }
+            if (key.equals(net.minecraftforge.registries.ForgeRegistries.Keys.CONDITION_SERIALIZERS)) {
+                event.register(net.minecraftforge.registries.ForgeRegistries.Keys.CONDITION_SERIALIZERS, SimpleLib.id("material_requested"),
+                        () -> com.simplebuilding.modules.simplelib.forge.MaterialConditionForge.CODEC);
+            }
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 LibBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(LibBlocks.crucibles())) {
                     @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return LibBlockEntities.isCrucible(state); }

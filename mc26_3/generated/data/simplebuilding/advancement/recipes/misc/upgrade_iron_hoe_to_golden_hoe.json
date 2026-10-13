@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:basic_upgrade_template"
+            "items": "simplelib:basic_upgrade_template"
           }
         ]
       },
