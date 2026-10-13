@@ -1451,7 +1451,9 @@ public final class DataIntegrityTests {
         Set<Identifier> byWrittenRule = new TreeSet<>(Comparator.comparing(Identifier::toString));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             // 26.3: plus SimpleLib's shared enderite materials (split stage 3d), protected as before.
-            if ((MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace()))
+            // Split stage 4: plus the Enderite furnaces and cart of the required sub-mod Simple Ovens.
+            if ((MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
+                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
                             "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
                     // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
@@ -2565,7 +2567,8 @@ public final class DataIntegrityTests {
 
         Set<Identifier> modItems = new TreeSet<>(Comparator.comparing(Identifier::toString));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
-            if (MOD_ID.equals(id.getNamespace())) {
+            // Split stage 4: the furnaces of the required sub-mod Simple Ovens keep their place in SimpleBuilding's tabs.
+            if (MOD_ID.equals(id.getNamespace()) || McVersion.OVENS_NAMESPACE.equals(id.getNamespace())) {
                 modItems.add(id);
             }
         }
@@ -3362,7 +3365,9 @@ public final class DataIntegrityTests {
         Set<String> found = new TreeSet<>();
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             boolean shared = com.simplebuilding.version.McVersion.MATERIALS_IN_LIB
-                    && com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace());
+                    && com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
+                    // split stage 4: Simple Ovens' Enderite furnaces and cart keep SimpleBuilding's Enderite perks
+                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace());
             if ((!MOD_ID.equals(id.getNamespace()) && !shared) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
                 continue;
             }
