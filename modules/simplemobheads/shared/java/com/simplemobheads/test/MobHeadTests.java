@@ -524,7 +524,7 @@ public final class MobHeadTests {
         user.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
         clearItems(helper);
         HeadAbilities.interact(wearer, user, InteractionHand.MAIN_HAND);
-        helper.assertTrue(level.getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(4.0), e -> e.getItem().is(Items.WHITE_WOOL))
+        helper.assertTrue(level.getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(4.0), e -> e.getItem().is(Items.WOOL.pick(DyeColor.WHITE)))
                 .size() == 1, "the sheep head wearer gave no wool");
         helper.assertTrue(HeadAbilities.interact(wearer, user, InteractionHand.MAIN_HAND) == net.minecraft.world.InteractionResult.PASS,
                 "the wool grew back at once");

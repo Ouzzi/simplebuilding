@@ -2630,9 +2630,12 @@
           "modules/simplemobheads/fabric/src/main/java/com/simplebuilding/modules/simplemobheads/ModuleGameTest.java"
         ],
         "requires": [
-          "simplemobheads"
+          "simplemobheads",
+          "simplebuilding"
         ],
-        "devMods": [],
+        "devMods": [
+          "cloth_config"
+        ],
         "loaders": {
           "fabric": {
             "task": ":integration:runSimplemobheadsGameTest",
@@ -2653,7 +2656,9 @@
         },
         "standalone": {
           "requires": [],
-          "devMods": [],
+          "devMods": [
+            "cloth_config"
+          ],
           "loaders": {
             "fabric": {
               "task": ":integration:runSimplemobheadsStandaloneGameTest",
