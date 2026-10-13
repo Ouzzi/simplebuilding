@@ -378,9 +378,9 @@ public final class MigrationWorldTests {
         // Stage 3d, the real move: the old world's material recipes are known under SimpleLib's ids.
         for (Tag entry : playerBefore.getCompoundOrEmpty("recipeBook").getListOrEmpty("recipes")) {
             if (!(entry instanceof StringTag(String id)) || !id.startsWith(NOW) || !SharedMaterials.RECIPES.containsKey(id.substring(NOW.length()))) continue;
-            ResourceKey<Recipe<?>> moved = ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+            ResourceKey<Recipe<?>> libKey = ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
                     Identifier.fromNamespaceAndPath(LIB, id.substring(NOW.length())));
-            if (!want.getRecipeBook().contains(moved)) problems.add("the old recipe book lost " + id + " (now " + moved.identifier() + ")");
+            if (!want.getRecipeBook().contains(libKey)) problems.add("the old recipe book lost " + id + " (now " + libKey.identifier() + ")");
         }
         TagValueOutput wantOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
         want.saveWithoutId(wantOutput);

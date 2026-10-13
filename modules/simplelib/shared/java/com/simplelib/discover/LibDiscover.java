@@ -51,16 +51,29 @@ public final class LibDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simplelib:basic_upgrade_template",
             "simplelib:copper_barrel",
+            "simplelib:cracked_diamond",
+            "simplelib:cracked_diamond_block",
             "simplelib:crucible",
             "simplelib:crucible_blank",
+            "simplelib:diamond_pebble",
+            "simplelib:enderite_block",
+            "simplelib:enderite_ingot",
+            "simplelib:enderite_nugget",
+            "simplelib:enderite_scrap",
+            "simplelib:enderite_upgrade_template",
             "simplelib:first_pickup_tips",
             "simplelib:iron_crucible",
+            "simplelib:layered_raw_enderite",
             "simplelib:netherite_barrel",
             "simplelib:netherite_crucible",
+            "simplelib:netherite_nugget",
+            "simplelib:raw_enderite",
             "simplelib:reinforced_barrel",
             "simplelib:reinforced_cauldron",
             "simplelib:reinforced_crucible",
+            "simplelib:shared_materials",
             "simplelib:village_kitchen",
             "simplelib:warm_food");
     static final List<Tip> TIPS = List.of(

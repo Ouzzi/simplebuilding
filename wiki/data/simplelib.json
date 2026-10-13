@@ -112,6 +112,34 @@
       }
     },
     {
+      "id": "shared_materials",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/shared/java/com/simplelib/material/AnvilCrushing.java",
+        "modules/simplelib/tools/gen_resources.py"
+      ],
+      "en": {
+        "title": "Shared materials",
+        "summary": "Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the enderite materials and the basic and enderite upgrade templates.",
+        "details": [
+          "SimpleLib always registers them, so worlds keep them whichever mod is missing. Their recipes and the anvil crushing only exist while a loaded mod asks for the material (with SimpleBuilding: all of them).",
+          "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond.",
+          "Nuggets and ingots convert 9:1 (netherite and enderite), enderite ingots and blocks 9:1, four raw enderite fragments make raw enderite scrap, which blasts into enderite scrap; four scrap, four diamonds and a netherite ingot make an enderite ingot. Both upgrade templates duplicate like Vanilla templates.",
+          "Other mods use them through the common tags c:ingots/enderite, c:nuggets/enderite, c:nuggets/netherite, c:raw_materials/enderite, c:gems/cracked_diamond and c:storage_blocks/enderite and /cracked_diamond. Before SimpleBuilding 2 they were SimpleBuilding items; old worlds load them under their new ids."
+        ]
+      },
+      "de": {
+        "title": "Gemeinsame Materialien",
+        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamantkiesel, Rissiger Diamant und sein Block, Netheritklumpen, die Enderit-Materialien und die Basis- und Enderit-Aufwertungsvorlage.",
+        "details": [
+          "SimpleLib registriert sie immer, damit Welten sie behalten, egal welche Mod fehlt. Ihre Rezepte und das Amboss-Zerschlagen gibt es nur, solange eine geladene Mod das Material anfordert (mit SimpleBuilding: alle).",
+          "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird.",
+          "Klumpen und Barren tauschen 9:1 (Netherit und Enderit), Enderitbarren und -blöcke 9:1; vier Rohe Enderitfragmente ergeben Rohe Enderitplatten, die im Schmelzofen zu Enderitplatten werden; vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren. Beide Aufwertungsvorlagen lassen sich wie Vanilla-Vorlagen vervielfältigen.",
+          "Andere Mods nutzen sie über die gemeinsamen Tags c:ingots/enderite, c:nuggets/enderite, c:nuggets/netherite, c:raw_materials/enderite, c:gems/cracked_diamond und c:storage_blocks/enderite bzw. /cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter den neuen IDs."
+        ]
+      }
+    },
+    {
       "id": "first_pickup_tips",
       "sources": [
         "modules/simplelib/shared/java/com/simplelib/discover/LibDiscover.java",
@@ -142,6 +170,38 @@
     }
   ],
   "recipes": [
+    {
+      "id": "simplelib:basic_upgrade_template",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:basic_upgrade_template",
+        "count": 2
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/basic_upgrade_template.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:iron_block",
+        "simplelib:basic_upgrade_template"
+      ],
+      "pattern": [
+        "ABA",
+        "ACA",
+        "AAA"
+      ],
+      "key": {
+        "A": [
+          "minecraft:diamond"
+        ],
+        "B": [
+          "simplelib:basic_upgrade_template"
+        ],
+        "C": [
+          "minecraft:iron_block"
+        ]
+      }
+    },
     {
       "id": "simplelib:copper_barrel",
       "type": "minecraft:crafting_shaped",
@@ -182,6 +242,461 @@
           }
         ]
       }
+    },
+    {
+      "id": "simplelib:cracked_diamond",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:cracked_diamond",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/cracked_diamond.json",
+      "ingredients": [
+        "simplelib:diamond_pebble"
+      ],
+      "pattern": [
+        "PPP",
+        "PPP",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "simplelib:diamond_pebble"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:diamond_pebble",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:cracked_diamond_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplelib:cracked_diamond_block",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/cracked_diamond_block.json",
+      "ingredients": [
+        "simplelib:cracked_diamond"
+      ],
+      "pattern": [
+        "CCC",
+        "CCC",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "simplelib:cracked_diamond"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:diamond_pebble",
+            "count": 81
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:cracked_diamond_from_cracked_diamond_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "cracked_diamond_from_block",
+      "result": {
+        "id": "simplelib:cracked_diamond",
+        "count": 9
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/cracked_diamond_from_cracked_diamond_block.json",
+      "ingredients": [
+        "simplelib:cracked_diamond_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simplelib:cracked_diamond_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplelib:cracked_diamond_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:diamond_from_blasting_cracked_diamond",
+      "type": "minecraft:blasting",
+      "category": null,
+      "group": "diamond_from_cracked",
+      "result": {
+        "id": "minecraft:diamond",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/diamond_from_blasting_cracked_diamond.json",
+      "ingredients": [
+        "simplelib:cracked_diamond"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplelib:cracked_diamond"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 1.0,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:diamond_pebble",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:enderite_block",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:enderite_block",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_block.json",
+      "ingredients": [
+        "simplelib:enderite_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplelib:enderite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:enderite_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:enderite_ingot",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplelib:enderite_ingot",
+        "count": 9
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_ingot.json",
+      "ingredients": [
+        "simplelib:enderite_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simplelib:enderite_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplelib:enderite_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:enderite_ingot_from_nugget",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:enderite_ingot",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_ingot_from_nugget.json",
+      "ingredients": [
+        "simplelib:enderite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "simplelib:enderite_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:enderite_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:enderite_ingot_from_scrap",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:enderite_ingot",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_ingot_from_scrap.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:netherite_ingot",
+        "simplelib:enderite_scrap"
+      ],
+      "pattern": [
+        "SDS",
+        "DND",
+        "SDS"
+      ],
+      "key": {
+        "D": [
+          "minecraft:diamond"
+        ],
+        "N": [
+          "minecraft:netherite_ingot"
+        ],
+        "S": [
+          "simplelib:enderite_scrap"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:raw_enderite",
+            "count": 16
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:enderite_nugget_from_ingot",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:enderite_nugget",
+        "count": 9
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_nugget_from_ingot.json",
+      "ingredients": [
+        "simplelib:enderite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simplelib:enderite_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplelib:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:enderite_scrap_from_blasting_layered_raw_enderite",
+      "type": "minecraft:blasting",
+      "category": null,
+      "group": "enderite_scrap",
+      "result": {
+        "id": "simplelib:enderite_scrap",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
+      "ingredients": [
+        "simplelib:layered_raw_enderite"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplelib:layered_raw_enderite"
+        ]
+      },
+      "cookingtime": 288000,
+      "experience": 10.0,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:raw_enderite",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:enderite_upgrade_template",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:enderite_upgrade_template",
+        "count": 2
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_upgrade_template.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:end_stone",
+        "simplelib:enderite_upgrade_template"
+      ],
+      "pattern": [
+        "ATA",
+        "AEA",
+        "AAA"
+      ],
+      "key": {
+        "A": [
+          "minecraft:diamond"
+        ],
+        "E": [
+          "minecraft:end_stone"
+        ],
+        "T": [
+          "simplelib:enderite_upgrade_template"
+        ]
+      }
+    },
+    {
+      "id": "simplelib:layered_raw_enderite",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:layered_raw_enderite",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/layered_raw_enderite.json",
+      "ingredients": [
+        "simplelib:raw_enderite"
+      ],
+      "ingredientGroups": [
+        [
+          "simplelib:raw_enderite"
+        ],
+        [
+          "simplelib:raw_enderite"
+        ],
+        [
+          "simplelib:raw_enderite"
+        ],
+        [
+          "simplelib:raw_enderite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:raw_enderite",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:netherite_ingot",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:netherite_ingot",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/netherite_ingot.json",
+      "ingredients": [
+        "simplelib:netherite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "simplelib:netherite_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:netherite_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:netherite_nugget",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplelib:netherite_nugget",
+        "count": 9
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/netherite_nugget.json",
+      "ingredients": [
+        "minecraft:netherite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:netherite_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -202,6 +717,24 @@
         }
       ],
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/copper_barrel.json"
+    },
+    {
+      "id": "simplelib:blocks/cracked_diamond_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:cracked_diamond_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/cracked_diamond_block.json"
     },
     {
       "id": "simplelib:blocks/crucible_blank",
@@ -278,6 +811,24 @@
         }
       ],
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/crucible_blank.json"
+    },
+    {
+      "id": "simplelib:blocks/enderite_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:enderite_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/enderite_block.json"
     },
     {
       "id": "simplelib:blocks/iron_crucible",
@@ -594,7 +1145,229 @@
   ],
   "advancements": [],
   "enchantments": [],
-  "items": [],
+  "items": [
+    {
+      "id": "simplelib:basic_upgrade_template",
+      "name": {
+        "en_us": "Basic Upgrade",
+        "de_de": "Basis-Aufwertung"
+      },
+      "note": {
+        "en": {
+          "summary": "Upgrade template for wood to gold equipment; duplicates with diamonds and an iron block."
+        },
+        "de": {
+          "summary": "Aufwertungsvorlage für Holz- bis Gold-Ausrüstung; vervielfältigt mit Diamanten und einem Eisenblock."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/basic_upgrade_template.png",
+      "craftedBy": [
+        "simplelib:basic_upgrade_template"
+      ],
+      "usedIn": [
+        "simplelib:basic_upgrade_template"
+      ]
+    },
+    {
+      "id": "simplelib:cracked_diamond",
+      "name": {
+        "en_us": "Cracked Diamond",
+        "de_de": "Rissiger Diamant"
+      },
+      "note": {
+        "en": {
+          "summary": "Nine diamond pebbles; blasts into one diamond."
+        },
+        "de": {
+          "summary": "Neun Diamantkiesel; wird im Schmelzofen zu einem Diamanten."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/cracked_diamond.png",
+      "craftedBy": [
+        "simplelib:cracked_diamond",
+        "simplelib:cracked_diamond_from_cracked_diamond_block"
+      ],
+      "usedIn": [
+        "simplelib:cracked_diamond_block",
+        "simplelib:diamond_from_blasting_cracked_diamond"
+      ]
+    },
+    {
+      "id": "simplelib:diamond_pebble",
+      "name": {
+        "en_us": "Diamond Pebble",
+        "de_de": "Diamantkiesel"
+      },
+      "note": {
+        "en": {
+          "summary": "A ninth of a cracked diamond; anvils crush diamond blocks into 72."
+        },
+        "de": {
+          "summary": "Ein Neuntel eines Rissigen Diamanten; Ambosse zerschlagen Diamantblöcke zu 72."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/diamond_pebble.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplelib:cracked_diamond"
+      ]
+    },
+    {
+      "id": "simplelib:enderite_ingot",
+      "name": {
+        "en_us": "Enderite Ingot",
+        "de_de": "Enderitbarren"
+      },
+      "note": {
+        "en": {
+          "summary": "The top material tier; nine make a block."
+        },
+        "de": {
+          "summary": "Höchste Materialstufe; neun ergeben einen Block."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/enderite_ingot.png",
+      "craftedBy": [
+        "simplelib:enderite_ingot",
+        "simplelib:enderite_ingot_from_nugget",
+        "simplelib:enderite_ingot_from_scrap"
+      ],
+      "usedIn": [
+        "simplelib:enderite_block",
+        "simplelib:enderite_nugget_from_ingot"
+      ]
+    },
+    {
+      "id": "simplelib:enderite_nugget",
+      "name": {
+        "en_us": "Enderite Nugget",
+        "de_de": "Enderitklumpen"
+      },
+      "note": {
+        "en": {
+          "summary": "A ninth of an enderite ingot."
+        },
+        "de": {
+          "summary": "Ein Neuntel eines Enderitbarrens."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/enderite_nugget.png",
+      "craftedBy": [
+        "simplelib:enderite_nugget_from_ingot"
+      ],
+      "usedIn": [
+        "simplelib:enderite_ingot_from_nugget"
+      ]
+    },
+    {
+      "id": "simplelib:enderite_scrap",
+      "name": {
+        "en_us": "Enderite Scrap",
+        "de_de": "Enderitplatten"
+      },
+      "note": {
+        "en": {
+          "summary": "Four, with four diamonds and a netherite ingot, make an enderite ingot."
+        },
+        "de": {
+          "summary": "Vier ergeben mit vier Diamanten und einem Netheritbarren einen Enderitbarren."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/enderite_scrap.png",
+      "craftedBy": [
+        "simplelib:enderite_scrap_from_blasting_layered_raw_enderite"
+      ],
+      "usedIn": [
+        "simplelib:enderite_ingot_from_scrap"
+      ]
+    },
+    {
+      "id": "simplelib:enderite_upgrade_template",
+      "name": {
+        "en_us": "Enderite Upgrade",
+        "de_de": "Enderit-Aufwertung"
+      },
+      "note": {
+        "en": {
+          "summary": "Upgrade template for netherite to enderite; duplicates with diamonds and end stone."
+        },
+        "de": {
+          "summary": "Aufwertungsvorlage von Netherit zu Enderit; vervielfältigt mit Diamanten und Endstein."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/enderite_upgrade_template.png",
+      "craftedBy": [
+        "simplelib:enderite_upgrade_template"
+      ],
+      "usedIn": [
+        "simplelib:enderite_upgrade_template"
+      ]
+    },
+    {
+      "id": "simplelib:layered_raw_enderite",
+      "name": {
+        "en_us": "Raw Enderite Scrap",
+        "de_de": "Rohe Enderitplatten"
+      },
+      "note": {
+        "en": {
+          "summary": "Blasts into enderite scrap."
+        },
+        "de": {
+          "summary": "Wird im Schmelzofen zu Enderitplatten."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/layered_raw_enderite.png",
+      "craftedBy": [
+        "simplelib:layered_raw_enderite"
+      ],
+      "usedIn": [
+        "simplelib:enderite_scrap_from_blasting_layered_raw_enderite"
+      ]
+    },
+    {
+      "id": "simplelib:netherite_nugget",
+      "name": {
+        "en_us": "Netherite Nugget",
+        "de_de": "Netheritklumpen"
+      },
+      "note": {
+        "en": {
+          "summary": "A ninth of a netherite ingot."
+        },
+        "de": {
+          "summary": "Ein Neuntel eines Netheritbarrens."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/netherite_nugget.png",
+      "craftedBy": [
+        "simplelib:netherite_nugget"
+      ],
+      "usedIn": [
+        "simplelib:netherite_ingot"
+      ]
+    },
+    {
+      "id": "simplelib:raw_enderite",
+      "name": {
+        "en_us": "Raw Enderite Fragment",
+        "de_de": "Rohes Enderitfragment"
+      },
+      "note": {
+        "en": {
+          "summary": "Four make raw enderite scrap."
+        },
+        "de": {
+          "summary": "Vier ergeben Rohe Enderitplatten."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/raw_enderite.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplelib:layered_raw_enderite"
+      ]
+    }
+  ],
   "blocks": [
     {
       "id": "simplelib:copper_barrel",
@@ -640,6 +1413,28 @@
       "usedIn": []
     },
     {
+      "id": "simplelib:cracked_diamond_block",
+      "name": {
+        "en_us": "Block of Cracked Diamond",
+        "de_de": "Rissiger Diamantblock"
+      },
+      "note": {
+        "en": {
+          "summary": "Storage block of nine cracked diamonds (iron pickaxe)."
+        },
+        "de": {
+          "summary": "Speicherblock aus neun Rissigen Diamanten (Eisenspitzhacke)."
+        }
+      },
+      "texture": "assets/textures/simplelib/block/cracked_diamond_block.png",
+      "craftedBy": [
+        "simplelib:cracked_diamond_block"
+      ],
+      "usedIn": [
+        "simplelib:cracked_diamond_from_cracked_diamond_block"
+      ]
+    },
+    {
       "id": "simplelib:crucible_blank",
       "name": {
         "en_us": "Crucible Blank",
@@ -679,6 +1474,28 @@
       },
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simplelib:enderite_block",
+      "name": {
+        "en_us": "Block of Enderite",
+        "de_de": "Enderitblock"
+      },
+      "note": {
+        "en": {
+          "summary": "Storage block of nine enderite ingots (diamond pickaxe, beacon base)."
+        },
+        "de": {
+          "summary": "Speicherblock aus neun Enderitbarren (Diamantspitzhacke, Leuchtfeuer-Sockel)."
+        }
+      },
+      "texture": "assets/textures/simplelib/block/enderite_block.png",
+      "craftedBy": [
+        "simplelib:enderite_block"
+      ],
+      "usedIn": [
+        "simplelib:enderite_ingot"
+      ]
     },
     {
       "id": "simplelib:iron_crucible",
@@ -941,14 +1758,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 5,
-    "recipes": 1,
-    "lootTables": 9,
+    "features": 6,
+    "recipes": 16,
+    "lootTables": 11,
     "tags": 12,
     "advancements": 0,
     "enchantments": 0,
-    "items": 0,
-    "blocks": 8,
+    "items": 10,
+    "blocks": 10,
     "trades": 0,
     "config": 0,
     "quests": 0,
