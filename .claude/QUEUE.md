@@ -31,7 +31,7 @@ Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile 
 6. Extra-Kopf-Slot im B-Menü (nur Mob-Köpfe/Kürbis, Effekte, Helm-Position je Kopf) (N49)
 7. Resonanz-Button zwischen Kopf- und Nebenhand-Slot, Herz-Stufen, Tooltip-Format (N49; hängt an 6)
 8. ✔ Wayfinder-Karte: Zoom feiner, Navigation verbessern (N48)
-9. Octet-Blöcke untereinander kombinierbar (N48)
+9. ✔ Octet-Blöcke untereinander kombinierbar (N48; `claude-octets-mix`, Plan docs/ai/PLAN-OCTETS-MIX-2026-10-13.md)
 10. ✔ Simple Creatures umbenennen in „Simple Mob Manners“, Id simplemobmanners, Namespace-/Config-Migration (N42; `claude-mobmanners`)
 11. Stärkerer Wither + Biom-Pinsel (N47; Konzept KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
 13. Simple Trims Stufen 2–4 (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) (N18)
