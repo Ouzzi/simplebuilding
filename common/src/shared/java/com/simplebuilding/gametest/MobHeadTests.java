@@ -101,7 +101,7 @@ public final class MobHeadTests {
         LivingEntity byPlayer = spawn(helper, EntityTypes.SPIDER, new BlockPos(5, 2, 5));
         byPlayer.hurtServer(level, level.damageSources().playerAttack(player), 1000.0F);
         helper.assertTrue(byCreeper.isDeadOrDying() && byPlayer.isDeadOrDying(), "the spiders did not die");
-        if (count(helper, TweaksItems.SPIDER_HEAD) != 0) {
+        if (count(helper, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SPIDER)) != 0) {
             problems.add("a spider killed by a player or an uncharged creeper dropped a head");
         }
         plain.discard();
@@ -163,7 +163,7 @@ public final class MobHeadTests {
         ItemStack unbreaking = enchanted(helper, Enchantments.UNBREAKING);
         ItemStack core = new ItemStack(ModItems.ENDERITE_CORE);
         ItemStack plate = new ItemStack(TweaksBlocks.ENDERITE_PRESSURE_PLATE);
-        ItemStack shulker = new ItemStack(TweaksItems.SHULKER_HEAD);
+        ItemStack shulker = new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER));
 
         Optional<RecipeHolder<CraftingRecipe>> match = crafting(helper, List.of(core, plate, shulker, mending));
         helper.assertTrue(match.isPresent(), "core + plate + shulker head + mending elytra made nothing");
@@ -176,7 +176,7 @@ public final class MobHeadTests {
                 "a plain elytra made a flypad");
         helper.assertTrue(crafting(helper, List.of(core, plate, shulker, unbreaking)).isEmpty(),
                 "an elytra with Unbreaking but no Mending made a flypad");
-        helper.assertTrue(crafting(helper, List.of(core, plate, new ItemStack(TweaksItems.SPIDER_HEAD), mending)).isEmpty(),
+        helper.assertTrue(crafting(helper, List.of(core, plate, new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SPIDER)), mending)).isEmpty(),
                 "a spider head instead of the shulker head made a flypad");
         helper.assertTrue(crafting(helper, List.of(core, plate, mending)).isEmpty(), "three ingredients made a flypad");
 
@@ -318,7 +318,7 @@ public final class MobHeadTests {
         ServerPlayer player = vulnerable(helper, mockPlayer(helper, new Vec3(2.5, 2.0, 2.5)));
         helper.assertTrue(player.canFreeze(), "a player without the skull cannot freeze - the test proves nothing");
         wear(player, BlazeHeadType.STRAY);
-        helper.assertTrue(new ItemStack(TweaksItems.STRAY_SKULL).is(ItemTags.FREEZE_IMMUNE_WEARABLES), "the stray skull is not freeze immune");
+        helper.assertTrue(new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.STRAY)).is(ItemTags.FREEZE_IMMUNE_WEARABLES), "the stray skull is not freeze immune");
         helper.assertFalse(player.canFreeze(), "the stray skull wearer can still freeze");
         helper.succeed();
     }

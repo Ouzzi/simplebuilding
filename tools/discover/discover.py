@@ -116,6 +116,8 @@ MODS = [
          own_packages=["com.simplebuilding.modules.simpleend."]),
     dict(id="simplefun", ns=["simplefun"], cls="FunDiscover", package="com.simplefun.discover", own_packages=["com.simplefun."]),
     dict(id="simplemaps", ns=["simplemaps"], cls="MapsDiscover", package="com.simplemaps.discover", own_packages=["com.simplemaps."]),
+    dict(id="simplemobheads", ns=["simplemobheads"], cls="MobHeadsDiscover", package="com.simplemobheads.discover",
+         own_packages=["com.simplemobheads."]),
     dict(id="simplemodels", ns=["simplemodels"], cls="ModelsDiscover", package="com.simplebuilding.modules.simplemodels.discover",
          own_packages=["com.simplebuilding.modules.simplemodels."]),
     dict(id="simplemoney", ns=["simplemoney"], cls="MoneyDiscover", package="com.simplemoney.discover", own_packages=["com.simplemoney."]),

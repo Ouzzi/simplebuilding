@@ -391,8 +391,11 @@ public final class SearchTabPlacement {
             trapped.addAll(List.of(ModItems.trappedCopperChests()));
             out.add(Placement.after(REDSTONE_BLOCKS, Items.TRAPPED_CHEST, trapped.toArray(ItemLike[]::new)).asSecondary());
         }
-        List<ItemLike> heads = new ArrayList<>(TweaksItems.mobHeadsInSpawnOrder());
-        out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.PIGLIN_HEAD, heads.toArray(ItemLike[]::new)));
+        // 26.3: Simple Mobheads places every head itself (behind the dragon head).
+        if (!com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS) {
+            List<ItemLike> heads = new ArrayList<>(TweaksItems.mobHeadsInSpawnOrder());
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.PIGLIN_HEAD, heads.toArray(ItemLike[]::new)));
+        }
 
         // --- Redstone: Trichter, Kolben, und die Pads hinter den Waegeplatten (Pads sind Druckplatten-Bloecke).
         out.add(Placement.after(REDSTONE_BLOCKS, Items.HOPPER,

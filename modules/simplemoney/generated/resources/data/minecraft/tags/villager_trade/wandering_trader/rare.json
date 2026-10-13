@@ -78,19 +78,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/blaze_head",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/blueprint",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/breeze_head",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/cave_spider_head",
       "required": false
     },
     {
@@ -111,10 +99,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/diamond_core",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/drowned_head",
       "required": false
     },
     {
@@ -326,10 +310,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderman_head",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/fine_elytra_pad",
       "required": false
     },
@@ -339,10 +319,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/gold_core",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/husk_head",
       "required": false
     },
     {
@@ -574,27 +550,11 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/shulker_head",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/silverfish_head",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/slime_head",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/spawn_elytra",
       "required": false
     },
     {
       "id": "simplemoney:links/simplebuilding/spawn_teleporter_tier_2",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/spider_head",
       "required": false
     },
     {
@@ -646,19 +606,351 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplefun/pig_head",
+      "id": "simplemoney:links/simplemobheads/blaze_head",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplefun/cow_head",
+      "id": "simplemoney:links/simplemobheads/enderman_head",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplefun/chicken_head",
+      "id": "simplemoney:links/simplemobheads/husk_head",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplefun/sheep_head",
+      "id": "simplemoney:links/simplemobheads/spider_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/cave_spider_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/slime_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/silverfish_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/breeze_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/shulker_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/drowned_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/pig_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/cow_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/chicken_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/sheep_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/zombie_villager_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/witch_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/pillager_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/vindicator_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/evoker_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/illusioner_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/ravager_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/vex_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/phantom_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/guardian_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/elder_guardian_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/endermite_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/creaking_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/parched_skull",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/camel_husk_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/zombie_nautilus_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/sulfur_cube_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/ghast_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/magma_cube_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/hoglin_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/zoglin_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/piglin_brute_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/zombified_piglin_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/strider_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/allay_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/armadillo_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/axolotl_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/bat_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/bee_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/camel_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/cat_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/ocelot_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/copper_golem_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/dolphin_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/donkey_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/mule_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/horse_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/skeleton_horse_skull",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/zombie_horse_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/fox_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/frog_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/goat_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/iron_golem_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/snow_golem_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/llama_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/trader_llama_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/mooshroom_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/nautilus_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/panda_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/parrot_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/polar_bear_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/rabbit_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/sniffer_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/turtle_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/villager_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/wandering_trader_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/wolf_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/happy_ghast_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/cod_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/salmon_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/pufferfish_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/tropical_fish_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/squid_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/glow_squid_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/tadpole_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/deceiver_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/hollow_howler_skull",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/dread_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/hollow_watcher_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/shellker_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/soulfire_blaze_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/nibblemite_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/dragonmite_head",
       "required": false
     }
   ]

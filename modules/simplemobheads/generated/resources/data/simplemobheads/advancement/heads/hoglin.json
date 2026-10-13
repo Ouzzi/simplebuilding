@@ -1,0 +1,34 @@
+{
+  "parent": "simplemobheads:heads/root",
+  "criteria": {
+    "has_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobheads:hoglin_head"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_head"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "simplemobheads:hoglin_head"
+    },
+    "title": {
+      "translate": "block.simplemobheads.hoglin_head"
+    },
+    "description": {
+      "translate": "advancements.simplemobheads.heads.head.description"
+    },
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  }
+}

@@ -1,11 +1,9 @@
 package com.simplefun;
 
 import com.simplefun.config.SimplefunConfig;
-import com.simplefun.heads.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 
 /** Only cosmetic server effects: no item rewards, buffs, entities or chunk access. */
@@ -77,12 +75,7 @@ public final class FunDelights {
 
   public static void tick(ServerPlayer p) {
     if (!p.isShiftKeyDown()) return;
-    var head = p.getItemBySlot(EquipmentSlot.HEAD);
-    for (var t : AnimalHead.values())
-      if (head.is(AnimalHeads.ITEMS.get(t))) {
-        emit(p, t.name().toLowerCase(java.util.Locale.ROOT) + "HeadGreeting", t.sound);
-        return;
-      }
+    // The animal head greetings moved to Simple Mobheads (every head greets there).
     if (net.minecraft.world.level.block.Block.byItem(p.getMainHandItem().getItem())
         instanceof net.minecraft.world.level.block.FlowerBlock)
       emit(p, "flowerSniff", SoundEvents.FOX_SNIFF);

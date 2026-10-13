@@ -1,0 +1,286 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "simplemobheads:variant",
+    "cases": [
+      {
+        "when": "desert",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:zombie_villager/desert"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "jungle",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:zombie_villager/jungle"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "savanna",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:zombie_villager/savanna"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "snow",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:zombie_villager/snow"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "swamp",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:zombie_villager/swamp"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "taiga",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:zombie_villager/taiga"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "plains",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:zombie_villager"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:special",
+      "base": "minecraft:item/template_skull",
+      "model": {
+        "type": "minecraft:head",
+        "kind": "simplemobheads:zombie_villager"
+      },
+      "transformation": {
+        "left_rotation": [
+          1.0,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        "right_rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "translation": [
+          0.5,
+          0.0,
+          0.5
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,2059 @@
+{
+ "blaze_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Magmablöcke und Lagerfeuer verbrennen den Träger nicht."
+  ]
+ },
+ "blaze_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Magmablöcke und Lagerfeuer verbrennen den Träger nicht."
+  ]
+ },
+ "enderman_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Enderperlen-Teleports kosten den Träger keine Herzen."
+  ]
+ },
+ "enderman_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Enderperlen-Teleports kosten den Träger keine Herzen."
+  ]
+ },
+ "husk_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Essen macht den Träger nie hungrig (kein Hunger-Effekt)."
+  ]
+ },
+ "husk_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Essen macht den Träger nie hungrig (kein Hunger-Effekt)."
+  ]
+ },
+ "spider_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Spinnennetze bremsen den Träger nicht."
+  ]
+ },
+ "spider_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Spinnennetze bremsen den Träger nicht."
+  ]
+ },
+ "cave_spider_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Die bloße Hand schneidet Spinnennetze so schnell wie ein Schwert."
+  ]
+ },
+ "cave_spider_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Die bloße Hand schneidet Spinnennetze so schnell wie ein Schwert."
+  ]
+ },
+ "stray_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Pulverschnee lässt den Träger nicht erfrieren."
+  ]
+ },
+ "stray_wall_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Pulverschnee lässt den Träger nicht erfrieren."
+  ]
+ },
+ "bogged_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Essen vergiftet den Träger nie."
+  ]
+ },
+ "bogged_wall_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Essen vergiftet den Träger nie."
+  ]
+ },
+ "slime_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger fällt einen Block tiefer ohne Schaden."
+  ]
+ },
+ "slime_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger fällt einen Block tiefer ohne Schaden."
+  ]
+ },
+ "silverfish_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger schrumpft auf die halbe Größe."
+  ]
+ },
+ "silverfish_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger schrumpft auf die halbe Größe."
+  ]
+ },
+ "breeze_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Leicht wie der Wind: der Träger zertrampelt kein Ackerland."
+  ]
+ },
+ "breeze_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Leicht wie der Wind: der Träger zertrampelt kein Ackerland."
+  ]
+ },
+ "shulker_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel."
+  ]
+ },
+ "shulker_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel."
+  ]
+ },
+ "drowned_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Magma-Blasensäulen ziehen den Träger nicht nach unten."
+  ]
+ },
+ "drowned_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Magma-Blasensäulen ziehen den Träger nicht nach unten."
+  ]
+ },
+ "pig_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Drei Sekunden Schleichen auf Gras, Erde oder Moos: die Trüffelnase scharrt etwas aus."
+  ]
+ },
+ "pig_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Drei Sekunden Schleichen auf Gras, Erde oder Moos: die Trüffelnase scharrt etwas aus."
+  ]
+ },
+ "cow_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Ein anderer Spieler kann den Träger mit einem Eimer melken."
+  ]
+ },
+ "cow_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Ein anderer Spieler kann den Träger mit einem Eimer melken."
+  ]
+ },
+ "chicken_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger legt ab und zu ein Ei, wie ein Huhn."
+  ]
+ },
+ "chicken_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger legt ab und zu ein Ei, wie ein Huhn."
+  ]
+ },
+ "sheep_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Ein anderer Spieler kann den Träger scheren (1-3 Wolle, dann wächst sie nach)."
+  ]
+ },
+ "sheep_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Ein anderer Spieler kann den Träger scheren (1-3 Wolle, dann wächst sie nach)."
+  ]
+ },
+ "zombie_villager_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "zombie_villager_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "witch_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "witch_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "pillager_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "pillager_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "vindicator_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "vindicator_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "evoker_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "evoker_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "illusioner_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "illusioner_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "ravager_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "ravager_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "vex_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "vex_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "phantom_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "phantom_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "guardian_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "guardian_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "elder_guardian_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "elder_guardian_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "endermite_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "endermite_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "warden_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Die Hälfte der Schritte des Trägers erreicht kein Sculk."
+  ]
+ },
+ "warden_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Die Hälfte der Schritte des Trägers erreicht kein Sculk."
+  ]
+ },
+ "creaking_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "creaking_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "parched_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "parched_wall_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "camel_husk_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "camel_husk_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "zombie_nautilus_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "zombie_nautilus_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "sulfur_cube_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "sulfur_cube_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "ghast_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "ghast_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "magma_cube_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "magma_cube_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "hoglin_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "hoglin_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "zoglin_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "zoglin_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "piglin_brute_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "piglin_brute_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "zombified_piglin_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "zombified_piglin_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "strider_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "strider_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "wither_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Nur mit dem Server-Schalter für Boss-Köpfe: fällt, wenn ein geladener Creeper ihn sprengt. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "wither_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Nur mit dem Server-Schalter für Boss-Köpfe: fällt, wenn ein geladener Creeper ihn sprengt. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "allay_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Liegende Items in der Nähe des Trägers schweben leicht."
+  ]
+ },
+ "allay_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Liegende Items in der Nähe des Trägers schweben leicht."
+  ]
+ },
+ "armadillo_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "armadillo_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "axolotl_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "axolotl_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "bat_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "bat_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "bee_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Ernten von Stock oder Nest werden die Bienen nicht wütend auf den Träger."
+  ]
+ },
+ "bee_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Ernten von Stock oder Nest werden die Bienen nicht wütend auf den Träger."
+  ]
+ },
+ "camel_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "camel_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "cat_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Creeper halten Abstand zum Träger, wie zu einer Katze."
+  ]
+ },
+ "cat_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Creeper halten Abstand zum Träger, wie zu einer Katze."
+  ]
+ },
+ "ocelot_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "ocelot_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "copper_golem_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "copper_golem_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "dolphin_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "dolphin_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "donkey_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "donkey_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "mule_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "mule_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "horse_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "horse_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "skeleton_horse_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "skeleton_horse_wall_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "zombie_horse_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "zombie_horse_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "fox_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Süßbeerensträucher stechen den Träger nicht."
+  ]
+ },
+ "fox_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Süßbeerensträucher stechen den Träger nicht."
+  ]
+ },
+ "frog_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger springt von Seerosen und aus dem Wasser höher."
+  ]
+ },
+ "frog_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger springt von Seerosen und aus dem Wasser höher."
+  ]
+ },
+ "goat_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Eine rammende Ziege schubst den Träger nur, ohne Schaden."
+  ]
+ },
+ "goat_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Eine rammende Ziege schubst den Träger nur, ohne Schaden."
+  ]
+ },
+ "iron_golem_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "iron_golem_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "snow_golem_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "snow_golem_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "llama_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "llama_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "trader_llama_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "trader_llama_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "mooshroom_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Ein anderer Spieler füllt beim Träger eine Schüssel mit Pilzsuppe."
+  ]
+ },
+ "mooshroom_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Ein anderer Spieler füllt beim Träger eine Schüssel mit Pilzsuppe."
+  ]
+ },
+ "nautilus_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "nautilus_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "panda_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "panda_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "parrot_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "parrot_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "polar_bear_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Eis ist für den Träger weniger rutschig."
+  ]
+ },
+ "polar_bear_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Eis ist für den Träger weniger rutschig."
+  ]
+ },
+ "rabbit_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "rabbit_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "sniffer_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Fünf Sekunden Schleichen auf Moos, Gras oder Erde: er erschnüffelt Samen."
+  ]
+ },
+ "sniffer_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Fünf Sekunden Schleichen auf Moos, Gras oder Erde: er erschnüffelt Samen."
+  ]
+ },
+ "turtle_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger zertrampelt keine Schildkröteneier."
+  ]
+ },
+ "turtle_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Der Träger zertrampelt keine Schildkröteneier."
+  ]
+ },
+ "villager_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "villager_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "wandering_trader_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "wandering_trader_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "wolf_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Wilde Wölfe greifen den Träger nie an."
+  ]
+ },
+ "wolf_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Wilde Wölfe greifen den Träger nie an."
+  ]
+ },
+ "happy_ghast_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "happy_ghast_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "cod_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "cod_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "salmon_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "salmon_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "pufferfish_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "pufferfish_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "tropical_fish_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "tropical_fish_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "squid_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "squid_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "glow_squid_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "glow_squid_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "tadpole_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "tadpole_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "deceiver_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "deceiver_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "hollow_howler_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "hollow_howler_wall_skull": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "dread_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "dread_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "hollow_watcher_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "hollow_watcher_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "shellker_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "shellker_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "soulfire_blaze_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "soulfire_blaze_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "blighted_wither_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Nur mit dem Server-Schalter für Boss-Köpfe: fällt, wenn ein geladener Creeper ihn sprengt. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "blighted_wither_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Nur mit dem Server-Schalter für Boss-Köpfe: fällt, wenn ein geladener Creeper ihn sprengt. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "abyssal_wither_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Nur mit dem Server-Schalter für Boss-Köpfe: fällt, wenn ein geladener Creeper ihn sprengt. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "abyssal_wither_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Nur mit dem Server-Schalter für Boss-Köpfe: fällt, wenn ein geladener Creeper ihn sprengt. Aufstellen, tragen oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "nibblemite_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "nibblemite_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "dragonmite_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "dragonmite_wall_head": {
+  "lore": [
+   "{name}: der Beweis, dass ein geladener Creeper hier war."
+  ],
+  "use": [
+   "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
+  ],
+  "secret": [
+   "Beim Schleichen mit dem Kopf: ein leiser Gruß mit der Stimme des Mobs."
+  ]
+ },
+ "guide_book": {
+  "lore": [
+   "Ein Buch über den Kopf jedes Mobs."
+  ],
+  "use": [
+   "Das Simple-Mobheads-Handbuch erklärt Beute, Varianten und Kopf-Fähigkeiten. Formlos aus einem Buch und einem Knochen."
+  ],
+  "secret": [
+   "Seine Seiten folgen dem Wiki und verraten nie mehr, als die Köpfe wirklich tun."
+  ]
+ }
+}

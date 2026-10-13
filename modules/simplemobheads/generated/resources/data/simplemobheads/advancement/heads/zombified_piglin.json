@@ -1,0 +1,34 @@
+{
+  "parent": "simplemobheads:heads/root",
+  "criteria": {
+    "has_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobheads:zombified_piglin_head"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_head"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "simplemobheads:zombified_piglin_head"
+    },
+    "title": {
+      "translate": "block.simplemobheads.zombified_piglin_head"
+    },
+    "description": {
+      "translate": "advancements.simplemobheads.heads.head.description"
+    },
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  }
+}

@@ -72,7 +72,9 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(this::dropSelf);
         // Mob-Koepfe: der Wandkopf teilt die Tabelle des stehenden (wie Vanillas wallVariant).
         for (com.simplebuilding.tweaks.block.BlazeHeadType type : com.simplebuilding.tweaks.block.BlazeHeadType.values()) {
-            dropSelf(com.simplebuilding.tweaks.block.TweaksBlocks.head(type));
+            if (!com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS) { // 26.3: Simple Mobheads' blocks and loot
+                dropSelf(com.simplebuilding.tweaks.block.TweaksBlocks.head(type));
+            }
         }
 
         // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden

@@ -1,7 +1,6 @@
 package com.simplefun;
 
 import com.simplefun.command.SimplefunCommands;
-import com.simplefun.event.PlayerHeadDrop;
 import com.simplefun.registry.ModEffects;
 import com.simplefun.registry.ModEntities;
 import com.simplefun.registry.ModItems;
@@ -15,7 +14,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
@@ -33,22 +31,20 @@ public class SimplefunNeoForge {
     // NeoForge requires registering through the event helper (not vanilla Registry.register).
     modBus.addListener(
         (RegisterEvent event) -> {
-          if (event.getRegistryKey().equals(Registries.BLOCK))
-            com.simplefun.heads.AnimalHeads.blocks();
           if (event.getRegistryKey().equals(Registries.ITEM)) {
             event.register(
                 Registries.ITEM,
                 h -> h.register(ModItems.BRICK_SNOWBALL_KEY, ModItems.BRICK_SNOWBALL));
-            com.simplefun.heads.AnimalHeads.items();
+            com.simplefun.registry.FunContent.items();
           }
           if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB))
-            com.simplefun.heads.AnimalHeads.tab();
+            com.simplefun.registry.FunContent.tab();
           if (event
               .getRegistryKey()
               .equals(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.CONDITION_CODECS))
             event.register(
                 net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.CONDITION_CODECS,
-                com.simplefun.heads.AnimalHeads.id("trades_enabled"),
+                com.simplefun.registry.FunContent.id("trades_enabled"),
                 () -> FunNeoData.CODEC);
           event.register(
               Registries.ENTITY_TYPE,
@@ -61,15 +57,12 @@ public class SimplefunNeoForge {
     modBus.addListener(
         (BuildCreativeModeTabContentsEvent event) -> {
           if(!com.simplefun.SimplefunCommon.on()||!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get(),"simplefun"))return;
-          // Beside the vanilla models, so the search tab lists them there (AnimalHeads.SNOWBALL_ANCHOR).
+          // Beside the vanilla models, so the search tab lists them there (FunContent.SNOWBALL_ANCHOR).
           java.util.List<net.minecraft.world.item.ItemStack> stacks;
           net.minecraft.world.item.ItemStack previous;
           if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
-            previous = new net.minecraft.world.item.ItemStack(com.simplefun.heads.AnimalHeads.SNOWBALL_ANCHOR);
+            previous = new net.minecraft.world.item.ItemStack(com.simplefun.registry.FunContent.SNOWBALL_ANCHOR);
             stacks = java.util.List.of(new net.minecraft.world.item.ItemStack(ModItems.BRICK_SNOWBALL));
-          } else if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
-            previous = new net.minecraft.world.item.ItemStack(com.simplefun.heads.AnimalHeads.HEAD_ANCHOR);
-            stacks = com.simplefun.heads.AnimalHeads.headStacks();
           } else return;
           if (!event.getParentEntries().contains(previous)) return;
           for (var stack : stacks) {
@@ -81,8 +74,6 @@ public class SimplefunNeoForge {
           }
         });
 
-    NeoForge.EVENT_BUS.addListener(
-        (LivingDeathEvent event) -> PlayerHeadDrop.onDeath(event.getEntity(), event.getSource()));
     NeoForge.EVENT_BUS.addListener(
         (RegisterCommandsEvent event) -> SimplefunCommands.register(event.getDispatcher()));
 

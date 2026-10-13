@@ -1,0 +1,426 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "simplemobheads:variant",
+    "cases": [
+      {
+        "when": "black",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/black"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "red",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/red"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "siamese",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/siamese"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "british_shorthair",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/british_shorthair"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "calico",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/calico"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "persian",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/persian"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "ragdoll",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/ragdoll"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "white",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/white"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "jellie",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/jellie"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "all_black",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat/all_black"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "tabby",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:cat"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:special",
+      "base": "minecraft:item/template_skull",
+      "model": {
+        "type": "minecraft:head",
+        "kind": "simplemobheads:cat"
+      },
+      "transformation": {
+        "left_rotation": [
+          1.0,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        "right_rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "translation": [
+          0.5,
+          0.0,
+          0.5
+        ]
+      }
+    }
+  }
+}

@@ -151,7 +151,7 @@ processResources {
 		expand "version": inputs.properties.version
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3",\n    "simplemobheads": ">=1.0.0"')
 				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
@@ -238,6 +238,12 @@ dependencies {
 dependencies {
     include project(':modules:simplequestionary:fabric')
     implementation project(':modules:simplequestionary:fabric')
+}
+// Simple Mobheads: required Sub-Mod (KONZEPT-SIMPLE-MOBHEADS-2026-10-13) - SB's mob heads moved there; SB code reaches
+// them only by registry id, its dev/test runs load the module like Simple Maps.
+dependencies {
+    include project(':modules:simplemobheads:fabric')
+    implementation project(':modules:simplemobheads:fabric')
 }
 // Simple Trims: SB worlds hold trim data that migrates to simpletrims:* (N18 stage 2-4); SB's dev/test runs load the
 // module like Simple Maps so those worlds and fixtures keep their items (SB code still never imports it).

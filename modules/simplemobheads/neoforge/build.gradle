@@ -1,0 +1,23 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.147'
+}
+ext.moduleVersion = '1.0.0'
+apply from: rootProject.file('gradle/module-neoforge.gradle')
+// SimpleLib (IdMoves) nested per principle 6a and compiled against; framework nested for standalone runs.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
+dependencies { jarJar project(':framework') }
+
+neoForge.runs {
+    moduleIntegrationGameTest {
+        type = 'gameTestServer'
+        programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplemobheads:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
+    }
+}
+
+repositories { maven { url = "https://maven.shedaniel.me/" } }
+dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}" }
+
+repositories { maven { url = "https://maven.blamejared.com" } }
+dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}" }

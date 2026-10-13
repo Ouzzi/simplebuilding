@@ -289,17 +289,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:blaze_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:blueprint",
       "tier": 4,
       "hours": 25.0,
@@ -307,39 +296,6 @@
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:bogged_skull",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:breeze_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:cave_spider_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
       "stock": 1,
       "chance": 0.1
     },
@@ -573,17 +529,6 @@
       "level": 4,
       "stock": 1,
       "chance": 1
-    },
-    {
-      "item": "simplebuilding:drowned_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
     },
     {
       "item": "simplebuilding:echo_sounder",
@@ -1169,17 +1114,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderman_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:exposed_copper_pressure_plate",
       "tier": 0,
       "hours": 4.0,
@@ -1288,17 +1222,6 @@
       "level": 1,
       "stock": 2,
       "chance": 1
-    },
-    {
-      "item": "simplebuilding:husk_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
     },
     {
       "item": "simplebuilding:infused_potion_pad",
@@ -2423,39 +2346,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:shulker_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:silverfish_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:slime_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:spawn_elytra",
       "tier": 5,
       "hours": 38.1,
@@ -2511,17 +2401,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:spider_head",
-      "tier": 3,
-      "hours": 15.0,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:stellar_flypad",
       "tier": 5,
       "hours": 38.1,
@@ -2556,17 +2435,6 @@
     },
     {
       "item": "simplebuilding:stone_spatula",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
-      "item": "simplebuilding:stray_skull",
       "tier": 0,
       "hours": 0.5,
       "craft": 0,

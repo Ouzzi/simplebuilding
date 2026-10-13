@@ -35,7 +35,7 @@ public final class ModBrewingProvider {
     public void buildRecipes() {
         if (ModEffects.CRAFTY_SHULKER_POTION != null && ModEffects.LONG_CRAFTY_SHULKER_POTION != null) {
             // Seltsamer Trank + Shulkerkopf -> Listiger Shulker; + Redstone -> verlaengert.
-            mix(Potions.AWKWARD, TweaksItems.SHULKER_HEAD, ModEffects.CRAFTY_SHULKER_POTION);
+            mix(Potions.AWKWARD, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER), ModEffects.CRAFTY_SHULKER_POTION);
             mix(ModEffects.CRAFTY_SHULKER_POTION, Items.REDSTONE, ModEffects.LONG_CRAFTY_SHULKER_POTION);
             containers(ModEffects.CRAFTY_SHULKER_POTION, ModEffects.LONG_CRAFTY_SHULKER_POTION);
         }

@@ -11,7 +11,8 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "cloth-config"
+      "cloth-config",
+      "simplemobheads"
     ],
     "optional": [
       "jei",
@@ -79,7 +80,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "b2e135d81edf"
+    "dataHash": "0168691facca"
   },
   {
     "id": "simpleriding",
@@ -122,8 +123,8 @@ window.WIKI_MODULES = [
   {
     "id": "simplefun",
     "displayName": "Simple Fun",
-    "description": "Bounded playful mechanics, throwable bricks, cosmetic transformations and farm-animal heads.",
-    "version": "1.3.0",
+    "description": "Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).",
+    "version": "1.4.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -138,7 +139,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "4092c8008f32"
+    "dataHash": "ca333f1f6b24"
   },
   {
     "id": "simplevisuals",
@@ -561,5 +562,30 @@ window.WIKI_MODULES = [
     "requires": [],
     "optional": [],
     "dataHash": "1dad6da6c5ce"
+  },
+  {
+    "id": "simplemobheads",
+    "displayName": "Simple Mobheads",
+    "description": "A head for every mob: dropped when a charged creeper's explosion kills it, worn for a small secret, placed, or played on a note block. Required sub-mod of SimpleBuilding; Simple Fun's and SimpleBuilding's heads moved in.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib",
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simplemobs",
+      "simpleend",
+      "simpleenddragonfight",
+      "jei",
+      "modmenu"
+    ],
+    "dataHash": "1d5565dec1fe"
   }
 ];

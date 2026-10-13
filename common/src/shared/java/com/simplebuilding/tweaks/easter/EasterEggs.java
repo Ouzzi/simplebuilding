@@ -256,13 +256,13 @@ public final class EasterEggs {
                 add(templates, additions, enderite, enderitePlate);
             }
             case FLYPAD -> {
-                add(templates, additions, List.of(ModItems.ENDERITE_CORE), TweaksItems.SHULKER_HEAD);
+                add(templates, additions, List.of(ModItems.ENDERITE_CORE), TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER));
                 add(templates, additions, enderite, enderitePlate);
                 add(templates, additions, enderite, TweaksBlocks.REINFORCED_FLYPAD.asItem());
             }
             case SPAWN_TELEPORTER -> {
                 // Drei Stufen seit 2026-09-28: I = Goldkern + leichte Waegeplatte + Endermankopf
-                add(templates, additions, List.of(ModItems.GOLD_CORE), TweaksItems.ENDERMAN_HEAD);
+                add(templates, additions, List.of(ModItems.GOLD_CORE), TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN));
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
             }
@@ -280,7 +280,7 @@ public final class EasterEggs {
             }
             case POTION_PAD -> {
                 // I = Netheritkern + Netherit-Druckplatte + Lohenkopf (Kern statt Vorlage seit 2026-09-29)
-                add(templates, additions, List.of(ModItems.NETHERITE_CORE), TweaksItems.BLAZE_HEAD);
+                add(templates, additions, List.of(ModItems.NETHERITE_CORE), TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE));
                 // II/III seit 2026-10-02 wie die Elytra-Pads: Netherit- bzw. Enderit-Aufwertung + Platte.
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);

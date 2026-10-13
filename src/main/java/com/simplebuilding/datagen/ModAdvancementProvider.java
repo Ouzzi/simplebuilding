@@ -107,7 +107,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             AdvancementHolder tweaks = tab("tweaks/root", TweaksBlocks.NETHERITE_LAUNCHPAD, "block/copper_block", "gadget",
                     any(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.DIAMOND_PRESSURE_PLATE, ModItems.MAGNET,
                             ModItems.ORE_DETECTOR, ModItems.VELOCITY_GAUGE, TweaksItems.LASER_POINTER, ModItems.NETHERITE_APPLE,
-                            ModItems.NETHERITE_CARROT, TweaksItems.BLAZE_HEAD));
+                            ModItems.NETHERITE_CARROT, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
             AdvancementHolder end = tab("end/root", ModItems.ASTRAL_END_STONE, "gui/advancements/backgrounds/end", "end_stone",
                     any(Items.END_STONE));
 
@@ -300,11 +300,11 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     any(TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));
             node("pads/always_loaded", plate, TweaksBlocks.CHUNK_LOADER, AdvancementType.TASK, "chunk_loader",
                     any(TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
-            AdvancementHolder head = node("pads/hot_head", tweaks, TweaksItems.BLAZE_HEAD, AdvancementType.TASK, "blaze_head",
-                    any(TweaksItems.BLAZE_HEAD));
+            AdvancementHolder head = node("pads/hot_head", tweaks, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), AdvancementType.TASK, "blaze_head",
+                    any(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
             // Mob-Koepfe (2026-09-29): der Hinweis auf die geheimen Faehigkeiten steht in der Beschreibung.
-            node("pads/heads_up", head, TweaksItems.SILVERFISH_HEAD, AdvancementType.TASK, "mob_head",
-                    any(TweaksItems.heads().stream().filter(h -> h != TweaksItems.BLAZE_HEAD).toArray(ItemLike[]::new)));
+            node("pads/heads_up", head, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SILVERFISH), AdvancementType.TASK, "mob_head",
+                    any(TweaksItems.heads().stream().filter(h -> h != TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)).toArray(ItemLike[]::new)));
             AdvancementHolder potion = feature("pads/bottoms_up", head, TweaksBlocks.POTION_PAD, AdvancementType.GOAL, ModTriggers.POTION_PAD);
             node("pads/infusion", potion, TweaksBlocks.INFUSED_POTION_PAD, AdvancementType.TASK, "infused_potion_pad",
                     any(TweaksBlocks.INFUSED_POTION_PAD));

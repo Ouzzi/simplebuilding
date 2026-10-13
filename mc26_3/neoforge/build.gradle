@@ -189,7 +189,8 @@ tasks.named('processResources', ProcessResources).configure {
     inputs.properties replaceProperties
     filesMatching('META-INF/neoforge.mods.toml') {
         expand replaceProperties
-        filter { String line -> line.replace('SimpleBuilding for NeoForge 26.2', 'SimpleBuilding for NeoForge 26.3') }
+        filter { String line -> line.replace('SimpleBuilding for NeoForge 26.2', 'SimpleBuilding for NeoForge 26.3')
+                .replace('# 26.3: required sub-mods', '[[dependencies.simplebuilding]]\nmodId="simplemobheads"\ntype="required"\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"') }
     }
 }
 
@@ -228,6 +229,12 @@ evaluationDependsOn(':modules:simplequestionary:neoforge')
 dependencies { implementation project(':modules:simplequestionary:neoforge') }
 neoForge.mods { simplequestionary { sourceSet project(':modules:simplequestionary:neoforge').sourceSets.main } }
 neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplequestionary) }
+// Simple Mobheads: required Sub-Mod (KONZEPT-SIMPLE-MOBHEADS-2026-10-13), nested and loaded in every dev/test run.
+dependencies { jarJar project(':modules:simplemobheads:neoforge') }
+evaluationDependsOn(':modules:simplemobheads:neoforge')
+dependencies { implementation project(':modules:simplemobheads:neoforge') }
+neoForge.mods { simplemobheads { sourceSet project(':modules:simplemobheads:neoforge').sourceSets.main } }
+neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplemobheads) }
 // Simple Trims: SB worlds hold trim data that migrates to simpletrims:* (N18 stage 2-4); loaded in SB's dev/test runs
 // like Simple Maps (it does not evaluate this project, so no cycle). SB code never imports it.
 evaluationDependsOn(':modules:simpletrims:neoforge')

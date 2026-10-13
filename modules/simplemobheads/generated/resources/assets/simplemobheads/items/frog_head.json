@@ -1,0 +1,146 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "simplemobheads:variant",
+    "cases": [
+      {
+        "when": "warm",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:frog/warm"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "cold",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:frog/cold"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "temperate",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:frog"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:special",
+      "base": "minecraft:item/template_skull",
+      "model": {
+        "type": "minecraft:head",
+        "kind": "simplemobheads:frog"
+      },
+      "transformation": {
+        "left_rotation": [
+          1.0,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        "right_rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "translation": [
+          0.5,
+          0.0,
+          0.5
+        ]
+      }
+    }
+  }
+}

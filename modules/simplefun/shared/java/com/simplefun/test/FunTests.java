@@ -3,7 +3,6 @@ package com.simplefun.test;
 import com.simplefun.*;
 import com.simplefun.config.*;
 import com.simplefun.entity.*;
-import com.simplefun.heads.*;
 import com.simplefun.registry.*;
 import java.util.*;
 import net.minecraft.core.*;
@@ -39,15 +38,11 @@ public final class FunTests {
     ALL.put("no_damage", FunTests::noDamage);
     ALL.put("knockback_cap", FunTests::knockbackCap);
     ALL.put("piggy", FunTests::piggy);
-    ALL.put("player_heads", FunTests::playerHeads);
     ALL.put("cross_mod", FunTests::crossMod);
     ALL.put("lang_config", FunTests::langConfig);
     ALL.put("trades", FunTests::trades);
-    ALL.put("head_blocks", FunTests::headBlocks);
-    ALL.put("head_abilities", FunTests::headAbilities);
     ALL.put("creative_tabs", FunTests::creativeTabs);
     ALL.put("sub_mod_switch", FunTests::subModSwitch);
-    for (var t : AnimalHead.values()) ALL.put(t.path(), h -> head(h, t));
     for (var key :
         List.of(
             "flowerSniff",
@@ -65,7 +60,6 @@ public final class FunTests {
     ALL.put("old_config", FunSecurityTests::oldConfig);
     ALL.put("no_damage_indirect", FunSecurityTests::noDamageIndirect);
     ALL.put("projectile_damage_and_glass", FunSecurityTests::projectileDamageAndGlass);
-    ALL.put("heads_switch_and_sources", FunSecurityTests::headsSwitchAndSources);
     ALL.put("trade_offer", FunSecurityTests::tradeOffer);
     ALL.put("delight_triggers", FunSecurityTests::delightTriggers);
   }
@@ -89,7 +83,7 @@ public final class FunTests {
   /** Super-mod switch "Enable Simple Fun" off: registries unchanged, empty tab, no vanilla tab entries, no loot. */
   private static net.minecraft.world.item.CreativeModeTab funTab() {
     return BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(
-        ResourceKey.create(Registries.CREATIVE_MODE_TAB, AnimalHeads.id("fun")));
+        ResourceKey.create(Registries.CREATIVE_MODE_TAB, FunContent.id("fun")));
   }
 
   private static net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters displayParameters(GameTestHelper h) {
@@ -103,15 +97,12 @@ public final class FunTests {
       com.simplebuilding.framework.api.SubMods.set("simplefun", false);
       h.assertTrue(!SimplefunCommon.on(), "Switch off reaches Simple Fun");
       h.assertTrue(
-          BuiltInRegistries.CREATIVE_MODE_TAB.getValue(AnimalHeads.id("fun")) != null
-              && BuiltInRegistries.ITEM.getValue(AnimalHeads.id("brick_snowball")) != null,
+          BuiltInRegistries.CREATIVE_MODE_TAB.getValue(FunContent.id("fun")) != null
+              && BuiltInRegistries.ITEM.getValue(FunContent.id("brick_snowball")) != null,
           "Registries stay");
       // buildContents directly: tryRebuildTabContents is a no-op while its parameters stay the same.
       funTab().buildContents(displayParameters(h));
       h.assertTrue(funTab().getDisplayItems().isEmpty(), "Own tab empty while off");
-      var pools = new ArrayList<LootPool.Builder>();
-      FunLoot.apply(BuiltInLootTables.CHARGED_CREEPER, pools::add, h.getLevel().registryAccess());
-      h.assertTrue(pools.isEmpty(), "No loot while off");
     } finally {
       com.simplebuilding.framework.api.SubMods.set("simplefun", sw);
       funTab().buildContents(displayParameters(h));
@@ -121,25 +112,23 @@ public final class FunTests {
   }
 
   /**
-   * The fun tab holds only the mod's items (brick snowball, then the heads, no vanilla ingredients);
-   * the brick snowball follows the snowball in Combat and the heads follow the dragon head in
-   * Functional Blocks, and in the search tab both stand there, each exactly once.
+   * The fun tab holds only the mod's items (guide, brick snowball, no vanilla ingredients); the brick
+   * snowball follows the snowball in Combat, and in the search tab it stands there exactly once.
    */
   public static void creativeTabs(GameTestHelper h) {
     CreativeModeTabs.tryRebuildTabContents(
         h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
     var own =
         BuiltInRegistries.CREATIVE_MODE_TAB
-            .getValueOrThrow(ResourceKey.create(Registries.CREATIVE_MODE_TAB, AnimalHeads.id("fun")))
+            .getValueOrThrow(ResourceKey.create(Registries.CREATIVE_MODE_TAB, FunContent.id("fun")))
             .getDisplayItems()
             .stream()
             .map(ItemStack::getItem)
             .toList();
-    var expected = AnimalHeads.tabStacks().stream().map(ItemStack::getItem).toList();
+    var expected = FunContent.tabStacks().stream().map(ItemStack::getItem).toList();
     h.assertTrue(own.equals(expected), "fun tab lists only own items in order: " + own);
     var search =
         CreativeModeTabs.searchTab().getDisplayItems().stream().map(ItemStack::getItem).toList();
-    var heads = AnimalHeads.headStacks().stream().map(ItemStack::getItem).toList();
     var combat =
         BuiltInRegistries.CREATIVE_MODE_TAB
             .getValueOrThrow(CreativeModeTabs.COMBAT)
@@ -147,16 +136,8 @@ public final class FunTests {
             .stream()
             .map(ItemStack::getItem)
             .toList();
-    var functional =
-        BuiltInRegistries.CREATIVE_MODE_TAB
-            .getValueOrThrow(CreativeModeTabs.FUNCTIONAL_BLOCKS)
-            .getDisplayItems()
-            .stream()
-            .map(ItemStack::getItem)
-            .toList();
     for (var list : List.of(combat, search))
-      follows(h, list, AnimalHeads.SNOWBALL_ANCHOR, List.of(ModItems.BRICK_SNOWBALL));
-    for (var list : List.of(functional, search)) follows(h, list, AnimalHeads.HEAD_ANCHOR, heads);
+      follows(h, list, FunContent.SNOWBALL_ANCHOR, List.of(ModItems.BRICK_SNOWBALL));
     for (var item : expected)
       h.assertTrue(
           search.stream().filter(item::equals).count() == 1, "search tab lists " + item + " once");
@@ -202,20 +183,14 @@ public final class FunTests {
 
   public static void launch(GameTestHelper h) {
     RegistryExport.writeIfRequested();
-    for (var t : AnimalHead.values()) {
-      h.assertTrue(
-          BuiltInRegistries.ITEM.getValue(AnimalHeads.id(t.path())) == AnimalHeads.ITEMS.get(t),
-          "head item registered");
-      h.assertTrue(
-          BuiltInRegistries.BLOCK.getValue(AnimalHeads.id(t.wall())) == AnimalHeads.WALL.get(t),
-          "wall registered");
-    }
+    // Simple Fun 1.4.0: the animal heads moved to Simple Mobheads.
+    h.assertTrue(!BuiltInRegistries.ITEM.containsKey(FunContent.id("pig_head")), "Fun registers no heads any more");
     h.assertTrue(
-        BuiltInRegistries.ENTITY_TYPE.getValue(AnimalHeads.id("brick_projectile"))
+        BuiltInRegistries.ENTITY_TYPE.getValue(FunContent.id("brick_projectile"))
             == ModEntities.BRICK_PROJECTILE,
         "entity");
     h.assertTrue(
-        BuiltInRegistries.MOB_EFFECT.getValue(AnimalHeads.id("piggy_effect"))
+        BuiltInRegistries.MOB_EFFECT.getValue(FunContent.id("piggy_effect"))
             == ModEffects.PIGGY_EFFECT,
         "effect");
     h.assertTrue(
@@ -235,7 +210,7 @@ public final class FunTests {
         h.getLevel()
                 .getServer()
                 .getAdvancements()
-                .get(AnimalHeads.id("recipes/misc/brick_snowball"))
+                .get(FunContent.id("recipes/misc/brick_snowball"))
             != null,
         "advancement parses");
     h.assertTrue(
@@ -381,73 +356,8 @@ public final class FunTests {
     h.succeed();
   }
 
-  public static void playerHeads(GameTestHelper h) {
-    restore(h);
-    var victim = player(h);
-    var killer = player(h);
-    clean(h);
-    com.simplefun.event.PlayerHeadDrop.onDeath(
-        victim, h.getLevel().damageSources().playerAttack(killer));
-    h.assertTrue(count(h, Items.PLAYER_HEAD) == 1, "PvP head");
-    var head =
-        h.getLevel()
-            .getEntitiesOfClass(
-                ItemEntity.class, h.getBounds(), e -> e.getItem().is(Items.PLAYER_HEAD))
-            .getFirst()
-            .getItem();
-    h.assertTrue(head.has(DataComponents.PROFILE), "skin profile");
-    clean(h);
-    SimplefunCommon.getConfig().fun.playerHeadDrops = false;
-    com.simplefun.event.PlayerHeadDrop.onDeath(
-        victim, h.getLevel().damageSources().playerAttack(killer));
-    h.assertTrue(count(h, Items.PLAYER_HEAD) == 0, "switch");
-    h.succeed();
-  }
 
-  public static void head(GameTestHelper h, AnimalHead t) {
-    restore(h);
-    clean(h);
-    var creeper = h.spawn(EntityTypes.CREEPER, new BlockPos(1, 2, 1));
-    var bolt = EntityTypes.LIGHTNING_BOLT.create(h.getLevel(), EntitySpawnReason.TRIGGERED);
-    creeper.thunderHit(h.getLevel(), bolt);
-    creeper.clearFire();
-    var victim = (LivingEntity) h.spawn(t.source, new BlockPos(4, 2, 4));
-    victim.hurtServer(h.getLevel(), h.getLevel().damageSources().explosion(creeper, creeper), 1000);
-    h.assertTrue(count(h, AnimalHeads.ITEMS.get(t)) == 1, "charged creeper drops " + t);
-    var second = (LivingEntity) h.spawn(t.source, new BlockPos(5, 2, 5));
-    second.hurtServer(h.getLevel(), h.getLevel().damageSources().explosion(creeper, creeper), 1000);
-    h.assertTrue(count(h, AnimalHeads.ITEMS.get(t)) == 1, "one head per creeper");
-    clean(h);
-    var plain = h.spawn(EntityTypes.CREEPER, new BlockPos(1, 2, 1));
-    var third = (LivingEntity) h.spawn(t.source, new BlockPos(4, 2, 4));
-    third.hurtServer(h.getLevel(), h.getLevel().damageSources().explosion(plain, plain), 1000);
-    h.assertTrue(count(h, AnimalHeads.ITEMS.get(t)) == 0, "uncharged drops none");
-    var p = player(h);
-    p.setItemSlot(EquipmentSlot.HEAD, new ItemStack(AnimalHeads.ITEMS.get(t)));
-    p.setShiftKeyDown(true);
-    String key = t.name().toLowerCase(Locale.ROOT) + "HeadGreeting";
-    h.assertTrue(FunDelights.emit(p, key, t.sound), "secret greeting");
-    h.assertTrue(!FunDelights.emit(p, key, t.sound), "greeting spam capped");
-    h.succeed();
-  }
 
-  public static void headBlocks(GameTestHelper h) {
-    for (var t : AnimalHead.values()) {
-      h.setBlock(new BlockPos(2, 2, 2), AnimalHeads.STANDING.get(t));
-      h.assertTrue(
-          h.getLevel().getBlockEntity(h.absolutePos(new BlockPos(2, 2, 2)))
-              instanceof net.minecraft.world.level.block.entity.SkullBlockEntity,
-          "standing skull entity");
-      h.setBlock(new BlockPos(2, 2, 2), AnimalHeads.WALL.get(t));
-      h.assertTrue(
-          h.getLevel().getBlockEntity(h.absolutePos(new BlockPos(2, 2, 2)))
-              instanceof net.minecraft.world.level.block.entity.SkullBlockEntity,
-          "wall skull entity");
-      h.assertTrue(
-          new ItemStack(AnimalHeads.ITEMS.get(t)).has(DataComponents.EQUIPPABLE), "wearable");
-    }
-    h.succeed();
-  }
 
   public static void delight(GameTestHelper h, String key) {
     restore(h);
@@ -473,24 +383,24 @@ public final class FunTests {
   }
 
   public static void crossMod(GameTestHelper h) {
-    if (partnerMissing(h, "simplebuilding", "heads in SimpleBuilding storage")) return;
+    if (partnerMissing(h, "simplebuilding", "Fun items in SimpleBuilding storage")) return;
     var id = Identifier.parse("simplebuilding:reinforced_hopper");
     h.assertTrue(BuiltInRegistries.BLOCK.containsKey(id), "SimpleBuilding loaded");
     h.setBlock(new BlockPos(2, 2, 2), BuiltInRegistries.BLOCK.getValue(id));
     var inv =
         (net.minecraft.world.Container)
             h.getLevel().getBlockEntity(h.absolutePos(new BlockPos(2, 2, 2)));
-    var item = new ItemStack(AnimalHeads.ITEMS.get(AnimalHead.PIG));
+    var item = new ItemStack(ModItems.BRICK_SNOWBALL);
     inv.setItem(0, item);
     h.assertTrue(
-        inv.removeItem(0, 1).is(AnimalHeads.ITEMS.get(AnimalHead.PIG)) && inv.getItem(0).isEmpty(),
-        "foreign head storage no duplication");
+        inv.removeItem(0, 1).is(ModItems.BRICK_SNOWBALL) && inv.getItem(0).isEmpty(),
+        "foreign storage no duplication");
     h.succeed();
   }
 
   public static void trades(GameTestHelper h) {
     var registry = h.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
-    h.assertTrue(registry.get(AnimalHeads.id("librarian/1/no_damage")).isPresent(), "trade parses");
+    h.assertTrue(registry.get(FunContent.id("librarian/1/no_damage")).isPresent(), "trade parses");
     h.succeed();
   }
 
@@ -511,50 +421,10 @@ public final class FunTests {
                   .contains(String.valueOf(f.get(new SimplefunConfig.Fun()))),
               "default tooltip " + key);
         }
-        for (var t : AnimalHead.values())
-          h.assertTrue(data.has("block.simplefun." + t.path()), "head lang");
       } catch (Exception e) {
         throw new AssertionError(e);
       }
     }
-    h.succeed();
-  }
-
-  /** Kopf-Faehigkeiten (2026-10-02): Kuh melken, Schaf scheren mit Pause, Huhn legt ein Ei, Schwein scharrt aus. */
-  public static void headAbilities(GameTestHelper h) {
-    var level = h.getLevel();
-    var wearer = h.makeMockServerPlayerInLevel();
-    var user = h.makeMockServerPlayerInLevel();
-    wearer.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
-    user.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
-    com.simplefun.heads.HeadAbilities.resetForTests(wearer);
-    var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
-    wearer.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, new net.minecraft.world.item.ItemStack(AnimalHeads.ITEMS.get(AnimalHead.COW)));
-    user.setItemInHand(hand, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BUCKET));
-    h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == net.minecraft.world.InteractionResult.SUCCESS, "milking the cow head wearer");
-    h.assertTrue(user.getItemInHand(hand).is(net.minecraft.world.item.Items.MILK_BUCKET), "the bucket is full of milk");
-    wearer.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, new net.minecraft.world.item.ItemStack(AnimalHeads.ITEMS.get(AnimalHead.SHEEP)));
-    user.setItemInHand(hand, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SHEARS));
-    h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == net.minecraft.world.InteractionResult.SUCCESS, "shearing the sheep head wearer");
-    h.assertTrue(user.getItemInHand(hand).getDamageValue() == 1, "the shears took one damage");
-    h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == net.minecraft.world.InteractionResult.PASS, "the wool needs time to grow back");
-    user.setItemInHand(hand, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BUCKET));
-    h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == null, "a sheep head wearer gives no milk");
-    // The mock player starts outside the test area (unloaded chunk): move it in, or the egg never joins the level.
-    wearer.setPos(h.absoluteVec(new net.minecraft.world.phys.Vec3(1.5, 2.0, 1.5)));
-    var around = new net.minecraft.world.phys.AABB(wearer.blockPosition()).inflate(3);
-    level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, around).forEach(net.minecraft.world.entity.Entity::discard);
-    com.simplefun.heads.HeadAbilities.layEgg(level, wearer);
-    h.assertTrue(level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, around).stream().anyMatch(e -> e.getItem().is(net.minecraft.world.item.Items.EGG)), "the chicken head laid an egg");
-    h.assertTrue(com.simplefun.heads.HeadAbilities.sniffable(net.minecraft.world.level.block.Blocks.GRASS_BLOCK.defaultBlockState())
-        && !com.simplefun.heads.HeadAbilities.sniffable(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState()), "the truffle nose sniffs soil, not stone");
-    var random = net.minecraft.util.RandomSource.create(1);
-    for (int i = 0; i < 200; i++) {
-      var find = com.simplefun.heads.HeadAbilities.truffle(random);
-      h.assertTrue(java.util.List.of(net.minecraft.world.item.Items.POTATO, net.minecraft.world.item.Items.CARROT, net.minecraft.world.item.Items.BEETROOT_SEEDS,
-          net.minecraft.world.item.Items.BROWN_MUSHROOM, net.minecraft.world.item.Items.RED_MUSHROOM, net.minecraft.world.item.Items.GOLDEN_CARROT).contains(find.getItem()), "unexpected truffle " + find);
-    }
-    com.simplefun.heads.HeadAbilities.resetForTests(wearer);
     h.succeed();
   }
 

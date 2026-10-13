@@ -3,6 +3,7 @@ package com.simplebuilding.tweaks.item;
 import com.simplebuilding.items.CreativeTabLayout;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
+import com.simplebuilding.version.McVersion;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -63,7 +64,8 @@ public final class TweaksItems {
     public static final double SLIME_SAFE_FALL = 1.0;
 
     static {
-        for (BlazeHeadType type : BlazeHeadType.values()) {
+        // 26.3: the heads are Simple Mobheads' items (McVersion.HEADS_IN_MOBHEADS); head() finds them by id.
+        for (BlazeHeadType type : McVersion.HEADS_IN_MOBHEADS ? new BlazeHeadType[0] : BlazeHeadType.values()) {
             HEAD_ITEMS.put(type, register(type.blockName(),
                     p -> new StandingAndWallBlockItem(TweaksBlocks.head(type), TweaksBlocks.wallHead(type), Direction.DOWN,
                             p.useBlockDescriptionPrefix().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD)
@@ -72,31 +74,25 @@ public final class TweaksItems {
         }
     }
 
-    /** Lohenkopf: Zutat des Trank-Pads I. */
-    public static final Item BLAZE_HEAD = HEAD_ITEMS.get(BlazeHeadType.BLAZE);
-    /** Endermankopf (2026-09-28): Zutat des Spawn-Teleporters I. */
-    public static final Item ENDERMAN_HEAD = HEAD_ITEMS.get(BlazeHeadType.ENDERMAN);
-    /** Shulkerkopf (2026-09-29): Zutat des Flypads I. */
-    public static final Item SHULKER_HEAD = HEAD_ITEMS.get(BlazeHeadType.SHULKER);
-    // Trial-Chamber-Koepfe (2026-09-29, Tag simplebuilding:trial_chamber_heads) und der Ertrunkenenkopf.
-    public static final Item HUSK_HEAD = HEAD_ITEMS.get(BlazeHeadType.HUSK);
-    public static final Item SPIDER_HEAD = HEAD_ITEMS.get(BlazeHeadType.SPIDER);
-    public static final Item CAVE_SPIDER_HEAD = HEAD_ITEMS.get(BlazeHeadType.CAVE_SPIDER);
-    public static final Item STRAY_SKULL = HEAD_ITEMS.get(BlazeHeadType.STRAY);
-    public static final Item BOGGED_SKULL = HEAD_ITEMS.get(BlazeHeadType.BOGGED);
-    public static final Item SLIME_HEAD = HEAD_ITEMS.get(BlazeHeadType.SLIME);
-    public static final Item SILVERFISH_HEAD = HEAD_ITEMS.get(BlazeHeadType.SILVERFISH);
-    public static final Item BREEZE_HEAD = HEAD_ITEMS.get(BlazeHeadType.BREEZE);
-    public static final Item DROWNED_HEAD = HEAD_ITEMS.get(BlazeHeadType.DROWNED);
-
-    /** Das Item eines Kopf-Typs. */
+    /**
+     * Das Item eines Kopf-Typs: Lohenkopf (Trank-Pad I), Endermankopf (Spawn-Teleporter I), Shulkerkopf (Flypad I), die
+     * Trial-Chamber-Koepfe und der Ertrunkenenkopf. 26.3: das Item von Simple Mobheads, per Id (nie im Static-Init lesen -
+     * die Ladereihenfolge der Mods ist offen).
+     */
     public static Item head(BlazeHeadType type) {
+        if (McVersion.HEADS_IN_MOBHEADS) {
+            return BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(McVersion.HEAD_NAMESPACE, type.blockName()));
+        }
         return HEAD_ITEMS.get(type);
     }
 
-    /** Alle Kopf-Items der Mod in {@link BlazeHeadType}-Reihenfolge. */
+    /** Alle Kopf-Items in {@link BlazeHeadType}-Reihenfolge (26.3: die von Simple Mobheads). */
     public static List<Item> heads() {
-        return List.copyOf(HEAD_ITEMS.values());
+        List<Item> heads = new ArrayList<>();
+        for (BlazeHeadType type : BlazeHeadType.values()) {
+            heads.add(head(type));
+        }
+        return List.copyOf(heads);
     }
 
     /**
@@ -208,7 +204,7 @@ public final class TweaksItems {
         all.add(SPAWN_ELYTRA);
         all.add(LASER_POINTER);
         all.add(ECHO_COMPASS);
-        all.addAll(HEAD_ITEMS.values());
+        all.addAll(HEAD_ITEMS.values()); // 26.3 empty: the heads are Simple Mobheads' items
         return all;
     }
 
@@ -240,7 +236,7 @@ public final class TweaksItems {
                         com.simplebuilding.items.ModItems.GOLD_CORE, com.simplebuilding.items.ModItems.DIAMOND_CORE,
                         com.simplebuilding.items.ModItems.NETHERITE_CORE, com.simplebuilding.items.ModItems.ENDERITE_CORE),
                 CreativeTabLayout.Row.of("pad_materials",
-                        ENDERMAN_HEAD, Items.ELYTRA, BLAZE_HEAD, SHULKER_HEAD),
+                        head(BlazeHeadType.ENDERMAN), Items.ELYTRA, head(BlazeHeadType.BLAZE), head(BlazeHeadType.SHULKER)),
                 CreativeTabLayout.Row.of("pad_tier_1",
                         TweaksBlocks.CHUNK_LOADER, TweaksBlocks.LAUNCHPAD, TweaksBlocks.SPAWN_TELEPORTER,
                         TweaksBlocks.ELYTRA_PAD, TweaksBlocks.POTION_PAD, TweaksBlocks.FLYPAD),
@@ -268,10 +264,16 @@ public final class TweaksItems {
             "bogged_skull", "slime_head", "cave_spider_head", "breeze_head", "silverfish_head", "blaze_head",
             "enderman_head", "shulker_head");
 
-    /** Die Mod-Mobkoepfe ohne die drei, die schon in den Pad-Spalten stehen, in Fundort-Reihenfolge. */
+    /**
+     * Die Mod-Mobkoepfe ohne die drei, die schon in den Pad-Spalten stehen, in Fundort-Reihenfolge. 26.3: keine - die Koepfe
+     * stehen im eigenen Tab von Simple Mobheads.
+     */
     public static List<ItemLike> extraMobHeads() {
+        if (McVersion.HEADS_IN_MOBHEADS) {
+            return new ArrayList<>();
+        }
         List<ItemLike> rest = mobHeadsInSpawnOrder();
-        rest.removeAll(List.of(ENDERMAN_HEAD, BLAZE_HEAD, SHULKER_HEAD));
+        rest.removeAll(List.of(head(BlazeHeadType.ENDERMAN), head(BlazeHeadType.BLAZE), head(BlazeHeadType.SHULKER)));
         return rest;
     }
 

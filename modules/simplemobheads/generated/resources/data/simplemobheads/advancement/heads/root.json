@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "any_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#simplemobheads:heads"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "any_head"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "simplemobheads:blaze_head"
+    },
+    "title": {
+      "translate": "advancements.simplemobheads.heads.root.title"
+    },
+    "description": {
+      "translate": "advancements.simplemobheads.heads.root.description"
+    },
+    "background": "minecraft:block/soul_sand",
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

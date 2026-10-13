@@ -23,9 +23,7 @@ public final class FunConfigScreen {
           b.getOrCreateCategory(
               Component.translatable(
                   "simplefun.config.tab."
-                      + (key.endsWith("Greeting") || key.equals("enableAnimalHeads")
-                          ? "heads"
-                          : key.endsWith("Crumbs")
+                      + (key.endsWith("Crumbs")
                                   || java.util.Set.of(
                                           "flowerSniff",
                                           "appleSparkle",

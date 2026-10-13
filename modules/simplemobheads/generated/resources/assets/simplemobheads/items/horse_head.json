@@ -1,0 +1,286 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "simplemobheads:variant",
+    "cases": [
+      {
+        "when": "creamy",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:horse/creamy"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "chestnut",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:horse/chestnut"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "brown",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:horse/brown"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "black",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:horse/black"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "gray",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:horse/gray"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "dark_brown",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:horse/dark_brown"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "white",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:horse"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:special",
+      "base": "minecraft:item/template_skull",
+      "model": {
+        "type": "minecraft:head",
+        "kind": "simplemobheads:horse"
+      },
+      "transformation": {
+        "left_rotation": [
+          1.0,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        "right_rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "translation": [
+          0.5,
+          0.0,
+          0.5
+        ]
+      }
+    }
+  }
+}

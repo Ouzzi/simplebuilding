@@ -26,7 +26,7 @@ for o in opts:
   assert o['nameKey'] in lang and o['tooltipKey'] in lang and o['tab'] in lang
   default=str(o['default']).lower();assert default in lang[o['tooltipKey']],o['path']
  assert 'config_'+o['path'].split('.')[1] in ids
-for name in ['brick_snowball','pig_head','cow_head','chicken_head','sheep_head']:
+for name in ['brick_snowball']:
  assert 'simplefun:'+name in manual['notes']
  assert any((MODULE/p/f'{name}.json').is_file() for p in ['shared/resources/assets/simplefun/items','generated/resources/assets/simplefun/items'])
  assert f'item.simplefun.{name}' in en and f'item.simplefun.{name}' in de
@@ -42,4 +42,4 @@ client=Path.home()/'.gradle/caches/fabric-loom/26.3/minecraft-client.jar'
 if client.exists():
  with zipfile.ZipFile(client) as z:
   for path in ['pig/pig_temperate','cow/cow_temperate','chicken/chicken_temperate','sheep/sheep']:assert f'assets/minecraft/textures/entity/{path}.png' in z.namelist(),path
-print(f'Simple Fun: 5 items, 8 skull blocks, {len(opts)} bilingual config options, wiki and data integrity valid')
+print(f'Simple Fun: brick snowball and guide (heads moved to Simple Mobheads), {len(opts)} bilingual config options, wiki and data integrity valid')

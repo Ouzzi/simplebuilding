@@ -104,6 +104,14 @@ public final class McVersion {
     /** Trim templates in SimpleBuilding: 26.2 has no modules, the templates stay {@code simplebuilding:*} here (26.3: Simple Trims). */
     public static final boolean TRIMS_IN_SB = true;
     /** Shared materials in SimpleLib: 26.2 has no modules, the materials stay {@code simplebuilding:*} here (26.3: SimpleLib, stage 3d). */
+    /**
+     * Mob heads live in the required sub-mod Simple Mobheads (KONZEPT-SIMPLE-MOBHEADS-2026-10-13, 26.3 only): SimpleBuilding
+     * registers no heads, loot pools, abilities or head renderers of its own and reaches the heads by id ({@link #HEAD_NAMESPACE}).
+     * The 26.2 line keeps its own twelve heads until its port run.
+     */
+    public static final boolean HEADS_IN_MOBHEADS = false;
+    /** Namespace of the mob heads ({@link #HEADS_IN_MOBHEADS}). */
+    public static final String HEAD_NAMESPACE = "simplebuilding";
     public static final boolean MATERIALS_IN_LIB = false;
     /** Namespace of the shared materials and their recipes ({@link #MATERIALS_IN_LIB}). */
     public static final String MATERIAL_NAMESPACE = "simplebuilding";

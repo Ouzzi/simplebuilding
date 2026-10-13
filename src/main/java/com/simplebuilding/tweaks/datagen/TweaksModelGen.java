@@ -90,7 +90,9 @@ public final class TweaksModelGen {
             generator.registerSimpleItemModel(block, model);
         }
         for (com.simplebuilding.tweaks.block.BlazeHeadType type : com.simplebuilding.tweaks.block.BlazeHeadType.values()) {
-            head(generator, TweaksBlocks.head(type), TweaksBlocks.wallHead(type), TweaksItems.head(type), type);
+            if (!com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS) { // 26.3: Simple Mobheads brings its models
+                head(generator, TweaksBlocks.head(type), TweaksBlocks.wallHead(type), TweaksItems.head(type), type);
+            }
         }
     }
 

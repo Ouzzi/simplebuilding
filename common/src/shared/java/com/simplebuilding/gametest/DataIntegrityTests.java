@@ -2698,7 +2698,7 @@ public final class DataIntegrityTests {
         pinned.put(ModItemGroupsContent.Tab.PADS, List.of(
                 TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE.asItem(),
                 TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem(), TweaksBlocks.LAUNCHPAD.asItem(),
-                TweaksBlocks.CHUNK_LOADER.asItem(), TweaksItems.SPAWN_ELYTRA, TweaksItems.BLAZE_HEAD));
+                TweaksBlocks.CHUNK_LOADER.asItem(), TweaksItems.SPAWN_ELYTRA, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
         pinned.forEach((tab, items) -> {
             for (Item item : items) {
                 List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(item, List.of());
@@ -2849,7 +2849,9 @@ public final class DataIntegrityTests {
         neighbours.put(Items.IRON_HOE, ModItems.IRON_CHISEL);
         neighbours.put(Items.DIAMOND_HOE, ModItems.DIAMOND_CHISEL);
         neighbours.put(Items.DIAMOND_BLOCK, ModItems.CRACKED_DIAMOND_BLOCK);
-        neighbours.put(Items.PIGLIN_HEAD, TweaksItems.mobHeadsInSpawnOrder().getFirst().asItem());
+        if (!McVersion.HEADS_IN_MOBHEADS) {
+            neighbours.put(Items.PIGLIN_HEAD, TweaksItems.mobHeadsInSpawnOrder().getFirst().asItem());
+        }
         neighbours.put(Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD);
         neighbours.put(Items.FURNACE, ModItems.REINFORCED_FURNACE);
         if (McVersion.END_SYSTEMS) {
@@ -3075,7 +3077,7 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("pad_cores", ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
                         ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
                 CreativeTabLayout.Row.of("pad_materials",
-                        TweaksItems.ENDERMAN_HEAD, Items.ELYTRA, TweaksItems.BLAZE_HEAD, TweaksItems.SHULKER_HEAD),
+                        TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN), Items.ELYTRA, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER)),
                 CreativeTabLayout.Row.of("pad_tier_1",
                         TweaksBlocks.CHUNK_LOADER, TweaksBlocks.LAUNCHPAD, TweaksBlocks.SPAWN_TELEPORTER,
                         TweaksBlocks.ELYTRA_PAD, TweaksBlocks.POTION_PAD, TweaksBlocks.FLYPAD),

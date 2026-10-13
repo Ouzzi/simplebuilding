@@ -19,25 +19,7 @@ public class SimplefunCommands {
         Commands.literal("simplefun")
             // Level 4 (admins) for config changes.
             .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
-            .then(
-                Commands.literal("pvp")
-                    .then(
-                        Commands.literal("headDrops")
-                            .then(
-                                Commands.argument("enabled", BoolArgumentType.bool())
-                                    .executes(
-                                        ctx -> {
-                                          boolean val = BoolArgumentType.getBool(ctx, "enabled");
-                                          SimplefunCommon.getConfig().fun.playerHeadDrops = val;
-                                          SimplefunCommon.saveConfig();
-                                          ctx.getSource()
-                                              .sendSuccess(
-                                                  () ->
-                                                      Component.translatable(
-                                                          "commands.simplefun.pvp.headDrops", val),
-                                                  true);
-                                          return 1;
-                                        }))))
+            // pvp headDrops moved to Simple Mobheads (/simplemobheads pvp headDrops; it keeps /simplefun pvp headDrops as alias).
             .then(
                 Commands.literal("tweaks")
                     .then(

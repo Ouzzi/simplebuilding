@@ -1,0 +1,2059 @@
+{
+ "blaze_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a blaze."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Magma blocks and campfires do not burn its wearer."
+  ]
+ },
+ "blaze_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a blaze."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Magma blocks and campfires do not burn its wearer."
+  ]
+ },
+ "enderman_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a enderman."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Ender pearl teleports cost its wearer no health."
+  ]
+ },
+ "enderman_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a enderman."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Ender pearl teleports cost its wearer no health."
+  ]
+ },
+ "husk_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a husk."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Food never gives its wearer Hunger."
+  ]
+ },
+ "husk_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a husk."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Food never gives its wearer Hunger."
+  ]
+ },
+ "spider_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a spider."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Cobwebs do not slow its wearer down."
+  ]
+ },
+ "spider_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a spider."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Cobwebs do not slow its wearer down."
+  ]
+ },
+ "cave_spider_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a cave spider."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Bare hands cut cobwebs as fast as a sword."
+  ]
+ },
+ "cave_spider_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a cave spider."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Bare hands cut cobwebs as fast as a sword."
+  ]
+ },
+ "stray_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a stray."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Powder snow does not freeze its wearer."
+  ]
+ },
+ "stray_wall_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a stray."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Powder snow does not freeze its wearer."
+  ]
+ },
+ "bogged_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a bogged."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Food never poisons its wearer."
+  ]
+ },
+ "bogged_wall_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a bogged."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Food never poisons its wearer."
+  ]
+ },
+ "slime_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a slime."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer falls one block further without damage."
+  ]
+ },
+ "slime_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a slime."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer falls one block further without damage."
+  ]
+ },
+ "silverfish_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a silverfish."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer shrinks to half size."
+  ]
+ },
+ "silverfish_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a silverfish."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer shrinks to half size."
+  ]
+ },
+ "breeze_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a breeze."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer, light as the wind, never tramples farmland."
+  ]
+ },
+ "breeze_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a breeze."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer, light as the wind, never tramples farmland."
+  ]
+ },
+ "shulker_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a shulker."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer opens shulker boxes even when the lid is blocked."
+  ]
+ },
+ "shulker_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a shulker."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer opens shulker boxes even when the lid is blocked."
+  ]
+ },
+ "drowned_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a drowned."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Magma bubble columns do not drag its wearer down."
+  ]
+ },
+ "drowned_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a drowned."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Magma bubble columns do not drag its wearer down."
+  ]
+ },
+ "pig_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a pig."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak three seconds on grass, dirt or moss: the truffle nose digs something up."
+  ]
+ },
+ "pig_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a pig."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak three seconds on grass, dirt or moss: the truffle nose digs something up."
+  ]
+ },
+ "cow_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a cow."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Another player can milk its wearer with a bucket."
+  ]
+ },
+ "cow_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a cow."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Another player can milk its wearer with a bucket."
+  ]
+ },
+ "chicken_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a chicken."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer lays an egg now and then, like a chicken."
+  ]
+ },
+ "chicken_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a chicken."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer lays an egg now and then, like a chicken."
+  ]
+ },
+ "sheep_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a sheep."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Another player can shear its wearer (1-3 wool, then it grows back)."
+  ]
+ },
+ "sheep_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a sheep."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Another player can shear its wearer (1-3 wool, then it grows back)."
+  ]
+ },
+ "zombie_villager_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zombie villager."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "zombie_villager_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zombie villager."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "witch_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a witch."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "witch_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a witch."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "pillager_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a pillager."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "pillager_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a pillager."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "vindicator_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a vindicator."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "vindicator_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a vindicator."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "evoker_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a evoker."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "evoker_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a evoker."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "illusioner_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a illusioner."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "illusioner_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a illusioner."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "ravager_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a ravager."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "ravager_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a ravager."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "vex_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a vex."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "vex_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a vex."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "phantom_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a phantom."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "phantom_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a phantom."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "guardian_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a guardian."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "guardian_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a guardian."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "elder_guardian_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a elder guardian."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "elder_guardian_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a elder guardian."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "endermite_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a endermite."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "endermite_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a endermite."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "warden_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a warden."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Half of its wearer's footsteps never reach sculk."
+  ]
+ },
+ "warden_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a warden."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Half of its wearer's footsteps never reach sculk."
+  ]
+ },
+ "creaking_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a creaking."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "creaking_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a creaking."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "parched_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a parched."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "parched_wall_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a parched."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "camel_husk_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a camel husk."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "camel_husk_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a camel husk."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "zombie_nautilus_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zombie nautilus."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "zombie_nautilus_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zombie nautilus."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "sulfur_cube_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a sulfur cube."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "sulfur_cube_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a sulfur cube."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "ghast_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a ghast."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "ghast_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a ghast."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "magma_cube_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a magma cube."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "magma_cube_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a magma cube."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "hoglin_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a hoglin."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "hoglin_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a hoglin."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "zoglin_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zoglin."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "zoglin_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zoglin."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "piglin_brute_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a piglin brute."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "piglin_brute_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a piglin brute."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "zombified_piglin_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zombified piglin."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "zombified_piglin_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zombified piglin."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "strider_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a strider."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "strider_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a strider."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "wither_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a wither."
+  ],
+  "use": [
+   "Only with the server switch for boss heads: dropped when a charged creeper's explosion kills it. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "wither_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a wither."
+  ],
+  "use": [
+   "Only with the server switch for boss heads: dropped when a charged creeper's explosion kills it. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "allay_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a allay."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Dropped items near its wearer float up a little."
+  ]
+ },
+ "allay_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a allay."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Dropped items near its wearer float up a little."
+  ]
+ },
+ "armadillo_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a armadillo."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "armadillo_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a armadillo."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "axolotl_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a axolotl."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "axolotl_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a axolotl."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "bat_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a bat."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "bat_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a bat."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "bee_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a bee."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Harvesting a hive or nest does not anger the bees at its wearer."
+  ]
+ },
+ "bee_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a bee."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Harvesting a hive or nest does not anger the bees at its wearer."
+  ]
+ },
+ "camel_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a camel."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "camel_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a camel."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "cat_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a cat."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Creepers keep their distance from its wearer, as from a cat."
+  ]
+ },
+ "cat_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a cat."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Creepers keep their distance from its wearer, as from a cat."
+  ]
+ },
+ "ocelot_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a ocelot."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "ocelot_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a ocelot."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "copper_golem_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a copper golem."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "copper_golem_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a copper golem."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "dolphin_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a dolphin."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "dolphin_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a dolphin."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "donkey_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a donkey."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "donkey_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a donkey."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "mule_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a mule."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "mule_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a mule."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "horse_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a horse."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "horse_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a horse."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "skeleton_horse_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a skeleton horse."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "skeleton_horse_wall_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a skeleton horse."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "zombie_horse_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zombie horse."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "zombie_horse_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a zombie horse."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "fox_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a fox."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sweet berry bushes do not prick its wearer."
+  ]
+ },
+ "fox_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a fox."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sweet berry bushes do not prick its wearer."
+  ]
+ },
+ "frog_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a frog."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer jumps higher from lily pads and out of water."
+  ]
+ },
+ "frog_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a frog."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer jumps higher from lily pads and out of water."
+  ]
+ },
+ "goat_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a goat."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "A ramming goat only pushes its wearer, without damage."
+  ]
+ },
+ "goat_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a goat."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "A ramming goat only pushes its wearer, without damage."
+  ]
+ },
+ "iron_golem_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a iron golem."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "iron_golem_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a iron golem."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "snow_golem_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a snow golem."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "snow_golem_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a snow golem."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "llama_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a llama."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "llama_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a llama."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "trader_llama_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a trader llama."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "trader_llama_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a trader llama."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "mooshroom_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a mooshroom."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Another player can fill a bowl with mushroom stew from its wearer."
+  ]
+ },
+ "mooshroom_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a mooshroom."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Another player can fill a bowl with mushroom stew from its wearer."
+  ]
+ },
+ "nautilus_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a nautilus."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "nautilus_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a nautilus."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "panda_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a panda."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "panda_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a panda."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "parrot_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a parrot."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "parrot_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a parrot."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "polar_bear_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a polar bear."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Ice is less slippery for its wearer."
+  ]
+ },
+ "polar_bear_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a polar bear."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Ice is less slippery for its wearer."
+  ]
+ },
+ "rabbit_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a rabbit."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "rabbit_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a rabbit."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "sniffer_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a sniffer."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak five seconds on moss, grass or dirt: it sniffs up seeds."
+  ]
+ },
+ "sniffer_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a sniffer."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak five seconds on moss, grass or dirt: it sniffs up seeds."
+  ]
+ },
+ "turtle_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a turtle."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer never tramples turtle eggs."
+  ]
+ },
+ "turtle_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a turtle."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Its wearer never tramples turtle eggs."
+  ]
+ },
+ "villager_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a villager."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "villager_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a villager."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "wandering_trader_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a wandering trader."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "wandering_trader_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a wandering trader."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "wolf_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a wolf."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Wild wolves never attack its wearer."
+  ]
+ },
+ "wolf_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a wolf."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Wild wolves never attack its wearer."
+  ]
+ },
+ "happy_ghast_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a happy ghast."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "happy_ghast_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a happy ghast."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "cod_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a cod."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "cod_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a cod."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "salmon_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a salmon."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "salmon_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a salmon."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "pufferfish_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a pufferfish."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "pufferfish_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a pufferfish."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "tropical_fish_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a tropical fish."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "tropical_fish_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a tropical fish."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "squid_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a squid."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "squid_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a squid."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "glow_squid_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a glow squid."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "glow_squid_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a glow squid."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "tadpole_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a tadpole."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "tadpole_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a tadpole."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "deceiver_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a deceiver."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "deceiver_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a deceiver."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "hollow_howler_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a hollow howler."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "hollow_howler_wall_skull": {
+  "lore": [
+   "{name}: proof that a charged creeper met a hollow howler."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "dread_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a dread."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "dread_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a dread."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "hollow_watcher_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a hollow watcher."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "hollow_watcher_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a hollow watcher."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "shellker_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a shellker."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "shellker_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a shellker."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "soulfire_blaze_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a soulfire blaze."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "soulfire_blaze_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a soulfire blaze."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "blighted_wither_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a blighted wither."
+  ],
+  "use": [
+   "Only with the server switch for boss heads: dropped when a charged creeper's explosion kills it. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "blighted_wither_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a blighted wither."
+  ],
+  "use": [
+   "Only with the server switch for boss heads: dropped when a charged creeper's explosion kills it. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "abyssal_wither_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a abyssal wither."
+  ],
+  "use": [
+   "Only with the server switch for boss heads: dropped when a charged creeper's explosion kills it. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "abyssal_wither_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a abyssal wither."
+  ],
+  "use": [
+   "Only with the server switch for boss heads: dropped when a charged creeper's explosion kills it. Place it, wear it or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "nibblemite_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a nibblemite."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "nibblemite_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a nibblemite."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "dragonmite_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a dragonmite."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "dragonmite_wall_head": {
+  "lore": [
+   "{name}: proof that a charged creeper met a dragonmite."
+  ],
+  "use": [
+   "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
+  ],
+  "secret": [
+   "Sneak while wearing it: a quiet greeting in the mob's own voice."
+  ]
+ },
+ "guide_book": {
+  "lore": [
+   "A book about every mob's head."
+  ],
+  "use": [
+   "The Simple Mobheads Guide explains drops, variants and head abilities. Craft it shapeless from a book and a bone."
+  ],
+  "secret": [
+   "Its pages follow the wiki, so it never tells more than the heads really do."
+  ]
+ }
+}

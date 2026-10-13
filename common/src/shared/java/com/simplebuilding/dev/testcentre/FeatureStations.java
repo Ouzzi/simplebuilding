@@ -488,11 +488,11 @@ public final class FeatureStations {
         return List.of(
                 new Target(ItemStack.EMPTY, "archery.plain", "Pumpkin Head", "no mob type"),
                 new Target(new ItemStack(Items.ZOMBIE_HEAD), "archery.zombie", "Zombie Head", "undead, zombie"),
-                new Target(new ItemStack(TweaksItems.DROWNED_HEAD), "archery.drowned", "Drowned Head", "copper tip"),
+                new Target(new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.DROWNED)), "archery.drowned", "Drowned Head", "copper tip"),
                 new Target(new ItemStack(Items.SKELETON_SKULL), "archery.skeleton", "Skeleton Skull", "undead: smite"),
-                new Target(new ItemStack(TweaksItems.SPIDER_HEAD), "archery.spider", "Spider Head", "arthropod: bane"),
-                new Target(new ItemStack(TweaksItems.ENDERMAN_HEAD), "archery.enderman", "Enderman Head", "arrows: immune"),
-                new Target(new ItemStack(TweaksItems.BLAZE_HEAD), "archery.blaze", "Blaze Head", "fire: immune"),
+                new Target(new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SPIDER)), "archery.spider", "Spider Head", "arthropod: bane"),
+                new Target(new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN)), "archery.enderman", "Enderman Head", "arrows: immune"),
+                new Target(new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)), "archery.blaze", "Blaze Head", "fire: immune"),
                 new Target(ItemStack.EMPTY, "archery.armour", "Iron Armor", "less damage"));
     }
 

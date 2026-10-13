@@ -28,7 +28,8 @@
     "simpletools",
     "simplemovement",
     "simpleend",
-    "simplerespawn"
+    "simplerespawn",
+    "simplemobheads"
   ],
   "devMods": [
     "jei",

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "simplemobheads",
+  "version": "${version}",
+  "name": "Simple Mobheads",
+  "description": "A head for every mob: dropped when a charged creeper's explosion kills it, worn for a small secret, placed, or played on a note block.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplemobheads.fabric.MobHeadsFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplemobheads.ModuleGameTest"
+    ],
+    "modmenu": [
+      "com.simplemobheads.fabric.ModMenuIntegration"
+    ],
+    "jei_mod_plugin": [
+      "com.simplemobheads.compat.MobHeadsJeiPlugin"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "cloth-config": "*",
+    "simplelib": ">=0.2.0"
+  },
+  "suggests": {
+    "modmenu": "*",
+    "jei": "*",
+    "simplebuilding": "*",
+    "simplemobs": "*",
+    "simpleend": "*",
+    "simpleenddragonfight": "*"
+  },
+  "mixins": [
+    "simplemobheads.mixins.json"
+  ]
+}

@@ -1,16 +1,6 @@
 {
   "options": [
     {
-      "path": "fun.playerHeadDrops",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.playerHeadDrops",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.playerHeadDrops.@Tooltip",
-      "tab": "simplefun.config.tab.gameplay",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
       "path": "fun.enablePiggyEffect",
       "default": true,
       "nameKey": "text.autoconfig.simplefun.option.fun.enablePiggyEffect",
@@ -126,96 +116,6 @@
       "nameKey": "text.autoconfig.simplefun.option.fun.enableNoDamageTrades",
       "tooltipKey": "text.autoconfig.simplefun.option.fun.enableNoDamageTrades.@Tooltip",
       "tab": "simplefun.config.tab.gameplay",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
-      "path": "fun.enableAnimalHeads",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.enableAnimalHeads",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.enableAnimalHeads.@Tooltip",
-      "tab": "simplefun.config.tab.heads",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
-      "path": "fun.pigHeadGreeting",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.pigHeadGreeting",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.pigHeadGreeting.@Tooltip",
-      "tab": "simplefun.config.tab.heads",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
-      "path": "fun.cowHeadGreeting",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.cowHeadGreeting",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.cowHeadGreeting.@Tooltip",
-      "tab": "simplefun.config.tab.heads",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
-      "path": "fun.chickenHeadGreeting",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.chickenHeadGreeting",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.chickenHeadGreeting.@Tooltip",
-      "tab": "simplefun.config.tab.heads",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
-      "path": "fun.sheepHeadGreeting",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.sheepHeadGreeting",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.sheepHeadGreeting.@Tooltip",
-      "tab": "simplefun.config.tab.heads",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
-      "path": "fun.cowHeadMilking",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.cowHeadMilking",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.cowHeadMilking.@Tooltip",
-      "tab": "simplefun.config.tab.heads",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
-      "path": "fun.sheepHeadShearing",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.sheepHeadShearing",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.sheepHeadShearing.@Tooltip",
-      "tab": "simplefun.config.tab.heads",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
-      "path": "fun.chickenHeadEggs",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.chickenHeadEggs",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.chickenHeadEggs.@Tooltip",
-      "tab": "simplefun.config.tab.heads",
-      "min": 0,
-      "max": 1,
-      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
-    },
-    {
-      "path": "fun.pigHeadTruffles",
-      "default": true,
-      "nameKey": "text.autoconfig.simplefun.option.fun.pigHeadTruffles",
-      "tooltipKey": "text.autoconfig.simplefun.option.fun.pigHeadTruffles.@Tooltip",
-      "tab": "simplefun.config.tab.heads",
       "min": 0,
       "max": 1,
       "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"

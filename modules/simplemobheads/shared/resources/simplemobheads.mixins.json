@@ -1,0 +1,30 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplemobheads.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "BeehiveBlockMixin",
+    "CreeperMixin",
+    "HeadAbilityConsumeEffectMixin",
+    "HeadAbilityEntityMixin",
+    "HeadAbilityFarmlandMixin",
+    "HeadAbilityLivingEntityMixin",
+    "HeadAbilityPlayerMixin",
+    "HeadAbilityShulkerBoxMixin",
+    "MobTargetMixin",
+    "RamTargetMixin",
+    "ServerPlayerTickMixin",
+    "SkullBlockEntityMixin",
+    "SkullBlockEntityTypeMixin",
+    "TurtleEggBlockMixin"
+  ],
+  "client": [
+    "client.LivingEntityRendererMixin",
+    "client.SkullBlockRendererMixin",
+    "client.WornModHeadMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

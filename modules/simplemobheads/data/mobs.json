@@ -1,0 +1,2604 @@
+{
+ "comment": "Simple Mobheads: one entry per head (KONZEPT-SIMPLE-MOBHEADS-2026-10-13 §3.6). tools/generate_heads.py turns it into Java, models, loot, tags, lang. tex = path under <ns>:textures/entity without .png (namespace minecraft unless given). model.custom = hand-made geometry of the 16 heads that moved in (look kept); otherwise layer#name + part path ('' = whole model).",
+ "exclude": {
+  "minecraft:zombie": "vanilla head",
+  "minecraft:skeleton": "vanilla head",
+  "minecraft:creeper": "vanilla head",
+  "minecraft:wither_skeleton": "vanilla head",
+  "minecraft:piglin": "vanilla head",
+  "minecraft:ender_dragon": "vanilla head",
+  "minecraft:player": "vanilla player head",
+  "minecraft:giant": "unused in survival (no spawn), owner concept §3.1",
+  "minecraft:armor_stand": "not a mob",
+  "minecraft:mannequin": "not a mob"
+ },
+ "heads": [
+  {
+   "id": "blaze",
+   "en": "Blaze Head",
+   "de": "Lohenkopf",
+   "group": "nether",
+   "sound": [
+    "minecraft:entity.blaze.ambient"
+   ],
+   "model": {
+    "custom": "blaze",
+    "tex": "blaze/blaze"
+   },
+   "ability": "blaze",
+   "from": "simplebuilding"
+  },
+  {
+   "id": "enderman",
+   "en": "Enderman Head",
+   "de": "Endermankopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.enderman.ambient"
+   ],
+   "model": {
+    "custom": "enderman",
+    "tex": "enderman/enderman"
+   },
+   "ability": "enderman",
+   "from": "simplebuilding"
+  },
+  {
+   "id": "husk",
+   "en": "Husk Head",
+   "de": "Wüstenzombiekopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.husk.ambient"
+   ],
+   "model": {
+    "custom": "husk",
+    "tex": "zombie/husk"
+   },
+   "ability": "husk",
+   "trial": true,
+   "from": "simplebuilding"
+  },
+  {
+   "id": "spider",
+   "en": "Spider Head",
+   "de": "Spinnenkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.spider.ambient"
+   ],
+   "model": {
+    "custom": "spider",
+    "tex": "spider/spider"
+   },
+   "ability": "spider",
+   "trial": true,
+   "from": "simplebuilding"
+  },
+  {
+   "id": "cave_spider",
+   "en": "Cave Spider Head",
+   "de": "Höhlenspinnenkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.spider.ambient"
+   ],
+   "model": {
+    "custom": "spider",
+    "tex": "spider/cave_spider"
+   },
+   "ability": "cave_spider",
+   "trial": true,
+   "from": "simplebuilding"
+  },
+  {
+   "id": "stray",
+   "en": "Stray Skull",
+   "de": "Eiswandererschädel",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.stray.ambient"
+   ],
+   "model": {
+    "custom": "stray",
+    "tex": "skeleton/stray"
+   },
+   "ability": "stray",
+   "trial": true,
+   "item": "stray_skull",
+   "freeze_immune": true,
+   "from": "simplebuilding"
+  },
+  {
+   "id": "bogged",
+   "en": "Bogged Skull",
+   "de": "Sumpfskelettschädel",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.bogged.ambient"
+   ],
+   "model": {
+    "custom": "bogged",
+    "tex": "skeleton/bogged"
+   },
+   "ability": "bogged",
+   "trial": true,
+   "item": "bogged_skull",
+   "from": "simplebuilding"
+  },
+  {
+   "id": "slime",
+   "en": "Slime Head",
+   "de": "Schleimkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.slime.squish"
+   ],
+   "model": {
+    "custom": "slime",
+    "tex": "slime/slime"
+   },
+   "ability": "slime",
+   "trial": true,
+   "from": "simplebuilding"
+  },
+  {
+   "id": "silverfish",
+   "en": "Silverfish Head",
+   "de": "Silberfischchenkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.silverfish.ambient"
+   ],
+   "model": {
+    "custom": "silverfish",
+    "tex": "silverfish/silverfish"
+   },
+   "ability": "silverfish",
+   "trial": true,
+   "from": "simplebuilding"
+  },
+  {
+   "id": "breeze",
+   "en": "Breeze Head",
+   "de": "Breeze-Kopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.breeze.idle_ground"
+   ],
+   "model": {
+    "custom": "breeze",
+    "tex": "breeze/breeze"
+   },
+   "ability": "breeze",
+   "trial": true,
+   "from": "simplebuilding"
+  },
+  {
+   "id": "shulker",
+   "en": "Shulker Head",
+   "de": "Shulkerkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.shulker.ambient"
+   ],
+   "model": {
+    "custom": "shulker",
+    "tex": "shulker/shulker"
+   },
+   "ability": "shulker",
+   "variants": {
+    "component": "minecraft:shulker/color",
+    "list": [
+     {
+      "id": "default",
+      "en": "Plain",
+      "de": "Schlicht",
+      "tex": "shulker/shulker"
+     },
+     {
+      "id": "white",
+      "en": "White",
+      "de": "Weiß",
+      "tex": "shulker/shulker_white"
+     },
+     {
+      "id": "orange",
+      "en": "Orange",
+      "de": "Orange",
+      "tex": "shulker/shulker_orange"
+     },
+     {
+      "id": "magenta",
+      "en": "Magenta",
+      "de": "Magenta",
+      "tex": "shulker/shulker_magenta"
+     },
+     {
+      "id": "light_blue",
+      "en": "Light Blue",
+      "de": "Hellblau",
+      "tex": "shulker/shulker_light_blue"
+     },
+     {
+      "id": "yellow",
+      "en": "Yellow",
+      "de": "Gelb",
+      "tex": "shulker/shulker_yellow"
+     },
+     {
+      "id": "lime",
+      "en": "Lime",
+      "de": "Hellgrün",
+      "tex": "shulker/shulker_lime"
+     },
+     {
+      "id": "pink",
+      "en": "Pink",
+      "de": "Rosa",
+      "tex": "shulker/shulker_pink"
+     },
+     {
+      "id": "gray",
+      "en": "Gray",
+      "de": "Grau",
+      "tex": "shulker/shulker_gray"
+     },
+     {
+      "id": "light_gray",
+      "en": "Light Gray",
+      "de": "Hellgrau",
+      "tex": "shulker/shulker_light_gray"
+     },
+     {
+      "id": "cyan",
+      "en": "Cyan",
+      "de": "Türkis",
+      "tex": "shulker/shulker_cyan"
+     },
+     {
+      "id": "purple",
+      "en": "Purple",
+      "de": "Violett",
+      "tex": "shulker/shulker_purple"
+     },
+     {
+      "id": "blue",
+      "en": "Blue",
+      "de": "Blau",
+      "tex": "shulker/shulker_blue"
+     },
+     {
+      "id": "brown",
+      "en": "Brown",
+      "de": "Braun",
+      "tex": "shulker/shulker_brown"
+     },
+     {
+      "id": "green",
+      "en": "Green",
+      "de": "Grün",
+      "tex": "shulker/shulker_green"
+     },
+     {
+      "id": "red",
+      "en": "Red",
+      "de": "Rot",
+      "tex": "shulker/shulker_red"
+     },
+     {
+      "id": "black",
+      "en": "Black",
+      "de": "Schwarz",
+      "tex": "shulker/shulker_black"
+     }
+    ]
+   },
+   "from": "simplebuilding"
+  },
+  {
+   "id": "drowned",
+   "en": "Drowned Head",
+   "de": "Ertrunkenenkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.drowned.ambient"
+   ],
+   "model": {
+    "custom": "drowned",
+    "tex": "zombie/drowned"
+   },
+   "ability": "drowned",
+   "from": "simplebuilding"
+  },
+  {
+   "id": "pig",
+   "en": "Pig Head",
+   "de": "Schweinekopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.pig.ambient"
+   ],
+   "model": {
+    "custom": "pig",
+    "tex": "pig/pig_temperate"
+   },
+   "ability": "pig",
+   "variants": {
+    "component": "minecraft:pig/variant",
+    "list": [
+     {
+      "id": "temperate",
+      "en": "Temperate",
+      "de": "Gemäßigt",
+      "tex": "pig/pig_temperate"
+     },
+     {
+      "id": "warm",
+      "en": "Warm",
+      "de": "Warm",
+      "tex": "pig/pig_warm"
+     },
+     {
+      "id": "cold",
+      "en": "Cold",
+      "de": "Kalt",
+      "tex": "pig/pig_cold",
+      "model": {
+       "layer": "minecraft:cold_pig#main",
+       "part": "head",
+       "tex": "pig/pig_cold"
+      }
+     }
+    ]
+   },
+   "from": "simplefun"
+  },
+  {
+   "id": "cow",
+   "en": "Cow Head",
+   "de": "Kuhkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.cow.ambient"
+   ],
+   "model": {
+    "custom": "cow",
+    "tex": "cow/cow_temperate"
+   },
+   "ability": "cow",
+   "variants": {
+    "component": "minecraft:cow/variant",
+    "list": [
+     {
+      "id": "temperate",
+      "en": "Temperate",
+      "de": "Gemäßigt",
+      "tex": "cow/cow_temperate"
+     },
+     {
+      "id": "warm",
+      "en": "Warm",
+      "de": "Warm",
+      "tex": "cow/cow_warm",
+      "model": {
+       "layer": "minecraft:warm_cow#main",
+       "part": "head",
+       "tex": "cow/cow_warm"
+      }
+     },
+     {
+      "id": "cold",
+      "en": "Cold",
+      "de": "Kalt",
+      "tex": "cow/cow_cold",
+      "model": {
+       "layer": "minecraft:cold_cow#main",
+       "part": "head",
+       "tex": "cow/cow_cold"
+      }
+     }
+    ]
+   },
+   "from": "simplefun"
+  },
+  {
+   "id": "chicken",
+   "en": "Chicken Head",
+   "de": "Hühnerkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.chicken.ambient"
+   ],
+   "model": {
+    "custom": "chicken",
+    "tex": "chicken/chicken_temperate"
+   },
+   "ability": "chicken",
+   "variants": {
+    "component": "minecraft:chicken/variant",
+    "list": [
+     {
+      "id": "temperate",
+      "en": "Temperate",
+      "de": "Gemäßigt",
+      "tex": "chicken/chicken_temperate"
+     },
+     {
+      "id": "warm",
+      "en": "Warm",
+      "de": "Warm",
+      "tex": "chicken/chicken_warm"
+     },
+     {
+      "id": "cold",
+      "en": "Cold",
+      "de": "Kalt",
+      "tex": "chicken/chicken_cold",
+      "model": {
+       "layer": "minecraft:cold_chicken#main",
+       "part": "head",
+       "tex": "chicken/chicken_cold"
+      }
+     }
+    ]
+   },
+   "from": "simplefun"
+  },
+  {
+   "id": "sheep",
+   "en": "Sheep Head",
+   "de": "Schafskopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.sheep.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:sheep#main",
+    "part": "head",
+    "tex": "sheep/sheep",
+    "layers": [
+     {
+      "tex": "sheep/sheep_wool",
+      "render": "cutout",
+      "layer": "minecraft:sheep#wool",
+      "part": "head",
+      "tint": "variant"
+     }
+    ]
+   },
+   "ability": "sheep",
+   "variants": {
+    "component": "minecraft:sheep/color",
+    "list": [
+     {
+      "id": "white",
+      "en": "White",
+      "de": "Weiß",
+      "tex": "sheep/sheep",
+      "tint": "dye:white"
+     },
+     {
+      "id": "orange",
+      "en": "Orange",
+      "de": "Orange",
+      "tex": "sheep/sheep",
+      "tint": "dye:orange"
+     },
+     {
+      "id": "magenta",
+      "en": "Magenta",
+      "de": "Magenta",
+      "tex": "sheep/sheep",
+      "tint": "dye:magenta"
+     },
+     {
+      "id": "light_blue",
+      "en": "Light Blue",
+      "de": "Hellblau",
+      "tex": "sheep/sheep",
+      "tint": "dye:light_blue"
+     },
+     {
+      "id": "yellow",
+      "en": "Yellow",
+      "de": "Gelb",
+      "tex": "sheep/sheep",
+      "tint": "dye:yellow"
+     },
+     {
+      "id": "lime",
+      "en": "Lime",
+      "de": "Hellgrün",
+      "tex": "sheep/sheep",
+      "tint": "dye:lime"
+     },
+     {
+      "id": "pink",
+      "en": "Pink",
+      "de": "Rosa",
+      "tex": "sheep/sheep",
+      "tint": "dye:pink"
+     },
+     {
+      "id": "gray",
+      "en": "Gray",
+      "de": "Grau",
+      "tex": "sheep/sheep",
+      "tint": "dye:gray"
+     },
+     {
+      "id": "light_gray",
+      "en": "Light Gray",
+      "de": "Hellgrau",
+      "tex": "sheep/sheep",
+      "tint": "dye:light_gray"
+     },
+     {
+      "id": "cyan",
+      "en": "Cyan",
+      "de": "Türkis",
+      "tex": "sheep/sheep",
+      "tint": "dye:cyan"
+     },
+     {
+      "id": "purple",
+      "en": "Purple",
+      "de": "Violett",
+      "tex": "sheep/sheep",
+      "tint": "dye:purple"
+     },
+     {
+      "id": "blue",
+      "en": "Blue",
+      "de": "Blau",
+      "tex": "sheep/sheep",
+      "tint": "dye:blue"
+     },
+     {
+      "id": "brown",
+      "en": "Brown",
+      "de": "Braun",
+      "tex": "sheep/sheep",
+      "tint": "dye:brown"
+     },
+     {
+      "id": "green",
+      "en": "Green",
+      "de": "Grün",
+      "tex": "sheep/sheep",
+      "tint": "dye:green"
+     },
+     {
+      "id": "red",
+      "en": "Red",
+      "de": "Rot",
+      "tex": "sheep/sheep",
+      "tint": "dye:red"
+     },
+     {
+      "id": "black",
+      "en": "Black",
+      "de": "Schwarz",
+      "tex": "sheep/sheep",
+      "tint": "dye:black"
+     }
+    ]
+   },
+   "from": "simplefun"
+  },
+  {
+   "id": "zombie_villager",
+   "en": "Zombie Villager Head",
+   "de": "Zombiedorfbewohnerkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.zombie_villager.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:zombie_villager#main",
+    "part": "head",
+    "tex": "zombie_villager/zombie_villager",
+    "layers": [
+     {
+      "tex": "variant",
+      "render": "cutout"
+     }
+    ]
+   },
+   "variants": {
+    "component": "minecraft:villager/variant",
+    "list": [
+     {
+      "id": "plains",
+      "en": "Plains",
+      "de": "Ebene",
+      "tex": "zombie_villager/type/plains"
+     },
+     {
+      "id": "desert",
+      "en": "Desert",
+      "de": "Wüste",
+      "tex": "zombie_villager/type/desert"
+     },
+     {
+      "id": "jungle",
+      "en": "Jungle",
+      "de": "Dschungel",
+      "tex": "zombie_villager/type/jungle"
+     },
+     {
+      "id": "savanna",
+      "en": "Savanna",
+      "de": "Savanne",
+      "tex": "zombie_villager/type/savanna"
+     },
+     {
+      "id": "snow",
+      "en": "Snowy",
+      "de": "Verschneit",
+      "tex": "zombie_villager/type/snow"
+     },
+     {
+      "id": "swamp",
+      "en": "Swamp",
+      "de": "Sumpf",
+      "tex": "zombie_villager/type/swamp"
+     },
+     {
+      "id": "taiga",
+      "en": "Taiga",
+      "de": "Taiga",
+      "tex": "zombie_villager/type/taiga"
+     }
+    ]
+   },
+   "variant_layer": true
+  },
+  {
+   "id": "witch",
+   "en": "Witch Head",
+   "de": "Hexenkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.witch.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:witch#main",
+    "part": "head",
+    "tex": "witch/witch"
+   }
+  },
+  {
+   "id": "pillager",
+   "en": "Pillager Head",
+   "de": "Plündererkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.pillager.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:pillager#main",
+    "part": "head",
+    "tex": "illager/pillager",
+    "hide": [
+     "hat"
+    ]
+   }
+  },
+  {
+   "id": "vindicator",
+   "en": "Vindicator Head",
+   "de": "Diener-Kopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.vindicator.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:vindicator#main",
+    "part": "head",
+    "tex": "illager/vindicator",
+    "hide": [
+     "hat"
+    ]
+   }
+  },
+  {
+   "id": "evoker",
+   "en": "Evoker Head",
+   "de": "Magierkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.evoker.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:evoker#main",
+    "part": "head",
+    "tex": "illager/evoker",
+    "hide": [
+     "hat"
+    ]
+   }
+  },
+  {
+   "id": "illusioner",
+   "en": "Illusioner Head",
+   "de": "Illusionistenkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.illusioner.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:illusioner#main",
+    "part": "head",
+    "tex": "illager/illusioner"
+   }
+  },
+  {
+   "id": "ravager",
+   "en": "Ravager Head",
+   "de": "Verwüsterkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.ravager.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:ravager#main",
+    "part": "head",
+    "tex": "illager/ravager"
+   }
+  },
+  {
+   "id": "vex",
+   "en": "Vex Head",
+   "de": "Plagegeistkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.vex.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:vex#main",
+    "part": "head",
+    "tex": "illager/vex",
+    "render": "translucent"
+   }
+  },
+  {
+   "id": "phantom",
+   "en": "Phantom Head",
+   "de": "Phantomkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.phantom.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:phantom#main",
+    "part": "head",
+    "tex": "phantom/phantom",
+    "layers": [
+     {
+      "tex": "phantom/phantom_eyes",
+      "render": "eyes"
+     }
+    ]
+   }
+  },
+  {
+   "id": "guardian",
+   "en": "Guardian Head",
+   "de": "Wächterkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.guardian.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:guardian#main",
+    "part": "head",
+    "tex": "guardian/guardian"
+   }
+  },
+  {
+   "id": "elder_guardian",
+   "en": "Elder Guardian Head",
+   "de": "Großer-Wächter-Kopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.elder_guardian.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:elder_guardian#main",
+    "part": "head",
+    "tex": "guardian/guardian_elder"
+   }
+  },
+  {
+   "id": "endermite",
+   "en": "Endermite Head",
+   "de": "Endermitenkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.endermite.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:endermite#main",
+    "part": "",
+    "tex": "endermite/endermite"
+   }
+  },
+  {
+   "id": "warden",
+   "en": "Warden Head",
+   "de": "Wärterkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.warden.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:warden#main",
+    "part": "head",
+    "tex": "warden/warden",
+    "layers": [
+     {
+      "tex": "warden/warden_bioluminescent_layer",
+      "render": "eyes"
+     }
+    ]
+   },
+   "ability": "warden",
+   "drop": "warden"
+  },
+  {
+   "id": "creaking",
+   "en": "Creaking Head",
+   "de": "Knarzerkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.creaking.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:creaking#main",
+    "part": "head",
+    "tex": "creaking/creaking",
+    "layers": [
+     {
+      "tex": "creaking/creaking_eyes",
+      "render": "eyes"
+     }
+    ]
+   }
+  },
+  {
+   "id": "parched",
+   "en": "Parched Skull",
+   "de": "Dörrlingsschädel",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.parched.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:parched#main",
+    "part": "head",
+    "tex": "skeleton/parched"
+   },
+   "item": "parched_skull"
+  },
+  {
+   "id": "camel_husk",
+   "en": "Camel Husk Head",
+   "de": "Kamelhülsenkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.camel_husk.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:camel#main",
+    "part": "head",
+    "tex": "camel/camel_husk"
+   }
+  },
+  {
+   "id": "zombie_nautilus",
+   "en": "Zombie Nautilus Head",
+   "de": "Zombie-Nautiluskopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.zombie_nautilus.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:zombie_nautilus#main",
+    "part": "",
+    "tex": "nautilus/zombie_nautilus"
+   },
+   "variants": {
+    "component": "minecraft:zombie_nautilus/variant",
+    "list": [
+     {
+      "id": "temperate",
+      "en": "Temperate",
+      "de": "Gemäßigt",
+      "tex": "nautilus/zombie_nautilus"
+     },
+     {
+      "id": "warm",
+      "en": "Coral",
+      "de": "Koralle",
+      "tex": "nautilus/zombie_nautilus_coral",
+      "model": {
+       "layer": "minecraft:zombie_nautilus_coral#main",
+       "part": "",
+       "tex": "nautilus/zombie_nautilus_coral"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "sulfur_cube",
+   "en": "Sulfur Cube Head",
+   "de": "Schwefelwürfelkopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.sulfur_cube.squish"
+   ],
+   "model": {
+    "layer": "minecraft:sulfur_cube#inner",
+    "part": "",
+    "tex": "sulfur_cube/sulfur_cube_inner",
+    "layers": [
+     {
+      "tex": "sulfur_cube/sulfur_cube_outer",
+      "render": "translucent",
+      "layer": "minecraft:sulfur_cube#main",
+      "part": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "ghast",
+   "en": "Ghast Head",
+   "de": "Ghastkopf",
+   "group": "nether",
+   "sound": [
+    "minecraft:entity.ghast.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:ghast#main",
+    "part": "",
+    "tex": "ghast/ghast"
+   }
+  },
+  {
+   "id": "magma_cube",
+   "en": "Magma Cube Head",
+   "de": "Magmawürfelkopf",
+   "group": "nether",
+   "sound": [
+    "minecraft:entity.magma_cube.squish"
+   ],
+   "model": {
+    "layer": "minecraft:magma_cube#main",
+    "part": "",
+    "tex": "slime/magmacube"
+   }
+  },
+  {
+   "id": "hoglin",
+   "en": "Hoglin Head",
+   "de": "Hoglinkopf",
+   "group": "nether",
+   "sound": [
+    "minecraft:entity.hoglin.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:hoglin#main",
+    "part": "head",
+    "tex": "hoglin/hoglin"
+   }
+  },
+  {
+   "id": "zoglin",
+   "en": "Zoglin Head",
+   "de": "Zoglinkopf",
+   "group": "nether",
+   "sound": [
+    "minecraft:entity.zoglin.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:zoglin#main",
+    "part": "head",
+    "tex": "hoglin/zoglin"
+   }
+  },
+  {
+   "id": "piglin_brute",
+   "en": "Piglin Brute Head",
+   "de": "Piglin-Barbaren-Kopf",
+   "group": "nether",
+   "sound": [
+    "minecraft:entity.piglin_brute.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:piglin_brute#main",
+    "part": "head",
+    "tex": "piglin/piglin_brute"
+   }
+  },
+  {
+   "id": "zombified_piglin",
+   "en": "Zombified Piglin Head",
+   "de": "Zombifizierter-Piglin-Kopf",
+   "group": "nether",
+   "sound": [
+    "minecraft:entity.zombified_piglin.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:zombified_piglin#main",
+    "part": "head",
+    "tex": "piglin/zombified_piglin"
+   }
+  },
+  {
+   "id": "strider",
+   "en": "Strider Head",
+   "de": "Schreiterkopf",
+   "group": "nether",
+   "sound": [
+    "minecraft:entity.strider.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:strider#main",
+    "part": "body",
+    "tex": "strider/strider"
+   },
+   "variants": {
+    "component": null,
+    "list": [
+     {
+      "id": "warm",
+      "en": "Warm",
+      "de": "Warm",
+      "tex": "strider/strider"
+     },
+     {
+      "id": "cold",
+      "en": "Cold",
+      "de": "Kalt",
+      "tex": "strider/strider_cold"
+     }
+    ]
+   },
+   "variant_source": "strider"
+  },
+  {
+   "id": "wither",
+   "en": "Wither Head",
+   "de": "Witherkopf",
+   "group": "boss",
+   "sound": [
+    "minecraft:entity.wither.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:wither#main",
+    "part": "center_head",
+    "tex": "wither/wither"
+   },
+   "drop": "wither"
+  },
+  {
+   "id": "allay",
+   "en": "Allay Head",
+   "de": "Hilfsgeistkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.allay.ambient_without_item"
+   ],
+   "model": {
+    "layer": "minecraft:allay#main",
+    "part": "head",
+    "tex": "allay/allay",
+    "render": "translucent"
+   },
+   "ability": "allay"
+  },
+  {
+   "id": "armadillo",
+   "en": "Armadillo Head",
+   "de": "Gürteltierkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.armadillo.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:armadillo#main",
+    "part": "head",
+    "tex": "armadillo/armadillo"
+   }
+  },
+  {
+   "id": "axolotl",
+   "en": "Axolotl Head",
+   "de": "Axolotlkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.axolotl.idle_air"
+   ],
+   "model": {
+    "layer": "minecraft:axolotl#main",
+    "part": "head",
+    "tex": "axolotl/axolotl_lucy"
+   },
+   "variants": {
+    "component": "minecraft:axolotl/variant",
+    "list": [
+     {
+      "id": "lucy",
+      "en": "Leucistic",
+      "de": "Leuzistisch",
+      "tex": "axolotl/axolotl_lucy"
+     },
+     {
+      "id": "wild",
+      "en": "Wild",
+      "de": "Wild",
+      "tex": "axolotl/axolotl_wild"
+     },
+     {
+      "id": "gold",
+      "en": "Gold",
+      "de": "Gold",
+      "tex": "axolotl/axolotl_gold"
+     },
+     {
+      "id": "cyan",
+      "en": "Cyan",
+      "de": "Türkis",
+      "tex": "axolotl/axolotl_cyan"
+     },
+     {
+      "id": "blue",
+      "en": "Blue",
+      "de": "Blau",
+      "tex": "axolotl/axolotl_blue"
+     }
+    ]
+   }
+  },
+  {
+   "id": "bat",
+   "en": "Bat Head",
+   "de": "Fledermauskopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.bat.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:bat#main",
+    "part": "head",
+    "tex": "bat/bat"
+   }
+  },
+  {
+   "id": "bee",
+   "en": "Bee Head",
+   "de": "Bienenkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.bee.loop"
+   ],
+   "model": {
+    "layer": "minecraft:bee#main",
+    "part": "body",
+    "tex": "bee/bee"
+   },
+   "ability": "bee"
+  },
+  {
+   "id": "camel",
+   "en": "Camel Head",
+   "de": "Kamelkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.camel.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:camel#main",
+    "part": "head",
+    "tex": "camel/camel"
+   }
+  },
+  {
+   "id": "cat",
+   "en": "Cat Head",
+   "de": "Katzenkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.cat.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:cat#main",
+    "part": "head",
+    "tex": "cat/cat_tabby"
+   },
+   "ability": "cat",
+   "variants": {
+    "component": "minecraft:cat/variant",
+    "list": [
+     {
+      "id": "tabby",
+      "en": "Tabby",
+      "de": "Getigert",
+      "tex": "cat/cat_tabby"
+     },
+     {
+      "id": "black",
+      "en": "Tuxedo",
+      "de": "Smoking",
+      "tex": "cat/cat_black"
+     },
+     {
+      "id": "red",
+      "en": "Red",
+      "de": "Rot",
+      "tex": "cat/cat_red"
+     },
+     {
+      "id": "siamese",
+      "en": "Siamese",
+      "de": "Siam",
+      "tex": "cat/cat_siamese"
+     },
+     {
+      "id": "british_shorthair",
+      "en": "British Shorthair",
+      "de": "Britisch Kurzhaar",
+      "tex": "cat/cat_british_shorthair"
+     },
+     {
+      "id": "calico",
+      "en": "Calico",
+      "de": "Glückskatze",
+      "tex": "cat/cat_calico"
+     },
+     {
+      "id": "persian",
+      "en": "Persian",
+      "de": "Perser",
+      "tex": "cat/cat_persian"
+     },
+     {
+      "id": "ragdoll",
+      "en": "Ragdoll",
+      "de": "Ragdoll",
+      "tex": "cat/cat_ragdoll"
+     },
+     {
+      "id": "white",
+      "en": "White",
+      "de": "Weiß",
+      "tex": "cat/cat_white"
+     },
+     {
+      "id": "jellie",
+      "en": "Jellie",
+      "de": "Jellie",
+      "tex": "cat/cat_jellie"
+     },
+     {
+      "id": "all_black",
+      "en": "Black",
+      "de": "Schwarz",
+      "tex": "cat/cat_all_black"
+     }
+    ]
+   }
+  },
+  {
+   "id": "ocelot",
+   "en": "Ocelot Head",
+   "de": "Ozelotkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.ocelot.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:ocelot#main",
+    "part": "head",
+    "tex": "cat/ocelot"
+   }
+  },
+  {
+   "id": "copper_golem",
+   "en": "Copper Golem Head",
+   "de": "Kupfergolemkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.copper_golem.step"
+   ],
+   "model": {
+    "layer": "minecraft:copper_golem#main",
+    "part": "head",
+    "tex": "copper_golem/copper_golem",
+    "layers": [
+     {
+      "tex": "variant_eyes",
+      "render": "eyes"
+     }
+    ]
+   },
+   "variants": {
+    "component": null,
+    "list": [
+     {
+      "id": "unaffected",
+      "en": "Unaffected",
+      "de": "Unbehandelt",
+      "tex": "copper_golem/copper_golem",
+      "eyes": "copper_golem/copper_golem_eyes"
+     },
+     {
+      "id": "exposed",
+      "en": "Exposed",
+      "de": "Angelaufen",
+      "tex": "copper_golem/copper_golem_exposed",
+      "eyes": "copper_golem/copper_golem_eyes_exposed"
+     },
+     {
+      "id": "weathered",
+      "en": "Weathered",
+      "de": "Verwittert",
+      "tex": "copper_golem/copper_golem_weathered",
+      "eyes": "copper_golem/copper_golem_eyes_weathered"
+     },
+     {
+      "id": "oxidized",
+      "en": "Oxidized",
+      "de": "Oxidiert",
+      "tex": "copper_golem/copper_golem_oxidized",
+      "eyes": "copper_golem/copper_golem_eyes_oxidized"
+     }
+    ]
+   },
+   "variant_source": "copper_golem"
+  },
+  {
+   "id": "dolphin",
+   "en": "Dolphin Head",
+   "de": "Delfinkopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.dolphin.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:dolphin#main",
+    "part": "head",
+    "tex": "dolphin/dolphin"
+   }
+  },
+  {
+   "id": "donkey",
+   "en": "Donkey Head",
+   "de": "Eselkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.donkey.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:donkey#main",
+    "part": "head_parts",
+    "tex": "horse/donkey"
+   }
+  },
+  {
+   "id": "mule",
+   "en": "Mule Head",
+   "de": "Maultierkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.mule.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:mule#main",
+    "part": "head_parts",
+    "tex": "horse/mule"
+   }
+  },
+  {
+   "id": "horse",
+   "en": "Horse Head",
+   "de": "Pferdekopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.horse.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:horse#main",
+    "part": "head_parts",
+    "tex": "horse/horse_white"
+   },
+   "variants": {
+    "component": "minecraft:horse/variant",
+    "list": [
+     {
+      "id": "white",
+      "en": "White",
+      "de": "Weiß",
+      "tex": "horse/horse_white"
+     },
+     {
+      "id": "creamy",
+      "en": "Creamy",
+      "de": "Cremefarben",
+      "tex": "horse/horse_creamy"
+     },
+     {
+      "id": "chestnut",
+      "en": "Chestnut",
+      "de": "Kastanienbraun",
+      "tex": "horse/horse_chestnut"
+     },
+     {
+      "id": "brown",
+      "en": "Brown",
+      "de": "Braun",
+      "tex": "horse/horse_brown"
+     },
+     {
+      "id": "black",
+      "en": "Black",
+      "de": "Schwarz",
+      "tex": "horse/horse_black"
+     },
+     {
+      "id": "gray",
+      "en": "Gray",
+      "de": "Grau",
+      "tex": "horse/horse_gray"
+     },
+     {
+      "id": "dark_brown",
+      "en": "Dark Brown",
+      "de": "Dunkelbraun",
+      "tex": "horse/horse_darkbrown"
+     }
+    ]
+   }
+  },
+  {
+   "id": "skeleton_horse",
+   "en": "Skeleton Horse Skull",
+   "de": "Skelettpferdeschädel",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.skeleton_horse.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:skeleton_horse#main",
+    "part": "head_parts",
+    "tex": "horse/horse_skeleton"
+   },
+   "item": "skeleton_horse_skull"
+  },
+  {
+   "id": "zombie_horse",
+   "en": "Zombie Horse Head",
+   "de": "Zombiepferdekopf",
+   "group": "monster",
+   "sound": [
+    "minecraft:entity.zombie_horse.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:zombie_horse#main",
+    "part": "head_parts",
+    "tex": "horse/horse_zombie"
+   }
+  },
+  {
+   "id": "fox",
+   "en": "Fox Head",
+   "de": "Fuchskopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.fox.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:fox#main",
+    "part": "head",
+    "tex": "fox/fox"
+   },
+   "ability": "fox",
+   "variants": {
+    "component": "minecraft:fox/variant",
+    "list": [
+     {
+      "id": "red",
+      "en": "Red",
+      "de": "Rot",
+      "tex": "fox/fox"
+     },
+     {
+      "id": "snow",
+      "en": "Snow",
+      "de": "Schnee",
+      "tex": "fox/fox_snow"
+     }
+    ]
+   }
+  },
+  {
+   "id": "frog",
+   "en": "Frog Head",
+   "de": "Froschkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.frog.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:frog#main",
+    "part": "head",
+    "tex": "frog/frog_temperate"
+   },
+   "ability": "frog",
+   "variants": {
+    "component": "minecraft:frog/variant",
+    "list": [
+     {
+      "id": "temperate",
+      "en": "Temperate",
+      "de": "Gemäßigt",
+      "tex": "frog/frog_temperate"
+     },
+     {
+      "id": "warm",
+      "en": "Warm",
+      "de": "Warm",
+      "tex": "frog/frog_warm"
+     },
+     {
+      "id": "cold",
+      "en": "Cold",
+      "de": "Kalt",
+      "tex": "frog/frog_cold"
+     }
+    ]
+   }
+  },
+  {
+   "id": "goat",
+   "en": "Goat Head",
+   "de": "Ziegenkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.goat.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:goat#main",
+    "part": "head",
+    "tex": "goat/goat"
+   },
+   "ability": "goat"
+  },
+  {
+   "id": "iron_golem",
+   "en": "Iron Golem Head",
+   "de": "Eisengolemkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.iron_golem.hurt"
+   ],
+   "model": {
+    "layer": "minecraft:iron_golem#main",
+    "part": "head",
+    "tex": "iron_golem/iron_golem"
+   }
+  },
+  {
+   "id": "snow_golem",
+   "en": "Snow Golem Head",
+   "de": "Schneegolemkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.snow_golem.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:snow_golem#main",
+    "part": "head",
+    "tex": "snow_golem/snow_golem"
+   }
+  },
+  {
+   "id": "llama",
+   "en": "Llama Head",
+   "de": "Lamakopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.llama.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:llama#main",
+    "part": "head",
+    "tex": "llama/llama_creamy"
+   },
+   "variants": {
+    "component": "minecraft:llama/variant",
+    "list": [
+     {
+      "id": "creamy",
+      "en": "Creamy",
+      "de": "Cremefarben",
+      "tex": "llama/llama_creamy"
+     },
+     {
+      "id": "white",
+      "en": "White",
+      "de": "Weiß",
+      "tex": "llama/llama_white"
+     },
+     {
+      "id": "brown",
+      "en": "Brown",
+      "de": "Braun",
+      "tex": "llama/llama_brown"
+     },
+     {
+      "id": "gray",
+      "en": "Gray",
+      "de": "Grau",
+      "tex": "llama/llama_gray"
+     }
+    ]
+   }
+  },
+  {
+   "id": "trader_llama",
+   "en": "Trader Llama Head",
+   "de": "Händlerlamakopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.llama.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:trader_llama#main",
+    "part": "head",
+    "tex": "llama/llama_creamy"
+   },
+   "variants": {
+    "component": "minecraft:llama/variant",
+    "list": [
+     {
+      "id": "creamy",
+      "en": "Creamy",
+      "de": "Cremefarben",
+      "tex": "llama/llama_creamy"
+     },
+     {
+      "id": "white",
+      "en": "White",
+      "de": "Weiß",
+      "tex": "llama/llama_white"
+     },
+     {
+      "id": "brown",
+      "en": "Brown",
+      "de": "Braun",
+      "tex": "llama/llama_brown"
+     },
+     {
+      "id": "gray",
+      "en": "Gray",
+      "de": "Grau",
+      "tex": "llama/llama_gray"
+     }
+    ]
+   }
+  },
+  {
+   "id": "mooshroom",
+   "en": "Mooshroom Head",
+   "de": "Pilzkuhkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.cow.ambient"
+   ],
+   "model": {
+    "custom": "cow",
+    "tex": "cow/mooshroom_red"
+   },
+   "ability": "mooshroom",
+   "variants": {
+    "component": "minecraft:mooshroom/variant",
+    "list": [
+     {
+      "id": "red",
+      "en": "Red",
+      "de": "Rot",
+      "tex": "cow/mooshroom_red"
+     },
+     {
+      "id": "brown",
+      "en": "Brown",
+      "de": "Braun",
+      "tex": "cow/mooshroom_brown"
+     }
+    ]
+   }
+  },
+  {
+   "id": "nautilus",
+   "en": "Nautilus Head",
+   "de": "Nautiluskopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.nautilus.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:nautilus#main",
+    "part": "",
+    "tex": "nautilus/nautilus"
+   }
+  },
+  {
+   "id": "panda",
+   "en": "Panda Head",
+   "de": "Pandakopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.panda.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:panda#main",
+    "part": "head",
+    "tex": "panda/panda"
+   },
+   "variants": {
+    "component": null,
+    "list": [
+     {
+      "id": "normal",
+      "en": "Normal",
+      "de": "Normal",
+      "tex": "panda/panda"
+     },
+     {
+      "id": "lazy",
+      "en": "Lazy",
+      "de": "Faul",
+      "tex": "panda/panda_lazy"
+     },
+     {
+      "id": "worried",
+      "en": "Worried",
+      "de": "Besorgt",
+      "tex": "panda/panda_worried"
+     },
+     {
+      "id": "playful",
+      "en": "Playful",
+      "de": "Verspielt",
+      "tex": "panda/panda_playful"
+     },
+     {
+      "id": "brown",
+      "en": "Brown",
+      "de": "Braun",
+      "tex": "panda/panda_brown"
+     },
+     {
+      "id": "weak",
+      "en": "Weak",
+      "de": "Schwach",
+      "tex": "panda/panda_weak"
+     },
+     {
+      "id": "aggressive",
+      "en": "Aggressive",
+      "de": "Aggressiv",
+      "tex": "panda/panda_aggressive"
+     }
+    ]
+   },
+   "variant_source": "panda"
+  },
+  {
+   "id": "parrot",
+   "en": "Parrot Head",
+   "de": "Papageienkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.parrot.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:parrot#main",
+    "part": "head",
+    "tex": "parrot/parrot_red_blue"
+   },
+   "variants": {
+    "component": "minecraft:parrot/variant",
+    "list": [
+     {
+      "id": "red_blue",
+      "en": "Red",
+      "de": "Rot",
+      "tex": "parrot/parrot_red_blue"
+     },
+     {
+      "id": "blue",
+      "en": "Blue",
+      "de": "Blau",
+      "tex": "parrot/parrot_blue"
+     },
+     {
+      "id": "green",
+      "en": "Green",
+      "de": "Grün",
+      "tex": "parrot/parrot_green"
+     },
+     {
+      "id": "yellow_blue",
+      "en": "Cyan",
+      "de": "Türkis",
+      "tex": "parrot/parrot_yellow_blue"
+     },
+     {
+      "id": "gray",
+      "en": "Gray",
+      "de": "Grau",
+      "tex": "parrot/parrot_grey"
+     }
+    ]
+   }
+  },
+  {
+   "id": "polar_bear",
+   "en": "Polar Bear Head",
+   "de": "Eisbärenkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.polar_bear.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:polar_bear#main",
+    "part": "head",
+    "tex": "bear/polarbear"
+   },
+   "ability": "polar_bear"
+  },
+  {
+   "id": "rabbit",
+   "en": "Rabbit Head",
+   "de": "Kaninchenkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.rabbit.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:rabbit#main",
+    "part": "head",
+    "tex": "rabbit/rabbit_brown"
+   },
+   "variants": {
+    "component": "minecraft:rabbit/variant",
+    "list": [
+     {
+      "id": "brown",
+      "en": "Brown",
+      "de": "Braun",
+      "tex": "rabbit/rabbit_brown"
+     },
+     {
+      "id": "white",
+      "en": "White",
+      "de": "Weiß",
+      "tex": "rabbit/rabbit_white"
+     },
+     {
+      "id": "black",
+      "en": "Black",
+      "de": "Schwarz",
+      "tex": "rabbit/rabbit_black"
+     },
+     {
+      "id": "white_splotched",
+      "en": "Black and White",
+      "de": "Schwarz-weiß",
+      "tex": "rabbit/rabbit_white_splotched"
+     },
+     {
+      "id": "gold",
+      "en": "Gold",
+      "de": "Gold",
+      "tex": "rabbit/rabbit_gold"
+     },
+     {
+      "id": "salt",
+      "en": "Salt and Pepper",
+      "de": "Pfeffer und Salz",
+      "tex": "rabbit/rabbit_salt"
+     },
+     {
+      "id": "evil",
+      "en": "Killer Bunny",
+      "de": "Killerkaninchen",
+      "tex": "rabbit/rabbit_caerbannog"
+     }
+    ]
+   }
+  },
+  {
+   "id": "sniffer",
+   "en": "Sniffer Head",
+   "de": "Schnüfflerkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.sniffer.idle"
+   ],
+   "model": {
+    "layer": "minecraft:sniffer#main",
+    "part": "head",
+    "tex": "sniffer/sniffer"
+   },
+   "ability": "sniffer"
+  },
+  {
+   "id": "turtle",
+   "en": "Turtle Head",
+   "de": "Schildkrötenkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.turtle.ambient_land"
+   ],
+   "model": {
+    "layer": "minecraft:turtle#main",
+    "part": "head",
+    "tex": "turtle/turtle"
+   },
+   "ability": "turtle"
+  },
+  {
+   "id": "villager",
+   "en": "Villager Head",
+   "de": "Dorfbewohnerkopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.villager.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:villager#main",
+    "part": "head",
+    "tex": "villager/villager",
+    "layers": [
+     {
+      "tex": "variant",
+      "render": "cutout"
+     }
+    ]
+   },
+   "variants": {
+    "component": "minecraft:villager/variant",
+    "list": [
+     {
+      "id": "plains",
+      "en": "Plains",
+      "de": "Ebene",
+      "tex": "villager/type/plains"
+     },
+     {
+      "id": "desert",
+      "en": "Desert",
+      "de": "Wüste",
+      "tex": "villager/type/desert"
+     },
+     {
+      "id": "jungle",
+      "en": "Jungle",
+      "de": "Dschungel",
+      "tex": "villager/type/jungle"
+     },
+     {
+      "id": "savanna",
+      "en": "Savanna",
+      "de": "Savanne",
+      "tex": "villager/type/savanna"
+     },
+     {
+      "id": "snow",
+      "en": "Snowy",
+      "de": "Verschneit",
+      "tex": "villager/type/snow"
+     },
+     {
+      "id": "swamp",
+      "en": "Swamp",
+      "de": "Sumpf",
+      "tex": "villager/type/swamp"
+     },
+     {
+      "id": "taiga",
+      "en": "Taiga",
+      "de": "Taiga",
+      "tex": "villager/type/taiga"
+     }
+    ]
+   },
+   "variant_layer": true
+  },
+  {
+   "id": "wandering_trader",
+   "en": "Wandering Trader Head",
+   "de": "Fahrender-Händler-Kopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.wandering_trader.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:wandering_trader#main",
+    "part": "head",
+    "tex": "wandering_trader/wandering_trader"
+   }
+  },
+  {
+   "id": "wolf",
+   "en": "Wolf Head",
+   "de": "Wolfskopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.wolf.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:wolf#main",
+    "part": "head",
+    "tex": "wolf/wolf"
+   },
+   "ability": "wolf",
+   "variants": {
+    "component": "minecraft:wolf/variant",
+    "list": [
+     {
+      "id": "pale",
+      "en": "Pale",
+      "de": "Blass",
+      "tex": "wolf/wolf"
+     },
+     {
+      "id": "woods",
+      "en": "Woods",
+      "de": "Wald",
+      "tex": "wolf/wolf_woods"
+     },
+     {
+      "id": "ashen",
+      "en": "Ashen",
+      "de": "Aschgrau",
+      "tex": "wolf/wolf_ashen"
+     },
+     {
+      "id": "black",
+      "en": "Black",
+      "de": "Schwarz",
+      "tex": "wolf/wolf_black"
+     },
+     {
+      "id": "chestnut",
+      "en": "Chestnut",
+      "de": "Kastanie",
+      "tex": "wolf/wolf_chestnut"
+     },
+     {
+      "id": "rusty",
+      "en": "Rusty",
+      "de": "Rostrot",
+      "tex": "wolf/wolf_rusty"
+     },
+     {
+      "id": "spotted",
+      "en": "Spotted",
+      "de": "Gefleckt",
+      "tex": "wolf/wolf_spotted"
+     },
+     {
+      "id": "striped",
+      "en": "Striped",
+      "de": "Gestreift",
+      "tex": "wolf/wolf_striped"
+     },
+     {
+      "id": "snowy",
+      "en": "Snowy",
+      "de": "Schneeweiß",
+      "tex": "wolf/wolf_snowy"
+     }
+    ]
+   }
+  },
+  {
+   "id": "happy_ghast",
+   "en": "Happy Ghast Head",
+   "de": "Glücklicher-Ghast-Kopf",
+   "group": "passive",
+   "sound": [
+    "minecraft:entity.happy_ghast.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:happy_ghast#main",
+    "part": "",
+    "tex": "ghast/happy_ghast"
+   }
+  },
+  {
+   "id": "cod",
+   "en": "Cod Head",
+   "de": "Kabeljaukopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.cod.flop"
+   ],
+   "model": {
+    "layer": "minecraft:cod#main",
+    "part": "",
+    "tex": "fish/cod"
+   }
+  },
+  {
+   "id": "salmon",
+   "en": "Salmon Head",
+   "de": "Lachskopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.salmon.flop"
+   ],
+   "model": {
+    "layer": "minecraft:salmon#main",
+    "part": "",
+    "tex": "fish/salmon"
+   }
+  },
+  {
+   "id": "pufferfish",
+   "en": "Pufferfish Head",
+   "de": "Kugelfischkopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.puffer_fish.flop"
+   ],
+   "model": {
+    "layer": "minecraft:pufferfish_big#main",
+    "part": "",
+    "tex": "fish/pufferfish"
+   }
+  },
+  {
+   "id": "tropical_fish",
+   "en": "Tropical Fish Head",
+   "de": "Tropenfischkopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.tropical_fish.flop"
+   ],
+   "model": {
+    "layer": "minecraft:tropical_fish_small#main",
+    "part": "",
+    "tex": "fish/tropical_a",
+    "tint": "variant",
+    "layers": [
+     {
+      "tex": "variant",
+      "render": "cutout",
+      "layer": "minecraft:tropical_fish_small#pattern",
+      "part": "",
+      "tint": "variant2"
+     }
+    ]
+   },
+   "variants": {
+    "component": "minecraft:tropical_fish/pattern",
+    "list": [
+     {
+      "id": "kob",
+      "en": "Kob",
+      "de": "Kob",
+      "tex": "fish/tropical_a_pattern_1",
+      "tint": "dye:orange",
+      "tint2": "dye:white"
+     },
+     {
+      "id": "sunstreak",
+      "en": "Sunstreak",
+      "de": "Sonnenstreif",
+      "tex": "fish/tropical_a_pattern_2",
+      "tint": "dye:gray",
+      "tint2": "dye:red"
+     },
+     {
+      "id": "snooper",
+      "en": "Snooper",
+      "de": "Schnüffler",
+      "tex": "fish/tropical_a_pattern_3",
+      "tint": "dye:gray",
+      "tint2": "dye:red"
+     },
+     {
+      "id": "dasher",
+      "en": "Dasher",
+      "de": "Flitzer",
+      "tex": "fish/tropical_a_pattern_4",
+      "tint": "dye:white",
+      "tint2": "dye:gray"
+     },
+     {
+      "id": "brinely",
+      "en": "Brinely",
+      "de": "Salzling",
+      "tex": "fish/tropical_a_pattern_5",
+      "tint": "dye:lime",
+      "tint2": "dye:light_blue"
+     },
+     {
+      "id": "spotty",
+      "en": "Spotty",
+      "de": "Tüpfel",
+      "tex": "fish/tropical_a_pattern_6",
+      "tint": "dye:pink",
+      "tint2": "dye:light_blue"
+     },
+     {
+      "id": "flopper",
+      "en": "Flopper",
+      "de": "Zappler",
+      "tex": "fish/tropical_b_pattern_1",
+      "tint": "dye:white",
+      "tint2": "dye:yellow",
+      "model": {
+       "layer": "minecraft:tropical_fish_large#main",
+       "part": "",
+       "tex": "fish/tropical_b",
+       "tint": "variant",
+       "layers": [
+        {
+         "tex": "variant",
+         "render": "cutout",
+         "layer": "minecraft:tropical_fish_large#pattern",
+         "part": "",
+         "tint": "variant2"
+        }
+       ]
+      }
+     },
+     {
+      "id": "stripey",
+      "en": "Stripey",
+      "de": "Streifling",
+      "tex": "fish/tropical_b_pattern_2",
+      "tint": "dye:orange",
+      "tint2": "dye:gray",
+      "model": {
+       "layer": "minecraft:tropical_fish_large#main",
+       "part": "",
+       "tex": "fish/tropical_b",
+       "tint": "variant",
+       "layers": [
+        {
+         "tex": "variant",
+         "render": "cutout",
+         "layer": "minecraft:tropical_fish_large#pattern",
+         "part": "",
+         "tint": "variant2"
+        }
+       ]
+      }
+     },
+     {
+      "id": "glitter",
+      "en": "Glitter",
+      "de": "Glitzer",
+      "tex": "fish/tropical_b_pattern_3",
+      "tint": "dye:white",
+      "tint2": "dye:gray",
+      "model": {
+       "layer": "minecraft:tropical_fish_large#main",
+       "part": "",
+       "tex": "fish/tropical_b",
+       "tint": "variant",
+       "layers": [
+        {
+         "tex": "variant",
+         "render": "cutout",
+         "layer": "minecraft:tropical_fish_large#pattern",
+         "part": "",
+         "tint": "variant2"
+        }
+       ]
+      }
+     },
+     {
+      "id": "blockfish",
+      "en": "Blockfish",
+      "de": "Klotzfisch",
+      "tex": "fish/tropical_b_pattern_4",
+      "tint": "dye:purple",
+      "tint2": "dye:pink",
+      "model": {
+       "layer": "minecraft:tropical_fish_large#main",
+       "part": "",
+       "tex": "fish/tropical_b",
+       "tint": "variant",
+       "layers": [
+        {
+         "tex": "variant",
+         "render": "cutout",
+         "layer": "minecraft:tropical_fish_large#pattern",
+         "part": "",
+         "tint": "variant2"
+        }
+       ]
+      }
+     },
+     {
+      "id": "betty",
+      "en": "Betty",
+      "de": "Betty",
+      "tex": "fish/tropical_b_pattern_5",
+      "tint": "dye:magenta",
+      "tint2": "dye:light_blue",
+      "model": {
+       "layer": "minecraft:tropical_fish_large#main",
+       "part": "",
+       "tex": "fish/tropical_b",
+       "tint": "variant",
+       "layers": [
+        {
+         "tex": "variant",
+         "render": "cutout",
+         "layer": "minecraft:tropical_fish_large#pattern",
+         "part": "",
+         "tint": "variant2"
+        }
+       ]
+      }
+     },
+     {
+      "id": "clayfish",
+      "en": "Clayfish",
+      "de": "Tonfisch",
+      "tex": "fish/tropical_b_pattern_6",
+      "tint": "dye:lime",
+      "tint2": "dye:red",
+      "model": {
+       "layer": "minecraft:tropical_fish_large#main",
+       "part": "",
+       "tex": "fish/tropical_b",
+       "tint": "variant",
+       "layers": [
+        {
+         "tex": "variant",
+         "render": "cutout",
+         "layer": "minecraft:tropical_fish_large#pattern",
+         "part": "",
+         "tint": "variant2"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "variant_layer": true
+  },
+  {
+   "id": "squid",
+   "en": "Squid Head",
+   "de": "Tintenfischkopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.squid.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:squid#main",
+    "part": "",
+    "tex": "squid/squid"
+   }
+  },
+  {
+   "id": "glow_squid",
+   "en": "Glow Squid Head",
+   "de": "Leuchttintenfischkopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.glow_squid.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:glow_squid#main",
+    "part": "",
+    "tex": "squid/glow_squid",
+    "render": "emissive"
+   }
+  },
+  {
+   "id": "tadpole",
+   "en": "Tadpole Head",
+   "de": "Kaulquappenkopf",
+   "group": "water",
+   "sound": [
+    "minecraft:entity.tadpole.hurt"
+   ],
+   "model": {
+    "layer": "minecraft:tadpole#main",
+    "part": "",
+    "tex": "tadpole/tadpole"
+   }
+  },
+  {
+   "id": "deceiver",
+   "en": "Deceiver Head",
+   "de": "Täuscherkopf",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.illusioner.ambient"
+   ],
+   "model": {
+    "layer": "simplemobs:deceiver#main",
+    "part": "head",
+    "tex": "simplemobs:deceiver/deceiver",
+    "layers": [
+     {
+      "tex": "simplemobs:deceiver/deceiver_eyes",
+      "render": "eyes"
+     }
+    ]
+   },
+   "mob": "simplemobs:deceiver"
+  },
+  {
+   "id": "hollow_howler",
+   "en": "Hollow Howler Skull",
+   "de": "Hohlheuler-Schädel",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.warden.ambient"
+   ],
+   "model": {
+    "layer": "simplemobs:hollow_howler#main",
+    "part": "skull",
+    "tex": "simplemobs:hollow_howler/hollow_howler",
+    "layers": [
+     {
+      "tex": "simplemobs:hollow_howler/hollow_howler_glow",
+      "render": "eyes"
+     }
+    ]
+   },
+   "mob": "simplemobs:hollow_howler",
+   "item": "hollow_howler_skull"
+  },
+  {
+   "id": "dread",
+   "en": "Dread Head",
+   "de": "Schreckenskopf",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.wither_skeleton.ambient"
+   ],
+   "model": {
+    "layer": "simplemobs:dread#main",
+    "part": "head",
+    "tex": "simplemobs:dread/dread",
+    "layers": [
+     {
+      "tex": "simplemobs:dread/dread_glow",
+      "render": "eyes"
+     }
+    ]
+   },
+   "mob": "simplemobs:dread"
+  },
+  {
+   "id": "hollow_watcher",
+   "en": "Hollow Watcher Head",
+   "de": "Hohlwächterkopf",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.enderman.ambient"
+   ],
+   "model": {
+    "layer": "simplemobs:hollow_watcher#main",
+    "part": "head",
+    "tex": "simplemobs:hollow_watcher/hollow_watcher",
+    "layers": [
+     {
+      "tex": "simplemobs:hollow_watcher/hollow_watcher_eyes",
+      "render": "eyes"
+     }
+    ]
+   },
+   "mob": "simplemobs:hollow_watcher"
+  },
+  {
+   "id": "shellker",
+   "en": "Shellker Head",
+   "de": "Shellkerkopf",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.shulker.ambient"
+   ],
+   "model": {
+    "custom": "shulker",
+    "tex": "simplemobs:shellker/shellker"
+   },
+   "mob": "simplemobs:shellker"
+  },
+  {
+   "id": "soulfire_blaze",
+   "en": "Soulfire Blaze Head",
+   "de": "Seelenfeuerlohenkopf",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.blaze.ambient"
+   ],
+   "model": {
+    "custom": "blaze",
+    "tex": "simplemobs:soulfire_blaze/soulfire_blaze"
+   },
+   "mob": "simplemobs:soulfire_blaze"
+  },
+  {
+   "id": "blighted_wither",
+   "en": "Blighted Wither Head",
+   "de": "Verderbter-Wither-Kopf",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.wither.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:wither#main",
+    "part": "center_head",
+    "tex": "simplemobs:blighted_wither/blighted_wither"
+   },
+   "mob": "simplemobs:blighted_wither",
+   "drop": "wither"
+  },
+  {
+   "id": "abyssal_wither",
+   "en": "Abyssal Wither Head",
+   "de": "Abgrund-Wither-Kopf",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.wither.ambient"
+   ],
+   "model": {
+    "layer": "minecraft:wither#main",
+    "part": "center_head",
+    "tex": "simplemobs:blighted_wither/abyssal_wither"
+   },
+   "mob": "simplemobs:abyssal_wither",
+   "drop": "wither"
+  },
+  {
+   "id": "nibblemite",
+   "en": "Nibblemite Head",
+   "de": "Knabbermilbenkopf",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.endermite.ambient"
+   ],
+   "model": {
+    "layer": "simpleend:nibblemite#main",
+    "part": "",
+    "tex": "simpleend:nibblemite/ash"
+   },
+   "mob": "simpleend:nibblemite"
+  },
+  {
+   "id": "dragonmite",
+   "en": "Dragonmite Head",
+   "de": "Drachenmilbenkopf",
+   "group": "mod",
+   "sound": [
+    "minecraft:entity.endermite.ambient"
+   ],
+   "model": {
+    "layer": "simpleenddragonfight:dragonmite#main",
+    "part": "",
+    "tex": "simpleenddragonfight:dragonmite/dragonmite"
+   },
+   "mob": "simpleenddragonfight:dragonmite"
+  }
+ ]
+}

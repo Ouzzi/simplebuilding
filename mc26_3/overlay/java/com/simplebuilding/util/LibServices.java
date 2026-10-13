@@ -56,6 +56,9 @@ public final class LibServices {
     public static void init() {
         // Split stage 3d: SimpleBuilding uses every shared material - their recipes and the anvil crushing stay on.
         SharedMaterials.request();
+        // Simple Mobheads (required sub-mod) asks framework WornHeads for extra worn heads: the extra head slot (N49).
+        com.simplebuilding.framework.api.WornHeads.register(Simplebuilding.MOD_ID, entity ->
+                entity instanceof net.minecraft.world.entity.LivingEntity living ? java.util.List.of(ExtraHead.get(living)) : java.util.List.of());
         InWorldUpgrades.registerDefaults(Simplebuilding.MOD_ID);
         // Same split as SledgehammerUpgrades.Upgrade#isChest / #isShulkerBox: every chest target moves like a tiered chest.
         SimpleLibApi.registerUpgradeHandler(block -> block instanceof ChestBlock, TieredChests::upgradeInPlace);

@@ -116,6 +116,8 @@ tasks.named('processResources', ProcessResources).configure {
     inputs.property 'forgeMixinLevel', 'JAVA_21'
     filesMatching('META-INF/mods.toml') {
         expand replaceProperties
+        // 26.3 only: Simple Mobheads is a required Sub-Mod (the 26.2 line keeps its own heads).
+        filter { String line -> line.replace('# 26.3: required sub-mods', '[[dependencies.simplebuilding]]\nmodId="simplemobheads"\nmandatory=true\nversionRange="[1.0.0,)"\nordering="NONE"\nside="BOTH"') }
     }
     // Forges Mixin 0.8.7 kennt hoechstens JAVA_21; die gemeinsamen Konfigs (Fabric/NeoForge) sagen JAVA_25.
     filesMatching('*.mixins.json') {
@@ -165,7 +167,7 @@ tasks.named('check') { dependsOn 'checkForgeOverlay' }
 // SimpleLib nested next to framework (principle 6a).
 ext.forgeBundleSimplelib = true
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept).
-ext.forgeBundleModules = [':modules:simplemaps:forge', ':modules:simplequestionary:forge'] +
+ext.forgeBundleModules = [':modules:simplemaps:forge', ':modules:simplequestionary:forge', ':modules:simplemobheads:forge'] +
         // Optional Sub-Mods (PLAN-MODULAUFTEILUNG stage 1a), switches via framework SubMods.
         ['simpleriding', 'simplesandwiches', 'simpletweaks', 'simplemoney', 'simplefun', 'simpledimensions', 'simpletrims', 'simplemobs', 'simpleend', 'simplerespawn'].collect { ":modules:${it}:forge" }
 apply from: rootProject.file('gradle/forge-framework.gradle')

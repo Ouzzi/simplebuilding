@@ -1,0 +1,461 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "simplemobheads:variant",
+    "cases": [
+      {
+        "when": "sunstreak",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/sunstreak"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "snooper",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/snooper"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "dasher",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/dasher"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "brinely",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/brinely"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "spotty",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/spotty"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "flopper",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/flopper"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "stripey",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/stripey"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "glitter",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/glitter"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "blockfish",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/blockfish"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "betty",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/betty"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "clayfish",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish/clayfish"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      },
+      {
+        "when": "kob",
+        "model": {
+          "type": "minecraft:special",
+          "base": "minecraft:item/template_skull",
+          "model": {
+            "type": "minecraft:head",
+            "kind": "simplemobheads:tropical_fish"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "right_rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "translation": [
+              0.5,
+              0.0,
+              0.5
+            ]
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:special",
+      "base": "minecraft:item/template_skull",
+      "model": {
+        "type": "minecraft:head",
+        "kind": "simplemobheads:tropical_fish"
+      },
+      "transformation": {
+        "left_rotation": [
+          1.0,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        "right_rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "translation": [
+          0.5,
+          0.0,
+          0.5
+        ]
+      }
+    }
+  }
+}

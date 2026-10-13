@@ -214,6 +214,9 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
         # server.loot.* (2026-09-28): Struktur-Schalter, die ganze Tabellen abschalten - Standard an.
         if "lootEnabledFor" in cond:
             continue
+        # 26.3: the mob heads live in Simple Mobheads (McVersion.HEADS_IN_MOBHEADS); its own wiki lists their drops.
+        if "HEADS_IN_MOBHEADS" in cond and (version_flags or {}).get("HEADS_IN_MOBHEADS"):
+            continue
         tables = re.findall(r"BuiltInLootTables\.(\w+)\.equals\(key\)", cond)
         if re.search(r"\bwardenTable\(\)\.equals\(key\)", cond):
             tables.append("WARDEN")
@@ -241,11 +244,13 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
                 pools.append({"rolls": {"type": "binomial", "n": 1, "p": _number(chance, constants)},
                               "entries": [{"item": item_id(owner, const), "weight": 1, "count": [1, 1]}]})
                 continue
-            # headPool(registry, EntityTypes.SPIDER, TweaksItems.SPIDER_HEAD): one mob head per victim (charged creeper)
-            head = re.fullmatch(r"\s*headPool\(registry,\s*EntityTypes\.(\w+),\s*(\w+)\.(\w+)\)\s*", args)
+            # headPool(registry, EntityTypes.SPIDER, TweaksItems.head(BlazeHeadType.SPIDER)): one mob head per victim
+            # (charged creeper); the item is <type>_head, stray and bogged give a _skull.
+            head = re.fullmatch(r"\s*headPool\(registry,\s*EntityTypes\.(\w+),\s*(\w+)\.head\((?:[\w.]*\.)?BlazeHeadType\.(\w+)\)\)\s*", args)
             if head:
+                path = head.group(3) + ("_SKULL" if head.group(3) in ("STRAY", "BOGGED") else "_HEAD")
                 pools.append({"rolls": {"type": "exactly", "n": 1},
-                              "entries": [{"item": item_id(head.group(2), head.group(3)), "weight": 1, "count": [1, 1]}],
+                              "entries": [{"item": item_id(head.group(2), path), "weight": 1, "count": [1, 1]}],
                               "condition": {"victim": "minecraft:" + head.group(1).lower()}})
                 continue
             helper = re.fullmatch(r"\s*(\w+)\(registry\)\s*", args)

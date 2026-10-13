@@ -1,0 +1,34 @@
+{
+  "parent": "simplemobheads:heads/root",
+  "criteria": {
+    "has_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobheads:bogged_skull"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_head"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "simplemobheads:bogged_skull"
+    },
+    "title": {
+      "translate": "block.simplemobheads.bogged_skull"
+    },
+    "description": {
+      "translate": "advancements.simplemobheads.heads.head.description"
+    },
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  }
+}

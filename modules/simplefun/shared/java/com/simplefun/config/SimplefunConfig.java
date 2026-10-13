@@ -12,8 +12,6 @@ public class SimplefunConfig implements ConfigData {
 
   public static class Fun {
 
-    @ConfigEntry.Gui.Tooltip public boolean playerHeadDrops = true;
-
     @ConfigEntry.Gui.Tooltip public boolean enablePiggyEffect = true;
 
     @ConfigEntry.Gui.Tooltip public boolean enableNoDamage = true;
@@ -29,15 +27,6 @@ public class SimplefunConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip public float maxKnockback = 4.0f;
     @ConfigEntry.Gui.Tooltip public boolean enableBrickSnowball = true;
     @ConfigEntry.Gui.Tooltip public boolean enableNoDamageTrades = true;
-    @ConfigEntry.Gui.Tooltip public boolean enableAnimalHeads = true;
-    @ConfigEntry.Gui.Tooltip public boolean pigHeadGreeting = true;
-    @ConfigEntry.Gui.Tooltip public boolean cowHeadGreeting = true;
-    @ConfigEntry.Gui.Tooltip public boolean chickenHeadGreeting = true;
-    @ConfigEntry.Gui.Tooltip public boolean sheepHeadGreeting = true;
-    @ConfigEntry.Gui.Tooltip public boolean cowHeadMilking = true;
-    @ConfigEntry.Gui.Tooltip public boolean sheepHeadShearing = true;
-    @ConfigEntry.Gui.Tooltip public boolean chickenHeadEggs = true;
-    @ConfigEntry.Gui.Tooltip public boolean pigHeadTruffles = true;
     @ConfigEntry.Gui.Tooltip public boolean flowerSniff = true;
     @ConfigEntry.Gui.Tooltip public boolean cookieCrumbs = true;
     @ConfigEntry.Gui.Tooltip public boolean appleSparkle = true;

@@ -55,8 +55,17 @@ MODULES = [
     dict(module="simplefun", ns="simplefun", package="com.simplefun.guide", cls="FunGuide", kind="item",
          author="Simple Fun", recipe="minecraft:brick",
          name=("Simple Fun Guide", "Simple-Fun-Handbuch"),
-         intro=("Bounded playful mechanics, throwable bricks, cosmetic transformations and farm-animal heads.",
-                "Begrenzte verspielte Mechaniken, Wurfziegel, kosmetische Verwandlungen und Nutztierköpfe.")),
+         intro=("Bounded playful mechanics, throwable bricks and cosmetic transformations. The animal heads moved to "
+                "Simple Mobheads.",
+                "Begrenzte verspielte Mechaniken, Wurfziegel und kosmetische Verwandlungen. Die Tierköpfe liegen jetzt in "
+                "Simple Mobheads.")),
+    dict(module="simplemobheads", ns="simplemobheads", package="com.simplemobheads.guide", cls="MobHeadsGuide",
+         kind="item", author="Simple Mobheads", recipe="minecraft:bone",
+         name=("Simple Mobheads Guide", "Simple-Mobheads-Handbuch"),
+         intro=("A head for every mob: a charged creeper's explosion drops it, worn it keeps that mob calm and hides a "
+                "small secret, placed it decorates, on a note block it speaks.",
+                "Ein Kopf für jeden Mob: die Explosion eines geladenen Creepers lässt ihn fallen, getragen beruhigt er "
+                "seinen Mob und verbirgt ein kleines Geheimnis, aufgestellt schmückt er, auf dem Notenblock spricht er.")),
     dict(module="simplemoney", ns="simplemoney", package="com.simplemoney.guide", cls="MoneyGuide", kind="item",
          author="Simple Money", recipe="minecraft:gold_nugget",
          name=("Simple Money Guide", "Simple-Money-Handbuch"),

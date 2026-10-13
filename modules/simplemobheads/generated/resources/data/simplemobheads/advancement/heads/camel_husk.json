@@ -1,0 +1,34 @@
+{
+  "parent": "simplemobheads:heads/root",
+  "criteria": {
+    "has_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobheads:camel_husk_head"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_head"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "simplemobheads:camel_husk_head"
+    },
+    "title": {
+      "translate": "block.simplemobheads.camel_husk_head"
+    },
+    "description": {
+      "translate": "advancements.simplemobheads.heads.head.description"
+    },
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  }
+}

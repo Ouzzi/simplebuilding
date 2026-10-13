@@ -199,14 +199,14 @@ public final class TrainingDummyTests {
         helper.assertValueEqual(DummyTargets.typeForHead(new ItemStack(Items.ZOMBIE_HEAD)), EntityTypes.ZOMBIE, "zombie head");
         helper.assertValueEqual(DummyTargets.typeForHead(new ItemStack(Items.WITHER_SKELETON_SKULL)), EntityTypes.WITHER_SKELETON, "wither skull");
         helper.assertValueEqual(DummyTargets.typeForHead(new ItemStack(Items.DRAGON_HEAD)), EntityTypes.ENDER_DRAGON, "dragon head");
-        helper.assertValueEqual(DummyTargets.typeForHead(new ItemStack(TweaksItems.SPIDER_HEAD)), EntityTypes.SPIDER, "spider head");
-        helper.assertValueEqual(DummyTargets.typeForHead(new ItemStack(TweaksItems.CAVE_SPIDER_HEAD)), EntityTypes.CAVE_SPIDER, "cave spider head");
+        helper.assertValueEqual(DummyTargets.typeForHead(new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SPIDER))), EntityTypes.SPIDER, "spider head");
+        helper.assertValueEqual(DummyTargets.typeForHead(new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.CAVE_SPIDER))), EntityTypes.CAVE_SPIDER, "cave spider head");
         helper.assertTrue(DummyTargets.typeForHead(new ItemStack(Items.PLAYER_HEAD)) == null, "a player head stands for a mob");
         helper.assertTrue(DummyTargets.typeForHead(new ItemStack(Items.CARVED_PUMPKIN)) == null, "the pumpkin stands for a mob");
 
         ServerLevel level = helper.getLevel();
         TrainingDummy zombie = dummy(helper, 1, 1, new ItemStack(Items.ZOMBIE_HEAD));
-        TrainingDummy spider = dummy(helper, 3, 1, new ItemStack(TweaksItems.SPIDER_HEAD));
+        TrainingDummy spider = dummy(helper, 3, 1, new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SPIDER)));
         TrainingDummy plain = dummy(helper, 1, 3, new ItemStack(Items.CARVED_PUMPKIN));
         DamageSource source = level.damageSources().generic();
         ItemStack smite = enchanted(helper, new ItemStack(Items.IRON_SWORD), Enchantments.SMITE, 5);
@@ -248,10 +248,10 @@ public final class TrainingDummyTests {
         near(helper, iron.lastShown(), 10.0F * (1.0F - Math.max(13 - 5.0F, 13 * 0.2F) / 25.0F), "10 against iron armor");
         helper.assertTrue(iron.getItemBySlot(EquipmentSlot.CHEST).getDamageValue() == 0, "the dummy's armor wears out");
 
-        TrainingDummy blaze = dummy(helper, 3, 3, new ItemStack(TweaksItems.BLAZE_HEAD));
+        TrainingDummy blaze = dummy(helper, 3, 3, new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
         helper.assertFalse(blaze.hurtServer(level, level.damageSources().inFire(), 1.0F), "fire hurts the blaze head dummy");
         near(helper, blaze.lastShown(), 0.0F, "fire against the blaze head");
-        TrainingDummy enderman = dummy(helper, 5, 1, new ItemStack(TweaksItems.ENDERMAN_HEAD));
+        TrainingDummy enderman = dummy(helper, 5, 1, new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN)));
         net.minecraft.world.entity.projectile.arrow.Arrow arrow = new net.minecraft.world.entity.projectile.arrow.Arrow(level, 0, 0, 0,
                 new ItemStack(Items.ARROW), null);
         helper.assertFalse(enderman.hurtServer(level, level.damageSources().arrow(arrow, null), 6.0F), "an arrow hurts the enderman head");

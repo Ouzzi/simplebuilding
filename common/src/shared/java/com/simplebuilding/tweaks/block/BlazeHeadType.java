@@ -10,8 +10,11 @@ import net.minecraft.world.level.block.SkullBlock;
  * Alle fallen nur, wenn die Explosion eines geladenen Creepers den Mob toetet, und jeder hat eine geheime,
  * harmlose Faehigkeit beim Tragen ({@code tweaks.heads.HeadAbilities}, docs/MOBKOEPFE.md).
  *
- * <p>Vanillas Koepfe sind ein Enum ({@code SkullBlock.Types}); ein Mod-Kopf traegt sich selbst in
- * {@link SkullBlock.Type#TYPES} ein, damit Block-Codec und das Item-Modell ({@code minecraft:head}, Feld
+ * <p>Seit 13.10. (26.3) liegen die Koepfe in Simple Mobheads ({@code simplemobheads:*}); dieses Enum bleibt der
+ * Schluessel, ueber den SimpleBuilding sie anspricht ({@code TweaksItems#head}), und registriert nur auf 26.2.
+ *
+ * <p>Vanillas Koepfe sind ein Enum ({@code SkullBlock.Types}); ein Mod-Kopf traegt sich in
+ * {@link SkullBlock.Type#TYPES} ein ({@link #registerSkullTypes}), damit Block-Codec und das Item-Modell ({@code minecraft:head}, Feld
  * {@code kind}) ihn per Namen finden. Modell und Textur (die echten Vanilla-Mob-Texturen, siehe
  * {@code ModSkullModels}) haengt {@code SkullModelMixin} beim Client an {@code SkullBlockRenderer}.
  *
@@ -38,7 +41,17 @@ public enum BlazeHeadType implements SkullBlock.Type {
     BlazeHeadType(String name, String blockName) {
         this.name = name;
         this.blockName = blockName;
-        SkullBlock.Type.TYPES.put(name, this);
+    }
+
+    /**
+     * Enters every type in {@link SkullBlock.Type#TYPES} (block codec, item model field {@code kind}). Only the 26.2 line
+     * registers these heads; on 26.3 they live in Simple Mobheads ({@code McVersion.HEADS_IN_MOBHEADS}) and their old
+     * {@code simplebuilding:*} type names stay out of the shared table.
+     */
+    public static void registerSkullTypes() {
+        for (BlazeHeadType type : values()) {
+            SkullBlock.Type.TYPES.put(type.name, type);
+        }
     }
 
     @Override

@@ -300,7 +300,7 @@ public final class TweaksTierTests {
         expect(helper, net, TweaksBlocks.LAUNCHPAD, netherite, TweaksBlocks.NETHERITE_LAUNCHPAD);
         expect(helper, end, TweaksBlocks.NETHERITE_LAUNCHPAD, enderite, TweaksBlocks.ENDERITE_LAUNCHPAD);
 
-        expect(helper, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, com.simplebuilding.tweaks.item.TweaksItems.SPIDER_HEAD,
+        expect(helper, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, com.simplebuilding.tweaks.item.TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SPIDER),
                 TweaksBlocks.CHUNK_LOADER);
         expect(helper, net, TweaksBlocks.CHUNK_LOADER, netherite, TweaksBlocks.NETHERITE_CHUNK_LOADER);
         expect(helper, end, TweaksBlocks.NETHERITE_CHUNK_LOADER, enderite, TweaksBlocks.ENDERITE_CHUNK_LOADER);

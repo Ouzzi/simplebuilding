@@ -111,7 +111,7 @@ public final class TweaksStation {
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.POISON),
                 PotionContents.createItemStack(Items.LINGERING_POTION, Potions.NIGHT_VISION),
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.WATER),
-                new ItemStack(TweaksItems.BLAZE_HEAD)));
+                new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE))));
 
         x = heads(c, x, floorZ, wallZ);
 

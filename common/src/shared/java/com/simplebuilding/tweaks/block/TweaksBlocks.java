@@ -133,7 +133,11 @@ public final class TweaksBlocks {
     private static final Map<BlazeHeadType, Block> WALL_HEADS = new EnumMap<>(BlazeHeadType.class);
 
     static {
-        for (BlazeHeadType type : BlazeHeadType.values()) {
+        // 26.3: the heads live in Simple Mobheads (McVersion.HEADS_IN_MOBHEADS); head()/wallHead() find them by id.
+        if (!com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS) {
+            BlazeHeadType.registerSkullTypes();
+        }
+        for (BlazeHeadType type : com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS ? new BlazeHeadType[0] : BlazeHeadType.values()) {
             Block standing = registerHead(type.blockName(),
                     p -> new SkullBlock(type, p.instrument(NoteBlockInstrument.CUSTOM_HEAD).strength(1.0f)
                             .pushReaction(McVersion.PUSH_DESTROYS).noOcclusion()));
@@ -144,12 +148,6 @@ public final class TweaksBlocks {
             WALL_HEADS.put(type, wall);
         }
     }
-
-    // Lohenkopf: Zutat des Trank-Pads I. Endermankopf (2026-09-28): Zutat des Spawn-Teleporters I.
-    public static final Block BLAZE_HEAD = STANDING_HEADS.get(BlazeHeadType.BLAZE);
-    public static final Block BLAZE_WALL_HEAD = WALL_HEADS.get(BlazeHeadType.BLAZE);
-    public static final Block ENDERMAN_HEAD = STANDING_HEADS.get(BlazeHeadType.ENDERMAN);
-    public static final Block ENDERMAN_WALL_HEAD = WALL_HEADS.get(BlazeHeadType.ENDERMAN);
 
     private TweaksBlocks() {
     }
@@ -165,13 +163,21 @@ public final class TweaksBlocks {
         return Collections.unmodifiableList(HEADS);
     }
 
-    /** Der stehende Kopf eines Kopf-Typs. */
+    /** Der stehende Kopf eines Kopf-Typs (26.3: der von Simple Mobheads, per Id). */
     public static Block head(BlazeHeadType type) {
+        if (com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS) {
+            return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(
+                    com.simplebuilding.version.McVersion.HEAD_NAMESPACE, type.blockName()));
+        }
         return STANDING_HEADS.get(type);
     }
 
-    /** Die Wandvariante eines Kopf-Typs. */
+    /** Die Wandvariante eines Kopf-Typs (26.3: die von Simple Mobheads, per Id). */
     public static Block wallHead(BlazeHeadType type) {
+        if (com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS) {
+            return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(
+                    com.simplebuilding.version.McVersion.HEAD_NAMESPACE, type.wallBlockName()));
+        }
         return WALL_HEADS.get(type);
     }
 

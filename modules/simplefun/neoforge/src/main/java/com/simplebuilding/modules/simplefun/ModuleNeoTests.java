@@ -1,6 +1,6 @@
 package com.simplebuilding.modules.simplefun;
 
-import com.simplefun.heads.AnimalHeads;
+import com.simplefun.registry.FunContent;
 import com.simplefun.test.FunTests;
 import java.util.List;
 import net.minecraft.core.registries.Registries;
@@ -15,20 +15,20 @@ public final class ModuleNeoTests {
                 Registries.TEST_FUNCTION,
                 r ->
                     FunTests.ALL.forEach(
-                        (n, b) -> r.register(AnimalHeads.id("module_game_test_" + n), b))));
+                        (n, b) -> r.register(FunContent.id("module_game_test_" + n), b))));
     bus.addListener(
         (net.neoforged.neoforge.event.RegisterGameTestsEvent e) -> {
           var env =
               e.registerEnvironment(
-                  AnimalHeads.id("default"), new TestEnvironmentDefinition.AllOf(List.of()));
+                  FunContent.id("default"), new TestEnvironmentDefinition.AllOf(List.of()));
           FunTests.ALL.forEach(
               (n, b) -> {
-                var id = AnimalHeads.id("module_game_test_" + n);
+                var id = FunContent.id("module_game_test_" + n);
                 var d =
                     new TestData<>(
                         env,
                         net.minecraft.world.level.Level.OVERWORLD,
-                        AnimalHeads.id("empty"),
+                        FunContent.id("empty"),
                         200,
                         0,
                         true,

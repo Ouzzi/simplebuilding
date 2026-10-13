@@ -361,13 +361,13 @@ public final class PotionPadTests {
         Item end = ModItems.ENDERITE_UPGRADE_TEMPLATE;
 
         // Stufe I seit 2026-09-29: Netheritkern im Vorlagen-Feld statt einer beliebigen Vorlage.
-        expect(helper, ModItems.NETHERITE_CORE, netheritePlate, TweaksItems.BLAZE_HEAD, TweaksBlocks.POTION_PAD);
+        expect(helper, ModItems.NETHERITE_CORE, netheritePlate, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), TweaksBlocks.POTION_PAD);
         for (Item template : List.of(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)) {
-            expectNothing(helper, template, netheritePlate, TweaksItems.BLAZE_HEAD);
+            expectNothing(helper, template, netheritePlate, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE));
         }
         expectNothing(helper, ModItems.NETHERITE_CORE, netheritePlate, Items.SKELETON_SKULL);
-        for (List<ItemStack> grid : List.of(List.of(new ItemStack(netheritePlate), new ItemStack(TweaksItems.BLAZE_HEAD)),
-                List.of(new ItemStack(TweaksItems.BLAZE_HEAD), new ItemStack(netheritePlate)))) {
+        for (List<ItemStack> grid : List.of(List.of(new ItemStack(netheritePlate), new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE))),
+                List.of(new ItemStack(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)), new ItemStack(netheritePlate)))) {
             CraftingInput input = CraftingInput.of(2, 1, grid);
             helper.assertTrue(helper.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, helper.getLevel()).isEmpty(),
                     "the old shapeless crafting recipe still turns " + grid + " into a potion pad");
@@ -533,7 +533,7 @@ public final class PotionPadTests {
 
     private static int blazeHeads(GameTestHelper helper) {
         int count = 0;
-        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds(), e -> e.getItem().is(TweaksItems.BLAZE_HEAD))) {
+        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds(), e -> e.getItem().is(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)))) {
             count += item.getItem().getCount();
         }
         return count;

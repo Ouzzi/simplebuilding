@@ -1,0 +1,310 @@
+{
+  "features": [
+    {
+      "id": "heads",
+      "en": {
+        "title": "A Head for Every Mob",
+        "summary": "93 heads: every mob of 26.3 that has no Vanilla head, the Simple mods' mobs, and the heads that moved in from Simple Fun and SimpleBuilding.",
+        "details": [
+          "Monsters, Nether mobs, animals, water mobs and bosses; the creeper, zombie, skeleton, wither skeleton, piglin and ender dragon keep their Vanilla heads, the player head stays Vanilla.",
+          "Each head shows its mob's real texture (by reference, so resource packs repaint the heads too) and the head of the mob's own model, set on the floor or hung on a wall.",
+          "A test walks the whole entity registry: every mob has a head or a stated reason (Vanilla head, unused giant)."
+        ]
+      },
+      "de": {
+        "title": "Ein Kopf für jeden Mob",
+        "summary": "93 Köpfe: jeder Mob von 26.3 ohne Vanilla-Kopf, die Mobs der Simple-Mods und die Köpfe, die aus Simple Fun und SimpleBuilding herüberkamen.",
+        "details": [
+          "Monster, Nether-Mobs, Tiere, Wassermobs und Bosse; Creeper, Zombie, Skelett, Witherskelett, Piglin und Enderdrache behalten ihre Vanilla-Köpfe, der Spielerkopf bleibt Vanilla.",
+          "Jeder Kopf zeigt die echte Textur seines Mobs (per Verweis, Ressourcenpakete färben die Köpfe mit um) und den Kopf aus dem Modell des Mobs, stehend auf dem Boden oder an der Wand.",
+          "Ein Test geht die ganze Entity-Registry durch: jeder Mob hat einen Kopf oder einen genannten Grund (Vanilla-Kopf, ungenutzter Riese)."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/data/mobs.json",
+        "modules/simplemobheads/tools/generate_heads.py",
+        "modules/simplemobheads/shared/java/com/simplemobheads/MobHeads.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/data/HeadTable.java"
+      ]
+    },
+    {
+      "id": "drops",
+      "en": {
+        "title": "Charged Creeper Drops",
+        "summary": "Only a charged creeper's explosion drops a mob's head, like Vanilla's creeper, zombie and skeleton heads: one head per explosion. No recipe.",
+        "details": [
+          "The explosion must kill the mob; babies drop the normal head. Looting does not change it.",
+          "The wither's head is off by default (server switch), the warden's on.",
+          "Optional, off by default: a player's kill may drop the head too (base chance plus a bonus per Looting level, both bounded).",
+          "The wandering trader sells most heads rarely through Simple Money; boss heads are not sold."
+        ]
+      },
+      "de": {
+        "title": "Beute geladener Creeper",
+        "summary": "Nur die Explosion eines geladenen Creepers lässt den Kopf eines Mobs fallen, wie bei Vanillas Creeper-, Zombie- und Skelettköpfen: ein Kopf je Explosion. Kein Rezept.",
+        "details": [
+          "Die Explosion muss den Mob töten; Jungtiere lassen den normalen Kopf fallen. Plünderung ändert nichts.",
+          "Der Witherkopf ist standardmäßig aus (Server-Schalter), der Wärterkopf an.",
+          "Optional, standardmäßig aus: auch ein Spieler-Kill kann den Kopf fallen lassen (Grundchance plus Bonus je Plünderungsstufe, beides begrenzt).",
+          "Der fahrende Händler verkauft die meisten Köpfe selten über Simple Money; Boss-Köpfe nicht."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/drop/HeadDrops.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/drop/HeadDropCondition.java"
+      ]
+    },
+    {
+      "id": "variants",
+      "en": {
+        "title": "Variants",
+        "summary": "A head keeps its mob's variant: a Siamese cat drops a Siamese cat head, a red sheep a red sheep head.",
+        "details": [
+          "Variants: cat, wolf, frog, pig, cow, chicken, sheep (16 wool colors), shulker (17 colors), axolotl, fox, parrot, rabbit, horse, llama, trader llama, mooshroom, panda, copper golem (oxidation), strider, villager and zombie villager (biome), zombie nautilus and tropical fish (pattern).",
+          "The item name adds the variant (\"Cat Head (Siamese)\"); the Mob Heads tab lists every variant. A placed head keeps it and drops it again."
+        ]
+      },
+      "de": {
+        "title": "Varianten",
+        "summary": "Ein Kopf behält die Variante seines Mobs: eine Siamkatze lässt einen Siam-Katzenkopf fallen, ein rotes Schaf einen roten Schafskopf.",
+        "details": [
+          "Varianten: Katze, Wolf, Frosch, Schwein, Kuh, Huhn, Schaf (16 Wollfarben), Shulker (17 Farben), Axolotl, Fuchs, Papagei, Kaninchen, Pferd, Lama, Händlerlama, Pilzkuh, Panda, Kupfergolem (Oxidation), Schreiter, Dorfbewohner und Zombiedorfbewohner (Biom), Zombie-Nautilus und Tropenfisch (Muster).",
+          "Der Itemname nennt die Variante (\"Katzenkopf (Siam)\"); der Tab Mob-Köpfe zeigt jede Variante. Ein aufgestellter Kopf behält sie und lässt sie wieder fallen."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/drop/Variants.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/drop/CopyVariantFunction.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/MobHeadItem.java"
+      ]
+    },
+    {
+      "id": "wearing",
+      "en": {
+        "title": "Wearing, Placing, Note Blocks",
+        "summary": "Worn on the head, a mob's head makes that mob see you only half as far (like Vanilla's zombie head). Placed on a note block it plays its mob's voice.",
+        "details": [
+          "Heads stand on the floor (16 turns) or hang on walls, break with any tool, and go in the helmet slot.",
+          "Worn heads replace the wearer's own head, so small heads (silverfish, chicken) do not sit inside it.",
+          "With SimpleBuilding, its extra head slot works like the helmet slot (framework WornHeads)."
+        ]
+      },
+      "de": {
+        "title": "Tragen, Aufstellen, Notenblock",
+        "summary": "Getragen sieht der Mob des Kopfes dich nur halb so weit (wie Vanillas Zombiekopf). Auf einem Notenblock spielt er die Stimme seines Mobs.",
+        "details": [
+          "Köpfe stehen auf dem Boden (16 Drehungen) oder hängen an Wänden, lassen sich mit allem abbauen und passen in den Helm-Slot.",
+          "Getragene Köpfe ersetzen den Kopf des Trägers, damit kleine Köpfe (Silberfischchen, Huhn) nicht darin verschwinden.",
+          "Mit SimpleBuilding wirkt dessen Extra-Kopf-Slot wie der Helm-Slot (framework WornHeads)."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/MobHeads.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/client/WornModHeadMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/ability/HeadAbilities.java"
+      ]
+    },
+    {
+      "id": "abilities",
+      "en": {
+        "title": "Head Abilities",
+        "summary": "28 heads hide a small, harmless ability while worn, each with its own server switch.",
+        "details": [
+          "Blaze: magma blocks and campfires do not burn. Enderman: ender pearls cost no health. Husk: food gives no Hunger. Bogged: food does not poison. Spider: cobwebs do not slow. Cave spider: bare hands cut cobwebs fast. Stray: powder snow does not freeze. Slime: one more block of safe fall. Silverfish: half size. Breeze: no trampled farmland. Shulker: blocked shulker boxes open. Drowned: magma bubble columns do not pull down.",
+          "Cow: others milk you with a bucket. Mooshroom: others fill a bowl with mushroom stew. Sheep: others shear you (1-3 wool, then it grows back). Chicken: an egg now and then. Pig: sneak on grass or dirt, the truffle nose digs something up. Sniffer: sneak five seconds on moss or dirt, it sniffs up seeds (torchflower and pitcher rarely).",
+          "Bee: harvesting a hive does not anger its bees. Fox: sweet berry bushes do not prick. Frog: higher jumps from lily pads and out of water. Goat: a ram only pushes, no damage. Cat: creepers keep away. Allay: dropped items nearby float up a little. Turtle: no trampled turtle eggs. Polar bear: ice is less slippery. Wolf: wild wolves never attack. Warden: half of the wearer's steps never reach sculk."
+        ]
+      },
+      "de": {
+        "title": "Kopf-Fähigkeiten",
+        "summary": "28 Köpfe verbergen beim Tragen eine kleine, harmlose Fähigkeit, jede mit eigenem Server-Schalter.",
+        "details": [
+          "Lohe: Magmablöcke und Lagerfeuer brennen nicht. Enderman: Enderperlen kosten keine Herzen. Wüstenzombie: Essen macht keinen Hunger. Sumpfskelett: Essen vergiftet nicht. Spinne: Netze bremsen nicht. Höhlenspinne: die Hand schneidet Netze schnell. Eiswanderer: Pulverschnee friert nicht ein. Schleim: ein Block mehr sicherer Fall. Silberfischchen: halbe Größe. Breeze: kein zertrampeltes Ackerland. Shulker: versperrte Shulkerkisten gehen auf. Ertrunkener: Magma-Blasensäulen ziehen nicht nach unten.",
+          "Kuh: andere melken dich mit einem Eimer. Pilzkuh: andere füllen eine Schüssel mit Pilzsuppe. Schaf: andere scheren dich (1-3 Wolle, dann wächst sie nach). Huhn: ab und zu ein Ei. Schwein: auf Gras oder Erde schleichen, die Trüffelnase scharrt etwas aus. Schnüffler: fünf Sekunden auf Moos oder Erde schleichen, er erschnüffelt Samen (Fackellilie und Kannenpflanze selten).",
+          "Biene: beim Ernten eines Stocks werden die Bienen nicht wütend. Fuchs: Süßbeerensträucher stechen nicht. Frosch: höhere Sprünge von Seerosen und aus dem Wasser. Ziege: ein Rammstoß schubst nur, ohne Schaden. Katze: Creeper halten Abstand. Hilfsgeist: liegende Items in der Nähe schweben leicht. Schildkröte: keine zertrampelten Eier. Eisbär: Eis rutscht weniger. Wolf: wilde Wölfe greifen nie an. Wärter: die Hälfte der Schritte erreicht kein Sculk."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/ability/HeadAbilities.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityLivingEntityMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/BeehiveBlockMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/CreeperMixin.java"
+      ]
+    },
+    {
+      "id": "greeting",
+      "en": {
+        "title": "Greeting",
+        "summary": "Sneaking with a mob head on plays its mob's voice quietly with a few notes, at most every five seconds (server switch).",
+        "details": [
+          "Moved in from Simple Fun's animal heads; now every head greets. Cosmetic only."
+        ]
+      },
+      "de": {
+        "title": "Gruß",
+        "summary": "Schleichen mit Mob-Kopf spielt leise die Stimme des Mobs mit ein paar Noten, höchstens alle fünf Sekunden (Server-Schalter).",
+        "details": [
+          "Aus Simple Funs Tierköpfen übernommen; jetzt grüßt jeder Kopf. Nur Kosmetik."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/ability/HeadAbilities.java"
+      ]
+    },
+    {
+      "id": "player_heads",
+      "en": {
+        "title": "Player Heads",
+        "summary": "A player killed by another player drops their own head with their skin (server switch, default on; moved in from Simple Fun).",
+        "details": [
+          "/simplemobheads pvp headDrops true|false; the old /simplefun pvp headDrops still works and names the new command."
+        ]
+      },
+      "de": {
+        "title": "Spielerköpfe",
+        "summary": "Ein von einem anderen Spieler getöteter Spieler lässt seinen Kopf mit Skin fallen (Server-Schalter, standardmäßig an; aus Simple Fun übernommen).",
+        "details": [
+          "/simplemobheads pvp headDrops true|false; das alte /simplefun pvp headDrops geht weiter und nennt den neuen Befehl."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/drop/HeadDrops.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/command/MobHeadsCommands.java"
+      ]
+    },
+    {
+      "id": "commands",
+      "en": {
+        "title": "Server Commands",
+        "summary": "Permission level 4: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.",
+        "details": [
+          "Every value is bounded server-side and saved to config/simplemobheads.json; the config screen edits the same file."
+        ]
+      },
+      "de": {
+        "title": "Server-Befehle",
+        "summary": "Berechtigung 4: /simplemobheads pvp headDrops, drops creeper|wither|warden|playerKill, drops playerKillChance|lootingBonus, ability <id>, greeting, enabled.",
+        "details": [
+          "Jeder Wert ist serverseitig begrenzt und steht in config/simplemobheads.json; der Einstellungsbildschirm bearbeitet dieselbe Datei."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/command/MobHeadsCommands.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/config/MobHeadsConfig.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/client/MobHeadsConfigScreen.java"
+      ]
+    },
+    {
+      "id": "migration",
+      "en": {
+        "title": "Moved In",
+        "summary": "Simple Fun's four animal heads and SimpleBuilding's twelve mob heads are Simple Mobheads heads now; old worlds keep them.",
+        "details": [
+          "simplefun:pig_head, simplebuilding:blaze_head, simplebuilding:stray_skull ... become simplemobheads:* - in inventories, chests and as placed heads (SimpleLib IdMoves).",
+          "Simple Fun's head settings are taken over once from config/simplefun.json; Simple Fun 1.4.0 has no heads any more.",
+          "SimpleBuilding requires Simple Mobheads; its pads use the same heads."
+        ]
+      },
+      "de": {
+        "title": "Umgezogen",
+        "summary": "Simple Funs vier Tierköpfe und SimpleBuildings zwölf Mob-Köpfe sind jetzt Köpfe von Simple Mobheads; alte Welten behalten sie.",
+        "details": [
+          "simplefun:pig_head, simplebuilding:blaze_head, simplebuilding:stray_skull ... werden zu simplemobheads:* - im Inventar, in Truhen und als aufgestellte Köpfe (SimpleLib IdMoves).",
+          "Die Kopf-Einstellungen von Simple Fun werden einmal aus config/simplefun.json übernommen; Simple Fun 1.4.0 hat keine Köpfe mehr.",
+          "SimpleBuilding setzt Simple Mobheads voraus; seine Pads nutzen dieselben Köpfe."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/HeadMoves.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/SimpleMobHeads.java"
+      ]
+    },
+    {
+      "id": "mod_mobs",
+      "en": {
+        "title": "Simple Mods' Mobs",
+        "summary": "Heads of the Simple mods' mobs (Deceiver, Hollow Howler, Dread, Hollow Watcher, Shellker, Soulfire Blaze, Blighted and Abyssal Wither, Nibblemite, Dragonmite) are always registered; they drop only when that mod is there.",
+        "details": [
+          "Without the mod the head stays in the creative tab and in trades; its model falls back to a plain cube if the mod's model is missing. The withers' heads follow the wither switch."
+        ]
+      },
+      "de": {
+        "title": "Mobs der Simple-Mods",
+        "summary": "Die Köpfe der Mobs der Simple-Mods (Täuscher, Hohlheuler, Schrecken, Hohlwächter, Shellker, Seelenfeuerlohe, Verderbter und Abgrund-Wither, Knabbermilbe, Drachenmilbe) sind immer registriert; sie fallen nur, wenn die Mod da ist.",
+        "details": [
+          "Ohne die Mod bleibt der Kopf im Kreativ-Tab und im Handel; fehlt das Modell der Mod, zeigt er einen einfachen Würfel. Die Wither-Köpfe folgen dem Wither-Schalter."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/data/mobs.json",
+        "modules/simplemobheads/shared/java/com/simplemobheads/client/MobHeadModels.java"
+      ]
+    },
+    {
+      "id": "creative_tab",
+      "en": {
+        "title": "Creative Tab",
+        "summary": "Own tab \"Mob Heads\" with every head and variant; in Functional Blocks and the search tab the heads stand right behind the dragon head.",
+        "details": [
+          "The shared switch in config/simple-creative-tabs.properties keeps the Vanilla tabs unchanged."
+        ]
+      },
+      "de": {
+        "title": "Kreativ-Tab",
+        "summary": "Eigener Tab \"Mob-Köpfe\" mit jedem Kopf und jeder Variante; in Funktionsblöcken und im Suchtab stehen die Köpfe direkt hinter dem Drachenkopf.",
+        "details": [
+          "Der gemeinsame Schalter in config/simple-creative-tabs.properties lässt die Vanilla-Tabs unverändert."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/MobHeads.java"
+      ]
+    }
+  ],
+  "notes": {
+    "simplemobheads:guide_book": {
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/guide/MobHeadsGuide.java",
+        "modules/simplemobheads/shared/resources/data/simplemobheads/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobheads\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobheads\" eins."
+      }
+    },
+    "*_wall_head": {
+      "en": {
+        "summary": "The wall form of the head (placed against a wall); drops and names like the standing head."
+      },
+      "de": {
+        "summary": "Die Wandform des Kopfes (an eine Wand gesetzt); Beute und Name wie beim stehenden Kopf."
+      }
+    },
+    "*_wall_skull": {
+      "en": {
+        "summary": "The wall form of the skull (placed against a wall); drops and names like the standing skull."
+      },
+      "de": {
+        "summary": "Die Wandform des Schädels (an eine Wand gesetzt); Beute und Name wie beim stehenden Schädel."
+      }
+    },
+    "*_head": {
+      "en": {
+        "summary": "A mob head: only a charged creeper's explosion killing the mob drops it, with the mob's variant. Wear it, place it or put it on a note block."
+      },
+      "de": {
+        "summary": "Ein Mob-Kopf: nur die Explosion eines geladenen Creepers, die den Mob tötet, lässt ihn fallen, mit der Variante des Mobs. Tragen, aufstellen oder auf einen Notenblock setzen."
+      }
+    },
+    "*_skull": {
+      "en": {
+        "summary": "A mob skull: only a charged creeper's explosion killing the mob drops it. Wear it, place it or put it on a note block."
+      },
+      "de": {
+        "summary": "Ein Mob-Schädel: nur die Explosion eines geladenen Creepers, die den Mob tötet, lässt ihn fallen. Tragen, aufstellen oder auf einen Notenblock setzen."
+      }
+    }
+  }
+}

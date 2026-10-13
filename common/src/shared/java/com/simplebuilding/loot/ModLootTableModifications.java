@@ -7,6 +7,7 @@ import com.simplebuilding.version.LootNumbers;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.tweaks.block.BlazeHeadType;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
@@ -57,7 +58,7 @@ public final class ModLootTableModifications {
 
     /**
      * Pool fuer charged_creeper/root: ein Mod-Kopf, nur wenn das Opfer ({@code this}) der Mob des Kopfes ist.
-     * Aufrufe in {@link #apply} stehen je Kopf in einer Zeile ({@code headPool(registry, EntityTypes.X, TweaksItems.head(...))}),
+     * Aufrufe in {@link #apply} stehen je Kopf in einer Zeile ({@code headPool(registry, EntityTypes.X, TweaksItems.head(BlazeHeadType.X))}),
      * weil {@code wiki/obtain_sources.py} sie so liest.
      */
     public static LootPool.Builder headPool(HolderGetter.Provider registry, EntityType<?> victim, ItemLike head) {
@@ -105,19 +106,20 @@ public final class ModLootTableModifications {
         // Pool, der nur fuer seinen Mob greift. Unabhaengig vom Schalter enableLootTableChanges: die Koepfe sind die
         // einzige Quelle fuer Trank-Pad I (Lohe), Spawn-Teleporter I (Enderman), Flypad I (Shulker) und die
         // Trial-Chamber-Koepfe von Chunk-Loader I und Launchpad I (docs/MOBKOEPFE.md).
-        if (BuiltInLootTables.CHARGED_CREEPER.equals(key)) {
-            editor.addPool(headPool(registry, EntityTypes.BLAZE, TweaksItems.BLAZE_HEAD));
-            editor.addPool(headPool(registry, EntityTypes.ENDERMAN, TweaksItems.ENDERMAN_HEAD));
-            editor.addPool(headPool(registry, EntityTypes.HUSK, TweaksItems.HUSK_HEAD));
-            editor.addPool(headPool(registry, EntityTypes.SPIDER, TweaksItems.SPIDER_HEAD));
-            editor.addPool(headPool(registry, EntityTypes.CAVE_SPIDER, TweaksItems.CAVE_SPIDER_HEAD));
-            editor.addPool(headPool(registry, EntityTypes.STRAY, TweaksItems.STRAY_SKULL));
-            editor.addPool(headPool(registry, EntityTypes.BOGGED, TweaksItems.BOGGED_SKULL));
-            editor.addPool(headPool(registry, EntityTypes.SLIME, TweaksItems.SLIME_HEAD));
-            editor.addPool(headPool(registry, EntityTypes.SILVERFISH, TweaksItems.SILVERFISH_HEAD));
-            editor.addPool(headPool(registry, EntityTypes.BREEZE, TweaksItems.BREEZE_HEAD));
-            editor.addPool(headPool(registry, EntityTypes.SHULKER, TweaksItems.SHULKER_HEAD));
-            editor.addPool(headPool(registry, EntityTypes.DROWNED, TweaksItems.DROWNED_HEAD));
+        // 26.3: the heads and their pools belong to Simple Mobheads (McVersion.HEADS_IN_MOBHEADS).
+        if (BuiltInLootTables.CHARGED_CREEPER.equals(key) && !McVersion.HEADS_IN_MOBHEADS) {
+            editor.addPool(headPool(registry, EntityTypes.BLAZE, TweaksItems.head(BlazeHeadType.BLAZE)));
+            editor.addPool(headPool(registry, EntityTypes.ENDERMAN, TweaksItems.head(BlazeHeadType.ENDERMAN)));
+            editor.addPool(headPool(registry, EntityTypes.HUSK, TweaksItems.head(BlazeHeadType.HUSK)));
+            editor.addPool(headPool(registry, EntityTypes.SPIDER, TweaksItems.head(BlazeHeadType.SPIDER)));
+            editor.addPool(headPool(registry, EntityTypes.CAVE_SPIDER, TweaksItems.head(BlazeHeadType.CAVE_SPIDER)));
+            editor.addPool(headPool(registry, EntityTypes.STRAY, TweaksItems.head(BlazeHeadType.STRAY)));
+            editor.addPool(headPool(registry, EntityTypes.BOGGED, TweaksItems.head(BlazeHeadType.BOGGED)));
+            editor.addPool(headPool(registry, EntityTypes.SLIME, TweaksItems.head(BlazeHeadType.SLIME)));
+            editor.addPool(headPool(registry, EntityTypes.SILVERFISH, TweaksItems.head(BlazeHeadType.SILVERFISH)));
+            editor.addPool(headPool(registry, EntityTypes.BREEZE, TweaksItems.head(BlazeHeadType.BREEZE)));
+            editor.addPool(headPool(registry, EntityTypes.SHULKER, TweaksItems.head(BlazeHeadType.SHULKER)));
+            editor.addPool(headPool(registry, EntityTypes.DROWNED, TweaksItems.head(BlazeHeadType.DROWNED)));
         }
 
         // 0a. Waerter-Fuehler (Queue N24, McVersion.BREWING_EFFECTS): jeder Waerter laesst 1-2 fallen. Einzige Quelle der

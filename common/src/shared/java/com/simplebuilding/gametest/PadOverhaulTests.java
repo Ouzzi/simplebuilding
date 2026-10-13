@@ -272,9 +272,9 @@ public final class PadOverhaulTests {
                 new Entry(TweaksFamilies.Family.CHUNK_LOADER, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, trialHeads, TweaksBlocks.CHUNK_LOADER),
                 new Entry(TweaksFamilies.Family.LAUNCHPAD, ModItems.IRON_CORE, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, trialHeads, TweaksBlocks.LAUNCHPAD),
                 new Entry(TweaksFamilies.Family.SPAWN_TELEPORTER, ModItems.GOLD_CORE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,
-                        List.of(TweaksItems.ENDERMAN_HEAD), TweaksBlocks.SPAWN_TELEPORTER),
+                        List.of(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN)), TweaksBlocks.SPAWN_TELEPORTER),
                 new Entry(TweaksFamilies.Family.POTION_PAD, ModItems.NETHERITE_CORE, TweaksBlocks.NETHERITE_PRESSURE_PLATE,
-                        List.of(TweaksItems.BLAZE_HEAD), TweaksBlocks.POTION_PAD));
+                        List.of(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)), TweaksBlocks.POTION_PAD));
         for (int i = 0; i < entries.size(); i++) {
             Entry entry = entries.get(i);
             for (Item unlock : entry.unlocks()) {
@@ -299,7 +299,7 @@ public final class PadOverhaulTests {
         }
         helper.assertValueEqual(tagged, java.util.Set.copyOf(trialHeads), "items of #simplebuilding:trial_chamber_heads");
         helper.assertValueEqual(trialHeads.size(), 10, "trial chamber heads (zombie, husk, skeleton, stray, bogged, spider, cave spider, slime, silverfish, breeze)");
-        for (Item other : List.of(TweaksItems.BLAZE_HEAD, TweaksItems.ENDERMAN_HEAD, TweaksItems.SHULKER_HEAD, TweaksItems.DROWNED_HEAD,
+        for (Item other : List.of(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN), TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER), TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.DROWNED),
                 Items.CREEPER_HEAD, Items.PIGLIN_HEAD, Items.WITHER_SKELETON_SKULL, Items.DRAGON_HEAD)) {
             expectNothing(helper, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, other);
             expectNothing(helper, ModItems.IRON_CORE, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, other);

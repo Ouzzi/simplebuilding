@@ -49,10 +49,6 @@ public final class ModuleGameTest {
     com.simplefun.test.FunTests.ALL.get("piggy").accept(h);
   }
 
-  @GameTest
-  public void playerHeads(GameTestHelper h) {
-    com.simplefun.test.FunTests.ALL.get("player_heads").accept(h);
-  }
 
   @GameTest
   public void crossMod(GameTestHelper h) {
@@ -69,30 +65,10 @@ public final class ModuleGameTest {
     com.simplefun.test.FunTests.ALL.get("trades").accept(h);
   }
 
-  @GameTest
-  public void headBlocks(GameTestHelper h) {
-    com.simplefun.test.FunTests.ALL.get("head_blocks").accept(h);
-  }
 
-  @GameTest
-  public void pigHead(GameTestHelper h) {
-    com.simplefun.test.FunTests.ALL.get("pig_head").accept(h);
-  }
 
-  @GameTest
-  public void cowHead(GameTestHelper h) {
-    com.simplefun.test.FunTests.ALL.get("cow_head").accept(h);
-  }
 
-  @GameTest
-  public void chickenHead(GameTestHelper h) {
-    com.simplefun.test.FunTests.ALL.get("chicken_head").accept(h);
-  }
 
-  @GameTest
-  public void sheepHead(GameTestHelper h) {
-    com.simplefun.test.FunTests.ALL.get("sheep_head").accept(h);
-  }
 
   @GameTest
   public void flowerSniff(GameTestHelper h) {
@@ -154,10 +130,6 @@ public final class ModuleGameTest {
     com.simplefun.test.FunTests.ALL.get("projectile_damage_and_glass").accept(h);
   }
 
-  @GameTest
-  public void headsSwitchAndSources(GameTestHelper h) {
-    com.simplefun.test.FunTests.ALL.get("heads_switch_and_sources").accept(h);
-  }
 
   @GameTest
   public void tradeOffer(GameTestHelper h) {
@@ -169,10 +141,6 @@ public final class ModuleGameTest {
     com.simplefun.test.FunTests.ALL.get("delight_triggers").accept(h);
   }
 
-  @GameTest
-  public void headAbilities(GameTestHelper h) {
-    com.simplefun.test.FunTests.ALL.get("head_abilities").accept(h);
-  }
 
   @GameTest
   public void creativeTabs(GameTestHelper h) {

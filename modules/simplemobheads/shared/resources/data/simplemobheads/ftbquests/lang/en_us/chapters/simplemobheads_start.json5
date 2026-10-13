@@ -1,0 +1,10 @@
+{
+	"chapter.1977CEE7EFF1F298.title": "{\"translate\": \"quests.simplemobheads.start.title\"}",
+	"chapter.1977CEE7EFF1F298.chapter_subtitle": [
+		"{\"translate\": \"quests.simplemobheads.start.subtitle\"}"
+	],
+	"quest.26936301F836FCCA.title": "{\"translate\": \"quests.simplemobheads.start.welcome.title\"}",
+	"quest.26936301F836FCCA.quest_desc": [
+		"{\"translate\": \"quests.simplemobheads.start.welcome.description\"}"
+	]
+}

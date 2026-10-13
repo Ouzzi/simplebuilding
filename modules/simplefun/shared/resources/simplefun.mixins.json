@@ -9,16 +9,12 @@
     "NoDamageMixin",
     "PiggyFoodMixin",
     "YeetMixin",
-    "AnimalSkullValidityMixin",
     "DelightTickMixin",
-    "KnockbackCapMixin",
-    "HeadInteractMixin"
+    "KnockbackCapMixin"
   ],
   "client": [
     "client.LivingEntityRendererMixin",
-    "client.LivingEntityRenderStateMixin",
-    "client.AnimalSkullRendererMixin",
-    "client.WornModHeadMixin"
+    "client.LivingEntityRenderStateMixin"
   ],
   "server": [],
   "injectors": {

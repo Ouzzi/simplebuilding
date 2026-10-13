@@ -106,6 +106,9 @@ versionRange="[16,)"
 ordering="NONE"
 side="BOTH"
 
+# Required Sub-Mods: the 26.3 build replaces the next line (Simple Mobheads); the 26.2 line keeps its own heads.
+# 26.3: required sub-mods
+
 # Bundled optional Sub-Mods (super-mod, PLAN-MODULAUFTEILUNG stage 1a; switches "Enable Simple X" in the config).
 [[dependencies.${modId}]]
 modId="simplemaps"

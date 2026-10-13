@@ -43,6 +43,15 @@ public final class HeadAbilities {
     private HeadAbilities() {
     }
 
+    /**
+     * Ob die Faehigkeiten hier wirken: nur auf 26.2. Auf 26.3 liegen Koepfe und Faehigkeiten in Simple Mobheads
+     * ({@code McVersion.HEADS_IN_MOBHEADS}), dessen Mixins entscheiden; der Extra-Kopf-Slot erreicht sie ueber framework
+     * {@code WornHeads}.
+     */
+    private static boolean own() {
+        return !com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS;
+    }
+
     /** Ob {@code entity} den Kopf dieses Typs im Kopf-Slot traegt. */
     public static boolean wears(Entity entity, BlazeHeadType type) {
         // N49: the extra head slot of the inventory counts like the helmet slot
@@ -54,6 +63,9 @@ public final class HeadAbilities {
      * im Feuer. Endermankopf: der Enderperlen-Teleport ({@code ender_pearl}) kostet keine Herzen.
      */
     public static boolean ignoresDamage(LivingEntity entity, DamageSource source) {
+        if (!own()) {
+            return false;
+        }
         if ((source.is(DamageTypes.HOT_FLOOR) || source.is(DamageTypes.CAMPFIRE)) && wears(entity, BlazeHeadType.BLAZE)) {
             return true;
         }
@@ -66,6 +78,9 @@ public final class HeadAbilities {
      * (Komponente {@code food}), keine Traenke; andere Wirkungen desselben Essens bleiben.
      */
     public static boolean blocksFoodEffect(LivingEntity user, ItemStack consumed, MobEffectInstance effect) {
+        if (!own()) {
+            return false;
+        }
         if (!consumed.has(DataComponents.FOOD)) {
             return false;
         }
@@ -77,7 +92,7 @@ public final class HeadAbilities {
 
     /** Spinnenkopf: Spinnennetze bremsen den Traeger nicht (wie die Spinne selbst, {@code Spider#makeStuckInBlock}). */
     public static boolean ignoresCobweb(Entity entity, BlockState state) {
-        return state.is(Blocks.COBWEB) && wears(entity, BlazeHeadType.SPIDER);
+        return own() && state.is(Blocks.COBWEB) && wears(entity, BlazeHeadType.SPIDER);
     }
 
     /**
@@ -85,7 +100,7 @@ public final class HeadAbilities {
      * fuer das Netz selbst (ohne sie faellt nur Faden).
      */
     public static float cobwebBreakSpeed(LivingEntity entity, BlockState state, float speed) {
-        if (state.is(Blocks.COBWEB) && speed < COBWEB_SPEED && wears(entity, BlazeHeadType.CAVE_SPIDER)) {
+        if (own() && state.is(Blocks.COBWEB) && speed < COBWEB_SPEED && wears(entity, BlazeHeadType.CAVE_SPIDER)) {
             return COBWEB_SPEED;
         }
         return speed;
@@ -93,16 +108,16 @@ public final class HeadAbilities {
 
     /** Breezekopf: leicht wie der Wind - wer ihn traegt, zertrampelt kein Ackerland. */
     public static boolean tramplesFarmland(Entity entity) {
-        return !wears(entity, BlazeHeadType.BREEZE) && !com.simplebuilding.dummy.Scarecrow.guards(entity);
+        return !(own() && wears(entity, BlazeHeadType.BREEZE)) && !com.simplebuilding.dummy.Scarecrow.guards(entity);
     }
 
     /** Shulkerkopf: eine Shulkerkiste geht auch auf, wenn ein Block den Deckel versperrt. */
     public static boolean opensBlockedShulkerBoxes(Entity entity) {
-        return wears(entity, BlazeHeadType.SHULKER);
+        return own() && wears(entity, BlazeHeadType.SHULKER);
     }
 
     /** Ertrunkenenkopf: eine Magma-Blasensaeule (nach unten) zieht den Traeger nicht in die Tiefe. */
     public static boolean resistsDownwardBubbles(Entity entity, boolean dragDown) {
-        return dragDown && wears(entity, BlazeHeadType.DROWNED);
+        return own() && dragDown && wears(entity, BlazeHeadType.DROWNED);
     }
 }

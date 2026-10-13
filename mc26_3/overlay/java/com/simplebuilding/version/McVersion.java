@@ -100,6 +100,14 @@ public final class McVersion {
     /** Trim templates in SimpleBuilding (N18 stage 2-4): on 26.3 they live in the bundled sub-mod Simple Trims ({@code simpletrims:*}, migrated through SimpleLib id moves); SB registers neither the three templates nor their four components and its trim-template code paths stay neutral. */
     public static final boolean TRIMS_IN_SB = false;
     /** Shared materials in SimpleLib (split stage 3d): cracked diamond (+block, pebble, anvil crushing), netherite nugget, enderite base material, upgrade templates are {@code simplelib:*}; SimpleBuilding's fields point at SimpleLib's objects ({@code util/LibMaterials}), its datagen leaves out their recipes/models/loot, the old ids move through SimpleLib id moves. */
+    /**
+     * Mob heads live in the required sub-mod Simple Mobheads (KONZEPT-SIMPLE-MOBHEADS-2026-10-13, 26.3 only): SimpleBuilding
+     * registers no heads, loot pools, abilities or head renderers of its own and reaches the heads by id ({@link #HEAD_NAMESPACE}).
+     * The 26.2 line keeps its own twelve heads until its port run.
+     */
+    public static final boolean HEADS_IN_MOBHEADS = true;
+    /** Namespace of the mob heads ({@link #HEADS_IN_MOBHEADS}). */
+    public static final String HEAD_NAMESPACE = "simplemobheads";
     public static final boolean MATERIALS_IN_LIB = true;
     /** Namespace of the shared materials and their recipes ({@link #MATERIALS_IN_LIB}). */
     public static final String MATERIAL_NAMESPACE = "simplelib";

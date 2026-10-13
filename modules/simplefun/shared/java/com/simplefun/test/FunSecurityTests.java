@@ -3,7 +3,6 @@ package com.simplefun.test;
 import com.simplefun.*;
 import com.simplefun.config.*;
 import com.simplefun.entity.*;
-import com.simplefun.heads.*;
 import com.simplefun.registry.*;
 import java.util.*;
 import net.minecraft.core.*;
@@ -39,7 +38,7 @@ public final class FunSecurityTests {
     var p = FunTests.player(h);
     boolean denied = false;
     try {
-      d.execute("simplefun pvp headDrops false", p.createCommandSourceStack());
+      d.execute("simplefun tweaks yeet toggle false", p.createCommandSourceStack());
     } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
       denied = true;
     }
@@ -58,7 +57,7 @@ public final class FunSecurityTests {
         !c.fun.enableYeet
             && c.fun.yeetStrength == 3
             && c.fun.brickDamage == 0
-            && c.fun.enableAnimalHeads,
+            && c.fun.enableThrowableBricks,
         "legacy config keys, new defaults, bounded numbers");
     h.succeed();
   }
@@ -132,38 +131,11 @@ public final class FunSecurityTests {
     h.succeed();
   }
 
-  public static void headsSwitchAndSources(GameTestHelper h) {
-    var c = SimplefunCommon.getConfig().fun;
-    boolean saved = c.enableAnimalHeads;
-    try {
-      c.enableAnimalHeads = false;
-      var pools = new ArrayList<LootPool.Builder>();
-      FunLoot.apply(BuiltInLootTables.CHARGED_CREEPER, pools::add, h.getLevel().registryAccess());
-      h.assertTrue(pools.isEmpty(), "head loot disabled before reload");
-      c.enableAnimalHeads = true;
-      FunLoot.apply(BuiltInLootTables.CHARGED_CREEPER, pools::add, h.getLevel().registryAccess());
-      h.assertTrue(pools.size() == 4, "four independent animal pools");
-      for (var t : AnimalHead.values()) {
-        h.assertTrue(
-            BuiltInRegistries.SOUND_EVENT.containsKey(t.sound.location()),
-            "Vanilla note-block sound registered " + t);
-        h.assertTrue(
-            new ItemStack(AnimalHeads.ITEMS.get(t))
-                .get(DataComponents.NOTE_BLOCK_SOUND)
-                .equals(t.sound.location()),
-            "correct note-block sound");
-      }
-    } finally {
-      c.enableAnimalHeads = saved;
-    }
-    h.succeed();
-  }
-
   public static void tradeOffer(GameTestHelper h) {
     var reg = h.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
     var trade =
         reg.getOrThrow(
-            ResourceKey.create(Registries.VILLAGER_TRADE, AnimalHeads.id("librarian/1/no_damage")));
+            ResourceKey.create(Registries.VILLAGER_TRADE, FunContent.id("librarian/1/no_damage")));
     var entity = h.spawn(EntityTypes.VILLAGER, new BlockPos(2, 2, 2));
     var params =
         new LootParams.Builder(h.getLevel())

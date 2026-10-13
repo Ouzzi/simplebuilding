@@ -1,6 +1,6 @@
 plugins { id 'java-library' }
 group = 'com.simplebuilding.framework'
-version = '0.1.10'
+version = '0.1.11'
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
 repositories { mavenCentral() }
 dependencies {

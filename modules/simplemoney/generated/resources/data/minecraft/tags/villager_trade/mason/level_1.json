@@ -30,10 +30,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/bogged_skull",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/construction_light",
       "required": false
     },
@@ -110,10 +106,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/stray_skull",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/waxed_copper_pressure_plate",
       "required": false
     },
@@ -135,6 +127,14 @@
     },
     {
       "id": "simplemoney:links/simplefun/brick_snowball",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/stray_skull",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/bogged_skull",
       "required": false
     }
   ]

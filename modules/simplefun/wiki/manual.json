@@ -108,39 +108,19 @@
       ]
     },
     {
-      "id": "player_heads",
-      "en": {
-        "title": "Player Heads",
-        "summary": "PvP death drops the victim’s vanilla player head with skin; server switch.",
-        "details": [
-          "PvP death drops the victim’s vanilla player head with skin; server switch."
-        ]
-      },
-      "de": {
-        "title": "Spielerköpfe",
-        "summary": "PvP-Tod lässt den Vanilla-Spielerkopf mit Skin fallen; Serverschalter.",
-        "details": [
-          "PvP-Tod lässt den Vanilla-Spielerkopf mit Skin fallen; Serverschalter."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/event/PlayerHeadDrop.java"
-      ]
-    },
-    {
       "id": "commands",
       "en": {
         "title": "Admin Commands",
-        "summary": "Permission level 4: /simplefun pvp headDrops; /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side.",
+        "summary": "Permission level 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side.",
         "details": [
-          "Permission level 4: /simplefun pvp headDrops; /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side."
+          "Permission level 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side."
         ]
       },
       "de": {
         "title": "Adminbefehle",
-        "summary": "Berechtigung 4: /simplefun pvp headDrops; /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte.",
+        "summary": "Berechtigung 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte.",
         "details": [
-          "Berechtigung 4: /simplefun pvp headDrops; /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte."
+          "Berechtigung 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte."
         ]
       },
       "sources": [
@@ -169,107 +149,19 @@
       ]
     },
     {
-      "id": "pig_head",
-      "en": {
-        "title": "Pig Head",
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds.",
-        "details": [
-          "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-        ]
-      },
-      "de": {
-        "title": "Schweinkopf",
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
-        "details": [
-          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
-        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
-        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
-      ]
-    },
-    {
-      "id": "cow_head",
-      "en": {
-        "title": "Cow Head",
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds.",
-        "details": [
-          "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-        ]
-      },
-      "de": {
-        "title": "Kuhkopf",
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
-        "details": [
-          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
-        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
-        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
-      ]
-    },
-    {
-      "id": "chicken_head",
-      "en": {
-        "title": "Chicken Head",
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds.",
-        "details": [
-          "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-        ]
-      },
-      "de": {
-        "title": "Huhnkopf",
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
-        "details": [
-          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
-        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
-        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
-      ]
-    },
-    {
-      "id": "sheep_head",
-      "en": {
-        "title": "Sheep Head",
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds.",
-        "details": [
-          "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-        ]
-      },
-      "de": {
-        "title": "Schafkopf",
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
-        "details": [
-          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
-        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
-        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
-      ]
-    },
-    {
       "id": "flowerSniff",
       "en": {
         "title": "Flower Sniff",
-        "summary": "Cosmetic delight: hold a flower and sneak. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "summary": "Cosmetic delight: hold a flower and sneak. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards.",
         "details": [
-          "Cosmetic delight: hold a flower and sneak. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+          "Cosmetic delight: hold a flower and sneak. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards."
         ]
       },
       "de": {
         "title": "Blumenschnuppern",
-        "summary": "Kosmetische Freude: Blume halten und schleichen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "summary": "Kosmetische Freude: Blume halten und schleichen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Blume halten und schleichen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Blume halten und schleichen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen."
         ]
       },
       "sources": [
@@ -280,16 +172,16 @@
       "id": "cookieCrumbs",
       "en": {
         "title": "Cookie Crumbs",
-        "summary": "Cosmetic delight: eat a cookie. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "summary": "Cosmetic delight: eat a cookie. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards.",
         "details": [
-          "Cosmetic delight: eat a cookie. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+          "Cosmetic delight: eat a cookie. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards."
         ]
       },
       "de": {
         "title": "Kekskrümel",
-        "summary": "Kosmetische Freude: Keks essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "summary": "Kosmetische Freude: Keks essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Keks essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Keks essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen."
         ]
       },
       "sources": [
@@ -300,16 +192,16 @@
       "id": "appleSparkle",
       "en": {
         "title": "Apple Sparkle",
-        "summary": "Cosmetic delight: eat an apple. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "summary": "Cosmetic delight: eat an apple. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards.",
         "details": [
-          "Cosmetic delight: eat an apple. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+          "Cosmetic delight: eat an apple. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards."
         ]
       },
       "de": {
         "title": "Apfelglitzer",
-        "summary": "Kosmetische Freude: Apfel essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "summary": "Kosmetische Freude: Apfel essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Apfel essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Apfel essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen."
         ]
       },
       "sources": [
@@ -320,16 +212,16 @@
       "id": "carrotCrunch",
       "en": {
         "title": "Carrot Crunch",
-        "summary": "Cosmetic delight: eat a carrot. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "summary": "Cosmetic delight: eat a carrot. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards.",
         "details": [
-          "Cosmetic delight: eat a carrot. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+          "Cosmetic delight: eat a carrot. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards."
         ]
       },
       "de": {
         "title": "Karottenknuspern",
-        "summary": "Kosmetische Freude: Karotte essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "summary": "Kosmetische Freude: Karotte essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Karotte essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Karotte essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen."
         ]
       },
       "sources": [
@@ -340,16 +232,16 @@
       "id": "melonSplash",
       "en": {
         "title": "Melon Splash",
-        "summary": "Cosmetic delight: eat melon. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "summary": "Cosmetic delight: eat melon. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards.",
         "details": [
-          "Cosmetic delight: eat melon. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+          "Cosmetic delight: eat melon. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards."
         ]
       },
       "de": {
         "title": "Melonenspritzer",
-        "summary": "Kosmetische Freude: Melone essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "summary": "Kosmetische Freude: Melone essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Melone essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Melone essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen."
         ]
       },
       "sources": [
@@ -360,16 +252,16 @@
       "id": "honeyBubbles",
       "en": {
         "title": "Honey Bubbles",
-        "summary": "Cosmetic delight: drink honey. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "summary": "Cosmetic delight: drink honey. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards.",
         "details": [
-          "Cosmetic delight: drink honey. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+          "Cosmetic delight: drink honey. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards."
         ]
       },
       "de": {
         "title": "Honigblasen",
-        "summary": "Kosmetische Freude: Honig trinken. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "summary": "Kosmetische Freude: Honig trinken. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Honig trinken. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Honig trinken. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen."
         ]
       },
       "sources": [
@@ -380,16 +272,16 @@
       "id": "breadCrumbs",
       "en": {
         "title": "Bread Crumbs",
-        "summary": "Cosmetic delight: eat bread. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "summary": "Cosmetic delight: eat bread. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards.",
         "details": [
-          "Cosmetic delight: eat bread. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+          "Cosmetic delight: eat bread. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards."
         ]
       },
       "de": {
         "title": "Brotkrümel",
-        "summary": "Kosmetische Freude: Brot essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "summary": "Kosmetische Freude: Brot essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Brot essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Brot essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen."
         ]
       },
       "sources": [
@@ -400,41 +292,20 @@
       "id": "berryBlush",
       "en": {
         "title": "Berry Blush",
-        "summary": "Cosmetic delight: eat sweet or glow berries. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "summary": "Cosmetic delight: eat sweet or glow berries. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards.",
         "details": [
-          "Cosmetic delight: eat sweet or glow berries. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+          "Cosmetic delight: eat sweet or glow berries. Server switch; at most six particles and a quiet sound every five seconds. No gameplay rewards."
         ]
       },
       "de": {
         "title": "Beerenfreude",
-        "summary": "Kosmetische Freude: Süß- oder Leuchtbeeren essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "summary": "Kosmetische Freude: Süß- oder Leuchtbeeren essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Süß- oder Leuchtbeeren essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Süß- oder Leuchtbeeren essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden. Keine Spielbelohnungen."
         ]
       },
       "sources": [
         "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
-      ]
-    },
-    {
-      "id": "config_playerHeadDrops",
-      "en": {
-        "title": "Player Head Drops",
-        "summary": "If enabled, players drop their head when killed by another player. Default: true. Server-owned; restart required.",
-        "details": [
-          "If enabled, players drop their head when killed by another player. Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Spielerkopf-Drops",
-        "summary": "Wenn aktiviert, lassen Spieler ihren Kopf fallen, wenn sie von einem anderen Spieler getötet werden. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Wenn aktiviert, lassen Spieler ihren Kopf fallen, wenn sie von einem anderen Spieler getötet werden. Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -637,111 +508,6 @@
       },
       "de": {
         "title": "Kein-Schaden-Handel aktivieren",
-        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
-      ]
-    },
-    {
-      "id": "config_enableAnimalHeads",
-      "en": {
-        "title": "Enable animal heads",
-        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
-        "details": [
-          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Tierkopfbeute aktivieren",
-        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
-      ]
-    },
-    {
-      "id": "config_pigHeadGreeting",
-      "en": {
-        "title": "Pig head greeting",
-        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
-        "details": [
-          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Schweinekopfgruß",
-        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
-      ]
-    },
-    {
-      "id": "config_cowHeadGreeting",
-      "en": {
-        "title": "Cow head greeting",
-        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
-        "details": [
-          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Kuhkopfgruß",
-        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
-      ]
-    },
-    {
-      "id": "config_chickenHeadGreeting",
-      "en": {
-        "title": "Chicken head greeting",
-        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
-        "details": [
-          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Hühnerkopfgruß",
-        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
-      ]
-    },
-    {
-      "id": "config_sheepHeadGreeting",
-      "en": {
-        "title": "Sheep head greeting",
-        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
-        "details": [
-          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Schafkopfgruß",
         "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
         "details": [
           "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
@@ -970,18 +736,18 @@
       ],
       "en": {
         "title": "Server Configuration",
-        "summary": "Three tabs cover gameplay, heads and small delights; every option explains its default. Gameplay uses only server settings.",
+        "summary": "Two tabs cover gameplay and small delights; every option explains its default. Gameplay uses only server settings.",
         "details": [
           "The client screen edits the local simplefun.json for the next local server start. Remote clients cannot submit settings. Remote admins use the original level-4 commands or change the server file and restart.",
-          "Head loot and librarian trades are selected when server data loads; changing their file switches requires restart."
+          "Librarian trades are selected when server data loads; changing their file switches requires restart."
         ]
       },
       "de": {
         "title": "Serverkonfiguration",
-        "summary": "Drei Reiter für Spielmechanik, Köpfe und kleine Freuden; jede Option erklärt ihren Standardwert. Nur Serverwerte bestimmen das Spiel.",
+        "summary": "Zwei Reiter für Spielmechanik und kleine Freuden; jede Option erklärt ihren Standardwert. Nur Serverwerte bestimmen das Spiel.",
         "details": [
           "Der Clientbildschirm bearbeitet die lokale simplefun.json für den nächsten lokalen Serverstart. Fremde Clients können keine Einstellungen senden. Entfernte Administratoren nutzen die alten Befehle mit Stufe 4 oder ändern die Serverdatei und starten neu.",
-          "Kopfbeute und Bibliothekarhandel werden beim Laden der Serverdaten ausgewählt; Dateischalter brauchen einen Neustart."
+          "Bibliothekarhandel wird beim Laden der Serverdaten ausgewählt; Dateischalter brauchen einen Neustart."
         ]
       }
     },
@@ -1007,117 +773,6 @@
         "modules/simplefun/forge/build.gradle"
       ],
       "related": []
-    },
-    {
-      "id": "config_cowHeadMilking",
-      "en": {
-        "title": "Cow head: milk the wearer",
-        "summary": "Another player can milk whoever wears a cow head with a bucket, like a cow. Default: true. Server-owned; restart required.",
-        "details": [
-          "Another player can milk whoever wears a cow head with a bucket, like a cow. Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Kuhkopf: Träger melken",
-        "summary": "Ein anderer Spieler kann den Träger eines Kuhkopfs mit einem Eimer melken, wie eine Kuh. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Ein anderer Spieler kann den Träger eines Kuhkopfs mit einem Eimer melken, wie eine Kuh. Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java"
-      ]
-    },
-    {
-      "id": "config_sheepHeadShearing",
-      "en": {
-        "title": "Sheep head: shear the wearer",
-        "summary": "Another player can shear whoever wears a sheep head: 1-3 white wool, then two minutes until the wool has grown back. Default: true. Server-owned; restart required.",
-        "details": [
-          "Another player can shear whoever wears a sheep head: 1-3 white wool, then two minutes until the wool has grown back. Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Schafskopf: Träger scheren",
-        "summary": "Ein anderer Spieler kann den Träger eines Schafskopfs scheren: 1-3 weiße Wolle, danach zwei Minuten, bis die Wolle nachgewachsen ist. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Ein anderer Spieler kann den Träger eines Schafskopfs scheren: 1-3 weiße Wolle, danach zwei Minuten, bis die Wolle nachgewachsen ist. Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java"
-      ]
-    },
-    {
-      "id": "config_chickenHeadEggs",
-      "en": {
-        "title": "Chicken head: lay eggs",
-        "summary": "Whoever wears a chicken head lays an egg now and then, as often as a chicken (every 5-10 minutes). Default: true. Server-owned; restart required.",
-        "details": [
-          "Whoever wears a chicken head lays an egg now and then, as often as a chicken (every 5-10 minutes). Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Huhnkopf: Eier legen",
-        "summary": "Wer einen Huhnkopf trägt, legt ab und zu ein Ei, so oft wie ein Huhn (alle 5-10 Minuten). Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Wer einen Huhnkopf trägt, legt ab und zu ein Ei, so oft wie ein Huhn (alle 5-10 Minuten). Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java"
-      ]
-    },
-    {
-      "id": "config_pigHeadTruffles",
-      "en": {
-        "title": "Pig head: truffle nose",
-        "summary": "Sneaking for three seconds on grass, dirt, podzol, mycelium or moss with a pig head digs something up (potato, carrot, beetroot seeds, mushrooms, rarely a golden carrot); then two minutes of rest. Default: true. Server-owned; restart required.",
-        "details": [
-          "Sneaking for three seconds on grass, dirt, podzol, mycelium or moss with a pig head digs something up (potato, carrot, beetroot seeds, mushrooms, rarely a golden carrot); then two minutes of rest. Default: true. Server-owned; restart required."
-        ]
-      },
-      "de": {
-        "title": "Schweinekopf: Trüffelnase",
-        "summary": "Drei Sekunden Schleichen auf Gras, Erde, Podsol, Myzel oder Moos mit Schweinekopf scharrt etwas aus (Kartoffel, Karotte, Rote-Bete-Samen, Pilze, selten eine goldene Karotte); danach zwei Minuten Pause. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
-        "details": [
-          "Drei Sekunden Schleichen auf Gras, Erde, Podsol, Myzel oder Moos mit Schweinekopf scharrt etwas aus (Kartoffel, Karotte, Rote-Bete-Samen, Pilze, selten eine goldene Karotte); danach zwei Minuten Pause. Standard: true. Server bestimmt Werte; Neustart erforderlich."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java"
-      ]
-    },
-    {
-      "id": "head_abilities",
-      "en": {
-        "title": "Animal head abilities",
-        "summary": "Worn animal heads can do something small and fun: the cow head lets other players milk you, the sheep head lets them shear you, the chicken head lays eggs, the pig head digs things up.",
-        "details": [
-          "Another player can milk whoever wears a cow head with a bucket, like a cow.",
-          "Another player can shear whoever wears a sheep head: 1-3 white wool, then two minutes until the wool has grown back.",
-          "Whoever wears a chicken head lays an egg now and then, as often as a chicken (every 5-10 minutes).",
-          "Sneaking for three seconds on grass, dirt, podzol, mycelium or moss with a pig head digs something up (potato, carrot, beetroot seeds, mushrooms, rarely a golden carrot); then two minutes of rest."
-        ]
-      },
-      "de": {
-        "title": "Fähigkeiten der Tierköpfe",
-        "summary": "Getragene Tierköpfe können etwas Kleines und Lustiges: Mit dem Kuhkopf melken dich andere Spieler, mit dem Schafskopf scheren sie dich, der Huhnkopf legt Eier, der Schweinekopf scharrt Dinge aus.",
-        "details": [
-          "Ein anderer Spieler kann den Träger eines Kuhkopfs mit einem Eimer melken, wie eine Kuh.",
-          "Ein anderer Spieler kann den Träger eines Schafskopfs scheren: 1-3 weiße Wolle, danach zwei Minuten, bis die Wolle nachgewachsen ist.",
-          "Wer einen Huhnkopf trägt, legt ab und zu ein Ei, so oft wie ein Huhn (alle 5-10 Minuten).",
-          "Drei Sekunden Schleichen auf Gras, Erde, Podsol, Myzel oder Moos mit Schweinekopf scharrt etwas aus (Kartoffel, Karotte, Rote-Bete-Samen, Pilze, selten eine goldene Karotte); danach zwei Minuten Pause."
-        ]
-      },
-      "sources": [
-        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java",
-        "modules/simplefun/shared/java/com/simplefun/mixin/HeadInteractMixin.java"
-      ]
     }
   ],
   "notes": {
@@ -1127,10 +782,10 @@
         "modules/simplefun/shared/resources/data/simplefun/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 28 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Fun\" gives one for free."
+        "summary": "Guide to this mod: 18 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Fun\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 28 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Fun\" eins."
+        "summary": "Handbuch zu dieser Mod: 18 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Fun\" eins."
       }
     },
     "simplefun:brick_snowball": {
@@ -1139,70 +794,6 @@
       },
       "de": {
         "summary": "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks."
-      }
-    },
-    "simplefun:pig_head": {
-      "en": {
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-      },
-      "de": {
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-      }
-    },
-    "simplefun:pig_wall_head": {
-      "en": {
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-      },
-      "de": {
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-      }
-    },
-    "simplefun:cow_head": {
-      "en": {
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-      },
-      "de": {
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-      }
-    },
-    "simplefun:cow_wall_head": {
-      "en": {
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-      },
-      "de": {
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-      }
-    },
-    "simplefun:chicken_head": {
-      "en": {
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-      },
-      "de": {
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-      }
-    },
-    "simplefun:chicken_wall_head": {
-      "en": {
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-      },
-      "de": {
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-      }
-    },
-    "simplefun:sheep_head": {
-      "en": {
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-      },
-      "de": {
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
-      }
-    },
-    "simplefun:sheep_wall_head": {
-      "en": {
-        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
-      },
-      "de": {
-        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
       }
     }
   }

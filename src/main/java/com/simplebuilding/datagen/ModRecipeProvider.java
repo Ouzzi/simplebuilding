@@ -1576,7 +1576,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 Ingredient trialChamberHeads = tag(com.simplebuilding.tweaks.heads.ModHeads.TRIAL_CHAMBER_HEADS);
 
                 // Spawn-Teleporter I-III (Wartezeit 50/20/5 s; III = Enderit, eigener Wiedereinstiegspunkt)
-                tweaksSmithing(Ingredient.of(ModItems.GOLD_CORE), Items.LIGHT_WEIGHTED_PRESSURE_PLATE, TweaksItems.ENDERMAN_HEAD, TweaksBlocks.SPAWN_TELEPORTER, "spawn_teleporter_smithing");
+                tweaksSmithing(Ingredient.of(ModItems.GOLD_CORE), Items.LIGHT_WEIGHTED_PRESSURE_PLATE, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN), TweaksBlocks.SPAWN_TELEPORTER, "spawn_teleporter_smithing");
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER, netheritePlate, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, "spawn_teleporter_tier2_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_2, enderitePlate, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "enderite_spawn_teleporter_smithing");
 
@@ -1611,7 +1611,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Enderit-Vorlage + zwei Flypads II (Schmiede, das zweite als Zutat).
                 enchantedShapeless(TweaksBlocks.FLYPAD, "flypad_tier1_crafting", Items.ELYTRA,
                         net.minecraft.world.item.enchantment.Enchantments.MENDING,
-                        ModItems.ENDERITE_CORE, enderitePlate, TweaksItems.SHULKER_HEAD, Items.ELYTRA);
+                        ModItems.ENDERITE_CORE, enderitePlate, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER), Items.ELYTRA);
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.FLYPAD, enderitePlate, TweaksBlocks.REINFORCED_FLYPAD, "flypad_tier2_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD, "stellar_flypad_smithing");
 
@@ -1619,7 +1619,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // (Schmiede, Kern statt Vorlage seit 2026-09-29). Seit 2026-10-02 wie die Elytra-Pads: jede
                 // Aufwertung zahlt mit Vorlage und Druckplatte des Zielmaterials - II = Netherit-Aufwertung + I +
                 // Netherit-Druckplatte, III = Enderit-Aufwertung + II + Enderit-Druckplatte.
-                tweaksSmithing(Ingredient.of(ModItems.NETHERITE_CORE), netheritePlate, TweaksItems.BLAZE_HEAD, TweaksBlocks.POTION_PAD, "potion_pad_smithing");
+                tweaksSmithing(Ingredient.of(ModItems.NETHERITE_CORE), netheritePlate, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), TweaksBlocks.POTION_PAD, "potion_pad_smithing");
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.POTION_PAD, netheritePlate, TweaksBlocks.REINFORCED_POTION_PAD, "reinforced_potion_pad_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.REINFORCED_POTION_PAD, enderitePlate, TweaksBlocks.INFUSED_POTION_PAD, "infused_potion_pad_smithing");
 
