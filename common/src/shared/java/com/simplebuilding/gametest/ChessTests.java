@@ -85,7 +85,7 @@ public final class ChessTests {
 
     private static int mask(GameTestHelper helper, BlockPos pos) {
         BlockState state = helper.getBlockState(pos);
-        return state.is(ModBlocks.CHECKER_OCTET) ? CheckerOctetBlock.mask(state) : -1;
+        return state.is(ModBlocks.CHECKER_OCTET) || state.is(ModBlocks.MIXED_OCTET) ? CheckerOctetBlock.mask(state) : -1;
     }
 
     /** Owner N18: octets (chess and wood) stack to the engine maximum of 99 (asked for 128; saved stacks allow at most 99). */
@@ -109,8 +109,8 @@ public final class ChessTests {
 
     /**
      * Ein Achtel landet ein Viertel Block vor dem Trefferpunkt: auf einer Blockoberseite in der angeklickten Ecke, auf
-     * der Oberseite bzw. Seite eines Achtels daneben (auch in der Nachbarzelle); fremde Farben und belegte Achtel lehnen
-     * ab; 8/8 ist ein voller Wuerfel; Schleichen + leere Hand nimmt das angeklickte Achtel heraus.
+     * der Oberseite bzw. Seite eines Achtels daneben (auch in der Nachbarzelle); fremde Farben mischen (N48), belegte
+     * Achtel lehnen ab; 8/8 ist ein voller Wuerfel; Schleichen + leere Hand nimmt das angeklickte Achtel heraus.
      */
     public static void octetsFillTheSubGridByHitPoint(GameTestHelper helper) {
         if (!McVersion.CHESS) {
@@ -136,11 +136,13 @@ public final class ChessTests {
         // Ostseite des Nordost-Achtels -> Nachbarzelle, dort unten Nordwest
         use(helper, player, lapis, cell, new Vec3(2.0, 2.25, 1.25), Direction.EAST);
         helper.assertValueEqual(mask(helper, cell.east()), 0x01, "octet in the neighbouring cell");
-        // fremde Farbe in derselben Zelle, belegtes Achtel
+        // fremde Farbe in derselben Zelle mischt (N48), ein belegtes Achtel lehnt ab
         ItemStack purpur = new ItemStack(ChessItems.octet(ChessColor.PURPUR), 4);
-        helper.assertFalse(use(helper, player, purpur, cell, new Vec3(1.75, 2.5, 1.25), Direction.UP).consumesAction(), "purpur joined a lapis cell");
-        helper.assertValueEqual(purpur.getCount(), 4, "purpur octets left");
-        helper.assertValueEqual(mask(helper, cell), 0x07, "mask after the refused colour");
+        helper.assertTrue(use(helper, player, purpur, cell, new Vec3(1.75, 2.5, 1.25), Direction.UP).consumesAction(), "purpur did not join the lapis cell");
+        helper.assertTrue(helper.getBlockState(cell).is(ModBlocks.MIXED_OCTET), "lapis + purpur is not a mixed cell");
+        helper.assertValueEqual(mask(helper, cell), 0x0F, "mask after the purpur octet");
+        helper.assertFalse(use(helper, player, purpur, cell, new Vec3(1.75, 2.5, 1.25), Direction.UP).consumesAction(), "an occupied octet took purpur");
+        helper.assertValueEqual(purpur.getCount(), 3, "purpur octets left");
         // voll: ganzer Wuerfel
         BlockState full = CheckerOctetBlock.withMask(helper.getBlockState(cell), CheckerOctetBlock.FULL);
         helper.assertTrue(Block.isShapeFullBlock(full.getShape(helper.getLevel(), helper.absolutePos(cell))), "8/8 is not a full cube");
@@ -150,7 +152,7 @@ public final class ChessTests {
         InteractionResult taken = helper.getBlockState(cell).useWithoutItem(helper.getLevel(), sneaker,
                 hit(helper, cell, new Vec3(1.25, 3.0, 1.25), Direction.UP));
         helper.assertTrue(taken.consumesAction(), "sneak + empty hand took nothing: " + taken);
-        helper.assertValueEqual(mask(helper, cell), 0x03, "mask after taking the upper octet");
+        helper.assertValueEqual(mask(helper, cell), 0x0B, "mask after taking the upper octet");
         helper.assertTrue(sneaker.getMainHandItem().is(ChessItems.octet(ChessColor.LAPIS)), "the octet is not in the hand: " + sneaker.getMainHandItem());
         helper.succeed();
     }
@@ -177,9 +179,11 @@ public final class ChessTests {
         helper.assertTrue(state.getFluidState().is(Fluids.WATER), "no water in the cell");
         helper.assertValueEqual(state.getLightEmission(), 5, "astralit octet light");
         for (int index = 1; index < 8; index++) {
-            BlockState next = item.placed(helper.getLevel(), helper.absolutePos(cell), index, player);
-            helper.assertTrue(next != null, "octet " + index + " refused");
-            helper.setBlock(cell, next);
+            BlockState[] parts = item.placed(helper.getLevel(), helper.absolutePos(cell), index, player);
+            helper.assertTrue(parts != null, "octet " + index + " refused");
+            com.simplebuilding.blocks.custom.OctetCells.set(helper.getLevel(), helper.absolutePos(cell), parts,
+                    com.simplebuilding.blocks.custom.OctetCells.wet(helper.getBlockState(cell)), Block.UPDATE_ALL);
+            BlockState next = helper.getBlockState(cell);
             if (index < 7) {
                 helper.assertTrue(next.getValue(CheckerOctetBlock.WATERLOGGED), "water lost at " + (index + 1) + "/8");
             }

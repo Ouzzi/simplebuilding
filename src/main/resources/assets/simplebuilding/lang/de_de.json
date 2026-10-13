@@ -3217,6 +3217,7 @@
   "block.simplebuilding.polished_ender_quartz_checker_slab": "Polierte Enderquarz-Schachbrettstufe",
   "item.simplebuilding.polished_ender_quartz_checker_slab": "Polierte Enderquarz-Schachbrettstufe",
   "block.simplebuilding.checker_octet": "Achtelzelle",
+  "block.simplebuilding.mixed_octet": "Gemischte Achtelzelle",
   "block.simplebuilding.chess_pieces": "Schachfiguren",
   "jei.simplebuilding.info.chess": "Achtel und Schachfiguren kommen aus dem Steinmetz: ein Quarz-Schachbrett (Quarz: ein Quarzblock) ergibt 8 Achtel seiner Farbe, ein Achtel jede Figur. Ein Achtel kommt neben das angeklickte oder auf die angeklickte Hälfte einer Fläche; eine Zelle fasst bis zu 8 einer Farbe und hält Wasser, bis sie voll ist. Eine Figur steht auf einem Viertel einer Blockoberseite - einem Feld des Schachbretts darunter -, ein Block trägt also vier; sie schaut in deine Blickrichtung. Schleichen + Rechtsklick mit einer Figur tauscht sie gegen die stehende, die in deine Hand kommt. Schleichen + leere Hand nimmt eine Figur oder ein Achtel auf, die leere Hand dreht eine Figur. Abbauen droppt alles aus der Zelle.",
   "simplebuilding.testcentre.section.chess": "Schach",

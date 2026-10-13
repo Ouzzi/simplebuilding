@@ -1,6 +1,8 @@
 package com.simplebuilding.blocks.custom;
 
 import com.simplebuilding.chess.ChessItems;
+import com.simplebuilding.blocks.entity.custom.MixedOctetBlockEntity;
+import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,7 +19,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -43,8 +45,9 @@ import org.jetbrains.annotations.Nullable;
  * Material-Achtel ({@link MaterialOctetBlock}, ein Block je Material, z. B. Holz und Melone).
  *
  * <p>Wasserbindbar, solange die Zelle nicht voll ist; voll (8/8) ist sie ein ganzer Wuerfel ohne Wasser und bleibt
- * Achtelzelle. Abbauen droppt jedes Achtel ({@link #getDrops}, keine Loot-Tabelle); Schleichen + leere Hand nimmt das
- * angeklickte Achtel heraus.
+ * Achtelzelle. Ein Spieler baut nur das angeschaute Achtel ab ({@link #playerWillDestroy}); ohne Spieler droppt jedes
+ * Achtel ({@link #getDrops}, keine Loot-Tabelle); Schleichen + leere Hand nimmt das angeklickte Achtel heraus. Achtel
+ * verschiedener Materialien in einer Zelle ergeben die gemischte Zelle {@link MixedOctetBlock} ({@link OctetCells}).
  */
 public abstract class OctetCellBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -191,37 +194,138 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
         return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
     }
 
-    /** Je gesetztes Achtel ein Achtel-Item. */
+    /**
+     * Je gesetztes Achtel ein Achtel-Item seines Materials. Nach einem gezielten Abbau durch einen Spieler
+     * ({@link #playerWillDestroy}) nur das abgebaute Achtel; bei gemischten Zellen faellt ein Achtel, dessen Material ein
+     * Werkzeug braucht, nur mit dem passenden (wie beim reinen Block).
+     */
     @Override
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
-        int count = count(state);
-        return count == 0 ? List.of() : List.of(new ItemStack(octetItem(state), count));
+        Vec3 origin = params.getOptionalParameter(LootContextParams.ORIGIN);
+        Breaking breaking = BREAKING.get();
+        BlockState[] parts;
+        if (breaking != null && origin != null && breaking.level() == params.getLevel()
+                && breaking.time() == params.getLevel().getGameTime() && breaking.pos().equals(BlockPos.containing(origin))) {
+            BREAKING.remove();
+            parts = new BlockState[8];
+            parts[0] = breaking.part();
+        } else if (state.getBlock() instanceof MixedOctetBlock) {
+            parts = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof MixedOctetBlockEntity be
+                    ? masked(be.parts(), mask(state)) : new BlockState[8];
+        } else {
+            parts = new BlockState[8];
+            int mask = mask(state);
+            for (int i = 0; i < 8; i++) {
+                parts[i] = (mask & (1 << i)) != 0 ? OctetCells.material(state) : null;
+            }
+        }
+        boolean byPlayer = params.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player;
+        ItemStack tool = params.getOptionalParameter(LootContextParams.TOOL) instanceof ItemStack stack ? stack : null;
+        List<ItemStack> drops = new ArrayList<>();
+        for (BlockState part : parts) {
+            if (part == null || (byPlayer && part.requiresCorrectToolForDrops() && (tool == null || !tool.isCorrectToolForDrops(part)))) {
+                continue;
+            }
+            ItemStack item = OctetCells.item(part);
+            boolean merged = false;
+            for (ItemStack drop : drops) {
+                if (ItemStack.isSameItemSameComponents(drop, item)) {
+                    drop.grow(1);
+                    merged = true;
+                    break;
+                }
+            }
+            if (!merged && !item.isEmpty()) {
+                drops.add(item);
+            }
+        }
+        return drops;
     }
 
+    private static BlockState[] masked(BlockState[] parts, int mask) {
+        for (int i = 0; i < 8; i++) {
+            if ((mask & (1 << i)) == 0) {
+                parts[i] = null;
+            }
+        }
+        return parts;
+    }
+
+    /** Das Achtel unter dem Mauszeiger (gemischte Zellen: das unterste belegte). */
     @Override
     protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+        for (BlockState part : OctetCells.parts(level, pos, state)) {
+            if (part != null) {
+                return OctetCells.item(part);
+            }
+        }
         return new ItemStack(octetItem(state));
     }
 
-    /** Schleichen + leere Hand: das angeklickte Achtel kommt in die Hand. */
+    /**
+     * Ein gezielter Abbau (Queue N48): Rest der Zelle und abgebautes Achtel, je Thread (Client-Vorhersage und
+     * eingebauter Server stoeren sich nicht). {@link #destroy} legt den Rest zurueck, {@link #getDrops} gibt das Achtel.
+     */
+    private record Breaking(LevelAccessor level, BlockPos pos, BlockState[] rest, boolean wet, BlockState part, int index, long time) {
+    }
+
+    private static final ThreadLocal<Breaking> BREAKING = new ThreadLocal<>();
+
+    /**
+     * Abbauen durch einen Spieler nimmt nur das angeschaute Achtel ({@link OctetCells#lookedAt}); das letzte Achtel
+     * nimmt die Zelle mit. Vanilla und alle Loader rufen {@code playerWillDestroy}, entfernen dann den Block und rufen
+     * {@link #destroy}; Explosionen, Kolben und {@code Level#destroyBlock} ohne Spieler droppen weiter alles.
+     */
+    @Override
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        BREAKING.remove();
+        BlockState[] parts = OctetCells.parts(level, pos, state);
+        int index = OctetCells.lookedAt(player, pos, state);
+        if (parts[index] != null) {
+            BREAKING.set(new Breaking(level, pos.immutable(), OctetCells.without(parts, index), OctetCells.wet(state),
+                    parts[index], index, level.getGameTime()));
+        }
+        return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    /** Partikel des abgebauten Achtels (bei gemischten Zellen sonst die neutralen der Zelle). */
+    @Override
+    public void spawnDestroyParticles(Level level, BlockPos pos, BlockState state) {
+        Breaking breaking = BREAKING.get();
+        if (breaking != null && breaking.level() == level && breaking.pos().equals(pos)) {
+            super.spawnDestroyParticles(level, pos, OctetCells.single(breaking.part(), breaking.index()));
+            return;
+        }
+        super.spawnDestroyParticles(level, pos, state);
+    }
+
+    /** Nach dem Entfernen durch einen Spieler: die uebrigen Achtel kommen zurueck (gemischt oder rein). */
+    @Override
+    public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
+        super.destroy(level, pos, state);
+        Breaking breaking = BREAKING.get();
+        if (breaking == null || breaking.level() != level || !breaking.pos().equals(pos) || OctetCells.mask(breaking.rest()) == 0) {
+            return;
+        }
+        OctetCells.set(level, pos, breaking.rest(), breaking.wet(), Block.UPDATE_ALL);
+    }
+
+    /** Schleichen + leere Hand: das angeklickte Achtel (sein Material) kommt in die Hand. */
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!player.isSecondaryUseActive() || !player.mayBuild()) {
             return InteractionResult.PASS;
         }
         int index = hitIndex(pos, hit);
-        int mask = mask(state);
-        if ((mask & (1 << index)) == 0) {
+        BlockState[] parts = OctetCells.parts(level, pos, state);
+        BlockState part = parts[index];
+        if (part == null) {
             return InteractionResult.PASS;
         }
         if (!level.isClientSide()) {
-            int rest = mask & ~(1 << index);
-            BlockState after = rest == 0
-                    ? (state.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState())
-                    : withMask(state, rest);
-            level.setBlock(pos, after, Block.UPDATE_ALL);
-            ChessItems.give(player, new ItemStack(octetItem(state)));
-            level.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 0.8F, 1.2F);
+            OctetCells.set(level, pos, OctetCells.without(parts, index), state.getValue(WATERLOGGED), Block.UPDATE_ALL);
+            ChessItems.give(player, OctetCells.item(part));
+            level.playSound(null, pos, part.getSoundType().getBreakSound(), SoundSource.BLOCKS, 0.8F, 1.2F);
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
         }
         return InteractionResult.SUCCESS;

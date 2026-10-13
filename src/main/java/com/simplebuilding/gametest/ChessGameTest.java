@@ -33,4 +33,24 @@ public final class ChessGameTest {
     public void octetsStackToTheEngineMaximum(GameTestHelper helper) {
         ChessTests.octetsStackToTheEngineMaximum(helper);
     }
+
+    @GameTest
+    public void octetsMixMaterialsInOneCell(GameTestHelper helper) {
+        OctetMixTests.octetsMixMaterialsInOneCell(helper);
+    }
+
+    @GameTest
+    public void octetsBreakOnlyTheLookedAtOctet(GameTestHelper helper) {
+        OctetMixTests.octetsBreakOnlyTheLookedAtOctet(helper);
+    }
+
+    @GameTest
+    public void octetsMixedCellDropsEveryMaterial(GameTestHelper helper) {
+        OctetMixTests.octetsMixedCellDropsEveryMaterial(helper);
+    }
+
+    @GameTest
+    public void octetsOldCellsMigrateAndMixedCellsPersist(GameTestHelper helper) {
+        OctetMixTests.octetsOldCellsMigrateAndMixedCellsPersist(helper);
+    }
 }

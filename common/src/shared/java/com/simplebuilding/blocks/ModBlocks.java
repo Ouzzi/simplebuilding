@@ -484,6 +484,13 @@ public class ModBlocks {
             BlockBehaviour.Properties.of().setId(keyOf("checker_octet")).mapColor(MapColor.QUARTZ).strength(0.8F)
                     .sound(SoundType.STONE).noLootTable().isValidSpawn((state, world, pos, type) -> false)
                     .lightLevel(state -> state.getValue(CheckerOctetBlock.COLOR).light()))) : null;
+    /**
+     * Gemischte Achtelzelle (Queue N48): Achtel verschiedener Materialien in einem Block, Material je Achtel im
+     * Block-Entity, gezeichnet vom MixedOctetRenderer. Entsteht nur ueber OctetCells#set, kein Item, keine Loot-Tabelle.
+     */
+    public static final Block MIXED_OCTET = McVersion.CHESS ? registerBlock("mixed_octet", unused -> new com.simplebuilding.blocks.custom.MixedOctetBlock(
+            BlockBehaviour.Properties.of().setId(keyOf("mixed_octet")).mapColor(MapColor.STONE).strength(0.8F)
+                    .sound(SoundType.STONE).noLootTable().isValidSpawn((state, world, pos, type) -> false))) : null;
     /** Bis zu vier Schachfiguren auf einem Block (Block-Entity, ChessPiecesRenderer); droppt die Figuren. */
     public static final Block CHESS_PIECES = McVersion.CHESS ? registerBlock("chess_pieces", unused -> new ChessPiecesBlock(
             BlockBehaviour.Properties.of().setId(keyOf("chess_pieces")).mapColor(MapColor.NONE).strength(0.3F)

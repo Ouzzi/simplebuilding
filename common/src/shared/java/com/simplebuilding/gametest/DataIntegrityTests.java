@@ -170,6 +170,8 @@ public final class DataIntegrityTests {
         blocks.add("chess_pieces");
         // Queue Nachtrag 24: the melon octet cell is placed by the vanilla melon slice (sneak + right-click).
         blocks.add("melon_octet");
+        // Queue N48: the mixed octet cell only appears when octets of different materials share a cell.
+        blocks.add("mixed_octet");
         return Set.copyOf(blocks);
     }
 
@@ -203,7 +205,9 @@ public final class DataIntegrityTests {
             "sulfur_fire", "copper_fire",
             // chess: an octet cell drops its octets (CheckerOctetBlock#getDrops), a piece cell its pieces
             // (ChessPiecesBlock#getDrops)
-            "checker_octet", "chess_pieces");
+            "checker_octet", "chess_pieces",
+            // N48: a mixed octet cell drops the octets of its block entity (OctetCellBlock#getDrops)
+            "mixed_octet");
 
     /** Material octet cells (Queue Nachtrag 24) drop their octets from the state (OctetCellBlock#getDrops). */
     private static Set<String> withMaterialOctets(String... names) {
