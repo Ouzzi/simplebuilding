@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
  * ohne Spieler droppt jedes Achtel ({@link #getDrops}, keine Loot-Tabelle); Schleichen + leere Hand nimmt das angeklickte Achtel heraus. Achtel
  * verschiedener Materialien in einer Zelle ergeben die gemischte Zelle {@link MixedOctetBlock} ({@link OctetCells}).
  */
-public abstract class OctetCellBlock extends Block implements SimpleWaterloggedBlock {
+public abstract class OctetCellBlock extends OctetParticleBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     /** Die acht Achtel; Index {@code x | y << 1 | z << 2} (0 = unten, Nord, West). */
     public static final BooleanProperty[] OCTETS = new BooleanProperty[8];
@@ -290,15 +290,13 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
         return super.playerWillDestroy(level, pos, state, player);
     }
 
-    /** Partikel des abgebauten Achtels (bei gemischten Zellen sonst die neutralen der Zelle). */
-    @Override
-    public void spawnDestroyParticles(Level level, BlockPos pos, BlockState state) {
+    /** State whose break particles are shown: the mined eighth while it is being broken (mixed cells), else the cell itself. */
+    public static BlockState particleState(Level level, BlockPos pos, BlockState state) {
         Breaking breaking = BREAKING.get();
         if (breaking != null && breaking.level() == level && breaking.pos().equals(pos)) {
-            super.spawnDestroyParticles(level, pos, OctetCells.single(breaking.part(), breaking.index()));
-            return;
+            return OctetCells.single(breaking.part(), breaking.index());
         }
-        super.spawnDestroyParticles(level, pos, state);
+        return state;
     }
 
     /** Nach dem Entfernen durch einen Spieler: die uebrigen Achtel kommen zurueck (gemischt oder rein). */

@@ -816,6 +816,9 @@ public final class PadOverhaulTests {
                 .thenExecuteAfter(EchoCompassItem.HELD_GAP_TICKS + 2, () -> {
                     helper.assertTrue(EchoCompassItem.failCue(player, net.minecraft.sounds.SoundEvents.DISPENSER_FAIL, 0.6f, 0.8f),
                             "a new press after letting go made no sound");
+                    // The one-time pickup tip (discoverability, tip.<ns>.echo_sounder) is allowed; any other line is not.
+                    texts.removeIf(c -> c.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents tc
+                            && tc.getKey().startsWith("tip."));
                     helper.assertTrue(texts.isEmpty(), "the echo sounder wrote on the screen: " + texts);
                 })
                 .thenSucceed();
