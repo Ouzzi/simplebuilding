@@ -496,6 +496,8 @@ public final class LibTests {
                 new net.minecraft.world.phys.AABB(h.absolutePos(half)).inflate(2))) {
             if (item.getItem().is(Items.IRON_INGOT)) before += item.getItem().getCount();
         }
+        BlockState halfState = h.getLevel().getBlockState(h.absolutePos(half));
+        var loot = net.minecraft.world.level.block.Block.getDrops(halfState, h.getLevel(), h.absolutePos(half), null);
         h.getLevel().destroyBlock(h.absolutePos(half), true);
         int ingots = -before;
         boolean block = false;
@@ -504,7 +506,7 @@ public final class LibTests {
             if (item.getItem().is(Items.IRON_INGOT)) ingots += item.getItem().getCount();
             if (item.getItem().is(Items.IRON_BLOCK)) block = true;
         }
-        check(h, block && ingots == 7, "blank stage 7 drops the iron block and 7 ingots: block " + block + ", ingots " + ingots + " (lying there before: " + before + ")");
+        check(h, block && ingots == 7, "blank stage 7 drops the iron block and 7 ingots: block " + block + ", ingots " + ingots + " (lying there before: " + before + "), state " + halfState + ", loot " + loot);
         h.succeed();
     }
 

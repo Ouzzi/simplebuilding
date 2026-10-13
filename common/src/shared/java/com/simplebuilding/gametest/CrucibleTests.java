@@ -420,6 +420,8 @@ public final class CrucibleTests {
         for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(helper.absolutePos(half)).inflate(2))) {
             if (item.getItem().is(Items.IRON_INGOT)) before += item.getItem().getCount();
         }
+        BlockState halfState = helper.getLevel().getBlockState(helper.absolutePos(half));
+        var loot = Block.getDrops(halfState, helper.getLevel(), helper.absolutePos(half), null);
         helper.getLevel().destroyBlock(helper.absolutePos(half), true);
         int ingots = -before;
         boolean ironBlock = false;
@@ -427,7 +429,7 @@ public final class CrucibleTests {
             if (item.getItem().is(Items.IRON_INGOT)) ingots += item.getItem().getCount();
             if (item.getItem().is(Items.IRON_BLOCK)) ironBlock = true;
         }
-        helper.assertTrue(ironBlock && ingots == 11, "blank stage 11 gives back the iron block and 11 ingots: " + ironBlock + ", " + ingots + " (lying there before: " + before + ")");
+        helper.assertTrue(ironBlock && ingots == 11, "blank stage 11 gives back the iron block and 11 ingots: " + ironBlock + ", " + ingots + " (lying there before: " + before + "), state " + halfState + ", loot " + loot);
         helper.succeed();
     }
 
