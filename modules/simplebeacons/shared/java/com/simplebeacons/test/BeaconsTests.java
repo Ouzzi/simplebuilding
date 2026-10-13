@@ -135,7 +135,11 @@ public final class BeaconsTests {
             h.succeed();
         });
         ALL.put("effects_reach_players", h -> {
-            BeaconsConfig.reset();
+            // Range shrunk to 0 + 1 x 6 = 6 blocks, so both players stay in loaded chunks next to the test.
+            JsonObject small = new JsonObject();
+            small.addProperty("strongBeaconRangeBase", 0);
+            small.addProperty("strongBeaconRangePerLevel", 1);
+            BeaconsConfig.apply(small);
             ServerPlayer near = h.makeMockServerPlayerInLevel();
             ServerPlayer far = h.makeMockServerPlayerInLevel();
             h.runBeforeTestEnd(() -> {
@@ -143,10 +147,10 @@ public final class BeaconsTests {
                 h.getLevel().getServer().getPlayerList().remove(far);
             });
             BlockPos beacon = h.absolutePos(CENTER);
-            near.snapTo(beacon.getX() + 65.5, beacon.getY(), beacon.getZ() + 0.5);
-            far.snapTo(beacon.getX() + 75.5, beacon.getY(), beacon.getZ() + 0.5);
+            near.snapTo(beacon.getX() + 5.5, beacon.getY(), beacon.getZ() + 0.5);
+            far.snapTo(beacon.getX() + 9.5, beacon.getY(), beacon.getZ() + 0.5);
             List<Player> reached = StrongBeaconLogic.applyEffects(h.getLevel(), beacon, 6, MobEffects.FIRE_RESISTANCE, MobEffects.REGENERATION);
-            h.assertTrue(reached.contains(near) && !reached.contains(far), "level 6 reaches 70 blocks, not 75");
+            h.assertTrue(reached.contains(near) && !reached.contains(far), "level 6 reaches its range (6 here), not beyond");
             MobEffectInstance fire = near.getEffect(MobEffects.FIRE_RESISTANCE);
             h.assertTrue(fire != null && fire.getAmplifier() == 0 && fire.getDuration() == 21 * 20 && fire.isAmbient(), "fire resistance I, 21 s, ambient");
             h.assertTrue(near.hasEffect(MobEffects.REGENERATION) && !far.hasEffect(MobEffects.FIRE_RESISTANCE), "secondary too, nothing far away");
@@ -158,6 +162,7 @@ public final class BeaconsTests {
             near.setAbsorptionAmount(1.0F);
             StrongBeaconLogic.applyEffects(h.getLevel(), beacon, 6, MobEffects.ABSORPTION, null);
             h.assertTrue(near.getAbsorptionAmount() == 1.0F, "refreshing the duration does not refill absorption");
+            BeaconsConfig.reset();
             h.succeed();
         });
         ALL.put("menu_checks_the_choice", h -> {
