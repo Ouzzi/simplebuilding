@@ -257,6 +257,13 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 52 (2026-10-13, Besitzer)
+- [ ] Astral-Verzauberer umbenennen in „Enchanter“ / „Verzauberer“ (Besitzer-Wahl). Seiten und Unterseite bekommen eine Randlinie bis zum Tuch; Unterseite aus Obsidian. (claude-n52)
+- [ ] Brücken-Redstone-Textur: Schichten z-fighten in der Höhe → einfache Textur ohne Überlagerung. (claude-n52)
+- [ ] Dynamisches Licht auch für Fackel in der Hand (wie Laterne/Lava). (claude-n52)
+- [ ] Rissiges Eis wird nicht richtig gerendert (fast unsichtbar, nur Umriss; Bild docs/ai/refs/n44/n52_cracked_ice.png). (claude-n52)
+- [ ] Rissiger Diamant + Vorschlaghammer In-World → 9 Diamant-Kiesel (nach Aufteilung 3d, da rissiger Diamant nach SimpleLib zieht).
+
 ## Nachtrag 51 (2026-10-13, Besitzer)
 - [ ] Redstone-Kompatibilität: Astral-/Nihil-Geräte akzeptieren alle 3 Redstone-Arten + Brücken-Redstone (Connector); alle Redstone-Geräte (Vanilla + Mod) akzeptieren alle Mod-Redstone-Linien. Fehlende Blöcke ergänzen: Astral-Redstone-Block, Nihil-Redstone-Block (usw., analog Vanilla-Redstone-Block) und Brücken-Redstone-Block.
 - [ ] Astral-Verzauberer Seitentextur: Tuch (Goldsaum) bis an den Rand ziehen.
