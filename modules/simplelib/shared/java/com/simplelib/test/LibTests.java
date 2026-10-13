@@ -491,15 +491,20 @@ public final class LibTests {
         // Broken half-built (stage 7): the iron block and the seven ingots come back.
         BlockPos half = new BlockPos(3, 1, 1);
         h.setBlock(half, LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(CrucibleBlankBlock.STAGE, 7));
+        int before = 0;
+        for (var item : h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(h.absolutePos(half)).inflate(2))) {
+            if (item.getItem().is(Items.IRON_INGOT)) before += item.getItem().getCount();
+        }
         h.getLevel().destroyBlock(h.absolutePos(half), true);
-        int ingots = 0;
+        int ingots = -before;
         boolean block = false;
         for (var item : h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
                 new net.minecraft.world.phys.AABB(h.absolutePos(half)).inflate(2))) {
             if (item.getItem().is(Items.IRON_INGOT)) ingots += item.getItem().getCount();
             if (item.getItem().is(Items.IRON_BLOCK)) block = true;
         }
-        check(h, block && ingots == 7, "blank stage 7 drops the iron block and 7 ingots: block " + block + ", ingots " + ingots);
+        check(h, block && ingots == 7, "blank stage 7 drops the iron block and 7 ingots: block " + block + ", ingots " + ingots + " (lying there before: " + before + ")");
         h.succeed();
     }
 

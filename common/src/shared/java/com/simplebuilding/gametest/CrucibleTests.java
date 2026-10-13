@@ -236,17 +236,17 @@ public final class CrucibleTests {
         // 2026-10-06: the crucible/barrel hammer upgrades are in JEI too (2 material, from the upgrade table).
         var ironUp = entries.get("hammer_upgrade/simplelib:iron_crucible");
         helper.assertTrue(ironUp.inputs().get(0).items().equals(java.util.List.of(item("simplelib:iron_crucible")))
-                && ironUp.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && ironUp.inputs().get(1).count() == 2
+                && ironUp.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && ironUp.inputs().get(1).count() == 4
                 && ironUp.output().items().equals(java.util.List.of(item("simplelib:reinforced_crucible"))), "iron -> reinforced crucible entry");
 
         var build = entries.get("crucible_build");
         helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.IRON_BLOCK)) && build.inputs().get(0).count() == 1, "an iron block");
-        helper.assertTrue(build.inputs().get(1).count() == 4 && build.inputs().get(1).items().contains(Items.HEAVY_WEIGHTED_PRESSURE_PLATE), "four walls");
-        helper.assertTrue(build.inputs().get(2).count() == 2 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
-                && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "two handles: iron ingot or iron rod");
+        helper.assertTrue(build.inputs().get(1).count() == 12 && build.inputs().get(1).items().contains(Items.IRON_INGOT), "12 ingots for plates and rim (N51)");
+        helper.assertTrue(build.inputs().get(2).count() == 4 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
+                && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "4 handle strikes: iron ingot or iron rod");
         helper.assertTrue(build.output().items().equals(java.util.List.of(item("simplelib:iron_crucible"))), "the iron crucible");
         helper.assertTrue(build.tools().contains(ModItems.IRON_SLEDGEHAMMER) && build.tools().contains(ModItems.ENDERITE_SLEDGEHAMMER), "every sledgehammer");
-        helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(6)) && noteArgs(build, 1).equals(java.util.List.of(4, 2)), "notes name 6 strikes, 4 walls and 2 handles");
+        helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(16)) && noteArgs(build, 1).equals(java.util.List.of(12, 4)), "notes name 16 strikes, 12 plate/rim and 4 handle ingots");
 
         var barrel = entries.get("barrel_attach");
         helper.assertTrue(barrel.inputs().get(0).items().contains(item("simplelib:copper_barrel"))
@@ -416,14 +416,18 @@ public final class CrucibleTests {
         // Broken half-built (stage 11): the iron block and 11 iron ingots come back.
         BlockPos half = new BlockPos(5, 1, 2);
         helper.setBlock(half, blank.defaultBlockState().setValue(stage, 11));
+        int before = 0;
+        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(helper.absolutePos(half)).inflate(2))) {
+            if (item.getItem().is(Items.IRON_INGOT)) before += item.getItem().getCount();
+        }
         helper.getLevel().destroyBlock(helper.absolutePos(half), true);
-        int ingots = 0;
+        int ingots = -before;
         boolean ironBlock = false;
         for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(helper.absolutePos(half)).inflate(2))) {
             if (item.getItem().is(Items.IRON_INGOT)) ingots += item.getItem().getCount();
             if (item.getItem().is(Items.IRON_BLOCK)) ironBlock = true;
         }
-        helper.assertTrue(ironBlock && ingots == 11, "blank stage 11 gives back the iron block and 11 ingots: " + ironBlock + ", " + ingots);
+        helper.assertTrue(ironBlock && ingots == 11, "blank stage 11 gives back the iron block and 11 ingots: " + ironBlock + ", " + ingots + " (lying there before: " + before + ")");
         helper.succeed();
     }
 
