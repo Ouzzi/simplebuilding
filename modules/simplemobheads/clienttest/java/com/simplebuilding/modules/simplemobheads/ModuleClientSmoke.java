@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.entity.SkullBlockEntity;
  * Screenshots land in integration/run-fabric-263/screenshots as simplemobheads-*.png.
  */
 public final class ModuleClientSmoke implements FabricClientGameTest {
-    private static final int PER_ROW = 8;
+    private static final int PER_ROW = 6;
 
     /** One look to show: the head and the variant ('' = base look). */
     private record Look(HeadDef head, String variant) {
@@ -66,9 +66,9 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                     var level = (ServerLevel) player.level();
                     BlockPos origin = stage(level, new BlockPos(0, player.blockPosition().getY(), 40 * (r + 1)), false);
                     for (int i = 0; i < slice.size(); i++) {
-                        place(level, origin.offset(-7 + 2 * i, 0, 3), slice.get(i), false);
+                        place(level, origin.offset(3 - i, 0, 2), slice.get(i), false);
                     }
-                    player.connection.teleport(origin.getX() + 0.5, origin.getY() + 0.6, origin.getZ() - 2.5, 0.0F, 12.0F);
+                    player.connection.teleport(origin.getX() + 1.0, origin.getY() + 0.2, origin.getZ() - 1.6, 0.0F, 24.0F);
                 });
                 context.waitTicks(20);
                 world.getConnection().waitForClientboundPackets();
@@ -126,11 +126,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         return origin;
     }
 
-    /** Places the look as a standing head facing the camera (north) or as a wall head on the wall row, with its variant. */
+    /** Places the look as a standing head facing the camera (rotation 0 faces north, towards a player looking south) or as a wall head on the wall row, with its variant. */
     private static void place(ServerLevel level, BlockPos pos, Look look, boolean wall) {
         var block = wall ? MobHeads.wall(look.head().id()) : MobHeads.standing(look.head().id());
         var state = wall ? block.defaultBlockState().setValue(WallSkullBlock.FACING, Direction.NORTH)
-                : block.defaultBlockState().setValue(SkullBlock.ROTATION, 8);
+                : block.defaultBlockState().setValue(SkullBlock.ROTATION, 0);
         level.setBlockAndUpdate(pos, state);
         if (level.getBlockEntity(pos) instanceof SkullBlockEntity skull) {
             skull.applyComponentsFromItemStack(look.stack());
