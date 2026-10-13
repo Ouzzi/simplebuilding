@@ -115,9 +115,23 @@ public final class EndClientSmoke implements FabricClientGameTest {
                 BlockPos[] spot = new BlockPos[1];
                 world.getServer().runOnServer(server -> {
                     ServerLevel end = server.getLevel(Level.END);
-                    var found = end.findClosestBiome3d(h -> h.is(key), new BlockPos(1600, 64, 0), 12000, 64, 64);
-                    if (found == null) throw new AssertionError("no " + key.identifier() + " within 12000 blocks");
-                    spot[0] = found.getFirst();
+                    // own grid search on the End's biome resolver (logs what it saw, for diagnosis)
+                    var source = end.getChunkSource().getGenerator().getBiomeSource();
+                    var resolver = source.createUncachedResolver(end.getChunkSource().randomState());
+                    java.util.Map<String, Integer> seen = new java.util.TreeMap<>();
+                    BlockPos hit = null;
+                    for (int r = 0; r <= 12000 && hit == null; r += 64)
+                        for (int a = 0; a < Math.max(1, r / 16) && hit == null; a++) {
+                            double ang = a * Math.PI * 2 / Math.max(1, r / 16);
+                            int x = 1600 + (int) (Math.cos(ang) * r), z = (int) (Math.sin(ang) * r);
+                            var b = resolver.getNoiseBiome(net.minecraft.core.QuartPos.fromBlock(x), net.minecraft.core.QuartPos.fromBlock(64), net.minecraft.core.QuartPos.fromBlock(z));
+                            seen.merge(b.unwrapKey().map(k -> k.identifier().toString()).orElse("?"), 1, Integer::sum);
+                            if (b.is(key)) hit = new BlockPos(x, 64, z);
+                        }
+                    System.out.println("[simpleend smoke] " + source.getClass().getSimpleName() + " biomes " + SimpleEndConfig.biomes + " chance "
+                            + SimpleEndConfig.biomeChance + " on " + SimpleEnd.on() + " seen " + seen);
+                    if (hit == null) throw new AssertionError("no " + key.identifier() + " within 12000 blocks, seen " + seen);
+                    spot[0] = hit;
                     cmd(server, "execute in minecraft:the_end run tp @a " + spot[0].getX() + " 140 " + spot[0].getZ() + " -45 60");
                 });
                 context.waitTicks(100);

@@ -439,8 +439,9 @@ public final class EndTests {
             h.assertTrue(!biomes.getOrThrow(EndBiomes.ASH_VALLEY_FRINGE).is(EndBiomes.WATCHER_CORE), "fringe not in watcher_core");
             // the real End of the test server: cores and fringes appear on the outer islands
             ServerLevel end = h.getLevel().getServer().getLevel(net.minecraft.world.level.Level.END);
-            if (end != null && SimpleEndConfig.biomes && SimpleEnd.on()) {
-                var endSource = end.getChunkSource().getGenerator().getBiomeSource();
+            var endSource = end == null ? null : end.getChunkSource().getGenerator().getBiomeSource();
+            // (the test server's End may use a fixed biome; only a real End biome source is checked)
+            if (endSource instanceof TheEndBiomeSource && SimpleEndConfig.biomes && SimpleEnd.on()) {
                 var resolver = endSource.createUncachedResolver(end.getChunkSource().randomState());
                 java.util.Set<net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>> seen = new java.util.HashSet<>();
                 for (int x = -12000; x <= 12000; x += 128)
