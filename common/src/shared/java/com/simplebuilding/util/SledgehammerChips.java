@@ -30,6 +30,8 @@ public final class SledgehammerChips {
     public static final int PACKED_ICE_CHIPS = 9;
     public static final int OBSIDIAN_CHIPS = 9;
     public static final int FIRE_CHIPS = 4;
+    /** A placed cracked diamond (SimpleLib material) breaks into nine diamond pebbles - the reverse of the crafting recipe. */
+    public static final int CRACKED_DIAMOND_PEBBLES = 9;
 
     /** One crushing for JEI and the wiki: input item, result, count = strikes (one per strike). */
     public record Crush(net.minecraft.world.item.Item input, net.minecraft.world.item.Item result, int count) {
@@ -43,6 +45,7 @@ public final class SledgehammerChips {
             out.add(new Crush(Items.PACKED_ICE, ModItems.ICE_CHIP, PACKED_ICE_CHIPS));
             out.add(new Crush(Items.OBSIDIAN, ModItems.OBSIDIAN_CHIP, OBSIDIAN_CHIPS));
             out.add(new Crush(Items.FIRE_CHARGE, ModItems.FIRE_CHIP, FIRE_CHIPS));
+            out.add(new Crush(ModItems.CRACKED_DIAMOND, ModItems.DIAMOND_PEBBLE, CRACKED_DIAMOND_PEBBLES));
         }
         if (McVersion.CRUCIBLE) {
             out.add(new Crush(Items.QUARTZ_BLOCK, Items.QUARTZ, com.simplebuilding.items.custom.SledgehammerItem.QUARTZ_BLOCK_QUARTZ));
@@ -65,7 +68,7 @@ public final class SledgehammerChips {
         }
         var state = level.getBlockState(pos);
         var entity = level.getBlockEntity(pos);
-        ItemStack result;
+        ItemStack result = ItemStack.EMPTY;
         int fireIndex = -1;
         if (state.is(Blocks.ICE)) {
             result = new ItemStack(ModItems.ICE_CHIP, ICE_CHIPS);
@@ -76,13 +79,19 @@ public final class SledgehammerChips {
         } else if (entity instanceof PlacedSmallPartsBlockEntity pile) {
             // Like disc flipping, select the most recently placed matching item.
             for (int i = pile.parts().size() - 1; i >= 0; i--) {
-                if (pile.parts().get(i).is(Items.FIRE_CHARGE)) {
+                ItemStack part = pile.parts().get(i);
+                if (part.is(Items.FIRE_CHARGE)) {
+                    result = new ItemStack(ModItems.FIRE_CHIP, FIRE_CHIPS);
+                    fireIndex = i;
+                    break;
+                }
+                if (part.is(ModItems.CRACKED_DIAMOND)) {
+                    result = new ItemStack(ModItems.DIAMOND_PEBBLE, CRACKED_DIAMOND_PEBBLES);
                     fireIndex = i;
                     break;
                 }
             }
             if (fireIndex < 0) return InteractionResult.PASS;
-            result = new ItemStack(ModItems.FIRE_CHIP, FIRE_CHIPS);
         } else if (entity instanceof PlacedTemplateBlockEntity placed && placed.getTemplate().is(Items.FIRE_CHARGE)) {
             result = new ItemStack(ModItems.FIRE_CHIP, FIRE_CHIPS);
         } else {

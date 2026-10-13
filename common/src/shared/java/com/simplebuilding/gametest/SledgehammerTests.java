@@ -195,6 +195,35 @@ public final class SledgehammerTests {
         helper.succeed();
     }
 
+    /** Owner N52: a placed cracked diamond breaks into nine diamond pebbles; the rest of the pile stays. */
+    public static void hammerChipsPlacedCrackedDiamondYieldsNinePebbles(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) { helper.succeed(); return; }
+        ServerPlayer player = chipPlayer(helper);
+        BlockPos support = new BlockPos(2, 1, 2);
+        BlockPos pos = support.above();
+        helper.setBlock(support, Blocks.STONE);
+        ItemStack gems = new ItemStack(ModItems.CRACKED_DIAMOND, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, gems);
+        player.setShiftKeyDown(true);
+        helper.assertTrue(com.simplebuilding.util.PlacedTemplates.isPlaceableSmall(gems), "cracked diamond missing from placeable tag");
+        var placed = gems.getItem().useOn(topClick(helper, player, support));
+        helper.assertTrue(placed != null && placed.consumesAction() && gems.getCount() == 1, "placing cracked diamond must consume one");
+        var pile = (com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(pos));
+        pile.add(new ItemStack(ModItems.MUSIC_DISC_DRIFTWOOD));
+        player.setShiftKeyDown(false);
+        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        player.setGameMode(GameType.ADVENTURE);
+        useChipHammer(helper, player, hammer, pos);
+        helper.assertTrue(pile.parts().size() == 2 && chipDrops(helper, ModItems.DIAMOND_PEBBLE) == 0, "adventure changed the cracked diamond");
+        player.setGameMode(GameType.SURVIVAL);
+        useChipHammer(helper, player, hammer, pos);
+        helper.assertTrue(chipDrops(helper, ModItems.DIAMOND_PEBBLE) == 9 && chipDrops(helper, ModItems.CRACKED_DIAMOND) == 0,
+                "cracked diamond must give nine pebbles and no copy");
+        helper.assertTrue(pile.parts().size() == 1 && pile.parts().getFirst().is(ModItems.MUSIC_DISC_DRIFTWOOD), "unrelated part lost");
+        helper.assertTrue(hammer.getDamageValue() == 1, "one crushing must cost one durability");
+        helper.succeed();
+    }
+
     public static void hammerChipsWallAndCeilingFireCharges(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) { helper.succeed(); return; }
         ServerPlayer player = chipPlayer(helper);

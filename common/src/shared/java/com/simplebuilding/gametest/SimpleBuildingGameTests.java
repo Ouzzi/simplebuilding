@@ -1295,6 +1295,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_obsidian_yields_nine", SledgehammerTests::hammerChipsObsidianYieldsNine).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_packed_ice_yields_nine", SledgehammerTests::hammerChipsPackedIceYieldsNine).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_placed_fire_charge_yields_four", SledgehammerTests::hammerChipsPlacedFireChargeYieldsFour).build(),
+            GameTestSpec.named("sledgehammer_game_test_hammer_chips_placed_cracked_diamond_yields_nine_pebbles", SledgehammerTests::hammerChipsPlacedCrackedDiamondYieldsNinePebbles).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_wall_and_ceiling_fire_charges", SledgehammerTests::hammerChipsWallAndCeilingFireCharges).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_corners_subtract_only_the_aimed_quarter", SledgehammerTests::sledgehammerCornersSubtractOnlyTheAimedQuarter).build(),
             GameTestSpec.named("sledgehammer_game_test_reshape_mode_needs_sneaking", SledgehammerOctetTests::reshapeModeNeedsSneaking).build(),
