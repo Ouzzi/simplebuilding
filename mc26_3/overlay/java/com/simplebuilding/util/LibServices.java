@@ -43,8 +43,19 @@ public final class LibServices {
     private LibServices() {
     }
 
+    /**
+     * Principle 5a, axe/hammer switch (split plan §2.6): SimpleBuilding has a working hammer way, so SimpleLib's axe
+     * ways (crucible build, barrel attach, crucible/cauldron upgrades) go off and only the sledgehammer runs them. Its
+     * own call, because it moves to Simple Hammers in stage 7 (the hammer mod switches the axe off, not SimpleBuilding).
+     */
+    public static void hammersReplaceAxes() {
+        SimpleLibApi.disableAxeWays();
+    }
+
     /** After the blocks and items are registered (ModItems.registerModItems). */
     public static void init() {
+        // Split stage 3d: SimpleBuilding uses every shared material - their recipes and the anvil crushing stay on.
+        SharedMaterials.request();
         InWorldUpgrades.registerDefaults(Simplebuilding.MOD_ID);
         // Same split as SledgehammerUpgrades.Upgrade#isChest / #isShulkerBox: every chest target moves like a tiered chest.
         SimpleLibApi.registerUpgradeHandler(block -> block instanceof ChestBlock, TieredChests::upgradeInPlace);

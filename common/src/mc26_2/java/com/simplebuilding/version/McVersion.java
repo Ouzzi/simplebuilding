@@ -103,6 +103,10 @@ public final class McVersion {
     public static final boolean CRUCIBLE = false;
     /** Trim templates in SimpleBuilding: 26.2 has no modules, the templates stay {@code simplebuilding:*} here (26.3: Simple Trims). */
     public static final boolean TRIMS_IN_SB = true;
+    /** Shared materials in SimpleLib: 26.2 has no modules, the materials stay {@code simplebuilding:*} here (26.3: SimpleLib, stage 3d). */
+    public static final boolean MATERIALS_IN_LIB = false;
+    /** Namespace of the shared materials and their recipes ({@link #MATERIALS_IN_LIB}). */
+    public static final String MATERIAL_NAMESPACE = "simplebuilding";
     /** Sulfur fire and copper fire (queue N33): 26.3 only (Vanilla sulfur arrives with 26.3). */
     public static final boolean FIRES = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

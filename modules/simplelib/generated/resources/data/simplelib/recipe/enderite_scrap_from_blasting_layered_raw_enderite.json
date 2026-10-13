@@ -1,0 +1,22 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "type": "minecraft:blasting",
+  "cookingtime": 288000,
+  "experience": 10.0,
+  "group": "enderite_scrap",
+  "ingredient": "simplelib:layered_raw_enderite",
+  "result": {
+    "id": "simplelib:enderite_scrap"
+  }
+}

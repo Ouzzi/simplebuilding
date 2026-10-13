@@ -314,11 +314,12 @@ public class ModItems {
 
 
 
-    // Upgrade Templates
+    // Upgrade Templates (26.3: shared materials in SimpleLib, util/SharedMaterials - split stage 3d; also pebble,
+    // cracked diamond, netherite nugget and the enderite base materials below)
 
-    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> upgradeTemplate("basic_upgrade_template", settings));
+    public static final Item BASIC_UPGRADE_TEMPLATE = com.simplebuilding.util.SharedMaterials.item("basic_upgrade_template", () -> registerItem("basic_upgrade_template", settings -> upgradeTemplate("basic_upgrade_template", settings)));
 
-    public static final Item ENDERITE_UPGRADE_TEMPLATE = registerItem("enderite_upgrade_template", settings -> upgradeTemplate("enderite_upgrade_template", settings));
+    public static final Item ENDERITE_UPGRADE_TEMPLATE = com.simplebuilding.util.SharedMaterials.item("enderite_upgrade_template", () -> registerItem("enderite_upgrade_template", settings -> upgradeTemplate("enderite_upgrade_template", settings)));
 
     private static SmithingTemplateItem upgradeTemplate(String id, Item.Properties settings) {
         String key = "item.simplebuilding." + id;
@@ -354,7 +355,7 @@ public class ModItems {
     public static final Item YARN_BALL = com.simplebuilding.version.McVersion.SILENT_DANDELION
             ? registerItem("yarn_ball", Item::new) : null;
 
-    public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
+    public static final Item DIAMOND_PEBBLE = com.simplebuilding.util.SharedMaterials.item("diamond_pebble", () -> registerItem("diamond_pebble", settings -> new Item(settings)));
 
     /** Steinkiesel: neun aus einem Bruchstein, zum Ablegen und zurueck zu Bruchstein (2026-10-02). */
     public static final Item STONE_PEBBLE = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
@@ -458,13 +459,13 @@ public class ModItems {
     public static final Item ENDERITE_CHEST_BOAT = com.simplebuilding.version.McVersion.TIERED_VEHICLES
             ? registerItem("enderite_chest_boat", s -> new com.simplebuilding.entity.vehicle.TieredChestBoatItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_CHEST_BOAT)) : null;
 
-    public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
+    public static final Item CRACKED_DIAMOND = com.simplebuilding.util.SharedMaterials.item("cracked_diamond", () -> registerItem("cracked_diamond", settings -> new Item(settings)));
 
-    public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter
+    public static final Item CRACKED_DIAMOND_BLOCK = com.simplebuilding.util.SharedMaterials.item("cracked_diamond_block", () -> registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)));
 
-    public static final Item NETHERITE_NUGGET = registerItem("netherite_nugget", settings -> new Item(settings.fireResistant()));
+    public static final Item NETHERITE_NUGGET = com.simplebuilding.util.SharedMaterials.item("netherite_nugget", () -> registerItem("netherite_nugget", settings -> new Item(settings.fireResistant())));
 
-    public static final Item ENDERITE_NUGGET = registerItem("enderite_nugget", settings -> new Item(settings.fireResistant()));
+    public static final Item ENDERITE_NUGGET = com.simplebuilding.util.SharedMaterials.item("enderite_nugget", () -> registerItem("enderite_nugget", settings -> new Item(settings.fireResistant())));
 
     /**
      * Stufen-Shulkerschalen (Besitzer 2026-10-02): verstaerkte und Enderit-Shulker der End-Stadt lassen 0-2 fallen
@@ -516,22 +517,21 @@ public class ModItems {
     // Enderquarz: 1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz ergeben 2; Material der violetten End-Palette.
     public static final Item ENDER_QUARTZ = registerItem("ender_quartz", s -> new Item(s));
 
-    public static final Item RAW_ENDERITE = registerItem("raw_enderite", s -> new Item(s));     // Fix: s nutzen!
+    public static final Item RAW_ENDERITE = com.simplebuilding.util.SharedMaterials.item("raw_enderite", () -> registerItem("raw_enderite", s -> new Item(s)));
 
     /** Drei Rohenderit uebereinander gepresst (Besitzer 2026-09-29); nur daraus schmilzt Enderitschrott. */
-    public static final Item LAYERED_RAW_ENDERITE = registerItem("layered_raw_enderite", s -> new Item(s));
+    public static final Item LAYERED_RAW_ENDERITE = com.simplebuilding.util.SharedMaterials.item("layered_raw_enderite", () -> registerItem("layered_raw_enderite", s -> new Item(s)));
 
-    public static final Item ENDERITE_SCRAP = registerItem("enderite_scrap", s -> new Item(s.fireResistant()));
+    public static final Item ENDERITE_SCRAP = com.simplebuilding.util.SharedMaterials.item("enderite_scrap", () -> registerItem("enderite_scrap", s -> new Item(s.fireResistant())));
 
-        public static final Item ENDERITE_INGOT = registerItem("enderite_ingot", s -> new Item(s
-
+    // 26.3: SimpleLib's ingot; the trim material is added by SharedMaterialTrimMixin (SimpleBuilding owns it).
+    public static final Item ENDERITE_INGOT = com.simplebuilding.util.SharedMaterials.item("enderite_ingot", () -> registerItem("enderite_ingot", s -> new Item(s
             .fireResistant()
-
-            .trimMaterial(ModTrimMaterials.ENDERITE)));
-
+            .trimMaterial(ModTrimMaterials.ENDERITE))));
 
 
-    public static final Item ENDERITE_BLOCK_ITEM = registerItem("enderite_block", s -> new BlockItem(ModBlocks.ENDERITE_BLOCK, s.fireResistant()));
+
+    public static final Item ENDERITE_BLOCK_ITEM = com.simplebuilding.util.SharedMaterials.item("enderite_block", () -> registerItem("enderite_block", s -> new BlockItem(ModBlocks.ENDERITE_BLOCK, s.fireResistant())));
 
     public static final Item NIHILITH_ORE_ITEM = registerItem("nihilith_ore", s -> new BlockItem(ModBlocks.NIHILITH_ORE, s));
 
@@ -1360,14 +1360,16 @@ public class ModItems {
 
         Simplebuilding.LOGGER.info("Registering Mod Items for " + Simplebuilding.MOD_ID);
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            // Crucible P5: buckets, Enderite crucible/barrel items, then plug SB into SimpleLib (axe ways off, hammer, buckets).
+            // Crucible P5: buckets, Enderite crucible/barrel items, then plug SB into SimpleLib (hammer, buckets).
             com.simplebuilding.fluid.ModFluids.registerItems();
             com.simplebuilding.fluid.BucketDispensing.register();
             com.simplebuilding.crucible.CrucibleCompat.registerItems();
             com.simplebuilding.crucible.CrucibleCompat.init();
         }
-        // Module split 3c: upgrade handlers and octet cells in SimpleLib (26.3; no-op on 26.2).
+        // Module split 3c: upgrade handlers and octet cells in SimpleLib (26.3; no-op on 26.2); 3d: shared materials requested.
         com.simplebuilding.util.LibServices.init();
+        // Principle 5a: the sledgehammer replaces SimpleLib's axe ways (own call, moves to Simple Hammers in stage 7).
+        com.simplebuilding.util.LibServices.hammersReplaceAxes();
 
 
 

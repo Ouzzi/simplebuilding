@@ -1,0 +1,22 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "cracked_diamond"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "cracked_diamond"
+    }
+  ],
+  "type": "minecraft:blasting",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "group": "diamond_from_cracked",
+  "ingredient": "simplelib:cracked_diamond",
+  "result": {
+    "id": "minecraft:diamond"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "upgrade_templates"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "upgrade_templates"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enderite_upgrade_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplelib:enderite_upgrade_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplelib:enderite_upgrade_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enderite_upgrade_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplelib:enderite_upgrade_template"
+    ]
+  }
+}

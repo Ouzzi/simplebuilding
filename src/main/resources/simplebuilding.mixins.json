@@ -58,6 +58,7 @@
     "ItemUseOnMixin",
     "FireBlockFlammables",
     "GlisteringMelonFoodMixin",
+    "SharedMaterialTrimMixin",
     "ItemStackUseOnMixin",
     "LivingEntityMixin",
     "MappedRegistryAliasMixin",

@@ -12,7 +12,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-/** A landed anvil consumes one diamond block; automation always loses one diamond's value. */
+/**
+ * A landed anvil consumes one diamond block; automation always loses one diamond's value. On 26.3 SimpleLib does it
+ * ({@code com.simplelib.material.AnvilCrushing}, same numbers); the constants stay here for the wiki/JEI export.
+ */
 public final class AnvilDiamondCrushing {
     /** Nine pebbles craft a cracked diamond, which blasts into one diamond. */
     public static final int PEBBLES = 72;
@@ -21,7 +24,8 @@ public final class AnvilDiamondCrushing {
     private AnvilDiamondCrushing() {}
 
     public static void onLand(Level level, BlockPos landed, FallingBlockEntity anvil) {
-        if (!McVersion.ANVIL_DIAMOND_CRUSH || !(level instanceof ServerLevel server)
+        // 26.3 (split stage 3d): SimpleLib crushes (shared material cracked_diamond, requested by SimpleBuilding).
+        if (!McVersion.ANVIL_DIAMOND_CRUSH || McVersion.MATERIALS_IN_LIB || !(level instanceof ServerLevel server)
                 || !anvil.getBlockState().is(BlockTags.ANVIL)
                 || anvil.getStartPos().getY() - landed.getY() < MINIMUM_FALL_BLOCKS) return;
         BlockPos target = landed.below();

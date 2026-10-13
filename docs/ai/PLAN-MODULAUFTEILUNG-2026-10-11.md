@@ -376,6 +376,35 @@ Abweichungen/Grenzen (bewusst):
 - Die ~40 `instanceof SledgehammerItem`-Stellen bleiben bis Stufe 7; `isHammer` nutzt bisher `CrucibleCompat`.
 - simplelib-Version bleibt 0.2.0 (wie bei 3a); framework 0.1.10.
 
+**Status Stufe 3d (13.10., Branch `claude-split-s3-materials` auf `claude-wave1`):** _Plan_
+- Erst die Vorher-Welt: `MigrationWorldTests` legt zusätzlich die Material-Blöcke, -Items, ihre 15 Rezepte (Rezeptbuch)
+  und deren Rezept-Advancements ab; Fixture mit dem Stand **vor** dem Umzug neu geschrieben (eigener Commit).
+- SimpleLib `registry/LibMaterials`: registriert immer (Welten bleiben ladbar) `diamond_pebble`, `cracked_diamond`,
+  `cracked_diamond_block` (+Block), `netherite_nugget`, `raw_enderite`, `layered_raw_enderite`, `enderite_scrap`,
+  `enderite_ingot`, `enderite_nugget`, `enderite_block` (+Block), `basic_upgrade_template`, `enderite_upgrade_template`
+  – gleiche Eigenschaften; Registrierung idempotent (`ensureBlocks/ensureItems`), damit die Ladereihenfolge
+  SB/SimpleLib auf allen Loadern egal ist. `SimpleLibApi.requestMaterial/materialRequested/materialItem/materialBlock`,
+  Condition `simplelib:material_requested` (`{"material": "enderite"}`; Fabric/NeoForge/Forge), Gruppen
+  `cracked_diamond`, `netherite_nugget`, `enderite`, `upgrade_templates`. Bezugswege nur auf Anfrage: die 15 Material-
+  Rezepte + Rezept-Advancements (Condition) und das Amboss-Zerschlagen (`api` Automationsprüfung setzbar, Standard
+  framework `Protection`). Ressourcen (Modelle, Blockstates, Items, Loot der zwei Blöcke, `c:`-Tags inkl.
+  `c:gems/cracked_diamond`, Abbau-/Beacon-Tags, Lang EN/DE, Texturen als Kopie) über `tools/gen_resources.py`.
+- `diamond_pebble` zieht mit (Abweichung von §2.5: ohne ihn hätte das Amboss-Zerschlagen in der Lib kein Ergebnis).
+- SB 26.3: `util/LibMaterials` (Zwilling 26.2 = eigene Registrierung wie bisher) liefert die Lib-Objekte an
+  `ModItems`/`ModBlocks` (alle ~300 Java-Verweise bleiben), fordert alle vier Gruppen an; `IdMovesHook` meldet
+  Items/Blöcke/Rezepte/Rezept-Advancements `simplebuilding:` → `simplelib:`; Datagen 26.3 lässt Material-Rezepte,
+  -Modelle und -Loot weg (`McVersion.MATERIALS_IN_LIB`), Rest nennt automatisch die neuen IDs. Enderit-Barren behält
+  das Rüstungsbesatz-Material über einen SB-Mixin (`finalizeInitializer`, wie Glitzermelone). Amboss-Zerschlagen von
+  SB auf 26.3 aus (Lib macht es, SB setzt `WorldPermissions` als Prüfung). Axt/Hammer-Umschaltung als eigener Aufruf
+  `LibServices.hammersReplaceAxes()` (heute aus `CrucibleCompat.init`, Stufe 7 → Hammers).
+- Rezeptbuch-Mixin folgt Verschiebungsketten (`simpletest` → `simplebuilding` → `simplelib`).
+- Riding: Tests über `#c:ingots/enderite` statt fester ID; Daten nutzen den Tag schon.
+- Bleibt (bewusst) in SB: Loot-Einspeisung (`ModLootTableModifications`, SB-Config-Schalter; SB fordert ohnehin alles
+  an) – wandert, wenn eine Mod ohne SB Enderit anfordert (Stufe 4/8); Rohenderit-Synthese (Nihilith/Astralit).
+- Prüfung: Compile 3 Loader + 26.2, `migration_world*`, Lib `module_game_test_material_requests*` (allein: keine
+  Rezepte/kein Zerschlagen; mit SB: alles), SB-Filter data_integrity*, sledgehammer*, crucible*, modpack*, inworld*,
+  anvil*, smelting*, Riding/Money/Sandwiches/Lib je Modul + Standalone, Wiki --strict, discover/module_guides --check.
+
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
 

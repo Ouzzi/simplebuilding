@@ -9,6 +9,7 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.crucible.CrucibleCompat;
 import com.simplebuilding.datafix.IdMovesHook;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.SharedMaterials;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -65,7 +66,12 @@ import net.minecraft.world.level.storage.TagValueOutput;
  * (so it cannot rot), and the files stay the "before" world. Once real ids move (stage 4 on), this same world is
  * the old world the moves must load.
  *
- * <p><b>The move.</b> No real id moves yet. {@link #worldLoadsUnderMovedIds} therefore spells every SimpleBuilding
+ * <p><b>Real move (stage 3d).</b> The fixture was written before the shared materials moved to SimpleLib (pebble,
+ * cracked diamond and block, netherite nugget, enderite materials and block, upgrade templates, their 15 recipes and
+ * recipe advancements): the unchanged world must load them as SimpleLib's objects and save them back as
+ * {@code simplelib:} - blocks, block entity contents, inventory, recipe book, advancement progress.
+ *
+ * <p><b>The test move.</b> {@link #worldLoadsUnderMovedIds} also spells every SimpleBuilding
  * id of the fixture as {@code simpletest:} - palette names, block entity ids, item ids, component types,
  * enchantments, recipe-book keys, advancement ids - the shape of a world saved before a namespace move, and the
  * test move {@code simpletest -> simplebuilding} ({@code IdMovesHook}) must load it exactly as the unchanged
@@ -83,6 +89,8 @@ public final class MigrationWorldTests {
     static final String NOW = Simplebuilding.MOD_ID + ":";
     static final int SECTION_Y = 4;
     static final List<String> PLAYER_KEYS = List.of("Inventory", "recipeBook");
+    /** Namespace the shared materials moved to (stage 3d). */
+    static final String LIB = "simplelib";
     /** Compound keys whose children are registry ids (component types, enchantments). */
     static final Set<String> ID_KEYED = Set.of("components", "minecraft:enchantments", "minecraft:stored_enchantments");
     /** String fields that hold a registry id (item/block entity/entity id, palette block name). */
@@ -317,6 +325,9 @@ public final class MigrationWorldTests {
         Tag resavedStates = helper.getLevel().palettedContainerFactory().blockStatesContainerCodec()
                 .encodeStart(NbtOps.INSTANCE, loadedSection.getStates()).getOrThrow();
         if (resavedStates.toString().contains(OLD)) problems.add("palette saved back as " + resavedStates);
+        Tag oracleStates = helper.getLevel().palettedContainerFactory().blockStatesContainerCodec()
+                .encodeStart(NbtOps.INSTANCE, oracleSection.getStates()).getOrThrow();
+        for (String old : materialIdsIn(oracleStates.toString())) problems.add("old world palette saved back with " + old);
 
         helper.assertValueEqual(loaded.blockEntities().size(), oracle.blockEntities().size(), "block entities in the moved chunk");
         for (int i = 0; i < oracle.blockEntities().size(); i++) {
@@ -339,6 +350,7 @@ public final class MigrationWorldTests {
             CompoundTag wantSaved = want.saveWithFullMetadata(helper.getLevel().registryAccess());
             CompoundTag gotSaved = got.saveWithFullMetadata(helper.getLevel().registryAccess());
             if (!wantSaved.equals(gotSaved)) problems.add("block entity at " + pos + " saves back as " + gotSaved + ", old world " + wantSaved);
+            for (String old : materialIdsIn(wantSaved.toString())) problems.add("block entity at " + pos + " saves the moved material id " + old);
         }
 
         // --- player: inventory and recipe book
@@ -362,6 +374,19 @@ public final class MigrationWorldTests {
         if (known.isEmpty()) problems.add("null probe: the recipe book is empty");
         for (ResourceKey<Recipe<?>> key : known) {
             if (!got.getRecipeBook().contains(key)) problems.add("the recipe book lost " + key.identifier());
+        }
+        // Stage 3d, the real move: the old world's material recipes are known under SimpleLib's ids.
+        for (Tag entry : playerBefore.getCompoundOrEmpty("recipeBook").getListOrEmpty("recipes")) {
+            if (!(entry instanceof StringTag(String id)) || !id.startsWith(NOW) || !SharedMaterials.RECIPES.containsKey(id.substring(NOW.length()))) continue;
+            ResourceKey<Recipe<?>> moved = ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                    Identifier.fromNamespaceAndPath(LIB, id.substring(NOW.length())));
+            if (!want.getRecipeBook().contains(moved)) problems.add("the old recipe book lost " + id + " (now " + moved.identifier() + ")");
+        }
+        TagValueOutput wantOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
+        want.saveWithoutId(wantOutput);
+        CompoundTag wantResaved = wantOutput.buildResult();
+        for (String key : PLAYER_KEYS) {
+            for (String old : materialIdsIn(String.valueOf(wantResaved.get(key)))) problems.add("old player " + key + " saved back with " + old);
         }
         TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
         got.saveWithoutId(output);
@@ -396,6 +421,12 @@ public final class MigrationWorldTests {
             advancements.clearTriggers();
             String resaved = Files.readString(file, StandardCharsets.UTF_8);
             if (resaved.contains(OLD)) problems.add("advancement progress saved back with " + OLD + " ids");
+            for (String old : materialIdsIn(resaved)) problems.add("advancement progress saved back with " + old);
+            for (Identifier id : doneBefore) {
+                if (materialRecipeAdvancement(id) && !resaved.contains(LIB + ":" + id.getPath())) {
+                    problems.add("moved recipe advancement " + id + " is not saved as " + LIB + ":" + id.getPath());
+                }
+            }
         } catch (IOException e) {
             throw helper.assertionException("advancement fixture: " + e);
         }
@@ -446,6 +477,19 @@ public final class MigrationWorldTests {
             }
         }
         return count;
+    }
+
+    /** Stage 3d: ids of the moved shared materials and their recipes still spelled {@code simplebuilding:} in saved text. */
+    static List<String> materialIdsIn(String text) {
+        List<String> found = new ArrayList<>();
+        List<String> paths = new ArrayList<>(SharedMaterials.ITEMS);
+        paths.addAll(SharedMaterials.RECIPES.keySet());
+        SharedMaterials.RECIPES.forEach((path, folder) -> paths.add("recipes/" + folder + "/" + path));
+        for (String path : paths) {
+            java.util.regex.Matcher m = java.util.regex.Pattern.compile(java.util.regex.Pattern.quote(NOW + path) + "(?![a-z0-9_/.-])").matcher(text);
+            if (m.find() && !found.contains(NOW + path)) found.add(NOW + path);
+        }
+        return found;
     }
 
     private static LevelChunkSection section(GameTestHelper helper, SerializableChunkData data) {

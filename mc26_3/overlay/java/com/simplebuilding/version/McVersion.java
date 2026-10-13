@@ -99,6 +99,10 @@ public final class McVersion {
     public static final boolean CRUCIBLE = true;
     /** Trim templates in SimpleBuilding (N18 stage 2-4): on 26.3 they live in the bundled sub-mod Simple Trims ({@code simpletrims:*}, migrated through SimpleLib id moves); SB registers neither the three templates nor their four components and its trim-template code paths stay neutral. */
     public static final boolean TRIMS_IN_SB = false;
+    /** Shared materials in SimpleLib (split stage 3d): cracked diamond (+block, pebble, anvil crushing), netherite nugget, enderite base material, upgrade templates are {@code simplelib:*}; SimpleBuilding's fields point at SimpleLib's objects ({@code util/LibMaterials}), its datagen leaves out their recipes/models/loot, the old ids move through SimpleLib id moves. */
+    public static final boolean MATERIALS_IN_LIB = true;
+    /** Namespace of the shared materials and their recipes ({@link #MATERIALS_IN_LIB}). */
+    public static final String MATERIAL_NAMESPACE = "simplelib";
     /** Sulfur fire and copper fire (queue N33): burn on sulfur / copper blocks, sulfur fire gives nausea. */
     public static final boolean FIRES = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

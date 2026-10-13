@@ -205,6 +205,21 @@ public final class ModuleGameTest {
     public void octetCells(GameTestHelper h) {
         LibTests.ALL.get("octet_cells").accept(h);
     }
+
+    @GameTest
+    public void materialRequestsRegistered(GameTestHelper h) {
+        LibTests.ALL.get("material_requests_registered").accept(h);
+    }
+
+    @GameTest
+    public void materialRequestsRecipes(GameTestHelper h) {
+        LibTests.ALL.get("material_requests_recipes").accept(h);
+    }
+
+    @GameTest
+    public void materialRequestsAnvilCrushing(GameTestHelper h) {
+        LibTests.ALL.get("material_requests_anvil_crushing").accept(h);
+    }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplelib.discover.LibDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplelib.discover.LibDiscover.behaviourHints(h); }
     @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplelib.discover.LibDiscover.firstPickupTips(h); }
