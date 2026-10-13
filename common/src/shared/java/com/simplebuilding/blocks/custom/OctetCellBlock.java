@@ -220,7 +220,7 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
             }
         }
         boolean byPlayer = params.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player;
-        ItemStack tool = params.getOptionalParameter(LootContextParams.TOOL);
+        ItemStack tool = params.getOptionalParameter(LootContextParams.TOOL) instanceof ItemStack stack ? stack : null;
         List<ItemStack> drops = new ArrayList<>();
         for (BlockState part : parts) {
             if (part == null || (byPlayer && part.requiresCorrectToolForDrops() && (tool == null || !tool.isCorrectToolForDrops(part)))) {

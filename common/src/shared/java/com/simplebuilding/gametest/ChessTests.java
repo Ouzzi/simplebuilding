@@ -177,9 +177,11 @@ public final class ChessTests {
         helper.assertTrue(state.getFluidState().is(Fluids.WATER), "no water in the cell");
         helper.assertValueEqual(state.getLightEmission(), 5, "astralit octet light");
         for (int index = 1; index < 8; index++) {
-            BlockState next = item.placed(helper.getLevel(), helper.absolutePos(cell), index, player);
-            helper.assertTrue(next != null, "octet " + index + " refused");
-            helper.setBlock(cell, next);
+            BlockState[] parts = item.placed(helper.getLevel(), helper.absolutePos(cell), index, player);
+            helper.assertTrue(parts != null, "octet " + index + " refused");
+            com.simplebuilding.blocks.custom.OctetCells.set(helper.getLevel(), helper.absolutePos(cell), parts,
+                    com.simplebuilding.blocks.custom.OctetCells.wet(helper.getBlockState(cell)), Block.UPDATE_ALL);
+            BlockState next = helper.getBlockState(cell);
             if (index < 7) {
                 helper.assertTrue(next.getValue(CheckerOctetBlock.WATERLOGGED), "water lost at " + (index + 1) + "/8");
             }
