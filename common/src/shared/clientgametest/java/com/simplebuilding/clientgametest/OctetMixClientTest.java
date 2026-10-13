@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * row again.
  */
 public final class OctetMixClientTest {
-    private static final int Z = 24;
+    private static final int Z = 12;
     private static final int X0 = 4;
 
     private OctetMixClientTest() {
@@ -84,12 +84,17 @@ public final class OctetMixClientTest {
             }
             return true;
         }, client -> "the client misses materials of a mixed octet cell");
-        script.command("tp @a 8.5 2.0 21.0 0.0 30.0");
+        onServer(script, "put invisible barriers where the cameras stand", server -> {
+            for (BlockPos pos : List.of(new BlockPos(8, 0, 15), new BlockPos(14, 0, 9))) {
+                server.overworld().setBlock(pos, Blocks.BARRIER.defaultBlockState(), Block.UPDATE_ALL);
+            }
+        });
+        script.command("tp @a 8.5 1.0 15.5 180.0 35.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("let the cells settle in the picture", 20);
         script.shot("octets-mix-row");
-        script.command("tp @a 15.5 1.6 27.5 135.0 20.0");
+        script.command("tp @a 14.5 1.0 9.5 60.0 30.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("let the cells settle in the picture", 20);
@@ -97,6 +102,9 @@ public final class OctetMixClientTest {
         onServer(script, "clear the row", server -> {
             for (int i = 0; i < row.size(); i++) {
                 server.overworld().setBlock(new BlockPos(X0 + i * 2, 0, Z), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            }
+            for (BlockPos pos : List.of(new BlockPos(8, 0, 15), new BlockPos(14, 0, 9))) {
+                server.overworld().setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
             }
         });
         script.command("tp @a 10.5 0.0 15.5 0.0 0.0");
