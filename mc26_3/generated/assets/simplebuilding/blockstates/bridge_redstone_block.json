@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simplebuilding:block/bridge_redstone_block"
+    }
+  }
+}

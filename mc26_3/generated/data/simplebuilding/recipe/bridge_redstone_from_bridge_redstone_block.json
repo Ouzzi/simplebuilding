@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simplebuilding:bridge_redstone_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "simplebuilding:bridge_redstone"
+  }
+}
