@@ -2985,7 +2985,7 @@
   "jade.simplebuilding.cauldron.level": "Füllstand: %s/%s",
   "jei.simplebuilding.category.cauldron_world": "Kessel und Tiegel",
   "jei.simplebuilding.note.cauldron_world.strike_damage": "Jeder Schlag kostet den Hammer %s Haltbarkeit.",
-  "jei.simplebuilding.note.cauldron_world.crucible_build.how": "Vorschlaghammer in der Haupthand, Teile in der Nebenhand, auf den Eisenblock schlagen: insgesamt %s Schläge.",
+  "jei.simplebuilding.note.cauldron_world.crucible_build.how": "Vorschlaghammer in der Haupthand, Eisenbarren in der Nebenhand, auf einen leeren Kessel schlagen: insgesamt %s Schläge.",
   "jei.simplebuilding.note.cauldron_world.crucible_build.parts": "Ein Eisenbarren je Schlag: %s für die Seitenplatten (erst halb, dann ganz) und den Rand, %s für die zwei Griffe (Eisenbarren oder Eisenstange).",
   "jei.simplebuilding.note.cauldron_world.crucible_upgrade.units": "Alle %s Schläge geht eine Einheit hinein und zeigt sich als Band; wird der Tiegel vorher abgebaut, kommen die Einheiten zurück.",
   "jei.simplebuilding.note.cauldron_world.barrel_attach.how": "Fass neben einen Tiegel stellen und %s-mal mit einem Vorschlaghammer darauf schlagen.",

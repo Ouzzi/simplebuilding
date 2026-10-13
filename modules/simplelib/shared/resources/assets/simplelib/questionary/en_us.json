@@ -18,7 +18,7 @@
       "A cooking station without fuel: every slot cooks at once, heated by the block below or two blocks below. 6 slots, speed 1x."
     ],
     "secret": [
-      "Build it in the world: an axe in the main hand, iron ingots in the off hand, sixteen strikes on an iron block - side plates, handles, rim, one ingot each. Walk into it like a cauldron."
+      "Build it in the world: an axe in the main hand, iron ingots in the off hand, sixteen strikes on an empty cauldron - side plates, handles, rim, one ingot each. Walk into it like a cauldron."
     ]
   },
   "reinforced_crucible": {

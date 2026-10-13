@@ -240,7 +240,7 @@ public final class CrucibleTests {
                 && ironUp.output().items().equals(java.util.List.of(item("simplelib:reinforced_crucible"))), "iron -> reinforced crucible entry");
 
         var build = entries.get("crucible_build");
-        helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.IRON_BLOCK)) && build.inputs().get(0).count() == 1, "an iron block");
+        helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)) && build.inputs().get(0).count() == 1, "an empty cauldron (N51)");
         helper.assertTrue(build.inputs().get(1).count() == 12 && build.inputs().get(1).items().contains(Items.IRON_INGOT), "12 ingots for plates and rim (N51)");
         helper.assertTrue(build.inputs().get(2).count() == 4 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
                 && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "4 handle strikes: iron ingot or iron rod");
@@ -384,13 +384,13 @@ public final class CrucibleTests {
     }
 
     /**
-     * Owner N51: sledgehammer on an iron block, 16 strikes with one iron ingot each - 8 for the side plates (half, then
+     * Owner N51: sledgehammer on an empty Vanilla cauldron, 16 strikes with one iron ingot each - 8 for the side plates (half, then
      * full), 4 for the handles (iron poles count), 4 for the rim; each strike is its own blank stage; 2 durability each.
      */
     public static void sledgehammerBuildsTheIronCrucible(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(2, 1, 2);
-        helper.setBlock(pos, Blocks.IRON_BLOCK);
+        helper.setBlock(pos, Blocks.CAULDRON);
         ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
         ServerPlayer player = player(helper, hammer, new ItemStack(Items.IRON_INGOT, 8));
         helper.assertTrue(player.getOffhandItem().is(TagKey.create(Registries.ITEM,
@@ -413,23 +413,21 @@ public final class CrucibleTests {
                     "after strike " + strike + ": " + now);
         }
         helper.assertTrue(player.getOffhandItem().isEmpty(), "every ingot used");
-        // Broken half-built (stage 11): the iron block and 11 iron ingots come back.
-        BlockPos half = new BlockPos(5, 1, 2);
-        helper.setBlock(half, blank.defaultBlockState().setValue(stage, 11));
-        int before = 0;
-        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(helper.absolutePos(half)).inflate(2))) {
-            if (item.getItem().is(Items.IRON_INGOT)) before += item.getItem().getCount();
+        // Broken half-built (stage 11): the cauldron and 11 iron ingots come back.
+        BlockState half = blank.defaultBlockState().setValue(stage, 11);
+        half = withValue(half, "cauldron", "true");
+        java.util.Map<Item, Integer> drops = new java.util.HashMap<>();
+        for (ItemStack stack : Block.getDrops(half, helper.getLevel(), helper.absolutePos(new BlockPos(5, 1, 2)), null)) {
+            drops.merge(stack.getItem(), stack.getCount(), Integer::sum);
         }
-        BlockState halfState = helper.getLevel().getBlockState(helper.absolutePos(half));
-        var loot = Block.getDrops(halfState, helper.getLevel(), helper.absolutePos(half), null);
-        helper.getLevel().destroyBlock(helper.absolutePos(half), true);
-        int ingots = -before;
-        boolean ironBlock = false;
-        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(helper.absolutePos(half)).inflate(2))) {
-            if (item.getItem().is(Items.IRON_INGOT)) ingots += item.getItem().getCount();
-            if (item.getItem().is(Items.IRON_BLOCK)) ironBlock = true;
-        }
-        helper.assertTrue(ironBlock && ingots == 11, "blank stage 11 gives back the iron block and 11 ingots: " + ironBlock + ", " + ingots + " (lying there before: " + before + "), state " + halfState + ", loot " + loot);
+        helper.assertTrue(drops.equals(java.util.Map.of(Items.CAULDRON, 1, Items.IRON_INGOT, 11)), "blank stage 11 gives back the cauldron and 11 ingots: " + drops);
+        // A filled cauldron is not taken (empty it first): the hammer does nothing there.
+        BlockPos water = new BlockPos(5, 1, 4);
+        helper.setBlock(water, Blocks.WATER_CAULDRON);
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 1));
+        player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(hammer));
+        hammer.getItem().useOn(click(helper, player, water));
+        helper.assertTrue(helper.getBlockState(water).is(Blocks.WATER_CAULDRON) && player.getOffhandItem().getCount() == 1, "a water cauldron stays untouched");
         helper.succeed();
     }
 

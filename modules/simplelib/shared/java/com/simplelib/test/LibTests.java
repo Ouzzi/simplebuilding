@@ -470,44 +470,48 @@ public final class LibTests {
         h.succeed();
     }
 
-    /** Owner N51: 16 iron ingots, one per strike - plates half/full, handles half/full, rim; every stage is its own state. */
+    /**
+     * Owner N51: on an empty Vanilla cauldron, 16 iron ingots, one per strike - plates half/full, handles half/full, rim;
+     * every stage is its own state. A filled cauldron is not taken; a broken blank gives the cauldron and the ingots back,
+     * an older blank (iron block base) its iron block.
+     */
     private static void axeBuild(GameTestHelper h) {
         BlockPos rel = new BlockPos(1, 1, 1);
-        h.setBlock(rel, Blocks.IRON_BLOCK);
+        h.setBlock(rel, Blocks.CAULDRON);
         BlockPos abs = h.absolutePos(rel);
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 16));
         ItemStack axe = new ItemStack(Items.IRON_AXE);
         check(h, !CrucibleBlankBlock.fitsNext(0, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE)), "pressure plates are no longer a part");
+        check(h, CrucibleBlankBlock.strikesAt(Blocks.WATER_CAULDRON.defaultBlockState()) < 0
+                && CrucibleBlankBlock.strikesAt(Blocks.IRON_BLOCK.defaultBlockState()) < 0, "only an empty cauldron starts the build");
         for (int i = 1; i <= CrucibleBlankBlock.STRIKES; i++) {
             check(h, CrucibleBlankBlock.strike(h.getLevel(), abs, player, axe, 1), "strike " + i);
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
             BlockState state = h.getLevel().getBlockState(abs);
             check(h, i < CrucibleBlankBlock.STRIKES ? state.is(LibBlocks.CRUCIBLE_BLANK) && state.getValue(CrucibleBlankBlock.STAGE) == i
-                    : state.is(LibBlocks.IRON_CRUCIBLE), "after strike " + i + ": " + state);
+                    && state.getValue(CrucibleBlankBlock.CAULDRON) : state.is(LibBlocks.IRON_CRUCIBLE), "after strike " + i + ": " + state);
             check(h, player.getOffhandItem().getCount() == 16 - i, "one ingot per strike, " + player.getOffhandItem().getCount() + " left after " + i);
         }
         check(h, axe.getDamageValue() == CrucibleBlankBlock.STRIKES, "one durability per strike: " + axe.getDamageValue());
-        // Broken half-built (stage 7): the iron block and the seven ingots come back.
-        BlockPos half = new BlockPos(3, 1, 1);
-        h.setBlock(half, LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(CrucibleBlankBlock.STAGE, 7));
-        int before = 0;
-        for (var item : h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
-                new net.minecraft.world.phys.AABB(h.absolutePos(half)).inflate(2))) {
-            if (item.getItem().is(Items.IRON_INGOT)) before += item.getItem().getCount();
-        }
-        BlockState halfState = h.getLevel().getBlockState(h.absolutePos(half));
-        var loot = net.minecraft.world.level.block.Block.getDrops(halfState, h.getLevel(), h.absolutePos(half), null);
-        h.getLevel().destroyBlock(h.absolutePos(half), true);
-        int ingots = -before;
-        boolean block = false;
-        for (var item : h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
-                new net.minecraft.world.phys.AABB(h.absolutePos(half)).inflate(2))) {
-            if (item.getItem().is(Items.IRON_INGOT)) ingots += item.getItem().getCount();
-            if (item.getItem().is(Items.IRON_BLOCK)) block = true;
-        }
-        check(h, block && ingots == 7, "blank stage 7 drops the iron block and 7 ingots: block " + block + ", ingots " + ingots + " (lying there before: " + before + "), state " + halfState + ", loot " + loot);
+        BlockState cauldronBlank = LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(CrucibleBlankBlock.STAGE, 7).setValue(CrucibleBlankBlock.CAULDRON, true);
+        check(h, dropsOf(h, cauldronBlank, new BlockPos(3, 1, 1)).equals("cauldron 1, iron_ingot 7"), "blank stage 7 gives the cauldron and 7 ingots back: "
+                + dropsOf(h, cauldronBlank, new BlockPos(3, 1, 1)));
+        BlockState oldBlank = LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(CrucibleBlankBlock.STAGE, 3);
+        check(h, dropsOf(h, oldBlank, new BlockPos(5, 1, 1)).equals("iron_block 1, iron_ingot 3"), "an older iron-block blank still gives its iron block: "
+                + dropsOf(h, oldBlank, new BlockPos(5, 1, 1)));
         h.succeed();
+    }
+
+    /** What breaking {@code state} at {@code rel} drops, sorted: "cauldron 1, iron_ingot 7". */
+    private static String dropsOf(GameTestHelper h, BlockState state, BlockPos rel) {
+        java.util.Map<String, Integer> out = new java.util.TreeMap<>();
+        for (ItemStack stack : net.minecraft.world.level.block.Block.getDrops(state, h.getLevel(), h.absolutePos(rel), null)) {
+            out.merge(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath(), stack.getCount(), Integer::sum);
+        }
+        StringBuilder line = new StringBuilder();
+        out.forEach((k, v) -> line.append(line.isEmpty() ? "" : ", ").append(k).append(' ').append(v));
+        return line.toString();
     }
 
     private static void breakDrops(GameTestHelper h) {

@@ -25,13 +25,13 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 /**
- * The iron crucible built in the world (owner addition 8 + answer 7 B, owner N51 2026-10-13): strike an iron block
+ * The iron crucible built in the world (owner addition 8 + answer 7 B, owner N51 2026-10-13, base = Vanilla cauldron): strike an empty Vanilla cauldron
  * with an iron ingot in the off hand, one strike per second, sixteen strikes, one ingot each. The first strike turns the
- * iron block into the crucible's base. Strikes 1-8 raise the four side plates (north, east, south, west; each first a
+ * cauldron into the crucible's base (a cauldron with water, lava or powder snow must be emptied first, nothing is lost). Strikes 1-8 raise the four side plates (north, east, south, west; each first a
  * half plate, then the full one), strikes 9-12 the two handles (east, west; half, then full), strikes 13-16 the four
  * rim pieces; the 16th sets the iron crucible. Plates and rim take tag {@code simplelib:crucible_walls}, handles tag
  * {@code simplelib:crucible_handles} (iron ingot; SimpleBuilding adds its iron pole). This block is the half-built
- * blank (stage 1-15 = strikes done, one model per stage); breaking it returns the iron block and one iron ingot
+ * blank (stage 1-15 = strikes done, one model per stage); breaking it returns the cauldron and one iron ingot
  * per strike. Without SimpleBuilding the tool is an axe (principle 5a); a partner with its own way switches the axe
  * way off through {@link SimpleLibApi#disableAxeWays()} and calls {@link #strike} itself.
  */
@@ -39,6 +39,12 @@ public class CrucibleBlankBlock extends Block {
     public static final int STRIKES = 16;
     public static final IntegerProperty STAGE = IntegerProperty.create("stage", 1, STRIKES - 1);
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+    /**
+     * Built on a Vanilla cauldron (owner N51 correction). False = an older blank started on an iron block: it still
+     * builds on and gives its iron block back (saves without the property load with this default).
+     */
+    public static final net.minecraft.world.level.block.state.properties.BooleanProperty CAULDRON =
+            net.minecraft.world.level.block.state.properties.BooleanProperty.create("cauldron");
     /** Strikes 1-8: side plates (two per side). */
     public static final int PLATE_STRIKES = 8;
     /** Strikes 9-12: handles (two per handle). */
@@ -51,7 +57,7 @@ public class CrucibleBlankBlock extends Block {
 
     public CrucibleBlankBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(STAGE, 1).setValue(FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any().setValue(STAGE, 1).setValue(FACING, Direction.NORTH).setValue(CAULDRON, false));
     }
 
     /** Base (foot + floor), like the crucible model. */
@@ -104,22 +110,23 @@ public class CrucibleBlankBlock extends Block {
         return SHAPES[state.getValue(STAGE) - 1][state.getValue(FACING).get2DDataValue()];
     }
 
-    /** The loot table gives the iron block; every strike done gives its iron ingot back (owner N51). */
+    /** Breaking it gives the base back (cauldron, or the iron block of an older blank) and every iron ingot struck in (owner N51). */
     @Override
     protected java.util.List<ItemStack> getDrops(BlockState state, net.minecraft.world.level.storage.loot.LootParams.Builder params) {
         java.util.List<ItemStack> drops = new java.util.ArrayList<>(super.getDrops(state, params));
+        drops.add(new ItemStack(state.getValue(CAULDRON) ? net.minecraft.world.item.Items.CAULDRON : net.minecraft.world.item.Items.IRON_BLOCK));
         drops.add(new ItemStack(net.minecraft.world.item.Items.IRON_INGOT, state.getValue(STAGE)));
         return drops;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(STAGE, FACING);
+        builder.add(STAGE, FACING, CAULDRON);
     }
 
-    /** Strikes already done at a block: 0 on an iron block, 1-15 on the blank, -1 elsewhere. */
+    /** Strikes already done at a block: 0 on an empty Vanilla cauldron (a filled one must be emptied first), 1-15 on the blank, -1 elsewhere. */
     public static int strikesAt(BlockState state) {
-        if (state.is(Blocks.IRON_BLOCK)) return 0;
+        if (state.is(Blocks.CAULDRON)) return 0;
         if (state.getBlock() instanceof CrucibleBlankBlock) return state.getValue(STAGE);
         return -1;
     }
@@ -155,12 +162,13 @@ public class CrucibleBlankBlock extends Block {
         if (state.getBlock() instanceof CrucibleBlankBlock) facing = state.getValue(FACING);
         int next = done + 1;
         // Shared feedback of every in-world conversion; the blank's own stage models are the intermediate models.
-        com.simplelib.api.InWorldStrikes.feedback(server, pos, Blocks.IRON_BLOCK.defaultBlockState(),
+        com.simplelib.api.InWorldStrikes.feedback(server, pos, Blocks.CAULDRON.defaultBlockState(),
                 next >= STRIKES ? SoundEvents.ANVIL_USE : SoundEvents.ANVIL_PLACE, 0.6F, next, STRIKES);
         if (next >= STRIKES) {
             server.setBlock(pos, LibBlocks.IRON_CRUCIBLE.defaultBlockState().setValue(CrucibleBlock.FACING, facing), Block.UPDATE_ALL);
         } else {
-            server.setBlock(pos, LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(STAGE, next).setValue(FACING, facing), Block.UPDATE_ALL);
+            server.setBlock(pos, LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(STAGE, next).setValue(FACING, facing)
+                    .setValue(CAULDRON, !(state.getBlock() instanceof CrucibleBlankBlock) || state.getValue(CAULDRON)), Block.UPDATE_ALL);
         }
         if (!player.getAbilities().instabuild) {
             material.shrink(1);

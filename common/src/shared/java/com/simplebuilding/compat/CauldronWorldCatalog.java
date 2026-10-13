@@ -87,7 +87,7 @@ public final class CauldronWorldCatalog {
         }
         int handleStrikes = strikes - wallStrikes;
         out.add(new Entry("crucible_build",
-                List.of(Stack.of(Items.IRON_BLOCK, 1), new Stack(walls, wallStrikes), new Stack(handles, handleStrikes)),
+                List.of(Stack.of(Items.CAULDRON, 1), new Stack(walls, wallStrikes), new Stack(handles, handleStrikes)),
                 hammers, Stack.of(iron, 1), 0,
                 List.of(Component.translatable(NOTE + "crucible_build.how", strikes),
                         Component.translatable(NOTE + "crucible_build.parts", wallStrikes, handleStrikes),
