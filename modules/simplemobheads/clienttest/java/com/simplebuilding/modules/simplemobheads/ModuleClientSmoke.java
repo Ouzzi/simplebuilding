@@ -53,7 +53,6 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         try (var world = context.worldBuilder().create()) {
             world.getConnection().waitForClientboundPackets();
                 world.getConnection().waitForChunksRender();
-            context.runOnClient(client -> client.options.hideGui = true);
             world.getServer().runOnServer(server -> {
                 var source = server.createCommandSourceStack();
                 server.getCommands().performPrefixedCommand(source, "time set noon");
@@ -100,7 +99,6 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             for (int page = 0; page * 36 < looks.size(); page++) {
                 List<Look> slice = looks.subList(page * 36, Math.min(looks.size(), (page + 1) * 36));
                 context.runOnClient(client -> {
-                    client.options.hideGui = false;
                     var inventory = client.player.getInventory();
                     for (int slot = 0; slot < 36; slot++) {
                         inventory.setItem(slot, slot < slice.size() ? slice.get(slot).stack() : ItemStack.EMPTY);
