@@ -11307,7 +11307,10 @@
           "details": [
             "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
             "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
-            "Stonecutter: one ice makes one cracked ice."
+            "Stonecutter: one ice makes one cracked ice.",
+            "It hides in ice: ice and cracked ice hide the faces between them like ice next to ice, so no inner edges show. No block can be placed against any of its six sides.",
+            "A sledgehammer strike turns normal ice into cracked ice; further strikes crush the cracked ice into 4 ice chips. The stone chisel cracks ice too.",
+            "Cracked ice fields: rarely (about one chunk in 12 of Ice Spikes, Frozen Ocean and Deep Frozen Ocean) a field of 20-30 blocks replaces the surface; on land a pit four blocks deep lies under it. Whoever breaks in has to build their way out. Config switch server.oreGeneration.crackedIceFields."
           ]
         },
         "de": {
@@ -11315,14 +11318,19 @@
           "details": [
             "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
             "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
-            "Steinmetz: ein Eis ergibt ein rissiges Eis."
+            "Steinmetz: ein Eis ergibt ein rissiges Eis.",
+            "Es ist im Eis getarnt: Eis und rissiges Eis blenden die Flächen zueinander aus wie Eis neben Eis, es zeichnen sich keine Innenkanten ab. An keine seiner sechs Seiten lässt sich ein Block setzen.",
+            "Ein Schlag mit dem Vorschlaghammer macht aus normalem Eis rissiges Eis; weitere Schläge zerschlagen es zu 4 Eissplittern. Auch der Steinmeißel macht Eis rissig.",
+            "Rissiges-Eis-Felder: selten (etwa jeder 12. Chunk in Eiszapfen, Gefrorenem und Tiefem gefrorenem Ozean) ersetzt ein Feld von 20-30 Blöcken die Oberfläche; an Land liegt darunter eine vier Blöcke tiefe Grube. Wer einbricht, muss sich hochbauen. Config-Schalter server.oreGeneration.crackedIceFields."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java"
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -54464,7 +54472,10 @@
           "details": [
             "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
             "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
-            "Stonecutter: one ice makes one cracked ice."
+            "Stonecutter: one ice makes one cracked ice.",
+            "It hides in ice: ice and cracked ice hide the faces between them like ice next to ice, so no inner edges show. No block can be placed against any of its six sides.",
+            "A sledgehammer strike turns normal ice into cracked ice; further strikes crush the cracked ice into 4 ice chips. The stone chisel cracks ice too.",
+            "Cracked ice fields: rarely (about one chunk in 12 of Ice Spikes, Frozen Ocean and Deep Frozen Ocean) a field of 20-30 blocks replaces the surface; on land a pit four blocks deep lies under it. Whoever breaks in has to build their way out. Config switch server.oreGeneration.crackedIceFields."
           ]
         },
         "de": {
@@ -54472,14 +54483,19 @@
           "details": [
             "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
             "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
-            "Steinmetz: ein Eis ergibt ein rissiges Eis."
+            "Steinmetz: ein Eis ergibt ein rissiges Eis.",
+            "Es ist im Eis getarnt: Eis und rissiges Eis blenden die Flächen zueinander aus wie Eis neben Eis, es zeichnen sich keine Innenkanten ab. An keine seiner sechs Seiten lässt sich ein Block setzen.",
+            "Ein Schlag mit dem Vorschlaghammer macht aus normalem Eis rissiges Eis; weitere Schläge zerschlagen es zu 4 Eissplittern. Auch der Steinmeißel macht Eis rissig.",
+            "Rissiges-Eis-Felder: selten (etwa jeder 12. Chunk in Eiszapfen, Gefrorenem und Tiefem gefrorenem Ozean) ersetzt ein Feld von 20-30 Blöcken die Oberfläche; an Land liegt darunter eine vier Blöcke tiefe Grube. Wer einbricht, muss sich hochbauen. Config-Schalter server.oreGeneration.crackedIceFields."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java"
+          "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -156567,6 +156583,25 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/tags/worldgen/biome/has_cracked_ice.json"
     },
     {
+      "id": "simplebuilding:worldgen/biome/has_cracked_ice_fields",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:ice_spikes",
+          "required": true
+        },
+        {
+          "id": "minecraft:frozen_ocean",
+          "required": true
+        },
+        {
+          "id": "minecraft:deep_frozen_ocean",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/tags/worldgen/biome/has_cracked_ice_fields.json"
+    },
+    {
       "id": "simplebuilding:worldgen/biome/has_structure/end_outer_islands",
       "replace": false,
       "values": [
@@ -160157,6 +160192,26 @@
       "tooltipDe": "Aus: kein Dimensionsschrott in Oberwelt,\nNether und End. Wirkt beim nächsten Weltstart\nin neu erzeugten Chunks. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.oreGeneration.crackedIceFields",
+      "shortName": "crackedIceFields",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "End Ore Generation",
+      "groupDe": "End-Erzvorkommen",
+      "label": "Cracked Ice Fields",
+      "labelDe": "Rissiges-Eis-Felder",
+      "tooltip": "Off: no large Cracked Ice traps in Ice Spikes\nand on frozen oceans. Takes effect at the next\nworld start in newly generated chunks.\nDefault: on.",
+      "tooltipDe": "Aus: keine großen Fallen aus rissigem Eis in\nEiszapfen-Biomen und auf gefrorenen Ozeanen.\nWirkt beim nächsten Weltstart in neu erzeugten\nChunks. Standard: an."
+    },
+    {
       "range": [
         1.0,
         3600.0
@@ -163298,11 +163353,11 @@
         ]
       },
       {
-        "id": "hammer_crush_ice",
+        "id": "hammer_crush_cracked_ice",
         "kind": "diamond_crush",
         "inputs": [
           {
-            "id": "minecraft:ice",
+            "id": "simplebuilding:cracked_ice",
             "count": 1
           }
         ],
@@ -163412,6 +163467,36 @@
         "stats": {
           "damage": 1,
           "hits": 4
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "hammer_crush_cracked_diamond",
+        "kind": "diamond_crush",
+        "inputs": [
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplelib:diamond_pebble",
+          "count": 9
+        },
+        "stats": {
+          "damage": 1,
+          "hits": 9
         },
         "lines": [
           "26.3"
@@ -186264,9 +186349,9 @@
     "lootTables": 370,
     "trades": 20,
     "enchantments": 19,
-    "tags": 54,
-    "config": 233,
-    "inWorld": 493,
+    "tags": 55,
+    "config": 234,
+    "inWorld": 494,
     "advancements": 116,
     "features": 52,
     "undocumented": 0,
