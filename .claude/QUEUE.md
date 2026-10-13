@@ -259,10 +259,11 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 
 ## Nachtrag 53 (2026-10-13, Besitzer, Korrekturen zu N52)
 - [ ] Rissiges Eis: an keine Seite kann ein Block platziert werden (normales Eis schon); Silk Touch droppt es; Vorschlaghammer auf normales Eis → rissiges Eis. (claude-n53)
-- [ ] Enchanter: Randlinie NICHT golden wie das Tuch, sondern dunkel (Obsidian-artig).
-- [ ] Brücken-Redstone (Pulver/Draht): Textur wie vorher (alte Optik), aber als EINE fertige Bilddatei (umgefärbte Variante als PNG im Repo, nicht generiert, keine Schichten).
-- [ ] Rissiges Eis: Texturen wie vorher; Problem war Schatten am Rand (nicht getarnt im Eis) → Schattierung/AO wie Vanilla-Eis, keine Randschatten.
-- [ ] Rissiges Eis: dritte Generierungsart – sehr große Flächen in Eiszapfen-Biom (Ice Spikes) u. ä. Packeis-Gegenden; wer hineinläuft, bricht ein und muss Blöcke setzen, um sich zu retten.
+- [x] (claude-n53) Enchanter: Randlinie NICHT golden wie das Tuch, sondern dunkel (Obsidian-artig).
+- [x] (claude-n53) Brücken-Redstone (Pulver/Draht): Textur wie vorher (alte Optik), aber als EINE fertige Bilddatei (umgefärbte Variante als PNG im Repo, nicht generiert, keine Schichten).
+- [x] (claude-n53) Rissiges Eis: Texturen wie vorher; Problem war Schatten am Rand (nicht getarnt im Eis) → Schattierung/AO wie Vanilla-Eis, keine Randschatten.
+- [x] (claude-n53) Rissiges Eis: dritte Generierungsart – sehr große Flächen in Eiszapfen-Biom (Ice Spikes) u. ä. Packeis-Gegenden; wer hineinläuft, bricht ein und muss Blöcke setzen, um sich zu retten.
+- [x] (claude-n53) Rissiges Eis (Zusatz Besitzer): an keine Seite eines rissigen Eisblocks lässt sich ein Block setzen; Behutsamkeit droppt es selbst; Vorschlaghammer macht aus Eis rissiges Eis (weitere Schläge: Eissplitter).
 
 ## Nachtrag 52 (2026-10-13, Besitzer)
 - [ ] Astral-Verzauberer umbenennen in „Enchanter“ / „Verzauberer“ (Besitzer-Wahl). Seiten und Unterseite bekommen eine Randlinie bis zum Tuch; Unterseite aus Obsidian. (claude-n52)

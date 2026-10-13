@@ -12547,7 +12547,10 @@
         "details": [
           "A living entity standing on it (no spectator) cracks it one stage every 20 ticks; the four stages use the look of vanilla frosted ice. After the last stage it melts into water, or evaporates in the Nether.",
           "With nobody on it the reached crack stays. Like ice it also melts in bright block light and drops only with Silk Touch.",
-          "Stonecutter: one ice makes one cracked ice."
+          "Stonecutter: one ice makes one cracked ice.",
+          "It hides in ice: ice and cracked ice hide the faces between them like ice next to ice, so no inner edges show. No block can be placed against any of its six sides.",
+          "A sledgehammer strike turns normal ice into cracked ice; further strikes crush the cracked ice into 4 ice chips. The stone chisel cracks ice too.",
+          "Cracked ice fields: rarely (about one chunk in 12 of Ice Spikes, Frozen Ocean and Deep Frozen Ocean) a field of 20-30 blocks replaces the surface; on land a pit four blocks deep lies under it. Whoever breaks in has to build their way out. Config switch server.oreGeneration.crackedIceFields."
         ]
       },
       "de": {
@@ -12555,14 +12558,19 @@
         "details": [
           "Steht ein Lebewesen (kein Zuschauer) darauf, reißt es alle 20 Ticks eine Stufe weiter; die vier Stufen sehen aus wie Vanillas brüchiges Eis. Nach der letzten Stufe schmilzt es zu Wasser, im Nether verdampft es.",
           "Steht niemand darauf, bleibt der erreichte Riss. Wie Eis schmilzt es auch bei hellem Blocklicht und droppt nur mit Behutsamkeit.",
-          "Steinmetz: ein Eis ergibt ein rissiges Eis."
+          "Steinmetz: ein Eis ergibt ein rissiges Eis.",
+          "Es ist im Eis getarnt: Eis und rissiges Eis blenden die Flächen zueinander aus wie Eis neben Eis, es zeichnen sich keine Innenkanten ab. An keine seiner sechs Seiten lässt sich ein Block setzen.",
+          "Ein Schlag mit dem Vorschlaghammer macht aus normalem Eis rissiges Eis; weitere Schläge zerschlagen es zu 4 Eissplittern. Auch der Steinmeißel macht Eis rissig.",
+          "Rissiges-Eis-Felder: selten (etwa jeder 12. Chunk in Eiszapfen, Gefrorenem und Tiefem gefrorenem Ozean) ersetzt ein Feld von 20-30 Blöcken die Oberfläche; an Land liegt darunter eine vier Blöcke tiefe Grube. Wer einbricht, muss sich hochbauen. Config-Schalter server.oreGeneration.crackedIceFields."
         ]
       },
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java"
+        "common/src/shared/java/com/simplebuilding/blocks/custom/CrackedIceBlock.java",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
+        "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java"
       ]
     },
     "sculk_jaw": {
