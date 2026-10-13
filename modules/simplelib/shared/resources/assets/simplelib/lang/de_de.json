@@ -47,7 +47,7 @@
   "item.simplelib.basic_upgrade_template.applies_to": "Holz- bis Gold-Ausrüstung",
   "item.simplelib.basic_upgrade_template.ingredients": "Bruchstein, Eisenbarren, Goldbarren, Diamanten oder Kerne",
   "item.simplelib.basic_upgrade_template.upgrade_description": "Werkzeugstufe aufwerten",
-  "item.simplelib.enderite_upgrade_template.applies_to": "Netherit-Ausrüstung und aufwertbare Blöcke",
+  "item.simplelib.enderite_upgrade_template.applies_to": "Netherit-Ausrüstung und -Blöcke",
   "item.simplelib.enderite_upgrade_template.ingredients": "Enderitbarren, Kerne oder rezeptabhängige Materialien",
   "item.simplelib.enderite_upgrade_template.base_slot_description": "Ausrüstung oder Block zum Aufwerten hinzufügen",
   "item.simplelib.enderite_upgrade_template.additions_slot_description": "Das im Rezept benötigte Material hinzufügen",

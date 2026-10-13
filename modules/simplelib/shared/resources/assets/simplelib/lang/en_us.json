@@ -47,7 +47,7 @@
   "item.simplelib.basic_upgrade_template.applies_to": "Wood–Gold Equipment",
   "item.simplelib.basic_upgrade_template.ingredients": "Cobblestone, Iron Ingots, Gold Ingots, Diamonds or Cores",
   "item.simplelib.basic_upgrade_template.upgrade_description": "Upgrade Tool Tier",
-  "item.simplelib.enderite_upgrade_template.applies_to": "Netherite Equipment and Upgradeable Blocks",
+  "item.simplelib.enderite_upgrade_template.applies_to": "Netherite Equipment and Blocks",
   "item.simplelib.enderite_upgrade_template.ingredients": "Enderite Ingots, Cores or Recipe-Specific Materials",
   "item.simplelib.enderite_upgrade_template.base_slot_description": "Add equipment or a block to upgrade",
   "item.simplelib.enderite_upgrade_template.additions_slot_description": "Add the material required by the recipe",
