@@ -185,7 +185,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplequalityoflife",
     "displayName": "Simple Quality of Life",
-    "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Creatures, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
+    "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
     "version": "1.0.6",
     "minecraft": "26.3",
     "loaders": [
@@ -198,7 +198,7 @@ window.WIKI_MODULES = [
       "simpleweather",
       "simpleinterfaces",
       "simpleloot",
-      "simplecreatures",
+      "simplemobmanners",
       "simplefarming",
       "simpletools",
       "simplemovement"
@@ -207,7 +207,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "c5d281ab8ea7"
+    "dataHash": "524bccf58d93"
   },
   {
     "id": "simpletweaks",
@@ -438,8 +438,8 @@ window.WIKI_MODULES = [
     "dataHash": "5462cf9f9e6b"
   },
   {
-    "id": "simplecreatures",
-    "displayName": "Simple Creatures",
+    "id": "simplemobmanners",
+    "displayName": "Simple Mob Manners",
     "description": "Mute mobs by type or name tag, keep named babies young, piglins ignore gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
     "version": "0.1.0",
     "minecraft": "26.3",
@@ -455,7 +455,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "c424ebe5c37c"
+    "dataHash": "abdccf1452ba"
   },
   {
     "id": "simpleloot",

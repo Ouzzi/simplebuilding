@@ -11,7 +11,7 @@ public final class QolTests {
  public static final Map<String,Consumer<GameTestHelper>> ALL=new LinkedHashMap<>();
  /** Super-mod switch field and the sub-mod id it reaches through framework SubMods. */
  static final String[][] SWITCHES={{"enableSimpleWeather","simpleweather"},{"enableSimpleInterfaces","simpleinterfaces"},{"enableSimpleLoot","simpleloot"},
-  {"enableSimpleCreatures","simplecreatures"},{"enableSimpleFarming","simplefarming"},{"enableSimpleTools","simpletools"},{"enableSimpleMovement","simplemovement"}};
+  {"enableSimpleMobManners","simplemobmanners"},{"enableSimpleFarming","simplefarming"},{"enableSimpleTools","simpletools"},{"enableSimpleMovement","simplemovement"}};
  static {
   ALL.put("guide_book",com.simplequalityoflife.guide.QolGuide::gameTest);
   ALL.put("launch",QolTests::launch);ALL.put("config_lang",QolTests::configLang);
@@ -24,7 +24,7 @@ public final class QolTests {
   for(var registry:List.<net.minecraft.core.Registry<?>>of(BuiltInRegistries.ITEM,BuiltInRegistries.BLOCK,BuiltInRegistries.ENTITY_TYPE))h.assertTrue(registry.keySet().stream().noneMatch(i->i.getNamespace().equals("simplequalityoflife")&&!(registry==BuiltInRegistries.ITEM&&i.getPath().equals("guide_book"))),"No invented registry content (only the guide item)");
   var root=h.getLevel().getServer().getCommands().getDispatcher().getRoot();h.assertTrue(root.getChild("simplequalityoflife")!=null,"/simplequalityoflife registered");
   // The bundled sub-mods bring their own commands (and /crawl); Thrift keeps its old id through Simple Tools.
-  for(String sub:List.of("simpleloot","simplecreatures","simplefarming","simpletools","simplemovement","crawl"))h.assertTrue(root.getChild(sub)!=null,"bundled sub-mod command /"+sub);
+  for(String sub:List.of("simpleloot","simplemobmanners","simplecreatures","simplefarming","simpletools","simplemovement","crawl"))h.assertTrue(root.getChild(sub)!=null,"bundled sub-mod command /"+sub);
   h.assertTrue(h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("simplequalityoflife:thrift"))).isPresent(),"Thrift id unchanged");
   if(isModLoaded("simplebuilding"))h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:reinforced_hopper")),"SimpleBuilding content visible when loaded");
   h.succeed();
@@ -40,6 +40,11 @@ public final class QolTests {
    // An old file with qOL.* options: the moved keys are ignored here (each sub-mod takes its values over), the switches default on.
    var loaded=new com.google.gson.Gson().fromJson("{\"enableSimpleTools\":false,\"frostWalkerWalkOnPowderSnow\":false,\"qOL\":{\"linkedContainerRange\":32,\"ladderClimbingSpeed\":0.3}}",SimplequalityoflifeConfig.class);loaded.normalize();
    h.assertTrue(!loaded.enableSimpleTools&&loaded.enableSimpleMovement&&loaded.enableSimpleInterfaces,"Legacy keys ignored, switches kept or defaulted");
+   // Renamed sub-mod (Simple Creatures -> Simple Mob Manners): the old switch key is taken over once.
+   var file=java.nio.file.Files.createTempDirectory("qol-rename").resolve("simplequalityoflife.json");java.nio.file.Files.writeString(file,"{\"enableSimpleCreatures\":false,\"enableSimpleTools\":false}");
+   h.assertTrue(Simplequalityoflife.adoptRenamedSwitches(file),"old switch key renamed");var renamed=new com.google.gson.Gson().fromJson(java.nio.file.Files.readString(file),SimplequalityoflifeConfig.class);
+   h.assertTrue(!renamed.enableSimpleMobManners&&!renamed.enableSimpleTools&&renamed.enableSimpleLoot&&!java.nio.file.Files.readString(file).contains("enableSimpleCreatures"),"Enable Simple Mob Manners keeps the old off value");
+   h.assertTrue(!Simplequalityoflife.adoptRenamedSwitches(file),"second start: nothing left to rename");
   }catch(Exception e){throw new IllegalStateException(e);}h.succeed();
  }
  private static com.google.gson.JsonObject language(String l)throws Exception{try(var in=Simplequalityoflife.class.getResourceAsStream("/assets/simplequalityoflife/lang/"+l+".json")){return com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(Objects.requireNonNull(in),java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();}}
