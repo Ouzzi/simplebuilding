@@ -34,7 +34,6 @@ Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile 
 9. Octet-Blöcke untereinander kombinierbar (N48)
 10. ✔ Simple Creatures umbenennen in „Simple Mob Manners“, Id simplemobmanners, Namespace-/Config-Migration (N42; `claude-mobmanners`)
 11. Stärkerer Wither + Biom-Pinsel (N47; Konzept KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
-12. Astral Enchanter Stufenregel (0–30 Regale, 30–40 Lohen-Regale/-Obsidian, 50 beides) (N32)
 13. Simple Trims Stufen 2–4 (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) (N18)
 14. Stil-Audit: andere Mods an SimpleBuilding-Stil angleichen (N11, Dubletten N11/N14; Teil: Mod-UIs im Container-Stil)
 
@@ -248,7 +247,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] KI-Queue: keine automatische Weitergabe an Claude (Abarbeitung auf Zuruf).
 - [x] Port 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme im Spiel. (Audit 12.10. Dublette, zusammengeführt mit Zeile 73 / Überblick: (Port-Run))
 
-- [ ] Astral Enchanter Stufenregel (Besitzer 10.10.): 0–30 normale Regale; 30–40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; je Stufe mehr Punkte verteilbar; Konzept erweitern (claude-q-astral3).
+- [x] (bereits in wave1 via claude-q-astral3, geprüft 13.10. astral* 21/21) Astral Enchanter Stufenregel (Besitzer 10.10.): 0–30 normale Regale; 30–40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; je Stufe mehr Punkte verteilbar; Konzept erweitern (claude-q-astral3).
 - [x] Alte Verschleiß-Optionen der Brecher-Kolben nicht migrieren (Besitzer: ok).
 
 ## Nachtrag 38b (2026-10-11, Besitzer, Deceiver Stufe 2 – in Arbeit auf claude-deceiver2)
