@@ -14,6 +14,7 @@ public final class SimpleEndFabric implements ModInitializer {
     @Override public void onInitialize() {
         SimpleEnd.init(FabricLoader.getInstance().getConfigDir());
         EndRegistry.blocks();
+        EndRegistry.effects();
         EndRegistry.items();
         EndRegistry.entities();
         EndRegistry.featureTypes();

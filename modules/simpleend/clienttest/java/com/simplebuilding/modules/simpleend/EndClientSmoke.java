@@ -15,8 +15,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 /**
- * Screenshots for the owner review (docs/ai/PLAN-SIMPLE-END-2026-10-12.md): a garden of both woods (big tree, huge
- * tree, scrub, natural tree, the full block set, End grass) and a visit to Ash Valley and Dawnlands in the End.
+ * Screenshots for the owner review (docs/ai/PLAN-SIMPLE-END-2026-10-12.md): a garden of both woods (stick trees,
+ * scrub, the full block set, End grass), the gigantic wood trees (big, huge, colossal), a close look at the leaves and
+ * visits to the foggy cores of Ash Valley and Dawnlands and to a fringe in the End.
  */
 public final class EndClientSmoke implements FabricClientGameTest {
     private static void cmd(MinecraftServer server, String command) {
@@ -31,6 +32,7 @@ public final class EndClientSmoke implements FabricClientGameTest {
     }
 
     @Override public void runTest(ClientGameTestContext context) {
+        BlockPos[] garden = new BlockPos[1];
         try (var world = context.worldBuilder().create()) {
             world.getConnection().waitForClientboundPackets();
             world.getConnection().waitForChunksRender();
@@ -43,14 +45,18 @@ public final class EndClientSmoke implements FabricClientGameTest {
                 BlockPos o = p.blockPosition().offset(6, 0, 6);
                 int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, o.getX(), o.getZ());
                 BlockPos base = new BlockPos(o.getX(), y, o.getZ());
+                garden[0] = base;
                 for (BlockPos q : BlockPos.betweenClosed(base.offset(-2, -1, -2), base.offset(30, -1, 20))) level.setBlockAndUpdate(q, Blocks.END_STONE.defaultBlockState());
+                for (BlockPos q : BlockPos.betweenClosed(base.offset(40, -1, -10), base.offset(110, -1, 50))) level.setBlock(q, Blocks.END_STONE.defaultBlockState(), 18);
                 RandomSource r = RandomSource.create(7);
-                EndTrees.growBig(level, base.offset(2, 0, 4), EndWood.ASHWOOD, r, false);
-                EndTrees.growHuge(level, base.offset(12, 0, 12), EndWood.DUSKWOOD, r, false);
+                // Umbau 13.10.: wood trees (outside the End) big / huge / colossal, stick trees as in the End, scrub
+                EndTrees.grow(level, base.offset(52, 0, 22), EndWood.ASHWOOD, EndTrees.Size.BIG, false, r);
+                EndTrees.grow(level, base.offset(66, 0, 4), EndWood.DUSKWOOD, EndTrees.Size.HUGE, false, r);
+                EndTrees.grow(level, base.offset(92, 0, 20), EndWood.ASHWOOD, EndTrees.Size.COLOSSAL, false, r);
+                EndTrees.grow(level, base.offset(4, 0, 14), EndWood.ASHWOOD, EndTrees.Size.BIG, true, r);
+                EndTrees.grow(level, base.offset(24, 0, 14), EndWood.DUSKWOOD, EndTrees.Size.BIG, true, r);
                 EndTrees.growScrub(level, base.offset(22, 0, 4), EndWood.ASHWOOD, r, false);
-                EndTrees.growScrub(level, base.offset(24, 0, 10), EndWood.DUSKWOOD, r, false);
-                EndTrees.growNatural(level, base.offset(6, 0, 16), EndWood.ASHWOOD, r);
-                EndTrees.growNatural(level, base.offset(26, 0, 16), EndWood.DUSKWOOD, r);
+                EndTrees.growScrub(level, base.offset(26, 0, 6), EndWood.DUSKWOOD, r, false);
                 int x = 0;
                 for (EndWood w : EndWood.ALL) {
                     for (var b : new net.minecraft.world.level.block.Block[] {w.log, w.wood, w.strippedLog, w.planks, w.stairs, w.slab, w.fence,
@@ -85,7 +91,26 @@ public final class EndClientSmoke implements FabricClientGameTest {
             });
             context.waitTicks(30);
             context.takeScreenshot("simpleend-nibblemite");
-            for (var biome : new net.minecraft.resources.ResourceKey[] {EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS}) {
+            world.getServer().runOnServer(server -> {
+                BlockPos b = garden[0];
+                cmd(server, "tp @a " + (b.getX() + 75) + " " + (b.getY() + 20) + " " + (b.getZ() - 45) + " 0 -10");
+            });
+            context.waitTicks(80);
+            world.getConnection().waitForChunksRender();
+            context.takeScreenshot("simpleend-giant-trees");
+            world.getServer().runOnServer(server -> {
+                BlockPos b = garden[0];
+                ServerLevel level = server.getLevel(Level.OVERWORLD);
+                // close to a leaf cluster of the big Ashwood tree
+                BlockPos best = null;
+                for (BlockPos q : BlockPos.betweenClosed(b.offset(40, 6, 10), b.offset(64, 40, 34)))
+                    if (level.getBlockState(q).is(EndWood.ASHWOOD.leaves) && level.getBlockState(q.north()).isAir() && level.getBlockState(q.north(2)).isAir()) { best = q.immutable(); break; }
+                if (best != null) cmd(server, "tp @a " + (best.getX() + 0.5) + " " + (best.getY() - 0.5) + " " + (best.getZ() - 2.6) + " 0 10");
+            });
+            context.waitTicks(40);
+            world.getConnection().waitForChunksRender();
+            context.takeScreenshot("simpleend-leaves");
+            for (var biome : new net.minecraft.resources.ResourceKey[] {EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS, EndBiomes.ASH_VALLEY_FRINGE}) {
                 @SuppressWarnings("unchecked") var key = (net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>) biome;
                 BlockPos[] spot = new BlockPos[1];
                 world.getServer().runOnServer(server -> {

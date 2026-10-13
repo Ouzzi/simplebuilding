@@ -106,6 +106,7 @@ public final class EndDiscover {
             "simpleend:nibblemite_spawn_egg",
             "simpleend:potted_ash_bud",
             "simpleend:potted_dusk_bud",
+            "simpleend:spoiled_drift_fruit",
             "simpleend:stripped_ashwood_log",
             "simpleend:stripped_ashwood_wood",
             "simpleend:stripped_duskwood_log",

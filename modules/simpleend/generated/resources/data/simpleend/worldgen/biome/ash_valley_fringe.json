@@ -1,0 +1,76 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 6000,
+        "replace_current_music": false,
+        "sound": "simpleend:music.ash_valley"
+      }
+    },
+    "minecraft:visual/ambient_particles": {
+      "argument": [
+        {
+          "particle": {
+            "type": "minecraft:white_ash"
+          },
+          "probability": 0.008
+        }
+      ],
+      "modifier": "append"
+    },
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "creature": [
+            {
+              "type": "simpleend:nibblemite",
+              "count": {
+                "type": "minecraft:uniform",
+                "min_inclusive": 2,
+                "max_inclusive": 4
+              },
+              "weight": 10
+            }
+          ]
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:visual/fog_color": "#3a332e",
+    "minecraft:visual/fog_end_distance": 56.0,
+    "minecraft:visual/fog_start_distance": 6.0,
+    "minecraft:visual/sky_color": "#2b2522"
+  },
+  "carvers": [],
+  "downfall": 0.5,
+  "effects": {
+    "dry_foliage_color": "#a89c8a",
+    "foliage_color": "#9a8f80",
+    "grass_color": "#a39886",
+    "water_color": "#3f76e4"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:end_gateway_return"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      "simpleend:fringe_chorus",
+      "simpleend:ash_valley_fringe_scrub",
+      "simpleend:ash_valley_fringe_stick_trees",
+      "simpleend:ash_valley_fringe_giant_stick_trees",
+      "simpleend:ash_valley_fringe_vegetation"
+    ]
+  ],
+  "has_precipitation": false,
+  "temperature": 0.5
+}

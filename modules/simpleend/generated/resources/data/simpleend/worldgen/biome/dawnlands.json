@@ -14,7 +14,7 @@
           "particle": {
             "type": "minecraft:spore_blossom_air"
           },
-          "probability": 0.006
+          "probability": 0.01
         }
       ],
       "modifier": "append"
@@ -38,8 +38,10 @@
       },
       "modifier": "overlay"
     },
-    "minecraft:visual/fog_color": "#4a3a40",
-    "minecraft:visual/sky_color": "#33262c"
+    "minecraft:visual/fog_color": "#3a2d33",
+    "minecraft:visual/fog_end_distance": 20.0,
+    "minecraft:visual/fog_start_distance": 0.0,
+    "minecraft:visual/sky_color": "#2a1f25"
   },
   "carvers": [],
   "downfall": 0.5,
@@ -64,8 +66,8 @@
     [
       "simpleend:sparse_chorus",
       "simpleend:dawnlands_scrub",
-      "simpleend:dawnlands_trees",
-      "simpleend:dawnlands_big_trees",
+      "simpleend:dawnlands_stick_trees",
+      "simpleend:dawnlands_giant_stick_trees",
       "simpleend:dawnlands_vegetation"
     ]
   ],

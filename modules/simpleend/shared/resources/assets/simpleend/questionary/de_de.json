@@ -4,7 +4,7 @@
       "regex:(stripped_)?(ashwood|duskwood)_(log|wood|planks|stairs|slab|fence|fence_gate|door|trapdoor|button|pressure_plate|sign|hanging_sign|shelf|boat|chest_boat)"
     ],
     "lore": [
-      "{name} stammt von den blassen Bäumen der äußeren End-Inseln. Aschholz wächst im Aschental, das etwas braunere Dämmerholz in den Dämmerlanden. Die Maserung zeigt noch die Knubbel des Chorus, neben dem es aufwuchs."
+      "{name} wächst nur, wo eine Knospe außerhalb des Ends gepflanzt wurde: im End selbst geben die Knospen nur Stöcke-Bäume. Aschholz ist das blassere, Dämmerholz etwas brauner."
     ],
     "use": [
       "Funktioniert wie Vanilla-Holz: ein Stamm ergibt vier Bretter, eine Axt entrindet, und jeder Block ist Brennstoff. In die Leere gefallen schwebt es zurück und wartet knapp über dem Weltboden."
@@ -21,10 +21,10 @@
       "{name} ist der Samen der End-Hölzer, eine geschlossene chorusartige Blüte auf knubbeligem Stiel."
     ],
     "use": [
-      "Auf Endstein setzen. Ab Lichtstufe 9 wächst sie von selbst zu einem großen End-Baum; im Dunkeln hilft nur Knochenmehl, dann wird daraus hohes Gestrüpp aus End-Stöcken."
+      "Auf Endstein oder Erde setzen. Außerhalb des Ends wächst sie ab Lichtstufe 9 zu einem gigantischen Baum; im Dunkeln gibt Knochenmehl Stöcke-Gestrüpp. Im End wird daraus immer ein Baum aus End-Stöcken."
     ],
     "secret": [
-      "Vier gleiche Knospen im 2x2-Quadrat wachsen zu einem Riesenbaum mit 2x2-Stamm."
+      "Vier gleiche Knospen im 2x2-Quadrat ergeben einen noch größeren Baum - sechzehn im 4x4-Quadrat den größten Baum im Spiel. Ein Baum gibt weniger Knospen zurück, als er gekostet hat."
     ]
   },
   "family:end_sticks": {
@@ -32,10 +32,10 @@
       "regex:(ashwood|duskwood)_sticks"
     ],
     "lore": [
-      "{name} ist, was eine Knospe ohne Licht aus sich macht: gebündelte Stöcke, die sich wie Tropfstein verjüngen."
+      "{name} ist das Holz des Ends: seine Bäume sind Stöcke-Bündel mit Stamm, Ästen und Krone."
     ],
     "use": [
-      "Als Säule gesetzt wird sie unten immer dicker. Ein Block ergibt drei Stöcke."
+      "Wird der Stamm eines Stöcke-Baums gefällt, fällt alles darüber auf einmal, wie Chorus. Gesetzte Stöcke fallen nie; aufrecht verjüngen sie sich wie Tropfstein. Ein Block ergibt drei Stöcke."
     ]
   },
   "family:end_leaves": {
@@ -43,15 +43,15 @@
       "regex:(ashwood|duskwood)_leaves"
     ],
     "lore": [
-      "{name} nimmt seine grau-braune Farbe vom Biom, in dem es wächst."
+      "{name} ist kein Vollblock, sondern ein durchsichtiger Stern aus Ranken um einen kleinen Kristall, grau-braun getönt vom Biom."
     ],
     "use": [
-      "Droppt seine Knospe, Stöcke und ab und zu eine Schwebfrucht; die Schere behält das Laub."
+      "Nur wenige Blätter jedes Baums tragen seine Knospe oder Frucht und droppen sie immer; der Rest gibt ab und zu Stöcke. Die Schere behält das Laub."
     ]
   },
   "drift_fruit": {
     "lore": [
-      "Eine leichte, blasse Frucht der End-Bäume. Sie scheint davonschweben zu wollen."
+      "Eine leichte, blasse Frucht, die nur an den Stöcke-Bäumen des Ends reift. Sie scheint davonschweben zu wollen."
     ],
     "use": [
       "Beim Essen gibt sie vier Sekunden Sanfter Fall und einen kleinen Sprung - genug, um von einer End-Insel zum nächsten Vorsprung zu gleiten."
@@ -93,6 +93,17 @@
     ],
     "use": [
       "Wird abgebaut und droppt wie Endstein; in Ruhe gelassen wird er nach einigen Minuten wieder zu Endstein."
+    ]
+  },
+  "spoiled_drift_fruit": {
+    "lore": [
+      "Eine Schwebfrucht, die außerhalb des Ends gewachsen ist: verschrumpelt, braun und etwas schimmlig."
+    ],
+    "use": [
+      "Beim Essen treibt man fünf Sekunden lang fast schwerelos herum, von nichts geschubst. Danach sorgt Sanfter Fall für eine weiche Landung."
+    ],
+    "secret": [
+      "End-Früchte reifen nur im End; wer die echte will, pflanzt seine Knospen dort."
     ]
   }
 }

@@ -11,9 +11,17 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budLightGrowsTree(GameTestHelper helper) { EndTests.ALL.get("bud_light_grows_tree").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budDarkGrowsScrub(GameTestHelper helper) { EndTests.ALL.get("bud_dark_grows_scrub").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budSquareGrowsHugeTree(GameTestHelper helper) { EndTests.ALL.get("bud_square_grows_huge_tree").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budSquare4GrowsColossalTree(GameTestHelper helper) { EndTests.ALL.get("bud_square4_grows_colossal_tree").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budInEndGrowsStickTree(GameTestHelper helper) { EndTests.ALL.get("bud_in_end_grows_stick_tree").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void sticksTaperLikeDripstone(GameTestHelper helper) { EndTests.ALL.get("sticks_taper_like_dripstone").accept(helper); }
-    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void naturalTreeFeature(GameTestHelper helper) { EndTests.ALL.get("natural_tree_feature").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void stickTreeFeature(GameTestHelper helper) { EndTests.ALL.get("stick_tree_feature").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void stickTreeFallsLikeChorus(GameTestHelper helper) { EndTests.ALL.get("stick_tree_falls_like_chorus").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void placedSticksStay(GameTestHelper helper) { EndTests.ALL.get("placed_sticks_stay").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budReturnExpectation(GameTestHelper helper) { EndTests.ALL.get("bud_return_expectation").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void leavesDropBudSticksFruit(GameTestHelper helper) { EndTests.ALL.get("leaves_drop_bud_sticks_fruit").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void fruitRipensOnlyInTheEnd(GameTestHelper helper) { EndTests.ALL.get("fruit_ripens_only_in_the_end").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void spoiledFruitDrifting(GameTestHelper helper) { EndTests.ALL.get("spoiled_fruit_drifting").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void endLeavesNotFullBlock(GameTestHelper helper) { EndTests.ALL.get("end_leaves_not_full_block").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void driftFruitGlide(GameTestHelper helper) { EndTests.ALL.get("drift_fruit_glide").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void voidSafeItems(GameTestHelper helper) { EndTests.ALL.get("void_safe_items").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void biomePatches(GameTestHelper helper) { EndTests.ALL.get("biome_patches").accept(helper); }
