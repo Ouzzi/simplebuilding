@@ -9,7 +9,7 @@
       "Am Schmiedetisch hebt die Enderit-Aufwertung Netherit-Ausrüstung und viele Blöcke auf Enderit. Enderit ist vor der Leere sicher; mit der Rüstung schwebst du bei gedrückter Sprungtaste hinab."
     ],
     "secret": [
-      "Halte ein Enderit-Nugget in der Nebenhand und schlage 20-mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch: er wird zum Astral-Verzauberer, mit Lohen-Bücherregalen und Lohen-Obsidian-Boden bis Stärke 50.",
+      "Halte ein Enderit-Nugget in der Nebenhand und schlage 20-mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch: er wird zum Verzauberer, mit Lohen-Bücherregalen und Lohen-Obsidian-Boden bis Stärke 50.",
       "Baust du ihn ab, kommen Tisch und Nugget zurück. Acht Nuggets um einen Eimer ergeben den Enderit-Eimer."
     ]
   },
@@ -40,10 +40,10 @@
       "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
     ],
     "use": [
-      "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Astral-Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
+      "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
     ],
     "secret": [
-      "Der Boden zählt nur unter dem Astral-Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+      "Der Boden zählt nur unter dem Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
     ]
   },
   "hammock_rope": {
@@ -263,7 +263,7 @@
       "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 8124 Haltbarkeit, Verzauberbarkeit 15. Beim Schleichen wird nur der anvisierte Block abgebaut."
     ],
     "secret": [
-      "Mit einem Enderitklumpen in der Nebenhand hebt er Maschinen und Truhen auf Enderit. Schlage 20 Mal damit auf einen Zaubertisch, einen Enderitklumpen in der anderen Hand, und er wird zum Astral-Verzauberer."
+      "Mit einem Enderitklumpen in der Nebenhand hebt er Maschinen und Truhen auf Enderit. Schlage 20 Mal damit auf einen Zaubertisch, einen Enderitklumpen in der anderen Hand, und er wird zum Verzauberer."
     ]
   },
   "enderite_sledgehammer": {
@@ -626,7 +626,7 @@
       "Neun Klumpen ergeben einen Enderitbarren, der Barren gibt neun zurück. Acht um einen Eisen-Eimer ergeben den Enderit-Eimer. Enderit-Äpfel, -Karotten und Maschinen-Aufwertungen brauchen ihn."
     ],
     "secret": [
-      "Mit einem in der Nebenhand hämmerst du einen Astral-Verzauberer herbei; er kehrt zurück, wenn du den Tisch abbaust. Ein Klumpen in der Nebenhand bezahlt auch das Heben von Truhen und Maschinen auf Enderit."
+      "Mit einem in der Nebenhand hämmerst du einen Verzauberer herbei; er kehrt zurück, wenn du den Tisch abbaust. Ein Klumpen in der Nebenhand bezahlt auch das Heben von Truhen und Maschinen auf Enderit."
     ]
   },
   "netherite_nugget": {
@@ -2455,10 +2455,10 @@
       "{name} birgt Bücher, die mit Feuer gebunden sind, und ihre Seiten sind warm unter den Fingern."
     ],
     "use": [
-      "Ein Bücherregal aus Lohenholz: Am Astral-Verzauberer zählt es wie zwei Bücherregale, am Vanilla-Zaubertisch wie eines. Drei {item:simplebuilding:blaze_book} kommen hinein."
+      "Ein Bücherregal aus Lohenholz: Am Verzauberer zählt es wie zwei Bücherregale, am Vanilla-Zaubertisch wie eines. Drei {item:simplebuilding:blaze_book} kommen hinein."
     ],
     "secret": [
-      "Um den Astral-Verzauberer gibt ein 5 x 5 großer Boden aus {item:simplebuilding:blazing_obsidian} zusätzliche Stärke, sobald die Regale 30 geben."
+      "Um den Verzauberer gibt ein 5 x 5 großer Boden aus {item:simplebuilding:blazing_obsidian} zusätzliche Stärke, sobald die Regale 30 geben."
     ]
   },
   "family:hammock": {

@@ -9,7 +9,7 @@
       "At a Smithing Table the Enderite Upgrade lifts Netherite gear and many blocks to Enderite. Enderite items are safe from the void; the armor lets you drift down while you hold jump."
     ],
     "secret": [
-      "Hold an Enderite Nugget in your off hand and strike an Enchanting Table 20 times with a Netherite Sledgehammer: it becomes the Astral Enchanter, strong up to 50 with blazewood bookshelves and a Blazing Obsidian floor.",
+      "Hold an Enderite Nugget in your off hand and strike an Enchanting Table 20 times with a Netherite Sledgehammer: it becomes the Enchanter, strong up to 50 with blazewood bookshelves and a Blazing Obsidian floor.",
       "Break it, and table and nugget return. Eight nuggets around a bucket make the Enderite Bucket."
     ]
   },
@@ -40,10 +40,10 @@
       "Crying obsidian's glowing sibling: where the other weeps, this one burns."
     ],
     "use": [
-      "A decorative block that gives light. Its job is at the Astral Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
+      "A decorative block that gives light. Its job is at the Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
     ],
     "secret": [
-      "The floor only counts under the Astral Enchanter, not the vanilla table, so build it once the shelves are complete."
+      "The floor only counts under the Enchanter, not the vanilla table, so build it once the shelves are complete."
     ]
   },
   "hammock_rope": {
@@ -263,7 +263,7 @@
       "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 8124 durability, enchantability 15. Sneak while mining takes only the aimed block."
     ],
     "secret": [
-      "With an Enderite Nugget in the off hand it lifts machines and chests to Enderite. Hit an enchanting table 20 times with it, holding an Enderite Nugget in the other hand, and it becomes the Astral Enchanter."
+      "With an Enderite Nugget in the off hand it lifts machines and chests to Enderite. Hit an enchanting table 20 times with it, holding an Enderite Nugget in the other hand, and it becomes the Enchanter."
     ]
   },
   "enderite_sledgehammer": {
@@ -626,7 +626,7 @@
       "Nine nuggets make an Enderite Ingot, and the ingot gives nine back. Eight around an iron bucket make the Enderite Bucket. Enderite Apples, Carrots and machine upgrades use it."
     ],
     "secret": [
-      "Hammer an Astral Enchanter into being with one in your off hand; it returns when you break the table. A nugget in the off hand also pays for lifting chests and machines to Enderite."
+      "Hammer an Enchanter into being with one in your off hand; it returns when you break the table. A nugget in the off hand also pays for lifting chests and machines to Enderite."
     ]
   },
   "netherite_nugget": {
@@ -2455,10 +2455,10 @@
       "{name} holds books that are bound with fire, and their pages are warm to the touch."
     ],
     "use": [
-      "A bookshelf of blazewood: it counts as two bookshelves at the Astral Enchanter and as one at the vanilla enchanting table. Three {item:simplebuilding:blaze_book} go into it."
+      "A bookshelf of blazewood: it counts as two bookshelves at the Enchanter and as one at the vanilla enchanting table. Three {item:simplebuilding:blaze_book} go into it."
     ],
     "secret": [
-      "Around the Astral Enchanter, a 5 x 5 floor of {item:simplebuilding:blazing_obsidian} adds strength on top of the shelves, once they give 30."
+      "Around the Enchanter, a 5 x 5 floor of {item:simplebuilding:blazing_obsidian} adds strength on top of the shelves, once they give 30."
     ]
   },
   "family:hammock": {
