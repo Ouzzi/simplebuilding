@@ -1,6 +1,5 @@
 package com.simplebuilding.util;
 
-import com.simplebuilding.blocks.custom.MaterialOctetBlock;
 import com.simplebuilding.blocks.custom.OctetCellBlock;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import net.minecraft.core.BlockPos;
@@ -22,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
  * Sneaking with the sledgehammer removes exactly the aimed octet (0.5^3) of a full block, stairs or slab (Queue
  * Nachtrag 24). The rest becomes a slab or a vanilla stair when it is one; any other shape (e.g. one octet gone above
  * and one below, two diagonal quarters, a slab missing a quarter) falls apart into the material's octet cell
- * ({@link MaterialOctets#cellFor}), and without octets of that material the hammer does not carve there.
+ * ({@link MaterialOctets#cellFor}, on 26.3 SimpleLib's OctetCells), and without octets of that material the hammer does not carve there.
  */
 public final class HammerCorners {
     public static final net.minecraft.world.level.block.state.properties.BooleanProperty CARVED =
@@ -131,6 +130,6 @@ public final class HammerCorners {
     public static @Nullable Item removedPiece(BlockState state) {
         Block block = state.getBlock();
         Family family = family(block, !(block instanceof StairBlock) && !(block instanceof SlabBlock));
-        return family == null || !(family.cell() instanceof MaterialOctetBlock cell) ? null : cell.piece();
+        return family == null ? null : LibServices.octetPiece(family.cell());
     }
 }

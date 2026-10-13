@@ -21,6 +21,11 @@ public final class SimpleLib {
         com.simplelib.config.LibConfig.load(configDir);
         com.simplelib.api.client.ui.UiBrightness.load(configDir); // N49: local look, plain file (no client classes)
         com.simplelib.test.IdMovesTests.registerTestMoves();
+        // In-world upgrades into a crucible or barrel tier move contents, progress and experience (InWorldUpgrades).
+        com.simplelib.api.InWorldUpgrades.registerHandler(com.simplelib.api.SimpleLibApi::upgradesInPlace, (level, pos, to) -> {
+            com.simplelib.crucible.CrucibleUpgrades.upgradeInPlace(level, pos, to);
+            return 1;
+        });
     }
 
     private SimpleLib() {}

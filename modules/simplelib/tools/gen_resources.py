@@ -267,6 +267,9 @@ def files():
     out[f"{d}/tags/item/crucible_handles.json"] = {"values": ["minecraft:iron_ingot"]}
     out[f"{d}/tags/item/upgrade_reinforced.json"] = {"values": ["minecraft:diamond"]}
     out[f"{d}/tags/item/upgrade_netherite.json"] = {"values": ["minecraft:netherite_ingot"]}
+    # In-world upgrades (InWorldUpgrades): hammers of any mod (a hammer mod fills it) run every upgrade.
+    out[f"{d}/tags/item/hammers.json"] = {"values": []}
+    out[f"{d}/tags/item/upgrade_tools.json"] = {"values": [f"#{NS}:hammers"]}
     pickaxe = [f"{NS}:{t}_crucible" for t in TIERS] + [f"{NS}:crucible_blank"] + [f"{NS}:{t}_barrel" for t in BARREL_TIERS]         + [f"{NS}:reinforced_cauldron"]
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": pickaxe}
     out["data/minecraft/tags/block/needs_stone_tool.json"] = {"values": pickaxe}

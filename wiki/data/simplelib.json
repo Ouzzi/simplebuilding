@@ -479,6 +479,12 @@
       "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_walls.json"
     },
     {
+      "id": "simplelib:item/hammers",
+      "replace": false,
+      "values": [],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/hammers.json"
+    },
+    {
       "id": "simplelib:item/needs_extreme_heat",
       "replace": false,
       "values": [
@@ -510,6 +516,17 @@
         }
       ],
       "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/upgrade_reinforced.json"
+    },
+    {
+      "id": "simplelib:item/upgrade_tools",
+      "replace": false,
+      "values": [
+        {
+          "id": "#simplelib:hammers",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/upgrade_tools.json"
     },
     {
       "id": "simplelib:item/warmable_food",
@@ -927,7 +944,7 @@
     "features": 5,
     "recipes": 1,
     "lootTables": 9,
-    "tags": 10,
+    "tags": 12,
     "advancements": 0,
     "enchantments": 0,
     "items": 0,

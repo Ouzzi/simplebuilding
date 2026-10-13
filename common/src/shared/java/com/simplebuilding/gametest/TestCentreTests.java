@@ -165,8 +165,8 @@ public final class TestCentreTests {
                 problems.add("exclusion " + excluded + " names nothing that is registered - remove it");
             }
         }
-        helper.assertTrue(plan.sections().size() == TestCentreLayout.SECTION_IDS.size(),
-                "planned sections " + plan.sections().size() + " but SECTION_IDS lists " + TestCentreLayout.SECTION_IDS.size());
+        helper.assertTrue(plan.sections().size() == TestCentreLayout.sectionIds().size(),
+                "planned sections " + plan.sections().size() + " but sectionIds() lists " + TestCentreLayout.sectionIds().size());
         helper.assertTrue(helper.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("sbtestcentre") != null,
                 "/sbtestcentre is not registered on this loader");
         helper.assertTrue(problems.isEmpty(), problems.size() + " test centre coverage problem(s): " + String.join("; ", problems));
@@ -453,6 +453,37 @@ public final class TestCentreTests {
             }
         }
         helper.assertTrue(crowded.isEmpty(), "the flypad's flight field reaches other pads: " + crowded);
+        helper.succeed();
+    }
+
+    /**
+     * Module split 3c: a station another module registers through {@code framework.api.TestCentreStations} gets the
+     * section "modules" (before "mobs") with a frame per known item id (unknown ids skipped); without registrations the
+     * plan has exactly {@link TestCentreLayout#SECTION_IDS}. Registered and taken out within this one call.
+     */
+    public static void foreignModuleStationsGetTheirOwnSection(GameTestHelper helper) {
+        if (!com.simplebuilding.dev.testcentre.ModuleStations.SUPPORTED) {
+            helper.succeed(); // 26.2: no framework, no foreign stations
+            return;
+        }
+        com.simplebuilding.dev.testcentre.ModuleStations.register("simpletest", "station", "section.simpletest.station",
+                List.of("minecraft:diamond", "nomod:missing", "minecraft:emerald"));
+        TestCentreLayout.Plan plan;
+        try {
+            plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        } finally {
+            com.simplebuilding.dev.testcentre.ModuleStations.unregister("simpletest", "station");
+        }
+        List<String> ids = plan.sections().stream().map(TestCentreLayout.Section::id).toList();
+        helper.assertTrue(ids.indexOf(TestCentreLayout.MODULES_SECTION) == ids.indexOf("mobs") - 1,
+                "the modules section is not planned right before mobs: " + ids);
+        List<ItemStack> shown = new ArrayList<>(frames(plan.section(TestCentreLayout.MODULES_SECTION)).values());
+        helper.assertTrue(shown.size() == 2 && shown.get(0).is(net.minecraft.world.item.Items.DIAMOND)
+                        && shown.get(1).is(net.minecraft.world.item.Items.EMERALD),
+                "the modules section frames " + shown + " instead of diamond and emerald");
+        TestCentreLayout.Plan without = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        helper.assertTrue(without.sections().stream().map(TestCentreLayout.Section::id).toList().equals(TestCentreLayout.SECTION_IDS),
+                "without registered stations the plan differs from SECTION_IDS");
         helper.succeed();
     }
 

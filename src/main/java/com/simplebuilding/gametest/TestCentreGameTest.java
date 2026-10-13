@@ -44,6 +44,11 @@ public final class TestCentreGameTest {
     }
 
     @GameTest
+    public void foreignModuleStationsGetTheirOwnSection(GameTestHelper helper) {
+        TestCentreTests.foreignModuleStationsGetTheirOwnSection(helper);
+    }
+
+    @GameTest
     public void everyFeatureStationSetsUpItsScenario(GameTestHelper helper) {
         TestCentreTests.everyFeatureStationSetsUpItsScenario(helper);
     }

@@ -69,5 +69,8 @@ data/simplebuilding/recipe/reinforced_backpack_dyed.json
 data/simplebuilding/recipe/reinforced_bundle_dyed.json
 data/simplebuilding/recipe/reinforced_elytra_pad_smithing.json
 data/simplebuilding/recipe/reinforced_quiver_dyed.json
+data/simplebuilding/sledgehammer_upgrades/enderite.json
+data/simplebuilding/sledgehammer_upgrades/netherite.json
+data/simplebuilding/sledgehammer_upgrades/reinforced.json
 data/simplebuilding/worldgen/configured_feature/astralit_ore.json
 data/simplebuilding/worldgen/configured_feature/nihilith_ore.json

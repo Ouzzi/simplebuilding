@@ -27,30 +27,30 @@ public final class MaterialOctets {
 
     private static java.util.Map<Block, Block> cells;
 
-    /** Voller Block -> Achtelzelle fuer Holz und alle Material-Achtel (N19/N15), beim ersten Gebrauch gebaut. */
-    private static java.util.Map<Block, Block> cells() {
+    /**
+     * Voller Block -> Achtelzelle fuer Holz, alle Material-Achtel (N19/N15) und die Melone, beim ersten Gebrauch gebaut.
+     * Auf 26.3 meldet {@link LibServices#init} genau diese Paare bei SimpleLibs {@code OctetCells} an.
+     */
+    public static java.util.Map<Block, Block> ownCells() {
         if (cells == null) {
-            java.util.Map<Block, Block> map = new java.util.HashMap<>();
+            java.util.Map<Block, Block> map = new java.util.LinkedHashMap<>();
             for (Block cell : ModBlocks.WOOD_OCTETS) {
                 map.put(((MaterialOctetBlock) cell).source(), cell);
             }
             for (Block cell : ModBlocks.MATERIAL_OCTETS) {
                 map.put(((MaterialOctetBlock) cell).source(), cell);
             }
-            cells = map;
+            if (ModBlocks.MELON_OCTET != null) {
+                map.put(Blocks.MELON, ModBlocks.MELON_OCTET);
+            }
+            cells = java.util.Collections.unmodifiableMap(map);
         }
         return cells;
     }
 
-    /** Die Achtelzelle des Materials, dessen voller Block {@code full} ist; null ohne Achtel. */
+    /** Die Achtelzelle des Materials, dessen voller Block {@code full} ist; null ohne Achtel (26.3: SimpleLib {@code OctetCells}). */
     public static @Nullable Block cellFor(@Nullable Block full) {
-        if (full == null) {
-            return null;
-        }
-        if (full == Blocks.MELON) {
-            return ModBlocks.MELON_OCTET;
-        }
-        return cells().get(full);
+        return LibServices.octetCellFor(full);
     }
 
     /**

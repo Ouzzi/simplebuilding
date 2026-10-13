@@ -1,4 +1,10 @@
 plugins { id 'java-library' }
 group = 'com.simplebuilding.framework'
-version = '0.1.9'
+version = '0.1.10'
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+repositories { mavenCentral() }
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter:5.11.4"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+test { useJUnitPlatform() }

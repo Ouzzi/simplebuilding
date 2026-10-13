@@ -1366,6 +1366,8 @@ public class ModItems {
             com.simplebuilding.crucible.CrucibleCompat.registerItems();
             com.simplebuilding.crucible.CrucibleCompat.init();
         }
+        // Module split 3c: upgrade handlers and octet cells in SimpleLib (26.3; no-op on 26.2).
+        com.simplebuilding.util.LibServices.init();
 
 
 

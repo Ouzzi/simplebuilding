@@ -1,7 +1,6 @@
 package com.simplebuilding.crucible;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplelib.api.SimpleLibApi;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -146,7 +145,7 @@ public final class CrucibleCompat {
 
     /** A sledgehammer click on a crucible/barrel reaches the hammer instead of the menu when it upgrades, builds or attaches. */
     private static boolean hammerWants(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
-        if (hand != InteractionHand.MAIN_HAND || !(player.getMainHandItem().getItem() instanceof SledgehammerItem)) return false;
+        if (hand != InteractionHand.MAIN_HAND || !SimpleLibApi.isHammer(player.getMainHandItem())) return false;
         if (com.simplebuilding.util.SledgehammerUpgrades.shouldSkipBlockUse(state, level, pos, player, hand)) return true;
         return SimpleLibApi.canAttach(level, pos, state);
     }

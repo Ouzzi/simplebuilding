@@ -61,7 +61,19 @@ public final class ModDataTables {
             protected Map<String, Map<Identifier, String>> prepare(ResourceManager manager, ProfilerFiller profiler) {
                 Map<String, Map<Identifier, String>> result = new HashMap<>();
                 result.put(ChiselTables.DIRECTORY, read(manager, ChiselTables.DIRECTORY));
-                result.put(SledgehammerUpgradeData.DIRECTORY, read(manager, SledgehammerUpgradeData.DIRECTORY));
+                Map<Identifier, String> upgrades = read(manager, SledgehammerUpgradeData.DIRECTORY);
+                String legacy = com.simplebuilding.util.LibServices.LEGACY_UPGRADE_DIRECTORY;
+                if (legacy != null) {
+                    // 26.3: the folder before the split still counts; a file there wins over a same-named new one,
+                    // so a modpack's override of a shipped file keeps working.
+                    Map<Identifier, String> old = read(manager, legacy);
+                    if (!old.isEmpty()) {
+                        LOGGER.warn("{} file(s) in data/*/{}/ - this folder is now data/*/{}/ (still read)", old.size(),
+                                legacy, SledgehammerUpgradeData.DIRECTORY);
+                        upgrades.putAll(old);
+                    }
+                }
+                result.put(SledgehammerUpgradeData.DIRECTORY, upgrades);
                 return result;
             }
 

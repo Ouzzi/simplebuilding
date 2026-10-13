@@ -49,6 +49,22 @@ public final class TestCentreLayout {
             "tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows",
             "gallery", "unsorted");
 
+    /** Abschnitt mit den Stationen anderer Module ({@code framework.api.TestCentreStations}), nur wenn welche da sind. */
+    public static final String MODULES_SECTION = "modules";
+
+    /**
+     * Die geplanten Abschnitte: {@link #SECTION_IDS}, und vor "mobs" der Abschnitt {@link #MODULES_SECTION}, sobald ein
+     * Modul Stationen angemeldet hat (Modulaufteilung 3c; ohne Anmeldung unveraendert).
+     */
+    public static List<String> sectionIds() {
+        if (ModuleStations.all().isEmpty()) {
+            return SECTION_IDS;
+        }
+        List<String> ids = new ArrayList<>(SECTION_IDS);
+        ids.add(ids.indexOf("mobs"), MODULES_SECTION);
+        return List.copyOf(ids);
+    }
+
     /**
      * Mod-Items und -Bloecke, die bewusst NICHT in der Zentrale stehen, mit Grund. Jede Ausnahme muss
      * hier stehen - der Abdeckungstest liest genau diese Liste.
@@ -242,6 +258,11 @@ public final class TestCentreLayout {
         builders.put("respawn", FeatureStations::respawn);
         builders.put("devices", TestCentreSections::devices);
         builders.put("mobs", MobStations::build);
+        List<String> sectionIds = sectionIds();
+        if (sectionIds.contains(MODULES_SECTION)) {
+            var stations = ModuleStations.all();
+            builders.put(MODULES_SECTION, context -> TestCentreSections.modules(stations));
+        }
 
         Map<String, TcCanvas> canvases = new LinkedHashMap<>();
         for (Map.Entry<String, Function<TcContext, TcCanvas>> entry : builders.entrySet()) {
@@ -292,8 +313,8 @@ public final class TestCentreLayout {
         }
 
         // Erste Runde: Steuerwand mit Platzhaltern, nur fuer ihre Breite.
-        canvases.put("controls", TestCentreSections.controls(controls(origin, Map.of(), null)));
-        Map<String, BlockPos> offsets = pack(canvases);
+        canvases.put("controls", TestCentreSections.controls(controls(origin, Map.of(), null, sectionIds)));
+        Map<String, BlockPos> offsets = pack(canvases, sectionIds);
 
         Map<String, BlockPos> anchors = new LinkedHashMap<>();
         for (Map.Entry<String, TcCanvas> entry : canvases.entrySet()) {
@@ -302,10 +323,10 @@ public final class TestCentreLayout {
         }
         BoundingBox bounds = bounds(origin, canvases, offsets);
         // Zweite Runde: jetzt mit den echten Koordinaten.
-        canvases.put("controls", TestCentreSections.controls(controls(origin, anchors, bounds)));
+        canvases.put("controls", TestCentreSections.controls(controls(origin, anchors, bounds, sectionIds)));
 
         List<Section> sections = new ArrayList<>();
-        for (String id : SECTION_IDS) {
+        for (String id : sectionIds) {
             TcCanvas canvas = canvases.get(id);
             BlockPos offset = offsets.get(id);
             BlockPos absolute = origin.offset(offset);
@@ -366,12 +387,12 @@ public final class TestCentreLayout {
     }
 
     /** Offsets je Abschnitt: Reihen in +x, neue Reihe (mit Gang davor) bei Ueberlauf. */
-    private static Map<String, BlockPos> pack(Map<String, TcCanvas> canvases) {
+    private static Map<String, BlockPos> pack(Map<String, TcCanvas> canvases, List<String> sectionIds) {
         Map<String, BlockPos> offsets = new LinkedHashMap<>();
         int x = 0;
         int z = 0;
         int rowDepth = 0;
-        for (String id : SECTION_IDS) {
+        for (String id : sectionIds) {
             TcCanvas canvas = canvases.get(id);
             if (x > 0 && x + canvas.width() > MAX_ROW_WIDTH) {
                 z += rowDepth + CORRIDOR;
@@ -400,12 +421,13 @@ public final class TestCentreLayout {
     }
 
     /** Die Knoepfe der Steuerwand; Koordinaten sind absolut, damit die Befehlsbloecke ohne Zustand auskommen. */
-    static List<TestCentreSections.Control> controls(BlockPos origin, Map<String, BlockPos> anchors, BoundingBox bounds) {
+    static List<TestCentreSections.Control> controls(BlockPos origin, Map<String, BlockPos> anchors, BoundingBox bounds,
+                                                     List<String> sectionIds) {
         String at = origin.getX() + " " + origin.getY() + " " + origin.getZ();
         List<TestCentreSections.Control> out = new ArrayList<>();
         out.add(new TestCentreSections.Control("sbtestcentre build " + at,
                 TcText.t("controls.rebuild", "Rebuild all"), TcText.t("controls.rebuild.sub", "whole centre")));
-        for (String id : SECTION_IDS) {
+        for (String id : sectionIds) {
             if (id.equals("controls")) {
                 continue;
             }

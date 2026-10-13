@@ -1458,6 +1458,34 @@ public final class TestCentreSections {
         return c;
     }
 
+    /**
+     * Stationen anderer Module ({@code framework.api.TestCentreStations}, Modulaufteilung 3c): je Station Titel und
+     * Rahmen der genannten Items nebeneinander; unbekannte Ids fallen weg. Nur geplant, wenn welche angemeldet sind.
+     */
+    public static TcCanvas modules(List<ModuleStations.Station> stations) {
+        TcCanvas c = new TcCanvas();
+        int wallZ = 2;
+        int x = 0;
+        for (ModuleStations.Station station : stations) {
+            List<ItemStack> stacks = new ArrayList<>();
+            List<List<Component>> labels = new ArrayList<>();
+            for (String id : station.items()) {
+                net.minecraft.resources.Identifier key = net.minecraft.resources.Identifier.tryParse(id);
+                Item item = key == null ? null : BuiltInRegistries.ITEM.getOptional(key).orElse(null);
+                if (item == null || item == net.minecraft.world.item.Items.AIR) {
+                    continue;
+                }
+                stacks.add(new ItemStack(item));
+                labels.add(List.of(new ItemStack(item).getHoverName()));
+            }
+            c.title(x, 5, wallZ, Component.translatable(station.titleKey()), Component.literal(station.owner()));
+            int end = Math.max(x + 2, c.frameGrid(x + 1, 0, wallZ, stacks, labels, 3));
+            c.backWall(x, end, wallZ, 7);
+            x = end + 2;
+        }
+        return c;
+    }
+
     public static TcCanvas unsorted(List<Item> leftovers) {
         TcCanvas c = new TcCanvas();
         int wallZ = 2;

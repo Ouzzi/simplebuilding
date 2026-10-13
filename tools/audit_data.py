@@ -179,7 +179,7 @@ def recipe_audit(files):
             if '/blocks/' in t or t.split(':')[1].startswith('blocks/'): continue
             other[it].add('loot:' + t)
     for rel, full in files.items():
-        m = re.match(r'data/([^/]+)/(villager_trade|chisel_transformations|sledgehammer_upgrades|trial_spawner|enchantment|advancement)/', rel)
+        m = re.match(r'data/([^/]+)/(villager_trade|chisel_transformations|sledgehammer_upgrades|in_world_upgrades|trial_spawner|enchantment|advancement)/', rel)
         if not m: continue
         txt = open(full, encoding='utf-8').read()
         for it in set(re.findall(r'"((?:%s):[a-z0-9_/]+)"' % '|'.join(nss), txt)):

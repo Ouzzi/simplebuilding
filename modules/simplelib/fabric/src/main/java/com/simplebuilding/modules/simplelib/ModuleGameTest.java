@@ -190,6 +190,21 @@ public final class ModuleGameTest {
     public void idMovesAdoptConfig(GameTestHelper h) {
         LibTests.ALL.get("id_moves_adopt_config").accept(h);
     }
+
+    @GameTest
+    public void inWorldUpgradesDataType(GameTestHelper h) {
+        LibTests.ALL.get("in_world_upgrades_data_type").accept(h);
+    }
+
+    @GameTest
+    public void inWorldUpgradeHandlers(GameTestHelper h) {
+        LibTests.ALL.get("in_world_upgrade_handlers").accept(h);
+    }
+
+    @GameTest
+    public void octetCells(GameTestHelper h) {
+        LibTests.ALL.get("octet_cells").accept(h);
+    }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplelib.discover.LibDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplelib.discover.LibDiscover.behaviourHints(h); }
     @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplelib.discover.LibDiscover.firstPickupTips(h); }
