@@ -12,7 +12,7 @@
         "title": "Questionary Table",
         "summary": "Put an item into the slot on the left: the open book on the right tells its lore, its use and a secret.",
         "details": [
-          "Recipe (shaped): lapis, book, lapis / three planks / plank, gap, plank - 2 lapis lazuli, 1 book, 5 planks of any wood. Unlocked when you carry a book.",
+          "Recipe (shaped): lapis, book, lapis / three planks / plank, obsidian, plank - 2 lapis lazuli, 1 book, 5 planks of any wood, 1 obsidian. Unlocked when you carry a book.",
           "The slot holds one piece; shift-click puts one in, and the item comes back when the table is closed.",
           "Three pages - 1 Lore, 2 Use, 3 Secret - turned with the bookmarks on the book's edge, the page arrows, the mouse wheel, A/D or the arrow keys. The secret is visible at once.",
           "The Use page ends with a line the server reads from the recipes: what the item is made from and how many recipes make and use it (config autoFacts in simplequestionary.json).",
@@ -23,7 +23,7 @@
         "title": "Fragentisch",
         "summary": "Leg links einen Gegenstand ins Feld: das aufgeschlagene Buch rechts erzählt seine Überlieferung, seinen Nutzen und ein Geheimnis.",
         "details": [
-          "Rezept (geformt): Lapis, Buch, Lapis / drei Bretter / Brett, Lücke, Brett - 2 Lapislazuli, 1 Buch, 5 Bretter beliebigen Holzes. Freigeschaltet, sobald du ein Buch trägst.",
+          "Rezept (geformt): Lapis, Buch, Lapis / drei Bretter / Brett, Obsidian, Brett - 2 Lapislazuli, 1 Buch, 5 Bretter beliebigen Holzes, 1 Obsidian. Freigeschaltet, sobald du ein Buch trägst.",
           "Das Feld nimmt ein Stück; Shift-Klick legt eins hinein, beim Schließen kommt der Gegenstand zurück.",
           "Drei Seiten - 1 Überlieferung, 2 Nutzen, 3 Geheimnis - blätterst du mit den Lesezeichen am Buchrand, den Seitenpfeilen, dem Mausrad, A/D oder den Pfeiltasten. Das Geheimnis ist sofort sichtbar.",
           "Die Nutzen-Seite endet mit einer Zeile, die der Server aus den Rezepten liest: woraus der Gegenstand entsteht und wie viele Rezepte ihn herstellen und nutzen (Einstellung autoFacts in simplequestionary.json).",

@@ -56,7 +56,7 @@
   "item.simpleriding.netherite_horseshoe": "Netherithufeisen",
   "item.simpleriding.enderite_horseshoe": "Enderithufeisen",
   "item.simpleriding.horseshoe_smithing_template": "Hufeisen-Aufwertung",
-  "item.simpleriding.horseshoe_smithing_template.applies_to": "Kupferbarren, Eisenbarren, Goldbarren, Diamanten, Diamanthufeisen, Netherithufeisen",
+  "item.simpleriding.horseshoe_smithing_template.applies_to": "Kupfer–Enderit-Barren",
   "item.simpleriding.horseshoe_smithing_template.ingredients": "Eisennuggets, Netheritbarren oder Enderitbarren",
   "item.simpleriding.horseshoe_smithing_template.base_slot_description": "Kupfer-, Eisen- oder Goldbarren, Diamant oder Diamant- oder Netherithufeisen hinzufügen",
   "item.simpleriding.horseshoe_smithing_template.additions_slot_description": "Eisennugget, Netheritbarren oder Enderitbarren hinzufügen",

@@ -107,13 +107,6 @@ public final class TrimStatsPanel {
         tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.hostiles", hostiles).withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.passives", passives).withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.damage_taken", damage / 20).withStyle(ChatFormatting.GRAY));
-
-        tooltip.add(Component.empty());
-        boolean capped = TrimStatsLayout.isMaxResonance(total, base);
-        tooltip.add(boldInitial(Component.translatable(capped ? "gui.simplebuilding.trim_stats.capped_name" : "gui.simplebuilding.trim_stats.cap_name",
-                        String.format(java.util.Locale.ROOT, "%.1f", base)).getString(), capped ? ChatFormatting.GOLD : ChatFormatting.GRAY)
-                .append(Component.literal(" ")).append(Component.translatable(capped ? "gui.simplebuilding.trim_stats.capped_hint"
-                        : "gui.simplebuilding.trim_stats.cap_hint").withStyle(ChatFormatting.GRAY)));
         return tooltip;
     }
 

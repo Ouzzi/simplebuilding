@@ -11,4 +11,6 @@ public class WatcherRenderState extends LivingEntityRenderState {
     public boolean frozen;
     /** Someone looks at it: it holds its pose, the eyes narrow. */
     public boolean watched;
+    /** Has a target, was hit or acts: only then do the eyes glow (N50 camouflage). */
+    public boolean triggered;
 }

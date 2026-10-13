@@ -15,7 +15,7 @@ public class WatcherRenderer extends MobRenderer<HollowWatcherEntity, WatcherRen
         super(context, new WatcherModel(context.bakeLayer(WatcherModel.LAYER)), 0.6F);
         // many eyes: bright while it stalks, narrowed when watched, dim when frozen
         this.addLayer(new LivingEntityEmissiveLayer<>(this, state -> EYES,
-                (state, age) -> state.frozen ? 0.25F : state.watched ? 0.6F : 0.85F + 0.15F * (float) Math.sin(age * 0.2F),
+                (state, age) -> !state.triggered ? 0.0F : state.frozen ? 0.25F : state.watched ? 0.6F : 0.85F + 0.15F * (float) Math.sin(age * 0.2F),
                 new WatcherModel(context.bakeLayer(WatcherModel.LAYER)), RenderTypes::eyes, false));
     }
 
@@ -34,6 +34,7 @@ public class WatcherRenderer extends MobRenderer<HollowWatcherEntity, WatcherRen
         state.scream = action == HollowWatcherEntity.ACT_SCREAM ? 1.0F : 0.0F;
         state.frozen = entity.frozen();
         state.watched = entity.watched();
+        state.triggered = entity.triggered();
         if (state.frozen || state.watched) state.walkAnimationSpeed = 0.0F;
     }
 }

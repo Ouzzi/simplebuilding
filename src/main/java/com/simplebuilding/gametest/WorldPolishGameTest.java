@@ -21,6 +21,11 @@ public final class WorldPolishGameTest {
         WorldPolishTests.sculkJawNeedsFullBlockTop(helper);
     }
 
+    @GameTest
+    public void sculkJawFeatureIsRegistered(GameTestHelper helper) {
+        WorldPolishTests.sculkJawFeatureIsRegistered(helper);
+    }
+
     @GameTest(maxTicks = WorldPolishTests.BOAT_MAX_TICKS)
     public void standersStayOnTheChestBoatDeck(GameTestHelper helper) {
         WorldPolishTests.standersStayOnTheChestBoatDeck(helper);

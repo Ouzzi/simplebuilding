@@ -4,12 +4,13 @@
   "key": {
     "B": "minecraft:book",
     "L": "minecraft:lapis_lazuli",
-    "P": "#minecraft:planks"
+    "P": "#minecraft:planks",
+    "O": "minecraft:obsidian"
   },
   "pattern": [
     "LBL",
     "PPP",
-    "P P"
+    "POP"
   ],
   "result": {
     "id": "simplequestionary:questionary_table"

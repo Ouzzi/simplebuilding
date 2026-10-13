@@ -21,6 +21,8 @@ public final class EndNetherLogic {
     public static final int POTION_TICKS = 3600, LONG_POTION_TICKS = 9600;
     /** Upward forces (jump, Levitation, Elytra lift) keep 10 %. */
     public static final double UPWARD_FACTOR = 0.1;
+    /** High Gravity: extra fall damage per effect level (multiplier 1.5 at level I, 2.0 at II, ...). */
+    public static final double FALL_BONUS_PER_LEVEL = 0.5;
     /** Elytra under High Gravity: extra sink per tick and horizontal drag (roughly a ten times worse glide). */
     public static final double ELYTRA_SINK = 0.07, ELYTRA_DRAG = 0.92;
     public static final int HELMET_DURABILITY = 15, HELMET_ARMOR = 3;

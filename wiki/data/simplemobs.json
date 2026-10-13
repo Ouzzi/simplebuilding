@@ -119,7 +119,7 @@
       ],
       "en": {
         "title": "High Gravity and the Shellker Helmet",
-        "summary": "High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 %. The Shellker Helmet makes you immune.",
+        "summary": "High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 % and falls hurt 50 % more per level (Feather Falling still helps). The Shellker Helmet makes you immune.",
         "details": [
           "From Shellker bullets (30 s, 1 min if already under High Gravity) or the Potion of High Gravity: Awkward Potion + Shellker Shell = 3:00, + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions.",
           "Shellker Helmet: 5 Shellker Shells in helmet shape. Armor 3, toughness 1, knockback resistance 10 %, iron durability, repaired with Shellker Shells. Its wearer is immune to High Gravity (not to the bullets' damage) and takes 20 % less fall damage. A new helmet - the Turtle Shell stays as it is. Can be trimmed and enchanted like other helmets."
@@ -127,7 +127,7 @@
       },
       "de": {
         "title": "Schwerkraft und Shellker-Helm",
-        "summary": "Schwerkraft zieht nach unten: Sprünge, Schweben und Elytra-Auftrieb behalten 10 %. Der Shellker-Helm macht immun.",
+        "summary": "Schwerkraft zieht nach unten: Sprünge, Schweben und Elytra-Auftrieb behalten 10 %, Stürze tun je Stufe 50 % mehr weh (Federfall hilft weiter). Der Shellker-Helm macht immun.",
         "details": [
           "Durch Shellker-Geschosse (30 s, 1 min bei bestehender Schwerkraft) oder den Trank der Schwerkraft: Seltsamer Trank + Shellker-Schale = 3:00, + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank.",
           "Shellker-Helm: 5 Shellker-Schalen in Helmform. Rüstung 3, Härte 1, Rückstoßresistenz 10 %, Haltbarkeit wie Eisen, Reparatur mit Shellker-Schalen. Der Träger ist immun gegen Schwerkraft (nicht gegen den Schaden der Geschosse) und nimmt 20 % weniger Fallschaden. Ein neuer Helm - der Schildkrötenpanzer bleibt unverändert. Lässt sich wie andere Helme verzieren und verzaubern."
@@ -252,12 +252,13 @@
         "title": "Hollow Watcher",
         "summary": "A 4 block shadow with many eyes on the outer End islands. It moves only while nobody looks at it; a spyglass look freezes it. Unwatched it teleports behind you and grips you.",
         "details": [
-          "Spawning: rarely, only in the End farther than 1000 blocks from the origin, on End stone with room for its height, at most one within 128 blocks, not on Peaceful. Server config: hollowWatcherSpawns, hollowWatcherChance (per 30 s roll per player, default 0.04).",
+          "Spawning: rarely, only in the End farther than 1000 blocks from the origin - or, three times as likely and anywhere, in biomes tagged simpleend:watcher_core (Simple End; without the tag nothing changes) - on End stone with room for its height, at most one within 128 blocks, not on Peaceful. Server config: hollowWatcherSpawns, hollowWatcherChance (per 30 s roll per player, default 0.04).",
           "200 health, armor 8. 50 XP. While any player looks at it (in view, line of sight, not blinded) it stands still and starts no attack; a grip or scream already running goes on.",
           "Looking at it through a spyglass freezes it for 3 seconds: no movement, no attack, a running grip lets go.",
           "Teleport: unwatched and more than 8 blocks away, portal particles mark a spot 2.5 blocks behind its target for 0.6 s, then it appears there. If someone looks at it meanwhile, the jump is cancelled. Cooldown 6 s.",
           "Grip, announced by reaching arms for 0.5 s: 6 damage and held in place for 2 s, then 4 damage and thrown away. Cooldown 10 s. Claw: 10 damage after 0.3 s.",
           "Scream, announced for 1 s (head thrown back, low Enderman scream): Shivering II for 10 s and Blindness for 3 s to everyone within 12 blocks. It screams when its target stares at it for 5 s in a row, or unwatched every 20 s when its target is within 12 blocks in sight.",
+          "Camouflage: dim End stone colours, eyes dark and almost silent until it has a target, took a hit or acts. Hit and run: 1 s after it takes a hit it blinks 12-20 blocks away (portal particles and a low stare sound announce it; even a freeze does not stop it).",
           "Drops 1 Watcher Eye when a player lands the last hit (Looting +1)."
         ]
       },
@@ -265,12 +266,13 @@
         "title": "Hohler Wächter",
         "summary": "Ein 4 Blöcke großer Schatten mit vielen Augen auf den äußeren End-Inseln. Er bewegt sich nur, solange ihn niemand ansieht; ein Blick durchs Fernrohr friert ihn ein. Unbeobachtet springt er hinter dich und packt zu.",
         "details": [
-          "Erscheinen: selten, nur im End weiter als 1000 Blöcke vom Ursprung, auf Endstein mit Platz für seine Höhe, höchstens einer im Umkreis von 128 Blöcken, nicht auf Friedlich. Server-Config: hollowWatcherSpawns, hollowWatcherChance (je 30-s-Wurf und Spieler, Standard 0,04).",
+          "Erscheinen: selten, nur im End weiter als 1000 Blöcke vom Ursprung - oder dreimal so wahrscheinlich und überall in Biomen mit dem Tag simpleend:watcher_core (Simple End; ohne den Tag ändert sich nichts) - auf Endstein mit Platz für seine Höhe, höchstens einer im Umkreis von 128 Blöcken, nicht auf Friedlich. Server-Config: hollowWatcherSpawns, hollowWatcherChance (je 30-s-Wurf und Spieler, Standard 0,04).",
           "200 Leben, Rüstung 8. 50 EP. Solange ein Spieler ihn ansieht (im Blickfeld, Sichtlinie, nicht blind), steht er still und beginnt keinen Angriff; ein laufender Griff oder Schrei geht weiter.",
           "Ein Blick durchs Fernrohr friert ihn 3 Sekunden ein: keine Bewegung, kein Angriff, ein laufender Griff löst sich.",
           "Teleport: unbeobachtet und weiter als 8 Blöcke entfernt markieren Portalpartikel 0,6 s lang eine Stelle 2,5 Blöcke hinter seinem Ziel, dann erscheint er dort. Sieht ihn währenddessen jemand an, bricht der Sprung ab. Abklingzeit 6 s.",
           "Griff, 0,5 s angekündigt durch ausgestreckte Arme: 6 Schaden und 2 s festgehalten, dann 4 Schaden und weggeschleudert. Abklingzeit 10 s. Kralle: 10 Schaden nach 0,3 s.",
           "Schrei, 1 s angekündigt (Kopf zurück, tiefer Enderman-Schrei): Zittern II für 10 s und Blindheit für 3 s für alle im Umkreis von 12 Blöcken. Er schreit, wenn sein Ziel ihn 5 s am Stück anstarrt, oder unbeobachtet alle 20 s, wenn sein Ziel in Sichtweite innerhalb von 12 Blöcken ist.",
+          "Tarnung: matte Endstein-Farben, dunkle Augen und fast lautlos, bis er ein Ziel hat, getroffen wird oder handelt. Zuschlagen und weg: 1 s nach einem Treffer springt er 12-20 Blöcke weit weg (Portalpartikel und ein tiefer Blick-Laut kündigen es an; auch Einfrieren hält ihn nicht auf).",
           "Lässt 1 Wächterauge fallen, wenn ein Spieler den letzten Treffer setzt (Plünderung +1)."
         ]
       }
@@ -287,9 +289,9 @@
       ],
       "en": {
         "title": "Shivering aura, Calm Amulet and Focus",
-        "summary": "Near a fear mob you shiver: your aim wavers. Shivering I when it sees you within 16 blocks, II closer than 6. The Calm Amulet or the Potion of Focus makes you immune.",
+        "summary": "Near a fear mob you shiver: your aim wavers. Shivering I to V by distance (V under 4 blocks) while it looks at you or is triggered. The Calm Amulet or the Potion of Focus makes you immune.",
         "details": [
-          "Every second the Dread and the Hollow Watcher give Shivering for 3 s to survival players around them: level I within 16 blocks if they can see you, level II closer than 6 blocks. Milk helps only until the next pulse.",
+          "Every second the Dread and the Hollow Watcher give Shivering for 3 s to survival players within 16 blocks, but only while the mob looks at you or is triggered (has a target). The closer, the stronger: level V under 4 blocks, IV under 7, III under 10, II under 13, I under 16. Out of reach it fades level by level. Milk helps only until the next pulse.",
           "Shivering makes the view waver around your aim (about 0.6 degrees at I, 1.8 at II), so bows and crossbows lose precision. With SimpleBuilding it is SimpleBuilding's Shivering effect (which also shakes the crosshair); without it Simple Mobs brings its own.",
           "Calm Amulet: iron chain on top, a Dread Link left, right and below, an amethyst shard in the middle. Anywhere in the inventory it makes you immune to Shivering and removes it.",
           "Potion of Focus: Awkward Potion + Watcher Eye = 3:00 immunity to Shivering; + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions."
@@ -297,9 +299,9 @@
       },
       "de": {
         "title": "Zitter-Aura, Ruhe-Amulett und Fokus",
-        "summary": "In der Nähe eines Furcht-Mobs zitterst du: dein Zielen wackelt. Zittern I, wenn er dich im Umkreis von 16 Blöcken sieht, II näher als 6. Das Ruhe-Amulett oder der Trank des Fokus machen immun.",
+        "summary": "In der Nähe eines Furcht-Mobs zitterst du: dein Zielen wackelt. Zittern I bis V je nach Nähe (V unter 4 Blöcken), solange er dich ansieht oder getriggert ist. Das Ruhe-Amulett oder der Trank des Fokus machen immun.",
         "details": [
-          "Jede Sekunde geben Schreckensritter und Hohler Wächter Spielern im Überlebensmodus um sich herum 3 s Zittern: Stufe I im Umkreis von 16 Blöcken, wenn sie dich sehen, Stufe II näher als 6 Blöcke. Milch hilft nur bis zum nächsten Puls.",
+          "Jede Sekunde geben Schreckensritter und Hohler Wächter Spielern im Überlebensmodus innerhalb von 16 Blöcken 3 s Zittern, aber nur, solange der Mob dich ansieht oder getriggert ist (ein Ziel hat). Je näher, desto stärker: Stufe V unter 4 Blöcken, IV unter 7, III unter 10, II unter 13, I unter 16. Außer Reichweite klingt es Stufe für Stufe ab. Milch hilft nur bis zum nächsten Puls.",
           "Zittern lässt den Blick um dein Ziel pendeln (etwa 0,6 Grad bei I, 1,8 bei II), Bogen und Armbrust werden ungenau. Mit SimpleBuilding ist es dessen Effekt Zittern (der zusätzlich das Fadenkreuz wackeln lässt); ohne bringt Simple Mobs einen eigenen mit.",
           "Ruhe-Amulett: Eisenkette oben, je ein Schreckens-Kettenglied links, rechts und unten, Amethystscherbe in der Mitte. Irgendwo im Inventar macht es immun gegen Zittern und entfernt es.",
           "Trank des Fokus: Seltsamer Trank + Wächterauge = 3:00 Immunität gegen Zittern; + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank."

@@ -10,7 +10,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 
 /**
  * High Gravity (Schwerkraft), from Shellker bullets and the Potion of High Gravity: jumps keep 10 % of their strength
- * (attribute), Levitation and Elytra lift keep 10 % and gliding sinks fast (LivingEntity mixin). The Shellker helmet
+ * (attribute), Levitation and Elytra lift keep 10 % and gliding sinks fast (LivingEntity mixin); falls hurt 50 % more per level (fall damage attribute, so
+ * Feather Falling still counts). The Shellker helmet
  * makes its wearer immune: the effect cannot be applied and is dropped when the helmet is put on.
  */
 public final class HighGravityEffect extends MobEffect {
@@ -20,6 +21,9 @@ public final class HighGravityEffect extends MobEffect {
         super(MobEffectCategory.HARMFUL, COLOR);
         addAttributeModifier(Attributes.JUMP_STRENGTH, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "effect.high_gravity"),
                 EndNetherLogic.UPWARD_FACTOR - 1.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        // Heavier landing: +50 % fall damage per level; Feather Falling still reduces the result afterwards.
+        addAttributeModifier(Attributes.FALL_DAMAGE_MULTIPLIER, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "effect.high_gravity_fall"),
+                EndNetherLogic.FALL_BONUS_PER_LEVEL, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 
     @Override

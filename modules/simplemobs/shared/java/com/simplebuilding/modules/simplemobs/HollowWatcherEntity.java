@@ -44,9 +44,10 @@ public class HollowWatcherEntity extends Monster {
     public static final int ACT_NONE = 0, ACT_GRIP_WINDUP = 1, ACT_GRIP = 2, ACT_CLAW = 3, ACT_SCREAM = 4, ACT_TELEPORT = 5;
     private static final EntityDataAccessor<Integer> DATA_ACTION = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_FROZEN = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_TRIGGERED = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_WATCHED = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private int actionTicks, gripCooldown = 40, clawCooldown, teleportCooldown = 60, screamCooldown = 200, stareTicks;
+    private int actionTicks, gripCooldown = 40, clawCooldown, teleportCooldown = 60, screamCooldown = 200, stareTicks, fleeTicks;
     private @Nullable Vec3 teleportTo, gripAt;
     private int grippedId = -1;
 
@@ -83,6 +84,7 @@ public class HollowWatcherEntity extends Monster {
         builder.define(DATA_ACTION, ACT_NONE);
         builder.define(DATA_FROZEN, 0);
         builder.define(DATA_WATCHED, false);
+        builder.define(DATA_TRIGGERED, false);
     }
 
     // ---- state ------------------------------------------------------------------------------
@@ -92,6 +94,8 @@ public class HollowWatcherEntity extends Monster {
     public boolean frozen() { return frozenTicks() > 0; }
     /** Someone looks at it: it stands still and starts no attack (a running grip or scream goes on). */
     public boolean watched() { return this.entityData.get(DATA_WATCHED); }
+    /** Camouflage (N50): until it has a target, took a hit or acts, its eyes stay dark and it is nearly silent. */
+    public boolean triggered() { return this.entityData.get(DATA_TRIGGERED); }
     public @Nullable Vec3 teleportTarget() { return teleportTo; }
     public int stareTicks() { return stareTicks; }
 
@@ -111,11 +115,53 @@ public class HollowWatcherEntity extends Monster {
         teleportTo = null;
     }
 
+    /** A hit starts a 1 s countdown after which it blinks away (announced by portal particles and a sound). */
+    @Override
+    public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+        boolean hurt = super.hurtServer(level, source, damage);
+        if (hurt && isAlive() && fleeTicks == 0) {
+            fleeTicks = FearLogic.HIT_TELEPORT_TICKS;
+            this.playSound(SoundEvents.ENDERMAN_STARE, 1.5f, 0.5f);
+        }
+        return hurt;
+    }
+
+    /** Hit-and-run: the countdown runs on even while frozen; at 0 it vanishes to a free spot 12-20 blocks away. */
+    private void tickFlee(ServerLevel level) {
+        if (fleeTicks <= 0) return;
+        if (fleeTicks % 2 == 0) level.sendParticles(ParticleTypes.REVERSE_PORTAL, this.getX(), this.getY() + 2.0, this.getZ(), 10, 0.5, 1.5, 0.5, 0.05);
+        if (--fleeTicks > 0) return;
+        Vec3 dest = fleeSpot(level);
+        if (dest == null) return;
+        releaseGrip(null, false);
+        setAction(ACT_NONE, 0);
+        teleportTo = null;
+        level.sendParticles(ParticleTypes.PORTAL, this.getX(), this.getY() + 2.0, this.getZ(), 40, 0.4, 1.5, 0.4, 0.1);
+        this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.2f, 0.5f);
+        this.teleportTo(dest.x, dest.y, dest.z);
+        this.getNavigation().stop();
+        level.sendParticles(ParticleTypes.REVERSE_PORTAL, dest.x, dest.y + 2.0, dest.z, 30, 0.4, 1.5, 0.4, 0.1);
+        level.playSound(null, dest.x, dest.y, dest.z, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.2f, 0.5f);
+    }
+
+    /** A free standing spot 12-20 blocks away in a random direction; null if ten tries find none. */
+    public @Nullable Vec3 fleeSpot(ServerLevel level) {
+        for (int i = 0; i < 10; i++) {
+            double ang = this.random.nextDouble() * Math.PI * 2;
+            double d = FearLogic.HIT_TELEPORT_MIN + this.random.nextDouble() * (FearLogic.HIT_TELEPORT_MAX - FearLogic.HIT_TELEPORT_MIN);
+            Vec3 p = groundSpot(level, this.getX() + Math.cos(ang) * d, Math.floor(this.getY()), this.getZ() + Math.sin(ang) * d);
+            if (p != null) return p;
+        }
+        return null;
+    }
+
     // ---- rules ------------------------------------------------------------------------------
 
     @Override protected boolean isImmobile() { return super.isImmobile() || frozen() || watched(); }
     @Override public boolean removeWhenFarAway(double distSqr) { return false; }
-    @Override protected SoundEvent getAmbientSound() { return watched() || frozen() ? null : SoundEvents.ENDERMAN_AMBIENT; }
+    @Override protected SoundEvent getAmbientSound() { return watched() || frozen() || !triggered() ? null : SoundEvents.ENDERMAN_AMBIENT; }
+    /** Quiet while it lurks: steps and hurt cries at a third of the volume. */
+    @Override protected float getSoundVolume() { return triggered() ? 1.0f : 0.3f; }
     @Override protected SoundEvent getHurtSound(DamageSource source) { return SoundEvents.ENDERMAN_HURT; }
     @Override protected SoundEvent getDeathSound() { return SoundEvents.ENDERMAN_DEATH; }
     @Override public float getVoicePitch() { return 0.45f + this.random.nextFloat() * 0.1f; }
@@ -162,6 +208,9 @@ public class HollowWatcherEntity extends Monster {
         ServerLevel level = (ServerLevel) this.level();
         if (this.tickCount % FearLogic.AURA_INTERVAL == 0) FearAura.pulse(level, this, false);
         boolean watched = updateGaze(level);
+        boolean trig = this.getTarget() != null || fleeTicks > 0 || action() != ACT_NONE || frozen();
+        if (trig != triggered()) this.entityData.set(DATA_TRIGGERED, trig);
+        tickFlee(level);
         int frozen = frozenTicks();
         if (frozen > 0) {
             this.entityData.set(DATA_FROZEN, frozen - 1);
@@ -319,8 +368,13 @@ public class HollowWatcherEntity extends Monster {
         Vec3 look = target.getLookAngle().multiply(1, 0, 1);
         if (look.lengthSqr() < 1.0e-4) look = new Vec3(0, 0, 1);
         Vec3 base = target.position().subtract(look.normalize().scale(FearLogic.TELEPORT_BEHIND));
+        return groundSpot(level, base.x, Math.floor(target.getY()), base.z);
+    }
+
+    /** A free standing spot on solid ground within 2 blocks of the given height; null if there is none. */
+    private @Nullable Vec3 groundSpot(ServerLevel level, double x, double y, double z) {
         for (int dy : new int[] {0, 1, -1, 2, -2}) {
-            Vec3 p = new Vec3(base.x, Math.floor(target.getY()) + dy, base.z);
+            Vec3 p = new Vec3(x, y + dy, z);
             BlockPos below = BlockPos.containing(p.x, p.y - 0.5, p.z);
             AABB box = this.getDimensions(this.getPose()).makeBoundingBox(p);
             if (level.getBlockState(below).isFaceSturdy(level, below, Direction.UP) && level.noCollision(this, box) && !level.containsAnyLiquid(box)) return p;

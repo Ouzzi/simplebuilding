@@ -51,6 +51,9 @@ public class ModOreGeneration {
                     ModWorldGen.CRACKED_ICE_PATCH_PLACED_KEY);
             BiomeModifications.addFeature(BiomeSelectors.tag(crackedIceBiomes), GenerationStep.Decoration.TOP_LAYER_MODIFICATION,
                     ModWorldGen.CRACKED_ICE_SINGLE_PLACED_KEY);
+            // Sculk-Kiefern auf dem Boden der Deep Dark (N50); NeoForge/Forge: biome_modifier-JSON.
+            BiomeModifications.addFeature(BiomeSelectors.includeByKey(net.minecraft.world.level.biome.Biomes.DEEP_DARK),
+                    GenerationStep.Decoration.UNDERGROUND_DECORATION, ModWorldGen.SCULK_JAW_PLACED_KEY);
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().or(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD))
