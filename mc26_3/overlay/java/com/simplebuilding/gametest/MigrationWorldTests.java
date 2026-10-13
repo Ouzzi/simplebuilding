@@ -102,6 +102,9 @@ public final class MigrationWorldTests {
         if (!ModBlocks.MATERIAL_OCTETS.isEmpty()) blocks.add(ModBlocks.MATERIAL_OCTETS.get(0));
         if (!ModBlocks.WOOD_OCTETS.isEmpty()) blocks.add(ModBlocks.WOOD_OCTETS.get(0));
         if (CrucibleCompat.enderiteCrucible() != null) blocks.add(CrucibleCompat.enderiteCrucible());
+        // Stage 3d: the shared material blocks (SimpleBuilding's before the move, SimpleLib's after).
+        blocks.add(ModBlocks.CRACKED_DIAMOND_BLOCK);
+        blocks.add(ModBlocks.ENDERITE_BLOCK);
         return blocks;
     }
 
@@ -121,7 +124,31 @@ public final class MigrationWorldTests {
         for (Block block : sampleBlocks()) {
             if (block.asItem() != net.minecraft.world.item.Items.AIR) items.add(new ItemStack(block.asItem(), 3));
         }
+        for (net.minecraft.world.item.Item material : materialItems()) items.add(new ItemStack(material, 5));
         return items;
+    }
+
+    /** Stage 3d: the shared material items without their blocks (those are in {@link #sampleBlocks}). */
+    static List<net.minecraft.world.item.Item> materialItems() {
+        return List.of(ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, ModItems.NETHERITE_NUGGET, ModItems.ENDERITE_NUGGET,
+                ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_INGOT,
+                ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE);
+    }
+
+    /** Stage 3d: paths of the recipes of the shared materials (SimpleBuilding's before the move, SimpleLib's after). */
+    static final Set<String> MATERIAL_RECIPES = Set.of("cracked_diamond", "diamond_from_blasting_cracked_diamond",
+            "cracked_diamond_block", "cracked_diamond_from_cracked_diamond_block", "basic_upgrade_template", "netherite_nugget",
+            "netherite_ingot", "enderite_nugget_from_ingot", "enderite_ingot_from_nugget", "layered_raw_enderite",
+            "enderite_scrap_from_blasting_layered_raw_enderite", "enderite_ingot_from_scrap", "enderite_block", "enderite_ingot",
+            "enderite_upgrade_template");
+
+    static boolean materialRecipe(Identifier id) {
+        return MATERIAL_RECIPES.contains(id.getPath()) && (id.getNamespace().equals(Simplebuilding.MOD_ID) || id.getNamespace().equals("simplelib"));
+    }
+
+    static boolean materialRecipeAdvancement(Identifier id) {
+        String path = id.getPath();
+        return path.startsWith("recipes/") && materialRecipe(Identifier.fromNamespaceAndPath(id.getNamespace(), path.substring(path.lastIndexOf('/') + 1)));
     }
 
     static List<ItemStack> sledgehammers() {
@@ -237,15 +264,21 @@ public final class MigrationWorldTests {
     }
 
     static List<RecipeHolder<?>> modRecipes(MinecraftServer server) {
-        return server.getRecipeManager().getRecipes().stream()
+        List<RecipeHolder<?>> out = new ArrayList<>(server.getRecipeManager().getRecipes().stream()
                 .filter(r -> r.id().identifier().getNamespace().equals(Simplebuilding.MOD_ID))
-                .sorted(Comparator.comparing(r -> r.id().identifier().toString())).limit(6).toList();
+                .sorted(Comparator.comparing(r -> r.id().identifier().toString())).limit(6).toList());
+        server.getRecipeManager().getRecipes().stream().filter(r -> materialRecipe(r.id().identifier()) && !out.contains(r))
+                .sorted(Comparator.comparing(r -> r.id().identifier().toString())).forEach(out::add);
+        return out;
     }
 
     static List<AdvancementHolder> modAdvancements(MinecraftServer server) {
-        return server.getAdvancements().getAllAdvancements().stream()
+        List<AdvancementHolder> out = new ArrayList<>(server.getAdvancements().getAllAdvancements().stream()
                 .filter(a -> a.id().getNamespace().equals(Simplebuilding.MOD_ID) && !a.value().criteria().isEmpty())
-                .sorted(Comparator.comparing(a -> a.id().toString())).limit(4).toList();
+                .sorted(Comparator.comparing(a -> a.id().toString())).limit(4).toList());
+        server.getAdvancements().getAllAdvancements().stream().filter(a -> materialRecipeAdvancement(a.id()) && !out.contains(a))
+                .sorted(Comparator.comparing(a -> a.id().toString())).forEach(out::add);
+        return out;
     }
 
     // ===================================================================================== the test
