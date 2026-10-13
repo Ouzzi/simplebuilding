@@ -420,7 +420,7 @@ als `simplebuilding:<Material>` (`migration_world*` grün). Neue Tests: Lib `mod
   brauchen die eigenen).
 - Offen: Loot-Einspeisung und Lib-eigener Reload/Sync (Stufe 4), Sichtbarkeit (Tab/JEI) nach Anfrage, `prices.json`-Umzug.
 
-**Status Stufe 4 (13.10., Branch `claude-split-s4-ovens` auf `claude-wave1`):** _Plan_
+**Status Stufe 4 (13.10., Branch `claude-split-s4-ovens` auf `claude-wave1`):** _Plan_ (vorab)
 - Vorher-Welt zuerst (eigener Commit, Stand vor dem Umzug): `MigrationWorldTests` legt alle drei Familien in mehreren
   Stufen ab (Ofen mit Eingabe/Brennstoff/Ausgabe), dazu `entities.snbt` mit je einer Ofen-Lore je Stufe (Brennstoff,
   Schub), die 8 Ofen-Rezepte im Rezeptbuch und ihre Rezept-Advancements; Fixture neu geschrieben.
@@ -450,6 +450,20 @@ als `simplebuilding:<Material>` (`migration_world*` grün). Neue Tests: Lib `mod
 - Prüfung: Compile 3 Loader + 26.2, Datagen 26.3, SB-Filter furnace*/smelting*/data_integrity*/test_centre*/migration*,
   Modul (3 Loader) + Standalone (Fabric/NeoForge), simplelib-Modul, Wiki --strict, discover/module_guides --check,
   Money-Links --check, check_data.
+
+_Umgesetzt (13.10.):_ wie geplant. Migrationsnachweis: die vor dem Umzug geschriebene Welt (alle drei Familien, laufende
+Öfen mit Inhalt, `entities.snbt` mit drei Ofen-Loren, Ofen-Rezepte im Rezeptbuch und ihre Rezept-Advancements) lädt auf
+allen drei Loadern unter `simpleovens:` und speichert keine alte Ofen-Id mehr (`migration_world*` grün). Neues Modul
+`simpleovens` 1.0.0: 18 Tests (`OvensTests`, u. a. Tempo je Stufe, doppelte Erfahrung, Menüs, Long-Cook-Mixin,
+Axt-Aufwertung allein, Hammer-Klick mit SB, Enderit-Beute allein, Loren, Config-Übernahme, Migration, Discover).
+Abweichungen/Grenzen:
+- Ofen-Loren-Verhalten (Brennstoff, Tempo) prüft auf 26.3 das Modul; `VehicleTests` der SB prüfen es nur noch auf 26.2.
+- SBs Config-Optionen `server.machines.*FurnaceSpeed` wirken auf 26.3 nur noch beim ersten Start (Übernahme nach
+  `config/simpleovens-server.json`); danach gilt die Modul-Config. Ausblenden in SBs Config-Oberfläche offen (Stufe 9).
+- SB listet die Öfen weiter in seinen eigenen Tabs (Testzentrale-Maschinen, Tab-Layout per Id); in den Vanilla-Tabs/
+  Suchtab platziert sie das Modul. Jade-Tempo-Anzeige und JEI-Info nur mit SB (Modul allein: Tooltip).
+- Modul-Version 1.0.0 per `ext.moduleVersion` (SB verlangt `>=1.0.0`).
+- `blast_furnace_bonus` existiert auf 26.3 nicht (nur 1.21.11) – nichts verschoben.
 
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
