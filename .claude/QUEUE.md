@@ -258,6 +258,9 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
 ## Nachtrag 50 (2026-10-13, Besitzer)
+- [ ] End-Biome mit dichtem Nebel; Randbiom + Kern, im Kern spawnen Hollow Watcher (Tag simpleend:watcher_core) – gruseliger Bereich. (claude-endbiome2 + claude-n50-small)
+- [ ] Zittern aktiv, solange Furcht-Mob dich ansieht/getriggert ist; 3–5 Stufen nach Nähe. Watcher besser getarnt. (claude-n50-small)
+- [ ] Sculk Jaws spawnen natürlich im Deep Dark. (claude-n50-small)
 - [ ] Fragentisch-Rezept: unten Mitte zusätzlich Obsidian. (claude-n50-small)
 - [ ] Verdorrter Wither: Beschwörung per Netherit-Helm auf dem MITTLEREN Schädel (vor dem dritten Schädel aufsetzen) statt Netheritblock; zweite, stärkere Stufe mit Enderit-Helm; bei wenig Leben stärkere Witherskelette (mit Rüstung); Rückstoß unter 15 % stark; Drops: Witherherz, 3–5 Netherit- bzw. Enderit-Nuggets, 1–2 Nethersterne. (claude-wither2)
 - [ ] Netherstern + neue Upgrade-Vorlage („Strong Upgrade“) auf Leuchtfeuer: 6 weitere Effekte, 2 Ebenen größer baubar, entsprechend mehr Reichweite; dasselbe für Conduit soweit möglich. (Konzept fertig, alle Empfehlungen übernommen 13.10.; Umsetzung offen)
