@@ -1,0 +1,24 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplelib:raw_enderite",
+    "simplelib:raw_enderite",
+    "simplelib:raw_enderite",
+    "simplelib:raw_enderite"
+  ],
+  "result": {
+    "id": "simplelib:layered_raw_enderite"
+  }
+}

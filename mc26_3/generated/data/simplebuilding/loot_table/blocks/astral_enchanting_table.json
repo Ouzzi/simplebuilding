@@ -20,7 +20,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enderite_nugget"
+          "name": "simplelib:enderite_nugget"
         }
       ],
       "rolls": 1

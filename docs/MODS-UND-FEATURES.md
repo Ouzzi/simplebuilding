@@ -83,7 +83,10 @@ Schmelztiegel (Eisen/Verstärkt/Netherit, beheizt vom Block darunter, Axt-Weg oh
 Tiegel, warmes Essen, verstärkter Kessel (erbt Vanilla-Kessel inkl. Milch), Dorf-Feldküchen, Stapelgrößen-Regel
 (`StackLimits`), UI-Bausteine des Simple-Stils (Kästen, Slots, Symbole, Flammen, Filter-Knopf). Dienste der
 Modulaufteilung: `IdMoves` (ID-Umzüge), Datentyp `in_world_upgrades` mit Übergabe-Handlern und Tags
-`#simplelib:hammers`/`#simplelib:upgrade_tools`, `OctetCells` (Achtelzellen je Material).
+`#simplelib:hammers`/`#simplelib:upgrade_tools`, `OctetCells` (Achtelzellen je Material). Gemeinsame Materialien
+(Stufe 3d, `simplelib:*`, früher SB): Diamantkiesel, Rissiger Diamant (+Block, Amboss-Zerschlagen), Netheritklumpen,
+Enderit-Grundmaterial (Fragment, Platten, Barren, Klumpen, Block), Basis-/Enderit-Aufwertungsvorlage, `c:`-Tags;
+Rezepte/Zerschlagen nur, wenn eine Mod sie anfordert (`requestMaterial`, Condition `simplelib:material_requested`; SB fordert alle an).
 
 ### Simple Interfaces (früher Simple Containers, Sub-Mod von QoL, clientseitige Optik)
 Simple-Stil für Truhen, Fässer, Shulker, Trichter, Werfer/Spender, Crafter, Reittier-Inventare, Arbeitsblöcke

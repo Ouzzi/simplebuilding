@@ -108,7 +108,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             add(hammock, createSinglePropConditionTable(hammock, com.simplebuilding.blocks.custom.HammockBlock.PART,
                     net.minecraft.world.level.block.state.properties.BedPart.HEAD));
         }
-        dropSelf(ModBlocks.CRACKED_DIAMOND_BLOCK);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) dropSelf(ModBlocks.CRACKED_DIAMOND_BLOCK); // 26.3: SimpleLib's loot table
 
         dropSelf(ModBlocks.REINFORCED_HOPPER);
         dropSelf(ModBlocks.NETHERITE_HOPPER);
@@ -152,7 +152,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         add(ModBlocks.ASTRALIT_ORE, createOreDrop(ModBlocks.ASTRALIT_ORE, ModItems.ASTRALIT_DUST));
 
         // Enderite Block -> Droppt sich selbst
-        dropSelf(ModBlocks.ENDERITE_BLOCK);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) dropSelf(ModBlocks.ENDERITE_BLOCK); // 26.3: SimpleLib's loot table
 
         dropSelf(ModBlocks.POLISHED_END_STONE);
         dropSelf(ModBlocks.PURPUR_QUARTZ_CHECKER);

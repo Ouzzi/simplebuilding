@@ -41,7 +41,13 @@ public abstract class IdMovesRecipeBookMixin {
         for (int i = 0; i < keys.size(); i++) {
             ResourceKey<Recipe<?>> key = keys.get(i);
             if (validator.test(key)) continue;
+            // Follow a chain of moves (e.g. a test namespace onto SimpleBuilding, then into SimpleLib); move() refuses loops.
             ResourceKey<Recipe<?>> now = IdMoves.target(key);
+            for (int hop = 0; now != null && !validator.test(now) && hop < 8; hop++) {
+                ResourceKey<Recipe<?>> next = IdMoves.target(now);
+                if (next == null) break;
+                now = next;
+            }
             if (now == null || !validator.test(now)) continue;
             if (out == null) out = new ArrayList<>(keys);
             out.set(i, now);

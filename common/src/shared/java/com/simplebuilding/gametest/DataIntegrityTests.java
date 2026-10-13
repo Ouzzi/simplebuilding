@@ -1438,7 +1438,8 @@ public final class DataIntegrityTests {
         //     rule in ModTags and re-running datagen cannot move expectation and reality together.
         Set<Identifier> byWrittenRule = new TreeSet<>(Comparator.comparing(Identifier::toString));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
-            if (MOD_ID.equals(id.getNamespace())
+            // 26.3: plus SimpleLib's shared enderite materials (split stage 3d), protected as before.
+            if ((MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
                             "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
                     // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
@@ -1642,7 +1643,8 @@ public final class DataIntegrityTests {
                 continue;
             }
             try {
-                if (field.get(null) instanceof Item item) {
+                // 26.3: the shared materials are SimpleLib's (split stage 3d) - SimpleLib's own checks cover them.
+                if (field.get(null) instanceof Item item && !com.simplebuilding.util.SharedMaterials.isShared(item)) {
                     items.add(item);
                 }
             } catch (IllegalAccessException e) {
@@ -1685,7 +1687,7 @@ public final class DataIntegrityTests {
                 continue;
             }
             try {
-                if (field.get(null) instanceof Block block) {
+                if (field.get(null) instanceof Block block && !com.simplebuilding.util.SharedMaterials.isShared(block)) {
                     blocks.add(block);
                 }
             } catch (IllegalAccessException e) {
@@ -2662,7 +2664,8 @@ public final class DataIntegrityTests {
             }
         });
         for (Item item : where.keySet()) {
-            if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)) {
+            if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)
+                    && !com.simplebuilding.util.SharedMaterials.isShared(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
@@ -2782,7 +2785,8 @@ public final class DataIntegrityTests {
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             ModItemGroupsContent.populate(tab, (CreativeModeTab.Output) (stack, visibility) -> {
                 if (!stack.is(ModItems.CREATIVE_SPACER) && !stack.is(Items.ENCHANTED_BOOK)
-                        && MOD_ID.equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace())) {
+                        && (MOD_ID.equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace())
+                        || com.simplebuilding.util.SharedMaterials.isShared(stack.getItem()))) {
                     inModTabs.add(stack.getItem());
                 }
             }, helper.getLevel().registryAccess());
@@ -3343,7 +3347,9 @@ public final class DataIntegrityTests {
 
         Set<String> found = new TreeSet<>();
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
-            if (!MOD_ID.equals(id.getNamespace()) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
+            boolean shared = com.simplebuilding.version.McVersion.MATERIALS_IN_LIB
+                    && com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace());
+            if ((!MOD_ID.equals(id.getNamespace()) && !shared) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
                 continue;
             }
             Item item = BuiltInRegistries.ITEM.getValue(id);
@@ -5336,6 +5342,8 @@ public final class DataIntegrityTests {
         }
         for (Map.Entry<String, String[]> twin : vanillaTwins.entrySet()) {
             Item item = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(MOD_ID, twin.getKey()));
+            // 26.3: shared materials are named in SimpleLib's lang files (same texts, modules/simplelib/tools/check_data.py).
+            if (com.simplebuilding.util.SharedMaterials.isShared(item)) continue;
             String key = item.getDescriptionId();
             if (!twin.getValue()[0].equals(en.has(key) ? en.get(key).getAsString() : null)
                     || !twin.getValue()[1].equals(de.has(key) ? de.get(key).getAsString() : null)) {

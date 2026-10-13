@@ -72,12 +72,13 @@ public class ModBlocks {
             )
     );
 
-    public static final Block CRACKED_DIAMOND_BLOCK = registerBlock("cracked_diamond_block",
+    // 26.3: SimpleLib's block (shared materials, util/SharedMaterials - split stage 3d).
+    public static final Block CRACKED_DIAMOND_BLOCK = com.simplebuilding.util.SharedMaterials.block("cracked_diamond_block", () -> registerBlock("cracked_diamond_block",
             unused -> new Block(
                     BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK)
                     .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "cracked_diamond_block")))
                     .strength(7.0F, 14.0F)
-            ));
+            )));
 
 
 
@@ -746,7 +747,7 @@ public class ModBlocks {
                 CHISELED_BLUE_ICE, NAUTILUS_SHELL_BLOCK, SCARLET_FROGLIGHT, AQUA_FROGLIGHT, AZURE_FROGLIGHT) : List.of();
     }
 
-    public static final Block ENDERITE_BLOCK = registerBlock("enderite_block", unused -> new Block(BlockBehaviour.Properties.of().setId(keyOf("enderite_block")).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(50.0f, 1200.0f).sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block ENDERITE_BLOCK = com.simplebuilding.util.SharedMaterials.block("enderite_block", () -> registerBlock("enderite_block", unused -> new Block(BlockBehaviour.Properties.of().setId(keyOf("enderite_block")).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(50.0f, 1200.0f).sound(SoundType.NETHERITE_BLOCK))));
     public static final Block NIHILITH_ORE = registerBlock("nihilith_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("nihilith_ore")).strength(25.0f, 1200.0f).requiresCorrectToolForDrops()));
     /**
      * Weisheitserz (Besitzer 2026-10-01): selten wie Diamant, droppt nur Erfahrung (3-7 wie Diamanterz) und

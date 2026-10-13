@@ -1,0 +1,29 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "upgrade_templates"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "upgrade_templates"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": "minecraft:diamond",
+    "E": "minecraft:end_stone",
+    "T": "simplelib:enderite_upgrade_template"
+  },
+  "pattern": [
+    "ATA",
+    "AEA",
+    "AAA"
+  ],
+  "result": {
+    "count": 2,
+    "id": "simplelib:enderite_upgrade_template"
+  }
+}

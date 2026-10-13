@@ -788,6 +788,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 buildTweaksRecipes();
 
 
+                if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib ships these (shared materials, split stage 3d)
                 shaped(RecipeCategory.MISC, ModItems.CRACKED_DIAMOND)
                         .pattern("PPP")
                         .pattern("PPP")
@@ -797,6 +798,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .save(output);
 
                 oreBlasting(java.util.List.of(ModItems.CRACKED_DIAMOND), RecipeCategory.MISC, net.minecraft.world.item.crafting.CookingBookCategory.MISC, Items.DIAMOND, 1.0f, fastMachineTicks(100), "diamond_from_cracked");
+                }
 
 
                 // Construction light recipe - lapis light
@@ -811,6 +813,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .save(output);
 
 
+                if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib ships these (shared materials, split stage 3d)
                 shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.CRACKED_DIAMOND_BLOCK)
                         .pattern("CCC")
                         .pattern("CCC")
@@ -818,6 +821,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('C', ModItems.CRACKED_DIAMOND)
                         .unlockedBy(getHasName(ModItems.CRACKED_DIAMOND), has(ModItems.CRACKED_DIAMOND)).save(output);
                 oneToOneConversionRecipe(ModItems.CRACKED_DIAMOND, ModItems.CRACKED_DIAMOND_BLOCK, "cracked_diamond_from_block", 9);
+                }
 
 
                 // =================================================================
@@ -986,6 +990,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.SMOKER), has(Items.SMOKER))
                         .save(output);
 
+                if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib ships these (shared materials, split stage 3d)
                 shaped(RecipeCategory.MISC, ModItems.BASIC_UPGRADE_TEMPLATE, 2)
                         .pattern("ABA")
                         .pattern("ACA")
@@ -994,11 +999,13 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('B', ModItems.BASIC_UPGRADE_TEMPLATE) // Das Original
                         .define('C', Items.IRON_BLOCK) // Iron Block Core
                         .unlockedBy(getHasName(ModItems.BASIC_UPGRADE_TEMPLATE), has(ModItems.BASIC_UPGRADE_TEMPLATE)).save(output);
+                }
 
 
                 // =================================================================
                 // NETHERITE NUGGET <-> INGOT RECIPES
                 // =================================================================
+                if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib ships these (shared materials, split stage 3d)
                 shapeless(RecipeCategory.MISC, ModItems.NETHERITE_NUGGET, 9)
                         .requires(Items.NETHERITE_INGOT)
                         .unlockedBy(getHasName(Items.NETHERITE_INGOT), has(Items.NETHERITE_INGOT))
@@ -1026,6 +1033,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
                         .unlockedBy(getHasName(ModItems.ENDERITE_INGOT), has(ModItems.ENDERITE_INGOT))
                         .save(output, "enderite_ingot_from_nugget");
+                }
 
 
                 // =================================================================
@@ -1137,6 +1145,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // --- 2. Schichten: 4 Rohenderit (Formlos) -> Geschichtetes Rohenderit ---
                 // Besitzer 2026-09-29: Rohenderit schmilzt nicht mehr direkt zu Schrott.
                 // Besitzer 2026-10-07: vier Rohenderit in beliebiger Anordnung statt der 3er-Saeule.
+                if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib ships these (shared materials, split stage 3d)
                 shapeless(RecipeCategory.MISC, ModItems.LAYERED_RAW_ENDERITE)
                         .requires(ModItems.RAW_ENDERITE, 4)
                         .unlockedBy(getHasName(ModItems.RAW_ENDERITE), has(ModItems.RAW_ENDERITE))
@@ -1165,8 +1174,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // --- 4. Enderite Block ---
                 nineBlockStorageRecipes(RecipeCategory.BUILDING_BLOCKS, ModItems.ENDERITE_INGOT, RecipeCategory.DECORATIONS, ModBlocks.ENDERITE_BLOCK);
+                }
 
                 // --- 5. Duplizierung des Templates ---
+                if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib ships these (shared materials, split stage 3d)
                 shaped(RecipeCategory.MISC, ModItems.ENDERITE_UPGRADE_TEMPLATE, 2)
                         .pattern("ATA")
                         .pattern("AEA")
@@ -1175,6 +1186,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('E', Items.END_STONE) // End Stone
                         .define('T', ModItems.ENDERITE_UPGRADE_TEMPLATE)
                         .unlockedBy(getHasName(ModItems.ENDERITE_UPGRADE_TEMPLATE), has(ModItems.ENDERITE_UPGRADE_TEMPLATE)).save(output);
+                }
 
                 // --- 6. Smithing Upgrades (Netherite -> Enderite) ---
                 List<Item> netheriteItems = List.of(

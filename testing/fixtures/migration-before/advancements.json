@@ -23,5 +23,114 @@
     },
     "done": true
   },
+  "simplebuilding:recipes/building_blocks/cracked_diamond_block": {
+    "criteria": {
+      "has_cracked_diamond": "2026-10-11 12:00:00 +0000",
+      "has_the_recipe": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/building_blocks/enderite_ingot": {
+    "criteria": {
+      "has_enderite_block": "2026-10-11 12:00:00 +0000",
+      "has_the_recipe": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/decorations/enderite_block": {
+    "criteria": {
+      "has_the_recipe": "2026-10-11 12:00:00 +0000",
+      "has_enderite_ingot": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/basic_upgrade_template": {
+    "criteria": {
+      "has_the_recipe": "2026-10-11 12:00:00 +0000",
+      "has_basic_upgrade_template": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/cracked_diamond": {
+    "criteria": {
+      "has_the_recipe": "2026-10-11 12:00:00 +0000",
+      "has_diamond_pebble": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/cracked_diamond_from_cracked_diamond_block": {
+    "criteria": {
+      "has_the_recipe": "2026-10-11 12:00:00 +0000",
+      "has_cracked_diamond_block": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/diamond_from_blasting_cracked_diamond": {
+    "criteria": {
+      "has_cracked_diamond": "2026-10-11 12:00:00 +0000",
+      "has_the_recipe": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/enderite_ingot_from_nugget": {
+    "criteria": {
+      "has_the_recipe": "2026-10-11 12:00:00 +0000",
+      "has_enderite_nugget": "2026-10-11 12:00:00 +0000",
+      "has_enderite_ingot": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/enderite_ingot_from_scrap": {
+    "criteria": {
+      "has_enderite_scrap": "2026-10-11 12:00:00 +0000",
+      "has_the_recipe": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/enderite_nugget_from_ingot": {
+    "criteria": {
+      "has_the_recipe": "2026-10-11 12:00:00 +0000",
+      "has_enderite_nugget": "2026-10-11 12:00:00 +0000",
+      "has_enderite_ingot": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/enderite_scrap_from_blasting_layered_raw_enderite": {
+    "criteria": {
+      "has_layered_raw_enderite": "2026-10-11 12:00:00 +0000",
+      "has_the_recipe": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/enderite_upgrade_template": {
+    "criteria": {
+      "has_enderite_upgrade_template": "2026-10-11 12:00:00 +0000",
+      "has_the_recipe": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/layered_raw_enderite": {
+    "criteria": {
+      "has_the_recipe": "2026-10-11 12:00:00 +0000",
+      "has_raw_enderite": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/netherite_ingot": {
+    "criteria": {
+      "has_netherite_ingot": "2026-10-11 12:00:00 +0000",
+      "has_the_recipe": "2026-10-11 12:00:00 +0000",
+      "has_netherite_nugget": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
+  "simplebuilding:recipes/misc/netherite_nugget": {
+    "criteria": {
+      "has_netherite_ingot": "2026-10-11 12:00:00 +0000",
+      "has_the_recipe": "2026-10-11 12:00:00 +0000",
+      "has_netherite_nugget": "2026-10-11 12:00:00 +0000"
+    },
+    "done": true
+  },
   "DataVersion": 5023
 }

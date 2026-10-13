@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "B": "minecraft:bucket",
-    "N": "simplebuilding:enderite_nugget"
+    "N": "simplelib:enderite_nugget"
   },
   "pattern": [
     "NNN",

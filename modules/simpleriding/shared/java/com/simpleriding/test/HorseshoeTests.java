@@ -72,7 +72,7 @@ public final class HorseshoeTests {
    h.assertTrue(fireproof==(t==Tier.NETHERITE||t==Tier.ENDERITE),"Fire resistance only for Netherite/Enderite "+t);
   }
   h.assertTrue(new ItemStack(shoe(Tier.IRON)).isValidRepairItem(new ItemStack(Items.IRON_INGOT)),"Iron repairs iron horseshoes");
-  if(Riding.SIMPLEBUILDING)h.assertTrue(new ItemStack(shoe(Tier.ENDERITE)).isValidRepairItem(new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot")))),"Enderite ingot repairs Enderite horseshoes");
+  if(Riding.SIMPLEBUILDING)h.assertTrue(new ItemStack(shoe(Tier.ENDERITE)).isValidRepairItem(enderiteIngot()),"Enderite ingot repairs Enderite horseshoes");
   var menu=new AnvilMenu(0,h.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE).getInventory());
   menu.getSlot(0).set(new ItemStack(shoe(Tier.DIAMOND)));menu.getSlot(1).set(EnchantmentHelper.createBook(new EnchantmentInstance(ench(h,Enchantments.MENDING),1)));menu.createResult();
   h.assertTrue(EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.MENDING),menu.getSlot(2).getItem())==1,"Real anvil applies Mending");
@@ -95,8 +95,8 @@ public final class HorseshoeTests {
   var netherite=smith(h,"netherite_horseshoe_smithing",diamond,new ItemStack(Items.NETHERITE_INGOT));
   h.assertTrue(netherite.is(shoe(Tier.NETHERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),netherite)==3&&netherite.getDamageValue()==7,"Netherite upgrade keeps enchantments and wear");
   if(Riding.SIMPLEBUILDING){
-  var enderiteIngot=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot")));
-  h.assertTrue(enderiteIngot.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,Identifier.parse("c:ingots/enderite"))),"SimpleBuilding publishes the common Enderite ingot tag");
+  var enderiteIngot=enderiteIngot();
+  h.assertTrue(!enderiteIngot.isEmpty(),"the common Enderite ingot tag c:ingots/enderite holds an ingot");
   var enderite=smith(h,"enderite_horseshoe_smithing",netherite,enderiteIngot);
   h.assertTrue(enderite.is(shoe(Tier.ENDERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),enderite)==3,"Enderite upgrade with SimpleBuilding");
   }else h.assertTrue(h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,Riding.id("enderite_horseshoe_smithing"))).isEmpty(),"Without SimpleBuilding the Enderite recipe stays unloaded");
@@ -349,5 +349,10 @@ public final class HorseshoeTests {
    h.assertTrue(pools.isEmpty()&&RidingLoot.archaeology(rare,hit,new ItemStack(Items.BRICK),h.getLevel().registryAccess()).is(Items.BRICK),"Loot switch disables horseshoe loot");
   }finally{Riding.CONFIG=original;}
   h.succeed();
+ }
+ /** The Enderite ingot through the common tag (principle 6, plan stage 3d) - never a fixed mod id. */
+ static ItemStack enderiteIngot(){
+  var tag=net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,Identifier.parse("c:ingots/enderite"));
+  return BuiltInRegistries.ITEM.get(tag).flatMap(set->set.stream().findFirst()).map(holder->new ItemStack(holder.value())).orElse(ItemStack.EMPTY);
  }
 }

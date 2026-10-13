@@ -18,7 +18,10 @@ public final class SimpleLibFabric implements ModInitializer {
         SimpleLib.init(FabricLoader.getInstance().getConfigDir());
         LibComponents.register();
         LibBlocks.register();
+        com.simplelib.registry.LibMaterials.ensureBlocks();
         LibItems.register();
+        com.simplelib.registry.LibMaterials.ensureItems();
+        MaterialConditionFabric.register();
         // Valid for every crucible/barrel block, including partner tiers registered later (load order free).
         LibBlockEntities.register(new net.minecraft.world.level.block.entity.BlockEntityType<>(CrucibleBlockEntity::new, java.util.Set.of(LibBlocks.crucibles())) {
             @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return LibBlockEntities.isCrucible(state); }

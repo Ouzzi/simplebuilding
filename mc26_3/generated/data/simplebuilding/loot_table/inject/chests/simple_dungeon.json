@@ -88,7 +88,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:basic_upgrade_template",
+          "name": "simplelib:basic_upgrade_template",
           "weight": 2
         },
         {
@@ -101,7 +101,7 @@
               "min": 1
             }
           },
-          "name": "simplebuilding:diamond_pebble",
+          "name": "simplelib:diamond_pebble",
           "weight": 6
         },
         {

@@ -1,0 +1,28 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "enderite"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": "minecraft:diamond",
+    "N": "minecraft:netherite_ingot",
+    "S": "simplelib:enderite_scrap"
+  },
+  "pattern": [
+    "SDS",
+    "DND",
+    "SDS"
+  ],
+  "result": {
+    "id": "simplelib:enderite_ingot"
+  }
+}

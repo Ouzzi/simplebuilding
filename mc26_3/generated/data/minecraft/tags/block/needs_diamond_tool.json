@@ -10,6 +10,6 @@
     "simplebuilding:blazing_obsidian",
     "simplebuilding:nihilith_ore",
     "simplebuilding:astralit_ore",
-    "simplebuilding:enderite_block"
+    "simplelib:enderite_block"
   ]
 }

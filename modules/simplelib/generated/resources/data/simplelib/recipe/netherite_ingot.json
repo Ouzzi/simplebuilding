@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "netherite_nugget"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "netherite_nugget"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "N": "simplelib:netherite_nugget"
+  },
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "result": {
+    "id": "minecraft:netherite_ingot"
+  }
+}

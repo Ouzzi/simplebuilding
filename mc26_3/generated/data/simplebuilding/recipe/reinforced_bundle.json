@@ -1,0 +1,18 @@
+{
+  "type": "simplebuilding:reinforced_bundle",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:bundle",
+    "D": "simplelib:diamond_pebble",
+    "S": "minecraft:string",
+    "X": "simplebuilding:leather_sheet"
+  },
+  "pattern": [
+    "DSD",
+    "DBD",
+    "DXD"
+  ],
+  "result": {
+    "id": "simplebuilding:reinforced_bundle"
+  }
+}

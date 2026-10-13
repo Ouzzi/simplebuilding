@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:netherite_nugget"
+            "items": "simplelib:netherite_nugget"
           }
         ]
       },

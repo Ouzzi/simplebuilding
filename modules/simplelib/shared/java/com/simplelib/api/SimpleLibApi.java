@@ -260,6 +260,49 @@ public final class SimpleLibApi {
         return out.toString();
     }
 
+    // ------------------------------------------------------------ shared materials (split stage 3d)
+
+    /**
+     * Requests a shared material group: {@code "cracked_diamond"} (diamond pebble, cracked diamond and its block, the
+     * anvil crushing), {@code "netherite_nugget"}, {@code "enderite"} (raw enderite, layered raw enderite, scrap, ingot,
+     * nugget, block), {@code "upgrade_templates"} (basic and enderite upgrade). The items are always registered; their
+     * recipes (condition {@code simplelib:material_requested}) and the anvil crushing only exist once a loaded mod
+     * requested the group. Call it in the mod constructor / initializer, before data packs load.
+     */
+    public static void requestMaterial(String group) {
+        com.simplelib.registry.LibMaterials.request(group);
+    }
+
+    public static boolean materialRequested(String group) {
+        return com.simplelib.registry.LibMaterials.requested(group);
+    }
+
+    /** A shared material item by path ({@code "enderite_ingot"}); registers the materials first if needed (any load order). */
+    public static net.minecraft.world.item.Item materialItem(String id) {
+        return com.simplelib.registry.LibMaterials.item(id);
+    }
+
+    /** A shared material block by path ({@code "enderite_block"}, {@code "cracked_diamond_block"}). */
+    public static Block materialBlock(String id) {
+        return com.simplelib.registry.LibMaterials.block(id);
+    }
+
+    /** Whether automation at {@code source} may change {@code target} (claims). */
+    @FunctionalInterface
+    public interface AutomationCheck {
+        boolean allows(ServerLevel level, BlockPos source, BlockPos target);
+    }
+
+    /** Who may let a falling anvil crush a diamond block (claims); null = default, framework {@code Protection}. */
+    public static void setAutomationCheck(@Nullable AutomationCheck check) {
+        com.simplelib.material.AnvilCrushing.setAutomationCheck(check);
+    }
+
+    /** Pebbles one crushed diamond block drops (wiki, JEI). */
+    public static int anvilPebbles() {
+        return com.simplelib.material.AnvilCrushing.PEBBLES;
+    }
+
     // ------------------------------------------------------------ reinforced cauldron
 
     /** The reinforced cauldron (SimpleLib), or null before registration. */

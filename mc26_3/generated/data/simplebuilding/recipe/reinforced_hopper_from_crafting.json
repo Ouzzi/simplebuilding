@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "minecraft:hopper",
+    "simplelib:cracked_diamond",
+    "minecraft:name_tag"
+  ],
+  "result": {
+    "id": "simplebuilding:reinforced_hopper"
+  }
+}

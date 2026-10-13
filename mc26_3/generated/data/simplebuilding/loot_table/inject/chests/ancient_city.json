@@ -83,7 +83,7 @@
               "min": 1
             }
           },
-          "name": "simplebuilding:netherite_nugget",
+          "name": "simplelib:netherite_nugget",
           "weight": 4
         },
         {
@@ -96,7 +96,7 @@
               "min": 2
             }
           },
-          "name": "simplebuilding:diamond_pebble",
+          "name": "simplelib:diamond_pebble",
           "weight": 6
         },
         {

@@ -777,5 +777,23 @@ public final class SandwichTests {
         ALL.put("discover_recipe_unlocks", com.simplesandwiches.discover.SandwichDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplesandwiches.discover.SandwichDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplesandwiches.discover.SandwichDiscover::firstPickupTips);
+        ALL.put("no_enderite_without_requester", SandwichTests::noEnderiteWithoutRequester);
+    }
+
+    /**
+     * Split stage 3d: Simple Sandwiches requests no shared material, so alone it brings no Enderite into the world - the
+     * items exist (SimpleLib registers them, worlds stay loadable) but no recipe makes them (checked by id, no SimpleLib import). With SimpleBuilding (which
+     * requests every material) they are there.
+     */
+    static void noEnderiteWithoutRequester(GameTestHelper h) {
+        boolean sb = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"));
+        var recipes = h.getLevel().getServer().getRecipeManager();
+        for (String id : java.util.List.of("enderite_ingot_from_scrap", "enderite_scrap_from_blasting_layered_raw_enderite", "enderite_block")) {
+            boolean present = recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", id))).isPresent();
+            h.assertTrue(present == sb, "simplelib:" + id + " present=" + present + " with SimpleBuilding=" + sb);
+        }
+        h.succeed();
     }
 }

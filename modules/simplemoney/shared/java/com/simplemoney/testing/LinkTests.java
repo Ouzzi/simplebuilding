@@ -44,7 +44,10 @@ public final class LinkTests {
             for (int i = 0; i < 4096 && offer == null; i++) offer = trade.getOffer(context);
             h.assertTrue(offer != null, "scarce offer eventually appears " + p.item());
             h.assertValueEqual(offer.getCostA().getCount(), MoneyLinks.buy(p), "server formula " + p.item());
-            h.assertValueEqual(BuiltInRegistries.ITEM.getKey(offer.getResult().getItem()).toString(), p.item(), "foreign result");
+            // By registry lookup, not by spelling: a priced id that moved (SimpleBuilding's shared materials are SimpleLib's since
+            // the split, stage 3d) resolves through SimpleLib's id moves and the offer hands out the item under its new id.
+            h.assertValueEqual(BuiltInRegistries.ITEM.getKey(offer.getResult().getItem()).toString(),
+                    BuiltInRegistries.ITEM.getKey(BuiltInRegistries.ITEM.getValue(Identifier.parse(p.item()))).toString(), "foreign result " + p.item());
             h.assertValueEqual(offer.getResult().getCount(), 1, "bounded quantity");
             h.assertTrue(offer.getMaxUses() <= 4 && offer.getXp() == 0, "stock and XP bounds");
             int base = offer.getCostA().getCount(); offer.setSpecialPriceDiff(-1000000);

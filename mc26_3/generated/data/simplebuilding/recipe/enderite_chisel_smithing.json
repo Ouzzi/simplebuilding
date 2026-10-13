@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplelib:enderite_ingot",
+  "base": "simplebuilding:netherite_chisel",
+  "result": {
+    "id": "simplebuilding:enderite_chisel"
+  },
+  "template": "simplelib:enderite_upgrade_template"
+}

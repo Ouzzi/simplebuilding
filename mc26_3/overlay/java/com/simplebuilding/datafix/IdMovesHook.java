@@ -50,6 +50,19 @@ public final class IdMovesHook {
             IdMoves.move(Registries.BLOCK, old, vanilla);
         });
         IdMoves.moveNamespace(TEST_NAMESPACE, Simplebuilding.MOD_ID);
+        // Split stage 3d: the shared materials now belong to SimpleLib - items, blocks, their recipes (recipe book) and
+        // recipe advancements (progress). Loot tables of the blocks follow the block ids; tags resolve through the moves.
+        String lib = "simplelib";
+        for (String path : com.simplebuilding.util.SharedMaterials.ITEMS) moveTo(Registries.ITEM, path, lib, path);
+        for (String path : com.simplebuilding.util.SharedMaterials.BLOCKS) moveTo(Registries.BLOCK, path, lib, path);
+        com.simplebuilding.util.SharedMaterials.RECIPES.forEach((path, folder) -> {
+            moveTo(Registries.RECIPE, path, lib, path);
+            moveTo(Registries.ADVANCEMENT, "recipes/" + folder + "/" + path, lib, "recipes/" + folder + "/" + path);
+        });
+    }
+
+    private static void moveTo(ResourceKey<? extends Registry<?>> registry, String oldPath, String namespace, String newPath) {
+        IdMoves.move(registry, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath), Identifier.fromNamespaceAndPath(namespace, newPath));
     }
 
     private static void move(ResourceKey<? extends Registry<?>> registry, Map<String, String> paths) {
