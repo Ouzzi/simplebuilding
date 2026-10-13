@@ -407,6 +407,8 @@ public final class RedstoneLinesTests {
             devices.get(i).place().accept(helper, slot.east(2));
         }
         reshape(helper);
+        // A diode only looks at its input on a neighbour update (setBlock placed it unpowered): poke every device.
+        for (int i = 0; i < devices.size(); i++) helper.getLevel().updateNeighborsAt(helper.absolutePos(slots.get(i).east()), Blocks.AIR);
         helper.startSequence().thenIdle(12).thenExecute(() -> {
             for (int i = 0; i < devices.size(); i++) {
                 BlockPos at = slots.get(i).east(2);
@@ -453,7 +455,8 @@ public final class RedstoneLinesTests {
         for (Block block : blocks) {
             sequence = sequence.thenExecute(() -> {
                 for (int i = 0; i < devices.size(); i++) helper.setBlock(slots.get(i).east(), block);
-            }).thenIdle(12).thenExecute(() -> {
+            // Checked within the End pistons' cooldown: an Astral piston that fired has pushed the block away again.
+            }).thenIdle(6).thenExecute(() -> {
                 for (int i = 0; i < devices.size(); i++) {
                     BlockPos at = slots.get(i).east(2);
                     helper.assertTrue(devices.get(i).on().test(helper.getBlockState(at)),

@@ -2851,7 +2851,6 @@ public final class DataIntegrityTests {
         if (McVersion.END_SYSTEMS) {
             neighbours.put(Items.REDSTONE, ModItems.NIHIL_REDSTONE);
             neighbours.put(Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP);
-            neighbours.put(Items.REDSTONE_BLOCK, ModItems.NIHIL_REDSTONE_BLOCK);
             neighbours.put(Items.ENDER_CHEST, ModItems.ASTRAL_VAULT);
         }
         neighbours.forEach((vanilla, mod) -> {

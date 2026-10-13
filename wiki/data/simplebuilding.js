@@ -3574,7 +3574,7 @@ window.WIKI_DATA = {
           "The lines stay apart: dust only takes signal from dust of its own line. It never reads dust of another line, neither directly nor through a block that dust powers, and dust of different lines does not connect visually. Devices take every line: lamps, pistons, doors, dispensers, repeaters, comparators, the mod's machines and the End pistons, End rails and line lamps react to redstone, Astral, Nihil and Bridge Redstone alike. Repeaters, comparators, torches and other components are neutral: whatever line powers them, their output feeds every line.",
           "Bridge Redstone connects to all three lines and passes the signal on like one shared wire, one level weaker per block. Redstone dust reads a bridge only from the side next to it, not across a slope.",
           "The former Astralit and Nihilit Signal Switches are gone: placed or carried ones become a lever. The Astral Lamp and the Nihilith Lamp are back under their old ids (a redstone lamp plus Astral or Nihil Redstone crafts one): a lamp takes every line - dust of any line beside it or on top of it, levers, buttons, redstone blocks and the line blocks - and toggles like a copper bulb: each pulse switches it on or off (light 15).",
-          "Nine Astral, Nihil or Bridge Redstone craft an Astral, Nihil or Bridge Redstone Block, and the block gives the nine back. Like the redstone block it is a permanent source (signal 15 to every side, no strong power, pistons push it): it feeds dust of its own line and Bridge Redstone only - the Bridge Redstone Block feeds all three lines - and every device next to it. Switched off with server.features.endSignals.",
+          "Nine Astral, Nihil or Bridge Redstone craft a Block of Astral, Nihil or Bridge Redstone, and the block gives the nine back. Like the redstone block it is a permanent source (signal 15 to every side, no strong power, pistons push it): it feeds dust of its own line and Bridge Redstone only - the Block of Bridge Redstone feeds all three lines - and every device next to it. Switched off with server.features.endSignals.",
           "server.features.endSignals (default true) switched off: Astral, Nihil and Bridge Redstone carry no signal and their recipes disappear on datapack reload.",
           "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They take every line - dust of any line lying next to them, levers, redstone blocks and the line blocks - and relay nothing; they fire when the signal switches on, not while it stays on.",
           "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End pistons, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
@@ -4594,7 +4594,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astral_redstone_block",
       "name": {
-        "en_us": "Astral Redstone Block",
+        "en_us": "Block of Astral Redstone",
         "de_de": "Astral-Redstone-Block"
       },
       "texture": "assets/textures/block/astral_redstone_block.png",
@@ -4613,7 +4613,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
         ],
         "en": {
-          "title": "Astral Redstone Block",
+          "title": "Block of Astral Redstone",
           "summary": "Nine Astral Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Astral) and Bridge Redstone and every device.",
           "details": [
             "Nine Astral Redstone craft one; one gives the nine back.",
@@ -8570,7 +8570,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:bridge_redstone_block",
       "name": {
-        "en_us": "Bridge Redstone Block",
+        "en_us": "Block of Bridge Redstone",
         "de_de": "Brücken-Redstone-Block"
       },
       "texture": "assets/textures/block/bridge_redstone_block.png",
@@ -8589,7 +8589,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
         ],
         "en": {
-          "title": "Bridge Redstone Block",
+          "title": "Block of Bridge Redstone",
           "summary": "Nine Bridge Redstone as a block: a permanent source like the redstone block that feeds the dust of all three lines (redstone, Astral, Nihil) and Bridge Redstone and every device.",
           "details": [
             "Nine Bridge Redstone craft one; one gives the nine back.",
@@ -31029,7 +31029,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihil_redstone_block",
       "name": {
-        "en_us": "Nihil Redstone Block",
+        "en_us": "Block of Nihil Redstone",
         "de_de": "Nihil-Redstone-Block"
       },
       "texture": "assets/textures/block/nihil_redstone_block.png",
@@ -31048,7 +31048,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
         ],
         "en": {
-          "title": "Nihil Redstone Block",
+          "title": "Block of Nihil Redstone",
           "summary": "Nine Nihil Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Nihil) and Bridge Redstone and every device.",
           "details": [
             "Nine Nihil Redstone craft one; one gives the nine back.",
@@ -50520,7 +50520,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astral_redstone_block",
       "name": {
-        "en_us": "Astral Redstone Block",
+        "en_us": "Block of Astral Redstone",
         "de_de": "Astral-Redstone-Block"
       },
       "texture": "assets/textures/block/astral_redstone_block.png",
@@ -50543,7 +50543,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
         ],
         "en": {
-          "title": "Astral Redstone Block",
+          "title": "Block of Astral Redstone",
           "summary": "Nine Astral Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Astral) and Bridge Redstone and every device.",
           "details": [
             "Nine Astral Redstone craft one; one gives the nine back.",
@@ -53125,7 +53125,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:bridge_redstone_block",
       "name": {
-        "en_us": "Bridge Redstone Block",
+        "en_us": "Block of Bridge Redstone",
         "de_de": "Brücken-Redstone-Block"
       },
       "texture": "assets/textures/block/bridge_redstone_block.png",
@@ -53148,7 +53148,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
         ],
         "en": {
-          "title": "Bridge Redstone Block",
+          "title": "Block of Bridge Redstone",
           "summary": "Nine Bridge Redstone as a block: a permanent source like the redstone block that feeds the dust of all three lines (redstone, Astral, Nihil) and Bridge Redstone and every device.",
           "details": [
             "Nine Bridge Redstone craft one; one gives the nine back.",
@@ -67229,7 +67229,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihil_redstone_block",
       "name": {
-        "en_us": "Nihil Redstone Block",
+        "en_us": "Block of Nihil Redstone",
         "de_de": "Nihil-Redstone-Block"
       },
       "texture": "assets/textures/block/nihil_redstone_block.png",
@@ -67252,7 +67252,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
         ],
         "en": {
-          "title": "Nihil Redstone Block",
+          "title": "Block of Nihil Redstone",
           "summary": "Nine Nihil Redstone as a block: a permanent source like the redstone block that feeds the dust of its own line (Nihil) and Bridge Redstone and every device.",
           "details": [
             "Nine Nihil Redstone craft one; one gives the nine back.",
