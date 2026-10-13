@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemoney:special_paper_from_crafting_table"
+        "recipes": "simplemoney:special_paper_from_crafting_table"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

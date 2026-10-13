@@ -43,7 +43,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemaps:wayfinder_map"
+        "recipes": "simplemaps:wayfinder_map"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

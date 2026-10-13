@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:astral_redstone"
+        "recipes": "simplebuilding:astral_redstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

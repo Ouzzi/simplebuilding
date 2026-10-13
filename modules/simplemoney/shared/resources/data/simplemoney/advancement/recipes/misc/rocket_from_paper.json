@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemoney:rocket_from_paper"
+        "recipes": "simplemoney:rocket_from_paper"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

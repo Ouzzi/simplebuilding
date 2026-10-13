@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:gunpowder_from_sulfur"
+        "recipes": "simplebuilding:gunpowder_from_sulfur"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

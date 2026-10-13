@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplesandwiches:crimson_cutting_board"
+        "recipes": "simplesandwiches:crimson_cutting_board"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemobs:soulfire_powder"
+        "recipes": "simplemobs:soulfire_powder"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

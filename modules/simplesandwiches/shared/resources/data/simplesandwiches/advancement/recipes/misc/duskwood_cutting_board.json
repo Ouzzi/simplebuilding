@@ -43,7 +43,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplesandwiches:duskwood_cutting_board"
+        "recipes": "simplesandwiches:duskwood_cutting_board"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

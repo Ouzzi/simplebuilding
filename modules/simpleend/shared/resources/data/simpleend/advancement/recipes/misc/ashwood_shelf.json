@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:ashwood_shelf"
+        "recipes": "simpleend:ashwood_shelf"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplesandwiches:mangrove_cutting_board"
+        "recipes": "simplesandwiches:mangrove_cutting_board"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:duskwood_slab"
+        "recipes": "simpleend:duskwood_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

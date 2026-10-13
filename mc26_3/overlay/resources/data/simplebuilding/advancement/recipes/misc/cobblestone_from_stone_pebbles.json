@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:cobblestone_from_stone_pebbles"
+        "recipes": "simplebuilding:cobblestone_from_stone_pebbles"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

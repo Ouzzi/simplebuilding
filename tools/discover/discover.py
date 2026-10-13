@@ -220,7 +220,7 @@ def unlock_advancement(rid: str, recipe: dict) -> dict:
             continue
         criteria[name] = {"conditions": {"items": [{"items": ingredient}]}, "trigger": "minecraft:inventory_changed"}
         names.append(name)
-    criteria["has_the_recipe"] = {"conditions": {"recipe": rid}, "trigger": "minecraft:recipe_unlocked"}
+    criteria["has_the_recipe"] = {"conditions": {"recipes": rid}, "trigger": "minecraft:recipe_unlocked"}
     out = {key: recipe[key] for key in CONDITION_KEYS if key in recipe}
     out.update({"parent": "minecraft:recipes/root", "criteria": criteria,
                 "requirements": [["has_the_recipe"] + names], "rewards": {"recipes": [rid]}})

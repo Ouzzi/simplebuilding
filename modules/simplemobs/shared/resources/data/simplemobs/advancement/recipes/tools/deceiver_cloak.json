@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemobs:deceiver_cloak"
+        "recipes": "simplemobs:deceiver_cloak"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:nihil_vault"
+        "recipes": "simplebuilding:nihil_vault"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

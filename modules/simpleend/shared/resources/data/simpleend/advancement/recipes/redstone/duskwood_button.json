@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:duskwood_button"
+        "recipes": "simpleend:duskwood_button"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

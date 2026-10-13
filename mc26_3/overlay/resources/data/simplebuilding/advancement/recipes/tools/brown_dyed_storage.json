@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:brown_dyed_storage"
+        "recipes": "simplebuilding:brown_dyed_storage"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:astral_vault"
+        "recipes": "simplebuilding:astral_vault"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

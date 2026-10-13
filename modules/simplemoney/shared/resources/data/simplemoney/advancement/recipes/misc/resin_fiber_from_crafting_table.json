@@ -43,7 +43,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemoney:resin_fiber_from_crafting_table"
+        "recipes": "simplemoney:resin_fiber_from_crafting_table"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemoney:money_bill_from_blasting"
+        "recipes": "simplemoney:money_bill_from_blasting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -53,7 +53,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemaps:end_wayfinder_map"
+        "recipes": "simplemaps:end_wayfinder_map"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

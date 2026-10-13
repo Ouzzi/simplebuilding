@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:white_dyed_storage"
+        "recipes": "simplebuilding:white_dyed_storage"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

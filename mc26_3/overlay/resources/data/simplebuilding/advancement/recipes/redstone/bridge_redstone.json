@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:bridge_redstone"
+        "recipes": "simplebuilding:bridge_redstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

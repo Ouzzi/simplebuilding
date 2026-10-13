@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:ashwood_sticks_to_sticks"
+        "recipes": "simpleend:ashwood_sticks_to_sticks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

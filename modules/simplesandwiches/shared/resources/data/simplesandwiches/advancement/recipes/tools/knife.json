@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplesandwiches:knife"
+        "recipes": "simplesandwiches:knife"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:ashwood_planks"
+        "recipes": "simpleend:ashwood_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

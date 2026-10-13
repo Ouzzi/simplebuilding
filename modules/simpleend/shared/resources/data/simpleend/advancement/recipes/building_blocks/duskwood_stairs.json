@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:duskwood_stairs"
+        "recipes": "simpleend:duskwood_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:flint_from_flint_chips"
+        "recipes": "simplebuilding:flint_from_flint_chips"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

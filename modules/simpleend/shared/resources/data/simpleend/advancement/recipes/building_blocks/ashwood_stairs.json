@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:ashwood_stairs"
+        "recipes": "simpleend:ashwood_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

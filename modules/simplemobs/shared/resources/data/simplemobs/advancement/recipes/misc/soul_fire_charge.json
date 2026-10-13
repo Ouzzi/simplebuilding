@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemobs:soul_fire_charge"
+        "recipes": "simplemobs:soul_fire_charge"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

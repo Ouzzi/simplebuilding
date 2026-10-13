@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleriding:copper_horseshoe_smithing"
+        "recipes": "simpleriding:copper_horseshoe_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

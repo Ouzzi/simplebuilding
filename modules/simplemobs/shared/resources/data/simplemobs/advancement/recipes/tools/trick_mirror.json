@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemobs:trick_mirror"
+        "recipes": "simplemobs:trick_mirror"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

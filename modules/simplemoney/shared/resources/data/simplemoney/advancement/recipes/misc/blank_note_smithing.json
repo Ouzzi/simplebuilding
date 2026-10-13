@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplemoney:blank_note_smithing"
+        "recipes": "simplemoney:blank_note_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

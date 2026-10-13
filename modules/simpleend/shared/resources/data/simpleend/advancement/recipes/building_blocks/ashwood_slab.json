@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:ashwood_slab"
+        "recipes": "simpleend:ashwood_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

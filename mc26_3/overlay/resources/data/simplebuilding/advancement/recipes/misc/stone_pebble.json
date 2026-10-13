@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:stone_pebble"
+        "recipes": "simplebuilding:stone_pebble"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

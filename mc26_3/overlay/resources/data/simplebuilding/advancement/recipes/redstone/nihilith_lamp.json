@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:nihilith_lamp"
+        "recipes": "simplebuilding:nihilith_lamp"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

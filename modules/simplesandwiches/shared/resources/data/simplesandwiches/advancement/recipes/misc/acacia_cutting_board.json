@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplesandwiches:acacia_cutting_board"
+        "recipes": "simplesandwiches:acacia_cutting_board"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

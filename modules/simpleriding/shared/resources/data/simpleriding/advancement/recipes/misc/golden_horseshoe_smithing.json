@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleriding:golden_horseshoe_smithing"
+        "recipes": "simpleriding:golden_horseshoe_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

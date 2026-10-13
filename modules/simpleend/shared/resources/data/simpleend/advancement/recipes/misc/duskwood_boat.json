@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:duskwood_boat"
+        "recipes": "simpleend:duskwood_boat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

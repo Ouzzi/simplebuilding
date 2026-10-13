@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:stripped_ashwood_wood"
+        "recipes": "simpleend:stripped_ashwood_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

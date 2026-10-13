@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleriding:netherite_horseshoe_smithing"
+        "recipes": "simpleriding:netherite_horseshoe_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

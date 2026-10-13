@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simpleend:ashwood_boat"
+        "recipes": "simpleend:ashwood_boat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

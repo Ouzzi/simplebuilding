@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplelib:copper_barrel"
+        "recipes": "simplelib:copper_barrel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
