@@ -255,10 +255,9 @@
     },
     {
       "damage_per_hit": 2,
-      "duration_factor": 2,
       "from": "simplelib:iron_crucible",
       "material": "simplelib:cracked_diamond",
-      "material_count": 2,
+      "material_count": 4,
       "min_tool": "any",
       "tier": "reinforced",
       "to": "simplelib:reinforced_crucible"

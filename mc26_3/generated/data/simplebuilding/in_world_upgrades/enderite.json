@@ -87,10 +87,9 @@
     },
     {
       "damage_per_hit": 10,
-      "duration_factor": 2,
       "from": "simplelib:netherite_crucible",
       "material": "simplelib:enderite_nugget",
-      "material_count": 2,
+      "material_count": 4,
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplebuilding:enderite_crucible"

@@ -9246,6 +9246,13 @@
         "strikes": 4
       },
       {
+        "count": 9,
+        "damage": 1,
+        "input": "simplelib:cracked_diamond",
+        "result": "simplelib:diamond_pebble",
+        "strikes": 9
+      },
+      {
         "count": 4,
         "damage": 1,
         "input": "minecraft:quartz_block",
