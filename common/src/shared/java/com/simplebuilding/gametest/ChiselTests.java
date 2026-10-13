@@ -1740,6 +1740,7 @@ public final class ChiselTests {
         // Holzwerk (26.3): der Meissel hoehlt jeden entrindeten Stamm aus.
         List<String> stoneOwn = new ArrayList<>(Arrays.asList(STONE_OWN));
         for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
+            if (family.wood().external()) continue; // end woods come from the simpleend datapack file, not the built-in table
             stoneOwn.add(blockName(family.wood().strippedBlock()) + ">" + blockName(family.hollowStripped()));
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
