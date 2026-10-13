@@ -29,8 +29,8 @@ window.WIKI_MODULE_DATA["simplelib"] = {
           "Heat comes from the block directly below, or two blocks below at 10% less speed (air, a hopper or a non-full block in between). Medium: campfire, soul campfire, magma block, flowing lava (0.5x, campfire and smoker recipes). High: lava, lava cauldron, flowing soul lava (0.75x, also furnace and blast furnace recipes). Extreme: soul lava (1x, also ancient debris). Torches, candles and plain fire give no heat. In the Nether every source is one level hotter, at most high.",
           "Before a slot starts, it reserves the place for its result: the slot directly below first, then any other free or matching slot. A reserved slot shows the result faintly; anything else put there stops that slot until it is taken out. Finished results are never cooked again until taken out.",
           "After the heat source is gone the crucible keeps its heat for 2/4/8/16 seconds. Hoppers insert from above and the sides and take finished results from below. The crucible is walk-in like a cauldron: its walls collide only up to 9/16 of a block, so you step into it, and at high heat or more (lava, soul lava) standing in it burns like a magma block - 1 damage per hit, not while sneaking (server option crucibleBurnDamage, default 1, 0-4, 0 = off).",
-          "Build an iron crucible in the world: hold an axe, put a heavy weighted pressure plate in the off hand and use it on an iron block four times (walls), then twice with an iron ingot (handles).",
-          "Upgrade in place without SimpleBuilding: axe in the main hand, ten strikes on the crucible: Iron to Reinforced with 2 diamonds in the off hand, Reinforced to Netherite with 1 netherite ingot. Contents, progress and experience stay. With SimpleBuilding the sledgehammer replaces the axe.",
+          "Build an iron crucible in the world: hold an axe, put iron ingots in the off hand and use it on an iron block sixteen times, one ingot per strike. The first strike turns the iron block into the base; strikes 1-8 raise the four side plates (each first half, then whole), 9-12 the two handles (half, then whole), 13-16 the four rim pieces. Every strike is visible as its own stage; breaking the half-built crucible gives back the iron block and every ingot struck in.",
+          "Upgrade in place without SimpleBuilding: axe in the main hand, twelve strikes on the crucible; every third strike takes one unit from the off hand and shows it as a band of the new material on one side, four units in all: Iron to Reinforced with cracked diamonds (or diamonds), Reinforced to Netherite with netherite nuggets (or netherite scrap). A crucible broken midway gives the units back. Contents, progress, experience and an attached barrel stay. With SimpleBuilding the sledgehammer replaces the axe (same 12 strikes, 4 cracked diamonds / netherite nuggets / enderite nuggets).",
           "Raised stack limits (an Enderite crucible or barrel holds 128 of a 64-stack item) hold everywhere: in the crucible menu, in a loose barrel's own chest menu, for shift-clicks and for hoppers, which top such slots up to the raised limit (also double chests). Taking from such a slot gives at most one normal stack."
         ]
       },
@@ -42,8 +42,8 @@ window.WIKI_MODULE_DATA["simplelib"] = {
           "Hitze kommt vom Block direkt darunter oder zwei Blöcke darunter mit 10 % weniger Tempo (dazwischen Luft, ein Trichter oder ein nicht voller Block). Mittel: Lagerfeuer, Seelen-Lagerfeuer, Magmablock, fließende Lava (0,5×, Lagerfeuer- und Räucherofen-Rezepte). Hoch: Lava, Lavakessel, fließende Seelen-Lava (0,75×, auch Ofen- und Schmelzofen-Rezepte). Extrem: Seelen-Lava (1×, auch antiker Schrott). Fackeln, Kerzen und normales Feuer geben keine Hitze. Im Nether ist jede Quelle eine Stufe heißer, höchstens hoch.",
           "Bevor ein Platz anfängt, reserviert er den Platz für sein Ergebnis: zuerst den Platz direkt darunter, sonst einen anderen freien oder passenden. Ein reservierter Platz zeigt das Ergebnis blass; legt man etwas anderes hinein, stoppt dieser Platz, bis es wieder herausgenommen wird. Fertige Ergebnisse werden nie erneut gegart, bis man sie entnimmt.",
           "Nach dem Entfernen der Hitzequelle hält der Tiegel die Hitze 2/4/8/16 Sekunden. Trichter füllen von oben und von der Seite ein und nehmen fertige Ergebnisse unten heraus. Der Tiegel ist betretbar wie ein Kessel: seine Wände sind nur bis 9/16 Block fest, man steigt also hinein, und ab hoher Hitze (Lava, Seelen-Lava) brennt das Stehen darin wie ein Magmablock - 1 Schaden je Treffer, nicht beim Schleichen (Server-Option crucibleBurnDamage, Standard 1, 0-4, 0 = aus).",
-          "Eisen-Tiegel in der Welt bauen: Axt in der Hand, schwere Wägeplatte in der Nebenhand und viermal auf einen Eisenblock anwenden (Wände), dann zweimal mit einem Eisenbarren (Griffe).",
-          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zehn Schläge auf den Tiegel: Eisen zu Verstärkt mit 2 Diamanten in der Nebenhand, Verstärkt zu Netherit mit 1 Netheritbarren. Inhalt, Fortschritt und Erfahrung bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer die Axt.",
+          "Eisen-Tiegel in der Welt bauen: Axt in der Hand, Eisenbarren in der Nebenhand und sechzehnmal auf einen Eisenblock anwenden, ein Barren je Schlag. Der erste Schlag macht den Eisenblock zum Boden; Schläge 1-8 setzen die vier Seitenplatten (je erst halb, dann ganz), 9-12 die zwei Griffe (halb, dann ganz), 13-16 die vier Randstücke. Jeder Schlag ist als eigene Stufe sichtbar; wird der halbfertige Tiegel abgebaut, kommen der Eisenblock und alle verbauten Barren zurück.",
+          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zwölf Schläge auf den Tiegel; jeder dritte Schlag nimmt eine Einheit aus der Nebenhand und zeigt sie als Band des neuen Materials auf einer Seite, vier Einheiten insgesamt: Eisen zu Verstärkt mit rissigen Diamanten (oder Diamanten), Verstärkt zu Netherit mit Netheritklumpen (oder Netheritschrott). Wird der Tiegel vorher abgebaut, kommen die Einheiten zurück. Inhalt, Fortschritt, Erfahrung und ein angedocktes Fass bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer die Axt (ebenfalls 12 Schläge, 4 rissige Diamanten / Netheritklumpen / Enderitklumpen).",
           "Erhöhte Stapelgrenzen (ein Enderit-Tiegel oder -Fass fasst 128 eines 64er-Items) gelten überall: im Tiegelmenü, im eigenen Truhenmenü eines losen Fasses, beim Shift-Klick und für Trichter, die solche Plätze bis zur erhöhten Grenze füllen (auch Doppeltruhen). Herausnehmen gibt höchstens einen normalen Stapel."
         ]
       },
@@ -753,7 +753,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         {
           "rolls": 1,
           "items": [
-            "minecraft:heavy_weighted_pressure_plate"
+            "minecraft:iron_ingot"
           ],
           "conditions": [
             "minecraft:block_state_property"
@@ -763,7 +763,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         {
           "rolls": 1,
           "items": [
-            "minecraft:heavy_weighted_pressure_plate"
+            "minecraft:iron_ingot"
           ],
           "conditions": [
             "minecraft:block_state_property"
@@ -773,7 +773,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         {
           "rolls": 1,
           "items": [
-            "minecraft:heavy_weighted_pressure_plate"
+            "minecraft:iron_ingot"
           ],
           "conditions": [
             "minecraft:block_state_property"
@@ -783,7 +783,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         {
           "rolls": 1,
           "items": [
-            "minecraft:heavy_weighted_pressure_plate"
+            "minecraft:iron_ingot"
           ],
           "conditions": [
             "minecraft:block_state_property"
@@ -793,7 +793,97 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         {
           "rolls": 1,
           "items": [
-            "minecraft:heavy_weighted_pressure_plate"
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
           ],
           "conditions": [
             "minecraft:block_state_property"
@@ -1020,11 +1110,41 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_handles.json"
     },
     {
+      "id": "simplelib:item/crucible_upgrade_netherite",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplelib:netherite_nugget",
+          "required": true
+        },
+        {
+          "id": "minecraft:netherite_scrap",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_upgrade_netherite.json"
+    },
+    {
+      "id": "simplelib:item/crucible_upgrade_reinforced",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplelib:cracked_diamond",
+          "required": true
+        },
+        {
+          "id": "minecraft:diamond",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_upgrade_reinforced.json"
+    },
+    {
       "id": "simplelib:item/crucible_walls",
       "replace": false,
       "values": [
         {
-          "id": "minecraft:heavy_weighted_pressure_plate",
+          "id": "minecraft:iron_ingot",
           "required": true
         }
       ],
@@ -1521,7 +1641,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
             "A cooking station without fuel: every slot cooks at once, heated by the block below or two blocks below. 6 slots, speed 1x."
           ],
           "secret": [
-            "Build it in the world: an axe in the main hand, a heavy weighted pressure plate in the off hand, four strikes on an iron block, then two with an iron ingot. Walk into it like a cauldron."
+            "Build it in the world: an axe in the main hand, iron ingots in the off hand, sixteen strikes on an iron block - side plates, handles, rim, one ingot each. Walk into it like a cauldron."
           ]
         },
         "de": {
@@ -1532,7 +1652,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
             "Eine Kochstelle ohne Brennstoff: Alle Plätze kochen gleichzeitig, beheizt vom Block darunter oder zwei Blöcke darunter. 6 Plätze, Tempo 1x."
           ],
           "secret": [
-            "Im Spiel gebaut: Axt in der Haupthand, Schwere Druckplatte in der Nebenhand, vier Schläge auf einen Eisenblock, dann zwei mit einem Eisenbarren. Man kann wie in einen Kessel hineintreten."
+            "Im Spiel gebaut: Axt in der Haupthand, Eisenbarren in der Nebenhand, sechzehn Schläge auf einen Eisenblock - Seitenplatten, Griffe, Rand, je ein Barren. Man kann wie in einen Kessel hineintreten."
           ]
         }
       },
@@ -1600,7 +1720,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
             "A pot that cooks at the speed of a Nether fire."
           ],
           "use": [
-            "The Netherite tier of the crucible: 18 slots, speed 4x, experience is counted twice. A reinforced crucible becomes this with 1 netherite ingot and ten strikes."
+            "The Netherite tier of the crucible: 18 slots, speed 4x, experience is counted twice. A reinforced crucible becomes this in twelve strikes, one netherite nugget (or netherite scrap) every third strike."
           ],
           "secret": [
             "Lava or soul lava underneath makes it cook furnace and blast furnace recipes, and soul lava also ancient debris."
@@ -1611,7 +1731,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
             "Ein Topf, der mit der Geschwindigkeit eines Netherfeuers kocht."
           ],
           "use": [
-            "Die Netherit-Stufe des Tiegels: 18 Plätze, Tempo 4x, Erfahrung zählt doppelt. Ein verstärkter Tiegel wird mit 1 Netheritbarren und zehn Schlägen dazu."
+            "Die Netherit-Stufe des Tiegels: 18 Plätze, Tempo 4x, Erfahrung zählt doppelt. Ein verstärkter Tiegel wird in zwölf Schlägen dazu, jeder dritte nimmt einen Netheritklumpen (oder Netheritschrott)."
           ],
           "secret": [
             "Lava oder Seelenlava darunter lässt ihn Ofen- und Hochofenrezepte kochen, Seelenlava auch Antiken Schrott."
@@ -1723,7 +1843,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
             "A pot that learned to take twice the load."
           ],
           "use": [
-            "The Reinforced tier of the crucible: 12 slots (2x6), speed 2x. An iron crucible becomes this with 2 diamonds in the off hand and ten axe strikes (the sledgehammer with SimpleBuilding)."
+            "The Reinforced tier of the crucible: 12 slots (2x6), speed 2x. An iron crucible becomes this in twelve axe strikes, one cracked diamond (or diamond) every third strike (the sledgehammer with SimpleBuilding)."
           ],
           "secret": [
             "Contents, progress and experience stay when you upgrade in place."
@@ -1734,7 +1854,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
             "Ein Topf, der gelernt hat, die doppelte Last zu tragen."
           ],
           "use": [
-            "Die verstärkte Stufe des Tiegels: 12 Plätze (2x6), Tempo 2x. Ein Eisentiegel wird mit 2 Diamanten in der Nebenhand und zehn Axtschlägen dazu."
+            "Die verstärkte Stufe des Tiegels: 12 Plätze (2x6), Tempo 2x. Ein Eisentiegel wird in zwölf Axtschlägen dazu, jeder dritte nimmt einen rissigen Diamanten (oder Diamanten) aus der Nebenhand (mit SimpleBuilding der Vorschlaghammer)."
           ],
           "secret": [
             "Inhalt, Fortschritt und Erfahrung bleiben beim Aufrüsten an Ort und Stelle erhalten."
@@ -1762,7 +1882,7 @@ window.WIKI_MODULE_DATA["simplelib"] = {
     "features": 6,
     "recipes": 16,
     "lootTables": 11,
-    "tags": 12,
+    "tags": 14,
     "advancements": 0,
     "enchantments": 0,
     "items": 10,
