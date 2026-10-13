@@ -44,6 +44,7 @@ public class HollowWatcherEntity extends Monster {
     public static final int ACT_NONE = 0, ACT_GRIP_WINDUP = 1, ACT_GRIP = 2, ACT_CLAW = 3, ACT_SCREAM = 4, ACT_TELEPORT = 5;
     private static final EntityDataAccessor<Integer> DATA_ACTION = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_FROZEN = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_TRIGGERED = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_WATCHED = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.BOOLEAN);
 
     private int actionTicks, gripCooldown = 40, clawCooldown, teleportCooldown = 60, screamCooldown = 200, stareTicks, fleeTicks;
@@ -83,6 +84,7 @@ public class HollowWatcherEntity extends Monster {
         builder.define(DATA_ACTION, ACT_NONE);
         builder.define(DATA_FROZEN, 0);
         builder.define(DATA_WATCHED, false);
+        builder.define(DATA_TRIGGERED, false);
     }
 
     // ---- state ------------------------------------------------------------------------------
@@ -92,6 +94,8 @@ public class HollowWatcherEntity extends Monster {
     public boolean frozen() { return frozenTicks() > 0; }
     /** Someone looks at it: it stands still and starts no attack (a running grip or scream goes on). */
     public boolean watched() { return this.entityData.get(DATA_WATCHED); }
+    /** Camouflage (N50): until it has a target, took a hit or acts, its eyes stay dark and it is nearly silent. */
+    public boolean triggered() { return this.entityData.get(DATA_TRIGGERED); }
     public @Nullable Vec3 teleportTarget() { return teleportTo; }
     public int stareTicks() { return stareTicks; }
 
@@ -155,7 +159,9 @@ public class HollowWatcherEntity extends Monster {
 
     @Override protected boolean isImmobile() { return super.isImmobile() || frozen() || watched(); }
     @Override public boolean removeWhenFarAway(double distSqr) { return false; }
-    @Override protected SoundEvent getAmbientSound() { return watched() || frozen() ? null : SoundEvents.ENDERMAN_AMBIENT; }
+    @Override protected SoundEvent getAmbientSound() { return watched() || frozen() || !triggered() ? null : SoundEvents.ENDERMAN_AMBIENT; }
+    /** Quiet while it lurks: steps and hurt cries at a third of the volume. */
+    @Override protected float getSoundVolume() { return triggered() ? 1.0f : 0.3f; }
     @Override protected SoundEvent getHurtSound(DamageSource source) { return SoundEvents.ENDERMAN_HURT; }
     @Override protected SoundEvent getDeathSound() { return SoundEvents.ENDERMAN_DEATH; }
     @Override public float getVoicePitch() { return 0.45f + this.random.nextFloat() * 0.1f; }
@@ -202,6 +208,8 @@ public class HollowWatcherEntity extends Monster {
         ServerLevel level = (ServerLevel) this.level();
         if (this.tickCount % FearLogic.AURA_INTERVAL == 0) FearAura.pulse(level, this, false);
         boolean watched = updateGaze(level);
+        boolean trig = this.getTarget() != null || fleeTicks > 0 || action() != ACT_NONE || frozen();
+        if (trig != triggered()) this.entityData.set(DATA_TRIGGERED, trig);
         tickFlee(level);
         int frozen = frozenTicks();
         if (frozen > 0) {

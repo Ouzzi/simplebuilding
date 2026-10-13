@@ -154,6 +154,23 @@ public final class WorldPolishTests {
     }
 
     /**
+     * N50: Sculk Jaws generate naturally on Deep Dark floors. Here: the placed feature is registered and has 6 tries per
+     * chunk, the biome side is a modifier per loader (Fabric BiomeModifications, NeoForge/Forge biome_modifier JSON).
+     */
+    public static void sculkJawFeatureIsRegistered(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS || ModBlocks.SCULK_JAW == null) {
+            helper.succeed();
+            return;
+        }
+        var placed = helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.PLACED_FEATURE);
+        var jaw = placed.get(com.simplebuilding.util.ModWorldGen.SCULK_JAW_PLACED_KEY);
+        helper.assertTrue(jaw.isPresent(), "the placed Sculk Jaw feature is registered");
+        helper.assertTrue(jaw.get().value().placement().stream().anyMatch(
+                m -> m instanceof net.minecraft.world.level.levelgen.placement.CountPlacement), "it rolls a count per chunk");
+        helper.succeed();
+    }
+
+    /**
      * The sculk jaw stands only on a block with a solid, full top: stone and an upper slab yes; a lower slab, a fence,
      * a glass pane or air no. Taking the block away under a jaw removes it.
      */

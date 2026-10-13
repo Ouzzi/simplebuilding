@@ -75,6 +75,11 @@ public class ModWorldGen {
     public static final ResourceKey<PlacedFeature> CRACKED_ICE_SINGLE_PLACED_KEY = registerPlacedKey("cracked_ice_single_placed");
     public static final int CRACKED_ICE_PATCH_SIZE = 14;
 
+    /** Sculk Jaws on the floors of the Deep Dark (N50): about 6 attempts per chunk, only where the block can stand. */
+    public static final ResourceKey<Feature> SCULK_JAW_KEY = registerConfiguredKey("sculk_jaw");
+    public static final ResourceKey<PlacedFeature> SCULK_JAW_PLACED_KEY = registerPlacedKey("sculk_jaw_placed");
+    public static final int SCULK_JAW_COUNT = 6;
+
     public static void bootstrapConfiguredFeatures(BootstrapContext<Feature> context) {
         RuleTest endStoneReplaceables = new BlockMatchTest(Blocks.END_STONE);
         context.register(ASTRALIT_ORE_KEY, new OreFeature(endStoneReplaceables, ModBlocks.ASTRALIT_ORE.defaultBlockState(), 4));
@@ -94,6 +99,10 @@ public class ModWorldGen {
                     ModBlocks.CRACKED_ICE.defaultBlockState(), CRACKED_ICE_PATCH_SIZE));
             context.register(CRACKED_ICE_SINGLE_KEY, new net.minecraft.world.level.levelgen.feature.SimpleBlockFeature(
                     new net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider(ModBlocks.CRACKED_ICE.defaultBlockState())));
+        }
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            context.register(SCULK_JAW_KEY, new net.minecraft.world.level.levelgen.feature.SimpleBlockFeature(
+                    new net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider(ModBlocks.SCULK_JAW.defaultBlockState())));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             context.register(SAGE_ORE_KEY, new OreFeature(List.of(
@@ -138,6 +147,18 @@ public class ModWorldGen {
                     CountPlacement.of(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
                     OffsetPlacement.vertical(ConstantInt.of(-1)),
                     BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.ICE)), BiomeFilter.biome()));
+        }
+        if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
+            // Pick a random spot, scan down to the floor, stand on it; the block's own survival rule decides.
+            register(context, SCULK_JAW_PLACED_KEY, features.getOrThrow(SCULK_JAW_KEY), List.of(
+                    CountPlacement.of(SCULK_JAW_COUNT), InSquarePlacement.spread(),
+                    HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(2), VerticalAnchor.absolute(-8)),
+                    net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement.scanningFor(Direction.DOWN,
+                            BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+                    OffsetPlacement.vertical(ConstantInt.of(1)),
+                    BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.matchesBlocks(Blocks.AIR),
+                            BlockPredicate.wouldSurvive(ModBlocks.SCULK_JAW.defaultBlockState(), net.minecraft.core.BlockPos.ZERO))),
+                    BiomeFilter.biome()));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             registerSageOre(context, features);

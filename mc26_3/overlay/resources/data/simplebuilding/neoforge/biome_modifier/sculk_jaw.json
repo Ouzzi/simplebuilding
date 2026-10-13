@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:deep_dark",
+  "features": "simplebuilding:sculk_jaw_placed",
+  "step": "underground_decoration"
+}

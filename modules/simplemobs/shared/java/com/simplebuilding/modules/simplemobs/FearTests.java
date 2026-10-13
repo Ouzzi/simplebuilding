@@ -115,8 +115,9 @@ final class FearTests {
         });
         add.accept("fear_aura_levels", h -> {
             h.assertTrue(FearLogic.auraLevel(20, true, false) == 0, "out of range");
-            h.assertTrue(FearLogic.auraLevel(10, true, false) == 1 && FearLogic.auraLevel(10, false, false) == 0, "I needs sight");
-            h.assertTrue(FearLogic.auraLevel(4, false, false) == 2 && FearLogic.auraLevel(5.9, true, false) == 2, "II close up");
+            h.assertTrue(FearLogic.auraLevel(10, true, false) == 2 && FearLogic.auraLevel(7, true, false) == 3 && FearLogic.auraLevel(10, false, false) == 0, "needs sight or a trigger");
+            h.assertTrue(FearLogic.auraLevel(3.9, true, false) == 5 && FearLogic.auraLevel(4.0, true, false) == 4, "V under 4 blocks");
+            h.assertTrue(FearLogic.auraLevel(15.9, true, false) == 1, "I at the edge");
             h.assertTrue(FearLogic.auraLevel(4, true, true) == 1, "weakened: at most I");
             var s = shivering(h);
             floor(h, 0, 0, 7, 7);
@@ -124,13 +125,13 @@ final class FearTests {
             var near = dummy(h, 4, 1);
             var far = dummy(h, 7, 7);
             int hit = FearAura.pulse(h.getLevel(), dread, false);
-            h.assertTrue(level(near, s) == 2, "Shivering II under 6 blocks: " + level(near, s));
-            h.assertTrue(level(far, s) == 1, "Shivering I in sight: " + level(far, s));
+            h.assertTrue(level(near, s) == 5, "Shivering V at 3 blocks: " + level(near, s));
+            h.assertTrue(level(far, s) == 3, "Shivering III at about 8.5 blocks: " + level(far, s));
             h.assertTrue(hit >= 2, "both hit: " + hit);
             h.assertTrue(near.getEffect(s).getDuration() == FearLogic.AURA_TICKS, "short, Milk helps only until the next pulse");
             near.removeAllEffects();
             FearAura.pulse(h.getLevel(), dread, false);
-            h.assertTrue(level(near, s) == 2, "after Milk the aura comes back");
+            h.assertTrue(level(near, s) == 5, "after Milk the aura comes back");
             dread.discard();
             h.succeed();
         });
@@ -242,6 +243,34 @@ final class FearTests {
             watcher.discard();
             h.succeed();
         });
+        add.accept("fear_aura_decay", h -> {
+            var s = shivering(h);
+            floor(h, 0, 0, 7, 7);
+            var near = dummy(h, 4, 1);
+            near.addEffect(new net.minecraft.world.effect.MobEffectInstance(s, FearLogic.DECAY_WINDOW_TICKS, 3));
+            FearAura.decay(near);
+            h.assertTrue(level(near, s) == 3 && near.getEffect(s).getDuration() == FearLogic.DECAY_STEP_TICKS, "IV steps down to III: " + level(near, s));
+            near.removeAllEffects();
+            near.addEffect(new net.minecraft.world.effect.MobEffectInstance(s, 100, 3));
+            FearAura.decay(near);
+            h.assertTrue(level(near, s) == 4, "no step down while plenty of time is left");
+            near.removeAllEffects();
+            near.addEffect(new net.minecraft.world.effect.MobEffectInstance(s, 5, 0));
+            FearAura.decay(near);
+            h.assertTrue(level(near, s) == 1 && near.getEffect(s).getDuration() == 5, "level I simply runs out");
+            h.succeed();
+        });
+        add.accept("fear_aura_triggered", h -> {
+            var s = shivering(h);
+            floor(h, 0, 0, 7, 7);
+            var watcher = still(h.spawn(FearMobs.WATCHER, 1, 2, 1));
+            var back = dummy(h, 3, 1);
+            watcher.setTarget(back);
+            FearAura.pulse(h.getLevel(), watcher, false);
+            h.assertTrue(level(back, s) >= 4, "triggered: strong at 2 blocks: " + level(back, s));
+            watcher.discard();
+            h.succeed();
+        });
         add.accept("fear_watcher_scream", h -> {
             floor(h, 0, 0, 7, 4);
             var s = shivering(h);
@@ -275,6 +304,9 @@ final class FearTests {
             h.assertFalse(FearLogic.mayWatcherSpawn(true, true, 1500, true, true, 1, 0.0f, 0.04f), "one at a time");
             h.assertFalse(FearLogic.mayWatcherSpawn(true, true, 1500, true, true, 0, 0.5f, 0.04f), "rare");
             h.assertFalse(FearLogic.mayWatcherSpawn(false, true, 1500, true, true, 0, 0.0f, 0.04f), "config off");
+            h.assertTrue(FearLogic.mayWatcherSpawn(true, true, 200, true, true, true, 0, 0.1f, 0.04f), "core biome: no distance rule, 3x chance");
+            h.assertFalse(FearLogic.mayWatcherSpawn(true, true, 200, true, true, true, 0, 0.13f, 0.04f), "core biome: still rare");
+            h.assertFalse(FearLogic.mayWatcherSpawn(true, false, 200, true, true, true, 0, 0.0f, 0.04f), "core biome: End only");
             h.succeed();
         });
         add.accept("fear_drops", h -> {

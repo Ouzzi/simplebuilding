@@ -12,12 +12,18 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 /** Fear mobs, server side: immune players lose Shivering, and the Hollow Watcher's rare spawn on the outer End islands. */
 public final class FearServer {
+    /** Biomes where it prefers to spawn; Simple End provides the tag, without it nothing matches (no hard dependency). */
+    public static final net.minecraft.tags.TagKey<net.minecraft.world.level.biome.Biome> WATCHER_CORE = net.minecraft.tags.TagKey.create(
+            net.minecraft.core.registries.Registries.BIOME, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", "watcher_core"));
+
     private FearServer() {}
 
     public static void tick(MinecraftServer server) {
         if (!MobsRegistry.on()) return;
         int now = server.getTickCount();
-        if (now % 10 == 0) for (ServerPlayer p : server.getPlayerList().getPlayers()) FearAura.cure(p);
+        if (now % 10 == 0) for (ServerPlayer p : server.getPlayerList().getPlayers()) {
+            if (!FearAura.cure(p)) FearAura.decay(p);
+        }
         if (now % FearLogic.WATCHER_ROLL_INTERVAL != 0 || !MobsConfig.hollowWatcherSpawns) return;
         ServerLevel end = server.getLevel(Level.END);
         if (end == null || end.getDifficulty() == Difficulty.PEACEFUL) return;
@@ -35,8 +41,9 @@ public final class FearServer {
         boolean endStone = level.getBlockState(pos.below()).is(Blocks.END_STONE);
         boolean room = level.noCollision(FearMobs.WATCHER.getSpawnAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
         int near = level.getEntitiesOfClass(HollowWatcherEntity.class, player.getBoundingBox().inflate(128.0)).size();
+        boolean core = level.getBiome(pos).is(WATCHER_CORE);
         double fromOrigin = Math.sqrt((double) pos.getX() * pos.getX() + (double) pos.getZ() * pos.getZ());
-        if (!FearLogic.mayWatcherSpawn(true, true, fromOrigin, endStone, room, near, rnd.nextFloat(), MobsConfig.hollowWatcherChance)) return false;
+        if (!FearLogic.mayWatcherSpawn(true, true, fromOrigin, core, endStone, room, near, rnd.nextFloat(), MobsConfig.hollowWatcherChance)) return false;
         return FearMobs.WATCHER.spawn(level, pos, EntitySpawnReason.NATURAL) != null;
     }
 }
