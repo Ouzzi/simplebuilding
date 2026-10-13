@@ -201,7 +201,7 @@ public final class MoneyTests {
 
     // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
     static {
-        ALL.put("discover_recipe_unlocks", com.simplemoney.discover.MoneyDiscover::recipeUnlocks);
-        ALL.put("discover_behaviour_hints", com.simplemoney.discover.MoneyDiscover::behaviourHints);
+        ALL.put("money_game_test_discover_recipe_unlocks", com.simplemoney.discover.MoneyDiscover::recipeUnlocks);
+        ALL.put("money_game_test_discover_behaviour_hints", com.simplemoney.discover.MoneyDiscover::behaviourHints);
     }
 }
