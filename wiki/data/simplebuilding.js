@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 826,
+      "count": 814,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -16087,43 +16087,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:enderite_blast_furnace",
-      "name": {
-        "en_us": "Enderite Blast Furnace",
-        "de_de": "Enderit-Schmelzofen"
-      },
-      "texture": "assets/textures/block/enderite_blast_furnace_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_blast_furnace.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The fastest fire in the game, tamed in a box."
-          ],
-          "use": [
-            "Runs 8 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Double experience. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Netherite one with a Netherite Sledgehammer and an Enderite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
-          ],
-          "use": [
-            "Läuft 8-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Doppelte Erfahrung. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Netherit-Variante mit einem Netherit-Vorschlaghammer und einem Enderitklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:enderite_boots",
       "name": {
         "en_us": "Enderite Boots",
@@ -17152,88 +17115,6 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
         ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:enderite_furnace",
-      "name": {
-        "en_us": "Enderite Furnace",
-        "de_de": "Enderitofen"
-      },
-      "texture": "assets/textures/block/enderite_furnace_side.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:enderite_furnace_minecart"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_furnace.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The fastest fire in the game, tamed in a box."
-          ],
-          "use": [
-            "Runs 8 times as fast as the vanilla furnace for smelting, with the same recipes and menu. Double experience. No recipe: hammer a placed Netherite one with a Netherite Sledgehammer and an Enderite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
-          ],
-          "use": [
-            "Läuft 8-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Doppelte Erfahrung. Kein Rezept: Hämmere eine platzierte Netherit-Variante mit einem Netherit-Vorschlaghammer und einem Enderitklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:enderite_furnace_minecart",
-      "name": {
-        "en_us": "Enderite Furnace Minecart",
-        "de_de": "Enderit-Antriebslore"
-      },
-      "texture": "assets/textures/item/enderite_furnace_minecart.png",
-      "craftedBy": [
-        "simplebuilding:enderite_furnace_minecart",
-        "simplebuilding:enderite_furnace_minecart_smithing"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_furnace_minecart.png",
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a furnace that decided to travel."
-          ],
-          "use": [
-            "One fuel item burns 8 times as long as in the vanilla furnace minecart, and the cart runs faster the higher the tier."
-          ],
-          "secret": [
-            "Craft a minecart with the furnace of the same tier, shapeless; smithing lifts it a tier. Right-click pushes the cart away from you. The Enderite one reaches the full top speed of a plain minecart."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Ofen, der beschloss zu reisen."
-          ],
-          "use": [
-            "Ein Brennstoff brennt 8-mal so lang wie bei der Vanilla-Lore mit Ofen, die Lore fährt schneller und der Ofen gart 8-mal so schnell."
-          ],
-          "secret": [
-            "Eine Lore mit dem Ofen derselben Stufe formlos herstellen; Schmieden hebt sie eine Stufe. Rechtsklick schiebt die Lore von dir weg. Die Enderit-Lore erreicht die volle Höchstgeschwindigkeit einer einfachen Lore."
-          ]
-        }
       },
       "hasCustomBehaviour": true
     },
@@ -18419,43 +18300,6 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:enderite_smoker",
-      "name": {
-        "en_us": "Enderite Smoker",
-        "de_de": "Enderit-Räucherofen"
-      },
-      "texture": "assets/textures/block/enderite_smoker_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_smoker.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The fastest fire in the game, tamed in a box."
-          ],
-          "use": [
-            "Runs 8 times as fast as the vanilla smoker for food, with the same recipes and menu. Double experience. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Netherite one with a Netherite Sledgehammer and an Enderite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
-          ],
-          "use": [
-            "Läuft 8-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Doppelte Erfahrung. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Netherit-Variante mit einem Netherit-Vorschlaghammer und einem Enderitklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
       },
       "hasCustomBehaviour": true
     },
@@ -27323,43 +27167,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:netherite_blast_furnace",
-      "name": {
-        "en_us": "Netherite Blast Furnace",
-        "de_de": "Netherit-Schmelzofen"
-      },
-      "texture": "assets/textures/block/netherite_blast_furnace_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_blast_furnace.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: It cooks like a forge that has forgotten how to cool."
-          ],
-          "use": [
-            "Runs 4 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Reinforced one with a Diamond Sledgehammer or better and a Netherite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
-          ],
-          "use": [
-            "Läuft 4-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Verstärkte mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_block_octet",
       "name": {
         "en_us": "Block of Netherite Octet",
@@ -28411,90 +28218,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:netherite_furnace",
-      "name": {
-        "en_us": "Netherite Furnace",
-        "de_de": "Netheritofen"
-      },
-      "texture": "assets/textures/block/netherite_furnace_side.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:netherite_furnace_minecart"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_furnace.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: It cooks like a forge that has forgotten how to cool."
-          ],
-          "use": [
-            "Runs 4 times as fast as the vanilla furnace for smelting, with the same recipes and menu. No recipe: hammer a placed Reinforced one with a Diamond Sledgehammer or better and a Netherite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
-          ],
-          "use": [
-            "Läuft 4-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Kein Rezept: Hämmere eine platzierte Verstärkte mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:netherite_furnace_minecart",
-      "name": {
-        "en_us": "Netherite Furnace Minecart",
-        "de_de": "Netherit-Antriebslore"
-      },
-      "texture": "assets/textures/item/netherite_furnace_minecart.png",
-      "craftedBy": [
-        "simplebuilding:netherite_furnace_minecart",
-        "simplebuilding:netherite_furnace_minecart_smithing"
-      ],
-      "usedIn": [
-        "simplebuilding:enderite_furnace_minecart_smithing"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_furnace_minecart.png",
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a furnace that decided to travel."
-          ],
-          "use": [
-            "One fuel item burns 4 times as long as in the vanilla furnace minecart, and the cart runs faster the higher the tier."
-          ],
-          "secret": [
-            "Craft a minecart with the furnace of the same tier, shapeless; smithing lifts it a tier. Right-click pushes the cart away from you. The Enderite one reaches the full top speed of a plain minecart."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Ofen, der beschloss zu reisen."
-          ],
-          "use": [
-            "Ein Brennstoff brennt 4-mal so lang wie bei der Vanilla-Lore mit Ofen, die Lore fährt schneller und der Ofen gart 4-mal so schnell."
-          ],
-          "secret": [
-            "Eine Lore mit dem Ofen derselben Stufe formlos herstellen; Schmieden hebt sie eine Stufe. Rechtsklick schiebt die Lore von dir weg. Die Enderit-Lore erreicht die volle Höchstgeschwindigkeit einer einfachen Lore."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_hopper",
       "name": {
         "en_us": "Netherite Hopper",
@@ -29488,43 +29211,6 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/MaterialOctets.java",
           "mc26_3/generated/wiki/items.json"
         ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:netherite_smoker",
-      "name": {
-        "en_us": "Netherite Smoker",
-        "de_de": "Netherit-Räucherofen"
-      },
-      "texture": "assets/textures/block/netherite_smoker_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_smoker.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: It cooks like a forge that has forgotten how to cool."
-          ],
-          "use": [
-            "Runs 4 times as fast as the vanilla smoker for food, with the same recipes and menu. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Reinforced one with a Diamond Sledgehammer or better and a Netherite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
-          ],
-          "use": [
-            "Läuft 4-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Verstärkte mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
       },
       "hasCustomBehaviour": true
     },
@@ -40262,45 +39948,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:reinforced_blast_furnace",
-      "name": {
-        "en_us": "Reinforced Blast Furnace",
-        "de_de": "Verstärkter Schmelzofen"
-      },
-      "texture": "assets/textures/block/reinforced_blast_furnace_side.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_blast_furnace"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_blast_furnace.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The first step: a furnace with a bit of ambition."
-          ],
-          "use": [
-            "Runs 2 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Burns fuel twice as long as the vanilla one. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
-          ],
-          "use": [
-            "Läuft 2-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:reinforced_bundle",
       "name": {
         "en_us": "Reinforced Bundle",
@@ -40771,91 +40418,6 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:reinforced_furnace",
-      "name": {
-        "en_us": "Reinforced Furnace",
-        "de_de": "Verstärkter Ofen"
-      },
-      "texture": "assets/textures/block/reinforced_furnace_side.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_furnace"
-      ],
-      "usedIn": [
-        "simplebuilding:reinforced_furnace_minecart"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_furnace.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The first step: a furnace with a bit of ambition."
-          ],
-          "use": [
-            "Runs 2 times as fast as the vanilla furnace for smelting, with the same recipes and menu. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
-          ],
-          "use": [
-            "Läuft 2-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:reinforced_furnace_minecart",
-      "name": {
-        "en_us": "Reinforced Furnace Minecart",
-        "de_de": "Verstärkte Antriebslore"
-      },
-      "texture": "assets/textures/item/reinforced_furnace_minecart.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_furnace_minecart"
-      ],
-      "usedIn": [
-        "simplebuilding:netherite_furnace_minecart_smithing"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_furnace_minecart.png",
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a furnace that decided to travel."
-          ],
-          "use": [
-            "One fuel item burns 2 times as long as in the vanilla furnace minecart, and the cart runs faster the higher the tier."
-          ],
-          "secret": [
-            "Craft a minecart with the furnace of the same tier, shapeless; smithing lifts it a tier. Right-click pushes the cart away from you. The Enderite one reaches the full top speed of a plain minecart."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Ofen, der beschloss zu reisen."
-          ],
-          "use": [
-            "Ein Brennstoff brennt 2-mal so lang wie bei der Vanilla-Lore mit Ofen, die Lore fährt schneller und der Ofen gart 2-mal so schnell."
-          ],
-          "secret": [
-            "Eine Lore mit dem Ofen derselben Stufe formlos herstellen; Schmieden hebt sie eine Stufe. Rechtsklick schiebt die Lore von dir weg. Die Enderit-Lore erreicht die volle Höchstgeschwindigkeit einer einfachen Lore."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_hopper",
@@ -41568,45 +41130,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:reinforced_smoker",
-      "name": {
-        "en_us": "Reinforced Smoker",
-        "de_de": "Verstärkter Räucherofen"
-      },
-      "texture": "assets/textures/block/reinforced_smoker_side.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_smoker"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_smoker.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The first step: a furnace with a bit of ambition."
-          ],
-          "use": [
-            "Runs 2 times as fast as the vanilla smoker for food, with the same recipes and menu. Burns fuel twice as long as the vanilla one. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
-          ],
-          "use": [
-            "Läuft 2-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_sticky_piston",
@@ -56500,47 +56023,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:enderite_blast_furnace",
-      "name": {
-        "en_us": "Enderite Blast Furnace",
-        "de_de": "Enderit-Schmelzofen"
-      },
-      "texture": "assets/textures/block/enderite_blast_furnace_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_blast_furnace.png",
-      "lootTable": "simplebuilding:blocks/enderite_blast_furnace",
-      "drops": [
-        "simplebuilding:enderite_blast_furnace"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The fastest fire in the game, tamed in a box."
-          ],
-          "use": [
-            "Runs 8 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Double experience. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Netherite one with a Netherite Sledgehammer and an Enderite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
-          ],
-          "use": [
-            "Läuft 8-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Doppelte Erfahrung. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Netherit-Variante mit einem Netherit-Vorschlaghammer und einem Enderitklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:enderite_chest",
       "name": {
         "en_us": "Enderite Chest",
@@ -56909,49 +56391,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_furnace",
-      "name": {
-        "en_us": "Enderite Furnace",
-        "de_de": "Enderitofen"
-      },
-      "texture": "assets/textures/block/enderite_furnace_side.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:enderite_furnace_minecart"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_furnace.png",
-      "lootTable": "simplebuilding:blocks/enderite_furnace",
-      "drops": [
-        "simplebuilding:enderite_furnace"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The fastest fire in the game, tamed in a box."
-          ],
-          "use": [
-            "Runs 8 times as fast as the vanilla furnace for smelting, with the same recipes and menu. Double experience. No recipe: hammer a placed Netherite one with a Netherite Sledgehammer and an Enderite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
-          ],
-          "use": [
-            "Läuft 8-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Doppelte Erfahrung. Kein Rezept: Hämmere eine platzierte Netherit-Variante mit einem Netherit-Vorschlaghammer und einem Enderitklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:enderite_hopper",
@@ -57572,47 +57011,6 @@ window.WIKI_DATA = {
             "Gleiche Form, Deckelanimation und gleiches Verhalten wie eine Vanilla-Shulkerkiste: öffnet sich nur, wenn der Deckel Platz hat, schiebt beim Öffnen Wesen beiseite und zählt als 'Shulkerkisten geöffnet'.",
             "Trichter füllen übergroße Plätze bis zur Grenze der Stufe; Komparatoren messen gegen die Grenze der Stufe.",
             "Feuerfestes Item, Seltenheit episch, Härte 5 und Explosionsresistenz 1500."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:enderite_smoker",
-      "name": {
-        "en_us": "Enderite Smoker",
-        "de_de": "Enderit-Räucherofen"
-      },
-      "texture": "assets/textures/block/enderite_smoker_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_smoker.png",
-      "lootTable": "simplebuilding:blocks/enderite_smoker",
-      "drops": [
-        "simplebuilding:enderite_smoker"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The fastest fire in the game, tamed in a box."
-          ],
-          "use": [
-            "Runs 8 times as fast as the vanilla smoker for food, with the same recipes and menu. Double experience. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Netherite one with a Netherite Sledgehammer and an Enderite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
-          ],
-          "use": [
-            "Läuft 8-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Doppelte Erfahrung. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Netherit-Variante mit einem Netherit-Vorschlaghammer und einem Enderitklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
           ]
         }
       },
@@ -63570,47 +62968,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:netherite_blast_furnace",
-      "name": {
-        "en_us": "Netherite Blast Furnace",
-        "de_de": "Netherit-Schmelzofen"
-      },
-      "texture": "assets/textures/block/netherite_blast_furnace_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_blast_furnace.png",
-      "lootTable": "simplebuilding:blocks/netherite_blast_furnace",
-      "drops": [
-        "simplebuilding:netherite_blast_furnace"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: It cooks like a forge that has forgotten how to cool."
-          ],
-          "use": [
-            "Runs 4 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Reinforced one with a Diamond Sledgehammer or better and a Netherite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
-          ],
-          "use": [
-            "Läuft 4-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Verstärkte mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_block_octet",
       "name": {
         "en_us": "Block of Netherite Octet Cell",
@@ -64008,49 +63365,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:netherite_furnace",
-      "name": {
-        "en_us": "Netherite Furnace",
-        "de_de": "Netheritofen"
-      },
-      "texture": "assets/textures/block/netherite_furnace_side.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:netherite_furnace_minecart"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_furnace.png",
-      "lootTable": "simplebuilding:blocks/netherite_furnace",
-      "drops": [
-        "simplebuilding:netherite_furnace"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: It cooks like a forge that has forgotten how to cool."
-          ],
-          "use": [
-            "Runs 4 times as fast as the vanilla furnace for smelting, with the same recipes and menu. No recipe: hammer a placed Reinforced one with a Diamond Sledgehammer or better and a Netherite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
-          ],
-          "use": [
-            "Läuft 4-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Kein Rezept: Hämmere eine platzierte Verstärkte mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:netherite_hopper",
@@ -64736,47 +64050,6 @@ window.WIKI_DATA = {
             "Gleiche Form, Deckelanimation und gleiches Verhalten wie eine Vanilla-Shulkerkiste: öffnet sich nur, wenn der Deckel Platz hat, schiebt beim Öffnen Wesen beiseite und zählt als 'Shulkerkisten geöffnet'.",
             "Trichter füllen übergroße Plätze bis zur Grenze der Stufe; Komparatoren messen gegen die Grenze der Stufe.",
             "Feuerfestes Item, Seltenheit ungewöhnlich, Härte 4 und Explosionsresistenz 1200."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:netherite_smoker",
-      "name": {
-        "en_us": "Netherite Smoker",
-        "de_de": "Netherit-Räucherofen"
-      },
-      "texture": "assets/textures/block/netherite_smoker_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_smoker.png",
-      "lootTable": "simplebuilding:blocks/netherite_smoker",
-      "drops": [
-        "simplebuilding:netherite_smoker"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: It cooks like a forge that has forgotten how to cool."
-          ],
-          "use": [
-            "Runs 4 times as fast as the vanilla smoker for food, with the same recipes and menu. Burns fuel twice as long as the vanilla one. No recipe: hammer a placed Reinforced one with a Diamond Sledgehammer or better and a Netherite Nugget."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
-          ],
-          "use": [
-            "Läuft 4-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Hämmere eine platzierte Verstärkte mit einem Diamant-Vorschlaghammer oder besser und einem Netheritklumpen."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
           ]
         }
       },
@@ -70583,49 +69856,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:reinforced_blast_furnace",
-      "name": {
-        "en_us": "Reinforced Blast Furnace",
-        "de_de": "Verstärkter Schmelzofen"
-      },
-      "texture": "assets/textures/block/reinforced_blast_furnace_side.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_blast_furnace"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_blast_furnace.png",
-      "lootTable": "simplebuilding:blocks/reinforced_blast_furnace",
-      "drops": [
-        "simplebuilding:reinforced_blast_furnace"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The first step: a furnace with a bit of ambition."
-          ],
-          "use": [
-            "Runs 2 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Burns fuel twice as long as the vanilla one. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
-          ],
-          "use": [
-            "Läuft 2-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:reinforced_chest",
       "name": {
         "en_us": "Reinforced Chest",
@@ -70876,51 +70106,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:reinforced_furnace",
-      "name": {
-        "en_us": "Reinforced Furnace",
-        "de_de": "Verstärkter Ofen"
-      },
-      "texture": "assets/textures/block/reinforced_furnace_side.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_furnace"
-      ],
-      "usedIn": [
-        "simplebuilding:reinforced_furnace_minecart"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_furnace.png",
-      "lootTable": "simplebuilding:blocks/reinforced_furnace",
-      "drops": [
-        "simplebuilding:reinforced_furnace"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The first step: a furnace with a bit of ambition."
-          ],
-          "use": [
-            "Runs 2 times as fast as the vanilla furnace for smelting, with the same recipes and menu. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
-          ],
-          "use": [
-            "Läuft 2-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_hopper",
@@ -71463,49 +70648,6 @@ window.WIKI_DATA = {
             "Gleiche Form, Deckelanimation und gleiches Verhalten wie eine Vanilla-Shulkerkiste: öffnet sich nur, wenn der Deckel Platz hat, schiebt beim Öffnen Wesen beiseite und zählt als 'Shulkerkisten geöffnet'.",
             "Trichter füllen übergroße Plätze bis zur Grenze der Stufe; Komparatoren messen gegen die Grenze der Stufe.",
             "Seltenheit gewöhnlich, Härte 3 und Explosionsresistenz 6."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:reinforced_smoker",
-      "name": {
-        "en_us": "Reinforced Smoker",
-        "de_de": "Verstärkter Räucherofen"
-      },
-      "texture": "assets/textures/block/reinforced_smoker_side.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_smoker"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_smoker.png",
-      "lootTable": "simplebuilding:blocks/reinforced_smoker",
-      "drops": [
-        "simplebuilding:reinforced_smoker"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: The first step: a furnace with a bit of ambition."
-          ],
-          "use": [
-            "Runs 2 times as fast as the vanilla smoker for food, with the same recipes and menu. Burns fuel twice as long as the vanilla one. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
-          ],
-          "secret": [
-            "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
-          ],
-          "use": [
-            "Läuft 2-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
-          ],
-          "secret": [
-            "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
           ]
         }
       },
@@ -95755,96 +94897,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:enderite_furnace_minecart",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_furnace_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_furnace_minecart.json",
-      "ingredients": [
-        "minecraft:minecart",
-        "simplebuilding:enderite_furnace"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:enderite_furnace"
-        ],
-        [
-          "minecraft:minecart"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 5
-          },
-          {
-            "id": "simplebuilding:enderite_furnace",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:enderite_furnace_minecart_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_furnace_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_furnace_minecart_smithing.json",
-      "ingredients": [
-        "simplebuilding:netherite_furnace_minecart",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simplelib:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_furnace_minecart"
-        ],
-        "addition": [
-          "simplelib:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 5
-          },
-          {
-            "id": "simplebuilding:netherite_furnace",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_upgrade_template",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:enderite_helmet_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -108004,100 +107056,6 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:netherite_ingot",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:netherite_furnace_minecart",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_furnace_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_furnace_minecart.json",
-      "ingredients": [
-        "minecraft:minecart",
-        "simplebuilding:netherite_furnace"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:netherite_furnace"
-        ],
-        [
-          "minecraft:minecart"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 5
-          },
-          {
-            "id": "simplebuilding:netherite_furnace",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:netherite_furnace_minecart_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_furnace_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_furnace_minecart_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_ingot",
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:reinforced_furnace_minecart"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template"
-        ],
-        "base": [
-          "simplebuilding:reinforced_furnace_minecart"
-        ],
-        "addition": [
-          "minecraft:netherite_ingot"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cobblestone",
-            "count": 8
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 5
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
             "count": 1
           }
         ]
@@ -123024,99 +121982,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:reinforced_blast_furnace",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_blast_furnace",
-        "count": 3
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_blast_furnace.json",
-      "ingredients": [
-        "minecraft:blast_furnace",
-        "simplelib:cracked_diamond"
-      ],
-      "pattern": [
-        "DDD",
-        "BBB",
-        "DDD"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blast_furnace"
-        ],
-        "D": [
-          "simplelib:cracked_diamond"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:blast_furnace",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:blast_furnace",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "B": [
-                  "minecraft:blast_furnace"
-                ],
-                "D": [
-                  "simplelib:cracked_diamond"
-                ]
-              },
-              "other": {
-                "B": [
-                  "minecraft:blast_furnace"
-                ],
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_blast_furnace.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 3,
-        "materials": [
-          {
-            "id": "minecraft:cobblestone",
-            "count": 24
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 15
-          },
-          {
-            "id": "minecraft:stone",
-            "count": 9
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 6
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:reinforced_bundle",
       "type": "simplebuilding:reinforced_bundle",
       "category": "equipment",
@@ -124006,134 +122871,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 2
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 2
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:reinforced_furnace",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_furnace",
-        "count": 3
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_furnace.json",
-      "ingredients": [
-        "minecraft:furnace",
-        "simplelib:cracked_diamond"
-      ],
-      "pattern": [
-        "DDD",
-        "FFF",
-        "DDD"
-      ],
-      "key": {
-        "D": [
-          "simplelib:cracked_diamond"
-        ],
-        "F": [
-          "minecraft:furnace"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:furnace",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:furnace",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "D": [
-                  "simplelib:cracked_diamond"
-                ],
-                "F": [
-                  "minecraft:furnace"
-                ]
-              },
-              "other": {
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ],
-                "F": [
-                  "minecraft:furnace"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_furnace.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 3,
-        "materials": [
-          {
-            "id": "minecraft:cobblestone",
-            "count": 24
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 6
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:reinforced_furnace_minecart",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_furnace_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_furnace_minecart.json",
-      "ingredients": [
-        "minecraft:minecart",
-        "simplebuilding:reinforced_furnace"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:reinforced_furnace"
-        ],
-        [
-          "minecraft:minecart"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cobblestone",
-            "count": 8
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 5
           },
           {
             "id": "simplelib:cracked_diamond",
@@ -125989,95 +124726,6 @@ window.WIKI_DATA = {
       "lines": [
         "26.3"
       ]
-    },
-    {
-      "id": "simplebuilding:reinforced_smoker",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_smoker",
-        "count": 3
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_smoker.json",
-      "ingredients": [
-        "minecraft:smoker",
-        "simplelib:cracked_diamond"
-      ],
-      "pattern": [
-        "DDD",
-        "SSS",
-        "DDD"
-      ],
-      "key": {
-        "D": [
-          "simplelib:cracked_diamond"
-        ],
-        "S": [
-          "minecraft:smoker"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:smoker",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:smoker",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "D": [
-                  "simplelib:cracked_diamond"
-                ],
-                "S": [
-                  "minecraft:smoker"
-                ]
-              },
-              "other": {
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ],
-                "S": [
-                  "minecraft:smoker"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_smoker.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 3,
-        "materials": [
-          {
-            "id": "minecraft:cobblestone",
-            "count": 24
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 12
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 6
-          }
-        ]
-      }
     },
     {
       "id": "simplebuilding:reinforced_sticky_piston",
@@ -144507,22 +143155,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_barrel.json"
     },
     {
-      "id": "simplebuilding:blocks/enderite_blast_furnace",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_blast_furnace"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
-    },
-    {
       "id": "simplebuilding:blocks/enderite_chest",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -144601,22 +143233,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_flypad.json"
-    },
-    {
-      "id": "simplebuilding:blocks/enderite_furnace",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_furnace"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_furnace.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_hopper",
@@ -144713,22 +143329,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_shulker_box.json"
-    },
-    {
-      "id": "simplebuilding:blocks/enderite_smoker",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_smoker"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_smoker.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_spawn_teleporter",
@@ -145820,22 +144420,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_backpack.json"
     },
     {
-      "id": "simplebuilding:blocks/netherite_blast_furnace",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:netherite_blast_furnace"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json"
-    },
-    {
       "id": "simplebuilding:blocks/netherite_chest",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -145898,22 +144482,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_flypad.json"
-    },
-    {
-      "id": "simplebuilding:blocks/netherite_furnace",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:netherite_furnace"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_furnace.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_hopper",
@@ -146010,22 +144578,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_shulker_box.json"
-    },
-    {
-      "id": "simplebuilding:blocks/netherite_smoker",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:netherite_smoker"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_smoker.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_trapped_chest",
@@ -147051,22 +145603,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_backpack.json"
     },
     {
-      "id": "simplebuilding:blocks/reinforced_blast_furnace",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:reinforced_blast_furnace"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_blast_furnace.json"
-    },
-    {
       "id": "simplebuilding:blocks/reinforced_chest",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -147113,22 +145649,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_flypad.json"
-    },
-    {
-      "id": "simplebuilding:blocks/reinforced_furnace",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:reinforced_furnace"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_furnace.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_hopper",
@@ -147193,22 +145713,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_shulker_box.json"
-    },
-    {
-      "id": "simplebuilding:blocks/reinforced_smoker",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:reinforced_smoker"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_smoker.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_sticky_piston",
@@ -154337,10 +152841,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_blast_furnace",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_boots",
           "required": true
         },
@@ -154398,14 +152898,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_flypad",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_furnace",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_furnace_minecart",
           "required": true
         },
         {
@@ -154494,10 +152986,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_smoker",
           "required": true
         },
         {
@@ -154543,6 +153031,22 @@ window.WIKI_DATA = {
         {
           "id": "simplelib:enderite_nugget",
           "required": true
+        },
+        {
+          "id": "simpleovens:enderite_blast_furnace",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_furnace",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_furnace_minecart",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_smoker",
+          "required": true
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json"
@@ -154573,10 +153077,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_barrel",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_blast_furnace",
           "required": true
         },
         {
@@ -154637,14 +153137,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_flypad",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_furnace",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_furnace_minecart",
           "required": true
         },
         {
@@ -154733,10 +153225,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_smoker",
           "required": true
         },
         {
@@ -154817,6 +153305,22 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplelib:raw_enderite",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_blast_furnace",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_furnace",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_furnace_minecart",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_smoker",
           "required": true
         }
       ],
@@ -161739,39 +160243,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "sledgehammer_upgrade/simplebuilding:netherite_blast_furnace",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:netherite_blast_furnace",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:netherite_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:enderite_blast_furnace",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 10,
-          "damage": 50
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
         "id": "sledgehammer_upgrade/simplebuilding:netherite_chest",
         "kind": "sledgehammer_upgrade",
         "inputs": [
@@ -161790,39 +160261,6 @@ window.WIKI_DATA = {
         "toolOrBetter": true,
         "output": {
           "id": "simplebuilding:enderite_chest",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 10,
-          "damage": 50
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:netherite_furnace",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:netherite_furnace",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:netherite_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:enderite_furnace",
           "count": 1
         },
         "stats": {
@@ -161936,39 +160374,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "sledgehammer_upgrade/simplebuilding:netherite_smoker",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:netherite_smoker",
-            "count": 1
-          },
-          {
-            "id": "simplelib:enderite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:netherite_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:enderite_smoker",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 10,
-          "damage": 50
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
         "id": "sledgehammer_upgrade/simplebuilding:netherite_trapped_chest",
         "kind": "sledgehammer_upgrade",
         "inputs": [
@@ -162000,39 +160405,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "sledgehammer_upgrade/simplebuilding:reinforced_blast_furnace",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:reinforced_blast_furnace",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:diamond_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:netherite_blast_furnace",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 4,
-          "damage": 20
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
         "id": "sledgehammer_upgrade/simplebuilding:reinforced_chest",
         "kind": "sledgehammer_upgrade",
         "inputs": [
@@ -162051,39 +160423,6 @@ window.WIKI_DATA = {
         "toolOrBetter": true,
         "output": {
           "id": "simplebuilding:netherite_chest",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 4,
-          "damage": 20
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:reinforced_furnace",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:reinforced_furnace",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:diamond_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:netherite_furnace",
           "count": 1
         },
         "stats": {
@@ -162192,39 +160531,6 @@ window.WIKI_DATA = {
           "damage": 40
         },
         "lines": [
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:reinforced_smoker",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:reinforced_smoker",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:diamond_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:netherite_smoker",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 4,
-          "damage": 20
-        },
-        "lines": [
-          "1.21.11",
           "26.2",
           "26.3"
         ]
@@ -181357,7 +179663,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:machines/end_of_the_line",
       "parent": "simplebuilding:machines/forged_in_place",
-      "icon": "simplebuilding:enderite_furnace",
+      "icon": "simpleovens:enderite_furnace",
       "frame": "challenge",
       "hidden": false,
       "title": {
@@ -181376,12 +179682,12 @@ window.WIKI_DATA = {
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/machines/end_of_the_line.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/end_of_the_line.json"
     },
     {
       "id": "simplebuilding:machines/forged_in_place",
       "parent": "simplebuilding:machines/reinforcements",
-      "icon": "simplebuilding:netherite_furnace",
+      "icon": "simpleovens:netherite_furnace",
       "frame": "goal",
       "hidden": false,
       "title": {
@@ -181400,7 +179706,7 @@ window.WIKI_DATA = {
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/machines/forged_in_place.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/forged_in_place.json"
     },
     {
       "id": "simplebuilding:machines/good_as_new",
@@ -181453,7 +179759,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:machines/reinforcements",
       "parent": "simplebuilding:hammer/cracked_up",
-      "icon": "simplebuilding:reinforced_furnace",
+      "icon": "simpleovens:reinforced_furnace",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -181469,9 +179775,9 @@ window.WIKI_DATA = {
           "name": "reinforced_machine",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:reinforced_furnace",
-            "simplebuilding:reinforced_smoker",
-            "simplebuilding:reinforced_blast_furnace",
+            "simpleovens:reinforced_furnace",
+            "simpleovens:reinforced_smoker",
+            "simpleovens:reinforced_blast_furnace",
             "simplebuilding:reinforced_hopper",
             "simplebuilding:reinforced_piston",
             "simplebuilding:reinforced_sticky_piston",
@@ -181480,7 +179786,7 @@ window.WIKI_DATA = {
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/machines/reinforcements.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/reinforcements.json"
     },
     {
       "id": "simplebuilding:machines/soul_scooper",
@@ -185313,33 +183619,20 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 770,
-    "blocks": 527,
-    "recipes": 1349,
-    "lootTables": 373,
+    "items": 758,
+    "blocks": 518,
+    "recipes": 1341,
+    "lootTables": 364,
     "trades": 20,
     "enchantments": 19,
     "tags": 55,
     "config": 235,
-    "inWorld": 494,
+    "inWorld": 488,
     "advancements": 116,
     "features": 51,
-    "undocumented": 12,
+    "undocumented": 0,
     "incompleteProse": 0
   },
-  "undocumented": [
-    "simplebuilding:enderite_blast_furnace",
-    "simplebuilding:enderite_furnace",
-    "simplebuilding:enderite_furnace_minecart",
-    "simplebuilding:enderite_smoker",
-    "simplebuilding:netherite_blast_furnace",
-    "simplebuilding:netherite_furnace",
-    "simplebuilding:netherite_furnace_minecart",
-    "simplebuilding:netherite_smoker",
-    "simplebuilding:reinforced_blast_furnace",
-    "simplebuilding:reinforced_furnace",
-    "simplebuilding:reinforced_furnace_minecart",
-    "simplebuilding:reinforced_smoker"
-  ],
+  "undocumented": [],
   "incompleteProse": {}
 };

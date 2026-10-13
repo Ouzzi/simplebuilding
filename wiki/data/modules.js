@@ -600,6 +600,6 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "90fa2385eeca"
+    "dataHash": "e52860766689"
   }
 ];

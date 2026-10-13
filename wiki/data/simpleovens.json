@@ -795,7 +795,18 @@
         "en_us": "Enderite Furnace Minecart",
         "de_de": "Enderit-Antriebslore"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/cart/TieredFurnaceMinecart.java",
+          "modules/simpleovens/shared/java/com/simpleovens/cart/FurnaceMinecartItem.java"
+        ],
+        "en": {
+          "summary": "Furnace minecart of the Enderite tier: one fuel item burns 8 times as long as in Vanilla's furnace cart, and it runs faster (see Furnace Minecarts)."
+        },
+        "de": {
+          "summary": "Antriebslore der Stufe Enderit: ein Brennstoff brennt 8-mal so lange wie in Vanillas Antriebslore, und sie fährt schneller (siehe Antriebsloren)."
+        }
+      },
       "texture": "assets/textures/simpleovens/item/enderite_furnace_minecart.png",
       "questionary": {
         "en": {
@@ -856,7 +867,18 @@
         "en_us": "Netherite Furnace Minecart",
         "de_de": "Netherit-Antriebslore"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/cart/TieredFurnaceMinecart.java",
+          "modules/simpleovens/shared/java/com/simpleovens/cart/FurnaceMinecartItem.java"
+        ],
+        "en": {
+          "summary": "Furnace minecart of the Netherite tier: one fuel item burns 4 times as long as in Vanilla's furnace cart, and it runs faster (see Furnace Minecarts)."
+        },
+        "de": {
+          "summary": "Antriebslore der Stufe Netherit: ein Brennstoff brennt 4-mal so lange wie in Vanillas Antriebslore, und sie fährt schneller (siehe Antriebsloren)."
+        }
+      },
       "texture": "assets/textures/simpleovens/item/netherite_furnace_minecart.png",
       "questionary": {
         "en": {
@@ -896,7 +918,18 @@
         "en_us": "Reinforced Furnace Minecart",
         "de_de": "Verstärkte Antriebslore"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/cart/TieredFurnaceMinecart.java",
+          "modules/simpleovens/shared/java/com/simpleovens/cart/FurnaceMinecartItem.java"
+        ],
+        "en": {
+          "summary": "Furnace minecart of the Reinforced tier: one fuel item burns 2 times as long as in Vanilla's furnace cart, and it runs faster (see Furnace Minecarts)."
+        },
+        "de": {
+          "summary": "Antriebslore der Stufe Verstärkt: ein Brennstoff brennt 2-mal so lange wie in Vanillas Antriebslore, und sie fährt schneller (siehe Antriebsloren)."
+        }
+      },
       "texture": "assets/textures/simpleovens/item/reinforced_furnace_minecart.png",
       "questionary": {
         "en": {
@@ -937,7 +970,18 @@
         "en_us": "Enderite Blast Furnace",
         "de_de": "Enderit-Schmelzofen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/block/TierBlastFurnaceBlock.java",
+          "modules/simpleovens/shared/java/com/simpleovens/OvenTier.java"
+        ],
+        "en": {
+          "summary": "The Enderite blast furnace: the Vanilla blast furnace for ores and metal, 8 times as fast by default. Double experience. Upgraded in place from the Netherite one with an Enderite Nugget (see In-World Upgrade)."
+        },
+        "de": {
+          "summary": "Schmelzofen der Stufe Enderit: der Vanilla-Schmelzofen für Erze und Metall, standardmäßig 8-mal so schnell. Doppelte Erfahrung. An Ort und Stelle aus der Netherit-Stufe mit einem Enderitklumpen aufgewertet (siehe Aufwertung in der Welt)."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -971,7 +1015,18 @@
         "en_us": "Enderite Furnace",
         "de_de": "Enderitofen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/block/TierFurnaceBlock.java",
+          "modules/simpleovens/shared/java/com/simpleovens/OvenTier.java"
+        ],
+        "en": {
+          "summary": "The Enderite furnace: the Vanilla furnace for smelting, 8 times as fast by default. Double experience. Upgraded in place from the Netherite one with an Enderite Nugget (see In-World Upgrade)."
+        },
+        "de": {
+          "summary": "Ofen der Stufe Enderit: der Vanilla-Ofen für Schmelzen, standardmäßig 8-mal so schnell. Doppelte Erfahrung. An Ort und Stelle aus der Netherit-Stufe mit einem Enderitklumpen aufgewertet (siehe Aufwertung in der Welt)."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -1007,7 +1062,18 @@
         "en_us": "Enderite Smoker",
         "de_de": "Enderit-Räucherofen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/block/TierSmokerBlock.java",
+          "modules/simpleovens/shared/java/com/simpleovens/OvenTier.java"
+        ],
+        "en": {
+          "summary": "The Enderite smoker: the Vanilla smoker for food, 8 times as fast by default. Double experience. Upgraded in place from the Netherite one with an Enderite Nugget (see In-World Upgrade)."
+        },
+        "de": {
+          "summary": "Räucherofen der Stufe Enderit: der Vanilla-Räucherofen für Nahrung, standardmäßig 8-mal so schnell. Doppelte Erfahrung. An Ort und Stelle aus der Netherit-Stufe mit einem Enderitklumpen aufgewertet (siehe Aufwertung in der Welt)."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -1041,7 +1107,18 @@
         "en_us": "Netherite Blast Furnace",
         "de_de": "Netherit-Schmelzofen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/block/TierBlastFurnaceBlock.java",
+          "modules/simpleovens/shared/java/com/simpleovens/OvenTier.java"
+        ],
+        "en": {
+          "summary": "The Netherite blast furnace: the Vanilla blast furnace for ores and metal, 4 times as fast by default. Double experience. Upgraded in place from the Reinforced one with a Netherite Nugget (see In-World Upgrade)."
+        },
+        "de": {
+          "summary": "Schmelzofen der Stufe Netherit: der Vanilla-Schmelzofen für Erze und Metall, standardmäßig 4-mal so schnell. Doppelte Erfahrung. An Ort und Stelle aus der verstärkten Stufe mit einem Netheritklumpen aufgewertet (siehe Aufwertung in der Welt)."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -1075,7 +1152,18 @@
         "en_us": "Netherite Furnace",
         "de_de": "Netheritofen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/block/TierFurnaceBlock.java",
+          "modules/simpleovens/shared/java/com/simpleovens/OvenTier.java"
+        ],
+        "en": {
+          "summary": "The Netherite furnace: the Vanilla furnace for smelting, 4 times as fast by default. Double experience. Upgraded in place from the Reinforced one with a Netherite Nugget (see In-World Upgrade)."
+        },
+        "de": {
+          "summary": "Ofen der Stufe Netherit: der Vanilla-Ofen für Schmelzen, standardmäßig 4-mal so schnell. Doppelte Erfahrung. An Ort und Stelle aus der verstärkten Stufe mit einem Netheritklumpen aufgewertet (siehe Aufwertung in der Welt)."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -1111,7 +1199,18 @@
         "en_us": "Netherite Smoker",
         "de_de": "Netherit-Räucherofen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/block/TierSmokerBlock.java",
+          "modules/simpleovens/shared/java/com/simpleovens/OvenTier.java"
+        ],
+        "en": {
+          "summary": "The Netherite smoker: the Vanilla smoker for food, 4 times as fast by default. Double experience. Upgraded in place from the Reinforced one with a Netherite Nugget (see In-World Upgrade)."
+        },
+        "de": {
+          "summary": "Räucherofen der Stufe Netherit: der Vanilla-Räucherofen für Nahrung, standardmäßig 4-mal so schnell. Doppelte Erfahrung. An Ort und Stelle aus der verstärkten Stufe mit einem Netheritklumpen aufgewertet (siehe Aufwertung in der Welt)."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -1145,7 +1244,18 @@
         "en_us": "Reinforced Blast Furnace",
         "de_de": "Verstärkter Schmelzofen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/block/TierBlastFurnaceBlock.java",
+          "modules/simpleovens/shared/java/com/simpleovens/OvenTier.java"
+        ],
+        "en": {
+          "summary": "The Reinforced blast furnace: the Vanilla blast furnace for ores and metal, 2 times as fast by default. Crafted: 3 Cracked Diamonds, 3 Vanilla machines, 3 Cracked Diamonds give 3."
+        },
+        "de": {
+          "summary": "Schmelzofen der Stufe Verstärkt: der Vanilla-Schmelzofen für Erze und Metall, standardmäßig 2-mal so schnell. Gecraftet: 3 Rissige Diamanten, 3 Vanilla-Geräte, 3 Rissige Diamanten ergeben 3."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -1181,7 +1291,18 @@
         "en_us": "Reinforced Furnace",
         "de_de": "Verstärkter Ofen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/block/TierFurnaceBlock.java",
+          "modules/simpleovens/shared/java/com/simpleovens/OvenTier.java"
+        ],
+        "en": {
+          "summary": "The Reinforced furnace: the Vanilla furnace for smelting, 2 times as fast by default. Crafted: 3 Cracked Diamonds, 3 Vanilla machines, 3 Cracked Diamonds give 3."
+        },
+        "de": {
+          "summary": "Ofen der Stufe Verstärkt: der Vanilla-Ofen für Schmelzen, standardmäßig 2-mal so schnell. Gecraftet: 3 Rissige Diamanten, 3 Vanilla-Geräte, 3 Rissige Diamanten ergeben 3."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -1219,7 +1340,18 @@
         "en_us": "Reinforced Smoker",
         "de_de": "Verstärkter Räucherofen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/block/TierSmokerBlock.java",
+          "modules/simpleovens/shared/java/com/simpleovens/OvenTier.java"
+        ],
+        "en": {
+          "summary": "The Reinforced smoker: the Vanilla smoker for food, 2 times as fast by default. Crafted: 3 Cracked Diamonds, 3 Vanilla machines, 3 Cracked Diamonds give 3."
+        },
+        "de": {
+          "summary": "Räucherofen der Stufe Verstärkt: der Vanilla-Räucherofen für Nahrung, standardmäßig 2-mal so schnell. Gecraftet: 3 Rissige Diamanten, 3 Vanilla-Geräte, 3 Rissige Diamanten ergeben 3."
+        }
+      },
       "questionary": {
         "en": {
           "lore": [
@@ -1261,20 +1393,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleovens:enderite_blast_furnace",
-    "simpleovens:enderite_furnace",
-    "simpleovens:enderite_furnace_minecart",
-    "simpleovens:enderite_smoker",
-    "simpleovens:netherite_blast_furnace",
-    "simpleovens:netherite_furnace",
-    "simpleovens:netherite_furnace_minecart",
-    "simpleovens:netherite_smoker",
-    "simpleovens:reinforced_blast_furnace",
-    "simpleovens:reinforced_furnace",
-    "simpleovens:reinforced_furnace_minecart",
-    "simpleovens:reinforced_smoker"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 6,
@@ -1289,7 +1408,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 12,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
