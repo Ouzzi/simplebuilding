@@ -201,5 +201,27 @@
     "use": [
       "Schießpulver, Seelenfeuer-Lohenstaub und Kohle oder Holzkohle ergeben 3. Auf einen Block benutzt entzündet sie Feuer; ein Dispenser verschießt sie wie die Seelenfeuer-Lohe. Ein Treffer brennt und gibt mit Simple Building Seelenbrand."
     ]
+  },
+  "wither_heart": {
+    "lore": [
+      "Es schlägt noch, langsam, lange nachdem der Wither verstummt ist. Schüttelt man es, rieselt Asche heraus."
+    ],
+    "use": [
+      "Fällt vom Verdorrten Wither, genau eins pro Kampf. Mit einem Netheritbarren und einem Pinsel wird daraus der Biom-Pinsel."
+    ],
+    "secret": [
+      "Nur der Verdorrte Wither hat eins. Du rufst ihn, indem du die Wither-Figur auf einen Netheritblock baust."
+    ]
+  },
+  "biome_brush": {
+    "lore": [
+      "Male das Land selbst an. Das Herz in der Zwinge erinnert sich an jeden Ort, den es gesehen hat."
+    ],
+    "use": [
+      "Halte ihn in der Haupthand und ein Biom-Material in der Nebenhand, dann Rechtsklick auf einen Block: Sand malt Wüste, Schnee verschneite Ebene, Seelensand ein Seelensandtal. Ein Material und ein Haltbarkeitspunkt je Strich."
+    ],
+    "secret": [
+      "Biome bleiben in ihrer Dimension, geschütztes Land und Höhlen lassen sich nicht übermalen. Haltbarkeit und Reparatur wirken auf ihn."
+    ]
   }
 }

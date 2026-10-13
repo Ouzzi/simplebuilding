@@ -353,7 +353,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "7576b819864c"
+    "dataHash": "e52a4af1a7de"
   },
   {
     "id": "simpleweather",

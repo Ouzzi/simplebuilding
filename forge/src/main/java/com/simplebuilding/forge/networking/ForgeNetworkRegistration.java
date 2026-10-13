@@ -80,6 +80,8 @@ public final class ForgeNetworkRegistration {
                     }))
                     .add(com.simplebuilding.networking.DataTablesSyncPayload.ID, com.simplebuilding.networking.DataTablesSyncPayload.CODEC,
                             (payload, ctx) -> handled(ctx).enqueueWork(() -> com.simplebuilding.data.ModDataTables.receive(payload)))
+                    .add(com.simplebuilding.networking.ExtraHeadPayload.ID, com.simplebuilding.networking.ExtraHeadPayload.CODEC, // N49
+                            (payload, ctx) -> handled(ctx).enqueueWork(() -> com.simplebuilding.networking.ExtraHeadPayload.receive(payload)))
                     .add(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         if (Minecraft.getInstance().player instanceof SurvivalTracerAccessor accessor) {
                             accessor.simplebuilding$setCurrentValues(payload.currentDist(), payload.currentTime(), payload.currentHostile(), payload.currentPassive(), payload.currentDamage());

@@ -66,4 +66,13 @@ public final class ModuleGameTest {
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simplemobs.discover.MobsDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simplemobs.discover.MobsDiscover.behaviourHints(h); }
     @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplebuilding.modules.simplemobs.discover.MobsDiscover.firstPickupTips(h); }
+    @GameTest(structure = "simplemobs:empty") public void witherValues(GameTestHelper helper) { MobsTests.ALL.get("wither_values").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void witherSummon(GameTestHelper helper) { MobsTests.ALL.get("wither_summon").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void witherDrop(GameTestHelper helper) { MobsTests.ALL.get("wither_drop").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void witherAttacks(GameTestHelper helper) { MobsTests.ALL.get("wither_attacks").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void witherWilt(GameTestHelper helper) { MobsTests.ALL.get("wither_wilt").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void biomeBrushItem(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_item").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void biomeBrushPaint(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_paint").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void guideBook(GameTestHelper helper) { MobsTests.ALL.get("guide_book").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void biomeBrushClaims(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_claims").accept(helper); }
 }

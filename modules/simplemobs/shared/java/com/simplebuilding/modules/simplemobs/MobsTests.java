@@ -189,6 +189,8 @@ public final class MobsTests {
         DisguiseTests.addAll(MobsTests::add);
         EndNetherTests.addAll(MobsTests::add);
         FearTests.addAll(MobsTests::add);
+        WitherTests.addAll(MobsTests::add);
+        add("guide_book", com.simplebuilding.modules.simplemobs.guide.MobsGuide::gameTest);
     }
 
     private MobsTests() {}

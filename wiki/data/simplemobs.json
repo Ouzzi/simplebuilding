@@ -307,6 +307,71 @@
       }
     },
     {
+      "id": "blighted_wither",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BlightedWither.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BlightedPattern.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherMobs.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/WitherSkullBlightedMixin.java"
+      ],
+      "en": {
+        "title": "Blighted Wither and Wither Heart",
+        "summary": "The Wither, only stronger: build the Wither figure on a Block of Netherite and the Blighted Wither rises - 600 health, armor 8, three phases, and every special attack is announced before it hits. It drops a Wither Heart.",
+        "details": [
+          "Summoning: the Vanilla T of soul sand or soul soil with three wither skeleton skulls, plus a Block of Netherite under the foot of the T. The last skull summons the Blighted Wither and uses up the Netherite block; without it the Vanilla Wither comes. Not on Peaceful; server config witherSummonEnabled.",
+          "Health 600 (Vanilla 300), armor 8 (Vanilla 4), 100 experience. It wakes like the Wither (11 s, then the explosion) and heals to full while waking.",
+          "Phase 1 (above half health): the Vanilla skulls, plus a twin volley every 5 s - both side heads burn with soul fire for 1 s, then fire at the target at once.",
+          "Phase 2 (half health and below): the Vanilla shield (arrows and wind charges bounce off), and every 20 s three Wither Skeletons: soul flames mark their spots for 2 s before they rise. Never more than six near it; they drop nothing.",
+          "Phase 3 \"Blight\" (below 15 %): a nova every 12 s - a ring of soul smoke 8 blocks wide warns for 2 s, whoever is still inside gets Wither II for 6 s and is pushed away. Every 30 s the wilt (ash falls for 2 s first): short grass, ferns and flowers within 12 blocks turn into dead bushes, natural leaves fall, one in five grass blocks becomes coarse dirt. Placed leaves, crops, saplings and all other blocks stay. Needs the mobGriefing game rule; server config witherWilt.",
+          "Drops exactly one Wither Heart besides the Nether Star (Looting does not change it). Only the Blighted Wither drops it. The Wither Heart is the core of the Biome Brush."
+        ]
+      },
+      "de": {
+        "title": "Verdorrter Wither und Witherherz",
+        "summary": "Der Wither, nur stärker: Baue die Wither-Figur auf einen Netheritblock, dann erscheint der Verdorrte Wither - 600 Leben, Rüstung 8, drei Phasen, und jeder Spezialangriff wird angekündigt, bevor er trifft. Er lässt ein Witherherz fallen.",
+        "details": [
+          "Beschwörung: das Vanilla-T aus Seelensand oder Seelenerde mit drei Witherskelettschädeln, dazu ein Netheritblock unter dem Fuß des T. Der letzte Schädel ruft den Verdorrten Wither und verbraucht den Netheritblock; ohne ihn kommt der Vanilla-Wither. Nicht auf Friedlich; Server-Config witherSummonEnabled.",
+          "Leben 600 (Vanilla 300), Rüstung 8 (Vanilla 4), 100 Erfahrung. Er erwacht wie der Wither (11 s, dann die Explosion) und heilt sich dabei voll.",
+          "Phase 1 (über halbem Leben): die Vanilla-Schädel, dazu alle 5 s eine Doppelsalve - beide Seitenköpfe brennen 1 s mit Seelenfeuer, dann schießen sie gleichzeitig auf das Ziel.",
+          "Phase 2 (ab halbem Leben): der Vanilla-Schild (Pfeile und Windkugeln prallen ab), und alle 20 s drei Witherskelette: Seelenflammen markieren 2 s vorher ihre Plätze. Nie mehr als sechs in seiner Nähe; sie lassen nichts fallen.",
+          "Phase 3 „Welken“ (unter 15 %): alle 12 s eine Nova - ein Ring aus Seelenrauch mit 8 Blöcken Radius warnt 2 s, wer dann noch drinsteht, bekommt 6 s Ausdörrung II und wird weggestoßen. Alle 30 s das Welken (vorher fällt 2 s Asche): Gras, Farne und Blumen im Umkreis von 12 Blöcken werden zu toten Büschen, natürliches Laub fällt ab, jeder fünfte Grasblock wird zu grober Erde. Gesetztes Laub, Feldfrüchte, Setzlinge und alle anderen Blöcke bleiben. Braucht die Spielregel mobGriefing; Server-Config witherWilt.",
+          "Lässt neben dem Netherstern genau ein Witherherz fallen (Plünderung ändert das nicht). Nur der Verdorrte Wither lässt es fallen. Das Witherherz ist der Kern des Biom-Pinsels."
+        ]
+      }
+    },
+    {
+      "id": "biome_brush",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BiomeBrushItem.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BiomeBrush.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherMobs.java",
+        "modules/simplemobs/shared/resources/data/simplemobs/recipe/biome_brush.json"
+      ],
+      "en": {
+        "title": "Biome Brush",
+        "summary": "Brush in the main hand, a biome material in the off hand, right-click a block: the biome around it becomes the material's biome. One material and one durability point per stroke.",
+        "details": [
+          "Recipe (shaped, one column): Wither Heart, Netherite Ingot, Brush. Durability 512, repaired with Netherite Ingots, takes Unbreaking and Mending.",
+          "A stroke sets the 4x4x4 biome cells (Vanilla stores biomes in such cells) around the clicked block: 3x3x3 cells, 12 blocks wide (server config biomeBrushRadius, 0 to 2 cells). The chunks are sent again at once, so grass, leaf and water colors, weather, mob spawns and plant growth follow the new biome. Holding the button keeps painting, one stroke per 5 ticks. Creative uses no material and no durability.",
+          "Materials: Grass Block = Plains, Sand = Desert, Snow Block = Snowy Plains, Mycelium = Mushroom Fields, Cherry Leaves = Cherry Grove, Jungle Log = Jungle, Red Sand = Badlands, Podzol = Taiga, Mangrove Roots = Mangrove Swamp, Pale Moss Block = Pale Garden, Oak Log = Forest, Birch Log = Birch Forest, Dark Oak Log = Dark Forest, Acacia Log = Savanna, Lily Pad = Swamp, Packed Ice = Ice Spikes; Nether: Soul Sand or Soul Soil = Soul Sand Valley, Crimson Nylium = Crimson Forest, Warped Nylium = Warped Forest, Basalt = Basalt Deltas, Netherrack = Nether Wastes; End: Chorus Flower = End Highlands, End Stone = End Barrens. Data packs add more in data/<namespace>/biome_brush/*.json.",
+          "Limits: biomes only in their own dimension (Overworld biomes in the Overworld ...). Cave biomes (Deep Dark, Dripstone and Lush Caves) and structures are never painted over.",
+          "Multiplayer-safe: every cell is checked like a block edit - claims (Simple Tweaks or any mod using the shared protection check), spawn protection and adventure mode. Refused cells keep their biome; a refused clicked cell refuses the stroke and uses nothing (a puff of smoke). Server config: biomeBrushEnabled, biomeBrushOpsOnly."
+        ]
+      },
+      "de": {
+        "title": "Biom-Pinsel",
+        "summary": "Pinsel in der Haupthand, ein Biom-Material in der Nebenhand, Rechtsklick auf einen Block: Das Biom ringsum wird zum Biom des Materials. Ein Material und ein Haltbarkeitspunkt je Strich.",
+        "details": [
+          "Rezept (geformt, eine Spalte): Witherherz, Netheritbarren, Pinsel. Haltbarkeit 512, Reparatur mit Netheritbarren, nimmt Haltbarkeit und Reparatur an.",
+          "Ein Strich setzt die 4×4×4-Biomzellen (so speichert Vanilla Biome) um den geklickten Block: 3×3×3 Zellen, 12 Blöcke breit (Server-Config biomeBrushRadius, 0 bis 2 Zellen). Die Chunks werden sofort neu gesendet, Gras-, Laub- und Wasserfarbe, Wetter, Mob-Spawns und Pflanzenwachstum folgen dem neuen Biom. Gedrückt halten malt weiter, ein Strich je 5 Ticks. Kreativ verbraucht weder Material noch Haltbarkeit.",
+          "Materialien: Grasblock = Ebene, Sand = Wüste, Schneeblock = Verschneite Ebene, Myzel = Pilzinsel, Kirschlaub = Kirschhain, Tropenbaumstamm = Dschungel, Roter Sand = Tafelberge, Podsol = Taiga, Mangrovenwurzeln = Mangrovensumpf, Blassmoosblock = Blasser Garten, Eichenstamm = Wald, Birkenstamm = Birkenwald, Schwarzeichenstamm = Dichter Wald, Akazienstamm = Savanne, Seerosenblatt = Sumpf, Packeis = Eiszapfentundra; Nether: Seelensand oder Seelenerde = Seelensandtal, Karmesin-Nyzel = Karmesinwald, Wirr-Nyzel = Wirrwald, Basalt = Basaltdeltas, Netherrack = Netherödland; End: Chorusblüte = End-Hochland, Endstein = Kargland des Ends. Datenpakete ergänzen weitere unter data/<namespace>/biome_brush/*.json.",
+          "Grenzen: Biome nur in ihrer eigenen Dimension (Oberwelt-Biome in der Oberwelt …). Höhlenbiome (Tiefes Dunkel, Tropfsteinhöhlen, Üppige Höhlen) und Bauwerke werden nie übermalt.",
+          "Mehrspielersicher: Jede Zelle wird wie ein Blockeingriff geprüft - Claims (Simple Tweaks oder jede Mod mit der gemeinsamen Schutzprüfung), Spawnschutz und Abenteuermodus. Verweigerte Zellen behalten ihr Biom; ist die geklickte Zelle verweigert, wird nichts gemalt und nichts verbraucht (ein Rauchwölkchen). Server-Config: biomeBrushEnabled, biomeBrushOpsOnly."
+        ]
+      }
+    },
+    {
       "id": "first_pickup_tips",
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/discover/MobsDiscover.java",
@@ -337,6 +402,63 @@
     }
   ],
   "recipes": [
+    {
+      "id": "simplemobs:biome_brush",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplemobs:biome_brush",
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/biome_brush.json",
+      "ingredients": [
+        "minecraft:brush",
+        "minecraft:netherite_ingot",
+        "simplemobs:wither_heart"
+      ],
+      "pattern": [
+        " H ",
+        " N ",
+        " B "
+      ],
+      "key": {
+        "H": [
+          "simplemobs:wither_heart"
+        ],
+        "N": [
+          "minecraft:netherite_ingot"
+        ],
+        "B": [
+          "minecraft:brush"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:feather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:wither_heart",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
     {
       "id": "simplemobs:brewing/lingering_potion_awkward_echo_core",
       "type": "minecraft:brewing",
@@ -1321,6 +1443,46 @@
       }
     },
     {
+      "id": "simplemobs:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemobs:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:bone",
+        "minecraft:book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:bone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplemobs:shellker_helmet",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -1763,11 +1925,78 @@
         }
       ],
       "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/item/repairs_shellker_helmet.json"
+    },
+    {
+      "id": "simplemobs:worldgen/biome/biome_brush_locked",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:deep_dark",
+          "required": true
+        },
+        {
+          "id": "minecraft:dripstone_caves",
+          "required": true
+        },
+        {
+          "id": "minecraft:lush_caves",
+          "required": true
+        },
+        {
+          "id": "minecraft:sulfur_caves",
+          "required": false
+        }
+      ],
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/worldgen/biome/biome_brush_locked.json"
     }
   ],
   "advancements": [],
   "enchantments": [],
   "items": [
+    {
+      "id": "simplemobs:biome_brush",
+      "name": {
+        "en_us": "Biome Brush",
+        "de_de": "Biom-Pinsel"
+      },
+      "note": {
+        "en": {
+          "summary": "Main hand: brush, off hand: biome material. Right-click paints the biome around the block (3x3x3 cells), one material and one durability point per stroke."
+        },
+        "de": {
+          "summary": "Haupthand: Pinsel, Nebenhand: Biom-Material. Rechtsklick malt das Biom um den Block (3×3×3 Zellen), ein Material und ein Haltbarkeitspunkt je Strich."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/biome_brush.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Paint the land itself. The heart in the ferrule remembers every place it has seen."
+          ],
+          "use": [
+            "Hold it in the main hand and a biome material in the off hand, then right-click a block: sand paints desert, snow paints snowy plains, soul sand paints a soul sand valley. One material and one durability point per stroke."
+          ],
+          "secret": [
+            "Biomes stay in their dimension, and claimed land or caves cannot be painted. Unbreaking and Mending work on it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Male das Land selbst an. Das Herz in der Zwinge erinnert sich an jeden Ort, den es gesehen hat."
+          ],
+          "use": [
+            "Halte ihn in der Haupthand und ein Biom-Material in der Nebenhand, dann Rechtsklick auf einen Block: Sand malt Wüste, Schnee verschneite Ebene, Seelensand ein Seelensandtal. Ein Material und ein Haltbarkeitspunkt je Strich."
+          ],
+          "secret": [
+            "Biome bleiben in ihrer Dimension, geschütztes Land und Höhlen lassen sich nicht übermalen. Haltbarkeit und Reparatur wirken auf ihn."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplemobs:biome_brush"
+      ],
+      "usedIn": []
+    },
     {
       "id": "simplemobs:calm_amulet",
       "name": {
@@ -2069,6 +2298,29 @@
         }
       },
       "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemobs:guide_book",
+      "name": {
+        "en_us": "Simple Mobs Guide",
+        "de_de": "Simple-Mobs-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/guide/MobsGuide.java",
+          "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+        }
+      },
+      "craftedBy": [
+        "simplemobs:guide_book"
+      ],
       "usedIn": []
     },
     {
@@ -2576,6 +2828,50 @@
       },
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simplemobs:wither_heart",
+      "name": {
+        "en_us": "Wither Heart",
+        "de_de": "Witherherz"
+      },
+      "note": {
+        "en": {
+          "summary": "Dropped by the Blighted Wither, exactly one per kill. Core of the Biome Brush."
+        },
+        "de": {
+          "summary": "Fällt vom Verdorrten Wither, genau eins pro Kampf. Kern des Biom-Pinsels."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/wither_heart.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "It still beats, slowly, long after the Wither has stopped. Ash falls from it if you shake it."
+          ],
+          "use": [
+            "Dropped by the Blighted Wither, exactly one per kill. With a Netherite Ingot and a Brush it becomes the Biome Brush."
+          ],
+          "secret": [
+            "Only the Blighted Wither has one. Summon it by building the Wither figure on a Block of Netherite."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Es schlägt noch, langsam, lange nachdem der Wither verstummt ist. Schüttelt man es, rieselt Asche heraus."
+          ],
+          "use": [
+            "Fällt vom Verdorrten Wither, genau eins pro Kampf. Mit einem Netheritbarren und einem Pinsel wird daraus der Biom-Pinsel."
+          ],
+          "secret": [
+            "Nur der Verdorrte Wither hat eins. Du rufst ihn, indem du die Wither-Figur auf einen Netheritblock baust."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simplemobs:biome_brush"
+      ]
     }
   ],
   "blocks": [],
@@ -2593,13 +2889,13 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 10,
-    "recipes": 53,
+    "features": 12,
+    "recipes": 55,
     "lootTables": 8,
-    "tags": 5,
+    "tags": 6,
     "advancements": 0,
     "enchantments": 0,
-    "items": 19,
+    "items": 22,
     "blocks": 0,
     "trades": 0,
     "config": 0,

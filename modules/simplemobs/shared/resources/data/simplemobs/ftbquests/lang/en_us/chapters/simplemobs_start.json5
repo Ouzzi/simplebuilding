@@ -1,0 +1,10 @@
+{
+	"chapter.0FB802E6CB75978B.title": "{\"translate\": \"quests.simplemobs.start.title\"}",
+	"chapter.0FB802E6CB75978B.chapter_subtitle": [
+		"{\"translate\": \"quests.simplemobs.start.subtitle\"}"
+	],
+	"quest.50E830850061CD7E.title": "{\"translate\": \"quests.simplemobs.start.welcome.title\"}",
+	"quest.50E830850061CD7E.quest_desc": [
+		"{\"translate\": \"quests.simplemobs.start.welcome.description\"}"
+	]
+}

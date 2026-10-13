@@ -1,0 +1,7 @@
+{
+  "biome": "minecraft:dark_forest",
+  "items": [
+    "#minecraft:dark_oak_logs"
+  ],
+  "color": "#507A32"
+}

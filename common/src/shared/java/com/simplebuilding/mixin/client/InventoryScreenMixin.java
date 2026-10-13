@@ -1,6 +1,8 @@
 package com.simplebuilding.mixin.client;
 
 import com.simplebuilding.client.gui.TrimStatsPanel;
+import com.simplebuilding.util.ExtraHead;
+import com.simplebuilding.util.TrimStatsLayout;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,8 +17,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 
 /**
- * Das Resonanz-Feld der Besatz-Boni im normalen Inventar (E), seit 2026-09-29 ohne Knopf. Die Logik steckt in
- * {@link TrimStatsPanel}, das auch der Rucksack-Bildschirm benutzt.
+ * Owner N49 in the normal inventory (E): the frame of the extra head slot (above the off-hand slot, level with the
+ * helmet; the Vanilla texture has no frame there) and the resonance button between the two ({@link TrimStatsPanel},
+ * which the backpack screen uses as well). A hovered empty head slot names what fits.
  */
 @Mixin(InventoryScreen.class)
 public abstract class InventoryScreenMixin extends AbstractContainerScreen<InventoryMenu> {
@@ -28,9 +31,19 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen<Inven
         super(screenHandler, playerInventory, text);
     }
 
+    @Inject(method = "extractBackground", at = @At("TAIL"))
+    private void simplebuilding$extraHeadFrame(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        if (!com.simplebuilding.api.ModuleScreenStyles.isRestyled(this)) {
+            TrimStatsPanel.slotFrame(context, this.leftPos + TrimStatsLayout.HEAD_SLOT_X - 1, this.topPos + TrimStatsLayout.HEAD_SLOT_Y - 1);
+        }
+    }
+
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void renderTrimStats(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        this.trimStats.render(context, this.font, this.minecraft, this.leftPos + com.simplebuilding.client.gui.TrimStatsPanel.BOOK_X,
-                this.topPos + com.simplebuilding.client.gui.TrimStatsPanel.BOOK_Y, mouseX, mouseY);
+        this.trimStats.render(context, this.font, this.minecraft, this.leftPos + TrimStatsLayout.INVENTORY_X,
+                this.topPos + TrimStatsLayout.INVENTORY_Y, mouseX, mouseY);
+        if (this.hoveredSlot instanceof ExtraHead.HeadSlot && !this.hoveredSlot.hasItem() && this.menu.getCarried().isEmpty()) {
+            context.setTooltipForNextFrame(this.font, Component.translatable("gui.simplebuilding.extra_head_slot"), mouseX, mouseY);
+        }
     }
 }

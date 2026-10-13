@@ -494,6 +494,118 @@ public final class MobHeadTests {
     }
 
     @SuppressWarnings("removal")
+    // =====================================================================================
+    // N49: the extra head slot of the inventory (ExtraHead)
+    // =====================================================================================
+
+    /** The slot sits above the off-hand slot, level with the helmet, and takes only mob heads and carved pumpkins. */
+    public static void extraHeadSlotTakesOnlyHeadsAndCarvedPumpkins(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 2.0, 1.5));
+        net.minecraft.world.inventory.InventoryMenu menu = player.inventoryMenu;
+        helper.assertTrue(menu.slots.size() >= 47, "inventory menu has no slot after Vanilla's 46");
+        net.minecraft.world.inventory.Slot slot = menu.slots.get(46);
+        helper.assertTrue(slot instanceof com.simplebuilding.util.ExtraHead.HeadSlot, "slot 46 is not the extra head slot");
+        helper.assertValueEqual(slot.x, 77, "head slot x (off-hand column)");
+        helper.assertValueEqual(slot.y, 8, "head slot y (helmet row)");
+        for (Item ok : List.of(Items.ZOMBIE_HEAD, Items.SKELETON_SKULL, Items.DRAGON_HEAD, Items.PIGLIN_HEAD, Items.CARVED_PUMPKIN,
+                TweaksItems.head(BlazeHeadType.SILVERFISH), TweaksItems.head(BlazeHeadType.BLAZE))) {
+            helper.assertTrue(slot.mayPlace(new ItemStack(ok)), "the extra head slot refuses " + ok);
+        }
+        for (Item no : List.of(Items.IRON_HELMET, Items.PUMPKIN, Items.DIRT, Items.TURTLE_HELMET)) {
+            helper.assertFalse(slot.mayPlace(new ItemStack(no)), "the extra head slot takes " + no);
+        }
+        helper.assertValueEqual(slot.getMaxStackSize(new ItemStack(Items.ZOMBIE_HEAD, 64)), 1, "the head slot holds one head");
+        helper.succeed();
+    }
+
+    /** Shift-click: with a helmet on, a head goes into the extra slot and back out again - never duplicated. */
+    public static void extraHeadShiftClickMovesWithoutDuplicating(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 2.0, 1.5));
+        player.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
+        player.getInventory().setItem(9, new ItemStack(Items.ZOMBIE_HEAD));
+        net.minecraft.world.inventory.InventoryMenu menu = player.inventoryMenu;
+        menu.quickMoveStack(player, 9);
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).is(Items.ZOMBIE_HEAD), "shift-click did not fill the extra head slot");
+        helper.assertTrue(player.getInventory().getItem(9).isEmpty(), "the head stayed in the inventory as well");
+        menu.quickMoveStack(player, 46);
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).isEmpty(), "shift-click did not empty the extra head slot");
+        helper.assertValueEqual(player.getInventory().countItem(Items.ZOMBIE_HEAD), 1, "zombie heads after moving in and out");
+        helper.succeed();
+    }
+
+    /** Saved with the player, kept through the End portal, dropped on death. */
+    public static void extraHeadIsSavedKeptAndDroppedOnDeath(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5));
+        com.simplebuilding.util.ExtraHead.set(player, new ItemStack(Items.CREEPER_HEAD));
+        net.minecraft.world.level.storage.TagValueOutput output = net.minecraft.world.level.storage.TagValueOutput.createWithContext(
+                net.minecraft.util.ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
+        player.saveWithoutId(output);
+        net.minecraft.nbt.CompoundTag saved = output.buildResult();
+        helper.assertTrue(saved.contains(com.simplebuilding.util.ExtraHead.SAVE_KEY), "the player save has no extra head");
+        ServerPlayer loaded = mockPlayer(helper, new Vec3(3.5, 2.0, 2.5));
+        loaded.load(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING,
+                helper.getLevel().registryAccess(), saved));
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(loaded).is(Items.CREEPER_HEAD), "the extra head was not loaded");
+
+        ServerPlayer travelled = mockPlayer(helper, new Vec3(4.5, 2.0, 2.5));
+        travelled.restoreFrom(player, true);
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(travelled).is(Items.CREEPER_HEAD), "the extra head was lost in the End portal");
+
+        // The death drop step itself (Player.dropEquipment, what die() runs without keepInventory): a mock player's
+        // die() is not reliable across loaders (Forge's drop capture, Simple Respawn's downed state).
+        try {
+            java.lang.reflect.Method drop = net.minecraft.world.entity.player.Player.class.getDeclaredMethod("dropEquipment", ServerLevel.class);
+            drop.setAccessible(true);
+            drop.invoke(player, helper.getLevel());
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).isEmpty(), "the dead player still has the extra head");
+        boolean dropped = !helper.getLevel().getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(4.0),
+                e -> e.getItem().is(Items.CREEPER_HEAD)).isEmpty();
+        helper.assertTrue(dropped, "the extra head was not dropped on death");
+        helper.succeed();
+    }
+
+    /** Effects: a carved pumpkin calms endermen, mod heads keep their ability, a zombie head hides from zombies. */
+    public static void extraHeadEffectsWorkLikeTheHelmetSlot(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 2.0, 1.5));
+        com.simplebuilding.util.ExtraHead.set(player, new ItemStack(TweaksItems.head(BlazeHeadType.BLAZE)));
+        helper.assertTrue(HeadAbilities.wears(player, BlazeHeadType.BLAZE), "the blaze head ability ignores the extra head slot");
+
+        net.minecraft.world.entity.Mob enderman = (net.minecraft.world.entity.Mob) helper.spawn(EntityTypes.ENDERMAN, new Vec3(1.5, 2.0, 5.5));
+        enderman.setNoAi(true);
+        player.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, enderman.getEyePosition());
+        try {
+            java.lang.reflect.Method stared = enderman.getClass().getDeclaredMethod("isBeingStaredBy", net.minecraft.world.entity.player.Player.class);
+            stared.setAccessible(true);
+            com.simplebuilding.util.ExtraHead.set(player, ItemStack.EMPTY);
+            helper.assertTrue((Boolean) stared.invoke(enderman, player), "test setup: the enderman does not see the stare");
+            com.simplebuilding.util.ExtraHead.set(player, new ItemStack(Items.CARVED_PUMPKIN));
+            helper.assertFalse((Boolean) stared.invoke(enderman, player), "a carved pumpkin in the extra head slot does not calm endermen");
+
+            net.minecraft.world.entity.Mob zombie = (net.minecraft.world.entity.Mob) helper.spawn(EntityTypes.ZOMBIE, new Vec3(3.5, 2.0, 1.5));
+            zombie.setNoAi(true);
+            java.lang.reflect.Method visibility = null;
+            for (java.lang.reflect.Method m : LivingEntity.class.getMethods()) {
+                if (m.getName().equals("getVisibilityPercent") && m.getParameterCount() == 2) visibility = m;
+            }
+            if (visibility != null) { // 26.3 (MOB_VISIBILITY); the 26.2 twin has no effect yet
+                com.simplebuilding.util.ExtraHead.set(player, ItemStack.EMPTY);
+                double plain = (Double) visibility.invoke(player, helper.getLevel(), zombie);
+                com.simplebuilding.util.ExtraHead.set(player, new ItemStack(Items.ZOMBIE_HEAD));
+                double hidden = (Double) visibility.invoke(player, helper.getLevel(), zombie);
+                helper.assertTrue(Math.abs(hidden - plain * 0.5) < 1.0e-6, "zombie head in the extra slot: " + hidden + " instead of half of " + plain);
+                player.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.ZOMBIE_HEAD));
+                double both = (Double) visibility.invoke(player, helper.getLevel(), zombie);
+                helper.assertTrue(Math.abs(both - plain * 0.5) < 1.0e-6, "two zombie heads stack: " + both);
+            }
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+        helper.succeed();
+    }
+
     private static ServerPlayer mockPlayer(GameTestHelper helper, Vec3 relative) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         Vec3 pos = helper.absoluteVec(relative);

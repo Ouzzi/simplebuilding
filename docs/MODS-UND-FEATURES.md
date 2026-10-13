@@ -66,8 +66,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   Kupfer-, Keramik- und Enderit-Eimer (Enderit fasst 2 Eimer).
 - **End-Inhalte:** Astralit/Nihilit/Enderquarz-Paletten und Erze, Astral-/Nihil-Redstone als getrennte
   Signalkanäle, Schalter/Lampen, Astral-/Nihil-Schienen, Enderit-Material (leeresicher), seltene verstärkte Shulker.
-- **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Statusfeld im
-  Inventar), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
+- **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Herz-Knopf mit
+  8 Stufen im Inventar), Extra-Kopf-Slot im Inventar (Mob-Kopf/Kürbis, Effekte, am Spieler unter dem Helm), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
 - **Deko/Platzieren:** abgelegte Vorlagen, Kleinteile-Häufchen, Schachbrett-Blöcke und Schachfiguren (Achtel),
   senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-Verstärker (spielen einen
   Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla) / Noten-Verstärker, Metall-Stangen (Eisen bis
@@ -86,7 +86,8 @@ Tiegel, warmes Essen, verstärkter Kessel (erbt Vanilla-Kessel inkl. Milch), Dor
 ### Simple Interfaces (früher Simple Containers, Sub-Mod von QoL, clientseitige Optik)
 Simple-Stil für Truhen, Fässer, Shulker, Trichter, Werfer/Spender, Crafter, Reittier-Inventare, Arbeitsblöcke
 (Werkbank, Öfen, Braustand, Leuchtfeuer, Zaubertisch), Amboss/Schleifstein/Steinsäge/Webstuhl/Kartentisch/
-Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergleichsschalter Simple/Vanilla.
+Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergleichsschalter Simple/Vanilla;
+Inventar-Helligkeit Hell/Dämmerung/Dunkel (Einstellung, wirkt über SimpleLib auf alle Mod-Kästen).
 
 ### Simple Weather (Sub-Mod von QoL)
 Wetter abschalten (Server), Regendichte (Client); eigene Config `config/simpleweather.json`, alte QoL-Werte werden
@@ -148,7 +149,7 @@ Kompatibilität alter Welten (ID-Zuordnung), Claim-System in Stufen (standardmä
 | Mod | Stand | Inhalt | Quelle |
 |---|---|---|---|
 | Simple Maps (`simplemaps`, Sub-Mod SB) | in Arbeit (`claude-q-maps`) | Wegfinder-Karte (unendlich, Spieler mittig), GUI mit Lesezeichen, Wegpunkte, Locator-Bar, Karte je Dimension, Fundorte | `docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md` |
-| Simple Mobs (`simplemobs`, Sub-Mod SB, optional) | Stufe 1 (`claude-q-deceiver`) | Mob Deceiver (Endgame, Wellen aus Fake-/Echt-Mobs, Mirage-Puls über SB-Effekte, falls SB geladen), Täuscherstoff, Spawn-Ei; Furcht-Mobs Schreckensritter (Eisengolem-T mit Amboss in der Mitte, Skelettschädel, Eisenhelm aufsetzen) und Hohler Wächter (End-Außeninseln, Blickmechanik) mit Zitter-Aura (SB-Effekt `shivering`, ohne SB eigener), Ruhe-Amulett, Trank des Fokus (`claude-fear-mobs`, Plan `docs/ai/PLAN-FURCHT-MOBS-2026-10-12.md`); spielbar auch ohne SB | `docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md` |
+| Simple Mobs (`simplemobs`, Sub-Mod SB, optional) | Stufe 1 (`claude-q-deceiver`) | Mob Deceiver (Endgame, Wellen aus Fake-/Echt-Mobs, Mirage-Puls über SB-Effekte, falls SB geladen), Täuscherstoff, Spawn-Ei; Furcht-Mobs Schreckensritter (Eisengolem-T mit Amboss in der Mitte, Skelettschädel, Eisenhelm aufsetzen) und Hohler Wächter (End-Außeninseln, Blickmechanik) mit Zitter-Aura (SB-Effekt `shivering`, ohne SB eigener), Ruhe-Amulett, Trank des Fokus (`claude-fear-mobs`, Plan `docs/ai/PLAN-FURCHT-MOBS-2026-10-12.md`); Verdorrter Wither (Wither-Figur auf Netheritblock, 600 Leben, 3 Phasen mit angekündigten Angriffen) mit Witherherz und Biom-Pinsel (Material in der Nebenhand malt Biomzellen, Claim-sicher; `claude-wither`, Konzept `docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md`); Simple-Mobs-Handbuch; spielbar auch ohne SB | `docs/ai/KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md` |
 | Simple End (`simpleend`, Sub-Mod SB, optional; Super-Mod von End Dragon Fight) | `claude-simple-end` | End-Holz Aschholz/Dämmerholz (volles Vanilla-Holzset inkl. Boote, Schilder, Regal, Laub; mit SB zusätzlich Holzwerk, Holz-/Stamm-Achtel, gestufte Kistenboote, mit Sandwiches Schneidebretter – `claude-endwood-full`, `docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md`), Knospen (Licht ≥ 9 großer Baum, 2×2 Riesenbaum, dunkel + Knochenmehl Stöcke-Gestrüpp), End-Stöcke-Block, Schwebfrucht (4 s Sanfter Fall + Sprung), End-Gras/-Busch (N42), Biome Aschental/Dämmerlande auf äußeren End-Inseln, Items leere-sicher + doppelte Liegezeit, Knabbermilbe (passiv, knabbert Endstein → durchwühlter Endstein, erholt sich); spielbar ohne SB | `docs/ai/PLAN-SIMPLE-END-2026-10-12.md` |
 | Simple End Dragon Fight (`simpleenddragonfight`, Sub-Mod von Simple End, optional) | Stufe 1 (`claude-dragon`) | Drache: +1 volle Lebensleiste je Spieler, +15 % je weiterer Beschwörung (300 bzw. 200 je Spieler, Schonfrist 60 s), +20 % Tempo, Eintritts-Animation je Spieler (Warteschlange), ab halbem Leben Dragonmites alle 30 s (Drop Drachen-Chitin); spielbar auch ohne SB | `docs/ai/KONZEPT-END-DRAGON-FIGHT-2026-10-11.md` |
 | Simple Respawn (`simplerespawn`, Sub-Mod SB, optional) | Stufe 1 (`claude-respawn`) | Niedergeschlagen statt tot (nur mit Mitspielern online, Config: immer), Ausbluten 60 s, eigener Bildschirm (Zuschauen mit freier Kamera, Inventar nur ansehen, Aufgeben), Wiederbeleben durch 5 s Rechtsklick-Halten (danach 3 Herzen, 0 Hunger), Monster ignorieren Niedergeschlagene, Logout/Absturz = Vanilla-Tod (kein Dupe), Handbuch, Fortschritt Erste Hilfe; spielbar auch ohne SB | `docs/ai/PLAN-SIMPLE-RESPAWN-2026-10-12.md` |

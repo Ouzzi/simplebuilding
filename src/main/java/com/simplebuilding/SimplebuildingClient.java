@@ -140,6 +140,7 @@ public class SimplebuildingClient implements ClientModInitializer {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
                 helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));
                 helper.register(new com.simplebuilding.client.render.QuiverLayer(avatar));
+                helper.register(new com.simplebuilding.client.render.ExtraHeadLayer(avatar)); // N49 extra head slot
             }
         });
         ClientState.highlightToggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
@@ -355,6 +356,8 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Baukern: Erz-Umwandlung spielt die lange Hand-Animation (Nachtrag 11).
         ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.CoreMotionPayload.ID,
                 (payload, context) -> context.client().execute(() -> com.simplebuilding.client.CoreMotionClient.apply(payload)));
+        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.ExtraHeadPayload.ID, // N49 extra head slot
+                (payload, context) -> context.client().execute(() -> com.simplebuilding.networking.ExtraHeadPayload.receive(payload)));
         ClientPlayNetworking.registerGlobalReceiver(SurvivalSyncPayload.ID, (payload, context) -> {
             context.client().execute(() -> {
                 if (context.player() instanceof SurvivalTracerAccessor accessor) {

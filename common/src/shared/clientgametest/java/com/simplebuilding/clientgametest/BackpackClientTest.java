@@ -309,9 +309,9 @@ public final class BackpackClientTest {
             if (menu.openData().placed()) {
                 throw new AssertionError("The backpack key opened the " + label + " in placed mode.");
             }
-            if (menu.slots.size() != VANILLA_SLOTS + slots) {
+            if (menu.slots.size() != VANILLA_SLOTS + slots + 1) {
                 throw new AssertionError("The " + label + " has " + menu.slots.size() + " slots, expected "
-                        + VANILLA_SLOTS + " vanilla plus " + slots + " backpack slots of " + itemId + ".");
+                        + VANILLA_SLOTS + " vanilla plus " + slots + " backpack slots of " + itemId + " plus the extra head slot.");
             }
             if (menu.lockedSlot() != wanted) {
                 throw new AssertionError("The " + label + " locks inventory slot " + menu.lockedSlot()
@@ -344,10 +344,10 @@ public final class BackpackClientTest {
         script.act("the " + label + " is the worn one", client -> {
             BackpackMenu menu = backpackMenu(client, label);
 
-            if (menu.slots.size() != VANILLA_SLOTS + 9 || menu.lockedSlot() != BackpackItem.CHEST_INVENTORY_SLOT) {
+            if (menu.slots.size() != VANILLA_SLOTS + 9 + 1 || menu.lockedSlot() != BackpackItem.CHEST_INVENTORY_SLOT) {
                 throw new AssertionError("With a worn simple backpack and a carried enderite backpack the key "
                         + "opened a menu with " + menu.slots.size() + " slots locking slot " + menu.lockedSlot()
-                        + "; expected the worn one: " + (VANILLA_SLOTS + 9) + " slots, locking the chest slot "
+                        + "; expected the worn one: " + (VANILLA_SLOTS + 9 + 1) + " slots, locking the chest slot "
                         + BackpackItem.CHEST_INVENTORY_SLOT + ".");
             }
         });
@@ -644,7 +644,7 @@ public final class BackpackClientTest {
                         + "container menu (" + client.player.containerMenu + "), so clicks would go elsewhere.");
             }
 
-            if (slots.size() != VANILLA_SLOTS + tier.slots()) {
+            if (slots.size() != VANILLA_SLOTS + tier.slots() + 1) { // + the extra head slot at the end (N49)
                 throw new AssertionError("The " + label + " has " + slots.size() + " slots, expected the "
                         + VANILLA_SLOTS + " of the vanilla inventory plus " + tier.slots() + " backpack slots = "
                         + (VANILLA_SLOTS + tier.slots()) + ".");
@@ -666,7 +666,9 @@ public final class BackpackClientTest {
                 }
 
                 if (i >= VANILLA_SLOTS) {
-                    problems.add("slot " + i + " behind the vanilla range is not a backpack slot but " + slot);
+                    if (!(slot instanceof com.simplebuilding.util.ExtraHead.HeadSlot && i == slots.size() - 1)) {
+                        problems.add("slot " + i + " behind the vanilla range is not a backpack slot but " + slot);
+                    }
                     continue;
                 }
 
@@ -844,7 +846,7 @@ public final class BackpackClientTest {
                 }
             }
 
-            if (menu != client.player.inventoryMenu || menu.slots.size() != VANILLA_SLOTS || backpackSlots != 0) {
+            if (menu != client.player.inventoryMenu || menu.slots.size() != VANILLA_SLOTS + 1 || backpackSlots != 0) { // + extra head slot
                 throw new AssertionError("The screen opened by " + how + " shows " + menu + " with "
                         + menu.slots.size() + " slots, " + backpackSlots + " of them backpack slots; expected "
                         + "the player's own inventory menu with its " + VANILLA_SLOTS + " vanilla slots.");

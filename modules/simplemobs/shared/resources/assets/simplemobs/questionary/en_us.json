@@ -201,5 +201,27 @@
     "use": [
       "Gunpowder, Soulfire Powder and coal or charcoal make 3. Use it on a block to light fire; a dispenser shoots it like the Soulfire Blaze does. A hit burns and, with Simple Building, adds Soul Burn."
     ]
+  },
+  "wither_heart": {
+    "lore": [
+      "It still beats, slowly, long after the Wither has stopped. Ash falls from it if you shake it."
+    ],
+    "use": [
+      "Dropped by the Blighted Wither, exactly one per kill. With a Netherite Ingot and a Brush it becomes the Biome Brush."
+    ],
+    "secret": [
+      "Only the Blighted Wither has one. Summon it by building the Wither figure on a Block of Netherite."
+    ]
+  },
+  "biome_brush": {
+    "lore": [
+      "Paint the land itself. The heart in the ferrule remembers every place it has seen."
+    ],
+    "use": [
+      "Hold it in the main hand and a biome material in the off hand, then right-click a block: sand paints desert, snow paints snowy plains, soul sand paints a soul sand valley. One material and one durability point per stroke."
+    ],
+    "secret": [
+      "Biomes stay in their dimension, and claimed land or caves cannot be painted. Unbreaking and Mending work on it."
+    ]
   }
 }

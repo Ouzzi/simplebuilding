@@ -193,4 +193,9 @@ public final class ModuleGameTest {
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplelib.discover.LibDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplelib.discover.LibDiscover.behaviourHints(h); }
     @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplelib.discover.LibDiscover.firstPickupTips(h); }
+
+    @GameTest
+    public void inventoryBrightnessTonesPalettes(GameTestHelper h) {
+        LibTests.ALL.get("inventory_brightness_tones_palettes").accept(h);
+    }
 }

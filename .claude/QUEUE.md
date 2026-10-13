@@ -30,11 +30,10 @@ Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile 
 5. Inventar-Helligkeit als Config: Light, Dark, Dawn (N49)
 6. Extra-Kopf-Slot im B-Menü (nur Mob-Köpfe/Kürbis, Effekte, Helm-Position je Kopf) (N49)
 7. Resonanz-Button zwischen Kopf- und Nebenhand-Slot, Herz-Stufen, Tooltip-Format (N49; hängt an 6)
-8. Wayfinder-Karte: Zoom feiner, Navigation verbessern (N48)
+8. ✔ Wayfinder-Karte: Zoom feiner, Navigation verbessern (N48)
 9. Octet-Blöcke untereinander kombinierbar (N48)
 10. ✔ Simple Creatures umbenennen in „Simple Mob Manners“, Id simplemobmanners, Namespace-/Config-Migration (N42; `claude-mobmanners`)
 11. Stärkerer Wither + Biom-Pinsel (N47; Konzept KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md)
-12. Astral Enchanter Stufenregel (0–30 Regale, 30–40 Lohen-Regale/-Obsidian, 50 beides) (N32)
 13. Simple Trims Stufen 2–4 (Vorlagen, platzierbar, Axt ohne SB / Hammer mit SB) (N18)
 14. Stil-Audit: andere Mods an SimpleBuilding-Stil angleichen (N11, Dubletten N11/N14; Teil: Mod-UIs im Container-Stil)
 
@@ -248,7 +247,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] KI-Queue: keine automatische Weitergabe an Claude (Abarbeitung auf Zuruf).
 - [x] Port 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme im Spiel. (Audit 12.10. Dublette, zusammengeführt mit Zeile 73 / Überblick: (Port-Run))
 
-- [ ] Astral Enchanter Stufenregel (Besitzer 10.10.): 0–30 normale Regale; 30–40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; je Stufe mehr Punkte verteilbar; Konzept erweitern (claude-q-astral3).
+- [x] (bereits in wave1 via claude-q-astral3, geprüft 13.10. astral* 21/21) Astral Enchanter Stufenregel (Besitzer 10.10.): 0–30 normale Regale; 30–40 mit Lohen-Regalen ODER Lohen-Obsidian-Boden; 50 nur mit beidem; je Stufe mehr Punkte verteilbar; Konzept erweitern (claude-q-astral3).
 - [x] Alte Verschleiß-Optionen der Brecher-Kolben nicht migrieren (Besitzer: ok).
 
 ## Nachtrag 38b (2026-10-11, Besitzer, Deceiver Stufe 2 – in Arbeit auf claude-deceiver2)
@@ -265,10 +264,15 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [ ] Resonanz-Button: zwischen neuem Kopf-Slot und Nebenhand-Slot, slotgroß, nur Herz (Hover); Stufen Cobble, Stone, Copper, Iron, Gold, Diamond, Netherite, Enderite mit je eigenem Herz-Indikator. Tooltip ohne Fettschrift: Zeile 1 „Resonance: x“ orange (uncommon), dann „(max 2.0x)“ grau; Rest analog, erster Buchstabe fett, L→E (E, S, C); Cap-Zeile analog, letzte Zeile und „the better of …“-Zeile streichen; S = Distanz+Zeit, je max 0.5.
 - [ ] Inventar-Helligkeit als Config: Light (aktuell), Dark, Dawn (zwischen Dark und Light).
 - [x] (claude-n49-small) Geschnitztes Holz (carved logs): Item-Modell entspricht nicht dem Block-Modell → angleichen.
-- [x] (claude-n49-small) Shellker-Helm und Schildkrötenpanzer trimmbar (beide waren schon über #head_armor in #trimmable_armor; Shellker jetzt explizit im Tag + Test, Schildkröte hatte Icon-Muster schon).
+- [x] (claude-n49-small) Shellker-Helm und Schildkrötenpanzer trimmbar (beide waren schon über #head_armor in #trimmable_armor; Shellker jetzt explizit im Tag + Test, Schildkröte hatte Icon-Muster schon).,
+- [x] Extra-Kopf-Slot im Inventar (B-Menü) über dem Nebenhand-Slot, auf Höhe des Helm-Slots: nur Mob-Köpfe oder geschnitzter Kürbis; deren Effekte gelten; Helm-Positionierung je Kopf anpassen (Kürbis, Silberfisch-Kopf usw.: Helm sitzt richtig, sichtbar, kein Z-Fighting). (claude-n49-inv: Slot 46 über Nebenhand, auch Rucksack/Kreativ; Effekte Kürbis/Mob-Sicht/Kopf-Fähigkeiten; Helm je Kopf skaliert, Silberfisch oben drauf; Client-Abnahme offen)
+- [x] Resonanz-Button: zwischen neuem Kopf-Slot und Nebenhand-Slot, slotgroß, nur Herz (Hover); Stufen Cobble, Stone, Copper, Iron, Gold, Diamond, Netherite, Enderite mit je eigenem Herz-Indikator. Tooltip ohne Fettschrift: Zeile 1 „Resonance: x“ orange (uncommon), dann „(max 2.0x)“ grau; Rest analog, erster Buchstabe fett, L→E (E, S, C); Cap-Zeile analog, letzte Zeile und „the better of …“-Zeile streichen; S = Distanz+Zeit, je max 0.5. (claude-n49-inv: 8 Herz-Stufen, Tooltip neu, S als Summe)
+- [x] Inventar-Helligkeit als Config: Light (aktuell), Dark, Dawn (zwischen Dark und Light). (claude-n49-inv: SimpleLib UiBrightness, Einstellung im Simple-Interfaces-Bildschirm)
+- [ ] Geschnitztes Holz (carved logs): Item-Modell entspricht nicht dem Block-Modell → angleichen.
+- [ ] Shellker-Helm und Schildkrötenpanzer trimmbar.
 
 ## Nachtrag 48 (2026-10-12, Besitzer)
-- [ ] Wayfinder-Karte: Zoom feiner abstufen, Navigation verbessern.
+- [x] Wayfinder-Karte: Zoom feiner abstufen, Navigation verbessern. (claude-maps-zoom: Stufen 1,2,4,8,16,32,64, Pfeile/WASD, Home/C, 1-8)
 - [ ] Octet-Blöcke untereinander kombinierbar (verschiedene Materialien in einer Zelle).
 - [x] Deceiver-Umhang am Kopf (Kopf-Slot statt Brust); Verkleidung überall sichtbar: Spielermodell im Inventar, Hände in der Ego-Ansicht; auch Schlag in die Luft (Versuch zu hauen) hebt Tarnung auf. (claude-deceiver3: Kopf-Slot = Kapuze + 3D-Umhang auf dem Rücken über Elytren, Inventar/Ego/3rd, Luftschlag; Deceiver mit Rückenumhang)
 - [x] Trick-Spiegel ausbalancieren: Kampf weniger beeinflussen, nur leicht erleichtern; notfalls vorerst entfernen. (claude-deceiver3: bleibt, 3 s/60 s/20°/12 Blöcke/2 s Leuchten/max. 3)
@@ -281,7 +285,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Portierung 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme (bestätigt 12.10.).
 - [x] Furcht-Mobs (Konzept KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md „Furcht-Mob – Vorschläge“): F-A „Dread“ – spawnt NICHT natürlich, wird per Golem-Mechanik aus Blöcken gebaut/beschworen; F-C „Hollow Watcher“ im End (Außeninseln). Beide mit Zittern-Aura. (claude-fear-mobs)
 - [x] Jar-Weitergabe an Zentrale-Downloads eingerichtet (nach grünem Gate: dist-publish.sh → sb-agent → sb-web, atomar; Backups *.bak-20261012). (claude-jar-dist)
-- [ ] Stärkerer Wither + Biom-Pinsel umsetzen (Konzept docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md, Wither „halt stärker“).
+- [x] Stärkerer Wither + Biom-Pinsel umsetzen (Konzept docs/ai/KONZEPT-WITHER-BIOMPINSEL-2026-10-10.md, Wither „halt stärker“). (claude-wither: Verdorrter Wither + Witherherz + Biom-Pinsel in Simple Mobs, Abschnitt „Umsetzung 13.10.“)
 - [x] Niedlicher End-Mob: passive Endermite-Varianten in Ash Valley/Dawnlands, knabbern Endstein → durchwühlter Endstein (erholt sich wie Gras nach Schaf). (in claude-simple-end) (Audit 12.10. erledigt: Nibblemite in claude-wave1 (cc79c81b9))
 - [x] Simple Respawn umsetzen (Besitzer 12.10.): niedergeschlagen statt tot; eigener Todesbildschirm mit Buttons Zuschauen (Bildschirm zu, Kamera 360° drehbar), Aufgeben (erst dann echter Tod), Inventar (nur ansehen, nicht bearbeiten; auf/zu); Mitspieler kann innerhalb einer Frist wiederbeleben (danach 3 Herzen, 0 Hunger). Konzept KONZEPT-FARBPINSEL-RESPAWN-2026-10-09.md Teil B. (claude-respawn) (Audit 12.10. erledigt: Simple Respawn in claude-wave1 gemergt (8632d24a7))
 - [x] Baustab-Kerne: Besitzer 12.10. – bleiben reine Crafting-Zutat, keine Zusatzfunktionen.,

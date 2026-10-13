@@ -1,0 +1,7 @@
+{
+  "biome": "minecraft:desert",
+  "items": [
+    "#minecraft:sand"
+  ],
+  "color": "#DBCB8B"
+}

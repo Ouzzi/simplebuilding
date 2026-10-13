@@ -22,6 +22,13 @@ public final class ContainersScreen {
                 .setSaveConsumer(v -> c.enabled = v).build());
         general.addEntry(e.startBooleanToggle(name("showStyleToggle"), c.showStyleToggle).setDefaultValue(false)
                 .setTooltip(tip("showStyleToggle")).setSaveConsumer(v -> c.showStyleToggle = v).build());
+        // N49: brightness of the mod inventory / container boxes (SimpleLib, config/simplelib-client.json)
+        com.simplelib.api.client.ui.UiBrightness[] brightness = {com.simplelib.api.client.ui.UiBrightness.current()};
+        general.addEntry(e.startEnumSelector(name("inventoryBrightness"), com.simplelib.api.client.ui.UiBrightness.class, brightness[0])
+                .setDefaultValue(com.simplelib.api.client.ui.UiBrightness.LIGHT)
+                .setEnumNameProvider(v -> Component.translatable("simpleinterfaces.option.inventoryBrightness."
+                        + ((com.simplelib.api.client.ui.UiBrightness) v).id()))
+                .setTooltip(tip("inventoryBrightness")).setSaveConsumer(v -> brightness[0] = v).build());
         for (ScreenStyle style : ContainerStyles.all()) {
             String key = "screen." + style.id();
             general.addEntry(e.startBooleanToggle(name(key), c.screens.getOrDefault(style.id(), true)).setDefaultValue(true)
@@ -43,6 +50,8 @@ public final class ContainersScreen {
             c.normalize();
             ContainersClient.CONFIG = c;
             ContainersClient.save();
+            com.simplelib.api.client.ui.UiBrightness.set(brightness[0]);
+            com.simplelib.api.client.ui.UiBrightness.save();
             SimpleInterfaces.CONFIG = s;
             SimpleInterfaces.save();
         });
