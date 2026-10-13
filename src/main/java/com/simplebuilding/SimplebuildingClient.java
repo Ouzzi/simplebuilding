@@ -98,6 +98,8 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.entity.ModBlockEntities.GOAT_HORN_HOLDER_BE, com.simplebuilding.client.render.GoatHornHolderRenderer::new);
         if (com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.CHESS_PIECES_BE, com.simplebuilding.client.render.ChessPiecesRenderer::new);
+        if (com.simplebuilding.blocks.entity.ModBlockEntities.MIXED_OCTET_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.MIXED_OCTET_BE, com.simplebuilding.client.render.MixedOctetRenderer::new);
         // Kisten (Holzwerk): die oberen Lagen zeigen die eingelagerten Items.
         if (com.simplebuilding.blocks.entity.ModBlockEntities.CRATE_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.CRATE_BE, com.simplebuilding.woodwork.client.CrateRenderer::new);

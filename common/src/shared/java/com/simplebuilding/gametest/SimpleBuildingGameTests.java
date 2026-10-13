@@ -305,6 +305,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("chess_game_test_pieces_stand_on_quarters_and_swap", ChessTests::piecesStandOnQuartersAndSwap)
                     .build(),
+            GameTestSpec.named("chess_game_test_octets_mix_materials_in_one_cell", OctetMixTests::octetsMixMaterialsInOneCell)
+                    .build(),
+            GameTestSpec.named("chess_game_test_octets_break_only_the_looked_at_octet", OctetMixTests::octetsBreakOnlyTheLookedAtOctet)
+                    .build(),
+            GameTestSpec.named("chess_game_test_octets_mixed_cell_drops_every_material", OctetMixTests::octetsMixedCellDropsEveryMaterial)
+                    .build(),
+            GameTestSpec.named("chess_game_test_octets_old_cells_migrate_and_mixed_cells_persist", OctetMixTests::octetsOldCellsMigrateAndMixedCellsPersist)
+                    .build(),
             GameTestSpec.named("chess_game_test_chess_recipes_cut_from_checkers_and_octets", ChessTests::chessRecipesCutFromCheckersAndOctets)
                     .build(),
             GameTestSpec.named("nature_block_game_test_nature_variants_have_their_recipes", NatureBlockTests::natureVariantsHaveTheirRecipes)

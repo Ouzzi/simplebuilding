@@ -109,6 +109,8 @@ public final class ClientTests {
                 new Entry("brew", BrewClientTest::inWorld),
                 // Queue N15 (26.3): every chess piece stands on its quarter; boards and gallery in three pictures.
                 new Entry("chess-pieces", ChessClientTest::inWorld),
+                // Queue N48 (26.3): mixed octet cells reach the client with their materials; two pictures, clears its row.
+                new Entry("octets-mix", OctetMixClientTest::inWorld),
                 // Holzwerk (2026-10-09, 26.3): motif sprites baked, one overview and one close-up; clears its blocks.
                 new Entry("woodwork", WoodworkClientTest::inWorld),
                 // Queue N31 (26.3): jukebox amplifiers relay by radio and show music notes; clears its blocks.

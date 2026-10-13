@@ -3217,6 +3217,7 @@
   "block.simplebuilding.polished_ender_quartz_checker_slab": "Polished Ender Quartz Checker Slab",
   "item.simplebuilding.polished_ender_quartz_checker_slab": "Polished Ender Quartz Checker Slab",
   "block.simplebuilding.checker_octet": "Octet Cell",
+  "block.simplebuilding.mixed_octet": "Mixed Octet Cell",
   "block.simplebuilding.chess_pieces": "Chess Pieces",
   "jei.simplebuilding.info.chess": "Octets and chess pieces come from the stonecutter: a quartz checker (quartz: a quartz block) gives 8 octets of its color, one octet any piece. An octet goes next to the clicked one or onto the clicked half of a face; a cell holds up to 8 of one color and holds water until it is full. A piece stands on a quarter of a block top - one field of the checker below - so a block holds four, facing where you look. Sneak + right-click with a piece swaps it with the standing one, which goes to your hand. Sneak + empty hand picks a piece or an octet up, an empty hand turns a piece. Breaking drops everything in the cell.",
   "simplebuilding.testcentre.section.chess": "Chess",
