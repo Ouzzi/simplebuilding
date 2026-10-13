@@ -78,8 +78,12 @@ public final class ForgeExample {
             if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 putAfter(e, new ItemStack(Items.SHULKER_SHELL), new ItemStack(EndNetherMobs.SHELL));
                 putAfter(e, new ItemStack(Items.BLAZE_ROD), new ItemStack(EndNetherMobs.ROD));
+                putAfter(e, new ItemStack(Items.BLAZE_POWDER), new ItemStack(EndNetherMobs.POWDER));
             }
-            if (e.getTabKey().equals(CreativeModeTabs.COMBAT)) putAfter(e, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
+            if (e.getTabKey().equals(CreativeModeTabs.COMBAT)) {
+                putAfter(e, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
+                putAfter(e, new ItemStack(Items.FIRE_CHARGE), new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE));
+            }
         });
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> EndNetherServer.tick(e.server()));
         RegisterEvent.getBus(bus).addListener(event -> {

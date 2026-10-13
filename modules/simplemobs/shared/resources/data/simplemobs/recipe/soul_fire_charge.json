@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:gunpowder",
+    "simplemobs:soulfire_powder",
+    "#minecraft:coals"
+  ],
+  "result": {
+    "id": "simplemobs:soul_fire_charge",
+    "count": 3
+  }
+}

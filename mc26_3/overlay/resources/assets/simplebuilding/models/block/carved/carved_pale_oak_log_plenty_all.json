@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/template_carved_sherd_all",
+  "textures": {
+    "frame": "simplebuilding:block/carved/pale_oak_frame",
+    "motif": "minecraft:entity/decorated_pot/plenty_pottery_pattern_pale_oak"
+  }
+}

@@ -1,17 +1,17 @@
 package com.simplebuilding.modules.simplemobs;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.hurtingprojectile.Fireball;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
@@ -22,12 +22,14 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Soulfire Blaze projectile: a small fireball with a blue look (a fire charge drawn with the
- * {@code simplemobs:soul_fire_charge} item model, no extra item), a bit more damage and burn time; on soul sand or
- * soul soil the fire it lights is soul fire (Vanilla's {@link BaseFireBlock#getState}).
+ * Soulfire projectile (Soulfire Blaze volleys and the dispensed {@link EndNetherMobs#SOUL_FIRE_CHARGE}): a small
+ * fireball shown as the Soulfire Charge item, a bit more damage and burn time. A hit also gives Simple Building's
+ * Soul Burn effect when that mod is loaded; on soul sand or soul soil the fire it lights is soul fire (Vanilla's
+ * {@link BaseFireBlock#getState}).
  */
 public class SoulFireball extends Fireball {
-    public static final Identifier LOOK = Identifier.fromNamespaceAndPath(MobsRegistry.ID, "soul_fire_charge");
+    /** Simple Building's Soul Burn effect (absent when Simple Mobs runs alone). */
+    private static final Identifier SOUL_BURN = Identifier.fromNamespaceAndPath("simplebuilding", "soul_burn");
 
     public SoulFireball(EntityType<? extends SoulFireball> type, Level level) {
         super(type, level);
@@ -35,9 +37,13 @@ public class SoulFireball extends Fireball {
 
     public SoulFireball(Level level, LivingEntity mob, Vec3 direction) {
         super(EndNetherMobs.SOUL_FIREBALL, mob, direction, level);
-        ItemStack look = new ItemStack(Items.FIRE_CHARGE);
-        look.set(DataComponents.ITEM_MODEL, LOOK);
-        this.setItem(look);
+        this.setItem(new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE));
+    }
+
+    /** Dispenser shot: from a position, no owner. */
+    public SoulFireball(Level level, double x, double y, double z, Vec3 direction) {
+        super(EndNetherMobs.SOUL_FIREBALL, x, y, z, direction, level);
+        this.setItem(new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE));
     }
 
     @Override
@@ -49,7 +55,13 @@ public class SoulFireball extends Fireball {
         target.igniteForSeconds(EndNetherLogic.SOUL_FIRE_SECONDS);
         DamageSource source = this.damageSources().fireball(this, this.getOwner());
         if (!target.hurtServer(level, source, EndNetherLogic.SOUL_FIREBALL_DAMAGE)) target.setRemainingFireTicks(before);
-        else EnchantmentHelper.doPostAttackEffects(level, target, source);
+        else {
+            EnchantmentHelper.doPostAttackEffects(level, target, source);
+            if (target instanceof LivingEntity living) {
+                BuiltInRegistries.MOB_EFFECT.get(SOUL_BURN).ifPresent(burn ->
+                        living.addEffect(new MobEffectInstance(burn, (int) (EndNetherLogic.SOUL_FIRE_SECONDS * 20), 0)));
+            }
+        }
     }
 
     @Override

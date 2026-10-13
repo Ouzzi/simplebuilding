@@ -364,6 +364,16 @@ def templates() -> None:
         "elements": [
             {"from": [0, 0, 0], "to": [16, 16, 16], "faces": {"north": {"texture": "#motif", "cullface": "north"}}},
             {"from": [0, 0, 0], "to": [16, 16, 16], "faces": {"north": {"texture": "#frame", "cullface": "north"}}}]})
+    # Inventory (N49): an item model cannot be turned like a blockstate part, so the overlay sits on all four sides.
+    sides = ("north", "east", "south", "west")
+    put_json(f"{NS}/models/block/template_carved_wood_all.json", {
+        "parent": "minecraft:block/block", "textures": {"particle": "#carving"},
+        "elements": [{"from": [0, 0, 0], "to": [16, 16, 16],
+                      "faces": {d: {"texture": "#carving", "cullface": d} for d in sides}}]})
+    put_json(f"{NS}/models/block/template_carved_sherd_all.json", {
+        "parent": "minecraft:block/block", "textures": {"particle": "#frame"},
+        "elements": [{"from": [0, 0, 0], "to": [16, 16, 16],
+                      "faces": {d: {"texture": t, "cullface": d} for d in sides}} for t in ("#motif", "#frame")]})
     w = 2
     walls = [
         # north/south walls between the side walls, side walls full depth (tube along Y)
@@ -502,10 +512,17 @@ def wood_assets(wood: str, log: str) -> None:
                           "apply": {"model": sb(f"block/carved/{name}_{motif}")} | turn})
     put_json(f"{NS}/blockstates/{name}.json", {"multipart": parts})
 
+    put_json(f"{NS}/models/block/carved/{name}_wood_all.json", {"parent": sb("block/template_carved_wood_all"), "textures": {
+        "carving": sb(f"block/carved/{wood}_carving")}})
+    for motif in MOTIFS:
+        put_json(f"{NS}/models/block/carved/{name}_{motif}_all.json", {"parent": sb("block/template_carved_sherd_all"), "textures": {
+            "frame": sb(f"block/carved/{wood}_frame"),
+            "motif": mc(f"entity/decorated_pot/{motif}_pottery_pattern_{wood}")}})
+
     def item_model(overlay: str) -> dict:
         return {"type": "minecraft:composite", "models": [
             {"type": "minecraft:model", "model": sb(f"block/carved/{name}_base")},
-            {"type": "minecraft:model", "model": sb(f"block/carved/{name}_{overlay}")}]}
+            {"type": "minecraft:model", "model": sb(f"block/carved/{name}_{overlay}_all")}]}
 
     # item: the carving as dropped (sherd motif, else the wood's own motif)
     put_json(f"{NS}/items/{name}.json", {"model": {

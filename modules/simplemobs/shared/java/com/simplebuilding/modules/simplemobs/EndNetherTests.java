@@ -46,6 +46,11 @@ final class EndNetherTests {
             h.assertTrue(ShellkerEntity.createAttributes().build().getBaseValue(Attributes.MAX_HEALTH) == 120.0, "Shellker has 4x Shulker health");
             ItemStack helmet = new ItemStack(EndNetherMobs.HELMET);
             h.assertTrue(helmet.is(ItemTags.HEAD_ARMOR) && helmet.is(ItemTags.TRIMMABLE_ARMOR), "helmet is head armor and trimmable");
+            for (ItemStack piece : java.util.List.of(helmet, new ItemStack(net.minecraft.world.item.Items.TURTLE_HELMET))) {
+                var eq = piece.get(net.minecraft.core.component.DataComponents.EQUIPPABLE);
+                h.assertTrue(piece.is(ItemTags.TRIMMABLE_ARMOR) && eq != null && eq.assetId().isPresent(),
+                        piece.getItem() + " is trimmable armor with an equipment asset (trim overlay on the worn model)");
+            }
             var mods = helmet.getOrDefault(net.minecraft.core.component.DataComponents.ATTRIBUTE_MODIFIERS, net.minecraft.world.item.component.ItemAttributeModifiers.EMPTY);
             double[] sum = new double[4];
             mods.forEach(EquipmentSlot.HEAD, (attr, mod) -> {
@@ -199,6 +204,20 @@ final class EndNetherTests {
             pig.discard();
             h.succeed();
         });
+        add.accept("soulfire_charge", h -> {
+            ServerLevel l = h.getLevel();
+            h.assertTrue(BuiltInRegistries.ITEM.containsKey(EndNetherMobs.SOUL_FIRE_CHARGE_KEY.identifier())
+                    && BuiltInRegistries.ITEM.containsKey(EndNetherMobs.POWDER_KEY.identifier()), "powder and charge are registered");
+            ItemStack charge = new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE);
+            h.assertTrue(((net.minecraft.world.item.ProjectileItem) EndNetherMobs.SOUL_FIRE_CHARGE)
+                    .asProjectile(l, new Vec3(0, 0, 0), charge, Direction.EAST) instanceof SoulFireball, "the charge flies as a soul fireball");
+            BlockPos at = new BlockPos(2, 2, 2);
+            h.setBlock(at, Blocks.DISPENSER.defaultBlockState().setValue(net.minecraft.world.level.block.DispenserBlock.FACING, Direction.EAST));
+            ((net.minecraft.world.level.block.entity.DispenserBlockEntity) l.getBlockEntity(h.absolutePos(at))).setItem(0, charge);
+            h.setBlock(at.north(), Blocks.REDSTONE_BLOCK.defaultBlockState());
+            var box = new net.minecraft.world.phys.AABB(h.absolutePos(new BlockPos(0, 0, 0)), h.absolutePos(new BlockPos(9, 6, 9)));
+            h.succeedWhen(() -> h.assertTrue(!l.getEntitiesOfClass(SoulFireball.class, box).isEmpty(), "the dispenser shoots a soul fireball"));
+        });
         add.accept("soulfire_blaze", h -> {
             ServerLevel l = h.getLevel();
             floor(h, 0, 0, 6, 8);
@@ -213,7 +232,7 @@ final class EndNetherTests {
             SoulFireball ball = new SoulFireball(l, blaze, new Vec3(0, 0, 1));
             ball.setPos(at.x, at.y + 0.4, at.z - 2.0);
             l.addFreshEntity(ball);
-            h.assertTrue(ball.getItem().has(net.minecraft.core.component.DataComponents.ITEM_MODEL), "drawn as a soul fire charge");
+            h.assertTrue(ball.getItem().is(EndNetherMobs.SOUL_FIRE_CHARGE), "drawn as a soul fire charge");
             h.succeedWhen(() -> h.assertTrue(pig.getRemainingFireTicks() > 0 && pig.getHealth() < pig.getMaxHealth(), "the soul fireball burns"));
         });
     }

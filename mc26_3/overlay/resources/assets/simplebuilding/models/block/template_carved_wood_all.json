@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#carving"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carving",
+          "cullface": "north"
+        },
+        "east": {
+          "texture": "#carving",
+          "cullface": "east"
+        },
+        "south": {
+          "texture": "#carving",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#carving",
+          "cullface": "west"
+        }
+      }
+    }
+  ]
+}

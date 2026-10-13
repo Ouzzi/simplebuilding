@@ -259,13 +259,13 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
 ## Nachtrag 49 (2026-10-12, Besitzer)
-- [ ] Seelen-Lohe (Soul Blaze) schießt Seelenfeuer-Kugeln (Soulfire Charge, craftbar mit Seelen-Lohenstaub); Treffer gibt Seelenbrand-Effekt.
+- [x] (claude-n49-small) Seelen-Lohe (Soul Blaze) schießt Seelenfeuer-Kugeln (Soulfire Charge, craftbar mit Seelen-Lohenstaub); Treffer gibt Seelenbrand-Effekt.
 - [ ] Deceiver-Umhang: Kopf-Umhang mit Kapuze, liegt als 3D-Modell auf dem Rücken (ähnlich Elytra); mit Elytra: Elytra darunter gerendert, beim Fliegen ragen die Flügel seitlich heraus, Umhang bleibt auf dem Rücken. Deceiver-Mob trägt ähnlichen Umhang. (claude-deceiver3)
 - [ ] Extra-Kopf-Slot im Inventar (B-Menü) über dem Nebenhand-Slot, auf Höhe des Helm-Slots: nur Mob-Köpfe oder geschnitzter Kürbis; deren Effekte gelten; Helm-Positionierung je Kopf anpassen (Kürbis, Silberfisch-Kopf usw.: Helm sitzt richtig, sichtbar, kein Z-Fighting).
 - [ ] Resonanz-Button: zwischen neuem Kopf-Slot und Nebenhand-Slot, slotgroß, nur Herz (Hover); Stufen Cobble, Stone, Copper, Iron, Gold, Diamond, Netherite, Enderite mit je eigenem Herz-Indikator. Tooltip ohne Fettschrift: Zeile 1 „Resonance: x“ orange (uncommon), dann „(max 2.0x)“ grau; Rest analog, erster Buchstabe fett, L→E (E, S, C); Cap-Zeile analog, letzte Zeile und „the better of …“-Zeile streichen; S = Distanz+Zeit, je max 0.5.
 - [ ] Inventar-Helligkeit als Config: Light (aktuell), Dark, Dawn (zwischen Dark und Light).
-- [ ] Geschnitztes Holz (carved logs): Item-Modell entspricht nicht dem Block-Modell → angleichen.
-- [ ] Shellker-Helm und Schildkrötenpanzer trimmbar.
+- [x] (claude-n49-small) Geschnitztes Holz (carved logs): Item-Modell entspricht nicht dem Block-Modell → angleichen.
+- [x] (claude-n49-small) Shellker-Helm und Schildkrötenpanzer trimmbar (beide waren schon über #head_armor in #trimmable_armor; Shellker jetzt explizit im Tag + Test, Schildkröte hatte Icon-Muster schon).
 
 ## Nachtrag 48 (2026-10-12, Besitzer)
 - [ ] Wayfinder-Karte: Zoom feiner abstufen, Navigation verbessern.

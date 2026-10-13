@@ -1,7 +1,4 @@
 {
-  "modelOnly": {
-    "simplemobs:soul_fire_charge": "SoulFireball shows a Vanilla fire charge stack with this item model (ITEM_MODEL); no separate item is registered."
-  },
   "features": [
     {
       "id": "hollow_howler",
@@ -427,6 +424,22 @@
       },
       "de": {
         "summary": "Nur kreativ. Im Überleben erscheint der Hohle Wächter selten auf den äußeren End-Inseln."
+      }
+    },
+    "simplemobs:soulfire_powder": {
+      "en": {
+        "summary": "Crafted from a Soulfire Rod (2 powder). Ingredient of the Soulfire Charge."
+      },
+      "de": {
+        "summary": "Wird aus einer Seelenfeuer-Rute gecraftet (2 Staub). Zutat der Seelenfeuerkugel."
+      }
+    },
+    "simplemobs:soul_fire_charge": {
+      "en": {
+        "summary": "Gunpowder, Soulfire Powder and coal or charcoal make 3. Works like a fire charge (lights fire, dispensers shoot it) but flies as the Soulfire Blaze's soul fireball: burns and gives Soul Burn when Simple Building is loaded."
+      },
+      "de": {
+        "summary": "Schießpulver, Seelenfeuer-Lohenstaub und Kohle oder Holzkohle ergeben 3. Wirkt wie eine Feuerkugel (entzündet Feuer, Dispenser verschießen sie), fliegt aber als Seelenfeuerball der Seelenfeuer-Lohe: brennt und gibt Seelenbrand, wenn Simple Building geladen ist."
       }
     }
   }
