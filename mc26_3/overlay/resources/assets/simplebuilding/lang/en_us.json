@@ -1932,6 +1932,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleEnd.@Tooltip": "Turns the bundled Simple End module on or off: End wood, End grass, the Ash Valley and Dawnlands biomes, and its own sub-mod Simple End Dragon Fight. Off keeps its blocks and items in the world but they no longer grow, and the biomes stop spreading into new chunks. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.option.enableSimpleRespawn": "Enable Simple Respawn",
   "text.autoconfig.simplebuilding.option.enableSimpleRespawn.@Tooltip": "Turns the bundled Simple Respawn module on or off: downed instead of dead, reviving by teammates. Off restores the Vanilla death. Takes effect after a restart. Default: on.",
+  "text.autoconfig.simplebuilding.option.enableSimpleBeacons": "Enable Simple Beacons",
+  "text.autoconfig.simplebuilding.option.enableSimpleBeacons.@Tooltip": "Turns the bundled Simple Beacons module on or off: Strong Beacon, Strong Conduit and the Strong Upgrade template. Off leaves placed blocks inert. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.category.equipment": "Enchantments & Armor",
   "text.autoconfig.simplebuilding.category.pistons": "Pistons",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

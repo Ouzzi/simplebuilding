@@ -1,6 +1,17 @@
 {
   "prices": [
     {
+      "item": "simplebeacons:strong_upgrade_template",
+      "tier": 5,
+      "hours": 20,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplebuilding:amethyst_lens",
       "tier": 1,
       "hours": 6.7,

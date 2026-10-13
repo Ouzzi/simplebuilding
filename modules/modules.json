@@ -42,7 +42,8 @@
         "simpletrims",
         "simplemobs",
         "simpleend",
-        "simplerespawn"
+        "simplerespawn",
+        "simplebeacons"
       ],
       "paths": {
         "root": ".",
@@ -2591,6 +2592,97 @@
         "fabric": ":modules:simplerespawn:fabric",
         "neoforge": ":modules:simplerespawn:neoforge",
         "forge": ":modules:simplerespawn:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
+    },
+    {
+      "id": "simplebeacons",
+      "name": "Simple Beacons",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Beacons",
+      "description": "Strong Beacon (6 pyramid levels, 6 more effects, two-column screen), Strong Conduit (7x7x7 frame, up to 144 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simplebeacons/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplebeacons",
+        "catalogues": [
+          "modules/simplebeacons/fabric/src/main/java/com/simplebuilding/modules/simplebeacons/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplebeacons"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplebeaconsGameTest",
+            "report": "integration/build/simplebeacons-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplebeacons:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplebeacons/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplebeacons:forge:runGameTestServer",
+            "report": "modules/simplebeacons/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplebeaconsStandaloneGameTest",
+              "report": "integration/build/standalone/simplebeacons-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplebeacons:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplebeacons/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplebeacons.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplebeacons/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplebeacons",
+        "shared": "modules/simplebeacons/shared",
+        "fabric": "modules/simplebeacons/fabric",
+        "neoforge": "modules/simplebeacons/neoforge",
+        "forge": "modules/simplebeacons/forge",
+        "generated": "modules/simplebeacons/generated/resources",
+        "lang": "modules/simplebeacons/shared/resources/assets/simplebeacons/lang",
+        "wikiManual": "modules/simplebeacons/wiki/manual.json",
+        "balanceDir": "balance/simplebeacons"
+      },
+      "projects": {
+        "fabric": ":modules:simplebeacons:fabric",
+        "neoforge": ":modules:simplebeacons:neoforge",
+        "forge": ":modules:simplebeacons:forge"
       },
       "parent": "simplebuilding",
       "bundle": "optional"

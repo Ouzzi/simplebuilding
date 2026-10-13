@@ -1,0 +1,6 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// Bundles the shared framework API for standalone runs.
+dependencies { include project(':framework') }
+// SimpleLib (InWorldStrikes, upgrade tools, UI boxes) nested per principle 6a; compiled against.
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
