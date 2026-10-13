@@ -47,6 +47,11 @@ public final class SledgehammerGameTest {
     }
 
     @GameTest
+    public void hammerChipsPlacedCrackedDiamondYieldsNinePebbles(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsPlacedCrackedDiamondYieldsNinePebbles(helper);
+    }
+
+    @GameTest
     public void hammerChipsWallAndCeilingFireCharges(GameTestHelper helper) {
         SledgehammerTests.hammerChipsWallAndCeilingFireCharges(helper);
     }

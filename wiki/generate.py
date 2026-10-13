@@ -1371,6 +1371,10 @@ LEGACY_ITEMS = {f"{NS}:{tier}_spatula"
 SECRET_ITEMS = {f"{NS}:funny_stick"}
 SECRET_RECIPE_PREFIX = "easter/"
 
+# Technische Bloecke ohne Item (kein Icon moeglich): bewusst nicht im Wiki, nur im Spiel sichtbar.
+# mixed_octet entsteht, wenn Achtel verschiedener Materialien in einer Zelle landen.
+TECHNICAL_BLOCKS = {f"{NS}:mixed_octet"}
+
 
 def registered_ids(roots: dict) -> tuple[set[str], set[str]] | None:
     """
@@ -1429,7 +1433,7 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
             if "." in name:  # sub keys such as .desc
                 continue
             identifier = f"{NS}:{name}"
-            if identifier in LEGACY_ITEMS or identifier in SECRET_ITEMS:
+            if identifier in LEGACY_ITEMS or identifier in SECRET_ITEMS or (kind == "block" and identifier in TECHNICAL_BLOCKS):
                 continue
             if registered is not None:
                 known = registered[1] if kind == "block" else registered[0]

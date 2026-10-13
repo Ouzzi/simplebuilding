@@ -28,9 +28,9 @@ class RecipeProseTests(unittest.TestCase):
         self.assertFalse((ROOT / 'mc26_3/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json').exists())
 
     def test_template_costs_and_legacy_recipes(self):
-        directory = ROOT / 'mc26_3/generated/data/simplebuilding/recipe'
+        directory = ROOT / 'modules/simpletrims/shared/resources/data/simpletrims/recipe'
         costs = Counter(json.loads((directory / 'pulsating_trim_template.json').read_text(encoding='utf-8'))['ingredients'])
-        self.assertEqual(costs, Counter({'#simplebuilding:sledgehammer_tools': 1,
+        self.assertEqual(costs, Counter({'#simpletrims:template_tools': 1,
                                         'minecraft:echo_shard': 2, 'minecraft:sculk': 2, 'minecraft:diamond': 4}))
         legacy = ROOT / 'src/main/generated/data/simplebuilding/recipe'
         old = json.loads((legacy / 'pulsating_trim_template.json').read_text(encoding='utf-8'))
@@ -38,18 +38,18 @@ class RecipeProseTests(unittest.TestCase):
         bases = {'glowing_trim_template': 'glowstone', 'emitting_trim_template': 'magma_block',
                  'pulsating_trim_template': 'sculk', 'basic_upgrade_template': 'iron_block',
                  'enderite_upgrade_template': 'end_stone'}
+        lib = ROOT / 'modules/simplelib/generated/resources/data/simplelib/recipe'
         for template, block in bases.items():
             filename = template + ('_duplication' if template.endswith('_trim_template') else '') + '.json'
+            namespace = 'simpletrims' if template.endswith('_trim_template') else 'simplelib'
             with self.subTest(template=template):
-                path = directory / filename
-                if not path.exists():
-                    path = legacy / filename
+                path = directory / filename if namespace == 'simpletrims' else lib / filename
                 recipe = json.loads(path.read_text(encoding='utf-8'))
                 counts = Counter(recipe['key'][symbol] for row in recipe['pattern'] for symbol in row)
                 self.assertEqual(counts, Counter({'minecraft:diamond': 7, 'minecraft:' + block: 1,
-                                                 'simplebuilding:' + template: 1}))
+                                                 namespace + ':' + template: 1}))
                 self.assertEqual(recipe['result']['count'], 2)
-                self.assertEqual(recipe['result']['id'], 'simplebuilding:' + template)
+                self.assertEqual(recipe['result']['id'], namespace + ':' + template)
         old_basic = json.loads((legacy / 'basic_upgrade_template.json').read_text(encoding='utf-8'))
         self.assertEqual(old_basic['key']['A'], 'minecraft:gold_ingot')
         manual = json.loads((ROOT / 'wiki/manual.json').read_text(encoding='utf-8'))
