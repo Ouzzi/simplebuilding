@@ -1043,7 +1043,7 @@ public final class SledgehammerTests {
             helper.assertValueEqual(com.simplebuilding.util.SledgehammerUtils.countBlocksBroken(player, helper.absolutePos(top)), counts[i], "actual area count");
             float pickaxe = progressWith(helper, player, new ItemStack(Items.DIAMOND_PICKAXE), top);
             assertRatio(helper, progressWith(helper, player, hammer, top), pickaxe, times[i], "piecewise time for " + counts[i] + " blocks");
-            helper.assertTrue(Math.abs(com.simplebuilding.util.SledgehammerUtils.swingTimeFactor(counts[i], true) - 2 * counts[i]) < 0.0001F, "octant must take 2x per block");
+            helper.assertTrue(Math.abs(com.simplebuilding.util.SledgehammerUtils.swingTimeFactor(counts[i], true) - 0.5F * counts[i]) < 0.0001F, "octant must take 0.5x the pickaxe time per block");
         }
         player.setShiftKeyDown(true);
         float pickaxe = progressWith(helper, player, new ItemStack(Items.DIAMOND_PICKAXE), top);
