@@ -233,7 +233,7 @@ public final class TrimsTests {
             h.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
             ItemStack named = new ItemStack(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE);
             named.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Note"));
-            InteractionResult floor = use(h, player, named, new BlockPos(1, 1, 1), Direction.UP);
+            InteractionResult floor = use(h, player, named.copy(), new BlockPos(1, 1, 1), Direction.UP);
             h.assertTrue(floor.consumesAction(), "sneak + use did not place: " + floor);
             BlockState state = h.getBlockState(new BlockPos(1, 2, 1));
             h.assertTrue(state.is(TrimsRegistry.PLACED_TEMPLATE) && state.getValue(PlacedTrimTemplateBlock.FACE) == AttachFace.FLOOR, "floor: " + state);
