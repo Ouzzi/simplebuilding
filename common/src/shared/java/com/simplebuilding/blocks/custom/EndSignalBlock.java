@@ -2,6 +2,8 @@ package com.simplebuilding.blocks.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -9,11 +11,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * Base of the End pistons: a receiver of its own redstone line (docs/ai/PLAN-REDSTONE-LINIEN-2026-10-11.md). Since
- * 2026-10-11 Astral and Nihil Redstone are vanilla-like dust ({@link SignalDustBlock}) fed by every vanilla source;
- * the End pistons and End rails still only listen to dust of their own line (or Bridge Redstone) lying next to them.
+ * Base of the End pistons and lamps (docs/ai/PLAN-REDSTONE-LINIEN-2026-10-11.md). Since 2026-10-11 Astral and Nihil
+ * Redstone are vanilla-like dust ({@link SignalDustBlock}) fed by every vanilla source; since N51 (2026-10-13) the End
+ * pistons, End rails and lamps take the signal of every line (redstone, Astral, Nihil, Bridge), see {@link #receiverPower}.
  * The old switches and lamps are gone (they load as lever and redstone lamp, {@code LegacyItemIds}).
  */
 public class EndSignalBlock extends Block {
@@ -35,31 +38,42 @@ public class EndSignalBlock extends Block {
         builder.add(POWER, ENABLED);
     }
 
-    /** Strongest signal of this line's dust (or Bridge Redstone) next to this block. */
-    protected int incomingPower(BlockState state, LevelReader level, BlockPos pos) {
-        return receiverPower(astral, level, pos);
+    /** Strongest signal any redstone line gives this block (N51: every device takes every line). */
+    protected int incomingPower(BlockState state, Level level, BlockPos pos) {
+        return receiverPower(level, pos);
     }
 
-    /** What a receiver of a line (End piston, End rail) takes from horizontally adjacent dust of that line or the bridge. */
-    public static int receiverPower(boolean astral, LevelReader level, BlockPos pos) {
-        int power = 0;
+    /**
+     * What an End receiver (End piston, End rail, Astral/Nihilith Lamp) takes (N51, 2026-10-13): every vanilla signal
+     * ({@code getBestNeighborSignal}: levers, redstone blocks, the line redstone blocks, dust of any line pointing at it
+     * or lying on top) and, as before, horizontally adjacent dust of any line (redstone, Astral, Nihil, Bridge), wherever
+     * that dust points. The dust lines stay apart from each other; only the devices take every line.
+     */
+    public static int receiverPower(Level level, BlockPos pos) {
+        int power = level.getBestNeighborSignal(pos);
         for (Direction direction : Direction.Plane.HORIZONTAL) {
+            if (power >= 15) break;
             BlockState neighbor = level.getBlockState(pos.relative(direction));
-            if (feeds(astral, neighbor)) power = Math.max(power, neighbor.getValue(SignalDustBlock.POWER));
+            if (SignalDustBlock.lineOf(neighbor) != null) power = Math.max(power, neighbor.getValue(SignalDustBlock.POWER));
         }
         return power;
     }
 
-    /** True while dust of this line or Bridge Redstone lies next to {@code pos} (the End rails only poll then). */
-    public static boolean hasSourceNeighbour(boolean astral, LevelReader level, BlockPos pos) {
+    /** True while dust of any line lies next to {@code pos} (the End rails only poll then). */
+    public static boolean hasSourceNeighbour(LevelReader level, BlockPos pos) {
         for (Direction direction : Direction.Plane.HORIZONTAL) {
-            if (feeds(astral, level.getBlockState(pos.relative(direction)))) return true;
+            if (SignalDustBlock.lineOf(level.getBlockState(pos.relative(direction))) != null) return true;
         }
         return false;
     }
 
-    private static boolean feeds(boolean astral, BlockState neighbor) {
-        return neighbor.getBlock() instanceof SignalDustBlock dust
-                && dust.line().links(astral ? SignalDustBlock.Line.ASTRAL : SignalDustBlock.Line.NIHIL);
+    /** 26.3/NeoForge: vanilla dust connects to End receivers (they take every line). */
+    protected boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
+        return direction != null;
+    }
+
+    /** Forge's IForgeBlock hook for the same question. */
+    public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
+        return direction != null;
     }
 }

@@ -106,6 +106,9 @@ public class ModItems {
     public static final Item BRIDGE_REDSTONE = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("bridge_redstone", s -> new BlockItem(ModBlocks.BRIDGE_REDSTONE, s)) : null;
     public static final Item NIHILITH_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_lamp", s -> new BlockItem(ModBlocks.NIHILITH_LAMP, s)) : null;
     public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_lamp", s -> new BlockItem(ModBlocks.ASTRALIT_LAMP, s)) : null;
+    public static final Item ASTRAL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_redstone_block", s -> new BlockItem(ModBlocks.ASTRAL_REDSTONE_BLOCK, s)) : null;
+    public static final Item NIHIL_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_redstone_block", s -> new BlockItem(ModBlocks.NIHIL_REDSTONE_BLOCK, s)) : null;
+    public static final Item BRIDGE_REDSTONE_BLOCK = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("bridge_redstone_block", s -> new BlockItem(ModBlocks.BRIDGE_REDSTONE_BLOCK, s)) : null;
     public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_piston", s -> new BlockItem(ModBlocks.NIHIL_PISTON, s)) : null;
     public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_piston", s -> new BlockItem(ModBlocks.ASTRAL_PISTON, s)) : null;
     public static final Item NIHIL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("nihil_rail", s -> new BlockItem(ModBlocks.NIHIL_RAIL, s)) : null;

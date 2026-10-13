@@ -145,6 +145,22 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                         has(astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE))
                                 .save(output);
                     }
+                    // Redstone-Bloecke der Linien (N51, 2026-10-13): 9 Staub <-> 1 Block wie der Redstone-Block.
+                    Item[][] blocks = {{ModItems.ASTRAL_REDSTONE, ModItems.ASTRAL_REDSTONE_BLOCK},
+                            {ModItems.NIHIL_REDSTONE, ModItems.NIHIL_REDSTONE_BLOCK}, {ModItems.BRIDGE_REDSTONE, ModItems.BRIDGE_REDSTONE_BLOCK}};
+                    for (Item[] pair : blocks) {
+                        shaped(RecipeCategory.REDSTONE, pair[1])
+                                .pattern("###")
+                                .pattern("###")
+                                .pattern("###")
+                                .define('#', pair[0])
+                                .unlockedBy(getHasName(pair[0]), has(pair[0]))
+                                .save(output);
+                        shapeless(RecipeCategory.REDSTONE, pair[0], 9)
+                                .requires(pair[1])
+                                .unlockedBy(getHasName(pair[1]), has(pair[1]))
+                                .save(output, getConversionRecipeName(pair[0], pair[1]));
+                    }
                 }
                 // Astral-/Nihil-Schienen (2026-10-04) wie die Antriebsschiene: 6 Gold, Stock, und statt Redstone der
                 // Redstone des Kanals (Astralitstaub bzw. Nihilitsplitter steckt darin) - 6 Stueck.

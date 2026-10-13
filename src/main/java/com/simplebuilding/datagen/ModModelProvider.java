@@ -149,6 +149,14 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(ModBlocks.CONSTRUCTION_LIGHT);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelLocationUtils.getModelLocation(ModBlocks.CONSTRUCTION_LIGHT));
 
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            // Redstone-Bloecke der Linien (N51); Texturen aus tools/textures/end_redstone_blocks_2026_10_13.py.
+            for (net.minecraft.world.level.block.Block block : new net.minecraft.world.level.block.Block[]{
+                    ModBlocks.ASTRAL_REDSTONE_BLOCK, ModBlocks.NIHIL_REDSTONE_BLOCK, ModBlocks.BRIDGE_REDSTONE_BLOCK}) {
+                blockStateModelGenerator.createTrivialCube(block);
+                blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
+            }
+        }
         blockStateModelGenerator.createTrivialCube(ModBlocks.CRACKED_DIAMOND_BLOCK);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CRACKED_DIAMOND_BLOCK, ModelLocationUtils.getModelLocation(ModBlocks.CRACKED_DIAMOND_BLOCK));
 

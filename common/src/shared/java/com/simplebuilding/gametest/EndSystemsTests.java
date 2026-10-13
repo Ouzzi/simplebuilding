@@ -414,8 +414,8 @@ public final class EndSystemsTests {
         helper.succeed();
     }
 
-    /** Vanilla redstone and the other channel never trigger; the channel's powder visibly connects. */
-    public static void pistonIgnoresVanillaAndOtherChannel(GameTestHelper helper) {
+    /** N51: a redstone block and the other line's dust trigger an End piston too; its own line's powder visibly connects. */
+    public static void pistonTakesEveryLine(GameTestHelper helper) {
         if (!active(helper)) return;
         for (int x = 0; x <= 7; x++) for (int z = 0; z <= 7; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
         BlockPos astral = new BlockPos(2, 2, 2), nihil = new BlockPos(5, 2, 5);
@@ -434,10 +434,8 @@ public final class EndSystemsTests {
             var pos = helper.absolutePos(rel);
             helper.getLevel().getBlockState(pos).tick(helper.getLevel(), pos, helper.getLevel().getRandom());
         }
-        helper.assertTrue(helper.getBlockState(astral).getValue(EndSignalBlock.POWER) == 0
-                && helper.getBlockState(astral.above()).is(Blocks.STONE), "astral piston took vanilla or nihil power");
-        helper.assertTrue(helper.getBlockState(nihil).getValue(EndSignalBlock.POWER) == 0
-                && helper.getBlockState(nihil.above(2)).is(Blocks.STONE), "nihil piston took astral power");
+        helper.assertTrue(helper.getBlockState(astral).getValue(EndSignalBlock.POWER) > 0, "astral piston ignored a redstone block and nihil redstone");
+        helper.assertTrue(helper.getBlockState(nihil).getValue(EndSignalBlock.POWER) > 0, "nihil piston ignored astral redstone");
         helper.assertTrue(helper.getBlockState(astral.north()).getValue(com.simplebuilding.blocks.custom.SignalDustBlock.SOUTH)
                 .isConnected(), "astral powder does not connect to the astral piston");
         helper.assertTrue(helper.getBlockState(astral.north()).getValue(EndSignalBlock.POWER) == 0, "piston passed a signal on");
@@ -696,8 +694,8 @@ public final class EndSystemsTests {
         helper.succeed();
     }
 
-    /** Only dust of the rail's own line powers it; vanilla redstone and the other line never do. */
-    public static void endRailIsFedOnlyByItsOwnChannel(GameTestHelper helper) {
+    /** N51: every line powers an End rail - its own line, the other line and a vanilla redstone block. */
+    public static void endRailIsFedByEveryLine(GameTestHelper helper) {
         if (!railsActive(helper)) return;
         for (int x = 0; x <= 7; x++) for (int z = 0; z <= 6; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
         BlockPos astral = new BlockPos(1, 1, 1), nihil = new BlockPos(4, 1, 1), vanilla = new BlockPos(1, 1, 4), viaPowder = new BlockPos(5, 1, 4);
@@ -715,8 +713,8 @@ public final class EndSystemsTests {
         // One sequence: scheduling new delays from inside a delayed callback breaks the test ticker.
         helper.startSequence().thenIdle(20).thenExecute(() -> {
             helper.assertTrue(powered(helper, astral), "astral redstone did not power the astral rail");
-            helper.assertFalse(powered(helper, nihil), "astral redstone powered a nihil rail");
-            helper.assertFalse(powered(helper, vanilla), "vanilla redstone powered an astral rail");
+            helper.assertTrue(powered(helper, nihil), "astral redstone did not power a nihil rail");
+            helper.assertTrue(powered(helper, vanilla), "a redstone block did not power an astral rail");
             helper.assertTrue(powered(helper, viaPowder), "nihil powder did not power the nihil rail");
             helper.setBlock(astral.north().west(), Blocks.AIR);
         }).thenIdle(6).thenExecute(() ->

@@ -228,12 +228,12 @@ public class SignalDustBlock extends Block {
                 ? RedstoneSide.NONE : RedstoneSide.SIDE;
     }
 
-    /** Dust of a linked line, an End piston/rail of this line, else what vanilla dust connects to. */
+    /** Dust of a linked line, else what vanilla dust connects to (End pistons, lamps and rails of every line, N51). */
     private boolean connectsTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
         Line other = lineOf(state);
         if (other != null) return line.links(other);
-        if (state.getBlock() instanceof EndSignalBlock receiver) return direction != null && line.links(receiver.line());
-        if (state.getBlock() instanceof EndRailBlock rail) return direction != null && line.links(rail.astral() ? Line.ASTRAL : Line.NIHIL);
+        if (state.getBlock() instanceof EndSignalBlock || state.getBlock() instanceof EndRailBlock) return direction != null;
+        if (state.getBlock() instanceof LineRedstoneBlock source) return direction != null && line.links(source.line());
         return WireConnect.vanilla(state, level, pos, direction);
     }
 

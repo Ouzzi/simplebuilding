@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -14,9 +13,9 @@ import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Astral and Nihilith Lamp (Nachtrag 44, 2026-10-12): the lamp of a redstone line. It listens only to dust of its own
- * line or Bridge Redstone lying next to it or on top of it (like the End pistons, never to redstone dust, the other
- * line or a lever on the lamp itself) and behaves like a copper bulb: every rising edge of that signal toggles
+ * Astral and Nihilith Lamp (Nachtrag 44, 2026-10-12): the lamp of a redstone line. Since N51 (2026-10-13) it takes the
+ * signal of every line ({@link EndSignalBlock#receiverPower}: redstone, Astral, Nihil and Bridge dust beside it or on
+ * top, levers, redstone blocks and the line blocks) and behaves like a copper bulb: every rising edge toggles
  * {@link #LIT}; while lit it gives light 15. {@code POWER} (inherited) keeps the last incoming signal so the edge is
  * seen; old lamps saved before Nachtrag 36 carried the same {@code power} property and load as an unlit lamp.
  */
@@ -31,16 +30,6 @@ public class EndSignalLampBlock extends EndSignalBlock {
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(LIT);
-    }
-
-    /** Own-line dust (or Bridge Redstone) beside the lamp, or such dust lying on top of it. */
-    @Override protected int incomingPower(BlockState state, LevelReader level, BlockPos pos) {
-        int power = super.incomingPower(state, level, pos);
-        BlockState above = level.getBlockState(pos.above());
-        if (above.getBlock() instanceof SignalDustBlock dust && dust.line().links(line())) {
-            power = Math.max(power, above.getValue(SignalDustBlock.POWER));
-        }
-        return power;
     }
 
     @Override protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState old, boolean moved) {
