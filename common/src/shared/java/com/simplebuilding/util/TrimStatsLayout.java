@@ -7,11 +7,11 @@ package com.simplebuilding.util;
  * picked from the resonance; the value itself is in the tooltip.
  */
 public final class TrimStatsLayout {
-    /** The button is as big as a slot frame (18x18). */
-    public static final int SIZE = 18, HEIGHT = SIZE;
+    /** The button is 19x19 (odd, so the 9x9 heart sits exactly in the middle). */
+    public static final int SIZE = 19, HEIGHT = SIZE;
     /** The heart sprite: 9 wide, 9 high (owner N29). */
     public static final int ICON_WIDTH = 9, ICON_HEIGHT = 9;
-    /** Heart 4 px in from the left and the top (the frame's bottom/right shadow takes the fifth pixel). */
+    /** Heart 5 px in on every side. */
     public static final int ICON_INSET = (SIZE - ICON_WIDTH) / 2;
     /** Heart tiers from the lowest to the highest resonance; sprite {@code resonance_heart_<tier>}. */
     public static final String[] TIERS = {"cobblestone", "stone", "copper", "iron", "gold", "diamond", "netherite", "enderite"};
