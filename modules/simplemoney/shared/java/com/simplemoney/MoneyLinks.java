@@ -40,7 +40,26 @@ public final class MoneyLinks {
     }
     public static Price price(MerchantOffer offer) {
         if (offer == null || !SimpleMoney.on() || !offer.getBaseCostA().is(MoneyItems.ITEMS.get("money_bill"))) return null;
-        return PRICES.get(BuiltInRegistries.ITEM.getKey(offer.getResult().getItem()).toString());
+        return priceOf(offer.getResult().getItem());
+    }
+    private static volatile Map<net.minecraft.world.item.Item, Price> byItem;
+    /**
+     * The price of an item: by its id, else by what a priced id resolves to - a priced item whose id moved (SimpleBuilding's
+     * shared materials live in SimpleLib since the split, stage 3d) keeps its price, floor and budget under the new id.
+     */
+    public static Price priceOf(net.minecraft.world.item.Item item) {
+        Price direct = PRICES.get(BuiltInRegistries.ITEM.getKey(item).toString());
+        if (direct != null) return direct;
+        Map<net.minecraft.world.item.Item, Price> map = byItem;
+        if (map == null) {
+            map = new HashMap<>();
+            for (Price price : PRICES.values()) {
+                var resolved = BuiltInRegistries.ITEM.getValue(Identifier.parse(price.item()));
+                if (resolved != net.minecraft.world.item.Items.AIR) map.putIfAbsent(resolved, price);
+            }
+            byItem = map;
+        }
+        return map.get(item);
     }
     public static boolean enabled(String module) {
         return SimpleMoney.config.links.enabled && loaded.test(module);

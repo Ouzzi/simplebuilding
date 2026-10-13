@@ -59,6 +59,7 @@ public final class InWorldExportTests {
             summary.add(step.get("from").getAsString().replace("simplebuilding:", "") + ">"
                     + step.get("minimumHammer").getAsString().replace("simplebuilding:", "")
                     + "/" + step.get("nugget").getAsString().replace("simplebuilding:", "")
+                            .replace(com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE + ":", "")
                     + "x" + step.get("nuggetCount").getAsInt()
                     + "/" + step.get("damagePerHit").getAsInt() + "per" + "/" + step.get("totalDamage").getAsInt());
         }
