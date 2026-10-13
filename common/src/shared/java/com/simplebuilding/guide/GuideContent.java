@@ -202,8 +202,8 @@ public final class GuideContent {
         STYLES.put(GuideBooks.Book.MACHINES, new BookStyle(0x7FA7D9, List.of(
                 ch("simplebuilding:reinforced_hopper", List.of("simplebuilding:reinforced_hopper"), List.of("simplebuilding:netherite_hopper", "simplebuilding:enderite_hopper")),
                 ch("minecraft:paper", List.of(), List.of("simplebuilding:reinforced_hopper", "minecraft:paper")),
-                ch("simplebuilding:reinforced_furnace", List.of("simplebuilding:reinforced_furnace", "simplebuilding:reinforced_blast_furnace"), List.of("simplebuilding:reinforced_smoker", "simplebuilding:netherite_furnace", "simplebuilding:enderite_furnace")),
-                ch("simplebuilding:netherite_blast_furnace", List.of(), List.of("minecraft:raw_iron", "minecraft:raw_gold", "minecraft:raw_copper")),
+                ch(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_furnace", List.of(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_furnace", com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_blast_furnace"), List.of(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_smoker", com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":netherite_furnace", com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":enderite_furnace")),
+                ch(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":netherite_blast_furnace", List.of(), List.of("minecraft:raw_iron", "minecraft:raw_gold", "minecraft:raw_copper")),
                 ch("simplebuilding:reinforced_piston", List.of("simplebuilding:reinforced_piston"), List.of("simplebuilding:reinforced_sticky_piston", "minecraft:redstone_block", "minecraft:bedrock")),
                 ch("simplebuilding:netherite_piston", List.of(), List.of("simplebuilding:netherite_piston", "simplebuilding:enderite_piston", "minecraft:redstone_torch")),
                 ch("simplebuilding:netherite_nugget", List.of(), List.of("simplebuilding:netherite_nugget", "simplebuilding:enderite_nugget")),
@@ -288,7 +288,7 @@ public final class GuideContent {
             BookStyle old = STYLES.get(book);
             var chapters = new ArrayList<>(old.chapters());
             chapters.add(ch("simplebuilding:enderite_crucible", List.of(), List.of("simplebuilding:enderite_crucible", "simplebuilding:enderite_barrel",
-                    "simplebuilding:soul_lava_bucket", "minecraft:iron_block", "minecraft:heavy_weighted_pressure_plate")));
+                    "simplebuilding:soul_lava_bucket", "minecraft:cauldron", "minecraft:iron_ingot")));
             chapters.add(ch("simplebuilding:enderite_bucket", List.of("simplebuilding:copper_bucket", "simplebuilding:enderite_bucket",
                     "simplebuilding:raw_ceramic_bucket"), List.of("simplebuilding:soul_lava_bucket", "simplebuilding:ceramic_bucket")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));

@@ -166,10 +166,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_blast_furnace",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_block",
       "required": false
     },
@@ -215,10 +211,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/enderite_flypad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/enderite_furnace",
       "required": false
     },
     {
@@ -290,10 +282,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_smoker",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_spawn_teleporter",
       "required": false
     },
@@ -350,10 +338,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/netherite_blast_furnace",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/netherite_building_wand",
       "required": false
     },
@@ -390,10 +374,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/netherite_furnace",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/netherite_hopper",
       "required": false
     },
@@ -423,10 +403,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/netherite_sledgehammer",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_smoker",
       "required": false
     },
     {
@@ -951,6 +927,30 @@
     },
     {
       "id": "simplemoney:links/simplemobheads/dragonmite_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleovens/enderite_blast_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleovens/enderite_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleovens/enderite_smoker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleovens/netherite_blast_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleovens/netherite_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleovens/netherite_smoker",
       "required": false
     }
   ]

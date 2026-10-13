@@ -60,6 +60,11 @@ public final class LibServices {
         com.simplebuilding.framework.api.WornHeads.register(Simplebuilding.MOD_ID, entity ->
                 entity instanceof net.minecraft.world.entity.LivingEntity living ? java.util.List.of(ExtraHead.get(living)) : java.util.List.of());
         InWorldUpgrades.registerDefaults(Simplebuilding.MOD_ID);
+        // Split stage 4: SimpleBuilding reads the upgrade files of every namespace itself (with its legacy folder) and
+        // syncs them; it also feeds the Enderite loot with its own switches - SimpleLib's own load/sync and its material
+        // loot for mods without a partner (Simple Ovens alone) stay idle.
+        InWorldUpgrades.loadedByPartner();
+        SimpleLibApi.materialLootByPartner();
         // Same split as SledgehammerUpgrades.Upgrade#isChest / #isShulkerBox: every chest target moves like a tiered chest.
         SimpleLibApi.registerUpgradeHandler(block -> block instanceof ChestBlock, TieredChests::upgradeInPlace);
         SimpleLibApi.registerUpgradeHandler(block -> block instanceof TieredShulkerBoxBlock, (level, pos, to) -> {

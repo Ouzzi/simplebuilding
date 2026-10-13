@@ -6,7 +6,6 @@
     "simplebuilding:enderite_axe",
     "simplebuilding:enderite_backpack",
     "simplebuilding:enderite_barrel",
-    "simplebuilding:enderite_blast_furnace",
     "simplebuilding:enderite_boots",
     "simplebuilding:enderite_bucket",
     "simplebuilding:enderite_building_wand",
@@ -22,8 +21,6 @@
     "simplebuilding:enderite_crucible",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
-    "simplebuilding:enderite_furnace",
-    "simplebuilding:enderite_furnace_minecart",
     "simplebuilding:enderite_helmet",
     "simplebuilding:enderite_hoe",
     "simplebuilding:enderite_hopper",
@@ -46,7 +43,6 @@
     "simplebuilding:enderite_shulker_box",
     "simplebuilding:enderite_shulker_shell",
     "simplebuilding:enderite_sledgehammer",
-    "simplebuilding:enderite_smoker",
     "simplebuilding:enderite_soul_lava_bucket",
     "simplebuilding:enderite_soul_lava_bucket_full",
     "simplebuilding:enderite_spawn_teleporter",
@@ -66,6 +62,10 @@
     "simplelib:enderite_scrap",
     "simplelib:enderite_upgrade_template",
     "simplelib:layered_raw_enderite",
-    "simplelib:raw_enderite"
+    "simplelib:raw_enderite",
+    "simpleovens:enderite_blast_furnace",
+    "simpleovens:enderite_furnace",
+    "simpleovens:enderite_furnace_minecart",
+    "simpleovens:enderite_smoker"
   ]
 }

@@ -124,6 +124,35 @@ public final class SimpleLibApi {
         com.simplelib.crucible.CrucibleUpgrades.upgradeInPlace(level, pos, to);
     }
 
+    /**
+     * Crucible upgrades go strike by strike (owner N51): {@link #crucibleUpgradeStrikes()} strikes, one unit of material
+     * every {@link #crucibleUpgradeStrikesPerUnit()} strikes. True for every crucible block (barrels keep their own way).
+     */
+    public static boolean stagedUpgrade(Block block) {
+        return isCrucible(block);
+    }
+
+    public static int crucibleUpgradeStrikes() {
+        return com.simplelib.crucible.CrucibleUpgrades.CRUCIBLE_STRIKES;
+    }
+
+    public static int crucibleUpgradeStrikesPerUnit() {
+        return com.simplelib.crucible.CrucibleUpgrades.STRIKES_PER_UNIT;
+    }
+
+    /** Units already struck into the crucible at this state (0..3). */
+    public static int crucibleUpgradeUnits(BlockState state) {
+        return com.simplelib.crucible.CrucibleUpgrades.unitsIn(state);
+    }
+
+    /**
+     * Strike {@code done} of a partner's crucible upgrade to {@code to}: feedback, preview, every third strike one unit
+     * from {@code material} (empty = creative, nothing taken), the last one upgrades in place. Returns the units struck in.
+     */
+    public static int crucibleUpgradeStrike(ServerLevel level, BlockPos pos, Block to, int done, ItemStack material) {
+        return com.simplelib.crucible.CrucibleUpgrades.strikeInUnit(level, pos, level.getBlockState(pos), to, done, material);
+    }
+
     // ------------------------------------------------------------ partner tiers
 
     /**
@@ -245,7 +274,7 @@ public final class SimpleLibApi {
         return com.simplelib.crucible.CrucibleBarrelBlock.ATTACH_STRIKES;
     }
 
-    /** Of the build strikes, how many place a wall (heavy pressure plate); the rest place a handle (JEI, wiki). */
+    /** Of the build strikes, how many place a plate or rim piece (iron ingot); the rest place a handle (JEI, wiki). */
     public static int buildWallStrikes() {
         return com.simplelib.crucible.CrucibleBlankBlock.WALLS;
     }
@@ -275,6 +304,14 @@ public final class SimpleLibApi {
 
     public static boolean materialRequested(String group) {
         return com.simplelib.registry.LibMaterials.requested(group);
+    }
+
+    /**
+     * A partner feeds the material loot (Enderite in End city treasure) itself, with its own switches; SimpleLib's
+     * own pools ({@code material/MaterialLoot}, added only for requested materials) stay out. Call in the constructor.
+     */
+    public static void materialLootByPartner() {
+        com.simplelib.material.MaterialLoot.byPartner();
     }
 
     /** A shared material item by path ({@code "enderite_ingot"}); registers the materials first if needed (any load order). */

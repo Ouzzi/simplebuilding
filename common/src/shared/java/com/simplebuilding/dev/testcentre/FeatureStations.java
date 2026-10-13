@@ -1045,7 +1045,7 @@ public final class FeatureStations {
         int x = 1;
         for (Item item : vehicleItems()) {
             c.wallFrame(x, 1, wallZ, new ItemStack(item));
-            x += item == ModItems.ENDERITE_CHEST_MINECART || item == ModItems.ENDERITE_FURNACE_MINECART
+            x += item == ModItems.ENDERITE_CHEST_MINECART || item == com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart")
                     || item == ModItems.ENDERITE_HOPPER_MINECART ? 2 : 1;
         }
         c.wallSign(17, 2, wallZ, TcText.bold(TcText.t("vehicles.furnace", "Furnace carts")),
@@ -1064,7 +1064,7 @@ public final class FeatureStations {
             return List.of();
         }
         return List.of(ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_CHEST_MINECART,
-                ModItems.REINFORCED_FURNACE_MINECART, ModItems.NETHERITE_FURNACE_MINECART, ModItems.ENDERITE_FURNACE_MINECART,
+                com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"),
                 ModItems.REINFORCED_HOPPER_MINECART, ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART,
                 ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT, ModItems.ENDERITE_CHEST_BOAT);
     }

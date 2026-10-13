@@ -752,8 +752,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     for (com.simplebuilding.blocks.custom.ChestTier tier : tiers) {
                         Item[][] carts = {
                                 {com.simplebuilding.entity.vehicle.VehicleTiers.chest(tier).asItem(), com.simplebuilding.entity.vehicle.VehicleTiers.chestMinecart(tier)},
-                                {com.simplebuilding.entity.vehicle.VehicleTiers.furnace(tier).asItem(), com.simplebuilding.entity.vehicle.VehicleTiers.furnaceMinecart(tier)},
                                 {com.simplebuilding.entity.vehicle.VehicleTiers.hopper(tier).asItem(), com.simplebuilding.entity.vehicle.VehicleTiers.hopperMinecart(tier)}};
+                        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: the furnace carts are Simple Ovens'
+                            carts = java.util.Arrays.copyOf(carts, carts.length + 1);
+                            carts[carts.length - 1] = new Item[]{com.simplebuilding.entity.vehicle.VehicleTiers.furnace(tier).asItem(),
+                                    com.simplebuilding.entity.vehicle.VehicleTiers.furnaceMinecart(tier)};
+                        }
                         for (Item[] cart : carts) {
                             ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.TRANSPORTATION, cart[1])
                                     .requires(cart[0]).requires(Items.MINECART)
@@ -774,6 +778,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             : java.util.List.<java.util.function.Function<com.simplebuilding.blocks.custom.ChestTier, Item>>of(
                                     com.simplebuilding.entity.vehicle.VehicleTiers::chestMinecart, com.simplebuilding.entity.vehicle.VehicleTiers::furnaceMinecart,
                                     com.simplebuilding.entity.vehicle.VehicleTiers::hopperMinecart, com.simplebuilding.entity.vehicle.VehicleTiers::chestBoat)) {
+                        if (!com.simplebuilding.version.McVersion.OVENS_IN_SB && kind.apply(tiers[0]) == com.simplebuilding.entity.vehicle.VehicleTiers.furnaceMinecart(tiers[0])) continue;
                         createSmithing(kind.apply(tiers[0]), kind.apply(tiers[1]), RecipeCategory.TRANSPORTATION);
                         createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, kind.apply(tiers[1]), ModItems.ENDERITE_INGOT,
                                 RecipeCategory.TRANSPORTATION, kind.apply(tiers[2]));
@@ -968,6 +973,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .save(output);
 
 
+                if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens ships the furnace recipes
                 // =================================================================
                 // BLAST FURNACE REINFORCED & NETHERITE
                 // =================================================================
@@ -1005,6 +1011,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('S', Items.SMOKER)
                         .unlockedBy(getHasName(Items.SMOKER), has(Items.SMOKER))
                         .save(output);
+                }
 
                 if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) { // 26.3: SimpleLib ships these (shared materials, split stage 3d)
                 shaped(RecipeCategory.MISC, ModItems.BASIC_UPGRADE_TEMPLATE, 2)

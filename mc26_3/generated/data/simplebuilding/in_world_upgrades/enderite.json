@@ -11,27 +11,11 @@
     },
     {
       "damage_per_hit": 10,
-      "from": "simplebuilding:netherite_blast_furnace",
-      "material": "simplelib:enderite_nugget",
-      "min_tool": "netherite",
-      "tier": "enderite",
-      "to": "simplebuilding:enderite_blast_furnace"
-    },
-    {
-      "damage_per_hit": 10,
       "from": "simplebuilding:netherite_chest",
       "material": "simplelib:enderite_nugget",
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplebuilding:enderite_chest"
-    },
-    {
-      "damage_per_hit": 10,
-      "from": "simplebuilding:netherite_furnace",
-      "material": "simplelib:enderite_nugget",
-      "min_tool": "netherite",
-      "tier": "enderite",
-      "to": "simplebuilding:enderite_furnace"
     },
     {
       "damage_per_hit": 10,
@@ -61,14 +45,6 @@
     },
     {
       "damage_per_hit": 10,
-      "from": "simplebuilding:netherite_smoker",
-      "material": "simplelib:enderite_nugget",
-      "min_tool": "netherite",
-      "tier": "enderite",
-      "to": "simplebuilding:enderite_smoker"
-    },
-    {
-      "damage_per_hit": 10,
       "from": "simplebuilding:netherite_trapped_chest",
       "material": "simplelib:enderite_nugget",
       "min_tool": "netherite",
@@ -87,10 +63,9 @@
     },
     {
       "damage_per_hit": 10,
-      "duration_factor": 2,
       "from": "simplelib:netherite_crucible",
       "material": "simplelib:enderite_nugget",
-      "material_count": 2,
+      "material_count": 4,
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplebuilding:enderite_crucible"

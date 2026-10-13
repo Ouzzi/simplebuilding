@@ -1,0 +1,111 @@
+{
+  "module": "simpleovens",
+  "derivation": "Age-of-game tier from KERNE-SELTENHEIT section 5.3. The nine furnaces moved here from SimpleBuilding with the same rows (split stage 4).",
+  "excluded": {
+    "simpleovens:reinforced_furnace_minecart": "Crafted from the furnace of its tier and a minecart; the furnace carries the price.",
+    "simpleovens:netherite_furnace_minecart": "Smithed from the Reinforced cart or crafted from the Netherite furnace; the furnace carries the price.",
+    "simpleovens:enderite_furnace_minecart": "Smithed from the Netherite cart or crafted from the Enderite furnace; the furnace carries the price.",
+    "simpleovens:guide_book": "Crafted from a book and charcoal."
+  },
+  "prices": [
+    {
+      "item": "simpleovens:enderite_blast_furnace",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleovens:enderite_furnace",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleovens:enderite_smoker",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleovens:netherite_blast_furnace",
+      "tier": 4,
+      "hours": 24.9,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleovens:netherite_furnace",
+      "tier": 4,
+      "hours": 24.9,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleovens:netherite_smoker",
+      "tier": 4,
+      "hours": 24.9,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simpleovens:reinforced_blast_furnace",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 4,
+      "stock": 1,
+      "chance": 1
+    },
+    {
+      "item": "simpleovens:reinforced_furnace",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 4,
+      "stock": 1,
+      "chance": 1
+    },
+    {
+      "item": "simpleovens:reinforced_smoker",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 4,
+      "stock": 1,
+      "chance": 1
+    }
+  ]
+}

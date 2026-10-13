@@ -9,10 +9,16 @@ import net.minecraft.resources.Identifier;
 /** Server-only, restart-bound configuration. No client can change these values. */
 public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTrustedPlayers,
         int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer, List<String> dimensions) {
+    /** Written into the file; files without it (or lower) were written by the old "default off" build. */
+    public static final int CONFIG_VERSION = 2;
     public static final int MAX_CLAIMS = 256, MAX_TRUSTED = 64, MAX_GLOBAL = 10000;
     public static final int MAX_COOLDOWN = 72000, MAX_SPAWN_BUFFER = 256, MAX_DIMENSIONS = 32;
-    public static final ClaimConfig DEFAULT = new ClaimConfig(false, 16, 8, 4096, 100, false, 16,
+    /** On by default since 2026-10-13 (owner release). An existing file with "enabled": false stays off. */
+    public static final ClaimConfig DEFAULT = new ClaimConfig(true, 16, 8, 4096, 100, false, 16,
             List.of("minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"));
+    /** The defaults with the main switch off (server administrators' opt-out, disabled-path tests). */
+    public static final ClaimConfig OFF = new ClaimConfig(false, DEFAULT.maxClaimsPerPlayer, DEFAULT.maxTrustedPlayers,
+            DEFAULT.globalCap, DEFAULT.cooldownTicks, DEFAULT.opBypass, DEFAULT.spawnBuffer, DEFAULT.dimensions);
     public ClaimConfig {
         maxClaimsPerPlayer = Math.clamp(maxClaimsPerPlayer, 1, MAX_CLAIMS);
         maxTrustedPlayers = Math.clamp(maxTrustedPlayers, 0, MAX_TRUSTED);
@@ -32,12 +38,16 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
     public static ClaimConfig load(Path path) {
         try {
             if (!Files.exists(path)) {
-                ClaimStore.atomicWrite(path, new GsonBuilder().setPrettyPrinting().create().toJson(DEFAULT));
+                var gson = new GsonBuilder().setPrettyPrinting().create();
+                var fresh = gson.toJsonTree(DEFAULT).getAsJsonObject();
+                fresh.addProperty("configVersion", CONFIG_VERSION);
+                ClaimStore.atomicWrite(path, gson.toJson(fresh));
                 return DEFAULT;
             }
             if (Files.isSymbolicLink(path) || Files.size(path) > 16384) throw new IOException("Unsafe claim config");
             var json = JsonParser.parseString(Files.readString(path)).getAsJsonObject();
             var d = DEFAULT;
+            if (versionOf(json) < CONFIG_VERSION) migrate(path, json);
             return new ClaimConfig(bool(json,"enabled",d.enabled), integer(json,"maxClaimsPerPlayer",d.maxClaimsPerPlayer),
                     integer(json,"maxTrustedPlayers",d.maxTrustedPlayers), integer(json,"globalCap",d.globalCap),
                     integer(json,"cooldownTicks",d.cooldownTicks), bool(json,"opBypass",d.opBypass),
@@ -46,6 +56,23 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
         } catch (Exception e) {
             // Never turn protection off silently because a server administrator made a typo.
             throw new IllegalStateException("Invalid claim config; original file preserved: " + path, e);
+        }
+    }
+    private static int versionOf(JsonObject j) {
+        return j.has("configVersion") && j.get("configVersion").isJsonPrimitive() ? j.get("configVersion").getAsInt() : 1;
+    }
+    /** One-time: the old build wrote "enabled": false on first start; that value was never a choice, so it turns on once. */
+    private static void migrate(Path path, JsonObject json) {
+        boolean wasOff = json.has("enabled") && json.get("enabled").isJsonPrimitive()
+                && json.getAsJsonPrimitive("enabled").isBoolean() && !json.get("enabled").getAsBoolean();
+        if (wasOff) json.addProperty("enabled", true);
+        json.addProperty("configVersion", CONFIG_VERSION);
+        try {
+            ClaimStore.atomicWrite(path, new GsonBuilder().setPrettyPrinting().create().toJson(json));
+            if (wasOff) org.slf4j.LoggerFactory.getLogger("simpletweaks-claims").info(
+                    "Claim config migrated to version {}: \"enabled\": false from the old default was set to true once. Set it to false again to opt out.", CONFIG_VERSION);
+        } catch (IOException e) {
+            org.slf4j.LoggerFactory.getLogger("simpletweaks-claims").warn("Could not write migrated claim config {}", path, e);
         }
     }
     private static int integer(JsonObject j,String k,int fallback) {

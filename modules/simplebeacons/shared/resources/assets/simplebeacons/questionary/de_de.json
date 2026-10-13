@@ -1,0 +1,38 @@
+{
+  "strong_upgrade_template": {
+    "lore": [
+      "Eine Obsidianplatte um einen gefangenen Stern; sie summt, wenn ein Leuchtfeuer nah ist."
+    ],
+    "use": [
+      "In der Nebenhand halten und mit einer Axt (mit einer Hammer-Mod: dem Vorschlaghammer) 8-mal auf ein gesetztes Leuchtfeuer oder einen Aquisator schlagen, mit einem Netherstern im Gepäck; oder am Schmiedetisch schmieden.",
+      "Gefertigt aus einem Netherstern, 4 Diamanten und 4 Obsidian; 7 Diamanten, ein Obsidian und eine Vorlage ergeben 2."
+    ],
+    "secret": [
+      "Der aufgewertete Block behält seine gewählten Kräfte, seine Sperre und seinen Namen."
+    ]
+  },
+  "strong_beacon": {
+    "lore": [
+      "Sechs Stufen näher am Himmel."
+    ],
+    "use": [
+      "Eine Pyramide mit bis zu 6 Ebenen bauen (13x13 unten, 454 Blöcke). Ebene 5 bietet Nachtsicht, Wasseratmung und Langsamen Fall, Ebene 6 Feuerresistenz, Delfingunst und Absorption.",
+      "Reichweite 60 Blöcke auf Ebene 5 und 70 auf Ebene 6."
+    ],
+    "secret": [
+      "Die neuen Kräfte haben keine Stufe II, Regeneration bleibt aber als zweite Kraft."
+    ]
+  },
+  "strong_conduit": {
+    "lore": [
+      "Das Meer antwortet einem größeren Rahmen mit weiterer Reichweite."
+    ],
+    "use": [
+      "Mit einem 7x7x7-Ring aus Prismarin, Dunklem Prismarin, Prismarinziegeln oder Seelaternen (66 Blöcke) umgeben: bis zu 144 Blöcke Meereskraft.",
+      "Spieler im Wasser bekommen zusätzlich Delfingunst."
+    ],
+    "secret": [
+      "Der volle große Rahmen trifft feindliche Mobs im Wasser im Umkreis von 12 Blöcken."
+    ]
+  }
+}

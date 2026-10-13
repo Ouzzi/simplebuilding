@@ -87,7 +87,7 @@ public final class CauldronWorldCatalog {
         }
         int handleStrikes = strikes - wallStrikes;
         out.add(new Entry("crucible_build",
-                List.of(Stack.of(Items.IRON_BLOCK, 1), new Stack(walls, wallStrikes), new Stack(handles, handleStrikes)),
+                List.of(Stack.of(Items.CAULDRON, 1), new Stack(walls, wallStrikes), new Stack(handles, handleStrikes)),
                 hammers, Stack.of(iron, 1), 0,
                 List.of(Component.translatable(NOTE + "crucible_build.how", strikes),
                         Component.translatable(NOTE + "crucible_build.parts", wallStrikes, handleStrikes),
@@ -139,13 +139,17 @@ public final class CauldronWorldCatalog {
         int blows = SledgehammerUpgrades.blows(upgrade);
         int ticks = SledgehammerUpgrades.upgradeTicks(upgrade);
         int perHit = SledgehammerUpgrades.damagePerHit(upgrade);
+        List<Component> notes = new ArrayList<>(List.of(Component.translatable("jei.simplebuilding.note.machine_upgrade.how"),
+                Component.translatable("jei.simplebuilding.note.machine_upgrade.time", blows,
+                        ticks % 20 == 0 ? Integer.toString(ticks / 20) : Double.toString(ticks / 20.0), ticks),
+                Component.translatable("jei.simplebuilding.note.machine_upgrade.damage", perHit, perHit * blows)));
+        if (SledgehammerUpgrades.staged(upgrade)) {
+            // Owner N51: crucibles take their material one unit every 3 blows, each visible as a band.
+            notes.add(Component.translatable(NOTE + "crucible_upgrade.units", SledgehammerUpgrades.STRIKES_PER_UNIT));
+        }
         out.add(new Entry(entryId,
                 List.of(Stack.of(upgrade.from().asItem(), 1), Stack.of(upgrade.nugget(), upgrade.materialCost())),
-                hammers, Stack.of(upgrade.to().asItem(), 1), ticks,
-                List.of(Component.translatable("jei.simplebuilding.note.machine_upgrade.how"),
-                        Component.translatable("jei.simplebuilding.note.machine_upgrade.time", blows,
-                                ticks % 20 == 0 ? Integer.toString(ticks / 20) : Double.toString(ticks / 20.0), ticks),
-                        Component.translatable("jei.simplebuilding.note.machine_upgrade.damage", perHit, perHit * blows))));
+                hammers, Stack.of(upgrade.to().asItem(), 1), ticks, notes));
     }
 
     private static void milk(List<Entry> out) {

@@ -16,6 +16,7 @@ Befehle). In ihrer Config steht je Sub-Mod oben „Simple XY aktivieren“. Geme
 ```
 SimpleBuilding (Super-Mod, geplant)          Simple Quality of Life (Super-Mod)
  ├─ simplelib (gebündelt)                      ├─ simpleweather, simpleinterfaces, simpleloot,
+ ├─ Simple Ovens (Pflicht, gebündelt)          │
  ├─ Simple Mobheads (Pflicht, gebündelt)      │
  ├─ Simple Trims (gebündelt)                   ├─ simplemobmanners, simplefarming, simpletools,
  └─ Simple Maps (in Arbeit)                    └─ simplemovement (alle Sub-Mods, gebündelt)
@@ -27,7 +28,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 
 | Mod (ID) | Pflicht | Optional (Integration) | Bündelt |
 |---|---|---|---|
-| SimpleBuilding (`simplebuilding`) | Cloth Config | JEI, REI, ModMenu, Jade, AppleSkin, Mouse Tweaks, Trinkets, Curios | simplelib |
+| SimpleBuilding (`simplebuilding`) | Cloth Config, Simple Ovens (26.3) | JEI, REI, ModMenu, Jade, AppleSkin, Mouse Tweaks, Trinkets, Curios | simplelib, simpleovens (+ optionale Sub-Mods) |
+| Simple Ovens (`simpleovens`) | simplelib | SimpleBuilding (Vorschlaghammer statt Axt) | simplelib |
 | SimpleLib (`simplelib`) | – | – | – |
 | Simple Interfaces (`simpleinterfaces`) | Cloth Config, simplelib | SimpleBuilding, Simple QoL (Schalter), ModMenu | simplelib |
 | Simple Quality of Life (`simplequalityoflife`) | Cloth Config, alle sieben Sub-Mods | SimpleBuilding, ModMenu | simplelib, simpleweather, simpleinterfaces, simpleloot, simplemobmanners, simplefarming, simpletools, simplemovement |
@@ -62,7 +64,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   Bündel-Stufen und Köcher, abgestellte Bündel, Astral-/Nihil-Gewölbe, Mod-Trichter mit Filter-Prinzip.
 - **Fahrzeuge (26.3):** Güter-, Antriebs- und Trichterloren sowie Truhenboote (jede Holzart) in den Stufen
   Verstärkt/Netherit/Enderit – Plätze wie die Truhe, Brenndauer/Tempo wie Ofen/Trichter der Stufe, Filter-Prinzip.
-- **Maschinen:** schnellere Öfen (3 Stufen je Ofenart), Auto-Schmied, Autonomer Crafter, Befiederungs- und
+- **Maschinen:** schnellere Öfen (3 Stufen je Ofenart; auf 26.3 aus der Pflicht-Sub-Mod Simple Ovens), Auto-Schmied, Autonomer Crafter, Befiederungs- und
   Schmiedetisch mit Rezeptbuch, stärkere Kolben, Astral-/Nihil-Kolben.
 - **Schmelztiegel-Teil** (auf simplelib): Enderit-Tiegel/-Fass, Seelen-Lava (Fluid, Weltgenerierung, Seelenbrand),
   Kupfer-, Keramik- und Enderit-Eimer (Enderit fasst 2 Eimer).
@@ -82,7 +84,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   „in Vanilla-Tabs einsortieren“.
 
 ### SimpleLib (gemeinsame Bibliothek)
-Schmelztiegel (Eisen/Verstärkt/Netherit, beheizt vom Block darunter, Axt-Weg ohne SB), Kupfer-/Netherit-Fässer am
+Schmelztiegel (Eisen/Verstärkt/Netherit, beheizt vom Block darunter, Axt-Weg ohne SB; In-World-Bau aus Kessel + 16 Eisenbarren
+mit Stufe je Schlag, Tiegel-Upgrades 12 Schläge mit sichtbarer Material-Einheit alle 3 Schläge, N51), Kupfer-/Netherit-Fässer am
 Tiegel, warmes Essen, verstärkter Kessel (erbt Vanilla-Kessel inkl. Milch), Dorf-Feldküchen, Stapelgrößen-Regel
 (`StackLimits`), UI-Bausteine des Simple-Stils (Kästen, Slots, Symbole, Flammen, Filter-Knopf). Dienste der
 Modulaufteilung: `IdMoves` (ID-Umzüge), Datentyp `in_world_upgrades` mit Übergabe-Handlern und Tags
@@ -170,6 +173,8 @@ Kompatibilität alter Welten (ID-Zuordnung), Claim-System in Stufen (standardmä
 | Simple End (`simpleend`, Sub-Mod SB, optional; Super-Mod von End Dragon Fight) | `claude-simple-end` | End-Holz Aschholz/Dämmerholz (volles Vanilla-Holzset inkl. Boote, Schilder, Regal, Laub; mit SB zusätzlich Holzwerk, Holz-/Stamm-Achtel, gestufte Kistenboote, mit Sandwiches Schneidebretter – `claude-endwood-full`, `docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md`), Knospen (Licht ≥ 9 großer Baum, 2×2 Riesenbaum, dunkel + Knochenmehl Stöcke-Gestrüpp), End-Stöcke-Block, Schwebfrucht (4 s Sanfter Fall + Sprung), End-Gras/-Busch (N42), Biome Aschental/Dämmerlande auf äußeren End-Inseln, Items leere-sicher + doppelte Liegezeit, Knabbermilbe (passiv, knabbert Endstein → durchwühlter Endstein, erholt sich); spielbar ohne SB | `docs/ai/PLAN-SIMPLE-END-2026-10-12.md` |
 | Simple End Dragon Fight (`simpleenddragonfight`, Sub-Mod von Simple End, optional) | Stufe 1 (`claude-dragon`) | Drache: +1 volle Lebensleiste je Spieler, +15 % je weiterer Beschwörung (300 bzw. 200 je Spieler, Schonfrist 60 s), +20 % Tempo, Eintritts-Animation je Spieler (Warteschlange), ab halbem Leben Dragonmites alle 30 s (Drop Drachen-Chitin); spielbar auch ohne SB | `docs/ai/KONZEPT-END-DRAGON-FIGHT-2026-10-11.md` |
 | Simple Respawn (`simplerespawn`, Sub-Mod SB, optional) | Stufe 1 (`claude-respawn`) | Niedergeschlagen statt tot (nur mit Mitspielern online, Config: immer), Ausbluten 60 s, eigener Bildschirm (Zuschauen mit freier Kamera, Inventar nur ansehen, Aufgeben), Wiederbeleben durch 5 s Rechtsklick-Halten (danach 3 Herzen, 0 Hunger), Monster ignorieren Niedergeschlagene, Logout/Absturz = Vanilla-Tod (kein Dupe), Handbuch, Fortschritt Erste Hilfe; spielbar auch ohne SB | `docs/ai/PLAN-SIMPLE-RESPAWN-2026-10-12.md` |
+| Simple Beacons (`simplebeacons`, Sub-Mod SB, optional; braucht `simplelib`) | Stufe 1 (`claude-beacons`) | Starke Aufwertungsvorlage (Netherstern, Duplikation), Starkes Leuchtfeuer (eigener Block, 6 Ebenen, Reichweite 60/70, 6 Zusatzeffekte E5/E6, zweispaltiger Bildschirm, Basis-Tag `strong_base_blocks`), Starker Aquisator (7×7×7-Rahmen, bis 144 Blöcke nur unter Wasser, Delfingunst, Angriff 12), Aufwertung am Schmiedetisch oder in der Welt (Axt/Hammer, 8 Schläge, Daten bleiben), Server-Konfig mit Deckeln; spielbar ohne SB | `docs/ai/PLAN-SIMPLE-BEACONS-2026-10-13.md` |
+| Simple Ovens (`simpleovens`, Sub-Mod SB, **Pflicht**: SB `requires`+bündelt; braucht `simplelib`) | Modulaufteilung Stufe 4 (`claude-split-s4-ovens`) | Verstärkte/Netherit-/Enderit-Öfen, -Räucheröfen, -Schmelzöfen (2×/4×/8×, doppelte Erfahrung ab Netherit, Tempo aus eigener Server-Konfig, übernimmt SBs Werte beim ersten Start), Antriebsloren der drei Stufen, Menü-Mixin für lange Garzeiten, Aufwertung in der Welt über SimpleLibs `in_world_upgrades` (allein Axt, mit SB Vorschlaghammer), eigener Tab, Handbuch, Fragentisch, Preise; alte `simplebuilding:`-IDs (Blöcke, Items, Block-Entities, Loren, Rezepte, Rezept-Advancements) migrieren über SimpleLib-IdMoves; auf 26.3 nicht mehr in SB (26.2 unverändert); allein spielbar (Enderit-Beute über SimpleLib) | `docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md` |
 | Simple Trims (`simpletrims`, Sub-Mod SB, optional) | Stufen 2–4 (`claude-trims2`) | Vorlagen Leuchtend/Strahlend/Pulsierend (`simpletrims:*`, alte `simplebuilding:`-IDs migrieren über SimpleLib-IdMoves), Aufwertungen am Schmiedetisch (eigener Rezepttyp, auch Auto-Smither), Strahlkraft-Licht, Leucht-/Puls-Darstellung, Besatzvorlagen ablegen und in der Welt schmieden, Werkzeugregel wie Tiegel (Axt allein, Hammer sobald ein Partner die Axt-Wege abschaltet), Fortschritte, Handbuch, Preise; bündelt SimpleLib; auf 26.3 nicht mehr in SB (26.2 unverändert); Besatz-Boni bleiben in SB | `docs/ai/PLAN-N18-SIMPLEMAPS-TRIMS-2026-10-07.md` |
 | QoL-Aufteilung | Besitzer entscheidet | Sub-Mods für Container (fertig), Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor (→ Simple Loot); Schärfe/Gras → Simple Combat; Kreaturen-Logik nach simplelib | QUEUE N14 |
 | Mobs/Effekte | Konzepte | End-Mob, Shellker (Schwerkraft), Deceiver, Furcht-Mob, Seelenfeuer-Lohe; Effekte Zittern/Trugbild/Verblasst | `docs/ai/KONZEPT-MOBS-2026-10-07.md`, `KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md` |

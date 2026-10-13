@@ -424,12 +424,33 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     private int upgradeStrikes;
     private long lastUpgradeStrike;
 
-    /** Counts one upgrade strike; a pause of more than 30 s starts over. */
-    public int addUpgradeStrike() {
+    /** Upgrade material already struck in (owner N51), one stack per unit; returned when the crucible is broken before the upgrade ends. */
+    private final List<ItemStack> upgradeUnits = new ArrayList<>();
+
+    /** Counts one upgrade strike; a pause of more than 30 s starts over at {@code floor} (the units already struck in keep their strikes). */
+    public int addUpgradeStrike(int floor) {
         long now = level == null ? 0 : level.getGameTime();
-        if (now - lastUpgradeStrike > 600) upgradeStrikes = 0;
+        if (now - lastUpgradeStrike > 600 || upgradeStrikes < floor) upgradeStrikes = floor;
         lastUpgradeStrike = now;
         return ++upgradeStrikes;
+    }
+
+    public int addUpgradeStrike() {
+        return addUpgradeStrike(0);
+    }
+
+    /** Remembers one struck-in unit ({@code unit} empty in creative: nothing to give back). */
+    public void addUpgradeUnit(ItemStack unit) {
+        if (unit.isEmpty()) return;
+        upgradeUnits.add(unit.copyWithCount(1));
+        setChanged();
+    }
+
+    /** The struck-in units (copies). */
+    public List<ItemStack> upgradeUnits() {
+        List<ItemStack> out = new ArrayList<>();
+        for (ItemStack unit : upgradeUnits) out.add(unit.copy());
+        return out;
     }
 
     /** Everything an upgrade keeps (owner 11: contents, progress, experience). */
@@ -445,6 +466,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     public void clearForUpgrade() {
         items.clear();
         experience = 0;
+        upgradeUnits.clear();
     }
 
     public void restore(Snapshot snapshot) {
@@ -552,9 +574,11 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     public void preRemoveSideEffects(BlockPos pos, BlockState blockState) {
         if (level instanceof ServerLevel server) {
             for (ItemStack stack : drops()) Block.popResource(server, pos, stack);
+            for (ItemStack unit : upgradeUnits) Block.popResource(server, pos, unit.copy());
             awardExperience(server, Vec3.atCenterOf(pos));
         }
         items.clear();
+        upgradeUnits.clear();
     }
 
     // ---------------------------------------------------------------- persistence
@@ -588,6 +612,8 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         experience = input.getFloatOr("Experience", 0.0F);
         afterglow = input.getIntOr("Afterglow", 0);
         heat = HeatLevel.byId(input.getIntOr("Heat", 0));
+        upgradeUnits.clear();
+        input.read("UpgradeUnits", ItemStack.CODEC.listOf()).ifPresent(upgradeUnits::addAll);
         heatDirty = true;
     }
 
@@ -608,6 +634,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         output.putFloat("Experience", experience);
         output.putInt("Afterglow", afterglow);
         output.putInt("Heat", heat.ordinal());
+        if (!upgradeUnits.isEmpty()) output.store("UpgradeUnits", ItemStack.CODEC.listOf(), List.copyOf(upgradeUnits));
     }
 
     private void changedAndSync() {

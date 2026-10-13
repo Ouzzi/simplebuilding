@@ -1,0 +1,134 @@
+{
+  "reinforced_furnace": {
+    "lore": [
+      "{name}: The first step: a furnace with a bit of ambition."
+    ],
+    "use": [
+      "Runs 2 times as fast as the vanilla furnace for smelting, with the same recipes and menu. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "reinforced_smoker": {
+    "lore": [
+      "{name}: The first step: a furnace with a bit of ambition."
+    ],
+    "use": [
+      "Runs 2 times as fast as the vanilla smoker for food, with the same recipes and menu. Burns fuel twice as long as the vanilla one. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "reinforced_blast_furnace": {
+    "lore": [
+      "{name}: The first step: a furnace with a bit of ambition."
+    ],
+    "use": [
+      "Runs 2 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Burns fuel twice as long as the vanilla one. Craft: 3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds in the crafting table."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "netherite_furnace": {
+    "lore": [
+      "{name}: It cooks like a forge that has forgotten how to cool."
+    ],
+    "use": [
+      "Runs 4 times as fast as the vanilla furnace for smelting, with the same recipes and menu. No recipe: strike a placed Reinforced one with a diamond or netherite axe (with SimpleBuilding: a Diamond Sledgehammer or better) and a Netherite Nugget in the off hand."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "netherite_smoker": {
+    "lore": [
+      "{name}: It cooks like a forge that has forgotten how to cool."
+    ],
+    "use": [
+      "Runs 4 times as fast as the vanilla smoker for food, with the same recipes and menu. Burns fuel twice as long as the vanilla one. No recipe: strike a placed Reinforced one with a diamond or netherite axe (with SimpleBuilding: a Diamond Sledgehammer or better) and a Netherite Nugget in the off hand."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "netherite_blast_furnace": {
+    "lore": [
+      "{name}: It cooks like a forge that has forgotten how to cool."
+    ],
+    "use": [
+      "Runs 4 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Burns fuel twice as long as the vanilla one. No recipe: strike a placed Reinforced one with a diamond or netherite axe (with SimpleBuilding: a Diamond Sledgehammer or better) and a Netherite Nugget in the off hand."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "enderite_furnace": {
+    "lore": [
+      "{name}: The fastest fire in the game, tamed in a box."
+    ],
+    "use": [
+      "Runs 8 times as fast as the vanilla furnace for smelting, with the same recipes and menu. Double experience. No recipe: strike a placed Netherite one with a netherite axe (with SimpleBuilding: a Netherite Sledgehammer) and an Enderite Nugget in the off hand."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "enderite_smoker": {
+    "lore": [
+      "{name}: The fastest fire in the game, tamed in a box."
+    ],
+    "use": [
+      "Runs 8 times as fast as the vanilla smoker for food, with the same recipes and menu. Double experience. Burns fuel twice as long as the vanilla one. No recipe: strike a placed Netherite one with a netherite axe (with SimpleBuilding: a Netherite Sledgehammer) and an Enderite Nugget in the off hand."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "enderite_blast_furnace": {
+    "lore": [
+      "{name}: The fastest fire in the game, tamed in a box."
+    ],
+    "use": [
+      "Runs 8 times as fast as the vanilla blast furnace for ores and metal, with the same recipes and menu. Double experience. Burns fuel twice as long as the vanilla one. No recipe: strike a placed Netherite one with a netherite axe (with SimpleBuilding: a Netherite Sledgehammer) and an Enderite Nugget in the off hand."
+    ],
+    "secret": [
+      "The speed-up only counts while the fuel burns and the cook has begun. The tiers share one block entity, so the upgrade in the world keeps everything inside."
+    ]
+  },
+  "reinforced_furnace_minecart": {
+    "lore": [
+      "{name}: a furnace that decided to travel."
+    ],
+    "use": [
+      "One fuel item burns 2 times as long as in the vanilla furnace minecart, and the cart runs faster the higher the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the furnace of the same tier, shapeless; smithing lifts it a tier. Right-click pushes the cart away from you. The Enderite one reaches the full top speed of a plain minecart."
+    ]
+  },
+  "netherite_furnace_minecart": {
+    "lore": [
+      "{name}: a furnace that decided to travel."
+    ],
+    "use": [
+      "One fuel item burns 4 times as long as in the vanilla furnace minecart, and the cart runs faster the higher the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the furnace of the same tier, shapeless; smithing lifts it a tier. Right-click pushes the cart away from you. The Enderite one reaches the full top speed of a plain minecart."
+    ]
+  },
+  "enderite_furnace_minecart": {
+    "lore": [
+      "{name}: a furnace that decided to travel."
+    ],
+    "use": [
+      "One fuel item burns 8 times as long as in the vanilla furnace minecart, and the cart runs faster the higher the tier."
+    ],
+    "secret": [
+      "Craft a minecart with the furnace of the same tier, shapeless; smithing lifts it a tier. Right-click pushes the cart away from you. The Enderite one reaches the full top speed of a plain minecart."
+    ]
+  }
+}

@@ -106,21 +106,22 @@ public class ModBlocks {
     public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.NETHERITE, s.strength(5.0F, 1200.0F).noLootTable().sound(SoundType.NETHERITE_BLOCK)));
     public static final Block ENDERITE_PISTON_HEAD = registerBlock("enderite_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.ENDERITE, s.strength(6.0F, 1500.0F).noLootTable().sound(SoundType.NETHERITE_BLOCK)));
 
-    public static final Block REINFORCED_FURNACE = registerBlock("reinforced_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL)));
-    public static final Block NETHERITE_FURNACE = registerBlock("netherite_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block REINFORCED_SMOKER = registerBlock("reinforced_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(3.5F).sound(SoundType.METAL)));
-    public static final Block NETHERITE_SMOKER = registerBlock("netherite_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block REINFORCED_BLAST_FURNACE = registerBlock("reinforced_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL)));
-    public static final Block NETHERITE_BLAST_FURNACE = registerBlock("netherite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
+    // Split stage 4: on 26.3 the nine furnaces are Simple Ovens' (simpleovens:*, util/OvenRefs); null there.
+    public static final Block REINFORCED_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("reinforced_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL))) : null;
+    public static final Block NETHERITE_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("netherite_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
+    public static final Block REINFORCED_SMOKER = McVersion.OVENS_IN_SB ? registerBlock("reinforced_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(3.5F).sound(SoundType.METAL))) : null;
+    public static final Block NETHERITE_SMOKER = McVersion.OVENS_IN_SB ? registerBlock("netherite_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
+    public static final Block REINFORCED_BLAST_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("reinforced_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL))) : null;
+    public static final Block NETHERITE_BLAST_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("netherite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
 
     // Enderit-Stufe: nur in der Welt erreichbar, per Vorschlaghammer und Enderit-Nugget aus der
     // Netherit-Stufe (SledgehammerUpgrades); kein Werkbankrezept. Dieselben Klassen und damit
     // dieselben Block-Entities wie die beiden anderen Stufen, Haerte und Explosionsfestigkeit wie
     // beim Enderitkolben.
     public static final Block ENDERITE_HOPPER = registerBlock("enderite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(6.0F, 1500.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block ENDERITE_FURNACE = registerBlock("enderite_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block ENDERITE_SMOKER = registerBlock("enderite_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block ENDERITE_BLAST_FURNACE = registerBlock("enderite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block ENDERITE_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("enderite_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
+    public static final Block ENDERITE_SMOKER = McVersion.OVENS_IN_SB ? registerBlock("enderite_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
+    public static final Block ENDERITE_BLAST_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("enderite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
 
     // Truhen-Stufen ueber der Vanilla-Kupfertruhe (siehe ChestTier, TieredChests). Haerte wie die
     // Maschinen derselben Stufe, abbaubar mit der Spitzhacke wie die Kupfertruhe (Werkzeug noetig).

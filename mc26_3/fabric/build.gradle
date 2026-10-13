@@ -151,7 +151,8 @@ processResources {
 		expand "version": inputs.properties.version
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3",\n    "simplemobheads": ">=1.0.0"')
+				// Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), bundled below.
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simpleovens": ">=1.0.0", "simplemobheads": ">=1.0.0"')
 				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
@@ -229,6 +230,12 @@ dependencies {
     // SB 26.3 code uses com.simplelib.api (crucible P5) and needs the mod in dev and test runs too.
     implementation project(':modules:simplelib:fabric')
 }
+// Simple Ovens: required Sub-Mod (PLAN-MODULAUFTEILUNG stage 4) - the furnaces moved there (simpleovens:*, ids migrate).
+// Nested for production, loaded in SB's dev/test runs; SB code never imports it (util/OvenRefs: by id).
+dependencies {
+    include project(':modules:simpleovens:fabric')
+    implementation project(':modules:simpleovens:fabric')
+}
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
 dependencies {
     include project(':modules:simplemaps:fabric')
@@ -262,6 +269,7 @@ dependencies {
     include project(':modules:simplemobs:fabric')
     include project(':modules:simpleend:fabric')
     include project(':modules:simplerespawn:fabric')
+    include project(':modules:simplebeacons:fabric')
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }

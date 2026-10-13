@@ -129,6 +129,20 @@ public final class CrucibleCompat {
         SimpleLibApi.upgradeCrucible(level, pos, to);
     }
 
+    /** Crucible upgrades go strike by strike (owner N51): 12 strikes, one unit every 3. */
+    public static boolean stagedUpgrade(Block block) {
+        return SimpleLibApi.stagedUpgrade(block);
+    }
+
+    public static int crucibleUpgradeStrikes() { return SimpleLibApi.crucibleUpgradeStrikes(); }
+
+    public static int crucibleUpgradeUnits(BlockState state) { return SimpleLibApi.crucibleUpgradeUnits(state); }
+
+    /** Blow {@code done} of a crucible upgrade: SimpleLib's preview, a unit every 3 blows, the last one upgrades in place. */
+    public static void crucibleUpgradeStrike(ServerLevel level, BlockPos pos, Block to, int done, ItemStack material) {
+        SimpleLibApi.crucibleUpgradeStrike(level, pos, to, done, material);
+    }
+
     public static boolean axeWaysEnabled() {
         return SimpleLibApi.axeWaysEnabled();
     }

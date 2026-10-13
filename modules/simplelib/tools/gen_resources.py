@@ -1,7 +1,7 @@
 """Generate SimpleLib's Minecraft 26.3 resources; --check compares content without writing.
 
 Crucible models are built from elements: a floor, four walls (two pixels thick) and two handles. The
-half-built blank shows the iron block's floor plus the walls/handles struck so far (stage 1-5).
+half-built blank shows the base plus the plates/handles/rim struck so far (stage 1-15, owner N51).
 """
 
 import argparse
@@ -116,14 +116,68 @@ def crucible_model(tier):
     return {"parent": "minecraft:block/block", "textures": tex, "elements": [*FOOT, FLOOR, *WALLS_FLAT, *HANDLES]}
 
 
+# Iron crucible build (owner N51): 16 strikes on an iron block, one iron ingot each. Strike 1 turns the iron block into
+# the base (foot + floor); strikes 1-8 raise the side plates north/east/south/west (half plate up to y 8, then the full
+# one), 9-12 the handles east/west (half = 2 px, then 4 px), 13-16 the rim pieces; the 16th sets the iron crucible.
+BLANK_STRIKES = 16
+PLATE_STRIKES, HANDLE_STRIKES, RIM_STRIKES = 8, 4, 4
+
+
+def half_plate(side):
+    """The belly piece of a side cut at y 8 (first strike on that side)."""
+    piece = json.loads(json.dumps(BELLY[side]))
+    piece["to"][1] = 8
+    return cuboid(tuple(piece["from"]), tuple(piece["to"]), {f: v["texture"] for f, v in piece["faces"].items()})
+
+
+def half_handle(i):
+    piece = HANDLES[i]
+    frm, to = list(piece["from"]), list(piece["to"])
+    to[2] = 8
+    return cuboid(tuple(frm), tuple(to), {f: v["texture"] for f, v in piece["faces"].items()})
+
+
+def blank_elements(stage):
+    elements = [*FOOT, FLOOR]
+    for side in range(4):
+        done = stage - 2 * side
+        if done >= 2:
+            elements.append(BELLY[side])
+        elif done == 1:
+            elements.append(half_plate(side))
+    for i in range(2):
+        done = stage - PLATE_STRIKES - 2 * i
+        if done >= 2:
+            elements.append(HANDLES[i])
+        elif done == 1:
+            elements.append(half_handle(i))
+    elements += NECK[:max(0, stage - PLATE_STRIKES - HANDLE_STRIKES)]
+    return elements
+
+
 def blank_model(stage):
     tex = {k: f"{NS}:block/iron_crucible_{k}" for k in ("side", "top", "bottom", "inner", "handle")}
     tex["particle"] = "minecraft:block/iron_block"
-    base = cuboid((0, 0, 0), (16, 4, 16), {"down": "#iron", "up": "#iron", "north": "#iron", "south": "#iron", "west": "#iron", "east": "#iron"})
-    tex["iron"] = "minecraft:block/iron_block"
-    walls = [piece for wall in WALLS[:min(stage, 4)] for piece in wall]
-    elements = [base] + walls + HANDLES[:max(0, stage - 4)]
-    return {"parent": "minecraft:block/block", "textures": tex, "elements": elements}
+    return {"parent": "minecraft:block/block", "textures": tex, "elements": blank_elements(stage)}
+
+
+# Crucible upgrades (owner N51): every unit struck in shows as a band of the next tier's material on one side
+# (north, east, south, west), half a pixel proud of the belly at y 6-9.
+UPGRADE_MATERIAL = {"iron": f"{NS}:block/cracked_diamond_block", "reinforced": "minecraft:block/netherite_block",
+                    "netherite": f"{NS}:block/enderite_block"}
+BANDS = [
+    cuboid((1, 6, 0.5), (15, 9, 1), {"north": "#band", "up": "#band", "down": "#band", "west": "#band", "east": "#band"}),
+    cuboid((15, 6, 1), (15.5, 9, 15), {"east": "#band", "up": "#band", "down": "#band", "north": "#band", "south": "#band"}),
+    cuboid((1, 6, 15), (15, 9, 15.5), {"south": "#band", "up": "#band", "down": "#band", "west": "#band", "east": "#band"}),
+    cuboid((0.5, 6, 1), (1, 9, 15), {"west": "#band", "up": "#band", "down": "#band", "north": "#band", "south": "#band"}),
+]
+
+
+def upgrade_model(tier, units):
+    model = crucible_model(tier)
+    model["textures"]["band"] = UPGRADE_MATERIAL[tier]
+    model["elements"] = model["elements"] + [inside_uv(json.loads(json.dumps(b))) for b in BANDS[:units]]
+    return model
 
 
 def facing_variants(model, extra=""):
@@ -143,9 +197,13 @@ def files():
     for tier in TIERS:
         name = f"{tier}_crucible"
         out[f"{a}/models/block/{name}.json"] = crucible_model(tier)
+        for units in range(1, 4):
+            out[f"{a}/models/block/{name}_upgrade_{units}.json"] = upgrade_model(tier, units)
         variants = {}
         for lit in ("false", "true"):
-            variants.update(facing_variants(f"{NS}:block/{name}", f",lit={lit}"))
+            for units in range(4):
+                model = f"{NS}:block/{name}" + (f"_upgrade_{units}" if units else "")
+                variants.update(facing_variants(model, f",lit={lit},upgrade={units}"))
         out[f"{a}/blockstates/{name}.json"] = {"variants": variants}
         out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{name}"}}
         out[f"{d}/loot_table/blocks/{name}.json"] = {
@@ -155,7 +213,7 @@ def files():
             "random_sequence": f"{NS}:blocks/{name}",
         }
     blank_variants = {}
-    for stage in range(1, 6):
+    for stage in range(1, BLANK_STRIKES):
         out[f"{a}/models/block/crucible_blank_{stage}.json"] = blank_model(stage)
         for name, rot in FACINGS.items():
             variant = {"model": f"{NS}:block/crucible_blank_{stage}"}
@@ -163,18 +221,9 @@ def files():
                 variant["y"] = rot
             blank_variants[f"facing={name},stage={stage}"] = variant
     out[f"{a}/blockstates/crucible_blank.json"] = {"variants": blank_variants}
-    # Blank: the iron block plus every part struck so far (walls = strikes 1-4, handles = 5).
-    entries = [{"type": "minecraft:item", "name": "minecraft:iron_block"}]
-    pools = [{"rolls": 1, "bonus_rolls": 0, "entries": entries}]
-    for stage in range(1, 6):
-        walls, handles = min(stage, 4), max(0, stage - 4)
-        items = [("minecraft:heavy_weighted_pressure_plate", walls)] + ([("minecraft:iron_ingot", handles)] if handles else [])
-        for item, count in items:
-            pools.append({"rolls": 1, "bonus_rolls": 0,
-                          "conditions": [{"condition": "minecraft:block_state_property", "block": f"{NS}:crucible_blank",
-                                          "properties": {"stage": str(stage)}}],
-                          "entries": [{"type": "minecraft:item", "name": item,
-                                       "functions": [{"function": "minecraft:set_count", "count": count}]}]})
+    # Blank: CrucibleBlankBlock#getDrops gives the base (cauldron; iron block for older blanks) and one iron ingot per
+    # strike done (owner N51) - in code, a block_state_property condition on the stage did not match here.
+    pools = []
     out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
                                                          "random_sequence": f"{NS}:blocks/crucible_blank"}
     # Barrels (plan section 8a, owner addition 11): plain barrel cube; attached, a flange on the crucible's belly and a
@@ -263,10 +312,14 @@ def files():
     out[f"{d}/tags/fluid/extreme_heat.json"] = {"values": []}
     out[f"{d}/tags/item/warmable_food.json"] = {"values": [f"minecraft:{i}" for i in WARMABLE]}
     out[f"{d}/tags/item/needs_extreme_heat.json"] = {"values": ["minecraft:ancient_debris"]}
-    out[f"{d}/tags/item/crucible_walls.json"] = {"values": ["minecraft:heavy_weighted_pressure_plate"]}
+    out[f"{d}/tags/item/crucible_walls.json"] = {"values": ["minecraft:iron_ingot"]}
     out[f"{d}/tags/item/crucible_handles.json"] = {"values": ["minecraft:iron_ingot"]}
     out[f"{d}/tags/item/upgrade_reinforced.json"] = {"values": ["minecraft:diamond"]}
     out[f"{d}/tags/item/upgrade_netherite.json"] = {"values": ["minecraft:netherite_ingot"]}
+    # Crucible upgrade units for the axe way (owner N51): SimpleLib's own materials, and Vanilla stand-ins because
+    # SimpleLib alone offers no way to get them (they only get recipes on request).
+    out[f"{d}/tags/item/crucible_upgrade_reinforced.json"] = {"values": [f"{NS}:cracked_diamond", "minecraft:diamond"]}
+    out[f"{d}/tags/item/crucible_upgrade_netherite.json"] = {"values": [f"{NS}:netherite_nugget", "minecraft:netherite_scrap"]}
     # In-world upgrades (InWorldUpgrades): hammers of any mod (a hammer mod fills it) run every upgrade.
     out[f"{d}/tags/item/hammers.json"] = {"values": []}
     out[f"{d}/tags/item/upgrade_tools.json"] = {"values": [f"#{NS}:hammers"]}

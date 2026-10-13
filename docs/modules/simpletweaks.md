@@ -615,3 +615,19 @@ Danach vollständige Modulsuiten 66/66, alles gruen, 2026-09-30T23-37-40Z-b5cf
 (33 je Loader). Kein bloßer Exit-Code als Erfolgsnachweis.
 
 Claims including the actual two-player portal flow passed again: 2026-09-30T23-49-03Z-e365, 44/44, alles gruen (22 per loader). Exact files, further gate evidence and limits: modules/simpletweaks/CLAIMS-ACCESS-VERIFICATION.md.
+
+## Claims standardmäßig AN (2026-10-13, Branch claude-claims-on)
+
+Besitzer-Freigabe: `ClaimConfig.DEFAULT.enabled=true`. Eine vorhandene
+`config/simpletweaks-claims.json` mit `"enabled": false` bleibt aus; nur fehlende Datei
+oder fehlender Schlüssel bekommen den neuen Standard. Achtung: Die Datei wurde bisher beim
+ersten Start mit den Defaults geschrieben, bestehende Instanzen haben also `false` explizit
+drin und müssen den Schalter von Hand umstellen. `ClaimConfig.OFF` = Defaults mit Schalter aus.
+- Neu `/claim create`: Survival-Weg zum Anlegen (die Urkunde hat kein Rezept), gleiche Regeln
+  wie die Urkunde (Limits, Abklingzeit, Weltgrenze, Spawnpuffer, Dimensionsliste).
+- Lücke geschlossen: Der gehaltene Attractor (Magnet) zog Items aus fremden Claims in die
+  Wildnis; `AttractorFilter.mayAttract` prüft jetzt `WorldPermissions.mayAffectEntity`.
+- Registriert eine andere Mod schon `/claim`, wird nur gewarnt und die eigenen Befehle
+  entfallen; der Schutz bleibt aktiv (vorher Absturz beim Serverstart).
+- Neue Tests `claims_tools_held_attractor`, `claims_access_create`; Konfigtest prüft
+  explizites false und fehlenden Schlüssel. Plan: `docs/ai/PLAN-CLAIMS-AN-2026-10-13.md`.

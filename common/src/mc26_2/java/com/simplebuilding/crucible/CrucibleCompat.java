@@ -56,6 +56,14 @@ public final class CrucibleCompat {
 
     public static void upgradeInPlace(ServerLevel level, BlockPos pos, Block to) {}
 
+    public static boolean stagedUpgrade(Block block) { return false; }
+
+    public static int crucibleUpgradeStrikes() { return 0; }
+
+    public static int crucibleUpgradeUnits(BlockState state) { return 0; }
+
+    public static void crucibleUpgradeStrike(ServerLevel level, BlockPos pos, Block to, int done, net.minecraft.world.item.ItemStack material) {}
+
     public static boolean axeWaysEnabled() { return true; }
 
     public static int buildStrikes() { return 0; }

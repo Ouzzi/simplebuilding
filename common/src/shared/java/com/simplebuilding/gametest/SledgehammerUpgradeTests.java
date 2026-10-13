@@ -127,13 +127,13 @@ public final class SledgehammerUpgradeTests {
     private static final List<Family> FAMILIES = List.of(
             new Family("hopper", ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER,
                     ModBlocks.REINFORCED_HOPPER.defaultBlockState().setValue(HopperBlock.FACING, Direction.EAST)),
-            new Family("furnace", ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE,
-                    ModBlocks.REINFORCED_FURNACE.defaultBlockState().setValue(AbstractFurnaceBlock.FACING, Direction.EAST)),
-            new Family("smoker", ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER,
-                    ModBlocks.REINFORCED_SMOKER.defaultBlockState().setValue(AbstractFurnaceBlock.FACING, Direction.EAST)),
-            new Family("blast furnace", ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE,
-                    ModBlocks.ENDERITE_BLAST_FURNACE,
-                    ModBlocks.REINFORCED_BLAST_FURNACE.defaultBlockState().setValue(AbstractFurnaceBlock.FACING, Direction.EAST)),
+            new Family("furnace", com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_furnace"),
+                    com.simplebuilding.util.OvenRefs.block("reinforced_furnace").defaultBlockState().setValue(AbstractFurnaceBlock.FACING, Direction.EAST)),
+            new Family("smoker", com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), com.simplebuilding.util.OvenRefs.block("netherite_smoker"), com.simplebuilding.util.OvenRefs.block("enderite_smoker"),
+                    com.simplebuilding.util.OvenRefs.block("reinforced_smoker").defaultBlockState().setValue(AbstractFurnaceBlock.FACING, Direction.EAST)),
+            new Family("blast furnace", com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"),
+                    com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"),
+                    com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace").defaultBlockState().setValue(AbstractFurnaceBlock.FACING, Direction.EAST)),
             new Family("piston", ModBlocks.REINFORCED_PISTON, ModBlocks.NETHERITE_PISTON, ModBlocks.ENDERITE_PISTON,
                     ModBlocks.REINFORCED_PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.EAST)),
             // Besitzer 2026-09-29: der klebrige verstaerkte Kolben geht denselben Weg zum Netherit-Kolben.
@@ -246,7 +246,7 @@ public final class SledgehammerUpgradeTests {
      */
     public static void upgradedFurnaceKeepsCookingTheSameItemAtTheNewPace(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 3);
-        helper.setBlock(pos, ModBlocks.REINFORCED_FURNACE.defaultBlockState()
+        helper.setBlock(pos, com.simplebuilding.util.OvenRefs.block("reinforced_furnace").defaultBlockState()
                 .setValue(AbstractFurnaceBlock.FACING, Direction.EAST));
         AbstractFurnaceBlockEntity furnace = helper.getBlockEntity(pos, AbstractFurnaceBlockEntity.class);
         furnace.setItem(0, new ItemStack(Items.RAW_IRON, 8));
@@ -262,7 +262,7 @@ public final class SledgehammerUpgradeTests {
                             "test setup broken: the reinforced furnace has not started cooking after 10 ticks");
                     String before = furnaceSummary(helper, pos);
 
-                    hammerThrough(helper, player, pos, ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE,
+                    hammerThrough(helper, player, pos, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"),
                             ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR,
                             "the lit reinforced furnace");
 
@@ -320,13 +320,13 @@ public final class SledgehammerUpgradeTests {
      */
     public static void creativeUpgradeKeepsTheNuggetAndTheHammer(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 3);
-        helper.setBlock(pos, ModBlocks.REINFORCED_BLAST_FURNACE);
+        helper.setBlock(pos, com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"));
         ServerPlayer player = smith(helper, true);
 
-        hammerThrough(helper, player, pos, ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE,
+        hammerThrough(helper, player, pos, com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"),
                 ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR,
                 "the reinforced blast furnace, hammered in creative");
-        hammerThrough(helper, player, pos, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE,
+        hammerThrough(helper, player, pos, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"),
                 ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR,
                 "the netherite blast furnace, hammered in creative");
 
@@ -382,14 +382,14 @@ public final class SledgehammerUpgradeTests {
         BlockPos furnaceControl = new BlockPos(3, 1, 7);
         BlockPos pistonControl = new BlockPos(5, 1, 7);
 
-        helper.setBlock(weakHammer, ModBlocks.REINFORCED_FURNACE);
-        helper.setBlock(weakForEnderite, ModBlocks.NETHERITE_SMOKER);
-        helper.setBlock(wrongNuggetReinforced, ModBlocks.REINFORCED_BLAST_FURNACE);
-        helper.setBlock(wrongNuggetNetherite, ModBlocks.NETHERITE_FURNACE);
-        helper.setBlock(topTier, ModBlocks.ENDERITE_FURNACE);
+        helper.setBlock(weakHammer, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
+        helper.setBlock(weakForEnderite, com.simplebuilding.util.OvenRefs.block("netherite_smoker"));
+        helper.setBlock(wrongNuggetReinforced, com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"));
+        helper.setBlock(wrongNuggetNetherite, com.simplebuilding.util.OvenRefs.block("netherite_furnace"));
+        helper.setBlock(topTier, com.simplebuilding.util.OvenRefs.block("enderite_furnace"));
         helper.setBlock(stickyPiston, eastFacing(ModBlocks.REINFORCED_STICKY_PISTON));
         helper.setBlock(diamondBlock, Blocks.DIAMOND_BLOCK);
-        helper.setBlock(furnaceControl, ModBlocks.REINFORCED_FURNACE);
+        helper.setBlock(furnaceControl, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
         helper.setBlock(pistonControl, eastFacing(ModBlocks.REINFORCED_PISTON));
 
         // Powered from below, so it extends; the head goes into the empty cell east of it.
@@ -489,7 +489,7 @@ public final class SledgehammerUpgradeTests {
     public static void interruptedUpgradesConsumeNoNugget(GameTestHelper helper) {
         ServerPlayer player = smith(helper, false);
         for (BlockPos spot : CASE_SPOTS) {
-            helper.setBlock(spot, ModBlocks.REINFORCED_FURNACE);
+            helper.setBlock(spot, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
         }
 
         // --- released ---
@@ -502,7 +502,7 @@ public final class SledgehammerUpgradeTests {
             }
         });
         helper.assertValueEqual(rig(helper, player, released, player.getOffhandItem(), releasedHammer),
-                rigLine(ModBlocks.REINFORCED_FURNACE, NUGGETS, 2 * NETHERITE_STEP_WEAR, false, false),
+                rigLine(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), NUGGETS, 2 * NETHERITE_STEP_WEAR, false, false),
                 "the rig after a release before tick 50");
 
         // --- the nugget leaves the off hand ---
@@ -519,7 +519,7 @@ public final class SledgehammerUpgradeTests {
             }
         });
         helper.assertValueEqual(rig(helper, player, nuggetGone, takenNuggets, nuggetGoneHammer),
-                rigLine(ModBlocks.REINFORCED_FURNACE, NUGGETS, 2 * NETHERITE_STEP_WEAR, false, false),
+                rigLine(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), NUGGETS, 2 * NETHERITE_STEP_WEAR, false, false),
                 "the rig after the nugget was taken out of the off hand before tick 50");
 
         // --- the target changes under the hammer ---
@@ -528,11 +528,11 @@ public final class SledgehammerUpgradeTests {
         startHammering(helper, player, changed, "the furnace that changes under the hammer");
         holdClick(player, UPGRADE_TICKS + 5, tick -> {
             if (tick == 50) {
-                helper.setBlock(changed, ModBlocks.REINFORCED_SMOKER);
+                helper.setBlock(changed, com.simplebuilding.util.OvenRefs.block("reinforced_smoker"));
             }
         });
         helper.assertValueEqual(rig(helper, player, changed, player.getOffhandItem(), changedHammer),
-                rigLine(ModBlocks.REINFORCED_SMOKER, NUGGETS, 2 * NETHERITE_STEP_WEAR, false, false),
+                rigLine(com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), NUGGETS, 2 * NETHERITE_STEP_WEAR, false, false),
                 "the rig after the furnace was replaced by a smoker before tick 50");
 
         // --- looking away for exactly the grace ---
@@ -548,7 +548,7 @@ public final class SledgehammerUpgradeTests {
             }
         });
         helper.assertValueEqual(rig(helper, player, glanced, player.getOffhandItem(), glancedHammer),
-                rigLine(ModBlocks.NETHERITE_FURNACE, NUGGETS - 1, BLOWS * NETHERITE_STEP_WEAR, false, false),
+                rigLine(com.simplebuilding.util.OvenRefs.block("netherite_furnace"), NUGGETS - 1, BLOWS * NETHERITE_STEP_WEAR, false, false),
                 "the rig after an upgrade with a glance away of " + SERVER_AIM_GRACE + " ticks");
         clearCooldown(player, glancedHammer);
 
@@ -578,7 +578,7 @@ public final class SledgehammerUpgradeTests {
         helper.assertTrue(player.getMainHandItem().isEmpty(),
                 "test setup broken: the hammer with one blow and a point left did not break on the second blow");
         helper.assertValueEqual(rig(helper, player, brokenEarly, player.getOffhandItem(), null),
-                rigLine(ModBlocks.REINFORCED_FURNACE, NUGGETS, -1, false, false),
+                rigLine(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), NUGGETS, -1, false, false),
                 "the rig after the hammer broke on the second blow");
 
         // --- the hammer breaks on the fifth blow ---
@@ -591,7 +591,7 @@ public final class SledgehammerUpgradeTests {
         helper.assertTrue(player.getMainHandItem().isEmpty(),
                 "test setup broken: the hammer with exactly five blows left survived the fifth");
         helper.assertValueEqual(rig(helper, player, brokenLast, player.getOffhandItem(), null),
-                rigLine(ModBlocks.NETHERITE_FURNACE, NUGGETS - 1, -1, false, false),
+                rigLine(com.simplebuilding.util.OvenRefs.block("netherite_furnace"), NUGGETS - 1, -1, false, false),
                 "the rig after the blow that broke the hammer (it has to complete the upgrade)");
 
         helper.succeed();
@@ -620,7 +620,7 @@ public final class SledgehammerUpgradeTests {
      */
     public static void abortedUpgradeKeepsItsBlowsAndResumesThere(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 3);
-        helper.setBlock(pos, ModBlocks.REINFORCED_FURNACE);
+        helper.setBlock(pos, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
         ServerPlayer player = smith(helper, false);
         ItemStack hammer = prepareCase(helper, player, pos);
 
@@ -629,9 +629,9 @@ public final class SledgehammerUpgradeTests {
         });
         player.releaseUsingItem();
         helper.assertValueEqual(rig(helper, player, pos, player.getOffhandItem(), hammer),
-                rigLine(ModBlocks.REINFORCED_FURNACE, NUGGETS, 2 * NETHERITE_STEP_WEAR, false, false),
+                rigLine(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), NUGGETS, 2 * NETHERITE_STEP_WEAR, false, false),
                 "the rig after letting go before tick 50");
-        helper.assertValueEqual(storedProgress(helper, pos), progressLine(ModBlocks.REINFORCED_FURNACE, 2),
+        helper.assertValueEqual(storedProgress(helper, pos), progressLine(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), 2),
                 "the progress saved on the furnace after two blows");
 
         SledgehammerProgress data = helper.getLevel().getDataStorage().get(SledgehammerProgress.TYPE);
@@ -640,7 +640,7 @@ public final class SledgehammerUpgradeTests {
         Tag saved = SledgehammerProgress.CODEC.encodeStart(NbtOps.INSTANCE, data).getOrThrow();
         SledgehammerProgress reloaded = SledgehammerProgress.CODEC.parse(NbtOps.INSTANCE, saved).getOrThrow();
         helper.assertTrue(reloaded.entries().contains(
-                        new SledgehammerProgress.Entry(helper.absolutePos(pos), ModBlocks.REINFORCED_FURNACE, 2)),
+                        new SledgehammerProgress.Entry(helper.absolutePos(pos), com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), 2)),
                 "the saved progress does not survive its own codec: " + saved);
 
         // --- the second attempt ---
@@ -660,7 +660,7 @@ public final class SledgehammerUpgradeTests {
         }
         player.connection.tick();
         helper.assertValueEqual(rig(helper, player, pos, player.getOffhandItem(), hammer),
-                rigLine(ModBlocks.NETHERITE_FURNACE, NUGGETS - 1, BLOWS * NETHERITE_STEP_WEAR, false, false),
+                rigLine(com.simplebuilding.util.OvenRefs.block("netherite_furnace"), NUGGETS - 1, BLOWS * NETHERITE_STEP_WEAR, false, false),
                 "the rig after the resumed hammering");
         helper.assertValueEqual(storedProgress(helper, pos), "nothing",
                 "the progress saved on the furnace after it was upgraded");
@@ -687,25 +687,25 @@ public final class SledgehammerUpgradeTests {
         BlockPos replaced = new BlockPos(3, 1, 1);
         BlockPos broken = new BlockPos(5, 1, 1);
         for (BlockPos pos : List.of(lit, replaced, broken)) {
-            helper.setBlock(pos, ModBlocks.REINFORCED_FURNACE);
-            SledgehammerProgress.record(helper.getLevel(), helper.absolutePos(pos), ModBlocks.REINFORCED_FURNACE, 3);
+            helper.setBlock(pos, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
+            SledgehammerProgress.record(helper.getLevel(), helper.absolutePos(pos), com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), 3);
         }
-        helper.setBlock(lit, ModBlocks.REINFORCED_FURNACE.defaultBlockState().setValue(AbstractFurnaceBlock.LIT, true));
-        helper.setBlock(replaced, ModBlocks.REINFORCED_SMOKER);
+        helper.setBlock(lit, com.simplebuilding.util.OvenRefs.block("reinforced_furnace").defaultBlockState().setValue(AbstractFurnaceBlock.LIT, true));
+        helper.setBlock(replaced, com.simplebuilding.util.OvenRefs.block("reinforced_smoker"));
         helper.getLevel().destroyBlock(helper.absolutePos(broken), false);
 
         helper.startSequence()
                 .thenIdle(PROGRESS_CHECK_TICKS)
                 .thenExecute(() -> {
-                    helper.assertValueEqual(storedProgress(helper, lit), progressLine(ModBlocks.REINFORCED_FURNACE, 3),
+                    helper.assertValueEqual(storedProgress(helper, lit), progressLine(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), 3),
                             "the progress on the furnace that was only lit");
                     helper.assertValueEqual(storedProgress(helper, replaced), "nothing",
                             "the progress where the furnace was replaced by a smoker");
                     helper.assertValueEqual(storedProgress(helper, broken), "nothing",
                             "the progress where the furnace was broken");
-                    helper.setBlock(replaced, ModBlocks.REINFORCED_FURNACE);
+                    helper.setBlock(replaced, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
                     helper.assertValueEqual(SledgehammerProgress.hits(helper.getLevel(), helper.absolutePos(replaced),
-                                    ModBlocks.REINFORCED_FURNACE), 0,
+                                    com.simplebuilding.util.OvenRefs.block("reinforced_furnace")), 0,
                             "blows found on a new furnace placed where the old one was replaced");
                 })
                 .thenSucceed();
@@ -727,7 +727,7 @@ public final class SledgehammerUpgradeTests {
      */
     public static void hammerDrawsBackBetweenBlowsAndHintsBeforehand(GameTestHelper helper) {
         BlockPos pos = new BlockPos(3, 1, 3);
-        helper.setBlock(pos, ModBlocks.REINFORCED_FURNACE);
+        helper.setBlock(pos, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
         ServerPlayer player = smith(helper, false);
         BlockPos absolute = helper.absolutePos(pos);
 
@@ -768,7 +768,7 @@ public final class SledgehammerUpgradeTests {
         helper.assertTrue(SledgehammerUpgrades.drawBack(0.999F) < 0.05F,
                 "the swing has not come down by the end of the second: " + SledgehammerUpgrades.drawBack(0.999F));
         player.connection.tick();
-        helper.assertTrue(helper.getBlockState(pos).is(ModBlocks.NETHERITE_FURNACE),
+        helper.assertTrue(helper.getBlockState(pos).is(com.simplebuilding.util.OvenRefs.block("netherite_furnace")),
                 "test setup broken: the watched hammering did not upgrade the furnace");
         clearCooldown(player, hammer);
 
@@ -807,9 +807,11 @@ public final class SledgehammerUpgradeTests {
     public static void netheriteMachineRecipesAndTheirUnlocksAreGone(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
 
-        helper.assertTrue(server.getRecipeManager().byKey(recipeKey("reinforced_furnace")).isPresent(),
+        // Controls: the furnace recipe and unlock are Simple Ovens' on 26.3 (split stage 4), SimpleBuilding's on 26.2.
+        helper.assertTrue(server.getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,
+                        com.simplebuilding.util.OvenRefs.id("reinforced_furnace"))).isPresent(),
                 "control broken: the reinforced furnace recipe is not loaded, so an absent recipe proves nothing");
-        helper.assertTrue(server.getAdvancements().get(id("recipes/redstone/reinforced_furnace")) != null,
+        helper.assertTrue(server.getAdvancements().get(com.simplebuilding.util.OvenRefs.id("recipes/redstone/reinforced_furnace")) != null,
                 "control broken: the reinforced furnace unlock is not loaded, so an absent unlock proves nothing");
 
         StringBuilder loaded = new StringBuilder();

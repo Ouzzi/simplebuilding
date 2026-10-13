@@ -811,28 +811,34 @@ public final class DataIntegrityTests {
         // The three reinforced furnace blocks: three at a time from three vanilla appliances and
         // six cracked diamonds.
         String[] appliancePattern = {"DDD", "AAA", "DDD"};
-        assertShapedRecipe(helper, modRecipes, "reinforced_furnace", ModItems.REINFORCED_FURNACE, 3,
+        Map<Identifier, RecipeHolder<?>> ovenRecipes = new HashMap<>(modRecipes);
+        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+            if (com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(holder.id().identifier().getNamespace())) {
+                ovenRecipes.put(holder.id().identifier(), holder);
+            }
+        }
+        assertShapedRecipe(helper, ovenRecipes, com.simplebuilding.util.OvenRefs.id("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), 3,
                 appliancePattern, Map.of('D', ModItems.CRACKED_DIAMOND, 'A', Items.FURNACE), shapes);
-        assertShapedRecipe(helper, modRecipes, "reinforced_smoker", ModItems.REINFORCED_SMOKER, 3,
+        assertShapedRecipe(helper, ovenRecipes, com.simplebuilding.util.OvenRefs.id("reinforced_smoker"), com.simplebuilding.util.OvenRefs.item("reinforced_smoker"), 3,
                 appliancePattern, Map.of('D', ModItems.CRACKED_DIAMOND, 'A', Items.SMOKER), shapes);
-        assertShapedRecipe(helper, modRecipes, "reinforced_blast_furnace", ModItems.REINFORCED_BLAST_FURNACE, 3,
+        assertShapedRecipe(helper, ovenRecipes, com.simplebuilding.util.OvenRefs.id("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.item("reinforced_blast_furnace"), 3,
                 appliancePattern, Map.of('D', ModItems.CRACKED_DIAMOND, 'A', Items.BLAST_FURNACE), shapes);
 
         // The old netherite 2x2 - one nugget, three reinforced machines - crafts nothing for any of
         // the four families it used to exist for: the netherite tier is hammered in the world now.
         String[] bulkPattern = {"NR", "RR"};
-        for (Item reinforced : List.of(ModItems.REINFORCED_FURNACE, ModItems.REINFORCED_SMOKER,
-                ModItems.REINFORCED_BLAST_FURNACE, ModItems.REINFORCED_PISTON)) {
+        for (Item reinforced : List.of(com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("reinforced_smoker"),
+                com.simplebuilding.util.OvenRefs.item("reinforced_blast_furnace"), ModItems.REINFORCED_PISTON)) {
             assertNoCraftingRecipe(helper, bulkPattern, Map.of('N', ModItems.NETHERITE_NUGGET, 'R', reinforced),
                     "the old netherite 2x2 with " + BuiltInRegistries.ITEM.getKey(reinforced), shapes);
         }
 
         // And no crafting recipe anywhere produces a netherite or enderite machine.
         Set<Item> worldOnly = Set.of(
-                ModItems.NETHERITE_HOPPER, ModItems.NETHERITE_FURNACE, ModItems.NETHERITE_SMOKER,
-                ModItems.NETHERITE_BLAST_FURNACE, ModItems.NETHERITE_PISTON,
-                ModItems.ENDERITE_HOPPER, ModItems.ENDERITE_FURNACE, ModItems.ENDERITE_SMOKER,
-                ModItems.ENDERITE_BLAST_FURNACE, ModItems.ENDERITE_PISTON);
+                ModItems.NETHERITE_HOPPER, com.simplebuilding.util.OvenRefs.item("netherite_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_smoker"),
+                com.simplebuilding.util.OvenRefs.item("netherite_blast_furnace"), ModItems.NETHERITE_PISTON,
+                ModItems.ENDERITE_HOPPER, com.simplebuilding.util.OvenRefs.item("enderite_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_smoker"),
+                com.simplebuilding.util.OvenRefs.item("enderite_blast_furnace"), ModItems.ENDERITE_PISTON);
         for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
             if (holder.value().getType() != RecipeType.CRAFTING) {
                 continue;
@@ -872,7 +878,13 @@ public final class DataIntegrityTests {
     private static void assertShapedRecipe(GameTestHelper helper, Map<Identifier, RecipeHolder<?>> modRecipes,
                                            String path, Item result, int count, String[] pattern,
                                            Map<Character, Item> key, List<String> problems) {
-        Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, path);
+        assertShapedRecipe(helper, modRecipes, Identifier.fromNamespaceAndPath(MOD_ID, path), result, count, pattern, key, problems);
+    }
+
+    /** As above for a recipe of any namespace (split stage 4: the furnace recipes are Simple Ovens' on 26.3). */
+    private static void assertShapedRecipe(GameTestHelper helper, Map<Identifier, RecipeHolder<?>> modRecipes,
+                                           Identifier id, Item result, int count, String[] pattern,
+                                           Map<Character, Item> key, List<String> problems) {
         if (!modRecipes.containsKey(id)) {
             problems.add(id + " is not loaded at all");
             return;
@@ -1439,7 +1451,9 @@ public final class DataIntegrityTests {
         Set<Identifier> byWrittenRule = new TreeSet<>(Comparator.comparing(Identifier::toString));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             // 26.3: plus SimpleLib's shared enderite materials (split stage 3d), protected as before.
-            if ((MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace()))
+            // Split stage 4: plus the Enderite furnaces and cart of the required sub-mod Simple Ovens.
+            if ((MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
+                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
                             "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
                     // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
@@ -2502,6 +2516,16 @@ public final class DataIntegrityTests {
      * item moved into a second tab or listed twice; an item dropped from every tab; books spread
      * into another tab.
      */
+    /** Split stage 4: the furnaces and furnace carts SimpleBuilding's tabs keep listing (Simple Ovens' on 26.3). */
+    static Set<Identifier> ovenItemIds() {
+        Set<Identifier> ids = new HashSet<>();
+        for (String tier : com.simplebuilding.util.OvenRefs.TIERS) {
+            for (String family : com.simplebuilding.util.OvenRefs.FAMILIES) ids.add(com.simplebuilding.util.OvenRefs.id(tier + "_" + family));
+            ids.add(com.simplebuilding.util.OvenRefs.id(tier + "_furnace_minecart"));
+        }
+        return ids;
+    }
+
     public static void everyModItemIsInExactlyOneCreativeTab(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
 
@@ -2553,7 +2577,8 @@ public final class DataIntegrityTests {
 
         Set<Identifier> modItems = new TreeSet<>(Comparator.comparing(Identifier::toString));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
-            if (MOD_ID.equals(id.getNamespace())) {
+            // Split stage 4: the furnaces of the required sub-mod Simple Ovens keep their place in SimpleBuilding's tabs.
+            if (MOD_ID.equals(id.getNamespace()) || ovenItemIds().contains(id)) {
                 modItems.add(id);
             }
         }
@@ -2667,7 +2692,7 @@ public final class DataIntegrityTests {
             // 26.3: the pad ingredients enderman/blaze/shulker head are Simple Mobheads' items (required sub-mod).
             boolean subModHead = McVersion.HEADS_IN_MOBHEADS && McVersion.HEAD_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace());
             if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)
-                    && !com.simplebuilding.util.SharedMaterials.isShared(item) && !subModHead) {
+                    && !com.simplebuilding.util.SharedMaterials.isShared(item) && !subModHead && !ovenItemIds().contains(BuiltInRegistries.ITEM.getKey(item))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
@@ -2695,7 +2720,7 @@ public final class DataIntegrityTests {
         pinned.put(ModItemGroupsContent.Tab.FOOD, List.of(
                 ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
         pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(
-                ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_PISTON, ModItems.REINFORCED_FURNACE,
+                ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_PISTON, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"),
                 ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_CHEST));
         pinned.put(ModItemGroupsContent.Tab.PADS, List.of(
                 TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE.asItem(),
@@ -2855,7 +2880,7 @@ public final class DataIntegrityTests {
             neighbours.put(Items.PIGLIN_HEAD, TweaksItems.mobHeadsInSpawnOrder().getFirst().asItem());
         }
         neighbours.put(Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD);
-        neighbours.put(Items.FURNACE, ModItems.REINFORCED_FURNACE);
+        neighbours.put(Items.FURNACE, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"));
         if (McVersion.END_SYSTEMS) {
             neighbours.put(Items.REDSTONE, ModItems.NIHIL_REDSTONE);
             neighbours.put(Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP);
@@ -2948,11 +2973,11 @@ public final class DataIntegrityTests {
         List<CreativeTabLayout.Row> expected = new ArrayList<>(List.of(
                 CreativeTabLayout.Row.of("hoppers_and_furnaces",
                         Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER, gap,
-                        Items.FURNACE, ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE),
+                        Items.FURNACE, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_furnace")),
                 CreativeTabLayout.Row.of("smokers_and_blast_furnaces",
-                        Items.SMOKER, ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, ModItems.ENDERITE_SMOKER, gap,
-                        Items.BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE,
-                        ModItems.ENDERITE_BLAST_FURNACE),
+                        Items.SMOKER, com.simplebuilding.util.OvenRefs.item("reinforced_smoker"), com.simplebuilding.util.OvenRefs.item("netherite_smoker"), com.simplebuilding.util.OvenRefs.item("enderite_smoker"), gap,
+                        Items.BLAST_FURNACE, com.simplebuilding.util.OvenRefs.item("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_blast_furnace"),
+                        com.simplebuilding.util.OvenRefs.item("enderite_blast_furnace")),
                 CreativeTabLayout.Row.of("pistons",
                         Items.PISTON, Items.STICKY_PISTON, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
                         ModItems.NETHERITE_PISTON, ModItems.ENDERITE_PISTON)));
@@ -3018,8 +3043,8 @@ public final class DataIntegrityTests {
             expected.add(CreativeTabLayout.Row.of("chest_vehicles", ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART,
                     ModItems.ENDERITE_CHEST_MINECART, gap, ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT,
                     ModItems.ENDERITE_CHEST_BOAT));
-            expected.add(CreativeTabLayout.Row.of("rail_vehicles", ModItems.REINFORCED_FURNACE_MINECART, ModItems.NETHERITE_FURNACE_MINECART,
-                    ModItems.ENDERITE_FURNACE_MINECART, gap, ModItems.REINFORCED_HOPPER_MINECART, ModItems.NETHERITE_HOPPER_MINECART,
+            expected.add(CreativeTabLayout.Row.of("rail_vehicles", com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"),
+                    com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"), gap, ModItems.REINFORCED_HOPPER_MINECART, ModItems.NETHERITE_HOPPER_MINECART,
                     ModItems.ENDERITE_HOPPER_MINECART));
         }
         if (McVersion.HAMMOCK) {
@@ -3354,7 +3379,9 @@ public final class DataIntegrityTests {
         Set<String> found = new TreeSet<>();
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             boolean shared = com.simplebuilding.version.McVersion.MATERIALS_IN_LIB
-                    && com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace());
+                    && com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
+                    // split stage 4: Simple Ovens' Enderite furnaces and cart keep SimpleBuilding's Enderite perks
+                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace());
             if ((!MOD_ID.equals(id.getNamespace()) && !shared) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
                 continue;
             }

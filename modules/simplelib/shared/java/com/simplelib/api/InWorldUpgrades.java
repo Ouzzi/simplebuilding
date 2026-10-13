@@ -23,6 +23,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -58,8 +64,15 @@ import org.jetbrains.annotations.Nullable;
  * entity contents is up to the handler registered for the target block ({@link #registerHandler}); without one the
  * block keeps its properties and its block entity.
  *
- * <p>Loading: whoever reads the datapack (today SimpleBuilding's data tables, which also sync them to clients) calls
- * {@link #apply}; the table here is then the effective one on that side.
+ * <p>Loading: SimpleLib reads the files itself on every datapack load ({@link #reloadListener}, registered by each
+ * loader) and sends them to every client on join and {@code /reload} ({@link #syncFiles}, applied there with
+ * {@link #receive}). A partner that reads them with its own rules (SimpleBuilding: also its legacy folder
+ * {@code sledgehammer_upgrades}, its own client sync) calls {@link #loadedByPartner} in its constructor; SimpleLib then
+ * neither loads nor syncs, and the partner calls {@link #apply}.
+ *
+ * <p>The Vanilla axe way (principle 5a): while the axe ways are on (no hammer mod), {@link #axeWants} /
+ * {@link #axeStrike} run an entry with an axe in the main hand - {@link #AXE_STRIKES} strikes with
+ * {@link InWorldStrikes}' cracks and growing preview, the material from the off hand on the last one.
  */
 public final class InWorldUpgrades {
     public static final String DIRECTORY = "in_world_upgrades";
@@ -86,7 +99,15 @@ public final class InWorldUpgrades {
 
     private record Registered(Predicate<Block> targets, Handler handler) {}
 
+    /** Strikes of one axe-way upgrade (times the entry's duration factor), like the hammer's default. */
+    public static final int AXE_STRIKES = 5;
+    /** {@link InWorldStrikes} kind of the axe way. */
+    public static final String AXE_KIND = "simplelib:in_world_upgrade";
+
     private static final Set<String> DEFAULTS = new CopyOnWriteArraySet<>();
+    private static volatile boolean partnerLoads;
+    /** The files of the last server load (file id -> JSON text), as the client sync sends them. */
+    private static volatile Map<String, String> lastFiles = Map.of();
     private static final List<Registered> HANDLERS = new CopyOnWriteArrayList<>();
     private static volatile @Nullable Map<Block, Entry> loaded;
 
@@ -124,6 +145,119 @@ public final class InWorldUpgrades {
             if (registered.targets().test(to)) return true;
         }
         return false;
+    }
+
+    /** A partner loads and syncs the files itself (see the class comment); SimpleLib's own listener and sync stay idle. */
+    public static void loadedByPartner() {
+        partnerLoads = true;
+    }
+
+    public static boolean isLoadedByPartner() {
+        return partnerLoads;
+    }
+
+    /** SimpleLib's own server reload listener ({@code data/<namespace>/in_world_upgrades/*.json}); idle under a partner. */
+    public static SimplePreparableReloadListener<Map<String, String>> reloadListener() {
+        return new SimplePreparableReloadListener<>() {
+            @Override
+            protected Map<String, String> prepare(ResourceManager manager, ProfilerFiller profiler) {
+                if (partnerLoads) return Map.of();
+                Map<String, String> files = new java.util.TreeMap<>();
+                net.minecraft.resources.FileToIdConverter lister = net.minecraft.resources.FileToIdConverter.json(DIRECTORY);
+                lister.listMatchingResources(manager).forEach((path, resource) -> {
+                    try (java.io.Reader reader = resource.openAsReader()) {
+                        files.put(lister.fileToId(path).toString(), com.google.gson.JsonParser.parseReader(reader).toString());
+                    } catch (Exception e) {
+                        SimpleLib.LOG.warn("Could not read in-world upgrade file {}: {}", path, e.toString());
+                    }
+                });
+                return files;
+            }
+
+            @Override
+            protected void apply(Map<String, String> files, ResourceManager manager, ProfilerFiller profiler) {
+                if (partnerLoads) return;
+                lastFiles = Map.copyOf(files);
+                applyText(files);
+            }
+        };
+    }
+
+    /** The files to send to a client after a datapack (re)load; empty while a partner syncs them itself. */
+    public static Map<String, String> syncFiles() {
+        return partnerLoads ? Map.of() : lastFiles;
+    }
+
+    /** Client side of the sync: the same table the server uses (prediction, displays). */
+    public static void receive(Map<String, String> files) {
+        if (partnerLoads || files.isEmpty()) return;
+        applyText(files);
+    }
+
+    private static void applyText(Map<String, String> files) {
+        Map<Identifier, JsonElement> parsed = new java.util.HashMap<>();
+        files.forEach((id, json) -> {
+            Identifier key = Identifier.tryParse(id);
+            if (key == null) return;
+            try {
+                parsed.put(key, com.google.gson.JsonParser.parseString(json));
+            } catch (RuntimeException e) {
+                SimpleLib.LOG.warn("Could not parse in-world upgrade file {}: {}", id, e.toString());
+            }
+        });
+        apply(parsed);
+    }
+
+    /**
+     * Whether a click takes the Vanilla axe way of an upgrade entry: main hand, the axe ways on, an axe that fits the
+     * entry, the entry's material in the off hand.
+     */
+    public static boolean axeWants(BlockState state, Player player, InteractionHand hand) {
+        if (hand != InteractionHand.MAIN_HAND || !SimpleLibApi.axeWaysEnabled()) return false;
+        ItemStack tool = player.getMainHandItem();
+        if (!tool.is(ItemTags.AXES)) return false;
+        Entry entry = entryFor(state.getBlock());
+        return entry != null && toolFits(entry, tool) && axeGradeFits(entry.minTool(), tool) && player.getOffhandItem().is(entry.material());
+    }
+
+    /**
+     * The entry's {@code min_tool} read for axes (the hammer's grade names): {@code "diamond"} wants a diamond or
+     * netherite axe, {@code "netherite"} a netherite axe; any other name takes every axe.
+     */
+    public static boolean axeGradeFits(String minTool, ItemStack axe) {
+        return switch (minTool) {
+            case "diamond" -> axe.is(net.minecraft.world.item.Items.DIAMOND_AXE) || axe.is(net.minecraft.world.item.Items.NETHERITE_AXE);
+            case "netherite" -> axe.is(net.minecraft.world.item.Items.NETHERITE_AXE);
+            default -> true;
+        };
+    }
+
+    /**
+     * One strike of the axe way at {@code pos} (call after {@link #axeWants}): strikes too close together do not
+     * count, every counted one wears the axe by the entry's {@code damage_per_hit}, cracks the block and grows the
+     * preview of the next tier; the last uses up the material and replaces the block ({@link #replace}). Returns
+     * false when the strike was refused (no entry, no right to build, not enough material).
+     */
+    public static boolean axeStrike(ServerLevel level, BlockPos pos, Player player) {
+        BlockState state = level.getBlockState(pos);
+        Entry entry = entryFor(state.getBlock());
+        if (entry == null || !player.mayBuild() || !level.mayInteract(player, pos)) return false;
+        ItemStack material = player.getOffhandItem();
+        boolean pays = !player.hasInfiniteMaterials();
+        if (pays && (!material.is(entry.material()) || material.getCount() < entry.materialCount())) return false;
+        int total = AXE_STRIKES * entry.durationFactor();
+        int done = InWorldStrikes.count(level, pos, AXE_KIND, state, total, level.getGameTime());
+        if (done == 0) return true;
+        InWorldStrikes.feedback(level, pos, state, done, total);
+        InWorldStrikes.preview(level, pos, entry.to().withPropertiesOf(state), done, total);
+        if (pays && entry.damagePerHit() > 0) player.getMainHandItem().hurtAndBreak(entry.damagePerHit(), player, EquipmentSlot.MAINHAND);
+        if (done >= total) {
+            InWorldStrikes.clearPreview(level, pos);
+            if (pays) material.shrink(entry.materialCount());
+            replace(level, pos, entry.to());
+            level.playSound(null, pos, net.minecraft.sounds.SoundEvents.SMITHING_TABLE_USE, net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, 1.0F);
+        }
+        return true;
     }
 
     /** Replaces the effective table with what {@code files} (file id -> JSON) say. */

@@ -255,14 +255,14 @@ public final class NeoForgeModRegistries {
             BLOCK_ENTITIES.register("mod_hopper", () -> new BlockEntityType<>(
                     ModHopperBlockEntity::new, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER));
     public static final Supplier<BlockEntityType<ModBlastFurnaceBlockEntity>> MOD_BLAST_FURNACE_BE =
-            BLOCK_ENTITIES.register("mod_blast_furnace", () -> new BlockEntityType<>(
-                    ModBlastFurnaceBlockEntity::new, ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE));
+            com.simplebuilding.version.McVersion.OVENS_IN_SB ? BLOCK_ENTITIES.register("mod_blast_furnace", () -> new BlockEntityType<>(
+                    ModBlastFurnaceBlockEntity::new, ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE)) : null;
     public static final Supplier<BlockEntityType<ModFurnaceBlockEntity>> MOD_FURNACE_BE =
-            BLOCK_ENTITIES.register("mod_furnace", () -> new BlockEntityType<>(
-                    ModFurnaceBlockEntity::new, ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE));
+            com.simplebuilding.version.McVersion.OVENS_IN_SB ? BLOCK_ENTITIES.register("mod_furnace", () -> new BlockEntityType<>(
+                    ModFurnaceBlockEntity::new, ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE)) : null;
     public static final Supplier<BlockEntityType<ModSmokerBlockEntity>> MOD_SMOKER_BE =
-            BLOCK_ENTITIES.register("mod_smoker", () -> new BlockEntityType<>(
-                    ModSmokerBlockEntity::new, ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER));
+            com.simplebuilding.version.McVersion.OVENS_IN_SB ? BLOCK_ENTITIES.register("mod_smoker", () -> new BlockEntityType<>(
+                    ModSmokerBlockEntity::new, ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER)) : null;
 
     public static final Supplier<RecipeSerializer<CountBasedSmithingRecipe>> COUNT_BASED_SMITHING_SERIALIZER =
             RECIPE_SERIALIZERS.register("count_based_smithing", () ->
@@ -369,9 +369,9 @@ public final class NeoForgeModRegistries {
         if (CRATE_BE != null) ModBlockEntities.CRATE_BE = CRATE_BE.get();
         if (HAMMOCK_BE != null) ModBlockEntities.HAMMOCK_BE = HAMMOCK_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
-        ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
-        ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();
-        ModBlockEntities.MOD_SMOKER_BE = MOD_SMOKER_BE.get();
+        if (MOD_BLAST_FURNACE_BE != null) ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
+        if (MOD_FURNACE_BE != null) ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();
+        if (MOD_SMOKER_BE != null) ModBlockEntities.MOD_SMOKER_BE = MOD_SMOKER_BE.get();
         ModRecipes.COUNT_BASED_SMITHING_SERIALIZER = COUNT_BASED_SMITHING_SERIALIZER.get();
         ModRecipes.COUNT_BASED_SMITHING = COUNT_BASED_SMITHING.get();
         ModRecipes.UPGRADE_SMITHING_SERIALIZER = UPGRADE_SMITHING_SERIALIZER.get();

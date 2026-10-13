@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * The Vanilla way (principle 5a): an axe in the main hand and the right part in the off hand builds
- * the iron crucible on an iron block, strike by strike. Runs before the axe's block transformer (26.3
+ * the iron crucible on an empty Vanilla cauldron, strike by strike (owner N51). Runs before the axe's block transformer (26.3
  * axes are plain items with a {@code block_transformers} component), so it never strips
  * anything by accident; any other click is Vanilla.
  */

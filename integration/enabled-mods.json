@@ -29,7 +29,9 @@
     "simplemovement",
     "simpleend",
     "simplerespawn",
-    "simplemobheads"
+    "simplemobheads",
+    "simplebeacons",
+    "simpleovens"
   ],
   "devMods": [
     "jei",

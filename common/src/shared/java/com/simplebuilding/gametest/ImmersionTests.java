@@ -202,10 +202,10 @@ public final class ImmersionTests {
         expectLines(helper, TweaksBlocks.REINFORCED_FLYPAD, "Tier II of III", "Flight area: 8 x 8 blocks, 16 high", "Flying out gives you Slow Falling");
         expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still 5 s: bed or anchor.");
         expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Up to 45 s; cooldown 67.5 s");
-        expectLines(helper, ModBlocks.ENDERITE_FURNACE, "Works 8× as fast", "Double experience");
-        expectLines(helper, ModBlocks.REINFORCED_SMOKER, "Works 2× as fast");
-        expectLines(helper, ModBlocks.NETHERITE_BLAST_FURNACE, "Works 4× as fast", "Double experience");
-        for (var furnace : List.of(ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE)) {
+        expectLines(helper, com.simplebuilding.util.OvenRefs.block("enderite_furnace"), "Works 8× as fast", "Double experience");
+        expectLines(helper, com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), "Works 2× as fast");
+        expectLines(helper, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), "Works 4× as fast", "Double experience");
+        for (var furnace : List.of(com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"))) {
             helper.assertValueEqual(InfoTooltips.lines(new ItemStack(furnace)).size(), 2,
                     "blast furnace tooltip contains only speed and experience");
         }
@@ -222,7 +222,7 @@ public final class ImmersionTests {
             helper.assertTrue(InfoTooltips.lines(new ItemStack(legacy)).isEmpty(),
                     "the legacy pad has info lines: " + text(new ItemStack(legacy)));
         }
-        helper.assertFalse(text(new ItemStack(ModBlocks.REINFORCED_FURNACE)).contains("Double experience"),
+        helper.assertFalse(text(new ItemStack(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"))).contains("Double experience"),
                 "the reinforced furnace claims double experience");
         helper.assertTrue(InfoTooltips.lines(new ItemStack(Blocks.FURNACE)).isEmpty(), "the vanilla furnace got info lines");
         helper.succeed();

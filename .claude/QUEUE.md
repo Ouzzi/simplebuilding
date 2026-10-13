@@ -8,7 +8,9 @@ Queue-Pflege (Besitzer 12.10.): Neue Nachträge OBEN anhängen (direkt unter „
 eintragen. Abschnitte ohne offene Punkte wandern monatlich unverändert nach `.claude/QUEUE-ARCHIV.md`
 (Reihenfolge erhalten; letzte Archivierung 2026-10-12).
 
-## Offen – Überblick (Stand 2026-10-12)
+## Offen – Überblick (Stand 2026-10-13)
+
+Besitzer 13.10.: Elytra-Reparatur erledigt (Werkbank-Rezept bleibt); Sprach-Bridge gestrichen; Modulaufteilung F1–F3 = Empfehlungen angenommen; Claims-Hauptschalter freigegeben (Default an nach Prüfung, claude-claims-on).
 
 Jeder offene Punkt steht hier genau einmal (Ursprungs-Nachtrag in Klammern). Quelle der Wahrheit bleibt der Haken im
 Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile hier streichen.
@@ -23,6 +25,7 @@ Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile 
 - Info ohne Queue-Punkt: claude-vd-windows (generateVanillaDerived Windows-fest, Memory 12.10.) wartet nur auf Merge nach claude-wave1
 
 ### (B) Feststehend – als Nächstes bauen (Reihenfolge = Priorität)
+0. Claim-Urkunde (N54; Plan docs/ai/PLAN-CLAIM-URKUNDE-GUI-2026-10-13.md Fassung 2 freigegeben): Rechte-Code B/D/U/C/R/A/M, Claim-Tisch (Karte+Liste, Erweitern mit steigenden Kosten), Maps-Ebene Claims, Kopie in Werkbank; 4–5 Branches nacheinander
 1. Prinzip Entdeckbarkeit umsetzen, Stufe 1: Tooltip/Rezept-Freischaltung je Item + Test (N47; Konzept PRINZIPIEN-ENTDECKBARKEIT.md)
 2. Seelen-Lohe schießt Seelenfeuer-Kugeln (Soulfire Charge, Seelenbrand-Effekt) (N49)
 3. Geschnitztes Holz: Item-Modell an Block-Modell angleichen (N49)
@@ -41,7 +44,7 @@ Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile 
 Eigener Abschnitt „Modulaufteilung“ weiter unten (Stufen 3c, 3d, 4 Ovens, 5 Crucibles, 6 Octets, 7 Hammers, 8 Storage, 9 Release; strikt nacheinander).
 
 ### (D) Wartet auf Besitzer (Abnahme im Spiel / Entscheidung)
-- Abnahme im Spiel (Client, Testzentrale in der Besitzerwelt neu bauen): Pulsating-Trim, Astralgewölbe, Enderit-Pulver, Mega-Handbücher, Hammer-Tempo (Formel 2/3 oder 3/4?), Attractor/Echolot, Boost/Pads, Architectury-Mixin-Fix (Welle 25; Dubletten N-alt)
+- Abnahme im Spiel (Client, Testzentrale in der Besitzerwelt neu bauen): Pulsating-Trim, Astralgewölbe, Enderit-Pulver, Mega-Handbücher, Attractor/Echolot, Boost/Pads, Architectury-Mixin-Fix (Welle 25; Dubletten N-alt)
 - Abnahme neue Module im Spiel: Models, Fun, Visuals/Sounds, QoL, Riding, Dimensions, Money, Forge-Clients, Mehrspieler (Welle 25)
 - Weitere Sichtabnahme Buch-Screen, Truhen, Kern-Animation, Gadgets; Octant-Manager-Kontrast (Offen-Liste)
 - Abnahme Zeilen-Layout in allen Kreativreitern (Offen-Liste)
@@ -49,12 +52,10 @@ Eigener Abschnitt „Modulaufteilung“ weiter unten (Stufen 3c, 3d, 4 Ovens, 5 
 - Desktop-/Handy-Sichtprüfung von Wiki und Balancing-Zentrale (Offen-Liste)
 - Forge: Clientdarstellung, Config-Persistenz, Default-Einschaltung abnehmen (Offen-Liste)
 - Abnahme Simple Money; NeoForge-Client/alte Spielwelt prüfen (Offen-Liste)
-- Elytra-Reparatur im Schmiedetisch: soll das mit eigener Rezept-Zutat je Loader gebaut werden? (N11)
-- Sprach-Bridge einrichten (Tailscale, Anbieter/Modell, Headset; Morgenbericht gewünscht?) (Welle 25)
-- Modulaufteilung: Fragen F1 Tiegel-Kern, F2 Tweaks-Port, F3 Grenzfälle (Plan §6; Empfehlungen gelten ohne Gegenwort)
 - Weiter offen als Abnahme (Branches gemergt, Details in Memory uebergabe-2026-10-08.md): UI-Konzepte (claude-ui-concepts), Respawn, Soulbound/Death Vault, Claims, Howler, Shellker, Nibblemite, Texturen N44–N46
 
 ### (E) Bewusst später
+- Hammer-Tempo später evtl. testen: 1. Block 2x, Block 2–9 je +0,6x, ab 10. je +0,5x oder +0,4x (große Flächen sparen viel, kleine wenig) (N54)
 - Port-Run 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme (Offen-Liste, Dubletten Welle 25/N32)
 - Port-Run 26.2: Erzdetektor-Texturen auf zentrierte 26.3-Nadel bringen (Nachtrag 2)
 - 26.4: Forge einschalten, Cloth-Config, NeoForge-26.4-Linie, sobald Builds da sind (Offen-Liste)
@@ -69,7 +70,7 @@ Eigener Abschnitt „Modulaufteilung“ weiter unten (Stufen 3c, 3d, 4 Ovens, 5 
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
 - [x] 3c `claude-split-s3-apis`: SimpleLib-Dienste in_world_upgrades, `#simplelib:upgrade_tools`, isHammer, OctetCells, registerUpgradeHandler, TestCentreStations, GuideChapters (claude-split-s3-apis; offen: Lib-eigener Reload/Sync in Stufe 4, GuideChapters-Leser in Stufe 9)
 - [x] 3d `claude-split-s3-materials`: gemeinsame Materialien nach simplelib (§2.5), requestMaterial, Condition material_requested (claude-split-s3-materials; offen: Loot-Einspeisung + Lib-Reload in Stufe 4)
-- [ ] 4 `claude-split-s4-ovens`: Extraktion Ovens nach modules/simpleovens
+- [x] 4 `claude-split-s4-ovens`: Extraktion Ovens nach modules/simpleovens (claude-split-s4-ovens; offen: Merge nach wave1, SB-Config-Ofentempo ausblenden in Stufe 9)
 - [ ] 5 `claude-split-s5-crucibles`: Crucibles nach simplecrucibles (Aliase, Seelenlava)
 - [ ] 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
 - [ ] 7 `claude-split-s7-hammers`: Hammers extrahieren (breiteste Kopplung)
@@ -140,7 +141,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] SimpleBuilding-Haertung (Boost-Paketbudget, Geschwindigkeitscap, Config-Obergrenzen, Laser-Rezeptfilter), Faktenpass, Sprach-Bridge (tools/voicebridge), Plugin-Registrierung der Module (tools/newmod.py, aitool merge-module).
 - [x] Gate auf 7c540a06: 1600/1600 Server (fabric-263 + neoforge-263), 393/393 Integration + alle Modulsuiten, alles gruen.
 - [x] Alle Codex-Laeufe sind gemergt; keine offenen Branches mit ungemergter Arbeit (codex-* lokal, Stand in master).
-- [ ] Abnahme im Spiel (Client schliessen, Testzentrale in der Besitzerwelt neu bauen): Pulsating-Trim, Astralgewoelbe + Enderit-Pulver, Mega-Handbuecher, Hammer-Tempo (Formel 2/3 oder 3/4 der Pickaxe-Geschwindigkeit?), Attractor/Echolot, Boost und Pads nach der Haertung, Client-Neustart fuer den Architectury-Mixin-Fix.
+- [ ] Abnahme im Spiel (Client schliessen, Testzentrale in der Besitzerwelt neu bauen): Pulsating-Trim, Astralgewoelbe + Enderit-Pulver, Mega-Handbuecher, Attractor/Echolot, Boost und Pads nach der Haertung, Client-Neustart fuer den Architectury-Mixin-Fix.
 - [ ] Abnahme neue Module im Spiel: Simple Models (UI, eigenes Modellpack), Simple Fun (Koepfe, Effekte; Glasbruch nur Einzelspieler), Simple Visuals/Simple Sounds (Stufen, Staerke), Simple Quality of Life, Simple Riding (Nautilus, Fahrgrenzen bei Latenz), Simple Dimensions (Portal bauen, reisen, zurueck), Simple Money (Preise, Haendlerpools der 243 Kaufangebote), Forge-Clients und Mehrspieler.
 - [x] Entscheidungen vom 2026-09-30 Abend getroffen (naechster Block): Claims zuerst als ausgeschaltetes Feature, Echo-Kompasse nicht migrieren, Dimensionen (Bogen bleibt Standard, Einzelschalter in den Einstellungen), QoL-Haltbarkeitsbonus Standard 1, Sounds an Visuals koppeln, Forge spaeter. Noch offen: Echolot 3 s halten oder Ein-Klick.
 - [x] (Besitzer 13.10.: gestrichen) Sprach-Bridge einrichten (docs/ai/VOICE-HANDS-FREE.md): Tailscale am Handy, `tailscale serve`, Anbieter und Modell waehlen, Headset testen; offen ob ein gesprochener Morgenbericht gewuenscht ist.
@@ -257,6 +258,11 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 54 (2026-10-13, Besitzer)
+- [ ] Claim-Urkunde ähnlich wie die Blaupause handhaben: eigene GUI, dort Personen hinzufügen und ihnen Fähigkeiten geben (bauen, zerstören, Container öffnen usw.); Besitzer: Code-Form (B Build, D Destroy, U Use …), dazu Claim-Tisch (Karte/Liste aller Claims), Claims in Simple Maps, Kopie auf leere Urkunde, Erweiterung mit steigenden Kosten, Vanilla-nah. (Plan Fassung 2 freigegeben)
+- [x] Hammer-Tempo: aktuell gut, bleibt so (Formel 1,5x / +0,8x / +0,7x; E8 = A).
+- [ ] (SPÄTER, nur als Hinweis) Hammer-Tempo-Variante testen: Basis 1. Block 2x, jeder weitere bis Block 9 +0,6x, ab Block 10 +0,5x oder +0,4x – bei vielen Blöcken viel Ersparnis, bei wenigen wenig.
+
 ## Nachtrag 53 (2026-10-13, Besitzer, Korrekturen zu N52)
 - [ ] Rissiges Eis: an keine Seite kann ein Block platziert werden (normales Eis schon); Silk Touch droppt es; Vorschlaghammer auf normales Eis → rissiges Eis. (claude-n53)
 - [x] (claude-n53) Enchanter: Randlinie NICHT golden wie das Tuch, sondern dunkel (Obsidian-artig).
@@ -282,7 +288,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] (claude-astral-cloth, in wave1) Astral-Verzauberer Seitentextur: Tuch (Goldsaum) bis an den Rand ziehen.,
 - [x] (claude-redstone-compat) Redstone-Kompatibilität: Astral-/Nihil-Geräte akzeptieren alle 3 Redstone-Arten + Brücken-Redstone (Connector); alle Redstone-Geräte (Vanilla + Mod) akzeptieren alle Mod-Redstone-Linien. Fehlende Blöcke ergänzen: Astral-Redstone-Block, Nihil-Redstone-Block (usw., analog Vanilla-Redstone-Block) und Brücken-Redstone-Block.
 - [ ] Astral-Verzauberer Seitentextur: Tuch (Goldsaum) bis an den Rand ziehen.
-- [ ] Eisen-Tiegel In-World-Bau: Tiegel + 16 Eisenbarren; jede Seitenplatte 2 Barren (erst halbe Platte, dann ganze, jeder Schritt sichtbar) = 8; jeder Griff 2 Schläge/Barren = 12; letzte 4 für die Wölbungen am oberen Rand (je Schlag eine). Jedes weitere Upgrade: 12 Schläge, alle 3 Schläge 1 Material (4 rissige Diamanten / 4 Netherit-Nuggets / 4 Enderit-Nuggets), jeder Schritt sichtbar.
+- [x] (claude-crucible-build) Eisen-Tiegel In-World-Bau: Tiegel + 16 Eisenbarren; jede Seitenplatte 2 Barren (erst halbe Platte, dann ganze, jeder Schritt sichtbar) = 8; jeder Griff 2 Schläge/Barren = 12; letzte 4 für die Wölbungen am oberen Rand (je Schlag eine). Jedes weitere Upgrade: 12 Schläge, alle 3 Schläge 1 Material (4 rissige Diamanten / 4 Netherit-Nuggets / 4 Enderit-Nuggets), jeder Schritt sichtbar.
 - [x] (claude-crafter-ui) Crafter-, Smither-, Auto-Crafter-UIs verbessern: Pfeil immer als gepunkteter Redstone-Pfeil (vorhandene Textur aus den Redstone-Linien); Filter beim Auto-Crafter über den Pfeil (nicht gedrängt).
 
 ## Nachtrag 50 (2026-10-13, Besitzer)
@@ -291,7 +297,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Sculk Jaws spawnen natürlich im Deep Dark. (claude-n50-small)
 - [x] Fragentisch-Rezept: unten Mitte zusätzlich Obsidian. (claude-n50-small)
 - [x] (claude-wither2) Verdorrter Wither: Beschwörung per Netherit-Helm auf dem MITTLEREN Schädel (vor dem dritten Schädel aufsetzen) statt Netheritblock; zweite, stärkere Stufe mit Enderit-Helm; bei wenig Leben stärkere Witherskelette (mit Rüstung); Rückstoß unter 15 % stark; Drops: Witherherz, 3–5 Netherit- bzw. Enderit-Nuggets, 1–2 Nethersterne. (claude-wither2)
-- [ ] Netherstern + neue Upgrade-Vorlage („Strong Upgrade“) auf Leuchtfeuer: 6 weitere Effekte, 2 Ebenen größer baubar, entsprechend mehr Reichweite; dasselbe für Conduit soweit möglich. (Konzept fertig, alle Empfehlungen übernommen 13.10.; Umsetzung offen)
+- [x] (claude-beacons) Netherstern + neue Upgrade-Vorlage („Strong Upgrade“) auf Leuchtfeuer: 6 weitere Effekte, 2 Ebenen größer baubar, entsprechend mehr Reichweite; dasselbe für Conduit soweit möglich. (Konzept fertig, alle Empfehlungen übernommen 13.10.; umgesetzt als Sub-Mod simplebeacons, Plan docs/ai/PLAN-SIMPLE-BEACONS-2026-10-13.md; Merge + Client-Abnahme offen)
 - [x] Upgrade-Vorlagen-Tooltips: Hufeisen-Upgrade „applies to: Iron–Enderite ingots“; Enderit-Upgrade „Netherite equipment and blocks“ (+ Diamant-Ausrüstung/-Blöcke). (claude-n50-small)
 - [x] Mob-Köpfe in neues Sub-Mod „Simple Mobheads“, alle Mob-Köpfe implementieren; SimpleBuilding requires es; aus Simple Fun entfernen. (`claude-mobheads`, Plan docs/ai/PLAN-SIMPLE-MOBHEADS-2026-10-13.md; Merge nach claude-wave1 und Besitzer-Abnahme offen)
 - [ ] End-Biome: seltener, viel größer; Grasdichte höher; Stöcke-Bäume wie normale Bäume aus Stöcken, gigantisch; Stamm abbauen → alle Stöcke brechen; im End keine Holzbäume, nur Stöcke-Bäume + Drift-Frucht; Oberwelt-gepflanzte End-Bäume gigantisch, 4×4 → größter Baum im Spiel; Setzling-Rückgabe ~0,8 je Baum (Oberwelt), im End ~1,5 je Stöcke-Baum; Früchte gedeihen nur im End, in der Oberwelt verdorbene Variante (Drifting-Effekt); Blätter durchsichtig/exotisch, kein Vollblock. (claude-endbiome2)

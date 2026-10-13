@@ -32,6 +32,29 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             world.getConnection().waitForChunksRender();
             context.waitTicks(10);
             context.takeScreenshot("simplelib-crucible-hitbox");
+            // N51: every stage of the in-world build (16 iron ingots) and of each crucible upgrade (bands per unit).
+            // (literal names: the test runner reads them from the source)
+            buildScene(world);
+            look(context, world, 0, 0);
+            context.takeScreenshot("simplelib-crucible-build-stages-1-4");
+            look(context, world, 1, 0);
+            context.takeScreenshot("simplelib-crucible-build-stages-5-8");
+            look(context, world, 2, 0);
+            context.takeScreenshot("simplelib-crucible-build-stages-9-12");
+            look(context, world, 3, 0);
+            context.takeScreenshot("simplelib-crucible-build-stages-13-16");
+            look(context, world, -1, 1);
+            context.takeScreenshot("simplelib-crucible-upgrade-iron-south-east");
+            look(context, world, -2, 1);
+            context.takeScreenshot("simplelib-crucible-upgrade-iron-north-west");
+            look(context, world, -1, 2);
+            context.takeScreenshot("simplelib-crucible-upgrade-reinforced-south-east");
+            look(context, world, -2, 2);
+            context.takeScreenshot("simplelib-crucible-upgrade-reinforced-north-west");
+            look(context, world, -1, 3);
+            context.takeScreenshot("simplelib-crucible-upgrade-netherite-south-east");
+            look(context, world, -2, 3);
+            context.takeScreenshot("simplelib-crucible-upgrade-netherite-north-west");
             crucible(context, CrucibleTier.NETHERITE);
             context.takeScreenshot("simplelib-crucible-netherite-barrel");
             crucible(context, CrucibleTier.ENDERITE);
@@ -63,6 +86,66 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simplelib-crucible-enderite-with-barrel");
             context.runOnClient(c -> c.gui.setScreen(null));
         }
+    }
+
+    private static net.minecraft.core.BlockPos sceneBase;
+
+    /**
+     * Row 0: the blank stages 1-15 and the finished iron crucible, two blocks apart. Rows 1-3: iron, reinforced and
+     * netherite crucibles with 0-3 upgrade units, then the next tier (enderite only with SimpleBuilding: left out).
+     */
+    private static void buildScene(net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
+        world.getServer().runOnServer(server -> {
+            var p = server.getPlayerList().getPlayers().getFirst();
+            var l = p.level();
+            var base = p.blockPosition().offset(-40, 30, -40);
+            sceneBase = base;
+            for (int x = -6; x < 40; x++) for (int y = -1; y < 6; y++) for (int z = -32; z < 8; z++)
+                l.setBlockAndUpdate(base.offset(x, y, z), y == -1 ? net.minecraft.world.level.block.Blocks.SMOOTH_STONE.defaultBlockState()
+                        : net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+            for (int i = 0; i < 16; i++) {
+                var state = i < 15 ? com.simplelib.registry.LibBlocks.CRUCIBLE_BLANK.defaultBlockState()
+                        .setValue(com.simplelib.crucible.CrucibleBlankBlock.STAGE, i + 1)
+                        : com.simplelib.registry.LibBlocks.IRON_CRUCIBLE.defaultBlockState();
+                l.setBlockAndUpdate(base.offset(2 * i, 0, 0), state);
+            }
+            net.minecraft.world.level.block.Block[] tiers = {com.simplelib.registry.LibBlocks.IRON_CRUCIBLE,
+                    com.simplelib.registry.LibBlocks.REINFORCED_CRUCIBLE, com.simplelib.registry.LibBlocks.NETHERITE_CRUCIBLE};
+            for (int t = 0; t < 3; t++) {
+                for (int units = 0; units < 4; units++) {
+                    l.setBlockAndUpdate(base.offset(2 * units, 0, -8 * (t + 1)),
+                            tiers[t].defaultBlockState().setValue(com.simplelib.crucible.CrucibleBlock.UPGRADE, units));
+                }
+                if (t < 2) l.setBlockAndUpdate(base.offset(8, 0, -8 * (t + 1)), tiers[t + 1].defaultBlockState());
+            }
+            server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), "time set noon");
+        });
+        world.getConnection().waitForClientboundPackets();
+        world.getConnection().waitForChunksRender();
+    }
+
+    /** Camera on row {@code row}: build shots {@code shot} 0-3 (four stages each); upgrade rows -1 = from south-east, -2 = from north-west. */
+    private static void look(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world, int shot, int row) {
+        world.getServer().runOnServer(server -> {
+            var b = sceneBase;
+            double cx, cz = b.getZ() - 8 * row + 0.5, eyeX, eyeZ;
+            if (row == 0) {
+                cx = b.getX() + 8 * shot + 3.5;
+                eyeX = cx;
+                eyeZ = cz + 4.5;
+            } else {
+                cx = b.getX() + 4.5;
+                boolean southEast = shot == -1;
+                eyeX = cx + (southEast ? 3.5 : -3.5);
+                eyeZ = cz + (southEast ? 3.5 : -3.5);
+            }
+            String cmd = String.format(java.util.Locale.ROOT, "tp @a %.2f %.2f %.2f facing %.2f %.2f %.2f",
+                    eyeX, (double) b.getY(), eyeZ, cx, b.getY() + 0.35, cz);
+            server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), cmd);
+        });
+        world.getConnection().waitForClientboundPackets();
+        world.getConnection().waitForChunksRender();
+        context.waitTicks(10);
     }
 
     /** A client-side crucible menu of {@code tier} with a barrel attached and a few items, opened and rendered. */

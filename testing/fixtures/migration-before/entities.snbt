@@ -1,0 +1,92 @@
+{
+    DataVersion: 5023,
+    Entities: [
+        {
+            Air: 300s,
+            Fire: 0s,
+            FlippedRotation: 0b,
+            Fuel: 3600,
+            HasTicked: 1b,
+            Invulnerable: 0b,
+            Motion: [
+                0.0d,
+                0.0d,
+                0.0d
+            ],
+            OnGround: 0b,
+            PortalCooldown: 0,
+            Pos: [
+                0.5d,
+                65.0d,
+                3.5d
+            ],
+            PushX: 0.5d,
+            PushZ: 0.0d,
+            Rotation: [
+                0.0f,
+                0.0f
+            ],
+            UUID: [I; 686768644, 291262391, -1143003165, -846674228],
+            fall_distance: 0.0d,
+            id: "simplebuilding:reinforced_furnace_minecart"
+        },
+        {
+            Air: 300s,
+            Fire: 0s,
+            FlippedRotation: 0b,
+            Fuel: 7200,
+            HasTicked: 1b,
+            Invulnerable: 0b,
+            Motion: [
+                0.0d,
+                0.0d,
+                0.0d
+            ],
+            OnGround: 0b,
+            PortalCooldown: 0,
+            Pos: [
+                1.5d,
+                65.0d,
+                3.5d
+            ],
+            PushX: 0.5d,
+            PushZ: 0.0d,
+            Rotation: [
+                0.0f,
+                0.0f
+            ],
+            UUID: [I; -10848347, -1628683794, -1476804007, -1933146442],
+            fall_distance: 0.0d,
+            id: "simplebuilding:netherite_furnace_minecart"
+        },
+        {
+            Air: 300s,
+            Fire: 0s,
+            FlippedRotation: 0b,
+            Fuel: 10800,
+            HasTicked: 1b,
+            Invulnerable: 0b,
+            Motion: [
+                0.0d,
+                0.0d,
+                0.0d
+            ],
+            OnGround: 0b,
+            PortalCooldown: 0,
+            Pos: [
+                2.5d,
+                65.0d,
+                3.5d
+            ],
+            PushX: 0.5d,
+            PushZ: 0.0d,
+            Rotation: [
+                0.0f,
+                0.0f
+            ],
+            UUID: [I; 277123100, 74727692, -2021949339, 170447403],
+            fall_distance: 0.0d,
+            id: "simplebuilding:enderite_furnace_minecart"
+        }
+    ]
+}

@@ -147,13 +147,11 @@
     "simplebuilding:ender_quartz_stairs",
     "simplebuilding:enderite_backpack",
     "simplebuilding:enderite_barrel",
-    "simplebuilding:enderite_blast_furnace",
     "simplebuilding:enderite_chest",
     "simplebuilding:enderite_chunk_loader",
     "simplebuilding:enderite_crucible",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
-    "simplebuilding:enderite_furnace",
     "simplebuilding:enderite_hopper",
     "simplebuilding:enderite_launchpad",
     "simplebuilding:enderite_piston",
@@ -161,7 +159,6 @@
     "simplebuilding:enderite_pole",
     "simplebuilding:enderite_pressure_plate",
     "simplebuilding:enderite_shulker_box",
-    "simplebuilding:enderite_smoker",
     "simplebuilding:enderite_spawn_teleporter",
     "simplebuilding:enderite_trapped_chest",
     "simplebuilding:exposed_copper_octet",
@@ -260,13 +257,11 @@
     "simplebuilding:nether_bricks_octet",
     "simplebuilding:nether_dimensional_scrap",
     "simplebuilding:netherite_backpack",
-    "simplebuilding:netherite_blast_furnace",
     "simplebuilding:netherite_block_octet",
     "simplebuilding:netherite_chest",
     "simplebuilding:netherite_chunk_loader",
     "simplebuilding:netherite_elytra_pad",
     "simplebuilding:netherite_flypad",
-    "simplebuilding:netherite_furnace",
     "simplebuilding:netherite_hopper",
     "simplebuilding:netherite_launchpad",
     "simplebuilding:netherite_piston",
@@ -274,7 +269,6 @@
     "simplebuilding:netherite_pole",
     "simplebuilding:netherite_pressure_plate",
     "simplebuilding:netherite_shulker_box",
-    "simplebuilding:netherite_smoker",
     "simplebuilding:netherite_trapped_chest",
     "simplebuilding:netherrack_octet",
     "simplebuilding:nihil_end_stone",
@@ -384,17 +378,14 @@
     "simplebuilding:red_terracotta_octet",
     "simplebuilding:red_wool_octet",
     "simplebuilding:reinforced_backpack",
-    "simplebuilding:reinforced_blast_furnace",
     "simplebuilding:reinforced_chest",
     "simplebuilding:reinforced_elytra_pad",
     "simplebuilding:reinforced_flypad",
-    "simplebuilding:reinforced_furnace",
     "simplebuilding:reinforced_hopper",
     "simplebuilding:reinforced_piston",
     "simplebuilding:reinforced_piston_head",
     "simplebuilding:reinforced_potion_pad",
     "simplebuilding:reinforced_shulker_box",
-    "simplebuilding:reinforced_smoker",
     "simplebuilding:reinforced_sticky_piston",
     "simplebuilding:reinforced_trapped_chest",
     "simplebuilding:resin_bricks_octet",
@@ -1353,9 +1344,6 @@
       "id": "simplebuilding:enderite_barrel"
     },
     {
-      "id": "simplebuilding:enderite_blast_furnace"
-    },
-    {
       "durability": 546,
       "enchantability": 18,
       "id": "simplebuilding:enderite_boots",
@@ -1422,13 +1410,6 @@
     },
     {
       "id": "simplebuilding:enderite_flypad",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_furnace"
-    },
-    {
-      "id": "simplebuilding:enderite_furnace_minecart",
       "maxStackSize": 1
     },
     {
@@ -1534,9 +1515,6 @@
       "enchantability": 18,
       "id": "simplebuilding:enderite_sledgehammer",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_smoker"
     },
     {
       "id": "simplebuilding:enderite_soul_lava_bucket",
@@ -2134,9 +2112,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:netherite_blast_furnace"
-    },
-    {
       "id": "simplebuilding:netherite_block_octet",
       "maxStackSize": 99
     },
@@ -2191,13 +2166,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:netherite_furnace"
-    },
-    {
-      "id": "simplebuilding:netherite_furnace_minecart",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:netherite_hopper"
     },
     {
@@ -2240,9 +2208,6 @@
       "enchantability": 15,
       "id": "simplebuilding:netherite_sledgehammer",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_smoker"
     },
     {
       "cooldownTicks": 5,
@@ -3094,9 +3059,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:reinforced_blast_furnace"
-    },
-    {
       "bundleCapacityItems": 96,
       "id": "simplebuilding:reinforced_bundle",
       "maxStackSize": 1
@@ -3118,13 +3080,6 @@
     },
     {
       "id": "simplebuilding:reinforced_flypad",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:reinforced_furnace"
-    },
-    {
-      "id": "simplebuilding:reinforced_furnace_minecart",
       "maxStackSize": 1
     },
     {
@@ -3156,9 +3111,6 @@
     },
     {
       "id": "simplebuilding:reinforced_shulker_shell"
-    },
-    {
-      "id": "simplebuilding:reinforced_smoker"
     },
     {
       "id": "simplebuilding:reinforced_sticky_piston"

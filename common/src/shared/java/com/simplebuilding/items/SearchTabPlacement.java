@@ -163,8 +163,10 @@ public final class SearchTabPlacement {
             // Fahrzeug-Stufen (Queue N19/N23) je hinter ihrem Vanilla-Fahrzeug im Werkzeug-Tab.
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.CHEST_MINECART, ModItems.REINFORCED_CHEST_MINECART,
                     ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_CHEST_MINECART));
-            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.FURNACE_MINECART, ModItems.REINFORCED_FURNACE_MINECART,
-                    ModItems.NETHERITE_FURNACE_MINECART, ModItems.ENDERITE_FURNACE_MINECART));
+            if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens places its furnace carts itself
+                out.add(Placement.after(TOOLS_AND_UTILITIES, Items.FURNACE_MINECART, com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"),
+                        com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart")));
+            }
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.HOPPER_MINECART, ModItems.REINFORCED_HOPPER_MINECART,
                     ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART));
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BAMBOO_CHEST_RAFT, ModItems.REINFORCED_CHEST_BOAT,
@@ -368,12 +370,14 @@ public final class SearchTabPlacement {
         // --- Gebrauchsbloecke: Licht, Blaupause beim Kartografentisch, Oefen, Truhen, Koepfe.
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SEA_LANTERN, ModItems.CONSTRUCTION_LIGHT));
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.CARTOGRAPHY_TABLE, ModItems.BLUEPRINT, ModItems.CREATIVE_BLUEPRINT));
-        out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.FURNACE,
-                ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE));
-        out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SMOKER,
-                ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, ModItems.ENDERITE_SMOKER));
-        out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BLAST_FURNACE,
-                ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, ModItems.ENDERITE_BLAST_FURNACE));
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens places its furnaces itself (same anchors)
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.FURNACE,
+                    com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_furnace")));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SMOKER,
+                    com.simplebuilding.util.OvenRefs.item("reinforced_smoker"), com.simplebuilding.util.OvenRefs.item("netherite_smoker"), com.simplebuilding.util.OvenRefs.item("enderite_smoker")));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BLAST_FURNACE,
+                    com.simplebuilding.util.OvenRefs.item("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_blast_furnace")));
+        }
         // Hinter der letzten Kupfertruhe (Vanilla fuehrt alle Oxidations- und Wachsstufen).
         List<ItemLike> chests = new ArrayList<>(List.of(
                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST));
@@ -413,8 +417,10 @@ public final class SearchTabPlacement {
                 TweaksBlocks.DIAMOND_PRESSURE_PLATE, TweaksBlocks.NETHERITE_PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE).asSecondary());
         out.add(Placement.after(REDSTONE_BLOCKS, Items.COPPER_CHEST.waxed().unaffected(),
                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST).asSecondary());
-        out.add(Placement.after(REDSTONE_BLOCKS, Items.FURNACE,
-                ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE).asSecondary());
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) {
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.FURNACE,
+                    com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_furnace")).asSecondary());
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP).asSecondary());
         }

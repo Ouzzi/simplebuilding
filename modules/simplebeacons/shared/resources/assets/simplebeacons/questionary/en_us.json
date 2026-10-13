@@ -1,0 +1,38 @@
+{
+  "strong_upgrade_template": {
+    "lore": [
+      "A slab of obsidian around a captured star; it hums when a beacon is near."
+    ],
+    "use": [
+      "Hold it in the off hand and hit a placed beacon or conduit 8 times with an axe (with a hammer mod: the sledgehammer) while you carry a nether star; or smith it at the smithing table.",
+      "Crafted from a nether star, 4 diamonds and 4 obsidian; 7 diamonds, an obsidian and one template make 2."
+    ],
+    "secret": [
+      "The upgraded block keeps its chosen powers, its lock and its name."
+    ]
+  },
+  "strong_beacon": {
+    "lore": [
+      "Six steps closer to the sky."
+    ],
+    "use": [
+      "Build a pyramid of up to 6 levels (13x13 at the bottom, 454 blocks). Level 5 offers Night Vision, Water Breathing and Slow Falling, level 6 Fire Resistance, Dolphin's Grace and Absorption.",
+      "Range 60 blocks at level 5 and 70 at level 6."
+    ],
+    "secret": [
+      "The new powers have no level II, but Regeneration still works as the second power."
+    ]
+  },
+  "strong_conduit": {
+    "lore": [
+      "The sea answers a larger frame with a wider reach."
+    ],
+    "use": [
+      "Frame it with a 7x7x7 ring of prismarine, dark prismarine, prismarine bricks or sea lanterns (66 blocks) for up to 144 blocks of Conduit Power.",
+      "Players in the water also get Dolphin's Grace."
+    ],
+    "secret": [
+      "The full large frame strikes hostile mobs in the water within 12 blocks."
+    ]
+  }
+}

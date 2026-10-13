@@ -42,26 +42,26 @@
     {
       "id": "claims",
       "en": {
-        "title": "Claims: Complete, Off by Default",
-        "summary": "All six stages are implemented: atomic claims with caps, Vanilla/tool checks at every target, explosions, fire, pistons, fluids, automation, projectiles, mob griefing, vehicles, owner trust, OP4 administration and the Dimensions adapter. Mobs still fight normally inside claims. Off until the owner releases it; disabled hooks do not read claim data. Default: false.",
+        "title": "Claims (On by Default)",
+        "summary": "Server-authoritative claims, on by default: /claim create (or a legacy deed) claims the chunk you stand in; only you and players you trust may build, break, open containers, use vehicles or take items there. Explosions, fire, fluids, pistons, automation, projectiles, mob griefing, attractors and SimpleBuilding's area tools respect claims. Mobs still fight normally inside claims. Server admins can switch claims off in config/simpletweaks-claims.json; an existing file keeps its value. Default: true.",
         "details": [
-          "All six stages are implemented: atomic claims with caps, Vanilla/tool checks at every target, explosions, fire, pistons, fluids, automation, projectiles, mob griefing, vehicles, owner trust, OP4 administration and the Dimensions adapter. Mobs still fight normally inside claims. Off until the owner releases it; disabled hooks do not read claim data. Default: false.",
-          "Automation checks source and destination ownership, including known bed/chest counterparts and composters. Known Vanilla and SimpleBuilding piston/hopper hooks and placed attractors are guarded. Explosions never break claimed blocks or hurt claimed animals and decorations; players still take explosion damage.",
+          "Server-authoritative claims, on by default: /claim create (or a legacy deed) claims the chunk you stand in; only you and players you trust may build, break, open containers, use vehicles or take items there. Explosions, fire, fluids, pistons, automation, projectiles, mob griefing, attractors and SimpleBuilding's area tools respect claims. Mobs still fight normally inside claims. Server admins can switch claims off in config/simpletweaks-claims.json; an existing file keeps its value. Default: true.",
+          "Automation checks source and destination ownership, including known bed/chest counterparts and composters. Known Vanilla and SimpleBuilding piston/hopper hooks and placed or held attractors are guarded. Explosions never break claimed blocks or hurt claimed animals and decorations; players still take explosion damage.",
           "Plain dispenser ejection and droppers work within one owner; other dispenser behaviors stay blocked near claims. Copper golems remember the land their load came from and only put it down on that same land, so they work inside a claim but never carry items out or in. Crafters check destinations before consuming ingredients. Unknown containers are refused while enabled.",
           "Mob griefing: Endermen, Withers, Ravagers, the Ender Dragon, Silverfish and door-breaking Zombies never change claimed land; other mobs (villagers, sheep, boats) only act on the land they stand on. Farmland and turtle eggs need rights to trample. Mob attacks stay Vanilla. Boats need rights to be placed; a lightning bolt counts as the player who caused it.",
-          "/claim trust and untrust accept online names or full offline UUIDs. Only the owner can change trust; trusted players cannot delegate. OP4 may use admin listall, list <UUID/name>, or unclaim, independently of the default-off protection bypass. Changes are saved atomically before becoming effective.",
+          "/claim create claims the current chunk (limits, cooldown, world border, spawn buffer, dimension list); /claim unclaim releases it. /claim trust and untrust accept online names or full offline UUIDs. Only the owner can change trust; trusted players cannot delegate. OP4 may use admin listall, list <UUID/name>, or unclaim, independently of the default-off protection bypass. Changes are saved atomically before becoming effective.",
           "Server ticks between successful claim, trust, revocation or removal operations by one player. Range 20–72000, across dimensions; resets on restart. Default: 100 ticks."
         ]
       },
       "de": {
-        "title": "Claims: fertig, standardmäßig aus",
-        "summary": "Alle sechs Stufen sind umgesetzt: atomare Claims mit Limits, Vanilla-/Werkzeugprüfung an jedem Ziel, Explosionen, Feuer, Kolben, Flüssigkeiten, Automation, Projektile, Mob-Griefing, Fahrzeuge, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Mobs kämpfen in Claims weiter normal. Aus, bis der Besitzer freigibt; ausgeschaltete Hooks lesen keine Claim-Daten. Standardwert: false.",
+        "title": "Claims (standardmäßig an)",
+        "summary": "Serverseitige Claims, standardmäßig an: /claim create (oder eine alte Urkunde) beansprucht den Chunk, in dem du stehst; nur du und vertraute Spieler dürfen dort bauen, abbauen, Container öffnen, Fahrzeuge nutzen oder Items nehmen. Explosionen, Feuer, Flüssigkeiten, Kolben, Automation, Projektile, Mob-Griefing, Attractors und die Flächenwerkzeuge von SimpleBuilding respektieren Claims. Mobs kämpfen in Claims weiter normal. Server-Admins schalten Claims in config/simpletweaks-claims.json aus; eine bestehende Datei behält ihren Wert. Standardwert: true.",
         "details": [
-          "Alle sechs Stufen sind umgesetzt: atomare Claims mit Limits, Vanilla-/Werkzeugprüfung an jedem Ziel, Explosionen, Feuer, Kolben, Flüssigkeiten, Automation, Projektile, Mob-Griefing, Fahrzeuge, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Mobs kämpfen in Claims weiter normal. Aus, bis der Besitzer freigibt; ausgeschaltete Hooks lesen keine Claim-Daten. Standardwert: false.",
-          "Automation prüft Besitz an Quelle und Ziel einschließlich bekannter Bett-/Truhengegenstücke und Komposter. Bekannte Vanilla- und SimpleBuilding-Kolben-/Hopper-Hooks sowie platzierte Attractors sind angebunden. Explosionen zerstören keine beanspruchten Blöcke und verletzen keine beanspruchten Tiere oder Dekorationen; Spieler erleiden weiter Explosionsschaden.",
+          "Serverseitige Claims, standardmäßig an: /claim create (oder eine alte Urkunde) beansprucht den Chunk, in dem du stehst; nur du und vertraute Spieler dürfen dort bauen, abbauen, Container öffnen, Fahrzeuge nutzen oder Items nehmen. Explosionen, Feuer, Flüssigkeiten, Kolben, Automation, Projektile, Mob-Griefing, Attractors und die Flächenwerkzeuge von SimpleBuilding respektieren Claims. Mobs kämpfen in Claims weiter normal. Server-Admins schalten Claims in config/simpletweaks-claims.json aus; eine bestehende Datei behält ihren Wert. Standardwert: true.",
+          "Automation prüft Besitz an Quelle und Ziel einschließlich bekannter Bett-/Truhengegenstücke und Komposter. Bekannte Vanilla- und SimpleBuilding-Kolben-/Hopper-Hooks sowie platzierte und gehaltene Attractors sind angebunden. Explosionen zerstören keine beanspruchten Blöcke und verletzen keine beanspruchten Tiere oder Dekorationen; Spieler erleiden weiter Explosionsschaden.",
           "Einfache Dispenser-Auswürfe und Dropper funktionieren innerhalb desselben Besitzes; andere Dispenser-Behaviors bleiben in Claim-Nähe gesperrt. Kupfergolems merken sich, von welchem Land ihre Ladung stammt, und legen sie nur dort wieder ab: innerhalb eines Claims arbeiten sie, tragen aber nichts hinaus oder hinein. Crafter prüfen Ziele vor dem Zutatenverbrauch. Unbekannte Container werden bei aktiviertem Schutz verweigert.",
           "Mob-Griefing: Endermen, Wither, Verwüster, Enderdrache, Silberfischchen und türbrechende Zombies verändern kein beanspruchtes Land; andere Mobs (Dorfbewohner, Schafe, Boote) wirken nur auf dem Land, auf dem sie stehen. Ackerboden und Schildkröteneier zu zertrampeln braucht Rechte. Mob-Angriffe bleiben Vanilla. Boote zu setzen braucht Rechte; ein Blitz zählt als der Spieler, der ihn ausgelöst hat.",
-          "/claim trust und untrust nehmen Online-Namen oder vollständige Offline-UUIDs an. Nur der Besitzer ändert Vertrauen; Vertraute dürfen es nicht weitergeben. OP4 darf admin listall, list <UUID/Name> und unclaim nutzen, unabhängig von der standardmäßig ausgeschalteten Schutzumgehung. Änderungen gelten erst nach atomarem Speichern.",
+          "/claim create beansprucht den aktuellen Chunk (Limits, Abklingzeit, Weltgrenze, Spawnpuffer, Dimensionsliste); /claim unclaim gibt ihn frei. /claim trust und untrust nehmen Online-Namen oder vollständige Offline-UUIDs an. Nur der Besitzer ändert Vertrauen; Vertraute dürfen es nicht weitergeben. OP4 darf admin listall, list <UUID/Name> und unclaim nutzen, unabhängig von der standardmäßig ausgeschalteten Schutzumgehung. Änderungen gelten erst nach atomarem Speichern.",
           "Server-Ticks zwischen erfolgreichen Claim-, Vertrauens-, Widerrufs- oder Löschvorgängen eines Spielers. Bereich 20–72000, dimensionsübergreifend; Neustart setzt zurück. Standard: 100 Ticks."
         ]
       },
@@ -158,10 +158,10 @@
       },
       "note": {
         "en": {
-          "summary": "Legacy deed from existing worlds or /give. Stack size 16. Original texture and custom data are retained. No recipe. Claims are disabled by default; enabled deeds request ownership from the server."
+          "summary": "Legacy deed from existing worlds or /give. Stack size 16. Original texture and custom data are retained. No recipe; using it claims the current chunk like /claim create."
         },
         "de": {
-          "summary": "Alte Urkunde aus vorhandenen Welten oder /give. Stapelgröße 16. Originaltextur und Zusatzdaten bleiben erhalten. Kein Rezept. Claims sind standardmäßig aus; aktiviert beantragt die Urkunde Besitz beim Server."
+          "summary": "Alte Urkunde aus vorhandenen Welten oder /give. Stapelgröße 16. Originaltextur und Zusatzdaten bleiben erhalten. Kein Rezept; Benutzen beansprucht den aktuellen Chunk wie /claim create."
         }
       },
       "texture": "assets/textures/simpletweaks/item/claim_deed.png",
@@ -171,7 +171,7 @@
             "A deed from an older world, still stamped with its first owner."
           ],
           "use": [
-            "A legacy item without a recipe, kept for existing worlds or /give. Stacks to 16. Claims are off by default; once enabled the deed asks the server for ownership."
+            "A legacy item without a recipe, kept for existing worlds or /give. Stacks to 16. Using it claims the chunk you stand in, like /claim create."
           ],
           "secret": [
             "Its original texture and custom data are kept exactly, so an old deed still works after an update."
@@ -182,7 +182,7 @@
             "Eine Urkunde aus einer älteren Welt, noch mit dem ersten Besitzer gestempelt."
           ],
           "use": [
-            "Ein altes Item ohne Rezept, nur für bestehende Welten oder /give. Stapelt bis 16. Claims sind standardmäßig aus; sind sie aktiv, beantragt die Urkunde Besitz beim Server."
+            "Ein altes Item ohne Rezept, nur für bestehende Welten oder /give. Stapelt bis 16. Benutzen beansprucht den Chunk, in dem du stehst, wie /claim create."
           ],
           "secret": [
             "Originaltextur und Zusatzdaten bleiben unverändert erhalten, eine alte Urkunde funktioniert also nach einem Update weiter."
@@ -204,10 +204,10 @@
           "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
         }
       },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",

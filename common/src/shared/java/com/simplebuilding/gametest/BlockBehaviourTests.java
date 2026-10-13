@@ -137,8 +137,8 @@ public final class BlockBehaviourTests {
         BlockPos netherite = new BlockPos(5, 1, 1);
 
         helper.setBlock(vanilla, Blocks.FURNACE);
-        helper.setBlock(reinforced, ModBlocks.REINFORCED_FURNACE);
-        helper.setBlock(netherite, ModBlocks.NETHERITE_FURNACE);
+        helper.setBlock(reinforced, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
+        helper.setBlock(netherite, com.simplebuilding.util.OvenRefs.block("netherite_furnace"));
 
         loadFurnace(helper, vanilla, Items.RAW_IRON);
         loadFurnace(helper, reinforced, Items.RAW_IRON);
@@ -207,11 +207,11 @@ public final class BlockBehaviourTests {
         BlockPos netheriteSmoker = new BlockPos(5, 1, 4);
 
         helper.setBlock(vanillaBlast, Blocks.BLAST_FURNACE);
-        helper.setBlock(reinforcedBlast, ModBlocks.REINFORCED_BLAST_FURNACE);
-        helper.setBlock(netheriteBlast, ModBlocks.NETHERITE_BLAST_FURNACE);
+        helper.setBlock(reinforcedBlast, com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"));
+        helper.setBlock(netheriteBlast, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"));
         helper.setBlock(vanillaSmoker, Blocks.SMOKER);
-        helper.setBlock(reinforcedSmoker, ModBlocks.REINFORCED_SMOKER);
-        helper.setBlock(netheriteSmoker, ModBlocks.NETHERITE_SMOKER);
+        helper.setBlock(reinforcedSmoker, com.simplebuilding.util.OvenRefs.block("reinforced_smoker"));
+        helper.setBlock(netheriteSmoker, com.simplebuilding.util.OvenRefs.block("netherite_smoker"));
 
         loadFurnace(helper, vanillaBlast, Items.RAW_IRON);
         loadFurnace(helper, reinforcedBlast, Items.RAW_IRON);

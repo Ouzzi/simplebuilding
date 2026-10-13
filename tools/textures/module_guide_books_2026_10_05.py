@@ -34,6 +34,7 @@ BOOKS = {
     "simpledimensions": ("simpledimension", ("#0e2640", "#163c62", "#68b0e4", "#4890c4", "#3874a2"), "#ffd36a", "Himmelblau, Glowstone"),
     "simpletweaks": ("simpletweaks", ("#1c2026", "#2c3239", "#8a96a2", "#68737e", "#525b64"), "#f05a4a", "Eisengrau, Claim-Rot"),
     "simplerespawn": ("simplerespawn", ("#300a10", "#4a1018", "#d0485a", "#a8303f", "#862430"), "#f6f6f6", "Karmesin, Verbandsweiss"),
+    "simplebeacons": ("simplebeacons", ("#0a2a2c", "#124044", "#5cc4bc", "#3a9e98", "#2c7e7a"), "#fff2b0", "Prismarin, Netherstern"),
 }
 
 

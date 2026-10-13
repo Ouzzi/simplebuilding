@@ -21,6 +21,7 @@
       ],
       "requires": [
         "cloth-config",
+        "simpleovens",
         "simplemobheads"
       ],
       "optional": [
@@ -43,7 +44,8 @@
         "simpletrims",
         "simplemobs",
         "simpleend",
-        "simplerespawn"
+        "simplerespawn",
+        "simplebeacons"
       ],
       "paths": {
         "root": ".",
@@ -835,7 +837,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Tweaks",
-      "description": "Legacy compatibility and staged server-authoritative claims, disabled by default.",
+      "description": "Legacy compatibility and server-authoritative claims, on by default.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -2595,6 +2597,188 @@
       },
       "parent": "simplebuilding",
       "bundle": "optional"
+    },
+    {
+      "id": "simplebeacons",
+      "name": "Simple Beacons",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Beacons",
+      "description": "Strong Beacon (6 pyramid levels, 6 more effects, two-column screen), Strong Conduit (7x7x7 frame, up to 144 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simplebeacons/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplebeacons",
+        "catalogues": [
+          "modules/simplebeacons/fabric/src/main/java/com/simplebuilding/modules/simplebeacons/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplebeacons"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplebeaconsGameTest",
+            "report": "integration/build/simplebeacons-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplebeacons:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplebeacons/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplebeacons:forge:runGameTestServer",
+            "report": "modules/simplebeacons/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplebeaconsStandaloneGameTest",
+              "report": "integration/build/standalone/simplebeacons-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplebeacons:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplebeacons/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplebeacons.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplebeacons/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplebeacons",
+        "shared": "modules/simplebeacons/shared",
+        "fabric": "modules/simplebeacons/fabric",
+        "neoforge": "modules/simplebeacons/neoforge",
+        "forge": "modules/simplebeacons/forge",
+        "generated": "modules/simplebeacons/generated/resources",
+        "lang": "modules/simplebeacons/shared/resources/assets/simplebeacons/lang",
+        "wikiManual": "modules/simplebeacons/wiki/manual.json",
+        "balanceDir": "balance/simplebeacons"
+      },
+      "projects": {
+        "fabric": ":modules:simplebeacons:fabric",
+        "neoforge": ":modules:simplebeacons:neoforge",
+        "forge": ":modules:simplebeacons:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
+    },
+    {
+      "id": "simpleovens",
+      "name": "Simple Ovens",
+      "version": "1.0.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Ovens",
+      "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simpleovens/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleovens",
+        "catalogues": [
+          "modules/simpleovens/fabric/src/main/java/com/simplebuilding/modules/simpleovens/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleovens"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleovensGameTest",
+            "report": "integration/build/simpleovens-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpleovens:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpleovens/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpleovens:forge:runGameTestServer",
+            "report": "modules/simpleovens/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleovensStandaloneGameTest",
+              "report": "integration/build/standalone/simpleovens-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpleovens:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpleovens/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpleovens.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpleovens/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpleovens",
+        "shared": "modules/simpleovens/shared",
+        "fabric": "modules/simpleovens/fabric",
+        "neoforge": "modules/simpleovens/neoforge",
+        "forge": "modules/simpleovens/forge",
+        "generated": "modules/simpleovens/generated/resources",
+        "lang": "modules/simpleovens/shared/resources/assets/simpleovens/lang",
+        "wikiManual": "modules/simpleovens/wiki/manual.json",
+        "balanceDir": "balance/simpleovens"
+      },
+      "projects": {
+        "fabric": ":modules:simpleovens:fabric",
+        "neoforge": ":modules:simpleovens:neoforge",
+        "forge": ":modules:simpleovens:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required"
     },
     {
       "id": "simplemobheads",

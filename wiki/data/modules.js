@@ -12,7 +12,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [
       "cloth-config",
-      "simplemobheads"
+      "simpleovens"
     ],
     "optional": [
       "jei",
@@ -34,7 +34,8 @@ window.WIKI_MODULES = [
       "simpletrims",
       "simplemobs",
       "simpleend",
-      "simplerespawn"
+      "simplerespawn",
+      "simplebeacons"
     ]
   },
   {
@@ -80,7 +81,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "0168691facca"
+    "dataHash": "dc3374d696a5"
   },
   {
     "id": "simpleriding",
@@ -123,8 +124,8 @@ window.WIKI_MODULES = [
   {
     "id": "simplefun",
     "displayName": "Simple Fun",
-    "description": "Bounded playful mechanics, throwable bricks and cosmetic transformations (the animal heads moved to Simple Mobheads in 1.4.0).",
-    "version": "1.4.0",
+    "description": "Bounded playful mechanics, throwable bricks, cosmetic transformations and farm-animal heads.",
+    "version": "1.3.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -139,7 +140,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "ca333f1f6b24"
+    "dataHash": "4092c8008f32"
   },
   {
     "id": "simplevisuals",
@@ -213,7 +214,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletweaks",
     "displayName": "Simple Tweaks",
-    "description": "Legacy compatibility and staged server-authoritative claims, disabled by default.",
+    "description": "Legacy compatibility and server-authoritative claims, on by default.",
     "version": "1.2.12",
     "minecraft": "26.3",
     "loaders": [
@@ -226,7 +227,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "90a77fb5e054"
+    "dataHash": "c25b4122e1bd"
   },
   {
     "id": "simpledimensions",
@@ -251,7 +252,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
-    "dataHash": "bc9c308c3a61"
+    "dataHash": "d978d410cac0"
   },
   {
     "id": "simplesandwiches",
@@ -284,7 +285,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "0ec70d820246"
+    "dataHash": "99e5f82d2510"
   },
   {
     "id": "simpleinterfaces",
@@ -564,9 +565,28 @@ window.WIKI_MODULES = [
     "dataHash": "1dad6da6c5ce"
   },
   {
-    "id": "simplemobheads",
-    "displayName": "Simple Mobheads",
-    "description": "A head for every mob: dropped when a charged creeper's explosion kills it, worn for a small secret, placed, or played on a note block. Required sub-mod of SimpleBuilding; Simple Fun's and SimpleBuilding's heads moved in.",
+    "id": "simplebeacons",
+    "displayName": "Simple Beacons",
+    "description": "Strong Beacon (6 pyramid levels, 6 more effects, two-column screen), Strong Conduit (7x7x7 frame, up to 144 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "43d91b680862"
+  },
+  {
+    "id": "simpleovens",
+    "displayName": "Simple Ovens",
+    "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding.",
     "version": "1.0.0",
     "minecraft": "26.3",
     "loaders": [
@@ -575,17 +595,11 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "simplelib",
-      "cloth_config"
+      "simplelib"
     ],
     "optional": [
-      "simplebuilding",
-      "simplemobs",
-      "simpleend",
-      "simpleenddragonfight",
-      "jei",
-      "modmenu"
+      "simplebuilding"
     ],
-    "dataHash": "b6270fa7626a"
+    "dataHash": "e52860766689"
   }
 ];

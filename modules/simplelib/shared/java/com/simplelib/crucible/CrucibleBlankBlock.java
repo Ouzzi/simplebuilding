@@ -25,39 +25,78 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 /**
- * The iron crucible built in the world (owner addition 8 + answer 7 B): strike an iron block with the
- * off-hand material, one strike per second. Strikes 1-4 each use a heavy weighted pressure plate
- * (the four walls, tag {@code simplelib:crucible_walls}), strikes 5-6 each a handle (tag
- * {@code simplelib:crucible_handles}: iron ingot; SimpleBuilding adds its iron pole). This block is
- * the half-built blank; its loot table returns the iron block and every part used so far.
- * Without SimpleBuilding the tool is an axe (principle 5a); a partner with its own way switches the
- * axe way off through {@link SimpleLibApi#disableAxeWays()} and calls {@link #strike} itself.
+ * The iron crucible built in the world (owner addition 8 + answer 7 B, owner N51 2026-10-13, base = Vanilla cauldron): strike an empty Vanilla cauldron
+ * with an iron ingot in the off hand, one strike per second, sixteen strikes, one ingot each. The first strike turns the
+ * cauldron into the crucible's base (a cauldron with water, lava or powder snow must be emptied first, nothing is lost). Strikes 1-8 raise the four side plates (north, east, south, west; each first a
+ * half plate, then the full one), strikes 9-12 the two handles (east, west; half, then full), strikes 13-16 the four
+ * rim pieces; the 16th sets the iron crucible. Plates and rim take tag {@code simplelib:crucible_walls}, handles tag
+ * {@code simplelib:crucible_handles} (iron ingot; SimpleBuilding adds its iron pole). This block is the half-built
+ * blank (stage 1-15 = strikes done, one model per stage); breaking it returns the cauldron and one iron ingot
+ * per strike. Without SimpleBuilding the tool is an axe (principle 5a); a partner with its own way switches the axe
+ * way off through {@link SimpleLibApi#disableAxeWays()} and calls {@link #strike} itself.
  */
 public class CrucibleBlankBlock extends Block {
-    public static final IntegerProperty STAGE = IntegerProperty.create("stage", 1, 5);
+    public static final int STRIKES = 16;
+    public static final IntegerProperty STAGE = IntegerProperty.create("stage", 1, STRIKES - 1);
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
-    public static final int STRIKES = 6;
-    public static final int WALLS = 4;
+    /**
+     * Built on a Vanilla cauldron (owner N51 correction). False = an older blank started on an iron block: it still
+     * builds on and gives its iron block back (saves without the property load with this default).
+     */
+    public static final net.minecraft.world.level.block.state.properties.BooleanProperty CAULDRON =
+            net.minecraft.world.level.block.state.properties.BooleanProperty.create("cauldron");
+    /** Strikes 1-8: side plates (two per side). */
+    public static final int PLATE_STRIKES = 8;
+    /** Strikes 9-12: handles (two per handle). */
+    public static final int HANDLE_STRIKES = 4;
+    /** Strikes 13-16: rim pieces (one per side). */
+    public static final int RIM_STRIKES = 4;
+    /** Strikes that take a wall material (plates + rim); the rest take a handle (JEI, wiki). */
+    public static final int WALLS = PLATE_STRIKES + RIM_STRIKES;
     public static final int STRIKE_COOLDOWN = 20;
 
     public CrucibleBlankBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(STAGE, 1).setValue(FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any().setValue(STAGE, 1).setValue(FACING, Direction.NORTH).setValue(CAULDRON, false));
     }
 
-    /** Model boxes per stage (see {@code crucible_blank_N.json}): base 0-4, then the walls north/east/south/west, then a handle. */
-    private static final double[][] PARTS = {{0, 0, 0, 16, 4, 16}, {1, 4, 1, 15, 14, 3}, {13, 4, 3, 15, 14, 13},
-            {1, 4, 13, 15, 14, 15}, {1, 4, 3, 3, 14, 13}, {15, 9, 6, 16, 11, 10}};
-    private static final net.minecraft.world.phys.shapes.VoxelShape[][] SHAPES = new net.minecraft.world.phys.shapes.VoxelShape[5][4];
+    /** Base (foot + floor), like the crucible model. */
+    private static final double[][] BASE = {{3, 0, 3, 13, 2, 13}, {2, 2, 2, 14, 4, 14}};
+    /** Belly plates north/east/south/west (full height y 4-11; the half plate ends at y 8). */
+    private static final double[][] PLATES = {{1, 4, 1, 15, 11, 3}, {13, 4, 3, 15, 11, 13}, {1, 4, 13, 15, 11, 15}, {1, 4, 3, 3, 11, 13}};
+    /** Handles east/west (full; the half handle is the north half). */
+    private static final double[][] HANDLES = {{15, 9, 6, 16, 11, 10}, {0, 9, 6, 1, 11, 10}};
+    /** Rim (neck) pieces north/east/south/west. */
+    private static final double[][] RIM = {{2, 11, 2, 14, 14, 3}, {13, 11, 3, 14, 14, 13}, {2, 11, 13, 14, 14, 14}, {2, 11, 3, 3, 14, 13}};
+    public static final double HALF_PLATE_TOP = 8;
+    private static final net.minecraft.world.phys.shapes.VoxelShape[][] SHAPES = new net.minecraft.world.phys.shapes.VoxelShape[STRIKES - 1][4];
+
+    /** The model boxes of a stage (strikes done), facing north; shared with the model generator's layout. */
+    public static java.util.List<double[]> parts(int stage) {
+        java.util.List<double[]> out = new java.util.ArrayList<>(java.util.Arrays.asList(BASE));
+        for (int side = 0; side < 4; side++) {
+            int done = stage - 2 * side;
+            if (done >= 2) out.add(PLATES[side]);
+            else if (done == 1) out.add(new double[] {PLATES[side][0], 4, PLATES[side][2], PLATES[side][3], HALF_PLATE_TOP, PLATES[side][5]});
+        }
+        for (int handle = 0; handle < 2; handle++) {
+            int done = stage - PLATE_STRIKES - 2 * handle;
+            double[] b = HANDLES[handle];
+            if (done >= 2) out.add(b);
+            else if (done == 1) out.add(new double[] {b[0], b[1], b[2], b[3], b[4], 8});
+        }
+        for (int side = 0; side < 4; side++) {
+            if (stage - PLATE_STRIKES - HANDLE_STRIKES > side) out.add(RIM[side]);
+        }
+        return out;
+    }
 
     static {
-        for (int stage = 1; stage <= 5; stage++) {
+        for (int stage = 1; stage < STRIKES; stage++) {
+            java.util.List<double[]> parts = parts(stage);
             for (Direction d : Direction.Plane.HORIZONTAL) {
-                // stage 1 = base + north wall, stage n = n walls (stage 5 = four walls + one handle)
-                int parts = Math.min(stage, 4) + 1 + (stage == 5 ? 1 : 0);
                 net.minecraft.world.phys.shapes.VoxelShape shape = net.minecraft.world.phys.shapes.Shapes.empty();
-                for (int k = 0; k < parts; k++) {
-                    double[] b = PARTS[k];
+                for (double[] b : parts) {
                     shape = net.minecraft.world.phys.shapes.Shapes.or(shape, CrucibleBlock.turned(d, b[0], b[1], b[2], b[3], b[4], b[5]));
                 }
                 SHAPES[stage - 1][d.get2DDataValue()] = shape;
@@ -71,14 +110,23 @@ public class CrucibleBlankBlock extends Block {
         return SHAPES[state.getValue(STAGE) - 1][state.getValue(FACING).get2DDataValue()];
     }
 
+    /** Breaking it gives the base back (cauldron, or the iron block of an older blank) and every iron ingot struck in (owner N51). */
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(STAGE, FACING);
+    protected java.util.List<ItemStack> getDrops(BlockState state, net.minecraft.world.level.storage.loot.LootParams.Builder params) {
+        java.util.List<ItemStack> drops = new java.util.ArrayList<>(super.getDrops(state, params));
+        drops.add(new ItemStack(state.getValue(CAULDRON) ? net.minecraft.world.item.Items.CAULDRON : net.minecraft.world.item.Items.IRON_BLOCK));
+        drops.add(new ItemStack(net.minecraft.world.item.Items.IRON_INGOT, state.getValue(STAGE)));
+        return drops;
     }
 
-    /** Strikes already done at a block: 0 on an iron block, 1-5 on the blank, -1 elsewhere. */
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(STAGE, FACING, CAULDRON);
+    }
+
+    /** Strikes already done at a block: 0 on an empty Vanilla cauldron (a filled one must be emptied first), 1-15 on the blank, -1 elsewhere. */
     public static int strikesAt(BlockState state) {
-        if (state.is(Blocks.IRON_BLOCK)) return 0;
+        if (state.is(Blocks.CAULDRON)) return 0;
         if (state.getBlock() instanceof CrucibleBlankBlock) return state.getValue(STAGE);
         return -1;
     }
@@ -86,7 +134,8 @@ public class CrucibleBlankBlock extends Block {
     /** Whether {@code material} is the right off-hand part for the next strike. */
     public static boolean fitsNext(int done, ItemStack material) {
         if (done < 0 || done >= STRIKES || material.isEmpty()) return false;
-        return done < WALLS ? material.is(LibTags.CRUCIBLE_WALLS) : material.is(LibTags.CRUCIBLE_HANDLES);
+        boolean handle = done >= PLATE_STRIKES && done < PLATE_STRIKES + HANDLE_STRIKES;
+        return handle ? material.is(LibTags.CRUCIBLE_HANDLES) : material.is(LibTags.CRUCIBLE_WALLS);
     }
 
     /** The axe way: any axe in the main hand (tag {@code minecraft:axes}). */
@@ -113,12 +162,13 @@ public class CrucibleBlankBlock extends Block {
         if (state.getBlock() instanceof CrucibleBlankBlock) facing = state.getValue(FACING);
         int next = done + 1;
         // Shared feedback of every in-world conversion; the blank's own stage models are the intermediate models.
-        com.simplelib.api.InWorldStrikes.feedback(server, pos, Blocks.IRON_BLOCK.defaultBlockState(),
+        com.simplelib.api.InWorldStrikes.feedback(server, pos, Blocks.CAULDRON.defaultBlockState(),
                 next >= STRIKES ? SoundEvents.ANVIL_USE : SoundEvents.ANVIL_PLACE, 0.6F, next, STRIKES);
         if (next >= STRIKES) {
             server.setBlock(pos, LibBlocks.IRON_CRUCIBLE.defaultBlockState().setValue(CrucibleBlock.FACING, facing), Block.UPDATE_ALL);
         } else {
-            server.setBlock(pos, LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(STAGE, next).setValue(FACING, facing), Block.UPDATE_ALL);
+            server.setBlock(pos, LibBlocks.CRUCIBLE_BLANK.defaultBlockState().setValue(STAGE, next).setValue(FACING, facing)
+                    .setValue(CAULDRON, !(state.getBlock() instanceof CrucibleBlankBlock) || state.getValue(CAULDRON)), Block.UPDATE_ALL);
         }
         if (!player.getAbilities().instabuild) {
             material.shrink(1);

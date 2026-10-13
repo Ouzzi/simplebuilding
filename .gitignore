@@ -82,6 +82,13 @@ modules/simplemobs/shared/resources/assets/simplemobs/textures/entity/blighted_w
 modules/simplemobs/shared/resources/assets/simplemobs/textures/entity/blighted_wither/abyssal_wither.png
 wiki/assets/textures/simplemobs/item/soul_fire_charge.png
 wiki/assets/textures/simplemobs/item/soulfire_powder.png
+# Simple Ovens (split stage 4): furnace minecart items (Vanilla minecart overlay, vehicles_2026_10_10).
+modules/simpleovens/shared/resources/assets/simpleovens/textures/item/reinforced_furnace_minecart.png
+wiki/assets/textures/simpleovens/item/reinforced_furnace_minecart.png
+modules/simpleovens/shared/resources/assets/simpleovens/textures/item/netherite_furnace_minecart.png
+wiki/assets/textures/simpleovens/item/netherite_furnace_minecart.png
+modules/simpleovens/shared/resources/assets/simpleovens/textures/item/enderite_furnace_minecart.png
+wiki/assets/textures/simpleovens/item/enderite_furnace_minecart.png
 
 # Older generators (owner 2026-10-12: built as well, the Git history stays): same rule, same build step.
 # tools/textures/vanilla_derived.py OUTPUTS; the repository copy, the wiki copies and sheets, the wiki 3D renders.

@@ -257,7 +257,7 @@ window.WIKI_MODULE_DATA["simpledimensions"] = {
         "details": [
           "Owner and trusted-player access follows the server ledger; revocation takes effect on the next attempt. OP4 bypass follows the claim provider configuration.",
           "Generated exits allow escape from a newly denied source. A denied original return location is never entered: the server searches for an authorized safe landing, then checks the overworld spawn area. If no safe authorized location exists, travel is refused and an administrator must help. No claim blocks are overwritten.",
-          "Detected unsupported foreign claim mods still require their own permission adapter. A registered framework provider does not clear that separate gate. Simple Tweaks remains disabled by default; stage 4 is a separate unmerged worker, not established coverage."
+          "Detected unsupported foreign claim mods still require their own permission adapter. A registered framework provider does not clear that separate gate. Simple Tweaks claims are on by default and complete (all six stages)."
         ]
       },
       "de": {
@@ -266,7 +266,7 @@ window.WIKI_MODULE_DATA["simpledimensions"] = {
         "details": [
           "Besitzer- und Vertrauensrechte stammen aus den Serverdaten; Widerruf gilt beim nächsten Versuch. OP4-Umgehung folgt der Claim-Konfiguration.",
           "Erzeugte Ausgänge erlauben das Verlassen einer nachträglich gesperrten Quelle. Ein gesperrter Ursprung wird nie betreten: Der Server sucht eine erlaubte sichere Landung und danach am Oberweltspawn. Ohne sicheren erlaubten Ort bleibt die Reise verweigert und ein Administrator muss helfen. Keine Claim-Bauten werden überschrieben.",
-          "Erkannte nicht unterstützte Claim-Mods benötigen weiterhin ihren eigenen Adapter. Ein Framework-Anbieter hebt diese getrennte Sperre nicht auf. Simple Tweaks bleibt standardmäßig aus; Stufe 4 läuft separat und ungemergt, ihr Schutz ist nicht bestätigt."
+          "Erkannte nicht unterstützte Claim-Mods benötigen weiterhin ihren eigenen Adapter. Ein Framework-Anbieter hebt diese getrennte Sperre nicht auf. Simple-Tweaks-Claims sind standardmäßig an und vollständig (alle sechs Stufen)."
         ]
       }
     }

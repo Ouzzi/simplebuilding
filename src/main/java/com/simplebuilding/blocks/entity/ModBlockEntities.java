@@ -55,20 +55,23 @@ public class ModBlockEntities {
                 ).build());
 
 
-        MOD_BLAST_FURNACE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_blast_furnace"),
-                FabricBlockEntityTypeBuilder.create(ModBlastFurnaceBlockEntity::new,
-                        ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE).build());
+        // Split stage 4: on 26.3 Simple Ovens registers the furnace block entities (simpleovens:furnace|smoker|blast_furnace).
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) {
+            MOD_BLAST_FURNACE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_blast_furnace"),
+                    FabricBlockEntityTypeBuilder.create(ModBlastFurnaceBlockEntity::new,
+                            ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE).build());
 
-        MOD_FURNACE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_furnace"),
-                FabricBlockEntityTypeBuilder.create(ModFurnaceBlockEntity::new,
-                        ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE).build());
+            MOD_FURNACE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_furnace"),
+                    FabricBlockEntityTypeBuilder.create(ModFurnaceBlockEntity::new,
+                            ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE).build());
 
-        MOD_SMOKER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_smoker"),
-                FabricBlockEntityTypeBuilder.create(ModSmokerBlockEntity::new,
-                        ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER).build());
+            MOD_SMOKER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_smoker"),
+                    FabricBlockEntityTypeBuilder.create(ModSmokerBlockEntity::new,
+                            ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER).build());
+        }
 
         BACKPACK_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "backpack"),

@@ -40,6 +40,12 @@ import org.jetbrains.annotations.Nullable;
 public class CrucibleBlock extends Block implements EntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    /**
+     * Upgrade units already struck in (owner N51: one every 3 of the 12 strikes, the 4th finishes the upgrade); each
+     * shows as a band of the next tier's material on one side.
+     */
+    public static final net.minecraft.world.level.block.state.properties.IntegerProperty UPGRADE =
+            net.minecraft.world.level.block.state.properties.IntegerProperty.create("upgrade", 0, 3);
     /** Y-rotation of a model box like the blockstate variant {@code y} (north 0, east 90, south 180, west 270): (x, z) turns to (16 - z, x). */
     static VoxelShape turned(Direction facing, double x1, double y1, double z1, double x2, double y2, double z2) {
         for (int i = 0; i < facing.get2DDataValue(); i++) {
@@ -76,7 +82,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
     public CrucibleBlock(Properties properties, CrucibleTier tier) {
         super(properties);
         this.tier = tier;
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false).setValue(UPGRADE, 0));
     }
 
     public CrucibleTier tier() {
@@ -85,7 +91,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, LIT);
+        builder.add(FACING, LIT, UPGRADE);
     }
 
     @Override

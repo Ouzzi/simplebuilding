@@ -439,9 +439,22 @@ public final class ModpackTests {
                 problems.add("the recorded built-in chains compose to other maps than the loaded files (" + tier + ")");
             }
         }
-        if (!SledgehammerUpgradeData.table().equals(SledgehammerUpgrades.builtInTable())) {
+        // Split stage 4: on 26.3 the six furnace steps come from Simple Ovens' own file (data/simpleovens/in_world_upgrades),
+        // not from SimpleBuilding's built-in table; they are compared on their own.
+        java.util.Map<net.minecraft.world.level.block.Block, SledgehammerUpgrades.Upgrade> loaded = new java.util.HashMap<>(SledgehammerUpgradeData.table());
+        int ovenSteps = 0;
+        if (!com.simplebuilding.version.McVersion.OVENS_IN_SB) {
+            for (var it = loaded.keySet().iterator(); it.hasNext(); ) {
+                if (com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(BuiltInRegistries.BLOCK.getKey(it.next()).getNamespace())) {
+                    it.remove();
+                    ovenSteps++;
+                }
+            }
+            if (ovenSteps != 6) problems.add("Simple Ovens' file should load 6 furnace upgrade steps, loaded " + ovenSteps);
+        }
+        if (!loaded.equals(SledgehammerUpgrades.builtInTable())) {
             problems.add("the loaded sledgehammer upgrades differ from the built-in table: "
-                    + SledgehammerUpgradeData.table().size() + " against " + SledgehammerUpgrades.builtInTable().size());
+                    + loaded.size() + " against " + SledgehammerUpgrades.builtInTable().size());
         }
         // The stone chisel really works off the loaded maps.
         helper.assertTrue(ModItems.STONE_CHISEL.getForwardMap() == ChiselTables.tier("stone").forward(),

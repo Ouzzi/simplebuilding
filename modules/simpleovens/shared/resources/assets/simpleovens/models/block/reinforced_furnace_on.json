@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "simpleovens:block/reinforced_furnace_front_on",
+    "side": "simpleovens:block/reinforced_furnace_side",
+    "top": "simpleovens:block/reinforced_furnace_top"
+  }
+}

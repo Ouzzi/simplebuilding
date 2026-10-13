@@ -94,7 +94,7 @@ public final class ClaimPortalTests {
             yes(h,guest.level()==source&&guest.blockPosition().equals(exactReturn[0]),"Trusted exact generated return succeeds");
             yes(h,ClaimAccessTests.execute(commands,owner,"claim untrust "+guest.getUUID())==1,"Restore denied source before disabled control");
             var archived=temp();try {Files.writeString(archived.resolve("simpletweaks-claims.json"),"unreadable archive");}catch(java.io.IOException e){throw new IllegalStateException(e);}
-            disabled[0]=new Claims(ClaimConfig.DEFAULT,archived,Map.of());Claims.install(server,disabled[0]);stand(guest,cell.north(2));
+            disabled[0]=new Claims(ClaimConfig.OFF,archived,Map.of());Claims.install(server,disabled[0]);stand(guest,cell.north(2));
         });
         later.accept(320,()->stand(guest,cell));
         later.accept(345,()->{yes(h,guest.level()==destination[0]&&!disabled[0].dataLoaded(),"Disabled Claims permits actual travel without ledger IO");cleanup.run();h.succeed();});
