@@ -257,6 +257,12 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 53 (2026-10-13, Besitzer, Korrekturen zu N52)
+- [ ] Enchanter: Randlinie NICHT golden wie das Tuch, sondern dunkel (Obsidian-artig).
+- [ ] Brücken-Redstone (Pulver/Draht): Textur wie vorher (alte Optik), aber als EINE fertige Bilddatei (umgefärbte Variante als PNG im Repo, nicht generiert, keine Schichten).
+- [ ] Rissiges Eis: Texturen wie vorher; Problem war Schatten am Rand (nicht getarnt im Eis) → Schattierung/AO wie Vanilla-Eis, keine Randschatten.
+- [ ] Rissiges Eis: dritte Generierungsart – sehr große Flächen in Eiszapfen-Biom (Ice Spikes) u. ä. Packeis-Gegenden; wer hineinläuft, bricht ein und muss Blöcke setzen, um sich zu retten.
+
 ## Nachtrag 52 (2026-10-13, Besitzer)
 - [ ] Astral-Verzauberer umbenennen in „Enchanter“ / „Verzauberer“ (Besitzer-Wahl). Seiten und Unterseite bekommen eine Randlinie bis zum Tuch; Unterseite aus Obsidian. (claude-n52)
 - [ ] Brücken-Redstone-Textur: Schichten z-fighten in der Höhe → einfache Textur ohne Überlagerung. (claude-n52)
