@@ -2,10 +2,6 @@
   "replace": false,
   "values": [
     {
-      "id": "simplemoney:links/simplebeacons/strong_upgrade_template",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/astral_end_stone",
       "required": false
     },

@@ -1,22 +1,11 @@
 {
   "module": "simplebeacons",
-  "derivation": "Late-game tier (KERNE-SELTENHEIT 5.3): the Strong Upgrade costs a nether star, so only the template is sold, rarely, by the wandering trader; the Strong Beacon and Strong Conduit stay crafted (each needs a second nether star).",
+  "derivation": "Simple Beacons sells nothing: the owner keeps every Strong item crafted only (concept question 4: the nether star is the hurdle).",
   "excluded": {
     "simplebeacons:strong_beacon": "Needs a beacon and a nether star on top of the template; a trade would skip the boss.",
     "simplebeacons:strong_conduit": "Needs a conduit and a nether star on top of the template; a trade would skip the boss.",
-    "simplebeacons:guide_book": "Crafted from a book and a prismarine shard."
+    "simplebeacons:guide_book": "Crafted from a book and a prismarine shard.",
+    "simplebeacons:strong_upgrade_template": "Crafted only: a nether star, 4 diamonds and 4 obsidian (concept question 4)."
   },
-  "prices": [
-    {
-      "item": "simplebeacons:strong_upgrade_template",
-      "tier": 5,
-      "hours": 20,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    }
-  ]
+  "prices": []
 }
