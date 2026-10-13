@@ -155580,6 +155580,18 @@ window.WIKI_DATA = {
         {
           "id": "simplebuilding:enderite_water_bucket_full",
           "required": true
+        },
+        {
+          "id": "simplelib:enderite_block",
+          "required": true
+        },
+        {
+          "id": "simplelib:enderite_ingot",
+          "required": true
+        },
+        {
+          "id": "simplelib:enderite_nugget",
+          "required": true
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json"

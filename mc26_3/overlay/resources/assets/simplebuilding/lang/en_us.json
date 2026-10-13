@@ -1341,7 +1341,7 @@
   "book.simplebuilding.guide.4.title": "Reshaping",
   "book.simplebuilding.guide.4.text": "Sneak + hold right-click: remove the aimed eighth - block, stairs, slab. Odd shapes fall apart into 0.125 blocks (wood, melon). Without sneaking: no reshaping.",
   "book.simplebuilding.guide.5.title": "Diamond Pebbles",
-  "book.simplebuilding.guide.5.text": "Hold right-click with an iron hammer or better on a diamond block: 81 Diamond Pebbles. A placed Cracked Diamond breaks back into 9 with a hammer.\nNine pebbles make a Cracked Diamond for Reinforced machines and chests.",
+  "book.simplebuilding.guide.5.text": "Hold right-click with an iron hammer or better on a diamond block: 81 Diamond Pebbles. A hammered Cracked Diamond gives 9.\nNine make a Cracked Diamond for Reinforced machines and chests.",
   "book.simplebuilding.guide.6.title": "Hammer Upgrades",
   "book.simplebuilding.guide.6.text": "Hammer in hand, upgrade material in your off hand: hold right-click on a machine for 5 seconds.\nWorks on chests, hoppers, furnaces, smokers, blast furnaces and pistons.",
   "book.simplebuilding.guide.7.title": "Upgrade Steps",
