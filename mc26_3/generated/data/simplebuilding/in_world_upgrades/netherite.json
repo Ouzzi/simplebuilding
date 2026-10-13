@@ -4,7 +4,7 @@
       "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_blast_furnace",
       "material": "simplebuilding:netherite_nugget",
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_blast_furnace"
     },
@@ -12,7 +12,7 @@
       "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_chest",
       "material": "simplebuilding:netherite_nugget",
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_chest"
     },
@@ -20,7 +20,7 @@
       "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_furnace",
       "material": "simplebuilding:netherite_nugget",
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_furnace"
     },
@@ -28,7 +28,7 @@
       "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_hopper",
       "material": "simplebuilding:netherite_nugget",
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_hopper"
     },
@@ -36,7 +36,7 @@
       "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_piston",
       "material": "simplebuilding:netherite_nugget",
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_piston"
     },
@@ -46,7 +46,7 @@
       "from": "simplebuilding:reinforced_shulker_box",
       "material": "simplebuilding:netherite_nugget",
       "material_count": 2,
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_shulker_box"
     },
@@ -54,7 +54,7 @@
       "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_smoker",
       "material": "simplebuilding:netherite_nugget",
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_smoker"
     },
@@ -62,7 +62,7 @@
       "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_sticky_piston",
       "material": "simplebuilding:netherite_nugget",
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_piston"
     },
@@ -70,7 +70,7 @@
       "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_trapped_chest",
       "material": "simplebuilding:netherite_nugget",
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_trapped_chest"
     },
@@ -80,7 +80,7 @@
       "from": "simplelib:reinforced_barrel",
       "material": "simplebuilding:netherite_nugget",
       "material_count": 2,
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplelib:netherite_barrel"
     },
@@ -90,7 +90,7 @@
       "from": "simplelib:reinforced_crucible",
       "material": "simplebuilding:netherite_nugget",
       "material_count": 2,
-      "min_hammer": "diamond",
+      "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplelib:netherite_crucible"
     }
