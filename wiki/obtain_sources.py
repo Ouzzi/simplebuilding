@@ -166,6 +166,10 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
 
     def item_id(owner: str, const: str) -> str:
         identifier = f"{ns}:{const.lower()}"
+        # 26.3 split stage 3d: the shared materials are SimpleLib's (ModItems fields point at them).
+        shared = f"simplelib:{const.lower()}"
+        if identifier not in item_ids and (version_flags or {}).get("MATERIALS_IN_LIB") and shared in item_ids:
+            return shared
         if identifier not in item_ids:
             problems.append(f"{path.name}: {owner}.{const} is no item the wiki knows ({identifier})")
         return identifier
