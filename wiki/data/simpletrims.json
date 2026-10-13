@@ -53,6 +53,7 @@
         "details": [
           "Glowing draws the trim at full light. Pulsating alone fades the trim colors to gray and back; with Glowing its brightness swells between 1 and 15.",
           "Radiance gives 3 light per level to an invisible light block over the wearer's head (sum of all worn pieces, at most 15).",
+          "Torches (also soul, copper, redstone), lanterns and lava buckets in either hand light the same block like their own light (redstone torch weak, 7); the brighter of held and radiance light counts, they do not add.",
           "A real smithing recipe (simpletrims:trim_upgrade): the Vanilla smithing table and SimpleBuilding's Auto Smither both use it."
         ]
       },
@@ -62,6 +63,7 @@
         "details": [
           "Leuchtend zeichnet den Besatz voll hell. Pulsierend allein lässt die Besatzfarben zu Grau verblassen und zurückkehren; mit Leuchtend schwillt die Helligkeit zwischen 1 und 15 an und ab.",
           "Strahlkraft gibt 3 Licht je Stufe an einen unsichtbaren Lichtblock über dem Kopf (Summe aller getragenen Teile, höchstens 15).",
+          "Fackeln (auch Seelen-, Kupfer-, Redstone-), Laternen und Lavaeimer in einer der beiden Hände leuchten an derselben Stelle wie ihr eigener Block (Redstone-Fackel schwach, 7); es zählt das hellere von Handlicht und Strahlkraft, sie addieren sich nicht.",
           "Echtes Schmiederezept (simpletrims:trim_upgrade): Vanilla-Schmiedetisch und der Auto-Schmied von SimpleBuilding nutzen es gleich."
         ]
       }

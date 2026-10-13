@@ -77,6 +77,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void heldLight(GameTestHelper h) {
+        TrimsTests.ALL.get("held_light").accept(h);
+    }
+
+    @GameTest
     public void guideBook(GameTestHelper h) {
         TrimsTests.ALL.get("guide_book").accept(h);
     }

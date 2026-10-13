@@ -127,6 +127,8 @@ public final class ClientTests {
                 new Entry("sculk-jaw", SculkJawClientTest::inWorld),
                 // Nachtrag 36 (26.3): Astral, Nihil and Bridge Redstone lanes into redstone lamps; clears its blocks.
                 new Entry("redstone-lines", RedstoneLinesClientTest::inWorld),
+                // Queue N52 (26.3): cracked ice beside vanilla ice, bridge redstone corner/T/cross; clears its blocks.
+                new Entry("n52-visuals", N52VisualsClientTest::inWorld),
                 // Audit C9/C10: unique key mapping names, our defaults collide with nothing (no picture).
                 new Entry("key-mappings", KeyMappingClientTest::inWorld));
     }

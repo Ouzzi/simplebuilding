@@ -4,6 +4,7 @@
 - side (12 px high model: rows 0-3 transparent): the nebula pattern now fills the body UNDER the cloth, the cloth
   takes the colour of the top's obsidian rim; the gold hem glints, a few stars twinkle. Same 8 frames as the top
   (interpolate, frametime 6) so both stay in step.
+- N52 (owner 2026-10-13): an edge line (FRAME) on the sides (left, right, bottom, under the hem) and round the underside; the underside is an obsidian look.
 Own pixel art drawn from code.
 """
 from __future__ import annotations
@@ -51,6 +52,19 @@ def top_frame(f, base):
     return im
 
 
+FRAME = (GOLD[1], GOLD[2])   # N52: the edge line of the sides and the underside (same colour so it runs round the block)
+
+
+def frame_edges(im, y0):
+    """1 px border on the left, right and bottom edge, from row y0 (under the cloth's gold hem) down."""
+    for x in range(16):
+        im.putpixel((x, 15), FRAME[x % 2])
+    for y in range(y0, 16):
+        for x in (0, 15):
+            im.putpixel((x, y), FRAME[y % 2])
+    return im
+
+
 def side_frame(f):
     im = new()
     ph = TAU * f / FRAMES
@@ -72,6 +86,7 @@ def side_frame(f):
         glint = (x * 0.9 - f * 1.6) % 8 < 1.2
         im.putpixel((x, depth), GOLD[4] if glint else GOLD[3] if x % 2 else GOLD[2])
         im.putpixel((x, depth + 1), mix(get(im, x, depth + 1), GOLD[0], 0.45))
+    frame_edges(im, 9)
     for cx in (1, 14):   # enderite crystals in the top corners
         for dx, dy in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)):
             put(im, cx + dx, 5 + dy, VIOLET[5] if (dx, dy) == (0, 0) else VIOLET[3])
@@ -79,6 +94,23 @@ def side_frame(f):
     for i, (x, y) in enumerate(((3, 12), (7, 14), (10, 10), (13, 13))):   # twinkling stars in the nebula
         if (f + 2 * i) % FRAMES in (0, 1):
             put(im, x, y, VIOLET[7])
+    return im
+
+
+def bottom_tex():
+    """N52: underside in obsidian look (dark ground, lighter flecks like Vanilla obsidian) with the edge frame."""
+    im = new()
+    n41.obsidian_base(im, 14, OBS)
+    for y in range(16):
+        for x in range(16):
+            h = (x * 7 + y * 13 + x * y * 3) % 11
+            if h == 0:
+                im.putpixel((x, y), OBS[4])
+            elif h == 1:
+                im.putpixel((x, y), OBS[0])
+    for i in range(16):   # frame all round
+        for xy in ((i, 0), (i, 15), (0, i), (15, i)):
+            im.putpixel(xy, FRAME[i % 2])
     return im
 
 
@@ -94,4 +126,5 @@ def textures():
     return {
         'block/astral_enchanting_table_top': strip([top_frame(f, top0) for f in range(FRAMES)]),
         'block/astral_enchanting_table_side': strip([side_frame(f) for f in range(FRAMES)]),
+        'block/astral_enchanting_table_bottom': bottom_tex(),
     }

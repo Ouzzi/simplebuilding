@@ -1,6 +1,9 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "minecraft:block/frosted_ice_1"
+    "all": {
+      "sprite": "simplebuilding:block/cracked_ice_1",
+      "force_translucent": true
+    }
   }
 }

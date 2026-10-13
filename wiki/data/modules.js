@@ -340,7 +340,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "6710bc09d694"
+    "dataHash": "1062a6373d1c"
   },
   {
     "id": "simplemobs",

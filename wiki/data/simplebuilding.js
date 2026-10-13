@@ -4347,8 +4347,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astral_enchanting_table",
       "name": {
-        "en_us": "Astral Enchanter",
-        "de_de": "Astral-Verzauberer"
+        "en_us": "Enchanter",
+        "de_de": "Verzauberer"
       },
       "texture": "assets/textures/block/astral_enchanting_table_side.png",
       "craftedBy": [],
@@ -4381,7 +4381,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Astral Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
+          "summary": "The Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
           "details": [
             "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
             "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), the best 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Up to 15 points the strength is 2 x points (15 bookshelves = 30), above that it climbs on to 40 at 30 points - so 15 blazewood bookshelves give 40, and every blazewood shelf in place of a bookshelf adds about two thirds of a strength. A 5x5 floor of Blazing Obsidian right under the table adds 10 once the shelves give 30 (15 bookshelves on the floor = 40). So 30 to 40 needs blazewood shelves OR the floor, and the maximum 50 needs both: 15 blazewood bookshelves plus the floor. Hover the strength in the screen: it shows what the next stage lacks.",
@@ -4392,7 +4392,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Am Astral-Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
+          "summary": "Am Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
           "details": [
             "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
             "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), die besten 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Bis 15 Punkte ist die Stärke 2 x Punkte (15 Bücherregale = 30), darüber steigt sie weiter bis 40 bei 30 Punkten - 15 Lohen-Regale geben also 40, und jedes Lohen-Regal statt eines Bücherregals bringt etwa zwei Drittel Stärke. Ein 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch gibt 10 dazu, sobald die Regale 30 ergeben (15 Bücherregale auf dem Boden = 40). 30 bis 40 braucht also Lohen-Regale ODER den Boden, das Maximum 50 braucht beides: 15 Lohen-Regale plus Boden. Im Bildschirm über der Stärke schweben zeigt, was für die nächste Stufe fehlt.",
@@ -7852,10 +7852,10 @@ window.WIKI_DATA = {
             "Crying obsidian's glowing sibling: where the other weeps, this one burns."
           ],
           "use": [
-            "A decorative block that gives light. Its job is at the Astral Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
+            "A decorative block that gives light. Its job is at the Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
           ],
           "secret": [
-            "The floor only counts under the Astral Enchanter, not the vanilla table, so build it once the shelves are complete."
+            "The floor only counts under the Enchanter, not the vanilla table, so build it once the shelves are complete."
           ]
         },
         "de": {
@@ -7863,23 +7863,23 @@ window.WIKI_DATA = {
             "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
           ],
           "use": [
-            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Astral-Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
+            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
           ],
           "secret": [
-            "Der Boden zählt nur unter dem Astral-Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+            "Der Boden zählt nur unter dem Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
           ]
         }
       },
       "note": {
         "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Astral Enchanter adds 10 strength once the shelves give 30.",
+          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Enchanter adds 10 strength once the shelves give 30.",
           "details": [
             "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
             "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
           ]
         },
         "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Astral-Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
+          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
           "details": [
             "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
             "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
@@ -11815,14 +11815,14 @@ window.WIKI_DATA = {
       "icon": "assets/textures/render/crimson_blazewood_bookshelf.png",
       "note": {
         "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanter, one at the Vanilla table.",
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
           "details": [
             "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
             "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
           ]
         },
         "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
           "details": [
             "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
             "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
@@ -29719,7 +29719,7 @@ window.WIKI_DATA = {
             "The heavy pickaxe: one swing mines a whole 3x3 plane of the same block instead of one. 8124 durability, enchantability 15. Sneak while mining takes only the aimed block."
           ],
           "secret": [
-            "With an Enderite Nugget in the off hand it lifts machines and chests to Enderite. Hit an enchanting table 20 times with it, holding an Enderite Nugget in the other hand, and it becomes the Astral Enchanter."
+            "With an Enderite Nugget in the off hand it lifts machines and chests to Enderite. Hit an enchanting table 20 times with it, holding an Enderite Nugget in the other hand, and it becomes the Enchanter."
           ]
         },
         "de": {
@@ -29730,7 +29730,7 @@ window.WIKI_DATA = {
             "Die schwere Spitzhacke: Ein Schlag baut eine ganze 3x3-Ebene gleicher Blöcke ab statt eines einzelnen. 8124 Haltbarkeit, Verzauberbarkeit 15. Beim Schleichen wird nur der anvisierte Block abgebaut."
           ],
           "secret": [
-            "Mit einem Enderitklumpen in der Nebenhand hebt er Maschinen und Truhen auf Enderit. Schlage 20 Mal damit auf einen Zaubertisch, einen Enderitklumpen in der anderen Hand, und er wird zum Astral-Verzauberer."
+            "Mit einem Enderitklumpen in der Nebenhand hebt er Maschinen und Truhen auf Enderit. Schlage 20 Mal damit auf einen Zaubertisch, einen Enderitklumpen in der anderen Hand, und er wird zum Verzauberer."
           ]
         }
       },
@@ -47771,14 +47771,14 @@ window.WIKI_DATA = {
       "icon": "assets/textures/render/warped_blazewood_bookshelf.png",
       "note": {
         "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanter, one at the Vanilla table.",
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
           "details": [
             "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
             "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
           ]
         },
         "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
           "details": [
             "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
             "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
@@ -49494,8 +49494,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:astral_enchanting_table",
       "name": {
-        "en_us": "Astral Enchanter",
-        "de_de": "Astral-Verzauberer"
+        "en_us": "Enchanter",
+        "de_de": "Verzauberer"
       },
       "texture": "assets/textures/block/astral_enchanting_table_side.png",
       "craftedBy": [],
@@ -49533,7 +49533,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Astral Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
+          "summary": "The Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
           "details": [
             "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding an Enderite Nugget in the off hand and keep holding - 20 blows (four times a machine upgrade); the nugget is used up at the last blow.",
             "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), the best 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Up to 15 points the strength is 2 x points (15 bookshelves = 30), above that it climbs on to 40 at 30 points - so 15 blazewood bookshelves give 40, and every blazewood shelf in place of a bookshelf adds about two thirds of a strength. A 5x5 floor of Blazing Obsidian right under the table adds 10 once the shelves give 30 (15 bookshelves on the floor = 40). So 30 to 40 needs blazewood shelves OR the floor, and the maximum 50 needs both: 15 blazewood bookshelves plus the floor. Hover the strength in the screen: it shows what the next stage lacks.",
@@ -49544,7 +49544,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Am Astral-Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
+          "summary": "Am Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
           "details": [
             "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, Enderit-Nugget in der Nebenhand, und halten - 20 Schläge (viermal eine Maschinen-Aufwertung); das Nugget wird beim letzten Schlag verbraucht.",
             "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), die besten 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Bis 15 Punkte ist die Stärke 2 x Punkte (15 Bücherregale = 30), darüber steigt sie weiter bis 40 bei 30 Punkten - 15 Lohen-Regale geben also 40, und jedes Lohen-Regal statt eines Bücherregals bringt etwa zwei Drittel Stärke. Ein 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch gibt 10 dazu, sobald die Regale 30 ergeben (15 Bücherregale auf dem Boden = 40). 30 bis 40 braucht also Lohen-Regale ODER den Boden, das Maximum 50 braucht beides: 15 Lohen-Regale plus Boden. Im Bildschirm über der Stärke schweben zeigt, was für die nächste Stufe fehlt.",
@@ -51731,10 +51731,10 @@ window.WIKI_DATA = {
             "Crying obsidian's glowing sibling: where the other weeps, this one burns."
           ],
           "use": [
-            "A decorative block that gives light. Its job is at the Astral Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
+            "A decorative block that gives light. Its job is at the Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
           ],
           "secret": [
-            "The floor only counts under the Astral Enchanter, not the vanilla table, so build it once the shelves are complete."
+            "The floor only counts under the Enchanter, not the vanilla table, so build it once the shelves are complete."
           ]
         },
         "de": {
@@ -51742,23 +51742,23 @@ window.WIKI_DATA = {
             "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
           ],
           "use": [
-            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Astral-Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
+            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
           ],
           "secret": [
-            "Der Boden zählt nur unter dem Astral-Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+            "Der Boden zählt nur unter dem Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
           ]
         }
       },
       "note": {
         "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Astral Enchanter adds 10 strength once the shelves give 30.",
+          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Enchanter adds 10 strength once the shelves give 30.",
           "details": [
             "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
             "Light level 12, mined with a diamond pickaxe or better; small flames rise from a free top."
           ]
         },
         "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Astral-Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
+          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
           "details": [
             "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
             "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus einer freien Oberseite steigen kleine Flammen."
@@ -54507,14 +54507,14 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanter, one at the Vanilla table.",
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
           "details": [
             "Recipe like the bookshelf: 6 Crimson Blazewood Planks and 3 Blaze Books.",
             "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
           ]
         },
         "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
           "details": [
             "Rezept wie das Bücherregal: 6 Karmesin-Lohenholzbretter und 3 Lohenbücher.",
             "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
@@ -77313,14 +77313,14 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A bookshelf of blazewood: worth two bookshelves at the Astral Enchanter, one at the Vanilla table.",
+          "summary": "A bookshelf of blazewood: worth two bookshelves at the Enchanter, one at the Vanilla table.",
           "details": [
             "Recipe like the bookshelf: 6 Warped Blazewood Planks and 3 Blaze Books.",
             "Drops 3 Blaze Books, itself with Silk Touch. 15 of them plus the Blazing Obsidian floor give strength 50."
           ]
         },
         "de": {
-          "summary": "Ein Bücherregal aus Lohenholz: zählt am Astral-Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
+          "summary": "Ein Bücherregal aus Lohenholz: zählt am Verzauberer wie zwei Bücherregale, am Vanilla-Tisch wie eins.",
           "details": [
             "Rezept wie das Bücherregal: 6 Wirr-Lohenholzbretter und 3 Lohenbücher.",
             "Gibt 3 Lohenbücher, mit Behutsamkeit sich selbst. 15 davon und der Boden aus Lohen-Obsidian ergeben Stärke 50."
