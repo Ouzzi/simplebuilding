@@ -777,7 +777,7 @@ public final class SandwichTests {
         ALL.put("discover_recipe_unlocks", com.simplesandwiches.discover.SandwichDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplesandwiches.discover.SandwichDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplesandwiches.discover.SandwichDiscover::firstPickupTips);
-        ALL.put("no_enderite_without_a_requester", SandwichTests::noEnderiteWithoutRequester);
+        ALL.put("no_enderite_without_requester", SandwichTests::noEnderiteWithoutRequester);
     }
 
     /**

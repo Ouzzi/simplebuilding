@@ -136,8 +136,8 @@ public final class ModuleGameTest {
         SandwichTests.ALL.get("reinforced_milk_cauldron").accept(h);
     }
     @GameTest
-    public void noEnderiteWithoutARequester(GameTestHelper h) {
-        SandwichTests.ALL.get("no_enderite_without_a_requester").accept(h);
+    public void noEnderiteWithoutRequester(GameTestHelper h) {
+        SandwichTests.ALL.get("no_enderite_without_requester").accept(h);
     }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.behaviourHints(h); }

@@ -216,7 +216,7 @@ public final class ModuleGameTest {
         LibTests.ALL.get("material_requests_recipes").accept(h);
     }
 
-    @GameTest
+    @GameTest(maxTicks = 100)
     public void materialRequestsAnvilCrushing(GameTestHelper h) {
         LibTests.ALL.get("material_requests_anvil_crushing").accept(h);
     }

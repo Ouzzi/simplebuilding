@@ -5338,6 +5338,8 @@ public final class DataIntegrityTests {
         }
         for (Map.Entry<String, String[]> twin : vanillaTwins.entrySet()) {
             Item item = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(MOD_ID, twin.getKey()));
+            // 26.3: shared materials are named in SimpleLib's lang files (same texts, modules/simplelib/tools/check_data.py).
+            if (com.simplebuilding.util.SharedMaterials.isShared(item)) continue;
             String key = item.getDescriptionId();
             if (!twin.getValue()[0].equals(en.has(key) ? en.get(key).getAsString() : null)
                     || !twin.getValue()[1].equals(de.has(key) ? de.get(key).getAsString() : null)) {
