@@ -198,7 +198,7 @@ public final class OctetMixTests {
         BlockState mixed = helper.getBlockState(CELL);
         helper.assertTrue(mixed.is(ModBlocks.MIXED_OCTET), "old cell + foreign octet is mixed: " + mixed);
         MixedOctetBlockEntity be = (MixedOctetBlockEntity) level.getBlockEntity(pos);
-        CompoundTag tag = be.saveWithoutMetadata(level.registryAccess());
+        CompoundTag tag = be.saveWithFullMetadata(level.registryAccess());
         BlockEntity loaded = BlockEntity.loadStatic(pos, mixed, tag, level.registryAccess());
         helper.assertTrue(loaded instanceof MixedOctetBlockEntity, "the mixed cell loads its block entity");
         BlockState[] back = ((MixedOctetBlockEntity) loaded).parts();
