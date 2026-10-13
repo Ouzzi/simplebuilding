@@ -213,7 +213,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletweaks",
     "displayName": "Simple Tweaks",
-    "description": "Legacy compatibility and staged server-authoritative claims, disabled by default.",
+    "description": "Legacy compatibility and server-authoritative claims, on by default.",
     "version": "1.2.12",
     "minecraft": "26.3",
     "loaders": [
@@ -226,7 +226,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "90a77fb5e054"
+    "dataHash": "c25b4122e1bd"
   },
   {
     "id": "simpledimensions",
@@ -251,7 +251,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
-    "dataHash": "bc9c308c3a61"
+    "dataHash": "d978d410cac0"
   },
   {
     "id": "simplesandwiches",

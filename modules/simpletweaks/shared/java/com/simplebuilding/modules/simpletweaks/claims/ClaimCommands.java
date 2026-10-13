@@ -14,8 +14,12 @@ public final class ClaimCommands {
     }
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, ClaimConfig config) {
         if (!config.enabled()) return;
-        if (dispatcher.getRoot().getChild("claim")!=null)
-            throw new IllegalStateException("Enabled Simple Tweaks claims conflict with an existing /claim command; disable one claim provider.");
+        if (dispatcher.getRoot().getChild("claim")!=null) {
+            // Claims are on by default: another mod's /claim must not stop the server. Protection stays active,
+            // only the commands are left out (deeds still claim).
+            org.slf4j.LoggerFactory.getLogger("simpletweaks-claims").warn("Another mod already registers /claim; Simple Tweaks claim commands are not registered. Protection stays active.");
+            return;
+        }
         dispatcher.register(Commands.literal("claim").requires(s->Claims.enabled(s.getServer()))
                 .executes(c->{
                     var s=c.getSource(); var p=s.getPlayerOrException(); var claims=Claims.get(s.getServer());
@@ -29,9 +33,10 @@ public final class ClaimCommands {
                         .executes(c->trust(c.getSource(),StringArgumentType.getString(c,"player"),true))))
                 .then(Commands.literal("untrust").then(Commands.argument("player",StringArgumentType.word())
                         .executes(c->trust(c.getSource(),StringArgumentType.getString(c,"player"),false))))
+                .then(Commands.literal("create").executes(c->result(c.getSource(),Claims.get(c.getSource().getServer()).claim(c.getSource().getPlayerOrException()))))
                 .then(Commands.literal("unclaim").executes(c->result(c.getSource(),Claims.get(c.getSource().getServer()).unclaim(c.getSource().getPlayerOrException(),false))))
                 .then(Commands.literal("admin").requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
-                        .executes(c->{c.getSource().sendSuccess(()->Component.translatable("command.simpletweaks.claim.stage","1–3, 5–6"),false);return 1;})
+                        .executes(c->{c.getSource().sendSuccess(()->Component.translatable("command.simpletweaks.claim.stage","1–6"),false);return 1;})
                         .then(Commands.literal("unclaim").executes(c->result(c.getSource(),Claims.get(c.getSource().getServer()).unclaim(c.getSource().getPlayerOrException(),true))))
                         .then(Commands.literal("listall").executes(c->list(c.getSource(),null)))
                         .then(Commands.literal("list").then(Commands.argument("player",StringArgumentType.word())

@@ -11,8 +11,12 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
         int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer, List<String> dimensions) {
     public static final int MAX_CLAIMS = 256, MAX_TRUSTED = 64, MAX_GLOBAL = 10000;
     public static final int MAX_COOLDOWN = 72000, MAX_SPAWN_BUFFER = 256, MAX_DIMENSIONS = 32;
-    public static final ClaimConfig DEFAULT = new ClaimConfig(false, 16, 8, 4096, 100, false, 16,
+    /** On by default since 2026-10-13 (owner release). An existing file with "enabled": false stays off. */
+    public static final ClaimConfig DEFAULT = new ClaimConfig(true, 16, 8, 4096, 100, false, 16,
             List.of("minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"));
+    /** The defaults with the main switch off (server administrators' opt-out, disabled-path tests). */
+    public static final ClaimConfig OFF = new ClaimConfig(false, DEFAULT.maxClaimsPerPlayer, DEFAULT.maxTrustedPlayers,
+            DEFAULT.globalCap, DEFAULT.cooldownTicks, DEFAULT.opBypass, DEFAULT.spawnBuffer, DEFAULT.dimensions);
     public ClaimConfig {
         maxClaimsPerPlayer = Math.clamp(maxClaimsPerPlayer, 1, MAX_CLAIMS);
         maxTrustedPlayers = Math.clamp(maxTrustedPlayers, 0, MAX_TRUSTED);

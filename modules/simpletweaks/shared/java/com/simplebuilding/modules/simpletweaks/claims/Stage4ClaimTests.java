@@ -27,7 +27,7 @@ import static com.simplebuilding.modules.simpletweaks.claims.ClaimTests.*;
 final class Stage4ClaimTests {
     private static Block block(String id){return BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:"+id));}
     private static void modes(GameTestHelper h,java.util.function.BiConsumer<Fixture,Boolean> test){
-        for(int mode:new int[]{1,0,-1})with(h,mode==1?on():ClaimConfig.DEFAULT,c->{
+        for(int mode:new int[]{1,0,-1})with(h,mode==1?on():ClaimConfig.OFF,c->{
             boolean enabled=mode==1;
             if(mode==-1)Claims.install(h.getLevel().getServer(),null);
             try(var f=new Fixture(h,c,enabled)){test.accept(f,enabled);if(!enabled)yes(h,!c.dataLoaded(),"Disabled automation never opens the ledger");}

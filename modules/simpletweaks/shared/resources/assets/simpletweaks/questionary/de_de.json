@@ -15,7 +15,7 @@
       "Eine Urkunde aus einer älteren Welt, noch mit dem ersten Besitzer gestempelt."
     ],
     "use": [
-      "Ein altes Item ohne Rezept, nur für bestehende Welten oder /give. Stapelt bis 16. Claims sind standardmäßig aus; sind sie aktiv, beantragt die Urkunde Besitz beim Server."
+      "Ein altes Item ohne Rezept, nur für bestehende Welten oder /give. Stapelt bis 16. Benutzen beansprucht den Chunk, in dem du stehst, wie /claim create."
     ],
     "secret": [
       "Originaltextur und Zusatzdaten bleiben unverändert erhalten, eine alte Urkunde funktioniert also nach einem Update weiter."

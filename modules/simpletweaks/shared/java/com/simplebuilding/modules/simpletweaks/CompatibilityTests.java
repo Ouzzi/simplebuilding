@@ -168,7 +168,9 @@ public final class CompatibilityTests {
  }
  static void commands(GameTestHelper h) {
   var root=h.getLevel().getServer().getCommands().getDispatcher().getRoot();
-  require(h,(root.getChild("claim")==null || !root.getChild("claim").canUse(h.getLevel().getServer().createCommandSourceStack())) && root.getChild("simpletweaks")==null,"No usable disabled claim commands or duplicate old commands");
+  var server=h.getLevel().getServer();var claim=root.getChild("claim");
+  // Claims are on by default (2026-10-13): /claim is usable exactly while claims are active on this server.
+  require(h,(claim!=null && claim.canUse(server.createCommandSourceStack()))==com.simplebuilding.modules.simpletweaks.claims.Claims.enabled(server) && root.getChild("simpletweaks")==null,"/claim usable only while claims are active; no duplicate old commands");
   if(simpleBuilding())require(h,root.getChild("simplebuilding")!=null && root.getChild("killboats")!=null && root.getChild("killcarts")!=null,"Existing commands present");h.succeed();
  }
  private CompatibilityTests() {}

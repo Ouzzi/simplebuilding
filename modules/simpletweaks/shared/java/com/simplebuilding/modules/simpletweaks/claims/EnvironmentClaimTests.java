@@ -94,7 +94,7 @@ final class EnvironmentClaimTests {
   drop.playerTouch(other);yes(h,!drop.isRemoved()&&other.getInventory().countItem(Items.APPLE)==0,"Actual walking pickup denies stranger");
   drop.playerTouch(owner);yes(h,drop.isRemoved()&&owner.getInventory().countItem(Items.APPLE)==3,"Actual walking pickup permits owner");
  });h.succeed();}
- static void disabled(GameTestHelper h){with(h,ClaimConfig.DEFAULT,c->{
+ static void disabled(GameTestHelper h){with(h,ClaimConfig.OFF,c->{
   var l=h.getLevel();var pos=ToolClaimTests.boundary(h).above(100);var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setPos(Vec3.atBottomCenterOf(pos));l.addFreshEntity(cow);
   yes(h,cow.hurtServer(l,l.damageSources().magic(),1),"Disabled actual damage hook preserves Vanilla");
   yes(h,cow.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.POISON,100),null),"Disabled indirect effect preserves Vanilla");

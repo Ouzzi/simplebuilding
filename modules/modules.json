@@ -835,7 +835,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Tweaks",
-      "description": "Legacy compatibility and staged server-authoritative claims, disabled by default.",
+      "description": "Legacy compatibility and server-authoritative claims, on by default.",
       "loaders": [
         "fabric",
         "neoforge",
