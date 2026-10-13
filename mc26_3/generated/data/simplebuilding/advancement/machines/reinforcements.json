@@ -1,0 +1,40 @@
+{
+  "parent": "simplebuilding:hammer/cracked_up",
+  "criteria": {
+    "reinforced_machine": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simpleovens:reinforced_furnace",
+              "simpleovens:reinforced_smoker",
+              "simpleovens:reinforced_blast_furnace",
+              "simplebuilding:reinforced_hopper",
+              "simplebuilding:reinforced_piston",
+              "simplebuilding:reinforced_sticky_piston",
+              "simplebuilding:reinforced_chest"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.machines.reinforcements.description"
+    },
+    "icon": {
+      "id": "simpleovens:reinforced_furnace"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.machines.reinforcements.title"
+    }
+  },
+  "requirements": [
+    [
+      "reinforced_machine"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

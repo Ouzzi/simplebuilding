@@ -85,9 +85,9 @@ public final class RecipelessJeiInfo {
                     : List.of(ModItems.ICE_CHIP, net.minecraft.world.item.Items.ICE, net.minecraft.world.item.Items.PACKED_ICE));
             map.put("hammer_obsidian_chips", List.of(ModItems.OBSIDIAN_CHIP, net.minecraft.world.item.Items.OBSIDIAN));
         }
-        map.put("furnace_tiers", List.of(ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE,
-                ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER,
-                ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE));
+        map.put("furnace_tiers", List.of(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_furnace"),
+                com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), com.simplebuilding.util.OvenRefs.block("netherite_smoker"), com.simplebuilding.util.OvenRefs.block("enderite_smoker"),
+                com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace")));
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             map.put("velocity_gauge", List.of(ModItems.VELOCITY_GAUGE));
         }

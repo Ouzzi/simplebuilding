@@ -30,10 +30,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/reinforced_blast_furnace",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/reinforced_bundle",
       "required": false
     },
@@ -43,10 +39,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/reinforced_elytra_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/reinforced_furnace",
       "required": false
     },
     {
@@ -62,11 +54,19 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/reinforced_smoker",
+      "id": "simplemoney:links/simplebuilding/spawn_teleporter",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/spawn_teleporter",
+      "id": "simplemoney:links/simpleovens/reinforced_blast_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleovens/reinforced_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleovens/reinforced_smoker",
       "required": false
     }
   ]

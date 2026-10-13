@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleovens"
+version="${version}"
+displayName="Simple Ovens"
+description="Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). Upgrades in the world with the axe on its own, with the sledgehammer in SimpleBuilding."
+[[dependencies.simpleovens]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+[[dependencies.simpleovens]]
+modId="simplelib"
+type="required"
+versionRange="[0.2.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simpleovens]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config="simpleovens.mixins.json"

@@ -540,8 +540,8 @@ public final class ModItemGroupsContent {
             rows.add(CreativeTabLayout.Row.of("chest_vehicles", ModItems.REINFORCED_CHEST_MINECART, ModItems.NETHERITE_CHEST_MINECART,
                     ModItems.ENDERITE_CHEST_MINECART, CreativeTabLayout.GAP, ModItems.REINFORCED_CHEST_BOAT, ModItems.NETHERITE_CHEST_BOAT,
                     ModItems.ENDERITE_CHEST_BOAT));
-            rows.add(CreativeTabLayout.Row.of("rail_vehicles", ModItems.REINFORCED_FURNACE_MINECART, ModItems.NETHERITE_FURNACE_MINECART,
-                    ModItems.ENDERITE_FURNACE_MINECART, CreativeTabLayout.GAP, ModItems.REINFORCED_HOPPER_MINECART,
+            rows.add(CreativeTabLayout.Row.of("rail_vehicles", com.simplebuilding.util.OvenRefs.item("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.item("netherite_furnace_minecart"),
+                    com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"), CreativeTabLayout.GAP, ModItems.REINFORCED_HOPPER_MINECART,
                     ModItems.NETHERITE_HOPPER_MINECART, ModItems.ENDERITE_HOPPER_MINECART));
         }
         if (com.simplebuilding.version.McVersion.HAMMOCK) {
@@ -601,12 +601,12 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("hoppers_and_furnaces",
                         Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER,
                         CreativeTabLayout.GAP,
-                        Items.FURNACE, ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE),
+                        Items.FURNACE, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_furnace")),
                 CreativeTabLayout.Row.of("smokers_and_blast_furnaces",
-                        Items.SMOKER, ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, ModItems.ENDERITE_SMOKER,
+                        Items.SMOKER, com.simplebuilding.util.OvenRefs.item("reinforced_smoker"), com.simplebuilding.util.OvenRefs.item("netherite_smoker"), com.simplebuilding.util.OvenRefs.item("enderite_smoker"),
                         CreativeTabLayout.GAP,
-                        Items.BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE,
-                        ModItems.ENDERITE_BLAST_FURNACE),
+                        Items.BLAST_FURNACE, com.simplebuilding.util.OvenRefs.item("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_blast_furnace"),
+                        com.simplebuilding.util.OvenRefs.item("enderite_blast_furnace")),
                 CreativeTabLayout.Row.of("pistons",
                         Items.PISTON, Items.STICKY_PISTON, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
                         ModItems.NETHERITE_PISTON, ModItems.ENDERITE_PISTON),

@@ -59,3 +59,17 @@ afterEvaluate {
         }
     }
 }
+// SimpleBuilding 26.3 requires its sub-mod Simple Ovens (split stage 4, nested in production): a module whose dev/test
+// runs load SimpleBuilding from its sourceSet loads Simple Ovens the same way (SB's project evaluates it first).
+afterEvaluate {
+    if (project.path == ':modules:simpleovens:neoforge' || rootProject.findProject(':modules:simpleovens:neoforge') == null) return
+    if (!neoForge.mods.any { it.name.startsWith('simplebuilding') }) return
+    if (neoForge.mods.findByName('simpleovens') == null) {
+        neoForge.mods.create('simpleovens') { sourceSet rootProject.project(':modules:simpleovens:neoforge').sourceSets.main }
+    }
+    neoForge.runs.configureEach { run ->
+        if (run.loadedMods.get().any { it.name.startsWith('simplebuilding') }) {
+            run.loadedMods.set((run.loadedMods.get() + [neoForge.mods.simpleovens]).unique())
+        }
+    }
+}

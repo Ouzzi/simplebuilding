@@ -1,0 +1,10 @@
+{
+	"chapter.1C4FB9B91CE3707B.title": "{\"translate\": \"quests.simpleovens.start.title\"}",
+	"chapter.1C4FB9B91CE3707B.chapter_subtitle": [
+		"{\"translate\": \"quests.simpleovens.start.subtitle\"}"
+	],
+	"quest.4FF25CDD9835C465.title": "{\"translate\": \"quests.simpleovens.start.welcome.title\"}",
+	"quest.4FF25CDD9835C465.quest_desc": [
+		"{\"translate\": \"quests.simpleovens.start.welcome.description\"}"
+	]
+}

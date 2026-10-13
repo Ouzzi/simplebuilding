@@ -136,17 +136,19 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.NETHERITE_PISTON);
         dropSelf(ModBlocks.ENDERITE_PISTON);
 
-        dropSelf(ModBlocks.REINFORCED_BLAST_FURNACE);
-        dropSelf(ModBlocks.NETHERITE_BLAST_FURNACE);
-        dropSelf(ModBlocks.ENDERITE_BLAST_FURNACE);
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens ships the furnace loot tables
+            dropSelf(ModBlocks.REINFORCED_BLAST_FURNACE);
+            dropSelf(ModBlocks.NETHERITE_BLAST_FURNACE);
+            dropSelf(ModBlocks.ENDERITE_BLAST_FURNACE);
 
-        dropSelf(ModBlocks.REINFORCED_FURNACE);
-        dropSelf(ModBlocks.NETHERITE_FURNACE);
-        dropSelf(ModBlocks.ENDERITE_FURNACE);
+            dropSelf(ModBlocks.REINFORCED_FURNACE);
+            dropSelf(ModBlocks.NETHERITE_FURNACE);
+            dropSelf(ModBlocks.ENDERITE_FURNACE);
 
-        dropSelf(ModBlocks.REINFORCED_SMOKER);
-        dropSelf(ModBlocks.NETHERITE_SMOKER);
-        dropSelf(ModBlocks.ENDERITE_SMOKER);
+            dropSelf(ModBlocks.REINFORCED_SMOKER);
+            dropSelf(ModBlocks.NETHERITE_SMOKER);
+            dropSelf(ModBlocks.ENDERITE_SMOKER);
+        }
 
         // Nihilith Ore -> Droppt Shard
         add(ModBlocks.NIHILITH_ORE, createOreDrop(ModBlocks.NIHILITH_ORE, ModItems.NIHILITH_SHARD));

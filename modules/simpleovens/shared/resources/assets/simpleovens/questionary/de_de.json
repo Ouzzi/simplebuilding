@@ -1,0 +1,134 @@
+{
+  "reinforced_furnace": {
+    "lore": [
+      "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
+    ],
+    "use": [
+      "Läuft 2-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "reinforced_smoker": {
+    "lore": [
+      "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
+    ],
+    "use": [
+      "Läuft 2-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "reinforced_blast_furnace": {
+    "lore": [
+      "{name}: Der erste Schritt: ein Ofen mit etwas Ehrgeiz."
+    ],
+    "use": [
+      "Läuft 2-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Herstellung: 3 Rissige Diamanten, 3 Öfen, 3 Rissige Diamanten am Handwerkstisch."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "netherite_furnace": {
+    "lore": [
+      "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
+    ],
+    "use": [
+      "Läuft 4-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Kein Rezept: Schlage eine platzierte Verstärkte mit einer Diamant- oder Netheritaxt (mit SimpleBuilding: Diamant-Vorschlaghammer oder besser), einen Netheritklumpen in der Nebenhand."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "netherite_smoker": {
+    "lore": [
+      "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
+    ],
+    "use": [
+      "Läuft 4-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Schlage eine platzierte Verstärkte mit einer Diamant- oder Netheritaxt (mit SimpleBuilding: Diamant-Vorschlaghammer oder besser), einen Netheritklumpen in der Nebenhand."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "netherite_blast_furnace": {
+    "lore": [
+      "{name}: Er kocht wie eine Esse, die das Abkühlen vergessen hat."
+    ],
+    "use": [
+      "Läuft 4-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Schlage eine platzierte Verstärkte mit einer Diamant- oder Netheritaxt (mit SimpleBuilding: Diamant-Vorschlaghammer oder besser), einen Netheritklumpen in der Nebenhand."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "enderite_furnace": {
+    "lore": [
+      "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
+    ],
+    "use": [
+      "Läuft 8-mal so schnell wie der Vanilla-Ofen für Schmelzen, mit denselben Rezepten und Menü. Doppelte Erfahrung. Kein Rezept: Schlage eine platzierte Netherit-Variante mit einer Netheritaxt (mit SimpleBuilding: Netherit-Vorschlaghammer), einen Enderitklumpen in der Nebenhand."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "enderite_smoker": {
+    "lore": [
+      "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
+    ],
+    "use": [
+      "Läuft 8-mal so schnell wie der Vanilla-Räucherofen für Nahrung, mit denselben Rezepten und Menü. Doppelte Erfahrung. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Schlage eine platzierte Netherit-Variante mit einer Netheritaxt (mit SimpleBuilding: Netherit-Vorschlaghammer), einen Enderitklumpen in der Nebenhand."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "enderite_blast_furnace": {
+    "lore": [
+      "{name}: Das schnellste Feuer im Spiel, in einer Kiste gezähmt."
+    ],
+    "use": [
+      "Läuft 8-mal so schnell wie der Vanilla-Schmelzofen für Erze und Metall, mit denselben Rezepten und Menü. Doppelte Erfahrung. Brennstoff hält doppelt so lang wie beim Vanilla-Gegenstück. Kein Rezept: Schlage eine platzierte Netherit-Variante mit einer Netheritaxt (mit SimpleBuilding: Netherit-Vorschlaghammer), einen Enderitklumpen in der Nebenhand."
+    ],
+    "secret": [
+      "Das Tempo gilt nur, solange der Brennstoff brennt und das Garen begonnen hat. Die Stufen teilen eine Blockentität, die Aufwertung in der Welt behält also alles darin."
+    ]
+  },
+  "reinforced_furnace_minecart": {
+    "lore": [
+      "{name}: ein Ofen, der beschloss zu reisen."
+    ],
+    "use": [
+      "Ein Brennstoff brennt 2-mal so lang wie bei der Vanilla-Lore mit Ofen, die Lore fährt schneller und der Ofen gart 2-mal so schnell."
+    ],
+    "secret": [
+      "Eine Lore mit dem Ofen derselben Stufe formlos herstellen; Schmieden hebt sie eine Stufe. Rechtsklick schiebt die Lore von dir weg. Die Enderit-Lore erreicht die volle Höchstgeschwindigkeit einer einfachen Lore."
+    ]
+  },
+  "netherite_furnace_minecart": {
+    "lore": [
+      "{name}: ein Ofen, der beschloss zu reisen."
+    ],
+    "use": [
+      "Ein Brennstoff brennt 4-mal so lang wie bei der Vanilla-Lore mit Ofen, die Lore fährt schneller und der Ofen gart 4-mal so schnell."
+    ],
+    "secret": [
+      "Eine Lore mit dem Ofen derselben Stufe formlos herstellen; Schmieden hebt sie eine Stufe. Rechtsklick schiebt die Lore von dir weg. Die Enderit-Lore erreicht die volle Höchstgeschwindigkeit einer einfachen Lore."
+    ]
+  },
+  "enderite_furnace_minecart": {
+    "lore": [
+      "{name}: ein Ofen, der beschloss zu reisen."
+    ],
+    "use": [
+      "Ein Brennstoff brennt 8-mal so lang wie bei der Vanilla-Lore mit Ofen, die Lore fährt schneller und der Ofen gart 8-mal so schnell."
+    ],
+    "secret": [
+      "Eine Lore mit dem Ofen derselben Stufe formlos herstellen; Schmieden hebt sie eine Stufe. Rechtsklick schiebt die Lore von dir weg. Die Enderit-Lore erreicht die volle Höchstgeschwindigkeit einer einfachen Lore."
+    ]
+  }
+}

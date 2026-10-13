@@ -2,27 +2,11 @@
   "upgrades": [
     {
       "damage_per_hit": 4,
-      "from": "simplebuilding:reinforced_blast_furnace",
-      "material": "simplelib:netherite_nugget",
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplebuilding:netherite_blast_furnace"
-    },
-    {
-      "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_chest",
       "material": "simplelib:netherite_nugget",
       "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_chest"
-    },
-    {
-      "damage_per_hit": 4,
-      "from": "simplebuilding:reinforced_furnace",
-      "material": "simplelib:netherite_nugget",
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplebuilding:netherite_furnace"
     },
     {
       "damage_per_hit": 4,
@@ -49,14 +33,6 @@
       "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_shulker_box"
-    },
-    {
-      "damage_per_hit": 4,
-      "from": "simplebuilding:reinforced_smoker",
-      "material": "simplelib:netherite_nugget",
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplebuilding:netherite_smoker"
     },
     {
       "damage_per_hit": 4,

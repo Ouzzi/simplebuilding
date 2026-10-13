@@ -144,9 +144,9 @@ public final class EnderiteMachineTests {
         BlockPos furnace = new BlockPos(1, 1, 1);
         BlockPos smoker = new BlockPos(3, 1, 1);
         BlockPos blast = new BlockPos(5, 1, 1);
-        helper.setBlock(furnace, ModBlocks.ENDERITE_FURNACE);
-        helper.setBlock(smoker, ModBlocks.ENDERITE_SMOKER);
-        helper.setBlock(blast, ModBlocks.ENDERITE_BLAST_FURNACE);
+        helper.setBlock(furnace, com.simplebuilding.util.OvenRefs.block("enderite_furnace"));
+        helper.setBlock(smoker, com.simplebuilding.util.OvenRefs.block("enderite_smoker"));
+        helper.setBlock(blast, com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"));
         load(helper, furnace, Items.RAW_IRON);
         load(helper, smoker, Items.BEEF);
         load(helper, blast, Items.RAW_IRON);
@@ -205,10 +205,10 @@ public final class EnderiteMachineTests {
      * regenerated after the items were added.
      */
     public static void enderiteMachineItemsAreFireResistantEpicAndVoidProtected(GameTestHelper helper) {
-        List<Item> enderite = List.of(ModItems.ENDERITE_HOPPER, ModItems.ENDERITE_FURNACE, ModItems.ENDERITE_SMOKER,
-                ModItems.ENDERITE_BLAST_FURNACE, ModItems.ENDERITE_PISTON);
-        List<Item> netherite = List.of(ModItems.NETHERITE_HOPPER, ModItems.NETHERITE_FURNACE, ModItems.NETHERITE_SMOKER,
-                ModItems.NETHERITE_BLAST_FURNACE, ModItems.NETHERITE_PISTON);
+        List<Item> enderite = List.of(ModItems.ENDERITE_HOPPER, com.simplebuilding.util.OvenRefs.item("enderite_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_smoker"),
+                com.simplebuilding.util.OvenRefs.item("enderite_blast_furnace"), ModItems.ENDERITE_PISTON);
+        List<Item> netherite = List.of(ModItems.NETHERITE_HOPPER, com.simplebuilding.util.OvenRefs.item("netherite_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_smoker"),
+                com.simplebuilding.util.OvenRefs.item("netherite_blast_furnace"), ModItems.NETHERITE_PISTON);
 
         StringBuilder actual = new StringBuilder();
         StringBuilder expected = new StringBuilder();
@@ -269,26 +269,26 @@ public final class EnderiteMachineTests {
         StringBuilder refused = new StringBuilder();
         refused.append(refusedBy(ModBlockEntities.MOD_HOPPER_BE,
                 ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER));
-        refused.append(refusedBy(ModBlockEntities.MOD_FURNACE_BE,
-                ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE));
-        refused.append(refusedBy(ModBlockEntities.MOD_SMOKER_BE,
-                ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER));
-        refused.append(refusedBy(ModBlockEntities.MOD_BLAST_FURNACE_BE,
-                ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE));
+        refused.append(refusedBy(com.simplebuilding.util.OvenRefs.blockEntityType("furnace"),
+                com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_furnace")));
+        refused.append(refusedBy(com.simplebuilding.util.OvenRefs.blockEntityType("smoker"),
+                com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), com.simplebuilding.util.OvenRefs.block("netherite_smoker"), com.simplebuilding.util.OvenRefs.block("enderite_smoker")));
+        refused.append(refusedBy(com.simplebuilding.util.OvenRefs.blockEntityType("blast_furnace"),
+                com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace")));
         helper.assertValueEqual(refused.toString(), "",
                 "tiers their family's block entity type refuses (placing them, or hammering the tier below into them, crashes)");
-        helper.assertTrue(!ModBlockEntities.MOD_FURNACE_BE.isValid(ModBlocks.ENDERITE_SMOKER.defaultBlockState()),
+        helper.assertTrue(!com.simplebuilding.util.OvenRefs.blockEntityType("furnace").isValid(com.simplebuilding.util.OvenRefs.block("enderite_smoker").defaultBlockState()),
                 "control broken: the furnace block entity type accepts the enderite smoker");
 
         BlockPos furnace = new BlockPos(1, 1, 1);
         BlockPos smoker = new BlockPos(3, 1, 1);
         BlockPos blast = new BlockPos(5, 1, 1);
-        helper.setBlock(furnace, ModBlocks.ENDERITE_FURNACE);
-        helper.setBlock(smoker, ModBlocks.ENDERITE_SMOKER);
-        helper.setBlock(blast, ModBlocks.ENDERITE_BLAST_FURNACE);
+        helper.setBlock(furnace, com.simplebuilding.util.OvenRefs.block("enderite_furnace"));
+        helper.setBlock(smoker, com.simplebuilding.util.OvenRefs.block("enderite_smoker"));
+        helper.setBlock(blast, com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"));
         helper.assertValueEqual(titleKey(helper, furnace) + ", " + titleKey(helper, smoker) + ", " + titleKey(helper, blast),
-                "container.simplebuilding.enderite_furnace, container.simplebuilding.enderite_smoker, "
-                        + "container.simplebuilding.enderite_blast_furnace",
+                ("container.%1$s.enderite_furnace, container.%1$s.enderite_smoker, container.%1$s.enderite_blast_furnace")
+                        .formatted(com.simplebuilding.version.McVersion.OVENS_NAMESPACE),
                 "container titles of the enderite furnace, smoker and blast furnace");
 
         helper.succeed();

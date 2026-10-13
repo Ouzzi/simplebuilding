@@ -306,6 +306,14 @@ public final class SimpleLibApi {
         return com.simplelib.registry.LibMaterials.requested(group);
     }
 
+    /**
+     * A partner feeds the material loot (Enderite in End city treasure) itself, with its own switches; SimpleLib's
+     * own pools ({@code material/MaterialLoot}, added only for requested materials) stay out. Call in the constructor.
+     */
+    public static void materialLootByPartner() {
+        com.simplelib.material.MaterialLoot.byPartner();
+    }
+
     /** A shared material item by path ({@code "enderite_ingot"}); registers the materials first if needed (any load order). */
     public static net.minecraft.world.item.Item materialItem(String id) {
         return com.simplelib.registry.LibMaterials.item(id);

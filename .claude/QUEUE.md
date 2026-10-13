@@ -70,7 +70,7 @@ Eigener Abschnitt „Modulaufteilung“ weiter unten (Stufen 3c, 3d, 4 Ovens, 5 
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
 - [x] 3c `claude-split-s3-apis`: SimpleLib-Dienste in_world_upgrades, `#simplelib:upgrade_tools`, isHammer, OctetCells, registerUpgradeHandler, TestCentreStations, GuideChapters (claude-split-s3-apis; offen: Lib-eigener Reload/Sync in Stufe 4, GuideChapters-Leser in Stufe 9)
 - [x] 3d `claude-split-s3-materials`: gemeinsame Materialien nach simplelib (§2.5), requestMaterial, Condition material_requested (claude-split-s3-materials; offen: Loot-Einspeisung + Lib-Reload in Stufe 4)
-- [ ] 4 `claude-split-s4-ovens`: Extraktion Ovens nach modules/simpleovens
+- [x] 4 `claude-split-s4-ovens`: Extraktion Ovens nach modules/simpleovens (claude-split-s4-ovens; offen: Merge nach wave1, SB-Config-Ofentempo ausblenden in Stufe 9)
 - [ ] 5 `claude-split-s5-crucibles`: Crucibles nach simplecrucibles (Aliase, Seelenlava)
 - [ ] 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
 - [ ] 7 `claude-split-s7-hammers`: Hammers extrahieren (breiteste Kopplung)

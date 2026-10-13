@@ -466,6 +466,11 @@ public final class TestCentreTests {
             helper.succeed(); // 26.2: no framework, no foreign stations
             return;
         }
+        // Stations the loaded sub-mods already registered (split stage 4: Simple Ovens is always there with SimpleBuilding).
+        TestCentreLayout.Plan baseline = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
+        List<String> baselineIds = baseline.sections().stream().map(TestCentreLayout.Section::id).toList();
+        List<ItemStack> before = baselineIds.contains(TestCentreLayout.MODULES_SECTION)
+                ? new ArrayList<>(frames(baseline.section(TestCentreLayout.MODULES_SECTION)).values()) : List.of();
         com.simplebuilding.dev.testcentre.ModuleStations.register("simpletest", "station", "section.simpletest.station",
                 List.of("minecraft:diamond", "nomod:missing", "minecraft:emerald"));
         TestCentreLayout.Plan plan;
@@ -478,12 +483,18 @@ public final class TestCentreTests {
         helper.assertTrue(ids.indexOf(TestCentreLayout.MODULES_SECTION) == ids.indexOf("mobs") - 1,
                 "the modules section is not planned right before mobs: " + ids);
         List<ItemStack> shown = new ArrayList<>(frames(plan.section(TestCentreLayout.MODULES_SECTION)).values());
-        helper.assertTrue(shown.size() == 2 && shown.get(0).is(net.minecraft.world.item.Items.DIAMOND)
-                        && shown.get(1).is(net.minecraft.world.item.Items.EMERALD),
-                "the modules section frames " + shown + " instead of diamond and emerald");
+        int n = before.size();
+        helper.assertTrue(shown.size() == n + 2 && shown.get(n).is(net.minecraft.world.item.Items.DIAMOND)
+                        && shown.get(n + 1).is(net.minecraft.world.item.Items.EMERALD),
+                "the modules section frames " + shown + " instead of the " + n + " already registered ones, diamond and emerald");
+        // Simple Ovens (required with SimpleBuilding on 26.3) brings its own station.
+        helper.assertTrue(before.stream().anyMatch(stack -> stack.getItem() == com.simplebuilding.util.OvenRefs.item("enderite_furnace")),
+                "the Simple Ovens station is missing from the modules section: " + before);
         TestCentreLayout.Plan without = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
-        helper.assertTrue(without.sections().stream().map(TestCentreLayout.Section::id).toList().equals(TestCentreLayout.SECTION_IDS),
-                "without registered stations the plan differs from SECTION_IDS");
+        helper.assertTrue(without.sections().stream().map(TestCentreLayout.Section::id).toList().equals(baselineIds),
+                "after unregistering the test station the plan differs from before");
+        helper.assertTrue(TestCentreLayout.SECTION_IDS.stream().allMatch(baselineIds::contains),
+                "the plan lost sections of SECTION_IDS: " + baselineIds);
         helper.succeed();
     }
 

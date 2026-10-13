@@ -157,15 +157,15 @@ public final class SmokeClientTest {
 
     /** The nine furnace family blocks {@code ModModelProvider} drives through {@code createFurnace}. */
     private static final List<Block> FURNACES = List.of(
-            ModBlocks.REINFORCED_FURNACE,
-            ModBlocks.NETHERITE_FURNACE,
-            ModBlocks.ENDERITE_FURNACE,
-            ModBlocks.REINFORCED_SMOKER,
-            ModBlocks.NETHERITE_SMOKER,
-            ModBlocks.ENDERITE_SMOKER,
-            ModBlocks.REINFORCED_BLAST_FURNACE,
-            ModBlocks.NETHERITE_BLAST_FURNACE,
-            ModBlocks.ENDERITE_BLAST_FURNACE);
+            com.simplebuilding.util.OvenRefs.block("reinforced_furnace"),
+            com.simplebuilding.util.OvenRefs.block("netherite_furnace"),
+            com.simplebuilding.util.OvenRefs.block("enderite_furnace"),
+            com.simplebuilding.util.OvenRefs.block("reinforced_smoker"),
+            com.simplebuilding.util.OvenRefs.block("netherite_smoker"),
+            com.simplebuilding.util.OvenRefs.block("enderite_smoker"),
+            com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"),
+            com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"),
+            com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"));
 
     /**
      * The z plane one block in front of the wall - the free air the working volume is built in.

@@ -155,15 +155,15 @@ public final class FurnaceTests {
     }
 
     private static final List<Device> ALL_DEVICES = List.of(
-            new Device("reinforced furnace", ModBlocks.REINFORCED_FURNACE, ModItems.REINFORCED_FURNACE, Blocks.FURNACE),
-            new Device("netherite furnace", ModBlocks.NETHERITE_FURNACE, ModItems.NETHERITE_FURNACE, Blocks.FURNACE),
-            new Device("reinforced smoker", ModBlocks.REINFORCED_SMOKER, ModItems.REINFORCED_SMOKER, Blocks.SMOKER),
-            new Device("netherite smoker", ModBlocks.NETHERITE_SMOKER, ModItems.NETHERITE_SMOKER, Blocks.SMOKER),
-            new Device("reinforced blast furnace", ModBlocks.REINFORCED_BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE, Blocks.BLAST_FURNACE),
-            new Device("netherite blast furnace", ModBlocks.NETHERITE_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, Blocks.BLAST_FURNACE),
-            new Device("enderite furnace", ModBlocks.ENDERITE_FURNACE, ModItems.ENDERITE_FURNACE, Blocks.FURNACE),
-            new Device("enderite smoker", ModBlocks.ENDERITE_SMOKER, ModItems.ENDERITE_SMOKER, Blocks.SMOKER),
-            new Device("enderite blast furnace", ModBlocks.ENDERITE_BLAST_FURNACE, ModItems.ENDERITE_BLAST_FURNACE, Blocks.BLAST_FURNACE));
+            new Device("reinforced furnace", com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.item("reinforced_furnace"), Blocks.FURNACE),
+            new Device("netherite furnace", com.simplebuilding.util.OvenRefs.block("netherite_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_furnace"), Blocks.FURNACE),
+            new Device("reinforced smoker", com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), com.simplebuilding.util.OvenRefs.item("reinforced_smoker"), Blocks.SMOKER),
+            new Device("netherite smoker", com.simplebuilding.util.OvenRefs.block("netherite_smoker"), com.simplebuilding.util.OvenRefs.item("netherite_smoker"), Blocks.SMOKER),
+            new Device("reinforced blast furnace", com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.item("reinforced_blast_furnace"), Blocks.BLAST_FURNACE),
+            new Device("netherite blast furnace", com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.item("netherite_blast_furnace"), Blocks.BLAST_FURNACE),
+            new Device("enderite furnace", com.simplebuilding.util.OvenRefs.block("enderite_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_furnace"), Blocks.FURNACE),
+            new Device("enderite smoker", com.simplebuilding.util.OvenRefs.block("enderite_smoker"), com.simplebuilding.util.OvenRefs.item("enderite_smoker"), Blocks.SMOKER),
+            new Device("enderite blast furnace", com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"), com.simplebuilding.util.OvenRefs.item("enderite_blast_furnace"), Blocks.BLAST_FURNACE));
 
     /** Nine spots, at least two blocks apart, that all fit inside the 8x8x8 test room. */
     private static final List<BlockPos> NINE_SPOTS = List.of(
@@ -187,11 +187,11 @@ public final class FurnaceTests {
      */
     private static final List<CoolDownCase> COOL_DOWN_CASES = List.of(
             new CoolDownCase("reinforced furnace", "ModFurnaceBlockEntity#tick",
-                    new BlockPos(1, 1, 1), ModBlocks.REINFORCED_FURNACE, Items.RAW_IRON),
+                    new BlockPos(1, 1, 1), com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), Items.RAW_IRON),
             new CoolDownCase("reinforced smoker", "ModSmokerBlockEntity#tick",
-                    new BlockPos(3, 1, 1), ModBlocks.REINFORCED_SMOKER, Items.BEEF),
+                    new BlockPos(3, 1, 1), com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), Items.BEEF),
             new CoolDownCase("reinforced blast furnace", "ModBlastFurnaceBlockEntity#tick",
-                    new BlockPos(5, 1, 1), ModBlocks.REINFORCED_BLAST_FURNACE, Items.RAW_IRON));
+                    new BlockPos(5, 1, 1), com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), Items.RAW_IRON));
 
     /** The three vanilla tool tiers a block can be gated behind, cheapest first. */
     private static final List<TagKey<Block>> NEEDS_TOOL_TAGS = List.of(
@@ -243,9 +243,9 @@ public final class FurnaceTests {
         BlockPos nothingToCook = new BlockPos(3, 1, 1);
         BlockPos working = new BlockPos(5, 1, 1);
 
-        helper.setBlock(noFuel, ModBlocks.REINFORCED_FURNACE);
-        helper.setBlock(nothingToCook, ModBlocks.REINFORCED_FURNACE);
-        helper.setBlock(working, ModBlocks.REINFORCED_FURNACE);
+        helper.setBlock(noFuel, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
+        helper.setBlock(nothingToCook, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
+        helper.setBlock(working, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
 
         // The "nothing to cook" case only says something as long as its input really is unsmeltable.
         boolean diamondSmelts = level.getServer().getRecipeManager()
@@ -405,8 +405,8 @@ public final class FurnaceTests {
         BlockPos netherite = new BlockPos(2, 1, 2);
         BlockPos reinforced = new BlockPos(5, 1, 2);
 
-        helper.setBlock(netherite, ModBlocks.NETHERITE_FURNACE);
-        helper.setBlock(reinforced, ModBlocks.REINFORCED_FURNACE);
+        helper.setBlock(netherite, com.simplebuilding.util.OvenRefs.block("netherite_furnace"));
+        helper.setBlock(reinforced, com.simplebuilding.util.OvenRefs.block("reinforced_furnace"));
 
         loadForSmelting(helper, netherite);
         loadForSmelting(helper, reinforced);
@@ -784,8 +784,8 @@ public final class FurnaceTests {
         // The old netherite furnace 2x2: one nugget top left, three reinforced furnaces. The
         // netherite tier is hammered in the world now, so the grid has to craft nothing.
         assertCraftsNothing(helper, level, CraftingInput.of(2, 2, List.of(
-                        new ItemStack(ModItems.NETHERITE_NUGGET), new ItemStack(ModItems.REINFORCED_FURNACE),
-                        new ItemStack(ModItems.REINFORCED_FURNACE), new ItemStack(ModItems.REINFORCED_FURNACE))),
+                        new ItemStack(ModItems.NETHERITE_NUGGET), new ItemStack(com.simplebuilding.util.OvenRefs.item("reinforced_furnace")),
+                        new ItemStack(com.simplebuilding.util.OvenRefs.item("reinforced_furnace")), new ItemStack(com.simplebuilding.util.OvenRefs.item("reinforced_furnace")))),
                 "the old netherite furnace grid (one nugget, three reinforced furnaces)");
 
         helper.succeed();
@@ -842,7 +842,7 @@ public final class FurnaceTests {
         BlockPos netherite = new BlockPos(5, 1, 1);
 
         helper.setBlock(vanilla, Blocks.FURNACE);
-        helper.setBlock(netherite, ModBlocks.NETHERITE_FURNACE);
+        helper.setBlock(netherite, com.simplebuilding.util.OvenRefs.block("netherite_furnace"));
 
         for (BlockPos pos : List.of(vanilla, netherite)) {
             AbstractFurnaceBlockEntity blockEntity = furnace(helper, pos);
@@ -968,10 +968,12 @@ public final class FurnaceTests {
         helper.assertTrue(title.getContents() instanceof TranslatableContents,
                 "the " + device.label() + "'s container title is not translatable at all: " + title);
         String key = ((TranslatableContents) title.getContents()).getKey();
-        helper.assertTrue(key.startsWith("container.simplebuilding."),
+        // The furnaces' own namespace: simplebuilding on 26.2, simpleovens on 26.3 (split stage 4).
+        String prefix = "container." + com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ".";
+        helper.assertTrue(key.startsWith(prefix),
                 "the " + device.label() + "'s container title uses the foreign key " + key);
 
-        String ownKey = "container.simplebuilding."
+        String ownKey = prefix
                 + BuiltInRegistries.BLOCK.getKey(device.block()).getPath();
         helper.assertTrue(key.equals(ownKey),
                 "the " + device.label() + "'s container title is " + key + " instead of " + ownKey
@@ -1024,7 +1026,8 @@ public final class FurnaceTests {
      */
     private static void assertRecipeCategory(GameTestHelper helper, ServerLevel level, String path,
                                              CraftingBookCategory category) {
-        Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, path);
+        // The furnace recipes are Simple Ovens' on 26.3 (split stage 4), SimpleBuilding's on 26.2.
+        Identifier id = com.simplebuilding.util.OvenRefs.id(path);
         RecipeHolder<?> found = null;
         for (RecipeHolder<?> holder : level.getServer().getRecipeManager().getRecipes()) {
             if (id.equals(holder.id().identifier())) {

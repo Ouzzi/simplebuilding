@@ -121,6 +121,13 @@ MODULES = [
                 "Dawnlands biomes on the outer End islands.",
                 "Aschholz und Dämmerholz, Knospen für End-Bäume oder Stöcke-Gestrüpp, End-Gras und die Biome "
                 "Aschental und Dämmerlande auf den äußeren End-Inseln.")),
+    dict(module="simpleovens", ns="simpleovens", package="com.simpleovens.guide", cls="OvensGuide", kind="item",
+         author="Simple Ovens", recipe="minecraft:charcoal",
+         name=("Simple Ovens Guide", "Simple-Ovens-Handbuch"),
+         intro=("Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces that cook 2, 4 and 8 times as fast, "
+                "and furnace minecarts of the same tiers.",
+                "Verstärkte, Netherit- und Enderit-Öfen, -Räucheröfen und -Schmelzöfen, die 2-, 4- und 8-mal so schnell "
+                "garen, und Antriebsloren derselben Stufen.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),
@@ -162,6 +169,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:bone": ("a bone", "einem Knochen"),
     "minecraft:glow_ink_sac": ("a glow ink sac", "einem Leuchttintenbeutel"),
     "minecraft:prismarine_shard": ("a prismarine shard", "einer Prismarinscherbe"),
+    "minecraft:charcoal": ("charcoal", "Holzkohle"),
 }
 
 
@@ -414,6 +422,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:bone": ("bone", "Knochen"),
     "minecraft:glow_ink_sac": ("glow ink sac", "Leuchttintenbeutel"),
     "minecraft:prismarine_shard": ("prismarine shard", "Prismarinscherbe"),
+    "minecraft:charcoal": ("charcoal", "Holzkohle"),
 }
 
 

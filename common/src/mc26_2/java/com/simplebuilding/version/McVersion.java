@@ -107,6 +107,10 @@ public final class McVersion {
     public static final boolean MATERIALS_IN_LIB = false;
     /** Namespace of the shared materials and their recipes ({@link #MATERIALS_IN_LIB}). */
     public static final String MATERIAL_NAMESPACE = "simplebuilding";
+    /** Furnaces in SimpleBuilding: 26.2 has no modules: the furnaces stay {@code simplebuilding:*} here (26.3: Simple Ovens). */
+    public static final boolean OVENS_IN_SB = true;
+    /** Namespace of the furnaces, their carts and recipes ({@link #OVENS_IN_SB}). */
+    public static final String OVENS_NAMESPACE = "simplebuilding";
     /** Sulfur fire and copper fire (queue N33): 26.3 only (Vanilla sulfur arrives with 26.3). */
     public static final boolean FIRES = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

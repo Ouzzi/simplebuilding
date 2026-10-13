@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "simpleovens:block/netherite_furnace_front_on",
+    "side": "simpleovens:block/netherite_furnace_side",
+    "top": "simpleovens:block/netherite_furnace_top"
+  }
+}

@@ -69,8 +69,21 @@ public final class VehicleTests {
         return List.of(ModEntities.REINFORCED_CHEST_MINECART, ModEntities.NETHERITE_CHEST_MINECART, ModEntities.ENDERITE_CHEST_MINECART);
     }
 
+    /** SimpleBuilding's own furnace carts (26.2); on 26.3 they are Simple Ovens' (split stage 4, its OvensTests). */
+    @SuppressWarnings("unchecked")
     private static List<EntityType<TieredFurnaceMinecart>> furnaceCarts() {
-        return List.of(ModEntities.REINFORCED_FURNACE_MINECART, ModEntities.NETHERITE_FURNACE_MINECART, ModEntities.ENDERITE_FURNACE_MINECART);
+        return List.of((EntityType<TieredFurnaceMinecart>) com.simplebuilding.util.OvenRefs.entityType("reinforced_furnace_minecart"),
+                (EntityType<TieredFurnaceMinecart>) com.simplebuilding.util.OvenRefs.entityType("netherite_furnace_minecart"),
+                (EntityType<TieredFurnaceMinecart>) com.simplebuilding.util.OvenRefs.entityType("enderite_furnace_minecart"));
+    }
+
+    /** False (and the test passes) where the furnace carts are Simple Ovens' classes: their behaviour is tested there. */
+    private static boolean ownFurnaceCarts(GameTestHelper helper) {
+        if (!McVersion.OVENS_IN_SB) {
+            helper.succeed();
+            return false;
+        }
+        return true;
     }
 
     private static List<EntityType<TieredHopperMinecart>> hopperCarts() {
@@ -138,6 +151,7 @@ public final class VehicleTests {
      */
     public static void furnaceCartsBurnLongerAndRunFaster(GameTestHelper helper) {
         if (!active(helper)) return;
+        if (!ownFurnaceCarts(helper)) return;
         ServerLevel level = helper.getLevel();
         for (int i = 0; i < TIERS.length; i++) {
             TieredFurnaceMinecart cart = helper.spawn(furnaceCarts().get(i), new BlockPos(1, 2, 1));
@@ -158,12 +172,13 @@ public final class VehicleTests {
     /** On a straight rail a fuelled Enderite furnace cart moves faster per tick than vanilla's furnace cart can. */
     public static void enderiteFurnaceCartOutrunsVanilla(GameTestHelper helper) {
         if (!active(helper)) return;
+        if (!ownFurnaceCarts(helper)) return;
         for (int x = 0; x <= 7; x++) for (int z = 1; z <= 3; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
         for (int x = 1; x <= 7; x++) {
             helper.setBlock(new BlockPos(x, 1, 1), Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, RailShape.EAST_WEST));
             helper.setBlock(new BlockPos(x, 1, 3), Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, RailShape.EAST_WEST));
         }
-        TieredFurnaceMinecart tiered = helper.spawn(ModEntities.ENDERITE_FURNACE_MINECART, new BlockPos(1, 1, 1));
+        TieredFurnaceMinecart tiered = helper.spawn(furnaceCarts().get(2), new BlockPos(1, 1, 1));
         net.minecraft.world.entity.vehicle.minecart.MinecartFurnace vanilla = helper.spawn(
                 net.minecraft.world.entity.EntityTypes.FURNACE_MINECART, new BlockPos(1, 1, 3));
         tiered.addFuel(tiered.position().subtract(1, 0, 0), new ItemStack(Items.COAL));
@@ -284,13 +299,13 @@ public final class VehicleTests {
         ServerLevel level = helper.getLevel();
         List<Entity> vehicles = new ArrayList<>();
         vehicles.add(helper.spawn(ModEntities.NETHERITE_CHEST_MINECART, new BlockPos(1, 2, 1)));
-        vehicles.add(helper.spawn(ModEntities.ENDERITE_FURNACE_MINECART, new BlockPos(3, 2, 1)));
+        vehicles.add(helper.spawn(com.simplebuilding.util.OvenRefs.entityType("enderite_furnace_minecart"), new BlockPos(3, 2, 1)));
         vehicles.add(helper.spawn(ModEntities.REINFORCED_HOPPER_MINECART, new BlockPos(5, 2, 1)));
         TieredChestBoat boat = helper.spawn(ModEntities.ENDERITE_CHEST_BOAT, new BlockPos(3, 2, 5));
         boat.setWood("cherry");
         boat.setCustomName(net.minecraft.network.chat.Component.literal("Ferry"));
         vehicles.add(boat);
-        Item[] expected = {ModItems.NETHERITE_CHEST_MINECART, ModItems.ENDERITE_FURNACE_MINECART, ModItems.REINFORCED_HOPPER_MINECART,
+        Item[] expected = {ModItems.NETHERITE_CHEST_MINECART, com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"), ModItems.REINFORCED_HOPPER_MINECART,
                 ModItems.ENDERITE_CHEST_BOAT};
         for (int i = 0; i < vehicles.size(); i++) {
             Entity vehicle = vehicles.get(i);

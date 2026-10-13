@@ -1,0 +1,9 @@
+{
+  "values": [
+    "simplelib:cracked_diamond",
+    {
+      "id": "#simplebuilding:furnace_bonus_excluded",
+      "required": false
+    }
+  ]
+}

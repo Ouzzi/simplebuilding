@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simpleovens:reinforced_furnace_minecart",
+  "result": {
+    "id": "simpleovens:netherite_furnace_minecart"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

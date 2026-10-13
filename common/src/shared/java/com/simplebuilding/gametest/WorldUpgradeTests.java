@@ -4,7 +4,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.datafixers.DataFixer;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.custom.BackpackBlockEntity;
-import com.simplebuilding.blocks.entity.custom.ModBlastFurnaceBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.blueprint.BlueprintContent;
 import com.simplebuilding.blueprint.BlueprintJobs;
@@ -225,8 +224,10 @@ public final class WorldUpgradeTests {
             hopper.setItem(i, oracle.get(i).copy());
         }
 
-        ModBlastFurnaceBlockEntity furnace = new ModBlastFurnaceBlockEntity(FURNACE_POS,
-                ModBlocks.ENDERITE_BLAST_FURNACE.defaultBlockState());
+        // The block's own entity (SimpleBuilding's on 26.2, Simple Ovens' on 26.3 - split stage 4).
+        net.minecraft.world.level.block.state.BlockState blastState = com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace").defaultBlockState();
+        net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity furnace = (net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity)
+                ((net.minecraft.world.level.block.EntityBlock) blastState.getBlock()).newBlockEntity(FURNACE_POS, blastState);
         CompoundTag furnaceState = new CompoundTag();
         furnaceState.putInt("simplebuilding:bonus_progress", 5);
         furnaceState.putInt("cooking_time_spent", 40000);
@@ -430,7 +431,7 @@ public final class WorldUpgradeTests {
         // slots are the filter now, checked above.
         helper.assertTrue(!hopperResaved.contains("GhostItems"), "the mod hopper still saves a ghost filter list");
 
-        BlockEntity furnace = load(helper, FURNACE_POS, ModBlocks.ENDERITE_BLAST_FURNACE.defaultBlockState(), blockEntities.get(2));
+        BlockEntity furnace = load(helper, FURNACE_POS, com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace").defaultBlockState(), blockEntities.get(2));
         assertSameStack(helper, ((Container) furnace).getItem(0), oracle.get(MAP), "blast furnace input");
         assertSameStack(helper, ((Container) furnace).getItem(2), oracle.get(POT), "blast furnace output");
         CompoundTag furnaceResaved = furnace.saveCustomOnly(helper.getLevel().registryAccess());

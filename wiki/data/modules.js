@@ -11,7 +11,8 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [
-      "cloth-config"
+      "cloth-config",
+      "simpleovens"
     ],
     "optional": [
       "jei",
@@ -80,7 +81,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "b2e135d81edf"
+    "dataHash": "dc3374d696a5"
   },
   {
     "id": "simpleriding",
@@ -581,5 +582,24 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "dataHash": "43d91b680862"
+  },
+  {
+    "id": "simpleovens",
+    "displayName": "Simple Ovens",
+    "description": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "e52860766689"
   }
 ];
