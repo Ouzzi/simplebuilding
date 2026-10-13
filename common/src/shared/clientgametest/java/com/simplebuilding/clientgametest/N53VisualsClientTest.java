@@ -63,13 +63,13 @@ public final class N53VisualsClientTest {
         script.command("tp @a 3.5 4.5 " + (Z + 8.5) + " 180.0 55.0");
         script.awaitPackets();
         script.awaitChunks();
-        script.idle("settle", 20);
+        script.idle("settle", 60);
         script.shot("n53-ice-top");
         script.command("tp @a 3.5 1.6 " + (Z + 9.5) + " 180.0 12.0");
         script.awaitPackets();
         script.idle("settle", 20);
         script.shot("n53-ice-side");
-        script.command("tp @a 5.5 3.5 " + (Z + 13.7) + " 180.0 65.0");
+        script.command("tp @a 5.5 6.0 " + (Z + 11.5) + " 180.0 90.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("settle", 20);
