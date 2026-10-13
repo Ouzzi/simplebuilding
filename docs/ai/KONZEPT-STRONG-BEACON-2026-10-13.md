@@ -214,3 +214,6 @@ fünf Pflicht-Sub-Mods (Octets, Hammers, Storage, Ovens, Crucibles), und es soll
 10. **Modulplatz:** neues Modul `simplebeacons` (Empfehlung, optional im SB-Bündel mit Schalter) oder in `simpletweaks`/Kern?
 11. **Anzahl Hammer-Schläge** und ob die Vorlage beim Schmieden verbraucht wird (Vanilla: ja). Empfehlung: 8 Schläge, verbraucht.
 12. **Reichweiten-Formel** linear (E5 60, E6 70) wie vorgeschlagen oder stärker (z. B. 80/100)? Empfehlung: linear, um den Server nicht zu überfahren; Wert je Ebene konfigurierbar.
+
+## Besitzer-Entscheidung 13.10.
+Alle Empfehlungen der offenen Fragen übernommen (Besitzer 13.10.). Umsetzung freigegeben.

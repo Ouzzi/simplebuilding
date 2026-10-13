@@ -210,3 +210,6 @@ Das passt in die geplante Entkopplung von Simple Tweaks (Modulplan §2.2, Tweaks
 10. **Namens- und Anzeigenformat:** „Pig Head“ / „Schweinekopf“ (Vanilla-Stil) auch für Varianten („Siamese Cat Head“)? Empfehlung: ja, Variante als Namenszusatz im Item, Grundname im Creative-Tab.
 11. **Tab:** eigener Kreativ-Tab „Mob Heads“ (Empfehlung) oder hinter den Drachenkopf im „Functional Blocks“-Tab wie heute (Fun)? Empfehlung: eigener Tab plus Verankerung hinter dem Drachenkopf (Suche).
 12. **Trial-Chamber-Köpfe:** das Tag (für Chunk-Loader I/Launchpad I) bleibt auf den heutigen Mobs? Empfehlung: ja, nur die dort genannten Mobs; neue Köpfe erweitern das Tag nicht.
+
+## Besitzer-Entscheidung 13.10.
+Alle Empfehlungen der offenen Fragen übernommen (Besitzer 13.10.). Umsetzung freigegeben.
