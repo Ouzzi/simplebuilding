@@ -115,8 +115,8 @@ public final class EndClientSmoke implements FabricClientGameTest {
                 BlockPos[] spot = new BlockPos[1];
                 world.getServer().runOnServer(server -> {
                     ServerLevel end = server.getLevel(Level.END);
-                    var found = end.findClosestBiome3d(h -> h.is(key), new BlockPos(1600, 64, 0), 6400, 32, 64);
-                    if (found == null) throw new AssertionError("no " + key.identifier() + " within 6400 blocks");
+                    var found = end.findClosestBiome3d(h -> h.is(key), new BlockPos(1600, 64, 0), 12000, 64, 64);
+                    if (found == null) throw new AssertionError("no " + key.identifier() + " within 12000 blocks");
                     spot[0] = found.getFirst();
                     cmd(server, "execute in minecraft:the_end run tp @a " + spot[0].getX() + " 140 " + spot[0].getZ() + " -45 60");
                 });

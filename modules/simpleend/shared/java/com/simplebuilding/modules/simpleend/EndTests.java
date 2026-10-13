@@ -169,7 +169,8 @@ public final class EndTests {
             h.succeed();
         });
         // Umbau 13.10.: buds outside the End grow gigantic wood trees. Tree tests grow in the sky, each in its own height
-        // band (15, 50, 85, 120, 155, 200), so trees of neighbouring tests never meet.
+        // band (50, 85, 120, 155, 200, 265) above the barrier roof of the test structure, so trees of neighbouring
+        // tests never meet.
         add("bud_light_grows_tree", h -> {
             EndWood w = EndWood.ASHWOOD;
             BlockPos at = BUD.above(85);
@@ -248,7 +249,7 @@ public final class EndTests {
         });
         add("bud_in_end_grows_stick_tree", h -> {
             EndWood w = EndWood.DUSKWOOD;
-            BlockPos at = BUD.above(15);
+            BlockPos at = BUD.above(265);
             ground(h, at, 3);
             h.setBlock(at, w.bud);
             BlockPos abs = h.absolutePos(at);
@@ -436,6 +437,20 @@ public final class EndTests {
             h.assertTrue(biomes.getOrThrow(EndBiomes.ASH_VALLEY).is(EndBiomes.WATCHER_CORE) && biomes.getOrThrow(EndBiomes.DAWNLANDS).is(EndBiomes.WATCHER_CORE),
                     "cores in simpleend:watcher_core");
             h.assertTrue(!biomes.getOrThrow(EndBiomes.ASH_VALLEY_FRINGE).is(EndBiomes.WATCHER_CORE), "fringe not in watcher_core");
+            // the real End of the test server: cores and fringes appear on the outer islands
+            ServerLevel end = h.getLevel().getServer().getLevel(net.minecraft.world.level.Level.END);
+            if (end != null && SimpleEndConfig.biomes && SimpleEnd.on()) {
+                var source = end.getChunkSource().getGenerator().getBiomeSource();
+                var resolver = source.createUncachedResolver(end.getChunkSource().randomState());
+                java.util.Set<net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>> seen = new java.util.HashSet<>();
+                for (int x = -12000; x <= 12000; x += 128)
+                    for (int z = -12000; z <= 12000; z += 128)
+                        resolver.getNoiseBiome(net.minecraft.core.QuartPos.fromBlock(x), net.minecraft.core.QuartPos.fromBlock(64), net.minecraft.core.QuartPos.fromBlock(z))
+                                .unwrapKey().ifPresent(seen::add);
+                for (var key : java.util.List.of(EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS, EndBiomes.ASH_VALLEY_FRINGE, EndBiomes.DAWNLANDS_FRINGE))
+                    h.assertTrue(seen.contains(key), key.identifier() + " in the real End (seen " + seen + ")");
+                h.assertTrue(source.possibleBiomes().stream().anyMatch(b -> b.is(EndBiomes.DAWNLANDS_FRINGE)), "fringe in the End's possible biomes");
+            }
             h.succeed();
         });
         add("submod_switch", h -> {
