@@ -65,7 +65,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 - **Schmelztiegel-Teil** (auf simplelib): Enderit-Tiegel/-Fass, Seelen-Lava (Fluid, Weltgenerierung, Seelenbrand),
   Kupfer-, Keramik- und Enderit-Eimer (Enderit fasst 2 Eimer).
 - **End-Inhalte:** Astralit/Nihilit/Enderquarz-Paletten und Erze, Astral-/Nihil-Redstone als getrennte
-  Signalkanäle, Schalter/Lampen, Astral-/Nihil-Schienen, Enderit-Material (leeresicher), seltene verstärkte Shulker.
+  Redstone-Linien (Geräte nehmen jede Linie an), Brücken-Redstone, Redstone-Blöcke der Linien, Lampen, End-Kolben,
+  Astral-/Nihil-Schienen, Enderit-Material (leeresicher), seltene verstärkte Shulker.
 - **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Herz-Knopf mit
   8 Stufen im Inventar), Extra-Kopf-Slot im Inventar (Mob-Kopf/Kürbis, Effekte, am Spieler unter dem Helm), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
 - **Deko/Platzieren:** abgelegte Vorlagen, Kleinteile-Häufchen, Schachbrett-Blöcke und Schachfiguren (Achtel),
