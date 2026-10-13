@@ -66,8 +66,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   Kupfer-, Keramik- und Enderit-Eimer (Enderit fasst 2 Eimer).
 - **End-Inhalte:** Astralit/Nihilit/Enderquarz-Paletten und Erze, Astral-/Nihil-Redstone als getrennte
   Signalkanäle, Schalter/Lampen, Astral-/Nihil-Schienen, Enderit-Material (leeresicher), seltene verstärkte Shulker.
-- **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Statusfeld im
-  Inventar), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
+- **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Herz-Knopf mit
+  8 Stufen im Inventar), Extra-Kopf-Slot im Inventar (Mob-Kopf/Kürbis, Effekte, am Spieler unter dem Helm), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
 - **Deko/Platzieren:** abgelegte Vorlagen, Kleinteile-Häufchen, Schachbrett-Blöcke und Schachfiguren (Achtel),
   senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-Verstärker (spielen einen
   Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla) / Noten-Verstärker, Metall-Stangen (Eisen bis
@@ -86,7 +86,8 @@ Tiegel, warmes Essen, verstärkter Kessel (erbt Vanilla-Kessel inkl. Milch), Dor
 ### Simple Interfaces (früher Simple Containers, Sub-Mod von QoL, clientseitige Optik)
 Simple-Stil für Truhen, Fässer, Shulker, Trichter, Werfer/Spender, Crafter, Reittier-Inventare, Arbeitsblöcke
 (Werkbank, Öfen, Braustand, Leuchtfeuer, Zaubertisch), Amboss/Schleifstein/Steinsäge/Webstuhl/Kartentisch/
-Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergleichsschalter Simple/Vanilla.
+Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergleichsschalter Simple/Vanilla;
+Inventar-Helligkeit Hell/Dämmerung/Dunkel (Einstellung, wirkt über SimpleLib auf alle Mod-Kästen).
 
 ### Simple Weather (Sub-Mod von QoL)
 Wetter abschalten (Server), Regendichte (Client); eigene Config `config/simpleweather.json`, alte QoL-Werte werden
