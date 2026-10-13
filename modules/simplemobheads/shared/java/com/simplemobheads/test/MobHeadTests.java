@@ -35,7 +35,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -481,7 +480,7 @@ public final class MobHeadTests {
         ServerPlayer player = player(helper);
         List<String> problems = new ArrayList<>();
         check(problems, player, "blaze", () -> HeadAbilities.ignoresDamage(player, level.damageSources().hotFloor()));
-        check(problems, player, "enderman", () -> HeadAbilities.ignoresDamage(player, level.damageSources().source(DamageTypes.ENDER_PEARL)));
+        check(problems, player, "enderman", () -> HeadAbilities.ignoresDamage(player, level.damageSources().enderPearl()));
         check(problems, player, "husk", () -> HeadAbilities.blocksFoodEffect(player, new ItemStack(Items.ROTTEN_FLESH),
                 new MobEffectInstance(MobEffects.HUNGER, 600)));
         check(problems, player, "bogged", () -> HeadAbilities.blocksFoodEffect(player, new ItemStack(Items.POISONOUS_POTATO),

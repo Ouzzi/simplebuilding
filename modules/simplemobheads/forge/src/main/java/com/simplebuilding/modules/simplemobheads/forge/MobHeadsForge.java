@@ -54,7 +54,9 @@ public final class MobHeadsForge {
                 previous = stack;
             }
         });
-        net.minecraftforge.event.entity.living.LivingDeathEvent.BUS.addListener(event -> HeadDrops.onDeath(event.getEntity(), event.getSource()));
+        net.minecraftforge.event.entity.living.LivingDeathEvent.BUS.addListener(event -> {
+            HeadDrops.onDeath(event.getEntity(), event.getSource());
+        });
         net.minecraftforge.event.RegisterCommandsEvent.BUS.addListener(event -> MobHeadsCommands.register(event.getDispatcher()));
         // EventBus 7 cancellable listeners return true to prevent trampling (breeze head).
         net.minecraftforge.event.level.BlockEvent.FarmlandTrampleEvent.BUS.addListener(event -> !HeadAbilities.tramplesFarmland(event.getEntity()));
