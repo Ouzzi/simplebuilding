@@ -40,7 +40,7 @@ ordering="AFTER"
 side="BOTH"
 
 [[dependencies.simplequalityoflife]]
-modId="simplecreatures"
+modId="simplemobmanners"
 mandatory=true
 versionRange="[0,)"
 ordering="AFTER"

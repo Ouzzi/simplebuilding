@@ -430,10 +430,14 @@ public final class ModpackTests {
                 ChiselItem.FINAL_NETHERITE_TOUCH_FWD, ChiselItem.FINAL_NETHERITE_TOUCH_BWD);
         compareTier(problems, "enderite", ChiselItem.FINAL_ENDERITE_FWD, ChiselItem.FINAL_ENDERITE_BWD,
                 ChiselItem.FINAL_ENDERITE_TOUCH_FWD, ChiselItem.FINAL_ENDERITE_TOUCH_BWD);
-        if (!ChiselTables.builtInTiers().equals(Map.of(
-                "stone", ChiselTables.tier("stone"), "iron", ChiselTables.tier("iron"), "diamond", ChiselTables.tier("diamond"),
-                "netherite", ChiselTables.tier("netherite"), "enderite", ChiselTables.tier("enderite")))) {
-            problems.add("the recorded built-in chains compose to other maps than the loaded files");
+        for (String tier : List.of("stone", "iron", "diamond", "netherite", "enderite")) {
+            ChiselTables.Tier built = ChiselTables.builtInTiers().get(tier);
+            ChiselTables.Tier file = ChiselTables.tier(tier);
+            if (!built.forward().equals(withoutEnd(file.forward())) || !built.backward().equals(withoutEnd(file.backward()))
+                    || !built.touchForward().equals(withoutEnd(file.touchForward()))
+                    || !built.touchBackward().equals(withoutEnd(file.touchBackward()))) {
+                problems.add("the recorded built-in chains compose to other maps than the loaded files (" + tier + ")");
+            }
         }
         if (!SledgehammerUpgradeData.table().equals(SledgehammerUpgrades.builtInTable())) {
             problems.add("the loaded sledgehammer upgrades differ from the built-in table: "
@@ -627,10 +631,25 @@ public final class ModpackTests {
     private static void compareTier(List<String> problems, String tier, Map<Block, Block> fwd, Map<Block, Block> bwd,
                                     Map<Block, Block> touchFwd, Map<Block, Block> touchBwd) {
         ChiselTables.Tier loaded = ChiselTables.tier(tier);
-        if (!loaded.forward().equals(fwd)) problems.add(tier + " forward: " + diff(loaded.forward(), fwd));
-        if (!loaded.backward().equals(bwd)) problems.add(tier + " backward: " + diff(loaded.backward(), bwd));
-        if (!loaded.touchForward().equals(touchFwd)) problems.add(tier + " touch forward: " + diff(loaded.touchForward(), touchFwd));
-        if (!loaded.touchBackward().equals(touchBwd)) problems.add(tier + " touch backward: " + diff(loaded.touchBackward(), touchBwd));
+        if (!withoutEnd(loaded.forward()).equals(fwd)) problems.add(tier + " forward: " + diff(withoutEnd(loaded.forward()), fwd));
+        if (!withoutEnd(loaded.backward()).equals(bwd)) problems.add(tier + " backward: " + diff(withoutEnd(loaded.backward()), bwd));
+        if (!withoutEnd(loaded.touchForward()).equals(touchFwd)) problems.add(tier + " touch forward: " + diff(withoutEnd(loaded.touchForward()), touchFwd));
+        if (!withoutEnd(loaded.touchBackward()).equals(touchBwd)) problems.add(tier + " touch backward: " + diff(withoutEnd(loaded.touchBackward()), touchBwd));
+    }
+
+    /**
+     * The map without the entries Simple End adds through its own datapack files
+     * ({@code end_woods_*.json}, only present when simpleend is loaded, as in the Forge test run).
+     */
+    private static Map<Block, Block> withoutEnd(Map<Block, Block> map) {
+        Map<Block, Block> out = new HashMap<>();
+        for (Map.Entry<Block, Block> e : map.entrySet()) {
+            if (!"simpleend".equals(BuiltInRegistries.BLOCK.getKey(e.getKey()).getNamespace())
+                    && !"simpleend".equals(BuiltInRegistries.BLOCK.getKey(e.getValue()).getNamespace())) {
+                out.put(e.getKey(), e.getValue());
+            }
+        }
+        return out;
     }
 
     private static String diff(Map<Block, Block> loaded, Map<Block, Block> builtIn) {

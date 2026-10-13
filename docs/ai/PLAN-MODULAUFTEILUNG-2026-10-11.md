@@ -104,7 +104,7 @@ SimpleBuilding (simplebuilding, Super-Mod, 2.0.0)
  │    simplefun, simpledimension(s), simpletrims, simplemobs
  └─ gebündelte Libs: simplelib, framework
 Simple QoL (simplequalityoflife, Super-Mod): simpleweather, simpleinterfaces (+ später simpleloot,
-    simplecreatures, simplefarming, simpletools, simplemovement laut PLAN-QOL-AUFTEILUNG)
+    simplemobmanners, simplefarming, simpletools, simplemovement laut PLAN-QOL-AUFTEILUNG)
 Simple Aesthetics (simpleaesthetics, NEU, Super-Mod): simplevisuals, simplesounds, simplemodels
 ```
 
