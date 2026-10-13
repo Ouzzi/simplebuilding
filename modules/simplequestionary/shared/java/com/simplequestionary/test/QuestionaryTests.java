@@ -91,19 +91,20 @@ public final class QuestionaryTests {
         h.succeed();
     }
 
-    /** Shaped: lapis, book, lapis / three planks / plank, gap, plank = 2 lapis + 1 book + 5 planks. */
+    /** Shaped (N50): lapis, book, lapis / three planks / plank, obsidian, plank = 2 lapis + 1 book + 5 planks + 1 obsidian. */
     private static void recipe(GameTestHelper h) {
         var holder = h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, QuestionaryRegistry.TABLE_ID));
         h.assertTrue(holder.isPresent(), "recipe missing");
         List<Ingredient> ingredients = holder.get().value().placementInfo().ingredients();
-        int lapis = 0, book = 0, planks = 0;
+        int lapis = 0, book = 0, planks = 0, obsidian = 0;
         for (Ingredient ingredient : ingredients) {
             if (ingredient.test(new ItemStack(Items.LAPIS_LAZULI))) lapis++;
             else if (ingredient.test(new ItemStack(Items.BOOK))) book++;
             else if (ingredient.test(new ItemStack(Items.OAK_PLANKS)) && ingredient.test(new ItemStack(Items.CHERRY_PLANKS))) planks++;
+            else if (ingredient.test(new ItemStack(Items.OBSIDIAN))) obsidian++;
         }
-        h.assertTrue(ingredients.size() == 8 && lapis == 2 && book == 1 && planks == 5,
-                "2 lapis + 1 book + 5 planks, got " + ingredients.size() + ": " + lapis + "/" + book + "/" + planks);
+        h.assertTrue(ingredients.size() == 9 && lapis == 2 && book == 1 && planks == 5 && obsidian == 1,
+                "2 lapis + 1 book + 5 planks + 1 obsidian, got " + ingredients.size() + ": " + lapis + "/" + book + "/" + planks + "/" + obsidian);
         ItemStack made = QuestionaryFacts.compute(h.getLevel(), new ItemStack(QuestionaryRegistry.TABLE_ITEM)).makes() > 0 ? new ItemStack(QuestionaryRegistry.TABLE_ITEM) : ItemStack.EMPTY;
         h.assertTrue(!made.isEmpty(), "the recipe makes the table");
         h.succeed();

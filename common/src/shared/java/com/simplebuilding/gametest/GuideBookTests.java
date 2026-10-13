@@ -1055,13 +1055,16 @@ public final class GuideBookTests {
             throw new IllegalStateException("cannot read " + path, e);
         }
         // 26.3 (N18): the trims guide names the bundled Simple Trims' templates; their names live in its own lang file.
-        try (InputStream in = GuideBookTests.class.getClassLoader().getResourceAsStream("assets/simpletrims/lang/" + locale + ".json")) {
-            if (in != null) {
-                JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject().entrySet()
-                        .forEach(entry -> { if (!lang.has(entry.getKey())) lang.add(entry.getKey(), entry.getValue()); });
+        // Split 3d: the shared materials and upgrade templates moved to SimpleLib and carry its lang file.
+        for (String mod : List.of("simpletrims", "simplelib")) {
+            try (InputStream in = GuideBookTests.class.getClassLoader().getResourceAsStream("assets/" + mod + "/lang/" + locale + ".json")) {
+                if (in != null) {
+                    JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject().entrySet()
+                            .forEach(entry -> { if (!lang.has(entry.getKey())) lang.add(entry.getKey(), entry.getValue()); });
+                }
+            } catch (java.io.IOException e) {
+                throw new IllegalStateException("cannot read the " + mod + " lang file", e);
             }
-        } catch (java.io.IOException e) {
-            throw new IllegalStateException("cannot read the Simple Trims lang file", e);
         }
         return lang;
     }
