@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import net.minecraft.core.Holder;
 import net.minecraft.core.QuartPos;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.TheEndBiomeSource;
 import org.spongepowered.asm.mixin.Final;
@@ -60,7 +61,9 @@ public abstract class TheEndBiomeSourceMixin {
     @Inject(method = "getNoiseBiome", at = @At("RETURN"), cancellable = true)
     private void simpleend$patches(int quartX, int quartY, int quartZ, Climate.Sampler sampler, CallbackInfoReturnable<Holder<Biome>> cir) {
         Holder<Biome> result = cir.getReturnValue();
-        if (result != highlands && result != midlands && result != barrens) return;
+        // by key, not identity: Fabric API's End-biome hook may hand back holders of another registry instance
+        if (result != highlands && result != midlands && result != barrens && !result.is(Biomes.END_HIGHLANDS)
+                && !result.is(Biomes.END_MIDLANDS) && !result.is(Biomes.END_BARRENS)) return;
         simpleend$resolve();
         if (simpleend$ash == null || simpleend$dawn == null || simpleend$ashFringe == null || simpleend$dawnFringe == null
                 || !SimpleEndConfig.biomes || !SimpleEnd.on()) return;
