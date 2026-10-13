@@ -53,17 +53,17 @@ public final class N52VisualsClientTest {
             }
         });
         script.awaitPackets();
-        script.command("tp @a 3.5 4.5 " + (Z_ICE + 8.0) + " 180.0 60.0");
+        script.command("tp @a 3.5 5.0 " + (Z_ICE + 6.5) + " 180.0 50.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("settle", 20);
         script.shot("n52-ice");
-        script.command("tp @a 5.5 3.5 " + (Z_BRIDGE + 4.5) + " 180.0 70.0");
+        script.command("tp @a 5.5 3.5 " + (Z_BRIDGE + 1.7) + " 180.0 70.0");
         script.awaitPackets();
         script.awaitChunks();
         script.idle("settle", 20);
         script.shot("n52-bridge-wire");
-        script.command("tp @a 3.5 1.0 " + (Z_ICE + 6.5) + " 180.0 25.0");
+        script.command("tp @a 3.5 1.0 " + (Z_ICE + 6.5) + " 180.0 20.0");
         script.awaitPackets();
         script.idle("settle", 20);
         script.shot("n52-ice-side");
