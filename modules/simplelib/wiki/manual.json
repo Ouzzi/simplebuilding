@@ -92,6 +92,35 @@
           "Er funktioniert wie ein Vanilla-Kessel und nutzt dieselben Interaktionen: Eimer, Flaschen in drei Stufen, Waschen gefärbter Gegenstände und Banner, Regen, Schnee und Tropfstein sowie alles, was andere Mods dem Kessel hinzufügen (Milch aus Simple Sandwiches macht ihn zum verstärkten Milchkessel, der beim Leeren wieder dieser Kessel wird). Kupfer- und Enderit-Eimer (SimpleBuilding) nehmen nur aus einem vollen Kessel. Als Hitzequelle eines Schmelztiegels zählt er wie sein Inhalt: Lava hoch, Seelen-Lava extrem. Ein normaler Kessel nimmt keine Seelen-Lava."
         ]
       }
+    },
+    {
+      "id": "first_pickup_tips",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/discover/LibDiscover.java",
+        "modules/simplelib/shared/java/com/simplelib/mixin/DiscoverTipMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/FirstUseTips.java",
+        "tools/discover/discover.py"
+      ],
+      "en": {
+        "title": "First pickup tips",
+        "summary": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
+        "details": [
+          "Tips exist for crucibles and crucible barrels.",
+          "A tip counts as seen through an entity tag on the player (simplelib.tip.<group>); removing the tag with /tag shows it again.",
+          "Switch: config/simple-tips.properties, key simplelib.firstPickupTips=false turns the tips of this mod off. The file is read at every tip, so no restart is needed; every Simple mod with tips has its own key there.",
+          "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe."
+        ]
+      },
+      "de": {
+        "title": "Tipps beim ersten Aufheben",
+        "summary": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
+        "details": [
+          "Tipps gibt es für Tiegel und Tiegel-Fässer.",
+          "Ein Tipp gilt über ein Entity-Tag am Spieler (simplelib.tip.<gruppe>) als gesehen; entfernt man das Tag mit /tag, erscheint er wieder.",
+          "Schalter: config/simple-tips.properties, Schlüssel simplelib.firstPickupTips=false schaltet die Tipps dieser Mod ab. Die Datei wird bei jedem Tipp gelesen, ein Neustart ist nicht nötig; jede Simple-Mod mit Tipps hat dort ihren eigenen Schlüssel.",
+          "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei."
+        ]
+      }
     }
   ],
   "notes": {

@@ -1,0 +1,51 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fletching_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:fletching_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_arrows": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:arrows"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_fletching_table",
+      "has_arrows"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:fletching/fletching/feather",
+      "simplebuilding:fletching/fletching/phantom_membrane",
+      "simplebuilding:fletching/shaft/blaze_rod",
+      "simplebuilding:fletching/shaft/breeze_rod",
+      "simplebuilding:fletching/shaft/diamond_rod",
+      "simplebuilding:fletching/shaft/end_rod",
+      "simplebuilding:fletching/shaft/stick",
+      "simplebuilding:fletching/tip/amethyst",
+      "simplebuilding:fletching/tip/copper",
+      "simplebuilding:fletching/tip/diamond",
+      "simplebuilding:fletching/tip/enderite",
+      "simplebuilding:fletching/tip/flint",
+      "simplebuilding:fletching/tip/gold",
+      "simplebuilding:fletching/tip/iron",
+      "simplebuilding:fletching/tip/netherite",
+      "simplebuilding:fletching/tip/prismarine"
+    ]
+  }
+}

@@ -270,4 +270,10 @@ public final class QuestionaryTests {
         }
         h.succeed();
     }
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplequestionary.discover.QuestionaryDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplequestionary.discover.QuestionaryDiscover::behaviourHints);
+    }
 }

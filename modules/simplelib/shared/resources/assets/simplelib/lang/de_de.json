@@ -30,5 +30,7 @@
   "gui.simplelib.crucible.heat.high": "hoch",
   "gui.simplelib.crucible.heat.extreme": "extrem",
   "gui.simplelib.crucible.afterglow": "Nachglühen: %s s",
-  "gui.simplelib.crucible.two_below": "Hitzequelle zwei Blöcke tiefer: 10 % langsamer"
+  "gui.simplelib.crucible.two_below": "Hitzequelle zwei Blöcke tiefer: 10 % langsamer",
+  "tip.simplelib.crucible": "Hitze vom Block darunter; kocht alle Plätze zugleich",
+  "tip.simplelib.barrel": "Neben einem Tiegel docken ihn Axtschläge an"
 }

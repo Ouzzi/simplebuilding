@@ -371,6 +371,35 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Mehrspielersicher: Jede Zelle wird wie ein Blockeingriff geprüft - Claims (Simple Tweaks oder jede Mod mit der gemeinsamen Schutzprüfung), Spawnschutz und Abenteuermodus. Verweigerte Zellen behalten ihr Biom; ist die geklickte Zelle verweigert, wird nichts gemalt und nichts verbraucht (ein Rauchwölkchen). Server-Config: biomeBrushEnabled, biomeBrushOpsOnly."
         ]
       }
+    },
+    {
+      "id": "first_pickup_tips",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/discover/MobsDiscover.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/DiscoverTipMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/FirstUseTips.java",
+        "tools/discover/discover.py"
+      ],
+      "en": {
+        "title": "First pickup tips",
+        "summary": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
+        "details": [
+          "Tips exist for the Trick Mirror, the Deceiver Cloak and the Shellker Shell.",
+          "A tip counts as seen through an entity tag on the player (simplemobs.tip.<group>); removing the tag with /tag shows it again.",
+          "Switch: config/simple-tips.properties, key simplemobs.firstPickupTips=false turns the tips of this mod off. The file is read at every tip, so no restart is needed; every Simple mod with tips has its own key there.",
+          "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe."
+        ]
+      },
+      "de": {
+        "title": "Tipps beim ersten Aufheben",
+        "summary": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
+        "details": [
+          "Tipps gibt es für den Trickspiegel, den Täuschermantel und die Shellker-Schale.",
+          "Ein Tipp gilt über ein Entity-Tag am Spieler (simplemobs.tip.<gruppe>) als gesehen; entfernt man das Tag mit /tag, erscheint er wieder.",
+          "Schalter: config/simple-tips.properties, Schlüssel simplemobs.firstPickupTips=false schaltet die Tipps dieser Mod ab. Die Datei wird bei jedem Tipp gelesen, ein Neustart ist nicht nötig; jede Simple-Mod mit Tipps hat dort ihren eigenen Schlüssel.",
+          "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -2284,10 +2313,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 15 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+          "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 15 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+          "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
         }
       },
       "craftedBy": [
@@ -2861,7 +2890,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 11,
+    "features": 12,
     "recipes": 55,
     "lootTables": 8,
     "tags": 6,

@@ -182,7 +182,9 @@ public final class BlueprintScanner {
                 if (state.isAir() || state.is(Blocks.MOVING_PISTON)) {
                     continue;
                 }
-                model.set(x, y, z, state);
+                // N48: a mixed octet cell keeps its materials in a block entity, which blueprints do not store - it is
+                // scanned as the pure cell of its most common material.
+                model.set(x, y, z, com.simplebuilding.blocks.custom.OctetCells.portable(level, pos, state));
                 if (model.size() > BlueprintCode.MAX_EXPANDED_CELLS) {
                     outcome = Outcome.fail("too_many_blocks", BlueprintCode.MAX_EXPANDED_CELLS);
                     return true;

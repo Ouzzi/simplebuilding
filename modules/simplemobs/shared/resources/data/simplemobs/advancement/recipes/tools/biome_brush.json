@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_wither_heart": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobs:wither_heart"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplemobs:biome_brush"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wither_heart"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemobs:biome_brush"
+    ]
+  }
+}

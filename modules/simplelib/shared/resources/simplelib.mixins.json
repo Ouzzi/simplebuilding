@@ -18,7 +18,8 @@
     "WarmClockMixin",
     "WarmSteamMixin",
     "WarmStackingMixin",
-    "WarmUseDurationMixin"
+    "WarmUseDurationMixin",
+    "DiscoverTipMixin"
   ],
   "client": [
     "client.WarmGlowEntityMixin",

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ashwood_logs": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#simpleend:ashwood_logs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleend:ashwood_planks"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ashwood_logs"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleend:ashwood_planks"
+    ]
+  }
+}

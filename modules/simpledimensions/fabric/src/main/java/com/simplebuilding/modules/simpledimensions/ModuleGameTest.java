@@ -45,4 +45,6 @@ public final class ModuleGameTest {
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void compressedTravel(GameTestHelper h){DimensionTests.compressedTravel(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void exactOriginLinks(GameTestHelper h){DimensionTests.exactOriginLinks(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void destinationClaim(GameTestHelper h){DimensionTests.destinationClaim(h);}
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simpledimensions.discover.DimensionsDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simpledimensions.discover.DimensionsDiscover.behaviourHints(h); }
 }

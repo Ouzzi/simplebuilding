@@ -399,4 +399,10 @@ public final class MapsTests {
         }
         h.succeed();
     }
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplemaps.discover.MapsDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplemaps.discover.MapsDiscover::behaviourHints);
+    }
 }

@@ -101,7 +101,8 @@
     "EndCityPieceMixin",
     "StructureTemplateBetterChestMixin",
     "MobShulkerShellDropMixin",
-    "ShulkerEscortMixin"
+    "ShulkerEscortMixin",
+    "DiscoverTipMixin"
   ],
   "injectors": {
     "defaultRequire": 1

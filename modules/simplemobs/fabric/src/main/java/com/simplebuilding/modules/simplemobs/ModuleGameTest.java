@@ -63,6 +63,9 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void fearWatcherSpawnRules(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_spawn_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearDrops(GameTestHelper helper) { MobsTests.ALL.get("fear_drops").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearImmunity(GameTestHelper helper) { MobsTests.ALL.get("fear_immunity").accept(helper); }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simplemobs.discover.MobsDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simplemobs.discover.MobsDiscover.behaviourHints(h); }
+    @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplebuilding.modules.simplemobs.discover.MobsDiscover.firstPickupTips(h); }
     @GameTest(structure = "simplemobs:empty") public void witherValues(GameTestHelper helper) { MobsTests.ALL.get("wither_values").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherSummon(GameTestHelper helper) { MobsTests.ALL.get("wither_summon").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherDrop(GameTestHelper helper) { MobsTests.ALL.get("wither_drop").accept(helper); }

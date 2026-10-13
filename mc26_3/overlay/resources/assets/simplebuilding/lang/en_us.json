@@ -3200,6 +3200,7 @@
   "block.simplebuilding.polished_ender_quartz_checker_slab": "Polished Ender Quartz Checker Slab",
   "item.simplebuilding.polished_ender_quartz_checker_slab": "Polished Ender Quartz Checker Slab",
   "block.simplebuilding.checker_octet": "Octet Cell",
+  "block.simplebuilding.mixed_octet": "Mixed Octet Cell",
   "block.simplebuilding.chess_pieces": "Chess Pieces",
   "jei.simplebuilding.info.chess": "Octets and chess pieces come from the stonecutter: a quartz checker (quartz: a quartz block) gives 8 octets of its color, one octet any piece. An octet goes next to the clicked one or onto the clicked half of a face; a cell holds up to 8 of one color and holds water until it is full. A piece stands on a quarter of a block top - one field of the checker below - so a block holds four, facing where you look. Sneak + right-click with a piece swaps it with the standing one, which goes to your hand. Sneak + empty hand picks a piece or an octet up, an empty hand turns a piece. Breaking drops everything in the cell.",
   "simplebuilding.testcentre.section.chess": "Chess",
@@ -3896,5 +3897,19 @@
   "book.simplebuilding.storage.11.title": "Crates",
   "book.simplebuilding.storage.11.text": "Planks in a U make an open crate for food.\nHolds 8 stacks, shown in 3D. Hoppers fill it. Place it upright or on its side.",
   "book.simplebuilding.gadgets.15.title": "Sculk Jaw",
-  "book.simplebuilding.gadgets.15.text": "Bone, echo shard and 3 sculk. Only on full blocks; looks like sculk.\nWhoever steps in is slowed like in a web and plunged into darkness. It bites once."
+  "book.simplebuilding.gadgets.15.text": "Bone, echo shard and 3 sculk. Only on full blocks; looks like sculk.\nWhoever steps in is slowed like in a web and plunged into darkness. It bites once.",
+  "tip.simplebuilding.sledgehammer": "Mines 3x3. Sneak + hold use: carve off an eighth",
+  "tip.simplebuilding.chisel": "Use on a block: next variant; sneak: back",
+  "tip.simplebuilding.building_wand": "Use on a block face: fills an area from your inventory",
+  "tip.simplebuilding.blueprint": "Build it with a building wand in the other hand",
+  "tip.simplebuilding.magnet": "Hold it to pull in items; sneak to pause",
+  "tip.simplebuilding.rotator": "Use on a block to turn it in place",
+  "tip.simplebuilding.backpack": "Use to wear it, then press the backpack key (B)",
+  "tip.simplebuilding.autonomous_crafter": "Crafts by itself onto a hopper below; redstone stops it",
+  "tip.simplebuilding.auto_smither": "Smiths once per redstone pulse",
+  "tip.simplebuilding.detector": "Hold it: the needle points to the nearest ore",
+  "tip.simplebuilding.echo_sounder": "Link to a lodestone, then hold use for 3 s",
+  "tip.simplebuilding.silent_dandelion": "Use on a mob to switch its sounds off or on",
+  "tip.simplebuilding.hopper_filter": "Set up an item filter in its menu",
+  "tip.simplebuilding.fletching": "Use it to make arrows: tip, shaft, fletching"
 }

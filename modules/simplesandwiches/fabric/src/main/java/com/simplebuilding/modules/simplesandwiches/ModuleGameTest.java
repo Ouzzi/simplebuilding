@@ -135,4 +135,7 @@ public final class ModuleGameTest {
     public void reinforcedMilkCauldron(GameTestHelper h) {
         SandwichTests.ALL.get("reinforced_milk_cauldron").accept(h);
     }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.behaviourHints(h); }
+    @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.firstPickupTips(h); }
 }

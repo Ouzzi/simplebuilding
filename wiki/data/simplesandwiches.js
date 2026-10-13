@@ -153,6 +153,35 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "modules/simplesandwiches/shared/java/com/simplesandwiches/item/BundleEating.java",
         "modules/simplesandwiches/shared/java/com/simplesandwiches/mixin/BundleEatMixin.java"
       ]
+    },
+    {
+      "id": "first_pickup_tips",
+      "sources": [
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/discover/SandwichDiscover.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/mixin/DiscoverTipMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/FirstUseTips.java",
+        "tools/discover/discover.py"
+      ],
+      "en": {
+        "title": "First pickup tips",
+        "summary": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
+        "details": [
+          "Tips exist for cutting boards.",
+          "A tip counts as seen through an entity tag on the player (simplesandwiches.tip.<group>); removing the tag with /tag shows it again.",
+          "Switch: config/simple-tips.properties, key simplesandwiches.firstPickupTips=false turns the tips of this mod off. The file is read at every tip, so no restart is needed; every Simple mod with tips has its own key there.",
+          "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe."
+        ]
+      },
+      "de": {
+        "title": "Tipps beim ersten Aufheben",
+        "summary": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
+        "details": [
+          "Tipps gibt es für Schneidebretter.",
+          "Ein Tipp gilt über ein Entity-Tag am Spieler (simplesandwiches.tip.<gruppe>) als gesehen; entfernt man das Tag mit /tag, erscheint er wieder.",
+          "Schalter: config/simple-tips.properties, Schlüssel simplesandwiches.firstPickupTips=false schaltet die Tipps dieser Mod ab. Die Datei wird bei jedem Tipp gelesen, ein Neustart ist nicht nötig; jede Simple-Mod mit Tipps hat dort ihren eigenen Schlüssel.",
+          "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -1585,10 +1614,10 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "modules/simplesandwiches/shared/resources/data/simplesandwiches/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + bread. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Sandwiches\" gives one for free."
+          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + bread. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Sandwiches\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Brot. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Sandwiches\" eins."
+          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Brot. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Sandwiches\" eins."
         }
       },
       "texture": "assets/textures/simplesandwiches/item/guide_book.png",
@@ -2146,7 +2175,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 5,
+    "features": 6,
     "recipes": 17,
     "lootTables": 18,
     "tags": 5,

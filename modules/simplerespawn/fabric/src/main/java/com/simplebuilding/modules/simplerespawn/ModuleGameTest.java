@@ -17,4 +17,6 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void downedCannotAct(GameTestHelper helper) { RespawnTests.ALL.get("downed_cannot_act").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void guideBook(GameTestHelper helper) { RespawnTests.ALL.get("guide_book").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void noSimplebuildingNeeded(GameTestHelper helper) { RespawnTests.ALL.get("no_simplebuilding_needed").accept(helper); }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simplerespawn.discover.RespawnDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simplerespawn.discover.RespawnDiscover.behaviourHints(h); }
 }

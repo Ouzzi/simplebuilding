@@ -85,4 +85,6 @@ public final class ModuleGameTest {
     public void screenLayout(GameTestHelper h) {
         MapsTests.ALL.get("screen_layout").accept(h);
     }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.behaviourHints(h); }
 }

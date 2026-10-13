@@ -183,4 +183,6 @@ public final class ModuleGameTest {
   public void subModSwitch(GameTestHelper h) {
     com.simplefun.test.FunTests.ALL.get("sub_mod_switch").accept(h);
   }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplefun.discover.FunDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplefun.discover.FunDiscover.behaviourHints(h); }
 }

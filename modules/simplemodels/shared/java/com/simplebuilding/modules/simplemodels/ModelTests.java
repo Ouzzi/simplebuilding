@@ -245,4 +245,10 @@ public final class ModelTests {
         } catch (Exception e) { throw new AssertionError(e); } h.succeed();
     }
     private ModelTests() {}
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplebuilding.modules.simplemodels.discover.ModelsDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simplemodels.discover.ModelsDiscover::behaviourHints);
+    }
 }

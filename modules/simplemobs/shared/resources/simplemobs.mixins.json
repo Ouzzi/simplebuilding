@@ -15,7 +15,8 @@
     "EndGatewayFeatureMixin",
     "ItemHelmetDreadMixin",
     "ServerPunchDisguiseMixin",
-    "WitherSkullBlightedMixin"
+    "WitherSkullBlightedMixin",
+    "DiscoverTipMixin"
   ],
   "client": [
     "DeceiverLookMixin",

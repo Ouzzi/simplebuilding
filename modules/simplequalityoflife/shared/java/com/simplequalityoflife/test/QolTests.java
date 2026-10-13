@@ -64,4 +64,10 @@ public final class QolTests {
   h.succeed();
  }
  private static boolean switchOf(String field){try{return SimplequalityoflifeConfig.class.getField(field).getBoolean(Simplequalityoflife.getConfig());}catch(ReflectiveOperationException e){throw new IllegalStateException(e);}}
+
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplequalityoflife.discover.QolDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplequalityoflife.discover.QolDiscover::behaviourHints);
+    }
 }

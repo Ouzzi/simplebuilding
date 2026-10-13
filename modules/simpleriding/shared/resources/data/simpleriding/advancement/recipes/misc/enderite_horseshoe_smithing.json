@@ -1,0 +1,63 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_horseshoe_smithing_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleriding:horseshoe_smithing_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_netherite_horseshoe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleriding:netherite_horseshoe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleriding:enderite_horseshoe_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_horseshoe_smithing_template",
+      "has_netherite_horseshoe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleriding:enderite_horseshoe_smithing"
+    ]
+  }
+}

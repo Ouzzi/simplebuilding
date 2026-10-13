@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blank_note": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemoney:blank_note"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_special_fiber": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemoney:special_fiber"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplemoney:refined_bank_note_blank_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blank_note",
+      "has_special_fiber"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemoney:refined_bank_note_blank_smithing"
+    ]
+  }
+}

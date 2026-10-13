@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_special_paper": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemoney:special_paper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_resin_fiber": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemoney:resin_fiber"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplemoney:blank_note_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_special_paper",
+      "has_resin_fiber"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemoney:blank_note_smithing"
+    ]
+  }
+}

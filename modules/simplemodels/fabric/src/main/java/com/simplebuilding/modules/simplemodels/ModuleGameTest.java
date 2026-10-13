@@ -20,4 +20,6 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void crossMod(GameTestHelper h) { ModelTests.crossMod(h); }
  @GameTest(maxTicks=100) public void legacyNames(GameTestHelper h) { ModelTests.legacyNames(h); }
  @GameTest(maxTicks=100) public void configAndLang(GameTestHelper h) { ModelTests.configAndLang(h); }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simplemodels.discover.ModelsDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simplemodels.discover.ModelsDiscover.behaviourHints(h); }
 }

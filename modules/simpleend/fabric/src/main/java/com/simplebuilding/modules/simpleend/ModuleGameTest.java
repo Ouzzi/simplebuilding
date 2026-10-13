@@ -22,4 +22,6 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void burrowedEndStoneRecovers(GameTestHelper helper) { EndTests.ALL.get("burrowed_end_stone_recovers").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void nibblemiteIsPassive(GameTestHelper helper) { EndTests.ALL.get("nibblemite_is_passive").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void endGrassOnEndStone(GameTestHelper helper) { EndTests.ALL.get("end_grass_on_end_stone").accept(helper); }
+    @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simpleend.discover.EndDiscover.recipeUnlocks(h); }
+    @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simpleend.discover.EndDiscover.behaviourHints(h); }
 }

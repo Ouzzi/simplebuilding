@@ -30,5 +30,7 @@
   "gui.simplelib.crucible.heat.high": "high",
   "gui.simplelib.crucible.heat.extreme": "extreme",
   "gui.simplelib.crucible.afterglow": "Afterglow: %s s",
-  "gui.simplelib.crucible.two_below": "Heat source two blocks below: 10% slower"
+  "gui.simplelib.crucible.two_below": "Heat source two blocks below: 10% slower",
+  "tip.simplelib.crucible": "Heated by the block below; cooks every slot at once",
+  "tip.simplelib.barrel": "Next to a crucible, axe strikes attach it"
 }

@@ -201,4 +201,9 @@ public final class DimensionTests {
   try{DimensionRuntime.permission=(player,level,pos)->level==source;yes(h,!DimensionRuntime.get(source.getServer()).travel(p,cell),"Destination claim prevents travel");yes(h,p.level()==source&&target.getBlockState(be.anchor).isAir()&&target.getBlockState(be.anchor.below()).isAir(),"No partial portal or island on claim refusal");}finally{DimensionRuntime.permission=old;}h.succeed();
  });}
 
+    // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
+    static {
+        ALL.put("discover_recipe_unlocks", com.simplebuilding.modules.simpledimensions.discover.DimensionsDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simpledimensions.discover.DimensionsDiscover::behaviourHints);
+    }
 }

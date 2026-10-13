@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_duskwood_sticks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleend:duskwood_sticks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleend:duskwood_sticks_to_sticks"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_duskwood_sticks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleend:duskwood_sticks_to_sticks"
+    ]
+  }
+}
