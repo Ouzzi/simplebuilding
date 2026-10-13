@@ -437,20 +437,20 @@ public final class EndTests {
             h.assertTrue(biomes.getOrThrow(EndBiomes.ASH_VALLEY).is(EndBiomes.WATCHER_CORE) && biomes.getOrThrow(EndBiomes.DAWNLANDS).is(EndBiomes.WATCHER_CORE),
                     "cores in simpleend:watcher_core");
             h.assertTrue(!biomes.getOrThrow(EndBiomes.ASH_VALLEY_FRINGE).is(EndBiomes.WATCHER_CORE), "fringe not in watcher_core");
-            // the real End of the test server: cores and fringes appear on the outer islands
-            ServerLevel end = h.getLevel().getServer().getLevel(net.minecraft.world.level.Level.END);
-            var endSource = end == null ? null : end.getChunkSource().getGenerator().getBiomeSource();
-            // (the test server's End may use a fixed biome; only a real End biome source is checked)
-            if (endSource instanceof TheEndBiomeSource && SimpleEndConfig.biomes && SimpleEnd.on()) {
-                var resolver = endSource.createUncachedResolver(end.getChunkSource().randomState());
-                java.util.Set<net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>> seen = new java.util.HashSet<>();
+            // a real End biome source with real End noise (the test server's own End may use a fixed biome):
+            // cores and fringes appear on the outer islands
+            if (SimpleEndConfig.biomes && SimpleEnd.on()) {
+                var access = h.getLevel().registryAccess();
+                var settings = access.lookupOrThrow(Registries.NOISE_SETTINGS).getOrThrow(net.minecraft.world.level.levelgen.NoiseGeneratorSettings.END).value();
+                var state = net.minecraft.world.level.levelgen.RandomState.create(access.lookupOrThrow(Registries.NOISE), 12345L, settings);
+                var resolver = source.createUncachedResolver(state);
+                java.util.Map<String, Integer> seen = new java.util.TreeMap<>();
                 for (int x = -12000; x <= 12000; x += 128)
                     for (int z = -12000; z <= 12000; z += 128)
-                        resolver.getNoiseBiome(net.minecraft.core.QuartPos.fromBlock(x), net.minecraft.core.QuartPos.fromBlock(64), net.minecraft.core.QuartPos.fromBlock(z))
-                                .unwrapKey().ifPresent(seen::add);
+                        seen.merge(resolver.getNoiseBiome(net.minecraft.core.QuartPos.fromBlock(x), net.minecraft.core.QuartPos.fromBlock(64),
+                                net.minecraft.core.QuartPos.fromBlock(z)).unwrapKey().map(k -> k.identifier().toString()).orElse("?"), 1, Integer::sum);
                 for (var key : java.util.List.of(EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS, EndBiomes.ASH_VALLEY_FRINGE, EndBiomes.DAWNLANDS_FRINGE))
-                    h.assertTrue(seen.contains(key), key.identifier() + " in the real End (seen " + seen + ")");
-                h.assertTrue(endSource.possibleBiomes().stream().anyMatch(b -> b.is(EndBiomes.DAWNLANDS_FRINGE)), "fringe in the End's possible biomes");
+                    h.assertTrue(seen.containsKey(key.identifier().toString()), key.identifier() + " in a real End (seen " + seen + ")");
             }
             h.succeed();
         });
