@@ -166,6 +166,18 @@
       "de": {
         "summary": "Schmieden: Rüstung + Echoscherbe = pulsierender Besatz. Hergestellt aus Werkzeug, 2 Echoscherben, 2 Sculk und 4 Diamanten."
       }
+    },
+    "simpletrims:placed_template": {
+      "sources": [
+        "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTrimTemplateBlock.java",
+        "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java"
+      ],
+      "en": {
+        "summary": "A laid-down armor trim template (sneak + use). Breaking it returns the template; tool + Glow Ink Sac or Glowstone Dust forge it."
+      },
+      "de": {
+        "summary": "Eine abgelegte Rüstungsbesatzvorlage (Schleichen + Benutzen). Abbauen gibt die Vorlage zurück; Werkzeug + Leuchttintenbeutel oder Glowstonestaub schmieden sie."
+      }
     }
   }
 }

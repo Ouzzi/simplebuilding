@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 838,
+      "count": 835,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -476,7 +476,8 @@ window.WIKI_DATA = {
           "Placed armor trim templates can be upgraded with the sledgehammer (initial creation) with 5 hits: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the fifth turns it into the Glowing or Emitting Armor Trim and consumes 2 off-hand catalysts plus 4 diamonds and 2 glowstone blocks (Glowing) or 2 blaze powder (Emitting) from the inventory on 26.3 (not in creative; 26.2 still uses 1 catalyst). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target. All materials must be available before each hit; only the final hit consumes them.",
           "Hint: while a player holding Glow Ink Sac or Glowstone Dust (either hand) is within 6 blocks, an upgradable placed template shows a few sparks circling over it every half second and chimes quietly at most every 3 seconds.",
           "The Attractor can be placed the same way (sneak + right-click) and then pulls loose items toward itself, see the Attractor chapter.",
-          "A locked Octant can be put down the same way (sneak + right-click; an unlocked one still sets Pos 2 with that click) and keeps its corners, shape and color. Right-click the placed octant to show its selection for yourself - corners and the full figure, as at the cartography table - and right-click again to hide it. While it is shown for you, the placed octant also glows in its color through walls, so you can find it again to switch it off. The switch is per player: others only see what they switched on themselves. It is saved with the block and also works while the mod's highlights are hidden with the toggle key."
+          "A locked Octant can be put down the same way (sneak + right-click; an unlocked one still sets Pos 2 with that click) and keeps its corners, shape and color. Right-click the placed octant to show its selection for yourself - corners and the full figure, as at the cartography table - and right-click again to hide it. While it is shown for you, the placed octant also glows in its color through walls, so you can find it again to switch it off. The switch is per player: others only see what they switched on themselves. It is saved with the block and also works while the mod's highlights are hidden with the toggle key.",
+          "26.3: the Glowing, Emitting and Pulsating Armor Trim, their upgrades, radiance light, placing armor trim templates and forging them belong to Simple Trims (simpletrims:*), which SimpleBuilding bundles; with SimpleBuilding the sledgehammer is the tool. Old simplebuilding: ids migrate."
         ]
       },
       "de": {
@@ -491,7 +492,8 @@ window.WIKI_DATA = {
           "Abgelegte Rüstungsbesatz-Vorlagen lassen sich mit dem Vorschlaghammer aufwerten (Erstherstellung), mit 5 Schlägen: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der fünfte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht auf 26.3 2 Nebenhand-Katalysatoren sowie 4 Diamanten und 2 Glowstone-Blöcke (Leuchtend) bzw. 2 Lohenpulver (Strahlend) aus dem Inventar (nicht im Kreativmodus; 26.2 weiterhin 1 Katalysator). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel. Alle Materialien müssen vor jedem Schlag vorhanden sein; erst der letzte verbraucht sie.",
           "Hinweis: Solange ein Spieler mit Leuchttintenbeutel oder Glowstonestaub (in einer der beiden Hände) höchstens 6 Blöcke entfernt ist, kreisen über einer aufwertbaren abgelegten Vorlage alle halbe Sekunde ein paar Funken, und höchstens alle 3 Sekunden klingt sie leise.",
           "Der Attraktor lässt sich genauso ablegen (Schleichen + Rechtsklick) und zieht dann lose Items zu sich, siehe das Kapitel zum Attraktor.",
-          "Ein gesperrter Oktant lässt sich genauso ablegen (Schleichen + Rechtsklick; ein ungesperrter setzt mit diesem Klick weiter Pos 2) und behält Ecken, Form und Farbe. Rechtsklick auf den abgelegten Oktanten blendet seine Auswahl für dich ein – Ecken und die ganze Figur, wie am Kartentisch –, ein zweiter Rechtsklick blendet sie wieder aus. Solange sie für dich eingeblendet ist, leuchtet der abgelegte Oktant außerdem in seiner Farbe durch Wände, damit du ihn zum Ausschalten wiederfindest. Der Schalter gilt je Spieler: andere sehen nur, was sie selbst eingeschaltet haben. Er wird mit dem Block gespeichert und wirkt auch, wenn die Hervorhebungen der Mod per Taste ausgeblendet sind."
+          "Ein gesperrter Oktant lässt sich genauso ablegen (Schleichen + Rechtsklick; ein ungesperrter setzt mit diesem Klick weiter Pos 2) und behält Ecken, Form und Farbe. Rechtsklick auf den abgelegten Oktanten blendet seine Auswahl für dich ein – Ecken und die ganze Figur, wie am Kartentisch –, ein zweiter Rechtsklick blendet sie wieder aus. Solange sie für dich eingeblendet ist, leuchtet der abgelegte Oktant außerdem in seiner Farbe durch Wände, damit du ihn zum Ausschalten wiederfindest. Der Schalter gilt je Spieler: andere sehen nur, was sie selbst eingeschaltet haben. Er wird mit dem Block gespeichert und wirkt auch, wenn die Hervorhebungen der Mod per Taste ausgeblendet sind.",
+          "26.3: Leuchtender, Strahlender und Pulsierender Rüstungsbesatz, ihre Aufwertungen, das Strahlkraft-Licht, das Ablegen von Rüstungsbesatzvorlagen und ihr Schmieden gehören zu Simple Trims (simpletrims:*), das SimpleBuilding bündelt; mit SimpleBuilding ist der Vorschlaghammer das Werkzeug. Alte simplebuilding:-IDs werden übernommen."
         ]
       }
     },
@@ -2951,7 +2953,8 @@ window.WIKI_DATA = {
           "Radiant pieces are recognisable, but only just: worn armor (on players, mobs and armor stands) and item frames holding a radiant piece now and then give off a faint warm glint (the wax-on particle). The chance per tick is 0.005 per radiance level of the whole wearer, capped at 0.025 - one glint about every 10 seconds at level 1 and at most one about every 2 seconds, which a single piece at level 5 already reaches. More radiant pieces therefore do not add up: a full set at level 5 glints no more often than one piece at level 5. Invisible wearers show none.",
           "Mobs wearing radiant armor light their way as well: the block above a mob's head is lit like a player's (checked every 4 server ticks so the light follows it), saved with the mob and removed when it despawns or dies. Only players use the per-tick table; every other wearer stores its light block itself.",
           "Pulsating Armor Trim (owner 2026-09-28): crafted at a crafting table from 2 Echo Shards, 2 sculk, 4 diamonds and any sledgehammer on 26.3 (26.2: 1 Echo Shard and a hammer) - the hammer stays in the grid and loses 1 durability (a hammer on its last point breaks). At the smithing table, Pulsating Armor Trim + armor piece + Echo Shard makes the trim pulse (component simplebuilding:pulsating, once per piece): without Glowing only the saturation pulses - every 2.4 seconds the trim fades smoothly from full color to gray and back, each pixel keeping its brightness; light and brightness stay exactly as without the upgrade. Only together with Glowing (either level) does the brightness swing: the trim's light rises and falls between 1 and 15 in the same 2.4 second rhythm. Tooltip \"Pulsating\" (dark aqua) plus a gray line naming the effect (\"Its colors fade to gray and back\" or, with Glowing, \"Its glow swells and fades\"). The template shows a warden face with glowing antennae in the deep dark colors of sculk and deepslate, in the same frame as the Glowing and Emitting templates.",
-          "JEI shows the three upgrades at the smithing table with the upgraded armor piece as the result (template + armor + material -> the same armor with the effect); the placeholder recipes, whose result is the template itself, are hidden there."
+          "JEI shows the three upgrades at the smithing table with the upgraded armor piece as the result (template + armor + material -> the same armor with the effect); the placeholder recipes, whose result is the template itself, are hidden there.",
+          "26.3: the Glowing, Emitting and Pulsating Armor Trim, their upgrades, radiance light, placing armor trim templates and forging them belong to Simple Trims (simpletrims:*), which SimpleBuilding bundles; with SimpleBuilding the sledgehammer is the tool. Old simplebuilding: ids migrate."
         ]
       },
       "de": {
@@ -2979,7 +2982,8 @@ window.WIKI_DATA = {
           "Strahlende Teile sind erkennbar, aber nur dezent: getragene Rüstung (an Spielern, Mobs und Rüstungsständern) und Rahmen mit einem strahlenden Teil geben ab und zu einen feinen, warmen Funken ab (Partikel „Wachs“). Die Chance je Tick ist 0,005 je Strahlkraft-Stufe des ganzen Trägers, höchstens 0,025 – auf Stufe 1 etwa alle 10 Sekunden ein Funke, höchstens etwa einer alle 2 Sekunden, was schon ein einzelnes Teil auf Stufe 5 erreicht. Mehr strahlende Teile addieren sich also nicht: eine volle Ausrüstung auf Stufe 5 funkelt nicht öfter als ein Teil auf Stufe 5. Unsichtbare Träger zeigen keine.",
           "Auch Mobs mit strahlender Rüstung leuchten: Der Block über dem Kopf eines Mobs wird wie beim Spieler erhellt (alle 4 Server-Ticks geprüft, damit das Licht folgt), mit dem Mob gespeichert und entfernt, wenn er verschwindet oder stirbt. Nur Spieler laufen über die Tick-Tabelle; jeder andere Träger speichert seinen Lichtblock selbst.",
           "Pulsierender Rüstungsbesatz (Besitzer 2026-09-28): an der Werkbank auf 26.3 aus 2 Echoscherben, 2 Sculk, 4 Diamanten und einem beliebigen Vorschlaghammer (26.2: 1 Echoscherbe und Hammer) - der Hammer bleibt im Raster und verliert 1 Haltbarkeit (ein Hammer auf dem letzten Punkt bricht). Am Schmiedetisch macht Pulsierender Rüstungsbesatz + Rüstungsteil + Echoscherbe den Besatz pulsierend (Komponente simplebuilding:pulsating, einmal je Teil): ohne Leuchten pulsiert nur die Sättigung - alle 2,4 Sekunden verblasst der Besatz weich von voller Farbe zu Grau und zurück, jeder Pixel behält dabei seine Helligkeit; Licht und Helligkeit bleiben genau wie ohne die Aufwertung. Nur zusammen mit dem Leuchtenden Rüstungsbesatz (jede Stufe) schwankt die Helligkeit: das Licht des Besatzes steigt und fällt im selben 2,4-Sekunden-Takt zwischen 1 und 15. Tooltip „Pulsierend“ (dunkeltürkis) und eine graue Zeile mit der Wirkung („Seine Farben verblassen zu Grau und kehren zurück“ bzw. mit Leuchten „Sein Leuchten schwillt an und ab“). Die Vorlage zeigt ein Wärter-Gesicht mit leuchtenden Fühlern in den Farben der Tiefen Dunkelheit (Sculk, Tiefenschiefer), im selben Rahmen wie die leuchtende und die strahlende Vorlage.",
-          "JEI zeigt die drei Aufwertungen am Schmiedetisch mit dem aufgewerteten Rüstungsteil als Ergebnis (Vorlage + Rüstung + Material -> dieselbe Rüstung mit Wirkung); die Platzhalter-Rezepte, deren Ergebnis die Vorlage selbst ist, sind dort ausgeblendet."
+          "JEI zeigt die drei Aufwertungen am Schmiedetisch mit dem aufgewerteten Rüstungsteil als Ergebnis (Vorlage + Rüstung + Material -> dieselbe Rüstung mit Wirkung); die Platzhalter-Rezepte, deren Ergebnis die Vorlage selbst ist, sind dort ausgeblendet.",
+          "26.3: Leuchtender, Strahlender und Pulsierender Rüstungsbesatz, ihre Aufwertungen, das Strahlkraft-Licht, das Ablegen von Rüstungsbesatzvorlagen und ihr Schmieden gehören zu Simple Trims (simpletrims:*), das SimpleBuilding bündelt; mit SimpleBuilding ist der Vorschlaghammer das Werkzeug. Alte simplebuilding:-IDs werden übernommen."
         ]
       }
     },
@@ -14611,48 +14615,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:emitting_trim_template",
-      "name": {
-        "en_us": "Emitting Armor Trim",
-        "de_de": "Strahlender Rüstungsbesatz"
-      },
-      "texture": "assets/textures/item/emitting_trim_template.png",
-      "craftedBy": [
-        "simplebuilding:emitting_armor_upgrade_dummy",
-        "simplebuilding:emitting_trim_template_duplication"
-      ],
-      "usedIn": [
-        "simplebuilding:emitting_armor_upgrade_dummy",
-        "simplebuilding:emitting_trim_template_duplication"
-      ],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A trim that does not just shine, it lights the way for others."
-          ],
-          "use": [
-            "Upgrade a placed armor trim template with sledgehammer hits while a Glow Ink Sac or Glowstone Dust is in the off hand; it consumes 2 blaze powder and 4 diamonds. One template, 7 diamonds and a magma block make 2."
-          ],
-          "secret": [
-            "At the smithing table, with Glowstone Dust, armor becomes a wearable light source: an invisible light block follows your head. More dust raises the radiance, up to level 5."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Besatz, der nicht nur scheint, sondern anderen den Weg leuchtet."
-          ],
-          "use": [
-            "Eine platzierte Besatzvorlage mit Hammerschlägen aufwerten, während Leuchttinte oder Glowstonestaub in der Nebenhand liegt; es verbraucht 2 Lohenstaub und 4 Diamanten. Eine Vorlage, 7 Diamanten und ein Magmablock ergeben 2."
-          ],
-          "secret": [
-            "Am Schmiedetisch wird Rüstung mit Glowstonestaub zur tragbaren Lichtquelle: Ein unsichtbarer Lichtblock folgt deinem Kopf. Mehr Staub erhöht die Strahlkraft, bis Stufe 5."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:enchanted_enderite_apple",
       "name": {
         "en_us": "Enchanted Enderite Apple",
@@ -19678,48 +19640,6 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/frosted_nihilith.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:glowing_trim_template",
-      "name": {
-        "en_us": "Glowing Armor Trim",
-        "de_de": "Leuchtender Rüstungsbesatz"
-      },
-      "texture": "assets/textures/item/glowing_trim_template.png",
-      "craftedBy": [
-        "simplebuilding:glowing_armor_upgrade_dummy",
-        "simplebuilding:glowing_trim_template_duplication"
-      ],
-      "usedIn": [
-        "simplebuilding:glowing_armor_upgrade_dummy",
-        "simplebuilding:glowing_trim_template_duplication"
-      ],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A trim that holds the light a moment longer than it should."
-          ],
-          "use": [
-            "Craft 4 diamonds, 2 glowstone blocks and a template, or upgrade a placed armor trim template with sledgehammer hits while a Glow Ink Sac or Glowstone Dust sits in the off hand. One template, 7 diamonds and a glowstone block make 2."
-          ],
-          "secret": [
-            "At the smithing table, template, armor and a Glow Ink Sac make the trim glow steadily at full brightness. It only glows visually and gives off no real light."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Besatz, der das Licht einen Moment länger hält, als sie sollte."
-          ],
-          "use": [
-            "Herstellung: 4 Diamanten, 2 Glowstone-Blöcke und eine Vorlage, oder eine platzierte Besatzvorlage mit Hammerschlägen aufwerten, während Leuchttinte oder Glowstonestaub in der Nebenhand liegt. Eine Vorlage, 7 Diamanten und ein Glowstone-Block ergeben 2."
-          ],
-          "secret": [
-            "Am Schmiedetisch lassen Vorlage, Rüstung und ein Leuchttintenbeutel den Besatz gleichmäßig mit voller Helligkeit leuchten. Er leuchtet nur optisch und gibt kein echtes Licht ab."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -37861,49 +37781,6 @@ window.WIKI_DATA = {
             "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
             "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py).",
             "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:pulsating_trim_template",
-      "name": {
-        "en_us": "Pulsating Armor Trim",
-        "de_de": "Pulsierender Rüstungsbesatz"
-      },
-      "texture": "assets/textures/item/pulsating_trim_template.png",
-      "craftedBy": [
-        "simplebuilding:pulsating_armor_upgrade_dummy",
-        "simplebuilding:pulsating_trim_template",
-        "simplebuilding:pulsating_trim_template_duplication"
-      ],
-      "usedIn": [
-        "simplebuilding:pulsating_armor_upgrade_dummy",
-        "simplebuilding:pulsating_trim_template_duplication"
-      ],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A trim with a heartbeat of its own."
-          ],
-          "use": [
-            "Craft 2 echo shards, 2 sculk, 4 diamonds and any sledgehammer; the hammer stays in the grid and loses 1 durability. One template, 7 diamonds and a sculk block make 2."
-          ],
-          "secret": [
-            "At the smithing table, template, armor and an Echo Shard make the trim pulse from full color to gray every 2.4 seconds. Together with Glowing, the brightness pulses too."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Besatz mit eigenem Herzschlag."
-          ],
-          "use": [
-            "Herstellung: 2 Echoscherben, 2 Sculk, 4 Diamanten und ein beliebiger Vorschlaghammer; der Hammer bleibt im Raster und verliert 1 Haltbarkeit. Eine Vorlage, 7 Diamanten und ein Sculkblock ergeben 2."
-          ],
-          "secret": [
-            "Am Schmiedetisch lassen Vorlage, Rüstung und ein Echoscherben den Besatz alle 2,4 Sekunden von voller Farbe zu Grau pulsieren. Zusammen mit Leuchtend pulsiert auch die Helligkeit."
           ]
         }
       },
@@ -93191,73 +93068,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:emitting_armor_upgrade_dummy",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:emitting_trim_template",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/emitting_armor_upgrade_dummy.json",
-      "ingredients": [
-        "#minecraft:trimmable_armor",
-        "minecraft:glowstone_dust",
-        "simplebuilding:emitting_trim_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:emitting_trim_template"
-        ],
-        "base": [
-          "#minecraft:trimmable_armor"
-        ],
-        "addition": [
-          "minecraft:glowstone_dust"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:emitting_trim_template_duplication",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:emitting_trim_template",
-        "count": 2
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/emitting_trim_template_duplication.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:magma_block",
-        "simplebuilding:emitting_trim_template"
-      ],
-      "pattern": [
-        "DTD",
-        "DBD",
-        "DDD"
-      ],
-      "key": {
-        "B": [
-          "minecraft:magma_block"
-        ],
-        "D": [
-          "minecraft:diamond"
-        ],
-        "T": [
-          "simplebuilding:emitting_trim_template"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:end_stone_bricks_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -99731,73 +99541,6 @@ window.WIKI_DATA = {
           }
         ]
       }
-    },
-    {
-      "id": "simplebuilding:glowing_armor_upgrade_dummy",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:glowing_trim_template",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/glowing_armor_upgrade_dummy.json",
-      "ingredients": [
-        "#minecraft:trimmable_armor",
-        "minecraft:glow_ink_sac",
-        "simplebuilding:glowing_trim_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:glowing_trim_template"
-        ],
-        "base": [
-          "#minecraft:trimmable_armor"
-        ],
-        "addition": [
-          "minecraft:glow_ink_sac"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:glowing_trim_template_duplication",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:glowing_trim_template",
-        "count": 2
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/glowing_trim_template_duplication.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:glowstone",
-        "simplebuilding:glowing_trim_template"
-      ],
-      "pattern": [
-        "DTD",
-        "DBD",
-        "DDD"
-      ],
-      "key": {
-        "B": [
-          "minecraft:glowstone"
-        ],
-        "D": [
-          "minecraft:diamond"
-        ],
-        "T": [
-          "simplebuilding:glowing_trim_template"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
     },
     {
       "id": "simplebuilding:gold_block_from_octets",
@@ -120857,218 +120600,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:pulsating_armor_upgrade_dummy",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:pulsating_trim_template",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/pulsating_armor_upgrade_dummy.json",
-      "ingredients": [
-        "#minecraft:trimmable_armor",
-        "minecraft:echo_shard",
-        "simplebuilding:pulsating_trim_template"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:pulsating_trim_template"
-        ],
-        "base": [
-          "#minecraft:trimmable_armor"
-        ],
-        "addition": [
-          "minecraft:echo_shard"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:pulsating_trim_template",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:pulsating_trim_template",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/pulsating_trim_template.json",
-      "ingredients": [
-        "#simplebuilding:sledgehammer_tools",
-        "minecraft:diamond",
-        "minecraft:echo_shard",
-        "minecraft:sculk"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:sledgehammer_tools"
-        ],
-        [
-          "minecraft:echo_shard"
-        ],
-        [
-          "minecraft:echo_shard"
-        ],
-        [
-          "minecraft:sculk"
-        ],
-        [
-          "minecraft:sculk"
-        ],
-        [
-          "minecraft:diamond"
-        ],
-        [
-          "minecraft:diamond"
-        ],
-        [
-          "minecraft:diamond"
-        ],
-        [
-          "minecraft:diamond"
-        ]
-      ],
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "#simplebuilding:sledgehammer_tools"
-                ],
-                [
-                  "minecraft:echo_shard"
-                ],
-                [
-                  "minecraft:echo_shard"
-                ],
-                [
-                  "minecraft:sculk"
-                ],
-                [
-                  "minecraft:sculk"
-                ],
-                [
-                  "minecraft:diamond"
-                ],
-                [
-                  "minecraft:diamond"
-                ],
-                [
-                  "minecraft:diamond"
-                ],
-                [
-                  "minecraft:diamond"
-                ]
-              ],
-              "other": [
-                [
-                  "#simplebuilding:sledgehammer_tools"
-                ],
-                [
-                  "minecraft:echo_shard"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "#simplebuilding:sledgehammer_tools",
-                "minecraft:diamond",
-                "minecraft:echo_shard",
-                "minecraft:sculk"
-              ],
-              "other": [
-                "#simplebuilding:sledgehammer_tools",
-                "minecraft:echo_shard"
-              ]
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/pulsating_trim_template.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "minecraft:cobblestone",
-            "count": 2
-          },
-          {
-            "id": "minecraft:echo_shard",
-            "count": 2
-          },
-          {
-            "id": "minecraft:sculk",
-            "count": 2
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:sledgehammer_tools"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:pulsating_trim_template_duplication",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:pulsating_trim_template",
-        "count": 2
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/pulsating_trim_template_duplication.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:sculk",
-        "simplebuilding:pulsating_trim_template"
-      ],
-      "pattern": [
-        "DTD",
-        "DBD",
-        "DDD"
-      ],
-      "key": {
-        "B": [
-          "minecraft:sculk"
-        ],
-        "D": [
-          "minecraft:diamond"
-        ],
-        "T": [
-          "simplebuilding:pulsating_trim_template"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:purple_concrete_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -136813,6 +136344,37 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:emitting_armor_upgrade_dummy",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:emitting_trim_template",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/emitting_armor_upgrade_dummy.json",
+      "ingredients": [
+        "#minecraft:trimmable_armor",
+        "minecraft:glowstone_dust",
+        "simplebuilding:emitting_trim_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:emitting_trim_template"
+        ],
+        "base": [
+          "#minecraft:trimmable_armor"
+        ],
+        "addition": [
+          "minecraft:glowstone_dust"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:enderite_backpack_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -136916,6 +136478,37 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:glowing_armor_upgrade_dummy",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:glowing_trim_template",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/glowing_armor_upgrade_dummy.json",
+      "ingredients": [
+        "#minecraft:trimmable_armor",
+        "minecraft:glow_ink_sac",
+        "simplebuilding:glowing_trim_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:glowing_trim_template"
+        ],
+        "base": [
+          "#minecraft:trimmable_armor"
+        ],
+        "addition": [
+          "minecraft:glow_ink_sac"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
       ]
     },
     {
@@ -137618,6 +137211,37 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:pulsating_armor_upgrade_dummy",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:pulsating_trim_template",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/pulsating_armor_upgrade_dummy.json",
+      "ingredients": [
+        "#minecraft:trimmable_armor",
+        "minecraft:echo_shard",
+        "simplebuilding:pulsating_trim_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:pulsating_trim_template"
+        ],
+        "base": [
+          "#minecraft:trimmable_armor"
+        ],
+        "addition": [
+          "minecraft:echo_shard"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
       ]
     },
     {
@@ -157793,94 +157417,6 @@ window.WIKI_DATA = {
         ]
       },
       {
-        "id": "trim_template/simplebuilding:glowing_trim_template",
-        "kind": "trim_template",
-        "inputs": [
-          {
-            "id": [],
-            "count": 1
-          },
-          {
-            "id": "minecraft:glow_ink_sac",
-            "count": 2
-          },
-          {
-            "count": 4,
-            "id": "minecraft:diamond"
-          },
-          {
-            "count": 2,
-            "id": "minecraft:glowstone"
-          }
-        ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
-        "output": {
-          "id": "simplebuilding:glowing_trim_template",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1,
-          "placedHits": 5
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "trim_template/simplebuilding:emitting_trim_template",
-        "kind": "trim_template",
-        "inputs": [
-          {
-            "id": [],
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 2
-          },
-          {
-            "count": 4,
-            "id": "minecraft:diamond"
-          },
-          {
-            "count": 2,
-            "id": "minecraft:blaze_powder"
-          }
-        ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
-        "output": {
-          "id": "simplebuilding:emitting_trim_template",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1,
-          "placedHits": 5
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
         "id": "cauldron_wash",
         "kind": "cauldron_wash",
         "inputs": [
@@ -176491,32 +176027,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/tweaks.json"
     },
     {
-      "id": "simplebuilding:hammer/bright_idea",
-      "parent": "simplebuilding:hammer/glow_up",
-      "icon": "simplebuilding:emitting_trim_template",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Bright Idea",
-        "de_de": "Geistesblitz"
-      },
-      "description": {
-        "en_us": "Glowstone Dust instead of Glow Ink turns a trim template into an Emitting one",
-        "de_de": "Glowstonestaub statt Leuchttinte macht aus einer Besatz-Vorlage eine Strahlende"
-      },
-      "criteria": [
-        {
-          "name": "emitting_trim_template",
-          "trigger": "minecraft:inventory_changed",
-          "items": [
-            "simplebuilding:emitting_trim_template"
-          ]
-        }
-      ],
-      "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/hammer/bright_idea.json"
-    },
-    {
       "id": "simplebuilding:hammer/cracked_up",
       "parent": "simplebuilding:hammer/pebble_dash",
       "icon": "simplebuilding:cracked_diamond",
@@ -176590,53 +176100,6 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/hammer/diamond_in_the_rough.json"
-    },
-    {
-      "id": "simplebuilding:hammer/full_radiance",
-      "parent": "simplebuilding:hammer/bright_idea",
-      "icon": "minecraft:glowstone",
-      "frame": "goal",
-      "hidden": false,
-      "title": {
-        "en_us": "Full Radiance",
-        "de_de": "Volle Strahlkraft"
-      },
-      "description": {
-        "en_us": "Add Radiance at the smithing table - Emitting template, armor, Glowstone Dust - until one armor piece shows Radiance 5",
-        "de_de": "Füge am Schmiedetisch Strahlkraft hinzu - Strahlende Vorlage, Rüstung, Glowstonestaub -, bis ein Rüstungsteil Strahlkraft 5 zeigt"
-      },
-      "criteria": [
-        {
-          "name": "radiance_5",
-          "trigger": "minecraft:inventory_changed"
-        }
-      ],
-      "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/hammer/full_radiance.json"
-    },
-    {
-      "id": "simplebuilding:hammer/glow_up",
-      "parent": "simplebuilding:hammer/stair_master",
-      "icon": "simplebuilding:glowing_trim_template",
-      "frame": "task",
-      "hidden": false,
-      "title": {
-        "en_us": "Glow Up",
-        "de_de": "Glanzleistung"
-      },
-      "description": {
-        "en_us": "Lay down an armor trim template, hold Glow Ink or Glowstone Dust in the off hand and hit it five times with a sledgehammer",
-        "de_de": "Lege eine Rüstungsbesatzvorlage ab, halte Leuchttinte oder Glowstonestaub in der Nebenhand und schlage sie fünfmal mit dem Vorschlaghammer"
-      },
-      "criteria": [
-        {
-          "name": "trim_template_forged",
-          "trigger": "simplebuilding:feature_used",
-          "feature": "trim_template_forged"
-        }
-      ],
-      "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/hammer/glow_up.json"
     },
     {
       "id": "simplebuilding:hammer/heavy_metal",
@@ -180697,16 +180160,16 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 782,
+    "items": 779,
     "blocks": 526,
-    "recipes": 1365,
+    "recipes": 1358,
     "lootTables": 372,
     "trades": 20,
     "enchantments": 19,
     "tags": 54,
     "config": 233,
-    "inWorld": 495,
-    "advancements": 119,
+    "inWorld": 493,
+    "advancements": 116,
     "features": 51,
     "undocumented": 0,
     "incompleteProse": 0
