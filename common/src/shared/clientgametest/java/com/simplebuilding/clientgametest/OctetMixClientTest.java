@@ -43,13 +43,13 @@ public final class OctetMixClientTest {
         BlockState[] layered = new BlockState[8];
         BlockState[] wool = new BlockState[8];
         BlockState[] partial = new BlockState[8];
-        Block[] wools = {Blocks.RED_WOOL, Blocks.ORANGE_WOOL, Blocks.YELLOW_WOOL, Blocks.LIME_WOOL, Blocks.CYAN_WOOL,
-                Blocks.BLUE_WOOL, Blocks.PURPLE_WOOL, Blocks.WHITE_WOOL};
+        String[] wools = {"red", "orange", "yellow", "lime", "cyan", "blue", "purple", "white"};
         for (int i = 0; i < 8; i++) {
             int parity = (OctetCellBlock.x(i) + OctetCellBlock.y(i) + OctetCellBlock.z(i)) & 1;
             checker[i] = chess(parity == 0 ? ChessColor.LAPIS : ChessColor.QUARTZ);
             layered[i] = OctetCellBlock.y(i) == 0 ? material(Blocks.STONE) : material(Blocks.OAK_PLANKS);
-            wool[i] = material(wools[i]);
+            wool[i] = material(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(
+                    net.minecraft.resources.Identifier.withDefaultNamespace(wools[i] + "_wool")));
         }
         partial[OctetCellBlock.index(0, 0, 0)] = material(Blocks.STONE_BRICKS);
         partial[OctetCellBlock.index(1, 0, 0)] = material(Blocks.STONE_BRICKS);
