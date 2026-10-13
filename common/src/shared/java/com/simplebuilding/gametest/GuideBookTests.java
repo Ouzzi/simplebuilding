@@ -201,6 +201,16 @@ public final class GuideBookTests {
                         }
                         continue;
                     }
+                    String[] parts = key.split("\\.");
+                    if (parts.length > 1 && !parts[1].equals("simplebuilding")) {
+                        // A sub-mod's key (simplemobheads, simpleovens): it lives in that mod's own lang files.
+                        if (!subModHas(parts[1], "en_us", key)) {
+                            problems.add(key + " (" + book + " page " + (p + 1) + ") missing in " + parts[1] + " en_us");
+                        } else if (!subModHas(parts[1], "de_de", key)) {
+                            problems.add(key + " (" + book + " page " + (p + 1) + ") missing in " + parts[1] + " de_de");
+                        }
+                        continue;
+                    }
                     String english = en.has(key) ? en.get(key).getAsString() : null;
                     String german = de.has(key) ? de.get(key).getAsString() : null;
                     if (english == null || english.isBlank()) {
@@ -1043,6 +1053,25 @@ public final class GuideBookTests {
         for (Component sibling : component.getSiblings()) {
             walk(sibling, keys, jumps);
         }
+    }
+
+    /** Whether a sub-mod's lang file has {@code key} (its file on the classpath; else the running server language). */
+    private static boolean subModHas(String namespace, String locale, String key) {
+        String path = "assets/" + namespace + "/lang/" + locale + ".json";
+        for (ClassLoader loader : new ClassLoader[] {GuideBookTests.class.getClassLoader(), Thread.currentThread().getContextClassLoader()}) {
+            if (loader == null) {
+                continue;
+            }
+            try (InputStream in = loader.getResourceAsStream(path)) {
+                if (in != null) {
+                    JsonObject lang = JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+                    return lang.has(key) && !lang.get(key).getAsString().isBlank();
+                }
+            } catch (java.io.IOException | RuntimeException e) {
+                // try the next loader
+            }
+        }
+        return Language.getInstance().has(key);
     }
 
     private static JsonObject langFile(GameTestHelper helper, String locale) {

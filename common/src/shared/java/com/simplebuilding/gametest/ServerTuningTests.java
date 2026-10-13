@@ -329,7 +329,9 @@ public final class ServerTuningTests {
             config.server.loot.globalLootMultiplier = 0.0;
             helper.assertTrue(record(helper, BuiltInLootTables.END_CITY_TREASURE).total() == 0,
                     "a loot multiplier of 0 still added mod pools");
-            helper.assertTrue(record(helper, BuiltInLootTables.CHARGED_CREEPER).total() > 0,
+            // Where Simple Mobheads owns the heads (26.3) SimpleBuilding adds no charged-creeper pools at all.
+            helper.assertTrue(com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS
+                            || record(helper, BuiltInLootTables.CHARGED_CREEPER).total() > 0,
                     "the loot multiplier also took the charged creeper heads");
 
             config.server.loot.globalLootMultiplier = 1.0;
