@@ -248,7 +248,8 @@ final class WitherTests {
             level.setBlock(h.absolutePos(at), Blocks.STONE.defaultBlockState(), 3);
             // sand -> desert: the clicked cell and its neighbours change, one sand and one durability point are used
             ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SAND, 4));
-            h.assertTrue(stroke(h, p, at) == BiomeBrush.Result.PAINTED, "stroke painted");
+            var first = stroke(h, p, at);
+            h.assertTrue(first == BiomeBrush.Result.PAINTED, "stroke painted: " + first);
             h.assertTrue(cellBiome(h, at) == Biomes.DESERT, "clicked cell is desert: " + cellBiome(h, at));
             h.assertTrue(cellBiome(h, at.offset(4, 0, 0)) == Biomes.DESERT, "neighbouring cell too (radius 1 cell)");
             h.assertTrue(p.getOffhandItem().getCount() == 3, "one material per stroke: " + p.getOffhandItem().getCount());
@@ -274,7 +275,8 @@ final class WitherTests {
             ServerLevel level = h.getLevel();
             BlockPos at = new BlockPos(3, 2, 3);
             ServerPlayer p = painter(h, new ItemStack(WitherMobs.BRUSH), new ItemStack(Items.SAND, 4));
-            h.assertTrue(stroke(h, p, at) == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.DESERT, "unclaimed: painted");
+            var first = stroke(h, p, at);
+            h.assertTrue(first == BiomeBrush.Result.PAINTED && cellBiome(h, at) == Biomes.DESERT, "unclaimed: painted: " + first + " " + cellBiome(h, at));
             String id = "simplemobs_test_claim";
             Object server = level.getServer();
             try {
