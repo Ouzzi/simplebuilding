@@ -110,8 +110,19 @@ public final class EndClientSmoke implements FabricClientGameTest {
             context.waitTicks(40);
             world.getConnection().waitForChunksRender();
             context.takeScreenshot("simpleend-leaves");
-            for (var biome : new net.minecraft.resources.ResourceKey[] {EndBiomes.ASH_VALLEY, EndBiomes.DAWNLANDS, EndBiomes.ASH_VALLEY_FRINGE}) {
-                @SuppressWarnings("unchecked") var key = (net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome>) biome;
+            visit(context, world, EndBiomes.ASH_VALLEY);
+            context.takeScreenshot("simpleend-ash_valley");
+            visit(context, world, EndBiomes.DAWNLANDS);
+            context.takeScreenshot("simpleend-dawnlands");
+            visit(context, world, EndBiomes.ASH_VALLEY_FRINGE);
+            context.takeScreenshot("simpleend-ash_valley_fringe");
+        }
+    }
+
+    /** Flies to the nearest patch of the biome in the End and looks over it (screenshot names stay literal for the runner). */
+    private static void visit(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world,
+                              net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome> key) {
+        {
                 BlockPos[] spot = new BlockPos[1];
                 world.getServer().runOnServer(server -> {
                     ServerLevel end = server.getLevel(Level.END);
@@ -149,8 +160,6 @@ public final class EndClientSmoke implements FabricClientGameTest {
                 });
                 context.waitTicks(80);
                 world.getConnection().waitForChunksRender();
-                context.takeScreenshot("simpleend-" + key.identifier().getPath());
-            }
         }
     }
 }
