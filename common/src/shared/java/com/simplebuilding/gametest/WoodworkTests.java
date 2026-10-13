@@ -1,5 +1,6 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.version.McVersion;
 import com.simplebuilding.woodwork.CarvedLogBlock;
@@ -477,6 +478,41 @@ public final class WoodworkTests {
             helper.succeed();
         } else {
             helper.fail("missing: " + missing);
+        }
+    }
+
+    /**
+     * N49: the carved log's inventory model shows the carving on all four sides like the placed block (an item model
+     * cannot be turned like a blockstate part, so it uses the {@code _all} overlay models), for every wood.
+     */
+    public static void carvedLogItemShowsAllFourSides(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        int checked = 0;
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if (!id.getNamespace().equals(Simplebuilding.MOD_ID) || !id.getPath().startsWith("carved_")) continue;
+            checked++;
+            String text = resource("assets/simplebuilding/items/" + id.getPath() + ".json");
+            if (text == null) { problems.add(id + ": no item definition"); continue; }
+            if (!text.contains("_wood_all") || !text.contains("_angler_all") || text.contains("_wood\"") || text.contains("_angler\"")) {
+                problems.add(id + ": item definition does not use the all-sides overlay models");
+            }
+            for (String overlay : new String[] {"wood", "angler"}) {
+                String model = resource("assets/simplebuilding/models/block/carved/" + id.getPath() + "_" + overlay + "_all.json");
+                if (model == null) problems.add(id + ": missing model " + overlay + "_all");
+                else if (!(model.contains("\"north\"") && model.contains("\"east\"") && model.contains("\"south\"") && model.contains("\"west\"")
+                        || model.contains("template_carved_"))) problems.add(id + ": " + overlay + "_all has no parent");
+            }
+        }
+        helper.assertTrue(checked >= 13, "expected a carved log item per wood, found " + checked);
+        helper.assertTrue(problems.isEmpty(), "carved log item models: " + problems);
+        helper.succeed();
+    }
+
+    private static String resource(String path) {
+        try (java.io.InputStream in = WoodworkTests.class.getClassLoader().getResourceAsStream(path)) {
+            return in == null ? null : new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (java.io.IOException e) {
+            return null;
         }
     }
 }

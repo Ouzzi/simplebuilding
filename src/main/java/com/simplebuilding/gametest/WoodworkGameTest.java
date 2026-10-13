@@ -10,6 +10,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class WoodworkGameTest {
 
     @GameTest
+    public void carvedLogItemShowsAllFourSides(GameTestHelper helper) {
+        WoodworkTests.carvedLogItemShowsAllFourSides(helper);
+    }
+
+    @GameTest
     public void hollowLogsLetSmallMobsAndCrawlersThrough(GameTestHelper helper) {
         WoodworkTests.hollowLogsLetSmallMobsAndCrawlersThrough(helper);
     }
