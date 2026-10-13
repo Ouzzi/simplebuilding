@@ -157,7 +157,7 @@ public class ModWorldGen {
                             BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
                     OffsetPlacement.vertical(ConstantInt.of(1)),
                     BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.matchesBlocks(Blocks.AIR),
-                            BlockPredicate.wouldSurvive(ModBlocks.SCULK_JAW.defaultBlockState(), net.minecraft.core.BlockPos.ZERO))),
+                            BlockPredicate.wouldSurvive(ModBlocks.SCULK_JAW, net.minecraft.core.BlockPos.ZERO))),
                     BiomeFilter.biome()));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
