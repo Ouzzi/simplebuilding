@@ -1043,7 +1043,7 @@ public final class SledgehammerTests {
             helper.assertValueEqual(com.simplebuilding.util.SledgehammerUtils.countBlocksBroken(player, helper.absolutePos(top)), counts[i], "actual area count");
             float pickaxe = progressWith(helper, player, new ItemStack(Items.DIAMOND_PICKAXE), top);
             assertRatio(helper, progressWith(helper, player, hammer, top), pickaxe, times[i], "piecewise time for " + counts[i] + " blocks");
-            helper.assertTrue(Math.abs(com.simplebuilding.util.SledgehammerUtils.swingTimeFactor(counts[i], true) - 2 * counts[i]) < 0.0001F, "octant must take 2x per block");
+            helper.assertTrue(Math.abs(com.simplebuilding.util.SledgehammerUtils.swingTimeFactor(counts[i], true) - 0.5F * counts[i]) < 0.0001F, "octant must take 0.5x the pickaxe time per block");
         }
         player.setShiftKeyDown(true);
         float pickaxe = progressWith(helper, player, new ItemStack(Items.DIAMOND_PICKAXE), top);
@@ -1532,8 +1532,10 @@ public final class SledgehammerTests {
         helper.assertValueEqual(SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 18,
                 "positions a swing inside a 3x2x3 octant selection takes");
         assertRatio(helper, progress(helper, player, CENTRE), ironPickaxe,
-                18 * com.simplebuilding.util.SledgehammerUtils.OCTANT_TIME_FACTOR,
-                "a diamond hammer breaking an 18 block octant selection against 18 iron pickaxe blocks, doubled");
+                18 * (com.simplebuilding.version.McVersion.PIECEWISE_HAMMER_TIME
+                        ? com.simplebuilding.util.SledgehammerUtils.OCTANT_PICKAXE_TIME_FACTOR
+                        : com.simplebuilding.util.SledgehammerUtils.OCTANT_TIME_FACTOR),
+                "a diamond hammer breaking an 18 block octant selection against 18 same-tier pickaxe blocks (26.3: half, 26.2: doubled)");
 
         // --- sneaking: one block ---
         player.setShiftKeyDown(true);
