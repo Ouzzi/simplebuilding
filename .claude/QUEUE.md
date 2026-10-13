@@ -257,6 +257,17 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 50 (2026-10-13, Besitzer)
+- [ ] Fragentisch-Rezept: unten Mitte zusätzlich Obsidian. (claude-n50-small)
+- [ ] Verdorrter Wither: Beschwörung per Netherit-Helm auf dem MITTLEREN Schädel (vor dem dritten Schädel aufsetzen) statt Netheritblock; zweite, stärkere Stufe mit Enderit-Helm; bei wenig Leben stärkere Witherskelette (mit Rüstung); Rückstoß unter 15 % stark; Drops: Witherherz, 3–5 Netherit- bzw. Enderit-Nuggets, 1–2 Nethersterne. (claude-wither2)
+- [ ] Netherstern + neue Upgrade-Vorlage („Strong Upgrade“) auf Leuchtfeuer: 6 weitere Effekte, 2 Ebenen größer baubar, entsprechend mehr Reichweite; dasselbe für Conduit soweit möglich. (Konzept zuerst)
+- [ ] Upgrade-Vorlagen-Tooltips: Hufeisen-Upgrade „applies to: Iron–Enderite ingots“; Enderit-Upgrade „Netherite equipment and blocks“ (+ Diamant-Ausrüstung/-Blöcke). (claude-n50-small)
+- [ ] Mob-Köpfe in neues Sub-Mod „Simple Mobheads“, alle Mob-Köpfe implementieren; SimpleBuilding requires es; aus Simple Fun entfernen. (Konzept zuerst)
+- [ ] End-Biome: seltener, viel größer; Grasdichte höher; Stöcke-Bäume wie normale Bäume aus Stöcken, gigantisch; Stamm abbauen → alle Stöcke brechen; im End keine Holzbäume, nur Stöcke-Bäume + Drift-Frucht; Oberwelt-gepflanzte End-Bäume gigantisch, 4×4 → größter Baum im Spiel; Setzling-Rückgabe ~0,8 je Baum (Oberwelt), im End ~1,5 je Stöcke-Baum; Früchte gedeihen nur im End, in der Oberwelt verdorbene Variante (Drifting-Effekt); Blätter durchsichtig/exotisch, kein Vollblock. (claude-endbiome2)
+- [ ] Hollow Watcher teleportiert sich 1 s nach einem Treffer weg. (claude-n50-small)
+- [ ] Erhöhte Schwerkraft (Gravity-Effekt): mehr Fallschaden (Federfall mit einrechnen), „High Gravity“ gerecht. (claude-n50-small)
+- [ ] Resonanz-Button: Cap-Zeile im Tooltip weg; Herz-Texturen überarbeiten (richtig aussehen); Button-Textur wie ein deaktivierter Slot. (claude-n50-small)
+
 ## Nachtrag 49 (2026-10-12, Besitzer)
 - [x] (claude-n49-small) Seelen-Lohe (Soul Blaze) schießt Seelenfeuer-Kugeln (Soulfire Charge, craftbar mit Seelen-Lohenstaub); Treffer gibt Seelenbrand-Effekt.
 - [ ] Deceiver-Umhang: Kopf-Umhang mit Kapuze, liegt als 3D-Modell auf dem Rücken (ähnlich Elytra); mit Elytra: Elytra darunter gerendert, beim Fliegen ragen die Flügel seitlich heraus, Umhang bleibt auf dem Rücken. Deceiver-Mob trägt ähnlichen Umhang. (claude-deceiver3)
