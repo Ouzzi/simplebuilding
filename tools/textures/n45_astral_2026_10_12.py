@@ -5,6 +5,7 @@
   takes the colour of the top's obsidian rim; the gold hem glints, a few stars twinkle. Same 8 frames as the top
   (interpolate, frametime 6) so both stay in step.
 - N52 (owner 2026-10-13): an edge line (FRAME) on the sides (left, right, bottom, under the hem) and round the underside; the underside is an obsidian look.
+- N53 (owner 2026-10-13): the edge line is dark obsidian, not gold; the cloth and its gold hem stay.
 Own pixel art drawn from code.
 """
 from __future__ import annotations
@@ -52,7 +53,7 @@ def top_frame(f, base):
     return im
 
 
-FRAME = (GOLD[1], GOLD[2])   # N52: the edge line of the sides and the underside (same colour so it runs round the block)
+FRAME = (OBS[0], OBS[1])   # N52/N53: the edge line of the sides and the underside, dark obsidian (owner N53: not gold like the cloth)
 
 
 def frame_edges(im, y0):
