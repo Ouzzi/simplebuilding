@@ -1265,9 +1265,6 @@
       "maxStackSize": 99
     },
     {
-      "id": "simplebuilding:emitting_trim_template"
-    },
-    {
       "id": "simplebuilding:enchanted_enderite_apple"
     },
     {
@@ -1675,9 +1672,6 @@
     {
       "id": "simplebuilding:funny_stick",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:glowing_trim_template"
     },
     {
       "id": "simplebuilding:gold_block_octet",
@@ -2930,9 +2924,6 @@
     {
       "id": "simplebuilding:prismarine_octet",
       "maxStackSize": 99
-    },
-    {
-      "id": "simplebuilding:pulsating_trim_template"
     },
     {
       "id": "simplebuilding:purple_concrete_octet",
