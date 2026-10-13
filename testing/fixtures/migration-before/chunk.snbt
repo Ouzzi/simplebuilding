@@ -67,62 +67,77 @@
                 {
                     Slot: 9b,
                     count: 3,
-                    id: "simplebuilding:cracked_diamond_block"
+                    id: "simplelib:cracked_diamond_block"
                 },
                 {
                     Slot: 10b,
                     count: 3,
-                    id: "simplebuilding:enderite_block"
+                    id: "simplelib:enderite_block"
                 },
                 {
                     Slot: 11b,
-                    count: 5,
-                    id: "simplebuilding:diamond_pebble"
+                    count: 3,
+                    id: "simplebuilding:netherite_smoker"
                 },
                 {
                     Slot: 12b,
-                    count: 5,
-                    id: "simplebuilding:cracked_diamond"
+                    count: 3,
+                    id: "simplebuilding:reinforced_blast_furnace"
                 },
                 {
                     Slot: 13b,
-                    count: 5,
-                    id: "simplebuilding:netherite_nugget"
+                    count: 3,
+                    id: "simplebuilding:enderite_blast_furnace"
                 },
                 {
                     Slot: 14b,
                     count: 5,
-                    id: "simplebuilding:enderite_nugget"
+                    id: "simplelib:diamond_pebble"
                 },
                 {
                     Slot: 15b,
                     count: 5,
-                    id: "simplebuilding:raw_enderite"
+                    id: "simplelib:cracked_diamond"
                 },
                 {
                     Slot: 16b,
                     count: 5,
-                    id: "simplebuilding:layered_raw_enderite"
+                    id: "simplelib:netherite_nugget"
                 },
                 {
                     Slot: 17b,
                     count: 5,
-                    id: "simplebuilding:enderite_scrap"
+                    id: "simplelib:enderite_nugget"
                 },
                 {
                     Slot: 18b,
                     count: 5,
-                    id: "simplebuilding:enderite_ingot"
+                    id: "simplelib:raw_enderite"
                 },
                 {
                     Slot: 19b,
                     count: 5,
-                    id: "simplebuilding:basic_upgrade_template"
+                    id: "simplelib:layered_raw_enderite"
                 },
                 {
                     Slot: 20b,
                     count: 5,
-                    id: "simplebuilding:enderite_upgrade_template"
+                    id: "simplelib:enderite_scrap"
+                },
+                {
+                    Slot: 21b,
+                    count: 5,
+                    id: "simplelib:enderite_ingot"
+                },
+                {
+                    Slot: 22b,
+                    count: 5,
+                    id: "simplelib:basic_upgrade_template"
+                },
+                {
+                    Slot: 23b,
+                    count: 5,
+                    id: "simplelib:enderite_upgrade_template"
                 }
             ],
             components: {},
@@ -196,62 +211,77 @@
                 {
                     Slot: 9b,
                     count: 3,
-                    id: "simplebuilding:cracked_diamond_block"
+                    id: "simplelib:cracked_diamond_block"
                 },
                 {
                     Slot: 10b,
                     count: 3,
-                    id: "simplebuilding:enderite_block"
+                    id: "simplelib:enderite_block"
                 },
                 {
                     Slot: 11b,
-                    count: 5,
-                    id: "simplebuilding:diamond_pebble"
+                    count: 3,
+                    id: "simplebuilding:netherite_smoker"
                 },
                 {
                     Slot: 12b,
-                    count: 5,
-                    id: "simplebuilding:cracked_diamond"
+                    count: 3,
+                    id: "simplebuilding:reinforced_blast_furnace"
                 },
                 {
                     Slot: 13b,
-                    count: 5,
-                    id: "simplebuilding:netherite_nugget"
+                    count: 3,
+                    id: "simplebuilding:enderite_blast_furnace"
                 },
                 {
                     Slot: 14b,
                     count: 5,
-                    id: "simplebuilding:enderite_nugget"
+                    id: "simplelib:diamond_pebble"
                 },
                 {
                     Slot: 15b,
                     count: 5,
-                    id: "simplebuilding:raw_enderite"
+                    id: "simplelib:cracked_diamond"
                 },
                 {
                     Slot: 16b,
                     count: 5,
-                    id: "simplebuilding:layered_raw_enderite"
+                    id: "simplelib:netherite_nugget"
                 },
                 {
                     Slot: 17b,
                     count: 5,
-                    id: "simplebuilding:enderite_scrap"
+                    id: "simplelib:enderite_nugget"
                 },
                 {
                     Slot: 18b,
                     count: 5,
-                    id: "simplebuilding:enderite_ingot"
+                    id: "simplelib:raw_enderite"
                 },
                 {
                     Slot: 19b,
                     count: 5,
-                    id: "simplebuilding:basic_upgrade_template"
+                    id: "simplelib:layered_raw_enderite"
                 },
                 {
                     Slot: 20b,
                     count: 5,
-                    id: "simplebuilding:enderite_upgrade_template"
+                    id: "simplelib:enderite_scrap"
+                },
+                {
+                    Slot: 21b,
+                    count: 5,
+                    id: "simplelib:enderite_ingot"
+                },
+                {
+                    Slot: 22b,
+                    count: 5,
+                    id: "simplelib:basic_upgrade_template"
+                },
+                {
+                    Slot: 23b,
+                    count: 5,
+                    id: "simplelib:enderite_upgrade_template"
                 }
             ],
             components: {},
@@ -325,62 +355,77 @@
                 {
                     Slot: 9b,
                     count: 3,
-                    id: "simplebuilding:cracked_diamond_block"
+                    id: "simplelib:cracked_diamond_block"
                 },
                 {
                     Slot: 10b,
                     count: 3,
-                    id: "simplebuilding:enderite_block"
+                    id: "simplelib:enderite_block"
                 },
                 {
                     Slot: 11b,
-                    count: 5,
-                    id: "simplebuilding:diamond_pebble"
+                    count: 3,
+                    id: "simplebuilding:netherite_smoker"
                 },
                 {
                     Slot: 12b,
-                    count: 5,
-                    id: "simplebuilding:cracked_diamond"
+                    count: 3,
+                    id: "simplebuilding:reinforced_blast_furnace"
                 },
                 {
                     Slot: 13b,
-                    count: 5,
-                    id: "simplebuilding:netherite_nugget"
+                    count: 3,
+                    id: "simplebuilding:enderite_blast_furnace"
                 },
                 {
                     Slot: 14b,
                     count: 5,
-                    id: "simplebuilding:enderite_nugget"
+                    id: "simplelib:diamond_pebble"
                 },
                 {
                     Slot: 15b,
                     count: 5,
-                    id: "simplebuilding:raw_enderite"
+                    id: "simplelib:cracked_diamond"
                 },
                 {
                     Slot: 16b,
                     count: 5,
-                    id: "simplebuilding:layered_raw_enderite"
+                    id: "simplelib:netherite_nugget"
                 },
                 {
                     Slot: 17b,
                     count: 5,
-                    id: "simplebuilding:enderite_scrap"
+                    id: "simplelib:enderite_nugget"
                 },
                 {
                     Slot: 18b,
                     count: 5,
-                    id: "simplebuilding:enderite_ingot"
+                    id: "simplelib:raw_enderite"
                 },
                 {
                     Slot: 19b,
                     count: 5,
-                    id: "simplebuilding:basic_upgrade_template"
+                    id: "simplelib:layered_raw_enderite"
                 },
                 {
                     Slot: 20b,
                     count: 5,
-                    id: "simplebuilding:enderite_upgrade_template"
+                    id: "simplelib:enderite_scrap"
+                },
+                {
+                    Slot: 21b,
+                    count: 5,
+                    id: "simplelib:enderite_ingot"
+                },
+                {
+                    Slot: 22b,
+                    count: 5,
+                    id: "simplelib:basic_upgrade_template"
+                },
+                {
+                    Slot: 23b,
+                    count: 5,
+                    id: "simplelib:enderite_upgrade_template"
                 }
             ],
             components: {},
@@ -393,23 +438,27 @@
             Items: [
                 {
                     Slot: 0b,
-                    components: {
-                        "minecraft:damage": 17,
-                        "minecraft:enchantments": {
-                            "simplebuilding:range": 2
-                        }
-                    },
-                    count: 1,
-                    id: "simplebuilding:diamond_sledgehammer"
+                    count: 2,
+                    id: "simplebuilding:reinforced_furnace"
+                },
+                {
+                    Slot: 1b,
+                    count: 3,
+                    id: "minecraft:coal"
+                },
+                {
+                    Slot: 2b,
+                    count: 2,
+                    id: "minecraft:iron_ingot"
                 }
             ],
             RecipesUsed: {},
             components: {},
-            cooking_time_spent: 0,
-            cooking_total_time: 0,
+            cooking_time_spent: 57,
+            cooking_total_time: 100,
             id: "simplebuilding:mod_furnace",
-            lit_time_remaining: 0,
-            lit_total_time: 0,
+            lit_time_remaining: 800,
+            lit_total_time: 1600,
             speed_multiplier: 1.0f,
             x: 3,
             y: 64,
@@ -419,23 +468,27 @@
             Items: [
                 {
                     Slot: 0b,
-                    components: {
-                        "minecraft:damage": 17,
-                        "minecraft:enchantments": {
-                            "simplebuilding:range": 2
-                        }
-                    },
-                    count: 1,
-                    id: "simplebuilding:diamond_sledgehammer"
+                    count: 2,
+                    id: "simplebuilding:reinforced_furnace"
+                },
+                {
+                    Slot: 1b,
+                    count: 3,
+                    id: "minecraft:coal"
+                },
+                {
+                    Slot: 2b,
+                    count: 2,
+                    id: "minecraft:iron_ingot"
                 }
             ],
             RecipesUsed: {},
             components: {},
-            cooking_time_spent: 0,
-            cooking_total_time: 0,
+            cooking_time_spent: 57,
+            cooking_total_time: 100,
             id: "simplebuilding:mod_furnace",
-            lit_time_remaining: 0,
-            lit_total_time: 0,
+            lit_time_remaining: 800,
+            lit_total_time: 1600,
             speed_multiplier: 1.0f,
             x: 4,
             y: 64,
@@ -535,7 +588,7 @@
                     Count: 3,
                     Item: {
                         count: 3,
-                        id: "simplebuilding:cracked_diamond_block"
+                        id: "simplelib:cracked_diamond_block"
                     },
                     Slot: 9
                 },
@@ -543,31 +596,31 @@
                     Count: 3,
                     Item: {
                         count: 3,
-                        id: "simplebuilding:enderite_block"
+                        id: "simplelib:enderite_block"
                     },
                     Slot: 10
                 },
                 {
-                    Count: 5,
+                    Count: 3,
                     Item: {
-                        count: 5,
-                        id: "simplebuilding:diamond_pebble"
+                        count: 3,
+                        id: "simplebuilding:netherite_smoker"
                     },
                     Slot: 11
                 },
                 {
-                    Count: 5,
+                    Count: 3,
                     Item: {
-                        count: 5,
-                        id: "simplebuilding:cracked_diamond"
+                        count: 3,
+                        id: "simplebuilding:reinforced_blast_furnace"
                     },
                     Slot: 12
                 },
                 {
-                    Count: 5,
+                    Count: 3,
                     Item: {
-                        count: 5,
-                        id: "simplebuilding:netherite_nugget"
+                        count: 3,
+                        id: "simplebuilding:enderite_blast_furnace"
                     },
                     Slot: 13
                 },
@@ -575,7 +628,7 @@
                     Count: 5,
                     Item: {
                         count: 5,
-                        id: "simplebuilding:enderite_nugget"
+                        id: "simplelib:diamond_pebble"
                     },
                     Slot: 14
                 },
@@ -583,7 +636,7 @@
                     Count: 5,
                     Item: {
                         count: 5,
-                        id: "simplebuilding:raw_enderite"
+                        id: "simplelib:cracked_diamond"
                     },
                     Slot: 15
                 },
@@ -591,7 +644,7 @@
                     Count: 5,
                     Item: {
                         count: 5,
-                        id: "simplebuilding:layered_raw_enderite"
+                        id: "simplelib:netherite_nugget"
                     },
                     Slot: 16
                 },
@@ -599,7 +652,7 @@
                     Count: 5,
                     Item: {
                         count: 5,
-                        id: "simplebuilding:enderite_scrap"
+                        id: "simplelib:enderite_nugget"
                     },
                     Slot: 17
                 },
@@ -607,7 +660,7 @@
                     Count: 5,
                     Item: {
                         count: 5,
-                        id: "simplebuilding:enderite_ingot"
+                        id: "simplelib:raw_enderite"
                     },
                     Slot: 18
                 },
@@ -615,7 +668,7 @@
                     Count: 5,
                     Item: {
                         count: 5,
-                        id: "simplebuilding:basic_upgrade_template"
+                        id: "simplelib:layered_raw_enderite"
                     },
                     Slot: 19
                 },
@@ -623,9 +676,33 @@
                     Count: 5,
                     Item: {
                         count: 5,
-                        id: "simplebuilding:enderite_upgrade_template"
+                        id: "simplelib:enderite_scrap"
                     },
                     Slot: 20
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplelib:enderite_ingot"
+                    },
+                    Slot: 21
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplelib:basic_upgrade_template"
+                    },
+                    Slot: 22
+                },
+                {
+                    Count: 5,
+                    Item: {
+                        count: 5,
+                        id: "simplelib:enderite_upgrade_template"
+                    },
+                    Slot: 23
                 }
             ],
             Experience: 0.0f,
@@ -638,13 +715,103 @@
             x: 8,
             y: 64,
             z: 1
+        },
+        {
+            Items: [
+                {
+                    Slot: 0b,
+                    count: 2,
+                    id: "simplebuilding:reinforced_furnace"
+                },
+                {
+                    Slot: 1b,
+                    count: 3,
+                    id: "minecraft:coal"
+                },
+                {
+                    Slot: 2b,
+                    count: 2,
+                    id: "minecraft:iron_ingot"
+                }
+            ],
+            RecipesUsed: {},
+            components: {},
+            cooking_time_spent: 57,
+            cooking_total_time: 100,
+            id: "simplebuilding:mod_smoker",
+            lit_time_remaining: 800,
+            lit_total_time: 1600,
+            speed_multiplier: 1.0f,
+            x: 11,
+            y: 64,
+            z: 1
+        },
+        {
+            Items: [
+                {
+                    Slot: 0b,
+                    count: 2,
+                    id: "simplebuilding:reinforced_furnace"
+                },
+                {
+                    Slot: 1b,
+                    count: 3,
+                    id: "minecraft:coal"
+                },
+                {
+                    Slot: 2b,
+                    count: 2,
+                    id: "minecraft:iron_ingot"
+                }
+            ],
+            RecipesUsed: {},
+            components: {},
+            cooking_time_spent: 57,
+            cooking_total_time: 100,
+            id: "simplebuilding:mod_blast_furnace",
+            lit_time_remaining: 800,
+            lit_total_time: 1600,
+            speed_multiplier: 1.0f,
+            x: 12,
+            y: 64,
+            z: 1
+        },
+        {
+            Items: [
+                {
+                    Slot: 0b,
+                    count: 2,
+                    id: "simplebuilding:reinforced_furnace"
+                },
+                {
+                    Slot: 1b,
+                    count: 3,
+                    id: "minecraft:coal"
+                },
+                {
+                    Slot: 2b,
+                    count: 2,
+                    id: "minecraft:iron_ingot"
+                }
+            ],
+            RecipesUsed: {},
+            components: {},
+            cooking_time_spent: 57,
+            cooking_total_time: 100,
+            id: "simplebuilding:mod_blast_furnace",
+            lit_time_remaining: 800,
+            lit_total_time: 1600,
+            speed_multiplier: 1.0f,
+            x: 13,
+            y: 64,
+            z: 1
         }
     ],
     sections: [
         {
             Y: 4b,
             block_states: {
-                data: [L; 0L, 12822748939041L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L],
+                data: [L; 0L, 66933498461897505L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L],
                 palette: [
                     "minecraft:air",
                     "simplebuilding:reinforced_chest",
@@ -656,8 +823,11 @@
                     "simplebuilding:andesite_octet",
                     "simplebuilding:oak_octet",
                     "simplebuilding:enderite_crucible",
-                    "simplebuilding:cracked_diamond_block",
-                    "simplebuilding:enderite_block"
+                    "simplelib:cracked_diamond_block",
+                    "simplelib:enderite_block",
+                    "simplebuilding:netherite_smoker",
+                    "simplebuilding:reinforced_blast_furnace",
+                    "simplebuilding:enderite_blast_furnace"
                 ]
             }
         }
