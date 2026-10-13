@@ -168,10 +168,11 @@ public final class EndTests {
             }
             h.succeed();
         });
-        // Umbau 13.10.: buds outside the End grow gigantic wood trees (tests grow them in the sky, away from other tests).
+        // Umbau 13.10.: buds outside the End grow gigantic wood trees. Tree tests grow in the sky, each in its own height
+        // band (15, 50, 85, 120, 155, 200), so trees of neighbouring tests never meet.
         add("bud_light_grows_tree", h -> {
             EndWood w = EndWood.ASHWOOD;
-            BlockPos at = BUD.above(60);
+            BlockPos at = BUD.above(85);
             ground(h, at, 3);
             h.setBlock(at, w.bud);
             waitForLight(h, at, true, () -> {
@@ -210,7 +211,7 @@ public final class EndTests {
         });
         add("bud_square_grows_huge_tree", h -> {
             EndWood w = EndWood.ASHWOOD;
-            BlockPos at = BUD.above(100);
+            BlockPos at = BUD.above(155);
             ground(h, at, 5);
             for (BlockPos p : new BlockPos[] {at, at.east(), at.south(), at.south().east()}) h.setBlock(p, w.bud);
             waitForLight(h, at, true, () -> {
@@ -222,9 +223,9 @@ public final class EndTests {
                     if (!h.getLevel().getBlockState(p).isAir()) h.getLevel().setBlock(p, Blocks.AIR.defaultBlockState(), 18);
             });
         });
-        add("bud_square4_grows_colossal_tree", h -> {
+        add("colossal_tree_from_sixteen_buds", h -> {
             EndWood w = EndWood.DUSKWOOD;
-            BlockPos at = BUD.above(170);
+            BlockPos at = BUD.above(200);
             ground(h, at, 6);
             for (int i = 0; i < 16; i++) h.setBlock(at.offset(i % 4, 0, i / 4), w.bud);
             waitForLight(h, at, true, () -> {
@@ -247,7 +248,7 @@ public final class EndTests {
         });
         add("bud_in_end_grows_stick_tree", h -> {
             EndWood w = EndWood.DUSKWOOD;
-            BlockPos at = BUD.above(20);
+            BlockPos at = BUD.above(15);
             ground(h, at, 3);
             h.setBlock(at, w.bud);
             BlockPos abs = h.absolutePos(at);
@@ -277,7 +278,7 @@ public final class EndTests {
             h.succeed();
         });
         add("stick_tree_feature", h -> {
-            BlockPos at = BUD.above(40);
+            BlockPos at = BUD.above(120);
             ground(h, at, 3);
             BlockPos abs = h.absolutePos(at);
             boolean placed = new EndFlora("stick_tree", "duskwood").place(h.getLevel(), null, h.getLevel().getRandom(), abs);
@@ -293,7 +294,7 @@ public final class EndTests {
         });
         add("stick_tree_falls_like_chorus", h -> {
             EndWood w = EndWood.ASHWOOD;
-            BlockPos at = BUD.above(30);
+            BlockPos at = BUD.above(50);
             ground(h, at, 3);
             BlockPos abs = h.absolutePos(at);
             ServerLevel level = h.getLevel();

@@ -11,7 +11,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budLightGrowsTree(GameTestHelper helper) { EndTests.ALL.get("bud_light_grows_tree").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budDarkGrowsScrub(GameTestHelper helper) { EndTests.ALL.get("bud_dark_grows_scrub").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budSquareGrowsHugeTree(GameTestHelper helper) { EndTests.ALL.get("bud_square_grows_huge_tree").accept(helper); }
-    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budSquare4GrowsColossalTree(GameTestHelper helper) { EndTests.ALL.get("bud_square4_grows_colossal_tree").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void colossalTreeFromSixteenBuds(GameTestHelper helper) { EndTests.ALL.get("colossal_tree_from_sixteen_buds").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budInEndGrowsStickTree(GameTestHelper helper) { EndTests.ALL.get("bud_in_end_grows_stick_tree").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void sticksTaperLikeDripstone(GameTestHelper helper) { EndTests.ALL.get("sticks_taper_like_dripstone").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void stickTreeFeature(GameTestHelper helper) { EndTests.ALL.get("stick_tree_feature").accept(helper); }
