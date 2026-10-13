@@ -215,7 +215,7 @@ final class EndNetherTests {
             h.setBlock(at, Blocks.DISPENSER.defaultBlockState().setValue(net.minecraft.world.level.block.DispenserBlock.FACING, Direction.EAST));
             ((net.minecraft.world.level.block.entity.DispenserBlockEntity) l.getBlockEntity(h.absolutePos(at))).setItem(0, charge);
             h.setBlock(at.north(), Blocks.REDSTONE_BLOCK.defaultBlockState());
-            var box = new net.minecraft.world.phys.AABB(h.absolutePos(new BlockPos(0, 0, 0)), h.absolutePos(new BlockPos(9, 6, 9)));
+            var box = new net.minecraft.world.phys.AABB(h.absoluteVec(new Vec3(0, 0, 0)), h.absoluteVec(new Vec3(9, 6, 9)));
             h.succeedWhen(() -> h.assertTrue(!l.getEntitiesOfClass(SoulFireball.class, box).isEmpty(), "the dispenser shoots a soul fireball"));
         });
         add.accept("soulfire_blaze", h -> {
