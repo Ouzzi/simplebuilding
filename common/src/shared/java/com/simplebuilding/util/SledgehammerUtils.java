@@ -28,15 +28,17 @@ public final class SledgehammerUtils {
     public static final float LATE_BLOCK_TIME_FACTOR = 0.7F;
     public static final int EARLY_BLOCK_COUNT_LIMIT = 9;
 
-    /** Total same-tier pickaxe block times; octants retain the explicit 2x time per block. */
+    /** Total same-tier pickaxe block times; octants take 0.5x the pickaxe time per block (owner N54). */
     public static float swingTimeFactor(int blocks, boolean octant) {
         if (blocks <= 0) return 1.0F;
-        if (octant) return blocks * OCTANT_TIME_FACTOR;
+        if (octant) return blocks * OCTANT_PICKAXE_TIME_FACTOR;
         return FIRST_BLOCK_TIME_FACTOR
                 + Math.min(blocks - 1, EARLY_BLOCK_COUNT_LIMIT - 1) * EARLY_BLOCK_TIME_FACTOR
                 + Math.max(0, blocks - EARLY_BLOCK_COUNT_LIMIT) * LATE_BLOCK_TIME_FACTOR;
     }
-    /** 26.3: same-tier pickaxe time per octant block; 26.2: multiplier on the legacy area time. */
+    /** 26.3: same-tier pickaxe time per octant block (always a discount, linear, owner N54). */
+    public static final float OCTANT_PICKAXE_TIME_FACTOR = 0.5F;
+    /** 26.2 only: multiplier on the legacy area time. */
     public static final float OCTANT_TIME_FACTOR = 2.0F;
     /** Groesste Oktant-Auswahl, die der Hammer bricht: so viele Stellen in der Box ... */
     public static final int OCTANT_MAX_VOLUME = 4096;

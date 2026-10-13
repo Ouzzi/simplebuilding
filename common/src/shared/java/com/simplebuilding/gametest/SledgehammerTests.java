@@ -1532,8 +1532,10 @@ public final class SledgehammerTests {
         helper.assertValueEqual(SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 18,
                 "positions a swing inside a 3x2x3 octant selection takes");
         assertRatio(helper, progress(helper, player, CENTRE), ironPickaxe,
-                18 * com.simplebuilding.util.SledgehammerUtils.OCTANT_TIME_FACTOR,
-                "a diamond hammer breaking an 18 block octant selection against 18 iron pickaxe blocks, doubled");
+                18 * (com.simplebuilding.version.McVersion.PIECEWISE_HAMMER_TIME
+                        ? com.simplebuilding.util.SledgehammerUtils.OCTANT_PICKAXE_TIME_FACTOR
+                        : com.simplebuilding.util.SledgehammerUtils.OCTANT_TIME_FACTOR),
+                "a diamond hammer breaking an 18 block octant selection against 18 same-tier pickaxe blocks (26.3: half, 26.2: doubled)");
 
         // --- sneaking: one block ---
         player.setShiftKeyDown(true);

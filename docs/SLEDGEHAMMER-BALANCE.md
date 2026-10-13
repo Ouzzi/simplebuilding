@@ -21,8 +21,9 @@ Client und Server wenden denselben Teiler in `BlockStateBaseMixin` an. Vanilla r
 Abbau auf Ticks; weder jeden Block noch jeden Summanden einzeln runden. Effizienz, Eile und
 Umgebung wirken wie bei der gleichstufigen Spitzhacke. Es gibt keinen Wechsel zur niedrigeren Stufe.
 
-Die Oktant-Auswahl bleibt absichtlich linear: `n * OCTANT_TIME_FACTOR`, also **2x je Block** der
-gleichstufigen Spitzhacke (18 Bloecke = 36x). Sie verwendet keine Flaechenrabatte.
+Die Oktant-Auswahl ist linear: `n * OCTANT_PICKAXE_TIME_FACTOR` (0,5), also **0,5x je Block** der
+gleichstufigen Spitzhacke (Besitzer N54, 13.10.; 100 Bloecke, die mit der Spitzhacke 10 s dauern,
+dauern 5 s; 18 Bloecke = 9x statt vorher 36x). Immer Rabatt, keine Flaechenformel.
 Oktant mit beiden Ecken in der Nebenhand, Ursprung in der Figur, hoechstens 32 Bloecke je Kante
 und 4096 Plaetze in der Box. Override, Werkzeug-, Spawnschutz- und Claimpruefungen gelten je Block.
 Schleichen waehlt genau einen Block, ohne Oktant-Modus: 1,5x Zeit.
@@ -31,7 +32,7 @@ Haltbarkeit bleibt unveraendert: 2 je Block, bei einem mitgenommenen Block mit f
 Basiswerte x4 (Diamant 6244, Netherit 8124, Enderit 10000). Kein neuer GUI-Text fuer den Hammer.
 
 26.2 behaelt bis zum gesonderten Port-Run seine alte Formel (1,2 fuer einen Block, sonst n mal die
-Zeit der Spitzhacke eine Stufe darunter, beim Oktant nochmals x2). Keine 1.21.11-/26.4-Portierung.
+Zeit der Spitzhacke eine Stufe darunter, beim Oktant nochmals x2 via `OCTANT_TIME_FACTOR`, unveraendert). Keine 1.21.11-/26.4-Portierung.
 
 Verifikation: `SledgehammerTests` prueft n=1,2,9,10,18 am echten Block-Abbaufortschritt,
 Schleichen und den 18-Block-Oktant; `checkBalance` prueft die Balance-Quellen.
