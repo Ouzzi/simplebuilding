@@ -438,8 +438,9 @@ public final class MobHeadTests {
                 if (!stack.is(MobHeads.item(head.id())) || stack.getCount() != 2) {
                     problems.add(oldItem + " (saved stack -> " + stack + ")");
                 }
-                // 26.3 writes a palette entry as "namespace:path[property=value]".
-                var parsed = BlockState.CODEC.parse(NbtOps.INSTANCE, net.minecraft.nbt.StringTag.valueOf(oldWall + "[facing=east]"));
+                // 26.3 palette entry: {id, properties}.
+                var parsed = BlockState.CODEC.parse(NbtOps.INSTANCE,
+                        TagParser.parseCompoundFully("{id:\"" + oldWall + "\",properties:{facing:\"east\"}}"));
                 BlockState state = parsed.result().orElse(null);
                 if (state == null || !state.is(MobHeads.wall(head.id()))) {
                     problems.add(oldWall + " (chunk palette -> " + state + " " + parsed.error().map(e -> e.message()).orElse("") + ")");

@@ -2664,8 +2664,10 @@ public final class DataIntegrityTests {
             }
         });
         for (Item item : where.keySet()) {
+            // 26.3: the pad ingredients enderman/blaze/shulker head are Simple Mobheads' items (required sub-mod).
+            boolean subModHead = McVersion.HEADS_IN_MOBHEADS && McVersion.HEAD_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace());
             if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)
-                    && !com.simplebuilding.util.SharedMaterials.isShared(item)) {
+                    && !com.simplebuilding.util.SharedMaterials.isShared(item) && !subModHead) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
