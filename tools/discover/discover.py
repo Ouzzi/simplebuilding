@@ -85,6 +85,8 @@ MODS = [
          hand_default="mc26_3/overlay/resources",
          langs=["src/main/resources/assets/simplebuilding/lang", "mc26_3/overlay/resources/assets/simplebuilding/lang"],
          manual="wiki/manual.json", framework="reflect", tips=SB_TIPS, secret=["simplebuilding:easter_smithing"],
+         # Fletching Table parts (no ingredients in the JSON): one unlock for all, when the table or an arrow is picked up
+         grouped={"simplebuilding:fletching": ("fletching_table_parts", "combat", ["minecraft:fletching_table", "#minecraft:arrows"])},
          # 26.2 holds right-click without sneaking and reshapes full blocks into stairs (wiki note *_sledgehammer)
          tip_overrides={"src/main/resources/assets/simplebuilding/lang": {
              "sledgehammer": ("Mines 3x3. Hold use: blocks to stairs, stairs to slabs",
@@ -146,6 +148,7 @@ for _mod in MODS:
     _mod.setdefault("tip_overrides", {})
 for _mod in MODS:
     _mod.setdefault("secret", [])
+    _mod.setdefault("grouped", {})
 
 
 # ---------------------------------------------------------------------------
@@ -242,6 +245,18 @@ def recipe_outputs(mod: dict, problems: list[str]) -> tuple[dict[Path, str], int
             continue
         out[unlock_path(mod, rid, root, recipe)] = json.dumps(unlock_advancement(rid, recipe), indent=2) + "\n"
         added += 1
+    for kind, (name, category, items) in mod["grouped"].items():
+        ids = sorted(rid for rid, (_, _, recipe) in recipes.items() if recipe.get("type") == kind and rid not in unlocked)
+        if not ids:
+            continue
+        criteria = {criterion_name(i): {"conditions": {"items": [{"items": i}]}, "trigger": "minecraft:inventory_changed"}
+                    for i in items}
+        advancement = {"parent": "minecraft:recipes/root", "criteria": criteria,
+                       "requirements": [list(criteria)], "rewards": {"recipes": ids}}
+        ns = ids[0].split(":")[0]
+        path = REPO / mod["hand_default"] / "data" / ns / "advancement" / "recipes" / category / f"{name}.json"
+        out[path] = json.dumps(advancement, indent=2) + "\n"
+        added += len(ids)
     for rid, files in sorted(unlocked.items()):
         if rid.split(":")[0] in mod["ns"] and rid not in recipes:
             problems.append(f"{mod['id']}: {files[0].relative_to(REPO)} unlocks the missing recipe {rid}")
