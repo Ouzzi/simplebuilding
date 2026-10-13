@@ -122,7 +122,7 @@ public final class TrimsTests {
             for (String path : SimpleTrims.MOVED_ITEMS) {
                 Item item = BuiltInRegistries.ITEM.getValue(SimpleTrims.id(path));
                 h.assertTrue(item != Items.AIR && item instanceof net.minecraft.world.item.SmithingTemplateItem, path + " is a registered template");
-                h.assertTrue(new ItemStack(item).is(ItemTags.TRIM_TEMPLATES), path + " is in #minecraft:trim_templates");
+                h.assertTrue(new ItemStack(item).is(TemplateTools.TRIM_TEMPLATES), path + " is in #minecraft:trim_templates");
             }
             for (String path : SimpleTrims.MOVED_COMPONENTS) {
                 h.assertTrue(BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleTrims.id(path)), "component " + path);
@@ -324,7 +324,7 @@ public final class TrimsTests {
             } finally {
                 TrimLight.forget(player);
             }
-            ArmorStand stand = h.spawn(EntityType.ARMOR_STAND, new BlockPos(5, 2, 5));
+            ArmorStand stand = h.spawn(net.minecraft.world.entity.EntityTypes.ARMOR_STAND, new BlockPos(5, 2, 5));
             ItemStack boots = new ItemStack(Items.IRON_BOOTS);
             TrimGlow.incrementEmissionLevel(boots);
             stand.setItemSlot(EquipmentSlot.FEET, boots);

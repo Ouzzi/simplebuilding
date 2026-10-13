@@ -19,6 +19,9 @@ public final class TemplateTools {
     /** Axes and hammers: the ingredient of the tool slot in recipes (the mode decides which half counts). */
     public static final TagKey<Item> TOOLS = TagKey.create(Registries.ITEM, SimpleTrims.id("template_tools"));
 
+    /** Vanilla's {@code #minecraft:trim_templates} (no constant in 26.3's ItemTags). */
+    public static final TagKey<Item> TRIM_TEMPLATES = TagKey.create(Registries.ITEM, net.minecraft.resources.Identifier.withDefaultNamespace("trim_templates"));
+
     /** Hammer mode: a partner switched the axe ways off. */
     public static boolean hammerMode() {
         return !com.simplelib.api.SimpleLibApi.axeWaysEnabled();

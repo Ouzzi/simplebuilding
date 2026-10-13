@@ -105,7 +105,12 @@ public class ToolShapelessRecipe extends ShapelessRecipe {
         List<SlotDisplay> slots = new ArrayList<>();
         for (Ingredient ingredient : ingredients) {
             boolean tool = ingredient.items().anyMatch(holder -> holder.is(TemplateTools.TOOLS));
-            slots.add(tool ? new SlotDisplay.TagSlotDisplay(TemplateTools.currentTag()) : ingredient.display());
+            SlotDisplay shown = ingredient.display();
+            if (tool) {
+                var tools = net.minecraft.core.registries.BuiltInRegistries.ITEM.get(TemplateTools.currentTag());
+                if (tools.isPresent()) shown = Ingredient.of(tools.get()).display();
+            }
+            slots.add(shown);
         }
         return List.of(new ShapelessCraftingRecipeDisplay(slots, new SlotDisplay.ItemStackSlotDisplay(result),
                 new SlotDisplay.ItemSlotDisplay(Items.CRAFTING_TABLE)));

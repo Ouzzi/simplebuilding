@@ -59,7 +59,7 @@ public final class PlacedTemplates {
 
     /** Trim templates lie down here (Vanilla ones, this mod's and any other mod's in the Vanilla tag). */
     public static boolean isPlaceable(ItemStack stack) {
-        return SimpleTrims.on() && !stack.isEmpty() && stack.is(ItemTags.TRIM_TEMPLATES);
+        return SimpleTrims.on() && !stack.isEmpty() && stack.is(TemplateTools.TRIM_TEMPLATES);
     }
 
     /** Sneak + right click of a trim template on a block (from {@code Item#useOn}); null = nothing placed. */
