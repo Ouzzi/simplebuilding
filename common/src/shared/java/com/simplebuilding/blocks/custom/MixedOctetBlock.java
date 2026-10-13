@@ -56,10 +56,21 @@ public class MixedOctetBlock extends OctetCellBlock implements EntityBlock {
         return new MixedOctetBlockEntity(pos, state);
     }
 
-    /** Tempo wie das angeschaute Achtel: sein Material mit dessen Haerte und Werkzeug. */
+    /** Tempo wie das angeschaute Achtel (sein Material, Haerte, Werkzeug); schleichend wie das haerteste Material. */
     @Override
     protected float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
-        BlockState part = OctetCells.parts(level, pos, state)[OctetCells.lookedAt(player, pos, state)];
+        BlockState[] parts = OctetCells.parts(level, pos, state);
+        if (player.isShiftKeyDown()) {
+            // Schleichen nimmt die ganze Zelle: so langsam wie ihr haertestes Material.
+            float slowest = Float.MAX_VALUE;
+            for (BlockState part : parts) {
+                if (part != null) {
+                    slowest = Math.min(slowest, part.getDestroyProgress(player, level, pos));
+                }
+            }
+            return slowest == Float.MAX_VALUE ? super.getDestroyProgress(state, player, level, pos) : slowest;
+        }
+        BlockState part = parts[OctetCells.lookedAt(player, pos, state)];
         return part == null ? super.getDestroyProgress(state, player, level, pos) : part.getDestroyProgress(player, level, pos);
     }
 }

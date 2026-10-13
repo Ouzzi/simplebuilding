@@ -53,4 +53,14 @@ public final class ChessGameTest {
     public void octetsOldCellsMigrateAndMixedCellsPersist(GameTestHelper helper) {
         OctetMixTests.octetsOldCellsMigrateAndMixedCellsPersist(helper);
     }
+
+    @GameTest
+    public void octetsSneakingBreaksTheWholeCell(GameTestHelper helper) {
+        OctetMixTests.octetsSneakingBreaksTheWholeCell(helper);
+    }
+
+    @GameTest
+    public void octetsSledgehammerFollowsTheSneakRule(GameTestHelper helper) {
+        OctetMixTests.octetsSledgehammerFollowsTheSneakRule(helper);
+    }
 }

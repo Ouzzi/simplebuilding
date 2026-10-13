@@ -26,7 +26,7 @@ Material je Achtel im Zustand ist unmöglich (170⁸). Darum:
   eigenes Baked-Model: das bräuchte je Loader eigene APIs (Fabric `FabricBlockStateModel`, NeoForge `ModelData`,
   Forge) plus Modell-Hooks; der BER ist loader-neutral, Sodium-fest und betrifft nur gemischte Zellen.
   Kosten: Nachbarflächen werden nicht gecullt (nur Überzeichnung), keine Bruch-Risse auf gemischten Zellen.
-- **Abbauen gezielt** (alle Achtelzellen, rein und gemischt, durch Spieler): nur das angeschaute Achtel
+- **Abbauen gezielt** (alle Achtelzellen, rein und gemischt, durch Spieler): nur das angeschaute Achtel; **schleichend die ganze Zelle** (Besitzer 13.10., auch Hammer: schleichend ein Block = ganze Zelle, Flächenabbau je Zelle ein Achtel)
   (Blickstrahl gegen die Zellform). Muster wie N37-Kleinteile: `playerWillDestroy` merkt Rest + Drop (ThreadLocal),
   `destroy` legt den Rest zurück, `getDrops` liefert nur das Achtel (loader-fest, auch wenn Forge den Originalzustand
   weiterreicht). Abbaugeschwindigkeit und Werkzeugpflicht nach dem Material des Achtels. Explosion/Kolben/

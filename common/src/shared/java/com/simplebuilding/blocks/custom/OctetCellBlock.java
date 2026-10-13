@@ -273,7 +273,8 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
 
     /**
      * Abbauen durch einen Spieler nimmt nur das angeschaute Achtel ({@link OctetCells#lookedAt}); das letzte Achtel
-     * nimmt die Zelle mit. Vanilla und alle Loader rufen {@code playerWillDestroy}, entfernen dann den Block und rufen
+     * nimmt die Zelle mit. Schleichend faellt die ganze Zelle (alle Achtel, alle Drops) - auch beim Vorschlaghammer, der
+     * schleichend genau einen Block abbaut; sein Flaechenabbau ohne Schleichen nimmt je Zelle ein Achtel. Vanilla und alle Loader rufen {@code playerWillDestroy}, entfernen dann den Block und rufen
      * {@link #destroy}; Explosionen, Kolben und {@code Level#destroyBlock} ohne Spieler droppen weiter alles.
      */
     @Override
@@ -281,7 +282,8 @@ public abstract class OctetCellBlock extends Block implements SimpleWaterloggedB
         BREAKING.remove();
         BlockState[] parts = OctetCells.parts(level, pos, state);
         int index = OctetCells.lookedAt(player, pos, state);
-        if (parts[index] != null) {
+        // Schleichen (Besitzer 13.10.): die ganze Zelle mit allen Achteln und Drops, auch beim Hammer.
+        if (parts[index] != null && !player.isShiftKeyDown()) {
             BREAKING.set(new Breaking(level, pos.immutable(), OctetCells.without(parts, index), OctetCells.wet(state),
                     parts[index], index, level.getGameTime()));
         }

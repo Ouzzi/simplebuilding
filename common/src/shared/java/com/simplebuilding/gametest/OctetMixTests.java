@@ -153,6 +153,71 @@ public final class OctetMixTests {
         helper.succeed();
     }
 
+    /** Owner 2026-10-13: sneaking breaks the whole cell - every octet of every material drops (needs the right tool). */
+    public static void octetsSneakingBreaksTheWholeCell(GameTestHelper helper) {
+        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        BlockPos pos = helper.absolutePos(CELL);
+        BlockState[] parts = new BlockState[8];
+        for (int i = 0; i < 8; i++) {
+            parts[i] = OctetCellBlock.y(i) == 0 ? material(Blocks.STONE) : material(Blocks.OAK_PLANKS);
+        }
+        OctetCells.set(helper.getLevel(), pos, parts, false, Block.UPDATE_ALL);
+        ServerPlayer player = survivalPlayer(helper);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
+        Vec3 top = new Vec3(pos.getX() + 0.25, pos.getY() + 1.0, pos.getZ() + 0.25);
+        player.snapTo(top.x, top.y + 1.0 - player.getEyeHeight(), top.z, 0.0F, 90.0F);
+        player.setShiftKeyDown(true);
+        player.gameMode.destroyBlock(pos);
+        helper.assertBlockPresent(Blocks.AIR, CELL);
+        helper.assertValueEqual(dropped(helper, piece(Blocks.OAK_PLANKS)), 4, "every oak octet");
+        helper.assertValueEqual(dropped(helper, piece(Blocks.STONE)), 4, "every stone octet");
+        // a pure cell too
+        helper.setBlock(CELL, OctetCellBlock.withMask(cell(Blocks.OAK_PLANKS).defaultBlockState(), 0x0F));
+        player.gameMode.destroyBlock(pos);
+        helper.assertBlockPresent(Blocks.AIR, CELL);
+        helper.assertValueEqual(dropped(helper, piece(Blocks.OAK_PLANKS)), 8, "the pure cell drops its four octets");
+        player.setShiftKeyDown(false);
+        helper.succeed();
+    }
+
+    /**
+     * The sledgehammer follows the same rule: its area swing (not sneaking) takes one octet from each neighbouring
+     * cell, sneaking it mines just the hit block - and that cell whole.
+     */
+    public static void octetsSledgehammerFollowsTheSneakRule(GameTestHelper helper) {
+        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        BlockState full = OctetCellBlock.withMask(cell(Blocks.STONE).defaultBlockState(), OctetCellBlock.FULL);
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                helper.setBlock(CELL.offset(dx, 0, dz), full);
+            }
+        }
+        ServerPlayer player = survivalPlayer(helper);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.items.ModItems.DIAMOND_SLEDGEHAMMER));
+        BlockPos origin = helper.absolutePos(CELL);
+        player.snapTo(origin.getX() + 0.5, origin.getY() + 2.0, origin.getZ() + 0.5, 0.0F, 90.0F);
+        player.setShiftKeyDown(false);
+        com.simplebuilding.util.SledgehammerUsageEvent.handleBeforeBlockBreak(helper.getLevel(), player, origin, helper.getBlockState(CELL), null);
+        int left = 0;
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                if (dx != 0 || dz != 0) {
+                    left += OctetCellBlock.count(helper.getBlockState(CELL.offset(dx, 0, dz)));
+                }
+            }
+        }
+        helper.assertValueEqual(left, 8 * 7, "the area swing takes one octet per neighbouring cell");
+        helper.assertValueEqual(dropped(helper, piece(Blocks.STONE)), 8, "one stone octet per neighbour");
+        player.setShiftKeyDown(true);
+        helper.assertValueEqual(com.simplebuilding.items.custom.SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 1,
+                "sneaking, the hammer mines one block");
+        player.gameMode.destroyBlock(origin);
+        helper.assertBlockPresent(Blocks.AIR, CELL);
+        helper.assertValueEqual(dropped(helper, piece(Blocks.STONE)), 16, "sneaking takes the whole cell");
+        player.setShiftKeyDown(false);
+        helper.succeed();
+    }
+
     private static void breakFromAbove(GameTestHelper helper, ServerPlayer player, int x, int y, int z) {
         BlockPos pos = helper.absolutePos(CELL);
         Vec3 top = new Vec3(pos.getX() + x * 0.5 + 0.25, pos.getY() + y * 0.5 + 0.5, pos.getZ() + z * 0.5 + 0.25);
