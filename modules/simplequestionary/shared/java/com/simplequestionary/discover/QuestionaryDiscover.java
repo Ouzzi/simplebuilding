@@ -205,8 +205,24 @@ public final class QuestionaryDiscover {
         return false;
     }
 
+    /** fnmatch like the wiki: {@code *}, {@code ?} and {@code [...]} classes. */
     static boolean glob(String pattern, String text) {
-        return Pattern.matches(("\\Q" + pattern + "\\E").replace("*", "\\E.*\\Q"), text);
+        StringBuilder regex = new StringBuilder();
+        for (int i = 0; i < pattern.length(); i++) {
+            char c = pattern.charAt(i);
+            int close = c == '[' ? pattern.indexOf(']', i + 1) : -1;
+            if (c == '*') {
+                regex.append(".*");
+            } else if (c == '?') {
+                regex.append('.');
+            } else if (close > i + 1) {
+                regex.append('[').append(pattern, i + 1, close).append(']');
+                i = close;
+            } else {
+                regex.append(Pattern.quote(String.valueOf(c)));
+            }
+        }
+        return Pattern.matches(regex.toString(), text);
     }
 
     static Map<String, String> lang(String locale) {

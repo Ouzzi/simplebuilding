@@ -336,6 +336,16 @@ tasks.register('checkModuleGuides', Exec) {
 }
 tasks.named('check') { dependsOn 'checkModuleGuides' }
 
+tasks.register('checkDiscover', Exec) {
+	group = 'verification'
+	description = 'Fails when a recipe-book unlock, a generated discover class or a first pickup tip is missing (python tools/discover/discover.py --check).'
+	workingDir = rootDir
+	commandLine wikiPython, 'tools/discover/discover.py', '--check'
+	onlyIf { !project.hasProperty('skipWiki') }
+	outputs.upToDateWhen { false }
+}
+tasks.named('check') { dependsOn 'checkDiscover' }
+
 // The Minecraft 26.3 line compiles the 26.2 trees plus small overlays instead of a copy of its own.
 // Two things keep that honest:
 //   1. No class may exist both in a shared tree and in an overlay - it would be two classes with one
