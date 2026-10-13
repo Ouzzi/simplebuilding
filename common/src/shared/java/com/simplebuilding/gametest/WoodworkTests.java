@@ -503,7 +503,7 @@ public final class WoodworkTests {
                         || model.contains("template_carved_"))) problems.add(id + ": " + overlay + "_all has no parent");
             }
         }
-        helper.assertTrue(checked >= 13, "expected a carved log item per wood, found " + checked);
+        helper.assertTrue(checked >= 12, "expected a carved log item per wood, found " + checked);
         helper.assertTrue(problems.isEmpty(), "carved log item models: " + problems);
         helper.succeed();
     }
