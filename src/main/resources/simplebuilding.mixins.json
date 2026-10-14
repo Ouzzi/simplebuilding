@@ -88,6 +88,8 @@
     "VillagerTradePriceMixin",
     "ChestBlockMixin",
     "ShulkerBoxBlockMixin",
+    "SculkShriekerBlockMixin",
+    "SculkShriekerSilenceMixin",
     "EnchantingTableBlockMixin",
     "ShulkerOpenStateMixin",
     "ShulkerOpenComponentsMixin",

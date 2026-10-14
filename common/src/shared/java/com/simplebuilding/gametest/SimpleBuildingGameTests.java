@@ -1299,6 +1299,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("silent_dandelion_game_test_players_stands_bosses_and_dead_mobs_are_unchanged", SilentDandelionTests::playersStandsBossesAndDeadMobsAreUnchanged).build(),
             GameTestSpec.named("silent_dandelion_game_test_potting_and_unpotting_use_vanilla_interaction", SilentDandelionTests::pottingAndUnpottingUseVanillaInteraction).build(),
             GameTestSpec.named("silent_dandelion_game_test_recipes_use_any_wool_and_eight_yarn", SilentDandelionTests::recipesUseAnyWoolAndEightYarn).build(),
+            GameTestSpec.named("silent_dandelion_game_test_shrieker_toggle_saves_and_still_shrieks", SilentDandelionTests::shriekerToggleSavesAndStillShrieks).build(),
             GameTestSpec.named("silent_dandelion_game_test_toggled_silence_survives_vanilla_save_and_load", SilentDandelionTests::toggledSilenceSurvivesVanillaSaveAndLoad).build(),
             GameTestSpec.named("silent_dandelion_game_test_use_toggles_mobs_with_vanilla_cooldown_and_consumption", SilentDandelionTests::useTogglesMobsWithVanillaCooldownAndConsumption).maxTicks(100).build(),
             GameTestSpec.named("silent_dandelion_game_test_yarn_places_in_small_parts_and_drops_itself", SilentDandelionTests::yarnPlacesInSmallPartsAndDropsItself).build(),

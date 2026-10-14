@@ -1,0 +1,11 @@
+# Bericht oc-shrieker (N57: Sculk Shrieker + Silent Dandelion)
+- Commit: "feat: silence Sculk Shrieker with Silent Dandelion" (Branch oc-shrieker).
+- Rechtsklick mit Silent Dandelion auf Sculk Shrieker schaltet stumm/laut (`SculkShriekerBlockMixin`, ergaenzt `useItemOn`; wie bei Mobs: 1 Blume pro Nutzung ausser Kreativ, Golden-Dandelion-Sounds + PAUSE/RESET_MOB_GROWTH-Partikel; nur mit `mayBuild`).
+- Flag im Block-Entity (`SculkShriekerSilenceMixin`, NBT `simplebuilding_silenced`, Duck-Interface `util/ShriekerSilence`): gilt fuer alle Spieler, loader-neutral, ueberlebt Speichern.
+- Stumm = kein Kreisch-Sound (Level-Event 3007 wird per Redirect durch serverseitige Shriek-Partikel ersetzt, da der Client den Sound selbst abspielt) und kein Warden-Antwortgeraeusch (`playWardenReplySound`). Warnstufen, Darkness, Warden-Beschwoerung, SHRIEKING-Zustand unveraendert.
+- Texte EN+DE: Tooltip ("Use on a mob or Sculk Shrieker: sound on / off", 46 Zeichen), tip, JEI-Info, Handbuch gadgets.13 (Lang in mc26_3/overlay und src/main).
+- Test: `silent_dandelion_game_test_shrieker_toggle_saves_and_still_shrieks` (an/aus, Verbrauch, Speichern/Laden, Shriek bleibt, andere Items wirkungslos). Zeile: `alles gruen: 16/16 bestanden, 0 rot` (fabric-263,neoforge-263, Filter `simplebuilding:silent_dandelion*`); Guide-Test `every_guide_page_fits...` gruen; Compile Fabric/Gametest/NeoForge/Forge 26.3 + Root `compileJava` (26.2) ohne Fehler.
+- Checks: check_tooltip_text OK, discover --check OK, module_guides OK, wiki "up to date".
+- Eigene Entscheidung: Warden-Antwort-Geraeusch ebenfalls stumm (Besitzer: "damit er nicht nervt"); keine Abklingzeit wie bei Mobs.
+- Nicht getestet: hoerbares Ergebnis im Client (Sound/Partikel), Forge-Laufzeit (nur Compile), 1.21.11-Kopie/26.4 (Port-Run).
+- Vorbestehend/unbeteiligt: `wiki/generate.py --check --strict` meldet `wiki/data/textures.js` veraltet (ohne Vanilla-Jar); `tools/guide_book_pages.py` 2 Probleme (admin/guide-Buecher).

@@ -32,4 +32,8 @@ public final class SilentDandelionGameTest {
     public void yarnPlacesInSmallPartsAndDropsItself(GameTestHelper helper) {
         SilentDandelionTests.yarnPlacesInSmallPartsAndDropsItself(helper);
     }
+    @GameTest
+    public void shriekerToggleSavesAndStillShrieks(GameTestHelper helper) {
+        SilentDandelionTests.shriekerToggleSavesAndStillShrieks(helper);
+    }
 }
