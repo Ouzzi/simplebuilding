@@ -17,8 +17,10 @@ public final class ToolsConfig {
     public boolean enableFurnaceLavaFill = true;
     /** Soulbound items stay in their slot on death (owner 2026-10-12). */
     public boolean enableSoulbound = true;
-    /** Death Vault block: lost death drops that despawned or burned can be bought back. */
+    /** Death Vault block: shows what became of the items dropped at your last death. */
     public boolean enableDeathVault = true;
+    /** Future feature, off by default: buy lost death drops (despawned, burned) back with an offering at the Death Vault. */
+    public boolean deathVaultRedeem = false;
     /** Soulbound items and Death Vault returns keep at most this much durability, 1-2031. */
     public int deathDurabilityCap = 50;
     /** Anvil levels for every combination that applies Soulbound, 1-39 (Vanilla refuses 40+). */
@@ -27,11 +29,11 @@ public final class ToolsConfig {
     public double soulboundTraderChance = 0.05;
     /** Chance of a Soulbound book in an End City treasure chest, 0-1 (applied on data reload). */
     public double soulboundEndCityChance = 0.02;
-    /** Offering points (diamonds, Simple Money bills) per returned item, 1-64. */
+    /** Future redeem option: offering points (diamonds, Simple Money bills) per returned item, 1-64. */
     public int deathVaultCostPerItem = 4;
-    /** Items returned by one offering at most, 1-27. */
+    /** Future redeem option: items returned by one offering at most, 1-27. */
     public int deathVaultMaxPerOffering = 3;
-    /** Deaths kept per player, 1-100 (the oldest are forgotten). */
+    /** Future redeem option: deaths kept per player, 1-100 (the oldest are forgotten); without it only the last death is kept. */
     public int deathVaultMaxDeaths = 20;
 
     public static double bounded(double v, double min, double max, double fallback) {

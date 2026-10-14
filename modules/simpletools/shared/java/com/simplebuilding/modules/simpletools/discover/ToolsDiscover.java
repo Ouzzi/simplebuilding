@@ -58,6 +58,7 @@ public final class ToolsDiscover {
             "simpletools:config_deathVaultCostPerItem",
             "simpletools:config_deathVaultMaxDeaths",
             "simpletools:config_deathVaultMaxPerOffering",
+            "simpletools:config_deathVaultRedeem",
             "simpletools:config_enableDeathVault",
             "simpletools:config_enableFullDurabilityBonus",
             "simpletools:config_enableFurnaceLavaFill",

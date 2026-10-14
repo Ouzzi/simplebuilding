@@ -30,6 +30,8 @@ public final class ToolsScreen {
                 .setTooltip(tip("enableSoulbound")).setSaveConsumer(v -> c.enableSoulbound = v).build());
         death.addEntry(e.startBooleanToggle(name("enableDeathVault"), c.enableDeathVault).setDefaultValue(true)
                 .setTooltip(tip("enableDeathVault")).setSaveConsumer(v -> c.enableDeathVault = v).build());
+        death.addEntry(e.startBooleanToggle(name("deathVaultRedeem"), c.deathVaultRedeem).setDefaultValue(false)
+                .setTooltip(tip("deathVaultRedeem")).setSaveConsumer(v -> c.deathVaultRedeem = v).build());
         death.addEntry(e.startIntField(name("deathDurabilityCap"), c.deathDurabilityCap).setMin(1).setMax(2031).setDefaultValue(50)
                 .setTooltip(tip("deathDurabilityCap")).setSaveConsumer(v -> c.deathDurabilityCap = v).build());
         death.addEntry(e.startIntField(name("soulboundAnvilCost"), c.soulboundAnvilCost).setMin(1).setMax(39).setDefaultValue(35)

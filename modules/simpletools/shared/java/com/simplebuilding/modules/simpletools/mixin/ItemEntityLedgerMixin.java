@@ -5,6 +5,7 @@ import com.simplebuilding.modules.simpletools.vault.RemovalContext;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Death Vault context: marks the entity's own tick (despawn) and the damage it takes (fire, lava, explosion), and keeps
+ * Death Vault context: marks the entity's own tick (despawn), the damage it takes (fire, lava, cactus, explosion) and a player's touch (pickup), and keeps
  * recorded death drops from merging (a partial merge would split a recorded stack over two entities).
  */
 @Mixin(ItemEntity.class)
@@ -25,6 +26,16 @@ public abstract class ItemEntityLedgerMixin {
     @Inject(method = "tick", at = @At("RETURN"))
     private void simpletools$tickEnd(CallbackInfo ci) {
         if (RemovalContext.ticking == (Object) this) RemovalContext.ticking = null;
+    }
+
+    @Inject(method = "playerTouch", at = @At("HEAD"))
+    private void simpletools$touchStart(Player player, CallbackInfo ci) {
+        if (!player.level().isClientSide()) RemovalContext.touchStart((ItemEntity) (Object) this, player);
+    }
+
+    @Inject(method = "playerTouch", at = @At("RETURN"))
+    private void simpletools$touchEnd(Player player, CallbackInfo ci) {
+        RemovalContext.touchEnd((ItemEntity) (Object) this);
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"))
