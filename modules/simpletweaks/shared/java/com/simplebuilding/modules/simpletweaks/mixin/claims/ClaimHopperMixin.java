@@ -27,6 +27,8 @@ public abstract class ClaimHopperMixin {
  }
  @Inject(method="addItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/Container;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Lnet/minecraft/world/item/ItemStack;",at=@At("HEAD"),cancellable=true)
  private static void claims$transfer(net.minecraft.world.Container from,net.minecraft.world.Container into,net.minecraft.world.item.ItemStack stack,Direction direction,CallbackInfoReturnable<net.minecraft.world.item.ItemStack> cir){
-  if(Claims.anyEnabled()&&!com.simplebuilding.modules.simpletweaks.claims.ClaimAutomation.transfer(from==null?claims$drop.get():from,into))cir.setReturnValue(stack);
+  // No source and no pickup in flight: a bare programmatic call (mod code, tests) is no hopper automation and has nobody to judge.
+  Object source=from==null?claims$drop.get():from;
+  if(source!=null&&Claims.anyEnabled()&&!com.simplebuilding.modules.simpletweaks.claims.ClaimAutomation.transfer(source,into))cir.setReturnValue(stack);
  }
 }

@@ -1,6 +1,6 @@
 {
   "item.simpletweaks.claim_deed": "Alte Claim-Urkunde",
-  "tooltip.simpletweaks.claim_deed.inactive": "Rechtsklick: beansprucht den Chunk, in dem du stehst (wie /claim create).",
+  "tooltip.simpletweaks.claim_deed.inactive": "Rechtsklick: beansprucht deinen Chunk.",
   "config.simpletweaks.claims.tab": "Server-Claims",
   "config.simpletweaks.claims.enabled": "Claims aktivieren",
   "config.simpletweaks.claims.enabled.tooltip": "Serverseitige Claims: /claim create\nbeansprucht deinen Chunk; nur du und Vertraute\ndürfen ihn ändern. Explosionen, Feuer,\nFlüssigkeiten, Kolben, Automation, Mobs und\nWerkzeuge respektieren Claims. Eine bestehende\nDatei behält ihren Wert. Standardwert: true.",

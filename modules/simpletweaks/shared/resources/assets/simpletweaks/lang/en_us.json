@@ -1,6 +1,6 @@
 {
   "item.simpletweaks.claim_deed": "Legacy Claim Deed",
-  "tooltip.simpletweaks.claim_deed.inactive": "Right-click: claims the chunk you stand in (like /claim create).",
+  "tooltip.simpletweaks.claim_deed.inactive": "Right-click: claims the chunk you stand in.",
   "config.simpletweaks.claims.tab": "Server Claims",
   "config.simpletweaks.claims.enabled": "Enable Claims",
   "config.simpletweaks.claims.enabled.tooltip": "Server-side claims: /claim create claims your\nchunk; only you and trusted players may change\nit. Explosions, fire, fluids, pistons,\nautomation, mobs and tools respect claims. An\nexisting file keeps its value. Default: true.",

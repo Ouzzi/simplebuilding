@@ -202,11 +202,11 @@ public final class ImmersionTests {
         expectLines(helper, TweaksBlocks.REINFORCED_FLYPAD, "Tier II of III", "Flight area: 8 x 8 blocks, 16 high", "Flying out gives you Slow Falling");
         expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still 5 s: bed or anchor.");
         expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Up to 45 s; cooldown 67.5 s");
-        expectLines(helper, com.simplebuilding.util.OvenRefs.block("enderite_furnace"), "Works 8× as fast", "Double experience");
-        expectLines(helper, com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), "Works 2× as fast");
-        expectLines(helper, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), "Works 4× as fast", "Double experience");
+        expectOven(helper, com.simplebuilding.util.OvenRefs.block("enderite_furnace"), "Works 8× as fast", "Double experience");
+        expectOven(helper, com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), "Works 2× as fast");
+        expectOven(helper, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), "Works 4× as fast", "Double experience");
         for (var furnace : List.of(com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"))) {
-            helper.assertValueEqual(InfoTooltips.lines(new ItemStack(furnace)).size(), 2,
+            helper.assertValueEqual(ovenLines(helper, new ItemStack(furnace)).size(), 2,
                     "blast furnace tooltip contains only speed and experience");
         }
         expectLines(helper, ModBlocks.REINFORCED_HOPPER, "Moves an item every 4 ticks",
@@ -222,7 +222,7 @@ public final class ImmersionTests {
             helper.assertTrue(InfoTooltips.lines(new ItemStack(legacy)).isEmpty(),
                     "the legacy pad has info lines: " + text(new ItemStack(legacy)));
         }
-        helper.assertFalse(text(new ItemStack(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"))).contains("Double experience"),
+        helper.assertFalse(ovenLines(helper, new ItemStack(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"))).stream().anyMatch(l -> l.getString().contains("Double experience")),
                 "the reinforced furnace claims double experience");
         helper.assertTrue(InfoTooltips.lines(new ItemStack(Blocks.FURNACE)).isEmpty(), "the vanilla furnace got info lines");
         helper.succeed();
@@ -376,6 +376,13 @@ public final class ImmersionTests {
 
     // =====================================================================================
 
+    private static void expectOven(GameTestHelper helper, ItemLike item, String... expected) {
+        List<String> lines = ovenLines(helper, new ItemStack(item)).stream().map(Component::getString).toList();
+        for (String line : expected) {
+            helper.assertTrue(lines.contains(line), item.asItem() + " tooltip lacks \"" + line + "\": " + lines);
+        }
+    }
+
     private static void expectLines(GameTestHelper helper, ItemLike item, String... expected) {
         List<String> lines = text(new ItemStack(item));
         for (String line : expected) {
@@ -388,6 +395,20 @@ public final class ImmersionTests {
         for (Component line : InfoTooltips.lines(stack)) {
             out.add(line.getString());
         }
+        return out;
+    }
+
+    /**
+     * The info lines of a furnace: on 26.2 InfoTooltips adds them, on 26.3 the furnace item of Simple Ovens writes them
+     * itself (OvenItem#appendHoverText), so they are read from the item there.
+     */
+    private static List<Component> ovenLines(GameTestHelper helper, ItemStack stack) {
+        if (com.simplebuilding.version.McVersion.OVENS_IN_SB) {
+            return InfoTooltips.lines(stack);
+        }
+        List<Component> out = new ArrayList<>();
+        stack.getItem().appendHoverText(stack, net.minecraft.world.item.Item.TooltipContext.of(helper.getLevel()),
+                net.minecraft.world.item.component.TooltipDisplay.DEFAULT, out::add, net.minecraft.world.item.TooltipFlag.NORMAL);
         return out;
     }
 

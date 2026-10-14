@@ -45,7 +45,10 @@ def _line_flags(repo: Path | None, mc: str) -> dict[str, bool]:
 
 def _for_line(table: dict, flags: dict[str, bool]) -> dict:
     """Die Tabelle ohne die Pools, deren Feature-Flag auf dieser Linie aus ist."""
-    pools = [p for p in table["pools"] if not p.get("flag") or flags.get(p["flag"], False)]
+    def active(flag):
+        return not flag or (not flags.get(flag[1:], False) if flag.startswith("!") else flags.get(flag, False))
+
+    pools = [p for p in table["pools"] if active(p.get("flag"))]
     pools = [dict(p, rolls=dict(p["rolls"], p=p["alternateChance"]["p"],
                               ids={"p": p["alternateChance"]["id"]}))
              if p.get("alternateChance") and not flags.get(p["alternateChance"]["flag"], False)

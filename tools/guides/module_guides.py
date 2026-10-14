@@ -60,7 +60,7 @@ MODULES = [
                 "Begrenzte verspielte Mechaniken, Wurfziegel und kosmetische Verwandlungen. Die Tierköpfe liegen jetzt in "
                 "Simple Mobheads.")),
     dict(module="simplemobheads", ns="simplemobheads", package="com.simplemobheads.guide", cls="MobHeadsGuide",
-         kind="item", author="Simple Mobheads", recipe="minecraft:bone",
+         kind="item", author="Simple Mobheads", recipe="minecraft:skeleton_skull",
          name=("Simple Mobheads Guide", "Simple-Mobheads-Handbuch"),
          intro=("A head for every mob: a charged creeper's explosion drops it, worn it keeps that mob calm and hides a "
                 "small secret, placed it decorates, on a note block it speaks.",
@@ -176,6 +176,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:chorus_fruit": ("a chorus fruit", "einer Chorusfrucht"),
     "minecraft:glistering_melon_slice": ("a glistering melon slice", "einer glitzernden Melonenscheibe"),
     "minecraft:bone": ("a bone", "einem Knochen"),
+    "minecraft:skeleton_skull": ("a skeleton skull", "einem Skelettschädel"),
     "minecraft:glow_ink_sac": ("a glow ink sac", "einem Leuchttintenbeutel"),
     "minecraft:prismarine_shard": ("a prismarine shard", "einer Prismarinscherbe"),
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
@@ -429,6 +430,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:chorus_fruit": ("chorus fruit", "Chorusfrucht"),
     "minecraft:glistering_melon_slice": ("glistering melon slice", "glitzernde Melonenscheibe"),
     "minecraft:bone": ("bone", "Knochen"),
+    "minecraft:skeleton_skull": ("skeleton skull", "Skelettschädel"),
     "minecraft:glow_ink_sac": ("glow ink sac", "Leuchttintenbeutel"),
     "minecraft:prismarine_shard": ("prismarine shard", "Prismarinscherbe"),
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
