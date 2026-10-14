@@ -258,6 +258,13 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 59 (2026-10-14, Besitzer)
+- [ ] Neue Verzauberung „Step Height“ (Stufenhöhe) für Stiefel, 2 Stufen: I = 1 Block, II = 1,5 Blöcke (Zäune). Treasure-Verzauberung.
+- [ ] Neue Verzauberung „Sprint“ für Hosen, 3 Stufen: relative Tempo-Steigerung auf die Grund-Laufgeschwindigkeit (wie Swift Sneak beim Schleichen). Treasure-Verzauberung.
+- [ ] Beide Verzauberungen überall passend integrieren: Loot-Pools (Treasure: Truhen-Loot, Bibliothekar-Handel nach Vanilla-Treasure-Regeln), Tags (exclusive/tradeable/in_enchanting_table nach Treasure-Regel), Unverträglichkeiten, Astral-/Enchanter-Kompatibilität, Lang EN+DE, Wiki/Guide, Tests.
+- [ ] Dorf-Wanderer: weiterer, umtexturierter Wandering Trader mit einem Pferd an der Leine; genau einer pro Dorf (spawnt im/am Dorf). Gegenstück zum Wandering Trader: bietet seltene, aber nicht so seltene Items wie dieser; Angebot wechselt alle 3 Tage, Restock etwa alle 1,5 Tage. Trades zwischen Wandering Trader und Dorf-Wanderer passend aufteilen (Konzept zuerst: Trade-Listen, Spawn-Regel, Pferd, Textur).
+- [ ] (ZUM ENDE der Mod-Entwicklung) Audit auf Vanilla-Konformität (Stil, Balancing, Mechaniken, UI, Sounds, Texturen) über alle Mods.
+
 ## Nachtrag 57 (2026-10-14, Besitzer)
 - [ ] Neuer Block „Light Pane“ (Lichtscheibe): Dicke und Platzierbarkeit wie ein Itemrahmen (an jede Blockseite, flach). Varianten je Art: normal, transparent, einfarbig, mehrfarbig. Verhalten je Variante: Licht wie eine Lampe abgeben; den Block dahinter/darunter erhellen (Textur aufhellen o. ä.); eine Farbe abgeben (nicht grell, sondern texturiert); bzw. je nach Redstone-Stärke eine andere Farbe ausgeben – per Rechtsklick wie beim Notenblock einstellbar, welche Farbe bei Stärke 1 kommt (weiter reihum). Solide umsetzen, keine Bugs (Platzieren an allen Seiten, Abbau ohne Stütze, Licht-Updates, Multiloader, Tests).
 - [x] (oc-shrieker) Sculk Shrieker mit der Silent Dandelion leiser/stumm stellbar (wie bei Mobs: Rechtsklick an/aus), gilt für alle Spieler, damit er bei Sculk-Sensoren nicht nervt.
