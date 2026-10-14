@@ -70,6 +70,12 @@ public final class ClaimTests {
         TESTS.put("claims_deed_two_players",ClaimTests::deed);
         TESTS.put("claims_policy_boundaries",ClaimTests::policy);
         TESTS.put("claims_command_collision",ClaimTests::commands);
+        TESTS.put("claims_rights_parser_good",ClaimRightsTests::parserGood);
+        TESTS.put("claims_rights_parser_bad",ClaimRightsTests::parserBad);
+        TESTS.put("claims_rights_action_matrix",ClaimRightsTests::actionMatrix);
+        TESTS.put("claims_rights_apply_code",ClaimRightsTests::applyCode);
+        TESTS.put("claims_rights_commands",ClaimRightsTests::commands);
+        TESTS.put("claims_rights_migration",ClaimRightsTests::migration);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */
@@ -112,12 +118,12 @@ public final class ClaimTests {
             var unloaded=dir.resolve("dimensions/archive/unloaded/data/simpletweaks_claims.dat");Files.createDirectories(unloaded.getParent());NbtIo.writeCompressed(root,unloaded);
             byte[] before=Files.readAllBytes(legacy);
             var store=new ClaimStore(target,Map.of("minecraft:overworld",legacy));var key=new ClaimStore.Key("minecraft:overworld",-1);
-            yes(h,store.view().get(key).permits(guest)&&!Files.exists(target),"Legacy parsed without writing migration");
+            yes(h,store.rights(key,guest)==ClaimRights.LEGACY&&store.rights(key,UUID.randomUUID())==0&&store.rights(key,owner)==ClaimRights.ALL&&!Files.exists(target),"Legacy parsed without writing migration; whitelist became @member");
             yes(h,store.view().containsKey(new ClaimStore.Key("archive:unloaded",-1)),"Unloaded dimension claims imported before global ledger publication");
             try {store.view().clear();throw new AssertionError("Mutable view");}catch(UnsupportedOperationException expected){}
-            try {store.view().get(key).whitelist().clear();throw new AssertionError("Mutable whitelist");}catch(UnsupportedOperationException expected){}
+            try {store.lands().get(owner).top().members().clear();throw new AssertionError("Mutable whitelist");}catch(UnsupportedOperationException expected){}
             store.replace(store.view());var again=new ClaimStore(target,Map.of());
-            yes(h,again.view().equals(store.view())&&Arrays.equals(before,Files.readAllBytes(legacy)),"Round trip, original legacy bytes retained");
+            yes(h,again.view().equals(store.view())&&again.lands().equals(store.lands())&&Arrays.equals(before,Files.readAllBytes(legacy)),"Round trip, original legacy bytes retained");
             Path failureDir=temp();
             var unwritable=new ClaimStore(failureDir.resolve("future.json"),Map.of());
             Files.createDirectory(failureDir.resolve("future.json"));

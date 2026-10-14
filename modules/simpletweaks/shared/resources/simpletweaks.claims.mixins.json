@@ -7,6 +7,7 @@
     "ClaimGameModeMixin",
     "ClaimBucketMixin",
     "ClaimBlockItemMixin",
+    "ClaimItemUseMixin",
     "ClaimPlayerMixin",
     "ClaimCompoundAccessor",
     "ClaimDamageMixin",

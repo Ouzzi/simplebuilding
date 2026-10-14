@@ -23,7 +23,7 @@ public final class SledgehammerUsageEvent {
     public static boolean handleBeforeBlockBreak(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
         // A claim check fired by BuildPermissions is not a real break: never start an area break.
         if (BuildPermissions.isProbing()) return true;
-        if (!com.simplebuilding.api.WorldPermissions.mayChange(world, player, pos)) return false;
+        if (!com.simplebuilding.api.WorldPermissions.mayChange(world, player, pos, com.simplebuilding.api.WorldPermissions.Action.DESTROY)) return false;
         ItemStack mainHandItem = player.getMainHandItem();
 
         if (mainHandItem.getItem() instanceof SledgehammerItem && player instanceof ServerPlayer serverPlayer) {
@@ -45,7 +45,7 @@ public final class SledgehammerUsageEvent {
                     continue;
                 }
                 // Vanilla-Spawnschutz und Weltgrenze: destroyBlock prueft beides nicht.
-                if (!world.mayInteract(serverPlayer, position) || !com.simplebuilding.api.WorldPermissions.mayChange(world, player, position)) {
+                if (!world.mayInteract(serverPlayer, position) || !com.simplebuilding.api.WorldPermissions.mayChange(world, player, position, com.simplebuilding.api.WorldPermissions.Action.DESTROY)) {
                     continue;
                 }
 

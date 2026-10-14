@@ -163,7 +163,9 @@ Skyblock-, Abbau- und Reisedimension, Portale aus Glowstone-Bögen, sichere Reis
 Claim-Prüfung.
 
 ### Simple Tweaks
-Kompatibilität alter Welten (ID-Zuordnung), Claim-System in Stufen (standardmäßig aus).
+Kompatibilität alter Welten (ID-Zuordnung), Claim-System (standardmäßig an). Rechte je Person (B D U C R A M, Rollen
+`@guest/@helper/@member/@manager`), Rechte-Code mit Server-Parser, Ledger v2 mit Migration (Plan `docs/ai/PLAN-CLAIM-URKUNDE-GUI-2026-10-13.md`,
+Phase 1; Editor, Claim-Tisch und Maps-Ebene folgen).
 
 ## Geplant / in Arbeit
 | Mod | Stand | Inhalt | Quelle |

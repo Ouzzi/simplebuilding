@@ -22,7 +22,9 @@ public final class ClaimAccessTests {
     }
     static ClaimStore.Key key(ServerPlayer p) { return new ClaimStore.Key(p.level().dimension().identifier().toString(),p.chunkPosition().pack()); }
     static void seed(Path root,ClaimStore.Key key,UUID owner,Set<UUID> guests) {
-        try {new ClaimStore(root.resolve("simpletweaks-claims.json"),Map.of()).replace(Map.of(key,new ClaimStore.Claim(owner,guests)));}
+        var members=new HashMap<UUID,Integer>();guests.forEach(g->members.put(g,ClaimRights.LEGACY));
+        try {new ClaimStore(root.resolve("simpletweaks-claims.json"),Map.of()).replace(Map.of(key,new ClaimStore.Claim(owner)),
+                guests.isEmpty()?Map.of():Map.of(owner,new ClaimStore.Land(owner,"",new ClaimRights.Rules(0,members),Map.of())));}
         catch (java.io.IOException e) {throw new AssertionError(e);}
     }
     public static void commandsAndAccess(GameTestHelper h) {
@@ -34,7 +36,7 @@ public final class ClaimAccessTests {
             yes(h,!guest.gameMode.destroyBlock(pos),"Untrusted real break denied");
             yes(h,execute(d,guest,"claim trust "+guest.getUUID())==0,"Outsider cannot self-grant");
             yes(h,execute(d,owner,"claim trust "+guest.getUUID())==1,"Owner dispatch grants offline UUID");
-            var snapshot=c.view();yes(h,snapshot.get(key(owner)).permits(guest.getUUID()),"Grant published");
+            var snapshot=c.lands();yes(h,snapshot.get(owner.getUUID()).rights(key(owner),guest.getUUID())==ClaimRights.LEGACY,"Grant published");
             yes(h,guest.gameMode.destroyBlock(pos),"Trusted real break succeeds");
             yes(h,execute(d,guest,"claim trust "+UUID.randomUUID())==0,"Trust grants no delegation");
             yes(h,execute(d,owner,"claim untrust "+guest.getUUID())==0,"Mutation cooldown enforced by dispatch");
@@ -42,7 +44,7 @@ public final class ClaimAccessTests {
             c=new Claims(on(),root,Map.of());Claims.install(server,c);
             yes(h,Claims.allow(guest,h.getLevel(),pos),"Trusted access survives ledger reload");
             yes(h,execute(d,owner,"claim untrust "+guest.getUUID())==1,"Owner dispatch revokes after restart");
-            yes(h,snapshot.get(key(owner)).permits(guest.getUUID()),"Old snapshot is unchanged");
+            yes(h,snapshot.get(owner.getUUID()).rights(key(owner),guest.getUUID())==ClaimRights.LEGACY,"Old snapshot is unchanged");
             h.getLevel().setBlock(pos,Blocks.STONE.defaultBlockState(),3);
             yes(h,!guest.gameMode.destroyBlock(pos),"Revocation immediately blocks actual break");
             Claims.install(server,new Claims(on(),root,Map.of()));
@@ -72,12 +74,12 @@ public final class ClaimAccessTests {
         try {
             for(boolean revoke:List.of(false,true)) {
                 var root=temp();seed(root,key(owner),owner.getUUID(),revoke?Set.of(guest.getUUID()):Set.of());
-                var c=new Claims(on(),root,Map.of());Claims.install(server,c);var old=c.view();
+                var c=new Claims(on(),root,Map.of());Claims.install(server,c);var old=c.view();var oldLands=c.lands();
                 Path file=root.resolve("simpletweaks-claims.json"),backup=root.resolve("saved.json");
                 try {Files.move(file,backup);Files.createDirectory(file);}catch(java.io.IOException e){throw new AssertionError(e);}
                 yes(h,execute(dispatcher(on()),owner,"claim "+(revoke?"untrust ":"trust ")+guest.getUUID())==0,"Atomic failure refuses command");
                 yes(h,c.locked()&&!Claims.allow(guest,h.getLevel(),pos),"Failed grant/revocation locks access");
-                try {yes(h,new ClaimStore(backup,Map.of()).view().equals(old),"Saved authority unchanged after failed write");}catch(java.io.IOException e){throw new AssertionError(e);}
+                try {yes(h,new ClaimStore(backup,Map.of()).view().equals(old)&&new ClaimStore(backup,Map.of()).lands().equals(oldLands),"Saved authority unchanged after failed write");}catch(java.io.IOException e){throw new AssertionError(e);}
             }
             var root=temp();seed(root,key(owner),owner.getUUID(),Set.of(guest.getUUID()));
             var zero=new ClaimConfig(true,1,0,1,20,false,0,on().dimensions());Claims.install(server,new Claims(zero,root,Map.of()));
@@ -89,8 +91,9 @@ public final class ClaimAccessTests {
             Claims.install(server,new Claims(on(),cappedRoot,Map.of()));
             yes(h,execute(dispatcher(on()),owner,"claim trust "+UUID.randomUUID())==0,"Configured positive trust cap enforced");
             var full=new HashSet<UUID>();for(int i=0;i<64;i++)full.add(UUID.randomUUID());
-            new ClaimStore.Claim(owner.getUUID(),full);full.add(UUID.randomUUID());
-            try {new ClaimStore.Claim(owner.getUUID(),full);throw new AssertionError("Hard trust cap bypass");}catch(IllegalArgumentException expected){}
+            var members=new HashMap<UUID,Integer>();full.forEach(g->members.put(g,ClaimRights.LEGACY));
+            new ClaimRights.Rules(0,members);members.put(UUID.randomUUID(),ClaimRights.LEGACY);
+            try {new ClaimRights.Rules(0,members);throw new AssertionError("Hard trust cap bypass");}catch(IllegalArgumentException expected){}
         } finally {Claims.install(server,previous);}
         h.succeed();
     }

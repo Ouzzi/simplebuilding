@@ -32,7 +32,8 @@
           "Plain dispenser ejection and droppers work within one owner; other dispenser behaviors stay blocked near claims. Copper golems remember the land their load came from and only put it down on that same land, so they work inside a claim but never carry items out or in. Crafters check destinations before consuming ingredients. Unknown containers are refused while enabled.",
           "Mob griefing: Endermen, Withers, Ravagers, the Ender Dragon, Silverfish and door-breaking Zombies never change claimed land; other mobs (villagers, sheep, boats) only act on the land they stand on. Farmland and turtle eggs need rights to trample. Mob attacks stay Vanilla. Boats need rights to be placed; a lightning bolt counts as the player who caused it.",
           "/claim create claims the current chunk (limits, cooldown, world border, spawn buffer, dimension list); /claim unclaim releases it. /claim trust and untrust accept online names or full offline UUIDs. Only the owner can change trust; trusted players cannot delegate. OP4 may use admin listall, list <UUID/name>, or unclaim, independently of the default-off protection bypass. Changes are saved atomically before becoming effective.",
-          "Server ticks between successful claim, trust, revocation or removal operations by one player. Range 20–72000, across dimensions; resets on restart. Default: 100 ticks."
+          "Server ticks between successful claim, trust, revocation or removal operations by one player. Range 20–72000, across dimensions; resets on restart. Default: 100 ticks.",
+          "Rights per person (server-side): B Build, D Destroy, U Use (doors, levers, workbenches), C Container (chests, frames, pickup), R Redstone, A Animals and vehicles, M Manage. Roles: @guest = U, @helper = UCA, @member = BDUCRA (what \"trusted\" always meant), @manager = all. Unknown actions need B and D. /claim trust <player> [rights] sets them for the chunk you stand in, /claim info shows yours, /claim code shows the code of your land. The code (at most 4096 characters, 200 lines) is parsed and checked only by the server; the ledger is version 2 and keeps a copy of the old file (simpletweaks-claims.v1.json) on the first write."
         ]
       },
       "de": {
@@ -44,7 +45,8 @@
           "Einfache Dispenser-Auswürfe und Dropper funktionieren innerhalb desselben Besitzes; andere Dispenser-Behaviors bleiben in Claim-Nähe gesperrt. Kupfergolems merken sich, von welchem Land ihre Ladung stammt, und legen sie nur dort wieder ab: innerhalb eines Claims arbeiten sie, tragen aber nichts hinaus oder hinein. Crafter prüfen Ziele vor dem Zutatenverbrauch. Unbekannte Container werden bei aktiviertem Schutz verweigert.",
           "Mob-Griefing: Endermen, Wither, Verwüster, Enderdrache, Silberfischchen und türbrechende Zombies verändern kein beanspruchtes Land; andere Mobs (Dorfbewohner, Schafe, Boote) wirken nur auf dem Land, auf dem sie stehen. Ackerboden und Schildkröteneier zu zertrampeln braucht Rechte. Mob-Angriffe bleiben Vanilla. Boote zu setzen braucht Rechte; ein Blitz zählt als der Spieler, der ihn ausgelöst hat.",
           "/claim create beansprucht den aktuellen Chunk (Limits, Abklingzeit, Weltgrenze, Spawnpuffer, Dimensionsliste); /claim unclaim gibt ihn frei. /claim trust und untrust nehmen Online-Namen oder vollständige Offline-UUIDs an. Nur der Besitzer ändert Vertrauen; Vertraute dürfen es nicht weitergeben. OP4 darf admin listall, list <UUID/Name> und unclaim nutzen, unabhängig von der standardmäßig ausgeschalteten Schutzumgehung. Änderungen gelten erst nach atomarem Speichern.",
-          "Server-Ticks zwischen erfolgreichen Claim-, Vertrauens-, Widerrufs- oder Löschvorgängen eines Spielers. Bereich 20–72000, dimensionsübergreifend; Neustart setzt zurück. Standard: 100 Ticks."
+          "Server-Ticks zwischen erfolgreichen Claim-, Vertrauens-, Widerrufs- oder Löschvorgängen eines Spielers. Bereich 20–72000, dimensionsübergreifend; Neustart setzt zurück. Standard: 100 Ticks.",
+          "Rechte je Person (serverseitig): B Bauen, D Abbauen, U Benutzen (Türen, Hebel, Werkbänke), C Container (Truhen, Rahmen, Aufheben), R Redstone, A Tiere und Fahrzeuge, M Verwalten. Rollen: @guest = U, @helper = UCA, @member = BDUCRA (so viel bedeutete „vertraut“ immer), @manager = alles. Unbekannte Aktionen brauchen B und D. /claim trust <Spieler> [Rechte] setzt sie für den Chunk, in dem du stehst, /claim info zeigt deine, /claim code zeigt den Code deines Landes. Der Code (höchstens 4096 Zeichen, 200 Zeilen) wird nur vom Server geparst und geprüft; das Ledger ist Version 2 und sichert beim ersten Schreiben die alte Datei (simpletweaks-claims.v1.json)."
         ]
       },
       "sources": [
@@ -63,7 +65,10 @@
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimEndermanTakeMixin.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimDoorMixin.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimBoatMixin.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimTransportMixin.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimTransportMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimRights.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimCode.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimItemUseMixin.java"
       ]
     },
     {

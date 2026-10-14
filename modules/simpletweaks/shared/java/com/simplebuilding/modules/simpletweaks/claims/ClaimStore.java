@@ -8,39 +8,79 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import net.minecraft.nbt.*;
+import com.simplebuilding.modules.simpletweaks.claims.ClaimRights.Rules;
 import net.minecraft.resources.Identifier;
 
-/** Atomic global ledger. Legacy per-dimension SavedData files are read, never overwritten. */
+/**
+ * Atomic global ledger, version 2: chunk ownership plus one rights record ("land") per owner.
+ * Version 1 (chunk + whitelist) and the legacy per-dimension SavedData files are migrated in memory without gaining
+ * rights (every old whitelist entry becomes {@code @member}); the first write keeps a copy of the v1 file.
+ * Legacy NBT files are read, never overwritten.
+ */
 public final class ClaimStore {
-    public static final long MAX_BYTES = 32L * 1024 * 1024;
+    public static final long MAX_BYTES = 64L * 1024 * 1024;
+    public static final int VERSION = 2;
     public record Key(String dimension, long chunk) {
         public Key { if (!ClaimConfig.validDimension(dimension)) throw new IllegalArgumentException("Dimension"); }
+        public ClaimCode.At at() { return new ClaimCode.At(dimension, net.minecraft.world.level.ChunkPos.getX(chunk), net.minecraft.world.level.ChunkPos.getZ(chunk)); }
+        public static Key of(ClaimCode.At at) { return new Key(at.dimension(), net.minecraft.world.level.ChunkPos.pack(at.x(), at.z())); }
     }
-    public record Claim(UUID owner, Set<UUID> whitelist) {
-        public Claim {
-            Objects.requireNonNull(owner);
-            if (whitelist.size() > ClaimConfig.MAX_TRUSTED) throw new IllegalArgumentException("Trusted player cap");
-            whitelist = Set.copyOf(whitelist);
+    public record Claim(UUID owner) {
+        public Claim { Objects.requireNonNull(owner); }
+    }
+    /** Rights of one owner: the top rules for all their chunks, sections replacing them for single chunks. */
+    public record Land(UUID owner, String code, Rules top, Map<Key,Rules> sections) {
+        public Land {
+            Objects.requireNonNull(owner); Objects.requireNonNull(top);
+            code = code == null ? "" : code;
+            sections = Map.copyOf(sections);
         }
-        public boolean permits(UUID player) { return owner.equals(player) || whitelist.contains(player); }
+        /** Section of the chunk if there is one, otherwise the top rules; the owner always has everything. */
+        public int rights(Key key, UUID actor) {
+            if (owner.equals(actor)) return ClaimRights.ALL;
+            return actor == null ? 0 : sections.getOrDefault(key, top).of(actor);
+        }
+        public Rules rulesAt(Key key) { return sections.getOrDefault(key, top); }
     }
     private final Path path;
     private Map<Key,Claim> claims;
+    private Map<UUID,Land> lands;
+    /** True while the file on disk is version 1: the first write keeps it as a backup. */
+    private boolean fromV1;
     public ClaimStore(Path path, Map<String,Path> legacy) throws IOException {
         this.path = path;
         Map<Key,Claim> loaded = new HashMap<>();
+        Map<Key,Set<UUID>> whitelists = new HashMap<>();
+        Map<UUID,Land> loadedLands = new HashMap<>();
         if (Files.exists(path)) {
             if (Files.isSymbolicLink(path) || Files.size(path) > MAX_BYTES) throw new IOException("Unsafe claims ledger");
             var root = JsonParser.parseString(Files.readString(path)).getAsJsonObject();
-            if (root.get("version").getAsBigDecimal().intValueExact() != 1) throw new IOException("Unknown claim ledger version");
+            int version = root.get("version").getAsBigDecimal().intValueExact();
+            if (version != 1 && version != VERSION) throw new IOException("Unknown claim ledger version");
             for (var entry : root.getAsJsonArray("claims")) {
                 var j = entry.getAsJsonObject();
-                Set<UUID> trusted = new HashSet<>();
-                for (var id : j.getAsJsonArray("Whitelist")) {
-                    if (!trusted.add(UUID.fromString(id.getAsString()))) throw new IOException("Duplicate trusted player");
+                var key = new Key(j.get("dimension").getAsString(), j.get("chunk").getAsBigDecimal().longValueExact());
+                var owner = UUID.fromString(j.get("Owner").getAsString());
+                if (version == 1) {
+                    Set<UUID> trusted = new HashSet<>();
+                    for (var id : j.getAsJsonArray("Whitelist")) {
+                        if (!trusted.add(UUID.fromString(id.getAsString()))) throw new IOException("Duplicate trusted player");
+                    }
+                    whitelists.put(key, trusted);
                 }
-                add(loaded, new Key(j.get("dimension").getAsString(), j.get("chunk").getAsBigDecimal().longValueExact()),
-                        new Claim(UUID.fromString(j.get("Owner").getAsString()), trusted));
+                add(loaded, key, new Claim(owner));
+            }
+            if (version == 1) { fromV1 = true; loadedLands.putAll(migrate(loaded, whitelists)); }
+            else for (var entry : root.getAsJsonArray("lands")) {
+                var j = entry.getAsJsonObject();
+                var owner = UUID.fromString(j.get("Owner").getAsString());
+                var sections = new HashMap<Key,Rules>();
+                for (var s : j.getAsJsonArray("sections")) {
+                    var sj = s.getAsJsonObject();
+                    if (sections.put(new Key(sj.get("dimension").getAsString(), sj.get("chunk").getAsBigDecimal().longValueExact()), rules(sj)) != null)
+                        throw new IOException("Duplicate land section");
+                }
+                if (loadedLands.put(owner, new Land(owner, j.get("code").getAsString(), rules(j), sections)) != null) throw new IOException("Duplicate land");
             }
         } else {
             for (var file : legacyFiles(path.toAbsolutePath().getParent(), legacy).entrySet()) {
@@ -58,11 +98,50 @@ public final class ClaimStore {
                             if (!trusted.add(UUID.fromString(list.getString(i).orElseThrow()))) throw new IOException("Duplicate legacy whitelist entry");
                         }
                     }
-                    add(loaded, new Key(file.getKey(), Long.parseLong(chunk)), new Claim(owner,trusted));
+                    var key = new Key(file.getKey(), Long.parseLong(chunk));
+                    add(loaded, key, new Claim(owner));
+                    whitelists.put(key, trusted);
                 }
             }
+            loadedLands.putAll(migrate(loaded, whitelists));
         }
         claims = Map.copyOf(loaded);
+        lands = Map.copyOf(loadedLands);
+    }
+    private static Rules rules(JsonObject j) throws IOException {
+        int everyone = j.get("everyone").getAsBigDecimal().intValueExact();
+        var members = new HashMap<UUID,Integer>();
+        for (var m : j.getAsJsonArray("members")) {
+            var mj = m.getAsJsonObject();
+            if (members.put(UUID.fromString(mj.get("id").getAsString()), mj.get("rights").getAsBigDecimal().intValueExact()) != null) throw new IOException("Duplicate member");
+        }
+        try { return new Rules(everyone, members); }
+        catch (IllegalArgumentException e) { throw new IOException("Invalid rights in claim ledger", e); }
+    }
+    /**
+     * v1 whitelists to v2 lands without any gain of rights. All chunks of an owner share one list: it becomes the top
+     * rules with {@code @member} (all old rights). Otherwise every chunk with its own non-empty list gets a section.
+     */
+    static Map<UUID,Land> migrate(Map<Key,Claim> claims, Map<Key,Set<UUID>> whitelists) {
+        var byOwner = new HashMap<UUID,List<Key>>();
+        claims.forEach((k, c) -> byOwner.computeIfAbsent(c.owner(), o -> new ArrayList<>()).add(k));
+        var out = new HashMap<UUID,Land>();
+        for (var e : byOwner.entrySet()) {
+            var lists = e.getValue().stream().map(k -> whitelists.getOrDefault(k, Set.of())).distinct().toList();
+            if (lists.size() == 1 && lists.get(0).isEmpty()) continue;
+            Rules top = Rules.EMPTY; var sections = new HashMap<Key,Rules>();
+            if (lists.size() == 1) top = legacyRules(lists.get(0));
+            else for (var k : e.getValue()) { var wl = whitelists.getOrDefault(k, Set.of()); if (!wl.isEmpty()) sections.put(k, legacyRules(wl)); }
+            var at = new HashMap<ClaimCode.At,Rules>();
+            sections.forEach((k, r) -> at.put(k.at(), r));
+            out.put(e.getKey(), new Land(e.getKey(), ClaimCode.generate(top, at), top, sections));
+        }
+        return out;
+    }
+    private static Rules legacyRules(Set<UUID> trusted) {
+        var m = new HashMap<UUID,Integer>();
+        trusted.forEach(u -> m.put(u, ClaimRights.LEGACY));
+        return new Rules(0, m);
     }
     private static Map<String,Path> legacyFiles(Path root, Map<String,Path> known) throws IOException {
         var files=new LinkedHashMap<>(known);
@@ -93,20 +172,62 @@ public final class ClaimStore {
         if (claims.size() >= ClaimConfig.MAX_GLOBAL || claims.putIfAbsent(key,claim) != null) throw new IOException("Claim cap or duplicate chunk");
     }
     public Map<Key,Claim> view() { return claims; }
-    public void replace(Map<Key,Claim> next) throws IOException {
-        if (next.size() > ClaimConfig.MAX_GLOBAL) throw new IOException("Claim cap");
-        var snapshot = Map.copyOf(next);
-        var root = new JsonObject(); root.addProperty("version",1);
+    public Map<UUID,Land> lands() { return lands; }
+    /** Rights of an actor in a chunk: everything where nothing is claimed, everything for the owner, else the land rules. */
+    public int rights(Key key, UUID actor) {
+        var claim = claims.get(key);
+        if (claim == null) return ClaimRights.ALL;
+        if (claim.owner().equals(actor)) return ClaimRights.ALL;
+        var land = lands.get(claim.owner());
+        return land == null ? 0 : land.rights(key, actor);
+    }
+    public void replace(Map<Key,Claim> next) throws IOException { replace(next, lands); }
+    public void replace(Map<Key,Claim> nextClaims, Map<UUID,Land> nextLands) throws IOException {
+        if (nextClaims.size() > ClaimConfig.MAX_GLOBAL) throw new IOException("Claim cap");
+        var snapshot = Map.copyOf(nextClaims);
+        // Rules only live while the owner still owns land; a section only for a chunk the owner still owns.
+        var landSnapshot = new HashMap<UUID,Land>();
+        nextLands.forEach((owner, land) -> {
+            if (snapshot.values().stream().noneMatch(c -> c.owner().equals(owner))) return;
+            var kept = new HashMap<Key,Rules>();
+            land.sections().forEach((k, r) -> { var c = snapshot.get(k); if (c != null && c.owner().equals(owner)) kept.put(k, r); });
+            landSnapshot.put(owner, new Land(owner, land.code(), land.top(), kept));
+        });
+        var root = new JsonObject(); root.addProperty("version",VERSION);
         var rows = new JsonArray();
         snapshot.entrySet().stream().sorted(Comparator.comparing((Map.Entry<Key,Claim> e) -> e.getKey().dimension()).thenComparingLong(e -> e.getKey().chunk())).forEach(e -> {
             var row = new JsonObject(); row.addProperty("dimension",e.getKey().dimension()); row.addProperty("chunk",e.getKey().chunk());
             row.addProperty("Owner",e.getValue().owner().toString());
-            var trusted = new JsonArray(); e.getValue().whitelist().stream().sorted().forEach(id -> trusted.add(id.toString()));
-            row.add("Whitelist",trusted); rows.add(row);
+            rows.add(row);
         });
         root.add("claims",rows);
+        var landRows = new JsonArray();
+        landSnapshot.values().stream().sorted(Comparator.comparing(l -> l.owner().toString())).forEach(l -> {
+            var row = new JsonObject(); row.addProperty("Owner",l.owner().toString()); row.addProperty("code",l.code());
+            writeRules(row,l.top());
+            var sections = new JsonArray();
+            l.sections().entrySet().stream().sorted(Comparator.comparing((Map.Entry<Key,Rules> e) -> e.getKey().dimension()).thenComparingLong(e -> e.getKey().chunk())).forEach(e -> {
+                var sj = new JsonObject(); sj.addProperty("dimension",e.getKey().dimension()); sj.addProperty("chunk",e.getKey().chunk());
+                writeRules(sj,e.getValue()); sections.add(sj);
+            });
+            row.add("sections",sections); landRows.add(row);
+        });
+        root.add("lands",landRows);
+        if (fromV1 && Files.exists(path)) {
+            // First v2 write: keep the v1 file next to the ledger, never overwrite an existing backup.
+            Path backup = path.toAbsolutePath().resolveSibling(path.getFileName().toString().replaceFirst("(\\.json)?$",".v1.json"));
+            if (Files.isSymbolicLink(backup)) throw new IOException("Refusing symbolic link " + backup);
+            if (!Files.exists(backup)) Files.copy(path, backup);
+        }
         atomicWrite(path, new Gson().toJson(root));
-        claims = snapshot; // Publish only after persistence succeeded.
+        fromV1 = false;
+        claims = snapshot; lands = Map.copyOf(landSnapshot); // Publish only after persistence succeeded.
+    }
+    private static void writeRules(JsonObject row, Rules rules) {
+        row.addProperty("everyone",rules.everyone());
+        var members = new JsonArray();
+        rules.members().entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(m -> { var mj = new JsonObject(); mj.addProperty("id",m.getKey().toString()); mj.addProperty("rights",m.getValue()); members.add(mj); });
+        row.add("members",members);
     }
     public static void atomicWrite(Path target, String text) throws IOException {
         Path absolute = target.toAbsolutePath();

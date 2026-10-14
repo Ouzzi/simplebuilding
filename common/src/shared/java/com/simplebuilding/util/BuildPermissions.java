@@ -48,7 +48,7 @@ public final class BuildPermissions {
         if (!(level instanceof ServerLevel serverLevel) || !(player instanceof ServerPlayer serverPlayer)) {
             return true;
         }
-        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)) {
+        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos, com.simplebuilding.api.WorldPermissions.Action.DESTROY)) {
             return false;
         }
         probing++;
@@ -64,7 +64,7 @@ public final class BuildPermissions {
         if (!(level instanceof ServerLevel serverLevel) || !(player instanceof ServerPlayer serverPlayer)) {
             return true;
         }
-        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)) {
+        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos, com.simplebuilding.api.WorldPermissions.Action.BUILD)) {
             return false;
         }
         probing++;

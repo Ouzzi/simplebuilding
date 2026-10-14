@@ -56,4 +56,10 @@ public final class ClaimsGameTest {
  @GameTest public void claimsCapsAndCooldown(GameTestHelper h) { ClaimTests.TESTS.get("claims_caps_and_cooldown").accept(h); }
  @GameTest public void claimsDeedTwoPlayers(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_two_players").accept(h); }
  @GameTest public void claimsPolicyBoundaries(GameTestHelper h) { ClaimTests.TESTS.get("claims_policy_boundaries").accept(h); }
+ @GameTest public void claimsRightsParserGood(GameTestHelper h) { ClaimTests.TESTS.get("claims_rights_parser_good").accept(h); }
+ @GameTest public void claimsRightsParserBad(GameTestHelper h) { ClaimTests.TESTS.get("claims_rights_parser_bad").accept(h); }
+ @GameTest public void claimsRightsActionMatrix(GameTestHelper h) { ClaimTests.TESTS.get("claims_rights_action_matrix").accept(h); }
+ @GameTest public void claimsRightsApplyCode(GameTestHelper h) { ClaimTests.TESTS.get("claims_rights_apply_code").accept(h); }
+ @GameTest public void claimsRightsCommands(GameTestHelper h) { ClaimTests.TESTS.get("claims_rights_commands").accept(h); }
+ @GameTest public void claimsRightsMigration(GameTestHelper h) { ClaimTests.TESTS.get("claims_rights_migration").accept(h); }
 }
