@@ -857,6 +857,7 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "summary": "Handbuch zu dieser Mod: 11 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Holzkohle. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ovens\" eins."
         }
       },
+      "texture": "assets/textures/simpleovens/item/guide_book.png",
       "craftedBy": [
         "simpleovens:guide_book"
       ],
