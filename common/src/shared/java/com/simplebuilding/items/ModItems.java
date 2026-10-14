@@ -372,9 +372,19 @@ public class ModItems {
     /** Eissplitter: vier aus Eis, neun aus Packeis, loescht Kerzen eines Kleinteil-Haufens (2026-10-05). */
     public static final Item ICE_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
             ? registerItem("ice_chip", settings -> new Item(settings)) : null;
-    /** Obsidiansplitter: neun aus einem Obsidian, neun zurueck zum Obsidian (2026-10-05). */
+    /**
+     * Obsidiansplitter: entsteht nur durch Vorschlaghammer-Schlaege auf Obsidian (neun, N55), neun ergeben den Obsidian
+     * zurueck (2026-10-05).
+     */
     public static final Item OBSIDIAN_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
             ? registerItem("obsidian_chip", settings -> new Item(settings)) : null;
+    /** Weinender-Obsidian-Splitter (N55): wie der Obsidiansplitter, aus weinendem Obsidian. */
+    public static final Item CRYING_OBSIDIAN_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            ? registerItem("crying_obsidian_chip", settings -> new Item(settings)) : null;
+    /** Blazing-Obsidian-Splitter (N55): wie der Obsidiansplitter, aus Blazing Obsidian (nur mit dem Astral-Tisch). */
+    public static final Item BLAZING_OBSIDIAN_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            && com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("blazing_obsidian_chip", settings -> new Item(settings)) : null;
 
     /** Eisenstab (2026-10-02): Blitzableiter aus Eisen, Zutat fuer Resonanzstab und Rotator. */
     public static final Item IRON_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK

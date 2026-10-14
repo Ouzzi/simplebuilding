@@ -318,10 +318,19 @@ public final class InWorldRecipeCatalog {
                 String inputId = c.get("input").getAsString();
                 Item input = resolver.item(inputId);
                 Item out2 = resolver.item(c.get("result").getAsString());
-                if (input == null || out2 == null || allHammers.isEmpty()) {
+                // N55: the cracked diamond block names its own hammers (iron tier and up, like the diamond block).
+                List<Item> crushHammers = allHammers;
+                if (c.has("hammers")) {
+                    List<String> ids = new ArrayList<>();
+                    for (JsonElement hammer : c.getAsJsonArray("hammers")) {
+                        ids.add(hammer.getAsString());
+                    }
+                    crushHammers = resolver.items(ids);
+                }
+                if (input == null || out2 == null || crushHammers.isEmpty()) {
                     continue;
                 }
-                out.add(new Entry(Kind.DIAMOND_CRUSH, "hammer_crush/" + inputId, List.of(Stack.of(input, 1)), allHammers,
+                out.add(new Entry(Kind.DIAMOND_CRUSH, "hammer_crush/" + inputId, List.of(Stack.of(input, 1)), crushHammers,
                         Stack.of(out2, c.get("count").getAsInt()), 0,
                         List.of(Component.translatable("jei.simplebuilding.note.hammer_crush.how", c.get("strikes").getAsInt()),
                                 Component.translatable("jei.simplebuilding.note.damage", c.get("damage").getAsInt()))));

@@ -84,6 +84,10 @@ public final class RecipelessJeiInfo {
                     ? List.of(ModItems.ICE_CHIP, net.minecraft.world.item.Items.ICE, ModItems.CRACKED_ICE, net.minecraft.world.item.Items.PACKED_ICE)
                     : List.of(ModItems.ICE_CHIP, net.minecraft.world.item.Items.ICE, net.minecraft.world.item.Items.PACKED_ICE));
             map.put("hammer_obsidian_chips", List.of(ModItems.OBSIDIAN_CHIP, net.minecraft.world.item.Items.OBSIDIAN));
+            map.put("hammer_crying_obsidian_chips", List.of(ModItems.CRYING_OBSIDIAN_CHIP, net.minecraft.world.item.Items.CRYING_OBSIDIAN));
+            if (ModItems.BLAZING_OBSIDIAN_CHIP != null) {
+                map.put("hammer_blazing_obsidian_chips", List.of(ModItems.BLAZING_OBSIDIAN_CHIP, ModItems.BLAZING_OBSIDIAN));
+            }
         }
         map.put("furnace_tiers", List.of(com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_furnace"),
                 com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), com.simplebuilding.util.OvenRefs.block("netherite_smoker"), com.simplebuilding.util.OvenRefs.block("enderite_smoker"),

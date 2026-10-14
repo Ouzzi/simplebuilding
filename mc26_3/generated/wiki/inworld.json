@@ -9239,6 +9239,20 @@
         "strikes": 9
       },
       {
+        "count": 9,
+        "damage": 1,
+        "input": "minecraft:crying_obsidian",
+        "result": "simplebuilding:crying_obsidian_chip",
+        "strikes": 9
+      },
+      {
+        "count": 9,
+        "damage": 1,
+        "input": "simplebuilding:blazing_obsidian",
+        "result": "simplebuilding:blazing_obsidian_chip",
+        "strikes": 9
+      },
+      {
         "count": 4,
         "damage": 1,
         "input": "minecraft:fire_charge",
@@ -9258,6 +9272,20 @@
         "input": "minecraft:quartz_block",
         "result": "minecraft:quartz",
         "strikes": 4
+      },
+      {
+        "count": 81,
+        "damage": 1,
+        "hammers": [
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "input": "simplelib:cracked_diamond_block",
+        "result": "simplelib:diamond_pebble",
+        "strikes": 9
       }
     ],
     "damage": 1,
@@ -9270,7 +9298,7 @@
     ],
     "result": "simplelib:diamond_pebble",
     "strikeResetTicks": 100,
-    "strikes": 8
+    "strikes": 9
   },
   "discFlip": {
     "cycles": [

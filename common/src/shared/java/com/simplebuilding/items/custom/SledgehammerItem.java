@@ -80,7 +80,10 @@ public class SledgehammerItem extends Item {
     public static final int RESHAPE_DAMAGE = 1;
     /** Haltbarkeit je Rueckwaerts-Umformung mit Schleichen und Constructor's Touch. */
     public static final int RESHAPE_REVERSE_DAMAGE = 2;
-    /** Diamantsplitter aus einem zerschlagenen Diamantblock. */
+    /**
+     * Diamantkiesel aus einem zerschlagenen (rissigen) Diamantblock: 9 Diamanten = 81 Kiesel (je 9 Kiesel ein Rissiger Diamant,
+     * 9 Rissige Diamanten ein Rissiger Diamantblock), also auf 9 Schlaege verteilt 9 je Schlag.
+     */
     public static final int DIAMOND_BLOCK_PEBBLES = 81;
     /** Haltbarkeit fuer das Zerschlagen eines Diamantblocks. */
     public static final int DIAMOND_CRUSH_DAMAGE = 1;
@@ -225,7 +228,13 @@ public class SledgehammerItem extends Item {
      * ({@link #useOn}); the hand hint asks the same. A hammer below the iron tier only clanks.
      */
     public static boolean strikesDiamondBlock(BlockState state, Item item) {
-        return state.is(Blocks.DIAMOND_BLOCK) && canCrushDiamondBlock(item);
+        return isCrushableDiamondBlock(state) && canCrushDiamondBlock(item);
+    }
+
+    /** Diamond block or (N55, owner 2026-10-14) Cracked Diamond Block: both break into the same diamond pebbles. */
+    public static boolean isCrushableDiamondBlock(BlockState state) {
+        return state.is(Blocks.DIAMOND_BLOCK)
+                || (com.simplebuilding.blocks.ModBlocks.CRACKED_DIAMOND_BLOCK != null && state.is(com.simplebuilding.blocks.ModBlocks.CRACKED_DIAMOND_BLOCK));
     }
 
     @Override
@@ -277,7 +286,7 @@ public class SledgehammerItem extends Item {
             }
         }
 
-        if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
+        if (isCrushableDiamondBlock(state)) {
             if (!strikesDiamondBlock(state, stack.getItem())) {
                 // Zu schwach: dumpfer Klang, keine Ladung (keine Einblendung).
                 if (!world.isClientSide()) {
@@ -286,7 +295,7 @@ public class SledgehammerItem extends Item {
                 return InteractionResult.FAIL;
             }
             // Einzelne Schlaege statt Gedrueckthalten (Besitzer 2026-10-01), wie bei der abgelegten
-            // Vorlage: jeder Schlag zaehlt, der DIAMOND_BLOCK_STRIKES-te (8) zerschlaegt den Block.
+            // Vorlage: jeder Schlag zaehlt, der DIAMOND_BLOCK_STRIKES-te (9) zerschlaegt den Block.
             if (!world.isClientSide()) {
                 strikeDiamondBlock((ServerLevel) world, pos, player, stack);
             }
@@ -360,7 +369,7 @@ public class SledgehammerItem extends Item {
 
             // Transformation abrufen (FIX: pos übergeben)
             boolean cornerCharge = target.cornerResult() != null;
-            if (!state.is(Blocks.DIAMOND_BLOCK) && (cornerCharge != isCornerMode(player, stack)
+            if (!isCrushableDiamondBlock(state) && (cornerCharge != isCornerMode(player, stack)
                     || (cornerCharge && state != target.initialState()))) return stack;
             BlockState newState = cornerCharge ? target.cornerResult()
                     : getTransformationState(state, pos, side, relativeHit, player, stack);
@@ -670,7 +679,8 @@ public class SledgehammerItem extends Item {
         player.getCooldowns().addCooldown(stack, QUARTZ_CRUSH_COOLDOWN_TICKS);
     }
 
-    public static final int DIAMOND_BLOCK_STRIKES = 8;
+    /** N55 (owner 2026-10-14): nine strikes for the diamond block and the cracked diamond block (was 8). */
+    public static final int DIAMOND_BLOCK_STRIKES = 9;
     /** Ohne weiteren Schlag verfaellt die Zaehlung nach so vielen Ticks ({@link com.simplebuilding.util.InWorldStrikes}). */
     public static final int DIAMOND_STRIKE_RESET_TICKS = com.simplebuilding.util.InWorldStrikes.RESET_TICKS;
     /** Gehaltener Rechtsklick wiederholt alle 4 Ticks; ein Schlag zaehlt erst nach dieser Pause. */

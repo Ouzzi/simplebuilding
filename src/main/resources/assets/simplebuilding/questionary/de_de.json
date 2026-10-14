@@ -2009,10 +2009,32 @@
       "{name}: Ein Splitter vulkanischen Glases, scharf wie ein Entschluss."
     ],
     "use": [
-      "Ein Kleinteil: ein Obsidian ergibt 9; 9 Splitter im Handwerksraster ergeben den Obsidian zurück."
+      "Ein Kleinteil: nur der Vorschlaghammer macht ihn; 9 Splitter im Handwerksraster ergeben den Obsidian zurück."
     ],
     "secret": [
       "Schlage mit einem Vorschlaghammer auf Obsidian, ein Splitter pro Schlag: insgesamt 9 Schläge. Der letzte Schlag entfernt den Block und befreit alle Splitter."
+    ]
+  },
+  "crying_obsidian_chip": {
+    "lore": [
+      "{name}: Ein Splitter, der noch weiß, warum er geweint hat."
+    ],
+    "use": [
+      "Ein Kleinteil: 9 Splitter im Handwerksraster ergeben den Weinenden Obsidian zurück."
+    ],
+    "secret": [
+      "Schlage mit einem Vorschlaghammer auf Weinenden Obsidian, ein Splitter pro Schlag: insgesamt 9 Schläge. Der letzte Schlag entfernt den Block und befreit alle Splitter."
+    ]
+  },
+  "blazing_obsidian_chip": {
+    "lore": [
+      "{name}: Ein glühender Span, noch warm von dem Riss, aus dem er kam."
+    ],
+    "use": [
+      "Ein Kleinteil: 9 Splitter im Handwerksraster ergeben den Lohen-Obsidian zurück."
+    ],
+    "secret": [
+      "Schlage mit einem Vorschlaghammer auf Lohen-Obsidian, ein Splitter pro Schlag: insgesamt 9 Schläge. Der letzte Schlag entfernt den Block und befreit alle Splitter."
     ]
   },
   "diamond_pebble": {

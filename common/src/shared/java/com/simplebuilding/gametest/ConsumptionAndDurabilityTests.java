@@ -519,7 +519,7 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
-        // Since 2026-10-06 one part per strike (InWorldStrikes): eight stacks, each within a stack size, 81 in all.
+        // Since 2026-10-06 one part per strike (InWorldStrikes): nine stacks, each within a stack size, 81 in all.
         List<Integer> sizes = pebbleStackSizes(helper);
         helper.assertTrue(sizes.size() == com.simplebuilding.items.custom.SledgehammerItem.DIAMOND_BLOCK_STRIKES
                         && sizes.stream().allMatch(size -> size > 0 && size <= 64)

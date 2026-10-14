@@ -295,7 +295,7 @@ public final class SearchTabPlacement {
         }
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             out.add(Placement.after(INGREDIENTS, Items.FLINT, ModItems.FLINT_CHIP, ModItems.STONE_PEBBLE, ModItems.OBSIDIAN_CHIP,
-                    ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
+                    ModItems.CRYING_OBSIDIAN_CHIP, ModItems.BLAZING_OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
             out.add(Placement.after(INGREDIENTS, Items.SHULKER_SHELL, ModItems.REINFORCED_SHULKER_SHELL,

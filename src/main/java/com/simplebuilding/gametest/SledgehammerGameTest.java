@@ -42,6 +42,36 @@ public final class SledgehammerGameTest {
     }
 
     @GameTest
+    public void hammerChipsCryingObsidianYieldsNine(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsCryingObsidianYieldsNine(helper);
+    }
+
+    @GameTest
+    public void hammerChipsBlazingObsidianYieldsNine(GameTestHelper helper) {
+        SledgehammerTests.hammerChipsBlazingObsidianYieldsNine(helper);
+    }
+
+    @GameTest
+    public void obsidianChipsHaveNoCraftingRecipeButTheWayBack(GameTestHelper helper) {
+        SledgehammerTests.obsidianChipsHaveNoCraftingRecipeButTheWayBack(helper);
+    }
+
+    @GameTest
+    public void diamondBlockCrushesInNineStrikes(GameTestHelper helper) {
+        SledgehammerTests.diamondBlockCrushesInNineStrikes(helper);
+    }
+
+    @GameTest
+    public void crackedDiamondBlockCrushesInNineStrikes(GameTestHelper helper) {
+        SledgehammerTests.crackedDiamondBlockCrushesInNineStrikes(helper);
+    }
+
+    @GameTest
+    public void crackedDiamondBlockIsInTheCrushCatalog(GameTestHelper helper) {
+        SledgehammerTests.crackedDiamondBlockIsInTheCrushCatalog(helper);
+    }
+
+    @GameTest
     public void hammerChipsPackedIceYieldsNine(GameTestHelper helper) {
         SledgehammerTests.hammerChipsPackedIceYieldsNine(helper);
     }
@@ -121,7 +151,7 @@ public final class SledgehammerGameTest {
         SledgehammerTests.chargedHammerOnlyFinishesOnTheBlockItStartedOn(helper);
     }
 
-    @GameTest(maxTicks = 100)
+    @GameTest(maxTicks = 140)
     public void onlyIronOrBetterSledgehammersCrushDiamondBlocks(GameTestHelper helper) {
         SledgehammerTests.onlyIronOrBetterSledgehammersCrushDiamondBlocks(helper);
     }

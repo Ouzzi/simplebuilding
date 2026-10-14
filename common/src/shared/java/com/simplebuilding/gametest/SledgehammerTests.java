@@ -158,6 +158,126 @@ public final class SledgehammerTests {
         hammerChipsBlock(helper, Blocks.OBSIDIAN, ModItems.OBSIDIAN_CHIP, 9);
     }
 
+    /** N55: crying obsidian crushes like obsidian (9 strikes, 9 Crying Obsidian Chips). */
+    public static void hammerChipsCryingObsidianYieldsNine(GameTestHelper helper) {
+        hammerChipsBlock(helper, Blocks.CRYING_OBSIDIAN, ModItems.CRYING_OBSIDIAN_CHIP, com.simplebuilding.util.SledgehammerChips.CRYING_OBSIDIAN_CHIPS);
+    }
+
+    /** N55: blazing obsidian crushes like obsidian (9 strikes, 9 Blazing Obsidian Chips). */
+    public static void hammerChipsBlazingObsidianYieldsNine(GameTestHelper helper) {
+        if (ModItems.BLAZING_OBSIDIAN_CHIP == null) { helper.succeed(); return; }
+        hammerChipsBlock(helper, com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN, ModItems.BLAZING_OBSIDIAN_CHIP,
+                com.simplebuilding.util.SledgehammerChips.BLAZING_OBSIDIAN_CHIPS);
+    }
+
+    /**
+     * N55 (owner 2026-10-14): obsidian chips come ONLY from the hammer. No crafting recipe makes a plain, crying or blazing
+     * chip any more; the way back (9 chips in the grid -> the block) stays, and nothing multiplies: 9 chips in, 1 block out.
+     *
+     * <p><strong>What breaks this test:</strong> a crafting recipe that yields a chip again, a missing way back, or a way
+     * back that gives more than one block.
+     */
+    public static void obsidianChipsHaveNoCraftingRecipeButTheWayBack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        var level = helper.getLevel();
+        var recipes = level.getServer().getRecipeManager();
+        java.util.Map<Item, Item> back = new java.util.LinkedHashMap<>();
+        back.put(ModItems.OBSIDIAN_CHIP, Items.OBSIDIAN);
+        back.put(ModItems.CRYING_OBSIDIAN_CHIP, Items.CRYING_OBSIDIAN);
+        if (ModItems.BLAZING_OBSIDIAN_CHIP != null) {
+            back.put(ModItems.BLAZING_OBSIDIAN_CHIP, ModItems.BLAZING_OBSIDIAN);
+        }
+        List<Item> blocks = List.of(Items.OBSIDIAN, Items.CRYING_OBSIDIAN, ModItems.BLAZING_OBSIDIAN);
+        back.forEach((chip, block) -> {
+            for (Item source : blocks) {
+                if (source == null) continue;
+                var one = net.minecraft.world.item.crafting.CraftingInput.of(1, 1, List.of(new ItemStack(source)));
+                var found = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, one, level);
+                helper.assertTrue(found.isEmpty() || !found.get().value().assemble(one).is(chip),
+                        "a crafting recipe still makes " + chip + " from " + source);
+            }
+            var grid = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, java.util.Collections.nCopies(9, new ItemStack(chip)));
+            var found = recipes.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, grid, level);
+            helper.assertTrue(found.isPresent(), "nine " + chip + " do not craft back");
+            ItemStack result = found.get().value().assemble(grid);
+            helper.assertTrue(result.is(block) && result.getCount() == 1, "nine " + chip + " crafted " + result + " instead of one " + block);
+        });
+        helper.succeed();
+    }
+
+    /** N55: a diamond block breaks in nine strikes into the (tunable, default 81) diamond pebbles. */
+    public static void diamondBlockCrushesInNineStrikes(GameTestHelper helper) {
+        crushDiamondBlockInNine(helper, Blocks.DIAMOND_BLOCK);
+    }
+
+    /** N55: a cracked diamond block breaks exactly like the diamond block: nine strikes, the same pebbles. */
+    public static void crackedDiamondBlockCrushesInNineStrikes(GameTestHelper helper) {
+        crushDiamondBlockInNine(helper, com.simplebuilding.blocks.ModBlocks.CRACKED_DIAMOND_BLOCK);
+    }
+
+    /**
+     * Both diamond blocks through the real use path: a stone hammer only clanks (FAIL, block and wear unchanged); an iron
+     * hammer counts one strike per right click, shows nothing as a real item before the ninth, and the ninth removes the block
+     * (no block drop) and frees {@link com.simplebuilding.config.ServerTuning#diamondBlockPebbles()} pebbles for 1 durability.
+     *
+     * <p><strong>What breaks this test:</strong> a different strike count, a cracked block that is ignored (the hammer
+     * reshapes it instead), a tier gate that lets weak hammers through, or pebbles that drop early.
+     */
+    private static void crushDiamondBlockInNine(GameTestHelper helper, Block block) {
+        helper.assertValueEqual(SledgehammerItem.DIAMOND_BLOCK_STRIKES, 9, "strikes to crush a diamond block");
+        BlockPos pos = new BlockPos(2, 2, 2);
+        BlockPos abs = helper.absolutePos(pos);
+        // A real survival player (makeMockServerPlayerInLevel stays creative inside, which would skip the wear).
+        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        Vec3 at = helper.absoluteVec(new Vec3(2.5, 1.0, 4.5));
+        player.snapTo(at.x, at.y, at.z, 0.0F, 90.0F);
+        helper.assertFalse(player.isCreative(), "the mock player is creative");
+        helper.setBlock(pos, block);
+        ItemStack stone = new ItemStack(ModItems.STONE_SLEDGEHAMMER);
+        helper.assertTrue(useChipHammerOnce(helper, player, stone, pos) == InteractionResult.FAIL, "the stone hammer did not clank");
+        helper.assertBlockPresent(block, pos);
+        helper.assertTrue(stone.getDamageValue() == 0 && chipDrops(helper, ModItems.DIAMOND_PEBBLE) == 0, "the stone hammer crushed or wore");
+        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        for (int strike = 1; strike <= SledgehammerItem.DIAMOND_BLOCK_STRIKES; strike++) {
+            helper.assertTrue(useChipHammerOnce(helper, player, hammer, pos).consumesAction(), "strike " + strike + " was not handled");
+            if (strike < SledgehammerItem.DIAMOND_BLOCK_STRIKES) {
+                helper.assertBlockPresent(block, pos);
+                helper.assertValueEqual(InWorldStrikes.done(helper.getLevel(), abs), strike, "strikes counted after strike " + strike);
+                helper.assertTrue(chipDrops(helper, ModItems.DIAMOND_PEBBLE) == 0, "pebbles dropped before the last strike");
+                helper.assertTrue(hammer.getDamageValue() == 0, "the hammer wore before the last strike");
+                InWorldStrikes.allowNextStrike(helper.getLevel(), abs);
+            }
+        }
+        helper.assertBlockPresent(Blocks.AIR, pos);
+        helper.assertValueEqual(chipDrops(helper, ModItems.DIAMOND_PEBBLE), com.simplebuilding.config.ServerTuning.diamondBlockPebbles(),
+                "pebbles from the " + block);
+        helper.assertTrue(chipDrops(helper, block.asItem()) == 0, "the block itself dropped");
+        helper.assertValueEqual(hammer.getDamageValue(), 1, "durability for the whole crushing");
+        helper.succeed();
+    }
+
+    /**
+     * N55: the JEI/REI and wiki catalog lists the cracked diamond block next to the diamond block - 9 strikes, the pebble
+     * yield, only the iron-tier hammers (not stone or copper).
+     */
+    public static void crackedDiamondBlockIsInTheCrushCatalog(GameTestHelper helper) {
+        var catalog = com.simplebuilding.compat.InWorldRecipeCatalog.build();
+        helper.assertTrue(catalog.problems().isEmpty(), "recipe catalog: " + catalog.problems());
+        var entry = catalog.entries().stream().filter(e -> e.id().equals("hammer_crush/simplelib:cracked_diamond_block")
+                || e.id().equals("hammer_crush/simplebuilding:cracked_diamond_block")).findFirst();
+        helper.assertTrue(entry.isPresent(), "no hammer crush entry for the cracked diamond block");
+        var recipe = entry.get();
+        helper.assertTrue(recipe.output().items().equals(List.of(ModItems.DIAMOND_PEBBLE))
+                        && recipe.output().count() == com.simplebuilding.config.ServerTuning.diamondBlockPebbles(),
+                "wrong yield in the catalog: " + recipe.output());
+        helper.assertTrue(!recipe.tools().contains(ModItems.STONE_SLEDGEHAMMER) && !recipe.tools().contains(ModItems.COPPER_SLEDGEHAMMER)
+                        && recipe.tools().contains(ModItems.IRON_SLEDGEHAMMER), "wrong hammers in the catalog: " + recipe.tools());
+        helper.succeed();
+    }
+
     private static void hammerChipsBlock(GameTestHelper helper, Block source, Item output, int count) {
         if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) { helper.succeed(); return; }
         BlockPos pos = new BlockPos(2, 2, 2);
@@ -715,7 +835,7 @@ public final class SledgehammerTests {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
         ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
 
-        // --- a diamond block takes a strike, never a charge (owner 2026-10-02: eight strikes) ---
+        // --- a diamond block takes a strike, never a charge (owner 2026-10-02; nine since N55) ---
         helper.setBlock(CENTRE, Blocks.DIAMOND_BLOCK);
         helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.SUCCESS,
                 "right clicking a diamond block did not strike it");
@@ -1601,7 +1721,7 @@ public final class SledgehammerTests {
      * Owner 2026-10-06: every hammer crushing runs step by step - each right-click strike shows its part of the result
      * above the block at once, the last strike removes the block and frees all parts as real items; nothing before that
      * can be picked up. Through the real use path ({@code gameMode.useItemOn}), at the same time on a diamond block
-     * (8 strikes, 81 pebbles: 10 per strike, 11 last), ice (4), obsidian (9) and a quartz block (4, 26.3). A repeat in the
+     * (9 strikes, 81 pebbles: 9 per strike), ice (4), obsidian (9) and a quartz block (4, 26.3). A repeat in the
      * same tick (held right click) does not count. A second ice block hit twice and then left alone gives nothing back
      * and keeps its block: the shown parts vanish after {@link InWorldStrikes#RESET_TICKS}.
      *
@@ -1886,7 +2006,7 @@ public final class SledgehammerTests {
         helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, PROBE);
         helper.assertValueEqual(hammer.getDamageValue(), 0, "a finish that did nothing still cost durability");
 
-        // --- the diamond block itself breaks on eight strikes, not on a charge (owner 2026-10-02) ---
+        // --- the diamond block itself breaks on nine strikes, not on a charge (owner 2026-10-02, nine since N55) ---
         player.setShiftKeyDown(false);
         InteractionResult onDiamond = useOnTop(helper, player, hammer, PROBE);
         helper.assertTrue(onDiamond == InteractionResult.SUCCESS, "the hammer did not strike the diamond block, got " + onDiamond);
@@ -1914,7 +2034,7 @@ public final class SledgehammerTests {
      * iron, gold, diamond, netherite and enderite (gold sits above iron in the mod's ages). Stone
      * and copper hammers bounce off: the click is refused ({@code FAIL}, no wind-up), a finish
      * behind it crushes nothing and the block stays. The iron hammer, the weakest allowed one, crushes
-     * the block into its 81 pebbles with eight strikes (owner 2026-10-02). JEI and the wiki list exactly the allowed
+     * the block into its 81 pebbles with nine strikes (owner 2026-10-02, N55). JEI and the wiki list exactly the allowed
      * hammers ({@code InWorldTransformations#diamondCrush}).
      *
      * <p><strong>What breaks this test:</strong> dropping the tier gate in {@code useOn} or in
@@ -1952,7 +2072,7 @@ public final class SledgehammerTests {
         helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, around).isEmpty(),
                 "a stone or copper hammer crushed the diamond block");
 
-        // Owner 2026-10-01: single strikes instead of a held charge, eight since 2026-10-02. A repeat inside the
+        // Owner 2026-10-01: single strikes instead of a held charge, nine since N55 (2026-10-14). A repeat inside the
         // minimum interval (held right-click) does not count, the last counted strike crushes.
         ItemStack iron = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
         InteractionResult first = useOnTop(helper, player, iron, CENTRE);
