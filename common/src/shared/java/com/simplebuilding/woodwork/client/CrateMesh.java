@@ -39,8 +39,8 @@ import net.minecraft.world.item.ItemStack;
  * copies vertices; nothing is resolved per frame except a check that the atlas was not reloaded.
  */
 final class CrateMesh {
-    /** Tile edge in pixels: two tiles across the 12 px inside, so the pattern fits without clipping. */
-    private static final float TILE = 6.0F;
+    /** Tile edge in pixels: three tiles across the 12 px inside, so the pattern fits without clipping. */
+    private static final float TILE = 4.0F;
     private static final float ICON = 3.0F;
     /** The plate lies this far behind the tiles (px); icons stand this far in front of the wall. */
     private static final float PLATE_DEPTH = 0.1F;
@@ -203,7 +203,7 @@ final class CrateMesh {
         }
     }
 
-    /** A face of {@code w} x {@code h} px tiled with the whole sprite, tiles mirrored in a checker pattern, partial tiles clipped. */
+    /** A face of {@code w} x {@code h} px tiled with the whole sprite, tiles mirrored in a checker pattern, partial tiles cut to the middle of the sprite. */
     private static void tiles(Buf buf, TextureAtlasSprite sprite, float px, float py, float pz, float rx, float ry, float rz,
                               float ux, float uy, float uz, float w, float h, float nx, float ny, float nz, int index) {
         int ai = 0;
@@ -213,12 +213,13 @@ final class CrateMesh {
             for (float b = 0; b < h - 0.001F; b += TILE, bi++) {
                 float th = Math.min(TILE, h - b);
                 boolean flip = ((ai + bi + index) & 1) == 1;
+                // A partial tile shows the middle of the sprite (the edges of a flat item are mostly empty).
                 float fu = tw / TILE;
                 float fv = th / TILE;
-                float ua = flip ? 1.0F : 0.0F;
-                float ub = flip ? 1.0F - fu : fu;
+                float ua = (1.0F - fu) / 2.0F;
+                float ub = (1.0F + fu) / 2.0F;
                 tile(buf, sprite, px + rx * a + ux * b, py + ry * a + uy * b, pz + rz * a + uz * b, rx, ry, rz, ux, uy, uz,
-                        tw, th, nx, ny, nz, ua, ub, 1.0F - fv, 1.0F, INSIDE_SHADE);
+                        tw, th, nx, ny, nz, flip ? ub : ua, flip ? ua : ub, (1.0F - fv) / 2.0F, (1.0F + fv) / 2.0F, INSIDE_SHADE);
             }
         }
     }
