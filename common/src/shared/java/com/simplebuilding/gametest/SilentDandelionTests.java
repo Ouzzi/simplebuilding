@@ -209,6 +209,46 @@ public final class SilentDandelionTests {
         helper.succeed();
     }
 
+    /** Owner N57: the dandelion toggles a Sculk Shrieker (flag in the block entity), the shriek itself is untouched. */
+    public static void shriekerToggleSavesAndStillShrieks(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        var player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        BlockPos pos = new BlockPos(2, 2, 2);
+        helper.setBlock(pos.below(), Blocks.STONE);
+        helper.setBlock(pos, Blocks.SCULK_SHRIEKER);
+        var shrieker = helper.getBlockEntity(pos, net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.class);
+        var silence = (com.simplebuilding.util.ShriekerSilence) shrieker;
+        helper.assertTrue(!silence.simplebuilding$isSilenced(), "a fresh shrieker must be loud");
+        ItemStack flowers = new ItemStack(ModItems.SILENT_DANDELION, 3);
+        player.setItemInHand(InteractionHand.MAIN_HAND, flowers);
+        BlockPos absolute = helper.absolutePos(pos);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false);
+        var state = helper.getBlockState(pos);
+        helper.assertTrue(state.useItemOn(flowers, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit)
+                == net.minecraft.world.InteractionResult.SUCCESS, "use on the shrieker must swing");
+        helper.assertTrue(silence.simplebuilding$isSilenced() && flowers.getCount() == 2, "first use must silence and consume one flower");
+        TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
+        shrieker.saveWithoutMetadata(output);
+        helper.assertTrue(output.buildResult().getBooleanOr("simplebuilding_silenced", false), "silence must be saved with the block");
+        shrieker.loadWithComponents(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), output.buildResult()));
+        helper.assertTrue(silence.simplebuilding$isSilenced(), "silence must survive reload");
+        // A silenced shrieker still shrieks for the game; only its sounds are gone.
+        shrieker.tryShriek(helper.getLevel(), helper.makeMockServerPlayerInLevel());
+        helper.assertTrue(helper.getBlockState(pos).getValue(net.minecraft.world.level.block.SculkShriekerBlock.SHRIEKING),
+                "a silenced shrieker must still shriek");
+        state = helper.getBlockState(pos);
+        state.useItemOn(flowers, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
+        helper.assertTrue(!silence.simplebuilding$isSilenced() && flowers.getCount() == 1, "second use must restore the sound");
+        output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
+        shrieker.saveWithoutMetadata(output);
+        helper.assertTrue(!output.buildResult().getBooleanOr("simplebuilding_silenced", false), "a loud shrieker must save no flag");
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIRT));
+        helper.assertTrue(helper.getBlockState(pos).useItemOn(player.getMainHandItem(), helper.getLevel(), player,
+                InteractionHand.MAIN_HAND, hit) != net.minecraft.world.InteractionResult.SUCCESS && !silence.simplebuilding$isSilenced(),
+                "other items must not toggle the shrieker");
+        helper.succeed();
+    }
+
     public static void yarnPlacesInSmallPartsAndDropsItself(GameTestHelper helper) {
         if (!enabled(helper)) return;
         var player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
