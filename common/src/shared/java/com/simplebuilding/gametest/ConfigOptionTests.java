@@ -833,6 +833,7 @@ public final class ConfigOptionTests {
             "server.oreGeneration.nihilitOre boolean=true",
             "server.oreGeneration.sageOre boolean=true",
             "server.oreGeneration.dimensionalScrap boolean=true",
+            "server.oreGeneration.crackedIceFields boolean=true",
             "server.pads.strangerPadBreakSeconds int=60",
             "server.pads.strangerPlateBreakSeconds int=10",
             "server.charges.lensMaxCharge int=640",

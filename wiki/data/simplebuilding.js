@@ -154077,7 +154077,7 @@ window.WIKI_DATA = {
       "label": "Enable Simple Beacons",
       "labelDe": "Simple Beacons aktivieren",
       "tooltip": "Turns the bundled Simple Beacons module on or off: Strong Beacon, Strong Conduit and the Strong Upgrade template. Off leaves placed blocks inert. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Beacons ein oder aus: Starkes Leuchtfeuer, Starker Aquisator und die Starke Aufwertungsvorlage. Aus lässt gesetzte Blöcke wirkungslos. Gilt nach einem Neustart. Standard: an."
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Beacons ein oder aus: Starkes Leuchtfeuer, Starker Aquisator und die passende starke Vorlage. Aus lässt gesetzte Blöcke wirkungslos. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
