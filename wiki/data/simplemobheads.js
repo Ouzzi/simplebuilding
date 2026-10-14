@@ -4526,7 +4526,7 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
             "A book about every mob's head."
           ],
           "use": [
-            "The Simple Mobheads Guide explains drops, variants and head abilities. Craft it shapeless from a book and a bone."
+            "The Simple Mobheads Guide explains drops, variants and head abilities. Craft it shapeless from a book and a skeleton skull."
           ],
           "secret": [
             "Its pages follow the wiki, so it never tells more than the heads really do."
@@ -4537,7 +4537,7 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
             "Ein Buch über den Kopf jedes Mobs."
           ],
           "use": [
-            "Das Simple-Mobheads-Handbuch erklärt Beute, Varianten und Kopf-Fähigkeiten. Formlos aus einem Buch und einem Knochen."
+            "Das Simple-Mobheads-Handbuch erklärt Beute, Varianten und Kopf-Fähigkeiten. Formlos aus einem Buch und einem Skelettschädel."
           ],
           "secret": [
             "Seine Seiten folgen dem Wiki und verraten nie mehr, als die Köpfe wirklich tun."
