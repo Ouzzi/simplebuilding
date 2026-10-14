@@ -210,7 +210,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "524bccf58d93"
+    "dataHash": "070ec42e2242"
   },
   {
     "id": "simpletweaks",
@@ -419,7 +419,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "c67babb79d08"
+    "dataHash": "7ed7e954312b"
   },
   {
     "id": "simplefarming",

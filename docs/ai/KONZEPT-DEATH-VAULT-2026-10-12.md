@@ -153,3 +153,18 @@ Alle Wege nutzen **dieselbe** serverseitige Funktion `DeathVault.redeem(player)`
 - Config-Schalter zum Abschalten.
 - Notiz: Falls je eine eigene Grabstein-Mod im Modpack geplant wird, wäre Rückgabe einfacher (Items aus dem Grab direkt ins Inventar). Derzeit keine geplant.
 - Umsetzung jetzt in **Simple Tools** (Besitzer 12.10.), gemeinsame Todes-Buchführung mit Soulbound.
+
+## Umbau 2026-10-14 (Besitzer, QUEUE Nachtrag 55) – Stand
+Die erste Fassung war nicht zuverlässig. Neuer Kern: **Anzeige, was aus den Drops des letzten Todes wurde** (Code `modules/simpletools`,
+`vault/`, GUI `client/DeathVaultScreen`):
+- Je gedropptem Stack ein **Verbleib** (`Fate`, Farbe in der GUI): liegt noch (grün) · von dir aufgehoben (blau) · von anderem Spieler
+  aufgehoben (rot, Name im Tooltip) · verbrannt durch Lava/Feuer/Kaktus (orange) · despawnt (grau) · ins Void gefallen (lila) ·
+  anders verschwunden, z. B. Trichter, Mob, Explosion, Befehl (gelb) · zurückgekauft (türkis, nur mit der Zukunfts-Option).
+- Noch liegende Items zeigen den **Despawn-Timer als Balken** (wie eine Haltbarkeitsleiste, Grün→Rot). Ist der Chunk nicht geladen (oder
+  nicht entity-tickend), steht der Timer: Pausen-Zeichen am Feld, Tooltip und Statuszeile „Chunk nicht geladen – Timer steht“.
+- Server: Tracking je `ItemEntity`-UUID (Mixins: Tick → Despawn, `hurtServer` → Lava/Feuer/Kaktus/Explosion, `playerTouch` → Aufheben mit
+  Spielername, `setRemoved` → Entladen merkt das Alter), persistent als `SavedData` je Spieler, **nur der letzte Tod** (ohne Rückkauf-Option),
+  Sync zur GUI über `ContainerData` (Verbleib/Alter/Timerstatus) und Tooltip-Lore (Name).
+- **Zukünftig (per Config abgeschaltet, Standard aus, Code bleibt):** Zurückholen gegen Bezahlung (Opferplatz, Gewichtung nach Aktualität und Wert,
+  mehrere Tode, `deathVaultCostPerItem`, `deathVaultMaxPerOffering`, `deathVaultMaxDeaths`) – Schalter `deathVaultRedeem` (auch
+  `/simpletools deathVaultRedeem`). Die Abschnitte 5–7 oben (Befehl, NPC, Bezahlwege, 3–5 Items) sind überholt bzw. ebenfalls zukünftig.

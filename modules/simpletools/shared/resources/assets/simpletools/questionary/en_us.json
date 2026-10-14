@@ -4,10 +4,10 @@
       "Some say the dead keep a ledger. This shrine is where it is kept, and its soul flame never forgets a name."
     ],
     "use": [
-      "Open it to see what your deaths cost you. Items still lying in the world stay dim; those that despawned, burned, blew up or fell into the void can be bought back. Every 4 diamonds return one random lost item, at most 3 per offering."
+      "Open it to see where the items of your last death went: still lying (with a despawn bar), picked up by you or someone else, burned, despawned, fallen into the void or gone another way - each in its own color, with a legend beside the list."
     ],
     "secret": [
-      "Newer deaths and more valuable items come back more often. Whatever anyone picked up is struck from the ledger, and Soulbound items never appear in it: they never left you."
+      "A paused bar means the chunk is not loaded and the timer stands. Soulbound items never appear: they never left you."
     ]
   }
 }

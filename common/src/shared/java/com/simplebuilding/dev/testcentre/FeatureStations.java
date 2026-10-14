@@ -712,7 +712,7 @@ public final class FeatureStations {
         c.contents(1, 0, 1, chest);
         c.title(0, 2, wallZ, TcText.t("section.deathvault", "Death Vault"), TcText.t("section.deathvault.sub", "Simple Tools"));
         c.wallSign(2, 1, wallZ, TcText.bold(TcText.t("deathvault.vault", "Death Vault")),
-                TcText.t("deathvault.vault.sub", "lost items back"), TcText.t("deathvault.vault.sub2", "4 diamonds each"));
+                TcText.t("deathvault.vault.sub", "shows where drops went"), TcText.t("deathvault.vault.sub2", "last death"));
         c.wallSign(4, 1, wallZ, TcText.bold(TcText.t("deathvault.anvil", "Soulbound")),
                 TcText.t("deathvault.anvil.sub", "book on anvil"), TcText.t("deathvault.anvil.sub2", "always 35 levels"));
         c.wallSign(6, 1, wallZ, TcText.bold(TcText.t("deathvault.grind", "Grindstone")),
