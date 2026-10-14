@@ -193,10 +193,11 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
         # Pools hinter einem Feature-Flag (if (McVersion.X && ...)): eigene Id (kein Zusammenstoss mit dem Pool
         # gleichen Index im ungeschalteten Block derselben Tabelle) und das Flag, damit der Check sie nur fuer die
         # Linien erwartet, auf denen es an ist (check.py, Schallplatten 2026-10-03).
-        flag_match = re.search(r"McVersion\.([A-Z0-9_]+)", cond)
-        flag = flag_match.group(1) if flag_match else None
+        # "!McVersion.X" (Pool nur, wo X aus ist, z. B. Koepfe vor dem Umzug nach simplemobheads) -> Flag "!X".
+        flag_match = re.search(r"(!\s*)?McVersion\.([A-Z0-9_]+)", cond)
+        flag = (("!" if flag_match.group(1) else "") + flag_match.group(2)) if flag_match else None
         if flag:
-            block_key += ":" + flag.lower()
+            block_key += ":" + flag.lower().replace("!", "not_")
         pools = []
         for call in re.finditer(r"editor\.add(?:Built)?Pool\(|rareCore\(", text[block_start:block_end]):
             call_start = block_start + call.start()
@@ -241,7 +242,8 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
             if helper and helper.group(1) in helpers:
                 chain_start, chain_end = helpers[helper.group(1)]
             # Mob-Koepfe: headPool(registry, EntityTypes.X, TweaksItems.Y) - Wuerfe aus dem Helfer, Opfer und Kopf aus dem Aufruf
-            head = re.fullmatch(r"\s*(\w+)\(registry,\s*EntityTypes\.(\w+),\s*(\w+)\.(\w+)\)\s*", args_text)
+            # (Kopf seit simplemobheads: TweaksItems.head(BlazeHeadType.X); Item-Pfad X_HEAD, Stray/Bogged X_SKULL)
+            head = re.fullmatch(r"\s*(\w+)\(registry,\s*EntityTypes\.(\w+),\s*(\w+)\.head\((?:[\w.]*\.)?BlazeHeadType\.(\w+)\)\)\s*", args_text)
             if head and head.group(1) in helpers:
                 chain_start, chain_end = helpers[head.group(1)]
             chain = text[chain_start:chain_end]
@@ -277,7 +279,7 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
             seen = set()
             scan = chain_start
             if head and head.group(1) in helpers:
-                head_item = item_id(head.group(3) + "." + head.group(4), open_at)
+                head_item = item_id(head.group(4) + ("_SKULL" if head.group(4) in ("STRAY", "BOGGED") else "_HEAD"), open_at)
                 entries.append({"key": head_item.split(":")[1], "item": head_item, "weight": 1, "count": [1, 1], "ids": {},
                                 "label": head_item})
                 scan = chain_end  # der Eintrag im Helfer ist der Parameter, nicht ein Item
