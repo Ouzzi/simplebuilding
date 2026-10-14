@@ -2009,10 +2009,32 @@
       "{name}: A shard of volcanic glass, sharp as a decision."
     ],
     "use": [
-      "A small part: one obsidian gives 9; 9 chips in the crafting grid give the obsidian back."
+      "A small part: only the sledgehammer makes it; 9 chips in the crafting grid give the obsidian back."
     ],
     "secret": [
       "Strike obsidian with a sledgehammer, one chip per strike: 9 strikes in all. The last strike removes the block and frees all chips."
+    ]
+  },
+  "crying_obsidian_chip": {
+    "lore": [
+      "{name}: A shard that still remembers why it wept."
+    ],
+    "use": [
+      "A small part: 9 chips in the crafting grid give the crying obsidian back."
+    ],
+    "secret": [
+      "Strike crying obsidian with a sledgehammer, one chip per strike: 9 strikes in all. The last strike removes the block and frees all chips."
+    ]
+  },
+  "blazing_obsidian_chip": {
+    "lore": [
+      "{name}: A glowing splinter, still warm from the crack it came out of."
+    ],
+    "use": [
+      "A small part: 9 chips in the crafting grid give the blazing obsidian back."
+    ],
+    "secret": [
+      "Strike blazing obsidian with a sledgehammer, one chip per strike: 9 strikes in all. The last strike removes the block and frees all chips."
     ]
   },
   "diamond_pebble": {

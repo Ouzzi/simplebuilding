@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 /**
- * Hammer strikes break a block or one placed fire charge into small chips, on 26.3 only. Since 2026-10-06 (owner) step by
+ * Hammer strikes break a block (ice, packed ice, obsidian, crying and blazing obsidian) or one placed fire charge into small chips, on 26.3 only. Since 2026-10-06 (owner) step by
  * step: one chip per strike ({@link com.simplebuilding.util.InWorldStrikes#strikeYield}), as many strikes as chips; the
  * last strike removes the block and frees all chips. Durability and cooldown once, at the end.
  */
@@ -29,6 +29,9 @@ public final class SledgehammerChips {
     public static final int ICE_CHIPS = 4;
     public static final int PACKED_ICE_CHIPS = 9;
     public static final int OBSIDIAN_CHIPS = 9;
+    /** N55: crying and blazing obsidian crush like obsidian, nine chips per block. */
+    public static final int CRYING_OBSIDIAN_CHIPS = 9;
+    public static final int BLAZING_OBSIDIAN_CHIPS = 9;
     public static final int FIRE_CHIPS = 4;
     /** A placed cracked diamond (SimpleLib material) breaks into nine diamond pebbles - the reverse of the crafting recipe. */
     public static final int CRACKED_DIAMOND_PEBBLES = 9;
@@ -45,6 +48,10 @@ public final class SledgehammerChips {
             out.add(new Crush(McVersion.NATURE_VARIANTS ? ModItems.CRACKED_ICE : Items.ICE, ModItems.ICE_CHIP, ICE_CHIPS));
             out.add(new Crush(Items.PACKED_ICE, ModItems.ICE_CHIP, PACKED_ICE_CHIPS));
             out.add(new Crush(Items.OBSIDIAN, ModItems.OBSIDIAN_CHIP, OBSIDIAN_CHIPS));
+            out.add(new Crush(Items.CRYING_OBSIDIAN, ModItems.CRYING_OBSIDIAN_CHIP, CRYING_OBSIDIAN_CHIPS));
+            if (ModItems.BLAZING_OBSIDIAN_CHIP != null) {
+                out.add(new Crush(ModItems.BLAZING_OBSIDIAN, ModItems.BLAZING_OBSIDIAN_CHIP, BLAZING_OBSIDIAN_CHIPS));
+            }
             out.add(new Crush(Items.FIRE_CHARGE, ModItems.FIRE_CHIP, FIRE_CHIPS));
             out.add(new Crush(ModItems.CRACKED_DIAMOND, ModItems.DIAMOND_PEBBLE, CRACKED_DIAMOND_PEBBLES));
         }
@@ -80,6 +87,11 @@ public final class SledgehammerChips {
             result = new ItemStack(ModItems.ICE_CHIP, PACKED_ICE_CHIPS);
         } else if (state.is(Blocks.OBSIDIAN)) {
             result = new ItemStack(ModItems.OBSIDIAN_CHIP, OBSIDIAN_CHIPS);
+        } else if (state.is(Blocks.CRYING_OBSIDIAN)) {
+            result = new ItemStack(ModItems.CRYING_OBSIDIAN_CHIP, CRYING_OBSIDIAN_CHIPS);
+        } else if (com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN != null
+                && state.is(com.simplebuilding.blocks.ModBlocks.BLAZING_OBSIDIAN)) {
+            result = new ItemStack(ModItems.BLAZING_OBSIDIAN_CHIP, BLAZING_OBSIDIAN_CHIPS);
         } else if (entity instanceof PlacedSmallPartsBlockEntity pile) {
             // Like disc flipping, select the most recently placed matching item.
             for (int i = pile.parts().size() - 1; i >= 0; i--) {

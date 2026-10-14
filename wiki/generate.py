@@ -1973,7 +1973,7 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                     "id": "hammer_crush_" + extra["input"].split(":")[-1],
                     "kind": "diamond_crush",
                     "inputs": [{"id": extra["input"], "count": 1}],
-                    "tools": hammers,
+                    "tools": [h for h in extra["hammers"] if h in item_ids] if "hammers" in extra else hammers,
                     "output": {"id": extra["result"], "count": extra["count"]},
                     "stats": {"damage": extra["damage"], "hits": extra["strikes"]},
                 })

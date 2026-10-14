@@ -778,6 +778,9 @@
       "id": "simplebuilding:blazing_obsidian"
     },
     {
+      "id": "simplebuilding:blazing_obsidian_chip"
+    },
+    {
       "id": "simplebuilding:blue_concrete_octet",
       "maxStackSize": 99
     },
@@ -1075,6 +1078,9 @@
     {
       "id": "simplebuilding:crimson_stem_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:crying_obsidian_chip"
     },
     {
       "id": "simplebuilding:crystalline_astralit"

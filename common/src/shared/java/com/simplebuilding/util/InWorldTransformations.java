@@ -216,6 +216,17 @@ public final class InWorldTransformations {
             c.addProperty("damage", SledgehammerChips.DAMAGE);
             crushes.add(c);
         }
+        // N55: the Cracked Diamond Block breaks like the diamond block (same strikes, pebbles, iron-tier hammers).
+        if (com.simplebuilding.blocks.ModBlocks.CRACKED_DIAMOND_BLOCK != null) {
+            JsonObject c = new JsonObject();
+            c.addProperty("input", id(ModItems.CRACKED_DIAMOND_BLOCK));
+            c.addProperty("result", id(ModItems.DIAMOND_PEBBLE));
+            c.addProperty("count", com.simplebuilding.config.ServerTuning.diamondBlockPebbles());
+            c.addProperty("strikes", SledgehammerItem.DIAMOND_BLOCK_STRIKES);
+            c.addProperty("damage", SledgehammerItem.DIAMOND_CRUSH_DAMAGE);
+            c.add("hammers", hammers);
+            crushes.add(c);
+        }
         o.add("crushes", crushes);
         if (com.simplebuilding.version.McVersion.ANVIL_DIAMOND_CRUSH) {
             JsonObject anvil = new JsonObject();

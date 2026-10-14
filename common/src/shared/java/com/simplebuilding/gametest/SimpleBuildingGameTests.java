@@ -1317,6 +1317,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_hammer_cracks_plain_ice", SledgehammerTests::hammerCracksPlainIce).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_mixed_pile_preserves_other_parts", SledgehammerTests::hammerChipsMixedPilePreservesOtherParts).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_obsidian_yields_nine", SledgehammerTests::hammerChipsObsidianYieldsNine).build(),
+            GameTestSpec.named("sledgehammer_game_test_hammer_chips_crying_obsidian_yields_nine", SledgehammerTests::hammerChipsCryingObsidianYieldsNine).build(),
+            GameTestSpec.named("sledgehammer_game_test_hammer_chips_blazing_obsidian_yields_nine", SledgehammerTests::hammerChipsBlazingObsidianYieldsNine).build(),
+            GameTestSpec.named("sledgehammer_game_test_obsidian_chips_have_no_crafting_recipe_but_the_way_back", SledgehammerTests::obsidianChipsHaveNoCraftingRecipeButTheWayBack).build(),
+            GameTestSpec.named("sledgehammer_game_test_diamond_block_crushes_in_nine_strikes", SledgehammerTests::diamondBlockCrushesInNineStrikes).build(),
+            GameTestSpec.named("sledgehammer_game_test_cracked_diamond_block_crushes_in_nine_strikes", SledgehammerTests::crackedDiamondBlockCrushesInNineStrikes).build(),
+            GameTestSpec.named("sledgehammer_game_test_cracked_diamond_block_is_in_the_crush_catalog", SledgehammerTests::crackedDiamondBlockIsInTheCrushCatalog).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_packed_ice_yields_nine", SledgehammerTests::hammerChipsPackedIceYieldsNine).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_placed_fire_charge_yields_four", SledgehammerTests::hammerChipsPlacedFireChargeYieldsFour).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_placed_cracked_diamond_yields_nine_pebbles", SledgehammerTests::hammerChipsPlacedCrackedDiamondYieldsNinePebbles).build(),
@@ -1360,7 +1366,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_charged_hammer_only_finishes_on_the_block_it_started_on", SledgehammerTests::chargedHammerOnlyFinishesOnTheBlockItStartedOn)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_only_iron_or_better_sledgehammers_crush_diamond_blocks", SledgehammerTests::onlyIronOrBetterSledgehammersCrushDiamondBlocks)
-                    .maxTicks(100)
+                    .maxTicks(140)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_crushings_yield_one_part_per_strike_through_the_real_use_path", SledgehammerTests::hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath)
                     .maxTicks(320)

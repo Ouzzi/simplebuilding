@@ -115,10 +115,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .unlockedBy(getHasName(Items.PACKED_ICE), has(Items.PACKED_ICE)).save(output, "ice_chip_from_packed_ice");
                     shaped(RecipeCategory.MISC, Items.ICE).pattern("CC").pattern("CC").define('C', ModItems.ICE_CHIP)
                             .unlockedBy(getHasName(ModItems.ICE_CHIP), has(ModItems.ICE_CHIP)).save(output, "ice_from_ice_chips");
-                    shapeless(RecipeCategory.MISC, ModItems.OBSIDIAN_CHIP, 9).requires(Items.OBSIDIAN)
-                            .unlockedBy(getHasName(Items.OBSIDIAN), has(Items.OBSIDIAN)).save(output);
+                    // N55 (owner 2026-10-14): obsidian chips (plain, crying, blazing) come ONLY from sledgehammer strikes
+                    // (SledgehammerChips); no crafting recipe makes them. The way back stays: 9 chips -> the block.
                     shaped(RecipeCategory.MISC, Items.OBSIDIAN).pattern("CCC").pattern("CCC").pattern("CCC").define('C', ModItems.OBSIDIAN_CHIP)
                             .unlockedBy(getHasName(ModItems.OBSIDIAN_CHIP), has(ModItems.OBSIDIAN_CHIP)).save(output, "obsidian_from_obsidian_chips");
+                    shaped(RecipeCategory.MISC, Items.CRYING_OBSIDIAN).pattern("CCC").pattern("CCC").pattern("CCC").define('C', ModItems.CRYING_OBSIDIAN_CHIP)
+                            .unlockedBy(getHasName(ModItems.CRYING_OBSIDIAN_CHIP), has(ModItems.CRYING_OBSIDIAN_CHIP)).save(output, "crying_obsidian_from_crying_obsidian_chips");
+                    if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+                        shaped(RecipeCategory.MISC, ModItems.BLAZING_OBSIDIAN).pattern("CCC").pattern("CCC").pattern("CCC").define('C', ModItems.BLAZING_OBSIDIAN_CHIP)
+                                .unlockedBy(getHasName(ModItems.BLAZING_OBSIDIAN_CHIP), has(ModItems.BLAZING_OBSIDIAN_CHIP)).save(output, "blazing_obsidian_from_blazing_obsidian_chips");
+                    }
                 }
 
                 // Befiederungstisch (B14, N16): ein Rezept je Teil (Kategorien Spitze/Schaft/Befiederung), nur fuer das

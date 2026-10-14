@@ -58,6 +58,8 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   Baustab (Flächen), Oktant (Messen/Planen), Blaupause (Bau-Code, Editor mit 3D-Vorschau, Scannen/Bauen),
   Rotator, Farbpinsel (Goldpinsel) mit Farbkasten in 4 Stufen.
 - **Kerne** (Kupfer bis Enderit) als Werkzeugstufen, mit Hand-Animationen; In-World-Umwandlungen per Schlag.
+- **Vorschlaghammer-Zerlegungen** (schrittweise, ein Teil je Schlag): Diamantblock und Rissiger Diamantblock (9 Schläge, ab Eisenhammer) → 81 Diamantkiesel;
+  Obsidian, Weinender Obsidian und Lohen-Obsidian (je 9 Schläge) → Obsidian-/Weinender-Obsidian-/Lohen-Obsidian-Splitter (nur so erhältlich; 9 Splitter → Block zurück); Eis, Packeis, Feuerkugel.
 - **Helfer/Gadgets:** Attraktor (mehrere ziehen zum gemeinsamen Mittelpunkt), Detektor (Erz-Sonar),
   Resonanzstab (Laser, Scannen), Echolot, Geschwindigkeitsmesser.
 - **Lager:** Rucksäcke (4 Stufen), Truhen- und Fallen-Truhen-Stufen (Kupfer→Enderit), Shulkerkisten-Stufen,

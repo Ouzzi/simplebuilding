@@ -418,7 +418,7 @@ public final class ModItemGroupsContent {
             // Ablegbare Kleinteile (2026-10-02): Steinkiesel und Feuersteinsplitter; Obsidian-, Feuerkugel- und
             // Eissplitter seit 2026-10-05.
             rows.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP,
-                    ModItems.OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
+                    ModItems.OBSIDIAN_CHIP, ModItems.CRYING_OBSIDIAN_CHIP, ModItems.BLAZING_OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             // Stangen (2026-10-02, N41 "Pole"): Eisen-, Gold-, Diamant-, Netherit- und Enderitstange stehen wie ein

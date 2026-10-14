@@ -3273,7 +3273,7 @@ public final class DataIntegrityTests {
         // Erst alle Erz-Zeilen zusammen, dann die kleinen Bauteile; die Staebe stehen nach einer Luecke daneben.
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             expected.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP,
-                    ModItems.OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
+                    ModItems.OBSIDIAN_CHIP, ModItems.CRYING_OBSIDIAN_CHIP, ModItems.BLAZING_OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             // Material-Staebe (2026-10-02): in der Zeile der Kleinteile, wenn sie hineinpassen (Row#besides),

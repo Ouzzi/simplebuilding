@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 802,
+      "count": 804,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -297,7 +297,7 @@ window.WIKI_DATA = {
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
           "Upgrade instead of rebuild: with the Basic Upgrade at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond (vanilla tools: wood to stone with cobblestone, then stone to iron, iron to gold, gold to diamond, and the copper pickaxe, axe, shovel, sword and hoe to iron). It costs twice the material the crafting table asks for the new tool: a pickaxe or axe 6, a sword or hoe 4, a shovel 2, a chisel 2 and a sledgehammer 22 ingots or diamonds; a building wand takes one core of the new tier instead. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 3 netherite ingots.",
           "Netherite and enderite only exist at the smithing table: Netherite Upgrade + diamond tool + netherite ingot, then Enderite Upgrade + netherite tool + Enderite Ingot (every netherite tool including the spear, and every armor piece). Enderite items are not lost in the void; the Enderite Bundle and the Enderite Quiver take the mod's enchantments at an anvil like the tiers below them, while the Enderite building wand, chisel and sledgehammer are still missing from the enchantment tags and cannot be given them by normal means.",
-          "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (six pebbles also go into the Reinforced Bundle and the Reinforced Quiver, four into the Reinforced Backpack). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers are not crafted: hold right-click for five seconds on a placed Reinforced machine with a Diamond Sledgehammer (or better) in your main hand and a Netherite Nugget in your off hand, and it is hammered into the Netherite machine; a Netherite Sledgehammer (or better) with an Enderite Nugget does the same from Netherite to Enderite. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
+          "The road to the machines runs through the Sledgehammer: nine right-click strikes on a diamond block break it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (six pebbles also go into the Reinforced Bundle and the Reinforced Quiver, four into the Reinforced Backpack). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers are not crafted: hold right-click for five seconds on a placed Reinforced machine with a Diamond Sledgehammer (or better) in your main hand and a Netherite Nugget in your off hand, and it is hammered into the Netherite machine; a Netherite Sledgehammer (or better) with an Enderite Nugget does the same from Netherite to Enderite. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
           "Enchantments: only Fast Chiseling and Kinetic Protection appear at the enchanting table. Every other mod enchantment is found as a book and applied at the anvil; the creative tab has every book ready at maximum level.",
           "At the traders: the Toolsmith sells copper, iron and gold chisels with Fast Chiseling from level 3 for 6 emeralds, from level 4 iron and diamond sledgehammers with one enchantment out of Break Through, Override, Range, Unbreaking or Efficiency (16 emeralds + an iron pickaxe, or 28 emeralds + a diamond pickaxe), and from level 5 a diamond pickaxe with Strip Miner or Vein Miner for 15 emeralds. The Librarian offers books with Color Palette, Fast Chiseling or Linear from level 3, Linear or Override from level 4, and Master Builder, Range, Funnel, Strip Miner or Vein Miner from level 5, each for 25 emeralds. The Wandering Trader has a book with Radius for 40 emeralds and Diamond Pebbles (3 for 5 emeralds).",
           "In chests: Constructor's Touch, the mod's key enchantment (it unlocks the Building Wand menu, extra chisel conversions, reverse reshaping on the Sledgehammer, the magnet filter and the Octant preview), exists only as a book in Buried Treasure, in igloo chests, in the vaults of the trial chambers and in the treasure catch of fishing; no trader offers it. Break Through, Funnel, Vein Miner and Fast Chiseling lie in dungeons, Color Palette, Cover and Linear in pillager outposts and woodland mansions, Master Builder, Versatility and Range in stronghold libraries and end cities, Override II and Air Jump II in end cities, Radius and Deep Pockets in ancient cities, Strip Miner in nether fortresses and abandoned mineshafts. End cities additionally hand out Raw Enderite Fragments, enderite nuggets, astralit dust and nihilith shards; many chests hold Diamond Pebbles.",
@@ -319,7 +319,7 @@ window.WIKI_DATA = {
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne sind ein Glückstreffer beim fahrenden Händler (24 Smaragde, etwa jeder zehnte Händler hat sie); den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
           "Netherit und Enderit gibt es nur am Schmiedetisch: Netherit-Aufwertung + Diamant-Werkzeug + Netheritbarren, danach Enderit-Aufwertung + Netherit-Werkzeug + Enderitbarren (jedes Netherit-Werkzeug einschließlich des Speers und jedes Rüstungsteil). Enderit-Gegenstände gehen in der Leere nicht verloren; Enderitbündel und Enderitköcher nehmen die Mod-Verzauberungen am Amboss an wie die Stufen darunter, während Enderit-Baustab, -Meißel und -Vorschlaghammer weiterhin in den Verzauberungs-Tags fehlen und sich auf normalem Weg nicht verzaubern lassen.",
-          "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (je sechs Kiesel stecken außerdem im Verstärkten Bündel und im Verstärkten Köcher, vier im Verstärkten Rucksack). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen werden nicht gecraftet: Halte mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand fünf Sekunden lang Rechtsklick auf die gesetzte Verstärkt-Maschine, dann wird sie zur Netherit-Maschine geschmiedet; ein Netherit-Vorschlaghammer (oder besser) mit einem Enderitklumpen macht dasselbe von Netherit zu Enderit. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
+          "Der Weg zu den Maschinen führt über den Vorschlaghammer: neun Rechtsklick-Schläge auf einen Diamantblock zerlegen ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (je sechs Kiesel stecken außerdem im Verstärkten Bündel und im Verstärkten Köcher, vier im Verstärkten Rucksack). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen werden nicht gecraftet: Halte mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand fünf Sekunden lang Rechtsklick auf die gesetzte Verstärkt-Maschine, dann wird sie zur Netherit-Maschine geschmiedet; ein Netherit-Vorschlaghammer (oder besser) mit einem Enderitklumpen macht dasselbe von Netherit zu Enderit. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
           "Verzauberungen: Nur Schnelles Meißeln und Kinetischer Schutz erscheinen am Zaubertisch. Alle anderen Mod-Verzauberungen findest du als Bücher und bringst sie am Amboss an; im Kreativ-Reiter liegen alle Bücher auf Höchststufe bereit.",
           "Beim Händler: Der Werkzeugschmied verkauft ab Stufe 3 Kupfer-, Eisen- und Goldmeißel mit Schnelles Meißeln für 6 Smaragde, ab Stufe 4 Eisen- und Diamant-Vorschlaghämmer mit einer Verzauberung aus Durchbruch, Übersteuerung, Reichweite, Haltbarkeit oder Effizienz (16 Smaragde + Eisenspitzhacke bzw. 28 Smaragde + Diamantspitzhacke) und ab Stufe 5 eine Diamantspitzhacke mit Tunnelgräber oder Aderabbau für 15 Smaragde. Der Bibliothekar bietet ab Stufe 3 Bücher mit Farbpalette, Schnelles Meißeln oder Linear, ab Stufe 4 Linear oder Übersteuerung und ab Stufe 5 Baumeister, Reichweite, Trichter, Tunnelgräber oder Aderabbau, jeweils für 25 Smaragde. Der fahrende Händler hat für 40 Smaragde ein Buch mit Radius und Diamantkiesel (3 Stück für 5 Smaragde).",
           "In Truhen: Berührung des Konstrukteurs, die Schlüssel-Verzauberung der Mod (schaltet das Baustab-Menü, zusätzliche Meißel-Umwandlungen, das Rückwärts-Umformen beim Vorschlaghammer, den Attraktor-Filter und die Oktant-Vorschau frei), gibt es nur als Buch im Vergrabenen Schatz, in Iglu-Truhen, in den Tresoren der Prüfungskammern und im Schatzfang beim Angeln; kein Händler bietet sie an. Durchbruch, Trichter, Aderabbau und Schnelles Meißeln liegen in Verliesen, Farbpalette, Abdeckung und Linear in Plünderer-Außenposten und Waldanwesen, Baumeister, Vielseitigkeit und Reichweite in Festungsbibliotheken und Endsiedlungen, Übersteuerung II und Luftsprung II in Endsiedlungen, Radius und Tiefe Taschen in Antiken Städten, Tunnelgräber in Netherfestungen und verlassenen Minen. Endsiedlungen geben zusätzlich Rohenderit, Enderitklumpen, Astralitstaub und Nihilitsplitter aus; viele Truhen enthalten Diamantkiesel.",
@@ -401,7 +401,7 @@ window.WIKI_DATA = {
           "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
-          "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. A Cracked Diamond placed on the ground (sneak-click) breaks back into 9 Diamond Pebbles with 9 strikes of any sledgehammer. Nine pebbles make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+          "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. A Cracked Diamond placed on the ground (sneak-click) breaks back into 9 Diamond Pebbles with 9 strikes of any sledgehammer. Nine pebbles make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
           "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
           "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
           "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -429,7 +429,7 @@ window.WIKI_DATA = {
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
-          "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+          "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
           "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
           "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
           "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -7774,7 +7774,8 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/blazing_obsidian.png",
       "craftedBy": [
-        "simplebuilding:blazing_obsidian"
+        "simplebuilding:blazing_obsidian",
+        "simplebuilding:blazing_obsidian_from_blazing_obsidian_chips"
       ],
       "usedIn": [],
       "trades": [],
@@ -7822,6 +7823,68 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:blazing_obsidian_chip",
+      "name": {
+        "en_us": "Blazing Obsidian Chip",
+        "de_de": "Lohen-Obsidian-Splitter"
+      },
+      "texture": "assets/textures/item/blazing_obsidian_chip.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:blazing_obsidian_from_blazing_obsidian_chips"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: A glowing splinter, still warm from the crack it came out of."
+          ],
+          "use": [
+            "A small part: 9 chips in the crafting grid give the blazing obsidian back."
+          ],
+          "secret": [
+            "Strike blazing obsidian with a sledgehammer, one chip per strike: 9 strikes in all. The last strike removes the block and frees all chips."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: Ein glühender Span, noch warm von dem Riss, aus dem er kam."
+          ],
+          "use": [
+            "Ein Kleinteil: 9 Splitter im Handwerksraster ergeben den Lohen-Obsidian zurück."
+          ],
+          "secret": [
+            "Schlage mit einem Vorschlaghammer auf Lohen-Obsidian, ein Splitter pro Schlag: insgesamt 9 Schläge. Der letzte Schlag entfernt den Block und befreit alle Splitter."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "A shard of Blazing Obsidian: 9 sledgehammer strikes on one block give 9 chips, 9 chips in the crafting grid give the block back.",
+          "details": [
+            "Right-click a Blazing Obsidian block with any sledgehammer: one Blazing Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. The hammer is the only source of Blazing Obsidian Chips (no crafting recipe makes them); 9 chips in the crafting grid give the block back.",
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+          ]
+        },
+        "de": {
+          "summary": "Ein Splitter vom Lohen-Obsidian: 9 Vorschlaghammer-Schläge auf einen Block ergeben 9 Splitter, 9 Splitter im Handwerksfeld wieder den Block.",
+          "details": [
+            "Mit einem beliebigen Vorschlaghammer auf einen Block Lohen-Obsidian rechtsklicken: je Schlag ein Lohen-Obsidian-Splitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Der Hammer ist die einzige Quelle für Lohen-Obsidian-Splitter (kein Rezept stellt sie her); 9 Splitter im Handwerksfeld ergeben den Block zurück.",
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
+          "tools/textures/obsidian_chips_n55_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -11002,7 +11065,7 @@ window.WIKI_DATA = {
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
             "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -11023,7 +11086,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
+            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
             "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
           ],
@@ -11065,7 +11128,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -11086,7 +11149,7 @@ window.WIKI_DATA = {
             "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
+            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
             "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
           ],
@@ -12104,6 +12167,68 @@ window.WIKI_DATA = {
             "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:crying_obsidian_chip",
+      "name": {
+        "en_us": "Crying Obsidian Chip",
+        "de_de": "Weinender-Obsidian-Splitter"
+      },
+      "texture": "assets/textures/item/crying_obsidian_chip.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:crying_obsidian_from_crying_obsidian_chips"
+      ],
+      "trades": [],
+      "questionary": {
+        "en": {
+          "lore": [
+            "{name}: A shard that still remembers why it wept."
+          ],
+          "use": [
+            "A small part: 9 chips in the crafting grid give the crying obsidian back."
+          ],
+          "secret": [
+            "Strike crying obsidian with a sledgehammer, one chip per strike: 9 strikes in all. The last strike removes the block and frees all chips."
+          ]
+        },
+        "de": {
+          "lore": [
+            "{name}: Ein Splitter, der noch weiß, warum er geweint hat."
+          ],
+          "use": [
+            "Ein Kleinteil: 9 Splitter im Handwerksraster ergeben den Weinenden Obsidian zurück."
+          ],
+          "secret": [
+            "Schlage mit einem Vorschlaghammer auf Weinenden Obsidian, ein Splitter pro Schlag: insgesamt 9 Schläge. Der letzte Schlag entfernt den Block und befreit alle Splitter."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "A shard of Crying Obsidian: 9 sledgehammer strikes on one block give 9 chips, 9 chips in the crafting grid give the block back.",
+          "details": [
+            "Right-click a Crying Obsidian block with any sledgehammer: one Crying Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. The hammer is the only source of Crying Obsidian Chips (no crafting recipe makes them); 9 chips in the crafting grid give the block back.",
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+          ]
+        },
+        "de": {
+          "summary": "Ein Splitter vom Weinenden Obsidian: 9 Vorschlaghammer-Schläge auf einen Block ergeben 9 Splitter, 9 Splitter im Handwerksfeld wieder den Block.",
+          "details": [
+            "Mit einem beliebigen Vorschlaghammer auf einen Block Weinenden Obsidian rechtsklicken: je Schlag ein Weinender-Obsidian-Splitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Der Hammer ist die einzige Quelle für Weinender-Obsidian-Splitter (kein Rezept stellt sie her); 9 Splitter im Handwerksfeld ergeben den Block zurück.",
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java",
+          "tools/textures/obsidian_chips_n55_2026_10_14.py"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -13943,7 +14068,7 @@ window.WIKI_DATA = {
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
             "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -13964,7 +14089,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
+            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
             "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
           ],
@@ -14006,7 +14131,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -14027,7 +14152,7 @@ window.WIKI_DATA = {
             "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
+            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
             "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
           ],
@@ -18121,7 +18246,7 @@ window.WIKI_DATA = {
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
             "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -18142,7 +18267,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
+            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
             "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
           ],
@@ -18184,7 +18309,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -18205,7 +18330,7 @@ window.WIKI_DATA = {
             "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
+            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
             "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
           ],
@@ -19546,7 +19671,7 @@ window.WIKI_DATA = {
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
             "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -19567,7 +19692,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
+            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
             "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
           ],
@@ -19609,7 +19734,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -19630,7 +19755,7 @@ window.WIKI_DATA = {
             "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
+            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
             "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
           ],
@@ -22488,7 +22613,7 @@ window.WIKI_DATA = {
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
             "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -22509,7 +22634,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
+            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
             "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
           ],
@@ -22551,7 +22676,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -22572,7 +22697,7 @@ window.WIKI_DATA = {
             "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
+            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
             "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
           ],
@@ -29032,7 +29157,7 @@ window.WIKI_DATA = {
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
             "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -29053,7 +29178,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
+            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
             "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
           ],
@@ -29095,7 +29220,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -29116,7 +29241,7 @@ window.WIKI_DATA = {
             "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
+            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
             "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
           ],
@@ -31097,9 +31222,7 @@ window.WIKI_DATA = {
         "de_de": "Obsidiansplitter"
       },
       "texture": "assets/textures/item/obsidian_chip.png",
-      "craftedBy": [
-        "simplebuilding:obsidian_chip"
-      ],
+      "craftedBy": [],
       "usedIn": [
         "simplebuilding:obsidian_from_obsidian_chips"
       ],
@@ -31110,7 +31233,7 @@ window.WIKI_DATA = {
             "{name}: A shard of volcanic glass, sharp as a decision."
           ],
           "use": [
-            "A small part: one obsidian gives 9; 9 chips in the crafting grid give the obsidian back."
+            "A small part: only the sledgehammer makes it; 9 chips in the crafting grid give the obsidian back."
           ],
           "secret": [
             "Strike obsidian with a sledgehammer, one chip per strike: 9 strikes in all. The last strike removes the block and frees all chips."
@@ -31121,7 +31244,7 @@ window.WIKI_DATA = {
             "{name}: Ein Splitter vulkanischen Glases, scharf wie ein Entschluss."
           ],
           "use": [
-            "Ein Kleinteil: ein Obsidian ergibt 9; 9 Splitter im Handwerksraster ergeben den Obsidian zurück."
+            "Ein Kleinteil: nur der Vorschlaghammer macht ihn; 9 Splitter im Handwerksraster ergeben den Obsidian zurück."
           ],
           "secret": [
             "Schlage mit einem Vorschlaghammer auf Obsidian, ein Splitter pro Schlag: insgesamt 9 Schläge. Der letzte Schlag entfernt den Block und befreit alle Splitter."
@@ -31130,16 +31253,16 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A shard of volcanic glass: one obsidian gives 9 Obsidian Chips, 9 chips in the crafting grid give the obsidian back.",
+          "summary": "A shard of volcanic glass: 9 sledgehammer strikes on an Obsidian block give 9 Obsidian Chips, 9 chips in the crafting grid give the obsidian back.",
           "details": [
-            "Right-click an Obsidian block with any sledgehammer: one Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. Crafting recipes remain available.",
+            "Right-click an Obsidian block with any sledgehammer: one Obsidian Chip per strike, 9 strikes. The chips show above the block and drop on the last strike, which consumes the block. It costs 1 durability in Survival at the end, followed by a 0.5-second cooldown. The hammer is the only source of Obsidian Chips (no crafting recipe makes them); 9 chips in the crafting grid still give the Obsidian back.",
             "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
         },
         "de": {
-          "summary": "Ein Splitter Vulkanglas: ein Obsidian ergibt 9 Obsidiansplitter, 9 Splitter im Handwerksfeld wieder den Obsidian.",
+          "summary": "Ein Splitter Vulkanglas: 9 Vorschlaghammer-Schläge auf einen Obsidianblock ergeben 9 Obsidiansplitter, 9 Splitter im Handwerksfeld wieder den Obsidian.",
           "details": [
-            "Mit einem beliebigen Vorschlaghammer auf einen Obsidianblock rechtsklicken: je Schlag ein Obsidiansplitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
+            "Mit einem beliebigen Vorschlaghammer auf einen Obsidianblock rechtsklicken: je Schlag ein Obsidiansplitter, 9 Schläge. Die Splitter schweben über dem Block und fallen beim letzten Schlag, der den Block verbraucht. Am Ende kostet es im Überlebensmodus 1 Haltbarkeit, danach 0,5 Sekunden Abklingzeit. Der Hammer ist die einzige Quelle für Obsidiansplitter (kein Rezept stellt sie her); 9 Splitter im Handwerksfeld ergeben den Obsidian weiterhin zurück.",
             "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
         },
@@ -43809,7 +43932,7 @@ window.WIKI_DATA = {
             "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
             "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
             "Reshaping (26.3, Queue Nachtrag 24): only while sneaking. Holding right-click (a charge-up with the bow animation, 1.5x faster than the old 4 to 40 ticks) removes the aimed eighth; what is left becomes stairs or a slab when it is one, any other shape (e.g. one eighth gone above and one below) falls apart into 0.125 blocks of the material - wood and melon have them, the removed eighth drops as an item. Materials without 0.125 blocks (stone, ...) refuse such a cut. A plain right click does not reshape and the hammer does not tilt. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch, sneaking runs backwards: slab to stairs, stairs to block. 26.2: holding right-click turns a full block into its stairs and stairs into a slab.",
-            "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with eight right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+            "An iron-tier hammer or better crushes a diamond block or a Cracked Diamond Block into 81 Diamond Pebbles with nine right-click strikes; each strike shows its share above the block, the last frees them all. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
             "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items and filter mode (and so its filter), furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -43830,7 +43953,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
+            "Strike a diamond block or a Cracked Diamond Block nine times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
             "Right-click a placed trim template five times with the sledgehammer and Glow Ink or Glowstone Dust in your off hand."
           ],
@@ -43872,7 +43995,7 @@ window.WIKI_DATA = {
             "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
             "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
             "Umformen (26.3, Queue Nachtrag 24): nur beim Schleichen. Rechtsklick halten (Aufladen mit Bogen-Animation, 1,5× schneller als die alten 4 bis 40 Ticks) trägt das angezielte Achtel ab; der Rest wird zur Treppe oder Stufe, wenn er eine ist, jede andere Form (z. B. oben und unten je ein Achtel weg) zerfällt in 0,125er-Blöcke des Materials - Holz und Melone haben welche, das abgetragene Achtel fällt als Item heraus. Materialien ohne 0,125er-Blöcke (Stein, ...) lehnen so einen Schnitt ab. Ein einfacher Rechtsklick formt nicht um, der Hammer wackelt dann nicht. Die Ladung endet nur auf dem Block, auf dem sie begann, solange du ihn anzielst und dort bauen darfst. Mit Berührung des Konstrukteurs läuft Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block. 26.2: Rechtsklick halten macht aus einem Vollblock seine Treppe und aus einer Treppe eine Stufe.",
-            "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit acht Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+            "Ein Eisenhammer oder besser zerlegt einen Diamantblock oder Rissigen Diamantblock mit neun Rechtsklick-Schlägen in 81 Diamantkiesel; jeder Schlag zeigt seinen Teil über dem Block, der letzte gibt alle frei. Ein abgelegter Rissiger Diamant (Schleichen + Rechtsklick) zerfällt mit 9 Schlägen eines beliebigen Vorschlaghammers wieder in 9 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
             "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt und Filtermodus (und damit sein Filter), Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -43893,7 +44016,7 @@ window.WIKI_DATA = {
             "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-            "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
+            "Neun Rechtsklick-Schläge auf einen Diamantblock oder Rissigen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
             "Abgelegte Besatzvorlage fünfmal mit Vorschlaghammer per Rechtsklick schlagen, Leuchttinte oder Glowstonestaub in der Nebenhand."
           ],
@@ -50495,7 +50618,8 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/blazing_obsidian.png",
       "craftedBy": [
-        "simplebuilding:blazing_obsidian"
+        "simplebuilding:blazing_obsidian",
+        "simplebuilding:blazing_obsidian_from_blazing_obsidian_chips"
       ],
       "usedIn": [],
       "trades": [],
@@ -81617,6 +81741,42 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:blazing_obsidian_from_blazing_obsidian_chips",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blazing_obsidian",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blazing_obsidian_from_blazing_obsidian_chips.json",
+      "ingredients": [
+        "simplebuilding:blazing_obsidian_chip"
+      ],
+      "pattern": [
+        "CCC",
+        "CCC",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:blazing_obsidian_chip"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:blazing_obsidian_chip",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:blue_concrete_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -87164,6 +87324,42 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:crimson_stem",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crying_obsidian_from_crying_obsidian_chips",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:crying_obsidian",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/crying_obsidian_from_crying_obsidian_chips.json",
+      "ingredients": [
+        "simplebuilding:crying_obsidian_chip"
+      ],
+      "pattern": [
+        "CCC",
+        "CCC",
+        "CCC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:crying_obsidian_chip"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:crying_obsidian_chip",
+            "count": 9
           }
         ]
       }
@@ -109855,37 +110051,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 6
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:obsidian_chip",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:obsidian_chip",
-        "count": 9
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/obsidian_chip.json",
-      "ingredients": [
-        "minecraft:obsidian"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:obsidian"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 9,
-        "materials": [
-          {
-            "id": "minecraft:obsidian",
-            "count": 1
           }
         ]
       }
@@ -153068,6 +153233,14 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:crying_obsidian_chip",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:blazing_obsidian_chip",
+          "required": true
+        },
+        {
           "id": "simplebuilding:fire_chip",
           "required": true
         },
@@ -160007,7 +160180,7 @@ window.WIKI_DATA = {
         },
         "stats": {
           "damage": 1,
-          "hits": 8
+          "hits": 9
         },
         "lines": [
           "1.21.11",
@@ -160106,6 +160279,66 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "hammer_crush_crying_obsidian",
+        "kind": "diamond_crush",
+        "inputs": [
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:crying_obsidian_chip",
+          "count": 9
+        },
+        "stats": {
+          "damage": 1,
+          "hits": 9
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "hammer_crush_blazing_obsidian",
+        "kind": "diamond_crush",
+        "inputs": [
+          {
+            "id": "simplebuilding:blazing_obsidian",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:blazing_obsidian_chip",
+          "count": 9
+        },
+        "stats": {
+          "damage": 1,
+          "hits": 9
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
         "id": "hammer_crush_fire_charge",
         "kind": "diamond_crush",
         "inputs": [
@@ -160190,6 +160423,34 @@ window.WIKI_DATA = {
         "stats": {
           "damage": 1,
           "hits": 4
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "hammer_crush_cracked_diamond_block",
+        "kind": "diamond_crush",
+        "inputs": [
+          {
+            "id": "simplelib:cracked_diamond_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "output": {
+          "id": "simplelib:diamond_pebble",
+          "count": 81
+        },
+        "stats": {
+          "damage": 1,
+          "hits": 9
         },
         "lines": [
           "26.3"
@@ -182682,15 +182943,15 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 758,
+    "items": 760,
     "blocks": 494,
-    "recipes": 1341,
+    "recipes": 1342,
     "lootTables": 351,
     "trades": 20,
     "enchantments": 19,
     "tags": 55,
     "config": 236,
-    "inWorld": 488,
+    "inWorld": 491,
     "advancements": 116,
     "features": 51,
     "undocumented": 0,

@@ -845,7 +845,8 @@ public class ModModelProvider extends FabricModelProvider {
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.DIAMOND_PEBBLE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             // Splitter-Kleinteile (2026-10-05); Steinkiesel/Feuersteinsplitter haben handgeschriebene Modelle im Overlay.
-            for (net.minecraft.world.item.Item chip : java.util.List.of(ModItems.FIRE_CHIP, ModItems.ICE_CHIP, ModItems.OBSIDIAN_CHIP)) {
+            for (net.minecraft.world.item.Item chip : java.util.List.of(ModItems.FIRE_CHIP, ModItems.ICE_CHIP, ModItems.OBSIDIAN_CHIP,
+                    ModItems.CRYING_OBSIDIAN_CHIP, ModItems.BLAZING_OBSIDIAN_CHIP)) {
                 itemModelGenerator.generateFlatItem(chip, ModelTemplates.FLAT_ITEM);
             }
         }
