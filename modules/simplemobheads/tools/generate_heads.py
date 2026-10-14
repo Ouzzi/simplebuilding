@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import sys
+import textwrap
 from pathlib import Path
 
 MODULE = Path(__file__).resolve().parents[1]
@@ -260,7 +261,8 @@ def lang(locale):
             keys[f"variant.{NS}.{h['id']}.{v['id']}"] = v["en"] if i == 0 else v["de"]
         if h.get("ability"):
             keys[f"ability.{NS}.{h['ability']}"] = name
-            keys[f"ability.{NS}.{h['ability']}.tooltip"] = ABILITIES[h["ability"]][i]
+            # Tooltip lines stay within 48 characters (tools/check_tooltip_text.py); the secret/wiki text keeps one line.
+            keys[f"ability.{NS}.{h['ability']}.tooltip"] = "\n".join(textwrap.wrap(ABILITIES[h["ability"]][i], 48))
     return keys
 
 
@@ -289,8 +291,8 @@ def questionary(locale):
         out[wall_id(h)] = entry
     out["guide_book"] = {
         "lore": ["A book about every mob's head." if en else "Ein Buch über den Kopf jedes Mobs."],
-        "use": ["The Simple Mobheads Guide explains drops, variants and head abilities. Craft it shapeless from a book and a bone."
-                if en else "Das Simple-Mobheads-Handbuch erklärt Beute, Varianten und Kopf-Fähigkeiten. Formlos aus einem Buch und einem Knochen."],
+        "use": ["The Simple Mobheads Guide explains drops, variants and head abilities. Craft it shapeless from a book and a skeleton skull."
+                if en else "Das Simple-Mobheads-Handbuch erklärt Beute, Varianten und Kopf-Fähigkeiten. Formlos aus einem Buch und einem Skelettschädel."],
         "secret": ["Its pages follow the wiki, so it never tells more than the heads really do."
                    if en else "Seine Seiten folgen dem Wiki und verraten nie mehr, als die Köpfe wirklich tun."]}
     return out
