@@ -42584,7 +42584,7 @@
             "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and only the bone tips of the teeth along the seam give it away. It snaps shut in a short motion and opens again just as visibly.",
             "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
             "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare.",
-            "It also generates naturally on the floors of the Deep Dark (about six tries per chunk, only where it can stand), so every step there can be a trap."
+            "It also generates naturally on the floors of the Deep Dark, but only in the middle of sculk: the block under it and the four blocks next to that one must all be Sculk blocks (Sculk Veins and Catalysts do not count), so every sculk patch there can hide a trap."
           ]
         },
         "de": {
@@ -42594,7 +42594,7 @@
             "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, nur die Knochenspitzen der Zähne an der Naht verraten sie. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
             "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
             "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten.",
-            "Sie wächst außerdem natürlich auf dem Boden der Deep Dark (etwa sechs Versuche je Chunk, nur wo sie stehen kann): dort kann jeder Schritt in eine Falle führen."
+            "Sie wächst außerdem natürlich auf dem Boden der Deep Dark, aber nur mitten in Sculk: der Block darunter und die vier Blöcke daneben müssen alle Sculk-Blöcke sein (Sculk-Adern und Katalysatoren zählen nicht): dort kann jede Sculk-Fläche eine Falle verbergen."
           ]
         },
         "sources": [
@@ -70985,7 +70985,7 @@
             "It is camouflaged as sculk: its surfaces use the sculk texture with its slowly pulsing glow, and only the bone tips of the teeth along the seam give it away. It snaps shut in a short motion and opens again just as visibly.",
             "It makes no sound at all: placing, biting, opening and breaking are silent. Mine it with a hoe; it drops itself.",
             "Recipe: two bones and an echo shard in the top row, three sculk below. Echo shards only come from Ancient Cities, so the trap stays rare.",
-            "It also generates naturally on the floors of the Deep Dark (about six tries per chunk, only where it can stand), so every step there can be a trap."
+            "It also generates naturally on the floors of the Deep Dark, but only in the middle of sculk: the block under it and the four blocks next to that one must all be Sculk blocks (Sculk Veins and Catalysts do not count), so every sculk patch there can hide a trap."
           ]
         },
         "de": {
@@ -70995,7 +70995,7 @@
             "Sie ist als Sculk getarnt: ihre Flächen tragen die Sculk-Textur mit deren langsam pulsierendem Leuchten, nur die Knochenspitzen der Zähne an der Naht verraten sie. Sie schnappt in einer kurzen Bewegung zu und öffnet sich ebenso sichtbar wieder.",
             "Sie macht überhaupt kein Geräusch: Platzieren, Zubeißen, Öffnen und Abbauen sind lautlos. Mit der Hacke abbauen; sie droppt sich selbst.",
             "Rezept: oben Knochen, Echo-Splitter, Knochen, darunter dreimal Sculk. Echo-Splitter gibt es nur in Ancient Cities, die Falle bleibt also selten.",
-            "Sie wächst außerdem natürlich auf dem Boden der Deep Dark (etwa sechs Versuche je Chunk, nur wo sie stehen kann): dort kann jeder Schritt in eine Falle führen."
+            "Sie wächst außerdem natürlich auf dem Boden der Deep Dark, aber nur mitten in Sculk: der Block darunter und die vier Blöcke daneben müssen alle Sculk-Blöcke sein (Sculk-Adern und Katalysatoren zählen nicht): dort kann jede Sculk-Fläche eine Falle verbergen."
           ]
         },
         "sources": [

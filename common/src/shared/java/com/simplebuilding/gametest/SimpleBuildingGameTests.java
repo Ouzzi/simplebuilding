@@ -359,6 +359,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("world_polish_game_test_buckets_draw_no_bar_and_the_enderite_bucket_shows_only_its_name", WorldPolishTests::bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName)
                     .build(),
+            GameTestSpec.named("world_polish_game_test_sculk_jaw_spawns_only_in_the_middle_of_sculk", WorldPolishTests::sculkJawSpawnsOnlyInTheMiddleOfSculk)
+                    .build(),
             GameTestSpec.named("world_polish_game_test_sculk_jaw_needs_full_block_top", WorldPolishTests::sculkJawNeedsFullBlockTop)
                     .build(),
             GameTestSpec.named("world_polish_game_test_sculk_jaw_feature_is_registered", WorldPolishTests::sculkJawFeatureIsRegistered)
