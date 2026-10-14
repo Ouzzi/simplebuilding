@@ -55,6 +55,11 @@ public final class HammockGameTest {
     }
 
     @GameTest
+    public void restingPercentageReplacesTheGameRule(GameTestHelper helper) {
+        HammockTests.restingPercentageReplacesTheGameRule(helper);
+    }
+
+    @GameTest
     public void clothMiddleSitsBetweenTheAnchorsInEveryDirection(GameTestHelper helper) {
         HammockTests.clothMiddleSitsBetweenTheAnchorsInEveryDirection(helper);
     }

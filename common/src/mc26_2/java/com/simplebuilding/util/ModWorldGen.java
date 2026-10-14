@@ -50,6 +50,11 @@ public class ModWorldGen {
     public static final ResourceKey<PlacedFeature> CRACKED_ICE_FIELD_PLACED_KEY = registerPlacedKey("cracked_ice_field_placed");
     public static final ResourceKey<PlacedFeature> SCULK_JAW_PLACED_KEY = registerPlacedKey("sculk_jaw_placed");
 
+    /** Sculk Jaw spawn rule (26.3 main line, N55); this line spawns no jaws until the port. */
+    public static BlockPredicate sculkJawSpot() {
+        return BlockPredicate.matchesBlocks(Blocks.AIR);
+    }
+
     /** Sage Ore keys (26.3 main line, McVersion.SAGE_ORE); this line registers nothing until the port. */
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAGE_ORE_KEY = registerConfiguredKey("sage_ore");
     public static final ResourceKey<PlacedFeature> SAGE_ORE_PLACED_KEY = registerPlacedKey("sage_ore_placed");

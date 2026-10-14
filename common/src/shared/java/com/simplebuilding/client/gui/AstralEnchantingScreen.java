@@ -273,7 +273,9 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         var player = this.minecraft.player;
         boolean infinite = player.hasInfiniteMaterials();
         int cost = this.menu.price();
-        String text = cost > 0 ? String.valueOf(cost) : "-";
+        // N55: the levels that are taken off, not the level needed (that one is shown above already).
+        int taken = AstralEnchanting.levelCost(cost);
+        String text = cost > 0 ? String.valueOf(taken) : "-";
         g.text(this.font, text, x + 27 - this.font.width(text) / 2, y + 6, ready ? GREEN : cost > 0 ? RED : TEXT_OFF, true);
         // N35: one line under the book - a blue dot with the lapis, an orange-red dot with the blaze powder it needs.
         int lapis = AstralEnchanting.lapisCost(cost), blaze = AstralEnchanting.blazePowderCost(cost);

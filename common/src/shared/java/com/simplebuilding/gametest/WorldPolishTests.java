@@ -154,7 +154,7 @@ public final class WorldPolishTests {
     }
 
     /**
-     * N50: Sculk Jaws generate naturally on Deep Dark floors. Here: the placed feature is registered and has 6 tries per
+     * N50: Sculk Jaws generate naturally on Deep Dark floors. Here: the placed feature is registered and has 24 tries per (N55: was 6)
      * chunk, the biome side is a modifier per loader (Fabric BiomeModifications, NeoForge/Forge biome_modifier JSON).
      */
     public static void sculkJawFeatureIsRegistered(GameTestHelper helper) {
@@ -167,6 +167,71 @@ public final class WorldPolishTests {
         helper.assertTrue(jaw.isPresent(), "the placed Sculk Jaw feature is registered");
         helper.assertTrue(jaw.get().value().placement().stream().anyMatch(
                 m -> m instanceof net.minecraft.world.level.levelgen.placement.CountPlacement), "it rolls a count per chunk");
+        helper.succeed();
+    }
+
+    /**
+     * N55: a Sculk Jaw spawns only in the middle of sculk - the floor block under it and the four horizontal neighbors of that
+     * floor block (a plus of five) are all Sculk. Allowed: the full plus (diagonals do not matter). Forbidden: any one of the
+     * five missing or replaced (stone, Sculk Vein, Sculk Catalyst, air), the spot itself occupied.
+     */
+    public static void sculkJawSpawnsOnlyInTheMiddleOfSculk(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS || ModBlocks.SCULK_JAW == null) {
+            helper.succeed();
+            return;
+        }
+        var rule = com.simplebuilding.util.ModWorldGen.sculkJawSpot();
+        BlockPos center = new BlockPos(3, 1, 3);
+        BlockPos spot = center.above();
+        BlockPos[] plus = {center, center.east(), center.west(), center.north(), center.south()};
+        // Reset: a stone slab of 5x5 under the spot, the plus of Sculk on top of it, air above.
+        Runnable reset = () -> {
+            for (int x = 1; x <= 5; x++) {
+                for (int z = 1; z <= 5; z++) {
+                    helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+                    helper.setBlock(new BlockPos(x, 2, z), Blocks.AIR);
+                }
+            }
+            for (BlockPos pos : plus) {
+                helper.setBlock(pos, Blocks.SCULK);
+            }
+        };
+        reset.run();
+        helper.assertTrue(rule.test(helper.getLevel(), helper.absolutePos(spot)), "the full plus of sculk is rejected");
+        // Diagonal floor blocks are stone: still fine.
+        helper.assertTrue(helper.getBlockState(center.east().north()).is(Blocks.STONE), "diagonals are stone in this setup");
+        // Each of the five replaced in turn (by stone, a vein-like block, a catalyst, air).
+        net.minecraft.world.level.block.state.BlockState[] wrong = {Blocks.STONE.defaultBlockState(),
+                Blocks.SCULK_CATALYST.defaultBlockState(), Blocks.SCULK_VEIN.defaultBlockState(), Blocks.AIR.defaultBlockState()};
+        for (BlockPos missing : plus) {
+            for (var state : wrong) {
+                reset.run();
+                helper.setBlock(missing, state);
+                helper.assertFalse(rule.test(helper.getLevel(), helper.absolutePos(spot)),
+                        "spawn allowed with " + state.getBlock() + " at " + missing.subtract(center) + " of the floor plus");
+            }
+        }
+        // Only the floor block is sculk, the neighbors are stone.
+        reset.run();
+        for (int i = 1; i < plus.length; i++) {
+            helper.setBlock(plus[i], Blocks.STONE);
+        }
+        helper.assertFalse(rule.test(helper.getLevel(), helper.absolutePos(spot)), "spawn allowed on a single sculk block");
+        // No sculk at all.
+        reset.run();
+        for (BlockPos pos : plus) {
+            helper.setBlock(pos, Blocks.STONE);
+        }
+        helper.assertFalse(rule.test(helper.getLevel(), helper.absolutePos(spot)), "spawn allowed on plain stone");
+        // The spot itself must be free.
+        reset.run();
+        helper.setBlock(spot, Blocks.STONE);
+        helper.assertFalse(rule.test(helper.getLevel(), helper.absolutePos(spot)), "spawn allowed inside a block");
+        // The placed feature uses a rule filter and the raised number of tries.
+        var placed = helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.PLACED_FEATURE)
+                .get(com.simplebuilding.util.ModWorldGen.SCULK_JAW_PLACED_KEY);
+        helper.assertTrue(placed.isPresent() && placed.get().value().placement().stream().anyMatch(
+                m -> m instanceof net.minecraft.world.level.levelgen.placement.BlockPredicateFilter), "the feature has no block predicate filter");
         helper.succeed();
     }
 

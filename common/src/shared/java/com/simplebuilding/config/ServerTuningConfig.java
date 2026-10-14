@@ -163,6 +163,7 @@ public class ServerTuningConfig {
         craftyShulker.cooldownTicks = clamp(craftyShulker.cooldownTicks, ServerTuning.MIN_CRAFTY_COOLDOWN, ServerTuning.MAX_CRAFTY_COOLDOWN);
         craftyShulker.radius = clamp(craftyShulker.radius, ServerTuning.MIN_CRAFTY_RADIUS, ServerTuning.MAX_CRAFTY_RADIUS);
         hammock.timeFactor = clamp(hammock.timeFactor, 1, ServerTuning.MAX_HAMMOCK_FACTOR);
+        hammock.restingPercentage = clamp(hammock.restingPercentage, ServerTuning.HAMMOCK_PERCENTAGE_FROM_RULE, 100);
         speakers.maxSpeakers = clamp(speakers.maxSpeakers, 0, ServerTuning.MAX_SPEAKERS);
         speakers.boostPercent = clamp(speakers.boostPercent, 0, ServerTuning.MAX_SPEAKER_BOOST_PERCENT);
         speakers.maxChain = clamp(speakers.maxChain, 0, ServerTuning.MAX_SPEAKER_CHAIN);
@@ -325,6 +326,12 @@ public class ServerTuningConfig {
         /** Uhr-Ticks je Tick (1 bis 20; 1 = kein Zeitraffer). */
         @ConfigEntry.Gui.Tooltip
         public int timeFactor = 8;
+        /**
+         * Anteil der Spieler (in Prozent, wie die Spielregel playersSleepingPercentage), die in Haengematten liegen muessen,
+         * damit die Uhr schneller laeuft (N55). -1 = die Spielregel gilt (Standard, wie bisher); 0 bis 100 ersetzt sie.
+         */
+        @ConfigEntry.Gui.Tooltip
+        public int restingPercentage = -1;
     }
 
     /**

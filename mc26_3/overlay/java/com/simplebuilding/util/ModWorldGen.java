@@ -94,7 +94,24 @@ public class ModWorldGen {
     /** Sculk Jaws on the floors of the Deep Dark (N50): about 6 attempts per chunk, only where the block can stand. */
     public static final ResourceKey<Feature> SCULK_JAW_KEY = registerConfiguredKey("sculk_jaw");
     public static final ResourceKey<PlacedFeature> SCULK_JAW_PLACED_KEY = registerPlacedKey("sculk_jaw_placed");
-    public static final int SCULK_JAW_COUNT = 6;
+    /** Tries per chunk. N55: most random spots fail the sculk rule now, so more tries keep the number of jaws about the same. */
+    public static final int SCULK_JAW_COUNT = 24;
+
+    /**
+     * N55 (owner): a Sculk Jaw spawns only in the middle of sculk. The spot itself is air where the jaw survives, the block
+     * under it is Sculk and so are the four horizontal neighbors of that floor block (a plus of five Sculk blocks).
+     * Sculk Veins, Catalysts and other blocks do not count.
+     */
+    public static BlockPredicate sculkJawSpot() {
+        java.util.List<BlockPredicate> all = new java.util.ArrayList<>();
+        all.add(BlockPredicate.matchesBlocks(Blocks.AIR));
+        all.add(BlockPredicate.wouldSurvive(ModBlocks.SCULK_JAW));
+        for (net.minecraft.core.Vec3i offset : java.util.List.of(new net.minecraft.core.Vec3i(0, -1, 0), new net.minecraft.core.Vec3i(1, -1, 0),
+                new net.minecraft.core.Vec3i(-1, -1, 0), new net.minecraft.core.Vec3i(0, -1, 1), new net.minecraft.core.Vec3i(0, -1, -1))) {
+            all.add(BlockPredicate.matchesBlocks(offset, java.util.List.of(Blocks.SCULK)));
+        }
+        return BlockPredicate.allOf(all);
+    }
 
     public static void bootstrapConfiguredFeatures(BootstrapContext<Feature> context) {
         RuleTest endStoneReplaceables = new BlockMatchTest(Blocks.END_STONE);
@@ -173,15 +190,14 @@ public class ModWorldGen {
                     OffsetPlacement.vertical(ConstantInt.of(-1)), BiomeFilter.biome()));
         }
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
-            // Pick a random spot, scan down to the floor, stand on it; the block's own survival rule decides.
+            // Pick a random spot, scan down to the floor, stand on it; the block's own survival rule and N55's sculk plus decide.
             register(context, SCULK_JAW_PLACED_KEY, features.getOrThrow(SCULK_JAW_KEY), List.of(
                     CountPlacement.of(SCULK_JAW_COUNT), InSquarePlacement.spread(),
                     HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(2), VerticalAnchor.absolute(-8)),
                     net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement.scanningFor(Direction.DOWN,
                             BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
                     OffsetPlacement.vertical(ConstantInt.of(1)),
-                    BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.matchesBlocks(Blocks.AIR),
-                            BlockPredicate.wouldSurvive(ModBlocks.SCULK_JAW))),
+                    BlockPredicateFilter.forPredicate(sculkJawSpot()),
                     BiomeFilter.biome()));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {

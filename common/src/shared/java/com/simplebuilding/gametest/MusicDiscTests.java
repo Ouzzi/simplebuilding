@@ -371,7 +371,9 @@ public final class MusicDiscTests {
         helper.assertValueEqual(chain.size(), 7, "radio chain over five speakers, the branch and the one behind: " + chain);
         helper.assertTrue(chain.contains(helper.absolutePos(new BlockPos(8, 2, 1))), "a nihilit speaker blocked the radio");
         helper.assertTrue(!chain.contains(helper.absolutePos(new BlockPos(7, 2, 1))), "a note amplifier joined a jukebox chain");
-        helper.assertTrue(SpeakerBoost.chain(level, j, SpeakerBoost.Source.NOTE_BLOCK).isEmpty(), "astralit speakers chain a note block");
+        // N55: Noten-Verstärker funken ebenfalls - von dieser Stelle aus erreicht die Note-Kette nur den Noten-Verstärker.
+        helper.assertTrue(own(helper, SpeakerBoost.chain(level, j, SpeakerBoost.Source.NOTE_BLOCK)).equals(List.of(helper.absolutePos(new BlockPos(7, 2, 1)))),
+                "astralit speakers chain a note block: " + SpeakerBoost.chain(level, j, SpeakerBoost.Source.NOTE_BLOCK));
         // N41: keine Verstaerkung am Plattenspieler, er bleibt Vanilla.
         helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.0F, "the jukebox was boosted");
 
@@ -413,7 +415,7 @@ public final class MusicDiscTests {
     /**
      * Funk-Kette (Besitzer 2026-10-10, Queue N31; N41: 63 Bloecke): der Plattenspieler gibt die Musik an Musik-Verstärker in
      * hoechstens 63 Bloecken weiter, jeder gespeiste Verstärker wieder an die naechsten. Ausserhalb der Reichweite kein
-     * Glied; faellt ein Zwischenglied weg, reisst die Kette dahinter ab. Noten-Verstärker bleiben Nachbar-Ketten.
+     * Glied; faellt ein Zwischenglied weg, reisst die Kette dahinter ab. Noten-Verstärker funken seit N55 genauso.
      */
     public static void jukeboxAmplifiersRelayByRadio(GameTestHelper helper) {
         if (!enabled(helper)) return;
@@ -459,11 +461,12 @@ public final class MusicDiscTests {
         helper.assertTrue(own(helper, SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX)).isEmpty(),
                 "the chain did not break without a: " + SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX));
 
-        // Noten-Verstärker funken nicht: zwei Bloecke Luecke unterbrechen weiterhin.
+        // N55: Noten-Verstärker funken wie die Musik-Verstärker - zwei Bloecke Luecke unterbrechen nicht mehr (Jukebox-Prinzip).
         BlockPos note = new BlockPos(3, 130, 3);
         helper.setBlock(note, Blocks.NOTE_BLOCK);
         helper.setBlock(note.east(2), ModBlocks.NOTE_AMPLIFIER);
-        helper.assertTrue(SpeakerBoost.chain(level, helper.absolutePos(note), SpeakerBoost.Source.NOTE_BLOCK).isEmpty(), "note amplifiers went wireless");
+        helper.assertTrue(own(helper, SpeakerBoost.chain(level, helper.absolutePos(note), SpeakerBoost.Source.NOTE_BLOCK))
+                .contains(helper.absolutePos(note.east(2))), "a note amplifier two blocks away is not in the radio");
 
         // Stopp-Reichweite deckt die laengste Funk-Kette.
         helper.assertTrue(SpeakerBoost.jukeboxStopRange() >= SpeakerBoost.VANILLA_EVENT_RANGE
@@ -576,7 +579,7 @@ public final class MusicDiscTests {
             helper.setBlock(new BlockPos(x, 2, 1), ModBlocks.NOTE_AMPLIFIER);
         }
         BlockPos n = helper.absolutePos(note);
-        List<BlockPos> chain = SpeakerBoost.chain(level, n, SpeakerBoost.Source.NOTE_BLOCK);
+        List<BlockPos> chain = own(helper, SpeakerBoost.chain(level, n, SpeakerBoost.Source.NOTE_BLOCK));
         helper.assertValueEqual(chain.size(), 8, "note block chain");
         ServerPlayer atSource = helper.makeMockServerPlayerInLevel();
         ServerPlayer atEnd = helper.makeMockServerPlayerInLevel();
@@ -757,6 +760,9 @@ public final class MusicDiscTests {
         helper.runBeforeTestEnd(() -> com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(previous));
         click(helper, player, amplified, ItemStack.EMPTY);
         helper.runAfterDelay(3, () -> {
+            // Other tests of the batch play notes too (since N55 their notes reach this amplifier by radio): keep the boosted one,
+            // only the clicked note block has an adjacent amplifier (volume 3.0 x 1.5).
+            payloads.removeIf(p -> p.sound().getVolume() != SpeakerBoost.NOTE_BLOCK_VOLUME * 1.5F);
             helper.assertValueEqual(payloads.size(), 1, "amplified notes received after clicking the note block");
             var note = payloads.getFirst().sound();
             helper.assertValueEqual(note.getVolume(), SpeakerBoost.NOTE_BLOCK_VOLUME * 1.5F, "note volume with one amplifier");
@@ -767,7 +773,8 @@ public final class MusicDiscTests {
             helper.assertValueEqual(heard, 1.5F, "gain next to the amplified note block");
             helper.assertTrue(heard > vanilla && heard > 1.0F, "the amplified note is not louder than vanilla: " + heard + " vs " + vanilla);
 
-            // Ohne Verstärker: Vanillas Rundsendung, Lautstaerke 3,0, kein Verstärker-Paket.
+            // Ohne angrenzenden Verstärker: Lautstaerke 3,0 (keine Verstaerkung), genau ein Ton. Seit N55 spielen Noten-Verstärker
+            // per Funk mit (63 Bloecke), der Ton kommt dann als Verstärker-Paket statt als Vanilla-Paket - nie doppelt.
             synchronized (sink) {
                 sink.clear();
             }
@@ -776,15 +783,97 @@ public final class MusicDiscTests {
             helper.runAfterDelay(3, () -> {
                 // Only sounds from the plain note block itself: neighbouring tests in the batch play sounds too.
                 Vec3 plainAt = Vec3.atCenterOf(helper.absolutePos(plain));
-                List<net.minecraft.network.protocol.game.ClientboundSoundPacket> sounds =
-                        captured(sink, net.minecraft.network.protocol.game.ClientboundSoundPacket.class).stream()
-                                .filter(s -> plainAt.distanceTo(new Vec3(s.getX(), s.getY(), s.getZ())) < 1.0)
-                                .toList();
-                helper.assertTrue(payloads.isEmpty(), "a plain note block sent an amplified note");
+                List<net.minecraft.network.protocol.game.ClientboundSoundPacket> sounds = new ArrayList<>(
+                        captured(sink, net.minecraft.network.protocol.game.ClientboundSoundPacket.class));
+                payloads.forEach(p -> sounds.add(p.sound()));
+                sounds.removeIf(s -> plainAt.distanceTo(new Vec3(s.getX(), s.getY(), s.getZ())) >= 1.0);
                 helper.assertTrue(sounds.size() == 1 && sounds.getFirst().getVolume() == SpeakerBoost.NOTE_BLOCK_VOLUME,
                         "plain note block: " + sounds.size() + " sounds");
                 helper.succeed();
             });
+        });
+    }
+
+    /**
+     * N55 (owner: the Note Amplifier does not work, the Jukebox Amplifier does): like the jukebox amplifiers, note amplifiers
+     * play along by radio. Chain: within 63 blocks of the note block, no matter what lies between, relayed on from amplifier
+     * to amplifier; beyond 63 blocks and amplifiers of the other kind are no links.
+     */
+    public static void noteAmplifiersRelayByRadio(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        ServerLevel level = helper.getLevel();
+        BlockPos note = new BlockPos(0, 130, 0);
+        BlockPos a = new BlockPos(7, 170, 7);  // 41.2 from the note block
+        BlockPos b = new BlockPos(7, 210, 7);  // 80.6 from the note block, 40 from a
+        BlockPos c = new BlockPos(0, 240, 0);  // 110 from the note block, 31.6 from b
+        helper.setBlock(note, Blocks.NOTE_BLOCK);
+        helper.setBlock(a, ModBlocks.NOTE_AMPLIFIER);
+        helper.setBlock(c, ModBlocks.NOTE_AMPLIFIER);
+        helper.setBlock(new BlockPos(2, 130, 5), ModBlocks.JUKEBOX_AMPLIFIER);
+        BlockPos n = helper.absolutePos(note);
+        helper.assertTrue(own(helper, SpeakerBoost.chain(level, n, SpeakerBoost.Source.NOTE_BLOCK)).equals(List.of(helper.absolutePos(a))),
+                "only a is in radio range (and no jukebox amplifier): " + SpeakerBoost.chain(level, n, SpeakerBoost.Source.NOTE_BLOCK));
+        helper.assertTrue(SpeakerBoost.adjacentSpeakers(level, n, SpeakerBoost.Source.NOTE_BLOCK) == 0
+                && SpeakerBoost.noteBlockVolume(level, n) == SpeakerBoost.NOTE_BLOCK_VOLUME, "a distant amplifier boosted the note block");
+        helper.setBlock(b, ModBlocks.NOTE_AMPLIFIER);
+        helper.assertTrue(own(helper, SpeakerBoost.chain(level, n, SpeakerBoost.Source.NOTE_BLOCK))
+                .equals(List.of(helper.absolutePos(a), helper.absolutePos(b), helper.absolutePos(c))),
+                "relay a -> b -> c: " + SpeakerBoost.chain(level, n, SpeakerBoost.Source.NOTE_BLOCK));
+        helper.setBlock(a, Blocks.AIR);
+        helper.assertTrue(own(helper, SpeakerBoost.chain(level, n, SpeakerBoost.Source.NOTE_BLOCK)).isEmpty(), "the chain did not break without a");
+        helper.succeed();
+    }
+
+    /**
+     * N55 through the real use path: a player clicks a note block, a Note Amplifier stands 30 blocks away (not adjacent). A
+     * second player at the amplifier hears the note there (one packet at the amplifier, not at the note block) and sees a
+     * music note above it; the player at the note block still hears it once.
+     */
+    public static void distantNoteAmplifierPlaysTheNoteAlong(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        BlockPos note = new BlockPos(1, 2, 1);
+        BlockPos amp = new BlockPos(1, 32, 1);
+        helper.setBlock(note, Blocks.NOTE_BLOCK);
+        helper.setBlock(amp, ModBlocks.NOTE_AMPLIFIER);
+        List<net.minecraft.network.protocol.Packet<?>> sinkA = new ArrayList<>();
+        List<net.minecraft.network.protocol.Packet<?>> sinkB = new ArrayList<>();
+        ServerPlayer clicker = capturingPlayer(helper, sinkA);
+        ServerPlayer listener = capturingPlayer(helper, sinkB);
+        Vec3 ampCenter = Vec3.atCenterOf(helper.absolutePos(amp));
+        Vec3 noteCenter = Vec3.atCenterOf(helper.absolutePos(note));
+        Map<ServerPlayer, List<com.simplebuilding.networking.AmplifiedNotePayload>> payloads = new java.util.LinkedHashMap<>();
+        var previous = com.simplebuilding.platform.PlatformServices.playerPacketSender();
+        com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(new com.simplebuilding.platform.PlayerPacketSender() {
+            public boolean canSend(ServerPlayer target, net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<?> type) {
+                return (target == clicker || target == listener) ? type == com.simplebuilding.networking.AmplifiedNotePayload.ID : previous.canSend(target, type);
+            }
+            public void send(ServerPlayer target, net.minecraft.network.protocol.common.custom.CustomPacketPayload payload) {
+                if ((target == clicker || target == listener) && payload instanceof com.simplebuilding.networking.AmplifiedNotePayload p) {
+                    payloads.computeIfAbsent(target, ignored -> new ArrayList<>()).add(p);
+                } else {
+                    previous.send(target, payload);
+                }
+            }
+        });
+        helper.runBeforeTestEnd(() -> com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(previous));
+        listener.snapTo(ampCenter.x, ampCenter.y + 1.0, ampCenter.z + 1.5, 0.0F, 0.0F);
+        click(helper, clicker, note, ItemStack.EMPTY);
+        helper.runAfterDelay(3, () -> {
+            // Other tests of the batch play notes too and their notes reach this amplifier by radio, so look for (not count) ours.
+            java.util.function.BiFunction<ServerPlayer, Vec3, List<net.minecraft.network.protocol.game.ClientboundSoundPacket>> at = (who, where) ->
+                    payloads.getOrDefault(who, List.of()).stream().map(com.simplebuilding.networking.AmplifiedNotePayload::sound)
+                            .filter(p -> where.distanceTo(new Vec3(p.getX(), p.getY(), p.getZ())) < 1.0) // packet coordinates are rounded
+                            .filter(p -> p.getVolume() == SpeakerBoost.NOTE_BLOCK_VOLUME).toList();
+            helper.assertTrue(!at.apply(clicker, noteCenter).isEmpty(), "the player at the note block hears no note at the note block (note " + noteCenter + ", got "
+                    + payloads.getOrDefault(clicker, List.of()).stream().map(p -> p.sound().getX() + "," + p.sound().getY() + "," + p.sound().getZ() + " v" + p.sound().getVolume()).toList() + ")");
+            helper.assertTrue(!at.apply(listener, ampCenter).isEmpty(),
+                    "the player at the amplifier hears no note at the amplifier (no boost without a neighbor)");
+            helper.assertTrue(at.apply(listener, noteCenter).isEmpty(), "the player at the amplifier hears the note 30 blocks away at the note block");
+            List<Vec3> notes = captured(sinkB, net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket.class).stream()
+                    .filter(ParticlePackets::isNote).map(ParticlePackets::position).toList();
+            Vec3 expected = Vec3.atBottomCenterOf(helper.absolutePos(amp)).add(0.0, 1.2F, 0.0);
+            helper.assertTrue(notes.stream().anyMatch(p -> p.distanceToSqr(expected) < 1.0E-4), "no music note above the amplifier (got " + notes + ")");
+            helper.succeed();
         });
     }
 

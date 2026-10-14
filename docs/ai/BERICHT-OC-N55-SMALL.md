@@ -1,0 +1,12 @@
+# Bericht oc-n55-small (QUEUE Nachtrag 55, fünf kleine Punkte)
+
+Commits (je ein Punkt, Branch `oc-n55-small`):
+1. Enchanter: Buch-Button zeigt die abgezogenen Level (`AstralEnchanting.levelCost`), nicht das benötigte Level. Nur Client-Anzeige, kein Test (Client-Test nicht gelaufen).
+2. Echolot: nicht verknüpft -> `CHEST_LOCKED` (0.7/0.7) statt `DISPENSER_FAIL`; läuft weiter über `failCue`. Echo-Tests: 36/36 grün (Fabric+NeoForge).
+3. Noten-Verstärker: Ursache = nur Musik-Verstärker funkten (63 Blöcke, Musiknote), Noten-Verstärker brauchten Berührung. Jetzt gleiche Funk-Kette (`SpeakerBoost.chain`) + Note über jedem Verstärker (`spawnNoteParticles`); +50 % für angrenzende bleibt. Neue Tests `noteAmplifiersRelayByRadio`, `distantNoteAmplifierPlaysTheNoteAlong`; alte Tests angepasst (`own()`-Filter, Assertion „funken nicht“ -> „funken“, Plain-Notenblock-Teil prüft Lautstärke 3.0 + genau 1 Ton, weil Nachbar-Räume jetzt per Funk mitspielen). `music_disc_game_test_*`: 32/32 grün, 2 Läufe.
+4. Hängematte: `server.hammock.restingPercentage` (-1 = Spielregel playersSleepingPercentage, Standard = unverändert; 0..100 ersetzt sie). EXPECTED_OPTIONS, Lang EN/DE (beide Lang-Orte), Wiki. Test `restingPercentageReplacesTheGameRule`; `hammock_*` 28/28, `config_option*` 40/40 grün.
+5. Sculk Jaws: Spawn-Regel `ModWorldGen.sculkJawSpot()`: Luft, überlebensfähig, Sculk unter dem Spot + 4 waagrechte Nachbarn des Bodenblocks (Veins/Katalysator zählen nicht). Versuche je Chunk 6 -> 24 (eigene Entscheidung, sonst viel seltener). Datagen neu, Wiki-Text. Test `sculkJawSpawnsOnlyInTheMiddleOfSculk` (erlaubt/je 1 fehlend/Stein/Spot belegt): `world_polish_game_test_sculk*` 6/6 grün.
+
+Checks: Compile Fabric/NeoForge/Forge 26.3 ok; `wiki/generate.py --all --check --strict`, `module_guides --check`, `discover --check` grün.
+Eigene Entscheidungen/Abweichungen: Punkt 3 war nicht eindeutig (Audio nicht prüfbar); ich habe das Jukebox-Prinzip (Funk) übernommen und die frühere Entscheidung „Noten-Verstärker bleiben Nachbar-Ketten“ (N41) damit aufgehoben. Tooltip Noten-Verstärker neu: „Plays note blocks along within 63 blocks“.
+Offen/nicht getestet: kein Client-/Hör-Test (Enchanter-Button, Echolot-Klang, echter Noten-Verstärker-Klang im Spiel); `tools/check_tooltip_text.py` bricht an einem fremden Modul (simplemobheads de_de allay) ab, nicht an meinen Zeilen (<=40 Zeichen); `compileGametestJava` der 26.2-Linie hat vorbestehende Fehler (simplelib UiBrightness) in HudAndTooltipClientTest. Kein Dev-Push (macht der Wrapper); „development -> Production“ bleibt TODO.

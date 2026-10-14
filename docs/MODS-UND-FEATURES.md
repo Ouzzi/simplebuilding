@@ -75,7 +75,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   8 Stufen im Inventar), Extra-Kopf-Slot im Inventar (Mob-Kopf/Kürbis, Effekte, am Spieler unter dem Helm), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
 - **Deko/Platzieren:** abgelegte Vorlagen, Kleinteile-Häufchen, Schachbrett-Blöcke und Schachfiguren (Achtel),
   senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-Verstärker (spielen einen
-  Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla) / Noten-Verstärker, Metall-Stangen (Eisen bis
+  Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla) / Noten-Verstärker (spielen Notenblöcke ebenso per Funk mit), Metall-Stangen (Eisen bis
   Enderit, Blitzableiter mit eigener Reichweite; früher „Rod“).
 - **Verzauberungen:** Abbau-, Bau-, Lager-/Spieler-Verzauberungen, Luftsprung.
 - **Welt/Wirtschaft:** Loot-Balance, bessere Strukturtruhen, Dorfbewohner-/Händlerangebote.

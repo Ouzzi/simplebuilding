@@ -17,6 +17,11 @@ public final class WorldPolishGameTest {
     }
 
     @GameTest
+    public void sculkJawSpawnsOnlyInTheMiddleOfSculk(GameTestHelper helper) {
+        WorldPolishTests.sculkJawSpawnsOnlyInTheMiddleOfSculk(helper);
+    }
+
+    @GameTest
     public void sculkJawNeedsFullBlockTop(GameTestHelper helper) {
         WorldPolishTests.sculkJawNeedsFullBlockTop(helper);
     }

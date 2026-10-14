@@ -359,6 +359,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("world_polish_game_test_buckets_draw_no_bar_and_the_enderite_bucket_shows_only_its_name", WorldPolishTests::bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName)
                     .build(),
+            GameTestSpec.named("world_polish_game_test_sculk_jaw_spawns_only_in_the_middle_of_sculk", WorldPolishTests::sculkJawSpawnsOnlyInTheMiddleOfSculk)
+                    .build(),
             GameTestSpec.named("world_polish_game_test_sculk_jaw_needs_full_block_top", WorldPolishTests::sculkJawNeedsFullBlockTop)
                     .build(),
             GameTestSpec.named("world_polish_game_test_sculk_jaw_feature_is_registered", WorldPolishTests::sculkJawFeatureIsRegistered)
@@ -835,6 +837,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("hammock_game_test_time_factor_is_capped_on_the_server", HammockTests::timeFactorIsCappedOnTheServer)
                     .build(),
+            GameTestSpec.named("hammock_game_test_resting_percentage_replaces_the_game_rule", HammockTests::restingPercentageReplacesTheGameRule)
+                    .build(),
             GameTestSpec.named("hammock_game_test_cloth_middle_sits_between_the_anchors_in_every_direction", HammockTests::clothMiddleSitsBetweenTheAnchorsInEveryDirection)
                     .build(),
             GameTestSpec.named("hammock_game_test_hangs_between_standing_rod_posts", HammockTests::hangsBetweenStandingRodPosts)
@@ -1306,6 +1310,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("music_disc_game_test_jukebox_amplifiers_relay_by_radio", MusicDiscTests::jukeboxAmplifiersRelayByRadio).build(),
             GameTestSpec.named("music_disc_game_test_relaying_amplifiers_show_notes_and_stop_with_the_jukebox", MusicDiscTests::relayingAmplifiersShowNotesAndStopWithTheJukebox).maxTicks(200).build(),
             GameTestSpec.named("music_disc_game_test_jukebox_stays_vanilla_and_amplifier_plays_along", MusicDiscTests::jukeboxStaysVanillaAndAmplifierPlaysAlong).build(),
+            GameTestSpec.named("music_disc_game_test_note_amplifiers_relay_by_radio", MusicDiscTests::noteAmplifiersRelayByRadio).build(),
+            GameTestSpec.named("music_disc_game_test_distant_note_amplifier_plays_the_note_along", MusicDiscTests::distantNoteAmplifierPlaysTheNoteAlong).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_creative_has_no_wear", SledgehammerTests::hammerChipsCreativeHasNoWear).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_ice_yields_four", SledgehammerTests::hammerChipsIceYieldsFour).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_cracks_plain_ice", SledgehammerTests::hammerCracksPlainIce).build(),

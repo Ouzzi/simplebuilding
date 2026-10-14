@@ -296,7 +296,8 @@ public class EchoCompassItem extends Item {
             return false;
         }
         if (target == null) {
-            failCue(player, SoundEvents.DISPENSER_FAIL, 0.6f, 0.8f);
+            // N55: not linked - the dull, rejecting knock of a locked chest instead of the dispenser's click.
+            failCue(player, SoundEvents.CHEST_LOCKED, 0.7f, 0.7f);
             return false;
         }
         if (player.getCooldowns().isOnCooldown(stack)) {

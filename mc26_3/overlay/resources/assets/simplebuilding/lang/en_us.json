@@ -2043,6 +2043,8 @@
   "text.autoconfig.simplebuilding.option.server.hammock": "Hammock",
   "text.autoconfig.simplebuilding.option.server.hammock.timeFactor": "Time-Lapse Factor",
   "text.autoconfig.simplebuilding.option.server.hammock.timeFactor.@Tooltip": "Clock ticks per tick while enough players\nrest in hammocks by day, 1 to 20 (1 = off).\nServer-side. Default: 8.",
+  "text.autoconfig.simplebuilding.option.server.hammock.restingPercentage": "Resting Players (%)",
+  "text.autoconfig.simplebuilding.option.server.hammock.restingPercentage.@Tooltip": "Share of players that must rest in hammocks,\nlike playersSleepingPercentage, 0 to 100.\n-1 = use the game rule. Server-side. Default: -1.",
   "text.autoconfig.simplebuilding.option.server.oreGeneration": "End Ore Generation",
   "text.autoconfig.simplebuilding.option.server.oreGeneration.endOres": "End Ores",
   "text.autoconfig.simplebuilding.option.server.oreGeneration.endOres.@Tooltip": "Main switch for both End ores. Off: neither\nAstralit nor Nihilit generates. Takes effect\nat the next world start and only in newly\ngenerated chunks. Server-side. Default: on.",

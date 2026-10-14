@@ -620,6 +620,46 @@ public final class HammockTests {
         helper.succeed();
     }
 
+    /**
+     * N55 server.hammock.restingPercentage: default -1 follows the game rule playersSleepingPercentage (so nothing changes);
+     * 0..100 replaces it, values outside are clamped; the extra ticks follow the share of resting players.
+     */
+    public static void restingPercentageReplacesTheGameRule(GameTestHelper helper) {
+        var tuning = ServerTuning.get().hammock;
+        int before = tuning.restingPercentage;
+        try {
+            helper.assertValueEqual(new com.simplebuilding.config.ServerTuningConfig.Hammock().restingPercentage, -1, "default: follow the game rule");
+            tuning.restingPercentage = -1;
+            helper.assertValueEqual(ServerTuning.hammockRestingPercentage(100), 100, "rule 100 followed");
+            helper.assertValueEqual(ServerTuning.hammockRestingPercentage(50), 50, "rule 50 followed");
+            helper.assertValueEqual(ServerTuning.hammockRestingPercentage(101), 101, "rule 101 (off) followed");
+            tuning.restingPercentage = 50;
+            helper.assertValueEqual(ServerTuning.hammockRestingPercentage(100), 50, "option replaces the rule");
+            tuning.restingPercentage = 1000;
+            helper.assertValueEqual(ServerTuning.hammockRestingPercentage(0), 100, "option above 100");
+            tuning.restingPercentage = -7;
+            helper.assertValueEqual(ServerTuning.hammockRestingPercentage(33), 33, "option below -1 follows the rule");
+            // The default (rule 100): everybody must rest; with the option at 50 half of them are enough.
+            helper.assertValueEqual(HammockTime.extraTicks(4, 2, ServerTuning.hammockRestingPercentage(100), true, true, 8), 0, "2 of 4 at rule 100");
+            tuning.restingPercentage = 50;
+            helper.assertValueEqual(HammockTime.extraTicks(4, 2, ServerTuning.hammockRestingPercentage(100), true, true, 8), 7, "2 of 4 at option 50");
+            helper.assertValueEqual(HammockTime.extraTicks(4, 1, ServerTuning.hammockRestingPercentage(100), true, true, 8), 0, "1 of 4 at option 50");
+            tuning.restingPercentage = 0;
+            helper.assertValueEqual(HammockTime.extraTicks(4, 1, ServerTuning.hammockRestingPercentage(100), true, true, 8), 7, "1 of 4 at option 0");
+            helper.assertValueEqual(HammockTime.extraTicks(4, 0, ServerTuning.hammockRestingPercentage(100), true, true, 8), 0, "nobody resting");
+            var config = new com.simplebuilding.config.ServerTuningConfig();
+            config.hammock.restingPercentage = 900;
+            config.validate();
+            helper.assertValueEqual(config.hammock.restingPercentage, 100, "validate caps the option");
+            config.hammock.restingPercentage = -50;
+            config.validate();
+            helper.assertValueEqual(config.hammock.restingPercentage, -1, "validate floors the option at -1");
+        } finally {
+            tuning.restingPercentage = before;
+        }
+        helper.succeed();
+    }
+
     /** server.hammock.timeFactor: default 8, hard limits 1 and 20 whatever the file says. */
     public static void timeFactorIsCappedOnTheServer(GameTestHelper helper) {
         var tuning = ServerTuning.get().hammock;
