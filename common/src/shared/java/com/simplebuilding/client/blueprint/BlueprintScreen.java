@@ -58,14 +58,14 @@ import org.jetbrains.annotations.Nullable;
  * {@link #removed()}) per {@link BlueprintEditPayload} an den Server.
  */
 public class BlueprintScreen extends Screen {
-    private static final int PAPER = 0xFFEADFBF;
-    private static final int PAPER_EDGE = 0xFF8B7355;
-    private static final int PAPER_SHADE = 0xFFD8C99E;
-    private static final int INK = 0xFF3B2F20;
-    private static final int INK_SOFT = 0xFF7A6A50;
+    static final int PAPER = 0xFFEADFBF;
+    static final int PAPER_EDGE = 0xFF8B7355;
+    static final int PAPER_SHADE = 0xFFD8C99E;
+    static final int INK = 0xFF3B2F20;
+    static final int INK_SOFT = 0xFF7A6A50;
     private static final int VIEW_BG = 0xFF26384F;
-    private static final int ERROR = 0xFFC62828;
-    private static final int OK = 0xFF2E7D32;
+    static final int ERROR = 0xFFC62828;
+    static final int OK = 0xFF2E7D32;
     private static final int SELECT = 0xFF3A6EA5;
     /** Autospeichern so lange nach der letzten Aenderung. */
     public static final long AUTOSAVE_MS = 1500;
@@ -107,6 +107,8 @@ public class BlueprintScreen extends Screen {
     // Hilfe-Reiter und Kopieren als Pixel-Symbole mit Namen im Tooltip (Queue N29).
     private IconButton copyButton;
     private Button helpButton;
+    private Button importButton;
+    private Button exportButton;
     private IconButton resetViewButton;
     private IconButton guideTab;
     private IconButton blocksTab;
@@ -224,6 +226,11 @@ public class BlueprintScreen extends Screen {
         copyButton = addRenderableWidget(new IconButton(layout.copy, Component.translatable("simplebuilding.blueprint.help.copy"),
                 copyTip(), COPY_ICON, this::copyGuide));
 
+        importButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.import"), layout.importButton,
+                b -> openImport()));
+        importButton.setTooltip(Tooltip.create(Component.translatable("simplebuilding.blueprint.io.import_tip")));
+        exportButton = addRenderableWidget(button(Component.translatable("simplebuilding.blueprint.io.export"), layout.exportButton,
+                b -> openExport()));
         doneButton = addRenderableWidget(button(Component.translatable("gui.done"), layout.done, b -> onClose()));
         signButton = addRenderableWidget(button(Component.translatable("book.signButton"), layout.sign, b -> {
             signing = true;
@@ -258,6 +265,10 @@ public class BlueprintScreen extends Screen {
         boolean valid = parsed.ok() && !parsed.model().isEmpty();
         doneButton.visible = !signing;
         helpButton.visible = !signing;
+        importButton.visible = !signing;
+        importButton.active = !readOnly;
+        exportButton.visible = !signing;
+        exportButton.active = !code.isBlank();
         signButton.visible = !signing && !readOnly;
         signButton.active = valid;
         titleBox.visible = signing;
@@ -361,6 +372,25 @@ public class BlueprintScreen extends Screen {
         Block target = target();
         if (target != null && !readOnly) {
             codeArea.insert(BlueprintBlockSearch.codeName(target));
+        }
+    }
+
+    /** Import-Fenster (Queue N55); oeffentlich fuer den Client-Test. */
+    public void openImport() {
+        if (!readOnly) {
+            minecraft.gui.setScreen(BlueprintIoScreen.forImport(this, true));
+        }
+    }
+
+    /** Export-Fenster (Queue N55): der aktuelle Code, auch ungespeicherte Eingaben; oeffentlich fuer den Client-Test. */
+    public void openExport() {
+        minecraft.gui.setScreen(BlueprintIoScreen.forExport(this, codeArea.getValue()));
+    }
+
+    /** Aus dem Import-Fenster: ersetzt den ganzen Code; der Editor speichert danach wie nach jeder Eingabe. */
+    void importCode(String imported) {
+        if (!readOnly) {
+            codeArea.replaceAll(imported);
         }
     }
 

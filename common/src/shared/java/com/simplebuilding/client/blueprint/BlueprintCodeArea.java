@@ -64,6 +64,12 @@ public final class BlueprintCodeArea extends AbstractWidget {
 
     public BlueprintCodeArea(Font font, int x, int y, int width, int height, float scale, boolean readOnly, String value,
                              Consumer<String> listener) {
+        this(font, x, y, width, height, scale, readOnly, value, listener, BlueprintCode.MAX_CODE_LENGTH);
+    }
+
+    /** Wie oben, mit eigener Zeichengrenze (Import-/Export-Fenster: Befehlslisten sind laenger als ein Bau-Code). */
+    public BlueprintCodeArea(Font font, int x, int y, int width, int height, float scale, boolean readOnly, String value,
+                             Consumer<String> listener, int characterLimit) {
         super(x, y, width, height, Component.translatable("simplebuilding.blueprint.editor.code"));
         this.font = font;
         this.scale = scale;
@@ -71,7 +77,7 @@ public final class BlueprintCodeArea extends AbstractWidget {
         this.gutterWidth = (int) Math.ceil(font.width("000") * scale) + 5;
         this.wrapWidth = (int) (textWidth() / scale);
         this.field = new MultilineTextField(font, wrapWidth);
-        this.field.setCharacterLimit(BlueprintCode.MAX_CODE_LENGTH);
+        this.field.setCharacterLimit(characterLimit);
         this.field.setValue(value, true);
         this.field.setValueListener(listener);
         this.field.setCursorListener(this::scrollToCursor);
