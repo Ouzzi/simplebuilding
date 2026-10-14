@@ -258,6 +258,10 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 57 (2026-10-14, Besitzer)
+- [ ] Neuer Block „Light Pane“ (Lichtscheibe): Dicke und Platzierbarkeit wie ein Itemrahmen (an jede Blockseite, flach). Varianten je Art: normal, transparent, einfarbig, mehrfarbig. Verhalten je Variante: Licht wie eine Lampe abgeben; den Block dahinter/darunter erhellen (Textur aufhellen o. ä.); eine Farbe abgeben (nicht grell, sondern texturiert); bzw. je nach Redstone-Stärke eine andere Farbe ausgeben – per Rechtsklick wie beim Notenblock einstellbar, welche Farbe bei Stärke 1 kommt (weiter reihum). Solide umsetzen, keine Bugs (Platzieren an allen Seiten, Abbau ohne Stütze, Licht-Updates, Multiloader, Tests).
+- [ ] Sculk Shrieker mit der Silent Dandelion leiser/stumm stellbar (wie bei Mobs: Rechtsklick an/aus), gilt für alle Spieler, damit er bei Sculk-Sensoren nicht nervt.
+
 ## Nachtrag 56 (2026-10-14, Besitzer) – Shop-Vitrine + Verkaufsblock
 - [ ] KONZEPT zuerst (docs/ai/KONZEPT-SHOP-VITRINE-2026-10-14.md, Job oc-shop-concept): Grief- und Explosionsschutz, Duping-Sicherheit, Einbindung Simple Money/Claims.
 - [ ] Shop-Vitrine: einfach craftbar (Eisennuggets, Glas, …), dazu Glow-Variante; ästhetisch/schön. Besitzer legt ein Item hinein → steht zum Verkauf; Besitzer kann es wieder herausnehmen. Mehrere Items hinein → funktioniert wie ein Verkaufsautomat (Vending Machine).
