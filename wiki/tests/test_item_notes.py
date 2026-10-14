@@ -100,7 +100,7 @@ class ItemNoteTests(unittest.TestCase):
                                          'simplebuilding:diamond_pressure_plate', 'minecraft:elytra']),
                 ('flypad_tier1_crafting', ['simplebuilding:enderite_core',
                                           'simplebuilding:enderite_pressure_plate',
-                                          'simplebuilding:shulker_head', 'minecraft:elytra'])]:
+                                          'simplemobheads:shulker_head', 'minecraft:elytra'])]:
             value = recipe(name)
             self.assertEqual(value['type'], 'simplebuilding:enchanted_shapeless')
             self.assertEqual(value['enchantment'], 'minecraft:mending')
