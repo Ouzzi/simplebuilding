@@ -82,6 +82,8 @@ modules/simplemobs/shared/resources/assets/simplemobs/textures/entity/blighted_w
 modules/simplemobs/shared/resources/assets/simplemobs/textures/entity/blighted_wither/abyssal_wither.png
 wiki/assets/textures/simplemobs/item/soul_fire_charge.png
 wiki/assets/textures/simplemobs/item/soulfire_powder.png
+wiki/assets/textures/sheets/simplebuilding/simplemobs/entity/blighted_wither/blighted_wither.png
+wiki/assets/textures/sheets/simplebuilding/simplemobs/entity/blighted_wither/abyssal_wither.png
 # Simple Ovens (split stage 4): furnace minecart items (Vanilla minecart overlay, vehicles_2026_10_10).
 modules/simpleovens/shared/resources/assets/simpleovens/textures/item/reinforced_furnace_minecart.png
 wiki/assets/textures/simpleovens/item/reinforced_furnace_minecart.png
