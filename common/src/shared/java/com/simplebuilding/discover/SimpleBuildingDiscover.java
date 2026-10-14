@@ -83,6 +83,7 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:*elytra_pad",
             "simplebuilding:*flypad",
             "simplebuilding:*launchpad",
+            "simplebuilding:*light_pane",
             "simplebuilding:*potion_pad",
             "simplebuilding:*spawn_teleporter*",
             "simplebuilding:amethyst_lens",

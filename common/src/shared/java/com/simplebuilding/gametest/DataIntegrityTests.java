@@ -3212,6 +3212,10 @@ public final class DataIntegrityTests {
                             ModItems.SCARLET_FROGLIGHT, ModItems.AQUA_FROGLIGHT, ModItems.AZURE_FROGLIGHT),
                     CreativeTabLayout.Row.of("traps", ModItems.SCULK_JAW)));
         }
+        if (McVersion.LIGHT_PANES) {
+            // Light Panes (N57) after the nature rows, before the woodwork rows.
+            expected.addAll(com.simplebuilding.items.ModItemGroupsContent.lightPaneRows());
+        }
         if (McVersion.WOODWORK) {
             // Holzwerk (2026-10-09) am Ende: je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {

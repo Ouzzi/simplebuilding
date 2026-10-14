@@ -314,6 +314,8 @@ public class ModItems {
     public static final Item SCARLET_FROGLIGHT = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("scarlet_froglight", s -> new BlockItem(ModBlocks.SCARLET_FROGLIGHT, s)) : null;
     public static final Item AQUA_FROGLIGHT = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("aqua_froglight", s -> new BlockItem(ModBlocks.AQUA_FROGLIGHT, s)) : null;
     public static final Item AZURE_FROGLIGHT = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("azure_froglight", s -> new BlockItem(ModBlocks.AZURE_FROGLIGHT, s)) : null;
+    // Light Panes (N57): the block items of ModBlocks.lightPanes(), same order (normal, transparent, 16 colors, redstone).
+    public static final List<Item> LIGHT_PANES = com.simplebuilding.version.McVersion.LIGHT_PANES ? lightPaneItems() : List.of();
 
 
 
@@ -1353,6 +1355,15 @@ public class ModItems {
         return com.simplebuilding.version.McVersion.MUSIC_DISCS
                 ? registerItem("music_disc_" + song, s -> new Item(s.stacksTo(1).rarity(Rarity.RARE)
                         .jukeboxPlayable(com.simplebuilding.util.MusicDiscs.songKey(song)))) : null;
+    }
+
+    private static List<Item> lightPaneItems() {
+        List<Item> out = new java.util.ArrayList<>();
+        for (net.minecraft.world.level.block.Block block : ModBlocks.lightPanes()) {
+            String name = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
+            out.add(registerItem(name, s -> new BlockItem(block, s)));
+        }
+        return List.copyOf(out);
     }
 
     private static Item registerItem(String name, Function<Item.Properties, Item> function) {

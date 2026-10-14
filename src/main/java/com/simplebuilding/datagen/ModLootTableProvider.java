@@ -217,6 +217,8 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             alternates.alternates().forEach(this::dropSelf);
         }
 
+        ModBlocks.lightPanes().forEach(this::dropSelf); // Light Panes (N57): each drops itself, no tool needed
+
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             // Naturvarianten (N24/N25): Stufen wie Stufen (doppelt = 2), Eis wie Eis (nur mit Behutsamkeit), der Rest sich selbst.
             // Die Gras-Stufe (Behutsamkeit: sie selbst, sonst die Erd-Stufe) steht handgeschrieben unter mc26_3/overlay.

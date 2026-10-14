@@ -285,6 +285,9 @@ public final class ModItemGroupsContent {
             }
             rows.addAll(gravity, natureRows());
         }
+        if (com.simplebuilding.version.McVersion.LIGHT_PANES) {
+            rows.addAll(lightPaneRows());
+        }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): je Holzart eine Zeile - Roehren, Platten, Kessel, Kiste, Schnitzholz.
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
@@ -293,6 +296,14 @@ public final class ModItemGroupsContent {
             }
         }
         return List.copyOf(rows);
+    }
+
+    /** Light Panes (N57): normal, transparent and redstone in one row, the sixteen colors in the next. */
+    public static List<CreativeTabLayout.Row> lightPaneRows() {
+        return List.of(
+                CreativeTabLayout.Row.of("light_panes", ModItems.LIGHT_PANES.get(0), ModItems.LIGHT_PANES.get(1),
+                        ModItems.LIGHT_PANES.get(ModItems.LIGHT_PANES.size() - 1)),
+                CreativeTabLayout.Row.of("light_panes_colored", ModItems.LIGHT_PANES.subList(2, 18).toArray(new net.minecraft.world.level.ItemLike[0])));
     }
 
     /** Naturvarianten (N24/N25): die vier Stufen, das Eis, der Nautilusschalen-Block; die drei Froschlichter. */

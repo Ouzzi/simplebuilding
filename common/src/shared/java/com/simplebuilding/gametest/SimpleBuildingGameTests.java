@@ -2472,6 +2472,26 @@ public final class SimpleBuildingGameTests {
                     .rotation(Rotation.NONE)
                     .build(),
             // --- /modpack ---
+            // --- light panes (N57) ---
+            GameTestSpec.named("light_pane_game_test_panes_place_on_every_side", LightPaneTests::panesPlaceOnEverySide)
+                    .build(),
+            GameTestSpec.named("light_pane_game_test_panes_need_full_support_face", LightPaneTests::panesNeedFullSupportFace)
+                    .build(),
+            GameTestSpec.named("light_pane_game_test_panes_fall_off_without_support", LightPaneTests::panesFallOffWithoutSupport)
+                    .build(),
+            GameTestSpec.named("light_pane_game_test_panes_waterlog", LightPaneTests::panesWaterlog)
+                    .build(),
+            GameTestSpec.named("light_pane_game_test_plain_panes_shine_and_switch_with_redstone", LightPaneTests::plainPanesShineAndSwitchWithRedstone)
+                    .build(),
+            GameTestSpec.named("light_pane_game_test_pane_light_reaches_the_world_and_goes_out", LightPaneTests::paneLightReachesTheWorldAndGoesOut)
+                    .maxTicks(60).build(),
+            GameTestSpec.named("light_pane_game_test_redstone_pane_color_follows_signal_strength", LightPaneTests::redstonePaneColorFollowsSignalStrength)
+                    .build(),
+            GameTestSpec.named("light_pane_game_test_right_click_cycles_the_start_color", LightPaneTests::rightClickCyclesTheStartColor)
+                    .build(),
+            GameTestSpec.named("light_pane_game_test_panes_have_their_recipes", LightPaneTests::panesHaveTheirRecipes)
+                    .build(),
+            // --- /light panes ---
             // --- discover (docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md, generated bodies: tools/discover/discover.py) ---
             GameTestSpec.named("discover_game_test_every_book_recipe_has_an_unlock", SimpleBuildingDiscover::recipeUnlocks)
                     .build(),

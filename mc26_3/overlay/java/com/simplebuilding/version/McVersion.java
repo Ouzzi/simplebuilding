@@ -123,6 +123,8 @@ public final class McVersion {
     public static final boolean CORE_MOTIONS = true;
     /** Natural block variants (N24/N25, 2026-10-09): dirt/grass/sand/gravel slabs, chiseled packed/blue ice, cracked ice, nautilus shell block, more froglight colors. */
     public static final boolean NATURE_VARIANTS = true;
+    /** Light Panes (N57, 2026-10-14): flat 1 px lamp panes on any block side - normal, transparent, 16 colors, redstone multicolor. */
+    public static final boolean LIGHT_PANES = true;
 
     public static boolean canVanillaTransform(net.minecraft.world.level.Level level,
             net.minecraft.world.phys.BlockHitResult hit, Player player, InteractionHand hand) {

@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 804,
+      "count": 823,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -6713,6 +6713,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:black_light_pane",
+      "name": {
+        "en_us": "Black Light Pane",
+        "de_de": "Schwarze Lichtscheibe"
+      },
+      "texture": "assets/textures/item/black_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:black_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:black_terracotta_octet",
       "name": {
         "en_us": "Black Terracotta Octet",
@@ -8033,6 +8075,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:blue_light_pane",
+      "name": {
+        "en_us": "Blue Light Pane",
+        "de_de": "Blaue Lichtscheibe"
+      },
+      "texture": "assets/textures/item/blue_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:blue_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:blue_terracotta_octet",
       "name": {
         "en_us": "Blue Terracotta Octet",
@@ -8662,6 +8746,48 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:brown_light_pane",
+      "name": {
+        "en_us": "Brown Light Pane",
+        "de_de": "Braune Lichtscheibe"
+      },
+      "texture": "assets/textures/item/brown_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:brown_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -12471,6 +12597,48 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cyan_light_pane",
+      "name": {
+        "en_us": "Cyan Light Pane",
+        "de_de": "Türkise Lichtscheibe"
+      },
+      "texture": "assets/textures/item/cyan_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:cyan_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -20133,6 +20301,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:gray_light_pane",
+      "name": {
+        "en_us": "Gray Light Pane",
+        "de_de": "Graue Lichtscheibe"
+      },
+      "texture": "assets/textures/item/gray_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:gray_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:gray_terracotta_octet",
       "name": {
         "en_us": "Gray Terracotta Octet",
@@ -20399,6 +20609,48 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:green_light_pane",
+      "name": {
+        "en_us": "Green Light Pane",
+        "de_de": "Grüne Lichtscheibe"
+      },
+      "texture": "assets/textures/item/green_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:green_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -24381,6 +24633,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:light_blue_light_pane",
+      "name": {
+        "en_us": "Light Blue Light Pane",
+        "de_de": "Hellblaue Lichtscheibe"
+      },
+      "texture": "assets/textures/item/light_blue_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:light_blue_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:light_blue_terracotta_octet",
       "name": {
         "en_us": "Light Blue Terracotta Octet",
@@ -24652,6 +24946,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:light_gray_light_pane",
+      "name": {
+        "en_us": "Light Gray Light Pane",
+        "de_de": "Hellgraue Lichtscheibe"
+      },
+      "texture": "assets/textures/item/light_gray_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:light_gray_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:light_gray_terracotta_octet",
       "name": {
         "en_us": "Light Gray Terracotta Octet",
@@ -24776,6 +25112,48 @@ window.WIKI_DATA = {
             "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:light_pane",
+      "name": {
+        "en_us": "Light Pane",
+        "de_de": "Lichtscheibe"
+      },
+      "texture": "assets/textures/item/light_pane.png",
+      "craftedBy": [
+        "simplebuilding:light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -24918,6 +25296,48 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:lime_light_pane",
+      "name": {
+        "en_us": "Lime Light Pane",
+        "de_de": "Hellgrüne Lichtscheibe"
+      },
+      "texture": "assets/textures/item/lime_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:lime_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -25189,6 +25609,48 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:magenta_light_pane",
+      "name": {
+        "en_us": "Magenta Light Pane",
+        "de_de": "Magenta Lichtscheibe"
+      },
+      "texture": "assets/textures/item/magenta_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:magenta_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -32030,6 +32492,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:orange_light_pane",
+      "name": {
+        "en_us": "Orange Light Pane",
+        "de_de": "Orange Lichtscheibe"
+      },
+      "texture": "assets/textures/item/orange_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:orange_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:orange_terracotta_octet",
       "name": {
         "en_us": "Orange Terracotta Octet",
@@ -32754,6 +33258,48 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:pink_light_pane",
+      "name": {
+        "en_us": "Pink Light Pane",
+        "de_de": "Rosa Lichtscheibe"
+      },
+      "texture": "assets/textures/item/pink_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:pink_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -36718,6 +37264,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:purple_light_pane",
+      "name": {
+        "en_us": "Purple Light Pane",
+        "de_de": "Violette Lichtscheibe"
+      },
+      "texture": "assets/textures/item/purple_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:purple_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:purple_terracotta_octet",
       "name": {
         "en_us": "Purple Terracotta Octet",
@@ -38818,6 +39406,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:red_light_pane",
+      "name": {
+        "en_us": "Red Light Pane",
+        "de_de": "Rote Lichtscheibe"
+      },
+      "texture": "assets/textures/item/red_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:red_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:red_nether_brick_chess_bishop",
       "name": {
         "en_us": "Red Nether Brick Bishop",
@@ -39875,6 +40505,48 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:redstone_light_pane",
+      "name": {
+        "en_us": "Redstone Light Pane",
+        "de_de": "Redstone-Lichtscheibe"
+      },
+      "texture": "assets/textures/item/redstone_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:redstone_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_backpack",
@@ -46359,6 +47031,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:transparent_light_pane",
+      "name": {
+        "en_us": "Transparent Light Pane",
+        "de_de": "Transparente Lichtscheibe"
+      },
+      "texture": "assets/textures/item/transparent_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:transparent_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:trapped_copper_chest",
       "name": {
         "en_us": "Trapped Copper Chest",
@@ -47601,6 +48315,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:white_light_pane",
+      "name": {
+        "en_us": "White Light Pane",
+        "de_de": "Weiße Lichtscheibe"
+      },
+      "texture": "assets/textures/item/white_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:white_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:white_terracotta_octet",
       "name": {
         "en_us": "White Terracotta Octet",
@@ -47927,6 +48683,48 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:yellow_light_pane",
+      "name": {
+        "en_us": "Yellow Light Pane",
+        "de_de": "Gelbe Lichtscheibe"
+      },
+      "texture": "assets/textures/item/yellow_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:yellow_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -50279,6 +51077,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:black_light_pane",
+      "name": {
+        "en_us": "Black Light Pane",
+        "de_de": "Schwarze Lichtscheibe"
+      },
+      "texture": "assets/textures/block/black_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:black_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/black_light_pane.png",
+      "lootTable": "simplebuilding:blocks/black_light_pane",
+      "drops": [
+        "simplebuilding:black_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:black_terracotta_octet",
       "name": {
         "en_us": "Black Terracotta Octet Cell",
@@ -50823,6 +51668,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:blue_light_pane",
+      "name": {
+        "en_us": "Blue Light Pane",
+        "de_de": "Blaue Lichtscheibe"
+      },
+      "texture": "assets/textures/block/blue_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:blue_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/blue_light_pane.png",
+      "lootTable": "simplebuilding:blocks/blue_light_pane",
+      "drops": [
+        "simplebuilding:blue_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:blue_terracotta_octet",
       "name": {
         "en_us": "Blue Terracotta Octet Cell",
@@ -51345,6 +52237,53 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:brown_light_pane",
+      "name": {
+        "en_us": "Brown Light Pane",
+        "de_de": "Braune Lichtscheibe"
+      },
+      "texture": "assets/textures/block/brown_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:brown_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/brown_light_pane.png",
+      "lootTable": "simplebuilding:blocks/brown_light_pane",
+      "drops": [
+        "simplebuilding:brown_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -53950,6 +54889,53 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cyan_light_pane",
+      "name": {
+        "en_us": "Cyan Light Pane",
+        "de_de": "Türkise Lichtscheibe"
+      },
+      "texture": "assets/textures/block/cyan_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:cyan_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/cyan_light_pane.png",
+      "lootTable": "simplebuilding:blocks/cyan_light_pane",
+      "drops": [
+        "simplebuilding:cyan_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -57977,6 +58963,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:gray_light_pane",
+      "name": {
+        "en_us": "Gray Light Pane",
+        "de_de": "Graue Lichtscheibe"
+      },
+      "texture": "assets/textures/block/gray_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:gray_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/gray_light_pane.png",
+      "lootTable": "simplebuilding:blocks/gray_light_pane",
+      "drops": [
+        "simplebuilding:gray_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:gray_terracotta_octet",
       "name": {
         "en_us": "Gray Terracotta Octet Cell",
@@ -58247,6 +59280,53 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:green_light_pane",
+      "name": {
+        "en_us": "Green Light Pane",
+        "de_de": "Grüne Lichtscheibe"
+      },
+      "texture": "assets/textures/block/green_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:green_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/green_light_pane.png",
+      "lootTable": "simplebuilding:blocks/green_light_pane",
+      "drops": [
+        "simplebuilding:green_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -60866,6 +61946,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:light_blue_light_pane",
+      "name": {
+        "en_us": "Light Blue Light Pane",
+        "de_de": "Hellblaue Lichtscheibe"
+      },
+      "texture": "assets/textures/block/light_blue_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:light_blue_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/light_blue_light_pane.png",
+      "lootTable": "simplebuilding:blocks/light_blue_light_pane",
+      "drops": [
+        "simplebuilding:light_blue_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:light_blue_terracotta_octet",
       "name": {
         "en_us": "Light Blue Terracotta Octet Cell",
@@ -61141,6 +62268,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:light_gray_light_pane",
+      "name": {
+        "en_us": "Light Gray Light Pane",
+        "de_de": "Hellgraue Lichtscheibe"
+      },
+      "texture": "assets/textures/block/light_gray_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:light_gray_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/light_gray_light_pane.png",
+      "lootTable": "simplebuilding:blocks/light_gray_light_pane",
+      "drops": [
+        "simplebuilding:light_gray_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:light_gray_terracotta_octet",
       "name": {
         "en_us": "Light Gray Terracotta Octet Cell",
@@ -61265,6 +62439,53 @@ window.WIKI_DATA = {
             "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:light_pane",
+      "name": {
+        "en_us": "Light Pane",
+        "de_de": "Lichtscheibe"
+      },
+      "texture": "assets/textures/block/light_pane.png",
+      "craftedBy": [
+        "simplebuilding:light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/light_pane.png",
+      "lootTable": "simplebuilding:blocks/light_pane",
+      "drops": [
+        "simplebuilding:light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -61411,6 +62632,53 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:lime_light_pane",
+      "name": {
+        "en_us": "Lime Light Pane",
+        "de_de": "Hellgrüne Lichtscheibe"
+      },
+      "texture": "assets/textures/block/lime_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:lime_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/lime_light_pane.png",
+      "lootTable": "simplebuilding:blocks/lime_light_pane",
+      "drops": [
+        "simplebuilding:lime_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -61686,6 +62954,53 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:magenta_light_pane",
+      "name": {
+        "en_us": "Magenta Light Pane",
+        "de_de": "Magenta Lichtscheibe"
+      },
+      "texture": "assets/textures/block/magenta_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:magenta_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/magenta_light_pane.png",
+      "lootTable": "simplebuilding:blocks/magenta_light_pane",
+      "drops": [
+        "simplebuilding:magenta_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -65358,6 +66673,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:orange_light_pane",
+      "name": {
+        "en_us": "Orange Light Pane",
+        "de_de": "Orange Lichtscheibe"
+      },
+      "texture": "assets/textures/block/orange_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:orange_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/orange_light_pane.png",
+      "lootTable": "simplebuilding:blocks/orange_light_pane",
+      "drops": [
+        "simplebuilding:orange_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:orange_terracotta_octet",
       "name": {
         "en_us": "Orange Terracotta Octet Cell",
@@ -66090,6 +67452,53 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:pink_light_pane",
+      "name": {
+        "en_us": "Pink Light Pane",
+        "de_de": "Rosa Lichtscheibe"
+      },
+      "texture": "assets/textures/block/pink_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:pink_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/pink_light_pane.png",
+      "lootTable": "simplebuilding:blocks/pink_light_pane",
+      "drops": [
+        "simplebuilding:pink_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -68570,6 +69979,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:purple_light_pane",
+      "name": {
+        "en_us": "Purple Light Pane",
+        "de_de": "Violette Lichtscheibe"
+      },
+      "texture": "assets/textures/block/purple_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:purple_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/purple_light_pane.png",
+      "lootTable": "simplebuilding:blocks/purple_light_pane",
+      "drops": [
+        "simplebuilding:purple_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:purple_terracotta_octet",
       "name": {
         "en_us": "Purple Terracotta Octet Cell",
@@ -69113,6 +70569,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:red_light_pane",
+      "name": {
+        "en_us": "Red Light Pane",
+        "de_de": "Rote Lichtscheibe"
+      },
+      "texture": "assets/textures/block/red_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:red_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/red_light_pane.png",
+      "lootTable": "simplebuilding:blocks/red_light_pane",
+      "drops": [
+        "simplebuilding:red_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:red_nether_brick_quartz_checker",
       "name": {
         "en_us": "Red Nether Brick Quartz Checker",
@@ -69507,6 +71010,53 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:redstone_light_pane",
+      "name": {
+        "en_us": "Redstone Light Pane",
+        "de_de": "Redstone-Lichtscheibe"
+      },
+      "texture": "assets/textures/block/white_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:redstone_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/redstone_light_pane.png",
+      "lootTable": "simplebuilding:blocks/redstone_light_pane",
+      "drops": [
+        "simplebuilding:redstone_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_backpack",
@@ -74584,6 +76134,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:transparent_light_pane",
+      "name": {
+        "en_us": "Transparent Light Pane",
+        "de_de": "Transparente Lichtscheibe"
+      },
+      "texture": "assets/textures/block/transparent_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:transparent_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/transparent_light_pane.png",
+      "lootTable": "simplebuilding:blocks/transparent_light_pane",
+      "drops": [
+        "simplebuilding:transparent_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:trapped_copper_chest",
       "name": {
         "en_us": "Trapped Copper Chest",
@@ -76004,6 +77601,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:white_light_pane",
+      "name": {
+        "en_us": "White Light Pane",
+        "de_de": "Weiße Lichtscheibe"
+      },
+      "texture": "assets/textures/block/white_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:white_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/white_light_pane.png",
+      "lootTable": "simplebuilding:blocks/white_light_pane",
+      "drops": [
+        "simplebuilding:white_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:white_terracotta_octet",
       "name": {
         "en_us": "White Terracotta Octet Cell",
@@ -76274,6 +77918,53 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:yellow_light_pane",
+      "name": {
+        "en_us": "Yellow Light Pane",
+        "de_de": "Gelbe Lichtscheibe"
+      },
+      "texture": "assets/textures/block/yellow_light_pane.png",
+      "craftedBy": [
+        "simplebuilding:yellow_light_pane"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/yellow_light_pane.png",
+      "lootTable": "simplebuilding:blocks/yellow_light_pane",
+      "drops": [
+        "simplebuilding:yellow_light_pane"
+      ],
+      "note": {
+        "en": {
+          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+          "details": [
+            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+            "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+            "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+            "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+          ]
+        },
+        "de": {
+          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+          "details": [
+            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+            "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+            "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "tools/textures/light_panes_2026_10_14.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -80687,6 +82378,52 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:black_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:black_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/black_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:black_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:black_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:black_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -82038,6 +83775,52 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:blue_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blue_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blue_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:blue_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:blue_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -84645,6 +86428,52 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:brown_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:brown_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brown_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:brown_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:brown_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cocoa_beans",
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -87853,6 +89682,56 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cyan_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:cyan_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cyan_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:cyan_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:cyan_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -98097,6 +99976,56 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:gray_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:gray_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gray_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:gray_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:gray_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.167
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:gray_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -98600,6 +100529,52 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:green_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:green_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/green_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:green_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:green_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cactus",
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -102177,6 +104152,52 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:light_blue_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:light_blue_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_blue_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:light_blue_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:light_blue_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blue_orchid",
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:light_blue_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -102676,6 +104697,52 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:light_gray_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:light_gray_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_gray_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:light_gray_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:light_gray_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:azure_bluet",
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:light_gray_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -102905,6 +104972,48 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:azure_bluet",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:light_pane",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_pane.json",
+      "ingredients": [
+        "minecraft:glass_pane",
+        "minecraft:glowstone_dust"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:glass_pane"
+        ],
+        [
+          "minecraft:glowstone_dust"
+        ],
+        [
+          "minecraft:glowstone_dust"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 2
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.375
           }
         ]
       }
@@ -103179,6 +105288,56 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:lime_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:lime_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/lime_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:lime_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:lime_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.167
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -103686,6 +105845,52 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:magenta_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:magenta_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/magenta_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:magenta_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:magenta_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:allium",
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -111528,6 +113733,52 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:orange_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:orange_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/orange_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:orange_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:orange_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:open_eyeblossom",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:orange_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -112572,6 +114823,52 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:pink_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:pink_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pink_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:pink_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:pink_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cactus_flower",
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -118556,6 +120853,56 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:purple_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:purple_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/purple_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:purple_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:purple_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:purple_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -120460,6 +122807,52 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:red_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:red_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:red_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:red_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:beetroot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:red_nether_brick_chess_bishop_flat_from_red_nether_brick_octet_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -121579,6 +123972,52 @@ window.WIKI_DATA = {
             "id": "minecraft:beetroot",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:redstone_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:redstone_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/redstone_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:redstone"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -129741,6 +132180,48 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:transparent_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:transparent_light_pane",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/transparent_light_pane.json",
+      "ingredients": [
+        "minecraft:glass_pane",
+        "minecraft:glowstone_dust"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:glass_pane"
+        ],
+        [
+          "minecraft:glass_pane"
+        ],
+        [
+          "minecraft:glowstone_dust"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.75
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:trapped_copper_chest",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -135384,6 +137865,52 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:white_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:white_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/white_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:white_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:white_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:white_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -135909,6 +138436,52 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:yellow_light_pane",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:yellow_light_pane",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yellow_light_pane.json",
+      "ingredients": [
+        "#simplebuilding:light_panes",
+        "minecraft:yellow_dye"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:light_panes"
+        ],
+        [
+          "minecraft:yellow_dye"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dandelion",
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.188
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -141844,6 +144417,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/black_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/black_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:black_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/black_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/blackstone_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -141924,6 +144513,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blue_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/blue_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:blue_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blue_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/bridge_redstone",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -141972,6 +144577,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/brown_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/brown_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:brown_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/brown_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/carved_acacia_log",
@@ -142517,6 +145138,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cyan_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/cyan_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:cyan_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cyan_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/dark_oak_cauldron",
@@ -143289,6 +145926,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gray_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/gray_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:gray_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gray_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/green_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -143303,6 +145956,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/green_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/green_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:green_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/green_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/hollow_acacia_log",
@@ -143977,6 +146646,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_blue_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/light_blue_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:light_blue_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_blue_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/light_gray_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -143991,6 +146676,38 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_gray_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/light_gray_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:light_gray_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_gray_light_pane.json"
+    },
+    {
+      "id": "simplebuilding:blocks/light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/lime_hammock",
@@ -144009,6 +146726,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/lime_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/lime_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:lime_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/lime_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/magenta_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -144023,6 +146756,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/magenta_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/magenta_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:magenta_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/magenta_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/mangrove_cauldron",
@@ -144720,6 +147469,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/orange_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/orange_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:orange_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/orange_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/oxidized_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -144814,6 +147579,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/pink_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/pink_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:pink_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/pink_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/polished_astralit",
@@ -145224,6 +148005,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/purple_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/purple_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:purple_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/purple_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/purpur_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -145288,6 +148085,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/red_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:red_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/red_nether_brick_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -145334,6 +148147,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_nether_brick_quartz_checker_stairs.json"
+    },
+    {
+      "id": "simplebuilding:blocks/redstone_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:redstone_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/redstone_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_backpack",
@@ -146249,6 +149078,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
     },
     {
+      "id": "simplebuilding:blocks/transparent_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:transparent_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/transparent_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/trapped_copper_chest",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -146554,6 +149399,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/white_hammock.json"
     },
     {
+      "id": "simplebuilding:blocks/white_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:white_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/white_light_pane.json"
+    },
+    {
       "id": "simplebuilding:blocks/yellow_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -146568,6 +149429,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/yellow_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/yellow_light_pane",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:yellow_light_pane"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/yellow_light_pane.json"
     },
     {
       "id": "simplebuilding:chests/end_wreck",
@@ -152316,6 +155193,82 @@ window.WIKI_DATA = {
         {
           "id": "simplebuilding:sculk_jaw",
           "required": true
+        },
+        {
+          "id": "simplebuilding:light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:transparent_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:white_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:orange_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:magenta_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:light_blue_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:yellow_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:lime_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:pink_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gray_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:light_gray_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cyan_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:purple_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:blue_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:brown_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:green_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:red_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:black_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:redstone_light_pane",
+          "required": true
         }
       ],
       "source": "mc26_3/overlay/resources/data/simplebuilding/tags/item/craftable.json"
@@ -153005,6 +155958,81 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/indestructible.json"
+    },
+    {
+      "id": "simplebuilding:item/light_panes",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:white_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:orange_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:magenta_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:light_blue_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:yellow_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:lime_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:pink_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gray_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:light_gray_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cyan_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:purple_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:blue_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:brown_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:green_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:red_light_pane",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:black_light_pane",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/light_panes.json"
     },
     {
       "id": "simplebuilding:item/master_builder_enchantable",
@@ -182943,13 +185971,13 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 760,
-    "blocks": 494,
-    "recipes": 1342,
-    "lootTables": 351,
+    "items": 779,
+    "blocks": 513,
+    "recipes": 1361,
+    "lootTables": 370,
     "trades": 20,
     "enchantments": 19,
-    "tags": 55,
+    "tags": 56,
     "config": 236,
     "inWorld": 491,
     "advancements": 116,

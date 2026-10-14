@@ -43,6 +43,7 @@
     "simplebuilding:birch_sheet",
     "simplebuilding:black_concrete_octet",
     "simplebuilding:black_hammock",
+    "simplebuilding:black_light_pane",
     "simplebuilding:black_terracotta_octet",
     "simplebuilding:black_wool_octet",
     "simplebuilding:blackstone_block_octet",
@@ -52,6 +53,7 @@
     "simplebuilding:blazing_obsidian",
     "simplebuilding:blue_concrete_octet",
     "simplebuilding:blue_hammock",
+    "simplebuilding:blue_light_pane",
     "simplebuilding:blue_terracotta_octet",
     "simplebuilding:blue_wool_octet",
     "simplebuilding:bone_block_octet",
@@ -60,6 +62,7 @@
     "simplebuilding:bridge_redstone_block",
     "simplebuilding:brown_concrete_octet",
     "simplebuilding:brown_hammock",
+    "simplebuilding:brown_light_pane",
     "simplebuilding:brown_terracotta_octet",
     "simplebuilding:brown_wool_octet",
     "simplebuilding:calcite_octet",
@@ -110,6 +113,7 @@
     "simplebuilding:cut_copper_octet",
     "simplebuilding:cyan_concrete_octet",
     "simplebuilding:cyan_hammock",
+    "simplebuilding:cyan_light_pane",
     "simplebuilding:cyan_terracotta_octet",
     "simplebuilding:cyan_wool_octet",
     "simplebuilding:dark_oak_cauldron",
@@ -176,10 +180,12 @@
     "simplebuilding:gravel_slab",
     "simplebuilding:gray_concrete_octet",
     "simplebuilding:gray_hammock",
+    "simplebuilding:gray_light_pane",
     "simplebuilding:gray_terracotta_octet",
     "simplebuilding:gray_wool_octet",
     "simplebuilding:green_concrete_octet",
     "simplebuilding:green_hammock",
+    "simplebuilding:green_light_pane",
     "simplebuilding:green_terracotta_octet",
     "simplebuilding:green_wool_octet",
     "simplebuilding:hammock_rope",
@@ -226,18 +232,23 @@
     "simplebuilding:levitating_sand",
     "simplebuilding:light_blue_concrete_octet",
     "simplebuilding:light_blue_hammock",
+    "simplebuilding:light_blue_light_pane",
     "simplebuilding:light_blue_terracotta_octet",
     "simplebuilding:light_blue_wool_octet",
     "simplebuilding:light_gray_concrete_octet",
     "simplebuilding:light_gray_hammock",
+    "simplebuilding:light_gray_light_pane",
     "simplebuilding:light_gray_terracotta_octet",
     "simplebuilding:light_gray_wool_octet",
+    "simplebuilding:light_pane",
     "simplebuilding:lime_concrete_octet",
     "simplebuilding:lime_hammock",
+    "simplebuilding:lime_light_pane",
     "simplebuilding:lime_terracotta_octet",
     "simplebuilding:lime_wool_octet",
     "simplebuilding:magenta_concrete_octet",
     "simplebuilding:magenta_hammock",
+    "simplebuilding:magenta_light_pane",
     "simplebuilding:magenta_terracotta_octet",
     "simplebuilding:magenta_wool_octet",
     "simplebuilding:mangrove_cauldron",
@@ -299,6 +310,7 @@
     "simplebuilding:obsidian_octet",
     "simplebuilding:orange_concrete_octet",
     "simplebuilding:orange_hammock",
+    "simplebuilding:orange_light_pane",
     "simplebuilding:orange_terracotta_octet",
     "simplebuilding:orange_wool_octet",
     "simplebuilding:oxidized_copper_octet",
@@ -312,6 +324,7 @@
     "simplebuilding:pale_oak_sheet",
     "simplebuilding:pink_concrete_octet",
     "simplebuilding:pink_hammock",
+    "simplebuilding:pink_light_pane",
     "simplebuilding:pink_terracotta_octet",
     "simplebuilding:pink_wool_octet",
     "simplebuilding:placed_blueprint",
@@ -361,6 +374,7 @@
     "simplebuilding:prismarine_octet",
     "simplebuilding:purple_concrete_octet",
     "simplebuilding:purple_hammock",
+    "simplebuilding:purple_light_pane",
     "simplebuilding:purple_terracotta_octet",
     "simplebuilding:purple_wool_octet",
     "simplebuilding:purpur_block_octet",
@@ -370,6 +384,7 @@
     "simplebuilding:quartz_block_octet",
     "simplebuilding:red_concrete_octet",
     "simplebuilding:red_hammock",
+    "simplebuilding:red_light_pane",
     "simplebuilding:red_nether_brick_quartz_checker",
     "simplebuilding:red_nether_brick_quartz_checker_slab",
     "simplebuilding:red_nether_brick_quartz_checker_stairs",
@@ -377,6 +392,7 @@
     "simplebuilding:red_sandstone_octet",
     "simplebuilding:red_terracotta_octet",
     "simplebuilding:red_wool_octet",
+    "simplebuilding:redstone_light_pane",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_chest",
     "simplebuilding:reinforced_elytra_pad",
@@ -459,6 +475,7 @@
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
     "simplebuilding:terracotta_octet",
+    "simplebuilding:transparent_light_pane",
     "simplebuilding:trapped_copper_chest",
     "simplebuilding:tuff_bricks_octet",
     "simplebuilding:tuff_octet",
@@ -489,10 +506,12 @@
     "simplebuilding:weathered_trapped_copper_chest",
     "simplebuilding:white_concrete_octet",
     "simplebuilding:white_hammock",
+    "simplebuilding:white_light_pane",
     "simplebuilding:white_terracotta_octet",
     "simplebuilding:white_wool_octet",
     "simplebuilding:yellow_concrete_octet",
     "simplebuilding:yellow_hammock",
+    "simplebuilding:yellow_light_pane",
     "simplebuilding:yellow_terracotta_octet",
     "simplebuilding:yellow_wool_octet"
   ],
@@ -699,6 +718,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:black_light_pane"
+    },
+    {
       "id": "simplebuilding:black_terracotta_octet",
       "maxStackSize": 99
     },
@@ -789,6 +811,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:blue_light_pane"
+    },
+    {
       "id": "simplebuilding:blue_terracotta_octet",
       "maxStackSize": 99
     },
@@ -833,6 +858,9 @@
     {
       "id": "simplebuilding:brown_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:brown_light_pane"
     },
     {
       "id": "simplebuilding:brown_terracotta_octet",
@@ -1099,6 +1127,9 @@
     {
       "id": "simplebuilding:cyan_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:cyan_light_pane"
     },
     {
       "id": "simplebuilding:cyan_terracotta_octet",
@@ -1657,6 +1688,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:gray_light_pane"
+    },
+    {
       "id": "simplebuilding:gray_terracotta_octet",
       "maxStackSize": 99
     },
@@ -1671,6 +1705,9 @@
     {
       "id": "simplebuilding:green_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:green_light_pane"
     },
     {
       "id": "simplebuilding:green_terracotta_octet",
@@ -1915,6 +1952,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:light_blue_light_pane"
+    },
+    {
       "id": "simplebuilding:light_blue_terracotta_octet",
       "maxStackSize": 99
     },
@@ -1931,6 +1971,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:light_gray_light_pane"
+    },
+    {
       "id": "simplebuilding:light_gray_terracotta_octet",
       "maxStackSize": 99
     },
@@ -1939,12 +1982,18 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:light_pane"
+    },
+    {
       "id": "simplebuilding:lime_concrete_octet",
       "maxStackSize": 99
     },
     {
       "id": "simplebuilding:lime_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:lime_light_pane"
     },
     {
       "id": "simplebuilding:lime_terracotta_octet",
@@ -1961,6 +2010,9 @@
     {
       "id": "simplebuilding:magenta_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:magenta_light_pane"
     },
     {
       "id": "simplebuilding:magenta_terracotta_octet",
@@ -2481,6 +2533,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:orange_light_pane"
+    },
+    {
       "id": "simplebuilding:orange_terracotta_octet",
       "maxStackSize": 99
     },
@@ -2530,6 +2585,9 @@
     {
       "id": "simplebuilding:pink_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:pink_light_pane"
     },
     {
       "id": "simplebuilding:pink_terracotta_octet",
@@ -2838,6 +2896,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:purple_light_pane"
+    },
+    {
       "id": "simplebuilding:purple_terracotta_octet",
       "maxStackSize": 99
     },
@@ -2984,6 +3045,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:red_light_pane"
+    },
+    {
       "id": "simplebuilding:red_nether_brick_chess_bishop",
       "maxStackSize": 16
     },
@@ -3059,6 +3123,9 @@
     {
       "id": "simplebuilding:red_wool_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:redstone_light_pane"
     },
     {
       "id": "simplebuilding:reinforced_backpack",
@@ -3468,6 +3535,9 @@
       "maxStackSize": 16
     },
     {
+      "id": "simplebuilding:transparent_light_pane"
+    },
+    {
       "id": "simplebuilding:trapped_copper_chest"
     },
     {
@@ -3577,6 +3647,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:white_light_pane"
+    },
+    {
       "id": "simplebuilding:white_terracotta_octet",
       "maxStackSize": 99
     },
@@ -3594,6 +3667,9 @@
     {
       "id": "simplebuilding:yellow_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:yellow_light_pane"
     },
     {
       "id": "simplebuilding:yellow_terracotta_octet",

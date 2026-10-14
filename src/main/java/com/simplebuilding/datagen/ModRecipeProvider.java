@@ -218,6 +218,24 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .unlockedBy("has_froglight", has(com.simplebuilding.util.ModTags.Items.FROGLIGHTS)).save(output);
                     }
                 }
+                // Light Panes (N57): glass pane + glowstone dust; transparent = glass only plus a little dust; dye or redstone on a pane.
+                if (com.simplebuilding.version.McVersion.LIGHT_PANES) {
+                    shapeless(RecipeCategory.DECORATIONS, ModItems.LIGHT_PANES.get(0), 2).requires(Items.GLASS_PANE)
+                            .requires(Items.GLOWSTONE_DUST, 2)
+                            .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Items.GLOWSTONE_DUST)).save(output);
+                    shapeless(RecipeCategory.DECORATIONS, ModItems.LIGHT_PANES.get(1), 2).requires(Items.GLASS_PANE, 2)
+                            .requires(Items.GLOWSTONE_DUST)
+                            .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Items.GLOWSTONE_DUST)).save(output);
+                    for (net.minecraft.world.item.DyeColor dye : net.minecraft.world.item.DyeColor.values()) {
+                        shapeless(RecipeCategory.DECORATIONS, ModItems.LIGHT_PANES.get(2 + dye.getId())).requires(com.simplebuilding.util.ModTags.Items.LIGHT_PANES)
+                                .requires(Items.DYE.pick(dye))
+                                .unlockedBy("has_light_pane", has(ModItems.LIGHT_PANES.get(0))).save(output);
+                    }
+                    shapeless(RecipeCategory.REDSTONE, ModItems.LIGHT_PANES.get(18)).requires(com.simplebuilding.util.ModTags.Items.LIGHT_PANES)
+                            .requires(Items.REDSTONE)
+                            .unlockedBy("has_light_pane", has(ModItems.LIGHT_PANES.get(0))).save(output);
+                }
+
                 // Auto-Schmied wie der Crafter: Eisen ringsum, Schmiedetisch in der Mitte, Redstone und Spender unten.
                 if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
                     shaped(RecipeCategory.REDSTONE, ModItems.AUTO_SMITHER)
