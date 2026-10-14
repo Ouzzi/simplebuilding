@@ -63,28 +63,30 @@ public final class InWorldExportTests {
                     + "x" + step.get("nuggetCount").getAsInt()
                     + "/" + step.get("damagePerHit").getAsInt() + "per" + "/" + step.get("totalDamage").getAsInt());
         }
+        // 26.3: the six furnace steps belong to Simple Ovens (data/simpleovens/in_world_upgrades), not to the export.
+        boolean ovens = com.simplebuilding.version.McVersion.OVENS_IN_SB;
         // Shulkerkisten: zwei Stueck Material und zehn Schlaege je Stufe, also doppelte Haltbarkeit.
         String expected = "[minecraft:copper_chest>copper_sledgehammer/cracked_diamondx1/2per/10, "
                 + "minecraft:shulker_box>copper_sledgehammer/cracked_diamondx2/2per/20, "
                 // Astral-Verzauberungstisch (N27/N30): vierfache Schlagzahl, ein Enderit-Nugget.
                 + (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
                         ? "minecraft:enchanting_table>netherite_sledgehammer/enderite_nuggetx1/10per/200, " : "")
-                + "netherite_blast_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
+                + (ovens ? "netherite_blast_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + "netherite_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
-                + "netherite_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
+                + (ovens ? "netherite_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + "netherite_hopper>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_piston>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_shulker_box>netherite_sledgehammer/enderite_nuggetx2/10per/100, "
-                + "netherite_smoker>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
+                + (ovens ? "netherite_smoker>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
                         ? "netherite_trapped_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
-                + "reinforced_blast_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
+                + (ovens ? "reinforced_blast_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + "reinforced_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
-                + "reinforced_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
+                + (ovens ? "reinforced_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + "reinforced_hopper>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_shulker_box>diamond_sledgehammer/netherite_nuggetx2/4per/40, "
-                + "reinforced_smoker>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
+                + (ovens ? "reinforced_smoker>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + "reinforced_sticky_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20"
                 + (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
                         ? ", reinforced_trapped_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20" : "") + "]";

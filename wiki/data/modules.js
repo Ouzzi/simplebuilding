@@ -626,6 +626,6 @@ window.WIKI_MODULES = [
       "jei",
       "modmenu"
     ],
-    "dataHash": "b6270fa7626a"
+    "dataHash": "83a3a7581ea6"
   }
 ];

@@ -81,12 +81,17 @@ public final class ForgeGameTests {
      */
     private static void injectModEnglish() {
         Map<String, String> modEnglish = new HashMap<>();
-        try (InputStream in = ForgeGameTests.class.getResourceAsStream("/assets/simplebuilding/lang/en_us.json")) {
-            if (in == null) {
-                return;
+        // simpleovens: its furnace items write their tooltip lines themselves (the test reads them as English text).
+        for (String namespace : new String[] {"simplebuilding", "simpleovens"}) {
+            try (InputStream in = langStream(namespace)) {
+                if (in != null) {
+                    Language.loadFromJson(in, modEnglish::put);
+                }
+            } catch (IOException e) {
+                // keep what was read so far
             }
-            Language.loadFromJson(in, modEnglish::put);
-        } catch (IOException e) {
+        }
+        if (modEnglish.isEmpty()) {
             return;
         }
         Language vanilla = Language.getInstance();
@@ -111,6 +116,16 @@ public final class ForgeGameTests {
                 return vanilla.getVisualOrder(text);
             }
         });
+    }
+
+    /** The mod's English file; modules live in their own jars and class loaders on Forge, so ask each of them. */
+    private static InputStream langStream(String namespace) {
+        String path = "assets/" + namespace + "/lang/en_us.json";
+        InputStream in = ForgeGameTests.class.getClassLoader().getResourceAsStream(path);
+        if (in == null && Thread.currentThread().getContextClassLoader() != null) {
+            in = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+        }
+        return in;
     }
 
     private static void registerTestFunctions(RegisterEvent event) {

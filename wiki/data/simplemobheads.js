@@ -292,15 +292,15 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
       },
       "source": "modules/simplemobheads/shared/resources/data/simplemobheads/recipe/guide_book.json",
       "ingredients": [
-        "minecraft:bone",
-        "minecraft:book"
+        "minecraft:book",
+        "minecraft:skeleton_skull"
       ],
       "ingredientGroups": [
         [
           "minecraft:book"
         ],
         [
-          "minecraft:bone"
+          "minecraft:skeleton_skull"
         ]
       ],
       "baseMaterials": {
@@ -311,11 +311,11 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
             "count": 3
           },
           {
-            "id": "minecraft:bone",
+            "id": "minecraft:leather",
             "count": 1
           },
           {
-            "id": "minecraft:leather",
+            "id": "minecraft:skeleton_skull",
             "count": 1
           }
         ]
@@ -4514,10 +4514,10 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
           "modules/simplemobheads/shared/resources/data/simplemobheads/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobheads\" gives one for free."
+          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + skeleton skull. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobheads\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobheads\" eins."
+          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Skelettschädel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobheads\" eins."
         }
       },
       "questionary": {

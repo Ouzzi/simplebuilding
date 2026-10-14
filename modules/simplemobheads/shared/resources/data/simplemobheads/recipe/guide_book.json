@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     "minecraft:book",
-    "minecraft:bone"
+    "minecraft:skeleton_skull"
   ],
   "result": {
     "count": 1,
