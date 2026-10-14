@@ -53,6 +53,14 @@ public final class MusicDiscGameTest {
         MusicDiscTests.jukeboxStaysVanillaAndAmplifierPlaysAlong(helper);
     }
     @GameTest
+    public void noteAmplifiersRelayByRadio(GameTestHelper helper) {
+        MusicDiscTests.noteAmplifiersRelayByRadio(helper);
+    }
+    @GameTest
+    public void distantNoteAmplifierPlaysTheNoteAlong(GameTestHelper helper) {
+        MusicDiscTests.distantNoteAmplifierPlaysTheNoteAlong(helper);
+    }
+    @GameTest
     public void chainedSoundReachesEachPlayerOnceAndStopReachesAll(GameTestHelper helper) {
         MusicDiscTests.chainedSoundReachesEachPlayerOnceAndStopReachesAll(helper);
     }

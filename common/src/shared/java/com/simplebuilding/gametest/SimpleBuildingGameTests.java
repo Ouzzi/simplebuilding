@@ -1306,6 +1306,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("music_disc_game_test_jukebox_amplifiers_relay_by_radio", MusicDiscTests::jukeboxAmplifiersRelayByRadio).build(),
             GameTestSpec.named("music_disc_game_test_relaying_amplifiers_show_notes_and_stop_with_the_jukebox", MusicDiscTests::relayingAmplifiersShowNotesAndStopWithTheJukebox).maxTicks(200).build(),
             GameTestSpec.named("music_disc_game_test_jukebox_stays_vanilla_and_amplifier_plays_along", MusicDiscTests::jukeboxStaysVanillaAndAmplifierPlaysAlong).build(),
+            GameTestSpec.named("music_disc_game_test_note_amplifiers_relay_by_radio", MusicDiscTests::noteAmplifiersRelayByRadio).build(),
+            GameTestSpec.named("music_disc_game_test_distant_note_amplifier_plays_the_note_along", MusicDiscTests::distantNoteAmplifierPlaysTheNoteAlong).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_creative_has_no_wear", SledgehammerTests::hammerChipsCreativeHasNoWear).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_chips_ice_yields_four", SledgehammerTests::hammerChipsIceYieldsFour).build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_cracks_plain_ice", SledgehammerTests::hammerCracksPlainIce).build(),
