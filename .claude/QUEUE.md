@@ -258,6 +258,44 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 58 (2026-10-14, Audit vergessener Besitzer-Wünsche)
+Quelle und Belege: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-14.md` (Stand claude-wave1 3cfba3c00, nur gelesen, nichts im Spiel geprüft). Datum in Klammern = Besitzer-Nachricht.
+Nicht notiert und nicht gebaut (D):
+- [ ] (Besitzer 09.10.) Breiterer Eimer: Eimer mit größerer Öffnung als Vorschlag, dazu ein ganz neu gezeichneter breiterer Eimer (Vorschau 16-fach, alt neben neu); bisher nirgends notiert, kein Code.
+- [ ] (Besitzer 14.10.) Bild vom 14.10. 19:31 (vermutlich Ash-Wood-Texturwahl nach den KI-Prompts): Inhalt beim Besitzer erfragen, dann umsetzen.
+- [ ] (Besitzer 10.10.) Mod-Audits: offene Befunde aus `AUDIT-DATEN-/AUDIT-MODULE-2026-10-11.md` abarbeiten (Forge-Standalone-Ziel M-05, leere Tags D-10, doppelte Lang-Kopien D-11, Forge-Stapelkappung Fass/Truhe).
+- [ ] (Besitzer 09.10./11.10./14.10.) Dauerregeln dauerhaft in `docs/ai/WORKFLOW.md` festhalten: Entscheidungen immer als Auswahl, Textur-Abnahmen mit Link und als Webseite, Fremdanbieter/opencode bei leerem Kontingent, öffentliches Repo ohne interne IPs/Hosts.
+- [ ] (Besitzer 13.10.) Sammel-Dokument offener Entscheidungen (E1–E13, T1–T26, A1–A52; nur E8 beantwortet) liegt nur in der Memory (Übergabe 13.10. abends): Antworten des Besitzers einholen und hier eintragen.
+Entscheidung notiert, nicht umgesetzt (E):
+- [ ] (Besitzer 13.10.) Elytra-Reparatur am Amboss: Wortlaut „am Amboss“ widerspricht dem Vermerk „Werkbank-Rezept bleibt, nichts bauen“ (N11); beim Besitzer klären.
+- [ ] (Besitzer 09.10., später) Astralit-/Nihilit-Fliesen als Boden (nur im Archiv als „später“ vermerkt).
+Abgehakt, aber nicht oder nur teilweise im Code (C):
+- [ ] Nacharbeit (07.10.): Wegpunkt-Icon der Wayfinder-Karte kann nur 7 Vanilla-Köpfe; Köpfe aus simplemobheads in den Tag `waypoint_heads` aufnehmen.
+- [ ] Nacharbeit (07.10.): Kreativ-Tab-Schalter je Super-/Sub-Mod fehlt in Modulen ohne `CreativeTabSettings` (z. B. simplemaps; vorhanden nur in 8 Modulen + SB).
+- [ ] Nacharbeit (07.10.): Karten-Aufdeckreichweite „wie Vanilla“: Standard `MapsConfig.revealRadius` ist 96, Vanilla-Wert prüfen und angleichen oder Abweichung bestätigen.
+- [ ] Nacharbeit (07.10.): End-Rudel 3–5 gewünscht, Nibblemite spawnt in 2–4; angleichen oder Abweichung bestätigen.
+- [ ] Nacharbeit (09.10.): Astral-Enchanter-Abbau soll Tisch plus Enderit-BARREN zurückgeben (Code: Nugget).
+- [ ] Nacharbeit (11.10.): End-Schiffswracks ca. 80 % vergraben (Code: Starthöhe −8 mit Endsteinhügel; Anteil nicht belegt) – prüfen.
+- [ ] Nacharbeit (11.10.): Platzierter Kupfer-Eimer soll verwittern können (Code: nur Tragen in Hotbar/Nebenhand); `jei.simplebuilding.info.copper_bucket` sagt noch „jedes Ausgießen oxidiert“ – Text korrigieren.
+- [ ] Nacharbeit (12.10.): Wollknäuel zu Wollblock (2 zu 1): Rückrichtung fehlt (vorhanden nur Wolle → 2 Knäuel); Besitzerwortlaut mehrdeutig, Rückfrage.
+- [ ] Nacharbeit (12.10.): Blaze-Book-Rezept „8 Lohenstaub + Buch“ ist nicht umgesetzt (Code: 3 Papier + 1 Lohenstaub → 3 Bücher); Rezept ändern oder Besitzer bestätigen lassen.
+- [ ] Nacharbeit (12.10.): Soulbound im Hardcore-Modus (Besitzersatz abgebrochen) – nachfragen; bisher nur Wiki-Satz.
+- [ ] Nacharbeit (13.10.): Hufeisen-Upgrade-Tooltip nennt „Copper–Enderite“, Besitzer wollte „Iron–Enderite ingots“ – klären.
+- [ ] Nacharbeit (14.10.): Shrieker mit Silent Dandelion: nur Ton stumm (85b334cbf), Vibration/Warnstufe bleiben – prüfen, ob Sculk-Sensoren trotzdem auslösen, ggf. Vibration unterdrücken.
+- [ ] Nacharbeit (Memory 12.–13.10., abgehakt aber Teilpunkt offen): Simple Respawn roter Name mit Restzeit + Locator-Markierung; Schwefel-Fackel/-Laterne/-Lagerfeuer (Folgepunkt Schwefelfeuer); Entdeckbarkeit Stufe 2 (Welt-Hinweise).
+Aus den Memory-Notizen (nicht in der Queue, Details im Audit-Dokument M02–M18):
+- [ ] (Memory) Claim-Urkunde Phase 1: Review, Forge-/Client-/Standalone-Tests, Einzelhooks, Namens-Cache; rote Tests ohne Fix-Beleg (Forge crucible/auto_smither/tiered, Standalone double_cap/claims_grief, every_mod_mob NeoForge) prüfen.
+- [ ] (Memory) Windows-Lauf des Installers beim Besitzer (winget-JDK, Toolchain, Vanilla-derived-Fallback) testen.
+- [ ] (Memory) Simple Trims: JEI-Kategorie, Hammerneigung/Ziel-Highlight auf Platten, Migration alter placed_smithing_template-Blöcke.
+- [ ] (Memory) Simple Money: End-Holz-Items ohne Preise (Absicht klären); Simple Beacons: Client kennt Server-Config nicht, Strong-Conduit-Tönung; Mobheads-Reste (Varianten-Sounds, Wiki-Renders, alte Fun-Config-Keys).
+- [ ] (Memory) Eisen-Tiegel-Bau: Loot-Bedingung `block_state_property(stage)` greift nicht (Umgehung per getDrops); Gemischte Octet-Zellen ohne Bruch-Risse, 26.2-Compile ungeprüft; End-Testzentrale: chunkweise fehlendes Blocklicht.
+- [ ] (Memory) Prod-Übernahme `development` → Production für alle gemergten Wellen erst nach Freigabe des Besitzers; Branch `oc-gatefix6` (Wiki-Platzhalter jar-unabhängig) mergen.
+Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachgetragen):
+- [x] (Besitzer 09.10.) Dev-Knopf Mod-UI ↔ Vanilla-UI (Audit 14.10.: UiStyleToggle/StyleToggleButton, Config showStyleToggle). Dev-Queue für Textur-/Code-Wünsche in der Zentrale (Audit 14.10.: tools/zentrale-web/devqueue.py, PLAN-DEV-QUEUE-2026-10-09).
+- [x] (Besitzer 08.10./09.10./12.10.) Zentrale: Seite im Repo, Mod-Auswahlbaum, Downloads, Installer-Skript, Wiki-Texturseite (Audit 14.10.: tools/zentrale-web, modselect.py, collect_downloads.py, install.ps1, wiki/textures.py).
+- [x] (Besitzer 11.10.) Tiegel-GUIs mit Vanilla-Rand (50d8b4d9c); Blaupausen-Layout Done/Help/Sign (b4e6029ea, c20081c3e); Howler-Textur Variante A (361cbf98d) (Audit 14.10.).
+- [x] (Besitzer 11.10./12.10./13.10.) Drache härter je Wiederbeschwörung (7445c9473); Lohen-Obsidian dezenter + Enchanter-Tuch tiefer (0a4b8e90f); Schleichen baut einzelnes Octet ab (363db8097) (Audit 14.10.).
+
 ## Nachtrag 57 (2026-10-14, Besitzer)
 - [ ] Neuer Block „Light Pane“ (Lichtscheibe): Dicke und Platzierbarkeit wie ein Itemrahmen (an jede Blockseite, flach). Varianten je Art: normal, transparent, einfarbig, mehrfarbig. Verhalten je Variante: Licht wie eine Lampe abgeben; den Block dahinter/darunter erhellen (Textur aufhellen o. ä.); eine Farbe abgeben (nicht grell, sondern texturiert); bzw. je nach Redstone-Stärke eine andere Farbe ausgeben – per Rechtsklick wie beim Notenblock einstellbar, welche Farbe bei Stärke 1 kommt (weiter reihum). Solide umsetzen, keine Bugs (Platzieren an allen Seiten, Abbau ohne Stütze, Licht-Updates, Multiloader, Tests).
 - [x] (oc-shrieker) Sculk Shrieker mit der Silent Dandelion leiser/stumm stellbar (wie bei Mobs: Rechtsklick an/aus), gilt für alle Spieler, damit er bei Sculk-Sensoren nicht nervt.
@@ -298,7 +336,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Oktant-Abbau mit Hammer: 0,5x der Spitzhacken-Zeit (statt 2x) (claude-octant-speed)
 
 ## Nachtrag 53 (2026-10-13, Besitzer, Korrekturen zu N52)
-- [ ] Rissiges Eis: an keine Seite kann ein Block platziert werden (normales Eis schon); Silk Touch droppt es; Vorschlaghammer auf normales Eis → rissiges Eis. (claude-n53)
+- [x] Rissiges Eis: an keine Seite kann ein Block platziert werden (normales Eis schon); Silk Touch droppt es; Vorschlaghammer auf normales Eis → rissiges Eis. (claude-n53) (Audit 14.10.: CrackedIceBlock.blocksPlacementAt + BlockItemMixin, ChiselTests)
 - [x] (claude-n53) Enchanter: Randlinie NICHT golden wie das Tuch, sondern dunkel (Obsidian-artig).
 - [x] (claude-n53) Brücken-Redstone (Pulver/Draht): Textur wie vorher (alte Optik), aber als EINE fertige Bilddatei (umgefärbte Variante als PNG im Repo, nicht generiert, keine Schichten).
 - [x] (claude-n53) Rissiges Eis: Texturen wie vorher; Problem war Schatten am Rand (nicht getarnt im Eis) → Schattierung/AO wie Vanilla-Eis, keine Randschatten.
@@ -306,10 +344,10 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] (claude-n53) Rissiges Eis (Zusatz Besitzer): an keine Seite eines rissigen Eisblocks lässt sich ein Block setzen; Behutsamkeit droppt es selbst; Vorschlaghammer macht aus Eis rissiges Eis (weitere Schläge: Eissplitter).
 
 ## Nachtrag 52 (2026-10-13, Besitzer)
-- [ ] Astral-Verzauberer umbenennen in „Enchanter“ / „Verzauberer“ (Besitzer-Wahl). Seiten und Unterseite bekommen eine Randlinie bis zum Tuch; Unterseite aus Obsidian. (claude-n52)
-- [ ] Brücken-Redstone-Textur: Schichten z-fighten in der Höhe → einfache Textur ohne Überlagerung. (claude-n52)
-- [ ] Dynamisches Licht auch für Fackel in der Hand (wie Laterne/Lava). (claude-n52)
-- [ ] Rissiges Eis wird nicht richtig gerendert (Besitzer-Screenshot 13.10.: platzierter Block fast unsichtbar, nur Umriss sichtbar, Inhalt wirkt wie durchsichtig/fehlende Textur bzw. falscher Render-Layer). (claude-n52)
+- [x] Astral-Verzauberer umbenennen in „Enchanter“ / „Verzauberer“ (Besitzer-Wahl). Seiten und Unterseite bekommen eine Randlinie bis zum Tuch; Unterseite aus Obsidian. (claude-n52) (Audit 14.10.: e56d64dd1, 2f277c94f)
+- [x] Brücken-Redstone-Textur: Schichten z-fighten in der Höhe → einfache Textur ohne Überlagerung. (claude-n52) (Audit 14.10.: 719fcda7a, f6db5c094)
+- [x] Dynamisches Licht auch für Fackel in der Hand (wie Laterne/Lava). (claude-n52) (Audit 14.10.: 8ff6e2571, TrimLight.heldLight + Test)
+- [x] Rissiges Eis wird nicht richtig gerendert (Besitzer-Screenshot 13.10.: platzierter Block fast unsichtbar, nur Umriss sichtbar, Inhalt wirkt wie durchsichtig/fehlende Textur bzw. falscher Render-Layer). (claude-n52) (Audit 14.10.: HalfTransparentBlockMixin + NatureBlockTests; Optik nur per Client-Abnahme prüfbar)
 - [x] (claude-gatefix16, in wave1) Rissiger Diamant + Vorschlaghammer In-World → 9 Diamant-Kiesel (nach Aufteilung 3d, da rissiger Diamant nach SimpleLib zieht).,
 - [x] Astral-Verzauberer umbenennen in „Enchanter“ / „Verzauberer“ (Besitzer-Wahl). Seiten und Unterseite bekommen eine Randlinie bis zum Tuch; Unterseite aus Obsidian. (claude-n52)
 - [x] Brücken-Redstone-Textur: Schichten z-fighten in der Höhe → einfache Textur ohne Überlagerung. (claude-n52)
@@ -318,15 +356,15 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] (oc-n55-hammer) Rissiger Diamant + Vorschlaghammer In-World → 9 Diamant-Kiesel (nach Aufteilung 3d, da rissiger Diamant nach SimpleLib zieht).
 
 ## Nachtrag 51 (2026-10-13, Besitzer)
-- [ ] Redstone-Kompatibilität: Astral-/Nihil-Geräte akzeptieren alle 3 Redstone-Arten + Brücken-Redstone (Connector); alle Redstone-Geräte (Vanilla + Mod) akzeptieren alle Mod-Redstone-Linien. Fehlende Blöcke ergänzen: Astral-Redstone-Block, Nihil-Redstone-Block (usw., analog Vanilla-Redstone-Block) und Brücken-Redstone-Block.
+- [x] Redstone-Kompatibilität: Astral-/Nihil-Geräte akzeptieren alle 3 Redstone-Arten + Brücken-Redstone (Connector); alle Redstone-Geräte (Vanilla + Mod) akzeptieren alle Mod-Redstone-Linien. Fehlende Blöcke ergänzen: Astral-Redstone-Block, Nihil-Redstone-Block (usw., analog Vanilla-Redstone-Block) und Brücken-Redstone-Block. (Audit 14.10.: bcaa3d26e, RedstoneLinesTests.everyDeviceTakes*)
 - [x] (claude-astral-cloth, in wave1) Astral-Verzauberer Seitentextur: Tuch (Goldsaum) bis an den Rand ziehen.,
 - [x] (claude-redstone-compat) Redstone-Kompatibilität: Astral-/Nihil-Geräte akzeptieren alle 3 Redstone-Arten + Brücken-Redstone (Connector); alle Redstone-Geräte (Vanilla + Mod) akzeptieren alle Mod-Redstone-Linien. Fehlende Blöcke ergänzen: Astral-Redstone-Block, Nihil-Redstone-Block (usw., analog Vanilla-Redstone-Block) und Brücken-Redstone-Block.
-- [ ] Astral-Verzauberer Seitentextur: Tuch (Goldsaum) bis an den Rand ziehen.
+- [x] Astral-Verzauberer Seitentextur: Tuch (Goldsaum) bis an den Rand ziehen. (Audit 14.10.: e059f6a5b)
 - [x] (claude-crucible-build) Eisen-Tiegel In-World-Bau: Tiegel + 16 Eisenbarren; jede Seitenplatte 2 Barren (erst halbe Platte, dann ganze, jeder Schritt sichtbar) = 8; jeder Griff 2 Schläge/Barren = 12; letzte 4 für die Wölbungen am oberen Rand (je Schlag eine). Jedes weitere Upgrade: 12 Schläge, alle 3 Schläge 1 Material (4 rissige Diamanten / 4 Netherit-Nuggets / 4 Enderit-Nuggets), jeder Schritt sichtbar.
 - [x] (claude-crafter-ui) Crafter-, Smither-, Auto-Crafter-UIs verbessern: Pfeil immer als gepunkteter Redstone-Pfeil (vorhandene Textur aus den Redstone-Linien); Filter beim Auto-Crafter über den Pfeil (nicht gedrängt).
 
 ## Nachtrag 50 (2026-10-13, Besitzer)
-- [ ] End-Biome mit dichtem Nebel; Randbiom + Kern, im Kern spawnen Hollow Watcher (Tag simpleend:watcher_core) – gruseliger Bereich. (claude-endbiome2 + claude-n50-small)
+- [x] End-Biome mit dichtem Nebel; Randbiom + Kern, im Kern spawnen Hollow Watcher (Tag simpleend:watcher_core) – gruseliger Bereich. (claude-endbiome2 + claude-n50-small) (Audit 14.10.: EndBiomes.WATCHER_CORE, Biom-JSON fog_*, EndTests)
 - [x] Zittern aktiv, solange Furcht-Mob dich ansieht/getriggert ist; 3–5 Stufen nach Nähe. Watcher besser getarnt. (claude-n50-small)
 - [x] Sculk Jaws spawnen natürlich im Deep Dark. (claude-n50-small)
 - [x] Fragentisch-Rezept: unten Mitte zusätzlich Obsidian. (claude-n50-small)
@@ -334,32 +372,32 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] (claude-beacons) Netherstern + neue Upgrade-Vorlage („Strong Upgrade“) auf Leuchtfeuer: 6 weitere Effekte, 2 Ebenen größer baubar, entsprechend mehr Reichweite; dasselbe für Conduit soweit möglich. (Konzept fertig, alle Empfehlungen übernommen 13.10.; umgesetzt als Sub-Mod simplebeacons, Plan docs/ai/PLAN-SIMPLE-BEACONS-2026-10-13.md; Merge + Client-Abnahme offen)
 - [x] Upgrade-Vorlagen-Tooltips: Hufeisen-Upgrade „applies to: Iron–Enderite ingots“; Enderit-Upgrade „Netherite equipment and blocks“ (+ Diamant-Ausrüstung/-Blöcke). (claude-n50-small)
 - [x] Mob-Köpfe in neues Sub-Mod „Simple Mobheads“, alle Mob-Köpfe implementieren; SimpleBuilding requires es; aus Simple Fun entfernen. (`claude-mobheads`, Plan docs/ai/PLAN-SIMPLE-MOBHEADS-2026-10-13.md; Merge nach claude-wave1 und Besitzer-Abnahme offen)
-- [ ] End-Biome: seltener, viel größer; Grasdichte höher; Stöcke-Bäume wie normale Bäume aus Stöcken, gigantisch; Stamm abbauen → alle Stöcke brechen; im End keine Holzbäume, nur Stöcke-Bäume + Drift-Frucht; Oberwelt-gepflanzte End-Bäume gigantisch, 4×4 → größter Baum im Spiel; Setzling-Rückgabe ~0,8 je Baum (Oberwelt), im End ~1,5 je Stöcke-Baum; Früchte gedeihen nur im End, in der Oberwelt verdorbene Variante (Drifting-Effekt); Blätter durchsichtig/exotisch, kein Vollblock. (claude-endbiome2)
+- [x] End-Biome: seltener, viel größer; Grasdichte höher; Stöcke-Bäume wie normale Bäume aus Stöcken, gigantisch; Stamm abbauen → alle Stöcke brechen; im End keine Holzbäume, nur Stöcke-Bäume + Drift-Frucht; Oberwelt-gepflanzte End-Bäume gigantisch, 4×4 → größter Baum im Spiel; Setzling-Rückgabe ~0,8 je Baum (Oberwelt), im End ~1,5 je Stöcke-Baum; Früchte gedeihen nur im End, in der Oberwelt verdorbene Variante (Drifting-Effekt); Blätter durchsichtig/exotisch, kein Vollblock. (claude-endbiome2) (Audit 14.10.: PLAN-SIMPLE-END Umbau 13.10., EndTrees, claude-endbiome2)
 - [x] Hollow Watcher teleportiert sich 1 s nach einem Treffer weg. (claude-n50-small)
 - [x] Erhöhte Schwerkraft (Gravity-Effekt): mehr Fallschaden (Federfall mit einrechnen), „High Gravity“ gerecht. (claude-n50-small)
 - [x] Resonanz-Button: Cap-Zeile im Tooltip weg; Herz-Texturen überarbeiten (richtig aussehen); Button-Textur wie ein deaktivierter Slot. (claude-n50-small),
 - [x] End-Biome: seltener, viel größer; Grasdichte höher; Stöcke-Bäume wie normale Bäume aus Stöcken, gigantisch; Stamm abbauen → alle Stöcke brechen; im End keine Holzbäume, nur Stöcke-Bäume + Drift-Frucht; Oberwelt-gepflanzte End-Bäume gigantisch, 4×4 → größter Baum im Spiel; Setzling-Rückgabe ~0,8 je Baum (Oberwelt), im End ~1,5 je Stöcke-Baum; Früchte gedeihen nur im End, in der Oberwelt verdorbene Variante (Drifting-Effekt); Blätter durchsichtig/exotisch, kein Vollblock. (claude-endbiome2: Plan PLAN-SIMPLE-END „Umbau 13.10.“; + Kern/Saum-Biome mit dichtem Nebel, Tag simpleend:watcher_core für Hollow Watcher)
-- [ ] Hollow Watcher teleportiert sich 1 s nach einem Treffer weg. (claude-n50-small)
-- [ ] Erhöhte Schwerkraft (Gravity-Effekt): mehr Fallschaden (Federfall mit einrechnen), „High Gravity“ gerecht. (claude-n50-small)
-- [ ] Resonanz-Button: Cap-Zeile im Tooltip weg; Herz-Texturen überarbeiten (richtig aussehen); Button-Textur wie ein deaktivierter Slot. (claude-n50-small)
+- [x] Hollow Watcher teleportiert sich 1 s nach einem Treffer weg. (claude-n50-small) (Audit 14.10.: FearLogic.HIT_TELEPORT_TICKS, FearTests, 6a0f98fd8)
+- [x] Erhöhte Schwerkraft (Gravity-Effekt): mehr Fallschaden (Federfall mit einrechnen), „High Gravity“ gerecht. (claude-n50-small) (Audit 14.10.: HighGravityEffect, 6a0f98fd8)
+- [x] Resonanz-Button: Cap-Zeile im Tooltip weg; Herz-Texturen überarbeiten (richtig aussehen); Button-Textur wie ein deaktivierter Slot. (claude-n50-small) (Audit 14.10.: 6a0f98fd8, resonance_heart_*, TrimWiringTests)
 
 ## Nachtrag 49 (2026-10-12, Besitzer)
 - [x] (claude-n49-small) Seelen-Lohe (Soul Blaze) schießt Seelenfeuer-Kugeln (Soulfire Charge, craftbar mit Seelen-Lohenstaub); Treffer gibt Seelenbrand-Effekt.
 - [x] (claude-deceiver3, in wave1) Deceiver-Umhang: Kopf-Umhang mit Kapuze, liegt als 3D-Modell auf dem Rücken (ähnlich Elytra); mit Elytra: Elytra darunter gerendert, beim Fliegen ragen die Flügel seitlich heraus, Umhang bleibt auf dem Rücken. Deceiver-Mob trägt ähnlichen Umhang. (claude-deceiver3)
 - [x] (claude-n49-inv, in wave1) Extra-Kopf-Slot im Inventar (B-Menü) über dem Nebenhand-Slot, auf Höhe des Helm-Slots: nur Mob-Köpfe oder geschnitzter Kürbis; deren Effekte gelten; Helm-Positionierung je Kopf anpassen (Kürbis, Silberfisch-Kopf usw.: Helm sitzt richtig, sichtbar, kein Z-Fighting).
-- [ ] Resonanz-Button: zwischen neuem Kopf-Slot und Nebenhand-Slot, slotgroß, nur Herz (Hover); Stufen Cobble, Stone, Copper, Iron, Gold, Diamond, Netherite, Enderite mit je eigenem Herz-Indikator. Tooltip ohne Fettschrift: Zeile 1 „Resonance: x“ orange (uncommon), dann „(max 2.0x)“ grau; Rest analog, erster Buchstabe fett, L→E (E, S, C); Cap-Zeile analog, letzte Zeile und „the better of …“-Zeile streichen; S = Distanz+Zeit, je max 0.5.
-- [ ] Inventar-Helligkeit als Config: Light (aktuell), Dark, Dawn (zwischen Dark und Light).
+- [x] Resonanz-Button: zwischen neuem Kopf-Slot und Nebenhand-Slot, slotgroß, nur Herz (Hover); Stufen Cobble, Stone, Copper, Iron, Gold, Diamond, Netherite, Enderite mit je eigenem Herz-Indikator. Tooltip ohne Fettschrift: Zeile 1 „Resonance: x“ orange (uncommon), dann „(max 2.0x)“ grau; Rest analog, erster Buchstabe fett, L→E (E, S, C); Cap-Zeile analog, letzte Zeile und „the better of …“-Zeile streichen; S = Distanz+Zeit, je max 0.5. (Audit 14.10.: TrimStatsLayout.heartSprite, claude-n49-inv)
+- [x] Inventar-Helligkeit als Config: Light (aktuell), Dark, Dawn (zwischen Dark und Light). (Audit 14.10.: UiBrightness (simplelib), Option inventoryBrightness)
 - [x] (claude-n49-small) Geschnitztes Holz (carved logs): Item-Modell entspricht nicht dem Block-Modell → angleichen.
 - [x] (claude-n49-small) Shellker-Helm und Schildkrötenpanzer trimmbar (beide waren schon über #head_armor in #trimmable_armor; Shellker jetzt explizit im Tag + Test, Schildkröte hatte Icon-Muster schon).,
 - [x] Extra-Kopf-Slot im Inventar (B-Menü) über dem Nebenhand-Slot, auf Höhe des Helm-Slots: nur Mob-Köpfe oder geschnitzter Kürbis; deren Effekte gelten; Helm-Positionierung je Kopf anpassen (Kürbis, Silberfisch-Kopf usw.: Helm sitzt richtig, sichtbar, kein Z-Fighting). (claude-n49-inv: Slot 46 über Nebenhand, auch Rucksack/Kreativ; Effekte Kürbis/Mob-Sicht/Kopf-Fähigkeiten; Helm je Kopf skaliert, Silberfisch oben drauf; Client-Abnahme offen)
 - [x] Resonanz-Button: zwischen neuem Kopf-Slot und Nebenhand-Slot, slotgroß, nur Herz (Hover); Stufen Cobble, Stone, Copper, Iron, Gold, Diamond, Netherite, Enderite mit je eigenem Herz-Indikator. Tooltip ohne Fettschrift: Zeile 1 „Resonance: x“ orange (uncommon), dann „(max 2.0x)“ grau; Rest analog, erster Buchstabe fett, L→E (E, S, C); Cap-Zeile analog, letzte Zeile und „the better of …“-Zeile streichen; S = Distanz+Zeit, je max 0.5. (claude-n49-inv: 8 Herz-Stufen, Tooltip neu, S als Summe)
 - [x] Inventar-Helligkeit als Config: Light (aktuell), Dark, Dawn (zwischen Dark und Light). (claude-n49-inv: SimpleLib UiBrightness, Einstellung im Simple-Interfaces-Bildschirm)
-- [ ] Geschnitztes Holz (carved logs): Item-Modell entspricht nicht dem Block-Modell → angleichen.
-- [ ] Shellker-Helm und Schildkrötenpanzer trimmbar.
+- [x] Geschnitztes Holz (carved logs): Item-Modell entspricht nicht dem Block-Modell → angleichen. (Audit 14.10.: 1c6a5fecf, 34ac9d9cb)
+- [x] Shellker-Helm und Schildkrötenpanzer trimmbar. (Audit 14.10.: Tag trimmable_armor, 1c6a5fecf)
 
 ## Nachtrag 48 (2026-10-12, Besitzer)
 - [x] Wayfinder-Karte: Zoom feiner abstufen, Navigation verbessern. (claude-maps-zoom: Stufen 1,2,4,8,16,32,64, Pfeile/WASD, Home/C, 1-8)
-- [ ] Octet-Blöcke untereinander kombinierbar (verschiedene Materialien in einer Zelle).
+- [x] Octet-Blöcke untereinander kombinierbar (verschiedene Materialien in einer Zelle). (Audit 14.10.: MixedOctetBlock, OctetMixTests, aaa8f3937)
 - [x] Deceiver-Umhang am Kopf (Kopf-Slot statt Brust); Verkleidung überall sichtbar: Spielermodell im Inventar, Hände in der Ego-Ansicht; auch Schlag in die Luft (Versuch zu hauen) hebt Tarnung auf. (claude-deceiver3: Kopf-Slot = Kapuze + 3D-Umhang auf dem Rücken über Elytren, Inventar/Ego/3rd, Luftschlag; Deceiver mit Rückenumhang)
 - [x] Trick-Spiegel ausbalancieren: Kampf weniger beeinflussen, nur leicht erleichtern; notfalls vorerst entfernen. (claude-deceiver3: bleibt, 3 s/60 s/20°/12 Blöcke/2 s Leuchten/max. 3)
 - [x] Shellker-Schale: Item-Textur wie Vanilla shulker_shell, angepasst (Mojang-abgeleitet → beim Build erzeugen). (claude-deceiver3: vanilla_derived MODULE_OUTPUTS)
