@@ -92,6 +92,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void extraHeadGreeting(GameTestHelper helper) {
+        MobHeadTests.ALL.get("extra_head_greeting").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void extraHeadVariantLook(GameTestHelper helper) {
+        MobHeadTests.ALL.get("extra_head_variant_look").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
     public void abilitySwitches(GameTestHelper helper) {
         MobHeadTests.ALL.get("ability_switches").accept(helper);
     }

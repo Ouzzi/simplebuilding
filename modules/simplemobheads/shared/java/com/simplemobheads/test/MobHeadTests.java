@@ -90,6 +90,8 @@ public final class MobHeadTests {
         put("animal_abilities", MobHeadTests::animalAbilities);
         put("new_abilities", MobHeadTests::newAbilities);
         put("extra_head_slot", MobHeadTests::extraHeadSlot);
+        put("extra_head_greeting", MobHeadTests::extraHeadGreeting);
+        put("extra_head_variant_look", MobHeadTests::extraHeadVariantLook);
         put("ability_switches", MobHeadTests::abilitySwitches);
         put("greeting", MobHeadTests::greeting);
         put("commands", MobHeadTests::commands);
@@ -603,6 +605,44 @@ public final class MobHeadTests {
             com.simplebuilding.framework.api.WornHeads.unregister("simplemobheads_test");
         }
         helper.assertTrue(!HeadAbilities.wears(player, "blaze"), "the provider is still asked");
+        helper.succeed();
+    }
+
+    /** N55: sneaking with a head in an extra head slot greets like one in the helmet slot, and the extra head is heard first. */
+    public static void extraHeadGreeting(GameTestHelper helper) {
+        ServerPlayer player = player(helper);
+        ItemStack extra = new ItemStack(MobHeads.item("cat"));
+        com.simplebuilding.framework.api.WornHeads.register("simplemobheads_test", entity -> entity == player ? List.of(extra) : List.of());
+        try {
+            helper.assertTrue(HeadAbilities.wornHead(player) != null && HeadAbilities.wornHead(player).id().equals("cat"), "the extra head is not the worn head");
+            HeadAbilities.resetForTests(player);
+            helper.assertTrue(HeadAbilities.greet(helper.getLevel(), player), "a head in the extra slot does not greet");
+            wear(player, "cow");
+            helper.assertTrue(HeadAbilities.wornHead(player).id().equals("cat"), "the helmet head is heard before the extra head");
+        } finally {
+            com.simplebuilding.framework.api.WornHeads.unregister("simplemobheads_test");
+        }
+        helper.assertTrue(HeadAbilities.wornHead(player).id().equals("cow"), "the helmet head is not worn after the provider is gone");
+        wear(player, null);
+        helper.assertTrue(HeadAbilities.wornHead(player) == null, "a bare head wears a head");
+        helper.succeed();
+    }
+
+    /** N55: the look the extra head slot asks for shows the stack's variant and knows nothing about foreign skull types. */
+    public static void extraHeadVariantLook(GameTestHelper helper) {
+        com.simplemobheads.client.MobHeadLook look = new com.simplemobheads.client.MobHeadLook();
+        HeadDef cat = MobHeads.head("cat");
+        helper.assertTrue(cat != null && cat.variantIds().size() > 1, "the cat head has no variants");
+        String other = cat.variantIds().get(1);
+        ItemStack siamese = MobHeads.stack(cat, other);
+        com.simplemobheads.MobHeadType base = MobHeads.type(cat, null);
+        helper.assertTrue(base != null && MobHeads.type(cat, other) != base, "the variant has no skull type of its own");
+        helper.assertTrue(look.type(siamese, base) == MobHeads.type(cat, other), "the stack's variant is not shown");
+        helper.assertTrue(look.type(new ItemStack(MobHeads.item("cat")), base) == base, "the base head changed its look");
+        helper.assertTrue(look.type(siamese, net.minecraft.world.level.block.SkullBlock.Types.ZOMBIE) == net.minecraft.world.level.block.SkullBlock.Types.ZOMBIE,
+                "a Vanilla skull type was swapped");
+        helper.assertTrue(look.edge(net.minecraft.world.level.block.SkullBlock.Types.ZOMBIE) == 0.0F && look.factor(net.minecraft.world.level.block.SkullBlock.Types.ZOMBIE) == 1.0F,
+                "a Vanilla skull got a mob head size");
         helper.succeed();
     }
 

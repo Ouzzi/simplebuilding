@@ -606,6 +606,135 @@ public final class MobHeadTests {
         helper.succeed();
     }
 
+    /**
+     * N55: what Vanilla only gives the helmet slot works from the extra head slot too - the head item's attribute modifiers
+     * (slime head: one block more safe fall, silverfish head: half size, every mob head: hidden from the locator bar) and
+     * the freeze immunity of the stray head. The same head in both slots counts once; taking the extra head out removes it.
+     */
+    public static void extraHeadAttributesAndFreezeWorkLikeTheHelmetSlot(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = vulnerable(helper, mockPlayer(helper, new Vec3(2.5, 2.0, 2.5)));
+        helper.assertTrue(player.canFreeze(), "a player without a head cannot freeze - the test proves nothing");
+        double locator = player.getAttributeValue(Attributes.WAYPOINT_TRANSMIT_RANGE);
+        float health = player.getHealth();
+
+        com.simplebuilding.util.ExtraHead.set(player, new ItemStack(TweaksItems.head(BlazeHeadType.SLIME)));
+        player.doTick();
+        helper.assertValueEqual(player.getAttributeValue(Attributes.SAFE_FALL_DISTANCE), 4.0, "safe fall distance with the slime head in the extra slot");
+        player.causeFallDamage(4.0, 1.0F, level.damageSources().fall());
+        helper.assertValueEqual(player.getHealth(), health, "health after a 4 block fall with the slime head in the extra slot");
+        helper.assertTrue(player.getAttributeValue(Attributes.WAYPOINT_TRANSMIT_RANGE) < locator, "the extra head does not hide the wearer from the locator bar");
+
+        com.simplebuilding.util.ExtraHead.set(player, new ItemStack(TweaksItems.head(BlazeHeadType.SILVERFISH)));
+        player.doTick();
+        helper.assertValueEqual(player.getAttributeValue(Attributes.SAFE_FALL_DISTANCE), 3.0, "the slime head's safe fall stayed after it left the extra slot");
+        helper.assertValueEqual(player.getAttributeValue(Attributes.SCALE), 0.5, "scale with the silverfish head in the extra slot");
+
+        // the same head in the helmet slot: one effect, not two - and it stays when only the extra head goes
+        wear(player, BlazeHeadType.SILVERFISH);
+        player.doTick();
+        helper.assertValueEqual(player.getAttributeValue(Attributes.SCALE), 0.5, "scale with the silverfish head in both slots");
+        com.simplebuilding.util.ExtraHead.set(player, ItemStack.EMPTY);
+        player.doTick();
+        helper.assertValueEqual(player.getAttributeValue(Attributes.SCALE), 0.5, "scale after taking only the extra head out");
+        wear(player, null);
+        player.doTick();
+        helper.assertValueEqual(player.getAttributeValue(Attributes.SCALE), 1.0, "scale without any head");
+        helper.assertValueEqual(player.getAttributeValue(Attributes.WAYPOINT_TRANSMIT_RANGE), locator, "locator range without any head");
+
+        com.simplebuilding.util.ExtraHead.set(player, new ItemStack(TweaksItems.head(BlazeHeadType.STRAY)));
+        helper.assertFalse(player.canFreeze(), "the stray head in the extra slot does not protect from powder snow");
+        com.simplebuilding.util.ExtraHead.set(player, new ItemStack(Items.ZOMBIE_HEAD));
+        helper.assertTrue(player.canFreeze(), "a zombie head in the extra slot protects from powder snow");
+        helper.succeed();
+    }
+
+    /**
+     * N55: with both slots full the effects of both heads apply (one effect per head kind), and the extra head comes first
+     * in {@link com.simplebuilding.util.ExtraHead#heads} - the order the model is picked in (the client draws the first).
+     */
+    public static void helmetHeadAndExtraHeadBothApplyAndTheExtraHeadComesFirst(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = vulnerable(helper, mockPlayer(helper, new Vec3(2.5, 2.0, 2.5)));
+        wear(player, BlazeHeadType.BLAZE);
+        com.simplebuilding.util.ExtraHead.set(player, new ItemStack(TweaksItems.head(BlazeHeadType.ENDERMAN)));
+        helper.assertTrue(HeadAbilities.wears(player, BlazeHeadType.BLAZE) && HeadAbilities.wears(player, BlazeHeadType.ENDERMAN),
+                "not both heads count");
+        helper.assertTrue(player.isInvulnerableTo(level, level.damageSources().hotFloor()), "the blaze head in the helmet slot lost its effect");
+        helper.assertTrue(player.isInvulnerableTo(level, level.damageSources().enderPearl()), "the enderman head in the extra slot has no effect");
+        List<ItemStack> heads = com.simplebuilding.util.ExtraHead.heads(player);
+        helper.assertValueEqual(heads.size(), 2, "worn heads");
+        helper.assertTrue(heads.get(0).is(TweaksItems.head(BlazeHeadType.ENDERMAN)) && heads.get(1).is(TweaksItems.head(BlazeHeadType.BLAZE)),
+                "the extra head is not drawn first: " + heads);
+        // a helmet in the helmet slot is armor, not a head: only the extra head is listed, and it is drawn under the helmet
+        player.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
+        helper.assertValueEqual(com.simplebuilding.util.ExtraHead.heads(player).size(), 1, "worn heads under an iron helmet");
+        helper.assertFalse(player.isInvulnerableTo(level, level.damageSources().hotFloor()), "an iron helmet kept the blaze effect");
+        helper.assertTrue(player.isInvulnerableTo(level, level.damageSources().enderPearl()), "the enderman head lost its effect under a helmet");
+        // a pumpkin in the extra slot and a skull in the helmet slot: both count, the pumpkin is drawn
+        wear(player, BlazeHeadType.BLAZE);
+        com.simplebuilding.util.ExtraHead.set(player, new ItemStack(Items.CARVED_PUMPKIN));
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.heads(player).getFirst().is(Items.CARVED_PUMPKIN), "the pumpkin is not drawn first");
+        helper.assertTrue(player.isInvulnerableTo(level, level.damageSources().hotFloor()), "the blaze head lost its effect next to a pumpkin");
+
+        // camouflage of two different mob heads: zombies and skeletons both lose sight (26.3: MOB_VISIBILITY)
+        try {
+            java.lang.reflect.Method visibility = null;
+            for (java.lang.reflect.Method m : LivingEntity.class.getMethods()) {
+                if (m.getName().equals("getVisibilityPercent") && m.getParameterCount() == 2) visibility = m;
+            }
+            if (visibility != null) {
+                net.minecraft.world.entity.Mob zombie = (net.minecraft.world.entity.Mob) helper.spawn(EntityTypes.ZOMBIE, new Vec3(3.5, 2.0, 1.5));
+                net.minecraft.world.entity.Mob skeleton = (net.minecraft.world.entity.Mob) helper.spawn(EntityTypes.SKELETON, new Vec3(4.5, 2.0, 1.5));
+                zombie.setNoAi(true);
+                skeleton.setNoAi(true);
+                wear(player, null);
+                com.simplebuilding.util.ExtraHead.set(player, ItemStack.EMPTY);
+                double plainZombie = (Double) visibility.invoke(player, level, zombie);
+                double plainSkeleton = (Double) visibility.invoke(player, level, skeleton);
+                player.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.ZOMBIE_HEAD));
+                com.simplebuilding.util.ExtraHead.set(player, new ItemStack(Items.SKELETON_SKULL));
+                double zombieSees = (Double) visibility.invoke(player, level, zombie);
+                double skeletonSees = (Double) visibility.invoke(player, level, skeleton);
+                helper.assertTrue(Math.abs(zombieSees - plainZombie * 0.5) < 1.0e-6, "zombie head in the helmet slot next to an extra head: " + zombieSees + " of " + plainZombie);
+                helper.assertTrue(Math.abs(skeletonSees - plainSkeleton * 0.5) < 1.0e-6, "skeleton skull in the extra slot next to a helmet head: " + skeletonSees + " of " + plainSkeleton);
+            }
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+        helper.succeed();
+    }
+
+    /** N55: putting a head into the extra slot sounds like putting on a helmet (once, not on login, not on taking it out). */
+    public static void extraHeadPutOnPlaysTheEquipSound(GameTestHelper helper) {
+        List<net.minecraft.network.protocol.Packet<?>> sink = new ArrayList<>();
+        ServerPlayer listener = MusicDiscTests.capturingPlayer(helper, sink);
+        ServerPlayer wearer = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5));
+        listener.snapTo(wearer.getX() + 1.0, wearer.getY(), wearer.getZ(), 0.0F, 0.0F);
+        Holder<net.minecraft.sounds.SoundEvent> expected = new ItemStack(Items.ZOMBIE_HEAD).get(DataComponents.EQUIPPABLE).equipSound();
+        java.util.function.Supplier<Long> heard = () -> {
+            synchronized (sink) {
+                return sink.stream().filter(net.minecraft.network.protocol.game.ClientboundSoundPacket.class::isInstance)
+                        .map(net.minecraft.network.protocol.game.ClientboundSoundPacket.class::cast)
+                        .filter(p -> p.getSound().value().equals(expected.value()) && Math.abs(p.getX() - wearer.getX()) < 1.0 && Math.abs(p.getZ() - wearer.getZ()) < 1.0)
+                        .count();
+            }
+        };
+        com.simplebuilding.util.ExtraHead.set(wearer, new ItemStack(Items.CREEPER_HEAD));
+        wearer.doTick(); // login: the head was there before, nothing to hear
+        helper.assertValueEqual(heard.get(), 0L, "equip sounds when the player already wears the head");
+        com.simplebuilding.util.ExtraHead.set(wearer, new ItemStack(Items.ZOMBIE_HEAD));
+        wearer.doTick();
+        helper.assertValueEqual(heard.get(), 1L, "equip sounds when the head goes into the extra slot");
+        com.simplebuilding.util.ExtraHead.set(wearer, new ItemStack(Items.ZOMBIE_HEAD));
+        wearer.doTick();
+        helper.assertValueEqual(heard.get(), 1L, "equip sounds when the same head is put in again");
+        com.simplebuilding.util.ExtraHead.set(wearer, ItemStack.EMPTY);
+        wearer.doTick();
+        helper.assertValueEqual(heard.get(), 1L, "equip sounds when the head is taken out");
+        helper.succeed();
+    }
+
     private static ServerPlayer mockPlayer(GameTestHelper helper, Vec3 relative) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         Vec3 pos = helper.absoluteVec(relative);

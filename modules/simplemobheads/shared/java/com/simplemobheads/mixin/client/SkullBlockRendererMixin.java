@@ -44,6 +44,8 @@ public abstract class SkullBlockRendererMixin {
         for (MobHeadType type : MobHeads.types()) {
             SKIN_BY_TYPE.put(type, MobHeadModels.texture(type));
         }
+        // the extra head slot of a super mod draws worn heads like the helmet slot does (variants, mob head size)
+        com.simplebuilding.framework.api.WornHeads.registerLook(com.simplemobheads.SimpleMobHeads.MOD_ID, new com.simplemobheads.client.MobHeadLook());
     }
 
     @Inject(method = "createModel", at = @At("HEAD"), cancellable = true)

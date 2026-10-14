@@ -20,6 +20,7 @@
     "TurtleEggBlockMixin"
   ],
   "client": [
+    "client.CustomHeadLayerMixin",
     "client.LivingEntityRendererMixin",
     "client.SkullBlockRendererMixin",
     "client.WornModHeadMixin"

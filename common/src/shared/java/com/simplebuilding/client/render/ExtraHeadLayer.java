@@ -2,6 +2,7 @@ package com.simplebuilding.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simplebuilding.util.ExtraHead;
+import com.simplebuilding.util.HeadLooks;
 import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.object.skull.SkullModelBase;
@@ -11,7 +12,6 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
-import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -31,11 +30,14 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * The head in the extra head slot (owner N49, {@link ExtraHead}) on the player, drawn like Vanilla's
- * {@link CustomHeadLayer} draws a worn head: skulls with their skull model (mod heads through SimpleBuilding's skull
- * models), everything else (the carved pumpkin) as its item in the {@code HEAD} display context. A helmet is scaled
- * over it ({@code HumanoidArmorLayerExtraHeadMixin}, {@link ExtraHead#fit}); small heads ({@link ExtraHead.Fit#onTop})
- * sit on top of the head or the helmet instead. Nothing is drawn when the helmet slot itself holds a head (two heads
- * would overlap); the extra head still works then.
+ * {@link CustomHeadLayer} draws a worn head: skulls with their skull model (mod heads through Simple Mobheads' skull
+ * models, with the variant of the stack), everything else (the carved pumpkin) as its item in the {@code HEAD} display
+ * context. A mod head is drawn at the size of the mob's own head ({@link HeadLooks#skullFactor}) and replaces the
+ * wearer's head ({@code HumanoidModelExtraHeadMixin}) exactly as in the helmet slot. A helmet is scaled over it
+ * ({@code HumanoidArmorLayerExtraHeadMixin}, {@link ExtraHead#fit}).
+ *
+ * <p>The extra head has precedence (owner N55): when it is shown, {@code AvatarRendererExtraHeadMixin} removes a head in
+ * the helmet slot from the render state, so only the extra head's model is drawn; the effects of both heads still apply.
  *
  * <p>The head comes from the player behind {@link AvatarRenderState#id} in the client level - the synced entity data
  * of every visible player - like {@link QuiverLayer} finds its quiver.
@@ -53,19 +55,17 @@ public class ExtraHeadLayer extends RenderLayer<AvatarRenderState, PlayerModel> 
         if (head.isEmpty()) {
             return;
         }
-        ExtraHead.Fit fit = ExtraHead.fit(head);
         poseStack.pushPose();
         PlayerModel model = this.getParentModel();
         model.root().translateAndRotate(poseStack);
         model.translateToHead(poseStack);
-        if (fit.onTop()) {
-            // on top of the head (8 px above the neck) or of the helmet (1 px more), a hair above against z-fighting
-            boolean helmet = HumanoidArmorLayer.shouldRender(state.headEquipment, EquipmentSlot.HEAD);
-            poseStack.translate(0.0F, -(helmet ? 9.1F : 8.05F) / 16.0F, 0.0F);
-        }
         if (head.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof AbstractSkullBlock skull) {
             SkullBlock.Type type = skull.getType();
-            poseStack.scale(1.1875F, 1.1875F, 1.1875F); // CustomHeadLayer.SKULL_SCALE (private on 26.2)
+            if (HeadLooks.skullType(head, type) instanceof SkullBlock.Type shown) {
+                type = shown; // the variant of the stack (cat colors, villager types)
+            }
+            float scale = 1.1875F * HeadLooks.skullFactor(type); // CustomHeadLayer.SKULL_SCALE (private on 26.2) x mob head size
+            poseStack.scale(scale, scale, scale);
             SkullModelBase skullModel = this.skullModels.computeIfAbsent(type,
                     t -> SkullBlockRenderer.createModel(Minecraft.getInstance().getEntityModels(), t));
             SkullBlockRenderer.submitSkull(state.walkAnimationPos, poseStack, collector, lightCoords, skullModel,
@@ -88,9 +88,9 @@ public class ExtraHeadLayer extends RenderLayer<AvatarRenderState, PlayerModel> 
         return SkullBlockRenderer.getSkullRenderType(type, null);
     }
 
-    /** The extra head drawn for {@code state}: empty when invisible, without one, or when the helmet slot holds a head. */
+    /** The extra head drawn for {@code state}: empty when invisible or without one (it wins over a head in the helmet slot). */
     public static ItemStack shownHead(AvatarRenderState state) {
-        if (state.isInvisible || state.wornHeadType != null || !state.headItem.isEmpty()) {
+        if (state.isInvisible) {
             return ItemStack.EMPTY;
         }
         return entity(state) instanceof Player player ? ExtraHead.get(player) : ItemStack.EMPTY;
