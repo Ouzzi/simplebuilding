@@ -1680,6 +1680,7 @@ public final class DataIntegrityTests {
         // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
         items.addAll(ModItems.WOOD_OCTETS);
         items.addAll(ModItems.MATERIAL_OCTETS);
+        items.addAll(ModItems.LIGHT_PANES);
         // Holzwerk (McVersion.WOODWORK): je Holzart in einer Schleife registriert (WoodBlocks).
         items.addAll(com.simplebuilding.woodwork.WoodBlocks.items());
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
@@ -1727,6 +1728,8 @@ public final class DataIntegrityTests {
         // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
         blocks.addAll(ModBlocks.WOOD_OCTETS);
         blocks.addAll(ModBlocks.MATERIAL_OCTETS);
+        // Light Panes (N57): the sixteen single colors are registered in a loop.
+        blocks.addAll(ModBlocks.COLORED_LIGHT_PANES);
         // Holzwerk: je Holzart in einer Schleife registriert (ModBlocks.WOOD_FAMILIES).
         blocks.addAll(com.simplebuilding.woodwork.WoodBlocks.blocks());
         return blocks;
