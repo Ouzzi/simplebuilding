@@ -835,6 +835,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("hammock_game_test_time_factor_is_capped_on_the_server", HammockTests::timeFactorIsCappedOnTheServer)
                     .build(),
+            GameTestSpec.named("hammock_game_test_resting_percentage_replaces_the_game_rule", HammockTests::restingPercentageReplacesTheGameRule)
+                    .build(),
             GameTestSpec.named("hammock_game_test_cloth_middle_sits_between_the_anchors_in_every_direction", HammockTests::clothMiddleSitsBetweenTheAnchorsInEveryDirection)
                     .build(),
             GameTestSpec.named("hammock_game_test_hangs_between_standing_rod_posts", HammockTests::hangsBetweenStandingRodPosts)

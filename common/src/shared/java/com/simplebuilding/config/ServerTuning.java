@@ -68,6 +68,8 @@ public final class ServerTuning {
     public static final int MAX_CRAFTY_RADIUS = 16;
     /** Hammock: at most this many clock ticks per tick while players rest (1 = off). */
     public static final int MAX_HAMMOCK_FACTOR = 20;
+    /** Hammock: {@code restingPercentage} value that follows the game rule playersSleepingPercentage (the default). */
+    public static final int HAMMOCK_PERCENTAGE_FROM_RULE = -1;
     /** Speakers: at most three adjacent speakers count per jukebox or note block (server.speakers). */
     public static final int MAX_SPEAKERS = 3;
     /** Speakers: at most +50 % of the vanilla volume each, so 2.5x (jukebox 160, note block 120 blocks) at most. */
@@ -341,6 +343,15 @@ public final class ServerTuning {
     /** Clock ticks per tick while enough players rest in hammocks (1..20, see HammockTime); nur Server. */
     public static int hammockTimeFactor() {
         return ServerTuningConfig.clamp(get().hammock.timeFactor, 1, MAX_HAMMOCK_FACTOR);
+    }
+
+    /**
+     * Percentage of the players that must rest in hammocks (N55): the option {@code server.hammock.restingPercentage}
+     * (0..100) or, at -1 (default), the game rule value {@code ruleValue} - so nothing changes unless an operator sets it.
+     */
+    public static int hammockRestingPercentage(int ruleValue) {
+        int own = ServerTuningConfig.clamp(get().hammock.restingPercentage, HAMMOCK_PERCENTAGE_FROM_RULE, 100);
+        return own == HAMMOCK_PERCENTAGE_FROM_RULE ? ruleValue : own;
     }
 
     /** Adjacent speakers that count per jukebox or note block (0..3; 0 = off); on a client the server's value. */

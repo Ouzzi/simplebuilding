@@ -2043,6 +2043,8 @@
   "text.autoconfig.simplebuilding.option.server.hammock": "Hängematte",
   "text.autoconfig.simplebuilding.option.server.hammock.timeFactor": "Zeitraffer-Faktor",
   "text.autoconfig.simplebuilding.option.server.hammock.timeFactor.@Tooltip": "Uhr-Ticks je Tick, solange genug Spieler\ntagsüber in Hängematten liegen, 1 bis 20\n(1 = aus). Serverseitig. Standard: 8.",
+  "text.autoconfig.simplebuilding.option.server.hammock.restingPercentage": "Liegende Spieler (%)",
+  "text.autoconfig.simplebuilding.option.server.hammock.restingPercentage.@Tooltip": "Anteil der Spieler, die in Hängematten liegen\nmüssen, wie playersSleepingPercentage, 0 bis 100.\n-1 = Spielregel gilt. Serverseitig. Standard: -1.",
   "text.autoconfig.simplebuilding.option.server.oreGeneration": "End-Erzvorkommen",
   "text.autoconfig.simplebuilding.option.server.oreGeneration.endOres": "End-Erze",
   "text.autoconfig.simplebuilding.option.server.oreGeneration.endOres.@Tooltip": "Hauptschalter für beide End-Erze. Aus: weder\nAstralit noch Nihilit entstehen. Wirkt beim\nnächsten Weltstart und nur in neu erzeugten\nChunks. Serverseitig. Standard: an.",

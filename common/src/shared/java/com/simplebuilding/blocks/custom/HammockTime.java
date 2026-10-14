@@ -20,7 +20,8 @@ import net.minecraft.world.level.gamerules.GameRules;
  *   <li>A hammock may be used in a dimension with a default clock and moving time (the overworld), at any time of
  *       day.</li>
  *   <li>Like vanilla sleeping, enough players must rest: at least {@code max(1, ceil(active * players_sleeping_percentage
- *       / 100))} of the non-spectators in that level; a percentage above 100 turns it off, as it does for beds.</li>
+ *       / 100))} of the non-spectators in that level; a percentage above 100 turns it off, as it does for beds. N55: the
+ *       server option {@code server.hammock.restingPercentage} (0..100) replaces the game rule value; -1 (default) keeps the rule.</li>
  *   <li>Then the level's clock gets {@code factor - 1} extra ticks per tick (server option {@code server.hammock.timeFactor},
  *       1 to {@link com.simplebuilding.config.ServerTuning#MAX_HAMMOCK_FACTOR}), once per clock and server tick, and only
  *       with the game rule {@code advance_time}. {@code addTicks} keeps nothing in the save, unlike a clock rate. Only the
@@ -76,7 +77,8 @@ public final class HammockTime {
                 resting++;
             }
         }
-        return extraTicks(active, resting, level.getGameRules().get(GameRules.PLAYERS_SLEEPING_PERCENTAGE), restAllowed(level),
+        return extraTicks(active, resting, com.simplebuilding.config.ServerTuning.hammockRestingPercentage(
+                        level.getGameRules().get(GameRules.PLAYERS_SLEEPING_PERCENTAGE)), restAllowed(level),
                 level.getGameRules().get(GameRules.ADVANCE_TIME), com.simplebuilding.config.ServerTuning.hammockTimeFactor());
     }
 

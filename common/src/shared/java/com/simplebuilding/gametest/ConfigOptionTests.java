@@ -825,6 +825,7 @@ public final class ConfigOptionTests {
             "server.craftyShulker.cooldownTicks int=60",
             "server.craftyShulker.radius int=8",
             "server.hammock.timeFactor int=8",
+            "server.hammock.restingPercentage int=-1",
             "server.speakers.maxSpeakers int=2",
             "server.speakers.boostPercent int=50",
             "server.speakers.maxChain int=16",
