@@ -2339,6 +2339,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "summary": "Handbuch zu dieser Mod: 17 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
         }
       },
+      "texture": "assets/textures/simplemobs/item/guide_book.png",
       "craftedBy": [
         "simplemobs:guide_book"
       ],

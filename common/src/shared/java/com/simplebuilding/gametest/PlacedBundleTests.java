@@ -93,7 +93,9 @@ public final class PlacedBundleTests {
             helper.assertTrue(be.getDisplayName().getString().equals(bundle.getHoverName().getString()),
                     "the placed bundle is called " + be.getDisplayName().getString() + " instead of " + bundle.getHoverName().getString());
         }
-        helper.assertTrue(bundleAt(helper, new BlockPos(1, 2, 1)).dyeColor() == 0x3C44AA,
+        int blueTint = com.simplebuilding.version.McVersion.VANILLA_DYEING
+                ? com.simplebuilding.util.StorageDyes.colour(net.minecraft.world.item.DyeColor.BLUE) : 0x3C44AA;
+        helper.assertTrue(bundleAt(helper, new BlockPos(1, 2, 1)).dyeColor() == blueTint,
                 "the blue vanilla bundle tints " + Integer.toHexString(bundleAt(helper, new BlockPos(1, 2, 1)).dyeColor()));
         helper.assertTrue(bundleAt(helper, new BlockPos(5, 2, 1)).dyeColor() == 0x80C71F, "the dyed bundle lost its colour");
 

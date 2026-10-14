@@ -4520,6 +4520,7 @@ window.WIKI_MODULE_DATA["simplemobheads"] = {
           "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobheads\" eins."
         }
       },
+      "texture": "assets/textures/simplemobheads/item/guide_book.png",
       "questionary": {
         "en": {
           "lore": [

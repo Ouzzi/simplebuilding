@@ -54,6 +54,9 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
   (`--targets all` für alle Linien). **Ein Filtermuster pro Aufruf** – Kommas nutzen still nur das erste.
 - Client-Tests: `python tools/testrunner/run.py --targets client` (seriell; Umgebungsvariable `SIMPLEBUILDING_CLIENT_ONLY`
   für einzelne Tests). Nur laufen lassen, wenn keine Besitzer-Clients offen sind.
+- Fehlende Texturen/Modelle (lila-schwarzes Karomuster): `python3 tools/check_missing_textures.py` (ohne Gradle; Item-Definitionen und
+  Blockstates -> Modelle -> Texturen für alle Namensräume inkl. `modules/*`; `--jar <client.jar>` prüft auch `minecraft:*`; Exit 1 bei ERROR).
+  Gefärbte Rucksäcke/Bündel/Köcher: `python3 tools/textures/dyed_storage_preview.py --check` (Vorschau ohne `--check`).
 - Texturen prüfen: `python tools/textures/generate_textures.py --check`. Handbücher: `python tools/guide_book_pages.py` (0 Probleme).
 - Historische Gate-Zahlen stehen in `docs/HANDOFF.md`; Ziele und Testanzahl ändern sich.
   Für jeden aktuellen Lauf die Ausgabe und „alles gruen“ lesen; alte Zahlen sind kein aktueller Beleg.

@@ -343,7 +343,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "1062a6373d1c"
+    "dataHash": "1c53dde06b4a"
   },
   {
     "id": "simplemobs",
@@ -358,7 +358,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "615af55eee23"
+    "dataHash": "14eb6b9bd2d0"
   },
   {
     "id": "simpleweather",
@@ -601,7 +601,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "e52860766689"
+    "dataHash": "0d806a09a723"
   },
   {
     "id": "simplemobheads",
@@ -626,6 +626,6 @@ window.WIKI_MODULES = [
       "jei",
       "modmenu"
     ],
-    "dataHash": "b6270fa7626a"
+    "dataHash": "108008c624d4"
   }
 ];

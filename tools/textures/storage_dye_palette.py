@@ -79,10 +79,12 @@ def item(name, rgb):
 
 
 def write_neutral_layers(src_root, out_root):
-    """Every *_dyed.png (item and block) as neutral grey into the 26.3 overlay (same relative path)."""
+    """Every *_dyed.png (item, block and the worn backpack entity/backpack) as neutral grey into the 26.3 overlay (same
+    relative path). entity/backpack was missing until 2026-10-14 (oc-missingtex): the worn dyed backpack kept the tier's
+    brown/violet tone, so every dye came out muddy there and differed from the item and the placed block."""
     import re
     count = 0
-    for sub in ('item', 'block'):
+    for sub in ('item', 'block', 'entity/backpack'):
         names = sorted(n for n in os.listdir(os.path.join(src_root, sub)) if n.endswith('_dyed.png'))
         group = lambda n: re.sub(r'_(front|back|side|top|open_back|open_front)(?=_dyed)', '', n)
         tops = {}
@@ -97,6 +99,11 @@ def write_neutral_layers(src_root, out_root):
 
 
 if __name__ == '__main__':
+    if '--write-only' in sys.argv:  # no Vanilla textures needed: python3 tools/textures/storage_dye_palette.py --write-only
+        n = write_neutral_layers(os.path.join(ROOT, 'src/main/resources/assets/simplebuilding/textures'),
+                                 os.path.join(ROOT, 'mc26_3/overlay/resources/assets/simplebuilding/textures'))
+        print(n, 'neutral dyed layers written')
+        sys.exit(0)
     if len(sys.argv) > 3 and sys.argv[3] == '--write':
         n = write_neutral_layers(os.path.join(ROOT, 'src/main/resources/assets/simplebuilding/textures'),
                                  os.path.join(ROOT, 'mc26_3/overlay/resources/assets/simplebuilding/textures'))

@@ -632,6 +632,7 @@ window.WIKI_MODULE_DATA["simpletrims"] = {
           "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Leuchttintenbeutel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Trims\" eins."
         }
       },
+      "texture": "assets/textures/simpletrims/item/guide_book.png",
       "questionary": {
         "en": {
           "lore": [

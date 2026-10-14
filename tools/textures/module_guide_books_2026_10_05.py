@@ -35,6 +35,11 @@ BOOKS = {
     "simpletweaks": ("simpletweaks", ("#1c2026", "#2c3239", "#8a96a2", "#68737e", "#525b64"), "#f05a4a", "Eisengrau, Claim-Rot"),
     "simplerespawn": ("simplerespawn", ("#300a10", "#4a1018", "#d0485a", "#a8303f", "#862430"), "#f6f6f6", "Karmesin, Verbandsweiss"),
     "simplebeacons": ("simplebeacons", ("#0a2a2c", "#124044", "#5cc4bc", "#3a9e98", "#2c7e7a"), "#fff2b0", "Prismarin, Netherstern"),
+    # 2026-10-14 (oc-missingtex): these four had a guide_book item but never a texture (purple/black in the inventory).
+    "simplemobheads": ("simplemobheads", ("#26241f", "#3c3a33", "#d8d2bc", "#b4ae98", "#8e8a76"), "#9cf0a0", "Knochenweiss, Creeper-Gruen"),
+    "simplemobs": ("simplemobs", ("#2a0e1c", "#421830", "#a8506e", "#86385a", "#682a46"), "#7ee8ff", "Dunkelrot, Seelenfeuer-Cyan"),
+    "simpleovens": ("simpleovens", ("#22201e", "#363230", "#9a9692", "#787470", "#5e5a56"), "#ff8a2a", "Ofenstein, Glutorange"),
+    "simpletrims": ("simpletrims", ("#141838", "#20285a", "#6a7ed0", "#4a5eae", "#3a4a8a"), "#ffd860", "Nachtblau, Besatzgold"),
 }
 
 
@@ -71,7 +76,8 @@ def main():
         return
     out = Path(args[0] if args else "C:/Users/o_o/code/minecraft-mods/previews/modul-buecher-vorschau.png")
     scale, cell, label_h = 16, 16 * 16 + 24, 52
-    sheet = Image.new("RGBA", (4 * cell + 16, 2 * (cell + label_h) + 16), (198, 198, 198, 255))
+    rows = (len(BOOKS) + 3) // 4
+    sheet = Image.new("RGBA", (4 * cell + 16, rows * (cell + label_h) + 16), (198, 198, 198, 255))
     d = ImageDraw.Draw(sheet)
     sb = gbt.mega_guide_book("guide").resize((64, 64), Image.Resampling.NEAREST)
     for i, module in enumerate(BOOKS):

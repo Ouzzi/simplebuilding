@@ -109,6 +109,14 @@ public final class PlacedBundles {
         }
         Identifier id = BuiltInRegistries.ITEM.getKey(stack.getItem());
         Integer vanilla = "minecraft".equals(id.getNamespace()) ? VANILLA_COLOURS.get(id.getPath()) : null;
+        if (vanilla != null && com.simplebuilding.version.McVersion.VANILLA_DYEING) {
+            // 26.3: the *_dyed layers are neutral grey and the dye table is the measured leather tone of the Vanilla
+            // bundle sprites (StorageDyes). The raw DyeColor diffuse colour came out darker than the same bundle in the
+            // inventory and darker than a dyed mod bundle of that color.
+            net.minecraft.world.item.DyeColor dye = net.minecraft.world.item.DyeColor.byName(
+                    id.getPath().substring(0, id.getPath().length() - "_bundle".length()), null);
+            return dye == null ? vanilla : StorageDyes.colour(dye);
+        }
         return vanilla == null ? DyedStorage.UNDYED : vanilla;
     }
 
