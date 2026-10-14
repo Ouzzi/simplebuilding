@@ -203,4 +203,14 @@ public final class BlueprintGameTest {
     public void blueprintShowsItsStateInItsTexture(GameTestHelper helper) {
         BlueprintTests.blueprintShowsItsStateInItsTexture(helper);
     }
+
+    @GameTest
+    public void blueprintTextExportImportRoundTrips(GameTestHelper helper) {
+        BlueprintTests.blueprintTextExportImportRoundTrips(helper);
+    }
+
+    @GameTest
+    public void blueprintTextImportRejectsInvalidInput(GameTestHelper helper) {
+        BlueprintTests.blueprintTextImportRejectsInvalidInput(helper);
+    }
 }

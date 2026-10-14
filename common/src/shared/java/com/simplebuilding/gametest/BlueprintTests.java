@@ -4,6 +4,7 @@ import com.simplebuilding.blueprint.BlueprintBuilder;
 import com.simplebuilding.blueprint.BlueprintCode;
 import com.simplebuilding.blueprint.BlueprintContent;
 import com.simplebuilding.blueprint.BlueprintExamples;
+import com.simplebuilding.blueprint.BlueprintFormats;
 import com.simplebuilding.blueprint.BlueprintJobs;
 import com.simplebuilding.blueprint.BlueprintMaterials;
 import com.simplebuilding.blueprint.BlueprintModel;
@@ -2094,5 +2095,112 @@ public final class BlueprintTests {
         } catch (java.io.IOException e) {
             throw new IllegalStateException("unreadable resource " + path, e);
         }
+    }
+
+    // =====================================================================================
+    // TEXT-AUSTAUSCH (Queue N55)
+    // =====================================================================================
+
+    /**
+     * Export und Import der Blaupause als Text: der Bau-Code bleibt buchstabengleich, die Befehlsliste
+     * ({@code setblock}/{@code fill}, relativ) ergibt beim Zurueck-Importieren dasselbe Modell (auch mit
+     * Blockzustaenden und Hohlformen), absolute Koordinaten werden an die kleinste Ecke gelegt, und das
+     * Ergebnis geht unveraendert durch den Server-Handler, ohne dass Items entstehen.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Export, der Bloecke oder Zustaende verliert; ein Import,
+     * der Koordinaten verschiebt oder anders liest; ein Import, der etwas ausser dem Plan erzeugt.
+     */
+    public static void blueprintTextExportImportRoundTrips(GameTestHelper helper) {
+        String code = "stone 0..3,0,0..2\noak_stairs[facing=north,half=top] 0,1,0\nglass hollow_box(5,0,0,8,3,3)";
+        BlueprintCode.ParseResult source = BlueprintCode.parse(code);
+        helper.assertTrue(source.ok() && !source.model().isEmpty(), "test code does not parse: " + source.problems());
+
+        BlueprintFormats.Exported asCode = BlueprintFormats.export(BlueprintFormats.Format.CODE, code);
+        helper.assertTrue(asCode.text().equals(code), "the code export changed the text");
+        BlueprintFormats.Imported backCode = BlueprintFormats.importText(asCode.text(), null);
+        helper.assertTrue(backCode.ok() && backCode.format() == BlueprintFormats.Format.CODE && backCode.model().equals(source.model()),
+                "code round trip failed: " + backCode.issues());
+
+        BlueprintFormats.Exported asCommands = BlueprintFormats.export(BlueprintFormats.Format.COMMANDS, code);
+        helper.assertTrue(!asCommands.tooLarge() && asCommands.text().contains("fill ~") && asCommands.text().contains("setblock ~0 ~1 ~0"),
+                "unexpected command export: " + asCommands.text());
+        BlueprintFormats.Imported backCommands = BlueprintFormats.importText(asCommands.text(), null);
+        helper.assertTrue(backCommands.ok() && backCommands.format() == BlueprintFormats.Format.COMMANDS
+                        && backCommands.model().normalized().equals(source.model().normalized()),
+                "command round trip failed: " + backCommands.issues() + " / " + asCommands.text());
+        // the produced code is valid and stable for a second round
+        BlueprintFormats.Imported again = BlueprintFormats.importText(backCommands.code(), BlueprintFormats.Format.CODE);
+        helper.assertTrue(again.ok() && again.model().equals(backCommands.model()), "imported code does not parse back: " + again.issues());
+
+        // absolute coordinates move to the lowest corner, a leading slash and comments are fine
+        BlueprintFormats.Imported absolute = BlueprintFormats.importText(
+                "# my house\n/fill 100 64 -20 101 64 -20 minecraft:stone\nsetblock 100 65 -20 oak_planks", null);
+        BlueprintModel expected = BlueprintCode.parse("stone 0..1,0,0\noak_planks 0,1,0").model();
+        helper.assertTrue(absolute.ok() && absolute.model().equals(expected), "absolute import failed: " + absolute.issues());
+
+        // importing only makes a plan: nothing but the blueprint ends up in the inventory
+        ServerPlayer player = mockPlayer(helper, false);
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        ItemStack stack = new ItemStack(ModItems.BLUEPRINT);
+        player.getInventory().setItem(0, stack);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, backCommands.code(), false, ""), player);
+        helper.assertTrue(BlueprintItem.content(stack).code().equals(backCommands.code()), "the imported code was not saved");
+        for (int i = 1; i < player.getInventory().getContainerSize(); i++) {
+            helper.assertTrue(player.getInventory().getItem(i).isEmpty(), "importing produced an item in slot " + i);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Ungueltige Importtexte werden abgelehnt und mit Zeile gemeldet: unbekannter Block, unbekannte
+     * Eigenschaft, nicht unterstuetzte Befehle/Modi/Koordinaten, leerer Text, zu langer Text, zu grosse
+     * Spanne, zu viele Befehle. Es gilt alles oder nichts (kein Teilmodell).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Import, der Unbekanntes still ueberspringt, Grenzen
+     * nicht prueft oder bei einem Fehler trotzdem Code liefert.
+     */
+    public static void blueprintTextImportRejectsInvalidInput(GameTestHelper helper) {
+        String[][] bad = {
+                {"setblock 0 0 0 not_a_block", "unknown_block"},
+                {"fill 0 0 0 1 1 1 stone\nsetblock 5 5 5 stone[nonsense=1]", "unknown_property"},
+                {"give @s diamond", "unknown_command"},
+                {"setblock ^ ^ ^1 stone", "local_coordinate"},
+                {"setblock 0 0 0 chest{Items:[]}", "block_data"},
+                {"fill 0 0 0 1 1 1 stone keep", "unsupported_mode"},
+                {"fill 0 0 0 1 1 1 stone replace dirt", "unsupported_filter"},
+                {"setblock 1.5 0 0 stone", "bad_coordinate"},
+                {"fill 0 0 0 300 0 0 stone", "span"},
+                {"   \n", "empty"},
+                {"# only a comment", "no_blocks"},
+        };
+        for (String[] c : bad) {
+            BlueprintFormats.Imported r = BlueprintFormats.importText(c[0], c[1].equals("empty") || c[1].equals("no_blocks") ? null : BlueprintFormats.Format.COMMANDS);
+            helper.assertTrue(!r.ok() && r.code().isEmpty() && r.model().isEmpty(), "accepted invalid import: " + c[0]);
+            helper.assertTrue(r.issues().stream().anyMatch(i -> i.langKey().endsWith("." + c[1])),
+                    "expected " + c[1] + " for '" + c[0] + "' but got " + r.issues());
+        }
+        // the first error carries its line
+        BlueprintFormats.Imported lined = BlueprintFormats.importText("setblock 0 0 0 stone\nsetblock 1 0 0 not_a_block", null);
+        helper.assertTrue(!lined.ok() && lined.issues().get(0).line() == 2, "the error line is wrong: " + lined.issues());
+
+        helper.assertTrue(!BlueprintFormats.importText("x".repeat(BlueprintFormats.MAX_IMPORT_CHARS + 1), null).ok(), "an overlong text was accepted");
+        StringBuilder many = new StringBuilder();
+        for (int i = 0; i <= com.simplebuilding.blueprint.BlueprintCommandText.MAX_COMMANDS; i++) {
+            many.append("setblock ").append(i % 200).append(' ').append((i / 200) % 100).append(" 0 stone\n");
+        }
+        helper.assertTrue(!BlueprintFormats.importText(many.toString(), BlueprintFormats.Format.COMMANDS).ok(), "too many commands were accepted");
+        // invalid code goes through the same checks as the editor
+        helper.assertTrue(!BlueprintFormats.importText("stne 0,0,0", BlueprintFormats.Format.CODE).ok(), "invalid code was accepted");
+
+        // the server still refuses an overlong code, whatever the client sends
+        ServerPlayer player = mockPlayer(helper, false);
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        ItemStack stack = new ItemStack(ModItems.BLUEPRINT);
+        player.getInventory().setItem(0, stack);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0,0,0\n".repeat(BlueprintCode.MAX_CODE_LENGTH), false, ""), player);
+        helper.assertTrue(BlueprintItem.content(stack).code().isEmpty(), "the server saved an overlong imported code");
+        helper.succeed();
     }
 }

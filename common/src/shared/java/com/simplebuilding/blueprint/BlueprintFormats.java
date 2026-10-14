@@ -100,7 +100,10 @@ public final class BlueprintFormats {
         if (issues.isEmpty() && parsed.model().isEmpty()) {
             issues.add(Issue.of(0, "no_blocks"));
         }
-        return new Imported(Format.CODE, text.stripTrailing(), parsed.model(), List.copyOf(issues));
+        if (!issues.isEmpty()) {
+            return new Imported(Format.CODE, "", new BlueprintModel(), List.copyOf(issues));
+        }
+        return new Imported(Format.CODE, text.stripTrailing(), parsed.model(), List.of());
     }
 
     private static Issue codeIssue(int line, BlueprintCode.Problem p) {
