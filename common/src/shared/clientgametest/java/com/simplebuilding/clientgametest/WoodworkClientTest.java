@@ -135,6 +135,13 @@ public final class WoodworkClientTest {
                 full.add(new ItemStack(Items.GOLDEN_CARROT, 64));
             }
             fillAt(level, 12, CRATE_Z, full);
+            // Queue N55: nine different kinds, the newest (cookies) on top; one more apple lifts the apples again.
+            level.setBlock(new BlockPos(13, 0, CRATE_Z), WoodBlocks.family(WoodKind.OAK).crate().defaultBlockState(), 3);
+            fillAt(level, 13, CRATE_Z, List.of(new ItemStack(Items.POTATO, 64), new ItemStack(Items.CARROT, 40), new ItemStack(Items.BREAD, 64),
+                    new ItemStack(Items.BEETROOT, 30), new ItemStack(Items.COOKED_BEEF, 20), new ItemStack(Items.MELON_SLICE, 64),
+                    new ItemStack(Items.BAKED_POTATO, 10), new ItemStack(Items.APPLE, 40), new ItemStack(Items.COOKIE, 64)));
+            level.setBlock(new BlockPos(14, 0, CRATE_Z), WoodBlocks.family(WoodKind.OAK).crate().defaultBlockState().setValue(CrateBlock.FACING, Direction.NORTH), 3);
+            fillAt(level, 14, CRATE_Z, List.of(new ItemStack(Items.CARROT, 64), new ItemStack(Items.CARROT, 20), new ItemStack(Items.BREAD, 30), new ItemStack(Items.APPLE, 12)));
         });
         script.awaitPackets();
         script.await("the client has the crate contents", 100,
@@ -149,6 +156,9 @@ public final class WoodworkClientTest {
                 {"crates-right", "13.4 0.6 13.6 45.0 25.0"},
                 {"crates-back", "8.5 0.6 18.4 180.0 30.0"},
                 {"crates-low", "8.5 0.0 13.0 0.0 15.0"},
+                {"crates-nine", "13.5 0.6 15.0 0.0 45.0"},
+                {"crates-nine-side", "13.5 0.2 14.3 0.0 10.0"},
+                {"crates-nine-pair", "13.9 0.9 14.4 0.0 40.0"},
         };
         for (String[] view : views) {
             script.command("tp @a " + view[1]);

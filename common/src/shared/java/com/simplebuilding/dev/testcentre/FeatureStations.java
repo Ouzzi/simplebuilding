@@ -906,7 +906,7 @@ public final class FeatureStations {
         c.wallSign(3, 2, wallZ, TcText.bold(TcText.t("woodwork.crawl", "Hollow logs")),
                 TcText.t("woodwork.crawl.sub", "sneak into a lying one"), TcText.t("woodwork.crawl.sub2", "to crawl through"));
         c.wallSign(7, 2, wallZ, TcText.bold(TcText.t("woodwork.crate", "Crates")),
-                TcText.t("woodwork.crate.sub", "food in, empty hand out"), TcText.t("woodwork.crate.sub2", "8 stacks, hoppers"));
+                TcText.t("woodwork.crate.sub", "food in, empty hand out"), TcText.t("woodwork.crate.sub2", "9 stacks, hoppers"));
         c.wallSign(11, 2, wallZ, TcText.bold(TcText.t("woodwork.carve", "Carving")),
                 TcText.t("woodwork.carve.sub", "sherd in off hand,"), TcText.t("woodwork.carve.sub2", "chisel a stripped log"));
         c.backWall(0, chestX + 1, wallZ, 5);

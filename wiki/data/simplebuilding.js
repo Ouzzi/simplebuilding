@@ -3875,23 +3875,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -6128,23 +6131,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -6378,23 +6384,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -9444,23 +9453,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -11979,23 +11991,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -12662,23 +12677,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -22923,23 +22941,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -25499,23 +25520,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -31024,23 +31048,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -32424,23 +32451,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -43264,23 +43294,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -46801,23 +46834,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -48128,23 +48164,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -49674,23 +49713,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -49936,23 +49978,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -52193,23 +52238,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -53504,23 +53552,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -54149,23 +54200,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -60039,23 +60093,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -61885,23 +61942,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -64951,23 +65011,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -65752,23 +65815,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -71848,23 +71914,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]
@@ -74921,23 +74990,26 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlock.java",
           "common/src/shared/java/com/simplebuilding/woodwork/CrateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/woodwork/client/CrateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/woodwork/client/CrateMesh.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "common/src/shared/java/com/simplebuilding/woodwork/WoodKind.java"
         ],
         "en": {
-          "summary": "Crates are open wooden boxes shaped like the composter that store up to 8 stacks of food; the top layers show the stored items.",
+          "summary": "Crates are open wooden boxes shaped like the composter that store up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats.",
           "details": [
             "Crafting: 7 planks of one wood in a U shape.",
             "Right-click with food puts the held stack in; an empty hand takes the top stack out, sneaking with an empty hand takes one item. Only food goes in (plus the item tag simplebuilding:crate_storable).",
+            "A crate takes at most 9 different kinds of item (hoppers too, a tenth kind is refused). Each kind is one layer as high as its share of the crate and looks like the item; the kind put in last lies on top, a kind topped up moves up again. The layers show through the slat gaps and from above, and the kinds also appear as small icons on the outer walls.",
             "Hoppers fill and empty crates, a comparator reads the fill level, and breaking a crate drops its contents and the crate.",
             "(with Simple End) Ashwood and Duskwood crates from Simple End planks."
           ]
         },
         "de": {
-          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 8 Stapel Essen aufnehmen; die obersten Lagen zeigen die eingelagerten Items.",
+          "summary": "Kisten sind offene Holzkästen in Komposterform, die bis zu 9 Stapel Essen aus höchstens 9 Sorten aufnehmen; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar.",
           "details": [
             "Herstellung: 7 Bretter einer Holzart in U-Form.",
             "Rechtsklick mit Essen legt den gehaltenen Stapel hinein; leere Hand nimmt den obersten Stapel heraus, schleichend mit leerer Hand ein Stück. Nur Essen passt hinein (dazu der Item-Tag simplebuilding:crate_storable).",
+            "Eine Kiste nimmt höchstens 9 verschiedene Item-Sorten auf (auch per Trichter, eine zehnte Sorte wird abgelehnt). Jede Sorte ist eine Lage, so hoch wie ihr Anteil an der Kiste, und sieht aus wie das Item; die zuletzt eingelegte Sorte liegt oben, eine aufgefüllte Sorte rückt wieder nach oben. Die Lagen sind durch die Lattenlücken und von oben sichtbar, die Sorten erscheinen zusätzlich als kleine Symbole an den Außenwänden.",
             "Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und beim Abbau fallen Inhalt und Kiste heraus.",
             "(mit Simple End) Aschholz- und Dämmerholzkisten aus Simple-End-Brettern."
           ]

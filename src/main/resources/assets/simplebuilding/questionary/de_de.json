@@ -2407,7 +2407,7 @@
       "{name}: eine offene Kiste aus Brettern, in der die Ernte auf den Topf wartet."
     ],
     "use": [
-      "Lagert bis zu 8 Stapel Nahrung; die obersten Lagen zeigen den Inhalt. Hergestellt aus 7 Brettern einer Holzart in U-Form. Rechtsklick mit Essen legt den Stapel hinein, eine leere Hand nimmt den obersten heraus."
+      "Lagert bis zu 9 Stapel Nahrung aus höchstens 9 Sorten; jede Sorte ist eine Lage, die neueste oben, durch die Latten sichtbar. Hergestellt aus 7 Brettern einer Holzart in U-Form. Rechtsklick mit Essen legt den Stapel hinein, eine leere Hand nimmt den obersten heraus."
     ],
     "secret": [
       "Schleichen mit leerer Hand nimmt nur ein Stück. Trichter füllen und leeren Kisten, ein Komparator liest den Füllstand, und das Tag simplebuilding:crate_storable erlaubt Modpacks auch Nicht-Nahrung."

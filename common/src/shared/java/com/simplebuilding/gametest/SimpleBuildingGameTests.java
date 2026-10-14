@@ -390,6 +390,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("woodwork_game_test_crates_store_food_for_hoppers_and_comparators", WoodworkTests::cratesStoreFoodForHoppersAndComparators)
                     .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("woodwork_game_test_crates_take_at_most_nine_kinds", WoodworkTests::cratesTakeAtMostNineKinds)
+                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("woodwork_game_test_crates_layer_the_newest_kind_on_top", WoodworkTests::cratesLayerTheNewestKindOnTop)
+                    .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("woodwork_game_test_crates_turn_like_barrels_and_keep_their_food", WoodworkTests::cratesTurnLikeBarrelsAndKeepTheirFood)
                     .maxTicks(WoodworkTests.CAULDRON_MAX_TICKS)
                     .build(),

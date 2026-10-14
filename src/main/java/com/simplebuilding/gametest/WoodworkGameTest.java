@@ -40,6 +40,16 @@ public final class WoodworkGameTest {
     }
 
     @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
+    public void cratesTakeAtMostNineKinds(GameTestHelper helper) {
+        WoodworkTests.cratesTakeAtMostNineKinds(helper);
+    }
+
+    @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
+    public void cratesLayerTheNewestKindOnTop(GameTestHelper helper) {
+        WoodworkTests.cratesLayerTheNewestKindOnTop(helper);
+    }
+
+    @GameTest(maxTicks = WoodworkTests.CAULDRON_MAX_TICKS)
     public void cratesTurnLikeBarrelsAndKeepTheirFood(GameTestHelper helper) {
         WoodworkTests.cratesTurnLikeBarrelsAndKeepTheirFood(helper);
     }
