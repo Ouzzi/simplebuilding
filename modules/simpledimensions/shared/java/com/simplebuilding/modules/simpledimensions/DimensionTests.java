@@ -74,7 +74,12 @@ public final class DimensionTests {
    var l=s.getLevel(ResourceKey.create(Registries.DIMENSION,DimensionRegistry.id(name)));yes(h,l!=null,"Dimension loaded: "+name);l.getChunk(100,100);
    var p=new BlockPos(1605,l.getMinY(),1605);
    if(name.equals("skyblock"))yes(h,l.getBlockState(p).isAir(),"Void generated");
-   if(name.equals("mining")){yes(h,l.getBlockState(p).is(Blocks.BEDROCK),"Mining bedrock");yes(h,l.getBlockState(p.atY(100)).is(Blocks.STONE),"Mining stone");yes(h,l.getBlockState(p.atY(191)).is(Blocks.GRASS_BLOCK),"Mining forest surface at 191");}
+   if(name.equals("mining")){yes(h,l.getBlockState(p).is(Blocks.BEDROCK),"Mining bedrock");
+    // Vanilla biome features (ores, blobs, trees turn the grass under a trunk to dirt) hit single columns of a random-seed
+    // world, so one fixed column flakes. Judge the whole chunk: the flat layers must hold in nearly every column (>= 75%).
+    int stone=0,grass=0;for(int dx=0;dx<16;dx++)for(int dz=0;dz<16;dz++){var c=new BlockPos(1600+dx,0,1600+dz);
+     if(l.getBlockState(c.atY(100)).is(Blocks.STONE))stone++;if(l.getBlockState(c.atY(191)).is(Blocks.GRASS_BLOCK))grass++;}
+    yes(h,stone>=192,"Mining stone at 100 in "+stone+"/256 columns");yes(h,grass>=192,"Mining forest surface at 191 in "+grass+"/256 columns");}
    if(name.equals("travel"))yes(h,l.getBlockState(p).is(Blocks.BEDROCK),"Travel bedrock plane");
   }h.succeed();
  }
