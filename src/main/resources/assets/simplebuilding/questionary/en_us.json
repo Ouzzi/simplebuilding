@@ -2407,7 +2407,7 @@
       "{name}: an open box of planks where the harvest waits for the pot."
     ],
     "use": [
-      "Stores up to 8 stacks of food; the top layers show what lies inside. Craft from 7 planks of one wood in a U. Right-click with food puts the stack in, an empty hand takes the top stack out."
+      "Stores up to 9 stacks of food in at most 9 different kinds; each kind is a layer, the newest on top, seen through the slats. Craft from 7 planks of one wood in a U. Right-click with food puts the stack in, an empty hand takes the top stack out."
     ],
     "secret": [
       "Sneaking with an empty hand takes just one item. Hoppers fill and empty crates, a comparator reads the fill level, and the tag simplebuilding:crate_storable lets modpacks allow non-food items."

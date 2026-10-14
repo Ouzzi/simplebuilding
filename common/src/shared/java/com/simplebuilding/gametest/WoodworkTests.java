@@ -17,6 +17,9 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -26,6 +29,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
@@ -41,8 +45,8 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): hollow logs (tube, crawling, small mobs), sheets (connect, let light
- * through), wooden cauldrons (Vanilla interactions, burning with lava, Nether wood holds it), crates (food only, eight
- * stacks, comparator, hopper, drops) and carving sherd motifs with the chisel. Loader-neutral; without
+ * through), wooden cauldrons (Vanilla interactions, burning with lava, Nether wood holds it), crates (food only, nine
+ * stacks and kinds, newest kind on top, comparator, hopper, drops) and carving sherd motifs with the chisel. Loader-neutral; without
  * {@link McVersion#WOODWORK} the tests pass without checking.
  */
 public final class WoodworkTests {
@@ -266,8 +270,8 @@ public final class WoodworkTests {
         check(player.getMainHandItem().getCount() == 10, fails, "dirt stays in the hand");
         useBlock(helper, player, new ItemStack(Items.BREAD, 40), rel);
         check(crate.countItem(Items.BREAD) == 40 && player.getMainHandItem().isEmpty(), fails, "the bread stack goes in");
-        ItemStack rest = crate.insert(new ItemStack(Items.APPLE, 64 * 8));
-        check(crate.countItem(Items.APPLE) == 64 * 7 && rest.getCount() == 64, fails, "eight stacks in all (apples " + crate.countItem(Items.APPLE) + ")");
+        ItemStack rest = crate.insert(new ItemStack(Items.APPLE, 64 * 9));
+        check(crate.countItem(Items.APPLE) == 64 * 8 && rest.getCount() == 64, fails, "nine stacks in all (apples " + crate.countItem(Items.APPLE) + ")");
         int signal = helper.getBlockState(rel).getAnalogOutputSignal(helper.getLevel(), helper.absolutePos(rel), Direction.NORTH);
         check(signal >= 14, fails, "comparator reads it nearly full (" + signal + ")");
         useBlock(helper, player, ItemStack.EMPTY, rel);
@@ -301,6 +305,113 @@ public final class WoodworkTests {
             }
             check(beef == 3, fails, "breaking drops the contents (" + beef + ")");
             check(crateItem, fails, "breaking drops the crate");
+            finish(helper, fails);
+        });
+    }
+
+    private static final Item[] NINE_FOODS = {Items.APPLE, Items.BREAD, Items.CARROT, Items.POTATO, Items.BAKED_POTATO,
+            Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.MELON_SLICE, Items.COOKIE};
+
+    private static List<Item> kinds(CrateBlockEntity crate) {
+        return crate.layers().stream().map(layer -> layer.kind().getItem()).toList();
+    }
+
+    /**
+     * Queue N55: a crate holds at most nine different kinds. A tenth is refused by {@code insert}, {@code canPlaceItem},
+     * by hand and by a hopper (which still passes on what the crate takes), while a kind that is in already still fills up.
+     */
+    public static void cratesTakeAtMostNineKinds(GameTestHelper helper) {
+        if (!McVersion.WOODWORK) {
+            helper.succeed();
+            return;
+        }
+        List<String> fails = new ArrayList<>();
+        BlockPos rel = new BlockPos(2, 2, 2);
+        helper.setBlock(rel, oak().crate());
+        CrateBlockEntity crate = (CrateBlockEntity) helper.getBlockEntity(rel, CrateBlockEntity.class);
+        for (Item food : NINE_FOODS) {
+            check(crate.insert(new ItemStack(food, 3)).isEmpty(), fails, food + " goes in");
+        }
+        check(crate.kindCount() == 9 && crate.layers().size() == 9, fails, "nine kinds, nine layers (" + crate.kindCount() + ")");
+        ItemStack rest = crate.insert(new ItemStack(Items.BEETROOT, 3));
+        check(rest.getCount() == 3 && crate.countItem(Items.BEETROOT) == 0, fails, "insert refuses a tenth kind");
+        check(!crate.canPlaceItem(0, new ItemStack(Items.BEETROOT)) && crate.canPlaceItem(0, new ItemStack(Items.APPLE)), fails,
+                "canPlaceItem: no tenth kind, but more of a present one");
+        ServerPlayer player = player(helper, GameType.SURVIVAL);
+        useBlock(helper, player, new ItemStack(Items.BEETROOT, 10), rel);
+        check(crate.countItem(Items.BEETROOT) == 0 && player.getMainHandItem().getCount() == 10, fails, "by hand: the tenth kind stays in the hand");
+        check(crate.insert(new ItemStack(Items.APPLE, 5)).isEmpty() && crate.countItem(Items.APPLE) == 8 && crate.kindCount() == 9, fails,
+                "a present kind still fills up (apples " + crate.countItem(Items.APPLE) + ")");
+        // a hopper above: beetroot in slot 0 (refused), apples in slot 1 (taken)
+        BlockPos above = rel.above();
+        helper.setBlock(above, Blocks.HOPPER);
+        var hopper = (net.minecraft.world.Container) helper.getBlockEntity(above, net.minecraft.world.level.block.entity.HopperBlockEntity.class);
+        hopper.setItem(0, new ItemStack(Items.BEETROOT, 3));
+        hopper.setItem(1, new ItemStack(Items.APPLE, 3));
+        helper.runAfterDelay(60, () -> {
+            check(hopper.countItem(Items.BEETROOT) == 3 && crate.countItem(Items.BEETROOT) == 0, fails,
+                    "the hopper cannot put a tenth kind in (crate beetroot " + crate.countItem(Items.BEETROOT) + ")");
+            check(hopper.countItem(Items.APPLE) == 0 && crate.countItem(Items.APPLE) == 11, fails,
+                    "the hopper does pass on a present kind (crate apples " + crate.countItem(Items.APPLE) + ")");
+            check(crate.kindCount() == 9, fails, "still nine kinds");
+            // make room: empty one kind, the tenth now goes in
+            crate.removeItem(crate.items().indexOf(crate.items().stream().filter(s -> s.is(Items.COOKIE)).findFirst().orElseThrow()), 64);
+            check(crate.kindCount() == 8 && crate.insert(new ItemStack(Items.BEETROOT, 3)).isEmpty(), fails, "after one kind is gone a new one fits");
+            finish(helper, fails);
+        });
+    }
+
+    /**
+     * Queue N55: the layers lie in the order the kinds were put in, the newest on top. A kind that is topped up moves up
+     * again (also when a hopper merges into its stack), a kind that is only taken from keeps its place, the empty hand
+     * takes from the top layer; order and amounts survive saving, and the client gets just kinds and amounts.
+     */
+    public static void cratesLayerTheNewestKindOnTop(GameTestHelper helper) {
+        if (!McVersion.WOODWORK) {
+            helper.succeed();
+            return;
+        }
+        List<String> fails = new ArrayList<>();
+        BlockPos rel = new BlockPos(2, 2, 2);
+        helper.setBlock(rel, oak().crate());
+        CrateBlockEntity crate = (CrateBlockEntity) helper.getBlockEntity(rel, CrateBlockEntity.class);
+        crate.insert(new ItemStack(Items.APPLE, 10));
+        crate.insert(new ItemStack(Items.BREAD, 10));
+        crate.insert(new ItemStack(Items.CARROT, 10));
+        check(kinds(crate).equals(List.of(Items.APPLE, Items.BREAD, Items.CARROT)), fails, "first in, lowest: " + kinds(crate));
+        crate.insert(new ItemStack(Items.APPLE, 5));
+        check(kinds(crate).equals(List.of(Items.BREAD, Items.CARROT, Items.APPLE)), fails, "topping up apples lifts them: " + kinds(crate));
+        crate.insert(new ItemStack(Items.APPLE, 1));
+        check(kinds(crate).equals(List.of(Items.BREAD, Items.CARROT, Items.APPLE)) && crate.layers().get(2).count() == 16, fails,
+                "the top kind stays on top (" + kinds(crate) + ")");
+        // taking from a lower kind keeps the order
+        crate.removeItem(crate.items().indexOf(crate.items().stream().filter(s -> s.is(Items.BREAD)).findFirst().orElseThrow()), 3);
+        check(kinds(crate).equals(List.of(Items.BREAD, Items.CARROT, Items.APPLE)) && crate.layers().get(0).count() == 7, fails,
+                "taking keeps the order (" + kinds(crate) + ")");
+        // persistence and the update for the client
+        var registries = helper.getLevel().registryAccess();
+        BlockPos at = helper.absolutePos(rel);
+        CrateBlockEntity saved = new CrateBlockEntity(at, crate.getBlockState());
+        saved.loadCustomOnly(TagValueInput.create(ProblemReporter.DISCARDING, registries, crate.saveCustomOnly(registries)));
+        check(kinds(saved).equals(kinds(crate)) && saved.countItem(Items.APPLE) == 16, fails, "saving keeps order and amounts (" + kinds(saved) + ")");
+        CompoundTag update = crate.getUpdateTag(registries);
+        check(update.get("Items") == null && update.get("Layers") != null, fails, "the update carries layers, not stacks: " + update);
+        CrateBlockEntity client = new CrateBlockEntity(at, crate.getBlockState());
+        client.loadCustomOnly(TagValueInput.create(ProblemReporter.DISCARDING, registries, update));
+        check(kinds(client).equals(kinds(crate)) && client.countItem(Items.CARROT) == 10 && !client.isEmpty(), fails,
+                "the client sees the same layers (" + kinds(client) + ")");
+        // a hopper above merges bread into its stack: bread goes to the top
+        BlockPos above = rel.above();
+        helper.setBlock(above, Blocks.HOPPER);
+        ((net.minecraft.world.Container) helper.getBlockEntity(above, net.minecraft.world.level.block.entity.HopperBlockEntity.class))
+                .setItem(0, new ItemStack(Items.BREAD, 2));
+        helper.runAfterDelay(40, () -> {
+            check(kinds(crate).equals(List.of(Items.CARROT, Items.APPLE, Items.BREAD)) && crate.layers().get(2).count() == 9, fails,
+                    "a hopper merging bread lifts it to the top (" + kinds(crate) + ")");
+            ServerPlayer player = player(helper, GameType.SURVIVAL);
+            useBlock(helper, player, ItemStack.EMPTY, rel);
+            check(player.getInventory().countItem(Items.BREAD) == 9 && kinds(crate).equals(List.of(Items.CARROT, Items.APPLE)), fails,
+                    "the empty hand takes the top layer's stack (" + player.getInventory().countItem(Items.BREAD) + ", " + kinds(crate) + ")");
             finish(helper, fails);
         });
     }
