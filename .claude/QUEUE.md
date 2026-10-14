@@ -259,20 +259,20 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
 ## Nachtrag 55 (2026-10-14, Besitzer)
-- [ ] Sculk Jaws: spawnen nur mitten in Sculk – Bedingung: 5 Sculk-Blöcke rundherum unten, am unteren Block 4 (genaue Form beim Planen festlegen).
-- [ ] Rucksack- und Bundle-Färbungen sind nicht korrekt – prüfen und fixen.
-- [ ] Vorschlaghammer in der Welt: rissiger Diamantblock → 9 Schläge → Diamant-Pebbles; Diamantblock → 9 Schläge → Diamant-Pebbles.
-- [ ] Echolot (Echo Sounder): besserer Fehlschlag-Sound, wenn nicht verbunden.
-- [ ] Einige Items haben keine Textur mehr (graues Karomuster im Inventar) – alle finden und fixen (vgl. Gate-Rot cracked_ice_0, Job oc-gatefix2).
-- [ ] Obsidian-Splitter nur noch per Vorschlaghammer-Umwandlung (analog Diamant-Pebble); dazu Weinender-Obsidian-Splitter und Blazing-Obsidian-Splitter neu.
+- [x] (oc-n55-small) Sculk Jaws: spawnen nur mitten in Sculk – Bedingung: 5 Sculk-Blöcke rundherum unten, am unteren Block 4 (genaue Form beim Planen festlegen).
+- [x] (oc-missingtex) Rucksack- und Bundle-Färbungen sind nicht korrekt – prüfen und fixen.
+- [x] (oc-n55-hammer) Vorschlaghammer in der Welt: rissiger Diamantblock → 9 Schläge → Diamant-Pebbles; Diamantblock → 9 Schläge → Diamant-Pebbles.
+- [x] (oc-n55-small) Echolot (Echo Sounder): besserer Fehlschlag-Sound, wenn nicht verbunden.
+- [x] (oc-missingtex) Einige Items haben keine Textur mehr (graues Karomuster im Inventar) – alle finden und fixen (vgl. Gate-Rot cracked_ice_0, Job oc-gatefix2).
+- [x] (oc-n55-hammer) Obsidian-Splitter nur noch per Vorschlaghammer-Umwandlung (analog Diamant-Pebble); dazu Weinender-Obsidian-Splitter und Blazing-Obsidian-Splitter neu.
 - [ ] Ziegel (Bricks) beim Platzieren wie Barren 3D legen; Diamanten und Smaragde bekommen ebenfalls eine 3D-Form. Mit dem Vorschlaghammer auf das platzierte 3D-Item hauen → 2D, nochmal → wieder 3D (nur unterstützte Items).
 - [ ] Crates: seitlich bis zu 9 verschiedene enthaltene Items anzeigen. Inhalt wie das Besitzer-Referenzbild rendern (Bild liegt in dieser Sitzung NICHT vor – beim Besitzer anfordern): jedes Item bekommt je nach Anzahl eine Schicht, die aussieht, als bestünde sie aus dem Item; max. 9 verschiedene Items je Crate; zuletzt eingelegtes Item liegt oben, ältere Schichten werden hochgeschoben.
-- [ ] Enchanter: am Buch-Button nicht die benötigten Level anzeigen (stehen schon oben), sondern wie viele Level abgezogen werden.
+- [x] (oc-n55-small) Enchanter: am Buch-Button nicht die benötigten Level anzeigen (stehen schon oben), sondern wie viele Level abgezogen werden.
 - [ ] Blazing Obsidian ist immer noch nicht gut → Rework (Konzept/Textur/Verhalten) notiert.
-- [ ] Notenblock-Verstärker funktioniert nicht – dasselbe Prinzip wie beim (funktionierenden) Jukebox-Verstärker anwenden.
+- [x] (oc-n55-small) Notenblock-Verstärker funktioniert nicht – dasselbe Prinzip wie beim (funktionierenden) Jukebox-Verstärker anwenden.
 - [ ] Aschholz-Blätter sollen wie Spinnennetze wirken (verlangsamen; Details beim Planen).
 - [ ] Blaupause: Import-/Export-Button für andere Bau-Formate („block languages“) – Modal mit Kopieren-Button (Export) bzw. Einfügen-Button (Import).
-- [ ] Hängematte: Einstellung wie playersSleepingPercentage (Anteil Spieler in Hängematte für Nachtsprung o. Ä.).
+- [x] (oc-n55-small) Hängematte: Einstellung wie playersSleepingPercentage (Anteil Spieler in Hängematte für Nachtsprung o. Ä.).
 - [ ] Death Vault umbauen (aktuelle Funktion nicht zuverlässig): überzählige Funktionen (Zurückkaufen usw.) als „zukünftig“ markieren/abschalten. Neue Kernfunktion: anzeigen, welche Items beim Tod gedroppt wurden, farbcodiert nach Verbleib – von anderem Spieler aufgehoben, verbrannt, despawnt, ins Void gefallen, anders verschwunden –, damit man sieht, ob sich der Weg lohnt. Noch liegende Items: Despawn-Timer (Fortschrittsbalken wie Ofen); steht der Timer, weil der Chunk nicht geladen ist, das anzeigen.
 - [ ] Kopf-Slot verhält sich wie der Helm-Slot für Köpfe: Kopf ersetzt mit Item-Model den Kopf, Effekte werden übernommen; Anzieh-Sounds; Item-Model des Kopf-Slots hat Vorrang vor dem Helm, Effekte beider gelten. Kopfgrößen möglichst gleich den Mob-Kopf-Größen an den Mob-Modellen.
 - [ ] Hollow Howler gruseliger: Recherche Sounddesign (Horror-Audio, Vanilla-Mob-Sounds) und Visual Design, daraus Verbesserungsplan, dann umsetzen.
@@ -304,7 +304,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Brücken-Redstone-Textur: Schichten z-fighten in der Höhe → einfache Textur ohne Überlagerung. (claude-n52)
 - [x] Dynamisches Licht auch für Fackel in der Hand (wie Laterne/Lava). (claude-n52)
 - [x] Rissiges Eis wird nicht richtig gerendert (Besitzer-Screenshot 13.10.: platzierter Block fast unsichtbar, nur Umriss sichtbar, Inhalt wirkt wie durchsichtig/fehlende Textur bzw. falscher Render-Layer). (claude-n52)
-- [ ] Rissiger Diamant + Vorschlaghammer In-World → 9 Diamant-Kiesel (nach Aufteilung 3d, da rissiger Diamant nach SimpleLib zieht).
+- [x] (oc-n55-hammer) Rissiger Diamant + Vorschlaghammer In-World → 9 Diamant-Kiesel (nach Aufteilung 3d, da rissiger Diamant nach SimpleLib zieht).
 
 ## Nachtrag 51 (2026-10-13, Besitzer)
 - [ ] Redstone-Kompatibilität: Astral-/Nihil-Geräte akzeptieren alle 3 Redstone-Arten + Brücken-Redstone (Connector); alle Redstone-Geräte (Vanilla + Mod) akzeptieren alle Mod-Redstone-Linien. Fehlende Blöcke ergänzen: Astral-Redstone-Block, Nihil-Redstone-Block (usw., analog Vanilla-Redstone-Block) und Brücken-Redstone-Block.
