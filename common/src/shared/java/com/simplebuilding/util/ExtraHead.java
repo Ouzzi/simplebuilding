@@ -1,7 +1,8 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.Simplebuilding;
-import net.minecraft.core.registries.BuiltInRegistries;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
@@ -11,16 +12,22 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.AbstractSkullBlock;
+import net.minecraft.world.level.block.SkullBlock;
 
 /**
  * The extra head slot of the player inventory (owner N49, 2026-10-12): above the off-hand slot, level with the
  * helmet slot. It takes one mob head (every item of {@code #minecraft:skulls} - Vanilla's and the mod heads - plus
  * other mods' heads through {@code #simplebuilding:extra_head_slot}) or a carved pumpkin. The head works as if worn:
  * a carved pumpkin keeps endermen calm, a mob head lowers that mob's detection range like in the helmet slot, the
- * SimpleBuilding head abilities apply; it is drawn on the player and a helmet sits over it.
+ * SimpleBuilding head abilities apply, so do the head item's attribute modifiers and its freeze immunity
+ * ({@link ExtraHeadEffects}, {@code LivingEntityExtraHeadFreezeMixin}); putting it in plays the equip sound
+ * ({@code PlayerExtraHeadMixin}); it is drawn on the player like a worn head and a helmet sits over it. With a head in
+ * the helmet slot as well, both heads' effects apply and only the extra head's model is drawn (owner N55, {@link #heads}).
  *
  * <p>The stack lives in the player's synced entity data ({@code PlayerExtraHeadMixin}): saved with the player, sent
  * to every client that sees the player (rendering), dropped on death unless {@code keepInventory}. Every menu slot
@@ -42,6 +49,11 @@ public final class ExtraHead {
         ItemStack simplebuilding$getExtraHead();
 
         void simplebuilding$setExtraHead(ItemStack stack);
+
+        /** The attribute modifiers {@link ExtraHeadEffects} has put on the player for the extra head. */
+        List<ExtraHeadEffects.Applied> simplebuilding$getAppliedHeadModifiers();
+
+        void simplebuilding$setAppliedHeadModifiers(List<ExtraHeadEffects.Applied> applied);
     }
 
     /** Whether {@code stack} may go into the extra head slot. */
@@ -157,32 +169,58 @@ public final class ExtraHead {
 
     /**
      * How a helmet fits over the head in the extra slot (owner N49: per head, visible, no z-fighting): the helmet is
-     * scaled by {@code helmetScale} around the neck pivot so it encloses the head; {@code onTop} heads (the tiny
-     * silverfish head) are drawn on top of the helmet instead, the helmet stays as it is.
+     * scaled by {@code helmetScale} around the neck pivot so it encloses the head. Mod heads replace the wearer's head
+     * like in the helmet slot (owner 2026-10-01), so even the tiny ones need no special place any more.
      */
-    public record Fit(float helmetScale, boolean onTop) {
-        /** Mob skulls: 8 px x 1.1875 = 9.5 px from the neck up; a helmet (10 px, 1 px below the neck) scaled 1.1. */
-        public static final Fit SKULL = new Fit(1.1F, false);
+    public record Fit(float helmetScale) {
+        /** Vanilla mob skulls: 8 px x 1.1875 = 9.5 px from the neck up; a helmet (10 px, 1 px below the neck) scaled 1.1. */
+        public static final Fit SKULL = new Fit(1.1F);
     }
 
-    /** The fit for this head item (by its registry path, so mod heads of other mods get the default). */
+    /**
+     * The fit for this head item. Mod heads (Simple Mobheads) are sized by the worn edge their look reports through
+     * {@link HeadLooks#skullEdge} (owner N55: as big as on the mob), the helmet then clears that edge by 0.5 px per side.
+     */
     public static Fit fit(ItemStack head) {
         if (head.is(Items.CARVED_PUMPKIN)) {
-            return new Fit(1.12F, false); // the pumpkin block is drawn 10 px wide like the helmet
+            return new Fit(1.12F); // the pumpkin block is drawn 10 px wide like the helmet
         }
         if (head.is(Items.PIGLIN_HEAD)) {
-            return new Fit(1.3F, false); // 10 px wide snout head
+            return new Fit(1.3F); // 10 px wide snout head
         }
         if (head.is(Items.DRAGON_HEAD)) {
-            return new Fit(1.75F, false);
+            return new Fit(1.75F);
         }
-        String path = BuiltInRegistries.ITEM.getKey(head.getItem()).getPath();
-        if (path.equals("silverfish_head")) {
-            return new Fit(1.0F, true); // 4 x 3 x 4 px: inside the player's head, so it sits on top of the helmet
-        }
-        if (path.equals("shulker_head") || path.equals("breeze_head")) {
-            return new Fit(1.3F, false);
+        if (head.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof AbstractSkullBlock skull) {
+            float edge = HeadLooks.skullEdge(skull.getType());
+            if (edge > 0.0F) {
+                return new Fit(Math.max(1.0F, (edge + 1.0F) / 10.0F));
+            }
         }
         return Fit.SKULL;
+    }
+
+    /** Whether the skull of {@code head} is a mod skull type: it replaces the wearer's head instead of sitting over it. */
+    public static boolean replacesHead(ItemStack head) {
+        return head.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof AbstractSkullBlock skull
+                && !(skull.getType() instanceof SkullBlock.Types);
+    }
+
+    /**
+     * The heads {@code entity} wears in the order they are drawn (owner N55): the extra head slot first - its model is
+     * the one drawn, it wins over a head in the helmet slot - then a head in the helmet slot. The effects of every
+     * entry apply; only the first is shown.
+     */
+    public static List<ItemStack> heads(LivingEntity entity) {
+        List<ItemStack> out = new ArrayList<>(2);
+        ItemStack extra = get(entity);
+        if (!extra.isEmpty()) {
+            out.add(extra);
+        }
+        ItemStack helmet = entity.getItemBySlot(EquipmentSlot.HEAD);
+        if (!helmet.isEmpty() && (helmet.is(ItemTags.SKULLS) || helmet.is(Items.CARVED_PUMPKIN) || helmet.is(EXTRA_HEAD_ITEMS))) {
+            out.add(helmet);
+        }
+        return out;
     }
 }

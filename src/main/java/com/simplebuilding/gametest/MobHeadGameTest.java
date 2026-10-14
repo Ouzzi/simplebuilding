@@ -104,4 +104,19 @@ public final class MobHeadGameTest {
     public void extraHeadEffectsWorkLikeTheHelmetSlot(GameTestHelper helper) {
         MobHeadTests.extraHeadEffectsWorkLikeTheHelmetSlot(helper);
     }
+
+    @GameTest
+    public void extraHeadAttributesAndFreezeWorkLikeTheHelmetSlot(GameTestHelper helper) {
+        MobHeadTests.extraHeadAttributesAndFreezeWorkLikeTheHelmetSlot(helper);
+    }
+
+    @GameTest
+    public void helmetHeadAndExtraHeadBothApplyAndTheExtraHeadComesFirst(GameTestHelper helper) {
+        MobHeadTests.helmetHeadAndExtraHeadBothApplyAndTheExtraHeadComesFirst(helper);
+    }
+
+    @GameTest
+    public void extraHeadPutOnPlaysTheEquipSound(GameTestHelper helper) {
+        MobHeadTests.extraHeadPutOnPlaysTheEquipSound(helper);
+    }
 }

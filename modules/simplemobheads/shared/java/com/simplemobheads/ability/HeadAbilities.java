@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.core.BlockPos;
+import org.jspecify.annotations.Nullable;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.Identifier;
@@ -300,9 +301,19 @@ public final class HeadAbilities {
         }
     }
 
+    /** The mob head {@code entity} wears: an extra head slot first (it has precedence, owner N55), then the helmet slot. */
+    public static @Nullable HeadDef wornHead(LivingEntity entity) {
+        for (Object extra : com.simplebuilding.framework.api.WornHeads.extra(entity)) {
+            if (extra instanceof ItemStack stack && MobHeads.of(stack) != null) {
+                return MobHeads.of(stack);
+            }
+        }
+        return MobHeads.of(entity.getItemBySlot(EquipmentSlot.HEAD));
+    }
+
     /** Sneaking with a mob head on: the mob's voice, quietly, with a few notes (cosmetic, moved in from Simple Fun). */
     public static boolean greet(ServerLevel level, ServerPlayer player) {
-        HeadDef head = MobHeads.of(player.getItemBySlot(EquipmentSlot.HEAD));
+        HeadDef head = wornHead(player);
         if (head == null) {
             return false;
         }

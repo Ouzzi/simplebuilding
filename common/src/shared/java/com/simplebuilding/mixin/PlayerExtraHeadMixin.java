@@ -3,9 +3,12 @@ package com.simplebuilding.mixin;
 import com.simplebuilding.networking.ExtraHeadPayload;
 import com.simplebuilding.platform.PlatformServices;
 import com.simplebuilding.util.ExtraHead;
+import com.simplebuilding.util.ExtraHeadEffects;
 import com.simplebuilding.version.McVersion;
+import java.util.List;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
@@ -33,6 +36,8 @@ public abstract class PlayerExtraHeadMixin implements ExtraHead.Holder {
     @Unique
     private ItemStack simplebuilding$extraHead = ItemStack.EMPTY;
     @Unique
+    private @Nullable List<ExtraHeadEffects.Applied> simplebuilding$applied;
+    @Unique
     private @Nullable ItemStack simplebuilding$sentHead;
     @Unique
     private @Nullable Level simplebuilding$sentLevel;
@@ -47,16 +52,31 @@ public abstract class PlayerExtraHeadMixin implements ExtraHead.Holder {
         this.simplebuilding$extraHead = stack == null ? ItemStack.EMPTY : stack;
     }
 
+    @Override
+    public List<ExtraHeadEffects.Applied> simplebuilding$getAppliedHeadModifiers() {
+        return this.simplebuilding$applied == null ? List.of() : this.simplebuilding$applied;
+    }
+
+    @Override
+    public void simplebuilding$setAppliedHeadModifiers(List<ExtraHeadEffects.Applied> applied) {
+        this.simplebuilding$applied = applied;
+    }
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$syncExtraHead(CallbackInfo ci) {
         Player self = (Player) (Object) this;
         if (!(self.level() instanceof ServerLevel level)) {
             return;
         }
+        this.simplebuilding$applied = ExtraHeadEffects.sync(self, simplebuilding$getAppliedHeadModifiers());
         ItemStack head = this.simplebuilding$extraHead;
         if (this.simplebuilding$sentHead != null && level == this.simplebuilding$sentLevel
                 && ItemStack.matches(head, this.simplebuilding$sentHead)) {
             return;
+        }
+        if (this.simplebuilding$sentHead != null) {
+            // N55: putting a head in feels like putting on a helmet (equip sound, game event); first tick and login stay quiet
+            self.onEquipItem(EquipmentSlot.HEAD, this.simplebuilding$sentHead, head);
         }
         this.simplebuilding$sentHead = head.copy();
         this.simplebuilding$sentLevel = level;

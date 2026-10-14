@@ -86,7 +86,8 @@
         "details": [
           "Heads stand on the floor (16 turns) or hang on walls, break with any tool, and go in the helmet slot.",
           "Worn heads replace the wearer's own head, so small heads (silverfish, chicken) do not sit inside it.",
-          "With SimpleBuilding, its extra head slot works like the helmet slot (framework WornHeads)."
+          "Worn heads are drawn as big as the head on the mob's own model (at most 14.25 px, larger heads are shrunk).",
+          "With SimpleBuilding, its extra head slot works like the helmet slot (framework WornHeads): same size, same variants, same abilities; if both slots hold a head, the extra slot's model is drawn and the abilities of both apply."
         ]
       },
       "de": {
@@ -95,12 +96,14 @@
         "details": [
           "Köpfe stehen auf dem Boden (16 Drehungen) oder hängen an Wänden, lassen sich mit allem abbauen und passen in den Helm-Slot.",
           "Getragene Köpfe ersetzen den Kopf des Trägers, damit kleine Köpfe (Silberfischchen, Huhn) nicht darin verschwinden.",
-          "Mit SimpleBuilding wirkt dessen Extra-Kopf-Slot wie der Helm-Slot (framework WornHeads)."
+          "Getragene Köpfe sind so groß wie der Kopf am Modell des Mobs (höchstens 14,25 px, größere Köpfe werden verkleinert).",
+          "Mit SimpleBuilding wirkt dessen Extra-Kopf-Slot wie der Helm-Slot (framework WornHeads): gleiche Größe, gleiche Varianten, gleiche Fähigkeiten; tragen beide Slots einen Kopf, wird das Modell des Extra-Slots gezeichnet und die Fähigkeiten beider gelten."
         ]
       },
       "sources": [
         "modules/simplemobheads/shared/java/com/simplemobheads/MobHeads.java",
         "modules/simplemobheads/shared/java/com/simplemobheads/mixin/client/WornModHeadMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/client/CustomHeadLayerMixin.java",
         "modules/simplemobheads/shared/java/com/simplemobheads/ability/HeadAbilities.java"
       ]
     },

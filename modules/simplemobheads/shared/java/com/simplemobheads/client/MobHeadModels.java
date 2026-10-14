@@ -36,7 +36,11 @@ import org.jspecify.annotations.Nullable;
 public final class MobHeadModels {
     /** Largest edge of a head in model pixels before it is scaled down (Vanilla heads: 8, the dragon's 16). */
     public static final float MAX_SIZE = 12.0F;
+    /** Vanilla's worn skull scale ({@code CustomHeadLayer}): a head of E model pixels is drawn {@value #WORN_SCALE} x E wide. */
+    public static final float WORN_SCALE = 1.1875F;
     private static final Set<String> WARNED = ConcurrentHashMap.newKeySet();
+    /** Per look kind: {native edge of the mob's head, edge inside the skull model} in model pixels. */
+    private static final Map<String, float[]> EDGES = new ConcurrentHashMap<>();
 
     private MobHeadModels() {
     }
@@ -87,6 +91,9 @@ public final class MobHeadModels {
         if (!look.custom().isEmpty()) {
             MobHeadModel custom = CustomHeadModels.create(look.custom(), texture(type));
             if (custom != null) {
+                float[] b = bounds(custom.root(), Set.of());
+                float edge = Math.max(b[3] - b[0], Math.max(b[4] - b[1], b[5] - b[2]));
+                EDGES.put(look.kind(), new float[] {edge, edge});
                 return custom;
             }
         }
@@ -100,10 +107,33 @@ public final class MobHeadModels {
         }
     }
 
+    /**
+     * How much smaller than Vanilla's worn skull a head is drawn so that it is as big as on the mob's own model (owner N55):
+     * the worn edge is the mob head's edge, never more than the {@value #WORN_SCALE} x of the skull model (heads larger than
+     * {@value #MAX_SIZE} px keep that size, they were shrunk to fit). Returns {factor, edge in model pixels}; {1, 0} for an
+     * unknown look. Bakes the model once when the head has not been drawn yet.
+     */
+    public static float[] worn(MobHeadType type) {
+        float[] edges = EDGES.get(type.look().kind());
+        if (edges == null) {
+            create(net.minecraft.client.Minecraft.getInstance().getEntityModels(), type);
+            edges = EDGES.get(type.look().kind());
+        }
+        if (edges == null) {
+            return new float[] {1.0F, 0.0F};
+        }
+        float vanilla = edges[1] * WORN_SCALE;
+        float edge = Math.min(edges[0], vanilla);
+        return new float[] {edge / vanilla, edge};
+    }
+
     private static MobHeadModel generic(EntityModelSet models, HeadDef.Look look) {
         Set<String> hide = new HashSet<>(look.hide());
         ModelPart base = part(models, look.layer(), look.part(), hide);
         PartPose pose = pose(base, look, hide);
+        float[] size = bounds(base, hide); // still the mob's own size: pose() only rotated the part
+        float nativeEdge = Math.max(size[3] - size[0], Math.max(size[4] - size[1], size[5] - size[2]));
+        EDGES.put(look.kind(), new float[] {nativeEdge, nativeEdge * pose.xScale()});
         apply(base, pose);
         ModelPart root = wrap(base);
         List<MobHeadModel.Pass> passes = new ArrayList<>();
