@@ -258,6 +258,27 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 55 (2026-10-14, Besitzer)
+- [ ] Sculk Jaws: spawnen nur mitten in Sculk – Bedingung: 5 Sculk-Blöcke rundherum unten, am unteren Block 4 (genaue Form beim Planen festlegen).
+- [ ] Rucksack- und Bundle-Färbungen sind nicht korrekt – prüfen und fixen.
+- [ ] Vorschlaghammer in der Welt: rissiger Diamantblock → 9 Schläge → Diamant-Pebbles; Diamantblock → 9 Schläge → Diamant-Pebbles.
+- [ ] Echolot (Echo Sounder): besserer Fehlschlag-Sound, wenn nicht verbunden.
+- [ ] Einige Items haben keine Textur mehr (graues Karomuster im Inventar) – alle finden und fixen (vgl. Gate-Rot cracked_ice_0, Job oc-gatefix2).
+- [ ] Obsidian-Splitter nur noch per Vorschlaghammer-Umwandlung (analog Diamant-Pebble); dazu Weinender-Obsidian-Splitter und Blazing-Obsidian-Splitter neu.
+- [ ] Ziegel (Bricks) beim Platzieren wie Barren 3D legen; Diamanten und Smaragde bekommen ebenfalls eine 3D-Form. Mit dem Vorschlaghammer auf das platzierte 3D-Item hauen → 2D, nochmal → wieder 3D (nur unterstützte Items).
+- [ ] Crates: seitlich bis zu 9 verschiedene enthaltene Items anzeigen. Inhalt wie das Besitzer-Referenzbild rendern (Bild liegt in dieser Sitzung NICHT vor – beim Besitzer anfordern): jedes Item bekommt je nach Anzahl eine Schicht, die aussieht, als bestünde sie aus dem Item; max. 9 verschiedene Items je Crate; zuletzt eingelegtes Item liegt oben, ältere Schichten werden hochgeschoben.
+- [ ] Enchanter: am Buch-Button nicht die benötigten Level anzeigen (stehen schon oben), sondern wie viele Level abgezogen werden.
+- [ ] Blazing Obsidian ist immer noch nicht gut → Rework (Konzept/Textur/Verhalten) notiert.
+- [ ] Notenblock-Verstärker funktioniert nicht – dasselbe Prinzip wie beim (funktionierenden) Jukebox-Verstärker anwenden.
+- [ ] Aschholz-Blätter sollen wie Spinnennetze wirken (verlangsamen; Details beim Planen).
+- [ ] Blaupause: Import-/Export-Button für andere Bau-Formate („block languages“) – Modal mit Kopieren-Button (Export) bzw. Einfügen-Button (Import).
+- [ ] Hängematte: Einstellung wie playersSleepingPercentage (Anteil Spieler in Hängematte für Nachtsprung o. Ä.).
+- [ ] Death Vault umbauen (aktuelle Funktion nicht zuverlässig): überzählige Funktionen (Zurückkaufen usw.) als „zukünftig“ markieren/abschalten. Neue Kernfunktion: anzeigen, welche Items beim Tod gedroppt wurden, farbcodiert nach Verbleib – von anderem Spieler aufgehoben, verbrannt, despawnt, ins Void gefallen, anders verschwunden –, damit man sieht, ob sich der Weg lohnt. Noch liegende Items: Despawn-Timer (Fortschrittsbalken wie Ofen); steht der Timer, weil der Chunk nicht geladen ist, das anzeigen.
+- [ ] Kopf-Slot verhält sich wie der Helm-Slot für Köpfe: Kopf ersetzt mit Item-Model den Kopf, Effekte werden übernommen; Anzieh-Sounds; Item-Model des Kopf-Slots hat Vorrang vor dem Helm, Effekte beider gelten. Kopfgrößen möglichst gleich den Mob-Kopf-Größen an den Mob-Modellen.
+- [ ] Hollow Howler gruseliger: Recherche Sounddesign (Horror-Audio, Vanilla-Mob-Sounds) und Visual Design, daraus Verbesserungsplan, dann umsetzen.
+- [ ] Recherche Mob-Animation und Vanilla-Animationsrichtlinien; alle Custom-Mob-Animationen danach verbessern.
+- [ ] (ZULETZT, erst wenn alles andere fertig) Recherche Performance-Optimierung (Minecraft-Mods, 3D-Block-/Open-World-Spiele, Videospiele allgemein) und alle Mods optimieren.
+
 ## Nachtrag 54 (2026-10-13, Besitzer)
 - [ ] Claim-Urkunde ähnlich wie die Blaupause handhaben: eigene GUI, dort Personen hinzufügen und ihnen Fähigkeiten geben (bauen, zerstören, Container öffnen usw.); Besitzer: Code-Form (B Build, D Destroy, U Use …), dazu Claim-Tisch (Karte/Liste aller Claims), Claims in Simple Maps, Kopie auf leere Urkunde, Erweiterung mit steigenden Kosten, Vanilla-nah. (Plan Fassung 2 freigegeben)
 - [x] Hammer-Tempo: aktuell gut, bleibt so (Formel 1,5x / +0,8x / +0,7x; E8 = A).
