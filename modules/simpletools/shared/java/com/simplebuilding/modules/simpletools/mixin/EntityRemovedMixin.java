@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** A recorded death drop leaves the world for good (not unloading or changing dimension): the ledger decides its state. */
+/** A recorded death drop leaves the world for good: the ledger decides its fate; unloading with the chunk only remembers its age. */
 @Mixin(Entity.class)
 public abstract class EntityRemovedMixin {
     @Inject(method = "setRemoved", at = @At("HEAD"))
@@ -16,6 +16,8 @@ public abstract class EntityRemovedMixin {
         Entity self = (Entity) (Object) this;
         if (self instanceof ItemEntity item && reason.shouldDestroy() && self.getRemovalReason() == null && !self.level().isClientSide()) {
             RemovalContext.removed(item);
+        } else if (self instanceof ItemEntity item && !reason.shouldDestroy() && self.getRemovalReason() == null && !self.level().isClientSide()) {
+            RemovalContext.unloaded(item);
         }
     }
 }

@@ -5,6 +5,7 @@ import com.simplebuilding.modules.simpletools.soulbound.Soulbound;
 import com.simplebuilding.modules.simpletools.vault.DeathLedger;
 import com.simplebuilding.modules.simpletools.vault.DeathVault;
 import com.simplebuilding.modules.simpletools.vault.DeathVaultMenu;
+import com.simplebuilding.modules.simpletools.vault.Fate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.GrindstoneMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -62,6 +64,14 @@ public final class DeathTests {
         } finally {
             SimpleTools.CONFIG = old;
         }
+    }
+
+    /** Like {@link #configured} with the future buy-back option on (off by default). */
+    private static void redeeming(Runnable body) {
+        configured(() -> {
+            SimpleTools.config().deathVaultRedeem = true;
+            body.run();
+        });
     }
 
     private static int left(ItemStack s) {
@@ -282,7 +292,7 @@ public final class DeathTests {
 
     /** A recorded stack still lying on the ground is shown but never redeemable; an offering then costs nothing. */
     public static void vaultLying(GameTestHelper h) {
-        configured(() -> {
+        redeeming(() -> {
             UUID owner = UUID.randomUUID();
             ItemEntity e = spawn(h, new ItemStack(Items.IRON_INGOT, 5), new BlockPos(2, 2, 2));
             ledger(h).record(owner, 0, Optional.empty(), List.of(e));
@@ -298,7 +308,7 @@ public final class DeathTests {
 
     /** Despawn, lava, fire, explosion and void make a stack redeemable; the entity is gone, so the return never duplicates. */
     public static void vaultLost(GameTestHelper h) {
-        configured(() -> {
+        redeeming(() -> {
             UUID owner = UUID.randomUUID();
             ServerLevel level = h.getLevel();
             ItemEntity despawn = spawn(h, new ItemStack(Items.IRON_INGOT, 3), new BlockPos(1, 2, 1));
@@ -330,9 +340,9 @@ public final class DeathTests {
         h.succeed();
     }
 
-    /** Picked up (whole or part), by a hopper or killed by command: struck from the list. */
+    /** Picked up (whole or part), part taken and despawned, or killed by command: final fates, none of them redeemable. */
     public static void vaultTaken(GameTestHelper h) {
-        configured(() -> {
+        redeeming(() -> {
             UUID owner = UUID.randomUUID();
             ServerPlayer taker = living(h, new BlockPos(2, 2, 2));
             try {
@@ -348,7 +358,9 @@ public final class DeathTests {
                 part.tick();
                 killed.kill(h.getLevel());
                 h.assertTrue(part.isRemoved() && killed.isRemoved(), "gone");
-                h.assertTrue(lost(h, owner) == 0 && lying(h, owner) == 0, "picked up, part taken and killed stacks are struck");
+                h.assertTrue(lost(h, owner) == 0 && lying(h, owner) == 0, "picked up, part taken and killed stacks are not redeemable");
+                h.assertTrue(fateOf(h, owner, Items.IRON_INGOT) == Fate.PICKED_OTHER && fateOf(h, owner, Items.GOLD_INGOT) == Fate.DESPAWNED
+                        && fateOf(h, owner, Items.EMERALD) == Fate.OTHER, "fates stay listed");
             } finally {
                 ledger(h).clear(owner);
                 h.getLevel().getServer().getPlayerList().remove(taker);
@@ -357,9 +369,162 @@ public final class DeathTests {
         h.succeed();
     }
 
+    private static DeathLedger.Entry entryOf(GameTestHelper h, UUID owner, Item item) {
+        return ledger(h).last(owner).orElseThrow().entries.stream().filter(e -> e.stack.is(item)).findFirst().orElseThrow();
+    }
+
+    private static Fate fateOf(GameTestHelper h, UUID owner, Item item) {
+        return entryOf(h, owner, item).fate();
+    }
+
+    /** Every way a drop can end is recognised: still lying, picked up (other player with name / owner / part), burned, cactus, despawn, void, other. */
+    public static void vaultFates(GameTestHelper h) {
+        configured(() -> {
+            ServerLevel level = h.getLevel();
+            ServerPlayer other = living(h, new BlockPos(2, 2, 2));
+            ServerPlayer mine = living(h, new BlockPos(1, 2, 1));
+            UUID id = mine.getUUID();
+            try {
+                ItemEntity lying = spawn(h, new ItemStack(Items.STICK), new BlockPos(1, 2, 3));
+                ItemEntity byOther = spawn(h, new ItemStack(Items.IRON_INGOT, 3), new BlockPos(2, 2, 2));
+                ItemEntity byOwner = spawn(h, new ItemStack(Items.GOLD_INGOT, 4), new BlockPos(1, 2, 1));
+                ItemEntity partly = spawn(h, new ItemStack(Items.COAL, 70), new BlockPos(2, 2, 2));
+                ItemEntity lava = spawn(h, new ItemStack(Items.COPPER_INGOT), new BlockPos(3, 2, 1));
+                ItemEntity fire = spawn(h, new ItemStack(Items.DIAMOND), new BlockPos(3, 2, 2));
+                ItemEntity cactus = spawn(h, new ItemStack(Items.EMERALD), new BlockPos(3, 2, 3));
+                ItemEntity despawn = spawn(h, new ItemStack(Items.REDSTONE), new BlockPos(1, 2, 2));
+                ItemEntity fall = spawn(h, new ItemStack(Items.LAPIS_LAZULI), new BlockPos(2, 2, 3));
+                ItemEntity boom = spawn(h, new ItemStack(Items.QUARTZ), new BlockPos(2, 2, 1));
+                ItemEntity cmd = spawn(h, new ItemStack(Items.AMETHYST_SHARD), new BlockPos(3, 2, 3));
+                ledger(h).record(id, 0, Optional.empty(), List.of(lying, byOther, byOwner, partly, lava, fire, cactus, despawn, fall, boom, cmd));
+                h.assertTrue(fateOf(h, id, Items.STICK) == Fate.LYING && lying(h, id) == 11, "everything lies at first");
+                byOther.setNoPickUpDelay();
+                byOther.playerTouch(other);
+                byOwner.setNoPickUpDelay();
+                byOwner.playerTouch(mine);
+                partly.setNoPickUpDelay();
+                other.getInventory().setItem(0, new ItemStack(Items.COAL, 50));
+                for (int i = 1; i < 36; i++) other.getInventory().setItem(i, new ItemStack(Items.DIRT, 64));
+                partly.playerTouch(other);
+                h.assertTrue(!partly.isRemoved() && partly.getItem().getCount() < 70, "only a part fit into the inventory: " + partly.getItem().getCount());
+                lava.hurtServer(level, level.damageSources().lava(), 100);
+                fire.hurtServer(level, level.damageSources().inFire(), 100);
+                cactus.hurtServer(level, level.damageSources().cactus(), 100);
+                ((ItemEntityAgeAccessor) despawn).simpletools$setAge(DeathLedger.LIFETIME - 1);
+                despawn.tick();
+                fall.setPos(fall.getX(), level.getMinY() - 100, fall.getZ());
+                fall.checkBelowWorld();
+                boom.hurtServer(level, level.damageSources().explosion(null, null), 100);
+                cmd.kill(level);
+                h.assertTrue(fateOf(h, id, Items.STICK) == Fate.LYING && ledger(h).tracked(lying.getUUID()), "the untouched stick still lies");
+                h.assertTrue(fateOf(h, id, Items.IRON_INGOT) == Fate.PICKED_OTHER && entryOf(h, id, Items.IRON_INGOT).who.equals(other.getName().getString()),
+                        "picked up by another player, name kept: " + entryOf(h, id, Items.IRON_INGOT).who);
+                h.assertTrue(fateOf(h, id, Items.GOLD_INGOT) == Fate.PICKED_OWNER && entryOf(h, id, Items.GOLD_INGOT).who.isEmpty(), "picked up again by the owner");
+                h.assertTrue(fateOf(h, id, Items.COAL) == Fate.PICKED_OTHER && !ledger(h).tracked(partly.getUUID()), "a part taken counts as picked up");
+                h.assertTrue(fateOf(h, id, Items.COPPER_INGOT) == Fate.BURNED && fateOf(h, id, Items.DIAMOND) == Fate.BURNED, "lava and fire: burned");
+                h.assertTrue(fateOf(h, id, Items.EMERALD) == Fate.BURNED && !entryOf(h, id, Items.EMERALD).redeemable, "cactus: burned, not redeemable");
+                h.assertTrue(fateOf(h, id, Items.REDSTONE) == Fate.DESPAWNED && entryOf(h, id, Items.REDSTONE).redeemable, "despawned");
+                h.assertTrue(fateOf(h, id, Items.LAPIS_LAZULI) == Fate.VOID, "fell into the void");
+                h.assertTrue(fateOf(h, id, Items.QUARTZ) == Fate.OTHER && fateOf(h, id, Items.AMETHYST_SHARD) == Fate.OTHER, "explosion and command: some other way");
+                h.assertTrue(lying(h, id) == 1, "exactly one drop is still lying");
+                ledger(h).clear(id);
+                lying.discard();
+                partly.discard();
+            } finally {
+                h.getLevel().getServer().getPlayerList().remove(other);
+                h.getLevel().getServer().getPlayerList().remove(mine);
+            }
+        });
+        h.succeed();
+    }
+
+    /** A real death: exactly the dropped entities are recorded (by UUID, all lying) and only the last death is kept; a drop-less death replaces it. */
+    public static void vaultLastDeath(GameTestHelper h) {
+        configured(() -> {
+            ServerPlayer p = living(h, new BlockPos(2, 2, 2));
+            try {
+                p.getInventory().setItem(0, new ItemStack(Items.DIRT, 10));
+                p.getInventory().setItem(1, new ItemStack(Items.IRON_SWORD));
+                p.getInventory().setItem(2, new ItemStack(Items.APPLE, 3));
+                die(h, p);
+                List<ItemEntity> drops = itemsNear(h, p);
+                var death = ledger(h).last(p.getUUID()).orElseThrow();
+                h.assertValueEqual(death.entries.size(), 3, "three stacks recorded");
+                h.assertTrue(death.entries.stream().allMatch(e -> e.fate() == Fate.LYING && drops.stream().anyMatch(d -> d.getUUID().equals(e.entity))),
+                        "all lying, each with the UUID of its item entity");
+                ledger(h).record(p.getUUID(), 5, Optional.empty(), List.of());
+                h.assertTrue(ledger(h).deaths(p.getUUID()).size() == 1 && ledger(h).last(p.getUUID()).orElseThrow().entries.isEmpty(),
+                        "only the last death is kept; a death without drops replaces the old one");
+                h.assertTrue(!ledger(h).tracked(drops.getFirst().getUUID()), "the forgotten death is not tracked any more");
+            } finally {
+                ledger(h).clear(p.getUUID());
+                h.getLevel().getServer().getPlayerList().remove(p);
+            }
+        });
+        h.succeed();
+    }
+
+    /**
+     * The menu sends fate, age and timer state: lying first, a loaded entity runs only in an entity-ticking chunk, an unloaded
+     * one keeps its last age and does not run, never-despawning items are flagged, other fates are sorted after and coloured.
+     */
+    public static void vaultMenuRows(GameTestHelper h) {
+        configured(() -> {
+            ServerPlayer p = living(h, new BlockPos(0, 2, 0));
+            UUID owner = p.getUUID();
+            try {
+                ItemEntity burned = spawn(h, new ItemStack(Items.GOLD_INGOT, 2), new BlockPos(1, 2, 1));
+                ItemEntity live = spawn(h, new ItemStack(Items.IRON_INGOT, 5), new BlockPos(2, 2, 2));
+                ItemEntity never = spawn(h, new ItemStack(Items.COAL), new BlockPos(3, 2, 3));
+                ItemEntity away = new ItemEntity(h.getLevel(), 0, 0, 0, new ItemStack(Items.EMERALD, 4));
+                ledger(h).record(owner, h.getLevel().getGameTime(), Optional.empty(), List.of(burned, live, never, away));
+                burned.hurtServer(h.getLevel(), h.getLevel().damageSources().lava(), 100);
+                ((ItemEntityAgeAccessor) live).simpletools$setAge(1234);
+                ((ItemEntityAgeAccessor) never).simpletools$setAge(-32768);
+                away.setRemoved(net.minecraft.world.entity.Entity.RemovalReason.UNLOADED_TO_CHUNK);
+                ((ItemEntityAgeAccessor) away).simpletools$setAge(4000);
+                ledger(h).unloaded(away);
+                var menu = new DeathVaultMenu(1, p.getInventory(), ContainerLevelAccess.create(h.getLevel(), h.absolutePos(new BlockPos(0, 1, 0))));
+                h.assertValueEqual(menu.data(DeathVaultMenu.D_COUNT), 4, "four fields shown");
+                h.assertTrue(menu.data(DeathVaultMenu.D_OFFER) == 0 && !menu.offerEnabled(), "buy-back off: no offering");
+                h.assertTrue(menu.data(DeathVaultMenu.D_SINCE) == 0, "death age in minutes");
+                int[] fate = new int[4], flags = new int[4], age = new int[4];
+                for (int i = 0; i < 4; i++) {
+                    flags[i] = menu.data(DeathVaultMenu.D_ROWS + 2 * i);
+                    fate[i] = flags[i] & DeathVault.F_FATE_MASK;
+                    age[i] = menu.data(DeathVaultMenu.D_ROWS + 2 * i + 1);
+                }
+                h.assertTrue(fate[0] == Fate.LYING.id && fate[1] == Fate.LYING.id && fate[2] == Fate.LYING.id && fate[3] == Fate.BURNED.id, "lying first, burned last");
+                for (int i = 0; i < 3; i++) {
+                    Item item = menu.getSlot(i).getItem().getItem();
+                    if (item == Items.IRON_INGOT) {
+                        boolean ticking = h.getLevel().isPositionEntityTicking(live.blockPosition());
+                        h.assertTrue(age[i] == 1234 && ((flags[i] & DeathVault.F_RUNNING) != 0) == ticking, "loaded: live age 1234, running = chunk ticks (" + ticking + ")");
+                    } else if (item == Items.COAL) {
+                        h.assertTrue((flags[i] & DeathVault.F_NEVER) != 0, "never despawns flagged");
+                    } else {
+                        h.assertTrue(item == Items.EMERALD && age[i] == 4000 && (flags[i] & DeathVault.F_RUNNING) == 0, "unloaded: last age 4000, timer does not run");
+                    }
+                }
+                h.assertTrue(ledger(h).tracked(away.getUUID()), "unloading does not end the entry");
+                var lore = menu.getSlot(3).getItem().get(net.minecraft.core.component.DataComponents.LORE);
+                h.assertTrue(lore != null && !lore.lines().isEmpty(), "the fate line rides in the tooltip lore");
+                h.assertTrue(!menu.getSlot(0).mayPickup(p) && !menu.getSlot(0).mayPlace(new ItemStack(Items.DIRT)), "display fields cannot be taken or filled");
+                h.assertTrue(!menu.getSlot(DeathVaultMenu.OFFER_SLOT).mayPlace(new ItemStack(Items.DIAMOND)) && !menu.clickMenuButton(p, DeathVaultMenu.BUTTON_OFFER),
+                        "buy-back off: the offering slot takes nothing and the button does nothing");
+                live.discard();
+                never.discard();
+            } finally {
+                ledger(h).clear(owner);
+                h.getLevel().getServer().getPlayerList().remove(p);
+            }
+        });
+        h.succeed();
+    }
+
     /** PvP death: only a despawn or a destruction by the killer counts; plain lava or void does not. */
     public static void vaultPvp(GameTestHelper h) {
-        configured(() -> {
+        redeeming(() -> {
             UUID owner = UUID.randomUUID();
             ServerLevel level = h.getLevel();
             ServerPlayer killer = (ServerPlayer) h.makeMockServerPlayer(GameType.SURVIVAL);
@@ -384,7 +549,7 @@ public final class DeathTests {
 
     /** Newer deaths and more valuable items are more likely; the weights are deterministic. */
     public static void vaultWeights(GameTestHelper h) {
-        configured(() -> {
+        redeeming(() -> {
             h.assertTrue(DeathVault.value(new ItemStack(Items.DIAMOND_SWORD)) > DeathVault.value(new ItemStack(Items.DIRT, 64)), "sword worth more than dirt");
             ItemStack enchanted = new ItemStack(Items.DIAMOND_SWORD);
             enchanted.enchant(h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SHARPNESS), 5);
@@ -416,7 +581,7 @@ public final class DeathTests {
 
     /** Dupe attempts: display fields cannot be taken, recorded drops do not merge, a second offering cannot repeat a return. */
     public static void vaultDupe(GameTestHelper h) {
-        configured(() -> {
+        redeeming(() -> {
             ServerPlayer p = living(h, new BlockPos(0, 2, 0));
             UUID owner = p.getUUID();
             try {
@@ -431,10 +596,11 @@ public final class DeathTests {
             h.assertTrue(!a.isRemoved() && !b.isRemoved() && a.getItem().getCount() == 5 && b.getItem().getCount() == 5, "recorded drops never merge");
             c.hurtServer(h.getLevel(), h.getLevel().damageSources().lava(), 100);
             var menu = new DeathVaultMenu(1, p.getInventory(), ContainerLevelAccess.create(h.getLevel(), h.absolutePos(new BlockPos(0, 1, 0))));
-            h.assertTrue(menu.getSlot(0).getItem().is(Items.GOLD_INGOT) && menu.data(DeathVaultMenu.D_SHOWN_LOST) == 1, "the lost gold is shown first");
-            h.assertTrue(menu.getSlot(1).getItem().is(Items.IRON_INGOT), "lying iron is shown too");
-            h.assertTrue(!menu.getSlot(0).mayPickup(p) && !menu.getSlot(0).mayPlace(new ItemStack(Items.DIRT)), "display fields cannot be taken or filled");
-            h.assertTrue(menu.quickMoveStack(p, 0).isEmpty() && menu.getSlot(0).getItem().is(Items.GOLD_INGOT), "shift-click takes nothing");
+            h.assertTrue(menu.getSlot(0).getItem().is(Items.IRON_INGOT) && menu.getSlot(2).getItem().is(Items.GOLD_INGOT) && menu.data(DeathVaultMenu.D_LOST) == 1,
+                    "lying iron first, the lost gold after it");
+            h.assertTrue(menu.offerEnabled(), "buy-back on: offering shown");
+            h.assertTrue(!menu.getSlot(2).mayPickup(p) && !menu.getSlot(2).mayPlace(new ItemStack(Items.DIRT)), "display fields cannot be taken or filled");
+            h.assertTrue(menu.quickMoveStack(p, 2).isEmpty() && menu.getSlot(2).getItem().is(Items.GOLD_INGOT), "shift-click takes nothing");
             h.assertTrue(!menu.clickMenuButton(p, DeathVaultMenu.BUTTON_OFFER), "no offering: nothing happens");
             menu.getSlot(DeathVaultMenu.OFFER_SLOT).set(new ItemStack(Items.DIAMOND, 3));
             h.assertTrue(!menu.clickMenuButton(p, DeathVaultMenu.BUTTON_OFFER) && menu.offering().getCount() == 3, "too few diamonds: nothing taken");
@@ -458,7 +624,7 @@ public final class DeathTests {
 
     /** The ledger survives a save: states, killer and stacks round-trip, lying entries stay tracked. */
     public static void vaultPersistence(GameTestHelper h) {
-        configured(() -> {
+        redeeming(() -> {
             UUID owner = UUID.randomUUID();
             DeathLedger ledger = new DeathLedger();
             ItemEntity lying = spawn(h, new ItemStack(Items.IRON_INGOT, 2), new BlockPos(1, 2, 1));
@@ -473,6 +639,8 @@ public final class DeathTests {
             var deaths = loaded.deaths(owner);
             h.assertTrue(deaths.size() == 1 && deaths.getFirst().time == 77 && deaths.getFirst().killer.equals(Optional.of(owner)), "death and killer kept");
             h.assertTrue(loaded.tracked(lying.getUUID()) && !loaded.tracked(gone.getUUID()), "lying stays tracked, lost does not");
+            h.assertTrue(deaths.getFirst().entries.stream().anyMatch(e -> e.fate() == Fate.DESPAWNED && e.redeemable)
+                    && deaths.getFirst().entries.stream().anyMatch(e -> e.fate() == Fate.LYING), "fates and flags kept");
             var lost = DeathVault.lost(loaded, owner);
             h.assertTrue(lost.size() == 1 && lost.getFirst().entry().stack.getDamageValue() == 100, "stack snapshot with its damage kept");
             SimpleTools.config().deathVaultMaxDeaths = 2;

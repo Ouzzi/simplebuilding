@@ -3,12 +3,15 @@ package com.simplebuilding.modules.simpletools.vault;
 import com.simplebuilding.modules.simpletools.SimpleTools;
 import com.simplebuilding.modules.simpletools.soulbound.Soulbound;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -19,8 +22,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 /**
- * Death Vault rules (owner 2026-10-12): which lost stacks are shown, how an offering turns into returns, and the weights
- * (newer deaths and more valuable items are more likely). Pure server logic; the menu only calls it.
+ * Death Vault rules (owner 2026-10-12, reworked 2026-10-14): what became of the drops of the last death (shown by the
+ * menu). The "buy back with an offering" part (which lost stacks, how an offering turns into returns, the weights: newer
+ * deaths and more valuable items are more likely) is a future feature, off by default ({@link #redeemActive()}). Pure
+ * server logic; the menu only calls it.
  */
 public final class DeathVault {
     /** Items accepted in the offering slot, one point each (diamond; Simple Money bill only when that mod is loaded). */
@@ -33,6 +38,11 @@ public final class DeathVault {
 
     public static boolean active() {
         return SimpleTools.active() && SimpleTools.config().enableDeathVault;
+    }
+
+    /** The future "buy back" option: off by default, the code stays. */
+    public static boolean redeemActive() {
+        return active() && SimpleTools.config().deathVaultRedeem;
     }
 
     public static void beginDeath(Player player) {
@@ -48,10 +58,49 @@ public final class DeathVault {
     public static void endDeath(Player player) {
         List<ItemEntity> drops = collecting;
         collecting = null;
-        if (drops == null || drops.isEmpty() || !(player instanceof ServerPlayer server)) return;
+        if (drops == null || !(player instanceof ServerPlayer server)) return;
         Optional<UUID> killer = Optional.empty();
         if (player.getKillCredit() instanceof Player other && other != player) killer = Optional.of(other.getUUID());
         DeathLedger.get(server.level().getServer()).record(player.getUUID(), server.level().getGameTime(), killer, drops);
+    }
+
+    /** Flags of a shown row: low four bits the {@link Fate#id}, then these. */
+    public static final int F_FATE_MASK = 15, F_RUNNING = 16, F_NEVER = 32;
+
+    /** One shown drop of the last death: the entry, its flags and the despawn age (ticks, capped to a short). */
+    public record Row(DeathLedger.Entry entry, int flags, int age) {
+        public Fate fate() {
+            return entry.fate();
+        }
+    }
+
+    /**
+     * The drops of the player's last death for the screen: still lying first, then by fate. A lying drop gets its live age
+     * from the loaded entity (and "running" only while its chunk ticks entities); an unloaded one shows the age it had when
+     * it unloaded and does not run - the despawn timer stands.
+     */
+    public static List<Row> rows(MinecraftServer server, UUID player) {
+        List<Row> out = new ArrayList<>();
+        DeathLedger.get(server).last(player).ifPresent(death -> {
+            for (DeathLedger.Entry entry : death.entries) {
+                int flags = entry.state & F_FATE_MASK;
+                int age = entry.age;
+                if (entry.state == Fate.LYING.id) {
+                    for (ServerLevel level : server.getAllLevels()) {
+                        if (level.getEntity(entry.entity) instanceof ItemEntity item && !item.isRemoved()) {
+                            age = item.getAge();
+                            entry.age = Math.max(0, age);
+                            if (level.isPositionEntityTicking(item.blockPosition())) flags |= F_RUNNING;
+                            break;
+                        }
+                    }
+                    if (age < 0) flags |= F_NEVER;
+                }
+                out.add(new Row(entry, flags, Math.clamp(age, 0, Short.MAX_VALUE)));
+            }
+        });
+        out.sort(Comparator.comparingInt(r -> r.fate().order()));
+        return out;
     }
 
     /** A redeemable stack with its weight. */
@@ -64,7 +113,7 @@ public final class DeathVault {
         for (int rank = 0; rank < deaths.size(); rank++) {
             DeathLedger.Death death = deaths.get(deaths.size() - 1 - rank);
             for (DeathLedger.Entry entry : death.entries) {
-                if (entry.state == DeathLedger.LOST) out.add(new Lost(death, entry, weight(entry.stack, rank)));
+                if (entry.redeemable && entry.state != Fate.REDEEMED.id) out.add(new Lost(death, entry, weight(entry.stack, rank)));
             }
         }
         return out;
@@ -75,7 +124,7 @@ public final class DeathVault {
         List<DeathLedger.Death> deaths = ledger.deaths(player);
         List<ItemStack> out = new ArrayList<>();
         for (int i = deaths.size() - 1; i >= 0; i--) {
-            for (DeathLedger.Entry entry : deaths.get(i).entries) if (entry.state == DeathLedger.LYING) out.add(entry.stack);
+            for (DeathLedger.Entry entry : deaths.get(i).entries) if (entry.state == Fate.LYING.id) out.add(entry.stack);
         }
         return out;
     }
@@ -120,7 +169,7 @@ public final class DeathVault {
      * nothing can be returned. Returns the stacks to give (durability already capped).
      */
     public static List<ItemStack> offer(DeathLedger ledger, UUID player, ItemStack offering, RandomSource random) {
-        if (!active()) return List.of();
+        if (!redeemActive()) return List.of();
         List<Lost> lost = new ArrayList<>(lost(ledger, player));
         int cost = SimpleTools.config().deathVaultCostPerItem;
         int picks = Math.min(Math.min(points(offering) / cost, SimpleTools.config().deathVaultMaxPerOffering), lost.size());

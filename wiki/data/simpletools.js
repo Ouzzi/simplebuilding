@@ -204,16 +204,18 @@ window.WIKI_MODULE_DATA["simpletools"] = {
         "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/vault/DeathLedger.java",
         "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/vault/DeathVaultMenu.java",
         "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/vault/RemovalContext.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/vault/Fate.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/client/DeathVaultScreen.java",
         "modules/simpletools/shared/resources/data/simpletools/recipe/death_vault.json",
         "modules/simpletools/shared/resources/data/simpletools/tags/item/death_vault_offerings.json"
       ],
       "en": {
         "title": "Death Vault",
-        "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). The server remembers the items that dropped at each of your deaths (the last 20 deaths). The vault shows them: an item still lying in the world is dimmed and cannot be bought back; once it despawned, burned in lava or fire, blew up or fell into the void, it can. Picked up by anyone (also partly, by a hopper or a mob) it leaves the list; items dropped before the death never count. After a death by another player only items that despawned or that this player destroyed count. Put diamonds into the offering slot (with Simple Money also money bills) and press Offer: every 4 return one random lost item, at most 3 per offering - newer deaths and more valuable items are more likely; with enough offerings everything comes back. Returned items leave the list and keep at most 50 durability."
+        "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). It shows what became of each item dropped at your last death, colour coded with a legend: still lying (green), picked up by you (blue) or by another player (red, the name shows on hover), burned in lava, fire or by a cactus (orange), despawned (gray), fallen into the void (purple), gone another way (yellow). A lying item has a bar like a durability bar: how much of its five minutes is left. If its chunk is not loaded the timer stands and the field shows a pause mark. Buying lost items back with an offering is a future feature: the code stays, option deathVaultRedeem is off by default."
       },
       "de": {
         "title": "Todesgewölbe",
-        "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Der Server merkt sich die Gegenstände, die bei jedem deiner Tode gefallen sind (die letzten 20 Tode). Das Gewölbe zeigt sie: Ein Gegenstand, der noch in der Welt liegt, ist abgedunkelt und nicht rückkaufbar; ist er verschwunden, in Lava oder Feuer verbrannt, explodiert oder ins Leere gefallen, schon. Hebt ihn irgendwer auf (auch teilweise, ein Trichter oder ein Mob), fällt er aus der Liste; vor dem Tod fallen gelassene Gegenstände zählen nie. Nach einem Tod durch einen anderen Spieler zählen nur verschwundene oder von diesem Spieler zerstörte Gegenstände. Diamanten in den Opferplatz legen (mit Simple Money auch Geldscheine) und Opfern drücken: je 4 kommt ein zufälliger verlorener Gegenstand zurück, höchstens 3 je Opfer - neuere Tode und wertvollere Gegenstände sind wahrscheinlicher; mit genug Opfern kommt alles zurück. Zurückgeholte Gegenstände fallen aus der Liste und behalten höchstens 50 Haltbarkeit."
+        "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Er zeigt, was aus jedem Gegenstand deines letzten Todes wurde, farbcodiert mit Legende: liegt noch (grün), von dir (blau) oder einem anderen Spieler (rot, der Name steht im Tooltip) aufgehoben, in Lava, Feuer oder durch einen Kaktus verbrannt (orange), verschwunden (grau), ins Leere gefallen (lila), anders weg (gelb). Ein liegender Gegenstand hat einen Balken wie eine Haltbarkeitsleiste: wie viel von seinen fünf Minuten übrig ist. Ist sein Chunk nicht geladen, steht der Timer und das Feld zeigt ein Pausen-Zeichen. Rückkauf verlorener Gegenstände gegen ein Opfer ist eine zukünftige Funktion: der Code bleibt, die Option deathVaultRedeem ist standardmäßig aus."
       }
     },
     {
@@ -251,11 +253,11 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       ],
       "en": {
         "title": "enableDeathVault",
-        "summary": "Server setting. Default: true. Records death drops and lets the Death Vault return lost ones; off: nothing is recorded and the vault does not open."
+        "summary": "Server setting. Default: true. Records the drops of each death and lets the Death Vault show what became of them; off: nothing is recorded and the vault does not open."
       },
       "de": {
         "title": "enableDeathVault",
-        "summary": "Servereinstellung. Standard: true. Merkt sich Todes-Drops und lässt das Todesgewölbe verlorene zurückgeben; aus: nichts wird gemerkt und das Gewölbe öffnet nicht."
+        "summary": "Servereinstellung. Standard: true. Merkt sich die Drops jedes Todes und lässt das Todesgewölbe zeigen, was daraus wurde; aus: nichts wird gemerkt und das Gewölbe öffnet nicht."
       }
     },
     {
@@ -321,11 +323,11 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       ],
       "en": {
         "title": "deathVaultCostPerItem",
-        "summary": "Server setting. Default: 4 (1-64). Offering points (diamonds, money bills) per returned item."
+        "summary": "Server setting. Default: 4 (1-64). Future buy-back (deathVaultRedeem): offering points (diamonds, money bills) per returned item."
       },
       "de": {
         "title": "deathVaultCostPerItem",
-        "summary": "Servereinstellung. Standard: 4 (1-64). Opferpunkte (Diamanten, Geldscheine) je zurückgegebenem Gegenstand."
+        "summary": "Servereinstellung. Standard: 4 (1-64). Zukünftiger Rückkauf (deathVaultRedeem): Opferpunkte (Diamanten, Geldscheine) je zurückgegebenem Gegenstand."
       }
     },
     {
@@ -335,11 +337,25 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       ],
       "en": {
         "title": "deathVaultMaxPerOffering",
-        "summary": "Server setting. Default: 3 (1-27). Items one offering returns at most."
+        "summary": "Server setting. Default: 3 (1-27). Future buy-back (deathVaultRedeem): items one offering returns at most."
       },
       "de": {
         "title": "deathVaultMaxPerOffering",
-        "summary": "Servereinstellung. Standard: 3 (1-27). So viele Gegenstände gibt ein Opfer höchstens zurück."
+        "summary": "Servereinstellung. Standard: 3 (1-27). Zukünftiger Rückkauf (deathVaultRedeem): so viele Gegenstände gibt ein Opfer höchstens zurück."
+      }
+    },
+    {
+      "id": "config_deathVaultRedeem",
+      "sources": [
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsConfig.java"
+      ],
+      "en": {
+        "title": "deathVaultRedeem",
+        "summary": "Server setting. Default: false (off). Future feature: buy lost death drops back with an offering at the Death Vault. The code stays, only the switch is off; also /simpletools deathVaultRedeem <true|false>."
+      },
+      "de": {
+        "title": "deathVaultRedeem",
+        "summary": "Servereinstellung. Standard: false (aus). Zukünftige Funktion: verlorene Todes-Drops mit einem Opfer am Todesgewölbe zurückkaufen. Der Code bleibt, nur der Schalter ist aus; auch /simpletools deathVaultRedeem <true|false>."
       }
     },
     {
@@ -349,11 +365,11 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       ],
       "en": {
         "title": "deathVaultMaxDeaths",
-        "summary": "Server setting. Default: 20 (1-100). Deaths remembered per player; older ones are forgotten."
+        "summary": "Server setting. Default: 20 (1-100). Future buy-back (deathVaultRedeem): deaths remembered per player, older ones are forgotten; without it only the last death is kept."
       },
       "de": {
         "title": "deathVaultMaxDeaths",
-        "summary": "Servereinstellung. Standard: 20 (1-100). Gemerkte Tode je Spieler; ältere werden vergessen."
+        "summary": "Servereinstellung. Standard: 20 (1-100). Zukünftiger Rückkauf (deathVaultRedeem): gemerkte Tode je Spieler, ältere werden vergessen; ohne ihn wird nur der letzte Tod gemerkt."
       }
     }
   ],
@@ -505,11 +521,11 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       "note": {
         "en": {
           "title": "Death Vault",
-          "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). The server remembers the items that dropped at each of your deaths (the last 20 deaths). The vault shows them: an item still lying in the world is dimmed and cannot be bought back; once it despawned, burned in lava or fire, blew up or fell into the void, it can. Picked up by anyone (also partly, by a hopper or a mob) it leaves the list; items dropped before the death never count. After a death by another player only items that despawned or that this player destroyed count. Put diamonds into the offering slot (with Simple Money also money bills) and press Offer: every 4 return one random lost item, at most 3 per offering - newer deaths and more valuable items are more likely; with enough offerings everything comes back. Returned items leave the list and keep at most 50 durability."
+          "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). It shows what became of each item dropped at your last death, colour coded with a legend: still lying (green), picked up by you (blue) or by another player (red, the name shows on hover), burned in lava, fire or by a cactus (orange), despawned (gray), fallen into the void (purple), gone another way (yellow). A lying item has a bar like a durability bar: how much of its five minutes is left. If its chunk is not loaded the timer stands and the field shows a pause mark. Buying lost items back with an offering is a future feature: the code stays, option deathVaultRedeem is off by default."
         },
         "de": {
           "title": "Todesgewölbe",
-          "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Der Server merkt sich die Gegenstände, die bei jedem deiner Tode gefallen sind (die letzten 20 Tode). Das Gewölbe zeigt sie: Ein Gegenstand, der noch in der Welt liegt, ist abgedunkelt und nicht rückkaufbar; ist er verschwunden, in Lava oder Feuer verbrannt, explodiert oder ins Leere gefallen, schon. Hebt ihn irgendwer auf (auch teilweise, ein Trichter oder ein Mob), fällt er aus der Liste; vor dem Tod fallen gelassene Gegenstände zählen nie. Nach einem Tod durch einen anderen Spieler zählen nur verschwundene oder von diesem Spieler zerstörte Gegenstände. Diamanten in den Opferplatz legen (mit Simple Money auch Geldscheine) und Opfern drücken: je 4 kommt ein zufälliger verlorener Gegenstand zurück, höchstens 3 je Opfer - neuere Tode und wertvollere Gegenstände sind wahrscheinlicher; mit genug Opfern kommt alles zurück. Zurückgeholte Gegenstände fallen aus der Liste und behalten höchstens 50 Haltbarkeit."
+          "summary": "Herstellbarer Block (Obsidian, Enderauge, Seelensand oder Seelenerde, Truhe). Er zeigt, was aus jedem Gegenstand deines letzten Todes wurde, farbcodiert mit Legende: liegt noch (grün), von dir (blau) oder einem anderen Spieler (rot, der Name steht im Tooltip) aufgehoben, in Lava, Feuer oder durch einen Kaktus verbrannt (orange), verschwunden (grau), ins Leere gefallen (lila), anders weg (gelb). Ein liegender Gegenstand hat einen Balken wie eine Haltbarkeitsleiste: wie viel von seinen fünf Minuten übrig ist. Ist sein Chunk nicht geladen, steht der Timer und das Feld zeigt ein Pausen-Zeichen. Rückkauf verlorener Gegenstände gegen ein Opfer ist eine zukünftige Funktion: der Code bleibt, die Option deathVaultRedeem ist standardmäßig aus."
         }
       },
       "questionary": {
@@ -518,10 +534,10 @@ window.WIKI_MODULE_DATA["simpletools"] = {
             "Some say the dead keep a ledger. This shrine is where it is kept, and its soul flame never forgets a name."
           ],
           "use": [
-            "Open it to see what your deaths cost you. Items still lying in the world stay dim; those that despawned, burned, blew up or fell into the void can be bought back. Every 4 diamonds return one random lost item, at most 3 per offering."
+            "Open it to see where the items of your last death went: still lying (with a despawn bar), picked up by you or someone else, burned, despawned, fallen into the void or gone another way - each in its own color, with a legend beside the list."
           ],
           "secret": [
-            "Newer deaths and more valuable items come back more often. Whatever anyone picked up is struck from the ledger, and Soulbound items never appear in it: they never left you."
+            "A paused bar means the chunk is not loaded and the timer stands. Soulbound items never appear: they never left you."
           ]
         },
         "de": {
@@ -529,10 +545,10 @@ window.WIKI_MODULE_DATA["simpletools"] = {
             "Manche sagen, die Toten führen Buch. Dieser Schrein ist der Ort, an dem es liegt, und seine Seelenflamme vergisst keinen Namen."
           ],
           "use": [
-            "Öffne ihn, um zu sehen, was dich deine Tode gekostet haben. Was noch in der Welt liegt, bleibt dunkel; was verschwunden, verbrannt, explodiert oder ins Leere gefallen ist, lässt sich zurückkaufen. Je 4 Diamanten kommt ein zufälliger verlorener Gegenstand zurück, höchstens 3 je Opfer."
+            "Öffne ihn, um zu sehen, wohin die Gegenstände deines letzten Todes gekommen sind: liegt noch (mit Despawn-Balken), von dir oder jemand anderem aufgehoben, verbrannt, verschwunden, ins Leere gefallen oder anders weg - jeweils in eigener Farbe, mit Legende neben der Liste."
           ],
           "secret": [
-            "Neuere Tode und wertvollere Gegenstände kommen öfter zurück. Was irgendwer aufgehoben hat, wird gestrichen, und seelengebundene Gegenstände stehen nie darin: Sie haben dich nie verlassen."
+            "Ein Pausen-Zeichen heißt: Der Chunk ist nicht geladen und der Timer steht. Seelengebundene Gegenstände stehen nie darin: Sie haben dich nie verlassen."
           ]
         }
       },
@@ -556,7 +572,7 @@ window.WIKI_MODULE_DATA["simpletools"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 23,
+    "features": 24,
     "recipes": 1,
     "lootTables": 1,
     "tags": 1,

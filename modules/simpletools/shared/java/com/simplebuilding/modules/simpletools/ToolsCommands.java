@@ -19,7 +19,8 @@ public final class ToolsCommands {
                 .then(toggle("anvilRepairKeepsCost", (c, v) -> c.anvilRepairKeepsCost = v))
                 .then(toggle("furnaceLava", (c, v) -> c.enableFurnaceLavaFill = v))
                 .then(toggle("soulbound", (c, v) -> c.enableSoulbound = v))
-                .then(toggle("deathVault", (c, v) -> c.enableDeathVault = v)));
+                .then(toggle("deathVault", (c, v) -> c.enableDeathVault = v))
+                .then(toggle("deathVaultRedeem", (c, v) -> c.deathVaultRedeem = v)));
     }
 
     private static LiteralArgumentBuilder<CommandSourceStack> toggle(String name, BiConsumer<ToolsConfig, Boolean> setter) {
