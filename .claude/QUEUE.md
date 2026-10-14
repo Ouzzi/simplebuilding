@@ -258,6 +258,13 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 56 (2026-10-14, Besitzer) – Shop-Vitrine + Verkaufsblock
+- [ ] KONZEPT zuerst (docs/ai/KONZEPT-SHOP-VITRINE-2026-10-14.md, Job oc-shop-concept): Grief- und Explosionsschutz, Duping-Sicherheit, Einbindung Simple Money/Claims.
+- [ ] Shop-Vitrine: einfach craftbar (Eisennuggets, Glas, …), dazu Glow-Variante; ästhetisch/schön. Besitzer legt ein Item hinein → steht zum Verkauf; Besitzer kann es wieder herausnehmen. Mehrere Items hinein → funktioniert wie ein Verkaufsautomat (Vending Machine).
+- [ ] Verkaufsblock: muss unter der Vitrine liegen, damit der Verkauf funktioniert (Diktat „damit der Bernard funktioniert“ – vermutlich „Verkauf/Automat“). Eigene GUI: Preis-Items oben wie beim Filter festlegen (Filter-Prinzip): Rechtsklick addiert die Stapelgröße des Cursor-Stacks, Linksklick addiert 1; Preis entfernen per Klick mit leerem Cursor; leerer Preis = gerade kein Verkauf. Befüllt man den mittleren Slot, erscheinen links und rechts je ein leerer Slot für weitere Preis-Items, max. 5 Slots. Preiszeile nur vom Besitzer bearbeitbar.
+- [ ] Verkaufsblock-GUI für Käufer: darunter dieselbe Anzahl Slots; Käufer legt die Preis-Items hinein und tauscht per Button. Nur ein Spieler gleichzeitig in der GUI.
+- [ ] Vitrine und Verkaufsblock: explosionsfest und für fremde Spieler nicht abbaubar (Grief-Schutz laut Konzept).
+
 ## Nachtrag 55 (2026-10-14, Besitzer)
 - [x] (oc-n55-small) Sculk Jaws: spawnen nur mitten in Sculk – Bedingung: 5 Sculk-Blöcke rundherum unten, am unteren Block 4 (genaue Form beim Planen festlegen).
 - [x] (oc-missingtex) Rucksack- und Bundle-Färbungen sind nicht korrekt – prüfen und fixen.
