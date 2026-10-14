@@ -58,7 +58,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         ItemEntity away = drop(level, p, new ItemStack(Items.GOLDEN_APPLE, 3), false);
         ItemEntity owner = drop(level, p, new ItemStack(Items.COBBLESTONE, 64), true);
         ItemEntity other = drop(level, p, new ItemStack(Items.ENDER_PEARL, 8), true);
-        ItemEntity burned = drop(level, p, new ItemStack(Items.NETHERITE_SCRAP), true);
+        ItemEntity burned = drop(level, p, new ItemStack(Items.LEATHER_BOOTS), true);
         ItemEntity despawned = drop(level, p, new ItemStack(Items.BREAD, 12), true);
         ItemEntity fallen = drop(level, p, new ItemStack(Items.ELYTRA), true);
         ItemEntity gone = drop(level, p, new ItemStack(Items.TNT, 4), true);

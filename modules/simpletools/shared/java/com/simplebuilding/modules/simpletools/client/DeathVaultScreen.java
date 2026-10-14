@@ -95,6 +95,12 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
         } else {
             g.fill(leftPos + 7, rowY, leftPos + 169, rowY + 18, FILL);
         }
+        // Rows without a drop lose their frames, so a short list does not look like a half-empty chest.
+        int used = (menu.data(DeathVaultMenu.D_COUNT) + DeathVaultMenu.COLS - 1) / DeathVaultMenu.COLS;
+        for (int row = used; row < DeathVaultMenu.GRID_ROWS; row++) {
+            int y = topPos + DeathVaultMenu.GRID_Y + row * 18 - 1;
+            g.fill(leftPos + 7, y, leftPos + 169, y + 18, FILL);
+        }
         panel(g);
     }
 

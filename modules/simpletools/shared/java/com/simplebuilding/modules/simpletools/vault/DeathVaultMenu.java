@@ -62,7 +62,7 @@ public class DeathVaultMenu extends AbstractContainerMenu {
         this.access = access;
         this.player = inventory.player;
         this.data = new SimpleContainerData(D_ROWS + 2 * SHOWN);
-        for (int i = 0; i < SHOWN; i++) addSlot(new Shown(shown, i, GRID_X + (i % COLS) * 18, GRID_Y + (i / COLS) * 18));
+        for (int i = 0; i < SHOWN; i++) addSlot(new Shown(shown, i, GRID_X + (i % COLS) * 18, GRID_Y + (i / COLS) * 18, () -> data.get(D_COUNT)));
         addSlot(new Slot(offering, 0, OFFER_X, OFFER_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -79,10 +79,18 @@ public class DeathVaultMenu extends AbstractContainerMenu {
         refresh();
     }
 
-    /** Display field: shows a drop of the last death, never moves an item. */
+    /** Display field: shows a drop of the last death, never moves an item; fields beyond the shown count are inactive (not drawn, not hoverable). */
     static final class Shown extends Slot {
-        Shown(Container container, int index, int x, int y) {
+        private final java.util.function.IntSupplier count;
+
+        Shown(Container container, int index, int x, int y, java.util.function.IntSupplier count) {
             super(container, index, x, y);
+            this.count = count;
+        }
+
+        @Override
+        public boolean isActive() {
+            return getContainerSlot() < count.getAsInt();
         }
 
         @Override
