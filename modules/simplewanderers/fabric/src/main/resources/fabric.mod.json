@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "simplewanderers",
+  "version": "${version}",
+  "name": "Simple Wanderers",
+  "description": "One Village Wanderer per village: a Wandering Trader in an ochre travel cloak with a leashed horse. Offers common-to-uncommon goods, a fresh stock every 3 days, a restock every 1.5 days, and a range that follows the village biome. Works on its own with Vanilla.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplewanderers.WanderersFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplewanderers.WanderersFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplewanderers.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "simplebuilding": "*",
+    "simplemoney": "*",
+    "simplemobheads": "*"
+  }
+}

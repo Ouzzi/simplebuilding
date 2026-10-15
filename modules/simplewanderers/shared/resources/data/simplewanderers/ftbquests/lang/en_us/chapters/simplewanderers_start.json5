@@ -1,0 +1,10 @@
+{
+	"chapter.3ABF80DE8381B747.title": "{\"translate\": \"quests.simplewanderers.start.title\"}",
+	"chapter.3ABF80DE8381B747.chapter_subtitle": [
+		"{\"translate\": \"quests.simplewanderers.start.subtitle\"}"
+	],
+	"quest.3CF9C8FF562E341F.title": "{\"translate\": \"quests.simplewanderers.start.welcome.title\"}",
+	"quest.3CF9C8FF562E341F.quest_desc": [
+		"{\"translate\": \"quests.simplewanderers.start.welcome.description\"}"
+	]
+}

@@ -1,0 +1,5 @@
+{
+  "amount": 2,
+  "random_sequence": "simplewanderers:trade_set/wanderer/buying",
+  "trades": "#simplewanderers:wanderer/buying"
+}

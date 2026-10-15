@@ -202,3 +202,10 @@ type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.${modId}]]
+modId="simplewanderers"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

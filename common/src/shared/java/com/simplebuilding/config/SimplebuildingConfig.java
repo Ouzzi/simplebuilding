@@ -87,6 +87,10 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleShops = true;
 
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleWanderers = true;
+
     /**
      * Super-mod (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md, stage 1a): hands the "Enable Simple X" switches of the
      * bundled optional sub-mods to framework SubMods (only the mod id string is shared, no class import). Called once
@@ -106,6 +110,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simplerespawn", c.enableSimpleRespawn);
         setSubMod("simplebeacons", c.enableSimpleBeacons);
         setSubMod("simpleshops", c.enableSimpleShops);
+        setSubMod("simplewanderers", c.enableSimpleWanderers);
     }
 
     /**

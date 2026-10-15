@@ -188,6 +188,7 @@
     "simpleend": "*",
     "simplerespawn": "*",
     "simplebeacons": "*",
-    "simpleshops": "*"
+    "simpleshops": "*",
+    "simplewanderers": "*"
   }
 }

@@ -1,0 +1,44 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wandering_trader/emerald_fish_bucket",
+    "minecraft:wandering_trader/emerald_pufferfish_bucket",
+    "minecraft:wandering_trader/emerald_sea_pickle",
+    "minecraft:wandering_trader/emerald_slime_ball",
+    "minecraft:wandering_trader/emerald_glowstone",
+    "minecraft:wandering_trader/emerald_nautilus_shell",
+    "minecraft:wandering_trader/emerald_kelp",
+    "minecraft:wandering_trader/emerald_blue_orchid",
+    "minecraft:wandering_trader/emerald_open_eyeblossom",
+    "minecraft:wandering_trader/emerald_jungle_sapling",
+    "minecraft:wandering_trader/emerald_cherry_sapling",
+    "minecraft:wandering_trader/emerald_pale_oak_sapling",
+    "minecraft:wandering_trader/emerald_mangrove_propagule",
+    "minecraft:wandering_trader/emerald_poplar_sapling",
+    "minecraft:wandering_trader/emerald_brain_coral_block",
+    "minecraft:wandering_trader/emerald_bubble_coral_block",
+    "minecraft:wandering_trader/emerald_fire_coral_block",
+    "minecraft:wandering_trader/emerald_horn_coral_block",
+    "minecraft:wandering_trader/emerald_tube_coral_block",
+    "minecraft:wandering_trader/emerald_vine",
+    "minecraft:wandering_trader/emerald_pale_hanging_moss",
+    "minecraft:wandering_trader/emerald_lily_pad",
+    "minecraft:wandering_trader/emerald_small_dripleaf",
+    "minecraft:wandering_trader/emerald_pointed_dripstone",
+    "minecraft:wandering_trader/emerald_sulfur_spike",
+    "minecraft:wandering_trader/emerald_rooted_dirt",
+    "minecraft:wandering_trader/emerald_moss_block",
+    "minecraft:wandering_trader/emerald_pale_moss_block",
+    "minecraft:wandering_trader/emerald_firefly_bush",
+    "minecraft:wandering_trader/emerald_golden_dandelion",
+    "minecraft:wandering_trader/emerald_shelf_mushroom",
+    {
+      "id": "simplemoney:wandering_trader/40",
+      "required": false
+    },
+    {
+      "id": "simplemoney:wandering_trader/41",
+      "required": false
+    }
+  ]
+}

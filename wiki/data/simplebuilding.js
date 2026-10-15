@@ -76131,10 +76131,6 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/block/sulfur_wall_torch.png",
-      "lootTable": "simplebuilding:blocks/sulfur_wall_torch",
-      "drops": [
-        "simplebuilding:sulfur_torch"
-      ],
       "hasCustomBehaviour": false
     },
     {
@@ -149512,22 +149508,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sulfur_torch.json"
     },
     {
-      "id": "simplebuilding:blocks/sulfur_wall_torch",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:sulfur_torch"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sulfur_wall_torch.json"
-    },
-    {
       "id": "simplebuilding:blocks/suspended_gravel",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -157796,6 +157776,26 @@ window.WIKI_DATA = {
       "labelDe": "Simple Shops aktivieren",
       "tooltip": "Turns the bundled Simple Shops module on or off: player shops with a Sales Block and a Display Case. Off stops trading, menus and new placements; placed shops keep their protection. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Shops ein oder aus: Spieler-Shops mit Verkaufsblock und Vitrine. Aus stoppt Handel, Menüs und neue Platzierungen; gesetzte Shops behalten ihren Schutz. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleWanderers",
+      "shortName": "enableSimpleWanderers",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Wanderers",
+      "labelDe": "Simple Wanderers aktivieren",
+      "tooltip": "Turns the bundled Simple Wanderers module on or off: one Village Wanderer with a leashed horse per village. Off stops new wanderers and rotation; existing ones stay as plain traders. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Wanderers ein oder aus: ein Dorf-Wanderer mit Pferd an der Leine je Dorf. Aus stoppt neue Wanderer und die Rotation; vorhandene bleiben gewöhnliche Händler. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -186597,11 +186597,11 @@ window.WIKI_DATA = {
     "items": 782,
     "blocks": 517,
     "recipes": 1365,
-    "lootTables": 374,
+    "lootTables": 373,
     "trades": 20,
     "enchantments": 19,
     "tags": 57,
-    "config": 242,
+    "config": 243,
     "inWorld": 491,
     "advancements": 116,
     "features": 51,

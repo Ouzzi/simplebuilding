@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wandering_trader/water_bottle_emerald",
+    "minecraft:wandering_trader/fermented_spider_eye_emerald",
+    {
+      "id": "simplebuilding:wandering_trader/octant_emerald",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:wandering_trader/reinforced_bundle_emerald",
+      "required": false
+    }
+  ]
+}
