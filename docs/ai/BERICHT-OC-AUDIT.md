@@ -1,0 +1,11 @@
+# Bericht oc-audit (14.10.2026)
+- Auftrag: Besitzer-Wünsche 07.–14.10. (176 Nachrichten) gegen Queue, Archiv, docs/ai, Memory und Code (Stand claude-wave1 3cfba3c00) geprüft; nur gelesen, kein Code/Gradle/Test.
+- Ergebnis `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-14.md`: 416 Einzelpunkte: A 23, B 314, C 13, D 22, E 2, X 11, P 31; dazu 18 Memory-Fundstellen (M01–M18).
+- Befund: kaum etwas verloren; ganz unnotiert und ungebaut nur der breitere Eimer (09.10.). 16 D-Punkte sind im Code, aber nicht in der Queue (Zentrale, Dev-Queue, Dev-Knopf, Tiegel-Rand u. a.).
+- C-Auswahl: Blaze-Book-Rezept, Wollknäuel-Rückrichtung, Shrieker-Vibration, Soulbound-Hardcore, Kreativ-Tab-Schalter nur in 8 Modulen, platzierter Eimer verwittert nicht, Enchanter-Abbau gibt Nugget statt Barren.
+- `.claude/QUEUE.md`: neuer Abschnitt Nachtrag 58 über Nachtrag 57 (D/E/C als `[ ]`); 17 sicher belegte `[ ]` auf `[x]` gesetzt („Audit 14.10.“). Überblick (A) ist veraltet (alles gemergt), wurde nicht umgeschrieben.
+- Nicht gemergt: `oc-blueprint-io` (WIP), `oc-lightpane`, `oc-gatefix6`; `oc-ashleaves`/`oc-shop-concept` ohne Commits.
+- Eigene Entscheidungen: D-Punkte, die schon im Code stehen, als `[x]` nachgetragen (nicht `[ ]`); Memory-Fundstellen ohne Besitzerdatum mit „(Memory)“ in Nachtrag 58 aufgenommen; Überblick-Zeilen der Queue nicht angefasst.
+- Nicht geprüft: Verhalten/Optik im Spiel, 10.10.-Entscheidungsliste und 09.10.-Fragenliste (fehlen in den Nachrichten), Bild vom 14.10. 19:31, ältere Branches (bp-*, cp-*); Memory teils veraltet, M03 unverifiziert.
+- Privat bleiben: Eingaben unter /root/jobs/audit nicht kopiert/committet; keine IPs/Hosts im Repo.
+- Offen/TODO: `development` → Production erst nach Freigabe (Prod-Push nicht ausgeführt, hier nichts gepusht).
