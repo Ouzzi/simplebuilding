@@ -14,7 +14,7 @@ import org.jspecify.annotations.Nullable;
 /** Water bucket that releases its frog (variant, name, age restored) instead of the plain Vanilla spawn. */
 public final class FrogBucketItem extends MobBucketItem {
     public FrogBucketItem(Properties properties) {
-        super(net.minecraft.world.entity.EntityType.FROG, Fluids.WATER, SoundEvents.BUCKET_EMPTY_TADPOLE, properties);
+        super(net.minecraft.world.entity.EntityTypes.FROG, Fluids.WATER, SoundEvents.BUCKET_EMPTY_TADPOLE, properties);
     }
 
     @Override

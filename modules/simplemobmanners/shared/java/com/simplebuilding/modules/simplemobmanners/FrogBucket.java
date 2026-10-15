@@ -1,7 +1,7 @@
 package com.simplebuilding.modules.simplemobmanners;
 
 import java.util.Optional;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -73,7 +73,7 @@ public final class FrogBucket {
 
     /** Release: a new frog with everything the bucket carries; null on the client. */
     public static Frog release(net.minecraft.server.level.ServerLevel level, ItemStack bucket, net.minecraft.core.BlockPos pos) {
-        Frog frog = net.minecraft.world.entity.EntityType.FROG.create(level,
+        Frog frog = net.minecraft.world.entity.EntityTypes.FROG.create(level,
                 net.minecraft.world.entity.EntityType.createDefaultStackConfig(level, bucket, null), pos,
                 net.minecraft.world.entity.EntitySpawnReason.BUCKET, true, false);
         if (frog == null) return null;
