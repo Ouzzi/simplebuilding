@@ -169,6 +169,8 @@ def resources():
                      "top": "minecraft:block/cauldron_top"},
              True: {k: f"simplelib:block/reinforced_cauldron_{v}" for k, v in
                     (("bottom", "bottom"), ("inside", "inner"), ("particle", "side"), ("side", "side"), ("top", "top"))}}
+    # "curdling" and "spoiled" are legacy contents (before 2026-10-15): never produced, they only keep old worlds
+    # rendering until MilkCauldronBlock migrates them to milk.
     for content in ("milk", "butter", "curdling", "cheese", "spoiled"):
         for stage in range(4):
             suffix = f"milk_{stage}" if content == "milk" else f"curd_{stage}" if content == "curdling" else content

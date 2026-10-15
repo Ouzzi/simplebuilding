@@ -87,20 +87,20 @@
       "id": "cheese_and_butter",
       "en": {
         "title": "Cheese and butter",
-        "summary": "Milk ripens into butter automatically; a fermented spider eye starts cheese ripening with a limited harvest window.",
+        "summary": "Milk in a cauldron ripens into butter after 5 minutes and into cheese after 5 more. Nothing spoils; an active hopper below takes the butter at once.",
         "details": [
-          "Fill an empty cauldron with a milk bucket. Milk becomes butter after four stages: 3,000 ticks by default (2.5 minutes at 20 ticks per second), butterTicks 200–24,000. Butter never spoils. An empty bucket recovers milk before it becomes butter or starts curdling.",
-          "Add one fermented spider eye to milk to start cheese ripening: 9,000 ticks by default (7.5 minutes), cheeseTicks 600–72,000. Harvest butter or cheese with an empty main hand. Cheese spoils after another 1,800 ticks by default (1.5 minutes), cheeseHarvestWindowTicks 200–12,000. An empty hand or bucket empties spoiled milk without a reward. Ripening uses scheduled block ticks, with configured ripening times divided into four whole-tick intervals.",
+          "Fill an empty cauldron with a milk bucket. Milk becomes butter after four visible stages: 6,000 ticks by default (5 minutes at 20 ticks per second), butterTicks 200–24,000. An empty bucket recovers milk before it becomes butter.",
+          "Butter left in the cauldron turns into cheese after another 6,000 ticks by default (5 minutes), cheeseTicks 200–72,000; no spider eye is needed. Nothing spoils and there is no harvest window. Take butter or cheese with an empty main hand. An active hopper (not locked by redstone) directly below the cauldron takes the finished product at once if it has room, and the cauldron is empty afterwards; so with an active hopper the cauldron gives butter, and cheese only forms without one (or while the hopper is full or locked; the hopper then takes the cheese later). Land claims are respected. Ripening uses scheduled block ticks, with configured ripening times divided into four whole-tick intervals. Cauldrons from older versions (curdling or spoiled milk) turn into milk.",
           "Cheese and butter blocks contain 16 slices. A knife cuts one slice from the top or a side for one durability; the first cut fixes the direction until full again. A matching slice restores one layer. Slices only come off with a knife; breaking a cut block keeps its state in the dropped block item, and placing it restores the cut block. Cheese is springy like a bed (bounce 0.75, half fall distance). Butter block friction is 0.9.",
           "Cheese slices restore 2 hunger and 1.2 saturation. Butter slices are not edible; use with a knife to butter opened bread before toppings."
         ]
       },
       "de": {
         "title": "Käse und Butter",
-        "summary": "Milch reift automatisch zu Butter; ein fermentiertes Spinnenauge startet die Käsereifung mit begrenztem Erntefenster.",
+        "summary": "Milch im Kessel reift nach 5 Minuten zu Butter und nach 5 weiteren zu Käse. Nichts verdirbt; ein aktiver Trichter darunter nimmt die Butter sofort.",
         "details": [
-          "Einen leeren Kessel mit einem Milcheimer füllen. Milch wird nach vier Stufen zu Butter: standardmäßig 3.000 Ticks (2,5 Minuten bei 20 Ticks pro Sekunde), butterTicks 200–24.000. Butter verdirbt nie. Ein leerer Eimer holt Milch zurück, bevor sie Butter wird oder zu gerinnen beginnt.",
-          "Ein fermentiertes Spinnenauge zur Milch geben, um Käse zu erzeugen: standardmäßig 9.000 Ticks (7,5 Minuten), cheeseTicks 600–72.000. Butter oder Käse mit leerer Haupthand ernten. Käse verdirbt standardmäßig nach weiteren 1.800 Ticks (1,5 Minuten), cheeseHarvestWindowTicks 200–12.000. Eine leere Hand oder ein Eimer leert verdorbene Milch ohne Ertrag. Reifung nutzt geplante Blockticks; eingestellte Reifezeiten werden in vier ganzzahlige Tickintervalle geteilt.",
+          "Einen leeren Kessel mit einem Milcheimer füllen. Milch wird nach vier sichtbaren Stufen zu Butter: standardmäßig 6.000 Ticks (5 Minuten bei 20 Ticks pro Sekunde), butterTicks 200–24.000. Ein leerer Eimer holt Milch zurück, bevor sie Butter wird.",
+          "Butter, die im Kessel bleibt, wird nach weiteren standardmäßig 6.000 Ticks (5 Minuten) zu Käse, cheeseTicks 200–72.000; ein Spinnenauge ist nicht nötig. Nichts verdirbt, es gibt kein Erntefenster. Butter oder Käse mit leerer Haupthand nehmen. Ein aktiver Trichter (nicht per Redstone gesperrt) direkt unter dem Kessel nimmt das fertige Produkt sofort, wenn er Platz hat; danach ist der Kessel leer. Mit aktivem Trichter gibt der Kessel also Butter, Käse entsteht nur ohne einen (oder solange der Trichter voll oder gesperrt ist; er nimmt den Käse dann später). Landschutz (Claims) wird beachtet. Reifung nutzt geplante Blockticks; eingestellte Reifezeiten werden in vier ganzzahlige Tickintervalle geteilt. Kessel aus älteren Versionen (gerinnende oder verdorbene Milch) werden zu Milch.",
           "Käse- und Butterblöcke enthalten 16 Scheiben. Das Messer schneidet von oben oder seitlich eine Scheibe für einen Haltbarkeitspunkt ab; der erste Schnitt legt die Richtung fest, bis der Block wieder voll ist. Eine passende Scheibe ergänzt eine Schicht. Scheiben gibt es nur mit dem Messer; ein angeschnittener Block behält beim Abbauen seinen Zustand im Block-Item und stellt ihn beim Platzieren wieder her. Käse federt wie ein Bett (Abprall 0,75, halbe Fallhöhe). Butterblock-Reibung: 0,9.",
           "Käsescheiben geben 2 Hunger und 1,2 Sättigung. Butterscheiben sind nicht essbar; mit dem Messer vor den Zutaten auf geöffnetes Brot streichen."
         ]
@@ -179,8 +179,8 @@
       "de": {"summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."}
     },
     "simplesandwiches:butter_block": {
-      "en": {"summary": "Harvest ripened butter from a milk cauldron with an empty hand. Contains 16 slices; cut with a knife and restore with slices. Friction: 0.9."},
-      "de": {"summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel ernten. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9."}
+      "en": {"summary": "Take ripened butter from a milk cauldron with an empty hand, or let an active hopper below collect it. Contains 16 slices; cut with a knife and restore with slices. Friction: 0.9."},
+      "de": {"summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel nehmen oder von einem aktiven Trichter darunter einsammeln lassen. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9."}
     },
     "simplesandwiches:butter_slice": {
       "en": {"summary": "Not edible. Hold a knife in the other hand to butter opened bread before toppings. Default bonus: 10% hunger, saturation and summed effect duration, subject to effect caps."},
@@ -191,8 +191,8 @@
       "de": {"summary": "Ein Stück je Messerbenutzung, sieben aus einem vollen Kuchen. Gibt sofort 2 Hunger und 0,4 Sättigung, ist bis sieben stapelbar und dient als Sandwichzutat."}
     },
     "simplesandwiches:cheese_block": {
-      "en": {"summary": "Milk plus fermented spider eye ripens into cheese. Harvest with an empty hand before it spoils. Contains 16 slices; the first knife cut fixes direction until full again."},
-      "de": {"summary": "Milch mit fermentiertem Spinnenauge reift zu Käse. Vor dem Verderben mit leerer Hand ernten. Enthält 16 Scheiben; der erste Messerschnitt legt die Richtung fest, bis der Block wieder voll ist."}
+      "en": {"summary": "Butter left in the cauldron ripens into cheese after 5 more minutes; it never spoils. Contains 16 slices; the first knife cut fixes direction until full again."},
+      "de": {"summary": "Butter, die im Kessel bleibt, reift nach 5 weiteren Minuten zu Käse; er verdirbt nie. Enthält 16 Scheiben; der erste Messerschnitt legt die Richtung fest, bis der Block wieder voll ist."}
     },
     "simplesandwiches:cheese_slice": {
       "en": {"summary": "Cut from cheese with a knife. Restores 2 hunger and 1.2 saturation. Use as a sandwich ingredient or restore a partly sliced cheese block."},
@@ -203,8 +203,8 @@
       "de": {"summary": "Eisen-Küchenwerkzeug: 250 Haltbarkeit, Gesamtschaden 2, Angriffstempo 2,0 und Reparatur mit Eisennuggets. Aus einem Stock und vier Eisennuggets hergestellt. Bereitet Brot zu und schneidet Käse, Butter, Melonen und Kuchen."}
     },
     "simplesandwiches:milk_cauldron": {
-      "en": {"summary": "Fill an empty cauldron with milk. Default times: butter 3,000 ticks; cheese after fermented spider eye 9,000 ticks, then 1,800 ticks to harvest. Butter never spoils; spoiled milk can only be emptied."},
-      "de": {"summary": "Leeren Kessel mit Milch füllen. Standardzeiten: Butter 3.000 Ticks; Käse nach fermentiertem Spinnenauge 9.000 Ticks, danach 1.800 Ticks zum Ernten. Butter verdirbt nie; verdorbene Milch nur ausleeren."}
+      "en": {"summary": "Fill an empty cauldron with milk. Default times: butter after 6,000 ticks (5 minutes), cheese 6,000 ticks later. Nothing spoils. An active hopper directly below takes the finished product at once (butter); cheese only forms without one."},
+      "de": {"summary": "Leeren Kessel mit Milch füllen. Standardzeiten: Butter nach 6.000 Ticks (5 Minuten), Käse 6.000 Ticks später. Nichts verdirbt. Ein aktiver Trichter direkt darunter nimmt das fertige Produkt sofort (Butter); Käse entsteht nur ohne einen."}
     },
     "simplesandwiches:sandwich": {
       "en": {"summary": "Bread plus up to five ingredients, optional butter first. Hunger and saturation add without a formula cap; matching effects merge. Matching components stack to 16."},

@@ -357,16 +357,11 @@ public final class BlockInfo {
         lines.add(Line.of("jade.simplebuilding.cauldron.content", Arg.translatable("jade.simplebuilding.cauldron.content." + content)));
         if (MILK_CAULDRON_ID.equals(id)) {
             switch (content) {
-                case "milk", "curdling" -> {
+                case "milk" -> {
                     int stage = intProperty(state, "stage", 0);
                     lines.add(Line.of("jade.simplebuilding.cauldron.ripeness", Arg.literal(Math.min(MILK_STAGES, stage + 1)), Arg.literal(MILK_STAGES)));
                 }
-                case "butter" -> lines.add(Line.of("jade.simplebuilding.cauldron.ready"));
-                case "cheese" -> {
-                    lines.add(Line.of("jade.simplebuilding.cauldron.ready"));
-                    lines.add(Line.of("jade.simplebuilding.cauldron.cheese_warning"));
-                }
-                case "spoiled" -> lines.add(Line.of("jade.simplebuilding.cauldron.spoiled"));
+                case "butter", "cheese" -> lines.add(Line.of("jade.simplebuilding.cauldron.ready"));
                 default -> {
                 }
             }

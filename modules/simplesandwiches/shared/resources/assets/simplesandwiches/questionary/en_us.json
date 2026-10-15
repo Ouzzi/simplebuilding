@@ -26,7 +26,7 @@
       "A block that remembers being milk."
     ],
     "use": [
-      "Ripens from milk in a cauldron after about 2.5 minutes; harvest it with an empty hand. It holds 16 slices, cut one by one with a knife. Butter never spoils."
+      "Ripens from milk in a cauldron after 5 minutes; take it with an empty hand or let a hopper below collect it. It holds 16 slices, cut one by one with a knife. Butter never spoils."
     ],
     "secret": [
       "A matching slice restores a cut layer. Its friction is 0.9, so it is slippery underfoot."
@@ -48,10 +48,10 @@
       "A wheel of patience."
     ],
     "use": [
-      "Add a fermented spider eye to milk in a cauldron; after about 7.5 minutes harvest the cheese with an empty hand. It holds 16 slices and bounces like a bed."
+      "Butter left in the cauldron turns into cheese after another 5 minutes; take it with an empty hand. It holds 16 slices and bounces like a bed. It never spoils."
     ],
     "secret": [
-      "Be quick: cheese spoils 1.5 minutes after it is ripe and gives nothing."
+      "With an active hopper below the cauldron, the butter is taken first, so no cheese forms. Lock the hopper with redstone."
     ]
   },
   "cheese_slice": {
@@ -81,10 +81,10 @@
       "A cauldron full of patience."
     ],
     "use": [
-      "An empty cauldron filled with a milk bucket. After four stages it becomes butter; an empty bucket gets the milk back before that. With SimpleLib it is a reinforced milk cauldron."
+      "An empty cauldron filled with a milk bucket. After four stages it becomes butter, five minutes later cheese; an empty bucket gets the milk back before that. With SimpleLib it is a reinforced milk cauldron."
     ],
     "secret": [
-      "A fermented spider eye turns the milk to cheese instead."
+      "An active hopper below collects the butter the moment it is ready."
     ]
   },
   "guide_book": {
