@@ -1,7 +1,6 @@
 package com.simplebuilding.client.gui;
 
 import com.simplebuilding.items.custom.OctantItem;
-import com.simplebuilding.util.guiDrawHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -11,7 +10,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import java.util.ArrayList;
@@ -50,11 +48,6 @@ public class RangefinderHudOverlay {
 
         if (!hasOctant) return;
 
-        OctantItem octantItem = (OctantItem) stack.getItem();
-        DyeColor dyeColor = octantItem.getColor();
-
-        guiDrawHelper.ColorTheme theme = guiDrawHelper.getColorTheme(dyeColor);
-
         CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         CompoundTag nbt = nbtData.copyTag();
         List<Component> lines = new ArrayList<>();
@@ -69,7 +62,7 @@ public class RangefinderHudOverlay {
             if (p1.length == 3) {
                 pos1 = new BlockPos(p1[0], p1[1], p1[2]);
                 lines.add(Component.translatable("hud.simplebuilding.rangefinder.pos1", pos1.getX(), pos1.getY(), pos1.getZ())
-                        .setStyle(Style.EMPTY.withColor(theme.pos1())));
+                        .setStyle(Style.EMPTY.withColor(HudPanel.COLOR_VALUE)));
             }
         } else {
             lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos1").withStyle(ChatFormatting.GRAY));
@@ -80,7 +73,7 @@ public class RangefinderHudOverlay {
             if (p2.length == 3) {
                 pos2 = new BlockPos(p2[0], p2[1], p2[2]);
                 lines.add(Component.translatable("hud.simplebuilding.rangefinder.pos2", pos2.getX(), pos2.getY(), pos2.getZ())
-                        .setStyle(Style.EMPTY.withColor(theme.pos2())));
+                        .setStyle(Style.EMPTY.withColor(HudPanel.COLOR_VALUE_DIM)));
             }
         } else if (pos1 != null) {
             lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos2").withStyle(ChatFormatting.GRAY));
@@ -92,7 +85,7 @@ public class RangefinderHudOverlay {
             int dz = Math.abs(pos1.getZ() - pos2.getZ()) + 1;
 
             // Resultat nutzt Pos1 Farbe (hell)
-            int resultColor = theme.pos1();
+            int resultColor = HudPanel.COLOR_VALUE;
 
             if (dy == 1 && (dx == 1 || dz == 1)) {
                 lines.add(Component.translatable("hud.simplebuilding.rangefinder.distance", Math.max(dx, dz)).setStyle(Style.EMPTY.withColor(resultColor)));

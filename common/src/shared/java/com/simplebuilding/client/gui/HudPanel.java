@@ -3,22 +3,23 @@ package com.simplebuilding.client.gui;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.tweaks.item.LaserPointerItem;
+import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiPalette;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 /**
  * The one look every gadget readout of the mod shares (owner 2026-09-29: "all overlays one
- * consistent style, the octant box is the reference"): vanilla's tooltip panel (sprites
- * {@code tooltip/background} + {@code tooltip/frame}), placed and scaled by {@link ModHud}, 6 px of
- * padding, the item's own name as the title (aqua when enchanted, as the tooltip does), 4 px under
- * the title, 2 px between lines, values in a highlight colour and secondary lines grey. The
+ * consistent style, the octant box is the reference"; N64 2026-10-15: flat dark box, 1 px frame in
+ * the octant palette's band tone, fixed 78 % opacity), placed and scaled by {@link ModHud}, 4 px of
+ * padding, the item's own name as the title (aqua when enchanted, as the tooltip does), 3 px under
+ * the title, 2 px between lines, values in tones of the octant bronze and secondary lines grey. The
  * Octant ({@link RangefinderHudOverlay}), the Gauge ({@link SpeedometerHudOverlay}) and the
  * Resonance Rod's distance readout ({@code LaserRenderer#renderHud}) draw through here -
  * nothing else writes free text next to the crosshair any more.
@@ -30,19 +31,30 @@ public final class HudPanel {
     private HudPanel() {
     }
 
-    /** Inner padding of the panel box (the tooltip frame adds its own 3 px outside it). */
-    public static final int PADDING = 6;
+    /** Distance from the box's outer edge (its 1 px frame included) to the content. */
+    public static final int PADDING = 4;
     /** Gap under the title line. */
-    public static final int TITLE_GAP = 4;
+    public static final int TITLE_GAP = 3;
     /** Gap between two text lines. */
     public static final int LINE_GAP = 2;
     /** Distance between the centres of two stacked panels. */
     public static final int STACK_PITCH = 70;
 
-    /** Highlight colour for measured values (the gauge's speed orange). */
-    public static final int COLOR_VALUE = 0xFFFF7F4C;
-    /** Secondary lines. */
-    public static final int COLOR_SECONDARY = 0xFFAAAAAA;
+    /** Fixed box opacity (owner O4: 78 %). */
+    public static final int ALPHA = 0xC8;
+    /** Box fill (0.20 x the bronze) and frame (the palette's band tone, 0.64 x), both at {@link #ALPHA}. */
+    private static final int BOX_FILL = ALPHA << 24 | UiPalette.scale(ModScreenLayout.OCTANT_FILL, 0.20) & 0xFFFFFF;
+    private static final int BOX_FRAME = ALPHA << 24 | UiPalette.scale(ModScreenLayout.OCTANT_FILL, 0.64) & 0xFFFFFF;
+    /**
+     * Primary value tone (Pos 1, results, the rod's distance): the bronze 80 % towards white. Pos 2 uses
+     * {@link #COLOR_VALUE_DIM}, the same hue 60 % towards white - one brightness step apart. WCAG contrast on the
+     * box over the worst world (pure white sky): 7,0:1 and 5,1:1; over a dark world 14,4:1 and 10,5:1.
+     */
+    public static final int COLOR_VALUE = UiPalette.mix(ModScreenLayout.OCTANT_FILL, 0xFFFFFFFF, 0.8);
+    /** Dimmer step of {@link #COLOR_VALUE} (Pos 2). */
+    public static final int COLOR_VALUE_DIM = UiPalette.mix(ModScreenLayout.OCTANT_FILL, 0xFFFFFFFF, 0.6);
+    /** Secondary lines (4,7:1 over a pure white world, 9+ over a dark one). */
+    public static final int COLOR_SECONDARY = 0xFFB8B8B8;
     /** Warnings (danger zone, lethal fall). */
     public static final int COLOR_DANGER = 0xFFFF5555;
 
@@ -120,8 +132,13 @@ public final class HudPanel {
         ModHud.end(context);
     }
 
-    /** The panel box around content at ({@code x}, {@code y}) of the given size. */
+    /**
+     * The panel box around content at ({@code x}, {@code y}) of the given size: a flat dark box at {@link #ALPHA}, a
+     * 1 px frame, corners cut by 1 px; it reaches {@link #PADDING} px beyond the content on every side.
+     */
     public static void background(GuiGraphicsExtractor context, int x, int y, int contentWidth, int contentHeight) {
-        TooltipRenderUtil.extractTooltipBackground(context, x, y, contentWidth, contentHeight, null);
+        int bx = x - PADDING, by = y - PADDING, bw = contentWidth + PADDING * 2, bh = contentHeight + PADDING * 2;
+        UiBoxes.rounded(context, bx, by, bw, bh, new int[] {1}, BOX_FRAME);
+        context.fill(bx + 1, by + 1, bx + bw - 1, by + bh - 1, BOX_FILL);
     }
 }
