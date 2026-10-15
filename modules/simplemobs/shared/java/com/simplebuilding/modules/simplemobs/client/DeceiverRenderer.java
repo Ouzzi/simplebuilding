@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LivingEntityEmissiveLayer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 
 public class DeceiverRenderer extends MobRenderer<DeceiverEntity, DeceiverRenderState, DeceiverModel> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("simplemobs", "textures/entity/deceiver/deceiver.png");
@@ -26,6 +27,7 @@ public class DeceiverRenderer extends MobRenderer<DeceiverEntity, DeceiverRender
     @Override
     public void extractRenderState(DeceiverEntity entity, DeceiverRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
+        state.turn = Mth.wrapDegrees(entity.yBodyRot - entity.yBodyRotO);
         state.armored = entity.isArmored();
         state.hostile = entity.isHostileMode();
         state.idle.copyFrom(entity.idleState);

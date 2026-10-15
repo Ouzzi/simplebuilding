@@ -33,6 +33,12 @@ public class DreadRenderer extends MobRenderer<DreadEntity, DreadRenderState, Dr
         state.stomp = pose(entity, DreadEntity.ACT_STOMP, FearLogic.STOMP_WINDUP - 4, partialTicks);
         int rise = entity.riseTicks();
         state.rise = rise > 0 ? FearLogic.ease(1.0F - Math.max(0.0F, rise - partialTicks) / FearLogic.RISE_TICKS) : 1.0F;
+        // the chain trails the arm by 3 ticks while it lifts; after the strike it keeps swinging and settles
+        float lagged = Math.max(pose(entity, DreadEntity.ACT_SWING, FearLogic.SWING_WINDUP - 2, partialTicks - 3.0F),
+                pose(entity, DreadEntity.ACT_STOMP, FearLogic.STOMP_WINDUP - 4, partialTicks - 3.0F));
+        float now = Math.max(state.swing, state.stomp);
+        state.chainDrag = (lagged - now) * 0.9F
+                + (entity.action() == DreadEntity.ACT_NONE ? FearLogic.chainPendulum(entity.clientSinceAction() + partialTicks) * 0.5F : 0.0F);
         state.weak = entity.weakened();
     }
 

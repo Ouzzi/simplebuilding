@@ -423,6 +423,12 @@ final class FearTests {
             h.assertTrue(FearLogic.RECOVER_TICKS >= 5 && FearLogic.RECOVER_TICKS <= 8, "recovery 5-8 ticks");
             h.succeed();
         });
+        add.accept("fear_chain_pendulum", h -> {
+            h.assertTrue(FearLogic.chainPendulum(-1.0F) == 0.0F && FearLogic.chainPendulum(0.0F) == 0.0F, "starts at rest");
+            h.assertTrue(Math.abs(FearLogic.chainPendulum(2.0F)) > 0.3F, "swings out");
+            h.assertTrue(Math.abs(FearLogic.chainPendulum(30.0F)) < 0.01F, "settles");
+            h.succeed();
+        });
         add.accept("fear_drops", h -> {
             ServerLevel l = h.getLevel();
             floor(h, 0, 0, 4, 4);
