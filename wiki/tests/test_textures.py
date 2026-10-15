@@ -95,6 +95,20 @@ class TextureIndexTests(unittest.TestCase):
         self.assertEqual(stone['name'], {'en': 'Stone', 'de': 'Stein'})
         self.assertEqual(stone['item'], 'simplebuilding:stone')
 
+    def test_leftover_copy_of_an_older_checkout_does_not_change_the_index(self):
+        """An untracked copy nothing names (ignored derived copy of a merged texture) is no reuse target."""
+        import subprocess
+        icon = png(16, 16, 7)
+        self.put('src/main/resources/assets/simplebuilding/textures/item/cart.png', icon)
+        self.put('wiki/assets/textures/item/cart.png', icon)
+        subprocess.run(['git', 'init', '-q', str(self.repo)], check=True)
+        before, _ = tx.build(self.repo, self.wiki, self.entries())
+        self.assertEqual(before['textures'][0]['file'], 'assets/textures/sheets/simplebuilding/simplebuilding/item/cart.png')
+        (self.wiki / 'data/simplebuilding.json').write_text(json.dumps({'items': [
+            {'id': 'simplebuilding:cart', 'name': {}, 'texture': 'assets/textures/item/cart.png'}]}))
+        after, _ = tx.build(self.repo, self.wiki, self.entries())
+        self.assertEqual(after['textures'][0]['file'], 'assets/textures/item/cart.png', 'named by the wiki data: reused')
+
     def test_sync_writes_prunes_and_check_detects_staleness(self):
         self.put('src/main/resources/assets/simplebuilding/textures/entity/ghost.png', png(64, 32))
         stale = self.put('wiki/assets/textures/sheets/simplebuilding/simplebuilding/entity/old.png', png(4, 4))
