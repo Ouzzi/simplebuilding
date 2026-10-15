@@ -37,7 +37,8 @@ window.WIKI_MODULES = [
       "simpleend",
       "simplerespawn",
       "simplebeacons",
-      "simpleshops"
+      "simpleshops",
+      "simplewanderers"
     ]
   },
   {
@@ -652,5 +653,24 @@ window.WIKI_MODULES = [
       "simpletweaks"
     ],
     "dataHash": "943aed86a953"
+  },
+  {
+    "id": "simplewanderers",
+    "displayName": "Simple Wanderers",
+    "description": "Village Wanderer: one Wandering Trader per village with a leashed horse, goods split from the traveling trader, a new stock every 3 days, a restock every 1.5 days and a range by village biome. Works on its own with Vanilla.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding",
+      "simplemoney",
+      "simplemobheads"
+    ],
+    "dataHash": "a290905d600e"
   }
 ];

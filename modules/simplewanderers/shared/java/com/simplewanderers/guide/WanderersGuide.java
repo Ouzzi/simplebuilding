@@ -42,7 +42,7 @@ public final class WanderersGuide {
     public static final int PAGES = 11;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Vanilla item that, together with a book, crafts the guide. */
-    public static final Item RECIPE_ITEM = Items.EMERALD;
+    public static final Item RECIPE_ITEM = Items.LEAD;
     private static Item book;
 
     private WanderersGuide() {

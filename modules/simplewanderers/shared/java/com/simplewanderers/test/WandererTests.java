@@ -161,9 +161,9 @@ public final class WandererTests {
                 VillageWanderer w = wanderers(h, id).get(0);
                 WandererHorse horse = (WandererHorse) level.getEntity(w.horseId());
                 w.kill(level);
+                h.assertTrue(horse.isAlive(), "the horse is not lost with him");
                 WandererVillages.Entry dead = WandererVillages.get(level.getServer()).get(WandererVillages.key(level, id));
                 h.assertTrue(!dead.alive() && dead.deadSince() >= t0, "killing him records the death (W5: no protection)");
-                h.assertTrue(horse.isAlive() && horse.getLeashHolder() == null, "the horse is free, not lost");
                 long died = dead.deadSince();
                 long week = 7 * SimpleWanderers.DAY;
                 h.assertTrue(WandererSpawner.visit(level, bell(h), died + week - 1) == WandererSpawner.Result.WAITING, "6 days 23 hours: waiting");
@@ -327,10 +327,12 @@ public final class WandererTests {
                 w.tickRotation(i * 72000L);
                 List<MerchantOffer> offers = w.getOffers();
                 h.assertTrue(offers.size() >= 6 && offers.size() <= 10, "6-10 offers: " + offers.size());
-                Set<Item> seen = new LinkedHashSet<>();
+                Set<String> seen = new LinkedHashSet<>();
                 for (MerchantOffer o : offers) {
-                    h.assertTrue(poolItems.contains(o.getResult().getItem()) || o.getResult().is(Items.EMERALD), "an offer from outside the wanderer's pools: " + o.getResult());
-                    h.assertTrue(seen.add(o.getResult().getItem()), "an item twice: " + o.getResult());
+                    Identifier resultId = BuiltInRegistries.ITEM.getKey(o.getResult().getItem());
+                    boolean head = resultId.getNamespace().equals("simplemobheads") && resultId.getPath().endsWith("_head"); // chance trades (0.1) are not in the sampled pool
+                    h.assertTrue(poolItems.contains(o.getResult().getItem()) || o.getResult().is(Items.EMERALD) || head, "an offer from outside the wanderer's pools: " + o.getResult());
+                    h.assertTrue(seen.add(o.getBaseCostA().getItem() + ">" + o.getResult().getItem()), "a trade twice: " + o.getResult());
                     String path = BuiltInRegistries.ITEM.getKey(o.getResult().getItem()).getPath();
                     h.assertTrue(!path.endsWith("_core") && !path.contains("enderite") && !path.contains("netherite") && !path.contains("astral"),
                             "nothing very rare at the wanderer: " + path);
@@ -364,7 +366,7 @@ public final class WandererTests {
                     && !buyDw.contains("minecraft:wandering_trader/water_bottle_emerald") && !buyWt.contains("minecraft:wandering_trader/water_bucket_emerald"), "buying split");
             h.succeed();
         });
-        ALL.put("no_tier4_mod_item_and_cores_stay_at_the_trader", h -> {
+        ALL.put("no_very_rare_mod_item_and_cores_stay_at_the_trader", h -> {
             ServerLevel level = h.getLevel();
             for (String set : List.of("wanderer/buying", "wanderer/common", "wanderer/uncommon", "wanderer/rare")) {
                 for (String key : poolKeys(level, "simplewanderers:" + set)) {

@@ -82,8 +82,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplewanderers:arena", maxTicks = 100)
-    public void noTier4ModItemAndCoresStayAtTheTrader(GameTestHelper h) {
-        WandererTests.ALL.get("no_tier4_mod_item_and_cores_stay_at_the_trader").accept(h);
+    public void noVeryRareModItemAndCoresStayAtTheTrader(GameTestHelper h) {
+        WandererTests.ALL.get("no_very_rare_mod_item_and_cores_stay_at_the_trader").accept(h);
     }
 
     @GameTest(structure = "simplewanderers:arena", maxTicks = 100)

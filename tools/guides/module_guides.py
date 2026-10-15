@@ -119,7 +119,7 @@ MODULES = [
                 "Spieler-Shops: ein Verkaufsblock mit Preis und eine Vitrine mit bis zu fünf Waren, geschützt vor Fremden und "
                 "Explosionen. Käufer tauschen Preis-Items gegen ein Stück je Tausch.")),
     dict(module="simplewanderers", ns="simplewanderers", package="com.simplewanderers.guide", cls="WanderersGuide", kind="item",
-         author="Simple Wanderers", recipe="minecraft:emerald",
+         author="Simple Wanderers", recipe="minecraft:lead",
          name=("Simple Wanderers Guide", "Simple-Wanderers-Handbuch"),
          intro=("One Village Wanderer per village: a travel-cloaked trader with a leashed horse, a new stock every 3 days, "
                 "a restock every 1.5 days and goods that follow the village biome. Kill him and a new one comes after 7 days.",
@@ -180,6 +180,7 @@ QUEST = {
 }
 RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the quest text
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
+    "minecraft:lead": ("a lead", "einer Leine"),
     "minecraft:brick": ("a brick", "einem Ziegel"),
     "minecraft:gold_nugget": ("a gold nugget", "einem Goldklumpen"),
     "minecraft:bread": ("bread", "Brot"),
@@ -439,6 +440,7 @@ NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your languag
         "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:emerald": ("emerald", "Smaragd"),
+    "minecraft:lead": ("lead", "Leine"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
     "minecraft:gold_nugget": ("gold nugget", "Goldklumpen"), "minecraft:bread": ("bread", "Brot"),
     "minecraft:chest": ("chest", "Truhe"), "minecraft:item_frame": ("item frame", "Rahmen"),
