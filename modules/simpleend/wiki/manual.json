@@ -73,16 +73,18 @@
       ],
       "en": {
         "title": "Leaves, Drift Fruit and Spoiled Drift Fruit",
-        "summary": "End leaves are no full block: a see-through star of tendrils around a small crystal, tinted by the biome. Only the few leaves a tree marked drop its bud or fruit (always); all drop sticks now and then. Drift Fruit ripens only in the End - elsewhere the fruit is Spoiled Drift Fruit.",
+        "summary": "End leaves are no full block: a see-through star of tendrils around a small crystal, tinted by the biome. Only the few leaves a tree marked drop its bud or fruit (always); all drop sticks now and then. Drift Fruit ripens only in the End - elsewhere the fruit is Spoiled Drift Fruit. Ashwood leaves act like a cobweb.",
         "details": [
+          "Ashwood leaves (not Duskwood): like a cobweb they have no collision, strongly slow everything moving through them (a quarter of the speed sideways, almost no falling), and a fall into them does no damage. Sword and shears cut them quickly. Duskwood leaves stay solid.",
           "Drift Fruit: always edible (3 hunger points), 4 seconds of Slow Falling and a small hop - a short glide.",
           "Spoiled Drift Fruit: 1 hunger point, then 5 seconds of Drifting - almost weightless, slow to steer and pushed about at random - followed by 8 seconds of Slow Falling, so it never ends in a deadly fall."
         ]
       },
       "de": {
         "title": "Laub, Schwebfrucht und Verdorbene Schwebfrucht",
-        "summary": "End-Laub ist kein Vollblock: ein durchsichtiger Stern aus Ranken um einen kleinen Kristall, getönt vom Biom. Nur die wenigen Blätter, die ein Baum markiert hat, droppen seine Knospe oder Frucht (immer); alle geben ab und zu Stöcke. Schwebfrucht reift nur im End - anderswo wird die Frucht zur Verdorbenen Schwebfrucht.",
+        "summary": "End-Laub ist kein Vollblock: ein durchsichtiger Stern aus Ranken um einen kleinen Kristall, getönt vom Biom. Nur die wenigen Blätter, die ein Baum markiert hat, droppen seine Knospe oder Frucht (immer); alle geben ab und zu Stöcke. Schwebfrucht reift nur im End - anderswo wird die Frucht zur Verdorbenen Schwebfrucht. Aschlaub wirkt wie ein Spinnennetz.",
         "details": [
+          "Aschlaub (nicht Dämmerlaub): wie ein Spinnennetz ohne Kollision; alles, was hindurchgeht, wird stark verlangsamt (seitlich ein Viertel der Geschwindigkeit, kaum Fallen), und ein Sturz hinein richtet keinen Schaden an. Schwert und Schere bauen es schnell ab. Dämmerlaub bleibt fest.",
           "Schwebfrucht: immer essbar (3 Hungerpunkte), 4 Sekunden Sanfter Fall und ein kleiner Sprung - ein kurzer Schwebeflug.",
           "Verdorbene Schwebfrucht: 1 Hungerpunkt, dann 5 Sekunden Treiben - fast schwerelos, schwer zu steuern und zufällig geschubst - und danach 8 Sekunden Sanfter Fall, also nie ein tödlicher Sturz."
         ]

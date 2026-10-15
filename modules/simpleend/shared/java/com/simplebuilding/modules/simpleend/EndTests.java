@@ -19,6 +19,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.animal.pig.Pig;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -387,6 +391,57 @@ public final class EndTests {
                 h.assertTrue(s2.getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.DROP) == 0, "placed leaves carry nothing");
             }
             h.succeed();
+        });
+        add("ashwood_leaves_act_like_cobweb", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos at = new BlockPos(20, 3, 20);
+            h.setBlock(at, EndWood.ASHWOOD.leaves);
+            BlockPos abs = h.absolutePos(at);
+            BlockState ash = EndWood.ASHWOOD.leaves.defaultBlockState();
+            BlockState dusk = EndWood.DUSKWOOD.leaves.defaultBlockState();
+            h.assertTrue(ash.getCollisionShape(level, abs).isEmpty(), "ashwood leaves have no collision");
+            h.assertTrue(!dusk.getCollisionShape(level, abs).isEmpty(), "duskwood leaves stay solid");
+            // Slowed like a cobweb: a half-block step inside covers a quarter of it; the fall distance is gone.
+            var player = h.makeMockServerPlayerInLevel();
+            Vec3 start = player.position();
+            player.fallDistance = 12.0;
+            ash.entityInside(level, abs, player, InsideBlockEffectApplier.NOOP, true);
+            h.assertTrue(player.fallDistance == 0.0, "no fall damage inside ashwood leaves, fall distance " + player.fallDistance);
+            player.move(MoverType.SELF, new Vec3(0.5, 0.0, 0.0));
+            double moved = player.position().x - start.x;
+            h.assertTrue(Math.abs(moved - 0.125) < 0.01, "strongly slowed like a cobweb, moved " + moved);
+            player.snapTo(start.x, start.y, start.z, 0.0F, 0.0F);
+            player.fallDistance = 12.0;
+            dusk.entityInside(level, abs, player, InsideBlockEffectApplier.NOOP, true);
+            h.assertTrue(player.fallDistance == 12.0, "duskwood leaves do not catch a fall");
+            player.move(MoverType.SELF, new Vec3(0.5, 0.0, 0.0));
+            h.assertTrue(player.position().x - start.x > 0.45, "duskwood leaves do not slow, moved " + (player.position().x - start.x));
+            // Sword and shears cut them at least as fast as a cobweb (Vanilla leaves tags: sword_efficient, shears_extreme).
+            BlockState web = Blocks.COBWEB.defaultBlockState();
+            for (net.minecraft.world.item.Item tool : new net.minecraft.world.item.Item[] {Items.IRON_SWORD, Items.SHEARS}) {
+                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(tool));
+                float leaf = ash.getDestroyProgress(player, level, abs);
+                float cobweb = web.getDestroyProgress(player, level, abs);
+                h.assertTrue(leaf >= cobweb && leaf > 0, "ashwood leaves break at least as fast as a cobweb with " + tool + ": " + leaf + " vs " + cobweb);
+            }
+            h.succeed();
+        });
+        add("ashwood_leaves_catch_fall", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos ashAt = new BlockPos(20, 4, 20), duskAt = new BlockPos(22, 4, 20);
+            for (BlockPos col : new BlockPos[] {ashAt, duskAt}) {
+                h.setBlock(col.below(), Blocks.STONE); // the pig lands IN the ashwood leaves, ON the duskwood ones
+                for (int y = 0; y < 12; y++) h.setBlock(col.above(y), Blocks.AIR);
+            }
+            h.setBlock(ashAt, EndWood.ASHWOOD.leaves);
+            h.setBlock(duskAt, EndWood.DUSKWOOD.leaves);
+            Pig ashPig = h.spawn(EntityTypes.PIG, new BlockPos(20, 12, 20));
+            Pig duskPig = h.spawn(EntityTypes.PIG, new BlockPos(22, 12, 20));
+            h.succeedWhen(() -> {
+                h.assertTrue(ashPig.onGround() && duskPig.onGround(), "both pigs landed: ash " + ashPig.position() + " " + ashPig.onGround() + ", dusk " + duskPig.position() + " " + duskPig.onGround());
+                h.assertTrue(ashPig.getHealth() >= ashPig.getMaxHealth(), "ashwood leaves catch the fall, health " + ashPig.getHealth());
+                h.assertTrue(duskPig.getHealth() < duskPig.getMaxHealth(), "a fall onto duskwood leaves still hurts (control), health " + duskPig.getHealth());
+            });
         });
         add("drift_fruit_glide", h -> {
             Player p = h.makeMockPlayer(GameType.SURVIVAL);
