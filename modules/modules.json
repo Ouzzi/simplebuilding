@@ -187,6 +187,15 @@
             "neoforge": {
               "task": ":modules:simplemoney:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simplemoney/neoforge/build/standalone-junit.xml"
+            },
+            "forge": {
+              "task": ":modules:simplemoney:forge:runGameTestServer",
+              "report": "modules/simplemoney/forge/build/standalone-junit.xml",
+              "gradleArgs": [
+                "-Pforge263=true",
+                "-Pforge_runs=true",
+                "-PforgeStandalone=true"
+              ]
             }
           }
         },
@@ -1098,6 +1107,15 @@
             "neoforge": {
               "task": ":modules:simplesandwiches:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simplesandwiches/neoforge/build/standalone-junit.xml"
+            },
+            "forge": {
+              "task": ":modules:simplesandwiches:forge:runGameTestServer",
+              "report": "modules/simplesandwiches/forge/build/standalone-junit.xml",
+              "gradleArgs": [
+                "-Pforge263=true",
+                "-Pforge_runs=true",
+                "-PforgeStandalone=true"
+              ]
             }
           }
         },
@@ -1266,6 +1284,15 @@
             "neoforge": {
               "task": ":modules:simpleinterfaces:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simpleinterfaces/neoforge/build/standalone-junit.xml"
+            },
+            "forge": {
+              "task": ":modules:simpleinterfaces:forge:runGameTestServer",
+              "report": "modules/simpleinterfaces/forge/build/standalone-junit.xml",
+              "gradleArgs": [
+                "-Pforge263=true",
+                "-Pforge_runs=true",
+                "-PforgeStandalone=true"
+              ]
             }
           }
         },
@@ -1355,6 +1382,15 @@
             "neoforge": {
               "task": ":modules:simplemaps:neoforge:runModuleStandaloneGameTest",
               "report": "modules/simplemaps/neoforge/build/standalone-junit.xml"
+            },
+            "forge": {
+              "task": ":modules:simplemaps:forge:runGameTestServer",
+              "report": "modules/simplemaps/forge/build/standalone-junit.xml",
+              "gradleArgs": [
+                "-Pforge263=true",
+                "-Pforge_runs=true",
+                "-PforgeStandalone=true"
+              ]
             }
           }
         },

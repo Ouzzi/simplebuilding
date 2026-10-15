@@ -62,15 +62,23 @@ processResources {
 if (forgeTest && providers.gradleProperty('forge_runs').getOrElse('false').toBoolean()) {
     // Required test mods are runtime jars, never implementation imports.
     // Test dependencies are activated only by an explicitly requested manifest test task.
-    def runtimeMods = providers.gradleProperty('forgeTestMods').map { it.split(',').findAll { !it.isBlank() } }.getOrElse(forgeTest.testMods ?: [])
+    // -PforgeStandalone=true (manifest tests.standalone.loaders.forge, principle 8): only the module and its hard
+    // requirements load, with their own report and world; the run is otherwise the ordinary gameTestServer.
+    // The property is global (every Forge project is evaluated); only a module with a declared suite switches over.
+    def standaloneSpec = entry.tests.standalone?.loaders?.forge
+    def standalone = providers.gradleProperty('forgeStandalone').getOrElse('false').toBoolean() && standaloneSpec != null
+    if (!standaloneSpec && providers.gradleProperty('forgeStandalone').isPresent() && gradle.startParameter.taskNames.contains(forgeTest.task))
+        throw new GradleException("No Forge standalone suite declared for ${moduleId}")
+    def runtimeMods = standalone ? (entry.tests.standalone.requires ?: [])
+            : providers.gradleProperty('forgeTestMods').map { it.split(',').findAll { !it.isBlank() } }.getOrElse(forgeTest.testMods ?: [])
     if (gradle.startParameter.taskNames.contains(forgeTest.task)) runtimeMods.each { id ->
         def dependency = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json')).modules.find { it.id == id }
         if (!dependency?.projects?.forge || id == moduleId) throw new GradleException("Invalid Forge test dependency: ${id}")
         dependencies { runtimeOnly project(dependency.projects.forge) }
     }
     minecraft.runs.register('gameTestServer') {
-        workingDir = layout.projectDirectory.dir('run-gametest')
-        args '--tests', (project.findProperty('gametestFilter') ?: "${entry.tests.namespace ?: moduleId}:*").toString(), '--report', rootProject.file(forgeTest.report).absolutePath
+        workingDir = layout.projectDirectory.dir(standalone ? 'run-standalone' : 'run-gametest')
+        args '--tests', (project.findProperty('gametestFilter') ?: "${entry.tests.namespace ?: moduleId}:*").toString(), '--report', rootProject.file(standalone ? standaloneSpec.report : forgeTest.report).absolutePath
     }
 }
 apply from: rootProject.file('gradle/forge-packaged-run.gradle')

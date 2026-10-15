@@ -287,6 +287,20 @@ INTEGRATION_TARGETS = (Target(
 ),)
 
 
+def _forge_java8_args(loader, spec):
+    """The manifest's gradleArgs; Forge runs additionally get this machine's Java 8 path."""
+    args = list(spec.get("gradleArgs", []))
+    if loader == "forge":
+        # A machine override wins over legacy absolute manifest paths.
+        path_key = "-Porg.gradle.java.installations.paths="
+        if os.environ.get("SIMPLEBUILDING_JAVA8_HOME"):
+            args = [arg for arg in args if not arg.startswith(path_key)]
+            args.append(path_key + os.environ["SIMPLEBUILDING_JAVA8_HOME"])
+        elif not any(arg.startswith(path_key) for arg in args):
+            args.append(path_key + JAVA8_HOME)
+    return args
+
+
 def module_targets(root=REPO):
     """Discover opt-in module suites from the producer-owned manifest contract."""
     result = []
@@ -297,15 +311,7 @@ def module_targets(root=REPO):
         common = dict(mc_line=tests.get("mcLine", f"module-{module['id']}-263"),
                       namespace=tests.get("namespace", module["id"]))
         for loader, spec in tests.get("loaders", {}).items():
-            args = list(spec.get("gradleArgs", []))
-            if loader == "forge":
-                # A machine override wins over legacy absolute manifest paths.
-                path_key = "-Porg.gradle.java.installations.paths="
-                if os.environ.get("SIMPLEBUILDING_JAVA8_HOME"):
-                    args = [arg for arg in args if not arg.startswith(path_key)]
-                    args.append(path_key + os.environ["SIMPLEBUILDING_JAVA8_HOME"])
-                elif not any(arg.startswith(path_key) for arg in args):
-                    args.append(path_key + JAVA8_HOME)
+            args = _forge_java8_args(loader, spec)
             result.append(Target(id=f"module-{module['id']}-{loader}-263",
                 label=f"{module['displayName']} {loader} integration", loader=loader,
                 gradle_task=spec["task"], report=spec["report"],
@@ -315,7 +321,7 @@ def module_targets(root=REPO):
             result.append(Target(id=f"module-{module['id']}-standalone-{loader}-263",
                 label=f"{module['displayName']} {loader} standalone", loader=loader,
                 gradle_task=spec["task"], report=spec["report"],
-                catalogue=tests["catalogues"][0], **common))
+                catalogue=tests["catalogues"][0], gradle_args=tuple(_forge_java8_args(loader, spec)), **common))
         client = tests.get("client")
         if client:
             result.append(Target(id=f"module-{module['id']}-client-263",
