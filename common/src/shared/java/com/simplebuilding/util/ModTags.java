@@ -42,6 +42,8 @@ public class ModTags {
          * Eigener Tag, weil an {@code extra_inventory_items} auch die Farbpalette haengt.
          */
         public static final TagKey<Item> MASTER_BUILDER_ENCHANTABLE = createTag("master_builder_enchantable");
+        /** supported_items von Farbpalette: {@code #extra_inventory_items} plus der Farbpinsel (Besitzer N61 E13: Zufallsfarbe nur so). */
+        public static final TagKey<Item> COLOR_PALETTE_ENCHANTABLE = createTag("color_palette_enchantable");
         /**
          * Items, auf die keine Erfahrungs-Reparatur (Mending) darf, obwohl sie in
          * {@code #minecraft:enchantable/durability} stehen und Unbreaking nehmen: der Rotator, dessen

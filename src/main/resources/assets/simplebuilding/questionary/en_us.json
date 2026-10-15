@@ -1077,7 +1077,7 @@
       "Keeps dyes like a bundle: only dyes, up to 64 of each of the 16 colors. Craft from a red, a yellow and a blue dye over three planks. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
     ],
     "secret": [
-      "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
+      "It feeds the Color Brush: each stroke paints the color in front, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color is in front."
     ]
   },
   "reinforced_paint_box": {
@@ -1088,7 +1088,7 @@
       "Keeps dyes like a bundle: only dyes, up to 128 of each of the 16 colors. Crafting table: the box in the middle, four diamond pebbles beside it, four gold nuggets in the corners; it keeps its dyes. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
     ],
     "secret": [
-      "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
+      "It feeds the Color Brush: each stroke paints the color in front, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color is in front."
     ]
   },
   "netherite_paint_box": {
@@ -1099,7 +1099,7 @@
       "Keeps dyes like a bundle: only dyes, up to 256 of each of the 16 colors. Smithing table: Netherite Upgrade and a netherite ingot. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
     ],
     "secret": [
-      "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
+      "It feeds the Color Brush: each stroke paints the color in front, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color is in front."
     ]
   },
   "enderite_paint_box": {
@@ -1110,7 +1110,7 @@
       "Keeps dyes like a bundle: only dyes, up to 512 of each of the 16 colors. Smithing table: Enderite Upgrade and an Enderite Ingot. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
     ],
     "secret": [
-      "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
+      "It feeds the Color Brush: each stroke paints the color in front, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color is in front."
     ]
   },
   "reinforced_furnace": {
@@ -1693,7 +1693,7 @@
       "Brushes like the vanilla brush; with a dye in either hand or inventory, right-click recolors wool, carpet, concrete, terracotta, glass, candles, beds, banners and shulker boxes, keeping their state. Craft: a brush, a gold nugget and a feather."
     ],
     "secret": [
-      "A Paint Box with dyes counts as ink: each stroke picks a random other color and the bristles show a rainbow. Holding right-click repeats the stroke."
+      "A Paint Box with dyes counts as ink: each stroke paints the front color and the bristles show a rainbow (random colors need Color Palette on the brush). Holding right-click repeats the stroke."
     ]
   },
   "sage_orb": {

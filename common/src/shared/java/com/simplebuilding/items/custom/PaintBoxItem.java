@@ -109,16 +109,6 @@ public final class PaintBoxItem extends Item {
         }
     }
 
-    /** A random held colour that differs from {@code avoid}, uniform over the colours held; null if none. */
-    public static DyeColor pickColor(ItemStack box, DyeColor avoid, RandomSource random) {
-        PaintBoxContents contents = contents(box);
-        List<Integer> candidates = new ArrayList<>();
-        for (int c = 0; c < PaintBoxContents.COLORS; c++) {
-            if (contents.count(c) > 0 && (avoid == null || avoid.getId() != c)) candidates.add(c);
-        }
-        return candidates.isEmpty() ? null : DyeColor.byId(candidates.get(random.nextInt(candidates.size())));
-    }
-
     /** Takes one dye of {@code color} out. */
     public static void removeOne(ItemStack box, DyeColor color) {
         PaintBoxContents contents = contents(box);

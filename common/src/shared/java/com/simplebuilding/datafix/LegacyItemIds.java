@@ -79,8 +79,11 @@ public final class LegacyItemIds {
             Map.entry("guide_book_vanilla_caves", "guide_book"), Map.entry("guide_book_vanilla_ocean", "guide_book"),
             Map.entry("guide_book_vanilla_nether", "guide_book"), Map.entry("guide_book_vanilla_end", "guide_book"),
             Map.entry("guide_book_vanilla_redstone", "guide_book"), Map.entry("guide_book_vanilla_gear", "guide_book"),
-            Map.entry("guide_book_vanilla_farming", "guide_book")) : Map.ofEntries(
+            Map.entry("guide_book_vanilla_farming", "guide_book"),
+            // Owner N61 E13: the Paint Palette is gone (random colors only via Color Palette on the brush); old stacks become a brush.
+            Map.entry("paint_palette", "color_brush")) : Map.ofEntries(
             Map.entry("velocity-gauge", "velocity_gauge"),
+            Map.entry("paint_palette", "color_brush"),
             Map.entry("echo_compass", "echo_sounder"),
             Map.entry("laser_pointer", "amethyst_lens"),
             // Besitzer 2026-09-29: "Ore Detector" heisst jetzt "Detector".
