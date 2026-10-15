@@ -324,7 +324,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "09e4918b0d3a"
+    "dataHash": "5360c55771c8"
   },
   {
     "id": "simpletrims",
@@ -548,7 +548,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "f72c96b5aa7e"
+    "dataHash": "9cda52103aa7"
   },
   {
     "id": "simplerespawn",
