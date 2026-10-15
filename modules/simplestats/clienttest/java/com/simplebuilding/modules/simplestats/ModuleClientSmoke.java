@@ -25,7 +25,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(c -> c.setScreenAndShow(new ItemStatsScreen(pick, null)));
             context.waitTicks(5);
             context.takeScreenshot("simplestats-screen");
-            context.runOnClient(c -> c.screen.mouseScrolled(0, 0, 0, -10));
+            context.runOnClient(c -> c.gui.screen().mouseScrolled(0, 0, 0, -10));
             context.waitTicks(2);
             context.takeScreenshot("simplestats-scrolled");
             context.runOnClient(c -> c.setScreenAndShow(null));
