@@ -210,7 +210,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "070ec42e2242"
+    "dataHash": "bda67130f34a"
   },
   {
     "id": "simpletweaks",

@@ -282,9 +282,9 @@ REGEL (Besitzer 15.10.): Keine alten, schon entschiedenen Textur-Vorschläge ern
 - [x] Hufeisen-Upgrade-Tooltip bleibt „Copper–Enderite“ Hufeisen (Audit-Frage 8).
 
 ## Nachtrag 59 (2026-10-14, Besitzer)
-- [ ] Neue Verzauberung „Step Height“ (Stufenhöhe) für Stiefel, 2 Stufen: I = 1 Block, II = 1,5 Blöcke (Zäune). Treasure-Verzauberung.
-- [ ] Neue Verzauberung „Sprint“ für Hosen, 3 Stufen: relative Tempo-Steigerung auf die Grund-Laufgeschwindigkeit (wie Swift Sneak beim Schleichen). Treasure-Verzauberung.
-- [ ] Beide Verzauberungen überall passend integrieren: Loot-Pools (Treasure: Truhen-Loot, Bibliothekar-Handel nach Vanilla-Treasure-Regeln), Tags (exclusive/tradeable/in_enchanting_table nach Treasure-Regel), Unverträglichkeiten, Astral-/Enchanter-Kompatibilität, Lang EN+DE, Wiki/Guide, Tests.
+- [x] (oc-enchants) Neue Verzauberung „Step Height“ (Stufenhöhe) für Stiefel, 2 Stufen: I = 1 Block, II = 1,5 Blöcke (Zäune). Treasure-Verzauberung.
+- [x] (oc-enchants) Neue Verzauberung „Sprint“ für Hosen, 3 Stufen: relative Tempo-Steigerung auf die Grund-Laufgeschwindigkeit (wie Swift Sneak beim Schleichen). Treasure-Verzauberung.
+- [x] (oc-enchants) Beide Verzauberungen überall passend integrieren: Loot-Pools (Treasure: Truhen-Loot, Bibliothekar-Handel nach Vanilla-Treasure-Regeln), Tags (exclusive/tradeable/in_enchanting_table nach Treasure-Regel), Unverträglichkeiten, Astral-/Enchanter-Kompatibilität, Lang EN+DE, Wiki/Guide, Tests.
 - [ ] Dorf-Wanderer: weiterer, umtexturierter Wandering Trader mit einem Pferd an der Leine; genau einer pro Dorf (spawnt im/am Dorf). Gegenstück zum Wandering Trader: bietet seltene, aber nicht so seltene Items wie dieser; Angebot wechselt alle 3 Tage, Restock etwa alle 1,5 Tage. Trades zwischen Wandering Trader und Dorf-Wanderer passend aufteilen (Konzept zuerst: Trade-Listen, Spawn-Regel, Pferd, Textur).
 - [ ] (ZUM ENDE der Mod-Entwicklung) Audit auf Vanilla-Konformität (Stil, Balancing, Mechaniken, UI, Sounds, Texturen) über alle Mods.
 ## Nachtrag 58 (2026-10-14, Audit vergessener Besitzer-Wünsche)

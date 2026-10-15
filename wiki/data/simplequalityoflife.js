@@ -214,10 +214,10 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
           "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 64 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
+          "summary": "Guide to this mod: 70 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 64 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
+          "summary": "Handbuch zu dieser Mod: 70 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
         }
       },
       "texture": "assets/textures/simplequalityoflife/item/guide_book.png",
