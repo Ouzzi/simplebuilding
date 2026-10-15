@@ -191,23 +191,69 @@ final class FearTests {
             floor(h, 0, 0, 6, 7);
             var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 6));
             var player = h.makeMockServerPlayerInLevel();
+            player.addTag(FearAura.TEST_TAG); // mock players are creative: the tag makes the aura count them
             Vec3 at = h.absoluteVec(new Vec3(3.5, 2, 1.5));
-            player.snapTo(at.x, at.y, at.z, 0.0f, -20.0f);
+            Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
+            float pitch = (float) -Math.toDegrees(Math.atan2(head.y - (at.y + player.getEyeHeight()), Math.hypot(head.x - at.x, head.z - at.z)));
+            FearNet.set(player, 70);
+            // direct look into its eyes: no freeze, aggressive against this player
+            player.snapTo(at.x, at.y, at.z, 0.0f, pitch);
             player.setYHeadRot(0.0f);
-            h.assertTrue(watcher.seenBy(player), "looking at it");
-            h.assertTrue(watcher.updateGaze(h.getLevel()) && watcher.watched(), "watched: it stands still");
-            watcher.playAction(HollowWatcherEntity.ACT_CLAW, 6);
+            h.assertTrue(watcher.stared(player) && !watcher.seenBy(player), "crosshair on the eyes is a direct look");
+            h.assertFalse(watcher.updateGaze(h.getLevel()) || watcher.watched(), "a direct look does not freeze it");
+            h.assertTrue(watcher.aggressive() && watcher.aggroPlayer() == player, "it turns aggressive against the one who looks (aggressive " + watcher.aggressive() + ", aggro " + watcher.aggroPlayer() + ", affects " + FearAura.affects(player) + ")");
             watcher.setNoAi(false);
+            watcher.playAction(HollowWatcherEntity.ACT_CLAW, 6);
             watcher.tick();
             watcher.setNoAi(true);
-            h.assertTrue(watcher.action() == HollowWatcherEntity.ACT_NONE, "a wind-up stops while watched");
+            h.assertTrue(watcher.action() != HollowWatcherEntity.ACT_NONE || watcher.getTarget() == player, "its wind-up is not stopped");
+            watcher.discard();
+            // looking near it (7 degrees to the side) keeps it calm, not aggressive
+            var calm = still(h.spawn(FearMobs.WATCHER, 3, 2, 6));
+            player.snapTo(at.x, at.y, at.z, 7.0f, pitch);
+            player.setYHeadRot(7.0f);
+            h.assertTrue(calm.seenBy(player) && !calm.stared(player), "near look is the calm zone");
+            h.assertTrue(calm.updateGaze(h.getLevel()) && calm.watched() && !calm.aggressive(), "near look: unobtrusive, not aggressive");
             player.snapTo(at.x, at.y, at.z, 180.0f, 0.0f);
             player.setYHeadRot(180.0f);
-            h.assertFalse(watcher.seenBy(player), "looking away");
-            player.snapTo(at.x, at.y, at.z, 0.0f, -20.0f);
+            h.assertFalse(calm.seenBy(player) || calm.stared(player), "looking away");
+            player.snapTo(at.x, at.y, at.z, 0.0f, pitch);
             player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60));
-            h.assertFalse(watcher.seenBy(player), "a blind player sees nothing");
+            h.assertFalse(calm.stared(player) || calm.seenBy(player), "a blind player sees nothing");
+            calm.discard();
+            player.removeTag(FearAura.TEST_TAG);
+            h.succeed();
+        });
+        add.accept("fear_watcher_range", h -> {
+            floor(h, 0, 0, 8, 8);
+            float range = MobsConfig.watcherRange;
+            var watcher = h.spawn(FearMobs.WATCHER, 1, 2, 1);
+            var dummy = dummy(h, 7, 7);
+            dummy.snapTo(dummy.getX(), dummy.getY(), dummy.getZ(), 0.0f, 0.0f);
+            dummy.setYHeadRot(0.0f);
+            watcher.setTeleportCooldown(0);
+            MobsConfig.watcherRange = 8.0f;
+            watcher.setTarget(dummy);
+            for (int i = 0; i < 5; i++) watcher.tick();
+            h.assertTrue(watcher.getTarget() == null && watcher.action() == HollowWatcherEntity.ACT_NONE, "beyond range: no target, no teleport");
+            MobsConfig.watcherRange = range;
+            watcher.setTarget(dummy);
+            for (int i = 0; i < 3 && watcher.action() != HollowWatcherEntity.ACT_TELEPORT; i++) watcher.tick();
+            h.assertTrue(watcher.action() == HollowWatcherEntity.ACT_TELEPORT, "back in range: it teleports to the player (target " + watcher.getTarget() + ", action " + watcher.action() + ", dist " + watcher.distanceTo(dummy) + ", range " + MobsConfig.watcherRange + ", behind " + watcher.behind(h.getLevel(), dummy) + ", look " + dummy.getLookAngle() + ", below " + h.getLevel().getBlockState(dummy.blockPosition().below()) + ", spotBelow " + h.getLevel().getBlockState(net.minecraft.core.BlockPos.containing(dummy.getX(), dummy.getY() - 0.5, dummy.getZ() - 2.5)) + ", free " + h.getLevel().noCollision(watcher, watcher.getDimensions(watcher.getPose()).makeBoundingBox(dummy.position().add(0, 0, -2.5))) + ")");
             watcher.discard();
+            dummy.discard();
+            h.succeed();
+        });
+        add.accept("fear_watcher_range_config", h -> {
+            h.assertTrue(MobsConfig.watcherRange == 48.0f && MobsConfig.watcherTeleportSeconds > 0, "defaults: 48 blocks, interval set");
+            var cfg = new com.google.gson.JsonObject();
+            cfg.addProperty("watcherRange", 9999);
+            cfg.addProperty("watcherGazeDirect", 50);
+            MobsConfig.apply(cfg);
+            h.assertTrue(MobsConfig.watcherRange == 128.0f && MobsConfig.watcherGazeDirect <= MobsConfig.watcherGazeStare, "range and direct angle are clamped");
+            MobsConfig.apply(new com.google.gson.JsonObject());
+            h.assertTrue(MobsConfig.watcherRange == 48.0f && MobsConfig.watcherGazeDirect == FearLogic.GAZE_DIRECT_DEG, "defaults come back");
+            h.assertTrue(FearLogic.directLook(3.9, 4.0f) && !FearLogic.directLook(4.1, 4.0f), "direct look bound");
             h.succeed();
         });
         add.accept("fear_watcher_spyglass", h -> {
@@ -252,8 +298,8 @@ final class FearTests {
             float pitch = (float) -Math.toDegrees(Math.atan2(head.y - (at.y + player.getEyeHeight()), Math.hypot(head.x - at.x, head.z - at.z)));
             FearNet.set(player, 70);
             // looking straight at it, then 22 / 30 / 45 degrees to the side (the angle shrinks a little with the upward pitch)
-            float[] yaw = {0.0f, 22.0f, 30.0f, 45.0f};
-            int[] want = {FearLogic.ZONE_STARE, FearLogic.ZONE_SLOW, FearLogic.ZONE_EDGE, FearLogic.ZONE_FREE};
+            float[] yaw = {0.0f, 7.0f, 22.0f, 30.0f, 45.0f};
+            int[] want = {FearLogic.ZONE_DIRECT, FearLogic.ZONE_STARE, FearLogic.ZONE_SLOW, FearLogic.ZONE_EDGE, FearLogic.ZONE_FREE};
             for (int i = 0; i < yaw.length; i++) {
                 player.snapTo(at.x, at.y, at.z, yaw[i], pitch);
                 player.setYHeadRot(yaw[i]);
@@ -293,6 +339,7 @@ final class FearTests {
             var watcher = still(h.spawn(FearMobs.WATCHER, 4, 2, 6));
             var a = h.makeMockServerPlayerInLevel();
             var b = h.makeMockServerPlayerInLevel();
+            b.addTag(FearAura.TEST_TAG);
             Vec3 pa = h.absoluteVec(new Vec3(2.5, 2, 1.5)), pb = h.absoluteVec(new Vec3(6.5, 2, 1.5));
             Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
             a.snapTo(pa.x, pa.y, pa.z, 180.0f, 0.0f);
@@ -303,14 +350,24 @@ final class FearTests {
             b.setYHeadRot(180.0f);
             h.assertFalse(watcher.updateGaze(h.getLevel()), "nobody looks: free");
             h.assertTrue(watcher.zone() == FearLogic.ZONE_FREE, "zone free");
+            b.snapTo(pb.x, pb.y, pb.z, yaw + 7.0f, pitch);
+            b.setYHeadRot(yaw + 7.0f);
+            h.assertTrue(watcher.updateGaze(h.getLevel()) && watcher.watched(), "one of two players looks near it: calm for all");
+            h.assertTrue(watcher.looker() == b, "the one who looks is the looker");
             b.snapTo(pb.x, pb.y, pb.z, yaw, pitch);
             b.setYHeadRot(yaw);
-            h.assertTrue(watcher.updateGaze(h.getLevel()) && watcher.watched(), "one of two players looks: it freezes for all");
-            h.assertTrue(watcher.looker() == b, "the one who looks is the looker");
+            h.assertFalse(watcher.updateGaze(h.getLevel()), "a direct look is not calm");
+            h.assertTrue(watcher.aggressive() && watcher.aggroPlayer() == b, "direct look of one of two players: aggressive against that one (aggressive " + watcher.aggressive() + ", aggro " + watcher.aggroPlayer() + ", affects " + FearAura.affects(b) + ")");
+            watcher.discard();
+            watcher = still(h.spawn(FearMobs.WATCHER, 4, 2, 6));
+            b.snapTo(pb.x, pb.y, pb.z, yaw + 7.0f, pitch);
+            b.setYHeadRot(yaw + 7.0f);
+            watcher.updateGaze(h.getLevel());
             b.snapTo(pb.x, pb.y, pb.z, 180.0f, 0.0f);
             b.setYHeadRot(180.0f);
             h.assertFalse(watcher.updateGaze(h.getLevel()), "both look away: free again");
             watcher.discard();
+            b.removeTag(FearAura.TEST_TAG);
             h.succeed();
         });
         add.accept("fear_watcher_hit_new_victim", h -> {
@@ -461,7 +518,7 @@ final class FearTests {
             var dread = still(h.spawn(FearMobs.DREAD, 1, 2, 1));
             var player = h.makeMockServerPlayerInLevel();
             h.assertFalse(FearAura.affects(player), "creative players are left alone");
-            player.addTag(FearAura.TEST_TAG);
+            player.gameMode.changeGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL);
             Vec3 at = h.absoluteVec(new Vec3(4.5, 2, 4.5));
             player.snapTo(at.x, at.y, at.z, 0.0f, 0.0f);
             FearAura.pulse(h.getLevel(), dread, false);

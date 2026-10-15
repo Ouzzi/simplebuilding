@@ -27,3 +27,9 @@ Hinter dem lokalen Spieler (unter 4,5 Blöcke, außerhalb des Blicks): beide Arm
 
 ## Nicht getestet
 Client-Sicht (Optik der Arme über den Schultern) und echte Mehrspieler-Netzwerkstrecke (FOV-Paket) nur per Compile und Logik-Tests.
+
+## Korrektur 15.10. (Besitzer, N64, claude-watcher3)
+- Direkter Blick in die Augen (Fadenkreuz auf der Augenpartie, Config `watcherGazeDirect`, Standard 4 Grad, nicht FOV-skaliert, Sichtlinie nötig): KEIN Freeze mehr, er wird aggressiv (Ziel = dieser Spieler, 5 s nach dem letzten direkten Blick, Tempo x1,35, keine Ausweichzonen, Angriffe laufen). Mehrspieler: der direkte Blick irgendeines Spielers macht ihn gegen diesen aggressiv.
+- Die Gradzonen (10/25/35, FOV 30..110) gelten für „in seine Nähe schauen“: bis 10 Grad ruhig/unauffällig (steht, startet keinen Angriff, keine Aggro), dann langsam / direkt aus dem Blickfeld, außerhalb von hinten.
+- Reichweite `watcherRange` (Standard 48, 8..128): weiter weg kein Ziel, kein Verfolgen, kein Teleport; zurück in Reichweite sucht er wieder und teleportiert alle `watcherTeleportSeconds` (Standard 6 s, 1..120) hinter den Spieler. Meiden = ansehen und über 48 Blöcke weglaufen.
+- Offen/Entscheidung: Fernglas-Freeze (3 s) bleibt unverändert; Aggro-Dauer 5 s und Tempo x1,35 sind Annahmen.

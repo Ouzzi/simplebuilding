@@ -57,6 +57,18 @@ public final class FearLogic {
     public static final float GAZE_STARE_DEG = 10.0f, GAZE_SLOW_DEG = 25.0f, GAZE_EDGE_DEG = 35.0f;
     /** Gaze zones, from the view center outwards. */
     public static final int ZONE_STARE = 0, ZONE_SLOW = 1, ZONE_EDGE = 2, ZONE_FREE = 3;
+    /** A direct look into its eyes (owner 15.10., N64): it does not freeze but turns aggressive. Ranks before every other zone. */
+    public static final int ZONE_DIRECT = -1;
+    /** Half angle (degrees, unscaled) around the eyes that counts as a direct look. */
+    public static final float GAZE_DIRECT_DEG = 4.0f;
+    /** Ticks it stays aggressive after the last direct look; its speed factor while aggressive. */
+    public static final int AGGRO_TICKS = 100;
+    public static final double AGGRO_SPEED = 1.35;
+    /** Range in blocks: farther away it neither follows nor teleports; interval in seconds of its teleports to a target in range. */
+    public static final float RANGE_DEFAULT = 48.0f, TELEPORT_SECONDS_DEFAULT = 6.0f;
+
+    /** Whether the angle to its eyes is a direct look. */
+    public static boolean directLook(double eyeAngleDeg, float direct) { return eyeAngleDeg <= direct; }
 
     public static int clampFov(int fov) { return Math.max(FOV_MIN, Math.min(FOV_MAX, fov)); }
 
