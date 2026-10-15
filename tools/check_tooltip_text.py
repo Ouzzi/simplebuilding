@@ -41,6 +41,10 @@ def main():
             for key, value in data.items():
                 if "tooltip" in key.lower():
                     assert files[overlay].get(key) == value, f"Tooltip overlay mismatch: {key}"
+            # On 26.3 the overlay file replaces the shared one, so a key only in the shared file is missing in game
+            # (audit D-11). The overlay may hold more keys (26.3-only features), never fewer.
+            lost = [] if overlay not in files else sorted(set(data) - set(files[overlay]))
+            assert not lost, f"Keys only in {path.relative_to(ROOT)}, missing in the 26.3 overlay: {lost[:5]} (+{len(lost)} total)"
     print(f"TOOLTIP_TEXT_OK: {len(files)} JSON files, {checked} tooltip entries; locales, width and overlays valid")
 
 
