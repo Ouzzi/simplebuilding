@@ -32,6 +32,7 @@
   "simpletools.option.deathVaultMaxPerOffering.tooltip": "Zukünftiger Rückkauf: so viele Gegenstände\ngibt ein Opfer höchstens zurück. Standard: 3.\nBereich: 1–27.",
   "simpletools.option.deathVaultMaxDeaths": "Gemerkte Tode",
   "simpletools.option.deathVaultMaxDeaths.tooltip": "Zukünftiger Rückkauf: Tode je Spieler (sonst\nnur der letzte). Standard: 20. Bereich: 1–100.",
+  "tooltip.simpletools.soulbound.hardcore": "Seelengebunden: wirkt nicht im Hardcore",
   "enchantment.simpletools.soulbound": "Seelengebunden",
   "block.simpletools.death_vault": "Todesgewölbe",
   "container.simpletools.death_vault": "Todesgewölbe",

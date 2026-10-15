@@ -18,7 +18,8 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
 /**
  * Soulbound (owner 2026-10-12): an item with it never drops on death. While the inventory empties ({@code Inventory#dropAll}
  * inside {@code Player#dropEquipment}) its stacks are taken out and put back into the same slots of the dead player, which is
- * the only store (saved with the player while the death screen is open). The respawn ({@code restoreFrom(old, false)})
+ * the only store (saved with the player while the death screen is open). Nachtrag 60: in a Hardcore world it does nothing
+ * (the enchantment can still be applied; the item tooltip says so). The respawn ({@code restoreFrom(old, false)})
  * moves them slot by slot into the new player and caps the remaining durability at {@code deathDurabilityCap} (50).
  */
 public final class Soulbound {
@@ -27,10 +28,19 @@ public final class Soulbound {
     /** The player whose death drops are running right now (server thread), else null. */
     private static Player dying;
 
+    /** Test hook: forces the Hardcore answer (null: ask the world). */
+    public static Boolean hardcoreOverride;
+
     private Soulbound() {}
 
     public static boolean active() {
         return SimpleTools.active() && SimpleTools.config().enableSoulbound;
+    }
+
+    /** Like the bed and the respawn anchor, Soulbound does nothing in a Hardcore world (items stay enchantable). */
+    public static boolean hardcore(Player player) {
+        if (hardcoreOverride != null) return hardcoreOverride;
+        return player != null && player.level().getLevelData().isHardcore();
     }
 
     static boolean is(Holder<Enchantment> holder) {
@@ -72,7 +82,7 @@ public final class Soulbound {
     /** Takes every Soulbound stack out of the inventory (before {@code dropAll}). */
     public static List<Kept> takeOut(Inventory inventory) {
         List<Kept> kept = new ArrayList<>();
-        if (!active()) return kept;
+        if (!active() || hardcore(inventory.player)) return kept;
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
             if (has(stack)) {
@@ -128,7 +138,7 @@ public final class Soulbound {
      * emptied, so nothing exists twice). Not on End return or with keepInventory (Vanilla copies everything then).
      */
     public static void restore(ServerPlayer fresh, ServerPlayer old, boolean restoreAll, boolean vanillaKeeps) {
-        if (restoreAll || vanillaKeeps) return;
+        if (restoreAll || vanillaKeeps || hardcore(old)) return;
         Inventory from = old.getInventory();
         Inventory to = fresh.getInventory();
         for (int i = 0; i < from.getContainerSize(); i++) {

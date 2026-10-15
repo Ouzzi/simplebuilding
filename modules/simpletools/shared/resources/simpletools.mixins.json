@@ -15,7 +15,8 @@
     "ItemEntityLedgerMixin",
     "EntityRemovedMixin",
     "WanderingTraderSoulboundMixin",
-    "ItemEntityAgeAccessor"
+    "ItemEntityAgeAccessor",
+    "ItemStackSoulboundTooltipMixin"
   ],
   "injectors": {
     "defaultRequire": 1
