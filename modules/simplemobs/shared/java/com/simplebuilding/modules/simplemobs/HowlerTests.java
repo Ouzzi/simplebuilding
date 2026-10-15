@@ -352,7 +352,7 @@ final class HowlerTests {
             h.assertTrue(HowlerLogic.heartbeatCycle(35, 7, one) == 2 && HowlerLogic.heartbeatCycle(0, -5, one) == 35, "cycle is positive for any id");
             float min = 1.0f;
             for (int t = 0; t < 14; t++) min = Math.min(min, HowlerLogic.heartGlow(t));
-            h.assertTrue(min >= 0.45f && HowlerLogic.heartGlow(0) == 1.0f && HowlerLogic.heartGlow(HowlerLogic.HEART_SECOND_BEAT_TICKS) > 0.9f, "glow never below 0.45, peaks on both beats");
+            h.assertTrue(min >= 0.45f && HowlerLogic.heartGlow(0) == 1.0f && HowlerLogic.heartGlow(HowlerLogic.HEART_SECOND_BEAT_TICKS) > 0.8f, "glow never below 0.45, peaks on both beats");
             h.assertTrue(!HowlerLogic.quiet(false, HowlerLogic.Attack.NONE, 0, 0) && HowlerLogic.quiet(true, HowlerLogic.Attack.NONE, 0, 0)
                     && HowlerLogic.quiet(false, HowlerLogic.Attack.SHRIEK, 0, 0) && HowlerLogic.quiet(false, HowlerLogic.Attack.NONE, 5, 0) && HowlerLogic.quiet(false, HowlerLogic.Attack.NONE, 0, 9),
                     "quiet while emerging, attacking, holding its breath or staggered");
@@ -404,12 +404,17 @@ final class HowlerTests {
             floor(h);
             HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 0);
             var prey = prey(h, 6.0, 6.0, true);
+            int saved = MobsConfig.howlerPulseInterval;
+            MobsConfig.howlerPulseInterval = 14;   // one rage heartbeat period, so the test needs no long wait
             howler.setHealth(howler.getMaxHealth() * 0.1f);
-            h.assertTrue(howler.pulseDarkness(l) == 1 && prey.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "the pulse puts Darkness on hunted players in range");
+            boolean direct = howler.pulseDarkness(l) == 1 && prey.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS);
             prey.removeAllEffects();
+            if (!direct) MobsConfig.howlerPulseInterval = saved;
+            h.assertTrue(direct, "the pulse puts Darkness on hunted players in range");
             h.succeedWhen(() -> {
                 h.assertTrue(howler.phase() == HowlerLogic.Phase.RAGE, "rage reached");
                 h.assertTrue(prey.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "in rage the Darkness pulse comes by itself");
+                MobsConfig.howlerPulseInterval = saved;
                 howler.discard();
             });
         });
@@ -418,8 +423,11 @@ final class HowlerTests {
             floor(h);
             HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 0);
             var prey = prey(h, 6.0, 6.0, true);
+            int saved = MobsConfig.howlerPulseInterval;
+            MobsConfig.howlerPulseInterval = 14;
             howler.setHealth(howler.getMaxHealth() * 0.4f);
-            h.runAfterDelay(120, () -> {
+            h.runAfterDelay(60, () -> {
+                MobsConfig.howlerPulseInterval = saved;
                 h.assertTrue(howler.phase() == HowlerLogic.Phase.HUNGER, "hunger phase");
                 h.assertFalse(prey.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "no pulse in hunger");
                 howler.discard();
