@@ -787,6 +787,44 @@ public class ModBlocks {
     }
 
     /** Astral/Nihil/Bridge Redstone: vanilla dust's properties (no collision, breaks at once, pistons destroy it). */
+    // Light Panes (N57, 2026-10-14, docs/ai/PLAN-LIGHT-PANE-2026-10-14.md): flat 1 px lamps on any block side. Normal, transparent
+    // (veil over the block behind), 16 colors, and the redstone multicolor pane. Behavior in AbstractLightPaneBlock and subclasses.
+    public static final Block LIGHT_PANE = McVersion.LIGHT_PANES ? lightPane("light_pane", MapColor.COLOR_YELLOW) : null;
+    public static final Block TRANSPARENT_LIGHT_PANE = McVersion.LIGHT_PANES ? lightPane("transparent_light_pane", MapColor.NONE) : null;
+    /** The sixteen single-color panes in dye order (white ... black); empty on lines without {@link McVersion#LIGHT_PANES}. */
+    public static final List<Block> COLORED_LIGHT_PANES = McVersion.LIGHT_PANES ? coloredLightPanes() : List.of();
+    public static final Block REDSTONE_LIGHT_PANE = McVersion.LIGHT_PANES ? registerBlock("redstone_light_pane",
+            s -> new RedstoneLightPaneBlock(lightPaneProperties(s, MapColor.COLOR_RED, RedstoneLightPaneBlock::light))) : null;
+
+    private static Block lightPane(String name, MapColor color) {
+        return registerBlock(name, s -> new LightPaneBlock(lightPaneProperties(s, color, LightPaneBlock::light)));
+    }
+
+    private static List<Block> coloredLightPanes() {
+        List<Block> out = new java.util.ArrayList<>();
+        for (net.minecraft.world.item.DyeColor dye : net.minecraft.world.item.DyeColor.values()) {
+            out.add(lightPane(dye.getSerializedName() + "_light_pane", dye.getMapColor()));
+        }
+        return List.copyOf(out);
+    }
+
+    private static BlockBehaviour.Properties lightPaneProperties(BlockBehaviour.Properties s, MapColor color,
+                                                                  java.util.function.ToIntFunction<net.minecraft.world.level.block.state.BlockState> light) {
+        return s.strength(0.3F).sound(SoundType.GLASS).mapColor(color).noCollision().noOcclusion().lightLevel(light)
+                .pushReaction(McVersion.PUSH_DESTROYS);
+    }
+
+    /** All Light Panes in tab order: normal, transparent, the sixteen colors, redstone (empty without {@link McVersion#LIGHT_PANES}). */
+    public static List<Block> lightPanes() {
+        if (!McVersion.LIGHT_PANES) {
+            return List.of();
+        }
+        List<Block> out = new java.util.ArrayList<>(List.of(LIGHT_PANE, TRANSPARENT_LIGHT_PANE));
+        out.addAll(COLORED_LIGHT_PANES);
+        out.add(REDSTONE_LIGHT_PANE);
+        return List.copyOf(out);
+    }
+
     private static BlockBehaviour.Properties signalDust(BlockBehaviour.Properties s) {
         return s.noCollision().instabreak().pushReaction(McVersion.PUSH_DESTROYS).noOcclusion().sound(SoundType.AMETHYST)
                 .isRedstoneConductor((state, world, pos) -> false)

@@ -79,6 +79,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-Verstärker (spielen einen
   Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla) / Noten-Verstärker (spielen Notenblöcke ebenso per Funk mit), Metall-Stangen (Eisen bis
   Enderit, Blitzableiter mit eigener Reichweite; früher „Rod“).
+- **Lichtscheiben (26.3, N57):** flache Lampenscheiben (1 px, an jeder Blockseite, ohne Stütze fallen sie ab, Wasserlogging): normal, transparent (Schleier über dem Block dahinter), 16 Farben, Redstone-Variante (Farbe nach Signalstärke, Rechtsklick wie Notenblock stellt die Farbe für Stärke 1 ein); Rezepte aus Glasscheibe, Glowstone-Staub, Farbstoff, Redstone (nur Vanilla-Zutaten).
 - **Verzauberungen:** Abbau-, Bau-, Lager-/Spieler-Verzauberungen, Luftsprung.
 - **Welt/Wirtschaft:** Loot-Balance, bessere Strukturtruhen, Dorfbewohner-/Händlerangebote.
 - **Pads und Tweaks** (aus Simple Tweaks übernommen): Spawn-/Elytra-/Trank-Pads in Stufen, Server-Optionen.

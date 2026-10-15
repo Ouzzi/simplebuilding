@@ -253,6 +253,14 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                     .add(key(ModItems.AZURE_FROGLIGHT));
         }
 
+        if (com.simplebuilding.version.McVersion.LIGHT_PANES) {
+            // Light Panes (N57): the plain pane and the sixteen colors take a dye (recoloring included); transparent and redstone do not.
+            var panes = builder(ModTags.Items.LIGHT_PANES).add(key(ModItems.LIGHT_PANES.get(0)));
+            for (net.minecraft.world.item.Item pane : ModItems.LIGHT_PANES.subList(2, 18)) {
+                panes.add(key(pane));
+            }
+        }
+
         // Alle acht Vanilla-Kupfertruhen (Oxidationsstufen, gewachst): Zutat der Verstaerkten Truhe.
         var copperChests = builder(ModTags.Items.COPPER_CHESTS);
         net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()

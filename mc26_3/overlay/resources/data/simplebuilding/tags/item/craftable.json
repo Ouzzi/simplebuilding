@@ -392,6 +392,25 @@
     "simplebuilding:scarlet_froglight",
     "simplebuilding:aqua_froglight",
     "simplebuilding:azure_froglight",
-    "simplebuilding:sculk_jaw"
+    "simplebuilding:sculk_jaw",
+    "simplebuilding:light_pane",
+    "simplebuilding:transparent_light_pane",
+    "simplebuilding:white_light_pane",
+    "simplebuilding:orange_light_pane",
+    "simplebuilding:magenta_light_pane",
+    "simplebuilding:light_blue_light_pane",
+    "simplebuilding:yellow_light_pane",
+    "simplebuilding:lime_light_pane",
+    "simplebuilding:pink_light_pane",
+    "simplebuilding:gray_light_pane",
+    "simplebuilding:light_gray_light_pane",
+    "simplebuilding:cyan_light_pane",
+    "simplebuilding:purple_light_pane",
+    "simplebuilding:blue_light_pane",
+    "simplebuilding:brown_light_pane",
+    "simplebuilding:green_light_pane",
+    "simplebuilding:red_light_pane",
+    "simplebuilding:black_light_pane",
+    "simplebuilding:redstone_light_pane"
   ]
 }

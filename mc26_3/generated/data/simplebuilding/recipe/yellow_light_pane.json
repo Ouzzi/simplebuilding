@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "#simplebuilding:light_panes",
+    "minecraft:yellow_dye"
+  ],
+  "result": {
+    "id": "simplebuilding:yellow_light_pane"
+  }
+}

@@ -369,6 +369,9 @@ public final class SearchTabPlacement {
 
         // --- Gebrauchsbloecke: Licht, Blaupause beim Kartografentisch, Oefen, Truhen, Koepfe.
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SEA_LANTERN, ModItems.CONSTRUCTION_LIGHT));
+        if (com.simplebuilding.version.McVersion.LIGHT_PANES) { // N57: the Light Panes right behind the construction light
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, ModItems.CONSTRUCTION_LIGHT, ModItems.LIGHT_PANES.toArray(new ItemLike[0])));
+        }
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.CARTOGRAPHY_TABLE, ModItems.BLUEPRINT, ModItems.CREATIVE_BLUEPRINT));
         if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens places its furnaces itself (same anchors)
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.FURNACE,

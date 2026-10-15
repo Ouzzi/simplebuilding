@@ -341,6 +341,9 @@ public final class GuideContent {
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             addChapter(GuideBooks.Book.GADGETS, ch("simplebuilding:sculk_jaw", List.of("simplebuilding:sculk_jaw"), List.of()));
         }
+        if (com.simplebuilding.version.McVersion.LIGHT_PANES) { // N57: building chapter 19
+            addChapter(GuideBooks.Book.BUILDING, ch("simplebuilding:light_pane", List.of("simplebuilding:light_pane", "simplebuilding:redstone_light_pane"), List.of("minecraft:glass_pane")));
+        }
     }
 
     private static void addChapter(GuideBooks.Book book, Chapter chapter) {

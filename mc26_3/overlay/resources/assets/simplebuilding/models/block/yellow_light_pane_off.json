@@ -1,0 +1,6 @@
+{
+  "parent": "simplebuilding:block/light_pane_base",
+  "textures": {
+    "panel": "simplebuilding:block/yellow_light_pane_off"
+  }
+}

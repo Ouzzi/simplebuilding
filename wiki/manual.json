@@ -12260,6 +12260,34 @@
           "(mit Simple End) Auch Aschholz- und Dämmerholzboote nehmen eine gestufte Truhe; das Boot behält sein End-Holz."
         ]
       }
+    },
+    "*light_pane": {
+      "en": {
+        "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, and a redstone version whose color follows the signal strength.",
+        "details": [
+          "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
+          "All panes shine like a lamp (light level 15) and go dark while they get a redstone signal; the state is lit/not lit. The Transparent Light Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
+          "Redstone Light Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence.",
+          "Recipes: 1 glass pane + 2 glowstone dust = 2 Light Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Light Panes; a Light Pane or any colored pane + a dye = that color (also recoloring); a Light Pane + redstone = Redstone Light Pane."
+        ]
+      },
+      "de": {
+        "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben und als Redstone-Variante, deren Farbe der Signalstärke folgt.",
+        "details": [
+          "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
+          "Alle Scheiben leuchten wie eine Lampe (Lichtstärke 15) und gehen aus, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Lichtscheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
+          "Redstone-Lichtscheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach.",
+          "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Lichtscheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Lichtscheiben; eine Lichtscheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Lichtscheibe + Redstone = Redstone-Lichtscheibe."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "tools/textures/light_panes_2026_10_14.py"
+      ]
     }
   },
   "inWorld": {
