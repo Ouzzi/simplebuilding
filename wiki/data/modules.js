@@ -324,7 +324,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "09e4918b0d3a"
+    "dataHash": "a3af74fd0f08"
   },
   {
     "id": "simpletrims",

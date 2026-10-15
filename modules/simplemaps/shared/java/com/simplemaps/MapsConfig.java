@@ -12,8 +12,11 @@ import java.nio.file.Path;
  */
 public final class MapsConfig {
     public static final String FILE = "simplemaps-server.json";
-    /** Reveal radius in blocks around the holder (Vanilla 1:1 map: 128, halved under a ceiling). */
-    public static final int REVEAL_RADIUS_DEFAULT = 96, REVEAL_RADIUS_MIN = 16, REVEAL_RADIUS_MAX = 128;
+    /**
+     * Reveal radius in blocks around the holder. Default = Vanilla {@code MapItem.update} at scale 0 (1:1):
+     * {@code radius = 128 / (1 << scale)}, halved under a ceiling (the item applies the halving).
+     */
+    public static final int REVEAL_RADIUS_DEFAULT = 128, REVEAL_RADIUS_MIN = 16, REVEAL_RADIUS_MAX = 128;
     /** Explored 128x128 tiles one map may hold (4096 tiles = 8192 x 8192 blocks; about 64 KiB per tile unpacked). */
     public static final int MAX_TILES_DEFAULT = 4096, MAX_TILES_MIN = 16, MAX_TILES_MAX = 16384;
 

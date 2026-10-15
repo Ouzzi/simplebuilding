@@ -74,7 +74,7 @@ public class WayfinderMapItem extends Item {
         if (slot == null || slot.getType() != EquipmentSlot.Type.HAND || !(owner instanceof Player)) return;
         WayfinderData data = dataFor(stack, level);
         if (data == null) return;
-        Reveal.step(level, owner, data, MapsConfig.revealRadius);
+        Reveal.step(level, owner, data, level.dimensionType().hasCeiling() ? MapsConfig.revealRadius / 2 : MapsConfig.revealRadius);
         StructureMarks.step(level, owner, data);
     }
 

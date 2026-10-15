@@ -32,7 +32,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         "title": "Wayfinder maps",
         "summary": "Endless maps, one per dimension: the plain map for the Overworld and other dimensions, a Nether map and an End map.",
         "details": [
-          "While held in the main or off hand the map explores like a Vanilla map at 1:1 (default radius 96 blocks, server bounds 16–128), one 16th of the columns per tick, only in loaded chunks. Under a ceiling (Nether) the floor below the holder is mapped.",
+          "While held in the main or off hand the map explores like a Vanilla map at 1:1 (default radius 128 blocks like Vanilla, halved under a ceiling; server bounds 16–128), one 16th of the columns per tick, only in loaded chunks. Under a ceiling (Nether) the floor below the holder is mapped.",
           "A map binds to the dimension it is first used in. Which dimensions a map accepts is set by the dimension type tags simplemaps:nether_wayfinder and simplemaps:end_wayfinder; the plain map takes every dimension in neither tag.",
           "Only explored 128 x 128-block tiles are stored (color and height per block); at most maxTilesPerMap tiles per map (default 4096, server bounds 16–16384).",
           "Recipes (shapeless): map + compass + 4 gold ingots + 1 echo shard; the Nether map needs 2 echo shards and a netherite scrap instead, the End map 2 echo shards and a shulker shell.",
@@ -43,7 +43,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         "title": "Wegfinder-Karten",
         "summary": "Endlose Karten, eine je Dimension: die einfache Karte für Oberwelt und weitere Dimensionen, eine Nether- und eine End-Karte.",
         "details": [
-          "In Haupt- oder Nebenhand deckt die Karte wie eine Vanilla-Karte im Maßstab 1:1 auf (Standard-Radius 96 Blöcke, Servergrenzen 16–128), je Tick ein Sechzehntel der Spalten, nur in geladenen Chunks. Unter einer Decke (Nether) wird der Boden unter dem Halter kartiert.",
+          "In Haupt- oder Nebenhand deckt die Karte wie eine Vanilla-Karte im Maßstab 1:1 auf (Standard-Radius 128 Blöcke wie Vanilla, unter einer Decke halbiert; Servergrenzen 16–128), je Tick ein Sechzehntel der Spalten, nur in geladenen Chunks. Unter einer Decke (Nether) wird der Boden unter dem Halter kartiert.",
           "Eine Karte bindet sich an die Dimension, in der sie zuerst benutzt wird. Welche Dimensionen eine Karte annimmt, legen die Dimensionstyp-Tags simplemaps:nether_wayfinder und simplemaps:end_wayfinder fest; die einfache Karte nimmt jede Dimension, die in keinem der beiden steht.",
           "Gespeichert werden nur erkundete Kacheln zu 128 × 128 Blöcken (Farbe und Höhe je Block); höchstens maxTilesPerMap Kacheln je Karte (Standard 4096, Servergrenzen 16–16384).",
           "Rezepte (formlos): Karte + Kompass + 4 Goldbarren + 1 Echo-Splitter; die Nether-Karte braucht stattdessen 2 Echo-Splitter und einen Netheritplatten, die End-Karte 2 Echo-Splitter und eine Shulker-Schale.",
