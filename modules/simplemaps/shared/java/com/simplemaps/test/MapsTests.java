@@ -108,12 +108,8 @@ public final class MapsTests {
                     "map as wide as possible at " + at);
             h.assertTrue(size[1] - l.panelH() < com.simplemaps.WayfinderLayout.CELL + 2 * com.simplemaps.WayfinderLayout.MARGIN,
                     "map as tall as possible at " + at);
-            h.assertTrue(l.ribH() >= 18 && l.ribStep() - l.ribH() >= 2, "bookmarks not crowded at " + at);
-            int last = l.ribbonY(com.simplemaps.WayfinderLayout.RIGHT_TABS - 1) + l.ribH();
-            h.assertTrue(l.ribbonY(0) >= l.top() + com.simplemaps.WayfinderLayout.FRAME
-                    && last <= l.top() + l.panelH() - com.simplemaps.WayfinderLayout.FRAME, "bookmarks along the panel at " + at);
-            h.assertTrue(l.buttonY(com.simplemaps.WayfinderLayout.LEFT_TABS - 1) + com.simplemaps.WayfinderLayout.BTN <= l.top() + l.panelH(),
-                    "tool buttons along the panel at " + at);
+            h.assertTrue(l.tab() >= 12 && l.rightTabY(com.simplemaps.WayfinderLayout.RIGHT_TABS - 1) + l.tab() <= l.top() + l.panelH() - com.simplemaps.WayfinderLayout.FRAME,
+                    "bookmarks along the panel at " + at);
         }
         h.assertTrue(com.simplemaps.WayfinderLayout.of(960, 540).cols() > com.simplemaps.WayfinderLayout.of(427, 240).cols()
                 && com.simplemaps.WayfinderLayout.of(960, 540).rows() > com.simplemaps.WayfinderLayout.of(427, 240).rows(), "grows with the window");
@@ -146,10 +142,21 @@ public final class MapsTests {
         Waypoints merged = w.mergedWith(other);
         h.assertTrue(merged.get(0).get().x() == 1 && merged.get(3).get().x() == 5, "first map's waypoints stay (F4)");
         h.assertTrue(merged.get(1).get().x() == 100 && merged.get(2).get().x() == 200, "free slots take the second map's");
-        Waypoint longName = new Waypoint(1, 0, 0, "x".repeat(80), 0x123456, Optional.empty());
+        Waypoint longName = new Waypoint(1, 0, 0, "x".repeat(80), 0x123456, null, 0);
         h.assertTrue(longName.name().length() == Waypoint.MAX_NAME && (longName.color() >>> 24) == 0xFF, "name cut, colour opaque");
-        h.assertTrue(MapsNetwork.valid(new Waypoint(0, 0, 0, "", 0, Optional.of(Identifier.withDefaultNamespace("creeper_head")))), "head ok");
-        h.assertTrue(!MapsNetwork.valid(new Waypoint(0, 0, 0, "", 0, Optional.of(Identifier.withDefaultNamespace("diamond")))), "no head");
+        h.assertTrue(MapsNetwork.valid(new Waypoint(0, 0, 0, "", 0, Identifier.withDefaultNamespace("creeper_head"), 0)), "head ok");
+        h.assertTrue(MapsNetwork.valid(new Waypoint(0, 0, 0, "", 0, Identifier.withDefaultNamespace("diamond"), 0)), "any item is an icon (owner N65)");
+        h.assertTrue(!MapsNetwork.valid(new Waypoint(0, 0, 0, "", 0, Identifier.withDefaultNamespace("air"), 0)), "air is no icon");
+        h.assertTrue(!MapsNetwork.valid(new Waypoint(0, 0, 0, "", 0, Identifier.parse("nomod:missing"), 0)), "unknown item refused");
+        h.assertTrue(MapsNetwork.clean(new Waypoint(0, 1, 1, "", 0, Identifier.withDefaultNamespace("diamond"), com.simplemaps.CubeNet.MODEL)).face() == com.simplemaps.CubeNet.FRONT,
+                "no 3D model without a block model");
+        h.assertTrue(MapsNetwork.clean(new Waypoint(0, 1, 1, "", 0, Identifier.withDefaultNamespace("furnace"), com.simplemaps.CubeNet.MODEL)).face() == com.simplemaps.CubeNet.MODEL,
+                "3D model kept for a block");
+        // Migration: an old waypoint with a colour and no icon becomes the wool of that colour.
+        var legacy = Waypoint.CODEC.parse(NbtOps.INSTANCE, net.minecraft.nbt.TagParser.parseCompoundFully("{slot:1,x:5,z:6,name:\"Old\",color:-425955}")).getOrThrow();
+        h.assertTrue(legacy.icon().equals(Identifier.withDefaultNamespace("orange_wool")) && legacy.face() == com.simplemaps.CubeNet.FRONT, "legacy colour -> wool, got " + legacy.icon());
+        var legacyHead = Waypoint.CODEC.parse(NbtOps.INSTANCE, net.minecraft.nbt.TagParser.parseCompoundFully("{slot:1,x:5,z:6,head:\"minecraft:zombie_head\"}")).getOrThrow();
+        h.assertTrue(legacyHead.icon().equals(Identifier.withDefaultNamespace("zombie_head")), "legacy head kept as icon");
         h.assertTrue(!MapsNetwork.valid(Waypoint.fresh(0, 40_000_000, 0)), "outside the world");
         var encoded = Waypoints.CODEC.encodeStart(NbtOps.INSTANCE, merged).getOrThrow();
         h.assertTrue(Waypoints.CODEC.parse(NbtOps.INSTANCE, encoded).getOrThrow().equals(merged), "codec round trip");
@@ -307,11 +314,19 @@ public final class MapsTests {
         ItemStack held = player.getItemInHand(InteractionHand.OFF_HAND);
         h.assertTrue(held.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY).get(4).map(w -> w.x() == 11).orElse(false), "created");
         MapsNetwork.handleWaypoint(new WaypointEditPayload(1, false,
-                new Waypoint(4, 11, 12, "Home", 0xFF00FF00, Optional.of(Identifier.withDefaultNamespace("stone")))), player);
-        h.assertTrue(held.get(MapsComponents.WAYPOINTS).get(4).get().name().isEmpty(), "invalid head refused");
+                new Waypoint(4, 11, 12, "Home", 0xFF00FF00, Identifier.parse("nomod:missing"), 0)), player);
+        h.assertTrue(held.get(MapsComponents.WAYPOINTS).get(4).get().name().isEmpty(), "unknown icon refused");
         MapsNetwork.handleWaypoint(new WaypointEditPayload(1, false,
-                new Waypoint(4, 11, 12, "Home", 0xFF00FF00, Optional.of(Identifier.withDefaultNamespace("piglin_head")))), player);
+                new Waypoint(4, 11, 12, "Home", 0xFF00FF00, Identifier.withDefaultNamespace("piglin_head"), 0)), player);
         h.assertTrue(held.get(MapsComponents.WAYPOINTS).get(4).get().name().equals("Home"), "configured");
+        MapsNetwork.handleDisplay(new com.simplemaps.net.DisplayPayload(1, new MapsComponents.Display(true, 4)), player);
+        h.assertTrue(held.getOrDefault(MapsComponents.DISPLAY, MapsComponents.Display.DEFAULT).equals(new MapsComponents.Display(true, 4)), "display mode saved");
+        MapsNetwork.handleDisplay(new com.simplemaps.net.DisplayPayload(1, new MapsComponents.Display(true, 5)), player);
+        h.assertTrue(held.get(MapsComponents.DISPLAY).handZoom() == 1, "invalid zoom becomes 1:1");
+        MapsNetwork.handleDisplay(new com.simplemaps.net.DisplayPayload(1, MapsComponents.Display.DEFAULT), player);
+        h.assertTrue(!held.has(MapsComponents.DISPLAY), "default display mode removes the component");
+        MapsNetwork.handleDisplay(new com.simplemaps.net.DisplayPayload(0, new MapsComponents.Display(true, 4)), player);
+        h.assertTrue(!player.getMainHandItem().has(MapsComponents.DISPLAY), "main hand holds no map");
         MapsNetwork.handleWaypoint(new WaypointEditPayload(0, false, Waypoint.fresh(1, 0, 0)), player);
         h.assertTrue(held.get(MapsComponents.WAYPOINTS).get(1).isEmpty(), "main hand holds no map");
         MapsNetwork.handleWaypoint(new WaypointEditPayload(1, true, Waypoint.fresh(4, 0, 0)), player);

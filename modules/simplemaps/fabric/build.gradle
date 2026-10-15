@@ -2,3 +2,6 @@ plugins { id 'net.fabricmc.fabric-loom' }
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // SimpleLib (shared UI blocks: box style, context menu, bookmarks) nested per principle 6a; compiled against.
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// JUnit for the pure layout classes (no game needed)
+dependencies { testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'; testRuntimeOnly 'org.junit.platform:junit-platform-launcher' }
+test { useJUnitPlatform() }

@@ -33,6 +33,24 @@ public final class MapsComponents {
     }
 
     /**
+     * How the map shows its picture (owner N65), saved on the stack: height lines on or off, and the scale (blocks per pixel)
+     * of the picture in the hand. The menu and both hands read this, so they always show the same mode.
+     */
+    public record Display(boolean contour, int handZoom) {
+        public static final Display DEFAULT = new Display(false, 1);
+        public static final Codec<Display> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.BOOL.optionalFieldOf("contour", false).forGetter(Display::contour),
+                Codec.INT.optionalFieldOf("hand_zoom", 1).forGetter(Display::handZoom)
+        ).apply(i, Display::new));
+        public static final StreamCodec<ByteBuf, Display> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.BOOL, Display::contour, ByteBufCodecs.VAR_INT, Display::handZoom, Display::new);
+
+        public Display {
+            handZoom = WayfinderData.validZoom(handZoom);
+        }
+    }
+
+    /**
      * Area to take over when the cartography result is taken (like Vanilla's MAP_POST_PROCESSING): {@code kind} 0 =
      * a Vanilla filled map with that map id, 1 = another wayfinder map with that wayfinder id.
      */
@@ -52,6 +70,8 @@ public final class MapsComponents {
             .persistent(Waypoints.CODEC).networkSynchronized(Waypoints.STREAM_CODEC).cacheEncoding().build();
     public static final DataComponentType<View> VIEW = DataComponentType.<View>builder()
             .persistent(View.CODEC).networkSynchronized(View.STREAM_CODEC).build();
+    public static final DataComponentType<Display> DISPLAY = DataComponentType.<Display>builder()
+            .persistent(Display.CODEC).networkSynchronized(Display.STREAM_CODEC).build();
     public static final DataComponentType<Pending> PENDING = DataComponentType.<Pending>builder()
             .persistent(Pending.CODEC).networkSynchronized(Pending.STREAM_CODEC).build();
 
@@ -60,6 +80,7 @@ public final class MapsComponents {
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("waypoints"), WAYPOINTS);
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("view"), VIEW);
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("pending"), PENDING);
+        Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMaps.id("display"), DISPLAY);
     }
 
     private MapsComponents() {}

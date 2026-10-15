@@ -5,13 +5,16 @@ import com.simplelib.api.client.ui.UiBookmarks;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiContextMenu;
 import com.simplelib.api.client.ui.UiPalette;
+import com.simplemaps.CubeNet;
 import com.simplemaps.MapsComponents;
 import com.simplemaps.MapsItems;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.Waypoint;
+import com.simplemaps.WaypointIcons;
 import com.simplemaps.Waypoints;
 import com.simplemaps.WayfinderData;
 import com.simplemaps.WayfinderLayout;
+import com.simplemaps.net.DisplayPayload;
 import com.simplemaps.net.FrameViewPayload;
 import com.simplemaps.net.WaypointEditPayload;
 import java.util.ArrayList;
@@ -50,17 +53,16 @@ import net.minecraft.world.item.ItemStack;
 public final class WayfinderScreen extends Screen {
     public static final int CELL = WayfinderLayout.CELL, FRAME = WayfinderLayout.FRAME;
     public static final int LEFT_TABS = WayfinderLayout.LEFT_TABS, RIGHT_TABS = WayfinderLayout.RIGHT_TABS;
-    private static final int BTN = WayfinderLayout.BTN, RIB_W = WayfinderLayout.RIB_W, RIB_IN = WayfinderLayout.RIB_IN,
-            RIB_OUT = WayfinderLayout.RIB_OUT, RIB_HOVER = WayfinderLayout.RIB_HOVER;
+    private static final int TAB_HOVER = WayfinderLayout.TAB_HOVER;
     /** Icons on the grey Vanilla buttons: light with a dark drop shadow, like button text. */
     private static final int ICON = 0xFFE8E8E8, ICON_SHADOW = 0xFF3A3A3A;
-    /** Parchment brown box (the map's colour); derived like every other N12 box. */
-    public static final UiPalette PALETTE = UiPalette.derived(0xFFB08A57);
+    /** Matt bronze, like the Octant screen (owner N65, docs/ai/KONZEPT-OKTANT-UI-2026-10-15.md); derived like every other N12 box. */
+    public static final UiPalette PALETTE = UiPalette.derived(0xFF6F5F4B);
     private static final Identifier PLAYER = Identifier.withDefaultNamespace("player");
     private static final Identifier DEATH = Identifier.withDefaultNamespace("red_x");
 
     // Remembered for the session, like the recipe book's state.
-    private static boolean snap = true, grid = true, contour, structures = true;
+    private static boolean snap = true, grid = true, frameContour, structures = true;
     private static int zoomIndex;
 
     private final InteractionHand hand;
@@ -78,10 +80,8 @@ public final class WayfinderScreen extends Screen {
     private boolean picking;
     private int pickX, pickZ, confirmSlot = -1;
     /** Configure dialog. */
-    private int editSlot = -1, editColor;
-    private Optional<Identifier> editHead = Optional.empty();
-    private EditBox nameBox;
-    private final List<net.minecraft.client.gui.components.AbstractWidget> dialogWidgets = new ArrayList<>();
+    private int editSlot = -1;
+    private WaypointDialog picker;
 
     private WayfinderScreen(InteractionHand hand, int frameId) {
         super(Component.translatable("screen.simplemaps.wayfinder"));
@@ -128,7 +128,7 @@ public final class WayfinderScreen extends Screen {
     public static void setModes(boolean snapOn, boolean gridOn, boolean contourOn, int zoomLevel) {
         snap = snapOn;
         grid = gridOn;
-        contour = contourOn;
+        frameContour = contourOn;
         zoomIndex = Mth.clamp(zoomLevel, 0, WayfinderData.ZOOMS.length - 1);
     }
 
@@ -148,11 +148,25 @@ public final class WayfinderScreen extends Screen {
 
     /** Client smoke: screen position of a left bookmark's centre. */
     public int leftTabCenterX() {
-        return layout.buttonX() + BTN / 2;
+        return layout.leftTabX() + layout.tab() / 2;
     }
 
     public int leftTabCenterY(int i) {
-        return leftTabY(i) + BTN / 2;
+        return leftTabY(i) + layout.tab() / 2;
+    }
+
+    /** Client smoke: screen position of a right bookmark's centre. */
+    public int rightTabCenterX() {
+        return layout.rightTabX() + layout.tab() / 2;
+    }
+
+    public int rightTabCenterY(int i) {
+        return rightTabY(i) + layout.tab() / 2;
+    }
+
+    /** Client smoke: opens the configure dialog of a waypoint. */
+    public void openConfigure(int slot) {
+        openDialog(slot);
     }
 
     /** Client smoke: the map size in grid cells. */
@@ -201,6 +215,15 @@ public final class WayfinderScreen extends Screen {
             }
         }
         if (editSlot >= 0) openDialog(editSlot);
+    }
+
+    /** Height lines: the saved mode of the map in hand; a framed map has no hand to save to, so it keeps a local switch. */
+    private boolean contour() {
+        return frameMode() ? frameContour : display().contour();
+    }
+
+    private MapsComponents.Display display() {
+        return stack().getOrDefault(MapsComponents.DISPLAY, MapsComponents.Display.DEFAULT);
     }
 
     private static int indexOf(int zoom) {
@@ -288,21 +311,22 @@ public final class WayfinderScreen extends Screen {
     // ---------------------------------------------------------------- tabs
 
     private int leftTabY(int i) {
-        return layout.buttonY(i);
+        return layout.leftTabY(i);
     }
 
     private int rightTabY(int i) {
-        return layout.ribbonY(i);
+        return layout.rightTabY(i);
     }
 
     private int tabAt(double x, double y, boolean leftSide) {
         int count = leftSide ? LEFT_TABS : RIGHT_TABS;
-        int x0 = leftSide ? layout.buttonX() : left + panelW;
-        int x1 = leftSide ? x0 + BTN : x0 + RIB_OUT + RIB_HOVER;
+        int tab = layout.tab();
+        int x0 = leftSide ? layout.leftTabX() - TAB_HOVER : layout.rightTabX();
+        int x1 = leftSide ? layout.leftTabX() + tab : layout.rightTabX() + tab + TAB_HOVER;
         if (x < x0 || x >= x1) return -1;
         for (int i = 0; i < count; i++) {
             int ty = leftSide ? leftTabY(i) : rightTabY(i);
-            if (y >= ty && y < ty + (leftSide ? BTN : layout.ribH())) return i;
+            if (y >= ty && y < ty + tab) return i;
         }
         return -1;
     }
@@ -314,7 +338,7 @@ public final class WayfinderScreen extends Screen {
         ItemStack stack = stack();
         int mapId = mapId();
         Waypoints waypoints = waypoints();
-        boolean dialog = editSlot >= 0;
+        boolean dialog = picker != null;
         drawTabs(g, mouseX, mouseY, waypoints, dialog);
         UiBoxes.box(g, left, top, panelW, panelH, PALETTE);
         g.text(font, stack.isEmpty() ? title : stack.getHoverName(), left + FRAME, top + FRAME + 1, PALETTE.label(), false);
@@ -334,12 +358,13 @@ public final class WayfinderScreen extends Screen {
         drawFooter(g, mouseX, mouseY);
         if (picking) {
             UiBookmarks.greyOut(g, left, top, panelW, panelH);
-            for (int i = 0; i < LEFT_TABS; i++) UiBookmarks.greyOut(g, layout.buttonX(), leftTabY(i), BTN, BTN);
-            UiBookmarks.greyOut(g, left + panelW, rightTabY(0), RIB_OUT, layout.ribH());
+            for (int i = 0; i < LEFT_TABS; i++) UiBookmarks.greyOut(g, layout.leftTabX(), leftTabY(i), layout.tab(), layout.tab());
+            UiBookmarks.greyOut(g, layout.rightTabX(), rightTabY(0), layout.tab(), layout.tab());
             g.centeredText(font, Component.translatable("screen.simplemaps.pick_slot"), mapX + mapW / 2, mapY + mapH / 2 - 4, 0xFFFFFFFF);
         }
-        if (dialog) drawDialog(g);
+        if (dialog) picker.render(g, mouseX, mouseY, width, height);
         super.extractRenderState(g, mouseX, mouseY, a);
+        if (dialog) picker.tooltips(g, mouseX, mouseY);
         menu.render(g, font, mouseX, mouseY);
         if (!dialog && !menu.isOpen()) {
             tabTooltips(g, mouseX, mouseY, waypoints);
@@ -361,7 +386,7 @@ public final class WayfinderScreen extends Screen {
         for (int tx = tx0; tx <= tx1; tx++) {
             for (int tz = tz0; tz <= tz1; tz++) {
                 TileCache.Entry e = MapsClient.CACHE.want(new TileCache.Key(mapId, bpp, tx, tz));
-                DynamicTexture texture = contour ? MapsClient.CACHE.contour(e) : MapsClient.CACHE.texture(e);
+                DynamicTexture texture = contour() ? MapsClient.CACHE.contour(e) : MapsClient.CACHE.texture(e);
                 if (texture == null) continue;
                 int x = mapX + (int) ((long) tx * WayfinderData.TILE - px0), y = mapY + (int) ((long) tz * WayfinderData.TILE - pz0);
                 g.blit(texture.getTextureView(), texture.getSampler(), x, y, x + WayfinderData.TILE, y + WayfinderData.TILE, 0, 1, 0, 1);
@@ -379,17 +404,8 @@ public final class WayfinderScreen extends Screen {
     private void drawMarks(GuiGraphicsExtractor g, Waypoints waypoints) {
         for (Waypoint w : waypoints.list()) {
             int x = screenX(w.x()), y = screenY(w.z());
-            Optional<Item> head = w.head().flatMap(BuiltInRegistries.ITEM::getOptional);
-            if (head.isPresent()) {
-                g.pose().pushMatrix();
-                g.pose().translate(x - 5, y - 5);
-                g.pose().scale(10 / 16.0F, 10 / 16.0F);
-                g.item(new ItemStack(head.get()), 0, 0);
-                g.pose().popMatrix();
-            } else {
-                g.fill(x - 3, y - 3, x + 4, y + 4, UiBoxes.RIM);
-                g.fill(x - 2, y - 2, x + 3, y + 3, w.color());
-            }
+            g.fill(x - 7, y - 7, x + 7, y + 7, 0x70000000);
+            WaypointArt.draw(g, w, x - 6, y - 6, 12);
             g.text(font, String.valueOf(w.slot() + 1), x + 4, y - 9, 0xFFFFFFFF, true);
         }
         Minecraft mc = Minecraft.getInstance();
@@ -454,37 +470,37 @@ public final class WayfinderScreen extends Screen {
     }
 
     private void drawTabs(GuiGraphicsExtractor g, int mouseX, int mouseY, Waypoints waypoints, boolean dialog) {
-        boolean[] states = {snap, grid, false, contour, structures};
+        boolean[] states = {snap, grid, false, contour(), structures, false};
+        int tab = layout.tab();
+        // Both sides are bookmarks in the box colour (owner N65): tools left, the player and the waypoints right.
         for (int i = 0; i < LEFT_TABS; i++) {
-            int x = layout.buttonX(), y = leftTabY(i);
+            int y = leftTabY(i);
             boolean hover = !dialog && tabAt(mouseX, mouseY, true) == i;
-            UiBookmarks.button(g, x, y, BTN, BTN, states[i], hover);
+            int shift = hover ? TAB_HOVER : 0;
+            UiBookmarks.ribbon(g, layout.leftTabX() - shift, y, layout.tabW(), tab, true, PALETTE, states[i], hover);
+            int x = layout.leftTabX() - shift + (tab - 10) / 2, iy = y + (tab - 10) / 2;
             // Shadow first, then the light icon one pixel up-left (Vanilla button text look).
-            drawLeftIcon(g, i, x + 6, y + 5, ICON_SHADOW, true);
-            drawLeftIcon(g, i, x + 5, y + 4, ICON, false);
+            drawLeftIcon(g, i, x + 1, iy + 1, ICON_SHADOW, true);
+            drawLeftIcon(g, i, x, iy, ICON, false);
         }
-        int ribH = layout.ribH();
         for (int i = 0; i < RIGHT_TABS; i++) {
             int y = rightTabY(i);
             boolean hover = !dialog && tabAt(mouseX, mouseY, false) == i;
             Optional<Waypoint> w = i == 0 ? Optional.empty() : waypoints.get(i - 1);
-            int shift = hover ? RIB_HOVER : 0, x = left + panelW - RIB_IN + shift;
-            UiBookmarks.ribbon(g, x, y, RIB_W, ribH, false, PALETTE, i == 0 || w.isPresent(), hover);
-            int ix = left + panelW + 2 + shift, iy = y + (ribH - 10) / 2;
+            int shift = hover ? TAB_HOVER : 0, x = layout.rightTabX() - WayfinderLayout.TAB_IN + shift;
+            UiBookmarks.ribbon(g, x, y, layout.tabW(), tab, false, PALETTE, i == 0 || w.isPresent(), hover);
+            int size = tab >= 26 ? 20 : 16, ix = layout.rightTabX() + shift + (tab - size) / 2, iy = y + (tab - size) / 2;
             if (i == 0) {
-                g.item(new ItemStack(net.minecraft.world.item.Items.COMPASS), ix + 1, y + (ribH - 16) / 2);
-            } else if (w.isPresent() && w.get().head().isPresent()) {
-                g.pose().pushMatrix();
-                g.pose().translate(ix, iy);
-                g.pose().scale(10 / 16.0F, 10 / 16.0F);
-                BuiltInRegistries.ITEM.getOptional(w.get().head().get()).ifPresent(item -> g.item(new ItemStack(item), 0, 0));
-                g.pose().popMatrix();
+                WaypointArt.draw(g, Identifier.withDefaultNamespace("compass"), CubeNet.MODEL, ix, iy, size);
+            } else if (w.isPresent()) {
+                WaypointArt.draw(g, w.get(), ix, iy, size);
             } else {
-                g.fill(ix + 1, iy + 1, ix + 9, iy + 9, UiBoxes.RIM);
-                g.fill(ix + 2, iy + 2, ix + 8, iy + 8, w.map(Waypoint::color).orElse(0xFF8A7656));
+                // Free slot: a dim plus.
+                int cx = layout.rightTabX() + shift + tab / 2, cy = y + tab / 2;
+                g.fill(cx - 3, cy, cx + 4, cy + 1, 0x80FFFFFF);
+                g.fill(cx, cy - 3, cx + 1, cy + 4, 0x80FFFFFF);
             }
-            if (i > 0) g.text(font, String.valueOf(i), ix + 12, y + (ribH - 8) / 2 + 1, w.isPresent() ? PALETTE.label() : 0xFF5A4E3E, false);
-            if (picking && confirmSlot == i - 1 && i > 0) UiBookmarks.confirm(g, left + panelW, y, RIB_OUT + shift, ribH);
+            if (picking && confirmSlot == i - 1 && i > 0) UiBookmarks.confirm(g, layout.rightTabX(), y, tab + shift, tab);
         }
     }
 
@@ -515,6 +531,14 @@ public final class WayfinderScreen extends Screen {
                 g.text(font, label, 0, 0, c, false);
                 g.pose().popMatrix();
             }
+            case 5 -> {
+                // Two arrows' worth of "sync": a small map frame with a centre dot.
+                g.fill(x, y, x + 10, y + 1, c);
+                g.fill(x, y + 9, x + 10, y + 10, c);
+                g.fill(x, y + 1, x + 1, y + 9, c);
+                g.fill(x + 9, y + 1, x + 10, y + 9, c);
+                g.fill(x + 4, y + 4, x + 6, y + 6, c);
+            }
             case 4 -> {
                 g.fill(x + 4, y, x + 6, y + 1, c);
                 g.fill(x + 2, y + 1, x + 8, y + 3, c);
@@ -532,7 +556,7 @@ public final class WayfinderScreen extends Screen {
 
     private void tabTooltips(GuiGraphicsExtractor g, int mouseX, int mouseY, Waypoints waypoints) {
         int l = tabAt(mouseX, mouseY, true), r = tabAt(mouseX, mouseY, false);
-        String[] keys = {"snap", "grid", "zoom", "contour", "structures"};
+        String[] keys = {"snap", "grid", "zoom", "contour", "structures", "sync"};
         if (l >= 0) g.setTooltipForNextFrame(font, Component.translatable("screen.simplemaps.tab." + keys[l]), mouseX, mouseY);
         if (r == 0) g.setTooltipForNextFrame(font, Component.translatable("screen.simplemaps.tab.player"), mouseX, mouseY);
         if (r > 0) {
@@ -548,114 +572,62 @@ public final class WayfinderScreen extends Screen {
 
     // ---------------------------------------------------------------- configure dialog
 
-    private static final int DIALOG_W = 180, DIALOG_H = 104;
-
-    private int dialogX() {
-        return (width - DIALOG_W) / 2;
-    }
-
-    private int dialogY() {
-        return (height - DIALOG_H) / 2;
-    }
-
     private void openDialog(int slot) {
         Optional<Waypoint> w = waypoints().get(slot);
         if (w.isEmpty()) return;
-        boolean reopen = editSlot == slot && nameBox != null;
-        String name = reopen ? nameBox.getValue() : w.get().name();
-        if (!reopen) {
-            editColor = w.get().color();
-            editHead = w.get().head();
+        if (picker != null && editSlot == slot) {
+            picker.init(width, height);
+            return;
         }
-        closeDialogWidgets();
+        closeDialog();
         editSlot = slot;
-        int x = dialogX(), y = dialogY();
-        nameBox = new EditBox(font, x + 8, y + 18, DIALOG_W - 16, 16, Component.translatable("screen.simplemaps.name"));
-        nameBox.setMaxLength(Waypoint.MAX_NAME);
-        nameBox.setValue(name);
-        add(nameBox);
-        setFocused(nameBox);
-        add(Button.builder(Component.translatable("gui.done"), b -> saveDialog()).bounds(x + 8, y + DIALOG_H - 26, 78, 18).build());
-        add(Button.builder(Component.translatable("gui.cancel"), b -> closeDialog()).bounds(x + DIALOG_W - 86, y + DIALOG_H - 26, 78, 18).build());
-    }
-
-    private void add(net.minecraft.client.gui.components.AbstractWidget widget) {
-        dialogWidgets.add(widget);
-        addRenderableWidget(widget);
-    }
-
-    private void closeDialogWidgets() {
-        dialogWidgets.forEach(this::removeWidget);
-        dialogWidgets.clear();
+        picker = new WaypointDialog(font, PALETTE, w.get(), this::addRenderableWidget, this::removeWidget, this::saveDialog, this::closeDialog);
+        picker.init(width, height);
+        setFocused(picker.nameBox());
     }
 
     private void closeDialog() {
-        closeDialogWidgets();
+        if (picker != null) picker.close();
+        picker = null;
         editSlot = -1;
-        nameBox = null;
     }
 
-    private void saveDialog() {
-        Optional<Waypoint> w = waypoints().get(editSlot);
-        if (w.isPresent() && nameBox != null) {
-            send(new Waypoint(editSlot, w.get().x(), w.get().z(), nameBox.getValue().trim(), editColor, editHead), false);
-        }
+    private void saveDialog(Waypoint waypoint) {
+        send(waypoint, false);
         closeDialog();
     }
 
-    private List<Item> heads() {
-        List<Item> out = new ArrayList<>();
-        BuiltInRegistries.ITEM.getTagOrEmpty(MapsItems.WAYPOINT_HEADS).forEach(h -> out.add(h.value()));
-        return out;
-    }
-
-    private void drawDialog(GuiGraphicsExtractor g) {
-        int x = dialogX(), y = dialogY();
-        g.fill(0, 0, width, height, 0x60000000);
-        UiBoxes.box(g, x, y, DIALOG_W, DIALOG_H, PALETTE);
-        g.text(font, Component.translatable("screen.simplemaps.configure", editSlot + 1), x + 8, y + 7, PALETTE.label(), false);
-        DyeColor[] colors = DyeColor.values();
-        for (int i = 0; i < colors.length; i++) {
-            int sx = x + 8 + i * 10, sy = y + 40;
-            int c = 0xFF000000 | colors[i].getTextColor();
-            boolean selected = editHead.isEmpty() && (editColor & 0xFFFFFF) == (c & 0xFFFFFF);
-            g.fill(sx, sy, sx + 9, sy + 9, selected ? 0xFFFFFFFF : UiBoxes.RIM);
-            g.fill(sx + 1, sy + 1, sx + 8, sy + 8, c);
-        }
-        List<Item> heads = heads();
-        for (int i = 0; i < heads.size(); i++) {
-            int sx = x + 8 + i * 18, sy = y + 54;
-            boolean selected = editHead.isPresent() && editHead.get().equals(BuiltInRegistries.ITEM.getKey(heads.get(i)));
-            UiBoxes.slot(g, sx, sy, PALETTE);
-            if (selected) g.fill(sx, sy, sx + 16, sy + 16, 0x80FFFFFF);
-            g.item(new ItemStack(heads.get(i)), sx, sy);
-        }
-    }
-
-    private boolean dialogClick(double mx, double my) {
-        int x = dialogX(), y = dialogY();
-        DyeColor[] colors = DyeColor.values();
-        for (int i = 0; i < colors.length; i++) {
-            int sx = x + 8 + i * 10, sy = y + 40;
-            if (mx >= sx && mx < sx + 9 && my >= sy && my < sy + 9) {
-                editColor = 0xFF000000 | colors[i].getTextColor();
-                editHead = Optional.empty();
-                return true;
-            }
-        }
-        List<Item> heads = heads();
-        for (int i = 0; i < heads.size(); i++) {
-            int sx = x + 8 + i * 18, sy = y + 54;
-            if (mx >= sx && mx < sx + 16 && my >= sy && my < sy + 16) {
-                Identifier id = BuiltInRegistries.ITEM.getKey(heads.get(i));
-                editHead = editHead.isPresent() && editHead.get().equals(id) ? Optional.empty() : Optional.of(id);
-                return true;
-            }
-        }
-        return false;
-    }
-
     // ---------------------------------------------------------------- input
+
+    private void sendDisplay(MapsComponents.Display display) {
+        if (frameMode()) return;
+        SimpleMaps.toServer.accept(new DisplayPayload(hand == InteractionHand.MAIN_HAND ? 0 : 1, display));
+    }
+
+    /** Height lines: saved on the map (so the map in hand shows the same); a framed map only switches locally. */
+    private void toggleContour() {
+        if (frameMode()) {
+            frameContour = !frameContour;
+            return;
+        }
+        MapsComponents.Display d = display();
+        sendDisplay(new MapsComponents.Display(!d.contour(), d.handZoom()));
+    }
+
+    /**
+     * "Synchronise zoom" (owner N65): the held map never follows the menu's zoom by itself. Click: the held map takes the menu's
+     * scale; the menu centres on the player, so both show the same area. Shift+click: the menu takes the held map's scale.
+     */
+    private void syncZoom(boolean fromHand) {
+        if (frameMode()) return;
+        MapsComponents.Display d = display();
+        if (fromHand) {
+            zoomIndex = indexOf(d.handZoom());
+        } else {
+            sendDisplay(new MapsComponents.Display(d.contour(), zoom()));
+        }
+        centerOnPlayer();
+    }
 
     private void send(Waypoint waypoint, boolean delete) {
         if (frameMode()) return;
@@ -667,8 +639,8 @@ public final class WayfinderScreen extends Screen {
         double mx = event.x(), my = event.y();
         int button = event.button();
         if (menu.mouseClicked(mx, my)) return true;
-        if (editSlot >= 0) {
-            if (dialogClick(mx, my)) return true;
+        if (picker != null) {
+            if (picker.click(mx, my)) return true;
             return super.mouseClicked(event, doubleClick);
         }
         int r = tabAt(mx, my, false);
@@ -677,8 +649,8 @@ public final class WayfinderScreen extends Screen {
                 int slot = r - 1;
                 if (waypoints().get(slot).isEmpty() || confirmSlot == slot) {
                     Waypoint old = waypoints().get(slot).orElse(null);
-                    send(old == null ? Waypoint.fresh(slot, pickX, pickZ)
-                            : new Waypoint(slot, pickX, pickZ, old.name(), old.color(), old.head()), false);
+                    send(old == null ? Waypoint.fresh(slot, pickX, pickZ, WaypointIcons.random(new java.util.Random()))
+                            : old.movedTo(pickX, pickZ), false);
                     picking = false;
                     confirmSlot = -1;
                 } else {
@@ -699,7 +671,8 @@ public final class WayfinderScreen extends Screen {
                 }
                 case 1 -> grid = !grid;
                 case 2 -> zoomBy(button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT ? 1 : -1, mapX + mapW / 2.0, mapY + mapH / 2.0);
-                case 3 -> contour = !contour;
+                case 3 -> toggleContour();
+                case 5 -> syncZoom(event.hasShiftDown());
                 default -> structures = !structures;
             }
             return true;
@@ -766,6 +739,7 @@ public final class WayfinderScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        if (picker != null && picker.scrolled(mouseX, mouseY, scrollY)) return true;
         if (editSlot < 0 && overMap(mouseX, mouseY) && scrollY != 0) {
             // Fine wheels and touchpads send fractions: collect them until a whole step is reached.
             wheel += scrollY;
@@ -793,10 +767,7 @@ public final class WayfinderScreen extends Screen {
             return true;
         }
         if (editSlot >= 0) {
-            if (key == InputConstants.KEY_RETURN) {
-                saveDialog();
-                return true;
-            }
+            if (picker != null && picker.enter(key)) return true;
             return super.keyPressed(event);
         }
         int dx = key == InputConstants.KEY_LEFT || key == InputConstants.KEY_A ? -1 : key == InputConstants.KEY_RIGHT || key == InputConstants.KEY_D ? 1 : 0;

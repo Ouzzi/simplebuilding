@@ -4,6 +4,7 @@ import com.simplemaps.MapsComponents;
 import com.simplemaps.MapsItems;
 import com.simplemaps.MapsLoot;
 import com.simplemaps.SimpleMaps;
+import com.simplemaps.net.DisplayPayload;
 import com.simplemaps.net.FrameViewPayload;
 import com.simplemaps.net.MapStatePayload;
 import com.simplemaps.net.MapsNetwork;
@@ -46,6 +47,8 @@ public final class MapsNeoForge {
                     (payload, context) -> context.enqueueWork(() -> MapsNetwork.handleWaypoint(payload, (ServerPlayer) context.player())));
             registrar.playToServer(FrameViewPayload.TYPE, FrameViewPayload.CODEC,
                     (payload, context) -> context.enqueueWork(() -> MapsNetwork.handleFrameView(payload, (ServerPlayer) context.player())));
+            registrar.playToServer(DisplayPayload.TYPE, DisplayPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> MapsNetwork.handleDisplay(payload, (ServerPlayer) context.player())));
             registrar.playToClient(TileDataPayload.TYPE, TileDataPayload.CODEC,
                     (payload, context) -> context.enqueueWork(() -> MapsNeoClient.receive(payload)));
             registrar.playToClient(MapStatePayload.TYPE, MapStatePayload.CODEC,

@@ -1,5 +1,6 @@
 package com.simplemaps.net;
 
+import com.simplemaps.CubeNet;
 import com.simplemaps.MapsComponents;
 import com.simplemaps.MapsItems;
 import com.simplemaps.Waypoint;
@@ -74,18 +75,36 @@ public final class MapsNetwork {
         if (payload.delete()) {
             next = current.without(w.slot());
         } else {
-            if (!valid(w)) return;
-            next = current.with(w);
+            Waypoint cleaned = clean(w);
+            if (cleaned == null) return;
+            next = current.with(cleaned);
         }
         if (next.list().isEmpty()) stack.remove(MapsComponents.WAYPOINTS);
         else stack.set(MapsComponents.WAYPOINTS, next);
     }
 
-    /** Coordinates inside the world, a mob head from {@code simplemaps:waypoint_heads} if any (owner F10). */
+    /**
+     * Coordinates inside the world; the icon any registered item but air (owner N65); a valid side, and the 3D block model only
+     * for an item with a block (anything else is shown from the front). Returns the cleaned waypoint, or null when refused.
+     */
+    public static Waypoint clean(Waypoint w) {
+        if (Math.abs(w.x()) > MAX_COORD || Math.abs(w.z()) > MAX_COORD) return null;
+        java.util.Optional<net.minecraft.world.item.Item> item = BuiltInRegistries.ITEM.getOptional(w.icon());
+        if (item.isEmpty() || item.get() == net.minecraft.world.item.Items.AIR || !CubeNet.validFace(w.face())) return null;
+        boolean block = item.get() instanceof net.minecraft.world.item.BlockItem;
+        return block ? w : new Waypoint(w.slot(), w.x(), w.z(), w.name(), w.color(), w.icon(), CubeNet.FRONT);
+    }
+
     public static boolean valid(Waypoint w) {
-        if (Math.abs(w.x()) > MAX_COORD || Math.abs(w.z()) > MAX_COORD) return false;
-        return w.head().map(id -> BuiltInRegistries.ITEM.getOptional(id)
-                .map(item -> item.builtInRegistryHolder().is(MapsItems.WAYPOINT_HEADS)).orElse(false)).orElse(true);
+        return clean(w) != null;
+    }
+
+    public static void handleDisplay(DisplayPayload payload, ServerPlayer player) {
+        if (payload.hand() < 0 || payload.hand() > 1) return;
+        ItemStack stack = player.getItemInHand(payload.hand() == 0 ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
+        if (!MapsItems.isWayfinder(stack)) return;
+        if (payload.display().equals(MapsComponents.Display.DEFAULT)) stack.remove(MapsComponents.DISPLAY);
+        else stack.set(MapsComponents.DISPLAY, payload.display());
     }
 
     public static void handleFrameView(FrameViewPayload payload, ServerPlayer player) {

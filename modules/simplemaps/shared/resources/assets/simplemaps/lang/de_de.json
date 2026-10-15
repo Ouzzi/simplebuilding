@@ -24,5 +24,16 @@
   "screen.simplemaps.menu.create": "Wegpunkt erstellen",
   "screen.simplemaps.menu.center": "Hier zentrieren",
   "screen.simplemaps.menu.configure": "Wegpunkt konfigurieren",
-  "screen.simplemaps.menu.delete": "Wegpunkt löschen"
+  "screen.simplemaps.menu.delete": "Wegpunkt löschen",
+  "screen.simplemaps.search": "Blöcke, Items, Köpfe suchen",
+  "screen.simplemaps.tab.sync": "Zoom synchronisieren: die Karte in deiner Hand übernimmt diesen Maßstab, die Ansicht zentriert auf dich. Umschalt+Klick: Maßstab der Handkarte übernehmen",
+  "screen.simplemaps.face.model": "3D-Modell",
+  "screen.simplemaps.face.side": "Seite:",
+  "screen.simplemaps.face.none": "Item-Symbol",
+  "screen.simplemaps.face.north": "Vorderseite",
+  "screen.simplemaps.face.east": "Rechte Seite",
+  "screen.simplemaps.face.south": "Rückseite",
+  "screen.simplemaps.face.west": "Linke Seite",
+  "screen.simplemaps.face.up": "Oberseite",
+  "screen.simplemaps.face.down": "Unterseite"
 }

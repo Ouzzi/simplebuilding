@@ -118,6 +118,11 @@ public final class TileCache {
         return e == null || e.colors == null ? 0 : e.colors[py * WayfinderData.TILE + px] & 0xFF;
     }
 
+    /** Height-line colour at a pixel of a tile (0 = unknown). */
+    public static int contourColor(Entry e, int px, int py) {
+        return e == null || e.colors == null || e.heights == null ? 0 : Contours.color(e.colors, e.heights, px, py);
+    }
+
     /** Colour texture of the tile, or null when nothing is explored there. Render thread only. */
     public DynamicTexture texture(Entry e) {
         if (e == null || e.colors == null) return null;

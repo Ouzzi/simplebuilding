@@ -4,6 +4,7 @@ import com.simplemaps.MapsComponents;
 import com.simplemaps.MapsItems;
 import com.simplemaps.MapsLoot;
 import com.simplemaps.SimpleMaps;
+import com.simplemaps.net.DisplayPayload;
 import com.simplemaps.net.FrameViewPayload;
 import com.simplemaps.net.MapStatePayload;
 import com.simplemaps.net.MapsNetwork;
@@ -31,6 +32,7 @@ public final class MapsFabric implements ModInitializer {
         PayloadTypeRegistry.serverboundPlay().register(TileRequestPayload.TYPE, TileRequestPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(WaypointEditPayload.TYPE, WaypointEditPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(FrameViewPayload.TYPE, FrameViewPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(DisplayPayload.TYPE, DisplayPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TileDataPayload.TYPE, TileDataPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(MapStatePayload.TYPE, MapStatePayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(TileRequestPayload.TYPE,
@@ -39,6 +41,8 @@ public final class MapsFabric implements ModInitializer {
                 (payload, context) -> context.server().execute(() -> MapsNetwork.handleWaypoint(payload, context.player())));
         ServerPlayNetworking.registerGlobalReceiver(FrameViewPayload.TYPE,
                 (payload, context) -> context.server().execute(() -> MapsNetwork.handleFrameView(payload, context.player())));
+        ServerPlayNetworking.registerGlobalReceiver(DisplayPayload.TYPE,
+                (payload, context) -> context.server().execute(() -> MapsNetwork.handleDisplay(payload, context.player())));
         SimpleMaps.toClient = (player, payload) -> {
             if (ServerPlayNetworking.canSend(player, payload.type())) ServerPlayNetworking.send(player, payload);
         };

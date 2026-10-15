@@ -38,9 +38,9 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             // Waypoints through the real packet path: one colour, one mob head.
             context.runOnClient(c -> {
                 int x = c.player.getBlockX(), z = c.player.getBlockZ();
-                SimpleMaps.toServer.accept(new WaypointEditPayload(0, false, new Waypoint(0, x + 30, z - 20, "Camp", 0xFFF9801D, Optional.empty())));
+                SimpleMaps.toServer.accept(new WaypointEditPayload(0, false, new Waypoint(0, x + 30, z - 20, "Camp", 0xFFF9801D, Identifier.withDefaultNamespace("furnace"), com.simplemaps.CubeNet.NORTH)));
                 SimpleMaps.toServer.accept(new WaypointEditPayload(0, false,
-                        new Waypoint(2, x - 40, z + 25, "Mine", 0xFFFFFFFF, Optional.of(Identifier.withDefaultNamespace("creeper_head")))));
+                        new Waypoint(2, x - 40, z + 25, "Mine", 0xFFFFFFFF, Identifier.withDefaultNamespace("creeper_head"), com.simplemaps.CubeNet.MODEL)));
             });
             context.waitTicks(10);
             context.runOnClient(c -> {
@@ -48,6 +48,16 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 if (list == null || list.list().size() != 2) throw new AssertionError("waypoints not stored on the map: " + list);
             });
             screen(context, "simplemaps-waypoints", true, true, false, 0);
+            // Owner N65: the configure dialog (icon grid, 3D button, unfolded cube) and the saved height-line mode in the hand.
+            context.runOnClient(c -> ((WayfinderScreen) c.gui.screen()).openConfigure(0));
+            context.waitTicks(5);
+            context.takeScreenshot("simplemaps-configure");
+            context.runOnClient(c -> c.gui.setScreen(null));
+            context.runOnClient(c -> SimpleMaps.toServer.accept(new com.simplemaps.net.DisplayPayload(0, new MapsComponents.Display(true, 4))));
+            context.waitTicks(20);
+            context.takeScreenshot("simplemaps-hand-contour-zoom4");
+            context.runOnClient(c -> SimpleMaps.toServer.accept(new com.simplemaps.net.DisplayPayload(0, MapsComponents.Display.DEFAULT)));
+            context.waitTicks(5);
             context.runOnClient(c -> {
                 WayfinderScreen s = (WayfinderScreen) c.gui.screen();
                 s.mouseClicked(new MouseButtonEvent(s.mapCenterX() + 20, s.mapCenterY() + 10, new MouseButtonInfo(1, 0)), false);
@@ -131,6 +141,9 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     }
 
     private static void screen(ClientGameTestContext context, String name, boolean snap, boolean grid, boolean contour, int zoom) {
+        // The height-line mode is saved on the map (owner N65): set it through the real packet path.
+        context.runOnClient(c -> SimpleMaps.toServer.accept(new com.simplemaps.net.DisplayPayload(0, new MapsComponents.Display(contour, 1))));
+        context.waitTicks(3);
         context.runOnClient(c -> {
             WayfinderScreen.setModes(snap, grid, contour, zoom);
             c.setScreenAndShow(WayfinderScreen.forHand(InteractionHand.MAIN_HAND));

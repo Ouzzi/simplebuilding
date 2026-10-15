@@ -74,8 +74,9 @@ public final class MapsClient {
             MapsComponents.MapRef ref = stack.get(MapsComponents.MAP_ID);
             if (!MapsItems.isWayfinder(stack) || ref == null || jammed(stack, mc.level)) continue;
             ViewTexture view = HANDS.computeIfAbsent(hand, h -> new ViewTexture(h == InteractionHand.MAIN_HAND ? "hand_main" : "hand_off"));
-            view.compose(CACHE, ref.id(), 1, Mth.floor(mc.player.getX()), Mth.floor(mc.player.getZ()),
-                    stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY));
+            MapsComponents.Display display = stack.getOrDefault(MapsComponents.DISPLAY, MapsComponents.Display.DEFAULT);
+            view.compose(CACHE, ref.id(), display.handZoom(), Mth.floor(mc.player.getX()), Mth.floor(mc.player.getZ()),
+                    stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY), display.contour());
         }
         Iterator<Map.Entry<Integer, ViewTexture>> it = FRAMES.entrySet().iterator();
         while (it.hasNext()) {
@@ -153,14 +154,15 @@ public final class MapsClient {
         int zoom = view != null ? view.zoom() : 1;
         ViewTexture texture = FRAMES.computeIfAbsent(frame.getId(), id -> new ViewTexture("frame_" + id));
         texture.lastUsed = ticks;
-        texture.compose(CACHE, ref.id(), zoom, x, z, stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY));
+        texture.compose(CACHE, ref.id(), zoom, x, z, stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY),
+                stack.getOrDefault(MapsComponents.DISPLAY, MapsComponents.Display.DEFAULT).contour());
         state.texture = texture.id;
         state.decorations.clear();
         return true;
     }
 
     /** One locator bar mark: position and colour or head icon. */
-    public record Mark(Vec3 pos, int color, ItemStack icon) {}
+    public record Mark(Vec3 pos, Waypoint waypoint) {}
 
     /** F7: waypoints of the wayfinder maps in main and off hand, only in the map's dimension. */
     public static List<Mark> locatorMarks() {
@@ -172,8 +174,7 @@ public final class MapsClient {
             MapsComponents.MapRef ref = stack.get(MapsComponents.MAP_ID);
             if (!(stack.getItem() instanceof WayfinderMapItem item) || ref == null || !item.accepts(mc.player.level()) || !inMapDimension(ref.id())) continue;
             for (Waypoint w : stack.getOrDefault(MapsComponents.WAYPOINTS, Waypoints.EMPTY).list()) {
-                ItemStack icon = w.head().flatMap(BuiltInRegistries.ITEM::getOptional).map(ItemStack::new).orElse(ItemStack.EMPTY);
-                out.add(new Mark(new Vec3(w.x() + 0.5, mc.player.getY(), w.z() + 0.5), w.color(), icon));
+                out.add(new Mark(new Vec3(w.x() + 0.5, mc.player.getY(), w.z() + 0.5), w));
             }
         }
         return out;
@@ -194,15 +195,7 @@ public final class MapsClient {
             double yaw = Mth.degreesDifference(camera.yaw(), angle);
             if (yaw <= -60.0 || yaw > 60.0) continue;
             int x = middle + Mth.floor(yaw * 173.0 / 2.0 / 60.0);
-            if (mark.icon().isEmpty()) {
-                g.blitSprite(RenderPipelines.GUI_TEXTURED, LOCATOR_DOT, x, top - 2, 9, 9, mark.color());
-            } else {
-                g.pose().pushMatrix();
-                g.pose().translate(x, top - 2);
-                g.pose().scale(9 / 16.0F, 9 / 16.0F);
-                g.item(mark.icon(), 0, 0);
-                g.pose().popMatrix();
-            }
+            WaypointArt.draw(g, mark.waypoint(), x, top - 2, 9);
         }
     }
 }

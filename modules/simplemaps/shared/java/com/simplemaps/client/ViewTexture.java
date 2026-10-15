@@ -13,7 +13,7 @@ import net.minecraft.world.level.material.MapColor;
 /**
  * A 128x128 Vanilla-sized map picture composed from cached tiles: the map in hand (holder in the middle) and framed
  * maps (Feature 4, the stored view). Registered with the texture manager so Vanilla's map renderer can draw it.
- * Waypoints are baked in as small coloured squares.
+ * Waypoints are baked in as small coloured squares; the height-line mode (owner N65) is the saved display mode of the stack.
  */
 public final class ViewTexture {
     public static final int SIZE = 128;
@@ -33,7 +33,7 @@ public final class ViewTexture {
     }
 
     /** Requests the needed tiles and redraws when the centre, a tile or a waypoint changed. Render or tick thread. */
-    public void compose(TileCache cache, int mapId, int zoom, int centerX, int centerZ, Waypoints waypoints) {
+    public void compose(TileCache cache, int mapId, int zoom, int centerX, int centerZ, Waypoints waypoints, boolean contour) {
         zoom = WayfinderData.validZoom(zoom);
         int left = Math.floorDiv(centerX, zoom) - SIZE / 2, top = Math.floorDiv(centerZ, zoom) - SIZE / 2;
         int tx0 = Math.floorDiv(left, WayfinderData.TILE), tz0 = Math.floorDiv(top, WayfinderData.TILE);
@@ -48,6 +48,7 @@ public final class ViewTexture {
             }
         }
         hash = hash * 31 + waypoints.hashCode();
+        hash = hash * 31 + (contour ? 1 : 0);
         if (hash == lastHash) return;
         lastHash = hash;
         NativeImage pixels = texture.getPixels();
@@ -55,7 +56,12 @@ public final class ViewTexture {
             for (int px = 0; px < SIZE; px++) {
                 int gx = left + px, gz = top + py;
                 TileCache.Entry e = tiles[Math.floorDiv(gx, WayfinderData.TILE) - tx0][Math.floorDiv(gz, WayfinderData.TILE) - tz0];
-                int c = TileCache.color(e, Math.floorMod(gx, WayfinderData.TILE), Math.floorMod(gz, WayfinderData.TILE));
+                int tx = Math.floorMod(gx, WayfinderData.TILE), tz = Math.floorMod(gz, WayfinderData.TILE);
+                if (contour) {
+                    pixels.setPixel(px, py, TileCache.contourColor(e, tx, tz));
+                    continue;
+                }
+                int c = TileCache.color(e, tx, tz);
                 pixels.setPixel(px, py, c == 0 ? 0 : MapColor.getColorFromPackedId(c));
             }
         }

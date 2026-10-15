@@ -3,6 +3,7 @@ package com.simplebuilding.modules.simplemaps;
 import com.simplemaps.MapsComponents;
 import com.simplemaps.MapsItems;
 import com.simplemaps.SimpleMaps;
+import com.simplemaps.net.DisplayPayload;
 import com.simplemaps.net.FrameViewPayload;
 import com.simplemaps.net.MapStatePayload;
 import com.simplemaps.net.MapsNetwork;
@@ -52,6 +53,7 @@ public final class MapsForge {
                     .add(TileRequestPayload.TYPE, TileRequestPayload.CODEC.cast(), (payload, ctx) -> onPlayer(ctx, p -> MapsNetwork.handleTiles(payload, p)))
                     .add(WaypointEditPayload.TYPE, WaypointEditPayload.CODEC.cast(), (payload, ctx) -> onPlayer(ctx, p -> MapsNetwork.handleWaypoint(payload, p)))
                     .add(FrameViewPayload.TYPE, FrameViewPayload.CODEC.cast(), (payload, ctx) -> onPlayer(ctx, p -> MapsNetwork.handleFrameView(payload, p)))
+                    .add(DisplayPayload.TYPE, DisplayPayload.CODEC.cast(), (payload, ctx) -> onPlayer(ctx, p -> MapsNetwork.handleDisplay(payload, p)))
                 .clientbound()
                     .add(TileDataPayload.TYPE, TileDataPayload.CODEC.cast(), (payload, ctx) -> {
                         ctx.setPacketHandled(true);
