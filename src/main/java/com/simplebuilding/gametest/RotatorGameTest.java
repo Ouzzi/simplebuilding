@@ -65,4 +65,29 @@ public final class RotatorGameTest {
     public void craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape(GameTestHelper helper) {
         RotatorTests.craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape(helper);
     }
+
+    @GameTest
+    public void swapReplacesTheBlockGivesTheDropsAndUsesTheOffhandBlock(GameTestHelper helper) {
+        RotatorTests.swapReplacesTheBlockGivesTheDropsAndUsesTheOffhandBlock(helper);
+    }
+
+    @GameTest
+    public void swapWindupGrowsWithHardnessAndShrinksWithEfficiency(GameTestHelper helper) {
+        RotatorTests.swapWindupGrowsWithHardnessAndShrinksWithEfficiency(helper);
+    }
+
+    @GameTest
+    public void swapWindupStartsOnClickAndOnlyFinishesOnTheSameAimedBlock(GameTestHelper helper) {
+        RotatorTests.swapWindupStartsOnClickAndOnlyFinishesOnTheSameAimedBlock(helper);
+    }
+
+    @GameTest
+    public void swapAllowsStoneToolBlocksAndKeepsValuablesAndListsDecide(GameTestHelper helper) {
+        RotatorTests.swapAllowsStoneToolBlocksAndKeepsValuablesAndListsDecide(helper);
+    }
+
+    @GameTest
+    public void swapRefusalsChangeNothingAndCreativeSwapsForFree(GameTestHelper helper) {
+        RotatorTests.swapRefusalsChangeNothingAndCreativeSwapsForFree(helper);
+    }
 }

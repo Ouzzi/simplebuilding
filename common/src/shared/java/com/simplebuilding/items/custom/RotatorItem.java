@@ -4,10 +4,12 @@ import com.simplebuilding.items.AnvilRechargeable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.WeakHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,12 +17,15 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -28,6 +33,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -46,6 +53,13 @@ import net.minecraft.world.phys.Vec3;
  * ({@link #ECHO_DELAY_TICKS} spaeter) ein leises Ender-Teleport - das erste Ratschen ist das Metall,
  * das zweite sagt, dass etwas teleportiert wurde. Bei jeder Drehung Portal-Partikel am Block, beim
  * zweiten Klang ein paar umgekehrte Portal-Partikel.
+ *
+ * <p><b>Zweite Funktion: Tauschen</b> (Queue Nachtrag 63): ein platzierbarer Block in der Nebenhand + Rechtsklick
+ * tauscht den angeklickten Block gegen ihn ({@link com.simplebuilding.util.RotatorSwap}: Regeln, Listen, Ausfuehrung).
+ * Vorher holt der Rotator aus (Klick halten, {@link com.simplebuilding.util.RotatorSwap#windupTicks}: 1 s, je Blockhaerte
+ * etwas laenger, Effizienz verkuerzt, V sofort); die Hand zieht wie beim Bogen zurueck, das Item dreht sich
+ * ({@code rotator_active}), Tonhoehe und Partikel steigen mit dem Fortschritt. Ein Tausch kostet doppelt so viel
+ * Ladung wie eine Drehung. Loslassen oder Wegschauen bricht ab, nichts passiert.
  */
 public class RotatorItem extends Item implements AnvilRechargeable {
     /** Standard der vollen Ladung in Drehungen. */
@@ -129,6 +143,10 @@ public class RotatorItem extends Item implements AnvilRechargeable {
                 context.getClickedFace(), context.getItemInHand())) {
             return InteractionResult.PASS;
         }
+        InteractionResult swap = trySwap(context, world, pos, player);
+        if (swap != null) {
+            return swap;
+        }
         BlockState newState = rotatedState(context);
 
         if (newState != null) {
@@ -160,6 +178,147 @@ public class RotatorItem extends Item implements AnvilRechargeable {
         }
 
         return InteractionResult.PASS;
+    }
+
+    // ------------------------------------------------------------------ zweite Funktion: Tauschen
+
+    /**
+     * Der Block, auf dem ein Ausholen begann, je Spieler und Seite (wie beim Hammer: {@code Entity#equals}
+     * vergleicht Ids, im Einzelspieler teilen Client- und Server-Spieler eine - eine Map je Seite).
+     */
+    private static final Map<Player, SwapTarget> SERVER_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());
+    private static final Map<Player, SwapTarget> CLIENT_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());
+
+    private static Map<Player, SwapTarget> targets(Player player) {
+        return player.level().isClientSide() ? CLIENT_TARGETS : SERVER_TARGETS;
+    }
+
+    private record SwapTarget(BlockPos pos, BlockState state, Direction face, Vec3 hit) {
+    }
+
+    /**
+     * Der Tausch-Klick: Rotator in der Haupthand, platzierbarer Block in der Nebenhand, tauschbarer Block
+     * angeklickt. Liefert null, wenn das kein Tausch ist (dann dreht der Rotator wie bisher); sofort bei
+     * Effizienz V und im Kreativmodus, sonst beginnt das Ausholen.
+     */
+    private @Nullable InteractionResult trySwap(UseOnContext context, Level world, BlockPos pos, @Nullable Player player) {
+        ItemStack rotator = context.getItemInHand();
+        if (player == null || context.getHand() != InteractionHand.MAIN_HAND
+                || !com.simplebuilding.util.RotatorSwap.canSwap(world, pos, player.getOffhandItem())) {
+            return null;
+        }
+        if (isEmpty(rotator)) {
+            if (!world.isClientSide()) {
+                world.playSound(null, pos, SoundEvents.DISPENSER_FAIL, SoundSource.BLOCKS, 0.4f, 1.6f);
+            }
+            return InteractionResult.FAIL;
+        }
+        int ticks = com.simplebuilding.util.RotatorSwap.windupTicks(world, player, rotator, pos);
+        if (ticks <= 0) {
+            if (world instanceof ServerLevel serverLevel) {
+                return finishSwap(serverLevel, player, pos, context.getClickedFace(), context.getClickLocation(), rotator)
+                        ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+            }
+            return InteractionResult.SUCCESS;
+        }
+        targets(player).put(player, new SwapTarget(pos.immutable(), world.getBlockState(pos), context.getClickedFace(),
+                context.getClickLocation()));
+        player.startUsingItem(context.getHand());
+        return InteractionResult.CONSUME;
+    }
+
+    private static boolean finishSwap(ServerLevel level, Player player, BlockPos pos, Direction face, Vec3 hit, ItemStack rotator) {
+        if (!com.simplebuilding.util.RotatorSwap.perform(level, player, pos, face, hit, rotator)) {
+            return false;
+        }
+        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.ROTATE);
+        player.getCooldowns().addCooldown(rotator, com.simplebuilding.util.RotatorSwap.COOLDOWN_TICKS);
+        return true;
+    }
+
+    /** Klang und Partikel des fertigen Tauschs: das Ratschen, Portal-Partikel und der Ender-Nachklang wie beim Drehen. */
+    public static void swapEffects(ServerLevel level, Player player, BlockPos pos) {
+        level.playSound(null, pos, SoundEvents.SPYGLASS_USE, SoundSource.BLOCKS, RATCHET_VOLUME, 1.0f);
+        Vec3 c = Vec3.atCenterOf(pos);
+        level.sendParticles(ParticleTypes.PORTAL, c.x, c.y, c.z, PORTAL_PARTICLES, 0.35, 0.35, 0.35, 0.35);
+        PENDING_ECHOES.put(player.getUUID(), new PendingEcho(level.dimension(), pos.immutable(), level.getGameTime() + ECHO_DELAY_TICKS));
+    }
+
+    @Override
+    public int getUseDuration(ItemStack stack, LivingEntity user) {
+        if (user instanceof Player player) {
+            SwapTarget target = targets(player).get(player);
+            if (target != null) {
+                return Math.max(1, com.simplebuilding.util.RotatorSwap.windupTicks(user.level(), player, stack, target.pos()));
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return ItemUseAnimation.BOW;
+    }
+
+    /**
+     * Das Ausholen, Server: bricht ab, sobald der Spieler den Block nicht mehr anschaut oder sich Block,
+     * Nebenhand oder Ladung geaendert haben; sonst steigt mit dem Fortschritt die Tonhoehe eines leisen
+     * Klickens und es sammeln sich mehr Portal-Partikel am Block (kein Text auf dem Bildschirm).
+     */
+    @Override
+    public void onUseTick(Level world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+        if (!(user instanceof Player player) || !(world instanceof ServerLevel level)) {
+            return;
+        }
+        SwapTarget target = targets(player).get(player);
+        if (target == null) {
+            return;
+        }
+        if (!stillValid(level, player, target, stack)) {
+            targets(player).remove(player);
+            player.stopUsingItem();
+            return;
+        }
+        int total = getUseDuration(stack, user);
+        int elapsed = total - remainingUseTicks;
+        if (elapsed > 0 && elapsed % 4 == 0) {
+            float progress = total <= 0 ? 1.0f : Math.min(1.0f, (float) elapsed / total);
+            level.playSound(null, target.pos(), SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.5f, 0.7f + progress * 1.3f);
+            Vec3 c = Vec3.atCenterOf(target.pos());
+            level.sendParticles(ParticleTypes.PORTAL, c.x, c.y, c.z, 1 + (int) (progress * 5), 0.4, 0.4, 0.4, 0.2);
+        }
+    }
+
+    @Override
+    public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
+        if (user instanceof Player player) {
+            targets(player).remove(player); // abgebrochen: nichts passiert
+        }
+        return false;
+    }
+
+    /** Ausholen fertig, Server: tauscht genau den Block, auf dem es begann, solange er angeschaut und tauschbar ist. */
+    @Override
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
+        if (!(user instanceof Player player)) {
+            return stack;
+        }
+        SwapTarget target = targets(player).remove(player);
+        if (target != null && world instanceof ServerLevel level && stillValid(level, player, target, stack)) {
+            finishSwap(level, player, target.pos(), target.face(), target.hit(), stack);
+        }
+        return stack;
+    }
+
+    /** Derselbe Block steht noch, der Spieler zielt darauf, darf ihn aendern und hat Ladung und Nebenhand-Block. */
+    private static boolean stillValid(ServerLevel level, Player player, SwapTarget target, ItemStack rotator) {
+        if (isEmpty(rotator) || level.getBlockState(target.pos()) != target.state()
+                || !com.simplebuilding.util.RotatorSwap.canSwap(level, target.pos(), player.getOffhandItem())) {
+            return false;
+        }
+        HitResult hit = player.pick(player.blockInteractionRange(), 1.0f, false);
+        return hit.getType() == HitResult.Type.BLOCK && ((BlockHitResult) hit).getBlockPos().equals(target.pos())
+                && com.simplebuilding.util.TransformTargets.mayTransform(level, player, target.pos(), target.face(), rotator);
     }
 
     /** Spielt den faelligen Ender-Klang des Spielers, der diesen Rotator traegt. */
@@ -201,8 +360,8 @@ public class RotatorItem extends Item implements AnvilRechargeable {
         }
         out.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.rotator.recharge",
                 String.valueOf(PEARLS_FOR_FULL)).withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
-        out.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.rotator.recharge.2",
-                String.valueOf(PEARLS_FOR_FULL)).withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
+        out.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.rotator.swap")
+                .withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
     }
 
     /** Game-Tick, an dem der Ender-Klang des Spielers faellig ist, oder -1 ohne ausstehenden Klang (fuer Tests). */
@@ -213,7 +372,15 @@ public class RotatorItem extends Item implements AnvilRechargeable {
 
     /** Read-only twin of {@link #useOn} for the hand hint: a charged rotator that would turn the block. */
     public boolean canTransformTarget(UseOnContext context) {
-        return !isEmpty(context.getItemInHand()) && rotatedState(context) != null;
+        if (isEmpty(context.getItemInHand())) {
+            return false;
+        }
+        Player player = context.getPlayer();
+        if (player != null && context.getHand() == InteractionHand.MAIN_HAND
+                && com.simplebuilding.util.RotatorSwap.canSwap(context.getLevel(), context.getClickedPos(), player.getOffhandItem())) {
+            return true;
+        }
+        return rotatedState(context) != null;
     }
 
     /**
@@ -406,7 +573,7 @@ public class RotatorItem extends Item implements AnvilRechargeable {
         return dir;
     }
 
-    private static boolean isLockedPistonPart(BlockState state) {
+    public static boolean isLockedPistonPart(BlockState state) {
         return state.getBlock() instanceof net.minecraft.world.level.block.piston.PistonHeadBlock
                 || state.getBlock() instanceof net.minecraft.world.level.block.piston.MovingPistonBlock
                 || (state.hasProperty(BlockStateProperties.EXTENDED) && state.getValue(BlockStateProperties.EXTENDED));

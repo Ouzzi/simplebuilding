@@ -19,8 +19,8 @@ import org.jetbrains.annotations.Nullable;
  * {@code simplebuilding:transform_hint} (2026-10-03): true while this stack sits in a hand of the local
  * player and a right click with that hand would transform the aimed block - the same question the 26.3
  * hand hint asks ({@link TransformTargets#canTransformTarget}). The 26.3 Rotator uses it for its turning
- * animation ({@code assets/simplebuilding/items/rotator.json}); its click is instant, so vanilla's
- * {@code minecraft:using_item} is never true for it. Read-only, client side, no gameplay effect.
+ * animation ({@code assets/simplebuilding/items/rotator.json}); its turn is instant, so vanilla's
+ * {@code minecraft:using_item} is only true during the swap wind-up - this property covers that too. Read-only, client side, no gameplay effect.
  *
  * <p>Registered like {@link GaugeNeedleModelProperty}: Fabric directly on the {@code ID_MAPPER} (also
  * for datagen), NeoForge through {@code RegisterConditionalItemModelPropertyEvent}, Forge by mixin.
@@ -33,6 +33,10 @@ public record TransformHintModelProperty() implements ConditionalItemModelProper
 
     @Override
     public boolean get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed, ItemDisplayContext context) {
+        // Wind-up of a held click (the Rotator's swap): the spinning model runs while the stack is being used.
+        if (entity != null && entity.isUsingItem() && entity.getUseItem() == stack) {
+            return true;
+        }
         Minecraft minecraft = Minecraft.getInstance();
         if (level == null || !(entity instanceof Player player) || player != minecraft.player
                 || !(minecraft.hitResult instanceof BlockHitResult hit) || hit.getType() != BlockHitResult.Type.BLOCK) {
