@@ -70,7 +70,7 @@ public final class TableService {
         var claims = Claims.get(server);
         if (claims == null || !Claims.enabled(server) || !usable(player, pos)) return false;
         String dimension = player.level().dimension().identifier().toString();
-        var chunk = new ChunkPos(pos);
+        var chunk = ChunkPos.containing(pos);
         var vis = visibility(player, claims);
         boolean sent = DeedNet.send(player, new TableOpenPayload(pos.immutable(), vis.ordinal(), chunk.x(), chunk.z(),
                 claims.chunksOf(player.getUUID()), claims.config.maxClaimsPerPlayer(), dimension));
@@ -90,7 +90,7 @@ public final class TableService {
         if (vis == TableVisibility.OFF) return;
         boolean op = Claims.admin(player);
         if (req.kind() == TableRequestPayload.AREA) {
-            var table = new ChunkPos(session.pos());
+            var table = ChunkPos.containing(session.pos());
             long w = req.c(), h = req.d(), x = req.a(), z = req.b();
             if (w < 1 || h < 1 || w > ClaimGrid.MAX_SIDE || h > ClaimGrid.MAX_SIDE) return;
             if (Math.abs(x - table.x()) > RADIUS || Math.abs(z - table.z()) > RADIUS

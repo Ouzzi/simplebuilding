@@ -51,7 +51,7 @@ public final class TableTests {
     }
 
     private static void area(GameTestHelper h, ServerPlayer p, BlockPos table, int w, int hh, int dx, int dz) {
-        var c = new ChunkPos(table);
+        var c = ChunkPos.containing(table);
         TableService.resetThrottle();
         TableService.handle(new TableRequestPayload(table, TableRequestPayload.AREA, c.x() + dx, c.z() + dz, w, hh), p);
     }
@@ -108,7 +108,7 @@ public final class TableTests {
         var oldState = level.getBlockState(table);
         String dim = level.dimension().identifier().toString();
         var a = player(h, table.east(2)); var b = player(h, table.east(2)); var g = player(h, table.east(2)); var s = player(h, table.east(2));
-        var chunk = new ChunkPos(table);
+        var chunk = ChunkPos.containing(table);
         try {
             level.setBlock(table, ClaimTableBlock.block().defaultBlockState(), 3);
             var root = temp();
