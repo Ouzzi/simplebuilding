@@ -1,5 +1,10 @@
 package com.simplebuilding.modules.simplemobs;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
@@ -13,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -277,12 +283,40 @@ final class DisguiseTests {
             h.succeed();
         });
         add.accept("double_cap", h -> {
+            // The arena (-10..30) is far larger than the 8x8x8 structure, so it reaches chunks that no ticket holds yet: entities
+            // spawned there stay invisible to getEntity (no copies), and neighbouring tests in the batch share the space (their
+            // fakes would be counted). Hold the chunks first, then count only entities this test created.
             var level = h.getLevel();
-            for (int x = -10; x < 30; x++) for (int z = -10; z < 30; z++) level.setBlock(h.absolutePos(new BlockPos(x, 0, z)), Blocks.STONE.defaultBlockState(), 3);
-            var deceiver = h.spawn(MobsRegistry.DECEIVER, 10, 1, 10);
-            var p = player(h, 10, 10);
-            int n = deceiver.summonNow(level, p, true);
-            h.assertTrue(n > 0, "a wave");
+            BlockPos lo = h.absolutePos(new BlockPos(-10, 0, -10)), hi = h.absolutePos(new BlockPos(30, 0, 30));
+            List<ChunkPos> held = new ArrayList<>();
+            for (int cx = lo.getX() >> 4; cx <= hi.getX() >> 4; cx++) for (int cz = lo.getZ() >> 4; cz <= hi.getZ() >> 4; cz++) {
+                level.setChunkForced(cx, cz, true);
+                held.add(new ChunkPos(cx, cz));
+            }
+            waitLoaded(h, level, held, 60, () -> {
+                try { doubleCap(h, level); } finally { for (ChunkPos c : held) level.setChunkForced(c.x(), c.z(), false); }
+            }, () -> { for (ChunkPos c : held) level.setChunkForced(c.x(), c.z(), false); });
+        });
+    }
+
+    /** Polls once per tick until all chunks and their entities are loaded, then runs the body; fails (after {@code left} ticks) via {@code giveUp}. */
+    private static void waitLoaded(GameTestHelper h, ServerLevel level, List<ChunkPos> chunks, int left, Runnable body, Runnable giveUp) {
+        if (chunks.stream().allMatch(c -> level.hasChunk(c.x(), c.z()) && level.areEntitiesLoaded(ChunkPos.pack(c.x(), c.z())))) { body.run(); return; }
+        if (left <= 0) { giveUp.run(); h.fail("arena chunks never finished loading entities"); return; }
+        h.runAfterDelay(1, () -> waitLoaded(h, level, chunks, left - 1, body, giveUp));
+    }
+
+    private static void doubleCap(GameTestHelper h, ServerLevel level) {
+        for (int x = -10; x < 30; x++) for (int z = -10; z < 30; z++) level.setBlock(h.absolutePos(new BlockPos(x, 0, z)), Blocks.STONE.defaultBlockState(), 3);
+        var deceiver = h.spawn(MobsRegistry.DECEIVER, 10, 1, 10);
+        var box = deceiver.getBoundingBox().inflate(40);
+        // Everything that exists now belongs to neighbours; the whole body runs inside one tick, so nothing else changes.
+        Set<UUID> others = new HashSet<>();
+        for (var m : level.getEntitiesOfClass(Mob.class, box)) others.add(m.getUUID());
+        var p = player(h, 10, 10);
+        int n = deceiver.summonNow(level, p, true);
+        h.assertTrue(n > 0, "a wave");
+        try {
             int total = 0;
             for (int i = 0; i < 6; i++) {
                 int before = deceiver.aliveSummons();
@@ -292,14 +326,17 @@ final class DisguiseTests {
                 h.assertTrue(deceiver.aliveSummons() == before + made && deceiver.aliveSummons() <= DeceiverLogic.HARD_CAP, "never above 24: " + deceiver.aliveSummons());
             }
             h.assertTrue(total > 0, "the doubling made copies");
-            var box = deceiver.getBoundingBox().inflate(40);
-            for (var m : level.getEntitiesOfClass(Mob.class, box, m -> m.entityTags().contains(DeceiverEntity.TAG_SUMMON))) {
+            List<Mob> own = level.getEntitiesOfClass(Mob.class, box, m -> !others.contains(m.getUUID()) && m.entityTags().contains(DeceiverEntity.TAG_SUMMON));
+            for (var m : own) {
                 if (m.entityTags().contains(DeceiverEntity.TAG_FAKE)) h.assertTrue(m.getHealth() <= 1.0f, "copies are fakes");
             }
             deceiver.die(level.damageSources().playerAttack(p));
-            long fakes = level.getEntitiesOfClass(Mob.class, box, m -> m.isAlive() && m.entityTags().contains(DeceiverEntity.TAG_FAKE)).size();
+            long fakes = own.stream().filter(m -> m.isAlive() && m.entityTags().contains(DeceiverEntity.TAG_FAKE)).count();
             h.assertTrue(fakes == 0, "copies vanish with its death: " + fakes);
             h.succeed();
-        });
+        } finally {
+            // The arena lies outside the structure, so the test framework would not clean up the real summons.
+            for (var m : level.getEntitiesOfClass(Mob.class, box, m -> !others.contains(m.getUUID()))) m.discard();
+        }
     }
 }
