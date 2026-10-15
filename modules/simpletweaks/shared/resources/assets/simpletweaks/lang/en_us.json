@@ -131,5 +131,16 @@
   "quests.simpletweaks.start.title": "Welcome to Simple Tweaks",
   "quests.simpletweaks.start.subtitle": "Your free guide",
   "quests.simpletweaks.start.welcome.title": "A free guide",
-  "quests.simpletweaks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tweaks Guide as a reward. You can also craft it from a book and paper."
+  "quests.simpletweaks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tweaks Guide as a reward. You can also craft it from a book and paper.",
+  "block.simpletweaks.claim_table": "Claim Table",
+  "message.simpletweaks.claim_table.no_client": "The claim map needs the Simple Tweaks mod on your client.",
+  "simpletweaks.table.title": "Claim Table",
+  "simpletweaks.table.land": "Your land: %s / %s chunks",
+  "simpletweaks.table.mine": "Only mine",
+  "simpletweaks.table.zoom_in": "Zoom in",
+  "simpletweaks.table.zoom_out": "Zoom out",
+  "simpletweaks.table.foreign": "Foreign claim",
+  "simpletweaks.table.off": "The server does not show claims on the table.",
+  "simpletweaks.table.hover.free": "%s, %s: free",
+  "simpletweaks.table.hover.owner": "%s, %s: %s"
 }

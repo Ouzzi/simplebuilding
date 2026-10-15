@@ -12,9 +12,12 @@ import net.minecraft.resources.Identifier;
  * (components, items, recipe serializers) or one after the other (Fabric).
  */
 public final class LegacyDeed {
+    /** The {@code simpletweaks:claim_table} block (before the items). */
+    public static void registerBlocks() { com.simplebuilding.modules.simpletweaks.table.ClaimTableBlock.registerBlock(); }
     public static void register() {
         com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.register();
         ClaimDeedItem.register();
+        com.simplebuilding.modules.simpletweaks.table.ClaimTableBlock.registerItem();
     }
     /** The {@code simpletweaks:deed} data component (binding of a deed to its owner; display only). */
     public static void registerComponents() { DeedData.register(); }

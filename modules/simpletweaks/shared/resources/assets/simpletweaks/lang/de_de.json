@@ -131,5 +131,16 @@
   "quests.simpletweaks.start.title": "Willkommen bei Simple Tweaks",
   "quests.simpletweaks.start.subtitle": "Dein Handbuch gratis",
   "quests.simpletweaks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen."
+  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen.",
+  "block.simpletweaks.claim_table": "Claim-Tisch",
+  "message.simpletweaks.claim_table.no_client": "Die Claim-Karte braucht die Mod Simple Tweaks auf deinem Client.",
+  "simpletweaks.table.title": "Claim-Tisch",
+  "simpletweaks.table.land": "Dein Land: %s / %s Chunks",
+  "simpletweaks.table.mine": "Nur meine",
+  "simpletweaks.table.zoom_in": "Hineinzoomen",
+  "simpletweaks.table.zoom_out": "Herauszoomen",
+  "simpletweaks.table.foreign": "Fremder Claim",
+  "simpletweaks.table.off": "Der Server zeigt Claims nicht auf dem Tisch an.",
+  "simpletweaks.table.hover.free": "%s, %s: frei",
+  "simpletweaks.table.hover.owner": "%s, %s: %s"
 }

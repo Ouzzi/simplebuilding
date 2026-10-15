@@ -367,3 +367,18 @@ Läufe nacheinander auf sb-test: simpletweaks Fabric 26.3 → NeoForge 26.3 → 
 - Kostenkurve wie Tabelle (4 → 64 Chunks, Kupfer … Netherstern + XP).
 - Sichtbarkeit Standard `all` (Mitgliederlisten nie gesendet).
 - Übrige offene Punkte nach Empfehlung: Ernten (H) später, Kopie der Kopie verboten, Erweitern nur Besitzer, gerahmte Karten ohne Claims, keine Rückerstattung bei unclaim, Syntaxfarben später.
+
+## Phase 3 Umsetzung (Branch claude-claimdeed3, 2026-10-15): nur Claim-Tisch, ohne Erweiterung
+Umfang laut Auftrag: Block, Karte + Liste, Sichtbarkeit. **Nicht** in dieser Phase: Reiter „Erweitern“, Budget, Tiers (Phase 4/5), Maps-Ebene.
+- Block `simpletweaks:claim_table` (`ClaimTableBlock`, Rechtsklick -> `TableService.open`, kein Block-Entity, kein Menue-Container:
+  die Karte ist reine Anzeige, es gibt keine Items im Tisch). Rezept `Papier, Urkunde / 4 Bretter` (2x3 geformt), Axt, Loot = sich selbst.
+- Pakete (alle serverseitig geprueft, Client nie vertraut): `TableRequestPayload` (Tisch-Position, Art Karte/Liste, Parameter),
+  `TableOpenPayload` (Sichtbarkeit, eigene Chunks/Limit, Tisch-Chunk), `TableAreaPayload` (Palette <= 255, Zellen Lauflaenge),
+  `TableListPayload` (Seiten a 50). Besitzer-UUIDs werden nie gesendet, nur Name (nur wenn sichtbar), Farbe, `mine`.
+- Server: Sitzung je Spieler = zuletzt geoeffneter Tisch; Anfrage nur wenn der Block dort noch steht, Spieler <= 8 Bloecke,
+  Dimension = Tisch-Dimension, w,h <= 64, Bereich <= 64 Chunks vom Tisch; >= 5 Ticks Abstand (<= 4/s).
+- Sichtbarkeit `claimVisibility` (Config, Standard `all`): `all`, `owners_hidden`, `own`, `off`; OP sieht immer alles.
+  Mitgliederlisten/Codes/UUIDs fremder Laender werden nie gesendet.
+- Reine Klassen mit JUnit: `TableLayout` (Rechtecke), `ClaimGrid` (Lauflaenge, Farben), `TableVisibility`.
+- Textur: `tools/textures/claim_table_2026_10_15.py` (neue Dateien claim_table_top/side), Vorschau docs/ai/previews/claude-claimdeed3/.
+- Verifikation: Compile 3 Loader, Modul-Tests Fabric+NeoForge `simpletweaks:claims*`, JUnit, wiki/guide/tooltip/discover-Checks.

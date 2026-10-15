@@ -80,6 +80,8 @@ public final class ClaimTests {
         TESTS.put("claims_deed_use",ClaimDeedTests::use);
         TESTS.put("claims_deed_edit",ClaimDeedTests::edit);
         TESTS.put("claims_deed_copy",ClaimDeedTests::copy);
+        TESTS.put("claims_table_basics",TableTests::basics);
+        TESTS.put("claims_table_service",TableTests::service);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */

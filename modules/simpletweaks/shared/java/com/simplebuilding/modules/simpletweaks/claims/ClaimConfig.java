@@ -8,7 +8,16 @@ import net.minecraft.resources.Identifier;
 
 /** Server-only, restart-bound configuration. No client can change these values. */
 public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTrustedPlayers,
-        int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer, List<String> dimensions) {
+        int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer, List<String> dimensions, String claimVisibility) {
+    /** The settings before the claim table: visibility {@code all}. */
+    public ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTrustedPlayers, int globalCap, int cooldownTicks, boolean opBypass, int spawnBuffer, List<String> dimensions) {
+        this(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, "all");
+    }
+    /** Same settings with another claim table visibility (tests). */
+    public ClaimConfig withVisibility(String value) {
+        return new ClaimConfig(enabled, maxClaimsPerPlayer, maxTrustedPlayers, globalCap, cooldownTicks, opBypass, spawnBuffer, dimensions, value);
+    }
+    public com.simplebuilding.modules.simpletweaks.table.TableVisibility visibility() { return com.simplebuilding.modules.simpletweaks.table.TableVisibility.parse(claimVisibility); }
     /** Written into the file; files without it (or lower) were written by the old "default off" build. */
     public static final int CONFIG_VERSION = 2;
     public static final int MAX_CLAIMS = 256, MAX_TRUSTED = 64, MAX_GLOBAL = 10000;
@@ -18,7 +27,7 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
             List.of("minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"));
     /** The defaults with the main switch off (server administrators' opt-out, disabled-path tests). */
     public static final ClaimConfig OFF = new ClaimConfig(false, DEFAULT.maxClaimsPerPlayer, DEFAULT.maxTrustedPlayers,
-            DEFAULT.globalCap, DEFAULT.cooldownTicks, DEFAULT.opBypass, DEFAULT.spawnBuffer, DEFAULT.dimensions);
+            DEFAULT.globalCap, DEFAULT.cooldownTicks, DEFAULT.opBypass, DEFAULT.spawnBuffer, DEFAULT.dimensions, DEFAULT.claimVisibility);
     public ClaimConfig {
         maxClaimsPerPlayer = Math.clamp(maxClaimsPerPlayer, 1, MAX_CLAIMS);
         maxTrustedPlayers = Math.clamp(maxTrustedPlayers, 0, MAX_TRUSTED);
@@ -29,6 +38,7 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
                 || dimensions.stream().anyMatch(x -> !validDimension(x)))
             throw new IllegalArgumentException("Invalid claim dimension allowlist");
         dimensions = List.copyOf(new LinkedHashSet<>(dimensions));
+        if (com.simplebuilding.modules.simpletweaks.table.TableVisibility.parse(claimVisibility) == null) throw new IllegalArgumentException("claimVisibility");
     }
     static boolean validDimension(String id) {
         if (id==null || id.length()>128 || Identifier.tryParse(id)==null || !id.contains(":")) return false;
@@ -52,7 +62,8 @@ public record ClaimConfig(boolean enabled, int maxClaimsPerPlayer, int maxTruste
                     integer(json,"maxTrustedPlayers",d.maxTrustedPlayers), integer(json,"globalCap",d.globalCap),
                     integer(json,"cooldownTicks",d.cooldownTicks), bool(json,"opBypass",d.opBypass),
                     integer(json,"spawnBuffer",d.spawnBuffer), json.has("dimensions")
-                    ? json.getAsJsonArray("dimensions").asList().stream().map(JsonElement::getAsString).toList() : d.dimensions);
+                    ? json.getAsJsonArray("dimensions").asList().stream().map(JsonElement::getAsString).toList() : d.dimensions,
+                    json.has("claimVisibility") ? json.get("claimVisibility").getAsString() : d.claimVisibility);
         } catch (Exception e) {
             // Never turn protection off silently because a server administrator made a typo.
             throw new IllegalStateException("Invalid claim config; original file preserved: " + path, e);

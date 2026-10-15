@@ -5,13 +5,14 @@ public final class NeoForgeSimpleTweaks {
     public NeoForgeSimpleTweaks(net.neoforged.bus.api.IEventBus bus, net.neoforged.api.distmarker.Dist dist) {
         ModuleNeoTests.register(bus);
   if(net.neoforged.fml.ModList.get().isLoaded("ftbquests"))com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
-  bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e)->{if(!e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)||!com.simplebuilding.framework.api.SubMods.enabled("simpletweaks"))return;var book=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.book());var deed=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.deed.ClaimDeedItem.item());var anchor=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.WRITABLE_BOOK);/* before the writable book: a tail append clashes with other mods' insertAfter at the tail */if(e.getParentEntries().contains(anchor)){e.insertBefore(anchor,book,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);e.insertAfter(book,deed,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);}else{e.accept(book);e.accept(deed);}});
+  bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e)->{if(!e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)||!com.simplebuilding.framework.api.SubMods.enabled("simpletweaks"))return;var book=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.book());var deed=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.deed.ClaimDeedItem.item());var table=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.table.ClaimTableBlock.item());var anchor=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.WRITABLE_BOOK);/* before the writable book: a tail append clashes with other mods' insertAfter at the tail */if(e.getParentEntries().contains(anchor)){e.insertBefore(anchor,book,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);e.insertAfter(book,deed,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);e.insertAfter(deed,table,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);}else{e.accept(book);e.accept(deed);e.accept(table);}});
         var events=net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
         events.addListener((net.neoforged.neoforge.event.server.ServerStartedEvent e)->com.simplebuilding.modules.simpletweaks.claims.Claims.start(e.getServer()));
         events.addListener((net.neoforged.neoforge.event.server.ServerStoppedEvent e)->com.simplebuilding.modules.simpletweaks.claims.Claims.stop(e.getServer()));
         events.addListener((net.neoforged.neoforge.event.RegisterCommandsEvent e)->com.simplebuilding.modules.simpletweaks.claims.ClaimCommands.register(e.getDispatcher()));
         bus.addListener((net.neoforged.neoforge.registries.RegisterEvent event) -> {
             if (event.getRegistryKey().equals(net.minecraft.core.registries.Registries.DATA_COMPONENT_TYPE)) LegacyDeed.registerComponents();
+            if (event.getRegistryKey().equals(net.minecraft.core.registries.Registries.BLOCK)) LegacyDeed.registerBlocks();
             if (event.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) LegacyDeed.register();
             if (event.getRegistryKey().equals(net.minecraft.core.registries.Registries.RECIPE_SERIALIZER)) LegacyDeed.registerRecipes();
         });
@@ -25,6 +26,14 @@ public final class NeoForgeSimpleTweaks {
                     (payload, context) -> context.enqueueWork(() -> com.simplebuilding.modules.simpletweaks.deed.client.DeedClient.open(payload)));
             registrar.playToClient(com.simplebuilding.modules.simpletweaks.deed.net.DeedResultPayload.TYPE, com.simplebuilding.modules.simpletweaks.deed.net.DeedResultPayload.CODEC,
                     (payload, context) -> context.enqueueWork(() -> com.simplebuilding.modules.simpletweaks.deed.client.DeedClient.result(payload)));
+            registrar.playToServer(com.simplebuilding.modules.simpletweaks.table.net.TableRequestPayload.TYPE, com.simplebuilding.modules.simpletweaks.table.net.TableRequestPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> com.simplebuilding.modules.simpletweaks.table.TableService.handle(payload, (net.minecraft.server.level.ServerPlayer) context.player())));
+            registrar.playToClient(com.simplebuilding.modules.simpletweaks.table.net.TableOpenPayload.TYPE, com.simplebuilding.modules.simpletweaks.table.net.TableOpenPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> com.simplebuilding.modules.simpletweaks.table.client.TableClient.open(payload)));
+            registrar.playToClient(com.simplebuilding.modules.simpletweaks.table.net.TableAreaPayload.TYPE, com.simplebuilding.modules.simpletweaks.table.net.TableAreaPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> com.simplebuilding.modules.simpletweaks.table.client.TableClient.area(payload)));
+            registrar.playToClient(com.simplebuilding.modules.simpletweaks.table.net.TableListPayload.TYPE, com.simplebuilding.modules.simpletweaks.table.net.TableListPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> com.simplebuilding.modules.simpletweaks.table.client.TableClient.list(payload)));
         });
         com.simplebuilding.modules.simpletweaks.deed.net.DeedNet.toClient = (player, payload) -> {
             if (player.connection == null || !player.connection.hasChannel(payload.type())) return false;
