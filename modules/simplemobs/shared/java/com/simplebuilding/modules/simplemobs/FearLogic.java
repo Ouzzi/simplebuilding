@@ -47,6 +47,39 @@ public final class FearLogic {
     public static final float WATCHER_CHANCE = 0.04f;
     public static final int WATCHER_ROLL_INTERVAL = 600;
 
+
+    // ---- Watcher gaze zones (owner N63) -------------------------------------------------------
+    /** Reference FOV of the zone angles; the client reports its FOV (clamped to 30..110), the angles scale with it. */
+    public static final int FOV_REF = 70, FOV_MIN = 30, FOV_MAX = 110;
+    /** Half angles at the reference FOV: stare (it stands still), slow zone, edge zone (beyond it: free to stalk). */
+    public static final float GAZE_STARE_DEG = 10.0f, GAZE_SLOW_DEG = 25.0f, GAZE_EDGE_DEG = 35.0f;
+    /** Gaze zones, from the view center outwards. */
+    public static final int ZONE_STARE = 0, ZONE_SLOW = 1, ZONE_EDGE = 2, ZONE_FREE = 3;
+
+    public static int clampFov(int fov) { return Math.max(FOV_MIN, Math.min(FOV_MAX, fov)); }
+
+    /** Zone of a point {@code angleDeg} off the view center for a player with this FOV; the three bounds are the config's. */
+    public static int gazeZone(double angleDeg, int fov, float stare, float slow, float edge) {
+        double s = clampFov(fov) / (double) FOV_REF;
+        if (angleDeg <= stare * s) return ZONE_STARE;
+        if (angleDeg <= slow * s) return ZONE_SLOW;
+        if (angleDeg <= edge * s) return ZONE_EDGE;
+        return ZONE_FREE;
+    }
+
+    /** Index of the victim among players at these distances: nearer ones are likelier (weight 1 / (1 + d / 16)); -1 if none. */
+    public static int pickVictim(double[] dists, float roll) {
+        double total = 0;
+        for (double d : dists) total += 1.0 / (1.0 + d / 16.0);
+        if (total <= 0) return -1;
+        double at = roll * total;
+        for (int i = 0; i < dists.length; i++) {
+            at -= 1.0 / (1.0 + dists[i] / 16.0);
+            if (at < 0) return i;
+        }
+        return dists.length - 1;
+    }
+
     // ---- Focus ------------------------------------------------------------------------------
     public static final int FOCUS_TICKS = 3600, LONG_FOCUS_TICKS = 9600;
 

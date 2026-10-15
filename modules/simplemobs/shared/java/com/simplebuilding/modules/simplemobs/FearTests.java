@@ -243,6 +243,107 @@ final class FearTests {
             watcher.discard();
             h.succeed();
         });
+        add.accept("fear_watcher_zones", h -> {
+            floor(h, 0, 0, 6, 7);
+            var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 6));
+            var player = h.makeMockServerPlayerInLevel();
+            Vec3 at = h.absoluteVec(new Vec3(3.5, 2, 1.5));
+            Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
+            float pitch = (float) -Math.toDegrees(Math.atan2(head.y - (at.y + player.getEyeHeight()), Math.hypot(head.x - at.x, head.z - at.z)));
+            FearNet.set(player, 70);
+            // looking straight at it, then 22 / 30 / 45 degrees to the side (the angle shrinks a little with the upward pitch)
+            float[] yaw = {0.0f, 22.0f, 30.0f, 45.0f};
+            int[] want = {FearLogic.ZONE_STARE, FearLogic.ZONE_SLOW, FearLogic.ZONE_EDGE, FearLogic.ZONE_FREE};
+            for (int i = 0; i < yaw.length; i++) {
+                player.snapTo(at.x, at.y, at.z, yaw[i], pitch);
+                player.setYHeadRot(yaw[i]);
+                h.assertTrue(watcher.gazeZone(player) == want[i], "yaw " + yaw[i] + " gives zone " + want[i] + " but " + watcher.gazeZone(player) + " (angle " + watcher.gazeAngle(player) + ")");
+            }
+            h.assertTrue(watcher.seenBy(player) == false, "45 degrees off is not a stare");
+            player.snapTo(at.x, at.y, at.z, 22.0f, pitch);
+            FearNet.set(player, 30);
+            h.assertTrue(watcher.gazeZone(player) == FearLogic.ZONE_FREE, "a narrow FOV (30) shrinks the zones: 22 degrees is free");
+            player.snapTo(at.x, at.y, at.z, 45.0f, pitch);
+            FearNet.set(player, 200);
+            h.assertTrue(watcher.gazeZone(player) == FearLogic.ZONE_EDGE, "FOV is clamped to 110: 45 degrees is the edge zone, not free");
+            FearNet.forget(player);
+            watcher.discard();
+            h.succeed();
+        });
+        add.accept("fear_watcher_zone_logic", h -> {
+            h.assertTrue(FearLogic.clampFov(10) == 30 && FearLogic.clampFov(500) == 110 && FearLogic.clampFov(70) == 70, "FOV clamp 30..110");
+            h.assertTrue(FearLogic.gazeZone(10, 70, 10, 25, 35) == FearLogic.ZONE_STARE && FearLogic.gazeZone(10.5, 70, 10, 25, 35) == FearLogic.ZONE_SLOW, "10 degrees at FOV 70");
+            h.assertTrue(FearLogic.gazeZone(25, 70, 10, 25, 35) == FearLogic.ZONE_SLOW && FearLogic.gazeZone(35, 70, 10, 25, 35) == FearLogic.ZONE_EDGE && FearLogic.gazeZone(36, 70, 10, 25, 35) == FearLogic.ZONE_FREE, "25 and 35 degrees");
+            h.assertTrue(FearLogic.gazeZone(15, 110, 10, 25, 35) == FearLogic.ZONE_STARE && FearLogic.gazeZone(16, 30, 10, 25, 35) == FearLogic.ZONE_FREE, "zones scale with FOV");
+            h.assertTrue(FearLogic.pickVictim(new double[0], 0.5f) == -1 && FearLogic.pickVictim(new double[] {5}, 0.9f) == 0, "victim pick: none / one");
+            h.assertTrue(FearLogic.pickVictim(new double[] {2, 40}, 0.0f) == 0 && FearLogic.pickVictim(new double[] {2, 40}, 0.99f) == 1, "victim pick covers both ends, near ones weigh more");
+            var cfg = new com.google.gson.JsonObject();
+            cfg.addProperty("watcherGazeStare", 99);
+            cfg.addProperty("watcherGazeSlow", 2);
+            cfg.addProperty("watcherGazeEdge", "x");
+            float s = MobsConfig.watcherGazeStare, sl = MobsConfig.watcherGazeSlow, e = MobsConfig.watcherGazeEdge;
+            MobsConfig.apply(cfg);
+            h.assertTrue(MobsConfig.watcherGazeStare == 60.0f && MobsConfig.watcherGazeSlow >= MobsConfig.watcherGazeStare && MobsConfig.watcherGazeEdge >= MobsConfig.watcherGazeSlow, "gaze config is clamped and ordered");
+            MobsConfig.apply(new com.google.gson.JsonObject());
+            h.assertTrue(MobsConfig.watcherGazeStare == s && MobsConfig.watcherGazeSlow == sl && MobsConfig.watcherGazeEdge == e, "defaults come back");
+            h.succeed();
+        });
+        add.accept("fear_watcher_multi_freeze", h -> {
+            floor(h, 0, 0, 8, 7);
+            var watcher = still(h.spawn(FearMobs.WATCHER, 4, 2, 6));
+            var a = h.makeMockServerPlayerInLevel();
+            var b = h.makeMockServerPlayerInLevel();
+            Vec3 pa = h.absoluteVec(new Vec3(2.5, 2, 1.5)), pb = h.absoluteVec(new Vec3(6.5, 2, 1.5));
+            Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
+            a.snapTo(pa.x, pa.y, pa.z, 180.0f, 0.0f);
+            a.setYHeadRot(180.0f);
+            float pitch = (float) -Math.toDegrees(Math.atan2(head.y - (pb.y + b.getEyeHeight()), Math.hypot(head.x - pb.x, head.z - pb.z)));
+            float yaw = (float) Math.toDegrees(Math.atan2(-(head.x - pb.x), head.z - pb.z));
+            b.snapTo(pb.x, pb.y, pb.z, 180.0f, 0.0f);
+            b.setYHeadRot(180.0f);
+            h.assertFalse(watcher.updateGaze(h.getLevel()), "nobody looks: free");
+            h.assertTrue(watcher.zone() == FearLogic.ZONE_FREE, "zone free");
+            b.snapTo(pb.x, pb.y, pb.z, yaw, pitch);
+            b.setYHeadRot(yaw);
+            h.assertTrue(watcher.updateGaze(h.getLevel()) && watcher.watched(), "one of two players looks: it freezes for all");
+            h.assertTrue(watcher.looker() == b, "the one who looks is the looker");
+            b.snapTo(pb.x, pb.y, pb.z, 180.0f, 0.0f);
+            b.setYHeadRot(180.0f);
+            h.assertFalse(watcher.updateGaze(h.getLevel()), "both look away: free again");
+            watcher.discard();
+            h.succeed();
+        });
+        add.accept("fear_watcher_hit_new_victim", h -> {
+            floor(h, -24, -24, 28, 28);
+            var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 3));
+            var near = dummy(h, 8, 3);
+            var far = dummy(h, -6, 3);
+            Vec3 start = watcher.position();
+            watcher.setTarget(near);
+            h.assertTrue(watcher.hurtServer(h.getLevel(), h.getLevel().damageSources().generic(), 1.0f), "the hit lands");
+            for (int i = 0; i < FearLogic.HIT_TELEPORT_TICKS + 2; i++) watcher.tick();
+            h.assertTrue(watcher.position().distanceTo(start) > 1.0, "it blinked away");
+            h.assertTrue(watcher.getTarget() == far, "with two candidates the current target is skipped: the other one is chosen");
+            watcher.discard();
+            near.discard();
+            far.discard();
+            h.succeed();
+        });
+        add.accept("fear_watcher_boat", h -> {
+            floor(h, -24, -24, 28, 28);
+            var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 3));
+            var boat = h.spawn(EntityTypes.OAK_BOAT, 3, 2, 3);
+            h.assertTrue(watcher.startRiding(boat, true, false) && watcher.isPassenger(), "it can ride in a boat");
+            for (int i = 0; i < 5; i++) watcher.tick();
+            h.assertTrue(watcher.isPassenger(), "it stays in the boat while nothing hits it");
+            h.assertTrue(watcher.hurtServer(h.getLevel(), h.getLevel().damageSources().generic(), 1.0f), "the hit lands");
+            for (int i = 0; i < FearLogic.HIT_TELEPORT_TICKS + 2; i++) watcher.tick();
+            h.assertFalse(watcher.isPassenger(), "the hit teleports it out of the boat");
+            h.assertTrue(watcher.position().distanceTo(boat.position()) > 2.0, "and away from it");
+            watcher.discard();
+            boat.discard();
+            h.succeed();
+        });
         add.accept("fear_aura_decay", h -> {
             var s = shivering(h);
             floor(h, 0, 0, 7, 7);

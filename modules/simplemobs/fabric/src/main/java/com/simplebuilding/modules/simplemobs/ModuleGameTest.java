@@ -68,6 +68,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void fearAuraTriggered(GameTestHelper helper) { MobsTests.ALL.get("fear_aura_triggered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherScream(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_scream").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherTeleport(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_teleport").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherZones(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_zones").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherZoneLogic(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_zone_logic").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherMultiFreeze(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_multi_freeze").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherHitNewVictim(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_hit_new_victim").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherBoat(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_boat").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherSpawnRules(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_spawn_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearDrops(GameTestHelper helper) { MobsTests.ALL.get("fear_drops").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearImmunity(GameTestHelper helper) { MobsTests.ALL.get("fear_immunity").accept(helper); }

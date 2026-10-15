@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -35,8 +36,9 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Hollow Watcher (Hohler Wächter), fear mob F-C: a 4 block shadow with many eyes and End stone splinters, rare on the
- * outer End islands. It moves only while nobody looks at it (like the Creaking); a look through a spyglass freezes it
- * for 3 s. Unwatched it teleports behind its target (announced by portal particles at the spot), grips for 2 s or
+ * outer End islands. It stands still only while somebody looks straight at it (gaze zones by angle off the view center,
+ * scaled with the player's FOV: still, slow retreat towards the view edge, direct retreat out of view, then free to
+ * stalk); a look through a spyglass freezes it for 3 s. Unwatched it teleports behind its target (announced by portal particles at the spot), grips for 2 s or
  * claws; a target that stares at it for 5 s makes it scream (Shivering II and a short Blindness), so staring is no
  * lasting answer. Its Shivering aura is the fear mobs' shared one.
  */
@@ -47,6 +49,11 @@ public class HollowWatcherEntity extends Monster {
     private static final EntityDataAccessor<Boolean> DATA_TRIGGERED = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_WATCHED = SynchedEntityData.defineId(HollowWatcherEntity.class, EntityDataSerializers.BOOLEAN);
 
+    /** Client only: 0..1, eased while it is watched or frozen (the model stops its sway softly, no jump to 0). */
+    public float calm, calmO;
+    /** Server: the gaze zone of the player who looks closest to it (FearLogic.ZONE_*), and that player. */
+    private int zone = FearLogic.ZONE_FREE;
+    private @Nullable Player looker;
     private int actionTicks, gripCooldown = 40, clawCooldown, teleportCooldown = 60, screamCooldown = 200, stareTicks, fleeTicks;
     private @Nullable Vec3 teleportTo, gripAt;
     private int grippedId = -1;
@@ -70,7 +77,8 @@ public class HollowWatcherEntity extends Monster {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new StalkGoal());
+        this.goalSelector.addGoal(1, new EvadeGoal());
+        this.goalSelector.addGoal(2, new StalkGoal());
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.5));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -131,8 +139,13 @@ public class HollowWatcherEntity extends Monster {
         if (fleeTicks <= 0) return;
         if (fleeTicks % 2 == 0) level.sendParticles(ParticleTypes.REVERSE_PORTAL, this.getX(), this.getY() + 2.0, this.getZ(), 10, 0.5, 1.5, 0.5, 0.05);
         if (--fleeTicks > 0) return;
-        Vec3 dest = fleeSpot(level);
+        // a hit sends it away or behind a new victim (random target around, nearer ones likelier)
+        LivingEntity victim = pickVictim(level);
+        Vec3 dest = victim != null && this.random.nextBoolean() ? behind(level, victim) : null;
+        if (dest == null) dest = fleeSpot(level);
         if (dest == null) return;
+        if (victim != null) this.setTarget(victim);
+        if (this.isPassenger()) this.stopRiding();
         releaseGrip(null, false);
         setAction(ACT_NONE, 0);
         teleportTo = null;
@@ -142,6 +155,19 @@ public class HollowWatcherEntity extends Monster {
         this.getNavigation().stop();
         level.sendParticles(ParticleTypes.REVERSE_PORTAL, dest.x, dest.y + 2.0, dest.z, 30, 0.4, 1.5, 0.4, 0.1);
         level.playSound(null, dest.x, dest.y, dest.z, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.2f, 0.5f);
+        if (victim != null) this.lookAt(victim, 180f, 90f);
+    }
+
+    /** Multiplayer: a random target among those within 48 blocks, weighted by nearness; not the current target if there are others. */
+    public @Nullable LivingEntity pickVictim(ServerLevel level) {
+        var all = level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(48.0), e -> FearAura.affects(e) && e != this);
+        var pool = new java.util.ArrayList<>(all);
+        if (pool.size() > 1) pool.removeIf(e -> e == this.getTarget());
+        if (pool.isEmpty()) return null;
+        double[] d = new double[pool.size()];
+        for (int i = 0; i < d.length; i++) d[i] = pool.get(i).distanceTo(this);
+        int i = FearLogic.pickVictim(d, this.random.nextFloat());
+        return i < 0 ? null : pool.get(i);
     }
 
     /** A free standing spot 12-20 blocks away in a random direction; null if ten tries find none. */
@@ -166,11 +192,33 @@ public class HollowWatcherEntity extends Monster {
     @Override protected SoundEvent getDeathSound() { return SoundEvents.ENDERMAN_DEATH; }
     @Override public float getVoicePitch() { return 0.45f + this.random.nextFloat() * 0.1f; }
 
-    /** Whether the player looks at it: the Creaking's view cone (sight line, several heights); blind players see nothing. */
-    public boolean seenBy(Player p) {
-        if (p.isSpectator() || !p.isAlive() || p.hasEffect(MobEffects.BLINDNESS) || p.distanceToSqr(this) > 64 * 64) return false;
-        return this.isLookingAtMe(p, 0.5, false, true, this.getEyeY(), this.getY() + 1.0, this.getY() + 2.0);
+    /** Gaze zone of this player (FearLogic.ZONE_*): by the angle between the view center and the nearest of three body heights. */
+    public int gazeZone(Player p) {
+        if (p.isSpectator() || !p.isAlive() || p.hasEffect(MobEffects.BLINDNESS) || p.distanceToSqr(this) > 64 * 64) return FearLogic.ZONE_FREE;
+        double angle = gazeAngle(p);
+        if (angle > 120.0 || !p.hasLineOfSight(this)) return FearLogic.ZONE_FREE;
+        int fov = p instanceof ServerPlayer sp ? FearNet.fov(sp) : FearLogic.FOV_REF;
+        return FearLogic.gazeZone(angle, fov, MobsConfig.watcherGazeStare, MobsConfig.watcherGazeSlow, MobsConfig.watcherGazeEdge);
     }
+
+    /** Smallest angle in degrees between the player's view direction and the head, chest or hip of the Watcher. */
+    public double gazeAngle(Player p) {
+        Vec3 eye = p.getEyePosition(), look = p.getViewVector(1.0f);
+        double best = 180.0;
+        for (double y : new double[] {this.getEyeY(), this.getY() + 2.0, this.getY() + 1.0}) {
+            Vec3 to = new Vec3(this.getX() - eye.x, y - eye.y, this.getZ() - eye.z);
+            double len = to.length();
+            if (len < 1.0e-4) return 0.0;
+            best = Math.min(best, Math.toDegrees(Math.acos(Math.max(-1.0, Math.min(1.0, look.dot(to) / len)))));
+        }
+        return best;
+    }
+
+    /** Whether the player looks straight at it (inside the stare zone). */
+    public boolean seenBy(Player p) { return gazeZone(p) == FearLogic.ZONE_STARE; }
+
+    public int zone() { return zone; }
+    public @Nullable Player looker() { return looker; }
 
     /** Looking at it through a spyglass (a narrow cone, like the Enderman's stare). */
     public boolean scopedBy(Player p) {
@@ -181,13 +229,19 @@ public class HollowWatcherEntity extends Monster {
     /** Updates watched/frozen from all players around; returns whether it is watched. */
     public boolean updateGaze(ServerLevel level) {
         boolean seen = false, targetStares = false;
+        int best = FearLogic.ZONE_FREE;
+        Player bestLooker = null;
         for (Player p : level.players()) {
             if (scopedBy(p)) freeze();
-            if (seenBy(p)) {
+            int z = gazeZone(p);
+            if (z < best || z == best && bestLooker != null && z != FearLogic.ZONE_FREE && gazeAngle(p) < gazeAngle(bestLooker)) { best = z; bestLooker = p; }
+            if (z == FearLogic.ZONE_STARE) {
                 seen = true;
                 if (p == this.getTarget()) targetStares = true;
             }
         }
+        zone = best;
+        looker = best == FearLogic.ZONE_FREE ? null : bestLooker;
         LivingEntity target = this.getTarget();
         if (target != null && !(target instanceof Player) && target.entityTags().contains(FearAura.TEST_TAG)) targetStares = seen;
         stareTicks = targetStares ? stareTicks + 1 : 0;
@@ -201,6 +255,9 @@ public class HollowWatcherEntity extends Monster {
     public void tick() {
         super.tick();
         if (this.level().isClientSide()) {
+            FearNet.report(this.level().getGameTime());
+            calmO = calm;
+            calm += ((watched() || frozen() ? 1.0f : 0.0f) - calm) * 0.2f;
             if (frozen() && this.random.nextInt(2) == 0)
                 this.level().addParticle(ParticleTypes.SNOWFLAKE, this.getRandomX(0.6), this.getRandomY(), this.getRandomZ(0.6), 0, -0.02, 0);
             return;
@@ -238,7 +295,7 @@ public class HollowWatcherEntity extends Monster {
             return;
         }
         if (watched) return;
-        if (dist > FearLogic.TELEPORT_MIN_DIST && teleportCooldown == 0) {
+        if (dist > FearLogic.TELEPORT_MIN_DIST && teleportCooldown == 0 && !this.isPassenger()) {
             Vec3 dest = behind(level, target);
             teleportCooldown = FearLogic.TELEPORT_COOLDOWN;
             if (dest != null) {
@@ -382,13 +439,52 @@ public class HollowWatcherEntity extends Monster {
         return null;
     }
 
+    /**
+     * Inside the player's view but not stared at: walks on an arc around the player (never the shortest way) towards
+     * the view edge, slowly in the slow zone, at full speed with a buffer past the edge in the edge zone.
+     */
+    private class EvadeGoal extends Goal {
+        private int repath;
+
+        EvadeGoal() { this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK)); }
+
+        @Override public boolean canUse() {
+            return action() == ACT_NONE && getTarget() != null && !watched() && !frozen() && looker != null && !looker.isRemoved()
+                    && (zone == FearLogic.ZONE_SLOW || zone == FearLogic.ZONE_EDGE);
+        }
+        @Override public boolean canContinueToUse() { return canUse(); }
+        @Override public void start() { repath = 0; }
+        @Override public boolean requiresUpdateEveryTick() { return true; }
+
+        @Override
+        public void tick() {
+            Player p = looker;
+            if (p == null || --repath > 0) return;
+            repath = 5;
+            Vec3 look = p.getLookAngle().multiply(1, 0, 1);
+            if (look.lengthSqr() < 1.0e-4) return;
+            look = look.normalize();
+            Vec3 off = position().subtract(p.position()).multiply(1, 0, 1);
+            double radius = Math.max(6.0, Math.min(24.0, off.length()));
+            double side = look.x * off.z - look.z * off.x >= 0 ? 1.0 : -1.0;
+            int fov = p instanceof ServerPlayer sp ? FearNet.fov(sp) : FearLogic.FOV_REF;
+            double edge = MobsConfig.watcherGazeEdge * FearLogic.clampFov(fov) / (double) FearLogic.FOV_REF;
+            boolean slow = zone == FearLogic.ZONE_SLOW;
+            double a = Math.toRadians(slow ? edge : edge + 12.0) * side;
+            double cos = Math.cos(a), sin = Math.sin(a);
+            Vec3 dir = new Vec3(look.x * cos - look.z * sin, 0, look.x * sin + look.z * cos);
+            Vec3 at = p.position().add(dir.scale(radius));
+            getNavigation().moveTo(at.x, p.getY(), at.z, slow ? 0.45 : 1.0);
+        }
+    }
+
     /** Follows its target while unwatched and idle. */
     private class StalkGoal extends Goal {
         private int repath;
 
         StalkGoal() { this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK)); }
 
-        @Override public boolean canUse() { return action() == ACT_NONE && getTarget() != null && !watched() && !frozen(); }
+        @Override public boolean canUse() { return action() == ACT_NONE && getTarget() != null && !watched() && !frozen() && zone >= FearLogic.ZONE_FREE; }
         @Override public boolean canContinueToUse() { return canUse(); }
         @Override public void start() { repath = 0; }
         @Override public boolean requiresUpdateEveryTick() { return true; }
@@ -400,7 +496,10 @@ public class HollowWatcherEntity extends Monster {
             getLookControl().setLookAt(target, 30f, 30f);
             if (--repath <= 0) {
                 repath = 10;
-                if (distanceTo(target) > reach(target) - 0.3) getNavigation().moveTo(target, 1.0);
+                double d = distanceTo(target);
+                Vec3 spot = d > reach(target) + 3.0 && level() instanceof ServerLevel sl ? behind(sl, target) : null;
+                if (spot != null) getNavigation().moveTo(spot.x, spot.y, spot.z, 1.0);
+                else if (d > reach(target) - 0.3) getNavigation().moveTo(target, 1.0);
                 else getNavigation().stop();
             }
         }
