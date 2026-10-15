@@ -241,3 +241,18 @@ Fabric-Tests brauchen `@GameTest`-Wrapper; Standalone-Target `module-simpleshops
 
 **Nach jeder Stufe:** Abnahme auf der Development-Instanz (Klick-Test, Konsole), erst dann Frage nach Production. Stufe 1 und 2 sollten **nicht**
 getrennt ausgeliefert werden (Stufe 1 allein = unzerstörbare Blöcke ohne Funktion).
+
+## 7. Antworten Besitzer (2026-10-15, verbindlich)
+1. Modul: neues Sub-Mod **Simple Shops** (`simpleshops`), gehört zu SimpleBuilding (Super-Mod requires Sub-Mod, Config „Enable Simple Shops“).
+2. Lager: Ware lagert in der **Vitrine**, das Geld/die Preis-Items (Einnahmen) im **Verkaufsblock**.
+3. Preis: **ein Preis je Verkaufsblock** (Preisblock).
+4. Menge je Kauf: **1 Stück**.
+5. Preis-Vergleich: **exakt gleich inklusive Name und Verzauberung** (alle Komponenten).
+6. Glow-Vitrine: **hell gerendert + schwaches Licht**.
+7. Claims: Claim-Verwalter darf fremde Vitrinen **nicht** abbauen. Der Vitrinen-Besitzer darf nur dort **platzieren**, wo er im Claim bauen (B) darf; **abbauen** darf der Besitzer seine Vitrine/seinen Verkaufsblock danach immer, auch wenn sich die Claim-Rechte geändert haben.
+8. Ops: ab **Stufe 2** abbaubar.
+9. Verlassene Shops: kein automatischer Ablauf (Empfehlung übernommen, Besitzer hat nicht widersprochen).
+10. Limit: **16 je Spieler**, **kein** Chunk-Limit (mehrere in einem Chunk erlaubt).
+11. Kaufen im fremden Claim: **braucht kein Recht** (kein claim_use-Tag für Verkaufsblock/Vitrine-Kauf).
+12. Käufer-Inventar voll: Ware wird **gedroppt** (vor dem Käufer, wie Villager-Überlauf).
+13. Simple Money: **nur Preisliste bzw. Wiki-Hinweis**, keine Zusatzfunktion.

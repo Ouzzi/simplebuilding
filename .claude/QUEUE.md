@@ -258,6 +258,16 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 60 (2026-10-15, Besitzer-Antworten zum Audit N58)
+- [x] Eimer: bleibt so, wie er vorher drin war – KEIN breiterer Eimer (Audit-Frage 1).
+- [x] Elytra-Reparatur: bleibt beim Werkbank-Rezept, keine Amboss-Reparatur (Audit-Frage 2).
+- [ ] Kartenaufdeckung (Simple Maps revealRadius): Standard auf den Vanilla-Wert setzen (Audit-Frage 3).
+- [ ] Kupfer-Eimer verwittert auch platziert. Mit Honigwabe wachsen → verwittert nicht. Wird etwas eingefüllt, verwittert ein gewachster Eimer halb so schnell, bis er wieder gewachst wird (Audit-Frage 4; Auslegung: Einfüllen „beschädigt“ das Wachs teilweise).
+- [ ] Wollknäuel: zusätzlich 2 Wollknäuel → 1 Wolle (Audit-Frage 5).
+- [ ] Blaze Book: Rezept 8 Lohenstaub (Blaze Powder) + 1 normales Buch (Audit-Frage 6).
+- [ ] Soulbound im Hardcore abschalten; Items bleiben trotzdem damit verzauberbar (wirkungslos wie Bett/Respawn-Anker im Hardcore) – Tooltip/Hinweis im Hardcore (Audit-Frage 7).
+- [x] Hufeisen-Upgrade-Tooltip bleibt „Copper–Enderite“ Hufeisen (Audit-Frage 8).
+
 ## Nachtrag 59 (2026-10-14, Besitzer)
 - [ ] Neue Verzauberung „Step Height“ (Stufenhöhe) für Stiefel, 2 Stufen: I = 1 Block, II = 1,5 Blöcke (Zäune). Treasure-Verzauberung.
 - [ ] Neue Verzauberung „Sprint“ für Hosen, 3 Stufen: relative Tempo-Steigerung auf die Grund-Laufgeschwindigkeit (wie Swift Sneak beim Schleichen). Treasure-Verzauberung.
