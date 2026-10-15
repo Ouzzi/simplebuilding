@@ -260,8 +260,8 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 
 ## Nachtrag 64 (2026-10-15, Besitzer)
 Hollow Watcher – Korrektur
-- [ ] Reichweite 48 Blöcke: außerhalb verfolgt er nicht mehr; ist man wieder innerhalb, macht er weiter und teleportiert sich regelmäßig zum Spieler. Meiden heißt: ihn ansehen und weglaufen (über 48 Blöcke).
-- [ ] KORREKTUR Blickverhalten: Wird er DIREKT angesehen (in die Augen/Fadenkreuz), bleibt er NICHT stehen, sondern wird aggressiv. Die Gradzonen (±10° unauffällig, ±25° langsam aus dem Blickfeld, ±35° direkt aus dem Blickfeld, außerhalb von hinten angreifen) gelten für „in seine Nähe schauen“. Ersetzt den Freeze aus N63/claude-watcher2.
+- [x] Reichweite 48 Blöcke: außerhalb verfolgt er nicht mehr; ist man wieder innerhalb, macht er weiter und teleportiert sich regelmäßig zum Spieler. Meiden heißt: ihn ansehen und weglaufen (über 48 Blöcke). (claude-watcher3)
+- [x] KORREKTUR Blickverhalten: Wird er DIREKT angesehen (in die Augen/Fadenkreuz), bleibt er NICHT stehen, sondern wird aggressiv. Die Gradzonen (±10° unauffällig, ±25° langsam aus dem Blickfeld, ±35° direkt aus dem Blickfeld, außerhalb von hinten angreifen) gelten für „in seine Nähe schauen“. Ersetzt den Freeze aus N63/claude-watcher2. (claude-watcher3)
 
 Oktant-Manager (UI) – erst Konzept, Umsetzung nach Besitzer-Freigabe
 - [ ] Farben: das Orange wirkt grell → generell sanftere Farben.
