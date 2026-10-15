@@ -93,6 +93,12 @@ public final class McVersion {
     public static final boolean STANDING_RODS = true;
     /** Dimension music discs with B-sides (sledgehammer flip) and the Astralit/Nihilit speakers (2026-10-03). */
     public static final boolean MUSIC_DISCS = true;
+    /**
+     * Jukebox with a chest above it: plays the discs of the chest as a playlist (back port of the 26.4 snapshot 4 vanilla
+     * feature, queue N62). 26.3: on. 26.2: off until the port run. Lines whose vanilla has it (26.4+) must stay off - on a
+     * snapshot line the vanilla block tag {@code #minecraft:jukebox_containers} switches it off at run time as well.
+     */
+    public static final boolean JUKEBOX_CHEST_PLAYLIST = true;
     /** Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), fed by their End channel (2026-10-04). */
     public static final boolean END_RAILS = true;
     /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */

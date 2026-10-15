@@ -722,7 +722,7 @@ public final class MusicDiscTests {
         return player;
     }
 
-    private static <T> List<T> captured(List<net.minecraft.network.protocol.Packet<?>> sink, Class<T> type) {
+    static <T> List<T> captured(List<net.minecraft.network.protocol.Packet<?>> sink, Class<T> type) {
         synchronized (sink) {
             return sink.stream().filter(type::isInstance).map(type::cast).toList();
         }

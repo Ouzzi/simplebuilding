@@ -77,7 +77,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   8 Stufen im Inventar), Extra-Kopf-Slot im Inventar (Mob-Kopf/Kürbis; Effekte wie im Helm-Slot inkl. Attribute und Frostschutz, Anzieh-Sound, Modell vor einem Helm-Kopf, Größe wie am Mob, Helm darüber), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
 - **Deko/Platzieren:** abgelegte Vorlagen, Kleinteile-Häufchen (Barren/Ziegel/Diamant/Smaragd in 3D, Vorschlaghammer schaltet 3D/flach), Schachbrett-Blöcke und Schachfiguren (Achtel),
   senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-Verstärker (spielen einen
-  Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla) / Noten-Verstärker (spielen Notenblöcke ebenso per Funk mit), Metall-Stangen (Eisen bis
+  Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla; Rückport „Plattenspieler mit Truhe darüber“ = Playlist, N62, aus wo Vanilla es hat) / Noten-Verstärker (spielen Notenblöcke ebenso per Funk mit), Metall-Stangen (Eisen bis
   Enderit, Blitzableiter mit eigener Reichweite; früher „Rod“).
 - **Lichtscheiben (26.3, N57):** flache Lampenscheiben (1 px, an jeder Blockseite, ohne Stütze fallen sie ab, Wasserlogging): normal, transparent (Schleier über dem Block dahinter), 16 Farben, Redstone-Variante (Farbe nach Signalstärke, Rechtsklick wie Notenblock stellt die Farbe für Stärke 1 ein); Rezepte aus Glasscheibe, Glowstone-Staub, Farbstoff, Redstone (nur Vanilla-Zutaten).
 - **Verzauberungen:** Abbau-, Bau-, Lager-/Spieler-Verzauberungen, Luftsprung.
