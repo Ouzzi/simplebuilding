@@ -20,9 +20,9 @@ public final class SimpleEndFabric implements ModInitializer {
         EndRegistry.featureTypes();
         EndRegistry.sounds();
         EndRegistry.tab();
-        EndRegistry.vanillaTabStacks().forEach((tab, stacks) -> net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(tab).register(out -> {
+        EndRegistry.VANILLA_TABS.forEach(tab -> net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(tab).register(out -> {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleEnd.ID)) return;
-            stacks.forEach(s -> out.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            EndRegistry.vanillaTabStacks().getOrDefault(tab, java.util.List.of()).forEach(s -> out.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         }));
         EndRegistry.common();
         net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry.register(EndRegistry.NIBBLEMITE, com.simplebuilding.modules.simpleend.entity.Nibblemite.createAttributes());

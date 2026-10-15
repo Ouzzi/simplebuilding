@@ -23,9 +23,9 @@ public final class SandwichesFabric implements ModInitializer {
         ModItems.register();
         ModBlockEntities.register(FabricBlockEntityTypeBuilder.create(CuttingBoardBlockEntity::new, ModBlocks.boards()).build());
         SandwichRegistry.tab();
-        SandwichRegistry.vanillaTabStacks().forEach((tab, stacks) -> net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(tab).register(out -> {
+        SandwichRegistry.VANILLA_TABS.forEach(tab -> net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(tab).register(out -> {
             if (!Sandwiches.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), "simplesandwiches")) return;
-            stacks.forEach(s -> out.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            SandwichRegistry.vanillaTabStacks().getOrDefault(tab, java.util.List.of()).forEach(s -> out.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         }));
         SandwichRegistry.setup();
         SandwichesEnabledCondition.register();

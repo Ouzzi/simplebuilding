@@ -128,7 +128,7 @@ public final class RespawnTests {
             h.assertTrue(SimpleRespawn.downedNameTag(net.minecraft.network.chat.Component.literal("Alex"), 20 * 9).getString().equals("Alex 0:09"), "seconds padded");
             h.assertTrue(SimpleRespawn.downedNameTag(net.minecraft.network.chat.Component.literal("Alex"), 5).getStyle().getColor() == null
                     && SimpleRespawn.downedNameTag(net.minecraft.network.chat.Component.literal("Alex"), 5).getSiblings().stream()
-                            .allMatch(c -> c.getStyle().getColor() != null && c.getStyle().getColor().getValue() == net.minecraft.ChatFormatting.RED.getColor()),
+                            .allMatch(c -> c.getStyle().getColor() != null && c.getStyle().getColor().equals(net.minecraft.network.chat.TextColor.fromLegacyFormat(net.minecraft.ChatFormatting.RED))),
                     "name tag is red");
             RespawnServer.clear(victim);
             h.assertTrue(victim.waypointIcon().color.isEmpty(), "locator bar color restored after the downed state");
@@ -138,7 +138,7 @@ public final class RespawnTests {
             var id = java.util.UUID.randomUUID();
             var buf = io.netty.buffer.Unpooled.buffer();
             com.simplebuilding.modules.simplerespawn.network.DownedListPayload.CODEC.encode(buf,
-                    new com.simplebuilding.modules.simplerespawn.network.DownedListPayload(List.of(id), List.of(1234)));
+                    new com.simplebuilding.modules.simplerespawn.network.DownedListPayload(java.util.List.of(id), java.util.List.of(1234)));
             var back = com.simplebuilding.modules.simplerespawn.network.DownedListPayload.CODEC.decode(buf);
             h.assertTrue(back.players().equals(java.util.List.of(id)) && back.ticksLeft().equals(java.util.List.of(1234)), "uuid and ticks left survive the codec");
             h.succeed();

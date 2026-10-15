@@ -66,6 +66,9 @@ public final class SandwichRegistry {
      * The same items sorted into the fitting Vanilla tabs (shared switch {@code CreativeTabSettings}: the loaders add them only
      * while the switch is on and the mod is on). Guide book and sample sandwiches stay in the own tab.
      */
+    public static final List<net.minecraft.resources.ResourceKey<CreativeModeTab>> VANILLA_TABS = List.of(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS,
+            net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES, net.minecraft.world.item.CreativeModeTabs.FOOD_AND_DRINKS);
+
     public static java.util.Map<net.minecraft.resources.ResourceKey<CreativeModeTab>, List<ItemStack>> vanillaTabStacks() {
         java.util.Map<net.minecraft.resources.ResourceKey<CreativeModeTab>, List<ItemStack>> out = new java.util.LinkedHashMap<>();
         List<ItemStack> boards = new ArrayList<>();

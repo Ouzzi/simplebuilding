@@ -577,6 +577,7 @@ public final class EndTests {
         var map = EndRegistry.vanillaTabStacks();
         var own = EndRegistry.tabStacks();
         int sorted = 0;
+        h.assertTrue(EndRegistry.VANILLA_TABS.containsAll(map.keySet()), "every target tab is registered by the Fabric listener list");
         for (var e : map.entrySet()) {
             for (var stack : e.getValue()) {
                 sorted++;

@@ -240,7 +240,10 @@ public final class SilentDandelionTests {
         shrieker.tryShriek(helper.getLevel(), visitor);
         helper.assertTrue(!helper.getBlockState(pos).getValue(net.minecraft.world.level.block.SculkShriekerBlock.SHRIEKING),
                 "a silenced shrieker must not shriek");
-        helper.assertTrue(visitor.getWardenSpawnTracker().getWarningLevel() == 0,
+        // 26.2 returns an Optional, 26.3 the tracker itself.
+        Object tracker = visitor.getWardenSpawnTracker();
+        if (tracker instanceof java.util.Optional<?> optional) tracker = optional.orElse(null);
+        helper.assertTrue(!(tracker instanceof net.minecraft.world.entity.monster.warden.WardenSpawnTracker spawn) || spawn.getWarningLevel() == 0,
                 "a silenced shrieker must not raise the warning level");
         // A loud one shrieks (the existing behavior stays; CAN_SUMMON off so only the shriek itself is checked).
         helper.setBlock(pos, helper.getBlockState(pos).setValue(net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON, false));

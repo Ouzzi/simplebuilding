@@ -777,6 +777,7 @@ public final class SandwichTests {
     private static void vanillaTabStacks(GameTestHelper h) {
         var own = SandwichRegistry.tabStacks();
         int sorted = 0;
+        h.assertTrue(SandwichRegistry.VANILLA_TABS.containsAll(SandwichRegistry.vanillaTabStacks().keySet()), "every target tab is registered by the Fabric listener list");
         for (var e : SandwichRegistry.vanillaTabStacks().entrySet()) {
             for (var stack : e.getValue()) {
                 sorted++;

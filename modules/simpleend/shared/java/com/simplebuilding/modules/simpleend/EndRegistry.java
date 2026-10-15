@@ -168,6 +168,9 @@ public final class EndRegistry {
      * The same items sorted into the fitting Vanilla tabs (shared switch {@code CreativeTabSettings}: the loaders add them only
      * while the switch is on). The guide book stays in the own tab.
      */
+    public static final List<ResourceKey<CreativeModeTab>> VANILLA_TABS = List.of(net.minecraft.world.item.CreativeModeTabs.NATURAL_BLOCKS, net.minecraft.world.item.CreativeModeTabs.BUILDING_BLOCKS, net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS,
+            net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES, net.minecraft.world.item.CreativeModeTabs.INGREDIENTS, net.minecraft.world.item.CreativeModeTabs.FOOD_AND_DRINKS, net.minecraft.world.item.CreativeModeTabs.SPAWN_EGGS);
+
     public static Map<ResourceKey<CreativeModeTab>, List<ItemStack>> vanillaTabStacks() {
         Map<ResourceKey<CreativeModeTab>, List<ItemStack>> out = new java.util.LinkedHashMap<>();
         for (EndWood w : EndWood.ALL) {
