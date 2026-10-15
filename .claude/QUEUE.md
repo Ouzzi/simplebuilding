@@ -278,6 +278,15 @@ Simple Shops – Umbau
 - [ ] Viele Prüfungen/Tests, Missbrauchsfälle durchdenken (Duping, fremde Lager, Explosion, Kolben, Trichter, Chunk-Grenzen, Besitzerwechsel).
 
 ## Nachtrag 65 (2026-10-15, Besitzer; Bilder kamen nicht an – bei Bedarf nachfordern)
+Befunde aus den Besitzer-Screenshots 15.10. (Bilder 1–8, nur als Beschreibung verfügbar)
+- [ ] Bild 1: Platzierte Barren (lila/Enderit-artig, 3–4 Stück) stecken sichtbar ineinander, Diamant-Kleinteil überlappt mit Barren – bestätigt den Punkt „Platzierte Teile“.
+- [ ] Bild 2: Markierter Container („Marked: Reinforced Chest“) wird über dem Inventar noch im ALTEN grellen Orange gezeichnet → auf neue Bronze-Palette umstellen; im Spieler-Inventar zeigt ein Item das lila-schwarze Fehlende-Textur-Karo (3. Reihe, letzter Platz) → gehört zu „Texturen fehlen im Spiel“.
+- [ ] Bild 3/5: Wayfinder-Karte: rechts vom geladenen Kreis senkrechte Streifen/Linien-Artefakte; Rahmen der Karte ebenfalls noch grelles Orange → Bronze.
+- [ ] Bild 4: „Configure waypoint“: die Reihe der Kopf-Icons läuft weit über den rechten Rand des Dialogs hinaus (kein Umbruch/Scrollen) – im neuen Configure-Dialog sauber begrenzen; Farbleiste grell (entfällt laut N65).
+- [ ] Bild 5: Wegpunkt heißt „TEST“ (Tooltip), auf der Karte steht „1“.
+- [ ] Bild 6: Aschholz-/Dämmerholz-Blätter wirken wie ein Raster gleichmäßiger lila Punkte auf braunem Grund – sehr künstlich (bestätigt N65 End-Bäume).
+- [ ] Bild 7/8: Kopf-Modelle teils abgeschnitten (Shulker-Köpfe in mehreren Farben oben/seitlich gekappt; im Kopf-Raster weitere Köpfe mit gekappten Teilen prüfen).
+
 Platzierte Teile
 - [ ] Barren & andere platzierte Kleinteile überlappen ab 3–4 Teilen (stecken ineinander, Z-Fighting). Anordnung so ändern, dass sie immer überschneidungsfrei passen.
 
