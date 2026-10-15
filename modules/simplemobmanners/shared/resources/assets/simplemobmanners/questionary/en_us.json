@@ -1,0 +1,13 @@
+{
+  "frog_bucket": {
+    "lore": [
+      "A pail with a very patient frog sitting in the water."
+    ],
+    "use": [
+      "Use a water bucket on a frog to catch it, then place the bucket like water to let it go. Its variant, name and age come back with it."
+    ],
+    "secret": [
+      "A caught frog is carried by the bucket as a component, so a named frog keeps its name for as long as you carry it."
+    ]
+  }
+}

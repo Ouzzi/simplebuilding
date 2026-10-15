@@ -1,0 +1,13 @@
+{
+  "frog_bucket": {
+    "lore": [
+      "Ein Eimer mit einem sehr geduldigen Frosch im Wasser."
+    ],
+    "use": [
+      "Benutze einen Wassereimer auf einem Frosch, um ihn zu fangen, und platziere den Eimer wie Wasser, um ihn freizulassen. Variante, Name und Alter kommen mit zurück."
+    ],
+    "secret": [
+      "Der gefangene Frosch steckt als Komponente im Eimer, ein benannter Frosch behält also seinen Namen, solange du ihn trägst."
+    ]
+  }
+}
