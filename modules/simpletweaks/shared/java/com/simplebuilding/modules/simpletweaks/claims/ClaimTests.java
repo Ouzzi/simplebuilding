@@ -76,6 +76,10 @@ public final class ClaimTests {
         TESTS.put("claims_rights_apply_code",ClaimRightsTests::applyCode);
         TESTS.put("claims_rights_commands",ClaimRightsTests::commands);
         TESTS.put("claims_rights_migration",ClaimRightsTests::migration);
+        TESTS.put("claims_deed_component",ClaimDeedTests::component);
+        TESTS.put("claims_deed_use",ClaimDeedTests::use);
+        TESTS.put("claims_deed_edit",ClaimDeedTests::edit);
+        TESTS.put("claims_deed_copy",ClaimDeedTests::copy);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */

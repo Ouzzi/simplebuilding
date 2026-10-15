@@ -54,8 +54,10 @@ public final class CompatibilityTests {
   require(h,BuiltInRegistries.ITEM.containsKey(old("claim_deed")),"Legacy deed registered");
   if(simpleBuilding())require(h,BuiltInRegistries.ITEM.containsKey(now("amethyst_lens")),"SimpleBuilding loaded");
   require(h,BuiltInRegistries.ITEM.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).count()==2,"Only the deed and the guide are real module items");
-  for (Registry<?> r : List.of(BuiltInRegistries.BLOCK,BuiltInRegistries.BLOCK_ENTITY_TYPE,BuiltInRegistries.DATA_COMPONENT_TYPE,BuiltInRegistries.ENTITY_TYPE,BuiltInRegistries.CREATIVE_MODE_TAB))
+  for (Registry<?> r : List.of(BuiltInRegistries.BLOCK,BuiltInRegistries.BLOCK_ENTITY_TYPE,BuiltInRegistries.ENTITY_TYPE,BuiltInRegistries.CREATIVE_MODE_TAB))
    require(h,r.keySet().stream().noneMatch(x->x.getNamespace().equals("simpletweaks")),"No duplicate gameplay registry: "+r.key());
+ // The one component of the module is the deed's binding (display only); every other name is a legacy alias of SimpleBuilding.
+ require(h,BuiltInRegistries.DATA_COMPONENT_TYPE.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).map(Identifier::getPath).collect(java.util.stream.Collectors.toSet()).equals(java.util.Set.of("deed")),"Only the deed binding is a module component");
   try {
    java.nio.file.Path root=java.nio.file.Path.of(System.getProperty("user.dir")).toAbsolutePath();
    while(root!=null && !java.nio.file.Files.isRegularFile(root.resolve("modules/modules.json")))root=root.getParent();

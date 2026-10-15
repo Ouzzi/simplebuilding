@@ -40,6 +40,9 @@ public final class DeedService {
         return stack.is(ClaimDeedItem.item()) ? stack : ItemStack.EMPTY;
     }
 
+    /** Tests only: forget the packet times (a game test sends several packets in one tick). */
+    public static void resetThrottle() { LAST.clear(); }
+
     /** True if this packet comes too soon after the previous one of the player (dropped). */
     static boolean throttled(ServerPlayer player) {
         int now = player.level().getServer().getTickCount();
