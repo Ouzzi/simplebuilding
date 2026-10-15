@@ -80,8 +80,12 @@ public final class LinkedHud {
         graphics.item(icon, x + PADDING, y + PADDING);
         int tx = x + PADDING + ICON + PADDING;
         int ty = y + (two ? PADDING + 1 : (HEIGHT - font.lineHeight) / 2);
-        graphics.text(font, font.substrByWidth(lines[0], text).getVisualOrderText(), tx, ty, 0xFFFFFFFF, true);
-        if (two) graphics.text(font, font.substrByWidth(lines[1], text).getVisualOrderText(), tx, ty + font.lineHeight + 1, SECONDARY, true);
+        graphics.text(font, clip(font, lines[0], text), tx, ty, 0xFFFFFFFF, true);
+        if (two) graphics.text(font, clip(font, lines[1], text), tx, ty + font.lineHeight + 1, SECONDARY, true);
+    }
+
+    private static Component clip(Font font, Component line, int width) {
+        return font.width(line) <= width ? line : Component.literal(font.plainSubstrByWidth(line.getString(), width));
     }
 
     private static int scale(int color, double f) {

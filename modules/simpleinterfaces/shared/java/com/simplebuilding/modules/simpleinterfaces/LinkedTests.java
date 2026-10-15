@@ -435,6 +435,8 @@ public final class LinkedTests {
             LinkedContainers.tick(p);
             h.assertTrue(menu.slots.size() == base && firstLinked(menu) == -1 && LinkedContainers.mark(p) != null, "Creative: slots removed from the inventory menu, mark kept");
             h.assertTrue(sent.stream().anyMatch(x -> x.containerId() == menu.containerId && x.size() == 0), "Creative: the client is told to drop the slots");
+            diamonds = -1;
+            for (int i = 9; i < 45; i++) if (menu.slots.get(i).getItem().is(Items.DIAMOND)) diamonds = i;
             menu.clicked(diamonds, 0, ContainerInput.QUICK_MOVE, p);
             h.assertTrue(count(box, Items.DIAMOND) == 0, "Creative: shift-click stays vanilla, nothing reaches the marked container");
             LinkedContainers.tick(p);
@@ -447,6 +449,8 @@ public final class LinkedTests {
             p.setGameMode(GameType.SURVIVAL);
             LinkedContainers.tick(p);
             h.assertTrue(menu.slots.size() == base + 27, "Survival again: slots return");
+            diamonds = -1;
+            for (int i = 9; i < 45; i++) if (menu.slots.get(i).getItem().is(Items.DIAMOND)) diamonds = i;
             menu.clicked(diamonds, 0, ContainerInput.QUICK_MOVE, p);
             h.assertTrue(count(box, Items.DIAMOND) == 4, "Survival again: shift-click fills the marked container");
             // Server rule: a click on the inventory menu's marked slots while another menu is open moves nothing.
