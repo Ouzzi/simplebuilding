@@ -30,3 +30,17 @@ mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.simpleshops]]
+modId="simplemoney"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpleshops]]
+modId="simpletweaks"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

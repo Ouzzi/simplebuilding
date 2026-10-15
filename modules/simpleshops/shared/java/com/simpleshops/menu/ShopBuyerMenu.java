@@ -152,8 +152,8 @@ public class ShopBuyerMenu extends ShopMenu {
     @Override
     public boolean clickMenuButton(Player player, int id) {
         if (!(player instanceof ServerPlayer sp) || this.sales == null || this.shopCase == null || id < 0) return false;
-        touch();
         if (!stillValid(sp)) return false;
+        touch();
         int action = id & 0xFF;
         int seen = (id >>> 8) & 0xFFFF;
         if (action < DisplayCaseBlockEntity.SIZE) {

@@ -33,6 +33,11 @@ public abstract class ShopMenu extends AbstractContainerMenu {
         this.lastAction = this.anchor != null && this.anchor.getLevel() != null ? this.anchor.getLevel().getGameTime() : 0L;
     }
 
+    /** Tests: pretends the last click was {@code ticks} ago. */
+    public final void ageForTest(long ticks) {
+        this.lastAction -= ticks;
+    }
+
     /** The whole player inventory below a menu: three rows and the hotbar. */
     protected final void addInventory(Inventory inventory, int left, int top) {
         for (int row = 0; row < 3; row++) {
