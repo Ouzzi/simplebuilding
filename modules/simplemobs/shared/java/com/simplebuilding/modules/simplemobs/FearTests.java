@@ -191,7 +191,7 @@ final class FearTests {
             floor(h, 0, 0, 6, 7);
             var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 6));
             var player = h.makeMockServerPlayerInLevel();
-            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            player.addTag(FearAura.TEST_TAG);
             Vec3 at = h.absoluteVec(new Vec3(3.5, 2, 1.5));
             Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
             float pitch = (float) -Math.toDegrees(Math.atan2(head.y - (at.y + player.getEyeHeight()), Math.hypot(head.x - at.x, head.z - at.z)));
@@ -201,7 +201,7 @@ final class FearTests {
             player.setYHeadRot(0.0f);
             h.assertTrue(watcher.stared(player) && !watcher.seenBy(player), "crosshair on the eyes is a direct look");
             h.assertFalse(watcher.updateGaze(h.getLevel()) || watcher.watched(), "a direct look does not freeze it");
-            h.assertTrue(watcher.aggressive() && watcher.getTarget() == player, "it turns aggressive against the one who looks");
+            h.assertTrue(watcher.aggressive() && watcher.getTarget() == player, "it turns aggressive against the one who looks (aggressive " + watcher.aggressive() + ", target " + watcher.getTarget() + ", affects " + FearAura.affects(player) + ")");
             watcher.setNoAi(false);
             watcher.playAction(HollowWatcherEntity.ACT_CLAW, 6);
             watcher.tick();
@@ -227,7 +227,7 @@ final class FearTests {
             floor(h, -24, -24, 28, 28);
             float range = MobsConfig.watcherRange;
             var watcher = h.spawn(FearMobs.WATCHER, 3, 2, 3);
-            var dummy = dummy(h, 23, 3);
+            var dummy = dummy(h, 14, 3);
             watcher.setTeleportCooldown(0);
             MobsConfig.watcherRange = 8.0f;
             watcher.setTarget(dummy);
@@ -336,7 +336,7 @@ final class FearTests {
             var watcher = still(h.spawn(FearMobs.WATCHER, 4, 2, 6));
             var a = h.makeMockServerPlayerInLevel();
             var b = h.makeMockServerPlayerInLevel();
-            b.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            b.addTag(FearAura.TEST_TAG);
             Vec3 pa = h.absoluteVec(new Vec3(2.5, 2, 1.5)), pb = h.absoluteVec(new Vec3(6.5, 2, 1.5));
             Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
             a.snapTo(pa.x, pa.y, pa.z, 180.0f, 0.0f);
@@ -354,7 +354,7 @@ final class FearTests {
             b.snapTo(pb.x, pb.y, pb.z, yaw, pitch);
             b.setYHeadRot(yaw);
             h.assertFalse(watcher.updateGaze(h.getLevel()), "a direct look is not calm");
-            h.assertTrue(watcher.aggressive() && watcher.getTarget() == b, "direct look of one of two players: aggressive against that one");
+            h.assertTrue(watcher.aggressive() && watcher.getTarget() == b, "direct look of one of two players: aggressive against that one (aggressive " + watcher.aggressive() + ", target " + watcher.getTarget() + ", affects " + FearAura.affects(b) + ")");
             watcher.discard();
             watcher = still(h.spawn(FearMobs.WATCHER, 4, 2, 6));
             b.snapTo(pb.x, pb.y, pb.z, yaw + 7.0f, pitch);
