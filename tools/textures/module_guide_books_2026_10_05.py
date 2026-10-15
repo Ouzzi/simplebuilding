@@ -41,6 +41,8 @@ BOOKS = {
     "simpleovens": ("simpleovens", ("#22201e", "#363230", "#9a9692", "#787470", "#5e5a56"), "#ff8a2a", "Ofenstein, Glutorange"),
     "simpletrims": ("simpletrims", ("#141838", "#20285a", "#6a7ed0", "#4a5eae", "#3a4a8a"), "#ffd860", "Nachtblau, Besatzgold"),
     "simpleshops": ("simpleshops", ("#2a1a0c", "#40281a", "#b0824c", "#8e6234", "#6e4a26"), "#ffd23a", "Kassenholz, Muenzgold"),
+    # 2026-10-15 (oc-simplestats)
+    "simplestats": ("simplestats", ("#2e1608", "#4a2610", "#d68a50", "#b46a34", "#8e5026"), "#7ee8d0", "Kupfer, Patina-Tuerkis"),
 }
 
 

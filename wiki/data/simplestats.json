@@ -1,0 +1,278 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplestats",
+    "name": "Simple Stats",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "overview",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatItems.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsComponents.java"
+      ],
+      "en": {
+        "title": "Item statistics",
+        "summary": "Tools, weapons, shields, elytra, fishing rods, brushes, flint and steel and armor (also mount armor) keep their own statistics in the simplestats:item_stats component. Which item counts what is decided by components and item tags (tool, weapon, glider, blocks attacks, armor attributes), not by class, so gear from other mods with vanilla behavior counts too. An item without activity carries nothing and shows nothing."
+      },
+      "de": {
+        "title": "Gegenstandsstatistik",
+        "summary": "Werkzeuge, Waffen, Schilde, Elytren, Angeln, Bürsten, Feuerzeuge und Rüstung (auch Reittier-Rüstung) führen ihre eigene Statistik in der Komponente simplestats:item_stats. Welcher Gegenstand was zählt, bestimmen Komponenten und Item-Tags (Werkzeug, Waffe, Gleiter, Angriffe blocken, Rüstungswerte), nicht die Klasse; Ausrüstung anderer Mods mit Vanilla-Verhalten zählt also mit. Ein Gegenstand ohne Aktivität trägt nichts und zeigt nichts."
+      }
+    },
+    {
+      "id": "mining",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/ItemStackMixin.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsRuntime.java"
+      ],
+      "en": {
+        "title": "Blocks mined",
+        "summary": "Every block broken with a tool counts for that tool, listed by block, including blocks with zero hardness. Every way of mining ends in the item's mine-block call, so Vanilla, other mods and (with SimpleBuilding) the sledgehammer count the same way: an area break with the hammer counts each block. Changes are collected per tick and written once."
+      },
+      "de": {
+        "title": "Abgebaute Blöcke",
+        "summary": "Jeder mit einem Werkzeug abgebaute Block zählt für dieses Werkzeug und steht nach Blockart in einer Liste, auch Blöcke mit Härte 0. Jede Art des Abbaus läuft über den Abbau-Aufruf des Gegenstands: Vanilla, andere Mods und (mit SimpleBuilding) der Vorschlaghammer zählen gleich; ein Flächenabbau mit dem Hammer zählt jeden Block. Änderungen werden je Tick gesammelt und einmal geschrieben."
+      }
+    },
+    {
+      "id": "combat",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/LivingEntityMixin.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsRuntime.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/MobKeys.java"
+      ],
+      "en": {
+        "title": "Kills and damage",
+        "summary": "A kill counts for the weapon that caused it, by mob and by mob variant (cat type, sheep color, baby, charged creeper, slime size, villager profession and the vanilla variant components). Damage dealt and the biggest single hit are recorded, a mace smash gets its own record. Arrows only carry a copy of the bow, so the real bow is found again through a random statistic id stored on it: an arrow kill counts for the bow even after the hand changed. Thrown tridents carry their statistics with them. Killing a player counts as a number only, without a name."
+      },
+      "de": {
+        "title": "Kills und Schaden",
+        "summary": "Ein Kill zählt für die Waffe, die ihn verursacht hat, nach Mob und nach Mob-Variante (Katzenart, Schaffarbe, Jungtier, geladener Creeper, Schleimgröße, Dorfbewohner-Beruf und die Vanilla-Variantenkomponenten). Verursachter Schaden und der stärkste Einzeltreffer werden festgehalten, ein Streitkolben-Schmetterschlag hat einen eigenen Rekord. Pfeile tragen nur eine Kopie des Bogens; den echten Bogen findet die Mod über eine zufällige Statistik-Kennung darauf wieder: ein Pfeil-Kill zählt dem Bogen auch nach einem Handwechsel. Geworfene Dreizacke tragen ihre Statistik mit sich. Spieler-Kills zählen nur als Zahl, ohne Namen."
+      }
+    },
+    {
+      "id": "armor",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/LivingEntityMixin.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsRuntime.java"
+      ],
+      "en": {
+        "title": "Armor, shields and wearing time",
+        "summary": "Damage that armor and its enchantments take away is split among the worn pieces in proportion to their armor points (an approximation); fall damage goes to the boots. Mount armor on animals counts too. The list shows the absorbed amount by damage type. A shield counts blocked attacks and blocked damage by attacker. Wearing time is handed to the worn armor and elytra every ten seconds, when a player leaves and when a worn piece changes hands within that interval its time may land on the new piece."
+      },
+      "de": {
+        "title": "Rüstung, Schilde und Tragezeit",
+        "summary": "Schaden, den Rüstung und ihre Verzauberungen abfangen, wird im Verhältnis der Rüstungspunkte auf die getragenen Teile verteilt (eine Näherung); Fallschaden geht an die Stiefel. Auch Reittier-Rüstung zählt. Die Liste zeigt den abgefangenen Betrag je Schadensart. Ein Schild zählt geblockte Angriffe und geblockten Schaden je Angreifer. Die Tragezeit wird alle zehn Sekunden an getragene Rüstung und Elytren übergeben, beim Verlassen des Spiels; wechselt ein Teil innerhalb dieses Abstands, kann seine Zeit beim neuen Teil landen."
+      }
+    },
+    {
+      "id": "distances",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsRuntime.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/ServerPlayerMixin.java"
+      ],
+      "en": {
+        "title": "Distances and flights",
+        "summary": "Boots count the walked, sprinted, sneaked and swum distance; the glider counts distance flown, flights, rocket boosts and the longest flight. The numbers come from the vanilla movement statistics (the mod does not measure anything itself) and are handed to the items every ten seconds, at the end of a flight and when a player leaves."
+      },
+      "de": {
+        "title": "Strecken und Flüge",
+        "summary": "Stiefel zählen die gegangene, gesprintete, geschlichene und geschwommene Strecke; der Gleiter zählt Flugstrecke, Flüge, Raketenschübe und den längsten Flug. Die Zahlen stammen aus den Vanilla-Bewegungsstatistiken (die Mod misst nichts selbst) und werden alle zehn Sekunden, am Ende eines Fluges und beim Verlassen des Spiels an die Gegenstände übergeben."
+      }
+    },
+    {
+      "id": "tools",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/ItemStackMixin.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/FishingRodHookedTriggerMixin.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/BrushableBlockEntityMixin.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/PlayerMixin.java"
+      ],
+      "en": {
+        "title": "Special tools",
+        "summary": "Axes count stripped logs, hoes tilled soil, shears sheared mobs by kind and color, brushes finished suspicious blocks, flint and steel its fires, and fishing rods casts and catches (by item and as fish, treasure or junk)."
+      },
+      "de": {
+        "title": "Besondere Werkzeuge",
+        "summary": "Äxte zählen entrindete Stämme, Hacken umgegrabenen Boden, Scheren geschorene Mobs nach Art und Farbe, Bürsten fertig gebürstete verdächtige Blöcke, das Feuerzeug seine Feuer und Angeln Würfe und Fänge (nach Gegenstand und als Fisch, Schatz oder Müll)."
+      }
+    },
+    {
+      "id": "display",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/client/StatsTooltip.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/client/ItemStatsScreen.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/client/StatsClient.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/data/StatsLayout.java"
+      ],
+      "en": {
+        "title": "Tooltip and statistics screen",
+        "summary": "The tooltip shows one headline value and the hint Shift: details; with Shift it shows the most important values. Hold an item (or hover it in any inventory, chest or trading screen) and press the key (default I, rebindable) to open the statistics screen of that item: totals and records, then every counted block, mob, catch and damage type with its amount and share, sorted by amount, with a scroll bar."
+      },
+      "de": {
+        "title": "Tooltip und Statistik-Bildschirm",
+        "summary": "Der Tooltip zeigt einen Hauptwert und den Hinweis Shift: Details; mit Shift die wichtigsten Werte. Mit einem Gegenstand in der Hand (oder mit der Maus darüber in einem Inventar-, Truhen- oder Handelsbildschirm) öffnet die Taste (Standard I, umbelegbar) den Statistik-Bildschirm dieses Gegenstands: Summen und Rekorde, danach jeder gezählte Block, Mob, Fang und jede Schadensart mit Menge und Anteil, nach Menge sortiert, mit Scrollleiste."
+      }
+    },
+    {
+      "id": "storage",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/data/StatData.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsComponents.java"
+      ],
+      "en": {
+        "title": "Size, inheritance and reset",
+        "summary": "Lists are as complete as what was counted. The only protection is a byte budget per item (default 32 KB, setting maxBytes): once it is used up, new entries are no longer listed and are summed as others, known entries keep counting and totals stay exact. The data carries a version field; a value written by a newer version is shown but never changed. A smithing upgrade keeps the statistics, the anvil keeps those of the left item, crafting-grid repair makes a new item without them. Statistics can only be cleared with /simplestats reset."
+      },
+      "de": {
+        "title": "Größe, Vererbung und Zurücksetzen",
+        "summary": "Listen sind so vollständig wie das Gezählte. Der einzige Schutz ist ein Byte-Budget je Gegenstand (Standard 32 KB, Einstellung maxBytes): ist es aufgebraucht, werden neue Einträge nicht mehr aufgelistet, sondern als weitere summiert; bekannte Einträge zählen weiter, die Summen bleiben exakt. Die Daten tragen ein Versionsfeld; ein Wert einer neueren Version wird gezeigt, aber nie verändert. Ein Schmiede-Upgrade behält die Statistik, der Amboss die des linken Gegenstands, die Reparatur im Handwerksraster erzeugt einen neuen Gegenstand ohne sie. Zurücksetzen geht nur mit /simplestats reset."
+      }
+    },
+    {
+      "id": "rules",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsRuntime.java",
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsConfig.java"
+      ],
+      "en": {
+        "title": "Who counts and who sees",
+        "summary": "Everyone who sees an item sees its statistics: nothing is hidden and no owner is stored, so sharing an item shares its numbers. Players in Creative or Spectator mode and machine players of other mods do not count (settings countCreative and countFakePlayers). Settings: enabled, trackMining, trackCombat, trackArmor, trackDistances, trackFishing, trackTools, trackPlayerKills and maxBytes in config/simplestats.json."
+      },
+      "de": {
+        "title": "Wer zählt und wer sieht",
+        "summary": "Jeder, der einen Gegenstand sieht, sieht seine Statistik: nichts ist verborgen und kein Besitzer wird gespeichert, wer einen Gegenstand teilt, teilt seine Zahlen. Spieler im Kreativ- oder Zuschauermodus und Maschinen-Spieler anderer Mods zählen nicht (Einstellungen countCreative und countFakePlayers). Einstellungen: enabled, trackMining, trackCombat, trackArmor, trackDistances, trackFishing, trackTools, trackPlayerKills und maxBytes in config/simplestats.json."
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/StatsCommands.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again. Game master permission required."
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplestats reset löscht die Statistik des gehaltenen Gegenstands, /simplestats show listet die Rohwerte, /simplestats reload liest die Einstellungen neu. Spielleiter-Recht nötig."
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "simplestats:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplestats:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplestats/shared/resources/data/simplestats/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:flint"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:flint"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:flint",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [
+    {
+      "id": "simplestats:guide_book",
+      "name": {
+        "en_us": "Simple Stats Guide",
+        "de_de": "Simple-Stats-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/guide/StatsGuide.java",
+          "modules/simplestats/shared/resources/data/simplestats/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 29 pages taken from this wiki, shown in your language. Shapeless recipe: book + flint. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Stats\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 29 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Feuerstein. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Stats\" eins."
+        }
+      },
+      "craftedBy": [
+        "simplestats:guide_book"
+      ],
+      "usedIn": []
+    }
+  ],
+  "blocks": [],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 10,
+    "recipes": 1,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 1,
+    "blocks": 0,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}
