@@ -58,6 +58,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simplemaps-hand-contour-zoom4");
             context.runOnClient(c -> SimpleMaps.toServer.accept(new com.simplemaps.net.DisplayPayload(0, MapsComponents.Display.DEFAULT)));
             context.waitTicks(5);
+            context.runOnClient(c -> c.setScreenAndShow(WayfinderScreen.forHand(InteractionHand.MAIN_HAND)));
+            context.waitTicks(10);
             context.runOnClient(c -> {
                 WayfinderScreen s = (WayfinderScreen) c.gui.screen();
                 s.mouseClicked(new MouseButtonEvent(s.mapCenterX() + 20, s.mapCenterY() + 10, new MouseButtonInfo(1, 0)), false);
