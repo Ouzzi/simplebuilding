@@ -251,7 +251,10 @@ def placeholder_png(key: str, w: int, h: int) -> bytes:
 # Outputs that are byte-identical in the real set (one texture for all six faces): their placeholders must be
 # identical too, or the wiki texture index (which merges equal copies) would differ between jar and no-jar runs.
 SAME_AS = {'block/jukebox_amplifier_top.png': 'block/jukebox_amplifier_side.png',
-           'block/note_amplifier_top.png': 'block/note_amplifier_side.png'}
+           'block/note_amplifier_top.png': 'block/note_amplifier_side.png',
+           # Same pixels as the simpleovens module copies (the wiki merges equal copies, jar and placeholder alike).
+           **{f'item/{t}_furnace_minecart.png': f'simpleovens:item/{t}_furnace_minecart.png'
+              for t in ('reinforced', 'netherite', 'enderite')}}
 
 
 def placeholder(rel: str, module: str | None = None) -> bytes:
