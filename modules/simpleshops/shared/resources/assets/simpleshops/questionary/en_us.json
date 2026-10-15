@@ -31,5 +31,16 @@
     "secret": [
       "Craft it from a Display Case and a glow ink sac; the goods are drawn fully bright."
     ]
+  },
+  "sales_storage": {
+    "lore": [
+      "A crate with two iron bands and a funnel on top: the overflow bin of a busy shop."
+    ],
+    "use": [
+      "Hang it under your Sales Block (or under another storage). It pulls the earnings down by itself, hopper style, as long as every block of the chain is yours. Right click to take things out."
+    ],
+    "secret": [
+      "Strangers cannot open, break, push or empty it; hoppers do not see it. A full chain turns the Trade button off."
+    ]
   }
 }
