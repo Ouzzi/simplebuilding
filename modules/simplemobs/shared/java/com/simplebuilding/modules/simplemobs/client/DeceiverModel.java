@@ -11,6 +11,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 
 /** Small hooded figure (about 0.94 blocks): robe, hood head with a shadowed face, wide sleeves, a full cloak down the back like the player's Cloak of Deception (N48), optional chest plate. */
 public class DeceiverModel extends EntityModel<DeceiverRenderState> {
@@ -19,6 +20,9 @@ public class DeceiverModel extends EntityModel<DeceiverRenderState> {
 
     private final ModelPart head;
     private final ModelPart plate;
+    /** Parts the idle loop touches (rotation only), and their rotations before it ran, for fading it out while walking. */
+    private final ModelPart[] idleParts;
+    private final float[] beforeIdle = new float[15];
     private final KeyframeAnimation walk, idle, summon, teleport, drink, unmask;
 
     public DeceiverModel(ModelPart root) {
@@ -26,6 +30,7 @@ public class DeceiverModel extends EntityModel<DeceiverRenderState> {
         ModelPart body = root.getChild("body");
         this.head = body.getChild("head");
         this.plate = body.getChild("plate");
+        this.idleParts = new ModelPart[] {body, head, body.getChild("cloak"), body.getChild("right_arm"), body.getChild("left_arm")};
         this.walk = DeceiverAnimation.WALK.bake(root);
         this.idle = DeceiverAnimation.IDLE.bake(root);
         this.summon = DeceiverAnimation.SUMMON.bake(root);
@@ -72,10 +77,30 @@ public class DeceiverModel extends EntityModel<DeceiverRenderState> {
         this.head.xRot = state.xRot * (float) (Math.PI / 180.0);
         this.head.yRot = state.yRot * (float) (Math.PI / 180.0);
         this.walk.applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2.0F, 2.5F);
-        this.idle.apply(state.idle, state.ageInTicks);
+        applyIdle(state);
         this.summon.apply(state.summon, state.ageInTicks);
         this.teleport.apply(state.teleport, state.ageInTicks);
         this.drink.apply(state.drink, state.ageInTicks);
         this.unmask.apply(state.unmask, state.ageInTicks);
+    }
+
+    /**
+     * The idle loop adds on top of the walk, so walking would wobble twice. It fades out as soon as the Deceiver moves
+     * (full below 0.02 walk speed, gone at 0.15) by blending the rotations back, so nothing snaps.
+     */
+    private void applyIdle(DeceiverRenderState state) {
+        float w = 1.0F - Mth.smoothstep(Mth.clamp((state.walkAnimationSpeed - 0.02F) / 0.13F, 0.0F, 1.0F));
+        if (w <= 0.0F) return;
+        for (int i = 0; i < idleParts.length; i++) {
+            beforeIdle[i * 3] = idleParts[i].xRot;
+            beforeIdle[i * 3 + 1] = idleParts[i].yRot;
+            beforeIdle[i * 3 + 2] = idleParts[i].zRot;
+        }
+        this.idle.apply(state.idle, state.ageInTicks);
+        for (int i = 0; i < idleParts.length; i++) {
+            idleParts[i].xRot = Mth.lerp(w, beforeIdle[i * 3], idleParts[i].xRot);
+            idleParts[i].yRot = Mth.lerp(w, beforeIdle[i * 3 + 1], idleParts[i].yRot);
+            idleParts[i].zRot = Mth.lerp(w, beforeIdle[i * 3 + 2], idleParts[i].zRot);
+        }
     }
 }

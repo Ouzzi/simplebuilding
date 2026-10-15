@@ -59,6 +59,17 @@ public class ShellkerEntity extends Shulker {
         });
     }
 
+    /** Client only: ticks since the slit opened (0 while shut), for the lid's opening shudder. */
+    private int clientOpenAge;
+
+    public int clientOpenAge() { return clientOpenAge; }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide()) clientOpenAge = isShut() ? 0 : clientOpenAge + 1;
+    }
+
     public boolean isShut() {
         return this.entityData.get(DATA_PEEK_ID) == 0;
     }

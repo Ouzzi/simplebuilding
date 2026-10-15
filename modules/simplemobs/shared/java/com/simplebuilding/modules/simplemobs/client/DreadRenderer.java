@@ -29,12 +29,20 @@ public class DreadRenderer extends MobRenderer<DreadEntity, DreadRenderState, Dr
     @Override
     public void extractRenderState(DreadEntity entity, DreadRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
-        float age = entity.clientActionAge() + partialTicks;
-        int action = entity.action();
-        state.swing = action == DreadEntity.ACT_SWING ? Math.min(1.0F, age / (FearLogic.SWING_WINDUP - 2)) : 0.0F;
-        state.stomp = action == DreadEntity.ACT_STOMP ? Math.min(1.0F, age / (FearLogic.STOMP_WINDUP - 4)) : 0.0F;
+        state.swing = pose(entity, DreadEntity.ACT_SWING, FearLogic.SWING_WINDUP - 2, partialTicks);
+        state.stomp = pose(entity, DreadEntity.ACT_STOMP, FearLogic.STOMP_WINDUP - 4, partialTicks);
         int rise = entity.riseTicks();
-        state.rise = rise > 0 ? 1.0F - Math.max(0.0F, rise - partialTicks) / FearLogic.RISE_TICKS : 1.0F;
+        state.rise = rise > 0 ? FearLogic.ease(1.0F - Math.max(0.0F, rise - partialTicks) / FearLogic.RISE_TICKS) : 1.0F;
         state.weak = entity.weakened();
+    }
+
+    /** 0..1 pose of an action: eased wind-up while it runs, then an eased recovery instead of snapping back. */
+    private static float pose(DreadEntity entity, int kind, int windup, float partialTicks) {
+        int action = entity.action();
+        if (action == kind) return FearLogic.ease((entity.clientActionAge() + partialTicks) / windup);
+        if (action == DreadEntity.ACT_NONE && entity.clientRecoverKind() == kind && entity.clientRecoverTicks() > 0) {
+            return FearLogic.ease((entity.clientRecoverTicks() - partialTicks) / FearLogic.RECOVER_TICKS);
+        }
+        return 0.0F;
     }
 }

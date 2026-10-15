@@ -46,6 +46,8 @@ public class DreadEntity extends Monster {
     private int actionTicks, swingCooldown = 20, stompCooldown = 60;
     /** Client: ticks since the current action began (for the renderer), and the previous value. */
     private int clientActionAge;
+    /** Client only: ticks left of the ease-back after an action ended, the action it belongs to and last tick's action. */
+    private int clientRecover, clientRecoverKind, clientPrevAction;
 
     public DreadEntity(EntityType<? extends DreadEntity> type, Level level) {
         super(type, level);
@@ -93,6 +95,8 @@ public class DreadEntity extends Monster {
     /** Standing in bright light (12 or more): half damage, aura at most I. */
     public boolean weakened() { return this.entityData.get(DATA_WEAK); }
     public int clientActionAge() { return clientActionAge; }
+    public int clientRecoverTicks() { return clientRecover; }
+    public int clientRecoverKind() { return clientRecoverKind; }
 
     public void startRising() { this.entityData.set(DATA_RISE, FearLogic.RISE_TICKS); }
 
@@ -148,7 +152,12 @@ public class DreadEntity extends Monster {
     public void tick() {
         super.tick();
         if (this.level().isClientSide()) {
-            clientActionAge = action() == ACT_NONE ? 0 : clientActionAge + 1;
+            int act = action();
+            clientActionAge = act == ACT_NONE ? 0 : clientActionAge + 1;
+            if (act != ACT_NONE) { clientRecoverKind = act; clientRecover = 0; }
+            else if (clientPrevAction != ACT_NONE) clientRecover = FearLogic.RECOVER_TICKS;
+            else if (clientRecover > 0) clientRecover--;
+            clientPrevAction = act;
             if (!weakened() && this.random.nextInt(3) == 0) {
                 this.level().addParticle(ParticleTypes.SOUL_FIRE_FLAME, this.getX() + (this.random.nextDouble() - 0.5) * 0.3,
                         this.getY() + 2.35, this.getZ() + (this.random.nextDouble() - 0.5) * 0.3, 0, 0.02, 0);
