@@ -465,6 +465,20 @@ final class FearTests {
             h.assertTrue(FearLogic.mayWatcherSpawn(true, true, 200, true, true, true, 0, 0.1f, 0.04f), "core biome: no distance rule, 3x chance");
             h.assertFalse(FearLogic.mayWatcherSpawn(true, true, 200, true, true, true, 0, 0.13f, 0.04f), "core biome: still rare");
             h.assertFalse(FearLogic.mayWatcherSpawn(true, false, 200, true, true, true, 0, 0.0f, 0.04f), "core biome: End only");
+            // N66 forest rule: > ~2 min in a core biome lifts the chance to forestChance (25 %); no dwell, no lift; never outside a core
+            h.assertTrue(FearLogic.mayWatcherSpawn(true, true, 200, true, true, true, 0, 0.2f, 0.04f, true, 0.25f), "dwelling in the forest: may spawn at 20 %");
+            h.assertFalse(FearLogic.mayWatcherSpawn(true, true, 200, true, true, true, 0, 0.2f, 0.04f, false, 0.25f), "no dwell: stays at the core chance");
+            h.assertFalse(FearLogic.mayWatcherSpawn(true, true, 200, true, true, true, 0, 0.3f, 0.04f, true, 0.25f), "dwelling: still only a chance, not a must");
+            h.assertFalse(FearLogic.mayWatcherSpawn(true, true, 200, false, true, true, 0, 0.0f, 0.04f, true, 0.25f), "dwell lift needs a core spot");
+            h.assertFalse(FearLogic.mayWatcherSpawn(true, true, 200, true, true, true, 1, 0.0f, 0.04f, true, 0.25f), "dwell: still one at a time");
+            h.assertTrue(FearLogic.mayWatcherSpawn(true, true, 200, true, true, true, 0, 0.1f, 0.04f, true, 0.0f), "forest chance never lowers the core chance");
+            h.assertTrue(FearLogic.FOREST_SECONDS == 120 && MobsConfig.hollowWatcherForestSeconds == 120 && MobsConfig.hollowWatcherForestChance == 0.25f, "defaults 120 s / 0.25");
+            var times = new java.util.HashMap<java.util.UUID, Integer>();
+            var id = java.util.UUID.randomUUID();
+            for (int i = 0; i < 7; i++) FearServer.trackForest(times, id, true, 20);
+            h.assertTrue(times.get(id) == 140, "uninterrupted time adds up");
+            h.assertTrue(FearServer.trackForest(times, id, false, 20) == 0 && !times.containsKey(id), "leaving the core resets it");
+            h.assertTrue(FearServer.trackForest(times, id, true, 20) == 20, "and it starts anew");
             h.succeed();
         });
         add.accept("fear_anim_ease", h -> {

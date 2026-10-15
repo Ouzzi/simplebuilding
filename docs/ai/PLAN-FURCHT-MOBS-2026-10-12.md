@@ -92,3 +92,6 @@ man sieht das Ergebnis sofort; falsche Figur: Rauch, Helm bleibt). Mixin `ItemHe
 - Belege: simplemobs Fabric/NeoForge/Forge + Standalone Fabric/NeoForge 285/285 grün; Testzentrale 3 Loader 27/27 grün;
   Client-Smoke: alle 10 Furcht-Screenshots (Figur → Beschwörung, Posen, Watcher, Items), `check_data.py`, Texturen- und Wiki-Check grün.
 - Nicht getestet: Pfad mit geladenem SimpleBuilding (`simplebuilding:shivering`), Aim-Sway im echten Spiel, natürlicher Spawn im End.
+
+## Nachtrag N66 (15.10.): Wald-Regel für den Hollow Watcher
+Wer mehr als `hollowWatcherForestSeconds` (120) ohne Unterbrechung in einem `simpleend:watcher_core`-Biom ist, bekommt je 30-s-Wurf die Chance `hollowWatcherForestChance` (0,25) auf einen Spawn (mehrere Versuche je Wurf); zusätzlich zu den bisherigen Regeln, senkt sie nie. Verlassen/Tod/anderes Level setzt die Zeit zurück. Code: `FearServer.trackForest`, `FearLogic.mayWatcherSpawn(..., dwell, forestChance)`.
