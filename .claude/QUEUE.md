@@ -268,7 +268,7 @@ Texturen (T): T1 Fragentisch R3 bleibt; T6 = Keramik B; T7 Lohen-Obsidian B1 ok;
 - [ ] T12 Starkes Leuchtfeuer: GUI im Vanilla-Stil wie die Vanilla-Leuchtfeuer-GUI (nicht eigener Container-Stil).
 - [x] T3 Brot-Form: v8 bleibt (keine Form A–D) (Besitzer 15.10.).
 - [ ] Sandwich-Brot v8: Unterseite bekommt einen dunkleren Rand wie die Oberseite (Besitzer 15.10.).
-- [ ] T4-Regeln Käse/Butter: Besitzer-Bestätigung offen.
+- [ ] Butter/Käse neu (Besitzer 15.10., ersetzt alte Regel): Milch im Kessel reift 5 min zu Butter, weitere 5 min zu Käse (kein fermentiertes Spinnenauge mehr nötig). Nichts verdirbt (kein Erntefenster). Liegt ein aktiver (nicht per Redstone gesperrter) Trichter unter dem Kessel, erntet er das fertige Produkt sofort (Butter; Käse entsteht also nur ohne aktiven Trichter). Auslegung „Butter bzw. Milch“ im Diktat: Trichter erntet das jeweils fertige Produkt.
 REGEL (Besitzer 15.10.): Keine alten, schon entschiedenen Textur-Vorschläge erneut vorlegen oder vermischen; vor jeder Textur-Frage Queue/Archiv/Memory nach der Entscheidung durchsuchen. Eingebaute, abgenommene Texturen nur auf ausdrücklichen Wunsch ändern.
 
 ## Nachtrag 60 (2026-10-15, Besitzer-Antworten zum Audit N58)
