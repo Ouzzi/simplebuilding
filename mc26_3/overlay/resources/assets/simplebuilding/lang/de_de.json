@@ -3945,7 +3945,7 @@
   "book.simplebuilding.building.18.title": "Schwefel- und Kupferfeuer",
   "book.simplebuilding.building.18.text": "Feuerzeug auf Schwefel entzündet Schwefelfeuer, auf Kupfer Kupferfeuer. Sie breiten sich nie aus; Schwefelfeuer gibt Übelkeit.\n3 Schwefel + 1 Kohle: Schwarzpulver.",
   "book.simplebuilding.building.19.title": "Lichtscheiben",
-  "book.simplebuilding.building.19.text": "Flache Lampen, 1 px dünn, an jeder Blockseite. Glasscheibe + 2 Glowstone-Staub; dazu Farbstoff oder Redstone.\nRedstone-Scheibe: Farbe nach Signalstärke; Rechtsklick stellt die Farbe für Stärke 1 ein.",
+  "book.simplebuilding.building.19.text": "Flache Lampen, 1 px dünn, an jeder Blockseite. Glasscheibe + 2 Glowstone-Staub + Farbstoff oder Redstone.\nRedstone: Farbe je Signalstärke, Rechtsklick wählt die Farbe für Stärke 1.",
   "book.simplebuilding.storage.11.title": "Kisten",
   "book.simplebuilding.storage.11.text": "Bretter in U-Form ergeben eine offene Kiste für Essen.\nFasst 9 Stapel aus bis zu 9 Sorten, in 3D sichtbar. Trichter füllen sie. Aufrecht oder seitlich platzierbar.",
   "book.simplebuilding.gadgets.15.title": "Sculk-Kiefer",

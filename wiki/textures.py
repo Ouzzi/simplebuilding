@@ -140,8 +140,37 @@ def wiki_entries(wiki: Path, entries: list[dict]) -> tuple[dict, dict]:
     return by_texture, by_id
 
 
-def existing_copies(wiki: Path) -> dict[bytes, str]:
-    """Byte content -> first wiki path (sorted) of the own textures outside sheets/ and minecraft/."""
+def claimed_copies(wiki: Path, entries: list[dict]) -> set[str] | None:
+    """
+    Wiki paths of the copies the index may reuse: what git tracks plus what the generated wiki data
+    names (texture/icon of an item or block; generate.py writes those on every run). Anything else
+    under assets/textures is a leftover of an older checkout (ignored by git, e.g. a Vanilla-derived
+    copy of a texture that has since been renamed or merged) and must not change the index, or the same
+    commit would give a different textures.js in a long-lived gate worktree than in a fresh one.
+    None when git is unavailable (no repository): then every file counts.
+    """
+    try:
+        done = subprocess.run(["git", "-C", str(wiki), "ls-files", "-z", "--", "assets/textures"],
+                              capture_output=True, timeout=60)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if done.returncode != 0:
+        return None
+    claimed = {p for p in done.stdout.decode("utf-8", "replace").split("\0") if p}
+    for entry in entries:
+        path = wiki / "data" / (entry["id"] + ".json")
+        if not path.exists():
+            continue
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for section in ("items", "blocks"):
+            for item in data.get(section, []):
+                if isinstance(item, dict):
+                    claimed.update(v for v in (item.get("texture"), item.get("icon")) if isinstance(v, str))
+    return claimed
+
+
+def existing_copies(wiki: Path, claimed: set[str] | None = None) -> dict[bytes, str]:
+    """Byte content -> first wiki path (sorted) of the own textures outside sheets/ and minecraft/ (only claimed ones)."""
     copies: dict[bytes, str] = {}
     base = wiki / "assets" / "textures"
     if not base.is_dir():
@@ -150,13 +179,15 @@ def existing_copies(wiki: Path) -> dict[bytes, str]:
         relative = png.relative_to(wiki).as_posix()
         if relative.startswith((SHEETS + "/", "assets/textures/minecraft/")):
             continue
+        if claimed is not None and relative not in claimed:
+            continue
         copies.setdefault(png.read_bytes(), relative)
     return copies
 
 
 def build(repo: Path, wiki: Path, entries: list[dict]) -> tuple[dict, dict[str, bytes]]:
     """The index and the sheet copies it needs (wiki path -> bytes)."""
-    copies = existing_copies(wiki)
+    copies = existing_copies(wiki, claimed_copies(wiki, entries))
     by_texture, by_id = wiki_entries(wiki, entries)
     dates = git_dates(repo)
     writes: dict[str, bytes] = {}

@@ -279,6 +279,10 @@ def write(out_root: Path, jar: Path | None, placeholders: bool = False, module: 
         p.parent.mkdir(parents=True, exist_ok=True)
         if not p.exists() or p.read_bytes() != data:
             p.write_bytes(data)
+    # Leftovers of an older checkout (an entry that left OUTPUTS) would become texture entries of the wiki index.
+    for old in base.rglob('*.png') if base.is_dir() else ():
+        if old.relative_to(base).as_posix() not in art:
+            old.unlink()
     return 'jar' if jar is not None else 'placeholder'
 
 
