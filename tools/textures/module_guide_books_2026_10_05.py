@@ -42,6 +42,8 @@ BOOKS = {
     "simpletrims": ("simpletrims", ("#141838", "#20285a", "#6a7ed0", "#4a5eae", "#3a4a8a"), "#ffd860", "Nachtblau, Besatzgold"),
     "simplewanderers": ("simplewanderers", ("#2e1a0a", "#4a2c14", "#c08a48", "#a06c34", "#7a4e24"), "#5aa04a", "Reisemantel-Ocker, Schalgruen"),
     "simpleshops": ("simpleshops", ("#2a1a0c", "#40281a", "#b0824c", "#8e6234", "#6e4a26"), "#ffd23a", "Kassenholz, Muenzgold"),
+    # 2026-10-15 (oc-simplestats)
+    "simplestats": ("simplestats", ("#2e1608", "#4a2610", "#d68a50", "#b46a34", "#8e5026"), "#7ee8d0", "Kupfer, Patina-Tuerkis"),
 }
 
 

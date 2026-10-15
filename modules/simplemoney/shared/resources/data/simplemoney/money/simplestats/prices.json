@@ -1,0 +1,8 @@
+{
+  "module": "simplestats",
+  "derivation": "Simple Stats sells nothing: the statistics live on existing items (owner decision: purely cosmetic, no value).",
+  "excluded": {
+    "simplestats:guide_book": "Crafted from a book and a piece of flint."
+  },
+  "prices": []
+}

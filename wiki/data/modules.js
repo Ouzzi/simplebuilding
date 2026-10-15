@@ -672,5 +672,22 @@ window.WIKI_MODULES = [
       "simplemobheads"
     ],
     "dataHash": "a290905d600e"
+  },
+  {
+    "id": "simplestats",
+    "displayName": "Simple Stats",
+    "description": "Every tool, weapon and piece of armor keeps its own statistics (blocks mined, kills by mob and variant, damage absorbed, distances, catches) with an item-specific statistics screen.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "97f1238cce93"
   }
 ];
