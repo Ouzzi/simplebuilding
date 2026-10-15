@@ -13,7 +13,7 @@ Branch `claude-modprinciples` (Basis `2a01fea6`).
 2. **Harte Abhängigkeit nur als erklärtes Add-on.** Ein Modul darf ein anderes nur dann `required`
    machen, wenn es inhaltlich ein Add-on dafür ist – dann identisch in `modules.json` (`requires`),
    `fabric.mod.json` (`depends`), `neoforge.mods.toml`/`mods.toml` (`type="required"`/`mandatory=true`)
-   und im Wiki genannt. Stand 2026-10-11 harte Modulabhängigkeiten: `simplequalityoflife` → `simpleweather`, `simpleinterfaces`, `simpleloot`, `simplemobmanners`, `simplefarming`, `simpletools`, `simplemovement` (Super-Mod, Standalone-Target `requires` = diese sieben); `simpleinterfaces`, `simplemaps` und `simpletrims` → `simplelib` (Regel 6a: gebündelt, Mindestversion `>=0.2.0`). Seit Stufe 4 der Modulaufteilung (13.10.): `simplebuilding` → `simpleovens` (Pflicht-Sub-Mod, gebündelt; nur 26.3), `simpleovens` → `simplelib`.
+   und im Wiki genannt. Stand 2026-10-11 harte Modulabhängigkeiten: `simplequalityoflife` → `simpleweather`, `simpleinterfaces`, `simpleloot`, `simplemobmanners`, `simplefarming`, `simpletools`, `simplemovement` (Super-Mod, Standalone-Target `requires` = diese sieben); `simpleinterfaces`, `simplemaps`, `simpletrims` und `simpletweaks` (Claim-Urkunde, 14.10.) → `simplelib` (Regel 6a: gebündelt, Mindestversion `>=0.2.0`). Seit Stufe 4 der Modulaufteilung (13.10.): `simplebuilding` → `simpleovens` (Pflicht-Sub-Mod, gebündelt; nur 26.3), `simpleovens` → `simplelib`.
 3. **Keine Klassenimporte über Modulgrenzen.** Kein `import` aus fremden Implementierungspaketen
    (`com.simplebuilding.*` außer `framework.api`, `com.simplefun.*` …). Gemeinsames Verhalten läuft
    über `framework/` (reine Java-Verträge, keine Registry-Inhalte) oder über öffentliche Registry-IDs
@@ -70,7 +70,7 @@ Branch `claude-modprinciples` (Basis `2a01fea6`).
 | simpledimensions | Cloth Config | simpletweaks (Claims via `framework Protection`), simplemoney (Preise) |
 | simplefun | Cloth Config | simplemoney (Schneeball-Trades, `links:simplefun`; Köpfe seit 1.4.0 in Simple Mobheads) |
 | simplemobheads | Cloth Config, simplelib + framework (gebündelt) | simplebuilding (**hart**, Pflicht-Sub-Mod; Extra-Kopf-Slot über framework `WornHeads`), simplemoney (Preise, `links:simplemobheads`), Mobs der Simple-Mods (Köpfe immer registriert, Drop nur mit Mob) |
-| simpletweaks | – (seit Stufe 2 der Modulaufteilung allein spielbar; SimpleBuilding nur optional: Legacy-Aliase `simpletweaks:` → `simplebuilding:`, Tests seiner Werkzeuge/Maschinen) | simplemoney (Preise), simplebuilding (gebündelt, optional) |
+| simpletweaks | simplelib >=0.2.0 (gebündelt, Urkunden-Editor; seit Stufe 2 der Modulaufteilung allein spielbar; SimpleBuilding nur optional: Legacy-Aliase `simpletweaks:` → `simplebuilding:`, Tests seiner Werkzeuge/Maschinen) | simplemoney (Preise), simplebuilding (gebündelt, optional) |
 | simplequalityoflife | Cloth Config, die sieben Sub-Mods (Super-Mod, gebündelt) | simplemoney (Preise) |
 | simpleweather, simpleloot, simplemobmanners, simplefarming, simpletools, simplemovement | Cloth Config; framework gebündelt (SubMods-Schalter) | simplequalityoflife (Schalter), simplemoney (Preise); Farming/Tools: SimpleBuilding nur in Querprüfungen |
 | simpleinterfaces, simplemaps, simpletrims | Cloth Config (interfaces), simplelib >=0.2.0 (gebündelt) | simpletrims: SimpleBuilding (Hammer statt Axt, per Tag; SB bündelt Simple Trims) |
