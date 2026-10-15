@@ -75,3 +75,6 @@ Messuhr/Stab ändern sich mit; Schriftfarben bei Variante B/C im Worst Case knap
 3. Overlay-Stil auch für Messuhr und Resonanzstab (einheitlich, Empfehlung) oder nur Oktant?
 4. Deckkraft fest 78 % oder einstellbar (Config-Regler)?
 5. Pos-1/Pos-2-Unterscheidung im HUD nur über Helligkeit derselben Farbe okay, oder weiterhin zwei Farbtöne?
+
+## 6. Antworten Besitzer (2026-10-15, verbindlich)
+O1 Palette B Bronze matt (#6F5F4B). O2 Eck-Fix für ALLE Kästen der Mod (UiBoxes, betrifft alle UIs mit diesem Rahmen). O3 neuer Overlay-Stil einheitlich auch für Messuhr und Resonanzstab (HudPanel). O4 Deckkraft fest 78 %. O5 Pos 1/Pos 2 über Helligkeit derselben Farbe – dabei die Lesbarkeit sichern (Konzept nennt für B Pos 2 nur 3,2:1 im schlechtesten Fall → Helligkeitsstufen so wählen, dass beide Zeilen gut lesbar bleiben).

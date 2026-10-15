@@ -267,7 +267,7 @@ Oktant-Manager (UI) – erst Konzept, Umsetzung nach Besitzer-Freigabe
 - [ ] Farben: das Orange wirkt grell → generell sanftere Farben.
 - [ ] Pixelfehler an den Ecken: ein Pixel zu viel, Ecken nicht in Treppenform (Besitzer-Screenshot 15.10.).
 - [ ] In-Game-Overlay des Oktanten: gleiche (grobe) Anordnung behalten, nur Hintergrund/Rahmen im neuen UI-Stil, aber schlank (Slim), wenig ablenkend, evtl. geringere Deckkraft; dunkel genug für gut lesbare Schrift; gleiche Farben/Design wie das aktualisierte UI.
-- [ ] Ablauf: Konzept + Vorschaubilder → Besitzer-Freigabe → Umsetzung.
+- [x] Ablauf: Konzept + Vorschaubilder → Besitzer-Freigabe 15.10. (O1 B Bronze matt, O2 alle Kästen, O3 einheitlich, O4 78 %, O5 Helligkeit) → Umsetzung läuft (claude-octantui2).
 
 ## Nachtrag 63 (2026-10-15, Besitzer)
 Simple Shops – Server-Shop
