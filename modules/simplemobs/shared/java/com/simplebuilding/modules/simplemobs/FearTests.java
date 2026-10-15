@@ -274,7 +274,7 @@ final class FearTests {
             h.assertTrue(FearLogic.clampFov(10) == 30 && FearLogic.clampFov(500) == 110 && FearLogic.clampFov(70) == 70, "FOV clamp 30..110");
             h.assertTrue(FearLogic.gazeZone(10, 70, 10, 25, 35) == FearLogic.ZONE_STARE && FearLogic.gazeZone(10.5, 70, 10, 25, 35) == FearLogic.ZONE_SLOW, "10 degrees at FOV 70");
             h.assertTrue(FearLogic.gazeZone(25, 70, 10, 25, 35) == FearLogic.ZONE_SLOW && FearLogic.gazeZone(35, 70, 10, 25, 35) == FearLogic.ZONE_EDGE && FearLogic.gazeZone(36, 70, 10, 25, 35) == FearLogic.ZONE_FREE, "25 and 35 degrees");
-            h.assertTrue(FearLogic.gazeZone(15, 110, 10, 25, 35) == FearLogic.ZONE_STARE && FearLogic.gazeZone(15, 30, 10, 25, 35) == FearLogic.ZONE_FREE, "zones scale with FOV");
+            h.assertTrue(FearLogic.gazeZone(15, 110, 10, 25, 35) == FearLogic.ZONE_STARE && FearLogic.gazeZone(16, 30, 10, 25, 35) == FearLogic.ZONE_FREE, "zones scale with FOV");
             h.assertTrue(FearLogic.pickVictim(new double[0], 0.5f) == -1 && FearLogic.pickVictim(new double[] {5}, 0.9f) == 0, "victim pick: none / one");
             h.assertTrue(FearLogic.pickVictim(new double[] {2, 40}, 0.0f) == 0 && FearLogic.pickVictim(new double[] {2, 40}, 0.99f) == 1, "victim pick covers both ends, near ones weigh more");
             var cfg = new com.google.gson.JsonObject();
@@ -306,9 +306,9 @@ final class FearTests {
             b.snapTo(pb.x, pb.y, pb.z, yaw, pitch);
             b.setYHeadRot(yaw);
             h.assertTrue(watcher.updateGaze(h.getLevel()) && watcher.watched(), "one of two players looks: it freezes for all");
-            a.snapTo(pa.x, pa.y, pa.z, 180.0f, 0.0f);
             h.assertTrue(watcher.looker() == b, "the one who looks is the looker");
             b.snapTo(pb.x, pb.y, pb.z, 180.0f, 0.0f);
+            b.setYHeadRot(180.0f);
             h.assertFalse(watcher.updateGaze(h.getLevel()), "both look away: free again");
             watcher.discard();
             h.succeed();
