@@ -62,6 +62,21 @@ window.WIKI_MODULE_DATA["simplemobmanners"] = {
       }
     },
     {
+      "id": "frog_bucket",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/FrogBucket.java",
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/mixin/FrogBucketMixin.java"
+      ],
+      "en": {
+        "title": "Bucket of Frog",
+        "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant, name and age stay on the bucket; releasing it restores them. Found in the Tools tab after the tadpole bucket."
+      },
+      "de": {
+        "title": "Eimer mit Frosch",
+        "summary": "Ein Wassereimer auf einem Frosch faengt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurueck. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
+      }
+    },
+    {
       "id": "config_mutedEntities",
       "sources": [
         "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java"
@@ -166,7 +181,28 @@ window.WIKI_MODULE_DATA["simplemobmanners"] = {
   "tags": [],
   "advancements": [],
   "enchantments": [],
-  "items": [],
+  "items": [
+    {
+      "id": "simplemobmanners:frog_bucket",
+      "name": {
+        "en_us": "Bucket of Frog",
+        "de_de": "Eimer mit Frosch"
+      },
+      "note": {
+        "en": {
+          "title": "Bucket of Frog",
+          "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant, name and age stay on the bucket; releasing it restores them. Found in the Tools tab after the tadpole bucket."
+        },
+        "de": {
+          "title": "Eimer mit Frosch",
+          "summary": "Ein Wassereimer auf einem Frosch faengt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurueck. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
+        }
+      },
+      "texture": "assets/textures/simplemobmanners/item/frog_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    }
+  ],
   "blocks": [],
   "trades": [],
   "config": [],
@@ -182,13 +218,13 @@ window.WIKI_MODULE_DATA["simplemobmanners"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 10,
+    "features": 11,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 0,
+    "items": 1,
     "blocks": 0,
     "trades": 0,
     "config": 0,

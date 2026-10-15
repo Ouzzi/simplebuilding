@@ -402,7 +402,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "f4e51bd301b5"
+    "dataHash": "917d57f60ece"
   },
   {
     "id": "simpletools",
@@ -464,7 +464,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "abdccf1452ba"
+    "dataHash": "0e1fff3e40a5"
   },
   {
     "id": "simpleloot",
