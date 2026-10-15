@@ -309,6 +309,19 @@ final class FearTests {
             h.assertFalse(FearLogic.mayWatcherSpawn(true, false, 200, true, true, true, 0, 0.0f, 0.04f), "core biome: End only");
             h.succeed();
         });
+        add.accept("fear_anim_ease", h -> {
+            h.assertTrue(FearLogic.ease(0.0F) == 0.0F && FearLogic.ease(1.0F) == 1.0F && FearLogic.ease(0.5F) == 0.5F, "ends and middle fixed");
+            h.assertTrue(FearLogic.ease(0.1F) < 0.1F && FearLogic.ease(0.9F) > 0.9F, "slow in, slow out");
+            h.assertTrue(FearLogic.ease(-1.0F) == 0.0F && FearLogic.ease(2.0F) == 1.0F, "clamped outside 0..1");
+            float last = 0.0F;
+            for (int i = 1; i <= 20; i++) {
+                float e = FearLogic.ease(i / 20.0F);
+                h.assertTrue(e >= last, "monotonic at " + i);
+                last = e;
+            }
+            h.assertTrue(FearLogic.RECOVER_TICKS >= 5 && FearLogic.RECOVER_TICKS <= 8, "recovery 5-8 ticks");
+            h.succeed();
+        });
         add.accept("fear_drops", h -> {
             ServerLevel l = h.getLevel();
             floor(h, 0, 0, 4, 4);

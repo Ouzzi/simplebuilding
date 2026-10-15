@@ -4,12 +4,12 @@ import com.simplebuilding.modules.simpleenddragonfight.Dragonmite;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LivingEntityEmissiveLayer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 
 /** Dragonmite with glowing magenta eyes (emissive layer). */
-public class DragonmiteRenderer extends MobRenderer<Dragonmite, LivingEntityRenderState, DragonmiteModel> {
+public class DragonmiteRenderer extends MobRenderer<Dragonmite, DragonmiteRenderState, DragonmiteModel> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("simpleenddragonfight", "textures/entity/dragonmite/dragonmite.png");
     private static final Identifier EYES = Identifier.fromNamespaceAndPath("simpleenddragonfight", "textures/entity/dragonmite/dragonmite_eyes.png");
 
@@ -23,8 +23,15 @@ public class DragonmiteRenderer extends MobRenderer<Dragonmite, LivingEntityRend
     protected float getFlipDegrees() { return 180.0F; }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState state) { return TEXTURE; }
+    public Identifier getTextureLocation(DragonmiteRenderState state) { return TEXTURE; }
 
     @Override
-    public LivingEntityRenderState createRenderState() { return new LivingEntityRenderState(); }
+    public DragonmiteRenderState createRenderState() { return new DragonmiteRenderState(); }
+
+    @Override
+    public void extractRenderState(Dragonmite entity, DragonmiteRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+        state.phase = (entity.getId() * 1.618F) % (Mth.PI * 2.0F);
+        state.lunge = Mth.sin(entity.getSwingAnimation(partialTicks) * Mth.PI);
+    }
 }

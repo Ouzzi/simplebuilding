@@ -14,6 +14,8 @@ public class NibblemiteRenderer extends MobRenderer<Nibblemite, NibblemiteRender
 
     public static class State extends LivingEntityRenderState {
         public int variant;
+        /** Per-mob phase offset (radians) from the entity id, so neighbors do not move in step. */
+        public float phase;
     }
 
     public NibblemiteRenderer(EntityRendererProvider.Context context) {
@@ -33,5 +35,6 @@ public class NibblemiteRenderer extends MobRenderer<Nibblemite, NibblemiteRender
     public void extractRenderState(Nibblemite entity, State state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         state.variant = entity.variant();
+        state.phase = (entity.getId() * 1.618F) % ((float) Math.PI * 2.0F);
     }
 }
