@@ -56,7 +56,9 @@ public final class SulfurLights {
 
     private static Block register(String name, Block copy, java.util.function.Function<BlockBehaviour.Properties, Block> factory) {
         Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
-        BlockBehaviour.Properties props = BlockBehaviour.Properties.ofFullCopy(copy).setId(ResourceKey.create(Registries.BLOCK, id));
+        // the copy carries the Vanilla block's loot table (the wall torch's points to the soul torch): use our own
+        BlockBehaviour.Properties props = BlockBehaviour.Properties.ofFullCopy(copy).setId(ResourceKey.create(Registries.BLOCK, id))
+                .overrideLootTable(java.util.Optional.of(ResourceKey.create(Registries.LOOT_TABLE, id.withPrefix("blocks/"))));
         return Registry.register(BuiltInRegistries.BLOCK, id, factory.apply(props));
     }
 
