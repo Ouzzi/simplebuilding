@@ -1642,6 +1642,11 @@ def bun_bottom_v8(buttered=False):
             put(im, x, b + 1, hx(BUN_WARM[1]))
         if x in (X0, X1):
             put(im, x, b, hx(BUN_WARM[0]))
+    # Nachtrag 61: dark outline on the underside, same colour/width as the top bun (1 px, open sides and bottom)
+    cells = {(x, y) for y in range(16) for x in range(16) if im.getpixel((x, y))[3]}
+    for (x, y) in cells:
+        if any((x + dx, y + dy) not in cells for dx, dy in ((1, 0), (-1, 0), (0, 1))):
+            put(im, x, y, hx(BUN_WARM[0]))
     return im
 
 
