@@ -14,7 +14,7 @@ def unique(p):
  return json.loads(p.read_text(encoding='utf-8'),object_pairs_hook=hook)
 for locale in ('en_us','de_de'):
  d=unique(M/f'shared/resources/assets/simpletweaks/lang/{locale}.json')
- assert all(('.simpletweaks.' in k or k.startswith(('simpletweaks.guide.page.','simpletweaks.deed.'))) and v for k,v in d.items())
+ assert all(('.simpletweaks.' in k or k.startswith(('simpletweaks.guide.page.','simpletweaks.deed.','simpletweaks.table.'))) and v for k,v in d.items())
  assert 'item.simpletweaks.claim_deed' in d
  langs.append(d)
 assert langs[0].keys()==langs[1].keys()
