@@ -131,6 +131,7 @@
       "com.simplebuilding.gametest.PotionPadGameTest",
       "com.simplebuilding.gametest.MobHeadGameTest",
       "com.simplebuilding.gametest.MusicDiscGameTest",
+      "com.simplebuilding.gametest.JukeboxPlaylistGameTest",
       "com.simplebuilding.gametest.PotionPadRuleGameTest",
       "com.simplebuilding.gametest.PerformanceGameTest",
       "com.simplebuilding.gametest.PlacedTemplateGameTest",

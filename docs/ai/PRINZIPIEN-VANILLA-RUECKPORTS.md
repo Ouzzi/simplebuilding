@@ -15,4 +15,8 @@ Kisten-Jukebox aus dem 26.4-Snapshot.
 ## Liste der Rückports
 | Feature | Vanilla ab | Mod-Linien | Flag/Ort | Stand |
 |---|---|---|---|---|
-| Jukebox mit Kiste darüber (Platten automatisch einlegen/tauschen) | 26.4-Snapshot (Okt. 2026) | 26.3 (+ ältere im Port-Run) | offen | Queue Nachtrag 62 |
+| Jukebox mit Kiste darüber (Platten automatisch einlegen/tauschen) | 26.4-Snapshot 4 (13.10.2026) | 26.3: **an** (Fabric/NeoForge/Forge). 26.2 + 1.21.11: aus bis zum Port-Run (dann an, Vanilla hat es dort nicht). 26.4+: **aus** | `McVersion.JUKEBOX_CHEST_PLAYLIST` (26.3 true, 26.2 false) + Laufzeit-Sperre: existiert der Vanilla-Block-Tag `#minecraft:jukebox_containers` (nicht leer), ist die Mod-Umsetzung aus (`JukeboxPlaylist.active`); Code `util/JukeboxPlaylist.java`, Mixins `JukeboxBlockEntityPlaylistMixin`/`JukeboxBlockPlaylistTickerMixin` (26.2: leere Stubs) | GameTests `jukebox_playlist_game_test_*` (inkl. `mod_part_is_active_only_without_vanillas_own`); Details und Quellen: `docs/ai/BERICHT-OC-JUKEBOX.md` |
+
+Beim Port-Run 26.4 (Release): `McVersion`-Zwilling der 26.4-Linie (`mc26_4/overlay/java/.../McVersion.java`, existiert noch nicht -
+die 26.4-Snapshot-Linie erbt die 26.3-Datei) mit `JUKEBOX_CHEST_PLAYLIST = false` anlegen; bis dahin schaltet der Tag-Test es
+ab, sobald das 26.4-Snapshot-Jar den Tag mitbringt (Snapshot 1, die gebaute Linie, hat ihn noch nicht).
