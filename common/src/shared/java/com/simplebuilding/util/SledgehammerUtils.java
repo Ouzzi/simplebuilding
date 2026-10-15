@@ -28,15 +28,15 @@ public final class SledgehammerUtils {
     public static final float LATE_BLOCK_TIME_FACTOR = 0.7F;
     public static final int EARLY_BLOCK_COUNT_LIMIT = 9;
 
-    /** Total same-tier pickaxe block times; octants take 0.5x the pickaxe time per block (owner N54). */
+    /** Total same-tier pickaxe block times; octants take the area time scaled by 0.5 (owner N54/N61 E8). */
     public static float swingTimeFactor(int blocks, boolean octant) {
         if (blocks <= 0) return 1.0F;
-        if (octant) return blocks * OCTANT_PICKAXE_TIME_FACTOR;
+        if (octant) return OCTANT_PICKAXE_TIME_FACTOR * swingTimeFactor(blocks, false);
         return FIRST_BLOCK_TIME_FACTOR
                 + Math.min(blocks - 1, EARLY_BLOCK_COUNT_LIMIT - 1) * EARLY_BLOCK_TIME_FACTOR
                 + Math.max(0, blocks - EARLY_BLOCK_COUNT_LIMIT) * LATE_BLOCK_TIME_FACTOR;
     }
-    /** 26.3: same-tier pickaxe time per octant block (always a discount, linear, owner N54). */
+    /** 26.3: base factor of the octant selection; applied to the same first/early/late quantity discount as the area swing (owner N61 E8). */
     public static final float OCTANT_PICKAXE_TIME_FACTOR = 0.5F;
     /** 26.2 only: multiplier on the legacy area time. */
     public static final float OCTANT_TIME_FACTOR = 2.0F;
