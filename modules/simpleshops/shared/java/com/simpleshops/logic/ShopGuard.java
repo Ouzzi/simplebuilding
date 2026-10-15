@@ -36,7 +36,7 @@ public final class ShopGuard {
 
     /** Operator in the sense of the other modules: permission level 2 (gamemaster). */
     public static boolean isAdmin(Player player) {
-        if (!(player instanceof ServerPlayer sp)) return false;
+        if (!(player instanceof ServerPlayer sp)) return player != null && Commands.LEVEL_GAMEMASTERS.check(player.permissions());
         // Fresh from the operator list (a level set at login is not enough after /op or /deop).
         MinecraftServer server = sp.level().getServer();
         var entry = server.getPlayerList().getOps().get(sp.nameAndId());
