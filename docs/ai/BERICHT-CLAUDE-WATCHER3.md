@@ -6,3 +6,6 @@
 - Code: HollowWatcherEntity, FearLogic, MobsConfig (shared, alle Loader); Konzept-Abschnitt „Korrektur 15.10.“ ergänzt.
 - Tests: umgebaut fear_watcher_gaze/_zones/_multi_freeze; neu fear_watcher_range, _range_config (Fabric-Wrapper in ModuleGameTest).
 - Abweichung/Annahmen: Fernglas-Freeze bleibt; Aggro-Dauer/Tempo geraten.
+- Tests (Commit nach Fixes): Filter simplemobs:*watcher*, Fabric+NeoForge 26.3: "alles gruen: 26/26 bestanden, 0 rot". Compile 3 Loader gruen (938f9594c).
+- Testfixes: Mock-Spieler sind Creative (kein gueltiges Mob-Ziel) -> Test-Tag + neues `aggroPlayer()` statt getTarget; Tag nach dem Test entfernen (sonst Opfer fuer Nachbar-Tests, hit_new_victim); Range-Test innerhalb des Bodens.
+- Nicht getestet: Forge-Laufzeit, Client, echte Survival-Spieler (Ziel-Zuweisung ueber getTarget nur im Spiel).
