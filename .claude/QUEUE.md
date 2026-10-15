@@ -266,7 +266,9 @@ Entscheidungen (E): alle Empfehlungen angenommen (E1 A Sprachen erst beim Releas
 - [ ] E13 Weder Pipette noch Malerpalette (paint_palette): Malerpalette-Item entfernen (Alt-ID-Migration). Zufallsfarbe nur über die Verzauberung „Farbpalette“ (Color Palette) – anwendbar auf den Pinsel, nicht auf eine Palette.
 Texturen (T): T1 Fragentisch R3 bleibt; T6 = Keramik B; T7 Lohen-Obsidian B1 ok; T8 Trainingspuppe bleibt vorerst; T10 ok (abgehakt); T11 lassen; T13–T26 abgenommen (nur eine Variante – Änderungen meldet der Besitzer selbst); T15 Enchanter ok. T2 (Kolben C), T5 (Riding-Bücher B+25 %), T4-Stil (Sandwich v8) waren schon früher entschieden und eingebaut – Fragebogen war veraltet.
 - [ ] T12 Starkes Leuchtfeuer: GUI im Vanilla-Stil wie die Vanilla-Leuchtfeuer-GUI (nicht eigener Container-Stil).
-- [ ] T3 Brot-Form A–D: Besitzer-Wahl offen (Vorschau-Seite 15.10.); T4-Regeln Käse/Butter bestätigen.
+- [x] T3 Brot-Form: v8 bleibt (keine Form A–D) (Besitzer 15.10.).
+- [ ] Sandwich-Brot v8: Unterseite bekommt einen dunkleren Rand wie die Oberseite (Besitzer 15.10.).
+- [ ] T4-Regeln Käse/Butter: Besitzer-Bestätigung offen.
 REGEL (Besitzer 15.10.): Keine alten, schon entschiedenen Textur-Vorschläge erneut vorlegen oder vermischen; vor jeder Textur-Frage Queue/Archiv/Memory nach der Entscheidung durchsuchen. Eingebaute, abgenommene Texturen nur auf ausdrücklichen Wunsch ändern.
 
 ## Nachtrag 60 (2026-10-15, Besitzer-Antworten zum Audit N58)
