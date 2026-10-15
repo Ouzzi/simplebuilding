@@ -222,15 +222,16 @@ def files():
             blank_variants[f"facing={name},stage={stage}"] = variant
     out[f"{a}/blockstates/crucible_blank.json"] = {"variants": blank_variants}
     # Blank: the base (cauldron; iron block for older blanks, property cauldron=false) and one iron ingot per strike
-    # done (owner N51), by block_state_property conditions: property values are strings ("5"), not numbers.
-    def state_pool(props, item, count):
-        entry = {"type": "minecraft:item", "name": item}
-        if count > 1:
-            entry["functions"] = [{"function": "minecraft:set_count", "count": count}]
-        return {"rolls": 1, "entries": [entry], "conditions": [
-            {"condition": "minecraft:block_state_property", "block": f"{NS}:crucible_blank", "properties": props}]}
-    pools = [state_pool({"cauldron": "true"}, "minecraft:cauldron", 1), state_pool({"cauldron": "false"}, "minecraft:iron_block", 1)]
-    pools += [state_pool({"stage": str(stage)}, "minecraft:iron_ingot", stage) for stage in range(1, BLANK_STRIKES)]
+    # done (owner N51). 26.x loot format (like Vanilla's candle): ONE "condition" per pool/modifier (match_block with a
+    # "state" of string values); the pre-26 "conditions"/"functions" lists are silently ignored by the codec - that was
+    # why a block_state_property condition "did not match" here and every pool dropped.
+    def match(**state):
+        return {"type": "minecraft:match_block", "blocks": f"{NS}:crucible_blank", "state": state}
+    def base_pool(item, cauldron):
+        return {"rolls": 1, "condition": match(cauldron=cauldron), "entries": [{"type": "minecraft:item", "name": item}]}
+    ingots = {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:iron_ingot", "modifier": [
+        {"type": "minecraft:set_count", "condition": match(stage=str(stage)), "count": stage} for stage in range(2, BLANK_STRIKES)]}]}
+    pools = [base_pool("minecraft:cauldron", "true"), base_pool("minecraft:iron_block", "false"), ingots]
     out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
                                                          "random_sequence": f"{NS}:blocks/crucible_blank"}
     # Barrels (plan section 8a, owner addition 11): plain barrel cube; attached, a flange on the crucible's belly and a

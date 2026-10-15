@@ -3,56 +3,34 @@
   "pools": [
     {
       "rolls": 1,
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simplelib:crucible_blank",
+        "state": {
+          "cauldron": "true"
+        }
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:cauldron"
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "cauldron": "true"
-          }
-        }
       ]
     },
     {
       "rolls": 1,
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simplelib:crucible_blank",
+        "state": {
+          "cauldron": "false"
+        }
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_block"
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "cauldron": "false"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "1"
-          }
-        }
       ]
     },
     {
@@ -61,333 +39,162 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_ingot",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "2"
+                }
+              },
               "count": 2
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "2"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "3"
+                }
+              },
               "count": 3
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "3"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "4"
+                }
+              },
               "count": 4
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "4"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "5"
+                }
+              },
               "count": 5
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "5"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "6"
+                }
+              },
               "count": 6
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "6"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "7"
+                }
+              },
               "count": 7
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "7"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "8"
+                }
+              },
               "count": 8
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "8"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "9"
+                }
+              },
               "count": 9
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "9"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "10"
+                }
+              },
               "count": 10
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "10"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "11"
+                }
+              },
               "count": 11
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "11"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "12"
+                }
+              },
               "count": 12
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "12"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "13"
+                }
+              },
               "count": 13
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "13"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "14"
+                }
+              },
               "count": 14
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "14"
-          }
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "15"
+                }
+              },
               "count": 15
             }
           ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "simplelib:crucible_blank",
-          "properties": {
-            "stage": "15"
-          }
         }
       ]
     }
