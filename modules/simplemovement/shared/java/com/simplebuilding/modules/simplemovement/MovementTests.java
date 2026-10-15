@@ -30,7 +30,7 @@ public final class MovementTests {
   ALL.put("powder_snow",MovementTests::powderSnow);
   ALL.put("real_movement_packets",MovementTests::realMovementPackets);
   ALL.put("feature_switches",MovementTests::featureSwitches);
-  ALL.put("enchant_step_height",MovementTests::enchantStepHeight);ALL.put("enchant_sprint",MovementTests::enchantSprint);ALL.put("enchant_treasure_rules",MovementTests::enchantTreasureRules);
+  ALL.put("enchant_step_height",MovementTests::enchantStepHeight);ALL.put("enchant_sprint",MovementTests::enchantSprint);ALL.put("enchant_treasure_rules",MovementTests::enchantTreasureRules);ALL.put("jump_boost_step",MovementTests::jumpBoostStep);
   // ALL-END
  }
  private MovementTests(){}
@@ -40,7 +40,7 @@ public final class MovementTests {
  private static ItemStack enchanted(GameTestHelper h,Item item,ResourceKey<Enchantment> key){var s=new ItemStack(item);s.enchant(h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key),3);return s;}
  private static void configured(Runnable body){var old=SimpleMovement.CONFIG;try{SimpleMovement.CONFIG=new MovementConfig();body.run();}finally{SimpleMovement.CONFIG=old;SubMods.set(SimpleMovement.MOD_ID,true);}}
  public static void launch(GameTestHelper h){var root=h.getLevel().getServer().getCommands().getDispatcher().getRoot();h.assertTrue(root.getChild("crawl")!=null&&root.getChild(SimpleMovement.MOD_ID)!=null,"/crawl and /simplemovement registered");h.succeed();}
- public static void config(GameTestHelper h){var c=new MovementConfig();h.assertTrue(c.enableManualCrawl&&!c.enableAutowalk&&c.enableFastLadderSlide&&c.frostWalkerWalkOnPowderSnow&&c.ladderSlideActivation==MovementConfig.SlideActivationMode.CAMERA,"defaults like Simple QoL");close(h,c.ladderClimbingSpeed,.4,"climb default");close(h,c.ladderSlideSpeed,.8,"slide default");h.succeed();}
+ public static void config(GameTestHelper h){var c=new MovementConfig();h.assertTrue(c.enableManualCrawl&&!c.enableAutowalk&&c.enableFastLadderSlide&&c.frostWalkerWalkOnPowderSnow&&c.jumpBoostStepUp&&c.ladderSlideActivation==MovementConfig.SlideActivationMode.CAMERA,"defaults like Simple QoL");close(h,c.ladderClimbingSpeed,.4,"climb default");close(h,c.ladderSlideSpeed,.8,"slide default");h.succeed();}
  /** First start: the old values (qOL.* and the top-level Frost Walker switch) are taken over once. */
  public static void qolMigration(GameTestHelper h){try{var dir=Files.createTempDirectory("simplemovement-migration");Files.writeString(dir.resolve("simplequalityoflife.json"),"{\"frostWalkerWalkOnPowderSnow\":false,\"qOL\":{\"enableAutowalk\":true,\"ladderClimbingSpeed\":0.3,\"ladderSlideActivation\":\"ALWAYS\",\"enableHoeHarvest\":false}}");var taken=SimpleMovement.read(dir);h.assertTrue(!taken.frostWalkerWalkOnPowderSnow&&taken.enableAutowalk&&taken.ladderSlideActivation==MovementConfig.SlideActivationMode.ALWAYS&&taken.enableManualCrawl,"old QoL values taken over, others default");close(h,taken.ladderClimbingSpeed,.3,"old climb speed");h.assertTrue(Files.isRegularFile(dir.resolve("simplemovement.json")),"own file written as marker");Files.writeString(dir.resolve("simplemovement.json"),"{\"enableAutowalk\":false}");var own=SimpleMovement.read(dir);h.assertTrue(!own.enableAutowalk&&own.frostWalkerWalkOnPowderSnow,"own file wins over QoL");var empty=SimpleMovement.read(Files.createTempDirectory("simplemovement-empty"));h.assertTrue(!empty.enableAutowalk&&empty.enableManualCrawl,"no file: defaults");}catch(java.io.IOException e){h.fail("migration io: "+e);}h.succeed();}
  /** "Enable Simple Movement" off in the super-mod: no crawl, Vanilla powder snow. */
@@ -108,5 +108,23 @@ public final class MovementTests {
   p.connection.handleMovePlayer(new net.minecraft.network.protocol.game.ServerboundMovePlayerPacket.Pos(p.getX(),y+.8,p.getZ(),false,false));h.assertTrue(audit.qol$rejectedMovementPackets()==before+2,"Packet spam cannot buy another climb allowance");
  });h.succeed();}
  public static void featureSwitches(GameTestHelper h){configured(()->{var p=player(h,new BlockPos(2,2,2));var abs=h.absolutePos(new BlockPos(2,2,2));h.assertTrue(!SimpleMovement.config().enableAutowalk,"Autowalk disabled by server default");SimpleMovement.config().enableManualCrawl=false;h.assertTrue(!CrawlLimiter.allow(p),"Disabled crawl refused by server");});h.succeed();}
+
+ /** Jump Boost: step_height is at least 1.0 while the effect runs (any source), Step Height boots are not added on top (max), the switch and the effect ending remove it. */
+ public static void jumpBoostStep(GameTestHelper h){configured(()->{
+  var attr=net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT;
+  var p=h.makeMockServerPlayerInLevel();p.connection.tick();var base=p.getAttributeValue(attr);
+  h.assertTrue(base<1.0,"vanilla step height below one block: "+base);
+  var boost=new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.JUMP_BOOST,600,0);
+  JumpBoostStep.tick(p);close(h,p.getAttributeValue(attr),base,"no effect: untouched");
+  p.addEffect(boost);JumpBoostStep.tick(p);close(h,p.getAttributeValue(attr),1.0,"Jump Boost: one block");
+  JumpBoostStep.tick(p);close(h,p.getAttributeValue(attr),1.0,"stable on the next tick");
+  p.setItemSlot(EquipmentSlot.FEET,worn(h,Items.DIAMOND_BOOTS,STEP_HEIGHT,1));p.connection.tick();JumpBoostStep.tick(p);close(h,p.getAttributeValue(attr),1.0,"Step Height I + Jump Boost: max, not 1.4");
+  p.setItemSlot(EquipmentSlot.FEET,worn(h,Items.DIAMOND_BOOTS,STEP_HEIGHT,2));p.connection.tick();JumpBoostStep.tick(p);close(h,p.getAttributeValue(attr),1.5,"Step Height II + Jump Boost: 1.5");
+  p.setItemSlot(EquipmentSlot.FEET,new ItemStack(Items.DIAMOND_BOOTS));p.connection.tick();JumpBoostStep.tick(p);close(h,p.getAttributeValue(attr),1.0,"boots off, effect on: one block");
+  SimpleMovement.config().jumpBoostStepUp=false;JumpBoostStep.tick(p);close(h,p.getAttributeValue(attr),base,"switch off: vanilla");
+  SimpleMovement.config().jumpBoostStepUp=true;JumpBoostStep.tick(p);close(h,p.getAttributeValue(attr),1.0,"switch on again");
+  p.removeEffect(net.minecraft.world.effect.MobEffects.JUMP_BOOST);JumpBoostStep.tick(p);close(h,p.getAttributeValue(attr),base,"effect gone: vanilla");
+  h.assertTrue(p.getAttribute(attr).getModifier(JumpBoostStep.ID)==null,"modifier removed");
+ });h.succeed();}
 // MOVED-END
 }

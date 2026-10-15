@@ -76,6 +76,34 @@ window.WIKI_MODULE_DATA["simplemovement"] = {
       }
     },
     {
+      "id": "jump_boost_step",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/JumpBoostStep.java"
+      ],
+      "en": {
+        "title": "Jump Boost steps up",
+        "summary": "While Jump Boost is active (potion, beacon or command), the step_height attribute is topped up to at least 1 block, so you walk up a full block without jumping. Boots with Step Height are not added on top: the higher value wins. Switch jumpBoostStepUp, default true."
+      },
+      "de": {
+        "title": "Sprungkraft steigt Stufen",
+        "summary": "Solange Sprungkraft aktiv ist (Trank, Leuchtfeuer oder Befehl), wird das Attribut step_height auf mindestens 1 Block aufgefuellt, du laeufst also ohne Sprung einen ganzen Block hoch. Stiefel mit Stufenhoehe werden nicht addiert: der hoehere Wert gilt. Schalter jumpBoostStepUp, Standard true."
+      }
+    },
+    {
+      "id": "config_jumpBoostStepUp",
+      "sources": [
+        "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementConfig.java"
+      ],
+      "en": {
+        "title": "jumpBoostStepUp",
+        "summary": "Server setting. Default: true."
+      },
+      "de": {
+        "title": "jumpBoostStepUp",
+        "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
       "id": "config_frostWalkerWalkOnPowderSnow",
       "sources": [
         "modules/simplemovement/shared/java/com/simplebuilding/modules/simplemovement/MovementConfig.java"
@@ -327,7 +355,7 @@ window.WIKI_MODULE_DATA["simplemovement"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 15,
+    "features": 17,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

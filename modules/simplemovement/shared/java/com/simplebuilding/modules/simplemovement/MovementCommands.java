@@ -27,6 +27,7 @@ public final class MovementCommands {
                 .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
                 .then(toggle("autowalk", (c, v) -> c.enableAutowalk = v))
                 .then(toggle("frostWalkerSnow", (c, v) -> c.frostWalkerWalkOnPowderSnow = v))
+                .then(toggle("jumpBoostStep", (c, v) -> c.jumpBoostStepUp = v))
                 .then(Commands.literal("ladderSpeed").then(Commands.argument("speed", DoubleArgumentType.doubleArg(0.2, 0.4)).executes(ctx -> {
                     double speed = DoubleArgumentType.getDouble(ctx, "speed");
                     SimpleMovement.config().ladderClimbingSpeed = speed;

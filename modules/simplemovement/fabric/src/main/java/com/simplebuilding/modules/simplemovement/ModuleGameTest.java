@@ -19,5 +19,6 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void enchantStepHeight(GameTestHelper h){MovementTests.enchantStepHeight(h);}
  @GameTest(maxTicks=100) public void enchantSprint(GameTestHelper h){MovementTests.enchantSprint(h);}
  @GameTest(maxTicks=100) public void enchantTreasureRules(GameTestHelper h){MovementTests.enchantTreasureRules(h);}
+ @GameTest(maxTicks=100) public void jumpBoostStep(GameTestHelper h){MovementTests.jumpBoostStep(h);}
  // CAT-END
 }

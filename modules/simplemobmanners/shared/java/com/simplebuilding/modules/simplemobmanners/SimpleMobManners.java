@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
  * Simple Mob Manners (formerly Simple Creatures, id {@code simplecreatures}): muted mobs, named babies that stay young and
  * piglins that accept gold trims and tools (formerly Simple QoL). A sub-mod of Simple QoL, also playable alone. The loader
  * entry sets {@link #configDir} and calls {@link #load()}; on the first start an old {@code simplecreatures.json} or else
- * the old Simple QoL values of the same name are taken over once. The mod owns no registry ids (only lang and the
- * gametest structure), so there is nothing to move through SimpleLib {@code IdMoves}.
+ * the old Simple QoL values of the same name are taken over once. Its only registry id is the new
+ * {@code simplemobmanners:frog_bucket} (N62, see {@link FrogBucket}), so there is nothing to move through SimpleLib {@code IdMoves}.
  */
 public final class SimpleMobManners {
     public static final String MOD_ID = "simplemobmanners";

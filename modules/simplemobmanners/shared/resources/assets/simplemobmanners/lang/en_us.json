@@ -18,5 +18,6 @@
   "command.simplemobmanners.removed": "Removed suffix: %s",
   "command.simplemobmanners.missing": "Suffix not found.",
   "command.simplemobmanners.cleared": "Suffix list cleared.",
-  "command.simplemobmanners.renamed": "/%s is now /%s: Simple Creatures was renamed to Simple Mob Manners."
+  "command.simplemobmanners.renamed": "/%s is now /%s: Simple Creatures was renamed to Simple Mob Manners.",
+  "item.simplemobmanners.frog_bucket": "Bucket of Frog"
 }
