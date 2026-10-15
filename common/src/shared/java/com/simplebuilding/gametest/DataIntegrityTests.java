@@ -1143,6 +1143,15 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
+            if (McVersion.FIRES && blockId.getPath().equals("sulfur_campfire")) {
+                // N58: like Vanilla's campfires - the block itself only with silk touch, otherwise one sulfur block (checked in FireTests).
+                for (List<ItemStack> produced : rolls) {
+                    if (produced.size() != 1 || !produced.getFirst().is(Items.SULFUR)) {
+                        problems.add(actual + " must drop one sulfur to an empty hand: " + produced);
+                    }
+                }
+                continue;
+            }
             if (McVersion.NATURE_VARIANTS && Set.of("grass_slab", "cracked_ice", "chiseled_packed_ice", "chiseled_blue_ice")
                     .contains(blockId.getPath())) {
                 // Naturvarianten wie ihr Vanilla-Vorbild: Gras-Stufe ohne Behutsamkeit eine Erd-Stufe (wie der Grasblock),
