@@ -6,6 +6,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod("simplestats")
 public final class StatsForge {
     public StatsForge(FMLJavaModLoadingContext context) {
+        com.simplebuilding.modules.simplestats.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleStats.configDir = net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get();
         SimpleStats.load();
         net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e -> {

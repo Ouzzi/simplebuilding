@@ -38,6 +38,7 @@ import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
@@ -77,16 +78,20 @@ public final class StatsTests {
 
     // ------------------------------------------------------------------ helpers
 
-    private static void with(Consumer<StatsConfig> tweak, Runnable body) {
+    private static void with(GameTestHelper h, Consumer<StatsConfig> tweak, Runnable body) {
         StatsConfig old = SimpleStats.CONFIG;
         StatsConfig config = new StatsConfig();
         config.countFakePlayers = true; // the gametest players are subclasses of ServerPlayer, like machine players
         tweak.accept(config);
         SimpleStats.CONFIG = config;
         StatsRuntime.reset();
+        var server = h.getLevel().getServer();
+        boolean pvp = h.getLevel().getGameRules().get(GameRules.PVP);
+        h.getLevel().getGameRules().set(GameRules.PVP, true, server);
         try {
             body.run();
         } finally {
+            h.getLevel().getGameRules().set(GameRules.PVP, pvp, server);
             SimpleStats.CONFIG = old;
             StatsRuntime.reset();
         }
@@ -96,6 +101,24 @@ public final class StatsTests {
         ServerPlayer p = (ServerPlayer) h.makeMockServerPlayer(GameType.SURVIVAL);
         p.setPos(Vec3.atCenterOf(h.absolutePos(new BlockPos(2, 2, 2))));
         return p;
+    }
+
+    /** A survival player placed in the world with a connection: only such a player can be hurt (ServerPlayer#isInvulnerableTo reads the connection). */
+    @SuppressWarnings("removal")
+    private static ServerPlayer placed(GameTestHelper h) {
+        ServerPlayer p = h.makeMockServerPlayerInLevel();
+        p.setGameMode(GameType.SURVIVAL);
+        p.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket()); // else the player stays invulnerable
+        p.setPos(Vec3.atCenterOf(h.absolutePos(new BlockPos(2, 2, 2))));
+        p.getAbilities().invulnerable = false;
+        p.getAbilities().instabuild = false;
+        p.setHealth(p.getMaxHealth());
+        return p;
+    }
+
+    /** A command source acting as the player but answering to the server (a mock player has no connection to send messages to). */
+    private static net.minecraft.commands.CommandSourceStack source(GameTestHelper h, ServerPlayer p, PermissionSet permissions) {
+        return h.getLevel().getServer().createCommandSourceStack().withEntity(p).withPermission(permissions);
     }
 
     private static BlockPos pos(GameTestHelper h) { return h.absolutePos(new BlockPos(2, 2, 2)); }
@@ -157,7 +180,7 @@ public final class StatsTests {
 
     /** A value of a newer schema is read and shown but never overwritten. */
     public static void foreignVersion(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
             StatData future = StatData.sanitize(99, 7L, 1L, Map.of(StatKeys.BLOCKS_MINED, 5L), Map.of(), Map.of(), StatData.Budget.DEFAULT);
@@ -172,7 +195,7 @@ public final class StatsTests {
 
     /** Hardness 0 blocks count too (owner decision S9); totals and the per-block list agree. */
     public static void mining(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
             p.setItemSlot(EquipmentSlot.MAINHAND, pick);
@@ -196,7 +219,7 @@ public final class StatsTests {
 
     /** A hammer breaking 25 blocks and 10,000 mined blocks cost one write each (bundled per tick) and little time. */
     public static void miningBundling(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack hammer = new ItemStack(Items.IRON_PICKAXE);
             hammer.set(DataComponents.UNBREAKABLE, Unit.INSTANCE);
@@ -219,7 +242,7 @@ public final class StatsTests {
 
     /** Kill counts the mob and its variant (red sheep, baby zombie); the damage dealt and the biggest hit are recorded. */
     public static void killVariants(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack sword = new ItemStack(Items.IRON_SWORD);
             p.setItemSlot(EquipmentSlot.MAINHAND, sword);
@@ -243,8 +266,8 @@ public final class StatsTests {
 
     /** Killing a player counts as a number only (kind player, no name); switchable. */
     public static void playerKills(GameTestHelper h) {
-        with(c -> {}, () -> {
-            ServerPlayer p = player(h), victim = player(h);
+        with(h, c -> {}, () -> {
+            ServerPlayer p = player(h), victim = placed(h);
             ItemStack sword = new ItemStack(Items.IRON_SWORD);
             p.setItemSlot(EquipmentSlot.MAINHAND, sword);
             victim.hurtServer(h.getLevel(), p.damageSources().playerAttack(p), 1000F);
@@ -254,8 +277,8 @@ public final class StatsTests {
             eq(h, 1, d.detail(StatKeys.L_KILLS).entries().get("minecraft:player"), "listed as player only");
             h.assertTrue(d.detail(StatKeys.L_KILLS).entries().size() == 1 && d.detail(StatKeys.L_KILL_VARIANTS).entries().keySet().equals(java.util.Set.of("minecraft:player")), "no name, no variant");
         });
-        with(c -> c.trackPlayerKills = false, () -> {
-            ServerPlayer p = player(h), victim = player(h);
+        with(h, c -> c.trackPlayerKills = false, () -> {
+            ServerPlayer p = player(h), victim = placed(h);
             ItemStack sword = new ItemStack(Items.IRON_SWORD);
             p.setItemSlot(EquipmentSlot.MAINHAND, sword);
             victim.hurtServer(h.getLevel(), p.damageSources().playerAttack(p), 1000F);
@@ -267,7 +290,7 @@ public final class StatsTests {
 
     /** A bow's arrow only holds a copy of the bow; the kill still goes to the real bow after it moved to another slot. */
     public static void arrowAfterHandSwap(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack bow = new ItemStack(Items.BOW);
             p.setItemSlot(EquipmentSlot.MAINHAND, bow);
@@ -289,14 +312,14 @@ public final class StatsTests {
 
     /** The worn pieces share what the armor took away, in proportion to their armor points; the parts add up exactly. */
     public static void armorAbsorbed(GameTestHelper h) {
-        with(c -> {}, () -> {
-            ServerPlayer p = player(h);
+        with(h, c -> c.countCreative = true, () -> {
+            ServerPlayer p = placed(h);
             ItemStack chest = new ItemStack(Items.IRON_CHESTPLATE), helmet = new ItemStack(Items.IRON_HELMET);
             p.setItemSlot(EquipmentSlot.CHEST, chest);
             p.setItemSlot(EquipmentSlot.HEAD, helmet);
-            Zombie zombie = h.spawn(EntityTypes.ZOMBIE, new BlockPos(5, 2, 5));
+            p.doTick(); // applies the armor attributes (equipment changes are detected in the player's own tick)
             float before = p.getHealth();
-            p.hurtServer(h.getLevel(), p.damageSources().mobAttack(zombie), 8F);
+            p.hurtServer(h.getLevel(), p.damageSources().cactus(), 8F); // not "generic": that bypasses armor
             float lost = before - p.getHealth();
             StatsRuntime.flush();
             long expected = Math.round((8F - lost) * 100.0);
@@ -312,14 +335,16 @@ public final class StatsTests {
 
     /** Fall damage belongs to the boots only. */
     public static void fallBoots(GameTestHelper h) {
-        with(c -> {}, () -> {
-            ServerPlayer p = player(h);
+        with(h, c -> c.countCreative = true, () -> {
+            ServerPlayer p = placed(h);
             ItemStack boots = enchanted(h, new ItemStack(Items.IRON_BOOTS), Enchantments.FEATHER_FALLING, 4), chest = new ItemStack(Items.IRON_CHESTPLATE);
             p.setItemSlot(EquipmentSlot.FEET, boots);
             p.setItemSlot(EquipmentSlot.CHEST, chest);
+            p.doTick();
+            float before = p.getHealth();
             p.hurtServer(h.getLevel(), p.damageSources().fall(), 6F);
             StatsRuntime.flush();
-            h.assertTrue(stats(boots).total(StatKeys.DAMAGE_ABSORBED) > 0, "boots absorbed fall damage");
+            h.assertTrue(stats(boots).total(StatKeys.DAMAGE_ABSORBED) > 0, "boots absorbed fall damage (health lost " + (before - p.getHealth()) + " of 6)");
             h.assertTrue(!chest.has(StatsComponents.ITEM_STATS), "other armor untouched by a fall");
         });
         h.succeed();
@@ -327,7 +352,7 @@ public final class StatsTests {
 
     /** A blocked attack counts for the shield with the attacker's kind. */
     public static void shieldBlocked(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack shield = new ItemStack(Items.SHIELD);
             Zombie zombie = h.spawn(EntityTypes.ZOMBIE, new BlockPos(5, 2, 5));
@@ -343,7 +368,7 @@ public final class StatsTests {
 
     /** Distances come from the vanilla movement statistics: elytra flight (with its record) and the boots' walking paths. */
     public static void elytraAndBoots(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack elytra = new ItemStack(Items.ELYTRA), boots = new ItemStack(Items.LEATHER_BOOTS);
             p.setItemSlot(EquipmentSlot.CHEST, elytra);
@@ -371,7 +396,7 @@ public final class StatsTests {
 
     /** Casting and catching through the real hook points; fish, treasure and junk are told apart. */
     public static void fishing(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack rod = new ItemStack(Items.FISHING_ROD);
             p.setItemSlot(EquipmentSlot.MAINHAND, rod);
@@ -398,7 +423,7 @@ public final class StatsTests {
 
     /** Stripping a log, tilling soil and lighting with flint and steel through the real item use. */
     public static void toolUses(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             BlockPos target = new BlockPos(2, 1, 2);
             BlockPos abs = h.absolutePos(target);
@@ -420,7 +445,7 @@ public final class StatsTests {
 
     /** Shearing a sheep counts with its color. */
     public static void shearing(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack shears = new ItemStack(Items.SHEARS);
             p.setItemSlot(EquipmentSlot.MAINHAND, shears);
@@ -437,7 +462,7 @@ public final class StatsTests {
 
     /** A suspicious block brushed away counts once, for the brush. */
     public static void brush(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack brush = new ItemStack(Items.BRUSH);
             BlockPos target = new BlockPos(2, 1, 2);
@@ -455,21 +480,21 @@ public final class StatsTests {
     /** Creative and spectator players and machine players do not count (owner decision S8); the settings open them up. */
     public static void creativeAndMachines(GameTestHelper h) {
         BlockPos at = new BlockPos(2, 2, 2);
-        with(c -> c.countFakePlayers = false, () -> {
+        with(h, c -> c.countFakePlayers = false, () -> {
             ServerPlayer machine = player(h);
             ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
             pick.mineBlock(h.getLevel(), Blocks.STONE.defaultBlockState(), h.absolutePos(at), machine);
             StatsRuntime.flush();
             h.assertTrue(!pick.has(StatsComponents.ITEM_STATS), "machine players do not count");
         });
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer creative = (ServerPlayer) h.makeMockServerPlayer(GameType.CREATIVE);
             ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
             pick.mineBlock(h.getLevel(), Blocks.STONE.defaultBlockState(), h.absolutePos(at), creative);
             StatsRuntime.flush();
             h.assertTrue(!pick.has(StatsComponents.ITEM_STATS), "creative players do not count");
         });
-        with(c -> c.countCreative = true, () -> {
+        with(h, c -> c.countCreative = true, () -> {
             ServerPlayer creative = (ServerPlayer) h.makeMockServerPlayer(GameType.CREATIVE);
             ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
             pick.mineBlock(h.getLevel(), Blocks.STONE.defaultBlockState(), h.absolutePos(at), creative);
@@ -481,7 +506,7 @@ public final class StatsTests {
 
     /** Switched off: nothing is counted and no component appears. */
     public static void switchOff(GameTestHelper h) {
-        with(c -> c.enabled = false, () -> {
+        with(h, c -> c.enabled = false, () -> {
             ServerPlayer p = player(h);
             ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
             pick.mineBlock(h.getLevel(), Blocks.STONE.defaultBlockState(), pos(h), p);
@@ -507,7 +532,7 @@ public final class StatsTests {
 
     /** {@code /simplestats reset} needs permission and is the only way to clear an item. */
     public static void resetCommand(GameTestHelper h) {
-        with(c -> {}, () -> {
+        with(h, c -> {}, () -> {
             ServerPlayer p = player(h);
             ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
             p.setItemSlot(EquipmentSlot.MAINHAND, pick);
@@ -516,13 +541,13 @@ public final class StatsTests {
             var dispatcher = h.getLevel().getServer().getCommands().getDispatcher();
             boolean refused = false;
             try {
-                dispatcher.execute("simplestats reset", p.createCommandSourceStack().withPermission(PermissionSet.NO_PERMISSIONS));
+                dispatcher.execute("simplestats reset", source(h, p, PermissionSet.NO_PERMISSIONS));
             } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
                 refused = true;
             }
             h.assertTrue(refused && pick.has(StatsComponents.ITEM_STATS), "without permission nothing happens");
             try {
-                dispatcher.execute("simplestats reset", p.createCommandSourceStack().withPermission(PermissionSet.ALL_PERMISSIONS));
+                dispatcher.execute("simplestats reset", source(h, p, PermissionSet.ALL_PERMISSIONS));
             } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
                 h.fail("reset failed: " + e.getMessage());
             }

@@ -4,6 +4,7 @@ import com.simplebuilding.modules.simplestats.StatsPlayer;
 import com.simplebuilding.modules.simplestats.StatsRuntime;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +21,13 @@ public abstract class ServerPlayerMixin implements StatsPlayer {
     @Override
     public State simplestats$state() {
         return simplestats$state;
+    }
+
+    /** A killed player: {@code ServerPlayer#die} does not call {@code LivingEntity#die}, so the kill credit needs its own hook. */
+    @Inject(method = "die", at = @At("HEAD"))
+    private void simplestats$killed(DamageSource source, CallbackInfo ci) {
+        ServerPlayer self = (ServerPlayer) (Object) this;
+        if (!self.isRemoved() && source.getEntity() instanceof ServerPlayer killer && killer != self) StatsRuntime.onKill(killer, self, source);
     }
 
     @SuppressWarnings("unchecked")
