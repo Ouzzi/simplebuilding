@@ -15,3 +15,5 @@ neoForge.runs {
         programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplebeacons:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
     }
 }
+// The Strong Beacon GUI background is Vanilla-derived (built, never committed).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

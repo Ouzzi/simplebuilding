@@ -582,7 +582,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "43d91b680862"
+    "dataHash": "c0aa48438158"
   },
   {
     "id": "simpleovens",

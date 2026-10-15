@@ -3,8 +3,8 @@ package com.simplebeacons.client;
 import com.simplebeacons.beacon.StrongBeaconLogic;
 import com.simplebeacons.beacon.StrongBeaconMenu;
 import com.simplebeacons.mixin.client.BeaconScreenAccessor;
-import com.simplelib.api.client.ui.UiBoxes;
-import com.simplelib.api.client.ui.UiPalette;
+import com.simplebeacons.mixin.client.ContainerScreenHeightAccessor;
+import com.simplebeacons.mixin.client.SlotYAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,19 +24,25 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 /**
- * The two-column Strong Beacon screen (concept §3.3): Vanilla's beacon screen unchanged on the left (levels 1-4,
- * payment, confirm - so the Simple Interfaces styling still applies), on the right an extra panel in SimpleLib's box
- * style with the pyramid counter, the level 5 and level 6 rows (three effects each) and the range/duration line.
- * Locked rows are greyed out with a tooltip; the "II" upgrade button is greyed out for the new effects.
+ * The Strong Beacon screen (concept §3.3, owner T12 15.10.): Vanilla's beacon screen with Vanilla's own layout and look,
+ * 50 px taller - two more effect rows on the left (levels 5 and 6, three effects each) below Vanilla's three, the payment
+ * slot, buttons and inventory moved down by that much. The background is Vanilla's beacon.png stretched by those rows
+ * (tools/textures/strong_beacon_gui.py, built from the client jar, never committed); the pyramid counter, range and
+ * duration sit in the right field under level 4. Locked rows are greyed out with a tooltip; the "II" upgrade button is
+ * greyed out for the new effects.
  */
 public class StrongBeaconScreen extends BeaconScreen {
-    /** Panel size and offset to the right of Vanilla's 230 px image. */
-    public static final int PANEL_X = 232, PANEL_WIDTH = 108, PANEL_HEIGHT = 132;
-    /** Vanilla's image width; the screen reports {@link #FULL_WIDTH} except while Vanilla lays out or draws its image. */
-    public static final int VANILLA_WIDTH = 230, FULL_WIDTH = PANEL_X + PANEL_WIDTH;
-    public static final int ROW_Y = 30, ROW_STEP = 30, BUTTON_X = 26, BUTTON_STEP = 24, BUTTON_SIZE = 22;
+    /** Vanilla's image height and the two extra rows (50 px). */
+    public static final int VANILLA_HEIGHT = 219, EXTRA = 50, FULL_HEIGHT = VANILLA_HEIGHT + EXTRA, IMAGE_WIDTH = 230;
+    /** Row of level 5 / 6 like Vanilla's rows: y = 22 + 25 * (level - 2); buttons are 22 px, 2 px apart, centered at x = 76. */
+    public static final int ROW_Y = 22, ROW_STEP = 25, BUTTON_CENTER_X = 76, BUTTON_STEP = 24, BUTTON_SIZE = 22;
+    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath("simplebeacons", "textures/gui/container/strong_beacon.png");
+    private static final int SHEET_WIDTH = 256, SHEET_HEIGHT = 288;
     private static final int LABEL = 0xFFE0E0E0;
     private static final int DIM = 0xFF8A8A8A;
     private static final Identifier BUTTON_DISABLED = Identifier.withDefaultNamespace("container/beacon/button_disabled");
@@ -47,11 +53,12 @@ public class StrongBeaconScreen extends BeaconScreen {
 
     public StrongBeaconScreen(StrongBeaconMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-        reportWidth(FULL_WIDTH);
+        reportHeight(FULL_HEIGHT);
+        for (Slot slot : menu.slots) ((SlotYAccessor) slot).simplebeacons$setY(slot.y + EXTRA);
     }
 
-    private void reportWidth(int imageWidth) {
-        ((com.simplebeacons.mixin.client.ContainerScreenWidthAccessor) this).simplebeacons$setImageWidth(imageWidth);
+    private void reportHeight(int imageHeight) {
+        ((ContainerScreenHeightAccessor) this).simplebeacons$setImageHeight(imageHeight);
     }
 
     /** Screen factory for the menu type (the Vanilla screen is typed on {@code BeaconMenu}). */
@@ -61,16 +68,22 @@ public class StrongBeaconScreen extends BeaconScreen {
 
     @Override
     protected void init() {
-        // Centred as one image (FULL_WIDTH): Vanilla's part on the left, the panel on its right.
         super.init();
         this.strongButtons.clear();
         for (int tier = 5; tier <= 6; tier++) {
             List<Holder<MobEffect>> effects = StrongBeaconLogic.EFFECTS.get(tier - 1);
-            for (int c = 0; c < effects.size(); c++) {
-                StrongButton button = new StrongButton(this.leftPos + PANEL_X + BUTTON_X + c * BUTTON_STEP,
-                        this.topPos + ROW_Y + (tier - 5) * ROW_STEP, effects.get(c), tier);
+            int count = effects.size(), totalWidth = count * BUTTON_SIZE + (count - 1) * (BUTTON_STEP - BUTTON_SIZE);
+            for (int c = 0; c < count; c++) {
+                StrongButton button = new StrongButton(this.leftPos + BUTTON_CENTER_X + c * BUTTON_STEP - totalWidth / 2,
+                        this.topPos + ROW_Y + (tier - 2) * ROW_STEP, effects.get(c), tier);
                 this.addRenderableWidget(button);
                 this.strongButtons.add(button);
+            }
+        }
+        // Vanilla's confirm and cancel buttons sit at y = 107 below the fields: down with the payment slot.
+        for (GuiEventListener child : this.children()) {
+            if (child instanceof AbstractWidget widget && !(child instanceof StrongButton) && widget.getY() == this.topPos + 107) {
+                widget.setY(widget.getY() + EXTRA);
             }
         }
     }
@@ -93,24 +106,25 @@ public class StrongBeaconScreen extends BeaconScreen {
 
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        // Vanilla (and the Simple Interfaces styling) draw the 230 px image centred in "width": for the draw both see
-        // the Vanilla width and a screen width that centres it at leftPos; the dimmed strip that leaves out is filled after.
-        int full = this.width;
-        int shifted = 2 * this.leftPos + VANILLA_WIDTH;
-        reportWidth(VANILLA_WIDTH);
-        this.width = shifted;
+        // Vanilla (and the Simple Interfaces styling) draw their 219 px image from "height": move that draw far above the
+        // screen, dim the whole screen ourselves, then draw the stretched Vanilla image and the payment hints.
+        int full = this.height;
+        reportHeight(VANILLA_HEIGHT);
+        this.height = 2 * this.topPos + VANILLA_HEIGHT - 4096;
         try {
             super.extractBackground(graphics, mouseX, mouseY, a);
         } finally {
-            this.width = full;
-            reportWidth(FULL_WIDTH);
+            this.height = full;
+            reportHeight(FULL_HEIGHT);
         }
-        if (shifted < full) graphics.fillGradient(shifted, 0, full, this.height, -1072689136, -804253680);
-        int x = this.leftPos + PANEL_X, y = this.topPos;
-        UiBoxes.box(graphics, x, y, PANEL_WIDTH, PANEL_HEIGHT, UiPalette.INVENTORY);
-        // The dark power field like Vanilla's (#212121), sunk into the box.
-        UiBoxes.insetColored(graphics, x + 8, y + 20, PANEL_WIDTH - 16, 64, UiPalette.INVENTORY, 0xFF212121);
-        UiBoxes.insetColored(graphics, x + 8, y + 90, PANEL_WIDTH - 16, 30, UiPalette.INVENTORY, 0xFF212121);
+        graphics.fillGradient(0, 0, this.width, full, -1072689136, -804253680);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, 0.0F, 0.0F, IMAGE_WIDTH, FULL_HEIGHT, SHEET_WIDTH, SHEET_HEIGHT);
+        int y = this.topPos + 109 + EXTRA;
+        graphics.item(new ItemStack(Items.NETHERITE_INGOT), this.leftPos + 20, y);
+        graphics.item(new ItemStack(Items.EMERALD), this.leftPos + 41, y);
+        graphics.item(new ItemStack(Items.DIAMOND), this.leftPos + 41 + 22, y);
+        graphics.item(new ItemStack(Items.GOLD_INGOT), this.leftPos + 42 + 44, y);
+        graphics.item(new ItemStack(Items.IRON_INGOT), this.leftPos + 42 + 66, y);
     }
 
     @Override
@@ -118,16 +132,13 @@ public class StrongBeaconScreen extends BeaconScreen {
         super.extractLabels(graphics, xm, ym);
         int levels = this.menu.getLevels();
         int max = StrongBeaconLogic.maxLevels();
-        graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.pyramid", levels, max),
-                PANEL_X + PANEL_WIDTH / 2, 8, UiPalette.DARK_LABEL);
-        for (int tier = 5; tier <= 6; tier++) {
-            graphics.text(this.font, String.valueOf(tier), PANEL_X + 15, ROW_Y + (tier - 5) * ROW_STEP + 7, tier <= levels ? LABEL : DIM, false);
-        }
+        int centre = 169; // the right field, like Vanilla's "Secondary Power" label
+        graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.pyramid", levels, max), centre, 80, LABEL);
         int shown = Math.max(1, levels);
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.range", StrongBeaconLogic.range(shown)),
-                PANEL_X + PANEL_WIDTH / 2, 95, levels > 0 ? LABEL : DIM);
+                centre, 104, levels > 0 ? LABEL : DIM);
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.duration", StrongBeaconLogic.durationTicks(shown) / 20),
-                PANEL_X + PANEL_WIDTH / 2, 107, levels > 0 ? LABEL : DIM);
+                centre, 116, levels > 0 ? LABEL : DIM);
     }
 
     /** The extra buttons' state for tests and the layout check. */

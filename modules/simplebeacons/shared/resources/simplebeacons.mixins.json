@@ -9,7 +9,8 @@
   ],
   "client": [
     "client.BeaconScreenAccessor",
-    "client.ContainerScreenWidthAccessor"
+    "client.ContainerScreenHeightAccessor",
+    "client.SlotYAccessor"
   ],
   "server": [],
   "injectors": {
