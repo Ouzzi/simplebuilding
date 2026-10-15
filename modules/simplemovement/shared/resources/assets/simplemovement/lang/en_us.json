@@ -15,6 +15,8 @@
   "simplemovement.option.ladderSlideActivation.tooltip": "Determines how ladder sliding is activated\n(CAMERA = look down + sneak, ALWAYS = look\ndown unless sneaking). Default: \"CAMERA\".",
   "simplemovement.option.frostWalkerWalkOnPowderSnow": "Frost Walker Walk on Powder Snow",
   "simplemovement.option.frostWalkerWalkOnPowderSnow.tooltip": "Allows players wearing Frost Walker boots to\nwalk on powder snow without sinking. Default:\ntrue.",
+  "enchantment.simplemovement.step_height": "Step Height",
+  "enchantment.simplemovement.sprint": "Sprint",
   "command.simplemovement.changed": "Configuration saved: %s = %s",
   "command.simplemovement.speed": "Climbing speed saved: %s",
   "key.simplemovement.autowalk": "Auto Walk",

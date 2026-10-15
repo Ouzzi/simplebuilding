@@ -15,6 +15,8 @@
   "simplemovement.option.ladderSlideActivation.tooltip": "Wie das Rutschen aktiviert wird (CAMERA =\nnach unten schauen + schleichen, ALWAYS =\nnach unten schauen außer beim Schleichen).\nStandard: \"CAMERA\".",
   "simplemovement.option.frostWalkerWalkOnPowderSnow": "Frostläufer auf Pulverschnee",
   "simplemovement.option.frostWalkerWalkOnPowderSnow.tooltip": "Erlaubt es Spielern mit Frostläufer-Stiefeln,\nohne Einsinken auf Pulverschnee zu laufen.\nStandard: true.",
+  "enchantment.simplemovement.step_height": "Stufenhöhe",
+  "enchantment.simplemovement.sprint": "Sprint",
   "command.simplemovement.changed": "Konfiguration gespeichert: %s = %s",
   "command.simplemovement.speed": "Klettertempo gespeichert: %s",
   "key.simplemovement.autowalk": "Automatisch Gehen",

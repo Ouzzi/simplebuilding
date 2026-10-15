@@ -117,7 +117,7 @@ Je eigene Config `config/<id>.json` (alte `qOL.*`-Werte werden beim ersten Start
   Ambosskosten, Ofen mit Lava füllen.
   Seit 2026-10-12: **Seelengebunden** (`simpletools:soulbound`, nur Buch: fahrender Händler 5 % für 24–32 Diamanten, End-City-Schatz 2 %; Amboss immer 35 Level, Schleifstein entfernt; bleibt beim Tod im selben Platz, Haltbarkeit danach min(aktuell, 50)) und **Todesgewölbe** (`simpletools:death_vault`, Block mit GUI; seit 2026-10-14 (N55) Kernfunktion: farbcodierte Anzeige, was aus den Drops des **letzten Todes** wurde – liegt noch (mit Despawn-Fortschrittsbalken, Pausen-Zeichen bei nicht geladenem Chunk) / von dir bzw. anderem Spieler (Name) aufgehoben / verbrannt / despawnt / ins Void gefallen / anders verschwunden, Legende in der GUI. Der Rückkauf gegen Opfer (4 Diamanten je Rückgabe, gewichtet nach Aktualität und Wert, mehrere Tode) ist **zukünftig**: Code bleibt, Option `deathVaultRedeem` Standard aus). Plan: `docs/ai/PLAN-SOULBOUND-DEATHVAULT-2026-10-12.md`.
 - **Simple Movement:** Kriechen (`/crawl`), Autowalk, schnelles Leiterklettern/-rutschen, Frostläufer auf Pulverschnee;
-  alte QoL-Tastenbelegungen werden übernommen.
+  alte QoL-Tastenbelegungen werden übernommen. Seit 2026-10-15 (N59): Schatz-Verzauberungen **Stufenhöhe** (`simplemovement:step_height`, Stiefel, I–II: step_height +0,4/+0,9) und **Sprint** (`simplemovement:sprint`, Hosen, I–III: +10/20/30 % Grundtempo nur beim Sprinten); rein datengetrieben, Tags `treasure`/`tradeable`/`on_random_loot`, nicht am Verzauberungstisch.
 - **Simple Interfaces** übernimmt verknüpfte Behälter (Vormerken) und Shulkerkisten/Endertruhen aus dem Inventar
   (Serverwerte in `config/simpleinterfaces-server.json`).
 

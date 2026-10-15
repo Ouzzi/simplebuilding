@@ -398,7 +398,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "de52a3d9d645"
+    "dataHash": "f4e51bd301b5"
   },
   {
     "id": "simpletools",

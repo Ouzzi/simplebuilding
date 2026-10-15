@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
+import net.minecraft.tags.TagKey;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
@@ -29,6 +30,7 @@ public final class MovementTests {
   ALL.put("powder_snow",MovementTests::powderSnow);
   ALL.put("real_movement_packets",MovementTests::realMovementPackets);
   ALL.put("feature_switches",MovementTests::featureSwitches);
+  ALL.put("enchant_step_height",MovementTests::enchantStepHeight);ALL.put("enchant_sprint",MovementTests::enchantSprint);ALL.put("enchant_treasure_rules",MovementTests::enchantTreasureRules);
   // ALL-END
  }
  private MovementTests(){}
@@ -47,6 +49,48 @@ public final class MovementTests {
  public static void keyMigration(GameTestHelper h){var old="key_key.simplequalityoflife.autowalk:key.keyboard.g\nkey_key.simplequalityoflife.crawl:key.keyboard.c\n";var migrated=KeyMigration.options(old);h.assertTrue(migrated.contains("key_key.simplemovement.autowalk:key.keyboard.g")&&migrated.contains("key_key.simplemovement.crawl:key.keyboard.c")&&!migrated.contains("simplequalityoflife"),"both keys renamed");var both=old+"key_key.simplemovement.autowalk:key.keyboard.r\n";h.assertTrue(KeyMigration.options(both).contains("key_key.simplequalityoflife.autowalk:key.keyboard.g"),"an existing new line is never overwritten");h.succeed();}
  /** The client predicts with the server values: a valid payload is kept, garbage ignored, leaving forgets it. */
  public static void sync(GameTestHelper h){configured(()->{try{SimpleMovement.config().enableAutowalk=true;SimpleMovement.receiveSync(SimpleMovement.syncJson());h.assertTrue(SimpleMovement.syncedConfig()!=null&&SimpleMovement.syncedConfig().enableAutowalk,"server value arrives");SimpleMovement.receiveSync("{not json");h.assertTrue(SimpleMovement.syncedConfig().enableAutowalk,"invalid payload ignored");h.assertTrue(SimpleMovement.configFor(h.getLevel())==SimpleMovement.config(),"server level reads the server values");}finally{SimpleMovement.clearSync();}});h.assertTrue(SimpleMovement.syncedConfig()==null,"cleared");h.succeed();}
+// ---- Step Height (boots) and Sprint (leggings): data-driven treasure enchantments (queue N59) ----
+ private static final ResourceKey<Enchantment> STEP_HEIGHT=ResourceKey.create(Registries.ENCHANTMENT,id("step_height")),SPRINT=ResourceKey.create(Registries.ENCHANTMENT,id("sprint"));
+ private static Holder<Enchantment> ench(GameTestHelper h,ResourceKey<Enchantment> key){return h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);}
+ private static ItemStack worn(GameTestHelper h,Item item,ResourceKey<Enchantment> key,int level){var s=new ItemStack(item);s.enchant(ench(h,key),level);return s;}
+ /** Step Height I/II: the player's step_height attribute rises by 0.4 / 0.9 (0.6 base -> 1.0 / 1.5 blocks), gone again without the boots. */
+ public static void enchantStepHeight(GameTestHelper h){
+  h.assertValueEqual(ench(h,STEP_HEIGHT).value().getMaxLevel(),2,"Step Height max level");
+  var p=h.makeMockServerPlayerInLevel();p.connection.tick();var base=p.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT);
+  double[] expected={1.0,1.5};
+  for(int level=1;level<=2;level++){p.setItemSlot(EquipmentSlot.FEET,worn(h,Items.DIAMOND_BOOTS,STEP_HEIGHT,level));p.connection.tick();
+   close(h,p.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT),expected[level-1],"Step Height "+level+" total (base "+base+")");}
+  p.setItemSlot(EquipmentSlot.FEET,new ItemStack(Items.DIAMOND_BOOTS));p.connection.tick();close(h,p.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.STEP_HEIGHT),base,"boots off: step height back to base");
+  h.succeed();
+ }
+ /** Sprint I-III: +10/20/30 % of the base speed (add_multiplied_base) only while sprinting; walking, and sprinting after the leggings are off, stay vanilla. */
+ public static void enchantSprint(GameTestHelper h){
+  var speed=net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED;
+  h.assertValueEqual(ench(h,SPRINT).value().getMaxLevel(),3,"Sprint max level");
+  var p=h.makeMockServerPlayerInLevel();p.connection.tick();p.setSprinting(true);var sprintPlain=p.getAttributeValue(speed);p.setSprinting(false);var walkPlain=p.getAttributeValue(speed);
+  for(int level=1;level<=3;level++){
+   p.setSprinting(true);p.setItemSlot(EquipmentSlot.LEGS,worn(h,Items.DIAMOND_LEGGINGS,SPRINT,level));p.connection.tick();
+   close(h,p.getAttributeValue(speed)/sprintPlain,1+.1*level,"Sprint "+level+" while sprinting, relative to plain sprint speed");
+   p.setSprinting(false);p.setPos(p.getX()+level*2,p.getY(),p.getZ());p.connection.tick();
+   close(h,p.getAttributeValue(speed),walkPlain,"Sprint "+level+" walking: Vanilla speed");
+   p.setItemSlot(EquipmentSlot.LEGS,ItemStack.EMPTY);p.connection.tick();
+  }
+  p.setSprinting(true);p.setItemSlot(EquipmentSlot.LEGS,new ItemStack(Items.DIAMOND_LEGGINGS));p.connection.tick();close(h,p.getAttributeValue(speed),sprintPlain,"plain leggings: Vanilla sprint speed");
+  h.succeed();
+ }
+ /** Treasure rules like Mending / Frost Walker: treasure (so double trade price), tradeable, random chest loot, never in the enchanting table (or the Astral Enchanter, which reads the same tag); only on their own slot. */
+ public static void enchantTreasureRules(GameTestHelper h){
+  var vanilla=List.of("treasure","tradeable","on_random_loot");var absent=List.of("in_enchanting_table","non_treasure");
+  for(var key:List.of(STEP_HEIGHT,SPRINT)){var holder=ench(h,key);
+   for(var t:vanilla)h.assertTrue(holder.is(TagKey.create(Registries.ENCHANTMENT,Identifier.withDefaultNamespace(t))),key.identifier()+" is in #minecraft:"+t);
+   for(var t:absent)h.assertTrue(!holder.is(TagKey.create(Registries.ENCHANTMENT,Identifier.withDefaultNamespace(t))),key.identifier()+" is not in #minecraft:"+t);
+   h.assertTrue(holder.value().exclusiveSet().size()==0,key.identifier()+" has no exclusive set (compatible with everything)");}
+  var step=ench(h,STEP_HEIGHT).value();var sprint=ench(h,SPRINT).value();
+  h.assertTrue(step.canEnchant(new ItemStack(Items.DIAMOND_BOOTS))&&!step.canEnchant(new ItemStack(Items.DIAMOND_LEGGINGS))&&!step.canEnchant(new ItemStack(Items.DIAMOND_HELMET)),"Step Height: boots only");
+  h.assertTrue(sprint.canEnchant(new ItemStack(Items.DIAMOND_LEGGINGS))&&!sprint.canEnchant(new ItemStack(Items.DIAMOND_BOOTS))&&!sprint.canEnchant(new ItemStack(Items.DIAMOND_CHESTPLATE)),"Sprint: leggings only");
+  h.assertTrue(Enchantment.areCompatible(ench(h,SPRINT),ench(h,Enchantments.SWIFT_SNEAK))&&Enchantment.areCompatible(ench(h,STEP_HEIGHT),ench(h,Enchantments.FROST_WALKER)),"compatible with Swift Sneak / Frost Walker");
+  h.succeed();
+ }
 // MOVED-BEGIN
  public static void configBounds(GameTestHelper h){
   var c=new MovementConfig();c.ladderClimbingSpeed=100;c.ladderSlideSpeed=Double.NaN;c.normalize();
