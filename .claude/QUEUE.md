@@ -278,7 +278,7 @@ Besitzer-Antworten Konzepte (15.10.)
 - [x] Dorf-Wanderer: W1 neues Modul Simple Wanderers; W2 auch Seltenes und Mod-Angebote aufteilen, aber beim Dorf-Wanderer nichts allzu Seltenes; W3 Respawn nach 7 Tagen, nur mit Spieler vor Ort; W4 Pferd einfangbar; W5 tötbar wie Vanilla-Händler; W6 Spawn sofort beim ersten Dorfbesuch; W7 Soulbound nur beim fahrenden Händler; W8 Köpfe ja, Kerne nein; W9 Geld-Fund sofort als eigener Auftrag; W10 Biom-Sortiment gleich mit einbauen; W11 eigener Kopf später.
 - [x] (oc-moneyfix) Simple Money: 238 Preislisten-Trades des fahrenden Händlers werden nie angeboten (Pool `wandering_trader/rare` wird nicht gelesen) – sofort beheben (W9).
 - [ ] Dorf-Wanderer bauen nach Konzept docs/ai/KONZEPT-DORF-WANDERER-2026-10-15.md + Antworten W1–W11.
-- [ ] Hollow Howler Phase 1+2 umsetzen (H1); danach Phase 3 eigene synthetische Sounds (H2); Darkness-Puls nur in der Wut-Phase (H3); leuchtendes Herz als neue Emissiv-Textur mit Vorschau zur Freigabe (H4); Kamerawackeln mit Schalter „Bewegung reduzieren“ (H5). Konzept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md.
+- [ ] Hollow Howler Phase 1+2 umsetzen (H1); danach Phase 3 eigene synthetische Sounds (H2); Darkness-Puls nur in der Wut-Phase (H3); leuchtendes Herz als neue Emissiv-Textur mit Vorschau zur Freigabe (H4); Kamerawackeln mit Schalter „Bewegung reduzieren“ (H5). Konzept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md. – Phase 1+2, H3, H5 erledigt (claude-howler-n63); offen: H4 Herz nach Besitzer-OK, Phase 3 Sounds
 - [ ] Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md. – Schritt 1 erledigt (oc-anim-quick): Dread-Wind-up/Recovery, Nibblemite/Dragonmite-Wackeln, Shellker-Deckel, Deceiver-Idle, Soulfire-Blaze-Takt; Rest offen.
 - [x] Sandwich-Brot-Unterrand genehmigt (oc-breadrim).
 - [x] Item-Display Schritt 1 (Text-Vorschlag) freigegeben 15.10.; D8 Lapis/Splitter/Nuggets nach erster Welle; D9 Display-Block später als eigenes Thema.
@@ -330,27 +330,27 @@ REGEL (Besitzer 15.10.): Keine alten, schon entschiedenen Textur-Vorschläge ern
 ## Nachtrag 58 (2026-10-14, Audit vergessener Besitzer-Wünsche)
 Quelle und Belege: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-14.md` (Stand claude-wave1 3cfba3c00, nur gelesen, nichts im Spiel geprüft). Datum in Klammern = Besitzer-Nachricht.
 Nicht notiert und nicht gebaut (D):
-- [ ] (Besitzer 09.10.) Breiterer Eimer: Eimer mit größerer Öffnung als Vorschlag, dazu ein ganz neu gezeichneter breiterer Eimer (Vorschau 16-fach, alt neben neu); bisher nirgends notiert, kein Code.
+- [x] (Besitzer 09.10.) Breiterer Eimer: Eimer mit größerer Öffnung als Vorschlag, dazu ein ganz neu gezeichneter breiterer Eimer (Vorschau 16-fach, alt neben neu); bisher nirgends notiert, kein Code. (Besitzer 15.10.: Eimer bleibt wie vorher, kein breiter Eimer)
 - [ ] (Besitzer 14.10.) Bild vom 14.10. 19:31 (vermutlich Ash-Wood-Texturwahl nach den KI-Prompts): Inhalt beim Besitzer erfragen, dann umsetzen.
 - [ ] (Besitzer 10.10.) Mod-Audits: offene Befunde aus `AUDIT-DATEN-/AUDIT-MODULE-2026-10-11.md` abarbeiten (Forge-Standalone-Ziel M-05, leere Tags D-10, doppelte Lang-Kopien D-11, Forge-Stapelkappung Fass/Truhe). – Teil erledigt (oc-n58-small): M-05, D-10, D-11; offen: Forge-Stapelkappung Fass/Truhe.
 - [x] (Besitzer 09.10./11.10./14.10.) Dauerregeln dauerhaft in `docs/ai/WORKFLOW.md` festhalten: Entscheidungen immer als Auswahl, Textur-Abnahmen mit Link und als Webseite, Fremdanbieter/opencode bei leerem Kontingent, öffentliches Repo ohne interne IPs/Hosts. – erledigt (oc-n58-small, WORKFLOW.md „Standing owner rules“).
-- [ ] (Besitzer 13.10.) Sammel-Dokument offener Entscheidungen (E1–E13, T1–T26, A1–A52; nur E8 beantwortet) liegt nur in der Memory (Übergabe 13.10. abends): Antworten des Besitzers einholen und hier eintragen.
+- [x] (Besitzer 13.10.) Sammel-Dokument offener Entscheidungen (E1–E13, T1–T26, A1–A52; nur E8 beantwortet) liegt nur in der Memory (Übergabe 13.10. abends): Antworten des Besitzers einholen und hier eintragen. (Besitzer 15.10. beantwortet, siehe Nachtrag 61)
 Entscheidung notiert, nicht umgesetzt (E):
-- [ ] (Besitzer 13.10.) Elytra-Reparatur am Amboss: Wortlaut „am Amboss“ widerspricht dem Vermerk „Werkbank-Rezept bleibt, nichts bauen“ (N11); beim Besitzer klären.
+- [x] (Besitzer 13.10.) Elytra-Reparatur am Amboss: Wortlaut „am Amboss“ widerspricht dem Vermerk „Werkbank-Rezept bleibt, nichts bauen“ (N11); beim Besitzer klären. (Besitzer 15.10.: Werkbank bleibt)
 - [ ] (Besitzer 09.10., später) Astralit-/Nihilit-Fliesen als Boden (nur im Archiv als „später“ vermerkt).
 Abgehakt, aber nicht oder nur teilweise im Code (C):
-- [ ] Nacharbeit (07.10.): Wegpunkt-Icon der Wayfinder-Karte kann nur 7 Vanilla-Köpfe; Köpfe aus simplemobheads in den Tag `waypoint_heads` aufnehmen.
-- [ ] Nacharbeit (07.10.): Kreativ-Tab-Schalter je Super-/Sub-Mod fehlt in Modulen ohne `CreativeTabSettings` (z. B. simplemaps; vorhanden nur in 8 Modulen + SB).
-- [ ] Nacharbeit (07.10.): Karten-Aufdeckreichweite „wie Vanilla“: Standard `MapsConfig.revealRadius` ist 96, Vanilla-Wert prüfen und angleichen oder Abweichung bestätigen.
-- [ ] Nacharbeit (07.10.): End-Rudel 3–5 gewünscht, Nibblemite spawnt in 2–4; angleichen oder Abweichung bestätigen.
-- [ ] Nacharbeit (09.10.): Astral-Enchanter-Abbau soll Tisch plus Enderit-BARREN zurückgeben (Code: Nugget).
+- [x] Nacharbeit (07.10.): Wegpunkt-Icon der Wayfinder-Karte kann nur 7 Vanilla-Köpfe; Köpfe aus simplemobheads in den Tag `waypoint_heads` aufnehmen. (oc-auditfix)
+- [x] Nacharbeit (07.10.): Kreativ-Tab-Schalter je Super-/Sub-Mod fehlt in Modulen ohne `CreativeTabSettings` (z. B. simplemaps; vorhanden nur in 8 Modulen + SB). (oc-auditfix)
+- [x] Nacharbeit (07.10.): Karten-Aufdeckreichweite „wie Vanilla“: Standard `MapsConfig.revealRadius` ist 96, Vanilla-Wert prüfen und angleichen oder Abweichung bestätigen. (oc-answers60)
+- [x] Nacharbeit (07.10.): End-Rudel 3–5 gewünscht, Nibblemite spawnt in 2–4; angleichen oder Abweichung bestätigen. (oc-auditfix)
+- [x] Nacharbeit (09.10.): Astral-Enchanter-Abbau soll Tisch plus Enderit-BARREN zurückgeben (Code: Nugget). (oc-auditfix)
 - [ ] Nacharbeit (11.10.): End-Schiffswracks ca. 80 % vergraben (Code: Starthöhe −8 mit Endsteinhügel; Anteil nicht belegt) – prüfen.
-- [ ] Nacharbeit (11.10.): Platzierter Kupfer-Eimer soll verwittern können (Code: nur Tragen in Hotbar/Nebenhand); `jei.simplebuilding.info.copper_bucket` sagt noch „jedes Ausgießen oxidiert“ – Text korrigieren.
-- [ ] Nacharbeit (12.10.): Wollknäuel zu Wollblock (2 zu 1): Rückrichtung fehlt (vorhanden nur Wolle → 2 Knäuel); Besitzerwortlaut mehrdeutig, Rückfrage.
-- [ ] Nacharbeit (12.10.): Blaze-Book-Rezept „8 Lohenstaub + Buch“ ist nicht umgesetzt (Code: 3 Papier + 1 Lohenstaub → 3 Bücher); Rezept ändern oder Besitzer bestätigen lassen.
-- [ ] Nacharbeit (12.10.): Soulbound im Hardcore-Modus (Besitzersatz abgebrochen) – nachfragen; bisher nur Wiki-Satz.
-- [ ] Nacharbeit (13.10.): Hufeisen-Upgrade-Tooltip nennt „Copper–Enderite“, Besitzer wollte „Iron–Enderite ingots“ – klären.
-- [ ] Nacharbeit (14.10.): Shrieker mit Silent Dandelion: nur Ton stumm (85b334cbf), Vibration/Warnstufe bleiben – prüfen, ob Sculk-Sensoren trotzdem auslösen, ggf. Vibration unterdrücken.
+- [x] Nacharbeit (11.10.): Platzierter Kupfer-Eimer soll verwittern können (Code: nur Tragen in Hotbar/Nebenhand); `jei.simplebuilding.info.copper_bucket` sagt noch „jedes Ausgießen oxidiert“ – Text korrigieren. (oc-answers60)
+- [x] Nacharbeit (12.10.): Wollknäuel zu Wollblock (2 zu 1): Rückrichtung fehlt (vorhanden nur Wolle → 2 Knäuel); Besitzerwortlaut mehrdeutig, Rückfrage. (oc-answers60)
+- [x] Nacharbeit (12.10.): Blaze-Book-Rezept „8 Lohenstaub + Buch“ ist nicht umgesetzt (Code: 3 Papier + 1 Lohenstaub → 3 Bücher); Rezept ändern oder Besitzer bestätigen lassen. (oc-answers60)
+- [x] Nacharbeit (12.10.): Soulbound im Hardcore-Modus (Besitzersatz abgebrochen) – nachfragen; bisher nur Wiki-Satz. (oc-answers60)
+- [x] Nacharbeit (13.10.): Hufeisen-Upgrade-Tooltip nennt „Copper–Enderite“, Besitzer wollte „Iron–Enderite ingots“ – klären. (Besitzer 15.10.: Copper–Enderite bleibt)
+- [x] Nacharbeit (14.10.): Shrieker mit Silent Dandelion: nur Ton stumm (85b334cbf), Vibration/Warnstufe bleiben – prüfen, ob Sculk-Sensoren trotzdem auslösen, ggf. Vibration unterdrücken. (oc-auditfix: stumm = komplett untätig)
 - [ ] Nacharbeit (Memory 12.–13.10., abgehakt aber Teilpunkt offen): Simple Respawn roter Name mit Restzeit + Locator-Markierung; Schwefel-Fackel/-Laterne/-Lagerfeuer (Folgepunkt Schwefelfeuer); Entdeckbarkeit Stufe 2 (Welt-Hinweise).
 Aus den Memory-Notizen (nicht in der Queue, Details im Audit-Dokument M02–M18):
 - [ ] (Memory) Claim-Urkunde Phase 1: Review, Forge-/Client-/Standalone-Tests, Einzelhooks, Namens-Cache; rote Tests ohne Fix-Beleg (Forge crucible/auto_smither/tiered, Standalone double_cap/claims_grief, every_mod_mob NeoForge) prüfen.
