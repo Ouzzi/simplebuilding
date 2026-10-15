@@ -25,4 +25,9 @@ public final class FireGameTest {
     public void gunpowderCraftsFromSulfurAndCoal(GameTestHelper helper) {
         FireTests.gunpowderCraftsFromSulfurAndCoal(helper);
     }
+
+    @GameTest(maxTicks = FireTests.FIRE_MAX_TICKS)
+    public void sulfurLightsGlowAndCraft(GameTestHelper helper) {
+        FireTests.sulfurLightsGlowAndCraft(helper);
+    }
 }

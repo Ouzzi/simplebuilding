@@ -87,6 +87,7 @@ public final class TestCentreLayout {
         if (com.simplebuilding.version.McVersion.FIRES) {
             excluded.put("simplebuilding:sulfur_fire", "Feuer ohne Item: entsteht mit Feuerzeug auf Schwefelbloecken");
             excluded.put("simplebuilding:copper_fire", "Feuer ohne Item: entsteht mit Feuerzeug auf Kupferbloecken");
+            excluded.put("simplebuilding:sulfur_wall_torch", "Wandvariante der Schwefelfackel (N58), gleiches Item");
         }
         EXCLUDED = Map.copyOf(excluded);
     }

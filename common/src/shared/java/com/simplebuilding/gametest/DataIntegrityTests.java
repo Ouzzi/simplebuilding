@@ -180,6 +180,9 @@ public final class DataIntegrityTests {
         for (com.simplebuilding.tweaks.block.BlazeHeadType type : com.simplebuilding.tweaks.block.BlazeHeadType.values()) {
             walls.put(type.wallBlockName(), type.blockName());
         }
+        if (McVersion.FIRES) {
+            walls.put("sulfur_wall_torch", "sulfur_torch"); // N58
+        }
         return Map.copyOf(walls);
     }
 
@@ -1681,6 +1684,7 @@ public final class DataIntegrityTests {
         items.addAll(ModItems.WOOD_OCTETS);
         items.addAll(ModItems.MATERIAL_OCTETS);
         items.addAll(ModItems.LIGHT_PANES);
+        items.addAll(ModItems.SULFUR_LIGHTS);
         // Holzwerk (McVersion.WOODWORK): je Holzart in einer Schleife registriert (WoodBlocks).
         items.addAll(com.simplebuilding.woodwork.WoodBlocks.items());
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
@@ -1719,6 +1723,11 @@ public final class DataIntegrityTests {
         if (McVersion.FIRES) {
             blocks.add(com.simplebuilding.blocks.custom.ThemedFireBlock.SULFUR_FIRE);
             blocks.add(com.simplebuilding.blocks.custom.ThemedFireBlock.COPPER_FIRE);
+            // N58: sulfur torch (standing + wall), lantern, campfire
+            blocks.add(com.simplebuilding.blocks.custom.SulfurLights.TORCH);
+            blocks.add(com.simplebuilding.blocks.custom.SulfurLights.WALL_TORCH);
+            blocks.add(com.simplebuilding.blocks.custom.SulfurLights.LANTERN);
+            blocks.add(com.simplebuilding.blocks.custom.SulfurLights.CAMPFIRE);
         }
         // Schach: Treppen und Stufen der Schachbretter, in einer Schleife registriert (ModBlocks.CHECKER_SHAPES).
         for (ModBlocks.CheckerShapes shapes : ModBlocks.CHECKER_SHAPES) {
@@ -3218,6 +3227,9 @@ public final class DataIntegrityTests {
         if (McVersion.LIGHT_PANES) {
             // Light Panes (N57) after the nature rows, before the woodwork rows.
             expected.addAll(com.simplebuilding.items.ModItemGroupsContent.lightPaneRows());
+        }
+        if (McVersion.FIRES) {
+            expected.add(com.simplebuilding.items.ModItemGroupsContent.sulfurLightRow()); // N58: sulfur torch, lantern, campfire
         }
         if (McVersion.WOODWORK) {
             // Holzwerk (2026-10-09) am Ende: je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.

@@ -25,6 +25,8 @@ public abstract class SkullBlockEntityTypeMixin {
         if ((Object) this == BlockEntityTypes.SKULL && state.getBlock() instanceof AbstractSkullBlock skull
                 && skull.getType() instanceof BlazeHeadType) {
             cir.setReturnValue(true);
+        } else if ((Object) this == BlockEntityTypes.CAMPFIRE && state.getBlock() == com.simplebuilding.blocks.custom.SulfurLights.CAMPFIRE) {
+            cir.setReturnValue(true); // the sulfur campfire (N58) uses Vanilla's campfire block entity
         }
     }
 }

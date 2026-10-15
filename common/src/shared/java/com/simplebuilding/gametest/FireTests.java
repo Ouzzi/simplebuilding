@@ -1,5 +1,6 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.blocks.custom.SulfurLights;
 import com.simplebuilding.blocks.custom.ThemedFireBlock;
 import com.simplebuilding.version.McVersion;
 import java.util.List;
@@ -121,5 +122,40 @@ public final class FireTests {
         CraftingInput two = CraftingInput.of(2, 2, List.of(new ItemStack(Items.SULFUR), new ItemStack(Items.SULFUR), new ItemStack(Items.COAL), ItemStack.EMPTY));
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, two, level).isEmpty(), "2 sulfur + coal craft something");
         helper.succeed();
+    }
+
+    /** N58: sulfur torch, lantern and campfire - light 12, recipes, drops, the campfire has a block entity and gives nausea. */
+    public static void sulfurLightsGlowAndCraft(GameTestHelper helper) {
+        if (!McVersion.FIRES) {
+            helper.succeed();
+            return;
+        }
+        BlockPos floor = new BlockPos(1, 1, 1);
+        BlockPos at = new BlockPos(1, 2, 1);
+        helper.setBlock(floor, Blocks.STONE);
+        helper.setBlock(at, SulfurLights.TORCH);
+        helper.assertValueEqual(helper.getBlockState(at).getLightEmission(), ThemedFireBlock.LIGHT, "torch light");
+        helper.setBlock(at, SulfurLights.LANTERN);
+        helper.assertValueEqual(helper.getBlockState(at).getLightEmission(), ThemedFireBlock.LIGHT, "lantern light");
+        helper.setBlock(at, SulfurLights.WALL_TORCH.defaultBlockState());
+        helper.assertValueEqual(helper.getBlockState(at).getLightEmission(), ThemedFireBlock.LIGHT, "wall torch light");
+        for (Block block : List.of(SulfurLights.TORCH, SulfurLights.WALL_TORCH, SulfurLights.LANTERN)) {
+            List<ItemStack> drops = Block.getDrops(block.defaultBlockState(), helper.getLevel(), helper.absolutePos(at), null);
+            helper.assertTrue(drops.size() == 1 && drops.get(0).is(BuiltInRegistries.ITEM.getValue(
+                    Identifier.parse(block == SulfurLights.LANTERN ? "simplebuilding:sulfur_lantern" : "simplebuilding:sulfur_torch"))), block + " drops " + drops);
+        }
+        ServerLevel level = helper.getLevel();
+        CraftingInput torch = CraftingInput.of(1, 3, List.of(new ItemStack(Items.COAL), new ItemStack(Items.STICK), new ItemStack(Items.SULFUR)));
+        Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, torch, level);
+        helper.assertTrue(match.isPresent() && match.get().value().assemble(torch).getCount() == 4, "sulfur torch recipe");
+        helper.setBlock(at, SulfurLights.CAMPFIRE);
+        BlockState camp = helper.getBlockState(at);
+        helper.assertTrue(camp.is(BlockTags.CAMPFIRES), "sulfur campfire not in #minecraft:campfires");
+        helper.assertValueEqual(camp.getLightEmission(), ThemedFireBlock.LIGHT, "campfire light");
+        helper.assertTrue(level.getBlockEntity(helper.absolutePos(at)) instanceof net.minecraft.world.level.block.entity.CampfireBlockEntity,
+                "sulfur campfire has no campfire block entity");
+        helper.assertTrue(Block.getDrops(camp, level, helper.absolutePos(at), null).get(0).is(Items.SULFUR), "campfire drops no sulfur");
+        LivingEntity golem = (LivingEntity) helper.spawn(EntityTypes.IRON_GOLEM, at);
+        helper.succeedWhen(() -> helper.assertTrue(golem.hasEffect(MobEffects.NAUSEA), "standing in the sulfur campfire gave no nausea"));
     }
 }
