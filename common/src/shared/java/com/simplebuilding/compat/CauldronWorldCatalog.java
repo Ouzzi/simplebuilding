@@ -158,14 +158,13 @@ public final class CauldronWorldCatalog {
         if (butter != null) {
             out.add(new Entry("milk_butter", List.of(Stack.of(Items.CAULDRON, 1), Stack.of(Items.MILK_BUCKET, 1)), List.of(),
                     Stack.of(butter, 1), 0,
-                    List.of(Component.translatable(NOTE + "milk_butter.fill"), Component.translatable(NOTE + "milk_butter.take"))));
+                    List.of(Component.translatable(NOTE + "milk_butter.fill"), Component.translatable(NOTE + "milk_butter.take"),
+                            Component.translatable(NOTE + "milk_butter.hopper"))));
         }
         if (cheese != null) {
-            out.add(new Entry("milk_cheese",
-                    List.of(Stack.of(Items.CAULDRON, 1), Stack.of(Items.MILK_BUCKET, 1), Stack.of(Items.FERMENTED_SPIDER_EYE, 1)),
-                    List.of(), Stack.of(cheese, 1), 0,
-                    List.of(Component.translatable(NOTE + "milk_cheese.fill"), Component.translatable(NOTE + "milk_cheese.take"),
-                            Component.translatable(NOTE + "milk_cheese.spoil"))));
+            out.add(new Entry("milk_cheese", List.of(Stack.of(Items.CAULDRON, 1), Stack.of(Items.MILK_BUCKET, 1)), List.of(),
+                    Stack.of(cheese, 1), 0,
+                    List.of(Component.translatable(NOTE + "milk_cheese.fill"), Component.translatable(NOTE + "milk_cheese.take"))));
         }
     }
 

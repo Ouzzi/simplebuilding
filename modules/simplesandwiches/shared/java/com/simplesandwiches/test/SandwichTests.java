@@ -65,7 +65,7 @@ import net.minecraft.world.phys.Vec3;
 public final class SandwichTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     /** Ids that need more than the default 100 ticks. */
-    public static final Map<String, Integer> MAX_TICKS = Map.of("cauldron_ripens_in_world", 400);
+    public static final Map<String, Integer> MAX_TICKS = Map.of("cauldron_ripens_in_world", 600);
 
     static {
         ALL.put("config_bounds", SandwichTests::configBounds);
@@ -88,7 +88,10 @@ public final class SandwichTests {
         ALL.put("cut_sounds_registered", SandwichTests::cutSoundsRegistered);
         ALL.put("sandwich_warms_in_crucible", SandwichTests::sandwichWarmsInCrucible);
         ALL.put("cauldron_butter", SandwichTests::cauldronButter);
-        ALL.put("cauldron_cheese_spoils", SandwichTests::cauldronCheeseSpoils);
+        ALL.put("cauldron_butter_to_cheese", SandwichTests::cauldronButterToCheese);
+        ALL.put("cauldron_hopper_harvests_butter", SandwichTests::cauldronHopperHarvestsButter);
+        ALL.put("cauldron_locked_hopper_waits", SandwichTests::cauldronLockedHopperWaits);
+        ALL.put("cauldron_legacy_migrates", SandwichTests::cauldronLegacyMigrates);
         ALL.put("cauldron_ripens_in_world", SandwichTests::cauldronRipensInWorld);
         ALL.put("reinforced_milk_cauldron", SandwichTests::reinforcedMilkCauldron);
         ALL.put("bundle_eating", SandwichTests::bundleEating);
@@ -194,7 +197,6 @@ public final class SandwichTests {
             j.addProperty("effectDurationMultiplierCap", -3);
             j.addProperty("butterTicks", 1);
             j.addProperty("cheeseTicks", Integer.MAX_VALUE);
-            j.addProperty("cheeseHarvestWindowTicks", -5);
             j.addProperty("bundleEating", false);
             SandwichConfig.apply(j);
             h.assertTrue(SandwichConfig.maxIngredients == 5, "maxIngredients clamped to 5");
@@ -203,7 +205,7 @@ public final class SandwichTests {
             near(h, SandwichConfig.effectDurationMultiplierCap, 1.0, "multiplier clamped");
             h.assertTrue(SandwichConfig.butterTicks == 200, "butterTicks clamped");
             h.assertTrue(SandwichConfig.cheeseTicks == 72_000, "cheeseTicks clamped");
-            h.assertTrue(SandwichConfig.cheeseHarvestWindowTicks == 200, "harvest window clamped");
+            h.assertTrue(SandwichConfig.BUTTER_TICKS_DEFAULT == 6_000 && SandwichConfig.CHEESE_TICKS_DEFAULT == 6_000, "default 5 min + 5 min");
             h.assertTrue(!SandwichConfig.bundleEating, "bundleEating switch read");
             j = new JsonObject();
             j.addProperty("butterBonus", "NaN");
@@ -642,7 +644,7 @@ public final class SandwichTests {
         step(h, pos);
         h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.BUTTER, "milk ripened into butter by itself");
         step(h, pos);
-        h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.BUTTER, "butter never spoils");
+        h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.BUTTER, "butter is still butter after a step");
         click(h, p, pos);
         h.assertTrue(p.getMainHandItem().is(ModItems.BUTTER_BLOCK) && at(h, pos).is(Blocks.CAULDRON), "butter block taken");
         h.succeed();
@@ -672,30 +674,111 @@ public final class SandwichTests {
         h.succeed();
     }
 
-    static void cauldronCheeseSpoils(GameTestHelper h) {
+    /** Fills the cauldron at {@code pos} with milk and ripens it to butter by stepping its scheduled ticks. */
+    private static void ripenToButter(GameTestHelper h, BlockPos pos) {
+        h.setBlock(pos, Blocks.CAULDRON);
+        ServerPlayer p = player(h, pos);
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.MILK_BUCKET));
+        click(h, p, pos);
+        for (int i = 0; i < MilkCauldronBlock.STAGES; i++) step(h, pos);
+    }
+
+    private static Content content(GameTestHelper h, BlockPos pos) {
+        BlockState state = at(h, pos);
+        return state.is(ModBlocks.MILK_CAULDRON) ? state.getValue(MilkCauldronBlock.CONTENT) : null;
+    }
+
+    /** Owner 2026-10-15: butter ripens into cheese on its own (no spider eye), nothing spoils, no harvest window. */
+    static void cauldronButterToCheese(GameTestHelper h) {
         BlockPos pos = cauldron(h);
         ServerPlayer p = player(h, pos);
-        for (boolean late : new boolean[]{false, true}) {
-            h.setBlock(pos, Blocks.CAULDRON);
-            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.MILK_BUCKET));
-            click(h, p, pos);
-            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.FERMENTED_SPIDER_EYE));
-            click(h, p, pos);
-            h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.CURDLING && p.getMainHandItem().isEmpty(), "rennet starts curdling");
-            for (int i = 0; i < MilkCauldronBlock.STAGES; i++) step(h, pos);
-            h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.CHEESE, "cheese ripe");
-            h.assertTrue(MilkCauldronBlock.interval(Content.CHEESE) == SandwichConfig.cheeseHarvestWindowTicks, "harvest window scheduled");
-            if (late) {
-                step(h, pos);
-                h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.SPOILED, "missed window spoils");
-                click(h, p, pos);
-                h.assertTrue(at(h, pos).is(Blocks.CAULDRON) && p.getMainHandItem().isEmpty(), "spoiled milk is only emptied");
-            } else {
-                click(h, p, pos);
-                h.assertTrue(p.getMainHandItem().is(ModItems.CHEESE_BLOCK), "cheese block taken in time");
-            }
+        ripenToButter(h, pos);
+        h.assertTrue(content(h, pos) == Content.BUTTER, "milk ripened into butter");
+        h.assertTrue(MilkCauldronBlock.interval(Content.BUTTER) == SandwichConfig.cheeseTicks / MilkCauldronBlock.STAGES, "butter ripens over cheeseTicks");
+        h.assertTrue(h.getLevel().getBlockTicks().hasScheduledTick(h.absolutePos(pos), ModBlocks.MILK_CAULDRON), "butter -> cheese scheduled");
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.FERMENTED_SPIDER_EYE));
+        h.assertTrue(click(h, p, pos) == InteractionResult.PASS && p.getMainHandItem().getCount() == 1 && content(h, pos) == Content.BUTTER,
+                "a fermented spider eye does nothing any more");
+        for (int i = 0; i < MilkCauldronBlock.STAGES - 1; i++) {
+            step(h, pos);
+            h.assertTrue(content(h, pos) == Content.BUTTER, "still butter after hidden step " + (i + 1));
         }
-        h.assertTrue(SandwichConfig.cheeseTicks > SandwichConfig.butterTicks, "cheese takes longer than butter");
+        step(h, pos);
+        h.assertTrue(content(h, pos) == Content.CHEESE, "butter ripened into cheese");
+        h.assertTrue(MilkCauldronBlock.interval(Content.CHEESE) == 0 && MilkCauldronBlock.next(at(h, pos)) == null, "cheese is final: no harvest window, no spoiling");
+        step(h, pos);
+        step(h, pos);
+        h.assertTrue(content(h, pos) == Content.CHEESE, "cheese never spoils");
+        p.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        click(h, p, pos);
+        h.assertTrue(p.getMainHandItem().is(ModItems.CHEESE_BLOCK) && at(h, pos).is(Blocks.CAULDRON), "cheese block taken by hand");
+        h.succeed();
+    }
+
+    private static BlockPos hopperUnder(GameTestHelper h, BlockPos cauldron, boolean enabled) {
+        BlockPos hopper = cauldron.below();
+        // Locked = powered by a neighboring redstone block, set first so the hopper reads it when placed.
+        if (!enabled) h.setBlock(hopper.west(), Blocks.REDSTONE_BLOCK);
+        h.setBlock(hopper, Blocks.HOPPER.defaultBlockState().setValue(net.minecraft.world.level.block.HopperBlock.ENABLED, enabled));
+        return hopper;
+    }
+
+    private static net.minecraft.world.level.block.entity.HopperBlockEntity hopperAt(GameTestHelper h, BlockPos rel) {
+        return (net.minecraft.world.level.block.entity.HopperBlockEntity) h.getLevel().getBlockEntity(h.absolutePos(rel));
+    }
+
+    /** An active hopper directly below takes the butter the moment it is ready; the cauldron is empty afterwards. */
+    static void cauldronHopperHarvestsButter(GameTestHelper h) {
+        BlockPos pos = cauldron(h);
+        BlockPos hopper = hopperUnder(h, pos, true);
+        ripenToButter(h, pos);
+        h.assertTrue(at(h, pos).is(Blocks.CAULDRON), "cauldron is empty after the harvest, got " + at(h, pos));
+        var be = hopperAt(h, hopper);
+        h.assertTrue(be.getItem(0).is(ModItems.BUTTER_BLOCK) && be.getItem(0).getCount() == 1, "hopper holds one butter block, got " + be.getItem(0));
+        h.succeed();
+    }
+
+    /** A redstone-locked or full hopper does not harvest; butter keeps ripening to cheese; the hopper takes it once it can. */
+    static void cauldronLockedHopperWaits(GameTestHelper h) {
+        BlockPos pos = cauldron(h);
+        BlockPos hopper = hopperUnder(h, pos, false);
+        ripenToButter(h, pos);
+        h.assertTrue(content(h, pos) == Content.BUTTER && hopperAt(h, hopper).isEmpty(), "locked hopper: butter stays in the cauldron");
+        for (int i = 0; i < MilkCauldronBlock.STAGES; i++) step(h, pos);
+        h.assertTrue(content(h, pos) == Content.CHEESE && hopperAt(h, hopper).isEmpty(), "locked for the whole time: it ripened to cheese");
+        // Unlocked: the next random tick (or any ripening step) harvests the cheese.
+        h.setBlock(hopper.west(), Blocks.AIR);
+        BlockPos abs = h.absolutePos(pos);
+        at(h, pos).randomTick(h.getLevel(), abs, h.getLevel().getRandom());
+        h.assertTrue(at(h, pos).is(Blocks.CAULDRON) && hopperAt(h, hopper).getItem(0).is(ModItems.CHEESE_BLOCK), "unlocked hopper takes the cheese");
+        // Full hopper: nothing is lost, nothing is harvested.
+        BlockPos second = new BlockPos(0, 2, 0);
+        BlockPos hopper2 = hopperUnder(h, second, true);
+        for (int i = 0; i < 5; i++) hopperAt(h, hopper2).setItem(i, new ItemStack(Items.DIRT, 64));
+        ripenToButter(h, second);
+        h.assertTrue(content(h, second) == Content.BUTTER, "full hopper: butter stays");
+        hopperAt(h, hopper2).setItem(4, ItemStack.EMPTY);
+        at(h, second).randomTick(h.getLevel(), h.absolutePos(second), h.getLevel().getRandom());
+        h.assertTrue(at(h, second).is(Blocks.CAULDRON) && hopperAt(h, hopper2).getItem(4).is(ModItems.BUTTER_BLOCK), "room made: butter taken");
+        h.succeed();
+    }
+
+    /** Old worlds: spider-eye curdling and spoiled milk turn into milk. */
+    static void cauldronLegacyMigrates(GameTestHelper h) {
+        BlockPos pos = cauldron(h);
+        BlockState legacy = ModBlocks.MILK_CAULDRON.defaultBlockState().setValue(MilkCauldronBlock.CONTENT, Content.CURDLING).setValue(MilkCauldronBlock.STAGE, 2);
+        h.setBlock(pos, legacy);
+        step(h, pos);
+        h.assertTrue(content(h, pos) == Content.MILK && at(h, pos).getValue(MilkCauldronBlock.STAGE) == 2, "curdling milk keeps its stage as milk");
+        h.assertTrue(h.getLevel().getBlockTicks().hasScheduledTick(h.absolutePos(pos), ModBlocks.MILK_CAULDRON), "ripening goes on");
+        h.setBlock(pos, legacy.setValue(MilkCauldronBlock.CONTENT, Content.SPOILED).setValue(MilkCauldronBlock.STAGE, 0));
+        at(h, pos).randomTick(h.getLevel(), h.absolutePos(pos), h.getLevel().getRandom());
+        h.assertTrue(content(h, pos) == Content.MILK, "spoiled milk is milk again (nothing spoils)");
+        ServerPlayer p = player(h, pos);
+        h.setBlock(pos, legacy.setValue(MilkCauldronBlock.CONTENT, Content.SPOILED).setValue(MilkCauldronBlock.STAGE, 0));
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BUCKET));
+        click(h, p, pos);
+        h.assertTrue(p.getMainHandItem().is(Items.MILK_BUCKET) && at(h, pos).is(Blocks.CAULDRON), "an empty bucket takes the migrated milk");
         h.succeed();
     }
 
@@ -704,15 +787,32 @@ public final class SandwichTests {
         ServerPlayer p = player(h, pos);
         JsonObject saved = SandwichConfig.toJson();
         SandwichConfig.butterTicks = SandwichConfig.BUTTER_TICKS_MIN;
+        SandwichConfig.cheeseTicks = SandwichConfig.CHEESE_TICKS_MIN;
+        // A second cauldron with an active hopper below: real ticks only, nobody touches it.
+        BlockPos second = new BlockPos(0, 2, 0);
+        BlockPos hopper = hopperUnder(h, second, true);
+        h.setBlock(second, Blocks.CAULDRON);
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.MILK_BUCKET));
+        click(h, p, second);
         p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.MILK_BUCKET));
         click(h, p, pos);
         h.runAfterDelay(SandwichConfig.BUTTER_TICKS_MIN + 20, () -> {
             try {
-                h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.BUTTER, "scheduled ticks ripen the milk");
-            } finally {
+                h.assertTrue(content(h, pos) == Content.BUTTER, "scheduled ticks ripen the milk into butter");
+                h.assertTrue(at(h, second).is(Blocks.CAULDRON) && hopperAt(h, hopper).getItem(0).is(ModItems.BUTTER_BLOCK),
+                        "the hopper collected the butter by itself");
+            } catch (RuntimeException e) {
                 SandwichConfig.apply(saved);
+                throw e;
             }
-            h.succeed();
+            h.runAfterDelay(SandwichConfig.CHEESE_TICKS_MIN + 20, () -> {
+                try {
+                    h.assertTrue(content(h, pos) == Content.CHEESE, "another cheeseTicks later the butter is cheese");
+                } finally {
+                    SandwichConfig.apply(saved);
+                }
+                h.succeed();
+            });
         });
     }
 

@@ -82,11 +82,26 @@ public final class ModuleGameTest {
     }
 
     @GameTest
-    public void cauldronCheeseSpoils(GameTestHelper h) {
-        SandwichTests.ALL.get("cauldron_cheese_spoils").accept(h);
+    public void cauldronButterToCheese(GameTestHelper h) {
+        SandwichTests.ALL.get("cauldron_butter_to_cheese").accept(h);
     }
 
-    @GameTest(maxTicks = 400)
+    @GameTest
+    public void cauldronHopperHarvestsButter(GameTestHelper h) {
+        SandwichTests.ALL.get("cauldron_hopper_harvests_butter").accept(h);
+    }
+
+    @GameTest
+    public void cauldronLockedHopperWaits(GameTestHelper h) {
+        SandwichTests.ALL.get("cauldron_locked_hopper_waits").accept(h);
+    }
+
+    @GameTest
+    public void cauldronLegacyMigrates(GameTestHelper h) {
+        SandwichTests.ALL.get("cauldron_legacy_migrates").accept(h);
+    }
+
+    @GameTest(maxTicks = 600)
     public void cauldronRipensInWorld(GameTestHelper h) {
         SandwichTests.ALL.get("cauldron_ripens_in_world").accept(h);
     }

@@ -271,7 +271,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend"
     ],
-    "dataHash": "3f5751af0b85"
+    "dataHash": "0d4c47ba6216"
   },
   {
     "id": "simplelib",

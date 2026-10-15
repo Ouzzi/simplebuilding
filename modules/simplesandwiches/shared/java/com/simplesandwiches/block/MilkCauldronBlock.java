@@ -2,7 +2,9 @@ package com.simplesandwiches.block;
 
 import com.simplesandwiches.config.SandwichConfig;
 import com.simplesandwiches.registry.ModBlocks;
+import com.simplebuilding.framework.api.Protection;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.core.cauldron.CauldronInteraction;
@@ -23,6 +25,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HopperBlock;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -32,17 +36,19 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
 /**
- * Cauldron with milk that ripens by itself (owner decisions F5/F6, 2026-10-04).
+ * Cauldron with milk that ripens by itself (owner decisions F5/F6 of 2026-10-04, replaced 2026-10-15).
  *
  * <ul>
- *   <li>Milk bucket into an empty cauldron -> {@code milk}; four visible stages over
- *       {@code butterTicks} -> {@code butter} (stays until taken with an empty hand -> butter block).</li>
- *   <li>Fermented spider eye into milk -> {@code curdling}; four stages over {@code cheeseTicks} ->
- *       {@code cheese}. The cheese must be taken with an empty hand within
- *       {@code cheeseHarvestWindowTicks}, otherwise it turns into {@code spoiled} milk that can only be
- *       emptied (gives nothing).</li>
+ *   <li>Milk bucket into an empty cauldron -> {@code milk}; four visible stages over {@code butterTicks}
+ *       (default 5 min) -> {@code butter}.</li>
+ *   <li>Butter left alone ripens over another {@code cheeseTicks} (default 5 min, four hidden stages that
+ *       only count the time) -> {@code cheese}. No spider eye, nothing ever spoils, there is no harvest window.</li>
+ *   <li>Butter or cheese is taken with an empty hand (-> block), or sucked out at once by an active (not
+ *       redstone-locked) hopper directly below, if it has room: the cauldron is empty afterwards. So with an
+ *       active hopper below the cauldron only gives butter, unless the hopper is full or locked for 5 minutes.</li>
  * </ul>
- * Ripening uses scheduled block ticks, which only run in loaded, ticking chunks.
+ * Ripening uses scheduled block ticks, which only run in loaded, ticking chunks. Random ticks heal cauldrons
+ * without a scheduled tick, retry the hopper harvest and migrate the legacy contents.
  *
  * <p>{@code reinforced}: made from SimpleLib's reinforced cauldron (which runs the Vanilla cauldron
  * interactions, milk included, and sets this flag). Emptying it returns that cauldron and breaking it
@@ -56,7 +62,16 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
     private static final Identifier REINFORCED_CAULDRON = Identifier.fromNamespaceAndPath("simplelib", "reinforced_cauldron");
 
     public enum Content implements StringRepresentable {
-        MILK, BUTTER, CURDLING, CHEESE, SPOILED;
+        MILK, BUTTER,
+        /** Legacy (spider-eye cheese before 2026-10-15): turned into {@link #MILK} on the next tick, never produced. */
+        CURDLING,
+        CHEESE,
+        /** Legacy (spoiled cheese before 2026-10-15): turned into {@link #MILK} on the next tick, never produced. */
+        SPOILED;
+
+        public boolean legacy() {
+            return this == CURDLING || this == SPOILED;
+        }
 
         @Override
         public String getSerializedName() {
@@ -120,12 +135,11 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
         return java.util.List.of(new ItemStack(emptied(state).getBlock()));
     }
 
-    /** Ticks between two visible stages (and for cheese the harvest window). */
+    /** Ticks between two stages: milk -> butter takes {@code butterTicks}, butter -> cheese {@code cheeseTicks}. */
     public static int interval(Content content) {
         return switch (content) {
             case MILK -> Math.max(1, SandwichConfig.butterTicks / STAGES);
-            case CURDLING -> Math.max(1, SandwichConfig.cheeseTicks / STAGES);
-            case CHEESE -> SandwichConfig.cheeseHarvestWindowTicks;
+            case BUTTER -> Math.max(1, SandwichConfig.cheeseTicks / STAGES);
             default -> 0;
         };
     }
@@ -142,16 +156,44 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
         level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
     }
 
-    /** The next state after one scheduled step (null = unchanged). */
+    /** The next state after one scheduled step (null = unchanged). Cheese is final: it never spoils. */
     public static BlockState next(BlockState state) {
         Content content = state.getValue(CONTENT);
         int stage = state.getValue(STAGE);
         return switch (content) {
             case MILK -> stage < STAGES - 1 ? state.setValue(STAGE, stage + 1) : state.setValue(CONTENT, Content.BUTTER).setValue(STAGE, 0);
-            case CURDLING -> stage < STAGES - 1 ? state.setValue(STAGE, stage + 1) : state.setValue(CONTENT, Content.CHEESE).setValue(STAGE, 0);
-            case CHEESE -> state.setValue(CONTENT, Content.SPOILED).setValue(STAGE, 0);
+            // Butter stages are invisible (one model); they only count the time to cheese.
+            case BUTTER -> stage < STAGES - 1 ? state.setValue(STAGE, stage + 1) : state.setValue(CONTENT, Content.CHEESE).setValue(STAGE, 0);
+            case CURDLING -> state.setValue(CONTENT, Content.MILK);
+            case SPOILED -> state.setValue(CONTENT, Content.MILK).setValue(STAGE, 0);
             default -> null;
         };
+    }
+
+    /**
+     * Server-side: an active hopper right below takes the finished product (a butter or cheese block item) if it
+     * has room, and the cauldron is empty afterwards. Returns whether it was harvested. Respects claims through
+     * the framework {@link Protection} API (automation from the cauldron's to the hopper's position).
+     */
+    public static boolean harvestIntoHopper(ServerLevel level, BlockPos pos, BlockState state) {
+        Content content = state.getValue(CONTENT);
+        if (!content.ripe()) return false;
+        BlockPos below = pos.below();
+        BlockState hopperState = level.getBlockState(below);
+        if (!hopperState.is(Blocks.HOPPER) || !hopperState.getValue(HopperBlock.ENABLED)) return false;
+        if (!(level.getBlockEntity(below) instanceof HopperBlockEntity hopper)) return false;
+        var server = level.getServer();
+        if (Protection.active(server)) {
+            String dim = level.dimension().identifier().toString();
+            if (!Protection.allowsAutomation(server, new Protection.Target(null, dim, pos.getX(), pos.getY(), pos.getZ(), false),
+                    new Protection.Target(null, dim, below.getX(), below.getY(), below.getZ(), false))) return false;
+        }
+        ItemStack product = new ItemStack(content == Content.BUTTER ? ModBlocks.BUTTER_BLOCK : ModBlocks.CHEESE_BLOCK);
+        if (!HopperBlockEntity.addItem(null, hopper, product, Direction.UP).isEmpty()) return false;
+        level.setBlockAndUpdate(pos, emptied(state));
+        level.playSound(null, pos, SoundEvents.HONEY_BLOCK_BREAK, SoundSource.BLOCKS, 0.6F, 1.1F);
+        level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+        return true;
     }
 
     @Override
@@ -161,10 +203,39 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
         if (next == null) return;
         level.setBlock(pos, next, Block.UPDATE_ALL);
         Content content = next.getValue(CONTENT);
-        if (content.ripe()) level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.8F, 1.4F);
-        if (content == Content.SPOILED) level.playSound(null, pos, SoundEvents.SLIME_SQUISH_SMALL, SoundSource.BLOCKS, 0.8F, 0.6F);
+        if (content != state.getValue(CONTENT) && content.ripe()) {
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.8F, 1.4F);
+        }
+        // Every step of a ripe product is another chance for a hopper below (it may have got room or power since).
+        if (harvestIntoHopper(level, pos, next)) return;
         int wait = interval(content);
         if (wait > 0) level.scheduleTick(pos, this, wait);
+    }
+
+    @Override
+    protected boolean isRandomlyTicking(BlockState state) {
+        return true;
+    }
+
+    /** Self-healing: legacy contents migrate, a cauldron without a scheduled tick gets one, a ripe product retries its hopper. */
+    @Override
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!com.simplesandwiches.Sandwiches.on()) return;
+        state = migrated(level, pos, state);
+        if (harvestIntoHopper(level, pos, state)) return;
+        int wait = interval(state.getValue(CONTENT));
+        if (wait > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) level.scheduleTick(pos, this, wait);
+    }
+
+    /** Legacy curdling/spoiled contents become milk (nothing is lost, nothing spoils); returns the current state. */
+    public static BlockState migrated(Level level, BlockPos pos, BlockState state) {
+        if (!(level instanceof ServerLevel server) || !state.getValue(CONTENT).legacy()) return state;
+        BlockState next = next(state);
+        server.setBlock(pos, next, Block.UPDATE_ALL);
+        if (!server.getBlockTicks().hasScheduledTick(pos, ModBlocks.MILK_CAULDRON)) {
+            server.scheduleTick(pos, ModBlocks.MILK_CAULDRON, interval(Content.MILK));
+        }
+        return next;
     }
 
     @Override
@@ -180,23 +251,15 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
         if (!com.simplesandwiches.Sandwiches.on()) return InteractionResult.PASS;
+        state = migrated(level, pos, state);
         Content content = state.getValue(CONTENT);
         ItemStack filled = content == Content.MILK ? filledContainer(stack) : ItemStack.EMPTY;
-        if ((stack.is(Items.BUCKET) && (content == Content.MILK || content == Content.SPOILED)) || !filled.isEmpty()) {
+        if ((stack.is(Items.BUCKET) && content == Content.MILK) || !filled.isEmpty()) {
             if (!level.isClientSide()) {
-                // Spoiled milk is only poured out: the bucket stays empty.
-                if (content == Content.MILK) player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, filled));
+                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, filled));
                 level.setBlockAndUpdate(pos, emptied(state));
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        if (stack.is(Items.FERMENTED_SPIDER_EYE) && content == Content.MILK) {
-            if (!level.isClientSide()) {
-                stack.consume(1, player);
-                start(level, pos, Content.CURDLING);
-                level.playSound(null, pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 0.6F, 1.3F);
             }
             return InteractionResult.SUCCESS;
         }
@@ -206,17 +269,13 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!player.getMainHandItem().isEmpty()) return InteractionResult.PASS;
+        state = migrated(level, pos, state);
         Content content = state.getValue(CONTENT);
-        if (!content.ripe() && content != Content.SPOILED) return InteractionResult.PASS;
+        if (!content.ripe()) return InteractionResult.PASS;
         if (!level.isClientSide()) {
             level.setBlockAndUpdate(pos, emptied(state));
-            if (content == Content.SPOILED) {
-                level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 0.8F, 0.6F);
-            } else {
-                ItemStack block = new ItemStack(content == Content.BUTTER ? ModBlocks.BUTTER_BLOCK : ModBlocks.CHEESE_BLOCK);
-                player.setItemInHand(InteractionHand.MAIN_HAND, block);
-                level.playSound(null, pos, SoundEvents.HONEY_BLOCK_BREAK, SoundSource.BLOCKS, 0.8F, 1.0F);
-            }
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(content == Content.BUTTER ? ModBlocks.BUTTER_BLOCK : ModBlocks.CHEESE_BLOCK));
+            level.playSound(null, pos, SoundEvents.HONEY_BLOCK_BREAK, SoundSource.BLOCKS, 0.8F, 1.0F);
             level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
         }
         return InteractionResult.SUCCESS;
@@ -262,10 +321,7 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
         double x = pos.getX() + 0.25 + random.nextDouble() * 0.5, y = pos.getY() + 0.95, z = pos.getZ() + 0.25 + random.nextDouble() * 0.5;
         if (content.ripe() && random.nextInt(3) == 0) {
             level.addParticle(ParticleTypes.HAPPY_VILLAGER, x, y + 0.1, z, 0, 0.02, 0);
-        } else if (content == Content.SPOILED && random.nextInt(2) == 0) {
-            level.addParticle(ParticleTypes.MYCELIUM, x, y, z, 0, 0, 0);
-            if (random.nextInt(4) == 0) level.addParticle(ParticleTypes.SMOKE, x, y, z, 0, 0.02, 0);
-        } else if (content == Content.CURDLING && random.nextInt(8) == 0) {
+        } else if (content == Content.MILK && state.getValue(STAGE) == STAGES - 1 && random.nextInt(8) == 0) {
             level.addParticle(ParticleTypes.BUBBLE_POP, x, y, z, 0, 0.01, 0);
         }
     }

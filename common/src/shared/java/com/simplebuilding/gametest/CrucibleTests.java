@@ -162,15 +162,10 @@ public final class CrucibleTests {
                 java.util.List.of(content + " [" + content + ".milk]", "jade.simplebuilding.cauldron.ripeness [1, 4]"));
         cauldron(helper, milk, new String[] {"content", "milk", "stage", "2"},
                 java.util.List.of(content + " [" + content + ".milk]", "jade.simplebuilding.cauldron.ripeness [3, 4]"));
-        cauldron(helper, milk, new String[] {"content", "curdling", "stage", "3"},
-                java.util.List.of(content + " [" + content + ".curdling]", "jade.simplebuilding.cauldron.ripeness [4, 4]"));
         cauldron(helper, milk, new String[] {"content", "butter", "stage", "0"},
                 java.util.List.of(content + " [" + content + ".butter]", "jade.simplebuilding.cauldron.ready []"));
         cauldron(helper, milk, new String[] {"content", "cheese", "stage", "0"},
-                java.util.List.of(content + " [" + content + ".cheese]", "jade.simplebuilding.cauldron.ready []",
-                        "jade.simplebuilding.cauldron.cheese_warning []"));
-        cauldron(helper, milk, new String[] {"content", "spoiled", "stage", "0"},
-                java.util.List.of(content + " [" + content + ".spoiled]", "jade.simplebuilding.cauldron.spoiled []"));
+                java.util.List.of(content + " [" + content + ".cheese]", "jade.simplebuilding.cauldron.ready []"));
     }
 
     private static void reinforcedCauldron(GameTestHelper helper) {
@@ -269,8 +264,8 @@ public final class CrucibleTests {
         helper.assertTrue(butter.inputs().get(1).items().equals(java.util.List.of(Items.MILK_BUCKET)) && butter.tools().isEmpty()
                 && butter.output().items().equals(java.util.List.of(item("simplesandwiches:butter_block"))), "milk bucket in a cauldron gives butter");
         var cheese = entries.get("milk_cheese");
-        helper.assertTrue(cheese.inputs().get(2).items().equals(java.util.List.of(Items.FERMENTED_SPIDER_EYE))
-                && cheese.output().items().equals(java.util.List.of(item("simplesandwiches:cheese_block"))), "fermented spider eye gives cheese");
+        helper.assertTrue(cheese.inputs().size() == 2 && cheese.inputs().get(1).items().equals(java.util.List.of(Items.MILK_BUCKET))
+                && cheese.output().items().equals(java.util.List.of(item("simplesandwiches:cheese_block"))), "milk alone gives cheese (no spider eye)");
         }
 
         var catalysts = com.simplebuilding.compat.CauldronWorldCatalog.catalysts();

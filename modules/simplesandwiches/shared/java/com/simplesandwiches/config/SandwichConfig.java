@@ -17,9 +17,8 @@ public final class SandwichConfig {
     public static final double BUTTER_BONUS_DEFAULT = 0.10, BUTTER_BONUS_MIN = 0.0, BUTTER_BONUS_MAX = 0.25;
     public static final int EFFECT_CAP_TICKS_DEFAULT = 12_000, EFFECT_CAP_TICKS_MIN = 20, EFFECT_CAP_TICKS_MAX = 12_000;
     public static final double EFFECT_MULTIPLIER_CAP_DEFAULT = 2.0, EFFECT_MULTIPLIER_CAP_MIN = 1.0, EFFECT_MULTIPLIER_CAP_MAX = 3.0;
-    public static final int BUTTER_TICKS_DEFAULT = 3_000, BUTTER_TICKS_MIN = 200, BUTTER_TICKS_MAX = 24_000;
-    public static final int CHEESE_TICKS_DEFAULT = 9_000, CHEESE_TICKS_MIN = 600, CHEESE_TICKS_MAX = 72_000;
-    public static final int HARVEST_WINDOW_DEFAULT = 1_800, HARVEST_WINDOW_MIN = 200, HARVEST_WINDOW_MAX = 12_000;
+    public static final int BUTTER_TICKS_DEFAULT = 6_000, BUTTER_TICKS_MIN = 200, BUTTER_TICKS_MAX = 24_000;
+    public static final int CHEESE_TICKS_DEFAULT = 6_000, CHEESE_TICKS_MIN = 200, CHEESE_TICKS_MAX = 72_000;
     public static final boolean BUNDLE_EATING_DEFAULT = true;
     public static final boolean KNIFE_CUTS_CAKE_DEFAULT = true;
 
@@ -29,7 +28,6 @@ public final class SandwichConfig {
     public static double effectDurationMultiplierCap = EFFECT_MULTIPLIER_CAP_DEFAULT;
     public static int butterTicks = BUTTER_TICKS_DEFAULT;
     public static int cheeseTicks = CHEESE_TICKS_DEFAULT;
-    public static int cheeseHarvestWindowTicks = HARVEST_WINDOW_DEFAULT;
     public static boolean bundleEating = BUNDLE_EATING_DEFAULT;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -59,7 +57,6 @@ public final class SandwichConfig {
         effectDurationMultiplierCap = clamp(getDouble(json, "effectDurationMultiplierCap", EFFECT_MULTIPLIER_CAP_DEFAULT), EFFECT_MULTIPLIER_CAP_MIN, EFFECT_MULTIPLIER_CAP_MAX);
         butterTicks = clamp(getInt(json, "butterTicks", BUTTER_TICKS_DEFAULT), BUTTER_TICKS_MIN, BUTTER_TICKS_MAX);
         cheeseTicks = clamp(getInt(json, "cheeseTicks", CHEESE_TICKS_DEFAULT), CHEESE_TICKS_MIN, CHEESE_TICKS_MAX);
-        cheeseHarvestWindowTicks = clamp(getInt(json, "cheeseHarvestWindowTicks", HARVEST_WINDOW_DEFAULT), HARVEST_WINDOW_MIN, HARVEST_WINDOW_MAX);
         bundleEating = json.has("bundleEating") && json.get("bundleEating").isJsonPrimitive()
                 ? json.get("bundleEating").getAsBoolean() : BUNDLE_EATING_DEFAULT;
     }
@@ -72,7 +69,6 @@ public final class SandwichConfig {
         o.addProperty("effectDurationMultiplierCap", effectDurationMultiplierCap);
         o.addProperty("butterTicks", butterTicks);
         o.addProperty("cheeseTicks", cheeseTicks);
-        o.addProperty("cheeseHarvestWindowTicks", cheeseHarvestWindowTicks);
         o.addProperty("bundleEating", bundleEating);
         return o;
     }
