@@ -191,7 +191,7 @@ final class FearTests {
             floor(h, 0, 0, 6, 7);
             var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 6));
             var player = h.makeMockServerPlayerInLevel();
-            player.gameMode.changeGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+            player.addTag(FearAura.TEST_TAG); // mock players are creative: the tag makes the aura count them
             Vec3 at = h.absoluteVec(new Vec3(3.5, 2, 1.5));
             Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
             float pitch = (float) -Math.toDegrees(Math.atan2(head.y - (at.y + player.getEyeHeight()), Math.hypot(head.x - at.x, head.z - at.z)));
@@ -201,7 +201,7 @@ final class FearTests {
             player.setYHeadRot(0.0f);
             h.assertTrue(watcher.stared(player) && !watcher.seenBy(player), "crosshair on the eyes is a direct look");
             h.assertFalse(watcher.updateGaze(h.getLevel()) || watcher.watched(), "a direct look does not freeze it");
-            h.assertTrue(watcher.aggressive() && watcher.getTarget() == player, "it turns aggressive against the one who looks (aggressive " + watcher.aggressive() + ", target " + watcher.getTarget() + ", affects " + FearAura.affects(player) + ")");
+            h.assertTrue(watcher.aggressive() && watcher.aggroPlayer() == player, "it turns aggressive against the one who looks (aggressive " + watcher.aggressive() + ", aggro " + watcher.aggroPlayer() + ", affects " + FearAura.affects(player) + ")");
             watcher.setNoAi(false);
             watcher.playAction(HollowWatcherEntity.ACT_CLAW, 6);
             watcher.tick();
@@ -238,7 +238,7 @@ final class FearTests {
             MobsConfig.watcherRange = range;
             watcher.setTarget(dummy);
             for (int i = 0; i < 3 && watcher.action() != HollowWatcherEntity.ACT_TELEPORT; i++) watcher.tick();
-            h.assertTrue(watcher.action() == HollowWatcherEntity.ACT_TELEPORT, "back in range: it teleports to the player (target " + watcher.getTarget() + ", action " + watcher.action() + ", dist " + watcher.distanceTo(dummy) + ", range " + MobsConfig.watcherRange + ", behind " + watcher.behind(h.getLevel(), dummy) + ", look " + dummy.getLookAngle() + ", below " + h.getLevel().getBlockState(dummy.blockPosition().below()) + ")");
+            h.assertTrue(watcher.action() == HollowWatcherEntity.ACT_TELEPORT, "back in range: it teleports to the player (target " + watcher.getTarget() + ", action " + watcher.action() + ", dist " + watcher.distanceTo(dummy) + ", range " + MobsConfig.watcherRange + ", behind " + watcher.behind(h.getLevel(), dummy) + ", look " + dummy.getLookAngle() + ", below " + h.getLevel().getBlockState(dummy.blockPosition().below()) + ", spotBelow " + h.getLevel().getBlockState(net.minecraft.core.BlockPos.containing(dummy.getX(), dummy.getY() - 0.5, dummy.getZ() - 2.5)) + ", free " + h.getLevel().noCollision(watcher, watcher.getDimensions(watcher.getPose()).makeBoundingBox(dummy.position().add(0, 0, -2.5))) + ")");
             watcher.discard();
             dummy.discard();
             h.succeed();
@@ -338,7 +338,7 @@ final class FearTests {
             var watcher = still(h.spawn(FearMobs.WATCHER, 4, 2, 6));
             var a = h.makeMockServerPlayerInLevel();
             var b = h.makeMockServerPlayerInLevel();
-            b.gameMode.changeGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+            b.addTag(FearAura.TEST_TAG);
             Vec3 pa = h.absoluteVec(new Vec3(2.5, 2, 1.5)), pb = h.absoluteVec(new Vec3(6.5, 2, 1.5));
             Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
             a.snapTo(pa.x, pa.y, pa.z, 180.0f, 0.0f);
@@ -356,7 +356,7 @@ final class FearTests {
             b.snapTo(pb.x, pb.y, pb.z, yaw, pitch);
             b.setYHeadRot(yaw);
             h.assertFalse(watcher.updateGaze(h.getLevel()), "a direct look is not calm");
-            h.assertTrue(watcher.aggressive() && watcher.getTarget() == b, "direct look of one of two players: aggressive against that one (aggressive " + watcher.aggressive() + ", target " + watcher.getTarget() + ", affects " + FearAura.affects(b) + ")");
+            h.assertTrue(watcher.aggressive() && watcher.aggroPlayer() == b, "direct look of one of two players: aggressive against that one (aggressive " + watcher.aggressive() + ", aggro " + watcher.aggroPlayer() + ", affects " + FearAura.affects(b) + ")");
             watcher.discard();
             watcher = still(h.spawn(FearMobs.WATCHER, 4, 2, 6));
             b.snapTo(pb.x, pb.y, pb.z, yaw + 7.0f, pitch);

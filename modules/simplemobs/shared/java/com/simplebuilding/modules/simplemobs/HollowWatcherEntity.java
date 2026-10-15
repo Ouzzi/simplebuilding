@@ -57,6 +57,7 @@ public class HollowWatcherEntity extends Monster {
     private int zone = FearLogic.ZONE_FREE;
     private @Nullable Player looker;
     private int aggroTicks;
+    private @Nullable Player aggroPlayer;
     private int actionTicks, gripCooldown = 40, clawCooldown, teleportCooldown = 60, screamCooldown = 200, stareTicks, fleeTicks;
     private @Nullable Vec3 teleportTo, gripAt;
     private int grippedId = -1;
@@ -107,6 +108,8 @@ public class HollowWatcherEntity extends Monster {
     public boolean frozen() { return frozenTicks() > 0; }
     /** Someone looks at it: it stands still and starts no attack (a running grip or scream goes on). */
     public boolean aggressive() { return aggroTicks > 0; }
+    /** The player whose direct look made it aggressive (creative players are no valid mob target, so this is kept apart from getTarget). */
+    public @Nullable Player aggroPlayer() { return aggroPlayer; }
     public boolean watched() { return this.entityData.get(DATA_WATCHED); }
     /** Camouflage (N50): until it has a target, took a hit or acts, its eyes stay dark and it is nearly silent. */
     public boolean triggered() { return this.entityData.get(DATA_TRIGGERED); }
@@ -262,11 +265,12 @@ public class HollowWatcherEntity extends Monster {
                     // a direct look into its eyes: no freeze, it goes for that player (any player in multiplayer)
                     if (aggroTicks == 0 || p != this.getTarget() && bestLooker == p) this.setTarget(p);
                     aggroTicks = FearLogic.AGGRO_TICKS;
+                    aggroPlayer = p;
                 }
                 if (p == this.getTarget()) targetStares = true;
             }
         }
-        if (aggroTicks > 0) { aggroTicks--; seen = false; }
+        if (aggroTicks > 0) { aggroTicks--; seen = false; } else aggroPlayer = null;
         zone = best;
         looker = best == FearLogic.ZONE_FREE ? null : bestLooker;
         LivingEntity target = this.getTarget();
