@@ -615,7 +615,7 @@ public final class ShopsTests {
             h.assertTrue(ShopActions.useSales(two, h.getLevel(), shop.sales).consumesAction() && two.containerMenu instanceof ShopBuyerMenu, "free again after closing");
             two.closeContainer();
             // The owner's menus lock the buyers out as well, and the owner can edit while nobody buys.
-            h.assertTrue(ShopActions.useCase(owner, h.getLevel(), shop.box).consumesAction() && owner.containerMenu instanceof StockMenu, "goods menu");
+            h.assertTrue(ShopActions.useCase(owner, h.getLevel(), shop.box).consumesAction() && owner.containerMenu instanceof SalesOwnerMenu m && m.isCombined(), "shared owner screen");
             h.assertTrue(ShopActions.useSales(one, h.getLevel(), shop.sales).consumesAction() && !(one.containerMenu instanceof ShopBuyerMenu), "buyer waits for the owner");
             owner.closeContainer();
             h.assertTrue(ShopActions.useSales(owner, h.getLevel(), shop.sales).consumesAction() && owner.containerMenu instanceof SalesOwnerMenu, "price menu");
