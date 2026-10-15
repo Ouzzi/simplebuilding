@@ -146,3 +146,6 @@ Nicht belegbar ohne Spiel: Leinen-Verhalten bei Fremdinteraktion, Navigation Pfe
 9. Vorab-Fix `wandering_trader/rare` (Stufe 0) jetzt als eigener Auftrag? Empfehlung: ja, unabhängig vom DW.
 10. Biom-abhängiges Sortiment (Wüstendorf: Kaktus/Sand, Taiga: Fichte/Podsol …) als spätere Stufe? Empfehlung: später, erst Basisversion.
 11. Eigene Tierkopf-/Kopf-Variante `village_wanderer_head` (Simple Mobheads) und Drop? Empfehlung: später, nicht Teil dieser Runde.
+
+## 11. Antworten Besitzer (2026-10-15, verbindlich)
+W1 neues Modul `simplewanderers`. W2 auch Seltenes und Mod-Angebote aufteilen – der Dorf-Wanderer bekommt aber nichts allzu Seltenes (Kerne bleiben am fahrenden Händler, siehe W8). W3 Respawn nach 7 Tagen, nur wenn ein Spieler vor Ort ist. W4 Pferd einfangbar (z. B. Leine lösen/übernehmen; im Plan festlegen). W5 tötbar wie Vanilla-Händler, kein Schutz. W6 Spawn sofort beim ersten Dorfbesuch. W7 Soulbound-Buch nur beim fahrenden Händler. W8 Mod-Köpfe ja, Kerne nein. W9 Simple-Money-Pool-Fehler sofort als eigener Auftrag. W10 Biom-abhängiges Sortiment gleich mit einbauen. W11 eigener Kopf später.

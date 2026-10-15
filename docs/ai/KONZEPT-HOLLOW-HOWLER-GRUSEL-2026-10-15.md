@@ -88,3 +88,6 @@ Nicht getestet: alles hier ist Konzept; Hörwirkung und Akzeptanz müssen auf de
 - Wikipedia „Acousmatic sound“ (Chion): https://en.wikipedia.org/wiki/Acousmatic_sound
 - Minecraft 26.3 Quellen (lokal gelesen): `WardenModel`, `WardenAnimation`, `WardenRenderer`, `Warden`, `AngerLevel`, `SoundEvents`, `SoundEngine`, `Sound`.
 - WCAG 2.3.1 „Three Flashes or Below Threshold“ (Standardwissen, nicht neu abgerufen).
+
+## 6. Antworten Besitzer (2026-10-15, verbindlich)
+H1 Phase 1 und 2 umsetzen. H2 danach Phase 3 (eigene synthetische Sounds + Untertitel). H3 Darkness-Puls nur in der Wut-Phase. H4 leuchtendes Herz als neue Emissiv-Textur, Vorschau zur Freigabe vor dem Einbau. H5 Kamerawackeln mit Schalter „Bewegung reduzieren“. Mob-Animationen (A1): in der vorgeschlagenen Reihenfolge.

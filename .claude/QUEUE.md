@@ -258,6 +258,31 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 63 (2026-10-15, Besitzer)
+Simple Shops – Server-Shop
+- [ ] Creative-/Unlimited-/Server-Shop: nur per Befehl von Admins (OP) erstellt und konfiguriert; unbegrenzter Vorrat, alle Spieler (auch OPs) können dort kaufen. Management-Befehle: `list` (IDs s001, s002, …), `list` mit Koordinaten, mit Items/Preisen, info, edit, remove, teleport o. ä. Rechte serverseitig, kein Duping (Bestand unbegrenzt, Einnahmen verschwinden oder in Admin-Kasse – im Plan entscheiden).
+
+Rotator – zweite Funktion
+- [ ] Rotator: platzierbaren Block in der Nebenhand + Rechtsklick auf einen Block tauscht den angeklickten Block gegen den aus der Nebenhand (abgebauter Block ins Inventar). Nur Blöcke, die ein Stein-Werkzeug abbauen kann (kein Obsidian o. ä.); wertvolle Blöcke wie Leuchtfeuer ausgeschlossen. Whitelist/Blacklist als Block-Tags bzw. Blocknamen in der Config (Liste hat Vorrang vor der Härte-Regel). Tausch kostet doppelte Haltbarkeit. Immer 1 s Ausholen (Wind-up-Animation), mit Effizienz V sofort; Zeit je nach Blockhärte leicht anpassen, damit Spitzhacke & Co. Vorteil behalten. Claims/Schutz beachten.
+- [ ] Rotator: besseren Namen vorschlagen (Besitzer wählt).
+
+Hollow Watcher – Verhalten (Abgrenzung zum Creaking)
+- [ ] Steht er hinter dem Spieler, streckt er die Hände über die Schultern des Spielers, sodass man sie im Bild sieht (Erschrecken); Hände markanter rendern.
+- [ ] Zittern (Shivering) V etwas stärker.
+- [ ] Blickfeld-Logik: friert NUR ein, wenn man ihn genau ansieht (Fadenkreuz). Bis ca. 20° Gesamtwinkel um die Blickmitte (±10°): unauffällig verhalten. Bis ca. 50°: langsam Richtung Blickfeldrand, nie auf dem kürzesten Weg (wirkt passiv). Bis ca. 70° (normales Blickfeld): direkt aus dem Blickfeld laufen und es mit Puffer meiden; dann hinter den Spieler gehen und angreifen. Winkel an das FOV des Spielers anpassen (min. 30, max. 110).
+- [ ] Bei Treffer: Teleport hinter den Spieler oder Fern-Teleport, um ihn zu erschrecken.
+- [ ] Mehrspieler-Konzept: Aggro auf alle Spieler in der Nähe; schaut ein Spieler ihn an, friert er; bei Treffer teleportiert er weg und sucht sich ein Opfer (z. B. zufällig) usw. – erst Konzept, dann Umsetzung.
+- [ ] Transport im Boot möglich (Diktat sagt „Hollow Howler“ – vermutlich Watcher, beim Planen klären), Spieler in seiner Reichweite nimmt aber Schaden; wird er getroffen, teleportiert er sich.
+
+Besitzer-Antworten Konzepte (15.10.)
+- [x] Dorf-Wanderer: W1 neues Modul Simple Wanderers; W2 auch Seltenes und Mod-Angebote aufteilen, aber beim Dorf-Wanderer nichts allzu Seltenes; W3 Respawn nach 7 Tagen, nur mit Spieler vor Ort; W4 Pferd einfangbar; W5 tötbar wie Vanilla-Händler; W6 Spawn sofort beim ersten Dorfbesuch; W7 Soulbound nur beim fahrenden Händler; W8 Köpfe ja, Kerne nein; W9 Geld-Fund sofort als eigener Auftrag; W10 Biom-Sortiment gleich mit einbauen; W11 eigener Kopf später.
+- [ ] Simple Money: 238 Preislisten-Trades des fahrenden Händlers werden nie angeboten (Pool `wandering_trader/rare` wird nicht gelesen) – sofort beheben (W9).
+- [ ] Dorf-Wanderer bauen nach Konzept docs/ai/KONZEPT-DORF-WANDERER-2026-10-15.md + Antworten W1–W11.
+- [ ] Hollow Howler Phase 1+2 umsetzen (H1); danach Phase 3 eigene synthetische Sounds (H2); Darkness-Puls nur in der Wut-Phase (H3); leuchtendes Herz als neue Emissiv-Textur mit Vorschau zur Freigabe (H4); Kamerawackeln mit Schalter „Bewegung reduzieren“ (H5). Konzept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md.
+- [ ] Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md.
+- [x] Sandwich-Brot-Unterrand genehmigt (oc-breadrim).
+- [ ] Item-Kategorien „Items Displayed“ (N62) läuft als Text-Vorschlag (oc-display-proposal).
+
 ## Nachtrag 62 (2026-10-15, Besitzer)
 Rückport (Prinzip: docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md)
 - [ ] Jukebox mit Kiste darüber (Vanilla 26.4-Snapshot, Okt. 2026) in die Mod holen: liegt eine Schallplatte in der Kiste über der Jukebox, wird sie automatisch eingelegt (wie per Trichter, aber ohne Trichter); ist die Platte zu Ende, wird sie gegen die nächste Platte aus der Kiste getauscht, sonst zurück in die Kiste gelegt. Erst das genaue Vanilla-26.4-Verhalten nachlesen und nachbilden; Versions-Flag, damit es in Versionen mit Vanilla-Umsetzung aus ist; Zusammenspiel mit Jukebox-Verstärker/Schallplatten-Modul prüfen.
@@ -282,7 +307,7 @@ Entscheidungen (E): alle Empfehlungen angenommen (E1 A Sprachen erst beim Releas
 Texturen (T): T1 Fragentisch R3 bleibt; T6 = Keramik B; T7 Lohen-Obsidian B1 ok; T8 Trainingspuppe bleibt vorerst; T10 ok (abgehakt); T11 lassen; T13–T26 abgenommen (nur eine Variante – Änderungen meldet der Besitzer selbst); T15 Enchanter ok. T2 (Kolben C), T5 (Riding-Bücher B+25 %), T4-Stil (Sandwich v8) waren schon früher entschieden und eingebaut – Fragebogen war veraltet.
 - [x] (oc-answers61) T12 Starkes Leuchtfeuer: GUI im Vanilla-Stil wie die Vanilla-Leuchtfeuer-GUI (nicht eigener Container-Stil).
 - [x] T3 Brot-Form: v8 bleibt (keine Form A–D) (Besitzer 15.10.).
-- [ ] Sandwich-Brot v8: Unterseite bekommt einen dunkleren Rand wie die Oberseite (Besitzer 15.10.).
+- [x] (oc-breadrim) Sandwich-Brot v8: Unterseite bekommt einen dunkleren Rand wie die Oberseite (Besitzer 15.10.).
 - [x] (oc-cheese) Butter/Käse neu (Besitzer 15.10., ersetzt alte Regel): Milch im Kessel reift 5 min zu Butter, weitere 5 min zu Käse (kein fermentiertes Spinnenauge mehr nötig). Nichts verdirbt (kein Erntefenster). Liegt ein aktiver (nicht per Redstone gesperrter) Trichter unter dem Kessel, erntet er das fertige Produkt sofort (Butter; Käse entsteht also nur ohne aktiven Trichter). Auslegung „Butter bzw. Milch“ im Diktat: Trichter erntet das jeweils fertige Produkt.
 REGEL (Besitzer 15.10.): Keine alten, schon entschiedenen Textur-Vorschläge erneut vorlegen oder vermischen; vor jeder Textur-Frage Queue/Archiv/Memory nach der Entscheidung durchsuchen. Eingebaute, abgenommene Texturen nur auf ausdrücklichen Wunsch ändern.
 
