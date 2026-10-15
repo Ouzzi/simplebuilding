@@ -62,13 +62,18 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     public static final IntegerProperty CANDLES = IntegerProperty.create("candles", 0, PlacedSmallParts.MAX_PARTS);
     /** Zahl der Seegurken unter den Teilen (aus der Block-Entity abgeglichen, nur fuers Licht). */
     public static final IntegerProperty PICKLES = IntegerProperty.create("pickles", 0, PlacedSmallParts.MAX_PARTS);
+    /**
+     * Queue N55 (Besitzer 2026-10-15): die umschaltbaren 3D-Teile (Barren, Ziegel, Edelsteine) liegen als flache Item-Platte
+     * statt als 3D-Modell; ein Rechtsklick mit dem Vorschlaghammer schaltet hin und her ({@link com.simplebuilding.util.FlatToggles}).
+     */
+    public static final BooleanProperty FLAT = BooleanProperty.create("flat");
     public static final MapCodec<PlacedSmallPartsBlock> CODEC = BlockCodecs.simple(PlacedSmallPartsBlock::new);
 
     public PlacedSmallPartsBlock(BlockBehaviour.Properties properties) {
         super(properties);
         // Alte Welten: Haeufchen ohne lit/candles/pickles laden mit diesen Standardwerten - richtig, sie hatten keine.
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false)
-                .setValue(LIT, false).setValue(CANDLES, 0).setValue(PICKLES, 0));
+                .setValue(LIT, false).setValue(CANDLES, 0).setValue(PICKLES, 0).setValue(FLAT, false));
     }
 
     /**
@@ -83,11 +88,12 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         return state.getValue(LIT) ? Math.min(15, 3 * state.getValue(CANDLES)) : 0;
     }
 
-    /** Der Zustand mit den Zaehlern dieser Teile; ohne Kerzen brennt nichts. */
+    /** Der Zustand mit den Zaehlern dieser Teile; ohne Kerzen brennt nichts, ohne umschaltbares Teil gibt es kein "flach". */
     public static BlockState withCounts(BlockState state, List<ItemStack> parts) {
         int candles = Math.min(PlacedSmallParts.MAX_PARTS, PlacedSmallParts.candles(parts));
         int pickles = Math.min(PlacedSmallParts.MAX_PARTS, PlacedSmallParts.pickles(parts));
-        return state.setValue(CANDLES, candles).setValue(PICKLES, pickles).setValue(LIT, state.getValue(LIT) && candles > 0);
+        return state.setValue(CANDLES, candles).setValue(PICKLES, pickles).setValue(LIT, state.getValue(LIT) && candles > 0)
+                .setValue(FLAT, state.getValue(FLAT) && PlacedSmallParts.anySwitchable(parts));
     }
 
     /** Laesst sich anzuenden: Kerzen da, aus, trocken (wie {@code CandleBlock#canLight}). */
@@ -102,7 +108,7 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, WATERLOGGED, LIT, CANDLES, PICKLES);
+        builder.add(FACING, WATERLOGGED, LIT, CANDLES, PICKLES, FLAT);
     }
 
     /** Oberkante der Teile in die Blickrichtung; wassergefuellt in einer Wasserquelle. */
@@ -119,7 +125,7 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity be) {
             return be.shape();
         }
-        return PlacedSmallParts.shape(List.of(), state.getValue(FACING));
+        return PlacedSmallParts.shape(List.of(), state.getValue(FACING), state.getValue(FLAT));
     }
 
     /** Braucht einen Boden, der seine Mitte traegt (wie das gelegte Ei). */
@@ -232,7 +238,7 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         RESTORE.remove();
         if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && pile.parts().size() > 1) {
             List<ItemStack> rest = new java.util.ArrayList<>(pile.parts());
-            ItemStack target = rest.remove(PlacedSmallParts.lookedAtPart(player, rest, state.getValue(FACING), pos));
+            ItemStack target = rest.remove(PlacedSmallParts.lookedAtPart(player, rest, state.getValue(FACING), pos, state.getValue(FLAT)));
             pile.keepOnly(target);
             RESTORE.set(new Restore(level, pos.immutable(), state, List.copyOf(rest)));
         }
@@ -279,6 +285,10 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         }
         // Vorschlaghammer wendet eine abgelegte Schallplatte (A-Seite <-> B-Seite, 2026-10-03).
         if (com.simplebuilding.util.DiscFlips.flip(level, pos, player, stack, hand)) {
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
+        // Vorschlaghammer schaltet die 3D-Teile zwischen 3D und flach um (Queue N55, 2026-10-15).
+        if (com.simplebuilding.util.FlatToggles.toggle(level, pos, player, stack, hand)) {
             return net.minecraft.world.InteractionResult.SUCCESS;
         }
         // Leere Hand loescht brennende Kerzen (wie CandleBlock#useItemOn).

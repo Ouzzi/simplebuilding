@@ -20,6 +20,21 @@ public final class PlacingGameTest {
     }
 
     @GameTest
+    public void bricksAndGemsLieIn3d(GameTestHelper helper) {
+        PlacedBricksGemsTests.bricksAndGemsLieIn3d(helper);
+    }
+
+    @GameTest
+    public void hammerSwitchesPlacedPartsBetween3dAndFlat(GameTestHelper helper) {
+        PlacedBricksGemsTests.hammerSwitchesPlacedPartsBetween3dAndFlat(helper);
+    }
+
+    @GameTest
+    public void switchedPartsDropAsThemselves(GameTestHelper helper) {
+        PlacedBricksGemsTests.switchedPartsDropAsThemselves(helper);
+    }
+
+    @GameTest
     public void goatHornHoldsTorchesAndRods(GameTestHelper helper) {
         PlaceN24Tests.goatHornHoldsTorchesAndRods(helper);
     }

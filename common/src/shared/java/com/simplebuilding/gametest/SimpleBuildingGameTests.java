@@ -867,6 +867,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placing_game_test_ingots_lie_as_bars_and_stack", PlaceN24Tests::ingotsLieAsBarsAndStack)
                     .build(),
+            GameTestSpec.named("placing_game_test_bricks_and_gems_lie_in3d", PlacedBricksGemsTests::bricksAndGemsLieIn3d)
+                    .build(),
+            GameTestSpec.named("placing_game_test_hammer_switches_placed_parts_between3d_and_flat", PlacedBricksGemsTests::hammerSwitchesPlacedPartsBetween3dAndFlat)
+                    .build(),
+            GameTestSpec.named("placing_game_test_switched_parts_drop_as_themselves", PlacedBricksGemsTests::switchedPartsDropAsThemselves)
+                    .build(),
             GameTestSpec.named("placing_game_test_goat_horn_holds_torches_and_rods", PlaceN24Tests::goatHornHoldsTorchesAndRods)
                     .build(),
             GameTestSpec.named("placing_game_test_spear_in_dispenser_thrusts_like_spike_trap", PlaceN24Tests::spearInDispenserThrustsLikeSpikeTrap)

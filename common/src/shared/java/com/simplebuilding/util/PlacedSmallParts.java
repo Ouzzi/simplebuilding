@@ -117,6 +117,46 @@ public final class PlacedSmallParts {
     public static final java.util.Set<String> MODELLED_INGOTS = java.util.Set.of("minecraft:copper_ingot", "minecraft:iron_ingot",
             "minecraft:gold_ingot", "minecraft:netherite_ingot", "simplelib:enderite_ingot");
 
+    /**
+     * Der 3D-Ziegel (Queue N55, 2026-10-15): ein Quader 8 x 4 x 3 px, lang entlang x, in der Form {y0, y1, halbe Laenge in x,
+     * halbe Breite in z} wie {@link #INGOT_BOXES}. Erzeugt von {@code tools/textures/placed_gems_bricks_2026_10_15.py}.
+     */
+    public static final float[][] BRICK_BOXES = {{0.0F, 3.0F, 4.0F, 2.0F}};
+
+    /** Ziegel mit eigenem 3D-Modell ({@code simplebuilding:placed_<id>}); sie stapeln sich mit den Barren. */
+    public static final java.util.Set<String> MODELLED_BRICKS = java.util.Set.of("minecraft:brick", "minecraft:nether_brick", "minecraft:resin_brick");
+
+    /**
+     * Sprite-Silhouetten der Edelsteine: je Pixelzeile der Item-Textur ab Zeile 2 die halbe Breite (Pixel). Daraus
+     * entstehen abgestufte Quader im halben Massstab ({@link #gemBoxes}); das Modell {@code placed_<id>} und der Generator
+     * {@code tools/textures/placed_gems_bricks_2026_10_15.py} muessen dazu passen (GameTest prueft es).
+     */
+    private static final java.util.Map<String, int[]> GEM_ROWS = java.util.Map.of(
+            "minecraft:diamond", new int[]{2, 3, 4, 5, 5, 6, 6, 6, 6, 5, 5, 4, 3},
+            "minecraft:emerald", new int[]{2, 3, 4, 5, 5, 5, 5, 5, 5, 4, 3, 2});
+    /** Edelsteine mit eigenem 3D-Modell ({@code simplebuilding:placed_<id>}). */
+    public static final java.util.Set<String> MODELLED_GEMS = GEM_ROWS.keySet();
+
+    /**
+     * Die Quader eines Edelsteins: {y0, y1, halbe Breite} in Pixeln, um x = z = 8, aus den gleich breiten Zeilenfolgen der
+     * Silhouette; ein Sprite-Pixel ist ein halber Modellpixel.
+     */
+    public static float[][] gemBoxes(String id) {
+        int[] rows = GEM_ROWS.get(id);
+        List<float[]> boxes = new ArrayList<>();
+        int a = 0;
+        while (a < rows.length) {
+            int b = a;
+            while (b + 1 < rows.length && rows[b + 1] == rows[a]) {
+                b++;
+            }
+            // Zeile i liegt von (rows.length - 1 - i) * 0.5 bis (rows.length - i) * 0.5 ueber dem Boden.
+            boxes.add(new float[]{(rows.length - 1 - b) * 0.5F, (rows.length - a) * 0.5F, rows[a] * 0.5F});
+            a = b + 1;
+        }
+        return boxes.toArray(new float[0][]);
+    }
+
     /** Quader einer Vanilla-Kerze ({@code block/template_candle}, ohne Docht): {y0, y1, halbe Breite}. */
     public static final float[][] CANDLE_BOXES = {{0.0F, 6.0F, 1.0F}};
     /** Quader einer Vanilla-Seegurke ({@code block/sea_pickle}, ohne Spross): {y0, y1, halbe Breite}. */
@@ -132,21 +172,37 @@ public final class PlacedSmallParts {
         CANDLE,
         /** Eine Vanilla-Seegurke (Blockmodell, leuchtet unter Wasser). */
         PICKLE,
-        /** Ein 3D-Barren (Queue N24); nur Barren zusammen stapeln sich ({@link #INGOT_STACK}). */
-        INGOT;
+        /** Ein 3D-Barren (Queue N24); nur Barren und Ziegel zusammen stapeln sich ({@link #INGOT_STACK}). */
+        INGOT,
+        /** Ein 3D-Ziegel (Queue N55): ein Quader, stapelt sich wie ein Barren. */
+        BRICK,
+        /** Ein aufrecht stehender 3D-Edelstein (Diamant, Smaragd; Queue N55). */
+        GEM;
 
         /** Steht aufrecht auf dem Boden (Blockmodell, Mitte im Ursprung) statt flach zu liegen. */
         public boolean standing() {
             return this != PLATE;
         }
 
-        /** Die Quader des stehenden Modells (Pixel, um x = z = 8). */
-        public float[][] boxes() {
+        /** Liegt als Barren/Ziegel im Stapel ({@link #INGOT_STACK}), wenn nur solche auf dem Fleck sind. */
+        public boolean stackable() {
+            return this == INGOT || this == BRICK;
+        }
+
+        /** Hat ein 3D-Modell, das der Vorschlaghammer auf die flache Platte umschalten kann (Queue N55). */
+        public boolean switchable() {
+            return this == INGOT || this == BRICK || this == GEM;
+        }
+
+        /** Die Quader des stehenden Modells von {@code part} (Pixel, um x = z = 8). */
+        public float[][] boxes(ItemStack part) {
             return switch (this) {
                 case EGG -> EGG_BOXES;
                 case CANDLE -> CANDLE_BOXES;
                 case PICKLE -> PICKLE_BOXES;
                 case INGOT -> INGOT_BOXES;
+                case BRICK -> BRICK_BOXES;
+                case GEM -> gemBoxes(BuiltInRegistries.ITEM.getKey(part.getItem()).toString());
                 case PLATE -> new float[0][];
             };
         }
@@ -184,17 +240,47 @@ public final class PlacedSmallParts {
         return !stack.isEmpty() && MODELLED_INGOTS.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
     }
 
-    /** Liegen nur Barren auf dem Fleck? Dann stapeln sie sich ({@link #INGOT_STACK}). */
+    /** Ein Ziegel mit eigenem 3D-Modell ({@link #MODELLED_BRICKS}). */
+    public static boolean isModelledBrick(ItemStack stack) {
+        return !stack.isEmpty() && MODELLED_BRICKS.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
+    }
+
+    /** Ein Edelstein mit eigenem 3D-Modell ({@link #MODELLED_GEMS}). */
+    public static boolean isModelledGem(ItemStack stack) {
+        return !stack.isEmpty() && MODELLED_GEMS.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
+    }
+
+    /** Liegen nur Barren und Ziegel auf dem Fleck? Dann stapeln sie sich ({@link #INGOT_STACK}). */
     public static boolean ingotStack(List<ItemStack> parts) {
-        if (parts.isEmpty()) {
+        return ingotStack(parts, false);
+    }
+
+    /** Wie {@link #ingotStack(List)}; {@code flat}: die Teile liegen als Platten (Queue N55), dann stapelt nichts. */
+    public static boolean ingotStack(List<ItemStack> parts, boolean flat) {
+        if (parts.isEmpty() || flat) {
             return false;
         }
         for (ItemStack part : parts) {
-            if (kind(part) != Kind.INGOT) {
+            if (!kind(part).stackable()) {
                 return false;
             }
         }
         return true;
+    }
+
+    /** Ob ein Teil ein 3D-Modell hat, das sich auf flach umschalten laesst (Queue N55). */
+    public static boolean isSwitchable(ItemStack stack) {
+        return kind(stack).switchable();
+    }
+
+    /** Ob unter den Teilen eins mit umschaltbarem 3D-Modell ist. */
+    public static boolean anySwitchable(List<ItemStack> parts) {
+        for (ItemStack part : parts) {
+            if (isSwitchable(part)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -226,7 +312,19 @@ public final class PlacedSmallParts {
         if (isModelledIngot(stack)) {
             return Kind.INGOT;
         }
+        if (isModelledBrick(stack)) {
+            return Kind.BRICK;
+        }
+        if (isModelledGem(stack)) {
+            return Kind.GEM;
+        }
         return stack.is(Items.SEA_PICKLE) ? Kind.PICKLE : Kind.PLATE;
+    }
+
+    /** Wie {@link #kind(ItemStack)}; {@code flat}: umschaltbare 3D-Teile liegen als Platte (Queue N55). */
+    public static Kind kind(ItemStack stack, boolean flat) {
+        Kind kind = kind(stack);
+        return flat && kind.switchable() ? Kind.PLATE : kind;
     }
 
     /** Ein Ei (normal, blau, braun) - steht aufrecht, zerbricht ohne Behutsamkeit. */
@@ -525,11 +623,11 @@ public final class PlacedSmallParts {
     }
 
     /**
-     * Wie {@link #place(Ops, Direction, int, int, boolean)}, mit der Art des Teils: Barren stehen als 3D-Barren und liegen,
-     * wenn nur Barren auf dem Fleck sind ({@code ingotStack}), als kleiner Stapel ({@link #INGOT_STACK}).
+     * Wie {@link #place(Ops, Direction, int, int, boolean)}, mit der Art des Teils: Barren und Ziegel stehen als 3D-Teil und
+     * liegen, wenn nur solche auf dem Fleck sind ({@code ingotStack}), als kleiner Stapel ({@link #INGOT_STACK}).
      */
     public static void place(Ops ops, Direction facing, int count, int index, Kind kind, boolean ingotStack) {
-        if (kind == Kind.INGOT && ingotStack) {
+        if (kind.stackable() && ingotStack) {
             float[] spot = INGOT_STACK[Math.max(0, Math.min(MAX_PARTS, count) - 1)][Math.max(0, Math.min(index, count - 1))];
             ops.translate(0.5F, 0.0F, 0.5F);
             ops.rotateY(rad(180.0F - facing.toYRot()));
@@ -563,14 +661,19 @@ public final class PlacedSmallParts {
 
     /** Trefferform des ganzen Haeufchens: die Vereinigung der Teile, jedes pixelgenau wie gezeichnet. */
     public static VoxelShape shape(List<ItemStack> parts, Direction facing) {
+        return shape(parts, facing, false);
+    }
+
+    /** Wie {@link #shape(List, Direction)}; {@code flat}: die umschaltbaren Teile liegen als Platten (Queue N55). */
+    public static VoxelShape shape(List<ItemStack> parts, Direction facing, boolean flat) {
         if (parts.isEmpty()) {
             return net.minecraft.world.level.block.Block.box(4.0, 0.0, 4.0, 12.0, 1.0, 12.0);
         }
         VoxelShape shape = Shapes.empty();
         int count = Math.min(parts.size(), MAX_PARTS);
-        boolean stack = ingotStack(parts);
+        boolean stack = ingotStack(parts, flat);
         for (int i = 0; i < count; i++) {
-            shape = Shapes.or(shape, partShape(parts.get(i), facing, count, i, stack));
+            shape = Shapes.or(shape, partShape(parts.get(i), facing, count, i, stack, flat));
         }
         return shape.optimize();
     }
@@ -581,12 +684,18 @@ public final class PlacedSmallParts {
      */
     public static int partAt(List<ItemStack> parts, Direction facing, BlockPos pos, net.minecraft.world.phys.Vec3 from,
                              net.minecraft.world.phys.Vec3 to) {
+        return partAt(parts, facing, pos, from, to, false);
+    }
+
+    /** Wie {@link #partAt(List, Direction, BlockPos, net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3)}; {@code flat} wie bei {@link #shape(List, Direction, boolean)}. */
+    public static int partAt(List<ItemStack> parts, Direction facing, BlockPos pos, net.minecraft.world.phys.Vec3 from,
+                             net.minecraft.world.phys.Vec3 to, boolean flat) {
         int count = Math.min(parts.size(), MAX_PARTS);
-        boolean stack = ingotStack(parts);
+        boolean stack = ingotStack(parts, flat);
         int best = -1;
         double bestDistance = Double.MAX_VALUE;
         for (int i = 0; i < count; i++) {
-            net.minecraft.world.phys.BlockHitResult hit = partShape(parts.get(i), facing, count, i, stack).clip(from, to, pos);
+            net.minecraft.world.phys.BlockHitResult hit = partShape(parts.get(i), facing, count, i, stack, flat).clip(from, to, pos);
             if (hit != null) {
                 double distance = hit.getLocation().distanceToSqr(from);
                 if (distance < bestDistance) {
@@ -603,9 +712,14 @@ public final class PlacedSmallParts {
      * Strahl keins (etwa beim schnellen Wegdrehen), das zuletzt dazugelegte - abgebaut wird immer nur ein Teil.
      */
     public static int lookedAtPart(Player player, List<ItemStack> parts, Direction facing, BlockPos pos) {
+        return lookedAtPart(player, parts, facing, pos, false);
+    }
+
+    /** Wie {@link #lookedAtPart(Player, List, Direction, BlockPos)}; {@code flat} wie bei {@link #shape(List, Direction, boolean)}. */
+    public static int lookedAtPart(Player player, List<ItemStack> parts, Direction facing, BlockPos pos, boolean flat) {
         net.minecraft.world.phys.Vec3 eye = player.getEyePosition();
         net.minecraft.world.phys.Vec3 reach = eye.add(player.getViewVector(1.0F).scale(player.blockInteractionRange() + 1.0));
-        int index = partAt(parts, facing, pos, eye, reach);
+        int index = partAt(parts, facing, pos, eye, reach, flat);
         return index >= 0 ? index : Math.min(parts.size(), MAX_PARTS) - 1;
     }
 
@@ -614,15 +728,20 @@ public final class PlacedSmallParts {
         return partShape(part, facing, count, index, false);
     }
 
-    /** Wie {@link #partShape(ItemStack, Direction, int, int)}; {@code ingotStack}: nur Barren auf dem Fleck. */
+    /** Wie {@link #partShape(ItemStack, Direction, int, int)}; {@code ingotStack}: nur Barren und Ziegel auf dem Fleck. */
     public static VoxelShape partShape(ItemStack part, Direction facing, int count, int index, boolean ingotStack) {
-        Kind kind = kind(part);
+        return partShape(part, facing, count, index, ingotStack, false);
+    }
+
+    /** Wie oben; {@code flat}: umschaltbare 3D-Teile liegen als Platte (Queue N55). */
+    public static VoxelShape partShape(ItemStack part, Direction facing, int count, int index, boolean ingotStack, boolean flat) {
+        Kind kind = kind(part, flat);
         Matrix4f m = new Matrix4f();
         place(new MatrixOps(m), facing, count, index, kind, ingotStack);
         m.translate(-0.5F, -0.5F, -0.5F);
         VoxelShape shape = Shapes.empty();
         if (kind.standing()) {
-            for (float[] box : kind.boxes()) {
+            for (float[] box : kind.boxes(part)) {
                 float halfZ = box.length > 3 ? box[3] : box[2];
                 shape = Shapes.or(shape, box(m, (8.0F - box[2]) / 16.0F, box[0] / 16.0F, (8.0F - halfZ) / 16.0F,
                         (8.0F + box[2]) / 16.0F, box[1] / 16.0F, (8.0F + halfZ) / 16.0F));

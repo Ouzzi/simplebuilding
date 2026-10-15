@@ -81,6 +81,47 @@ public final class PlaceClientTest {
         script.shot("placing-n24");
     }
 
+    /**
+     * Queue N55 (2026-10-15): bricks, diamonds and emeralds placed in 3D, then switched flat by the hammer (the block state the
+     * hammer sets); two pictures, 3D and flat. The piles are cleared again.
+     */
+    public static void bricksAndGems(Script script) {
+        if (!McVersion.SMALL_PLACEABLES || ModBlocks.PLACED_SMALL_PARTS == null) {
+            return;
+        }
+        TestScene.build(script, "minecraft:stone", "creative");
+        BlockPos[] spots = {new BlockPos(7, 0, Z), new BlockPos(8, 0, Z), new BlockPos(9, 0, Z), new BlockPos(10, 0, Z),
+                new BlockPos(11, 0, Z), new BlockPos(12, 0, Z)};
+        onServer(script, "build the bricks and gems scene", server -> {
+            ServerLevel level = server.overworld();
+            pile(level, spots[0], Direction.NORTH, Items.BRICK, Items.BRICK, Items.BRICK, Items.BRICK);
+            pile(level, spots[1], Direction.NORTH, Items.NETHER_BRICK, Items.IRON_INGOT, Items.RESIN_BRICK);
+            pile(level, spots[2], Direction.NORTH, Items.DIAMOND);
+            pile(level, spots[3], Direction.NORTH, Items.EMERALD);
+            pile(level, spots[4], Direction.EAST, Items.DIAMOND, Items.EMERALD, Items.BRICK, Items.FLINT);
+            pile(level, spots[5], Direction.NORTH, Items.GOLD_INGOT, Items.COPPER_INGOT);
+        });
+        script.command("tp @a 10.0 0.0 16.0 0.0 40.0");
+        script.awaitPackets();
+        script.idle("let the chunk settle", 30);
+        script.shot("placing-n55-3d");
+        onServer(script, "the hammer switches every pile to flat", server -> {
+            ServerLevel level = server.overworld();
+            for (BlockPos spot : spots) {
+                level.setBlock(spot, level.getBlockState(spot).setValue(PlacedSmallPartsBlock.FLAT, true), Block.UPDATE_ALL);
+            }
+        });
+        script.awaitPackets();
+        script.idle("let the chunk settle", 20);
+        script.shot("placing-n55-flat");
+        onServer(script, "clear the piles", server -> {
+            for (BlockPos spot : spots) {
+                server.overworld().setBlock(spot, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
+        });
+        script.awaitPackets();
+    }
+
     private static int wallZ() {
         return TestScene.WALL_Z - 1;
     }
