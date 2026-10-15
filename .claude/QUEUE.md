@@ -258,6 +258,21 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 62 (2026-10-15, Besitzer)
+Rückport (Prinzip: docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md)
+- [ ] Jukebox mit Kiste darüber (Vanilla 26.4-Snapshot, Okt. 2026) in die Mod holen: liegt eine Schallplatte in der Kiste über der Jukebox, wird sie automatisch eingelegt (wie per Trichter, aber ohne Trichter); ist die Platte zu Ende, wird sie gegen die nächste Platte aus der Kiste getauscht, sonst zurück in die Kiste gelegt. Erst das genaue Vanilla-26.4-Verhalten nachlesen und nachbilden; Versions-Flag, damit es in Versionen mit Vanilla-Umsetzung aus ist; Zusammenspiel mit Jukebox-Verstärker/Schallplatten-Modul prüfen.
+- [x] Generelles Prinzip notiert: Rückports vor Einbau und bei jedem Port je Version prüfen (AGENTS.md + docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md).
+
+3D-Darstellung platzierter Items (Vorbild: Mod „Items Displayed“)
+- [ ] Platzierte Items (eigene 3D-Darstellung beim Hinlegen) mehr in Richtung „Items Displayed“ bringen; dem Besitzer gefallen dort besonders Armor Trims (Schmiedevorlagen), Pottery Sherds (Töpferscherben) und Music Discs (Schallplatten). Ablauf verbindlich in 3 Schritten: (1) erst TEXT-Vorschlag, was sich je Item-Art wie ändert → Besitzer-Freigabe; (2) dann gerenderte Vorher/Nachher-Bilder → Besitzer-Freigabe; (3) erst dann im Spiel einbauen. Abgenommene Texturen dabei nicht ändern, nur die 3D-Darstellung/Modelle.
+
+Quality of Life
+- [ ] Sprungkraft (Jump Boost, egal ob Trank, Leuchtfeuer oder Befehl): solange der Effekt aktiv ist, Schritthöhe mindestens 1 Block (einen Block hochlaufen ohne Springen). Mit Step-Height-Verzauberung verträglich (Maximum, nicht addieren). Config-Schalter.
+- [ ] Frosch im Eimer: Frösche wie Axolotl mit Wassereimer einfangen und wieder aussetzen (Variante/Name/Alter bleiben erhalten), Eimer-Item je Variante bzw. Variante als Komponente.
+
+Item-Statistiken (Modul noch offen – Vorschlag im Konzept)
+- [ ] KONZEPT zuerst: Item-Statistiken je Werkzeug/Ausrüstung tracken, Vorbild Mod „Item Stats Tracker“ (deren Stärken übernehmen, Schwächen verbessern). Beispiele: Spitzhacke – abgebaute Blöcke gesamt und je Blockart; Kills gesamt, je Mob und je Mob-Variante (für jedes Werkzeug/jede Waffe); Elytra – geflogene Strecke; Stiefel – gelaufene Strecke; weitere sinnvolle Werte je Item-Art. Anzeige: Tooltip-Kurzvorschau, Details bei Shift (o. ä.). Konzept klärt: welches Modul (eigenes Sub-Mod vs. bestehendes), Speicherung als Item-Komponente (Größe begrenzen, Top-N je Liste), Performance, Multiplayer, Zurücksetzen, Datenschutz/Anzeige für andere Spieler, Vergleich mit Item Stats Tracker.
+
 ## Nachtrag 61 (2026-10-15, Besitzer-Antworten Sammel-Fragebogen 13.10.)
 Entscheidungen (E): alle Empfehlungen angenommen (E1 A Sprachen erst beim Release, E2 A Attractor-Ladung gestrichen, E3 A gestrichen, E4–E6 geschlossen, E9 A Echolot 3 s halten, E10 A Schlagzahlen so lassen, E11 A Trick-Spiegel vorerst entfernen, E12 A Gewölbe-Texturen nur zur Build-Zeit), außer:
 - [x] E7 Rucksack-Sortierung: KEINE eigene Sortierfunktion – Sortieren bleibt Mods wie Mouse Tweaks / Client-Sort überlassen (Kompatibilität nicht brechen).
