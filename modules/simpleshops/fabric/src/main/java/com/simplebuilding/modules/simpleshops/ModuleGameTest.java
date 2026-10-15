@@ -195,4 +195,74 @@ public final class ModuleGameTest {
     public void servershopPersistence(GameTestHelper h) {
         ShopsTests.ALL.get("servershop_persistence").accept(h);
     }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageRegisteredProtected(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_registered_protected").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storagePlacementRules(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_placement_rules").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 120)
+    public void storageChainFlow(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_chain_flow").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageFullChainLosesNothing(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_full_chain_loses_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageTradeDepositsIntoChain(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_trade_deposits_into_chain").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageOwnerChangeBreaksChain(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_owner_change_breaks_chain").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageUnloadedOrRemoved(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_unloaded_or_removed").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageRoundtripNoDupe(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_roundtrip_no_dupe").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageBreakAndMenuRules(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_break_and_menu_rules").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageExplosionPistonHopper(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_explosion_piston_hopper").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void devBuyerView(GameTestHelper h) {
+        ShopsTests.ALL.get("dev_buyer_view").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void ownerScreensLayouts(GameTestHelper h) {
+        ShopsTests.ALL.get("owner_screens_layouts").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void storageEmptyGoodsAndDisconnect(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_empty_goods_and_disconnect").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 400)
+    public void storageDupeFuzz(GameTestHelper h) {
+        ShopsTests.ALL.get("storage_dupe_fuzz").accept(h);
+    }
 }

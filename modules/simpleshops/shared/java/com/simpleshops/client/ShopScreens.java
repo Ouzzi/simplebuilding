@@ -3,6 +3,7 @@ package com.simpleshops.client;
 import com.simpleshops.menu.SalesOwnerMenu;
 import com.simpleshops.menu.ShopBuyerMenu;
 import com.simpleshops.menu.StockMenu;
+import com.simpleshops.menu.StorageMenu;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiPalette;
 import net.minecraft.client.Minecraft;
@@ -18,25 +19,37 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 
-/** The three shop screens in SimpleLib's box style: slots are drawn under the menu's slot positions. */
+/**
+ * The shop screens in SimpleLib's box style: one wooden-bronze box with the light inventory panel (seam) below it, like the other
+ * mod screens. Slots are drawn under the menu's slot positions; block slots in the box colour, inventory slots light.
+ */
 public final class ShopScreens {
-    private static final UiPalette PALETTE = UiPalette.INVENTORY;
+    private static final UiPalette PALETTE = UiPalette.BARREL;
+    private static final UiPalette INVENTORY = UiPalette.INVENTORY;
+    /** The light panel starts this many pixels above the first inventory row (same as the other screens). */
+    private static final int SEAM = 3;
 
-    /** Base: draws the box, every active slot and the player inventory block; subclasses add labels. */
+    /** Base: draws the box, the inventory panel and every active slot; subclasses add labels. */
     abstract static class Base<M extends AbstractContainerMenu> extends AbstractContainerScreen<M> {
-        Base(M menu, Inventory inventory, Component title, int w, int h) {
+        private final int inventoryY;
+
+        Base(M menu, Inventory inventory, Component title, int w, int h, int inventoryY) {
             super(menu, inventory, title, w, h);
+            this.inventoryY = inventoryY;
             this.titleLabelX = 8;
             this.titleLabelY = 6;
-            this.inventoryLabelY = h - 94;
+            this.inventoryLabelY = -1000;
         }
 
         @Override
         public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
             super.extractBackground(graphics, mouseX, mouseY, a);
             UiBoxes.box(graphics, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, PALETTE);
+            int seam = this.inventoryY - SEAM;
+            UiBoxes.seam(graphics, this.leftPos + UiBoxes.FRAME, this.topPos + seam, this.imageWidth - 2 * UiBoxes.FRAME,
+                    this.imageHeight - UiBoxes.FRAME_BOTTOM - seam, PALETTE);
             for (Slot slot : this.menu.slots) {
-                if (slot.isActive()) UiBoxes.slot(graphics, this.leftPos + slot.x, this.topPos + slot.y, PALETTE);
+                if (slot.isActive()) UiBoxes.slot(graphics, this.leftPos + slot.x, this.topPos + slot.y, slot.y >= this.inventoryY ? INVENTORY : PALETTE);
             }
         }
 
@@ -45,33 +58,84 @@ public final class ShopScreens {
         }
     }
 
-    /** Owner menu of the sales block: price row and earnings. */
+    /** A plain bar button in the style of the box (the Vanilla sprite). */
+    static final class BarButton extends AbstractButton {
+        private final Runnable action;
+
+        BarButton(int x, int y, int w, int h, Component text, Runnable action) {
+            super(x, y, w, h, text);
+            this.action = action;
+        }
+
+        @Override
+        public void onPress(InputWithModifiers input) {
+            this.action.run();
+        }
+
+        @Override
+        protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+            extractDefaultSprite(graphics);
+            extractDefaultLabel(graphics.textRendererForWidget(this, GuiGraphicsExtractor.HoveredTextEffects.NONE));
+        }
+
+        @Override
+        protected void updateWidgetNarration(NarrationElementOutput output) {
+            this.defaultButtonNarrationText(output);
+        }
+    }
+
+    /** Owner screen of the sales block (alone: price + earnings) and of the whole shop (goods, price, earnings in double-chest height). */
     public static final class Owner extends Base<SalesOwnerMenu> {
         public Owner(SalesOwnerMenu menu, Inventory inventory, Component title) {
-            super(menu, inventory, title, SalesOwnerMenu.WIDTH, SalesOwnerMenu.HEIGHT);
+            super(menu, inventory, title, SalesOwnerMenu.WIDTH, menu.isCombined() ? SalesOwnerMenu.C_HEIGHT : SalesOwnerMenu.HEIGHT,
+                    menu.isCombined() ? SalesOwnerMenu.C_INVENTORY_Y : SalesOwnerMenu.INVENTORY_Y);
+        }
+
+        @Override
+        protected void init() {
+            super.init();
+            if (this.menu.isCombined()) {
+                // The free strip between the earnings and the inventory panel.
+                Component text = Component.translatable("simpleshops.screen.dev_buyer");
+                BarButton b = this.addRenderableWidget(new BarButton(this.leftPos + 8, this.topPos + SalesOwnerMenu.C_EARNINGS_Y + 54 + 4, 160, 14, text,
+                        () -> Minecraft.getInstance().gameMode.handleInventoryButtonClick(this.menu.containerId, SalesOwnerMenu.DEV_BUYER)));
+                b.setTooltip(Tooltip.create(Component.translatable("simpleshops.screen.dev_buyer.tip")));
+            }
         }
 
         @Override
         protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
             super.extractLabels(graphics, xm, ym);
-            label(graphics, "simpleshops.screen.price", 8, SalesOwnerMenu.PRICE_Y + 5);
-            label(graphics, "simpleshops.screen.earnings", 8, SalesOwnerMenu.EARNINGS_Y - 10);
+            if (this.menu.isCombined()) {
+                label(graphics, "simpleshops.screen.goods", 8, SalesOwnerMenu.C_GOODS_Y + 5);
+                label(graphics, "simpleshops.screen.price", 8, SalesOwnerMenu.C_PRICE_Y + 5);
+            } else {
+                label(graphics, "simpleshops.screen.price", 8, SalesOwnerMenu.PRICE_Y + 5);
+            }
         }
 
         @Override
         protected void extractTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
             super.extractTooltip(graphics, mouseX, mouseY);
             Slot hovered = this.hoveredSlot;
-            if (hovered != null && hovered.index < SalesOwnerMenu.EARNINGS_START && this.menu.getCarried().isEmpty() && !hovered.hasItem()) {
+            int start = this.menu.priceStart();
+            if (hovered != null && hovered.index >= start && hovered.index < start + 5 && this.menu.getCarried().isEmpty() && !hovered.hasItem()) {
                 graphics.setTooltipForNextFrame(Component.translatable("simpleshops.screen.template"), mouseX, mouseY);
             }
+        }
+    }
+
+    /** Owner screen of a sales storage. */
+    public static final class Storage extends Base<StorageMenu> {
+        public Storage(StorageMenu menu, Inventory inventory, Component title) {
+            super(menu, inventory, title, StorageMenu.WIDTH, StorageMenu.HEIGHT, StorageMenu.INVENTORY_Y);
         }
     }
 
     /** Owner menu of the display case. */
     public static final class Stock extends Base<StockMenu> {
         public Stock(StockMenu menu, Inventory inventory, Component title) {
-            super(menu, inventory, title, StockMenu.WIDTH, StockMenu.HEIGHT);
+            super(menu, inventory, title, StockMenu.WIDTH, StockMenu.HEIGHT, StockMenu.INVENTORY_Y);
         }
 
         @Override
@@ -84,23 +148,32 @@ public final class ShopScreens {
     /** Buyer menu: pick goods, pay, trade. */
     public static final class Buyer extends Base<ShopBuyerMenu> {
         private TradeButton trade;
+        private BarButton back;
 
         public Buyer(ShopBuyerMenu menu, Inventory inventory, Component title) {
-            super(menu, inventory, title, ShopBuyerMenu.WIDTH, ShopBuyerMenu.HEIGHT);
+            super(menu, inventory, title, ShopBuyerMenu.WIDTH, ShopBuyerMenu.HEIGHT, ShopBuyerMenu.INVENTORY_Y);
         }
 
         @Override
         protected void init() {
             super.init();
             this.trade = this.addRenderableWidget(new TradeButton(this.leftPos + 48, this.topPos + 84, 80, 18));
+            // Shown once the synced "owner" flag arrives (it comes after the screen opens).
+            this.back = this.addRenderableWidget(new BarButton(this.leftPos + 82, this.topPos + 3, 86, 12,
+                    Component.translatable("simpleshops.screen.dev_owner"), () -> send(ShopBuyerMenu.TO_OWNER)));
+            this.back.setTooltip(Tooltip.create(Component.translatable("simpleshops.screen.dev_owner.tip")));
+            this.back.visible = false;
         }
 
         @Override
         protected void containerTick() {
             super.containerTick();
+            if (this.back != null) this.back.visible = this.menu.canManage();
             if (this.trade != null) {
+                this.trade.setMessage(Component.translatable(this.menu.earningsFull() ? "simpleshops.screen.earnings_full_short" : "simpleshops.screen.trade"));
                 this.trade.active = this.menu.canTradeClient();
                 this.trade.setTooltip(Tooltip.create(Component.translatable(this.trade.active ? "simpleshops.screen.repeat"
+                        : this.menu.earningsFull() ? "simpleshops.screen.earnings_full"
                         : hasGoods() ? "simpleshops.screen.pay_exactly" : "simpleshops.screen.sold_out")));
             }
         }

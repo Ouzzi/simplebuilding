@@ -61,9 +61,22 @@ public final class WayfinderScreen extends Screen {
     private static final Identifier PLAYER = Identifier.withDefaultNamespace("player");
     private static final Identifier DEATH = Identifier.withDefaultNamespace("red_x");
 
+    /** Zoom stages: the first {@link #ZOOM_NEAR} magnify 1:1 data (8, 4, 2 screen pixels per block), then {@link WayfinderData#ZOOMS}. */
+    private static final int[] MAGS = {8, 4, 2}, STAGE_BPP, STAGE_MAG;
+    private static final int ZOOM_NEAR = MAGS.length;
+    static {
+        int n = ZOOM_NEAR + WayfinderData.ZOOMS.length;
+        STAGE_BPP = new int[n];
+        STAGE_MAG = new int[n];
+        for (int i = 0; i < n; i++) {
+            STAGE_BPP[i] = i < ZOOM_NEAR ? 1 : WayfinderData.ZOOMS[i - ZOOM_NEAR];
+            STAGE_MAG[i] = i < ZOOM_NEAR ? MAGS[i] : 1;
+        }
+    }
+
     // Remembered for the session, like the recipe book's state.
     private static boolean snap = true, grid = true, frameContour, structures = true;
-    private static int zoomIndex;
+    private static int zoomIndex = ZOOM_NEAR;
 
     private final InteractionHand hand;
     private final int frameId;
@@ -129,12 +142,12 @@ public final class WayfinderScreen extends Screen {
         snap = snapOn;
         grid = gridOn;
         frameContour = contourOn;
-        zoomIndex = Mth.clamp(zoomLevel, 0, WayfinderData.ZOOMS.length - 1);
+        zoomIndex = Mth.clamp(ZOOM_NEAR + zoomLevel, 0, STAGE_BPP.length - 1);
     }
 
     /** Client smoke: block X in the middle of the map. */
     public int blockAtMapCenterX() {
-        return (int) Math.floor(originX + mapW / 2.0 * zoom());
+        return (int) Math.floor(originX + mapW / 2.0 / mag() * zoom());
     }
 
     /** Client smoke: screen position of the map area's centre. */
@@ -178,8 +191,19 @@ public final class WayfinderScreen extends Screen {
         return rows;
     }
 
+    /** Blocks per map pixel of the data shown (1 for the magnified stages). */
     public static int zoom() {
-        return WayfinderData.ZOOMS[zoomIndex];
+        return STAGE_BPP[zoomIndex];
+    }
+
+    /** Screen pixels per map pixel (1 except in the magnified stages). */
+    public static int mag() {
+        return STAGE_MAG[zoomIndex];
+    }
+
+    /** "8:1" for a magnified stage, else "1:4". */
+    private static String ratio() {
+        return mag() > 1 ? mag() + ":1" : "1:" + zoom();
     }
 
     @Override
@@ -198,8 +222,8 @@ public final class WayfinderScreen extends Screen {
         mapY = layout.mapY();
         if (placed && oldW > 0) {
             // Window resized: keep the centre where it was.
-            originX += (oldW - mapW) / 2.0 * zoom();
-            originZ += (oldH - mapH) / 2.0 * zoom();
+            originX += (oldW - mapW) / 2.0 / mag() * zoom();
+            originZ += (oldH - mapH) / 2.0 / mag() * zoom();
             if (snap) snapOrigin();
         }
         if (!placed) {
@@ -227,16 +251,16 @@ public final class WayfinderScreen extends Screen {
     }
 
     private static int indexOf(int zoom) {
-        for (int i = 0; i < WayfinderData.ZOOMS.length; i++) if (WayfinderData.ZOOMS[i] == zoom) return i;
-        return 0;
+        for (int i = ZOOM_NEAR; i < STAGE_BPP.length; i++) if (STAGE_BPP[i] == zoom) return i;
+        return ZOOM_NEAR;
     }
 
     // ---------------------------------------------------------------- view maths
 
     private void centerOn(double x, double z, boolean snapToCell) {
         int bpp = zoom();
-        originX = x - mapW / 2.0 * bpp;
-        originZ = z - mapH / 2.0 * bpp;
+        originX = x - mapW / 2.0 / mag() * bpp;
+        originZ = z - mapH / 2.0 / mag() * bpp;
         clampOrigin();
         if (snapToCell) snapOrigin();
     }
@@ -246,8 +270,8 @@ public final class WayfinderScreen extends Screen {
         if (minecraft == null || minecraft.player == null) return;
         int bpp = zoom(), cell = CELL * bpp;
         if (snap) {
-            originX = (Math.floorDiv(minecraft.player.getBlockX(), cell) - cols / 2) * (double) cell;
-            originZ = (Math.floorDiv(minecraft.player.getBlockZ(), cell) - rows / 2) * (double) cell;
+            originX = (Math.floorDiv(minecraft.player.getBlockX(), cell) - cols / mag() / 2) * (double) cell;
+            originZ = (Math.floorDiv(minecraft.player.getBlockZ(), cell) - rows / mag() / 2) * (double) cell;
         } else {
             centerOn(minecraft.player.getX(), minecraft.player.getZ(), false);
         }
@@ -255,7 +279,7 @@ public final class WayfinderScreen extends Screen {
 
     /** Keeps the map centre inside the world border. */
     private void clampOrigin() {
-        double halfW = mapW / 2.0 * zoom(), halfH = mapH / 2.0 * zoom();
+        double halfW = mapW / 2.0 / mag() * zoom(), halfH = mapH / 2.0 / mag() * zoom();
         originX = Mth.clamp(originX, -LIMIT - halfW, LIMIT - halfW);
         originZ = Mth.clamp(originZ, -LIMIT - halfH, LIMIT - halfH);
     }
@@ -277,19 +301,19 @@ public final class WayfinderScreen extends Screen {
     }
 
     private int screenX(double blockX) {
-        return mapX + (int) (Math.floor(blockX / zoom()) - originPx());
+        return mapX + (int) (Math.floor(blockX / zoom()) - originPx()) * mag() + mag() / 2;
     }
 
     private int screenY(double blockZ) {
-        return mapY + (int) (Math.floor(blockZ / zoom()) - originPz());
+        return mapY + (int) (Math.floor(blockZ / zoom()) - originPz()) * mag() + mag() / 2;
     }
 
     private int blockX(double sx) {
-        return (int) Math.floor((originPx() + Math.floor(sx - mapX)) * zoom());
+        return (int) Math.floor((originPx() + Math.floor((sx - mapX) / mag())) * zoom());
     }
 
     private int blockZ(double sy) {
-        return (int) Math.floor((originPz() + Math.floor(sy - mapY)) * zoom());
+        return (int) Math.floor((originPz() + Math.floor((sy - mapY) / mag())) * zoom());
     }
 
     private boolean overMap(double x, double y) {
@@ -297,13 +321,13 @@ public final class WayfinderScreen extends Screen {
     }
 
     private void zoomBy(int steps, double anchorX, double anchorY) {
-        int next = Mth.clamp(zoomIndex + steps, 0, WayfinderData.ZOOMS.length - 1);
+        int next = Mth.clamp(zoomIndex + steps, 0, STAGE_BPP.length - 1);
         if (next == zoomIndex) return;
         double ax = Mth.clamp(anchorX - mapX, 0, mapW), ay = Mth.clamp(anchorY - mapY, 0, mapH);
-        double bx = originX + ax * zoom(), bz = originZ + ay * zoom();
+        double bx = originX + ax / mag() * zoom(), bz = originZ + ay / mag() * zoom();
         zoomIndex = next;
-        originX = bx - ax * zoom();
-        originZ = bz - ay * zoom();
+        originX = bx - ax / mag() * zoom();
+        originZ = bz - ay / mag() * zoom();
         clampOrigin();
         if (snap) snapOrigin();
     }
@@ -349,6 +373,10 @@ public final class WayfinderScreen extends Screen {
         if (mapId >= 0) {
             drawTiles(g, mapId);
             if (grid) drawGrid(g);
+            if (!frameMode()) {
+                MapLayers.request(mapId, originX, originZ, zoom(), mag(), mapW, mapH);
+                MapLayers.draw(g, mapId, mapX, mapY, mapW, mapH, originX, originZ, zoom(), mag());
+            }
             if (structures) drawStructures(g, mapId);
             drawMarks(g, waypoints);
         }
@@ -369,6 +397,7 @@ public final class WayfinderScreen extends Screen {
         if (!dialog && !menu.isOpen()) {
             tabTooltips(g, mouseX, mouseY, waypoints);
             structureTooltip(g, mouseX, mouseY, mapId);
+            if (!frameMode() && overMap(mouseX, mouseY)) MapLayers.tooltip(g, font, mapId, mouseX, mouseY, mapX, mapY, originX, originZ, zoom(), mag());
         }
     }
 
@@ -382,14 +411,15 @@ public final class WayfinderScreen extends Screen {
         int bpp = zoom();
         long px0 = originPx(), pz0 = originPz();
         int tx0 = (int) Math.floorDiv(px0, WayfinderData.TILE), tz0 = (int) Math.floorDiv(pz0, WayfinderData.TILE);
-        int tx1 = (int) Math.floorDiv(px0 + mapW - 1, WayfinderData.TILE), tz1 = (int) Math.floorDiv(pz0 + mapH - 1, WayfinderData.TILE);
+        int mag = mag();
+        int tx1 = (int) Math.floorDiv(px0 + (mapW - 1) / mag, WayfinderData.TILE), tz1 = (int) Math.floorDiv(pz0 + (mapH - 1) / mag, WayfinderData.TILE);
         for (int tx = tx0; tx <= tx1; tx++) {
             for (int tz = tz0; tz <= tz1; tz++) {
                 TileCache.Entry e = MapsClient.CACHE.want(new TileCache.Key(mapId, bpp, tx, tz));
                 DynamicTexture texture = contour() ? MapsClient.CACHE.contour(e) : MapsClient.CACHE.texture(e);
                 if (texture == null) continue;
-                int x = mapX + (int) ((long) tx * WayfinderData.TILE - px0), y = mapY + (int) ((long) tz * WayfinderData.TILE - pz0);
-                g.blit(texture.getTextureView(), texture.getSampler(), x, y, x + WayfinderData.TILE, y + WayfinderData.TILE, 0, 1, 0, 1);
+                int x = mapX + (int) ((long) tx * WayfinderData.TILE - px0) * mag, y = mapY + (int) ((long) tz * WayfinderData.TILE - pz0) * mag;
+                g.blit(texture.getTextureView(), texture.getSampler(), x, y, x + WayfinderData.TILE * mag, y + WayfinderData.TILE * mag, 0, 1, 0, 1);
             }
         }
     }
@@ -397,8 +427,9 @@ public final class WayfinderScreen extends Screen {
     /** World-aligned lines every 16 map pixels (one chunk at 1:1). */
     private void drawGrid(GuiGraphicsExtractor g) {
         long px0 = originPx(), pz0 = originPz();
-        for (int x = (int) Math.floorMod(-px0, CELL); x < mapW; x += CELL) g.fill(mapX + x, mapY, mapX + x + 1, mapY + mapH, 0x40000000);
-        for (int y = (int) Math.floorMod(-pz0, CELL); y < mapH; y += CELL) g.fill(mapX, mapY + y, mapX + mapW, mapY + y + 1, 0x40000000);
+        int mag = mag();
+        for (int x = (int) Math.floorMod(-px0, CELL) * mag; x < mapW; x += CELL * mag) g.fill(mapX + x, mapY, mapX + x + 1, mapY + mapH, 0x40000000);
+        for (int y = (int) Math.floorMod(-pz0, CELL) * mag; y < mapH; y += CELL * mag) g.fill(mapX, mapY + y, mapX + mapW, mapY + y + 1, 0x40000000);
     }
 
     private void drawMarks(GuiGraphicsExtractor g, Waypoints waypoints) {
@@ -406,7 +437,8 @@ public final class WayfinderScreen extends Screen {
             int x = screenX(w.x()), y = screenY(w.z());
             g.fill(x - 7, y - 7, x + 7, y + 7, 0x70000000);
             WaypointArt.draw(g, w, x - 6, y - 6, 12);
-            g.text(font, String.valueOf(w.slot() + 1), x + 4, y - 9, 0xFFFFFFFF, true);
+            g.text(font, w.name().isEmpty() ? String.valueOf(w.slot() + 1) : w.name(), x + 4, y - 9, 0xFFFFFFFF, true);
+            if (MapLayers.coordsOn()) MapLayers.drawCoords(g, font, x + 4, y + 1, w.x(), w.z());
         }
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || frameMode() && !MapsClient.inMapDimension(mapId())) return;
@@ -418,6 +450,7 @@ public final class WayfinderScreen extends Screen {
             g.pose().rotate((float) Math.toRadians(mc.player.getYRot() + 180.0F));
             g.blitSprite(RenderPipelines.GUI_TEXTURED, atlas.getSprite(PLAYER), -4, -4, 8, 8);
             g.pose().popMatrix();
+            if (MapLayers.coordsOn()) MapLayers.drawCoords(g, font, x + 6, y + 1, mc.player.getBlockX(), mc.player.getBlockZ());
         }
         // Feature 7: shown even over unexplored ground; only the point appears there.
         if (!frameMode()) {
@@ -460,9 +493,28 @@ public final class WayfinderScreen extends Screen {
         return out.toString();
     }
 
+    /** Layer switches (loaded chunks, then every source the server offers); a click flips one and the menu stays open. */
+    private void openLayersMenu(int x, int y) {
+        UiContextMenu m = menu.open(x, y);
+        m.add(layerLabel(MapLayers.CHUNKS, Component.translatable("screen.simplemaps.layer.chunks")), true, () -> {
+            MapLayers.toggle(MapLayers.CHUNKS);
+            openLayersMenu(x, y);
+        });
+        for (var source : MapLayers.available()) {
+            m.add(layerLabel(source.id(), Component.translatableWithFallback(source.titleKey(), source.id())), true, () -> {
+                MapLayers.toggle(source.id());
+                openLayersMenu(x, y);
+            });
+        }
+    }
+
+    private static Component layerLabel(String id, Component name) {
+        return Component.literal(MapLayers.on(id) ? "[x] " : "[ ] ").append(name);
+    }
+
     private void drawFooter(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         int y = mapY + mapH + 3;
-        g.text(font, Component.translatable("screen.simplemaps.zoom", zoom(), zoomIndex + 1, WayfinderData.ZOOMS.length), mapX, y, PALETTE.label(), false);
+        g.text(font, Component.translatable("screen.simplemaps.zoom", ratio(), zoomIndex + 1, STAGE_BPP.length), mapX, y, PALETTE.label(), false);
         if (overMap(mouseX, mouseY)) {
             String pos = blockX(mouseX) + ", " + blockZ(mouseY);
             g.text(font, pos, mapX + mapW - font.width(pos), y, PALETTE.label(), false);
@@ -470,7 +522,7 @@ public final class WayfinderScreen extends Screen {
     }
 
     private void drawTabs(GuiGraphicsExtractor g, int mouseX, int mouseY, Waypoints waypoints, boolean dialog) {
-        boolean[] states = {snap, grid, false, contour(), structures, false};
+        boolean[] states = {snap, grid, false, contour(), structures, MapLayers.coordsOn(), false, false};
         int tab = layout.tab();
         // Both sides are bookmarks in the box colour (owner N65): tools left, the player and the waypoints right.
         for (int i = 0; i < LEFT_TABS; i++) {
@@ -523,7 +575,7 @@ public final class WayfinderScreen extends Screen {
                 }
             }
             case 2 -> {
-                String label = "1:" + zoom();
+                String label = ratio();
                 float scale = font.width(label) > 14 ? 0.75F : 1.0F;
                 g.pose().pushMatrix();
                 g.pose().translate(x + 5 - font.width(label) * scale / 2.0F, y + 1);
@@ -531,7 +583,7 @@ public final class WayfinderScreen extends Screen {
                 g.text(font, label, 0, 0, c, false);
                 g.pose().popMatrix();
             }
-            case 5 -> {
+            case 7 -> {
                 // Two arrows' worth of "sync": a small map frame with a centre dot.
                 g.fill(x, y, x + 10, y + 1, c);
                 g.fill(x, y + 9, x + 10, y + 10, c);
@@ -546,6 +598,24 @@ public final class WayfinderScreen extends Screen {
                 g.fill(x + 1, y + 5, x + 9, y + 10, c);
                 if (!shadow) g.fill(x + 4, y + 7, x + 6, y + 10, 0xFF6B6B6B);
             }
+            case 5 -> {
+                // "x,z" as two small letters with a dot between.
+                g.fill(x, y + 1, x + 3, y + 2, c);
+                g.fill(x + 1, y + 2, x + 2, y + 5, c);
+                g.fill(x, y + 5, x + 3, y + 6, c);
+                g.fill(x + 4, y + 4, x + 6, y + 6, c);
+                g.fill(x + 7, y + 5, x + 10, y + 6, c);
+                g.fill(x + 8, y + 6, x + 9, y + 9, c);
+                g.fill(x + 7, y + 9, x + 10, y + 10, c);
+            }
+            case 6 -> {
+                // Stacked layers.
+                g.fill(x + 3, y, x + 7, y + 1, c);
+                g.fill(x + 1, y + 1, x + 9, y + 3, c);
+                g.fill(x, y + 4, x + 10, y + 5, c);
+                g.fill(x, y + 7, x + 10, y + 8, c);
+                g.fill(x + 2, y + 9, x + 8, y + 10, c);
+            }
             default -> {
                 g.fill(x, y + 2, x + 10, y + 3, c);
                 g.fill(x + 1, y + 5, x + 9, y + 6, c);
@@ -556,7 +626,7 @@ public final class WayfinderScreen extends Screen {
 
     private void tabTooltips(GuiGraphicsExtractor g, int mouseX, int mouseY, Waypoints waypoints) {
         int l = tabAt(mouseX, mouseY, true), r = tabAt(mouseX, mouseY, false);
-        String[] keys = {"snap", "grid", "zoom", "contour", "structures", "sync"};
+        String[] keys = {"snap", "grid", "zoom", "contour", "structures", "coords", "layers", "sync"};
         if (l >= 0) g.setTooltipForNextFrame(font, Component.translatable("screen.simplemaps.tab." + keys[l]), mouseX, mouseY);
         if (r == 0) g.setTooltipForNextFrame(font, Component.translatable("screen.simplemaps.tab.player"), mouseX, mouseY);
         if (r > 0) {
@@ -672,8 +742,10 @@ public final class WayfinderScreen extends Screen {
                 case 1 -> grid = !grid;
                 case 2 -> zoomBy(button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT ? 1 : -1, mapX + mapW / 2.0, mapY + mapH / 2.0);
                 case 3 -> toggleContour();
-                case 5 -> syncZoom(event.hasShiftDown());
-                default -> structures = !structures;
+                case 4 -> structures = !structures;
+                case 5 -> MapLayers.toggleCoords();
+                case 7 -> syncZoom(event.hasShiftDown());
+                default -> openLayersMenu((int) mx, (int) my);
             }
             return true;
         }
@@ -718,8 +790,8 @@ public final class WayfinderScreen extends Screen {
     @Override
     public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
         if (dragging) {
-            originX -= dx * zoom();
-            originZ -= dy * zoom();
+            originX -= dx / mag() * zoom();
+            originZ -= dy / mag() * zoom();
             clampOrigin();
             moved = moved || Math.abs(event.x() - dragStartX) + Math.abs(event.y() - dragStartY) > 2;
             return true;

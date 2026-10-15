@@ -4,6 +4,7 @@ import com.simpleshops.ShopsRegistry;
 import com.simpleshops.block.DisplayCaseBlockEntity;
 import com.simpleshops.block.SalesBlockEntity;
 import com.simpleshops.logic.PriceRow;
+import com.simpleshops.logic.ShopActions;
 import com.simpleshops.logic.ShopTrade;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -28,7 +29,7 @@ public class ShopBuyerMenu extends ShopMenu {
     public static final int GOODS_START = 0, PRICE_START = 5, PAY_START = 10, PAY_END = 15, INVENTORY_START = 15;
     public static final int WIDTH = 176, HEIGHT = 192, ROW_X = 60, GOODS_Y = 18, PRICE_Y = 40, PAY_Y = 62, INVENTORY_Y = 110;
     /** Menu button ids: {@code action | revision << 8}. */
-    public static final int SELECT = 0, TRADE = 10, TRADE_MAX = 11, MAX_REPEAT = 64;
+    public static final int SELECT = 0, TRADE = 10, TRADE_MAX = 11, TO_OWNER = 12, MAX_REPEAT = 64;
 
     private final @Nullable SalesBlockEntity sales;
     private final @Nullable DisplayCaseBlockEntity shopCase;
@@ -37,6 +38,10 @@ public class ShopBuyerMenu extends ShopMenu {
     private final SimpleContainer pay = new SimpleContainer(PriceRow.SIZE);
     private final DataSlot selected = DataSlot.standalone();
     private final DataSlot revision = DataSlot.standalone();
+    /** 1 when the earnings cannot take the price any more (the button is off), 0 otherwise; computed on the server only. */
+    private final DataSlot full = DataSlot.standalone();
+    /** 1 for the owner of the shop: shows the developer button that leads back to the owner's screen. */
+    private final DataSlot manage = DataSlot.standalone();
     /** Last outcome for tests: ordinal of {@link ShopTrade.Result}, -1 none (server only). */
     public ShopTrade.@Nullable Result lastResult;
 
@@ -74,11 +79,22 @@ public class ShopBuyerMenu extends ShopMenu {
         addInventory(inventory, 8, INVENTORY_Y);
         addDataSlot(this.selected);
         addDataSlot(this.revision);
+        addDataSlot(this.full);
+        addDataSlot(this.manage);
         if (sales != null && player != null) {
             // A server shop is never locked: its prices and goods do not change by trading, any number of buyers can use it.
             if (!sales.isServerShop()) sales.lock(player, this);
+            if (player != null && sales.mayEdit(player) && !sales.isServerShop()) this.manage.set(1);
             refresh();
         }
+    }
+
+    public boolean earningsFull() {
+        return this.full.get() != 0;
+    }
+
+    public boolean canManage() {
+        return this.manage.get() != 0;
     }
 
     public int selectedWare() {
@@ -122,6 +138,7 @@ public class ShopBuyerMenu extends ShopMenu {
             this.selected.set(first);
         }
         this.revision.set(this.sales.revision() & 0xFFFF);
+        this.full.set(ShopTrade.fits(this.sales) ? 0 : 1);
     }
 
     @Override
@@ -133,7 +150,7 @@ public class ShopBuyerMenu extends ShopMenu {
     /** Client only: whether the pay slots hold the exact prices and the chosen ware exists (the button is enabled). */
     public boolean canTradeClient() {
         int ware = this.selected.get();
-        if (ware < 0 || ware >= DisplayCaseBlockEntity.SIZE || this.goodsView.getItem(ware).isEmpty()) return false;
+        if (earningsFull() || ware < 0 || ware >= DisplayCaseBlockEntity.SIZE || this.goodsView.getItem(ware).isEmpty()) return false;
         boolean any = false;
         for (int p = 0; p < PriceRow.SIZE; p++) {
             ItemStack price = this.priceView.getItem(p);
@@ -161,6 +178,7 @@ public class ShopBuyerMenu extends ShopMenu {
             if (!this.shopCase.goods().get(action).isEmpty()) this.selected.set(action);
             return true;
         }
+        if (action == TO_OWNER) return this.manage.get() != 0 && this.sales.mayEdit(sp) && ShopActions.switchToOwner(sp, this.sales);
         if (action != TRADE && action != TRADE_MAX) return false;
         int times = action == TRADE_MAX ? MAX_REPEAT : 1;
         ServerLevel level = sp.level();

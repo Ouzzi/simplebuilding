@@ -85,6 +85,30 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         });
         context.waitTicks(3);
         context.takeScreenshot("simpleshops-owner-screen");
+        // The shared owner screen (goods, price, earnings in double-chest height) with the developer button.
+        context.runOnClient(c -> {
+            var menu = SalesOwnerMenu.combinedClient(4, c.player.getInventory());
+            for (int i = 0; i < 4; i++) menu.slots.get(i).container.setItem(i, GOODS[i].copy());
+            menu.slots.get(5 + 2).container.setItem(2, new ItemStack(Items.EMERALD, 12));
+            menu.slots.get(5 + 3).container.setItem(3, new ItemStack(Items.COAL, 2));
+            menu.slots.get(10 + 1).container.setItem(1, new ItemStack(Items.GOLD_INGOT, 64));
+            menu.slots.get(10 + 14).container.setItem(14, new ItemStack(Items.DIAMOND, 5));
+            c.setScreenAndShow(new ShopScreens.Owner(menu, c.player.getInventory(), Component.translatable("container.simpleshops.shop")));
+        });
+        context.waitTicks(3);
+        context.runOnClient(c -> {
+            if (!(c.gui.screen() instanceof ShopScreens.Owner screen)) throw new AssertionError("not the owner screen");
+            var buttons = screen.children().stream().filter(w -> w instanceof net.minecraft.client.gui.components.AbstractButton).toList();
+            if (buttons.size() != 1) throw new AssertionError("one developer button expected, got " + buttons.size());
+        });
+        context.takeScreenshot("simpleshops-shop-screen");
+        context.runOnClient(c -> {
+            var menu = new com.simpleshops.menu.StorageMenu(5, c.player.getInventory());
+            for (int i = 0; i < 6; i++) menu.slots.get(i).container.setItem(i, new ItemStack(i % 2 == 0 ? Items.EMERALD : Items.GOLD_INGOT, 10 + i));
+            c.setScreenAndShow(new ShopScreens.Storage(menu, c.player.getInventory(), Component.translatable("container.simpleshops.storage")));
+        });
+        context.waitTicks(3);
+        context.takeScreenshot("simpleshops-storage-screen");
         context.runOnClient(c -> {
             var menu = new ShopBuyerMenu(2, c.player.getInventory());
             for (int i = 0; i < 4; i++) menu.goodsView().setItem(i, GOODS[i].copy());
@@ -97,7 +121,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(3);
         context.runOnClient(c -> {
             if (!(c.gui.screen() instanceof ShopScreens.Buyer screen)) throw new AssertionError("not the buyer screen");
-            var buttons = screen.children().stream().filter(w -> w instanceof net.minecraft.client.gui.components.AbstractButton).toList();
+            var buttons = screen.children().stream().filter(w -> w instanceof net.minecraft.client.gui.components.AbstractButton b && b.visible).toList();
             if (buttons.size() != 1) throw new AssertionError("one trade button expected, got " + buttons.size());
             var button = (net.minecraft.client.gui.components.AbstractButton) buttons.get(0);
             if (!button.active) throw new AssertionError("trade button should be enabled with the exact payment");

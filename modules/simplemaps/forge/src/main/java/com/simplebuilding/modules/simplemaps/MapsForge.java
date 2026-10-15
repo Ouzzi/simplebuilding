@@ -5,6 +5,9 @@ import com.simplemaps.MapsItems;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.net.DisplayPayload;
 import com.simplemaps.net.FrameViewPayload;
+import com.simplemaps.net.LayerDataPayload;
+import com.simplemaps.net.LayerRequestPayload;
+import com.simplemaps.net.LayerService;
 import com.simplemaps.net.MapStatePayload;
 import com.simplemaps.net.MapsNetwork;
 import com.simplemaps.net.TileDataPayload;
@@ -54,7 +57,12 @@ public final class MapsForge {
                     .add(WaypointEditPayload.TYPE, WaypointEditPayload.CODEC.cast(), (payload, ctx) -> onPlayer(ctx, p -> MapsNetwork.handleWaypoint(payload, p)))
                     .add(FrameViewPayload.TYPE, FrameViewPayload.CODEC.cast(), (payload, ctx) -> onPlayer(ctx, p -> MapsNetwork.handleFrameView(payload, p)))
                     .add(DisplayPayload.TYPE, DisplayPayload.CODEC.cast(), (payload, ctx) -> onPlayer(ctx, p -> MapsNetwork.handleDisplay(payload, p)))
+                    .add(LayerRequestPayload.TYPE, LayerRequestPayload.CODEC.cast(), (payload, ctx) -> onPlayer(ctx, p -> LayerService.handle(payload, p)))
                 .clientbound()
+                    .add(LayerDataPayload.TYPE, LayerDataPayload.CODEC.cast(), (payload, ctx) -> {
+                        ctx.setPacketHandled(true);
+                        ctx.enqueueWork(() -> MapsForgeClient.receive(payload));
+                    })
                     .add(TileDataPayload.TYPE, TileDataPayload.CODEC.cast(), (payload, ctx) -> {
                         ctx.setPacketHandled(true);
                         ctx.enqueueWork(() -> MapsForgeClient.receive(payload));

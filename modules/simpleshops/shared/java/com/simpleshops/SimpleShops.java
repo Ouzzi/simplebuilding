@@ -28,10 +28,16 @@ public final class SimpleShops {
 
     public static void init(Path configDir) {
         ShopsConfig.load(configDir);
+        registerMapLayer();
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "shops", "simpleshops.testcentre.station",
                 java.util.List.of("simpleshops:sales_block", "simpleshops:display_case", "simpleshops:glow_display_case",
                         "simpleshops:guide_book"));
+    }
+
+    /** Wayfinder map layer (framework contract, no import of the map module): active shops of loaded chunks with their offer and price. */
+    private static void registerMapLayer() {
+        com.simplebuilding.framework.api.MapLayerSources.register(MOD_ID, "shops", "layer.simpleshops.shops", ShopMapLayer::collect);
     }
 
     private SimpleShops() {}

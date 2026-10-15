@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplemaps;
 
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.client.MapsClient;
+import com.simplemaps.net.LayerDataPayload;
 import com.simplemaps.net.MapStatePayload;
 import com.simplemaps.net.TileDataPayload;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
@@ -17,6 +18,10 @@ public final class MapsNeoClient {
     }
 
     static void receive(TileDataPayload payload) {
+        MapsClient.receive(payload);
+    }
+
+    static void receive(LayerDataPayload payload) {
         MapsClient.receive(payload);
     }
 

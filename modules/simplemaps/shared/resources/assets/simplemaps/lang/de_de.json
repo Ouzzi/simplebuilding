@@ -10,7 +10,7 @@
   "screen.simplemaps.pick_slot": "Wegpunkt-Lesezeichen wählen",
   "screen.simplemaps.status.new": "Karte in die Hand nehmen, um zu erkunden",
   "screen.simplemaps.status.other_dimension": "Diese Karte gehört zu einer anderen Dimension",
-  "screen.simplemaps.zoom": "1:%s (Stufe %s/%s)",
+  "screen.simplemaps.zoom": "%s (Stufe %s/%s)",
   "screen.simplemaps.tab.snap": "Am Raster einrasten",
   "screen.simplemaps.tab.grid": "Raster",
   "screen.simplemaps.tab.zoom": "Zoom (Linksklick: näher, Rechtsklick: weiter; Mausrad auf den Zeiger; Pfeile/WASD verschieben; Pos1 oder C: Spieler; 1-8: Wegpunkte)",
@@ -35,5 +35,8 @@
   "screen.simplemaps.face.south": "Rückseite",
   "screen.simplemaps.face.west": "Linke Seite",
   "screen.simplemaps.face.up": "Oberseite",
-  "screen.simplemaps.face.down": "Unterseite"
+  "screen.simplemaps.face.down": "Unterseite",
+  "screen.simplemaps.tab.coords": "Koordinaten anzeigen",
+  "screen.simplemaps.tab.layers": "Ebenen (geladene Chunks, Shops, Chunk-Loader)",
+  "screen.simplemaps.layer.chunks": "Geladene Chunks"
 }

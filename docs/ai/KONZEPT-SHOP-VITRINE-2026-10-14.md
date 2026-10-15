@@ -265,3 +265,19 @@ Claims: ein eigener Mixin (niedrige Priorität) behandelt Klicks und den Abbau a
 Käufer-Inventar voll = Ware wird gedroppt (Antwort 12, statt Abbruch laut 4.1 Schritt 3).
 **Stufe 4 (nur notiert, nicht gebaut):** `claim_use`-Tag/Doku (jetzt unnötig, da Kauf ohne Recht), `Action.MANAGE` für Claim-Verwalter (laut Antwort 7 nicht gewollt),
 `/shop list|info|remove` für Ops, `abandonedDays` (Antwort 9: kein Ablauf), Preis „gleiche Art“ je Vorlage mit Filterknopf, Jade-Provider und JEI-Info, Simple-Money-Schnellpreis (Antwort 13: nein).
+
+## 9. Umbau Nachtrag 66 (Branch `claude-shops2`, 2026-10-15)
+**Plan.** (1) Einnahmen 9 → 27 Slots (`EarningsStore`-Schnittstelle: Verkaufsblock und Lager). (2) Neuer Block `sales_storage` (EN „Sales Storage“, DE „Verkaufslager“):
+Block-Entity mit Besitzer + 27 Slots, **kein** `Container` (Trichter/Minecart/Loader-Transfer sehen nichts), Schutz wie die anderen Shop-Blöcke (`ShopGuard.isShop`, Bedrock-Widerstand, IMMOVEABLE,
+Wither-/Drachen-immun), nur Besitzer/OP bauen ab, Inhalt fällt genau einmal. Er zieht alle 8 Ticks einen Stack aus dem Block **direkt darüber** (Verkaufsblock oder Lager), nur bei gleichem
+nicht-leeren Besitzer und geladenem Chunk; Ketten geben so nach unten weiter. Platzierung nur unter Verkaufsblock/Lager mit demselben Besitzer, höchstens 16 Lager je Verkaufsblock.
+(3) Der Kauf (`ShopTrade`) simuliert die Einnahme über die **ganze Kette** (Verkaufsblock, dann Lager darunter mit gleichem Besitzer), ändert dann alles in einem Schritt mit Rollback; passt der Preis
+nirgends mehr hinein: `EARNINGS_FULL`, Knopf aus („Einnahmen voll“), serverseitig erzwungen (DataSlot nur zur Anzeige). (4) UI: Vitrine allein = Warenfenster, Verkaufsblock allein = Preis + 27 Einnahmen,
+beide verbunden und vom Besitzer geklickt = **eine** Ansicht (Ware, Preis, Einnahmen, Höhe 222 wie Doppeltruhe), alle Shop-Fenster in simplelib-Optik (Kasten + Naht zum Inventar).
+(5) Knopf „Developer: Käuferansicht“ (nur Besitzer; Server prüft `mayEdit`), zurück „Dev: Besitzeransicht“. **Entscheidung Testkauf:** erlaubt. Er läuft über denselben `ShopTrade.execute`
+(Sperre, Revision, Atomarität); der Besitzer zahlt an sich selbst und erhält eigene Ware, die Summe aller Items ändert sich nicht (Test). Ein Sonderweg „ohne Kauf“ wäre zusätzlicher Code ohne Schutznutzen.
+OPs sind auf fremden Shops Käufer (kein Weg in die Besitzeransicht, dort würden sie sonst Preise/Einnahmen bedienen).
+**Missbrauchsfälle (je GameTest):** Duping per Kette/Fuzz (`storage_dupe_fuzz`, `storage_chain_flow`, `storage_full_chain_loses_nothing`), gleichzeitiger Zugriff (Sperre folgt dem Fenster, `dev_buyer_view`),
+Disconnect (`storage_empty_goods_and_disconnect`), Chunk/Save mitten in der Kette (`storage_roundtrip_no_dupe`, `storage_unloaded_or_removed`), fremdes Lager (`storage_placement_rules`,
+`storage_trade_deposits_into_chain`), Besitzerwechsel (`storage_owner_change_breaks_chain`), Explosion/Kolben/Trichter/Transfer-API (`storage_explosion_piston_hopper`), Abbau/Menü (`storage_break_and_menu_rules`),
+leere Ware, volle Kette. JUnit: `ShopLayoutTest`. Nicht prüfbar im Test: Kette länger als 16 (Arena nur 12 hoch), echtes Entladen eines Chunks.

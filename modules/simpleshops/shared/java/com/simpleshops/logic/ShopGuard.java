@@ -5,6 +5,8 @@ import com.simpleshops.block.DisplayCaseBlock;
 import com.simpleshops.block.DisplayCaseBlockEntity;
 import com.simpleshops.block.SalesBlock;
 import com.simpleshops.block.SalesBlockEntity;
+import com.simpleshops.block.SalesStorageBlock;
+import com.simpleshops.block.SalesStorageBlockEntity;
 import com.simplebuilding.framework.api.Protection;
 import java.util.UUID;
 import net.minecraft.commands.Commands;
@@ -31,7 +33,7 @@ public final class ShopGuard {
     public static final String PROVIDER = "simpleshops";
 
     public static boolean isShop(BlockState state) {
-        return state.getBlock() instanceof SalesBlock || state.getBlock() instanceof DisplayCaseBlock;
+        return state.getBlock() instanceof SalesBlock || state.getBlock() instanceof DisplayCaseBlock || state.getBlock() instanceof SalesStorageBlock;
     }
 
     /** Operator in the sense of the other modules: permission level 2 (gamemaster). */
@@ -48,6 +50,7 @@ public final class ShopGuard {
         BlockEntity be = level.getBlockEntity(pos);
         if (be instanceof SalesBlockEntity s) return s.owner();
         if (be instanceof DisplayCaseBlockEntity c) return c.owner();
+        if (be instanceof SalesStorageBlockEntity t) return t.owner();
         return null;
     }
 

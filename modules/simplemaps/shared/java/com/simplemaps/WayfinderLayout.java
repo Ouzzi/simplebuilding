@@ -9,7 +9,7 @@ public record WayfinderLayout(int cols, int rows, int left, int top, int tab) {
     public static final int CELL = 16, FRAME = 8, TITLE_H = 12, FOOTER_H = 12, MARGIN = 4;
     /** Bookmark size limits, the gap between two, the part that hides under the frame, and how far a hovered one moves out. */
     public static final int TAB_MIN = 12, TAB_MAX = 32, TAB_GAP = 2, TAB_IN = 8, TAB_HOVER = 2;
-    public static final int MIN_COLS = 8, MIN_ROWS = 6, LEFT_TABS = 6, RIGHT_TABS = 1 + Waypoint.SLOTS;
+    public static final int MIN_COLS = 8, MIN_ROWS = 6, LEFT_TABS = 8, RIGHT_TABS = 1 + Waypoint.SLOTS;
 
     /** The layout for a screen of {@code width x height} GUI pixels. */
     public static WayfinderLayout of(int width, int height) {

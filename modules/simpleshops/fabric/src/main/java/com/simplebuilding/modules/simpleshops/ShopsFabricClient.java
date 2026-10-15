@@ -16,5 +16,7 @@ public final class ShopsFabricClient implements ClientModInitializer {
         MenuScreens.register(ShopsRegistry.OWNER_MENU, ShopScreens.Owner::new);
         MenuScreens.register(ShopsRegistry.BUYER_MENU, ShopScreens.Buyer::new);
         MenuScreens.register(ShopsRegistry.STOCK_MENU, ShopScreens.Stock::new);
+        MenuScreens.register(ShopsRegistry.SHOP_MENU, ShopScreens.Owner::new);
+        MenuScreens.register(ShopsRegistry.STORAGE_MENU, ShopScreens.Storage::new);
     }
 }

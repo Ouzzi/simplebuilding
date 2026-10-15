@@ -10,7 +10,7 @@
   "screen.simplemaps.pick_slot": "Pick a waypoint bookmark",
   "screen.simplemaps.status.new": "Hold the map to start exploring",
   "screen.simplemaps.status.other_dimension": "This map belongs to another dimension",
-  "screen.simplemaps.zoom": "1:%s (level %s/%s)",
+  "screen.simplemaps.zoom": "%s (level %s/%s)",
   "screen.simplemaps.tab.snap": "Snap to grid",
   "screen.simplemaps.tab.grid": "Grid",
   "screen.simplemaps.tab.zoom": "Zoom (left click: in, right click: out; wheel on the cursor; arrows/WASD move; Home or C: player; 1-8: waypoints)",
@@ -35,5 +35,8 @@
   "screen.simplemaps.face.south": "Back",
   "screen.simplemaps.face.west": "Left side",
   "screen.simplemaps.face.up": "Top",
-  "screen.simplemaps.face.down": "Bottom"
+  "screen.simplemaps.face.down": "Bottom",
+  "screen.simplemaps.tab.coords": "Show coordinates",
+  "screen.simplemaps.tab.layers": "Layers (loaded chunks, shops, chunk loaders)",
+  "screen.simplemaps.layer.chunks": "Loaded chunks"
 }

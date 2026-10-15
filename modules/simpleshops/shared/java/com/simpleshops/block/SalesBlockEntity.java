@@ -25,12 +25,12 @@ import org.jspecify.annotations.Nullable;
 import net.minecraft.world.ContainerHelper;
 
 /**
- * The cash register of a shop: owner, the price row (templates, see {@link PriceRow}) and the nine-slot earnings store.
+ * The cash register of a shop: owner, the price row (templates, see {@link PriceRow}) and the 27-slot earnings store.
  * Not a container (see {@link ListContainer}). Clients get the owner, the price templates and nothing else; the earnings
  * never leave the server. The one-player lock is runtime only and never saved.
  */
-public class SalesBlockEntity extends BlockEntity {
-    public static final int EARNINGS_SIZE = 9;
+public class SalesBlockEntity extends BlockEntity implements EarningsStore {
+    public static final int EARNINGS_SIZE = EarningsStore.EARNINGS_SIZE;
     private @Nullable UUID owner;
     private String ownerName = "";
     private final NonNullList<ItemStack> prices = PriceRow.empty();
@@ -45,6 +45,7 @@ public class SalesBlockEntity extends BlockEntity {
         super(ShopsRegistry.SALES_BE, pos, state);
     }
 
+    @Override
     public @Nullable UUID owner() {
         return this.owner;
     }
@@ -96,6 +97,7 @@ public class SalesBlockEntity extends BlockEntity {
         return this.prices;
     }
 
+    @Override
     public NonNullList<ItemStack> earnings() {
         return this.earnings;
     }
@@ -118,6 +120,7 @@ public class SalesBlockEntity extends BlockEntity {
     }
 
     /** Marks the data dirty and pushes the client-visible part (owner, prices) to nearby players. */
+    @Override
     public void changed() {
         setChanged();
         if (this.level != null && !this.level.isClientSide()) {

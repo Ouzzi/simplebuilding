@@ -6,6 +6,9 @@ import com.simplemaps.MapsLoot;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.net.DisplayPayload;
 import com.simplemaps.net.FrameViewPayload;
+import com.simplemaps.net.LayerDataPayload;
+import com.simplemaps.net.LayerRequestPayload;
+import com.simplemaps.net.LayerService;
 import com.simplemaps.net.MapStatePayload;
 import com.simplemaps.net.MapsNetwork;
 import com.simplemaps.net.TileDataPayload;
@@ -50,6 +53,10 @@ public final class MapsNeoForge {
             registrar.playToServer(DisplayPayload.TYPE, DisplayPayload.CODEC,
                     (payload, context) -> context.enqueueWork(() -> MapsNetwork.handleDisplay(payload, (ServerPlayer) context.player())));
             registrar.playToClient(TileDataPayload.TYPE, TileDataPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> MapsNeoClient.receive(payload)));
+            registrar.playToServer(LayerRequestPayload.TYPE, LayerRequestPayload.CODEC,
+                    (payload, context) -> context.enqueueWork(() -> LayerService.handle(payload, (ServerPlayer) context.player())));
+            registrar.playToClient(LayerDataPayload.TYPE, LayerDataPayload.CODEC,
                     (payload, context) -> context.enqueueWork(() -> MapsNeoClient.receive(payload)));
             registrar.playToClient(MapStatePayload.TYPE, MapStatePayload.CODEC,
                     (payload, context) -> context.enqueueWork(() -> MapsNeoClient.receive(payload)));
