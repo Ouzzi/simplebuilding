@@ -311,7 +311,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "29d1b7b0d459"
+    "dataHash": "c1d7bfa0d13c"
   },
   {
     "id": "simplemaps",

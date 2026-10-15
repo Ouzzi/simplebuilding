@@ -27,7 +27,16 @@ public final class ContainersForge {
                 .add(LinkedOpenPayload.TYPE, LinkedOpenPayload.CODEC, (p, c) -> {
                     c.setPacketHandled(true);
                     c.enqueueWork(() -> ContainersForgeClient.receive(p));
+                })
+                .serverbound()
+                .add(com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload.TYPE, com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload.CODEC.cast(), (p, c) -> {
+                    c.setPacketHandled(true);
+                    c.enqueueWork(() -> {
+                        var sender = c.getSender();
+                        if (sender != null) LinkedContainers.onCancel(sender);
+                    });
                 }).build();
+        LinkedContainers.cancelToServer = payload -> channel.send(payload, net.minecraftforge.network.PacketDistributor.SERVER.noArg());
         LinkedContainers.openSync = (p, payload) -> {
             if (p.connection == null || !channel.isRemotePresent(p.connection.getConnection())) return false;
             channel.send(payload, net.minecraftforge.network.PacketDistributor.PLAYER.with(p));

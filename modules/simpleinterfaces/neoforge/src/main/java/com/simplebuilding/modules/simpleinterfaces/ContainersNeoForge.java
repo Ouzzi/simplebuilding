@@ -21,6 +21,11 @@ public final class ContainersNeoForge {
         // Main-thread handler (NeoForge default) in packet order: the slots must exist before the menu's first content packet.
         bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent e) -> e.registrar("1").optional().playToClient(LinkedOpenPayload.TYPE,
                 LinkedOpenPayload.CODEC, (p, c) -> com.simplebuilding.modules.simpleinterfaces.client.LinkedPanel.receive(p)));
+        bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent e) -> e.registrar("1").optional().playToServer(
+                com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload.TYPE, com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload.CODEC,
+                (p, c) -> c.enqueueWork(() -> LinkedContainers.onCancel((net.minecraft.server.level.ServerPlayer) c.player()))));
+        // Lambda: the client class only loads when Escape is pressed (client side).
+        LinkedContainers.cancelToServer = payload -> net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(payload);
         LinkedContainers.openSync = (p, payload) -> {
             if (!p.connection.hasChannel(LinkedOpenPayload.TYPE)) return false;
             net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p, payload);

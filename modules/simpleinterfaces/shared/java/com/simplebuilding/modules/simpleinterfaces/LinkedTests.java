@@ -41,6 +41,8 @@ public final class LinkedTests {
         ALL.put("linked_range", LinkedTests::linkedRange);
         ALL.put("linked_transfer", LinkedTests::linkedTransfer);
         ALL.put("linked_inventory", LinkedTests::linkedInventory);
+        ALL.put("linked_end", LinkedTests::linkedEnd);
+        ALL.put("linked_creative", LinkedTests::linkedCreative);
         ALL.put("portable_shulker", LinkedTests::portableShulker);
         ALL.put("portable_ender_chest", LinkedTests::portableEnderChest);
         ALL.put("linked_qol_migration", LinkedTests::qolMigration);
@@ -313,6 +315,150 @@ public final class LinkedTests {
             LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, h.absolutePos(boxPos));
             p.setShiftKeyDown(false);
             h.assertTrue(menu.slots.size() == base && sent.get(sent.size() - 1).size() == 0, "Unmark removes the slots again");
+            LinkedContainers.clear(p);
+        });
+        h.succeed();
+    }
+
+    private static void mark(ServerPlayer p, BlockPos abs) {
+        p.setShiftKeyDown(true);
+        LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, abs);
+        p.setShiftKeyDown(false);
+    }
+
+    /** The HUD banner payloads (container id -1) among {@code sent}, in order. */
+    private static List<com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload> hud(List<com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload> sent) {
+        return sent.stream().filter(x -> x.containerId() == com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload.HUD).toList();
+    }
+
+    /** HUD banner payload, Escape cancel, and the automatic end after the marked container was opened and left again. */
+    public static void linkedEnd(GameTestHelper h) {
+        configured(() -> {
+            var markedPos = new BlockPos(1, 2, 1);
+            var otherPos = new BlockPos(3, 2, 1);
+            h.setBlock(markedPos, Blocks.BARREL);
+            h.setBlock(otherPos, Blocks.CHEST);
+            var markedAbs = h.absolutePos(markedPos);
+            var marked = h.getLevel().getBlockEntity(markedAbs);
+            var other = h.getLevel().getBlockEntity(h.absolutePos(otherPos));
+            var sent = new ArrayList<com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload>();
+            LinkedContainers.openSync = (player, payload) -> sent.add(payload);
+            var p = player(h, new BlockPos(2, 2, 3));
+            // Banner: one HUD payload on marking (kind = block item, name = container name), one empty one on ending.
+            mark(p, markedAbs);
+            var shown = hud(sent);
+            h.assertTrue(shown.size() == 1 && shown.get(0).size() == 1 && shown.get(0).icon().is(Items.BARREL)
+                    && shown.get(0).title().getString().equals(((net.minecraft.world.level.block.entity.BaseContainerBlockEntity) marked).getDisplayName().getString()), "Marking sends the banner: " + shown);
+            LinkedContainers.tick(p);
+            h.assertTrue(hud(sent).size() == 1, "The banner is sent once, not every tick");
+            // Escape (cancel payload): mark and banner gone; a second cancel is harmless.
+            LinkedContainers.onCancel(p);
+            h.assertTrue(LinkedContainers.mark(p) == null && hud(sent).size() == 2 && hud(sent).get(1).size() == 0, "Cancel ends the mark and hides the banner");
+            LinkedContainers.onCancel(p);
+            h.assertTrue(hud(sent).size() == 2, "Cancel without a mark sends nothing");
+            // Not opening it: another container (with the linked panel) opened and closed keeps the mark.
+            mark(p, markedAbs);
+            p.openMenu((MenuProvider) other);
+            LinkedContainers.tick(p);
+            p.closeContainer();
+            LinkedContainers.tick(p);
+            h.assertTrue(LinkedContainers.mark(p) != null, "Visiting only a second container (linked panel) keeps the mark");
+            // Open the marked container: the mark holds while it is open, ends once it is closed.
+            p.openMenu((MenuProvider) marked);
+            LinkedContainers.tick(p);
+            h.assertTrue(LinkedContainers.mark(p) != null, "The mark lasts while its container is open");
+            p.closeContainer();
+            LinkedContainers.tick(p);
+            h.assertTrue(LinkedContainers.mark(p) == null && hud(sent).get(hud(sent).size() - 1).size() == 0, "Open + close of the marked container ends the mark and the banner");
+            // Marking again starts fresh: no visit remembered from before.
+            mark(p, markedAbs);
+            LinkedContainers.tick(p);
+            h.assertTrue(LinkedContainers.mark(p) != null, "A new mark is not ended by the old visit");
+            // Switching straight to another menu also leaves the marked container.
+            p.openMenu((MenuProvider) marked);
+            LinkedContainers.tick(p);
+            p.openMenu((MenuProvider) other);
+            LinkedContainers.tick(p);
+            h.assertTrue(LinkedContainers.mark(p) == null, "Opening something else counts as leaving");
+            p.closeContainer();
+            // Double chest: one half marked, the other half opened is the same container.
+            h.setBlock(new BlockPos(1, 2, 2), Blocks.CHEST);
+            h.setBlock(new BlockPos(2, 2, 2), Blocks.CHEST);
+            LinkedContainers.clear(p);
+            var halfA = h.absolutePos(new BlockPos(1, 2, 2));
+            var halfB = h.absolutePos(new BlockPos(2, 2, 2));
+            var combined = LinkedContainers.container(h.getLevel(), halfA);
+            if (combined != null && combined.getContainerSize() == 54) {
+                mark(p, halfA);
+                p.openMenu((MenuProvider) h.getLevel().getBlockEntity(halfB));
+                LinkedContainers.tick(p);
+                p.closeContainer();
+                LinkedContainers.tick(p);
+                h.assertTrue(LinkedContainers.mark(p) == null, "Opening the other half of a marked double chest counts as visiting it");
+            }
+            LinkedContainers.clear(p);
+        });
+        h.succeed();
+    }
+
+    /**
+     * Owner bug: in creative the mark must never take part in the inventory / creative tabs. No slots on the inventory
+     * menu, shift-clicks never fill the marked container, nothing moves for a menu that is not the open one.
+     */
+    public static void linkedCreative(GameTestHelper h) {
+        configured(() -> {
+            var boxPos = new BlockPos(1, 2, 1);
+            var otherPos = new BlockPos(3, 2, 1);
+            h.setBlock(boxPos, Blocks.SHULKER_BOX);
+            h.setBlock(otherPos, Blocks.CHEST);
+            var box = (Container) h.getLevel().getBlockEntity(h.absolutePos(boxPos));
+            var other = h.getLevel().getBlockEntity(h.absolutePos(otherPos));
+            var sent = new ArrayList<com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload>();
+            LinkedContainers.openSync = (player, payload) -> sent.add(payload);
+            var p = player(h, new BlockPos(2, 2, 3));
+            var menu = p.inventoryMenu;
+            int base = menu.slots.size();
+            mark(p, h.absolutePos(boxPos));
+            h.assertTrue(menu.slots.size() == base + 27, "Survival: the inventory menu carries the mark");
+            // Race: switched to creative, the server has not ticked yet - clicks still must not move anything.
+            p.setGameMode(GameType.CREATIVE);
+            p.getInventory().add(new ItemStack(Items.DIAMOND, 4));
+            box.setItem(0, new ItemStack(Items.EMERALD, 3));
+            int diamonds = -1;
+            for (int i = 9; i < 45; i++) if (menu.slots.get(i).getItem().is(Items.DIAMOND)) diamonds = i;
+            menu.clicked(diamonds, 0, ContainerInput.QUICK_MOVE, p);
+            h.assertTrue(count(box, Items.DIAMOND) == 0 && count(p.getInventory(), Items.DIAMOND) == 4, "Creative: shift-click in the inventory does not fill the marked container");
+            menu.clicked(base, 0, ContainerInput.QUICK_MOVE, p);
+            menu.clicked(base, 0, ContainerInput.PICKUP, p);
+            h.assertTrue(count(box, Items.EMERALD) == 3 && count(p.getInventory(), Items.EMERALD) == 0 && menu.getCarried().isEmpty(), "Creative: the marked slots cannot be taken from");
+            // After the next tick the slots are gone from the creative inventory, the mark itself stays (chests, banner).
+            LinkedContainers.tick(p);
+            h.assertTrue(menu.slots.size() == base && firstLinked(menu) == -1 && LinkedContainers.mark(p) != null, "Creative: slots removed from the inventory menu, mark kept");
+            h.assertTrue(sent.stream().anyMatch(x -> x.containerId() == menu.containerId && x.size() == 0), "Creative: the client is told to drop the slots");
+            diamonds = -1;
+            for (int i = 9; i < 45; i++) if (menu.slots.get(i).getItem().is(Items.DIAMOND)) diamonds = i;
+            menu.clicked(diamonds, 0, ContainerInput.QUICK_MOVE, p);
+            h.assertTrue(count(box, Items.DIAMOND) == 0, "Creative: shift-click stays vanilla, nothing reaches the marked container");
+            LinkedContainers.tick(p);
+            h.assertTrue(firstLinked(menu) == -1, "Creative: slots do not come back");
+            // A real container GUI in creative still shows the marked container (not the creative inventory).
+            p.openMenu((MenuProvider) other);
+            h.assertTrue(firstLinked(p.containerMenu) != -1, "Creative: a chest GUI still gets the marked panel");
+            p.closeContainer();
+            // Back to survival: the inventory shows it again and works.
+            p.setGameMode(GameType.SURVIVAL);
+            LinkedContainers.tick(p);
+            h.assertTrue(menu.slots.size() == base + 27, "Survival again: slots return");
+            diamonds = -1;
+            for (int i = 9; i < 45; i++) if (menu.slots.get(i).getItem().is(Items.DIAMOND)) diamonds = i;
+            menu.clicked(diamonds, 0, ContainerInput.QUICK_MOVE, p);
+            h.assertTrue(count(box, Items.DIAMOND) == 4, "Survival again: shift-click fills the marked container");
+            // Server rule: a click on the inventory menu's marked slots while another menu is open moves nothing.
+            p.openMenu((MenuProvider) other);
+            int emerald = base;
+            menu.clicked(emerald, 0, ContainerInput.QUICK_MOVE, p);
+            h.assertTrue(count(box, Items.EMERALD) == 3 && count(p.getInventory(), Items.EMERALD) == 0, "No transfer for a menu that is not the open one");
+            p.closeContainer();
             LinkedContainers.clear(p);
         });
         h.succeed();

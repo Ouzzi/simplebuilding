@@ -33,6 +33,7 @@
     "SlotIconMixin",
     "ContainerScreenLinkedMixin",
     "HudLinkedMixin",
+    "KeyboardLinkedMixin",
     "SlotPositionAccessor"
   ],
   "injectors": {

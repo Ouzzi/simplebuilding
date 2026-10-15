@@ -2,12 +2,14 @@ package com.simplebuilding.modules.simpleinterfaces.linked;
 
 import com.simplebuilding.modules.simpleinterfaces.SimpleInterfaces;
 import com.simplebuilding.modules.simpleinterfaces.linked.InteractionGuard;
+import com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload;
 import com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
@@ -53,6 +55,13 @@ public final class LinkedContainers {
     private static final Map<Player, Mark> TRIED = new WeakHashMap<>();
     /** Sends the payload when the client can receive it; set per loader. Without it nothing is appended. */
     public static BiPredicate<ServerPlayer, LinkedOpenPayload> openSync = (player, payload) -> false;
+    /** The mark whose container the player has opened since marking it (leaving it again ends the mark). */
+    private static final Map<Player, Mark> INSIDE = new WeakHashMap<>();
+    /** The mark the client's HUD banner last got. */
+    private static final Map<Player, Mark> HUD = new WeakHashMap<>();
+    /** Client: sends the Escape cancel to the server; set per loader. */
+    public static Consumer<LinkedCancelPayload> cancelToServer = payload -> {
+    };
 
     private LinkedContainers() {
     }
@@ -80,6 +89,8 @@ public final class LinkedContainers {
 
         public boolean valid() {
             if (!LinkedContainers.valid(this.player, this.mark)) return false;
+            // The creative inventory never works on the mark (its slots are client-side): nothing moves there.
+            if (this.player.hasInfiniteMaterials() && this.player.containerMenu == this.player.inventoryMenu) return false;
             for (BlockEntity be : this.backing) {
                 if (be.isRemoved() || this.player.level().getBlockEntity(be.getBlockPos()) != be) return false;
             }
@@ -91,9 +102,37 @@ public final class LinkedContainers {
         return MARKS.get(player);
     }
 
+    /** Ends the player's mark (and tells its client). */
     public static void clear(Player player) {
         MARKS.remove(player);
-        if (player instanceof ServerPlayer serverPlayer) syncInventory(serverPlayer);
+        INSIDE.remove(player);
+        if (player instanceof ServerPlayer serverPlayer) {
+            syncInventory(serverPlayer);
+            syncHud(serverPlayer);
+        }
+    }
+
+    /** Server handler of the Escape cancel: ends the mark, no feedback beyond the vanishing banner. */
+    public static void onCancel(ServerPlayer player) {
+        Mark mark = MARKS.get(player);
+        if (mark == null) return;
+        clear(player);
+        if (mark.dimension().equals(player.level().dimension())) feedback(player.level(), mark.pos(), false);
+    }
+
+    /** Sends the HUD banner state when it changed (container id {@link LinkedOpenPayload#HUD}); independent of any menu. */
+    public static void syncHud(ServerPlayer player) {
+        Mark mark = MARKS.get(player);
+        if (HUD.get(player) == mark) return;
+        if (mark == null) {
+            HUD.remove(player);
+            openSync.test(player, new LinkedOpenPayload(LinkedOpenPayload.HUD, 0, Component.empty(), ItemStack.EMPTY));
+            return;
+        }
+        Level level = player.level();
+        Component title = level.getBlockEntity(mark.pos()) instanceof BaseContainerBlockEntity be ? be.getDisplayName() : Component.empty();
+        HUD.put(player, mark);
+        openSync.test(player, new LinkedOpenPayload(LinkedOpenPayload.HUD, 1, title, new ItemStack(level.getBlockState(mark.pos()).getBlock())));
     }
 
     // --- marking ---
@@ -107,8 +146,7 @@ public final class LinkedContainers {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
         Mark current = MARKS.get(player);
         if (current != null && current.dimension().equals(level.dimension()) && backingPositions(level, current.pos()).contains(pos)) {
-            MARKS.remove(player);
-            syncInventory((ServerPlayer) player);
+            clear(player);
             feedback(level, pos, false);
             return InteractionResult.SUCCESS;
         }
@@ -116,6 +154,8 @@ public final class LinkedContainers {
         Container container = container(level, pos);
         if (container == null || container.getContainerSize() <= 0 || container.getContainerSize() > MAX_SLOTS) return InteractionResult.PASS;
         MARKS.put(player, new Mark(level.dimension(), pos.immutable()));
+        INSIDE.remove(player);
+        syncHud((ServerPlayer) player);
         syncInventory((ServerPlayer) player);
         feedback(level, pos, true);
         return InteractionResult.SUCCESS;
@@ -177,13 +217,42 @@ public final class LinkedContainers {
     public static void tick(ServerPlayer player) {
         Mark mark = MARKS.get(player);
         if (mark != null && !valid(player, mark)) {
-            MARKS.remove(player);
+            clear(player);
+            mark = null;
+        }
+        if (mark != null && leftMarked(player, mark)) {
+            clear(player);
             mark = null;
         }
         Session session = ((LinkedMenu) player.containerMenu).qol$session();
         if (session != null && !session.valid() && player.containerMenu != player.inventoryMenu) player.closeContainer();
         syncInventory(player);
+        syncHud(player);
         if (mark != null && player.tickCount % 10 == 0) handParticle(player);
+    }
+
+    /**
+     * Whether the player opened the marked container itself and has now left it again (closed it or opened
+     * something else): that ends the mark, the container was visited. While it is open the visit is only noted.
+     */
+    private static boolean leftMarked(ServerPlayer player, Mark mark) {
+        AbstractContainerMenu menu = player.containerMenu;
+        if (menu != player.inventoryMenu && opens(player, menu, mark)) {
+            INSIDE.put(player, mark);
+            return false;
+        }
+        return INSIDE.get(player) == mark;
+    }
+
+    /** Whether one of the menu's own slots (not the appended linked ones) is the marked container. */
+    private static boolean opens(ServerPlayer player, AbstractContainerMenu menu, Mark mark) {
+        Container container = container(player.level(), mark.pos());
+        if (container == null) return false;
+        List<BlockEntity> backing = backing(player.level(), mark.pos());
+        for (Slot slot : menu.slots) {
+            if (!(slot instanceof LinkedSlot) && shows(slot.container, container, backing)) return true;
+        }
+        return false;
     }
 
     private static void handParticle(ServerPlayer player) {
@@ -204,7 +273,7 @@ public final class LinkedContainers {
         Mark mark = MARKS.get(player);
         if (mark == null) return;
         if (!valid(player, mark)) {
-            MARKS.remove(player);
+            clear(player);
             return;
         }
         attach(player, menu, mark);
@@ -216,7 +285,8 @@ public final class LinkedContainers {
      */
     public static void syncInventory(ServerPlayer player) {
         AbstractContainerMenu menu = player.inventoryMenu;
-        Mark mark = MARKS.get(player);
+        // Creative: the inventory screen keeps its own client-side slots, the mark never takes part in it.
+        Mark mark = player.hasInfiniteMaterials() ? null : MARKS.get(player);
         Session current = ((LinkedMenu) menu).qol$session();
         if (current != null && current.mark == mark) return;
         if (mark == null) TRIED.remove(player);
@@ -276,6 +346,10 @@ public final class LinkedContainers {
         Session session = ((LinkedMenu) menu).qol$session();
         boolean inventoryMenu = menu instanceof InventoryMenu;
         boolean linkedSlot = slotIndex >= 0 && slotIndex < menu.slots.size() && menu.slots.get(slotIndex) instanceof LinkedSlot;
+        // Only the menu the player really has open takes part (the server never moves items for another one).
+        if (player instanceof ServerPlayer serverPlayer && serverPlayer.containerMenu != menu) return true;
+        // Creative inventory: the mark never works there; its clicks stay vanilla and never touch the marked slots.
+        if (inventoryMenu && player.hasInfiniteMaterials()) return linkedSlot;
         if (session != null && !session.valid() && linkedSlot) return true;
         if (input != ContainerInput.QUICK_MOVE || slotIndex < 0 || slotIndex >= menu.slots.size()) return false;
         Slot source = menu.slots.get(slotIndex);
