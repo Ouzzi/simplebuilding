@@ -24,6 +24,8 @@ public final class ModuleGameTest {
     @GameTest(maxTicks = 100) public void linkedRange(GameTestHelper h) { LinkedTests.linkedRange(h); }
     @GameTest(maxTicks = 100) public void linkedTransfer(GameTestHelper h) { LinkedTests.linkedTransfer(h); }
     @GameTest(maxTicks = 100) public void linkedInventory(GameTestHelper h) { LinkedTests.linkedInventory(h); }
+    @GameTest(maxTicks = 100) public void linkedEnd(GameTestHelper h) { LinkedTests.linkedEnd(h); }
+    @GameTest(maxTicks = 100) public void linkedCreative(GameTestHelper h) { LinkedTests.linkedCreative(h); }
     @GameTest(maxTicks = 100) public void portableShulker(GameTestHelper h) { LinkedTests.portableShulker(h); }
     @GameTest(maxTicks = 100) public void portableEnderChest(GameTestHelper h) { LinkedTests.portableEnderChest(h); }
     @GameTest(maxTicks = 100) public void linkedQolMigration(GameTestHelper h) { LinkedTests.qolMigration(h); }

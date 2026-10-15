@@ -56,10 +56,13 @@ public final class LinkedPanel {
     public static void receive(LinkedOpenPayload payload) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null) return;
+        if (payload.containerId() == LinkedOpenPayload.HUD) {
+            LinkedHud.set(payload.size() > 0 ? payload.icon() : ItemStack.EMPTY, payload.title());
+            return;
+        }
         AbstractContainerMenu own = minecraft.player.inventoryMenu;
         AbstractContainerMenu menu = payload.containerId() == own.containerId ? own : minecraft.player.containerMenu;
         if (menu.containerId != payload.containerId()) return;
-        LinkedHud.set(payload.size() > 0 ? payload.icon() : ItemStack.EMPTY);
         boolean linked = LinkedContainers.hasLinked(menu);
         if (linked && menu != own) return;
         if (linked) {

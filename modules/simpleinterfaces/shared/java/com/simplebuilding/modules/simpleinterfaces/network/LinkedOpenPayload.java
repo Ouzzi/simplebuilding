@@ -13,9 +13,12 @@ import net.minecraft.world.item.ItemStack;
  * Server to client only: the menu {@code containerId} gets {@code size} slots of the marked container
  * appended. Sent after the open-screen packet and before the menu's first content packet. Container id 0 is the
  * player's own inventory menu (kept while a container is marked); {@code size} 0 removes the slots again (mark
- * ended). {@code icon} is the marked block's item for the HUD slot.
+ * ended). {@code icon} is the marked block's item for the HUD banner. Container id {@link #HUD} carries only the
+ * banner: {@code size} 1 shows it ({@code title} = the container's name), 0 hides it; it does not touch any menu.
  */
 public record LinkedOpenPayload(int containerId, int size, Component title, ItemStack icon) implements CustomPacketPayload {
+    /** Pseudo container id: the payload only updates the HUD banner. */
+    public static final int HUD = -1;
     public static final Type<LinkedOpenPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath("simpleinterfaces", "linked_open"));
     public static final StreamCodec<RegistryFriendlyByteBuf, LinkedOpenPayload> CODEC = StreamCodec.composite(
             ByteBufCodecs.VAR_INT, LinkedOpenPayload::containerId,

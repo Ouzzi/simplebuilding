@@ -3,6 +3,7 @@ package com.simplebuilding.modules.simpleinterfaces;
 import com.simplebuilding.modules.simpleinterfaces.linked.InteractionGuard;
 import com.simplebuilding.modules.simpleinterfaces.linked.LinkedContainers;
 import com.simplebuilding.modules.simpleinterfaces.network.ConfigSyncPayload;
+import com.simplebuilding.modules.simpleinterfaces.network.LinkedCancelPayload;
 import com.simplebuilding.modules.simpleinterfaces.network.LinkedOpenPayload;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -16,6 +17,8 @@ public final class InterfacesFabric implements ModInitializer {
         SimpleInterfaces.load();
         PayloadTypeRegistry.clientboundPlay().register(ConfigSyncPayload.TYPE, ConfigSyncPayload.STREAM_CODEC);
         PayloadTypeRegistry.clientboundPlay().register(LinkedOpenPayload.TYPE, LinkedOpenPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(LinkedCancelPayload.TYPE, LinkedCancelPayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(LinkedCancelPayload.TYPE, (payload, c) -> c.server().execute(() -> LinkedContainers.onCancel(c.player())));
         LinkedContainers.openSync = (p, payload) -> {
             if (!ServerPlayNetworking.canSend(p, LinkedOpenPayload.TYPE)) return false;
             ServerPlayNetworking.send(p, payload);
