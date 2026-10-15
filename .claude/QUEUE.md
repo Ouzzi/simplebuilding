@@ -280,11 +280,11 @@ End-Strukturen
 Texturen
 - [ ] Im Spiel fehlen immer noch Texturen (viele Sachen verbuggt) – vollständig im Client prüfen (fehlende Sprites/Modelle, „missingno“) und beheben.
 Simple Shops – Umbau
-- [ ] Verkaufsblock: Knopf „Developer: Käuferansicht“ (wie altes/neues Design umschalten) – Besitzer/Dev sieht und bedient den Kauf-Screen wie ein Käufer.
-- [ ] Vitrine allein = eigene UI, Verkaufsblock allein = eigene UI; verbunden = gemeinsame UI: oben Ware + Bestand, darunter Preis, darunter Einnahmen. Einnahmen-Lager in Truhengröße (27 Slots), Gesamthöhe der UI wie eine Doppeltruhe, Trennstrich zwischen Block-UI und Inventar wie bei den anderen UIs.
-- [ ] Einnahmen voll (Preis passt nicht mehr hinein) → Kauf deaktiviert.
-- [ ] Neuer Block „Verkaufsblock-Lager“ (guter Name, z. B. Sales Storage): Truhengröße, gleiche Schutz-Eigenschaften wie Verkaufsblock/Vitrine, zieht automatisch Einnahmen aus dem Verkaufsblock darüber; mehrere übereinander geben wie Trichter nach unten weiter (große Shops). Nur wenn alle Blöcke denselben Besitzer haben.
-- [ ] Viele Prüfungen/Tests, Missbrauchsfälle durchdenken (Duping, fremde Lager, Explosion, Kolben, Trichter, Chunk-Grenzen, Besitzerwechsel).
+- [x] Verkaufsblock: Knopf „Developer: Käuferansicht“ (wie altes/neues Design umschalten) – Besitzer/Dev sieht und bedient den Kauf-Screen wie ein Käufer. (claude-shops2; Client-Optik ungeprüft)
+- [x] Vitrine allein = eigene UI, Verkaufsblock allein = eigene UI; verbunden = gemeinsame UI: oben Ware + Bestand, darunter Preis, darunter Einnahmen. Einnahmen-Lager in Truhengröße (27 Slots), Gesamthöhe der UI wie eine Doppeltruhe, Trennstrich zwischen Block-UI und Inventar wie bei den anderen UIs. (claude-shops2; Client-Optik ungeprüft)
+- [x] Einnahmen voll (Preis passt nicht mehr hinein) → Kauf deaktiviert. (claude-shops2; Client-Optik ungeprüft)
+- [x] Neuer Block „Verkaufsblock-Lager“ (guter Name, z. B. Sales Storage): Truhengröße, gleiche Schutz-Eigenschaften wie Verkaufsblock/Vitrine, zieht automatisch Einnahmen aus dem Verkaufsblock darüber; mehrere übereinander geben wie Trichter nach unten weiter (große Shops). Nur wenn alle Blöcke denselben Besitzer haben. (claude-shops2; Client-Optik ungeprüft)
+- [x] Viele Prüfungen/Tests, Missbrauchsfälle durchdenken (Duping, fremde Lager, Explosion, Kolben, Trichter, Chunk-Grenzen, Besitzerwechsel). (claude-shops2; Client-Optik ungeprüft)
 
 ## Nachtrag 65 (2026-10-15, Besitzer; Bilder kamen nicht an – bei Bedarf nachfordern)
 Befunde aus den Besitzer-Screenshots 15.10. (Bilder 1–8, nur als Beschreibung verfügbar)
