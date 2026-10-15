@@ -11,7 +11,7 @@ public record WayfinderLayout(int cols, int rows, int left, int top, int ribStep
     public static final int BTN = 20, BTN_STEP = 22, BTN_GAP = 3;
     /** Right bookmarks: guide-style ribbons; {@code RIB_IN} hides under the frame, a hovered one moves out by {@code RIB_HOVER}. */
     public static final int RIB_W = 30, RIB_IN = 8, RIB_OUT = RIB_W - RIB_IN, RIB_HOVER = 2;
-    public static final int MIN_COLS = 8, MIN_ROWS = 6, LEFT_TABS = 5, RIGHT_TABS = 1 + Waypoint.SLOTS;
+    public static final int MIN_COLS = 8, MIN_ROWS = 6, LEFT_TABS = 7, RIGHT_TABS = 1 + Waypoint.SLOTS;
 
     /** The layout for a screen of {@code width x height} GUI pixels. */
     public static WayfinderLayout of(int width, int height) {

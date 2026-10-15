@@ -23,6 +23,8 @@ public final class MapsConfig {
     public static int revealRadius = REVEAL_RADIUS_DEFAULT;
     public static int maxTilesPerMap = MAX_TILES_DEFAULT;
     public static boolean allowCopy = true, allowExtend = true, allowCombine = true;
+    /** Map layers (loaded chunks, shops, chunk loaders): the server answers layer requests only when true. */
+    public static boolean layers = true;
     /**
      * Whether the module is active. Standalone it always is; bundled in SimpleBuilding the host's config switch
      * "Enable Simple Maps" ({@code enableSimpleMaps} in {@code simplebuilding.json}, read once at load, restart to
@@ -69,6 +71,7 @@ public final class MapsConfig {
         allowCopy = getBool(json, "allowCopy", true);
         allowExtend = getBool(json, "allowExtend", true);
         allowCombine = getBool(json, "allowCombine", true);
+        layers = getBool(json, "layers", true);
     }
 
     public static JsonObject toJson() {
@@ -78,6 +81,7 @@ public final class MapsConfig {
         o.addProperty("allowCopy", allowCopy);
         o.addProperty("allowExtend", allowExtend);
         o.addProperty("allowCombine", allowCombine);
+        o.addProperty("layers", layers);
         return o;
     }
 

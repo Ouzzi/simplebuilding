@@ -71,6 +71,7 @@ public final class MapsTests {
         ALL.put("structure_marks", MapsTests::structureMarks);
         ALL.put("host_switch", MapsTests::hostSwitch);
         ALL.put("screen_layout", MapsTests::screenLayout);
+        ALL.put("layers", MapsTests::layers);
     }
 
     private MapsTests() {}
@@ -316,6 +317,46 @@ public final class MapsTests {
         h.assertTrue(held.get(MapsComponents.WAYPOINTS).get(1).isEmpty(), "main hand holds no map");
         MapsNetwork.handleWaypoint(new WaypointEditPayload(1, true, Waypoint.fresh(4, 0, 0)), player);
         h.assertTrue(!held.has(MapsComponents.WAYPOINTS), "deleted");
+        h.succeed();
+    }
+
+    /** Layers: server authority (holder, explored tiles only, capped area), loaded chunks, a source from another module. */
+    private static void layers(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        ItemStack map = bound(h, Waypoints.EMPTY);
+        player.setItemInHand(InteractionHand.MAIN_HAND, map);
+        int id = map.get(MapsComponents.MAP_ID).id();
+        BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
+        WayfinderData data = WayfinderData.get(h.getLevel().getServer(), id);
+        data.set(pos.getX(), pos.getZ(), MapColor.STONE.getPackedId(MapColor.Brightness.NORMAL) & 0xFF, 10, true);
+        com.simplebuilding.framework.api.MapLayerSources.register("simplemaps", "test_layer", "layer.test", (level, x0, z0, x1, z1) -> List.of(
+                new com.simplebuilding.framework.api.MapLayerSources.Marker(pos.getX(), pos.getZ(), "t", List.of("one", "two")),
+                new com.simplebuilding.framework.api.MapLayerSources.Marker(pos.getX() + 100_000, pos.getZ(), "t", List.of("unexplored"))));
+        var sent = new ArrayList<net.minecraft.network.protocol.common.custom.CustomPacketPayload>();
+        var old = SimpleMaps.toClient;
+        SimpleMaps.toClient = (p, payload) -> sent.add(payload);
+        try {
+            int cx = pos.getX() >> 4, cz = pos.getZ() >> 4;
+            com.simplemaps.net.LayerService.handle(new com.simplemaps.net.LayerRequestPayload(id, cx * 16, cz * 16, cx * 16 + 15, cz * 16 + 15, true, List.of("test_layer", "missing")), player);
+            h.assertTrue(sent.size() == 1 && sent.get(0) instanceof com.simplemaps.net.LayerDataPayload, "answered once");
+            var answer = (com.simplemaps.net.LayerDataPayload) sent.get(0);
+            h.assertTrue(answer.loaded().length == 1 && (answer.loaded()[0] & 1) == 1, "the explored, loaded chunk is flagged");
+            h.assertTrue(answer.markers().size() == 1 && answer.markers().get(0).lines().size() == 2, "only the marker inside explored ground");
+            h.assertTrue(answer.available().stream().anyMatch(a -> a.id().equals("test_layer")), "source listed");
+            // Rate limit, other holder, oversized area: nothing more is sent.
+            com.simplemaps.net.LayerService.handle(new com.simplemaps.net.LayerRequestPayload(id, 0, 0, 15, 15, true, List.of()), player);
+            h.assertTrue(sent.size() == 1, "rate limited");
+            ServerPlayer other = h.makeMockServerPlayerInLevel();
+            com.simplemaps.net.LayerService.handle(new com.simplemaps.net.LayerRequestPayload(id, 0, 0, 15, 15, true, List.of()), other);
+            h.assertTrue(sent.size() == 1, "only the holder of the map may ask");
+            // Codec round trip.
+            var buf = new net.minecraft.network.RegistryFriendlyByteBuf(io.netty.buffer.Unpooled.buffer(), h.getLevel().registryAccess());
+            com.simplemaps.net.LayerDataPayload.CODEC.encode(buf, answer);
+            var back = com.simplemaps.net.LayerDataPayload.CODEC.decode(buf);
+            h.assertTrue(back.markers().equals(answer.markers()) && back.area().equals(answer.area()), "codec round trip");
+        } finally {
+            SimpleMaps.toClient = old;
+        }
         h.succeed();
     }
 

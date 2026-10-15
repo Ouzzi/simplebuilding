@@ -89,6 +89,18 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             screen(context, "simplemaps-zoom-16", false, true, false, 4);
             screen(context, "simplemaps-zoom-32", false, true, false, 5);
             screen(context, "simplemaps-zoom-64", false, true, false, 6);
+            // Zoom closer than 1:1 (negative levels = 2, 4, 8 screen pixels per block), then the layers and coordinates.
+            screen(context, "simplemaps-zoom-in-2", false, true, false, -1);
+            screen(context, "simplemaps-zoom-in-8", false, true, false, -3);
+            context.runOnClient(c -> {
+                if (!com.simplemaps.client.MapLayers.on(com.simplemaps.client.MapLayers.CHUNKS)) com.simplemaps.client.MapLayers.toggle(com.simplemaps.client.MapLayers.CHUNKS);
+                if (!com.simplemaps.client.MapLayers.coordsOn()) com.simplemaps.client.MapLayers.toggleCoords();
+            });
+            screen(context, "simplemaps-layers-coords", false, true, false, 0);
+            context.runOnClient(c -> {
+                com.simplemaps.client.MapLayers.toggle(com.simplemaps.client.MapLayers.CHUNKS);
+                com.simplemaps.client.MapLayers.toggleCoords();
+            });
             screen(context, "simplemaps-nav", false, true, false, 1);
             context.runOnClient(c -> {
                 WayfinderScreen s = (WayfinderScreen) c.gui.screen();

@@ -6,6 +6,7 @@ import com.simplemaps.SimpleMaps;
 import com.simplemaps.Waypoint;
 import com.simplemaps.Waypoints;
 import com.simplemaps.WayfinderMapItem;
+import com.simplemaps.net.LayerDataPayload;
 import com.simplemaps.net.MapStatePayload;
 import com.simplemaps.net.TileDataPayload;
 import java.util.ArrayList;
@@ -52,6 +53,10 @@ public final class MapsClient {
         CACHE.receive(payload);
     }
 
+    public static void receive(LayerDataPayload payload) {
+        MapLayers.receive(payload);
+    }
+
     public static void receive(MapStatePayload payload) {
         CACHE.receive(payload);
     }
@@ -60,6 +65,7 @@ public final class MapsClient {
     public static void tick(Minecraft mc) {
         if (mc.level != lastLevel) {
             CACHE.clear();
+            MapLayers.reset();
             HANDS.values().forEach(ViewTexture::release);
             HANDS.clear();
             FRAMES.values().forEach(ViewTexture::release);
