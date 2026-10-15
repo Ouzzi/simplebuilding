@@ -85,6 +85,25 @@ public final class LinkTests {
         }
         h.succeed();
     }
+    /** Regression: the wandering-trader links lived in a tag no vanilla trade set reads, so they were never offered. */
+    public static void wanderingTraderOffersLinks(GameTestHelper h) {
+        if (!SimpleMoney.enabled("enableWanderingTrades")) { h.succeed(); return; }
+        var level = h.getLevel();
+        var linkTrades = level.registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
+        boolean any = linkTrades.keySet().stream().anyMatch(id -> id.getNamespace().equals("simplemoney") && id.getPath().startsWith("links/")
+                && MoneyLinks.PRICES.values().stream().anyMatch(p -> p.merchant().equals("wandering_trader") && id.getPath().equals("links/" + p.item().replace(':', '/'))));
+        if (!any) { h.succeed(); return; }
+        boolean linked = false; int rolls = 0;
+        for (int attempt = 0; attempt < 400 && !linked; attempt++, rolls++) {
+            var trader = h.spawnWithNoFreeWill(EntityTypes.WANDERING_TRADER, new net.minecraft.core.BlockPos(1, 2, 1));
+            var offers = trader.getOffers();
+            h.assertTrue(offers.size() >= 9, "vanilla offers are not displaced: " + offers.size());
+            for (var offer : offers) if (MoneyLinks.price(offer) != null) linked = true;
+            trader.discard();
+        }
+        h.assertTrue(linked, "a wandering trader never offered a Simple Money price-list link in " + rolls + " rolls");
+        h.succeed();
+    }
     public static void budgets(GameTestHelper h) {
         var budget = new LinkBudget(); UUID player = UUID.randomUUID();
         for (int i = 0; i < SimpleMoney.config.links.dailyLimit; i++) {

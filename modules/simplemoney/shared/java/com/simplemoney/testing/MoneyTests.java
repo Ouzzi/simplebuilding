@@ -39,6 +39,7 @@ public final class MoneyTests {
   ALL.put("money_game_test_link_budgets",LinkTests::budgets);
   ALL.put("money_game_test_link_menu",LinkTests::menu);
   ALL.put("money_game_test_link_no_arbitrage",LinkTests::noArbitrage);
+  ALL.put("money_game_test_link_wandering_trader",LinkTests::wanderingTraderOffersLinks);
  }
  private static Identifier id(String path) {return Identifier.fromNamespaceAndPath("simplemoney",path);}
  /** Principle 8 (standalone): a content mod is loaded when it owns registry ids; loader-neutral for shared tests. */
