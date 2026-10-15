@@ -50,5 +50,5 @@ assert unique(data/'claim_deed.json')['result']['id']=='simpletweaks:claim_deed'
 assert unique(data/'claim_deed_copy.json')['type']=='simpletweaks:claim_deed_copy'
 assert not re.search(r'import com.simplebuilding\.(?!modules|framework\.api)', '\n'.join(p.read_text() for p in (M/'shared/java').rglob('*.java'))), 'No internal SimpleBuilding imports'
 assert 'claim_deed' not in unique(M/'generated/resources/wiki/items.json').get('features',[])
-assert unique(M/'generated/resources/wiki/items.json')['items']==[{'id':'simpletweaks:claim_deed','kind':'item'}]
+assert unique(M/'generated/resources/wiki/items.json')['items']==[{'id':'simpletweaks:claim_deed','kind':'item'},{'id':'simpletweaks:claim_table','kind':'block'}]
 print('simpletweaks: 56-file inventory, bilingual legacy artifact, exact runtime export, models, no duplicate gameplay or internal imports: valid')
