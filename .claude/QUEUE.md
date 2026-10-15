@@ -258,6 +258,25 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 66 (2026-10-15, Besitzer, beim Spielen im End)
+End-Biome
+- [ ] Nebel viel zu extrem (nur 10–20 Blöcke, man sieht nur Silhouetten anderer Inseln/Bäume, irritierend) → schöner/weniger extrem einstellen.
+- [ ] Biome (z. B. Dusk) zu klein – in ca. 1 Minute durchlaufen → größer, über mehrere Inseln, damit man sicher einem Hollow Watcher begegnen kann.
+- [ ] Hollow Watcher Spawn-Bedingung: kann (nicht muss) spawnen, wenn man länger als ~2 Minuten im Wald ist – Begegnung schon beim ersten Besuch möglich.
+- [ ] Biom-interner Nebel von außen: von außerhalb soll man nicht in den Wald hineinsehen können (dicht und/oder Nebel) – erst KONZEPT, gemeinsam besprechen (Vanilla-Mechaniken prüfen).
+End-Strukturen
+- [ ] BUG: Im End-Schiffswrack liegt lila Wolle – nur End-Schiffsblöcke (End-Ship-Palette) erlaubt.
+- [ ] Loot der End-Schiffswracks: Verteilung erklären (Besitzer-Eindruck: entweder sehr schlecht – nur Chorus/Purpur – oder sehr gut); Wracks noch versteckter, dafür besserer Loot.
+- [ ] End-Brunnen-Strukturen: keine Minecraft-Fackeln (brechen die Illusion) → End Rods statt Fackeln.
+Texturen
+- [ ] Im Spiel fehlen immer noch Texturen (viele Sachen verbuggt) – vollständig im Client prüfen (fehlende Sprites/Modelle, „missingno“) und beheben.
+Simple Shops – Umbau
+- [ ] Verkaufsblock: Knopf „Developer: Käuferansicht“ (wie altes/neues Design umschalten) – Besitzer/Dev sieht und bedient den Kauf-Screen wie ein Käufer.
+- [ ] Vitrine allein = eigene UI, Verkaufsblock allein = eigene UI; verbunden = gemeinsame UI: oben Ware + Bestand, darunter Preis, darunter Einnahmen. Einnahmen-Lager in Truhengröße (27 Slots), Gesamthöhe der UI wie eine Doppeltruhe, Trennstrich zwischen Block-UI und Inventar wie bei den anderen UIs.
+- [ ] Einnahmen voll (Preis passt nicht mehr hinein) → Kauf deaktiviert.
+- [ ] Neuer Block „Verkaufsblock-Lager“ (guter Name, z. B. Sales Storage): Truhengröße, gleiche Schutz-Eigenschaften wie Verkaufsblock/Vitrine, zieht automatisch Einnahmen aus dem Verkaufsblock darüber; mehrere übereinander geben wie Trichter nach unten weiter (große Shops). Nur wenn alle Blöcke denselben Besitzer haben.
+- [ ] Viele Prüfungen/Tests, Missbrauchsfälle durchdenken (Duping, fremde Lager, Explosion, Kolben, Trichter, Chunk-Grenzen, Besitzerwechsel).
+
 ## Nachtrag 65 (2026-10-15, Besitzer; Bilder kamen nicht an – bei Bedarf nachfordern)
 Platzierte Teile
 - [ ] Barren & andere platzierte Kleinteile überlappen ab 3–4 Teilen (stecken ineinander, Z-Fighting). Anordnung so ändern, dass sie immer überschneidungsfrei passen.
