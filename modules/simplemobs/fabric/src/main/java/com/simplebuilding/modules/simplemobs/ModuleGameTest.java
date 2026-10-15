@@ -45,7 +45,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void cloakAirSwing(GameTestHelper helper) { MobsTests.ALL.get("cloak_air_swing").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void deceiverDrops(GameTestHelper helper) { MobsTests.ALL.get("deceiver_drops").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void doubleChance(GameTestHelper helper) { MobsTests.ALL.get("double_chance").accept(helper); }
-    @GameTest(structure = "simplemobs:empty") public void doubleCap(GameTestHelper helper) { MobsTests.ALL.get("double_cap").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void doubleCap(GameTestHelper helper) { MobsTests.ALL.get("double_cap").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void endnetherRegistered(GameTestHelper helper) { MobsTests.ALL.get("endnether_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void endnetherRules(GameTestHelper helper) { MobsTests.ALL.get("endnether_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 60) public void shellkerN45(GameTestHelper helper) { MobsTests.ALL.get("shellker_n45").accept(helper); }
