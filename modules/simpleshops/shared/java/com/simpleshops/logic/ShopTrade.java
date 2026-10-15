@@ -2,6 +2,9 @@ package com.simpleshops.logic;
 
 import com.simpleshops.block.DisplayCaseBlockEntity;
 import com.simpleshops.block.SalesBlockEntity;
+import com.simpleshops.config.ShopsConfig;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -27,6 +30,9 @@ public final class ShopTrade {
         if (sales.isRemoved() || shopCase.isRemoved() || ware < 0 || ware >= DisplayCaseBlockEntity.SIZE || pay.getContainerSize() < PriceRow.SIZE) {
             return Result.INVALID;
         }
+        boolean server = sales.isServerShop();
+        // Both halves must be the same kind (a player's case never sells from a server sales block and the other way round).
+        if (server != shopCase.isServerShop()) return Result.INVALID;
         if (clientRevision >= 0 && (sales.revision() & 0xFFFF) != clientRevision) return Result.STALE;
         ItemStack stock = shopCase.goods().get(ware);
         if (stock.isEmpty()) return Result.NO_STOCK;
@@ -40,10 +46,13 @@ public final class ShopTrade {
         }
         NonNullList<ItemStack> simulated = NonNullList.withSize(sales.earnings().size(), ItemStack.EMPTY);
         for (int i = 0; i < simulated.size(); i++) simulated.set(i, sales.earnings().get(i).copy());
-        for (int p = 0; p < PriceRow.SIZE; p++) {
-            ItemStack price = prices.get(p);
-            if (price.isEmpty()) continue;
-            if (!insert(simulated, price.copy()).isEmpty()) return Result.EARNINGS_FULL;
+        // A server shop has no earnings store: the payment is a sink (or goes to the admin cash below), the stock is unlimited.
+        if (!server) {
+            for (int p = 0; p < PriceRow.SIZE; p++) {
+                ItemStack price = prices.get(p);
+                if (price.isEmpty()) continue;
+                if (!insert(simulated, price.copy()).isEmpty()) return Result.EARNINGS_FULL;
+            }
         }
         // Commit. Snapshots make a failure in here undo everything.
         ItemStack[] paySnapshot = new ItemStack[PriceRow.SIZE];
@@ -60,10 +69,12 @@ public final class ShopTrade {
                 left.shrink(price.getCount());
                 pay.setItem(p, left.isEmpty() ? ItemStack.EMPTY : left);
             }
-            for (int i = 0; i < simulated.size(); i++) sales.earnings().set(i, simulated.get(i));
-            ItemStack rest = stock.copy();
-            rest.shrink(1);
-            shopCase.goods().set(ware, rest.isEmpty() ? ItemStack.EMPTY : rest);
+            if (!server) {
+                for (int i = 0; i < simulated.size(); i++) sales.earnings().set(i, simulated.get(i));
+                ItemStack rest = stock.copy();
+                rest.shrink(1);
+                shopCase.goods().set(ware, rest.isEmpty() ? ItemStack.EMPTY : rest);
+            }
             buyer.getInventory().placeItemBackInInventory(delivered, true, net.minecraft.util.Prediction.SERVER_ONLY);
         } catch (RuntimeException e) {
             for (int p = 0; p < PriceRow.SIZE; p++) pay.setItem(p, paySnapshot[p]);
@@ -72,9 +83,18 @@ public final class ShopTrade {
             com.simpleshops.SimpleShops.LOG.error("Trade rolled back", e);
             return Result.INVALID;
         }
-        sales.bumpRevision();
-        sales.changed();
-        shopCase.changed();
+        if (server) {
+            // Nothing in the shop changed (prices and goods stay), so no revision bump: several buyers can use it at once.
+            if (ShopsConfig.collectServerShopIncome) {
+                List<ItemStack> paid = new ArrayList<>();
+                for (ItemStack price : prices) if (!price.isEmpty()) paid.add(price);
+                ServerShops.get(buyer.level().getServer()).collect(paid);
+            }
+        } else {
+            sales.bumpRevision();
+            sales.changed();
+            shopCase.changed();
+        }
         pay.setChanged();
         return Result.OK;
     }

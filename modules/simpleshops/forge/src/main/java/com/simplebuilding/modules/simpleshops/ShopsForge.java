@@ -30,6 +30,8 @@ public final class ShopsForge {
             }
             if (key.equals(Registries.MENU)) ShopsRegistry.registerMenus();
         });
+        net.minecraftforge.event.RegisterCommandsEvent.BUS.addListener(e ->
+                com.simpleshops.logic.ServerShopCommands.register(e.getDispatcher(), e.getBuildContext()));
         net.minecraftforge.event.server.ServerStartedEvent.BUS.addListener(e -> ShopGuard.register(e.getServer()));
         net.minecraftforge.event.server.ServerStoppedEvent.BUS.addListener(e -> ShopGuard.unregister(e.getServer()));
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {

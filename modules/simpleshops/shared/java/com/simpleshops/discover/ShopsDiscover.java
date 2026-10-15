@@ -57,6 +57,7 @@ public final class ShopsDiscover {
             "simpleshops:glow_display_case",
             "simpleshops:guide_book",
             "simpleshops:sales_block",
+            "simpleshops:server_shop",
             "simpleshops:shop_compat",
             "simpleshops:shop_protection");
     static final List<Tip> TIPS = List.of();

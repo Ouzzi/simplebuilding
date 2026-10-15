@@ -35,6 +35,8 @@ public final class ShopsNeoForge {
             }
             if (key.equals(Registries.MENU)) ShopsRegistry.registerMenus();
         });
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.RegisterCommandsEvent e) ->
+                com.simpleshops.logic.ServerShopCommands.register(e.getDispatcher(), e.getBuildContext()));
         NeoForge.EVENT_BUS.addListener((ServerStartedEvent e) -> ShopGuard.register(e.getServer()));
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> ShopGuard.unregister(e.getServer()));
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {

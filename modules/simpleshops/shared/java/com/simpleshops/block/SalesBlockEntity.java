@@ -2,6 +2,7 @@ package com.simpleshops.block;
 
 import com.simpleshops.ShopsRegistry;
 import com.simpleshops.logic.PriceRow;
+import com.simpleshops.logic.ShopGuard;
 import java.lang.ref.WeakReference;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
@@ -35,6 +36,8 @@ public class SalesBlockEntity extends BlockEntity {
     private final NonNullList<ItemStack> prices = PriceRow.empty();
     private final NonNullList<ItemStack> earnings = NonNullList.withSize(EARNINGS_SIZE, ItemStack.EMPTY);
     private int revision;
+    /** Id of the server shop ({@code s001} ...) or empty for a player shop; set only by the operator command, saved server side only. */
+    private String serverId = "";
     private @Nullable WeakReference<ServerPlayer> lockPlayer;
     private @Nullable WeakReference<AbstractContainerMenu> lockMenu;
 
@@ -52,6 +55,31 @@ public class SalesBlockEntity extends BlockEntity {
 
     public boolean isOwner(UUID player) {
         return this.owner != null && this.owner.equals(player);
+    }
+
+    /** Server (unlimited) shop: no owner, the id from {@link com.simpleshops.logic.ServerShops}. */
+    public boolean isServerShop() {
+        return !this.serverId.isEmpty();
+    }
+
+    public String serverId() {
+        return this.serverId;
+    }
+
+    /** Who edits prices here: the owner, or an operator for a server shop (the edit command opens the menu). */
+    public boolean mayEdit(net.minecraft.world.entity.player.Player player) {
+        return isOwner(player.getUUID()) || (isServerShop() && ShopGuard.isAdmin(player));
+    }
+
+    /** Turns this block into a server shop: no owner, empty prices and earnings, never saved to clients. */
+    public void initServer(String id) {
+        this.owner = null;
+        this.ownerName = "Server";
+        this.serverId = id;
+        for (int i = 0; i < PriceRow.SIZE; i++) this.prices.set(i, ItemStack.EMPTY);
+        for (int i = 0; i < EARNINGS_SIZE; i++) this.earnings.set(i, ItemStack.EMPTY);
+        this.revision = 0;
+        changed();
     }
 
     /** Placement: owner from the placing player (never from item data), everything else cleared. */
@@ -143,6 +171,7 @@ public class SalesBlockEntity extends BlockEntity {
         super.loadAdditional(input);
         this.owner = input.read("owner", UUIDUtil.CODEC).orElse(null);
         this.ownerName = input.getStringOr("owner_name", "");
+        this.serverId = input.getStringOr("server_id", "");
         for (int i = 0; i < PriceRow.SIZE; i++) this.prices.set(i, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(input.childOrEmpty("prices"), this.prices);
         // A damaged row (hand-edited data) would break the run rule: empty prices are safe (no sale).
@@ -161,6 +190,7 @@ public class SalesBlockEntity extends BlockEntity {
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         savePublic(output);
+        if (isServerShop()) output.putString("server_id", this.serverId);
         ContainerHelper.saveAllItems(output.child("earnings"), this.earnings, false);
     }
 
@@ -185,9 +215,11 @@ public class SalesBlockEntity extends BlockEntity {
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         super.preRemoveSideEffects(pos, state);
         if (this.level != null && !this.level.isClientSide()) {
-            Containers.dropContents(this.level, pos, this.earnings);
+            // A server shop holds nothing real (its earnings are a sink): nothing drops.
+            if (!isServerShop()) Containers.dropContents(this.level, pos, this.earnings);
             for (int i = 0; i < EARNINGS_SIZE; i++) this.earnings.set(i, ItemStack.EMPTY);
             com.simpleshops.logic.ShopLedger.forget(this.level, pos);
+            if (isServerShop()) com.simpleshops.logic.ServerShops.forgetAt(this.level, pos);
         }
     }
 }

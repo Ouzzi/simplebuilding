@@ -75,7 +75,7 @@ public class SalesOwnerMenu extends ShopMenu {
         if (slotIndex >= PRICE_START && slotIndex < EARNINGS_START) {
             touch();
             if (input == ContainerInput.PICKUP && this.sales != null && player instanceof ServerPlayer sp && stillValid(sp)
-                    && this.sales.isOwner(sp.getUUID())) {
+                    && this.sales.mayEdit(sp)) {
                 if (PriceRow.click(this.sales.prices(), slotIndex - PRICE_START, getCarried(), button == 1)) {
                     this.sales.bumpRevision();
                     this.sales.changed();
@@ -95,7 +95,7 @@ public class SalesOwnerMenu extends ShopMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        if (this.sales != null && !this.sales.isOwner(player.getUUID())) return false;
+        if (this.sales != null && !this.sales.mayEdit(player)) return false;
         return super.stillValid(player);
     }
 

@@ -175,4 +175,24 @@ public final class ModuleGameTest {
     public void discoverBehaviourHints(GameTestHelper h) {
         ShopsTests.ALL.get("discover_behaviour_hints").accept(h);
     }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 200)
+    public void servershopCommandsRights(GameTestHelper h) {
+        ShopsTests.ALL.get("servershop_commands_rights").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 200)
+    public void servershopBuyUnlimited(GameTestHelper h) {
+        ShopsTests.ALL.get("servershop_buy_unlimited").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 200)
+    public void servershopProtection(GameTestHelper h) {
+        ShopsTests.ALL.get("servershop_protection").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 200)
+    public void servershopPersistence(GameTestHelper h) {
+        ShopsTests.ALL.get("servershop_persistence").accept(h);
+    }
 }

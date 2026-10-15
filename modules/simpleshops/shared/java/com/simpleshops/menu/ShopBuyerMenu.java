@@ -75,7 +75,8 @@ public class ShopBuyerMenu extends ShopMenu {
         addDataSlot(this.selected);
         addDataSlot(this.revision);
         if (sales != null && player != null) {
-            sales.lock(player, this);
+            // A server shop is never locked: its prices and goods do not change by trading, any number of buyers can use it.
+            if (!sales.isServerShop()) sales.lock(player, this);
             refresh();
         }
     }

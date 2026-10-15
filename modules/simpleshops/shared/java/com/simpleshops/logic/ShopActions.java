@@ -78,14 +78,15 @@ public final class ShopActions {
 
     private static InteractionResult open(ServerPlayer player, ServerLevel level, BlockPos pos, SalesBlockEntity sales, boolean owner,
                                           @Nullable DisplayCaseBlockEntity shopCase) {
-        if (!sales.lockFree()) return busy(level, pos);
+        if (!sales.isServerShop() && !sales.lockFree()) return busy(level, pos);
         String name = sales.ownerName().isEmpty() ? "?" : sales.ownerName();
         if (owner) {
             player.openMenu(new SimpleMenuProvider((id, inv, p) -> new SalesOwnerMenu(id, inv, sales, player),
                     Component.translatable("container.simpleshops.sales")));
         } else {
             player.openMenu(new SimpleMenuProvider((id, inv, p) -> new ShopBuyerMenu(id, inv, sales, shopCase, player),
-                    Component.translatable("container.simpleshops.buyer", name)));
+                    sales.isServerShop() ? Component.translatable("container.simpleshops.buyer_server")
+                            : Component.translatable("container.simpleshops.buyer", name)));
         }
         return InteractionResult.SUCCESS;
     }
@@ -112,7 +113,7 @@ public final class ShopActions {
         if (!(ctx.getPlayer() instanceof ServerPlayer player)) return true;
         if (!sales) {
             BlockEntity below = level.getBlockEntity(pos.below());
-            if (!(below instanceof SalesBlockEntity s) || (!s.isOwner(player.getUUID()) && !ShopGuard.isAdmin(player))) return false;
+            if (!(below instanceof SalesBlockEntity s) || s.isServerShop() || (!s.isOwner(player.getUUID()) && !ShopGuard.isAdmin(player))) return false;
         }
         int count = ShopLedger.count(player.level().getServer(), player.getUUID(), sales);
         return count < ShopsConfig.maxShopsPerPlayer;
