@@ -170,7 +170,7 @@ ext.forgeBundleSimplelib = true
 // Simple Ovens: required Sub-Mod (split stage 4), nested like the optional ones.
 ext.forgeBundleModules = [':modules:simplemaps:forge', ':modules:simplequestionary:forge', ':modules:simpleovens:forge', ':modules:simplemobheads:forge'] +
         // Optional Sub-Mods (PLAN-MODULAUFTEILUNG stage 1a), switches via framework SubMods.
-        ['simpleriding', 'simplesandwiches', 'simpletweaks', 'simplemoney', 'simplefun', 'simpledimensions', 'simpletrims', 'simplemobs', 'simpleend', 'simplerespawn', 'simplebeacons'].collect { ":modules:${it}:forge" }
+        ['simpleriding', 'simplesandwiches', 'simpletweaks', 'simplemoney', 'simplefun', 'simpledimensions', 'simpletrims', 'simplemobs', 'simpleend', 'simplerespawn', 'simplebeacons', 'simpleshops'].collect { ":modules:${it}:forge" }
 apply from: rootProject.file('gradle/forge-framework.gradle')
 sourceSets.main.java.srcDir rootProject.file('mc26_3/framework/java')
 sourceSets.main.resources.srcDir rootProject.file('mc26_3/framework/resources')

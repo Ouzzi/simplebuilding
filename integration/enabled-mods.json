@@ -31,7 +31,8 @@
     "simplerespawn",
     "simplemobheads",
     "simplebeacons",
-    "simpleovens"
+    "simpleovens",
+    "simpleshops"
   ],
   "devMods": [
     "jei",

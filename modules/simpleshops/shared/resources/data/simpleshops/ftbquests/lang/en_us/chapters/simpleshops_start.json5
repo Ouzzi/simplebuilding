@@ -1,0 +1,10 @@
+{
+	"chapter.12A0160F7746D11F.title": "{\"translate\": \"quests.simpleshops.start.title\"}",
+	"chapter.12A0160F7746D11F.chapter_subtitle": [
+		"{\"translate\": \"quests.simpleshops.start.subtitle\"}"
+	],
+	"quest.34627A3F396B8AA8.title": "{\"translate\": \"quests.simpleshops.start.welcome.title\"}",
+	"quest.34627A3F396B8AA8.quest_desc": [
+		"{\"translate\": \"quests.simpleshops.start.welcome.description\"}"
+	]
+}

@@ -1,0 +1,35 @@
+{
+  "sales_block": {
+    "lore": [
+      "The cash register of a corner shop: heavy oak, an iron rim and a slot that only swallows coins."
+    ],
+    "use": [
+      "Place it, set a price and put a Display Case on top. The price row takes up to five exact items; earnings pile up inside, also while you are away."
+    ],
+    "secret": [
+      "Left click adds one to a price, right click adds the stack you hold. Only you, or an operator, can ever break it."
+    ]
+  },
+  "display_case": {
+    "lore": [
+      "A glass lid on a wooden plinth, built to show off the one thing a buyer came for."
+    ],
+    "use": [
+      "Stand it on your Sales Block. An item in hand goes into the next free slot; empty hand opens the goods menu with five slots. Buyers take one piece per trade."
+    ],
+    "secret": [
+      "Hoppers and golems cannot reach inside, and no explosion will crack the glass."
+    ]
+  },
+  "glow_display_case": {
+    "lore": [
+      "The same case, with a drop of glow ink in the glass: the goods shine like a shop window at night."
+    ],
+    "use": [
+      "Works exactly like the Display Case, and gives off a weak light of its own while it shows goods."
+    ],
+    "secret": [
+      "Craft it from a Display Case and a glow ink sac; the goods are drawn fully bright."
+    ]
+  }
+}

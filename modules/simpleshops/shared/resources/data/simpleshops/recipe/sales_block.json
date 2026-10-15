@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "C": "minecraft:chest",
+    "P": "#minecraft:planks"
+  },
+  "pattern": [
+    "PPP",
+    "ICI",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpleshops:sales_block"
+  }
+}

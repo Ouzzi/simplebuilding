@@ -1970,6 +1970,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleRespawn.@Tooltip": "Turns the bundled Simple Respawn module on or off: downed instead of dead, reviving by teammates. Off restores the Vanilla death. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.option.enableSimpleBeacons": "Enable Simple Beacons",
   "text.autoconfig.simplebuilding.option.enableSimpleBeacons.@Tooltip": "Turns the bundled Simple Beacons module on or off: Strong Beacon, Strong Conduit and the Strong Upgrade template. Off leaves placed blocks inert. Takes effect after a restart. Default: on.",
+  "text.autoconfig.simplebuilding.option.enableSimpleShops": "Enable Simple Shops",
+  "text.autoconfig.simplebuilding.option.enableSimpleShops.@Tooltip": "Turns the bundled Simple Shops module on or off: player shops with a Sales Block and a Display Case. Off stops trading, menus and new placements; placed shops keep their protection. Takes effect after a restart. Default: on.",
   "text.autoconfig.simplebuilding.category.equipment": "Enchantments & Armor",
   "text.autoconfig.simplebuilding.category.pistons": "Pistons",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

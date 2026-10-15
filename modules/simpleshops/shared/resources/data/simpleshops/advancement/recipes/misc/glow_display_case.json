@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_display_case": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleshops:display_case"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleshops:glow_display_case"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_display_case"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleshops:glow_display_case"
+    ]
+  }
+}

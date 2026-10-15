@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simpleshops:display_case"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simpleshops:blocks/display_case"
+}

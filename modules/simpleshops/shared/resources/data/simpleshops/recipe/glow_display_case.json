@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simpleshops:display_case",
+    "minecraft:glow_ink_sac"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpleshops:glow_display_case"
+  }
+}

@@ -111,6 +111,13 @@ MODULES = [
                 "conduit into a Strong Conduit with a 7x7x7 frame.",
                 "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen "
                 "und sechs weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen.")),
+    dict(module="simpleshops", ns="simpleshops", package="com.simpleshops.guide", cls="ShopsGuide", kind="item",
+         author="Simple Shops", recipe="minecraft:gold_nugget",
+         name=("Simple Shops Guide", "Simple-Shops-Handbuch"),
+         intro=("Player shops: a Sales Block with a price and a Display Case with up to five goods, protected from strangers and "
+                "explosions. Buyers swap price items for one piece per trade.",
+                "Spieler-Shops: ein Verkaufsblock mit Preis und eine Vitrine mit bis zu fünf Waren, geschützt vor Fremden und "
+                "Explosionen. Käufer tauschen Preis-Items gegen ein Stück je Tausch.")),
     dict(module="simplevisuals", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
          kind="client", author="Simple Visuals",
          intro=("Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. "

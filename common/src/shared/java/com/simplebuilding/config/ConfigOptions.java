@@ -111,6 +111,7 @@ public final class ConfigOptions {
             "enableSimpleEnd",
             "enableSimpleRespawn",
             "enableSimpleBeacons",
+            "enableSimpleShops",
             "server.soulLava.fuelMultiplier",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",

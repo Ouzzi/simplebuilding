@@ -40,6 +40,7 @@ BOOKS = {
     "simplemobs": ("simplemobs", ("#2a0e1c", "#421830", "#a8506e", "#86385a", "#682a46"), "#7ee8ff", "Dunkelrot, Seelenfeuer-Cyan"),
     "simpleovens": ("simpleovens", ("#22201e", "#363230", "#9a9692", "#787470", "#5e5a56"), "#ff8a2a", "Ofenstein, Glutorange"),
     "simpletrims": ("simpletrims", ("#141838", "#20285a", "#6a7ed0", "#4a5eae", "#3a4a8a"), "#ffd860", "Nachtblau, Besatzgold"),
+    "simpleshops": ("simpleshops", ("#2a1a0c", "#40281a", "#b0824c", "#8e6234", "#6e4a26"), "#ffd23a", "Kassenholz, Muenzgold"),
 }
 
 

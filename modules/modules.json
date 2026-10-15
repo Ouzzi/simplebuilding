@@ -45,7 +45,8 @@
         "simplemobs",
         "simpleend",
         "simplerespawn",
-        "simplebeacons"
+        "simplebeacons",
+        "simpleshops"
       ],
       "paths": {
         "root": ".",
@@ -2881,6 +2882,99 @@
       },
       "parent": "simplebuilding",
       "bundle": "required"
+    },
+    {
+      "id": "simpleshops",
+      "name": "Simple Shops",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Shops",
+      "description": "Player shops: a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Protected from strangers, explosions, pistons and hoppers; no claim right needed to buy.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding",
+        "simplemoney",
+        "simpletweaks"
+      ],
+      "checks": [
+        "modules/simpleshops/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleshops",
+        "catalogues": [
+          "modules/simpleshops/fabric/src/main/java/com/simplebuilding/modules/simpleshops/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleshops"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleshopsGameTest",
+            "report": "integration/build/simpleshops-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpleshops:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpleshops/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpleshops:forge:runGameTestServer",
+            "report": "modules/simpleshops/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleshopsStandaloneGameTest",
+              "report": "integration/build/standalone/simpleshops-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpleshops:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpleshops/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpleshops.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpleshops/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpleshops",
+        "shared": "modules/simpleshops/shared",
+        "fabric": "modules/simpleshops/fabric",
+        "neoforge": "modules/simpleshops/neoforge",
+        "forge": "modules/simpleshops/forge",
+        "generated": "modules/simpleshops/generated/resources",
+        "lang": "modules/simpleshops/shared/resources/assets/simpleshops/lang",
+        "wikiManual": "modules/simpleshops/wiki/manual.json",
+        "balanceDir": "balance/simpleshops"
+      },
+      "projects": {
+        "fabric": ":modules:simpleshops:fabric",
+        "neoforge": ":modules:simpleshops:neoforge",
+        "forge": ":modules:simpleshops:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
     }
   ]
 }

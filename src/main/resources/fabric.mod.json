@@ -186,6 +186,7 @@
     "simplemobs": "*",
     "simpleend": "*",
     "simplerespawn": "*",
-    "simplebeacons": "*"
+    "simplebeacons": "*",
+    "simpleshops": "*"
   }
 }

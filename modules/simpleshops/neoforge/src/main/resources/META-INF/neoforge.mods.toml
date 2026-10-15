@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleshops"
+version="${version}"
+displayName="Simple Shops"
+description="Strong Beacon (6 pyramid levels, 6 more effects), Strong Conduit (7x7x7 frame, 144 blocks under water) and the Strong Upgrade template. Works on its own with the axe; a hammer mod adds the sledgehammer."
+[[dependencies.simpleshops]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+[[dependencies.simpleshops]]
+modId="simplelib"
+type="required"
+versionRange="[0.2.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simpleshops]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config="simpleshops.mixins.json"

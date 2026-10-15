@@ -1,0 +1,11 @@
+{
+  "module": "simpleshops",
+  "derivation": "Simple Shops sells nothing: the blocks are craft only from Vanilla material (owner answer 13: only a price list or a wiki note, no extra function).",
+  "excluded": {
+    "simpleshops:sales_block": "Crafted from planks, iron ingots and a chest; a shop block is built, not traded.",
+    "simpleshops:display_case": "Crafted from iron nuggets, glass and planks.",
+    "simpleshops:glow_display_case": "Crafted from a Display Case and a glow ink sac.",
+    "simpleshops:guide_book": "Crafted from a book and a gold nugget."
+  },
+  "prices": []
+}
