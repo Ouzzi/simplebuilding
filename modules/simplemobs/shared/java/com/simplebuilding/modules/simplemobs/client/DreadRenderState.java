@@ -9,6 +9,8 @@ public class DreadRenderState extends LivingEntityRenderState {
     public float stomp;
     /** 0 still in the ground .. 1 fully risen. */
     public float rise = 1.0f;
+    /** Extra chain angle: lags behind the arm while it lifts, swings out and settles after a strike. */
+    public float chainDrag;
     /** In bright light: dimmer soul flames. */
     public boolean weak;
 }

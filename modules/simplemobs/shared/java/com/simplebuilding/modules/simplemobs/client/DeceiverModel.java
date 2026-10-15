@@ -82,6 +82,31 @@ public class DeceiverModel extends EntityModel<DeceiverRenderState> {
         this.teleport.apply(state.teleport, state.ageInTicks);
         this.drink.apply(state.drink, state.ageInTicks);
         this.unmask.apply(state.unmask, state.ageInTicks);
+        applyRun(state);
+    }
+
+    /**
+     * Own run pose for fleeing (walk speed above ~0.5): forward lean, arms swept back, the cloak streams out behind and
+     * swings against turns; plus a limp crumple on death. Added on top of the keyframes.
+     */
+    private void applyRun(DeceiverRenderState state) {
+        ModelPart body = root().getChild("body");
+        ModelPart cloak = body.getChild("cloak");
+        float run = Mth.smoothstep(Mth.clamp((state.walkAnimationSpeed - 0.5F) / 0.4F, 0.0F, 1.0F));
+        body.xRot += 0.3F * run;
+        cloak.xRot += 0.6F * run + 0.1F * run * Mth.sin(state.walkAnimationPos * 1.4F);
+        body.getChild("right_arm").xRot += 0.9F * run;
+        body.getChild("left_arm").xRot += 0.9F * run;
+        this.head.xRot -= 0.3F * run;
+        cloak.zRot += Mth.clamp(state.turn * 0.04F, -0.5F, 0.5F);
+        if (state.deathTime > 0.0F) {
+            float d = Mth.smoothstep(Mth.clamp(state.deathTime / 15.0F, 0.0F, 1.0F));
+            body.xRot += 0.4F * d;
+            this.head.xRot += 0.5F * d;
+            body.getChild("right_arm").xRot += 0.5F * d;
+            body.getChild("left_arm").xRot += 0.5F * d;
+            cloak.xRot += 0.5F * d;
+        }
     }
 
     /**

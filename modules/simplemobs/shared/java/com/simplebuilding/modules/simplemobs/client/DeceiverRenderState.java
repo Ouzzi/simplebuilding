@@ -4,6 +4,8 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.world.entity.AnimationState;
 
 public class DeceiverRenderState extends LivingEntityRenderState {
+    /** Body turn this tick in degrees (cloak swings out against it). */
+    public float turn;
     public boolean armored;
     public boolean hostile;
     public final AnimationState idle = new AnimationState();

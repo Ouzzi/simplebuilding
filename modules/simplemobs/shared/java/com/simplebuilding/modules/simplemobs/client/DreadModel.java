@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.Identifier;
+import com.simplebuilding.modules.simplemobs.FearLogic;
 import net.minecraft.util.Mth;
 
 /**
@@ -83,6 +84,9 @@ public class DreadModel extends EntityModel<DreadRenderState> {
         // the chain trails behind the fist: keep the mace head on the ground
         this.chain.xRot = -CHAIN_REST - this.rightArm.xRot;
         this.maceHead.xRot = CHAIN_REST;
+        // weight: the body dips with every step (twice the stride rate) and the chain scrapes along a beat behind the fist
+        this.body.y += Mth.cos(pos * 0.9F) * 0.5F * speed;
+        this.chain.xRot += Mth.sin(pos * 0.45F - 0.8F) * 0.25F * speed;
         if (state.swing > 0.0F) {
             // raise the mace high over the right shoulder, the chain swings back with it
             float s = state.swing;
@@ -102,6 +106,19 @@ public class DreadModel extends EntityModel<DreadRenderState> {
             this.chain.xRot = Mth.lerp(s, this.chain.xRot, 0.3F);
             this.body.xRot -= 0.25F * s;
             this.rightLeg.xRot = -0.5F * s;
+        }
+        this.chain.xRot += state.chainDrag;
+        this.maceHead.xRot += state.chainDrag * 0.6F;
+        if (state.deathTime > 0.0F) {
+            // collapse: knees buckle, head and arms drop, the chain goes slack on the ground
+            float d = FearLogic.ease(state.deathTime / 20.0F);
+            this.body.xRot += 0.5F * d;
+            this.head.xRot += 0.5F * d;
+            this.rightArm.xRot = Mth.lerp(d, this.rightArm.xRot, 0.3F);
+            this.leftArm.xRot = Mth.lerp(d, this.leftArm.xRot, 0.3F);
+            this.rightLeg.xRot = Mth.lerp(d, this.rightLeg.xRot, -0.9F);
+            this.leftLeg.xRot = Mth.lerp(d, this.leftLeg.xRot, -0.9F);
+            this.chain.xRot = Mth.lerp(d, this.chain.xRot, -CHAIN_REST - this.rightArm.xRot);
         }
         if (state.rise < 1.0F) {
             float under = 1.0F - state.rise;
