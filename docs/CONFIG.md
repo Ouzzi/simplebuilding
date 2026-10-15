@@ -73,6 +73,11 @@ Stimme. Ohne Meldung (Hauptmenü, Server ohne Mod) gilt die eigene Datei. Abweic
 | `tools.wandHungerMultiplier` | 1.0 | Faktor auf die Baustab-Erschöpfung je bezahltem Block (0 = kostenlos) |
 | `tools.magnetRangeMultiplier` | 1.0 | Faktor auf die Attraktor-Reichweite |
 | `tools.rotatorChargePerTurn` | 1 | Ladung je Rotator-Drehung (0 = kostenlos) |
+| `tools.rotatorSwapEnabled` | an | Rotator-Tausch: Block in der Nebenhand + Rechtsklick tauscht den angeklickten Block |
+| `tools.rotatorSwapWindupTicks` | 20 | Ausholzeit des Tauschs (20 = 1 s; Effizienz verkürzt, V = sofort) |
+| `tools.rotatorSwapMaxHardness` | 6.0 | Härtegrenze der Abbau-Regel (Steinwerkzeug); Whitelist überspringt sie |
+| `tools.rotatorSwapWhitelist` | leer | Block-Tags (`#tag`) und IDs, die immer tauschbar sind (Sicherheitsregeln bleiben) |
+| `tools.rotatorSwapBlacklist` | leer | Block-Tags und IDs, die nie getauscht werden (vor der Whitelist) |
 | `worldGen.buildingCoreLootChanceMultiplier` | 1.0 | Faktor auf die Baukern-Chancen in Truhen (0 = keine; bei `/reload`) |
 | `tweaks.pads.enablePotionPads` | true | Trank-Pads an/aus |
 | `tweaks.padTuning.teleporterTier1WarmupTicks` | 1000 | Wartezeit Spawn-Teleporter I (50 s; seit 2026-09-28 drei Stufen, ersetzt `teleporterWarmupTicks`) |
@@ -155,6 +160,8 @@ Zugriff abgesichert. Defaults und Optionspfade bleiben erhalten; alle sechs wirk
 | `tools.wandHungerMultiplier` | 0–10 | 1 |
 | `tools.magnetRangeMultiplier` | 0–4; absolut weiterhin höchstens 15 Blöcke | 1 |
 | `tools.rotatorChargePerTurn` | 0–4096 | 1 |
+| `tools.rotatorSwapWindupTicks` | 0–200 | 20 |
+| `tools.rotatorSwapMaxHardness` | 0–50 | 6.0 |
 | `worldGen.buildingCoreLootChanceMultiplier` | 0–1000; höchstens ein Kern je Kiste | 1 |
 | `tweaks.laserPointer.chargePerSecond` | 0–2560 | 4 |
 | `tweaks.laserPointer.effectCost` | 0–2560 | 5 |
