@@ -195,7 +195,7 @@ public final class TableTests {
                 s.setPos(table.getX() + 2.5, table.getY(), table.getZ() + .5);
                 area(h, s, table, 8, 6, -2, -1);
                 yes(h, sent.size() == 1, "Back in reach: answered");
-                sent.clear();
+                sent.clear(); TableService.resetThrottle();
                 TableService.handle(new TableRequestPayload(table, TableRequestPayload.AREA, chunk.x(), chunk.z(), 2, 2), s);
                 TableService.handle(new TableRequestPayload(table, TableRequestPayload.AREA, chunk.x(), chunk.z(), 2, 2), s);
                 yes(h, sent.size() == 1, "A second request in the same tick is dropped (rate limit)");
