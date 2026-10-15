@@ -185,8 +185,8 @@ def draw_overlay_old(im, ox, oy):
 
 def new_colors(p):
     f = p["fill"]
-    return dict(bg=scale(f, 0.20), border=scale(f, 0.64), title=(255, 255, 255), v1=mix(p["light"], (255, 255, 255), 0.35),
-                v2=mix(p["light"], (255, 255, 255), 0.1), sec=(0xB8, 0xB8, 0xB8))
+    return dict(bg=scale(f, 0.20), border=scale(f, 0.64), title=(255, 255, 255), v1=mix(f, (255, 255, 255), 0.8),
+                v2=mix(f, (255, 255, 255), 0.6), sec=(0xB8, 0xB8, 0xB8))
 
 
 def draw_overlay_new(im, ox, oy, p, alpha=0xC8):

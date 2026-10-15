@@ -48,12 +48,12 @@ public final class HudPanel {
     /**
      * Primary value tone (Pos 1, results, the rod's distance): the bronze 80 % towards white. Pos 2 uses
      * {@link #COLOR_VALUE_DIM}, the same hue 60 % towards white - one brightness step apart. WCAG contrast on the
-     * box over the worst world (pure white sky): 7,0:1 and 5,1:1; over a dark world 14,4:1 and 10,5:1.
+     * box over the worst world (pure white sky): 7,2:1 and 5,2:1; over a dark world 14,5:1 and 10,5:1.
      */
     public static final int COLOR_VALUE = UiPalette.mix(ModScreenLayout.OCTANT_FILL, 0xFFFFFFFF, 0.8);
     /** Dimmer step of {@link #COLOR_VALUE} (Pos 2). */
     public static final int COLOR_VALUE_DIM = UiPalette.mix(ModScreenLayout.OCTANT_FILL, 0xFFFFFFFF, 0.6);
-    /** Secondary lines (4,7:1 over a pure white world, 9+ over a dark one). */
+    /** Secondary lines (4,8:1 over a pure white world, 9+ over a dark one). */
     public static final int COLOR_SECONDARY = 0xFFB8B8B8;
     /** Warnings (danger zone, lethal fall). */
     public static final int COLOR_DANGER = 0xFFFF5555;
