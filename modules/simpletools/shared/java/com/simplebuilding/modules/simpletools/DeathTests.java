@@ -179,6 +179,36 @@ public final class DeathTests {
         h.succeed();
     }
 
+    /** Nachtrag 60: in a Hardcore world Soulbound does nothing (the sword drops, no respawn copy) but the tooltip says so. */
+    public static void soulboundHardcore(GameTestHelper h) {
+        configured(() -> {
+            ServerPlayer p = living(h, new BlockPos(2, 2, 2));
+            try {
+                Soulbound.hardcoreOverride = true;
+                ItemStack sword = bound(h, new ItemStack(Items.IRON_SWORD));
+                h.assertTrue(Soulbound.has(sword), "the item stays enchantable with Soulbound");
+                java.util.List<net.minecraft.network.chat.Component> lines = new java.util.ArrayList<>();
+                sword.addDetailsToTooltip(net.minecraft.world.item.Item.TooltipContext.of(h.getLevel()),
+                        net.minecraft.world.item.component.TooltipDisplay.DEFAULT, p, net.minecraft.world.item.TooltipFlag.NORMAL, lines::add);
+                h.assertTrue(lines.stream().anyMatch(c -> c.getString().toLowerCase().contains("hardcore") || c.getString().contains("soulbound.hardcore")), "tooltip hint in Hardcore: " + lines);
+                p.getInventory().setItem(0, sword);
+                die(h, p);
+                h.assertTrue(itemsNear(h, p).stream().anyMatch(e -> Soulbound.has(e.getItem())), "Hardcore: the Soulbound sword dropped");
+                h.assertTrue(p.getInventory().getItem(0).isEmpty(), "Hardcore: nothing kept");
+                Soulbound.hardcoreOverride = false;
+                lines.clear();
+                sword.addDetailsToTooltip(net.minecraft.world.item.Item.TooltipContext.of(h.getLevel()),
+                        net.minecraft.world.item.component.TooltipDisplay.DEFAULT, p, net.minecraft.world.item.TooltipFlag.NORMAL, lines::add);
+                h.assertTrue(lines.stream().noneMatch(c -> c.getString().toLowerCase().contains("hardcore") || c.getString().contains("soulbound.hardcore")), "no hint outside Hardcore: " + lines);
+            } finally {
+                Soulbound.hardcoreOverride = null;
+                ledger(h).clear(p.getUUID());
+                h.getLevel().getServer().getPlayerList().remove(p);
+            }
+        });
+        h.succeed();
+    }
+
     /** Switched off: the Soulbound item drops like any other; End return keeps the durability untouched. */
     public static void soulboundSwitch(GameTestHelper h) {
         configured(() -> {

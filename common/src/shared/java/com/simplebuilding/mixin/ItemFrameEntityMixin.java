@@ -141,6 +141,19 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
             }
         }
 
+        // Nachtrag 60: honeycomb waxes and an axe scrapes a copper bucket shown in the frame (as on a copper block)
+        if (com.simplebuilding.fluid.ModBucketItem.isCopper(this.getItem())
+                && !handStack.isEmpty() && (handStack.is(Items.HONEYCOMB) || handStack.is(net.minecraft.tags.ItemTags.AXES))) {
+            ItemStack shown = this.getItem().copy();
+            EquipmentSlot toolSlot = hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+            InteractionResult care = com.simplebuilding.fluid.ModBucketItem.care(player.level(), player, shown, handStack, toolSlot, itemFrame.blockPosition());
+            if (care != null) {
+                if (care == InteractionResult.SUCCESS && !isClient) itemFrame.setItem(shown);
+                cir.setReturnValue(care);
+                return;
+            }
+        }
+
         // NORMALE INTERAKTIONEN
         if (handStack.is(ModItems.MAGNET)) {
             var registry = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);

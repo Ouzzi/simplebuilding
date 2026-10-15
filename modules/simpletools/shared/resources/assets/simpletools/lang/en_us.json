@@ -32,6 +32,7 @@
   "simpletools.option.deathVaultMaxPerOffering.tooltip": "Future buy-back: items one offering returns\nat most. Default: 3. Allowed range: 1–27.",
   "simpletools.option.deathVaultMaxDeaths": "Remembered Deaths",
   "simpletools.option.deathVaultMaxDeaths.tooltip": "Future buy-back: deaths kept per player\n(otherwise only the last). Default: 20.\nAllowed range: 1–100.",
+  "tooltip.simpletools.soulbound.hardcore": "Soulbound: no effect in Hardcore",
   "enchantment.simpletools.soulbound": "Soulbound",
   "block.simpletools.death_vault": "Death Vault",
   "container.simpletools.death_vault": "Death Vault",

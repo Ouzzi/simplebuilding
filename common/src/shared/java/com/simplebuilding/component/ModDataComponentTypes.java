@@ -32,6 +32,9 @@ public class ModDataComponentTypes {
             .persistent(Codec.intRange(0, 3)).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT)) : null;
     public static final DataComponentType<Boolean> WAXED = com.simplebuilding.version.McVersion.CRUCIBLE ? register("waxed", builder -> builder
             .persistent(Codec.BOOL).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL)) : null;
+    /** Copper bucket: the wax was worn by filling it (Nachtrag 60); weathers at half pace until waxed again. */
+    public static final DataComponentType<Boolean> WAX_WORN = com.simplebuilding.version.McVersion.CRUCIBLE ? register("wax_worn", builder -> builder
+            .persistent(Codec.BOOL).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL)) : null;
     /** Ceramic bucket pours so far (0..3); the wear stage is the item itself. */
     public static final DataComponentType<Integer> CERAMIC_USES = com.simplebuilding.version.McVersion.CRUCIBLE ? register("ceramic_uses", builder -> builder
             .persistent(Codec.intRange(0, 31)).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT)) : null;

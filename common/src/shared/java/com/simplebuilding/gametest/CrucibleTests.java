@@ -1028,24 +1028,67 @@ public final class CrucibleTests {
         helper.succeed();
     }
 
-    /** N35: waxed and empty (or lava) does not react; waxed with water reacts at half pace. */
+    /**
+     * Nachtrag 60: a waxed copper bucket never weathers; filling it wears the wax (half pace until waxed again),
+     * honeycomb renews the wax, an axe scrapes it off.
+     */
     public static void copperBucketWaxedWaterWeathersAtHalfPace(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
         ServerLevel level = helper.getLevel();
         net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(GameType.SURVIVAL);
-        ItemStack empty = new ItemStack(ModFluids.COPPER_BUCKET), water = new ItemStack(ModFluids.COPPER_WATER_BUCKET);
-        ItemStack lava = new ItemStack(ModFluids.COPPER_LAVA_BUCKET), plain = new ItemStack(ModFluids.COPPER_WATER_BUCKET);
-        for (ItemStack stack : new ItemStack[] {empty, water, lava}) stack.set(com.simplebuilding.component.ModDataComponentTypes.WAXED, true);
-        helper.assertTrue(ModBucketItem.oxidationInterval(empty) == 0 && ModBucketItem.oxidationInterval(lava) == 0, "waxed empty/lava must not react");
-        helper.assertTrue(ModBucketItem.oxidationInterval(water) == 2 * ModBucketItem.oxidationInterval(plain), "waxed water is half pace");
+        ItemStack empty = new ItemStack(ModFluids.COPPER_BUCKET);
+        empty.set(com.simplebuilding.component.ModDataComponentTypes.WAXED, true);
+        ItemStack plain = new ItemStack(ModFluids.COPPER_WATER_BUCKET);
+        helper.assertTrue(ModBucketItem.oxidationInterval(empty) == 0, "waxed empty must not react");
+        ItemStack water = ModBucketItem.fill(empty, ModFluids.COPPER_WATER_BUCKET);
+        ItemStack lava = ModBucketItem.fill(empty, ModFluids.COPPER_LAVA_BUCKET);
+        helper.assertTrue(ModBucketItem.waxed(water) && ModBucketItem.waxWorn(water) && ModBucketItem.waxWorn(lava), "filling wears the wax");
+        helper.assertTrue(ModBucketItem.oxidationInterval(water) == 2 * ModBucketItem.oxidationInterval(plain), "worn wax is half pace");
+        ItemStack kept = ModBucketItem.fill(new ItemStack(ModFluids.COPPER_BUCKET), ModFluids.COPPER_WATER_BUCKET);
+        helper.assertTrue(!ModBucketItem.waxWorn(kept), "an unwaxed bucket has no wax to wear");
+        ItemStack emptied = ((ModBucketItem) water.getItem()).afterPour(water);
+        helper.assertTrue(ModBucketItem.waxWorn(emptied), "emptying keeps the worn wax");
         player.getInventory().setItem(0, empty);
         player.getInventory().setItem(1, water);
-        player.getInventory().setItem(2, lava);
         for (int t = 0; t < 1_500_000; t++) {
-            for (ItemStack stack : new ItemStack[] {empty, water, lava}) stack.getItem().inventoryTick(stack, level, player, null);
+            for (ItemStack stack : new ItemStack[] {empty, water}) stack.getItem().inventoryTick(stack, level, player, null);
         }
-        helper.assertTrue(ModBucketItem.oxidation(empty) == 0 && ModBucketItem.oxidation(lava) == 0, "waxed empty/lava weathered");
-        helper.assertTrue(ModBucketItem.oxidation(water) >= 1 && ModBucketItem.waxed(water), "waxed water bucket must weather slowly and keep its wax");
+        helper.assertTrue(ModBucketItem.oxidation(empty) == 0, "waxed empty weathered");
+        helper.assertTrue(ModBucketItem.oxidation(water) >= 1 && ModBucketItem.waxed(water), "worn wax must weather slowly and stay waxed");
+        // honeycomb renews, then it holds still again
+        ServerPlayer actor = player(helper, emptied, new ItemStack(Items.HONEYCOMB));
+        helper.assertTrue(ModBucketItem.care(level, actor, emptied, actor.getOffhandItem(), net.minecraft.world.entity.EquipmentSlot.OFFHAND, actor.blockPosition())
+                == InteractionResult.SUCCESS && !ModBucketItem.waxWorn(emptied) && ModBucketItem.oxidationInterval(emptied) == 0, "honeycomb renews the wax");
+        helper.assertTrue(ModBucketItem.care(level, actor, emptied, new ItemStack(Items.HONEYCOMB), net.minecraft.world.entity.EquipmentSlot.OFFHAND, actor.blockPosition())
+                == InteractionResult.FAIL, "intact wax takes no second honeycomb");
+        helper.succeed();
+    }
+
+    /** Nachtrag 60: a copper bucket lying in the world or in an item frame weathers; honeycomb/axe work on the frame; containers do not weather it. */
+    public static void copperBucketPlacedWeathersAndFrameCare(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        ServerLevel level = helper.getLevel();
+        net.minecraft.world.entity.item.ItemEntity drop = new net.minecraft.world.entity.item.ItemEntity(level,
+                helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)).x, helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)).y, helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)).z,
+                new ItemStack(ModFluids.COPPER_BUCKET));
+        drop.setNoGravity(true);
+        level.addFreshEntity(drop);
+        ItemStack waxedStack = new ItemStack(ModFluids.COPPER_BUCKET);
+        waxedStack.set(com.simplebuilding.component.ModDataComponentTypes.WAXED, true);
+        int stage = 0;
+        for (int t = 0; t < 600_000 && stage == 0; t++) {
+            ItemStack w = ModBucketItem.weatherPlaced(drop.getItem(), level.getRandom());
+            if (w != null) { drop.setItem(w); stage = ModBucketItem.oxidation(w); }
+        }
+        helper.assertTrue(stage == 1 && ModBucketItem.oxidation(drop.getItem()) == 1, "a dropped copper bucket must weather");
+        helper.assertTrue(ModBucketItem.weatherPlaced(waxedStack, level.getRandom()) == null, "a waxed placed bucket does not weather");
+        drop.discard();
+        ItemStack framed = new ItemStack(ModFluids.COPPER_BUCKET);
+        ServerPlayer actor = player(helper, ItemStack.EMPTY, new ItemStack(Items.HONEYCOMB));
+        helper.assertTrue(ModBucketItem.care(level, actor, framed, actor.getOffhandItem(), net.minecraft.world.entity.EquipmentSlot.OFFHAND, actor.blockPosition())
+                == InteractionResult.SUCCESS && ModBucketItem.waxed(framed), "honeycomb waxes the bucket");
+        helper.assertTrue(ModBucketItem.care(level, actor, framed, new ItemStack(Items.IRON_AXE), net.minecraft.world.entity.EquipmentSlot.MAINHAND, actor.blockPosition())
+                == InteractionResult.SUCCESS && !ModBucketItem.waxed(framed), "an axe takes the wax off");
         helper.succeed();
     }
 

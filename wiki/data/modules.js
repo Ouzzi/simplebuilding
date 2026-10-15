@@ -210,7 +210,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "bda67130f34a"
+    "dataHash": "070ec42e2242"
   },
   {
     "id": "simpletweaks",
@@ -324,7 +324,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "5360c55771c8"
+    "dataHash": "a3af74fd0f08"
   },
   {
     "id": "simpletrims",
@@ -398,7 +398,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "f4e51bd301b5"
+    "dataHash": "de52a3d9d645"
   },
   {
     "id": "simpletools",
@@ -419,7 +419,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "7ed7e954312b"
+    "dataHash": "f37ff9406e4e"
   },
   {
     "id": "simplefarming",
@@ -548,7 +548,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "9cda52103aa7"
+    "dataHash": "f72c96b5aa7e"
   },
   {
     "id": "simplerespawn",
@@ -563,7 +563,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "0060d25a18d6"
+    "dataHash": "1dad6da6c5ce"
   },
   {
     "id": "simplebeacons",

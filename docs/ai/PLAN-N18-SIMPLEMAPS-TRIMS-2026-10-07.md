@@ -104,7 +104,7 @@ je Kachel Farbbytes (Vanilla-`MapColor`-Packed-ID) und Höhenbytes ((y − minY)
 Datei ist wie alle `.dat` gzip-komprimiert (F6: unbegrenzt, aber optimiert). Obergrenze je Karte
 `maxTilesPerMap` (Server-Config, harte Grenzen, Feature 8).
 Aufdecken (wie Vanilla nur in Haupt-/Nebenhand): Scheibe mit `revealRadius` Blöcken (Config 16–128,
-Standard 96), je Tick 1/16 der Spalten (Vanilla-Takt), nur geladene Chunks (lädt nie Chunks).
+Standard 128 = Vanilla 1:1, Nether halbiert), je Tick 1/16 der Spalten (Vanilla-Takt), nur geladene Chunks (lädt nie Chunks).
 Farbe/Helligkeit wie Vanilla-`MapItem.update` bei Maßstab 1:1. Dimensionen mit Decke (Nether): Abtastung
 unterhalb des Spielers statt Vanilla-Rauschen.
 Wegpunkte gehören dem Stapel (F2): Komponente `simplemaps:waypoints` (Platz 1–8, x/z, Name ≤ 32, Farbe

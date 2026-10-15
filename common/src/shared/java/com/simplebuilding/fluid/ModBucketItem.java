@@ -35,8 +35,8 @@ import org.jspecify.annotations.Nullable;
 /**
  * The crucible buckets (plan section 10, owner round 3 answers 32-36):
  * <ul>
- *   <li><b>Copper</b>: water and lava, never soul lava. It oxidizes (stage 0-3, N35) only while carried in the hotbar or off hand,
- *       at about a copper block's pace ({@link #weatherTick}); waxed it holds still when empty, with water at half pace; poured water never makes a source (one flowing block that runs off); pouring lava breaks it.
+ *   <li><b>Copper</b>: water and lava, never soul lava. It oxidizes (stage 0-3, N35) only while carried in the hotbar or off hand or placed in the world (dropped, in an item frame; not in containers),
+ *       at about a copper block's pace ({@link #weatherTick}); waxed it holds still, with worn wax (something was filled in) at half pace until waxed again; poured water never makes a source (one flowing block that runs off); pouring lava breaks it.
  *       Main hand bucket + axe in the off hand scrapes one stage (or the wax) off, + honeycomb waxes it.</li>
  *   <li><b>Enderite</b>: water, lava and soul lava (milk: {@link EnderiteMilkBucketItem}), never breaks. Owner N21/N28: it holds two buckets of one fluid
  *       (half and full items, {@link ModFluids#fullEnderite}). Use only scoops while it has room (empty and half);
@@ -157,7 +157,12 @@ public class ModBucketItem extends BucketItem {
             Item staged = ModFluids.ceramic(target.getContent(), target.getContent().is(FluidTags.LAVA) ? CERAMIC_STAGES - 1 : bucket.stage);
             if (staged != null) filled = staged;
         }
-        return empty.transmuteCopy(filled, 1);
+        ItemStack out = empty.transmuteCopy(filled, 1);
+        // Nachtrag 60: filling wears the wax; it weathers at half pace until waxed again.
+        if (out.getItem() instanceof ModBucketItem bucket && bucket.kind == Kind.COPPER && waxed(out)) {
+            out.set(ModDataComponentTypes.WAX_WORN, true);
+        }
+        return out;
     }
 
     /** Successful pours of a ceramic bucket before it breaks (owner rule: four pours). */
@@ -194,6 +199,10 @@ public class ModBucketItem extends BucketItem {
 
     // ------------------------------------------------------------ copper oxidation
 
+    public static boolean isCopper(ItemStack stack) {
+        return stack.getItem() instanceof ModBucketItem bucket && bucket.kind == Kind.COPPER;
+    }
+
     public static int oxidation(ItemStack stack) {
         Integer value = stack.get(ModDataComponentTypes.OXIDATION);
         return value == null ? 0 : value;
@@ -212,21 +221,40 @@ public class ModBucketItem extends BucketItem {
     public static final int OXIDATION_TICKS = 24000;
 
     /**
-     * Average ticks per oxidation stage of this copper bucket, 0 when it does not react (N35): unwaxed always;
-     * waxed and empty or with lava never; waxed with water at half the pace (the wax outside protects, the water inside does not).
+     * Average ticks per oxidation stage of this copper bucket, 0 when it does not react (Nachtrag 60): unwaxed always;
+     * waxed never; waxed with worn wax (something was filled in since the last waxing) at half the pace.
      */
     public static int oxidationInterval(ItemStack stack) {
         if (!(stack.getItem() instanceof ModBucketItem bucket) || bucket.kind != Kind.COPPER) return 0;
         if (!waxed(stack)) return OXIDATION_TICKS;
-        return bucket.getContent().isSame(Fluids.WATER) ? OXIDATION_TICKS * 2 : 0;
+        return waxWorn(stack) ? OXIDATION_TICKS * 2 : 0;
     }
 
-    /** One tick of carrying: a random chance of one stage more, even when waxed (see {@link #oxidationInterval}). */
-    public static void weatherTick(ItemStack stack, net.minecraft.util.RandomSource random) {
+    /** Whether filling the bucket has worn its wax (see {@link #oxidationInterval}). */
+    public static boolean waxWorn(ItemStack stack) {
+        return Boolean.TRUE.equals(stack.get(ModDataComponentTypes.WAX_WORN));
+    }
+
+    /** True when this tick's random roll gives one stage more (see {@link #oxidationInterval}). */
+    private static boolean rollWeather(ItemStack stack, net.minecraft.util.RandomSource random) {
         int interval = oxidationInterval(stack);
-        if (interval > 0 && oxidation(stack) < 3 && random.nextInt(interval) == 0) {
-            stack.set(ModDataComponentTypes.OXIDATION, oxidation(stack) + 1);
-        }
+        return interval > 0 && oxidation(stack) < 3 && random.nextInt(interval) == 0;
+    }
+
+    /** One tick of carrying: a random chance of one stage more (see {@link #oxidationInterval}). */
+    public static void weatherTick(ItemStack stack, net.minecraft.util.RandomSource random) {
+        if (rollWeather(stack, random)) stack.set(ModDataComponentTypes.OXIDATION, oxidation(stack) + 1);
+    }
+
+    /**
+     * One tick of a bucket placed in the world (dropped item entity, item in a frame): the same chance as carried.
+     * Returns the weathered copy to store back (a synced stack must be replaced, not edited), or null when unchanged.
+     */
+    public static @Nullable ItemStack weatherPlaced(ItemStack stack, net.minecraft.util.RandomSource random) {
+        if (!rollWeather(stack, random)) return null;
+        ItemStack copy = stack.copy();
+        copy.set(ModDataComponentTypes.OXIDATION, oxidation(stack) + 1);
+        return copy;
     }
 
     /**
@@ -252,6 +280,7 @@ public class ModBucketItem extends BucketItem {
     public static boolean scrape(ItemStack stack) {
         if (waxed(stack)) {
             stack.remove(ModDataComponentTypes.WAXED);
+            stack.remove(ModDataComponentTypes.WAX_WORN);
             return true;
         }
         int stage = oxidation(stack);
@@ -300,21 +329,32 @@ public class ModBucketItem extends BucketItem {
 
     /** Copper bucket in the main hand: axe in the off hand scrapes, honeycomb waxes (null: neither). */
     private @Nullable InteractionResult copperCare(Level level, Player player, ItemStack stack) {
-        ItemStack other = player.getOffhandItem();
-        if (other.is(ItemTags.AXES)) {
-            if (!scrape(stack)) return InteractionResult.FAIL;
+        return care(level, player, stack, player.getOffhandItem(), EquipmentSlot.OFFHAND, player.blockPosition().above());
+    }
+
+    /**
+     * Axe scrapes the wax or one stage off, honeycomb waxes (or renews worn wax), with the Vanilla particles and sounds
+     * of waxing a copper block (null: {@code tool} is neither). Shared by the held bucket and a bucket in an item frame.
+     */
+    public static @Nullable InteractionResult care(Level level, Player player, ItemStack bucket, ItemStack tool, EquipmentSlot toolSlot, BlockPos at) {
+        if (tool.is(ItemTags.AXES)) {
+            boolean wax = waxed(bucket);
+            if (!scrape(bucket)) return InteractionResult.FAIL;
             if (!level.isClientSide()) {
-                level.playSound(null, player.blockPosition(), SoundEvents.GRINDSTONE_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
-                other.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
+                level.playSound(null, at, wax ? SoundEvents.AXE_WAX_OFF.value() : SoundEvents.AXE_SCRAPE.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                level.levelEvent(null, wax ? 3004 : 3005, at, 0); // PARTICLES_WAX_OFF / PARTICLES_SCRAPE
+                tool.hurtAndBreak(1, player, toolSlot);
             }
             return InteractionResult.SUCCESS;
         }
-        if (other.is(Items.HONEYCOMB)) {
-            if (waxed(stack)) return InteractionResult.FAIL;
+        if (tool.is(Items.HONEYCOMB)) {
+            if (waxed(bucket) && !waxWorn(bucket)) return InteractionResult.FAIL;
             if (!level.isClientSide()) {
-                stack.set(ModDataComponentTypes.WAXED, true);
-                level.playSound(null, player.blockPosition(), SoundEvents.HONEYCOMB_WAX_ON, SoundSource.PLAYERS, 1.0F, 1.0F);
-                other.consume(1, player);
+                bucket.set(ModDataComponentTypes.WAXED, true);
+                bucket.remove(ModDataComponentTypes.WAX_WORN);
+                level.playSound(null, at, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.PLAYERS, 1.0F, 1.0F);
+                level.levelEvent(null, 3003, at, 0); // PARTICLES_WAX_ON
+                tool.consume(1, player);
             }
             return InteractionResult.SUCCESS;
         }
@@ -402,7 +442,7 @@ public class ModBucketItem extends BucketItem {
                         .withStyle(net.minecraft.ChatFormatting.RED));
             }
             if (waxed(stack)) {
-                lines.accept(net.minecraft.network.chat.Component.translatable(getContent().isSame(Fluids.WATER)
+                lines.accept(net.minecraft.network.chat.Component.translatable(waxWorn(stack)
                         ? "tooltip.simplebuilding.copper_bucket.waxed_damp" : "tooltip.simplebuilding.copper_bucket.waxed")
                         .withStyle(net.minecraft.ChatFormatting.GOLD));
             }

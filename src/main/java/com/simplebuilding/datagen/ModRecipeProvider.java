@@ -96,6 +96,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     shapeless(RecipeCategory.MISC, ModItems.YARN_BALL, 2)
                             .requires(net.minecraft.tags.BlockItemTags.WOOL.item()).unlockedBy("has_wool", has(net.minecraft.tags.BlockItemTags.WOOL.item()))
                             .save(output, "yarn_ball_from_wool");
+                    // Nachtrag 60 (Besitzer 15.10.): zusaetzlich 2 Knaeuel -> 1 (weisse) Wolle.
+                    shapeless(RecipeCategory.MISC, Items.WOOL.pick(net.minecraft.world.item.DyeColor.WHITE))
+                            .requires(ModItems.YARN_BALL, 2)
+                            .unlockedBy("has_yarn_ball", has(ModItems.YARN_BALL)).save(output, "wool_from_yarn_balls");
                     shaped(RecipeCategory.DECORATIONS, ModItems.SILENT_DANDELION)
                             .pattern("YYY").pattern("YDY").pattern("YYY")
                             .define('Y', ModItems.YARN_BALL).define('D', Items.DANDELION)
@@ -279,9 +283,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .unlockedBy(getHasName(ModItems.BLAZE_BOOK), has(ModItems.BLAZE_BOOK))
                                 .save(output);
                     }
-                    shapeless(RecipeCategory.MISC, ModItems.BLAZE_BOOK)
-                            .requires(Items.PAPER, 3)
-                            .requires(Items.BLAZE_POWDER)
+                    // Nachtrag 60 (Besitzer 15.10.): 8 Lohenstaub um 1 normales Buch (ersetzt 3 Papier + 1 Lohenstaub).
+                    shaped(RecipeCategory.MISC, ModItems.BLAZE_BOOK)
+                            .pattern("BBB").pattern("BKB").pattern("BBB")
+                            .define('B', Items.BLAZE_POWDER).define('K', Items.BOOK)
                             .unlockedBy(getHasName(Items.BLAZE_POWDER), has(Items.BLAZE_POWDER))
                             .save(output);
                     shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.BLAZING_OBSIDIAN)
