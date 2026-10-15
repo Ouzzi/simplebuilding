@@ -15,7 +15,7 @@ import org.jspecify.annotations.Nullable;
 /** Owner menu of a display case: five real goods slots (an item in = for sale, out = not any more) over the inventory. */
 public class StockMenu extends ShopMenu {
     public static final int GOODS_END = DisplayCaseBlockEntity.SIZE;
-    public static final int WIDTH = 176, HEIGHT = 133, ROW_X = 43, ROW_Y = 20, INVENTORY_Y = 51;
+    public static final int WIDTH = 176, HEIGHT = 133, ROW_X = 60, ROW_Y = 20, INVENTORY_Y = 51;
     private final @Nullable DisplayCaseBlockEntity shopCase;
     private final @Nullable SalesBlockEntity sales;
 

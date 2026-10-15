@@ -292,6 +292,47 @@ public final class ShopsTests {
             }
             h.succeed();
         });
+        ALL.put("transfer_lookup_null", h -> {
+            // Item transfer APIs of the loader (Fabric Transfer, NeoForge capabilities) find nothing on either block.
+            Shop shop = shop(h, player(h, GameType.SURVIVAL));
+            int checked = 0;
+            for (BlockPos pos : List.of(shop.sales, shop.box)) {
+                for (Direction dir : new Direction[] {Direction.UP, Direction.DOWN, Direction.NORTH}) {
+                    try {
+                        Object storage = Class.forName("net.fabricmc.fabric.api.transfer.v1.item.ItemStorage").getField("SIDED").get(null);
+                        for (var m : storage.getClass().getMethods()) {
+                            if (m.getName().equals("find") && m.getParameterCount() == 3) {
+                                h.assertTrue(m.invoke(storage, h.getLevel(), pos, dir) == null, "Fabric item storage at " + pos + " " + dir);
+                                checked++;
+                                break;
+                            }
+                        }
+                    } catch (ClassNotFoundException | NoSuchFieldException ignored) {
+                        // not Fabric
+                    } catch (ReflectiveOperationException e) {
+                        throw h.assertionException("reflection: " + e);
+                    }
+                    try {
+                        Class<?> holder = Class.forName("net.neoforged.neoforge.capabilities.Capabilities$Item");
+                        Object capability = holder.getField("BLOCK").get(null);
+                        for (var m : h.getLevel().getClass().getMethods()) {
+                            if (m.getName().equals("getCapability") && m.getParameterCount() == 3 && m.getParameterTypes()[0].isAssignableFrom(capability.getClass())
+                                    && m.getParameterTypes()[1] == BlockPos.class) {
+                                h.assertTrue(m.invoke(h.getLevel(), capability, pos, dir) == null, "NeoForge item capability at " + pos + " " + dir);
+                                checked++;
+                                break;
+                            }
+                        }
+                    } catch (ClassNotFoundException | NoSuchFieldException ignored) {
+                        // not NeoForge
+                    } catch (ReflectiveOperationException e) {
+                        throw h.assertionException("reflection: " + e);
+                    }
+                }
+            }
+            SimpleShops.LOG.info("transfer lookup checks: {}", checked);
+            h.succeed();
+        });
         ALL.put("limits_per_player", h -> {
             ServerPlayer owner = player(h, GameType.SURVIVAL);
             ShopsConfig.maxShopsPerPlayer = 2;

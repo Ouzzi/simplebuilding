@@ -67,6 +67,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void transferLookupNull(GameTestHelper h) {
+        ShopsTests.ALL.get("transfer_lookup_null").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void limitsPerPlayer(GameTestHelper h) {
         ShopsTests.ALL.get("limits_per_player").accept(h);
     }

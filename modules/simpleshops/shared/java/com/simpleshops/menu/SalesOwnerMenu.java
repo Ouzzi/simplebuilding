@@ -20,7 +20,7 @@ import org.jspecify.annotations.Nullable;
  */
 public class SalesOwnerMenu extends ShopMenu {
     public static final int PRICE_START = 0, EARNINGS_START = PriceRow.SIZE, EARNINGS_END = EARNINGS_START + SalesBlockEntity.EARNINGS_SIZE;
-    public static final int WIDTH = 176, HEIGHT = 166, PRICE_X = 43, PRICE_Y = 20, EARNINGS_X = 8, EARNINGS_Y = 52, INVENTORY_Y = 84;
+    public static final int WIDTH = 176, HEIGHT = 166, PRICE_X = 60, PRICE_Y = 20, EARNINGS_X = 8, EARNINGS_Y = 52, INVENTORY_Y = 84;
     private final @Nullable SalesBlockEntity sales;
     private final SimpleContainer priceView = new SimpleContainer(PriceRow.SIZE);
 

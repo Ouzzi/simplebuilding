@@ -36,7 +36,7 @@ public final class ShopScreens {
             super.extractBackground(graphics, mouseX, mouseY, a);
             UiBoxes.box(graphics, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, PALETTE);
             for (Slot slot : this.menu.slots) {
-                if (slot.isActive()) UiBoxes.slot(graphics, this.leftPos + slot.x - 1, this.topPos + slot.y - 1, PALETTE);
+                if (slot.isActive()) UiBoxes.slot(graphics, this.leftPos + slot.x, this.topPos + slot.y, PALETTE);
             }
         }
 
@@ -116,11 +116,11 @@ public final class ShopScreens {
             // The chosen goods slot gets a gold frame.
             int sel = this.menu.selectedWare();
             if (sel >= 0 && sel < 5 && !this.menu.goodsView().getItem(sel).isEmpty()) {
-                int x = this.leftPos + ShopBuyerMenu.ROW_X + sel * 18 - 2, y = this.topPos + ShopBuyerMenu.GOODS_Y - 2;
-                graphics.fill(x, y, x + 20, y + 1, 0xFFE8B030);
-                graphics.fill(x, y + 19, x + 20, y + 20, 0xFFE8B030);
-                graphics.fill(x, y, x + 1, y + 20, 0xFFE8B030);
-                graphics.fill(x + 19, y, x + 20, y + 20, 0xFFE8B030);
+                int x = this.leftPos + ShopBuyerMenu.ROW_X + sel * 18 - 1, y = this.topPos + ShopBuyerMenu.GOODS_Y - 1;
+                graphics.fill(x, y, x + 18, y + 1, 0xFFE8B030);
+                graphics.fill(x, y + 17, x + 18, y + 18, 0xFFE8B030);
+                graphics.fill(x, y, x + 1, y + 18, 0xFFE8B030);
+                graphics.fill(x + 17, y, x + 18, y + 18, 0xFFE8B030);
             }
         }
 

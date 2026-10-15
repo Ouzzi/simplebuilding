@@ -26,7 +26,7 @@ import org.jspecify.annotations.Nullable;
  */
 public class ShopBuyerMenu extends ShopMenu {
     public static final int GOODS_START = 0, PRICE_START = 5, PAY_START = 10, PAY_END = 15, INVENTORY_START = 15;
-    public static final int WIDTH = 176, HEIGHT = 192, ROW_X = 43, GOODS_Y = 18, PRICE_Y = 40, PAY_Y = 62, INVENTORY_Y = 110;
+    public static final int WIDTH = 176, HEIGHT = 192, ROW_X = 60, GOODS_Y = 18, PRICE_Y = 40, PAY_Y = 62, INVENTORY_Y = 110;
     /** Menu button ids: {@code action | revision << 8}. */
     public static final int SELECT = 0, TRADE = 10, TRADE_MAX = 11, MAX_REPEAT = 64;
 
