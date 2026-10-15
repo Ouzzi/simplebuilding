@@ -258,6 +258,15 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 67 (2026-10-15, Besitzer-Feedback zu den Abnahme-Seiten)
+- [ ] HUD-Overlay (Oktant/Messuhr/Resonanzstab): statt einfachem 1-px-Rand einen doppelten oder dreifachen Rand wie die übrigen Mod-Texturen/UIs; Ecken entsprechend stärker abgerundet (doppelt → 2 px Stufen, dreifach → eine Stufe mehr), jede Rand-Ebene läuft wie ein Mantel um die Ecke.
+- [x] 3D-Items Schritt 2 freigegeben – Schritt 3 Einbau; dabei sicherstellen, dass keine Flächen um „oben“ kämpfen (kein Z-Fighting, auch im Häufchen/Stapel).
+- [ ] Schwefel-Fackel/-Laterne/-Lagerfeuer: Texturen sehr stark an Vanilla (Fackel/Seelenfackel, Laterne, Lagerfeuer) orientieren, nur leichte Variationen (Vanilla-Ableitung nur zur Build-Zeit, nichts Vanilla-Abgeleitetes einchecken).
+- [x] Leuchtherz (Howler, H4): übernehmen/einbauen. Claim-Tisch-Textur: übernehmen.
+- [ ] REGEL bei jeder UI-Bearbeitung: Lesbarkeit prüfen – Text mit ausreichendem Kontrast zum Hintergrund (z. B. ≥ 4,5:1), kein dunkler Text mit dunklem Schatten auf Grau.
+- [ ] BUG Claim-Urkunde, erster Dialog („Claim the chunk you are standing …“): schwarzer Text mit schwarzem Schatten auf Grau, kaum lesbar → beheben; dabei alle Claim-/Shop-/Karten-Dialoge auf Kontrast prüfen.
+- [ ] Weitere Texturen meldet der Besitzer von Fall zu Fall.
+
 ## Nachtrag 66 (2026-10-15, Besitzer, beim Spielen im End)
 End-Biome
 - [ ] Nebel viel zu extrem (nur 10–20 Blöcke, man sieht nur Silhouetten anderer Inseln/Bäume, irritierend) → schöner/weniger extrem einstellen.
