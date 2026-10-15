@@ -98,7 +98,7 @@
   "simpletweaks.deed.error.locked": "claims are locked",
   "simpletweaks.deed.error.no_land": "no land",
   "simpletweaks.deed.error.denied": "only the owner or a manager may change this",
-  "simpletweaks.deed.error.cooldown": "wait a moment (%s ticks)",
+  "simpletweaks.deed.error.cooldown": "wait a moment (%s s)",
   "simpletweaks.deed.error.manager_limit": "managers may only change people without Manage, with rights they hold",
   "simpletweaks.deed.error.stale": "the land changed; close and reopen the deed",
   "simpletweaks.deed.error.off": "claims are off",

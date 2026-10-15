@@ -277,6 +277,10 @@ public final class DeedScreen extends Screen {
     }
 
     static Component errorText(int line, String key, String arg) {
+        if (key.equals("cooldown")) {
+            // the server names ticks; the sheet says seconds
+            try { arg = Long.toString(Math.max(1, (Long.parseLong(arg) + 19) / 20)); } catch (NumberFormatException e) { arg = "1"; }
+        }
         Component reason = Component.translatable("simpletweaks.deed.error." + key, arg);
         return line > 0 ? Component.translatable("simpletweaks.deed.error_line", line, reason) : reason;
     }

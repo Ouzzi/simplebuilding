@@ -98,7 +98,7 @@
   "simpletweaks.deed.error.locked": "Claims sind gesperrt",
   "simpletweaks.deed.error.no_land": "kein Land",
   "simpletweaks.deed.error.denied": "nur der Besitzer oder ein Verwalter darf das ändern",
-  "simpletweaks.deed.error.cooldown": "kurz warten (%s Ticks)",
+  "simpletweaks.deed.error.cooldown": "kurz warten (%s s)",
   "simpletweaks.deed.error.manager_limit": "Verwalter dürfen nur Personen ohne Verwalten ändern, mit Rechten, die sie selbst haben",
   "simpletweaks.deed.error.stale": "das Land hat sich geändert; Urkunde schließen und neu öffnen",
   "simpletweaks.deed.error.off": "Claims sind aus",
