@@ -1077,7 +1077,7 @@
       "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 64 je 16 Farben. Herstellung aus einem roten, einem gelben und einem blauen Farbstoff über drei Brettern. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
     ],
     "secret": [
-      "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
+      "Sie versorgt den Farbpinsel: Jeder Strich malt die vordere Farbe, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die vordere Farbe."
     ]
   },
   "reinforced_paint_box": {
@@ -1088,7 +1088,7 @@
       "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 128 je 16 Farben. Handwerkstisch: die Kiste in der Mitte, vier Diamantkiesel daneben, vier Goldklumpen in den Ecken; sie behält ihre Farben. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
     ],
     "secret": [
-      "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
+      "Sie versorgt den Farbpinsel: Jeder Strich malt die vordere Farbe, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die vordere Farbe."
     ]
   },
   "netherite_paint_box": {
@@ -1099,7 +1099,7 @@
       "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 256 je 16 Farben. Schmiedetisch: Netherit-Aufwertung und ein Netheritbarren. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
     ],
     "secret": [
-      "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
+      "Sie versorgt den Farbpinsel: Jeder Strich malt die vordere Farbe, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die vordere Farbe."
     ]
   },
   "enderite_paint_box": {
@@ -1110,7 +1110,7 @@
       "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 512 je 16 Farben. Schmiedetisch: Enderit-Aufwertung und ein Enderitbarren. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
     ],
     "secret": [
-      "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
+      "Sie versorgt den Farbpinsel: Jeder Strich malt die vordere Farbe, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die vordere Farbe."
     ]
   },
   "reinforced_furnace": {
@@ -1693,7 +1693,7 @@
       "Bürstet wie der Vanilla-Pinsel; mit einem Farbstoff in einer Hand oder im Inventar färbt Rechtsklick Wolle, Teppich, Beton, Terrakotta, Glas, Kerzen, Betten, Banner und Shulkerkisten um und behält ihren Zustand. Herstellung: Pinsel, Goldklumpen und Feder."
     ],
     "secret": [
-      "Ein Farbkasten mit Farbstoffen zählt als Tinte: Jeder Strich nimmt eine zufällige andere Farbe, die Borsten zeigen einen Regenbogen. Gedrückt gehaltener Rechtsklick wiederholt den Strich."
+      "Ein Farbkasten mit Farbstoffen zählt als Tinte: Jeder Strich malt die vordere Farbe, die Borsten zeigen einen Regenbogen (Zufallsfarben nur mit Farbpalette auf dem Pinsel). Gedrückt gehaltener Rechtsklick wiederholt den Strich."
     ]
   },
   "sage_orb": {

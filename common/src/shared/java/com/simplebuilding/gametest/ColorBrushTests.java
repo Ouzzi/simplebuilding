@@ -89,38 +89,50 @@ public final class ColorBrushTests {
         helper.succeed();
     }
 
-    /** A paint box paints a random colour of its own (seeded: reproducible), never the block's colour, and gives that dye. */
+    /**
+     * Random colour only comes from the Color Palette enchantment (owner N61 E13): a plain brush paints a box's front
+     * colour; a Color Palette brush picks (seeded: reproducible) one of the dyes at hand, never the block's colour, loose
+     * or from a box, and uses up exactly that dye. The enchantment must also be applicable to the brush.
+     */
     public static void paintBoxIsRandom(GameTestHelper helper) {
-        ItemStack box = box(ModItems.PAINT_BOX, new ItemStack(item("red_dye"), 3), new ItemStack(item("blue_dye"), 3),
-                new ItemStack(item("yellow_dye"), 3));
-        java.util.Set<DyeColor> seen = new java.util.HashSet<>();
-        net.minecraft.util.RandomSource a = net.minecraft.util.RandomSource.create(42), b = net.minecraft.util.RandomSource.create(42);
-        for (int i = 0; i < 40; i++) {
-            DyeColor pick = PaintBoxItem.pickColor(box, DyeColor.RED, a);
-            helper.assertValueEqual(pick, PaintBoxItem.pickColor(box, DyeColor.RED, b), "same seed, same colour");
-            seen.add(pick);
-        }
-        helper.assertTrue(seen.equals(java.util.Set.of(DyeColor.BLUE, DyeColor.YELLOW)),
-                "random over the box's colours except the block's: " + seen);
+        var enchantment = helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                .getOrThrow(com.simplebuilding.enchantment.ModEnchantments.COLOR_PALETTE);
+        helper.assertTrue(enchantment.value().canEnchant(new ItemStack(ModItems.COLOR_BRUSH)), "Color Palette fits the brush");
+        helper.assertTrue(!enchantment.value().canEnchant(new ItemStack(ModItems.PAINT_BOX)), "but not a paint box");
+        helper.assertValueEqual(com.simplebuilding.datafix.LegacyItemIds.renamedTo(Identifier.fromNamespaceAndPath("simplebuilding", "paint_palette")),
+                Identifier.fromNamespaceAndPath("simplebuilding", "color_brush"), "an old Paint Palette becomes a brush");
 
         var player = playerInLevel(helper);
         BlockPos rel = new BlockPos(2, 1, 2);
         BlockPos pos = helper.absolutePos(rel);
         ItemStack brush = brushInHand(player, pos);
+        ItemStack box = box(ModItems.PAINT_BOX, new ItemStack(item("red_dye"), 3), new ItemStack(item("blue_dye"), 3),
+                new ItemStack(item("yellow_dye"), 3));
         player.getInventory().setItem(2, box);
         helper.setBlock(rel, block("white_wool"));
-        DyeColor expected = PaintBoxItem.pickColor(box, DyeColor.WHITE, net.minecraft.util.RandomSource.create(7));
         stroke(player, pos, net.minecraft.util.RandomSource.create(7));
-        helper.assertBlockPresent(block(expected.getName() + "_wool"), rel);
-        helper.assertValueEqual(PaintBoxItem.contents(box).total(), 8, "one dye leaves the box");
-        helper.assertValueEqual(PaintBoxItem.contents(box).count(expected.getId()), 2, "exactly the painted colour");
+        helper.assertBlockPresent(block("yellow_wool"), rel); // yellow comes first in the box's color order
+        helper.assertValueEqual(PaintBoxItem.contents(box).count(DyeColor.YELLOW.getId()), 2, "a plain brush paints the box's front colour");
+
+        brush.enchant(enchantment, 1);
+        java.util.Set<DyeColor> seen = new java.util.HashSet<>();
+        net.minecraft.util.RandomSource seeded = net.minecraft.util.RandomSource.create(42);
+        for (int i = 0; i < 30; i++) {
+            helper.setBlock(rel, block("red_wool"));
+            stroke(player, pos, seeded);
+            seen.add(DyeColor.valueOf(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(helper.getBlockState(rel).getBlock())
+                    .getPath().replace("_wool", "").toUpperCase(java.util.Locale.ROOT)));
+            box.set(com.simplebuilding.component.ModDataComponentTypes.PAINT_BOX, PaintBoxItem.contents(box).with(DyeColor.BLUE.getId(), 3)
+                    .with(DyeColor.YELLOW.getId(), 3).with(DyeColor.RED.getId(), 3));
+        }
+        helper.assertTrue(seen.equals(java.util.Set.of(DyeColor.BLUE, DyeColor.YELLOW)), "random over the box colours except the block's: " + seen);
 
         ItemStack only = box(ModItems.PAINT_BOX, new ItemStack(item("white_dye")));
         player.getInventory().setItem(2, only);
         helper.setBlock(rel, block("white_wool"));
         var result = stroke(player, pos, net.minecraft.util.RandomSource.create(7));
-        helper.assertTrue(result == net.minecraft.world.InteractionResult.PASS && PaintBoxItem.contents(only).total() == 1
-                && brush.getDamageValue() == 1, "a box with only the block's colour paints nothing");
+        helper.assertTrue(result == net.minecraft.world.InteractionResult.PASS && PaintBoxItem.contents(only).total() == 1,
+                "a box with only the block's colour paints nothing");
         helper.succeed();
     }
 

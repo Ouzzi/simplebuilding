@@ -6,3 +6,5 @@ ext.forgeMixinConfigs = ['simplebeacons.mixins.json', 'simplebeacons.forge.mixin
 // SimpleLib (InWorldStrikes, upgrade tools, UI boxes) nested next to framework (principle 6a).
 ext.forgeBundleSimplelib = true
 apply from: rootProject.file('gradle/module-forge.gradle')
+// The Strong Beacon GUI background is Vanilla-derived (built, never committed).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

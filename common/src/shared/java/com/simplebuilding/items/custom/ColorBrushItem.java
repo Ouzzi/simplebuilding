@@ -20,6 +20,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import com.simplebuilding.util.ModTags;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -30,7 +32,7 @@ import java.util.Optional;
  * arrows - the other hand first, then the hand holding the brush, then the inventory in vanilla slot order - and
  * recolours a dyeable block in place: wool, carpet, concrete (powder), terracotta, glazed terracotta, glass and panes,
  * candles, beds, banners, shulker boxes and blocks in {@code simplebuilding:dyeable_families}, keeping state and
- * contents. A {@link PaintBoxItem} with dyes counts as ink too: it gives a random one of its colours per stroke.
+ * contents. A {@link PaintBoxItem} with dyes counts as ink too: it gives its front colour. Only a brush with Color Palette paints a random colour of the dyes at hand.
  * No loading, no pipette; creative strokes cost nothing. No wood stain: wood families stay out by design.
  */
 public final class ColorBrushItem extends net.minecraft.world.item.BrushItem {
@@ -123,7 +125,7 @@ public final class ColorBrushItem extends net.minecraft.world.item.BrushItem {
         return state.getBlock() instanceof net.minecraft.world.level.block.BrushableBlock;
     }
 
-    /** One paint stroke, PASS when nothing is painted; {@code random} picks a box colour (tests pass a seeded one). */
+    /** One paint stroke, PASS when nothing is painted; {@code random} picks the Color Palette colour (tests pass a seeded one). */
     public static InteractionResult stroke(UseOnContext context, RandomSource random) {
         Level level = context.getLevel();
         Player player = context.getPlayer();
@@ -136,11 +138,34 @@ public final class ColorBrushItem extends net.minecraft.world.item.BrushItem {
         if (ink.isEmpty()) return InteractionResult.PASS;
         DyeColor blockColor = dyeColorForBlock(state);
         DyeColor color = dyeColor(ink);
-        boolean fromBox = color == null;
-        if (fromBox) {
-            color = PaintBoxItem.pickColor(ink, blockColor, random);
-            if (color == null) return InteractionResult.PASS;
+        if (com.simplebuilding.util.EnchantmentHelper.hasColorPalette(brush, level)) {
+            // Color Palette (owner N61 E13): the only random colour - one of the dyes at hand (loose or in a box),
+            // never the block's own colour.
+            List<ItemStack> sources = new ArrayList<>();
+            List<DyeColor> colors = new ArrayList<>();
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                ItemStack candidate = player.getInventory().getItem(i);
+                DyeColor loose = dyeColor(candidate);
+                if (loose != null) {
+                    if (loose != blockColor) { sources.add(candidate); colors.add(loose); }
+                } else if (PaintBoxItem.hasDyes(candidate)) {
+                    for (int c = 0; c < com.simplebuilding.component.PaintBoxContents.COLORS; c++) {
+                        if (PaintBoxItem.contents(candidate).count(c) > 0 && DyeColor.byId(c) != blockColor) {
+                            sources.add(candidate); colors.add(DyeColor.byId(c));
+                        }
+                    }
+                }
+            }
+            if (sources.isEmpty()) return InteractionResult.PASS;
+            int pick = random.nextInt(sources.size());
+            ink = sources.get(pick);
+            color = colors.get(pick);
+        } else if (color == null) {
+            int front = PaintBoxItem.frontColor(PaintBoxItem.contents(ink)); // a box paints its front colour
+            if (front < 0) return InteractionResult.PASS;
+            color = DyeColor.byId(front);
         }
+        boolean fromBox = dyeColor(ink) == null;
         BlockState replacement = recolored(state, color);
         if (replacement == null || replacement.equals(state)) return InteractionResult.PASS;
         if (!level.isClientSide()) {

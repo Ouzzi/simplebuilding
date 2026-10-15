@@ -236,7 +236,8 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
             int colorPaletteLevel = EnchantmentHelper.getItemEnchantmentLevel(colorPaletteEntry, outputStack);
             int masterBuilderLevel = EnchantmentHelper.getItemEnchantmentLevel(masterBuilderEntry, outputStack);
 
-            if (colorPaletteLevel > 0 && masterBuilderLevel <= 0) {
+            if (colorPaletteLevel > 0 && masterBuilderLevel <= 0
+                    && !(outputStack.getItem() instanceof com.simplebuilding.items.custom.ColorBrushItem)) { // the brush has no Master Builder
                 this.resultSlots.setItem(0, ItemStack.EMPTY);
                 this.cost.set(0);
             }

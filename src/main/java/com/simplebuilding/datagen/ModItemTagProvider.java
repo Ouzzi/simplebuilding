@@ -282,6 +282,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         builder(ModTags.Items.FUNNEL_ENCHANTABLE)
                 .addTag(ModTags.Items.BUNDLE_ENCHANTABLE)
                 .addTag(ModTags.Items.BACKPACKS);
+        builder(ModTags.Items.COLOR_PALETTE_ENCHANTABLE)
+                .addTag(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
+                .add(key(ModItems.COLOR_BRUSH));
         builder(ModTags.Items.MASTER_BUILDER_ENCHANTABLE)
                 .addTag(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
                 .addTag(ModTags.Items.BACKPACKS);

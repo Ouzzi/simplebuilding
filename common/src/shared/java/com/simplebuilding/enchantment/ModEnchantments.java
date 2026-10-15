@@ -129,10 +129,10 @@ public class ModEnchantments {
                 EquipmentSlotGroup.MAINHAND
         )));
 
-        // Color Palette (Max Level I, allows changing block colors when placing from bundle or shulker, Treasure, Rare) [BUNDLE, SHULKER, BUILDING_WAND]
+        // Color Palette (Max Level I, allows changing block colors when placing from bundle or shulker, Treasure, Rare) [BUNDLE, SHULKER, BUILDING_WAND, COLOR_BRUSH]
         register(registerable, COLOR_PALETTE, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
-                items.getOrThrow(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.COLOR_PALETTE_ENCHANTABLE), // + Farbpinsel (zufaellige Farbe je Strich)
+                items.getOrThrow(ModTags.Items.COLOR_PALETTE_ENCHANTABLE),
                 2, // Weight (Rare)
                 1, // Max Level
                 Enchantment.dynamicCost(15, 15),

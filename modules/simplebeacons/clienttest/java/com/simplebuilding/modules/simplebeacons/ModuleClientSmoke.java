@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 /**
- * Client smoke: the two-column Strong Beacon screen (pyramid 6/6 and 4/6, the extra panel inside the window, no button
+ * Client smoke: the Strong Beacon screen (Vanilla style, two extra rows; pyramid 6/6 and 4/6, inside the window, no button
  * overlaps), the Strong Beacon on a six level pyramid with its beam, and a Strong Conduit in a full 7x7x7 frame.
  */
 public final class ModuleClientSmoke implements FabricClientGameTest {

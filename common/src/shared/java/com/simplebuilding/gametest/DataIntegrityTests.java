@@ -251,7 +251,7 @@ public final class DataIntegrityTests {
             Map.entry(ModEnchantments.FUNNEL, ModTags.Items.FUNNEL_ENCHANTABLE),
             Map.entry(ModEnchantments.DRAWER, ModTags.Items.BUNDLE_ENCHANTABLE),
             Map.entry(ModEnchantments.MASTER_BUILDER, ModTags.Items.MASTER_BUILDER_ENCHANTABLE),
-            Map.entry(ModEnchantments.COLOR_PALETTE, ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
+            Map.entry(ModEnchantments.COLOR_PALETTE, ModTags.Items.COLOR_PALETTE_ENCHANTABLE),
             Map.entry(ModEnchantments.BREAK_THROUGH, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
             Map.entry(ModEnchantments.RADIUS, ModTags.Items.RADIUS_ENCHANTABLE),
             Map.entry(ModEnchantments.OVERRIDE, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),

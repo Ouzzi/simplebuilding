@@ -64,7 +64,7 @@ public final class FabricExample implements ModInitializer {
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             out.accept(DisguiseRegistry.CLOAK);
-            out.accept(DisguiseRegistry.MIRROR);
+            if (MobsConfig.trickMirrorEnabled) out.accept(DisguiseRegistry.MIRROR);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!MobsRegistry.on()) return;

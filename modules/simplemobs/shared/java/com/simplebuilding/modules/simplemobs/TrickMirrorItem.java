@@ -35,6 +35,7 @@ public class TrickMirrorItem extends Item {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        if (!MobsConfig.trickMirrorEnabled) return InteractionResult.PASS;
         player.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.0f, 1.3f);
         return ItemUtils.startUsingInstantly(level, player, hand);
     }

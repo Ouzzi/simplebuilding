@@ -85,16 +85,16 @@ window.WIKI_MODULE_DATA["simplebeacons"] = {
         "modules/simplebeacons/shared/java/com/simplebeacons/client/StrongBeaconScreen.java"
       ],
       "en": {
-        "title": "Two-column screen",
-        "summary": "The Strong Beacon opens Vanilla's beacon screen with an extra panel on the right: the pyramid counter (for example Pyramid 6/6), a row for level 5 and one for level 6 with three powers each, and the current range and duration.",
+        "title": "Beacon screen",
+        "summary": "The Strong Beacon opens a beacon screen in Vanilla's own style, two rows taller: below Vanilla's rows a row for level 5 and one for level 6 with three powers each; the pyramid counter (for example Pyramid 6/6) and the current range and duration sit in the right field.",
         "details": [
           "Rows the pyramid does not reach yet are greyed out; their tooltip names the level and the blocks it needs (level 5: 285, level 6: 454).",
           "The tooltip of every new power says in one line what it does. The II button is greyed out while a new power is chosen."
         ]
       },
       "de": {
-        "title": "Zweispaltiger Bildschirm",
-        "summary": "Das Starke Leuchtfeuer öffnet den Vanilla-Leuchtfeuer-Bildschirm mit einem Zusatzfeld rechts: dem Pyramidenzähler (zum Beispiel Pyramide 6/6), einer Zeile für Ebene 5 und einer für Ebene 6 mit je drei Kräften sowie der aktuellen Reichweite und Dauer.",
+        "title": "Leuchtfeuer-Bildschirm",
+        "summary": "Das Starke Leuchtfeuer öffnet einen Leuchtfeuer-Bildschirm im Vanilla-Stil, zwei Zeilen höher: unter den Vanilla-Zeilen je eine Zeile für Ebene 5 und Ebene 6 mit drei Kräften; der Pyramidenzähler (zum Beispiel Pyramide 6/6) sowie Reichweite und Dauer stehen im rechten Feld.",
         "details": [
           "Zeilen, die die Pyramide noch nicht erreicht, sind ausgegraut; ihr Tooltip nennt die Ebene und die nötigen Blöcke (Ebene 5: 285, Ebene 6: 454).",
           "Der Tooltip jeder neuen Kraft sagt in einer Zeile, was sie tut. Der Knopf II ist ausgegraut, solange eine neue Kraft gewählt ist."
