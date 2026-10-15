@@ -1,6 +1,7 @@
 package com.simpleshops.logic;
 
 import com.simpleshops.block.DisplayCaseBlockEntity;
+import com.simpleshops.block.EarningsStore;
 import com.simpleshops.block.SalesBlockEntity;
 import com.simpleshops.config.ShopsConfig;
 import java.util.ArrayList;
@@ -44,21 +45,15 @@ public final class ShopTrade {
             ItemStack paid = pay.getItem(p);
             if (paid.isEmpty() || !ItemStack.isSameItemSameComponents(price, paid) || paid.getCount() < price.getCount()) return Result.WRONG_PAYMENT;
         }
-        NonNullList<ItemStack> simulated = NonNullList.withSize(sales.earnings().size(), ItemStack.EMPTY);
-        for (int i = 0; i < simulated.size(); i++) simulated.set(i, sales.earnings().get(i).copy());
-        // A server shop has no earnings store: the payment is a sink (or goes to the admin cash below), the stock is unlimited.
-        if (!server) {
-            for (int p = 0; p < PriceRow.SIZE; p++) {
-                ItemStack price = prices.get(p);
-                if (price.isEmpty()) continue;
-                if (!insert(simulated, price.copy()).isEmpty()) return Result.EARNINGS_FULL;
-            }
-        }
+        // The earnings go into the whole chain (sales block, then the storages below it with the same owner); a server shop has none.
+        List<EarningsStore> stores = server ? List.of() : ShopStorage.chain(sales);
+        List<NonNullList<ItemStack>> simulated = server ? List.of() : simulate(stores, prices);
+        if (simulated == null) return Result.EARNINGS_FULL;
         // Commit. Snapshots make a failure in here undo everything.
         ItemStack[] paySnapshot = new ItemStack[PriceRow.SIZE];
         for (int p = 0; p < PriceRow.SIZE; p++) paySnapshot[p] = pay.getItem(p).copy();
-        ItemStack[] earningsSnapshot = new ItemStack[sales.earnings().size()];
-        for (int i = 0; i < earningsSnapshot.length; i++) earningsSnapshot[i] = sales.earnings().get(i).copy();
+        List<List<ItemStack>> earningsSnapshot = new ArrayList<>();
+        for (EarningsStore store : stores) earningsSnapshot.add(copy(store.earnings()));
         ItemStack stockSnapshot = stock.copy();
         ItemStack delivered = stock.copyWithCount(1);
         try {
@@ -70,7 +65,9 @@ public final class ShopTrade {
                 pay.setItem(p, left.isEmpty() ? ItemStack.EMPTY : left);
             }
             if (!server) {
-                for (int i = 0; i < simulated.size(); i++) sales.earnings().set(i, simulated.get(i));
+                for (int n = 0; n < stores.size(); n++) {
+                    for (int i = 0; i < simulated.get(n).size(); i++) stores.get(n).earnings().set(i, simulated.get(n).get(i));
+                }
                 ItemStack rest = stock.copy();
                 rest.shrink(1);
                 shopCase.goods().set(ware, rest.isEmpty() ? ItemStack.EMPTY : rest);
@@ -78,7 +75,9 @@ public final class ShopTrade {
             buyer.getInventory().placeItemBackInInventory(delivered, true, net.minecraft.util.Prediction.SERVER_ONLY);
         } catch (RuntimeException e) {
             for (int p = 0; p < PriceRow.SIZE; p++) pay.setItem(p, paySnapshot[p]);
-            for (int i = 0; i < earningsSnapshot.length; i++) sales.earnings().set(i, earningsSnapshot[i]);
+            for (int n = 0; n < stores.size(); n++) {
+                for (int i = 0; i < earningsSnapshot.get(n).size(); i++) stores.get(n).earnings().set(i, earningsSnapshot.get(n).get(i));
+            }
             shopCase.goods().set(ware, stockSnapshot);
             com.simpleshops.SimpleShops.LOG.error("Trade rolled back", e);
             return Result.INVALID;
@@ -92,31 +91,38 @@ public final class ShopTrade {
             }
         } else {
             sales.bumpRevision();
-            sales.changed();
+            for (EarningsStore store : stores) store.changed();
             shopCase.changed();
         }
         pay.setChanged();
         return Result.OK;
     }
 
-    /** Merges {@code stack} into {@code list} (same item and components first, then empty slots); returns what did not fit. */
-    public static ItemStack insert(NonNullList<ItemStack> list, ItemStack stack) {
-        ItemStack rest = stack.copy();
-        int max = rest.getMaxStackSize();
-        for (int i = 0; i < list.size() && !rest.isEmpty(); i++) {
-            ItemStack at = list.get(i);
-            if (at.isEmpty() || !ItemStack.isSameItemSameComponents(at, rest) || at.getCount() >= max) continue;
-            int moved = Math.min(max - at.getCount(), rest.getCount());
-            at.grow(moved);
-            rest.shrink(moved);
+    private static List<ItemStack> copy(NonNullList<ItemStack> list) {
+        List<ItemStack> out = new ArrayList<>(list.size());
+        for (ItemStack s : list) out.add(s.copy());
+        return out;
+    }
+
+    /** Copies of the stores' slots with every price item merged in, or {@code null} when the whole price does not fit. */
+    private static @org.jspecify.annotations.Nullable List<NonNullList<ItemStack>> simulate(List<EarningsStore> stores, NonNullList<ItemStack> prices) {
+        List<NonNullList<ItemStack>> lists = new ArrayList<>();
+        for (EarningsStore store : stores) {
+            NonNullList<ItemStack> c = NonNullList.withSize(store.earnings().size(), ItemStack.EMPTY);
+            for (int i = 0; i < c.size(); i++) c.set(i, store.earnings().get(i).copy());
+            lists.add(c);
         }
-        for (int i = 0; i < list.size() && !rest.isEmpty(); i++) {
-            if (!list.get(i).isEmpty()) continue;
-            int moved = Math.min(max, rest.getCount());
-            list.set(i, rest.copyWithCount(moved));
-            rest.shrink(moved);
+        for (ItemStack price : prices) {
+            if (price.isEmpty()) continue;
+            if (!ShopStorage.insert(lists, price.copy()).isEmpty()) return null;
         }
-        return rest;
+        return lists;
+    }
+
+    /** Whether one trade's price still fits into the shop's earnings (a server shop always does). Used to disable the buy button. */
+    public static boolean fits(SalesBlockEntity sales) {
+        if (sales.isServerShop()) return true;
+        return simulate(ShopStorage.chain(sales), sales.prices()) != null;
     }
 
     private ShopTrade() {}

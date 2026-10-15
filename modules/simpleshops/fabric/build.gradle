@@ -4,3 +4,6 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 dependencies { include project(':framework') }
 // SimpleLib (InWorldStrikes, upgrade tools, UI boxes) nested per principle 6a; compiled against.
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// JUnit for the pure layout constants of the shop screens (no game needed)
+dependencies { testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'; testRuntimeOnly 'org.junit.platform:junit-platform-launcher' }
+test { useJUnitPlatform() }

@@ -62,12 +62,12 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       ],
       "en": {
         "title": "Sales Block",
-        "summary": "The cash register of a shop: a wooden block under the Display Case. One price per Sales Block, up to five price items, plus nine slots for the earnings. Craft: 6 planks, 2 iron ingots, 1 chest. Its owner is the player who placed it.",
+        "summary": "The cash register of a shop: a wooden block under the Display Case. One price per Sales Block, up to five price items, plus 27 slots for the earnings. Craft: 6 planks, 2 iron ingots, 1 chest. Its owner is the player who placed it.",
         "details": [
           "Price row (filter principle): hold an item on the cursor and click a price slot. Right click adds the cursor stack size, left click adds 1; a different item replaces the entry; an empty cursor removes it. The price slots only hold templates: the cursor stack is never used up and no price item can be taken out.",
           "Layout: five positions. An empty row shows only the middle one; a filled middle shows one empty slot on each side, and a filled side slot shows the next one outward (maximum five). Removing a price moves the outer ones inward.",
           "Prices match exactly, including name, enchantments and every other component. No price = nothing is for sale.",
-          "Earnings land in the nine earnings slots of the owner menu (also while the owner is offline). Take them out there; they drop when the block is removed.",
+          "Earnings land in the 27 earnings slots of the owner menu (also while the owner is offline). Take them out there; they drop when the block is removed.",
           "The block shows the first price item on its front."
         ]
       },
@@ -78,7 +78,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "Preiszeile (Filter-Prinzip): Item auf den Cursor nehmen und einen Preisplatz anklicken. Rechtsklick addiert die Stapelgröße des Cursors, Linksklick 1; ein anderes Item ersetzt den Eintrag; ein leerer Cursor entfernt ihn. Die Preisplätze halten nur Vorlagen: der Cursor-Stapel wird nie verbraucht und kein Preis-Item lässt sich herausnehmen.",
           "Anordnung: fünf Positionen. Eine leere Zeile zeigt nur die Mitte; ist die Mitte gefüllt, erscheint rechts und links je ein leerer Platz, und ein gefüllter Seitenplatz zeigt den nächsten weiter außen (höchstens fünf). Wird ein Preis entfernt, rücken die äußeren nach innen.",
           "Preise passen exakt, auch Name, Verzauberungen und jede andere Komponente. Kein Preis = nichts steht zum Verkauf.",
-          "Einnahmen liegen in den neun Einnahme-Plätzen des Besitzer-Menüs (auch wenn der Besitzer offline ist). Dort entnehmen; sie fallen beim Abbau des Blocks heraus.",
+          "Einnahmen liegen in den 27 Einnahme-Plätzen des Besitzer-Menüs (auch wenn der Besitzer offline ist). Dort entnehmen; sie fallen beim Abbau des Blocks heraus.",
           "Der Block zeigt auf der Vorderseite das erste Preis-Item."
         ]
       }
@@ -417,6 +417,58 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "#minecraft:planks"
         ]
       }
+    },
+    {
+      "id": "simpleshops:sales_storage",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleshops:sales_storage",
+        "count": 1
+      },
+      "source": "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_storage.json",
+      "ingredients": [
+        "#minecraft:planks",
+        "minecraft:chest",
+        "minecraft:hopper",
+        "minecraft:iron_ingot"
+      ],
+      "pattern": [
+        "PPP",
+        "ICI",
+        "PHP"
+      ],
+      "key": {
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "C": [
+          "minecraft:chest"
+        ],
+        "P": [
+          "#minecraft:planks"
+        ],
+        "H": [
+          "minecraft:hopper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 7
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 5.25
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:planks"
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -467,6 +519,22 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         }
       ],
       "source": "modules/simpleshops/shared/resources/data/simpleshops/loot_table/blocks/sales_block.json"
+    },
+    {
+      "id": "simpleshops:blocks/sales_storage",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleshops:sales_storage"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleshops/shared/resources/data/simpleshops/loot_table/blocks/sales_storage.json"
     }
   ],
   "tags": [],
@@ -607,10 +675,10 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_block.json"
         ],
         "en": {
-          "summary": "Cash register of a shop: price row of up to five template items and nine earnings slots. Only the owner opens that menu; everyone else buys. Planks, iron ingots and a chest."
+          "summary": "Cash register of a shop: price row of up to five template items and 27 earnings slots. Only the owner opens that menu; everyone else buys. Planks, iron ingots and a chest."
         },
         "de": {
-          "summary": "Kasse eines Shops: Preiszeile aus bis zu fünf Vorlagen-Items und neun Einnahme-Plätzen. Nur der Besitzer öffnet dieses Menü; alle anderen kaufen. Bretter, Eisenbarren und eine Truhe."
+          "summary": "Kasse eines Shops: Preiszeile aus bis zu fünf Vorlagen-Items und 27 Einnahme-Plätzen. Nur der Besitzer öffnet dieses Menü; alle anderen kaufen. Bretter, Eisenbarren und eine Truhe."
         }
       },
       "questionary": {
@@ -641,6 +709,53 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         "simpleshops:sales_block"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleshops:sales_storage",
+      "name": {
+        "en_us": "Sales Storage",
+        "de_de": "Verkaufslager"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleshops/shared/java/com/simpleshops/ShopsRegistry.java",
+          "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_storage.json"
+        ],
+        "en": {
+          "summary": "Chest-sized extra store for the earnings: it pulls them from the Sales Block (or the storage) directly above, passes them down like a hopper chain, and works only when every block in the chain has the same owner. Same protection as the Sales Block. Planks, iron ingots, a chest and a hopper."
+        },
+        "de": {
+          "summary": "Truhengroßes Zusatzlager für die Einnahmen: zieht sie aus dem Verkaufsblock (oder Lager) direkt darüber, gibt sie wie eine Trichterkette nach unten weiter und arbeitet nur, wenn alle Blöcke der Kette denselben Besitzer haben. Gleicher Schutz wie der Verkaufsblock. Bretter, Eisenbarren, eine Truhe und ein Trichter."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A crate with two iron bands and a funnel on top: the overflow bin of a busy shop."
+          ],
+          "use": [
+            "Hang it under your Sales Block (or under another storage). It pulls the earnings down by itself, hopper style, as long as every block of the chain is yours. Right click to take things out."
+          ],
+          "secret": [
+            "Strangers cannot open, break, push or empty it; hoppers do not see it. A full chain turns the Trade button off."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Kiste mit zwei Eisenbändern und einem Trichter oben: der Überlauf eines gut besuchten Ladens."
+          ],
+          "use": [
+            "Häng sie unter deinen Verkaufsblock (oder unter ein weiteres Lager). Sie zieht die Einnahmen von selbst nach unten, wie ein Trichter, solange jeder Block der Kette dir gehört. Rechtsklick zum Entnehmen."
+          ],
+          "secret": [
+            "Fremde können sie nicht öffnen, abbauen, schieben oder leeren; Trichter sehen sie nicht. Eine volle Kette schaltet den Tausch-Knopf aus."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleshops:sales_storage"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -658,13 +773,13 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
   "incompleteProse": {},
   "counts": {
     "features": 7,
-    "recipes": 4,
-    "lootTables": 3,
+    "recipes": 5,
+    "lootTables": 4,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 3,
+    "blocks": 4,
     "trades": 0,
     "config": 0,
     "quests": 0,

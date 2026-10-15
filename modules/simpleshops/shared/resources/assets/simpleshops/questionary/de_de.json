@@ -31,5 +31,16 @@
     "secret": [
       "Herstellen aus einer Vitrine und einem Leuchttintenbeutel; die Ware wird voll hell gezeichnet."
     ]
+  },
+  "sales_storage": {
+    "lore": [
+      "Eine Kiste mit zwei Eisenbändern und einem Trichter oben: der Überlauf eines gut besuchten Ladens."
+    ],
+    "use": [
+      "Häng sie unter deinen Verkaufsblock (oder unter ein weiteres Lager). Sie zieht die Einnahmen von selbst nach unten, wie ein Trichter, solange jeder Block der Kette dir gehört. Rechtsklick zum Entnehmen."
+    ],
+    "secret": [
+      "Fremde können sie nicht öffnen, abbauen, schieben oder leeren; Trichter sehen sie nicht. Eine volle Kette schaltet den Tausch-Knopf aus."
+    ]
   }
 }

@@ -4,6 +4,7 @@ import com.simpleshops.ShopsRegistry;
 import com.simpleshops.SimpleShops;
 import com.simpleshops.block.DisplayCaseBlockEntity;
 import com.simpleshops.block.SalesBlockEntity;
+import com.simpleshops.block.SalesStorageBlockEntity;
 import com.simpleshops.logic.ShopGuard;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
@@ -22,7 +23,8 @@ public final class ShopsFabric implements ModInitializer {
         ShopsRegistry.registerBlocks();
         ShopsRegistry.registerItems();
         ShopsRegistry.registerBlockEntities(new BlockEntityType<>(SalesBlockEntity::new, ShopsRegistry.salesBlocks()),
-                new BlockEntityType<>(DisplayCaseBlockEntity::new, ShopsRegistry.caseBlocks()));
+                new BlockEntityType<>(DisplayCaseBlockEntity::new, ShopsRegistry.caseBlocks()),
+                new BlockEntityType<>(SalesStorageBlockEntity::new, ShopsRegistry.storageBlocks()));
         ShopsRegistry.registerMenus();
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((dispatcher, registry, environment) ->
                 com.simpleshops.logic.ServerShopCommands.register(dispatcher, registry));
