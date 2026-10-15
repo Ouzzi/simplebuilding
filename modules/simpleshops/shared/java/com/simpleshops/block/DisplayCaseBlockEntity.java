@@ -26,6 +26,8 @@ public class DisplayCaseBlockEntity extends BlockEntity {
     private @Nullable UUID owner;
     private String ownerName = "";
     private final NonNullList<ItemStack> goods = NonNullList.withSize(SIZE, ItemStack.EMPTY);
+    /** Server (unlimited) shop: the goods are templates that are copied per purchase, never dropped. */
+    private boolean server;
 
     public DisplayCaseBlockEntity(BlockPos pos, BlockState state) {
         super(ShopsRegistry.CASE_BE, pos, state);
@@ -46,6 +48,22 @@ public class DisplayCaseBlockEntity extends BlockEntity {
     public void initFor(ServerPlayer placer) {
         this.owner = placer.getUUID();
         this.ownerName = placer.getGameProfile().name();
+        for (int i = 0; i < SIZE; i++) this.goods.set(i, ItemStack.EMPTY);
+        changed();
+    }
+
+    public boolean isServerShop() {
+        return this.server;
+    }
+
+    public boolean mayEdit(net.minecraft.world.entity.player.Player player) {
+        return isOwner(player.getUUID()) || (this.server && com.simpleshops.logic.ShopGuard.isAdmin(player));
+    }
+
+    public void initServer() {
+        this.owner = null;
+        this.ownerName = "Server";
+        this.server = true;
         for (int i = 0; i < SIZE; i++) this.goods.set(i, ItemStack.EMPTY);
         changed();
     }
@@ -83,6 +101,7 @@ public class DisplayCaseBlockEntity extends BlockEntity {
         super.loadAdditional(input);
         this.owner = input.read("owner", UUIDUtil.CODEC).orElse(null);
         this.ownerName = input.getStringOr("owner_name", "");
+        this.server = input.getBooleanOr("server", false);
         for (int i = 0; i < SIZE; i++) this.goods.set(i, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(input, this.goods);
     }
@@ -92,6 +111,7 @@ public class DisplayCaseBlockEntity extends BlockEntity {
         super.saveAdditional(output);
         if (this.owner != null) output.store("owner", UUIDUtil.CODEC, this.owner);
         output.putString("owner_name", this.ownerName);
+        if (this.server) output.putBoolean("server", true);
         ContainerHelper.saveAllItems(output, this.goods, false);
     }
 
@@ -110,7 +130,7 @@ public class DisplayCaseBlockEntity extends BlockEntity {
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         super.preRemoveSideEffects(pos, state);
         if (this.level != null && !this.level.isClientSide()) {
-            Containers.dropContents(this.level, pos, this.goods);
+            if (!this.server) Containers.dropContents(this.level, pos, this.goods);
             for (int i = 0; i < SIZE; i++) this.goods.set(i, ItemStack.EMPTY);
             com.simpleshops.logic.ShopLedger.forget(this.level, pos);
         }

@@ -37,7 +37,7 @@ public class StockMenu extends ShopMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        if (this.shopCase != null && !this.shopCase.isOwner(player.getUUID())) return false;
+        if (this.shopCase != null && !this.shopCase.mayEdit(player)) return false;
         return super.stillValid(player);
     }
 

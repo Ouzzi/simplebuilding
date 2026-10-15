@@ -113,6 +113,39 @@
       }
     },
     {
+      "id": "server_shop",
+      "sources": [
+        "modules/simpleshops/shared/java/com/simpleshops/logic/ServerShopCommands.java",
+        "modules/simpleshops/shared/java/com/simpleshops/logic/ServerShops.java",
+        "modules/simpleshops/shared/java/com/simpleshops/logic/ShopTrade.java",
+        "modules/simpleshops/shared/java/com/simpleshops/block/SalesBlockEntity.java"
+      ],
+      "en": {
+        "title": "Server shop",
+        "summary": "An unlimited shop that only operators (permission level 2) create and configure with /servershop. Everybody, operators included, buys from it in the normal buyer menu.",
+        "details": [
+          "/servershop create [pos] builds a Sales Block with a Display Case on top and gives it an id (s001, s002 ...). Ids are saved in the world and never reused.",
+          "/servershop price <id> add <item> [count] | remove <position> | clear and /servershop goods <id> add <item> [count] | remove <slot> | clear set the five price positions and five goods slots; /servershop edit <id> price|goods opens the owner menus.",
+          "/servershop list [coords|items], info <id>, tp <id>, remove <id> manage the shops; /servershop cash shows or clears the admin cash.",
+          "The stock is unlimited: every purchase hands out one exact copy of the chosen goods stack and the stack itself never shrinks. The payment is checked exactly like in a player shop (same item and components, full amount).",
+          "Payments vanish. With the server setting collectServerShopIncome they are summed in the admin cash instead; nothing is ever dropped or stored in a chest.",
+          "Only operators break the blocks; nothing drops when a server shop is removed. Several players can buy at the same time (no one-player lock)."
+        ]
+      },
+      "de": {
+        "title": "Server-Shop",
+        "summary": "Ein unbegrenzter Shop, den nur Operatoren (Berechtigungsstufe 2) mit /servershop erstellen und einrichten. Alle, auch Operatoren, kaufen im normalen Käufer-Menü.",
+        "details": [
+          "/servershop create [pos] baut einen Verkaufsblock mit Vitrine darauf und vergibt eine ID (s001, s002 ...). IDs liegen im Weltspeicher und werden nie wiederverwendet.",
+          "/servershop price <id> add <item> [Anzahl] | remove <Position> | clear und /servershop goods <id> add <item> [Anzahl] | remove <Fach> | clear setzen die fünf Preispositionen und fünf Warenfächer; /servershop edit <id> price|goods öffnet die Besitzer-Menüs.",
+          "/servershop list [coords|items], info <id>, tp <id>, remove <id> verwalten die Shops; /servershop cash zeigt oder leert die Admin-Kasse.",
+          "Der Vorrat ist unbegrenzt: Jeder Kauf gibt eine exakte Kopie des gewählten Warenstapels heraus, der Stapel selbst schrumpft nie. Die Zahlung wird genau wie im Spieler-Shop geprüft (gleiches Item samt Komponenten, volle Menge).",
+          "Zahlungen verschwinden. Mit der Server-Einstellung collectServerShopIncome werden sie stattdessen in der Admin-Kasse summiert; nichts wird gedroppt oder in einer Kiste gelagert.",
+          "Nur Operatoren bauen die Blöcke ab; beim Entfernen eines Server-Shops fällt nichts heraus. Mehrere Spieler können gleichzeitig kaufen (keine Ein-Spieler-Sperre)."
+        ]
+      }
+    },
+    {
       "id": "shop_protection",
       "sources": [
         "modules/simpleshops/shared/java/com/simpleshops/logic/ShopGuard.java",
@@ -182,6 +215,7 @@
           "enabled (true): off makes the module inert (no trading, no menus, no new placements); placed shops keep their protection.",
           "maxShopsPerPlayer (16, 1 to 64): Sales Blocks and Display Cases each a player may have placed.",
           "idleTimeoutSeconds (300, 30 to 1800): seconds without a click before the server closes a shop menu.",
+          "collectServerShopIncome (false): off = the payments of a server shop vanish; on = they are summed in the admin cash (/servershop cash).",
           "With SimpleBuilding the switch Enable Simple Shops in its config turns the bundled module on or off."
         ]
       },
@@ -192,6 +226,7 @@
           "enabled (true): aus macht das Modul wirkungslos (kein Handel, keine Menüs, keine neuen Platzierungen); gesetzte Shops behalten ihren Schutz.",
           "maxShopsPerPlayer (16, 1 bis 64): Verkaufsblöcke und Vitrinen, die ein Spieler je gesetzt haben darf.",
           "idleTimeoutSeconds (300, 30 bis 1800): Sekunden ohne Klick, bevor der Server ein Shop-Menü schließt.",
+          "collectServerShopIncome (false): aus = die Zahlungen eines Server-Shops verschwinden; an = sie werden in der Admin-Kasse summiert (/servershop cash).",
           "Mit SimpleBuilding schaltet der Schalter Simple Shops aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -449,10 +484,10 @@
           "modules/simpleshops/shared/resources/data/simpleshops/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 10 pages taken from this wiki, shown in your language. Shapeless recipe: book + emerald. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Shops\" gives one for free."
+          "summary": "Guide to this mod: 11 pages taken from this wiki, shown in your language. Shapeless recipe: book + emerald. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Shops\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 10 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Smaragd. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Shops\" eins."
+          "summary": "Handbuch zu dieser Mod: 11 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Smaragd. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Shops\" eins."
         }
       },
       "texture": "assets/textures/simpleshops/item/guide_book.png",
@@ -621,7 +656,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 6,
+    "features": 7,
     "recipes": 4,
     "lootTables": 3,
     "tags": 0,

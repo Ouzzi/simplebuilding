@@ -17,7 +17,7 @@ import java.util.List;
 public final class ShopsConfig {
     public static final String FILE = "simpleshops-server.json";
     /** Every key of the file (wiki and check_data read this list). */
-    public static final List<String> KEYS = List.of("enabled", "maxShopsPerPlayer", "idleTimeoutSeconds");
+    public static final List<String> KEYS = List.of("enabled", "maxShopsPerPlayer", "idleTimeoutSeconds", "collectServerShopIncome");
 
     public static final int MAX_SHOPS_DEFAULT = 16, MAX_SHOPS_MIN = 1, MAX_SHOPS_MAX = 64;
     public static final int IDLE_DEFAULT = 300, IDLE_MIN = 30, IDLE_MAX = 1800;
@@ -27,6 +27,9 @@ public final class ShopsConfig {
     public static int maxShopsPerPlayer = MAX_SHOPS_DEFAULT;
     /** Seconds without a click before the server closes a shop menu (keeps an AFK player from blocking a shop). */
     public static int idleTimeoutSeconds = IDLE_DEFAULT;
+
+    /** Server shops: false = the price items vanish (sink), true = they are summed in the admin cash ({@code /servershop cash}). */
+    public static boolean collectServerShopIncome = false;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -50,6 +53,7 @@ public final class ShopsConfig {
         enabled = bool(json, "enabled", true);
         maxShopsPerPlayer = clamp(integer(json, "maxShopsPerPlayer", MAX_SHOPS_DEFAULT), MAX_SHOPS_MIN, MAX_SHOPS_MAX);
         idleTimeoutSeconds = clamp(integer(json, "idleTimeoutSeconds", IDLE_DEFAULT), IDLE_MIN, IDLE_MAX);
+        collectServerShopIncome = bool(json, "collectServerShopIncome", false);
     }
 
     public static JsonObject toJson() {
@@ -57,6 +61,7 @@ public final class ShopsConfig {
         o.addProperty("enabled", enabled);
         o.addProperty("maxShopsPerPlayer", maxShopsPerPlayer);
         o.addProperty("idleTimeoutSeconds", idleTimeoutSeconds);
+        o.addProperty("collectServerShopIncome", collectServerShopIncome);
         return o;
     }
 

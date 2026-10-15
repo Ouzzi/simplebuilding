@@ -651,6 +651,6 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpletweaks"
     ],
-    "dataHash": "943aed86a953"
+    "dataHash": "2d1d4ae27c21"
   }
 ];
