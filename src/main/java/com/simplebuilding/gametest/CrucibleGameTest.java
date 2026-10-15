@@ -102,6 +102,11 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
+    public void copperBucketPlacedWeathersAndFrameCare(GameTestHelper helper) {
+        CrucibleTests.copperBucketPlacedWeathersAndFrameCare(helper);
+    }
+
+    @GameTest
     public void ceramicBucketWithLavaIsBrittleAndBreaksOnPour(GameTestHelper helper) {
         CrucibleTests.ceramicBucketWithLavaIsBrittleAndBreaksOnPour(helper);
     }

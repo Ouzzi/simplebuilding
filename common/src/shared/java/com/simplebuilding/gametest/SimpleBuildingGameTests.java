@@ -764,6 +764,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_copper_bucket_waxed_water_weathers_at_half_pace", CrucibleTests::copperBucketWaxedWaterWeathersAtHalfPace)
                     .build(),
+            GameTestSpec.named("crucible_game_test_copper_bucket_placed_weathers_and_frame_care", CrucibleTests::copperBucketPlacedWeathersAndFrameCare)
+                    .build(),
             GameTestSpec.named("crucible_game_test_ceramic_bucket_with_lava_is_brittle_and_breaks_on_pour", CrucibleTests::ceramicBucketWithLavaIsBrittleAndBreaksOnPour)
                     .build(),
             GameTestSpec.named("crucible_game_test_copper_bucket_fully_oxidized_scoops_nothing", CrucibleTests::copperBucketFullyOxidizedScoopsNothing)
