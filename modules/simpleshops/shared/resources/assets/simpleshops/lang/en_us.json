@@ -45,6 +45,7 @@
   "commands.simpleshops.servershop.cash.off": "Admin cash (not collecting, payments vanish):",
   "commands.simpleshops.servershop.cash.empty": "Empty",
   "commands.simpleshops.servershop.cash.cleared": "Admin cash cleared",
+  "layer.simpleshops.shops": "Shops",
   "item.simpleshops.guide_book": "Simple Shops Guide",
   "simpleshops.guide.page.1.title": "Simple Shops",
   "simpleshops.guide.page.1": "Player shops: a Sales Block with a price and a Display Case with up to five goods, protected from strangers and explosions. Buyers swap price items for one piece per trade.",
@@ -71,6 +72,5 @@
   "quests.simpleshops.start.title": "Welcome to Simple Shops",
   "quests.simpleshops.start.subtitle": "Your free guide",
   "quests.simpleshops.start.welcome.title": "A free guide",
-  "quests.simpleshops.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Shops Guide as a reward. You can also craft it from a book and an emerald.",
-  "layer.simpleshops.shops": "Shops"
+  "quests.simpleshops.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Shops Guide as a reward. You can also craft it from a book and an emerald."
 }

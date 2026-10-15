@@ -45,6 +45,7 @@
   "commands.simpleshops.servershop.cash.off": "Admin-Kasse (sammelt nicht, Zahlungen verschwinden):",
   "commands.simpleshops.servershop.cash.empty": "Leer",
   "commands.simpleshops.servershop.cash.cleared": "Admin-Kasse geleert",
+  "layer.simpleshops.shops": "Shops",
   "item.simpleshops.guide_book": "Simple-Shops-Handbuch",
   "simpleshops.guide.page.1.title": "Simple Shops",
   "simpleshops.guide.page.1": "Spieler-Shops: ein Verkaufsblock mit Preis und eine Vitrine mit bis zu fünf Waren, geschützt vor Fremden und Explosionen. Käufer tauschen Preis-Items gegen ein Stück je Tausch.",
@@ -71,6 +72,5 @@
   "quests.simpleshops.start.title": "Willkommen bei Simple Shops",
   "quests.simpleshops.start.subtitle": "Dein Handbuch gratis",
   "quests.simpleshops.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleshops.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Shops-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Smaragd herstellen.",
-  "layer.simpleshops.shops": "Shops"
+  "quests.simpleshops.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Shops-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Smaragd herstellen."
 }
