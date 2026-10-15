@@ -149914,22 +149914,37 @@ window.WIKI_DATA = {
       "type": "minecraft:chest",
       "pools": [
         {
-          "rolls": 1,
-          "items": [],
+          "rolls": {
+            "type": "minecraft:uniform",
+            "min": 3,
+            "max": 5
+          },
+          "items": [
+            "minecraft:iron_ingot",
+            "minecraft:gold_ingot",
+            "minecraft:purpur_block",
+            "minecraft:chorus_fruit",
+            "minecraft:end_rod",
+            "minecraft:ender_pearl",
+            "minecraft:emerald"
+          ],
           "conditions": [],
           "functions": []
         },
         {
-          "rolls": {
-            "type": "minecraft:uniform",
-            "min": 1,
-            "max": 2
-          },
+          "rolls": 1,
           "items": [
-            "minecraft:iron_nugget",
-            "minecraft:purpur_block",
-            "minecraft:chorus_fruit"
+            "minecraft:diamond",
+            "minecraft:emerald",
+            "minecraft:ender_pearl",
+            "minecraft:book"
           ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [],
           "conditions": [],
           "functions": []
         }

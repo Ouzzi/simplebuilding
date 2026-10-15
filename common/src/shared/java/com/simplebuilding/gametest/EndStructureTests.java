@@ -69,7 +69,7 @@ public final class EndStructureTests {
         }
         // N66: wrecks use the End ship palette only (no wool, no cloth); wells use End rods, not torches
         java.util.Set<net.minecraft.world.level.block.Block> shipPalette = java.util.Set.of(Blocks.AIR, Blocks.CHEST, Blocks.END_ROD, Blocks.END_STONE,
-                Blocks.END_STONE_BRICKS, Blocks.END_STONE_BRICK_WALL, Blocks.MAGENTA_STAINED_GLASS, Blocks.OBSIDIAN, Blocks.PURPUR_BLOCK,
+                Blocks.END_STONE_BRICKS, Blocks.END_STONE_BRICK_WALL, net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("magenta_stained_glass")), Blocks.OBSIDIAN, Blocks.PURPUR_BLOCK,
                 Blocks.PURPUR_PILLAR, Blocks.PURPUR_SLAB, Blocks.PURPUR_STAIRS);
         var settings = new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings();
         for (String t : TEMPLATES) {

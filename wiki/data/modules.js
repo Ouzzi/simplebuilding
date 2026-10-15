@@ -553,7 +553,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "8628060c5a0f"
+    "dataHash": "91c87038bafa"
   },
   {
     "id": "simplerespawn",
