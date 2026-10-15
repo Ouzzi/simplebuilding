@@ -7805,13 +7805,13 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A book bound with blaze powder instead of leather; three of them go into a blazewood bookshelf.",
           "details": [
-            "Recipe (shapeless): 3 Paper + 1 Blaze Powder."
+            "Recipe: 8 Blaze Powder around 1 Book."
           ]
         },
         "de": {
           "summary": "Ein Buch, mit Lohenstaub statt Leder gebunden; drei davon kommen in ein Lohen-Bücherregal.",
           "details": [
-            "Rezept (formlos): 3 Papier + 1 Lohenstaub."
+            "Rezept: 8 Lohenstaub um 1 Buch."
           ]
         },
         "sources": [
@@ -48535,7 +48535,8 @@ window.WIKI_DATA = {
         "simplebuilding:yarn_ball_from_wool"
       ],
       "usedIn": [
-        "simplebuilding:silent_dandelion"
+        "simplebuilding:silent_dandelion",
+        "simplebuilding:wool_from_yarn_balls"
       ],
       "trades": [],
       "questionary": {
@@ -48564,13 +48565,13 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "One wool block of any color crafts two Balls of Yarn (there is no recipe from string). Eight balls around a dandelion craft a Silent Dandelion.",
+          "summary": "One wool block of any color crafts two Balls of Yarn (there is no recipe from string); two balls craft one white wool block again. Eight balls around a dandelion craft a Silent Dandelion.",
           "details": [
             "Sneak + use places yarn with the existing small parts: up to four parts on one spot. The placed item uses the same yarn sprite and drops itself when broken. Server placement options still apply."
           ]
         },
         "de": {
-          "summary": "Ein Wollblock beliebiger Farbe ergibt zwei Wollknäuel (aus Faden gibt es kein Rezept). Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
+          "summary": "Ein Wollblock beliebiger Farbe ergibt zwei Wollknäuel (aus Faden gibt es kein Rezept); zwei Knäuel ergeben wieder einen weißen Wollblock. Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
           "details": [
             "Schleichen + Benutzen legt das Knäuel mit den vorhandenen Kleinteilen ab: bis zu vier Teile auf einem Fleck. Abgelegt nutzt es dieselbe Knäuel-Textur und droppt sich beim Abbauen. Die serverseitigen Platzierungsoptionen gelten weiterhin."
           ]
@@ -83466,7 +83467,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:blaze_book",
-      "type": "minecraft:crafting_shapeless",
+      "type": "minecraft:crafting_shaped",
       "category": null,
       "group": null,
       "result": {
@@ -83476,22 +83477,21 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/blaze_book.json",
       "ingredients": [
         "minecraft:blaze_powder",
-        "minecraft:paper"
+        "minecraft:book"
       ],
-      "ingredientGroups": [
-        [
-          "minecraft:paper"
-        ],
-        [
-          "minecraft:paper"
-        ],
-        [
-          "minecraft:paper"
-        ],
-        [
+      "pattern": [
+        "BBB",
+        "BKB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
           "minecraft:blaze_powder"
+        ],
+        "K": [
+          "minecraft:book"
         ]
-      ],
+      },
       "lines": [
         "26.3"
       ],
@@ -83499,12 +83499,16 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
+            "id": "minecraft:blaze_rod",
+            "count": 4
+          },
+          {
             "id": "minecraft:sugar_cane",
             "count": 3
           },
           {
-            "id": "minecraft:blaze_rod",
-            "count": 0.5
+            "id": "minecraft:leather",
+            "count": 1
           }
         ]
       }
@@ -88898,11 +88902,15 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:blaze_rod",
-            "count": 25.5
+            "count": 36
           },
           {
             "id": "minecraft:sugar_cane",
             "count": 9
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 3
           },
           {
             "id": "minecraft:crimson_stem",
@@ -136243,11 +136251,15 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:blaze_rod",
-            "count": 25.5
+            "count": 36
           },
           {
             "id": "minecraft:sugar_cane",
             "count": 9
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 3
           },
           {
             "id": "minecraft:warped_stem",
@@ -138208,6 +138220,40 @@ window.WIKI_DATA = {
       ],
       "baseMaterials": {
         "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:wool_from_yarn_balls",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:white_wool",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/wool_from_yarn_balls.json",
+      "ingredients": [
+        "simplebuilding:yarn_ball"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:yarn_ball"
+        ],
+        [
+          "simplebuilding:yarn_ball"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
         "materials": [
           {
             "id": "minecraft:string",
@@ -186049,7 +186095,7 @@ window.WIKI_DATA = {
   "counts": {
     "items": 779,
     "blocks": 513,
-    "recipes": 1361,
+    "recipes": 1362,
     "lootTables": 370,
     "trades": 20,
     "enchantments": 19,

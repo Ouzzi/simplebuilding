@@ -10734,13 +10734,13 @@
       "en": {
         "summary": "A book bound with blaze powder instead of leather; three of them go into a blazewood bookshelf.",
         "details": [
-          "Recipe (shapeless): 3 Paper + 1 Blaze Powder."
+          "Recipe: 8 Blaze Powder around 1 Book."
         ]
       },
       "de": {
         "summary": "Ein Buch, mit Lohenstaub statt Leder gebunden; drei davon kommen in ein Lohen-Bücherregal.",
         "details": [
-          "Rezept (formlos): 3 Papier + 1 Lohenstaub."
+          "Rezept: 8 Lohenstaub um 1 Buch."
         ]
       },
       "sources": [
@@ -11421,13 +11421,13 @@
     },
     "yarn_ball": {
       "en": {
-        "summary": "One wool block of any color crafts two Balls of Yarn (there is no recipe from string). Eight balls around a dandelion craft a Silent Dandelion.",
+        "summary": "One wool block of any color crafts two Balls of Yarn (there is no recipe from string); two balls craft one white wool block again. Eight balls around a dandelion craft a Silent Dandelion.",
         "details": [
           "Sneak + use places yarn with the existing small parts: up to four parts on one spot. The placed item uses the same yarn sprite and drops itself when broken. Server placement options still apply."
         ]
       },
       "de": {
-        "summary": "Ein Wollblock beliebiger Farbe ergibt zwei Wollknäuel (aus Faden gibt es kein Rezept). Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
+        "summary": "Ein Wollblock beliebiger Farbe ergibt zwei Wollknäuel (aus Faden gibt es kein Rezept); zwei Knäuel ergeben wieder einen weißen Wollblock. Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
         "details": [
           "Schleichen + Benutzen legt das Knäuel mit den vorhandenen Kleinteilen ab: bis zu vier Teile auf einem Fleck. Abgelegt nutzt es dieselbe Knäuel-Textur und droppt sich beim Abbauen. Die serverseitigen Platzierungsoptionen gelten weiterhin."
         ]

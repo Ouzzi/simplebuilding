@@ -168,6 +168,9 @@ public final class SilentDandelionTests {
             craft(helper, "yarn_ball_from_wool", CraftingInput.of(1, 1, List.of(new ItemStack(wool))), ModItems.YARN_BALL, 2);
         }
         ItemStack yarn = new ItemStack(ModItems.YARN_BALL);
+        // Nachtrag 60: two balls craft one white wool again (the other direction stays 1 wool -> 2 balls)
+        craft(helper, "wool_from_yarn_balls", CraftingInput.of(2, 1, List.of(yarn.copy(), yarn.copy())),
+                Items.WOOL.pick(net.minecraft.world.item.DyeColor.WHITE), 1);
         craft(helper, "silent_dandelion", CraftingInput.of(3, 3, List.of(yarn.copy(), yarn.copy(), yarn.copy(), yarn.copy(),
                 new ItemStack(Items.DANDELION), yarn.copy(), yarn.copy(), yarn.copy(), yarn.copy())), ModItems.SILENT_DANDELION, 1);
         helper.succeed();

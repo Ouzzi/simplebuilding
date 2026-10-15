@@ -462,6 +462,16 @@ public final class AstralEnchantingTests {
             helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplebuilding", id))).isPresent(),
                     "recipe " + id + " is not loaded");
         }
+        // Nachtrag 60: 8 Blaze Powder around 1 Book; the old 3 Paper + 1 Blaze Powder is gone
+        var book = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE,
+                Identifier.fromNamespaceAndPath("simplebuilding", "blaze_book"))).orElseThrow().value();
+        ItemStack powder = new ItemStack(Items.BLAZE_POWDER);
+        var ring = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(powder.copy(), powder.copy(), powder.copy(),
+                powder.copy(), new ItemStack(Items.BOOK), powder.copy(), powder.copy(), powder.copy(), powder.copy()));
+        helper.assertTrue(book.matches(ring, helper.getLevel()) && book.assemble(ring).is(ModItems.BLAZE_BOOK), "8 blaze powder + book craft the blaze book");
+        var old = net.minecraft.world.item.crafting.CraftingInput.of(2, 2, List.of(new ItemStack(Items.PAPER), new ItemStack(Items.PAPER),
+                new ItemStack(Items.PAPER), powder.copy()));
+        helper.assertFalse(book.matches(old, helper.getLevel()), "the old paper recipe still crafts the blaze book");
         helper.assertTrue(ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF.defaultBlockState().is(net.minecraft.tags.BlockTags.ENCHANTMENT_POWER_PROVIDER),
                 "blazewood shelves do not count at the Vanilla table");
         helper.assertTrue(ModBlocks.BLAZING_OBSIDIAN.defaultBlockState().getLightEmission() > 0, "blazing obsidian does not glow");
