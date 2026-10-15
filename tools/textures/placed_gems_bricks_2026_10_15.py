@@ -6,13 +6,13 @@ Smaragde bekommen ebenfalls eine 3D-Form"): a brick lying in a pile of small par
 sprite silhouette at half scale (PlacedSmallParts.GEM_ROWS). A hammer strike switches them to the flat item plate.
 
 No texture is written or copied: the block models use the vanilla item sprites directly (minecraft:item/brick ...), picking
-opaque pixel regions by hand-set UVs; the sprites reach the blocks atlas through single sources in
-assets/minecraft/atlases/blocks.json (a model of a block-model item can only use sprites of the atlas it is baked for).
+opaque pixel regions by hand-set UVs (26.3 resolves the item sprites for these block-model items without an atlas source;
+checked with the client test placing-bricks3d).
 
 Writes (all JSON) into mc26_3/overlay/resources/assets/simplebuilding/:
   models/block/placed_<id>.json   the 3D model
   items/placed_<id>.json          item model definition; the small-parts renderer draws it (ITEM_MODEL on a stand-in stack)
-and appends the sprites to assets/minecraft/atlases/blocks.json. With --check nothing is written; exit 1 when a file differs.
+With --check nothing is written; exit 1 when a file differs.
 The cuboids must match PlacedSmallParts (Java); the game test placing_game_test_bricks_and_gems_lie_in3d checks that.
 """
 import json
@@ -21,8 +21,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..', '..')
-OVERLAY = os.path.join(ROOT, 'mc26_3', 'overlay', 'resources', 'assets')
-OUT = os.path.join(OVERLAY, 'simplebuilding')
+OUT = os.path.join(ROOT, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding')
 BRICKS = ['brick', 'nether_brick', 'resin_brick']
 # sprite silhouette, half width per sprite row from row 2 (PlacedSmallParts.GEM_ROWS)
 GEMS = {
@@ -88,14 +87,6 @@ def files():
     for name in sprites:
         out['items/placed_%s.json' % name] = {'model': {'type': 'minecraft:model', 'model': 'simplebuilding:block/placed_%s' % name}}
     result = {os.path.join(OUT, rel): data for rel, data in out.items()}
-    # the blocks atlas file also holds the pot pattern permutations: keep them, (re)write only our single sources
-    atlas = os.path.join(OVERLAY, 'minecraft', 'atlases', 'blocks.json')
-    with open(atlas, encoding='utf-8') as f:
-        data = json.load(f)
-    data['sources'] = [s for s in data['sources'] if not (s.get('type') == 'minecraft:single'
-                                                          and s.get('resource', '').startswith('minecraft:item/'))]
-    data['sources'] += [{'type': 'minecraft:single', 'resource': 'minecraft:item/%s' % name} for name in sprites]
-    result[atlas] = data
     return result
 
 

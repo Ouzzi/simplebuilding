@@ -44,26 +44,6 @@
         "ashwood": "simplebuilding:woodwork/ashwood",
         "duskwood": "simplebuilding:woodwork/duskwood"
       }
-    },
-    {
-      "type": "minecraft:single",
-      "resource": "minecraft:item/brick"
-    },
-    {
-      "type": "minecraft:single",
-      "resource": "minecraft:item/nether_brick"
-    },
-    {
-      "type": "minecraft:single",
-      "resource": "minecraft:item/resin_brick"
-    },
-    {
-      "type": "minecraft:single",
-      "resource": "minecraft:item/diamond"
-    },
-    {
-      "type": "minecraft:single",
-      "resource": "minecraft:item/emerald"
     }
   ]
 }
