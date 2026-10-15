@@ -135,7 +135,8 @@ Essen direkt aus Bündeln, warme Sandwiches über simplelib.
 
 ### Simple Money
 Geldschein-Herstellung (Spezialpapier, Fasern, Rohlinge, Schmelzen), zusätzliche Dorfbewohner-/Händlerangebote,
-Geld in Truhen, verknüpfte Preislisten für andere Simple-Mods.
+Geld in Truhen, verknüpfte Preislisten für andere Simple-Mods. Fahrender Händler: Preislisten-Links (Tag `wandering_trader/rare`)
+zieht ein eigenes Trade-Set `simplemoney:wandering_trader/links` (1 Zusatzangebot nach den Vanilla-Sets, Mixin `WanderingTraderLinksMixin`).
 
 ### Simple Models
 Server-freigegebene eigene Item-Modelle, Zuweisung am Amboss, durchsuchbarer Modell-Browser, Admin-Reload.

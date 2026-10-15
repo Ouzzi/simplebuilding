@@ -6,7 +6,8 @@
     "LinkedOfferMixin",
     "LinkedTradeMixin",
     "LinkedResultMixin",
-    "LinkedMenuMixin"
+    "LinkedMenuMixin",
+    "WanderingTraderLinksMixin"
   ],
   "injectors": {
     "defaultRequire": 1
