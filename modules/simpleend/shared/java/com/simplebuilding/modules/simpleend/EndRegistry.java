@@ -164,6 +164,32 @@ public final class EndRegistry {
         return out;
     }
 
+    /**
+     * The same items sorted into the fitting Vanilla tabs (shared switch {@code CreativeTabSettings}: the loaders add them only
+     * while the switch is on). The guide book stays in the own tab.
+     */
+    public static Map<ResourceKey<CreativeModeTab>, List<ItemStack>> vanillaTabStacks() {
+        Map<ResourceKey<CreativeModeTab>, List<ItemStack>> out = new java.util.LinkedHashMap<>();
+        for (EndWood w : EndWood.ALL) {
+            for (Item i : w.tabItems()) {
+                ResourceKey<CreativeModeTab> tab;
+                String path = BuiltInRegistries.ITEM.getKey(i).getPath();
+                if (path.endsWith("_boat") || path.endsWith("_chest_boat")) tab = net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES;
+                else if (path.endsWith("_sticks")) tab = net.minecraft.world.item.CreativeModeTabs.INGREDIENTS;
+                else if (path.endsWith("_sign") || path.endsWith("_hanging_sign") || path.endsWith("_shelf")) tab = net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS;
+                else if (path.endsWith("_log") || path.endsWith("_wood") || path.endsWith("_leaves") || i == w.itemIds.get(w.budName)) tab = net.minecraft.world.item.CreativeModeTabs.NATURAL_BLOCKS;
+                else tab = net.minecraft.world.item.CreativeModeTabs.BUILDING_BLOCKS;
+                out.computeIfAbsent(tab, k -> new ArrayList<>()).add(new ItemStack(i));
+            }
+        }
+        out.computeIfAbsent(net.minecraft.world.item.CreativeModeTabs.NATURAL_BLOCKS, k -> new ArrayList<>()).addAll(List.of(
+                new ItemStack(END_GRASS_ITEM), new ItemStack(END_BUSH_ITEM), new ItemStack(BURROWED_END_STONE_ITEM)));
+        out.computeIfAbsent(net.minecraft.world.item.CreativeModeTabs.FOOD_AND_DRINKS, k -> new ArrayList<>()).addAll(List.of(
+                new ItemStack(DRIFT_FRUIT), new ItemStack(SPOILED_DRIFT_FRUIT)));
+        out.computeIfAbsent(net.minecraft.world.item.CreativeModeTabs.SPAWN_EGGS, k -> new ArrayList<>()).add(new ItemStack(NIBBLEMITE_EGG));
+        return out;
+    }
+
     /** After all registrations: stripping, flammability (like Vanilla overworld wood), boat dispensing. */
     public static void common() {
         FireBlock fire = (FireBlock) Blocks.FIRE;

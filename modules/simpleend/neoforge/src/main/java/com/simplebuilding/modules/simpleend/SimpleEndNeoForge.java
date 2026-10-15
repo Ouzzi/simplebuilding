@@ -28,6 +28,11 @@ public final class SimpleEndNeoForge {
             if (key.equals(Registries.CREATIVE_MODE_TAB)) EndRegistry.tab();
         });
         bus.addListener((net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) -> event.put(EndRegistry.NIBBLEMITE, com.simplebuilding.modules.simpleend.entity.Nibblemite.createAttributes().build()));
+        bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent event) -> {
+            var stacks = EndRegistry.vanillaTabStacks().get(event.getTabKey());
+            if (stacks == null || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleEnd.ID)) return;
+            stacks.forEach(s -> event.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
         bus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(EndRegistry::common));
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simpleend.guide.EndGuide.installQuests(FMLPaths.CONFIGDIR.get());
         NeoForge.EVENT_BUS.addListener((ServerAboutToStartEvent event) -> { SimpleEnd.applySubSwitches(); com.simplebuilding.modules.simpleend.world.EndBiomes.serverStarting(event.getServer()); });

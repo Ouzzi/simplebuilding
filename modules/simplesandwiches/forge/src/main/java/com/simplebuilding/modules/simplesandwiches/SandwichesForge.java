@@ -34,6 +34,11 @@ public final class SandwichesForge {
             if (key.equals(Registries.CREATIVE_MODE_TAB)) SandwichRegistry.tab();
             event.register(net.minecraftforge.registries.ForgeRegistries.Keys.CONDITION_SERIALIZERS, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplesandwiches", "enabled"), () -> SandwichesEnabledCondition.CODEC);
         });
+        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
+            var stacks = SandwichRegistry.vanillaTabStacks().get(event.getTabKey());
+            if (stacks == null || !Sandwiches.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), "simplesandwiches")) return;
+            stacks.forEach(s -> event.getEntries().put(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
         SandwichRegistry.setup();
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) SandwichesForgeClient.init();
     }
