@@ -49261,7 +49261,7 @@ window.WIKI_DATA = {
       "lootTable": "simplebuilding:blocks/astral_enchanting_table",
       "drops": [
         "minecraft:enchanting_table",
-        "simplelib:enderite_nugget"
+        "simplelib:enderite_ingot"
       ],
       "questionary": {
         "en": {
@@ -144013,7 +144013,7 @@ window.WIKI_DATA = {
         {
           "rolls": 1,
           "items": [
-            "simplelib:enderite_nugget"
+            "simplelib:enderite_ingot"
           ],
           "conditions": [],
           "functions": []

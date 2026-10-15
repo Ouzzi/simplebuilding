@@ -57,6 +57,8 @@ public final class RespawnServer {
         public int progress;
         int lastPing;
         float reviverHealth;
+        /** Locator-bar color the player had before the red mark (restored when the state ends). */
+        java.util.Optional<Integer> savedColor = java.util.Optional.empty();
 
         Downed(int ticks, DamageSource source) {
             this.ticksLeft = ticks;
@@ -136,6 +138,7 @@ public final class RespawnServer {
         player.setSprinting(false);
         player.addTag(TAG);
         applyModifiers(player);
+        markLocator(player, downed);
         player.setPose(Pose.SWIMMING);
         player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BIG_FALL, SoundSource.PLAYERS, 1f, 0.7f);
         announce(player.level().getServer(), Component.translatable("chat.simplerespawn.downed", player.getDisplayName()).withStyle(ChatFormatting.RED));
@@ -168,6 +171,7 @@ public final class RespawnServer {
             Downed downed = entry.getValue();
             if (player == null || player.isRemoved() || player.isDeadOrDying()) {
                 DOWNED.remove(entry.getKey());
+                if (player != null) restoreLocator(player, downed);
                 listDirty = true;
                 continue;
             }
@@ -207,7 +211,7 @@ public final class RespawnServer {
                 if (player.entityTags().contains(TAG) && !isDowned(player) && player.isAlive()) die(player, player.damageSources().generic());
             }
         }
-        if (listDirty || ticks % 40 == 0) syncList(server);
+        if (listDirty || ticks % 20 == 0) syncList(server);
     }
 
     private static boolean helperStillHelping(ServerPlayer target, ServerPlayer helper, Downed downed) {
@@ -275,6 +279,7 @@ public final class RespawnServer {
         Downed downed = DOWNED.remove(player.getUUID());
         player.removeTag(TAG);
         removeModifiers(player);
+        restoreLocator(player, downed);
         listDirty = true;
         if (downed != null && downed.reviver != null) {
             ServerPlayer helper = player.level().getServer().getPlayerList().getPlayer(downed.reviver);
@@ -282,6 +287,22 @@ public final class RespawnServer {
         }
         SimpleRespawn.send.accept(player, RespawnStatePayload.none());
         syncList(player.level().getServer());
+    }
+
+    /** The downed player shows red in the other players' locator bar (a new connection carries the new color). */
+    static void markLocator(ServerPlayer player, Downed downed) {
+        var icon = player.waypointIcon();
+        downed.savedColor = icon.color;
+        icon.color = java.util.Optional.of(SimpleRespawn.DOWNED_COLOR);
+        player.level().getWaypointManager().remakeConnections(player);
+    }
+
+    /** Back to the color from before; with no record (a crash while downed) the red mark simply goes. */
+    static void restoreLocator(ServerPlayer player, Downed downed) {
+        var icon = player.waypointIcon();
+        if (!icon.color.equals(java.util.Optional.of(SimpleRespawn.DOWNED_COLOR))) return;
+        icon.color = downed == null ? java.util.Optional.empty() : downed.savedColor;
+        player.level().getWaypointManager().remakeConnections(player);
     }
 
     static void applyModifiers(ServerPlayer player) {
@@ -306,8 +327,13 @@ public final class RespawnServer {
     static void syncList(MinecraftServer server) {
         if (server == null) return;
         listDirty = false;
-        List<UUID> ids = List.copyOf(DOWNED.keySet());
-        for (ServerPlayer p : server.getPlayerList().getPlayers()) SimpleRespawn.send.accept(p, new DownedListPayload(ids));
+        List<UUID> ids = new ArrayList<>();
+        List<Integer> left = new ArrayList<>();
+        DOWNED.forEach((id, downed) -> {
+            ids.add(id);
+            left.add(Math.max(0, downed.ticksLeft));
+        });
+        for (ServerPlayer p : server.getPlayerList().getPlayers()) SimpleRespawn.send.accept(p, new DownedListPayload(ids, left));
     }
 
     private static void announce(MinecraftServer server, Component message) {

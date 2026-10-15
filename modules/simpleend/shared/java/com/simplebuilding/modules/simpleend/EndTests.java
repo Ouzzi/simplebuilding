@@ -572,8 +572,28 @@ public final class EndTests {
         });
     }
 
+    /** Creative-tab switch: every Vanilla-tab entry is an item of the own tab, and every wood/plant/fruit/egg item is sorted into one. */
+    private static void vanillaTabStacks(GameTestHelper h) {
+        var map = EndRegistry.vanillaTabStacks();
+        var own = EndRegistry.tabStacks();
+        int sorted = 0;
+        h.assertTrue(EndRegistry.VANILLA_TABS.containsAll(map.keySet()), "every target tab is registered by the Fabric listener list");
+        for (var e : map.entrySet()) {
+            for (var stack : e.getValue()) {
+                sorted++;
+                h.assertTrue(own.stream().anyMatch(o -> o.is(stack.getItem())), "not in the own tab: " + stack.getItem());
+            }
+        }
+        int ownItems = own.size() - (com.simplebuilding.modules.simpleend.guide.EndGuide.book() != null ? 1 : 0);
+        h.assertTrue(sorted == ownItems, "Vanilla tabs get all " + ownItems + " items except the guide, got " + sorted);
+        h.assertTrue(map.containsKey(net.minecraft.world.item.CreativeModeTabs.NATURAL_BLOCKS) && map.containsKey(net.minecraft.world.item.CreativeModeTabs.BUILDING_BLOCKS)
+                && map.containsKey(net.minecraft.world.item.CreativeModeTabs.SPAWN_EGGS), "wood, plants and the egg land in matching tabs");
+        h.succeed();
+    }
+
     // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
     static {
+        ALL.put("vanilla_tab_stacks", EndTests::vanillaTabStacks);
         ALL.put("discover_recipe_unlocks", com.simplebuilding.modules.simpleend.discover.EndDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simpleend.discover.EndDiscover::behaviourHints);
     }

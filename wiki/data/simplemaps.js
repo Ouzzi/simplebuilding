@@ -443,6 +443,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
         {
           "id": "minecraft:player_head",
           "required": true
+        },
+        {
+          "id": "#simplemobheads:heads",
+          "required": false
         }
       ],
       "source": "modules/simplemaps/shared/resources/data/simplemaps/tags/item/waypoint_heads.json"

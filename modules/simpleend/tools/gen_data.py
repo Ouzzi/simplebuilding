@@ -297,7 +297,7 @@ def worldgen():
                                                                  'sound': f'{NS}:{b["music"]}'}},
                 'minecraft:visual/ambient_particles': {'argument': [{'particle': {'type': b['particle']}, 'probability': b['p']}], 'modifier': 'append'},
                 'minecraft:gameplay/natural_mob_spawns': {'argument': {'spawn_costs': {}, 'spawns_by_category': {'creature': [
-                    {'type': f'{NS}:nibblemite', 'count': {'type': 'minecraft:uniform', 'min_inclusive': 2, 'max_inclusive': 4}, 'weight': 10}]}},
+                    {'type': f'{NS}:nibblemite', 'count': {'type': 'minecraft:uniform', 'min_inclusive': 3, 'max_inclusive': 5}, 'weight': 10}]}},
                     'modifier': 'overlay'},
                 'minecraft:visual/fog_color': b['fog'],
                 'minecraft:visual/fog_end_distance': b['fog_end'],

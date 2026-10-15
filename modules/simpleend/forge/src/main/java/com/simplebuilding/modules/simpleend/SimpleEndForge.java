@@ -24,6 +24,11 @@ public final class SimpleEndForge {
             if (key.equals(Registries.SOUND_EVENT)) EndRegistry.sounds();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) EndRegistry.tab();
         });
+        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
+            var stacks = EndRegistry.vanillaTabStacks().get(event.getTabKey());
+            if (stacks == null || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleEnd.ID)) return;
+            stacks.forEach(s -> event.getEntries().put(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
         net.minecraftforge.event.entity.EntityAttributeCreationEvent.BUS.addListener(event -> event.put(EndRegistry.NIBBLEMITE, com.simplebuilding.modules.simpleend.entity.Nibblemite.createAttributes().build()));
         FMLCommonSetupEvent.getBus(bus).addListener(event -> event.enqueueWork(EndRegistry::common));
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simpleend.guide.EndGuide.installQuests(FMLPaths.CONFIGDIR.get());

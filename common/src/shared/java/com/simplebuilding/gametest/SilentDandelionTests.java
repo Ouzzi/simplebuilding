@@ -209,7 +209,7 @@ public final class SilentDandelionTests {
         helper.succeed();
     }
 
-    /** Owner N57: the dandelion toggles a Sculk Shrieker (flag in the block entity), the shriek itself is untouched. */
+    /** Owner N57: the dandelion toggles a Sculk Shrieker (flag in the block entity); a silenced one does not shriek, warn or send SHRIEK. */
     public static void shriekerToggleSavesAndStillShrieks(GameTestHelper helper) {
         if (!enabled(helper)) return;
         var player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
@@ -232,10 +232,27 @@ public final class SilentDandelionTests {
         helper.assertTrue(output.buildResult().getBooleanOr("simplebuilding_silenced", false), "silence must be saved with the block");
         shrieker.loadWithComponents(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), output.buildResult()));
         helper.assertTrue(silence.simplebuilding$isSilenced(), "silence must survive reload");
-        // A silenced shrieker still shrieks for the game; only its sounds are gone.
-        shrieker.tryShriek(helper.getLevel(), helper.makeMockServerPlayerInLevel());
+        // A silenced shrieker does not shriek at all: no SHRIEKING state (and so no SHRIEK game event for sculk sensors), no warning.
+        var visitor = helper.makeMockServerPlayerInLevel();
+        helper.setBlock(pos, helper.getBlockState(pos).setValue(net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON, true));
+        shrieker = helper.getBlockEntity(pos, net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.class);
+        ((com.simplebuilding.util.ShriekerSilence) shrieker).simplebuilding$setSilenced(true);
+        shrieker.tryShriek(helper.getLevel(), visitor);
+        helper.assertTrue(!helper.getBlockState(pos).getValue(net.minecraft.world.level.block.SculkShriekerBlock.SHRIEKING),
+                "a silenced shrieker must not shriek");
+        // 26.2 returns an Optional, 26.3 the tracker itself.
+        Object tracker = visitor.getWardenSpawnTracker();
+        if (tracker instanceof java.util.Optional<?> optional) tracker = optional.orElse(null);
+        helper.assertTrue(!(tracker instanceof net.minecraft.world.entity.monster.warden.WardenSpawnTracker spawn) || spawn.getWarningLevel() == 0,
+                "a silenced shrieker must not raise the warning level");
+        // A loud one shrieks (the existing behavior stays; CAN_SUMMON off so only the shriek itself is checked).
+        helper.setBlock(pos, helper.getBlockState(pos).setValue(net.minecraft.world.level.block.SculkShriekerBlock.CAN_SUMMON, false));
+        shrieker = helper.getBlockEntity(pos, net.minecraft.world.level.block.entity.SculkShriekerBlockEntity.class);
+        ((com.simplebuilding.util.ShriekerSilence) shrieker).simplebuilding$setSilenced(false);
+        shrieker.tryShriek(helper.getLevel(), visitor);
         helper.assertTrue(helper.getBlockState(pos).getValue(net.minecraft.world.level.block.SculkShriekerBlock.SHRIEKING),
-                "a silenced shrieker must still shriek");
+                "a loud shrieker must still shriek");
+        ((com.simplebuilding.util.ShriekerSilence) shrieker).simplebuilding$setSilenced(true);
         state = helper.getBlockState(pos);
         state.useItemOn(flowers, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
         helper.assertTrue(!silence.simplebuilding$isSilenced() && flowers.getCount() == 1, "second use must restore the sound");

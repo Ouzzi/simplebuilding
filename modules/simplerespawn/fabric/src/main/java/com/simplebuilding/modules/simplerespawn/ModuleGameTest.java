@@ -6,6 +6,8 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void configBounds(GameTestHelper helper) { RespawnTests.ALL.get("config_bounds").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void aloneIsNormalDeath(GameTestHelper helper) { RespawnTests.ALL.get("alone_is_normal_death").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void downedInsteadOfDeath(GameTestHelper helper) { RespawnTests.ALL.get("downed_instead_of_death").accept(helper); }
+    @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void downedMarkedRedAndRestored(GameTestHelper helper) { RespawnTests.ALL.get("downed_marked_red_and_restored").accept(helper); }
+    @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void downedListCarriesTimeLeft(GameTestHelper helper) { RespawnTests.ALL.get("downed_list_carries_time_left").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void totemAndVoidStayVanilla(GameTestHelper helper) { RespawnTests.ALL.get("totem_and_void_stay_vanilla").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void bleedOutIsDeath(GameTestHelper helper) { RespawnTests.ALL.get("bleed_out_is_death").accept(helper); }
     @GameTest(structure = "simplerespawn:empty", maxTicks = 100) public void damageShortensBleedOut(GameTestHelper helper) { RespawnTests.ALL.get("damage_shortens_bleed_out").accept(helper); }

@@ -28,7 +28,7 @@ import org.jspecify.annotations.Nullable;
  * Astral Enchanting Table (owner 2026-10-09, queue N27): made in the world from a Vanilla enchanting table with about
  * twenty blows of a Netherite or Enderite sledgehammer and an Enderite nugget in the off hand
  * ({@link com.simplebuilding.util.SledgehammerUpgrades}). Shaped like Vanilla's table with the floating book; takes twice
- * as long to break ({@value #HARDNESS} instead of 5) and drops a Vanilla enchanting table plus the nugget (loot table)
+ * as long to break ({@value #HARDNESS} instead of 5) and drops a Vanilla enchanting table plus an Enderite ingot (loot table)
  * and its stored lapis and blaze powder ({@link AstralEnchantingTableBlockEntity}). The menu is
  * {@link com.simplebuilding.screen.AstralEnchantingMenu}, the rules {@link AstralEnchanting}.
  */

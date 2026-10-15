@@ -52,7 +52,8 @@
         "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/client/DownedScreen.java",
         "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/client/ViewOnlyInventoryScreen.java",
         "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/client/RespawnClient.java",
-        "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/mixin/client/CameraMixin.java"
+        "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/mixin/client/CameraMixin.java",
+        "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/mixin/client/EntityRendererMixin.java"
       ],
       "en": {
         "title": "Downed screen",
@@ -61,7 +62,8 @@
           "Spectate closes the screen; the mouse turns the camera freely around the own body (360 degrees), the movement keys crawl in the direction of the camera. The inventory key (E) opens the screen again.",
           "Inventory shows the own inventory only to look at: no click, drag or key changes anything; Esc or E go back.",
           "Give up dies at once with the original cause of death (Vanilla death screen, respawn, drops). Like in Vanilla the buttons react only after one second.",
-          "While someone revives you the screen and the HUD show their name and a progress bar."
+          "While someone revives you the screen and the HUD show their name and a progress bar.",
+          "Other players see a downed player's name tag in red with the time left (m:ss), and the locator bar marks them red until they are revived or dead."
         ]
       },
       "de": {
@@ -71,7 +73,8 @@
           "Zuschauen schließt den Bildschirm; die Maus dreht die Kamera frei um den eigenen Körper (360 Grad), die Bewegungstasten kriechen in Blickrichtung der Kamera. Die Inventar-Taste (E) öffnet den Bildschirm wieder.",
           "Inventar zeigt das eigene Inventar nur zum Ansehen: kein Klick, Ziehen oder Tastendruck ändert etwas; Esc oder E führen zurück.",
           "Aufgeben stirbt sofort mit der ursprünglichen Todesursache (Vanilla-Todesbildschirm, Respawn, Drops). Wie in Vanilla reagieren die Knöpfe erst nach einer Sekunde.",
-          "Während dich jemand wiederbelebt, zeigen Bildschirm und HUD seinen Namen und einen Fortschrittsbalken."
+          "Während dich jemand wiederbelebt, zeigen Bildschirm und HUD seinen Namen und einen Fortschrittsbalken.",
+          "Andere Spieler sehen das Namensschild eines Niedergeschlagenen rot mit der Restzeit (m:ss), und die Ortungsleiste markiert ihn rot, bis er wiederbelebt wurde oder tot ist."
         ]
       }
     },

@@ -12,6 +12,7 @@ import com.simplesandwiches.item.BundleEating;
 import com.simplesandwiches.item.KnifeItem;
 import com.simplesandwiches.registry.ModBlocks;
 import com.simplesandwiches.registry.ModItems;
+import com.simplesandwiches.registry.SandwichRegistry;
 import com.simplesandwiches.registry.ModTags;
 import com.simplesandwiches.sandwich.EffectMerger;
 import com.simplesandwiches.sandwich.SandwichContents;
@@ -772,11 +773,27 @@ public final class SandwichTests {
 
     private SandwichTests() {}
 
+    /** Creative-tab switch: the Vanilla-tab entries are items of the own tab (guide book and sample sandwiches stay out). */
+    private static void vanillaTabStacks(GameTestHelper h) {
+        var own = SandwichRegistry.tabStacks();
+        int sorted = 0;
+        h.assertTrue(SandwichRegistry.VANILLA_TABS.containsAll(SandwichRegistry.vanillaTabStacks().keySet()), "every target tab is registered by the Fabric listener list");
+        for (var e : SandwichRegistry.vanillaTabStacks().entrySet()) {
+            for (var stack : e.getValue()) {
+                sorted++;
+                h.assertTrue(own.stream().anyMatch(o -> o.is(stack.getItem())), "not in the own tab: " + stack.getItem());
+            }
+        }
+        h.assertTrue(sorted == 1 + ModItems.CUTTING_BOARDS.size() + 5, "knife, boards, cheese/butter blocks and slices, cake slice: " + sorted);
+        h.succeed();
+    }
+
     // Discoverability stage 1 (generated bodies, tools/discover/discover.py)
     static {
         ALL.put("discover_recipe_unlocks", com.simplesandwiches.discover.SandwichDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplesandwiches.discover.SandwichDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplesandwiches.discover.SandwichDiscover::firstPickupTips);
+        ALL.put("vanilla_tab_stacks", SandwichTests::vanillaTabStacks);
         ALL.put("no_enderite_without_requester", SandwichTests::noEnderiteWithoutRequester);
     }
 

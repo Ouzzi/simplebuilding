@@ -37,6 +37,11 @@ public final class SandwichesNeoForge {
             if (key.equals(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.CONDITION_CODECS))
                 event.register(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.CONDITION_CODECS, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplesandwiches", "enabled"), () -> SandwichesEnabledCondition.CODEC);
         });
+        bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent event) -> {
+            var stacks = SandwichRegistry.vanillaTabStacks().get(event.getTabKey());
+            if (stacks == null || !Sandwiches.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get(), "simplesandwiches")) return;
+            stacks.forEach(s -> event.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
         SandwichRegistry.setup();
         if (dist == Dist.CLIENT) SandwichesNeoForgeClient.init(bus);
     }

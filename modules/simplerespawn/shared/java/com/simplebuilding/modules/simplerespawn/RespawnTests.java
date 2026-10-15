@@ -120,6 +120,29 @@ public final class RespawnTests {
                 h.succeed();
             });
         });
+        add("downed_marked_red_and_restored", h -> {
+            ServerPlayer victim = downedPair(h, "marked");
+            h.assertTrue(victim.waypointIcon().color.equals(java.util.Optional.of(SimpleRespawn.DOWNED_COLOR)), "locator bar: red while downed");
+            var tag = SimpleRespawn.downedNameTag(net.minecraft.network.chat.Component.literal("Alex"), 20 * 65 + 5).getString();
+            h.assertTrue(tag.equals("Alex 1:06"), "name tag: name and time left, got " + tag);
+            h.assertTrue(SimpleRespawn.downedNameTag(net.minecraft.network.chat.Component.literal("Alex"), 20 * 9).getString().equals("Alex 0:09"), "seconds padded");
+            h.assertTrue(SimpleRespawn.downedNameTag(net.minecraft.network.chat.Component.literal("Alex"), 5).getStyle().getColor() == null
+                    && SimpleRespawn.downedNameTag(net.minecraft.network.chat.Component.literal("Alex"), 5).getSiblings().stream()
+                            .allMatch(c -> c.getStyle().getColor() != null && c.getStyle().getColor().equals(net.minecraft.network.chat.TextColor.fromLegacyFormat(net.minecraft.ChatFormatting.RED))),
+                    "name tag is red");
+            RespawnServer.clear(victim);
+            h.assertTrue(victim.waypointIcon().color.isEmpty(), "locator bar color restored after the downed state");
+            h.succeed();
+        });
+        add("downed_list_carries_time_left", h -> {
+            var id = java.util.UUID.randomUUID();
+            var buf = io.netty.buffer.Unpooled.buffer();
+            com.simplebuilding.modules.simplerespawn.network.DownedListPayload.CODEC.encode(buf,
+                    new com.simplebuilding.modules.simplerespawn.network.DownedListPayload(java.util.List.of(id), java.util.List.of(1234)));
+            var back = com.simplebuilding.modules.simplerespawn.network.DownedListPayload.CODEC.decode(buf);
+            h.assertTrue(back.players().equals(java.util.List.of(id)) && back.ticksLeft().equals(java.util.List.of(1234)), "uuid and ticks left survive the codec");
+            h.succeed();
+        });
         add("totem_and_void_stay_vanilla", h -> {
             ServerPlayer holder = player(h, "totem", 1.5, 1.5);
             ServerPlayer voidVictim = player(h, "void", 3.5, 1.5);
