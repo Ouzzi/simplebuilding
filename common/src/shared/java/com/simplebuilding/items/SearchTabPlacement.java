@@ -372,6 +372,11 @@ public final class SearchTabPlacement {
         if (com.simplebuilding.version.McVersion.LIGHT_PANES) { // N57: the Light Panes right behind the construction light
             out.add(Placement.after(FUNCTIONAL_BLOCKS, ModItems.CONSTRUCTION_LIGHT, ModItems.LIGHT_PANES.toArray(new ItemLike[0])));
         }
+        if (com.simplebuilding.version.McVersion.FIRES) { // N58: sulfur torch, lantern and campfire behind their soul versions
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SOUL_TORCH, ModItems.SULFUR_LIGHTS.get(0)));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SOUL_LANTERN, ModItems.SULFUR_LIGHTS.get(1)));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SOUL_CAMPFIRE, ModItems.SULFUR_LIGHTS.get(2)));
+        }
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.CARTOGRAPHY_TABLE, ModItems.BLUEPRINT, ModItems.CREATIVE_BLUEPRINT));
         if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens places its furnaces itself (same anchors)
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.FURNACE,

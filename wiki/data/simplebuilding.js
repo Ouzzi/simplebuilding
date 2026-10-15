@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 823,
+      "count": 826,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -46744,6 +46744,34 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:sulfur_campfire",
+      "name": {
+        "en_us": "Sulfur Campfire",
+        "de_de": "Schwefellagerfeuer"
+      },
+      "texture": "assets/textures/item/sulfur_campfire.png",
+      "craftedBy": [
+        "simplebuilding:sulfur_campfire"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:sulfur_lantern",
+      "name": {
+        "en_us": "Sulfur Lantern",
+        "de_de": "Schwefellaterne"
+      },
+      "texture": "assets/textures/item/sulfur_lantern.png",
+      "craftedBy": [
+        "simplebuilding:sulfur_lantern"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:sulfur_octet",
       "name": {
         "en_us": "Sulfur Octet",
@@ -46805,6 +46833,22 @@ window.WIKI_DATA = {
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:sulfur_torch",
+      "name": {
+        "en_us": "Sulfur Torch",
+        "de_de": "Schwefelfackel"
+      },
+      "texture": "assets/textures/block/sulfur_torch.png",
+      "craftedBy": [
+        "simplebuilding:sulfur_torch"
+      ],
+      "usedIn": [
+        "simplebuilding:sulfur_lantern"
+      ],
+      "trades": [],
       "hasCustomBehaviour": false
     },
     {
@@ -75916,6 +75960,26 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:sulfur_campfire",
+      "name": {
+        "en_us": "Sulfur Campfire",
+        "de_de": "Schwefellagerfeuer"
+      },
+      "texture": "assets/textures/block/sulfur_campfire_fire.png",
+      "craftedBy": [
+        "simplebuilding:sulfur_campfire"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/sulfur_campfire.png",
+      "lootTable": "simplebuilding:blocks/sulfur_campfire",
+      "drops": [
+        "minecraft:sulfur",
+        "simplebuilding:sulfur_campfire"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:sulfur_fire",
       "name": {
         "en_us": "Sulfur Fire",
@@ -75950,6 +76014,25 @@ window.WIKI_DATA = {
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:sulfur_lantern",
+      "name": {
+        "en_us": "Sulfur Lantern",
+        "de_de": "Schwefellaterne"
+      },
+      "texture": "assets/textures/block/sulfur_lantern.png",
+      "craftedBy": [
+        "simplebuilding:sulfur_lantern"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/sulfur_lantern.png",
+      "lootTable": "simplebuilding:blocks/sulfur_lantern",
+      "drops": [
+        "simplebuilding:sulfur_lantern"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -76014,6 +76097,44 @@ window.WIKI_DATA = {
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:sulfur_torch",
+      "name": {
+        "en_us": "Sulfur Torch",
+        "de_de": "Schwefelfackel"
+      },
+      "texture": "assets/textures/block/sulfur_torch.png",
+      "craftedBy": [
+        "simplebuilding:sulfur_torch"
+      ],
+      "usedIn": [
+        "simplebuilding:sulfur_lantern"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/sulfur_torch.png",
+      "lootTable": "simplebuilding:blocks/sulfur_torch",
+      "drops": [
+        "simplebuilding:sulfur_torch"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:sulfur_wall_torch",
+      "name": {
+        "en_us": "Sulfur Torch",
+        "de_de": "Schwefelfackel"
+      },
+      "texture": "assets/textures/block/sulfur_torch.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/sulfur_wall_torch.png",
+      "lootTable": "simplebuilding:blocks/sulfur_wall_torch",
+      "drops": [
+        "simplebuilding:sulfur_torch"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -131976,6 +132097,57 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:sulfur_campfire",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:sulfur_campfire",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/sulfur_campfire.json",
+      "ingredients": [
+        "#minecraft:logs",
+        "minecraft:stick",
+        "minecraft:sulfur"
+      ],
+      "pattern": [
+        " S ",
+        "S#S",
+        "LLL"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "#": [
+          "minecraft:sulfur"
+        ],
+        "L": [
+          "#minecraft:logs"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 4
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 3.375
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:logs"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:sulfur_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -132028,6 +132200,58 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:sulfur_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:sulfur_lantern",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/sulfur_lantern.json",
+      "ingredients": [
+        "minecraft:iron_nugget",
+        "simplebuilding:sulfur_torch"
+      ],
+      "pattern": [
+        "XXX",
+        "X#X",
+        "XXX"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:sulfur_torch"
+        ],
+        "X": [
+          "minecraft:iron_nugget"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.889
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:sulfur_octet_from_sulfur_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -132054,6 +132278,60 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:sulfur_spike",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:sulfur_torch",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:sulfur_torch",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/sulfur_torch.json",
+      "ingredients": [
+        "minecraft:charcoal",
+        "minecraft:coal",
+        "minecraft:stick",
+        "minecraft:sulfur"
+      ],
+      "pattern": [
+        "X",
+        "#",
+        "S"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stick"
+        ],
+        "S": [
+          "minecraft:sulfur"
+        ],
+        "X": [
+          "minecraft:coal",
+          "minecraft:charcoal"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 4
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
           }
         ]
       }
@@ -149183,6 +149461,71 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stripped_warped_sheet.json"
+    },
+    {
+      "id": "simplebuilding:blocks/sulfur_campfire",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:sulfur_campfire",
+            "minecraft:sulfur"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sulfur_campfire.json"
+    },
+    {
+      "id": "simplebuilding:blocks/sulfur_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:sulfur_lantern"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sulfur_lantern.json"
+    },
+    {
+      "id": "simplebuilding:blocks/sulfur_torch",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:sulfur_torch"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sulfur_torch.json"
+    },
+    {
+      "id": "simplebuilding:blocks/sulfur_wall_torch",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:sulfur_torch"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sulfur_wall_torch.json"
     },
     {
       "id": "simplebuilding:blocks/suspended_gravel",
@@ -186251,10 +186594,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 779,
-    "blocks": 513,
-    "recipes": 1362,
-    "lootTables": 370,
+    "items": 782,
+    "blocks": 517,
+    "recipes": 1365,
+    "lootTables": 374,
     "trades": 20,
     "enchantments": 19,
     "tags": 57,

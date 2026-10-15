@@ -288,6 +288,9 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.LIGHT_PANES) {
             rows.addAll(lightPaneRows());
         }
+        if (com.simplebuilding.version.McVersion.FIRES) {
+            rows.add(sulfurLightRow());
+        }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): je Holzart eine Zeile - Roehren, Platten, Kessel, Kiste, Schnitzholz.
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
@@ -296,6 +299,11 @@ public final class ModItemGroupsContent {
             }
         }
         return List.copyOf(rows);
+    }
+
+    /** Sulfur torch, lantern and campfire (N58) in one row. */
+    public static CreativeTabLayout.Row sulfurLightRow() {
+        return CreativeTabLayout.Row.of("sulfur_lights", ModItems.SULFUR_LIGHTS.toArray(new net.minecraft.world.level.ItemLike[0]));
     }
 
     /** Light Panes (N57): normal, transparent and redstone in one row, the sixteen colors in the next. */

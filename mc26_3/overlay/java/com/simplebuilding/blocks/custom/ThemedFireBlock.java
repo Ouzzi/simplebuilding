@@ -62,6 +62,7 @@ public class ThemedFireBlock extends BaseFireBlock {
         if (!McVersion.FIRES || SULFUR_FIRE != null) return;
         SULFUR_FIRE = register("sulfur_fire", MapColor.COLOR_YELLOW, SULFUR_BASE, true);
         COPPER_FIRE = register("copper_fire", MapColor.WARPED_NYLIUM, COPPER_BASE, false);
+        SulfurLights.register();
     }
 
     private static Block register(String name, MapColor color, TagKey<Block> base, boolean nausea) {

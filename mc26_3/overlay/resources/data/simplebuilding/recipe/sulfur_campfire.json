@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": "minecraft:stick",
+    "#": "minecraft:sulfur",
+    "L": "#minecraft:logs"
+  },
+  "pattern": [
+    " S ",
+    "S#S",
+    "LLL"
+  ],
+  "result": {
+    "id": "simplebuilding:sulfur_campfire"
+  }
+}

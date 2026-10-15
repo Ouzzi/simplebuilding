@@ -470,8 +470,12 @@
     "simplebuilding:stripped_warped_sheet",
     "simplebuilding:stripped_warped_stem_octet",
     "simplebuilding:sulfur_bricks_octet",
+    "simplebuilding:sulfur_campfire",
     "simplebuilding:sulfur_fire",
+    "simplebuilding:sulfur_lantern",
     "simplebuilding:sulfur_octet",
+    "simplebuilding:sulfur_torch",
+    "simplebuilding:sulfur_wall_torch",
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
     "simplebuilding:terracotta_octet",
@@ -3517,8 +3521,17 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:sulfur_campfire"
+    },
+    {
+      "id": "simplebuilding:sulfur_lantern"
+    },
+    {
       "id": "simplebuilding:sulfur_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:sulfur_torch"
     },
     {
       "id": "simplebuilding:suspended_gravel"

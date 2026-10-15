@@ -1,0 +1,65 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:stick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_sulfur": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:sulfur"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_coal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:coal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_charcoal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:charcoal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:sulfur_torch"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_stick",
+      "has_sulfur",
+      "has_coal",
+      "has_charcoal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:sulfur_torch"
+    ]
+  }
+}

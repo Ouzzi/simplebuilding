@@ -1357,6 +1357,19 @@ public class ModItems {
                         .jukeboxPlayable(com.simplebuilding.util.MusicDiscs.songKey(song)))) : null;
     }
 
+    /** Sulfur torch, lantern and campfire (N58); empty without {@link com.simplebuilding.version.McVersion#FIRES}. */
+    public static final List<Item> SULFUR_LIGHTS = com.simplebuilding.version.McVersion.FIRES ? sulfurLightItems() : List.of();
+
+    private static List<Item> sulfurLightItems() {
+        com.simplebuilding.blocks.custom.SulfurLights.register();
+        return List.of(
+                registerItem("sulfur_torch", s -> new net.minecraft.world.item.StandingAndWallBlockItem(
+                        com.simplebuilding.blocks.custom.SulfurLights.TORCH, com.simplebuilding.blocks.custom.SulfurLights.WALL_TORCH,
+                        net.minecraft.core.Direction.DOWN, s)),
+                registerItem("sulfur_lantern", s -> new BlockItem(com.simplebuilding.blocks.custom.SulfurLights.LANTERN, s)),
+                registerItem("sulfur_campfire", s -> new BlockItem(com.simplebuilding.blocks.custom.SulfurLights.CAMPFIRE, s)));
+    }
+
     private static List<Item> lightPaneItems() {
         List<Item> out = new java.util.ArrayList<>();
         for (net.minecraft.world.level.block.Block block : ModBlocks.lightPanes()) {
