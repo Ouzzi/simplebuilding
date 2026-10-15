@@ -258,6 +258,17 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 64 (2026-10-15, Besitzer)
+Hollow Watcher – Korrektur
+- [ ] Reichweite 48 Blöcke: außerhalb verfolgt er nicht mehr; ist man wieder innerhalb, macht er weiter und teleportiert sich regelmäßig zum Spieler. Meiden heißt: ihn ansehen und weglaufen (über 48 Blöcke).
+- [ ] KORREKTUR Blickverhalten: Wird er DIREKT angesehen (in die Augen/Fadenkreuz), bleibt er NICHT stehen, sondern wird aggressiv. Die Gradzonen (±10° unauffällig, ±25° langsam aus dem Blickfeld, ±35° direkt aus dem Blickfeld, außerhalb von hinten angreifen) gelten für „in seine Nähe schauen“. Ersetzt den Freeze aus N63/claude-watcher2.
+
+Oktant-Manager (UI) – erst Konzept, Umsetzung nach Besitzer-Freigabe
+- [ ] Farben: das Orange wirkt grell → generell sanftere Farben.
+- [ ] Pixelfehler an den Ecken: ein Pixel zu viel, Ecken nicht in Treppenform (Besitzer-Screenshot 15.10.).
+- [ ] In-Game-Overlay des Oktanten: gleiche (grobe) Anordnung behalten, nur Hintergrund/Rahmen im neuen UI-Stil, aber schlank (Slim), wenig ablenkend, evtl. geringere Deckkraft; dunkel genug für gut lesbare Schrift; gleiche Farben/Design wie das aktualisierte UI.
+- [ ] Ablauf: Konzept + Vorschaubilder → Besitzer-Freigabe → Umsetzung.
+
 ## Nachtrag 63 (2026-10-15, Besitzer)
 Simple Shops – Server-Shop
 - [x] (oc-servershop) Creative-/Unlimited-/Server-Shop: nur per Befehl von Admins (OP) erstellt und konfiguriert; unbegrenzter Vorrat, alle Spieler (auch OPs) können dort kaufen. Management-Befehle: `list` (IDs s001, s002, …), `list` mit Koordinaten, mit Items/Preisen, info, edit, remove, teleport o. ä. Rechte serverseitig, kein Duping (Bestand unbegrenzt, Einnahmen verschwinden oder in Admin-Kasse – im Plan entscheiden).
