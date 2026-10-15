@@ -66,4 +66,6 @@ public final class ClaimsGameTest {
  @GameTest public void claimsDeedUse(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_use").accept(h); }
  @GameTest public void claimsDeedEdit(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_edit").accept(h); }
  @GameTest public void claimsDeedCopy(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_copy").accept(h); }
+ @GameTest public void claimsTableBasics(GameTestHelper h) { ClaimTests.TESTS.get("claims_table_basics").accept(h); }
+ @GameTest public void claimsTableService(GameTestHelper h) { ClaimTests.TESTS.get("claims_table_service").accept(h); }
 }

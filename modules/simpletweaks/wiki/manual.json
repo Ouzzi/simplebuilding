@@ -103,6 +103,36 @@
       ]
     },
     {
+      "id": "claim_table",
+      "en": {
+        "title": "Claim Table",
+        "summary": "Craft paper and a Claim Deed over four planks into a Claim Table. Right-click it to see who claimed what around it: a chunk raster with one color per owner (your own land framed), three zoom levels, drag to pan, and an owner list beside it (chunks, only mine, click to center). Terrain is not shown; that is Simple Maps' job.",
+        "details": [
+          "The server decides what you see (config claimVisibility in simpletweaks-claims.json): all (default) shows every claim with its owner, owners_hidden shows outlines and names only where you hold rights, own shows only land you own or hold rights in, off shows nothing. Operators always see everything. Member lists, rights and codes of other people's land are never sent.",
+          "Packets are bounded: areas up to 64 x 64 chunks within 64 chunks of the table, at most 4 requests per second, only while you stand within 8 blocks of the table you opened; the dimension is always the table's. The owner list comes in pages of 50."
+        ]
+      },
+      "de": {
+        "title": "Claim-Tisch",
+        "summary": "Stelle aus Papier und einer Claim-Urkunde über vier Brettern einen Claim-Tisch her. Rechtsklick zeigt, wer in der Umgebung was beansprucht hat: ein Chunk-Raster mit einer Farbe je Besitzer (dein Land umrahmt), drei Zoomstufen, Ziehen zum Verschieben und daneben eine Besitzerliste (Chunks, nur meine, Klick zentriert). Gelände zeigt er nicht; das ist Sache von Simple Maps.",
+        "details": [
+          "Der Server entscheidet, was du siehst (Config claimVisibility in simpletweaks-claims.json): all (Standard) zeigt jeden Claim mit Besitzer, owners_hidden zeigt Umrisse und Namen nur dort, wo du Rechte hast, own zeigt nur eigenes Land und Land mit deinen Rechten, off zeigt nichts. Operatoren sehen immer alles. Mitgliederlisten, Rechte und Codes fremden Landes werden nie gesendet.",
+          "Die Pakete sind begrenzt: Bereiche bis 64 x 64 Chunks im Umkreis von 64 Chunks um den Tisch, höchstens 4 Anfragen pro Sekunde, nur solange du höchstens 8 Blöcke vom geöffneten Tisch entfernt stehst; die Dimension ist immer die des Tisches. Die Besitzerliste kommt in Seiten zu 50."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimTableBlock.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/TableService.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/TableVisibility.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimGrid.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/TableLayout.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/client/TableScreen.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/net/TableAreaPayload.java",
+        "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_table.json",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimConfig.java"
+      ]
+    },
+    {
       "id": "forge_support",
       "sources": [
         "modules/simpletweaks/forge/src/main/java/com/simplebuilding/modules/simpletweaks/forge/TweaksForge.java",
@@ -131,10 +161,10 @@
         "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+        "summary": "Guide to this mod: 15 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+        "summary": "Handbuch zu dieser Mod: 15 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
       }
     },
     "simpletweaks:claim_deed": {
@@ -148,6 +178,19 @@
       },
       "de": {
         "summary": "Leer: Rechtsklick beansprucht den Chunk, in dem du stehst, und bindet die Urkunde an dich. Gebunden: Rechtsklick öffnet den Rechte-Editor deines Landes (andere sehen, was sie dürfen). Stapelgröße 1. Rezept: Papier + Tintenbeutel + Honigwabe; eine gebundene und eine leere Urkunde kopieren sie (eine Kopie lässt sich nicht kopieren)."
+      }
+    },
+    "simpletweaks:claim_table": {
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimTableBlock.java",
+        "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_table.json",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/TableService.java"
+      ],
+      "en": {
+        "summary": "Right-click: the claim map and owner list around the table (what you see follows the server's claimVisibility). Mineable with an axe. Recipe: paper + Claim Deed over four planks."
+      },
+      "de": {
+        "summary": "Rechtsklick: Claim-Karte und Besitzerliste um den Tisch (was du siehst, richtet sich nach claimVisibility des Servers). Mit der Axt abbaubar. Rezept: Papier + Claim-Urkunde über vier Brettern."
       }
     }
   }

@@ -52,6 +52,7 @@ public final class TweaksDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simpletweaks:claim_deed",
+            "simpletweaks:claim_table",
             "simpletweaks:claims",
             "simpletweaks:forge_support",
             "simpletweaks:guide_book",
