@@ -191,7 +191,7 @@ final class FearTests {
             floor(h, 0, 0, 6, 7);
             var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 6));
             var player = h.makeMockServerPlayerInLevel();
-            player.gameMode.setGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL, null);
+            player.gameMode.changeGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL);
             Vec3 at = h.absoluteVec(new Vec3(3.5, 2, 1.5));
             Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
             float pitch = (float) -Math.toDegrees(Math.atan2(head.y - (at.y + player.getEyeHeight()), Math.hypot(head.x - at.x, head.z - at.z)));
@@ -338,7 +338,7 @@ final class FearTests {
             var watcher = still(h.spawn(FearMobs.WATCHER, 4, 2, 6));
             var a = h.makeMockServerPlayerInLevel();
             var b = h.makeMockServerPlayerInLevel();
-            b.gameMode.setGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL, null);
+            b.gameMode.changeGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL);
             Vec3 pa = h.absoluteVec(new Vec3(2.5, 2, 1.5)), pb = h.absoluteVec(new Vec3(6.5, 2, 1.5));
             Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
             a.snapTo(pa.x, pa.y, pa.z, 180.0f, 0.0f);
@@ -510,7 +510,7 @@ final class FearTests {
             var dread = still(h.spawn(FearMobs.DREAD, 1, 2, 1));
             var player = h.makeMockServerPlayerInLevel();
             h.assertFalse(FearAura.affects(player), "creative players are left alone");
-            player.gameMode.setGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL, null);
+            player.gameMode.changeGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL);
             Vec3 at = h.absoluteVec(new Vec3(4.5, 2, 4.5));
             player.snapTo(at.x, at.y, at.z, 0.0f, 0.0f);
             FearAura.pulse(h.getLevel(), dread, false);
