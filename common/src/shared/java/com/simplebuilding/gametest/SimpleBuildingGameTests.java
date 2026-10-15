@@ -1764,6 +1764,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_blueprint_shows_its_state_in_its_texture", BlueprintTests::blueprintShowsItsStateInItsTexture)
                     .build(),
+            GameTestSpec.named("blueprint_game_test_blueprint_text_export_import_round_trips", BlueprintTests::blueprintTextExportImportRoundTrips)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_blueprint_text_import_rejects_invalid_input", BlueprintTests::blueprintTextImportRejectsInvalidInput)
+                    .build(),
             GameTestSpec.named("furnace_game_test_boost_only_runs_while_the_furnace_burns_and_cooks", FurnaceTests::boostOnlyRunsWhileTheFurnaceBurnsAndCooks)
                     .maxTicks(FurnaceTests.BOOST_GUARD_MAX_TICKS)
                     .build(),

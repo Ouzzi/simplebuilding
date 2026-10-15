@@ -10,7 +10,7 @@ import java.util.Locale;
  * <ul>
  *   <li>Materials: Raster aus Icon + Zahl; darunter "X×Y×Z", in der naechsten Zeile "= n Bloecke",
  *       darunter Stab-Icon + Fortschrittsbalken.</li>
- *   <li>Code: Codeblock; darunter Status und Zeichenzahl untereinander, rechtsbuendig der Buch-Knopf.</li>
+ *   <li>Code: Codeblock; darunter Status und Zeichenzahl untereinander, darunter Import | Export.</li>
  *   <li>Preview (breiter): Vorschau mit Reset-Icon oben rechts im Fenster; darunter Signieren | Fertig.
  *       Das Hilfe-Buch liegt in derselben Flaeche: Reiter Blocks | Guide, im Blocks-Reiter Textfeld +
  *       Einfuegen, im Guide-Reiter der Text und unten der Kopier-Knopf.</li>
@@ -57,7 +57,7 @@ public final class BlueprintEditorLayout {
     public final Rect panel;
     public final Rect list, code, view;
     public final Rect dimsLine, blocksLine, wandIcon, wandBar;
-    public final Rect status, chars, book;
+    public final Rect status, chars, book, importButton, exportButton;
     public final Rect sign, done, doneWide, titleBox, confirm, cancel;
     public final Rect reset, example;
     public final Rect blocksTab, guideTab, insertField, insertButton, helpList, guideText, copy;
@@ -93,6 +93,10 @@ public final class BlueprintEditorLayout {
         int textW = Math.max(1, codeW);
         status = new Rect(codeX, footerY + 1, textW, 9);
         chars = new Rect(codeX, footerY + 12, textW, 9);
+        // Import | Export (Queue N55) in der dritten Zeile der Fusszeile, unter Status und Zeichenzahl.
+        int ow = (codeW - 4) / 2;
+        importButton = new Rect(codeX, footerY + 22, ow, 18);
+        exportButton = new Rect(codeX + codeW - ow, footerY + 22, ow, 18);
         int bw = (viewW - 4) / 2;
         // Zeile 1: Done | Help, Zeile 2: Sign (alle buendig in der Spalte unter dem Hilfebereich).
         done = new Rect(viewX, footerY, bw, 20);
