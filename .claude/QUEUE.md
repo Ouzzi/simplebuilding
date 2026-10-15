@@ -290,7 +290,7 @@ Besitzer-Antworten Konzepte (15.10.)
 - [x] (oc-moneyfix) Simple Money: 238 Preislisten-Trades des fahrenden Händlers werden nie angeboten (Pool `wandering_trader/rare` wird nicht gelesen) – sofort beheben (W9).
 - [ ] Dorf-Wanderer bauen nach Konzept docs/ai/KONZEPT-DORF-WANDERER-2026-10-15.md + Antworten W1–W11.
 - [ ] Hollow Howler Phase 1+2 umsetzen (H1); danach Phase 3 eigene synthetische Sounds (H2); Darkness-Puls nur in der Wut-Phase (H3); leuchtendes Herz als neue Emissiv-Textur mit Vorschau zur Freigabe (H4); Kamerawackeln mit Schalter „Bewegung reduzieren“ (H5). Konzept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md. – Phase 1+2, H3, H5 erledigt (claude-howler-n63); offen: H4 Herz nach Besitzer-OK, Phase 3 Sounds
-- [ ] Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md. – Schritt 1 erledigt (oc-anim-quick): Dread-Wind-up/Recovery, Nibblemite/Dragonmite-Wackeln, Shellker-Deckel, Deceiver-Idle, Soulfire-Blaze-Takt; Rest offen.
+- [ ] Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md. – Schritt 1 erledigt (oc-anim-quick): Dread-Wind-up/Recovery, Nibblemite/Dragonmite-Wackeln, Shellker-Deckel, Deceiver-Idle, Soulfire-Blaze-Takt; Rest offen.; Schritt 3 (Dread-Kette, Deceiver-Flucht/Mantel, Tod) erledigt (claude-anim2); offen: Nibblemite/Dragonmite-Tod + Kauzyklus, Deceiver-Idle-One-Shots, Dread-Kettenrasseln im Idle
 - [x] Sandwich-Brot-Unterrand genehmigt (oc-breadrim).
 - [x] Item-Display Schritt 1 (Text-Vorschlag) freigegeben 15.10.; D8 Lapis/Splitter/Nuggets nach erster Welle; D9 Display-Block später als eigenes Thema.
 
