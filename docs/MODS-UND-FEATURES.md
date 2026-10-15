@@ -75,7 +75,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
   Astral-/Nihil-Schienen, Enderit-Material (leeresicher), seltene verstärkte Shulker.
 - **Kampf/Ausrüstung:** Pfeile aus Teilen (Spitze/Schaft/Feder), Rüstungsbesatz-Boni (Resonanz, Herz-Knopf mit
   8 Stufen im Inventar), Extra-Kopf-Slot im Inventar (Mob-Kopf/Kürbis; Effekte wie im Helm-Slot inkl. Attribute und Frostschutz, Anzieh-Sound, Modell vor einem Helm-Kopf, Größe wie am Mob, Helm darüber), Trank „Crafty Shulker“, Trainingspuppe (Skin per Namensschild), Rüstungsständer mit Armen/Tausch.
-- **Deko/Platzieren:** abgelegte Vorlagen, Kleinteile-Häufchen, Schachbrett-Blöcke und Schachfiguren (Achtel),
+- **Deko/Platzieren:** abgelegte Vorlagen, Kleinteile-Häufchen (Barren/Ziegel/Diamant/Smaragd in 3D, Vorschlaghammer schaltet 3D/flach), Schachbrett-Blöcke und Schachfiguren (Achtel),
   senkrechte Stäbe, Hängematte (jeder Winkel), Schallplatten je Dimension + Musik-Verstärker (spielen einen
   Plattenspieler bis 63 Blöcke mit, der Plattenspieler bleibt Vanilla) / Noten-Verstärker (spielen Notenblöcke ebenso per Funk mit), Metall-Stangen (Eisen bis
   Enderit, Blitzableiter mit eigener Reichweite; früher „Rod“).

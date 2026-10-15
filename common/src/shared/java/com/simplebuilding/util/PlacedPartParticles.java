@@ -74,10 +74,11 @@ public final class PlacedPartParticles {
         int count = Math.min(parts.size(), PlacedSmallParts.MAX_PARTS);
         Direction facing = state.getValue(PlacedSmallPartsBlock.FACING);
         boolean lit = state.getValue(PlacedSmallPartsBlock.LIT);
+        boolean flat = state.getValue(PlacedSmallPartsBlock.FLAT);
         boolean cosmetic = cosmeticOn();
         for (int i = 0; i < count; i++) {
             ItemStack part = parts.get(i);
-            PlacedSmallParts.Kind kind = PlacedSmallParts.kind(part);
+            PlacedSmallParts.Kind kind = PlacedSmallParts.kind(part, flat);
             if (kind == PlacedSmallParts.Kind.CANDLE) {
                 if (lit) {
                     Vector3f wick = PlacedSmallParts.center(facing, count, i, true);

@@ -34,6 +34,7 @@ public class PlacedSmallPartsBlockEntity extends BlockEntity {
     private final List<ItemStack> parts = new ArrayList<>();
     private @Nullable VoxelShape shape;
     private @Nullable Direction shapeFacing;
+    private boolean shapeFlat;
 
     public PlacedSmallPartsBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PLACED_SMALL_PARTS_BE, pos, state);
@@ -94,15 +95,17 @@ public class PlacedSmallPartsBlockEntity extends BlockEntity {
         }
     }
 
-    /** Trefferform der Teile, neu gerechnet nur, wenn sich Teile oder Richtung geaendert haben. */
+    /** Trefferform der Teile, neu gerechnet nur, wenn sich Teile, Richtung oder 3D/flach geaendert haben. */
     public VoxelShape shape() {
         BlockState state = getBlockState();
         Direction facing = state.getBlock() instanceof PlacedSmallPartsBlock ? state.getValue(PlacedSmallPartsBlock.FACING) : Direction.NORTH;
+        boolean flat = state.getBlock() instanceof PlacedSmallPartsBlock && state.getValue(PlacedSmallPartsBlock.FLAT);
         VoxelShape cached = this.shape;
-        if (cached == null || facing != this.shapeFacing) {
-            cached = PlacedSmallParts.shape(this.parts, facing);
+        if (cached == null || facing != this.shapeFacing || flat != this.shapeFlat) {
+            cached = PlacedSmallParts.shape(this.parts, facing, flat);
             this.shape = cached;
             this.shapeFacing = facing;
+            this.shapeFlat = flat;
         }
         return cached;
     }

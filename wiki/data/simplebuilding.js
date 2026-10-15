@@ -67924,7 +67924,8 @@ window.WIKI_DATA = {
             "Light like vanilla: lit candles give 3 per candle, sea pickles under water 3 + 3 per pickle, dry pickles none. Flint and steel, a fire charge or a burning projectile light the candles (not under water); an empty hand puts them out, and so does water flowing in. Lit candles show the vanilla flame and smoke.",
             "Glowing parts (glowstone dust, glow ink sac, prismarine crystals, nether star, blaze rod, echo shard, Astralit Dust, Sage Orb) now and then show a subtle vanilla particle; the client option \"Glow Particles on Placed Parts\" (tools.placedPartParticles, on by default) turns that off.",
             "Since 2026-10-04 a stick, bone, blaze rod or breeze rod clicked on a free top stands upright instead (see Standing Rod); on a pile, a wall or a ceiling it still lies down.",
-            "Ingots lie as small 3D bars (copper, iron, gold, netherite and Enderite ingots; other ingots stay plates). With only ingots on the spot they stack like a little ingot pile: two side by side, the third and fourth across on top. Smithing templates (every armor trim, the netherite upgrade and the mod's upgrade templates) join too: the first still lies alone as a placed template (hammer upgrade), sneak + right-click with another template on it makes a pile of up to four; on a lone template only templates are added, a pile takes them like any other part."
+            "Ingots lie as small 3D bars (copper, iron, gold, netherite and Enderite ingots; other ingots stay plates). With only ingots on the spot they stack like a little ingot pile: two side by side, the third and fourth across on top. Smithing templates (every armor trim, the netherite upgrade and the mod's upgrade templates) join too: the first still lies alone as a placed template (hammer upgrade), sneak + right-click with another template on it makes a pile of up to four; on a lone template only templates are added, a pile takes them like any other part.",
+            "Since 2026-10-15 bricks (brick, nether brick, resin brick) also lie as 3D cuboids and stack with the ingots; diamonds and emeralds stand as small stepped 3D gems. A right click with the sledgehammer on the spot switches these 3D parts (ingots included) to the flat item look, the next strike back to 3D (block state flat, 1 durability per switch, applies to all supported parts of the spot; music discs take priority). All other parts stay plates; breaking and drops do not change."
           ]
         },
         "de": {
@@ -67939,7 +67940,8 @@ window.WIKI_DATA = {
             "Licht wie bei Vanilla: brennende Kerzen geben 3 je Kerze, Seegurken unter Wasser 3 + 3 je Gurke, trockene Gurken nichts. Feuerzeug, Feuerkugel oder ein brennendes Geschoss zünden die Kerzen an (nicht unter Wasser); die leere Hand löscht sie, ebenso hineinlaufendes Wasser. Brennende Kerzen zeigen die Vanilla-Flamme und Rauch.",
             "Leuchtende Teile (Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Netherstern, Lohenrute, Echoscherbe, Astralitstaub, Weisheitskugel) zeigen ab und zu einen dezenten Vanilla-Partikel; die Client-Option „Glanz-Partikel an abgelegten Teilen“ (tools.placedPartParticles, standardmäßig an) schaltet das ab.",
             "Seit 2026-10-04 stellt sich ein Stock, Knochen, eine Lohen- oder Böenrute auf einer freien Oberseite senkrecht auf (siehe Aufgestellter Stab); auf einem Häufchen, an Wand oder Decke legt er sich weiter hin.",
-            "Barren liegen als kleine 3D-Barren (Kupfer-, Eisen-, Gold-, Netherit- und Enderitbarren; andere Barren bleiben Platten). Liegen nur Barren auf dem Fleck, stapeln sie sich wie ein kleiner Barrenstapel: zwei nebeneinander, der dritte und vierte quer darüber. Schmiedevorlagen (alle Rüstungsbesätze, die Netherit-Aufwertung und die Aufwertungsvorlagen der Mod) kommen ebenfalls dazu: die erste liegt weiter allein als abgelegte Vorlage (Hammer-Aufwertung), Schleichen + Rechtsklick mit einer weiteren Vorlage darauf macht ein Häufchen bis vier; auf eine einzelne Vorlage kommen nur Vorlagen, ein Häufchen nimmt sie wie jedes andere Teil."
+            "Barren liegen als kleine 3D-Barren (Kupfer-, Eisen-, Gold-, Netherit- und Enderitbarren; andere Barren bleiben Platten). Liegen nur Barren auf dem Fleck, stapeln sie sich wie ein kleiner Barrenstapel: zwei nebeneinander, der dritte und vierte quer darüber. Schmiedevorlagen (alle Rüstungsbesätze, die Netherit-Aufwertung und die Aufwertungsvorlagen der Mod) kommen ebenfalls dazu: die erste liegt weiter allein als abgelegte Vorlage (Hammer-Aufwertung), Schleichen + Rechtsklick mit einer weiteren Vorlage darauf macht ein Häufchen bis vier; auf eine einzelne Vorlage kommen nur Vorlagen, ein Häufchen nimmt sie wie jedes andere Teil.",
+            "Seit 2026-10-15 liegen auch Ziegel (Ziegel, Netherziegel, Harzziegel) als 3D-Quader und stapeln sich mit den Barren; Diamanten und Smaragde stehen als kleine abgestufte 3D-Edelsteine. Ein Rechtsklick mit dem Vorschlaghammer auf den Fleck schaltet diese 3D-Teile (auch die Barren) auf die flache Item-Darstellung um, der nächste Schlag wieder auf 3D (Blockzustand flat, 1 Haltbarkeit je Wechsel, gilt für alle unterstützten Teile des Flecks; Schallplatten haben Vorrang). Alle anderen Teile bleiben Platten; Abbau und Drops ändern sich nicht."
           ]
         },
         "sources": [
@@ -67952,7 +67954,9 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/render/PlacedSmallPartsRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/PlacedEggs.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedEggBlock.java",
-          "tools/textures/placed_ingots_2026_10_09.py"
+          "tools/textures/placed_ingots_2026_10_09.py",
+          "tools/textures/placed_gems_bricks_2026_10_15.py",
+          "common/src/shared/java/com/simplebuilding/util/FlatToggles.java"
         ]
       },
       "hasCustomBehaviour": true
