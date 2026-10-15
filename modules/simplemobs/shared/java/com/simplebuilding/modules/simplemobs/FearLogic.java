@@ -27,6 +27,8 @@ public final class FearLogic {
     public static final int STOMP_WINDUP = 24, STOMP_COOLDOWN = 160;
     public static final double STOMP_RADIUS = 6.0;
     public static final int RISE_TICKS = 60;
+    /** Client only: after a swing/stomp the raised pose eases back to rest over this many ticks instead of snapping. */
+    public static final int RECOVER_TICKS = 6;
 
     // ---- Hollow Watcher ---------------------------------------------------------------------
     public static final double WATCHER_HEALTH = 200.0, WATCHER_ARMOR = 8.0, WATCHER_SPEED = 0.32;
@@ -84,6 +86,12 @@ public final class FearLogic {
     public static final int FOCUS_TICKS = 3600, LONG_FOCUS_TICKS = 9600;
 
     private FearLogic() {}
+
+    /** Slow in / slow out (smoothstep) of a 0..1 ramp, for animation: a soft start and a soft finish instead of a linear ramp. */
+    public static float ease(float t) {
+        float c = t < 0.0F ? 0.0F : t > 1.0F ? 1.0F : t;
+        return c * c * (3.0F - 2.0F * c);
+    }
 
     /** Shivering levels of the aura (N50): level 5 right next to the mob, one level less every ~3 blocks out to 16. */
     public static final int AURA_MAX_LEVEL = 5;

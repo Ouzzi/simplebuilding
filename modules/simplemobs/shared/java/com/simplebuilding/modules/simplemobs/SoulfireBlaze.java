@@ -5,6 +5,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,6 +28,9 @@ import net.minecraft.world.phys.Vec3;
  */
 public class SoulfireBlaze extends Blaze {
     private static final EntityDataAccessor<Boolean> DATA_SOUL_CHARGED = SynchedEntityData.defineId(SoulfireBlaze.class, EntityDataSerializers.BOOLEAN);
+
+    /** Client only: the rod/body animation clock; it runs faster while charged and speeds up/down smoothly (no phase jump). */
+    private float spin, spinO, spinRate = 1.0F;
 
     public SoulfireBlaze(EntityType<? extends SoulfireBlaze> type, Level level) {
         super(type, level);
@@ -54,6 +58,11 @@ public class SoulfireBlaze extends Blaze {
         return this.entityData.get(DATA_SOUL_CHARGED);
     }
 
+    /** Client animation time in ticks for the Blaze model: {@code tickCount} pace while calm, up to twice as fast while charging. */
+    public float animTime(float partialTicks) {
+        return Mth.lerp(partialTicks, spinO, spin);
+    }
+
     public void setSoulCharged(boolean charged) {
         this.entityData.set(DATA_SOUL_CHARGED, charged);
     }
@@ -61,6 +70,9 @@ public class SoulfireBlaze extends Blaze {
     @Override
     public void aiStep() {
         if (this.level().isClientSide()) {
+            spinRate += ((isSoulCharged() ? 2.0F : 1.0F) - spinRate) * 0.1F;
+            spinO = spin;
+            spin += spinRate;
             int n = isSoulCharged() ? 3 : 1;
             for (int i = 0; i < n; i++) {
                 if (this.random.nextInt(3) == 0 || isSoulCharged()) {

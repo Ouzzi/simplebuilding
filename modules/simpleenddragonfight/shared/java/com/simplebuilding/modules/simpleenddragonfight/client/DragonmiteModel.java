@@ -9,7 +9,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
@@ -18,7 +17,7 @@ import net.minecraft.util.Mth;
  * spines along the back and two stubby wings on the broad segment that buzz with a jerk. Texture 64 x 32 (layout in
  * modules/simpleenddragonfight/tools/gen_textures.py).
  */
-public class DragonmiteModel extends EntityModel<LivingEntityRenderState> {
+public class DragonmiteModel extends EntityModel<DragonmiteRenderState> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath("simpleenddragonfight", "dragonmite"), "main");
     static final int[][] SIZES = {{4, 3, 2}, {6, 4, 5}, {3, 3, 1}, {1, 2, 1}};
     static final int[][] TEXS = {{0, 0}, {0, 5}, {0, 14}, {0, 18}};
@@ -53,14 +52,27 @@ public class DragonmiteModel extends EntityModel<LivingEntityRenderState> {
     }
 
     @Override
-    public void setupAnim(LivingEntityRenderState state) {
+    public void setupAnim(DragonmiteRenderState state) {
         super.setupAnim(state);
+        // Resting: slow, small sway and folded wings. Moving: the quick wiggle in step with the ground covered and the
+        // full buzz. Blended by speed; every Dragonmite has its own phase (entity id), so a swarm never buzzes in unison.
+        float m = Mth.smoothstep(Mth.clamp(state.walkAnimationSpeed * 2.0F, 0.0F, 1.0F));
+        float idleT = state.ageInTicks * 0.1F + state.phase;
+        float walkT = state.walkAnimationPos * 0.9F + state.phase;
         for (int i = 0; i < segments.length; i++) {
-            segments[i].yRot = Mth.cos(state.ageInTicks * 0.9F + i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.01F * (1 + Math.abs(i - 2));
-            segments[i].x = Mth.sin(state.ageInTicks * 0.9F + i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.1F * Math.abs(i - 2);
+            float off = i * 0.15F * (float) Math.PI;
+            float yRot = Mth.lerp(m, Mth.cos(idleT + off) * 0.25F, Mth.cos(walkT + off));
+            float x = Mth.lerp(m, Mth.sin(idleT + off) * 0.25F, Mth.sin(walkT + off));
+            segments[i].yRot = yRot * (float) Math.PI * 0.01F * (1 + Math.abs(i - 2));
+            segments[i].x = x * (float) Math.PI * 0.1F * Math.abs(i - 2);
         }
-        // Buzz: a fast flutter that jerks every few ticks.
-        float buzz = 0.35F + 0.25F * Mth.sin(state.ageInTicks * 2.6F) + ((int) state.ageInTicks % 7 == 0 ? 0.3F : 0.0F);
+        // Bite: the head and broad segment lunge forward (offsets only, no cube changes).
+        segments[0].z -= state.lunge * 1.5F;
+        segments[1].z -= state.lunge * 0.6F;
+        // Buzz: a fast flutter that jerks every seven ticks, each mite on its own beat.
+        float jerk = ((int) (state.ageInTicks + state.phase * 7.0F) % 7 == 0) ? 0.3F : 0.0F;
+        float buzz = Mth.lerp(m, 0.15F + 0.05F * Mth.sin(idleT * 4.0F), 0.35F + 0.25F * Mth.sin(state.ageInTicks * 2.6F + state.phase) + jerk);
+        buzz = Mth.lerp(state.lunge, buzz, 0.0F);
         rightWing.zRot = buzz;
         leftWing.zRot = -buzz;
     }
