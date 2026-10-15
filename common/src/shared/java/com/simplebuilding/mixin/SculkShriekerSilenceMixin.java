@@ -1,9 +1,8 @@
 package com.simplebuilding.mixin;
 
 import com.simplebuilding.util.ShriekerSilence;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ShriekParticleOption;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
@@ -12,14 +11,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Silent Dandelion on a Sculk Shrieker (owner N57): the silenced flag lives in the block entity. A silenced
- * shrieker still shrieks for the game (vibration, warning level, Darkness, Warden) - only the sounds go: the
- * client plays the shriek sound itself on level event 3007, so the server sends the shriek particles directly
- * instead, and the warden reply sound is skipped.
+ * shrieker is mute for the game too: {@code tryShriek} does nothing (no warning level, no shriek, no SHRIEK game
+ * event for sculk sensors); a shriek already running when it was silenced skips the warden reply sound.
  */
 @Mixin(SculkShriekerBlockEntity.class)
 public abstract class SculkShriekerSilenceMixin implements ShriekerSilence {
@@ -37,18 +35,13 @@ public abstract class SculkShriekerSilenceMixin implements ShriekerSilence {
         ((SculkShriekerBlockEntity) (Object) this).setChanged();
     }
 
-    @Redirect(method = "shriek", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/server/level/ServerLevel;levelEvent(ILnet/minecraft/core/BlockPos;I)V"))
-    private void simplebuilding$quietShriek(ServerLevel level, int type, BlockPos pos, int data) {
-        if (!simplebuilding$silenced) {
-            level.levelEvent(type, pos, data);
-            return;
-        }
-        // Same particles as level event 3007, without its sound.
-        for (int i = 0; i < 10; i++) {
-            level.sendParticles(new ShriekParticleOption(i * 5), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                    1, 0.0, 0.0, 0.0, 0.0);
-        }
+    /**
+     * A silenced shrieker does not react to vibrations at all: no warning level, no SHRIEKING state, no shriek sound or
+     * particles and no SHRIEK game event, so nearby sculk sensors are not set off by it (owner 14.10.).
+     */
+    @Inject(method = "tryShriek", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$silentNoShriek(ServerLevel level, @Nullable ServerPlayer player, CallbackInfo ci) {
+        if (simplebuilding$silenced) ci.cancel();
     }
 
     @Inject(method = "playWardenReplySound", at = @At("HEAD"), cancellable = true)
