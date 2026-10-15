@@ -11,6 +11,7 @@
   ],
   "client": [
     "client.CameraMixin",
+    "client.EntityRendererMixin",
     "client.HudMixin",
     "client.MinecraftMixin",
     "client.MouseHandlerMixin"

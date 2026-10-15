@@ -563,7 +563,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "1dad6da6c5ce"
+    "dataHash": "0060d25a18d6"
   },
   {
     "id": "simplebeacons",

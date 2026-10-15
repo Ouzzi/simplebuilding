@@ -40,6 +40,17 @@ public final class RespawnClient {
     public static void receive(DownedListPayload payload) {
         SimpleRespawn.CLIENT_DOWNED.clear();
         SimpleRespawn.CLIENT_DOWNED.addAll(payload.players());
+        SimpleRespawn.CLIENT_DOWNED_TICKS.clear();
+        for (int i = 0; i < payload.players().size() && i < payload.ticksLeft().size(); i++) {
+            SimpleRespawn.CLIENT_DOWNED_TICKS.put(payload.players().get(i), payload.ticksLeft().get(i));
+        }
+    }
+
+    /** Name tag hook: the red name with the time left for a downed player, otherwise the unchanged name. */
+    public static net.minecraft.network.chat.Component nameTag(net.minecraft.world.entity.player.Player player,
+                                                               net.minecraft.network.chat.Component original) {
+        Integer ticks = SimpleRespawn.CLIENT_DOWNED_TICKS.get(player.getUUID());
+        return ticks == null || original == null ? original : SimpleRespawn.downedNameTag(original, ticks);
     }
 
     public static void receive(RespawnStatePayload payload) {
@@ -66,6 +77,7 @@ public final class RespawnClient {
         progress = 0f;
         other = "";
         SimpleRespawn.CLIENT_DOWNED.clear();
+        SimpleRespawn.CLIENT_DOWNED_TICKS.clear();
     }
 
     private static void leave(Minecraft mc) {
@@ -80,6 +92,7 @@ public final class RespawnClient {
             if (role != RespawnStatePayload.NONE) reset();
             return;
         }
+        SimpleRespawn.CLIENT_DOWNED_TICKS.replaceAll((id, ticks) -> Math.max(0, ticks - 1));
         if (!downed()) return;
         // Count down locally between two server updates (the server pauses while someone helps).
         if (progress <= 0f && ticksLeft > 0) ticksLeft--;
