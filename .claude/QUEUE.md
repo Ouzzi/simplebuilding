@@ -264,9 +264,9 @@ Hollow Watcher – Korrektur
 - [x] KORREKTUR Blickverhalten: Wird er DIREKT angesehen (in die Augen/Fadenkreuz), bleibt er NICHT stehen, sondern wird aggressiv. Die Gradzonen (±10° unauffällig, ±25° langsam aus dem Blickfeld, ±35° direkt aus dem Blickfeld, außerhalb von hinten angreifen) gelten für „in seine Nähe schauen“. Ersetzt den Freeze aus N63/claude-watcher2. (claude-watcher3)
 
 Oktant-Manager (UI) – erst Konzept, Umsetzung nach Besitzer-Freigabe
-- [ ] Farben: das Orange wirkt grell → generell sanftere Farben.
-- [ ] Pixelfehler an den Ecken: ein Pixel zu viel, Ecken nicht in Treppenform (Besitzer-Screenshot 15.10.).
-- [ ] In-Game-Overlay des Oktanten: gleiche (grobe) Anordnung behalten, nur Hintergrund/Rahmen im neuen UI-Stil, aber schlank (Slim), wenig ablenkend, evtl. geringere Deckkraft; dunkel genug für gut lesbare Schrift; gleiche Farben/Design wie das aktualisierte UI.
+- [x] Farben: das Orange wirkt grell → generell sanftere Farben. (claude-octantui2; Besitzer-Abnahme der Screenshots offen; Fabric-Client-Lauf 10 rote Screenshot-Tests ohne Bezug, Ursache offen)
+- [x] Pixelfehler an den Ecken: ein Pixel zu viel, Ecken nicht in Treppenform (Besitzer-Screenshot 15.10.). (claude-octantui2; Besitzer-Abnahme der Screenshots offen; Fabric-Client-Lauf 10 rote Screenshot-Tests ohne Bezug, Ursache offen)
+- [x] In-Game-Overlay des Oktanten: gleiche (grobe) Anordnung behalten, nur Hintergrund/Rahmen im neuen UI-Stil, aber schlank (Slim), wenig ablenkend, evtl. geringere Deckkraft; dunkel genug für gut lesbare Schrift; gleiche Farben/Design wie das aktualisierte UI. (claude-octantui2; Besitzer-Abnahme der Screenshots offen; Fabric-Client-Lauf 10 rote Screenshot-Tests ohne Bezug, Ursache offen)
 - [x] Ablauf: Konzept + Vorschaubilder → Besitzer-Freigabe 15.10. (O1 B Bronze matt, O2 alle Kästen, O3 einheitlich, O4 78 %, O5 Helligkeit) → Umsetzung läuft (claude-octantui2).
 
 ## Nachtrag 63 (2026-10-15, Besitzer)
