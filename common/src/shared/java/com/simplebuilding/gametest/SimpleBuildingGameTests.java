@@ -1178,6 +1178,16 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("rotator_game_test_crafting_takes_an_iron_core_four_iron_and_an_ender_pearl_in_that_shape", RotatorTests::craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape)
                     .build(),
+            GameTestSpec.named("rotator_game_test_swap_replaces_the_block_gives_the_drops_and_uses_the_offhand_block", RotatorTests::swapReplacesTheBlockGivesTheDropsAndUsesTheOffhandBlock)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_swap_windup_grows_with_hardness_and_shrinks_with_efficiency", RotatorTests::swapWindupGrowsWithHardnessAndShrinksWithEfficiency)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_swap_windup_starts_on_click_and_only_finishes_on_the_same_aimed_block", RotatorTests::swapWindupStartsOnClickAndOnlyFinishesOnTheSameAimedBlock)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_swap_allows_stone_tool_blocks_and_keeps_valuables_and_lists_decide", RotatorTests::swapAllowsStoneToolBlocksAndKeepsValuablesAndListsDecide)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_swap_refusals_change_nothing_and_creative_swaps_for_free", RotatorTests::swapRefusalsChangeNothingAndCreativeSwapsForFree)
+                    .build(),
             GameTestSpec.named("magnet_game_test_magnet_only_runs_for_players_holding_it_and_stops_while_sneaking", MagnetTests::magnetOnlyRunsForPlayersHoldingItAndStopsWhileSneaking)
                     .build(),
             GameTestSpec.named("magnet_game_test_magnet_in_the_off_hand_drags_loose_items_into_the_inventory", MagnetTests::magnetInTheOffHandDragsLooseItemsIntoTheInventory)

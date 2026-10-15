@@ -952,6 +952,299 @@ public final class RotatorTests {
     // HELPERS
     // =====================================================================================
 
+    // =====================================================================================
+    // SECOND FUNCTION: SWAPPING (queue entry 63)
+    // =====================================================================================
+
+    private static ItemStack rotatorWithEfficiency(GameTestHelper helper, int level) {
+        ItemStack rotator = new ItemStack(ModItems.ROTATOR);
+        if (level > 0) {
+            rotator.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                    .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.EFFICIENCY), level);
+        }
+        return rotator;
+    }
+
+    private static int count(ServerPlayer player, net.minecraft.world.item.Item item) {
+        int total = 0;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.is(item)) {
+                total += stack.getCount();
+            }
+        }
+        return total;
+    }
+
+    /** Points the player's eyes at the middle of the block at {@code relative}. */
+    private static void aimAt(GameTestHelper helper, ServerPlayer player, BlockPos relative) {
+        player.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES,
+                Vec3.atCenterOf(helper.absolutePos(relative)));
+    }
+
+    /**
+     * The swap itself, at once (Efficiency V): stone becomes the off-hand planks, the cobblestone drop lands in
+     * the inventory, one plank is used up and the swap costs twice a turn's charge. The same click is what the
+     * hand hint asks about, and the block in the off hand wins over turning (a log with a block in the off hand
+     * is swapped, not turned).
+     *
+     * <p>What breaks this: the swap running before the permission check, the drops being lost or duplicated,
+     * the cost dropping back to one point, the hint not asking the swap, or the turn taking the click first.
+     */
+    public static void swapReplacesTheBlockGivesTheDropsAndUsesTheOffhandBlock(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        ItemStack rotator = rotatorWithEfficiency(helper, 5);
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BIRCH_PLANKS, 3));
+        helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(helper.absolutePos(TARGET)).add(0, 0.5, 0), Direction.UP,
+                helper.absolutePos(TARGET), false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, rotator);
+        helper.assertTrue(com.simplebuilding.util.TransformTargets.canTransformTarget(helper.getLevel(), hit, player,
+                InteractionHand.MAIN_HAND), "the hand hint does not ask the swap");
+
+        InteractionResult result = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(result == InteractionResult.SUCCESS, "an instant swap answered " + result);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.BIRCH_PLANKS),
+                "the stone was not swapped for the off-hand planks: " + helper.getBlockState(TARGET));
+        helper.assertValueEqual(player.getOffhandItem().getCount(), 2, "planks left in the off hand");
+        helper.assertValueEqual(count(player, Items.COBBLESTONE), 1, "cobblestone drops in the inventory");
+        helper.assertValueEqual(rotator.getDamageValue(), 2 * RotatorItem.useCost(), "charge of one swap (twice a turn)");
+        helper.assertTrue(player.getCooldowns().isOnCooldown(rotator), "no cooldown after the swap");
+
+        // The block in the off hand wins over turning: a log is swapped, not turned.
+        ServerPlayer second = mockPlayer(helper, false);
+        ItemStack other = rotatorWithEfficiency(helper, 5);
+        second.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.STONE, 1));
+        setLogAxis(helper, Direction.Axis.Y);
+        useOn(helper, second, other, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "a log with a block in the off hand was not swapped");
+        helper.assertTrue(second.getOffhandItem().isEmpty(), "the last off-hand block was not used up");
+        helper.assertValueEqual(count(second, Items.OAK_LOG), 1, "log drop");
+        helper.succeed();
+    }
+
+    /**
+     * Wind-up in ticks: (20 + 4 per hardness point) * (5 - Efficiency) / 5; Efficiency V and creative mode are
+     * instant, harder blocks take longer, and a base of 0 means always instant.
+     */
+    public static void swapWindupGrowsWithHardnessAndShrinksWithEfficiency(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        ServerPlayer creative = mockPlayer(helper, true);
+        BlockPos pos = helper.absolutePos(TARGET);
+        com.simplebuilding.config.SimplebuildingConfig.Tools tools = com.simplebuilding.Simplebuilding.getConfig().tools;
+        int baseBefore = tools.rotatorSwapWindupTicks;
+        try {
+            helper.setBlock(TARGET, Blocks.STONE.defaultBlockState()); // hardness 1.5
+            helper.assertValueEqual(com.simplebuilding.util.RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 0), pos),
+                    26, "stone, no Efficiency");
+            helper.assertValueEqual(com.simplebuilding.util.RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 3), pos),
+                    10, "stone, Efficiency III");
+            helper.assertValueEqual(com.simplebuilding.util.RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 5), pos),
+                    0, "stone, Efficiency V");
+            helper.assertValueEqual(com.simplebuilding.util.RotatorSwap.windupTicks(helper.getLevel(), creative, rotatorWithEfficiency(helper, 0), pos),
+                    0, "creative mode");
+            helper.setBlock(TARGET, Blocks.DIRT.defaultBlockState()); // hardness 0.5
+            helper.assertValueEqual(com.simplebuilding.util.RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 0), pos),
+                    22, "dirt, no Efficiency");
+            helper.setBlock(TARGET, Blocks.IRON_BLOCK.defaultBlockState()); // hardness 5
+            helper.assertValueEqual(com.simplebuilding.util.RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 0), pos),
+                    40, "iron block, no Efficiency");
+            tools.rotatorSwapWindupTicks = 0;
+            helper.assertValueEqual(com.simplebuilding.util.RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 0), pos),
+                    0, "wind-up base 0");
+        } finally {
+            tools.rotatorSwapWindupTicks = baseBefore;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * The wind-up: the click starts using the Rotator for the computed ticks and changes nothing yet; finishing
+     * swaps exactly the block it started on while the player still aims at it, and a finish while looking away,
+     * with the block changed or the charge gone does nothing and costs nothing.
+     */
+    public static void swapWindupStartsOnClickAndOnlyFinishesOnTheSameAimedBlock(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        ItemStack rotator = rotatorWithEfficiency(helper, 0);
+        helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BIRCH_PLANKS, 5));
+        aimAt(helper, player, TARGET);
+
+        InteractionResult result = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(result == InteractionResult.CONSUME, "the wind-up click answered " + result);
+        helper.assertTrue(player.isUsingItem(), "the click did not start the wind-up");
+        helper.assertValueEqual(rotator.getItem().getUseDuration(rotator, player), 26, "wind-up of stone");
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "the block was swapped before the wind-up ended");
+
+        // Looking away: nothing happens.
+        player.setYRot(180.0F);
+        player.setYHeadRot(180.0F);
+        player.setXRot(0.0F);
+        rotator.getItem().finishUsingItem(rotator, helper.getLevel(), player);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "a finished wind-up swapped a block the player no longer aims at");
+        helper.assertValueEqual(rotator.getDamageValue(), 0, "charge spent on an aborted swap");
+        player.stopUsingItem();
+
+        // Aimed, started, released early: nothing happens either.
+        aimAt(helper, player, TARGET);
+        useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        rotator.getItem().releaseUsing(rotator, helper.getLevel(), player, 5);
+        rotator.getItem().finishUsingItem(rotator, helper.getLevel(), player);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "a released wind-up still swapped");
+        player.stopUsingItem();
+
+        // Aimed and finished: swapped.
+        aimAt(helper, player, TARGET);
+        useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        rotator.getItem().finishUsingItem(rotator, helper.getLevel(), player);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.BIRCH_PLANKS), "the finished wind-up did not swap: " + helper.getBlockState(TARGET));
+        helper.assertValueEqual(rotator.getDamageValue(), 2, "charge of the swap");
+        player.stopUsingItem();
+
+        // The block changed during the wind-up: nothing happens.
+        helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+        aimAt(helper, player, TARGET);
+        useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.setBlock(TARGET, Blocks.DEEPSLATE.defaultBlockState());
+        rotator.getItem().finishUsingItem(rotator, helper.getLevel(), player);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.DEEPSLATE), "a wind-up swapped a block it did not start on");
+        helper.succeed();
+    }
+
+    /**
+     * Which blocks may be swapped: the stone-tool rule (no obsidian, no diamond ore, nothing above the hardness
+     * limit), the safety rules no list lifts (containers with content, beacons, spawners, unbreakable and fluid
+     * blocks, halves of double blocks, the dragon egg) and the lists on top: blacklist over whitelist over rule.
+     */
+    public static void swapAllowsStoneToolBlocksAndKeepsValuablesAndListsDecide(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        BlockPos pos = helper.absolutePos(TARGET);
+        ItemStack planks = new ItemStack(Items.BIRCH_PLANKS);
+        com.simplebuilding.config.SimplebuildingConfig.Tools tools = com.simplebuilding.Simplebuilding.getConfig().tools;
+        String white = tools.rotatorSwapWhitelist;
+        String black = tools.rotatorSwapBlacklist;
+        try {
+            tools.rotatorSwapWhitelist = "";
+            tools.rotatorSwapBlacklist = "";
+            for (Block allowed : List.of(Blocks.STONE, Blocks.DIRT, Blocks.OAK_LOG, Blocks.COAL_ORE, Blocks.IRON_ORE,
+                    Blocks.DEEPSLATE, Blocks.GLASS, Blocks.OAK_LEAVES, Blocks.SHORT_GRASS, Blocks.IRON_BLOCK, Blocks.CHEST)) {
+                helper.setBlock(TARGET, allowed.defaultBlockState());
+                helper.assertTrue(com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks),
+                        allowed + " should be swappable (a stone tool mines it, or it is a plain empty block)");
+            }
+            for (Block refused : List.of(Blocks.OBSIDIAN, Blocks.CRYING_OBSIDIAN, Blocks.DIAMOND_ORE, Blocks.ANCIENT_DEBRIS,
+                    Blocks.BEDROCK, Blocks.BEACON, Blocks.SPAWNER, Blocks.ENDER_CHEST, Blocks.WATER, Blocks.DRAGON_EGG,
+                    Blocks.OAK_DOOR, Blocks.BUDDING_AMETHYST, Blocks.INFESTED_STONE, Blocks.REINFORCED_DEEPSLATE, Blocks.AIR,
+                    Blocks.OAK_SIGN, Blocks.COMMAND_BLOCK, Blocks.NETHERITE_BLOCK)) {
+                helper.setBlock(TARGET, refused.defaultBlockState());
+                helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks),
+                        refused + " must never be swapped");
+            }
+            // The target block itself, and an off hand that is no block, are no swap.
+            helper.setBlock(TARGET, Blocks.BIRCH_PLANKS.defaultBlockState());
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "swapping a block for itself");
+            helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, new ItemStack(Items.STICK)), "an item that is no block");
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, ItemStack.EMPTY), "an empty off hand");
+
+            // A chest with content stays, an empty one goes.
+            helper.setBlock(TARGET, Blocks.CHEST.defaultBlockState());
+            net.minecraft.world.level.block.entity.ChestBlockEntity chest =
+                    (net.minecraft.world.level.block.entity.ChestBlockEntity) helper.getBlockEntity(TARGET, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+            chest.setItem(0, new ItemStack(Items.DIAMOND));
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "a chest with content was swappable");
+            chest.setItem(0, ItemStack.EMPTY);
+            helper.assertTrue(com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "an empty chest was not swappable");
+
+            // Whitelist: obsidian allowed by id, a tag works too; the safety rules stay.
+            tools.rotatorSwapWhitelist = "minecraft:obsidian, #minecraft:wither_immune, bad id";
+            helper.setBlock(TARGET, Blocks.OBSIDIAN.defaultBlockState());
+            helper.assertTrue(com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "whitelisted obsidian");
+            helper.setBlock(TARGET, Blocks.BEDROCK.defaultBlockState());
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "whitelisted bedrock (unbreakable)");
+            helper.setBlock(TARGET, Blocks.BEACON.defaultBlockState());
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "whitelisted beacon");
+            tools.rotatorSwapWhitelist = "#minecraft:diamond_ores";
+            helper.setBlock(TARGET, Blocks.DIAMOND_ORE.defaultBlockState());
+            helper.assertTrue(com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "diamond ore through a whitelisted tag");
+
+            // Blacklist: wins over the rule and over the whitelist.
+            tools.rotatorSwapWhitelist = "minecraft:stone";
+            tools.rotatorSwapBlacklist = "minecraft:stone, #minecraft:logs";
+            helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "blacklisted stone (also whitelisted)");
+            helper.setBlock(TARGET, Blocks.OAK_LOG.defaultBlockState());
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "a log through a blacklisted tag");
+            helper.setBlock(TARGET, Blocks.DIRT.defaultBlockState());
+            helper.assertTrue(com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "dirt next to the lists");
+
+            // Hardness limit: stone (1.5) above a limit of 1 is out, below 2 in.
+            tools.rotatorSwapWhitelist = "";
+            tools.rotatorSwapBlacklist = "";
+            tools.rotatorSwapMaxHardness = 1.0;
+            helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "stone above a hardness limit of 1");
+            tools.rotatorSwapMaxHardness = 2.0;
+            helper.assertTrue(com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "stone below a hardness limit of 2");
+
+            // Off switch.
+            tools.rotatorSwapEnabled = false;
+            helper.assertTrue(!com.simplebuilding.util.RotatorSwap.canSwap(helper.getLevel(), pos, planks), "swap switched off");
+        } finally {
+            tools.rotatorSwapWhitelist = white;
+            tools.rotatorSwapBlacklist = black;
+            tools.rotatorSwapMaxHardness = com.simplebuilding.util.RotatorSwap.DEFAULT_MAX_HARDNESS;
+            tools.rotatorSwapEnabled = true;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * The click refusals: no charge, no rights (adventure mode) and a placement the block refuses (a cactus on
+     * stone with no sand under it) leave everything as it was and pay nothing; the creative player swaps at once
+     * without drops, without using up the block and without charge.
+     */
+    public static void swapRefusalsChangeNothingAndCreativeSwapsForFree(GameTestHelper helper) {
+        // empty charge
+        ServerPlayer player = mockPlayer(helper, false);
+        ItemStack empty = rotatorWithEfficiency(helper, 5);
+        empty.setDamageValue(empty.getMaxDamage());
+        helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BIRCH_PLANKS, 2));
+        InteractionResult refused = useOn(helper, player, empty, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(refused == InteractionResult.FAIL, "an empty rotator answered " + refused);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE) && player.getOffhandItem().getCount() == 2, "an empty rotator swapped");
+
+        // no building rights
+        ItemStack rotator = rotatorWithEfficiency(helper, 5);
+        player.getAbilities().mayBuild = false;
+        InteractionResult noRights = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        player.getAbilities().mayBuild = true;
+        helper.assertTrue(noRights == InteractionResult.PASS, "a player without rights answered " + noRights);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE) && rotator.getDamageValue() == 0, "a player without rights swapped or paid");
+
+        // the placement is refused: atomic
+        helper.setBlock(TARGET.below(), Blocks.STONE.defaultBlockState());
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.CACTUS, 2));
+        InteractionResult noPlace = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(noPlace == InteractionResult.FAIL, "a refused placement answered " + noPlace);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "a refused placement changed the block");
+        helper.assertTrue(player.getOffhandItem().getCount() == 2 && rotator.getDamageValue() == 0
+                && count(player, Items.COBBLESTONE) == 0, "a refused placement paid or dropped something");
+
+        // creative: free, instant, no drops, block not used up
+        ServerPlayer creative = mockPlayer(helper, true);
+        ItemStack free = rotatorWithEfficiency(helper, 0);
+        creative.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BIRCH_PLANKS, 2));
+        InteractionResult instant = useOn(helper, creative, free, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(instant == InteractionResult.SUCCESS, "a creative swap answered " + instant);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.BIRCH_PLANKS), "the creative swap did not happen at once");
+        helper.assertTrue(creative.getOffhandItem().getCount() == 2 && free.getDamageValue() == 0
+                && count(creative, Items.COBBLESTONE) == 0, "the creative swap used up the block, charge or gave drops");
+        helper.succeed();
+    }
+
     /**
      * The ordinary in-level mock player, positioned inside the room and handed back at the end.
      *

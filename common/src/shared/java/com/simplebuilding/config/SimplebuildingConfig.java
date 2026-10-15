@@ -376,6 +376,24 @@ public class SimplebuildingConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         public int rotatorChargePerTurn = 1;
 
+        // Rotator, zweite Funktion (RotatorSwap, Queue Nachtrag 63): Block in der Nebenhand + Rechtsklick tauscht den
+        // angeklickten Block. Schalter, Ausholzeit in Ticks (20 = 1 s; Effizienz verkuerzt, V sofort), Haertegrenze der
+        // Abbau-Regel und Listen (kommagetrennt: #namespace:tag oder namespace:block; Blacklist vor Whitelist vor Regel).
+        @ConfigEntry.Gui.Tooltip
+        public boolean rotatorSwapEnabled = true;
+
+        @ConfigEntry.Gui.Tooltip
+        public int rotatorSwapWindupTicks = 20;
+
+        @ConfigEntry.Gui.Tooltip
+        public double rotatorSwapMaxHardness = 6.0;
+
+        @ConfigEntry.Gui.Tooltip
+        public String rotatorSwapWhitelist = "";
+
+        @ConfigEntry.Gui.Tooltip
+        public String rotatorSwapBlacklist = "";
+
         // --- Bedienung (je Spieler) ---
 
         @ConfigEntry.Gui.Tooltip
@@ -417,6 +435,10 @@ public class SimplebuildingConfig implements ConfigData {
             transformHintStrength = Math.max(0, Math.min(100, transformHintStrength));
             magnetRangeMultiplier = bounded(magnetRangeMultiplier, 0, 4, 1.0);
             rotatorChargePerTurn = (int) bounded(rotatorChargePerTurn, 0, 4096, 1);
+            rotatorSwapWindupTicks = (int) bounded(rotatorSwapWindupTicks, 0, 200, 20);
+            rotatorSwapMaxHardness = bounded(rotatorSwapMaxHardness, 0, 50, 6.0);
+            if (rotatorSwapWhitelist == null) rotatorSwapWhitelist = "";
+            if (rotatorSwapBlacklist == null) rotatorSwapBlacklist = "";
         }
     }
 

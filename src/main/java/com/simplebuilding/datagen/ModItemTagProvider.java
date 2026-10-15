@@ -145,8 +145,10 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
 
+        // Rotator: Effizienz verkuerzt das Ausholen des Tauschens (RotatorSwap.windupTicks).
         builder(ItemTags.MINING_ENCHANTABLE)
-                .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
+                .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
+                .add(key(ModItems.ROTATOR));
 
         builder(ModTags.Items.RADIUS_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)

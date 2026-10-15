@@ -56,7 +56,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 ### SimpleBuilding
 - **Bauwerkzeuge:** Vorschlaghammer (3×3, Formen in Treppe/Stufe/Achtel), Meißel (Blöcke in der Welt umformen),
   Baustab (Flächen), Oktant (Messen/Planen), Blaupause (Bau-Code, Editor mit 3D-Vorschau, Scannen/Bauen),
-  Rotator, Farbpinsel (Goldpinsel) mit Farbkasten in 4 Stufen.
+  Rotator (dreht Blöcke; zweite Funktion: Block in der Nebenhand tauscht den angeklickten Block), Farbpinsel (Goldpinsel) mit Farbkasten in 4 Stufen.
 - **Kerne** (Kupfer bis Enderit) als Werkzeugstufen, mit Hand-Animationen; In-World-Umwandlungen per Schlag.
 - **Vorschlaghammer-Zerlegungen** (schrittweise, ein Teil je Schlag): Diamantblock und Rissiger Diamantblock (9 Schläge, ab Eisenhammer) → 81 Diamantkiesel;
   Obsidian, Weinender Obsidian und Lohen-Obsidian (je 9 Schläge) → Obsidian-/Weinender-Obsidian-/Lohen-Obsidian-Splitter (nur so erhältlich; 9 Splitter → Block zurück); Eis, Packeis, Feuerkugel.
