@@ -7,4 +7,4 @@ Branch `claude-mapfix` (nach claude-wave1 gemergt eingearbeitet). Merge nach wav
 5. Ebenen-Knopf (links) mit Schaltern: geladene Chunks, Chunk-Loader, Shops (gespeichert). Server-Autoritaet `LayerService` (nur Halter der Karte, 10-Tick-Limit, max 128x128 Chunks, nur erkundete Kacheln, Config `layers`). Modul-Vertrag `framework MapLayerSources` (reines Java): SB registriert `chunk_loaders`, Simple Shops `shops` (nur Angebot-Namen + Preis + Besitzer, keine Vorraete/Einnahmen); simplemaps kennt beide nicht.
 6. Kartenrahmen auf Bronze (#6F5F4B).
 Ideen weitere Ebenen: Spieler/Teammitglieder-Positionen; Claims/Schutzgebiete; Todes-/Heimat-/Respawn-Punkte; Mob-Spawner/Beacon-Reichweiten.
-Tests: GameTest `layers` neu; Compile/Tests siehe Abschlusszeile unten. Nicht getestet: Client-Optik (Screenshots), Forge-Laufzeit, Layer-Daten bei Frame-Ansicht (dort aus).
+Tests: Compile 3 Loader + Module gruen (ab8c7560b); Simple Maps fabric integration 19/19 gruen inkl. neuem GameTest `layers`.
