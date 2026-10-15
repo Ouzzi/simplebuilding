@@ -1121,12 +1121,12 @@ public final class DataIntegrityTests {
                 continue;
             }
             if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().equals("astral_enchanting_table")) {
-                // Konzept Astral-Verzauberung "Abbauen": zurueck in seine Teile, Verzauberungstisch + Enderit-Nugget.
+                // Konzept Astral-Verzauberung "Abbauen": zurueck in seine Teile, Verzauberungstisch + Enderit-Barren (Besitzer 15.10.).
                 for (List<ItemStack> produced : rolls) {
                     if (produced.size() != 2 || produced.stream().anyMatch(s -> s.getCount() != 1)
                             || produced.stream().noneMatch(s -> s.is(Items.ENCHANTING_TABLE))
-                            || produced.stream().noneMatch(s -> s.is(ModItems.ENDERITE_NUGGET))) {
-                        problems.add(actual + " must drop one enchanting table and one enderite nugget: " + produced);
+                            || produced.stream().noneMatch(s -> s.is(ModItems.ENDERITE_INGOT))) {
+                        problems.add(actual + " must drop one enchanting table and one enderite ingot: " + produced);
                     }
                 }
                 continue;
