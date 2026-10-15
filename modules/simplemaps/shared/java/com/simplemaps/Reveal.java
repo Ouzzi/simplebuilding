@@ -35,8 +35,14 @@ public final class Reveal {
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
         int changed = 0;
         int[] sample = new int[3];
+        int extra = 0;
         for (int x = px - radius; x <= px + radius; x++) {
-            if ((x & 15) != phase) continue;
+            // Every 16th column per tick like Vanilla, plus a few columns still unknown at the holder's row (the leading edge
+            // while walking, columns skipped by a gap): without them stripes stay where the holder left the map.
+            if ((x & 15) != phase) {
+                if (extra >= 24 || data.color(x, pz) != 0) continue;
+                extra++;
+            }
             int dx = x - px;
             int span = (int) Math.sqrt((double) radius * radius - (double) dx * dx);
             int previous = Integer.MIN_VALUE;

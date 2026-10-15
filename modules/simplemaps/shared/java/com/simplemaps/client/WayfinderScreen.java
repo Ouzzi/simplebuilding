@@ -54,8 +54,8 @@ public final class WayfinderScreen extends Screen {
             RIB_OUT = WayfinderLayout.RIB_OUT, RIB_HOVER = WayfinderLayout.RIB_HOVER;
     /** Icons on the grey Vanilla buttons: light with a dark drop shadow, like button text. */
     private static final int ICON = 0xFFE8E8E8, ICON_SHADOW = 0xFF3A3A3A;
-    /** Parchment brown box (the map's colour); derived like every other N12 box. */
-    public static final UiPalette PALETTE = UiPalette.derived(0xFFB08A57);
+    /** Bronze box (the shared octant fill 6F5F4B); derived like every other N12 box. */
+    public static final UiPalette PALETTE = UiPalette.derived(0xFF6F5F4B);
     private static final Identifier PLAYER = Identifier.withDefaultNamespace("player");
     private static final Identifier DEATH = Identifier.withDefaultNamespace("red_x");
 
