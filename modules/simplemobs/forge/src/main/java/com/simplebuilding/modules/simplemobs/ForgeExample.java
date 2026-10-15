@@ -124,7 +124,19 @@ public final class ForgeExample {
             if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());
         });
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FMLPaths.CONFIGDIR.get());
-        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) ForgeClientExample.init();
+        // client FOV for the Hollow Watcher's gaze zones
+        var fovChannel = net.minecraftforge.network.ChannelBuilder.named(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemobs", "fov"))
+                .payloadChannel().protocol(net.minecraftforge.network.NetworkProtocol.PLAY)
+                .serverbound()
+                .add(FearNet.FovPayload.TYPE, FearNet.FovPayload.CODEC.cast(), (payload, ctx) -> {
+                    ctx.setPacketHandled(true);
+                    ctx.enqueueWork(() -> { var p = ctx.getSender(); if (p != null) FearNet.handle(payload, p); });
+                })
+                .build();
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
+            FearNet.toServer = payload -> fovChannel.send(payload, net.minecraftforge.network.PacketDistributor.SERVER.noArg());
+            ForgeClientExample.init();
+        }
     }
 
     private static void putAfter(BuildCreativeModeTabContentsEvent e, ItemStack anchor, ItemStack stack) {

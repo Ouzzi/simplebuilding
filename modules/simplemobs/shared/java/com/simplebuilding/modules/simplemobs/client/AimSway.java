@@ -21,7 +21,7 @@ public final class AimSway {
 
     /** Sway offset in degrees (yaw, pitch) for a level (0 = I) at time t seconds. */
     public static double[] offset(int amplifier, double t) {
-        double amp = amplifier <= 0 ? 0.6 : Math.min(3.0, 1.8 + 0.6 * (amplifier - 1));
+        double amp = amplifier <= 0 ? 0.6 : amplifier >= 4 ? 4.2 : Math.min(3.0, 1.8 + 0.6 * (amplifier - 1));
         double x = amp * (0.5 * Math.sin(t * 2.3) + 0.3 * Math.sin(t * 3.9 + 1.3) + 0.2 * Math.sin(t * 17.0 + 0.7));
         double y = amp * 0.7 * (0.5 * Math.sin(t * 2.9 + 2.1) + 0.3 * Math.sin(t * 4.3 + 0.4) + 0.2 * Math.sin(t * 19.0 + 2.2));
         return new double[] {x, y};

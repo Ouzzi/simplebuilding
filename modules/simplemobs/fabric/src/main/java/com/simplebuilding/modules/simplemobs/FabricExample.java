@@ -26,6 +26,9 @@ public final class FabricExample implements ModInitializer {
         FearMobs.registerAll();
         FabricDefaultAttributeRegistry.register(FearMobs.DREAD, DreadEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(FearMobs.WATCHER, HollowWatcherEntity.createAttributes());
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(FearNet.FovPayload.TYPE, FearNet.FovPayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(FearNet.FovPayload.TYPE,
+                (payload, context) -> context.server().execute(() -> FearNet.handle(payload, context.player())));
         ServerTickEvents.END_SERVER_TICK.register(FearServer::tick);
         WitherMobs.registerAll();
         com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();

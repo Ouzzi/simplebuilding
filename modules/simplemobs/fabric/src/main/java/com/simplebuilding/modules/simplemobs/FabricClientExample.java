@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.NoopRenderer;
 
 public final class FabricClientExample implements ClientModInitializer {
     @Override public void onInitializeClient() {
+        FearNet.toServer = payload -> { if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload); };
         ModelLayerRegistry.registerModelLayer(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
         ModelLayerRegistry.registerModelLayer(HowlerModel.LAYER, HowlerModel::createBodyLayer);
         EntityRendererRegistry.register(MobsRegistry.DECEIVER, DeceiverRenderer::new);

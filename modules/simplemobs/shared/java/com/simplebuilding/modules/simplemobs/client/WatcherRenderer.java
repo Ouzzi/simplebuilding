@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simplemobs.client;
 
+import com.simplebuilding.modules.simplemobs.FearNet;
 import com.simplebuilding.modules.simplemobs.HollowWatcherEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -19,6 +20,10 @@ public class WatcherRenderer extends MobRenderer<HollowWatcherEntity, WatcherRen
                 new WatcherModel(context.bakeLayer(WatcherModel.LAYER)), RenderTypes::eyes, false));
     }
 
+    static {
+        FearNet.fovSupplier = () -> net.minecraft.client.Minecraft.getInstance().options.fov().get();
+    }
+
     @Override
     public Identifier getTextureLocation(WatcherRenderState state) { return TEXTURE; }
 
@@ -35,6 +40,24 @@ public class WatcherRenderer extends MobRenderer<HollowWatcherEntity, WatcherRen
         state.frozen = entity.frozen();
         state.watched = entity.watched();
         state.triggered = entity.triggered();
+        state.calm = net.minecraft.util.Mth.lerp(partialTicks, entity.calmO, entity.calm);
+        state.shoulder = shoulder(entity);
         if (state.frozen || state.watched) state.walkAnimationSpeed = 0.0F;
+    }
+
+    /** Close behind the local player (within ~4.5 blocks, outside the view): 0..1 by nearness and how far behind it is. */
+    private static float shoulder(HollowWatcherEntity entity) {
+        var me = net.minecraft.client.Minecraft.getInstance().player;
+        if (me == null || !entity.triggered() || entity.frozen()) return 0.0F;
+        double dx = entity.getX() - me.getX(), dz = entity.getZ() - me.getZ();
+        double dist = Math.sqrt(dx * dx + dz * dz);
+        if (dist < 0.5 || dist > 4.5 || Math.abs(entity.getY() - me.getY()) > 3.0) return 0.0F;
+        var look = me.getLookAngle();
+        double lh = Math.sqrt(look.x * look.x + look.z * look.z);
+        if (lh < 1.0e-3) return 0.0F;
+        double cos = (look.x * dx + look.z * dz) / (lh * dist);
+        float behind = net.minecraft.util.Mth.clamp((float) (-cos - 0.2) / 0.4F, 0.0F, 1.0F);
+        float near = net.minecraft.util.Mth.clamp((4.5F - (float) dist) / 1.5F, 0.0F, 1.0F);
+        return behind * near;
     }
 }

@@ -267,12 +267,12 @@ Rotator – zweite Funktion
 - [ ] Rotator: besseren Namen vorschlagen (Besitzer wählt).
 
 Hollow Watcher – Verhalten (Abgrenzung zum Creaking)
-- [ ] Steht er hinter dem Spieler, streckt er die Hände über die Schultern des Spielers, sodass man sie im Bild sieht (Erschrecken); Hände markanter rendern.
-- [ ] Zittern (Shivering) V etwas stärker.
-- [ ] Blickfeld-Logik: friert NUR ein, wenn man ihn genau ansieht (Fadenkreuz). Bis ca. 20° Gesamtwinkel um die Blickmitte (±10°): unauffällig verhalten. Bis ca. 50°: langsam Richtung Blickfeldrand, nie auf dem kürzesten Weg (wirkt passiv). Bis ca. 70° (normales Blickfeld): direkt aus dem Blickfeld laufen und es mit Puffer meiden; dann hinter den Spieler gehen und angreifen. Winkel an das FOV des Spielers anpassen (min. 30, max. 110).
-- [ ] Bei Treffer: Teleport hinter den Spieler oder Fern-Teleport, um ihn zu erschrecken.
-- [ ] Mehrspieler-Konzept: Aggro auf alle Spieler in der Nähe; schaut ein Spieler ihn an, friert er; bei Treffer teleportiert er weg und sucht sich ein Opfer (z. B. zufällig) usw. – erst Konzept, dann Umsetzung.
-- [ ] Transport im Boot möglich (Diktat sagt „Hollow Howler“ – vermutlich Watcher, beim Planen klären), Spieler in seiner Reichweite nimmt aber Schaden; wird er getroffen, teleportiert er sich.
+- [x] Steht er hinter dem Spieler, streckt er die Hände über die Schultern des Spielers, sodass man sie im Bild sieht (Erschrecken); Hände markanter rendern.
+- [x] Zittern (Shivering) V etwas stärker.
+- [x] Blickfeld-Logik: friert NUR ein, wenn man ihn genau ansieht (Fadenkreuz). Bis ca. 20° Gesamtwinkel um die Blickmitte (±10°): unauffällig verhalten. Bis ca. 50°: langsam Richtung Blickfeldrand, nie auf dem kürzesten Weg (wirkt passiv). Bis ca. 70° (normales Blickfeld): direkt aus dem Blickfeld laufen und es mit Puffer meiden; dann hinter den Spieler gehen und angreifen. Winkel an das FOV des Spielers anpassen (min. 30, max. 110).
+- [x] Bei Treffer: Teleport hinter den Spieler oder Fern-Teleport, um ihn zu erschrecken.
+- [x] Mehrspieler-Konzept: Aggro auf alle Spieler in der Nähe; schaut ein Spieler ihn an, friert er; bei Treffer teleportiert er weg und sucht sich ein Opfer (z. B. zufällig) usw. – erst Konzept, dann Umsetzung.
+- [x] Transport im Boot möglich (Diktat sagt „Hollow Howler“ – vermutlich Watcher, beim Planen klären), Spieler in seiner Reichweite nimmt aber Schaden; wird er getroffen, teleportiert er sich. (claude-watcher2; Konzept docs/ai/KONZEPT-WATCHER-BLICKFELD-MEHRSPIELER-2026-10-15.md)
 
 Besitzer-Antworten Konzepte (15.10.)
 - [x] Dorf-Wanderer: W1 neues Modul Simple Wanderers; W2 auch Seltenes und Mod-Angebote aufteilen, aber beim Dorf-Wanderer nichts allzu Seltenes; W3 Respawn nach 7 Tagen, nur mit Spieler vor Ort; W4 Pferd einfangbar; W5 tötbar wie Vanilla-Händler; W6 Spawn sofort beim ersten Dorfbesuch; W7 Soulbound nur beim fahrenden Händler; W8 Köpfe ja, Kerne nein; W9 Geld-Fund sofort als eigener Auftrag; W10 Biom-Sortiment gleich mit einbauen; W11 eigener Kopf später.

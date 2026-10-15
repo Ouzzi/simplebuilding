@@ -42,8 +42,11 @@ public class WatcherModel extends EntityModel<WatcherRenderState> {
                 CubeListBuilder.create().texOffs(108, 0).addBox(-1.0F, -3.0F, -1.0F, 2, 3, 2), PartPose.offset(0.0F, -16.0F, -0.5F));
         PartDefinition head = neck.addOrReplaceChild("head",
                 CubeListBuilder.create().texOffs(76, 0).addBox(-4.0F, -12.0F, -4.0F, 8, 12, 8), PartPose.offset(0.0F, -2.5F, 0.0F));
-        body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(24, 0).addBox(-1.5F, -1.0F, -1.5F, 3, 34, 3), PartPose.offset(-6.0F, -14.5F, 0.0F));
-        body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(36, 0).addBox(-1.5F, -1.0F, -1.5F, 3, 34, 3), PartPose.offset(6.0F, -14.5F, 0.0F));
+        PartDefinition rightArm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(24, 0).addBox(-1.5F, -1.0F, -1.5F, 3, 34, 3), PartPose.offset(-6.0F, -14.5F, 0.0F));
+        PartDefinition leftArm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(36, 0).addBox(-1.5F, -1.0F, -1.5F, 3, 34, 3), PartPose.offset(6.0F, -14.5F, 0.0F));
+        // big hands: the lower arm skin on a larger box (no new texture), 1.7 times scaled, so they read in the picture
+        rightArm.addOrReplaceChild("hand", CubeListBuilder.create().texOffs(24, 28).addBox(-1.5F, 0.0F, -1.5F, 3, 6, 3), PartPose.offset(0.0F, 33.0F, 0.0F).withScale(1.7F));
+        leftArm.addOrReplaceChild("hand", CubeListBuilder.create().texOffs(36, 28).addBox(-1.5F, 0.0F, -1.5F, 3, 6, 3), PartPose.offset(0.0F, 33.0F, 0.0F).withScale(1.7F));
         // End stone splinters grown into the shadow
         CubeListBuilder thin = CubeListBuilder.create().texOffs(48, 21).addBox(-1.0F, -5.0F, -1.0F, 2, 5, 2);
         CubeListBuilder thick = CubeListBuilder.create().texOffs(56, 21).addBox(-1.5F, -3.0F, -1.5F, 3, 3, 3);
@@ -59,7 +62,7 @@ public class WatcherModel extends EntityModel<WatcherRenderState> {
     public void setupAnim(WatcherRenderState state) {
         super.setupAnim(state);
         float pos = state.walkAnimationPos, speed = Math.min(1.0F, state.walkAnimationSpeed), age = state.ageInTicks;
-        boolean still = state.frozen || state.watched;
+        float live = 1.0F - state.calm;
         this.head.yRot = state.yRot * Mth.DEG_TO_RAD;
         this.head.xRot = state.xRot * Mth.DEG_TO_RAD;
         this.rightLeg.xRot = Mth.cos(pos * 0.4F) * 0.8F * speed;
@@ -67,10 +70,10 @@ public class WatcherModel extends EntityModel<WatcherRenderState> {
         this.rightArm.xRot = Mth.cos(pos * 0.4F + Mth.PI) * 0.5F * speed;
         this.leftArm.xRot = Mth.cos(pos * 0.4F) * 0.5F * speed;
         // a slow, crooked sway while nobody looks; perfectly still when watched
-        float sway = still ? 0.0F : Mth.sin(age * 0.07F) * 0.06F;
+        float sway = live * Mth.sin(age * 0.07F) * 0.06F;
         this.body.xRot = 0.12F + sway;
-        this.body.zRot = still ? 0.0F : Mth.sin(age * 0.05F) * 0.04F;
-        this.head.zRot = still ? 0.12F : Mth.sin(age * 0.09F) * 0.15F;
+        this.body.zRot = live * Mth.sin(age * 0.05F) * 0.04F;
+        this.head.zRot = Mth.lerp(state.calm, Mth.sin(age * 0.09F) * 0.15F, 0.12F);
         this.rightArm.zRot = 0.06F + sway;
         this.leftArm.zRot = -0.06F - sway;
         if (state.reach > 0.0F) {
@@ -80,6 +83,15 @@ public class WatcherModel extends EntityModel<WatcherRenderState> {
             this.rightArm.zRot = 0.25F * r;
             this.leftArm.zRot = -0.25F * r;
             this.body.xRot += 0.25F * r;
+        }
+        if (state.shoulder > 0.0F && state.reach == 0.0F) {
+            // behind the player: both arms stretched forward past the shoulders, hands spread and trembling
+            float o = state.shoulder, tremble = Mth.sin(age * 0.7F) * 0.04F * o;
+            this.rightArm.xRot = Mth.lerp(o, this.rightArm.xRot, -1.35F + tremble);
+            this.leftArm.xRot = Mth.lerp(o, this.leftArm.xRot, -1.35F - tremble);
+            this.rightArm.zRot = Mth.lerp(o, this.rightArm.zRot, 0.28F);
+            this.leftArm.zRot = Mth.lerp(o, this.leftArm.zRot, -0.28F);
+            this.body.xRot += 0.3F * o;
         }
         if (state.scream > 0.0F) {
             float s = state.scream;

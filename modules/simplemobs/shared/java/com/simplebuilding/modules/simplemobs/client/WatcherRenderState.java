@@ -7,6 +7,10 @@ public class WatcherRenderState extends LivingEntityRenderState {
     public float reach;
     /** 0 .. 1 head thrown back, arms spread (scream wind-up). */
     public float scream;
+    /** 0 .. 1 eased: standing close behind the local player, arms stretched over the player's shoulders (jump scare). */
+    public float shoulder;
+    /** 0 .. 1 eased: watched or frozen; the sway fades out instead of snapping to zero. */
+    public float calm;
     /** Frozen by a spyglass look: pale, eyes dim. */
     public boolean frozen;
     /** Someone looks at it: it holds its pose, the eyes narrow. */

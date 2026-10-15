@@ -41,6 +41,8 @@ public final class MobsConfig {
     /** Hollow Watcher: natural spawning on the outer End islands and its chance per 30 s roll. */
     public static boolean hollowWatcherSpawns = true;
     public static float hollowWatcherChance = FearLogic.WATCHER_CHANCE;
+    /** Hollow Watcher gaze zones: half angles in degrees at FOV 70 (scaled with the player's FOV): stands still / slow retreat / direct retreat. */
+    public static float watcherGazeStare = FearLogic.GAZE_STARE_DEG, watcherGazeSlow = FearLogic.GAZE_SLOW_DEG, watcherGazeEdge = FearLogic.GAZE_EDGE_DEG;
     /** Blighted/Abyssal Wither: the helmet on the middle skull on/off (off: the figure summons the Vanilla Wither). */
     public static boolean witherSummonEnabled = true;
     /** Blighted Wither phase 3 wilts plants and natural leaves (also needs the mobGriefing game rule). */
@@ -106,6 +108,10 @@ public final class MobsConfig {
         float watcher;
         try { watcher = json.has("hollowWatcherChance") ? json.get("hollowWatcherChance").getAsFloat() : FearLogic.WATCHER_CHANCE; } catch (Exception e) { watcher = FearLogic.WATCHER_CHANCE; }
         hollowWatcherChance = Math.max(0.0f, Math.min(1.0f, watcher));
+        float stare = num(json, "watcherGazeStare", FearLogic.GAZE_STARE_DEG), slow = num(json, "watcherGazeSlow", FearLogic.GAZE_SLOW_DEG), edge = num(json, "watcherGazeEdge", FearLogic.GAZE_EDGE_DEG);
+        watcherGazeStare = Math.max(1.0f, Math.min(60.0f, stare));
+        watcherGazeSlow = Math.max(watcherGazeStare, Math.min(80.0f, slow));
+        watcherGazeEdge = Math.max(watcherGazeSlow, Math.min(120.0f, edge));
         witherSummonEnabled = bool(json, "witherSummonEnabled", true);
         witherWilt = bool(json, "witherWilt", true);
         biomeBrushEnabled = bool(json, "biomeBrushEnabled", true);
@@ -132,6 +138,9 @@ public final class MobsConfig {
         o.addProperty("dreadSummonEnabled", dreadSummonEnabled);
         o.addProperty("hollowWatcherSpawns", hollowWatcherSpawns);
         o.addProperty("hollowWatcherChance", hollowWatcherChance);
+        o.addProperty("watcherGazeStare", watcherGazeStare);
+        o.addProperty("watcherGazeSlow", watcherGazeSlow);
+        o.addProperty("watcherGazeEdge", watcherGazeEdge);
         o.addProperty("witherSummonEnabled", witherSummonEnabled);
         o.addProperty("witherWilt", witherWilt);
         o.addProperty("biomeBrushEnabled", biomeBrushEnabled);
@@ -143,6 +152,10 @@ public final class MobsConfig {
 
     private static boolean bool(JsonObject json, String key, boolean fallback) {
         try { return json.has(key) && json.get(key).isJsonPrimitive() ? json.get(key).getAsBoolean() : fallback; } catch (Exception e) { return fallback; }
+    }
+
+    private static float num(JsonObject json, String key, float fallback) {
+        try { return json.has(key) ? json.get(key).getAsFloat() : fallback; } catch (Exception e) { return fallback; }
     }
 
     private static int integer(JsonObject json, String key, int fallback) {

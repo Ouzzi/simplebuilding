@@ -128,7 +128,13 @@ public final class NeoForgeExample {
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FMLPaths.CONFIGDIR.get());
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
         });
-        if (dist == Dist.CLIENT) NeoForgeClientExample.init(bus);
+        // client FOV for the Hollow Watcher's gaze zones
+        bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) -> event.registrar("1").optional().playToServer(FearNet.FovPayload.TYPE, FearNet.FovPayload.CODEC,
+                (payload, context) -> context.enqueueWork(() -> FearNet.handle(payload, (net.minecraft.server.level.ServerPlayer) context.player()))));
+        if (dist == Dist.CLIENT) {
+            FearNet.toServer = net.neoforged.neoforge.client.network.ClientPacketDistributor::sendToServer;
+            NeoForgeClientExample.init(bus);
+        }
     }
 
     private static void insertAfter(BuildCreativeModeTabContentsEvent event, ItemStack anchor, ItemStack stack) {
