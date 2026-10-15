@@ -5,6 +5,6 @@
 - Client: Arme über den Schultern hinter dem lokalen Spieler, Hände 1,7x skalierte Teilquader (vorhandene Arm-Textur), weiches Ausblenden des Zitterns (calm); Shivering V Zielwackeln 4,2 statt 3,0 Grad.
 - Konzept: docs/ai/KONZEPT-WATCHER-BLICKFELD-MEHRSPIELER-2026-10-15.md. "Hollow Howler" im Boot-Diktat = Watcher (angenommen).
 - Abweichung: Hand-Quader (neue Cubes) trotz Hinweis "keine neuen Cubes" im Animationskonzept, da Besitzer "Hände markanter" will; keine Textur geändert.
-- Tests: Compile 3 Loader grün. Neue GameTests fear_watcher_zones/_zone_logic/_multi_freeze/_hit_new_victim/_boat; Filter simplemobs:*watcher* siehe Chat-Bericht.
+- Tests: Compile 3 Loader grün. Neue GameTests fear_watcher_zones/_zone_logic/_multi_freeze/_hit_new_victim/_boat; Filter simplemobs:*watcher*: Fabric 11/11, NeoForge 11/11 grün (alles gruen 22/22).
 - Nicht getestet: Client-Optik (Arme/Hände), echte FOV-Paketstrecke Client-Server, Forge-Laufzeit.
 - Wiki-Check meldet Sandwich-Texturkopien (nicht aus diesem Branch).
