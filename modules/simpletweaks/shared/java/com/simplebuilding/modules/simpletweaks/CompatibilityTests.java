@@ -146,7 +146,7 @@ public final class CompatibilityTests {
   ItemStack s=stack(h,"claim_deed");CompoundTag data=new CompoundTag();data.putLong("ClaimPos",123456);data.putString("OwnerName","Someone else");data.putString("UnknownFutureField","preserve");s.set(DataComponents.CUSTOM_DATA,CustomData.of(data));
   ItemStack loaded=ItemStack.CODEC.parse(ops(h),ItemStack.CODEC.encodeStart(ops(h),s).getOrThrow()).getOrThrow();
   require(h,loaded.get(DataComponents.CUSTOM_DATA).copyTag().equals(data),"Opaque deed data retained");
-  require(h,loaded.getMaxStackSize()==16,"Source stack size");
+  require(h,loaded.getMaxStackSize()==1,"Deed stack size 1 (bound deeds do not stack)");
   var player=h.makeMockServerPlayerInLevel();player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,loaded);
   // Claims on (default since 2026-10-13): a real use would claim this test's chunk on the live ledger; forged data
   // as authority is covered by claims_deed_two_players there. Off: the deed is inert.

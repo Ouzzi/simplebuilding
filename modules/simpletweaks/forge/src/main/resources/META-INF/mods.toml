@@ -19,6 +19,13 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.simpletweaks]]
+modId="simplelib"
+mandatory=true
+versionRange="[0.2.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simpletweaks]]
 modId="simplebuilding"
 mandatory=false
 versionRange="[1,)"

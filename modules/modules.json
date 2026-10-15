@@ -843,7 +843,9 @@
         "neoforge",
         "forge"
       ],
-      "requires": [],
+      "requires": [
+        "simplelib"
+      ],
       "optional": [
         "simpledimensions",
         "simplebuilding"
