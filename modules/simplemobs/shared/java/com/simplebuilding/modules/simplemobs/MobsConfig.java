@@ -42,6 +42,8 @@ public final class MobsConfig {
     public static boolean hollowWatcherSpawns = true;
     public static float hollowWatcherChance = FearLogic.WATCHER_CHANCE;
     /** Hollow Watcher gaze zones: half angles in degrees at FOV 70 (scaled with the player's FOV): stands still / slow retreat / direct retreat. */
+    /** Hollow Watcher: direct-look half angle (aggressive), follow/teleport range in blocks, teleport interval in seconds. */
+    public static float watcherGazeDirect = FearLogic.GAZE_DIRECT_DEG, watcherRange = FearLogic.RANGE_DEFAULT, watcherTeleportSeconds = FearLogic.TELEPORT_SECONDS_DEFAULT;
     public static float watcherGazeStare = FearLogic.GAZE_STARE_DEG, watcherGazeSlow = FearLogic.GAZE_SLOW_DEG, watcherGazeEdge = FearLogic.GAZE_EDGE_DEG;
     /** Blighted/Abyssal Wither: the helmet on the middle skull on/off (off: the figure summons the Vanilla Wither). */
     public static boolean witherSummonEnabled = true;
@@ -139,6 +141,9 @@ public final class MobsConfig {
         hollowWatcherChance = Math.max(0.0f, Math.min(1.0f, watcher));
         float stare = num(json, "watcherGazeStare", FearLogic.GAZE_STARE_DEG), slow = num(json, "watcherGazeSlow", FearLogic.GAZE_SLOW_DEG), edge = num(json, "watcherGazeEdge", FearLogic.GAZE_EDGE_DEG);
         watcherGazeStare = Math.max(1.0f, Math.min(60.0f, stare));
+        watcherGazeDirect = Math.max(0.5f, Math.min(watcherGazeStare, num(json, "watcherGazeDirect", FearLogic.GAZE_DIRECT_DEG)));
+        watcherRange = Math.max(8.0f, Math.min(128.0f, num(json, "watcherRange", FearLogic.RANGE_DEFAULT)));
+        watcherTeleportSeconds = Math.max(1.0f, Math.min(120.0f, num(json, "watcherTeleportSeconds", FearLogic.TELEPORT_SECONDS_DEFAULT)));
         watcherGazeSlow = Math.max(watcherGazeStare, Math.min(80.0f, slow));
         watcherGazeEdge = Math.max(watcherGazeSlow, Math.min(120.0f, edge));
         witherSummonEnabled = bool(json, "witherSummonEnabled", true);
@@ -172,6 +177,9 @@ public final class MobsConfig {
         o.addProperty("hollowWatcherSpawns", hollowWatcherSpawns);
         o.addProperty("hollowWatcherChance", hollowWatcherChance);
         o.addProperty("watcherGazeStare", watcherGazeStare);
+        o.addProperty("watcherGazeDirect", watcherGazeDirect);
+        o.addProperty("watcherRange", watcherRange);
+        o.addProperty("watcherTeleportSeconds", watcherTeleportSeconds);
         o.addProperty("watcherGazeSlow", watcherGazeSlow);
         o.addProperty("watcherGazeEdge", watcherGazeEdge);
         o.addProperty("witherSummonEnabled", witherSummonEnabled);

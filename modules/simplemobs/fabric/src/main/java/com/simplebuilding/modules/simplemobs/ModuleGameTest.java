@@ -73,6 +73,8 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void fearWatcherZoneLogic(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_zone_logic").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherMultiFreeze(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_multi_freeze").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherHitNewVictim(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_hit_new_victim").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherRange(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_range").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearWatcherRangeConfig(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_range_config").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherBoat(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_boat").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearWatcherSpawnRules(GameTestHelper helper) { MobsTests.ALL.get("fear_watcher_spawn_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearDrops(GameTestHelper helper) { MobsTests.ALL.get("fear_drops").accept(helper); }
