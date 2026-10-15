@@ -291,7 +291,7 @@ public final class AstralEnchantingTests {
     }
 
     /**
-     * Twice as hard to break as the Vanilla table; it drops a Vanilla enchanting table, the Enderite nugget and the
+     * Twice as hard to break as the Vanilla table; it drops a Vanilla enchanting table, an Enderite ingot and the
      * stored lapis and blaze powder.
      */
     public static void breakingDropsTableNuggetAndStock(GameTestHelper helper) {
@@ -308,7 +308,8 @@ public final class AstralEnchantingTests {
         helper.getLevel().destroyBlock(abs, true);
         List<ItemEntity> drops = helper.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(abs).inflate(2.0));
         eq(helper, count(drops, Items.ENCHANTING_TABLE), 1, "enchanting tables dropped");
-        eq(helper, count(drops, ModItems.ENDERITE_NUGGET), 1, "enderite nuggets dropped");
+        eq(helper, count(drops, ModItems.ENDERITE_INGOT), 1, "enderite ingots dropped");
+        eq(helper, count(drops, ModItems.ENDERITE_NUGGET), 0, "enderite nuggets dropped");
         eq(helper, count(drops, Items.LAPIS_LAZULI), 10, "lapis dropped");
         eq(helper, count(drops, Items.BLAZE_POWDER), 20, "blaze powder dropped");
         eq(helper, count(drops, ModItems.ASTRAL_ENCHANTING_TABLE), 0, "astral tables dropped");
