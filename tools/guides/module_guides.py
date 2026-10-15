@@ -157,6 +157,13 @@ MODULES = [
          intro=("New bosses and mobs with fair, announced attacks, their drops, the Blighted Wither and the Biome Brush.",
                 "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der "
                 "Biom-Pinsel.")),
+    dict(module="simplestats", ns="simplestats", package="com.simplebuilding.modules.simplestats.guide", cls="StatsGuide",
+         kind="item", author="Simple Stats", recipe="minecraft:flint",
+         name=("Simple Stats Guide", "Simple-Stats-Handbuch"),
+         intro=("Every tool, weapon and piece of armor counts its own blocks, kills, absorbed damage, distances and catches, "
+                "with an item-specific statistics screen.",
+                "Jedes Werkzeug, jede Waffe und jedes Rüstungsteil zählt eigene Blöcke, Kills, abgefangenen Schaden, Strecken "
+                "und Fänge, mit einem Statistik-Bildschirm je Gegenstand.")),
 ]
 
 SETTINGS = ("Settings", "Einstellungen",
@@ -188,6 +195,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:prismarine_shard": ("a prismarine shard", "einer Prismarinscherbe"),
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
     "minecraft:emerald": ("an emerald", "einem Smaragd"),
+    "minecraft:flint": ("a piece of flint", "einem Feuerstein"),
 }
 
 
@@ -443,6 +451,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:glow_ink_sac": ("glow ink sac", "Leuchttintenbeutel"),
     "minecraft:prismarine_shard": ("prismarine shard", "Prismarinscherbe"),
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
+    "minecraft:flint": ("flint", "Feuerstein"),
 }
 
 

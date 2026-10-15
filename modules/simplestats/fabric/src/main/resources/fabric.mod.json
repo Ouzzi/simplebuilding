@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "simplestats",
+  "version": "${version}",
+  "name": "Simple Stats",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplestats.StatsFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplestats.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplestats.StatsFabricClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "description": "Every tool, weapon and piece of armor keeps its own statistics: blocks mined, kills by mob and variant, damage absorbed, distances, catches and more, with an item-specific statistics screen.",
+  "license": "CC0-1.0",
+  "mixins": [
+    "simplestats.mixins.json"
+  ],
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}

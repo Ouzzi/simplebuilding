@@ -1,0 +1,7 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// Bundles the shared framework API (guide book quests) for standalone runs.
+dependencies { include project(':framework') }
+// JUnit for the pure model, row and layout classes (no game needed)
+dependencies { testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'; testRuntimeOnly 'org.junit.platform:junit-platform-launcher' }
+test { useJUnitPlatform() }

@@ -49,6 +49,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 | Simple Sounds (`simplesounds`) | Cloth Config | Simple Visuals (Stufe koppeln), SimpleBuilding, ModMenu | – |
 | Simple Dimensions (`simpledimensions`) | Cloth Config | SimpleBuilding, ModMenu, Claim-Mods (Flan, FTB Chunks, OPAC, GriefDefender, ClaimChunk) | – |
 | Simple Tweaks (`simpletweaks`) | simplelib | SimpleBuilding, Simple Dimensions | simplelib, framework |
+| Simple Stats (`simplestats`) | – (Fabric API) | SimpleBuilding (Hammer-Flächenabbau zählt jeden Block), FTB Quests (Handbuch-Kapitel) | framework |
 | Wiring Example (`wiringexample`) | – | – | – (nur Testmodul) |
 
 ## Features je Mod
@@ -169,6 +170,14 @@ Claim-Prüfung.
 Kompatibilität alter Welten (ID-Zuordnung), Claim-System (standardmäßig an). Rechte je Person (B D U C R A M, Rollen
 `@guest/@helper/@member/@manager`), Rechte-Code mit Server-Parser, Ledger v2 mit Migration (Plan `docs/ai/PLAN-CLAIM-URKUNDE-GUI-2026-10-13.md`,
 Phase 1). Claim-Urkunde (Phase 2): Rezept Papier + Tintenbeutel + Honigwabe, Rechtsklick beansprucht und bindet sie an den Besitzer (`simpletweaks:deed`, nur Anzeige), gebunden öffnet sie den Rechte-Editor (Code-Feld, Fehlerzeilen vom Server, Online-Namen, Hilfe; simplelib-Kasten, gebündelt), Kopie wie ein Buch (Kopie nicht kopierbar). Claim-Tisch, Erweiterung und Maps-Ebene folgen (Phasen 3–5).
+
+### Simple Stats (neu, `oc-simplestats`, allein spielbar)
+Jedes Werkzeug, jede Waffe, Rüstung, Schild, Elytra, Angel, Bürste und das Feuerzeug zählt eigene Statistik in der Komponente
+`simplestats:item_stats` (Versionsfeld, Byte-Budget statt Top-N, Rest als „weitere“): Abbau je Block, Kills je Mob und Variante,
+Schaden/Rekorde, absorbierter Schaden (Näherung nach Rüstungspunkten), Schild, Stiefel-Strecken, Elytra, Angel, Schere, Bürste, Tragezeit.
+Zuordnung über Tags/Komponenten, nicht Klassen (Fremd-Gear mit Vanilla-Verhalten zählt mit). Anzeige: Tooltip (Hauptwert, Shift: wichtigste Werte)
+und eigener Statistik-Bildschirm je Gegenstand (Taste I, über dem Gegenstand im Inventar oder in der Hand). Kreativ/Maschinen zählen nicht,
+Zurücksetzen nur per `/simplestats reset`. Konzept `docs/ai/KONZEPT-ITEM-STATISTIKEN-2026-10-15.md` (Abschnitt 14 verbindlich).
 
 ## Geplant / in Arbeit
 | Mod | Stand | Inhalt | Quelle |

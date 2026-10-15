@@ -1,0 +1,22 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplestats"
+version="${version}"
+displayName="Simple Stats"
+description="Every tool, weapon and piece of armor keeps its own statistics, with an item-specific statistics screen."
+[[dependencies.simplestats]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[dependencies.simplestats]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config="simplestats.mixins.json"

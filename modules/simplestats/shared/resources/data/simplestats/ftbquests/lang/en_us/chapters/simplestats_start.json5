@@ -1,0 +1,10 @@
+{
+	"chapter.77B183BF3870FDD8.title": "{\"translate\": \"quests.simplestats.start.title\"}",
+	"chapter.77B183BF3870FDD8.chapter_subtitle": [
+		"{\"translate\": \"quests.simplestats.start.subtitle\"}"
+	],
+	"quest.53592DAA1E9ECC63.title": "{\"translate\": \"quests.simplestats.start.welcome.title\"}",
+	"quest.53592DAA1E9ECC63.quest_desc": [
+		"{\"translate\": \"quests.simplestats.start.welcome.description\"}"
+	]
+}

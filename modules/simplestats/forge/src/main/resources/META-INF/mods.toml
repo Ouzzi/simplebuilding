@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplestats"
+version="${version}"
+displayName="Simple Stats"
+description="Every tool, weapon and piece of armor keeps its own statistics, with an item-specific statistics screen."
+[[dependencies.simplestats]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplestats]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplestats]]
+modId="simplebuilding"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplebuilding.modules.simplestats.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "PlayerMixin",
+    "ServerPlayerMixin",
+    "ProjectileWeaponItemMixin",
+    "ThrownTridentMixin",
+    "ProjectileMixin",
+    "FishingRodHookedTriggerMixin",
+    "BrushableBlockEntityMixin",
+    "FireworkRocketEntityMixin",
+    "MinecraftServerMixin",
+    "PlayerListMixin"
+  ],
+  "client": [
+    "client.ItemStackTooltipMixin",
+    "client.MinecraftMixin",
+    "client.AbstractContainerScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
