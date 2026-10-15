@@ -4,3 +4,8 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 
 // Package the shared framework API for production, as well as development runs.
 dependencies { include project(':framework') }
+// SimpleLib (box style, principle 6a) nested and compiled against; Claim Deed editor screen.
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// JUnit for the pure editor classes (layout, text helpers, code display)
+dependencies { testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'; testRuntimeOnly 'org.junit.platform:junit-platform-launcher' }
+test { useJUnitPlatform() }

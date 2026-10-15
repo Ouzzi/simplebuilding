@@ -62,4 +62,8 @@ public final class ClaimsGameTest {
  @GameTest public void claimsRightsApplyCode(GameTestHelper h) { ClaimTests.TESTS.get("claims_rights_apply_code").accept(h); }
  @GameTest public void claimsRightsCommands(GameTestHelper h) { ClaimTests.TESTS.get("claims_rights_commands").accept(h); }
  @GameTest public void claimsRightsMigration(GameTestHelper h) { ClaimTests.TESTS.get("claims_rights_migration").accept(h); }
+ @GameTest public void claimsDeedComponent(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_component").accept(h); }
+ @GameTest public void claimsDeedUse(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_use").accept(h); }
+ @GameTest public void claimsDeedEdit(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_edit").accept(h); }
+ @GameTest public void claimsDeedCopy(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_copy").accept(h); }
 }

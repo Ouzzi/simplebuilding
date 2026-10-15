@@ -14,7 +14,7 @@ def unique(p):
  return json.loads(p.read_text(encoding='utf-8'),object_pairs_hook=hook)
 for locale in ('en_us','de_de'):
  d=unique(M/f'shared/resources/assets/simpletweaks/lang/{locale}.json')
- assert all(('.simpletweaks.' in k or k.startswith('simpletweaks.guide.page.')) and v for k,v in d.items())
+ assert all(('.simpletweaks.' in k or k.startswith(('simpletweaks.guide.page.','simpletweaks.deed.'))) and v for k,v in d.items())
  assert 'item.simpletweaks.claim_deed' in d
  langs.append(d)
 assert langs[0].keys()==langs[1].keys()
@@ -43,8 +43,11 @@ model=unique(resources/'models/item/claim_deed.json')
 assert (resources/'textures/item/claim_deed.png').is_file()
 assert model['textures']['layer0']=='simpletweaks:item/claim_deed'
 assert not (resources/'items/token.json').exists()
-source=(M/'shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java').read_text()
-assert source.count('Registry.register(')==1 and 'claim_deed' in source and 'stacksTo(16)' in source
+source=(M/'shared/java/com/simplebuilding/modules/simpletweaks/deed/ClaimDeedItem.java').read_text()
+assert source.count('Registry.register(')==1 and '"claim_deed"' in source and 'stacksTo(1)' in source
+data=M/'shared/resources/data/simpletweaks/recipe'
+assert unique(data/'claim_deed.json')['result']['id']=='simpletweaks:claim_deed'
+assert unique(data/'claim_deed_copy.json')['type']=='simpletweaks:claim_deed_copy'
 assert not re.search(r'import com.simplebuilding\.(?!modules|framework\.api)', '\n'.join(p.read_text() for p in (M/'shared/java').rglob('*.java'))), 'No internal SimpleBuilding imports'
 assert 'claim_deed' not in unique(M/'generated/resources/wiki/items.json').get('features',[])
 assert unique(M/'generated/resources/wiki/items.json')['items']==[{'id':'simpletweaks:claim_deed','kind':'item'}]

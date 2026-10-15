@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:paper",
+    "minecraft:ink_sac",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpletweaks:claim_deed"
+  }
+}

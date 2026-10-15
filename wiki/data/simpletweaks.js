@@ -91,6 +91,37 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       ]
     },
     {
+      "id": "claim_deed",
+      "en": {
+        "title": "Claim Deed",
+        "summary": "Craft paper, an ink sac and honeycomb into an empty Claim Deed. Right-click it to claim the chunk you stand in; the deed is then bound to you. A bound deed opens the rights editor of your land: one line per person, a name or UUID, a colon, then the letters B Build, D Destroy, U Use, C Container, R Redstone, A Animals and vehicles, M Manage, or a role (@guest, @helper, @member, @manager). *: U gives every player a right; [x,z] starts a section for one chunk. Done saves; the server checks the code again and answers with the line of every error. Copy a bound deed with an empty one in the crafting grid; a copy cannot be copied. Anybody else holding a deed sees only what they may do.",
+        "details": [
+          "Craft paper, an ink sac and honeycomb into an empty Claim Deed. Right-click it to claim the chunk you stand in; the deed is then bound to you. A bound deed opens the rights editor of your land: one line per person, a name or UUID, a colon, then the letters B Build, D Destroy, U Use, C Container, R Redstone, A Animals and vehicles, M Manage, or a role (@guest, @helper, @member, @manager). *: U gives every player a right; [x,z] starts a section for one chunk. Done saves; the server checks the code again and answers with the line of every error. Copy a bound deed with an empty one in the crafting grid; a copy cannot be copied. Anybody else holding a deed sees only what they may do.",
+          "The editor is a rights code like the blueprint editor: names resolve only for online players and for people already in the land (never a lookup over the network), the saved code keeps UUIDs so a renamed player cannot inherit rights. The client previews the code; the server decides. Managers (M) may edit, but only people without M and only rights they hold themselves. Saving is all or nothing and uses the claim cooldown. Without the mod on the client, the empty deed still claims at once.",
+          "Packets: opening and answers go from the server, saving and claiming from the client; every save names the version of the land it was opened on and is refused when the land changed meanwhile."
+        ]
+      },
+      "de": {
+        "title": "Claim-Urkunde",
+        "summary": "Stelle aus Papier, Tintenbeutel und Honigwabe eine leere Claim-Urkunde her. Rechtsklick beansprucht den Chunk, in dem du stehst; danach ist die Urkunde an dich gebunden. Eine gebundene Urkunde öffnet den Rechte-Editor deines Landes: eine Zeile je Person, Name oder UUID, ein Doppelpunkt, dann die Buchstaben B Bauen, D Abbauen, U Benutzen, C Container, R Redstone, A Tiere und Fahrzeuge, M Verwalten, oder eine Rolle (@guest, @helper, @member, @manager). *: U gibt jedem Spieler ein Recht; [x,z] beginnt einen Abschnitt für einen Chunk. Fertig speichert; der Server prüft den Code erneut und nennt die Zeile jedes Fehlers. Kopiere eine gebundene Urkunde mit einer leeren im Handwerksraster; eine Kopie lässt sich nicht kopieren. Wer sonst eine Urkunde hält, sieht nur, was er darf.",
+        "details": [
+          "Stelle aus Papier, Tintenbeutel und Honigwabe eine leere Claim-Urkunde her. Rechtsklick beansprucht den Chunk, in dem du stehst; danach ist die Urkunde an dich gebunden. Eine gebundene Urkunde öffnet den Rechte-Editor deines Landes: eine Zeile je Person, Name oder UUID, ein Doppelpunkt, dann die Buchstaben B Bauen, D Abbauen, U Benutzen, C Container, R Redstone, A Tiere und Fahrzeuge, M Verwalten, oder eine Rolle (@guest, @helper, @member, @manager). *: U gibt jedem Spieler ein Recht; [x,z] beginnt einen Abschnitt für einen Chunk. Fertig speichert; der Server prüft den Code erneut und nennt die Zeile jedes Fehlers. Kopiere eine gebundene Urkunde mit einer leeren im Handwerksraster; eine Kopie lässt sich nicht kopieren. Wer sonst eine Urkunde hält, sieht nur, was er darf.",
+          "Der Editor ist ein Rechte-Code wie der Blaupausen-Editor: Namen lösen nur für Online-Spieler und für Personen auf, die schon im Land stehen (nie eine Abfrage übers Netz); der gespeicherte Code behält UUIDs, damit ein umbenannter Spieler keine Rechte erbt. Der Client zeigt eine Vorschau; der Server entscheidet. Verwalter (M) dürfen bearbeiten, aber nur Personen ohne M und nur Rechte, die sie selbst haben. Speichern gilt ganz oder gar nicht und nutzt die Claim-Abklingzeit. Ohne die Mod am Client beansprucht die leere Urkunde weiter sofort.",
+          "Pakete: Öffnen und Antworten kommen vom Server, Speichern und Beanspruchen vom Client; jedes Speichern nennt die Version des Landes, auf der es geöffnet wurde, und wird abgelehnt, wenn sich das Land inzwischen geändert hat."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/ClaimDeedItem.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/DeedService.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/DeedData.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/DeedCloningRecipe.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/client/DeedScreen.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/net/DeedEditPayload.java",
+        "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_deed.json",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimCode.java"
+      ]
+    },
+    {
       "id": "forge_support",
       "sources": [
         "modules/simpletweaks/forge/src/main/java/com/simplebuilding/modules/simpletweaks/forge/TweaksForge.java",
@@ -113,6 +144,62 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
     }
   ],
   "recipes": [
+    {
+      "id": "simpletweaks:claim_deed",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpletweaks:claim_deed",
+        "count": 1
+      },
+      "source": "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_deed.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "minecraft:ink_sac",
+        "minecraft:paper"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:ink_sac"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpletweaks:claim_deed_copy",
+      "type": "simpletweaks:claim_deed_copy",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_deed_copy.json",
+      "ingredients": []
+    },
     {
       "id": "simpletweaks:guide_book",
       "type": "minecraft:crafting_shapeless",
@@ -262,15 +349,20 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       "id": "simpletweaks:claim_deed",
       "kind": "item",
       "name": {
-        "en_us": "Legacy Claim Deed",
-        "de_de": "Alte Claim-Urkunde"
+        "en_us": "Claim Deed",
+        "de_de": "Claim-Urkunde"
       },
       "note": {
+        "sources": [
+          "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/ClaimDeedItem.java",
+          "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_deed.json",
+          "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/deed/DeedCloningRecipe.java"
+        ],
         "en": {
-          "summary": "Legacy deed from existing worlds or /give. Stack size 16. Original texture and custom data are retained. No recipe; using it claims the current chunk like /claim create."
+          "summary": "Empty: right-click claims the chunk you stand in and binds the deed to you. Bound: right-click opens the rights editor of your land (anybody else sees what they may do). Stack size 1. Recipe: paper + ink sac + honeycomb; a bound deed plus an empty one copies it (a copy cannot be copied)."
         },
         "de": {
-          "summary": "Alte Urkunde aus vorhandenen Welten oder /give. Stapelgröße 16. Originaltextur und Zusatzdaten bleiben erhalten. Kein Rezept; Benutzen beansprucht den aktuellen Chunk wie /claim create."
+          "summary": "Leer: Rechtsklick beansprucht den Chunk, in dem du stehst, und bindet die Urkunde an dich. Gebunden: Rechtsklick öffnet den Rechte-Editor deines Landes (andere sehen, was sie dürfen). Stapelgröße 1. Rezept: Papier + Tintenbeutel + Honigwabe; eine gebundene und eine leere Urkunde kopieren sie (eine Kopie lässt sich nicht kopieren)."
         }
       },
       "texture": "assets/textures/simpletweaks/item/claim_deed.png",
@@ -298,7 +390,9 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
           ]
         }
       },
-      "craftedBy": [],
+      "craftedBy": [
+        "simpletweaks:claim_deed"
+      ],
       "usedIn": []
     },
     {
@@ -313,10 +407,10 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
           "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
         }
       },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",
@@ -365,8 +459,8 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 3,
-    "recipes": 1,
+    "features": 4,
+    "recipes": 3,
     "lootTables": 0,
     "tags": 2,
     "advancements": 0,

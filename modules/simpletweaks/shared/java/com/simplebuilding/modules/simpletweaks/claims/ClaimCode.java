@@ -174,6 +174,58 @@ public final class ClaimCode {
         return switch (id) { case "minecraft:overworld" -> "overworld"; case "minecraft:the_nether" -> "nether"; case "minecraft:the_end" -> "end"; default -> id; };
     }
 
+    /**
+     * Stores identities, not names: every person line whose name resolves gets the UUID in its place (comments and
+     * layout stay), so a later rename cannot move rights to somebody else. A line or the whole text that would
+     * exceed the code limits keeps the name. Call it on code that parsed without errors.
+     */
+    public static String pin(String code, Names names) {
+        String[] lines = code.split("\n", -1);
+        for (int i = 0; i < lines.length; i++) {
+            String who = whoToken(lines[i]);
+            if (who == null || who.equals("*") || who.length() == 36 || !validName(who)) continue;
+            UUID id = names.resolve(who);
+            if (id == null) continue;
+            String swapped = swapWho(lines[i], who, id.toString());
+            if (swapped.length() <= MAX_LINE) lines[i] = swapped;
+        }
+        String out = String.join("\n", lines);
+        return out.length() > MAX_CHARS ? code : out;
+    }
+
+    /**
+     * The code as the editor shows it: UUID tokens become names where {@code nameOf} knows one <em>and</em> the name
+     * resolves back to exactly that player (a stale or shared name stays a UUID, so saving cannot change a person).
+     */
+    public static String display(String code, java.util.function.Function<UUID,String> nameOf, Names names) {
+        String[] lines = code.split("\n", -1);
+        for (int i = 0; i < lines.length; i++) {
+            String who = whoToken(lines[i]);
+            if (who == null || who.length() != 36) continue;
+            UUID id = identity(who, name -> null);
+            if (id == null) continue;
+            String name = nameOf.apply(id);
+            if (name != null && validName(name) && id.equals(names.resolve(name))) lines[i] = swapWho(lines[i], who, name);
+        }
+        return String.join("\n", lines);
+    }
+
+    /** The text before the colon of a person line (not a comment, not a section header), or null. */
+    private static String whoToken(String line) {
+        int hash = line.indexOf('#');
+        String body = (hash >= 0 ? line.substring(0, hash) : line).strip();
+        if (body.isEmpty() || body.charAt(0) == '[') return null;
+        int colon = body.indexOf(':');
+        if (colon <= 0) return null;
+        String who = body.substring(0, colon).strip();
+        return who.isEmpty() ? null : who;
+    }
+    private static String swapWho(String line, String who, String with) {
+        int start = 0;
+        while (start < line.length() && Character.isWhitespace(line.charAt(start))) start++;
+        return line.substring(0, start) + with + line.substring(start + who.length());
+    }
+
     private static final String HEADER = """
             # Claim rights. One line per person: name or UUID, a colon, then letters or a role.
             # B Build  D Destroy  U Use  C Container  R Redstone  A Animals/vehicles  M Manage

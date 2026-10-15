@@ -239,9 +239,9 @@ public final class Claims {
         boolean isOwner=owner.equals(actor.getUUID());
         if (!isOwner && (land.top().of(actor.getUUID())&ClaimRights.MANAGE)==0) return fail("denied","");
         long tick=actor.level().getServer().overworld().getGameTime();
-        if (!mutationReady(actor.getUUID(),tick)) return fail("cooldown","");
-        var players=actor.level().getServer().getPlayerList();
-        var parsed=ClaimCode.parse(code,owner,actor.level().dimension().identifier().toString(),name->{var p=players.getPlayerByName(name);return p==null?null:p.getUUID();},config.maxTrustedPlayers());
+        if (!mutationReady(actor.getUUID(),tick)) return fail("cooldown",Long.toString(cooldownLeft(actor.getUUID(),tick)));
+        var names=namesFor(actor.level().getServer(),owner);
+        var parsed=ClaimCode.parse(code,owner,actor.level().dimension().identifier().toString(),names,config.maxTrustedPlayers());
         if (!parsed.ok()) return new ApplyResult(false,parsed.errors());
         var errors=new ArrayList<ClaimCode.Error>();var sections=new HashMap<ClaimStore.Key,ClaimRights.Rules>();
         parsed.sections().forEach((at,rules)->{
@@ -254,9 +254,62 @@ public final class Claims {
         });
         if (!errors.isEmpty()) return new ApplyResult(false,errors.stream().limit(ClaimCode.MAX_ERRORS).toList());
         if (!isOwner && !managerMayChange(actor.getUUID(),land,parsed.top(),sections)) return fail("manager_limit","");
-        var nextLands=new HashMap<>(store.lands());nextLands.put(owner,new ClaimStore.Land(owner,code,parsed.top(),sections));
+        var nextLands=new HashMap<>(store.lands());nextLands.put(owner,new ClaimStore.Land(owner,ClaimCode.pin(code,names),parsed.top(),sections));
         if (!commit(store.view(),nextLands)) return fail("locked","");
         cooldowns.put(actor.getUUID(),tick);return new ApplyResult(true,List.of());
+    }
+    /** Ticks until {@code actor} may commit again (0 if ready). */
+    public long cooldownLeft(UUID actor,long tick) {
+        Long last=cooldowns.get(actor);
+        return last==null?0:Math.max(0,last+config.cooldownTicks()-tick);
+    }
+    /** Version of an owner's rules: changes with every rule or code change (record equality), so an editor can detect staleness. */
+    public int revision(UUID owner) {
+        var land=lands().get(owner);
+        return (land==null?new ClaimStore.Land(owner,"",ClaimRights.Rules.EMPTY,Map.of()):land).hashCode();
+    }
+    public boolean hasLand(UUID owner) { return view().values().stream().anyMatch(c->c.owner().equals(owner)); }
+    public int chunksOf(UUID owner) { return (int)view().values().stream().filter(c->c.owner().equals(owner)).count(); }
+    /** Name of a player for the editor: online first, then the local name cache (never a network lookup); null if unknown. */
+    public static String nameOf(MinecraftServer server,UUID id) {
+        var online=server.getPlayerList().getPlayer(id);
+        if (online!=null) return online.getPlainTextName();
+        return server.services().nameToIdCache().get(id).map(net.minecraft.server.players.NameAndId::name).orElse(null);
+    }
+    /**
+     * Name resolution of the editor: online players, then the persons already in this land by their cached name.
+     * Never a network lookup. An ambiguous name (two persons of the land) does not resolve.
+     */
+    public ClaimCode.Names namesFor(MinecraftServer server,UUID owner) {
+        var land=lands().get(owner);
+        return name->{
+            var online=server.getPlayerList().getPlayerByName(name);
+            if (online!=null) return online.getUUID();
+            if (land==null) return null;
+            var ids=new LinkedHashSet<UUID>(land.top().members().keySet());
+            land.sections().values().forEach(r->ids.addAll(r.members().keySet()));
+            UUID found=null;
+            for (var id:ids) {
+                String known=nameOf(server,id);
+                if (known!=null && known.equalsIgnoreCase(name)) { if (found!=null && !found.equals(id)) return null; found=id; }
+            }
+            return found;
+        };
+    }
+    /**
+     * The code an editor opens with: the stored text, or (none stored) one generated from the structure; UUIDs shown as
+     * names where that is unambiguous. Null if the structure is too large for the editor limits.
+     */
+    public String editorCode(MinecraftServer server,UUID owner) {
+        var land=lands().get(owner);
+        String code=land==null?"":land.code();
+        if (code.isEmpty()) {
+            var at=new HashMap<ClaimCode.At,ClaimRights.Rules>();
+            if (land!=null) land.sections().forEach((k,r)->at.put(k.at(),r));
+            code=ClaimCode.generate(land==null?ClaimRights.Rules.EMPTY:land.top(),at);
+            if (code==null) return null;
+        }
+        return ClaimCode.display(code,id->nameOf(server,id),namesFor(server,owner));
     }
     /** Managers: no change to `*`, sections or anyone holding M, no M granted, only own rights handed out. */
     private static boolean managerMayChange(UUID manager,ClaimStore.Land old,ClaimRights.Rules top,Map<ClaimStore.Key,ClaimRights.Rules> sections) {

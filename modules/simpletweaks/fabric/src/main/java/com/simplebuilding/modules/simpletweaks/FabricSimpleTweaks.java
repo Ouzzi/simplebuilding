@@ -2,11 +2,31 @@ package com.simplebuilding.modules.simpletweaks;
 import net.fabricmc.api.ModInitializer;
 public final class FabricSimpleTweaks implements ModInitializer {
     @Override public void onInitialize() {
+        LegacyDeed.registerComponents();
         LegacyDeed.register();
+        LegacyDeed.registerRecipes();
+        registerDeedNetwork();
   if(net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests"))com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.installQuests(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
-  net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out->{if(!com.simplebuilding.framework.api.SubMods.enabled("simpletweaks"))return;var book=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.book());/* before the writable book: a tail append clashes with other mods' insertAfter at the tail */if(out.getDisplayStacks().stream().anyMatch(s->s.is(net.minecraft.world.item.Items.WRITABLE_BOOK)))out.insertBefore(net.minecraft.world.item.Items.WRITABLE_BOOK,java.util.List.of(book),net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);else out.accept(book);});
+  net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out->{if(!com.simplebuilding.framework.api.SubMods.enabled("simpletweaks"))return;var book=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.book());var deed=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.deed.ClaimDeedItem.item());/* before the writable book: a tail append clashes with other mods' insertAfter at the tail */if(out.getDisplayStacks().stream().anyMatch(s->s.is(net.minecraft.world.item.Items.WRITABLE_BOOK)))out.insertBefore(net.minecraft.world.item.Items.WRITABLE_BOOK,java.util.List.of(book,deed),net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);else{out.accept(book);out.accept(deed);}});
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(com.simplebuilding.modules.simpletweaks.claims.Claims::start);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(com.simplebuilding.modules.simpletweaks.claims.Claims::stop);
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d,r,e)->com.simplebuilding.modules.simpletweaks.claims.ClaimCommands.register(d));
+    }
+    /** Deed packets: edit/claim go to the server, open/result come back. The client side is {@link FabricSimpleTweaksClient}. */
+    private static void registerDeedNetwork() {
+        var registry=net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay();
+        registry.register(com.simplebuilding.modules.simpletweaks.deed.net.DeedEditPayload.TYPE,com.simplebuilding.modules.simpletweaks.deed.net.DeedEditPayload.CODEC);
+        registry.register(com.simplebuilding.modules.simpletweaks.deed.net.DeedClaimPayload.TYPE,com.simplebuilding.modules.simpletweaks.deed.net.DeedClaimPayload.CODEC);
+        var back=net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay();
+        back.register(com.simplebuilding.modules.simpletweaks.deed.net.DeedOpenPayload.TYPE,com.simplebuilding.modules.simpletweaks.deed.net.DeedOpenPayload.CODEC);
+        back.register(com.simplebuilding.modules.simpletweaks.deed.net.DeedResultPayload.TYPE,com.simplebuilding.modules.simpletweaks.deed.net.DeedResultPayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.deed.net.DeedEditPayload.TYPE,
+                (payload,context)->context.server().execute(()->com.simplebuilding.modules.simpletweaks.deed.DeedService.handleEdit(payload,context.player())));
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.deed.net.DeedClaimPayload.TYPE,
+                (payload,context)->context.server().execute(()->com.simplebuilding.modules.simpletweaks.deed.DeedService.handleClaim(payload,context.player())));
+        com.simplebuilding.modules.simpletweaks.deed.net.DeedNet.toClient=(player,payload)->{
+            if(!net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.canSend(player,payload.type()))return false;
+            net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player,payload);return true;
+        };
     }
 }

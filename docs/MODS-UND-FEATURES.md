@@ -48,7 +48,7 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 | Simple Visuals (`simplevisuals`) | Cloth Config | SimpleBuilding, Simple Models, ModMenu | – |
 | Simple Sounds (`simplesounds`) | Cloth Config | Simple Visuals (Stufe koppeln), SimpleBuilding, ModMenu | – |
 | Simple Dimensions (`simpledimensions`) | Cloth Config | SimpleBuilding, ModMenu, Claim-Mods (Flan, FTB Chunks, OPAC, GriefDefender, ClaimChunk) | – |
-| Simple Tweaks (`simpletweaks`) | SimpleBuilding | Simple Dimensions | – |
+| Simple Tweaks (`simpletweaks`) | simplelib | SimpleBuilding, Simple Dimensions | simplelib, framework |
 | Wiring Example (`wiringexample`) | – | – | – (nur Testmodul) |
 
 ## Features je Mod
@@ -168,7 +168,7 @@ Claim-Prüfung.
 ### Simple Tweaks
 Kompatibilität alter Welten (ID-Zuordnung), Claim-System (standardmäßig an). Rechte je Person (B D U C R A M, Rollen
 `@guest/@helper/@member/@manager`), Rechte-Code mit Server-Parser, Ledger v2 mit Migration (Plan `docs/ai/PLAN-CLAIM-URKUNDE-GUI-2026-10-13.md`,
-Phase 1; Editor, Claim-Tisch und Maps-Ebene folgen).
+Phase 1). Claim-Urkunde (Phase 2): Rezept Papier + Tintenbeutel + Honigwabe, Rechtsklick beansprucht und bindet sie an den Besitzer (`simpletweaks:deed`, nur Anzeige), gebunden öffnet sie den Rechte-Editor (Code-Feld, Fehlerzeilen vom Server, Online-Namen, Hilfe; simplelib-Kasten, gebündelt), Kopie wie ein Buch (Kopie nicht kopierbar). Claim-Tisch, Erweiterung und Maps-Ebene folgen (Phasen 3–5).
 
 ## Geplant / in Arbeit
 | Mod | Stand | Inhalt | Quelle |

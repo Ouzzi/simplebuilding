@@ -8,6 +8,9 @@
     "main": [
       "com.simplebuilding.modules.simpletweaks.FabricSimpleTweaks"
     ],
+    "client": [
+      "com.simplebuilding.modules.simpletweaks.FabricSimpleTweaksClient"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpletweaks.ModuleGameTest",
       "com.simplebuilding.modules.simpletweaks.ClaimsGameTest"
@@ -17,7 +20,8 @@
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
     "java": ">=25",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "simplelib": ">=0.2.0"
   },
   "mixins": [
     "simpletweaks.mixins.json",
