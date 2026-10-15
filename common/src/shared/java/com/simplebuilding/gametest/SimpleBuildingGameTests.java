@@ -875,6 +875,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placing_game_test_switched_parts_drop_as_themselves", PlacedBricksGemsTests::switchedPartsDropAsThemselves)
                     .build(),
+            GameTestSpec.named("placing_game_test_no_placed_parts_overlap", PlacedPartsOverlapTests::noPartsOverlap)
+                    .build(),
+            GameTestSpec.named("placing_game_test_placed_part_slots_fit_their_cells", PlacedPartsOverlapTests::slotsFitTheirCells)
+                    .build(),
             GameTestSpec.named("placing_game_test_goat_horn_holds_torches_and_rods", PlaceN24Tests::goatHornHoldsTorchesAndRods)
                     .build(),
             GameTestSpec.named("placing_game_test_spear_in_dispenser_thrusts_like_spike_trap", PlaceN24Tests::spearInDispenserThrustsLikeSpikeTrap)

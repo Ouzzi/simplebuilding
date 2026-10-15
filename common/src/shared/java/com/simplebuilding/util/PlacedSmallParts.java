@@ -51,7 +51,8 @@ import org.joml.Vector3f;
  * der Server. An Wand und Decke legen sich Kleinteile weiter einzeln wie eine Schmiedevorlage ab
  * ({@link PlacedTemplates}); Eier nur auf den Boden.
  *
- * <p>Lage: feste Plaetze je Anzahl ({@link #SLOTS}) mit kleinen festen Drehungen, alle zusammen nach der Blickrichtung
+ * <p>Lage: je Anzahl feste Zellen ({@link #CELLS}), in denen ein Teil mit kleiner fester Drehung sitzt (Queue N65: nie
+ * ueberlappend, keine Hoehenversetzung noetig), alle zusammen nach der Blickrichtung
  * beim ersten Ablegen gedreht. Liegende Teile sind Platten aus der Item-Textur wie die abgelegte Vorlage
  * ({@link PlacedPlate}), allein in Vorlagen-Groesse, ab zwei Teilen halb so gross; Eier stehen als 3D-Ei
  * ({@code block/placed_egg_<farbe>}, Quader {@link #EGG_BOXES}). {@link #place} rechnet die Lage einmal fuer den
@@ -77,15 +78,20 @@ public final class PlacedSmallParts {
     public static final float SINGLE_SCALE = PlacedPlate.SCALE;
     /** Kantenlaenge je liegendem Teil ab zwei Teilen. */
     public static final float PILE_SCALE = 8.0F / 16.0F;
-    /** Jedes weitere Teil liegt so viel hoeher (gegen Z-Fighting, wo sich Teile ueberlappen). */
-    public static final float LIFT = 0.2F / 16.0F;
-
-    /** Plaetze (Pixel x, Pixel z, Drehung in Grad) je Anzahl; Blickrichtung Norden, Oberkante nach Norden. */
-    private static final float[][][] SLOTS = {
-            {{8.0F, 8.0F, 0.0F}},
-            {{5.5F, 6.0F, -12.0F}, {10.5F, 10.5F, 16.0F}},
-            {{5.0F, 5.5F, -10.0F}, {11.0F, 6.0F, 14.0F}, {7.5F, 11.0F, -4.0F}},
-            {{4.5F, 4.5F, -10.0F}, {11.5F, 4.75F, 12.0F}, {4.75F, 11.5F, 6.0F}, {11.25F, 11.25F, -14.0F}},
+    /**
+     * Plaetze je Anzahl (Queue N65, 2026-10-15): jedes Teil bekommt eine eigene Zelle des Blocks, die sich nie mit der Zelle
+     * eines anderen Teils schneidet: {Zelle x0, z0, x1, z1 (Pixel), Wunschmitte x, z, Wunschdrehung in Grad}. Eins hat den
+     * ganzen Block, zwei je eine Haelfte (16 x 8), drei zwei Viertel und eine Haelfte, vier je ein Viertel (8 x 8). Blickrichtung
+     * Norden, Oberkante nach Norden. Wie das Teil darin sitzt, rechnet {@link #slot}; jedes Teil passt in jede Zelle seiner
+     * Anzahl ({@link #footprint}), also ueberlappt nie etwas, egal in welcher Mischung.
+     */
+    private static final float[][][] CELLS = {
+            {{0.0F, 0.0F, 16.0F, 16.0F, 8.0F, 8.0F, 0.0F}},
+            {{0.0F, 0.0F, 16.0F, 8.0F, 5.5F, 4.0F, -12.0F}, {0.0F, 8.0F, 16.0F, 16.0F, 10.5F, 12.0F, 16.0F}},
+            {{0.0F, 0.0F, 8.0F, 8.0F, 4.5F, 4.5F, -10.0F}, {8.0F, 0.0F, 16.0F, 8.0F, 11.5F, 4.5F, 14.0F},
+                    {0.0F, 8.0F, 16.0F, 16.0F, 7.5F, 12.0F, -4.0F}},
+            {{0.0F, 0.0F, 8.0F, 8.0F, 4.5F, 4.5F, -10.0F}, {8.0F, 0.0F, 16.0F, 8.0F, 11.5F, 4.75F, 12.0F},
+                    {0.0F, 8.0F, 8.0F, 16.0F, 4.75F, 11.5F, 6.0F}, {8.0F, 8.0F, 16.0F, 16.0F, 11.25F, 11.25F, -14.0F}},
     };
 
     /**
@@ -616,15 +622,9 @@ public final class PlacedSmallParts {
      * Vom Blockursprung zum Modellraum von Teil {@code index} (von {@code count}), so wie ein Item-Modell ohne
      * Anzeige-Transformation gezeichnet wird (Mitte des Modells im Ursprung). Liegende Teile: die Platte flach, die
      * Oberkante nach {@code facing}; stehende Teile (Eier, Kerzen, Seegurken, {@link Kind#standing}): das Blockmodell mit
-     * seiner Unterkante auf dem Boden, die Modellmitte (8, 8, 8) im Ursprung - dort sitzt auch die Kerzenflamme.
-     */
-    public static void place(Ops ops, Direction facing, int count, int index, boolean standing) {
-        place(ops, facing, count, index, standing ? Kind.EGG : Kind.PLATE, false);
-    }
-
-    /**
-     * Wie {@link #place(Ops, Direction, int, int, boolean)}, mit der Art des Teils: Barren und Ziegel stehen als 3D-Teil und
-     * liegen, wenn nur solche auf dem Fleck sind ({@code ingotStack}), als kleiner Stapel ({@link #INGOT_STACK}).
+     * seiner Unterkante auf dem Boden, die Modellmitte (8, 8, 8) im Ursprung - dort sitzt auch die Kerzenflamme. Barren
+     * und Ziegel liegen, wenn nur solche auf dem Fleck sind ({@code ingotStack}), als kleiner Stapel ({@link #INGOT_STACK}).
+     * Die Plaetze sonst: {@link #slot}.
      */
     public static void place(Ops ops, Direction facing, int count, int index, Kind kind, boolean ingotStack) {
         if (kind.stackable() && ingotStack) {
@@ -637,22 +637,81 @@ public final class PlacedSmallParts {
             return;
         }
         boolean standing = kind.standing();
-        float[] slot = SLOTS[Math.max(0, Math.min(MAX_PARTS, count) - 1)][Math.max(0, Math.min(index, count - 1))];
-        float lift = index * LIFT;
+        float[] slot = slot(count, index, kind);
         ops.translate(0.5F, 0.0F, 0.5F);
         ops.rotateY(rad(180.0F - facing.toYRot()));
         ops.translate((slot[0] - 8.0F) / 16.0F, 0.0F, (slot[1] - 8.0F) / 16.0F);
         ops.rotateY(rad(slot[2]));
         if (standing) {
-            // Stehende Teile stehen immer auf dem Boden (sie koennen eine liegende Platte streifen, das stoert nicht).
+            // Stehende Teile stehen immer auf dem Boden, in ihrer eigenen Zelle (ueberlappen nie).
             ops.translate(0.0F, 0.5F, 0.0F);
             return;
         }
         float scale = count <= 1 ? SINGLE_SCALE : PILE_SCALE;
         float thickness = scale * PlacedPlate.THICKNESS_SCALE / 16.0F;
-        ops.translate(0.0F, lift + thickness / 2.0F + PlacedPlate.GAP, 0.0F);
+        ops.translate(0.0F, thickness / 2.0F + PlacedPlate.GAP, 0.0F);
         ops.rotateX(rad(-90.0F));
         ops.scale(scale, scale, scale * PlacedPlate.THICKNESS_SCALE);
+    }
+
+    /**
+     * Grundflaeche eines Teils der Art {@code kind} im Haeufchen mit {@code count} Teilen: {halbe Laenge in x, halbe Breite in z}
+     * in Pixeln, vor der Drehung. Liegende Platten sind quadratisch (Kantenlaenge je Anzahl), alle anderen decken ihre Quader ab;
+     * ein Edelstein nimmt die Breite des breitesten ({@link #GEM_HALF}), unabhaengig vom Stein.
+     */
+    public static float[] footprint(Kind kind, int count) {
+        if (kind == Kind.PLATE) {
+            float half = (count <= 1 ? SINGLE_SCALE : PILE_SCALE) * 8.0F;
+            return new float[]{half, half};
+        }
+        if (kind == Kind.GEM) {
+            return new float[]{GEM_HALF, GEM_HALF};
+        }
+        float[][] boxes = switch (kind) {
+            case EGG -> EGG_BOXES;
+            case CANDLE -> CANDLE_BOXES;
+            case PICKLE -> PICKLE_BOXES;
+            case INGOT -> INGOT_BOXES;
+            default -> BRICK_BOXES;
+        };
+        float hx = 0.0F;
+        float hz = 0.0F;
+        for (float[] box : boxes) {
+            hx = Math.max(hx, box[2]);
+            hz = Math.max(hz, box.length > 3 ? box[3] : box[2]);
+        }
+        return new float[]{hx, hz};
+    }
+
+    /** Halbe Breite des breitesten Edelsteins (aus {@link #GEM_ROWS}, ein Sprite-Pixel ist ein halber Modellpixel). */
+    private static final float GEM_HALF = GEM_ROWS.values().stream().flatMapToInt(java.util.Arrays::stream).max().getAsInt() * 0.5F;
+
+    /**
+     * Platz von Teil {@code index} (von {@code count}) der Art {@code kind}: {Mitte x, Mitte z (Pixel), Drehung in Grad}, Blickrichtung
+     * Norden. Das Teil sitzt in seiner Zelle ({@link #CELLS}): die Wunschdrehung wird (in Vierteln) so weit verkleinert, dass die
+     * gedrehte Grundflaeche in die Zelle passt, die Mitte wird in die Zelle geschoben.
+     */
+    public static float[] slot(int count, int index, Kind kind) {
+        int n = Math.max(1, Math.min(MAX_PARTS, count));
+        float[] cell = CELLS[n - 1][Math.max(0, Math.min(index, n - 1))];
+        float[] fp = footprint(kind, n);
+        float rot = 0.0F;
+        float hx = fp[0];
+        float hz = fp[1];
+        for (float t = 1.0F; t > 0.0F; t -= 0.25F) {
+            double a = Math.toRadians(cell[6] * t);
+            float rx = (float) (fp[0] * Math.abs(Math.cos(a)) + fp[1] * Math.abs(Math.sin(a)));
+            float rz = (float) (fp[0] * Math.abs(Math.sin(a)) + fp[1] * Math.abs(Math.cos(a)));
+            if (rx * 2.0F <= cell[2] - cell[0] + 1.0E-4F && rz * 2.0F <= cell[3] - cell[1] + 1.0E-4F) {
+                rot = cell[6] * t;
+                hx = rx;
+                hz = rz;
+                break;
+            }
+        }
+        float x = Math.max(cell[0] + hx, Math.min(cell[2] - hx, cell[4]));
+        float z = Math.max(cell[1] + hz, Math.min(cell[3] - hz, cell[5]));
+        return new float[]{x, z, rot};
     }
 
     private static float rad(float degrees) {
@@ -778,9 +837,9 @@ public final class PlacedSmallParts {
      * Die Mitte von Teil {@code index} (von {@code count}) relativ zum Blockursprung: bei stehenden Teilen die
      * Modellmitte, wo die Flamme einer Kerze sitzt (wie Vanilla 8 Pixel ueber dem Boden), bei liegenden die Platte.
      */
-    public static Vector3f center(Direction facing, int count, int index, boolean standing) {
+    public static Vector3f center(Direction facing, int count, int index, Kind kind) {
         Matrix4f m = new Matrix4f();
-        place(new MatrixOps(m), facing, count, index, standing);
+        place(new MatrixOps(m), facing, count, index, kind, false);
         return m.transformPosition(0.0F, 0.0F, 0.0F, new Vector3f());
     }
 

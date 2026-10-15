@@ -34,6 +34,16 @@ public final class PlacingGameTest {
         PlacedBricksGemsTests.switchedPartsDropAsThemselves(helper);
     }
 
+    @GameTest(maxTicks = 100)
+    public void noPlacedPartsOverlap(GameTestHelper helper) {
+        PlacedPartsOverlapTests.noPartsOverlap(helper);
+    }
+
+    @GameTest
+    public void placedPartSlotsFitTheirCells(GameTestHelper helper) {
+        PlacedPartsOverlapTests.slotsFitTheirCells(helper);
+    }
+
     @GameTest
     public void goatHornHoldsTorchesAndRods(GameTestHelper helper) {
         PlaceN24Tests.goatHornHoldsTorchesAndRods(helper);
