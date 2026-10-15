@@ -258,6 +258,17 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 61 (2026-10-15, Besitzer-Antworten Sammel-Fragebogen 13.10.)
+Entscheidungen (E): alle Empfehlungen angenommen (E1 A Sprachen erst beim Release, E2 A Attractor-Ladung gestrichen, E3 A gestrichen, E4–E6 geschlossen, E9 A Echolot 3 s halten, E10 A Schlagzahlen so lassen, E11 A Trick-Spiegel vorerst entfernen, E12 A Gewölbe-Texturen nur zur Build-Zeit), außer:
+- [x] E7 Rucksack-Sortierung: KEINE eigene Sortierfunktion – Sortieren bleibt Mods wie Mouse Tweaks / Client-Sort überlassen (Kompatibilität nicht brechen).
+- [ ] E8 Hammer-Tempo bleibt (A); NEU: Oktant-Auswahl bekommt denselben Mengenrabatt wie der normale Hammer-Flächenabbau (1. Block 1,5x, Block 2–9 +0,8x, ab 10 +0,7x – statt fester Faktor je Block).
+- [ ] E11 Trick-Spiegel vorerst entfernen: aus Loot/Rezept/Kreativ-Reiter nehmen, Code bleibt hinter Schalter.
+- [ ] E13 Weder Pipette noch Malerpalette (paint_palette): Malerpalette-Item entfernen (Alt-ID-Migration). Zufallsfarbe nur über die Verzauberung „Farbpalette“ (Color Palette) – anwendbar auf den Pinsel, nicht auf eine Palette.
+Texturen (T): T1 Fragentisch R3 bleibt; T6 = Keramik B; T7 Lohen-Obsidian B1 ok; T8 Trainingspuppe bleibt vorerst; T10 ok (abgehakt); T11 lassen; T13–T26 abgenommen (nur eine Variante – Änderungen meldet der Besitzer selbst); T15 Enchanter ok. T2 (Kolben C), T5 (Riding-Bücher B+25 %), T4-Stil (Sandwich v8) waren schon früher entschieden und eingebaut – Fragebogen war veraltet.
+- [ ] T12 Starkes Leuchtfeuer: GUI im Vanilla-Stil wie die Vanilla-Leuchtfeuer-GUI (nicht eigener Container-Stil).
+- [ ] T3 Brot-Form A–D: Besitzer-Wahl offen (Vorschau-Seite 15.10.); T4-Regeln Käse/Butter bestätigen.
+REGEL (Besitzer 15.10.): Keine alten, schon entschiedenen Textur-Vorschläge erneut vorlegen oder vermischen; vor jeder Textur-Frage Queue/Archiv/Memory nach der Entscheidung durchsuchen. Eingebaute, abgenommene Texturen nur auf ausdrücklichen Wunsch ändern.
+
 ## Nachtrag 60 (2026-10-15, Besitzer-Antworten zum Audit N58)
 - [x] Eimer: bleibt so, wie er vorher drin war – KEIN breiterer Eimer (Audit-Frage 1).
 - [x] Elytra-Reparatur: bleibt beim Werkbank-Rezept, keine Amboss-Reparatur (Audit-Frage 2).
