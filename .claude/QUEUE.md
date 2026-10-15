@@ -260,10 +260,10 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 
 ## Nachtrag 63 (2026-10-15, Besitzer)
 Simple Shops – Server-Shop
-- [ ] Creative-/Unlimited-/Server-Shop: nur per Befehl von Admins (OP) erstellt und konfiguriert; unbegrenzter Vorrat, alle Spieler (auch OPs) können dort kaufen. Management-Befehle: `list` (IDs s001, s002, …), `list` mit Koordinaten, mit Items/Preisen, info, edit, remove, teleport o. ä. Rechte serverseitig, kein Duping (Bestand unbegrenzt, Einnahmen verschwinden oder in Admin-Kasse – im Plan entscheiden).
+- [x] (oc-servershop) Creative-/Unlimited-/Server-Shop: nur per Befehl von Admins (OP) erstellt und konfiguriert; unbegrenzter Vorrat, alle Spieler (auch OPs) können dort kaufen. Management-Befehle: `list` (IDs s001, s002, …), `list` mit Koordinaten, mit Items/Preisen, info, edit, remove, teleport o. ä. Rechte serverseitig, kein Duping (Bestand unbegrenzt, Einnahmen verschwinden oder in Admin-Kasse – im Plan entscheiden).
 
 Rotator – zweite Funktion
-- [ ] Rotator: platzierbaren Block in der Nebenhand + Rechtsklick auf einen Block tauscht den angeklickten Block gegen den aus der Nebenhand (abgebauter Block ins Inventar). Nur Blöcke, die ein Stein-Werkzeug abbauen kann (kein Obsidian o. ä.); wertvolle Blöcke wie Leuchtfeuer ausgeschlossen. Whitelist/Blacklist als Block-Tags bzw. Blocknamen in der Config (Liste hat Vorrang vor der Härte-Regel). Tausch kostet doppelte Haltbarkeit. Immer 1 s Ausholen (Wind-up-Animation), mit Effizienz V sofort; Zeit je nach Blockhärte leicht anpassen, damit Spitzhacke & Co. Vorteil behalten. Claims/Schutz beachten.
+- [x] (oc-rotator) Rotator: platzierbaren Block in der Nebenhand + Rechtsklick auf einen Block tauscht den angeklickten Block gegen den aus der Nebenhand (abgebauter Block ins Inventar). Nur Blöcke, die ein Stein-Werkzeug abbauen kann (kein Obsidian o. ä.); wertvolle Blöcke wie Leuchtfeuer ausgeschlossen. Whitelist/Blacklist als Block-Tags bzw. Blocknamen in der Config (Liste hat Vorrang vor der Härte-Regel). Tausch kostet doppelte Haltbarkeit. Immer 1 s Ausholen (Wind-up-Animation), mit Effizienz V sofort; Zeit je nach Blockhärte leicht anpassen, damit Spitzhacke & Co. Vorteil behalten. Claims/Schutz beachten. (Namenspunkt bleibt offen, siehe nächste Zeile)
 - [ ] Rotator: besseren Namen vorschlagen (Besitzer wählt).
 
 Hollow Watcher – Verhalten (Abgrenzung zum Creaking)
@@ -276,24 +276,24 @@ Hollow Watcher – Verhalten (Abgrenzung zum Creaking)
 
 Besitzer-Antworten Konzepte (15.10.)
 - [x] Dorf-Wanderer: W1 neues Modul Simple Wanderers; W2 auch Seltenes und Mod-Angebote aufteilen, aber beim Dorf-Wanderer nichts allzu Seltenes; W3 Respawn nach 7 Tagen, nur mit Spieler vor Ort; W4 Pferd einfangbar; W5 tötbar wie Vanilla-Händler; W6 Spawn sofort beim ersten Dorfbesuch; W7 Soulbound nur beim fahrenden Händler; W8 Köpfe ja, Kerne nein; W9 Geld-Fund sofort als eigener Auftrag; W10 Biom-Sortiment gleich mit einbauen; W11 eigener Kopf später.
-- [ ] Simple Money: 238 Preislisten-Trades des fahrenden Händlers werden nie angeboten (Pool `wandering_trader/rare` wird nicht gelesen) – sofort beheben (W9).
+- [x] (oc-moneyfix) Simple Money: 238 Preislisten-Trades des fahrenden Händlers werden nie angeboten (Pool `wandering_trader/rare` wird nicht gelesen) – sofort beheben (W9).
 - [ ] Dorf-Wanderer bauen nach Konzept docs/ai/KONZEPT-DORF-WANDERER-2026-10-15.md + Antworten W1–W11.
 - [ ] Hollow Howler Phase 1+2 umsetzen (H1); danach Phase 3 eigene synthetische Sounds (H2); Darkness-Puls nur in der Wut-Phase (H3); leuchtendes Herz als neue Emissiv-Textur mit Vorschau zur Freigabe (H4); Kamerawackeln mit Schalter „Bewegung reduzieren“ (H5). Konzept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md.
-- [ ] Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md.
+- [ ] Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md. – Schritt 1 erledigt (oc-anim-quick): Dread-Wind-up/Recovery, Nibblemite/Dragonmite-Wackeln, Shellker-Deckel, Deceiver-Idle, Soulfire-Blaze-Takt; Rest offen.
 - [x] Sandwich-Brot-Unterrand genehmigt (oc-breadrim).
 - [x] Item-Display Schritt 1 (Text-Vorschlag) freigegeben 15.10.; D8 Lapis/Splitter/Nuggets nach erster Welle; D9 Display-Block später als eigenes Thema.
 
 ## Nachtrag 62 (2026-10-15, Besitzer)
 Rückport (Prinzip: docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md)
-- [ ] Jukebox mit Kiste darüber (Vanilla 26.4-Snapshot, Okt. 2026) in die Mod holen: liegt eine Schallplatte in der Kiste über der Jukebox, wird sie automatisch eingelegt (wie per Trichter, aber ohne Trichter); ist die Platte zu Ende, wird sie gegen die nächste Platte aus der Kiste getauscht, sonst zurück in die Kiste gelegt. Erst das genaue Vanilla-26.4-Verhalten nachlesen und nachbilden; Versions-Flag, damit es in Versionen mit Vanilla-Umsetzung aus ist; Zusammenspiel mit Jukebox-Verstärker/Schallplatten-Modul prüfen.
+- [x] (oc-jukebox) Jukebox mit Kiste darüber (Vanilla 26.4-Snapshot, Okt. 2026) in die Mod holen: liegt eine Schallplatte in der Kiste über der Jukebox, wird sie automatisch eingelegt (wie per Trichter, aber ohne Trichter); ist die Platte zu Ende, wird sie gegen die nächste Platte aus der Kiste getauscht, sonst zurück in die Kiste gelegt. Erst das genaue Vanilla-26.4-Verhalten nachlesen und nachbilden; Versions-Flag, damit es in Versionen mit Vanilla-Umsetzung aus ist; Zusammenspiel mit Jukebox-Verstärker/Schallplatten-Modul prüfen.
 - [x] Generelles Prinzip notiert: Rückports vor Einbau und bei jedem Port je Version prüfen (AGENTS.md + docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md).
 
 3D-Darstellung platzierter Items (Vorbild: Mod „Items Displayed“)
 - [ ] (Schritt 1 freigegeben 15.10., Antworten im Vorschlag §7; Schritt 2 Bilder läuft) Platzierte Items (eigene 3D-Darstellung beim Hinlegen) mehr in Richtung „Items Displayed“ bringen; dem Besitzer gefallen dort besonders Armor Trims (Schmiedevorlagen), Pottery Sherds (Töpferscherben) und Music Discs (Schallplatten). Ablauf verbindlich in 3 Schritten: (1) erst TEXT-Vorschlag, was sich je Item-Art wie ändert → Besitzer-Freigabe; (2) dann gerenderte Vorher/Nachher-Bilder → Besitzer-Freigabe; (3) erst dann im Spiel einbauen. Abgenommene Texturen dabei nicht ändern, nur die 3D-Darstellung/Modelle.
 
 Quality of Life
-- [ ] Sprungkraft (Jump Boost, egal ob Trank, Leuchtfeuer oder Befehl): solange der Effekt aktiv ist, Schritthöhe mindestens 1 Block (einen Block hochlaufen ohne Springen). Mit Step-Height-Verzauberung verträglich (Maximum, nicht addieren). Config-Schalter.
-- [ ] Frosch im Eimer: Frösche wie Axolotl mit Wassereimer einfangen und wieder aussetzen (Variante/Name/Alter bleiben erhalten), Eimer-Item je Variante bzw. Variante als Komponente.
+- [x] (oc-qol62) Sprungkraft (Jump Boost, egal ob Trank, Leuchtfeuer oder Befehl): solange der Effekt aktiv ist, Schritthöhe mindestens 1 Block (einen Block hochlaufen ohne Springen). Mit Step-Height-Verzauberung verträglich (Maximum, nicht addieren). Config-Schalter.
+- [x] (oc-qol62) Frosch im Eimer: Frösche wie Axolotl mit Wassereimer einfangen und wieder aussetzen (Variante/Name/Alter bleiben erhalten), Eimer-Item je Variante bzw. Variante als Komponente.
 
 Item-Statistiken (Modul noch offen – Vorschlag im Konzept)
 - [ ] (Konzept + Besitzer-Antworten 15.10. in KONZEPT-ITEM-STATISTIKEN §14; Bau läuft) KONZEPT zuerst: Item-Statistiken je Werkzeug/Ausrüstung tracken, Vorbild Mod „Item Stats Tracker“ (deren Stärken übernehmen, Schwächen verbessern). Beispiele: Spitzhacke – abgebaute Blöcke gesamt und je Blockart; Kills gesamt, je Mob und je Mob-Variante (für jedes Werkzeug/jede Waffe); Elytra – geflogene Strecke; Stiefel – gelaufene Strecke; weitere sinnvolle Werte je Item-Art. Anzeige: Tooltip-Kurzvorschau, Details bei Shift (o. ä.). Konzept klärt: welches Modul (eigenes Sub-Mod vs. bestehendes), Speicherung als Item-Komponente (Größe begrenzen, Top-N je Liste), Performance, Multiplayer, Zurücksetzen, Datenschutz/Anzeige für andere Spieler, Vergleich mit Item Stats Tracker.
@@ -332,8 +332,8 @@ Quelle und Belege: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-14.md` (Stand claude
 Nicht notiert und nicht gebaut (D):
 - [ ] (Besitzer 09.10.) Breiterer Eimer: Eimer mit größerer Öffnung als Vorschlag, dazu ein ganz neu gezeichneter breiterer Eimer (Vorschau 16-fach, alt neben neu); bisher nirgends notiert, kein Code.
 - [ ] (Besitzer 14.10.) Bild vom 14.10. 19:31 (vermutlich Ash-Wood-Texturwahl nach den KI-Prompts): Inhalt beim Besitzer erfragen, dann umsetzen.
-- [ ] (Besitzer 10.10.) Mod-Audits: offene Befunde aus `AUDIT-DATEN-/AUDIT-MODULE-2026-10-11.md` abarbeiten (Forge-Standalone-Ziel M-05, leere Tags D-10, doppelte Lang-Kopien D-11, Forge-Stapelkappung Fass/Truhe).
-- [ ] (Besitzer 09.10./11.10./14.10.) Dauerregeln dauerhaft in `docs/ai/WORKFLOW.md` festhalten: Entscheidungen immer als Auswahl, Textur-Abnahmen mit Link und als Webseite, Fremdanbieter/opencode bei leerem Kontingent, öffentliches Repo ohne interne IPs/Hosts.
+- [ ] (Besitzer 10.10.) Mod-Audits: offene Befunde aus `AUDIT-DATEN-/AUDIT-MODULE-2026-10-11.md` abarbeiten (Forge-Standalone-Ziel M-05, leere Tags D-10, doppelte Lang-Kopien D-11, Forge-Stapelkappung Fass/Truhe). – Teil erledigt (oc-n58-small): M-05, D-10, D-11; offen: Forge-Stapelkappung Fass/Truhe.
+- [x] (Besitzer 09.10./11.10./14.10.) Dauerregeln dauerhaft in `docs/ai/WORKFLOW.md` festhalten: Entscheidungen immer als Auswahl, Textur-Abnahmen mit Link und als Webseite, Fremdanbieter/opencode bei leerem Kontingent, öffentliches Repo ohne interne IPs/Hosts. – erledigt (oc-n58-small, WORKFLOW.md „Standing owner rules“).
 - [ ] (Besitzer 13.10.) Sammel-Dokument offener Entscheidungen (E1–E13, T1–T26, A1–A52; nur E8 beantwortet) liegt nur in der Memory (Übergabe 13.10. abends): Antworten des Besitzers einholen und hier eintragen.
 Entscheidung notiert, nicht umgesetzt (E):
 - [ ] (Besitzer 13.10.) Elytra-Reparatur am Amboss: Wortlaut „am Amboss“ widerspricht dem Vermerk „Werkbank-Rezept bleibt, nichts bauen“ (N11); beim Besitzer klären.
@@ -355,9 +355,9 @@ Abgehakt, aber nicht oder nur teilweise im Code (C):
 Aus den Memory-Notizen (nicht in der Queue, Details im Audit-Dokument M02–M18):
 - [ ] (Memory) Claim-Urkunde Phase 1: Review, Forge-/Client-/Standalone-Tests, Einzelhooks, Namens-Cache; rote Tests ohne Fix-Beleg (Forge crucible/auto_smither/tiered, Standalone double_cap/claims_grief, every_mod_mob NeoForge) prüfen.
 - [ ] (Memory) Windows-Lauf des Installers beim Besitzer (winget-JDK, Toolchain, Vanilla-derived-Fallback) testen.
-- [ ] (Memory) Simple Trims: JEI-Kategorie, Hammerneigung/Ziel-Highlight auf Platten, Migration alter placed_smithing_template-Blöcke.
-- [ ] (Memory) Simple Money: End-Holz-Items ohne Preise (Absicht klären); Simple Beacons: Client kennt Server-Config nicht, Strong-Conduit-Tönung; Mobheads-Reste (Varianten-Sounds, Wiki-Renders, alte Fun-Config-Keys).
-- [ ] (Memory) Eisen-Tiegel-Bau: Loot-Bedingung `block_state_property(stage)` greift nicht (Umgehung per getDrops); Gemischte Octet-Zellen ohne Bruch-Risse, 26.2-Compile ungeprüft; End-Testzentrale: chunkweise fehlendes Blocklicht.
+- [ ] (Memory) Simple Trims: JEI-Kategorie, Hammerneigung/Ziel-Highlight auf Platten, Migration alter placed_smithing_template-Blöcke. – Teil erledigt (oc-n58-small): nur JEI-Smithing-Extension; Rest offen.
+- [ ] (Memory) Simple Money: End-Holz-Items ohne Preise (Absicht klären); Simple Beacons: Client kennt Server-Config nicht, Strong-Conduit-Tönung; Mobheads-Reste (Varianten-Sounds, Wiki-Renders, alte Fun-Config-Keys). – Teil erledigt (oc-n58-small): Beacons-Client liest Server-Config vom Menü, Mobheads-Reste nur Doku; Rest offen.
+- [ ] (Memory) Eisen-Tiegel-Bau: Loot-Bedingung `block_state_property(stage)` greift nicht (Umgehung per getDrops); Gemischte Octet-Zellen ohne Bruch-Risse, 26.2-Compile ungeprüft; End-Testzentrale: chunkweise fehlendes Blocklicht. – Teil erledigt (oc-n58-small): Ursache = Loot-Altformat, Rohling-Tabelle neu, getDrops-Umgehung entfernt; neuer Befund 21 Altformat-Tabellen (tools/check_loot_format.py).
 - [ ] (Memory) Prod-Übernahme `development` → Production für alle gemergten Wellen erst nach Freigabe des Besitzers; Branch `oc-gatefix6` (Wiki-Platzhalter jar-unabhängig) mergen.
 Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachgetragen):
 - [x] (Besitzer 09.10.) Dev-Knopf Mod-UI ↔ Vanilla-UI (Audit 14.10.: UiStyleToggle/StyleToggleButton, Config showStyleToggle). Dev-Queue für Textur-/Code-Wünsche in der Zentrale (Audit 14.10.: tools/zentrale-web/devqueue.py, PLAN-DEV-QUEUE-2026-10-09).

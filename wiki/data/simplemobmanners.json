@@ -198,6 +198,30 @@
         }
       },
       "texture": "assets/textures/simplemobmanners/item/frog_bucket.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A pail with a very patient frog sitting in the water."
+          ],
+          "use": [
+            "Use a water bucket on a frog to catch it, then place the bucket like water to let it go. Its variant, name and age come back with it."
+          ],
+          "secret": [
+            "A caught frog is carried by the bucket as a component, so a named frog keeps its name for as long as you carry it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Eimer mit einem sehr geduldigen Frosch im Wasser."
+          ],
+          "use": [
+            "Benutze einen Wassereimer auf einem Frosch, um ihn zu fangen, und platziere den Eimer wie Wasser, um ihn freizulassen. Variante, Name und Alter kommen mit zurück."
+          ],
+          "secret": [
+            "Der gefangene Frosch steckt als Komponente im Eimer, ein benannter Frosch behält also seinen Namen, solange du ihn trägst."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     }
