@@ -141,6 +141,10 @@ def books():
     src = read(GUIDE_BOOKS)
     enum = re.findall(r'^\s+([A-Z_]+)\("([a-z_]+)", "([a-z_]+)", Shelf\.(MOD|VANILLA)\)', src, re.M)
     keys = dict(re.findall(r'case ([A-Z_]+) -> (Items\.[A-Z_]+|ModItems\.[A-Z_]+);', src[src.index("keyItem(Book"):]))
+    # The topic list names hint(book) (McVersion.MEGA_GUIDES, true on 26.3); TRIMS: 26.3 has TRIMS_IN_SB = false.
+    hints = src[src.index("ItemLike hint(Book"):src.index("Eigenschaften eines Buch-Items")]
+    for name, ref in re.findall(r'case ([A-Z_]+) -> (?:McVersion\.TRIMS_IN_SB \? [A-Za-z_.]+ : )?(Items\.[A-Z_]+|ModItems\.[A-Z_]+);', hints):
+        keys[name] = ref
     out = []
     for name, book_id, _item, shelf in enum:
         ref = keys[name]
@@ -157,6 +161,9 @@ def chapter_icons():
         # This checker reads 26.3 languages, so choose the first icon of the version conditional.
         out[m.group(1)] = re.findall(
             r'\bch\((?:com\.simplebuilding\.version\.McVersion\.VANILLA_26_3_CONTENT\s*\?\s*)?"([a-z0-9_:]+)"', m.group(2))
+    # Chapters appended later by feature gates (addChapter), in file order.
+    for book, icon in re.findall(r'addChapter\(GuideBooks\.Book\.([A-Z_]+),\s*ch\("([a-z0-9_:]+)"', src):
+        out.setdefault(book, []).append(icon)
     return out
 
 
