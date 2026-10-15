@@ -25,6 +25,13 @@ ordering="AFTER"
 side="BOTH"
 
 [[dependencies.simpletrims]]
+modId="jei"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.simpletrims]]
 modId="simplebuilding"
 mandatory=false
 versionRange="[0,)"

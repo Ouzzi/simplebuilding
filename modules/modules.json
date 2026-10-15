@@ -1439,7 +1439,8 @@
         "simplelib"
       ],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "jei"
       ],
       "checks": [
         "modules/simpletrims/tools/check_data.py"

@@ -15,6 +15,9 @@
     ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpletrims.ModuleGameTest"
+    ],
+    "jei_mod_plugin": [
+      "com.simpletrims.compat.TrimsJeiPlugin"
     ]
   },
   "mixins": [
@@ -28,6 +31,7 @@
     "simplelib": ">=0.2.0"
   },
   "suggests": {
+    "jei": "*",
     "simplebuilding": "*"
   }
 }
