@@ -49,6 +49,8 @@ public final class MobsConfig {
     public static boolean biomeBrushEnabled = true;
     public static boolean biomeBrushOpsOnly = false;
     public static int biomeBrushRadius = 1;
+    /** Trick Mirror: off by default (owner N61 E11); recipe and drop are removed, the item only works and shows in the creative tab when on. */
+    public static boolean trickMirrorEnabled = false;
 
     private MobsConfig() {}
 
@@ -109,6 +111,7 @@ public final class MobsConfig {
         biomeBrushEnabled = bool(json, "biomeBrushEnabled", true);
         biomeBrushOpsOnly = bool(json, "biomeBrushOpsOnly", false);
         biomeBrushRadius = Math.max(0, Math.min(2, integer(json, "biomeBrushRadius", 1)));
+        trickMirrorEnabled = bool(json, "trickMirrorEnabled", false);
     }
 
     public static JsonObject toJson() {
@@ -134,6 +137,7 @@ public final class MobsConfig {
         o.addProperty("biomeBrushEnabled", biomeBrushEnabled);
         o.addProperty("biomeBrushOpsOnly", biomeBrushOpsOnly);
         o.addProperty("biomeBrushRadius", biomeBrushRadius);
+        o.addProperty("trickMirrorEnabled", trickMirrorEnabled);
         return o;
     }
 

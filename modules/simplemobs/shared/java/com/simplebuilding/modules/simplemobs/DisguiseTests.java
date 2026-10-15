@@ -62,7 +62,7 @@ final class DisguiseTests {
             h.assertTrue(cloak.isValidRepairItem(new ItemStack(MobsRegistry.CLOTH)), "repaired with Deceiver Cloth");
             h.assertTrue(new ItemStack(DisguiseRegistry.MIRROR).getMaxDamage() == 64, "mirror 64 uses");
             var recipes = h.getLevel().getServer().getRecipeManager();
-            for (String r : new String[] {"deceiver_cloak", "trick_mirror", "brewing/potion_invisibility_deceiver_cloth",
+            for (String r : new String[] {"deceiver_cloak", "brewing/potion_invisibility_deceiver_cloth",
                     "brewing/potion_veiled_invisibility_redstone", "brewing/potion_veiled_invisibility_gunpowder", "brewing/splash_potion_veiled_invisibility_dragon_breath"}) {
                 h.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", r))).isPresent(), "recipe " + r);
             }
@@ -201,8 +201,9 @@ final class DisguiseTests {
             var glow = lit.getFirst().getEffect(MobEffects.GLOWING);
             h.assertTrue(glow != null && glow.getDuration() <= TrickMirrorItem.GLOW_TICKS, "glow lasts 2 s");
             var recipes = level.getServer().getRecipeManager();
-            h.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "trick_mirror"))).isPresent(),
-                    "balanced, so it stays craftable");
+            h.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "trick_mirror"))).isEmpty(),
+                    "no recipe while the mirror is disabled (owner N61 E11)");
+            h.assertTrue(!MobsConfig.trickMirrorEnabled, "the mirror is off by default");
             h.succeed();
         });
         add.accept("cloak_head_slot", h -> {

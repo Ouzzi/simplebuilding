@@ -51,7 +51,7 @@ public final class ForgeExample {
             }
             if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
                 e.accept(DisguiseRegistry.CLOAK);
-                e.accept(DisguiseRegistry.MIRROR);
+                if (MobsConfig.trickMirrorEnabled) e.accept(DisguiseRegistry.MIRROR);
             }
             if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 e.accept(MobsRegistry.CLOTH);

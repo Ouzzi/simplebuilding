@@ -53,7 +53,7 @@ public final class NeoForgeExample {
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
                 event.accept(DisguiseRegistry.CLOAK);
-                event.accept(DisguiseRegistry.MIRROR);
+                if (MobsConfig.trickMirrorEnabled) event.accept(DisguiseRegistry.MIRROR);
             }
             if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
                 event.accept(MobsRegistry.CLOTH);
