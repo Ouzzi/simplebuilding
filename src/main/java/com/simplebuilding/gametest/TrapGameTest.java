@@ -11,6 +11,11 @@ public final class TrapGameTest {
         TrapTests.sculkJawBitesAndReopensSilently(helper);
     }
 
+    @GameTest(maxTicks = TrapTests.JAW_MAX_TICKS)
+    public void sculkJawClosingMakesSculkSounds(GameTestHelper helper) {
+        TrapTests.sculkJawClosingMakesSculkSounds(helper);
+    }
+
     @GameTest
     public void workstationsAreHeavySulfurCubeFood(GameTestHelper helper) {
         TrapTests.workstationsAreHeavySulfurCubeFood(helper);

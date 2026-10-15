@@ -737,7 +737,7 @@ public class ModBlocks {
     public static final Block AQUA_FROGLIGHT = McVersion.NATURE_VARIANTS ? froglight("aqua_froglight", MapColor.COLOR_CYAN) : null;
     public static final Block AZURE_FROGLIGHT = McVersion.NATURE_VARIANTS ? froglight("azure_froglight", MapColor.COLOR_BLUE) : null;
 
-    /** Lautlose Falle: bremst wie ein Spinnennetz und beisst zu ({@link com.simplebuilding.blocks.custom.SculkJawBlock}). */
+    /** Falle ohne Schritt-/Abbauklang (nur das Zuschnappen klingt): bremst wie ein Spinnennetz und beisst zu ({@link com.simplebuilding.blocks.custom.SculkJawBlock}). */
     public static final Block SCULK_JAW = McVersion.NATURE_VARIANTS ? registerBlock("sculk_jaw", Blocks.SCULK,
             s -> new com.simplebuilding.blocks.custom.SculkJawBlock(s.noCollision().noOcclusion().strength(1.0F)
                     .sound(net.minecraft.world.level.block.SoundType.EMPTY))) : null;
@@ -795,6 +795,9 @@ public class ModBlocks {
     public static final List<Block> COLORED_LIGHT_PANES = McVersion.LIGHT_PANES ? coloredLightPanes() : List.of();
     public static final Block REDSTONE_LIGHT_PANE = McVersion.LIGHT_PANES ? registerBlock("redstone_light_pane",
             s -> new RedstoneLightPaneBlock(lightPaneProperties(s, MapColor.COLOR_RED, RedstoneLightPaneBlock::light))) : null;
+    /** N65: one fixed color, flips on every rising redstone edge like the Vanilla Copper Bulb; no oxidation stages (see BERICHT-OC-LIGHTPANE2). */
+    public static final Block COPPER_LIGHT_PANE = McVersion.LIGHT_PANES ? registerBlock("copper_light_pane",
+            s -> new CopperLightPaneBlock(lightPaneProperties(s, MapColor.COLOR_ORANGE, CopperLightPaneBlock::light))) : null;
 
     private static Block lightPane(String name, MapColor color) {
         return registerBlock(name, s -> new LightPaneBlock(lightPaneProperties(s, color, LightPaneBlock::light)));
@@ -814,7 +817,7 @@ public class ModBlocks {
                 .pushReaction(McVersion.PUSH_DESTROYS);
     }
 
-    /** All Light Panes in tab order: normal, transparent, the sixteen colors, redstone (empty without {@link McVersion#LIGHT_PANES}). */
+    /** All Light Panes in tab order: normal, transparent, the sixteen colors, redstone, copper (empty without {@link McVersion#LIGHT_PANES}). */
     public static List<Block> lightPanes() {
         if (!McVersion.LIGHT_PANES) {
             return List.of();
@@ -822,6 +825,7 @@ public class ModBlocks {
         List<Block> out = new java.util.ArrayList<>(List.of(LIGHT_PANE, TRANSPARENT_LIGHT_PANE));
         out.addAll(COLORED_LIGHT_PANES);
         out.add(REDSTONE_LIGHT_PANE);
+        out.add(COPPER_LIGHT_PANE);
         return List.copyOf(out);
     }
 

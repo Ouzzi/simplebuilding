@@ -3,6 +3,8 @@ package com.simplebuilding.blocks.custom;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
@@ -32,7 +34,9 @@ import net.minecraft.world.phys.Vec3;
  * ({@link #STUCK}) und bekommt Dunkelheit; die offene Kiefer klappt beim ersten Opfer zu ({@link #SNAPPED}) und beisst
  * einmal ({@link #BITE_DAMAGE}). Danach bleibt sie geschlossen und still, solange jemand drinsteht - kein weiterer
  * Schaden, kein Auf-und-Zu. Erst {@link #REOPEN_TICKS} nachdem niemand mehr drin ist, oeffnet sie sich wieder.
- * Weder Beissen noch Oeffnen machen ein Geraeusch (Klangtyp {@code EMPTY}); Wardens ignoriert sie, Zuschauer auch.
+ * Das Zuschnappen klingt wie ein Sculk-Sensor mit einem leisen Shrieker-Schrei darueber (N65, Sound nie vorher vorhanden:
+ * die Falle war von Anfang an lautlos); Oeffnen und Gehen bleiben still (Klangtyp {@code EMPTY}). Der Ton ist ein reiner
+ * Klang, kein Vibrations-Ereignis: Wardens hoeren ihn nicht. Wardens ignoriert sie, Zuschauer auch.
  */
 public class SculkJawBlock extends WebBlock {
     public static final BooleanProperty SNAPPED = BlockStateProperties.TRIGGERED;
@@ -40,6 +44,11 @@ public class SculkJawBlock extends WebBlock {
     public static final float BITE_DAMAGE = 2.0F;
     /** Ticks zwischen zwei Pruefungen der geschlossenen Kiefer; ist dann niemand mehr drin, oeffnet sie sich. */
     public static final int REOPEN_TICKS = 20;
+    /** N65: Schliess-Sound (Sculk-Sensor-Klick, tief) plus leiser Shrieker-Schrei; Lautstaerke/Tonhoehe als Konstanten fuer die Spieltests. */
+    public static final float CLOSE_CLICK_VOLUME = 1.0F;
+    public static final float CLOSE_CLICK_PITCH = 0.6F;
+    public static final float CLOSE_SHRIEK_VOLUME = 0.3F;
+    public static final float CLOSE_SHRIEK_PITCH = 1.6F;
     /** Bremse in der Kiefer (Spinnennetz: 0,25 / 0,05). */
     public static final Vec3 STUCK = new Vec3(0.06, 0.015, 0.06);
     /**
@@ -139,6 +148,8 @@ public class SculkJawBlock extends WebBlock {
         // Besitzer N37: Zuschnappen als kurze Bildfolge (MOTION 2 -> 1 -> 0 je Tick), danach bleibt sie zu.
         level.setBlock(pos, state.setValue(SNAPPED, true).setValue(MOTION, MOTION_FRAMES), Block.UPDATE_ALL);
         level.scheduleTick(pos, state.getBlock(), CLOSE_FRAME_TICKS);
+        level.playSound(null, pos, SoundEvents.SCULK_SENSOR_CLICKING, SoundSource.BLOCKS, CLOSE_CLICK_VOLUME, CLOSE_CLICK_PITCH);
+        level.playSound(null, pos, SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.BLOCKS, CLOSE_SHRIEK_VOLUME, CLOSE_SHRIEK_PITCH);
         ((LivingEntity) entity).hurtServer(level, level.damageSources().generic(), BITE_DAMAGE);
         return true;
     }

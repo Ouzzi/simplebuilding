@@ -411,6 +411,7 @@
     "simplebuilding:green_light_pane",
     "simplebuilding:red_light_pane",
     "simplebuilding:black_light_pane",
-    "simplebuilding:redstone_light_pane"
+    "simplebuilding:redstone_light_pane",
+    "simplebuilding:copper_light_pane"
   ]
 }

@@ -198,7 +198,7 @@ def redstone_state():
     for facing in ROT:
         for c in range(16):
             v[f"color={c},facing={facing}"] = variant(DYES[c][0] + "_light_pane", facing)
-        v[f"color=16,facing={facing}"] = variant("redstone_light_pane_off", facing)
+        v[f"color=16,facing={facing}"] = variant("black_light_pane_off", facing)  # N65: dark by default, not the spectrum bar
     return {"variants": v}
 
 

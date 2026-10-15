@@ -2,6 +2,7 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.AbstractLightPaneBlock;
+import com.simplebuilding.blocks.custom.CopperLightPaneBlock;
 import com.simplebuilding.blocks.custom.LightPaneBlock;
 import com.simplebuilding.blocks.custom.RedstoneLightPaneBlock;
 import com.simplebuilding.items.ModItems;
@@ -85,7 +86,7 @@ public final class LightPaneTests {
             helper.succeed();
             return;
         }
-        helper.assertValueEqual(ModBlocks.lightPanes().size(), 19, "number of light panes");
+        helper.assertValueEqual(ModBlocks.lightPanes().size(), 20, "number of light panes");
         ServerPlayer player = player(helper);
         List<String> problems = new ArrayList<>();
         for (Block pane : ModBlocks.lightPanes()) {
@@ -206,7 +207,7 @@ public final class LightPaneTests {
         helper.succeed();
     }
 
-    /** Lamp light 15 for lit panes in the state; a redstone signal switches the plain panes dark and back. */
+    /** N65: plain panes are dark by default; a redstone signal lights them (lamp light 15) and without it they go dark again. */
     public static void plainPanesShineAndSwitchWithRedstone(GameTestHelper helper) {
         if (!McVersion.LIGHT_PANES) {
             helper.succeed();
@@ -216,38 +217,39 @@ public final class LightPaneTests {
         List<String> problems = new ArrayList<>();
         List<Block> plain = new ArrayList<>(ModBlocks.lightPanes());
         plain.remove(ModBlocks.REDSTONE_LIGHT_PANE);
+        plain.remove(ModBlocks.COPPER_LIGHT_PANE);
         for (Block pane : plain) {
             clear(helper);
             helper.setBlock(CENTER, Blocks.STONE);
             helper.setBlock(CENTER.east(), Blocks.STONE);
             place(helper, player, pane.asItem(), CENTER, Direction.UP);
             BlockPos at = CENTER.above();
-            BlockState lit = helper.getBlockState(at);
-            if (!lit.is(pane) || !lit.getValue(LightPaneBlock.LIT) || lit.getLightEmission() != 15) {
-                problems.add(id(pane) + " is not a lit lamp when placed: " + lit + " light " + lit.getLightEmission());
+            BlockState dark = helper.getBlockState(at);
+            if (!dark.is(pane) || dark.getValue(LightPaneBlock.LIT) || dark.getLightEmission() != 0) {
+                problems.add(id(pane) + " is not dark when placed without power: " + dark + " light " + dark.getLightEmission());
             }
             helper.setBlock(CENTER.east().above(), Blocks.REDSTONE_BLOCK);
-            BlockState dark = helper.getBlockState(at);
-            if (dark.getValue(LightPaneBlock.LIT) || dark.getLightEmission() != 0) {
-                problems.add(id(pane) + " stays lit with a redstone signal: " + dark);
+            BlockState lit = helper.getBlockState(at);
+            if (!lit.getValue(LightPaneBlock.LIT) || lit.getLightEmission() != 15) {
+                problems.add(id(pane) + " stays dark with a redstone signal: " + lit);
             }
             helper.setBlock(CENTER.east().above(), Blocks.AIR);
-            if (!helper.getBlockState(at).getValue(LightPaneBlock.LIT)) {
-                problems.add(id(pane) + " does not light up again without the signal");
+            if (helper.getBlockState(at).getValue(LightPaneBlock.LIT)) {
+                problems.add(id(pane) + " does not go dark again without the signal");
             }
-            // placed next to a powered block it comes up dark
+            // placed next to a powered block it comes up lit
             helper.setBlock(CENTER.east().above(), Blocks.REDSTONE_BLOCK);
             helper.setBlock(at, Blocks.AIR);
             place(helper, player, pane.asItem(), CENTER, Direction.UP);
-            if (helper.getBlockState(at).getValue(LightPaneBlock.LIT)) {
-                problems.add(id(pane) + " placed next to power is lit");
+            if (!helper.getBlockState(at).getValue(LightPaneBlock.LIT)) {
+                problems.add(id(pane) + " placed next to power is dark");
             }
         }
         helper.assertTrue(problems.isEmpty(), "light problems: " + String.join("; ", problems));
         helper.succeed();
     }
 
-    /** The light engine really shines (15 in the pane's cell, 14 beside it), then goes dark with a redstone signal. */
+    /** The light engine really shines while powered (15 in the pane's cell, 14 beside it), then goes dark without the signal. */
     public static void paneLightReachesTheWorldAndGoesOut(GameTestHelper helper) {
         if (!McVersion.LIGHT_PANES) {
             helper.succeed();
@@ -266,6 +268,7 @@ public final class LightPaneTests {
         }
         BlockPos at = new BlockPos(2, 1, 2);
         helper.setBlock(at, ModBlocks.TRANSPARENT_LIGHT_PANE.defaultBlockState().setValue(AbstractLightPaneBlock.FACING, Direction.UP));
+        helper.setBlock(new BlockPos(2, 2, 2), Blocks.REDSTONE_BLOCK); // N65: shines only while powered
         BlockPos beside = new BlockPos(3, 1, 2);
         int[] phase = {0};
         helper.succeedWhen(() -> {
@@ -273,12 +276,12 @@ public final class LightPaneTests {
             int here = level.getBrightness(LightLayer.BLOCK, helper.absolutePos(at));
             int next = level.getBrightness(LightLayer.BLOCK, helper.absolutePos(beside));
             if (phase[0] == 0) {
-                helper.assertTrue(here == 15 && next == 14, "lit pane light: cell " + here + ", beside " + next);
+                helper.assertTrue(here == 15 && next == 14, "powered pane light: cell " + here + ", beside " + next);
                 phase[0] = 1;
-                helper.setBlock(new BlockPos(2, 2, 2), Blocks.REDSTONE_BLOCK);
+                helper.setBlock(new BlockPos(2, 2, 2), Blocks.AIR);
             }
-            helper.assertTrue(helper.getBlockState(at).getValue(LightPaneBlock.LIT) == false, "switch did not reach the pane");
-            helper.assertTrue(here == 0 && next == 0, "light after the signal: cell " + here + ", beside " + next);
+            helper.assertTrue(helper.getBlockState(at).getValue(LightPaneBlock.LIT) == false, "the lost signal did not reach the pane");
+            helper.assertTrue(here == 0 && next == 0, "light after the signal is gone: cell " + here + ", beside " + next);
         });
     }
 
@@ -367,7 +370,59 @@ public final class LightPaneTests {
         helper.succeed();
     }
 
-    /** All 19 panes are craftable: glass pane + glowstone, clear pane, 16 dyes (also recoloring), redstone. */
+    /** N65: the Copper Light Pane flips on every rising redstone edge like the Copper Bulb; falling edges and a steady signal change nothing. */
+    public static void copperPaneFlipsOnEveryRisingEdge(GameTestHelper helper) {
+        if (!McVersion.LIGHT_PANES) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = player(helper);
+        clear(helper);
+        helper.setBlock(CENTER, Blocks.STONE);
+        helper.setBlock(CENTER.east(), Blocks.STONE);
+        BlockPos at = CENTER.above();
+        BlockPos power = CENTER.east().above();
+        place(helper, player, ModBlocks.COPPER_LIGHT_PANE.asItem(), CENTER, Direction.UP);
+        helper.assertTrue(helper.getBlockState(at).is(ModBlocks.COPPER_LIGHT_PANE), "copper pane not placed: " + helper.getBlockState(at));
+        List<String> problems = new ArrayList<>();
+        // {powered signal?, expected lit}: off, on (lit), off (stays lit), on (dark), off (stays dark), on (lit)
+        boolean[][] steps = {{false, false}, {true, true}, {false, true}, {true, false}, {false, false}, {true, true}};
+        for (int i = 0; i < steps.length; i++) {
+            helper.setBlock(power, steps[i][0] ? Blocks.REDSTONE_BLOCK : Blocks.AIR);
+            BlockState state = helper.getBlockState(at);
+            if (state.getValue(CopperLightPaneBlock.LIT) != steps[i][1] || state.getValue(CopperLightPaneBlock.POWERED) != steps[i][0]
+                    || state.getLightEmission() != (steps[i][1] ? 15 : 0)) {
+                problems.add("step " + i + " (signal " + steps[i][0] + "): " + state + " light " + state.getLightEmission());
+            }
+            int analog = state.getAnalogOutputSignal(helper.getLevel(), helper.absolutePos(at), Direction.UP);
+            if (analog != (steps[i][1] ? 15 : 0)) {
+                problems.add("step " + i + ": comparator output " + analog);
+            }
+        }
+        // a steady signal (a second source next to the powered pane) does not flip it again
+        BlockState before = helper.getBlockState(at);
+        helper.setBlock(at.north(), Blocks.REDSTONE_BLOCK);
+        helper.setBlock(at.north(), Blocks.AIR);
+        if (helper.getBlockState(at) != before) {
+            problems.add("a steady signal changed the pane: " + before + " -> " + helper.getBlockState(at));
+        }
+        // placed next to a powered block it comes up lit (like the bulb); a placement without power stays dark
+        helper.setBlock(at, Blocks.AIR);
+        place(helper, player, ModBlocks.COPPER_LIGHT_PANE.asItem(), CENTER, Direction.UP);
+        if (!helper.getBlockState(at).getValue(CopperLightPaneBlock.LIT)) {
+            problems.add("placed next to power it is dark");
+        }
+        helper.setBlock(power, Blocks.AIR);
+        helper.setBlock(at, Blocks.AIR);
+        place(helper, player, ModBlocks.COPPER_LIGHT_PANE.asItem(), CENTER, Direction.UP);
+        if (helper.getBlockState(at).getValue(CopperLightPaneBlock.LIT)) {
+            problems.add("placed without power it is lit");
+        }
+        helper.assertTrue(problems.isEmpty(), "copper pane problems: " + String.join("; ", problems));
+        helper.succeed();
+    }
+
+    /** All 20 panes are craftable: glass pane + glowstone, clear pane, 16 dyes (also recoloring), redstone, copper (copper bulb shape). */
     public static void panesHaveTheirRecipes(GameTestHelper helper) {
         if (!McVersion.LIGHT_PANES) {
             helper.succeed();
@@ -386,12 +441,23 @@ public final class LightPaneTests {
                     "1 " + dye.getSerializedName() + "_light_pane", missing);
         }
         craft(helper, List.of(lamp, new ItemStack(Items.REDSTONE)), "1 redstone_light_pane", missing);
+        ItemStack cu = new ItemStack(Items.COPPER_BLOCK);
+        ItemStack powder = new ItemStack(Items.BLAZE_POWDER);
+        ItemStack rod = new ItemStack(Items.BLAZE_ROD);
+        ItemStack redstone = new ItemStack(Items.REDSTONE);
+        ItemStack none = ItemStack.EMPTY;
+        craft(helper, 3, List.of(none, cu, none, cu, powder, cu, none, redstone, none), "4 copper_light_pane", missing);
+        craft(helper, 3, List.of(none, cu, none, cu, rod, cu, none, redstone, none), "4 copper_bulb", missing); // Vanilla stays Vanilla
         helper.assertTrue(missing.isEmpty(), "light pane recipes wrong: " + String.join("; ", missing));
         helper.succeed();
     }
 
     private static void craft(GameTestHelper helper, List<ItemStack> items, String expected, List<String> missing) {
-        CraftingInput grid = CraftingInput.of(items.size(), 1, items);
+        craft(helper, items.size(), items, expected, missing);
+    }
+
+    private static void craft(GameTestHelper helper, int width, List<ItemStack> items, String expected, List<String> missing) {
+        CraftingInput grid = CraftingInput.of(width, items.size() / width, items);
         Optional<RecipeHolder<CraftingRecipe>> match = helper.getLevel().getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, helper.getLevel());
         String got = match.map(m -> {
