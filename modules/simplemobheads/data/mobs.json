@@ -10,7 +10,9 @@
   "minecraft:player": "vanilla player head",
   "minecraft:giant": "unused in survival (no spawn), owner concept §3.1",
   "minecraft:armor_stand": "not a mob",
-  "minecraft:mannequin": "not a mob"
+  "minecraft:mannequin": "not a mob",
+  "simplewanderers:village_wanderer": "head comes later (owner answer W11, village wanderer concept 2026-10-15)",
+  "simplewanderers:wanderer_horse": "head comes later (owner answer W11, village wanderer concept 2026-10-15)"
  },
  "heads": [
   {

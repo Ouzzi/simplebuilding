@@ -176,9 +176,9 @@ def java():
             f"{jstr(vs.get('component') or '')}, {jstr(h.get('variant_source', ''))}, {jstr(vs['list'][0]['id'] if vs else '')}, List.of(\n" + ",\n".join(look_lines) + "))")
     lines.append(",\n".join(entries) + ");")
     lines.append("")
-    excl = ", ".join(f"{jstr(k)}, {jstr(v)}" for k, v in DATA["exclude"].items())
+    excl = ", ".join(f"java.util.Map.entry({jstr(k)}, {jstr(v)})" for k, v in DATA["exclude"].items())
     lines.append(f"    /** Living mobs without a Mobheads head and why (Vanilla heads, unused mobs); the completeness test reads it. */")
-    lines.append(f"    public static final java.util.Map<String, String> EXCLUDED = java.util.Map.of({excl});")
+    lines.append(f"    public static final java.util.Map<String, String> EXCLUDED = java.util.Map.ofEntries({excl});")
     lines.append("}")
     return "\n".join(lines) + "\n"
 
