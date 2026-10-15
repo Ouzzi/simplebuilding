@@ -221,9 +221,16 @@ def files():
                 variant["y"] = rot
             blank_variants[f"facing={name},stage={stage}"] = variant
     out[f"{a}/blockstates/crucible_blank.json"] = {"variants": blank_variants}
-    # Blank: CrucibleBlankBlock#getDrops gives the base (cauldron; iron block for older blanks) and one iron ingot per
-    # strike done (owner N51) - in code, a block_state_property condition on the stage did not match here.
-    pools = []
+    # Blank: the base (cauldron; iron block for older blanks, property cauldron=false) and one iron ingot per strike
+    # done (owner N51), by block_state_property conditions: property values are strings ("5"), not numbers.
+    def state_pool(props, item, count):
+        entry = {"type": "minecraft:item", "name": item}
+        if count > 1:
+            entry["functions"] = [{"function": "minecraft:set_count", "count": count}]
+        return {"rolls": 1, "entries": [entry], "conditions": [
+            {"condition": "minecraft:block_state_property", "block": f"{NS}:crucible_blank", "properties": props}]}
+    pools = [state_pool({"cauldron": "true"}, "minecraft:cauldron", 1), state_pool({"cauldron": "false"}, "minecraft:iron_block", 1)]
+    pools += [state_pool({"stage": str(stage)}, "minecraft:iron_ingot", stage) for stage in range(1, BLANK_STRIKES)]
     out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
                                                          "random_sequence": f"{NS}:blocks/crucible_blank"}
     # Barrels (plan section 8a, owner addition 11): plain barrel cube; attached, a flange on the crucible's belly and a
