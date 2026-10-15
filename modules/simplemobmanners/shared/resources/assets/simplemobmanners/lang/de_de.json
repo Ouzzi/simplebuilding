@@ -18,5 +18,6 @@
   "command.simplemobmanners.removed": "Suffix entfernt: %s",
   "command.simplemobmanners.missing": "Suffix nicht gefunden.",
   "command.simplemobmanners.cleared": "Suffixliste geleert.",
-  "command.simplemobmanners.renamed": "/%s heißt jetzt /%s: Simple Creatures wurde in Simple Mob Manners umbenannt."
+  "command.simplemobmanners.renamed": "/%s heißt jetzt /%s: Simple Creatures wurde in Simple Mob Manners umbenannt.",
+  "item.simplemobmanners.frog_bucket": "Eimer mit Frosch"
 }

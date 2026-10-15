@@ -12,5 +12,6 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void piglins(GameTestHelper h){MobMannersTests.piglins(h);}
  @GameTest(maxTicks=100) public void goldTrim(GameTestHelper h){MobMannersTests.goldTrim(h);}
  @GameTest(maxTicks=100) public void renameMigration(GameTestHelper h){MobMannersTests.renameMigration(h);}
+ @GameTest(maxTicks=100) public void frogBucket(GameTestHelper h){MobMannersTests.frogBucket(h);}
  // CAT-END
 }

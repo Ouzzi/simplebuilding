@@ -10,6 +10,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -25,6 +27,7 @@ public final class MobMannersTests {
   ALL.put("baby",MobMannersTests::baby);
   ALL.put("piglins",MobMannersTests::piglins);
   ALL.put("gold_trim",MobMannersTests::goldTrim);
+  ALL.put("frog_bucket",MobMannersTests::frogBucket);
   // ALL-END
  }
  private MobMannersTests(){}
@@ -44,5 +47,27 @@ public final class MobMannersTests {
  public static void baby(GameTestHelper h){var cow=h.spawn(EntityTypes.COW,2,2,2);cow.setCustomName(net.minecraft.network.chat.Component.literal("Cow_baby"));cow.setAge(-1);cow.tickCount=99;h.runAfterDelay(3,()->{h.assertTrue(cow.isBaby()&&cow.getAge()<-23000,"Actual age tick keeps named baby young");cow.setCustomName(null);cow.setAge(-1);h.runAfterDelay(3,()->{h.assertTrue(!cow.isBaby(),"Removing suffix permits aging");h.succeed();});});}
  public static void piglins(GameTestHelper h){configured(()->{var p=player(h,new BlockPos(2,2,2));p.setItemSlot(EquipmentSlot.OFFHAND,new ItemStack(Items.GOLDEN_HOE));h.assertTrue(net.minecraft.world.entity.monster.piglin.PiglinAi.isWearingSafeArmor(p),"Offhand gold is safe");SimpleMobManners.config().piglinsIgnoreGoldTools=false;h.assertTrue(!net.minecraft.world.entity.monster.piglin.PiglinAi.isWearingSafeArmor(p),"Gold tool toggle");});h.succeed();}
  public static void goldTrim(GameTestHelper h){configured(()->{var p=player(h,new BlockPos(2,2,2));var armor=new ItemStack(Items.DIAMOND_CHESTPLATE);var lookup=h.getLevel().registryAccess();armor.set(DataComponents.TRIM,new net.minecraft.world.item.equipment.trim.ArmorTrim(lookup.lookupOrThrow(Registries.TRIM_MATERIAL).getOrThrow(net.minecraft.world.item.equipment.trim.TrimMaterials.GOLD),lookup.lookupOrThrow(Registries.TRIM_PATTERN).getOrThrow(net.minecraft.world.item.equipment.trim.TrimPatterns.SENTRY)));p.setItemSlot(EquipmentSlot.CHEST,armor);h.assertTrue(net.minecraft.world.entity.monster.piglin.PiglinAi.isWearingSafeArmor(p),"Actual gold trim accepted");SimpleMobManners.config().piglinsIgnoreGoldTrims=false;h.assertTrue(!net.minecraft.world.entity.monster.piglin.PiglinAi.isWearingSafeArmor(p),"Gold trim toggle enforced");});h.succeed();}
+
+ /** Bucket of Frog: water bucket on a frog catches it (variant component, name, age on the bucket), releasing restores all three; empty bucket / switched-off sub-mod leave the frog alone. */
+ public static void frogBucket(GameTestHelper h){configured(()->{
+  var warm=h.getLevel().registryAccess().lookupOrThrow(Registries.FROG_VARIANT).getOrThrow(net.minecraft.world.entity.animal.frog.FrogVariants.WARM);
+  h.assertTrue(BuiltInRegistries.ITEM.getOptional(FrogBucket.KEY.identifier()).filter(i->i==FrogBucket.item()).isPresent(),"frog bucket registered");
+  var seed=new ItemStack(FrogBucket.item());seed.set(DataComponents.FROG_VARIANT,warm);seed.set(DataComponents.CUSTOM_NAME,net.minecraft.network.chat.Component.literal("Ribbit"));
+  net.minecraft.world.item.component.CustomData.update(DataComponents.BUCKET_ENTITY_DATA,seed,t->t.putInt("Age",1234));
+  var frog=FrogBucket.release(h.getLevel(),seed,h.absolutePos(new BlockPos(2,2,2)));
+  h.assertTrue(frog!=null&&frog.getVariant().is(net.minecraft.world.entity.animal.frog.FrogVariants.WARM),"released frog is warm");
+  h.assertTrue(frog.getCustomName()!=null&&"Ribbit".equals(frog.getCustomName().getString()),"released frog keeps its name");
+  h.assertValueEqual(frog.getAge(),1234,"released frog keeps its age");
+  var p=player(h,new BlockPos(2,2,2));var hand=InteractionHand.MAIN_HAND;
+  p.setItemInHand(hand,new ItemStack(Items.BUCKET));frog.mobInteract(p,hand);h.assertTrue(!frog.isRemoved()&&p.getItemInHand(hand).is(Items.BUCKET),"empty bucket does not catch");
+  p.setItemInHand(hand,new ItemStack(Items.WATER_BUCKET));SubMods.set(SimpleMobManners.MOD_ID,false);frog.mobInteract(p,hand);h.assertTrue(!frog.isRemoved()&&p.getItemInHand(hand).is(Items.WATER_BUCKET),"sub-mod off: Vanilla");SubMods.set(SimpleMobManners.MOD_ID,true);
+  var result=frog.mobInteract(p,hand);var caught=p.getItemInHand(hand);
+  h.assertTrue(result==InteractionResult.SUCCESS&&frog.isRemoved(),"water bucket catches the frog");
+  h.assertTrue(caught.is(FrogBucket.item())&&caught.get(DataComponents.FROG_VARIANT)!=null&&caught.get(DataComponents.FROG_VARIANT).is(net.minecraft.world.entity.animal.frog.FrogVariants.WARM),"bucket carries the variant");
+  h.assertTrue(caught.get(DataComponents.CUSTOM_NAME)!=null&&"Ribbit".equals(caught.get(DataComponents.CUSTOM_NAME).getString()),"bucket carries the name");
+  h.assertValueEqual(caught.getOrDefault(DataComponents.BUCKET_ENTITY_DATA,net.minecraft.world.item.component.CustomData.EMPTY).copyTag().getIntOr("Age",0),1234,"bucket carries the age");
+  var again=FrogBucket.release(h.getLevel(),caught,h.absolutePos(new BlockPos(3,2,3)));
+  h.assertTrue(again!=null&&again.getVariant().is(net.minecraft.world.entity.animal.frog.FrogVariants.WARM)&&again.getCustomName()!=null&&again.getAge()==1234,"release restores variant, name, age");
+ });h.succeed();}
 // MOVED-END
 }

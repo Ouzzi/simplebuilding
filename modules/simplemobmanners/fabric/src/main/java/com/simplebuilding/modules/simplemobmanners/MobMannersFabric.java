@@ -7,6 +7,13 @@ public final class MobMannersFabric implements ModInitializer {
     public void onInitialize() {
         SimpleMobManners.configDir = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir();
         SimpleMobManners.load();
+        FrogBucket.register();
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
+            if (SimpleMobManners.active()) {
+                entries.insertAfter(net.minecraft.world.item.Items.TADPOLE_BUCKET, java.util.List.of(new net.minecraft.world.item.ItemStack(FrogBucket.item())),
+                        net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+        });
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, r, e) -> MobMannersCommands.register(d));
     }
 }

@@ -43,6 +43,21 @@
       }
     },
     {
+      "id": "frog_bucket",
+      "sources": [
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/FrogBucket.java",
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/mixin/FrogBucketMixin.java"
+      ],
+      "en": {
+        "title": "Bucket of Frog",
+        "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant, name and age stay on the bucket; releasing it restores them. Found in the Tools tab after the tadpole bucket."
+      },
+      "de": {
+        "title": "Eimer mit Frosch",
+        "summary": "Ein Wassereimer auf einem Frosch faengt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurueck. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
+      }
+    },
+    {
       "id": "config_mutedEntities",
       "sources": [
         "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersConfig.java"

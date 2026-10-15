@@ -1,5 +1,5 @@
 """Sub-mod of Simple QoL: every config field has a bilingual name/tooltip with its default, wiki sources exist,
-the mixin catalogue matches the sources, no items (same file in every split-out QoL sub-mod)."""
+the mixin catalogue matches the sources, no items except the Frog Bucket (otherwise the same file in every split-out QoL sub-mod)."""
 import json
 import re
 from pathlib import Path
@@ -16,7 +16,7 @@ for option in fields:
     for lang in (en, de):
         tip = lang.get(f'{MID}.option.{option}.tooltip', '')
         assert f'{MID}.option.{option}' in lang and ('Default:' in tip or 'Standard:' in tip), option
-assert not any(k.startswith(('item.', 'block.')) for k in en), 'no items'
+assert not any(k.startswith(('item.', 'block.')) and k != 'item.simplemobmanners.frog_bucket' for k in en), 'no items besides the frog bucket'
 assert all(chr(195) not in v and chr(194) not in v for v in de.values()), 'German text has mojibake'
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 for feature in manual['features']:
