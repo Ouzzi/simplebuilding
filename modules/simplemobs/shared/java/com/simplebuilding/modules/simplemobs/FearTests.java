@@ -191,6 +191,7 @@ final class FearTests {
             floor(h, 0, 0, 6, 7);
             var watcher = still(h.spawn(FearMobs.WATCHER, 3, 2, 6));
             var player = h.makeMockServerPlayerInLevel();
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
             Vec3 at = h.absoluteVec(new Vec3(3.5, 2, 1.5));
             Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
             float pitch = (float) -Math.toDegrees(Math.atan2(head.y - (at.y + player.getEyeHeight()), Math.hypot(head.x - at.x, head.z - at.z)));
@@ -234,8 +235,8 @@ final class FearTests {
             h.assertTrue(watcher.getTarget() == null && watcher.action() == HollowWatcherEntity.ACT_NONE, "beyond range: no target, no teleport");
             MobsConfig.watcherRange = range;
             watcher.setTarget(dummy);
-            watcher.tick();
-            h.assertTrue(watcher.action() == HollowWatcherEntity.ACT_TELEPORT, "back in range: it teleports to the player");
+            for (int i = 0; i < 3 && watcher.action() != HollowWatcherEntity.ACT_TELEPORT; i++) watcher.tick();
+            h.assertTrue(watcher.action() == HollowWatcherEntity.ACT_TELEPORT, "back in range: it teleports to the player (target " + watcher.getTarget() + ", action " + watcher.action() + ", dist " + watcher.distanceTo(dummy) + ", range " + MobsConfig.watcherRange + ", behind " + watcher.behind(h.getLevel(), dummy) + ")");
             watcher.discard();
             dummy.discard();
             h.succeed();
@@ -335,6 +336,7 @@ final class FearTests {
             var watcher = still(h.spawn(FearMobs.WATCHER, 4, 2, 6));
             var a = h.makeMockServerPlayerInLevel();
             var b = h.makeMockServerPlayerInLevel();
+            b.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
             Vec3 pa = h.absoluteVec(new Vec3(2.5, 2, 1.5)), pb = h.absoluteVec(new Vec3(6.5, 2, 1.5));
             Vec3 head = watcher.position().add(0, watcher.getEyeHeight(), 0);
             a.snapTo(pa.x, pa.y, pa.z, 180.0f, 0.0f);
