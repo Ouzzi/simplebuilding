@@ -180,6 +180,31 @@ public final class BeaconsTests {
                     && !menu.hasPayment(), "choice set, payment taken");
             h.succeed();
         });
+        ALL.put("menu_carries_server_settings", h -> {
+            // N58 (Simple Beacons: the client did not know the server's config): the numbers ride the menu data, so a
+            // client whose own config differs still shows the server's limits.
+            BeaconsConfig.reset();
+            BeaconsConfig.strongBeaconMaxLevels = 5;
+            BeaconsConfig.strongBeaconRangeBase = 20;
+            BeaconsConfig.strongBeaconRangePerLevel = 3;
+            BeaconsConfig.strongBeaconEffects.put("absorption", false);
+            h.setBlock(CENTER, BeaconsRegistry.STRONG_BEACON);
+            net.minecraft.world.inventory.ContainerData server = h.getBlockEntity(CENTER, StrongBeaconBlockEntity.class).dataAccess();
+            h.assertTrue(server.getCount() == StrongBeaconMenu.DATA_COUNT, "the beacon hands the menu " + StrongBeaconMenu.DATA_COUNT + " values");
+            SimpleContainerData wire = new SimpleContainerData(StrongBeaconMenu.DATA_COUNT);
+            for (int i = 0; i < server.getCount(); i++) wire.set(i, server.get(i));
+            BeaconsConfig.reset(); // the client's own, different, config
+            Player player = h.makeMockPlayer(GameType.SURVIVAL);
+            StrongBeaconMenu client = new StrongBeaconMenu(0, player.getInventory(), wire, ContainerLevelAccess.NULL);
+            h.assertTrue(client.maxLevels() == 5, "max pyramid from the server: " + client.maxLevels());
+            h.assertTrue(client.range(2) == 26, "range from the server's numbers: " + client.range(2));
+            h.assertTrue(!client.effectEnabled(MobEffects.ABSORPTION), "a switched-off effect is off for the client");
+            h.assertTrue(client.effectEnabled(MobEffects.FIRE_RESISTANCE) && client.effectEnabled(MobEffects.SPEED), "the others stay on");
+            StrongBeaconMenu fresh = new StrongBeaconMenu(0, player.getInventory());
+            h.assertTrue(fresh.maxLevels() >= 1, "a client menu before the first sync does not break");
+            BeaconsConfig.reset();
+            h.succeed();
+        });
         ALL.put("block_entity_keeps_choice", h -> {
             h.setBlock(CENTER, BeaconsRegistry.STRONG_BEACON);
             StrongBeaconBlockEntity be = h.getBlockEntity(CENTER, StrongBeaconBlockEntity.class);

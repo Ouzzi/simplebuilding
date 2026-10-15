@@ -1,6 +1,7 @@
 package com.simplebeacons.beacon;
 
 import com.simplebeacons.BeaconsRegistry;
+import com.simplebeacons.config.BeaconsConfig;
 import java.util.Optional;
 import net.minecraft.core.Holder;
 import net.minecraft.world.Container;
@@ -19,12 +20,60 @@ import net.minecraft.world.level.Level;
  * {@link #updateEffects}, which checks the choice against {@link StrongBeaconLogic} instead of Vanilla's fixed list.
  */
 public class StrongBeaconMenu extends BeaconMenu {
+    /**
+     * Data values beyond Vanilla's three (levels, primary, secondary): the server's max pyramid, range numbers and the
+     * switches of the six extra effects (bit i = {@code BeaconsConfig.EFFECT_IDS[i]}). They ride the normal menu data
+     * sync, so a client on a server with other settings shows the right limits.
+     */
+    public static final int DATA_MAX_LEVELS = 3, DATA_RANGE_BASE = 4, DATA_RANGE_PER_LEVEL = 5, DATA_EFFECTS_ON = 6, DATA_COUNT = 7;
     private final ContainerData data;
     private final ContainerLevelAccess access;
 
     /** Client side (menu type factory). */
     public StrongBeaconMenu(int containerId, Container inventory) {
-        this(containerId, inventory, new SimpleContainerData(3), ContainerLevelAccess.NULL);
+        this(containerId, inventory, clientData(), ContainerLevelAccess.NULL);
+    }
+
+    /** Client data before the server's first sync: this side's own settings, replaced as soon as the values arrive. */
+    private static ContainerData clientData() {
+        SimpleContainerData data = new SimpleContainerData(DATA_COUNT);
+        data.set(DATA_MAX_LEVELS, StrongBeaconLogic.maxLevels());
+        data.set(DATA_RANGE_BASE, BeaconsConfig.strongBeaconRangeBase);
+        data.set(DATA_RANGE_PER_LEVEL, BeaconsConfig.strongBeaconRangePerLevel);
+        data.set(DATA_EFFECTS_ON, effectsMask());
+        return data;
+    }
+
+    /** Bit mask of the switched-on extra effects (server side source of {@link #DATA_EFFECTS_ON}). */
+    public static int effectsMask() {
+        int mask = 0;
+        for (int i = 0; i < BeaconsConfig.EFFECT_IDS.size(); i++) {
+            if (BeaconsConfig.effectOn(BeaconsConfig.EFFECT_IDS.get(i))) mask |= 1 << i;
+        }
+        return mask;
+    }
+
+    /** Whether this menu carries the server settings (a hand-made 3-value data array does not: then the local config counts). */
+    private boolean synced() {
+        return this.data.getCount() >= DATA_COUNT;
+    }
+
+    /** Highest pyramid the server allows (what the client screen shows). */
+    public int maxLevels() {
+        return synced() ? Math.max(1, Math.min(StrongBeaconLogic.MAX_LEVELS, this.data.get(DATA_MAX_LEVELS))) : StrongBeaconLogic.maxLevels();
+    }
+
+    /** Effect range at {@code levels} with the server's numbers. */
+    public int range(int levels) {
+        return synced() ? this.data.get(DATA_RANGE_BASE) + this.data.get(DATA_RANGE_PER_LEVEL) * levels : StrongBeaconLogic.range(levels);
+    }
+
+    /** Whether the server lets players choose {@code effect} (the six extra effects can be switched off; Vanilla's four always). */
+    public boolean effectEnabled(Holder<MobEffect> effect) {
+        String path = StrongBeaconLogic.path(effect);
+        int index = BeaconsConfig.EFFECT_IDS.indexOf(path);
+        if (index < 0) return true;
+        return synced() ? (this.data.get(DATA_EFFECTS_ON) & (1 << index)) != 0 : BeaconsConfig.effectOn(path);
     }
 
     public StrongBeaconMenu(int containerId, Container inventory, ContainerData data, ContainerLevelAccess access) {

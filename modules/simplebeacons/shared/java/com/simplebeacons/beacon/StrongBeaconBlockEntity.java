@@ -67,6 +67,11 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
                 case 0 -> StrongBeaconBlockEntity.this.levels;
                 case 1 -> BeaconMenu.encodeEffect(StrongBeaconBlockEntity.this.primaryPower);
                 case 2 -> BeaconMenu.encodeEffect(StrongBeaconBlockEntity.this.secondaryPower);
+                // The server's settings travel with the menu data, so the client screen never reads its own config.
+                case StrongBeaconMenu.DATA_MAX_LEVELS -> StrongBeaconLogic.maxLevels();
+                case StrongBeaconMenu.DATA_RANGE_BASE -> com.simplebeacons.config.BeaconsConfig.strongBeaconRangeBase;
+                case StrongBeaconMenu.DATA_RANGE_PER_LEVEL -> com.simplebeacons.config.BeaconsConfig.strongBeaconRangePerLevel;
+                case StrongBeaconMenu.DATA_EFFECTS_ON -> StrongBeaconMenu.effectsMask();
                 default -> 0;
             };
         }
@@ -90,7 +95,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
 
         @Override
         public int getCount() {
-            return 3;
+            return StrongBeaconMenu.DATA_COUNT;
         }
     };
 

@@ -42,6 +42,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void menuCarriesServerSettings(GameTestHelper h) {
+        BeaconsTests.ALL.get("menu_carries_server_settings").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
     public void blockEntityKeepsChoice(GameTestHelper h) {
         BeaconsTests.ALL.get("block_entity_keeps_choice").accept(h);
     }

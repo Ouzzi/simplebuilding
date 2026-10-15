@@ -44,9 +44,12 @@ public class StrongBeaconScreen extends BeaconScreen {
     private static final Identifier BUTTON_HIGHLIGHTED = Identifier.withDefaultNamespace("container/beacon/button_highlighted");
     private static final Identifier BUTTON = Identifier.withDefaultNamespace("container/beacon/button");
     private final List<StrongButton> strongButtons = new ArrayList<>();
+    /** The menu with the server's settings (max pyramid, range, switched-off effects). */
+    private final StrongBeaconMenu strongMenu;
 
     public StrongBeaconScreen(StrongBeaconMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
+        this.strongMenu = menu;
         reportWidth(FULL_WIDTH);
     }
 
@@ -117,14 +120,14 @@ public class StrongBeaconScreen extends BeaconScreen {
     protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
         super.extractLabels(graphics, xm, ym);
         int levels = this.menu.getLevels();
-        int max = StrongBeaconLogic.maxLevels();
+        int max = this.strongMenu.maxLevels();
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.pyramid", levels, max),
                 PANEL_X + PANEL_WIDTH / 2, 8, UiPalette.DARK_LABEL);
         for (int tier = 5; tier <= 6; tier++) {
             graphics.text(this.font, String.valueOf(tier), PANEL_X + 15, ROW_Y + (tier - 5) * ROW_STEP + 7, tier <= levels ? LABEL : DIM, false);
         }
         int shown = Math.max(1, levels);
-        graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.range", StrongBeaconLogic.range(shown)),
+        graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.range", this.strongMenu.range(shown)),
                 PANEL_X + PANEL_WIDTH / 2, 95, levels > 0 ? LABEL : DIM);
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.duration", StrongBeaconLogic.durationTicks(shown) / 20),
                 PANEL_X + PANEL_WIDTH / 2, 107, levels > 0 ? LABEL : DIM);
@@ -151,7 +154,8 @@ public class StrongBeaconScreen extends BeaconScreen {
         }
 
         void updateStatus(int levels) {
-            boolean reachable = this.tier <= levels && this.tier <= StrongBeaconLogic.maxLevels();
+            boolean reachable = this.tier <= levels && this.tier <= StrongBeaconScreen.this.strongMenu.maxLevels()
+                    && StrongBeaconScreen.this.strongMenu.effectEnabled(this.effect);
             this.active = reachable;
             if (this.unlocked == null || reachable != this.unlocked) {
                 this.unlocked = reachable;
