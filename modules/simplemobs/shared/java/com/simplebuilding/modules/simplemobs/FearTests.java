@@ -221,13 +221,14 @@ final class FearTests {
             player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60));
             h.assertFalse(calm.stared(player) || calm.seenBy(player), "a blind player sees nothing");
             calm.discard();
+            player.removeTag(FearAura.TEST_TAG);
             h.succeed();
         });
         add.accept("fear_watcher_range", h -> {
-            floor(h, -24, -24, 28, 28);
+            floor(h, 0, 0, 8, 8);
             float range = MobsConfig.watcherRange;
-            var watcher = h.spawn(FearMobs.WATCHER, 3, 2, 3);
-            var dummy = dummy(h, 14, 3);
+            var watcher = h.spawn(FearMobs.WATCHER, 1, 2, 1);
+            var dummy = dummy(h, 7, 7);
             dummy.snapTo(dummy.getX(), dummy.getY(), dummy.getZ(), 0.0f, 0.0f);
             dummy.setYHeadRot(0.0f);
             watcher.setTeleportCooldown(0);
@@ -366,6 +367,7 @@ final class FearTests {
             b.setYHeadRot(180.0f);
             h.assertFalse(watcher.updateGaze(h.getLevel()), "both look away: free again");
             watcher.discard();
+            b.removeTag(FearAura.TEST_TAG);
             h.succeed();
         });
         add.accept("fear_watcher_hit_new_victim", h -> {
