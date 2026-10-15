@@ -258,6 +258,47 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 65 (2026-10-15, Besitzer; Bilder kamen nicht an – bei Bedarf nachfordern)
+Platzierte Teile
+- [ ] Barren & andere platzierte Kleinteile überlappen ab 3–4 Teilen (stecken ineinander, Z-Fighting). Anordnung so ändern, dass sie immer überschneidungsfrei passen.
+
+Markierte Container (QoL verknüpfte GUIs)
+- [ ] Solange ein Container markiert ist: kleiner Banner rechts im Spielbild (Stil der UI-Elemente/Oktant-Overlay, etwa auf Oktant-Höhe, etwas darüber, damit er nicht mit dem Oktant kollidiert) zeigt, welcher Container markiert ist (Art + Name).
+- [ ] Markierung abbrechen mit Escape (wie beschrieben) UND automatisch, sobald man einmal im Container war und ihn wieder verlässt.
+- [ ] BUG Kreativ: Markierung bleibt aktiv, wenn man das Kreativinventar öffnet; Shift-Klick ins Inventar oder auf einen Kreativ-Tab (Item löschen) schiebt Items in den unsichtbar markierten Container. Darf nie passieren.
+
+Wayfinder-Karte
+- [ ] BUG: Kartenbereiche laden mit Artefakten/Linien (u. a. in einem Kreis) – Laden immer vollständig und korrekt sicherstellen.
+- [ ] Näher heranzoomen als 1:1 (z. B. ein ganzer Chunk füllt die Ansicht).
+- [ ] Wegpunkt-Leiste rechts: Zahlen weg; jeder Wegpunkt bekommt beim Anlegen ein zufälliges Icon; Icons auch aus beliebigen Items. Buttons quadratisch mit Padding links wie Lesezeichen, bei großer GUI-Skala größer (Platz oben/unten nutzen); Buttons exakt im UI-Stil (wie neues Oktant-Konzept, Bronze/Rahmen), linke Seite gleich gestaltet.
+- [ ] Höhenkarte/Höhenlinien als Anzeigemodus, gespeichert; die Karte in Hand/Nebenhand zeigt denselben Modus. Zoom NICHT automatisch übernehmen, sondern eigener Knopf „Zoom synchronisieren“ (UX klären: feste Höhe/Ausschnitt so, dass Hand- und Menükarte dieselbe Ansicht zeigen).
+- [ ] „Configure Waypoint“ neu: Farben zu grell → keine Farbpalette mehr. Stattdessen: Feld 1 Name (Textfeld); Feld 2 Auswahl wie Kreativ-Suchtab (Block, Item oder Mob-Kopf suchen) als Icon. Anzeigemodus: Blockmodell (3D) – nur wenn Blockmodell vorhanden, sonst deaktiviert – oder eine Seite des Blocks (Standard Vorderseite), Seitenwahl über ausgeklappten Würfel (Netz) zum Anklicken; bei Items ohne Blockmodell keine Seitenwahl. Nicht überladen, aber verständlich. Falls doch Farben: Minecraft-typisch gedämpft/texturiert (Rot wie Netherrack, Orange wie Lava, Magenta wie Purpur …).
+- [ ] BUG: Wegpunkt-Name wird auf der Karte nicht angezeigt (zeigt „1“ statt „Test“).
+- [ ] Linke Seite: Knopf „Koordinaten anzeigen“ – neben jedem Wegpunkt und dem Spieler die Koordinaten.
+- [ ] Ebenen (je in den Karteneinstellungen an/aus): chunkgeladene Bereiche; Chunk-Loader der Mod als Markierung (wie Strukturen, keine Wegpunkte); platzierte aktive Shops mit Hover-Info (Angebot + Preis); weitere sinnvolle Ebenen vorschlagen.
+
+End-Bäume
+- [ ] Ash- und Duskwood-Blätter sehen unschön aus: Blockmodelle natürlicher – äußere Blätter andere Textur/Anordnung als innere, innere dichter (nicht ganz dicht), nicht wie „schwache Simulation“.
+- [ ] BUG: Duskwood-Blätter verhalten sich NICHT wie Spinnennetze – beide Blätterarten gleich (Spinnennetz-Verhalten).
+- [ ] Erklären: was zeigen/testen „Ashwood Boat“/„Duskwood Boat“ im eingebauten Obsidian (Testzentrale?) – Besitzer fragt.
+- [ ] Besitzer möchte die End-Varianten der Bäume sehen (Vorschau/Screenshots); Baumgrößen gefallen.
+
+Sounds
+- [ ] Sculk Jaw: Schließ-Sound fehlt (wurde entfernt?) – wieder einen Sound wie Sculk-Sensor/Shrieker.
+
+Light Pane
+- [ ] Redstone-Light-Pane: Standard schwarz (aus), nicht alle Farben.
+- [ ] Light Panes nur an, wenn gepowert (Logik umdrehen).
+- [ ] Neue Variante „Copper Light Pane“: anderes Design, einheitliche Farbe; Rezept wie Copper Bulb, aber Blaze Powder statt Blaze Rod; schaltet bei jedem Redstone-Puls um (an/aus) wie die Copper Bulb.
+
+Kleinigkeiten
+- [ ] Glasscheibe schwebend von unten: man sieht hindurch, Unter-/Innenseite fehlt (nur Außenseite hat Textur) – prüfen (Vanilla vs. Mod-Scheiben) und beheben.
+- [ ] Enchanter: Tooltip des eingelegten Items verdeckt die Verzauberungen → im Enchanter auf der anderen Mausseite rendern, solange er auf den Bildschirm passt.
+- [ ] Kreativ-Tabs aktualisieren, aufräumen, vervollständigen (alle Module).
+- [ ] Abgeschnittene Texturen bei Köpfen (z. B. Shulker-Kopf) beheben.
+- [ ] Simple Fun Schweinekopf: genauso wie die anderen Mob-Köpfe (gleicher Code/Prinzip) – Spielerkopf wird zum Schweinekopf.
+- [ ] Vorschlaghammer-Exploit prüfen/beheben: Abbaufortschritt beim Schleichen (1 Block) und dann Loslassen (Fläche) wird übernommen → fast Instant-Abbau. Fortschritt beim Umschalten anteilig nach der Hammer-Formel auf die neue Blockzahl umrechnen.
+
 ## Nachtrag 64 (2026-10-15, Besitzer)
 Hollow Watcher – Korrektur
 - [x] Reichweite 48 Blöcke: außerhalb verfolgt er nicht mehr; ist man wieder innerhalb, macht er weiter und teleportiert sich regelmäßig zum Spieler. Meiden heißt: ihn ansehen und weglaufen (über 48 Blöcke). (claude-watcher3)
