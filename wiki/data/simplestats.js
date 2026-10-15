@@ -239,6 +239,7 @@ window.WIKI_MODULE_DATA["simplestats"] = {
           "summary": "Handbuch zu dieser Mod: 29 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Feuerstein. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Stats\" eins."
         }
       },
+      "texture": "assets/textures/simplestats/item/guide_book.png",
       "craftedBy": [
         "simplestats:guide_book"
       ],
