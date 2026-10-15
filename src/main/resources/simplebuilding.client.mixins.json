@@ -36,6 +36,7 @@
     "ItemMixin",
     "KeyboardInputMixin",
     "MinecraftClientMixin",
+    "MultiPlayerGameModeHammerProgressMixin",
     "MouseMixin",
     "MultilineTextFieldAccessor",
     "PistonHeadRendererMixin",

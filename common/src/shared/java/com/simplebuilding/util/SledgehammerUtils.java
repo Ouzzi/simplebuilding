@@ -98,6 +98,18 @@ public final class SledgehammerUtils {
         return count;
     }
 
+    /**
+     * Converts mining progress when the divisor changes mid-break (sneak 1 block <-> area): the
+     * elapsed mining time {@code progress * oldDivisor} is kept, so the new progress is
+     * {@code progress * oldDivisor / newDivisor}. Unknown divisors (<= 0) leave it unchanged.
+     */
+    public static float rescaleProgress(float progress, float oldDivisor, float newDivisor) {
+        if (oldDivisor <= 0.0F || newDivisor <= 0.0F || oldDivisor == newDivisor) {
+            return progress;
+        }
+        return progress * oldDivisor / newDivisor;
+    }
+
     /** The same divisor on client and server; 26.3 uses swingTimeFactor, 26.2 the legacy tier model. */
     public static float miningSpeedDivisor(Player player, BlockPos origin) {
         ItemStack stack = player.getMainHandItem();

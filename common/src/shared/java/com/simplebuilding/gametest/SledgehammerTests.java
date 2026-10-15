@@ -1144,6 +1144,20 @@ public final class SledgehammerTests {
         helper.succeed();
     }
 
+    /** N65: switching sneak (1 block) <-> area mid-break converts progress by the swing-time formula, not carries it over. */
+    public static void sledgehammerProgressIsRescaledWhenTheBlockCountChanges(GameTestHelper helper) {
+        float sneak = com.simplebuilding.util.SledgehammerUtils.swingTimeFactor(1, false);
+        float area = com.simplebuilding.util.SledgehammerUtils.swingTimeFactor(9, false);
+        float toArea = com.simplebuilding.util.SledgehammerUtils.rescaleProgress(0.9F, sneak, area);
+        helper.assertTrue(Math.abs(toArea - 0.9F * sneak / area) < 0.0001F && toArea < 0.2F,
+                "0.9 sneak progress must be worth well under 0.2 of a 9-block swing, got " + toArea);
+        float back = com.simplebuilding.util.SledgehammerUtils.rescaleProgress(toArea, area, sneak);
+        helper.assertTrue(Math.abs(back - 0.9F) < 0.0001F, "round trip must be lossless, got " + back);
+        helper.assertTrue(com.simplebuilding.util.SledgehammerUtils.rescaleProgress(0.5F, 0.0F, area) == 0.5F,
+                "unknown old divisor leaves progress unchanged");
+        helper.succeed();
+    }
+
     /** Pin both thresholds using real block counting and the vanilla destroy-progress mixin. */
     private static void piecewiseMiningTime(GameTestHelper helper) {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE.add(0, 1, 0), 0.0F, 90.0F, true);

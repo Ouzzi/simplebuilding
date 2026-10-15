@@ -109,6 +109,20 @@ public final class AstralEnchanterClientTest {
             }
         });
         script.shot("astral-enchanter-tooltip");
+        // N65: the tooltip of the item in the table's item slot goes to the other side of the cursor, not over the sliders.
+        int[][] slot = new int[1][];
+        script.act("locate the item slot", c -> slot[0] = ((AstralEnchantingScreen) c.gui.screen()).slotCentre(0));
+        script.harness("hover the item slot", h -> h.setCursorPos(slot[0][0], slot[0][1]));
+        script.idle("let the slot hover reach the screen", 4);
+        script.act("the item tooltip is left of the cursor, clear of the sliders", c -> {
+            AstralEnchantingScreen screen = (AstralEnchantingScreen) c.gui.screen();
+            int x = screen.slotTooltipX();
+            int cursor = screen.slotCentre(0)[0];
+            if (x < 0 || x >= cursor) {
+                throw new AssertionError("the item tooltip stands at x " + x + ", cursor " + cursor + " (expected left of the cursor)");
+            }
+        });
+        script.shot("astral-enchanter-item-tooltip");
 
         script.act("close the screen", c -> c.player.closeContainer());
         script.await("the screen is gone", TIMEOUT, c -> c.gui.screen() == null, c -> "still open: " + c.gui.screen());

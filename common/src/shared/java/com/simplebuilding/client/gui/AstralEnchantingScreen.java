@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -349,6 +350,47 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
                         new org.joml.Vector2i(at[0], Math.max(4, Math.min(at[1], screenH - h - 4))), mouseX, mouseY, false);
             }
         }
+    }
+
+    /** Where the last tooltip of a table slot was placed (screen x), or -1 - for the client test. */
+    private int slotTooltipX = -1;
+
+    /**
+     * N65 (owner): the tooltip of the item in the table's own slots (item, lapis, blaze) would sit right of the cursor,
+     * over the enchantment sliders; it goes to the other side of the cursor instead - as long as it fits on the screen.
+     */
+    @Override
+    protected void extractTooltip(GuiGraphicsExtractor g, int mouseX, int mouseY) {
+        Slot slot = this.hoveredSlot;
+        if (slot == null || !slot.hasItem() || slot.index >= AstralEnchantingMenu.TABLE_SLOTS
+                || !this.menu.getCarried().isEmpty() || slot.getItem().getTooltipImage().isPresent()) {
+            super.extractTooltip(g, mouseX, mouseY);
+            return;
+        }
+        List<net.minecraft.util.FormattedCharSequence> lines = new ArrayList<>();
+        for (Component line : this.getTooltipFromContainerItem(slot.getItem())) lines.add(line.getVisualOrderText());
+        g.setTooltipForNextFrame(this.font, lines, (screenW, screenH, mx, my, w, h) -> {
+            int x = otherSideTooltipX(mx, w, screenW);
+            this.slotTooltipX = x;
+            return new org.joml.Vector2i(x, Math.max(4, Math.min(my - 12, screenH - h - 7)));
+        }, mouseX, mouseY, true);
+    }
+
+    /** Left of the cursor (as wide as the tooltip plus the vanilla 12 px gap) if that fits on the screen, else vanilla's right side. */
+    public static int otherSideTooltipX(int mouseX, int tooltipWidth, int screenWidth) {
+        int left = mouseX - 12 - tooltipWidth;
+        return left >= 4 ? left : Math.max(4, Math.min(mouseX + 12, screenWidth - tooltipWidth - 4));
+    }
+
+    /** Centre of menu slot {@code index} in screen coordinates - for the client test. */
+    public int[] slotCentre(int index) {
+        Slot slot = this.menu.slots.get(index);
+        return new int[] {this.leftPos + slot.x + 8, this.topPos + slot.y + 8};
+    }
+
+    /** Screen x of the last table-slot tooltip, -1 if none yet - for the client test. */
+    public int slotTooltipX() {
+        return this.slotTooltipX;
     }
 
     /** Right edge of the window (screen coordinates) - for the client test. */

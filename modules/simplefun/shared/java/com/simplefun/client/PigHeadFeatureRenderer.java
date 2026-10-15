@@ -55,8 +55,9 @@ public class PigHeadFeatureRenderer<
       if (headPart.xRot != 0.0F) poseStack.rotate(Axis.XP.rotation(headPart.xRot));
     }
 
-    poseStack.scale(1.05F, 1.05F, 1.05F);
-    poseStack.translate(0.0F, -0.2F, 0.1F);
+    // The player's head is hidden (WornPigHeadMixin): centre the 8x8x8 pig cube (y -4..4, z -8..0) on the
+    // player head's cube (y -8..0, z -4..4).
+    poseStack.translate(0.0F, -0.25F, 0.25F);
 
     this.pigHeadModel.setupAnim(state);
     renderColoredCutoutModel(

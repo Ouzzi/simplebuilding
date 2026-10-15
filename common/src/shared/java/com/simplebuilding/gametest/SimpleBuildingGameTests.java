@@ -1396,6 +1396,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_area_mines_each_block_like_the_pickaxe_one_tier_below", SledgehammerTests::sledgehammerAreaMinesEachBlockLikeThePickaxeOneTierBelow)
                     .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_progress_is_rescaled_when_the_block_count_changes", SledgehammerTests::sledgehammerProgressIsRescaledWhenTheBlockCountChanges)
+                    .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_sneaking_breaks_only_the_targeted_block", SledgehammerTests::sledgehammerSneakingBreaksOnlyTheTargetedBlock)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency", SledgehammerTests::sledgehammerChargeTimeShortensWithMaterialAndEfficiency)
