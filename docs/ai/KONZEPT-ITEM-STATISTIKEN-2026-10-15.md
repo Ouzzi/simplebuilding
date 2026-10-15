@@ -169,3 +169,6 @@ Standalone-Ziel `module-simplestats-standalone-{fabric,neoforge}-263`; Checks: `
 10. Rüstungs-Absorbiert als Näherung (proportional zu Rüstungspunkten) akzeptiert (**ja**) – oder aufwendig exakt je Teil?
 11. Tragezeit (`worn_time`) und Stiefel-Wegstrecke aufnehmen (**ja**, ereignisgetrieben)?
 12. Spätere Meilensteine/Titel („1.000 Kills“ als Name-Zusatz, Toast) – **nicht jetzt** (Stats bleiben kosmetisch, kein Gameplay)?
+
+## 14. Antworten Besitzer (2026-10-15, verbindlich)
+S1 neues Modul Simple Stats (`simplestats`). S2 alles auf einmal (keine Phasen). S3 Shift-Tooltip zeigt nur die wichtigsten Werte; ALLE Details in einem eigenen Statistik-Bildschirm (je Item, ähnlich den Vanilla-Statistiken, aber item-spezifisch). S4 Listen nicht künstlich klein: so viele Einträge, wie tatsächlich abgebaut/getötet wurden (wie Vanilla-Statistik je Item) – technische Schutzgrenze nur gegen übergroße Item-Daten (z. B. Byte-Budget, sehr hoher Deckel, Rest als „weitere“), im Plan begründen. S5 Zurücksetzen nur per Befehl. S6 Stats bleiben beim Schmiede-Upgrade erhalten. S7 alle sehen sie, kein Besitzerfeld, Spieler-Kills nur als Zahl. S8 Kreativ und Maschinen zählen nicht. S9 alles zählen, auch Härte-0-Blöcke. S10 Rüstungs-Absorbiert als Näherung. S11 Tragezeit und Stiefel-Strecken ja. S12 keine Meilensteine jetzt.

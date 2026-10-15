@@ -281,7 +281,7 @@ Besitzer-Antworten Konzepte (15.10.)
 - [ ] Hollow Howler Phase 1+2 umsetzen (H1); danach Phase 3 eigene synthetische Sounds (H2); Darkness-Puls nur in der Wut-Phase (H3); leuchtendes Herz als neue Emissiv-Textur mit Vorschau zur Freigabe (H4); Kamerawackeln mit Schalter „Bewegung reduzieren“ (H5). Konzept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md.
 - [ ] Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md.
 - [x] Sandwich-Brot-Unterrand genehmigt (oc-breadrim).
-- [ ] Item-Kategorien „Items Displayed“ (N62) läuft als Text-Vorschlag (oc-display-proposal).
+- [x] Item-Display Schritt 1 (Text-Vorschlag) freigegeben 15.10.; D8 Lapis/Splitter/Nuggets nach erster Welle; D9 Display-Block später als eigenes Thema.
 
 ## Nachtrag 62 (2026-10-15, Besitzer)
 Rückport (Prinzip: docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md)
@@ -289,14 +289,14 @@ Rückport (Prinzip: docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md)
 - [x] Generelles Prinzip notiert: Rückports vor Einbau und bei jedem Port je Version prüfen (AGENTS.md + docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md).
 
 3D-Darstellung platzierter Items (Vorbild: Mod „Items Displayed“)
-- [ ] Platzierte Items (eigene 3D-Darstellung beim Hinlegen) mehr in Richtung „Items Displayed“ bringen; dem Besitzer gefallen dort besonders Armor Trims (Schmiedevorlagen), Pottery Sherds (Töpferscherben) und Music Discs (Schallplatten). Ablauf verbindlich in 3 Schritten: (1) erst TEXT-Vorschlag, was sich je Item-Art wie ändert → Besitzer-Freigabe; (2) dann gerenderte Vorher/Nachher-Bilder → Besitzer-Freigabe; (3) erst dann im Spiel einbauen. Abgenommene Texturen dabei nicht ändern, nur die 3D-Darstellung/Modelle.
+- [ ] (Schritt 1 freigegeben 15.10., Antworten im Vorschlag §7; Schritt 2 Bilder läuft) Platzierte Items (eigene 3D-Darstellung beim Hinlegen) mehr in Richtung „Items Displayed“ bringen; dem Besitzer gefallen dort besonders Armor Trims (Schmiedevorlagen), Pottery Sherds (Töpferscherben) und Music Discs (Schallplatten). Ablauf verbindlich in 3 Schritten: (1) erst TEXT-Vorschlag, was sich je Item-Art wie ändert → Besitzer-Freigabe; (2) dann gerenderte Vorher/Nachher-Bilder → Besitzer-Freigabe; (3) erst dann im Spiel einbauen. Abgenommene Texturen dabei nicht ändern, nur die 3D-Darstellung/Modelle.
 
 Quality of Life
 - [ ] Sprungkraft (Jump Boost, egal ob Trank, Leuchtfeuer oder Befehl): solange der Effekt aktiv ist, Schritthöhe mindestens 1 Block (einen Block hochlaufen ohne Springen). Mit Step-Height-Verzauberung verträglich (Maximum, nicht addieren). Config-Schalter.
 - [ ] Frosch im Eimer: Frösche wie Axolotl mit Wassereimer einfangen und wieder aussetzen (Variante/Name/Alter bleiben erhalten), Eimer-Item je Variante bzw. Variante als Komponente.
 
 Item-Statistiken (Modul noch offen – Vorschlag im Konzept)
-- [ ] KONZEPT zuerst: Item-Statistiken je Werkzeug/Ausrüstung tracken, Vorbild Mod „Item Stats Tracker“ (deren Stärken übernehmen, Schwächen verbessern). Beispiele: Spitzhacke – abgebaute Blöcke gesamt und je Blockart; Kills gesamt, je Mob und je Mob-Variante (für jedes Werkzeug/jede Waffe); Elytra – geflogene Strecke; Stiefel – gelaufene Strecke; weitere sinnvolle Werte je Item-Art. Anzeige: Tooltip-Kurzvorschau, Details bei Shift (o. ä.). Konzept klärt: welches Modul (eigenes Sub-Mod vs. bestehendes), Speicherung als Item-Komponente (Größe begrenzen, Top-N je Liste), Performance, Multiplayer, Zurücksetzen, Datenschutz/Anzeige für andere Spieler, Vergleich mit Item Stats Tracker.
+- [ ] (Konzept + Besitzer-Antworten 15.10. in KONZEPT-ITEM-STATISTIKEN §14; Bau läuft) KONZEPT zuerst: Item-Statistiken je Werkzeug/Ausrüstung tracken, Vorbild Mod „Item Stats Tracker“ (deren Stärken übernehmen, Schwächen verbessern). Beispiele: Spitzhacke – abgebaute Blöcke gesamt und je Blockart; Kills gesamt, je Mob und je Mob-Variante (für jedes Werkzeug/jede Waffe); Elytra – geflogene Strecke; Stiefel – gelaufene Strecke; weitere sinnvolle Werte je Item-Art. Anzeige: Tooltip-Kurzvorschau, Details bei Shift (o. ä.). Konzept klärt: welches Modul (eigenes Sub-Mod vs. bestehendes), Speicherung als Item-Komponente (Größe begrenzen, Top-N je Liste), Performance, Multiplayer, Zurücksetzen, Datenschutz/Anzeige für andere Spieler, Vergleich mit Item Stats Tracker.
 
 ## Nachtrag 61 (2026-10-15, Besitzer-Antworten Sammel-Fragebogen 13.10.)
 Entscheidungen (E): alle Empfehlungen angenommen (E1 A Sprachen erst beim Release, E2 A Attractor-Ladung gestrichen, E3 A gestrichen, E4–E6 geschlossen, E9 A Echolot 3 s halten, E10 A Schlagzahlen so lassen, E11 A Trick-Spiegel vorerst entfernen, E12 A Gewölbe-Texturen nur zur Build-Zeit), außer:

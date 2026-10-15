@@ -154,3 +154,7 @@ Wiki/Guide/`docs/MODS-UND-FEATURES.md` nachziehen, sowie Prüfung im Spiel erst 
 8. Weitere Arten aus 4.4 (Lapis, Splitter, Nuggets) gleich mitnehmen oder erst nach der ersten Welle?
 9. Soll ein **frei drehbares Item-Display** (wie bei Items Displayed, Rüstungsständer-artig) ein eigenes Thema werden, oder ist es außerhalb des Auftrags?
 10. Barren-Flächenbilder `placed_*_ingot.png` (aus Vanilla-Farben gemalt, eingecheckt): so lassen oder an Regel 7 angleichen?
+
+## 7. Antworten Besitzer (2026-10-15, verbindlich) – Schritt 1 freigegeben
+D1 Vorlagen: 2 px mit Kantenschattierung (Stufe B, kein Relief). D2 Töpferscherben neu platzierbar: ja. D3 alle 22 Vanilla-Schallplatten platzierbar: ja. D4 Schallplatte als runde Scheibe mit Draufsicht (nur beim Build erzeugt): ja. D5 echter Stapel wie Barren. D6 Dicke 2 px einzeln / ca. 1 px im Häufchen: ja. D7 Hammer-Wechsel auf flach auch hier: ja. D8 Lapis/Splitter/Nuggets erst nach der ersten Welle. D9 frei drehbares Item-Display später als eigenes Thema. D10 Barren-Flächenbilder so lassen.
+Nächster Schritt: Schritt 2 – gerenderte Vorher/Nachher-Bilder zur Freigabe, noch kein Einbau im Spiel.
