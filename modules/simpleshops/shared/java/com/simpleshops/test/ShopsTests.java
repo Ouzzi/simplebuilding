@@ -553,11 +553,11 @@ public final class ShopsTests {
             // Earnings full of foreign items: refused, nothing changes.
             menu.pay().setItem(2, new ItemStack(Items.EMERALD, 4));
             Item[] fill = {Items.STONE, Items.DIRT, Items.SAND, Items.GRAVEL, Items.CLAY, Items.COAL, Items.IRON_INGOT, Items.GOLD_INGOT, Items.STICK};
-            for (int i = 0; i < 9; i++) shop.sales().earnings().set(i, new ItemStack(fill[i], 64 % Math.max(1, fill[i].getDefaultMaxStackSize()) == 0 ? fill[i].getDefaultMaxStackSize() : 1));
-            for (int i = 0; i < 9; i++) shop.sales().earnings().set(i, new ItemStack(fill[i], fill[i].getDefaultMaxStackSize()));
+                        var more = StorageTests.junk(40);
+            for (int i = 0; i < 27; i++) shop.sales().earnings().set(i, i < 9 ? new ItemStack(fill[i], fill[i].getDefaultMaxStackSize()) : new ItemStack(more.get(i), more.get(i).getDefaultMaxStackSize()));
             h.assertTrue(trade(menu, buyer) == ShopTrade.Result.EARNINGS_FULL, "earnings store full");
             h.assertTrue(shop.box().goods().get(0).getCount() == 3 && menu.pay().getItem(2).getCount() == 4 && count(buyer.getInventory(), Items.DIAMOND) == 0, "nothing changed when full");
-            for (int i = 0; i < 9; i++) shop.sales().earnings().set(i, ItemStack.EMPTY);
+            for (int i = 0; i < 27; i++) shop.sales().earnings().set(i, ItemStack.EMPTY);
             // Inventory full: the piece drops in front of the buyer, the trade still happens (owner answer 12).
             for (int i = 0; i < buyer.getInventory().getContainerSize(); i++) buyer.getInventory().setItem(i, new ItemStack(Items.STONE_SWORD));
             h.assertTrue(trade(menu, buyer) == ShopTrade.Result.OK, "full inventory still trades");
@@ -776,6 +776,7 @@ public final class ShopsTests {
         });
         MAX_TICKS.put("dupe_invariant", 400);
         ServerShopTests.register(ALL);
+        StorageTests.register(ALL);
         ALL.put("guide_book", com.simpleshops.guide.ShopsGuide::gameTest);
         ALL.put("discover_recipe_unlocks", com.simpleshops.discover.ShopsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleshops.discover.ShopsDiscover::behaviourHints);

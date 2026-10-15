@@ -4,6 +4,7 @@ import com.simpleshops.ShopsRegistry;
 import com.simpleshops.SimpleShops;
 import com.simpleshops.block.DisplayCaseBlockEntity;
 import com.simpleshops.block.SalesBlockEntity;
+import com.simpleshops.block.SalesStorageBlockEntity;
 import com.simpleshops.logic.ShopGuard;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
@@ -26,7 +27,8 @@ public final class ShopsForge {
             if (key.equals(Registries.ITEM)) ShopsRegistry.registerItems();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 ShopsRegistry.registerBlockEntities(new BlockEntityType<>(SalesBlockEntity::new, ShopsRegistry.salesBlocks()),
-                        new BlockEntityType<>(DisplayCaseBlockEntity::new, ShopsRegistry.caseBlocks()));
+                        new BlockEntityType<>(DisplayCaseBlockEntity::new, ShopsRegistry.caseBlocks()),
+                        new BlockEntityType<>(SalesStorageBlockEntity::new, ShopsRegistry.storageBlocks()));
             }
             if (key.equals(Registries.MENU)) ShopsRegistry.registerMenus();
         });

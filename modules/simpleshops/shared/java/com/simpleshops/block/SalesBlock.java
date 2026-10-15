@@ -76,7 +76,7 @@ public class SalesBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, net.minecraft.world.InteractionHand hand,
                                           BlockHitResult hit) {
-        if (stack.getItem() instanceof net.minecraft.world.item.BlockItem item && item.getBlock() instanceof DisplayCaseBlock) return InteractionResult.PASS;
+        if (stack.getItem() instanceof net.minecraft.world.item.BlockItem item && (item.getBlock() instanceof DisplayCaseBlock || item.getBlock() instanceof SalesStorageBlock)) return InteractionResult.PASS;
         return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 

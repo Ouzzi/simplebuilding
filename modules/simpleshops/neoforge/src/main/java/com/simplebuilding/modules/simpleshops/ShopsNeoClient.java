@@ -19,6 +19,8 @@ final class ShopsNeoClient {
             event.register(ShopsRegistry.OWNER_MENU, ShopScreens.Owner::new);
             event.register(ShopsRegistry.BUYER_MENU, ShopScreens.Buyer::new);
             event.register(ShopsRegistry.STOCK_MENU, ShopScreens.Stock::new);
+            event.register(ShopsRegistry.SHOP_MENU, ShopScreens.Owner::new);
+            event.register(ShopsRegistry.STORAGE_MENU, ShopScreens.Storage::new);
         });
     }
 

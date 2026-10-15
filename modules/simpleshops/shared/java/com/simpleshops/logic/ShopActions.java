@@ -9,6 +9,8 @@ import com.simpleshops.config.ShopsConfig;
 import com.simpleshops.menu.SalesOwnerMenu;
 import com.simpleshops.menu.ShopBuyerMenu;
 import com.simpleshops.menu.StockMenu;
+import com.simpleshops.menu.StorageMenu;
+import com.simpleshops.block.SalesStorageBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -29,7 +31,7 @@ public final class ShopActions {
     public static InteractionResult useSales(ServerPlayer player, ServerLevel level, BlockPos pos) {
         if (!SimpleShops.on()) return InteractionResult.PASS;
         if (!(level.getBlockEntity(pos) instanceof SalesBlockEntity sales)) return fail(level, pos);
-        if (sales.isOwner(player.getUUID())) return open(player, level, pos, sales, true, null);
+        if (sales.isOwner(player.getUUID())) return openOwner(player, level, pos, sales);
         return buy(player, level, pos, sales);
     }
 
@@ -39,6 +41,7 @@ public final class ShopActions {
         if (!(level.getBlockEntity(pos) instanceof DisplayCaseBlockEntity shopCase)) return fail(level, pos);
         SalesBlockEntity sales = level.getBlockEntity(pos.below()) instanceof SalesBlockEntity s ? s : null;
         if (shopCase.isOwner(player.getUUID())) {
+            if (sales != null && sales.isOwner(player.getUUID())) return openOwner(player, level, pos.below(), sales);
             if (sales != null && !sales.lockFree()) return busy(level, pos);
             player.openMenu(new SimpleMenuProvider((id, inv, p) -> new StockMenu(id, inv, shopCase, sales, player),
                     Component.translatable("container.simpleshops.stock")));
@@ -69,6 +72,45 @@ public final class ShopActions {
         }
         level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 0.8F, 1.0F);
         return InteractionResult.SUCCESS;
+    }
+
+    /** Right click on a sales storage: its owner sees the 27 slots; everyone else gets a "no" (only breaking is up to operators). */
+    public static InteractionResult useStorage(ServerPlayer player, ServerLevel level, BlockPos pos) {
+        if (!SimpleShops.on()) return InteractionResult.PASS;
+        if (!(level.getBlockEntity(pos) instanceof SalesStorageBlockEntity storage) || !storage.isOwner(player.getUUID())) return fail(level, pos);
+        player.openMenu(new SimpleMenuProvider((id, inv, p) -> new StorageMenu(id, inv, storage), Component.translatable("container.simpleshops.storage")));
+        return InteractionResult.SUCCESS;
+    }
+
+    /** The owner's screen: one shared screen when his display case stands on the sales block, else the sales block's own. */
+    private static InteractionResult openOwner(ServerPlayer player, ServerLevel level, BlockPos salesPos, SalesBlockEntity sales) {
+        if (!sales.lockFree()) return busy(level, salesPos);
+        if (level.getBlockEntity(salesPos.above()) instanceof DisplayCaseBlockEntity shopCase && shopCase.isOwner(player.getUUID()) && !sales.isServerShop()) {
+            player.openMenu(new SimpleMenuProvider((id, inv, p) -> SalesOwnerMenu.combined(id, inv, sales, shopCase, player),
+                    Component.translatable("container.simpleshops.shop")));
+        } else {
+            player.openMenu(new SimpleMenuProvider((id, inv, p) -> new SalesOwnerMenu(id, inv, sales, player),
+                    Component.translatable("container.simpleshops.sales")));
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    /** Developer button, owner screen to buyer screen (server decides; the old menu is closed first so its lock is released). */
+    public static boolean switchToBuyer(ServerPlayer player, SalesBlockEntity sales) {
+        if (!(player.level() instanceof ServerLevel level) || !sales.mayEdit(player) || sales.isRemoved()) return false;
+        BlockPos pos = sales.getBlockPos();
+        if (level.getBlockEntity(pos) != sales) return false;
+        player.closeContainer();
+        return buy(player, level, pos, sales).consumesAction();
+    }
+
+    /** Developer button, buyer screen back to the owner screen. */
+    public static boolean switchToOwner(ServerPlayer player, SalesBlockEntity sales) {
+        if (!(player.level() instanceof ServerLevel level) || !sales.mayEdit(player) || sales.isRemoved()) return false;
+        BlockPos pos = sales.getBlockPos();
+        if (level.getBlockEntity(pos) != sales) return false;
+        player.closeContainer();
+        return openOwner(player, level, pos, sales).consumesAction();
     }
 
     private static InteractionResult buy(ServerPlayer player, ServerLevel level, BlockPos salesPos, SalesBlockEntity sales) {
@@ -117,6 +159,17 @@ public final class ShopActions {
         }
         int count = ShopLedger.count(player.level().getServer(), player.getUUID(), sales);
         return count < ShopsConfig.maxShopsPerPlayer;
+    }
+
+    /**
+     * Placement of a sales storage: directly under a sales block or another storage, and every block of that run has the placing
+     * player as owner (a stranger's shop is never extended); at most {@link ShopStorage#MAX_CHAIN} storages in a row.
+     */
+    public static boolean mayPlaceStorage(net.minecraft.world.item.context.BlockPlaceContext ctx) {
+        if (!SimpleShops.on() || ctx.getPlayer() == null) return false;
+        if (!(ctx.getPlayer() instanceof ServerPlayer player)) return true;
+        int above = ShopStorage.storagesAbove(ctx.getLevel(), ctx.getClickedPos(), player.getUUID());
+        return above >= 0 && above < ShopStorage.MAX_CHAIN;
     }
 
     private ShopActions() {}

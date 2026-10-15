@@ -7,7 +7,7 @@ MODULE = Path(__file__).resolve().parents[1]
 NS = 'simpleshops'
 RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simpleshops'
-BLOCKS = ('sales_block', 'display_case', 'glow_display_case')
+BLOCKS = ('sales_block', 'sales_storage', 'display_case', 'glow_display_case')
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/ShopsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'maxShopsPerPlayer', 'idleTimeoutSeconds', 'collectServerShopIncome'], config_keys
@@ -24,6 +24,7 @@ for locale in ('en_us', 'de_de'):
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'data/{NS}/recipe').glob('*.json')}
 assert recipes['sales_block']['pattern'] == ['PPP', 'ICI', 'PPP'], 'sales block recipe'
+assert recipes['sales_storage']['pattern'] == ['PPP', 'ICI', 'PHP'], 'sales storage recipe'
 assert recipes['display_case']['pattern'] == ['NNN', 'GGG', 'PPP'], 'display case recipe'
 assert recipes['glow_display_case']['ingredients'] == [f'{NS}:display_case', 'minecraft:glow_ink_sac'], 'glow case recipe'
 for name in BLOCKS:
@@ -34,7 +35,7 @@ for name in BLOCKS:
         assert f'{NS}:{name}' in tag['values'] and tag['replace'] is False, (kind, name)
     for sub in ('blockstates', 'items', 'models/block'):
         assert (RES / f'assets/{NS}/{sub}/{name}.json').is_file(), (sub, name)
-for tex in ('sales_block_front', 'sales_block_side', 'sales_block_top', 'display_case_base', 'display_case_frame',
+for tex in ('sales_block_front', 'sales_block_side', 'sales_block_top', 'sales_storage_front', 'sales_storage_side', 'sales_storage_top', 'display_case_base', 'display_case_frame',
             'display_case_glass', 'glow_display_case_base', 'glow_display_case_frame'):
     assert (RES / f'assets/{NS}/textures/block/{tex}.png').is_file(), tex
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
