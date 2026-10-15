@@ -47,6 +47,9 @@ public final class WandererSpawner {
 
     public static volatile Locator locator = WandererSpawner::locateVanilla;
     private static final Map<String, Integer> MISSES = new HashMap<>();
+    /** Per player: the 8-block cell and game time of the last visit, so a standing or slowly moving player costs one POI search per minute. */
+    private static final Map<java.util.UUID, long[]> LAST = new HashMap<>();
+    private static final int REVISIT = 1200;
 
     /** Vanilla villages: a bell (meeting POI) that is part of a village structure; player-built bells do not count. */
     public static Optional<Village> locateVanilla(ServerLevel level, BlockPos near, int radius) {
@@ -64,6 +67,11 @@ public final class WandererSpawner {
         for (ServerLevel level : server.getAllLevels()) {
             for (ServerPlayer player : level.players()) {
                 if (player.isSpectator() || !player.isAlive()) continue;
+                long cell = net.minecraft.world.level.ChunkPos.pack(player.blockPosition().getX() >> 3, player.blockPosition().getZ() >> 3);
+                long[] last = LAST.get(player.getUUID());
+                long now = level.getGameTime();
+                if (last != null && last[0] == cell && now - last[1] < REVISIT) continue;
+                LAST.put(player.getUUID(), new long[] {cell, now});
                 try {
                     visit(level, player.blockPosition(), level.getGameTime());
                 } catch (RuntimeException e) {
@@ -142,6 +150,7 @@ public final class WandererSpawner {
     /** Forgets transient state (tests). */
     public static void reset() {
         MISSES.clear();
+        LAST.clear();
         locator = WandererSpawner::locateVanilla;
     }
 

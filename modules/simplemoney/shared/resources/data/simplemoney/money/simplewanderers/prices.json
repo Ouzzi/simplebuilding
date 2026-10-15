@@ -1,0 +1,9 @@
+{
+  "module": "simplewanderers",
+  "derivation": "Simple Wanderers sells nothing for money: the Village Wanderer is the merchant (Vanilla goods for emeralds); the spawn egg is creative only.",
+  "excluded": {
+    "simplewanderers:village_wanderer_spawn_egg": "Creative only; the wanderer of a village appears on its own.",
+    "simplewanderers:guide_book": "Crafted from a book and a lead."
+  },
+  "prices": []
+}
