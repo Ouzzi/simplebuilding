@@ -97,8 +97,8 @@ public final class ModScreenLayout {
 
     // ------------------------------------------------------------------ slotless screens (N16/N43, PLAN-UI-KONZEPTE)
 
-    /** Octant panel: brass-brown of the octant's frame (texture #B36629, a little darker so light labels read). */
-    public static final int OCTANT_FILL = 0xFFA0642E;
+    /** Octant panel and the HUD readouts' tone: matt bronze (owner N64 2026-10-15, palette B; light labels read on it). */
+    public static final int OCTANT_FILL = 0xFF6F5F4B;
     /** Trim reference: the smithing table's palette (simpleinterfaces {@code StationStyles.SMITHING}). */
     public static final int TRIM_REFERENCE_FILL = 0xFF4B1E19;
     /** Building wand panel: Vanilla's widths (200 px buttons) plus 8 px on each side, like a container's slot margin. */

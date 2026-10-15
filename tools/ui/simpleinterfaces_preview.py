@@ -36,7 +36,7 @@ CAPTION_DIM = (150, 158, 170)
 # ------------------------------------------------------------------ CrucibleScreen constants (keep in step)
 RIM = 0xFF1E1F23
 FRAME, FRAME_BOTTOM, BOX_GAP = 5, 7, 2
-CUT_OUTER, CUT_BEVEL, CUT_INNER, CUT_NONE = (3, 1, 1), (2, 1), (1,), ()
+CUT_OUTER, CUT_BEVEL, CUT_INNER, CUT_NONE = (3, 2, 1), (2, 1), (1,), ()
 FILL_COOK = (0xFFFFAE1E, 0xFFF26B12, 0xFFFFE34A)
 FILL_COLD = (0xFF4A86DA, 0xFF2C5DB0, 0xFFBFE0FF)
 FILL_BLAST = (0xFFFFD04A, 0xFFF58A1C, 0xFFFFF6B0)
@@ -254,12 +254,14 @@ def text(c, s, x, y, color):
 
 
 # ------------------------------------------------------------------ style blocks (CrucibleScreen port)
-def rounded(c, x, y, w, h, cuts, color):
-    n = len(cuts)
+def rounded(c, x, y, w, h, cuts, color, bottom=None):
+    bottom = cuts if bottom is None else bottom
+    n, m = len(cuts), len(bottom)
     for k in range(n):
         c.fill(x + cuts[k], y + k, x + w - cuts[k], y + k + 1, color)
-        c.fill(x + cuts[k], y + h - 1 - k, x + w - cuts[k], y + h - k, color)
-    c.fill(x, y + n, x + w, y + h - n, color)
+    for k in range(m):
+        c.fill(x + bottom[k], y + h - 1 - k, x + w - bottom[k], y + h - k, color)
+    c.fill(x, y + n, x + w, y + h - m, color)
 
 
 def box(c, x, y, w, h, p, shadow=2):
@@ -267,8 +269,8 @@ def box(c, x, y, w, h, p, shadow=2):
     rounded(c, x, y, w, h, CUT_OUTER, RIM)
     if shadow:
         rounded(c, x + 1, y + 1, w - 2, h - 2, CUT_BEVEL, scale(p[0], 0.40))
-    rounded(c, x + 1, y + 1, w - 2, h - 2 - shadow, CUT_BEVEL, scale(p[0], 0.82))
-    rounded(c, x + 2, y + 2, w - 4, h - 4 - shadow, CUT_INNER, scale(p[0], 0.64))
+    rounded(c, x + 1, y + 1, w - 2, h - 2 - shadow, CUT_BEVEL, scale(p[0], 0.82), (3, 2, 1) if shadow else None)
+    rounded(c, x + 2, y + 2, w - 4, h - 4 - shadow, CUT_INNER, scale(p[0], 0.64), (2, 1) if shadow else None)
     rounded(c, x + 4, y + 4, w - 8, h - 8 - shadow, CUT_INNER, p[1])
     rounded(c, x + 5, y + 5, w - 10, h - 10 - shadow, CUT_NONE, p[0])
 
