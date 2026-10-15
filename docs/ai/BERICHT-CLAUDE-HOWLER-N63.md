@@ -1,0 +1,11 @@
+# Bericht claude-howler-n63 (Hollow Howler gruseliger, 2026-10-15)
+- Branch claude-howler-n63 (Basis claude-wave1 a84e28a3f), Commits: 59fcdb166 3b65bdda2 84b4a26b7 a84e28a3f (Merge nach claude-wave1 offen, nicht nach Production).
+- Phase 1 A1-A7: Client-Herzschlag lub-dub (40/26/14 Ticks), Ambient je Phase, Hurt/Schritt/Spur/Emerge-Sounds, Suche nach Zielverlust, 1 s Stille vor Phasenwechsel (sync DATA_HUSH).
+- Phase 2 V1-V9: Glow im Herzschlag (min. 0,45), Idle/Kiefer-Chatter, hinkender Gang, Biss-Kurve+Nachschwingen, Ansturm-Pose, Emerge mit Haltepunkten, Tod 2 s, Partikel, Haltung per PartPose (Cubes/UV unveraendert).
+- H3: Darkness-Puls nur Wut, auf Herzschlag gerastet; Config howlerRagePulse/-Interval/-Ticks/-Radius. H5: Kamerawackeln (HowlerShake, kein Mixin), Client-Datei simplemobs-client.json reduceMotion (Standard false = Wackeln an).
+- H4: nur Vorschau docs/ai/previews/claude-howler-n63/ (hollow_howler_heart.png + heart-vergleich.png, 8x); Generator tools/textures/howler_textures.py --heart-preview; nichts in resources.
+- Compile fabric/neoforge/forge: ohne Fehler. Tests: "Simple Mobs fabric integration 0 20 20 0", "Simple Mobs neoforge integration 0 20 20 0", "alles gruen: 40/40 bestanden, 0 rot" (neu: howler_heartbeat, howler_rage_pulse_rules, howler_phase_sounds, howler_rage_pulse, howler_no_pulse_before_rage).
+- Checks: wiki generate --check ok (Manual-Config-Zeilen ergaenzt, wiki/data neu erzeugt); module_guides --check ok; check_tooltip_text ok; howler_textures --check ok. Vorher schon veraltet und nicht angefasst: wiki/data/textures.js (Sandwich-Texturen).
+- Abweichungen: Kopf-Dreh zur Stoerung per Server-lookControl statt disturbanceYaw; Phasen-Stille nur beim Aufstieg der Phase; Untertitel bleiben Warden (Phase 3).
+- Nicht getestet: Hoerwirkung, Client-Optik (Gang, Tod, Emerge), Kamerawackeln, Forge-Laufzeit; Wackel-Offset bleibt <=0,8 Grad Rest, wenn der Howler mitten im Wackeln entfernt wird.
+- TODO: Merge nach claude-wave1, Dev-Klicktest mit Ton, Herz-Freigabe durch Besitzer, Phase 3 (eigene Sounds).
