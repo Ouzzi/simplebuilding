@@ -134,6 +134,18 @@ public final class MapsTests {
         h.succeed();
     }
 
+    /** A waypoint as an older version saved it: colour and an optional mob head, no icon. */
+    private static net.minecraft.nbt.CompoundTag legacyTag(String name, int color, String head) {
+        net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+        tag.putInt("slot", 1);
+        tag.putInt("x", 5);
+        tag.putInt("z", 6);
+        tag.putString("name", name);
+        tag.putInt("color", color);
+        if (head != null) tag.putString("head", head);
+        return tag;
+    }
+
     private static void waypoints(GameTestHelper h) {
         Waypoints w = Waypoints.EMPTY.with(Waypoint.fresh(3, 10, 20)).with(Waypoint.fresh(0, 1, 2)).with(Waypoint.fresh(3, 5, 6));
         h.assertTrue(w.list().size() == 2 && w.list().get(0).slot() == 0 && w.get(3).get().x() == 5, "one per slot, sorted, replaced");
@@ -153,9 +165,9 @@ public final class MapsTests {
         h.assertTrue(MapsNetwork.clean(new Waypoint(0, 1, 1, "", 0, Identifier.withDefaultNamespace("furnace"), com.simplemaps.CubeNet.MODEL)).face() == com.simplemaps.CubeNet.MODEL,
                 "3D model kept for a block");
         // Migration: an old waypoint with a colour and no icon becomes the wool of that colour.
-        var legacy = Waypoint.CODEC.parse(NbtOps.INSTANCE, net.minecraft.nbt.TagParser.parseCompoundFully("{slot:1,x:5,z:6,name:\"Old\",color:-425955}")).getOrThrow();
+        var legacy = Waypoint.CODEC.parse(NbtOps.INSTANCE, legacyTag("Old", -425955, null)).getOrThrow();
         h.assertTrue(legacy.icon().equals(Identifier.withDefaultNamespace("orange_wool")) && legacy.face() == com.simplemaps.CubeNet.FRONT, "legacy colour -> wool, got " + legacy.icon());
-        var legacyHead = Waypoint.CODEC.parse(NbtOps.INSTANCE, net.minecraft.nbt.TagParser.parseCompoundFully("{slot:1,x:5,z:6,head:\"minecraft:zombie_head\"}")).getOrThrow();
+        var legacyHead = Waypoint.CODEC.parse(NbtOps.INSTANCE, legacyTag("", -1, "minecraft:zombie_head")).getOrThrow();
         h.assertTrue(legacyHead.icon().equals(Identifier.withDefaultNamespace("zombie_head")), "legacy head kept as icon");
         h.assertTrue(!MapsNetwork.valid(Waypoint.fresh(0, 40_000_000, 0)), "outside the world");
         var encoded = Waypoints.CODEC.encodeStart(NbtOps.INSTANCE, merged).getOrThrow();
