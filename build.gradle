@@ -308,6 +308,21 @@ tasks.register('checkBalance', Exec) {
 }
 tasks.named('check') { dependsOn 'checkBalance' }
 
+// Text/data hygiene without Minecraft: lang JSON (duplicates, EN/DE pairs, 26.3 overlay must not lose shared keys)
+// and empty tag files (only documented extension points). Same skip switch as checkWiki.
+['checkLangText': 'tools/check_tooltip_text.py', 'checkEmptyTags': 'tools/check_empty_tags.py',
+ 'checkLootFormat': 'tools/check_loot_format.py --strict'].each { taskName, script ->
+	tasks.register(taskName, Exec) {
+		group = 'verification'
+		description = "Runs ${script}."
+		workingDir = rootDir
+		commandLine(([wikiPython] + script.tokenize(" ")) as List)
+		onlyIf { !project.hasProperty('skipWiki') }
+		outputs.upToDateWhen { false }
+	}
+	tasks.named('check') { dependsOn taskName }
+}
+
 // The FTB Quests chapters (docs/QUESTS.md) are generated out of tools/quests/generate_quests.py
 // for both lines. checkQuests fails when the shipped files or the quests.simplebuilding.* lang keys
 // are stale, when a quest names an item or mod advancement the datagen output does not have, or

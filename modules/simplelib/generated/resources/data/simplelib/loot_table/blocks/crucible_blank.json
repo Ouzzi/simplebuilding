@@ -1,5 +1,203 @@
 {
   "type": "minecraft:block",
-  "pools": [],
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simplelib:crucible_blank",
+        "state": {
+          "cauldron": "true"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cauldron"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "simplelib:crucible_blank",
+        "state": {
+          "cauldron": "false"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_block"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "modifier": [
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "2"
+                }
+              },
+              "count": 2
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "3"
+                }
+              },
+              "count": 3
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "4"
+                }
+              },
+              "count": 4
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "5"
+                }
+              },
+              "count": 5
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "6"
+                }
+              },
+              "count": 6
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "7"
+                }
+              },
+              "count": 7
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "8"
+                }
+              },
+              "count": 8
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "9"
+                }
+              },
+              "count": 9
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "10"
+                }
+              },
+              "count": 10
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "11"
+                }
+              },
+              "count": 11
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "12"
+                }
+              },
+              "count": 12
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "13"
+                }
+              },
+              "count": 13
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "14"
+                }
+              },
+              "count": 14
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "simplelib:crucible_blank",
+                "state": {
+                  "stage": "15"
+                }
+              },
+              "count": 15
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "random_sequence": "simplelib:blocks/crucible_blank"
 }

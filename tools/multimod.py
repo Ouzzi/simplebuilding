@@ -122,13 +122,21 @@ def validate_standalone(entry, standalone, root):
     if 'reason' in standalone and (not isinstance(standalone['reason'], str) or not standalone['reason'].strip()):
         raise ValueError(f'Invalid standalone reason: {mid}')
     suites = standalone.get('loaders')
-    if not isinstance(suites, dict) or not suites or not set(suites) <= set(entry['loaders']) - {'forge'}:
+    if not isinstance(suites, dict) or not suites or not set(suites) <= set(entry['loaders']):
         raise ValueError(f'Invalid standalone loaders: {mid}')
     for loader, spec in suites.items():
         expected = (f':integration:run{mid.capitalize()}StandaloneGameTest' if loader == 'fabric'
-                    else entry['projects'][loader] + ':runModuleStandaloneGameTest')
+                    else entry['projects'][loader] + (':runGameTestServer' if loader == 'forge' else ':runModuleStandaloneGameTest'))
         if not isinstance(spec, dict) or spec.get('task') != expected:
             raise ValueError(f'Invalid standalone task: {mid}/{loader} (expected {expected})')
+        if loader == 'forge':
+            # Same run task as the Forge integration suite (gradle/module-forge.gradle), told to load the module alone.
+            forge_test = ((entry.get('tests') or {}).get('loaders') or {}).get('forge')
+            args = spec.get('gradleArgs')
+            if not forge_test or not isinstance(args, list) or '-PforgeStandalone=true' not in args:
+                raise ValueError(f'Forge standalone needs a Forge test and -PforgeStandalone=true: {mid}')
+            if spec.get('report') == forge_test.get('report'):
+                raise ValueError(f'Forge standalone needs its own report: {mid}')
         validate_relative_path(spec.get('report'), root, f'{mid}: standalone report')
 
 

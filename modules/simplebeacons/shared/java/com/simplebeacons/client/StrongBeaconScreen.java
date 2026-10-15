@@ -50,11 +50,14 @@ public class StrongBeaconScreen extends BeaconScreen {
     private static final Identifier BUTTON_HIGHLIGHTED = Identifier.withDefaultNamespace("container/beacon/button_highlighted");
     private static final Identifier BUTTON = Identifier.withDefaultNamespace("container/beacon/button");
     private final List<StrongButton> strongButtons = new ArrayList<>();
+    /** The menu with the server's settings (max pyramid, range, switched-off effects). */
+    private final StrongBeaconMenu strongMenu;
 
     public StrongBeaconScreen(StrongBeaconMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
         reportHeight(FULL_HEIGHT);
         for (Slot slot : menu.slots) ((SlotYAccessor) slot).simplebeacons$setY(slot.y + EXTRA);
+        this.strongMenu = menu;
     }
 
     private void reportHeight(int imageHeight) {
@@ -131,11 +134,11 @@ public class StrongBeaconScreen extends BeaconScreen {
     protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
         super.extractLabels(graphics, xm, ym);
         int levels = this.menu.getLevels();
-        int max = StrongBeaconLogic.maxLevels();
+        int max = this.strongMenu.maxLevels();
         int centre = 169; // the right field, like Vanilla's "Secondary Power" label
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.pyramid", levels, max), centre, 80, LABEL);
         int shown = Math.max(1, levels);
-        graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.range", StrongBeaconLogic.range(shown)),
+        graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.range", this.strongMenu.range(shown)),
                 centre, 104, levels > 0 ? LABEL : DIM);
         graphics.centeredText(this.font, Component.translatable("simplebeacons.screen.duration", StrongBeaconLogic.durationTicks(shown) / 20),
                 centre, 116, levels > 0 ? LABEL : DIM);
@@ -162,7 +165,8 @@ public class StrongBeaconScreen extends BeaconScreen {
         }
 
         void updateStatus(int levels) {
-            boolean reachable = this.tier <= levels && this.tier <= StrongBeaconLogic.maxLevels();
+            boolean reachable = this.tier <= levels && this.tier <= StrongBeaconScreen.this.strongMenu.maxLevels()
+                    && StrongBeaconScreen.this.strongMenu.effectEnabled(this.effect);
             this.active = reachable;
             if (this.unlocked == null || reachable != this.unlocked) {
                 this.unlocked = reachable;

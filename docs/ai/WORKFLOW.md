@@ -30,6 +30,12 @@ This file, `AGENTS.md` (rules), `docs/HANDOFF.md` (state) and `.claude/QUEUE.md`
 - Keep a red merge off master: put it on a side branch (`git branch merge-<name> <sha>`), reset the local master to the last green SHA and let a fix run start from the side branch. Push only the gated SHA (`git push origin <sha>:master`); the permission filter may refuse a push that the owner has not approved in chat.
 - Disk and search: remove the worktree of every merged run (`git worktree remove <path>`, frees about 1.5 GB each; the branch stays). Do not run Glob/ripgrep over the repo root: `.claude/worktrees` holds many old agent checkouts and searches time out, search inside sub folders.
 
+## Standing owner rules (09.10. / 11.10. / 14.10.)
+- **Decisions as choices.** Every open decision goes to the owner as a short list of options (A/B/C with a recommended one, consequences in one line each), never as an open question. Answers are written into the queue/plan so they bind later runs.
+- **Texture approvals with a link and as a web page.** New or changed pixel art is shown 16x enlarged, old next to new, on a page the owner can open from a link (Zentrale texture page / `wiki/textures.py`, preview PNGs under `docs/ai/previews/<branch>/`). No approval by file path alone. Approved built-in textures are not touched again without a new request.
+- **Third-party providers when the quota is empty.** When the main model's quota runs out, work continues with opencode and another provider (wrapper and model choice stay in the machine setup, never in the repo); the same plan -> implement -> verify rules apply, own branch, no push to master.
+- **Public repo: no internal addresses.** No IPs, host names, tunnels, keys or paths of the owner's machines in code, docs, reports, commit messages or logs. Operator steps for the infrastructure live only in the assistant's memory, the repo says "the dev host".
+
 ## Memory
 The assistant's long-term notes live in `docs/ai/memory/` (copy of `~/.claude/projects/<project>/memory`). Sync: `python tools/ai/aitool.py sync-memory --to-repo` (before committing) and `--from-repo` (on a new machine). Treat them as background facts that may be outdated: the code wins.
 

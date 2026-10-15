@@ -32,8 +32,8 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
  * rim pieces; the 16th sets the iron crucible. Plates and rim take tag {@code simplelib:crucible_walls}, handles tag
  * {@code simplelib:crucible_handles} (iron ingot; SimpleBuilding adds its iron pole). This block is the half-built
  * blank (stage 1-15 = strikes done, one model per stage); breaking it returns the cauldron and one iron ingot
- * per strike. Without SimpleBuilding the tool is an axe (principle 5a); a partner with its own way switches the axe
- * way off through {@link SimpleLibApi#disableAxeWays()} and calls {@link #strike} itself.
+ * per strike (loot table {@code simplelib:blocks/crucible_blank}, conditions on {@code stage} and {@code cauldron}).
+ * Without SimpleBuilding the tool is an axe (principle 5a); a partner with its own way switches the axe way off through {@link SimpleLibApi#disableAxeWays()} and calls {@link #strike} itself.
  */
 public class CrucibleBlankBlock extends Block {
     public static final int STRIKES = 16;
@@ -108,15 +108,6 @@ public class CrucibleBlankBlock extends Block {
     protected net.minecraft.world.phys.shapes.VoxelShape getShape(BlockState state, net.minecraft.world.level.BlockGetter level,
             net.minecraft.core.BlockPos pos, net.minecraft.world.phys.shapes.CollisionContext context) {
         return SHAPES[state.getValue(STAGE) - 1][state.getValue(FACING).get2DDataValue()];
-    }
-
-    /** Breaking it gives the base back (cauldron, or the iron block of an older blank) and every iron ingot struck in (owner N51). */
-    @Override
-    protected java.util.List<ItemStack> getDrops(BlockState state, net.minecraft.world.level.storage.loot.LootParams.Builder params) {
-        java.util.List<ItemStack> drops = new java.util.ArrayList<>(super.getDrops(state, params));
-        drops.add(new ItemStack(state.getValue(CAULDRON) ? net.minecraft.world.item.Items.CAULDRON : net.minecraft.world.item.Items.IRON_BLOCK));
-        drops.add(new ItemStack(net.minecraft.world.item.Items.IRON_INGOT, state.getValue(STAGE)));
-        return drops;
     }
 
     @Override

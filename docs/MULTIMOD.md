@@ -229,7 +229,12 @@ An optional `tests` object in each manifest entry declares:
   `simplebuilding`, a declared add-on; optional partners such as Simple Dimensions stay out), `devMods`
   the hard libraries (usually `cloth_config`), optional `reason`. `loaders` declares exactly
   `fabric: :integration:run<Id>StandaloneGameTest` and `neoforge: <project>:runModuleStandaloneGameTest`
-  plus reports; `{"exempt": "<reason>"}` opts out with a stated reason. Target ids are
+  plus reports; `{"exempt": "<reason>"}` opts out with a stated reason.
+  Optional `forge: <forge project>:runGameTestServer` (same task as the Forge integration suite) with
+  `gradleArgs` `-Pforge263=true -Pforge_runs=true -PforgeStandalone=true` and an own report
+  (`modules/<id>/forge/build/standalone-junit.xml`): `gradle/module-forge.gradle` then loads only the module plus
+  `standalone.requires` (no `testMods`) and runs in `forge/run-standalone`. Declared so far: simplemoney,
+  simplesandwiches, simplemaps, simpleinterfaces. Target ids are
   `module-<id>-standalone-<loader>-263` (`run.py --targets standalone`, Hub preset "standalone").
   Fabric syncs only those jars into `integration/run-standalone-fabric-263/<id>/mods` and runs from
   the `standalone` source set, whose classpath drops `:framework`, `:common` and the harness, so a

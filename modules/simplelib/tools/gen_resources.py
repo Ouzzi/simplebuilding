@@ -221,9 +221,17 @@ def files():
                 variant["y"] = rot
             blank_variants[f"facing={name},stage={stage}"] = variant
     out[f"{a}/blockstates/crucible_blank.json"] = {"variants": blank_variants}
-    # Blank: CrucibleBlankBlock#getDrops gives the base (cauldron; iron block for older blanks) and one iron ingot per
-    # strike done (owner N51) - in code, a block_state_property condition on the stage did not match here.
-    pools = []
+    # Blank: the base (cauldron; iron block for older blanks, property cauldron=false) and one iron ingot per strike
+    # done (owner N51). 26.x loot format (like Vanilla's candle): ONE "condition" per pool/modifier (match_block with a
+    # "state" of string values); the pre-26 "conditions"/"functions" lists are silently ignored by the codec - that was
+    # why a block_state_property condition "did not match" here and every pool dropped.
+    def match(**state):
+        return {"type": "minecraft:match_block", "blocks": f"{NS}:crucible_blank", "state": state}
+    def base_pool(item, cauldron):
+        return {"rolls": 1, "condition": match(cauldron=cauldron), "entries": [{"type": "minecraft:item", "name": item}]}
+    ingots = {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:iron_ingot", "modifier": [
+        {"type": "minecraft:set_count", "condition": match(stage=str(stage)), "count": stage} for stage in range(2, BLANK_STRIKES)]}]}
+    pools = [base_pool("minecraft:cauldron", "true"), base_pool("minecraft:iron_block", "false"), ingots]
     out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
                                                          "random_sequence": f"{NS}:blocks/crucible_blank"}
     # Barrels (plan section 8a, owner addition 11): plain barrel cube; attached, a flange on the crucible's belly and a
