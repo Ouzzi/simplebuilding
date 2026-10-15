@@ -52,7 +52,32 @@ public final class MobsConfig {
     /** Trick Mirror: off by default (owner N61 E11); recipe and drop are removed, the item only works and shows in the creative tab when on. */
     public static boolean trickMirrorEnabled = false;
 
+    /** Hollow Howler rage pulse (like the Warden): Darkness for hunted players nearby, on a heartbeat, only in the rage phase. */
+    public static boolean howlerRagePulse = true;
+    public static int howlerPulseInterval = HowlerLogic.PULSE_INTERVAL_TICKS, howlerPulseTicks = HowlerLogic.PULSE_DARKNESS_TICKS, howlerPulseRadius = HowlerLogic.PULSE_RADIUS;
+    /** Client config {@code simplemobs-client.json}: "Reduce motion" turns off the camera shake of the Howler's shockwave and shriek. */
+    public static final String CLIENT_FILE = "simplemobs-client.json";
+    public static boolean reduceMotion = false;
+
     private MobsConfig() {}
+
+    /** Reads (and writes if missing) the client config; unreadable files fall back to the defaults. */
+    public static void loadClient(Path dir) {
+        Path file = dir == null ? null : dir.resolve(CLIENT_FILE);
+        try {
+            if (file != null && Files.isRegularFile(file)) {
+                JsonObject read = GSON.fromJson(Files.readString(file), JsonObject.class);
+                if (read != null) reduceMotion = bool(read, "reduceMotion", false);
+            } else if (file != null) {
+                Files.createDirectories(dir);
+                JsonObject o = new JsonObject();
+                o.addProperty("reduceMotion", false);
+                Files.writeString(file, GSON.toJson(o));
+            }
+        } catch (Exception e) {
+            LOG.warn("Could not read {}: {}", CLIENT_FILE, e.toString());
+        }
+    }
 
     public static void load(Path dir) {
         Path file = dir == null ? null : dir.resolve(FILE);
@@ -87,6 +112,10 @@ public final class MobsConfig {
         howlerSculkTrailMax = Math.max(0, Math.min(200, integer(json, "howlerSculkTrailMax", HowlerLogic.TRAIL_MAX)));
         howlerTransformSculk = bool(json, "howlerTransformSculk", true);
         howlerHunger = bool(json, "howlerHunger", true);
+        howlerRagePulse = bool(json, "howlerRagePulse", true);
+        howlerPulseInterval = Math.max(20, Math.min(1200, integer(json, "howlerPulseInterval", HowlerLogic.PULSE_INTERVAL_TICKS)));
+        howlerPulseTicks = Math.max(20, Math.min(1200, integer(json, "howlerPulseTicks", HowlerLogic.PULSE_DARKNESS_TICKS)));
+        howlerPulseRadius = Math.max(4, Math.min(64, integer(json, "howlerPulseRadius", HowlerLogic.PULSE_RADIUS)));
         howlerDespawnMinutes = Math.max(1, Math.min(1440, integer(json, "howlerDespawnMinutes", 10)));
         List<String> dims = new ArrayList<>();
         try {
@@ -122,6 +151,10 @@ public final class MobsConfig {
         o.addProperty("howlerSculkTrailMax", howlerSculkTrailMax);
         o.addProperty("howlerTransformSculk", howlerTransformSculk);
         o.addProperty("howlerHunger", howlerHunger);
+        o.addProperty("howlerRagePulse", howlerRagePulse);
+        o.addProperty("howlerPulseInterval", howlerPulseInterval);
+        o.addProperty("howlerPulseTicks", howlerPulseTicks);
+        o.addProperty("howlerPulseRadius", howlerPulseRadius);
         o.addProperty("howlerDespawnMinutes", howlerDespawnMinutes);
         JsonArray dims = new JsonArray();
         howlerAllowDimensions.forEach(dims::add);

@@ -27,6 +27,11 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void howlerTendrils(GameTestHelper helper) { MobsTests.ALL.get("howler_tendrils").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerChargeHit(GameTestHelper helper) { MobsTests.ALL.get("howler_charge_hit").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerChargeWall(GameTestHelper helper) { MobsTests.ALL.get("howler_charge_wall").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerHeartbeat(GameTestHelper helper) { MobsTests.ALL.get("howler_heartbeat").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerRagePulseRules(GameTestHelper helper) { MobsTests.ALL.get("howler_rage_pulse_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerPhaseSounds(GameTestHelper helper) { MobsTests.ALL.get("howler_phase_sounds").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 300) public void howlerRagePulse(GameTestHelper helper) { MobsTests.ALL.get("howler_rage_pulse").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 200) public void howlerNoPulseBeforeRage(GameTestHelper helper) { MobsTests.ALL.get("howler_no_pulse_before_rage").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void silenceDampens(GameTestHelper helper) { MobsTests.ALL.get("silence_dampens").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void cloakRegistered(GameTestHelper helper) { MobsTests.ALL.get("cloak_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void veiledInvisibility(GameTestHelper helper) { MobsTests.ALL.get("veiled_invisibility").accept(helper); }

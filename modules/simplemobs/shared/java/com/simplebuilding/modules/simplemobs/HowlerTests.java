@@ -340,6 +340,92 @@ final class HowlerTests {
                 howler.discard();
             });
         });
+        add.accept("howler_heartbeat", h -> {
+            HowlerLogic.Phase one = HowlerLogic.Phase.ONE, hunger = HowlerLogic.Phase.HUNGER, rage = HowlerLogic.Phase.RAGE;
+            h.assertTrue(HowlerLogic.heartbeatDelay(one) == 40 && HowlerLogic.heartbeatDelay(hunger) == 26 && HowlerLogic.heartbeatDelay(rage) == 14, "heartbeat tempo 40/26/14 ticks");
+            int beats = 0, seconds = 0;
+            for (int t = 0; t < 280; t++) {
+                if (HowlerLogic.heartbeatCycle(t, 3, rage) == 0) beats++;
+                if (HowlerLogic.heartbeatCycle(t, 3, rage) == HowlerLogic.HEART_SECOND_BEAT_TICKS) seconds++;
+            }
+            h.assertTrue(beats == 20 && seconds == 20, "rage: 20 lub-dub pairs in 280 ticks (" + beats + "/" + seconds + ")");
+            h.assertTrue(HowlerLogic.heartbeatCycle(35, 7, one) == 2 && HowlerLogic.heartbeatCycle(0, -5, one) == 35, "cycle is positive for any id");
+            float min = 1.0f;
+            for (int t = 0; t < 14; t++) min = Math.min(min, HowlerLogic.heartGlow(t));
+            h.assertTrue(min >= 0.45f && HowlerLogic.heartGlow(0) == 1.0f && HowlerLogic.heartGlow(HowlerLogic.HEART_SECOND_BEAT_TICKS) > 0.9f, "glow never below 0.45, peaks on both beats");
+            h.assertTrue(!HowlerLogic.quiet(false, HowlerLogic.Attack.NONE, 0, 0) && HowlerLogic.quiet(true, HowlerLogic.Attack.NONE, 0, 0)
+                    && HowlerLogic.quiet(false, HowlerLogic.Attack.SHRIEK, 0, 0) && HowlerLogic.quiet(false, HowlerLogic.Attack.NONE, 5, 0) && HowlerLogic.quiet(false, HowlerLogic.Attack.NONE, 0, 9),
+                    "quiet while emerging, attacking, holding its breath or staggered");
+            h.assertTrue(HowlerLogic.biteJaw(0) == 0.0f && HowlerLogic.biteJaw(1.5f) < 0.0f && Math.abs(HowlerLogic.biteJaw(HowlerLogic.BITE_WINDUP_TICKS) - 1.0f) < 1.0e-4f
+                    && HowlerLogic.biteRecoil(4) < HowlerLogic.biteRecoil(1) && HowlerLogic.biteRecoil(0) == 0.0f, "bite: anticipation, cosine open, overshoot decays");
+            float last = -1.0f;
+            boolean rising = true;
+            for (int i = 0; i <= 40; i++) { float e = HowlerLogic.emergeHeight(i / 40.0f); if (i <= 12 && e < last - 1.0e-6f) rising = false; last = e; }
+            h.assertTrue(rising && HowlerLogic.emergeHeight(0) == 0.0f && HowlerLogic.emergeHeight(1) == 1.0f && HowlerLogic.emergeHeight(0.4f) == 0.25f && Math.abs(HowlerLogic.emergeHeight(0.3f) - 0.25f) < 1.0e-5f,
+                    "emerge: slow start, hold at a quarter, out at the end");
+            h.assertTrue(HowlerLogic.shakeAmplitude(HowlerLogic.Attack.SHOCKWAVE, 0) > HowlerLogic.shakeAmplitude(HowlerLogic.Attack.SHRIEK, 8) && HowlerLogic.shakeAmplitude(HowlerLogic.Attack.CHARGE, 1) == 0.0f
+                    && HowlerLogic.shakeAmplitude(HowlerLogic.Attack.SHOCKWAVE, 16) == 0.0f, "shake only for shockwave and shriek, fading with distance");
+            h.succeed();
+        });
+        add.accept("howler_rage_pulse_rules", h -> {
+            int configured = HowlerLogic.PULSE_INTERVAL_TICKS;
+            int interval = HowlerLogic.pulseInterval(configured, HowlerLogic.Phase.RAGE);
+            h.assertTrue(interval % HowlerLogic.heartbeatDelay(HowlerLogic.Phase.RAGE) == 0 && Math.abs(interval - configured) < 14, "pulse period is a whole number of rage heartbeats (" + interval + ")");
+            int rage = 0;
+            for (int t = 0; t < 1200; t++) {
+                for (HowlerLogic.Phase p : new HowlerLogic.Phase[] {HowlerLogic.Phase.ONE, HowlerLogic.Phase.HUNGER}) {
+                    h.assertFalse(HowlerLogic.pulseDue(t, 5, p, configured), "no pulse before rage");
+                }
+                if (HowlerLogic.pulseDue(t, 5, HowlerLogic.Phase.RAGE, configured)) {
+                    rage++;
+                    h.assertTrue(HowlerLogic.heartbeatCycle(t, 5, HowlerLogic.Phase.RAGE) == 0, "the pulse lands on a heartbeat");
+                }
+            }
+            h.assertTrue(rage == 1200 / interval, "rage pulses " + rage + " times in 1200 ticks");
+            h.succeed();
+        });
+        add.accept("howler_phase_sounds", h -> {
+            ServerLevel l = h.getLevel();
+            floor(h);
+            HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 3);
+            h.assertTrue(!howler.quiet() && howler.getAmbientSound() == net.minecraft.sounds.SoundEvents.WARDEN_AMBIENT, "phase one: Warden ambient, not quiet");
+            howler.setHealth(howler.getMaxHealth() * 0.4f);
+            h.runAfterDelay(6, () -> {
+                h.assertTrue(howler.phase() == HowlerLogic.Phase.ONE && howler.hushTicks() > 0 && howler.quiet() && howler.getAmbientSound() == null, "holds its breath before the phase change (silence)");
+            });
+            h.succeedWhen(() -> {
+                h.assertTrue(howler.phase() == HowlerLogic.Phase.HUNGER && !howler.quiet(), "hunger after the hush");
+                h.assertTrue(howler.getAmbientSound() == net.minecraft.sounds.SoundEvents.WARDEN_AGITATED, "hunger: agitated ambient");
+                howler.discard();
+            });
+        });
+        add.accept("howler_rage_pulse", h -> {
+            ServerLevel l = h.getLevel();
+            floor(h);
+            HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 0);
+            var prey = prey(h, 6.0, 6.0, true);
+            howler.setHealth(howler.getMaxHealth() * 0.1f);
+            h.assertTrue(howler.pulseDarkness(l) == 1 && prey.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "the pulse puts Darkness on hunted players in range");
+            prey.removeAllEffects();
+            h.succeedWhen(() -> {
+                h.assertTrue(howler.phase() == HowlerLogic.Phase.RAGE, "rage reached");
+                h.assertTrue(prey.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "in rage the Darkness pulse comes by itself");
+                howler.discard();
+            });
+        });
+        add.accept("howler_no_pulse_before_rage", h -> {
+            ServerLevel l = h.getLevel();
+            floor(h);
+            HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 0);
+            var prey = prey(h, 6.0, 6.0, true);
+            howler.setHealth(howler.getMaxHealth() * 0.4f);
+            h.runAfterDelay(120, () -> {
+                h.assertTrue(howler.phase() == HowlerLogic.Phase.HUNGER, "hunger phase");
+                h.assertFalse(prey.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "no pulse in hunger");
+                howler.discard();
+                h.succeed();
+            });
+        });
         add.accept("silence_dampens", h -> {
             var player = h.makeMockServerPlayerInLevel();
             h.assertFalse(player.dampensVibrations(), "normal players make vibrations");

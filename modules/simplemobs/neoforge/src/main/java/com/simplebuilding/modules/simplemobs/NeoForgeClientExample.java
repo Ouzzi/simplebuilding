@@ -11,6 +11,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 /** Client-only; referenced only behind the dist check. */
 final class NeoForgeClientExample {
     static void init(IEventBus bus) {
+        MobsConfig.loadClient(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
         bus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> {
             event.registerLayerDefinition(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
             event.registerLayerDefinition(HowlerModel.LAYER, HowlerModel::createBodyLayer);

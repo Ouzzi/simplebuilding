@@ -747,7 +747,57 @@ def variants_sheet(warden_png):
 
 
 
+HEART_SHAPE = ['.HH..HH.', 'HHHHHHHH', 'HHHHHHHH', '.HHHHHH.', '..HHHH..', '...HH...']
+
+
+def heart():
+    """PROPOSAL (owner H4, not built in): emissive heart on the rib plate's front face, pulses with the heartbeat. Only this
+    layer is new; hollow_howler.png and the glow layer stay as approved. Shape: outline cyan, filling bright, one white highlight."""
+    img = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
+    x0, y0 = 62 + 1 + 1, 56 + 1 + 1     # front face of the rib plate (62,56 + depth 1), one pixel in
+    rows = HEART_SHAPE
+    def on(x, y): return 0 <= y < len(rows) and 0 <= x < len(rows[0]) and rows[y][x] == 'H'
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch != 'H':
+                continue
+            edge = not all(on(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+            col = CYAN if edge else CYAN_B
+            if (x, y) == (1, 1):
+                col = CYAN_W
+            img.putpixel((x0 + x, y0 + y), col + (255,))
+    return img
+
+
+def heart_preview(outdir):
+    """Writes hollow_howler_heart.png (the proposal) and a 8x comparison: current rib plate / heart glowing / heart at 45 % (rest of the beat)."""
+    out = Path(outdir); out.mkdir(parents=True, exist_ok=True)
+    skin_img, h = skin(), heart()
+    h.save(out / 'hollow_howler_heart.png')
+    glow_img = glow(skin_img)
+    box = (60, 54, 76, 68)      # rib plate with a little margin
+    def panel(level):
+        base = Image.new('RGBA', skin_img.size, (10, 10, 14, 255))
+        base.alpha_composite(skin_img)
+        for layer, a in ((glow_img, 0.85), (h, level)):
+            if a <= 0:
+                continue
+            lay = layer.copy()
+            lay.putalpha(lay.getchannel('A').point(lambda v, a=a: int(v * a)))
+            base.alpha_composite(lay)
+        return base.crop(box).resize(((box[2] - box[0]) * 8, (box[3] - box[1]) * 8), Image.NEAREST)
+    panels = [panel(0.0), panel(1.0), panel(0.45)]
+    w, hh = panels[0].size
+    sheet = Image.new('RGBA', (w * 3 + 40, hh + 20), (40, 40, 46, 255))
+    for i, pn in enumerate(panels):
+        sheet.paste(pn, (10 + i * (w + 10), 10))
+    sheet.save(out / 'heart-vergleich.png')
+    print('wrote', out)
+
+
 def main():
+    if '--heart-preview' in sys.argv:
+        heart_preview(sys.argv[sys.argv.index('--heart-preview') + 1]); return
     if '--variants' in sys.argv:
         # optional reference: path to Vanilla's entity/warden/warden.png (never checked in)
         ref = next((a for a in sys.argv[1:] if a.endswith('.png')), None)

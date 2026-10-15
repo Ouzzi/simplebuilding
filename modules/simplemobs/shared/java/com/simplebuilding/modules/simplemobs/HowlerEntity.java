@@ -67,6 +67,9 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     private static final EntityDataAccessor<Integer> DATA_PHASE = SynchedEntityData.defineId(HowlerEntity.class, EntityDataSerializers.INT);
     /** Special attack winding up or running (ordinal of {@link HowlerLogic.Attack}), for the renderer's telegraph pose. */
     private static final EntityDataAccessor<Integer> DATA_ATTACK = SynchedEntityData.defineId(HowlerEntity.class, EntityDataSerializers.INT);
+    /** Ticks it holds its breath before a phase change (quiet), and ticks left of the stagger after a wall hit; both for sound and renderer. */
+    private static final EntityDataAccessor<Integer> DATA_HUSH = SynchedEntityData.defineId(HowlerEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_STAGGER = SynchedEntityData.defineId(HowlerEntity.class, EntityDataSerializers.INT);
     private static final Identifier SB_JAW = Identifier.fromNamespaceAndPath("simplebuilding", "sculk_jaw");
     private static final Codec<List<Long>> TRAP_CODEC = Codec.LONG.listOf();
 
@@ -75,7 +78,8 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     private VibrationSystem.Data vibrationData;
 
     private int biteCooldown, shriekCooldown = 60, trapCooldown = HowlerLogic.TRAP_INTERVAL_TICKS, trailTicks, trailPlaced;
-    private int vibrationCooldown, sinceHeard, idleTicks;
+    private int vibrationCooldown, sinceHeard, idleTicks, searchTicks;
+    private static final int SEARCH_TICKS = 120;
     private int shockwaveCooldown = 40, chargeCooldown = 100, tendrilCooldown = 80, patternGap;
     /** Ticks left in the running special attack (wind-up, then the charge run) or the stagger after a wall. */
     private int attackTicks, staggerTicks;
@@ -122,6 +126,8 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         builder.define(DATA_SHRIEK, 0);
         builder.define(DATA_PHASE, 0);
         builder.define(DATA_ATTACK, 0);
+        builder.define(DATA_HUSH, 0);
+        builder.define(DATA_STAGGER, 0);
     }
 
     // ---- state for renderer and tests ---------------------------------------------------
@@ -137,15 +143,28 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     public HowlerLogic.Attack attack() { return HowlerLogic.Attack.values()[Math.max(0, Math.min(HowlerLogic.Attack.values().length - 1, this.entityData.get(DATA_ATTACK)))]; }
     public int attackTicks() { return attackTicks; }
     public boolean staggered() { return staggerTicks > 0; }
+    public int hushTicks() { return this.entityData.get(DATA_HUSH); }
+    public int staggerLeft() { return this.entityData.get(DATA_STAGGER); }
+    /** No ambient and no heartbeat: emerging, attacking, staggered or holding its breath before a phase change. */
+    public boolean quiet() { return HowlerLogic.quiet(emerging(), attack(), hushTicks(), staggerLeft()); }
+
+    /** Client: camera shake offset (yaw, pitch degrees) currently applied to the local player, and the jaw overshoot after a snap. */
+    public final float[] shakeApplied = new float[2];
+    private int biteO, snapRecoil;
+
+    public float snapRecoil(float partialTicks) { return snapRecoil > 0 ? snapRecoil - partialTicks : 0.0f; }
 
     /** Client: ticks left of the antenna twitch after a heard vibration (entity event 61, like the Warden). */
     private int tendrilTicks, tendrilTicksO;
 
-    public float tendrilAnimation(float partialTicks) { return net.minecraft.util.Mth.lerp(partialTicks, tendrilTicksO, tendrilTicks) / 10.0f; }
+    public float tendrilAnimation(float partialTicks) { return net.minecraft.util.Mth.lerp(partialTicks, tendrilTicksO, tendrilTicks) / 30.0f; }
 
     @Override
     public void handleEntityEvent(byte id) {
-        if (id == 61) tendrilTicks = 10;
+        if (id == 61) {
+            tendrilTicks = 30;
+            antennaRing(ParticleTypes.SCULK_CHARGE_POP, 8);
+        }
         else super.handleEntityEvent(id);
     }
 
@@ -183,11 +202,22 @@ public class HowlerEntity extends Monster implements VibrationSystem {
 
     // ---- sounds -------------------------------------------------------------------------
 
-    @Override protected SoundEvent getAmbientSound() { return emerging() ? null : SoundEvents.WARDEN_LISTENING; }
-    @Override protected SoundEvent getHurtSound(DamageSource source) { return SoundEvents.SKELETON_HURT; }
+    /** Ambient by phase (a sparse breath every ~10 s, none while quiet); WARDEN_LISTENING is only the reaction to hearing something. */
+    @Override public SoundEvent getAmbientSound() {
+        if (quiet()) return null;
+        return switch (phase()) { case ONE -> SoundEvents.WARDEN_AMBIENT; case HUNGER -> SoundEvents.WARDEN_AGITATED; case RAGE -> SoundEvents.WARDEN_ANGRY; };
+    }
+    @Override public int getAmbientSoundInterval() { return 200; }
+    @Override protected SoundEvent getHurtSound(DamageSource source) { return SoundEvents.WARDEN_HURT; }
     @Override protected SoundEvent getDeathSound() { return SoundEvents.WARDEN_DEATH; }
     @Override public float getVoicePitch() { return 0.7f + this.random.nextFloat() * 0.1f; }
-    @Override protected void playStepSound(BlockPos pos, BlockState state) { this.playSound(SoundEvents.WARDEN_STEP, 0.8f, 1.15f); }
+    /** Heavy, uneven steps: left firm, right softer (limp), every second step with a wet sculk squelch. */
+    @Override protected void playStepSound(BlockPos pos, BlockState state) {
+        boolean left = (stepCount++ & 1) == 0;
+        this.playSound(SoundEvents.WARDEN_STEP, left ? 1.0f : 0.7f, 0.75f);
+        if (!left) this.playSound(SoundEvents.SCULK_BLOCK_STEP, 0.8f, 0.6f);
+    }
+    private int stepCount;
 
     // ---- rules --------------------------------------------------------------------------
 
@@ -211,6 +241,10 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         if (emerging() && !source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) return false;
         boolean weak = jawsOpening();
         boolean hurt = super.hurtServer(level, source, HowlerLogic.damageTaken(damage, weak));
+        if (hurt) {
+            this.playSound(SoundEvents.SKELETON_HURT, 0.35f, 0.5f);
+            if (weak) this.playSound(SoundEvents.SCULK_CATALYST_HIT, 1.0f, 0.8f);
+        }
         if (hurt && weak) level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, this.getX(), this.getY() + 2.1, this.getZ(), 8, 0.3, 0.2, 0.3, 0.05);
         if (hurt && canHunt(source.getEntity())) hear((LivingEntity) source.getEntity());
         return hurt;
@@ -228,6 +262,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         if (this.level().isClientSide()) {
             tendrilTicksO = tendrilTicks;
             if (tendrilTicks > 0) tendrilTicks--;
+            clientHorror();
         }
         if (this.level() instanceof ServerLevel level) {
             VibrationSystem.Ticker.tick(level, this.vibrationData, this.vibrationUser);
@@ -235,8 +270,60 @@ public class HowlerEntity extends Monster implements VibrationSystem {
             if (e > 0) {
                 this.entityData.set(DATA_EMERGE, e - 1);
                 if (e % 4 == 0) level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + 0.2, this.getZ(), 4, 0.6, 0.1, 0.6, 0.02);
+                // second heave of the emerge, a heavy beat after the first (A5)
+                if (e == HowlerLogic.EMERGE_TICKS - 20) this.playSound(SoundEvents.WARDEN_EMERGE, 1.5f, 0.6f);
             }
+            if (!emerging() && HowlerLogic.pulseDue(this.tickCount, this.getId(), phase(), MobsConfig.howlerPulseInterval) && MobsConfig.howlerRagePulse) pulseDarkness(level);
             if (shriekTicks() > 0) this.entityData.set(DATA_SHRIEK, shriekTicks() - 1);
+        }
+    }
+
+    /** Rage only (owner H3): Darkness for every hunted player within the radius, on a heartbeat like the Warden's pulse. */
+    public int pulseDarkness(ServerLevel level) {
+        int n = 0;
+        double r = MobsConfig.howlerPulseRadius;
+        for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(r), x -> canHunt(x) && this.distanceTo(x) <= r)) {
+            e.addEffect(new MobEffectInstance(MobEffects.DARKNESS, MobsConfig.howlerPulseTicks, 0, false, false), this);
+            n++;
+        }
+        return n;
+    }
+
+    /** Client only: heartbeat (lub-dub, phase tempo), ambient particles, jaw recoil, emerge dust, death souls and the camera shake. */
+    private void clientHorror() {
+        HowlerLogic.Phase phase = phase();
+        int bite = biteTicks();
+        if (biteO > 0 && bite == 0) snapRecoil = 4;
+        else if (snapRecoil > 0) snapRecoil--;
+        biteO = bite;
+        com.simplebuilding.modules.simplemobs.client.HowlerShake.tick(this);
+        if (this.isDeadOrDying()) {
+            if (this.tickCount % 3 == 0) this.level().addParticle(ParticleTypes.SCULK_SOUL, this.getX() + (this.random.nextDouble() - 0.5) * 0.8, this.getY() + 0.5 + this.deathTime * 0.05, this.getZ() + (this.random.nextDouble() - 0.5) * 0.8, 0, 0.04, 0);
+            return;
+        }
+        if (emerging() && this.tickCount % 2 == 0) {
+            this.level().addParticle(new net.minecraft.core.particles.BlockParticleOption(ParticleTypes.BLOCK, net.minecraft.world.level.block.Blocks.SCULK.defaultBlockState()),
+                    this.getX() + (this.random.nextDouble() - 0.5) * 1.2, this.getY() + 0.1, this.getZ() + (this.random.nextDouble() - 0.5) * 1.2, 0, 0.1, 0);
+        }
+        if (phase != HowlerLogic.Phase.ONE && this.tickCount % (phase == HowlerLogic.Phase.RAGE ? 3 : 8) == 0) {
+            this.level().addParticle(ParticleTypes.SCULK_SOUL, this.getX() + (this.random.nextDouble() - 0.5) * 0.4, this.getY() + 2.5, this.getZ() + (this.random.nextDouble() - 0.5) * 0.4, 0, 0.03, 0);
+        }
+        if (phase != HowlerLogic.Phase.ONE && this.random.nextInt(40) == 0) {
+            this.level().addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getX() + (this.random.nextDouble() - 0.5), this.getY() + 0.1, this.getZ() + (this.random.nextDouble() - 0.5), 0, 0.01, 0);
+        }
+        if (quiet()) return;
+        int cycle = HowlerLogic.heartbeatCycle(this.tickCount, this.getId(), phase);
+        if (cycle == 0 || cycle == HowlerLogic.HEART_SECOND_BEAT_TICKS) {
+            float pitch = 0.6f + 0.1f * phase.ordinal() - (cycle == 0 ? 0.0f : 0.15f);
+            this.level().playLocalSound(this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.WARDEN_HEARTBEAT, SoundSource.HOSTILE, 2.5f, pitch, false);
+        }
+    }
+
+    /** Client: a ring of particles around the antennae. */
+    private void antennaRing(net.minecraft.core.particles.ParticleOptions particle, int points) {
+        for (int i = 0; i < points; i++) {
+            double a = i * Math.PI * 2 / points;
+            this.level().addParticle(particle, this.getX() + Math.cos(a) * 0.7, this.getY() + 2.5, this.getZ() + Math.sin(a) * 0.7, 0, 0.02, 0);
         }
     }
 
@@ -255,6 +342,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         if (tendrilCooldown > 0) tendrilCooldown--;
         if (patternGap > 0) patternGap--;
         tickTrail(level);
+        if (this.entityData.get(DATA_STAGGER) != staggerTicks) this.entityData.set(DATA_STAGGER, staggerTicks);
         if (staggerTicks > 0) {
             staggerTicks--;
             this.getNavigation().stop();
@@ -267,9 +355,18 @@ public class HowlerEntity extends Monster implements VibrationSystem {
             // Blind: without hearing it again it loses the trail.
             this.setTarget(null);
             disturbance = target.blockPosition();
+            searchTicks = SEARCH_TICKS;
             target = null;
         }
         if (target == null) {
+            if (searchTicks > 0) {
+                // A6: searching instead of giving up: sniffs, listens, turns the head toward the last spot.
+                searchTicks--;
+                if (searchTicks == SEARCH_TICKS - 5) this.playSound(SoundEvents.WARDEN_SNIFF, 1.5f, 0.6f);
+                if (searchTicks == SEARCH_TICKS / 2) this.playSound(SoundEvents.WARDEN_LISTENING, 1.5f, 0.6f);
+                if (searchTicks == 15) this.playSound(SoundEvents.WARDEN_SNIFF, 1.5f, 0.6f);
+            }
+            if (disturbance != null) this.getLookControl().setLookAt(disturbance.getX() + 0.5, disturbance.getY() + 1.0, disturbance.getZ() + 0.5);
             if (attack() != HowlerLogic.Attack.NONE) endAttack();
             boolean playerNear = level.getNearestPlayer(this, 64.0) != null;
             idleTicks = playerNear ? 0 : idleTicks + 1;
@@ -433,7 +530,12 @@ public class HowlerEntity extends Monster implements VibrationSystem {
 
     private void updatePhase() {
         HowlerLogic.Phase phase = HowlerLogic.phase(this.getHealth(), this.getMaxHealth());
-        if (phase.ordinal() == this.entityData.get(DATA_PHASE)) return;
+        if (phase.ordinal() == this.entityData.get(DATA_PHASE)) { this.entityData.set(DATA_HUSH, 0); return; }
+        // A7: it holds its breath for a second (no ambient, no heartbeat), then the new phase starts with the roar.
+        int hush = hushTicks();
+        if (hush == 0 && phase.ordinal() > this.entityData.get(DATA_PHASE)) { this.entityData.set(DATA_HUSH, HowlerLogic.PHASE_HUSH_TICKS); return; }
+        if (hush > 1) { this.entityData.set(DATA_HUSH, hush - 1); return; }
+        this.entityData.set(DATA_HUSH, 0);
         this.entityData.set(DATA_PHASE, phase.ordinal());
         var speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
         if (speed != null) speed.setBaseValue(HowlerLogic.SPEED * HowlerLogic.speedFactor(phase));
@@ -483,6 +585,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         if (level.getBlockState(below).is(HowlerPattern.REPLACEABLE)) {
             level.setBlock(below, Blocks.SCULK.defaultBlockState(), 3);
             trailPlaced++;
+            this.playSound(SoundEvents.SCULK_BLOCK_SPREAD, 0.5f, 0.5f);
         }
     }
 
@@ -575,6 +678,16 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         if (jaw != null && level.getBlockState(pos).is(jaw)) level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
     }
 
+    /** Death takes 2 s instead of 1 s (knees, head drops, jaw falls, glow fades). */
+    @Override
+    protected void tickDeath() {
+        ++this.deathTime;
+        if (this.deathTime >= HowlerLogic.DEATH_TICKS && !this.level().isClientSide() && !this.isRemoved()) {
+            this.level().broadcastEntityEvent(this, (byte) 60);
+            this.remove(Entity.RemovalReason.KILLED);
+        }
+    }
+
     @Override
     public void die(DamageSource source) {
         if (this.level() instanceof ServerLevel level) {
@@ -613,6 +726,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         vibrationCooldown = 20;
         if (this.level() instanceof ServerLevel level) level.broadcastEntityEvent(this, (byte) 61);
         this.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 3.0f, 0.8f);
+        this.playSound(SoundEvents.WARDEN_LISTENING, 1.5f, 0.6f);
         if (projectileOwner == null && canHunt(source)) {
             hear((LivingEntity) source);
         } else if (this.getTarget() == null) {

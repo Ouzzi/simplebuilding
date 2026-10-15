@@ -103,4 +103,75 @@ public final class HowlerLogic {
     public static boolean sensorInRange(int dx, int dy, int dz) {
         return Math.abs(dx) <= SENSOR_RANGE && Math.abs(dy) <= SENSOR_RANGE && Math.abs(dz) <= SENSOR_RANGE;
     }
+
+    // ---- horror: heartbeat, silence, rage pulse, camera shake (concept 2026-10-15, owner answers section 6) ----
+
+    /** Heartbeat period in ticks per phase (the Warden's runs 40 to 10). */
+    public static int heartbeatDelay(Phase phase) {
+        return switch (phase) { case ONE -> 40; case HUNGER -> 26; case RAGE -> 14; };
+    }
+
+    /** The second beat of the lub-dub follows this many ticks after the first. */
+    public static final int HEART_SECOND_BEAT_TICKS = 6;
+    /** Before a phase change it holds its breath this long (no ambient, no heartbeat), then roars. */
+    public static final int PHASE_HUSH_TICKS = 20;
+    /** Death takes 2 s (Vanilla 1 s): knees, head drops, jaw falls, glow fades. */
+    public static final int DEATH_TICKS = 40;
+    /** Darkness pulse defaults (like the Warden's): every 6 s, 13 s of Darkness, within 20 blocks. */
+    public static final int PULSE_INTERVAL_TICKS = 120, PULSE_DARKNESS_TICKS = 260, PULSE_RADIUS = 20;
+    public static final double SHAKE_RANGE = 16.0;
+    public static final float SHAKE_MAX_DEGREES = 0.8f;
+
+    /** Tick of the first beat's cycle: the heartbeat is due when this is 0, the second beat when it equals {@link #HEART_SECOND_BEAT_TICKS}. */
+    public static int heartbeatCycle(int tickCount, int id, Phase phase) { return Math.floorMod(tickCount + id, heartbeatDelay(phase)); }
+
+    /** Silence rule: no ambient and no heartbeat while it emerges, attacks, staggers or holds its breath before a phase change. */
+    public static boolean quiet(boolean emerging, Attack attack, int hush, int stagger) {
+        return emerging || attack != Attack.NONE || hush > 0 || stagger > 0;
+    }
+
+    /** Darkness pulse period: the configured one snapped to a whole number of heartbeats, so the pulse lands on a beat. */
+    public static int pulseInterval(int configured, Phase phase) {
+        int d = heartbeatDelay(phase);
+        return d * Math.max(1, Math.round(configured / (float) d));
+    }
+
+    /** The pulse only runs in rage, on the first beat of every pulse period. */
+    public static boolean pulseDue(int tickCount, int id, Phase phase, int configured) {
+        return phase == Phase.RAGE && Math.floorMod(tickCount + id, pulseInterval(configured, phase)) == 0;
+    }
+
+    /** Glow brightness over a heartbeat: 0.45 at rest (never off, so it does not flash), peaks at the two beats. */
+    public static float heartGlow(float ticksSinceBeat) {
+        float a = Math.max(0.0f, 1.0f - Math.abs(ticksSinceBeat) / 3.0f);
+        float b = 0.75f * Math.max(0.0f, 1.0f - Math.abs(ticksSinceBeat - HEART_SECOND_BEAT_TICKS) / 3.0f);
+        return Math.min(1.0f, 0.45f + 0.55f * Math.max(a, b));
+    }
+
+    /** Jaw opening of the bite {@code elapsed} ticks after it started: closes a little (anticipation), then opens with cosine easing to 1. */
+    public static float biteJaw(float elapsed) {
+        if (elapsed <= 0.0f) return 0.0f;
+        if (elapsed < 3.0f) return -0.1f * (float) Math.sin(Math.PI * elapsed / 3.0);
+        float x = Math.min(1.0f, (elapsed - 3.0f) / (BITE_WINDUP_TICKS - 3.0f));
+        return 0.5f - 0.5f * (float) Math.cos(Math.PI * x);
+    }
+
+    /** Overshoot after the snap: the jaw swings past closed and settles over 4 ticks. */
+    public static float biteRecoil(float ticksLeft) { return -0.15f * Math.max(0.0f, Math.min(1.0f, ticksLeft / 4.0f)); }
+
+    /** Emerge height 0 (under ground) .. 1 (out) for linear progress 0..1: slow start, a hold with twitching, then out with a small overshoot. */
+    public static float emergeHeight(float p) {
+        if (p <= 0.0f) return 0.0f;
+        if (p >= 1.0f) return 1.0f;
+        if (p < 0.3f) return 0.25f * (p / 0.3f);
+        if (p < 0.55f) return 0.25f;
+        float x = (p - 0.55f) / 0.45f - 1.0f;
+        return 0.25f + 0.75f * (1.0f + 1.8f * x * x * x + 0.8f * x * x);
+    }
+
+    /** Camera shake in degrees for a player {@code dist} blocks away: only while it winds up the shockwave or the shriek. */
+    public static float shakeAmplitude(Attack attack, double dist) {
+        if ((attack != Attack.SHOCKWAVE && attack != Attack.SHRIEK) || dist >= SHAKE_RANGE) return 0.0f;
+        return SHAKE_MAX_DEGREES * (float) (1.0 - dist / SHAKE_RANGE);
+    }
 }

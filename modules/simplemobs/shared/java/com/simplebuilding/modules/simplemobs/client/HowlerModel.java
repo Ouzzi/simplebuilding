@@ -67,31 +67,61 @@ public class HowlerModel extends EntityModel<HowlerRenderState> {
     @Override
     public void setupAnim(HowlerRenderState state) {
         super.setupAnim(state);
-        float pos = state.walkAnimationPos, speed = Math.min(1.0F, state.walkAnimationSpeed), age = state.ageInTicks;
-        this.neck.yRot = state.yRot * Mth.DEG_TO_RAD * 0.7F;
-        this.neck.xRot = state.xRot * Mth.DEG_TO_RAD * 0.5F;
-        this.rightLeg.xRot = Mth.cos(pos * 0.55F) * 1.1F * speed;
-        this.leftLeg.xRot = Mth.cos(pos * 0.55F + Mth.PI) * 1.1F * speed;
+        float pos = state.walkAnimationPos, speed = Math.min(1.0F, state.walkAnimationSpeed), age = state.ageInTicks, seed = state.seed;
+        // The head turns fully to what it hears (the body lags behind); never still: two unrelated slow periods, plus a jaw chatter every ~3 s.
+        this.neck.yRot = state.yRot * Mth.DEG_TO_RAD + Mth.sin(age * 0.07F + seed) * 0.05F + Mth.sin(age * 0.11F + seed * 1.7F) * 0.03F + state.emergeTwitch;
+        this.neck.xRot = state.xRot * Mth.DEG_TO_RAD * 0.5F + Mth.cos(age * 0.09F + seed) * 0.03F;
+        this.neck.zRot = state.emergeTwitch * 0.5F;
+        float chatter = (age + seed * 7.0F) % 60.0F < 3.0F ? 0.05F : 0.0F;
+        // Uneven gait: the left leg strides full, the right one 3/4; the body leans to the weak side and the arms trail behind the legs.
+        float gait = pos * (state.charging ? 1.6F : 1.0F);
+        this.rightLeg.xRot = Mth.cos(gait * 0.55F) * 0.8F * speed;
+        this.leftLeg.xRot = Mth.cos(gait * 0.55F + Mth.PI) * 1.1F * speed;
         float sway = Mth.sin(age * 0.06F) * 0.05F;
-        this.rightArm.xRot = Mth.cos(pos * 0.55F + Mth.PI) * 0.8F * speed + sway;
-        this.leftArm.xRot = Mth.cos(pos * 0.55F) * 0.8F * speed - sway;
-        this.rightArm.zRot = 0.08F + state.shriek * 0.9F;
+        this.rightArm.xRot = Mth.cos(gait * 0.55F + Mth.PI - 1.4F) * 0.55F * speed + sway;
+        this.leftArm.xRot = Mth.cos(gait * 0.55F - 1.4F) * 0.55F * speed - sway - 0.3F;
+        // Posture without new cubes: right arm out, left arm bent forward, skull tilted about 4 degrees.
+        this.rightArm.zRot = 0.2F + state.shriek * 0.9F;
         this.leftArm.zRot = -0.08F - state.shriek * 0.9F;
+        this.skull.zRot = 0.07F;
+        this.body.zRot = 0.04F * speed;
         this.body.xRot = 0.08F * speed + state.jawOpen * 0.12F - state.shriek * 0.2F;
         // The mouth opens between skull and jaw, both hinged at the back of the head.
         this.skull.xRot = -state.jawOpen * 0.55F - state.shriek * 0.2F;
-        this.jaw.xRot = state.jawOpen * 0.5F;
+        this.jaw.xRot = state.jawOpen * 0.5F + chatter;
         // listening: the antennae twitch like the Warden's tendrils; at rest they sway slowly
-        float twitch = state.tendril * Mth.cos(age * 2.25F) * Mth.PI * 0.1F;
+        float twitch = Math.min(1.0F, state.tendril * 3.0F) * Mth.cos(age * 2.25F) * Mth.PI * 0.1F;
         float rest = Mth.sin(age * 0.05F) * 0.04F;
         this.rightTendril.zRot = twitch + rest;
         this.leftTendril.zRot = -twitch - rest;
+        if (state.charging) {
+            // running charge: body forward, head low, arms back
+            this.body.xRot += 0.35F;
+            this.neck.xRot += 0.3F;
+            this.rightArm.xRot += 0.9F;
+            this.leftArm.xRot += 0.9F;
+        }
+        if (state.staggerAge >= 0.0F && state.staggerAge < 4.0F) {
+            // wall hit: thrown back, springing forward again over 4 ticks
+            this.body.xRot -= 0.4F * (1.0F - state.staggerAge / 4.0F);
+        }
         if (state.emerge < 1.0F) {
             float under = 1.0F - state.emerge;
             this.root().y += under * 40.0F;
             this.body.xRot += under * 0.5F;
             this.rightArm.xRot -= under * 2.2F;
             this.leftArm.xRot -= under * 2.2F;
+        }
+        if (state.death > 0.0F) {
+            // collapse over 2 s: down on the knees, head drops, the jaw has already fallen open (see renderer)
+            float d = Mth.sin(state.death * Mth.HALF_PI);
+            this.root().y += d * 9.0F;
+            this.rightLeg.xRot = -d * 1.1F;
+            this.leftLeg.xRot = -d * 1.1F;
+            this.body.xRot += d * 0.45F;
+            this.neck.xRot += d * 0.6F;
+            this.rightArm.xRot += d * 0.4F;
+            this.leftArm.xRot += d * 0.4F;
         }
     }
 }

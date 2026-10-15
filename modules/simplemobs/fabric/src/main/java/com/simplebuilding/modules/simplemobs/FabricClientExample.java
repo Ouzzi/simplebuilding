@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.NoopRenderer;
 
 public final class FabricClientExample implements ClientModInitializer {
     @Override public void onInitializeClient() {
+        MobsConfig.loadClient(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
         ModelLayerRegistry.registerModelLayer(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
         ModelLayerRegistry.registerModelLayer(HowlerModel.LAYER, HowlerModel::createBodyLayer);
         EntityRendererRegistry.register(MobsRegistry.DECEIVER, DeceiverRenderer::new);

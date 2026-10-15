@@ -10,6 +10,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 /** Client-only; referenced only behind the dist check. */
 final class ForgeClientExample {
     static void init() {
+        MobsConfig.loadClient(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
         EntityRenderersEvent.RegisterLayerDefinitions.BUS.addListener(event -> {
             event.registerLayerDefinition(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
             event.registerLayerDefinition(HowlerModel.LAYER, HowlerModel::createBodyLayer);

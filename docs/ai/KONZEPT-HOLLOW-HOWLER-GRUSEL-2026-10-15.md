@@ -91,3 +91,13 @@ Nicht getestet: alles hier ist Konzept; Hörwirkung und Akzeptanz müssen auf de
 
 ## 6. Antworten Besitzer (2026-10-15, verbindlich)
 H1 Phase 1 und 2 umsetzen. H2 danach Phase 3 (eigene synthetische Sounds + Untertitel). H3 Darkness-Puls nur in der Wut-Phase. H4 leuchtendes Herz als neue Emissiv-Textur, Vorschau zur Freigabe vor dem Einbau. H5 Kamerawackeln mit Schalter „Bewegung reduzieren“. Mob-Animationen (A1): in der vorgeschlagenen Reihenfolge.
+
+## 7. Umsetzungsplan Lauf claude-howler-n63 (2026-10-15)
+Umfang: Phase 1 (A1-A7), Phase 2 (V1-V9), H3 Darkness-Puls nur Wut, H5 Kamerawackeln mit Client-Schalter, H4 Herz nur als Vorschau. Phase 3 (eigene Sounds) nicht in diesem Lauf.
+- `HowlerLogic`: reine Funktionen (Herzschlag-Takt/Zyklus, Stille-Regel, Puls-Takt auf Herzschlag gerastet, Glow-Hüllkurve, Biss-/Emerge-Kurven, Wackel-Amplitude).
+- `HowlerEntity`: Client-Herzschlag (lub-dub) in `tick`, Ambient je Phase (Intervall 200), Hurt/Step/Trail/Emerge-Sounds, Phasen-Stille (synched `DATA_HUSH`, 1 s vor dem Phasenwechsel), Suche nach Zielverlust, Darkness-Puls (`MobsConfig`: howlerRagePulse/-Interval/-Ticks/-Radius), Stagger gespiegelt (`DATA_STAGGER`), Tod 2 s, Client-Partikel.
+- `HowlerModel/Renderer/RenderState`: Glow im Herzschlag (min. 0,45), Idle/Kiefer-Chatter, asymmetrischer Gang, Biss-Kurve mit Nachschwingen, Ansturm-Pose, Emerge mit Haltepunkten, Todesanimation, Haltung per PartPose. Cubes/UV unverändert.
+- `HowlerShake` (Client) + `simplemobs-client.json` (`reduceMotion`, Standard false = Wackeln an). Kein Mixin: die Blickrichtung wird um einen kleinen Offset versetzt, den dieselbe Entität beim nächsten Tick zurücknimmt.
+- Herz-Textur: nur Generator `howler_textures.py --heart-preview` + Vorschau in `docs/ai/previews/claude-howler-n63/`, nichts in `resources`.
+- Verifikation: Compile 3 Loader, `simplemobs:*howler*` auf Fabric+NeoForge, neue Tests `howler_heartbeat`, `howler_rage_pulse_rules`, `howler_phase_sounds`, `howler_rage_pulse`, `howler_no_pulse_before_rage`; Wiki/Guide/Tooltip-Checks.
+Abweichungen: Kopf-Dreh zur Störung nutzt `lookControl` auf dem Server (Kopf folgt mit Faktor 1,0) statt eigenem `disturbanceYaw`; kein Untertitel-Fix (Phase 3).
