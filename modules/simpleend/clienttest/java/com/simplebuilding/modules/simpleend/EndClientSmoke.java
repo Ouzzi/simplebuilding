@@ -98,6 +98,16 @@ public final class EndClientSmoke implements FabricClientGameTest {
             context.waitTicks(80);
             world.getConnection().waitForChunksRender();
             context.takeScreenshot("simpleend-giant-trees");
+            // N65: every tree on its own (wood trees = Overworld form, stick trees = End form), then leaves from outside and inside.
+            tree(context, world, garden, 52, 22, 30, "simpleend-tree-ash-big");
+            tree(context, world, garden, 66, 4, 36, "simpleend-tree-dusk-huge");
+            tree(context, world, garden, 92, 20, 60, "simpleend-tree-ash-colossal");
+            tree(context, world, garden, 4, 14, 22, "simpleend-tree-ash-stick");
+            tree(context, world, garden, 24, 14, 22, "simpleend-tree-dusk-stick");
+            leafLook(context, world, garden, EndWood.ASHWOOD, 40, 6, 10, false, "simpleend-leaves-ash-outer");
+            leafLook(context, world, garden, EndWood.ASHWOOD, 40, 6, 10, true, "simpleend-leaves-ash-inner");
+            leafLook(context, world, garden, EndWood.DUSKWOOD, 56, 4, -4, false, "simpleend-leaves-dusk-outer");
+            leafLook(context, world, garden, EndWood.DUSKWOOD, 56, 4, -4, true, "simpleend-leaves-dusk-inner");
             world.getServer().runOnServer(server -> {
                 BlockPos b = garden[0];
                 ServerLevel level = server.getLevel(Level.OVERWORLD);
@@ -117,6 +127,38 @@ public final class EndClientSmoke implements FabricClientGameTest {
             visit(context, world, EndBiomes.ASH_VALLEY_FRINGE);
             context.takeScreenshot("simpleend-ash_valley_fringe");
         }
+    }
+
+    /** A whole tree from {@code dist} blocks south of it (the tree stands at garden offset x/z). */
+    private static void tree(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world,
+                             BlockPos[] garden, int x, int z, int dist, String name) {
+        world.getServer().runOnServer(server -> {
+            BlockPos b = garden[0];
+            cmd(server, "tp @a " + (b.getX() + x + 0.5) + " " + (b.getY() + 6) + " " + (b.getZ() + z - dist) + " 0 -8");
+        });
+        context.waitTicks(60);
+        world.getConnection().waitForChunksRender();
+        context.takeScreenshot(name);
+    }
+
+    /** Close to the first leaf of the wood (searched in the box from the garden offset) that faces air ({@code inner} false) or has none around it. */
+    private static void leafLook(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world,
+                                 BlockPos[] garden, EndWood w, int x, int y, int z, boolean inner, String name) {
+        world.getServer().runOnServer(server -> {
+            BlockPos b = garden[0];
+            ServerLevel level = server.getLevel(Level.OVERWORLD);
+            BlockPos best = null;
+            for (BlockPos q : BlockPos.betweenClosed(b.offset(x, y, z), b.offset(x + 30, y + 34, z + 34))) {
+                BlockState st = level.getBlockState(q);
+                if (!st.is(w.leaves) || st.getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER) != inner) continue;
+                if (inner ? level.getBlockState(q.north(2)).is(w.leaves) : level.getBlockState(q.north()).isAir() && level.getBlockState(q.north(2)).isAir()) { best = q.immutable(); break; }
+            }
+            if (best == null) throw new AssertionError("no " + (inner ? "inner " : "outer ") + w.name + " leaf found");
+            cmd(server, "tp @a " + (best.getX() + 0.5) + " " + (best.getY() - 0.5) + " " + (best.getZ() - 2.2) + " 0 10");
+        });
+        context.waitTicks(40);
+        world.getConnection().waitForChunksRender();
+        context.takeScreenshot(name);
     }
 
     /** Flies to the nearest patch of the biome in the End and looks over it (screenshot names stay literal for the runner). */

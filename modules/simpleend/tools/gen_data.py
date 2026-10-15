@@ -170,21 +170,45 @@ def leaves():
     """End leaves (Umbau 13.10.): see-through star of tendril planes around a small crystal (no full cube), and a loot
     table where only leaves a grown tree marked (state drop=1/2) give a bud or a fruit - the fruit ripens only in the End."""
     plane = lambda frm, to, faces, rot=None: {k: v for k, v in (('from', frm), ('to', to), ('rotation', rot), ('shade', False), ('faces', faces)) if v is not None}
-    tinted = lambda tex: {'uv': [0, 0, 16, 16], 'texture': tex, 'tintindex': 0}
     rot = {'origin': [8, 8, 8], 'axis': 'y', 'angle': 45, 'rescale': True}
     core = {'uv': [5, 5, 11, 11], 'texture': '#crystal'}
+    tex = lambda t: {'uv': [0, 0, 16, 16], 'texture': t, 'tintindex': 0}
+    both = lambda t, a, b: {a: tex(t), b: tex(t)}
+    crystal = {'from': [6, 6, 6], 'to': [10, 10, 10], 'faces': {f: core for f in ('north', 'south', 'east', 'west', 'up', 'down')}}
+    tilt = lambda axis, angle: {'origin': [8, 8, 8], 'axis': axis, 'angle': angle}
     for w in WOODS:
         n = w['name']
+        textures = {'particle': f'{NS}:block/{n}_leaves', 'fronds': f'{NS}:block/{n}_leaves', 'outer': f'{NS}:block/{n}_leaves_outer',
+                    'inner': f'{NS}:block/{n}_leaves_inner', 'crystal': f'{NS}:block/{n}_leaves_crystal'}
+        # Leaves facing the air (N65): the two diagonal fronds of the old star plus loose, leaning, drooping fronds off the
+        # centre and a thin canopy layer, so the outline is ragged instead of a grid of planes.
         dump(OUT / f'assets/{NS}/models/block/{n}_leaves.json', {
-            'parent': 'minecraft:block/block', 'ambientocclusion': False,
-            'textures': {'particle': f'{NS}:block/{n}_leaves', 'fronds': f'{NS}:block/{n}_leaves', 'crystal': f'{NS}:block/{n}_leaves_crystal'},
+            'parent': 'minecraft:block/block', 'ambientocclusion': False, 'textures': textures,
             'elements': [
-                plane([0.8, 0, 8], [15.2, 16, 8], {'north': tinted('#fronds'), 'south': tinted('#fronds')}, rot),
-                plane([8, 0, 0.8], [8, 16, 15.2], {'west': tinted('#fronds'), 'east': tinted('#fronds')}, rot),
-                plane([0, 0, 8], [16, 16, 8], {'north': tinted('#fronds'), 'south': tinted('#fronds')}),
-                plane([8, 0, 0], [8, 16, 16], {'west': tinted('#fronds'), 'east': tinted('#fronds')}),
-                {'from': [6, 6, 6], 'to': [10, 10, 10], 'faces': {f: core for f in ('north', 'south', 'east', 'west', 'up', 'down')}},
+                plane([0.8, 0, 8], [15.2, 16, 8], both('#fronds', 'north', 'south'), rot),
+                plane([8, 0, 0.8], [8, 16, 15.2], both('#fronds', 'west', 'east'), rot),
+                plane([1, 0, 11], [15, 16, 11], both('#outer', 'north', 'south'), tilt('x', 22.5)),
+                plane([4.5, 0, 1], [4.5, 16, 15], both('#outer', 'west', 'east'), tilt('z', -22.5)),
+                plane([2, 12.5, 2], [14, 12.5, 14], both('#outer', 'up', 'down')),
+                crystal,
             ]})
+        # Leaves that no air touches: a denser, darker body of overlapping planes (still see-through).
+        dump(OUT / f'assets/{NS}/models/block/{n}_leaves_inner.json', {
+            'parent': 'minecraft:block/block', 'ambientocclusion': False, 'textures': textures,
+            'elements': [
+                plane([0.8, 0, 8], [15.2, 16, 8], both('#inner', 'north', 'south'), rot),
+                plane([8, 0, 0.8], [8, 16, 15.2], both('#inner', 'west', 'east'), rot),
+                plane([0, 0, 4], [16, 16, 4], both('#inner', 'north', 'south')),
+                plane([0, 0, 12], [16, 16, 12], both('#inner', 'north', 'south')),
+                plane([4, 0, 0], [4, 16, 16], both('#inner', 'west', 'east')),
+                plane([12, 0, 0], [12, 16, 16], both('#inner', 'west', 'east')),
+                plane([0, 5, 0], [16, 5, 16], both('#inner', 'up', 'down')),
+                plane([0, 11, 0], [16, 11, 16], both('#inner', 'up', 'down')),
+                crystal,
+            ]})
+        dump(OUT / f'assets/{NS}/blockstates/{n}_leaves.json', {'multipart': [
+            {'when': {'inner': 'false'}, 'apply': {'model': f'{NS}:block/{n}_leaves'}},
+            {'when': {'inner': 'true'}, 'apply': {'model': f'{NS}:block/{n}_leaves_inner'}}]})
         path = OUT / f'data/{NS}/loot_table/blocks/{n}_leaves.json'
         template = json.loads(path.read_text(encoding='utf-8'))
         sticks = next(pool for pool in template['pools'] if 'minecraft:stick' in json.dumps(pool))

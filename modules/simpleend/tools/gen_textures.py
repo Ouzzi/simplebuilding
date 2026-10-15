@@ -271,6 +271,63 @@ def leaves(s):
     return im
 
 
+def leaves_inner(s):
+    """Dense heart leaves (N65, drawn when no air touches the block): a thick mass of overlapping leaflets in the shade,
+    about 78% filled with small irregular gaps, lighter edge pixels where a leaflet sits above a gap. Untinted grey."""
+    im = new()
+    sd = s['seed'] + 101
+    dusk = s['key'] == 'b3'
+    solid = [[vnoise(x, y, 4, sd) * 0.8 + hsh(x, y, sd + 1) * 0.35 > (0.24 if dusk else 0.28) for x in range(16)] for y in range(16)]
+    for y in range(16):
+        for x in range(16):
+            if not solid[y][x]:
+                continue
+            t = 0.4 + 0.3 * vnoise(x, y, 3, sd + 2) + 0.06 * hsh(x, y, sd + 3)
+            if (x + 2 * y) % 7 == 0:          # slanting leaflet seam
+                t -= 0.1
+            if y > 0 and not solid[y - 1][x]:  # lit upper edge of a leaflet
+                t += 0.2
+            v = int(255 * max(0.3, min(0.9, t)))
+            put(im, x, y, (v, v, v, 255))
+    return im
+
+
+def leaves_outer(s):
+    """Airy outer fronds (N65, drawn when the block faces air): thin drooping fronds with leaflets angled downwards, long
+    ragged tips, pale at the ends, and a few loose leaflets; about 35% filled. Untinted grey."""
+    import math
+    im = new()
+    sd = s['seed'] + 211
+    dusk = s['key'] == 'b3'
+    shade = lambda t: int(255 * max(0.55, min(1.0, t)))
+    roots = (1, 6, 11, 15) if dusk else (2, 8, 13)
+    for k, x0 in enumerate(roots):
+        sway = 1.2 + hsh(k, 1, sd) * 1.6
+        phase = hsh(k, 2, sd) * math.tau
+        bottom = 11 + int(hsh(k, 3, sd) * 5)
+        last = None
+        for y in range(0, bottom + 1):
+            x = max(0, min(15, int(round(x0 + sway * math.sin(phase + y * 0.4)))))
+            v = shade(0.66 + 0.2 * y / 15 + 0.08 * hsh(x, y, sd))
+            put(im, x, y, (v, v, v, 255))
+            if last is not None and abs(last - x) > 1:
+                put(im, (last + x) // 2, y, (v, v, v, 255))
+            last = x
+            if y >= 2 and (y + k) % 3 == 0 and y < bottom - 1:       # leaflets point down and out, alternating sides
+                side = 1 if (y // 2 + k) % 2 else -1
+                lv = shade(0.78 + 0.18 * hsh(x, y, sd + 5))
+                reach = 2 + (1 if dusk and y % 4 == 0 else 0)
+                for i in range(1, reach + 1):
+                    put(im, x + side * i, y + i, (lv, lv, lv, 255))
+        for dx, dy in ((0, 1), (0, 2)):                         # pale drooping tip
+            put(im, last + dx, bottom + dy, (255, 255, 255, 255) if dy == 1 else (226, 226, 226, 255))
+    for i in range(3):                                          # loose leaflets
+        x, y = int(hsh(i, 8, sd) * 14) + 1, int(hsh(i, 9, sd) * 12) + 2
+        if im.getpixel((x, y))[3] == 0 and im.getpixel((x, min(15, y + 1)))[3] == 0:
+            put(im, x, y, (206, 206, 206, 255))
+    return im
+
+
 def leaves_crystal(s):
     """Small faceted crystal in the heart of the leaves (untinted): Ashwood lilac, Duskwood rose."""
     c = ramp('4e3f5c', '7a6890', 'a998c4', 'd9cdea', 'f6f0ff') if s['key'] == 'b1' else ramp('5a3a4c', '86607a', 'b38ca4', 'dcbfd0', 'fbeef5')
@@ -709,7 +766,7 @@ def main(argv=None):
             f'{n}_log': log_side(s), f'{n}_log_top': rings(s, False),
             f'stripped_{n}_log': stripped_side(s), f'stripped_{n}_log_top': rings(s, True),
             f'{n}_planks': planks(s), f'{n}_door_top': door(s, 'top'), f'{n}_door_bottom': door(s, 'bottom'),
-            f'{n}_trapdoor': trapdoor(s), f'{n}_leaves': leaves(s), f'{n}_leaves_crystal': leaves_crystal(s), s['bud']: bud(s),
+            f'{n}_trapdoor': trapdoor(s), f'{n}_leaves': leaves(s), f'{n}_leaves_inner': leaves_inner(s), f'{n}_leaves_outer': leaves_outer(s), f'{n}_leaves_crystal': leaves_crystal(s), s['bud']: bud(s),
             f'{n}_sticks': sticks_side(s), f'{n}_sticks_top': sticks_top(s), f'{n}_shelf': shelf(s),
             f'{n}_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_sign.png'), s),
             f'{n}_hanging_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_hanging_sign.png'), s, metal=True),
@@ -776,6 +833,10 @@ def preview(dest):
                 im = tinted(im, TINTS[n])
             sheet.alpha_composite(im.resize((128, 128), Image.NEAREST), (i * 136 + 4, 4))
         sheet.save(dest / f'{n}_textures.png')
+        sheet = Image.new('RGBA', (3 * 264 + 8, 264), (40, 36, 44, 255))   # N65: old | outer | inner at 16x
+        for i, k in enumerate((f'block/{n}_leaves', f'block/{n}_leaves_outer', f'block/{n}_leaves_inner')):
+            sheet.alpha_composite(tinted(Image.open(TEX / f'{k}.png').convert('RGBA'), TINTS[n]).resize((256, 256), Image.NEAREST), (i * 264 + 8, 4))
+        sheet.save(dest / f'{n}_leaves_variants.png')
         for k in ('boat', 'chest_boat'):
             pass
         for k in ('boat', 'chest_boat'):

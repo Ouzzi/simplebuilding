@@ -392,56 +392,72 @@ public final class EndTests {
             }
             h.succeed();
         });
-        add("ashwood_leaves_act_like_cobweb", h -> {
+        add("end_leaves_act_like_cobweb", h -> {
             ServerLevel level = h.getLevel();
             BlockPos at = new BlockPos(20, 3, 20);
-            h.setBlock(at, EndWood.ASHWOOD.leaves);
             BlockPos abs = h.absolutePos(at);
-            BlockState ash = EndWood.ASHWOOD.leaves.defaultBlockState();
-            BlockState dusk = EndWood.DUSKWOOD.leaves.defaultBlockState();
-            h.assertTrue(ash.getCollisionShape(level, abs).isEmpty(), "ashwood leaves have no collision");
-            h.assertTrue(!dusk.getCollisionShape(level, abs).isEmpty(), "duskwood leaves stay solid");
-            // Slowed like a cobweb: a half-block step inside covers a quarter of it; the fall distance is gone.
             var player = h.makeMockServerPlayerInLevel();
-            Vec3 start = player.position();
-            player.fallDistance = 12.0;
-            ash.entityInside(level, abs, player, InsideBlockEffectApplier.NOOP, true);
-            h.assertTrue(player.fallDistance == 0.0, "no fall damage inside ashwood leaves, fall distance " + player.fallDistance);
-            player.move(MoverType.SELF, new Vec3(0.5, 0.0, 0.0));
-            double moved = player.position().x - start.x;
-            h.assertTrue(Math.abs(moved - 0.125) < 0.01, "strongly slowed like a cobweb, moved " + moved);
-            player.snapTo(start.x, start.y, start.z, 0.0F, 0.0F);
-            player.fallDistance = 12.0;
-            dusk.entityInside(level, abs, player, InsideBlockEffectApplier.NOOP, true);
-            h.assertTrue(player.fallDistance == 12.0, "duskwood leaves do not catch a fall");
-            player.move(MoverType.SELF, new Vec3(0.5, 0.0, 0.0));
-            h.assertTrue(player.position().x - start.x > 0.45, "duskwood leaves do not slow, moved " + (player.position().x - start.x));
-            // Sword and shears cut them at least as fast as a cobweb (Vanilla leaves tags: sword_efficient, shears_extreme).
-            BlockState web = Blocks.COBWEB.defaultBlockState();
-            for (net.minecraft.world.item.Item tool : new net.minecraft.world.item.Item[] {Items.IRON_SWORD, Items.SHEARS}) {
-                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(tool));
-                float leaf = ash.getDestroyProgress(player, level, abs);
-                float cobweb = web.getDestroyProgress(player, level, abs);
-                h.assertTrue(leaf >= cobweb && leaf > 0, "ashwood leaves break at least as fast as a cobweb with " + tool + ": " + leaf + " vs " + cobweb);
+            // Both End woods (N65: Duskwood too) behave like a cobweb; a plain solid block is the control.
+            for (EndWood w : EndWood.ALL) {
+                h.setBlock(at, w.leaves);
+                BlockState leaf = w.leaves.defaultBlockState();
+                h.assertTrue(leaf.getCollisionShape(level, abs).isEmpty(), w.name + " leaves have no collision");
+                // Slowed like a cobweb: a half-block step inside covers a quarter of it; the fall distance is gone.
+                Vec3 start = player.position();
+                player.fallDistance = 12.0;
+                leaf.entityInside(level, abs, player, InsideBlockEffectApplier.NOOP, true);
+                h.assertTrue(player.fallDistance == 0.0, "no fall damage inside " + w.name + " leaves, fall distance " + player.fallDistance);
+                player.move(MoverType.SELF, new Vec3(0.5, 0.0, 0.0));
+                double moved = player.position().x - start.x;
+                h.assertTrue(Math.abs(moved - 0.125) < 0.01, w.name + " leaves slow strongly like a cobweb, moved " + moved);
+                player.snapTo(start.x, start.y, start.z, 0.0F, 0.0F);
+                // Sword and shears cut them at least as fast as a cobweb (Vanilla leaves tags: sword_efficient, shears_extreme).
+                BlockState web = Blocks.COBWEB.defaultBlockState();
+                for (net.minecraft.world.item.Item tool : new net.minecraft.world.item.Item[] {Items.IRON_SWORD, Items.SHEARS}) {
+                    player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(tool));
+                    float prog = leaf.getDestroyProgress(player, level, abs);
+                    float cobweb = web.getDestroyProgress(player, level, abs);
+                    h.assertTrue(prog >= cobweb && prog > 0, w.name + " leaves break at least as fast as a cobweb with " + tool + ": " + prog + " vs " + cobweb);
+                }
             }
             h.succeed();
         });
-        add("ashwood_leaves_catch_fall", h -> {
+        add("end_leaves_catch_fall", h -> {
             ServerLevel level = h.getLevel();
-            BlockPos ashAt = new BlockPos(20, 4, 20), duskAt = new BlockPos(22, 4, 20);
-            for (BlockPos col : new BlockPos[] {ashAt, duskAt}) {
-                h.setBlock(col.below(), Blocks.STONE); // the pig lands IN the ashwood leaves, ON the duskwood ones
+            BlockPos ashAt = new BlockPos(20, 4, 20), duskAt = new BlockPos(22, 4, 20), stoneAt = new BlockPos(24, 4, 20);
+            for (BlockPos col : new BlockPos[] {ashAt, duskAt, stoneAt}) {
+                h.setBlock(col.below(), Blocks.STONE); // the pigs land IN the leaves, ON the control block
                 for (int y = 0; y < 12; y++) h.setBlock(col.above(y), Blocks.AIR);
             }
             h.setBlock(ashAt, EndWood.ASHWOOD.leaves);
             h.setBlock(duskAt, EndWood.DUSKWOOD.leaves);
+            h.setBlock(stoneAt, Blocks.STONE);
             Pig ashPig = h.spawn(EntityTypes.PIG, new BlockPos(20, 12, 20));
             Pig duskPig = h.spawn(EntityTypes.PIG, new BlockPos(22, 12, 20));
+            Pig stonePig = h.spawn(EntityTypes.PIG, new BlockPos(24, 12, 20));
             h.succeedWhen(() -> {
-                h.assertTrue(ashPig.onGround() && duskPig.onGround(), "both pigs landed: ash " + ashPig.position() + " " + ashPig.onGround() + ", dusk " + duskPig.position() + " " + duskPig.onGround());
+                h.assertTrue(ashPig.onGround() && duskPig.onGround() && stonePig.onGround(), "all pigs landed");
                 h.assertTrue(ashPig.getHealth() >= ashPig.getMaxHealth(), "ashwood leaves catch the fall, health " + ashPig.getHealth());
-                h.assertTrue(duskPig.getHealth() < duskPig.getMaxHealth(), "a fall onto duskwood leaves still hurts (control), health " + duskPig.getHealth());
+                h.assertTrue(duskPig.getHealth() >= duskPig.getMaxHealth(), "duskwood leaves catch the fall, health " + duskPig.getHealth());
+                h.assertTrue(stonePig.getHealth() < stonePig.getMaxHealth(), "a fall onto stone still hurts (control), health " + stonePig.getHealth());
             });
+        });
+        add("end_leaves_inner_state", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos c = new BlockPos(20, 3, 20);
+            for (EndWood w : EndWood.ALL) {
+                // Solid 3x3x3 cube of leaves: only the centre has no air neighbour.
+                for (int dx = -1; dx <= 1; dx++) for (int dy = -1; dy <= 1; dy++) for (int dz = -1; dz <= 1; dz++) h.setBlock(c.offset(dx, dy, dz), w.leaves);
+                BlockPos abs = h.absolutePos(c);
+                h.assertTrue(level.getBlockState(abs).getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER), w.name + " centre leaf is inner");
+                h.assertTrue(!level.getBlockState(abs.above()).getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER), w.name + " face leaf is outer");
+                h.assertTrue(!level.getBlockState(abs.offset(1, 1, 1)).getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER), w.name + " corner leaf is outer");
+                // Cut a neighbour: the centre faces air and turns outer again (shape update).
+                h.setBlock(c.above(), Blocks.AIR);
+                h.assertTrue(!level.getBlockState(abs).getValue(com.simplebuilding.modules.simpleend.block.EndLeavesBlock.INNER), w.name + " centre leaf is outer again");
+                for (int dx = -1; dx <= 1; dx++) for (int dy = -1; dy <= 1; dy++) for (int dz = -1; dz <= 1; dz++) h.setBlock(c.offset(dx, dy, dz), Blocks.AIR);
+            }
+            h.succeed();
         });
         add("drift_fruit_glide", h -> {
             Player p = h.makeMockPlayer(GameType.SURVIVAL);
