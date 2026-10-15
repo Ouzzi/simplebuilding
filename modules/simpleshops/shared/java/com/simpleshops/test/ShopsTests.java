@@ -901,6 +901,19 @@ public final class ShopsTests {
         return out;
     }
 
+    /** Moves {@code n} of {@code item} from the player's inventory into pay slot {@code position}, so that trades really happen. */
+    private static void fund(ShopBuyerMenu menu, ServerPlayer player, int position, Item item, int n) {
+        if (!menu.pay().getItem(position).isEmpty()) return;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack at = player.getInventory().getItem(i);
+            if (at.is(item) && at.getCount() >= n) {
+                at.shrink(n);
+                menu.pay().setItem(position, new ItemStack(item, n));
+                return;
+            }
+        }
+    }
+
     private static void fuzz(GameTestHelper h, long seed) {
         Random random = new Random(seed);
         ServerPlayer owner = player(h, GameType.SURVIVAL);
@@ -940,7 +953,10 @@ public final class ShopsTests {
             }
             if (open == null) continue;
             int slots = open.slots.size();
-            if (open instanceof ShopBuyerMenu menu && op >= 9) {
+            if (open instanceof ShopBuyerMenu menu && op >= 6 && op < 9 && current == buyer) {
+                fund(menu, buyer, 2, Items.EMERALD, 3);
+                fund(menu, buyer, 3, Items.COAL, 2);
+            } else if (open instanceof ShopBuyerMenu menu && op >= 9) {
                 int action = switch (random.nextInt(4)) {
                     case 0 -> ShopBuyerMenu.SELECT + random.nextInt(5);
                     case 1 -> ShopBuyerMenu.TRADE_MAX;
