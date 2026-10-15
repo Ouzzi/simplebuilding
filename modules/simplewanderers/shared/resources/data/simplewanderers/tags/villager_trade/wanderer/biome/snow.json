@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wandering_trader/emerald_spruce_sapling",
+    "minecraft:wandering_trader/emerald_spruce_log",
+    "minecraft:wandering_trader/emerald_fern",
+    "minecraft:wandering_trader/emerald_packed_ice"
+  ]
+}

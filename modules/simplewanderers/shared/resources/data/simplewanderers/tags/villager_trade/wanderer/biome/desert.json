@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wandering_trader/emerald_cactus",
+    "minecraft:wandering_trader/emerald_sand",
+    "minecraft:wandering_trader/emerald_red_sand",
+    "minecraft:wandering_trader/emerald_dry_tall_grass"
+  ]
+}

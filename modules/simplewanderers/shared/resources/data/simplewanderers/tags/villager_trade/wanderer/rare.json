@@ -1,0 +1,61 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:links/simplemobheads/blaze_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/enderman_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/husk_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/spider_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/cave_spider_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/slime_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/silverfish_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/breeze_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/shulker_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/drowned_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/pig_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/cow_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/chicken_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemobheads/sheep_head",
+      "required": false
+    }
+  ]
+}

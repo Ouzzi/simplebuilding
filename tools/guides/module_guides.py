@@ -118,6 +118,13 @@ MODULES = [
                 "explosions. Buyers swap price items for one piece per trade.",
                 "Spieler-Shops: ein Verkaufsblock mit Preis und eine Vitrine mit bis zu fünf Waren, geschützt vor Fremden und "
                 "Explosionen. Käufer tauschen Preis-Items gegen ein Stück je Tausch.")),
+    dict(module="simplewanderers", ns="simplewanderers", package="com.simplewanderers.guide", cls="WanderersGuide", kind="item",
+         author="Simple Wanderers", recipe="minecraft:emerald",
+         name=("Simple Wanderers Guide", "Simple-Wanderers-Handbuch"),
+         intro=("One Village Wanderer per village: a travel-cloaked trader with a leashed horse, a new stock every 3 days, "
+                "a restock every 1.5 days and goods that follow the village biome. Kill him and a new one comes after 7 days.",
+                "Ein Dorf-Wanderer je Dorf: ein Händler im Reisemantel mit Pferd an der Leine, alle 3 Tage neues Angebot, "
+                "alle 1,5 Tage Nachschub und Waren passend zum Dorfbiom. Wird er getötet, kommt nach 7 Tagen ein neuer.")),
     dict(module="simplevisuals", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
          kind="client", author="Simple Visuals",
          intro=("Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. "

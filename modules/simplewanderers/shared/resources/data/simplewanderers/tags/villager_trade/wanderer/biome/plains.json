@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wandering_trader/emerald_dandelion",
+    "minecraft:wandering_trader/emerald_poppy",
+    "minecraft:wandering_trader/emerald_cornflower",
+    "minecraft:wandering_trader/emerald_oxeye_daisy",
+    "minecraft:wandering_trader/emerald_wheat_seeds",
+    "minecraft:wandering_trader/emerald_oak_sapling"
+  ]
+}

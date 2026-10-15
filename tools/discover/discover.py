@@ -115,6 +115,8 @@ MODS = [
                 "Nebenhand, Axt oder Hammer: Leuchtfeuer 8x schlagen")]),
     dict(id="simpleshops", ns=["simpleshops"], cls="ShopsDiscover", package="com.simpleshops.discover",
          own_packages=["com.simpleshops."]),
+    dict(id="simplewanderers", ns=["simplewanderers"], cls="WanderersDiscover", package="com.simplewanderers.discover",
+         own_packages=["com.simplewanderers."]),
     dict(id="simpleovens", ns=["simpleovens"], cls="OvensDiscover", package="com.simpleovens.discover",
          mixin_package="com.simpleovens.mixin", own_packages=["com.simpleovens."],
          tips=[("oven_upgrade", ["reinforced_*", "netherite_furnace", "netherite_smoker", "netherite_blast_furnace"],

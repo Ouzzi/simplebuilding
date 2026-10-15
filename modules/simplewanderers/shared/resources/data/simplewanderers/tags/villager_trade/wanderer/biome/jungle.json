@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wandering_trader/emerald_jungle_log",
+    "minecraft:wandering_trader/emerald_jungle_sapling",
+    "minecraft:wandering_trader/emerald_vine",
+    "minecraft:wandering_trader/emerald_melon_seeds"
+  ]
+}
