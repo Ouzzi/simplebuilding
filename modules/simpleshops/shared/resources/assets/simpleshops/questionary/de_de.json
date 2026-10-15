@@ -1,0 +1,35 @@
+{
+  "sales_block": {
+    "lore": [
+      "Die Kasse eines kleinen Ladens: schwere Eiche, ein Eisenrand und ein Schlitz, der nur Münzen schluckt."
+    ],
+    "use": [
+      "Setzen, einen Preis festlegen und eine Vitrine obendrauf stellen. Die Preiszeile nimmt bis zu fünf exakte Items; die Einnahmen sammeln sich darin, auch wenn du fort bist."
+    ],
+    "secret": [
+      "Linksklick addiert 1 zum Preis, Rechtsklick den Stapel in deiner Hand. Nur du oder ein Operator könnt ihn je abbauen."
+    ]
+  },
+  "display_case": {
+    "lore": [
+      "Ein Glasdeckel auf einem Holzsockel, gebaut, um das eine Ding zu zeigen, wegen dem ein Käufer kam."
+    ],
+    "use": [
+      "Auf deinen Verkaufsblock stellen. Ein Item in der Hand kommt in den nächsten freien Platz; leere Hand öffnet das Waren-Menü mit fünf Plätzen. Käufer nehmen ein Stück je Tausch."
+    ],
+    "secret": [
+      "Trichter und Golems kommen nicht hinein, und keine Explosion lässt das Glas springen."
+    ]
+  },
+  "glow_display_case": {
+    "lore": [
+      "Dieselbe Vitrine, mit einem Tropfen Leuchttinte im Glas: die Ware glänzt wie ein Schaufenster bei Nacht."
+    ],
+    "use": [
+      "Funktioniert genau wie die Vitrine und gibt, solange sie Ware zeigt, ein schwaches eigenes Licht ab."
+    ],
+    "secret": [
+      "Herstellen aus einer Vitrine und einem Leuchttintenbeutel; die Ware wird voll hell gezeichnet."
+    ]
+  }
+}

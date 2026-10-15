@@ -3714,7 +3714,7 @@ window.WIKI_DATA = {
         "details": [
           "Enderite crucible (30 slots in 5x6, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an empty cauldron (16 strikes, one iron ingot each: 8 for the side plates, each first half then whole, 4 for the two handles - iron poles count -, 4 for the rim; every strike is its own visible stage, breaking it midway gives the cauldron and the ingots back; 2 durability per strike), attaching a barrel (6 strikes) and upgrading crucibles strike by strike: 12 blows, every third blow strikes one of 4 units in and shows it as a band of the new material (a crucible broken midway gives the units back; contents and an attached barrel stay): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer). Barrels go up at twice the cost of a furnace (2 material at the end, twice the strikes): copper to reinforced to netherite (netherite nuggets) to Enderite barrel. A cauldron becomes a reinforced cauldron with 8 cracked diamonds.",
           "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. While it lasts, a faint dark-blue filter lies over the screen (besides the vanilla effect icon). It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
-          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks; it holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (a full one is named \"(Full)\"). The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) while carried in the hotbar or off hand or placed in the world (dropped, or in an item frame), not when pouring and not in the rest of the inventory or in containers; honeycomb waxes it (off hand while holding it, or on an item frame) and a waxed one does not weather, but filling it wears the wax: it then weathers at half pace until waxed again (an axe scrapes the wax or one stage off), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) takes water and lava, wears one stage per pour (shown as a bar) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
+          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks; it holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (a full one is named \"(Full)\"). The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) only while carried in the hotbar or off hand, not when pouring and not in the rest of the inventory; waxed it does not react when empty and weathers at half pace with water inside (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) takes water and lava, wears one stage per pour (shown as a bar) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
           "The sledgehammer crushes a quartz block into 4 quartz, one per strike (4 strikes).",
           "Server config server.soulLava controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files. Jade shows heat, occupied slots and the shortest remaining time of a running slot, including tier speed and the two-block heat penalty. JEI shows the fastest cooking recipe per input and required heat, plus warming for tagged food without a cooking recipe; displayed time assumes an iron crucible at minimum heat without a distance penalty."
         ]
@@ -3725,7 +3725,7 @@ window.WIKI_DATA = {
         "details": [
           "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem leeren Kessel (16 Schläge, je ein Eisenbarren: 8 für die Seitenplatten, je erst halb, dann ganz, 4 für die zwei Griffe - Eisenstangen zählen auch -, 4 für den Rand; jeder Schlag ist eine eigene sichtbare Stufe, Abbau zwischendurch gibt Kessel und Barren zurück; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Tiegel Schlag für Schlag aufwerten: 12 Schläge, jeder dritte schlägt eine von 4 Einheiten ein und zeigt sie als Band des neuen Materials (Abbau zwischendurch gibt die Einheiten zurück; Inhalt und angedocktes Fass bleiben): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer). Fässer zum doppelten Preis eines Ofens (2 Material am Ende, doppelte Schläge): Kupfer- zu Verstärktem zu Netherit- (Netheritklumpen) zu Enderit-Fass. Ein Kessel wird mit 8 Rissigen Diamanten zum verstärkten Kessel.",
           "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt zwei Minuten Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt; auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) kommt der Wurf alle 1,5 Sekunden. Solange er wirkt, liegt ein leichter dunkelblauer Filter über dem Bild (zusätzlich zum Vanilla-Effektsymbol). Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
-          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie; er fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (ein voller heißt „(voll)“). Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock), solange er in der Hotbar oder Nebenhand getragen wird oder in der Welt liegt (fallengelassen oder im Rahmen), nicht beim Ausgießen und nicht im übrigen Inventar oder in Behältern; eine Honigwabe wachst ihn (Nebenhand, während man ihn hält, oder am Rahmen), und ein gewachster verwittert nicht, doch Einfüllen greift das Wachs an: er verwittert dann halb so schnell, bis er wieder gewachst wird (eine Axt schabt das Wachs oder eine Stufe ab), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (als Balken sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
+          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie; er fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (ein voller heißt „(voll)“). Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock) nur, solange er in der Hotbar oder Nebenhand getragen wird, nicht beim Ausgießen und nicht im übrigen Inventar; gewachst reagiert er leer gar nicht und mit Wasser darin nur mit halbem Tempo (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (als Balken sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
           "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz, einem je Schlag (4 Schläge).",
           "Die Server-Config server.soulLava regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien. Jade zeigt Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept; die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag."
         ]
@@ -7805,13 +7805,13 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A book bound with blaze powder instead of leather; three of them go into a blazewood bookshelf.",
           "details": [
-            "Recipe: 8 Blaze Powder around 1 Book."
+            "Recipe (shapeless): 3 Paper + 1 Blaze Powder."
           ]
         },
         "de": {
           "summary": "Ein Buch, mit Lohenstaub statt Leder gebunden; drei davon kommen in ein Lohen-Bücherregal.",
           "details": [
-            "Rezept: 8 Lohenstaub um 1 Buch."
+            "Rezept (formlos): 3 Papier + 1 Lohenstaub."
           ]
         },
         "sources": [
@@ -10361,7 +10361,7 @@ window.WIKI_DATA = {
             "Brushes like the vanilla brush; with a dye in either hand or inventory, right-click recolors wool, carpet, concrete, terracotta, glass, candles, beds, banners and shulker boxes, keeping their state. Craft: a brush, a gold nugget and a feather."
           ],
           "secret": [
-            "A Paint Box with dyes counts as ink: each stroke paints the front color and the bristles show a rainbow (random colors need Color Palette on the brush). Holding right-click repeats the stroke."
+            "A Paint Box with dyes counts as ink: each stroke picks a random other color and the bristles show a rainbow. Holding right-click repeats the stroke."
           ]
         },
         "de": {
@@ -10372,7 +10372,7 @@ window.WIKI_DATA = {
             "Bürstet wie der Vanilla-Pinsel; mit einem Farbstoff in einer Hand oder im Inventar färbt Rechtsklick Wolle, Teppich, Beton, Terrakotta, Glas, Kerzen, Betten, Banner und Shulkerkisten um und behält ihren Zustand. Herstellung: Pinsel, Goldklumpen und Feder."
           ],
           "secret": [
-            "Ein Farbkasten mit Farbstoffen zählt als Tinte: Jeder Strich malt die vordere Farbe, die Borsten zeigen einen Regenbogen (Zufallsfarben nur mit Farbpalette auf dem Pinsel). Gedrückt gehaltener Rechtsklick wiederholt den Strich."
+            "Ein Farbkasten mit Farbstoffen zählt als Tinte: Jeder Strich nimmt eine zufällige andere Farbe, die Borsten zeigen einen Regenbogen. Gedrückt gehaltener Rechtsklick wiederholt den Strich."
           ]
         }
       },
@@ -10383,7 +10383,7 @@ window.WIKI_DATA = {
             "Craft it from a vanilla brush, a gold nugget and a feather (shapeless); it looks like the brush with a gold ferrule. Brushing works like the vanilla brush (suspicious sand and gravel, dust on other blocks). Painting is not loaded: every stroke takes the next dye the way a bow finds its arrows - the other hand first, then the hand holding the brush, then the inventory in slot order (hotbar first). Each stroke uses one dye and one durability (256).",
             "Right-click wool, carpet, concrete, concrete powder, terracotta, glazed terracotta, glass, glass panes, candles, beds, banners or shulker boxes to switch them to that color (plain glass becomes stained glass). Direction and connection properties, shulker contents, banner patterns and both bed halves are kept. Without a dye, on other blocks or on a block that already has the color nothing is painted and no dye is used; the brush brushes like the vanilla one instead. Suspicious sand and gravel are always brushed, even with dyes in the inventory.",
             "The bristle tip shows the color that comes next, and the tooltip names the dye. Creative players need a dye but use none and no durability. Holding right-click repeats the stroke, so sweeping across blocks paints them one after another.",
-            "A Paint Box with dyes counts as ink too: it paints its front color (the one chosen with the mouse wheel) and gives up that dye; the tip then shows rainbow bristles. Random colors come only from the Color Palette enchantment on the brush: each stroke then takes a random dye at hand (loose or in a Paint Box) other than the block's color.",
+            "A Paint Box with dyes counts as ink too: it paints each stroke with a random one of its colors other than the block's and gives up that dye; the tip then shows rainbow bristles.",
             "Wood is not a brush family. Datapacks and mods can opt in additional families through simplebuilding:dyeable_families."
           ]
         },
@@ -10393,7 +10393,7 @@ window.WIKI_DATA = {
             "Rezept: Vanilla-Pinsel, Goldnugget und Feder (formlos); er sieht aus wie der Pinsel mit goldener Zwinge. Abbürsten funktioniert wie beim Vanilla-Pinsel (verdächtiger Sand und Kies, Staub auf anderen Blöcken). Zum Malen wird er nicht geladen: Jeder Strich nimmt den nächsten Farbstoff so, wie ein Bogen seine Pfeile findet - zuerst die andere Hand, dann die Hand mit dem Pinsel, dann das Inventar in Slot-Reihenfolge (Schnellleiste zuerst). Jeder Strich kostet einen Farbstoff und einen Haltbarkeitspunkt (256).",
             "Rechtsklick auf Wolle, Teppiche, Beton, Betonpulver, Terrakotta, glasierte Terrakotta, Glas, Glasscheiben, Kerzen, Betten, Banner oder Shulkerboxen wechselt zu dieser Farbe (normales Glas wird zu gefärbtem Glas). Ausrichtung, Verbindungen, Shulker-Inhalt, Bannermuster und beide Betthälften bleiben erhalten. Ohne Farbstoff, auf anderen Blöcken oder bei gleicher Farbe wird nicht gemalt und kein Farbstoff verbraucht; der Pinsel bürstet dann wie der Vanilla-Pinsel. Verdächtiger Sand und Kies werden immer abgebürstet, auch mit Farbstoff im Inventar.",
             "Die Borstenspitze zeigt die Farbe, die als Nächstes kommt, der Tooltip nennt den Farbstoff. Im Kreativmodus braucht der Pinsel einen Farbstoff, verbraucht aber weder ihn noch Haltbarkeit. Gedrückt gehaltener Rechtsklick wiederholt den Strich, so malt ein Schwenk über mehrere Blöcke einen nach dem anderen.",
-            "Ein Farbkasten mit Farbstoffen zählt ebenfalls: Er malt seine vordere Farbe (per Mausrad gewählt) und gibt genau diesen Farbstoff ab; die Spitze zeigt dann bunte Borsten. Zufallsfarben gibt es nur mit der Verzauberung Farbpalette auf dem Pinsel: Jeder Strich nimmt dann einen zufälligen Farbstoff zur Hand (lose oder im Farbkasten), nie die Farbe des Blocks.",
+            "Ein Farbkasten mit Farbstoffen zählt ebenfalls: Er malt jeden Strich mit einer zufälligen seiner Farben (nie der des Blocks) und gibt genau diesen Farbstoff ab; die Spitze zeigt dann bunte Borsten.",
             "Holz gehört nicht zur Pinsel-Familie. Datenpakete und Mods können weitere Familien über simplebuilding:dyeable_families freischalten."
           ]
         }
@@ -17843,7 +17843,7 @@ window.WIKI_DATA = {
             "Keeps dyes like a bundle: only dyes, up to 512 of each of the 16 colors. Smithing table: Enderite Upgrade and an Enderite Ingot. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
           ],
           "secret": [
-            "It feeds the Color Brush: each stroke paints the color in front, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color is in front."
+            "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
           ]
         },
         "de": {
@@ -17854,7 +17854,7 @@ window.WIKI_DATA = {
             "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 512 je 16 Farben. Schmiedetisch: Enderit-Aufwertung und ein Enderitbarren. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
           ],
           "secret": [
-            "Sie versorgt den Farbpinsel: Jeder Strich malt die vordere Farbe, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die vordere Farbe."
+            "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
           ]
         }
       },
@@ -29063,7 +29063,7 @@ window.WIKI_DATA = {
             "Keeps dyes like a bundle: only dyes, up to 256 of each of the 16 colors. Smithing table: Netherite Upgrade and a netherite ingot. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
           ],
           "secret": [
-            "It feeds the Color Brush: each stroke paints the color in front, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color is in front."
+            "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
           ]
         },
         "de": {
@@ -29074,7 +29074,7 @@ window.WIKI_DATA = {
             "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 256 je 16 Farben. Schmiedetisch: Netherit-Aufwertung und ein Netheritbarren. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
           ],
           "secret": [
-            "Sie versorgt den Farbpinsel: Jeder Strich malt die vordere Farbe, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die vordere Farbe."
+            "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
           ]
         }
       },
@@ -32863,7 +32863,7 @@ window.WIKI_DATA = {
             "Keeps dyes like a bundle: only dyes, up to 64 of each of the 16 colors. Craft from a red, a yellow and a blue dye over three planks. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
           ],
           "secret": [
-            "It feeds the Color Brush: each stroke paints the color in front, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color is in front."
+            "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
           ]
         },
         "de": {
@@ -32874,27 +32874,27 @@ window.WIKI_DATA = {
             "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 64 je 16 Farben. Herstellung aus einem roten, einem gelben und einem blauen Farbstoff über drei Brettern. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
           ],
           "secret": [
-            "Sie versorgt den Farbpinsel: Jeder Strich malt die vordere Farbe, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die vordere Farbe."
+            "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
           ]
         }
       },
       "note": {
         "en": {
-          "summary": "The Paint Box keeps dyes like a bundle: only dyes, up to one stack (64) of each of the 16 colors, and feeds the Color Brush with its front color.",
+          "summary": "The Paint Box keeps dyes like a bundle: only dyes, up to one stack (64) of each of the 16 colors, and feeds the Color Brush with random colors.",
           "details": [
             "Craft it from a red, a yellow and a blue dye over three planks. Left-click puts dyes in (also a whole stack at once), right-click with an empty cursor takes up to a stack of the color in front - the color chosen with the mouse wheel over the box, otherwise the first color it holds. The choice stays when the mouse leaves the box.",
             "The tooltip shows all 16 dyes with their counts; colors the box does not hold are greyed out and the color in front is framed.",
             "Tiers like the bundle: Reinforced Paint Box (crafting table, the box in the middle, four diamond pebbles beside it and four gold nuggets in the corners, keeps its dyes) holds 128 of each color, Netherite Paint Box (smithing table, Netherite Upgrade + netherite ingot) 256, Enderite Paint Box (smithing table, Enderite Upgrade + enderite ingot) 512.",
-            "While it holds dyes, the Color Brush finds it like a loose dye (other hand first, then the inventory in slot order) and paints its front color, taking out exactly that dye (with the Color Palette enchantment on the brush: a random dye at hand)."
+            "While it holds dyes, the Color Brush finds it like a loose dye (other hand first, then the inventory in slot order) and paints each stroke with a random one of its colors other than the block's, taking out exactly that dye."
           ]
         },
         "de": {
-          "summary": "Der Farbkasten bewahrt Farbstoffe wie ein Bündel auf: nur Farbstoffe, bis zu einem Stapel (64) von jeder der 16 Farben, und versorgt den Farbpinsel mit seiner vorderen Farbe.",
+          "summary": "Der Farbkasten bewahrt Farbstoffe wie ein Bündel auf: nur Farbstoffe, bis zu einem Stapel (64) von jeder der 16 Farben, und versorgt den Farbpinsel mit zufälligen Farben.",
           "details": [
             "Rezept: ein roter, ein gelber und ein blauer Farbstoff über drei Brettern. Linksklick legt Farbstoffe hinein (auch einen ganzen Stapel), Rechtsklick mit leerem Cursor nimmt bis zu einen Stapel der vorn liegenden Farbe heraus - der Farbe, die das Mausrad über dem Kasten gewählt hat, sonst der ersten enthaltenen. Die Wahl bleibt, wenn die Maus den Kasten verlässt.",
             "Der Tooltip zeigt alle 16 Farbstoffe mit ihrer Anzahl; Farben, die der Kasten nicht enthält, sind ausgegraut, die vorn liegende ist umrahmt.",
             "Stufen wie beim Bündel: Verstärkter Farbkasten (Werkbank, Kasten in der Mitte, vier Diamantkiesel daneben und vier Goldnuggets in den Ecken, behält seine Farbstoffe) fasst 128 je Farbe, Netheritfarbkasten (Schmiedetisch, Netherit-Aufwertung + Netheritbarren) 256, Enderitfarbkasten (Schmiedetisch, Enderit-Aufwertung + Enderitbarren) 512.",
-            "Solange er Farbstoffe enthält, findet der Farbpinsel ihn wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt seine vordere Farbe; genau dieser Farbstoff wird entnommen (mit Farbpalette auf dem Pinsel: ein zufälliger Farbstoff zur Hand)."
+            "Solange er Farbstoffe enthält, findet der Farbpinsel ihn wie einen losen Farbstoff (zuerst die andere Hand, dann das Inventar in Slot-Reihenfolge) und malt jeden Strich mit einer zufälligen seiner Farben (nie der des Blocks); genau dieser Farbstoff wird entnommen."
           ]
         }
       },
@@ -41481,7 +41481,7 @@ window.WIKI_DATA = {
             "Keeps dyes like a bundle: only dyes, up to 128 of each of the 16 colors. Crafting table: the box in the middle, four diamond pebbles beside it, four gold nuggets in the corners; it keeps its dyes. Left-click puts dyes in, right-click with an empty cursor takes a stack out."
           ],
           "secret": [
-            "It feeds the Color Brush: each stroke paints the color in front, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color is in front."
+            "It feeds the Color Brush: each stroke paints with a random color other than the block's, and the brush shows rainbow bristles. The mouse wheel over the box chooses which color comes out."
           ]
         },
         "de": {
@@ -41492,7 +41492,7 @@ window.WIKI_DATA = {
             "Hält Farbstoffe wie ein Bündel: nur Farbstoffe, bis zu 128 je 16 Farben. Handwerkstisch: die Kiste in der Mitte, vier Diamantkiesel daneben, vier Goldklumpen in den Ecken; sie behält ihre Farben. Linksklick legt Farbstoffe hinein, Rechtsklick mit leerem Cursor nimmt einen Stapel heraus."
           ],
           "secret": [
-            "Sie versorgt den Farbpinsel: Jeder Strich malt die vordere Farbe, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die vordere Farbe."
+            "Sie versorgt den Farbpinsel: Jeder Strich malt mit einer zufälligen Farbe, die nicht die des Blocks ist, und der Pinsel zeigt Regenbogen-Borsten. Das Mausrad über der Kiste wählt die herausgenommene Farbe."
           ]
         }
       },
@@ -48535,8 +48535,7 @@ window.WIKI_DATA = {
         "simplebuilding:yarn_ball_from_wool"
       ],
       "usedIn": [
-        "simplebuilding:silent_dandelion",
-        "simplebuilding:wool_from_yarn_balls"
+        "simplebuilding:silent_dandelion"
       ],
       "trades": [],
       "questionary": {
@@ -48565,13 +48564,13 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "One wool block of any color crafts two Balls of Yarn (there is no recipe from string); two balls craft one white wool block again. Eight balls around a dandelion craft a Silent Dandelion.",
+          "summary": "One wool block of any color crafts two Balls of Yarn (there is no recipe from string). Eight balls around a dandelion craft a Silent Dandelion.",
           "details": [
             "Sneak + use places yarn with the existing small parts: up to four parts on one spot. The placed item uses the same yarn sprite and drops itself when broken. Server placement options still apply."
           ]
         },
         "de": {
-          "summary": "Ein Wollblock beliebiger Farbe ergibt zwei Wollknäuel (aus Faden gibt es kein Rezept); zwei Knäuel ergeben wieder einen weißen Wollblock. Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
+          "summary": "Ein Wollblock beliebiger Farbe ergibt zwei Wollknäuel (aus Faden gibt es kein Rezept). Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
           "details": [
             "Schleichen + Benutzen legt das Knäuel mit den vorhandenen Kleinteilen ab: bis zu vier Teile auf einem Fleck. Abgelegt nutzt es dieselbe Knäuel-Textur und droppt sich beim Abbauen. Die serverseitigen Platzierungsoptionen gelten weiterhin."
           ]
@@ -49262,7 +49261,7 @@ window.WIKI_DATA = {
       "lootTable": "simplebuilding:blocks/astral_enchanting_table",
       "drops": [
         "minecraft:enchanting_table",
-        "simplelib:enderite_ingot"
+        "simplelib:enderite_nugget"
       ],
       "questionary": {
         "en": {
@@ -67925,8 +67924,7 @@ window.WIKI_DATA = {
             "Light like vanilla: lit candles give 3 per candle, sea pickles under water 3 + 3 per pickle, dry pickles none. Flint and steel, a fire charge or a burning projectile light the candles (not under water); an empty hand puts them out, and so does water flowing in. Lit candles show the vanilla flame and smoke.",
             "Glowing parts (glowstone dust, glow ink sac, prismarine crystals, nether star, blaze rod, echo shard, Astralit Dust, Sage Orb) now and then show a subtle vanilla particle; the client option \"Glow Particles on Placed Parts\" (tools.placedPartParticles, on by default) turns that off.",
             "Since 2026-10-04 a stick, bone, blaze rod or breeze rod clicked on a free top stands upright instead (see Standing Rod); on a pile, a wall or a ceiling it still lies down.",
-            "Ingots lie as small 3D bars (copper, iron, gold, netherite and Enderite ingots; other ingots stay plates). With only ingots on the spot they stack like a little ingot pile: two side by side, the third and fourth across on top. Smithing templates (every armor trim, the netherite upgrade and the mod's upgrade templates) join too: the first still lies alone as a placed template (hammer upgrade), sneak + right-click with another template on it makes a pile of up to four; on a lone template only templates are added, a pile takes them like any other part.",
-            "Since 2026-10-15 bricks (brick, nether brick, resin brick) also lie as 3D cuboids and stack with the ingots; diamonds and emeralds stand as small stepped 3D gems. A right click with the sledgehammer on the spot switches these 3D parts (ingots included) to the flat item look, the next strike back to 3D (block state flat, 1 durability per switch, applies to all supported parts of the spot; music discs take priority). All other parts stay plates; breaking and drops do not change."
+            "Ingots lie as small 3D bars (copper, iron, gold, netherite and Enderite ingots; other ingots stay plates). With only ingots on the spot they stack like a little ingot pile: two side by side, the third and fourth across on top. Smithing templates (every armor trim, the netherite upgrade and the mod's upgrade templates) join too: the first still lies alone as a placed template (hammer upgrade), sneak + right-click with another template on it makes a pile of up to four; on a lone template only templates are added, a pile takes them like any other part."
           ]
         },
         "de": {
@@ -67941,8 +67939,7 @@ window.WIKI_DATA = {
             "Licht wie bei Vanilla: brennende Kerzen geben 3 je Kerze, Seegurken unter Wasser 3 + 3 je Gurke, trockene Gurken nichts. Feuerzeug, Feuerkugel oder ein brennendes Geschoss zünden die Kerzen an (nicht unter Wasser); die leere Hand löscht sie, ebenso hineinlaufendes Wasser. Brennende Kerzen zeigen die Vanilla-Flamme und Rauch.",
             "Leuchtende Teile (Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Netherstern, Lohenrute, Echoscherbe, Astralitstaub, Weisheitskugel) zeigen ab und zu einen dezenten Vanilla-Partikel; die Client-Option „Glanz-Partikel an abgelegten Teilen“ (tools.placedPartParticles, standardmäßig an) schaltet das ab.",
             "Seit 2026-10-04 stellt sich ein Stock, Knochen, eine Lohen- oder Böenrute auf einer freien Oberseite senkrecht auf (siehe Aufgestellter Stab); auf einem Häufchen, an Wand oder Decke legt er sich weiter hin.",
-            "Barren liegen als kleine 3D-Barren (Kupfer-, Eisen-, Gold-, Netherit- und Enderitbarren; andere Barren bleiben Platten). Liegen nur Barren auf dem Fleck, stapeln sie sich wie ein kleiner Barrenstapel: zwei nebeneinander, der dritte und vierte quer darüber. Schmiedevorlagen (alle Rüstungsbesätze, die Netherit-Aufwertung und die Aufwertungsvorlagen der Mod) kommen ebenfalls dazu: die erste liegt weiter allein als abgelegte Vorlage (Hammer-Aufwertung), Schleichen + Rechtsklick mit einer weiteren Vorlage darauf macht ein Häufchen bis vier; auf eine einzelne Vorlage kommen nur Vorlagen, ein Häufchen nimmt sie wie jedes andere Teil.",
-            "Seit 2026-10-15 liegen auch Ziegel (Ziegel, Netherziegel, Harzziegel) als 3D-Quader und stapeln sich mit den Barren; Diamanten und Smaragde stehen als kleine abgestufte 3D-Edelsteine. Ein Rechtsklick mit dem Vorschlaghammer auf den Fleck schaltet diese 3D-Teile (auch die Barren) auf die flache Item-Darstellung um, der nächste Schlag wieder auf 3D (Blockzustand flat, 1 Haltbarkeit je Wechsel, gilt für alle unterstützten Teile des Flecks; Schallplatten haben Vorrang). Alle anderen Teile bleiben Platten; Abbau und Drops ändern sich nicht."
+            "Barren liegen als kleine 3D-Barren (Kupfer-, Eisen-, Gold-, Netherit- und Enderitbarren; andere Barren bleiben Platten). Liegen nur Barren auf dem Fleck, stapeln sie sich wie ein kleiner Barrenstapel: zwei nebeneinander, der dritte und vierte quer darüber. Schmiedevorlagen (alle Rüstungsbesätze, die Netherit-Aufwertung und die Aufwertungsvorlagen der Mod) kommen ebenfalls dazu: die erste liegt weiter allein als abgelegte Vorlage (Hammer-Aufwertung), Schleichen + Rechtsklick mit einer weiteren Vorlage darauf macht ein Häufchen bis vier; auf eine einzelne Vorlage kommen nur Vorlagen, ein Häufchen nimmt sie wie jedes andere Teil."
           ]
         },
         "sources": [
@@ -67955,9 +67952,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/render/PlacedSmallPartsRenderer.java",
           "common/src/shared/java/com/simplebuilding/util/PlacedEggs.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedEggBlock.java",
-          "tools/textures/placed_ingots_2026_10_09.py",
-          "tools/textures/placed_gems_bricks_2026_10_15.py",
-          "common/src/shared/java/com/simplebuilding/util/FlatToggles.java"
+          "tools/textures/placed_ingots_2026_10_09.py"
         ]
       },
       "hasCustomBehaviour": true
@@ -83471,7 +83466,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:blaze_book",
-      "type": "minecraft:crafting_shaped",
+      "type": "minecraft:crafting_shapeless",
       "category": null,
       "group": null,
       "result": {
@@ -83481,21 +83476,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/recipe/blaze_book.json",
       "ingredients": [
         "minecraft:blaze_powder",
-        "minecraft:book"
+        "minecraft:paper"
       ],
-      "pattern": [
-        "BBB",
-        "BKB",
-        "BBB"
-      ],
-      "key": {
-        "B": [
-          "minecraft:blaze_powder"
+      "ingredientGroups": [
+        [
+          "minecraft:paper"
         ],
-        "K": [
-          "minecraft:book"
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:blaze_powder"
         ]
-      },
+      ],
       "lines": [
         "26.3"
       ],
@@ -83503,16 +83499,12 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:blaze_rod",
-            "count": 4
-          },
-          {
             "id": "minecraft:sugar_cane",
             "count": 3
           },
           {
-            "id": "minecraft:leather",
-            "count": 1
+            "id": "minecraft:blaze_rod",
+            "count": 0.5
           }
         ]
       }
@@ -88906,15 +88898,11 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:blaze_rod",
-            "count": 36
+            "count": 25.5
           },
           {
             "id": "minecraft:sugar_cane",
             "count": 9
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 3
           },
           {
             "id": "minecraft:crimson_stem",
@@ -136255,15 +136243,11 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:blaze_rod",
-            "count": 36
+            "count": 25.5
           },
           {
             "id": "minecraft:sugar_cane",
             "count": 9
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 3
           },
           {
             "id": "minecraft:warped_stem",
@@ -138224,40 +138208,6 @@ window.WIKI_DATA = {
       ],
       "baseMaterials": {
         "yield": 8,
-        "materials": [
-          {
-            "id": "minecraft:string",
-            "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:wool_from_yarn_balls",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "minecraft:white_wool",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/wool_from_yarn_balls.json",
-      "ingredients": [
-        "simplebuilding:yarn_ball"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:yarn_ball"
-        ],
-        [
-          "simplebuilding:yarn_ball"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
         "materials": [
           {
             "id": "minecraft:string",
@@ -144063,7 +144013,7 @@ window.WIKI_DATA = {
         {
           "rolls": 1,
           "items": [
-            "simplelib:enderite_ingot"
+            "simplelib:enderite_nugget"
           ],
           "conditions": [],
           "functions": []
@@ -151505,13 +151455,13 @@ window.WIKI_DATA = {
       "slots": [
         "mainhand"
       ],
-      "supportedItems": "#simplebuilding:color_palette_enchantable",
-      "primaryItems": "#simplebuilding:color_palette_enchantable",
+      "supportedItems": "#simplebuilding:extra_inventory_items",
+      "primaryItems": "#simplebuilding:extra_inventory_items",
       "exclusiveSet": null,
       "effects": [],
       "implementedIn": "code",
       "hasEffect": true,
-      "source": "mc26_3/generated/data/simplebuilding/enchantment/color_palette.json",
+      "source": "src/main/generated/data/simplebuilding/enchantment/color_palette.json",
       "note": {
         "en": {
           "summary": "Color Palette stops the building wand and the reinforced bundle from insisting on one fixed block and lets them place any of the building blocks you carry - genuinely at random on the bundle, by a position hash on the wand (exactly as its preview shows).",
@@ -153633,21 +153583,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/chisel_tools.json"
-    },
-    {
-      "id": "simplebuilding:item/color_palette_enchantable",
-      "replace": false,
-      "values": [
-        {
-          "id": "#simplebuilding:extra_inventory_items",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:color_brush",
-          "required": true
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/tags/item/color_palette_enchantable.json"
     },
     {
       "id": "simplebuilding:item/constructors_touch_enchantable",
@@ -157420,6 +157355,26 @@ window.WIKI_DATA = {
       "labelDe": "Simple Beacons aktivieren",
       "tooltip": "Turns the bundled Simple Beacons module on or off: Strong Beacon, Strong Conduit and the Strong Upgrade template. Off leaves placed blocks inert. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Beacons ein oder aus: Starkes Leuchtfeuer, Starker Aquisator und die passende starke Vorlage. Aus lässt gesetzte Blöcke wirkungslos. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleShops",
+      "shortName": "enableSimpleShops",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Shops",
+      "labelDe": "Simple Shops aktivieren",
+      "tooltip": "Turns the bundled Simple Shops module on or off: player shops with a Sales Block and a Display Case. Off stops trading, menus and new placements; placed shops keep their protection. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Shops ein oder aus: Spieler-Shops mit Verkaufsblock und Vitrine. Aus stoppt Handel, Menüs und neue Platzierungen; gesetzte Shops behalten ihren Schutz. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -186114,12 +186069,12 @@ window.WIKI_DATA = {
   "counts": {
     "items": 779,
     "blocks": 513,
-    "recipes": 1362,
+    "recipes": 1361,
     "lootTables": 370,
     "trades": 20,
     "enchantments": 19,
-    "tags": 57,
-    "config": 236,
+    "tags": 56,
+    "config": 237,
     "inWorld": 491,
     "advancements": 116,
     "features": 51,

@@ -111,6 +111,13 @@ MODULES = [
                 "conduit into a Strong Conduit with a 7x7x7 frame.",
                 "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen "
                 "und sechs weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen.")),
+    dict(module="simpleshops", ns="simpleshops", package="com.simpleshops.guide", cls="ShopsGuide", kind="item",
+         author="Simple Shops", recipe="minecraft:emerald",
+         name=("Simple Shops Guide", "Simple-Shops-Handbuch"),
+         intro=("Player shops: a Sales Block with a price and a Display Case with up to five goods, protected from strangers and "
+                "explosions. Buyers swap price items for one piece per trade.",
+                "Spieler-Shops: ein Verkaufsblock mit Preis und eine Vitrine mit bis zu fünf Waren, geschützt vor Fremden und "
+                "Explosionen. Käufer tauschen Preis-Items gegen ein Stück je Tausch.")),
     dict(module="simplevisuals", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
          kind="client", author="Simple Visuals",
          intro=("Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. "
@@ -180,6 +187,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:glow_ink_sac": ("a glow ink sac", "einem Leuchttintenbeutel"),
     "minecraft:prismarine_shard": ("a prismarine shard", "einer Prismarinscherbe"),
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
+    "minecraft:emerald": ("an emerald", "einem Smaragd"),
 }
 
 
@@ -423,6 +431,7 @@ NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your languag
         "Handbuch zu dieser Mod: %d Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + %s. "
         "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:emerald": ("emerald", "Smaragd"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
     "minecraft:gold_nugget": ("gold nugget", "Goldklumpen"), "minecraft:bread": ("bread", "Brot"),
     "minecraft:chest": ("chest", "Truhe"), "minecraft:item_frame": ("item frame", "Rahmen"),

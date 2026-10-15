@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "simpleshops:sales_block",
+    "simpleshops:display_case",
+    "simpleshops:glow_display_case"
+  ]
+}

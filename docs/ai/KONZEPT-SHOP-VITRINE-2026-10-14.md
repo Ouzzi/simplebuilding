@@ -256,3 +256,12 @@ getrennt ausgeliefert werden (Stufe 1 allein = unzerstörbare Blöcke ohne Funkt
 11. Kaufen im fremden Claim: **braucht kein Recht** (kein claim_use-Tag für Verkaufsblock/Vitrine-Kauf).
 12. Käufer-Inventar voll: Ware wird **gedroppt** (vor dem Käufer, wie Villager-Überlauf).
 13. Simple Money: **nur Preisliste bzw. Wiki-Hinweis**, keine Zusatzfunktion.
+
+## 8. Stand der Umsetzung (Job `oc-shops`, 2026-10-15)
+Stufen 1–3 umgesetzt im Modul `modules/simpleshops` (Namensraum `simpleshops`), Antworten aus Abschnitt 7 haben Vorrang vor den Empfehlungen oben.
+Abweichungen/Festlegungen: Modul wie Simple Beacons als gebündeltes, abschaltbares Sub-Mod („Enable Simple Shops“, kein Pflicht-Sub-Mod wie Simple Ovens);
+Vitrine nur auf einem Verkaufsblock **desselben Besitzers** (Op ausgenommen); Limit 16 gilt je Blockart (Verkaufsblöcke und Vitrinen getrennt gezählt);
+Claims: ein eigener Mixin (niedrige Priorität) behandelt Klicks und den Abbau auf Shop-Blöcken vor Simple Tweaks – daher **kein** `claim_use`-Tag und keine Änderung an Simple Tweaks;
+Käufer-Inventar voll = Ware wird gedroppt (Antwort 12, statt Abbruch laut 4.1 Schritt 3).
+**Stufe 4 (nur notiert, nicht gebaut):** `claim_use`-Tag/Doku (jetzt unnötig, da Kauf ohne Recht), `Action.MANAGE` für Claim-Verwalter (laut Antwort 7 nicht gewollt),
+`/shop list|info|remove` für Ops, `abandonedDays` (Antwort 9: kein Ablauf), Preis „gleiche Art“ je Vorlage mit Filterknopf, Jade-Provider und JEI-Info, Simple-Money-Schnellpreis (Antwort 13: nein).

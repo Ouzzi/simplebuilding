@@ -1988,6 +1988,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleRespawn.@Tooltip": "Schaltet das gebündelte Modul Simple Respawn ein oder aus: niedergeschlagen statt tot, Wiederbeleben durch Mitspieler. Aus stellt den Vanilla-Tod wieder her. Gilt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.option.enableSimpleBeacons": "Simple Beacons aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimpleBeacons.@Tooltip": "Schaltet das gebündelte Modul Simple Beacons ein oder aus: Starkes Leuchtfeuer, Starker Aquisator und die passende starke Vorlage. Aus lässt gesetzte Blöcke wirkungslos. Gilt nach einem Neustart. Standard: an.",
+  "text.autoconfig.simplebuilding.option.enableSimpleShops": "Simple Shops aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimpleShops.@Tooltip": "Schaltet das gebündelte Modul Simple Shops ein oder aus: Spieler-Shops mit Verkaufsblock und Vitrine. Aus stoppt Handel, Menüs und neue Platzierungen; gesetzte Shops behalten ihren Schutz. Gilt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.category.equipment": "Verzauberungen & Rüstung",
   "text.autoconfig.simplebuilding.category.pistons": "Kolben",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

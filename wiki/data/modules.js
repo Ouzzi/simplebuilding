@@ -36,7 +36,8 @@ window.WIKI_MODULES = [
       "simplemobs",
       "simpleend",
       "simplerespawn",
-      "simplebeacons"
+      "simplebeacons",
+      "simpleshops"
     ]
   },
   {
@@ -627,5 +628,26 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "6e2e291796f1"
+  },
+  {
+    "id": "simpleshops",
+    "displayName": "Simple Shops",
+    "description": "Player shops: a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Protected from strangers, explosions, pistons and hoppers; no claim right needed to buy.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simplemoney",
+      "simpletweaks"
+    ],
+    "dataHash": "943aed86a953"
   }
 ];

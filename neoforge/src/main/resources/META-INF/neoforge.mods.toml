@@ -195,3 +195,10 @@ type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.${modId}]]
+modId="simpleshops"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

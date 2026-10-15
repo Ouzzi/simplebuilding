@@ -113,6 +113,8 @@ MODS = [
          mixin_package="com.simplebeacons.mixin", own_packages=["com.simplebeacons."],
          tips=[("strong_upgrade", ["strong_upgrade_template"], "Off hand, axe or hammer: hit a beacon 8 times",
                 "Nebenhand, Axt oder Hammer: Leuchtfeuer 8x schlagen")]),
+    dict(id="simpleshops", ns=["simpleshops"], cls="ShopsDiscover", package="com.simpleshops.discover",
+         own_packages=["com.simpleshops."]),
     dict(id="simpleovens", ns=["simpleovens"], cls="OvensDiscover", package="com.simpleovens.discover",
          mixin_package="com.simpleovens.mixin", own_packages=["com.simpleovens."],
          tips=[("oven_upgrade", ["reinforced_*", "netherite_furnace", "netherite_smoker", "netherite_blast_furnace"],

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": "minecraft:iron_nugget",
+    "G": "minecraft:glass",
+    "P": "#minecraft:planks"
+  },
+  "pattern": [
+    "NNN",
+    "GGG",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpleshops:display_case"
+  }
+}
