@@ -305,14 +305,14 @@ Markierte Container (QoL verknüpfte GUIs)
 - [ ] BUG Kreativ: Markierung bleibt aktiv, wenn man das Kreativinventar öffnet; Shift-Klick ins Inventar oder auf einen Kreativ-Tab (Item löschen) schiebt Items in den unsichtbar markierten Container. Darf nie passieren.
 
 Wayfinder-Karte
-- [ ] BUG: Kartenbereiche laden mit Artefakten/Linien (u. a. in einem Kreis) – Laden immer vollständig und korrekt sicherstellen.
-- [ ] Näher heranzoomen als 1:1 (z. B. ein ganzer Chunk füllt die Ansicht).
+- [x] BUG: Kartenbereiche laden mit Artefakten/Linien (u. a. in einem Kreis) – Laden immer vollständig und korrekt sicherstellen. (claude-mapfix)
+- [x] Näher heranzoomen als 1:1 (z. B. ein ganzer Chunk füllt die Ansicht). (claude-mapfix)
 - [ ] Wegpunkt-Leiste rechts: Zahlen weg; jeder Wegpunkt bekommt beim Anlegen ein zufälliges Icon; Icons auch aus beliebigen Items. Buttons quadratisch mit Padding links wie Lesezeichen, bei großer GUI-Skala größer (Platz oben/unten nutzen); Buttons exakt im UI-Stil (wie neues Oktant-Konzept, Bronze/Rahmen), linke Seite gleich gestaltet.
 - [ ] Höhenkarte/Höhenlinien als Anzeigemodus, gespeichert; die Karte in Hand/Nebenhand zeigt denselben Modus. Zoom NICHT automatisch übernehmen, sondern eigener Knopf „Zoom synchronisieren“ (UX klären: feste Höhe/Ausschnitt so, dass Hand- und Menükarte dieselbe Ansicht zeigen).
 - [ ] „Configure Waypoint“ neu: Farben zu grell → keine Farbpalette mehr. Stattdessen: Feld 1 Name (Textfeld); Feld 2 Auswahl wie Kreativ-Suchtab (Block, Item oder Mob-Kopf suchen) als Icon. Anzeigemodus: Blockmodell (3D) – nur wenn Blockmodell vorhanden, sonst deaktiviert – oder eine Seite des Blocks (Standard Vorderseite), Seitenwahl über ausgeklappten Würfel (Netz) zum Anklicken; bei Items ohne Blockmodell keine Seitenwahl. Nicht überladen, aber verständlich. Falls doch Farben: Minecraft-typisch gedämpft/texturiert (Rot wie Netherrack, Orange wie Lava, Magenta wie Purpur …).
-- [ ] BUG: Wegpunkt-Name wird auf der Karte nicht angezeigt (zeigt „1“ statt „Test“).
-- [ ] Linke Seite: Knopf „Koordinaten anzeigen“ – neben jedem Wegpunkt und dem Spieler die Koordinaten.
-- [ ] Ebenen (je in den Karteneinstellungen an/aus): chunkgeladene Bereiche; Chunk-Loader der Mod als Markierung (wie Strukturen, keine Wegpunkte); platzierte aktive Shops mit Hover-Info (Angebot + Preis); weitere sinnvolle Ebenen vorschlagen.
+- [x] BUG: Wegpunkt-Name wird auf der Karte nicht angezeigt (zeigt „1“ statt „Test“). (claude-mapfix)
+- [x] Linke Seite: Knopf „Koordinaten anzeigen“ – neben jedem Wegpunkt und dem Spieler die Koordinaten. (claude-mapfix)
+- [x] Ebenen (je in den Karteneinstellungen an/aus): chunkgeladene Bereiche; Chunk-Loader der Mod als Markierung (wie Strukturen, keine Wegpunkte); platzierte aktive Shops mit Hover-Info (Angebot + Preis); weitere sinnvolle Ebenen vorschlagen. (claude-mapfix; Ideen: Claims, Spieler/Team, Tod/Heim/Respawn)
 
 End-Bäume
 - [ ] Ash- und Duskwood-Blätter sehen unschön aus: Blockmodelle natürlicher – äußere Blätter andere Textur/Anordnung als innere, innere dichter (nicht ganz dicht), nicht wie „schwache Simulation“.
