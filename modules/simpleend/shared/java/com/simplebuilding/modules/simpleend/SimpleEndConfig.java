@@ -27,7 +27,7 @@ public final class SimpleEndConfig {
     public static boolean enableSimpleEndDragonFight = true;
     /** Ash Valley and Dawnlands replace patches of the outer End highlands in new chunks. */
     public static boolean biomes = true;
-    /** Share of 12x12-chunk cells on the outer islands that get one biome patch (0..1). */
+    /** Share of 72x72-chunk cells on the outer islands that get one biome patch (0..1). */
     public static double biomeChance = 0.4;
     /** Buds grow by themselves in light >= 9 (random ticks); bone meal always works. */
     public static boolean budsGrowAlone = true;

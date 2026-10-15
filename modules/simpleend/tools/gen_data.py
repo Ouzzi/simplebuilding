@@ -243,14 +243,17 @@ def nibblemite(loot):
 
 
 # Umbau 13.10.: two foggy cores (Hollow Watcher area, tag watcher_core) and their fringes; no wood trees in the End.
+# Fog distances in blocks (start, end). N66 (15.10.): the old core 0-20 / fringe 6-56 showed only silhouettes; now the core is
+# hazy but readable (10-64) and the fringe a light haze (24-128). Colors lightened so far trees fade into haze, not black.
+CORE_FOG, FRINGE_FOG = (10.0, 64.0), (24.0, 128.0)
 BIOMES = {
-    'ash_valley': dict(wood='ashwood', core=True, sky='#221d1b', fog='#2e2925', fog_start=0.0, fog_end=20.0, dry='#a89c8a', foliage='#9a8f80',
+    'ash_valley': dict(wood='ashwood', core=True, sky='#221d1b', fog='#3b332e', fog_start=CORE_FOG[0], fog_end=CORE_FOG[1], dry='#a89c8a', foliage='#9a8f80',
                        grass='#a39886', particle='minecraft:white_ash', p=0.02, music='music.ash_valley'),
-    'dawnlands': dict(wood='duskwood', core=True, sky='#2a1f25', fog='#3a2d33', fog_start=0.0, fog_end=20.0, dry='#958673', foliage='#8c7c6a',
+    'dawnlands': dict(wood='duskwood', core=True, sky='#2a1f25', fog='#47373e', fog_start=CORE_FOG[0], fog_end=CORE_FOG[1], dry='#958673', foliage='#8c7c6a',
                       grass='#988673', particle='minecraft:spore_blossom_air', p=0.01, music='music.dawnlands'),
-    'ash_valley_fringe': dict(wood='ashwood', core=False, sky='#2b2522', fog='#3a332e', fog_start=6.0, fog_end=56.0, dry='#a89c8a', foliage='#9a8f80',
+    'ash_valley_fringe': dict(wood='ashwood', core=False, sky='#2b2522', fog='#463e38', fog_start=FRINGE_FOG[0], fog_end=FRINGE_FOG[1], dry='#a89c8a', foliage='#9a8f80',
                               grass='#a39886', particle='minecraft:white_ash', p=0.008, music='music.ash_valley'),
-    'dawnlands_fringe': dict(wood='duskwood', core=False, sky='#33262c', fog='#4a3a40', fog_start=6.0, fog_end=56.0, dry='#958673', foliage='#8c7c6a',
+    'dawnlands_fringe': dict(wood='duskwood', core=False, sky='#33262c', fog='#58464d', fog_start=FRINGE_FOG[0], fog_end=FRINGE_FOG[1], dry='#958673', foliage='#8c7c6a',
                              grass='#988673', particle='minecraft:spore_blossom_air', p=0.004, music='music.dawnlands'),
 }
 # feature -> (end_flora kind, placement in the core, placement in the fringe); list order = feature order in every biome
@@ -324,8 +327,8 @@ CONFIG = {
                                    'Schaltet die gebündelte Sub-Mod Simple End Dragon Fight ein oder aus (nur solange Simple End selbst an ist).'),
     'biomes': ('Ash Valley and Dawnlands', 'Aschental und Dämmerlande', 'Lets the two biomes (foggy core and fringe) replace large patches of the outer End islands in new chunks.',
                'Lässt die beiden Biome (nebliger Kern und Saum) in neuen Chunks große Flecken der äußeren End-Inseln ersetzen.'),
-    'biomeChance': ('Biome patch chance', 'Biom-Fleck-Chance', 'Share of 40x40-chunk areas on the outer islands that hold one patch, 14-24 chunks across (0 to 1). Default: 0.3.',
-                    'Anteil der 40x40-Chunk-Felder auf den äußeren Inseln mit einem Fleck von 14-24 Chunks Durchmesser (0 bis 1). Standard: 0,3.'),
+    'biomeChance': ('Biome patch chance', 'Biom-Fleck-Chance', 'Share of 72x72-chunk areas on the outer islands that hold one patch, 28-44 chunks across, spanning several islands (0 to 1). Default: 0.4.',
+                    'Anteil der 72x72-Chunk-Felder auf den äußeren Inseln mit einem Fleck von 28-44 Chunks Durchmesser über mehrere Inseln (0 bis 1). Standard: 0,4.'),
     'budsGrowAlone': ('Buds grow by themselves', 'Knospen wachsen von selbst', 'Buds grow into trees on their own in light level 9 or more; bone meal always works.',
                       'Knospen wachsen ab Lichtstufe 9 von selbst zu Bäumen; Knochenmehl wirkt immer.'),
     'voidSafeItems': ('Void-safe wood items', 'Leere-sichere Holz-Items', 'Dropped End-wood items float back up when they fall below the world.',

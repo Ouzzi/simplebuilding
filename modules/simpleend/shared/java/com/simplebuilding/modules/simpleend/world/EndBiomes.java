@@ -9,7 +9,7 @@ import net.minecraft.world.level.biome.Biome;
 /**
  * Where Ash Valley and Dawnlands lie (docs/ai/PLAN-SIMPLE-END-2026-10-12.md, "Umbau 13.10."): the outer End is cut
  * into cells of {@link #CELL}x{@link #CELL} chunks; a share {@link SimpleEndConfig#biomeChance} of the cells holds one
- * large patch, 14-24 chunks across with a wavy rim. Inside a patch the End highlands/midlands/barrens become the
+ * large patch, 28-44 chunks (450-700 blocks) across with a wavy rim, so it spans several End islands (N66; before 14-24 chunks in 40-chunk cells). Inside a patch the End highlands/midlands/barrens become the
  * biome: the inner {@link #CORE} of the radius is the foggy core (Ash Valley / Dawnlands, biome tag
  * {@code simpleend:watcher_core}), the outside its fringe. The cell's randomness comes from the world's erosion noise
  * at the cell origin, so every world differs; positions are exact to 4 blocks (a biome quart).
@@ -20,9 +20,9 @@ public final class EndBiomes {
     public static final ResourceKey<Biome> ASH_VALLEY_FRINGE = ResourceKey.create(Registries.BIOME, SimpleEnd.id("ash_valley_fringe"));
     public static final ResourceKey<Biome> DAWNLANDS_FRINGE = ResourceKey.create(Registries.BIOME, SimpleEnd.id("dawnlands_fringe"));
     public static final net.minecraft.tags.TagKey<Biome> WATCHER_CORE = net.minecraft.tags.TagKey.create(Registries.BIOME, SimpleEnd.id("watcher_core"));
-    public static final int CELL = 40;
+    public static final int CELL = 72;
     /** Patch radius in chunks: {@link #MIN_RADIUS} plus up to {@link #RADIUS_RANGE}. */
-    public static final double MIN_RADIUS = 7.0, RADIUS_RANGE = 5.0;
+    public static final double MIN_RADIUS = 14.0, RADIUS_RANGE = 8.0;
     /** Share of the (wavy) radius that is core. */
     public static final double CORE = 0.62;
     public static final int NONE = 0, ASH = 1, DAWN = 2, ASH_FRINGE = 3, DAWN_FRINGE = 4;
