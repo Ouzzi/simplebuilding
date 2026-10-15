@@ -362,7 +362,7 @@ Abgehakt, aber nicht oder nur teilweise im Code (C):
 - [x] Nacharbeit (12.10.): Soulbound im Hardcore-Modus (Besitzersatz abgebrochen) – nachfragen; bisher nur Wiki-Satz. (oc-answers60)
 - [x] Nacharbeit (13.10.): Hufeisen-Upgrade-Tooltip nennt „Copper–Enderite“, Besitzer wollte „Iron–Enderite ingots“ – klären. (Besitzer 15.10.: Copper–Enderite bleibt)
 - [x] Nacharbeit (14.10.): Shrieker mit Silent Dandelion: nur Ton stumm (85b334cbf), Vibration/Warnstufe bleiben – prüfen, ob Sculk-Sensoren trotzdem auslösen, ggf. Vibration unterdrücken. (oc-auditfix: stumm = komplett untätig)
-- [ ] Nacharbeit (Memory 12.–13.10., abgehakt aber Teilpunkt offen): Simple Respawn roter Name mit Restzeit + Locator-Markierung; Schwefel-Fackel/-Laterne/-Lagerfeuer (Folgepunkt Schwefelfeuer); Entdeckbarkeit Stufe 2 (Welt-Hinweise).
+- [x] Nacharbeit (Memory 12.–13.10., abgehakt aber Teilpunkt offen): Simple Respawn roter Name mit Restzeit + Locator-Markierung; Schwefel-Fackel/-Laterne/-Lagerfeuer (Folgepunkt Schwefelfeuer); Entdeckbarkeit Stufe 2 (Welt-Hinweise). (Respawn via oc-auditfix; Schwefel-Fackel/-Laterne/-Lagerfeuer via claude-n58rest, Textur-Abnahme offen; Entdeckbarkeit Stufe 2 offen – Besitzerfragen)
 Aus den Memory-Notizen (nicht in der Queue, Details im Audit-Dokument M02–M18):
 - [ ] (Memory) Claim-Urkunde Phase 1: Review, Forge-/Client-/Standalone-Tests, Einzelhooks, Namens-Cache; rote Tests ohne Fix-Beleg (Forge crucible/auto_smither/tiered, Standalone double_cap/claims_grief, every_mod_mob NeoForge) prüfen.
 - [ ] (Memory) Windows-Lauf des Installers beim Besitzer (winget-JDK, Toolchain, Vanilla-derived-Fallback) testen.
