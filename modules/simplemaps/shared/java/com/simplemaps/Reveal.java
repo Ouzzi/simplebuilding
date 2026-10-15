@@ -40,10 +40,19 @@ public final class Reveal {
             int dx = x - px;
             int span = (int) Math.sqrt((double) radius * radius - (double) dx * dx);
             int previous = Integer.MIN_VALUE;
+            // The row above sits in a chunk that is not loaded (yet): its shading would be a guess (flat), so such a
+            // pixel never overwrites a known one and is redone as soon as the neighbour chunk is there (map artefact lines).
+            boolean guessed = false;
             for (int z = pz - span - 1; z <= pz + span; z++) {
                 LevelChunk chunk = level.getChunkSource().getChunkNow(x >> 4, z >> 4);
-                if (chunk == null || !sample(level, chunk, x, py, z, ceiling, pos, sample)) {
+                if (chunk == null) {
                     previous = Integer.MIN_VALUE;
+                    guessed = true;
+                    continue;
+                }
+                if (!sample(level, chunk, x, py, z, ceiling, pos, sample)) {
+                    previous = Integer.MIN_VALUE;
+                    guessed = false;
                     continue;
                 }
                 int y = sample[1];
@@ -51,8 +60,9 @@ public final class Reveal {
                     MapColor color = MapColor.byId(sample[0]);
                     MapColor.Brightness brightness = brightness(color, y, previous, sample[2], x, z);
                     int height = Mth.clamp((y - level.getMinY()) / 2 + 1, 1, 255);
-                    if (data.set(x, z, color.getPackedId(brightness) & 0xFF, height, true)) changed++;
+                    if (data.set(x, z, color.getPackedId(brightness) & 0xFF, height, !guessed)) changed++;
                 }
+                guessed = false;
                 previous = y;
             }
         }

@@ -3988,5 +3988,6 @@
   "tip.simplebuilding.echo_sounder": "Link to a lodestone, then hold use for 3 s",
   "tip.simplebuilding.silent_dandelion": "Use on a mob to switch its sounds off or on",
   "tip.simplebuilding.hopper_filter": "Set up an item filter in its menu",
-  "tip.simplebuilding.fletching": "Use it to make arrows: tip, shaft, fletching"
+  "tip.simplebuilding.fletching": "Use it to make arrows: tip, shaft, fletching",
+  "layer.simplebuilding.chunk_loaders": "Chunk loaders"
 }

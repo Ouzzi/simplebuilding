@@ -71,5 +71,6 @@
   "quests.simpleshops.start.title": "Welcome to Simple Shops",
   "quests.simpleshops.start.subtitle": "Your free guide",
   "quests.simpleshops.start.welcome.title": "A free guide",
-  "quests.simpleshops.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Shops Guide as a reward. You can also craft it from a book and an emerald."
+  "quests.simpleshops.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Shops Guide as a reward. You can also craft it from a book and an emerald.",
+  "layer.simpleshops.shops": "Shops"
 }
