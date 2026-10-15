@@ -276,31 +276,31 @@ Item-Statistiken (Modul noch offen – Vorschlag im Konzept)
 ## Nachtrag 61 (2026-10-15, Besitzer-Antworten Sammel-Fragebogen 13.10.)
 Entscheidungen (E): alle Empfehlungen angenommen (E1 A Sprachen erst beim Release, E2 A Attractor-Ladung gestrichen, E3 A gestrichen, E4–E6 geschlossen, E9 A Echolot 3 s halten, E10 A Schlagzahlen so lassen, E11 A Trick-Spiegel vorerst entfernen, E12 A Gewölbe-Texturen nur zur Build-Zeit), außer:
 - [x] E7 Rucksack-Sortierung: KEINE eigene Sortierfunktion – Sortieren bleibt Mods wie Mouse Tweaks / Client-Sort überlassen (Kompatibilität nicht brechen).
-- [ ] E8 Hammer-Tempo bleibt (A); NEU: Oktant-Auswahl bekommt denselben Mengenrabatt wie der normale Hammer-Flächenabbau (1. Block 1,5x, Block 2–9 +0,8x, ab 10 +0,7x – statt fester Faktor je Block).
-- [ ] E11 Trick-Spiegel vorerst entfernen: aus Loot/Rezept/Kreativ-Reiter nehmen, Code bleibt hinter Schalter.
-- [ ] E13 Weder Pipette noch Malerpalette (paint_palette): Malerpalette-Item entfernen (Alt-ID-Migration). Zufallsfarbe nur über die Verzauberung „Farbpalette“ (Color Palette) – anwendbar auf den Pinsel, nicht auf eine Palette.
+- [x] (oc-answers61) E8 Hammer-Tempo bleibt (A); NEU: Oktant-Auswahl bekommt denselben Mengenrabatt wie der normale Hammer-Flächenabbau (1. Block 1,5x, Block 2–9 +0,8x, ab 10 +0,7x – statt fester Faktor je Block).
+- [x] (oc-answers61) E11 Trick-Spiegel vorerst entfernen: aus Loot/Rezept/Kreativ-Reiter nehmen, Code bleibt hinter Schalter.
+- [x] (oc-answers61) E13 Weder Pipette noch Malerpalette (paint_palette): Malerpalette-Item entfernen (Alt-ID-Migration). Zufallsfarbe nur über die Verzauberung „Farbpalette“ (Color Palette) – anwendbar auf den Pinsel, nicht auf eine Palette.
 Texturen (T): T1 Fragentisch R3 bleibt; T6 = Keramik B; T7 Lohen-Obsidian B1 ok; T8 Trainingspuppe bleibt vorerst; T10 ok (abgehakt); T11 lassen; T13–T26 abgenommen (nur eine Variante – Änderungen meldet der Besitzer selbst); T15 Enchanter ok. T2 (Kolben C), T5 (Riding-Bücher B+25 %), T4-Stil (Sandwich v8) waren schon früher entschieden und eingebaut – Fragebogen war veraltet.
-- [ ] T12 Starkes Leuchtfeuer: GUI im Vanilla-Stil wie die Vanilla-Leuchtfeuer-GUI (nicht eigener Container-Stil).
+- [x] (oc-answers61) T12 Starkes Leuchtfeuer: GUI im Vanilla-Stil wie die Vanilla-Leuchtfeuer-GUI (nicht eigener Container-Stil).
 - [x] T3 Brot-Form: v8 bleibt (keine Form A–D) (Besitzer 15.10.).
 - [ ] Sandwich-Brot v8: Unterseite bekommt einen dunkleren Rand wie die Oberseite (Besitzer 15.10.).
-- [ ] Butter/Käse neu (Besitzer 15.10., ersetzt alte Regel): Milch im Kessel reift 5 min zu Butter, weitere 5 min zu Käse (kein fermentiertes Spinnenauge mehr nötig). Nichts verdirbt (kein Erntefenster). Liegt ein aktiver (nicht per Redstone gesperrter) Trichter unter dem Kessel, erntet er das fertige Produkt sofort (Butter; Käse entsteht also nur ohne aktiven Trichter). Auslegung „Butter bzw. Milch“ im Diktat: Trichter erntet das jeweils fertige Produkt.
+- [x] (oc-cheese) Butter/Käse neu (Besitzer 15.10., ersetzt alte Regel): Milch im Kessel reift 5 min zu Butter, weitere 5 min zu Käse (kein fermentiertes Spinnenauge mehr nötig). Nichts verdirbt (kein Erntefenster). Liegt ein aktiver (nicht per Redstone gesperrter) Trichter unter dem Kessel, erntet er das fertige Produkt sofort (Butter; Käse entsteht also nur ohne aktiven Trichter). Auslegung „Butter bzw. Milch“ im Diktat: Trichter erntet das jeweils fertige Produkt.
 REGEL (Besitzer 15.10.): Keine alten, schon entschiedenen Textur-Vorschläge erneut vorlegen oder vermischen; vor jeder Textur-Frage Queue/Archiv/Memory nach der Entscheidung durchsuchen. Eingebaute, abgenommene Texturen nur auf ausdrücklichen Wunsch ändern.
 
 ## Nachtrag 60 (2026-10-15, Besitzer-Antworten zum Audit N58)
 - [x] Eimer: bleibt so, wie er vorher drin war – KEIN breiterer Eimer (Audit-Frage 1).
 - [x] Elytra-Reparatur: bleibt beim Werkbank-Rezept, keine Amboss-Reparatur (Audit-Frage 2).
-- [ ] Kartenaufdeckung (Simple Maps revealRadius): Standard auf den Vanilla-Wert setzen (Audit-Frage 3).
-- [ ] Kupfer-Eimer verwittert auch platziert. Mit Honigwabe wachsen → verwittert nicht. Wird etwas eingefüllt, verwittert ein gewachster Eimer halb so schnell, bis er wieder gewachst wird (Audit-Frage 4; Auslegung: Einfüllen „beschädigt“ das Wachs teilweise).
-- [ ] Wollknäuel: zusätzlich 2 Wollknäuel → 1 Wolle (Audit-Frage 5).
-- [ ] Blaze Book: Rezept 8 Lohenstaub (Blaze Powder) + 1 normales Buch (Audit-Frage 6).
-- [ ] Soulbound im Hardcore abschalten; Items bleiben trotzdem damit verzauberbar (wirkungslos wie Bett/Respawn-Anker im Hardcore) – Tooltip/Hinweis im Hardcore (Audit-Frage 7).
+- [x] (oc-answers60) Kartenaufdeckung (Simple Maps revealRadius): Standard auf den Vanilla-Wert setzen (Audit-Frage 3).
+- [x] (oc-answers60) Kupfer-Eimer verwittert auch platziert. Mit Honigwabe wachsen → verwittert nicht. Wird etwas eingefüllt, verwittert ein gewachster Eimer halb so schnell, bis er wieder gewachst wird (Audit-Frage 4; Auslegung: Einfüllen „beschädigt“ das Wachs teilweise).
+- [x] (oc-answers60) Wollknäuel: zusätzlich 2 Wollknäuel → 1 Wolle (Audit-Frage 5).
+- [x] (oc-answers60) Blaze Book: Rezept 8 Lohenstaub (Blaze Powder) + 1 normales Buch (Audit-Frage 6).
+- [x] (oc-answers60) Soulbound im Hardcore abschalten; Items bleiben trotzdem damit verzauberbar (wirkungslos wie Bett/Respawn-Anker im Hardcore) – Tooltip/Hinweis im Hardcore (Audit-Frage 7).
 - [x] Hufeisen-Upgrade-Tooltip bleibt „Copper–Enderite“ Hufeisen (Audit-Frage 8).
 
 ## Nachtrag 59 (2026-10-14, Besitzer)
 - [x] (oc-enchants) Neue Verzauberung „Step Height“ (Stufenhöhe) für Stiefel, 2 Stufen: I = 1 Block, II = 1,5 Blöcke (Zäune). Treasure-Verzauberung.
 - [x] (oc-enchants) Neue Verzauberung „Sprint“ für Hosen, 3 Stufen: relative Tempo-Steigerung auf die Grund-Laufgeschwindigkeit (wie Swift Sneak beim Schleichen). Treasure-Verzauberung.
 - [x] (oc-enchants) Beide Verzauberungen überall passend integrieren: Loot-Pools (Treasure: Truhen-Loot, Bibliothekar-Handel nach Vanilla-Treasure-Regeln), Tags (exclusive/tradeable/in_enchanting_table nach Treasure-Regel), Unverträglichkeiten, Astral-/Enchanter-Kompatibilität, Lang EN+DE, Wiki/Guide, Tests.
-- [ ] Dorf-Wanderer: weiterer, umtexturierter Wandering Trader mit einem Pferd an der Leine; genau einer pro Dorf (spawnt im/am Dorf). Gegenstück zum Wandering Trader: bietet seltene, aber nicht so seltene Items wie dieser; Angebot wechselt alle 3 Tage, Restock etwa alle 1,5 Tage. Trades zwischen Wandering Trader und Dorf-Wanderer passend aufteilen (Konzept zuerst: Trade-Listen, Spawn-Regel, Pferd, Textur).
+- [ ] Dorf-Wanderer: weiterer, umtexturierter Wandering Trader mit einem Pferd an der Leine; genau einer pro Dorf (spawnt im/am Dorf). Gegenstück zum Wandering Trader: bietet seltene, aber nicht so seltene Items wie dieser; Angebot wechselt alle 3 Tage, Restock etwa alle 1,5 Tage. Trades zwischen Wandering Trader und Dorf-Wanderer passend aufteilen (Konzept zuerst: Trade-Listen, Spawn-Regel, Pferd, Textur). – Konzept docs/ai/KONZEPT-DORF-WANDERER-2026-10-15.md (oc-wanderer-concept), 11 Besitzer-Fragen offen
 - [ ] (ZUM ENDE der Mod-Entwicklung) Audit auf Vanilla-Konformität (Stil, Balancing, Mechaniken, UI, Sounds, Texturen) über alle Mods.
 ## Nachtrag 58 (2026-10-14, Audit vergessener Besitzer-Wünsche)
 Quelle und Belege: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-14.md` (Stand claude-wave1 3cfba3c00, nur gelesen, nichts im Spiel geprüft). Datum in Klammern = Besitzer-Nachricht.
@@ -346,10 +346,10 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 
 ## Nachtrag 56 (2026-10-14, Besitzer) – Shop-Vitrine + Verkaufsblock
 - [x] (oc-shop-concept) KONZEPT zuerst (docs/ai/KONZEPT-SHOP-VITRINE-2026-10-14.md, Job oc-shop-concept): Grief- und Explosionsschutz, Duping-Sicherheit, Einbindung Simple Money/Claims.
-- [ ] Shop-Vitrine: einfach craftbar (Eisennuggets, Glas, …), dazu Glow-Variante; ästhetisch/schön. Besitzer legt ein Item hinein → steht zum Verkauf; Besitzer kann es wieder herausnehmen. Mehrere Items hinein → funktioniert wie ein Verkaufsautomat (Vending Machine).
-- [ ] Verkaufsblock: muss unter der Vitrine liegen, damit der Verkauf funktioniert (Diktat „damit der Bernard funktioniert“ – vermutlich „Verkauf/Automat“). Eigene GUI: Preis-Items oben wie beim Filter festlegen (Filter-Prinzip): Rechtsklick addiert die Stapelgröße des Cursor-Stacks, Linksklick addiert 1; Preis entfernen per Klick mit leerem Cursor; leerer Preis = gerade kein Verkauf. Befüllt man den mittleren Slot, erscheinen links und rechts je ein leerer Slot für weitere Preis-Items, max. 5 Slots. Preiszeile nur vom Besitzer bearbeitbar.
-- [ ] Verkaufsblock-GUI für Käufer: darunter dieselbe Anzahl Slots; Käufer legt die Preis-Items hinein und tauscht per Button. Nur ein Spieler gleichzeitig in der GUI.
-- [ ] Vitrine und Verkaufsblock: explosionsfest und für fremde Spieler nicht abbaubar (Grief-Schutz laut Konzept).
+- [x] (oc-shops) Shop-Vitrine: einfach craftbar (Eisennuggets, Glas, …), dazu Glow-Variante; ästhetisch/schön. Besitzer legt ein Item hinein → steht zum Verkauf; Besitzer kann es wieder herausnehmen. Mehrere Items hinein → funktioniert wie ein Verkaufsautomat (Vending Machine).
+- [x] (oc-shops) Verkaufsblock: muss unter der Vitrine liegen, damit der Verkauf funktioniert (Diktat „damit der Bernard funktioniert“ – vermutlich „Verkauf/Automat“). Eigene GUI: Preis-Items oben wie beim Filter festlegen (Filter-Prinzip): Rechtsklick addiert die Stapelgröße des Cursor-Stacks, Linksklick addiert 1; Preis entfernen per Klick mit leerem Cursor; leerer Preis = gerade kein Verkauf. Befüllt man den mittleren Slot, erscheinen links und rechts je ein leerer Slot für weitere Preis-Items, max. 5 Slots. Preiszeile nur vom Besitzer bearbeitbar.
+- [x] (oc-shops) Verkaufsblock-GUI für Käufer: darunter dieselbe Anzahl Slots; Käufer legt die Preis-Items hinein und tauscht per Button. Nur ein Spieler gleichzeitig in der GUI.
+- [x] (oc-shops) Vitrine und Verkaufsblock: explosionsfest und für fremde Spieler nicht abbaubar (Grief-Schutz laut Konzept).
 
 ## Nachtrag 55 (2026-10-14, Besitzer)
 - [x] (oc-n55-small) Sculk Jaws: spawnen nur mitten in Sculk – Bedingung: 5 Sculk-Blöcke rundherum unten, am unteren Block 4 (genaue Form beim Planen festlegen).
@@ -358,7 +358,7 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [x] (oc-n55-small) Echolot (Echo Sounder): besserer Fehlschlag-Sound, wenn nicht verbunden.
 - [x] (oc-missingtex) Einige Items haben keine Textur mehr (graues Karomuster im Inventar) – alle finden und fixen (vgl. Gate-Rot cracked_ice_0, Job oc-gatefix2).
 - [x] (oc-n55-hammer) Obsidian-Splitter nur noch per Vorschlaghammer-Umwandlung (analog Diamant-Pebble); dazu Weinender-Obsidian-Splitter und Blazing-Obsidian-Splitter neu.
-- [ ] Ziegel (Bricks) beim Platzieren wie Barren 3D legen; Diamanten und Smaragde bekommen ebenfalls eine 3D-Form. Mit dem Vorschlaghammer auf das platzierte 3D-Item hauen → 2D, nochmal → wieder 3D (nur unterstützte Items).
+- [x] (oc-bricks3d) Ziegel (Bricks) beim Platzieren wie Barren 3D legen; Diamanten und Smaragde bekommen ebenfalls eine 3D-Form. Mit dem Vorschlaghammer auf das platzierte 3D-Item hauen → 2D, nochmal → wieder 3D (nur unterstützte Items).
 - [x] (oc-crates) Crates: seitlich bis zu 9 verschiedene enthaltene Items anzeigen. Inhalt wie das Besitzer-Referenzbild rendern (Bild liegt in dieser Sitzung NICHT vor – beim Besitzer anfordern): jedes Item bekommt je nach Anzahl eine Schicht, die aussieht, als bestünde sie aus dem Item; max. 9 verschiedene Items je Crate; zuletzt eingelegtes Item liegt oben, ältere Schichten werden hochgeschoben.
 - [x] (oc-n55-small) Enchanter: am Buch-Button nicht die benötigten Level anzeigen (stehen schon oben), sondern wie viele Level abgezogen werden.
 - [ ] Blazing Obsidian ist immer noch nicht gut → Rework (Konzept/Textur/Verhalten) notiert.
@@ -368,12 +368,12 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [x] (oc-n55-small) Hängematte: Einstellung wie playersSleepingPercentage (Anteil Spieler in Hängematte für Nachtsprung o. Ä.).
 - [x] (oc-deathvault2) Death Vault umbauen (aktuelle Funktion nicht zuverlässig): überzählige Funktionen (Zurückkaufen usw.) als „zukünftig“ markieren/abschalten. Neue Kernfunktion: anzeigen, welche Items beim Tod gedroppt wurden, farbcodiert nach Verbleib – von anderem Spieler aufgehoben, verbrannt, despawnt, ins Void gefallen, anders verschwunden –, damit man sieht, ob sich der Weg lohnt. Noch liegende Items: Despawn-Timer (Fortschrittsbalken wie Ofen); steht der Timer, weil der Chunk nicht geladen ist, das anzeigen.
 - [x] (oc-headslot) Kopf-Slot verhält sich wie der Helm-Slot für Köpfe: Kopf ersetzt mit Item-Model den Kopf, Effekte werden übernommen; Anzieh-Sounds; Item-Model des Kopf-Slots hat Vorrang vor dem Helm, Effekte beider gelten. Kopfgrößen möglichst gleich den Mob-Kopf-Größen an den Mob-Modellen.
-- [ ] Hollow Howler gruseliger: Recherche Sounddesign (Horror-Audio, Vanilla-Mob-Sounds) und Visual Design, daraus Verbesserungsplan, dann umsetzen.
-- [ ] Recherche Mob-Animation und Vanilla-Animationsrichtlinien; alle Custom-Mob-Animationen danach verbessern.
+- [ ] Hollow Howler gruseliger: Recherche Sounddesign (Horror-Audio, Vanilla-Mob-Sounds) und Visual Design, daraus Verbesserungsplan, dann umsetzen. – Konzept docs/ai/KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md (oc-research), Umsetzung nach Besitzer-Freigabe
+- [ ] Recherche Mob-Animation und Vanilla-Animationsrichtlinien; alle Custom-Mob-Animationen danach verbessern. – Konzept docs/ai/KONZEPT-MOB-ANIMATIONEN-2026-10-15.md (oc-research), Umsetzung nach Besitzer-Freigabe
 - [ ] (ZULETZT, erst wenn alles andere fertig) Recherche Performance-Optimierung (Minecraft-Mods, 3D-Block-/Open-World-Spiele, Videospiele allgemein) und alle Mods optimieren.
 
 ## Nachtrag 54 (2026-10-13, Besitzer)
-- [ ] Claim-Urkunde ähnlich wie die Blaupause handhaben: eigene GUI, dort Personen hinzufügen und ihnen Fähigkeiten geben (bauen, zerstören, Container öffnen usw.); Besitzer: Code-Form (B Build, D Destroy, U Use …), dazu Claim-Tisch (Karte/Liste aller Claims), Claims in Simple Maps, Kopie auf leere Urkunde, Erweiterung mit steigenden Kosten, Vanilla-nah. (Plan Fassung 2 freigegeben) – Phase 1 (Rechte/Parser/Ledger v2/Hooks) in wave1 via oc-claimdeed1b; Phasen 2–5 offen
+- [ ] Claim-Urkunde ähnlich wie die Blaupause handhaben: eigene GUI, dort Personen hinzufügen und ihnen Fähigkeiten geben (bauen, zerstören, Container öffnen usw.); Besitzer: Code-Form (B Build, D Destroy, U Use …), dazu Claim-Tisch (Karte/Liste aller Claims), Claims in Simple Maps, Kopie auf leere Urkunde, Erweiterung mit steigenden Kosten, Vanilla-nah. (Plan Fassung 2 freigegeben) – Phase 1 (Rechte/Parser/Ledger v2/Hooks) in wave1 via oc-claimdeed1b; Phasen 2–5 offen – Phase 2 (Editor-GUI) in wave1 via oc-claimdeed2; offen Phasen 3–5 (Claim-Tisch, Maps-Ebene, Erweiterung, Texturen)
 - [x] Hammer-Tempo: aktuell gut, bleibt so (Formel 1,5x / +0,8x / +0,7x; E8 = A).
 - [ ] (SPÄTER, nur als Hinweis) Hammer-Tempo-Variante testen: Basis 1. Block 2x, jeder weitere bis Block 9 +0,6x, ab Block 10 +0,5x oder +0,4x – bei vielen Blöcken viel Ersparnis, bei wenigen wenig.,
 

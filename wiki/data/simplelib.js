@@ -741,7 +741,32 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       "id": "simplelib:blocks/crucible_blank",
       "kind": "blocks",
       "type": "minecraft:block",
-      "pools": [],
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_block"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/crucible_blank.json"
     },
     {
