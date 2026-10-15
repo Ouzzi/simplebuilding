@@ -341,7 +341,8 @@ public class ModBucketItem extends BucketItem {
             boolean wax = waxed(bucket);
             if (!scrape(bucket)) return InteractionResult.FAIL;
             if (!level.isClientSide()) {
-                level.playSound(null, at, wax ? SoundEvents.AXE_WAX_OFF.value() : SoundEvents.AXE_SCRAPE.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                if (wax) level.playSound(null, at.getX() + 0.5, at.getY() + 0.5, at.getZ() + 0.5, SoundEvents.AXE_WAX_OFF, SoundSource.PLAYERS, 1.0F, 1.0F);
+                else level.playSound(null, at.getX() + 0.5, at.getY() + 0.5, at.getZ() + 0.5, SoundEvents.AXE_SCRAPE, SoundSource.PLAYERS, 1.0F, 1.0F);
                 level.levelEvent(null, wax ? 3004 : 3005, at, 0); // PARTICLES_WAX_OFF / PARTICLES_SCRAPE
                 tool.hurtAndBreak(1, player, toolSlot);
             }
