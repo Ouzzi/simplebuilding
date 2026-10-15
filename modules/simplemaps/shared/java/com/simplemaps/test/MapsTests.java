@@ -39,6 +39,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.inventory.CartographyTableMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
@@ -86,6 +87,9 @@ public final class MapsTests {
         h.assertTrue(new ItemStack(Items.ZOMBIE_HEAD).is(MapsItems.WAYPOINT_HEADS) && new ItemStack(Items.DRAGON_HEAD).is(MapsItems.WAYPOINT_HEADS),
                 "every mob head can be a waypoint icon");
         h.assertTrue(!new ItemStack(Items.PUMPKIN).is(MapsItems.WAYPOINT_HEADS), "pumpkin is no head");
+        // Simple Mobheads (optional): its heads are waypoint icons too, only when that mod is loaded.
+        Item blaze = BuiltInRegistries.ITEM.getOptional(Identifier.parse("simplemobheads:blaze_head")).orElse(null);
+        h.assertTrue(blaze == null || new ItemStack(blaze).is(MapsItems.WAYPOINT_HEADS), "Simple Mobheads heads are waypoint icons");
         h.succeed();
     }
 
