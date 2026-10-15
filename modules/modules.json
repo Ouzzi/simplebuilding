@@ -3052,6 +3052,15 @@
           "neoforge": {
             "task": ":modules:simplestats:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplestats/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplestats:forge:runGameTestServer",
+            "report": "modules/simplestats/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ],
+            "testMods": []
           }
         },
         "standalone": {

@@ -26,3 +26,4 @@
 - [Hauptlinie 26.3 zuerst](hauptlinie-26-3-zuerst.md) — ab 2026-09-29: erst 26.3 fertig + getestet, dann Port-Run fuer 26.2/Forge/1.21.11/26.4
 - [Besitzer-Entscheidungen 2026-09-30 Abend](besitzer-entscheidungen-2026-09-30.md) — Claims zuerst (aus), Echo-Kompasse nicht migrieren, Dimensionen, QoL-Bonus Standard 1, Sounds an Visuals, Forge spaeter
 - [Teil-Pushes erlaubt](push-freigabe-teilweise-2026-09-30.md) — nach gruenem Gate nur die gategte SHA pushen; Filter blockt ohne Chat-Freigabe; rote Merges vom master nehmen
+- [Simple Stats](simple-stats-2026-10-15.md) — Modul simplestats gebaut (oc-simplestats); offen: Prod-Zug, Client-Abnahme, Tragezeit-Genauigkeit
