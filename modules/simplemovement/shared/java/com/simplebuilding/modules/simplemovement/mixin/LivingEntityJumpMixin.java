@@ -25,4 +25,11 @@ public class LivingEntityJumpMixin {
             }
         }
     }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void jumpBoostStepUp(CallbackInfo ci) {
+        if ((Object) this instanceof Player player) {
+            com.simplebuilding.modules.simplemovement.JumpBoostStep.tick(player);
+        }
+    }
 }

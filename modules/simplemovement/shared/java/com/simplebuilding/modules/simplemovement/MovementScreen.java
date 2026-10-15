@@ -27,6 +27,8 @@ public final class MovementScreen {
                 .setDefaultValue(MovementConfig.SlideActivationMode.CAMERA).setTooltip(tip("ladderSlideActivation")).setSaveConsumer(v -> c.ladderSlideActivation = v).build());
         general.addEntry(e.startBooleanToggle(name("frostWalkerWalkOnPowderSnow"), c.frostWalkerWalkOnPowderSnow).setDefaultValue(true)
                 .setTooltip(tip("frostWalkerWalkOnPowderSnow")).setSaveConsumer(v -> c.frostWalkerWalkOnPowderSnow = v).build());
+        general.addEntry(e.startBooleanToggle(name("jumpBoostStepUp"), c.jumpBoostStepUp).setDefaultValue(true)
+                .setTooltip(tip("jumpBoostStepUp")).setSaveConsumer(v -> c.jumpBoostStepUp = v).build());
         b.setSavingRunnable(() -> {
             SimpleMovement.CONFIG = c;
             SimpleMovement.save();

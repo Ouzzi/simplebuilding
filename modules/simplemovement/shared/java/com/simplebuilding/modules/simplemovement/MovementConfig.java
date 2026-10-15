@@ -25,6 +25,9 @@ public final class MovementConfig {
     /** Frost Walker boots walk on powder snow (formerly a top-level Simple QoL option). */
     public boolean frostWalkerWalkOnPowderSnow = true;
 
+    /** Jump Boost lets players step up one block without jumping (never stacks with Step Height boots, the higher value wins). */
+    public boolean jumpBoostStepUp = true;
+
     public static double bounded(double v, double min, double max, double fallback) {
         return Double.isFinite(v) ? Math.clamp(v, min, max) : fallback;
     }
