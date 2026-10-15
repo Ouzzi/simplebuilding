@@ -6,5 +6,6 @@ public final class EndStructureGameTest {
     @GameTest public void templatesLoad(GameTestHelper helper) { EndStructureTests.templatesLoad(helper); }
     @GameTest public void wellPlacesFromEndstoneBricks(GameTestHelper helper) { EndStructureTests.wellPlacesFromEndstoneBricks(helper); }
     @GameTest public void wreckHasLootChestsAndFrame(GameTestHelper helper) { EndStructureTests.wreckHasLootChestsAndFrame(helper); }
+    @GameTest public void wreckLootIsNeverJunk(GameTestHelper helper) { EndStructureTests.wreckLootIsNeverJunk(helper); }
     @GameTest public void gatewayAndPathPlace(GameTestHelper helper) { EndStructureTests.gatewayAndPathPlace(helper); }
 }
