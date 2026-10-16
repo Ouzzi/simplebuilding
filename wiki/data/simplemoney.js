@@ -1407,7 +1407,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       "id": "money_links_simplebuilding",
       "en": {
         "title": "Linked Price Table: simplebuilding",
-        "summary": "220 item prices; loaded-mod condition: simplebuilding.",
+        "summary": "218 item prices; loaded-mod condition: simplebuilding.",
         "details": [
           "simplebuilding:amethyst_lens: tier 1, hours 6.7, craft 9; 19 bills; toolsmith 2; stock 2; chance 1.",
           "simplebuilding:astral_end_stone: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1626,14 +1626,12 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "simplebuilding:waxed_exposed_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:waxed_oxidized_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:waxed_weathered_copper_pressure_plate: tier 0, hours 4.0, craft 2; 8 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:weathered_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:enderite_bucket: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:copper_bucket: tier 0, hours 1.0, craft 3; 8 bills; toolsmith 1; stock 2; chance 1."
+          "simplebuilding:weathered_copper_pressure_plate: tier 0, hours 4.0, craft 0; 8 bills; mason 1; stock 2; chance 1."
         ]
       },
       "de": {
         "title": "Verknuepfte Preisliste: simplebuilding",
-        "summary": "220 Itempreise; Mod-Ladebedingung: simplebuilding.",
+        "summary": "218 Itempreise; Mod-Ladebedingung: simplebuilding.",
         "details": [
           "simplebuilding:amethyst_lens: Stufe 1, Stunden 6.7, Rezeptplaetze 9; 19 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
           "simplebuilding:astral_end_stone: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1852,9 +1850,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "simplebuilding:waxed_exposed_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:waxed_oxidized_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:waxed_weathered_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:weathered_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:enderite_bucket: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:copper_bucket: Stufe 0, Stunden 1.0, Rezeptplaetze 3; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1."
+          "simplebuilding:weathered_copper_pressure_plate: Stufe 0, Stunden 4.0, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1."
         ]
       },
       "sources": [
@@ -2076,9 +2072,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/waxed_exposed_copper_pressure_plate.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/waxed_oxidized_copper_pressure_plate.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/waxed_weathered_copper_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/weathered_copper_pressure_plate.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_bucket.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/copper_bucket.json"
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/weathered_copper_pressure_plate.json"
       ],
       "related": [
         "simplebuilding:amethyst_lens",
@@ -2298,9 +2292,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "simplebuilding:waxed_exposed_copper_pressure_plate",
         "simplebuilding:waxed_oxidized_copper_pressure_plate",
         "simplebuilding:waxed_weathered_copper_pressure_plate",
-        "simplebuilding:weathered_copper_pressure_plate",
-        "simplebuilding:enderite_bucket",
-        "simplebuilding:copper_bucket"
+        "simplebuilding:weathered_copper_pressure_plate"
       ]
     },
     {
@@ -2791,28 +2783,36 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       "id": "money_links_simplecrucibles",
       "en": {
         "title": "Linked Price Table: simplecrucibles",
-        "summary": "2 item prices; loaded-mod condition: simplecrucibles.",
+        "summary": "4 item prices; loaded-mod condition: simplecrucibles.",
         "details": [
           "simplecrucibles:enderite_crucible: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplecrucibles:enderite_barrel: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1."
+          "simplecrucibles:enderite_barrel: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplecrucibles:enderite_bucket: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplecrucibles:copper_bucket: tier 0, hours 1.0, craft 3; 8 bills; toolsmith 1; stock 2; chance 1."
         ]
       },
       "de": {
         "title": "Verknuepfte Preisliste: simplecrucibles",
-        "summary": "2 Itempreise; Mod-Ladebedingung: simplecrucibles.",
+        "summary": "4 Itempreise; Mod-Ladebedingung: simplecrucibles.",
         "details": [
           "simplecrucibles:enderite_crucible: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplecrucibles:enderite_barrel: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1."
+          "simplecrucibles:enderite_barrel: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplecrucibles:enderite_bucket: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplecrucibles:copper_bucket: Stufe 0, Stunden 1.0, Rezeptplaetze 3; 8 Scheine; toolsmith 1; Vorrat 2; Chance 1."
         ]
       },
       "sources": [
         "modules/simplemoney/shared/resources/data/simplemoney/money/simplecrucibles/prices.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/enderite_barrel.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/enderite_crucible.json"
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/enderite_crucible.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/enderite_bucket.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplecrucibles/copper_bucket.json"
       ],
       "related": [
         "simplecrucibles:enderite_crucible",
-        "simplecrucibles:enderite_barrel"
+        "simplecrucibles:enderite_barrel",
+        "simplecrucibles:enderite_bucket",
+        "simplecrucibles:copper_bucket"
       ]
     },
     {

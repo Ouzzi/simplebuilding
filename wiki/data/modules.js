@@ -86,7 +86,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "4a8dba404c9c"
+    "dataHash": "be287e2648fd"
   },
   {
     "id": "simpleriding",
@@ -365,7 +365,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "daad400b5977"
+    "dataHash": "eb105cab0a20"
   },
   {
     "id": "simpleweather",
@@ -726,6 +726,6 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "24cb6f60fb8e"
+    "dataHash": "903ff501b0d3"
   }
 ];
