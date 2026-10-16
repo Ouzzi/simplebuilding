@@ -122,6 +122,75 @@ public final class PlaceClientTest {
         script.awaitPackets();
     }
 
+    /**
+     * Item display 3D (2026-10-16, docs/ai/VORSCHLAG-ITEM-DISPLAY-3D-2026-10-15.md step 3): a trim and an upgrade template, a sherd, a
+     * sherd pile, a stack of four discs, a mixed pile, a trim pile and a lone mod disc in 3D (a wide picture and a close-up), then
+     * the same switched to flat (the hammer's block state). Asserted: the client got the contents. The piles are cleared again.
+     */
+    public static void display3d(Script script) {
+        if (!McVersion.SMALL_PLACEABLES || ModBlocks.PLACED_SMALL_PARTS == null) {
+            return;
+        }
+        TestScene.build(script, "minecraft:stone", "creative");
+        BlockPos[] spots = new BlockPos[8];
+        for (int i = 0; i < spots.length; i++) {
+            spots[i] = new BlockPos(6 + i, 0, Z);
+        }
+        onServer(script, "build the item display scene", server -> {
+            ServerLevel level = server.overworld();
+            template(level, spots[0], new ItemStack(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE));
+            template(level, spots[1], new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE));
+            pile(level, spots[2], Direction.NORTH, Items.ANGLER_POTTERY_SHERD);
+            pile(level, spots[3], Direction.NORTH, Items.HEART_POTTERY_SHERD, Items.SKULL_POTTERY_SHERD, Items.BURN_POTTERY_SHERD, Items.FLOW_POTTERY_SHERD);
+            pile(level, spots[4], Direction.NORTH, Items.MUSIC_DISC_CAT, Items.MUSIC_DISC_13, Items.MUSIC_DISC_PIGSTEP, Items.MUSIC_DISC_11);
+            pile(level, spots[5], Direction.NORTH, Items.MUSIC_DISC_OTHERSIDE, Items.ANGLER_POTTERY_SHERD, Items.IRON_INGOT, Items.DIAMOND);
+            pile(level, spots[6], Direction.NORTH, Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE,
+                    Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE);
+            pile(level, spots[7], Direction.NORTH, Items.MUSIC_DISC_STRAD);
+        });
+        script.command("tp @a 9.5 0.0 15.6 0.0 38.0");
+        script.awaitPackets();
+        script.await("the client has the piles", 100, client ->
+                        client.level.getBlockEntity(spots[4]) instanceof PlacedSmallPartsBlockEntity be && be.parts().size() == 4
+                                && client.level.getBlockEntity(spots[2]) instanceof PlacedSmallPartsBlockEntity one && one.parts().size() == 1,
+                client -> "stack " + client.level.getBlockEntity(spots[4]));
+        script.idle("let the chunk settle", 30);
+        script.shot("placing-display3d-row");
+        script.command("tp @a 9.5 0.0 17.0 0.0 60.0");
+        script.awaitPackets();
+        script.idle("close-up", 20);
+        script.shot("placing-display3d-close");
+        onServer(script, "the hammer switches every spot to flat", server -> {
+            ServerLevel level = server.overworld();
+            for (BlockPos spot : spots) {
+                var state = level.getBlockState(spot);
+                if (state.hasProperty(PlacedSmallPartsBlock.FLAT)) {
+                    level.setBlock(spot, state.setValue(PlacedSmallPartsBlock.FLAT, true), Block.UPDATE_ALL);
+                } else if (state.hasProperty(com.simplebuilding.blocks.custom.PlacedTemplateBlock.FLAT)) {
+                    level.setBlock(spot, state.setValue(com.simplebuilding.blocks.custom.PlacedTemplateBlock.FLAT, true), Block.UPDATE_ALL);
+                }
+            }
+        });
+        script.command("tp @a 9.5 0.0 15.6 0.0 38.0");
+        script.awaitPackets();
+        script.idle("let the chunk settle", 20);
+        script.shot("placing-display3d-flat");
+        onServer(script, "clear the spots", server -> {
+            for (BlockPos spot : spots) {
+                server.overworld().setBlock(spot, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
+        });
+        script.awaitPackets();
+    }
+
+    private static void template(ServerLevel level, BlockPos pos, ItemStack stack) {
+        level.setBlock(pos, ModBlocks.PLACED_SMITHING_TEMPLATE.defaultBlockState()
+                .setValue(com.simplebuilding.blocks.custom.PlacedTemplateBlock.FACING, Direction.NORTH), Block.UPDATE_CLIENTS);
+        if (level.getBlockEntity(pos) instanceof com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity be) {
+            be.setTemplate(stack);
+        }
+    }
+
     private static int wallZ() {
         return TestScene.WALL_Z - 1;
     }

@@ -107,6 +107,8 @@ public final class ClientTests {
                 new Entry("placing", PlaceClientTest::inWorld),
                 // Queue N55 (2026-10-15): bricks, diamonds, emeralds in 3D and flat (hammer switch); clears its piles.
                 new Entry("placing-bricks3d", PlaceClientTest::bricksAndGems),
+                // Item display 3D (2026-10-16): templates, sherds, discs (stack, mixed pile) in 3D and flat; clears its spots.
+                new Entry("placing-display3d", PlaceClientTest::display3d),
                 // Brewing wave 2026-10-09 (26.3): Mirage, Reverse Mirage, Faded, Shivering, the Storage Crafting
                 // Table; clears its effects, the table and the mobs again.
                 new Entry("brew", BrewClientTest::inWorld),
