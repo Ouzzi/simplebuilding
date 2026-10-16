@@ -258,6 +258,9 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 69 (2026-10-16, Besitzer)
+- [ ] YouTube-Video einer Mod mit für SimpleBuilding relevanten Blöcken auswerten (LINK FEHLT – beim Besitzer nachfordern): Mod heraussuchen, ihre Texturen als Referenz/Stilguide nutzen (nichts kopieren), für fehlende Blöcke ähnliche eigene Texturen erstellen; zusätzlich 2–3 eigene Blöcke (z. B. Sculk-Deepslate / Deep-Dark-Moos-Variante mit Sculk). Ablauf: erst Konzept mit Vorschau → Besitzer-Freigabe → Umsetzung.
+
 ## Nachtrag 68 (2026-10-16, Besitzer)
 Wayfinder-Karte (Feinschliff)
 - [ ] Wegpunkt-Name auf der Karte vertikal zentrieren, darf nicht auf dem Icon liegen.
