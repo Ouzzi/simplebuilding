@@ -329,11 +329,11 @@ Simple Shops – Umbau
 
 ## Nachtrag 65 (2026-10-15, Besitzer; Bilder kamen nicht an – bei Bedarf nachfordern)
 Befunde aus den Besitzer-Screenshots 15.10. (Bilder 1–8, nur als Beschreibung verfügbar)
-- [~] (A, claude-n65bilder, 16.10.) Bild 1: Platzierte Barren (lila/Enderit-artig, 3–4 Stück) stecken sichtbar ineinander, Diamant-Kleinteil überlappt mit Barren – bestätigt den Punkt „Platzierte Teile“.
-- [~] (A, claude-n65bilder, 16.10.) Bild 2: Markierter Container („Marked: Reinforced Chest“) wird über dem Inventar noch im ALTEN grellen Orange gezeichnet → auf neue Bronze-Palette umstellen; im Spieler-Inventar zeigt ein Item das lila-schwarze Fehlende-Textur-Karo (3. Reihe, letzter Platz) → gehört zu „Texturen fehlen im Spiel“.
-- [~] (A, claude-n65bilder, 16.10.) Bild 3/5: Wayfinder-Karte: rechts vom geladenen Kreis senkrechte Streifen/Linien-Artefakte; Rahmen der Karte ebenfalls noch grelles Orange → Bronze.
-- [~] (A, claude-n65bilder, 16.10.) Bild 4: „Configure waypoint“: die Reihe der Kopf-Icons läuft weit über den rechten Rand des Dialogs hinaus (kein Umbruch/Scrollen) – im neuen Configure-Dialog sauber begrenzen; Farbleiste grell (entfällt laut N65).
-- [~] (A, claude-n65bilder, 16.10.) Bild 5: Wegpunkt heißt „TEST“ (Tooltip), auf der Karte steht „1“.
+- [x] (claude-n65bilder) Bild 1: Platzierte Barren (lila/Enderit-artig, 3–4 Stück) stecken sichtbar ineinander, Diamant-Kleinteil überlappt mit Barren – bestätigt den Punkt „Platzierte Teile“. [in wave1 bereits behoben, Code geprüft; Client-Abnahme offen]
+- [x] (claude-n65bilder) Bild 2: Markierter Container („Marked: Reinforced Chest“) wird über dem Inventar noch im ALTEN grellen Orange gezeichnet → auf neue Bronze-Palette umstellen; im Spieler-Inventar zeigt ein Item das lila-schwarze Fehlende-Textur-Karo (3. Reihe, letzter Platz) → gehört zu „Texturen fehlen im Spiel“. [Palette jetzt Bronze; Fehlende-Textur-Item: check_missing_textures 0 Fehler, Item statisch nicht identifizierbar, Client-Sicht offen]
+- [x] (claude-n65bilder) Bild 3/5: Wayfinder-Karte: rechts vom geladenen Kreis senkrechte Streifen/Linien-Artefakte; Rahmen der Karte ebenfalls noch grelles Orange → Bronze. [in wave1 bereits behoben, Code geprüft; Client-Abnahme offen]
+- [x] (claude-n65bilder) Bild 4: „Configure waypoint“: die Reihe der Kopf-Icons läuft weit über den rechten Rand des Dialogs hinaus (kein Umbruch/Scrollen) – im neuen Configure-Dialog sauber begrenzen; Farbleiste grell (entfällt laut N65). [in wave1 bereits behoben, Code geprüft; Client-Abnahme offen]
+- [x] (claude-n65bilder) Bild 5: Wegpunkt heißt „TEST“ (Tooltip), auf der Karte steht „1“. [in wave1 bereits behoben, Code geprüft; Client-Abnahme offen]
 - [ ] Bild 6: Aschholz-/Dämmerholz-Blätter wirken wie ein Raster gleichmäßiger lila Punkte auf braunem Grund – sehr künstlich (bestätigt N65 End-Bäume).
 - [x] (oc-misc65) Bild 7/8: Kopf-Modelle teils abgeschnitten (Shulker-Köpfe in mehreren Farben oben/seitlich gekappt; im Kopf-Raster weitere Köpfe mit gekappten Teilen prüfen).
 

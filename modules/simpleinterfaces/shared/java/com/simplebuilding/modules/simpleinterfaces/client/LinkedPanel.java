@@ -30,8 +30,8 @@ public final class LinkedPanel {
     private static final int HEADER = 17;
     private static final int FOOTER = 7;
     private static final int GAP = 2;
-    /** Oak chest colours (simpleinterfaces palette table "chest_oak"). */
-    private static final UiPalette PALETTE = UiPalette.derived(0xFFCE9148);
+    /** Matt bronze like the Octant screen and the marked-container HUD banner (owner N65 16.10.: no more bright orange). */
+    private static final UiPalette PALETTE = UiPalette.derived(0xFF6F5F4B);
 
     private final Component title;
     private final int size;
@@ -165,7 +165,7 @@ public final class LinkedPanel {
     }
 
     /**
-     * Draws the panel in the container style (SimpleLib's style blocks, oak chest colours like a styled chest; owner
+     * Draws the panel in the container style (SimpleLib's style blocks, matt bronze palette; owner
      * images 3/4): one box (5 px frame, 7 at the bottom), the title in the box's label colour, sunk slots only where
      * the linked container has slots, a 2 px scroll bar right of the slots when not every row fits. The pose is
      * already translated to the second GUI's {@code leftPos/topPos}.
