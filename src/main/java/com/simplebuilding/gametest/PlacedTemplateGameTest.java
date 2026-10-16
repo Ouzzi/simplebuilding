@@ -139,4 +139,9 @@ public final class PlacedTemplateGameTest {
     public void anItemBetweenTwoFacingAttractorsHoversStill(GameTestHelper helper) {
         PlacedTemplateTests.anItemBetweenTwoFacingAttractorsHoversStill(helper);
     }
+
+    @GameTest(maxTicks = PlacedTemplateTests.MIGRATION_MAX_TICKS)
+    public void oldPlatesWithTrimTemplatesMoveToSimpleTrims(GameTestHelper helper) {
+        PlacedTemplateTests.oldPlatesWithTrimTemplatesMoveToSimpleTrims(helper);
+    }
 }

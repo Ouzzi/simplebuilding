@@ -2268,6 +2268,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_old_placed_eggs_and_lying_small_parts_turn_into_piles_when_parts_are_added", PlacedTemplateTests::oldPlacedEggsAndLyingSmallPartsTurnIntoPilesWhenPartsAreAdded)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_old_plates_with_trim_templates_move_to_simple_trims", PlacedTemplateTests::oldPlatesWithTrimTemplatesMoveToSimpleTrims)
+                    .maxTicks(PlacedTemplateTests.MIGRATION_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("placed_template_game_test_the_egg_model_matches_the_egg_hitbox", PlacedTemplateTests::theEggModelMatchesTheEggHitbox)
                     .build(),
             GameTestSpec.named("placed_template_game_test_the_new_small_parts_lie_down_mix_and_glowing_ones_have_particles", PlacedTemplateTests::theNewSmallPartsLieDownMixAndGlowingOnesHaveParticles)

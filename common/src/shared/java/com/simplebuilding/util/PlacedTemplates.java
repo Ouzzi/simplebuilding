@@ -97,6 +97,50 @@ public final class PlacedTemplates {
                 && com.simplebuilding.platform.ModEnvironment.isModLoaded("simpletrims");
     }
 
+    /** Simple Trims' placed template block (26.3), found by id: no class import. */
+    private static final net.minecraft.resources.Identifier SIMPLE_TRIMS_PLACED =
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletrims", "placed_template");
+
+    /**
+     * Migration (N58, Simple Trims): an old {@code placed_smithing_template} that holds a trim template belongs to Simple Trims
+     * now ({@link #leftToSimpleTrims}); the item itself already resolves through its id moves. Swaps the block for Simple Trims'
+     * (same face, facing, water, flat) and hands over the template through the saved key {@code Template}, so the plate can be
+     * forged again. Returns whether it migrated; false without Simple Trims or for any other template.
+     */
+    public static boolean migrateToSimpleTrims(ServerLevel level, BlockPos pos, BlockState state, PlacedTemplateBlockEntity be) {
+        if (!leftToSimpleTrims(be.getTemplate())) {
+            return false;
+        }
+        net.minecraft.world.level.block.Block target = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(SIMPLE_TRIMS_PLACED).orElse(null);
+        if (target == null) {
+            return false;
+        }
+        BlockState moved = target.defaultBlockState();
+        for (var property : state.getProperties()) {
+            if (moved.hasProperty(property)) {
+                moved = copyProperty(state, moved, property);
+            }
+        }
+        net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+        tag.put("Template", ItemStack.CODEC.encodeStart(
+                level.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), be.getTemplate()).getOrThrow());
+        level.setBlock(pos, moved, net.minecraft.world.level.block.Block.UPDATE_ALL);
+        net.minecraft.world.level.block.entity.BlockEntity fresh = level.getBlockEntity(pos);
+        if (fresh == null) {
+            return true;
+        }
+        fresh.loadCustomOnly(net.minecraft.world.level.storage.TagValueInput.create(
+                net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(), tag));
+        fresh.setChanged();
+        level.sendBlockUpdated(pos, moved, moved, net.minecraft.world.level.block.Block.UPDATE_ALL);
+        return true;
+    }
+
+    private static <T extends Comparable<T>> BlockState copyProperty(BlockState from, BlockState to,
+                                                                    net.minecraft.world.level.block.state.properties.Property<T> property) {
+        return to.setValue(property, from.getValue(property));
+    }
+
     /**
      * Kleinteile (Besitzer 2026-10-02): Steinkiesel, Feuersteinsplitter, Stoecke, Barren, Klumpen, Edelsteine, Ziegel -
      * Tag {@code simplebuilding:placeable_small}. Server-Optionen: {@code server.features.placeVanillaItems} schaltet

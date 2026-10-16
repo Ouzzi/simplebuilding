@@ -182,6 +182,10 @@ public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
         if (!(level instanceof ServerLevel server)) {
             return;
         }
+        // 26.3: alte Platten mit Besatzvorlage gehen an Simple Trims (Migration, alle 20 Ticks geprueft).
+        if ((level.getGameTime() + pos.asLong()) % 20 == 0 && PlacedTemplates.migrateToSimpleTrims(server, pos, state, be)) {
+            return;
+        }
         // Abgelegter Attractor: zieht lose Items an (eigener Takt, siehe PlacedAttractors).
         com.simplebuilding.util.PlacedAttractors.tick(server, pos, be);
         // Abgelegter, kalibrierter Detector: sucht nach seinem Zielblock (eigener Takt, siehe PlacedDetectors).

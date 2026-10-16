@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
@@ -61,6 +62,8 @@ public class PlacedTrimTemplateRenderer implements BlockEntityRenderer<PlacedTri
         public Direction facing = Direction.NORTH;
         /** Draws the 2 px 3D model instead of the flat plate. */
         public boolean solid;
+        /** The local player aims at this plate in tool stance: drawn at full brightness, pulsing (target highlight). */
+        public boolean aimed;
         public final ItemStackRenderState item = new ItemStackRenderState();
     }
 
@@ -87,6 +90,15 @@ public class PlacedTrimTemplateRenderer implements BlockEntityRenderer<PlacedTri
             state.face = blockState.getValue(PlacedTrimTemplateBlock.FACE);
             state.facing = blockState.getValue(PlacedTrimTemplateBlock.FACING);
             flat = blockState.getValue(PlacedTrimTemplateBlock.FLAT);
+        }
+        net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
+        state.aimed = mc.player != null && mc.hitResult instanceof net.minecraft.world.phys.BlockHitResult hit
+                && hit.getBlockPos().equals(blockEntity.getBlockPos()) && com.simpletrims.placed.PlateHint.aimedAtStrikePlate(mc.player, hit);
+        if (state.aimed) {
+            // Pulse between full light and a bright dimmer step so the aimed plate stands out without hiding its texture.
+            int pulse = 11 + (int) Math.round(4 * (0.5 + 0.5 * Math.sin((mc.level == null ? 0 : mc.level.getGameTime() + partialTicks) * 0.5)));
+            state.lightCoords = LightCoordsUtil.pack(Math.max(pulse, LightCoordsUtil.block(state.lightCoords)),
+                    Math.max(pulse, LightCoordsUtil.sky(state.lightCoords)));
         }
         ItemStack stored = blockEntity.getTemplate();
         state.solid = !flat && PlacedSolids.has(stored);

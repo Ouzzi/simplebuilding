@@ -51,6 +51,42 @@ public final class PlacedTemplateTests {
     private PlacedTemplateTests() {
     }
 
+    /** Max ticks for {@link #oldPlatesWithTrimTemplatesMoveToSimpleTrims} (the check runs every 20 ticks). */
+    public static final int MIGRATION_MAX_TICKS = 60;
+
+    /**
+     * N58: an old {@code placed_smithing_template} holding a trim template becomes Simple Trims' placed template (same
+     * face and facing, same stack); a netherite upgrade template stays. Nothing to do on 26.2 or without Simple Trims.
+     */
+    public static void oldPlatesWithTrimTemplatesMoveToSimpleTrims(GameTestHelper helper) {
+        net.minecraft.resources.Identifier target = net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletrims", "placed_template");
+        if (McVersion.TRIMS_IN_SB || !net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(target)) {
+            helper.succeed();
+            return;
+        }
+        BlockPos trim = new BlockPos(1, 2, 1);
+        BlockPos keep = new BlockPos(3, 2, 1);
+        helper.setBlock(trim.below(), Blocks.STONE);
+        helper.setBlock(keep.below(), Blocks.STONE);
+        for (BlockPos pos : List.of(trim, keep)) {
+            helper.setBlock(pos, ModBlocks.PLACED_SMITHING_TEMPLATE.defaultBlockState()
+                    .setValue(PlacedTemplateBlock.FACE, AttachFace.FLOOR).setValue(PlacedTemplateBlock.FACING, Direction.EAST));
+        }
+        ((PlacedTemplateBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(trim))).setTemplate(new ItemStack(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE));
+        ((PlacedTemplateBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(keep))).setTemplate(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE));
+        helper.runAfterDelay(MIGRATION_MAX_TICKS - 5, () -> {
+            BlockState moved = helper.getBlockState(trim);
+            helper.assertTrue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(moved.getBlock()).equals(target),
+                    "the old plate with a trim template is still " + moved);
+            helper.assertTrue(moved.getValue(PlacedTemplateBlock.FACE) == AttachFace.FLOOR && moved.getValue(PlacedTemplateBlock.FACING) == Direction.EAST,
+                    "the migrated plate lost its position: " + moved);
+            helper.assertTrue(PlacedTemplates.templateAt(helper.getLevel(), helper.absolutePos(trim)).is(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE),
+                    "the migrated plate lost its template");
+            helper.assertTrue(helper.getBlockState(keep).is(ModBlocks.PLACED_SMITHING_TEMPLATE), "the netherite upgrade plate moved too");
+            helper.succeed();
+        });
+    }
+
     // =====================================================================================
     // Ablegen
     // =====================================================================================
