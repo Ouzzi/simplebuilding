@@ -3304,7 +3304,9 @@
         "simplelib"
       ],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "jei",
+        "jade"
       ],
       "checks": [
         "modules/simplecrucibles/tools/check_data.py"

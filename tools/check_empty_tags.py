@@ -11,7 +11,6 @@ ROOT = Path(__file__).resolve().parents[1]
 EMPTY_BY_DESIGN = {
     "simplebuilding:block/dyeable_families": "opt-in list for datapacks/mods: extra families the color brush may recolor",
     "simplebuilding:mob_effect/potion_pad/public": "datapack opt-in: harmful effects that potion pads may still give to everyone",
-    "simplecrucibles:fluid/extreme_heat": "filled by consumer mods (SimpleBuilding adds soul lava); Simple Crucibles alone has none",
     "simplecrucibles:block/heat_source/extreme": "filled by consumer mods; Simple Crucibles alone has none",
     "simplelib:item/hammers": "filled by a hammer mod; SimpleBuilding's sledgehammer is deliberately not in it (InWorldUpgradeTests)",
     "simplebeacons:block/strong_base_blocks": "modpack opt-in for extra Strong Beacon pyramid blocks (check_data.py asserts it is empty)",

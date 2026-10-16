@@ -31,3 +31,15 @@ mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+[[dependencies.simplecrucibles]]
+modId="jei"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"
+[[dependencies.simplecrucibles]]
+modId="jade"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
