@@ -61,4 +61,4 @@ Alle drei brauchen nur Vanilla (Modul simpleaesthetics bzw. simplebuilding), kei
 5. Sculk Deepslate: darf es natuerlich generieren (Welt-Gen-Aenderung) oder nur herstellbar (Empfehlung: nur herstellbar + Ancient-City-Loot)?
 
 ## 6. Antworten Besitzer (2026-10-16, verbindlich)
-M1 nur Treppe/Stufe/Mauer + rissig/bemoost (keine neuen Ziegelsets). M2 nur Sculk Deepslate und Hushed Deepslate Tiles (kein Deepmoss). M3 Hushed Deepslate Tiles zuerst. M4 Module wie vorgeschlagen (Zustände → simpleaesthetics, Treppe/Stufe/Mauer → simplebuilding). M5 Sculk Deepslate nur herstellbar + Ancient-City-Loot, keine Weltgenerierung.
+M1 nur Treppe/Stufe/Mauer + rissig/bemoost (keine neuen Ziegelsets). M2 nur Sculk Deepslate und Hushed Deepslate Tiles (kein Deepmoss). M3 Hushed Deepslate Tiles zuerst. M4 KORREKTUR Besitzer: ALLES ins SimpleBuilding-Hauptmod (auch rissig/bemoost, nichts nach simpleaesthetics). M5 Sculk Deepslate nur herstellbar + Ancient-City-Loot, keine Weltgenerierung.
