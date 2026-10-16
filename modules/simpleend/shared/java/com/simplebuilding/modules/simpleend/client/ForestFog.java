@@ -33,6 +33,11 @@ public final class ForestFog {
 
     private ForestFog() {}
 
+    /** Current ease state, for the client screenshot test log. */
+    public static String debug() {
+        return "smoothed " + smoothed + " target " + target;
+    }
+
     /** Called at the end of the atmospheric fog setup; lowers the environmental fog distances in place. */
     public static void apply(FogData fog, Camera camera, ClientLevel level) {
         try {
@@ -80,7 +85,7 @@ public final class ForestFog {
     }
 
     /** True when the (loaded) biome at the position is a forest core or fringe. */
-    static boolean inside(ClientLevel level, double x, double y, double z) {
+    public static boolean inside(ClientLevel level, double x, double y, double z) {
         int bx = (int) Math.floor(x), bz = (int) Math.floor(z);
         ChunkAccess chunk = level.getChunkSource().getChunk(bx >> 4, bz >> 4, ChunkStatus.BIOMES, false);
         if (chunk == null) return false;

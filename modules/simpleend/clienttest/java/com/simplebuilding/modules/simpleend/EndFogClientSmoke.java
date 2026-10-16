@@ -88,6 +88,9 @@ public final class EndFogClientSmoke implements FabricClientGameTest {
                 + (rim[1] + rim[3] * out) + " " + yaw + " " + pitch));
         context.waitTicks(90);
         world.getConnection().waitForChunksRender();
+        context.runOnClient(client -> System.out.println("[simpleend fog] " + name + " wall " + wall + " dim " + client.level.dimension().identifier()
+                + " pos " + client.gameRenderer.getMainCamera().position() + " " + com.simplebuilding.modules.simpleend.client.ForestFog.debug()
+                + " here " + com.simplebuilding.modules.simpleend.client.ForestFog.inside(client.level, client.player.getX(), client.player.getY(), client.player.getZ())));
         context.takeScreenshot(name);
     }
 }
