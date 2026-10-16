@@ -97,6 +97,8 @@ final class MinibossTests {
             HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 0);
             howler.setNoAi(true);
             var prey = prey(h, 4.5, 4.5);
+            prey.getAttribute(Attributes.MAX_HEALTH).setBaseValue(2000.0);   // a real Sculk Jaw under it must not kill the stand-in
+            prey.setHealth(2000.0f);
             int savedMax = MobsConfig.howlerJawMax;
             MobsConfig.howlerJawMax = 2;
             try {
@@ -104,7 +106,7 @@ final class MinibossTests {
                 h.assertTrue(under.equals(howler.planJaw(l)), "no jaw yet: it goes directly under the player");
                 h.assertTrue(howler.spitTraps(l) == 1, "the first jaw is placed");
                 BlockPos near = howler.planJaw(l);
-                h.assertTrue(near != null && !near.equals(under), "a jaw lies under the only player: the next one goes elsewhere");
+                h.assertTrue(near != null && !near.equals(under), "a jaw lies at the first spot: the next one goes elsewhere (planned " + near + ", first " + under + ", pig now " + prey.blockPosition() + ")");
                 double d = Math.hypot(near.getX() + 0.5 - prey.getX(), near.getZ() + 0.5 - prey.getZ());
                 h.assertTrue(d <= HowlerLogic.JAW_NEAR_MAX + 1.5 && l.getBlockState(near).isAir() && !l.getBlockState(near.below()).isAir(), "near the player, on valid ground, not in a block: " + near + " d=" + d + " state=" + l.getBlockState(near) + " below=" + l.getBlockState(near.below()));
                 h.assertTrue(howler.spitTraps(l) == 1, "the second jaw is placed");
