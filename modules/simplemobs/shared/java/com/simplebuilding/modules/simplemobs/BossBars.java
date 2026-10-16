@@ -53,10 +53,13 @@ public final class BossBars {
         bar.setProgress(progress);
     }
 
+    /** Whether a player at squared distance {@code distSq} sees the bar of a boss with this range. */
+    public static boolean inRange(double distSq, double range) { return distSq <= range * range; }
+
     /** Shows the bar to every player within {@code range} blocks of the boss and hides it for the rest. */
     public static void track(ServerBossEvent bar, Entity boss, ServerLevel level, double range) {
         for (ServerPlayer p : level.players()) {
-            if (!p.isSpectator() && p.distanceToSqr(boss) <= range * range) bar.addPlayer(p);
+            if (!p.isSpectator() && inRange(p.distanceToSqr(boss), range)) bar.addPlayer(p);
             else bar.removePlayer(p);
         }
     }

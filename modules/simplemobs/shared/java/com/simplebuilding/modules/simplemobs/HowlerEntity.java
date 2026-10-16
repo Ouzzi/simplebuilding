@@ -111,6 +111,8 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         setBase(Attributes.ATTACK_DAMAGE, MobsConfig.howlerAttack);
         setBase(Attributes.SCALE, MobsConfig.howlerScalePercent / 100.0);
         this.setHealth(this.getMaxHealth());
+        this.refreshDimensions();
+        bossEvent.setName(BossBars.title(this.getDisplayName(), true, BossBars.phaseName("howler", 1)));
     }
 
     private void setBase(Holder<net.minecraft.world.entity.ai.attributes.Attribute> attribute, double value) {

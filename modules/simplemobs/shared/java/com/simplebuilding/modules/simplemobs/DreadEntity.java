@@ -59,6 +59,7 @@ public class DreadEntity extends Monster {
     public DreadEntity(EntityType<? extends DreadEntity> type, Level level) {
         super(type, level);
         this.xpReward = FearLogic.DREAD_XP;
+        bossEvent.setName(BossBars.title(this.getDisplayName(), true, null));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
