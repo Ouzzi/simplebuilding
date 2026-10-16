@@ -39,6 +39,7 @@ public final class MapsForge {
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             if (event.getRegistryKey().equals(Registries.DATA_COMPONENT_TYPE)) MapsComponents.register();
             if (event.getRegistryKey().equals(Registries.ITEM)) MapsItems.register();
+            if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MapsItems.registerTab();
         });
         BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
             if (!event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) return;

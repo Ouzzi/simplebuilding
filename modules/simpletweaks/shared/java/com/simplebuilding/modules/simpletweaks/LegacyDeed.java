@@ -26,4 +26,19 @@ public final class LegacyDeed {
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("simpletweaks", "claim_deed_copy"), DeedCloningRecipe.SERIALIZER);
     }
     private LegacyDeed() {}
+
+    /** The module's own creative tab (items are also sorted into the Vanilla tabs, see the loader hooks). */
+    public static void registerTab() {
+        net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB,
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletweaks", "claims"),
+                net.minecraft.world.item.CreativeModeTab.builder(net.minecraft.world.item.CreativeModeTab.Row.TOP, 0)
+                        .title(net.minecraft.network.chat.Component.translatable("itemgroup.simpletweaks.claims"))
+                        .icon(() -> new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.deed.ClaimDeedItem.item()))
+                        .displayItems((params, out) -> {
+                            if (!com.simplebuilding.modules.simpletweaks.claims.Claims.on()) return;
+                            out.accept(new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.book()));
+                            out.accept(new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.deed.ClaimDeedItem.item()));
+                            out.accept(new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpletweaks.table.ClaimTableBlock.item()));
+                        }).build());
+    }
 }

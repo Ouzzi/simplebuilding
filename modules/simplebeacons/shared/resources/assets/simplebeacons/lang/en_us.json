@@ -1,4 +1,5 @@
 {
+  "itemgroup.simplebeacons.beacons": "Simple Beacons",
   "item.simplebeacons.strong_upgrade_template": "Strong Upgrade",
   "item.simplebeacons.strong_upgrade_template.applies_to": "Beacon, Conduit",
   "item.simplebeacons.strong_upgrade_template.ingredients": "Nether Star",

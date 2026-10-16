@@ -112,6 +112,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void everyRegisteredItemIsInSomeCreativeTab(GameTestHelper helper) {
+        DataIntegrityTests.everyRegisteredItemIsInSomeCreativeTab(helper);
+    }
+
+    @GameTest
     public void everyModItemIsInExactlyOneCreativeTab(GameTestHelper helper) {
         DataIntegrityTests.everyModItemIsInExactlyOneCreativeTab(helper);
     }

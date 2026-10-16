@@ -53,10 +53,10 @@ public final class CompatibilityTests {
  static void boot(GameTestHelper h) {
   require(h,BuiltInRegistries.ITEM.containsKey(old("claim_deed")),"Legacy deed registered");
   if(simpleBuilding())require(h,BuiltInRegistries.ITEM.containsKey(now("amethyst_lens")),"SimpleBuilding loaded");
-  require(h,BuiltInRegistries.ITEM.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).count()==3,"Only the deed, the guide and the claim table are real module items");
-  require(h,BuiltInRegistries.BLOCK.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).map(Identifier::getPath).collect(java.util.stream.Collectors.toSet()).equals(java.util.Set.of("claim_table")),"Only the claim table is a module block");
-  for (Registry<?> r : List.of(BuiltInRegistries.BLOCK_ENTITY_TYPE,BuiltInRegistries.ENTITY_TYPE,BuiltInRegistries.CREATIVE_MODE_TAB))
-   require(h,r.keySet().stream().noneMatch(x->x.getNamespace().equals("simpletweaks")),"No duplicate gameplay registry: "+r.key());
+  require(h,BuiltInRegistries.ITEM.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).count()==3,"Only the deed, the claim table and the guide are real module items");
+  for (Registry<?> r : List.of(BuiltInRegistries.BLOCK,BuiltInRegistries.BLOCK_ENTITY_TYPE,BuiltInRegistries.ENTITY_TYPE,BuiltInRegistries.CREATIVE_MODE_TAB))
+   // The claim table block and the module's own creative tab are the module's own content (owner N65: every module with 3+ items has a tab).
+   require(h,r.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).map(Identifier::getPath).allMatch(p->(r==BuiltInRegistries.BLOCK&&p.equals("claim_table"))||(r==BuiltInRegistries.CREATIVE_MODE_TAB&&p.equals("claims"))),"No duplicate gameplay registry: "+r.key());
  // The one component of the module is the deed's binding (display only); every other name is a legacy alias of SimpleBuilding.
  require(h,BuiltInRegistries.DATA_COMPONENT_TYPE.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).map(Identifier::getPath).collect(java.util.stream.Collectors.toSet()).equals(java.util.Set.of("deed")),"Only the deed binding is a module component");
   try {

@@ -115,6 +115,7 @@ public final class ForgeExample {
             event.register(Registries.ENTITY_TYPE, r -> WitherMobs.entityTypes(r::register));
             event.register(Registries.ITEM, r -> WitherMobs.items(r::register));
             if (event.getRegistryKey().equals(Registries.ITEM)) com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
+            if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MobsRegistry.registerTab();
         });
         EntityAttributeCreationEvent.BUS.addListener(event -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
         EntityAttributeCreationEvent.BUS.addListener(event -> event.put(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE).build()));

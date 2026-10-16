@@ -221,6 +221,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_ender_quartz_is_crafted_from_astralit_dust_nihilith_shard_and_quartz", DataIntegrityTests::enderQuartzIsCraftedFromAstralitDustNihilithShardAndQuartz)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_every_registered_item_is_in_some_creative_tab", DataIntegrityTests::everyRegisteredItemIsInSomeCreativeTab)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_item_is_in_exactly_one_creative_tab", DataIntegrityTests::everyModItemIsInExactlyOneCreativeTab)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_machines_and_storage_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::machinesAndStorageTabIsLaidOutInRowsOfNine)

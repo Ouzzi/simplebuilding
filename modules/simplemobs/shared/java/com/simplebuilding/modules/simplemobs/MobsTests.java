@@ -23,6 +23,7 @@ public final class MobsTests {
 
     static {
         add("registered", h -> {
+            check(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "mobs")), "own creative tab mobs");
             check(BuiltInRegistries.ENTITY_TYPE.containsKey(MobsRegistry.DECEIVER_KEY.identifier()), "deceiver entity type");
             check(BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "deceiver_cloth")), "cloth item");
             check(BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "deceiver_spawn_egg")), "spawn egg");

@@ -110,4 +110,33 @@ public final class MobsRegistry {
         Registry.register(BuiltInRegistries.POTION, SILENCE_POTION_KEY, silencePotion());
         Registry.register(BuiltInRegistries.POTION, LONG_SILENCE_POTION_KEY, longSilencePotion());
     }
+
+    /**
+     * The module's own creative tab: guide, tools and gear, ingredients, then the spawn eggs. Items are looked up by id so
+     * an item a config or companion mod leaves unregistered is simply skipped (the Vanilla tab hooks stay as they are).
+     */
+    public static void registerTab() {
+        net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB,
+                net.minecraft.resources.Identifier.fromNamespaceAndPath(ID, "mobs"),
+                net.minecraft.world.item.CreativeModeTab.builder(net.minecraft.world.item.CreativeModeTab.Row.TOP, 0)
+                        .title(net.minecraft.network.chat.Component.translatable("itemgroup.simplemobs.mobs"))
+                        .icon(() -> new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.ECHO_SHARD))
+                        .displayItems((params, out) -> {
+                            if (!on()) return;
+                            out.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());
+                            for (String path : TAB_ITEMS) {
+                                var item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(
+                                        net.minecraft.resources.Identifier.fromNamespaceAndPath(ID, path));
+                                item.ifPresent(i -> out.accept(new net.minecraft.world.item.ItemStack(i)));
+                            }
+                        }).build());
+    }
+
+    /** Tab order: tools and gear, ingredients, spawn eggs. */
+    public static final java.util.List<String> TAB_ITEMS = java.util.List.of(
+            "biome_brush", "calm_amulet", "deceiver_cloak", "shellker_helmet", "soul_fire_charge",
+            "deceiver_cloth", "dread_link", "echo_core", "illusion_shard", "shellker_shell", "soulfire_powder",
+            "soulfire_rod", "watcher_eye", "wither_heart",
+            "deceiver_spawn_egg", "dread_spawn_egg", "hollow_howler_spawn_egg", "hollow_watcher_spawn_egg",
+            "shellker_spawn_egg", "soulfire_blaze_spawn_egg");
 }

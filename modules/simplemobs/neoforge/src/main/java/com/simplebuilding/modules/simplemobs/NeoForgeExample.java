@@ -117,6 +117,7 @@ public final class NeoForgeExample {
             event.register(Registries.ENTITY_TYPE, h -> WitherMobs.entityTypes(h::register));
             event.register(Registries.ITEM, h -> WitherMobs.items(h::register));
             if (event.getRegistryKey().equals(Registries.ITEM)) com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
+            if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MobsRegistry.registerTab();
         });
         bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
         bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE).build()));

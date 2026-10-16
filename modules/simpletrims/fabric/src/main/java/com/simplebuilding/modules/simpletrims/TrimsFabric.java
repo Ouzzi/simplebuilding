@@ -21,6 +21,7 @@ public final class TrimsFabric implements ModInitializer {
         TrimsRegistry.registerItems();
         TrimsRegistry.registerBlockEntity(new BlockEntityType<>(PlacedTrimTemplateBlockEntity::new, java.util.Set.of(TrimsRegistry.PLACED_TEMPLATE)));
         TrimsRegistry.registerRecipeSerializers();
+        TrimsRegistry.registerTab();
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleTrims.MOD_ID)) return;
             var stacks = TrimsRegistry.tabStacks();

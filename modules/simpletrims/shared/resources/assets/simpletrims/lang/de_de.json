@@ -1,4 +1,5 @@
 {
+  "itemgroup.simpletrims.trims": "Simple Trims",
   "simpletrims.config.enabled": "Simple Trims aktivieren",
   "item.simpletrims.glowing_trim_template": "Leuchtender Rüstungsbesatz",
   "item.simpletrims.glowing_trim_template.applies_to": "Strahlkraft hinzufügen",

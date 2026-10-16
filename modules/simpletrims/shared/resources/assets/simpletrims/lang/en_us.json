@@ -1,4 +1,5 @@
 {
+  "itemgroup.simpletrims.trims": "Simple Trims",
   "simpletrims.config.enabled": "Enable Simple Trims",
   "item.simpletrims.glowing_trim_template": "Glowing Armor Trim",
   "item.simpletrims.glowing_trim_template.applies_to": "Add Radiance",

@@ -25,6 +25,7 @@ public final class ShopsForge {
             var key = event.getRegistryKey();
             if (key.equals(Registries.BLOCK)) ShopsRegistry.registerBlocks();
             if (key.equals(Registries.ITEM)) ShopsRegistry.registerItems();
+            if (key.equals(Registries.CREATIVE_MODE_TAB)) ShopsRegistry.registerTab();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 ShopsRegistry.registerBlockEntities(new BlockEntityType<>(SalesBlockEntity::new, ShopsRegistry.salesBlocks()),
                         new BlockEntityType<>(DisplayCaseBlockEntity::new, ShopsRegistry.caseBlocks()),

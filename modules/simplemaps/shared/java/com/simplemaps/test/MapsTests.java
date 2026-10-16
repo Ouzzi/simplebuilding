@@ -77,6 +77,7 @@ public final class MapsTests {
     private MapsTests() {}
 
     private static void registered(GameTestHelper h) {
+        h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleMaps.id("maps")), "own creative tab maps is registered");
         for (String id : List.of("wayfinder_map", "nether_wayfinder_map", "end_wayfinder_map")) {
             h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleMaps.id(id)), "item missing: " + id);
             h.assertTrue(h.getLevel().getServer().getRecipeManager()
