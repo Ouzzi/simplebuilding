@@ -25,7 +25,7 @@ loot = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entitie
 assert loot['pools'][0]['entries'][0]['name'] == 'simplemobs:deceiver_cloth'
 summoned = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entities/summoned.json').read_text(encoding='utf-8'))
 assert summoned['pools'] == [], 'summoned mobs must not drop anything'
-for tex in ('hollow_howler', 'hollow_howler_glow'):
+for tex in ('hollow_howler', 'hollow_howler_glow', 'hollow_howler_heart'):
     assert (MODULE / f'shared/resources/assets/simplemobs/textures/entity/hollow_howler/{tex}.png').is_file()
 assert (MODULE / 'shared/resources/assets/simplemobs/textures/mob_effect/silence.png').is_file()
 howler = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entities/hollow_howler.json').read_text(encoding='utf-8'))

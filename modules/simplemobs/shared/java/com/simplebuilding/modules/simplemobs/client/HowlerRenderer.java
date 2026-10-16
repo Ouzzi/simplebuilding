@@ -12,11 +12,15 @@ import net.minecraft.util.Mth;
 public class HowlerRenderer extends MobRenderer<HowlerEntity, HowlerRenderState, HowlerModel> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("simplemobs", "textures/entity/hollow_howler/hollow_howler.png");
     private static final Identifier GLOW = Identifier.fromNamespaceAndPath("simplemobs", "textures/entity/hollow_howler/hollow_howler_glow.png");
+    private static final Identifier HEART = Identifier.fromNamespaceAndPath("simplemobs", "textures/entity/hollow_howler/hollow_howler_heart.png");
     private static final Identifier ANTENNAE = Identifier.fromNamespaceAndPath("simplemobs", "textures/entity/hollow_howler/hollow_howler_antennae.png");
 
     public HowlerRenderer(EntityRendererProvider.Context context) {
         super(context, new HowlerModel(context.bakeLayer(HowlerModel.LAYER)), 0.8F);
         this.addLayer(new LivingEntityEmissiveLayer<>(this, state -> GLOW, (state, age) -> state.heartGlow,
+                new HowlerModel(context.bakeLayer(HowlerModel.LAYER)), RenderTypes::eyes, false));
+        // glowing heart on the rib plate: same beat envelope as the glow layer (min 0.45, faster per phase, off on death)
+        this.addLayer(new LivingEntityEmissiveLayer<>(this, state -> HEART, (state, age) -> state.heartGlow,
                 new HowlerModel(context.bakeLayer(HowlerModel.LAYER)), RenderTypes::eyes, false));
         this.addLayer(new LivingEntityEmissiveLayer<>(this, state -> ANTENNAE, (state, age) -> state.tendril,
                 new HowlerModel(context.bakeLayer(HowlerModel.LAYER)), RenderTypes::entityTranslucentEmissive, false));
