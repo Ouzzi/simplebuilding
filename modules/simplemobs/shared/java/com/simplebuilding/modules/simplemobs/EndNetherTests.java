@@ -34,6 +34,19 @@ final class EndNetherTests {
         for (int x = x0; x <= x1; x++) for (int z = z0; z <= z1; z++) h.getLevel().setBlock(h.absolutePos(new BlockPos(x, 1, z)), Blocks.STONE.defaultBlockState(), 3);
     }
 
+    /** Entities and dispensers in a test only tick when their chunk does; arenas on a chunk edge sometimes are not, so force-load the whole area for the run. */
+    private static void tickChunks(GameTestHelper h, int size) {
+        ServerLevel l = h.getLevel();
+        BlockPos a = h.absolutePos(new BlockPos(0, 0, 0)), b = h.absolutePos(new BlockPos(size, 0, size));
+        for (int cx = a.getX() >> 4; cx <= b.getX() >> 4; cx++) {
+            for (int cz = a.getZ() >> 4; cz <= b.getZ() >> 4; cz++) {
+                int fx = cx, fz = cz;
+                l.setChunkForced(fx, fz, true);
+                h.runBeforeTestEnd(() -> l.setChunkForced(fx, fz, false));
+            }
+        }
+    }
+
     static void addAll(BiConsumer<String, Consumer<GameTestHelper>> add) {
         add.accept("endnether_registered", h -> {
             for (var key : java.util.List.of(EndNetherMobs.SHELLKER_KEY, EndNetherMobs.SHELLKER_BULLET_KEY, EndNetherMobs.SOULFIRE_BLAZE_KEY, EndNetherMobs.SOUL_FIREBALL_KEY))
@@ -209,6 +222,7 @@ final class EndNetherTests {
         });
         add.accept("soulfire_charge", h -> {
             ServerLevel l = h.getLevel();
+            tickChunks(h, 9);
             h.assertTrue(BuiltInRegistries.ITEM.containsKey(EndNetherMobs.SOUL_FIRE_CHARGE_KEY.identifier())
                     && BuiltInRegistries.ITEM.containsKey(EndNetherMobs.POWDER_KEY.identifier()), "powder and charge are registered");
             ItemStack charge = new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE);
@@ -219,10 +233,11 @@ final class EndNetherTests {
             ((net.minecraft.world.level.block.entity.DispenserBlockEntity) l.getBlockEntity(h.absolutePos(at))).setItem(0, charge);
             h.setBlock(at.north(), Blocks.REDSTONE_BLOCK.defaultBlockState());
             var box = new net.minecraft.world.phys.AABB(h.absoluteVec(new Vec3(0, 0, 0)), h.absoluteVec(new Vec3(9, 6, 9)));
-            h.succeedWhen(() -> h.assertTrue(!l.getEntitiesOfClass(SoulFireball.class, box).isEmpty(), "the dispenser shoots a soul fireball"));
+            h.succeedWhen(() -> h.assertTrue(!l.getEntitiesOfClass(SoulFireball.class, box).isEmpty(), "the dispenser shoots a soul fireball (dispenser item=" + ((net.minecraft.world.level.block.entity.DispenserBlockEntity) l.getBlockEntity(h.absolutePos(at))).getItem(0) + ", powered=" + l.hasNeighborSignal(h.absolutePos(at)) + ", balls near=" + l.getEntitiesOfClass(SoulFireball.class, box.inflate(30)).size() + ")"));
         });
         add.accept("soulfire_blaze", h -> {
             ServerLevel l = h.getLevel();
+            tickChunks(h, 9);
             floor(h, 0, 0, 6, 8);
             SoulfireBlaze blaze = h.spawn(EndNetherMobs.SOULFIRE_BLAZE, 5, 2, 0);
             blaze.setNoAi(true);
@@ -236,7 +251,7 @@ final class EndNetherTests {
             ball.setPos(at.x, at.y + 0.4, at.z - 2.0);
             l.addFreshEntity(ball);
             h.assertTrue(ball.getItem().is(EndNetherMobs.SOUL_FIRE_CHARGE), "drawn as a soul fire charge");
-            h.succeedWhen(() -> h.assertTrue(pig.getRemainingFireTicks() > 0 && pig.getHealth() < pig.getMaxHealth(), "the soul fireball burns"));
+            h.succeedWhen(() -> h.assertTrue(pig.getRemainingFireTicks() > 0 && pig.getHealth() < pig.getMaxHealth(), "the soul fireball burns (ball alive=" + ball.isAlive() + " at " + ball.position() + ", pig at " + pig.position() + " hp=" + pig.getHealth() + " fire=" + pig.getRemainingFireTicks() + " alive=" + pig.isAlive() + ")"));
         });
     }
 }

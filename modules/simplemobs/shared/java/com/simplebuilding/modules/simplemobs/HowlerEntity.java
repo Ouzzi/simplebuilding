@@ -265,9 +265,17 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     /** GameTest hook: mock server players are always creative, so tests tag a mob as stand-in prey. */
     public static final String TEST_PREY_TAG = "simplemobs.howler_test_prey";
 
+    /** GameTest hook: a Howler tagged {@code TEST_SOLO_PREFIX + x} only hunts stand-ins carrying the same tag (parallel tests share the 24-block range). */
+    public static final String TEST_SOLO_PREFIX = "simplemobs.howler_test_solo.";
+
+    private boolean soloPrey(Entity e) {
+        for (String t : this.entityTags()) if (t.startsWith(TEST_SOLO_PREFIX)) return e.entityTags().contains(t);
+        return true;
+    }
+
     /** Only players are its prey (Sculk creatures and other mobs are left alone). */
     public boolean canHunt(@Nullable Entity e) {
-        boolean prey = e instanceof Player p ? EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p) : e instanceof LivingEntity && e.entityTags().contains(TEST_PREY_TAG);
+        boolean prey = e instanceof Player p ? EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p) : e instanceof LivingEntity && e.entityTags().contains(TEST_PREY_TAG) && soloPrey(e);
         return prey && e.isAlive() && this.level().getWorldBorder().isWithinBounds(e.getBoundingBox());
     }
 
