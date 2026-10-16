@@ -416,6 +416,7 @@ def outputs():
         RES / 'textures/entity/hollow_howler/hollow_howler.png': s,
         RES / 'textures/entity/hollow_howler/hollow_howler_glow.png': glow(s),
         RES / 'textures/entity/hollow_howler/hollow_howler_antennae.png': antenna_glow(),
+        RES / 'textures/entity/hollow_howler/hollow_howler_heart.png': heart(),
         RES / 'textures/item/echo_core.png': echo_core(),
         RES / 'textures/item/hollow_howler_spawn_egg.png': egg(),
         RES / 'textures/mob_effect/silence.png': silence_icon(),
@@ -751,7 +752,7 @@ HEART_SHAPE = ['.HH..HH.', 'HHHHHHHH', 'HHHHHHHH', '.HHHHHH.', '..HHHH..', '...H
 
 
 def heart():
-    """PROPOSAL (owner H4, not built in): emissive heart on the rib plate's front face, pulses with the heartbeat. Only this
+    """Owner-approved heart (H4, N67): emissive heart on the rib plate's front face, pulses with the heartbeat. Only this
     layer is new; hollow_howler.png and the glow layer stay as approved. Shape: outline cyan, filling bright, one white highlight."""
     img = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
     x0, y0 = 62 + 1 + 1, 56 + 1 + 1     # front face of the rib plate (62,56 + depth 1), one pixel in
