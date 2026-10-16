@@ -28,6 +28,8 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesInnerState(GameTestHelper helper) { EndTests.ALL.get("end_leaves_inner_state").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void driftFruitGlide(GameTestHelper helper) { EndTests.ALL.get("drift_fruit_glide").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void voidSafeItems(GameTestHelper helper) { EndTests.ALL.get("void_safe_items").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void fringeHedgeFeature(GameTestHelper helper) { EndTests.ALL.get("fringe_hedge_feature").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void forestFogConfig(GameTestHelper helper) { EndTests.ALL.get("forest_fog_config").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void biomePatches(GameTestHelper helper) { EndTests.ALL.get("biome_patches").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void submodSwitch(GameTestHelper helper) { EndTests.ALL.get("submod_switch").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void nibblemiteNibblesEndStone(GameTestHelper helper) { EndTests.ALL.get("nibblemite_nibbles_end_stone").accept(helper); }

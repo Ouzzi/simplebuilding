@@ -14,7 +14,8 @@
     "WoodTypeAccessor"
   ],
   "client": [
-    "BlockColorsMixin"
+    "BlockColorsMixin",
+    "ForestFogMixin"
   ],
   "injectors": {
     "defaultRequire": 1
