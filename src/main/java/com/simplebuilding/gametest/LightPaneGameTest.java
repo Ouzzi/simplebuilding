@@ -54,4 +54,8 @@ public final class LightPaneGameTest {
         LightPaneTests.panesHaveTheirRecipes(helper);
     }
 
+    @GameTest
+    public void copperPaneFlipsOnEveryRisingEdge(GameTestHelper helper) {
+        LightPaneTests.copperPaneFlipsOnEveryRisingEdge(helper);
+    }
 }

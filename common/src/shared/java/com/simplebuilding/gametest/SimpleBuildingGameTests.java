@@ -354,6 +354,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trap_game_test_sculk_jaw_bites_and_reopens_silently", TrapTests::sculkJawBitesAndReopensSilently)
                     .maxTicks(TrapTests.JAW_MAX_TICKS).build(),
+            GameTestSpec.named("trap_game_test_sculk_jaw_closing_makes_sculk_sounds", TrapTests::sculkJawClosingMakesSculkSounds)
+                    .maxTicks(TrapTests.JAW_MAX_TICKS).build(),
             GameTestSpec.named("trap_game_test_workstations_are_heavy_sulfur_cube_food", TrapTests::workstationsAreHeavySulfurCubeFood)
                     .build(),
             GameTestSpec.named("world_polish_game_test_piles_break_only_the_looked_at_part", WorldPolishTests::pilesBreakOnlyTheLookedAtPart)
@@ -2542,6 +2544,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("light_pane_game_test_right_click_cycles_the_start_color", LightPaneTests::rightClickCyclesTheStartColor)
                     .build(),
             GameTestSpec.named("light_pane_game_test_panes_have_their_recipes", LightPaneTests::panesHaveTheirRecipes)
+                    .build(),
+            GameTestSpec.named("light_pane_game_test_copper_pane_flips_on_every_rising_edge", LightPaneTests::copperPaneFlipsOnEveryRisingEdge)
                     .build(),
             // --- /light panes ---
             // --- discover (docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md, generated bodies: tools/discover/discover.py) ---

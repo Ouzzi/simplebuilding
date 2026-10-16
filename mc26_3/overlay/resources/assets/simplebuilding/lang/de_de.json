@@ -4021,6 +4021,8 @@
   "block.simplebuilding.redstone_light_pane": "Redstone-Lichtscheibe",
   "item.simplebuilding.redstone_light_pane": "Redstone-Lichtscheibe",
   "tooltip.simplebuilding.redstone_light_pane": "Benutzen: nächste Farbe für Stärke 1",
+  "block.simplebuilding.copper_light_pane": "Kupfer-Lichtscheibe",
+  "item.simplebuilding.copper_light_pane": "Kupfer-Lichtscheibe",
   "simplebuilding.testcentre.section.mobs": "Mobs",
   "simplebuilding.testcentre.section.mobs.sub": "Mobs aller Mods",
   "simplebuilding.testcentre.mobs.still": "Spawnen (still)",

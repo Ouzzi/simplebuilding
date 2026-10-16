@@ -49,7 +49,7 @@
       "model": "simplebuilding:block/black_light_pane"
     },
     "color=16,facing=up": {
-      "model": "simplebuilding:block/redstone_light_pane_off"
+      "model": "simplebuilding:block/black_light_pane_off"
     },
     "color=0,facing=down": {
       "model": "simplebuilding:block/white_light_pane",
@@ -116,7 +116,7 @@
       "x": 180
     },
     "color=16,facing=down": {
-      "model": "simplebuilding:block/redstone_light_pane_off",
+      "model": "simplebuilding:block/black_light_pane_off",
       "x": 180
     },
     "color=0,facing=north": {
@@ -184,7 +184,7 @@
       "x": 90
     },
     "color=16,facing=north": {
-      "model": "simplebuilding:block/redstone_light_pane_off",
+      "model": "simplebuilding:block/black_light_pane_off",
       "x": 90
     },
     "color=0,facing=east": {
@@ -268,7 +268,7 @@
       "y": 90
     },
     "color=16,facing=east": {
-      "model": "simplebuilding:block/redstone_light_pane_off",
+      "model": "simplebuilding:block/black_light_pane_off",
       "x": 90,
       "y": 90
     },
@@ -353,7 +353,7 @@
       "y": 180
     },
     "color=16,facing=south": {
-      "model": "simplebuilding:block/redstone_light_pane_off",
+      "model": "simplebuilding:block/black_light_pane_off",
       "x": 90,
       "y": 180
     },
@@ -438,7 +438,7 @@
       "y": 270
     },
     "color=16,facing=west": {
-      "model": "simplebuilding:block/redstone_light_pane_off",
+      "model": "simplebuilding:block/black_light_pane_off",
       "x": 90,
       "y": 270
     }

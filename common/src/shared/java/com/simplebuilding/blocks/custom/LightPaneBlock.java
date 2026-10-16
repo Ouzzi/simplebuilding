@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 /**
- * The plain Light Panes (normal, transparent, the sixteen colors): a lamp that shines ({@link #LIT}) while it gets no redstone
- * signal and goes dark with one. The look (frame, veil, color) is the model's; the behavior is the same for all of them.
+ * The plain Light Panes (normal, transparent, the sixteen colors): a lamp that shines ({@link #LIT}) only while it gets a redstone
+ * signal (dark when unpowered, N65). The look (frame, veil, color) is the model's; the behavior is the same for all of them.
  */
 public class LightPaneBlock extends AbstractLightPaneBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
@@ -18,7 +18,7 @@ public class LightPaneBlock extends AbstractLightPaneBlock {
     public LightPaneBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, net.minecraft.core.Direction.UP).setValue(WATERLOGGED, false)
-                .setValue(LIT, true));
+                .setValue(LIT, false));
     }
 
     @Override
@@ -29,7 +29,7 @@ public class LightPaneBlock extends AbstractLightPaneBlock {
 
     @Override
     protected BlockState applySignal(BlockState state, Level level, BlockPos pos) {
-        return state.setValue(LIT, !level.hasNeighborSignal(pos));
+        return state.setValue(LIT, level.hasNeighborSignal(pos));
     }
 
     public static int light(BlockState state) {

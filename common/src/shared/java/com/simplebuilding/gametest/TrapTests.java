@@ -78,6 +78,47 @@ public final class TrapTests {
         });
     }
 
+    /**
+     * N65: das Zuschnappen klingt (Sculk-Sensor-Klick + leiser Shrieker-Schrei, genau einmal je Biss), als Paket an einen
+     * Spieler in Hoerweite; die geschlossene Kiefer mit der Sau darin und das Wieder-Oeffnen bleiben still.
+     */
+    public static void sculkJawClosingMakesSculkSounds(GameTestHelper helper) {
+        if (!McVersion.NATURE_VARIANTS) {
+            helper.succeed();
+            return;
+        }
+        java.util.List<net.minecraft.network.protocol.Packet<?>> sink = new java.util.ArrayList<>();
+        net.minecraft.server.level.ServerPlayer listener = MusicDiscTests.capturingPlayer(helper, sink);
+        net.minecraft.world.phys.Vec3 ear = helper.absoluteVec(new net.minecraft.world.phys.Vec3(3.5, 2.0, 3.5));
+        listener.snapTo(ear.x, ear.y, ear.z, 0.0F, 0.0F);
+        BlockPos pos = new BlockPos(1, 1, 1);
+        helper.setBlock(pos, ModBlocks.SCULK_JAW);
+        java.util.function.Function<net.minecraft.sounds.SoundEvent, java.util.List<net.minecraft.network.protocol.game.ClientboundSoundPacket>> heard =
+                event -> MusicDiscTests.captured(sink, net.minecraft.network.protocol.game.ClientboundSoundPacket.class).stream()
+                        .filter(p -> p.getSound().value().equals(event)).toList();
+        helper.assertTrue(heard.apply(net.minecraft.sounds.SoundEvents.SCULK_CLICKING).isEmpty(), "sound before any bite");
+        Pig pig = helper.spawn(EntityTypes.PIG, pos);
+        helper.assertTrue(pig != null, "no pig");
+        helper.runAfterDelay(60, () -> {
+            helper.assertTrue(helper.getBlockState(pos).getValue(SculkJawBlock.SNAPPED), "the jaw never snapped shut");
+            var clicks = heard.apply(net.minecraft.sounds.SoundEvents.SCULK_CLICKING);
+            var shrieks = heard.apply(net.minecraft.sounds.SoundEvents.SCULK_SHRIEKER_SHRIEK);
+            helper.assertValueEqual(clicks.size(), 1, "sculk sensor clicks for one bite");
+            helper.assertValueEqual(shrieks.size(), 1, "shrieker shrieks for one bite");
+            helper.assertTrue(Math.abs(clicks.get(0).getPitch() - SculkJawBlock.CLOSE_CLICK_PITCH) < 1.0e-4F
+                    && Math.abs(clicks.get(0).getVolume() - SculkJawBlock.CLOSE_CLICK_VOLUME) < 1.0e-4F, "click pitch/volume");
+            helper.assertTrue(shrieks.get(0).getVolume() < clicks.get(0).getVolume(), "the shriek should be quieter than the click");
+            pig.discard();
+            helper.succeedWhen(() -> {
+                helper.assertFalse(helper.getBlockState(pos).getValue(SculkJawBlock.SNAPPED), "the empty jaw did not reopen");
+                // the pig's own hurt sound is not the jaw's; the jaw adds nothing when it reopens
+                helper.assertValueEqual(heard.apply(net.minecraft.sounds.SoundEvents.SCULK_CLICKING).size()
+                        + heard.apply(net.minecraft.sounds.SoundEvents.SCULK_SHRIEKER_SHRIEK).size(), 2,
+                        "jaw sounds after reopening (the reopening stays silent)");
+            });
+        });
+    }
+
     /** Alle Ofen-Varianten und Tische stehen im Archetyp-Tag "schwer" der Schwefelwuerfel (Vanilla: Seelensand), und sind schluckbar. */
     public static void workstationsAreHeavySulfurCubeFood(GameTestHelper helper) {
         if (!McVersion.NATURE_VARIANTS) {
