@@ -151,12 +151,15 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
     outputs.dir clientMetadata
     doLast {
         def requested = project.findProperty('moduleClientTest')
-        def entries = registry.modules.findAll { it.tests?.client && (!requested || it.id == requested) }
-        if (requested && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
+        // 'modelaudit' is no module: the all-modules missing model/texture audit (tools/testrunner target audit-models-263).
+        def audit = requested == 'modelaudit'
+        def entries = audit ? [] : registry.modules.findAll { it.tests?.client && (!requested || it.id == requested) }
+        if (requested && !audit && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
-            entrypoints:['fabric-client-gametest':entries.collectMany { it.tests.client.entrypoints }],
-            depends:entries.collectMany { it.tests.requires ?: [it.id] }.unique().collectEntries { requiredId ->
+            entrypoints:['fabric-client-gametest':audit ? ['com.simplebuilding.integration.clienttest.ModelAuditClientTest']
+                : entries.collectMany { it.tests.client.entrypoints }],
+            depends:(audit ? ['simplebuilding'] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
                 def producer = registry.modules.find { it.id == requiredId }
                 [(producer?.modId ?: requiredId):'*']
             }]

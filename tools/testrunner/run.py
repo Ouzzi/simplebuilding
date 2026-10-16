@@ -95,6 +95,8 @@ class Target:
     #: Extra Gradle arguments this target needs (Forge: its run configurations are opt in).
     gradle_args: tuple[str, ...] = ()
     namespace: str = MOD_ID
+    #: Client targets only: a log audit (tools/check_client_log.py) instead of screenshots. Faults fail the target.
+    audit: bool = False
 
 
 #: ForgeGradle 7 builds its run tasks only with -Pforge_runs=true, and creating them needs a
@@ -284,7 +286,13 @@ INTEGRATION_TARGETS = (Target(
     mc_line="integration-26.3", gradle_task=":integration:runIntegrationGameTest",
     report="integration/build/junit.xml", namespace="sbintegration",
     catalogue="integration/src/main/java/com/simplebuilding/integration/CrossModGameTest.java",
-),)
+), Target(
+    # Nachtrag 66: all modules loaded; every item/block must bake to a real model and sprite, and the
+    # client log must carry no missing texture/model warning. Opt in (heavy, boots a real client).
+    id="audit-models-263", label="Missing-model audit (all modules) - MC 26.3", loader="fabric", kind="client",
+    mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
+    gradle_args=("-PmoduleClientTest=modelaudit",), audit=True,
+))
 
 
 def _forge_java8_args(loader, spec):
@@ -713,6 +721,16 @@ def haenger_grund(log_text: str) -> str | None:
     return None
 
 
+def client_log_faults(log_text: str) -> list[str]:
+    """Missing texture/model warnings of a client log (tools/check_client_log.py)."""
+    sys.path.insert(0, str(REPO / "tools"))
+    try:
+        from check_client_log import faults
+    finally:
+        sys.path.pop(0)
+    return faults(strip_ansi(log_text))
+
+
 def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     """Runs one client target and proves it by the screenshots it left behind.
 
@@ -740,8 +758,9 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
     log_path.write_text(strip_ansi(output), encoding="utf-8")
 
-    expected = expected_shots(target)
-    fresh, _stale = taken_shots(target, started_clock)
+    log_faults = client_log_faults(output)
+    expected = [] if target.audit else expected_shots(target)
+    fresh, _stale = taken_shots(target, started_clock) if not target.audit else ([], [])
     missing = [name for name in expected if name not in fresh]
     # The settle shots are the frames Script.awaitStableFrame compares before every scene; they
     # are named without a hyphen on purpose so they never read as a promised checkpoint, and
@@ -753,6 +772,14 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     if timed_out:
         error = (f"Zeitgrenze von {timeout}s ueberschritten - der Lauf wurde abgebrochen. "
                  + (haenger_grund(output) or "Kein bekannter Aufhaenger im Log gefunden."))
+    elif target.audit:
+        if exit_code != 0:
+            tail = [l for l in strip_ansi(output).splitlines() if l.strip()][-3:]
+            error = "Gradle brach ab: " + " | ".join(tail)
+        elif log_faults:
+            error = f"{len(log_faults)} Fehlende-Textur/Modell-Meldungen im Client-Log (siehe {log_path.name})"
+        elif "[model-audit] items checked:" not in output:
+            error = "der Audit-Test hat seine Zusammenfassung nicht geschrieben - Beweis fehlt"
     elif not expected:
         error = f"keine Screenshot-Namen in {target.sources} gefunden - der Beweis fehlt"
     elif missing:
@@ -763,6 +790,8 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     elif exit_code != 0:
         tail = [l for l in strip_ansi(output).splitlines() if l.strip()][-3:]
         error = "Gradle brach ab: " + " | ".join(tail)
+    if log_faults and not target.audit and not error:
+        warning = f"{len(log_faults)} Fehlende-Textur/Modell-Meldungen im Client-Log (python3 tools/check_client_log.py {log_path})"
     if extra and not error:
         warning = (
             "Screenshots ohne Namen im Quelltext (vermutlich zusammengesetzt): "
@@ -770,6 +799,8 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
         )
 
     passed = len(expected) - len(missing)
+    if target.audit:
+        passed, expected = (0 if error else 1), ["audit"]
     return {
         "id": target.id,
         "label": target.label,
@@ -781,15 +812,17 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
         "exitCode": exit_code,
         "durationMs": duration_ms,
         "log": log_path.name,
-        "counts": {"total": len(expected), "passed": passed, "failed": len(missing), "foreign": len(extra)},
+        "counts": {"total": len(expected), "passed": passed,
+                   "failed": (1 if error else 0) if target.audit else len(missing), "foreign": len(extra)},
+        "faults": log_faults,
         "missing": missing,
         "unexpected": extra,
         # Each screenshot stands in for one checkpoint the test reached.
         "tests": [
             {
                 "id": f"{target.namespace}:{name}",
-                "status": "passed" if name in fresh else "failed",
-                "message": None if name in fresh else "kein frischer Screenshot",
+                "status": ("failed" if error else "passed") if target.audit else ("passed" if name in fresh else "failed"),
+                "message": (error if target.audit else None) if target.audit or name in fresh else "kein frischer Screenshot",
                 "durationMs": 0,
             }
             for name in expected

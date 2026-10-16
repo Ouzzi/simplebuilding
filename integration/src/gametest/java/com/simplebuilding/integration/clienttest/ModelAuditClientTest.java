@@ -1,0 +1,122 @@
+package com.simplebuilding.integration.clienttest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
+import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.item.MissingItemModel;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+
+/**
+ * Nachtrag 66 (2026-10-16): the owner still saw missing textures in game, and a static file check cannot
+ * see what the client really baked. With every module loaded (this is the integration client, the same
+ * set of mods the player gets), every item and block state of every namespace except {@code minecraft}
+ * must resolve to a real model, and no sprite on it may be {@code minecraft:missingno}.
+ *
+ * <p>Items: the model the client picks for the item's {@code item_model} id must not be the
+ * {@link MissingItemModel} fallback, and no layer's particle sprite may be the missing sprite.
+ * Blocks: the baked model must not be the set's missing model, and no quad of any part (all six sides
+ * and unculled) and no particle may use the missing sprite. Invisible blocks are skipped.
+ *
+ * <p>Run: {@code python3.12 tools/testrunner/run.py --targets audit-models-263}. The runner then also
+ * scans the client log for the vanilla warnings of the same faults.
+ */
+public final class ModelAuditClientTest implements FabricClientGameTest {
+    private static final Identifier MISSINGNO = Identifier.withDefaultNamespace("missingno");
+
+    @Override
+    public void runTest(ClientGameTestContext context) {
+        try (var world = context.worldBuilder().create()) {
+            world.getConnection().waitForClientboundPackets();
+            context.runOnClient(client -> {
+                List<String> found = new ArrayList<>();
+                int items = 0;
+                int states = 0;
+                for (Item item : BuiltInRegistries.ITEM) {
+                    Identifier id = BuiltInRegistries.ITEM.getKey(item);
+                    ItemStack stack = new ItemStack(item);
+                    if (id.getNamespace().equals("minecraft") || stack.isEmpty()) {
+                        continue;
+                    }
+                    items++;
+                    Identifier modelId = stack.get(DataComponents.ITEM_MODEL);
+                    if (modelId != null && client.getModelManager().getItemModel(modelId) instanceof MissingItemModel) {
+                        found.add("item " + id + ": no baked item model " + modelId);
+                        continue;
+                    }
+                    ItemStackRenderState state = new ItemStackRenderState();
+                    client.getItemModelResolver().updateForTopItem(state, stack, ItemDisplayContext.GUI, client.level,
+                            client.player, 0);
+                    for (int i = 0; i < 32 && !state.isEmpty(); i++) {
+                        var material = state.pickParticleMaterial(RandomSource.create(i));
+                        if (material != null && MISSINGNO.equals(material.sprite().contents().name())) {
+                            found.add("item " + id + ": a layer draws the missing sprite");
+                            break;
+                        }
+                    }
+                }
+                var models = client.getModelManager().getBlockStateModelSet();
+                for (Block block : BuiltInRegistries.BLOCK) {
+                    Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+                    if (id.getNamespace().equals("minecraft")) {
+                        continue;
+                    }
+                    for (BlockState blockState : block.getStateDefinition().getPossibleStates()) {
+                        if (blockState.getRenderShape() == RenderShape.INVISIBLE) {
+                            continue;
+                        }
+                        states++;
+                        BlockStateModel model = models.get(blockState);
+                        if (model == models.missingModel()) {
+                            found.add("block " + id + ": no baked model for " + blockState);
+                            break;
+                        }
+                        if (usesMissingSprite(model)) {
+                            found.add("block " + id + ": missing sprite on " + blockState);
+                            break;
+                        }
+                    }
+                }
+                found.forEach(line -> System.out.println("[model-audit] FAULT " + line));
+                System.out.println("[model-audit] items checked: " + items + ", block states checked: " + states
+                        + ", faults: " + found.size());
+                if (!found.isEmpty()) {
+                    throw new AssertionError("model audit found " + found.size() + " faults: " + found);
+                }
+            });
+        }
+    }
+
+    private static boolean usesMissingSprite(BlockStateModel model) {
+        List<BlockStateModelPart> parts = new ArrayList<>();
+        model.collectParts(RandomSource.create(0L), parts);
+        for (BlockStateModelPart part : parts) {
+            if (MISSINGNO.equals(part.particleMaterial().sprite().contents().name())) {
+                return true;
+            }
+            for (Direction side : new Direction[]{null, Direction.DOWN, Direction.UP, Direction.NORTH,
+                    Direction.SOUTH, Direction.WEST, Direction.EAST}) {
+                for (var quad : part.getQuads(side)) {
+                    if (MISSINGNO.equals(quad.materialInfo().sprite().contents().name())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}
