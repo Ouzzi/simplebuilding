@@ -22,6 +22,7 @@ public final class SimpleLibForge {
     static net.minecraftforge.network.Channel<net.minecraft.network.protocol.common.custom.CustomPacketPayload> channel;
     public SimpleLibForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplelib.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleLib.init(FMLPaths.CONFIGDIR.get());
+        LibBlocks.WARPED_WART_FACTORY = com.simplebuilding.modules.simplelib.forge.WarpedWartBlockForge::new;
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.DATA_COMPONENT_TYPE)) LibComponents.register();

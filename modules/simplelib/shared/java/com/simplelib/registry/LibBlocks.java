@@ -20,6 +20,8 @@ public final class LibBlocks {
     public static CrucibleBlock IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE;
     public static CrucibleBlankBlock CRUCIBLE_BLANK;
     public static com.simplelib.warped.WarpedWartBlock WARPED_WART;
+    /** Forge swaps in a subclass that reports the nether plant type (IPlantable); set before registration. */
+    public static java.util.function.Function<BlockBehaviour.Properties, com.simplelib.warped.WarpedWartBlock> WARPED_WART_FACTORY = com.simplelib.warped.WarpedWartBlock::new;
     public static com.simplelib.cauldron.ReinforcedCauldronBlock REINFORCED_CAULDRON;
     public static com.simplelib.crucible.CrucibleBarrelBlock COPPER_BARREL, REINFORCED_BARREL, NETHERITE_BARREL;
     /** Every barrel block, including partner tiers (Enderite in SimpleBuilding). */
@@ -37,7 +39,7 @@ public final class LibBlocks {
                 BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()
                         .lightLevel(state -> state.getValue(com.simplelib.cauldron.ReinforcedCauldronBlock.CONTENT).hot() ? 15 : 0)
                         .setId(key("reinforced_cauldron"))));
-        WARPED_WART = Registry.register(BuiltInRegistries.BLOCK, key("warped_wart"), new com.simplelib.warped.WarpedWartBlock(
+        WARPED_WART = Registry.register(BuiltInRegistries.BLOCK, key("warped_wart"), WARPED_WART_FACTORY.apply(
                 BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.NETHER_WART)
                         .mapColor(MapColor.WARPED_WART_BLOCK).setId(key("warped_wart"))));
         COPPER_BARREL = barrel("copper_barrel", com.simplelib.crucible.BarrelTier.COPPER, MapColor.COLOR_ORANGE, 3.0F);
