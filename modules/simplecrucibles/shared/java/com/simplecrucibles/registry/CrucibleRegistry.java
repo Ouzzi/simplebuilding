@@ -16,7 +16,10 @@ public final class CrucibleRegistry {
                 CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                         .title(Component.translatable("itemgroup.simplecrucibles.main"))
                         .icon(() -> new ItemStack(CrucibleItems.IRON_CRUCIBLE))
-                        .displayItems((params, out) -> tabStacks().forEach(out::accept))
+                        .displayItems((params, out) -> {
+                            tabStacks().forEach(out::accept);
+                            if (SimpleCrucibles.on()) out.accept(com.simplecrucibles.guide.CruciblesGuide.stack());
+                        })
                         .build());
     }
 

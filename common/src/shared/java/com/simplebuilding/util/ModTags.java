@@ -166,9 +166,10 @@ public class ModTags {
 
         /** Die Regel fuer {@link #ENDERITE_INGOT_TIER}; Datagen und Gametest teilen sie. */
         public static boolean isEnderiteIngotTierByRule(Identifier id) {
-            // split 3d: the enderite materials (ingot, nugget, block) are SimpleLib's now
+            // split 3d: the enderite materials (ingot, nugget, block) are SimpleLib's now; stage 4/5: so are the Enderite furnaces and crucible tiers (modules)
             return (Simplebuilding.MOD_ID.equals(id.getNamespace()) || "simplelib".equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))
                     && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
         }

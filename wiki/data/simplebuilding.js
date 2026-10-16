@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 844,
+      "count": 842,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3712,8 +3712,8 @@ window.WIKI_DATA = {
         "mc26_3/overlay/java/com/simplebuilding/mixin/SoulLavaFortressMixin.java"
       ],
       "related": [
-        "simplebuilding:enderite_crucible",
-        "simplebuilding:enderite_barrel",
+        "simplecrucibles:enderite_crucible",
+        "simplecrucibles:enderite_barrel",
         "simplebuilding:soul_lava_bucket",
         "simplebuilding:copper_bucket",
         "simplebuilding:enderite_bucket",
@@ -58260,47 +58260,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:enderite_barrel",
-      "name": {
-        "en_us": "Enderite Barrel",
-        "de_de": "Enderit-Fass"
-      },
-      "texture": "assets/textures/block/enderite_barrel_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_barrel.png",
-      "lootTable": "simplebuilding:blocks/enderite_barrel",
-      "drops": [
-        "simplebuilding:enderite_barrel"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A barrel that was told it could keep more, and believed it."
-          ],
-          "use": [
-            "The Enderite tier of the crucible's barrel: it holds double stacks, 128 of a 64-stack item, in the crucible menu and its own chest menu, for shift-clicks and for hoppers."
-          ],
-          "secret": [
-            "Taking from such a slot gives at most one normal stack. It is the last step of the line from copper through Netherite to Enderite."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Fass, dem gesagt wurde, es dürfe mehr behalten, und das es glaubte."
-          ],
-          "use": [
-            "Die Enderit-Stufe des Fasses der Tiegel: Es fasst doppelte Stapel, 128 eines 64er-Gegenstands, im Tiegelmenü und im eigenen Truhenmenü, bei Shift-Klicks und für Trichter."
-          ],
-          "secret": [
-            "Aus so einem Platz bekommst du höchstens einen normalen Stapel. Es ist der letzte Schritt der Linie von Kupfer über Netherit zu Enderit."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:enderite_chest",
       "name": {
         "en_us": "Enderite Chest",
@@ -58480,47 +58439,6 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
         ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_crucible",
-      "name": {
-        "en_us": "Enderite Crucible",
-        "de_de": "Enderit-Schmelztiegel"
-      },
-      "texture": "assets/textures/block/enderite_crucible_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_crucible.png",
-      "lootTable": "simplebuilding:blocks/enderite_crucible",
-      "drops": [
-        "simplebuilding:enderite_crucible"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A crucible that cooks like the End's own fire."
-          ],
-          "use": [
-            "The Enderite tier of the crucible: 27 slots, double stacks, 8x speed. A Netherite crucible becomes this with Enderite Nuggets and a Netherite Sledgehammer, at twice the strikes of a furnace."
-          ],
-          "secret": [
-            "The sledgehammer replaces the axe of the base mod here: strike the iron crucible onto an iron block, and attach a barrel with 6 strikes."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Tiegel, der kocht wie das eigene Feuer des Endes."
-          ],
-          "use": [
-            "Die Enderit-Stufe des Tiegels: 27 Plätze, doppelte Stapel, 8-faches Tempo. Ein Netherit-Tiegel wird mit Enderitklumpen und einem Netherit-Vorschlaghammer dazu, mit doppelt so vielen Schlägen wie ein Ofen."
-          ],
-          "secret": [
-            "Der Vorschlaghammer ersetzt hier die Axt des Grundmods: Schlage den Eisentiegel auf einen Eisenblock und setze mit 6 Schlägen ein Fass an."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -148883,22 +148801,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_backpack.json"
     },
     {
-      "id": "simplebuilding:blocks/enderite_barrel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_barrel"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_barrel.json"
-    },
-    {
       "id": "simplebuilding:blocks/enderite_chest",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -148929,22 +148831,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_chunk_loader.json"
-    },
-    {
-      "id": "simplebuilding:blocks/enderite_crucible",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_crucible"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_crucible.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_elytra_pad",
@@ -159031,10 +158917,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_barrel",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_boots",
           "required": true
         },
@@ -159080,10 +158962,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_core",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_crucible",
           "required": true
         },
         {
@@ -159270,10 +159148,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_barrel",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_boots",
           "required": true
         },
@@ -159319,10 +159193,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_core",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_crucible",
           "required": true
         },
         {
@@ -159471,6 +159341,14 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:stellar_flypad",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_barrel",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_crucible",
           "required": true
         },
         {
@@ -185909,7 +185787,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:machines/hot_pot",
       "parent": "simplebuilding:machines/reinforcements",
-      "icon": "simplelib:iron_crucible",
+      "icon": "simplecrucibles:iron_crucible",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -189794,9 +189672,9 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 800,
-    "blocks": 535,
+    "blocks": 533,
     "recipes": 1383,
-    "lootTables": 391,
+    "lootTables": 389,
     "trades": 20,
     "enchantments": 19,
     "tags": 58,

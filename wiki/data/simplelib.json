@@ -19,59 +19,6 @@
   },
   "features": [
     {
-      "id": "crucible",
-      "en": {
-        "title": "Crucibles",
-        "summary": "A cooking station without fuel that cooks every slot at once, heated by the block below.",
-        "details": [
-          "Iron 6 slots, Reinforced 12 (2x6), Netherite 18, Enderite 30 (5x6, with SimpleBuilding). Speed 1x/2x/4x/8x; Netherite and Enderite count experience twice.",
-          "Heat comes from the block directly below, or two blocks below at 10% less speed (air, a hopper or a non-full block in between). Medium: campfire, soul campfire, magma block, flowing lava (0.5x, campfire and smoker recipes). High: lava, lava cauldron, flowing soul lava (0.75x, also furnace and blast furnace recipes). Extreme: soul lava (1x, also ancient debris). Torches, candles and plain fire give no heat. In the Nether every source is one level hotter, at most high.",
-          "Before a slot starts, it reserves the place for its result: the slot directly below first, then any other free or matching slot. A reserved slot shows the result faintly; anything else put there stops that slot until it is taken out. Finished results are never cooked again until taken out.",
-          "After the heat source is gone the crucible keeps its heat for 2/4/8/16 seconds. Hoppers insert from above and the sides and take finished results from below. The crucible is walk-in like a cauldron: its walls collide only up to 9/16 of a block, so you step into it, and at high heat or more (lava, soul lava) standing in it burns like a magma block - 1 damage per hit, not while sneaking (server option crucibleBurnDamage, default 1, 0-4, 0 = off).",
-          "Build an iron crucible in the world: hold an axe, put iron ingots in the off hand and use it on an empty cauldron sixteen times, one ingot per strike (a cauldron with water, lava or powder snow has to be emptied first). The first strike turns the cauldron into the base; strikes 1-8 raise the four side plates (each first half, then whole), 9-12 the two handles (half, then whole), 13-16 the four rim pieces. Every strike is visible as its own stage; breaking the half-built crucible gives back the cauldron and every ingot struck in (a blank started on an iron block in older worlds gives its iron block back and can be finished the same way).",
-          "Upgrade in place without SimpleBuilding: axe in the main hand, twelve strikes on the crucible; every third strike takes one unit from the off hand and shows it as a band of the new material on one side, four units in all: Iron to Reinforced with cracked diamonds (or diamonds), Reinforced to Netherite with netherite nuggets (or netherite scrap). A crucible broken midway gives the units back. Contents, progress, experience and an attached barrel stay. With SimpleBuilding the sledgehammer replaces the axe (same 12 strikes, 4 cracked diamonds / netherite nuggets / enderite nuggets).",
-          "Raised stack limits (an Enderite crucible or barrel holds 128 of a 64-stack item) hold everywhere: in the crucible menu, in a loose barrel's own chest menu, for shift-clicks and for hoppers, which top such slots up to the raised limit (also double chests). Taking from such a slot gives at most one normal stack."
-        ]
-      },
-      "de": {
-        "title": "Schmelztiegel",
-        "summary": "Garstation ohne Brennstoff, die alle Plätze zugleich gart, beheizt vom Block darunter.",
-        "details": [
-          "Eisen 6 Plätze, Verstärkt 12 (2x6), Netherit 18, Enderit 30 (5x6, mit SimpleBuilding). Tempo 1×/2×/4×/8×; Netherit und Enderit zählen die Erfahrung doppelt.",
-          "Hitze kommt vom Block direkt darunter oder zwei Blöcke darunter mit 10 % weniger Tempo (dazwischen Luft, ein Trichter oder ein nicht voller Block). Mittel: Lagerfeuer, Seelen-Lagerfeuer, Magmablock, fließende Lava (0,5×, Lagerfeuer- und Räucherofen-Rezepte). Hoch: Lava, Lavakessel, fließende Seelen-Lava (0,75×, auch Ofen- und Schmelzofen-Rezepte). Extrem: Seelen-Lava (1×, auch antiker Schrott). Fackeln, Kerzen und normales Feuer geben keine Hitze. Im Nether ist jede Quelle eine Stufe heißer, höchstens hoch.",
-          "Bevor ein Platz anfängt, reserviert er den Platz für sein Ergebnis: zuerst den Platz direkt darunter, sonst einen anderen freien oder passenden. Ein reservierter Platz zeigt das Ergebnis blass; legt man etwas anderes hinein, stoppt dieser Platz, bis es wieder herausgenommen wird. Fertige Ergebnisse werden nie erneut gegart, bis man sie entnimmt.",
-          "Nach dem Entfernen der Hitzequelle hält der Tiegel die Hitze 2/4/8/16 Sekunden. Trichter füllen von oben und von der Seite ein und nehmen fertige Ergebnisse unten heraus. Der Tiegel ist betretbar wie ein Kessel: seine Wände sind nur bis 9/16 Block fest, man steigt also hinein, und ab hoher Hitze (Lava, Seelen-Lava) brennt das Stehen darin wie ein Magmablock - 1 Schaden je Treffer, nicht beim Schleichen (Server-Option crucibleBurnDamage, Standard 1, 0-4, 0 = aus).",
-          "Eisen-Tiegel in der Welt bauen: Axt in der Hand, Eisenbarren in der Nebenhand und sechzehnmal auf einen leeren Kessel anwenden, ein Barren je Schlag (ein Kessel mit Wasser, Lava oder Pulverschnee muss erst geleert werden). Der erste Schlag macht den Kessel zum Boden; Schläge 1-8 setzen die vier Seitenplatten (je erst halb, dann ganz), 9-12 die zwei Griffe (halb, dann ganz), 13-16 die vier Randstücke. Jeder Schlag ist als eigene Stufe sichtbar; wird der halbfertige Tiegel abgebaut, kommen der Kessel und alle verbauten Barren zurück (ein in älteren Welten auf einem Eisenblock begonnener Rohling gibt seinen Eisenblock zurück und lässt sich genauso fertig bauen).",
-          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zwölf Schläge auf den Tiegel; jeder dritte Schlag nimmt eine Einheit aus der Nebenhand und zeigt sie als Band des neuen Materials auf einer Seite, vier Einheiten insgesamt: Eisen zu Verstärkt mit rissigen Diamanten (oder Diamanten), Verstärkt zu Netherit mit Netheritklumpen (oder Netheritschrott). Wird der Tiegel vorher abgebaut, kommen die Einheiten zurück. Inhalt, Fortschritt, Erfahrung und ein angedocktes Fass bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer die Axt (ebenfalls 12 Schläge, 4 rissige Diamanten / Netheritklumpen / Enderitklumpen).",
-          "Erhöhte Stapelgrenzen (ein Enderit-Tiegel oder -Fass fasst 128 eines 64er-Items) gelten überall: im Tiegelmenü, im eigenen Truhenmenü eines losen Fasses, beim Shift-Klick und für Trichter, die solche Plätze bis zur erhöhten Grenze füllen (auch Doppeltruhen). Herausnehmen gibt höchstens einen normalen Stapel."
-        ]
-      },
-      "sources": [
-        "modules/simplelib/shared/java/com/simplelib/api/StackLimits.java",
-        "modules/simplelib/shared/java/com/simplelib/crucible/BarrelMenu.java",
-        "modules/simplelib/shared/java/com/simplelib/mixin/HopperStackLimitsMixin.java"
-      ]
-    },
-    {
-      "id": "village_kitchen",
-      "en": {
-        "title": "Village field kitchens",
-        "summary": "Villages of all five types can have a small field kitchen: an iron crucible on an unlit campfire with cooked food, a barrel of raw meat and a seat.",
-        "details": [
-          "The kitchen is added to each village houses pool at server start with weight 3 (about every third village); server config villageKitchenWeight 0–10, 0 switches it off. Only newly generated villages get it.",
-          "Light the campfire to warm the food in the crucible."
-        ]
-      },
-      "de": {
-        "title": "Dorf-Feldküchen",
-        "summary": "Dörfer aller fünf Arten können eine kleine Feldküche haben: ein Eisen-Schmelztiegel auf einem ausgemachten Lagerfeuer mit gegartem Essen, ein Fass mit rohem Fleisch und eine Sitzgelegenheit.",
-        "details": [
-          "Die Küche wird beim Serverstart jedem Häuser-Pool der Dörfer mit Gewicht 3 hinzugefügt (etwa jedes dritte Dorf); Server-Config villageKitchenWeight 0–10, 0 schaltet sie ab. Nur neu erzeugte Dörfer bekommen sie.",
-          "Zündet man das Lagerfeuer an, wärmt der Tiegel das Essen auf."
-        ]
-      }
-    },
-    {
       "id": "warm_food",
       "en": {
         "title": "Warm food",
@@ -89,25 +36,6 @@
           "Aufwärmbares Essen (Tag simplelib:warmable_food: gegartes Fleisch und Fisch, Ofenkartoffel, Brot, Kürbiskuchen, Eintöpfe und Suppen) wird in einem beheizten Tiegel als ganzer Stapel aufgewärmt und bleibt in seinem Platz.",
           "Essen bleibt einen halben Tag-Nacht-Zyklus warm (12.000 Ticks) und kühlt überall ab außer im Tiegel. Server-Grenzen: warmDurationTicks 1.200–48.000, eatSpeedBonus 0–0,30.",
           "In jedem Bündel (auch Mod-Bündeln) bleibt Essen zwei Tag-Nacht-Zyklen warm (48.000 Ticks, Grenze warmBundleDurationTicks 1.200–96.000). Stapel desselben Essens lassen sich unabhängig von der Wärme zusammenlegen; die neue Wärme ist der Mittelwert über alle Stücke, kalte zählen als null. Warme Gegenstände leuchten in vier Stufen, je wärmer desto stärker: im Inventar, gedroppt als orangefarbene Kontur (bis 12 Blöcke) und in der Hand mit etwas Dampf, und der Tooltip zeigt die restlichen Minuten."
-        ]
-      }
-    },
-    {
-      "id": "reinforced_cauldron",
-      "en": {
-        "title": "Reinforced cauldron",
-        "summary": "A cauldron for water, lava, powder snow and - with SimpleBuilding - soul lava; lava in it heats a crucible like a lava source.",
-        "details": [
-          "Without SimpleBuilding: hold an axe, put 8 diamonds in the off hand and use it on a cauldron five times. With SimpleBuilding the sledgehammer and 8 cracked diamonds replace the axe and the diamonds.",
-          "It works like a Vanilla cauldron and uses the same interactions: buckets, bottles in three levels, washing dyed items and banners, rain, snow and dripstone, and what other mods add to the cauldron (milk from Simple Sandwiches turns it into a reinforced milk cauldron that becomes this cauldron again when emptied). Copper and Enderite buckets (SimpleBuilding) take only a full cauldron. As a crucible heat source it counts like its content: lava high, soul lava extreme. A normal cauldron does not take soul lava."
-        ]
-      },
-      "de": {
-        "title": "Verstärkter Kessel",
-        "summary": "Ein Kessel für Wasser, Lava, Pulverschnee und - mit SimpleBuilding - Seelen-Lava; Lava darin heizt einen Schmelztiegel wie eine Lavaquelle.",
-        "details": [
-          "Ohne SimpleBuilding: eine Axt halten, 8 Diamanten in die Nebenhand und fünfmal auf einen Kessel anwenden. Mit SimpleBuilding ersetzen Vorschlaghammer und 8 Rissige Diamanten Axt und Diamanten.",
-          "Er funktioniert wie ein Vanilla-Kessel und nutzt dieselben Interaktionen: Eimer, Flaschen in drei Stufen, Waschen gefärbter Gegenstände und Banner, Regen, Schnee und Tropfstein sowie alles, was andere Mods dem Kessel hinzufügen (Milch aus Simple Sandwiches macht ihn zum verstärkten Milchkessel, der beim Leeren wieder dieser Kessel wird). Kupfer- und Enderit-Eimer (SimpleBuilding) nehmen nur aus einem vollen Kessel. Als Hitzequelle eines Schmelztiegels zählt er wie sein Inhalt: Lava hoch, Seelen-Lava extrem. Ein normaler Kessel nimmt keine Seelen-Lava."
         ]
       }
     },
@@ -136,35 +64,6 @@
           "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird.",
           "Klumpen und Barren tauschen 9:1 (Netherit und Enderit), Enderitbarren und -blöcke 9:1; vier Rohe Enderitfragmente ergeben Rohe Enderitplatten, die im Schmelzofen zu Enderitplatten werden; vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren. Beide Aufwertungsvorlagen lassen sich wie Vanilla-Vorlagen vervielfältigen.",
           "Andere Mods nutzen sie über die gemeinsamen Tags c:ingots/enderite, c:nuggets/enderite, c:nuggets/netherite, c:raw_materials/enderite, c:gems/cracked_diamond und c:storage_blocks/enderite bzw. /cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter den neuen IDs."
-        ]
-      }
-    },
-    {
-      "id": "first_pickup_tips",
-      "sources": [
-        "modules/simplelib/shared/java/com/simplelib/discover/LibDiscover.java",
-        "modules/simplelib/shared/java/com/simplelib/mixin/DiscoverTipMixin.java",
-        "framework/src/main/java/com/simplebuilding/framework/api/FirstUseTips.java",
-        "tools/discover/discover.py"
-      ],
-      "en": {
-        "title": "First pickup tips",
-        "summary": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
-        "details": [
-          "Tips exist for crucibles and crucible barrels.",
-          "A tip counts as seen through an entity tag on the player (simplelib.tip.<group>); removing the tag with /tag shows it again.",
-          "Switch: config/simple-tips.properties, key simplelib.firstPickupTips=false turns the tips of this mod off. The file is read at every tip, so no restart is needed; every Simple mod with tips has its own key there.",
-          "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe."
-        ]
-      },
-      "de": {
-        "title": "Tipps beim ersten Aufheben",
-        "summary": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
-        "details": [
-          "Tipps gibt es für Tiegel und Tiegel-Fässer.",
-          "Ein Tipp gilt über ein Entity-Tag am Spieler (simplelib.tip.<gruppe>) als gesehen; entfernt man das Tag mit /tag, erscheint er wieder.",
-          "Schalter: config/simple-tips.properties, Schlüssel simplelib.firstPickupTips=false schaltet die Tipps dieser Mod ab. Die Datei wird bei jedem Tipp gelesen, ein Neustart ist nicht nötig; jede Simple-Mod mit Tipps hat dort ihren eigenen Schlüssel.",
-          "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei."
         ]
       }
     }
@@ -199,47 +98,6 @@
         ],
         "C": [
           "minecraft:iron_block"
-        ]
-      }
-    },
-    {
-      "id": "simplelib:copper_barrel",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplelib:copper_barrel",
-        "count": 1
-      },
-      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/copper_barrel.json",
-      "ingredients": [
-        "minecraft:barrel",
-        "minecraft:copper_ingot"
-      ],
-      "pattern": [
-        " C ",
-        "CBC",
-        " C "
-      ],
-      "key": {
-        "C": [
-          "minecraft:copper_ingot"
-        ],
-        "B": [
-          "minecraft:barrel"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 1.75
-          }
         ]
       }
     },
@@ -701,24 +559,6 @@
   ],
   "lootTables": [
     {
-      "id": "simplelib:blocks/copper_barrel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplelib:copper_barrel"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/copper_barrel.json"
-    },
-    {
       "id": "simplelib:blocks/cracked_diamond_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -737,38 +577,6 @@
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/cracked_diamond_block.json"
     },
     {
-      "id": "simplelib:blocks/crucible_blank",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:cauldron"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:iron_block"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:iron_ingot"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/crucible_blank.json"
-    },
-    {
       "id": "simplelib:blocks/enderite_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -785,274 +593,14 @@
         }
       ],
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/enderite_block.json"
-    },
-    {
-      "id": "simplelib:blocks/iron_crucible",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplelib:iron_crucible"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/iron_crucible.json"
-    },
-    {
-      "id": "simplelib:blocks/netherite_barrel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplelib:netherite_barrel"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/netherite_barrel.json"
-    },
-    {
-      "id": "simplelib:blocks/netherite_crucible",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplelib:netherite_crucible"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/netherite_crucible.json"
-    },
-    {
-      "id": "simplelib:blocks/reinforced_barrel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplelib:reinforced_barrel"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/reinforced_barrel.json"
-    },
-    {
-      "id": "simplelib:blocks/reinforced_cauldron",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplelib:reinforced_cauldron"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/reinforced_cauldron.json"
-    },
-    {
-      "id": "simplelib:blocks/reinforced_crucible",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplelib:reinforced_crucible"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/reinforced_crucible.json"
-    },
-    {
-      "id": "simplelib:chests/village_field_kitchen",
-      "kind": "chests",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": {
-            "type": "minecraft:uniform",
-            "min": 2,
-            "max": 4
-          },
-          "items": [
-            "minecraft:beef",
-            "minecraft:porkchop",
-            "minecraft:mutton",
-            "minecraft:chicken",
-            "minecraft:rabbit",
-            "minecraft:potato"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/chests/village_field_kitchen.json"
     }
   ],
   "tags": [
-    {
-      "id": "simplelib:block/heat_source/extreme",
-      "replace": false,
-      "values": [],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/block/heat_source/extreme.json"
-    },
-    {
-      "id": "simplelib:block/heat_source/high",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:lava_cauldron",
-          "required": true
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/block/heat_source/high.json"
-    },
-    {
-      "id": "simplelib:block/heat_source/medium",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:campfire",
-          "required": true
-        },
-        {
-          "id": "minecraft:soul_campfire",
-          "required": true
-        },
-        {
-          "id": "minecraft:magma_block",
-          "required": true
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/block/heat_source/medium.json"
-    },
-    {
-      "id": "simplelib:fluid/extreme_heat",
-      "replace": false,
-      "values": [],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/fluid/extreme_heat.json"
-    },
-    {
-      "id": "simplelib:item/crucible_handles",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:iron_ingot",
-          "required": true
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_handles.json"
-    },
-    {
-      "id": "simplelib:item/crucible_upgrade_netherite",
-      "replace": false,
-      "values": [
-        {
-          "id": "simplelib:netherite_nugget",
-          "required": true
-        },
-        {
-          "id": "minecraft:netherite_scrap",
-          "required": true
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_upgrade_netherite.json"
-    },
-    {
-      "id": "simplelib:item/crucible_upgrade_reinforced",
-      "replace": false,
-      "values": [
-        {
-          "id": "simplelib:cracked_diamond",
-          "required": true
-        },
-        {
-          "id": "minecraft:diamond",
-          "required": true
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_upgrade_reinforced.json"
-    },
-    {
-      "id": "simplelib:item/crucible_walls",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:iron_ingot",
-          "required": true
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_walls.json"
-    },
     {
       "id": "simplelib:item/hammers",
       "replace": false,
       "values": [],
       "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/hammers.json"
-    },
-    {
-      "id": "simplelib:item/needs_extreme_heat",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:ancient_debris",
-          "required": true
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/needs_extreme_heat.json"
-    },
-    {
-      "id": "simplelib:item/upgrade_netherite",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:netherite_ingot",
-          "required": true
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/upgrade_netherite.json"
-    },
-    {
-      "id": "simplelib:item/upgrade_reinforced",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:diamond",
-          "required": true
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/upgrade_reinforced.json"
     },
     {
       "id": "simplelib:item/upgrade_tools",
@@ -1356,49 +904,6 @@
   ],
   "blocks": [
     {
-      "id": "simplelib:copper_barrel",
-      "name": {
-        "en_us": "Copper Barrel",
-        "de_de": "Kupfer-Fass"
-      },
-      "note": {
-        "en": {
-          "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). Next to a crucible, six axe strikes (sledgehammer with SimpleBuilding) attach it: every strike shows cracks, then the barrel docks to the crucible with a flange and a chute, offers only as many slots as the crucible has (6/12/18/27; the rest stays stored, hidden, and comes back when detached) and opens the crucible screen; the crucible puts its results there first, a hopper below the barrel takes them out. Breaking the barrel drops its contents and the plain barrel; breaking the crucible makes it a normal barrel again."
-        },
-        "de": {
-          "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, zeigt jeder Schlag Risse, dann dockt das Fass mit Flansch und Rinne am Tiegel an, bietet nur so viele Plätze wie der Tiegel (6/12/18/27; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da) und öffnet das Tiegel-Fenster; der Tiegel legt seine Ergebnisse zuerst dort ab, ein Trichter unter dem Fass nimmt sie heraus. Fass abbauen gibt Inhalt und normales Fass, Tiegel abbauen macht es wieder zum normalen Fass."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A barrel clad in copper, a little greener each year."
-          ],
-          "use": [
-            "The copper tier of the crucible barrel: it attaches to a crucible as extra storage, and works as a normal barrel on its own."
-          ],
-          "secret": [
-            "It is the first step of the barrel line, from copper through netherite to enderite."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Fass mit Kupferhülle, jedes Jahr ein wenig grüner."
-          ],
-          "use": [
-            "Die Kupferstufe des Tiegelfasses: Es lässt sich als Zusatzlager an einen Tiegel hängen und dient allein als normales Fass."
-          ],
-          "secret": [
-            "Es ist die erste Stufe der Fassreihe, von Kupfer über Netherit zu Enderit."
-          ]
-        }
-      },
-      "craftedBy": [
-        "simplelib:copper_barrel"
-      ],
-      "usedIn": []
-    },
-    {
       "id": "simplelib:cracked_diamond_block",
       "name": {
         "en_us": "Block of Cracked Diamond",
@@ -1421,47 +926,6 @@
       ]
     },
     {
-      "id": "simplelib:crucible_blank",
-      "name": {
-        "en_us": "Crucible Blank",
-        "de_de": "Schmelztiegel-Rohling"
-      },
-      "note": {
-        "en": {
-          "summary": "A half-built iron crucible; breaking it returns the cauldron (an older blank: its iron block) and every iron ingot used so far."
-        },
-        "de": {
-          "summary": "Ein halb gebauter Eisen-Schmelztiegel; abgebaut gibt er den Kessel (ein älterer Rohling: seinen Eisenblock) und alle bisher verbauten Eisenbarren zurück."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A block of metal that has not yet become a pot."
-          ],
-          "use": [
-            "The crucible while it is being built: each strike on the blank adds a stage (base, four walls, handle) and cracks it further. The last strike turns it into an Iron Crucible."
-          ],
-          "secret": [
-            "It is the block you see halfway through building a crucible in the world. It has no recipe of its own."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Metallklotz, der noch kein Topf geworden ist."
-          ],
-          "use": [
-            "Der Tiegel im Bau: Jeder Schlag auf den Rohling fügt eine Stufe hinzu (Boden, vier Wände, Griff) und lässt ihn weiter reißen. Der letzte Schlag macht daraus einen Eisentiegel."
-          ],
-          "secret": [
-            "Es ist der Block, den man mitten im Bau eines Tiegels in der Welt sieht. Er hat kein eigenes Rezept."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
       "id": "simplelib:enderite_block",
       "name": {
         "en_us": "Block of Enderite",
@@ -1482,252 +946,6 @@
       "usedIn": [
         "simplelib:enderite_ingot"
       ]
-    },
-    {
-      "id": "simplelib:iron_crucible",
-      "name": {
-        "en_us": "Iron Crucible",
-        "de_de": "Eisen-Schmelztiegel"
-      },
-      "note": {
-        "en": {
-          "summary": "Crucible with 6 slots at furnace speed; built in the world from an empty cauldron and 16 iron ingots (see Crucibles)."
-        },
-        "de": {
-          "summary": "Schmelztiegel mit 6 Plätzen in Ofen-Tempo; wird in der Welt aus einem leeren Kessel und 16 Eisenbarren gebaut (siehe Schmelztiegel)."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A pot of iron that cooks without a fire of its own."
-          ],
-          "use": [
-            "A cooking station without fuel: every slot cooks at once, heated by the block below or two blocks below. 6 slots, speed 1x."
-          ],
-          "secret": [
-            "Build it in the world: an axe in the main hand, iron ingots in the off hand, sixteen strikes on an empty cauldron - side plates, handles, rim, one ingot each. Walk into it like a cauldron."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Topf aus Eisen, der ohne eigenes Feuer kocht."
-          ],
-          "use": [
-            "Eine Kochstelle ohne Brennstoff: Alle Plätze kochen gleichzeitig, beheizt vom Block darunter oder zwei Blöcke darunter. 6 Plätze, Tempo 1x."
-          ],
-          "secret": [
-            "Im Spiel gebaut: Axt in der Haupthand, Eisenbarren in der Nebenhand, sechzehn Schläge auf einen leeren Kessel - Seitenplatten, Griffe, Rand, je ein Barren. Man kann wie in einen Kessel hineintreten."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplelib:netherite_barrel",
-      "name": {
-        "en_us": "Netherite Barrel",
-        "de_de": "Netherit-Fass"
-      },
-      "note": {
-        "en": {
-          "summary": "A reinforced barrel upgraded in place (axe, 1 netherite ingot, ten strikes; with SimpleBuilding sledgehammer and 2 netherite nuggets): 45 slots on its own, 9 when attached to a crucible; survives fire and lava as an item."
-        },
-        "de": {
-          "summary": "Ein in der Welt aufgewertetes verstärktes Fass (Axt, 1 Netheritbarren, zehn Schläge; mit SimpleBuilding Vorschlaghammer und 2 Netheritklumpen): allein 45 Plätze, am Tiegel 9; als Gegenstand feuer- und lavafest."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A barrel of dark metal that does not burn."
-          ],
-          "use": [
-            "The Netherite tier of the crucible barrel: attach it to a crucible for even more storage."
-          ],
-          "secret": [
-            "It is fire resistant, like all Netherite blocks."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Fass aus dunklem Metall, das nicht brennt."
-          ],
-          "use": [
-            "Die Netherit-Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es noch mehr Lagerplatz."
-          ],
-          "secret": [
-            "Es ist feuerfest wie alle Netherit-Blöcke."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplelib:netherite_crucible",
-      "name": {
-        "en_us": "Netherite Crucible",
-        "de_de": "Netherit-Schmelztiegel"
-      },
-      "note": {
-        "en": {
-          "summary": "Crucible with 18 slots at four times the speed; counts experience twice."
-        },
-        "de": {
-          "summary": "Schmelztiegel mit 18 Plätzen in vierfachem Tempo; zählt die Erfahrung doppelt."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A pot that cooks at the speed of a Nether fire."
-          ],
-          "use": [
-            "The Netherite tier of the crucible: 18 slots, speed 4x, experience is counted twice. A reinforced crucible becomes this in twelve strikes, one netherite nugget (or netherite scrap) every third strike."
-          ],
-          "secret": [
-            "Lava or soul lava underneath makes it cook furnace and blast furnace recipes, and soul lava also ancient debris."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Topf, der mit der Geschwindigkeit eines Netherfeuers kocht."
-          ],
-          "use": [
-            "Die Netherit-Stufe des Tiegels: 18 Plätze, Tempo 4x, Erfahrung zählt doppelt. Ein verstärkter Tiegel wird in zwölf Schlägen dazu, jeder dritte nimmt einen Netheritklumpen (oder Netheritschrott)."
-          ],
-          "secret": [
-            "Lava oder Seelenlava darunter lässt ihn Ofen- und Hochofenrezepte kochen, Seelenlava auch Antiken Schrott."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplelib:reinforced_barrel",
-      "name": {
-        "en_us": "Reinforced Barrel",
-        "de_de": "Verstärktes Fass"
-      },
-      "note": {
-        "en": {
-          "summary": "A copper barrel upgraded in place (axe, 2 diamonds, ten strikes): 36 slots on its own, 9 when attached to a crucible."
-        },
-        "de": {
-          "summary": "Ein in der Welt aufgewertetes Kupfer-Fass (Axt, 2 Diamanten, zehn Schläge): allein 36 Plätze, am Tiegel 9."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A barrel that has been told to hold more."
-          ],
-          "use": [
-            "The Reinforced tier of the crucible barrel: attach it to a crucible for more storage."
-          ],
-          "secret": [
-            "Hoppers fill it like a chest, from above and the sides."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Fass, dem gesagt wurde, es solle mehr halten."
-          ],
-          "use": [
-            "Die verstärkte Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es mehr Lagerplatz."
-          ],
-          "secret": [
-            "Trichter füllen es wie eine Truhe, von oben und von der Seite."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplelib:reinforced_cauldron",
-      "name": {
-        "en_us": "Reinforced Cauldron",
-        "de_de": "Verstärkter Kessel"
-      },
-      "note": {
-        "en": {
-          "summary": "A Vanilla cauldron that also holds (with SimpleBuilding) soul lava; heats a crucible like its content (see Reinforced cauldron)."
-        },
-        "de": {
-          "summary": "Ein Vanilla-Kessel, der (mit SimpleBuilding) auch Seelen-Lava fasst; heizt einen Schmelztiegel wie sein Inhalt (siehe Verstärkter Kessel)."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A cauldron reinforced against its own contents."
-          ],
-          "use": [
-            "Works like a vanilla cauldron (buckets, bottles, washing, rain, snow, dripstone) and holds lava and powder snow. With SimpleBuilding it also holds soul lava. Lava underneath a crucible heats it."
-          ],
-          "secret": [
-            "Make it with an axe and 8 diamonds in the off hand, five uses on a cauldron. With SimpleBuilding the sledgehammer and cracked diamonds replace them."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Kessel, verstärkt gegen seinen eigenen Inhalt."
-          ],
-          "use": [
-            "Funktioniert wie ein Vanilla-Kessel (Eimer, Flaschen, Waschen, Regen, Schnee, Tropfstein) und fasst Lava und Pulverschnee. Mit SimpleBuilding auch Seelenlava. Lava darin heizt einen Tiegel."
-          ],
-          "secret": [
-            "Herstellen mit einer Axt und 8 Diamanten in der Nebenhand, fünfmal auf einen Kessel. Mit SimpleBuilding ersetzen Vorschlaghammer und rissige Diamanten beides."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplelib:reinforced_crucible",
-      "name": {
-        "en_us": "Reinforced Crucible",
-        "de_de": "Verstärkter Schmelztiegel"
-      },
-      "note": {
-        "en": {
-          "summary": "Crucible with 9 slots at double speed."
-        },
-        "de": {
-          "summary": "Schmelztiegel mit 9 Plätzen in doppeltem Tempo."
-        }
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A pot that learned to take twice the load."
-          ],
-          "use": [
-            "The Reinforced tier of the crucible: 12 slots (2x6), speed 2x. An iron crucible becomes this in twelve axe strikes, one cracked diamond (or diamond) every third strike (the sledgehammer with SimpleBuilding)."
-          ],
-          "secret": [
-            "Contents, progress and experience stay when you upgrade in place."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Topf, der gelernt hat, die doppelte Last zu tragen."
-          ],
-          "use": [
-            "Die verstärkte Stufe des Tiegels: 12 Plätze (2x6), Tempo 2x. Ein Eisentiegel wird in zwölf Axtschlägen dazu, jeder dritte nimmt einen rissigen Diamanten (oder Diamanten) aus der Nebenhand (mit SimpleBuilding der Vorschlaghammer)."
-          ],
-          "secret": [
-            "Inhalt, Fortschritt und Erfahrung bleiben beim Aufrüsten an Ort und Stelle erhalten."
-          ]
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
     }
   ],
   "trades": [],
@@ -1744,14 +962,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 6,
-    "recipes": 16,
-    "lootTables": 11,
-    "tags": 14,
+    "features": 2,
+    "recipes": 15,
+    "lootTables": 2,
+    "tags": 3,
     "advancements": 0,
     "enchantments": 0,
     "items": 10,
-    "blocks": 10,
+    "blocks": 2,
     "trades": 0,
     "config": 0,
     "quests": 0,

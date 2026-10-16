@@ -23,6 +23,7 @@ public final class CrucibleItems {
         NETHERITE_BARREL = blockItem("netherite_barrel", CrucibleBlocks.NETHERITE_BARREL, new Item.Properties().fireResistant());
         ENDERITE_BARREL = blockItem("enderite_barrel", CrucibleBlocks.ENDERITE_BARREL, new Item.Properties().fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC));
         REINFORCED_CAULDRON = blockItem("reinforced_cauldron", CrucibleBlocks.REINFORCED_CAULDRON, new Item.Properties());
+        com.simplecrucibles.guide.CruciblesGuide.register();
     }
 
     private static Item blockItem(String name, Block block, Item.Properties properties) {
