@@ -239,10 +239,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .requires(Items.REDSTONE)
                             .unlockedBy("has_light_pane", has(ModItems.LIGHT_PANES.get(0))).save(output);
                     // N65: the Vanilla Copper Bulb recipe with Blaze Powder instead of the Blaze Rod
-                    shaped(RecipeCategory.REDSTONE, ModItems.LIGHT_PANES.get(19), 4).define('C', Items.COPPER_BLOCK)
+                    shaped(RecipeCategory.REDSTONE, ModItems.LIGHT_PANES.get(19), 4).define('C', Items.COPPER_BLOCK.weathering().unaffected())
                             .define('R', Items.REDSTONE).define('B', Items.BLAZE_POWDER)
                             .pattern(" C ").pattern("CBC").pattern(" R ")
-                            .unlockedBy(getHasName(Items.COPPER_BLOCK), has(Items.COPPER_BLOCK)).save(output);
+                            .unlockedBy(getHasName(Items.COPPER_BLOCK.weathering().unaffected()), has(Items.COPPER_BLOCK.weathering().unaffected())).save(output);
                 }
 
                 // Auto-Schmied wie der Crafter: Eisen ringsum, Schmiedetisch in der Mitte, Redstone und Spender unten.

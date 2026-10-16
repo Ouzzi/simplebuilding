@@ -148,7 +148,7 @@ public class SculkJawBlock extends WebBlock {
         // Besitzer N37: Zuschnappen als kurze Bildfolge (MOTION 2 -> 1 -> 0 je Tick), danach bleibt sie zu.
         level.setBlock(pos, state.setValue(SNAPPED, true).setValue(MOTION, MOTION_FRAMES), Block.UPDATE_ALL);
         level.scheduleTick(pos, state.getBlock(), CLOSE_FRAME_TICKS);
-        level.playSound(null, pos, SoundEvents.SCULK_SENSOR_CLICKING, SoundSource.BLOCKS, CLOSE_CLICK_VOLUME, CLOSE_CLICK_PITCH);
+        level.playSound(null, pos, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, CLOSE_CLICK_VOLUME, CLOSE_CLICK_PITCH);
         level.playSound(null, pos, SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.BLOCKS, CLOSE_SHRIEK_VOLUME, CLOSE_SHRIEK_PITCH);
         ((LivingEntity) entity).hurtServer(level, level.damageSources().generic(), BITE_DAMAGE);
         return true;

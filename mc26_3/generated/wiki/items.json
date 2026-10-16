@@ -99,6 +99,7 @@
     "simplebuilding:construction_light",
     "simplebuilding:copper_block_octet",
     "simplebuilding:copper_fire",
+    "simplebuilding:copper_light_pane",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_ice",
     "simplebuilding:crimson_blazewood_bookshelf",
@@ -1032,6 +1033,9 @@
     {
       "id": "simplebuilding:copper_lava_bucket",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:copper_light_pane"
     },
     {
       "id": "simplebuilding:copper_pressure_plate"

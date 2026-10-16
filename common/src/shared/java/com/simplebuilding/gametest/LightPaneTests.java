@@ -441,7 +441,7 @@ public final class LightPaneTests {
                     "1 " + dye.getSerializedName() + "_light_pane", missing);
         }
         craft(helper, List.of(lamp, new ItemStack(Items.REDSTONE)), "1 redstone_light_pane", missing);
-        ItemStack cu = new ItemStack(Items.COPPER_BLOCK);
+        ItemStack cu = new ItemStack(Items.COPPER_BLOCK.weathering().unaffected());
         ItemStack powder = new ItemStack(Items.BLAZE_POWDER);
         ItemStack rod = new ItemStack(Items.BLAZE_ROD);
         ItemStack redstone = new ItemStack(Items.REDSTONE);

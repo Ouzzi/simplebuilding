@@ -96,12 +96,12 @@ public final class TrapTests {
         java.util.function.Function<net.minecraft.sounds.SoundEvent, java.util.List<net.minecraft.network.protocol.game.ClientboundSoundPacket>> heard =
                 event -> MusicDiscTests.captured(sink, net.minecraft.network.protocol.game.ClientboundSoundPacket.class).stream()
                         .filter(p -> p.getSound().value().equals(event)).toList();
-        helper.assertTrue(heard.apply(net.minecraft.sounds.SoundEvents.SCULK_SENSOR_CLICKING).isEmpty(), "sound before any bite");
+        helper.assertTrue(heard.apply(net.minecraft.sounds.SoundEvents.SCULK_CLICKING).isEmpty(), "sound before any bite");
         Pig pig = helper.spawn(EntityTypes.PIG, pos);
         helper.assertTrue(pig != null, "no pig");
         helper.runAfterDelay(60, () -> {
             helper.assertTrue(helper.getBlockState(pos).getValue(SculkJawBlock.SNAPPED), "the jaw never snapped shut");
-            var clicks = heard.apply(net.minecraft.sounds.SoundEvents.SCULK_SENSOR_CLICKING);
+            var clicks = heard.apply(net.minecraft.sounds.SoundEvents.SCULK_CLICKING);
             var shrieks = heard.apply(net.minecraft.sounds.SoundEvents.SCULK_SHRIEKER_SHRIEK);
             helper.assertValueEqual(clicks.size(), 1, "sculk sensor clicks for one bite");
             helper.assertValueEqual(shrieks.size(), 1, "shrieker shrieks for one bite");
