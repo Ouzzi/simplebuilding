@@ -168,6 +168,37 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "Zinnober- und Schwefelziegel sind Vanilla-Blöcke von Minecraft 26.3."
         ]
       }
+    },
+    {
+      "id": "blue_nether_bricks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_bricks.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:blue_nether_bricks",
+        "simpleblocks:blue_nether_brick_slab",
+        "simpleblocks:blue_nether_brick_stairs",
+        "simpleblocks:blue_nether_brick_wall"
+      ],
+      "en": {
+        "title": "Blue Nether Bricks",
+        "summary": "A blue counterpart to Red Nether Bricks, with stairs, slab and wall.",
+        "details": [
+          "Recipe: two Nether Bricks and two Warped Warts in a checker pattern (needs Simple Lib). Without Simple Lib: one Warped Wart Block and eight Nether Bricks, shapeless, give 4.",
+          "Stairs, slab and wall: crafting table or stonecutter, like the other Simple Blocks shapes."
+        ]
+      },
+      "de": {
+        "title": "Blaue Netherziegel",
+        "summary": "Ein blaues Gegenstück zu den Roten Netherziegeln, mit Treppe, Stufe und Mauer.",
+        "details": [
+          "Rezept: zwei Netherziegel und zwei Wirrwarzen im Schachbrettmuster (braucht Simple Lib). Ohne Simple Lib: ein Wirrwarzenblock und acht Netherziegel, formlos, ergeben 4.",
+          "Treppe, Stufe und Mauer: Werkbank oder Steinsäge, wie die anderen Simple-Blocks-Formen."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -2848,15 +2879,21 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "de_de": "Blaue Netherziegel"
       },
       "note": {
-        "sources": [
-          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
-          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
-        ],
         "en": {
-          "summary": "Blue Nether Bricks: a decorative brick block with slab, stair and wall variants."
+          "title": "Blue Nether Bricks",
+          "summary": "A blue counterpart to Red Nether Bricks, with stairs, slab and wall.",
+          "details": [
+            "Recipe: two Nether Bricks and two Warped Warts in a checker pattern (needs Simple Lib). Without Simple Lib: one Warped Wart Block and eight Nether Bricks, shapeless, give 4.",
+            "Stairs, slab and wall: crafting table or stonecutter, like the other Simple Blocks shapes."
+          ]
         },
         "de": {
-          "summary": "Blaue Netherziegel: ein dekorativer Ziegelblock mit Platten-, Treppen- und Mauervarianten."
+          "title": "Blaue Netherziegel",
+          "summary": "Ein blaues Gegenstück zu den Roten Netherziegeln, mit Treppe, Stufe und Mauer.",
+          "details": [
+            "Rezept: zwei Netherziegel und zwei Wirrwarzen im Schachbrettmuster (braucht Simple Lib). Ohne Simple Lib: ein Wirrwarzenblock und acht Netherziegel, formlos, ergeben 4.",
+            "Treppe, Stufe und Mauer: Werkbank oder Steinsäge, wie die anderen Simple-Blocks-Formen."
+          ]
         }
       },
       "texture": "assets/textures/simpleblocks/block/blue_nether_bricks.png",
@@ -3703,7 +3740,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 4,
+    "features": 5,
     "recipes": 60,
     "lootTables": 37,
     "tags": 0,
