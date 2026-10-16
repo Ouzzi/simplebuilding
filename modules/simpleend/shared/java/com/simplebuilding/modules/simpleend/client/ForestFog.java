@@ -40,8 +40,8 @@ public final class ForestFog {
     }
 
     /**
-     * Called at the end of the atmospheric fog setup; pulls the fog distances in place toward a wall that ends 16 blocks
-     * behind the nearest forest point ahead (never closer than the core's fog end). The pull is geometric, so a far
+     * Called at the end of the atmospheric fog setup; pulls the fog distances in place toward a wall that ends just in front of
+     * the nearest forest point ahead (never closer than the core's fog end). The pull is geometric, so a far
      * Vanilla fog distance (the End has hundreds of blocks) still closes in clearly: end * (wall / end) ^ strength.
      */
     public static void apply(FogData fog, Camera camera, ClientLevel level) {
@@ -71,7 +71,7 @@ public final class ForestFog {
             var pos = camera.position();
             double nearest = inside(level, pos.x, pos.y, pos.z) ? -1.0 : scan(level, camera);
             targetPresence = nearest > 0 ? 1.0F : 0.0F;
-            if (nearest > 0) targetEnd = (float) Math.max(CORE_END, nearest + 16.0);
+            if (nearest > 0) targetEnd = (float) Math.max(CORE_END, nearest * 0.9);
         }
         float k = (float) (1.0 - Math.exp(-dt / EASE_SECONDS));
         if (targetPresence > 0.0F && presence < 0.01F) wallEnd = targetEnd;
