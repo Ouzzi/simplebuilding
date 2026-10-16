@@ -14,6 +14,7 @@ import com.simplecrucibles.fluid.EnderiteMilkBucketItem;
 import com.simplecrucibles.fluid.SoulLava;
 import com.simplecrucibles.registry.CrucibleBlocks;
 import com.simplecrucibles.registry.CrucibleComponents;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
