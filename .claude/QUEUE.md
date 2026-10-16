@@ -269,14 +269,14 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 
 ## Nachtrag 66 (2026-10-15, Besitzer, beim Spielen im End)
 End-Biome
-- [ ] Nebel viel zu extrem (nur 10–20 Blöcke, man sieht nur Silhouetten anderer Inseln/Bäume, irritierend) → schöner/weniger extrem einstellen.
-- [ ] Biome (z. B. Dusk) zu klein – in ca. 1 Minute durchlaufen → größer, über mehrere Inseln, damit man sicher einem Hollow Watcher begegnen kann.
-- [ ] Hollow Watcher Spawn-Bedingung: kann (nicht muss) spawnen, wenn man länger als ~2 Minuten im Wald ist – Begegnung schon beim ersten Besuch möglich.
-- [ ] Biom-interner Nebel von außen: von außerhalb soll man nicht in den Wald hineinsehen können (dicht und/oder Nebel) – erst KONZEPT, gemeinsam besprechen (Vanilla-Mechaniken prüfen).
+- [x] Nebel viel zu extrem (nur 10–20 Blöcke, man sieht nur Silhouetten anderer Inseln/Bäume, irritierend) → schöner/weniger extrem einstellen. (oc-end66)
+- [x] Biome (z. B. Dusk) zu klein – in ca. 1 Minute durchlaufen → größer, über mehrere Inseln, damit man sicher einem Hollow Watcher begegnen kann. (oc-end66)
+- [x] Hollow Watcher Spawn-Bedingung: kann (nicht muss) spawnen, wenn man länger als ~2 Minuten im Wald ist – Begegnung schon beim ersten Besuch möglich. (oc-end66)
+- [ ] Biom-interner Nebel von außen: von außerhalb soll man nicht in den Wald hineinsehen können (dicht und/oder Nebel) – erst KONZEPT, gemeinsam besprechen (Vanilla-Mechaniken prüfen). (oc-end66: Konzept fertig, Besitzer-Entscheidung offen – docs/ai/KONZEPT-END-WALD-NEBEL-2026-10-15.md)
 End-Strukturen
-- [ ] BUG: Im End-Schiffswrack liegt lila Wolle – nur End-Schiffsblöcke (End-Ship-Palette) erlaubt.
-- [ ] Loot der End-Schiffswracks: Verteilung erklären (Besitzer-Eindruck: entweder sehr schlecht – nur Chorus/Purpur – oder sehr gut); Wracks noch versteckter, dafür besserer Loot.
-- [ ] End-Brunnen-Strukturen: keine Minecraft-Fackeln (brechen die Illusion) → End Rods statt Fackeln.
+- [x] BUG: Im End-Schiffswrack liegt lila Wolle – nur End-Schiffsblöcke (End-Ship-Palette) erlaubt. (oc-end66)
+- [x] Loot der End-Schiffswracks: Verteilung erklären (Besitzer-Eindruck: entweder sehr schlecht – nur Chorus/Purpur – oder sehr gut); Wracks noch versteckter, dafür besserer Loot. (oc-end66)
+- [x] End-Brunnen-Strukturen: keine Minecraft-Fackeln (brechen die Illusion) → End Rods statt Fackeln. (oc-end66)
 Texturen
 - [ ] Im Spiel fehlen immer noch Texturen (viele Sachen verbuggt) – vollständig im Client prüfen (fehlende Sprites/Modelle, „missingno“) und beheben.
 Simple Shops – Umbau
@@ -297,12 +297,12 @@ Befunde aus den Besitzer-Screenshots 15.10. (Bilder 1–8, nur als Beschreibung 
 - [ ] Bild 7/8: Kopf-Modelle teils abgeschnitten (Shulker-Köpfe in mehreren Farben oben/seitlich gekappt; im Kopf-Raster weitere Köpfe mit gekappten Teilen prüfen).
 
 Platzierte Teile
-- [ ] Barren & andere platzierte Kleinteile überlappen ab 3–4 Teilen (stecken ineinander, Z-Fighting). Anordnung so ändern, dass sie immer überschneidungsfrei passen.
+- [x] Barren & andere platzierte Kleinteile überlappen ab 3–4 Teilen (stecken ineinander, Z-Fighting). Anordnung so ändern, dass sie immer überschneidungsfrei passen. (oc-placedparts)
 
 Markierte Container (QoL verknüpfte GUIs)
-- [ ] Solange ein Container markiert ist: kleiner Banner rechts im Spielbild (Stil der UI-Elemente/Oktant-Overlay, etwa auf Oktant-Höhe, etwas darüber, damit er nicht mit dem Oktant kollidiert) zeigt, welcher Container markiert ist (Art + Name).
-- [ ] Markierung abbrechen mit Escape (wie beschrieben) UND automatisch, sobald man einmal im Container war und ihn wieder verlässt.
-- [ ] BUG Kreativ: Markierung bleibt aktiv, wenn man das Kreativinventar öffnet; Shift-Klick ins Inventar oder auf einen Kreativ-Tab (Item löschen) schiebt Items in den unsichtbar markierten Container. Darf nie passieren.
+- [x] Solange ein Container markiert ist: kleiner Banner rechts im Spielbild (Stil der UI-Elemente/Oktant-Overlay, etwa auf Oktant-Höhe, etwas darüber, damit er nicht mit dem Oktant kollidiert) zeigt, welcher Container markiert ist (Art + Name). (oc-marked)
+- [x] Markierung abbrechen mit Escape (wie beschrieben) UND automatisch, sobald man einmal im Container war und ihn wieder verlässt. (oc-marked)
+- [x] BUG Kreativ: Markierung bleibt aktiv, wenn man das Kreativinventar öffnet; Shift-Klick ins Inventar oder auf einen Kreativ-Tab (Item löschen) schiebt Items in den unsichtbar markierten Container. Darf nie passieren. (oc-marked)
 
 Wayfinder-Karte
 - [x] BUG: Kartenbereiche laden mit Artefakten/Linien (u. a. in einem Kreis) – Laden immer vollständig und korrekt sicherstellen. (claude-mapfix)
@@ -315,10 +315,10 @@ Wayfinder-Karte
 - [x] Ebenen (je in den Karteneinstellungen an/aus): chunkgeladene Bereiche; Chunk-Loader der Mod als Markierung (wie Strukturen, keine Wegpunkte); platzierte aktive Shops mit Hover-Info (Angebot + Preis); weitere sinnvolle Ebenen vorschlagen. (claude-mapfix; Ideen: Claims, Spieler/Team, Tod/Heim/Respawn)
 
 End-Bäume
-- [ ] Ash- und Duskwood-Blätter sehen unschön aus: Blockmodelle natürlicher – äußere Blätter andere Textur/Anordnung als innere, innere dichter (nicht ganz dicht), nicht wie „schwache Simulation“.
-- [ ] BUG: Duskwood-Blätter verhalten sich NICHT wie Spinnennetze – beide Blätterarten gleich (Spinnennetz-Verhalten).
-- [ ] Erklären: was zeigen/testen „Ashwood Boat“/„Duskwood Boat“ im eingebauten Obsidian (Testzentrale?) – Besitzer fragt.
-- [ ] Besitzer möchte die End-Varianten der Bäume sehen (Vorschau/Screenshots); Baumgrößen gefallen.
+- [x] Ash- und Duskwood-Blätter sehen unschön aus: Blockmodelle natürlicher – äußere Blätter andere Textur/Anordnung als innere, innere dichter (nicht ganz dicht), nicht wie „schwache Simulation“. (oc-endleaves)
+- [x] BUG: Duskwood-Blätter verhalten sich NICHT wie Spinnennetze – beide Blätterarten gleich (Spinnennetz-Verhalten). (oc-endleaves)
+- [x] Erklären: was zeigen/testen „Ashwood Boat“/„Duskwood Boat“ im eingebauten Obsidian (Testzentrale?) – Besitzer fragt. (oc-endleaves)
+- [x] Besitzer möchte die End-Varianten der Bäume sehen (Vorschau/Screenshots); Baumgrößen gefallen. (oc-endleaves)
 
 Sounds
 - [ ] Sculk Jaw: Schließ-Sound fehlt (wurde entfernt?) – wieder einen Sound wie Sculk-Sensor/Shrieker.
