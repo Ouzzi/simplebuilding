@@ -97,6 +97,8 @@ final class MinibossTests {
             HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 0);
             howler.setNoAi(true);
             var prey = prey(h, 4.5, 4.5);
+            howler.addTag(HowlerEntity.TEST_SOLO_PREFIX + "jaw_spawn");   // neighbouring tests' stand-ins are within the 24-block range
+            prey.addTag(HowlerEntity.TEST_SOLO_PREFIX + "jaw_spawn");
             prey.getAttribute(Attributes.MAX_HEALTH).setBaseValue(2000.0);   // a real Sculk Jaw under it must not kill the stand-in
             prey.setHealth(2000.0f);
             int savedMax = MobsConfig.howlerJawMax;

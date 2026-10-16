@@ -236,7 +236,7 @@ final class EndNetherTests {
             ball.setPos(at.x, at.y + 0.4, at.z - 2.0);
             l.addFreshEntity(ball);
             h.assertTrue(ball.getItem().is(EndNetherMobs.SOUL_FIRE_CHARGE), "drawn as a soul fire charge");
-            h.succeedWhen(() -> h.assertTrue(pig.getRemainingFireTicks() > 0 && pig.getHealth() < pig.getMaxHealth(), "the soul fireball burns"));
+            h.succeedWhen(() -> h.assertTrue(pig.getRemainingFireTicks() > 0 && pig.getHealth() < pig.getMaxHealth(), "the soul fireball burns (ball alive=" + ball.isAlive() + " at " + ball.position() + ", pig at " + pig.position() + " hp=" + pig.getHealth() + " fire=" + pig.getRemainingFireTicks() + " alive=" + pig.isAlive() + ")"));
         });
     }
 }
