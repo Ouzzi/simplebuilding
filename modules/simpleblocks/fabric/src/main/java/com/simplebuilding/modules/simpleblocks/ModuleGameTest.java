@@ -21,7 +21,7 @@ public final class ModuleGameTest {
         BlocksTests.ALL.get("hushed_blocks_vibrations").accept(h);
     }
 
-    @GameTest(structure = "simpleblocks:empty", maxTicks = 40)
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 60)
     public void sculkDeepslateDropsAndXp(GameTestHelper h) {
         BlocksTests.ALL.get("sculk_deepslate_drops_and_xp").accept(h);
     }

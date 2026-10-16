@@ -15,6 +15,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.GameType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.item.Item;
@@ -93,22 +96,22 @@ public final class BlocksTests {
             // Placing blocks is itself a vibration, so the sensors settle first and the real event comes afterwards.
             h.setBlock(new BlockPos(3, 1, 1), BlocksRegistry.HUSHED_DEEPSLATE_TILES);
             h.setBlock(new BlockPos(1, 1, 1), Blocks.SCULK_SENSOR);
-            h.setBlock(new BlockPos(1, 1, 5), Blocks.SCULK_SENSOR);
+            h.setBlock(new BlockPos(5, 1, 6), Blocks.SCULK_SENSOR);
             h.runAfterDelay(70, () -> {
                 h.assertTrue(h.getBlockState(new BlockPos(1, 1, 1)).getValue(SculkSensorBlock.PHASE) == SculkSensorPhase.INACTIVE
-                        && h.getBlockState(new BlockPos(1, 1, 5)).getValue(SculkSensorBlock.PHASE) == SculkSensorPhase.INACTIVE, "both sensors settled");
+                        && h.getBlockState(new BlockPos(5, 1, 6)).getValue(SculkSensorBlock.PHASE) == SculkSensorPhase.INACTIVE, "both sensors settled");
+                // One vibration at (5,1,1): the sensor at (1,1,1) has the hushed tiles in its line, the one at (5,1,6) nothing.
                 level.gameEvent(null, GameEvent.BLOCK_PLACE, h.absolutePos(new BlockPos(5, 1, 1)));
-                level.gameEvent(null, GameEvent.BLOCK_PLACE, h.absolutePos(new BlockPos(5, 1, 5)));
                 h.runAfterDelay(12, () -> {
                     SculkSensorPhase behind = h.getBlockState(new BlockPos(1, 1, 1)).getValue(SculkSensorBlock.PHASE);
-                    SculkSensorPhase open = h.getBlockState(new BlockPos(1, 1, 5)).getValue(SculkSensorBlock.PHASE);
+                    SculkSensorPhase open = h.getBlockState(new BlockPos(5, 1, 6)).getValue(SculkSensorBlock.PHASE);
                     h.assertTrue(open != SculkSensorPhase.INACTIVE, "the control sensor hears the vibration (" + open + ")");
                     h.assertTrue(behind == SculkSensorPhase.INACTIVE, "the sensor behind the hushed tiles hears nothing (" + behind + ")");
                     h.succeed();
                 });
             });
         });
-        MAX_TICKS.put("sculk_deepslate_drops_and_xp", 40);
+        MAX_TICKS.put("sculk_deepslate_drops_and_xp", 60);
         ALL.put("sculk_deepslate_drops_and_xp", h -> {
             ServerLevel level = h.getLevel();
             BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
@@ -118,13 +121,22 @@ public final class BlocksTests {
             silk.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
             h.assertTrue(Block.getDrops(state, level, pos, null, null, pickaxe).stream().anyMatch(s -> s.is(Items.COBBLED_DEEPSLATE)), "drops cobbled deepslate");
             h.assertTrue(Block.getDrops(state, level, pos, null, null, silk).stream().anyMatch(s -> s.is(BlocksRegistry.SCULK_DEEPSLATE.asItem())), "silk touch keeps the block");
-            AABB box = new AABB(pos).inflate(3);
-            state.spawnAfterBreak(level, pos, silk, true);
-            h.runAfterDelay(3, () -> {
-                h.assertTrue(level.getEntitiesOfClass(ExperienceOrb.class, box).isEmpty(), "no experience with silk touch");
-                state.spawnAfterBreak(level, pos, pickaxe, true);
-                h.runAfterDelay(3, () -> {
-                    int xp = level.getEntitiesOfClass(ExperienceOrb.class, box).stream().mapToInt(ExperienceOrb::getValue).sum();
+            // The real break path of the loader (Fabric and NeoForge hand out experience at different places).
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            player.setGameMode(GameType.SURVIVAL);
+            AABB box = new AABB(pos).inflate(4);
+            int[] before = {player.totalExperience};
+            player.setItemInHand(InteractionHand.MAIN_HAND, silk);
+            h.setBlock(new BlockPos(1, 1, 1), BlocksRegistry.SCULK_DEEPSLATE);
+            player.gameMode.destroyBlock(pos);
+            h.runAfterDelay(4, () -> {
+                int gained = player.totalExperience - before[0] + level.getEntitiesOfClass(ExperienceOrb.class, box).stream().mapToInt(ExperienceOrb::getValue).sum();
+                h.assertTrue(gained == 0, "no experience with silk touch, got " + gained);
+                player.setItemInHand(InteractionHand.MAIN_HAND, pickaxe);
+                h.setBlock(new BlockPos(1, 1, 1), BlocksRegistry.SCULK_DEEPSLATE);
+                player.gameMode.destroyBlock(pos);
+                h.runAfterDelay(4, () -> {
+                    int xp = player.totalExperience - before[0] + level.getEntitiesOfClass(ExperienceOrb.class, box).stream().mapToInt(ExperienceOrb::getValue).sum();
                     h.assertTrue(xp >= 1 && xp <= 2, "1-2 experience, got " + xp);
                     h.succeed();
                 });
