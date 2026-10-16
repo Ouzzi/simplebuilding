@@ -2551,6 +2551,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("light_pane_game_test_copper_pane_flips_on_every_rising_edge", LightPaneTests::copperPaneFlipsOnEveryRisingEdge)
                     .build(),
+            GameTestSpec.named("light_pane_game_test_copper_redstone_pane_colors_and_flips", LightPaneTests::copperRedstonePaneColorsAndFlips)
+                    .build(),
             // --- /light panes ---
             // --- discover (docs/ai/PRINZIPIEN-ENTDECKBARKEIT.md, generated bodies: tools/discover/discover.py) ---
             GameTestSpec.named("discover_game_test_every_book_recipe_has_an_unlock", SimpleBuildingDiscover::recipeUnlocks)

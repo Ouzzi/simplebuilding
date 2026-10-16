@@ -15,9 +15,9 @@ import net.minecraft.world.item.ItemStack;
 /**
  * The one look every gadget readout of the mod shares (owner 2026-09-29: "all overlays one
  * consistent style, the octant box is the reference"; N64 2026-10-15: flat dark box, fixed 78 % opacity; N67: on
- * 26.3 a triple frame like the other mod UIs - outline, bevel, band, corners a 3-2-1 staircase - see {@link HudFrame}), placed and scaled by {@link ModHud}, 4 px of
+ * 26.3 a triple frame like the other mod UIs - outline, bevel, band, corners a rounder 4-2-1-1 staircase (N68) - see {@link HudFrame}), placed and scaled by {@link ModHud}, 4 px of
  * padding, the item's own name as the title (aqua when enchanted, as the tooltip does), 3 px under
- * the title, 2 px between lines, values in tones of the octant bronze and secondary lines grey. The
+ * the title, 2 px between lines, values in the original colour style (the octant's dye theme, orange, grey; lifted only as far as the 4,5:1 contrast needs, N68) and secondary lines grey. The
  * Octant ({@link RangefinderHudOverlay}), the Gauge ({@link SpeedometerHudOverlay}) and the
  * Resonance Rod's distance readout ({@code LaserRenderer#renderHud}) draw through here -
  * nothing else writes free text next to the crosshair any more.
@@ -51,19 +51,62 @@ public final class HudPanel {
             ALPHA << 24 | (scale(ModScreenLayout.OCTANT_FILL, 0.82) & 0xFFFFFF),
             ALPHA << 24 | (scale(ModScreenLayout.OCTANT_FILL, 0.64) & 0xFFFFFF)};
     /**
-     * Primary value tone (Pos 1, results, the rod's distance): the bronze 80 % towards white. Pos 2 uses
-     * {@link #COLOR_VALUE_DIM}, the same hue 60 % towards white - one brightness step apart. WCAG contrast on the
-     * box over the worst world (pure white sky): 7,2:1 and 5,2:1; over a dark world 14,5:1 and 10,5:1.
+     * The box over the worst world behind it (pure white sky): the background every HUD text colour is checked against.
+     * Over a dark world the box is darker still, so a colour that reads here reads there too.
      */
-    public static final int COLOR_VALUE = mix(ModScreenLayout.OCTANT_FILL, 0xFFFFFFFF, 0.8);
-    /** Dimmer step of {@link #COLOR_VALUE} (Pos 2). */
-    public static final int COLOR_VALUE_DIM = mix(ModScreenLayout.OCTANT_FILL, 0xFFFFFFFF, 0.6);
-    /** Secondary lines (4,7:1 over a pure white world, 9+ over a dark one; Vanilla's grey #AAAAAA had 4,05:1). */
-    public static final int COLOR_SECONDARY = 0xFFB8B8B8;
-    /** Warnings (danger zone, lethal fall): 4,6:1 over a pure white world (the former #FF5555 had 3,0:1), 8+ over a dark one. */
-    public static final int COLOR_DANGER = 0xFFFF9999;
-    /** Orange impact damage of the Gauge: 4,7:1 over a pure white world (the former #FF7F4C had 3,8:1). */
-    public static final int COLOR_IMPACT = 0xFFFFA070;
+    private static final int WORST_BACKGROUND = over(BOX_FILL, 0xFFFFFF);
+    /** Smallest accepted text contrast (AGENTS.md rule 15, same bar as simplelib's {@code UiContrast.MIN}). */
+    public static final double MIN_CONTRAST = 4.5;
+    /** Primary value tone (the rod's distance, the Gauge's speed): the original orange #FF7F4C, lifted to {@link #MIN_CONTRAST}. */
+    public static final int COLOR_VALUE = ink(0xFFFF7F4C);
+    /** Secondary lines: the original grey #AAAAAA, lifted just enough (it had 4,05:1 over a white world). */
+    public static final int COLOR_SECONDARY = ink(0xFFAAAAAA);
+    /** Warnings (danger zone, lethal fall): the original red #FF5555, lifted just enough (it had 3,0:1 over a white world). */
+    public static final int COLOR_DANGER = ink(0xFFFF5555);
+    /** Orange impact damage of the Gauge: the original #FF7F4C, lifted just enough (3,8:1 before). */
+    public static final int COLOR_IMPACT = COLOR_VALUE;
+
+    /**
+     * {@code rgb} (alpha ignored) itself when it reads on the panel with at least {@link #MIN_CONTRAST} over the worst
+     * world, otherwise mixed towards white in 1 % steps only as far as needed, so the old colour style survives. Opaque.
+     */
+    public static int ink(int rgb) {
+        int color = 0xFF000000 | rgb & 0xFFFFFF;
+        for (int percent = 0; percent <= 100; percent++) {
+            int candidate = mix(color, 0xFFFFFFFF, percent / 100.0);
+            if (contrast(candidate, WORST_BACKGROUND) >= MIN_CONTRAST) {
+                return candidate;
+            }
+        }
+        return 0xFFFFFFFF;
+    }
+
+    /** WCAG contrast ratio of an opaque text colour on the panel over the worst world (white) when {@code worldRgb} is white, or over any other world. */
+    public static double contrastOver(int text, int worldRgb) {
+        return contrast(text, over(BOX_FILL, worldRgb));
+    }
+
+    private static int over(int argb, int worldRgb) {
+        double a = (argb >>> 24) / 255.0;
+        int r = (int) Math.round(((argb >> 16) & 255) * a + ((worldRgb >> 16) & 255) * (1 - a));
+        int g = (int) Math.round(((argb >> 8) & 255) * a + ((worldRgb >> 8) & 255) * (1 - a));
+        int b = (int) Math.round((argb & 255) * a + (worldRgb & 255) * (1 - a));
+        return 0xFF000000 | r << 16 | g << 8 | b;
+    }
+
+    private static double luminance(int c) {
+        double[] v = {(c >> 16) & 255, (c >> 8) & 255, c & 255};
+        for (int i = 0; i < 3; i++) {
+            v[i] /= 255.0;
+            v[i] = v[i] <= 0.03928 ? v[i] / 12.92 : Math.pow((v[i] + 0.055) / 1.055, 2.4);
+        }
+        return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+    }
+
+    private static double contrast(int a, int b) {
+        double la = luminance(a), lb = luminance(b);
+        return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+    }
 
     /** The panels that can be on screen, in stacking order from top to bottom. */
     public enum Slot {

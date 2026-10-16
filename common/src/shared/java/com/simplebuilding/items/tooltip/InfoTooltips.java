@@ -77,7 +77,8 @@ public final class InfoTooltips {
         if (item == net.minecraft.world.item.Items.GLISTERING_MELON_SLICE) {
             out.add(gray("tooltip.simplebuilding.glistering_melon_slice.food"));
         }
-        if (item instanceof BlockItem pane && pane.getBlock() instanceof com.simplebuilding.blocks.custom.RedstoneLightPaneBlock) {
+        if (item instanceof BlockItem pane && (pane.getBlock() instanceof com.simplebuilding.blocks.custom.RedstoneLightPaneBlock
+                || pane.getBlock() instanceof com.simplebuilding.blocks.custom.CopperRedstoneLightPaneBlock)) {
             out.add(gray("tooltip.simplebuilding.redstone_light_pane")); // N57: sneak-free right-click sets the color of strength 1
         }
         if (item instanceof BlockItem blockItem) {

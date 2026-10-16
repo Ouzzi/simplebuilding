@@ -58,4 +58,9 @@ public final class LightPaneGameTest {
     public void copperPaneFlipsOnEveryRisingEdge(GameTestHelper helper) {
         LightPaneTests.copperPaneFlipsOnEveryRisingEdge(helper);
     }
+
+    @GameTest
+    public void copperRedstonePaneColorsAndFlips(GameTestHelper helper) {
+        LightPaneTests.copperRedstonePaneColorsAndFlips(helper);
+    }
 }

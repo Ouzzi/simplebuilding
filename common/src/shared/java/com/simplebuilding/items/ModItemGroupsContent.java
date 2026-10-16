@@ -306,12 +306,14 @@ public final class ModItemGroupsContent {
         return CreativeTabLayout.Row.of("sulfur_lights", ModItems.SULFUR_LIGHTS.toArray(new net.minecraft.world.level.ItemLike[0]));
     }
 
-    /** Light Panes (N57): normal, transparent, redstone and copper in one row, the sixteen colors in the next. */
+    /** Light Panes (N57): normal, transparent and redstone in one row, the sixteen colors in the next; N68: the copper switch variants (copper, copper redstone) and their sixteen colors in two more rows. */
     public static List<CreativeTabLayout.Row> lightPaneRows() {
         return List.of(
                 CreativeTabLayout.Row.of("light_panes", ModItems.LIGHT_PANES.get(0), ModItems.LIGHT_PANES.get(1),
-                        ModItems.LIGHT_PANES.get(18), ModItems.LIGHT_PANES.get(19)),
-                CreativeTabLayout.Row.of("light_panes_colored", ModItems.LIGHT_PANES.subList(2, 18).toArray(new net.minecraft.world.level.ItemLike[0])));
+                        ModItems.LIGHT_PANES.get(18)),
+                CreativeTabLayout.Row.of("light_panes_colored", ModItems.LIGHT_PANES.subList(2, 18).toArray(new net.minecraft.world.level.ItemLike[0])),
+                CreativeTabLayout.Row.of("copper_light_panes", ModItems.LIGHT_PANES.get(19), ModItems.LIGHT_PANES.get(36)),
+                CreativeTabLayout.Row.of("copper_light_panes_colored", ModItems.LIGHT_PANES.subList(20, 36).toArray(new net.minecraft.world.level.ItemLike[0])));
     }
 
     /** Naturvarianten (N24/N25): die vier Stufen, das Eis, der Nautilusschalen-Block; die drei Froschlichter. */

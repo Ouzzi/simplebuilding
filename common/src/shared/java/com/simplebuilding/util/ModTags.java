@@ -30,6 +30,8 @@ public class ModTags {
         public static final TagKey<Item> FROGLIGHTS = createTag("froglights");
         /** Normal and sixteen single-color Light Panes (N57): the base of the dye recipes (recolor included). */
         public static final TagKey<Item> LIGHT_PANES = createTag("light_panes");
+        /** N68: the copper-switch panes that take a dye or redstone (copper pane + sixteen colors). */
+        public static final TagKey<Item> COPPER_LIGHT_PANES = createTag("copper_light_panes");
         /**
          * supported_items von Tiefe Taschen und Trichter: {@code #bundle_enchantable} plus
          * {@code #backpacks}. Eigene Tags statt die Rucksaecke in {@code bundle_enchantable} zu legen,
