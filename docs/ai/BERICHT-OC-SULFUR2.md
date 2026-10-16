@@ -6,4 +6,4 @@
 - Vorschau (8x, Vanilla | neu, nicht eingecheckt): `/root/previews/oc-sulfur2/sulfur_lights_vanilla_vs_new_8x.png` (+ `new_*.png`).
 - Kontrast: reine Spiel-Texturen, keine UI/Text geändert; Flammenrampe 86,84,6 -> 252,252,168 (Schwefelfeuer-Rampe), Flamme/Eisenrahmen klar abgesetzt.
 - Tests: `check_missing_textures.py` 0 Fehler (mit UND ohne die 6 PNGs im Baum), `generate_textures.py --check` OK, `wiki/generate.py --all --check --strict` grün mit Jar und mit `GRADLE_USER_HOME=/nonexistent` (Platzhalter); `wiki/data/textures.js` neu erzeugt (anim/bytes entfallen wie bei den übrigen abgeleiteten Texturen).
-- Offen/nicht getestet: kein Client-Screenshot im Spiel; Wiki-Animationsinfo der 3 animierten Texturen fehlt (wie bei sulfur_fire).
+- Offen/nicht getestet: Gradle-processResources-Lauf (lange hinter anderen Jobs in der Sperre; Task ist generisch über OUTPUTS, Skript selbst per --out geprüft); kein Client-Screenshot im Spiel; Wiki-Animationsinfo der 3 animierten Texturen fehlt (wie bei sulfur_fire).
