@@ -68,6 +68,17 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
       context.waitTicks(5);
       context.takeScreenshot("simplefun-config");
       context.runOnClient(client -> client.setScreenAndShow(null));
+      // N65: the piggy effect turns the player's head into a pig head (head replaced, snout and ears visible).
+      world.getServer().runOnServer(server -> {
+        var player = server.getPlayerList().getPlayers().getFirst();
+        player.addEffect(new net.minecraft.world.effect.MobEffectInstance(com.simplefun.registry.ModEffects.holder(), 1200));
+        player.connection.teleport(player.getX(), player.getY(), player.getZ(), 0.0F, 0.0F);
+      });
+      context.runOnClient(client -> client.options.setCameraType(net.minecraft.client.CameraType.THIRD_PERSON_FRONT));
+      context.waitTicks(30);
+      world.getConnection().waitForClientboundPackets();
+      context.takeScreenshot("simplefun-piggy-head");
+      context.runOnClient(client -> client.options.setCameraType(net.minecraft.client.CameraType.FIRST_PERSON));
     }
   }
 }

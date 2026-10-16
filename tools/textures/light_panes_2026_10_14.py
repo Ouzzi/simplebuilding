@@ -170,6 +170,7 @@ def base_model():
             "textures": {"particle": "#panel"},
             "elements": [{"from": [0, 0, 0], "to": [16, 1, 16], "shade": False,
                           "faces": {"up": {"texture": "#panel", "uv": [0, 0, 16, 16]},
+                                    "down": {"texture": "#panel", "uv": [0, 0, 16, 16], "cullface": "down"},
                                     "north": dict(side), "south": dict(side), "east": dict(side), "west": dict(side)}}]}
 
 

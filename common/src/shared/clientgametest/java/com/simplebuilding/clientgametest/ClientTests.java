@@ -135,6 +135,8 @@ public final class ClientTests {
                 new Entry("n53-visuals", N53VisualsClientTest::inWorld),
                 // Owner N55 (26.3): the extra head slot like the helmet slot - size, precedence, variant; takes its heads off again.
                 new Entry("head-slot", HeadSlotClientTest::inWorld),
+                // Nachtrag 65 (26.3): floating panes from below, the shulker head; clears what it places.
+                new Entry("n65-small", N65SmallClientTest::inWorld),
                 // Audit C9/C10: unique key mapping names, our defaults collide with nothing (no picture).
                 new Entry("key-mappings", KeyMappingClientTest::inWorld));
     }

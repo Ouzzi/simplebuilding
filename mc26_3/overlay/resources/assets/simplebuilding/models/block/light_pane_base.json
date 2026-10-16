@@ -27,6 +27,16 @@
             16
           ]
         },
+        "down": {
+          "texture": "#panel",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "down"
+        },
         "north": {
           "texture": "#panel",
           "uv": [

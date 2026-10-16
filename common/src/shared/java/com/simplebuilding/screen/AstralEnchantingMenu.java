@@ -44,6 +44,8 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     public static final int LEVELS_PER_ROW = 16;
     public static final int BUTTON_ENCHANT = 100;
     /** Slot positions (also read by the screen and ModScreenStyle). */
+    /** The table's own slots (item, lapis, blaze) come first in the menu. */
+    public static final int TABLE_SLOTS = 3;
     public static final int ITEM_X = 17, ITEM_Y = 20, LAPIS_X = 8, BLAZE_X = 26, STOCK_Y = 44;
     /** Owner N31: a taller, airier screen - the player inventory 36 px lower than Vanilla's 84. */
     public static final int INVENTORY_Y = 120, IMAGE_HEIGHT = INVENTORY_Y + 82;

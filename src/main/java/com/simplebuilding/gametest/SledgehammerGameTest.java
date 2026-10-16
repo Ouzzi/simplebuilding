@@ -137,6 +137,11 @@ public final class SledgehammerGameTest {
     }
 
     @GameTest
+    public void sledgehammerProgressIsRescaledWhenTheBlockCountChanges(GameTestHelper helper) {
+        SledgehammerTests.sledgehammerProgressIsRescaledWhenTheBlockCountChanges(helper);
+    }
+
+    @GameTest
     public void sledgehammerSneakingBreaksOnlyTheTargetedBlock(GameTestHelper helper) {
         SledgehammerTests.sledgehammerSneakingBreaksOnlyTheTargetedBlock(helper);
     }
