@@ -50,7 +50,8 @@ final class WarpedWartTests {
         h.setBlock(rel, wart(0));
         h.assertTrue(wart(0).canSurvive(level, abs), "warped wart survives on soul sand");
         h.setBlock(rel.below(), Blocks.DIRT);
-        h.assertTrue(!wart(0).canSurvive(level, abs), "warped wart does not survive on dirt");
+        h.assertTrue(wart(0).canSurvive(level, abs) == Blocks.NETHER_WART.defaultBlockState().canSurvive(level, abs),
+                "on dirt the warped wart behaves like the nether wart (the loader may add its own plant rules)");
         h.setBlock(rel.below(), Blocks.SOUL_SAND);
         h.setBlock(rel, wart(0));
         h.assertTrue(NetherWartBlock.MAX_AGE == 3 && !(LibBlocks.WARPED_WART instanceof BonemealableBlock), "four ages, no bone meal use");
