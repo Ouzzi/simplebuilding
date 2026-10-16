@@ -258,6 +258,11 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 71 (2026-10-16, Besitzer)
+- [x] Abgenommen: End-Blätter, Karte, 3D-Items, Schwefel-Lichter (16.10.).
+- [ ] Copper Light Panes: Kupferrand durch die Farbe der jeweiligen Light Pane ersetzen (Rand in der Pane-Farbe statt Kupfer).
+- [ ] Warped Wart (Wirrwarze, neues Item): kann in Bastionen in Kisten liegen; funktioniert exakt wie Netherwarze (auf Seelensand pflanzen, Wachstumsstufen, Ernte), wird aber für andere Tränke genutzt – v. a. alle hinzugekommenen Mod-Tränke. Dazu: Rezept 9 Warped Wart → Warped Wart Block; Blaue Netherziegel (türkis, an Warped Wart erinnernd) aus Warped Wart + Netherziegeln, mit Treppe/Stufe/Mauer (Baublöcke → Simple Blocks).
+
 ## Nachtrag 70 (2026-10-16, Besitzer)
 - [x] (Plan docs/ai/PLAN-MODULFAMILIE-2026-10-16.md, Besitzer-Antworten §5) Modulaufteilungs-Plan (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md) auf die neue Zielstruktur erweitern: SimpleBuilding = Super-Mod mit Sub-Mods Simple Octets, Simple Blocks (neu), Simple End, später Simple Enderite, Simple Tools, Simple Gadgets (neu) usw.; gemeinsame Blöcke (z. B. polierter Endstein) nach simplelib; bedingte Freischaltung (Enderit-Werkzeuge nur mit Simple Enderite) und volle Kompatibilität. Erst Plan an Besitzer, dann Stufen nacheinander nach grünem Gate.
 - [ ] Umsetzung Modulfamilie strikt nacheinander, je Stufe grünes Gate: (1) Simple Blocks [läuft], (2) Tiegel → simplecrucibles, (3) polierter Endstein → simplelib, (4) Octets → simpleoctets, (5) Hämmer → simplehammers, (6) Simple Gadgets (Rotator, Messuhr, Detektor, Magnet, Echolot, Attractor aus simpletweaks), (7) Lager → simplestorage, (8) Simple Enderite (Ausrüstung + Astral/Nihil-Endstein + Astralit/Nihilith; Enderit-Stufen anderer Module nur mit Enderite freigeschaltet), (9) Release. Zusätzlich: simpletools als Sub-Mod unter den SimpleBuilding-Super-Mod hängen.
