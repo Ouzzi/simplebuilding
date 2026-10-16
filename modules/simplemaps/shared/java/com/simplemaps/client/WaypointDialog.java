@@ -140,7 +140,7 @@ final class WaypointDialog {
                 if (index >= shown.size()) continue;
                 Item item = shown.get(index);
                 if (BuiltInRegistries.ITEM.getKey(item).equals(icon)) g.fill(sx, sy, sx + 16, sy + 16, 0x80FFFFFF);
-                g.item(new ItemStack(item), sx, sy);
+                WaypointArt.drawModel(g, new ItemStack(item), sx, sy, 16, true);
             }
         }
         int rows = totalRows();
@@ -161,7 +161,7 @@ final class WaypointDialog {
             for (int f = CubeNet.NORTH; f <= CubeNet.DOWN; f++) {
                 int cx = l.netX() + CubeNet.column(f) * IconPickerLayout.NET_CELL, cy = l.netY() + CubeNet.row(f) * IconPickerLayout.NET_CELL;
                 g.fill(cx, cy, cx + IconPickerLayout.NET_CELL, cy + IconPickerLayout.NET_CELL, UiBoxes.RIM);
-                WaypointArt.draw(g, icon, f, cx + 1, cy + 1, IconPickerLayout.NET_CELL - 2);
+                WaypointArt.draw(g, icon, f, cx + 1, cy + 1, IconPickerLayout.NET_CELL - 2, false);
                 if (face == f) outline(g, cx, cy, IconPickerLayout.NET_CELL, 0xFFFFFFFF);
             }
         } else {

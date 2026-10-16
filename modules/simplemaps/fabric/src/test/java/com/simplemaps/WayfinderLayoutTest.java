@@ -63,4 +63,27 @@ class WayfinderLayoutTest {
         assertTrue(b.cols() > a.cols() && b.rows() > a.rows());
         assertTrue(a.cols() > 12, "larger than the old 12 x 9 map at 854x480");
     }
+
+    /** Readability rule 15: the icon ink reaches 4.5:1 on every face the side buttons can have (on/off, hovered or not). */
+    @Test
+    void sideButtonInkIsReadableInEveryState() {
+        com.simplelib.api.client.ui.UiPalette bronze = com.simplelib.api.client.ui.UiPalette.derived(0xFF6F5F4B);
+        for (boolean on : new boolean[] {false, true}) {
+            for (boolean hover : new boolean[] {false, true}) {
+                WayfinderTabStyle st = WayfinderTabStyle.of(bronze, on, hover);
+                double ratio = com.simplelib.api.client.ui.UiContrast.ratio(st.ink(), st.face());
+                assertTrue(ratio >= 4.5, "ink on face (on=" + on + ", hover=" + hover + "): " + ratio);
+            }
+        }
+    }
+
+    @Test
+    void sideButtonStatesDiffer() {
+        com.simplelib.api.client.ui.UiPalette bronze = com.simplelib.api.client.ui.UiPalette.derived(0xFF6F5F4B);
+        WayfinderTabStyle off = WayfinderTabStyle.of(bronze, false, false), on = WayfinderTabStyle.of(bronze, true, false),
+                hover = WayfinderTabStyle.of(bronze, false, true);
+        assertTrue(off.face() != on.face() && on.bar() != 0 && off.bar() == 0, "active = lighter face and a bar");
+        assertTrue(hover.band() != off.band(), "hover = bright band");
+        assertEquals(3, on.layers().length, "layered edge like the frame");
+    }
 }
