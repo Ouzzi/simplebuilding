@@ -160057,6 +160057,190 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "#minecraft:decorated_pot_sherds",
+          "required": false
+        },
+        {
+          "id": "minecraft:angler_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:archer_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:arms_up_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:blade_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:brewer_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:burn_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:danger_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:explorer_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:flow_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:friend_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:guster_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:heart_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:heartbreak_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:howl_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:miner_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:mourner_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_11",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_13",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_5",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_blocks",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_bounce",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_cat",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_chirp",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_creator",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_creator_music_box",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_far",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_lava_chicken",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_mall",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_mellohi",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_otherside",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_pigstep",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_precipice",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_relic",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_stal",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_strad",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_tears",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_wait",
+          "required": true
+        },
+        {
+          "id": "minecraft:music_disc_ward",
+          "required": true
+        },
+        {
+          "id": "minecraft:plenty_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:prize_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:scrape_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:sheaf_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:shelter_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:skull_pottery_sherd",
+          "required": true
+        },
+        {
+          "id": "minecraft:snort_pottery_sherd",
+          "required": true
+        },
+        {
           "id": "minecraft:shulker_shell",
           "required": true
         },
