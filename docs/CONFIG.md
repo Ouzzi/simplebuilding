@@ -193,8 +193,10 @@ Die bereits begrenzten Teleporter-, Pad-, Echolot-, Befehls- und XP-Optionen ble
 Resonanzstab-Rezept `amethyst_lens` bleibt deshalb verfügbar, obwohl die Benutzung
 abgeschaltet wird. Dieser Faktenpass dokumentiert die Abweichung und ändert kein Gameplay.
 
-## Seelen-Lava (`server.soulLava`, 26.3)
+## Seelen-Lava (Simple Crucibles, `simplecrucibles-server.json` → `soulLava`, 26.3)
 
+Seit Aufteilungsstufe 5b gehört die Seelen-Lava zu Simple Crucibles. Die Gruppe stand vorher als `server.soulLava` in
+`simplebuilding.json`; fehlt sie in `simplecrucibles-server.json`, übernimmt das Modul sie beim Start einmal von dort.
 Alle Werte sind serverseitig und werden auf folgende Grenzen beschränkt:
 
 | Feld | Standard | Grenzen |
@@ -213,4 +215,4 @@ Alle Werte sind serverseitig und werden auf folgende Grenzen beschränkt:
 
 Seelenbrand läuft `soulBurnSeconds` lang und würfelt alle `soulBurnIntervalTicks` mit `soulBurnChance` um 1 Feuerschaden. Auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) halbiert sich das Intervall, der Brand beißt also doppelt so oft; das Intervall wird nie kleiner als 1 Tick.
 
-`fuelMultiplier` multipliziert 20.000 Ticks und wird bei der Item-Registrierung gelesen: Neustart und gleiche Modpack-Config auf Server und Client erforderlich. Normale Lava-Eimer bleiben bei 20.000 Ticks. Alle anderen Werte werden zur Laufzeit gelesen; bereits geplante Fluid-Ticks behalten zunächst ihre Verzögerung. Auf 26.2 ist keine Seelen-Lava registriert.
+`fuelMultiplier` multipliziert 20.000 Ticks und wird bei der Item-Registrierung gelesen: Neustart und gleiche Modpack-Config auf Server und Client erforderlich. Normale Lava-Eimer bleiben bei 20.000 Ticks. Alle anderen Werte werden beim Laden der Datei übernommen; bereits geplante Fluid-Ticks behalten zunächst ihre Verzögerung. Auf 26.2 ist keine Seelen-Lava registriert.
