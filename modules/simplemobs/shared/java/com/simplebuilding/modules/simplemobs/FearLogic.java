@@ -1,5 +1,7 @@
 package com.simplebuilding.modules.simplemobs;
 
+import net.minecraft.util.RandomSource;
+
 /**
  * Rules of the fear mobs (owner 12.10., docs/ai/PLAN-FURCHT-MOBS-2026-10-12.md): the Shivering aura shared by the Dread
  * and the Hollow Watcher, the Dread's light weakness and stomp, the Watcher's spawn rule. Pure functions, tested directly.
