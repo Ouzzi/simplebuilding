@@ -10,11 +10,9 @@
           "name": "simplecrucibles:reinforced_barrel"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ],
   "random_sequence": "simplecrucibles:blocks/reinforced_barrel"

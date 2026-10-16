@@ -10,11 +10,9 @@
           "name": "simplecrucibles:enderite_barrel"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ],
   "random_sequence": "simplecrucibles:blocks/enderite_barrel"

@@ -5,15 +5,19 @@ import com.simplebuilding.blocks.custom.OctetCellBlock;
 import com.simplebuilding.blocks.entity.custom.MixedOctetBlockEntity;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.MovingBlockRenderState;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -31,6 +35,8 @@ public class MixedOctetRenderer implements BlockEntityRenderer<MixedOctetBlockEn
     /** Je Material ein bewegter Blockzustand (hoechstens acht). */
     public static class State extends BlockEntityRenderState {
         public final List<MovingBlockRenderState> blocks = new ArrayList<>(2);
+        /** Abbaustufe 0-9 (Bruch-Risse) oder -1; die Welt zeichnet sie fuer unsichtbare Zellen nicht. */
+        public int breakStage = -1;
     }
 
     @Override
@@ -43,6 +49,7 @@ public class MixedOctetRenderer implements BlockEntityRenderer<MixedOctetBlockEn
                                    ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
         state.blocks.clear();
+        state.breakStage = breakProgress == null ? -1 : breakProgress.progress();
         if (!(blockEntity.getLevel() instanceof ClientLevel level)) {
             return;
         }
@@ -89,6 +96,17 @@ public class MixedOctetRenderer implements BlockEntityRenderer<MixedOctetBlockEn
     public void submit(State state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
         for (MovingBlockRenderState block : state.blocks) {
             collector.submitMovingBlock(poseStack, block, 0);
+        }
+        if (state.breakStage >= 0) {
+            // Wie normale Achtel: die Welt zeichnet Bruch-Risse nur fuer RenderShape.MODEL, diese Zelle ist unsichtbar.
+            RandomSource random = RandomSource.create();
+            for (MovingBlockRenderState block : state.blocks) {
+                BlockStateModel model = Minecraft.getInstance().getModelManager().getBlockStateModelSet().get(block.blockState);
+                List<BlockStateModelPart> parts = new ArrayList<>();
+                random.setSeed(block.blockState.getSeed(block.blockPos));
+                model.collectParts(random, parts);
+                collector.submitBreakingBlockModel(poseStack, parts, state.breakStage, false);
+            }
         }
     }
 }

@@ -144,7 +144,7 @@ def gateway(variant):
 # Wrecks are mostly buried (N35, about 80 % of the hull): an end-stone mound fills the hull up to GROUND and slopes
 # away around it, the structure starts GROUND blocks below the surface (start_height), and irregular patches of end
 # stone cover the deck that still sticks out. Chests and item frames keep an air pocket inside the fill.
-GROUND = 10   # N66: was 8 (about 80 % buried); now about 90 %: mostly mast tips and end rods show above the mound
+GROUND = 9    # N58: owner wants about 80 % of the hull buried: share of ship blocks below GROUND is 72 % at 8, 79 % at 9, 94 % at 10 (N66 had 10)
 GLASS = 'minecraft:magenta_stained_glass'
 STEM_Y = {1: 7, 2: 7, 3: 7, 4: 6, 5: 5, 6: 4, 7: 3, 8: 2, 9: 1, 10: 1}   # bow stem rises like the vanilla keel
 BODY_HW = {1: 1, 2: 2, 3: 3, 4: 4, 5: 4, 6: 4}                          # hull half width per height
@@ -382,7 +382,14 @@ def wreck_loot():
          'entries': [{'type': 'minecraft:loot_table', 'value': 'minecraft:chests/end_city_treasure'}]}]}
 
 
+def buried_share():
+    """Share of the whole ship's blocks (before weathering) that lie below the surface (y < GROUND)."""
+    ys = [k[1] for k in ship()]
+    return sum(y < GROUND for y in ys) / len(ys)
+
+
 def build():
+    assert 0.75 <= buried_share() <= 0.85, f'wrecks should be about 80 % buried, got {buried_share():.0%} (GROUND={GROUND})'
     out = {}
     nbt = {}
     for v, n in enumerate(('well_intact', 'well_broken_a', 'well_broken_b')): nbt[n] = well(v)

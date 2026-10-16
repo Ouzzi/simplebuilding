@@ -120,7 +120,7 @@ def materials(out):
         out[f"{d}/loot_table/blocks/{block}.json"] = {
             "type": "minecraft:block",
             "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:{block}"}],
-                       "conditions": [{"condition": "minecraft:survives_explosion"}]}],
+                       "condition": {"type": "minecraft:survives_explosion"}}],
             "random_sequence": f"{NS}:blocks/{block}",
         }
     for category, rid, group, recipe, unlocking in material_recipes():

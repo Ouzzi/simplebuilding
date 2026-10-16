@@ -202,7 +202,7 @@ def files():
         out[f"{d}/loot_table/blocks/{name}.json"] = {
             "type": "minecraft:block",
             "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:{name}"}],
-                       "conditions": [{"condition": "minecraft:survives_explosion"}]}],
+                       "condition": {"type": "minecraft:survives_explosion"}}],
             "random_sequence": f"{NS}:blocks/{name}",
         }
     # Enderite stage (owner F3): same model as the others, no upgrade states (nothing above it).
@@ -213,7 +213,7 @@ def files():
     out[f"{d}/loot_table/blocks/enderite_crucible.json"] = {
         "type": "minecraft:block",
         "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:enderite_crucible"}],
-                   "conditions": [{"condition": "minecraft:survives_explosion"}]}],
+                   "condition": {"type": "minecraft:survives_explosion"}}],
         "random_sequence": f"{NS}:blocks/enderite_crucible",
     }
     blank_variants = {}
@@ -261,7 +261,7 @@ def files():
         out[f"{d}/loot_table/blocks/{name}.json"] = {
             "type": "minecraft:block",
             "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:{name}"}],
-                       "conditions": [{"condition": "minecraft:survives_explosion"}]}],
+                       "condition": {"type": "minecraft:survives_explosion"}}],
             "random_sequence": f"{NS}:blocks/{name}",
         }
     out[f"{d}/recipe/copper_barrel.json"] = {
@@ -303,13 +303,13 @@ def files():
     out[f"{d}/loot_table/blocks/reinforced_cauldron.json"] = {
         "type": "minecraft:block",
         "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:reinforced_cauldron"}],
-                   "conditions": [{"condition": "minecraft:survives_explosion"}]}],
+                   "condition": {"type": "minecraft:survives_explosion"}}],
         "random_sequence": f"{NS}:blocks/reinforced_cauldron",
     }
     # Village field kitchen barrel (owner 46: raw meat beside the crucible).
     def meat(item, lo, hi, weight):
         return {"type": "minecraft:item", "name": item, "weight": weight,
-                "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": lo, "max": hi}}]}
+                "modifier": [{"type": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": lo, "max": hi}}]}
     out[f"{d}/loot_table/chests/village_field_kitchen.json"] = {
         "type": "minecraft:chest",
         "pools": [{"rolls": {"type": "minecraft:uniform", "min": 2, "max": 4}, "bonus_rolls": 0, "entries": [

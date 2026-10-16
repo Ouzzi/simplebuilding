@@ -10,11 +10,9 @@
           "name": "simplelib:enderite_block"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ],
   "random_sequence": "simplelib:blocks/enderite_block"

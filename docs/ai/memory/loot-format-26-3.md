@@ -1,6 +1,6 @@
 ---
 name: loot-format-26-3
-description: "26.3 liest Loot-Tabellen nur im neuen Format (condition/modifier); das alte conditions/functions wird still ignoriert - 21 handgeschriebene Tabellen offen (Stand 15.10.2026, oc-n58-small)"
+description: "26.3 liest Loot-Tabellen nur im neuen Format (condition/modifier); das alte conditions/functions wird still ignoriert - alle Tabellen umgestellt, check_loot_format.py --strict haelt es bei 0 (16.10.2026)"
 metadata:
   node_type: memory
   type: project
@@ -12,8 +12,4 @@ fehlen ganz (alle Pools gaben ihre Items, `set_count` wirkte nicht). Das war die
 26.3-Format wie Vanilla (candle/wheat): Pool/Eintrag haben GENAU EIN `"condition": {"type": "minecraft:match_block", "blocks": ..., "state": {...}}`
 (Mehrere: `all_of`), Funktionen als `"modifier": [{"type": "minecraft:set_count", "condition": ..., "count": n}]`.
 
-Offen: 21 handgeschriebene/skriptgenerierte Tabellen noch im alten Format (`python3 tools/check_loot_format.py`, Baseline `tools/loot_format_baseline.txt`):
-mc26_3/overlay (7 Bloecke), simplelib (9 Bloecke + chests/village_field_kitchen, Generator `modules/simplelib/tools/gen_resources.py`),
-simplemobs (deceiver, deceiver_armor_bonus, hollow_howler), simpleenddragonfight (dragonmite). Folgen: killed_by_player/Zufall/Looting/set_count
-werden ignoriert, survives_explosion fehlt. Vor der Umstellung die zugehoerigen Tests ansehen (koennen auf das falsche Verhalten geeicht sein).
-Wenn erledigt: Eintrag + Baseline-Datei entfernen.
+Erledigt 16.10. (b-n58rest2): alle 23 Altformat-Tabellen umgestellt, Generatoren (simplelib, simplecrucibles gen_resources.py) schreiben das neue Format; keine Baseline mehr, jede neue Altformat-Tabelle macht `check` rot.
