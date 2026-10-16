@@ -284,6 +284,12 @@ public final class DataIntegrityTests {
      * exactly one of its tabs, see {@link #everyModItemIsInExactlyOneCreativeTab}. The list is
      * checked in both directions, so an item added to a tab cannot stay listed here.
      */
+    /** Sibling-module items that are config-gated or legacy and so stay out of every tab by default (only seen when the module jars are loaded). */
+    private static final Set<String> MODULE_ITEMS_NOT_IN_THE_CREATIVE_TAB = Set.of(
+            "simplemobs:trick_mirror", // trickMirrorEnabled defaults to false
+            "simpleenddragonfight:dragonmite_spawn_egg", // exposeSpawnEgg defaults to false
+            "simpledimension:light_blue_portal"); // legacy id kept for old worlds
+
     private static final Set<String> ITEMS_NOT_IN_THE_CREATIVE_TAB = Set.of(
             "creative_spacer", // layout filler; spacers are switched off by default (owner N22)
             "stone_spatula",
@@ -2574,7 +2580,8 @@ public final class DataIntegrityTests {
             }
         }
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
-            if ("minecraft".equals(id.getNamespace()) || ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath())) {
+            if ("minecraft".equals(id.getNamespace()) || ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath())
+                    || MODULE_ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.toString())) {
                 continue;
             }
             if (!offered.contains(BuiltInRegistries.ITEM.getValue(id))) {
@@ -4563,6 +4570,12 @@ public final class DataIntegrityTests {
             Identifier id = Identifier.parse(current);
             if (id.getPath().startsWith("builtin/") || !seen.add(id.toString())) break;
             boolean ours = MOD_ID.equals(id.getNamespace());
+            // Sibling-module models (e.g. simpleend) only exist when that module is installed.
+            if (!ours && !"minecraft".equals(id.getNamespace())
+                    && !com.simplebuilding.platform.ModEnvironment.isModLoaded(id.getNamespace())) {
+                complete = false;
+                break;
+            }
             if (!ours && !vanillaAssets) {
                 complete = false;
                 break;
