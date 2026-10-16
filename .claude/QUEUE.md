@@ -259,12 +259,12 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
 ## Nachtrag 67 (2026-10-15, Besitzer-Feedback zu den Abnahme-Seiten)
-- [ ] HUD-Overlay (Oktant/Messuhr/Resonanzstab): statt einfachem 1-px-Rand einen doppelten oder dreifachen Rand wie die übrigen Mod-Texturen/UIs; Ecken entsprechend stärker abgerundet (doppelt → 2 px Stufen, dreifach → eine Stufe mehr), jede Rand-Ebene läuft wie ein Mantel um die Ecke.
+- [x] (oc-ui67) HUD-Overlay (Oktant/Messuhr/Resonanzstab): statt einfachem 1-px-Rand einen doppelten oder dreifachen Rand wie die übrigen Mod-Texturen/UIs; Ecken entsprechend stärker abgerundet (doppelt → 2 px Stufen, dreifach → eine Stufe mehr), jede Rand-Ebene läuft wie ein Mantel um die Ecke.
 - [x] 3D-Items Schritt 2 freigegeben – Schritt 3 Einbau; dabei sicherstellen, dass keine Flächen um „oben“ kämpfen (kein Z-Fighting, auch im Häufchen/Stapel).
 - [ ] Schwefel-Fackel/-Laterne/-Lagerfeuer: Texturen sehr stark an Vanilla (Fackel/Seelenfackel, Laterne, Lagerfeuer) orientieren, nur leichte Variationen (Vanilla-Ableitung nur zur Build-Zeit, nichts Vanilla-Abgeleitetes einchecken).
 - [x] Leuchtherz (Howler, H4): übernehmen/einbauen. Claim-Tisch-Textur: übernehmen.
-- [ ] REGEL bei jeder UI-Bearbeitung: Lesbarkeit prüfen – Text mit ausreichendem Kontrast zum Hintergrund (z. B. ≥ 4,5:1), kein dunkler Text mit dunklem Schatten auf Grau.
-- [ ] BUG Claim-Urkunde, erster Dialog („Claim the chunk you are standing …“): schwarzer Text mit schwarzem Schatten auf Grau, kaum lesbar → beheben; dabei alle Claim-/Shop-/Karten-Dialoge auf Kontrast prüfen.
+- [x] (oc-ui67) REGEL bei jeder UI-Bearbeitung: Lesbarkeit prüfen – Text mit ausreichendem Kontrast zum Hintergrund (z. B. ≥ 4,5:1), kein dunkler Text mit dunklem Schatten auf Grau.
+- [x] (oc-ui67) BUG Claim-Urkunde, erster Dialog („Claim the chunk you are standing …“): schwarzer Text mit schwarzem Schatten auf Grau, kaum lesbar → beheben; dabei alle Claim-/Shop-/Karten-Dialoge auf Kontrast prüfen.
 - [ ] Weitere Texturen meldet der Besitzer von Fall zu Fall.
 
 ## Nachtrag 66 (2026-10-15, Besitzer, beim Spielen im End)
@@ -278,7 +278,7 @@ End-Strukturen
 - [x] Loot der End-Schiffswracks: Verteilung erklären (Besitzer-Eindruck: entweder sehr schlecht – nur Chorus/Purpur – oder sehr gut); Wracks noch versteckter, dafür besserer Loot. (oc-end66)
 - [x] End-Brunnen-Strukturen: keine Minecraft-Fackeln (brechen die Illusion) → End Rods statt Fackeln. (oc-end66)
 Texturen
-- [ ] Im Spiel fehlen immer noch Texturen (viele Sachen verbuggt) – vollständig im Client prüfen (fehlende Sprites/Modelle, „missingno“) und beheben.
+- [x] (oc-texaudit2) Im Spiel fehlen immer noch Texturen (viele Sachen verbuggt) – vollständig im Client prüfen (fehlende Sprites/Modelle, „missingno“) und beheben.
 Simple Shops – Umbau
 - [x] Verkaufsblock: Knopf „Developer: Käuferansicht“ (wie altes/neues Design umschalten) – Besitzer/Dev sieht und bedient den Kauf-Screen wie ein Käufer. (claude-shops2; Client-Optik ungeprüft)
 - [x] Vitrine allein = eigene UI, Verkaufsblock allein = eigene UI; verbunden = gemeinsame UI: oben Ware + Bestand, darunter Preis, darunter Einnahmen. Einnahmen-Lager in Truhengröße (27 Slots), Gesamthöhe der UI wie eine Doppeltruhe, Trennstrich zwischen Block-UI und Inventar wie bei den anderen UIs. (claude-shops2; Client-Optik ungeprüft)
@@ -294,7 +294,7 @@ Befunde aus den Besitzer-Screenshots 15.10. (Bilder 1–8, nur als Beschreibung 
 - [ ] Bild 4: „Configure waypoint“: die Reihe der Kopf-Icons läuft weit über den rechten Rand des Dialogs hinaus (kein Umbruch/Scrollen) – im neuen Configure-Dialog sauber begrenzen; Farbleiste grell (entfällt laut N65).
 - [ ] Bild 5: Wegpunkt heißt „TEST“ (Tooltip), auf der Karte steht „1“.
 - [ ] Bild 6: Aschholz-/Dämmerholz-Blätter wirken wie ein Raster gleichmäßiger lila Punkte auf braunem Grund – sehr künstlich (bestätigt N65 End-Bäume).
-- [ ] Bild 7/8: Kopf-Modelle teils abgeschnitten (Shulker-Köpfe in mehreren Farben oben/seitlich gekappt; im Kopf-Raster weitere Köpfe mit gekappten Teilen prüfen).
+- [x] (oc-misc65) Bild 7/8: Kopf-Modelle teils abgeschnitten (Shulker-Köpfe in mehreren Farben oben/seitlich gekappt; im Kopf-Raster weitere Köpfe mit gekappten Teilen prüfen).
 
 Platzierte Teile
 - [x] Barren & andere platzierte Kleinteile überlappen ab 3–4 Teilen (stecken ineinander, Z-Fighting). Anordnung so ändern, dass sie immer überschneidungsfrei passen. (oc-placedparts)
@@ -321,20 +321,20 @@ End-Bäume
 - [x] Besitzer möchte die End-Varianten der Bäume sehen (Vorschau/Screenshots); Baumgrößen gefallen. (oc-endleaves)
 
 Sounds
-- [ ] Sculk Jaw: Schließ-Sound fehlt (wurde entfernt?) – wieder einen Sound wie Sculk-Sensor/Shrieker.
+- [x] (oc-lightpane2) Sculk Jaw: Schließ-Sound fehlt (wurde entfernt?) – wieder einen Sound wie Sculk-Sensor/Shrieker.
 
 Light Pane
-- [ ] Redstone-Light-Pane: Standard schwarz (aus), nicht alle Farben.
-- [ ] Light Panes nur an, wenn gepowert (Logik umdrehen).
-- [ ] Neue Variante „Copper Light Pane“: anderes Design, einheitliche Farbe; Rezept wie Copper Bulb, aber Blaze Powder statt Blaze Rod; schaltet bei jedem Redstone-Puls um (an/aus) wie die Copper Bulb.
+- [x] (oc-lightpane2) Redstone-Light-Pane: Standard schwarz (aus), nicht alle Farben.
+- [x] (oc-lightpane2) Light Panes nur an, wenn gepowert (Logik umdrehen).
+- [x] (oc-lightpane2) Neue Variante „Copper Light Pane“: anderes Design, einheitliche Farbe; Rezept wie Copper Bulb, aber Blaze Powder statt Blaze Rod; schaltet bei jedem Redstone-Puls um (an/aus) wie die Copper Bulb.
 
 Kleinigkeiten
-- [ ] Glasscheibe schwebend von unten: man sieht hindurch, Unter-/Innenseite fehlt (nur Außenseite hat Textur) – prüfen (Vanilla vs. Mod-Scheiben) und beheben.
-- [ ] Enchanter: Tooltip des eingelegten Items verdeckt die Verzauberungen → im Enchanter auf der anderen Mausseite rendern, solange er auf den Bildschirm passt.
-- [ ] Kreativ-Tabs aktualisieren, aufräumen, vervollständigen (alle Module).
-- [ ] Abgeschnittene Texturen bei Köpfen (z. B. Shulker-Kopf) beheben.
-- [ ] Simple Fun Schweinekopf: genauso wie die anderen Mob-Köpfe (gleicher Code/Prinzip) – Spielerkopf wird zum Schweinekopf.
-- [ ] Vorschlaghammer-Exploit prüfen/beheben: Abbaufortschritt beim Schleichen (1 Block) und dann Loslassen (Fläche) wird übernommen → fast Instant-Abbau. Fortschritt beim Umschalten anteilig nach der Hammer-Formel auf die neue Blockzahl umrechnen.
+- [x] (oc-misc65) Glasscheibe schwebend von unten: man sieht hindurch, Unter-/Innenseite fehlt (nur Außenseite hat Textur) – prüfen (Vanilla vs. Mod-Scheiben) und beheben.
+- [x] (oc-misc65) Enchanter: Tooltip des eingelegten Items verdeckt die Verzauberungen → im Enchanter auf der anderen Mausseite rendern, solange er auf den Bildschirm passt.
+- [x] (oc-creativetabs) Kreativ-Tabs aktualisieren, aufräumen, vervollständigen (alle Module).
+- [x] (oc-misc65) Abgeschnittene Texturen bei Köpfen (z. B. Shulker-Kopf) beheben.
+- [x] (oc-misc65) Simple Fun Schweinekopf: genauso wie die anderen Mob-Köpfe (gleicher Code/Prinzip) – Spielerkopf wird zum Schweinekopf.
+- [x] (oc-misc65) Vorschlaghammer-Exploit prüfen/beheben: Abbaufortschritt beim Schleichen (1 Block) und dann Loslassen (Fläche) wird übernommen → fast Instant-Abbau. Fortschritt beim Umschalten anteilig nach der Hammer-Formel auf die neue Blockzahl umrechnen.
 
 ## Nachtrag 64 (2026-10-15, Besitzer)
 Hollow Watcher – Korrektur
