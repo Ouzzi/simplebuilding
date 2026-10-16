@@ -42,6 +42,7 @@
     "simplebuilding:birch_octet",
     "simplebuilding:birch_sheet",
     "simplebuilding:black_concrete_octet",
+    "simplebuilding:black_copper_light_pane",
     "simplebuilding:black_hammock",
     "simplebuilding:black_light_pane",
     "simplebuilding:black_terracotta_octet",
@@ -52,6 +53,7 @@
     "simplebuilding:blackstone_quartz_checker_stairs",
     "simplebuilding:blazing_obsidian",
     "simplebuilding:blue_concrete_octet",
+    "simplebuilding:blue_copper_light_pane",
     "simplebuilding:blue_hammock",
     "simplebuilding:blue_light_pane",
     "simplebuilding:blue_terracotta_octet",
@@ -61,6 +63,7 @@
     "simplebuilding:bridge_redstone",
     "simplebuilding:bridge_redstone_block",
     "simplebuilding:brown_concrete_octet",
+    "simplebuilding:brown_copper_light_pane",
     "simplebuilding:brown_hammock",
     "simplebuilding:brown_light_pane",
     "simplebuilding:brown_terracotta_octet",
@@ -101,6 +104,7 @@
     "simplebuilding:copper_fire",
     "simplebuilding:copper_light_pane",
     "simplebuilding:copper_pressure_plate",
+    "simplebuilding:copper_redstone_light_pane",
     "simplebuilding:cracked_ice",
     "simplebuilding:crimson_blazewood_bookshelf",
     "simplebuilding:crimson_blazewood_planks",
@@ -113,6 +117,7 @@
     "simplebuilding:crystalline_nihilith",
     "simplebuilding:cut_copper_octet",
     "simplebuilding:cyan_concrete_octet",
+    "simplebuilding:cyan_copper_light_pane",
     "simplebuilding:cyan_hammock",
     "simplebuilding:cyan_light_pane",
     "simplebuilding:cyan_terracotta_octet",
@@ -180,11 +185,13 @@
     "simplebuilding:grass_slab",
     "simplebuilding:gravel_slab",
     "simplebuilding:gray_concrete_octet",
+    "simplebuilding:gray_copper_light_pane",
     "simplebuilding:gray_hammock",
     "simplebuilding:gray_light_pane",
     "simplebuilding:gray_terracotta_octet",
     "simplebuilding:gray_wool_octet",
     "simplebuilding:green_concrete_octet",
+    "simplebuilding:green_copper_light_pane",
     "simplebuilding:green_hammock",
     "simplebuilding:green_light_pane",
     "simplebuilding:green_terracotta_octet",
@@ -232,22 +239,26 @@
     "simplebuilding:levitating_gravel",
     "simplebuilding:levitating_sand",
     "simplebuilding:light_blue_concrete_octet",
+    "simplebuilding:light_blue_copper_light_pane",
     "simplebuilding:light_blue_hammock",
     "simplebuilding:light_blue_light_pane",
     "simplebuilding:light_blue_terracotta_octet",
     "simplebuilding:light_blue_wool_octet",
     "simplebuilding:light_gray_concrete_octet",
+    "simplebuilding:light_gray_copper_light_pane",
     "simplebuilding:light_gray_hammock",
     "simplebuilding:light_gray_light_pane",
     "simplebuilding:light_gray_terracotta_octet",
     "simplebuilding:light_gray_wool_octet",
     "simplebuilding:light_pane",
     "simplebuilding:lime_concrete_octet",
+    "simplebuilding:lime_copper_light_pane",
     "simplebuilding:lime_hammock",
     "simplebuilding:lime_light_pane",
     "simplebuilding:lime_terracotta_octet",
     "simplebuilding:lime_wool_octet",
     "simplebuilding:magenta_concrete_octet",
+    "simplebuilding:magenta_copper_light_pane",
     "simplebuilding:magenta_hammock",
     "simplebuilding:magenta_light_pane",
     "simplebuilding:magenta_terracotta_octet",
@@ -310,6 +321,7 @@
     "simplebuilding:oak_sheet",
     "simplebuilding:obsidian_octet",
     "simplebuilding:orange_concrete_octet",
+    "simplebuilding:orange_copper_light_pane",
     "simplebuilding:orange_hammock",
     "simplebuilding:orange_light_pane",
     "simplebuilding:orange_terracotta_octet",
@@ -324,6 +336,7 @@
     "simplebuilding:pale_oak_octet",
     "simplebuilding:pale_oak_sheet",
     "simplebuilding:pink_concrete_octet",
+    "simplebuilding:pink_copper_light_pane",
     "simplebuilding:pink_hammock",
     "simplebuilding:pink_light_pane",
     "simplebuilding:pink_terracotta_octet",
@@ -374,6 +387,7 @@
     "simplebuilding:prismarine_bricks_octet",
     "simplebuilding:prismarine_octet",
     "simplebuilding:purple_concrete_octet",
+    "simplebuilding:purple_copper_light_pane",
     "simplebuilding:purple_hammock",
     "simplebuilding:purple_light_pane",
     "simplebuilding:purple_terracotta_octet",
@@ -384,6 +398,7 @@
     "simplebuilding:purpur_quartz_checker_stairs",
     "simplebuilding:quartz_block_octet",
     "simplebuilding:red_concrete_octet",
+    "simplebuilding:red_copper_light_pane",
     "simplebuilding:red_hammock",
     "simplebuilding:red_light_pane",
     "simplebuilding:red_nether_brick_quartz_checker",
@@ -510,11 +525,13 @@
     "simplebuilding:weathered_cut_copper_octet",
     "simplebuilding:weathered_trapped_copper_chest",
     "simplebuilding:white_concrete_octet",
+    "simplebuilding:white_copper_light_pane",
     "simplebuilding:white_hammock",
     "simplebuilding:white_light_pane",
     "simplebuilding:white_terracotta_octet",
     "simplebuilding:white_wool_octet",
     "simplebuilding:yellow_concrete_octet",
+    "simplebuilding:yellow_copper_light_pane",
     "simplebuilding:yellow_hammock",
     "simplebuilding:yellow_light_pane",
     "simplebuilding:yellow_terracotta_octet",
@@ -719,6 +736,9 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:black_copper_light_pane"
+    },
+    {
       "id": "simplebuilding:black_hammock",
       "maxStackSize": 1
     },
@@ -812,6 +832,9 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:blue_copper_light_pane"
+    },
+    {
       "id": "simplebuilding:blue_hammock",
       "maxStackSize": 1
     },
@@ -859,6 +882,9 @@
     {
       "id": "simplebuilding:brown_concrete_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:brown_copper_light_pane"
     },
     {
       "id": "simplebuilding:brown_hammock",
@@ -1041,6 +1067,9 @@
       "id": "simplebuilding:copper_pressure_plate"
     },
     {
+      "id": "simplebuilding:copper_redstone_light_pane"
+    },
+    {
       "attackDamage": 6.0,
       "attackSpeed": 0.8,
       "durability": 760,
@@ -1131,6 +1160,9 @@
     {
       "id": "simplebuilding:cyan_concrete_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:cyan_copper_light_pane"
     },
     {
       "id": "simplebuilding:cyan_hammock",
@@ -1692,6 +1724,9 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:gray_copper_light_pane"
+    },
+    {
       "id": "simplebuilding:gray_hammock",
       "maxStackSize": 1
     },
@@ -1709,6 +1744,9 @@
     {
       "id": "simplebuilding:green_concrete_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:green_copper_light_pane"
     },
     {
       "id": "simplebuilding:green_hammock",
@@ -1956,6 +1994,9 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:light_blue_copper_light_pane"
+    },
+    {
       "id": "simplebuilding:light_blue_hammock",
       "maxStackSize": 1
     },
@@ -1973,6 +2014,9 @@
     {
       "id": "simplebuilding:light_gray_concrete_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:light_gray_copper_light_pane"
     },
     {
       "id": "simplebuilding:light_gray_hammock",
@@ -1997,6 +2041,9 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:lime_copper_light_pane"
+    },
+    {
       "id": "simplebuilding:lime_hammock",
       "maxStackSize": 1
     },
@@ -2014,6 +2061,9 @@
     {
       "id": "simplebuilding:magenta_concrete_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:magenta_copper_light_pane"
     },
     {
       "id": "simplebuilding:magenta_hammock",
@@ -2537,6 +2587,9 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:orange_copper_light_pane"
+    },
+    {
       "id": "simplebuilding:orange_hammock",
       "maxStackSize": 1
     },
@@ -2589,6 +2642,9 @@
     {
       "id": "simplebuilding:pink_concrete_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:pink_copper_light_pane"
     },
     {
       "id": "simplebuilding:pink_hammock",
@@ -2900,6 +2956,9 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:purple_copper_light_pane"
+    },
+    {
       "id": "simplebuilding:purple_hammock",
       "maxStackSize": 1
     },
@@ -3047,6 +3106,9 @@
     {
       "id": "simplebuilding:red_concrete_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:red_copper_light_pane"
     },
     {
       "id": "simplebuilding:red_hammock",
@@ -3660,6 +3722,9 @@
       "maxStackSize": 99
     },
     {
+      "id": "simplebuilding:white_copper_light_pane"
+    },
+    {
       "id": "simplebuilding:white_hammock",
       "maxStackSize": 1
     },
@@ -3680,6 +3745,9 @@
     {
       "id": "simplebuilding:yellow_concrete_octet",
       "maxStackSize": 99
+    },
+    {
+      "id": "simplebuilding:yellow_copper_light_pane"
     },
     {
       "id": "simplebuilding:yellow_hammock",
