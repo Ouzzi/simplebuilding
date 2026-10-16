@@ -168,6 +168,37 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "Zinnober- und Schwefelziegel sind Vanilla-Blöcke von Minecraft 26.3."
         ]
       }
+    },
+    {
+      "id": "blue_nether_bricks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_bricks.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_bricks_without_simplelib.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:blue_nether_bricks",
+        "simpleblocks:blue_nether_brick_stairs",
+        "simpleblocks:blue_nether_brick_slab",
+        "simpleblocks:blue_nether_brick_wall"
+      ],
+      "en": {
+        "title": "Blue Nether Bricks",
+        "summary": "The turquoise cousin of the red nether bricks, made with Warped Wart.",
+        "details": [
+          "Recipe: two Warped Wart and two Nether Bricks in a diagonal make one Blue Nether Bricks, like the red ones with Nether Wart. Without SimpleLib, one Warped Wart Block and eight Nether Bricks make four. Stairs, slab and wall come from the crafting table (4 / 6 / 6) or the stonecutter.",
+          "They have the hardness, tool and sound of Red Nether Bricks."
+        ]
+      },
+      "de": {
+        "title": "Blaue Netherziegel",
+        "summary": "Das türkise Gegenstück der Roten Netherziegel, hergestellt mit Wirrwarze.",
+        "details": [
+          "Rezept: zwei Wirrwarzen und zwei Netherziegel über Eck ergeben einen Blauen Netherziegel, wie die roten mit Netherwarze. Ohne SimpleLib ergeben ein Wirrwarzenblock und acht Netherziegel vier. Treppe, Stufe und Mauer gibt es an der Werkbank (4 / 6 / 6) oder am Steinsäger.",
+          "Sie haben Härte, Werkzeug und Geräusch der Roten Netherziegel."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -1094,14 +1125,14 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json",
       "ingredients": [
         "minecraft:book",
-        "minecraft:clay_ball"
+        "minecraft:brick"
       ],
       "ingredientGroups": [
         [
           "minecraft:book"
         ],
         [
-          "minecraft:clay_ball"
+          "minecraft:brick"
         ]
       ],
       "baseMaterials": {
@@ -2755,10 +2786,10 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -2814,7 +2845,24 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Blue Nether Bricks",
         "de_de": "Blaue Netherziegel"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "title": "Blue Nether Bricks",
+          "summary": "The turquoise cousin of the red nether bricks, made with Warped Wart.",
+          "details": [
+            "Recipe: two Warped Wart and two Nether Bricks in a diagonal make one Blue Nether Bricks, like the red ones with Nether Wart. Without SimpleLib, one Warped Wart Block and eight Nether Bricks make four. Stairs, slab and wall come from the crafting table (4 / 6 / 6) or the stonecutter.",
+            "They have the hardness, tool and sound of Red Nether Bricks."
+          ]
+        },
+        "de": {
+          "title": "Blaue Netherziegel",
+          "summary": "Das türkise Gegenstück der Roten Netherziegel, hergestellt mit Wirrwarze.",
+          "details": [
+            "Rezept: zwei Wirrwarzen und zwei Netherziegel über Eck ergeben einen Blauen Netherziegel, wie die roten mit Netherwarze. Ohne SimpleLib ergeben ein Wirrwarzenblock und acht Netherziegel vier. Treppe, Stufe und Mauer gibt es an der Werkbank (4 / 6 / 6) oder am Steinsäger.",
+            "Sie haben Härte, Werkzeug und Geräusch der Roten Netherziegel."
+          ]
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/blue_nether_bricks.png",
       "craftedBy": [
         "simpleblocks:blue_nether_bricks",
@@ -3319,7 +3367,6 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
     "simpleblocks:blue_nether_brick_slab",
     "simpleblocks:blue_nether_brick_stairs",
     "simpleblocks:blue_nether_brick_wall",
-    "simpleblocks:blue_nether_bricks",
     "simpleblocks:calcite_slab",
     "simpleblocks:calcite_stairs",
     "simpleblocks:calcite_wall",
@@ -3354,7 +3401,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
   ],
   "incompleteProse": {},
   "counts": {
-    "features": 4,
+    "features": 5,
     "recipes": 60,
     "lootTables": 37,
     "tags": 0,
@@ -3366,7 +3413,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 35,
+    "undocumented": 34,
     "inWorld": 0,
     "incompleteProse": 0
   }
