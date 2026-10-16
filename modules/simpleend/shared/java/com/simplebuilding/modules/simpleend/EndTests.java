@@ -521,6 +521,56 @@ public final class EndTests {
                 item.discard();
             });
         });
+        add("fringe_hedge_feature", h -> {
+            // N1 A: the fringe hedge is a wall of persistent leaves 4-7 high, and the fringe biomes list the denser flora.
+            BlockPos at = BUD.above(120);
+            BlockPos abs = h.absolutePos(at);
+            ServerLevel level = h.getLevel();
+            for (BlockPos p : BlockPos.betweenClosed(abs.offset(-12, -1, -12), abs.offset(12, -1, 12))) level.setBlock(p, Blocks.END_STONE.defaultBlockState(), 18);
+            boolean placed = new EndFlora("hedge", "ashwood").place(level, null, level.getRandom(), abs);
+            int leaves = 0, tallest = 0;
+            for (BlockPos p : BlockPos.betweenClosed(abs.offset(-12, 0, -12), abs.offset(12, 12, 12))) {
+                BlockState s2 = level.getBlockState(p);
+                if (!s2.is(EndWood.ASHWOOD.leaves)) continue;
+                leaves++;
+                tallest = Math.max(tallest, p.getY() - abs.getY() + 1);
+                h.assertTrue(s2.getValue(net.minecraft.world.level.block.LeavesBlock.PERSISTENT), "hedge leaves are persistent");
+            }
+            h.assertTrue(placed && leaves >= 20, "a hedge of leaves, got " + leaves);
+            h.assertTrue(tallest >= 4 && tallest <= 7, "hedge 4-7 high, got " + tallest);
+            for (BlockPos p : BlockPos.betweenClosed(abs.offset(-12, 0, -12), abs.offset(12, 12, 12))) if (!level.getBlockState(p).isAir()) level.setBlock(p, Blocks.AIR.defaultBlockState(), 18);
+            var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);
+            for (var entry : java.util.Map.of(EndBiomes.ASH_VALLEY_FRINGE, "ash_valley_fringe_hedges", EndBiomes.DAWNLANDS_FRINGE, "dawnlands_fringe_hedges").entrySet()) {
+                boolean listed = biomes.getOrThrow(entry.getKey()).value().getGenerationSettings().features().stream()
+                        .flatMap(set -> set.stream()).anyMatch(f -> f.unwrapKey().map(k -> k.identifier().getPath().equals(entry.getValue())).orElse(false));
+                h.assertTrue(listed, entry.getKey().identifier() + " lists " + entry.getValue());
+            }
+            h.assertTrue(!biomes.getOrThrow(EndBiomes.ASH_VALLEY).value().getGenerationSettings().features().stream()
+                    .flatMap(set -> set.stream()).anyMatch(f -> f.unwrapKey().map(k -> k.identifier().getPath().contains("hedges")).orElse(false)), "no hedges in the core");
+            h.succeed();
+        });
+        add("forest_fog_config", h -> {
+            // N1 B: client fog wall config keys, defaults and clamping.
+            var json = new com.google.gson.JsonObject();
+            boolean wall = SimpleEndConfig.forestFogWall;
+            double strength = SimpleEndConfig.forestFogStrength;
+            try {
+                SimpleEndConfig.apply(json);
+                h.assertTrue(SimpleEndConfig.forestFogWall && SimpleEndConfig.forestFogStrength == 0.85, "defaults on and 0.85");
+                json.addProperty("forestFogStrength", 7);
+                json.addProperty("forestFogWall", false);
+                SimpleEndConfig.apply(json);
+                h.assertTrue(!SimpleEndConfig.forestFogWall && SimpleEndConfig.forestFogStrength == 1.0, "switch off, strength clamped to 1");
+                json.addProperty("forestFogStrength", "junk");
+                SimpleEndConfig.apply(json);
+                h.assertTrue(SimpleEndConfig.forestFogStrength == 0.85, "bad value falls back");
+                h.assertTrue(SimpleEndConfig.KEYS.contains("forestFogWall") && SimpleEndConfig.KEYS.contains("forestFogStrength"), "keys listed");
+            } finally {
+                SimpleEndConfig.forestFogWall = wall;
+                SimpleEndConfig.forestFogStrength = strength;
+            }
+            h.succeed();
+        });
         add("biome_patches", h -> {
             EndBiomes.Noise flat = (x, z) -> 0.1;
             int some = 0, core = 0, fringe = 0;
@@ -579,7 +629,7 @@ public final class EndTests {
                 com.simplebuilding.framework.api.SubMods.set(SimpleEnd.ID, before);
                 SimpleEnd.applySubSwitches();
             }
-            h.assertTrue(SimpleEndConfig.KEYS.size() == 7, "config keys");
+            h.assertTrue(SimpleEndConfig.KEYS.size() == 9, "config keys");
             h.succeed();
         });
         add("nibblemite_nibbles_end_stone", h -> {

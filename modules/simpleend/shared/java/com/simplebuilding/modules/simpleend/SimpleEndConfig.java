@@ -20,7 +20,7 @@ public final class SimpleEndConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     /** All keys in file order (lang/wiki checks read this list). */
     public static final List<String> KEYS = List.of("enabled", "enableSimpleEndDragonFight", "biomes", "biomeChance",
-            "budsGrowAlone", "voidSafeItems", "longerDespawn");
+            "budsGrowAlone", "voidSafeItems", "longerDespawn", "forestFogWall", "forestFogStrength");
 
     public static boolean enabled = true;
     /** Second-level super-mod switch: the nested sub-mod Simple End Dragon Fight. */
@@ -35,6 +35,10 @@ public final class SimpleEndConfig {
     public static boolean voidSafeItems = true;
     /** Dropped Simple End wood items stay 10 instead of 5 minutes. */
     public static boolean longerDespawn = true;
+
+    /** Client: from outside the forest biomes show as a wall of fog (N1 B), and how far the fog is pulled (0..1). */
+    public static boolean forestFogWall = true;
+    public static double forestFogStrength = 0.85;
 
     private SimpleEndConfig() {}
 
@@ -71,6 +75,8 @@ public final class SimpleEndConfig {
         budsGrowAlone = bool(json, "budsGrowAlone", true);
         voidSafeItems = bool(json, "voidSafeItems", true);
         longerDespawn = bool(json, "longerDespawn", true);
+        forestFogWall = bool(json, "forestFogWall", true);
+        forestFogStrength = clamp(number(json, "forestFogStrength", 0.85), 0.0, 1.0);
     }
 
     public static JsonObject toJson() {
@@ -82,6 +88,8 @@ public final class SimpleEndConfig {
         o.addProperty("budsGrowAlone", budsGrowAlone);
         o.addProperty("voidSafeItems", voidSafeItems);
         o.addProperty("longerDespawn", longerDespawn);
+        o.addProperty("forestFogWall", forestFogWall);
+        o.addProperty("forestFogStrength", forestFogStrength);
         return o;
     }
 

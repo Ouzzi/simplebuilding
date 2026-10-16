@@ -2527,7 +2527,8 @@
         "client": {
           "entrypoints": [
             "com.simplebuilding.modules.simpleend.ModuleClientSmoke",
-            "com.simplebuilding.modules.simpleend.EndClientSmoke"
+            "com.simplebuilding.modules.simpleend.EndClientSmoke",
+            "com.simplebuilding.modules.simpleend.EndFogClientSmoke"
           ],
           "sources": "modules/simpleend/clienttest/java",
           "screenshots": "integration/run-fabric-263/screenshots",

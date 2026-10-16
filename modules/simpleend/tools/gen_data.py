@@ -259,15 +259,16 @@ BIOMES = {
     'dawnlands': dict(wood='duskwood', core=True, sky='#2a1f25', fog='#47373e', fog_start=CORE_FOG[0], fog_end=CORE_FOG[1], dry='#958673', foliage='#8c7c6a',
                       grass='#988673', particle='minecraft:spore_blossom_air', p=0.01, music='music.dawnlands'),
     'ash_valley_fringe': dict(wood='ashwood', core=False, sky='#2b2522', fog='#463e38', fog_start=FRINGE_FOG[0], fog_end=FRINGE_FOG[1], dry='#a89c8a', foliage='#9a8f80',
-                              grass='#a39886', particle='minecraft:white_ash', p=0.008, music='music.ash_valley'),
+                              grass='#a39886', particle='minecraft:white_ash', p=0.03, music='music.ash_valley'),
     'dawnlands_fringe': dict(wood='duskwood', core=False, sky='#33262c', fog='#58464d', fog_start=FRINGE_FOG[0], fog_end=FRINGE_FOG[1], dry='#958673', foliage='#8c7c6a',
-                             grass='#988673', particle='minecraft:spore_blossom_air', p=0.004, music='music.dawnlands'),
+                             grass='#988673', particle='minecraft:spore_blossom_air', p=0.015, music='music.dawnlands'),
 }
 # feature -> (end_flora kind, placement in the core, placement in the fringe); list order = feature order in every biome
 FLORA = [
     ('scrub', 'scrub', 'count:1:1', 'count:1:2'),
-    ('stick_trees', 'stick_tree', 'count:1:1', 'rarity:2'),
-    ('giant_stick_trees', 'giant_stick_tree', 'rarity:3', 'rarity:8'),
+    ('stick_trees', 'stick_tree', 'count:1:1', 'count:1:2'),
+    ('giant_stick_trees', 'giant_stick_tree', 'rarity:3', 'rarity:3'),
+    ('hedges', 'hedge', None, 'count:3:5'),     # N1 A (16.10.): leaf walls 4-7 high in the fringe only
     ('vegetation', 'vegetation', 'count:10:14', 'count:6:9'),
 ]
 
@@ -295,12 +296,13 @@ def worldgen():
     placed('end_grass_sparse', f'{NS}:end_grass_patch', [{'type': 'minecraft:rarity_filter', 'chance': 4}])
     for biome, b in BIOMES.items():
         w = b['wood']
-        for name, kind, core_spec, fringe_spec in FLORA:
+        flora = [f for f in FLORA if (f[2] if b['core'] else f[3])]
+        for name, kind, core_spec, fringe_spec in flora:
             dump(OUT / f'data/{NS}/worldgen/feature/{biome}_{name}.json', {'type': f'{NS}:end_flora', 'kind': kind, 'wood': w})
             placed(f'{biome}_{name}', f'{NS}:{biome}_{name}', placement(core_spec if b['core'] else fringe_spec))
         features = [[] for _ in range(10)]
         features[4] = ['minecraft:end_gateway_return']
-        features[9] = [f'{NS}:{"sparse_chorus" if b["core"] else "fringe_chorus"}'] + [f'{NS}:{biome}_{f[0]}' for f in FLORA]
+        features[9] = [f'{NS}:{"sparse_chorus" if b["core"] else "fringe_chorus"}'] + [f'{NS}:{biome}_{f[0]}' for f in flora]
         dump(OUT / f'data/{NS}/worldgen/biome/{biome}.json', {
             'attributes': {
                 'minecraft:audio/background_music': {'default': {'max_delay': 24000, 'min_delay': 6000, 'replace_current_music': False,
@@ -340,6 +342,10 @@ CONFIG = {
                       'Knospen wachsen ab Lichtstufe 9 von selbst zu Bäumen; Knochenmehl wirkt immer.'),
     'voidSafeItems': ('Void-safe wood items', 'Leere-sichere Holz-Items', 'Dropped End-wood items float back up when they fall below the world.',
                       'Gedroppte End-Holz-Items schweben zurück, wenn sie unter die Welt fallen.'),
+    'forestFogWall': ('Forest fog wall', 'Wald-Nebelwand', 'Client: seen from outside (also from above), the Ash Valley and Dawnlands forests rise as a wall of fog. Off keeps the plain Vanilla fog.',
+                      'Client: Von außen (auch von oben) erscheinen Aschental- und Dämmerlande-Wald als Nebelwand. Aus lässt den normalen Vanilla-Nebel.'),
+    'forestFogStrength': ('Forest fog wall strength', 'Stärke der Wald-Nebelwand', 'Client: how far the fog is pulled toward the forest core fog (0 to 1). Default: 0.85.',
+                          'Client: Wie weit der Nebel zum Kern-Nebel des Waldes gezogen wird (0 bis 1). Standard: 0,85.'),
     'longerDespawn': ('Longer despawn time', 'Längere Verschwinde-Zeit', 'Dropped End-wood items stay 10 instead of 5 minutes.',
                       'Gedroppte End-Holz-Items bleiben 10 statt 5 Minuten liegen.'),
 }

@@ -1,0 +1,8 @@
+# Bericht claude-endfog (N1 A + B + C, 16.10.)
+- A: Fringe-Biome (`*_fringe`): Stock-Baeume count 1-2 (vorher rarity 2), Riesen rarity 3 (vorher 8), neues Feature `hedges` (EndFlora kind `hedge`: persistente Blaetterwand 4-7 hoch, 5-10 lang, 3-5 je Chunk, nur Saum). Daten via modules/simpleend/tools/gen_data.py. Nur neue Chunks.
+- C: Ambient-Partikel im Saum erhoeht (Asche 0.008 -> 0.03, Sporen 0.004 -> 0.015); Vanilla-Biom-Partikel, respektieren "Minimale Partikel" selbst. Kein Client-Ticker noetig.
+- B: Client-Mixin `ForestFogMixin` (AtmosphericFogEnvironment.setupFog, TAIL) + `client/ForestFog`: alle 100 ms 5 Abstaende (24-128) entlang Blickrichtung und deren Horizontalprojektion im geladenen Biome-Cache (fehlende Chunks = kein Wald); nahester Treffer bestimmt Nebelende (0,9 x Abstand, min. 64), geometrisch gezogen, ~0,35 s Easing; nur im End, nicht im Wald selbst. Alle 3 Loader (gemeinsame simpleend.mixins.json, Client-Liste).
+- Config (config/simpleend.json): `forestFogWall` (an), `forestFogStrength` (0.85); Lang EN/DE + Wiki ergaenzt.
+- Tests: neue GameTests fringe_hedge_feature, forest_fog_config; Modul-Tests Fabric/NeoForge/Forge 36/36 gruen (108/108); Compile 3 Loader + simpleend gruen; check_data.py ok; Client-Smoke 22/22 (EndFogClientSmoke, neue Shots).
+- Vorschauen: docs/ai/previews/claude-endfog/ (ground/above before+after, rim-inside). Wirkung im Screenshot nur dezent: End-Nebelfarbe ist fast schwarz, Wald wird dunkler/verschwindet; Testkamera blickt teils ins Leere. Besitzer-Abnahme im Spiel noetig.
+- Offen: Merge nach claude-wave1, Shader/Sodium nicht getestet, bestehende Chunks unveraendert (N3), Forge-/NeoForge-Client nicht gefahren.

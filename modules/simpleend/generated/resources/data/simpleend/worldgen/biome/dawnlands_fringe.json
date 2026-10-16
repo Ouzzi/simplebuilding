@@ -14,7 +14,7 @@
           "particle": {
             "type": "minecraft:spore_blossom_air"
           },
-          "probability": 0.004
+          "probability": 0.015
         }
       ],
       "modifier": "append"
@@ -68,6 +68,7 @@
       "simpleend:dawnlands_fringe_scrub",
       "simpleend:dawnlands_fringe_stick_trees",
       "simpleend:dawnlands_fringe_giant_stick_trees",
+      "simpleend:dawnlands_fringe_hedges",
       "simpleend:dawnlands_fringe_vegetation"
     ]
   ],
