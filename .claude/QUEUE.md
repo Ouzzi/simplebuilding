@@ -259,7 +259,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
 ## Nachtrag 69 (2026-10-16, Besitzer)
-- [ ] YouTube-Video einer Mod mit für SimpleBuilding relevanten Blöcken auswerten (LINK FEHLT – beim Besitzer nachfordern): Mod heraussuchen, ihre Texturen als Referenz/Stilguide nutzen (nichts kopieren), für fehlende Blöcke ähnliche eigene Texturen erstellen; zusätzlich 2–3 eigene Blöcke (z. B. Sculk-Deepslate / Deep-Dark-Moos-Variante mit Sculk). Ablauf: erst Konzept mit Vorschau → Besitzer-Freigabe → Umsetzung.
+- [x] (claude-modref, Konzept KONZEPT-MODREF-BLOECKE-2026-10-16.md, Antworten §6) YouTube-Video einer Mod mit für SimpleBuilding relevanten Blöcken auswerten (LINK FEHLT – beim Besitzer nachfordern): Mod heraussuchen, ihre Texturen als Referenz/Stilguide nutzen (nichts kopieren), für fehlende Blöcke ähnliche eigene Texturen erstellen; zusätzlich 2–3 eigene Blöcke (z. B. Sculk-Deepslate / Deep-Dark-Moos-Variante mit Sculk). Ablauf: erst Konzept mit Vorschau → Besitzer-Freigabe → Umsetzung.
 
 ## Nachtrag 68 (2026-10-16, Besitzer)
 Wayfinder-Karte (Feinschliff)
@@ -613,3 +613,5 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [x] (claude-soulbound) Death Vault (Besitzer 12.10.: bauen in Simple Tools, Konzept-Antworten verbindlich): nach dem Tod 3–5 zufällige Items des letzten Todes gegen Bezahlung zurückholbar; gegen Duping gesichert (nur Items, die beim Tod verloren gingen und nicht aufgehoben wurden; einmalig je Tod, serverseitig). Konzept: `docs/ai/KONZEPT-DEATH-VAULT-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.
 - [x] (claude-soulbound) Soulbound-Verzauberung: Item bleibt beim Respawn; sehr selten und teuer (z. B. 35 Level), Konzept zuerst. Konzept: `docs/ai/KONZEPT-SOULBOUND-2026-10-12.md` (claude-concepts42), offene Besitzer-Fragen dort.
 - [x] (`claude-mobmanners`) Simple Creatures umbenennen in „Simple Mob Manners“ (Besitzer-Wahl 12.10.), Id simplemobmanners, mit Namespace-/Config-Migration (simplecreatures → simplemobmanners), Zentrale/Wiki/Lang anpassen.
+
+- [ ] Umsetzung N69: Hushed Deepslate Tiles (zuerst), Sculk Deepslate (nur herstellbar + Ancient-City-Loot), fehlende Treppe/Stufe/Mauer + rissig/bemoost laut Konzept §3/§6.
