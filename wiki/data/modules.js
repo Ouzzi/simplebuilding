@@ -707,7 +707,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "c1679384f5a7"
+    "dataHash": "59cbd7029bc4"
   },
   {
     "id": "simplecrucibles",
