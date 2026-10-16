@@ -81,7 +81,7 @@ public final class PlacedPartParticles {
             PlacedSmallParts.Kind kind = PlacedSmallParts.kind(part, flat);
             if (kind == PlacedSmallParts.Kind.CANDLE) {
                 if (lit) {
-                    Vector3f wick = PlacedSmallParts.center(facing, count, i, true);
+                    Vector3f wick = PlacedSmallParts.center(facing, count, i, PlacedSmallParts.Kind.CANDLE);
                     double x = pos.getX() + wick.x, y = pos.getY() + wick.y, z = pos.getZ() + wick.z;
                     float f = random.nextFloat();
                     if (f < 0.3F) {
@@ -99,7 +99,7 @@ public final class PlacedPartParticles {
             if (particle == null || random.nextInt(GLOW_CHANCE) != 0) {
                 continue;
             }
-            Vector3f c = PlacedSmallParts.center(facing, count, i, kind.standing());
+            Vector3f c = PlacedSmallParts.center(facing, count, i, kind);
             double x = pos.getX() + c.x + (random.nextDouble() - 0.5) * 0.2;
             double y = pos.getY() + c.y + 0.05 + random.nextDouble() * 0.1;
             double z = pos.getZ() + c.z + (random.nextDouble() - 0.5) * 0.2;
@@ -117,7 +117,7 @@ public final class PlacedPartParticles {
         int count = Math.min(parts.size(), PlacedSmallParts.MAX_PARTS);
         for (int i = 0; i < count; i++) {
             if (PlacedSmallParts.isCandle(parts.get(i))) {
-                Vector3f wick = PlacedSmallParts.center(state.getValue(PlacedSmallPartsBlock.FACING), count, i, true);
+                Vector3f wick = PlacedSmallParts.center(state.getValue(PlacedSmallPartsBlock.FACING), count, i, PlacedSmallParts.Kind.CANDLE);
                 level.addParticle(ParticleTypes.SMOKE, pos.getX() + wick.x, pos.getY() + wick.y, pos.getZ() + wick.z, 0.0, 0.1, 0.0);
             }
         }
