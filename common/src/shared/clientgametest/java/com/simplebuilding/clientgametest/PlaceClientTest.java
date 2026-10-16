@@ -158,7 +158,7 @@ public final class PlaceClientTest {
         script.shot("placing-display3d-row");
         script.command("tp @a 9.5 0.0 17.0 0.0 60.0");
         script.awaitPackets();
-        script.idle("close-up", 20);
+        script.idle("close view", 20);
         script.shot("placing-display3d-close");
         onServer(script, "the hammer switches every spot to flat", server -> {
             ServerLevel level = server.overworld();
