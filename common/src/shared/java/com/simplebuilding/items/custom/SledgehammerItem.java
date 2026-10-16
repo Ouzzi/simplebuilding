@@ -269,6 +269,12 @@ public class SledgehammerItem extends Item {
             return InteractionResult.PASS;
         }
 
+        // Schleichen + Hammer auf einem Haeufchen mit wendbarer Schallplatte: auf flach umschalten (Item-Display 3D, D7);
+        // ohne Schleichen wendet der Block die Platte (PlacedSmallPartsBlock#useItemOn).
+        if (player.isSecondaryUseActive() && com.simplebuilding.util.FlatToggles.toggle(world, pos, player, stack, context.getHand())) {
+            return InteractionResult.SUCCESS;
+        }
+
         InteractionResult chips = com.simplebuilding.util.SledgehammerChips.tryCrush(context);
         if (chips.consumesAction()) return chips;
 
