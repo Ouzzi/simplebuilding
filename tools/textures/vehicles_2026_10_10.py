@@ -165,10 +165,13 @@ def build():
             raft = wood == "bamboo"
             model = f"{tier}_chest_boat_{wood}"
             ns = "simpleend" if wood in END_WOODS else "minecraft"
-            models[model] = {"parent": "minecraft:item/generated", "textures": {
+            # End-wood models live in simpleend (Nachtrag 66): without that module only this case shows the missing
+            # model, instead of the whole item failing to bake over a sprite from a foreign atlas.
+            mkey = f"simpleend:{model}" if wood in END_WOODS else model
+            models[mkey] = {"parent": "minecraft:item/generated", "textures": {
                 "layer0": f"{ns}:item/" + ("bamboo_chest_raft" if raft else f"{wood}_chest_boat"),
                 "layer1": f"simplebuilding:item/{tier}_chest_{'raft' if raft else 'boat'}_overlay"}}
-            cases.append({"when": wood, "model": {"type": "minecraft:model", "model": f"simplebuilding:item/{model}"}})
+            cases.append({"when": wood, "model": {"type": "minecraft:model", "model": f"{'simpleend' if wood in END_WOODS else 'simplebuilding'}:item/{model}"}})
         items[f"{tier}_chest_boat"] = {"model": {
             "type": "minecraft:select", "property": "minecraft:component", "component": "simplebuilding:boat_wood",
             "cases": cases,
@@ -214,7 +217,8 @@ def main():
     stale = []
     files = {}
     for name, data in models.items():
-        files[ASSETS / f"models/item/{name}.json"] = json.dumps(data, indent=2) + "\n"
+        root = ROOT / "modules/simpleend/shared/resources/assets/simpleend" if name.startswith("simpleend:") else ASSETS
+        files[root / f"models/item/{name.split(':')[-1]}.json"] = json.dumps(data, indent=2) + "\n"
     for name, data in items.items():
         files[ASSETS / f"items/{name}.json"] = json.dumps(data, indent=2) + "\n"
     for path, content in files.items():

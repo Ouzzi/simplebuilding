@@ -324,6 +324,134 @@ class Checker:
                 apply(part.get('apply'))
         return n
 
+    # -- particles, equipment, sounds, textures named in Java code (Nachtrag 66) --------------------------
+    def check_particles(self) -> int:
+        """assets/<ns>/particles/*.json -> textures/particle/<name>.png (particle atlas)."""
+        n = 0
+        for rel in sorted(self.pool.files):
+            m = re.fullmatch(r'assets/([^/]+)/particles/(.+)\.json', rel)
+            if not m or (self.only_ns and m.group(1) != self.only_ns):
+                continue
+            n += 1
+            who = f'particle {m.group(1)}:{m.group(2)}'
+            try:
+                data = self.pool.json(rel)
+            except Exception as e:
+                self.err(who, f'invalid JSON ({e})')
+                continue
+            for tex in data.get('textures') or []:
+                tns, tp = split(tex)
+                if not self.exists(tns, 'textures', f'particle/{tp}', 'png'):
+                    self.err(who, f'texture {tns}:{tp} missing (textures/particle/{tp}.png in assets/{tns})')
+        return n
+
+    def check_equipment(self) -> int:
+        """assets/<ns>/equipment/*.json layers -> textures/entity/equipment/<layer type>/<name>.png."""
+        n = 0
+        for rel in sorted(self.pool.files):
+            m = re.fullmatch(r'assets/([^/]+)/equipment/(.+)\.json', rel)
+            if not m or (self.only_ns and m.group(1) != self.only_ns):
+                continue
+            n += 1
+            who = f'equipment {m.group(1)}:{m.group(2)}'
+            try:
+                data = self.pool.json(rel)
+            except Exception as e:
+                self.err(who, f'invalid JSON ({e})')
+                continue
+            for layer, entries in (data.get('layers') or {}).items():
+                for e in entries:
+                    tex = e.get('texture')
+                    if not tex or e.get('use_player_texture'):
+                        continue
+                    tns, tp = split(tex)
+                    if not self.exists(tns, 'textures', f'entity/equipment/{layer}/{tp}', 'png'):
+                        self.err(who, f'layer {layer} texture {tns}:{tp} missing '
+                                      f'(textures/entity/equipment/{layer}/{tp}.png in assets/{tns})')
+        return n
+
+    def check_sounds(self) -> int:
+        """assets/<ns>/sounds.json -> sounds/<name>.ogg (a missing file is silent, not purple, but just as broken)."""
+        n = 0
+        for rel in sorted(self.pool.files):
+            m = re.fullmatch(r'assets/([^/]+)/sounds\.json', rel)
+            if not m or (self.only_ns and m.group(1) != self.only_ns):
+                continue
+            ns = m.group(1)
+            try:
+                data = self.pool.json(rel)
+            except Exception as e:
+                self.err(f'sounds {ns}', f'invalid JSON ({e})')
+                continue
+            for event, spec in data.items():
+                for snd in spec.get('sounds', []):
+                    name = snd if isinstance(snd, str) else snd.get('name', '')
+                    if isinstance(snd, dict) and snd.get('type') == 'event':
+                        continue
+                    n += 1
+                    sns, sp = split(name, ns)
+                    if sns != 'minecraft' and not self.pool.has(f'assets/{sns}/sounds/{sp}.ogg'):
+                        self.err(f'sound {ns}:{event}', f'file {sns}:{sp} missing (sounds/{sp}.ogg)')
+        return n
+
+    def check_java_textures(self) -> int:
+        """String literals "textures/..." in the Java sources. Complete paths (.png) must exist; a path built
+        at run time ("textures/entity/x/" + name + ".png") needs at least its folder to exist and be non-empty."""
+        lit = re.compile(r'"(textures/[A-Za-z0-9_/.\-]*)"')
+        n = 0
+        mod_ns = {m.name: m.name for m in (ROOT / 'modules').iterdir()}
+        for base in ('common/src', 'src/main/java', 'mc26_3', 'neoforge/src', 'forge/src', 'modules'):
+            for f in sorted((ROOT / base).rglob('*.java')):
+                posix = f.as_posix()
+                if '/build/' in posix or '/gametest' in posix or 'clienttest' in posix or 'clientgametest' in posix \
+                        or '/mc26_2/' in posix or '/test/' in posix:
+                    continue
+                text = f.read_text('utf-8', 'replace')
+                file_ns = 'simplebuilding'
+                mm = re.search(r'/modules/([^/]+)/', posix)
+                if mm:
+                    file_ns = mm.group(1)
+                for m in lit.finditer(text):
+                    path = m.group(1)
+                    before = text[max(0, m.start() - 90):m.start()]
+                    line_no = text.count('\n', 0, m.start()) + 1
+                    who = f'java {f.relative_to(ROOT)}:{line_no}'
+                    if re.search(r'withDefaultNamespace\(\s*$', before):
+                        ns = 'minecraft'
+                    else:
+                        fm = re.search(r'fromNamespaceAndPath\(\s*([^,()]+?)\s*,\s*$', before)
+                        if fm:
+                            arg = fm.group(1)
+                            if arg.startswith('"'):
+                                ns = arg.strip('"')
+                            elif arg.endswith('MOD_ID'):
+                                ns = 'simplebuilding' if arg.startswith('Simplebuilding') else file_ns
+                            else:
+                                continue  # namespace from a variable: not decidable here
+                        elif re.search(r'(\.id|Id|withPath)\(\s*(\w+\s*\+\s*)?$', before) or re.search(r'\bid\(\s*$', before):
+                            ns = file_ns
+                        elif re.search(r'(name|location|id|path|ref)\w*\.withPath\(\s*$', before) or before.rstrip().endswith('withPath('):
+                            continue  # path of an arbitrary identifier
+                        else:
+                            continue
+                    if self.only_ns and ns != self.only_ns:
+                        continue
+                    if path.endswith('.png'):
+                        n += 1
+                        tp = path[len('textures/'):-len('.png')]
+                        if not self.exists(ns, 'textures', tp, 'png'):
+                            self.err(who, f'texture {ns}:{path} is named in code but missing')
+                    elif path.endswith('/'):
+                        n += 1
+                        folder = f'assets/{ns}/{path}'
+                        if ns == 'minecraft':
+                            ok = self.jar is None or any(j.startswith(folder) for j in self.jar)
+                        else:
+                            ok = any(k.startswith(folder) for k in self.pool.files)
+                        if not ok:
+                            self.err(who, f'texture folder {ns}:{path} (names built at run time) is empty or missing')
+        return n
+
     # -- items without definition -------------------------------------------------------------------------
     def all_ns(self) -> set[str]:
         return {rel.split('/')[1] for rel in self.pool.files}
@@ -388,6 +516,7 @@ def main() -> int:
     c.errors += pool.atlas_errors
     ni = c.check_items()
     nb = c.check_blockstates()
+    np_, ne, ns_, nj = c.check_particles(), c.check_equipment(), c.check_sounds(), c.check_java_textures()
     c.check_lang()
     if not a.ns:
         check_registered(c)
@@ -398,7 +527,7 @@ def main() -> int:
         for w in sorted(set(c.warns)):
             print('WARN ', w)
     print(f'check_missing_textures: {ni} item definitions, {nb} blockstates, {c.checked_models} own models checked, '
-          f'{len(errs)} errors, {len(set(c.warns))} warnings')
+          f'{np_} particles, {ne} equipment assets, {ns_} sounds, {nj} Java texture paths, {len(errs)} errors, {len(set(c.warns))} warnings')
     print('alles gruen' if not errs else 'NICHT gruen')
     return 1 if errs else 0
 

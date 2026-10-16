@@ -85,14 +85,14 @@
         "when": "ashwood",
         "model": {
           "type": "minecraft:model",
-          "model": "simplebuilding:item/reinforced_chest_boat_ashwood"
+          "model": "simpleend:item/reinforced_chest_boat_ashwood"
         }
       },
       {
         "when": "duskwood",
         "model": {
           "type": "minecraft:model",
-          "model": "simplebuilding:item/reinforced_chest_boat_duskwood"
+          "model": "simpleend:item/reinforced_chest_boat_duskwood"
         }
       }
     ],
