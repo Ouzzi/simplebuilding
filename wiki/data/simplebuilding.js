@@ -147167,9 +147167,7 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astral_redstone"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -147201,9 +147199,7 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astral_vault"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -147299,9 +147295,7 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astralit_lamp"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -147718,9 +147712,7 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:bridge_redstone"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -150475,9 +150467,7 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihil_redstone"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -150509,9 +150499,7 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihil_vault"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -150607,9 +150595,7 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihilith_lamp"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
