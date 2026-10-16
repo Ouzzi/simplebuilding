@@ -111,8 +111,10 @@ public final class TrapTests {
             pig.discard();
             helper.succeedWhen(() -> {
                 helper.assertFalse(helper.getBlockState(pos).getValue(SculkJawBlock.SNAPPED), "the empty jaw did not reopen");
-                helper.assertValueEqual(MusicDiscTests.captured(sink, net.minecraft.network.protocol.game.ClientboundSoundPacket.class).size(), 2,
-                        "sound packets after reopening (the reopening stays silent)");
+                // the pig's own hurt sound is not the jaw's; the jaw adds nothing when it reopens
+                helper.assertValueEqual(heard.apply(net.minecraft.sounds.SoundEvents.SCULK_CLICKING).size()
+                        + heard.apply(net.minecraft.sounds.SoundEvents.SCULK_SHRIEKER_SHRIEK).size(), 2,
+                        "jaw sounds after reopening (the reopening stays silent)");
             });
         });
     }
