@@ -219,7 +219,7 @@ final class EndNetherTests {
             ((net.minecraft.world.level.block.entity.DispenserBlockEntity) l.getBlockEntity(h.absolutePos(at))).setItem(0, charge);
             h.setBlock(at.north(), Blocks.REDSTONE_BLOCK.defaultBlockState());
             var box = new net.minecraft.world.phys.AABB(h.absoluteVec(new Vec3(0, 0, 0)), h.absoluteVec(new Vec3(9, 6, 9)));
-            h.succeedWhen(() -> h.assertTrue(!l.getEntitiesOfClass(SoulFireball.class, box).isEmpty(), "the dispenser shoots a soul fireball"));
+            h.succeedWhen(() -> h.assertTrue(!l.getEntitiesOfClass(SoulFireball.class, box).isEmpty(), "the dispenser shoots a soul fireball (dispenser item=" + ((net.minecraft.world.level.block.entity.DispenserBlockEntity) l.getBlockEntity(h.absolutePos(at))).getItem(0) + ", powered=" + l.hasNeighborSignal(h.absolutePos(at)) + ", balls near=" + l.getEntitiesOfClass(SoulFireball.class, box.inflate(30)).size() + ")"));
         });
         add.accept("soulfire_blaze", h -> {
             ServerLevel l = h.getLevel();
@@ -233,7 +233,7 @@ final class EndNetherTests {
             pig.setNoAi(true);
             var at = pig.position();
             SoulFireball ball = new SoulFireball(l, blaze, new Vec3(0, 0, 1));
-            ball.setPos(at.x, at.y + 0.4, at.z - 2.0);
+            ball.setPos(at.x, at.y + 0.4, at.z - 1.2);   // close: a short flight leaves no time for outside interference
             l.addFreshEntity(ball);
             h.assertTrue(ball.getItem().is(EndNetherMobs.SOUL_FIRE_CHARGE), "drawn as a soul fire charge");
             h.succeedWhen(() -> h.assertTrue(pig.getRemainingFireTicks() > 0 && pig.getHealth() < pig.getMaxHealth(), "the soul fireball burns (ball alive=" + ball.isAlive() + " at " + ball.position() + ", pig at " + pig.position() + " hp=" + pig.getHealth() + " fire=" + pig.getRemainingFireTicks() + " alive=" + pig.isAlive() + ")"));
