@@ -126,7 +126,7 @@ MODULES = [
                 "Ein Dorf-Wanderer je Dorf: ein Händler im Reisemantel mit Pferd an der Leine, alle 3 Tage neues Angebot, "
                 "alle 1,5 Tage Nachschub und Waren passend zum Dorfbiom. Wird er getötet, kommt nach 7 Tagen ein neuer.")),
     dict(module="simpleblocks", ns="simpleblocks", package="com.simpleblocks.guide", cls="BlocksGuide", kind="item",
-         author="Simple Blocks", recipe="minecraft:brick",
+         author="Simple Blocks", recipe="minecraft:clay_ball",
          name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),
          intro=("The missing building blocks: Hushed Deepslate Tiles that swallow vibrations like wool, Sculk Deepslate, "
                 "the missing Vanilla stairs, slabs and walls and cracked and mossy bricks.",
@@ -203,6 +203,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
     "minecraft:lead": ("a lead", "einer Leine"),
     "minecraft:brick": ("a brick", "einem Ziegel"),
+    "minecraft:clay_ball": ("a clay ball", "einem Tonklumpen"),
     "minecraft:gold_nugget": ("a gold nugget", "einem Goldklumpen"),
     "minecraft:bread": ("bread", "Brot"),
     "minecraft:chest": ("a chest", "einer Truhe"),
@@ -462,6 +463,7 @@ NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your languag
         "Handbuch zu dieser Mod: %d Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + %s. "
         "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:clay_ball": ("clay ball", "Tonklumpen"),
     "minecraft:emerald": ("emerald", "Smaragd"),
     "minecraft:lead": ("lead", "Leine"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
