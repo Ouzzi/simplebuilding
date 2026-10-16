@@ -163,6 +163,78 @@
       "de": {
         "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
       }
+    },
+    "*_slab": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "en": {
+        "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+      },
+      "de": {
+        "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+      }
+    },
+    "*_stairs": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "en": {
+        "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+      },
+      "de": {
+        "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+      }
+    },
+    "*_wall": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "en": {
+        "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+      },
+      "de": {
+        "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+      }
+    },
+    "cracked_*": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "en": {
+        "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+      },
+      "de": {
+        "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+      }
+    },
+    "mossy_*": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "en": {
+        "summary": "Mossy brick variant of a Vanilla or Simple Blocks brick block. Craft the plain bricks with a Moss Block. See the chapter on cracked and mossy bricks."
+      },
+      "de": {
+        "summary": "Moosige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel mit einem Moosblock herstellen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+      }
+    },
+    "blue_nether_bricks": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "en": {
+        "summary": "Blue Nether Bricks: a decorative brick block with slab, stair and wall variants."
+      },
+      "de": {
+        "summary": "Blaue Netherziegel: ein dekorativer Ziegelblock mit Platten-, Treppen- und Mauervarianten."
+      }
     }
   }
 }

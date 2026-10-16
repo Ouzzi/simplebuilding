@@ -2775,7 +2775,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Blue Nether Brick Slab",
         "de_de": "Blaue Netherziegelstufe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:blue_nether_brick_slab",
         "simpleblocks:blue_nether_brick_slab_from_blue_nether_bricks_stonecutting"
@@ -2788,7 +2799,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Blue Nether Brick Stairs",
         "de_de": "Blaue Netherziegeltreppe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:blue_nether_brick_stairs",
         "simpleblocks:blue_nether_brick_stairs_from_blue_nether_bricks_stonecutting"
@@ -2801,7 +2823,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Blue Nether Brick Wall",
         "de_de": "Blaue Netherziegelmauer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:blue_nether_brick_wall",
         "simpleblocks:blue_nether_brick_wall_from_blue_nether_bricks_stonecutting"
@@ -2814,7 +2847,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Blue Nether Bricks",
         "de_de": "Blaue Netherziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Blue Nether Bricks: a decorative brick block with slab, stair and wall variants."
+        },
+        "de": {
+          "summary": "Blaue Netherziegel: ein dekorativer Ziegelblock mit Platten-, Treppen- und Mauervarianten."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/blue_nether_bricks.png",
       "craftedBy": [
         "simpleblocks:blue_nether_bricks",
@@ -2835,7 +2879,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Calcite Slab",
         "de_de": "Kalzitstufe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:calcite_slab",
         "simpleblocks:calcite_slab_from_calcite_stonecutting"
@@ -2848,7 +2903,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Calcite Stairs",
         "de_de": "Kalzittreppe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:calcite_stairs",
         "simpleblocks:calcite_stairs_from_calcite_stonecutting"
@@ -2861,7 +2927,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Calcite Wall",
         "de_de": "Kalzitmauer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:calcite_wall",
         "simpleblocks:calcite_wall_from_calcite_stonecutting"
@@ -2874,7 +2951,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cracked Cinnabar Bricks",
         "de_de": "Rissige Zinnoberziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/cracked_cinnabar_bricks.png",
       "craftedBy": [
         "simpleblocks:cracked_cinnabar_bricks_from_smelting"
@@ -2887,7 +2975,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cracked End Stone Bricks",
         "de_de": "Rissige Endsteinziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/cracked_end_stone_bricks.png",
       "craftedBy": [
         "simpleblocks:cracked_end_stone_bricks_from_smelting"
@@ -2900,7 +2999,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cracked Mud Bricks",
         "de_de": "Rissige Lehmziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/cracked_mud_bricks.png",
       "craftedBy": [
         "simpleblocks:cracked_mud_bricks_from_smelting"
@@ -2913,7 +3023,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cracked Red Nether Bricks",
         "de_de": "Rissige Rote Netherziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/cracked_red_nether_bricks.png",
       "craftedBy": [
         "simpleblocks:cracked_red_nether_bricks_from_smelting"
@@ -2926,7 +3047,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cracked Sulfur Bricks",
         "de_de": "Rissige Schwefelziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/cracked_sulfur_bricks.png",
       "craftedBy": [
         "simpleblocks:cracked_sulfur_bricks_from_smelting"
@@ -2939,7 +3071,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cracked Tuff Bricks",
         "de_de": "Rissige Tuffziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/cracked_tuff_bricks.png",
       "craftedBy": [
         "simpleblocks:cracked_tuff_bricks_from_smelting"
@@ -2952,7 +3095,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cut Red Sandstone Stairs",
         "de_de": "Geschnittene Rote Sandsteintreppe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:cut_red_sandstone_stairs",
         "simpleblocks:cut_red_sandstone_stairs_from_cut_red_sandstone_stonecutting"
@@ -2965,7 +3119,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cut Red Sandstone Wall",
         "de_de": "Geschnittene Rote Sandsteinmauer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:cut_red_sandstone_wall",
         "simpleblocks:cut_red_sandstone_wall_from_cut_red_sandstone_stonecutting"
@@ -2978,7 +3143,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cut Sandstone Stairs",
         "de_de": "Geschnittene Sandsteintreppe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:cut_sandstone_stairs",
         "simpleblocks:cut_sandstone_stairs_from_cut_sandstone_stonecutting"
@@ -2991,7 +3167,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Cut Sandstone Wall",
         "de_de": "Geschnittene Sandsteinmauer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:cut_sandstone_wall",
         "simpleblocks:cut_sandstone_wall_from_cut_sandstone_stonecutting"
@@ -3004,7 +3191,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Hushed Deepslate Tile Slab",
         "de_de": "Gedämpfte Tiefenschieferfliesenstufe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:hushed_deepslate_tile_slab",
         "simpleblocks:hushed_deepslate_tile_slab_from_hushed_deepslate_tiles_stonecutting"
@@ -3017,7 +3215,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Hushed Deepslate Tile Stairs",
         "de_de": "Gedämpfte Tiefenschieferfliesentreppe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:hushed_deepslate_tile_stairs",
         "simpleblocks:hushed_deepslate_tile_stairs_from_hushed_deepslate_tiles_stonecutting"
@@ -3030,7 +3239,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Hushed Deepslate Tile Wall",
         "de_de": "Gedämpfte Tiefenschieferfliesenmauer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:hushed_deepslate_tile_wall",
         "simpleblocks:hushed_deepslate_tile_wall_from_hushed_deepslate_tiles_stonecutting"
@@ -3082,7 +3302,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Mossy Cinnabar Bricks",
         "de_de": "Bemooste Zinnoberziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Mossy brick variant of a Vanilla or Simple Blocks brick block. Craft the plain bricks with a Moss Block. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Moosige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel mit einem Moosblock herstellen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/mossy_cinnabar_bricks.png",
       "craftedBy": [
         "simpleblocks:mossy_cinnabar_bricks_from_moss_block"
@@ -3095,7 +3326,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Mossy Deepslate Bricks",
         "de_de": "Bemooste Tiefenschieferziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Mossy brick variant of a Vanilla or Simple Blocks brick block. Craft the plain bricks with a Moss Block. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Moosige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel mit einem Moosblock herstellen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/mossy_deepslate_bricks.png",
       "craftedBy": [
         "simpleblocks:mossy_deepslate_bricks_from_moss_block"
@@ -3108,7 +3350,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Mossy Deepslate Tiles",
         "de_de": "Bemooste Tiefenschieferfliesen"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Mossy brick variant of a Vanilla or Simple Blocks brick block. Craft the plain bricks with a Moss Block. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Moosige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel mit einem Moosblock herstellen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/mossy_deepslate_tiles.png",
       "craftedBy": [
         "simpleblocks:mossy_deepslate_tiles_from_moss_block"
@@ -3121,7 +3374,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Mossy End Stone Bricks",
         "de_de": "Bemooste Endsteinziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Mossy brick variant of a Vanilla or Simple Blocks brick block. Craft the plain bricks with a Moss Block. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Moosige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel mit einem Moosblock herstellen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/mossy_end_stone_bricks.png",
       "craftedBy": [
         "simpleblocks:mossy_end_stone_bricks_from_moss_block"
@@ -3134,7 +3398,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Mossy Mud Bricks",
         "de_de": "Bemooste Lehmziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Mossy brick variant of a Vanilla or Simple Blocks brick block. Craft the plain bricks with a Moss Block. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Moosige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel mit einem Moosblock herstellen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/mossy_mud_bricks.png",
       "craftedBy": [
         "simpleblocks:mossy_mud_bricks_from_moss_block"
@@ -3147,7 +3422,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Mossy Sulfur Bricks",
         "de_de": "Bemooste Schwefelziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Mossy brick variant of a Vanilla or Simple Blocks brick block. Craft the plain bricks with a Moss Block. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Moosige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel mit einem Moosblock herstellen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/mossy_sulfur_bricks.png",
       "craftedBy": [
         "simpleblocks:mossy_sulfur_bricks_from_moss_block"
@@ -3160,7 +3446,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Mossy Tuff Bricks",
         "de_de": "Bemooste Tuffziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Mossy brick variant of a Vanilla or Simple Blocks brick block. Craft the plain bricks with a Moss Block. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Moosige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel mit einem Moosblock herstellen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
       "texture": "assets/textures/simpleblocks/block/mossy_tuff_bricks.png",
       "craftedBy": [
         "simpleblocks:mossy_tuff_bricks_from_moss_block"
@@ -3173,7 +3470,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Netherrack Slab",
         "de_de": "Netherrack-Stufe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:netherrack_slab",
         "simpleblocks:netherrack_slab_from_netherrack_stonecutting"
@@ -3186,7 +3494,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Netherrack Stairs",
         "de_de": "Netherrack-Treppe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:netherrack_stairs",
         "simpleblocks:netherrack_stairs_from_netherrack_stonecutting"
@@ -3199,7 +3518,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Netherrack Wall",
         "de_de": "Netherrack-Mauer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:netherrack_wall",
         "simpleblocks:netherrack_wall_from_netherrack_stonecutting"
@@ -3244,7 +3574,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Smooth Basalt Slab",
         "de_de": "Glatte Basaltstufe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:smooth_basalt_slab",
         "simpleblocks:smooth_basalt_slab_from_smooth_basalt_stonecutting"
@@ -3257,7 +3598,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Smooth Basalt Stairs",
         "de_de": "Glatte Basalttreppe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:smooth_basalt_stairs",
         "simpleblocks:smooth_basalt_stairs_from_smooth_basalt_stonecutting"
@@ -3270,7 +3622,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Smooth Basalt Wall",
         "de_de": "Glatte Basaltmauer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:smooth_basalt_wall",
         "simpleblocks:smooth_basalt_wall_from_smooth_basalt_stonecutting"
@@ -3283,7 +3646,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Smooth Red Sandstone Wall",
         "de_de": "Glatte Rote Sandsteinmauer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:smooth_red_sandstone_wall",
         "simpleblocks:smooth_red_sandstone_wall_from_smooth_red_sandstone_stonecutting"
@@ -3296,7 +3670,18 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         "en_us": "Smooth Sandstone Wall",
         "de_de": "Glatte Sandsteinmauer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
       "craftedBy": [
         "simpleblocks:smooth_sandstone_wall",
         "simpleblocks:smooth_sandstone_wall_from_smooth_sandstone_stonecutting"
@@ -3315,43 +3700,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleblocks:blue_nether_brick_slab",
-    "simpleblocks:blue_nether_brick_stairs",
-    "simpleblocks:blue_nether_brick_wall",
-    "simpleblocks:blue_nether_bricks",
-    "simpleblocks:calcite_slab",
-    "simpleblocks:calcite_stairs",
-    "simpleblocks:calcite_wall",
-    "simpleblocks:cracked_cinnabar_bricks",
-    "simpleblocks:cracked_end_stone_bricks",
-    "simpleblocks:cracked_mud_bricks",
-    "simpleblocks:cracked_red_nether_bricks",
-    "simpleblocks:cracked_sulfur_bricks",
-    "simpleblocks:cracked_tuff_bricks",
-    "simpleblocks:cut_red_sandstone_stairs",
-    "simpleblocks:cut_red_sandstone_wall",
-    "simpleblocks:cut_sandstone_stairs",
-    "simpleblocks:cut_sandstone_wall",
-    "simpleblocks:hushed_deepslate_tile_slab",
-    "simpleblocks:hushed_deepslate_tile_stairs",
-    "simpleblocks:hushed_deepslate_tile_wall",
-    "simpleblocks:mossy_cinnabar_bricks",
-    "simpleblocks:mossy_deepslate_bricks",
-    "simpleblocks:mossy_deepslate_tiles",
-    "simpleblocks:mossy_end_stone_bricks",
-    "simpleblocks:mossy_mud_bricks",
-    "simpleblocks:mossy_sulfur_bricks",
-    "simpleblocks:mossy_tuff_bricks",
-    "simpleblocks:netherrack_slab",
-    "simpleblocks:netherrack_stairs",
-    "simpleblocks:netherrack_wall",
-    "simpleblocks:smooth_basalt_slab",
-    "simpleblocks:smooth_basalt_stairs",
-    "simpleblocks:smooth_basalt_wall",
-    "simpleblocks:smooth_red_sandstone_wall",
-    "simpleblocks:smooth_sandstone_wall"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 4,
@@ -3366,7 +3715,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 35,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
