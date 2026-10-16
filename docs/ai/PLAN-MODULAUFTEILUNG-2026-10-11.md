@@ -465,6 +465,38 @@ Abweichungen/Grenzen:
 - Modul-Version 1.0.0 per `ext.moduleVersion` (SB verlangt `>=1.0.0`).
 - `blast_furnace_bonus` existiert auf 26.3 nicht (nur 1.21.11) – nichts verschoben.
 
+**Stufe 5 Umsetzung (16.10., Branch `claude-split-s5-crucibles`, Basis `merge-w1`):** _Plan_ (vorab)
+- Befund (grep): der Tiegel-Kern liegt nicht in SB, sondern in `modules/simplelib` (`crucible/` 14 + `cauldron/` 2 Klassen,
+  `client/Crucible*`+`ReinforcedCauldronTint`, `registry/Lib{Blocks,Items,BlockEntities,Menus,Tags,Registry}`, `village/VillageKitchen`,
+  `mixin/AxeBuildMixin`+`TemplatePoolAccessor`, Crucible-Teile von `LibConfig`/`SimpleLibApi`/`LibDiscover`/`LibTests`, 37 Texturen,
+  Rezept `copper_barrel`, Dorfküche-Strukturen, Wiki/Questionary/Lang). Außerhalb nutzen ihn nur SB (`CrucibleCompat`, `CrucibleTests`,
+  `CauldronWorldCatalog`, JEI/Jade, `SledgehammerUpgrades`, in_world_upgrades-Datagen), Money-Preise und ein Sandwiches-Test (per Id).
+- Neues Modul `modules/simplecrucibles` (1.0.0, `simplecrucibles:`, Paket `com.simplecrucibles`), `requires simplelib`, optional
+  `simplebuilding`; SB 26.3 `requires`+bündelt es (Pflicht-Sub-Mod wie Ovens), Sandwiches bündelt es ebenfalls (Warm-Essen + Tiegel
+  wie bisher, Welten ohne Verlust); QoL/Interfaces/Maps behalten nur simplelib (UI/API). Inhalt: 3 Tiegel, Rohling, verstärkter Kessel,
+  3 Kupfer-/verstärkt-/Netherit-Fässer, **Enderit-Tiegel/-Fass** (F3: bleiben hier), 2 Block-Entities, 8 Menüs, Renderer/Screen,
+  Dorfküche, Axt-Wege (`AxeWays`/`CrucibleUpgrades`), `SimpleCruciblesApi` (alle Tiegel-Methoden aus `SimpleLibApi`: Wärmequellen,
+  Werkzeugwege, Tier-Fabriken, Bau-/Anlege-/Aufwertungsschläge, Kessel-Behälter), eigene Config `simplecrucibles-server.json`,
+  Discover, Guide, Testzentrale-Station, Wiki, Lang EN/DE, Modelle/Texturen, Loot, Tags, Money-Preise (`money/simplecrucibles`).
+- simplelib behält: Warm-Essen (`Warm`, 5 Mixins, Komponente `simplelib:warm`, Tag `warmable_food`, Config `warm*`/`eatSpeedBonus`),
+  UI-Bausteine, IdMoves, InWorldUpgrades/-Strikes, StackLimits/HopperMixin, Materialien, `SimpleLibApi` ohne Tiegel. `LibConfig` schreibt
+  fremde Schlüssel unverändert zurück, damit `simplecrucibles` beim ersten Start die 11 Tiegel-Optionen aus `simplelib-server.json`
+  übernehmen kann (Config-Migration, einmalig, danach gilt die eigene Datei).
+- Ids/Migration (IdMoves im Modul-Init): Items, Blöcke, Block-Entities (`simplelib:crucible|barrel` -> `simplecrucibles:`), Menüs,
+  Rezept `copper_barrel` + Rezept-Advancement, `simplebuilding:enderite_crucible|barrel` (Item, Block). Tags der Heizquellen/Material
+  (`simplelib:heat_source/*`, `extreme_heat`, `crucible_*`, `upgrade_*`, `needs_extreme_heat`) ziehen in den Namensraum `simplecrucibles:`
+  (Tags haben keine Aliase; Datenpakete Dritter müssten angepasst werden). `warmable_food` bleibt `simplelib:`.
+- SB 26.3: `McVersion.CRUCIBLES_IN_SB=false`; `CrucibleCompat` registriert nichts mehr (Fassade über `SimpleCruciblesApi`, Enderit-Tiegel/-Fass
+  per Registry-Id), Hammer-/Eimer-/Seelenlava-Anbindung bleibt in SB (Stufe 5b), in_world_upgrades-Datagen schreibt die Tiegel-Einträge
+  nicht mehr (Modul bringt `data/simplecrucibles/in_world_upgrades/crucibles.json`). 26.2 bleibt monolithisch (dort gibt es keine Tiegel).
+- Stufe 5b Seelenlava (Fluid, Block, Eimer-Varianten, Modell, Welt-Mixins, Loader-Glue, Soul-Burn): teilt sich `ModBucketItem` (462 Z.),
+  `ServerTuningConfig`, `ModTriggers` und `common/src/shared` mit 26.2 -> nur nach 5a, wenn der Aufwand es zulässt; sonst als Folge notiert.
+- Risiken: Tag-Namensräume; Forge-IdMoves-Aliase (Mixins ins Modul kopieren, Muster Ovens); Reihenfolge der Registrierung (Block-Entity-Typ
+  gilt für Partner-Tiere, die SB nach dem Modul registriert -> Enderit liegt jetzt im Modul); Sandwiches-Test per Id; gemeinsame Dateien nur additiv.
+- Prüfung: Compile 3 Loader (Root, simplelib, simplecrucibles, Sandwiches), Filter `crucible*`/`cauldron*`/`data_integrity*`/`config_option*`
+  auf fabric-263+neoforge-263, Modul-Ziele `module-simplecrucibles-*` + Standalone, Migrations-GameTest (alte Ids), Wiki `--check --strict`,
+  `module_guides --check`, `check_tooltip_text`, `discover --check`.
+
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
 
