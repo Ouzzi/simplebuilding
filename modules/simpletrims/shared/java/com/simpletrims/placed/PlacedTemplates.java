@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -24,6 +25,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -139,6 +141,24 @@ public final class PlacedTemplates {
     /** Template tool in the main hand and an upgrade material in the off hand. */
     public static boolean isToolStance(Player player) {
         return TemplateTools.isTemplateTool(player.getMainHandItem()) && upgrades().containsKey(player.getOffhandItem().getItem());
+    }
+
+    /**
+     * A hammer ({@code #simpletrims:template_hammers}) without upgrade material in the off hand switches a 3D template between
+     * the 3D model and the flat plate (owner D7); false when it does not apply. The client only predicts.
+     */
+    public static boolean toggleFlat(Level level, BlockPos pos, Player player, ItemStack tool, InteractionHand hand) {
+        BlockState state = level.getBlockState(pos);
+        if (!tool.is(TemplateTools.HAMMERS) || !(state.getBlock() instanceof PlacedTrimTemplateBlock) || !PlacedSolids.has(templateAt(level, pos))
+                || !mayChange(level, player, pos)) {
+            return false;
+        }
+        if (level.isClientSide()) return true;
+        boolean flat = !state.getValue(PlacedTrimTemplateBlock.FLAT);
+        level.setBlock(pos, state.setValue(PlacedTrimTemplateBlock.FLAT, flat), Block.UPDATE_ALL);
+        tool.hurtAndBreak(1, player, hand);
+        level.playSound(null, pos, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.3F, flat ? 1.2F : 1.8F);
+        return true;
     }
 
     public static boolean isToolTarget(BlockGetter level, BlockPos pos, Player player) {

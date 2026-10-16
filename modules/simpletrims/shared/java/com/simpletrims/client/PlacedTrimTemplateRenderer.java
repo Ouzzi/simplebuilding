@@ -5,6 +5,7 @@ import com.mojang.math.Axis;
 import com.simpletrims.placed.PlacedTrimTemplateBlock;
 import com.simpletrims.placed.PlacedTrimTemplateBlockEntity;
 import com.simpletrims.placed.PlacedPlate;
+import com.simpletrims.placed.PlacedSolids;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -15,6 +16,9 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -42,6 +46,9 @@ public class PlacedTrimTemplateRenderer implements BlockEntityRenderer<PlacedTri
     /** Abstand zur Auflageflaeche gegen Z-Fighting. */
     private static final float GAP = PlacedPlate.GAP;
 
+    /** Stand-in stack per item that draws the 3D model {@code simpletrims:placed_<path>} ({@link PlacedSolids}). */
+    private static final java.util.Map<Item, ItemStack> SOLID_MODELS = new java.util.concurrent.ConcurrentHashMap<>();
+
     private final ItemModelResolver itemModelResolver;
 
     public PlacedTrimTemplateRenderer(BlockEntityRendererProvider.Context context) {
@@ -52,7 +59,17 @@ public class PlacedTrimTemplateRenderer implements BlockEntityRenderer<PlacedTri
     public static class State extends BlockEntityRenderState {
         public AttachFace face = AttachFace.FLOOR;
         public Direction facing = Direction.NORTH;
+        /** Draws the 2 px 3D model instead of the flat plate. */
+        public boolean solid;
         public final ItemStackRenderState item = new ItemStackRenderState();
+    }
+
+    private static ItemStack solidModel(ItemStack stored) {
+        return SOLID_MODELS.computeIfAbsent(stored.getItem(), item -> {
+            ItemStack stack = new ItemStack(item);
+            stack.set(DataComponents.ITEM_MODEL, PlacedSolids.modelId(item));
+            return stack;
+        });
     }
 
     @Override
@@ -65,11 +82,15 @@ public class PlacedTrimTemplateRenderer implements BlockEntityRenderer<PlacedTri
                                    ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
         BlockState blockState = blockEntity.getBlockState();
+        boolean flat = false;
         if (blockState.getBlock() instanceof PlacedTrimTemplateBlock) {
             state.face = blockState.getValue(PlacedTrimTemplateBlock.FACE);
             state.facing = blockState.getValue(PlacedTrimTemplateBlock.FACING);
+            flat = blockState.getValue(PlacedTrimTemplateBlock.FLAT);
         }
-        this.itemModelResolver.updateForTopItem(state.item, blockEntity.getTemplate(), ItemDisplayContext.NONE,
+        ItemStack stored = blockEntity.getTemplate();
+        state.solid = !flat && PlacedSolids.has(stored);
+        this.itemModelResolver.updateForTopItem(state.item, state.solid ? solidModel(stored) : stored, ItemDisplayContext.NONE,
                 blockEntity.getLevel(), null, (int) blockEntity.getBlockPos().asLong());
     }
 
@@ -80,9 +101,11 @@ public class PlacedTrimTemplateRenderer implements BlockEntityRenderer<PlacedTri
         }
         poseStack.pushPose();
         orient(poseStack, state.face, state.facing);
-        float thickness = SCALE * THICKNESS_SCALE / 16.0F;
+        // 3D model: it carries its own thickness (2 px); the flat plate is stretched to a little over 1 px.
+        float stretch = state.solid ? 1.0F : THICKNESS_SCALE;
+        float thickness = SCALE * (state.solid ? PlacedPlate.MODEL_THICKNESS : 1.0F) * stretch / 16.0F;
         poseStack.translate(0.0F, 0.0F, -(0.5F - thickness / 2.0F - GAP));
-        poseStack.scale(SCALE, SCALE, SCALE * THICKNESS_SCALE);
+        poseStack.scale(SCALE, SCALE, SCALE * stretch);
         state.item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
     }

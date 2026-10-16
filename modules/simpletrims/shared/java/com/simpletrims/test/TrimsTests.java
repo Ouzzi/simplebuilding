@@ -302,6 +302,45 @@ public final class TrimsTests {
                     "a right click with the tool is one strike, its repeat in the same tick none");
             h.succeed();
         });
+        // Item display 3D (owner D1/D7): trim templates lie as 2 px models, the hammer switches one to the flat plate and back.
+        ALL.put("placed_templates_in_3d", h -> {
+            for (String id : com.simpletrims.placed.PlacedSolids.IDS) {
+                String path = id.substring(id.indexOf(':') + 1);
+                for (String res : List.of("/assets/simpletrims/items/placed_" + path + ".json", "/assets/simpletrims/models/block/placed_" + path + ".json")) {
+                    h.assertTrue(TrimsTests.class.getResource(res) != null, "missing " + res);
+                }
+            }
+            h.assertTrue(com.simpletrims.placed.PlacedSolids.has(new ItemStack(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE))
+                    && com.simpletrims.placed.PlacedSolids.has(new ItemStack(TrimsRegistry.GLOWING_TRIM_TEMPLATE)), "trim templates have no 3D model");
+            h.assertTrue(!com.simpletrims.placed.PlacedSolids.has(new ItemStack(Items.PAPER)), "paper has a template model");
+            BlockPos pos = placed(h, new BlockPos(2, 2, 2), Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE);
+            var item = Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE;
+            double solid = com.simpletrims.placed.PlacedPlate.shape(item, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR, Direction.NORTH, false).max(Direction.Axis.Y);
+            double flat = com.simpletrims.placed.PlacedPlate.shape(item, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR, Direction.NORTH, true).max(Direction.Axis.Y);
+            double gap = com.simpletrims.placed.PlacedPlate.GAP;
+            h.assertTrue(Math.abs(solid - gap - 2.0 / 16.0) < 1.0E-3, "the 3D template is " + (solid - gap) * 16 + " px thick instead of 2");
+            h.assertTrue(flat < solid && Math.abs(flat - gap - 1.4 / 16.0) < 2.0E-3, "the flat plate is " + (flat - gap) * 16 + " px thick");
+            h.assertTrue(!h.getBlockState(new BlockPos(2, 2, 2)).getValue(PlacedTrimTemplateBlock.FLAT), "a new template lies flat");
+            Item hammer = null;
+            for (Item candidate : BuiltInRegistries.ITEM) {
+                if (new ItemStack(candidate).is(TemplateTools.HAMMERS)) {
+                    hammer = candidate;
+                    break;
+                }
+            }
+            if (hammer != null) {
+                ServerPlayer player = mockPlayer(h);
+                ItemStack tool = new ItemStack(hammer);
+                player.setItemInHand(InteractionHand.MAIN_HAND, tool);
+                h.assertTrue(PlacedTemplates.toggleFlat(h.getLevel(), pos, player, tool, InteractionHand.MAIN_HAND), "the hammer did not switch");
+                h.assertTrue(h.getLevel().getBlockState(pos).getValue(PlacedTrimTemplateBlock.FLAT), "3D -> flat did not switch");
+                h.assertTrue(tool.getDamageValue() == 1, "hammer damage " + tool.getDamageValue());
+                h.assertTrue(PlacedTemplates.toggleFlat(h.getLevel(), pos, player, tool, InteractionHand.MAIN_HAND)
+                        && !h.getLevel().getBlockState(pos).getValue(PlacedTrimTemplateBlock.FLAT), "flat -> 3D did not switch back");
+                h.assertTrue(!PlacedTemplates.toggleFlat(h.getLevel(), pos, player, new ItemStack(Items.IRON_PICKAXE), InteractionHand.MAIN_HAND), "a pickaxe switched");
+            }
+            h.succeed();
+        });
         // Radiance: worn emitting armor lights the block over the head; armor stands store and clean up their light.
         ALL.put("radiance_light", h -> {
             ServerPlayer player = mockPlayer(h);

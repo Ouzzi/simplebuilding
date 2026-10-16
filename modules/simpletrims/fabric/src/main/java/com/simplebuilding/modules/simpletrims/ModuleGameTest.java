@@ -67,6 +67,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void placedTemplatesIn3d(GameTestHelper h) {
+        TrimsTests.ALL.get("placed_templates_in_3d").accept(h);
+    }
+
+    @GameTest
     public void inWorldUpgrade(GameTestHelper h) {
         TrimsTests.ALL.get("in_world_upgrade").accept(h);
     }

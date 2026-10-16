@@ -36,6 +36,11 @@ public final class PlacedPlate {
     public static final float SCALE = 14.0F / 16.0F;
     /** Streckung der Dicke: das Item-Modell ist 1/16 dick, gestreckt gut 1,4 Pixel. */
     public static final float THICKNESS_SCALE = 1.6F;
+    /**
+     * Dicke des 3D-Modells in Modell-Pixeln: 16/7 sind bei der Kantenlaenge 14/16 genau 2 Pixel
+     * ({@code tools/textures/placed_display_3d_2026_10_16.py}; das Modell traegt seine Dicke selbst, keine Streckung).
+     */
+    public static final float MODEL_THICKNESS = 16.0F / 7.0F;
     /** Abstand zur Auflageflaeche gegen Z-Fighting. */
     public static final float GAP = 0.002F;
     /** Ab dieser Deckkraft zeichnet der Cutout-Renderer ein Pixel (0,1 * 255). */
@@ -72,6 +77,11 @@ public final class PlacedPlate {
      * an der Decke zeigt die Oberkante (+Y) in die Blickrichtung beim Ablegen.
      */
     public static Matrix4f transform(AttachFace face, Direction facing) {
+        return transform(face, facing, 1.0F, THICKNESS_SCALE);
+    }
+
+    /** Wie {@link #transform(AttachFace, Direction)} fuer ein Modell der Dicke {@code modelThickness} (flach 1) und der Streckung {@code zStretch} (3D 1). */
+    public static Matrix4f transform(AttachFace face, Direction facing, float modelThickness, float zStretch) {
         Matrix4f m = new Matrix4f().translate(0.5F, 0.5F, 0.5F);
         float yRot = facing.toYRot();
         switch (face) {
@@ -79,9 +89,9 @@ public final class PlacedPlate {
             case FLOOR -> m.rotateY(rad(180.0F - yRot)).rotateX(rad(-90.0F));
             case CEILING -> m.rotateY(rad(-yRot)).rotateX(rad(90.0F));
         }
-        float thickness = SCALE * THICKNESS_SCALE / 16.0F;
+        float thickness = SCALE * modelThickness * zStretch / 16.0F;
         m.translate(0.0F, 0.0F, -(0.5F - thickness / 2.0F - GAP));
-        m.scale(SCALE, SCALE, SCALE * THICKNESS_SCALE);
+        m.scale(SCALE, SCALE, SCALE * zStretch);
         m.translate(-0.5F, -0.5F, -0.5F);
         return m;
     }
@@ -96,6 +106,11 @@ public final class PlacedPlate {
 
     /** Trefferform der Platte mit diesem Item in dieser Lage (zwischengespeichert). */
     public static VoxelShape shape(Item item, AttachFace face, Direction facing) {
+        return shape(item, face, facing, false);
+    }
+
+    /** Wie oben; Vorlagen mit 3D-Modell ({@link PlacedSolids}) haben dessen 2 Pixel dicke Form, ausser {@code flat} (Hammer-Wechsel). */
+    public static VoxelShape shape(Item item, AttachFace face, Direction facing, boolean flat) {
         int index = face.ordinal() * 4 + facing.get2DDataValue();
         if (item == null) {
             VoxelShape cached = FULL_SHAPES[index];
@@ -105,18 +120,28 @@ public final class PlacedPlate {
             }
             return cached;
         }
-        VoxelShape[] shapes = SHAPES.computeIfAbsent(item, unused -> new VoxelShape[AttachFace.values().length * 4]);
-        VoxelShape cached = shapes[index];
+        boolean solid = !flat && PlacedSolids.has(item);
+        int slots = AttachFace.values().length * 4;
+        VoxelShape[] shapes = SHAPES.computeIfAbsent(item, unused -> new VoxelShape[slots * 2]);
+        int at = solid ? slots + index : index;
+        VoxelShape cached = shapes[at];
         if (cached == null) {
-            cached = build(mask(item), face, facing);
-            shapes[index] = cached;
+            cached = build(mask(item), face, facing, solid);
+            shapes[at] = cached;
         }
         return cached;
     }
 
     /** Die Form aus einer Maske: je Zeile die Streifen deckender Pixel, gleiche Nachbarzeilen zusammengefasst. */
     public static VoxelShape build(short[] mask, AttachFace face, Direction facing) {
-        Matrix4f m = transform(face, facing);
+        return build(mask, face, facing, false);
+    }
+
+    /** Wie oben; {@code solid}: die 2 Pixel dicke Silhouette des 3D-Modells. */
+    public static VoxelShape build(short[] mask, AttachFace face, Direction facing, boolean solid) {
+        Matrix4f m = solid ? transform(face, facing, MODEL_THICKNESS, 1.0F) : transform(face, facing);
+        float z0 = solid ? (8.0F - MODEL_THICKNESS / 2.0F) / 16.0F : 7.5F / 16.0F;
+        float z1 = solid ? (8.0F + MODEL_THICKNESS / 2.0F) / 16.0F : 8.5F / 16.0F;
         VoxelShape shape = Shapes.empty();
         int v = 0;
         while (v < 16) {
@@ -135,7 +160,7 @@ public final class PlacedPlate {
                 while (u1 < 16 && (row & (1 << (15 - u1))) != 0) {
                     u1++;
                 }
-                shape = Shapes.or(shape, box(m, u / 16.0F, (16 - end) / 16.0F, 7.5F / 16.0F, u1 / 16.0F, (16 - v) / 16.0F, 8.5F / 16.0F));
+                shape = Shapes.or(shape, box(m, u / 16.0F, (16 - end) / 16.0F, z0, u1 / 16.0F, (16 - v) / 16.0F, z1));
                 u = u1;
             }
             v = end;

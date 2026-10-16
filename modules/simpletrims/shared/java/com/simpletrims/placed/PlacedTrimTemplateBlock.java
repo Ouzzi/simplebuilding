@@ -48,10 +48,12 @@ import org.jetbrains.annotations.Nullable;
  */
 public class PlacedTrimTemplateBlock extends FaceAttachedHorizontalDirectionalBlock implements EntityBlock, SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    /** A hammer switched the 3D model ({@link PlacedSolids}) to the flat plate (owner D7). */
+    public static final BooleanProperty FLAT = BooleanProperty.create("flat");
 
     public PlacedTrimTemplateBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.FLOOR).setValue(WATERLOGGED, false));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.FLOOR).setValue(WATERLOGGED, false).setValue(FLAT, false));
     }
 
     /** Direction of the visible side: away from the block it lies on. */
@@ -65,7 +67,7 @@ public class PlacedTrimTemplateBlock extends FaceAttachedHorizontalDirectionalBl
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACE, FACING, WATERLOGGED);
+        builder.add(FACE, FACING, WATERLOGGED, FLAT);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class PlacedTrimTemplateBlock extends FaceAttachedHorizontalDirectionalBl
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         ItemStack stored = PlacedTemplates.templateAt(level, pos);
-        return PlacedPlate.shape(stored.isEmpty() ? null : stored.getItem(), state.getValue(FACE), state.getValue(FACING));
+        return PlacedPlate.shape(stored.isEmpty() ? null : stored.getItem(), state.getValue(FACE), state.getValue(FACING), state.getValue(FLAT));
     }
 
     @Override
@@ -110,7 +112,9 @@ public class PlacedTrimTemplateBlock extends FaceAttachedHorizontalDirectionalBl
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
-        if (!PlacedTemplates.isToolTarget(level, pos, player)) return InteractionResult.TRY_WITH_EMPTY_HAND;
+        if (!PlacedTemplates.isToolTarget(level, pos, player)) {
+            return PlacedTemplates.toggleFlat(level, pos, player, stack, hand) ? InteractionResult.SUCCESS : InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
         if (hand == InteractionHand.MAIN_HAND && level instanceof net.minecraft.server.level.ServerLevel server) {
             PlacedTemplates.strike(server, pos, player);
         }
