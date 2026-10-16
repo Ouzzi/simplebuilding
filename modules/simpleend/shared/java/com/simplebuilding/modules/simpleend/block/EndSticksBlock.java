@@ -70,7 +70,13 @@ public class EndSticksBlock extends Block {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (full(state)) return net.minecraft.world.phys.shapes.Shapes.block();
         return SHAPES[state.getValue(AXIS).ordinal()][state.getValue(THICKNESS) - 1];
+    }
+
+    /** Natural sticks of full thickness (trunks, bends, roots) are whole cubes, so a tree's wood touches itself (N68). */
+    public static boolean full(BlockState state) {
+        return state.getValue(NATURAL) && state.getValue(THICKNESS) == 3;
     }
 
     /** Upright thickness from the block above: open top = tip, under a tip = middle, under a middle or base = base. */

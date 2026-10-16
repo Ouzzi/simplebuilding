@@ -73,6 +73,12 @@ public final class EndTests {
             for (int dz = -radius; dz <= radius; dz++) level.setBlock(h.absolutePos(groundRel.offset(dx, -1, dz)), Blocks.AIR.defaultBlockState(), 18);
     }
 
+    /** True when the block's shape reaches the face towards {@code d}. */
+    private static boolean reaches(BlockState s, BlockPos p, ServerLevel level, Direction d) {
+        var box = s.getShape(level, p).bounds();
+        return d.getAxisDirection() == Direction.AxisDirection.POSITIVE ? box.max(d.getAxis()) >= 1.0 : box.min(d.getAxis()) <= 0.0;
+    }
+
     private static int countAbs(ServerLevel level, java.util.List<BlockPos> list, Block block) {
         int n = 0;
         for (BlockPos p : list) if (level.getBlockState(p).is(block)) n++;
@@ -266,6 +272,35 @@ public final class EndTests {
             h.assertTrue(grown.leaves().size() > 100, "crown of End leaves");
             h.assertTrue(grown.buds() >= 1 && grown.buds() <= 2, "1.5 buds on average: 1-2, got " + grown.buds());
             clear(h, grown, at, 3);
+            h.succeed();
+        });
+        add("stick_tree_wood_connected", h -> {
+            // N68 bug: bars only reach neighbours along their own axis, so bends, roots and trunks floated apart.
+            // Every stick of a grown tree must meet a neighbouring stick that it reaches and that reaches back.
+            EndWood w = EndWood.DUSKWOOD;
+            BlockPos at = BUD.above(200);
+            ServerLevel level = h.getLevel();
+            BlockPos abs = h.absolutePos(at);
+            var size = com.simplebuilding.modules.simpleend.world.EndTrees.Size.values();
+            for (int t = 0; t < 6; t++) {
+                var s = size[t % 2];
+                ground(h, at, 4);
+                var grown = com.simplebuilding.modules.simpleend.world.EndTrees.grow(level, abs, w, s, true, net.minecraft.util.RandomSource.create(100 + t));
+                h.assertTrue(grown != null, "stick tree grows");
+                int loose = 0;
+                for (BlockPos p : grown.wood()) {
+                    BlockState a = level.getBlockState(p);
+                    if (!a.is(w.sticks)) continue;
+                    boolean joined = false;
+                    for (Direction d : Direction.values()) {
+                        BlockState b = level.getBlockState(p.relative(d));
+                        if (b.is(w.sticks) && reaches(a, p, level, d) && reaches(b, p.relative(d), level, d.getOpposite())) joined = true;
+                    }
+                    if (!joined && grown.wood().size() > 1) loose++;
+                }
+                h.assertTrue(loose == 0, "every stick of the tree touches its neighbour, " + loose + " float loose (tree " + t + ")");
+                clear(h, grown, at, 4);
+            }
             h.succeed();
         });
         add("sticks_taper_like_dripstone", h -> {

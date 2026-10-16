@@ -15,6 +15,21 @@
       "apply": {
         "model": "simpleend:block/duskwood_leaves_inner"
       }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "drop": "1"
+          },
+          {
+            "drop": "2"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simpleend:block/duskwood_leaves_crystal"
+      }
     }
   ]
 }
