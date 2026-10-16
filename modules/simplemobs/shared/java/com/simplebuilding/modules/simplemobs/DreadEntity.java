@@ -7,10 +7,13 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -43,6 +46,10 @@ public class DreadEntity extends Monster {
     private static final EntityDataAccessor<Integer> DATA_RISE = SynchedEntityData.defineId(DreadEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_WEAK = SynchedEntityData.defineId(DreadEntity.class, EntityDataSerializers.BOOLEAN);
 
+    /** Miniboss bar (Nachtrag 68). Dread has no life-based phases, so the bar is a plain one (no notches). */
+    private final ServerBossEvent bossEvent = new ServerBossEvent(Mth.createInsecureUUID(this.random), this.getDisplayName(),
+            BossEvent.BossBarColor.WHITE, BossBars.overlayFor());
+
     private int actionTicks, swingCooldown = 20, stompCooldown = 60;
     /** Client: ticks since the current action began (for the renderer), and the previous value. */
     private int clientActionAge;
@@ -64,6 +71,27 @@ public class DreadEntity extends Monster {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0)
                 .add(Attributes.FOLLOW_RANGE, 40.0)
                 .add(Attributes.STEP_HEIGHT, 1.0);
+    }
+
+    public ServerBossEvent bossEvent() { return bossEvent; }
+
+    private void syncBossBar(ServerLevel level) {
+        if (!MobsConfig.minibossBars) { bossEvent.removeAllPlayers(); return; }
+        BossBars.apply(bossEvent, BossBars.title(this.getDisplayName(), true, null), BossEvent.BossBarColor.WHITE, BossBars.overlayFor(),
+                this.getHealth() / this.getMaxHealth());
+        BossBars.track(bossEvent, this, level, MobsConfig.bossBarRange);
+    }
+
+    @Override
+    public void die(DamageSource source) {
+        bossEvent.removeAllPlayers();
+        super.die(source);
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        bossEvent.removeAllPlayers();
+        super.remove(reason);
     }
 
     @Override
@@ -185,6 +213,7 @@ public class DreadEntity extends Monster {
     @Override
     protected void customServerAiStep(ServerLevel level) {
         super.customServerAiStep(level);
+        syncBossBar(level);
         if (rising()) { this.getNavigation().stop(); return; }
         if (swingCooldown > 0) swingCooldown--;
         if (stompCooldown > 0) stompCooldown--;

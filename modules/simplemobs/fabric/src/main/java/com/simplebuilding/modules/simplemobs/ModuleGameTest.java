@@ -95,4 +95,12 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void biomeBrushPaint(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_paint").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void guideBook(GameTestHelper helper) { MobsTests.ALL.get("guide_book").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void biomeBrushClaims(GameTestHelper helper) { MobsTests.ALL.get("biome_brush_claims").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerVsWarden(GameTestHelper helper) { MobsTests.ALL.get("howler_vs_warden").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void bossPhaseNotches(GameTestHelper helper) { MobsTests.ALL.get("boss_phase_notches").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void howlerBossbar(GameTestHelper helper) { MobsTests.ALL.get("howler_bossbar").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerBossbarRange(GameTestHelper helper) { MobsTests.ALL.get("howler_bossbar_range").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void dreadBossbar(GameTestHelper helper) { MobsTests.ALL.get("dread_bossbar").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerJawRules(GameTestHelper helper) { MobsTests.ALL.get("howler_jaw_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void howlerJawSpawn(GameTestHelper helper) { MobsTests.ALL.get("howler_jaw_spawn").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void witherBossbarPhases(GameTestHelper helper) { MobsTests.ALL.get("wither_bossbar_phases").accept(helper); }
 }

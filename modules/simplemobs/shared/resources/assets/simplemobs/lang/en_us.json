@@ -105,5 +105,13 @@
   "quests.simplemobs.start.title": "Welcome to Simple Mobs",
   "quests.simplemobs.start.subtitle": "Your free guide",
   "quests.simplemobs.start.welcome.title": "A free guide",
-  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone."
+  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone.",
+  "simplemobs.bossbar.miniboss": "Miniboss: %s",
+  "simplemobs.bossbar.title": "%1$s - %2$s",
+  "simplemobs.bossbar.howler.1": "Phase 1",
+  "simplemobs.bossbar.howler.2": "Phase 2: Hunger",
+  "simplemobs.bossbar.howler.3": "Phase 3: Rage",
+  "simplemobs.bossbar.wither.1": "Phase 1",
+  "simplemobs.bossbar.wither.2": "Phase 2: Shield",
+  "simplemobs.bossbar.wither.3": "Phase 3: Blight"
 }

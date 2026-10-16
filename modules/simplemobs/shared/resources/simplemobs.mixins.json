@@ -18,7 +18,8 @@
     "WitherSkullBlightedMixin",
     "DiscoverTipMixin",
     "ItemHelmetWitherMixin",
-    "DisplayWitherCrownMixin"
+    "DisplayWitherCrownMixin",
+    "WitherBossAccessor"
   ],
   "client": [
     "DeceiverLookMixin",

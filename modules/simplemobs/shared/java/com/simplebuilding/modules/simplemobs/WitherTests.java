@@ -139,6 +139,22 @@ final class WitherTests {
     }
 
     static void addAll(BiConsumer<String, Consumer<GameTestHelper>> add) {
+        add.accept("wither_bossbar_phases", h -> normal(h, () -> {
+            BlightedWither w = h.spawn(WitherMobs.BLIGHTED_WITHER, 3, 2, 3);
+            w.setInvulnerableTicks(0);
+            var bar = ((com.simplebuilding.modules.simplemobs.mixin.WitherBossAccessor) (Object) w).simplemobs$bossEvent();
+            h.runAfterDelay(5, () -> {
+                h.assertTrue(bar.getOverlay() == net.minecraft.world.BossEvent.BossBarOverlay.NOTCHED_20, "notches on 50 % and 15 %");
+                h.assertTrue(bar.getColor() == net.minecraft.world.BossEvent.BossBarColor.PURPLE && bar.getName().toString().contains("simplemobs.bossbar.wither.1"), "phase 1: purple, named");
+                w.setHealth(w.getMaxHealth() * 0.1f);
+            });
+            h.runAfterDelay(15, () -> {
+                h.assertTrue(w.phase() == 3, "phase 3 reached");
+                h.assertTrue(bar.getColor() == net.minecraft.world.BossEvent.BossBarColor.RED && bar.getName().toString().contains("simplemobs.bossbar.wither.3"), "phase 3: red, named");
+                w.discard();
+                h.succeed();
+            });
+        }));
         add.accept("wither_values", h -> {
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(WitherMobs.BLIGHTED_WITHER_KEY.identifier()), "entity type");
             for (var key : java.util.List.of(WitherMobs.HEART_KEY, WitherMobs.BRUSH_KEY))
