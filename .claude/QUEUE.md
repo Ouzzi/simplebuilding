@@ -274,7 +274,7 @@ Wayfinder-Karte (Feinschliff)
 - [x] Icons (auch 3D-Modelle wie Creeper-Kopf) füllen immer das ganze Quadrat aus, ohne abgeschnitten zu werden – alle Icons einheitlich groß; 1-px-Outline in Schwarz um das Icon; KEIN Hintergrund hinter dem Icon. (claude-mappolish)
 - [x] Knöpfe links und rechts: besseres Design, das mehr an den Rahmen erinnert. (claude-mappolish)
 End-Biome (Antworten N1–N5 zum Konzept KONZEPT-END-WALD-NEBEL)
-- [ ] N1: Wald-Nebel von außen – A (Vegetationswand) + C (Partikel-Dunst) jetzt; B (Client-Nebelwand) ebenfalls nötig, weil N2 verlangt, dass man auch von oben nicht hineinsieht.
+- [x] N1: Wald-Nebel von außen – A + C + B umgesetzt (claude-endfog; Besitzer-Abnahme im Spiel offen).
 - [x] N3: nur neue Chunks reichen. N5: Nebel so ok.
 - [x] N4: Blätter noch überarbeiten – wirken nicht gewollt. Im Internet recherchieren, welche Blatt-Varianten es gibt (Vanilla, gute Ressourcenpakete/Mods), Liste der gut gemachten Designs anlegen und sich daran orientieren. (claude-endleaves2; Besitzer-Abnahme der Blätter offen)
 - [x] BUG: Stock-Varianten der End-Bäume sind verbuggt (prüfen und beheben). (claude-endleaves2; Besitzer-Abnahme der Blätter offen)
