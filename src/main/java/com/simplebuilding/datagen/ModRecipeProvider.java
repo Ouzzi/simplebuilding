@@ -243,6 +243,15 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .define('R', Items.REDSTONE).define('B', Items.BLAZE_POWDER)
                             .pattern(" C ").pattern("CBC").pattern(" R ")
                             .unlockedBy(getHasName(Items.COPPER_BLOCK.weathering().unaffected()), has(Items.COPPER_BLOCK.weathering().unaffected())).save(output);
+                    // N68: the copper pane takes a dye (also recoloring) or redstone like the plain pane
+                    for (net.minecraft.world.item.DyeColor dye : net.minecraft.world.item.DyeColor.values()) {
+                        shapeless(RecipeCategory.REDSTONE, ModItems.LIGHT_PANES.get(20 + dye.getId())).requires(com.simplebuilding.util.ModTags.Items.COPPER_LIGHT_PANES)
+                                .requires(Items.DYE.pick(dye))
+                                .unlockedBy("has_copper_light_pane", has(ModItems.LIGHT_PANES.get(19))).save(output);
+                    }
+                    shapeless(RecipeCategory.REDSTONE, ModItems.LIGHT_PANES.get(36)).requires(com.simplebuilding.util.ModTags.Items.COPPER_LIGHT_PANES)
+                            .requires(Items.REDSTONE)
+                            .unlockedBy("has_copper_light_pane", has(ModItems.LIGHT_PANES.get(19))).save(output);
                 }
 
                 // Auto-Schmied wie der Crafter: Eisen ringsum, Schmiedetisch in der Mitte, Redstone und Spender unten.

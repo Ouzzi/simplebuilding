@@ -3,6 +3,7 @@ package com.simplebuilding.gametest;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.AbstractLightPaneBlock;
 import com.simplebuilding.blocks.custom.CopperLightPaneBlock;
+import com.simplebuilding.blocks.custom.CopperRedstoneLightPaneBlock;
 import com.simplebuilding.blocks.custom.LightPaneBlock;
 import com.simplebuilding.blocks.custom.RedstoneLightPaneBlock;
 import com.simplebuilding.items.ModItems;
@@ -86,7 +87,7 @@ public final class LightPaneTests {
             helper.succeed();
             return;
         }
-        helper.assertValueEqual(ModBlocks.lightPanes().size(), 20, "number of light panes");
+        helper.assertValueEqual(ModBlocks.lightPanes().size(), 37, "number of light panes");
         ServerPlayer player = player(helper);
         List<String> problems = new ArrayList<>();
         for (Block pane : ModBlocks.lightPanes()) {
@@ -218,6 +219,8 @@ public final class LightPaneTests {
         List<Block> plain = new ArrayList<>(ModBlocks.lightPanes());
         plain.remove(ModBlocks.REDSTONE_LIGHT_PANE);
         plain.remove(ModBlocks.COPPER_LIGHT_PANE);
+        plain.removeAll(ModBlocks.COPPER_COLORED_LIGHT_PANES);
+        plain.remove(ModBlocks.COPPER_REDSTONE_LIGHT_PANE);
         for (Block pane : plain) {
             clear(helper);
             helper.setBlock(CENTER, Blocks.STONE);
@@ -377,14 +380,24 @@ public final class LightPaneTests {
             return;
         }
         ServerPlayer player = player(helper);
+        List<String> problems = new ArrayList<>();
+        List<Block> copper = new ArrayList<>(ModBlocks.COPPER_COLORED_LIGHT_PANES);
+        copper.add(ModBlocks.COPPER_LIGHT_PANE);
+        for (Block pane : copper) { // N68: the sixteen colors flip like the plain copper pane
+            copperFlip(helper, player, pane, problems);
+        }
+        helper.assertTrue(problems.isEmpty(), "copper pane problems: " + String.join("; ", problems.subList(0, Math.min(6, problems.size()))));
+        helper.succeed();
+    }
+
+    private static void copperFlip(GameTestHelper helper, ServerPlayer player, Block pane, List<String> problems) {
         clear(helper);
         helper.setBlock(CENTER, Blocks.STONE);
         helper.setBlock(CENTER.east(), Blocks.STONE);
         BlockPos at = CENTER.above();
         BlockPos power = CENTER.east().above();
-        place(helper, player, ModBlocks.COPPER_LIGHT_PANE.asItem(), CENTER, Direction.UP);
-        helper.assertTrue(helper.getBlockState(at).is(ModBlocks.COPPER_LIGHT_PANE), "copper pane not placed: " + helper.getBlockState(at));
-        List<String> problems = new ArrayList<>();
+        place(helper, player, pane.asItem(), CENTER, Direction.UP);
+        helper.assertTrue(helper.getBlockState(at).is(pane), id(pane) + " not placed: " + helper.getBlockState(at));
         // {powered signal?, expected lit}: off, on (lit), off (stays lit), on (dark), off (stays dark), on (lit)
         boolean[][] steps = {{false, false}, {true, true}, {false, true}, {true, false}, {false, false}, {true, true}};
         for (int i = 0; i < steps.length; i++) {
@@ -408,21 +421,54 @@ public final class LightPaneTests {
         }
         // placed next to a powered block it comes up lit (like the bulb); a placement without power stays dark
         helper.setBlock(at, Blocks.AIR);
-        place(helper, player, ModBlocks.COPPER_LIGHT_PANE.asItem(), CENTER, Direction.UP);
+        place(helper, player, pane.asItem(), CENTER, Direction.UP);
         if (!helper.getBlockState(at).getValue(CopperLightPaneBlock.LIT)) {
             problems.add("placed next to power it is dark");
         }
         helper.setBlock(power, Blocks.AIR);
         helper.setBlock(at, Blocks.AIR);
-        place(helper, player, ModBlocks.COPPER_LIGHT_PANE.asItem(), CENTER, Direction.UP);
+        place(helper, player, pane.asItem(), CENTER, Direction.UP);
         if (helper.getBlockState(at).getValue(CopperLightPaneBlock.LIT)) {
             problems.add("placed without power it is lit");
         }
-        helper.assertTrue(problems.isEmpty(), "copper pane problems: " + String.join("; ", problems));
+    }
+
+    /** N68: the copper multicolor pane: color per signal strength like the plain one, on/off per rising edge, right-click moves the start color. */
+    public static void copperRedstonePaneColorsAndFlips(GameTestHelper helper) {
+        if (!McVersion.LIGHT_PANES) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = player(helper);
+        clear(helper);
+        helper.setBlock(CENTER, Blocks.STONE);
+        helper.setBlock(CENTER.above().east().below(), Blocks.STONE);
+        BlockPos at = CENTER.above();
+        BlockPos comparator = at.east();
+        helper.setBlock(at, ModBlocks.COPPER_REDSTONE_LIGHT_PANE.defaultBlockState().setValue(AbstractLightPaneBlock.FACING, Direction.UP));
+        List<String> problems = new ArrayList<>();
+        // {strength, lit, color}: strength 7 (start 0) lights it with color 6; no signal keeps lit and color; strength 3 is the second edge (off)
+        int[][] steps = {{7, 1, 6}, {0, 1, 6}, {3, 0, 2}, {0, 0, 2}, {12, 1, 11}};
+        for (int[] step : steps) {
+            setSignal(helper, comparator, step[0]);
+            BlockState state = helper.getBlockState(at);
+            if ((state.getValue(CopperRedstoneLightPaneBlock.LIT) ? 1 : 0) != step[1] || state.getValue(CopperRedstoneLightPaneBlock.COLOR) != step[2]
+                    || state.getLightEmission() != (step[1] == 1 ? 15 : 0)) {
+                problems.add("strength " + step[0] + ": " + state + " light " + state.getLightEmission());
+            }
+        }
+        BlockPos abs = helper.absolutePos(at);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs).add(0, 0.5, 0), Direction.UP, abs, false);
+        helper.getBlockState(at).useWithoutItem(helper.getLevel(), player, hit);
+        BlockState clicked = helper.getBlockState(at);
+        if (clicked.getValue(CopperRedstoneLightPaneBlock.START) != 1 || clicked.getValue(CopperRedstoneLightPaneBlock.COLOR) != 12) {
+            problems.add("click at strength 12: " + clicked);
+        }
+        helper.assertTrue(problems.isEmpty(), "copper redstone pane problems: " + String.join("; ", problems));
         helper.succeed();
     }
 
-    /** All 20 panes are craftable: glass pane + glowstone, clear pane, 16 dyes (also recoloring), redstone, copper (copper bulb shape). */
+    /** All 37 panes are craftable: glass pane + glowstone, clear pane, 16 dyes (also recoloring), redstone, copper (copper bulb shape). */
     public static void panesHaveTheirRecipes(GameTestHelper helper) {
         if (!McVersion.LIGHT_PANES) {
             helper.succeed();
@@ -447,6 +493,13 @@ public final class LightPaneTests {
         ItemStack redstone = new ItemStack(Items.REDSTONE);
         ItemStack none = ItemStack.EMPTY;
         craft(helper, 3, List.of(none, cu, none, cu, powder, cu, none, redstone, none), "4 copper_light_pane", missing);
+        ItemStack copperPane = new ItemStack(ModItems.LIGHT_PANES.get(19));
+        for (DyeColor dye : DyeColor.values()) { // N68: the copper pane takes a dye, also recoloring
+            craft(helper, List.of(copperPane, new ItemStack(Items.DYE.pick(dye))), "1 " + dye.getSerializedName() + "_copper_light_pane", missing);
+            craft(helper, List.of(new ItemStack(ModItems.LIGHT_PANES.get(20 + DyeColor.RED.getId())), new ItemStack(Items.DYE.pick(dye))),
+                    "1 " + dye.getSerializedName() + "_copper_light_pane", missing);
+        }
+        craft(helper, List.of(copperPane, redstone), "1 copper_redstone_light_pane", missing);
         craft(helper, 3, List.of(none, cu, none, cu, rod, cu, none, redstone, none), "4 copper_bulb", missing); // Vanilla stays Vanilla
         helper.assertTrue(missing.isEmpty(), "light pane recipes wrong: " + String.join("; ", missing));
         helper.succeed();

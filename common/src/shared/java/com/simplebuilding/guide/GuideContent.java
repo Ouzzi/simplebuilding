@@ -342,7 +342,7 @@ public final class GuideContent {
             addChapter(GuideBooks.Book.GADGETS, ch("simplebuilding:sculk_jaw", List.of("simplebuilding:sculk_jaw"), List.of()));
         }
         if (com.simplebuilding.version.McVersion.LIGHT_PANES) { // N57: building chapter 19
-            addChapter(GuideBooks.Book.BUILDING, ch("simplebuilding:light_pane", List.of("simplebuilding:light_pane", "simplebuilding:redstone_light_pane", "simplebuilding:copper_light_pane"), List.of("minecraft:glass_pane")));
+            addChapter(GuideBooks.Book.BUILDING, ch("simplebuilding:light_pane", List.of("simplebuilding:light_pane", "simplebuilding:redstone_light_pane", "simplebuilding:copper_light_pane", "simplebuilding:copper_redstone_light_pane"), List.of("minecraft:glass_pane")));
         }
     }
 

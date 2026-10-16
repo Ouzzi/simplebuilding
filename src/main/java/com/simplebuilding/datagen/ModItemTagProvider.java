@@ -261,6 +261,11 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             for (net.minecraft.world.item.Item pane : ModItems.LIGHT_PANES.subList(2, 18)) {
                 panes.add(key(pane));
             }
+            // N68: the copper pane and its sixteen colors (items 19, 20..35) take a dye or redstone as well
+            var copperPanes = builder(ModTags.Items.COPPER_LIGHT_PANES).add(key(ModItems.LIGHT_PANES.get(19)));
+            for (net.minecraft.world.item.Item pane : ModItems.LIGHT_PANES.subList(20, 36)) {
+                copperPanes.add(key(pane));
+            }
         }
 
         // Alle acht Vanilla-Kupfertruhen (Oxidationsstufen, gewachst): Zutat der Verstaerkten Truhe.

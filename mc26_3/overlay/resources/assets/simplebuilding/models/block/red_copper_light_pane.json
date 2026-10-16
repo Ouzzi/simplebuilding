@@ -1,0 +1,6 @@
+{
+  "parent": "simplebuilding:block/light_pane_base",
+  "textures": {
+    "panel": "simplebuilding:block/red_copper_light_pane"
+  }
+}

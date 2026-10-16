@@ -799,6 +799,22 @@ public class ModBlocks {
     public static final Block COPPER_LIGHT_PANE = McVersion.LIGHT_PANES ? registerBlock("copper_light_pane",
             s -> new CopperLightPaneBlock(lightPaneProperties(s, MapColor.COLOR_ORANGE, CopperLightPaneBlock::light))) : null;
 
+    /** N68: the sixteen colors of the plain panes with the copper switch (same dye order), named {@code <dye>_copper_light_pane}. */
+    public static final List<Block> COPPER_COLORED_LIGHT_PANES = McVersion.LIGHT_PANES ? copperColoredLightPanes() : List.of();
+    /** N68: the multicolor pane with the copper switch. */
+    public static final Block COPPER_REDSTONE_LIGHT_PANE = McVersion.LIGHT_PANES ? registerBlock("copper_redstone_light_pane",
+            s -> new com.simplebuilding.blocks.custom.CopperRedstoneLightPaneBlock(lightPaneProperties(s, MapColor.COLOR_RED,
+                    com.simplebuilding.blocks.custom.CopperRedstoneLightPaneBlock::light))) : null;
+
+    private static List<Block> copperColoredLightPanes() {
+        List<Block> out = new java.util.ArrayList<>();
+        for (net.minecraft.world.item.DyeColor dye : net.minecraft.world.item.DyeColor.values()) {
+            out.add(registerBlock(dye.getSerializedName() + "_copper_light_pane",
+                    s -> new CopperLightPaneBlock(lightPaneProperties(s, dye.getMapColor(), CopperLightPaneBlock::light))));
+        }
+        return List.copyOf(out);
+    }
+
     private static Block lightPane(String name, MapColor color) {
         return registerBlock(name, s -> new LightPaneBlock(lightPaneProperties(s, color, LightPaneBlock::light)));
     }
@@ -817,7 +833,7 @@ public class ModBlocks {
                 .pushReaction(McVersion.PUSH_DESTROYS);
     }
 
-    /** All Light Panes in tab order: normal, transparent, the sixteen colors, redstone, copper (empty without {@link McVersion#LIGHT_PANES}). */
+    /** All Light Panes in tab order: normal, transparent, the sixteen colors, redstone, copper, the sixteen copper colors, copper redstone (empty without {@link McVersion#LIGHT_PANES}). */
     public static List<Block> lightPanes() {
         if (!McVersion.LIGHT_PANES) {
             return List.of();
@@ -826,6 +842,8 @@ public class ModBlocks {
         out.addAll(COLORED_LIGHT_PANES);
         out.add(REDSTONE_LIGHT_PANE);
         out.add(COPPER_LIGHT_PANE);
+        out.addAll(COPPER_COLORED_LIGHT_PANES);
+        out.add(COPPER_REDSTONE_LIGHT_PANE);
         return List.copyOf(out);
     }
 

@@ -1754,6 +1754,7 @@ public final class DataIntegrityTests {
         blocks.addAll(ModBlocks.MATERIAL_OCTETS);
         // Light Panes (N57): the sixteen single colors are registered in a loop.
         blocks.addAll(ModBlocks.COLORED_LIGHT_PANES);
+        blocks.addAll(ModBlocks.COPPER_COLORED_LIGHT_PANES); // N68
         // Holzwerk: je Holzart in einer Schleife registriert (ModBlocks.WOOD_FAMILIES).
         blocks.addAll(com.simplebuilding.woodwork.WoodBlocks.blocks());
         return blocks;

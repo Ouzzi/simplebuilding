@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "#simplebuilding:copper_light_panes",
+    "minecraft:orange_dye"
+  ],
+  "result": {
+    "id": "simplebuilding:orange_copper_light_pane"
+  }
+}
