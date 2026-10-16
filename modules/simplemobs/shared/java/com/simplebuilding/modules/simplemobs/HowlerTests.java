@@ -404,6 +404,8 @@ final class HowlerTests {
             floor(h);
             HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 0);
             var prey = prey(h, 6.0, 6.0, true);
+            howler.addTag(HowlerEntity.TEST_SOLO_PREFIX + "rage_pulse");   // other tests' Howlers/stand-ins are within the pulse radius
+            prey.addTag(HowlerEntity.TEST_SOLO_PREFIX + "rage_pulse");
             int saved = MobsConfig.howlerPulseInterval;
             MobsConfig.howlerPulseInterval = 14;   // one rage heartbeat period, so the test needs no long wait
             howler.setHealth(howler.getMaxHealth() * 0.1f);
@@ -423,6 +425,8 @@ final class HowlerTests {
             floor(h);
             HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 0);
             var prey = prey(h, 6.0, 6.0, true);
+            howler.addTag(HowlerEntity.TEST_SOLO_PREFIX + "no_pulse");   // other tests' Howlers/stand-ins are within the pulse radius
+            prey.addTag(HowlerEntity.TEST_SOLO_PREFIX + "no_pulse");
             int saved = MobsConfig.howlerPulseInterval;
             MobsConfig.howlerPulseInterval = 14;
             howler.setHealth(howler.getMaxHealth() * 0.4f);
