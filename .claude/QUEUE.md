@@ -270,9 +270,9 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 
 ## Nachtrag 68 (2026-10-16, Besitzer)
 Wayfinder-Karte (Feinschliff)
-- [ ] Wegpunkt-Name auf der Karte vertikal zentrieren, darf nicht auf dem Icon liegen.
-- [ ] Icons (auch 3D-Modelle wie Creeper-Kopf) füllen immer das ganze Quadrat aus, ohne abgeschnitten zu werden – alle Icons einheitlich groß; 1-px-Outline in Schwarz um das Icon; KEIN Hintergrund hinter dem Icon.
-- [ ] Knöpfe links und rechts: besseres Design, das mehr an den Rahmen erinnert.
+- [x] Wegpunkt-Name auf der Karte vertikal zentrieren, darf nicht auf dem Icon liegen. (claude-mappolish)
+- [x] Icons (auch 3D-Modelle wie Creeper-Kopf) füllen immer das ganze Quadrat aus, ohne abgeschnitten zu werden – alle Icons einheitlich groß; 1-px-Outline in Schwarz um das Icon; KEIN Hintergrund hinter dem Icon. (claude-mappolish)
+- [x] Knöpfe links und rechts: besseres Design, das mehr an den Rahmen erinnert. (claude-mappolish)
 End-Biome (Antworten N1–N5 zum Konzept KONZEPT-END-WALD-NEBEL)
 - [ ] N1: Wald-Nebel von außen – A (Vegetationswand) + C (Partikel-Dunst) jetzt; B (Client-Nebelwand) ebenfalls nötig, weil N2 verlangt, dass man auch von oben nicht hineinsieht.
 - [x] N3: nur neue Chunks reichen. N5: Nebel so ok.
