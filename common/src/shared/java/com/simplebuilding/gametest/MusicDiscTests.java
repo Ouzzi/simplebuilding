@@ -524,6 +524,15 @@ public final class MusicDiscTests {
         // Hoch ueber dem Testraum: spielende Plattenspieler anderer Tests funken diese Verstärker dann nicht an.
         // N41: Funkweite 63, darum deutlich hoeher als die bodennahen Plattenspieler anderer Tests.
         BlockPos jukebox = new BlockPos(1, 75, 1);
+        // Der Plattenspieler tickt nur, wenn sein Chunk tickt; Testflaechen auf einer Chunk-Kante tun das manchmal nicht.
+        BlockPos lo = helper.absolutePos(new BlockPos(0, 75, 0)), hi = helper.absolutePos(new BlockPos(9, 75, 9));
+        for (int cx = lo.getX() >> 4; cx <= hi.getX() >> 4; cx++) {
+            for (int cz = lo.getZ() >> 4; cz <= hi.getZ() >> 4; cz++) {
+                int fx = cx, fz = cz;
+                helper.getLevel().setChunkForced(fx, fz, true);
+                helper.runBeforeTestEnd(() -> helper.getLevel().setChunkForced(fx, fz, false));
+            }
+        }
         BlockPos a = new BlockPos(6, 75, 6);
         BlockPos b = new BlockPos(6, 90, 6);
         helper.setBlock(jukebox, Blocks.JUKEBOX);
