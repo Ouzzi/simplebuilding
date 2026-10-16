@@ -51,10 +51,6 @@ public final class BlocksDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
-            "simpleblocks:blue_nether_brick_slab",
-            "simpleblocks:blue_nether_brick_stairs",
-            "simpleblocks:blue_nether_brick_wall",
-            "simpleblocks:blue_nether_bricks",
             "simpleblocks:calcite_slab",
             "simpleblocks:calcite_stairs",
             "simpleblocks:calcite_wall",
