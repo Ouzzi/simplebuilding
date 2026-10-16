@@ -276,8 +276,8 @@ Wayfinder-Karte (Feinschliff)
 End-Biome (Antworten N1–N5 zum Konzept KONZEPT-END-WALD-NEBEL)
 - [ ] N1: Wald-Nebel von außen – A (Vegetationswand) + C (Partikel-Dunst) jetzt; B (Client-Nebelwand) ebenfalls nötig, weil N2 verlangt, dass man auch von oben nicht hineinsieht.
 - [x] N3: nur neue Chunks reichen. N5: Nebel so ok.
-- [ ] N4: Blätter noch überarbeiten – wirken nicht gewollt. Im Internet recherchieren, welche Blatt-Varianten es gibt (Vanilla, gute Ressourcenpakete/Mods), Liste der gut gemachten Designs anlegen und sich daran orientieren.
-- [ ] BUG: Stock-Varianten der End-Bäume sind verbuggt (prüfen und beheben).
+- [x] N4: Blätter noch überarbeiten – wirken nicht gewollt. Im Internet recherchieren, welche Blatt-Varianten es gibt (Vanilla, gute Ressourcenpakete/Mods), Liste der gut gemachten Designs anlegen und sich daran orientieren. (claude-endleaves2; Besitzer-Abnahme der Blätter offen)
+- [x] BUG: Stock-Varianten der End-Bäume sind verbuggt (prüfen und beheben). (claude-endleaves2; Besitzer-Abnahme der Blätter offen)
 HUD-Overlay (Rückmeldung zur Version in Abnahme 16.10.)
 - [ ] Ecken: außen nur 2 px abgerundet, wirkt zu eckig → runder.
 - [ ] Text im Overlay wieder im alten Farbstil (wie vorher).
