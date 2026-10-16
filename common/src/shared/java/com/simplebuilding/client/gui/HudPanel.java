@@ -14,8 +14,8 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * The one look every gadget readout of the mod shares (owner 2026-09-29: "all overlays one
- * consistent style, the octant box is the reference"; N64 2026-10-15: flat dark box, 1 px frame in
- * the octant palette's band tone, fixed 78 % opacity), placed and scaled by {@link ModHud}, 4 px of
+ * consistent style, the octant box is the reference"; N64 2026-10-15: flat dark box, fixed 78 % opacity; N67: on
+ * 26.3 a triple frame like the other mod UIs - outline, bevel, band, corners a 3-2-1 staircase - see {@link HudFrame}), placed and scaled by {@link ModHud}, 4 px of
  * padding, the item's own name as the title (aqua when enchanted, as the tooltip does), 3 px under
  * the title, 2 px between lines, values in tones of the octant bronze and secondary lines grey. The
  * Octant ({@link RangefinderHudOverlay}), the Gauge ({@link SpeedometerHudOverlay}) and the
@@ -23,26 +23,33 @@ import net.minecraft.world.item.ItemStack;
  * nothing else writes free text next to the crosshair any more.
  *
  * <p>Several panels at once stack around the configured anchor in a fixed order (Octant, Gauge,
- * Rod), {@link #STACK_PITCH} pixels apart; with two panels that is the former +/-35 px.
+ * Rod), {@link #STACK_PITCH} pixels apart; with two panels that is +/-38 px (was 70 / +/-35 before the 3 px frame of N67 made the tallest panel, the octant with a volume, 71 px high).
  */
 public final class HudPanel {
     private HudPanel() {
     }
 
-    /** Distance from the box's outer edge (its 1 px frame included) to the content. */
-    public static final int PADDING = 4;
+    /** Distance from the box's outer edge (its frame included) to the content: the frame plus 3 px of air. */
+    public static final int PADDING = HudFrame.THICKNESS + 3;
     /** Gap under the title line. */
     public static final int TITLE_GAP = 3;
     /** Gap between two text lines. */
     public static final int LINE_GAP = 2;
     /** Distance between the centres of two stacked panels. */
-    public static final int STACK_PITCH = 70;
+    public static final int STACK_PITCH = 76;
 
     /** Fixed box opacity (owner O4: 78 %). */
     public static final int ALPHA = 0xC8;
-    /** Box fill (0.20 x the bronze) and frame (the palette's band tone, 0.64 x), both at {@link #ALPHA}. */
+    /** Box fill (0.20 x the bronze) at {@link #ALPHA}. */
     private static final int BOX_FILL = ALPHA << 24 | (scale(ModScreenLayout.OCTANT_FILL, 0.20) & 0xFFFFFF);
-    private static final int BOX_FRAME = ALPHA << 24 | (scale(ModScreenLayout.OCTANT_FILL, 0.64) & 0xFFFFFF);
+    /**
+     * Frame layers, outermost first, all at {@link #ALPHA}: the dark outline of the container boxes (#1E1F23), the
+     * bevel (0.82 x the bronze) and the band (0.64 x, the single frame colour of N64), the ratios of {@code UiBoxes.box}.
+     */
+    private static final int[] FRAME_LAYERS = {
+            ALPHA << 24 | 0x1E1F23,
+            ALPHA << 24 | (scale(ModScreenLayout.OCTANT_FILL, 0.82) & 0xFFFFFF),
+            ALPHA << 24 | (scale(ModScreenLayout.OCTANT_FILL, 0.64) & 0xFFFFFF)};
     /**
      * Primary value tone (Pos 1, results, the rod's distance): the bronze 80 % towards white. Pos 2 uses
      * {@link #COLOR_VALUE_DIM}, the same hue 60 % towards white - one brightness step apart. WCAG contrast on the
@@ -131,17 +138,12 @@ public final class HudPanel {
     }
 
     /**
-     * The panel box around content at ({@code x}, {@code y}) of the given size: a flat dark box at {@link #ALPHA}, a
-     * 1 px frame, corners cut by 1 px; it reaches {@link #PADDING} px beyond the content on every side.
+     * The panel box around content at ({@code x}, {@code y}) of the given size: a flat dark box at {@link #ALPHA} with
+     * the {@link HudFrame} frame; it reaches {@link #PADDING} px beyond the content on every side. Text sits on the
+     * fill only, never on the frame.
      */
     public static void background(GuiGraphicsExtractor context, int x, int y, int contentWidth, int contentHeight) {
-        int bx = x - PADDING, by = y - PADDING, bw = contentWidth + PADDING * 2, bh = contentHeight + PADDING * 2;
-        // frame ring with the corner pixels left out, then the fill inside (no overlap: both translucent)
-        context.fill(bx + 1, by, bx + bw - 1, by + 1, BOX_FRAME);
-        context.fill(bx + 1, by + bh - 1, bx + bw - 1, by + bh, BOX_FRAME);
-        context.fill(bx, by + 1, bx + 1, by + bh - 1, BOX_FRAME);
-        context.fill(bx + bw - 1, by + 1, bx + bw, by + bh - 1, BOX_FRAME);
-        context.fill(bx + 1, by + 1, bx + bw - 1, by + bh - 1, BOX_FILL);
+        HudFrame.draw(context, x - PADDING, y - PADDING, contentWidth + PADDING * 2, contentHeight + PADDING * 2, FRAME_LAYERS, BOX_FILL);
     }
 
     /** {@code color} (RGB) with each channel scaled by {@code f}. */

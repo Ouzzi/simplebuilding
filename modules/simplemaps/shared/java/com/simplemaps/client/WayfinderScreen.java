@@ -483,7 +483,7 @@ public final class WayfinderScreen extends Screen {
                 g.fill(ix + 1, iy + 1, ix + 9, iy + 9, UiBoxes.RIM);
                 g.fill(ix + 2, iy + 2, ix + 8, iy + 8, w.map(Waypoint::color).orElse(0xFF8A7656));
             }
-            if (i > 0) g.text(font, String.valueOf(i), ix + 12, y + (ribH - 8) / 2 + 1, w.isPresent() ? PALETTE.label() : 0xFF5A4E3E, false);
+            if (i > 0) g.text(font, String.valueOf(i), ix + 12, y + (ribH - 8) / 2 + 1, PALETTE.ribbonLabel(i == 0 || w.isPresent(), hover), false);
             if (picking && confirmSlot == i - 1 && i > 0) UiBookmarks.confirm(g, left + panelW, y, RIB_OUT + shift, ribH);
         }
     }

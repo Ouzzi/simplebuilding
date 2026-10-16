@@ -56,7 +56,18 @@ public record UiPalette(int fill, int light, int shade, int slot, int slotTop, i
 
     @Override
     public int label() {
-        return UiBrightness.current().label(this.fill, this.label);
+        // N67: never less than UiContrast.MIN against the box (BARREL / REINFORCED / ENDERITE / Wayfinder brown were at 2.9-4.2)
+        return UiContrast.ensure(UiBrightness.current().label(this.fill, this.label), fill());
+    }
+
+    /** The face colour of a bookmark ribbon: the box colour when filled, shaded and greyish when empty, lighter when hovered. */
+    public int ribbonFill(boolean filled, boolean hovered) {
+        return hovered ? light() : filled ? fill() : mix(scale(fill(), 0.8), 0xFF8A8A8A, 0.25);
+    }
+
+    /** Colour of a ribbon's number: the {@link #label} when filled, a muted brown when empty - at least {@link UiContrast#MIN} on the face either way (N67). */
+    public int ribbonLabel(boolean filled, boolean hovered) {
+        return UiContrast.ensure(filled ? label() : 0xFF5A4E3E, ribbonFill(filled, hovered));
     }
 
     /**

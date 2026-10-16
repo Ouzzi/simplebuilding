@@ -11,6 +11,7 @@ import com.simplebuilding.modules.simpletweaks.table.net.TableListPayload;
 import com.simplebuilding.modules.simpletweaks.table.net.TableOpenPayload;
 import com.simplebuilding.modules.simpletweaks.table.net.TableRequestPayload;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.List;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -25,7 +26,7 @@ import net.minecraft.network.chat.CommonComponents;
  * only shows what the server sent; every request is checked again by the server. No terrain (that is Simple Maps).
  */
 public final class TableScreen extends Screen {
-    private static final int PAPER = 0xFFE2D3AA, INK_SOFT = 0xFF6B5F45, TEXT = 0xFF404040, FREE = 0xFFC9B98A, GRID = 0x22000000, TABLE = 0xFF202020, MINE = 0xFFFFFFFF;
+    private static final int PAPER = 0xFFE2D3AA, INK_SOFT = UiContrast.INK_SOFT, TEXT = 0xFF404040, FREE = 0xFFC9B98A, GRID = 0x22000000, TABLE = 0xFF202020, MINE = 0xFFFFFFFF, MINE_TEXT = UiContrast.INK_OK;
 
     private final TableOpenPayload data;
     private TableLayout layout;
@@ -123,7 +124,7 @@ public final class TableScreen extends Screen {
         Component land = Component.translatable("simpletweaks.table.land", data.ownChunks(), data.maxChunks());
         g.text(font, font.plainSubstrByWidth(land.getString(), layout.info.w()), layout.info.x(), layout.info.y(), INK_SOFT, false);
         if (off()) {
-            g.textWithWordWrap(font, Component.translatable("simpletweaks.table.off"), layout.map.x() + 4, layout.map.y() + 4, layout.map.w() + layout.list.w(), TEXT);
+            g.textWithWordWrap(font, Component.translatable("simpletweaks.table.off"), layout.map.x() + 4, layout.map.y() + 4, layout.map.w() + layout.list.w(), TEXT, false);
             return;
         }
         drawMap(g, mouseX, mouseY);
@@ -172,7 +173,7 @@ public final class TableScreen extends Screen {
             g.fill(r.x() + 1, r.y() + 2, r.x() + 6, r.y() + 7, 0xFF000000 | row.color());
             String count = String.valueOf(row.chunks());
             int cw = font.width(count);
-            g.text(font, font.plainSubstrByWidth(nameOf(row.name()).getString(), r.w() - 12 - cw - 4), r.x() + 9, r.y() + 1, row.mine() ? MINE : TEXT, false);
+            g.text(font, font.plainSubstrByWidth(nameOf(row.name()).getString(), r.w() - 12 - cw - 4), r.x() + 9, r.y() + 1, row.mine() ? MINE_TEXT : TEXT, false);
             g.text(font, count, r.right() - cw - 1, r.y() + 1, INK_SOFT, false);
         }
         int pages = Math.max(1, (list.total() + TableListPayload.PAGE - 1) / TableListPayload.PAGE);

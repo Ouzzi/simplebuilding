@@ -84,6 +84,48 @@ public final class UiBoxes {
     }
 
     /**
+     * A frame of {@code layers.length} one-pixel layers (outermost first) around {@code fill}, each layer running round
+     * the corners like a coat: layer {@code i} is cut by {@code n - i, ..., 2, 1} px in its corner rows, so two layers
+     * give the stair 2-1 and three give 3-2-1, a 45 degree staircase without loose pixels (the shape of {@link #box}'s
+     * outline, bevel and band). Every pixel is painted exactly once, so translucent colours (alpha in the ARGB ints)
+     * come out as given - the HUD panels of N67 use this at 78 % opacity. {@code fill} is the region inside the layers.
+     */
+    public static void stairFrame(GuiGraphicsExtractor g, int x, int y, int w, int h, int[] layers, int fill) {
+        int n = layers.length;
+        boolean middleSplit = h > 2 * n;
+        for (int r = 0; r < h; r++) {
+            if (middleSplit && r == n) {
+                // rows n .. h-n-1 are the same everywhere: one vertical band per layer
+                int bottom = h - n;
+                for (int i = 0; i < n; i++) {
+                    g.fill(x + i, y + n, x + i + 1, y + bottom, layers[i]);
+                    g.fill(x + w - i - 1, y + n, x + w - i, y + bottom, layers[i]);
+                }
+                g.fill(x + n, y + n, x + w - n, y + bottom, fill);
+                r = bottom - 1;
+                continue;
+            }
+            stairRow(g, x, y + r, w, h, r, layers, fill);
+        }
+    }
+
+    private static void stairRow(GuiGraphicsExtractor g, int x, int py, int w, int h, int r, int[] layers, int fill) {
+        int n = layers.length;
+        for (int i = 0; i <= n && r >= i && r <= h - 1 - i; i++) {
+            int left = i + (i < n ? Math.max(0, n - i - Math.min(r - i, h - 1 - i - r)) : 0);
+            int color = i < n ? layers[i] : fill;
+            int next = i + 1;
+            if (i < n && r >= next && r <= h - 1 - next) {
+                int inner = next + (next < n ? Math.max(0, n - next - Math.min(r - next, h - 1 - next - r)) : 0);
+                g.fill(x + left, py, x + inner, py + 1, color);
+                g.fill(x + w - inner, py, x + w - left, py + 1, color);
+            } else {
+                g.fill(x + left, py, x + w - left, py + 1, color);
+            }
+        }
+    }
+
+    /**
      * The light inventory panel inside a single box ({@code block} = the box's colours): a 1 px groove in the box's band
      * colour, a 1 px light line, then {@link UiPalette#INVENTORY} fill down to {@code y + h}. The box's own frame closes
      * it at the sides and below.

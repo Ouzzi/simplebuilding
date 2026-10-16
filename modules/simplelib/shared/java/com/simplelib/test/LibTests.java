@@ -69,6 +69,7 @@ public final class LibTests {
         ALL.put("reinforced_crucible_loads_old_nine_slots", LibTests::reinforcedCrucibleLoadsOldNineSlots);
         ALL.put("crucible_barrel_beside_inventory_centred", LibTests::barrelBesideInventoryCentred);
         ALL.put("inventory_brightness_tones_palettes", LibTests::inventoryBrightness);
+        ALL.put("ui_text_contrast", LibTests::uiTextContrast);
         ALL.put("id_moves_registries", IdMovesTests::registries);
         ALL.put("id_moves_recipe_book_and_advancements", IdMovesTests::recipeBookAndAdvancements);
         ALL.put("id_moves_refuse_loops", IdMovesTests::refuseLoops);
@@ -123,6 +124,64 @@ public final class LibTests {
         h.assertTrue(com.simplelib.registry.LibRegistry.wantsStacks(sb, false), "SimpleBuilding's tab skipped");
         h.assertTrue(!com.simplelib.registry.LibRegistry.wantsStacks(other, true), "an unrelated tab gets crucibles");
         h.assertTrue(!com.simplelib.registry.LibRegistry.tabStacks().isEmpty(), "nothing to route");
+        h.succeed();
+    }
+
+    /**
+     * N67 readability rule: text needs 4.5:1 to its background. Every standard palette (and the derived ones of the mod
+     * screens) keeps that for its label in all three inventory brightnesses and for the bookmark numbers; the shared
+     * inks read on the inventory grey and on paper; the fixer leaves good colours alone and nudges bad ones.
+     */
+    private static void uiTextContrast(GameTestHelper h) {
+        var brightness = com.simplelib.api.client.ui.UiBrightness.current();
+        try {
+            java.util.Map<String, com.simplelib.api.client.ui.UiPalette> palettes = new LinkedHashMap<>();
+            palettes.put("INVENTORY", com.simplelib.api.client.ui.UiPalette.INVENTORY);
+            palettes.put("BARREL", com.simplelib.api.client.ui.UiPalette.BARREL);
+            palettes.put("IRON", com.simplelib.api.client.ui.UiPalette.IRON);
+            palettes.put("REINFORCED", com.simplelib.api.client.ui.UiPalette.REINFORCED);
+            palettes.put("NETHERITE", com.simplelib.api.client.ui.UiPalette.NETHERITE);
+            palettes.put("ENDERITE", com.simplelib.api.client.ui.UiPalette.ENDERITE);
+            // derived palettes of the mod screens: leather backpack, auto smither, crafter, fletching, astral table, crafting table,
+            // the paper of deed / table, the Wayfinder's brown, the sales-block copper
+            int[] fills = {0xFF8E6440, 0xFF4F5560, 0xFF5E5651, 0xFFC5B485, 0xFF4B3866, 0xFFA27A4A, 0xFFE2D3AA, 0xFFB08A57, 0xFFB9774F};
+            for (int fill : fills) {
+                palettes.put("derived " + Integer.toHexString(fill), com.simplelib.api.client.ui.UiPalette.derived(fill));
+            }
+            for (var brightnessMode : com.simplelib.api.client.ui.UiBrightness.values()) {
+                com.simplelib.api.client.ui.UiBrightness.set(brightnessMode);
+                for (var entry : palettes.entrySet()) {
+                    var palette = entry.getValue();
+                    double label = com.simplelib.api.client.ui.UiContrast.ratio(palette.label(), palette.fill());
+                    check(h, label >= com.simplelib.api.client.ui.UiContrast.MIN,
+                            entry.getKey() + " label in " + brightnessMode + " has contrast " + label);
+                    for (boolean filled : new boolean[] {true, false}) {
+                        for (boolean hovered : new boolean[] {true, false}) {
+                            double ribbon = com.simplelib.api.client.ui.UiContrast.ratio(palette.ribbonLabel(filled, hovered), palette.ribbonFill(filled, hovered));
+                            check(h, ribbon >= com.simplelib.api.client.ui.UiContrast.MIN,
+                                    entry.getKey() + " ribbon number (" + filled + "," + hovered + ") in " + brightnessMode + " has contrast " + ribbon);
+                        }
+                    }
+                }
+            }
+            com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.LIGHT);
+        } finally {
+            com.simplelib.api.client.ui.UiBrightness.set(brightness);
+        }
+        int grey = com.simplelib.api.client.ui.UiPalette.INVENTORY.fill(), paper = 0xFFE2D3AA;
+        for (int ink : new int[] {com.simplelib.api.client.ui.UiContrast.INK_OK, com.simplelib.api.client.ui.UiContrast.INK_ERROR,
+                com.simplelib.api.client.ui.UiContrast.INK_SOFT, 0xFF404040 /* Vanilla label / dialog text */,
+                com.simplelib.api.client.ui.UiPalette.DARK_LABEL}) {
+            check(h, com.simplelib.api.client.ui.UiContrast.readable(ink, grey) && com.simplelib.api.client.ui.UiContrast.readable(ink, paper),
+                    "ink " + Integer.toHexString(ink) + " does not read on grey and paper");
+        }
+        // the dark light-brightness text colours are unchanged where they were already fine
+        check(h, com.simplelib.api.client.ui.UiContrast.ensure(0xFF404040, grey) == 0xFF404040, "a readable colour was changed");
+        // the former white own-entry text of the land table was 1.7:1 on the grey: the fixer must turn it dark
+        int fixed = com.simplelib.api.client.ui.UiContrast.ensure(0xFFFFFFFF, grey);
+        check(h, com.simplelib.api.client.ui.UiContrast.readable(fixed, grey), "white on grey not fixed: " + Integer.toHexString(fixed));
+        check(h, com.simplelib.api.client.ui.UiContrast.ratio(0xFF000000, 0xFFFFFFFF) > 20.9
+                && com.simplelib.api.client.ui.UiContrast.ratio(0xFF808080, 0xFF808080) == 1.0, "ratio maths");
         h.succeed();
     }
 
