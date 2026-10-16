@@ -50,6 +50,7 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
 
 15. **Lesbarkeit (Besitzer 16.10.):** Bei jeder UI-Änderung prüfen, dass Text klar lesbar ist – Kontrast zum Hintergrund mindestens 4,5:1, nie dunkler Text mit dunklem Schatten auf Grau. Kontrastwerte im Bericht nennen; vorhandener Test `ui_text_contrast` muss grün bleiben.
 16. **Baublöcke & Modulfamilie (Besitzer 16.10.):** Alle Baublöcke gehören zur SimpleBuilding-Familie – aufgeteilt in Sub-Mods unter dem Super-Mod SimpleBuilding: z. B. Simple Octets (kleine Blöcke), Simple Blocks (fehlende Block-Varianten), Simple End (End-Blöcke/-Holz) usw. Nie Baublöcke in fachfremde Mods. Blöcke/Teile, die mehrere Module brauchen (z. B. polierter Endstein), liegen in simplelib. Spätere Aufteilung auch in Simple Enderite, Simple Tools, Simple Gadgets – alles bleibt untereinander kompatibel; ist ein Modul geladen (z. B. Enderite), schalten sich die passenden Varianten anderer Module frei (z. B. Enderit-Werkzeuge).
+17. **Zwei Sitzungen parallel (Besitzer 16.10.):** Queue-Punkte vor Arbeitsbeginn mit `- [~] (A|B, <branch>, <Datum>)` beanspruchen und sofort pushen; fremd beanspruchte Punkte nicht anfassen; Details `docs/ai/ZWEI-SESSIONS.md`.
 ## 4. Tests und Gate
 - Vollständiges Gate: `./gradlew.bat check -q` (enthält checkBalance, JadeProviderSplitTest, checkAtlases, checkWiki).
 - Server-Tests: `python tools/testrunner/run.py --targets fabric-263,neoforge-263 [--filter <muster>]`
