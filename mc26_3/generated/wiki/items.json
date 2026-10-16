@@ -432,7 +432,6 @@
     "simplebuilding:smooth_quartz_octet",
     "simplebuilding:smooth_red_sandstone_octet",
     "simplebuilding:smooth_sandstone_octet",
-    "simplebuilding:soul_lava",
     "simplebuilding:spawn_teleporter",
     "simplebuilding:spawn_teleporter_tier_2",
     "simplebuilding:spawn_teleporter_tier_3",
@@ -866,18 +865,6 @@
       "id": "simplebuilding:bridge_redstone_block"
     },
     {
-      "id": "simplebuilding:brittle_ceramic_bucket",
-      "maxStackSize": 16
-    },
-    {
-      "id": "simplebuilding:brittle_ceramic_lava_bucket",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:brittle_ceramic_water_bucket",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:brown_concrete_octet",
       "maxStackSize": 99
     },
@@ -940,18 +927,6 @@
       "id": "simplebuilding:carved_warped_stem"
     },
     {
-      "id": "simplebuilding:ceramic_bucket",
-      "maxStackSize": 16
-    },
-    {
-      "id": "simplebuilding:ceramic_lava_bucket",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:ceramic_water_bucket",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:cherry_cauldron"
     },
     {
@@ -967,18 +942,6 @@
     },
     {
       "id": "simplebuilding:cherry_sheet"
-    },
-    {
-      "id": "simplebuilding:chipped_ceramic_bucket",
-      "maxStackSize": 16
-    },
-    {
-      "id": "simplebuilding:chipped_ceramic_lava_bucket",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:chipped_ceramic_water_bucket",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:chiseled_astralit_bricks"
@@ -1032,10 +995,6 @@
       "maxStackSize": 99
     },
     {
-      "id": "simplebuilding:copper_bucket",
-      "maxStackSize": 16
-    },
-    {
       "durability": 1520,
       "enchantability": 18,
       "id": "simplebuilding:copper_building_wand",
@@ -1052,10 +1011,6 @@
     },
     {
       "id": "simplebuilding:copper_core",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:copper_lava_bucket",
       "maxStackSize": 1
     },
     {
@@ -1081,22 +1036,6 @@
       "durability": 192,
       "enchantability": 18,
       "id": "simplebuilding:copper_spatula",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:copper_water_bucket",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:cracked_ceramic_bucket",
-      "maxStackSize": 16
-    },
-    {
-      "id": "simplebuilding:cracked_ceramic_lava_bucket",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:cracked_ceramic_water_bucket",
       "maxStackSize": 1
     },
     {
@@ -1422,10 +1361,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_bucket",
-      "maxStackSize": 16
-    },
-    {
       "durability": 20000,
       "enchantability": 18,
       "id": "simplebuilding:enderite_building_wand",
@@ -1511,25 +1446,9 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_lava_bucket",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_lava_bucket_full",
-      "maxStackSize": 1
-    },
-    {
       "durability": 630,
       "enchantability": 18,
       "id": "simplebuilding:enderite_leggings",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_milk_bucket",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_milk_bucket_full",
       "maxStackSize": 1
     },
     {
@@ -1586,14 +1505,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_soul_lava_bucket",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_soul_lava_bucket_full",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:enderite_spawn_teleporter",
       "maxStackSize": 1
     },
@@ -1615,14 +1526,6 @@
     },
     {
       "id": "simplebuilding:enderite_trapped_chest"
-    },
-    {
-      "id": "simplebuilding:enderite_water_bucket",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_water_bucket_full",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:exposed_copper_octet",
@@ -3092,10 +2995,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:raw_ceramic_bucket",
-      "maxStackSize": 16
-    },
-    {
       "id": "simplebuilding:red_concrete_octet",
       "maxStackSize": 99
     },
@@ -3366,10 +3265,6 @@
     {
       "id": "simplebuilding:smooth_sandstone_octet",
       "maxStackSize": 99
-    },
-    {
-      "id": "simplebuilding:soul_lava_bucket",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:spawn_elytra",
