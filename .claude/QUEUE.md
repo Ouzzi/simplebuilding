@@ -260,7 +260,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 
 ## Nachtrag 71 (2026-10-16, Besitzer)
 - [x] Abgenommen: End-Blätter, Karte, 3D-Items, Schwefel-Lichter (16.10.).
-- [ ] Copper Light Panes: Kupferrand durch die Farbe der jeweiligen Light Pane ersetzen (Rand in der Pane-Farbe statt Kupfer).
+- [x] Copper Light Panes: Kupferrand durch die Farbe der jeweiligen Light Pane ersetzen (Rand in der Pane-Farbe statt Kupfer). (claude-copperrim; Abnahme offen)
 - [ ] Warped Wart (Wirrwarze, neues Item): kann in Bastionen in Kisten liegen; funktioniert exakt wie Netherwarze (auf Seelensand pflanzen, Wachstumsstufen, Ernte), wird aber für andere Tränke genutzt – v. a. alle hinzugekommenen Mod-Tränke. Dazu: Rezept 9 Warped Wart → Warped Wart Block; Blaue Netherziegel (türkis, an Warped Wart erinnernd) aus Warped Wart + Netherziegeln, mit Treppe/Stufe/Mauer (Baublöcke → Simple Blocks).
 
 ## Nachtrag 70 (2026-10-16, Besitzer)
