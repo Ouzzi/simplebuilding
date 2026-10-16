@@ -73,7 +73,8 @@ public final class CustomHeadModels {
         MeshDefinition mesh = new MeshDefinition();
         CubeListBuilder cube = CubeListBuilder.create().texOffs(0, 0);
         switch (name) {
-            case "pig" -> cube.addBox(-4, -8, -4, 8, 8, 8).texOffs(16, 16).addBox(-2, -4, -6, 4, 3, 2);
+            // PigModel: the snout is 4x3x1 at UV 16,16 (a 2 deep box read the wrong texels and stuck out one pixel too far).
+            case "pig" -> cube.addBox(-4, -8, -4, 8, 8, 8).texOffs(16, 16).addBox(-2, -4, -5, 4, 3, 1);
             // CowModel head (64x64): head, muzzle at UV 1,33 and two horns (owner 2026-10-01).
             case "cow" -> cube.addBox(-4, -8, -3, 8, 8, 6).texOffs(1, 33).addBox(-3, -3, -4, 6, 3, 1)
                     .texOffs(22, 0).addBox(-5, -9, -2, 1, 3, 1).addBox(4, -9, -2, 1, 3, 1);
@@ -172,7 +173,7 @@ public final class CustomHeadModels {
         PartDefinition head = mesh.getRoot().addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO.withScale(0.5F));
         head.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 28).addBox(-8.0F, -8.0F, -8.0F, 16.0F, 8.0F, 16.0F), PartPose.ZERO);
         head.addOrReplaceChild("lid", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -16.0F, -8.0F, 16.0F, 12.0F, 16.0F),
-                PartPose.offset(0.0F, -8.0F, 0.0F));
+                PartPose.offset(0.0F, -4.0F, 0.0F));
         head.addOrReplaceChild("shulker_head", CubeListBuilder.create().texOffs(0, 52).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 6.0F, 6.0F),
                 PartPose.offset(0.0F, -14.0F, 0.0F));
         return LayerDefinition.create(mesh, 64, 64);
