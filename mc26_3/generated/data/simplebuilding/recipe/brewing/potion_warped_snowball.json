@@ -3,18 +3,18 @@
   "input": {
     "item": "minecraft:potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "simplebuilding:nausea"
+        "potion": "simplebuilding:shivering"
       }
     },
     "id": "minecraft:potion"
   },
   "reagent": {
-    "item": "minecraft:red_mushroom"
+    "item": "minecraft:snowball"
   }
 }

@@ -1,20 +1,20 @@
 {
   "type": "minecraft:brewing",
   "input": {
-    "item": "minecraft:splash_potion",
+    "item": "minecraft:potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "simplebuilding:shivering"
+        "potion": "simplebuilding:darkness"
       }
     },
-    "id": "minecraft:splash_potion"
+    "id": "minecraft:potion"
   },
   "reagent": {
-    "item": "minecraft:snowball"
+    "item": "simplebuilding:warden_tendril"
   }
 }

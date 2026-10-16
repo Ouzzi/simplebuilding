@@ -3,18 +3,18 @@
   "input": {
     "item": "minecraft:splash_potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "simplebuilding:mirage"
+        "potion": "simplebuilding:crafty_shulker"
       }
     },
     "id": "minecraft:splash_potion"
   },
   "reagent": {
-    "item": "minecraft:amethyst_shard"
+    "item": "simplemobheads:shulker_head"
   }
 }

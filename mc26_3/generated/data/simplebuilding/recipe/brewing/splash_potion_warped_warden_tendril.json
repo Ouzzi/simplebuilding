@@ -3,18 +3,18 @@
   "input": {
     "item": "minecraft:splash_potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "simplebuilding:faded"
+        "potion": "simplebuilding:darkness"
       }
     },
     "id": "minecraft:splash_potion"
   },
   "reagent": {
-    "item": "minecraft:ink_sac"
+    "item": "simplebuilding:warden_tendril"
   }
 }

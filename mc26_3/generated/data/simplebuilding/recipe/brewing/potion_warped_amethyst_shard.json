@@ -1,20 +1,20 @@
 {
   "type": "minecraft:brewing",
   "input": {
-    "item": "minecraft:splash_potion",
+    "item": "minecraft:potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "simplebuilding:nausea"
+        "potion": "simplebuilding:mirage"
       }
     },
-    "id": "minecraft:splash_potion"
+    "id": "minecraft:potion"
   },
   "reagent": {
-    "item": "minecraft:red_mushroom"
+    "item": "minecraft:amethyst_shard"
   }
 }

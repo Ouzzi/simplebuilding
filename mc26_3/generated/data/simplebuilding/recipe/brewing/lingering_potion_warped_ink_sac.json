@@ -1,9 +1,9 @@
 {
   "type": "minecraft:brewing",
   "input": {
-    "item": "minecraft:potion",
+    "item": "minecraft:lingering_potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
@@ -12,7 +12,7 @@
         "potion": "simplebuilding:faded"
       }
     },
-    "id": "minecraft:potion"
+    "id": "minecraft:lingering_potion"
   },
   "reagent": {
     "item": "minecraft:ink_sac"

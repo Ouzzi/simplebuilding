@@ -3,18 +3,18 @@
   "input": {
     "item": "minecraft:lingering_potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "simplebuilding:shivering"
+        "potion": "simplebuilding:nausea"
       }
     },
     "id": "minecraft:lingering_potion"
   },
   "reagent": {
-    "item": "minecraft:snowball"
+    "item": "minecraft:red_mushroom"
   }
 }

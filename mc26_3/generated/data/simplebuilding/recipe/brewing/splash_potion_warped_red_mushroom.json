@@ -1,20 +1,20 @@
 {
   "type": "minecraft:brewing",
   "input": {
-    "item": "minecraft:potion",
+    "item": "minecraft:splash_potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "simplebuilding:crafty_shulker"
+        "potion": "simplebuilding:nausea"
       }
     },
-    "id": "minecraft:potion"
+    "id": "minecraft:splash_potion"
   },
   "reagent": {
-    "item": "simplemobheads:shulker_head"
+    "item": "minecraft:red_mushroom"
   }
 }

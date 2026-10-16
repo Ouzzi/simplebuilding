@@ -3,18 +3,18 @@
   "input": {
     "item": "minecraft:lingering_potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "simplebuilding:crafty_shulker"
+        "potion": "simplebuilding:shivering"
       }
     },
     "id": "minecraft:lingering_potion"
   },
   "reagent": {
-    "item": "simplemobheads:shulker_head"
+    "item": "minecraft:snowball"
   }
 }

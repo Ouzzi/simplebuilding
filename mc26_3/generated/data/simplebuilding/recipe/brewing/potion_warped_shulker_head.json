@@ -3,18 +3,18 @@
   "input": {
     "item": "minecraft:potion",
     "potion_contents": {
-      "potions": "minecraft:awkward"
+      "potions": "simplelib:warped"
     }
   },
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "simplebuilding:darkness"
+        "potion": "simplebuilding:crafty_shulker"
       }
     },
     "id": "minecraft:potion"
   },
   "reagent": {
-    "item": "simplebuilding:warden_tendril"
+    "item": "simplemobheads:shulker_head"
   }
 }
