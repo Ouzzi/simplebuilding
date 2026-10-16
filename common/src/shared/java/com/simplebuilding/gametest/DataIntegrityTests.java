@@ -304,8 +304,14 @@ public final class DataIntegrityTests {
             "reinforced_elytra_pad",
             "fine_elytra_pad",
             // Ende der versteckten Easter-Kette ueber den Pad-Endstufen: bewusst nirgends angeboten.
-            "funny_stick");
-            // Abgenutzte Keramik-/volle Enderit-Eimer (nicht im Kreativtab): seit Stufe 5b Simple Crucibles' Items.
+            "funny_stick",
+            // Abgenutzte Keramik-Eimer (Besitzer N12b: Kreativtab nur sinnvolle Stufen): entstehen nur durch Benutzung;
+            // seit Stufe 5b Simple Crucibles' Items (der Pfad gilt fuer jeden Namensraum).
+            "chipped_ceramic_bucket", "chipped_ceramic_water_bucket", "chipped_ceramic_lava_bucket",
+            "cracked_ceramic_bucket", "cracked_ceramic_water_bucket", "cracked_ceramic_lava_bucket",
+            "brittle_ceramic_bucket", "brittle_ceramic_water_bucket", "brittle_ceramic_lava_bucket",
+            // Volle Enderit-Eimer (Besitzer N21: fasst 2 Eimer): entstehen nur durch zweimal Schoepfen.
+            "enderite_water_bucket_full", "enderite_lava_bucket_full", "enderite_soul_lava_bucket_full", "enderite_milk_bucket_full");
 
     /**
      * Registry ids that exist for the sake of worlds that were saved with an older version, spelled
@@ -2742,7 +2748,9 @@ public final class DataIntegrityTests {
             // 26.3: the pad ingredients enderman/blaze/shulker head are Simple Mobheads' items (required sub-mod).
             boolean subModHead = McVersion.HEADS_IN_MOBHEADS && McVersion.HEAD_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace());
             if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)
-                    && !com.simplebuilding.util.SharedMaterials.isShared(item) && !subModHead && !ovenItemIds().contains(BuiltInRegistries.ITEM.getKey(item))) {
+                    && !com.simplebuilding.util.SharedMaterials.isShared(item) && !subModHead && !ovenItemIds().contains(BuiltInRegistries.ITEM.getKey(item))
+                    // Split stage 5b: Simple Crucibles' buckets keep their row in SimpleBuilding's functional tab (by id).
+                    && !com.simplebuilding.util.BucketRefs.buckets().contains(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
