@@ -72,7 +72,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] 3d `claude-split-s3-materials`: gemeinsame Materialien nach simplelib (§2.5), requestMaterial, Condition material_requested (claude-split-s3-materials; offen: Loot-Einspeisung + Lib-Reload in Stufe 4)
 - [x] 4 `claude-split-s4-ovens`: Extraktion Ovens nach modules/simpleovens (claude-split-s4-ovens; offen: Merge nach wave1, SB-Config-Ofentempo ausblenden in Stufe 9)
 - [x] 5a `claude-split-s5-crucibles`: Tiegel/Fässer/verstärkter Kessel/Enderit-Stufen nach modules/simplecrucibles (IdMoves, Config-Übernahme, Guide, Wiki, Tests; offen: Merge nach wave1)
-- [ ] 5b Seelenlava, Eimer-Familie, JEI-/Jade-Seiten der Tiegel nach simplecrucibles (Plan: Stufe 5 Umsetzung, Abweichungen)
+- [~] (A, claude-s5b-crucibles, 16.10.) 5b Seelenlava, Eimer-Familie, JEI-/Jade-Seiten der Tiegel nach simplecrucibles (Plan: Stufe 5 Umsetzung, Abweichungen)
 - [ ] 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
 - [ ] 7 `claude-split-s7-hammers`: Hammers extrahieren (breiteste Kopplung)
 - [ ] 8 `claude-split-s8-storage`: Storage (~93 Klassen, 36 Blöcke) extrahieren
@@ -329,11 +329,11 @@ Simple Shops – Umbau
 
 ## Nachtrag 65 (2026-10-15, Besitzer; Bilder kamen nicht an – bei Bedarf nachfordern)
 Befunde aus den Besitzer-Screenshots 15.10. (Bilder 1–8, nur als Beschreibung verfügbar)
-- [ ] Bild 1: Platzierte Barren (lila/Enderit-artig, 3–4 Stück) stecken sichtbar ineinander, Diamant-Kleinteil überlappt mit Barren – bestätigt den Punkt „Platzierte Teile“.
-- [ ] Bild 2: Markierter Container („Marked: Reinforced Chest“) wird über dem Inventar noch im ALTEN grellen Orange gezeichnet → auf neue Bronze-Palette umstellen; im Spieler-Inventar zeigt ein Item das lila-schwarze Fehlende-Textur-Karo (3. Reihe, letzter Platz) → gehört zu „Texturen fehlen im Spiel“.
-- [ ] Bild 3/5: Wayfinder-Karte: rechts vom geladenen Kreis senkrechte Streifen/Linien-Artefakte; Rahmen der Karte ebenfalls noch grelles Orange → Bronze.
-- [ ] Bild 4: „Configure waypoint“: die Reihe der Kopf-Icons läuft weit über den rechten Rand des Dialogs hinaus (kein Umbruch/Scrollen) – im neuen Configure-Dialog sauber begrenzen; Farbleiste grell (entfällt laut N65).
-- [ ] Bild 5: Wegpunkt heißt „TEST“ (Tooltip), auf der Karte steht „1“.
+- [~] (A, claude-n65bilder, 16.10.) Bild 1: Platzierte Barren (lila/Enderit-artig, 3–4 Stück) stecken sichtbar ineinander, Diamant-Kleinteil überlappt mit Barren – bestätigt den Punkt „Platzierte Teile“.
+- [~] (A, claude-n65bilder, 16.10.) Bild 2: Markierter Container („Marked: Reinforced Chest“) wird über dem Inventar noch im ALTEN grellen Orange gezeichnet → auf neue Bronze-Palette umstellen; im Spieler-Inventar zeigt ein Item das lila-schwarze Fehlende-Textur-Karo (3. Reihe, letzter Platz) → gehört zu „Texturen fehlen im Spiel“.
+- [~] (A, claude-n65bilder, 16.10.) Bild 3/5: Wayfinder-Karte: rechts vom geladenen Kreis senkrechte Streifen/Linien-Artefakte; Rahmen der Karte ebenfalls noch grelles Orange → Bronze.
+- [~] (A, claude-n65bilder, 16.10.) Bild 4: „Configure waypoint“: die Reihe der Kopf-Icons läuft weit über den rechten Rand des Dialogs hinaus (kein Umbruch/Scrollen) – im neuen Configure-Dialog sauber begrenzen; Farbleiste grell (entfällt laut N65).
+- [~] (A, claude-n65bilder, 16.10.) Bild 5: Wegpunkt heißt „TEST“ (Tooltip), auf der Karte steht „1“.
 - [ ] Bild 6: Aschholz-/Dämmerholz-Blätter wirken wie ein Raster gleichmäßiger lila Punkte auf braunem Grund – sehr künstlich (bestätigt N65 End-Bäume).
 - [x] (oc-misc65) Bild 7/8: Kopf-Modelle teils abgeschnitten (Shulker-Köpfe in mehreren Farben oben/seitlich gekappt; im Kopf-Raster weitere Köpfe mit gekappten Teilen prüfen).
 
@@ -408,7 +408,7 @@ Besitzer-Antworten Konzepte (15.10.)
 - [x] Dorf-Wanderer: W1 neues Modul Simple Wanderers; W2 auch Seltenes und Mod-Angebote aufteilen, aber beim Dorf-Wanderer nichts allzu Seltenes; W3 Respawn nach 7 Tagen, nur mit Spieler vor Ort; W4 Pferd einfangbar; W5 tötbar wie Vanilla-Händler; W6 Spawn sofort beim ersten Dorfbesuch; W7 Soulbound nur beim fahrenden Händler; W8 Köpfe ja, Kerne nein; W9 Geld-Fund sofort als eigener Auftrag; W10 Biom-Sortiment gleich mit einbauen; W11 eigener Kopf später.
 - [x] (oc-moneyfix) Simple Money: 238 Preislisten-Trades des fahrenden Händlers werden nie angeboten (Pool `wandering_trader/rare` wird nicht gelesen) – sofort beheben (W9).
 - [x] (oc-wanderers) Dorf-Wanderer bauen nach Konzept docs/ai/KONZEPT-DORF-WANDERER-2026-10-15.md + Antworten W1–W11.
-- [ ] Hollow Howler Phase 1+2 umsetzen (H1); danach Phase 3 eigene synthetische Sounds (H2); Darkness-Puls nur in der Wut-Phase (H3); leuchtendes Herz als neue Emissiv-Textur mit Vorschau zur Freigabe (H4); Kamerawackeln mit Schalter „Bewegung reduzieren“ (H5). Konzept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md. – Phase 1+2, H3, H5 erledigt (claude-howler-n63); offen: H4 Herz nach Besitzer-OK, Phase 3 Sounds
+- [~] (A, claude-howler3, 16.10.) Hollow Howler Phase 1+2 umsetzen (H1); danach Phase 3 eigene synthetische Sounds (H2); Darkness-Puls nur in der Wut-Phase (H3); leuchtendes Herz als neue Emissiv-Textur mit Vorschau zur Freigabe (H4); Kamerawackeln mit Schalter „Bewegung reduzieren“ (H5). Konzept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md. – Phase 1+2, H3, H5 erledigt (claude-howler-n63); offen: H4 Herz nach Besitzer-OK, Phase 3 Sounds
 - [ ] Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md. – Schritt 1 erledigt (oc-anim-quick): Dread-Wind-up/Recovery, Nibblemite/Dragonmite-Wackeln, Shellker-Deckel, Deceiver-Idle, Soulfire-Blaze-Takt; Rest offen.; Schritt 3 (Dread-Kette, Deceiver-Flucht/Mantel, Tod) erledigt (claude-anim2); offen: Nibblemite/Dragonmite-Tod + Kauzyklus, Deceiver-Idle-One-Shots, Dread-Kettenrasseln im Idle
 - [x] Sandwich-Brot-Unterrand genehmigt (oc-breadrim).
 - [x] Item-Display Schritt 1 (Text-Vorschlag) freigegeben 15.10.; D8 Lapis/Splitter/Nuggets nach erster Welle; D9 Display-Block später als eigenes Thema.
