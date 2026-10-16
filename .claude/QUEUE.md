@@ -279,10 +279,10 @@ End-Biome (Antworten N1–N5 zum Konzept KONZEPT-END-WALD-NEBEL)
 - [x] N4: Blätter noch überarbeiten – wirken nicht gewollt. Im Internet recherchieren, welche Blatt-Varianten es gibt (Vanilla, gute Ressourcenpakete/Mods), Liste der gut gemachten Designs anlegen und sich daran orientieren. (claude-endleaves2; Besitzer-Abnahme der Blätter offen)
 - [x] BUG: Stock-Varianten der End-Bäume sind verbuggt (prüfen und beheben). (claude-endleaves2; Besitzer-Abnahme der Blätter offen)
 HUD-Overlay (Rückmeldung zur Version in Abnahme 16.10.)
-- [ ] Ecken: außen nur 2 px abgerundet, wirkt zu eckig → runder.
-- [ ] Text im Overlay wieder im alten Farbstil (wie vorher).
+- [x] Ecken: außen nur 2 px abgerundet, wirkt zu eckig → runder. (claude-hudcopper)
+- [x] Text im Overlay wieder im alten Farbstil (wie vorher). (claude-hudcopper)
 Copper Light Pane
-- [ ] Genau wie die normale Light Pane (gleiche Farben/Funktion), nur leicht andere Textur, die die volle Farbe ausnutzt: schwaches Karomuster aus 100 % und 90 % Sättigung der Hauptfarbe mit etwas Noise.
+- [x] Genau wie die normale Light Pane (gleiche Farben/Funktion), nur leicht andere Textur, die die volle Farbe ausnutzt: schwaches Karomuster aus 100 % und 90 % Sättigung der Hauptfarbe mit etwas Noise. (claude-hudcopper)
 Minibosse
 - [ ] Hollow Howler größer machen; als Miniboss etwas stärker als der Warden.
 - [ ] Hollow Howler und „Knight“ sind Minibosse (Annahme: „Knight“ = Dread, der gepanzerte Ritter mit Kettenmorgenstern – beim Besitzer bestätigen).
