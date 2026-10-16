@@ -2,8 +2,12 @@
   "feature": "simpleend:dawnlands_fringe_stick_trees",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 2
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 1,
+        "max_inclusive": 2
+      }
     },
     {
       "type": "minecraft:in_square"

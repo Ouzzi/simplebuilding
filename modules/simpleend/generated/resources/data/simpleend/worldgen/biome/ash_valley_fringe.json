@@ -14,7 +14,7 @@
           "particle": {
             "type": "minecraft:white_ash"
           },
-          "probability": 0.008
+          "probability": 0.03
         }
       ],
       "modifier": "append"
@@ -68,6 +68,7 @@
       "simpleend:ash_valley_fringe_scrub",
       "simpleend:ash_valley_fringe_stick_trees",
       "simpleend:ash_valley_fringe_giant_stick_trees",
+      "simpleend:ash_valley_fringe_hedges",
       "simpleend:ash_valley_fringe_vegetation"
     ]
   ],
