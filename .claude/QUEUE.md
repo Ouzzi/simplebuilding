@@ -258,6 +258,10 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 70 (2026-10-16, Besitzer)
+- [x] GRUNDREGEL: SimpleBuilding enthält ALLE Baublöcke (Treppen, Stufen, Mauern, Varianten, dekorative Steine/Hölzer usw.). Neue Baublöcke immer ins Hauptmod (AGENTS.md Regel 16).
+- [ ] Bestandsaufnahme: welche Baublöcke liegen heute in anderen Modulen (z. B. simpleaesthetics, simpleend Holz-/Stein-Sets, simplecontainers?) – Liste mit Vorschlag „nach SB verschieben (mit IdMoves/Migration)“ vs. „bleibt (Funktionsblock, kein Baublock)“; Konflikt mit Modul-Unabhängigkeit (z. B. End-Holz ohne SB) je Fall benennen. Erst Liste an Besitzer, dann verschieben.
+
 ## Nachtrag 69 (2026-10-16, Besitzer)
 - [x] (claude-modref, Konzept KONZEPT-MODREF-BLOECKE-2026-10-16.md, Antworten §6) YouTube-Video einer Mod mit für SimpleBuilding relevanten Blöcken auswerten (LINK FEHLT – beim Besitzer nachfordern): Mod heraussuchen, ihre Texturen als Referenz/Stilguide nutzen (nichts kopieren), für fehlende Blöcke ähnliche eigene Texturen erstellen; zusätzlich 2–3 eigene Blöcke (z. B. Sculk-Deepslate / Deep-Dark-Moos-Variante mit Sculk). Ablauf: erst Konzept mit Vorschau → Besitzer-Freigabe → Umsetzung.
 

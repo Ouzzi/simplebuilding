@@ -49,6 +49,7 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
     Eimer (Kupfer, Enderit, Eisen, Keramik) zeichnen **nie** eine Haltbarkeitslinie: Abnutzung zeigt die Textur (Keramik: heil/angeschlagen/rissig/brüchig), Füllung der Name; der Enderit-Eimer zeigt im Tooltip nur seinen Titel.
 
 15. **Lesbarkeit (Besitzer 16.10.):** Bei jeder UI-Änderung prüfen, dass Text klar lesbar ist – Kontrast zum Hintergrund mindestens 4,5:1, nie dunkler Text mit dunklem Schatten auf Grau. Kontrastwerte im Bericht nennen; vorhandener Test `ui_text_contrast` muss grün bleiben.
+16. **Baublöcke (Besitzer 16.10.):** SimpleBuilding enthält ALLE Baublöcke (Treppen, Stufen, Mauern, rissige/bemooste Varianten, dekorative Steine/Hölzer). Neue Baublöcke immer ins Hauptmod, nicht in Sub-Mods.
 ## 4. Tests und Gate
 - Vollständiges Gate: `./gradlew.bat check -q` (enthält checkBalance, JadeProviderSplitTest, checkAtlases, checkWiki).
 - Server-Tests: `python tools/testrunner/run.py --targets fabric-263,neoforge-263 [--filter <muster>]`
