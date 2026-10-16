@@ -110,8 +110,8 @@ public final class AstralEnchanterClientTest {
         });
         script.shot("astral-enchanter-tooltip");
         // N65: the tooltip of the item in the table's item slot goes to the other side of the cursor, not over the sliders.
-        int[][] slot = new int[1][];
-        script.act("locate the item slot", c -> slot[0] = ((AstralEnchantingScreen) c.gui.screen()).slotCentre(0));
+        double[][] slot = new double[1][];
+        script.act("locate the item slot", c -> slot[0] = windowPos(c, ((AstralEnchantingScreen) c.gui.screen()).slotCentre(0)));
         script.harness("hover the item slot", h -> h.setCursorPos(slot[0][0], slot[0][1]));
         script.idle("let the slot hover reach the screen", 4);
         script.act("the item tooltip is left of the cursor, clear of the sliders", c -> {
