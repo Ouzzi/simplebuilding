@@ -64,7 +64,8 @@ public final class LibDiscover {
             "simplelib:netherite_nugget",
             "simplelib:raw_enderite",
             "simplelib:shared_materials",
-            "simplelib:warm_food");
+            "simplelib:warm_food",
+            "simplelib:warped_wart");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
