@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:block/template_cauldron_full",
   "textures": {
-    "bottom": "simplelib:block/reinforced_cauldron_bottom",
+    "bottom": "simplecrucibles:block/reinforced_cauldron_bottom",
     "content": "simplesandwiches:block/milk_cauldron/milk_3",
-    "inside": "simplelib:block/reinforced_cauldron_inner",
-    "particle": "simplelib:block/reinforced_cauldron_side",
-    "side": "simplelib:block/reinforced_cauldron_side",
-    "top": "simplelib:block/reinforced_cauldron_top"
+    "inside": "simplecrucibles:block/reinforced_cauldron_inner",
+    "particle": "simplecrucibles:block/reinforced_cauldron_side",
+    "side": "simplecrucibles:block/reinforced_cauldron_side",
+    "top": "simplecrucibles:block/reinforced_cauldron_top"
   }
 }

@@ -708,6 +708,6 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "471b107723af"
+    "dataHash": "24cb6f60fb8e"
   }
 ];

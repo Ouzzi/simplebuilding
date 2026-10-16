@@ -575,6 +575,7 @@ window.WIKI_MODULE_DATA["simplecrucibles"] = {
           "summary": "Handbuch zu dieser Mod: 5 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kessel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Crucibles\" eins."
         }
       },
+      "texture": "assets/textures/simplecrucibles/item/guide_book.png",
       "craftedBy": [
         "simplecrucibles:guide_book"
       ],

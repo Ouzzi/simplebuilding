@@ -167,7 +167,7 @@ def resources():
     walls = {False: {"bottom": "minecraft:block/cauldron_bottom", "inside": "minecraft:block/cauldron_inner",
                      "particle": "minecraft:block/cauldron_side", "side": "minecraft:block/cauldron_side",
                      "top": "minecraft:block/cauldron_top"},
-             True: {k: f"simplelib:block/reinforced_cauldron_{v}" for k, v in
+             True: {k: f"simplecrucibles:block/reinforced_cauldron_{v}" for k, v in
                     (("bottom", "bottom"), ("inside", "inner"), ("particle", "side"), ("side", "side"), ("top", "top"))}}
     # "curdling" and "spoiled" are legacy contents (before 2026-10-15): never produced, they only keep old worlds
     # rendering until MilkCauldronBlock migrates them to milk.
