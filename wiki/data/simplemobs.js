@@ -64,14 +64,14 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       ],
       "en": {
         "title": "Potion of Silence",
-        "summary": "Awkward Potion + Echo Core: 3:00 of Silence (redstone 8:00, splash and lingering as usual). Sculk sensors, Wardens and Howlers do not hear you, like wool.",
+        "summary": "Warped Potion (Awkward Potion without SimpleLib) + Echo Core: 3:00 of Silence (redstone 8:00, splash and lingering as usual). Sculk sensors, Wardens and Howlers do not hear you, like wool.",
         "details": [
           "Fighting and being seen still work; only vibrations you cause are dampened."
         ]
       },
       "de": {
         "title": "Trank der Stille",
-        "summary": "Seltsamer Trank + Echokern: 3:00 Stille (Redstone 8:00, Wurf- und Verweiltrank wie üblich). Sculk-Sensoren, Wärter und Tiefenheuler hören dich nicht, wie bei Wolle.",
+        "summary": "Wirrer Trank (ohne SimpleLib: Seltsamer Trank) + Echokern: 3:00 Stille (Redstone 8:00, Wurf- und Verweiltrank wie üblich). Sculk-Sensoren, Wärter und Tiefenheuler hören dich nicht, wie bei Wolle.",
         "details": [
           "Kämpfen und Gesehenwerden bleiben möglich; gedämpft werden nur Vibrationen, die du auslöst."
         ]
@@ -122,7 +122,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "title": "High Gravity and the Shellker Helmet",
         "summary": "High Gravity pulls you down: jumps, Levitation and Elytra lift keep 10 % and falls hurt 50 % more per level (Feather Falling still helps). The Shellker Helmet makes you immune.",
         "details": [
-          "From Shellker bullets (30 s, 1 min if already under High Gravity) or the Potion of High Gravity: Awkward Potion + Shellker Shell = 3:00, + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions.",
+          "From Shellker bullets (30 s, 1 min if already under High Gravity) or the Potion of High Gravity: Warped Potion (Awkward Potion without SimpleLib) + Shellker Shell = 3:00, + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions.",
           "Shellker Helmet: 5 Shellker Shells in helmet shape. Armor 3, toughness 1, knockback resistance 10 %, iron durability, repaired with Shellker Shells. Its wearer is immune to High Gravity (not to the bullets' damage) and takes 20 % less fall damage. A new helmet - the Turtle Shell stays as it is. Can be trimmed and enchanted like other helmets."
         ]
       },
@@ -130,7 +130,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "title": "Schwerkraft und Shellker-Helm",
         "summary": "Schwerkraft zieht nach unten: Sprünge, Schweben und Elytra-Auftrieb behalten 10 %, Stürze tun je Stufe 50 % mehr weh (Federfall hilft weiter). Der Shellker-Helm macht immun.",
         "details": [
-          "Durch Shellker-Geschosse (30 s, 1 min bei bestehender Schwerkraft) oder den Trank der Schwerkraft: Seltsamer Trank + Shellker-Schale = 3:00, + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank.",
+          "Durch Shellker-Geschosse (30 s, 1 min bei bestehender Schwerkraft) oder den Trank der Schwerkraft: Wirrer Trank (ohne SimpleLib: Seltsamer Trank) + Shellker-Schale = 3:00, + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank.",
           "Shellker-Helm: 5 Shellker-Schalen in Helmform. Rüstung 3, Härte 1, Rückstoßresistenz 10 %, Haltbarkeit wie Eisen, Reparatur mit Shellker-Schalen. Der Träger ist immun gegen Schwerkraft (nicht gegen den Schaden der Geschosse) und nimmt 20 % weniger Fallschaden. Ein neuer Helm - der Schildkrötenpanzer bleibt unverändert. Lässt sich wie andere Helme verzieren und verzaubern."
         ]
       }
@@ -186,7 +186,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Trick Mirror (currently disabled, owner 15.10.: no recipe, no drop, not in the creative tab; it works only when the server option trickMirrorEnabled in simplemobs-server.json is on and then comes from commands only): hold it up for 3 s: in a cone of 20 degrees up to 12 blocks the nearest three fakes, disguised Deceivers or players glow for 2 s and lose their disguise. 60 s cooldown, 64 uses",
           "The Deceiver has 200 health (280 armored) and turns into one of its wave's mobs, taking its hit box only where there is room. Special attack: after a wave it may double its summons - 5 % at full health, rising with the square of the lost health to 80 % at 20 % health and below; 30 s cooldown, at most 8 copies and never above 24 summons. Copies are always fakes and vanish with it.",
           "Drops: Deceiver Cloth 2-4 with a 50 % chance (never doubled), Illusion Shard 1-2 (+Looting). An armored Deceiver (chest plate) has 280 health and 6 armor and drops twice the Illusion Shards.",
-          "(With SimpleBuilding) Mirage potions from the Illusion Shard: Awkward Potion + Illusion Shard = Potion of the Mirage (\"hostile\": peaceful mobs look hostile); + Fermented Spider Eye = Potion of the Reverse Mirage (\"peaceful\": hostile mobs look peaceful); Redstone lengthens both to 8:00, Gunpowder / Dragon's Breath make splash and lingering potions. No stronger level: the effect has no strength."
+          "(With SimpleBuilding) Mirage potions from the Illusion Shard: Warped Potion (Awkward Potion without SimpleLib) + Illusion Shard = Potion of the Mirage (\"hostile\": peaceful mobs look hostile); + Fermented Spider Eye = Potion of the Reverse Mirage (\"peaceful\": hostile mobs look peaceful); Redstone lengthens both to 8:00, Gunpowder / Dragon's Breath make splash and lingering potions. No stronger level: the effect has no strength."
         ]
       },
       "de": {
@@ -201,7 +201,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Trugbild-Spiegel (vorerst deaktiviert, Besitzer 15.10.: kein Rezept, kein Drop, nicht im Kreativ-Reiter; funktioniert nur mit der Server-Option trickMirrorEnabled in simplemobs-server.json und kommt dann nur per Befehl): 3 s hochhalten: in einem 20-Grad-Kegel bis 12 Blöcke leuchten die drei nächsten Fälschungen, verkleidete Deceiver oder Spieler 2 s lang und verlieren ihre Tarnung. 60 s Abklingzeit, 64 Nutzungen",
           "Der Deceiver hat 200 Leben (280 mit Platte) und verwandelt sich in einen Mob seiner Welle, mit dessen Hitbox nur wo Platz ist. Spezialangriff: nach einer Welle kann er seine Beschwörungen verdoppeln - 5 % bei vollem Leben, mit dem Quadrat des verlorenen Lebens steigend bis 80 % ab 20 % Leben; 30 s Abklingzeit, höchstens 8 Kopien und nie über 24 Beschwörungen. Kopien sind immer Trugbilder und verschwinden mit ihm.",
           "Drops: Täuscherstoff 2-4 mit 50 % Chance (nie doppelt), Trugsplitter 1-2 (+Plünderung). Ein Deceiver mit Brustplatte hat 280 Leben und 6 Rüstung und droppt doppelt so viele Trugsplitter.",
-          "(Mit SimpleBuilding) Trugbild-Tränke aus dem Trugsplitter: Seltsamer Trank + Trugsplitter = Trank des Trugbilds (\"feindlich\": friedliche Mobs wirken feindlich); + Fermentiertes Spinnenauge = Trank des umgekehrten Trugbilds (\"friedlich\": feindliche Mobs wirken friedlich); Redstone verlängert beide auf 8:00, Schwarzpulver / Drachenatem ergeben Wurf- und Verweiltränke. Keine stärkere Stufe: der Effekt hat keine Stärke."
+          "(Mit SimpleBuilding) Trugbild-Tränke aus dem Trugsplitter: Wirrer Trank (ohne SimpleLib: Seltsamer Trank) + Trugsplitter = Trank des Trugbilds (\"feindlich\": friedliche Mobs wirken feindlich); + Fermentiertes Spinnenauge = Trank des umgekehrten Trugbilds (\"friedlich\": feindliche Mobs wirken friedlich); Redstone verlängert beide auf 8:00, Schwarzpulver / Drachenatem ergeben Wurf- und Verweiltränke. Keine stärkere Stufe: der Effekt hat keine Stärke."
         ]
       }
     },
@@ -295,7 +295,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Every second the Dread and the Hollow Watcher give Shivering for 3 s to survival players within 16 blocks, but only while the mob looks at you or is triggered (has a target). The closer, the stronger: level V under 4 blocks, IV under 7, III under 10, II under 13, I under 16. Out of reach it fades level by level. Milk helps only until the next pulse.",
           "Shivering makes the view waver around your aim (about 0.6 degrees at I, 1.8 at II), so bows and crossbows lose precision. With SimpleBuilding it is SimpleBuilding's Shivering effect (which also shakes the crosshair); without it Simple Mobs brings its own.",
           "Calm Amulet: iron chain on top, a Dread Link left, right and below, an amethyst shard in the middle. Anywhere in the inventory it makes you immune to Shivering and removes it.",
-          "Potion of Focus: Awkward Potion + Watcher Eye = 3:00 immunity to Shivering; + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions."
+          "Potion of Focus: Warped Potion (Awkward Potion without SimpleLib) + Watcher Eye = 3:00 immunity to Shivering; + Redstone 8:00; Gunpowder and Dragon's Breath make splash and lingering potions."
         ]
       },
       "de": {
@@ -305,7 +305,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "Jede Sekunde geben Schreckensritter und Hohler Wächter Spielern im Überlebensmodus innerhalb von 16 Blöcken 3 s Zittern, aber nur, solange der Mob dich ansieht oder getriggert ist (ein Ziel hat). Je näher, desto stärker: Stufe V unter 4 Blöcken, IV unter 7, III unter 10, II unter 13, I unter 16. Außer Reichweite klingt es Stufe für Stufe ab. Milch hilft nur bis zum nächsten Puls.",
           "Zittern lässt den Blick um dein Ziel pendeln (etwa 0,6 Grad bei I, 1,8 bei II), Bogen und Armbrust werden ungenau. Mit SimpleBuilding ist es dessen Effekt Zittern (der zusätzlich das Fadenkreuz wackeln lässt); ohne bringt Simple Mobs einen eigenen mit.",
           "Ruhe-Amulett: Eisenkette oben, je ein Schreckens-Kettenglied links, rechts und unten, Amethystscherbe in der Mitte. Irgendwo im Inventar macht es immun gegen Zittern und entfernt es.",
-          "Trank des Fokus: Seltsamer Trank + Wächterauge = 3:00 Immunität gegen Zittern; + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank."
+          "Trank des Fokus: Wirrer Trank (ohne SimpleLib: Seltsamer Trank) + Wächterauge = 3:00 Immunität gegen Zittern; + Redstone 8:00; Schwarzpulver und Drachenatem ergeben Wurf- und Verweiltrank."
         ]
       }
     },
@@ -660,6 +660,63 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       }
     },
     {
+      "id": "simplemobs:brewing/lingering_potion_warped_echo_core",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_warped_echo_core.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_warped_shellker_shell",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_warped_shellker_shell.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_warped_watcher_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_warped_watcher_eye.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_awkward_echo_core",
       "type": "minecraft:brewing",
       "category": null,
@@ -669,25 +726,6 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_awkward_echo_core.json",
-      "ingredients": [
-        "minecraft:potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:potion"
-        ]
-      }
-    },
-    {
-      "id": "simplemobs:brewing/potion_awkward_illusion_shard",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_awkward_illusion_shard.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -1011,6 +1049,82 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_veiled_invisibility_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_warped_echo_core",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_warped_echo_core.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_warped_illusion_shard",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_warped_illusion_shard.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_warped_shellker_shell",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_warped_shellker_shell.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_warped_watcher_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_warped_watcher_eye.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -1353,6 +1467,63 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_veiled_invisibility_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_warped_echo_core",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_warped_echo_core.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_warped_shellker_shell",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_warped_shellker_shell.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_warped_watcher_eye",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_warped_watcher_eye.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -2218,10 +2389,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       },
       "note": {
         "en": {
-          "summary": "Dropped once by every Hollow Howler. Brewed into an Awkward Potion it makes the Potion of Silence (3:00, with redstone 8:00)."
+          "summary": "Dropped once by every Hollow Howler. Brewed into a Warped Potion (Awkward Potion without SimpleLib) it makes the Potion of Silence (3:00, with redstone 8:00)."
         },
         "de": {
-          "summary": "Lässt jeder Tiefenheuler genau einmal fallen. In einen Seltsamen Trank gebraut ergibt er den Trank der Stille (3:00, mit Redstone 8:00)."
+          "summary": "Lässt jeder Tiefenheuler genau einmal fallen. In einen Wirren Trank (ohne SimpleLib: Seltsamen Trank) gebraut ergibt er den Trank der Stille (3:00, mit Redstone 8:00)."
         }
       },
       "texture": "assets/textures/simplemobs/item/echo_core.png",
@@ -2231,7 +2402,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "The heart of a sound that would not stop. It still echoes if you hold it to your ear."
           ],
           "use": [
-            "Dropped by the Hollow Howler. Awkward Potion plus Echo Core brews a Potion of Silence, 3:00 (8:00 with redstone), splash and lingering as usual."
+            "Dropped by the Hollow Howler. Warped Potion (Awkward Potion without SimpleLib) plus Echo Core brews a Potion of Silence, 3:00 (8:00 with redstone), splash and lingering as usual."
           ],
           "secret": [
             "Silence hides you like wool: sculk sensors, Wardens and Howlers do not hear you."
@@ -2242,7 +2413,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "Das Herz eines Klangs, der nicht aufhören wollte. Am Ohr hört man ihn noch."
           ],
           "use": [
-            "Wird vom Tiefenheuler fallen gelassen. Seltsamer Trank plus Echokern braut einen Trank der Stille, 3:00 (8:00 mit Redstone), als Wurf- und Verweiltrank wie üblich."
+            "Wird vom Tiefenheuler fallen gelassen. Wirrer Trank (ohne SimpleLib: Seltsamer Trank) plus Echokern braut einen Trank der Stille, 3:00 (8:00 mit Redstone), als Wurf- und Verweiltrank wie üblich."
           ],
           "secret": [
             "Stille verbirgt dich wie Wolle: Sculk-Sensoren, Wardens und Heuler hören dich nicht."
@@ -2368,10 +2539,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       },
       "note": {
         "en": {
-          "summary": "The Deceiver's second drop (1-2, armored Deceivers twice as many). (With SimpleBuilding) Awkward Potion + Illusion Shard = Potion of the Mirage."
+          "summary": "The Deceiver's second drop (1-2, armored Deceivers twice as many). (With SimpleBuilding) Warped Potion (Awkward Potion without SimpleLib) + Illusion Shard = Potion of the Mirage."
         },
         "de": {
-          "summary": "Zweiter Drop des Deceivers (1-2, mit Brustplatte doppelt so viele). (Mit SimpleBuilding) Seltsamer Trank + Trugsplitter = Trank des Trugbilds."
+          "summary": "Zweiter Drop des Deceivers (1-2, mit Brustplatte doppelt so viele). (Mit SimpleBuilding) Wirrer Trank (ohne SimpleLib: Seltsamer Trank) + Trugsplitter = Trank des Trugbilds."
         }
       },
       "texture": "assets/textures/simplemobs/item/illusion_shard.png",
@@ -2381,7 +2552,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "A sliver of something that was never quite there."
           ],
           "use": [
-            "Dropped by the Deceiver, 1 to 2 (more with Looting; an armored one drops twice as many). With an Awkward Potion it brews the Potion of the Mirage if SimpleBuilding is present."
+            "Dropped by the Deceiver, 1 to 2 (more with Looting; an armored one drops twice as many). With a Warped Potion (Awkward Potion without SimpleLib) it brews the Potion of the Mirage if SimpleBuilding is present."
           ],
           "secret": [
             "An armored Deceiver in a chest plate is the best source."
@@ -2392,7 +2563,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "Ein Splitter von etwas, das nie ganz da war."
           ],
           "use": [
-            "Vom Betrüger fallen gelassen, 1 bis 2 (mehr mit Plünderung; ein gepanzerter lässt doppelt so viele fallen). Mit einem Seltsamen Trank entsteht mit SimpleBuilding der Trank der Fata Morgana."
+            "Vom Betrüger fallen gelassen, 1 bis 2 (mehr mit Plünderung; ein gepanzerter lässt doppelt so viele fallen). Mit einem Wirren Trank (ohne SimpleLib: Seltsamen Trank) entsteht mit SimpleBuilding der Trank der Fata Morgana."
           ],
           "secret": [
             "Ein Betrüger mit Brustplatte ist die beste Quelle."
@@ -2467,7 +2638,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "A shell that has stood against bullets and levitation alike. It is heavier than it looks."
           ],
           "use": [
-            "Dropped by the Shellker, 2 to 3 pieces. Five make a Shellker Helmet; with an Awkward Potion it brews High Gravity. Right-click a Shulker with a shell to turn it into a Shellker."
+            "Dropped by the Shellker, 2 to 3 pieces. Five make a Shellker Helmet; with a Warped Potion (Awkward Potion without SimpleLib) it brews High Gravity. Right-click a Shulker with a shell to turn it into a Shellker."
           ],
           "secret": [
             "The shell is used up when it turns a Shulker. That is the only way to farm Shellkers, since they never spawn anywhere else."
@@ -2478,7 +2649,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "Eine Schale, die Geschossen und Schwebe gleichermaßen widerstanden hat. Sie ist schwerer, als sie aussieht."
           ],
           "use": [
-            "Vom Shellker fallen gelassen, 2 bis 3 Stück. Fünf ergeben einen Shellker-Helm; mit einem Seltsamen Trank braut sie Hohe Schwerkraft. Rechtsklick auf einen Shulker verwandelt ihn in einen Shellker."
+            "Vom Shellker fallen gelassen, 2 bis 3 Stück. Fünf ergeben einen Shellker-Helm; mit einem Wirren Trank (ohne SimpleLib: Seltsamen Trank) braut sie Hohe Schwerkraft. Rechtsklick auf einen Shulker verwandelt ihn in einen Shellker."
           ],
           "secret": [
             "Die Schale wird beim Verwandeln verbraucht. Nur so lassen sich Shellker züchten, denn sie erscheinen sonst nirgends."
@@ -2746,10 +2917,10 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
       },
       "note": {
         "en": {
-          "summary": "Dropped by the Hollow Watcher. Awkward Potion + Watcher Eye brews the Potion of Focus (3:00 immune to Shivering, redstone 8:00)."
+          "summary": "Dropped by the Hollow Watcher. Warped Potion (Awkward Potion without SimpleLib) + Watcher Eye brews the Potion of Focus (3:00 immune to Shivering, redstone 8:00)."
         },
         "de": {
-          "summary": "Lässt der Hohle Wächter fallen. Seltsamer Trank + Wächterauge ergibt den Trank des Fokus (3:00 immun gegen Zittern, Redstone 8:00)."
+          "summary": "Lässt der Hohle Wächter fallen. Wirrer Trank (ohne SimpleLib: Seltsamer Trank) + Wächterauge ergibt den Trank des Fokus (3:00 immun gegen Zittern, Redstone 8:00)."
         }
       },
       "texture": "assets/textures/simplemobs/item/watcher_eye.png",
@@ -2759,7 +2930,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "An eye that keeps looking at whoever holds it. Do not look back for too long."
           ],
           "use": [
-            "Dropped by the Hollow Watcher on the outer End islands. Awkward Potion plus Watcher Eye brews the Potion of Focus: 3:00 immune to Shivering (8:00 with redstone), splash and lingering as usual."
+            "Dropped by the Hollow Watcher on the outer End islands. Warped Potion (Awkward Potion without SimpleLib) plus Watcher Eye brews the Potion of Focus: 3:00 immune to Shivering (8:00 with redstone), splash and lingering as usual."
           ],
           "secret": [
             "Focus keeps the aim steady even in a Watcher's scream, but not the eyes: the scream still blinds."
@@ -2770,7 +2941,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "Ein Auge, das jeden ansieht, der es hält. Schau nicht zu lange zurück."
           ],
           "use": [
-            "Lässt der Hohle Wächter auf den äußeren End-Inseln fallen. Seltsamer Trank plus Wächterauge ergibt den Trank des Fokus: 3:00 immun gegen Zittern (8:00 mit Redstone), Wurf- und Verweiltrank wie üblich."
+            "Lässt der Hohle Wächter auf den äußeren End-Inseln fallen. Wirrer Trank (ohne SimpleLib: Seltsamer Trank) plus Wächterauge ergibt den Trank des Fokus: 3:00 immun gegen Zittern (8:00 mit Redstone), Wurf- und Verweiltrank wie üblich."
           ],
           "secret": [
             "Fokus hält das Zielen ruhig, auch beim Schrei eines Wächters – blind macht der Schrei trotzdem."
@@ -2841,7 +3012,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
   "incompleteProse": {},
   "counts": {
     "features": 12,
-    "recipes": 54,
+    "recipes": 63,
     "lootTables": 8,
     "tags": 7,
     "advancements": 0,

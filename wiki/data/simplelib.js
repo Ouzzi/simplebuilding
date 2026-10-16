@@ -204,6 +204,63 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       }
     },
     {
+      "id": "simplelib:brewing/lingering_potion_water_warped_wart",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/brewing/lingering_potion_water_warped_wart.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplelib:brewing/potion_water_warped_wart",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/brewing/potion_water_warped_wart.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplelib:brewing/splash_potion_water_warped_wart",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/brewing/splash_potion_water_warped_wart.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplelib:copper_barrel",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -698,6 +755,67 @@ window.WIKI_MODULE_DATA["simplelib"] = {
           }
         ]
       }
+    },
+    {
+      "id": "simplelib:warped_wart_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:warped_wart_block",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/warped_wart_block.json",
+      "ingredients": [
+        "simplelib:warped_wart"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplelib:warped_wart"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:warped_wart",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplelib:warped_wart_from_warped_wart_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplelib:warped_wart",
+        "count": 9
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/warped_wart_from_warped_wart_block.json",
+      "ingredients": [
+        "minecraft:warped_wart_block"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:warped_wart_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:warped_wart_block",
+            "count": 1
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -894,6 +1012,22 @@ window.WIKI_MODULE_DATA["simplelib"] = {
         }
       ],
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/reinforced_crucible.json"
+    },
+    {
+      "id": "simplelib:blocks/warped_wart",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:warped_wart"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/warped_wart.json"
     },
     {
       "id": "simplelib:chests/village_field_kitchen",
@@ -1729,6 +1863,27 @@ window.WIKI_MODULE_DATA["simplelib"] = {
       },
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simplelib:warped_wart",
+      "name": {
+        "en_us": "Warped Wart",
+        "de_de": "Wirrwarze"
+      },
+      "note": {
+        "en": {
+          "summary": "Turquoise cousin of the nether wart: plant it on soul sand, four growth stages, 2-4 per harvest (Fortune adds more). Found in bastion chests; brew it with a water bottle into the Warped Potion, the base for the Simple mods' potions."
+        },
+        "de": {
+          "summary": "Türkises Gegenstück der Netherwarze: auf Seelensand pflanzen, vier Wachstumsstufen, 2-4 je Ernte (Glück gibt mehr). In Bastionstruhen zu finden; mit Wasserflasche zum Wirren Trank gebraut, der Basis der Tränke der Simple-Mods."
+        }
+      },
+      "craftedBy": [
+        "simplelib:warped_wart_from_warped_wart_block"
+      ],
+      "usedIn": [
+        "simplelib:warped_wart_block"
+      ]
     }
   ],
   "trades": [],
@@ -1746,13 +1901,13 @@ window.WIKI_MODULE_DATA["simplelib"] = {
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 16,
-    "lootTables": 11,
+    "recipes": 21,
+    "lootTables": 12,
     "tags": 14,
     "advancements": 0,
     "enchantments": 0,
     "items": 10,
-    "blocks": 10,
+    "blocks": 11,
     "trades": 0,
     "config": 0,
     "quests": 0,

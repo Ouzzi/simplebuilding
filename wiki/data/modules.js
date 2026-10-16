@@ -291,7 +291,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "50dff4477f87"
+    "dataHash": "3b5041f1f442"
   },
   {
     "id": "simpleinterfaces",
@@ -364,7 +364,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "9852e201f510"
+    "dataHash": "daad400b5977"
   },
   {
     "id": "simpleweather",
@@ -706,6 +706,6 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "fa54f1fa9967"
+    "dataHash": "c43969c3cca9"
   }
 ];

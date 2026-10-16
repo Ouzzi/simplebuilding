@@ -48243,7 +48243,7 @@ window.WIKI_DATA = {
             "A black tendril cut from something that listens."
           ],
           "use": [
-            "Every Warden drops 1 to 2. In the brewing stand an Awkward Potion with a tendril becomes a Potion of Darkness."
+            "Every Warden drops 1 to 2. In the brewing stand a Warped Potion with a tendril becomes a Potion of Darkness."
           ],
           "secret": [
             "The Warden does not mind; it hears you anyway."
@@ -48254,7 +48254,7 @@ window.WIKI_DATA = {
             "Eine schwarze Ranke, von etwas abgeschnitten, das lauscht."
           ],
           "use": [
-            "Jeder Wächter lässt 1 bis 2 fallen. Im Braustand wird ein Seltsamer Trank mit einer Ranke zum Trank der Dunkelheit."
+            "Jeder Wächter lässt 1 bis 2 fallen. Im Braustand wird ein Wirrer Trank mit einer Ranke zum Trank der Dunkelheit."
           ],
           "secret": [
             "Der Wächter stört sich nicht daran; er hört dich trotzdem."
@@ -86463,138 +86463,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_amethyst_shard",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_amethyst_shard.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_ink_sac",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_ink_sac.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_red_mushroom",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_red_mushroom.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_shulker_head",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_shulker_head.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_snowball",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_snowball.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:brewing/lingering_potion_awkward_warden_tendril",
-      "type": "minecraft:brewing",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_warden_tendril.json",
-      "ingredients": [
-        "minecraft:lingering_potion"
-      ],
-      "slots": {
-        "input": [
-          "minecraft:lingering_potion"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:brewing/lingering_potion_crafty_shulker_redstone",
       "type": "minecraft:brewing",
       "category": null,
@@ -86815,7 +86683,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/potion_awkward_amethyst_shard",
+      "id": "simplebuilding:brewing/lingering_potion_warped_amethyst_shard",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -86823,13 +86691,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_amethyst_shard.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_warped_amethyst_shard.json",
       "ingredients": [
-        "minecraft:potion"
+        "minecraft:lingering_potion"
       ],
       "slots": {
         "input": [
-          "minecraft:potion"
+          "minecraft:lingering_potion"
         ]
       },
       "lines": [
@@ -86837,7 +86705,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/potion_awkward_ink_sac",
+      "id": "simplebuilding:brewing/lingering_potion_warped_ink_sac",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -86845,13 +86713,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_ink_sac.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_warped_ink_sac.json",
       "ingredients": [
-        "minecraft:potion"
+        "minecraft:lingering_potion"
       ],
       "slots": {
         "input": [
-          "minecraft:potion"
+          "minecraft:lingering_potion"
         ]
       },
       "lines": [
@@ -86859,7 +86727,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/potion_awkward_red_mushroom",
+      "id": "simplebuilding:brewing/lingering_potion_warped_red_mushroom",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -86867,13 +86735,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_red_mushroom.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_warped_red_mushroom.json",
       "ingredients": [
-        "minecraft:potion"
+        "minecraft:lingering_potion"
       ],
       "slots": {
         "input": [
-          "minecraft:potion"
+          "minecraft:lingering_potion"
         ]
       },
       "lines": [
@@ -86881,7 +86749,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/potion_awkward_shulker_head",
+      "id": "simplebuilding:brewing/lingering_potion_warped_shulker_head",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -86889,13 +86757,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_shulker_head.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_warped_shulker_head.json",
       "ingredients": [
-        "minecraft:potion"
+        "minecraft:lingering_potion"
       ],
       "slots": {
         "input": [
-          "minecraft:potion"
+          "minecraft:lingering_potion"
         ]
       },
       "lines": [
@@ -86903,7 +86771,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/potion_awkward_snowball",
+      "id": "simplebuilding:brewing/lingering_potion_warped_snowball",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -86911,13 +86779,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_snowball.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_warped_snowball.json",
       "ingredients": [
-        "minecraft:potion"
+        "minecraft:lingering_potion"
       ],
       "slots": {
         "input": [
-          "minecraft:potion"
+          "minecraft:lingering_potion"
         ]
       },
       "lines": [
@@ -86925,7 +86793,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/potion_awkward_warden_tendril",
+      "id": "simplebuilding:brewing/lingering_potion_warped_warden_tendril",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -86933,13 +86801,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_warden_tendril.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_warped_warden_tendril.json",
       "ingredients": [
-        "minecraft:potion"
+        "minecraft:lingering_potion"
       ],
       "slots": {
         "input": [
-          "minecraft:potion"
+          "minecraft:lingering_potion"
         ]
       },
       "lines": [
@@ -87497,7 +87365,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/splash_potion_awkward_amethyst_shard",
+      "id": "simplebuilding:brewing/potion_warped_amethyst_shard",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -87505,13 +87373,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_amethyst_shard.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_warped_amethyst_shard.json",
       "ingredients": [
-        "minecraft:splash_potion"
+        "minecraft:potion"
       ],
       "slots": {
         "input": [
-          "minecraft:splash_potion"
+          "minecraft:potion"
         ]
       },
       "lines": [
@@ -87519,7 +87387,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/splash_potion_awkward_ink_sac",
+      "id": "simplebuilding:brewing/potion_warped_ink_sac",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -87527,13 +87395,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_ink_sac.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_warped_ink_sac.json",
       "ingredients": [
-        "minecraft:splash_potion"
+        "minecraft:potion"
       ],
       "slots": {
         "input": [
-          "minecraft:splash_potion"
+          "minecraft:potion"
         ]
       },
       "lines": [
@@ -87541,7 +87409,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/splash_potion_awkward_red_mushroom",
+      "id": "simplebuilding:brewing/potion_warped_red_mushroom",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -87549,13 +87417,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_red_mushroom.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_warped_red_mushroom.json",
       "ingredients": [
-        "minecraft:splash_potion"
+        "minecraft:potion"
       ],
       "slots": {
         "input": [
-          "minecraft:splash_potion"
+          "minecraft:potion"
         ]
       },
       "lines": [
@@ -87563,7 +87431,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/splash_potion_awkward_shulker_head",
+      "id": "simplebuilding:brewing/potion_warped_shulker_head",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -87571,13 +87439,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_shulker_head.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_warped_shulker_head.json",
       "ingredients": [
-        "minecraft:splash_potion"
+        "minecraft:potion"
       ],
       "slots": {
         "input": [
-          "minecraft:splash_potion"
+          "minecraft:potion"
         ]
       },
       "lines": [
@@ -87585,7 +87453,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/splash_potion_awkward_snowball",
+      "id": "simplebuilding:brewing/potion_warped_snowball",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -87593,13 +87461,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_snowball.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_warped_snowball.json",
       "ingredients": [
-        "minecraft:splash_potion"
+        "minecraft:potion"
       ],
       "slots": {
         "input": [
-          "minecraft:splash_potion"
+          "minecraft:potion"
         ]
       },
       "lines": [
@@ -87607,7 +87475,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:brewing/splash_potion_awkward_warden_tendril",
+      "id": "simplebuilding:brewing/potion_warped_warden_tendril",
       "type": "minecraft:brewing",
       "category": null,
       "group": null,
@@ -87615,13 +87483,13 @@ window.WIKI_DATA = {
         "id": null,
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_warden_tendril.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_warped_warden_tendril.json",
       "ingredients": [
-        "minecraft:splash_potion"
+        "minecraft:potion"
       ],
       "slots": {
         "input": [
-          "minecraft:splash_potion"
+          "minecraft:potion"
         ]
       },
       "lines": [
@@ -88166,6 +88034,138 @@ window.WIKI_DATA = {
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_strong_shivering_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_warped_amethyst_shard",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_warped_amethyst_shard.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_warped_ink_sac",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_warped_ink_sac.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_warped_red_mushroom",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_warped_red_mushroom.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_warped_shulker_head",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_warped_shulker_head.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_warped_snowball",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_warped_snowball.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_warped_warden_tendril",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_warped_warden_tendril.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],

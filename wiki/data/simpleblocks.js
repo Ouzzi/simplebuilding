@@ -168,9 +168,341 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "Zinnober- und Schwefelziegel sind Vanilla-Blöcke von Minecraft 26.3."
         ]
       }
+    },
+    {
+      "id": "blue_nether_bricks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_bricks.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_bricks_without_simplelib.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:blue_nether_bricks",
+        "simpleblocks:blue_nether_brick_stairs",
+        "simpleblocks:blue_nether_brick_slab",
+        "simpleblocks:blue_nether_brick_wall"
+      ],
+      "en": {
+        "title": "Blue Nether Bricks",
+        "summary": "The turquoise cousin of the red nether bricks, made with Warped Wart.",
+        "details": [
+          "Recipe: two Warped Wart and two Nether Bricks in a diagonal make one Blue Nether Bricks, like the red ones with Nether Wart. Without SimpleLib, one Warped Wart Block and eight Nether Bricks make four. Stairs, slab and wall come from the crafting table (4 / 6 / 6) or the stonecutter.",
+          "They have the hardness, tool and sound of Red Nether Bricks."
+        ]
+      },
+      "de": {
+        "title": "Blaue Netherziegel",
+        "summary": "Das türkise Gegenstück der Roten Netherziegel, hergestellt mit Wirrwarze.",
+        "details": [
+          "Rezept: zwei Wirrwarzen und zwei Netherziegel über Eck ergeben einen Blauen Netherziegel, wie die roten mit Netherwarze. Ohne SimpleLib ergeben ein Wirrwarzenblock und acht Netherziegel vier. Treppe, Stufe und Mauer gibt es an der Werkbank (4 / 6 / 6) oder am Steinsäger.",
+          "Sie haben Härte, Werkzeug und Geräusch der Roten Netherziegel."
+        ]
+      }
     }
   ],
   "recipes": [
+    {
+      "id": "simpleblocks:blue_nether_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_nether_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:blue_nether_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:blue_nether_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 6
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_nether_brick_slab_from_blue_nether_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_nether_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_brick_slab_from_blue_nether_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:blue_nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_nether_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_nether_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_nether_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:blue_nether_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:blue_nether_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 12
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_nether_brick_stairs_from_blue_nether_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_nether_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_brick_stairs_from_blue_nether_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:blue_nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_nether_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_nether_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_nether_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:blue_nether_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:blue_nether_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 12
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_nether_brick_wall_from_blue_nether_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_nether_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_brick_wall_from_blue_nether_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:blue_nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_nether_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_nether_bricks",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_nether_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_bricks.json",
+      "ingredients": [
+        "minecraft:nether_brick",
+        "simplelib:warped_wart"
+      ],
+      "pattern": [
+        "WN",
+        "NW"
+      ],
+      "key": {
+        "W": [
+          "simplelib:warped_wart"
+        ],
+        "N": [
+          "minecraft:nether_brick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:blue_nether_bricks_without_simplelib",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:blue_nether_bricks",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/blue_nether_bricks_without_simplelib.json",
+      "ingredients": [
+        "minecraft:nether_brick",
+        "minecraft:warped_wart_block"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:warped_wart_block"
+        ],
+        [
+          "minecraft:nether_brick"
+        ],
+        [
+          "minecraft:nether_brick"
+        ],
+        [
+          "minecraft:nether_brick"
+        ],
+        [
+          "minecraft:nether_brick"
+        ],
+        [
+          "minecraft:nether_brick"
+        ],
+        [
+          "minecraft:nether_brick"
+        ],
+        [
+          "minecraft:nether_brick"
+        ],
+        [
+          "minecraft:nether_brick"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 8
+          },
+          {
+            "id": "minecraft:warped_wart_block",
+            "count": 1
+          }
+        ]
+      }
+    },
     {
       "id": "simpleblocks:calcite_slab",
       "type": "minecraft:crafting_shaped",
@@ -1845,6 +2177,70 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
   ],
   "lootTables": [
     {
+      "id": "simpleblocks:blocks/blue_nether_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:blue_nether_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/blue_nether_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/blue_nether_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:blue_nether_brick_stairs"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/blue_nether_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/blue_nether_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:blue_nether_brick_wall"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/blue_nether_brick_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/blue_nether_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:blue_nether_bricks"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/blue_nether_bricks.json"
+    },
+    {
       "id": "simpleblocks:blocks/calcite_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2390,10 +2786,10 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -2404,6 +2800,83 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
     }
   ],
   "blocks": [
+    {
+      "id": "simpleblocks:blue_nether_brick_slab",
+      "name": {
+        "en_us": "Blue Nether Brick Slab",
+        "de_de": "Blaue Netherziegelstufe"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleblocks:blue_nether_brick_slab",
+        "simpleblocks:blue_nether_brick_slab_from_blue_nether_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:blue_nether_brick_stairs",
+      "name": {
+        "en_us": "Blue Nether Brick Stairs",
+        "de_de": "Blaue Netherziegeltreppe"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleblocks:blue_nether_brick_stairs",
+        "simpleblocks:blue_nether_brick_stairs_from_blue_nether_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:blue_nether_brick_wall",
+      "name": {
+        "en_us": "Blue Nether Brick Wall",
+        "de_de": "Blaue Netherziegelmauer"
+      },
+      "note": null,
+      "craftedBy": [
+        "simpleblocks:blue_nether_brick_wall",
+        "simpleblocks:blue_nether_brick_wall_from_blue_nether_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:blue_nether_bricks",
+      "name": {
+        "en_us": "Blue Nether Bricks",
+        "de_de": "Blaue Netherziegel"
+      },
+      "note": {
+        "en": {
+          "title": "Blue Nether Bricks",
+          "summary": "The turquoise cousin of the red nether bricks, made with Warped Wart.",
+          "details": [
+            "Recipe: two Warped Wart and two Nether Bricks in a diagonal make one Blue Nether Bricks, like the red ones with Nether Wart. Without SimpleLib, one Warped Wart Block and eight Nether Bricks make four. Stairs, slab and wall come from the crafting table (4 / 6 / 6) or the stonecutter.",
+            "They have the hardness, tool and sound of Red Nether Bricks."
+          ]
+        },
+        "de": {
+          "title": "Blaue Netherziegel",
+          "summary": "Das türkise Gegenstück der Roten Netherziegel, hergestellt mit Wirrwarze.",
+          "details": [
+            "Rezept: zwei Wirrwarzen und zwei Netherziegel über Eck ergeben einen Blauen Netherziegel, wie die roten mit Netherwarze. Ohne SimpleLib ergeben ein Wirrwarzenblock und acht Netherziegel vier. Treppe, Stufe und Mauer gibt es an der Werkbank (4 / 6 / 6) oder am Steinsäger.",
+            "Sie haben Härte, Werkzeug und Geräusch der Roten Netherziegel."
+          ]
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/blue_nether_bricks.png",
+      "craftedBy": [
+        "simpleblocks:blue_nether_bricks",
+        "simpleblocks:blue_nether_bricks_without_simplelib"
+      ],
+      "usedIn": [
+        "simpleblocks:blue_nether_brick_slab",
+        "simpleblocks:blue_nether_brick_slab_from_blue_nether_bricks_stonecutting",
+        "simpleblocks:blue_nether_brick_stairs",
+        "simpleblocks:blue_nether_brick_stairs_from_blue_nether_bricks_stonecutting",
+        "simpleblocks:blue_nether_brick_wall",
+        "simpleblocks:blue_nether_brick_wall_from_blue_nether_bricks_stonecutting"
+      ]
+    },
     {
       "id": "simpleblocks:calcite_slab",
       "name": {
@@ -2891,6 +3364,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
     "sources": []
   },
   "undocumented": [
+    "simpleblocks:blue_nether_brick_slab",
+    "simpleblocks:blue_nether_brick_stairs",
+    "simpleblocks:blue_nether_brick_wall",
     "simpleblocks:calcite_slab",
     "simpleblocks:calcite_stairs",
     "simpleblocks:calcite_wall",
@@ -2925,19 +3401,19 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
   ],
   "incompleteProse": {},
   "counts": {
-    "features": 4,
-    "recipes": 52,
-    "lootTables": 33,
+    "features": 5,
+    "recipes": 60,
+    "lootTables": 37,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 33,
+    "blocks": 37,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 31,
+    "undocumented": 34,
     "inWorld": 0,
     "incompleteProse": 0
   }
