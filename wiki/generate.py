@@ -931,14 +931,22 @@ def summarise_pool(pool: dict) -> dict:
                 out.extend(entry_items(child))
         return out
 
+    def typed(node, old_key, old_field, new_key=None):
+        # Pre-26.3 lists {"<old_field>": id}; 26.3 uses a single object or list of {"type": id}.
+        out = [c.get(old_field) for c in node.get(old_key, []) or []]
+        new = node.get(new_key or old_field)
+        for c in new if isinstance(new, list) else [new] if isinstance(new, dict) else []:
+            out.append(c.get("type"))
+        return out
+
     items: list[str] = []
     for entry in pool.get("entries", []) or []:
         items.extend(entry_items(entry))
     return {
         "rolls": pool.get("rolls", 1),
         "items": items,
-        "conditions": [c.get("condition") for c in pool.get("conditions", []) or []],
-        "functions": [f.get("function") for f in pool.get("functions", []) or []],
+        "conditions": typed(pool, "conditions", "condition"),
+        "functions": typed(pool, "functions", "function", "modifier"),
     }
 
 
