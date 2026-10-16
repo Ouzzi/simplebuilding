@@ -6,6 +6,8 @@ werden hier beschrieben. Stil: N12 (Bild 3/4), Maße PLAN-CRUCIBLE-N12B. Alles f
 | Baustein | Klasse | Zweck |
 |---|---|---|
 | Kasten | `UiBoxes.box` / `seam` | Rahmen 5 px (unten 7 px mit Schatten), Ecken 2 px gerundet; Inventar-Fuge |
+| Treppenrahmen (N67) | `UiBoxes.stairFrame` | n einpixelige Lagen (außen zuerst) um eine Füllung, je Lage Ecken n-i…1 (2 Lagen 2-1, 3 Lagen 3-2-1); jedes Pixel genau einmal gemalt, also auch mit Alpha (HUD-Kästen, 78 %) |
+| Kontrast (N67) | `UiContrast` | WCAG-Verhältnis, `ensure(fg, bg)` und `INK_OK/ERROR/SOFT` (≥ 4,5:1 auf Inventar-Grau und Papier); `UiPalette.label()` und `ribbonLabel` erzwingen 4,5:1; **jede neue UI prüft Text ≥ 4,5:1, nie dunkler Text mit Schatten auf Grau** (Test `simplelib:module_game_test_ui_text_contrast`) |
 | Slot / großer Slot | `UiBoxes.slot` / `bigSlot` | eingelassene 16×16-Slots, Ergebnis-Slot 24×24 |
 | Pfeil, Fortschritt, Flammen | `UiBoxes.arrow`, `progressFill`, `UiFlames` | Ofen-artige Anzeigen |
 | Paletten | `UiPalette` (`derived(fill)`) | Farbe je Block/Mod, Ableitung aller Töne aus einer Füllfarbe |

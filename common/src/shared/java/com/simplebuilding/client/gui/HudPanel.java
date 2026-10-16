@@ -58,10 +58,12 @@ public final class HudPanel {
     public static final int COLOR_VALUE = mix(ModScreenLayout.OCTANT_FILL, 0xFFFFFFFF, 0.8);
     /** Dimmer step of {@link #COLOR_VALUE} (Pos 2). */
     public static final int COLOR_VALUE_DIM = mix(ModScreenLayout.OCTANT_FILL, 0xFFFFFFFF, 0.6);
-    /** Secondary lines (4,8:1 over a pure white world, 9+ over a dark one). */
+    /** Secondary lines (4,7:1 over a pure white world, 9+ over a dark one; Vanilla's grey #AAAAAA had 4,05:1). */
     public static final int COLOR_SECONDARY = 0xFFB8B8B8;
-    /** Warnings (danger zone, lethal fall). */
-    public static final int COLOR_DANGER = 0xFFFF5555;
+    /** Warnings (danger zone, lethal fall): 4,6:1 over a pure white world (the former #FF5555 had 3,0:1), 8+ over a dark one. */
+    public static final int COLOR_DANGER = 0xFFFF9999;
+    /** Orange impact damage of the Gauge: 4,7:1 over a pure white world (the former #FF7F4C had 3,8:1). */
+    public static final int COLOR_IMPACT = 0xFFFFA070;
 
     /** The panels that can be on screen, in stacking order from top to bottom. */
     public enum Slot {

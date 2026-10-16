@@ -3,7 +3,6 @@ package com.simplebuilding.client.gui;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.VelocityGaugeItem;
 import com.simplebuilding.util.EnchantmentHelper;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -34,9 +33,9 @@ import java.util.List;
  */
 public class SpeedometerHudOverlay {
 
-    private static final int COLOR_SPEED = 0xFF7F4C;
-    private static final int COLOR_STATS = 0xFFAAAAAA;
-    private static final int COLOR_DANGER = 0xFFFF5555;
+    private static final int COLOR_SPEED = HudPanel.COLOR_IMPACT & 0xFFFFFF;
+    private static final int COLOR_STATS = HudPanel.COLOR_SECONDARY;
+    private static final int COLOR_DANGER = HudPanel.COLOR_DANGER;
     private static final int COLOR_SAFE = 0xFF55FF55;
 
     /** Geschwindigkeit bei Vollausschlag (Bloecke/s). */
@@ -161,7 +160,7 @@ public class SpeedometerHudOverlay {
             } else {
                 extras.add(stats);
                 extras.add(Component.literal(String.format("X: %.1f  Z: %.1f", Math.abs(velX * 20), Math.abs(velZ * 20)))
-                        .withStyle(ChatFormatting.GRAY));
+                        .setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
             }
         }
         Component altitude = altimeterLine(client, moving, activeStack);
@@ -223,7 +222,7 @@ public class SpeedometerHudOverlay {
         Component distance = height < 0.0
                 ? Component.translatable("hud.simplebuilding.velocity_gauge.ground_far", range)
                 : Component.translatable("hud.simplebuilding.velocity_gauge.ground", String.format("%.1f", height));
-        net.minecraft.network.chat.MutableComponent line = Component.empty().append(distance.copy().withStyle(ChatFormatting.GRAY));
+        net.minecraft.network.chat.MutableComponent line = Component.empty().append(distance.copy().setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
         if (moving == client.player && moving.getDeltaMovement().y < 0.0 && height >= 0.0 && !client.player.isFallFlying()) {
             var player = client.player;
             int damage = VelocityGaugeItem.impactDamage(player.fallDistance, height,
