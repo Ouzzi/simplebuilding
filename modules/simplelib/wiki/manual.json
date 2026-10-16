@@ -311,6 +311,14 @@
       "de": {
         "summary": "Aufwertungsvorlage von Netherit zu Enderit; vervielfältigt mit Diamanten und Endstein."
       }
+    },
+    "simplelib:warped_wart": {
+      "en": {
+        "summary": "Turquoise cousin of the nether wart: plant it on soul sand, four growth stages, 2-4 per harvest (Fortune adds more). Found in bastion chests; brew it with a water bottle into the Warped Potion, the base for the Simple mods' potions."
+      },
+      "de": {
+        "summary": "Türkises Gegenstück der Netherwarze: auf Seelensand pflanzen, vier Wachstumsstufen, 2-4 je Ernte (Glück gibt mehr). In Bastionstruhen zu finden; mit Wasserflasche zum Wirren Trank gebraut, der Basis der Tränke der Simple-Mods."
+      }
     }
   }
 }

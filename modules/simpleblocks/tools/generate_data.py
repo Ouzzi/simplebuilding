@@ -45,6 +45,13 @@ for family, base, which, tex in SHAPES:
 for name, _ in AGED:
     BLOCKS[name] = dict(kind='cube', tex=f'{NS}:block/{name}')
 
+# Blue nether bricks (N71): own texture, full block + stairs/slab/wall; made from warped wart (SimpleLib) like red nether bricks from nether wart.
+BLUE = 'blue_nether_bricks'
+BLUE_TEX = f'{NS}:block/{BLUE}'
+BLOCKS[BLUE] = dict(kind='cube', tex=BLUE_TEX)
+for kind, suffix in (('stairs', 'stairs'), ('slab', 'slab'), ('wall', 'wall')):
+    BLOCKS[f'blue_nether_brick_{suffix}'] = dict(kind=kind, base=f'{NS}:{BLUE}', top=BLUE_TEX, side=BLUE_TEX, wall=BLUE_TEX, double=BLUE_TEX, family=BLUE)
+
 AGED_BASE = dict(AGED)
 HUSHED_BLOCKS = [n for n in BLOCKS if n.startswith('hushed_')]
 
@@ -123,19 +130,30 @@ def models_and_states():
 
 
 # --- recipes ----------------------------------------------------------------------------------------------------------
-def advancement(recipe_id, trigger_item, folder='building_blocks'):
+def advancement(recipe_id, trigger_item, folder='building_blocks', conditions=None):
     key = 'has_' + trigger_item.split(':')[1]
     put(f'data/{NS}/advancement/recipes/{folder}/{recipe_id}.json', {
-        'parent': 'minecraft:recipes/root',
+        **(conditions or {}), 'parent': 'minecraft:recipes/root',
         'criteria': {key: {'conditions': {'items': [{'items': trigger_item}]}, 'trigger': 'minecraft:inventory_changed'},
                      'has_the_recipe': {'conditions': {'recipes': f'{NS}:{recipe_id}'}, 'trigger': 'minecraft:recipe_unlocked'}},
         'requirements': [['has_the_recipe', key]],
         'rewards': {'recipes': [f'{NS}:{recipe_id}']}})
 
 
-def recipe(recipe_id, data, trigger_item, folder='building_blocks'):
-    put(f'data/{NS}/recipe/{recipe_id}.json', data)
-    advancement(recipe_id, trigger_item, folder)
+def mod_condition(mod, negate=False):
+    """Load conditions in the three loader forms: `mod` is loaded (or, negated, is not)."""
+    fabric = {'condition': 'fabric:all_mods_loaded', 'values': [mod]}
+    neo = {'type': 'neoforge:mod_loaded', 'modid': mod}
+    forge = {'type': 'forge:mod_loaded', 'modid': mod}
+    if negate:
+        fabric, neo, forge = ({'condition': 'fabric:not', 'value': fabric}, {'type': 'neoforge:not', 'value': neo},
+                              {'type': 'forge:not', 'value': forge})
+    return {'fabric:load_conditions': [fabric], 'neoforge:conditions': [neo], 'forge:conditions': [forge]}
+
+
+def recipe(recipe_id, data, trigger_item, folder='building_blocks', conditions=None):
+    put(f'data/{NS}/recipe/{recipe_id}.json', {**(conditions or {}), **data})
+    advancement(recipe_id, trigger_item, folder, conditions)
 
 
 def result(name, count=1):
@@ -150,6 +168,14 @@ def recipes():
                     'ingredients': ['minecraft:deepslate_tiles'] * 4 + ['minecraft:sculk'], 'result': result(HUSHED, 4)}, 'minecraft:sculk')
     recipe('sculk_deepslate', {'type': 'minecraft:crafting_shapeless', 'category': 'building',
                                'ingredients': ['minecraft:deepslate', 'minecraft:sculk'], 'result': result('sculk_deepslate', 2)}, 'minecraft:sculk')
+    # Blue nether bricks (N71): like red nether bricks (2 wart + 2 nether bricks), with SimpleLib's warped wart; without
+    # SimpleLib (Simple Blocks alone) Vanilla's warped wart block stands in (1 block + 8 nether bricks -> 4).
+    lib, no_lib = mod_condition('simplelib'), mod_condition('simplelib', True)
+    recipe(BLUE, {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'W': 'simplelib:warped_wart', 'N': 'minecraft:nether_brick'},
+                  'pattern': ['WN', 'NW'], 'result': result(BLUE)}, 'simplelib:warped_wart', conditions=lib)
+    recipe(f'{BLUE}_without_simplelib', {'type': 'minecraft:crafting_shapeless', 'category': 'building',
+                                         'ingredients': ['minecraft:warped_wart_block'] + ['minecraft:nether_brick'] * 8, 'result': result(BLUE, 4)},
+           'minecraft:warped_wart_block', conditions=no_lib)
     for name, b in BLOCKS.items():
         kind = b['kind']
         if kind == 'cube':
@@ -217,10 +243,10 @@ def tags():
 # --- lang -------------------------------------------------------------------------------------------------------------
 EN_FAMILY = {'calcite': 'Calcite', 'netherrack': 'Netherrack', 'smooth_basalt': 'Smooth Basalt', 'cut_sandstone': 'Cut Sandstone',
              'cut_red_sandstone': 'Cut Red Sandstone', 'smooth_sandstone': 'Smooth Sandstone', 'smooth_red_sandstone': 'Smooth Red Sandstone',
-             HUSHED: 'Hushed Deepslate Tile'}
+             HUSHED: 'Hushed Deepslate Tile', BLUE: 'Blue Nether Brick'}
 DE_FAMILY = {'calcite': 'Kalzit', 'netherrack': 'Netherrack-', 'smooth_basalt': 'Glatte Basalt', 'cut_sandstone': 'Geschnittene Sandstein',
              'cut_red_sandstone': 'Geschnittene Rote Sandstein', 'smooth_sandstone': 'Glatte Sandstein', 'smooth_red_sandstone': 'Glatte Rote Sandstein',
-             HUSHED: 'Gedämpfte Tiefenschieferfliesen'}
+             HUSHED: 'Gedämpfte Tiefenschieferfliesen', BLUE: 'Blaue Netherziegel'}
 DE_KIND = {'stairs': 'treppe', 'slab': 'stufe', 'wall': 'mauer'}
 EN_KIND = {'stairs': 'Stairs', 'slab': 'Slab', 'wall': 'Wall'}
 EN_BRICK = {'red_nether_bricks': 'Red Nether Bricks', 'tuff_bricks': 'Tuff Bricks', 'mud_bricks': 'Mud Bricks', 'end_stone_bricks': 'End Stone Bricks',
@@ -234,6 +260,8 @@ def names():
     for name, b in BLOCKS.items():
         if name == HUSHED:
             en[name], de[name] = 'Hushed Deepslate Tiles', 'Gedämpfte Tiefenschieferfliesen'
+        elif name == BLUE:
+            en[name], de[name] = 'Blue Nether Bricks', 'Blaue Netherziegel'
         elif name == 'sculk_deepslate':
             en[name], de[name] = 'Sculk Deepslate', 'Sculk-Tiefenschiefer'
         elif b['kind'] == 'cube':
@@ -248,7 +276,9 @@ def names():
             fam = b['family']
             en[name] = f'{EN_FAMILY[fam]} {EN_KIND[b["kind"]]}'
             stem = DE_FAMILY[fam]
-            if fam == HUSHED:
+            if fam == BLUE:
+                de[name] = f'Blaue Netherziegel{DE_KIND[b["kind"]]}'
+            elif fam == HUSHED:
                 de[name] = f'Gedämpfte Tiefenschieferfliesen{DE_KIND[b["kind"]]}'.replace('fliesenstufe', 'fliesenstufe')
             elif fam in ('cut_sandstone', 'cut_red_sandstone', 'smooth_sandstone', 'smooth_red_sandstone'):
                 stem_noun = stem.replace('Geschnittene ', '').replace('Glatte ', '')

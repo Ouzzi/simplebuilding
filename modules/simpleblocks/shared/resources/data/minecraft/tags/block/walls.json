@@ -7,6 +7,7 @@
     "simpleblocks:cut_sandstone_wall",
     "simpleblocks:cut_red_sandstone_wall",
     "simpleblocks:smooth_sandstone_wall",
-    "simpleblocks:smooth_red_sandstone_wall"
+    "simpleblocks:smooth_red_sandstone_wall",
+    "simpleblocks:blue_nether_brick_wall"
   ]
 }

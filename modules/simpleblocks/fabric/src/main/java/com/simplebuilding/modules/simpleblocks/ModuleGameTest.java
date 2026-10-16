@@ -50,4 +50,9 @@ public final class ModuleGameTest {
     public void guideBook(GameTestHelper h) {
         BlocksTests.ALL.get("guide_book").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void blueNetherBricksRecipes(GameTestHelper h) {
+        BlocksTests.ALL.get("blue_nether_bricks_recipes").accept(h);
+    }
 }

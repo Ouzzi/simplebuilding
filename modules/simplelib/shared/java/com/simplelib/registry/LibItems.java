@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Block;
 
 /** Block items. The crucible blank has none (it only exists in the world while being built). */
 public final class LibItems {
-    public static Item IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE, COPPER_BARREL, REINFORCED_BARREL, NETHERITE_BARREL, REINFORCED_CAULDRON;
+    public static Item IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE, COPPER_BARREL, REINFORCED_BARREL, NETHERITE_BARREL, REINFORCED_CAULDRON, WARPED_WART;
 
     public static void register() {
         IRON_CRUCIBLE = blockItem("iron_crucible", LibBlocks.IRON_CRUCIBLE, new Item.Properties());
@@ -20,6 +20,11 @@ public final class LibItems {
         COPPER_BARREL = blockItem("copper_barrel", LibBlocks.COPPER_BARREL, new Item.Properties());
         REINFORCED_BARREL = blockItem("reinforced_barrel", LibBlocks.REINFORCED_BARREL, new Item.Properties());
         NETHERITE_BARREL = blockItem("netherite_barrel", LibBlocks.NETHERITE_BARREL, new Item.Properties().fireResistant());
+        // Like the nether wart: a plain item name (not "block ..."), compostable at 65 %.
+        ResourceKey<Item> wartKey = ResourceKey.create(Registries.ITEM, SimpleLib.id("warped_wart"));
+        WARPED_WART = Registry.register(BuiltInRegistries.ITEM, wartKey, new BlockItem(LibBlocks.WARPED_WART,
+                new Item.Properties().setId(wartKey).useItemDescriptionPrefix()
+                        .compostable(net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders.COMPOSTABLE_MEDIUM_HIGH)));
         REINFORCED_CAULDRON = blockItem("reinforced_cauldron", LibBlocks.REINFORCED_CAULDRON, new Item.Properties());
     }
 

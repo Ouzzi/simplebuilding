@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleblocks:block/blue_nether_brick_slab"
+    },
+    "type=double": {
+      "model": "simpleblocks:block/blue_nether_bricks"
+    },
+    "type=top": {
+      "model": "simpleblocks:block/blue_nether_brick_slab_top"
+    }
+  }
+}

@@ -4,7 +4,7 @@
       "Das Herz eines Klangs, der nicht aufhören wollte. Am Ohr hört man ihn noch."
     ],
     "use": [
-      "Wird vom Tiefenheuler fallen gelassen. Seltsamer Trank plus Echokern braut einen Trank der Stille, 3:00 (8:00 mit Redstone), als Wurf- und Verweiltrank wie üblich."
+      "Wird vom Tiefenheuler fallen gelassen. Wirrer Trank (ohne SimpleLib: Seltsamer Trank) plus Echokern braut einen Trank der Stille, 3:00 (8:00 mit Redstone), als Wurf- und Verweiltrank wie üblich."
     ],
     "secret": [
       "Stille verbirgt dich wie Wolle: Sculk-Sensoren, Wardens und Heuler hören dich nicht."
@@ -26,7 +26,7 @@
       "Eine Schale, die Geschossen und Schwebe gleichermaßen widerstanden hat. Sie ist schwerer, als sie aussieht."
     ],
     "use": [
-      "Vom Shellker fallen gelassen, 2 bis 3 Stück. Fünf ergeben einen Shellker-Helm; mit einem Seltsamen Trank braut sie Hohe Schwerkraft. Rechtsklick auf einen Shulker verwandelt ihn in einen Shellker."
+      "Vom Shellker fallen gelassen, 2 bis 3 Stück. Fünf ergeben einen Shellker-Helm; mit einem Wirren Trank (ohne SimpleLib: Seltsamen Trank) braut sie Hohe Schwerkraft. Rechtsklick auf einen Shulker verwandelt ihn in einen Shellker."
     ],
     "secret": [
       "Die Schale wird beim Verwandeln verbraucht. Nur so lassen sich Shellker züchten, denn sie erscheinen sonst nirgends."
@@ -114,7 +114,7 @@
       "Ein Splitter von etwas, das nie ganz da war."
     ],
     "use": [
-      "Vom Betrüger fallen gelassen, 1 bis 2 (mehr mit Plünderung; ein gepanzerter lässt doppelt so viele fallen). Mit einem Seltsamen Trank entsteht mit SimpleBuilding der Trank der Fata Morgana."
+      "Vom Betrüger fallen gelassen, 1 bis 2 (mehr mit Plünderung; ein gepanzerter lässt doppelt so viele fallen). Mit einem Wirren Trank (ohne SimpleLib: Seltsamen Trank) entsteht mit SimpleBuilding der Trank der Fata Morgana."
     ],
     "secret": [
       "Ein Betrüger mit Brustplatte ist die beste Quelle."
@@ -158,7 +158,7 @@
       "Ein Auge, das jeden ansieht, der es hält. Schau nicht zu lange zurück."
     ],
     "use": [
-      "Lässt der Hohle Wächter auf den äußeren End-Inseln fallen. Seltsamer Trank plus Wächterauge ergibt den Trank des Fokus: 3:00 immun gegen Zittern (8:00 mit Redstone), Wurf- und Verweiltrank wie üblich."
+      "Lässt der Hohle Wächter auf den äußeren End-Inseln fallen. Wirrer Trank (ohne SimpleLib: Seltsamer Trank) plus Wächterauge ergibt den Trank des Fokus: 3:00 immun gegen Zittern (8:00 mit Redstone), Wurf- und Verweiltrank wie üblich."
     ],
     "secret": [
       "Fokus hält das Zielen ruhig, auch beim Schrei eines Wächters – blind macht der Schrei trotzdem."

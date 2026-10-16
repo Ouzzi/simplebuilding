@@ -314,6 +314,19 @@ public final class SimpleLibApi {
         com.simplelib.material.MaterialLoot.byPartner();
     }
 
+    /**
+     * The warped base potion (water bottle + warped wart, owner N71): the base the Simple mods brew their own potions from.
+     * Null before the potion registry is filled. Brewing recipes name it as {@code simplelib:warped}.
+     */
+    public static net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> warpedPotion() {
+        return com.simplelib.registry.LibPotions.WARPED;
+    }
+
+    /** The warped wart item (plantable on soul sand, brewing ingredient of the warped base potion). */
+    public static net.minecraft.world.item.Item warpedWart() {
+        return com.simplelib.registry.LibItems.WARPED_WART;
+    }
+
     /** A shared material item by path ({@code "enderite_ingot"}); registers the materials first if needed (any load order). */
     public static net.minecraft.world.item.Item materialItem(String id) {
         return com.simplelib.registry.LibMaterials.item(id);

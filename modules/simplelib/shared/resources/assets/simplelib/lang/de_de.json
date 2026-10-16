@@ -53,5 +53,11 @@
   "item.simplelib.enderite_upgrade_template.additions_slot_description": "Das im Rezept benötigte Material hinzufügen",
   "item.simplelib.enderite_upgrade_template": "Enderit-Aufwertung",
   "block.simplelib.cracked_diamond_block": "Rissiger Diamantblock",
-  "block.simplelib.enderite_block": "Enderitblock"
+  "block.simplelib.enderite_block": "Enderitblock",
+  "block.simplelib.warped_wart": "Wirrwarze",
+  "item.simplelib.warped_wart": "Wirrwarze",
+  "item.minecraft.potion.effect.warped": "Wirrer Trank",
+  "item.minecraft.splash_potion.effect.warped": "Wirrer Wurftrank",
+  "item.minecraft.lingering_potion.effect.warped": "Wirrer Verweiltrank",
+  "item.minecraft.tipped_arrow.effect.warped": "Pfeil des Wirren Tranks"
 }

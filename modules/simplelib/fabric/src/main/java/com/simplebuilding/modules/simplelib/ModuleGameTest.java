@@ -233,4 +233,34 @@ public final class ModuleGameTest {
     public void uiTextContrast(GameTestHelper h) {
         LibTests.ALL.get("ui_text_contrast").accept(h);
     }
+
+    @GameTest
+    public void warpedWartGrowsLikeNetherWart(GameTestHelper h) {
+        LibTests.ALL.get("warped_wart_grows_like_nether_wart").accept(h);
+    }
+
+    @GameTest
+    public void warpedWartHarvestDrops(GameTestHelper h) {
+        LibTests.ALL.get("warped_wart_harvest_drops").accept(h);
+    }
+
+    @GameTest
+    public void warpedWartIsCompostableAndPlantable(GameTestHelper h) {
+        LibTests.ALL.get("warped_wart_is_compostable_and_plantable").accept(h);
+    }
+
+    @GameTest
+    public void warpedWartInBastionChests(GameTestHelper h) {
+        LibTests.ALL.get("warped_wart_in_bastion_chests").accept(h);
+    }
+
+    @GameTest
+    public void warpedWartBrewsTheWarpedPotion(GameTestHelper h) {
+        LibTests.ALL.get("warped_wart_brews_the_warped_potion").accept(h);
+    }
+
+    @GameTest
+    public void warpedWartBlockRecipes(GameTestHelper h) {
+        LibTests.ALL.get("warped_wart_block_recipes").accept(h);
+    }
 }

@@ -4,7 +4,7 @@
       "The heart of a sound that would not stop. It still echoes if you hold it to your ear."
     ],
     "use": [
-      "Dropped by the Hollow Howler. Awkward Potion plus Echo Core brews a Potion of Silence, 3:00 (8:00 with redstone), splash and lingering as usual."
+      "Dropped by the Hollow Howler. Warped Potion (Awkward Potion without SimpleLib) plus Echo Core brews a Potion of Silence, 3:00 (8:00 with redstone), splash and lingering as usual."
     ],
     "secret": [
       "Silence hides you like wool: sculk sensors, Wardens and Howlers do not hear you."
@@ -26,7 +26,7 @@
       "A shell that has stood against bullets and levitation alike. It is heavier than it looks."
     ],
     "use": [
-      "Dropped by the Shellker, 2 to 3 pieces. Five make a Shellker Helmet; with an Awkward Potion it brews High Gravity. Right-click a Shulker with a shell to turn it into a Shellker."
+      "Dropped by the Shellker, 2 to 3 pieces. Five make a Shellker Helmet; with a Warped Potion (Awkward Potion without SimpleLib) it brews High Gravity. Right-click a Shulker with a shell to turn it into a Shellker."
     ],
     "secret": [
       "The shell is used up when it turns a Shulker. That is the only way to farm Shellkers, since they never spawn anywhere else."
@@ -114,7 +114,7 @@
       "A sliver of something that was never quite there."
     ],
     "use": [
-      "Dropped by the Deceiver, 1 to 2 (more with Looting; an armored one drops twice as many). With an Awkward Potion it brews the Potion of the Mirage if SimpleBuilding is present."
+      "Dropped by the Deceiver, 1 to 2 (more with Looting; an armored one drops twice as many). With a Warped Potion (Awkward Potion without SimpleLib) it brews the Potion of the Mirage if SimpleBuilding is present."
     ],
     "secret": [
       "An armored Deceiver in a chest plate is the best source."
@@ -158,7 +158,7 @@
       "An eye that keeps looking at whoever holds it. Do not look back for too long."
     ],
     "use": [
-      "Dropped by the Hollow Watcher on the outer End islands. Awkward Potion plus Watcher Eye brews the Potion of Focus: 3:00 immune to Shivering (8:00 with redstone), splash and lingering as usual."
+      "Dropped by the Hollow Watcher on the outer End islands. Warped Potion (Awkward Potion without SimpleLib) plus Watcher Eye brews the Potion of Focus: 3:00 immune to Shivering (8:00 with redstone), splash and lingering as usual."
     ],
     "secret": [
       "Focus keeps the aim steady even in a Watcher's scream, but not the eyes: the scream still blinds."

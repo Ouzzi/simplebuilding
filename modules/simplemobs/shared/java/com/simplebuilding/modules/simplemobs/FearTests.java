@@ -521,7 +521,10 @@ final class FearTests {
             h.assertTrue(dl.getRandomItems(noPlayer).isEmpty(), "only a player's kill drops links");
             var recipes = l.getServer().getRecipeManager();
             h.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "calm_amulet"))).isPresent(), "amulet recipe");
-            h.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "brewing/potion_awkward_watcher_eye"))).isPresent(), "Focus brewing");
+            // Owner N71: Focus is brewed from the warped potion with SimpleLib, from the awkward potion (nether wart) without it.
+            boolean lib = BuiltInRegistries.POTION.containsKey(Identifier.fromNamespaceAndPath("simplelib", "warped"));
+            String focus = lib ? "brewing/potion_warped_watcher_eye" : "brewing/potion_awkward_watcher_eye";
+            h.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", focus))).isPresent(), "Focus brewing " + focus);
             dread.discard();
             watcher.discard();
             h.succeed();

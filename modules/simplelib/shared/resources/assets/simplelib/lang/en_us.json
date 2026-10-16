@@ -53,5 +53,11 @@
   "item.simplelib.enderite_upgrade_template.additions_slot_description": "Add the material required by the recipe",
   "item.simplelib.enderite_upgrade_template": "Enderite Upgrade",
   "block.simplelib.cracked_diamond_block": "Block of Cracked Diamond",
-  "block.simplelib.enderite_block": "Block of Enderite"
+  "block.simplelib.enderite_block": "Block of Enderite",
+  "block.simplelib.warped_wart": "Warped Wart",
+  "item.simplelib.warped_wart": "Warped Wart",
+  "item.minecraft.potion.effect.warped": "Warped Potion",
+  "item.minecraft.splash_potion.effect.warped": "Splash Warped Potion",
+  "item.minecraft.lingering_potion.effect.warped": "Lingering Warped Potion",
+  "item.minecraft.tipped_arrow.effect.warped": "Arrow of the Warped Potion"
 }

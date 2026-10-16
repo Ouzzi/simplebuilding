@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 33 blocks with their block items and one creative tab. Properties are copied from a
+ * Everything Simple Blocks registers: 37 blocks with their block items and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
  * {@link #blocks}/{@link #items} in their matching registry event (Fabric: {@link #registerAll}).
@@ -47,6 +47,13 @@ public final class BlocksRegistry {
     public static final Block HUSHED_DEEPSLATE_TILE_WALL = add("hushed_deepslate_tile_wall", Blocks.DEEPSLATE_TILES, s -> new WallBlock(s.forceSolidOn()));
     /** Craftable and found in Ancient City chests only; no world generation. 1-2 experience when mined without Silk Touch. */
     public static final Block SCULK_DEEPSLATE = add("sculk_deepslate", Blocks.DEEPSLATE, s -> new DropExperienceBlock(UniformInt.of(1, 2), s));
+
+    // --- Blue nether bricks (N71): turquoise cousin of the red nether bricks, made with SimpleLib's warped wart.
+    public static final Block BLUE_NETHER_BRICKS = add("blue_nether_bricks", Blocks.RED_NETHER_BRICKS, Block::new);
+    public static final Block BLUE_NETHER_BRICK_STAIRS = add("blue_nether_brick_stairs", Blocks.RED_NETHER_BRICKS,
+            s -> new StairBlock(BLUE_NETHER_BRICKS.defaultBlockState(), s));
+    public static final Block BLUE_NETHER_BRICK_SLAB = add("blue_nether_brick_slab", Blocks.RED_NETHER_BRICKS, SlabBlock::new);
+    public static final Block BLUE_NETHER_BRICK_WALL = add("blue_nether_brick_wall", Blocks.RED_NETHER_BRICKS, s -> new WallBlock(s.forceSolidOn()));
 
     // --- Missing stairs, slabs and walls of Vanilla blocks (textures: the Vanilla block's).
     public static final List<String> SHAPES = List.of(
@@ -158,7 +165,8 @@ public final class BlocksRegistry {
                 new Placement(false, Items.SULFUR, List.of("cracked_cinnabar_bricks", "mossy_cinnabar_bricks")),
                 new Placement(false, Items.SEA_LANTERN, List.of("cracked_sulfur_bricks", "mossy_sulfur_bricks")),
                 new Placement(false, Items.NETHER_BRICKS, List.of("netherrack_stairs", "netherrack_slab", "netherrack_wall")),
-                new Placement(false, Items.BASALT, List.of("cracked_red_nether_bricks")),
+                new Placement(false, Items.BASALT, List.of("cracked_red_nether_bricks", "blue_nether_bricks", "blue_nether_brick_stairs",
+                        "blue_nether_brick_slab", "blue_nether_brick_wall")),
                 new Placement(false, Items.POLISHED_BASALT, List.of("smooth_basalt_stairs", "smooth_basalt_slab", "smooth_basalt_wall")),
                 new Placement(false, Items.PURPUR_BLOCK, List.of("cracked_end_stone_bricks", "mossy_end_stone_bricks")),
                 new Placement(true, Items.TUFF, List.of("calcite_stairs", "calcite_slab", "calcite_wall")),

@@ -46,6 +46,7 @@ public final class SimpleLibNeoForge {
                     @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return LibBlockEntities.isBarrel(state); }
                 });
             }
+            if (key.equals(Registries.POTION)) com.simplelib.registry.LibPotions.register();
             if (key.equals(Registries.MENU)) LibMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) LibRegistry.tab();
         });

@@ -20,6 +20,7 @@ public final class SimpleLibFabric implements ModInitializer {
         LibBlocks.register();
         com.simplelib.registry.LibMaterials.ensureBlocks();
         LibItems.register();
+        com.simplelib.registry.LibPotions.register();
         com.simplelib.registry.LibMaterials.ensureItems();
         MaterialConditionFabric.register();
         // Valid for every crucible/barrel block, including partner tiers registered later (load order free).

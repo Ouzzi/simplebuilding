@@ -11,7 +11,9 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
@@ -61,22 +63,29 @@ public final class BrewingTests {
             helper.succeed();
             return;
         }
+        // Owner N71: the mod potions brew from the warped potion (water bottle + warped wart, SimpleLib), not from the awkward one.
+        Identifier warpedId = Identifier.fromNamespaceAndPath("simplelib", "warped");
+        Holder<Potion> warped = BuiltInRegistries.POTION.wrapAsHolder(BuiltInRegistries.POTION.getValue(warpedId));
         Object[][] steps = {
-                {Potions.AWKWARD, ModItems.WARDEN_TENDRIL, ModEffects.DARKNESS_POTION},
+                {warped, ModItems.WARDEN_TENDRIL, ModEffects.DARKNESS_POTION},
                 {ModEffects.DARKNESS_POTION, Items.REDSTONE, ModEffects.LONG_DARKNESS_POTION},
-                {Potions.AWKWARD, Items.RED_MUSHROOM, ModEffects.NAUSEA_POTION},
+                {warped, Items.RED_MUSHROOM, ModEffects.NAUSEA_POTION},
                 {ModEffects.NAUSEA_POTION, Items.REDSTONE, ModEffects.LONG_NAUSEA_POTION},
-                {Potions.AWKWARD, Items.SNOWBALL, ModEffects.SHIVERING_POTION},
+                {warped, Items.SNOWBALL, ModEffects.SHIVERING_POTION},
                 {ModEffects.SHIVERING_POTION, Items.REDSTONE, ModEffects.LONG_SHIVERING_POTION},
                 {ModEffects.SHIVERING_POTION, Items.GLOWSTONE_DUST, ModEffects.STRONG_SHIVERING_POTION},
-                {Potions.AWKWARD, Items.AMETHYST_SHARD, ModEffects.MIRAGE_POTION},
+                {warped, Items.AMETHYST_SHARD, ModEffects.MIRAGE_POTION},
                 {ModEffects.MIRAGE_POTION, Items.REDSTONE, ModEffects.LONG_MIRAGE_POTION},
                 {ModEffects.MIRAGE_POTION, Items.FERMENTED_SPIDER_EYE, ModEffects.REVERSE_MIRAGE_POTION},
                 {ModEffects.LONG_MIRAGE_POTION, Items.FERMENTED_SPIDER_EYE, ModEffects.LONG_REVERSE_MIRAGE_POTION},
                 {ModEffects.REVERSE_MIRAGE_POTION, Items.REDSTONE, ModEffects.LONG_REVERSE_MIRAGE_POTION},
-                {Potions.AWKWARD, Items.INK_SAC, ModEffects.FADED_POTION},
+                {warped, Items.INK_SAC, ModEffects.FADED_POTION},
                 {ModEffects.FADED_POTION, Items.REDSTONE, ModEffects.LONG_FADED_POTION},
         };
+        for (Item container : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION)) {
+            helper.assertTrue(BrewChecks.brew(helper.getLevel(), potion(container, Potions.AWKWARD), new ItemStack(Items.RED_MUSHROOM)).isEmpty(),
+                    "the awkward potion no longer brews the mod potion of red mushrooms (nausea)");
+        }
         for (Object[] step : steps) {
             @SuppressWarnings("unchecked") Holder<Potion> input = (Holder<Potion>) step[0];
             @SuppressWarnings("unchecked") Holder<Potion> output = (Holder<Potion>) step[2];

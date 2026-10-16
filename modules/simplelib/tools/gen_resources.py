@@ -332,6 +332,7 @@ def files():
     out[f"{d}/tags/item/hammers.json"] = {"values": []}
     out[f"{d}/tags/item/upgrade_tools.json"] = {"values": [f"#{NS}:hammers"]}
     materials(out)
+    warped_wart(out)
     pickaxe = [f"{NS}:{t}_crucible" for t in TIERS] + [f"{NS}:crucible_blank"] + [f"{NS}:{t}_barrel" for t in BARREL_TIERS]         + [f"{NS}:reinforced_cauldron"]
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": pickaxe + [f"{NS}:{b}" for b in MATERIAL_BLOCKS]}
     out["data/minecraft/tags/block/needs_stone_tool.json"] = {"values": pickaxe}
@@ -454,6 +455,53 @@ def materials(out):
     out["data/minecraft/tags/block/needs_iron_tool.json"] = {"values": [f"{NS}:cracked_diamond_block"]}
     out["data/minecraft/tags/block/needs_diamond_tool.json"] = {"values": [f"{NS}:enderite_block"]}
     out["data/minecraft/tags/block/beacon_base_blocks.json"] = {"values": [f"{NS}:enderite_block"]}
+
+
+def warped_wart(out):
+    """Warped wart (owner N71): the plant (4 ages, like nether wart: ages 1 and 2 share a model), its item, loot table and
+    the 9 <-> block recipes with Vanilla's warped wart block."""
+    a = f"assets/{NS}"
+    d = f"data/{NS}"
+    for stage in range(3):
+        out[f"{a}/models/block/warped_wart_stage{stage}.json"] = {
+            "parent": "minecraft:block/crop", "textures": {"crop": f"{NS}:block/warped_wart_stage{stage}"}}
+    out[f"{a}/blockstates/warped_wart.json"] = {"variants": {
+        f"age={age}": {"model": f"{NS}:block/warped_wart_stage{(0, 1, 1, 2)[age]}"} for age in range(4)}}
+    out[f"{a}/models/item/warped_wart.json"] = {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/warped_wart"}}
+    out[f"{a}/items/warped_wart.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/warped_wart"}}
+    # Same drops as nether wart (26.3 loot format, copied from Vanilla): 1 when young, 2-4 (+ fortune) when fully grown.
+    mature = {"type": "minecraft:match_block", "blocks": f"{NS}:warped_wart", "state": {"age": "3"}}
+    out[f"{d}/loot_table/blocks/warped_wart.json"] = {
+        "type": "minecraft:block",
+        "pools": [{"entries": [{"type": "minecraft:item", "name": f"{NS}:warped_wart", "modifier": [
+            {"type": "minecraft:set_count", "condition": mature, "count": {"type": "minecraft:uniform", "min": 2, "max": 4}},
+            {"type": "minecraft:apply_bonus", "condition": mature, "enchantment": "minecraft:fortune",
+             "formula": "minecraft:uniform_bonus_count", "parameters": {"bonusMultiplier": 1}}]}],
+            "modifier": {"type": "minecraft:explosion_decay"}, "rolls": 1}],
+        "random_sequence": f"{NS}:blocks/warped_wart",
+    }
+    # Brewing (26.3, data driven): water bottle + warped wart = warped potion, in all three bottles like Vanilla's awkward.
+    for container in ("potion", "splash_potion", "lingering_potion"):
+        out[f"{d}/recipe/brewing/{container}_water_warped_wart.json"] = {
+            "type": "minecraft:brewing",
+            "input": {"item": f"minecraft:{container}", "potion_contents": {"potions": "minecraft:water"}},
+            "output": {"components": {"minecraft:potion_contents": {"potion": f"{NS}:warped"}}, "id": f"minecraft:{container}"},
+            "reagent": {"item": f"{NS}:warped_wart"}}
+    block = "minecraft:warped_wart_block"
+    recipes = {
+        "warped_wart_block": ("building_blocks", {"type": "minecraft:crafting_shaped", "category": "building",
+                              "key": {"#": f"{NS}:warped_wart"}, "pattern": ["###", "###", "###"], "result": {"id": block}},
+                              [f"{NS}:warped_wart"]),
+        "warped_wart_from_warped_wart_block": ("misc", {"type": "minecraft:crafting_shapeless", "category": "misc",
+                              "ingredients": [block], "result": {"count": 9, "id": f"{NS}:warped_wart"}}, [block]),
+    }
+    for rid, (category, recipe, unlocking) in recipes.items():
+        out[f"{d}/recipe/{rid}.json"] = recipe
+        criteria = {f"has_{i.split(':')[1]}": {"conditions": {"items": [{"items": i}]}, "trigger": "minecraft:inventory_changed"} for i in unlocking}
+        criteria["has_the_recipe"] = {"conditions": {"recipes": f"{NS}:{rid}"}, "trigger": "minecraft:recipe_unlocked"}
+        out[f"{d}/advancement/recipes/{category}/{rid}.json"] = {
+            "parent": "minecraft:recipes/root", "criteria": criteria,
+            "requirements": [["has_the_recipe"] + [f"has_{i.split(':')[1]}" for i in unlocking]], "rewards": {"recipes": [f"{NS}:{rid}"]}}
 
 
 def render(data):

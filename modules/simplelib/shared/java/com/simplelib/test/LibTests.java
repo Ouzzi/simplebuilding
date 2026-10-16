@@ -942,5 +942,6 @@ public final class LibTests {
         ALL.put("discover_recipe_unlocks", com.simplelib.discover.LibDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplelib.discover.LibDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplelib.discover.LibDiscover::firstPickupTips);
+        WarpedWartTests.register();
     }
 }

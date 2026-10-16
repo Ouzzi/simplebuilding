@@ -51,13 +51,13 @@ import net.minecraft.world.phys.Vec3;
 public final class BlocksTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     public static final Map<String, Integer> MAX_TICKS = new LinkedHashMap<>();
-    public static final int BLOCK_COUNT = 33;
+    public static final int BLOCK_COUNT = 37;
     private static final Set<String> HUSHED = Set.of("hushed_deepslate_tiles", "hushed_deepslate_tile_stairs",
             "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall");
 
     static {
         ALL.put("registered", h -> {
-            h.assertTrue(BlocksRegistry.NAMES.size() == BLOCK_COUNT, "33 blocks, found " + BlocksRegistry.NAMES.size());
+            h.assertTrue(BlocksRegistry.NAMES.size() == BLOCK_COUNT, "37 blocks, found " + BlocksRegistry.NAMES.size());
             for (String name : BlocksRegistry.NAMES) {
                 h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleBlocks.id(name)), "block " + name);
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleBlocks.id(name)), "item " + name);
@@ -194,7 +194,34 @@ public final class BlocksTests {
         });
     }
 
+    /** Blue nether bricks (N71): like red nether bricks with SimpleLib's warped wart; Vanilla's warped wart block stands in without SimpleLib. */
+    private static void blueNetherBricksRecipes(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        boolean lib = BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "warped_wart"));
+        ItemStack wart = lib ? new ItemStack(BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "warped_wart")))
+                : new ItemStack(Items.WARPED_WART_BLOCK);
+        ItemStack brick = new ItemStack(Items.NETHER_BRICK);
+        var input = lib ? net.minecraft.world.item.crafting.CraftingInput.of(2, 2, List.of(wart, brick, brick, wart))
+                : net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(wart, brick, brick, brick, brick, brick, brick, brick, brick));
+        ItemStack made = level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, level)
+                .map(r -> r.value().assemble(input)).orElse(ItemStack.EMPTY);
+        h.assertTrue(made.is(BlocksRegistry.BLUE_NETHER_BRICKS.asItem()) && made.getCount() == (lib ? 1 : 4), "blue nether bricks (simplelib=" + lib + "): " + made);
+        h.assertTrue(BlocksRegistry.BLUE_NETHER_BRICK_STAIRS instanceof StairBlock && BlocksRegistry.BLUE_NETHER_BRICK_SLAB instanceof SlabBlock
+                && BlocksRegistry.BLUE_NETHER_BRICK_WALL instanceof WallBlock, "stairs, slab and wall classes");
+        h.assertTrue(BlocksRegistry.BLUE_NETHER_BRICKS.defaultBlockState().getSoundType() == Blocks.RED_NETHER_BRICKS.defaultBlockState().getSoundType(),
+                "sound of the red nether bricks");
+        // The stonecutter cuts all three shapes from the new bricks.
+        var one = new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(BlocksRegistry.BLUE_NETHER_BRICKS));
+        int shapes = 0;
+        for (var holder : level.getServer().getRecipeManager().getRecipes()) {
+            if (holder.value() instanceof net.minecraft.world.item.crafting.StonecutterRecipe r && r.matches(one, level)) shapes++;
+        }
+        h.assertTrue(shapes == 3, "stonecutter: stairs, slab, wall, got " + shapes);
+        h.succeed();
+    }
+
     static {
+        ALL.put("blue_nether_bricks_recipes", BlocksTests::blueNetherBricksRecipes);
         ALL.put("discover_recipe_unlocks", com.simpleblocks.discover.BlocksDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleblocks.discover.BlocksDiscover::behaviourHints);
     }

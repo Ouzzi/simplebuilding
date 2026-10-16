@@ -46,9 +46,17 @@ assert loot['pools'][0]['conditions'] == [{'condition': 'minecraft:random_chance
 assert loot['pools'][1]['entries'][0]['name'] == 'simplemobs:illusion_shard'
 bonus = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entities/deceiver_armor_bonus.json').read_text(encoding='utf-8'))
 assert bonus['pools'] == [loot['pools'][1]], 'armored Deceiver: the shard pool once more (twice the shards)'
-mirage = json.loads((MODULE / 'shared/resources/data/simplemobs/recipe/brewing/potion_awkward_illusion_shard.json').read_text(encoding='utf-8'))
+mirage = json.loads((MODULE / 'shared/resources/data/simplemobs/recipe/brewing/potion_warped_illusion_shard.json').read_text(encoding='utf-8'))
 assert mirage['fabric:load_conditions'] and mirage['neoforge:conditions'] and mirage['forge:conditions'], 'Mirage potion only with Simple Building'
 assert len(list((MODULE / 'shared/resources/data/simplemobs/recipe/brewing').glob('*.json'))) >= 10
+# N71: brewed from the warped potion with SimpleLib, from the awkward potion without it (not-conditions in all three loader forms)
+for reagent in ('echo_core', 'shellker_shell', 'watcher_eye'):
+    for container in ('potion', 'splash_potion', 'lingering_potion'):
+        for base, negated in (('warped', False), ('awkward', True)):
+            r = json.loads((MODULE / f'shared/resources/data/simplemobs/recipe/brewing/{container}_{base}_{reagent}.json').read_text(encoding='utf-8'))
+            assert r['input']['potion_contents']['potions'] == ('simplelib:warped' if base == 'warped' else 'minecraft:awkward'), (container, base, reagent)
+            assert (r['fabric:load_conditions'][0]['condition'] == 'fabric:not') == negated, (container, base, reagent)
+            assert (r['neoforge:conditions'][0]['type'] == 'neoforge:not') == negated and (r['forge:conditions'][0]['type'] == 'forge:not') == negated
 # Shellker + Soulfire Blaze (claude-mobs2)
 for item in ('shellker_shell', 'shellker_helmet', 'shellker_spawn_egg', 'soulfire_rod', 'soulfire_blaze_spawn_egg', 'soulfire_powder', 'soul_fire_charge'):
     for locale in ('en_us', 'de_de'):
@@ -68,7 +76,7 @@ assert 'simplemobs:shellker_helmet' in json.loads((MODULE / 'shared/resources/da
 for name in ('soulfire_powder', 'soul_fire_charge'):
     assert (MODULE / f'shared/resources/data/simplemobs/recipe/{name}.json').is_file(), name
 assert 'simplemobs:shellker_helmet' in json.loads((MODULE / 'shared/resources/data/minecraft/tags/item/trimmable_armor.json').read_text(encoding='utf-8'))['values']
-for name in ('potion_awkward_shellker_shell', 'potion_high_gravity_redstone', 'potion_awkward_soulfire_rod'):
+for name in ('potion_warped_shellker_shell', 'potion_awkward_shellker_shell', 'potion_high_gravity_redstone', 'potion_awkward_soulfire_rod'):
     assert (MODULE / f'shared/resources/data/simplemobs/recipe/brewing/{name}.json').is_file(), name
 # Fear mobs (claude-fear-mobs): Dread, Hollow Watcher, Calm Amulet, Focus
 for item in ('dread_link', 'calm_amulet', 'watcher_eye', 'dread_spawn_egg', 'hollow_watcher_spawn_egg'):

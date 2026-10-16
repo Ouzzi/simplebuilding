@@ -121,7 +121,7 @@ public class HoeHarvestHandler {
         if (block == Blocks.POTATOES) return Items.POTATO;
         if (block == Blocks.CARROTS) return Items.CARROT;
         if (block == Blocks.BEETROOTS) return Items.BEETROOT_SEEDS;
-        if (block == Blocks.NETHER_WART) return Items.NETHER_WART;
+        if (block instanceof NetherWartBlock) return block.asItem(); // also modded warts (Warped Wart)
         if (block == Blocks.COCOA) return Items.COCOA_BEANS;
         return Items.AIR;
     }

@@ -17,7 +17,7 @@ registry = set(re.findall(r'add\("([a-z_]+)"', java))
 registry |= {m for m in re.findall(r'"([a-z_]+_(?:stairs|slab|wall))"', java.split('SHAPES = List.of(')[1].split(');')[0])}
 registry |= {m for m in re.findall(r'new String\[\]\{"([a-z_]+)", "[a-z_]+"\}', java)}
 assert registry == set(g.BLOCKS), (sorted(registry ^ set(g.BLOCKS)))
-assert len(g.BLOCKS) == 33, len(g.BLOCKS)
+assert len(g.BLOCKS) == 37, len(g.BLOCKS)
 
 assert subprocess.run([sys.executable, str(MODULE / 'tools/generate_data.py'), '--check']).returncode == 0
 
@@ -40,6 +40,6 @@ for feature in manual['features']:
 
 # Textures: the own ones are committed, the cracked/mossy bricks are Vanilla-derived (built, never committed).
 tex = RES / f'assets/{NS}/textures/block'
-for name in ('hushed_deepslate_tiles', 'sculk_deepslate'):
+for name in ('hushed_deepslate_tiles', 'sculk_deepslate', 'blue_nether_bricks'):
     assert (tex / f'{name}.png').exists(), name
-print('simpleblocks: 33 blocks, generated data, bilingual lang and wiki valid')
+print('simpleblocks: 37 blocks, generated data, bilingual lang and wiki valid')

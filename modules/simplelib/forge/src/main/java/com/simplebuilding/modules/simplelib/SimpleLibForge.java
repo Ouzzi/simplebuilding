@@ -45,6 +45,7 @@ public final class SimpleLibForge {
                     @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return LibBlockEntities.isBarrel(state); }
                 });
             }
+            if (key.equals(Registries.POTION)) com.simplelib.registry.LibPotions.register();
             if (key.equals(Registries.MENU)) LibMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) LibRegistry.tab();
             // Explicit id moves (IdMoves) as Forge registry aliases: the defaulted wrapper answers getValue/containsKey

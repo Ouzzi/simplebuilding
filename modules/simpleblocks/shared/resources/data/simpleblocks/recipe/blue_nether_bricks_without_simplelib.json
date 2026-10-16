@@ -1,0 +1,48 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simplelib"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simplelib"
+      }
+    }
+  ],
+  "forge:conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "simplelib"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:warped_wart_block",
+    "minecraft:nether_brick",
+    "minecraft:nether_brick",
+    "minecraft:nether_brick",
+    "minecraft:nether_brick",
+    "minecraft:nether_brick",
+    "minecraft:nether_brick",
+    "minecraft:nether_brick",
+    "minecraft:nether_brick"
+  ],
+  "result": {
+    "count": 4,
+    "id": "simpleblocks:blue_nether_bricks"
+  }
+}

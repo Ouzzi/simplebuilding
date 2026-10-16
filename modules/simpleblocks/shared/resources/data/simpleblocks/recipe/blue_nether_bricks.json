@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplelib"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplelib"
+    }
+  ],
+  "forge:conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "simplelib"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "W": "simplelib:warped_wart",
+    "N": "minecraft:nether_brick"
+  },
+  "pattern": [
+    "WN",
+    "NW"
+  ],
+  "result": {
+    "id": "simpleblocks:blue_nether_bricks"
+  }
+}

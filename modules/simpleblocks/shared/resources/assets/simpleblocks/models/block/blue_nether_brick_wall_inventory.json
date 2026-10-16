@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "simpleblocks:block/blue_nether_bricks"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:blue_nether_bricks",
+  "result": {
+    "count": 2,
+    "id": "simpleblocks:blue_nether_brick_slab"
+  }
+}

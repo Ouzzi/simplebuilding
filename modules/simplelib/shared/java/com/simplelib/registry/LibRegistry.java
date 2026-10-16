@@ -29,6 +29,7 @@ public final class LibRegistry {
         out.add(new ItemStack(LibItems.REINFORCED_BARREL));
         out.add(new ItemStack(LibItems.NETHERITE_BARREL));
         out.add(new ItemStack(LibItems.REINFORCED_CAULDRON));
+        out.add(new ItemStack(LibItems.WARPED_WART));
         return out;
     }
 

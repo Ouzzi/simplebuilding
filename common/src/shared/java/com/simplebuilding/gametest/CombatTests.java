@@ -290,8 +290,8 @@ public final class CombatTests {
         helper.assertValueEqual(ModEffects.LONG_CRAFTY_SHULKER_POTION.value().getEffects().getFirst().getDuration(), ModEffects.LONG_DURATION,
                 "duration of the long potion");
         var recipes = helper.getLevel().getServer().getRecipeManager();
-        for (String path : List.of("brewing/potion_awkward_shulker_head", "brewing/splash_potion_awkward_shulker_head",
-                "brewing/lingering_potion_awkward_shulker_head", "brewing/potion_crafty_shulker_redstone",
+        for (String path : List.of("brewing/potion_warped_shulker_head", "brewing/splash_potion_warped_shulker_head",
+                "brewing/lingering_potion_warped_shulker_head", "brewing/potion_crafty_shulker_redstone",
                 "brewing/lingering_potion_crafty_shulker_redstone", "brewing/potion_crafty_shulker_gunpowder",
                 "brewing/splash_potion_long_crafty_shulker_dragon_breath")) {
             ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> key = ResourceKey.create(Registries.RECIPE,

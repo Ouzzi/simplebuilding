@@ -260,7 +260,7 @@ final class DisguiseTests {
             var tables = h.getLevel().getServer().reloadableRegistries();
             h.assertTrue(tables.getLootTable(DeceiverEntity.ARMOR_BONUS_LOOT) != net.minecraft.world.level.storage.loot.LootTable.EMPTY, "armor bonus table (twice the shards) exists");
             boolean sb = net.minecraft.core.registries.BuiltInRegistries.POTION.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", "mirage"));
-            var mirage = h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "brewing/potion_awkward_illusion_shard")));
+            var mirage = h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "brewing/potion_warped_illusion_shard")));
             h.assertTrue(mirage.isPresent() == sb, "Mirage potion from the Illusion Shard exactly when Simple Building is there (sb=" + sb + ")");
             h.assertTrue(BuiltInRegistries.ITEM.containsKey(DisguiseRegistry.SHARD_KEY.identifier()), "illusion shard registered");
             h.succeed();
