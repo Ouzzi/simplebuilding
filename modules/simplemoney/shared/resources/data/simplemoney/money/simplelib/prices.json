@@ -1,8 +1,6 @@
 {
   "module": "simplelib",
-  "derivation": "Crucibles are built in the world (iron) or upgraded in place; no trades until the owner sets prices.",
-  "excluded": {
-    "simplelib:crucible_blank": "Exists only half-built in the world; no item."
-  },
+  "derivation": "Shared materials and warm food; nothing to sell here (the crucibles moved to Simple Crucibles, split stage 5).",
+  "excluded": {},
   "prices": []
 }

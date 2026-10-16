@@ -5,4 +5,6 @@ plugins {
 ext.forgeMixinConfigs = ['simplesandwiches.mixins.json', 'simplesandwiches.forge.mixins.json']
 // SimpleLib (crucibles, warm food) nested next to framework (principle 6a).
 ext.forgeBundleSimplelib = true
+// Simple Crucibles (crucibles, barrels, cauldron: split stage 5) nested like SimpleLib before, so worlds with crucibles keep them.
+ext.forgeBundleModules = [':modules:simplecrucibles:forge']
 apply from: rootProject.file('gradle/module-forge.gradle')

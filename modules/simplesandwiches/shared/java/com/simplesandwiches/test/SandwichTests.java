@@ -566,7 +566,7 @@ public final class SandwichTests {
 
     /**
      * Owner 2026-10-05: sandwiches are warm food exactly like the rest (SimpleLib warm mechanic). Coupled
-     * only through ids: tag simplelib:warmable_food, block simplelib:iron_crucible, component simplelib:warm.
+     * only through ids: tag simplelib:warmable_food, block simplecrucibles:iron_crucible, component simplelib:warm.
      * Without SimpleLib (standalone) only the tag entry is checked.
      */
     static void sandwichWarmsInCrucible(GameTestHelper h) {
@@ -574,7 +574,7 @@ public final class SandwichTests {
         var warmable = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
                 net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "warmable_food"));
         h.assertTrue(sandwich.is(warmable), "sandwich is warmable food");
-        var crucibleId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "iron_crucible");
+        var crucibleId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", "iron_crucible");
         var warmId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "warm");
         if (!BuiltInRegistries.BLOCK.containsKey(crucibleId) || !BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(warmId)) {
             h.succeed();
@@ -653,7 +653,7 @@ public final class SandwichTests {
     /** Owner addition 11: milk into SimpleLib's reinforced cauldron gives a reinforced milk cauldron that empties back into it. */
     static void reinforcedMilkCauldron(GameTestHelper h) {
         var reinforced = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "reinforced_cauldron"));
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", "reinforced_cauldron"));
         if (reinforced.isEmpty()) { h.succeed(); return; } // standalone without SimpleLib
         BlockPos pos = new BlockPos(2, 2, 2);
         h.setBlock(pos, reinforced.get());
@@ -900,16 +900,18 @@ public final class SandwichTests {
     /**
      * Split stage 3d: Simple Sandwiches requests no shared material, so alone it brings no Enderite into the world - the
      * items exist (SimpleLib registers them, worlds stay loadable) but no recipe makes them (checked by id, no SimpleLib import). With SimpleBuilding (which
-     * requests every material) they are there.
+     * requests every material) or Simple Crucibles (split stage 5: bundled in the jar, requests them for its Enderite stage) they are there.
      */
     static void noEnderiteWithoutRequester(GameTestHelper h) {
         boolean sb = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"));
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"))
+                || net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", "enderite_crucible"));
         var recipes = h.getLevel().getServer().getRecipeManager();
         for (String id : java.util.List.of("enderite_ingot_from_scrap", "enderite_scrap_from_blasting_layered_raw_enderite", "enderite_block")) {
             boolean present = recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
                     net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", id))).isPresent();
-            h.assertTrue(present == sb, "simplelib:" + id + " present=" + present + " with SimpleBuilding=" + sb);
+            h.assertTrue(present == sb, "simplelib:" + id + " present=" + present + " with a requester (SimpleBuilding or Simple Crucibles)=" + sb);
         }
         h.succeed();
     }

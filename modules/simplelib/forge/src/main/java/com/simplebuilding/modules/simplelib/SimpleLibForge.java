@@ -1,16 +1,8 @@
 package com.simplebuilding.modules.simplelib;
 
 import com.simplelib.SimpleLib;
-import com.simplelib.crucible.CrucibleBlockEntity;
-import com.simplelib.registry.LibBlockEntities;
-import com.simplelib.registry.LibBlocks;
 import com.simplelib.registry.LibComponents;
-import com.simplelib.registry.LibItems;
-import com.simplelib.registry.LibMenus;
-import com.simplelib.registry.LibRegistry;
-import java.util.Set;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -22,33 +14,27 @@ public final class SimpleLibForge {
     static net.minecraftforge.network.Channel<net.minecraft.network.protocol.common.custom.CustomPacketPayload> channel;
     public SimpleLibForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplelib.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleLib.init(FMLPaths.CONFIGDIR.get());
-        LibBlocks.WARPED_WART_FACTORY = com.simplebuilding.modules.simplelib.forge.WarpedWartBlockForge::new;
+        com.simplelib.registry.LibBlocks.WARPED_WART_FACTORY = com.simplebuilding.modules.simplelib.forge.WarpedWartBlockForge::new;
+        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
+            if (event.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS)) event.getEntries().put(
+                    new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.DATA_COMPONENT_TYPE)) LibComponents.register();
             if (key.equals(Registries.BLOCK)) {
-                LibBlocks.register();
+                com.simplelib.registry.LibBlocks.register();
                 com.simplelib.registry.LibMaterials.ensureBlocks();
             }
             if (key.equals(Registries.ITEM)) {
-                LibItems.register();
+                com.simplelib.registry.LibItems.register();
                 com.simplelib.registry.LibMaterials.ensureItems();
             }
+            if (key.equals(Registries.POTION)) com.simplelib.registry.LibPotions.register();
             if (key.equals(net.minecraftforge.registries.ForgeRegistries.Keys.CONDITION_SERIALIZERS)) {
                 event.register(net.minecraftforge.registries.ForgeRegistries.Keys.CONDITION_SERIALIZERS, SimpleLib.id("material_requested"),
                         () -> com.simplebuilding.modules.simplelib.forge.MaterialConditionForge.CODEC);
             }
-            if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
-                LibBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(LibBlocks.crucibles())) {
-                    @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return LibBlockEntities.isCrucible(state); }
-                });
-                LibBlockEntities.registerBarrel(new BlockEntityType<>(com.simplelib.crucible.CrucibleBarrelBlockEntity::new, Set.of(LibBlocks.barrels())) {
-                    @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return LibBlockEntities.isBarrel(state); }
-                });
-            }
-            if (key.equals(Registries.POTION)) com.simplelib.registry.LibPotions.register();
-            if (key.equals(Registries.MENU)) LibMenus.register();
-            if (key.equals(Registries.CREATIVE_MODE_TAB)) LibRegistry.tab();
             // Explicit id moves (IdMoves) as Forge registry aliases: the defaulted wrapper answers getValue/containsKey
             // from the ForgeRegistry, which the mixin never sees, and a world's id snapshot finds old ids. Lazy aliases,
             // so the order against other mods' registrations does not matter; all mods are constructed by now.
@@ -56,16 +42,8 @@ public final class SimpleLibForge {
                 com.simplelib.api.IdMoves.explicit(key).forEach(registry::addAlias);
             }
         });
-        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
-            if (!LibRegistry.wantsStacks(event.getTabKey(),
-                    com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), "simplelib"))) return;
-            LibRegistry.tabStacks().forEach(s -> event.getEntries().put(s,
-                    net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-        });
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(event ->
                 com.simplelib.api.InWorldStrikes.tick(event.server()));
-        net.minecraftforge.event.server.ServerAboutToStartEvent.BUS.addListener(event ->
-                com.simplelib.village.VillageKitchen.inject(event.getServer().registryAccess()));
         // In-world upgrade files: SimpleLib's own load and client sync (idle while a partner such as SimpleBuilding loads them).
         net.minecraftforge.event.AddReloadListenerEvent.BUS.addListener(event -> event.addListener(com.simplelib.api.InWorldUpgrades.reloadListener()));
         channel = net.minecraftforge.network.ChannelBuilder.named(SimpleLib.id("main")).payloadChannel()

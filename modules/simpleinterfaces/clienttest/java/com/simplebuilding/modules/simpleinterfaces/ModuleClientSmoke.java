@@ -79,7 +79,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             world.getServer().runCommand("give @a minecraft:bread 12");
             // N34: the reinforced cauldron item (3D block) next to Vanilla's cauldron in the inventory screenshots
             world.getServer().runCommand("give @a minecraft:cauldron");
-            world.getServer().runCommand("give @a simplelib:reinforced_cauldron");
+            world.getServer().runCommand("give @a simplecrucibles:reinforced_cauldron");
             context.waitTicks(5);
             show(context, "simpleinterfaces-anvil", c -> {
                 var menu = new AnvilMenu(0, c.player.getInventory());

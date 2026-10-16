@@ -1,59 +1,6 @@
 {
   "features": [
     {
-      "id": "crucible",
-      "en": {
-        "title": "Crucibles",
-        "summary": "A cooking station without fuel that cooks every slot at once, heated by the block below.",
-        "details": [
-          "Iron 6 slots, Reinforced 12 (2x6), Netherite 18, Enderite 30 (5x6, with SimpleBuilding). Speed 1x/2x/4x/8x; Netherite and Enderite count experience twice.",
-          "Heat comes from the block directly below, or two blocks below at 10% less speed (air, a hopper or a non-full block in between). Medium: campfire, soul campfire, magma block, flowing lava (0.5x, campfire and smoker recipes). High: lava, lava cauldron, flowing soul lava (0.75x, also furnace and blast furnace recipes). Extreme: soul lava (1x, also ancient debris). Torches, candles and plain fire give no heat. In the Nether every source is one level hotter, at most high.",
-          "Before a slot starts, it reserves the place for its result: the slot directly below first, then any other free or matching slot. A reserved slot shows the result faintly; anything else put there stops that slot until it is taken out. Finished results are never cooked again until taken out.",
-          "After the heat source is gone the crucible keeps its heat for 2/4/8/16 seconds. Hoppers insert from above and the sides and take finished results from below. The crucible is walk-in like a cauldron: its walls collide only up to 9/16 of a block, so you step into it, and at high heat or more (lava, soul lava) standing in it burns like a magma block - 1 damage per hit, not while sneaking (server option crucibleBurnDamage, default 1, 0-4, 0 = off).",
-          "Build an iron crucible in the world: hold an axe, put iron ingots in the off hand and use it on an empty cauldron sixteen times, one ingot per strike (a cauldron with water, lava or powder snow has to be emptied first). The first strike turns the cauldron into the base; strikes 1-8 raise the four side plates (each first half, then whole), 9-12 the two handles (half, then whole), 13-16 the four rim pieces. Every strike is visible as its own stage; breaking the half-built crucible gives back the cauldron and every ingot struck in (a blank started on an iron block in older worlds gives its iron block back and can be finished the same way).",
-          "Upgrade in place without SimpleBuilding: axe in the main hand, twelve strikes on the crucible; every third strike takes one unit from the off hand and shows it as a band of the new material on one side, four units in all: Iron to Reinforced with cracked diamonds (or diamonds), Reinforced to Netherite with netherite nuggets (or netherite scrap). A crucible broken midway gives the units back. Contents, progress, experience and an attached barrel stay. With SimpleBuilding the sledgehammer replaces the axe (same 12 strikes, 4 cracked diamonds / netherite nuggets / enderite nuggets).",
-          "Raised stack limits (an Enderite crucible or barrel holds 128 of a 64-stack item) hold everywhere: in the crucible menu, in a loose barrel's own chest menu, for shift-clicks and for hoppers, which top such slots up to the raised limit (also double chests). Taking from such a slot gives at most one normal stack."
-        ]
-      },
-      "de": {
-        "title": "Schmelztiegel",
-        "summary": "Garstation ohne Brennstoff, die alle Plätze zugleich gart, beheizt vom Block darunter.",
-        "details": [
-          "Eisen 6 Plätze, Verstärkt 12 (2x6), Netherit 18, Enderit 30 (5x6, mit SimpleBuilding). Tempo 1×/2×/4×/8×; Netherit und Enderit zählen die Erfahrung doppelt.",
-          "Hitze kommt vom Block direkt darunter oder zwei Blöcke darunter mit 10 % weniger Tempo (dazwischen Luft, ein Trichter oder ein nicht voller Block). Mittel: Lagerfeuer, Seelen-Lagerfeuer, Magmablock, fließende Lava (0,5×, Lagerfeuer- und Räucherofen-Rezepte). Hoch: Lava, Lavakessel, fließende Seelen-Lava (0,75×, auch Ofen- und Schmelzofen-Rezepte). Extrem: Seelen-Lava (1×, auch antiker Schrott). Fackeln, Kerzen und normales Feuer geben keine Hitze. Im Nether ist jede Quelle eine Stufe heißer, höchstens hoch.",
-          "Bevor ein Platz anfängt, reserviert er den Platz für sein Ergebnis: zuerst den Platz direkt darunter, sonst einen anderen freien oder passenden. Ein reservierter Platz zeigt das Ergebnis blass; legt man etwas anderes hinein, stoppt dieser Platz, bis es wieder herausgenommen wird. Fertige Ergebnisse werden nie erneut gegart, bis man sie entnimmt.",
-          "Nach dem Entfernen der Hitzequelle hält der Tiegel die Hitze 2/4/8/16 Sekunden. Trichter füllen von oben und von der Seite ein und nehmen fertige Ergebnisse unten heraus. Der Tiegel ist betretbar wie ein Kessel: seine Wände sind nur bis 9/16 Block fest, man steigt also hinein, und ab hoher Hitze (Lava, Seelen-Lava) brennt das Stehen darin wie ein Magmablock - 1 Schaden je Treffer, nicht beim Schleichen (Server-Option crucibleBurnDamage, Standard 1, 0-4, 0 = aus).",
-          "Eisen-Tiegel in der Welt bauen: Axt in der Hand, Eisenbarren in der Nebenhand und sechzehnmal auf einen leeren Kessel anwenden, ein Barren je Schlag (ein Kessel mit Wasser, Lava oder Pulverschnee muss erst geleert werden). Der erste Schlag macht den Kessel zum Boden; Schläge 1-8 setzen die vier Seitenplatten (je erst halb, dann ganz), 9-12 die zwei Griffe (halb, dann ganz), 13-16 die vier Randstücke. Jeder Schlag ist als eigene Stufe sichtbar; wird der halbfertige Tiegel abgebaut, kommen der Kessel und alle verbauten Barren zurück (ein in älteren Welten auf einem Eisenblock begonnener Rohling gibt seinen Eisenblock zurück und lässt sich genauso fertig bauen).",
-          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zwölf Schläge auf den Tiegel; jeder dritte Schlag nimmt eine Einheit aus der Nebenhand und zeigt sie als Band des neuen Materials auf einer Seite, vier Einheiten insgesamt: Eisen zu Verstärkt mit rissigen Diamanten (oder Diamanten), Verstärkt zu Netherit mit Netheritklumpen (oder Netheritschrott). Wird der Tiegel vorher abgebaut, kommen die Einheiten zurück. Inhalt, Fortschritt, Erfahrung und ein angedocktes Fass bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer die Axt (ebenfalls 12 Schläge, 4 rissige Diamanten / Netheritklumpen / Enderitklumpen).",
-          "Erhöhte Stapelgrenzen (ein Enderit-Tiegel oder -Fass fasst 128 eines 64er-Items) gelten überall: im Tiegelmenü, im eigenen Truhenmenü eines losen Fasses, beim Shift-Klick und für Trichter, die solche Plätze bis zur erhöhten Grenze füllen (auch Doppeltruhen). Herausnehmen gibt höchstens einen normalen Stapel."
-        ]
-      },
-      "sources": [
-        "modules/simplelib/shared/java/com/simplelib/api/StackLimits.java",
-        "modules/simplelib/shared/java/com/simplelib/crucible/BarrelMenu.java",
-        "modules/simplelib/shared/java/com/simplelib/mixin/HopperStackLimitsMixin.java"
-      ]
-    },
-    {
-      "id": "village_kitchen",
-      "en": {
-        "title": "Village field kitchens",
-        "summary": "Villages of all five types can have a small field kitchen: an iron crucible on an unlit campfire with cooked food, a barrel of raw meat and a seat.",
-        "details": [
-          "The kitchen is added to each village houses pool at server start with weight 3 (about every third village); server config villageKitchenWeight 0–10, 0 switches it off. Only newly generated villages get it.",
-          "Light the campfire to warm the food in the crucible."
-        ]
-      },
-      "de": {
-        "title": "Dorf-Feldküchen",
-        "summary": "Dörfer aller fünf Arten können eine kleine Feldküche haben: ein Eisen-Schmelztiegel auf einem ausgemachten Lagerfeuer mit gegartem Essen, ein Fass mit rohem Fleisch und eine Sitzgelegenheit.",
-        "details": [
-          "Die Küche wird beim Serverstart jedem Häuser-Pool der Dörfer mit Gewicht 3 hinzugefügt (etwa jedes dritte Dorf); Server-Config villageKitchenWeight 0–10, 0 schaltet sie ab. Nur neu erzeugte Dörfer bekommen sie.",
-          "Zündet man das Lagerfeuer an, wärmt der Tiegel das Essen auf."
-        ]
-      }
-    },
-    {
       "id": "warm_food",
       "en": {
         "title": "Warm food",
@@ -71,25 +18,6 @@
           "Aufwärmbares Essen (Tag simplelib:warmable_food: gegartes Fleisch und Fisch, Ofenkartoffel, Brot, Kürbiskuchen, Eintöpfe und Suppen) wird in einem beheizten Tiegel als ganzer Stapel aufgewärmt und bleibt in seinem Platz.",
           "Essen bleibt einen halben Tag-Nacht-Zyklus warm (12.000 Ticks) und kühlt überall ab außer im Tiegel. Server-Grenzen: warmDurationTicks 1.200–48.000, eatSpeedBonus 0–0,30.",
           "In jedem Bündel (auch Mod-Bündeln) bleibt Essen zwei Tag-Nacht-Zyklen warm (48.000 Ticks, Grenze warmBundleDurationTicks 1.200–96.000). Stapel desselben Essens lassen sich unabhängig von der Wärme zusammenlegen; die neue Wärme ist der Mittelwert über alle Stücke, kalte zählen als null. Warme Gegenstände leuchten in vier Stufen, je wärmer desto stärker: im Inventar, gedroppt als orangefarbene Kontur (bis 12 Blöcke) und in der Hand mit etwas Dampf, und der Tooltip zeigt die restlichen Minuten."
-        ]
-      }
-    },
-    {
-      "id": "reinforced_cauldron",
-      "en": {
-        "title": "Reinforced cauldron",
-        "summary": "A cauldron for water, lava, powder snow and - with SimpleBuilding - soul lava; lava in it heats a crucible like a lava source.",
-        "details": [
-          "Without SimpleBuilding: hold an axe, put 8 diamonds in the off hand and use it on a cauldron five times. With SimpleBuilding the sledgehammer and 8 cracked diamonds replace the axe and the diamonds.",
-          "It works like a Vanilla cauldron and uses the same interactions: buckets, bottles in three levels, washing dyed items and banners, rain, snow and dripstone, and what other mods add to the cauldron (milk from Simple Sandwiches turns it into a reinforced milk cauldron that becomes this cauldron again when emptied). Copper and Enderite buckets (SimpleBuilding) take only a full cauldron. As a crucible heat source it counts like its content: lava high, soul lava extreme. A normal cauldron does not take soul lava."
-        ]
-      },
-      "de": {
-        "title": "Verstärkter Kessel",
-        "summary": "Ein Kessel für Wasser, Lava, Pulverschnee und - mit SimpleBuilding - Seelen-Lava; Lava darin heizt einen Schmelztiegel wie eine Lavaquelle.",
-        "details": [
-          "Ohne SimpleBuilding: eine Axt halten, 8 Diamanten in die Nebenhand und fünfmal auf einen Kessel anwenden. Mit SimpleBuilding ersetzen Vorschlaghammer und 8 Rissige Diamanten Axt und Diamanten.",
-          "Er funktioniert wie ein Vanilla-Kessel und nutzt dieselben Interaktionen: Eimer, Flaschen in drei Stufen, Waschen gefärbter Gegenstände und Banner, Regen, Schnee und Tropfstein sowie alles, was andere Mods dem Kessel hinzufügen (Milch aus Simple Sandwiches macht ihn zum verstärkten Milchkessel, der beim Leeren wieder dieser Kessel wird). Kupfer- und Enderit-Eimer (SimpleBuilding) nehmen nur aus einem vollen Kessel. Als Hitzequelle eines Schmelztiegels zählt er wie sein Inhalt: Lava hoch, Seelen-Lava extrem. Ein normaler Kessel nimmt keine Seelen-Lava."
         ]
       }
     },
@@ -120,102 +48,9 @@
           "Andere Mods nutzen sie über die gemeinsamen Tags c:ingots/enderite, c:nuggets/enderite, c:nuggets/netherite, c:raw_materials/enderite, c:gems/cracked_diamond und c:storage_blocks/enderite bzw. /cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter den neuen IDs."
         ]
       }
-    },
-    {
-      "id": "first_pickup_tips",
-      "sources": [
-        "modules/simplelib/shared/java/com/simplelib/discover/LibDiscover.java",
-        "modules/simplelib/shared/java/com/simplelib/mixin/DiscoverTipMixin.java",
-        "framework/src/main/java/com/simplebuilding/framework/api/FirstUseTips.java",
-        "tools/discover/discover.py"
-      ],
-      "en": {
-        "title": "First pickup tips",
-        "summary": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
-        "details": [
-          "Tips exist for crucibles and crucible barrels.",
-          "A tip counts as seen through an entity tag on the player (simplelib.tip.<group>); removing the tag with /tag shows it again.",
-          "Switch: config/simple-tips.properties, key simplelib.firstPickupTips=false turns the tips of this mod off. The file is read at every tip, so no restart is needed; every Simple mod with tips has its own key there.",
-          "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe."
-        ]
-      },
-      "de": {
-        "title": "Tipps beim ersten Aufheben",
-        "summary": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
-        "details": [
-          "Tipps gibt es für Tiegel und Tiegel-Fässer.",
-          "Ein Tipp gilt über ein Entity-Tag am Spieler (simplelib.tip.<gruppe>) als gesehen; entfernt man das Tag mit /tag, erscheint er wieder.",
-          "Schalter: config/simple-tips.properties, Schlüssel simplelib.firstPickupTips=false schaltet die Tipps dieser Mod ab. Die Datei wird bei jedem Tipp gelesen, ein Neustart ist nicht nötig; jede Simple-Mod mit Tipps hat dort ihren eigenen Schlüssel.",
-          "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei."
-        ]
-      }
     }
   ],
   "notes": {
-    "simplelib:iron_crucible": {
-      "en": {
-        "summary": "Crucible with 6 slots at furnace speed; built in the world from an empty cauldron and 16 iron ingots (see Crucibles)."
-      },
-      "de": {
-        "summary": "Schmelztiegel mit 6 Plätzen in Ofen-Tempo; wird in der Welt aus einem leeren Kessel und 16 Eisenbarren gebaut (siehe Schmelztiegel)."
-      }
-    },
-    "simplelib:reinforced_crucible": {
-      "en": {
-        "summary": "Crucible with 9 slots at double speed."
-      },
-      "de": {
-        "summary": "Schmelztiegel mit 9 Plätzen in doppeltem Tempo."
-      }
-    },
-    "simplelib:netherite_crucible": {
-      "en": {
-        "summary": "Crucible with 18 slots at four times the speed; counts experience twice."
-      },
-      "de": {
-        "summary": "Schmelztiegel mit 18 Plätzen in vierfachem Tempo; zählt die Erfahrung doppelt."
-      }
-    },
-    "simplelib:crucible_blank": {
-      "en": {
-        "summary": "A half-built iron crucible; breaking it returns the cauldron (an older blank: its iron block) and every iron ingot used so far."
-      },
-      "de": {
-        "summary": "Ein halb gebauter Eisen-Schmelztiegel; abgebaut gibt er den Kessel (ein älterer Rohling: seinen Eisenblock) und alle bisher verbauten Eisenbarren zurück."
-      }
-    },
-    "simplelib:copper_barrel": {
-      "en": {
-        "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). Next to a crucible, six axe strikes (sledgehammer with SimpleBuilding) attach it: every strike shows cracks, then the barrel docks to the crucible with a flange and a chute, offers only as many slots as the crucible has (6/12/18/27; the rest stays stored, hidden, and comes back when detached) and opens the crucible screen; the crucible puts its results there first, a hopper below the barrel takes them out. Breaking the barrel drops its contents and the plain barrel; breaking the crucible makes it a normal barrel again."
-      },
-      "de": {
-        "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, zeigt jeder Schlag Risse, dann dockt das Fass mit Flansch und Rinne am Tiegel an, bietet nur so viele Plätze wie der Tiegel (6/12/18/27; der Rest bleibt verwahrt, unsichtbar, und ist nach dem Abnehmen wieder da) und öffnet das Tiegel-Fenster; der Tiegel legt seine Ergebnisse zuerst dort ab, ein Trichter unter dem Fass nimmt sie heraus. Fass abbauen gibt Inhalt und normales Fass, Tiegel abbauen macht es wieder zum normalen Fass."
-      }
-    },
-    "simplelib:reinforced_barrel": {
-      "en": {
-        "summary": "A copper barrel upgraded in place (axe, 2 diamonds, ten strikes): 36 slots on its own, 9 when attached to a crucible."
-      },
-      "de": {
-        "summary": "Ein in der Welt aufgewertetes Kupfer-Fass (Axt, 2 Diamanten, zehn Schläge): allein 36 Plätze, am Tiegel 9."
-      }
-    },
-    "simplelib:netherite_barrel": {
-      "en": {
-        "summary": "A reinforced barrel upgraded in place (axe, 1 netherite ingot, ten strikes; with SimpleBuilding sledgehammer and 2 netherite nuggets): 45 slots on its own, 9 when attached to a crucible; survives fire and lava as an item."
-      },
-      "de": {
-        "summary": "Ein in der Welt aufgewertetes verstärktes Fass (Axt, 1 Netheritbarren, zehn Schläge; mit SimpleBuilding Vorschlaghammer und 2 Netheritklumpen): allein 45 Plätze, am Tiegel 9; als Gegenstand feuer- und lavafest."
-      }
-    },
-    "simplelib:reinforced_cauldron": {
-      "en": {
-        "summary": "A Vanilla cauldron that also holds (with SimpleBuilding) soul lava; heats a crucible like its content (see Reinforced cauldron)."
-      },
-      "de": {
-        "summary": "Ein Vanilla-Kessel, der (mit SimpleBuilding) auch Seelen-Lava fasst; heizt einen Schmelztiegel wie sein Inhalt (siehe Verstärkter Kessel)."
-      }
-    },
     "simplelib:diamond_pebble": {
       "en": {
         "summary": "A ninth of a cracked diamond; anvils crush diamond blocks into 72."

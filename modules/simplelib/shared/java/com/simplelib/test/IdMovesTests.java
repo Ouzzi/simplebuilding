@@ -4,9 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.simplelib.SimpleLib;
 import com.simplelib.api.IdMoves;
-import com.simplelib.crucible.CrucibleBlockEntity;
-import com.simplelib.registry.LibBlockEntities;
-import com.simplelib.registry.LibBlocks;
+import com.simplelib.api.SimpleLibApi;
 import com.simplelib.registry.LibComponents;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -37,50 +35,48 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * GameTests of {@link IdMoves} (split plan stage 3a), with SimpleLib's own content and the reserved namespace
+ * GameTests of {@link IdMoves} (split plan stage 3a), with SimpleLib's own content (the shared material block) and the reserved namespace
  * {@code simplelibtest}: an id that never existed there stands for an id a mod gave up, moved to a SimpleLib id. The
  * moves are registered at start ({@link #registerTestMoves}, from {@code SimpleLib.init}) because Forge accepts its
  * registry aliases only while the registries are open; the namespace never exists, so they cost nothing.
  */
 public final class IdMovesTests {
     static final String OLD = "simplelibtest";
-    static final Identifier OLD_CRUCIBLE = Identifier.fromNamespaceAndPath(OLD, "old_iron_crucible");
-    static final Identifier OLD_CRUCIBLE_BE = Identifier.fromNamespaceAndPath(OLD, "old_crucible");
+    static final Identifier OLD_BLOCK = Identifier.fromNamespaceAndPath(OLD, "old_cracked_diamond_block");
     static final Identifier OLD_WARM = Identifier.fromNamespaceAndPath(OLD, "old_warm");
-    static final Identifier OLD_RECIPE = Identifier.fromNamespaceAndPath(OLD, "old_copper_barrel");
+    static final Identifier OLD_RECIPE = Identifier.fromNamespaceAndPath(OLD, "old_stick");
     static final Identifier OLD_ADVANCEMENT = Identifier.fromNamespaceAndPath(OLD, "old_story_root");
-    static final Identifier NEW_RECIPE = SimpleLib.id("copper_barrel");
+    static final Identifier NEW_RECIPE = Identifier.withDefaultNamespace("stick");
     static final Identifier NEW_ADVANCEMENT = Identifier.withDefaultNamespace("story/root");
 
     private IdMovesTests() {}
 
     /** The test moves; idempotent. */
     public static void registerTestMoves() {
-        IdMoves.move(Registries.ITEM, OLD_CRUCIBLE, SimpleLib.id("iron_crucible"));
-        IdMoves.move(Registries.BLOCK, OLD_CRUCIBLE, SimpleLib.id("iron_crucible"));
-        IdMoves.move(Registries.BLOCK_ENTITY_TYPE, OLD_CRUCIBLE_BE, SimpleLib.id("crucible"));
+        IdMoves.move(Registries.ITEM, OLD_BLOCK, SimpleLib.id("cracked_diamond_block"));
+        IdMoves.move(Registries.BLOCK, OLD_BLOCK, SimpleLib.id("cracked_diamond_block"));
         IdMoves.move(Registries.DATA_COMPONENT_TYPE, OLD_WARM, SimpleLib.id("warm"));
         IdMoves.move(Registries.RECIPE, OLD_RECIPE, NEW_RECIPE);
         IdMoves.move(Registries.ADVANCEMENT, OLD_ADVANCEMENT, NEW_ADVANCEMENT);
     }
 
     /**
-     * Item, block, block entity and component ids under the old name resolve to the moved entries - in the registry
+     * Item, block and component ids under the old name resolve to the moved entries - in the registry
      * itself and along the save paths (stack, palette state, block entity) - and are written back under the new id.
      * Control: an unknown id of the same namespace stays unknown.
      */
     public static void registries(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
-        var item = LibBlocks.IRON_CRUCIBLE.asItem();
-        if (BuiltInRegistries.ITEM.getValue(OLD_CRUCIBLE) != item) problems.add("ITEM.getValue(old) = " + BuiltInRegistries.ITEM.getValue(OLD_CRUCIBLE));
-        if (BuiltInRegistries.ITEM.get(OLD_CRUCIBLE).map(Holder::value).orElse(null) != item) problems.add("ITEM.get(old) has no holder");
-        if (!BuiltInRegistries.ITEM.containsKey(OLD_CRUCIBLE)) problems.add("ITEM.containsKey(old) is false");
-        if (BuiltInRegistries.BLOCK.getValue(OLD_CRUCIBLE) != LibBlocks.IRON_CRUCIBLE) problems.add("BLOCK.getValue(old) = " + BuiltInRegistries.BLOCK.getValue(OLD_CRUCIBLE));
-        if (BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(OLD_CRUCIBLE_BE) != LibBlockEntities.CRUCIBLE) problems.add("BLOCK_ENTITY_TYPE.getValue(old) wrong");
+        Block block = SimpleLibApi.materialBlock("cracked_diamond_block");
+        var item = block.asItem();
+        if (BuiltInRegistries.ITEM.getValue(OLD_BLOCK) != item) problems.add("ITEM.getValue(old) = " + BuiltInRegistries.ITEM.getValue(OLD_BLOCK));
+        if (BuiltInRegistries.ITEM.get(OLD_BLOCK).map(Holder::value).orElse(null) != item) problems.add("ITEM.get(old) has no holder");
+        if (!BuiltInRegistries.ITEM.containsKey(OLD_BLOCK)) problems.add("ITEM.containsKey(old) is false");
+        if (BuiltInRegistries.BLOCK.getValue(OLD_BLOCK) != block) problems.add("BLOCK.getValue(old) = " + BuiltInRegistries.BLOCK.getValue(OLD_BLOCK));
         if (BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(OLD_WARM) != LibComponents.WARM) problems.add("DATA_COMPONENT_TYPE.getValue(old) wrong");
 
         RegistryOps<Tag> ops = h.getLevel().registryAccess().createSerializationContext(NbtOps.INSTANCE);
@@ -88,7 +84,7 @@ public final class IdMovesTests {
         warm.set(LibComponents.WARM, new com.simplelib.warm.Warm(h.getLevel().getGameTime() + 1200L));
         CompoundTag saved = (CompoundTag) ItemStack.CODEC.encodeStart(ops, warm).getOrThrow();
         CompoundTag old = saved.copy();
-        old.putString("id", OLD_CRUCIBLE.toString());
+        old.putString("id", OLD_BLOCK.toString());
         CompoundTag components = old.getCompoundOrEmpty("components");
         Tag warmTag = components.get(SimpleLib.id("warm").toString());
         if (warmTag == null) {
@@ -103,21 +99,10 @@ public final class IdMovesTests {
         Tag resaved = ItemStack.CODEC.encodeStart(ops, loaded).result().orElse(null);
         if (resaved == null || resaved.toString().contains(OLD + ":")) problems.add("stack is saved back as " + resaved);
 
-        CompoundTag stateTag = NbtUtils.writeBlockState(LibBlocks.IRON_CRUCIBLE.defaultBlockState());
-        stateTag.putString("Name", OLD_CRUCIBLE.toString());
+        CompoundTag stateTag = NbtUtils.writeBlockState(block.defaultBlockState());
+        stateTag.putString("Name", OLD_BLOCK.toString());
         BlockState state = NbtUtils.readBlockState(h.getLevel().holderLookup(Registries.BLOCK), stateTag);
-        if (!state.is(LibBlocks.IRON_CRUCIBLE)) problems.add("palette state " + stateTag + " loads as " + state);
-
-        BlockPos pos = h.absolutePos(new BlockPos(1, 2, 1));
-        BlockState crucibleState = LibBlocks.IRON_CRUCIBLE.defaultBlockState();
-        CompoundTag beTag = new CrucibleBlockEntity(pos, crucibleState).saveWithFullMetadata(h.getLevel().registryAccess());
-        beTag.putString("id", OLD_CRUCIBLE_BE.toString());
-        BlockEntity be = BlockEntity.loadStatic(pos, crucibleState, beTag, h.getLevel().registryAccess());
-        if (!(be instanceof CrucibleBlockEntity)) {
-            problems.add("block entity saved as " + OLD_CRUCIBLE_BE + " loads as " + be);
-        } else if (!be.saveWithFullMetadata(h.getLevel().registryAccess()).getStringOr("id", "").equals(SimpleLib.id("crucible").toString())) {
-            problems.add("block entity is saved back as " + be.saveWithFullMetadata(h.getLevel().registryAccess()).getStringOr("id", ""));
-        }
+        if (!state.is(block)) problems.add("palette state " + stateTag + " loads as " + state);
 
         Identifier unknown = Identifier.fromNamespaceAndPath(OLD, "never_moved");
         if (BuiltInRegistries.ITEM.get(unknown).isPresent() || BuiltInRegistries.BLOCK.containsKey(unknown)) problems.add(unknown + " resolves although it never moved");

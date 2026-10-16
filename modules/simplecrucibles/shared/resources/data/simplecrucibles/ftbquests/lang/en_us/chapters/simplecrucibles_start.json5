@@ -1,0 +1,10 @@
+{
+	"chapter.74E2D5B1A13F7AA9.title": "{\"translate\": \"quests.simplecrucibles.start.title\"}",
+	"chapter.74E2D5B1A13F7AA9.chapter_subtitle": [
+		"{\"translate\": \"quests.simplecrucibles.start.subtitle\"}"
+	],
+	"quest.56EFEE1E18F56477.title": "{\"translate\": \"quests.simplecrucibles.start.welcome.title\"}",
+	"quest.56EFEE1E18F56477.quest_desc": [
+		"{\"translate\": \"quests.simplecrucibles.start.welcome.description\"}"
+	]
+}

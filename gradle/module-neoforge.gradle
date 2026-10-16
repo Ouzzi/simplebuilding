@@ -75,6 +75,19 @@ afterEvaluate {
         }
     }
 }
+// SimpleBuilding 26.3 requires its sub-mod Simple Crucibles (split stage 5, nested in production): same as Simple Ovens below.
+afterEvaluate {
+    if (project.path == ':modules:simplecrucibles:neoforge' || rootProject.findProject(':modules:simplecrucibles:neoforge') == null) return
+    if (!neoForge.mods.any { it.name.startsWith('simplebuilding') }) return
+    if (neoForge.mods.findByName('simplecrucibles') == null) {
+        neoForge.mods.create('simplecrucibles') { sourceSet rootProject.project(':modules:simplecrucibles:neoforge').sourceSets.main }
+    }
+    neoForge.runs.configureEach { run ->
+        if (run.loadedMods.get().any { it.name.startsWith('simplebuilding') }) {
+            run.loadedMods.set((run.loadedMods.get() + [neoForge.mods.simplecrucibles]).unique())
+        }
+    }
+}
 // SimpleBuilding 26.3 requires its sub-mod Simple Ovens (split stage 4, nested in production): a module whose dev/test
 // runs load SimpleBuilding from its sourceSet loads Simple Ovens the same way (SB's project evaluates it first).
 afterEvaluate {

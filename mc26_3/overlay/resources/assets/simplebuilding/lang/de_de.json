@@ -2843,8 +2843,6 @@
   "text.autoconfig.simplebuilding.option.server.speakers.maxChain.@Tooltip": "Verstärker der passenden Sorte, die einen\nPlattenspieler oder Notenblock weitergeben\n(Kette), 0 bis 64 (0 = aus). Serverseitig.\nStandard: 16.",
   "jukebox_song.simplebuilding.voidline_track_3": "SimpleBuilding - Iron Sonata",
   "item.simplebuilding.music_disc_voidline_track_3": "Schallplatte",
-  "block.simplebuilding.enderite_crucible": "Enderit-Schmelztiegel",
-  "block.simplebuilding.enderite_barrel": "Enderit-Fass",
   "block.simplebuilding.soul_lava": "Seelen-Lava",
   "fluid.simplebuilding.soul_lava": "Seelen-Lava",
   "item.simplebuilding.soul_lava_bucket": "Seelen-Lava-Eimer",

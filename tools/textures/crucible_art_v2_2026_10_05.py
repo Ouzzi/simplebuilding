@@ -33,7 +33,7 @@ import shimmer_2026_10_06 as shimmer  # noqa: E402
 ROOT = p.ROOT
 LIB = p.LIB
 SB = p.SB
-LIB_MODELS = ROOT / 'modules/simplelib/generated/resources/assets/simplelib/models/block'
+LIB_MODELS = ROOT / 'modules/simplecrucibles/generated/resources/assets/simplecrucibles/models/block'
 PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/crucible-art-v3-vorschau.png')
 SB_CHESTS = ROOT / 'src/main/resources/assets/simplebuilding/textures/entity/chest'
 
@@ -177,7 +177,7 @@ def crucible_top(tier, variant):
 
 
 def crucible_textures(tier, variant):
-    folder = SB / 'block' if tier == 'enderite' else LIB
+    folder = LIB  # split stage 5: all tiers live in the simplecrucibles module
     tex = {part: p.load(folder / f'{tier}_crucible_{part}.png') for part in ('bottom', 'inner', 'handle')}
     tex['side'] = crucible_side(tier, variant)
     tex['top'] = crucible_top(tier, variant)
@@ -185,7 +185,7 @@ def crucible_textures(tier, variant):
 
 
 def crucible_paths(tier):
-    folder = SB / 'block' if tier == 'enderite' else LIB
+    folder = LIB
     return {part: folder / f'{tier}_crucible_{part}.png' for part in ('side', 'top')}
 
 
@@ -312,7 +312,7 @@ def reinforced_cauldron_item():
 
 
 def barrel_paths(tier):
-    folder = SB / 'block' if tier == 'enderite' else LIB
+    folder = LIB
     return {part: folder / f'{tier}_barrel_{part}.png' for part in ('side', 'top', 'top_open', 'bottom', 'flange')}
 
 
@@ -663,8 +663,8 @@ def render(model, textures, yaw=225.0, pitch=30.0, scale=12, size=None):
 # -------------------------------------------------------------------------------------------- models
 
 def kettle_model():
-    """The new crucible model from SimpleLib's generator (single source of truth)."""
-    sys.path.insert(0, str(ROOT / 'modules/simplelib/tools'))
+    """The new crucible model from the simplecrucibles generator (single source of truth)."""
+    sys.path.insert(0, str(ROOT / 'modules/simplecrucibles/tools'))
     import gen_resources  # noqa: E402
     return {'elements': [gen_resources.FLOOR, *gen_resources.FOOT, *gen_resources.WALLS_FLAT, *gen_resources.HANDLES]}
 
@@ -823,17 +823,27 @@ def validate(path, img):
 
 
 def is_derived(path):
-    """simplebuilding textures of this script (enderite crucible/barrel, buckets) are Vanilla-derived: built, never
-    committed (tools/textures/vanilla_derived.py). The simplelib ones (iron/reinforced/netherite tiers, copper barrel,
-    reinforced cauldron item) stay committed until the build ships derived textures for the simplelib module too.
-    item/soul_lava_bucket.png is the same image soul_lava_2026_10_09.py builds, so derived() leaves it out."""
-    return SB in path.parents
+    """Vanilla-derived textures of this script are built, never committed (tools/textures/vanilla_derived.py): the
+    buckets in simplebuilding and the Enderite crucible/barrel faces in the simplecrucibles module (split stage 5). The
+    others (iron/reinforced/netherite tiers, copper barrel, reinforced cauldron item) stay committed until the build
+    ships derived textures for all of them. item/soul_lava_bucket.png is the same image soul_lava_2026_10_09.py builds,
+    so derived() leaves it out."""
+    return SB in path.parents or path in MODULE_DERIVED
+
+
+MODULE_DERIVED = {*crucible_paths('enderite').values(), *barrel_paths('enderite').values()}
 
 
 def derived(jar):
-    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image."""
+    """Vanilla-derived output of simplebuilding for tools/textures/vanilla_derived.py: texture path -> image."""
     # build/vanilla-textures (extracted by vanilla_derived.extract_vanilla_textures) must exist before this module is imported
-    return {path.relative_to(SB).as_posix(): img for path, img in resources().items() if is_derived(path) and path.name != 'soul_lava_bucket.png'}
+    return {path.relative_to(SB).as_posix(): img for path, img in resources().items()
+            if SB in path.parents and path.name != 'soul_lava_bucket.png'}
+
+
+def derived_module(jar):
+    """Vanilla-derived output of the simplecrucibles module: texture path under assets/simplecrucibles/textures -> image."""
+    return {path.relative_to(LIB.parent).as_posix(): img for path, img in resources().items() if path in MODULE_DERIVED}
 
 
 def main():

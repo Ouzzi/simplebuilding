@@ -2202,28 +2202,6 @@
       "It sits at the end of a long, hidden chain: the last stage of the pads' hidden Easter levels, a Netherite template and a Netherite Ingot, and a hidden challenge, \"All That for a Stick?\", waits for whoever makes it."
     ]
   },
-  "enderite_barrel": {
-    "lore": [
-      "A barrel that was told it could keep more, and believed it."
-    ],
-    "use": [
-      "The Enderite tier of the crucible's barrel: it holds double stacks, 128 of a 64-stack item, in the crucible menu and its own chest menu, for shift-clicks and for hoppers."
-    ],
-    "secret": [
-      "Taking from such a slot gives at most one normal stack. It is the last step of the line from copper through Netherite to Enderite."
-    ]
-  },
-  "enderite_crucible": {
-    "lore": [
-      "A crucible that cooks like the End's own fire."
-    ],
-    "use": [
-      "The Enderite tier of the crucible: 27 slots, double stacks, 8x speed. A Netherite crucible becomes this with Enderite Nuggets and a Netherite Sledgehammer, at twice the strikes of a furnace."
-    ],
-    "secret": [
-      "The sledgehammer replaces the axe of the base mod here: strike the iron crucible onto an iron block, and attach a barrel with 6 strikes."
-    ]
-  },
   "guide_book": {
     "lore": [
       "A book that has read everything about the world, and wants to tell you."

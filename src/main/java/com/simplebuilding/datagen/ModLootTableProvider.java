@@ -80,11 +80,6 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
         dropSelf(ModBlocks.CONSTRUCTION_LIGHT);
         if (ModBlocks.IRON_POLE != null) dropSelf(ModBlocks.IRON_POLE);
-        if (com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible() != null) {
-            // Crucible P5: der Inhalt droppt ueber die Block-Entity (SimpleLib), der Block selbst hier.
-            dropSelf(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
-            dropSelf(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
-        }
         if (ModBlocks.AUTO_SMITHER != null) dropSelf(ModBlocks.AUTO_SMITHER);
         if (ModBlocks.AUTONOMOUS_CRAFTER != null) dropSelf(ModBlocks.AUTONOMOUS_CRAFTER);
         if (ModBlocks.ASTRAL_ENCHANTING_TABLE != null) {

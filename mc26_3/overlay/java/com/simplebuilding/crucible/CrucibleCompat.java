@@ -1,6 +1,6 @@
 package com.simplebuilding.crucible;
 
-import com.simplebuilding.Simplebuilding;
+import com.simplecrucibles.api.SimpleCruciblesApi;
 import com.simplelib.api.SimpleLibApi;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -25,12 +25,12 @@ import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * 26.3: SimpleBuilding's crucible parts on top of SimpleLib (plan PLAN-CRUCIBLE-P5-2026-10-05). The
- * only place in SimpleBuilding that imports SimpleLib - and only its API (principle 6a). The 26.2
- * twin in common/src/mc26_2/java is empty ({@code McVersion.CRUCIBLE} is false there).
+ * 26.3: SimpleBuilding's bridge to the crucibles (split stage 5: they live in the required, bundled sub-mod Simple
+ * Crucibles, {@code simplecrucibles:*}, ids migrate through SimpleLib's id moves). The only place in SimpleBuilding that
+ * imports the module - and only its API (principle 6a). The 26.2 twin in common/src/mc26_2/java is empty
+ * ({@code McVersion.CRUCIBLE} is false there).
  * <ul>
- *   <li>Enderite crucible (30 slots - 5x6 since N37 -, 8x, double stacks) and Enderite barrel, registered under
- *       {@code simplebuilding:} through the SimpleLib factory (SimpleLib's block entity, menu, renderer).</li>
+ *   <li>The Enderite crucible and barrel are the module's blocks, found by id.</li>
  *   <li>Sledgehammer ways (principle 5a): building the iron crucible (2 durability per strike), attaching a
  *       barrel (6 strikes); upgrades run through the sledgehammer upgrade table
  *       ({@code SledgehammerUpgrades}). The Vanilla axe ways are switched off.</li>
@@ -40,73 +40,62 @@ import org.jetbrains.annotations.Nullable;
 public final class CrucibleCompat {
     public static final int HAMMER_DAMAGE_PER_STRIKE = 2;
 
-    private static @Nullable Block enderiteCrucible;
-    private static @Nullable Block enderiteBarrel;
+    /** Namespace of the crucibles (the module). */
+    public static final String NAMESPACE = "simplecrucibles";
 
-    public static void registerBlocks() {
-        enderiteCrucible = register("enderite_crucible", SimpleLibApi.newCrucible(
-                SimpleLibApi.crucibleProperties(MapColor.COLOR_PURPLE, 6.0F, 1500.0F, SoundType.NETHERITE_BLOCK).setId(key("enderite_crucible")),
-                "enderite"));
-        enderiteBarrel = register("enderite_barrel", SimpleLibApi.newBarrel(
-                net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(6.0F, 1500.0F)
-                        .sound(SoundType.NETHERITE_BLOCK).requiresCorrectToolForDrops().setId(key("enderite_barrel")),
-                "enderite"));
-    }
-
-    public static void registerItems() {
-        item("enderite_crucible", enderiteCrucible);
-        item("enderite_barrel", enderiteBarrel);
-    }
-
-    /** After registration: plug the sledgehammer and the buckets into SimpleLib (axe ways: LibServices.hammersReplaceAxes). */
+    /** After registration: plug the sledgehammer and the buckets into Simple Crucibles (axe ways: LibServices.hammersReplaceAxes). */
     public static void init() {
         SimpleLibApi.registerToolUse(CrucibleCompat::hammerWants);
-        SimpleLibApi.registerCauldronBucket(new SbCauldronBuckets());
-        SimpleLibApi.setExtremeCauldronEffect(CrucibleCompat::soulLavaInside);
+        SimpleCruciblesApi.registerCauldronBucket(new SbCauldronBuckets());
+        SimpleCruciblesApi.setExtremeCauldronEffect(CrucibleCompat::soulLavaInside);
     }
 
     private static void soulLavaInside(Level level, Entity entity) {
         com.simplebuilding.fluid.SoulLava.touch(level, entity);
     }
 
+    public static Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(NAMESPACE, path);
+    }
+
     public static @Nullable Block enderiteCrucible() {
-        return enderiteCrucible;
+        return BuiltInRegistries.BLOCK.getOptional(id("enderite_crucible")).orElse(null);
     }
 
     public static @Nullable Block enderiteBarrel() {
-        return enderiteBarrel;
+        return BuiltInRegistries.BLOCK.getOptional(id("enderite_barrel")).orElse(null);
     }
 
     public static @Nullable Block reinforcedCauldron() {
-        return SimpleLibApi.reinforcedCauldron();
+        return SimpleCruciblesApi.reinforcedCauldron();
     }
 
     public static BlockState reinforcedCauldron(String content) {
-        return SimpleLibApi.reinforcedCauldron(content);
+        return SimpleCruciblesApi.reinforcedCauldron(content);
     }
 
     public static @Nullable String cauldronContent(BlockState state) {
-        return SimpleLibApi.cauldronContent(state);
+        return SimpleCruciblesApi.cauldronContent(state);
     }
 
     public static String heatAt(Level level, BlockPos crucible) {
-        return SimpleLibApi.heatAt(level, crucible);
+        return SimpleCruciblesApi.heatAt(level, crucible);
     }
 
     public static int crucibleSlots(Block block) {
-        return SimpleLibApi.crucibleSlots(block);
+        return SimpleCruciblesApi.crucibleSlots(block);
     }
 
     public static int[] status(net.minecraft.world.level.block.entity.BlockEntity entity) {
-        return SimpleLibApi.crucibleStatus(entity);
+        return SimpleCruciblesApi.crucibleStatus(entity);
     }
 
     public static int requiredHeat(ItemStack input, net.minecraft.world.item.crafting.RecipeType<?> type) {
-        return SimpleLibApi.requiredHeat(input, type);
+        return SimpleCruciblesApi.requiredHeat(input, type);
     }
 
     public static int cookingTicks(int baseTicks, int heat) {
-        return SimpleLibApi.crucibleCookingTicks(baseTicks, heat);
+        return SimpleCruciblesApi.crucibleCookingTicks(baseTicks, heat);
     }
 
     public static int warmingTicks() { return SimpleLibApi.warmingTicks(); }
@@ -114,33 +103,33 @@ public final class CrucibleCompat {
     public static boolean warmable(ItemStack input) { return SimpleLibApi.warmable(input); }
 
     public static int stackMultiplier(Block block) {
-        return SimpleLibApi.stackMultiplier(block);
+        return SimpleCruciblesApi.stackMultiplier(block);
     }
 
     public static boolean isAttached(BlockState state) {
-        return SimpleLibApi.isAttached(state);
+        return SimpleCruciblesApi.isAttached(state);
     }
 
     public static boolean upgradesInPlace(Block block) {
-        return SimpleLibApi.upgradesInPlace(block);
+        return SimpleCruciblesApi.upgradesInPlace(block);
     }
 
     public static void upgradeInPlace(ServerLevel level, BlockPos pos, Block to) {
-        SimpleLibApi.upgradeCrucible(level, pos, to);
+        SimpleCruciblesApi.upgradeCrucible(level, pos, to);
     }
 
     /** Crucible upgrades go strike by strike (owner N51): 12 strikes, one unit every 3. */
     public static boolean stagedUpgrade(Block block) {
-        return SimpleLibApi.stagedUpgrade(block);
+        return SimpleCruciblesApi.stagedUpgrade(block);
     }
 
-    public static int crucibleUpgradeStrikes() { return SimpleLibApi.crucibleUpgradeStrikes(); }
+    public static int crucibleUpgradeStrikes() { return SimpleCruciblesApi.crucibleUpgradeStrikes(); }
 
-    public static int crucibleUpgradeUnits(BlockState state) { return SimpleLibApi.crucibleUpgradeUnits(state); }
+    public static int crucibleUpgradeUnits(BlockState state) { return SimpleCruciblesApi.crucibleUpgradeUnits(state); }
 
     /** Blow {@code done} of a crucible upgrade: SimpleLib's preview, a unit every 3 blows, the last one upgrades in place. */
     public static void crucibleUpgradeStrike(ServerLevel level, BlockPos pos, Block to, int done, ItemStack material) {
-        SimpleLibApi.crucibleUpgradeStrike(level, pos, to, done, material);
+        SimpleCruciblesApi.crucibleUpgradeStrike(level, pos, to, done, material);
     }
 
     public static boolean axeWaysEnabled() {
@@ -148,19 +137,19 @@ public final class CrucibleCompat {
     }
 
     /** Strikes to build the iron crucible / to attach a barrel (JEI, wiki). */
-    public static int buildStrikes() { return SimpleLibApi.buildStrikes(); }
+    public static int buildStrikes() { return SimpleCruciblesApi.buildStrikes(); }
 
-    public static int attachStrikes() { return SimpleLibApi.attachStrikes(); }
+    public static int attachStrikes() { return SimpleCruciblesApi.attachStrikes(); }
 
-    public static int buildWallStrikes() { return SimpleLibApi.buildWallStrikes(); }
+    public static int buildWallStrikes() { return SimpleCruciblesApi.buildWallStrikes(); }
 
-    public static String attachedBarrelSlots() { return SimpleLibApi.attachedBarrelSlots(); }
+    public static String attachedBarrelSlots() { return SimpleCruciblesApi.attachedBarrelSlots(); }
 
     /** A sledgehammer click on a crucible/barrel reaches the hammer instead of the menu when it upgrades, builds or attaches. */
     private static boolean hammerWants(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (hand != InteractionHand.MAIN_HAND || !SimpleLibApi.isHammer(player.getMainHandItem())) return false;
         if (com.simplebuilding.util.SledgehammerUpgrades.shouldSkipBlockUse(state, level, pos, player, hand)) return true;
-        return SimpleLibApi.canAttach(level, pos, state);
+        return SimpleCruciblesApi.canAttach(level, pos, state);
     }
 
     /**
@@ -174,14 +163,14 @@ public final class CrucibleCompat {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
         ItemStack tool = context.getItemInHand();
-        if (SimpleLibApi.canAttach(level, pos, state)) {
-            return SimpleLibApi.attachStrike(level, pos, player, tool, HAMMER_DAMAGE_PER_STRIKE) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+        if (SimpleCruciblesApi.canAttach(level, pos, state)) {
+            return SimpleCruciblesApi.attachStrike(level, pos, player, tool, HAMMER_DAMAGE_PER_STRIKE) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
         }
-        if (SimpleLibApi.canBuildStrike(state, player.getOffhandItem())) {
+        if (SimpleCruciblesApi.canBuildStrike(state, player.getOffhandItem())) {
             if (!com.simplebuilding.api.WorldPermissions.mayAct(level, player, pos)) return InteractionResult.FAIL;
-            boolean hit = SimpleLibApi.buildStrike(level, pos, player, tool, HAMMER_DAMAGE_PER_STRIKE);
+            boolean hit = SimpleCruciblesApi.buildStrike(level, pos, player, tool, HAMMER_DAMAGE_PER_STRIKE);
             if (hit && player instanceof net.minecraft.server.level.ServerPlayer server
-                    && level.getBlockState(pos).getBlock() == BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("simplelib", "iron_crucible"))) {
+                    && level.getBlockState(pos).getBlock() == BuiltInRegistries.BLOCK.getValue(id("iron_crucible"))) {
                 com.simplebuilding.advancement.ModTriggers.feature(server, com.simplebuilding.advancement.ModTriggers.CRUCIBLE_BUILT);
             }
             return hit ? InteractionResult.SUCCESS : InteractionResult.FAIL;
@@ -194,7 +183,7 @@ public final class CrucibleCompat {
      * breaks when pouring it, the Enderite bucket comes back), copper and Enderite buckets take and pour water
      * and lava like everywhere else (copper breaks on lava, cannot take soul lava).
      */
-    private static final class SbCauldronBuckets implements SimpleLibApi.CauldronBucket {
+    private static final class SbCauldronBuckets implements SimpleCruciblesApi.CauldronBucket {
         @Override
         public @Nullable String pours(ItemStack held) {
             if (!(held.getItem() instanceof com.simplebuilding.fluid.ModBucketItem bucket)) return null;
@@ -231,20 +220,6 @@ public final class CrucibleCompat {
             Item filled = com.simplebuilding.fluid.ModBucketItem.filled(kind, fluid);
             return filled == null ? null : com.simplebuilding.fluid.ModBucketItem.fill(held, filled);
         }
-    }
-
-    private static Block register(String name, Block block) {
-        return Registry.register(BuiltInRegistries.BLOCK, key(name), block);
-    }
-
-    private static void item(String name, @Nullable Block block) {
-        if (block == null) return;
-        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
-        Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, new Item.Properties().fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC).setId(key).useBlockDescriptionPrefix()));
-    }
-
-    private static ResourceKey<Block> key(String name) {
-        return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
     }
 
     private CrucibleCompat() {}

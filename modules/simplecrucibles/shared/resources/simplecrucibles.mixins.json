@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplecrucibles.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "AxeBuildMixin",
+    "TemplatePoolAccessor",
+    "DiscoverTipMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

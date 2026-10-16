@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 844,
+      "count": 842,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3709,8 +3709,8 @@
         "mc26_3/overlay/java/com/simplebuilding/mixin/SoulLavaFortressMixin.java"
       ],
       "related": [
-        "simplebuilding:enderite_crucible",
-        "simplebuilding:enderite_barrel",
+        "simplecrucibles:enderite_crucible",
+        "simplecrucibles:enderite_barrel",
         "simplebuilding:soul_lava_bucket",
         "simplebuilding:copper_bucket",
         "simplebuilding:enderite_bucket",
@@ -3718,9 +3718,9 @@
       ],
       "en": {
         "title": "Crucibles, soul lava and buckets",
-        "summary": "SimpleBuilding's part of the SimpleLib crucibles: the Enderite tier, sledgehammer ways, soul lava as extreme heat, copper and Enderite buckets.",
+        "summary": "SimpleBuilding's part of the Simple Crucibles crucibles: the sledgehammer ways, soul lava as extreme heat, copper and Enderite buckets.",
         "details": [
-          "Enderite crucible (30 slots in 5x6, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an empty cauldron (16 strikes, one iron ingot each: 8 for the side plates, each first half then whole, 4 for the two handles - iron poles count -, 4 for the rim; every strike is its own visible stage, breaking it midway gives the cauldron and the ingots back; 2 durability per strike), attaching a barrel (6 strikes) and upgrading crucibles strike by strike: 12 blows, every third blow strikes one of 4 units in and shows it as a band of the new material (a crucible broken midway gives the units back; contents and an attached barrel stay): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer). Barrels go up at twice the cost of a furnace (2 material at the end, twice the strikes): copper to reinforced to netherite (netherite nuggets) to Enderite barrel. A cauldron becomes a reinforced cauldron with 8 cracked diamonds.",
+          "The Enderite crucible and barrel are Simple Crucibles'. The sledgehammer replaces its axe ways: building the iron crucible on an empty cauldron (16 strikes, one iron ingot each: 8 for the side plates, each first half then whole, 4 for the two handles - iron poles count -, 4 for the rim; every strike is its own visible stage, breaking it midway gives the cauldron and the ingots back; 2 durability per strike), attaching a barrel (6 strikes) and upgrading crucibles strike by strike: 12 blows, every third blow strikes one of 4 units in and shows it as a band of the new material (a crucible broken midway gives the units back; contents and an attached barrel stay): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer). Barrels go up at twice the cost of a furnace (2 material at the end, twice the strikes): copper to reinforced to netherite (netherite nuggets) to Enderite barrel. A cauldron becomes a reinforced cauldron with 8 cracked diamonds.",
           "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. While it lasts, a faint dark-blue filter lies over the screen (besides the vanilla effect icon). It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
           "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks; it holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (a full one is named \"(Full)\"). The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) while carried in the hotbar or off hand or placed in the world (dropped, or in an item frame), not when pouring and not in the rest of the inventory or in containers; honeycomb waxes it (off hand while holding it, or on an item frame) and a waxed one does not weather, but filling it wears the wax: it then weathers at half pace until waxed again (an axe scrapes the wax or one stage off), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) takes water and lava, wears one stage per pour (shown as a bar) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
           "The sledgehammer crushes a quartz block into 4 quartz, one per strike (4 strikes).",
@@ -3729,9 +3729,9 @@
       },
       "de": {
         "title": "Schmelztiegel, Seelen-Lava und Eimer",
-        "summary": "SimpleBuildings Teil der SimpleLib-Schmelztiegel: Enderit-Stufe, Vorschlaghammer-Wege, Seelen-Lava als extreme Hitze, Kupfer- und Enderit-Eimer.",
+        "summary": "SimpleBuildings Teil der Simple-Crucibles-Schmelztiegel: Vorschlaghammer-Wege, Seelen-Lava als extreme Hitze, Kupfer- und Enderit-Eimer.",
         "details": [
-          "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem leeren Kessel (16 Schläge, je ein Eisenbarren: 8 für die Seitenplatten, je erst halb, dann ganz, 4 für die zwei Griffe - Eisenstangen zählen auch -, 4 für den Rand; jeder Schlag ist eine eigene sichtbare Stufe, Abbau zwischendurch gibt Kessel und Barren zurück; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Tiegel Schlag für Schlag aufwerten: 12 Schläge, jeder dritte schlägt eine von 4 Einheiten ein und zeigt sie als Band des neuen Materials (Abbau zwischendurch gibt die Einheiten zurück; Inhalt und angedocktes Fass bleiben): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer). Fässer zum doppelten Preis eines Ofens (2 Material am Ende, doppelte Schläge): Kupfer- zu Verstärktem zu Netherit- (Netheritklumpen) zu Enderit-Fass. Ein Kessel wird mit 8 Rissigen Diamanten zum verstärkten Kessel.",
+          "Enderit-Schmelztiegel und -Fass gehören zu Simple Crucibles. Der Vorschlaghammer ersetzt dessen Axt-Wege: Bau des Eisen-Schmelztiegels auf einem leeren Kessel (16 Schläge, je ein Eisenbarren: 8 für die Seitenplatten, je erst halb, dann ganz, 4 für die zwei Griffe - Eisenstangen zählen auch -, 4 für den Rand; jeder Schlag ist eine eigene sichtbare Stufe, Abbau zwischendurch gibt Kessel und Barren zurück; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Tiegel Schlag für Schlag aufwerten: 12 Schläge, jeder dritte schlägt eine von 4 Einheiten ein und zeigt sie als Band des neuen Materials (Abbau zwischendurch gibt die Einheiten zurück; Inhalt und angedocktes Fass bleiben): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer). Fässer zum doppelten Preis eines Ofens (2 Material am Ende, doppelte Schläge): Kupfer- zu Verstärktem zu Netherit- (Netheritklumpen) zu Enderit-Fass. Ein Kessel wird mit 8 Rissigen Diamanten zum verstärkten Kessel.",
           "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt zwei Minuten Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt; auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) kommt der Wurf alle 1,5 Sekunden. Solange er wirkt, liegt ein leichter dunkelblauer Filter über dem Bild (zusätzlich zum Vanilla-Effektsymbol). Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
           "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie; er fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (ein voller heißt „(voll)“). Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock), solange er in der Hotbar oder Nebenhand getragen wird oder in der Welt liegt (fallengelassen oder im Rahmen), nicht beim Ausgießen und nicht im übrigen Inventar oder in Behältern; eine Honigwabe wachst ihn (Nebenhand, während man ihn hält, oder am Rahmen), und ein gewachster verwittert nicht, doch Einfüllen greift das Wachs an: er verwittert dann halb so schnell, bis er wieder gewachst wird (eine Axt schabt das Wachs oder eine Stufe ab), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (als Balken sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
           "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz, einem je Schlag (4 Schläge).",
@@ -58257,47 +58257,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:enderite_barrel",
-      "name": {
-        "en_us": "Enderite Barrel",
-        "de_de": "Enderit-Fass"
-      },
-      "texture": "assets/textures/block/enderite_barrel_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_barrel.png",
-      "lootTable": "simplebuilding:blocks/enderite_barrel",
-      "drops": [
-        "simplebuilding:enderite_barrel"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A barrel that was told it could keep more, and believed it."
-          ],
-          "use": [
-            "The Enderite tier of the crucible's barrel: it holds double stacks, 128 of a 64-stack item, in the crucible menu and its own chest menu, for shift-clicks and for hoppers."
-          ],
-          "secret": [
-            "Taking from such a slot gives at most one normal stack. It is the last step of the line from copper through Netherite to Enderite."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Fass, dem gesagt wurde, es dürfe mehr behalten, und das es glaubte."
-          ],
-          "use": [
-            "Die Enderit-Stufe des Fasses der Tiegel: Es fasst doppelte Stapel, 128 eines 64er-Gegenstands, im Tiegelmenü und im eigenen Truhenmenü, bei Shift-Klicks und für Trichter."
-          ],
-          "secret": [
-            "Aus so einem Platz bekommst du höchstens einen normalen Stapel. Es ist der letzte Schritt der Linie von Kupfer über Netherit zu Enderit."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:enderite_chest",
       "name": {
         "en_us": "Enderite Chest",
@@ -58477,47 +58436,6 @@
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
         ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_crucible",
-      "name": {
-        "en_us": "Enderite Crucible",
-        "de_de": "Enderit-Schmelztiegel"
-      },
-      "texture": "assets/textures/block/enderite_crucible_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_crucible.png",
-      "lootTable": "simplebuilding:blocks/enderite_crucible",
-      "drops": [
-        "simplebuilding:enderite_crucible"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A crucible that cooks like the End's own fire."
-          ],
-          "use": [
-            "The Enderite tier of the crucible: 27 slots, double stacks, 8x speed. A Netherite crucible becomes this with Enderite Nuggets and a Netherite Sledgehammer, at twice the strikes of a furnace."
-          ],
-          "secret": [
-            "The sledgehammer replaces the axe of the base mod here: strike the iron crucible onto an iron block, and attach a barrel with 6 strikes."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Tiegel, der kocht wie das eigene Feuer des Endes."
-          ],
-          "use": [
-            "Die Enderit-Stufe des Tiegels: 27 Plätze, doppelte Stapel, 8-faches Tempo. Ein Netherit-Tiegel wird mit Enderitklumpen und einem Netherit-Vorschlaghammer dazu, mit doppelt so vielen Schlägen wie ein Ofen."
-          ],
-          "secret": [
-            "Der Vorschlaghammer ersetzt hier die Axt des Grundmods: Schlage den Eisentiegel auf einen Eisenblock und setze mit 6 Schlägen ein Fass an."
-          ]
-        }
       },
       "hasCustomBehaviour": false
     },
@@ -148880,22 +148798,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_backpack.json"
     },
     {
-      "id": "simplebuilding:blocks/enderite_barrel",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_barrel"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_barrel.json"
-    },
-    {
       "id": "simplebuilding:blocks/enderite_chest",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -148926,22 +148828,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_chunk_loader.json"
-    },
-    {
-      "id": "simplebuilding:blocks/enderite_crucible",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_crucible"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_crucible.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_elytra_pad",
@@ -159028,10 +158914,6 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_barrel",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_boots",
           "required": true
         },
@@ -159077,10 +158959,6 @@
         },
         {
           "id": "simplebuilding:enderite_core",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_crucible",
           "required": true
         },
         {
@@ -159212,6 +159090,14 @@
           "required": true
         },
         {
+          "id": "simplecrucibles:enderite_barrel",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_crucible",
+          "required": true
+        },
+        {
           "id": "simplelib:enderite_block",
           "required": true
         },
@@ -159267,10 +159153,6 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_barrel",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_boots",
           "required": true
         },
@@ -159316,10 +159198,6 @@
         },
         {
           "id": "simplebuilding:enderite_core",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_crucible",
           "required": true
         },
         {
@@ -159468,6 +159346,14 @@
         },
         {
           "id": "simplebuilding:stellar_flypad",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_barrel",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_crucible",
           "required": true
         },
         {
@@ -186110,7 +185996,7 @@
     {
       "id": "simplebuilding:machines/hot_pot",
       "parent": "simplebuilding:machines/reinforcements",
-      "icon": "simplelib:iron_crucible",
+      "icon": "simplecrucibles:iron_crucible",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -189995,9 +189881,9 @@
   },
   "counts": {
     "items": 800,
-    "blocks": 535,
+    "blocks": 533,
     "recipes": 1383,
-    "lootTables": 391,
+    "lootTables": 389,
     "trades": 20,
     "enchantments": 19,
     "tags": 58,

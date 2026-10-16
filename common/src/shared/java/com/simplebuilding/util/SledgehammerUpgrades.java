@@ -303,10 +303,10 @@ public final class SledgehammerUpgrades {
     }
 
     /**
-     * Crucible P5 (owner F9/F10/F11, 56, 59): the SimpleLib crucibles and barrels go up with the sledgehammer at
+     * Crucible P5 (owner F9/F10/F11, 56, 59): the Simple Crucibles crucibles and barrels go up with the sledgehammer at
      * twice the cost of a furnace (2 material, twice the strikes): Iron -> Reinforced (cracked diamonds) -> Netherite
      * (netherite nuggets) -> Enderite (enderite nuggets); copper -> reinforced -> netherite -> Enderite barrel (owner addition 11). The Vanilla cauldron
-     * becomes the reinforced cauldron with 8 cracked diamonds (owner 2026-10-06: doubled from 4). SimpleLib blocks by their public ids (principle 6a).
+     * becomes the reinforced cauldron with 8 cracked diamonds (owner 2026-10-06: doubled from 4). The blocks by their public ids (principle 6a).
      */
     private static void crucibleUpgrades(Map<Block, Upgrade> map) {
         Block iron = lib("iron_crucible"), reinforced = lib("reinforced_crucible"), netherite = lib("netherite_crucible");
@@ -339,7 +339,7 @@ public final class SledgehammerUpgrades {
     public static final int ASTRAL_TABLE_DURATION_FACTOR = 4;
 
     private static @Nullable Block lib(String path) {
-        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", path)).orElse(null);
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", path)).orElse(null);
     }
 
     private static void toNetherite(Map<Block, Upgrade> map, Block from, Block to) {

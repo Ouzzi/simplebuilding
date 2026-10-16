@@ -1,0 +1,14 @@
+{
+  "values": [
+    "simplecrucibles:iron_crucible",
+    "simplecrucibles:reinforced_crucible",
+    "simplecrucibles:netherite_crucible",
+    "simplecrucibles:enderite_crucible",
+    "simplecrucibles:crucible_blank",
+    "simplecrucibles:copper_barrel",
+    "simplecrucibles:reinforced_barrel",
+    "simplecrucibles:netherite_barrel",
+    "simplecrucibles:enderite_barrel",
+    "simplecrucibles:reinforced_cauldron"
+  ]
+}

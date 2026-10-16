@@ -22,7 +22,8 @@
       "requires": [
         "cloth-config",
         "simpleovens",
-        "simplemobheads"
+        "simplemobheads",
+        "simplecrucibles"
       ],
       "optional": [
         "jei",
@@ -1159,7 +1160,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "SimpleLib",
-      "description": "Shared content bundled by SimpleBuilding and Simple Sandwiches: crucibles heated by the block below, and warm food.",
+      "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials, id moves, in-world upgrades and UI building blocks.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -3285,6 +3286,97 @@
       },
       "parent": "simplebuilding",
       "bundle": "optional"
+    },
+    {
+      "id": "simplecrucibles",
+      "name": "Simple Crucibles",
+      "version": "1.0.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Crucibles",
+      "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simplecrucibles/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplecrucibles",
+        "catalogues": [
+          "modules/simplecrucibles/fabric/src/main/java/com/simplebuilding/modules/simplecrucibles/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplecrucibles"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplecruciblesGameTest",
+            "report": "integration/build/simplecrucibles-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplecrucibles:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplecrucibles/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplecrucibles:forge:runGameTestServer",
+            "report": "modules/simplecrucibles/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplecruciblesStandaloneGameTest",
+              "report": "integration/build/standalone/simplecrucibles-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplecrucibles:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplecrucibles/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplecrucibles.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplecrucibles/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplecrucibles",
+        "shared": "modules/simplecrucibles/shared",
+        "fabric": "modules/simplecrucibles/fabric",
+        "neoforge": "modules/simplecrucibles/neoforge",
+        "forge": "modules/simplecrucibles/forge",
+        "generated": "modules/simplecrucibles/generated/resources",
+        "lang": "modules/simplecrucibles/shared/resources/assets/simplecrucibles/lang",
+        "wikiManual": "modules/simplecrucibles/wiki/manual.json",
+        "balanceDir": "balance/simplecrucibles"
+      },
+      "projects": {
+        "fabric": ":modules:simplecrucibles:fabric",
+        "neoforge": ":modules:simplecrucibles:neoforge",
+        "forge": ":modules:simplecrucibles:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required"
     }
   ]
 }

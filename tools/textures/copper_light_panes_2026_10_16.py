@@ -1,6 +1,6 @@
 """Copper Light Panes (QUEUE N68): the colors of the plain Light Panes with the copper switch. Textures, models, blockstates, items, preview.
 
-Look: a copper frame (dark outline, lit bevel) around a weak checkerboard of the pane's main color at 100 % and 90 % saturation
+Look: a frame in the pane's own color (darker outline, lighter bevel) around a weak checkerboard of the pane's main color at 100 % and 90 % saturation
 (2 px cells) with a little noise; the full dye color is used, not toned down like the plain panes. Lit = full color, off = the same
 pattern dark. Ids: copper_light_pane (the warm lamp color of light_pane), <dye>_copper_light_pane (16), copper_redstone_light_pane
 (multicolor; its models are the sixteen colors, off = black_copper_light_pane_off). Reuses the base model and helpers of
@@ -24,10 +24,10 @@ import light_panes_2026_10_14 as lp  # noqa: E402
 ROOT = lp.ROOT
 RES = lp.RES
 WIKI = lp.WIKI
-PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", ROOT / "docs/ai/previews/claude-hudcopper"))
+PREVIEW = Path(os.environ.get("SB_PREVIEW_DIR", ROOT / "docs/ai/previews/claude-copperrim"))
 
-FRAME = (104, 54, 38)   # copper outline
-BEVEL = (222, 138, 96)  # copper bevel, lit from the top left
+FRAME_K = 0.5   # outline = main color x 0.5 (darker step)
+BEVEL_K = 1.3   # bevel = main color x 1.3 (lighter step), lit from the top left
 
 
 def second(c):
@@ -49,9 +49,9 @@ def pane(base, lit, seed):
         for x in range(16):
             ring = min(x, y, 15 - x, 15 - y)
             if ring == 0:
-                c = lp.scale(FRAME, 1.0 if lit else 0.7)
+                c = lp.scale(base, FRAME_K * (1.0 if lit else 0.7))
             elif ring == 1:
-                c = lp.scale(BEVEL, (1.0 if (x + y) < 15 else 0.82) * (1.0 if lit else 0.55))
+                c = lp.scale(base, BEVEL_K * (1.0 if (x + y) < 15 else 0.82) * (1.0 if lit else 0.55))
             else:
                 c = lo if ((x - 2) // 2 + (y - 2) // 2) % 2 else hi
                 c = lp.scale(c, 1.0 + (r() - 0.5) * 0.05)  # noise +-2.5 %

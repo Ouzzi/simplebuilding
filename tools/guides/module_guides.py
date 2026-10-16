@@ -158,6 +158,13 @@ MODULES = [
                 "and furnace minecarts of the same tiers.",
                 "Verstärkte, Netherit- und Enderit-Öfen, -Räucheröfen und -Schmelzöfen, die 2-, 4- und 8-mal so schnell "
                 "garen, und Antriebsloren derselben Stufen.")),
+    dict(module="simplecrucibles", ns="simplecrucibles", package="com.simplecrucibles.guide", cls="CruciblesGuide", kind="item",
+         author="Simple Crucibles", recipe="minecraft:cauldron",
+         name=("Simple Crucibles Guide", "Simple-Crucibles-Handbuch"),
+         intro=("Iron, Reinforced, Netherite and Enderite crucibles that cook every slot at once without fuel, barrels that dock "
+                "onto them, the reinforced cauldron and village field kitchens.",
+                "Eisen-, verstärkte, Netherit- und Enderit-Schmelztiegel, die ohne Brennstoff alle Plätze zugleich garen, Fässer, "
+                "die an sie andocken, der verstärkte Kessel und Dorf-Feldküchen.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),
@@ -209,6 +216,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:glow_ink_sac": ("a glow ink sac", "einem Leuchttintenbeutel"),
     "minecraft:prismarine_shard": ("a prismarine shard", "einer Prismarinscherbe"),
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
+    "minecraft:cauldron": ("a cauldron", "einem Kessel"),
     "minecraft:emerald": ("an emerald", "einem Smaragd"),
     "minecraft:flint": ("a piece of flint", "einem Feuerstein"),
 }
@@ -467,6 +475,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:glow_ink_sac": ("glow ink sac", "Leuchttintenbeutel"),
     "minecraft:prismarine_shard": ("prismarine shard", "Prismarinscherbe"),
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
+    "minecraft:cauldron": ("cauldron", "Kessel"),
     "minecraft:flint": ("flint", "Feuerstein"),
 }
 

@@ -13,7 +13,7 @@
       "translate": "advancements.simplebuilding.machines.hot_pot.description"
     },
     "icon": {
-      "id": "simplelib:iron_crucible"
+      "id": "simplecrucibles:iron_crucible"
     },
     "title": {
       "translate": "advancements.simplebuilding.machines.hot_pot.title"

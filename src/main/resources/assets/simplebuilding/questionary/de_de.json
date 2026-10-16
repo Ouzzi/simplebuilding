@@ -2202,28 +2202,6 @@
       "Er steht am Ende einer langen, versteckten Kette: der letzten Stufe der versteckten Easter-Stufen der Pads, einer Netherit-Vorlage und eines Netheritbarrens, und eine versteckte Herausforderung, „Alles für einen Stock?“, wartet auf den, der ihn baut."
     ]
   },
-  "enderite_barrel": {
-    "lore": [
-      "Ein Fass, dem gesagt wurde, es dürfe mehr behalten, und das es glaubte."
-    ],
-    "use": [
-      "Die Enderit-Stufe des Fasses der Tiegel: Es fasst doppelte Stapel, 128 eines 64er-Gegenstands, im Tiegelmenü und im eigenen Truhenmenü, bei Shift-Klicks und für Trichter."
-    ],
-    "secret": [
-      "Aus so einem Platz bekommst du höchstens einen normalen Stapel. Es ist der letzte Schritt der Linie von Kupfer über Netherit zu Enderit."
-    ]
-  },
-  "enderite_crucible": {
-    "lore": [
-      "Ein Tiegel, der kocht wie das eigene Feuer des Endes."
-    ],
-    "use": [
-      "Die Enderit-Stufe des Tiegels: 27 Plätze, doppelte Stapel, 8-faches Tempo. Ein Netherit-Tiegel wird mit Enderitklumpen und einem Netherit-Vorschlaghammer dazu, mit doppelt so vielen Schlägen wie ein Ofen."
-    ],
-    "secret": [
-      "Der Vorschlaghammer ersetzt hier die Axt des Grundmods: Schlage den Eisentiegel auf einen Eisenblock und setze mit 6 Schlägen ein Fass an."
-    ]
-  },
   "guide_book": {
     "lore": [
       "Ein Buch, das alles über die Welt gelesen hat und es dir erzählen will."

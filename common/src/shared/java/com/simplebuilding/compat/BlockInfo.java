@@ -330,7 +330,7 @@ public final class BlockInfo {
     /** Registry id of the milk cauldron (module SimpleSandwiches); recognised by id, never by class. */
     public static final String MILK_CAULDRON_ID = "simplesandwiches:milk_cauldron";
     /** Registry id of the reinforced cauldron (SimpleLib). */
-    public static final String REINFORCED_CAULDRON_ID = "simplelib:reinforced_cauldron";
+    public static final String REINFORCED_CAULDRON_ID = "simplecrucibles:reinforced_cauldron";
     /** Visible ripening stages of the milk cauldron and fill levels of the reinforced cauldron. */
     private static final int MILK_STAGES = 4;
     private static final int CAULDRON_LEVELS = 3;

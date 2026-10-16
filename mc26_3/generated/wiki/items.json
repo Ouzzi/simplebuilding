@@ -156,10 +156,8 @@
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
     "simplebuilding:enderite_backpack",
-    "simplebuilding:enderite_barrel",
     "simplebuilding:enderite_chest",
     "simplebuilding:enderite_chunk_loader",
-    "simplebuilding:enderite_crucible",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
     "simplebuilding:enderite_hopper",
@@ -1418,9 +1416,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_barrel"
-    },
-    {
       "durability": 546,
       "enchantability": 18,
       "id": "simplebuilding:enderite_boots",
@@ -1477,9 +1472,6 @@
     {
       "id": "simplebuilding:enderite_core",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_crucible"
     },
     {
       "id": "simplebuilding:enderite_elytra_pad",
