@@ -429,7 +429,9 @@ final class HowlerTests {
             h.runAfterDelay(60, () -> {
                 MobsConfig.howlerPulseInterval = saved;
                 h.assertTrue(howler.phase() == HowlerLogic.Phase.HUNGER, "hunger phase");
-                h.assertFalse(prey.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "no pulse in hunger");
+                // The bite also gives Darkness (4 s) now that the bigger Howler reaches the stand-in; the pulse is the long, particle-less one.
+                var dark = prey.getEffect(net.minecraft.world.effect.MobEffects.DARKNESS);
+                h.assertTrue(dark == null || dark.getDuration() <= HowlerLogic.DARKNESS_TICKS, "no pulse in hunger");
                 howler.discard();
                 h.succeed();
             });
