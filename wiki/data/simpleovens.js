@@ -635,7 +635,9 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "items": [
             "simpleovens:enderite_blast_furnace"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -651,7 +653,9 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "items": [
             "simpleovens:enderite_furnace"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -667,7 +671,9 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "items": [
             "simpleovens:enderite_smoker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -683,7 +689,9 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "items": [
             "simpleovens:netherite_blast_furnace"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -699,7 +707,9 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "items": [
             "simpleovens:netherite_furnace"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -715,7 +725,9 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "items": [
             "simpleovens:netherite_smoker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -731,7 +743,9 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "items": [
             "simpleovens:reinforced_blast_furnace"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -747,7 +761,9 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "items": [
             "simpleovens:reinforced_furnace"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -763,7 +779,9 @@ window.WIKI_MODULE_DATA["simpleovens"] = {
           "items": [
             "simpleovens:reinforced_smoker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],

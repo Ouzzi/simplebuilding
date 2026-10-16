@@ -146967,7 +146967,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:acacia_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -146983,7 +146985,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:acacia_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -146999,7 +147003,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:acacia_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147015,7 +147021,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:aqua_froglight"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147031,7 +147039,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ashwood_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147047,7 +147057,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ashwood_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147063,7 +147075,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ashwood_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147079,7 +147093,9 @@ window.WIKI_DATA = {
           "items": [
             "minecraft:enchanting_table"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         },
         {
@@ -147087,7 +147103,9 @@ window.WIKI_DATA = {
           "items": [
             "simplelib:enderite_ingot"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147103,7 +147121,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astral_end_stone"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147119,7 +147139,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astral_piston"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147135,7 +147157,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astral_purpur_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147151,7 +147175,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astral_rail"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147167,7 +147193,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astral_redstone"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147183,7 +147211,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astral_redstone_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147199,7 +147229,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astral_vault"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147215,7 +147247,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astralit_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147247,7 +147281,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astralit_brick_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147263,7 +147299,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astralit_brick_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147279,7 +147317,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astralit_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147295,7 +147335,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astralit_lamp"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147328,7 +147370,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astralit_pillar"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147344,7 +147388,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astralit_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147376,7 +147422,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:astralit_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147392,7 +147440,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:auto_smither"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147408,7 +147458,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:autonomous_crafter"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147424,7 +147476,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:azure_froglight"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147456,7 +147510,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:bamboo_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147472,7 +147528,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:bamboo_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147488,7 +147546,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:bamboo_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147504,7 +147564,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:birch_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147520,7 +147582,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:birch_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147536,7 +147600,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:birch_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147552,7 +147618,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:black_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147568,7 +147636,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:black_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147584,7 +147654,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:black_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147600,7 +147672,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:blackstone_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147632,7 +147706,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:blackstone_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147648,7 +147724,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:blazing_obsidian"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147664,7 +147742,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:blue_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147680,7 +147760,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:blue_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147696,7 +147778,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:blue_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147712,7 +147796,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:bridge_redstone"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147728,7 +147814,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:bridge_redstone_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147744,7 +147832,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:brown_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147760,7 +147850,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:brown_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147776,7 +147868,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:brown_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147792,7 +147886,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_acacia_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147808,7 +147904,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_ashwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147824,7 +147922,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_bamboo_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147840,7 +147940,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_birch_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147856,7 +147958,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_cherry_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147872,7 +147976,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_crimson_stem"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147888,7 +147994,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_dark_oak_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147904,7 +148012,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_duskwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147920,7 +148030,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_jungle_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147936,7 +148048,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_mangrove_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147952,7 +148066,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_oak_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147968,7 +148084,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_pale_oak_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -147984,7 +148102,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_spruce_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148000,7 +148120,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:carved_warped_stem"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148016,7 +148138,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:cherry_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148032,7 +148156,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:cherry_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148048,7 +148174,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:cherry_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148064,7 +148192,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:chiseled_astralit_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148096,7 +148226,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:chiseled_ender_quartz_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148112,7 +148244,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:chiseled_nihilith_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148144,7 +148278,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:chunk_loader"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148160,7 +148296,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:construction_light"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148176,7 +148314,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148192,7 +148332,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:copper_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148208,7 +148350,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:copper_redstone_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148257,7 +148401,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:crimson_blazewood_planks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148273,7 +148419,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:crimson_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148289,7 +148437,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:crimson_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148305,7 +148455,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:crimson_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148321,7 +148473,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:crystalline_astralit"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148337,7 +148491,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:crystalline_nihilith"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148353,7 +148509,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:cyan_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148369,7 +148527,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:cyan_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148385,7 +148545,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:cyan_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148401,7 +148563,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:dark_oak_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148417,7 +148581,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:dark_oak_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148433,7 +148599,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:dark_oak_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148466,7 +148634,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:diamond_pole"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148482,7 +148652,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:diamond_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148530,7 +148702,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:duskwood_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148546,7 +148720,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:duskwood_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148562,7 +148738,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:duskwood_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148578,7 +148756,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:elytra_pad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148610,7 +148790,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ender_quartz_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148642,7 +148824,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ender_quartz_brick_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148658,7 +148842,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ender_quartz_brick_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148674,7 +148860,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ender_quartz_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148690,7 +148878,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ender_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148722,7 +148912,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ender_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148738,7 +148930,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ender_quartz_pillar"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148770,7 +148964,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:ender_quartz_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148802,7 +148998,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148818,7 +149016,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_chunk_loader"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148834,7 +149034,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_elytra_pad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148850,7 +149052,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_flypad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148866,7 +149070,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_hopper"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148882,7 +149088,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_launchpad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148898,7 +149106,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_piston"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148914,7 +149124,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_pole"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148930,7 +149142,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148962,7 +149176,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_spawn_teleporter"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148978,7 +149194,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_trapped_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -148994,7 +149212,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:exposed_copper_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149010,7 +149230,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:exposed_trapped_copper_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149026,7 +149248,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:fine_elytra_pad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149042,7 +149266,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:flypad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149058,7 +149284,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:frosted_nihilith"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149074,7 +149302,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:gold_pole"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149123,7 +149353,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:gray_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149139,7 +149371,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:gray_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149155,7 +149389,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:gray_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149171,7 +149407,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:green_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149187,7 +149425,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:green_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149203,7 +149443,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:green_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149219,7 +149461,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_acacia_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149235,7 +149479,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_ashwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149251,7 +149497,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_bamboo_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149267,7 +149515,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_birch_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149283,7 +149533,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_cherry_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149299,7 +149551,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_crimson_stem"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149315,7 +149569,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_dark_oak_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149331,7 +149587,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_duskwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149347,7 +149605,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_jungle_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149363,7 +149623,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_mangrove_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149379,7 +149641,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_oak_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149395,7 +149659,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_pale_oak_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149411,7 +149677,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_spruce_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149427,7 +149695,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_acacia_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149443,7 +149713,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_ashwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149459,7 +149731,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_bamboo_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149475,7 +149749,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_birch_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149491,7 +149767,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_cherry_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149507,7 +149785,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_crimson_stem"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149523,7 +149803,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_dark_oak_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149539,7 +149821,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_duskwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149555,7 +149839,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_jungle_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149571,7 +149857,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_mangrove_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149587,7 +149875,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_oak_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149603,7 +149893,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_pale_oak_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149619,7 +149911,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_spruce_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149635,7 +149929,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_stripped_warped_stem"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149651,7 +149947,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:hollow_warped_stem"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149667,7 +149965,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:infused_potion_pad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149683,7 +149983,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:iron_pole"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149699,7 +150001,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:jukebox_amplifier"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149715,7 +150019,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:jungle_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149731,7 +150037,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:jungle_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149747,7 +150055,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:jungle_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149763,7 +150073,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:lapis_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149795,7 +150107,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:lapis_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149811,7 +150125,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:launchpad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149827,7 +150143,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:layered_astralit"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149843,7 +150161,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:levitating_gravel"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149859,7 +150179,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:levitating_sand"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149875,7 +150197,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:light_blue_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149891,7 +150215,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:light_blue_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149907,7 +150233,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:light_blue_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149923,7 +150251,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:light_gray_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149939,7 +150269,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:light_gray_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149955,7 +150287,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:light_gray_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149971,7 +150305,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -149987,7 +150323,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:lime_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150003,7 +150341,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:lime_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150019,7 +150359,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:lime_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150035,7 +150377,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:magenta_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150051,7 +150395,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:magenta_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150067,7 +150413,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:magenta_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150083,7 +150431,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:mangrove_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150099,7 +150449,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:mangrove_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150115,7 +150467,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:mangrove_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150131,7 +150485,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nautilus_shell_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150147,7 +150503,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nether_brick_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150179,7 +150537,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nether_brick_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150227,7 +150587,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150243,7 +150605,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_chunk_loader"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150259,7 +150623,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_elytra_pad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150275,7 +150641,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_flypad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150291,7 +150659,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_hopper"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150307,7 +150677,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_launchpad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150323,7 +150695,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_piston"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150339,7 +150713,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_pole"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150355,7 +150731,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150387,7 +150765,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_trapped_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150403,7 +150783,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihil_end_stone"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150419,7 +150801,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihil_piston"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150435,7 +150819,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihil_purpur_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150451,7 +150837,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihil_rail"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150467,7 +150855,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihil_redstone"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150483,7 +150873,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihil_redstone_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150499,7 +150891,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihil_vault"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150515,7 +150909,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihilith_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150547,7 +150943,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihilith_brick_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150563,7 +150961,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihilith_brick_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150579,7 +150979,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihilith_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150595,7 +150997,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihilith_lamp"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150628,7 +151032,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihilith_pillar"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150644,7 +151050,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihilith_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150676,7 +151084,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:nihilith_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150692,7 +151102,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:note_amplifier"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150708,7 +151120,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:oak_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150724,7 +151138,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:oak_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150740,7 +151156,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:oak_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150756,7 +151174,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:orange_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150772,7 +151192,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:orange_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150788,7 +151210,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:orange_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150804,7 +151228,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:oxidized_copper_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150820,7 +151246,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:oxidized_trapped_copper_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150836,7 +151264,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:pale_oak_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150852,7 +151282,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:pale_oak_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150868,7 +151300,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:pale_oak_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150884,7 +151318,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:pink_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150900,7 +151336,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:pink_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150916,7 +151354,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:pink_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150932,7 +151372,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_astralit"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150948,7 +151390,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_astralit_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -150980,7 +151424,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_astralit_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151012,7 +151458,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_astralit_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151028,7 +151476,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_astralit_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151044,7 +151494,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_end_stone"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151060,7 +151512,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_ender_quartz"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151076,7 +151530,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_ender_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151108,7 +151564,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_ender_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151140,7 +151598,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_ender_quartz_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151156,7 +151616,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_ender_quartz_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151172,7 +151634,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_nihilith"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151188,7 +151652,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_nihilith_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151220,7 +151686,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_nihilith_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151252,7 +151720,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_nihilith_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151268,7 +151738,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:polished_nihilith_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151284,7 +151756,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:potion_pad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151300,7 +151774,9 @@ window.WIKI_DATA = {
           "items": [
             "minecraft:flower_pot"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         },
         {
@@ -151308,7 +151784,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:silent_dandelion"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151324,7 +151802,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:purple_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151340,7 +151820,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:purple_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151356,7 +151838,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:purple_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151372,7 +151856,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:purpur_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151404,7 +151890,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:purpur_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151420,7 +151908,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:red_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151436,7 +151926,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:red_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151452,7 +151944,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:red_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151468,7 +151962,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:red_nether_brick_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151500,7 +151996,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:red_nether_brick_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151516,7 +152014,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:redstone_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151548,7 +152048,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:reinforced_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151564,7 +152066,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:reinforced_elytra_pad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151580,7 +152084,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:reinforced_flypad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151596,7 +152102,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:reinforced_hopper"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151612,7 +152120,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:reinforced_piston"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151628,7 +152138,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:reinforced_potion_pad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151660,7 +152172,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:reinforced_sticky_piston"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151676,7 +152190,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:reinforced_trapped_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151692,7 +152208,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:resin_quartz_checker"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151724,7 +152242,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:resin_quartz_checker_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151773,7 +152293,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:scarlet_froglight"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151789,7 +152311,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:sculk_jaw"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151805,7 +152329,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:silent_dandelion"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151821,7 +152347,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:spawn_teleporter"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151837,7 +152365,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:spawn_teleporter_tier_2"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151853,7 +152383,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:spawn_teleporter_tier_3"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151869,7 +152401,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:spawn_teleporter_tier_4"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151885,7 +152419,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:spruce_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151901,7 +152437,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:spruce_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151917,7 +152455,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:spruce_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151933,7 +152473,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stellar_flypad"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151949,7 +152491,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:storage_crafting_table"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151965,7 +152509,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_acacia_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151981,7 +152527,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_acacia_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -151997,7 +152545,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_ashwood_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152013,7 +152563,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_ashwood_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152029,7 +152581,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_bamboo_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152045,7 +152599,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_bamboo_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152061,7 +152617,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_birch_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152077,7 +152635,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_birch_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152093,7 +152653,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_cherry_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152109,7 +152671,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_cherry_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152125,7 +152689,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_crimson_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152141,7 +152707,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_crimson_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152157,7 +152725,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_dark_oak_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152173,7 +152743,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_dark_oak_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152189,7 +152761,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_duskwood_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152205,7 +152779,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_duskwood_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152221,7 +152797,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_jungle_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152237,7 +152815,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_jungle_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152253,7 +152833,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_mangrove_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152269,7 +152851,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_mangrove_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152285,7 +152869,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_oak_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152301,7 +152887,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_oak_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152317,7 +152905,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_pale_oak_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152333,7 +152923,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_pale_oak_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152349,7 +152941,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_spruce_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152365,7 +152959,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_spruce_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152381,7 +152977,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_warped_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152397,7 +152995,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:stripped_warped_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152430,7 +153030,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:sulfur_lantern"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152446,7 +153048,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:sulfur_torch"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152462,7 +153066,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:suspended_gravel"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152478,7 +153084,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:suspended_sand"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152494,7 +153102,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:transparent_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152510,7 +153120,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:trapped_copper_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152526,7 +153138,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:veined_astralit"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152542,7 +153156,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:veined_nihilith"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152575,7 +153191,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:warped_blazewood_planks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152591,7 +153209,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:warped_cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152607,7 +153227,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:warped_crate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152623,7 +153245,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:warped_sheet"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152639,7 +153263,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:waxed_copper_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152655,7 +153281,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:waxed_exposed_copper_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152671,7 +153299,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:waxed_exposed_trapped_copper_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152687,7 +153317,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:waxed_oxidized_copper_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152703,7 +153335,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:waxed_oxidized_trapped_copper_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152719,7 +153353,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:waxed_trapped_copper_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152735,7 +153371,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:waxed_weathered_copper_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152751,7 +153389,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:waxed_weathered_trapped_copper_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152767,7 +153407,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:weathered_copper_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152783,7 +153425,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:weathered_trapped_copper_chest"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152799,7 +153443,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:white_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152815,7 +153461,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:white_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152831,7 +153479,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:white_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152847,7 +153497,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:yellow_copper_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152863,7 +153515,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:yellow_hammock"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152879,7 +153533,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:yellow_light_pane"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -152922,7 +153578,9 @@ window.WIKI_DATA = {
         {
           "rolls": 1,
           "items": [],
-          "conditions": [],
+          "conditions": [
+            "minecraft:random_chance"
+          ],
           "functions": []
         }
       ],
@@ -152956,7 +153614,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:iron_core"
           ],
-          "conditions": [],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
           "functions": []
         }
       ],
@@ -153032,7 +153692,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:gold_core"
           ],
-          "conditions": [],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
           "functions": []
         }
       ],
@@ -153064,7 +153726,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:gold_core"
           ],
-          "conditions": [],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
           "functions": []
         },
         {
@@ -153082,7 +153746,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:netherite_core"
           ],
-          "conditions": [],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
           "functions": []
         }
       ],
@@ -153142,7 +153808,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:enderite_core"
           ],
-          "conditions": [],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
           "functions": []
         },
         {
@@ -153243,7 +153911,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:gold_core"
           ],
-          "conditions": [],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
           "functions": []
         }
       ],
@@ -153415,7 +154085,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:diamond_core"
           ],
-          "conditions": [],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
           "functions": []
         }
       ],
@@ -153460,7 +154132,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:diamond_core"
           ],
-          "conditions": [],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
           "functions": []
         }
       ],
@@ -153502,7 +154176,9 @@ window.WIKI_DATA = {
           "items": [
             "simplebuilding:iron_core"
           ],
-          "conditions": [],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
           "functions": []
         }
       ],

@@ -233,7 +233,9 @@ window.WIKI_MODULE_DATA["simplecrucibles"] = {
           "items": [
             "minecraft:cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:match_block"
+          ],
           "functions": []
         },
         {
@@ -241,7 +243,9 @@ window.WIKI_MODULE_DATA["simplecrucibles"] = {
           "items": [
             "minecraft:iron_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:match_block"
+          ],
           "functions": []
         },
         {

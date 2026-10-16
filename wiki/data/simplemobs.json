@@ -1800,8 +1800,7 @@
             "simplemobs:deceiver_cloak"
           ],
           "conditions": [
-            "minecraft:killed_by_player",
-            "minecraft:random_chance_with_enchanted_bonus"
+            "minecraft:all_of"
           ],
           "functions": []
         }
@@ -1834,7 +1833,9 @@
           "items": [
             "simplemobs:dread_link"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:killed_by_player"
+          ],
           "functions": []
         }
       ],
@@ -1880,7 +1881,9 @@
           "items": [
             "simplemobs:watcher_eye"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:killed_by_player"
+          ],
           "functions": []
         }
       ],
@@ -1912,7 +1915,9 @@
           "items": [
             "simplemobs:soulfire_rod"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:killed_by_player"
+          ],
           "functions": []
         }
       ],

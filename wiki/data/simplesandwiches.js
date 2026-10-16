@@ -859,7 +859,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:acacia_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -875,7 +877,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:ashwood_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -891,7 +895,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:bamboo_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -907,7 +913,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:birch_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -924,7 +932,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
             "simplesandwiches:butter_block",
             "simplesandwiches:butter_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -941,7 +951,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
             "simplesandwiches:cheese_block",
             "simplesandwiches:cheese_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -957,7 +969,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:cherry_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -973,7 +987,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:crimson_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -989,7 +1005,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:dark_oak_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1005,7 +1023,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:duskwood_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1021,7 +1041,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:jungle_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1037,7 +1059,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:mangrove_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1053,7 +1077,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "minecraft:cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1069,7 +1095,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:oak_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1085,7 +1113,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:pale_oak_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1101,7 +1131,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:poplar_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1117,7 +1149,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:spruce_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1133,7 +1167,9 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
           "items": [
             "simplesandwiches:warped_cutting_board"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],

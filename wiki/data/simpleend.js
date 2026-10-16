@@ -1428,7 +1428,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ash_bud"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1444,7 +1446,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_button"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1460,7 +1464,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_door"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1476,7 +1482,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_fence"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1492,7 +1500,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_fence_gate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1508,7 +1518,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_hanging_sign"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1532,7 +1544,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ash_bud"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:match_block"
+          ],
           "functions": []
         },
         {
@@ -1541,7 +1555,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
             "simpleend:drift_fruit",
             "simpleend:spoiled_drift_fruit"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:match_block"
+          ],
           "functions": []
         },
         {
@@ -1549,7 +1565,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "minecraft:stick"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:inverted"
+          ],
           "functions": []
         }
       ],
@@ -1565,7 +1583,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1581,7 +1601,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_planks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1597,7 +1619,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1613,7 +1637,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_shelf"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1629,7 +1655,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_sign"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1661,7 +1689,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1677,7 +1707,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_sticks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1693,7 +1725,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_trapdoor"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1709,7 +1743,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ashwood_wood"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1725,7 +1761,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "minecraft:end_stone"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1741,7 +1779,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:dusk_bud"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1757,7 +1797,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_button"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1773,7 +1815,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_door"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1789,7 +1833,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_fence"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1805,7 +1851,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_fence_gate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1821,7 +1869,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_hanging_sign"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1845,7 +1895,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:dusk_bud"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:match_block"
+          ],
           "functions": []
         },
         {
@@ -1854,7 +1906,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
             "simpleend:drift_fruit",
             "simpleend:spoiled_drift_fruit"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:match_block"
+          ],
           "functions": []
         },
         {
@@ -1862,7 +1916,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "minecraft:stick"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:inverted"
+          ],
           "functions": []
         }
       ],
@@ -1878,7 +1934,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1894,7 +1952,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_planks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1910,7 +1970,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_pressure_plate"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1926,7 +1988,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_shelf"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1942,7 +2006,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_sign"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1974,7 +2040,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -1990,7 +2058,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_sticks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2006,7 +2076,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_trapdoor"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2022,7 +2094,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:duskwood_wood"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2055,7 +2129,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:end_grass"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:any_of"
+          ],
           "functions": []
         }
       ],
@@ -2071,7 +2147,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "minecraft:flower_pot"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         },
         {
@@ -2079,7 +2157,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:ash_bud"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2095,7 +2175,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "minecraft:flower_pot"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         },
         {
@@ -2103,7 +2185,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:dusk_bud"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2119,7 +2203,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:stripped_ashwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2135,7 +2221,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:stripped_ashwood_wood"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2151,7 +2239,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:stripped_duskwood_log"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2167,7 +2257,9 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "items": [
             "simpleend:stripped_duskwood_wood"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],

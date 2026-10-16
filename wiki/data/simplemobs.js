@@ -1801,8 +1801,7 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
             "simplemobs:deceiver_cloak"
           ],
           "conditions": [
-            "minecraft:killed_by_player",
-            "minecraft:random_chance_with_enchanted_bonus"
+            "minecraft:all_of"
           ],
           "functions": []
         }
@@ -1835,7 +1834,9 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "items": [
             "simplemobs:dread_link"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:killed_by_player"
+          ],
           "functions": []
         }
       ],
@@ -1881,7 +1882,9 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "items": [
             "simplemobs:watcher_eye"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:killed_by_player"
+          ],
           "functions": []
         }
       ],
@@ -1913,7 +1916,9 @@ window.WIKI_MODULE_DATA["simplemobs"] = {
           "items": [
             "simplemobs:soulfire_rod"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:killed_by_player"
+          ],
           "functions": []
         }
       ],
