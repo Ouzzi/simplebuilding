@@ -4038,5 +4038,6 @@
   "simplebuilding.testcentre.mobs.habitat.meadow": "Wiese",
   "simplebuilding.testcentre.mobs.habitat.dread_figure": "Beschwörungsfigur",
   "simplebuilding.testcentre.mobs.habitat.wither_figure": "Wither-Figur + Helm",
-  "simplebuilding.testcentre.command.unknown_anchor": "Unbekannter Platz %s"
+  "simplebuilding.testcentre.command.unknown_anchor": "Unbekannter Platz %s",
+  "layer.simplebuilding.chunk_loaders": "Chunk-Loader"
 }
