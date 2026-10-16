@@ -1,0 +1,10 @@
+# Bericht oc-gatefix9 (Gate a502045a2 rot, Basis claude-wave1 f7e4fbfb6)
+- **1 checkModuleData:** `modules/simpletweaks/tools/check_data.py` kannte die Lang-Präfixe `simpletweaks.table.*` (Claim-Tisch) nicht und erwartete im Wiki-Export nur die Urkunde; Präfix + Export (Urkunde + Tisch) ergänzt.
+- **2 discover tooltip/wiki:** Schwefel-Lichter (Fackel/Laterne/Lagerfeuer) in `wiki/manual.json` (themed_fires: related + je ein EN/DE-Absatz); discover.py + wiki generate neu, `--check` grün. Alle Loader nutzen denselben Test.
+- **3 simpletweaks boot:** Kein Doppel-Register, sondern veralteter Test: erwartet jetzt 3 Items (Urkunde, Buch, Claim-Tisch) und genau den Block `claim_table`; Export-Datei (`generated/.../items.json`) mit Tisch.
+- **4 simplemobs fear_immunity:** Mock-Spieler sind Kreativ (Watcher3-Umbau); Test taggt ihn wie die Watcher-Tests (`FearAura.TEST_TAG`, am Ende entfernt). Logik unverändert, Prüfaussage (Amulett/Fokus immun) bleibt.
+- **5 simplemobheads mobs_have_heads:** `village_wanderer` und `wanderer_horse` in `modules/simplemobheads/data/mobs.json` `exclude` ("Kopf kommt später, W11"); HeadTable regeneriert (Generator nutzt `Map.ofEntries`, `Map.of` hat max. 10 Paare).
+- **Neu (6) 26.2-Compile:** `TweaksContent` (shared) nutzte `framework.api.MapLayerSources`, 26.2 hat kein framework → `:compileJava` rot. Eigene Klasse `tweaks/ChunkLoaderMapLayer` als 26.3-Overlay + No-op-Zwilling in `common/src/mc26_2`. 
+- **Neu (7) checkLangText:** `layer.simplebuilding.chunk_loaders` fehlte in den 26.3-Overlay-Lang-Dateien (EN+DE ergänzt). Außerdem `module_guides.py` neu geschrieben (nur Schlüsselreihenfolge simpleshops).
+- **Tests:** module-simpletweaks fab+neo `alles gruen: 2/2`; module-simplemobs fab+neo `alles gruen: 2/2`; module-simplemobheads fab+neo `alles gruen: 2/2`; fabric+neoforge `simplebuilding:discover_game_test_behaviour*` `alles gruen: 2/2`. `./gradlew check -q --continue`: ohne Fehler (Log ohne FAILED). wiki/generate --all --check --strict, discover --check, check_tooltip_text grün.
+- **Nicht getestet:** Forge-Targets (gleicher Test wie Fabric/Neo), Standalone-Läufe, Client-Tests. Keine Texturen geändert.
