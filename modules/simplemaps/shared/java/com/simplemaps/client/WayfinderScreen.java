@@ -10,6 +10,7 @@ import com.simplemaps.MapsComponents;
 import com.simplemaps.MapsItems;
 import com.simplemaps.SimpleMaps;
 import com.simplemaps.Waypoint;
+import com.simplemaps.WayfinderTabStyle;
 import com.simplemaps.WaypointIcons;
 import com.simplemaps.Waypoints;
 import com.simplemaps.WayfinderData;
@@ -55,9 +56,11 @@ public final class WayfinderScreen extends Screen {
     public static final int LEFT_TABS = WayfinderLayout.LEFT_TABS, RIGHT_TABS = WayfinderLayout.RIGHT_TABS;
     private static final int TAB_HOVER = WayfinderLayout.TAB_HOVER;
     /** Icons on the grey Vanilla buttons: light with a dark drop shadow, like button text. */
-    private static final int ICON = 0xFFE8E8E8, ICON_SHADOW = 0xFF3A3A3A;
+    private static final int ICON_SHADOW = 0xFF2A2420;
     /** Matt bronze, like the Octant screen (owner N65, docs/ai/KONZEPT-OKTANT-UI-2026-10-15.md); derived like every other N12 box. */
     public static final UiPalette PALETTE = UiPalette.derived(0xFF6F5F4B);
+    /** Size of a waypoint's icon square on the map. */
+    public static final int MARK = 14;
     private static final Identifier PLAYER = Identifier.withDefaultNamespace("player");
     private static final Identifier DEATH = Identifier.withDefaultNamespace("red_x");
 
@@ -435,10 +438,11 @@ public final class WayfinderScreen extends Screen {
     private void drawMarks(GuiGraphicsExtractor g, Waypoints waypoints) {
         for (Waypoint w : waypoints.list()) {
             int x = screenX(w.x()), y = screenY(w.z());
-            g.fill(x - 7, y - 7, x + 7, y + 7, 0x70000000);
-            WaypointArt.draw(g, w, x - 6, y - 6, 12);
-            g.text(font, w.name().isEmpty() ? String.valueOf(w.slot() + 1) : w.name(), x + 4, y - 9, 0xFFFFFFFF, true);
-            if (MapLayers.coordsOn()) MapLayers.drawCoords(g, font, x + 4, y + 1, w.x(), w.z());
+            WaypointArt.draw(g, w, x - MARK / 2, y - MARK / 2, MARK);
+            // Owner N68: the name sits beside the icon, its middle on the icon's middle; the coordinates go under it.
+            int textX = x + MARK / 2 + 3, lineH = font.lineHeight;
+            g.text(font, w.name().isEmpty() ? String.valueOf(w.slot() + 1) : w.name(), textX, y - lineH / 2, 0xFFFFFFFF, true);
+            if (MapLayers.coordsOn()) MapLayers.drawCoords(g, font, textX, y + lineH / 2 + 1, w.x(), w.z());
         }
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || frameMode() && !MapsClient.inMapDimension(mapId())) return;
@@ -529,18 +533,21 @@ public final class WayfinderScreen extends Screen {
             int y = leftTabY(i);
             boolean hover = !dialog && tabAt(mouseX, mouseY, true) == i;
             int shift = hover ? TAB_HOVER : 0;
-            UiBookmarks.ribbon(g, layout.leftTabX() - shift, y, layout.tabW(), tab, true, PALETTE, states[i], hover);
+            WayfinderTabStyle style = WayfinderTabStyle.of(PALETTE, states[i], hover);
+            drawTab(g, layout.leftTabX() - shift, y, layout.tabW(), tab, style);
             int x = layout.leftTabX() - shift + (tab - 10) / 2, iy = y + (tab - 10) / 2;
             // Shadow first, then the light icon one pixel up-left (Vanilla button text look).
             drawLeftIcon(g, i, x + 1, iy + 1, ICON_SHADOW, true);
-            drawLeftIcon(g, i, x, iy, ICON, false);
+            drawLeftIcon(g, i, x, iy, style.ink(), false);
+            if (style.bar() != 0) g.fill(layout.leftTabX() - shift + 4, y + tab - 5, layout.leftTabX() - shift + tab - 4, y + tab - 4, style.bar());
         }
         for (int i = 0; i < RIGHT_TABS; i++) {
             int y = rightTabY(i);
             boolean hover = !dialog && tabAt(mouseX, mouseY, false) == i;
             Optional<Waypoint> w = i == 0 ? Optional.empty() : waypoints.get(i - 1);
             int shift = hover ? TAB_HOVER : 0, x = layout.rightTabX() - WayfinderLayout.TAB_IN + shift;
-            UiBookmarks.ribbon(g, x, y, layout.tabW(), tab, false, PALETTE, i == 0 || w.isPresent(), hover);
+            WayfinderTabStyle style = WayfinderTabStyle.of(PALETTE, i == 0 || w.isPresent(), hover);
+            drawTab(g, x, y, layout.tabW(), tab, style);
             int size = tab >= 26 ? 20 : 16, ix = layout.rightTabX() + shift + (tab - size) / 2, iy = y + (tab - size) / 2;
             if (i == 0) {
                 WaypointArt.draw(g, Identifier.withDefaultNamespace("compass"), CubeNet.MODEL, ix, iy, size);
@@ -554,6 +561,11 @@ public final class WayfinderScreen extends Screen {
             }
             if (picking && confirmSlot == i - 1 && i > 0) UiBookmarks.confirm(g, layout.rightTabX(), y, tab + shift, tab);
         }
+    }
+
+    /** A side button in the map frame's look: layered stair-cornered edge (rim, bevel, band) round the face; the inner end hides under the frame. */
+    private static void drawTab(GuiGraphicsExtractor g, int x, int y, int w, int h, WayfinderTabStyle style) {
+        UiBoxes.stairFrame(g, x, y, w, h, style.layers(), style.face());
     }
 
     /** 10x10 icons: magnet (snap), grid, zoom level, height lines, structure (house). */
