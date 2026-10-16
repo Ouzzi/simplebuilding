@@ -48,6 +48,9 @@ public final class FearLogic {
     public static final double OUTER_ISLANDS = 1000.0;
     public static final float WATCHER_CHANCE = 0.04f;
     public static final int WATCHER_ROLL_INTERVAL = 600;
+    /** N66: a player this long uninterrupted in a Watcher core biome may attract one (seconds), with this chance per roll. */
+    public static final int FOREST_SECONDS = 120;
+    public static final float FOREST_CHANCE = 0.25f;
 
 
     // ---- Watcher gaze zones (owner N63) -------------------------------------------------------
@@ -149,7 +152,17 @@ public final class FearLogic {
 
     /** As above; in a core biome the distance rule is dropped and the chance is {@link #CORE_CHANCE_FACTOR} times higher. */
     public static boolean mayWatcherSpawn(boolean enabled, boolean end, double distFromOrigin, boolean core, boolean endStone, boolean room, int near, float roll, float chance) {
-        return enabled && end && (core || distFromOrigin > OUTER_ISLANDS) && endStone && room && near == 0
-                && roll < (core ? chance * CORE_CHANCE_FACTOR : chance);
+        return mayWatcherSpawn(enabled, end, distFromOrigin, core, endStone, room, near, roll, chance, false, 0.0f);
+    }
+
+    /**
+     * As above, plus the forest rule (N66): when the player has been in a core biome for the configured time ({@code dwell})
+     * and the spot is in a core biome as well, the chance is at least {@code forestChance}. It adds to the other rules, never lowers them.
+     */
+    public static boolean mayWatcherSpawn(boolean enabled, boolean end, double distFromOrigin, boolean core, boolean endStone, boolean room, int near,
+                                          float roll, float chance, boolean dwell, float forestChance) {
+        float c = core ? chance * CORE_CHANCE_FACTOR : chance;
+        if (core && dwell) c = Math.max(c, forestChance);
+        return enabled && end && (core || distFromOrigin > OUTER_ISLANDS) && endStone && room && near == 0 && roll < c;
     }
 }

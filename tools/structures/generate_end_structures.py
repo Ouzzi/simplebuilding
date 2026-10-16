@@ -97,7 +97,7 @@ def well(variant):
     for y in range(1, 5): g.put(c, y, c, BRICK)
     g.put(c, 5, c, SLAB, type='bottom')
     for f, (dx, dz) in {'north': (0, -1), 'south': (0, 1), 'west': (-1, 0), 'east': (1, 0)}.items():
-        g.put(c + dx, 3, c + dz, 'minecraft:wall_torch', facing=f)
+        g.put(c + dx, 3, c + dz, 'minecraft:end_rod', facing=f)   # N66: End rods, no torches
     if variant >= 1:
         rim = [k for k in g.b if k[1] >= 1 and (k[0] - c) ** 2 + (k[2] - c) ** 2 >= 5]
         for k in rim:
@@ -106,7 +106,7 @@ def well(variant):
             for k in [k for k in g.b if k[1] >= 1 and k[0] < c - 1]: del g.b[k]
         top = 3 if variant == 1 else 2
         for k in [k for k in g.b if k[0] == c and k[2] == c and k[1] > top]: del g.b[k]
-        for k in [k for k in g.b if g.b[k][0] == 'minecraft:wall_torch']: del g.b[k]
+        for k in [k for k in g.b if g.b[k][0] == 'minecraft:end_rod']: del g.b[k]
         if variant == 1: g.put(c, top + 1, c, STAIR, facing='east', half='bottom')
         for _ in range(6):  # rubble outside the rim
             a = rng.random() * 6.283; r = 4 + rng.random() * 0.4
@@ -144,8 +144,7 @@ def gateway(variant):
 # Wrecks are mostly buried (N35, about 80 % of the hull): an end-stone mound fills the hull up to GROUND and slopes
 # away around it, the structure starts GROUND blocks below the surface (start_height), and irregular patches of end
 # stone cover the deck that still sticks out. Chests and item frames keep an air pocket inside the fill.
-GROUND = 8
-WOOL = 'minecraft:purple_wool'
+GROUND = 10   # N66: was 8 (about 80 % buried); now about 90 %: mostly mast tips and end rods show above the mound
 GLASS = 'minecraft:magenta_stained_glass'
 STEM_Y = {1: 7, 2: 7, 3: 7, 4: 6, 5: 5, 6: 4, 7: 3, 8: 2, 9: 1, 10: 1}   # bow stem rises like the vanilla keel
 BODY_HW = {1: 1, 2: 2, 3: 3, 4: 4, 5: 4, 6: 4}                          # hull half width per height
@@ -239,20 +238,20 @@ def wreck(kind, frame):
     s = _slice(ship(), rng, lo, hi)
     if kind == 'bow':           # the mast stays with the midship; drop the cut-off crow's nest
         for k in [k for k in s if k[1] > 11]: del s[k]
-    if kind == 'broken':        # mast snapped at y 9 and fallen sideways onto the ground, sail beside it
+    if kind == 'broken':        # mast snapped at y 9 and fallen sideways onto the ground, torn hull plates beside it
         for k in [k for k in s if k[0] in (13, 14, 15) and k[1] > 9]: del s[k]
         for dz in range(5, 16): s[(14, GROUND, dz)] = (PILLAR, {'axis': 'z'}, None)
         for v in (13, 15):
             for dz in (14, 15, 16): s[(v, GROUND, dz)] = (PSLAB, {'type': 'bottom'}, None)
         for v in range(10, 13):
             for dz in range(6, 13):
-                if rng.random() < 0.6: s[(v, GROUND, dz)] = (WOOL, {}, None)
-    if kind == 'tilt':          # mast broken at y 14 with a yard and a torn sail hanging from it
+                if rng.random() < 0.6: s[(v, GROUND, dz)] = (PSLAB, {'type': 'bottom'}, None)
+    if kind == 'tilt':          # mast broken at y 14 with a yard and torn rigging (end stone brick walls, no cloth) hanging from it
         for k in [k for k in s if k[1] > 14 and k[0] in (13, 14, 15)]: del s[k]
         for dz in range(-3, 4): s[(14, 13, dz)] = (PILLAR, {'axis': 'z'}, None)
         for y in range(8, 13):
             for dz in range(-3, 4):
-                if rng.random() < 0.72 - 0.08 * (12 - y): s[(13, y, dz)] = (WOOL, {}, None)
+                if rng.random() < 0.72 - 0.08 * (12 - y): s[(13, y, dz)] = (WALL, {}, None)
     if kind == 'stern':         # stump of the main mast in front of the cabin
         s[(17, 8, 0)] = (PILLAR, {'axis': 'y'}, None)
     for k in list(s):           # weathering: holes in deck, walls and railing
@@ -359,6 +358,30 @@ def elem(name, w):
                                      'processors': 'minecraft:empty', 'projection': 'rigid' if not name.startswith('path') else 'terrain_matching'}}
 
 
+def _item(name, weight, lo=None, hi=None, **extra):
+    e = {'type': 'minecraft:item', 'name': f'minecraft:{name}', 'weight': weight}
+    if lo is not None:
+        e['modifier'] = {'type': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'min': lo, 'max': hi}}
+    e.update(extra)
+    return e
+
+
+def wreck_loot():
+    """Wreck chest loot (N66). Every chest gets a solid base (3-5 rolls) and one guaranteed valuable roll, so no chest is
+    junk; on top, 40 % of the chests carry a full End-city treasure roll (before: 30 %, and nothing else of value).
+    Weights: base total 48 (iron 25 %, gold 21 %, purpur 12.5 %, chorus 12.5 %, end rod 8 %, pearl 8 %, emerald 12.5 %), good total 17 (diamond 47 %, emerald 18 %, ender pearls 18 %, enchanted book 18 %)."""
+    base = [_item('iron_ingot', 12, 3, 8), _item('gold_ingot', 10, 2, 6), _item('purpur_block', 6, 4, 12),
+            _item('chorus_fruit', 6, 2, 5), _item('end_rod', 4, 2, 6), _item('ender_pearl', 4, 1, 2), _item('emerald', 6, 1, 3)]
+    good = [_item('diamond', 8, 1, 3), _item('emerald', 3, 2, 4), _item('ender_pearl', 3, 2, 4),
+            _item('book', 3, modifier={'type': 'minecraft:enchant_with_levels', 'levels': {'type': 'minecraft:uniform', 'min': 20, 'max': 30},
+                                       'options': '#minecraft:on_random_loot'})]
+    return {'type': 'minecraft:chest', 'random_sequence': f'{NS}:chests/end_wreck', 'pools': [
+        {'rolls': {'type': 'minecraft:uniform', 'min': 3, 'max': 5}, 'entries': base},
+        {'rolls': 1, 'entries': good},
+        {'rolls': 1, 'condition': {'type': 'minecraft:random_chance', 'chance': 0.4},
+         'entries': [{'type': 'minecraft:loot_table', 'value': 'minecraft:chests/end_city_treasure'}]}]}
+
+
 def build():
     out = {}
     nbt = {}
@@ -379,7 +402,7 @@ def build():
     }
     sets = {  # name: (spacing, separation, salt, frequency, size-limit horizontal)
         'end_well': (14, 6, 71830411, 0.8), 'end_fake_gateway': (11, 5, 71830412, 0.7),
-        'end_wreck': (36, 14, 71830413, 0.6), 'end_path': (16, 7, 71830414, 0.8)}
+        'end_wreck': (48, 20, 71830413, 0.5), 'end_path': (16, 7, 71830414, 0.8)}
     for name, els in pools.items():
         out[f'worldgen/template_pool/{name}.json'] = J({'fallback': 'minecraft:empty', 'elements': [elem(n, w) for n, w in els]})
         out[f'worldgen/structure/{name}.json'] = J({
@@ -395,17 +418,7 @@ def build():
                           'exclusion_zone': {'other_set': 'minecraft:end_cities', 'chunk_count': 2}}})
     out['tags/worldgen/biome/has_structure/end_outer_islands.json'] = J({'values': [
         'minecraft:end_highlands', 'minecraft:end_midlands', 'minecraft:small_end_islands', 'minecraft:end_barrens']})
-    out['loot_table/chests/end_wreck.json'] = J({
-        'type': 'minecraft:chest', 'random_sequence': f'{NS}:chests/end_wreck',
-        'pools': [
-            {'rolls': 1, 'condition': {'type': 'minecraft:random_chance', 'chance': 0.3},
-             'entries': [{'type': 'minecraft:loot_table', 'value': 'minecraft:chests/end_city_treasure'}]},
-            {'rolls': {'type': 'minecraft:uniform', 'min': 1, 'max': 2},
-             'entries': [{'type': 'minecraft:item', 'name': 'minecraft:iron_nugget', 'weight': 3,
-                          'modifier': {'type': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'min': 2, 'max': 8}}},
-                         {'type': 'minecraft:item', 'name': 'minecraft:purpur_block', 'weight': 2,
-                          'modifier': {'type': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'min': 1, 'max': 4}}},
-                         {'type': 'minecraft:item', 'name': 'minecraft:chorus_fruit', 'weight': 1}]}]})
+    out['loot_table/chests/end_wreck.json'] = J(wreck_loot())
     return out
 
 

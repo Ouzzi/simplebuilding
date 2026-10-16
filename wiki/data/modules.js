@@ -212,7 +212,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "25dc1e736764"
+    "dataHash": "18667384d46e"
   },
   {
     "id": "simpletweaks",
@@ -363,7 +363,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "9f874cba592f"
+    "dataHash": "9852e201f510"
   },
   {
     "id": "simpleweather",
@@ -553,7 +553,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "7caef78e4b6e"
+    "dataHash": "2a2801aa3a15"
   },
   {
     "id": "simplerespawn",

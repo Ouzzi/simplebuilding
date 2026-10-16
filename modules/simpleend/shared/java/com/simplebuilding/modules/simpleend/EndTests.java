@@ -498,8 +498,13 @@ public final class EndTests {
                     if (pick == EndBiomes.ASH || pick == EndBiomes.DAWN) core++;
                     if (pick == EndBiomes.ASH_FRINGE || pick == EndBiomes.DAWN_FRINGE) fringe++;
                 }
-            // 16 cells, each patch 14-24 chunks across with a wavy rim (area ~110..640 chunks)
-            h.assertTrue(some >= 16 * 100 && some <= 16 * 640, "patch area per cell, got " + some + " chunks in 16 cells");
+            // 16 cells, each patch 28-44 chunks across with a wavy rim (area ~600..1550 chunks, N66: several islands wide)
+            h.assertTrue(some >= 16 * 600 && some <= 16 * 1550, "patch area per cell, got " + some + " chunks in 16 cells");
+            int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
+            for (int x = 0; x < EndBiomes.CELL; x++)
+                for (int z = 0; z < EndBiomes.CELL; z++)
+                    if (EndBiomes.pick(x, z, flat, 1.0) != EndBiomes.NONE) { minX = Math.min(minX, x); maxX = Math.max(maxX, x); }
+            h.assertTrue(maxX - minX + 1 >= 20, "a patch is at least 20 chunks (320 blocks) wide, got " + (maxX - minX + 1));
             h.assertTrue(core > some / 5 && fringe > some / 5, "core " + core + " and fringe " + fringe);
             var biomes = h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
             TheEndBiomeSource source = TheEndBiomeSource.create(biomes);

@@ -41,6 +41,9 @@ public final class MobsConfig {
     /** Hollow Watcher: natural spawning on the outer End islands and its chance per 30 s roll. */
     public static boolean hollowWatcherSpawns = true;
     public static float hollowWatcherChance = FearLogic.WATCHER_CHANCE;
+    /** Hollow Watcher forest rule (N66): seconds in a Watcher core biome without a break, then this chance per 30 s roll. */
+    public static int hollowWatcherForestSeconds = FearLogic.FOREST_SECONDS;
+    public static float hollowWatcherForestChance = FearLogic.FOREST_CHANCE;
     /** Hollow Watcher gaze zones: half angles in degrees at FOV 70 (scaled with the player's FOV): stands still / slow retreat / direct retreat. */
     /** Hollow Watcher: direct-look half angle (aggressive), follow/teleport range in blocks, teleport interval in seconds. */
     public static float watcherGazeDirect = FearLogic.GAZE_DIRECT_DEG, watcherRange = FearLogic.RANGE_DEFAULT, watcherTeleportSeconds = FearLogic.TELEPORT_SECONDS_DEFAULT;
@@ -139,6 +142,8 @@ public final class MobsConfig {
         float watcher;
         try { watcher = json.has("hollowWatcherChance") ? json.get("hollowWatcherChance").getAsFloat() : FearLogic.WATCHER_CHANCE; } catch (Exception e) { watcher = FearLogic.WATCHER_CHANCE; }
         hollowWatcherChance = Math.max(0.0f, Math.min(1.0f, watcher));
+        hollowWatcherForestSeconds = Math.max(10, Math.min(3600, integer(json, "hollowWatcherForestSeconds", FearLogic.FOREST_SECONDS)));
+        hollowWatcherForestChance = Math.max(0.0f, Math.min(1.0f, num(json, "hollowWatcherForestChance", FearLogic.FOREST_CHANCE)));
         float stare = num(json, "watcherGazeStare", FearLogic.GAZE_STARE_DEG), slow = num(json, "watcherGazeSlow", FearLogic.GAZE_SLOW_DEG), edge = num(json, "watcherGazeEdge", FearLogic.GAZE_EDGE_DEG);
         watcherGazeStare = Math.max(1.0f, Math.min(60.0f, stare));
         watcherGazeDirect = Math.max(0.5f, Math.min(watcherGazeStare, num(json, "watcherGazeDirect", FearLogic.GAZE_DIRECT_DEG)));
@@ -176,6 +181,8 @@ public final class MobsConfig {
         o.addProperty("dreadSummonEnabled", dreadSummonEnabled);
         o.addProperty("hollowWatcherSpawns", hollowWatcherSpawns);
         o.addProperty("hollowWatcherChance", hollowWatcherChance);
+        o.addProperty("hollowWatcherForestSeconds", hollowWatcherForestSeconds);
+        o.addProperty("hollowWatcherForestChance", hollowWatcherForestChance);
         o.addProperty("watcherGazeStare", watcherGazeStare);
         o.addProperty("watcherGazeDirect", watcherGazeDirect);
         o.addProperty("watcherRange", watcherRange);

@@ -13,6 +13,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 /** End structures (Queue N23): well, fake gateway, shipwrecks, path as datapack jigsaw structures. */
 public final class EndStructureTests {
@@ -61,6 +66,41 @@ public final class EndStructureTests {
             var template = manager.get(id("end/" + t));
             helper.assertTrue(template.isPresent(), "template missing: " + t);
             helper.assertTrue(template.get().getSize().getY() >= 1 && template.get().getSize().getX() >= 3, "template empty: " + t);
+        }
+        // N66: wrecks use the End ship palette only (no wool, no cloth); wells use End rods, not torches
+        java.util.Set<net.minecraft.world.level.block.Block> shipPalette = java.util.Set.of(Blocks.AIR, Blocks.CHEST, Blocks.END_ROD, Blocks.END_STONE,
+                Blocks.END_STONE_BRICKS, Blocks.END_STONE_BRICK_WALL, net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("magenta_stained_glass")), Blocks.OBSIDIAN, Blocks.PURPUR_BLOCK,
+                Blocks.PURPUR_PILLAR, Blocks.PURPUR_SLAB, Blocks.PURPUR_STAIRS);
+        var settings = new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings();
+        for (String t : TEMPLATES) {
+            var template = manager.get(id("end/" + t)).get();
+            for (net.minecraft.world.level.block.Block block : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
+                if (t.startsWith("wreck_") && !shipPalette.contains(block))
+                    helper.assertTrue(template.filterBlocks(BlockPos.ZERO, settings, block).isEmpty(), "wreck " + t + " holds a block outside the End ship palette: " + block);
+                if (t.startsWith("well_") && (block == Blocks.TORCH || block == Blocks.WALL_TORCH || block == Blocks.SOUL_TORCH || block == Blocks.SOUL_WALL_TORCH))
+                    helper.assertTrue(template.filterBlocks(BlockPos.ZERO, settings, block).isEmpty(), "well " + t + " still has torches");
+            }
+        }
+        helper.assertTrue(!manager.get(id("end/well_intact")).get().filterBlocks(BlockPos.ZERO, settings, Blocks.END_ROD).isEmpty(), "intact well has End rods");
+        helper.succeed();
+    }
+
+    /** N66: every wreck chest holds a solid base and one valuable item; none is junk any more. */
+    public static void wreckLootIsNeverJunk(GameTestHelper helper) {
+        if (!active(helper)) return;
+        var table = helper.getLevel().getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, id("chests/end_wreck")));
+        LootParams params = new LootParams.Builder(helper.getLevel())
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(helper.absolutePos(BlockPos.ZERO)))
+                .create(LootContextParamSets.CHEST);
+        for (int seed = 0; seed < 400; seed++) {
+            int stacks = 0;
+            boolean good = false;
+            for (ItemStack st : table.getRandomItems(params, 7000L + seed)) {
+                stacks++;
+                if (st.is(Items.DIAMOND) || st.is(Items.EMERALD) || st.is(Items.ENDER_PEARL) || st.is(Items.ENCHANTED_BOOK)) good = true;
+            }
+            helper.assertTrue(stacks >= 4, "a wreck chest roll holds at least 4 stacks, seed " + seed + " had " + stacks);
+            helper.assertTrue(good, "a wreck chest roll always holds a valuable item (diamond, emerald, pearl or enchanted book), seed " + seed);
         }
         helper.succeed();
     }
