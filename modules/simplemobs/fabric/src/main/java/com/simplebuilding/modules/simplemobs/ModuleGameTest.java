@@ -58,6 +58,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void fearRegistered(GameTestHelper helper) { MobsTests.ALL.get("fear_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearAnimEase(GameTestHelper helper) { MobsTests.ALL.get("fear_anim_ease").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearChainPendulum(GameTestHelper helper) { MobsTests.ALL.get("fear_chain_pendulum").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fearIdleGestureWaits(GameTestHelper helper) { MobsTests.ALL.get("fear_idle_gesture_waits").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearDreadSummon(GameTestHelper helper) { MobsTests.ALL.get("fear_dread_summon").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void fearAuraLevels(GameTestHelper helper) { MobsTests.ALL.get("fear_aura_levels").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void fearDreadLight(GameTestHelper helper) { MobsTests.ALL.get("fear_dread_light").accept(helper); }
