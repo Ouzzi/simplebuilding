@@ -19,7 +19,7 @@ import copper_barrels_2026_10_05 as barrels
 sys.argv = saved_argv
 
 SB = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures'
-LIB = ROOT / 'modules/simplelib/shared/resources/assets/simplelib/textures/block'
+LIB = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block'
 PREVIEWS = ROOT / 'build/crucible-previews'
 
 

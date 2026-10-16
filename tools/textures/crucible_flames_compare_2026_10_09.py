@@ -1,7 +1,7 @@
 """Owner preview for CrucibleFlames POINTED/BROAD/HYBRID and a new MITTEL shape.
 
 The POINTED and BROAD paths copy the numerical model in
-``modules/simplelib/.../CrucibleFlames.java`` exactly.  HYBRID deliberately
+``modules/simplecrucibles/.../CrucibleFlames.java`` exactly.  HYBRID deliberately
 keeps a broad, low bed while adding a few separated pointed tongues: it reads
 as a stable low heat source but still gives the eye unmistakable hot peaks.
 

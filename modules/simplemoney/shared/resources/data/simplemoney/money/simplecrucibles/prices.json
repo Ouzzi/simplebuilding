@@ -1,0 +1,31 @@
+{
+  "module": "simplecrucibles",
+  "derivation": "Crucibles are built in the world (iron) or upgraded in place; the Enderite crucible and barrel (age-of-game tier 5, rows moved from SimpleBuilding with split stage 5) are the only ones a wandering trader may carry.",
+  "excluded": {
+    "simplecrucibles:crucible_blank": "Exists only half-built in the world; no item."
+  },
+  "prices": [
+    {
+      "item": "simplecrucibles:enderite_crucible",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplecrucibles:enderite_barrel",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    }
+  ]
+}

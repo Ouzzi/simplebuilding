@@ -5,8 +5,6 @@ import com.google.gson.JsonParser;
 import com.simplelib.api.InWorldUpgrades;
 import com.simplelib.api.OctetCells;
 import com.simplelib.api.SimpleLibApi;
-import com.simplelib.crucible.CrucibleBlockEntity;
-import com.simplelib.registry.LibBlocks;
 import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
@@ -53,7 +51,7 @@ public final class InWorldUpgradeTests {
         Map<Block, InWorldUpgrades.Entry> before = InWorldUpgrades.table();
         Map<Identifier, JsonElement> files = new HashMap<>();
         files.put(Identifier.fromNamespaceAndPath(TEST_DEFAULTS, "base"), json("{\"upgrades\":["
-                + "{\"from\":\"minecraft:cauldron\",\"to\":\"simplelib:reinforced_cauldron\",\"material\":\"minecraft:diamond\","
+                + "{\"from\":\"minecraft:cauldron\",\"to\":\"minecraft:lava_cauldron\",\"material\":\"minecraft:diamond\","
                 + "\"material_count\":8,\"min_hammer\":\"diamond\",\"tier\":\"reinforced\"},"
                 + "{\"from\":\"minecraft:furnace\",\"to\":\"minecraft:blast_furnace\",\"material\":\"minecraft:iron_ingot\",\"damage_per_hit\":4},"
                 + "{\"from\":\"minecraft:anvil\",\"to\":\"minecraft:chipped_anvil\",\"material\":\"minecraft:iron_ingot\"}]}"));
@@ -70,7 +68,7 @@ public final class InWorldUpgradeTests {
         Map<Block, InWorldUpgrades.Entry> table = InWorldUpgrades.parse(files);
 
         InWorldUpgrades.Entry cauldron = table.get(Blocks.CAULDRON);
-        h.assertTrue(cauldron != null && cauldron.to() == LibBlocks.REINFORCED_CAULDRON && cauldron.material() == Items.DIAMOND
+        h.assertTrue(cauldron != null && cauldron.to() == Blocks.LAVA_CAULDRON && cauldron.material() == Items.DIAMOND
                         && cauldron.materialCount() == 8 && cauldron.durationFactor() == 1 && cauldron.damagePerHit() == 1
                         && cauldron.minTool().equals("diamond") && cauldron.tier().equals("reinforced")
                         && cauldron.tool().equals(InWorldUpgrades.UPGRADE_TOOLS),
@@ -111,24 +109,10 @@ public final class InWorldUpgradeTests {
     }
 
     /**
-     * {@link InWorldUpgrades#replace}: SimpleLib's own handler moves a crucible's contents into the next tier; a block
-     * without handler keeps its properties; a registered handler is asked for its targets and reports its block count.
+     * {@link InWorldUpgrades#replace}: a block without handler keeps its properties; a registered handler is asked for
+     * its targets and reports its block count (Simple Crucibles' crucible handler has its own test).
      */
     public static void handlers(GameTestHelper h) {
-        BlockPos rel = new BlockPos(1, 2, 1);
-        h.setBlock(rel.below(), Blocks.STONE);
-        h.setBlock(rel, LibBlocks.IRON_CRUCIBLE.defaultBlockState());
-        BlockPos abs = h.absolutePos(rel);
-        CrucibleBlockEntity be = (CrucibleBlockEntity) h.getLevel().getBlockEntity(abs);
-        h.assertTrue(be != null, "no crucible block entity");
-        be.setItem(4, new ItemStack(Items.RAW_COPPER, 3));
-        h.assertTrue(InWorldUpgrades.hasHandler(LibBlocks.REINFORCED_CRUCIBLE), "SimpleLib registered no crucible handler");
-        h.assertValueEqual(InWorldUpgrades.replace(h.getLevel(), abs, LibBlocks.REINFORCED_CRUCIBLE), 1, "crucible blocks changed");
-        CrucibleBlockEntity fresh = (CrucibleBlockEntity) h.getLevel().getBlockEntity(abs);
-        h.assertTrue(h.getLevel().getBlockState(abs).is(LibBlocks.REINFORCED_CRUCIBLE) && fresh != null
-                        && fresh.getItem(4).is(Items.RAW_COPPER) && fresh.getItem(4).getCount() == 3,
-                "the crucible handler lost the contents");
-
         BlockPos furnaceRel = new BlockPos(3, 2, 1);
         h.setBlock(furnaceRel, Blocks.FURNACE.defaultBlockState().setValue(FurnaceBlock.FACING, Direction.EAST));
         BlockPos furnaceAbs = h.absolutePos(furnaceRel);

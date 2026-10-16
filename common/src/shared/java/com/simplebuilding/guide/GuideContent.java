@@ -287,7 +287,7 @@ public final class GuideContent {
             GuideBooks.Book book = GuideBooks.Book.MACHINES;
             BookStyle old = STYLES.get(book);
             var chapters = new ArrayList<>(old.chapters());
-            chapters.add(ch("simplebuilding:enderite_crucible", List.of(), List.of("simplebuilding:enderite_crucible", "simplebuilding:enderite_barrel",
+            chapters.add(ch("simplecrucibles:enderite_crucible", List.of(), List.of("simplecrucibles:enderite_crucible", "simplecrucibles:enderite_barrel",
                     "simplebuilding:soul_lava_bucket", "minecraft:cauldron", "minecraft:iron_ingot")));
             chapters.add(ch("simplebuilding:enderite_bucket", List.of("simplebuilding:copper_bucket", "simplebuilding:enderite_bucket",
                     "simplebuilding:raw_ceramic_bucket"), List.of("simplebuilding:soul_lava_bucket", "simplebuilding:ceramic_bucket")));

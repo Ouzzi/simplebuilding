@@ -454,7 +454,7 @@ def flames_sheet():
 def barrel_sheet():
     import crucible_art_v2_2026_10_05 as v2
     import crucible_n11_2026_10_06 as n11
-    sys.path.insert(0, str(ROOT / 'modules/simplelib/tools'))
+    sys.path.insert(0, str(ROOT / 'modules/simplecrucibles/tools'))
     import gen_resources as gen
     old_dock = {'elements': [json.loads(json.dumps(e)) for e in OLD_DOCK]}
     new_dock = {'elements': [gen.DOCKED_BODY, *gen.DOCK]}
@@ -477,7 +477,7 @@ def barrel_sheet():
 
 def _old_dock():
     """The docked barrel of v3 (before N12) for the comparison."""
-    sys.path.insert(0, str(ROOT / 'modules/simplelib/tools'))
+    sys.path.insert(0, str(ROOT / 'modules/simplecrucibles/tools'))
     import gen_resources as gen
     body = gen.full_uv(gen.cuboid((1, 0, 1), (15, 12, 15), {'down': '#bottom', 'up': '#top', 'north': '#side', 'south': '#side',
                                                           'west': '#side', 'east': '#side'}))

@@ -3680,8 +3680,8 @@
         "mc26_3/overlay/java/com/simplebuilding/mixin/SoulLavaFortressMixin.java"
       ],
       "related": [
-        "simplebuilding:enderite_crucible",
-        "simplebuilding:enderite_barrel",
+        "simplecrucibles:enderite_crucible",
+        "simplecrucibles:enderite_barrel",
         "simplebuilding:soul_lava_bucket",
         "simplebuilding:copper_bucket",
         "simplebuilding:enderite_bucket",

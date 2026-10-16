@@ -1,0 +1,112 @@
+{
+  "crucible_blank": {
+    "lore": [
+      "Ein Metallklotz, der noch kein Topf geworden ist."
+    ],
+    "use": [
+      "Der Tiegel im Bau: Jeder Schlag auf den Rohling fügt eine Stufe hinzu (Boden, vier Wände, Griff) und lässt ihn weiter reißen. Der letzte Schlag macht daraus einen Eisentiegel."
+    ],
+    "secret": [
+      "Es ist der Block, den man mitten im Bau eines Tiegels in der Welt sieht. Er hat kein eigenes Rezept."
+    ]
+  },
+  "iron_crucible": {
+    "lore": [
+      "Ein Topf aus Eisen, der ohne eigenes Feuer kocht."
+    ],
+    "use": [
+      "Eine Kochstelle ohne Brennstoff: Alle Plätze kochen gleichzeitig, beheizt vom Block darunter oder zwei Blöcke darunter. 6 Plätze, Tempo 1x."
+    ],
+    "secret": [
+      "Im Spiel gebaut: Axt in der Haupthand, Eisenbarren in der Nebenhand, sechzehn Schläge auf einen leeren Kessel - Seitenplatten, Griffe, Rand, je ein Barren. Man kann wie in einen Kessel hineintreten."
+    ]
+  },
+  "reinforced_crucible": {
+    "lore": [
+      "Ein Topf, der gelernt hat, die doppelte Last zu tragen."
+    ],
+    "use": [
+      "Die verstärkte Stufe des Tiegels: 12 Plätze (2x6), Tempo 2x. Ein Eisentiegel wird in zwölf Axtschlägen dazu, jeder dritte nimmt einen rissigen Diamanten (oder Diamanten) aus der Nebenhand (mit SimpleBuilding der Vorschlaghammer)."
+    ],
+    "secret": [
+      "Inhalt, Fortschritt und Erfahrung bleiben beim Aufrüsten an Ort und Stelle erhalten."
+    ]
+  },
+  "netherite_crucible": {
+    "lore": [
+      "Ein Topf, der mit der Geschwindigkeit eines Netherfeuers kocht."
+    ],
+    "use": [
+      "Die Netherit-Stufe des Tiegels: 18 Plätze, Tempo 4x, Erfahrung zählt doppelt. Ein verstärkter Tiegel wird in zwölf Schlägen dazu, jeder dritte nimmt einen Netheritklumpen (oder Netheritschrott)."
+    ],
+    "secret": [
+      "Lava oder Seelenlava darunter lässt ihn Ofen- und Hochofenrezepte kochen, Seelenlava auch Antiken Schrott."
+    ]
+  },
+  "copper_barrel": {
+    "lore": [
+      "Ein Fass mit Kupferhülle, jedes Jahr ein wenig grüner."
+    ],
+    "use": [
+      "Die Kupferstufe des Tiegelfasses: Es lässt sich als Zusatzlager an einen Tiegel hängen und dient allein als normales Fass."
+    ],
+    "secret": [
+      "Es ist die erste Stufe der Fassreihe, von Kupfer über Netherit zu Enderit."
+    ]
+  },
+  "reinforced_barrel": {
+    "lore": [
+      "Ein Fass, dem gesagt wurde, es solle mehr halten."
+    ],
+    "use": [
+      "Die verstärkte Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es mehr Lagerplatz."
+    ],
+    "secret": [
+      "Trichter füllen es wie eine Truhe, von oben und von der Seite."
+    ]
+  },
+  "netherite_barrel": {
+    "lore": [
+      "Ein Fass aus dunklem Metall, das nicht brennt."
+    ],
+    "use": [
+      "Die Netherit-Stufe des Tiegelfasses: An einen Tiegel gehängt bietet es noch mehr Lagerplatz."
+    ],
+    "secret": [
+      "Es ist feuerfest wie alle Netherit-Blöcke."
+    ]
+  },
+  "reinforced_cauldron": {
+    "lore": [
+      "Ein Kessel, verstärkt gegen seinen eigenen Inhalt."
+    ],
+    "use": [
+      "Funktioniert wie ein Vanilla-Kessel (Eimer, Flaschen, Waschen, Regen, Schnee, Tropfstein) und fasst Lava und Pulverschnee. Mit SimpleBuilding auch Seelenlava. Lava darin heizt einen Tiegel."
+    ],
+    "secret": [
+      "Herstellen mit einer Axt und 8 Diamanten in der Nebenhand, fünfmal auf einen Kessel. Mit SimpleBuilding ersetzen Vorschlaghammer und rissige Diamanten beides."
+    ]
+  },
+  "enderite_crucible": {
+    "lore": [
+      "Ein Tiegel, der kocht wie das eigene Feuer des Endes."
+    ],
+    "use": [
+      "Die Enderit-Stufe des Tiegels: 27 Plätze, doppelte Stapel, 8-faches Tempo. Ein Netherit-Tiegel wird mit Enderitklumpen und einem Netherit-Vorschlaghammer dazu, mit doppelt so vielen Schlägen wie ein Ofen."
+    ],
+    "secret": [
+      "Der Vorschlaghammer ersetzt hier die Axt des Grundmods: Schlage den Eisentiegel auf einen Eisenblock und setze mit 6 Schlägen ein Fass an."
+    ]
+  },
+  "enderite_barrel": {
+    "lore": [
+      "Ein Fass, dem gesagt wurde, es dürfe mehr behalten, und das es glaubte."
+    ],
+    "use": [
+      "Die Enderit-Stufe des Fasses der Tiegel: Es fasst doppelte Stapel, 128 eines 64er-Gegenstands, im Tiegelmenü und im eigenen Truhenmenü, bei Shift-Klicks und für Trichter."
+    ],
+    "secret": [
+      "Aus so einem Platz bekommst du höchstens einen normalen Stapel. Es ist der letzte Schritt der Linie von Kupfer über Netherit zu Enderit."
+    ]
+  }
+}

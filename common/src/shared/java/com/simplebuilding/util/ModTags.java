@@ -98,9 +98,11 @@ public class ModTags {
         public static boolean isEnderiteItemByRule(Identifier id) {
             // 26.3: the enderite base materials are SimpleLib's (split stage 3d) and stay protected with SimpleBuilding.
             // Split stage 4: the Enderite furnaces and furnace cart are Simple Ovens' (required sub-mod) and stay protected too.
+            // Split stage 5: so do the Enderite crucible and barrel (Simple Crucibles).
             boolean own = Simplebuilding.MOD_ID.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace());
             return own && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
         }
 

@@ -21,7 +21,7 @@ final class CrucibleCategory implements IRecipeCategory<Entry> {
     private final IDrawable icon;
 
     CrucibleCategory(IGuiHelper gui) {
-        icon = gui.createDrawableItemLike(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplelib:iron_crucible")));
+        icon = gui.createDrawableItemLike(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplecrucibles:iron_crucible")));
     }
 
     @Override public IRecipeType<Entry> getRecipeType() { return TYPE; }

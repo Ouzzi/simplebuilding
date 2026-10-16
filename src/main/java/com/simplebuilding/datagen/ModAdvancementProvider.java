@@ -173,7 +173,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             if (com.simplebuilding.version.McVersion.CRUCIBLE) {
                 // Crucible P5/P6 (Besitzer 48 A): Tiegel bauen, Seelen-Lava schoepfen, Enderit-Eimer.
                 ItemLike crucibleIcon = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
-                        Identifier.fromNamespaceAndPath("simplelib", "iron_crucible"));
+                        Identifier.fromNamespaceAndPath("simplecrucibles", "iron_crucible"));
                 AdvancementHolder pot = feature("machines/hot_pot", reinforced, crucibleIcon, AdvancementType.TASK, ModTriggers.CRUCIBLE_BUILT);
                 AdvancementHolder soul = feature("machines/soul_scooper", pot, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET,
                         AdvancementType.GOAL, ModTriggers.SOUL_LAVA_SCOOPED);

@@ -7,6 +7,8 @@ apply from: rootProject.file('gradle/module-neoforge.gradle')
 dependencies { jarJar project(':framework') }
 // SimpleLib (crucibles, warm food) nested per principle 6a.
 dependencies { jarJar project(':modules:simplelib:neoforge') }
+// Simple Crucibles (crucibles, barrels, cauldron: split stage 5) nested like SimpleLib before, so worlds with crucibles keep them.
+dependencies { jarJar project(':modules:simplecrucibles:neoforge') }
 
 neoForge.runs {
     moduleIntegrationGameTest {
