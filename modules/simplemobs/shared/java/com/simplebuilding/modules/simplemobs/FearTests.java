@@ -532,7 +532,7 @@ final class FearTests {
             var dread = still(h.spawn(FearMobs.DREAD, 1, 2, 1));
             var player = h.makeMockServerPlayerInLevel();
             h.assertFalse(FearAura.affects(player), "creative players are left alone");
-            player.gameMode.changeGameModeForPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+            player.addTag(FearAura.TEST_TAG); // mock players stay creative: the tag makes the aura count them
             Vec3 at = h.absoluteVec(new Vec3(4.5, 2, 4.5));
             player.snapTo(at.x, at.y, at.z, 0.0f, 0.0f);
             FearAura.pulse(h.getLevel(), dread, false);
@@ -549,6 +549,7 @@ final class FearTests {
             FearAura.pulse(h.getLevel(), dread, false);
             h.assertTrue(level(player, s) == 0, "Focus blocks the aura");
             h.assertTrue(FearMobs.focusPotion().getEffects().getFirst().getDuration() == 3600, "Focus potion 3:00");
+            player.removeTag(FearAura.TEST_TAG);
             dread.discard();
             h.succeed();
         });

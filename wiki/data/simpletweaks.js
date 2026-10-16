@@ -552,6 +552,7 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
   "blocks": [
     {
       "id": "simpletweaks:claim_table",
+      "kind": "block",
       "name": {
         "en_us": "Claim Table",
         "de_de": "Claim-Tisch"

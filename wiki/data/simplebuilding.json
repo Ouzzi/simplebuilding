@@ -3750,7 +3750,10 @@
       ],
       "related": [
         "minecraft:sulfur",
-        "minecraft:gunpowder"
+        "minecraft:gunpowder",
+        "simplebuilding:sulfur_torch",
+        "simplebuilding:sulfur_lantern",
+        "simplebuilding:sulfur_campfire"
       ],
       "en": {
         "title": "Sulfur fire and copper fire",
@@ -3758,7 +3761,8 @@
         "details": [
           "Flint and steel, a fire charge or igniting lava on a sulfur block, polished sulfur, sulfur bricks, chiseled sulfur or potent sulfur lights sulfur fire; on any block of the #minecraft:copper tag (copper block and its weathered and waxed forms) it lights copper fire. Like soul fire on soul sand, they exist only on their base blocks, never spread and burn nothing.",
           "Both deal 1.5 damage (fire 1, soul fire 2) and shine at light level 12 (fire 15, soul fire 10). Sulfur fire is yellow-green and also gives nausea (10 seconds, refreshed while standing in it); copper fire is green and has no effect. They count as #minecraft:fire and drop nothing.",
-          "Gunpowder: 3 sulfur and 1 coal or charcoal craft 1 gunpowder. Balance: a creeper drops 0 to 2 gunpowder (about 1), so one gunpowder costs three mined sulfur blocks, which only generate in sulfur caves, plus a coal; 12 sulfur spikes (4 per sulfur block) work too. The wandering trader's gunpowder for emeralds stays the cheaper way. Simple Money does not price sulfur or gunpowder, so there is no buy-and-craft loop."
+          "Gunpowder: 3 sulfur and 1 coal or charcoal craft 1 gunpowder. Balance: a creeper drops 0 to 2 gunpowder (about 1), so one gunpowder costs three mined sulfur blocks, which only generate in sulfur caves, plus a coal; 12 sulfur spikes (4 per sulfur block) work too. The wandering trader's gunpowder for emeralds stays the cheaper way. Simple Money does not price sulfur or gunpowder, so there is no buy-and-craft loop.",
+          "Sulfur torch, sulfur lantern and sulfur campfire burn with the sulfur fire's yellow-green light at level 12 (like their soul fire versions, with sulfur dust sparks); standing in the campfire's flame gives nausea."
         ]
       },
       "de": {
@@ -3767,7 +3771,8 @@
         "details": [
           "Feuerzeug, Feuerkugel oder zündende Lava auf einem Schwefelblock, polierten Schwefel, Schwefelziegeln, gemeißeltem Schwefel oder starkem Schwefel entzündet Schwefelfeuer; auf jedem Block des Tags #minecraft:copper (Kupferblock samt verwitterten und gewachsten Formen) entsteht Kupferfeuer. Wie Seelenfeuer auf Seelensand gibt es sie nur auf ihren Basisblöcken, sie breiten sich nicht aus und verbrennen nichts.",
           "Beide richten 1,5 Schaden an (Feuer 1, Seelenfeuer 2) und leuchten mit Lichtstärke 12 (Feuer 15, Seelenfeuer 10). Schwefelfeuer ist gelbgrün und gibt zusätzlich Übelkeit (10 Sekunden, erneuert, solange man darin steht); Kupferfeuer ist grün und ohne Effekt. Sie zählen zu #minecraft:fire und hinterlassen nichts.",
-          "Schwarzpulver: 3 Schwefel und 1 Kohle oder Holzkohle ergeben 1 Schwarzpulver. Balance: Ein Creeper lässt 0 bis 2 Schwarzpulver fallen (im Schnitt etwa 1); ein Schwarzpulver kostet hier drei abgebaute Schwefelblöcke, die nur in Schwefelhöhlen entstehen, plus eine Kohle; auch 12 Schwefelspitzen (4 je Schwefelblock) gehen. Das Schwarzpulver des Wanderhändlers gegen Smaragde bleibt der günstigere Weg. Simple Money bepreist weder Schwefel noch Schwarzpulver, eine Kauf-und-Craft-Schleife gibt es nicht."
+          "Schwarzpulver: 3 Schwefel und 1 Kohle oder Holzkohle ergeben 1 Schwarzpulver. Balance: Ein Creeper lässt 0 bis 2 Schwarzpulver fallen (im Schnitt etwa 1); ein Schwarzpulver kostet hier drei abgebaute Schwefelblöcke, die nur in Schwefelhöhlen entstehen, plus eine Kohle; auch 12 Schwefelspitzen (4 je Schwefelblock) gehen. Das Schwarzpulver des Wanderhändlers gegen Smaragde bleibt der günstigere Weg. Simple Money bepreist weder Schwefel noch Schwarzpulver, eine Kauf-und-Craft-Schleife gibt es nicht.",
+          "Schwefelfackel, Schwefellaterne und Schwefel-Lagerfeuer brennen im gelbgrünen Licht des Schwefelfeuers mit Lichtstärke 12 (wie ihre Seelenfeuer-Vorbilder, mit Schwefelstaub-Funken); im Lagerfeuer zu stehen gibt Übelkeit."
         ]
       }
     },

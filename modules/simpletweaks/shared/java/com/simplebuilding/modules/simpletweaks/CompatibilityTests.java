@@ -53,8 +53,9 @@ public final class CompatibilityTests {
  static void boot(GameTestHelper h) {
   require(h,BuiltInRegistries.ITEM.containsKey(old("claim_deed")),"Legacy deed registered");
   if(simpleBuilding())require(h,BuiltInRegistries.ITEM.containsKey(now("amethyst_lens")),"SimpleBuilding loaded");
-  require(h,BuiltInRegistries.ITEM.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).count()==2,"Only the deed and the guide are real module items");
-  for (Registry<?> r : List.of(BuiltInRegistries.BLOCK,BuiltInRegistries.BLOCK_ENTITY_TYPE,BuiltInRegistries.ENTITY_TYPE,BuiltInRegistries.CREATIVE_MODE_TAB))
+  require(h,BuiltInRegistries.ITEM.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).count()==3,"Only the deed, the guide and the claim table are real module items");
+  require(h,BuiltInRegistries.BLOCK.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).map(Identifier::getPath).collect(java.util.stream.Collectors.toSet()).equals(java.util.Set.of("claim_table")),"Only the claim table is a module block");
+  for (Registry<?> r : List.of(BuiltInRegistries.BLOCK_ENTITY_TYPE,BuiltInRegistries.ENTITY_TYPE,BuiltInRegistries.CREATIVE_MODE_TAB))
    require(h,r.keySet().stream().noneMatch(x->x.getNamespace().equals("simpletweaks")),"No duplicate gameplay registry: "+r.key());
  // The one component of the module is the deed's binding (display only); every other name is a legacy alias of SimpleBuilding.
  require(h,BuiltInRegistries.DATA_COMPONENT_TYPE.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).map(Identifier::getPath).collect(java.util.stream.Collectors.toSet()).equals(java.util.Set.of("deed")),"Only the deed binding is a module component");
@@ -63,7 +64,7 @@ public final class CompatibilityTests {
    while(root!=null && !java.nio.file.Files.isRegularFile(root.resolve("modules/modules.json")))root=root.getParent();
    if(root==null)throw new java.io.IOException("Cannot locate module root");
    var output=root.resolve("modules/simpletweaks/generated/resources/wiki/items.json");java.nio.file.Files.createDirectories(output.getParent());
-   String json="{\"items\":[{\"id\":\""+BuiltInRegistries.ITEM.getKey(BuiltInRegistries.ITEM.getValue(old("claim_deed")))+"\",\"kind\":\"item\"}]}\n";
+   String json="{\"items\":[{\"id\":\""+BuiltInRegistries.ITEM.getKey(BuiltInRegistries.ITEM.getValue(old("claim_deed")))+"\",\"kind\":\"item\"},{\"id\":\""+BuiltInRegistries.ITEM.getKey(BuiltInRegistries.ITEM.getValue(old("claim_table")))+"\",\"kind\":\"block\"}]}\n";
    java.nio.file.Files.writeString(output,json);
   } catch(java.io.IOException e){throw new AssertionError(e);}
   h.succeed();

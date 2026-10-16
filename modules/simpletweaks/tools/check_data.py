@@ -14,7 +14,7 @@ def unique(p):
  return json.loads(p.read_text(encoding='utf-8'),object_pairs_hook=hook)
 for locale in ('en_us','de_de'):
  d=unique(M/f'shared/resources/assets/simpletweaks/lang/{locale}.json')
- assert all(('.simpletweaks.' in k or k.startswith(('simpletweaks.guide.page.','simpletweaks.deed.'))) and v for k,v in d.items())
+ assert all(('.simpletweaks.' in k or k.startswith(('simpletweaks.guide.page.','simpletweaks.deed.','simpletweaks.table.'))) and v for k,v in d.items())
  assert 'item.simpletweaks.claim_deed' in d
  langs.append(d)
 assert langs[0].keys()==langs[1].keys()
@@ -50,5 +50,5 @@ assert unique(data/'claim_deed.json')['result']['id']=='simpletweaks:claim_deed'
 assert unique(data/'claim_deed_copy.json')['type']=='simpletweaks:claim_deed_copy'
 assert not re.search(r'import com.simplebuilding\.(?!modules|framework\.api)', '\n'.join(p.read_text() for p in (M/'shared/java').rglob('*.java'))), 'No internal SimpleBuilding imports'
 assert 'claim_deed' not in unique(M/'generated/resources/wiki/items.json').get('features',[])
-assert unique(M/'generated/resources/wiki/items.json')['items']==[{'id':'simpletweaks:claim_deed','kind':'item'}]
+assert unique(M/'generated/resources/wiki/items.json')['items']==[{'id':'simpletweaks:claim_deed','kind':'item'},{'id':'simpletweaks:claim_table','kind':'block'}]
 print('simpletweaks: 56-file inventory, bilingual legacy artifact, exact runtime export, models, no duplicate gameplay or internal imports: valid')
