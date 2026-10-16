@@ -125,6 +125,12 @@ OUTPUTS = {
     'item/copper_water_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
     'item/copper_lava_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
     'item/enderite_bucket.png': ((16, 320), 'crucible_art_v2_2026_10_05.derived()'),
+    # Top views of the placed discs (Item display 3D, placed_display_3d_2026_10_16.py): 22 Vanilla + 16 mod discs.
+    **{f'block/placed_disc_music_disc_{d}.png': ((16, 16), 'placed_display_3d_2026_10_16.derived() - disc top view')
+       for d in ('11', '13', '5', 'blocks', 'bounce', 'cat', 'chirp', 'creator', 'creator_music_box', 'far', 'lava_chicken',
+                 'mall', 'mellohi', 'otherside', 'pigstep', 'precipice', 'relic', 'stal', 'strad', 'tears', 'wait', 'ward',
+                 *(s + t for s in ('voidline', 'driftwood', 'daybreak', 'brimstone')
+                   for t in ('', '_b_side', '_track_3', '_track_4')))},
 }
 # Module textures (namespace = module id, shipped by that module's own jars through gradle/module-vanilla-derived.gradle):
 # module -> {texture path under assets/<module>/textures/: (size, generator description)}.
@@ -145,7 +151,7 @@ MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures'), 'simpl
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03', 'soul_lava_2026_10_09', 'shulker_shell_textures',
                     'music_disc_textures', 'placed_egg_textures', 'standing_rods_2026_10_04', 'vehicles_2026_10_10',
-                    'crucible_art_v2_2026_10_05')
+                    'crucible_art_v2_2026_10_05', 'placed_display_3d_2026_10_16')
 # Probe file every usable jar contains.
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
 

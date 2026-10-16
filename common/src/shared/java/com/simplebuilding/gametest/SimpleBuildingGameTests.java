@@ -884,6 +884,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placing_game_test_placed_part_slots_fit_their_cells", PlacedPartsOverlapTests::slotsFitTheirCells)
                     .build(),
+            GameTestSpec.named("placing_game_test_every_sherd_and_vanilla_disc_is_placeable_with_amodel", PlacedDisplay3dTests::everySherdAndVanillaDiscIsPlaceableWithAModel)
+                    .build(),
+            GameTestSpec.named("placing_game_test_each_art_lies_in3d_and_the_hammer_switches_it", PlacedDisplay3dTests::eachArtLiesIn3dAndTheHammerSwitchesIt)
+                    .build(),
+            GameTestSpec.named("placing_game_test_discs_stack_for_real_and_mixed_piles_stay_separate", PlacedDisplay3dTests::discsStackForRealAndMixedPilesStaySeparate)
+                    .build(),
+            GameTestSpec.named("placing_game_test_no_faces_fight_in_parts_piles_and_stacks", PlacedDisplay3dTests::noFacesFightInPartsPilesAndStacks)
+                    .maxTicks(100).build(),
             GameTestSpec.named("placing_game_test_goat_horn_holds_torches_and_rods", PlaceN24Tests::goatHornHoldsTorchesAndRods)
                     .build(),
             GameTestSpec.named("placing_game_test_spear_in_dispenser_thrusts_like_spike_trap", PlaceN24Tests::spearInDispenserThrustsLikeSpikeTrap)

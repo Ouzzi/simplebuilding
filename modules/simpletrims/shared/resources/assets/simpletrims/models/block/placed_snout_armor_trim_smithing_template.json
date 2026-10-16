@@ -1,0 +1,7 @@
+{
+  "parent": "simpletrims:block/placed_slab_trim",
+  "textures": {
+    "item": "minecraft:item/snout_armor_trim_smithing_template",
+    "particle": "minecraft:item/snout_armor_trim_smithing_template"
+  }
+}

@@ -45,6 +45,26 @@ public final class PlacingGameTest {
     }
 
     @GameTest
+    public void everySherdAndVanillaDiscIsPlaceableWithAModel(GameTestHelper helper) {
+        PlacedDisplay3dTests.everySherdAndVanillaDiscIsPlaceableWithAModel(helper);
+    }
+
+    @GameTest
+    public void eachArtLiesIn3dAndTheHammerSwitchesIt(GameTestHelper helper) {
+        PlacedDisplay3dTests.eachArtLiesIn3dAndTheHammerSwitchesIt(helper);
+    }
+
+    @GameTest
+    public void discsStackForRealAndMixedPilesStaySeparate(GameTestHelper helper) {
+        PlacedDisplay3dTests.discsStackForRealAndMixedPilesStaySeparate(helper);
+    }
+
+    @GameTest(maxTicks = 100)
+    public void noFacesFightInPartsPilesAndStacks(GameTestHelper helper) {
+        PlacedDisplay3dTests.noFacesFightInPartsPilesAndStacks(helper);
+    }
+
+    @GameTest
     public void goatHornHoldsTorchesAndRods(GameTestHelper helper) {
         PlaceN24Tests.goatHornHoldsTorchesAndRods(helper);
     }

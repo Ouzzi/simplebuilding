@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/placed_slab_sherd",
+  "textures": {
+    "item": "minecraft:item/danger_pottery_sherd",
+    "particle": "minecraft:item/danger_pottery_sherd"
+  }
+}

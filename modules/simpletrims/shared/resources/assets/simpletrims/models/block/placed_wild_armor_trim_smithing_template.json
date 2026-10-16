@@ -1,0 +1,7 @@
+{
+  "parent": "simpletrims:block/placed_slab_wild",
+  "textures": {
+    "item": "minecraft:item/wild_armor_trim_smithing_template",
+    "particle": "minecraft:item/wild_armor_trim_smithing_template"
+  }
+}

@@ -118,6 +118,7 @@ mc26_3/overlay/resources/assets/simplebuilding/textures/block/note_amplifier_top
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_egg_blue.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_egg_brown.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_egg_white.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/placed_disc_music_disc_*.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/silent_dandelion.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/soul_lava_flow.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/soul_lava_still.png
@@ -206,6 +207,8 @@ wiki/assets/textures/block/note_amplifier_top.png
 wiki/assets/textures/block/placed_egg_blue.png
 wiki/assets/textures/block/placed_egg_brown.png
 wiki/assets/textures/block/placed_egg_white.png
+wiki/assets/textures/block/placed_disc_music_disc_*.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/placed_disc_music_disc_*.png
 wiki/assets/textures/block/silent_dandelion.png
 wiki/assets/textures/block/soul_lava_flow.png
 wiki/assets/textures/block/soul_lava_still.png

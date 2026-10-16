@@ -181,5 +181,28 @@
         "summary": "Eine abgelegte Rüstungsbesatzvorlage (Schleichen + Benutzen). Abbauen gibt die Vorlage zurück; Werkzeug + Leuchttintenbeutel oder Glowstonestaub schmieden sie."
       }
     }
+  },
+  "modelOnly": {
+    "simpletrims:placed_bolt_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_coast_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_dune_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_emitting_trim_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_eye_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_flow_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_glowing_trim_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_host_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_pulsating_trim_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_raiser_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_rib_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_sentry_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_shaper_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_silence_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_snout_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_spire_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_tide_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_vex_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_ward_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_wayfinder_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item.",
+    "simpletrims:placed_wild_armor_trim_smithing_template": "Stand-in item definition that draws the placed 3D model of a trim template (placed_display_3d_2026_10_16.py); not an item."
   }
 }

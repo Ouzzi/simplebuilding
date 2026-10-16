@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/placed_slab_netherite",
+  "textures": {
+    "item": "minecraft:item/netherite_upgrade_smithing_template",
+    "particle": "minecraft:item/netherite_upgrade_smithing_template"
+  }
+}
