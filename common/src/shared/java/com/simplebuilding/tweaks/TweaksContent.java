@@ -40,22 +40,7 @@ public final class TweaksContent {
 
     public static void registerBlocks() {
         TweaksBlocks.init();
-        // Wayfinder map layer (Simple Maps, framework contract, no import of the map module): active chunk loaders, by dimension.
-        com.simplebuilding.framework.api.MapLayerSources.register("simplebuilding", "chunk_loaders", "layer.simplebuilding.chunk_loaders",
-                (level, minX, minZ, maxX, maxZ) -> {
-                    net.minecraft.server.level.ServerLevel serverLevel = (net.minecraft.server.level.ServerLevel) level;
-                    String dimension = serverLevel.dimension().identifier().toString();
-                    java.util.List<com.simplebuilding.framework.api.MapLayerSources.Marker> out = new java.util.ArrayList<>();
-                    for (com.simplebuilding.tweaks.block.entity.ChunkLoaderRegistry.Entry e
-                            : com.simplebuilding.tweaks.block.entity.ChunkLoaderRegistry.all(serverLevel.getServer())) {
-                        if (!e.active() || !e.dimension().equals(dimension)) continue;
-                        int x = e.pos().getX(), z = e.pos().getZ();
-                        if (x < minX || x > maxX || z < minZ || z > maxZ) continue;
-                        out.add(new com.simplebuilding.framework.api.MapLayerSources.Marker(x, z, "chunk_loader",
-                                java.util.List.of("Chunk loader (tier " + e.tier() + ")")));
-                    }
-                    return out;
-                });
+        ChunkLoaderMapLayer.register(); // wayfinder map layer: 26.3 overlay, no-op twin on 26.2
     }
 
     public static void registerItems() {
