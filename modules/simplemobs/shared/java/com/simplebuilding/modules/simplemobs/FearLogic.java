@@ -1,5 +1,7 @@
 package com.simplebuilding.modules.simplemobs;
 
+import net.minecraft.util.RandomSource;
+
 /**
  * Rules of the fear mobs (owner 12.10., docs/ai/PLAN-FURCHT-MOBS-2026-10-12.md): the Shivering aura shared by the Dread
  * and the Hollow Watcher, the Dread's light weakness and stomp, the Watcher's spawn rule. Pure functions, tested directly.
@@ -112,6 +114,9 @@ public final class FearLogic {
     public static float chainPendulum(float t) {
         return t < 0.0F ? 0.0F : (float) (Math.exp(-0.25 * t) * Math.sin(0.8 * t));
     }
+
+    /** Ticks until the Dread's next idle chain rattle: 8 to 20 seconds (concept: random 8-20 s). */
+    public static int rattleWait(RandomSource random) { return 160 + random.nextInt(241); }
 
     /** Shivering levels of the aura (N50): level 5 right next to the mob, one level less every ~3 blocks out to 16. */
     public static final int AURA_MAX_LEVEL = 5;

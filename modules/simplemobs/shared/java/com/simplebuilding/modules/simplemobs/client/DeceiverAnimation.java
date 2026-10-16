@@ -43,6 +43,19 @@ public final class DeceiverAnimation {
             .addAnimation("cloak", rot(r(0f, 4f, 0f, 0f), r(2f, 9f, 0f, 0f), r(4f, 4f, 0f, 0f)))
             .build();
 
+    /** Idle one-shot: glances to the left, then the right, then back (client-side, now and then while it stands). */
+    public static final AnimationDefinition GLANCE = AnimationDefinition.Builder.withLength(2.4f)
+            .addAnimation("head", rot(r(0f, 0f, 0f, 0f), r(0.5f, 0f, 38f, -4f), r(1.0f, 0f, 38f, -4f), r(1.5f, 0f, -38f, 4f), r(1.9f, 0f, -38f, 4f), r(2.4f, 0f, 0f, 0f)))
+            .addAnimation("body", rot(r(0f, 0f, 0f, 0f), r(0.5f, 0f, 8f, 0f), r(1.5f, 0f, -8f, 0f), r(2.4f, 0f, 0f, 0f)))
+            .addAnimation("cloak", rot(r(0f, 4f, 0f, 0f), r(0.5f, 8f, 0f, 0f), r(1.5f, 8f, 0f, 0f), r(2.4f, 4f, 0f, 0f)))
+            .build();
+
+    /** Idle one-shot: tilts the head and straightens the hood with the right hand. */
+    public static final AnimationDefinition HOOD = AnimationDefinition.Builder.withLength(1.8f)
+            .addAnimation("right_arm", rot(r(0f, 0f, 0f, 4f), r(0.4f, -120f, 20f, 0f), r(1.2f, -125f, 20f, 0f), r(1.8f, 0f, 0f, 4f)))
+            .addAnimation("head", rot(r(0f, 0f, 0f, 0f), r(0.4f, -8f, 0f, 10f), r(0.8f, -4f, 0f, 6f), r(1.2f, -8f, 0f, 10f), r(1.8f, 0f, 0f, 0f)))
+            .build();
+
     /** Raises both arms, leans back, shakes, then slams down: the wave appears at the end. */
     public static final AnimationDefinition SUMMON = AnimationDefinition.Builder.withLength(2.5f)
             .addAnimation("right_arm", rot(r(0f, 0f, 0f, 4f), r(0.6f, -150f, 0f, 20f), r(1.9f, -160f, 0f, 24f), r(2.1f, -20f, 0f, 6f), r(2.5f, 0f, 0f, 4f)))

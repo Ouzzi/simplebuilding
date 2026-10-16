@@ -16,6 +16,8 @@ public class NibblemiteRenderer extends MobRenderer<Nibblemite, NibblemiteRender
         public int variant;
         /** Per-mob phase offset (radians) from the entity id, so neighbors do not move in step. */
         public float phase;
+        /** 0 not chewing, else 0..1 progress of the chew cycle. */
+        public float chew;
     }
 
     public NibblemiteRenderer(EntityRendererProvider.Context context) {
@@ -35,6 +37,7 @@ public class NibblemiteRenderer extends MobRenderer<Nibblemite, NibblemiteRender
     public void extractRenderState(Nibblemite entity, State state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         state.variant = entity.variant();
+        state.chew = entity.chewProgress(partialTicks);
         state.phase = (entity.getId() * 1.618F) % ((float) Math.PI * 2.0F);
     }
 }

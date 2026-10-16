@@ -133,4 +133,7 @@ public final class DeceiverLogic {
         return night && light <= 7 && deceiversNearby == 0
                 && roll < spawnChance(darkForest, outpost, village);
     }
+
+    /** Ticks until the next idle one-shot gesture: 6 to 15 seconds. */
+    public static int gestureWait(RandomSource random) { return 120 + random.nextInt(181); }
 }

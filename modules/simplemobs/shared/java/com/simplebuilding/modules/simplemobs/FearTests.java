@@ -500,6 +500,15 @@ final class FearTests {
             h.assertTrue(Math.abs(FearLogic.chainPendulum(30.0F)) < 0.01F, "settles");
             h.succeed();
         });
+        add.accept("fear_idle_gesture_waits", h -> {
+            net.minecraft.util.RandomSource r = net.minecraft.util.RandomSource.create(7L);
+            for (int i = 0; i < 200; i++) {
+                int rattle = FearLogic.rattleWait(r), gesture = DeceiverLogic.gestureWait(r);
+                h.assertTrue(rattle >= 160 && rattle <= 400, "rattle wait 8-20 s: " + rattle);
+                h.assertTrue(gesture >= 120 && gesture <= 300, "gesture wait 6-15 s: " + gesture);
+            }
+            h.succeed();
+        });
         add.accept("fear_drops", h -> {
             ServerLevel l = h.getLevel();
             floor(h, 0, 0, 4, 4);

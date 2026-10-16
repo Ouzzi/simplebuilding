@@ -23,7 +23,7 @@ public class DeceiverModel extends EntityModel<DeceiverRenderState> {
     /** Parts the idle loop touches (rotation only), and their rotations before it ran, for fading it out while walking. */
     private final ModelPart[] idleParts;
     private final float[] beforeIdle = new float[15];
-    private final KeyframeAnimation walk, idle, summon, teleport, drink, unmask;
+    private final KeyframeAnimation walk, idle, summon, teleport, drink, unmask, glance, hood;
 
     public DeceiverModel(ModelPart root) {
         super(root);
@@ -37,6 +37,8 @@ public class DeceiverModel extends EntityModel<DeceiverRenderState> {
         this.teleport = DeceiverAnimation.TELEPORT.bake(root);
         this.drink = DeceiverAnimation.DRINK.bake(root);
         this.unmask = DeceiverAnimation.UNMASK.bake(root);
+        this.glance = DeceiverAnimation.GLANCE.bake(root);
+        this.hood = DeceiverAnimation.HOOD.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -82,6 +84,8 @@ public class DeceiverModel extends EntityModel<DeceiverRenderState> {
         this.teleport.apply(state.teleport, state.ageInTicks);
         this.drink.apply(state.drink, state.ageInTicks);
         this.unmask.apply(state.unmask, state.ageInTicks);
+        this.glance.apply(state.glance, state.ageInTicks);
+        this.hood.apply(state.hood, state.ageInTicks);
         applyRun(state);
     }
 

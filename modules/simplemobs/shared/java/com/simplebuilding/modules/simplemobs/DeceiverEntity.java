@@ -78,6 +78,10 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
     public final AnimationState teleportState = new AnimationState();
     public final AnimationState drinkState = new AnimationState();
     public final AnimationState unmaskState = new AnimationState();
+    /** Client-only idle one-shots (cosmetic, no sync): a glance around and straightening the hood. */
+    public final AnimationState glanceState = new AnimationState();
+    public final AnimationState hoodState = new AnimationState();
+    private int gestureWait = DeceiverLogic.gestureWait(this.random), gestureTicks;
     private int clientAction = -1;
 
     private boolean rolled;
@@ -243,6 +247,16 @@ public class DeceiverEntity extends PathfinderMob implements Enemy {
             }
         }
         idleState.startIfStopped(this.tickCount);
+        // idle one-shots: every 6-15 s while it stands still and does nothing else
+        if (gestureTicks > 0) gestureTicks--;
+        boolean still = a == ACT_NONE && this.walkAnimation.speed() < 0.02F;
+        if (!still) {
+            glanceState.stop(); hoodState.stop(); gestureTicks = 0;
+        } else if (gestureTicks == 0 && --gestureWait <= 0) {
+            gestureWait = DeceiverLogic.gestureWait(this.random);
+            if (this.random.nextBoolean()) { glanceState.start(this.tickCount); gestureTicks = 48; }
+            else { hoodState.start(this.tickCount); gestureTicks = 36; }
+        }
     }
 
     // ---- server behavior ----------------------------------------------------------------

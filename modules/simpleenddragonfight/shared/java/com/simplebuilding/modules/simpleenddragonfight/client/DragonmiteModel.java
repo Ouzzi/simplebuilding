@@ -73,6 +73,12 @@ public class DragonmiteModel extends EntityModel<DragonmiteRenderState> {
         float jerk = ((int) (state.ageInTicks + state.phase * 7.0F) % 7 == 0) ? 0.3F : 0.0F;
         float buzz = Mth.lerp(m, 0.15F + 0.05F * Mth.sin(idleT * 4.0F), 0.35F + 0.25F * Mth.sin(state.ageInTicks * 2.6F + state.phase) + jerk);
         buzz = Mth.lerp(state.lunge, buzz, 0.0F);
+        if (state.deathTime > 0.0F) {
+            // Death: the buzz dies away, the wings go limp and the body curls up sideways (on top of the vanilla flip).
+            float d = Mth.smoothstep(Mth.clamp(state.deathTime / 20.0F, 0.0F, 1.0F));
+            buzz = Mth.lerp(d, buzz, 0.1F);
+            for (int i = 0; i < segments.length; i++) segments[i].yRot += d * 0.3F * i;
+        }
         rightWing.zRot = buzz;
         leftWing.zRot = -buzz;
     }
