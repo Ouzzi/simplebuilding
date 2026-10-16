@@ -283,6 +283,10 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         if (com.simplebuilding.util.ShulkerShells.upgrade(level, pos, player, stack)) {
             return net.minecraft.world.InteractionResult.SUCCESS;
         }
+        // Schleichen + Hammer schaltet auch auf einem Haeufchen mit wendbarer Schallplatte auf flach (Item-Display 3D, D7).
+        if (player.isSecondaryUseActive() && com.simplebuilding.util.FlatToggles.toggle(level, pos, player, stack, hand)) {
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
         // Vorschlaghammer wendet eine abgelegte Schallplatte (A-Seite <-> B-Seite, 2026-10-03).
         if (com.simplebuilding.util.DiscFlips.flip(level, pos, player, stack, hand)) {
             return net.minecraft.world.InteractionResult.SUCCESS;

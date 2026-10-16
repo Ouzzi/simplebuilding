@@ -22,7 +22,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
  * Item-Darstellung um, der naechste Schlag wieder auf 3D. Der Zustand ist {@link PlacedSmallPartsBlock#FLAT} im Blockzustand;
  * er gilt fuer alle umschaltbaren Teile des Flecks, Eier, Kerzen und Seegurken bleiben, wie sie sind. Ein Wechsel kostet den
  * Hammer einen Punkt Haltbarkeit (wie eine Umformung, {@link SledgehammerItem#RESHAPE_DAMAGE}) und braucht dieselben Rechte
- * wie jede Umwandlung ({@link TransformTargets#mayTransform}). Schallplatten haben Vorrang ({@link DiscFlips}).
+ * wie jede Umwandlung ({@link TransformTargets#mayTransform}). Schallplatten haben Vorrang ({@link DiscFlips}); mit Schleichen schaltet der Hammer auch dort auf flach.
  *
  * <p>Auch die einzeln abgelegten Vorlagen, Scherben und Scheiben (Wand, Decke, Vorlage am Boden; {@link PlacedTemplateBlock}) schalten
  * so um ({@link PlacedTemplateBlock#FLAT}, Besitzer D7); hat der Spieler Hammer und Aufwertungs-Material in den Haenden, gilt dort

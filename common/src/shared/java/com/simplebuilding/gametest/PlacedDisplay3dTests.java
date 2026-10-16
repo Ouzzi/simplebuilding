@@ -74,8 +74,12 @@ public final class PlacedDisplay3dTests {
 
     /** A right click with {@code stack} on the block, as the game does it (block first, then the item). */
     private static void click(GameTestHelper helper, ServerPlayer player, BlockPos rel, ItemStack stack) {
+        click(helper, player, rel, stack, false);
+    }
+
+    private static void click(GameTestHelper helper, ServerPlayer player, BlockPos rel, ItemStack stack, boolean sneak) {
         player.setItemInHand(InteractionHand.MAIN_HAND, stack);
-        player.setShiftKeyDown(false);
+        player.setShiftKeyDown(sneak);
         BlockPos abs = helper.absolutePos(rel);
         Vec3 eye = helper.absoluteVec(new Vec3(rel.getX() + 0.5, rel.getY() + 1.0, rel.getZ() + 0.5));
         player.snapTo(eye.x, eye.y, eye.z, 0.0F, 90.0F);
@@ -229,14 +233,26 @@ public final class PlacedDisplay3dTests {
                 click(helper, player, rel, pickaxe);
                 helper.assertFalse(level.getBlockState(abs).getValue(flatProperty), art + ": a pickaxe switched it");
                 ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
-                click(helper, player, rel, hammer);
+                // a disc with another side: a plain hammer click turns it over, sneaking switches to flat
+                boolean turnable = com.simplebuilding.util.MusicDiscs.nextTrack(art) != null;
+                if (turnable) {
+                    click(helper, player, rel, hammer);
+                    helper.assertFalse(level.getBlockState(abs).getValue(flatProperty), art + ": a plain hammer click switched a turnable disc to flat");
+                    helper.assertFalse(((PlacedSmallPartsBlockEntity) level.getBlockEntity(abs)).parts().get(0).is(art), art + " was not turned over");
+                    for (int turns = 0; turns < 4 && !((PlacedSmallPartsBlockEntity) level.getBlockEntity(abs)).parts().get(0).is(art); turns++) {
+                        click(helper, player, rel, hammer);   // the track cycle comes back to the first side
+                    }
+                    hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+                    helper.assertTrue(((PlacedSmallPartsBlockEntity) level.getBlockEntity(abs)).parts().get(0).is(art), art + " is not on its first side again");
+                }
+                click(helper, player, rel, hammer, turnable);
                 helper.assertTrue(level.getBlockState(abs).getValue(flatProperty), art + ": 3D -> flat did not switch");
                 helper.assertValueEqual(hammer.getDamageValue(), 1, art + " hammer damage");
                 VoxelShape flat = level.getBlockState(abs).getShape(level, abs);
                 helper.assertTrue(extent(flat, Direction.Axis.Y) < 1.6 / 16.0 && extent(flat, Direction.Axis.Y) > 1.0 / 16.0, art + " flat is " + extent(flat, Direction.Axis.Y) * 16 + " px thick");
                 stored = template ? PlacedTemplates.templateAt(level, abs) : ((PlacedSmallPartsBlockEntity) level.getBlockEntity(abs)).parts().get(0);
                 helper.assertTrue(stored.is(art), art + " lost its item while switched");
-                click(helper, player, rel, hammer);
+                click(helper, player, rel, hammer, turnable);
                 helper.assertFalse(level.getBlockState(abs).getValue(flatProperty), art + ": flat -> 3D did not switch back");
                 helper.assertTrue(Math.abs(extent(level.getBlockState(abs).getShape(level, abs), Direction.Axis.Y) - extent(solid, Direction.Axis.Y)) < 1.0E-6, art + " shape did not come back");
 
