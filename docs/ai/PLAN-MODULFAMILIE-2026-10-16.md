@@ -115,3 +115,6 @@ gemeinsamen Dateien).
 - **F6 Reihenfolge:** P1 (Simple Blocks) sofort, dann 5, P2, 6, 7, P3, 8, P4, 9. *Empfehlung: so; Enderite zuletzt, weil
   höchster Streuschaden.*
 - **F7 Namen/IDs:** `simpleblocks`, `simplegadgets`, `simpleenderite`, "Simple Octets" -> `simpleoctets`. *Empfehlung: so.*
+
+## 5. Antworten Besitzer (2026-10-16, verbindlich)
+F1 `simpletools` bleibt wie es ist (QoL: Soulbound, Todes-Tresor, Amboss …), wird aber Sub-Mod unter dem Super-Mod SimpleBuilding; Geräte kommen nach Simple Gadgets. F2 Meißel, Bauzauberstäbe, Blaupausen, Hängematten, Pads bleiben im SimpleBuilding-Kern („Bauen“). F3 Simple Enderite = nur Ausrüstung (Werkzeuge, Rüstung, Äpfel, Kern); Enderit-Stufen-Blöcke (Truhe, Ofen, Hammer) bleiben in ihren Fach-Sub-Mods und werden nur mit Simple Enderite freigeschaltet. F4 Astral-/Nihil-Endstein, Astralit/Nihilith → Simple Enderite. F5 Attractor → Simple Gadgets (aus simpletweaks/claims herauslösen). F6 Reihenfolge: Simple Blocks sofort, dann Tiegel (Stufe 5), polierter Endstein → simplelib, Octets (6), Hämmer (7), Gadgets, Lager (8), Enderite zuletzt, Release (9). F7 IDs simpleblocks, simplegadgets, simpleenderite, simpleoctets.
