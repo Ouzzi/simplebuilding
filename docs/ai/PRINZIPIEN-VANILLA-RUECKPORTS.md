@@ -16,6 +16,7 @@ Kisten-Jukebox aus dem 26.4-Snapshot.
 | Feature | Vanilla ab | Mod-Linien | Flag/Ort | Stand |
 |---|---|---|---|---|
 | Jukebox mit Kiste darüber (Platten automatisch einlegen/tauschen) | 26.4-Snapshot 4 (13.10.2026) | 26.3: **an** (Fabric/NeoForge/Forge). 26.2 + 1.21.11: aus bis zum Port-Run (dann an, Vanilla hat es dort nicht). 26.4+: **aus** | `McVersion.JUKEBOX_CHEST_PLAYLIST` (26.3 true, 26.2 false) + Laufzeit-Sperre: existiert der Vanilla-Block-Tag `#minecraft:jukebox_containers` (nicht leer), ist die Mod-Umsetzung aus (`JukeboxPlaylist.active`); Code `util/JukeboxPlaylist.java`, Mixins `JukeboxBlockEntityPlaylistMixin`/`JukeboxBlockPlaylistTickerMixin` (26.2: leere Stubs) | GameTests `jukebox_playlist_game_test_*` (inkl. `mod_part_is_active_only_without_vanillas_own`); Details und Quellen: `docs/ai/BERICHT-OC-JUKEBOX.md` |
+| Fehlende Block-Varianten (Simple Blocks: Treppe/Stufe/Mauer Kalzit/Netherrack/Glatter Basalt/geschnittener Sandstein, rissig/bemoost) | offen: 26.4+ | Sub-Mod `simpleblocks` (26.3) | Block-Liste `BlocksRegistry`/`generate_data.py` | Beim Port-Run jeden Block gegen das Vanilla-Jar prüfen; hat Vanilla ihn, aus der Liste streichen (Id-Migration nötig). 26.3: kein Treffer (geprüft gegen das 26.3-Jar, Beton-Treppen/-Stufen gibt es dort schon und fehlen bewusst). |
 
 Beim Port-Run 26.4 (Release): `McVersion`-Zwilling der 26.4-Linie (`mc26_4/overlay/java/.../McVersion.java`, existiert noch nicht -
 die 26.4-Snapshot-Linie erbt die 26.3-Datei) mit `JUKEBOX_CHEST_PLAYLIST = false` anlegen; bis dahin schaltet der Tag-Test es

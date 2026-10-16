@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleblocks"
+version="${version}"
+displayName="Simple Blocks"
+description="Missing building blocks: Hushed Deepslate Tiles, Sculk Deepslate, missing Vanilla stairs, slabs and walls, cracked and mossy bricks. Works on its own with Vanilla."
+[[dependencies.simpleblocks]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[dependencies.simpleblocks]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

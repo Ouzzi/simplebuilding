@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:hushed_deepslate_tiles",
+  "result": {
+    "id": "simpleblocks:hushed_deepslate_tile_wall"
+  }
+}

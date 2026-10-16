@@ -1,0 +1,6 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// Bundles the shared framework API (sub-mod switch, config files, creative tab setting) for standalone runs.
+dependencies { include project(':framework') }
+// The cracked/mossy brick textures are Vanilla-derived (built, never committed).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

@@ -266,6 +266,7 @@ dependencies {
     jarJar project(':modules:simplebeacons:neoforge')
     jarJar project(':modules:simpleshops:neoforge')
     jarJar project(':modules:simplewanderers:neoforge')
+    jarJar project(':modules:simpleblocks:neoforge')
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }

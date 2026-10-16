@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:deepslate",
+    "minecraft:sculk"
+  ],
+  "result": {
+    "count": 2,
+    "id": "simpleblocks:sculk_deepslate"
+  }
+}

@@ -61,7 +61,25 @@ Alle drei brauchen nur Vanilla (Modul simpleaesthetics bzw. simplebuilding), kei
 5. Sculk Deepslate: darf es natuerlich generieren (Welt-Gen-Aenderung) oder nur herstellbar (Empfehlung: nur herstellbar + Ancient-City-Loot)?
 
 ## 6. Antworten Besitzer (2026-10-16, verbindlich)
-M1 nur Treppe/Stufe/Mauer + rissig/bemoost (keine neuen Ziegelsets). M2 nur Sculk Deepslate und Hushed Deepslate Tiles (kein Deepmoss). M3 Hushed Deepslate Tiles zuerst. M4 KORREKTUR Besitzer: ALLES ins SimpleBuilding-Hauptmod (auch rissig/bemoost, nichts nach simpleaesthetics). M5 Sculk Deepslate nur herstellbar + Ancient-City-Loot, keine Weltgenerierung.
+M1 nur Treppe/Stufe/Mauer + rissig/bemoost (keine neuen Ziegelsets). M2 nur Sculk Deepslate und Hushed Deepslate Tiles (kein Deepmoss). M3 Hushed Deepslate Tiles zuerst. M4 Module wie vorgeschlagen (Zustände → simpleaesthetics, Treppe/Stufe/Mauer → simplebuilding). M5 Sculk Deepslate nur herstellbar + Ancient-City-Loot, keine Weltgenerierung.
 
-## 7. Nachtrag: neueres Video des Autors (2026-10-16)
+## 7. Umsetzung (claude-missingblocks, 2026-10-16)
+**Modul (Besitzer-Korrektur zu M4, 2 Stufen):** alles kommt in das neue optionale Sub-Mod `simpleblocks` („Simple Blocks“, Schalter
+„Enable Simple Blocks“, `modules/simpleblocks`, Fabric/NeoForge/Forge, im SimpleBuilding-Jar gebündelt). Nichts in SimpleBuilding selbst,
+nichts in simpleaesthetics. Alle Grundblöcke sind Vanilla (inkl. Zinnober/Schwefel von 26.3) -> das Modul läuft allein, **nichts in simplelib**
+nötig (keine geteilten Teile mit anderen Modulen).
+**33 Blöcke:** Gedämpfte Tiefenschieferfliesen + Treppe/Stufe/Mauer; Sculk-Tiefenschiefer; Treppe/Stufe/Mauer für Kalzit, Netherrack, Glatten
+Basalt, Treppe+Mauer für Geschnittenen (Roten) Sandstein, Mauer für Glatten (Roten) Sandstein (15); rissig: Rote Netherziegel, Tuff, Lehm, Endstein,
+Zinnober, Schwefel; bemoost: Tuff, Lehm, Endstein, Tiefenschieferziegel, -fliesen, Zinnober, Schwefel (13).
+**Rezepte (Begründung):** Fliesen = 4 Tiefenschieferfliesen + 1 Sculk (der Sculk „dämpft“ den Stein, wie Wolle Vibrationen schluckt); Sculk-Tiefenschiefer =
+Tiefenschiefer + Sculk (formlos, 2 Stück, Besitzer M5: nur herstellbar + Ancient-City-Beute, Pool Gewicht 8 : 92 leer, 2-6 Stück); Treppe/Stufe/Mauer 6/6/6 +
+Steinsäge; rissig = Ofen (wie Vanilla), bemoost = Ziegel + Moosblock (wie Vanilla). Vibrationen: Block-Tags `dampens_vibrations` + `occludes_vibration_signals`.
+**Von Vanilla 26.3 schon vorhanden, bewusst weggelassen:** Beton-Treppen/-Stufen (Snapshot 7), rissige Tiefenschieferziegel/-fliesen, rissige Netherziegel,
+(bemooste) Steinziegel samt Treppe/Stufe/Mauer, Sandstein-/Rotsandstein-Treppe/-Stufe/-Mauer, glatte (rote) Sandstein-Treppe/-Stufe, geschnittene
+(rote) Sandstein-Stufe, Tuff-/Schlamm-/Endstein-/Tiefenschiefer-/Zinnober-/Schwefel-Ziegel mit Treppe/Stufe/Mauer. Nicht im Umfang (M1): Sandsteinziegel/-säulen,
+blaue Netherziegel, neue Fliesen/Ziegelsets. Beim Port-Run (26.4 usw.) je Version erneut gegen das Vanilla-Jar prüfen (Prinzip Rückports).
+**Texturen:** Fliesen und Sculk-Tiefenschiefer eigene Pixel (Entwurf, `tools/textures/missing_blocks_2026_10_16.py`); rissig/bemoost entstehen beim Bauen aus den
+Vanilla-Ziegeln (`vanilla_derived.MODULE_OUTPUTS['simpleblocks']`, nichts eingecheckt); Treppe/Stufe/Mauer zeigen per Modell auf die Vanilla-Blocktextur.
+
+## 8. Nachtrag: neueres Video des Autors (2026-10-16)
 „Mojang Won't Fix Minecraft's Block Sets... So I am“ (CinchPlaysMC): erweitert die Mod (bisher 228 Blöcke) um Schwefel-/Cinnabar-Blöcke, Sandsteinziegel/-säulen, neue Fliesen, blaue Netherziegel. Wichtig: Mojang hat in Java 26.3 Snapshot 7 Beton-Treppen und -Stufen eingeführt → nach PRINZIPIEN-VANILLA-RUECKPORTS nicht doppelt anlegen; alles prüfen, was 26.3 nativ hat. Neue Ziegelsets (Sandsteinziegel, blaue Netherziegel) sind laut M1 nicht im Umfang – mögliche spätere Erweiterung, Besitzer fragen.

@@ -1974,6 +1974,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleShops.@Tooltip": "Schaltet das gebündelte Modul Simple Shops ein oder aus: Spieler-Shops mit Verkaufsblock und Vitrine. Aus stoppt Handel, Menüs und neue Platzierungen; gesetzte Shops behalten ihren Schutz. Gilt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.option.enableSimpleWanderers": "Simple Wanderers aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimpleWanderers.@Tooltip": "Schaltet das gebündelte Modul Simple Wanderers ein oder aus: ein Dorf-Wanderer mit Pferd an der Leine je Dorf. Aus stoppt neue Wanderer und die Rotation; vorhandene bleiben gewöhnliche Händler. Gilt nach einem Neustart. Standard: an.",
+  "text.autoconfig.simplebuilding.option.enableSimpleBlocks": "Simple Blocks aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimpleBlocks.@Tooltip": "Schaltet das mitgelieferte Modul Simple Blocks an oder aus: Gedämpfte Tiefenschieferfliesen, Sculk-Tiefenschiefer und die fehlenden Treppen, Stufen, Mauern sowie rissigen und bemoosten Varianten. Aus blendet den Kreativ-Tab des Moduls und seine Einträge in den Vanilla-Tabs aus; platzierte Blöcke, Rezepte und Beute bleiben. Gilt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.category.equipment": "Verzauberungen & Rüstung",
   "text.autoconfig.simplebuilding.category.pistons": "Kolben",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

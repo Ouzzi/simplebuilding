@@ -34,7 +34,8 @@
     "simpleovens",
     "simpleshops",
     "simplewanderers",
-    "simplestats"
+    "simplestats",
+    "simpleblocks"
   ],
   "devMods": [
     "jei",

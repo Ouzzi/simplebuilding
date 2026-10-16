@@ -172,3 +172,10 @@ mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.${modId}]]
+modId="simpleblocks"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

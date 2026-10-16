@@ -1,0 +1,10 @@
+{
+	"chapter.0165A764028DC1BB.title": "{\"translate\": \"quests.simpleblocks.start.title\"}",
+	"chapter.0165A764028DC1BB.chapter_subtitle": [
+		"{\"translate\": \"quests.simpleblocks.start.subtitle\"}"
+	],
+	"quest.7ED7FE1CCA361088.title": "{\"translate\": \"quests.simpleblocks.start.welcome.title\"}",
+	"quest.7ED7FE1CCA361088.quest_desc": [
+		"{\"translate\": \"quests.simpleblocks.start.welcome.description\"}"
+	]
+}
