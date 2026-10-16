@@ -405,7 +405,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());
         }
         // Placeables v2 (Besitzer 2026-10-03): weitere vanilla-nahe Kleinteile ohne eigenes Setzen (keine Bloecke, keine
-        // Wurf-Items). Toepferscherben bewusst nicht (23 Varianten, gehoeren auf den Krug). Kerzen und Seegurken stehen
+        // Wurf-Items). Toepferscherben und Vanilla-Schallplatten folgen unten (Item-Display 3D). Kerzen und Seegurken stehen
         // NICHT im Tag: sie bleiben allein Vanilla und mischen nur (PlacedSmallParts#isBlockPart).
         for (net.minecraft.world.item.Item item : java.util.List.of(
                 net.minecraft.world.item.Items.BONE, net.minecraft.world.item.Items.FEATHER,
@@ -426,6 +426,15 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 com.simplebuilding.items.ModItems.SAGE_ORB)) {
             if (item != null) {
                 tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());
+            }
+        }
+        // Item-Display 3D (Besitzer 2026-10-15, D2/D3): alle Toepferscherben (auch die anderer Mods ueber den Vanilla-Tag) und alle
+        // Vanilla-Schallplatten liegen ab; mit eigenem 3D-Modell sind die Vanilla-Scherben und -Platten (PlacedSolids), der Rest flach.
+        tag.addTag(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+                net.minecraft.resources.Identifier.withDefaultNamespace("decorated_pot_sherds")));
+        for (String disc : new TreeSet<>(com.simplebuilding.util.PlacedSolids.DISCS)) {
+            if (disc.startsWith("minecraft:")) {
+                tag.add(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.parse(disc)));
             }
         }
         // Shulkerschalen (Vanilla und Stufen) liegen abgelegt, damit ein Klumpen sie aufwerten kann (ShulkerShells).

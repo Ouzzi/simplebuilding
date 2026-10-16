@@ -4,7 +4,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.util.PlacedPlate;
+import com.simplebuilding.util.PlacedSolids;
 import com.simplebuilding.version.McClientVersion;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -16,7 +18,10 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.phys.Vec3;
@@ -43,6 +48,9 @@ public class PlacedTemplateRenderer implements BlockEntityRenderer<PlacedTemplat
     /** Abstand zur Auflageflaeche gegen Z-Fighting. */
     private static final float GAP = PlacedPlate.GAP;
 
+    /** Ersatz-Stapel je Item, der das 3D-Modell {@code simplebuilding:placed_<pfad>} zeichnet ({@link PlacedSolids}). */
+    private static final java.util.Map<Item, ItemStack> SOLID_MODELS = new java.util.concurrent.ConcurrentHashMap<>();
+
     private final ItemModelResolver itemModelResolver;
 
     public PlacedTemplateRenderer(BlockEntityRendererProvider.Context context) {
@@ -53,7 +61,17 @@ public class PlacedTemplateRenderer implements BlockEntityRenderer<PlacedTemplat
     public static class State extends BlockEntityRenderState {
         public AttachFace face = AttachFace.FLOOR;
         public Direction facing = Direction.NORTH;
+        /** 3D-Modell dieser Vorlage (Silhouette bzw. Scheibe), null: flache Platte aus der Item-Textur. */
+        public PlacedSolids.@Nullable Shape solid;
         public final ItemStackRenderState item = new ItemStackRenderState();
+    }
+
+    private static ItemStack solidModel(ItemStack stored) {
+        return SOLID_MODELS.computeIfAbsent(stored.getItem(), item -> {
+            ItemStack stack = new ItemStack(item);
+            stack.set(DataComponents.ITEM_MODEL, PlacedSolids.modelId(Simplebuilding.MOD_ID, item));
+            return stack;
+        });
     }
 
     @Override
@@ -66,11 +84,15 @@ public class PlacedTemplateRenderer implements BlockEntityRenderer<PlacedTemplat
                                    ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
         BlockState blockState = blockEntity.getBlockState();
+        boolean flat = false;
         if (blockState.getBlock() instanceof PlacedTemplateBlock) {
             state.face = blockState.getValue(PlacedTemplateBlock.FACE);
             state.facing = blockState.getValue(PlacedTemplateBlock.FACING);
+            flat = blockState.getValue(PlacedTemplateBlock.FLAT);
         }
-        this.itemModelResolver.updateForTopItem(state.item, blockEntity.getTemplate(), ItemDisplayContext.NONE,
+        ItemStack stored = blockEntity.getTemplate();
+        state.solid = flat ? null : PlacedSolids.shape(stored);
+        this.itemModelResolver.updateForTopItem(state.item, state.solid == null ? stored : solidModel(stored), ItemDisplayContext.NONE,
                 blockEntity.getLevel(), null, (int) blockEntity.getBlockPos().asLong());
     }
 
@@ -80,10 +102,19 @@ public class PlacedTemplateRenderer implements BlockEntityRenderer<PlacedTemplat
             return;
         }
         poseStack.pushPose();
+        if (state.solid == PlacedSolids.Shape.DISC) {
+            // Runde Scheibe: eigene Lage (Etikett nach aussen), dieselbe Rechnung wie die Trefferform.
+            PlacedPlate.discPlace(new PlacedSmallPartsRenderer.PoseOps(poseStack), state.face, state.facing);
+            state.item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+            poseStack.popPose();
+            return;
+        }
         orient(poseStack, state.face, state.facing);
-        float thickness = SCALE * THICKNESS_SCALE / 16.0F;
+        // 3D-Silhouette: das Modell traegt seine Dicke (2 px), die flache Platte wird auf gut 1 px gestreckt.
+        float stretch = state.solid == null ? THICKNESS_SCALE : 1.0F;
+        float thickness = SCALE * (state.solid == null ? 1.0F : PlacedSolids.MODEL_THICKNESS) * stretch / 16.0F;
         poseStack.translate(0.0F, 0.0F, -(0.5F - thickness / 2.0F - GAP));
-        poseStack.scale(SCALE, SCALE, SCALE * THICKNESS_SCALE);
+        poseStack.scale(SCALE, SCALE, SCALE * stretch);
         state.item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
     }

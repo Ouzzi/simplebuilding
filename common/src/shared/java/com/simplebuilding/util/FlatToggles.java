@@ -1,6 +1,7 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.blocks.custom.PlacedSmallPartsBlock;
+import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import net.minecraft.core.BlockPos;
@@ -22,6 +23,10 @@ import net.minecraft.world.level.gameevent.GameEvent;
  * er gilt fuer alle umschaltbaren Teile des Flecks, Eier, Kerzen und Seegurken bleiben, wie sie sind. Ein Wechsel kostet den
  * Hammer einen Punkt Haltbarkeit (wie eine Umformung, {@link SledgehammerItem#RESHAPE_DAMAGE}) und braucht dieselben Rechte
  * wie jede Umwandlung ({@link TransformTargets#mayTransform}). Schallplatten haben Vorrang ({@link DiscFlips}).
+ *
+ * <p>Auch die einzeln abgelegten Vorlagen, Scherben und Scheiben (Wand, Decke, Vorlage am Boden; {@link PlacedTemplateBlock}) schalten
+ * so um ({@link PlacedTemplateBlock#FLAT}, Besitzer D7); hat der Spieler Hammer und Aufwertungs-Material in den Haenden, gilt dort
+ * weiter der Schlag der Besatz-Aufwertung ({@link PlacedTemplates#isHammerStance}).
  */
 public final class FlatToggles {
     private FlatToggles() {
@@ -31,6 +36,29 @@ public final class FlatToggles {
     public static boolean canToggle(Level level, BlockPos pos, ItemStack tool) {
         return tool.getItem() instanceof SledgehammerItem && level.getBlockState(pos).getBlock() instanceof PlacedSmallPartsBlock
                 && level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && PlacedSmallParts.anySwitchable(pile.parts());
+    }
+
+    /** Ob ein Rechtsklick mit {@code tool} auf eine einzeln abgelegte Vorlage/Scherbe/Scheibe bei {@code pos} umschaltet. */
+    public static boolean canToggleTemplate(Level level, BlockPos pos, ItemStack tool, Player player) {
+        return tool.getItem() instanceof SledgehammerItem && level.getBlockState(pos).getBlock() instanceof PlacedTemplateBlock
+                && PlacedSolids.shape(PlacedTemplates.templateAt(level, pos)) != null && !PlacedTemplates.isHammerStance(player);
+    }
+
+    /** Schaltet eine einzeln abgelegte Vorlage/Scherbe/Scheibe um (Server; der Client sagt nur voraus). */
+    public static boolean toggleTemplate(Level level, BlockPos pos, Player player, ItemStack tool, InteractionHand hand) {
+        if (!canToggleTemplate(level, pos, tool, player) || !TransformTargets.mayTransform(level, player, pos, Direction.UP, tool)) {
+            return false;
+        }
+        if (level.isClientSide()) {
+            return true;
+        }
+        BlockState state = level.getBlockState(pos);
+        boolean flat = !state.getValue(PlacedTemplateBlock.FLAT);
+        level.setBlock(pos, state.setValue(PlacedTemplateBlock.FLAT, flat), Block.UPDATE_ALL);
+        tool.hurtAndBreak(SledgehammerItem.RESHAPE_DAMAGE, player, hand);
+        level.playSound(null, pos, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.3F, flat ? 1.2F : 1.8F);
+        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, level.getBlockState(pos)));
+        return true;
     }
 
     /** Schaltet um (Server; der Client sagt nur voraus). False, wenn nichts passt oder der Spieler hier nichts aendern darf. */

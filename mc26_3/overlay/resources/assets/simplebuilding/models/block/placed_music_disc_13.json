@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/placed_disc_round",
+  "textures": {
+    "disc": "simplebuilding:block/placed_disc_music_disc_13",
+    "particle": "simplebuilding:block/placed_disc_music_disc_13"
+  }
+}

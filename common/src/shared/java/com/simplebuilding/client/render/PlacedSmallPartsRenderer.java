@@ -97,7 +97,8 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
 
     /**
      * Der Ersatz-Stapel fuer ein 3D-Teil: Item-Definition {@code simplebuilding:placed_<item>} (Barren: placed_ingots_2026_10_09.py;
-     * Ziegel und Edelsteine: placed_gems_bricks_2026_10_15.py).
+     * Ziegel und Edelsteine: placed_gems_bricks_2026_10_15.py; Vorlagen, Toepferscherben und Schallplatten:
+     * placed_display_3d_2026_10_16.py).
      */
     private static ItemStack ingotModel(ItemStack part) {
         String name = "placed_" + net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(part.getItem()).getPath();
@@ -133,7 +134,7 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
             ItemStack model = switch (kind) {
                 case EGG -> eggModel(PlacedEggBlock.Egg.of(part));
                 case CANDLE, PICKLE -> blockModel(part, kind, lit, wet);
-                case INGOT, BRICK, GEM -> ingotModel(part);
+                case INGOT, BRICK, GEM, SLAB, DISC -> ingotModel(part);
                 case PLATE -> part;
             };
             this.itemModelResolver.updateForTopItem(state.items[i], model, ItemDisplayContext.NONE, blockEntity.getLevel(), null, seed + i);
@@ -154,7 +155,7 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
     }
 
     /** {@link PlacedSmallParts.Ops} auf den PoseStack. */
-    private record PoseOps(PoseStack poseStack) implements PlacedSmallParts.Ops {
+    record PoseOps(PoseStack poseStack) implements PlacedSmallParts.Ops {
         @Override
         public void translate(float x, float y, float z) {
             poseStack.translate(x, y, z);

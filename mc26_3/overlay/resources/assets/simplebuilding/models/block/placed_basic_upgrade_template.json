@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/placed_slab_netherite",
+  "textures": {
+    "item": "simplelib:item/basic_upgrade_template",
+    "particle": "simplelib:item/basic_upgrade_template"
+  }
+}
