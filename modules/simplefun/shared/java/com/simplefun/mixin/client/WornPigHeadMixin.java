@@ -17,15 +17,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * Same principle as simplemobheads' worn mob heads: while piggy, the pig head replaces the player's head
  * instead of sitting over it. Only the cubes are hidden ({@code skipDraw}); the head pose still places the
- * pig head. The value also includes the mob-head rule, so it is the same whichever mixin runs last.
+ * pig head. It runs after the mob-head twins (priority) and gives the cubes back when the effect ends.
  */
-@Mixin(HumanoidModel.class)
+@Mixin(value = HumanoidModel.class, priority = 1300)
 public abstract class WornPigHeadMixin {
   @Shadow @Final public ModelPart head;
   @Shadow @Final public ModelPart hat;
 
   /** 0 = not measured, 1 = own model, 2 = armor model. */
   @Unique private int simplefun$kind;
+
+  /** True while this mixin has the head cubes switched off. */
+  @Unique private boolean simplefun$hidden;
 
   @Inject(
       method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;)V",
@@ -36,9 +39,19 @@ public abstract class WornPigHeadMixin {
             && p.simplefun$isPiggy()
             && !state.isInvisible
             && simplefun$isOwnModel();
-    boolean modHead = state.wornHeadType != null && !(state.wornHeadType instanceof SkullBlock.Types);
-    this.head.skipDraw = piggy || modHead;
-    this.hat.skipDraw = piggy || modHead;
+    if (piggy) {
+      this.head.skipDraw = true;
+      this.hat.skipDraw = true;
+      this.simplefun$hidden = true;
+    } else if (this.simplefun$hidden) {
+      // Switched on by us earlier: give the cubes back once (the mob-head twins rewrite them every call
+      // when installed, and they run before us).
+      this.simplefun$hidden = false;
+      if (!(state.wornHeadType != null && !(state.wornHeadType instanceof SkullBlock.Types))) {
+        this.head.skipDraw = false;
+        this.hat.skipDraw = false;
+      }
+    }
   }
 
   /**
