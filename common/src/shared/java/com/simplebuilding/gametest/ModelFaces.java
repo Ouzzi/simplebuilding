@@ -14,8 +14,9 @@ import java.util.function.UnaryOperator;
 
 /**
  * Faces of block-model JSON (cuboid elements) and the check that no two of them fight about a plane (Item display 3D, owner
- * 2026-10-15: "kein Z-Fighting, keine koplanaren Flaechen"). Two faces conflict when they lie in one plane (within
- * {@link #PLANE_TOLERANCE} px) and share an area of more than {@link #MIN_AREA} px squared, no matter which way they look.
+ * 2026-10-15: "kein Z-Fighting, keine koplanaren Flaechen"). Two faces conflict when they look the same way, lie in one plane
+ * (within {@link #PLANE_TOLERANCE} px) and share an area of more than {@link #MIN_AREA} px squared: both would be drawn there.
+ * Faces that look at each other from one plane belong to two solids that touch; both are inside, nobody sees them.
  * Plain Java (JSON in, numbers out), used by the game tests (piles, stacks) and a JUnit test (the shipped models).
  */
 public final class ModelFaces {
@@ -27,8 +28,8 @@ public final class ModelFaces {
     private ModelFaces() {
     }
 
-    /** One rectangular face: four corners (px), a label for messages. */
-    public record Face(String label, double[][] corners) {
+    /** One rectangular face: four corners (px), the way it looks (unit vector), a label for messages. */
+    public record Face(String label, double[][] corners, double[] outward) {
     }
 
     /** Reads {@code /assets/<ns>/<path>} from the class path, or null. */
@@ -78,7 +79,15 @@ public final class ModelFaces {
                     case "east" -> new double[][]{{b[0], a[1], a[2]}, {b[0], b[1], a[2]}, {b[0], b[1], b[2]}, {b[0], a[1], b[2]}};
                     default -> throw new IllegalStateException(label + ": unknown face " + side);
                 };
-                out.add(new Face(label + "#" + index + "." + side, c));
+                double[] outward = switch (side) {
+                    case "up" -> new double[]{0, 1, 0};
+                    case "down" -> new double[]{0, -1, 0};
+                    case "north" -> new double[]{0, 0, -1};
+                    case "south" -> new double[]{0, 0, 1};
+                    case "west" -> new double[]{-1, 0, 0};
+                    default -> new double[]{1, 0, 0};
+                };
+                out.add(new Face(label + "#" + index + "." + side, c, outward));
             }
             index++;
         }
@@ -97,7 +106,17 @@ public final class ModelFaces {
             for (int i = 0; i < 4; i++) {
                 c[i] = f.apply(face.corners()[i]);
             }
-            out.add(new Face(face.label(), c));
+            double[] mid = {0, 0, 0};
+            for (double[] corner : face.corners()) {
+                for (int k = 0; k < 3; k++) {
+                    mid[k] += corner[k] / 4.0;
+                }
+            }
+            double[] from = f.apply(mid);
+            double[] to = f.apply(new double[]{mid[0] + face.outward()[0], mid[1] + face.outward()[1], mid[2] + face.outward()[2]});
+            double[] d = sub(to, from);
+            double len = Math.sqrt(dot(d, d));
+            out.add(new Face(face.label(), c, new double[]{d[0] / len, d[1] / len, d[2] / len}));
         }
         return out;
     }
@@ -111,7 +130,7 @@ public final class ModelFaces {
             for (int j = same ? i + 1 : 0; j < b.size(); j++) {
                 Face fb = b.get(j);
                 double[] m = normal(fb);
-                if (Math.abs(dot(n, m)) < 1.0 - 1.0E-6 || Math.abs(dot(n, sub(fb.corners()[0], fa.corners()[0]))) > PLANE_TOLERANCE) {
+                if (dot(fa.outward(), fb.outward()) < 1.0 - 1.0E-6 || Math.abs(dot(n, m)) < 1.0 - 1.0E-6 || Math.abs(dot(n, sub(fb.corners()[0], fa.corners()[0]))) > PLANE_TOLERANCE) {
                     continue;
                 }
                 double area = overlap(fa, fb, n);

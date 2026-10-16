@@ -207,6 +207,7 @@ public final class PlacedDisplay3dTests {
             int x = 1;
             for (Item art : arts) {
                 boolean disc = PlacedSolids.shape(art) == PlacedSolids.Shape.DISC;
+                boolean template = PlacedTemplates.isPlaceableTemplate(new ItemStack(art));   // upgrade templates: own block; sherds, discs: a pile of one
                 double thick = (disc ? 1.0 : 2.0) / 16.0;
                 BlockPos floor = new BlockPos(x, 1, 1);
                 x += 2;
@@ -214,32 +215,38 @@ public final class PlacedDisplay3dTests {
                 helper.assertTrue(place(helper, player, new ItemStack(art), floor).consumesAction(), art + " was not laid down");
                 BlockPos rel = floor.above();
                 BlockPos abs = helper.absolutePos(rel);
-                helper.assertTrue(level.getBlockState(abs).is(ModBlocks.PLACED_SMITHING_TEMPLATE), art + " did not become a placed template");
-                helper.assertTrue(PlacedTemplates.templateAt(level, abs).is(art), art + " is not stored");
-                helper.assertFalse(level.getBlockState(abs).getValue(PlacedTemplateBlock.FLAT), art + " lies flat from the start");
+                var flatProperty = template ? PlacedTemplateBlock.FLAT : PlacedSmallPartsBlock.FLAT;
+                helper.assertTrue(level.getBlockState(abs).is(template ? ModBlocks.PLACED_SMITHING_TEMPLATE : ModBlocks.PLACED_SMALL_PARTS),
+                        art + " was placed as " + level.getBlockState(abs));
+                ItemStack stored = template ? PlacedTemplates.templateAt(level, abs) : ((PlacedSmallPartsBlockEntity) level.getBlockEntity(abs)).parts().get(0);
+                helper.assertTrue(stored.is(art), art + " is not stored but " + stored);
+                helper.assertFalse(level.getBlockState(abs).getValue(flatProperty), art + " lies flat from the start");
                 VoxelShape solid = level.getBlockState(abs).getShape(level, abs);
                 helper.assertTrue(Math.abs(extent(solid, Direction.Axis.Y) - thick) < 0.004, art + " is " + extent(solid, Direction.Axis.Y) * 16 + " px thick");
 
                 ItemStack pickaxe = new ItemStack(Items.IRON_PICKAXE);
                 click(helper, player, rel, pickaxe);
-                helper.assertFalse(level.getBlockState(abs).getValue(PlacedTemplateBlock.FLAT), art + ": a pickaxe switched it");
+                helper.assertFalse(level.getBlockState(abs).getValue(flatProperty), art + ": a pickaxe switched it");
                 ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
                 click(helper, player, rel, hammer);
-                helper.assertTrue(level.getBlockState(abs).getValue(PlacedTemplateBlock.FLAT), art + ": 3D -> flat did not switch");
+                helper.assertTrue(level.getBlockState(abs).getValue(flatProperty), art + ": 3D -> flat did not switch");
                 helper.assertValueEqual(hammer.getDamageValue(), 1, art + " hammer damage");
                 VoxelShape flat = level.getBlockState(abs).getShape(level, abs);
                 helper.assertTrue(extent(flat, Direction.Axis.Y) < 1.6 / 16.0 && extent(flat, Direction.Axis.Y) > 1.0 / 16.0, art + " flat is " + extent(flat, Direction.Axis.Y) * 16 + " px thick");
-                helper.assertTrue(PlacedTemplates.templateAt(level, abs).is(art), art + " lost its item while switched");
+                stored = template ? PlacedTemplates.templateAt(level, abs) : ((PlacedSmallPartsBlockEntity) level.getBlockEntity(abs)).parts().get(0);
+                helper.assertTrue(stored.is(art), art + " lost its item while switched");
                 click(helper, player, rel, hammer);
-                helper.assertFalse(level.getBlockState(abs).getValue(PlacedTemplateBlock.FLAT), art + ": flat -> 3D did not switch back");
+                helper.assertFalse(level.getBlockState(abs).getValue(flatProperty), art + ": flat -> 3D did not switch back");
                 helper.assertTrue(Math.abs(extent(level.getBlockState(abs).getShape(level, abs), Direction.Axis.Y) - extent(solid, Direction.Axis.Y)) < 1.0E-6, art + " shape did not come back");
 
-                // Every attachment and facing: the thickness along the normal is the same.
-                for (AttachFace face : AttachFace.values()) {
-                    for (Direction facing : Direction.Plane.HORIZONTAL) {
-                        VoxelShape s = PlacedPlate.shape(art, face, facing, false);
-                        Direction.Axis axis = face == AttachFace.WALL ? facing.getAxis() : Direction.Axis.Y;
-                        helper.assertTrue(!s.isEmpty() && Math.abs(extent(s, axis) - thick) < 0.004, art + " " + face + " " + facing + " is " + extent(s, axis) * 16 + " px thick");
+                // The template block lies on the floor, wall or ceiling: the thickness along the normal is the same everywhere.
+                if (template) {
+                    for (AttachFace face : AttachFace.values()) {
+                        for (Direction facing : Direction.Plane.HORIZONTAL) {
+                            VoxelShape s = PlacedPlate.shape(art, face, facing, false);
+                            Direction.Axis axis = face == AttachFace.WALL ? facing.getAxis() : Direction.Axis.Y;
+                            helper.assertTrue(!s.isEmpty() && Math.abs(extent(s, axis) - thick) < 0.004, art + " " + face + " " + facing + " is " + extent(s, axis) * 16 + " px thick");
+                        }
                     }
                 }
             }

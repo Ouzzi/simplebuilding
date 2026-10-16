@@ -884,7 +884,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placing_game_test_placed_part_slots_fit_their_cells", PlacedPartsOverlapTests::slotsFitTheirCells)
                     .build(),
-            GameTestSpec.named("placing_game_test_every_sherd_and_vanilla_disc_is_placeable_with_a_model", PlacedDisplay3dTests::everySherdAndVanillaDiscIsPlaceableWithAModel)
+            GameTestSpec.named("placing_game_test_every_sherd_and_vanilla_disc_is_placeable_with_amodel", PlacedDisplay3dTests::everySherdAndVanillaDiscIsPlaceableWithAModel)
                     .build(),
             GameTestSpec.named("placing_game_test_each_art_lies_in3d_and_the_hammer_switches_it", PlacedDisplay3dTests::eachArtLiesIn3dAndTheHammerSwitchesIt)
                     .build(),

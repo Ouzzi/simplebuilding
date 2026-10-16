@@ -303,7 +303,7 @@ public final class TrimsTests {
             h.succeed();
         });
         // Item display 3D (owner D1/D7): trim templates lie as 2 px models, the hammer switches one to the flat plate and back.
-        ALL.put("placed_templates_in_3d", h -> {
+        ALL.put("placed_templates_in3d", h -> {
             for (String id : com.simpletrims.placed.PlacedSolids.IDS) {
                 String path = id.substring(id.indexOf(':') + 1);
                 for (String res : List.of("/assets/simpletrims/items/placed_" + path + ".json", "/assets/simpletrims/models/block/placed_" + path + ".json")) {

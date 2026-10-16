@@ -224,6 +224,8 @@ test {
 	// The source checks (ConstructorsTouchSingleSourceTest, LanguageFilesTest) read these trees
 	// straight from disk. Declared as inputs, or a change in forge/ alone would leave the test task
 	// "up to date" and the check would not run at all.
+	inputs.dir("mc26_3/overlay/resources/assets/simplebuilding/models/block").withPropertyName("sbBlockModels")
+	inputs.dir("modules/simpletrims/shared/resources/assets/simpletrims/models/block").withPropertyName("trimsBlockModels")
 	inputs.dir("forge/src/main/java").withPropertyName("forgeSources")
 	inputs.dir("neoforge/src/main/java").withPropertyName("neoforgeSources")
 	inputs.dir("mc1_21_11/fabric/src/main/resources/assets/simplebuilding/lang").withPropertyName("legacyLang")
