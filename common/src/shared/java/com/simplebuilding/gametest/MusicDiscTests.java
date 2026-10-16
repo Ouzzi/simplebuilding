@@ -567,6 +567,10 @@ public final class MusicDiscTests {
                 boolean stopped = captured(farSink, ClientboundLevelEventPacket.class).stream()
                         .anyMatch(e -> e.getType() == LevelEvent.SOUND_STOP_JUKEBOX_SONG && e.getPos().equals(j));
                 helper.assertTrue(stopped, "the stop did not reach the player at the chain end");
+                // Eine Note, die der Verstärker noch im Stopp-Tick abschickte, ist kein Weiterspielen.
+                synchronized (sink) {
+                    sink.clear();
+                }
                 helper.runAfterDelay(25, () -> {
                     Vec3 aboveB = Vec3.atBottomCenterOf(absB).add(0.0, 1.2F, 0.0);
                     boolean stillNotes = captured(sink, net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket.class).stream()
