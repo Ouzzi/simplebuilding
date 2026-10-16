@@ -302,7 +302,7 @@ API
 ## Nachtrag 67 (2026-10-15, Besitzer-Feedback zu den Abnahme-Seiten)
 - [x] (oc-ui67) HUD-Overlay (Oktant/Messuhr/Resonanzstab): statt einfachem 1-px-Rand einen doppelten oder dreifachen Rand wie die übrigen Mod-Texturen/UIs; Ecken entsprechend stärker abgerundet (doppelt → 2 px Stufen, dreifach → eine Stufe mehr), jede Rand-Ebene läuft wie ein Mantel um die Ecke.
 - [x] 3D-Items Schritt 2 freigegeben – Schritt 3 Einbau; dabei sicherstellen, dass keine Flächen um „oben“ kämpfen (kein Z-Fighting, auch im Häufchen/Stapel).
-- [ ] Schwefel-Fackel/-Laterne/-Lagerfeuer: Texturen sehr stark an Vanilla (Fackel/Seelenfackel, Laterne, Lagerfeuer) orientieren, nur leichte Variationen (Vanilla-Ableitung nur zur Build-Zeit, nichts Vanilla-Abgeleitetes einchecken).
+- [x] (abgenommen 16.10., N71 „Schwefel-Lichter“; claude-n58rest) Schwefel-Fackel/-Laterne/-Lagerfeuer: Texturen sehr stark an Vanilla (Fackel/Seelenfackel, Laterne, Lagerfeuer) orientieren, nur leichte Variationen (Vanilla-Ableitung nur zur Build-Zeit, nichts Vanilla-Abgeleitetes einchecken).
 - [x] Leuchtherz (Howler, H4): übernehmen/einbauen. Claim-Tisch-Textur: übernehmen.
 - [x] (oc-ui67) REGEL bei jeder UI-Bearbeitung: Lesbarkeit prüfen – Text mit ausreichendem Kontrast zum Hintergrund (z. B. ≥ 4,5:1), kein dunkler Text mit dunklem Schatten auf Grau.
 - [x] (oc-ui67) BUG Claim-Urkunde, erster Dialog („Claim the chunk you are standing …“): schwarzer Text mit schwarzem Schatten auf Grau, kaum lesbar → beheben; dabei alle Claim-/Shop-/Karten-Dialoge auf Kontrast prüfen.
@@ -334,7 +334,7 @@ Befunde aus den Besitzer-Screenshots 15.10. (Bilder 1–8, nur als Beschreibung 
 - [x] (claude-n65bilder) Bild 3/5: Wayfinder-Karte: rechts vom geladenen Kreis senkrechte Streifen/Linien-Artefakte; Rahmen der Karte ebenfalls noch grelles Orange → Bronze. [in wave1 bereits behoben, Code geprüft; Client-Abnahme offen]
 - [x] (claude-n65bilder) Bild 4: „Configure waypoint“: die Reihe der Kopf-Icons läuft weit über den rechten Rand des Dialogs hinaus (kein Umbruch/Scrollen) – im neuen Configure-Dialog sauber begrenzen; Farbleiste grell (entfällt laut N65). [in wave1 bereits behoben, Code geprüft; Client-Abnahme offen]
 - [x] (claude-n65bilder) Bild 5: Wegpunkt heißt „TEST“ (Tooltip), auf der Karte steht „1“. [in wave1 bereits behoben, Code geprüft; Client-Abnahme offen]
-- [ ] Bild 6: Aschholz-/Dämmerholz-Blätter wirken wie ein Raster gleichmäßiger lila Punkte auf braunem Grund – sehr künstlich (bestätigt N65 End-Bäume).
+- [x] (claude-endleaves2, N68 N4; End-Blätter abgenommen 16.10. N71) Bild 6: Aschholz-/Dämmerholz-Blätter wirken wie ein Raster gleichmäßiger lila Punkte auf braunem Grund – sehr künstlich (bestätigt N65 End-Bäume).
 - [x] (oc-misc65) Bild 7/8: Kopf-Modelle teils abgeschnitten (Shulker-Köpfe in mehreren Farben oben/seitlich gekappt; im Kopf-Raster weitere Köpfe mit gekappten Teilen prüfen).
 
 Platzierte Teile
@@ -409,7 +409,7 @@ Besitzer-Antworten Konzepte (15.10.)
 - [x] (oc-moneyfix) Simple Money: 238 Preislisten-Trades des fahrenden Händlers werden nie angeboten (Pool `wandering_trader/rare` wird nicht gelesen) – sofort beheben (W9).
 - [x] (oc-wanderers) Dorf-Wanderer bauen nach Konzept docs/ai/KONZEPT-DORF-WANDERER-2026-10-15.md + Antworten W1–W11.
 - [~] (A, claude-howler3, 16.10.) Hollow Howler Phase 1+2 umsetzen (H1); danach Phase 3 eigene synthetische Sounds (H2); Darkness-Puls nur in der Wut-Phase (H3); leuchtendes Herz als neue Emissiv-Textur mit Vorschau zur Freigabe (H4); Kamerawackeln mit Schalter „Bewegung reduzieren“ (H5). Konzept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md. – Phase 1+2, H3, H5 erledigt (claude-howler-n63); H2 Phase-3-Sounds auf `claude-howler3` (Merge offen, Hörabnahme); offen: H4 Herz nach Besitzer-OK
-- [ ] Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md. – Schritt 1 erledigt (oc-anim-quick): Dread-Wind-up/Recovery, Nibblemite/Dragonmite-Wackeln, Shellker-Deckel, Deceiver-Idle, Soulfire-Blaze-Takt; Rest offen.; Schritt 3 (Dread-Kette, Deceiver-Flucht/Mantel, Tod) erledigt (claude-anim2); offen: Nibblemite/Dragonmite-Tod + Kauzyklus, Deceiver-Idle-One-Shots, Dread-Kettenrasseln im Idle
+- [~] (B, b-anim3, 16.10.) Mob-Animationen in der vorgeschlagenen Reihenfolge verbessern (A1), Konzept KONZEPT-MOB-ANIMATIONEN-2026-10-15.md. – Schritt 1 erledigt (oc-anim-quick): Dread-Wind-up/Recovery, Nibblemite/Dragonmite-Wackeln, Shellker-Deckel, Deceiver-Idle, Soulfire-Blaze-Takt; Rest offen.; Schritt 3 (Dread-Kette, Deceiver-Flucht/Mantel, Tod) erledigt (claude-anim2); offen: Nibblemite/Dragonmite-Tod + Kauzyklus, Deceiver-Idle-One-Shots, Dread-Kettenrasseln im Idle
 - [x] Sandwich-Brot-Unterrand genehmigt (oc-breadrim).
 - [x] Item-Display Schritt 1 (Text-Vorschlag) freigegeben 15.10.; D8 Lapis/Splitter/Nuggets nach erster Welle; D9 Display-Block später als eigenes Thema.
 
@@ -474,7 +474,7 @@ Abgehakt, aber nicht oder nur teilweise im Code (C):
 - [x] Nacharbeit (07.10.): Karten-Aufdeckreichweite „wie Vanilla“: Standard `MapsConfig.revealRadius` ist 96, Vanilla-Wert prüfen und angleichen oder Abweichung bestätigen. (oc-answers60)
 - [x] Nacharbeit (07.10.): End-Rudel 3–5 gewünscht, Nibblemite spawnt in 2–4; angleichen oder Abweichung bestätigen. (oc-auditfix)
 - [x] Nacharbeit (09.10.): Astral-Enchanter-Abbau soll Tisch plus Enderit-BARREN zurückgeben (Code: Nugget). (oc-auditfix)
-- [ ] Nacharbeit (11.10.): End-Schiffswracks ca. 80 % vergraben (Code: Starthöhe −8 mit Endsteinhügel; Anteil nicht belegt) – prüfen.
+- [~] (B, b-n58rest2, 16.10.) Nacharbeit (11.10.): End-Schiffswracks ca. 80 % vergraben (Code: Starthöhe −8 mit Endsteinhügel; Anteil nicht belegt) – prüfen.
 - [x] Nacharbeit (11.10.): Platzierter Kupfer-Eimer soll verwittern können (Code: nur Tragen in Hotbar/Nebenhand); `jei.simplebuilding.info.copper_bucket` sagt noch „jedes Ausgießen oxidiert“ – Text korrigieren. (oc-answers60)
 - [x] Nacharbeit (12.10.): Wollknäuel zu Wollblock (2 zu 1): Rückrichtung fehlt (vorhanden nur Wolle → 2 Knäuel); Besitzerwortlaut mehrdeutig, Rückfrage. (oc-answers60)
 - [x] Nacharbeit (12.10.): Blaze-Book-Rezept „8 Lohenstaub + Buch“ ist nicht umgesetzt (Code: 3 Papier + 1 Lohenstaub → 3 Bücher); Rezept ändern oder Besitzer bestätigen lassen. (oc-answers60)
@@ -485,9 +485,9 @@ Abgehakt, aber nicht oder nur teilweise im Code (C):
 Aus den Memory-Notizen (nicht in der Queue, Details im Audit-Dokument M02–M18):
 - [ ] (Memory) Claim-Urkunde Phase 1: Review, Forge-/Client-/Standalone-Tests, Einzelhooks, Namens-Cache; rote Tests ohne Fix-Beleg (Forge crucible/auto_smither/tiered, Standalone double_cap/claims_grief, every_mod_mob NeoForge) prüfen.
 - [ ] (Memory) Windows-Lauf des Installers beim Besitzer (winget-JDK, Toolchain, Vanilla-derived-Fallback) testen.
-- [ ] (Memory) Simple Trims: JEI-Kategorie, Hammerneigung/Ziel-Highlight auf Platten, Migration alter placed_smithing_template-Blöcke. – Teil erledigt (oc-n58-small): nur JEI-Smithing-Extension; Rest offen.
+- [~] (B, b-trims3, 16.10.) (Memory) Simple Trims: JEI-Kategorie, Hammerneigung/Ziel-Highlight auf Platten, Migration alter placed_smithing_template-Blöcke. – Teil erledigt (oc-n58-small): nur JEI-Smithing-Extension; Rest offen.
 - [ ] (Memory) Simple Money: End-Holz-Items ohne Preise (Absicht klären); Simple Beacons: Client kennt Server-Config nicht, Strong-Conduit-Tönung; Mobheads-Reste (Varianten-Sounds, Wiki-Renders, alte Fun-Config-Keys). – Teil erledigt (oc-n58-small): Beacons-Client liest Server-Config vom Menü, Mobheads-Reste nur Doku; Rest offen.
-- [ ] (Memory) Eisen-Tiegel-Bau: Loot-Bedingung `block_state_property(stage)` greift nicht (Umgehung per getDrops); Gemischte Octet-Zellen ohne Bruch-Risse, 26.2-Compile ungeprüft; End-Testzentrale: chunkweise fehlendes Blocklicht. – Teil erledigt (oc-n58-small): Ursache = Loot-Altformat, Rohling-Tabelle neu, getDrops-Umgehung entfernt; neuer Befund 21 Altformat-Tabellen (tools/check_loot_format.py).
+- [~] (B, b-n58rest2, 16.10.) (Memory) Eisen-Tiegel-Bau: Loot-Bedingung `block_state_property(stage)` greift nicht (Umgehung per getDrops); Gemischte Octet-Zellen ohne Bruch-Risse, 26.2-Compile ungeprüft; End-Testzentrale: chunkweise fehlendes Blocklicht. – Teil erledigt (oc-n58-small): Ursache = Loot-Altformat, Rohling-Tabelle neu, getDrops-Umgehung entfernt; neuer Befund 21 Altformat-Tabellen (tools/check_loot_format.py).
 - [ ] (Memory) Prod-Übernahme `development` → Production für alle gemergten Wellen erst nach Freigabe des Besitzers; Branch `oc-gatefix6` (Wiki-Platzhalter jar-unabhängig) mergen.
 Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachgetragen):
 - [x] (Besitzer 09.10.) Dev-Knopf Mod-UI ↔ Vanilla-UI (Audit 14.10.: UiStyleToggle/StyleToggleButton, Config showStyleToggle). Dev-Queue für Textur-/Code-Wünsche in der Zentrale (Audit 14.10.: tools/zentrale-web/devqueue.py, PLAN-DEV-QUEUE-2026-10-09).
