@@ -497,6 +497,21 @@ Abweichungen/Grenzen:
   auf fabric-263+neoforge-263, Modul-Ziele `module-simplecrucibles-*` + Standalone, Migrations-GameTest (alte Ids), Wiki `--check --strict`,
   `module_guides --check`, `check_tooltip_text`, `discover --check`.
 
+_Umgesetzt (16.10., Stufe 5a):_ wie geplant, mit diesen Abweichungen/Grenzen:
+- Seelenlava (Fluid, Block, Eimer, Weltgen-Mixins, Seelenbrand, Loader-Glue) und die Eimer **bleiben in SB (Stufe 5b offen)**: sie teilen
+  `ModBucketItem` (462 Z.), `ServerTuningConfig`, `ModTriggers`, `ModEffects` und `common/src/shared` mit 26.2; der Umzug ist ein eigener
+  Schnitt (Eimer-Familie entscheiden: Kupfer-/Keramik-/Eisen-/Enderit-Eimer gehören nicht eindeutig zu Tiegeln). Die Anbindung
+  (Wärmequelle `#simplecrucibles:extreme_heat`, Kesselinhalt „extreme“, Eimer-Dienst) läuft schon über `SimpleCruciblesApi`.
+- JEI-Kategorie `CrucibleCategory`, `CrucibleRecipeCatalog`, `CauldronWorldCatalog` und Jade-Anzeige bleiben in SB (nutzen `CrucibleCompat`
+  -> `SimpleCruciblesApi`); das Modul allein hat Tooltips, Guide und Wiki, aber keine JEI-/Jade-Seite (Umzug mit 5b).
+- `ToolUse`/`registerToolUse`/`toolWants` blieben in `SimpleLibApi` (auch Simple Ovens nutzt sie); das Modul meldet seinen Axt-Weg dort an.
+- Sandwiches bündelt `simplecrucibles` nur in der Jar (Fabric `include`, NeoForge `jarJar`, Forge `forgeBundleModules`), seine Dev-/
+  Standalone-Läufe laden es nicht (SandwichTests prüft den Tiegel nur, wenn er da ist); QoL/Interfaces/Maps behalten nur simplelib.
+- simplelib bleibt 0.2.0; `LibConfig` schreibt fremde Schlüssel unverändert zurück (Config-Übernahme), `SimpleLibApi` ohne Tiegel.
+- Tag-Ids der Tiegel-Daten wechseln den Namensraum (`simplelib:heat_source/*` -> `simplecrucibles:`), Datenpakete Dritter müssen nachziehen.
+- Modul-Version 1.0.0; neue Tests: `CrucibleTests` (37 im Modul, 28 aus `LibTests` + Config-Grenzen/-Übernahme/-Quarantäne, Registrierung,
+  Migration alter Ids, Upgrade-Handler).
+
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
 

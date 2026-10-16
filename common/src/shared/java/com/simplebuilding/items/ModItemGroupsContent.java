@@ -570,10 +570,8 @@ public final class ModItemGroupsContent {
             rows.add(CreativeTabLayout.Row.of("hammocks", ModItems.HAMMOCKS.toArray(net.minecraft.world.level.ItemLike[]::new)));
         }
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            // Crucible P5 (2026-10-05): Tiegel-Stufen (Eisen bis Netherit aus SimpleLib), Faesser, verstaerkter Kessel; Eimer.
-            // Nur SB-Items in SB-Tabs: die SimpleLib-Stufen stehen in deren eigenem Tab.
-            rows.add(CreativeTabLayout.Row.of("crucibles", com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem(),
-                    com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem()));
+            // Crucible P5 (2026-10-05): Eimer. Nur SB-Items in SB-Tabs: Tiegel, Faesser und Kessel (auch die Enderit-Stufe seit Stufe 5)
+            // stehen im eigenen Tab von Simple Crucibles, das sie zusaetzlich in SBs Funktions-Tab einsortiert.
             rows.add(CreativeTabLayout.Row.of("buckets", com.simplebuilding.fluid.ModFluids.COPPER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET,
                     com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, CreativeTabLayout.GAP,
                     com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,

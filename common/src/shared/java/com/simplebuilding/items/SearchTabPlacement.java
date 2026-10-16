@@ -334,11 +334,9 @@ public final class SearchTabPlacement {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.JUKEBOX, ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
         }
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            // Crucible P5: Eimer hinter dem Pulverschnee-Eimer, Enderit-Tiegel/-Fass hinter dem Ofen-Block-Reihenende (Fass).
+            // Crucible P5: Eimer hinter dem Pulverschnee-Eimer; die Tiegel (auch Enderit) sortiert Simple Crucibles selbst ein (Stufe 5).
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.POWDER_SNOW_BUCKET,
                     com.simplebuilding.fluid.ModFluids.creativeBuckets().toArray(ItemLike[]::new)));
-            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BARREL, com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(),
-                    com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel()));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             out.add(Placement.after(NATURAL_BLOCKS, Items.DEEPSLATE_DIAMOND_ORE, ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM));

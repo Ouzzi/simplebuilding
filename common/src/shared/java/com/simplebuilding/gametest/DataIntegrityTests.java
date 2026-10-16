@@ -1470,8 +1470,10 @@ public final class DataIntegrityTests {
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             // 26.3: plus SimpleLib's shared enderite materials (split stage 3d), protected as before.
             // Split stage 4: plus the Enderite furnaces and cart of the required sub-mod Simple Ovens.
+            // Split stage 5: plus the Enderite crucible and barrel of the required sub-mod Simple Crucibles.
             if ((MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
                             "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
                     // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
@@ -1688,8 +1690,6 @@ public final class DataIntegrityTests {
         // Crucible P5 (26.3): Eimer (ModFluids) und Enderit-Tiegel/-Fass (CrucibleCompat), zur Laufzeit registriert.
         if (McVersion.CRUCIBLE) {
             items.addAll(com.simplebuilding.fluid.ModFluids.buckets());
-            items.add(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem());
-            items.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem());
         }
         // Schach (McVersion.CHESS): Achtel, Figuren, Treppen und Stufen in Schleifen (ChessItems).
         items.addAll(com.simplebuilding.chess.ChessItems.octets());
@@ -1731,8 +1731,6 @@ public final class DataIntegrityTests {
         blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.all());
         blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.heads());
         if (McVersion.CRUCIBLE) {
-            blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
-            blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
             blocks.add(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BLOCK);
         }
         if (McVersion.FIRES) {
@@ -3119,10 +3117,7 @@ public final class DataIntegrityTests {
             expected.add(new CreativeTabLayout.Row("hammocks", ModItems.HAMMOCKS.stream().map(ItemStack::new).toList()));
         }
         if (McVersion.CRUCIBLE) {
-            // Crucible P5: Enderit-Tiegel und -Fass, dann die Eimer (Kupfer, Seelen-Lava, Luecke, Enderit).
-            expected.add(CreativeTabLayout.Row.of("crucibles",
-                    com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem(),
-                    com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem()));
+            // Crucible P5: die Eimer (Kupfer, Seelen-Lava, Luecke, Enderit); die Tiegel liegen in Simple Crucibles' Tab (Stufe 5).
             expected.add(CreativeTabLayout.Row.of("buckets",
                     com.simplebuilding.fluid.ModFluids.COPPER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET,
                     com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, gap,
@@ -3455,7 +3450,9 @@ public final class DataIntegrityTests {
             boolean shared = com.simplebuilding.version.McVersion.MATERIALS_IN_LIB
                     && com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
                     // split stage 4: Simple Ovens' Enderite furnaces and cart keep SimpleBuilding's Enderite perks
-                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
+                    // split stage 5: so do Simple Crucibles' Enderite crucible and barrel
+                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace());
             if ((!MOD_ID.equals(id.getNamespace()) && !shared) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
                 continue;
             }
