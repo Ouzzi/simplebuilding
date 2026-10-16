@@ -506,3 +506,25 @@ wiki/assets/textures/render/block/sulfur_torch.png
 wiki/assets/textures/render/block/sulfur_wall_torch.png
 wiki/assets/textures/render/block/sulfur_lantern.png
 wiki/assets/textures/render/block/sulfur_campfire.png
+# Simple Crucibles (split stage 5): Vanilla-derived enderite crucible/barrel textures (crucible_art_v2_2026_10_05.derived_module).
+modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/enderite_crucible_side.png
+wiki/assets/textures/simplecrucibles/block/enderite_crucible_side.png
+wiki/assets/textures/sheets/simplebuilding/simplecrucibles/block/enderite_crucible_side.png
+modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/enderite_crucible_top.png
+wiki/assets/textures/simplecrucibles/block/enderite_crucible_top.png
+wiki/assets/textures/sheets/simplebuilding/simplecrucibles/block/enderite_crucible_top.png
+modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/enderite_barrel_side.png
+wiki/assets/textures/simplecrucibles/block/enderite_barrel_side.png
+wiki/assets/textures/sheets/simplebuilding/simplecrucibles/block/enderite_barrel_side.png
+modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/enderite_barrel_top.png
+wiki/assets/textures/simplecrucibles/block/enderite_barrel_top.png
+wiki/assets/textures/sheets/simplebuilding/simplecrucibles/block/enderite_barrel_top.png
+modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/enderite_barrel_top_open.png
+wiki/assets/textures/simplecrucibles/block/enderite_barrel_top_open.png
+wiki/assets/textures/sheets/simplebuilding/simplecrucibles/block/enderite_barrel_top_open.png
+modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/enderite_barrel_bottom.png
+wiki/assets/textures/simplecrucibles/block/enderite_barrel_bottom.png
+wiki/assets/textures/sheets/simplebuilding/simplecrucibles/block/enderite_barrel_bottom.png
+modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/enderite_barrel_flange.png
+wiki/assets/textures/simplecrucibles/block/enderite_barrel_flange.png
+wiki/assets/textures/sheets/simplebuilding/simplecrucibles/block/enderite_barrel_flange.png
