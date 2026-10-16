@@ -430,9 +430,10 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         }
         // Item-Display 3D (Besitzer 2026-10-15, D2/D3): alle Toepferscherben (auch die anderer Mods ueber den Vanilla-Tag) und alle
         // Vanilla-Schallplatten liegen ab; mit eigenem 3D-Modell sind die Vanilla-Scherben und -Platten (PlacedSolids), der Rest flach.
-        tag.addTag(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+        tag.addOptionalTag(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
                 net.minecraft.resources.Identifier.withDefaultNamespace("decorated_pot_sherds")));
-        for (String disc : new TreeSet<>(com.simplebuilding.util.PlacedSolids.DISCS)) {
+        for (String disc : new TreeSet<>(java.util.stream.Stream.concat(com.simplebuilding.util.PlacedSolids.DISCS.stream(),
+                com.simplebuilding.util.PlacedSolids.SLABS.stream().filter(id -> id.endsWith("_pottery_sherd"))).toList())) {
             if (disc.startsWith("minecraft:")) {
                 tag.add(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.parse(disc)));
             }
