@@ -188,6 +188,8 @@ public final class EndTrees {
         int total = horizontal + up;
         int ups = 0;
         BlockPos half = start;
+        List<BlockPos> cells = new ArrayList<>();
+        List<Direction.Axis> axes = new ArrayList<>();
         for (int i = 1; i <= total; i++) {
             boolean goUp = ups < up && (i * up) / total > ups;
             Direction.Axis axis;
@@ -205,15 +207,22 @@ public final class EndTrees {
                     axis = Direction.Axis.Z;
                 }
             }
-            part.blocks.put(p.immutable(), plan.state(axis, i <= total * 0.6 ? 2 : 1));
+            cells.add(p.immutable());
+            axes.add(axis);
             if (i == total / 2) half = p.immutable();
+        }
+        // A bar only reaches its neighbour along its own axis, so a cell that is followed by a bend would float free of the
+        // next one (N68 bug): bends are full-size (thickness 3 = full cube for natural sticks).
+        for (int i = 0; i < cells.size(); i++) {
+            boolean bend = i + 1 < cells.size() && axes.get(i + 1) != axes.get(i);
+            part.blocks.put(cells.get(i), plan.state(axes.get(i), bend ? 3 : (i + 1) <= total * 0.6 ? 2 : 1));
         }
         part.blobs.add(new double[] {p.getX(), p.getY() + 1, p.getZ(), blob});
         if (midCluster) part.blobs.add(new double[] {half.getX(), half.getY() + 1, half.getZ(), blob - 1.2});
         return new double[] {p.getX(), p.getY() + 1, p.getZ(), blob, half.getX(), half.getY(), half.getZ()};
     }
 
-    /** Root flares at the trunk foot: short columns that get lower away from the trunk (thickness 2: they never hold a stick tree up). */
+    /** Root flares at the trunk foot: short steps that get lower away from the trunk. Lying full cubes (N68: thin columns floated beside the trunk); a lying stick never holds a stick tree up. */
     private static void roots(Plan plan, Size size, BlockPos corner, RandomSource r) {
         int start = r.nextInt(4);
         int sides = size == Size.BIG ? 2 : 4;
@@ -231,7 +240,7 @@ public final class EndTrees {
                 for (int i = 1; i <= len; i++) {
                     BlockPos foot = corner.offset(bx + dir.getStepX() * i, 0, bz + dir.getStepZ() * i);
                     int columnHeight = Math.max(1, high - (i - 1) * 2);
-                    for (int y = 0; y < columnHeight; y++) part.blocks.put(foot.above(y), plan.state(Direction.Axis.Y, 2));
+                    for (int y = 0; y < columnHeight; y++) part.blocks.put(foot.above(y), plan.state(dir.getAxis(), 3));
                 }
             }
         }

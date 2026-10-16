@@ -1,39 +1,75 @@
 {
   "variants": {
-    "axis=x,thickness=1": {
+    "axis=x,natural=false,thickness=1": {
       "model": "simpleend:block/duskwood_sticks_1",
       "x": 90,
       "y": 90
     },
-    "axis=y,thickness=1": {
+    "axis=y,natural=false,thickness=1": {
       "model": "simpleend:block/duskwood_sticks_1"
     },
-    "axis=z,thickness=1": {
+    "axis=z,natural=false,thickness=1": {
       "model": "simpleend:block/duskwood_sticks_1",
       "x": 90
     },
-    "axis=x,thickness=2": {
+    "axis=x,natural=true,thickness=1": {
+      "model": "simpleend:block/duskwood_sticks_1",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,natural=true,thickness=1": {
+      "model": "simpleend:block/duskwood_sticks_1"
+    },
+    "axis=z,natural=true,thickness=1": {
+      "model": "simpleend:block/duskwood_sticks_1",
+      "x": 90
+    },
+    "axis=x,natural=false,thickness=2": {
       "model": "simpleend:block/duskwood_sticks_2",
       "x": 90,
       "y": 90
     },
-    "axis=y,thickness=2": {
+    "axis=y,natural=false,thickness=2": {
       "model": "simpleend:block/duskwood_sticks_2"
     },
-    "axis=z,thickness=2": {
+    "axis=z,natural=false,thickness=2": {
       "model": "simpleend:block/duskwood_sticks_2",
       "x": 90
     },
-    "axis=x,thickness=3": {
+    "axis=x,natural=true,thickness=2": {
+      "model": "simpleend:block/duskwood_sticks_2",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,natural=true,thickness=2": {
+      "model": "simpleend:block/duskwood_sticks_2"
+    },
+    "axis=z,natural=true,thickness=2": {
+      "model": "simpleend:block/duskwood_sticks_2",
+      "x": 90
+    },
+    "axis=x,natural=false,thickness=3": {
       "model": "simpleend:block/duskwood_sticks_3",
       "x": 90,
       "y": 90
     },
-    "axis=y,thickness=3": {
+    "axis=y,natural=false,thickness=3": {
       "model": "simpleend:block/duskwood_sticks_3"
     },
-    "axis=z,thickness=3": {
+    "axis=z,natural=false,thickness=3": {
       "model": "simpleend:block/duskwood_sticks_3",
+      "x": 90
+    },
+    "axis=x,natural=true,thickness=3": {
+      "model": "simpleend:block/duskwood_sticks_full",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,natural=true,thickness=3": {
+      "model": "simpleend:block/duskwood_sticks_full"
+    },
+    "axis=z,natural=true,thickness=3": {
+      "model": "simpleend:block/duskwood_sticks_full",
       "x": 90
     }
   }

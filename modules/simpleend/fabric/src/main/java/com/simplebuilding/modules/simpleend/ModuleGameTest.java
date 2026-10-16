@@ -15,6 +15,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budInEndGrowsStickTree(GameTestHelper helper) { EndTests.ALL.get("bud_in_end_grows_stick_tree").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void sticksTaperLikeDripstone(GameTestHelper helper) { EndTests.ALL.get("sticks_taper_like_dripstone").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void stickTreeFeature(GameTestHelper helper) { EndTests.ALL.get("stick_tree_feature").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void stickTreeWoodConnected(GameTestHelper helper) { EndTests.ALL.get("stick_tree_wood_connected").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void stickTreeFallsLikeChorus(GameTestHelper helper) { EndTests.ALL.get("stick_tree_falls_like_chorus").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void placedSticksStay(GameTestHelper helper) { EndTests.ALL.get("placed_sticks_stay").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void budReturnExpectation(GameTestHelper helper) { EndTests.ALL.get("bud_return_expectation").accept(helper); }

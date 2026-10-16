@@ -169,46 +169,26 @@ SHEARS = {'type': 'minecraft:any_of', 'terms': ['minecraft:tool/can_shear', 'min
 def leaves():
     """End leaves (Umbau 13.10.): see-through star of tendril planes around a small crystal (no full cube), and a loot
     table where only leaves a grown tree marked (state drop=1/2) give a bud or a fruit - the fruit ripens only in the End."""
-    plane = lambda frm, to, faces, rot=None: {k: v for k, v in (('from', frm), ('to', to), ('rotation', rot), ('shade', False), ('faces', faces)) if v is not None}
-    rot = {'origin': [8, 8, 8], 'axis': 'y', 'angle': 45, 'rescale': True}
+    cube = lambda t: {'from': [0, 0, 0], 'to': [16, 16, 16], 'shade': False,
+                      'faces': {f: {'uv': [0, 0, 16, 16], 'texture': t, 'tintindex': 0} for f in ('north', 'south', 'east', 'west', 'up', 'down')}}
     core = {'uv': [5, 5, 11, 11], 'texture': '#crystal'}
-    tex = lambda t: {'uv': [0, 0, 16, 16], 'texture': t, 'tintindex': 0}
-    both = lambda t, a, b: {a: tex(t), b: tex(t)}
     crystal = {'from': [6, 6, 6], 'to': [10, 10, 10], 'faces': {f: core for f in ('north', 'south', 'east', 'west', 'up', 'down')}}
-    tilt = lambda axis, angle: {'origin': [8, 8, 8], 'axis': axis, 'angle': angle}
     for w in WOODS:
         n = w['name']
-        textures = {'particle': f'{NS}:block/{n}_leaves', 'fronds': f'{NS}:block/{n}_leaves', 'outer': f'{NS}:block/{n}_leaves_outer',
-                    'inner': f'{NS}:block/{n}_leaves_inner', 'crystal': f'{NS}:block/{n}_leaves_crystal'}
-        # Leaves facing the air (N65): the two diagonal fronds of the old star plus loose, leaning, drooping fronds off the
-        # centre and a thin canopy layer, so the outline is ragged instead of a grid of planes.
-        dump(OUT / f'assets/{NS}/models/block/{n}_leaves.json', {
-            'parent': 'minecraft:block/block', 'ambientocclusion': False, 'textures': textures,
-            'elements': [
-                plane([0.8, 0, 8], [15.2, 16, 8], both('#fronds', 'north', 'south'), rot),
-                plane([8, 0, 0.8], [8, 16, 15.2], both('#fronds', 'west', 'east'), rot),
-                plane([1, 0, 11], [15, 16, 11], both('#outer', 'north', 'south'), tilt('x', 22.5)),
-                plane([4.5, 0, 1], [4.5, 16, 15], both('#outer', 'west', 'east'), tilt('z', -22.5)),
-                plane([2, 12.5, 2], [14, 12.5, 14], both('#outer', 'up', 'down')),
-                crystal,
-            ]})
-        # Leaves that no air touches: a denser, darker body of overlapping planes (still see-through).
-        dump(OUT / f'assets/{NS}/models/block/{n}_leaves_inner.json', {
-            'parent': 'minecraft:block/block', 'ambientocclusion': False, 'textures': textures,
-            'elements': [
-                plane([0.8, 0, 8], [15.2, 16, 8], both('#inner', 'north', 'south'), rot),
-                plane([8, 0, 0.8], [8, 16, 15.2], both('#inner', 'west', 'east'), rot),
-                plane([0, 0, 4], [16, 16, 4], both('#inner', 'north', 'south')),
-                plane([0, 0, 12], [16, 16, 12], both('#inner', 'north', 'south')),
-                plane([4, 0, 0], [4, 16, 16], both('#inner', 'west', 'east')),
-                plane([12, 0, 0], [12, 16, 16], both('#inner', 'west', 'east')),
-                plane([0, 5, 0], [16, 5, 16], both('#inner', 'up', 'down')),
-                plane([0, 11, 0], [16, 11, 16], both('#inner', 'up', 'down')),
-                crystal,
-            ]})
+        textures = {'particle': f'{NS}:block/{n}_leaves', 'outer': f'{NS}:block/{n}_leaves', 'inner': f'{NS}:block/{n}_leaves_inner',
+                    'crystal': f'{NS}:block/{n}_leaves_crystal'}
+        # N68: Vanilla-like cube leaves with a leaf-patch texture (docs/ai/RECHERCHE-BLAETTER-2026-10-16.md): airy outer texture
+        # for leaves facing the air, dense dark inner texture for leaves no air touches. A small crystal shows only on
+        # leaves that carry a bud or fruit (drop 1/2), so there is no grid of crystals any more.
+        for suffix, tex in (('', '#outer'), ('_inner', '#inner')):
+            dump(OUT / f'assets/{NS}/models/block/{n}_leaves{suffix}.json', {
+                'parent': 'minecraft:block/block', 'ambientocclusion': False, 'textures': textures, 'elements': [cube(tex)]})
+        dump(OUT / f'assets/{NS}/models/block/{n}_leaves_crystal.json', {
+            'parent': 'minecraft:block/block', 'ambientocclusion': False, 'textures': textures, 'elements': [crystal]})
         dump(OUT / f'assets/{NS}/blockstates/{n}_leaves.json', {'multipart': [
             {'when': {'inner': 'false'}, 'apply': {'model': f'{NS}:block/{n}_leaves'}},
-            {'when': {'inner': 'true'}, 'apply': {'model': f'{NS}:block/{n}_leaves_inner'}}]})
+            {'when': {'inner': 'true'}, 'apply': {'model': f'{NS}:block/{n}_leaves_inner'}},
+            {'when': {'OR': [{'drop': '1'}, {'drop': '2'}]}, 'apply': {'model': f'{NS}:block/{n}_leaves_crystal'}}]})
         path = OUT / f'data/{NS}/loot_table/blocks/{n}_leaves.json'
         template = json.loads(path.read_text(encoding='utf-8'))
         sticks = next(pool for pool in template['pools'] if 'minecraft:stick' in json.dumps(pool))
@@ -230,11 +210,14 @@ def sticks(loot):
         # upright, and lying along x/z (branches of stick trees, Umbau 13.10.)
         variants = {}
         for t in (1, 2, 3):
-            variants[f'axis=x,thickness={t}'] = {'model': f'{NS}:block/{n}_{t}', 'x': 90, 'y': 90}
-            variants[f'axis=y,thickness={t}'] = {'model': f'{NS}:block/{n}_{t}'}
-            variants[f'axis=z,thickness={t}'] = {'model': f'{NS}:block/{n}_{t}', 'x': 90}
+            for nat in ('false', 'true'):
+                m = f'{NS}:block/{n}_full' if (t == 3 and nat == 'true') else f'{NS}:block/{n}_{t}'
+                variants[f'axis=x,natural={nat},thickness={t}'] = {'model': m, 'x': 90, 'y': 90}
+                variants[f'axis=y,natural={nat},thickness={t}'] = {'model': m}
+                variants[f'axis=z,natural={nat},thickness={t}'] = {'model': m, 'x': 90}
         dump(OUT / f'assets/{NS}/blockstates/{n}.json', {'variants': variants})
-        for t, width in ((1, 6), (2, 10), (3, 14)):
+        # natural trunks, bends and roots (thickness 3, natural) are full cubes (N68)
+        for t, width in ((1, 6), (2, 10), (3, 14), ('full', 16)):
             a, b = 8 - width / 2, 8 + width / 2
             side = {'uv': [a, 0, b, 16], 'texture': '#side'}
             dump(OUT / f'assets/{NS}/models/block/{n}_{t}.json', {

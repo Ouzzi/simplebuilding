@@ -226,106 +226,71 @@ def door_item(top, bot):
     return im
 
 
-def leaves(s):
-    """Tendril fronds (Umbau 13.10.): curling grey tendrils with small leaflets and open gaps, drawn on the star-shaped
-    leaves model; grey so the grey-brown biome tint colours them. Ashwood: thin wisps with pale tips, Duskwood: fuller
-    fronds with hanging droplets."""
+def leaf_clumps(s, seed, want, big, dark, specks):
+    """N68 leaf texture (research: docs/ai/RECHERCHE-BLAETTER-2026-10-16.md): overlapping diagonal leaf lenses on a wrapping
+    16x16 tile, Vanilla-like three tones (lit upper edge, body, dark seam), holes only where no leaf reaches (small groups,
+    never a grid). Centres are drawn until `want` (share of opaque pixels) is reached. Untinted grey. `specks` = rare pale
+    pollen specks in uneven spots."""
     import math
+    sd = s['seed'] + seed
+    owner = [[-1] * 16 for _ in range(16)]
+    light = [[0.0] * 16 for _ in range(16)]
+    vein = [[False] * 16 for _ in range(16)]
+    cells = [(gx, gy) for gy in range(4) for gx in range(4)]
+    cells.sort(key=lambda c: hsh(c[0], c[1] + 40, sd))          # which cells carry a leaf first: uneven
+    for i, (gx, gy) in enumerate(cells):
+        if i >= round(want * 16 * 1.05):
+            break
+        cx, cy = gx * 4 + 1 + hsh(i, 21, sd) * 3, gy * 4 + 1 + hsh(i, 22, sd) * 3
+        ang = math.radians(45 if hsh(i, 23, sd) > 0.5 else -45) + (hsh(i, 24, sd) - 0.5) * 0.7
+        a = (2.0 + hsh(i, 25, sd) * 1.3) * big
+        bw = 1.0 + hsh(i, 26, sd) * 0.6
+        ca, sa = math.cos(ang), math.sin(ang)
+        for y in range(16):
+            for x in range(16):
+                for ox in (-16, 0, 16):
+                    for oy in (-16, 0, 16):
+                        dx, dy = x + ox - cx, y + oy - cy
+                        u, v = dx * ca + dy * sa, -dx * sa + dy * ca
+                        if (u / a) ** 2 + (v / bw) ** 2 <= 1.0:
+                            owner[y][x] = i
+                            light[y][x] = 0.5 + 0.5 * (1 - abs(v) / bw)
+                            vein[y][x] = abs(v) < 0.55 and abs(u) < a * 0.8
     im = new()
-    sd = s['seed']
-    dusk = s['key'] == 'b3'
-    shade = lambda t: int(255 * max(0.5, min(1.0, t)))
-    roots = (2, 7, 12) if not dusk else (1, 5, 9, 13)
-    for k, x0 in enumerate(roots):
-        sway = 1.4 + hsh(k, 1, sd) * 1.2
-        phase = hsh(k, 2, sd) * math.tau
-        top = 2 + int(hsh(k, 3, sd) * 4)
-        last = None
-        for y in range(15, top - 1, -1):
-            x = int(round(x0 + sway * math.sin(phase + (15 - y) * 0.45)))
-            x = max(0, min(15, x))
-            v = shade(0.62 + 0.25 * (15 - y) / 15 + 0.08 * hsh(x, y, sd))
+    for y in range(16):
+        for x in range(16):
+            o = owner[y][x]
+            if o < 0:
+                continue
+            t = (0.46 if dark else 0.58) + 0.22 * light[y][x] + 0.07 * hsh(x, y, sd + 3)
+            if owner[y][(x - 1) % 16] != o and owner[y][(x + 1) % 16] != o and owner[(y - 1) % 16][x] == o:
+                t -= 0.1
+            if owner[(y - 1) % 16][x] != o:
+                t += 0.16                       # lit upper edge of a leaf
+            elif owner[(y + 1) % 16][x] != o:
+                t -= 0.12                       # shadowed lower edge
+            if vein[y][x] and hsh(x, y, sd + 4) > 0.45:
+                t -= 0.09                       # sparse midrib
+            v = int(255 * max(0.32, min(0.98, t)))
             put(im, x, y, (v, v, v, 255))
-            if last is not None and abs(last - x) > 1:
-                put(im, (last + x) // 2, y, (v, v, v, 255))
-            last = x
-            # leaflets every few pixels, alternating sides
-            if (y + k) % 2 == 0 and y < 14:
-                side = 1 if (y // 2 + k) % 2 else -1
-                lv = shade(0.74 + 0.2 * hsh(x, y, sd + 5))
-                for dx, dy in ((side, 0), (2 * side, -1), (side, -1)) if not dusk else ((side, 0), (2 * side, 0), (side, -1), (2 * side, 1)):
-                    if 0 <= x + dx < 16 and 0 <= y + dy < 16:
-                        put(im, x + dx, y + dy, (lv, lv, lv, 255))
-        # curl at the tip
-        tip = max(0, min(15, int(round(x0 + sway * math.sin(phase + (15 - top) * 0.45)))))
-        curl = 1 if hsh(k, 4, sd) > 0.5 else -1
-        for dx, dy in ((curl, -1), (2 * curl, -1), (2 * curl, 0)):
-            if 0 <= tip + dx < 16 and 0 <= top + dy < 16:
-                put(im, tip + dx, top + dy, (255, 255, 255, 255) if not dusk else (236, 236, 236, 255))
-        if dusk:   # a hanging droplet under a leaflet
-            dy = top + 4 + int(hsh(k, 6, sd) * 5)
-            dx = max(0, min(15, tip + (2 if k % 2 else -2)))
-            if dy < 15:
-                put(im, dx, dy, (255, 255, 255, 255))
-                put(im, dx, dy + 1, (214, 214, 214, 255))
+    for k in range(specks):                      # rare pollen specks (a pixel and sometimes a neighbour), uneven
+        x, y = int(hsh(k, 31, sd) * 16), int(hsh(k, 32, sd) * 16)
+        if owner[y][x] >= 0:
+            put(im, x, y, (255, 255, 255, 255))
+            if hsh(k, 33, sd) > 0.5 and owner[y][(x + 1) % 16] >= 0:
+                put(im, (x + 1) % 16, y, (232, 232, 232, 255))
     return im
+
+
+def leaves(s):
+    """Outer leaves (facing air): airy, about 62% opaque, ragged; ash = narrower leaves, dusk = fuller leaves."""
+    dusk = s['key'] == 'b3'
+    return leaf_clumps(s, 0, 0.80 if dusk else 0.78, 1.45 if dusk else 1.4, False, 3)
 
 
 def leaves_inner(s):
-    """Dense heart leaves (N65, drawn when no air touches the block): a thick mass of overlapping leaflets in the shade,
-    about 78% filled with small irregular gaps, lighter edge pixels where a leaflet sits above a gap. Untinted grey."""
-    im = new()
-    sd = s['seed'] + 101
-    dusk = s['key'] == 'b3'
-    solid = [[vnoise(x, y, 4, sd) * 0.8 + hsh(x, y, sd + 1) * 0.35 > (0.24 if dusk else 0.28) for x in range(16)] for y in range(16)]
-    for y in range(16):
-        for x in range(16):
-            if not solid[y][x]:
-                continue
-            t = 0.4 + 0.3 * vnoise(x, y, 3, sd + 2) + 0.06 * hsh(x, y, sd + 3)
-            if (x + 2 * y) % 7 == 0:          # slanting leaflet seam
-                t -= 0.1
-            if y > 0 and not solid[y - 1][x]:  # lit upper edge of a leaflet
-                t += 0.2
-            v = int(255 * max(0.3, min(0.9, t)))
-            put(im, x, y, (v, v, v, 255))
-    return im
-
-
-def leaves_outer(s):
-    """Airy outer fronds (N65, drawn when the block faces air): thin drooping fronds with leaflets angled downwards, long
-    ragged tips, pale at the ends, and a few loose leaflets; about 35% filled. Untinted grey."""
-    import math
-    im = new()
-    sd = s['seed'] + 211
-    dusk = s['key'] == 'b3'
-    shade = lambda t: int(255 * max(0.55, min(1.0, t)))
-    roots = (1, 6, 11, 15) if dusk else (2, 8, 13)
-    for k, x0 in enumerate(roots):
-        sway = 1.2 + hsh(k, 1, sd) * 1.6
-        phase = hsh(k, 2, sd) * math.tau
-        bottom = 11 + int(hsh(k, 3, sd) * 5)
-        last = None
-        for y in range(0, bottom + 1):
-            x = max(0, min(15, int(round(x0 + sway * math.sin(phase + y * 0.4)))))
-            v = shade(0.66 + 0.2 * y / 15 + 0.08 * hsh(x, y, sd))
-            put(im, x, y, (v, v, v, 255))
-            if last is not None and abs(last - x) > 1:
-                put(im, (last + x) // 2, y, (v, v, v, 255))
-            last = x
-            if y >= 2 and (y + k) % 3 == 0 and y < bottom - 1:       # leaflets point down and out, alternating sides
-                side = 1 if (y // 2 + k) % 2 else -1
-                lv = shade(0.78 + 0.18 * hsh(x, y, sd + 5))
-                reach = 2 + (1 if dusk and y % 4 == 0 else 0)
-                for i in range(1, reach + 1):
-                    put(im, x + side * i, y + i, (lv, lv, lv, 255))
-        for dx, dy in ((0, 1), (0, 2)):                         # pale drooping tip
-            put(im, last + dx, bottom + dy, (255, 255, 255, 255) if dy == 1 else (226, 226, 226, 255))
-    for i in range(3):                                          # loose leaflets
-        x, y = int(hsh(i, 8, sd) * 14) + 1, int(hsh(i, 9, sd) * 12) + 2
-        if im.getpixel((x, y))[3] == 0 and im.getpixel((x, min(15, y + 1)))[3] == 0:
-            put(im, x, y, (206, 206, 206, 255))
-    return im
+    """Heart leaves (no air touches): dense (about 92%) and darker."""
+    return leaf_clumps(s, 101, 1.0, 1.8, True, 0)
 
 
 def leaves_crystal(s):
@@ -766,7 +731,7 @@ def main(argv=None):
             f'{n}_log': log_side(s), f'{n}_log_top': rings(s, False),
             f'stripped_{n}_log': stripped_side(s), f'stripped_{n}_log_top': rings(s, True),
             f'{n}_planks': planks(s), f'{n}_door_top': door(s, 'top'), f'{n}_door_bottom': door(s, 'bottom'),
-            f'{n}_trapdoor': trapdoor(s), f'{n}_leaves': leaves(s), f'{n}_leaves_inner': leaves_inner(s), f'{n}_leaves_outer': leaves_outer(s), f'{n}_leaves_crystal': leaves_crystal(s), s['bud']: bud(s),
+            f'{n}_trapdoor': trapdoor(s), f'{n}_leaves': leaves(s), f'{n}_leaves_inner': leaves_inner(s), f'{n}_leaves_crystal': leaves_crystal(s), s['bud']: bud(s),
             f'{n}_sticks': sticks_side(s), f'{n}_sticks_top': sticks_top(s), f'{n}_shelf': shelf(s),
             f'{n}_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_sign.png'), s),
             f'{n}_hanging_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_hanging_sign.png'), s, metal=True),
@@ -833,8 +798,8 @@ def preview(dest):
                 im = tinted(im, TINTS[n])
             sheet.alpha_composite(im.resize((128, 128), Image.NEAREST), (i * 136 + 4, 4))
         sheet.save(dest / f'{n}_textures.png')
-        sheet = Image.new('RGBA', (3 * 264 + 8, 264), (40, 36, 44, 255))   # N65: old | outer | inner at 16x
-        for i, k in enumerate((f'block/{n}_leaves', f'block/{n}_leaves_outer', f'block/{n}_leaves_inner')):
+        sheet = Image.new('RGBA', (2 * 264 + 8, 264), (40, 36, 44, 255))   # N65: old | outer | inner at 16x
+        for i, k in enumerate((f'block/{n}_leaves', f'block/{n}_leaves_inner')):
             sheet.alpha_composite(tinted(Image.open(TEX / f'{k}.png').convert('RGBA'), TINTS[n]).resize((256, 256), Image.NEAREST), (i * 264 + 8, 4))
         sheet.save(dest / f'{n}_leaves_variants.png')
         for k in ('boat', 'chest_boat'):
