@@ -16,12 +16,12 @@ public final class ModuleGameTest {
         BlocksTests.ALL.get("tags_and_shapes").accept(h);
     }
 
-    @GameTest(structure = "simpleblocks:empty", maxTicks = 60)
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 160)
     public void hushedBlocksVibrations(GameTestHelper h) {
         BlocksTests.ALL.get("hushed_blocks_vibrations").accept(h);
     }
 
-    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 40)
     public void sculkDeepslateDropsAndXp(GameTestHelper h) {
         BlocksTests.ALL.get("sculk_deepslate_drops_and_xp").accept(h);
     }

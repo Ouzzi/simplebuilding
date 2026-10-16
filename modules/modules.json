@@ -47,7 +47,8 @@
         "simplerespawn",
         "simplebeacons",
         "simpleshops",
-        "simplewanderers"
+        "simplewanderers",
+        "simpleblocks"
       ],
       "paths": {
         "root": ".",

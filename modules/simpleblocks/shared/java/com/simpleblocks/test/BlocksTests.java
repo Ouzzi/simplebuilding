@@ -86,23 +86,29 @@ public final class BlocksTests {
             }
             h.succeed();
         });
-        MAX_TICKS.put("hushed_blocks_vibrations", 60);
+        MAX_TICKS.put("hushed_blocks_vibrations", 160);
         ALL.put("hushed_blocks_vibrations", h -> {
             ServerLevel level = h.getLevel();
-            // Two sensors, the same vibration five blocks away: one with hushed tiles in between, one without.
-            h.setBlock(new BlockPos(1, 1, 1), Blocks.SCULK_SENSOR);
+            // Two sensors, the same vibration four blocks away: one with hushed tiles in between, one without.
+            // Placing blocks is itself a vibration, so the sensors settle first and the real event comes afterwards.
             h.setBlock(new BlockPos(3, 1, 1), BlocksRegistry.HUSHED_DEEPSLATE_TILES);
+            h.setBlock(new BlockPos(1, 1, 1), Blocks.SCULK_SENSOR);
             h.setBlock(new BlockPos(1, 1, 5), Blocks.SCULK_SENSOR);
-            level.gameEvent(null, GameEvent.BLOCK_PLACE, h.absolutePos(new BlockPos(5, 1, 1)));
-            level.gameEvent(null, GameEvent.BLOCK_PLACE, h.absolutePos(new BlockPos(5, 1, 5)));
-            h.runAfterDelay(12, () -> {
-                SculkSensorPhase behind = h.getBlockState(new BlockPos(1, 1, 1)).getValue(SculkSensorBlock.PHASE);
-                SculkSensorPhase open = h.getBlockState(new BlockPos(1, 1, 5)).getValue(SculkSensorBlock.PHASE);
-                h.assertTrue(open != SculkSensorPhase.INACTIVE, "the control sensor hears the vibration (" + open + ")");
-                h.assertTrue(behind == SculkSensorPhase.INACTIVE, "the sensor behind the hushed tiles hears nothing (" + behind + ")");
-                h.succeed();
+            h.runAfterDelay(70, () -> {
+                h.assertTrue(h.getBlockState(new BlockPos(1, 1, 1)).getValue(SculkSensorBlock.PHASE) == SculkSensorPhase.INACTIVE
+                        && h.getBlockState(new BlockPos(1, 1, 5)).getValue(SculkSensorBlock.PHASE) == SculkSensorPhase.INACTIVE, "both sensors settled");
+                level.gameEvent(null, GameEvent.BLOCK_PLACE, h.absolutePos(new BlockPos(5, 1, 1)));
+                level.gameEvent(null, GameEvent.BLOCK_PLACE, h.absolutePos(new BlockPos(5, 1, 5)));
+                h.runAfterDelay(12, () -> {
+                    SculkSensorPhase behind = h.getBlockState(new BlockPos(1, 1, 1)).getValue(SculkSensorBlock.PHASE);
+                    SculkSensorPhase open = h.getBlockState(new BlockPos(1, 1, 5)).getValue(SculkSensorBlock.PHASE);
+                    h.assertTrue(open != SculkSensorPhase.INACTIVE, "the control sensor hears the vibration (" + open + ")");
+                    h.assertTrue(behind == SculkSensorPhase.INACTIVE, "the sensor behind the hushed tiles hears nothing (" + behind + ")");
+                    h.succeed();
+                });
             });
         });
+        MAX_TICKS.put("sculk_deepslate_drops_and_xp", 40);
         ALL.put("sculk_deepslate_drops_and_xp", h -> {
             ServerLevel level = h.getLevel();
             BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
@@ -112,12 +118,17 @@ public final class BlocksTests {
             silk.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
             h.assertTrue(Block.getDrops(state, level, pos, null, null, pickaxe).stream().anyMatch(s -> s.is(Items.COBBLED_DEEPSLATE)), "drops cobbled deepslate");
             h.assertTrue(Block.getDrops(state, level, pos, null, null, silk).stream().anyMatch(s -> s.is(BlocksRegistry.SCULK_DEEPSLATE.asItem())), "silk touch keeps the block");
+            AABB box = new AABB(pos).inflate(3);
             state.spawnAfterBreak(level, pos, silk, true);
-            h.assertTrue(level.getEntitiesOfClass(ExperienceOrb.class, new AABB(pos).inflate(3)).isEmpty(), "no experience with silk touch");
-            state.spawnAfterBreak(level, pos, pickaxe, true);
-            int xp = level.getEntitiesOfClass(ExperienceOrb.class, new AABB(pos).inflate(3)).stream().mapToInt(ExperienceOrb::getValue).sum();
-            h.assertTrue(xp >= 1 && xp <= 2, "1-2 experience, got " + xp);
-            h.succeed();
+            h.runAfterDelay(3, () -> {
+                h.assertTrue(level.getEntitiesOfClass(ExperienceOrb.class, box).isEmpty(), "no experience with silk touch");
+                state.spawnAfterBreak(level, pos, pickaxe, true);
+                h.runAfterDelay(3, () -> {
+                    int xp = level.getEntitiesOfClass(ExperienceOrb.class, box).stream().mapToInt(ExperienceOrb::getValue).sum();
+                    h.assertTrue(xp >= 1 && xp <= 2, "1-2 experience, got " + xp);
+                    h.succeed();
+                });
+            });
         });
         ALL.put("recipes_and_loot_exist", h -> {
             ServerLevel level = h.getLevel();
