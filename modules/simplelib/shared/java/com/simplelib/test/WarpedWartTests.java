@@ -48,10 +48,11 @@ final class WarpedWartTests {
         ServerLevel level = h.getLevel();
         h.setBlock(rel.below(), Blocks.SOUL_SAND);
         h.setBlock(rel, wart(0));
-        h.assertTrue(level.getBlockState(abs).canSurvive(level, abs), "warped wart survives on soul sand");
+        h.assertTrue(wart(0).canSurvive(level, abs), "warped wart survives on soul sand");
         h.setBlock(rel.below(), Blocks.DIRT);
-        h.assertTrue(!level.getBlockState(abs).canSurvive(level, abs), "warped wart does not survive on dirt");
+        h.assertTrue(!wart(0).canSurvive(level, abs), "warped wart does not survive on dirt");
         h.setBlock(rel.below(), Blocks.SOUL_SAND);
+        h.setBlock(rel, wart(0));
         h.assertTrue(NetherWartBlock.MAX_AGE == 3 && !(LibBlocks.WARPED_WART instanceof BonemealableBlock), "four ages, no bone meal use");
         h.assertTrue(level.getBlockState(abs).isRandomlyTicking(), "random ticking");
         for (int i = 0; i < 600 && level.getBlockState(abs).getValue(NetherWartBlock.AGE) < 3; i++) {
