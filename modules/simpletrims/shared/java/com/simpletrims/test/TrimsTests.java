@@ -302,6 +302,26 @@ public final class TrimsTests {
                     "a right click with the tool is one strike, its repeat in the same tick none");
             h.succeed();
         });
+        // Hand tilt / target highlight (N58): the tool stance aimed at an upgradable plate is a framework hand hint.
+        ALL.put("plate_hint", h -> {
+            h.assertTrue(com.simplebuilding.framework.api.TransformHints.ids().contains(com.simpletrims.placed.PlateHint.ID), "plate hint not registered");
+            BlockPos pos = placed(h, new BlockPos(2, 2, 2), Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE);
+            ServerPlayer player = mockPlayer(h);
+            BlockHitResult target = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
+            player.setItemInHand(InteractionHand.MAIN_HAND, tool());
+            player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOW_INK_SAC, 2));
+            player.getInventory().add(new ItemStack(Items.DIAMOND, 4));
+            player.getInventory().add(new ItemStack(Items.GLOWSTONE, 2));
+            var query = new com.simplebuilding.framework.api.TransformHints.Query(h.getLevel(), player, target, true);
+            h.assertTrue(com.simpletrims.placed.PlateHint.aimedAtStrikePlate(player, target) && com.simplebuilding.framework.api.TransformHints.any(query),
+                    "tool + glow ink at an upgradable plate gives no hint");
+            player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            h.assertTrue(!com.simpletrims.placed.PlateHint.aimedAtStrikePlate(player, target), "hint without a material");
+            player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOW_INK_SAC, 2));
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
+            h.assertTrue(!com.simpletrims.placed.PlateHint.aimedAtStrikePlate(player, target), "hint for a pickaxe");
+            h.succeed();
+        });
         // Item display 3D (owner D1/D7): trim templates lie as 2 px models, the hammer switches one to the flat plate and back.
         ALL.put("placed_templates_in3d", h -> {
             for (String id : com.simpletrims.placed.PlacedSolids.IDS) {

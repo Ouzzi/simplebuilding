@@ -42,6 +42,7 @@ public final class SimpleTrims {
     public static void init(java.nio.file.Path configDir) {
         com.simpletrims.config.TrimsConfig.load(configDir);
         registerIdMoves();
+        com.simpletrims.placed.PlateHint.register();
     }
 
     /** Old {@code simplebuilding:} ids resolve to the new ones (SimpleLib {@link IdMoves}; the next save writes the new id). */

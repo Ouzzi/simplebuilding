@@ -95,4 +95,9 @@ public final class ModuleGameTest {
     public void glowRules(GameTestHelper h) {
         TrimsTests.ALL.get("glow_rules").accept(h);
     }
+
+    @GameTest
+    public void plateHint(GameTestHelper h) {
+        TrimsTests.ALL.get("plate_hint").accept(h);
+    }
 }
