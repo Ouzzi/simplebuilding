@@ -284,10 +284,10 @@ HUD-Overlay (Rückmeldung zur Version in Abnahme 16.10.)
 Copper Light Pane
 - [x] Genau wie die normale Light Pane (gleiche Farben/Funktion), nur leicht andere Textur, die die volle Farbe ausnutzt: schwaches Karomuster aus 100 % und 90 % Sättigung der Hauptfarbe mit etwas Noise. (claude-hudcopper)
 Minibosse
-- [ ] Hollow Howler größer machen; als Miniboss etwas stärker als der Warden.
-- [ ] Hollow Howler und „Knight“ sind Minibosse (Annahme: „Knight“ = Dread, der gepanzerte Ritter mit Kettenmorgenstern – beim Besitzer bestätigen).
-- [ ] Hollow Howler Phase 2 (wenig Leben): spawnt Sculk Jaws gezielt unter einem Spieler, falls dort noch keiner liegt; liegt schon unter allen Spielern einer, dann zufällig in der Nähe eines Spielers.
-- [ ] Bossleisten aller Bosse/Minibosse zeigen die lebensbasierten Phasen an (Markierungen/Abschnitte).
+- [x] Hollow Howler größer machen; als Miniboss etwas stärker als der Warden. (claude-miniboss)
+- [x] Hollow Howler und „Knight“ sind Minibosse (Annahme: „Knight“ = Dread, der gepanzerte Ritter mit Kettenmorgenstern – beim Besitzer bestätigen). (claude-miniboss)
+- [x] Hollow Howler Phase 2 (wenig Leben): spawnt Sculk Jaws gezielt unter einem Spieler, falls dort noch keiner liegt; liegt schon unter allen Spielern einer, dann zufällig in der Nähe eines Spielers. (claude-miniboss)
+- [x] Bossleisten aller Bosse/Minibosse zeigen die lebensbasierten Phasen an (Markierungen/Abschnitte). (claude-miniboss)
 Prinzip
 - [x] Lesbarkeit als Prinzip festgehalten (AGENTS.md Regel, Kontrast ≥ 4,5:1 bei jeder UI-Änderung).
 API
