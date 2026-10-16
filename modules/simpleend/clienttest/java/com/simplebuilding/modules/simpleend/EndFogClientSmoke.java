@@ -31,6 +31,9 @@ public final class EndFogClientSmoke implements FabricClientGameTest {
             world.getConnection().waitForClientboundPackets();
             world.getServer().runOnServer(server -> {
                 cmd(server, "gamemode creative @a");
+                var player = server.getPlayerList().getPlayers().getFirst();
+                player.getAbilities().flying = true;
+                player.onUpdateAbilities();
                 ServerLevel end = server.getLevel(Level.END);
                 var resolver = end.getChunkSource().getGenerator().getBiomeSource().createUncachedResolver(end.getChunkSource().randomState());
                 int[] hit = null;
