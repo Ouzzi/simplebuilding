@@ -1,0 +1,7 @@
+{
+  "values": [
+    "minecraft:milk_bucket",
+    {"id": "simplecrucibles:enderite_milk_bucket", "required": false},
+    {"id": "simplecrucibles:enderite_milk_bucket_full", "required": false}
+  ]
+}

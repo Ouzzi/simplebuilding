@@ -15,6 +15,12 @@
     ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simplecrucibles.ModuleGameTest"
+    ],
+    "jei_mod_plugin": [
+      "com.simplecrucibles.compat.jei.CruciblesJeiPlugin"
+    ],
+    "jade": [
+      "com.simplecrucibles.compat.jade.CruciblesJadePlugin"
     ]
   },
   "mixins": [
@@ -28,6 +34,8 @@
     "simplelib": ">=0.2.0"
   },
   "suggests": {
-    "simplebuilding": "*"
+    "simplebuilding": "*",
+    "jei": "*",
+    "jade": "*"
   }
 }

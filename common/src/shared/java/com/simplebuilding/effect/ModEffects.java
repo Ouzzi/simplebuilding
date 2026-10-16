@@ -35,9 +35,7 @@ public final class ModEffects {
             Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "crafty_shulker_unsafe"));
 
     public static @Nullable Holder<MobEffect> CRAFTY_SHULKER;
-    /** Seelenbrand (Crucible P5, McVersion.CRUCIBLE): nach Kontakt mit Seelen-Lava. */
-    public static final Identifier SOUL_BURN_ID = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "soul_burn");
-    public static @Nullable Holder<MobEffect> SOUL_BURN;
+    // Seelenbrand (soul burn) is Simple Crucibles' effect since split stage 5b (simplecrucibles:soul_burn).
     public static @Nullable Holder<Potion> CRAFTY_SHULKER_POTION;
     public static @Nullable Holder<Potion> LONG_CRAFTY_SHULKER_POTION;
 
@@ -75,9 +73,6 @@ public final class ModEffects {
     }
 
     public static void registerEffects() {
-        if (McVersion.CRUCIBLE && SOUL_BURN == null) {
-            SOUL_BURN = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, SOUL_BURN_ID, new SoulBurnEffect(SoulBurnEffect.COLOR));
-        }
         if (McVersion.BREWING_EFFECTS && SHIVERING == null) {
             SHIVERING = effect("shivering", SHIVERING_COLOR);
             MIRAGE = effect("mirage", MIRAGE_COLOR);

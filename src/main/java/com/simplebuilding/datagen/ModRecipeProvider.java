@@ -630,34 +630,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                         .save(output);
 
-                // Crucible P5 (Besitzer 32/35): Kupfer-Eimer wie der Eisen-Eimer aus drei Kupferbarren; Enderit-Eimer = Eisen-Eimer
-                // umringt von acht Enderit-Nuggets.
-                if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-                    shaped(RecipeCategory.TOOLS, com.simplebuilding.fluid.ModFluids.COPPER_BUCKET)
-                            .pattern("C C")
-                            .pattern(" C ")
-                            .define('C', Items.COPPER_INGOT)
-                            .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
-                            .save(output);
-                    shaped(RecipeCategory.TOOLS, com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET)
-                            .pattern("NNN")
-                            .pattern("NBN")
-                            .pattern("NNN")
-                            .define('N', ModItems.ENDERITE_NUGGET)
-                            .define('B', Items.BUCKET)
-                            .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
-                            .save(output);
-                    // Keramik-Eimer (Nachtrag 11): drei Ton in Eimer-Form, dann brennen wie Ton zu Ziegel (Ofen oder Crucible).
-                    shaped(RecipeCategory.TOOLS, com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET)
-                            .pattern("C C")
-                            .pattern(" C ")
-                            .define('C', Items.CLAY_BALL)
-                            .unlockedBy(getHasName(Items.CLAY_BALL), has(Items.CLAY_BALL))
-                            .save(output);
-                    oreSmelting(java.util.List.of(com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET), RecipeCategory.TOOLS,
-                            net.minecraft.world.item.crafting.CookingBookCategory.MISC, com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET,
-                            0.3f, 200, "ceramic_bucket");
-                }
+                // Crucible P5: Kupfer-, Enderit- und Keramik-Eimer-Rezepte liegen seit Stufe 5b in Simple Crucibles.
                 // Eisenstange (2026-10-02, N41 "Pole"): wie der Blitzableiter, drei Eisenbarren uebereinander.
                 if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
                     shaped(RecipeCategory.REDSTONE, ModItems.IRON_POLE)

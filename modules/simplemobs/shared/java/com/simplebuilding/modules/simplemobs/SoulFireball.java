@@ -23,13 +23,13 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Soulfire projectile (Soulfire Blaze volleys and the dispensed {@link EndNetherMobs#SOUL_FIRE_CHARGE}): a small
- * fireball shown as the Soulfire Charge item, a bit more damage and burn time. A hit also gives Simple Building's
- * Soul Burn effect when that mod is loaded; on soul sand or soul soil the fire it lights is soul fire (Vanilla's
+ * fireball shown as the Soulfire Charge item, a bit more damage and burn time. A hit also gives Simple Crucibles'
+ * Soul Burn effect when that mod is loaded (SimpleBuilding's before split stage 5b); on soul sand or soul soil the fire it lights is soul fire (Vanilla's
  * {@link BaseFireBlock#getState}).
  */
 public class SoulFireball extends Fireball {
-    /** Simple Building's Soul Burn effect (absent when Simple Mobs runs alone). */
-    private static final Identifier SOUL_BURN = Identifier.fromNamespaceAndPath("simplebuilding", "soul_burn");
+    /** Simple Crucibles' Soul Burn effect (absent without that mod). */
+    private static final Identifier SOUL_BURN = Identifier.fromNamespaceAndPath("simplecrucibles", "soul_burn");
 
     public SoulFireball(EntityType<? extends SoulFireball> type, Level level) {
         super(type, level);

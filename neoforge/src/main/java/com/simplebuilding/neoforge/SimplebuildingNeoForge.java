@@ -46,7 +46,6 @@ public final class SimplebuildingNeoForge {
         }
         NeoForgeModRegistries.register(modEventBus);
         // Crucible P5: soul lava needs its NeoForge fluid type before the fluids are created.
-        NeoForgeSoulLava.install(modEventBus);
         modEventBus.addListener(NeoForgeRegistryBootstrap::onRegister);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(NeoForgeSearchTabPlacement::onBuildContents);

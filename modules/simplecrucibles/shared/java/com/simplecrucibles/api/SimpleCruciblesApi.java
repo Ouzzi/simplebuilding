@@ -268,5 +268,34 @@ public final class SimpleCruciblesApi {
         com.simplecrucibles.cauldron.ReinforcedCauldrons.extremeInside = effect;
     }
 
+    // ------------------------------------------------------------ soul lava and buckets (split stage 5b)
+
+    private static final List<java.util.function.Consumer<Player>> SOUL_LAVA_SCOOPED = new CopyOnWriteArrayList<>();
+
+    /** Called whenever a player scoops a soul lava source with any bucket (SimpleBuilding: its "Soul Scooper" advancement). */
+    public static void onSoulLavaScooped(java.util.function.Consumer<Player> listener) {
+        SOUL_LAVA_SCOOPED.add(listener);
+    }
+
+    /** Fires {@link #onSoulLavaScooped} (the soul lava block calls it). */
+    public static void soulLavaScooped(Player player) {
+        SOUL_LAVA_SCOOPED.forEach(listener -> listener.accept(player));
+    }
+
+    /**
+     * The module's buckets (copper, Enderite, ceramic) used on a cauldron whose state is given as the matching Vanilla
+     * cauldron (empty, water level 3, lava): a partner's own cauldron (SimpleBuilding's wooden cauldron) maps its content
+     * to Vanilla, calls this and maps the result back. Null when {@code stack} is no such bucket case.
+     */
+    public static @Nullable net.minecraft.world.InteractionResult cauldronBucket(ItemStack stack, BlockState vanillaState, Level level, BlockPos pos,
+                                                                                Player player, InteractionHand hand) {
+        return com.simplecrucibles.fluid.CauldronBuckets.interact(stack, vanillaState, level, pos, player, hand);
+    }
+
+    /** Touching soul lava: burning, lava damage and soul burn (configured in simplecrucibles-server.json). */
+    public static void touchSoulLava(Level level, Entity entity) {
+        com.simplecrucibles.fluid.SoulLava.touch(level, entity);
+    }
+
     private SimpleCruciblesApi() {}
 }

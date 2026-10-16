@@ -495,7 +495,7 @@ OLD_DOCK = _old_dock()
 
 def bucket_sheet():
     """The ceramic lava bucket (texture from texture_round7_2026_10_06, ceramic B) beside the other buckets."""
-    tex = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures/item'
+    tex = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/item'
     names = [('Keramik', 'ceramic_bucket'), ('Keramik Wasser', 'ceramic_water_bucket'), ('Keramik Lava (neu)', 'ceramic_lava_bucket'),
              ('Kupfer Lava', 'copper_lava_bucket_0'), ('Vanilla Lava', None)]
     cells = []

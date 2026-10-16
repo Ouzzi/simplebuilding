@@ -73,6 +73,8 @@ public final class CrucibleTests {
         ALL.put("loose_barrel_menu_keeps_the_raised_limit", CrucibleTests::looseBarrelMenu);
         ALL.put("reinforced_crucible_loads_old_nine_slots", CrucibleTests::reinforcedCrucibleLoadsOldNineSlots);
         ALL.put("crucible_barrel_beside_inventory_centred", CrucibleTests::barrelBesideInventoryCentred);
+        // Split stage 5b: soul lava, the buckets and the JEI/Jade data (were SimpleBuilding's tests).
+        BucketTests.register(ALL, MAX_TICKS);
     }
 
     // ------------------------------------------------------------ helpers

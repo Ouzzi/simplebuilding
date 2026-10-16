@@ -35,6 +35,8 @@ import cores_2026_10_02 as cores  # noqa: E402
 ROOT = p.ROOT
 MAIN = ROOT / 'src/main/resources/assets/simplebuilding/textures'
 OVERLAY = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures'
+# Split stage 5b: the ceramic and copper buckets are Simple Crucibles' textures.
+CRUCIBLES = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures'
 WIKI = ROOT / 'wiki/assets/textures'
 PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/texturen-runde7-vorschau.png')
 PREVIEW_CERAMIC = Path('C:/Users/o_o/code/minecraft-mods/previews/keramik-eimer-vorschau.png')
@@ -460,10 +462,10 @@ def outputs():
     img = training_dummy(v['training_dummy'])
     out[OVERLAY / 'item/training_dummy.png'] = img
     out[WIKI / 'item/training_dummy.png'] = img
-    out[OVERLAY / 'item/raw_ceramic_bucket.png'] = ceramic_bucket('raw', v['ceramic'])
+    out[CRUCIBLES / 'item/raw_ceramic_bucket.png'] = ceramic_bucket('raw', v['ceramic'])
     for stage, prefix in enumerate(CERAMIC_STAGES):  # N12b: wear stages, every filling
         for content, name in ((None, 'ceramic_bucket'), ('water', 'ceramic_water_bucket'), ('lava', 'ceramic_lava_bucket')):
-            out[OVERLAY / f'item/{prefix}{name}.png'] = ceramic_worn(ceramic_bucket('fired', v['ceramic'], content), stage, content)
+            out[CRUCIBLES / f'item/{prefix}{name}.png'] = ceramic_worn(ceramic_bucket('fired', v['ceramic'], content), stage, content)
     for name in cores.CORES:
         out[OVERLAY / f'item/{name}_core.png'] = core_strip(name)
     out[MAIN / 'item/enderite_spear_in_hand.png'] = spear_in_hand_strip()
@@ -544,7 +546,7 @@ def preview(before):
     for v in ('A', 'B'):
         crows.append((f'Keramik {v}{" *" if v == i["ceramic"] else ""}',
                       [('roh', ceramic_bucket('raw', v)), ('gebrannt', ceramic_bucket('fired', v)),
-                       ('Wasser', ceramic_bucket('fired', v, 'water')), ('Lava', ceramic_bucket('fired', v, 'lava')), ('Kupfer 0 (Vergleich)', p.load(OVERLAY / 'item/copper_bucket_0.png'))]))
+                       ('Wasser', ceramic_bucket('fired', v, 'water')), ('Lava', ceramic_bucket('fired', v, 'lava')), ('Kupfer 0 (Vergleich)', p.load(CRUCIBLES / 'item/copper_bucket_0.png'))]))
     crows.append(('Vanilla', [('Eimer', p.vanilla('item/bucket')), ('Ziegel', p.vanilla('item/brick')),
                               ('Ton', p.vanilla('item/clay_ball'))]))
     sheet(PREVIEW_CERAMIC, 'Keramik-Eimer: 3 Ton -> roh -> brennen (Ofen/Schmelztiegel); nur Wasser, 32 Einsaetze', crows)
@@ -565,9 +567,9 @@ def preview_7b():
              ('Speer-Glanz', MAIN / 'item/enderite_spear.png', [0, 3, 5]),
              ('Rucksack', MAIN / 'item/backpack.png', [0]),
              ('Enderit-Rucksack', MAIN / 'item/enderite_backpack.png', [0]),
-             ('Keramik-Eimer', OVERLAY / 'item/ceramic_bucket.png', [0]),
-             ('Keramik Wasser', OVERLAY / 'item/ceramic_water_bucket.png', [0]),
-             ('Keramik Lava', OVERLAY / 'item/ceramic_lava_bucket.png', [0])]
+             ('Keramik-Eimer', CRUCIBLES / 'item/ceramic_bucket.png', [0]),
+             ('Keramik Wasser', CRUCIBLES / 'item/ceramic_water_bucket.png', [0]),
+             ('Keramik Lava', CRUCIBLES / 'item/ceramic_lava_bucket.png', [0])]
     k, cell = 12, 16 * 12 + 40
     rows = []
     for label, path, frames in items:

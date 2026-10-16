@@ -22,8 +22,15 @@ public final class CruciblesFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         SimpleCrucibles.init(FabricLoader.getInstance().getConfigDir());
+        // Split stage 5b: bucket components, soul burn, soul lava (fluids before their block), the buckets.
+        com.simplecrucibles.registry.CrucibleComponents.register();
+        com.simplecrucibles.effect.CrucibleEffects.register();
+        com.simplecrucibles.fluid.CrucibleFluids.registerFluids();
         CrucibleBlocks.register();
+        com.simplecrucibles.fluid.CrucibleFluids.registerBlocks();
         CrucibleItems.register();
+        com.simplecrucibles.fluid.CrucibleFluids.registerItems();
+        com.simplecrucibles.fluid.BucketDispensing.register();
         // Valid for every crucible/barrel block, including partner tiers registered later (load order free).
         CrucibleBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(CrucibleBlocks.crucibles())) {
             @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return CrucibleBlockEntities.isCrucible(state); }
@@ -42,6 +49,10 @@ public final class CruciblesFabric implements ModInitializer {
             });
         }
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
+            // The buckets after Vanilla's powder snow bucket (per-mod switch "add items to Vanilla tabs").
+            if (com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleCrucibles.MOD_ID)) {
+                out.insertAfter(Items.POWDER_SNOW_BUCKET, CrucibleRegistry.bucketStacks(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
             if (!SimpleCrucibles.on()) return;
             var book = java.util.List.of(com.simplecrucibles.guide.CruciblesGuide.stack());
             // Before the writable book: a tail append clashes with other mods' insertAfter at the tail.

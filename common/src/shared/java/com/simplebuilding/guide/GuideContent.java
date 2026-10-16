@@ -288,9 +288,9 @@ public final class GuideContent {
             BookStyle old = STYLES.get(book);
             var chapters = new ArrayList<>(old.chapters());
             chapters.add(ch("simplecrucibles:enderite_crucible", List.of(), List.of("simplecrucibles:enderite_crucible", "simplecrucibles:enderite_barrel",
-                    "simplebuilding:soul_lava_bucket", "minecraft:cauldron", "minecraft:iron_ingot")));
-            chapters.add(ch("simplebuilding:enderite_bucket", List.of("simplebuilding:copper_bucket", "simplebuilding:enderite_bucket",
-                    "simplebuilding:raw_ceramic_bucket"), List.of("simplebuilding:soul_lava_bucket", "simplebuilding:ceramic_bucket")));
+                    "simplecrucibles:soul_lava_bucket", "minecraft:cauldron", "minecraft:iron_ingot")));
+            chapters.add(ch("simplecrucibles:enderite_bucket", List.of("simplecrucibles:copper_bucket", "simplecrucibles:enderite_bucket",
+                    "simplecrucibles:raw_ceramic_bucket"), List.of("simplecrucibles:soul_lava_bucket", "simplecrucibles:ceramic_bucket")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }
         if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
@@ -320,7 +320,7 @@ public final class GuideContent {
         }
         // Nachtrag 38: Handbuch auf Stand (Keramik-Eimer, Auto-Schmied, Holzarbeiten, Eis, Feuer, Sculk-Kiefer).
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            addChapter(GuideBooks.Book.MACHINES, ch("simplebuilding:ceramic_bucket", List.of(), List.of("simplebuilding:ceramic_bucket", "simplebuilding:raw_ceramic_bucket")));
+            addChapter(GuideBooks.Book.MACHINES, ch("simplecrucibles:ceramic_bucket", List.of(), List.of("simplecrucibles:ceramic_bucket", "simplecrucibles:raw_ceramic_bucket")));
         }
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
             addChapter(GuideBooks.Book.MACHINES, ch("simplebuilding:auto_smither", List.of("simplebuilding:auto_smither"), List.of()));

@@ -19,3 +19,9 @@ neoForge.runs {
 }
 // The Enderite crucible and barrel faces are Vanilla-derived textures (built, never committed).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
+// Optional JEI and Jade plugins (shared/java/com/simplecrucibles/compat/jei|jade, split stage 5b): compiled against, never bundled.
+repositories { maven { url = "https://maven.blamejared.com" }; maven { url = "https://api.modrinth.com/maven" } }
+dependencies {
+    compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}"
+    compileOnly("maven.modrinth:jade:${rootProject.mc263_dev_jade_neoforge}") { transitive = false }
+}

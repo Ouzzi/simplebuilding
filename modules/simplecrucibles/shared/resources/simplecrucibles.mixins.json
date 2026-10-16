@@ -6,9 +6,18 @@
   "mixins": [
     "AxeBuildMixin",
     "TemplatePoolAccessor",
-    "DiscoverTipMixin"
+    "DiscoverTipMixin",
+    "CauldronBucketMixin",
+    "CopperBucketFrameCareMixin",
+    "CopperBucketItemEntityMixin",
+    "CopperBucketWeatheringMixin",
+    "SoulLavaFortressMixin",
+    "SoulLavaSpringMixin",
+    "StructurePieceAccessor"
   ],
-  "client": [],
+  "client": [
+    "SoulLavaFogMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1

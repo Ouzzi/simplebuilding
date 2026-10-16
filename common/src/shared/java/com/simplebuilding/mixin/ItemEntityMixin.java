@@ -158,12 +158,4 @@ public abstract class ItemEntityMixin extends Entity implements com.simplebuildi
             com.simplebuilding.util.PlacedAttractors.releaseIfAbandoned((ItemEntity) (Object) this);
         }
     }
-
-    /** Nachtrag 60: a copper bucket lying in the world weathers like a carried one. */
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void simplebuilding$weatherDroppedBucket(CallbackInfo ci) {
-        if (this.level().isClientSide() || !com.simplebuilding.fluid.ModBucketItem.isCopper(this.getItem())) return;
-        ItemStack weathered = com.simplebuilding.fluid.ModBucketItem.weatherPlaced(this.getItem(), this.random);
-        if (weathered != null) ((ItemEntity) (Object) this).setItem(weathered);
-    }
 }

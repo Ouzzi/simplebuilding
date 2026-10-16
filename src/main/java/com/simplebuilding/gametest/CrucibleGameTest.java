@@ -17,16 +17,6 @@ public final class CrucibleGameTest {
     }
 
     @GameTest
-    public void jadeReportsHeatSlotsAndShortestRemainingTime(GameTestHelper helper) {
-        CrucibleTests.jadeReportsHeatSlotsAndShortestRemainingTime(helper);
-    }
-
-    @GameTest
-    public void recipeHeatAndCatalogMatchCookingRules(GameTestHelper helper) {
-        CrucibleTests.recipeHeatAndCatalogMatchCookingRules(helper);
-    }
-
-    @GameTest
     public void enderiteTiersHaveTwentySevenSlotsAndDoubleStacks(GameTestHelper helper) {
         CrucibleTests.enderiteTiersHaveTwentySevenSlotsAndDoubleStacks(helper);
     }
@@ -51,119 +41,14 @@ public final class CrucibleGameTest {
         CrucibleTests.sledgehammerUpgradesCostDouble(helper);
     }
 
-    @GameTest(maxTicks = 300)
-    public void soulLavaFlowsTwoBlocksInTheOverworld(GameTestHelper helper) {
-        CrucibleTests.soulLavaFlowsTwoBlocksInTheOverworld(helper);
-    }
-
-    @GameTest
-    public void soulLavaIsNotReplaceable(GameTestHelper helper) {
-        CrucibleTests.soulLavaIsNotReplaceable(helper);
-    }
-
-    @GameTest
-    public void waterTouchingSoulLavaTurnsToQuartzOrBlackstone(GameTestHelper helper) {
-        CrucibleTests.waterTouchingSoulLavaTurnsToQuartzOrBlackstone(helper);
-    }
-
-    @GameTest
-    public void touchingSoulLavaBurnsLongerAndGivesSoulBurn(GameTestHelper helper) {
-        CrucibleTests.touchingSoulLavaBurnsLongerAndGivesSoulBurn(helper);
-    }
-
-    @GameTest
-    public void fireResistanceOnlyBlocksSoulBurnDamage(GameTestHelper helper) {
-        CrucibleTests.fireResistanceOnlyBlocksSoulBurnDamage(helper);
-    }
-
-    @GameTest
-    public void soulBurnBitesTwiceAsOftenOnColdGround(GameTestHelper helper) {
-        CrucibleTests.soulBurnBitesTwiceAsOftenOnColdGround(helper);
-    }
-
     @GameTest
     public void soulLavaHeatsExtremeFlowingHigh(GameTestHelper helper) {
         CrucibleTests.soulLavaHeatsExtremeFlowingHigh(helper);
     }
 
     @GameTest
-    public void copperBucketRules(GameTestHelper helper) {
-        CrucibleTests.copperBucketRules(helper);
-    }
-
-    @GameTest
-    public void copperBucketOxidizesOnlyInHotbarOrOffhand(GameTestHelper helper) {
-        CrucibleTests.copperBucketOxidizesOnlyInHotbarOrOffhand(helper);
-    }
-
-    @GameTest
-    public void copperBucketWaxedWaterWeathersAtHalfPace(GameTestHelper helper) {
-        CrucibleTests.copperBucketWaxedWaterWeathersAtHalfPace(helper);
-    }
-
-    @GameTest
-    public void copperBucketPlacedWeathersAndFrameCare(GameTestHelper helper) {
-        CrucibleTests.copperBucketPlacedWeathersAndFrameCare(helper);
-    }
-
-    @GameTest
-    public void ceramicBucketWithLavaIsBrittleAndBreaksOnPour(GameTestHelper helper) {
-        CrucibleTests.ceramicBucketWithLavaIsBrittleAndBreaksOnPour(helper);
-    }
-
-    @GameTest
-    public void copperBucketFullyOxidizedScoopsNothing(GameTestHelper helper) {
-        CrucibleTests.copperBucketFullyOxidizedScoopsNothing(helper);
-    }
-
-    @GameTest
-    public void ceramicBucketHoldsWaterAndBreaksAfterFourPours(GameTestHelper helper) {
-        CrucibleTests.ceramicBucketHoldsWaterAndBreaksAfterFourPours(helper);
-    }
-
-    @GameTest
-    public void ceramicLavaBucketScoopsPoursAndWears(GameTestHelper helper) {
-        CrucibleTests.ceramicLavaBucketScoopsPoursAndWears(helper);
-    }
-
-    @GameTest
-    public void ceramicBucketWearsThroughStagesAndKeepsItsFilling(GameTestHelper helper) {
-        CrucibleTests.ceramicBucketWearsThroughStagesAndKeepsItsFilling(helper);
-    }
-
-    @GameTest
-    public void ironBucketBreaksOnSoulLavaEnderiteNever(GameTestHelper helper) {
-        CrucibleTests.ironBucketBreaksOnSoulLavaEnderiteNever(helper);
-    }
-
-    @GameTest
-    public void reinforcedCauldronHoldsSoulLava(GameTestHelper helper) {
-        CrucibleTests.reinforcedCauldronHoldsSoulLava(helper);
-    }
-
-    @GameTest
     public void sledgehammerCrushesQuartzBlockIntoFourQuartz(GameTestHelper helper) {
         CrucibleTests.sledgehammerCrushesQuartzBlockIntoFourQuartz(helper);
-    }
-
-    @GameTest
-    public void vanillaCauldronTakesCopperAndEnderiteBuckets(GameTestHelper helper) {
-        CrucibleTests.vanillaCauldronTakesCopperAndEnderiteBuckets(helper);
-    }
-
-    @GameTest
-    public void enderiteBucketTakesMilkAndDrinksOneFilling(GameTestHelper helper) {
-        CrucibleTests.enderiteBucketTakesMilkAndDrinksOneFilling(helper);
-    }
-
-    @GameTest
-    public void enderiteBucketHoldsTwoBucketsOfOneFluid(GameTestHelper helper) {
-        CrucibleTests.enderiteBucketHoldsTwoBucketsOfOneFluid(helper);
-    }
-
-    @GameTest(maxTicks = 100)
-    public void enderiteBucketTwoBucketsInCauldronsAndDispensers(GameTestHelper helper) {
-        CrucibleTests.enderiteBucketTwoBucketsInCauldronsAndDispensers(helper);
     }
 
     @GameTest
@@ -184,11 +69,6 @@ public final class CrucibleGameTest {
     @GameTest
     public void aLooseEnderiteBarrelKeepsDoubleStacksInMenuAndHopper(GameTestHelper helper) {
         CrucibleTests.aLooseEnderiteBarrelKeepsDoubleStacksInMenuAndHopper(helper);
-    }
-
-    @GameTest
-    public void modBucketsStayInTheHandWhenPouringAndScooping(GameTestHelper helper) {
-        CrucibleTests.modBucketsStayInTheHandWhenPouringAndScooping(helper);
     }
 
     @GameTest

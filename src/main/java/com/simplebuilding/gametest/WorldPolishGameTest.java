@@ -12,11 +12,6 @@ public final class WorldPolishGameTest {
     }
 
     @GameTest
-    public void bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName(GameTestHelper helper) {
-        WorldPolishTests.bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName(helper);
-    }
-
-    @GameTest
     public void sculkJawSpawnsOnlyInTheMiddleOfSculk(GameTestHelper helper) {
         WorldPolishTests.sculkJawSpawnsOnlyInTheMiddleOfSculk(helper);
     }

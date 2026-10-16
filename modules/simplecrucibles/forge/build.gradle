@@ -2,6 +2,8 @@ plugins {
     id 'java-library'
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
+// Forge 26.3 has neither JEI nor Jade (split stage 5b plugins are left out).
+ext.forgeExcludedSources = ['**/compat/jei/**', '**/compat/jade/**']
 ext.forgeMixinConfigs = ['simplecrucibles.mixins.json', 'simplecrucibles.forge.mixins.json']
 // SimpleLib (IdMoves migration, in-world upgrades and their axe way, warm food, shared materials, UI) nested next to framework (principle 6a).
 ext.forgeBundleSimplelib = true

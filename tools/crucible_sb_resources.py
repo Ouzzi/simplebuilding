@@ -1,9 +1,9 @@
-"""Generate SimpleBuilding's 26.3 crucible resources (plan PLAN-CRUCIBLE-P5-2026-10-05); --check compares only.
+"""Generate SimpleBuilding's 26.3 crucible data (plan PLAN-CRUCIBLE-P5-2026-10-05); --check compares only.
 
-Writes into mc26_3/overlay/resources: soul lava, the buckets (copper buckets select their texture by the
-simplebuilding:oxidation component), and the hand-written data that datagen does not cover: fluid tags and
-Simple Crucibles tag additions. The Enderite crucible and barrel moved to Simple Crucibles (split stage 5), which
-generates their block states and models (modules/simplecrucibles/tools/gen_resources.py).
+Writes into mc26_3/overlay/resources the Simple Crucibles tag additions that name SimpleBuilding items (extreme-heat
+recipes, iron rod as crucible handle). The Enderite crucible and barrel (split stage 5) and soul lava with all buckets
+(stage 5b) are Simple Crucibles' own: their resources live in modules/simplecrucibles (shared/resources and
+tools/gen_resources.py).
 """
 
 import argparse
@@ -17,40 +17,9 @@ FACINGS = {"north": 0, "east": 90, "south": 180, "west": 270}
 CRLF, LF = b"\r\n", b"\n"
 
 
-def item_model(texture):
-    return {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{texture}"}}
-
-
-def model_ref(model):
-    return {"type": "minecraft:model", "model": model}
-
-
 def files():
-    a, out = f"assets/{NS}", {}
-    # Soul lava: like Vanilla lava, only a particle texture (the fluid renderer draws it).
-    out[f"{a}/models/block/soul_lava.json"] = {"textures": {"particle": f"{NS}:block/soul_lava_still"}}
-    out[f"{a}/blockstates/soul_lava.json"] = {"variants": {"": {"model": f"{NS}:block/soul_lava"}}}
-    # Buckets.
-    for name in ("soul_lava_bucket", "enderite_bucket", "enderite_water_bucket", "enderite_lava_bucket", "enderite_soul_lava_bucket", "enderite_milk_bucket"):
-        # Owner N21/N28: the filled Enderite items hold one bucket of two and show the half texture
-        # (tools/textures/enderite_bucket_fill_2026_10_09.py); the _full items (two buckets) the full one.
-        half = name.startswith("enderite_") and name != "enderite_bucket"
-        out[f"{a}/models/item/{name}.json"] = item_model(name + "_half" if half else name)
-        out[f"{a}/items/{name}.json"] = {"model": model_ref(f"{NS}:item/{name}")}
-        if half:
-            out[f"{a}/models/item/{name}_full.json"] = item_model(name)
-            out[f"{a}/items/{name}_full.json"] = {"model": model_ref(f"{NS}:item/{name}_full")}
-    for name in ("copper_bucket", "copper_water_bucket", "copper_lava_bucket"):
-        for stage in range(4):
-            out[f"{a}/models/item/{name}_{stage}.json"] = item_model(f"{name}_{stage}")
-        out[f"{a}/items/{name}.json"] = {"model": {
-            "type": "minecraft:select", "property": "minecraft:component", "component": f"{NS}:oxidation",
-            "cases": [{"when": stage, "model": model_ref(f"{NS}:item/{name}_{stage}")} for stage in (1, 2, 3)],
-            "fallback": model_ref(f"{NS}:item/{name}_0")}}
-    # Data datagen does not write: fluid tags (soul lava swims and burns like lava, crucible heat extreme) and
+    out = {}
     # Simple Crucibles' tags (extreme-heat recipes, iron rod as crucible handle).
-    out["data/minecraft/tags/fluid/lava.json"] = {"values": [f"{NS}:soul_lava", f"{NS}:flowing_soul_lava"]}
-    out["data/simplecrucibles/tags/fluid/extreme_heat.json"] = {"values": [f"{NS}:soul_lava", f"{NS}:flowing_soul_lava"]}
     out["data/simplecrucibles/tags/item/needs_extreme_heat.json"] = {"values": [f"{NS}:layered_raw_enderite", f"{NS}:cracked_diamond"]}
     out["data/simplecrucibles/tags/item/crucible_handles.json"] = {"values": [f"{NS}:iron_pole"]}
     return out

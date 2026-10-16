@@ -76,5 +76,8 @@ public final class CrucibleCompat {
 
     public static @Nullable InteractionResult hammerUse(UseOnContext context) { return null; }
 
+    public static @Nullable InteractionResult cauldronBucket(net.minecraft.world.item.ItemStack stack, BlockState vanillaState, Level level, BlockPos pos,
+                                                             net.minecraft.world.entity.player.Player player, net.minecraft.world.InteractionHand hand) { return null; }
+
     private CrucibleCompat() {}
 }

@@ -37,16 +37,6 @@ public final class ConfigOptionGameTest {
     }
 
     @GameTest
-    public void soulLavaBoundsAreClamped(GameTestHelper helper) {
-        ConfigOptionTests.soulLavaBoundsAreClamped(helper);
-    }
-
-    @GameTest
-    public void soulLavaUsesServerValues(GameTestHelper helper) {
-        ConfigOptionTests.soulLavaUsesServerValues(helper);
-    }
-
-    @GameTest
     public void bundleClickInversionFollowsTheConfiguredOption(GameTestHelper helper) {
         ConfigOptionTests.bundleClickInversionFollowsTheConfiguredOption(helper);
     }

@@ -129,7 +129,7 @@ def buckets():
     for variant in ('alt', 'A', 'B', 'C'):
         cells = []
         for name in names:
-            img = p.load(p.SB / f'item/{name}.png')
+            img = p.load(p.CRU / f'item/{name}.png')
             original = np.array(img)
             if variant != 'alt':
                 source = p.vanilla('item/lava_bucket' if name == 'soul_lava_bucket' else 'item/bucket')
@@ -160,7 +160,7 @@ def buckets():
                 changed[protected] = original[protected]
                 img = Image.fromarray(changed)
                 assert np.count_nonzero(np.any(changed != original, axis=2)) >= 18, name
-            p.validate(p.SB / f'item/{name}.png', img)
+            p.validate(p.CRU / f'item/{name}.png', img)
             cells.append(img)
         rows.append((variant, cells))
     for col in range(len(names)):
@@ -183,7 +183,7 @@ def main():
     for variant in ('alt', 'A', 'B', 'C'):
         cells = []
         for kind, size in (('still', 16), ('flow', 32)):
-            old = p.load(p.SB / f'block/soul_lava_{kind}.png').crop((0, 0, size, size))
+            old = p.load(p.CRU / f'block/soul_lava_{kind}.png').crop((0, 0, size, size))
             source = p.vanilla('block/lava_' + kind).crop((0, 0, size, size))
             cells.append(old if variant == 'alt' else lava_variant(source, variant))
         rows.append((variant, cells))

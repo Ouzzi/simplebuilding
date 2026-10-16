@@ -362,8 +362,6 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("world_polish_game_test_piles_break_only_the_looked_at_part", WorldPolishTests::pilesBreakOnlyTheLookedAtPart)
                     .build(),
-            GameTestSpec.named("world_polish_game_test_buckets_draw_no_bar_and_the_enderite_bucket_shows_only_its_name", WorldPolishTests::bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName)
-                    .build(),
             GameTestSpec.named("world_polish_game_test_sculk_jaw_spawns_only_in_the_middle_of_sculk", WorldPolishTests::sculkJawSpawnsOnlyInTheMiddleOfSculk)
                     .build(),
             GameTestSpec.named("world_polish_game_test_sculk_jaw_needs_full_block_top", WorldPolishTests::sculkJawNeedsFullBlockTop)
@@ -757,45 +755,15 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
-            GameTestSpec.named("crucible_game_test_ceramic_bucket_holds_water_and_breaks_after_four_pours", CrucibleTests::ceramicBucketHoldsWaterAndBreaksAfterFourPours)
-                    .build(),
             GameTestSpec.named("crucible_game_test_cauldron_world_catalog_matches_the_rules", CrucibleTests::cauldronWorldCatalogMatchesTheRules)
                     .build(),
-            GameTestSpec.named("crucible_game_test_ceramic_lava_bucket_scoops_pours_and_wears", CrucibleTests::ceramicLavaBucketScoopsPoursAndWears)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_ceramic_bucket_wears_through_stages_and_keeps_its_filling", CrucibleTests::ceramicBucketWearsThroughStagesAndKeepsItsFilling)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_copper_bucket_rules", CrucibleTests::copperBucketRules)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_copper_bucket_oxidizes_only_in_hotbar_or_offhand", CrucibleTests::copperBucketOxidizesOnlyInHotbarOrOffhand)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_copper_bucket_waxed_water_weathers_at_half_pace", CrucibleTests::copperBucketWaxedWaterWeathersAtHalfPace)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_copper_bucket_placed_weathers_and_frame_care", CrucibleTests::copperBucketPlacedWeathersAndFrameCare)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_ceramic_bucket_with_lava_is_brittle_and_breaks_on_pour", CrucibleTests::ceramicBucketWithLavaIsBrittleAndBreaksOnPour)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_copper_bucket_fully_oxidized_scoops_nothing", CrucibleTests::copperBucketFullyOxidizedScoopsNothing)
-                    .build(),
             GameTestSpec.named("crucible_game_test_enderite_tiers_have_twenty_seven_slots_and_double_stacks", CrucibleTests::enderiteTiersHaveTwentySevenSlotsAndDoubleStacks)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_mod_buckets_stay_in_the_hand_when_pouring_and_scooping", CrucibleTests::modBucketsStayInTheHandWhenPouringAndScooping)
                     .build(),
             GameTestSpec.named("crucible_game_test_a_barrel_attached_to_the_enderite_crucible_holds_its_double_stacks", CrucibleTests::aBarrelAttachedToTheEnderiteCrucibleHoldsItsDoubleStacks)
                     .build(),
             GameTestSpec.named("crucible_game_test_a_loose_enderite_barrel_keeps_double_stacks_in_menu_and_hopper", CrucibleTests::aLooseEnderiteBarrelKeepsDoubleStacksInMenuAndHopper)
                     .build(),
-            GameTestSpec.named("crucible_game_test_fire_resistance_only_blocks_soul_burn_damage", CrucibleTests::fireResistanceOnlyBlocksSoulBurnDamage)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_iron_bucket_breaks_on_soul_lava_enderite_never", CrucibleTests::ironBucketBreaksOnSoulLavaEnderiteNever)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_jade_reports_heat_slots_and_shortest_remaining_time", CrucibleTests::jadeReportsHeatSlotsAndShortestRemainingTime)
-                    .build(),
             GameTestSpec.named("crucible_game_test_milk_and_reinforced_cauldrons_show_their_contents", CrucibleTests::milkAndReinforcedCauldronsShowTheirContents)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_recipe_heat_and_catalog_match_cooking_rules", CrucibleTests::recipeHeatAndCatalogMatchCookingRules)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_reinforced_cauldron_holds_soul_lava", CrucibleTests::reinforcedCauldronHoldsSoulLava)
                     .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_builds_the_iron_crucible", CrucibleTests::sledgehammerBuildsTheIronCrucible)
                     .build(),
@@ -807,24 +775,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_upgrades_cost_double", CrucibleTests::sledgehammerUpgradesCostDouble)
                     .build(),
-            GameTestSpec.named("crucible_game_test_soul_burn_bites_twice_as_often_on_cold_ground", CrucibleTests::soulBurnBitesTwiceAsOftenOnColdGround)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_soul_lava_flows_two_blocks_in_the_overworld", CrucibleTests::soulLavaFlowsTwoBlocksInTheOverworld)
-                    .maxTicks(300).build(),
             GameTestSpec.named("crucible_game_test_soul_lava_heats_extreme_flowing_high", CrucibleTests::soulLavaHeatsExtremeFlowingHigh)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_soul_lava_is_not_replaceable", CrucibleTests::soulLavaIsNotReplaceable)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_touching_soul_lava_burns_longer_and_gives_soul_burn", CrucibleTests::touchingSoulLavaBurnsLongerAndGivesSoulBurn)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_vanilla_cauldron_takes_copper_and_enderite_buckets", CrucibleTests::vanillaCauldronTakesCopperAndEnderiteBuckets)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_enderite_bucket_takes_milk_and_drinks_one_filling", CrucibleTests::enderiteBucketTakesMilkAndDrinksOneFilling).build(),
-            GameTestSpec.named("crucible_game_test_enderite_bucket_holds_two_buckets_of_one_fluid", CrucibleTests::enderiteBucketHoldsTwoBucketsOfOneFluid)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_enderite_bucket_two_buckets_in_cauldrons_and_dispensers", CrucibleTests::enderiteBucketTwoBucketsInCauldronsAndDispensers)
-                    .maxTicks(100).build(),
-            GameTestSpec.named("crucible_game_test_water_touching_soul_lava_turns_to_quartz_or_blackstone", CrucibleTests::waterTouchingSoulLavaTurnsToQuartzOrBlackstone)
                     .build(),
             GameTestSpec.named("crucible_game_test_crucible_collision_allows_walking_in_and_keeps_the_interior_empty", CrucibleTests::crucibleCollisionAllowsWalkingInAndKeepsTheInteriorEmpty)
                     .build(),
@@ -1055,10 +1006,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("config_option_game_test_new_tool_options_change_what_the_tools_do", ConfigOptionTests::newToolOptionsChangeWhatTheToolsDo)
                     .build(),
             GameTestSpec.named("config_option_game_test_new_tweak_options_change_what_the_tweaks_do", ConfigOptionTests::newTweakOptionsChangeWhatTheTweaksDo)
-                    .build(),
-            GameTestSpec.named("config_option_game_test_soul_lava_bounds_are_clamped", ConfigOptionTests::soulLavaBoundsAreClamped)
-                    .build(),
-            GameTestSpec.named("config_option_game_test_soul_lava_uses_server_values", ConfigOptionTests::soulLavaUsesServerValues)
                     .build(),
             GameTestSpec.named("config_option_game_test_the_air_jump_cooldown_travels_from_server_to_client", ConfigOptionTests::theAirJumpCooldownTravelsFromServerToClient)
                     .build(),

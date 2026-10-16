@@ -386,7 +386,7 @@ def heat_gif():
 
 
 def ceramic_sheet():
-    tex = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures/item'
+    tex = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/item'
 
     def tile(path):
         img = Image.open(path).convert('RGBA').crop((0, 0, 16, 16))

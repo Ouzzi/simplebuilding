@@ -42,19 +42,7 @@ public final class RecipelessJeiInfo {
             // Waerter-Fuehler (N24): nur vom Waerter, Brauzutat des Dunkelheitstranks.
             map.put("warden_tendril", List.of(ModItems.WARDEN_TENDRIL));
         }
-        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            // Crucible P5: gefuellte Eimer entstehen nur durch Schoepfen (kein Rezept).
-            map.put("soul_lava_bucket", List.of(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET));
-            map.put("copper_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET));
-            map.put("enderite_crucible", List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(), com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel()));
-            map.put("enderite_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_LAVA_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.ENDERITE_MILK_BUCKET, com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_MILK_BUCKET));
-            map.put("ceramic_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET));
-            // N12b: worn stages only come from use.
-            map.put("ceramic_bucket_worn", List.<ItemLike>copyOf(com.simplebuilding.fluid.ModFluids.wornCeramicBuckets()));
-        }
+        // Crucible P5: Enderit-Tiegel/-Fass und die gefuellten Eimer zeigt Simple Crucibles' eigenes JEI-Plugin (Stufe 5b).
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
         }
@@ -94,11 +82,6 @@ public final class RecipelessJeiInfo {
                 com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace")));
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             map.put("velocity_gauge", List.of(ModItems.VELOCITY_GAUGE));
-        }
-        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            map.put("copper_bucket", List.of(com.simplebuilding.fluid.ModFluids.COPPER_BUCKET));
-            map.put("enderite_bucket", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET));
-            map.put("ceramic_bucket", List.of(com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET));
         }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             map.put("silent_dandelion", List.of(ModItems.SILENT_DANDELION));

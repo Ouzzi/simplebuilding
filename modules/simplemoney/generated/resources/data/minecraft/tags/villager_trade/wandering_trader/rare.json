@@ -546,15 +546,15 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_bucket",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplecrucibles/enderite_crucible",
       "required": false
     },
     {
       "id": "simplemoney:links/simplecrucibles/enderite_barrel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplecrucibles/enderite_bucket",
       "required": false
     },
     {

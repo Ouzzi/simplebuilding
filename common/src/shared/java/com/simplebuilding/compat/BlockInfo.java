@@ -57,7 +57,6 @@ public final class BlockInfo {
         OWNER("owner", true),
         PAD_STATUS("pad_status", true),
         HOPPER_FILTER("hopper_filter", true),
-        CRUCIBLE("crucible", true),
         PISTON_DURABILITY("piston_durability", false),
         CHEST_SLOTS("chest_slots", false),
         CAULDRON("cauldron", false),
@@ -155,7 +154,6 @@ public final class BlockInfo {
             case OWNER -> be instanceof OwnedBlockEntity;
             case PAD_STATUS -> be instanceof LaunchpadBlockEntity || be instanceof PotionPadBlockEntity || be instanceof ChunkLoaderBlockEntity;
             case HOPPER_FILTER -> be instanceof ModHopperBlockEntity;
-            case CRUCIBLE -> com.simplebuilding.crucible.CrucibleCompat.crucibleSlots(be.getBlockState().getBlock()) > 0;
             default -> false;
         };
     }
@@ -170,14 +168,6 @@ public final class BlockInfo {
                 }
             }
             case PAD_STATUS -> padStatus(be, lines);
-            case CRUCIBLE -> {
-                int[] status = com.simplebuilding.crucible.CrucibleCompat.status(be);
-                if (status.length == 4) {
-                    lines.add(Line.of("jade.simplebuilding.crucible.heat", Arg.translatable("crucible.simplebuilding.heat." + status[0])));
-                    lines.add(Line.of("jade.simplebuilding.crucible.slots", Arg.literal(status[1]), Arg.literal(status[2])));
-                    if (status[3] >= 0) lines.add(Line.of("jade.simplebuilding.crucible.remaining", Arg.literal((status[3] + 19L) / 20)));
-                }
-            }
             case HOPPER_FILTER -> {
                 if (be instanceof ModHopperBlockEntity hopper) {
                     hopperFilter(hopper, lines);
@@ -329,21 +319,20 @@ public final class BlockInfo {
 
     /** Registry id of the milk cauldron (module SimpleSandwiches); recognised by id, never by class. */
     public static final String MILK_CAULDRON_ID = "simplesandwiches:milk_cauldron";
-    /** Registry id of the reinforced cauldron (SimpleLib). */
-    public static final String REINFORCED_CAULDRON_ID = "simplecrucibles:reinforced_cauldron";
-    /** Visible ripening stages of the milk cauldron and fill levels of the reinforced cauldron. */
+    /** Visible ripening stages of the milk cauldron. */
     private static final int MILK_STAGES = 4;
-    private static final int CAULDRON_LEVELS = 3;
 
-    /** Whether Jade's universal fluid line ("Empty 1B") is wrong for this block and must be replaced by {@link Topic#CAULDRON}. */
+    /**
+     * Whether Jade's universal fluid line ("Empty 1B") is wrong for this block and must be replaced by {@link Topic#CAULDRON}.
+     * The reinforced cauldron has its own Jade plugin in Simple Crucibles since split stage 5b.
+     */
     public static boolean isModCauldron(String blockId) {
-        return MILK_CAULDRON_ID.equals(blockId) || REINFORCED_CAULDRON_ID.equals(blockId);
+        return MILK_CAULDRON_ID.equals(blockId);
     }
 
     /**
-     * Milk cauldron: content, ripeness (the four stages), what to do when ripe. Reinforced cauldron: content and,
-     * for water and powder snow, the fill level. Both modules are only known by id and property names, so SimpleBuilding
-     * needs neither class; a state without the expected property just gives fewer lines.
+     * Milk cauldron: content, ripeness (the four stages), what to do when ripe. Simple Sandwiches is only known by id and
+     * property names, so SimpleBuilding needs no class of it; a state without the expected property gives fewer lines.
      */
     private static void cauldronLines(BlockState state, List<Line> lines) {
         String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString();
@@ -365,9 +354,6 @@ public final class BlockInfo {
                 default -> {
                 }
             }
-        } else if (content.equals("water") || content.equals("powder_snow")) {
-            // Without a level property the block always holds a full bucket.
-            lines.add(Line.of("jade.simplebuilding.cauldron.level", Arg.literal(intProperty(state, "level", CAULDRON_LEVELS)), Arg.literal(CAULDRON_LEVELS)));
         }
     }
 

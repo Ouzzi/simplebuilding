@@ -333,11 +333,7 @@ public final class SearchTabPlacement {
                     com.simplebuilding.util.MusicDiscs.items().toArray(ItemLike[]::new)));
             out.add(Placement.after(REDSTONE_BLOCKS, Items.JUKEBOX, ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
         }
-        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            // Crucible P5: Eimer hinter dem Pulverschnee-Eimer; die Tiegel (auch Enderit) sortiert Simple Crucibles selbst ein (Stufe 5).
-            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.POWDER_SNOW_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.creativeBuckets().toArray(ItemLike[]::new)));
-        }
+        // Crucible P5: Eimer und Tiegel sortiert Simple Crucibles selbst in die Vanilla-Tabs ein (Stufe 5/5b).
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             out.add(Placement.after(NATURAL_BLOCKS, Items.DEEPSLATE_DIAMOND_ORE, ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM));
             out.add(Placement.after(INGREDIENTS, Items.EXPERIENCE_BOTTLE, ModItems.SAGE_ORB));
