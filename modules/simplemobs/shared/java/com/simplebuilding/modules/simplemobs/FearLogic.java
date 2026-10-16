@@ -113,6 +113,9 @@ public final class FearLogic {
         return t < 0.0F ? 0.0F : (float) (Math.exp(-0.25 * t) * Math.sin(0.8 * t));
     }
 
+    /** Ticks until the Dread's next idle chain rattle: 8 to 20 seconds (concept: random 8-20 s). */
+    public static int rattleWait(RandomSource random) { return 160 + random.nextInt(241); }
+
     /** Shivering levels of the aura (N50): level 5 right next to the mob, one level less every ~3 blocks out to 16. */
     public static final int AURA_MAX_LEVEL = 5;
     private static final double[] AURA_STEPS = {4.0, 7.0, 10.0, 13.0, 16.0};

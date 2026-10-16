@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -51,8 +52,32 @@ public class Nibblemite extends Animal {
     /** Mean ticks between two nibbles of an adult (sheep: 1/1000 per tick); young ones nibble more often. */
     public static final int NIBBLE_CHANCE = 600;
 
+    /** Entity event: the mite starts a nibble (client plays the chew cycle). */
+    public static final byte EVENT_CHEW = 10;
+    /** Length of the chew cycle in ticks (the NibbleGoal runs 30). */
+    public static final int CHEW_TICKS = 30;
+    /** Client only: ticks left of the chew cycle. */
+    private int chewTicks;
+
     public Nibblemite(EntityType<? extends Nibblemite> type, Level level) {
         super(type, level);
+    }
+
+    /** Client: 0 when not chewing, else the progress 0..1 of the chew cycle (partial-tick smooth). */
+    public float chewProgress(float partialTicks) {
+        return chewTicks > 0 ? Mth.clamp(1.0F - (chewTicks - partialTicks) / CHEW_TICKS, 0.001F, 1.0F) : 0.0F;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (level().isClientSide() && chewTicks > 0) chewTicks--;
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == EVENT_CHEW) chewTicks = CHEW_TICKS;
+        else super.handleEntityEvent(id);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -164,8 +189,9 @@ public class Nibblemite extends Animal {
 
         @Override
         public void start() {
-            timer = adjustedTickDelay(30);
+            timer = adjustedTickDelay(CHEW_TICKS);
             mite.getNavigation().stop();
+            mite.level().broadcastEntityEvent(mite, EVENT_CHEW);
         }
 
         @Override

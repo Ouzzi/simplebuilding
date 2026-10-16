@@ -65,5 +65,19 @@ public class NibblemiteModel extends EntityModel<NibblemiteRenderer.State> {
         float wiggle = Mth.lerp(m, 0.08F * Mth.sin(state.ageInTicks * 0.1F + state.phase), 0.25F * Mth.sin(state.walkAnimationPos * 0.35F + state.phase));
         rightFeeler.zRot = -0.3F + wiggle;
         leftFeeler.zRot = 0.3F - wiggle;
+        if (state.chew > 0.0F) {
+            // Chew cycle while nibbling End stone: the head dips to the block, nods four times, the feelers lie back; eased in and out.
+            float env = Mth.smoothstep(Mth.clamp(Math.min(state.chew, 1.0F - state.chew) / 0.12F, 0.0F, 1.0F));
+            segments[0].xRot += env * (0.45F + 0.3F * Mth.sin(state.chew * 8.0F * Mth.PI));
+            rightFeeler.zRot *= 1.0F - 0.7F * env;
+            leftFeeler.zRot *= 1.0F - 0.7F * env;
+        }
+        if (state.deathTime > 0.0F) {
+            // Death: the body curls up sideways and the feelers droop (on top of the vanilla flip onto the back).
+            float d = Mth.smoothstep(Mth.clamp(state.deathTime / 20.0F, 0.0F, 1.0F));
+            for (int i = 0; i < segments.length; i++) segments[i].yRot += d * 0.3F * i;
+            rightFeeler.zRot = Mth.lerp(d, rightFeeler.zRot, -1.3F);
+            leftFeeler.zRot = Mth.lerp(d, leftFeeler.zRot, 1.3F);
+        }
     }
 }

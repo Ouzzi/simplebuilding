@@ -13,4 +13,6 @@ public class DeceiverRenderState extends LivingEntityRenderState {
     public final AnimationState teleport = new AnimationState();
     public final AnimationState drink = new AnimationState();
     public final AnimationState unmask = new AnimationState();
+    public final AnimationState glance = new AnimationState();
+    public final AnimationState hood = new AnimationState();
 }

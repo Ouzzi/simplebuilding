@@ -55,10 +55,13 @@ public class DreadEntity extends Monster {
     private int clientActionAge;
     /** Client only: ticks left of the ease-back after an action ended, the action it belongs to and last tick's action. */
     private int clientRecover, clientRecoverKind, clientPrevAction, clientSinceAction = 40;
+    /** Client only: ticks since the last idle chain rattle (capped at 40) and ticks until the next one. */
+    private int rattleSince = 40, rattleWait;
 
     public DreadEntity(EntityType<? extends DreadEntity> type, Level level) {
         super(type, level);
         this.xpReward = FearLogic.DREAD_XP;
+        this.rattleWait = FearLogic.rattleWait(this.random);
         bossEvent.setName(BossBars.title(this.getDisplayName(), true, null));
     }
 
@@ -127,6 +130,8 @@ public class DreadEntity extends Monster {
     public int clientRecoverTicks() { return clientRecover; }
     /** Client: ticks since the last action ended (capped at 40), drives the chain swing-out. */
     public int clientSinceAction() { return clientSinceAction; }
+    /** Client: ticks since the last idle chain rattle (capped at 40), drives the small chain swing while it stands. */
+    public int clientRattleSince() { return rattleSince; }
     public int clientRecoverKind() { return clientRecoverKind; }
 
     public void startRising() { this.entityData.set(DATA_RISE, FearLogic.RISE_TICKS); }
@@ -190,6 +195,13 @@ public class DreadEntity extends Monster {
             else if (clientRecover > 0) clientRecover--;
             clientSinceAction = act != ACT_NONE ? 0 : Math.min(40, clientSinceAction + 1);
             clientPrevAction = act;
+            // idle: now and then (8-20 s) the chain rattles - a small swing plus the vanilla chain sound, only while it stands still
+            rattleSince = Math.min(40, rattleSince + 1);
+            if (act == ACT_NONE && this.getDeltaMovement().horizontalDistanceSqr() < 1.0E-4 && --rattleWait <= 0) {
+                rattleWait = FearLogic.rattleWait(this.random);
+                rattleSince = 0;
+                this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.CHAIN_STEP, this.getSoundSource(), 0.7f, 0.6f, false);
+            }
             if (!weakened() && this.random.nextInt(3) == 0) {
                 this.level().addParticle(ParticleTypes.SOUL_FIRE_FLAME, this.getX() + (this.random.nextDouble() - 0.5) * 0.3,
                         this.getY() + 2.35, this.getZ() + (this.random.nextDouble() - 0.5) * 0.3, 0, 0.02, 0);

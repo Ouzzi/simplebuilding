@@ -35,5 +35,7 @@ public class DeceiverRenderer extends MobRenderer<DeceiverEntity, DeceiverRender
         state.teleport.copyFrom(entity.teleportState);
         state.drink.copyFrom(entity.drinkState);
         state.unmask.copyFrom(entity.unmaskState);
+        state.glance.copyFrom(entity.glanceState);
+        state.hood.copyFrom(entity.hoodState);
     }
 }
