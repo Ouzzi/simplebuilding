@@ -1,7 +1,20 @@
 {
-  "variants": {
-    "": {
-      "model": "simpleend:block/ashwood_leaves"
+  "multipart": [
+    {
+      "when": {
+        "inner": "false"
+      },
+      "apply": {
+        "model": "simpleend:block/ashwood_leaves"
+      }
+    },
+    {
+      "when": {
+        "inner": "true"
+      },
+      "apply": {
+        "model": "simpleend:block/ashwood_leaves_inner"
+      }
     }
-  }
+  ]
 }

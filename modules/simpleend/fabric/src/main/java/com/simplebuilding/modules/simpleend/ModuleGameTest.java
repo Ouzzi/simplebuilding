@@ -22,8 +22,9 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void fruitRipensOnlyInTheEnd(GameTestHelper helper) { EndTests.ALL.get("fruit_ripens_only_in_the_end").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void spoiledFruitDrifting(GameTestHelper helper) { EndTests.ALL.get("spoiled_fruit_drifting").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void endLeavesNotFullBlock(GameTestHelper helper) { EndTests.ALL.get("end_leaves_not_full_block").accept(helper); }
-    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void ashwoodLeavesActLikeCobweb(GameTestHelper helper) { EndTests.ALL.get("ashwood_leaves_act_like_cobweb").accept(helper); }
-    @GameTest(structure = "simpleend:grove", maxTicks = 300) public void ashwoodLeavesCatchFall(GameTestHelper helper) { EndTests.ALL.get("ashwood_leaves_catch_fall").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 200) public void endLeavesActLikeCobweb(GameTestHelper helper) { EndTests.ALL.get("end_leaves_act_like_cobweb").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 300) public void endLeavesCatchFall(GameTestHelper helper) { EndTests.ALL.get("end_leaves_catch_fall").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesInnerState(GameTestHelper helper) { EndTests.ALL.get("end_leaves_inner_state").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void driftFruitGlide(GameTestHelper helper) { EndTests.ALL.get("drift_fruit_glide").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void voidSafeItems(GameTestHelper helper) { EndTests.ALL.get("void_safe_items").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void biomePatches(GameTestHelper helper) { EndTests.ALL.get("biome_patches").accept(helper); }

@@ -4,6 +4,8 @@
   "textures": {
     "particle": "simpleend:block/duskwood_leaves",
     "fronds": "simpleend:block/duskwood_leaves",
+    "outer": "simpleend:block/duskwood_leaves_outer",
+    "inner": "simpleend:block/duskwood_leaves_inner",
     "crystal": "simpleend:block/duskwood_leaves_crystal"
   },
   "elements": [
@@ -99,15 +101,24 @@
     },
     {
       "from": [
+        1,
         0,
-        0,
-        8
+        11
       ],
       "to": [
+        15,
         16,
-        16,
-        8
+        11
       ],
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "x",
+        "angle": 22.5
+      },
       "shade": false,
       "faces": {
         "north": {
@@ -117,7 +128,7 @@
             16,
             16
           ],
-          "texture": "#fronds",
+          "texture": "#outer",
           "tintindex": 0
         },
         "south": {
@@ -127,22 +138,31 @@
             16,
             16
           ],
-          "texture": "#fronds",
+          "texture": "#outer",
           "tintindex": 0
         }
       }
     },
     {
       "from": [
-        8,
+        4.5,
         0,
-        0
+        1
       ],
       "to": [
-        8,
+        4.5,
         16,
-        16
+        15
       ],
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "z",
+        "angle": -22.5
+      },
       "shade": false,
       "faces": {
         "west": {
@@ -152,7 +172,7 @@
             16,
             16
           ],
-          "texture": "#fronds",
+          "texture": "#outer",
           "tintindex": 0
         },
         "east": {
@@ -162,7 +182,42 @@
             16,
             16
           ],
-          "texture": "#fronds",
+          "texture": "#outer",
+          "tintindex": 0
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        12.5,
+        2
+      ],
+      "to": [
+        14,
+        12.5,
+        14
+      ],
+      "shade": false,
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outer",
+          "tintindex": 0
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outer",
           "tintindex": 0
         }
       }

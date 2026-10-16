@@ -56,14 +56,12 @@ import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntPr
  * callbacks ({@link #blocks()}, {@link #items()}, {@link #entities()}).
  */
 public final class EndWood {
-    public static final EndWood ASHWOOD = new EndWood("ashwood", "ash_bud", MapColor.COLOR_LIGHT_GRAY, MapColor.COLOR_GRAY, true);
-    public static final EndWood DUSKWOOD = new EndWood("duskwood", "dusk_bud", MapColor.TERRACOTTA_LIGHT_GRAY, MapColor.TERRACOTTA_GRAY, false);
+    public static final EndWood ASHWOOD = new EndWood("ashwood", "ash_bud", MapColor.COLOR_LIGHT_GRAY, MapColor.COLOR_GRAY);
+    public static final EndWood DUSKWOOD = new EndWood("duskwood", "dusk_bud", MapColor.TERRACOTTA_LIGHT_GRAY, MapColor.TERRACOTTA_GRAY);
     public static final List<EndWood> ALL = List.of(ASHWOOD, DUSKWOOD);
 
     public final String name;
     public final String budName;
-    /** Ashwood leaves behave like a cobweb (owner N55); Duskwood leaves stay solid. */
-    private final boolean webLeaves;
     private final MapColor plankColor;
     private final MapColor barkColor;
     public WoodType woodType;
@@ -77,10 +75,9 @@ public final class EndWood {
     public final Map<String, Block> blockIds = new LinkedHashMap<>();
     public final Map<String, Item> itemIds = new LinkedHashMap<>();
 
-    private EndWood(String name, String budName, MapColor plankColor, MapColor barkColor, boolean webLeaves) {
+    private EndWood(String name, String budName, MapColor plankColor, MapColor barkColor) {
         this.name = name;
         this.budName = budName;
-        this.webLeaves = webLeaves;
         this.plankColor = plankColor;
         this.barkColor = barkColor;
     }
@@ -149,8 +146,8 @@ public final class EndWood {
         Properties leafProps = Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()
                 .isValidSpawn((s, g, p2, e) -> false).isSuffocating((s, g, p2) -> false)
                 .ignitedByLava().pushReaction(PushReaction.POPPED).isRedstoneConductor((s, g, p2) -> false);
-        if (webLeaves) leafProps = leafProps.noCollision(); // cobweb-like (N55): entities pass through and get stuck
-        leaves = block(id("W_leaves"), p -> new com.simplebuilding.modules.simpleend.block.EndLeavesBlock(webLeaves, p), leafProps);
+        leafProps = leafProps.noCollision(); // cobweb-like (N55, N65: both woods): entities pass through and get stuck
+        leaves = block(id("W_leaves"), com.simplebuilding.modules.simpleend.block.EndLeavesBlock::new, leafProps);
         bud = block(budName, p -> new EndBudBlock(name, p),
                 Properties.of().mapColor(MapColor.COLOR_PURPLE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.POPPED));
         pottedBud = block("potted_" + budName, p -> new FlowerPotBlock(bud, p), Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.POPPED));
