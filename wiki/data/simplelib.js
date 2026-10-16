@@ -724,7 +724,9 @@ window.WIKI_MODULE_DATA["simplelib"] = {
             "simplelib:warped_wart"
           ],
           "conditions": [],
-          "functions": []
+          "functions": [
+            "minecraft:explosion_decay"
+          ]
         }
       ],
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/warped_wart.json"

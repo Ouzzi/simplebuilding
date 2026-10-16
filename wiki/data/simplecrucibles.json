@@ -232,7 +232,9 @@
           "items": [
             "minecraft:cauldron"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:match_block"
+          ],
           "functions": []
         },
         {
@@ -240,7 +242,9 @@
           "items": [
             "minecraft:iron_block"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:match_block"
+          ],
           "functions": []
         },
         {

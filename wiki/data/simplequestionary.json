@@ -155,7 +155,9 @@
           "items": [
             "simplequestionary:questionary_table"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],

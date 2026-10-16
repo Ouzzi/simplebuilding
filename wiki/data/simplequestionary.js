@@ -156,7 +156,9 @@ window.WIKI_MODULE_DATA["simplequestionary"] = {
           "items": [
             "simplequestionary:questionary_table"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],

@@ -148,7 +148,7 @@ public final class EndStructureTests {
             }
         }
         helper.assertTrue(chests >= 1 && chests <= 2, "wreck must hold 1-2 loot chests, found " + chests);
-        // half buried: an end-stone mound fills the lower layers (the structure starts 4 blocks below the surface)
+        // half buried: an end-stone mound fills the lower layers (the structure starts GROUND = 9 blocks below the surface, about 80 % of the hull)
         int mound = 0;
         for (BlockPos p : BlockPos.betweenClosed(base, base.offset(16, 3, 18)))
             if (helper.getLevel().getBlockState(p).is(Blocks.END_STONE)) mound++;

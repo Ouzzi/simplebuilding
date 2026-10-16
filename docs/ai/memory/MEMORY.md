@@ -1,4 +1,4 @@
-- [Loot-Format 26.3](loot-format-26-3.md) — altes conditions/functions wird ignoriert; 21 Tabellen offen (check_loot_format.py)
+- [Loot-Format 26.3](loot-format-26-3.md) — altes conditions/functions wird ignoriert; alle umgestellt, check_loot_format.py haelt 0
 - [Multiloader-Paritäts-Audit 2026-08](multiloader-parity-audit-2026-08.md) — bestätigte Port-Regressionen + Fix-Status
 - [Trades sind ab MC 26.1 datengetrieben](mc-26-1-trades-data-driven.md) — TradeOfferHelper weg; JSON-Layout, Tag-Merge, Enchant-Komponenten
 - [MC-26.2-Portierung](mc-26.2-port.md) — Zielversionen aller Loader, API-Brueche, Toolchain-Fallen

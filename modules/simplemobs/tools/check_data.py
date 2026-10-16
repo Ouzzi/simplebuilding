@@ -42,7 +42,7 @@ sees = json.loads((MODULE / 'shared/resources/data/simplemobs/tags/entity_type/s
 assert 'minecraft:warden' in sees and 'simplemobs:hollow_howler' in sees
 for v in sees:
     assert not isinstance(v, dict) or v.get('required') is False, v
-assert loot['pools'][0]['conditions'] == [{'condition': 'minecraft:random_chance', 'chance': 0.5}], 'cloth: 50 %, never doubled'
+assert loot['pools'][0]['condition'] == {'type': 'minecraft:random_chance', 'chance': 0.5}, 'cloth: 50 %, never doubled'
 assert loot['pools'][1]['entries'][0]['name'] == 'simplemobs:illusion_shard'
 bonus = json.loads((MODULE / 'shared/resources/data/simplemobs/loot_table/entities/deceiver_armor_bonus.json').read_text(encoding='utf-8'))
 assert bonus['pools'] == [loot['pools'][1]], 'armored Deceiver: the shard pool once more (twice the shards)'

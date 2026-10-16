@@ -10,11 +10,9 @@
           "name": "simplecrucibles:iron_crucible"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ],
   "random_sequence": "simplecrucibles:blocks/iron_crucible"

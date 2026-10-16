@@ -10,11 +10,9 @@
           "name": "simplecrucibles:reinforced_cauldron"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ],
   "random_sequence": "simplecrucibles:blocks/reinforced_cauldron"

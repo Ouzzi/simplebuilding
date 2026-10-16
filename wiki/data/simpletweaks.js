@@ -334,7 +334,9 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
           "items": [
             "simpletweaks:claim_table"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],

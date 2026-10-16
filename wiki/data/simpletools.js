@@ -450,7 +450,9 @@ window.WIKI_MODULE_DATA["simpletools"] = {
           "items": [
             "simpletools:death_vault"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],

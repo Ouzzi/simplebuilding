@@ -10,11 +10,9 @@
           "name": "simplelib:cracked_diamond_block"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ],
   "random_sequence": "simplelib:blocks/cracked_diamond_block"

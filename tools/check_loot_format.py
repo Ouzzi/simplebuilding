@@ -5,7 +5,7 @@ is {"type": ...} ("condition" may also name a predicate by id). The old lists "c
 {"function": "minecraft:x"} parse without an error but do nothing (found with CrucibleBlankBlock: every pool dropped, set_count was ignored).
 
   python3 tools/check_loot_format.py            list offenders (exit 0)
-  python3 tools/check_loot_format.py --strict   exit 1 unless every offender is in tools/loot_format_baseline.txt
+  python3 tools/check_loot_format.py --strict   exit 1 unless every offender is in tools/loot_format_baseline.txt (file absent = none allowed)
   python3 tools/check_loot_format.py --write-baseline
 """
 import json

@@ -2202,7 +2202,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:blue_nether_brick_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2218,7 +2220,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:blue_nether_brick_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2234,7 +2238,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:blue_nether_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2266,7 +2272,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:calcite_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2282,7 +2290,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:calcite_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2298,7 +2308,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cracked_cinnabar_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2314,7 +2326,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cracked_end_stone_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2330,7 +2344,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cracked_mud_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2346,7 +2362,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cracked_red_nether_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2362,7 +2380,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cracked_sulfur_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2378,7 +2398,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cracked_tuff_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2394,7 +2416,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cut_red_sandstone_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2410,7 +2434,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cut_red_sandstone_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2426,7 +2452,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cut_sandstone_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2442,7 +2470,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:cut_sandstone_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2474,7 +2504,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:hushed_deepslate_tile_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2490,7 +2522,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:hushed_deepslate_tile_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2506,7 +2540,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:hushed_deepslate_tiles"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2522,7 +2558,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:mossy_cinnabar_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2538,7 +2576,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:mossy_deepslate_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2554,7 +2594,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:mossy_deepslate_tiles"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2570,7 +2612,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:mossy_end_stone_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2586,7 +2630,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:mossy_mud_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2602,7 +2648,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:mossy_sulfur_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2618,7 +2666,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:mossy_tuff_bricks"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2650,7 +2700,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:netherrack_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2666,7 +2718,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:netherrack_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2715,7 +2769,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:smooth_basalt_stairs"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2731,7 +2787,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:smooth_basalt_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2747,7 +2805,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:smooth_red_sandstone_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
@@ -2763,7 +2823,9 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
           "items": [
             "simpleblocks:smooth_sandstone_wall"
           ],
-          "conditions": [],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
           "functions": []
         }
       ],
