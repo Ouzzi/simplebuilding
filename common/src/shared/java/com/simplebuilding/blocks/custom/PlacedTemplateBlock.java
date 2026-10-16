@@ -58,12 +58,14 @@ import org.jetbrains.annotations.Nullable;
  */
 public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock implements EntityBlock, SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    /** Der Vorschlaghammer hat das 3D-Modell (Vorlage, Scherbe, Scheibe) auf die flache Platte umgeschaltet ({@code FlatToggles}). */
+    public static final BooleanProperty FLAT = BooleanProperty.create("flat");
     public static final MapCodec<PlacedTemplateBlock> CODEC = BlockCodecs.simple(PlacedTemplateBlock::new);
 
     public PlacedTemplateBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(FACE, AttachFace.FLOOR).setValue(WATERLOGGED, false));
+                .setValue(FACE, AttachFace.FLOOR).setValue(WATERLOGGED, false).setValue(FLAT, false));
     }
 
     // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
@@ -82,7 +84,7 @@ public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock 
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACE, FACING, WATERLOGGED);
+        builder.add(FACE, FACING, WATERLOGGED, FLAT);
     }
 
     @Override
@@ -103,7 +105,7 @@ public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         ItemStack stored = PlacedTemplates.templateAt(level, pos);
-        return PlacedPlate.shape(stored.isEmpty() ? null : stored.getItem(), state.getValue(FACE), state.getValue(FACING));
+        return PlacedPlate.shape(stored.isEmpty() ? null : stored.getItem(), state.getValue(FACE), state.getValue(FACING), state.getValue(FLAT));
     }
 
     @Override
@@ -174,6 +176,16 @@ public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock 
     }
 
     // --- Vorschlaghammer ------------------------------------------------------------------------
+
+    /** Vorschlaghammer ohne Aufwertungs-Material: schaltet das 3D-Modell zwischen 3D und flach um ({@code FlatToggles}). */
+    @Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
+                                          net.minecraft.world.InteractionHand hand, BlockHitResult hit) {
+        if (com.simplebuilding.util.FlatToggles.toggleTemplate(level, pos, player, stack, hand)) {
+            return InteractionResult.SUCCESS;
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
+    }
 
     /** Mit Hammer und Material in den Haenden bricht die Vorlage nicht; geschlagen wird mit Rechtsklick. */
     @Override

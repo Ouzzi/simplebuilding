@@ -1,0 +1,7 @@
+{
+  "parent": "simpletrims:block/placed_slab_glowing_trim_template",
+  "textures": {
+    "item": "simpletrims:item/glowing_trim_template",
+    "particle": "simpletrims:item/glowing_trim_template"
+  }
+}

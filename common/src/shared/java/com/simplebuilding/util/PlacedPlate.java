@@ -50,10 +50,14 @@ public final class PlacedPlate {
      * (neue Vanilla-Versionen), nehmen {@link #TRIM}.
      */
     private static final String TRIM = "038007e007f80ffe0fff1fff1fff3ffe3ffe7ffc7ffc7ff87ff83ff00ff003e0";
+    /** Alle 23 Toepferscherben haben dieselbe Silhouette, alle Vanilla-Schallplatten ausser 11 ebenfalls (Platte 11 ist geborsten). */
+    private static final String SHERD = "000001fc03fc3ffc3ffc3ffc3ffc3ffc3ffc3ffe0ffe1ffe3ffe7ff87fc00000";
+    private static final String DISC = "00000000000007c03ff87ffcfffefffefffefffe7ffc3ff807c0000000000000";
     private static final Map<String, String> VANILLA = Map.of(
             "coast_armor_trim_smithing_template", "038c07fe07ff0fff0fff1fff1fff3fff3fff7ffe7ffcfff8fff8fff06ff003e0",
             "wild_armor_trim_smithing_template", "038007e007f80ffe0fff1fff1fff3fff3fff7ffe7ffc7ff87ff87ff02ff003e0",
-            "netherite_upgrade_smithing_template", "00000ff81ffc1ffc1ffc1ffc1ffc1ffc1ffc1ffc1ffc1ffc1ffc0ff807c00000");
+            "netherite_upgrade_smithing_template", "00000ff81ffc1ffc1ffc1ffc1ffc1ffc1ffc1ffc1ffc1ffc1ffc0ff807c00000",
+            "music_disc_11", "00000000000007803fd87ffcfffcfffe7ffeff3e7f5c3f700e78007800300000");
 
     private static final Map<Item, short[]> MASKS = new ConcurrentHashMap<>();
     private static final Map<Item, VoxelShape[]> SHAPES = new ConcurrentHashMap<>();
@@ -72,6 +76,15 @@ public final class PlacedPlate {
      * an der Decke zeigt die Oberkante (+Y) in die Blickrichtung beim Ablegen.
      */
     public static Matrix4f transform(AttachFace face, Direction facing) {
+        return transform(face, facing, 1.0F, THICKNESS_SCALE);
+    }
+
+    /**
+     * Wie {@link #transform(AttachFace, Direction)} fuer ein Modell der Dicke {@code modelThickness} (Modell-Pixel, wie das
+     * flache Item-Modell 1) und der Streckung {@code zStretch} (flach {@link #THICKNESS_SCALE}, 3D-Modelle 1: sie tragen ihre
+     * Dicke selbst, {@link PlacedSolids#MODEL_THICKNESS}).
+     */
+    public static Matrix4f transform(AttachFace face, Direction facing, float modelThickness, float zStretch) {
         Matrix4f m = new Matrix4f().translate(0.5F, 0.5F, 0.5F);
         float yRot = facing.toYRot();
         switch (face) {
@@ -79,11 +92,39 @@ public final class PlacedPlate {
             case FLOOR -> m.rotateY(rad(180.0F - yRot)).rotateX(rad(-90.0F));
             case CEILING -> m.rotateY(rad(-yRot)).rotateX(rad(90.0F));
         }
-        float thickness = SCALE * THICKNESS_SCALE / 16.0F;
+        float thickness = SCALE * modelThickness * zStretch / 16.0F;
         m.translate(0.0F, 0.0F, -(0.5F - thickness / 2.0F - GAP));
-        m.scale(SCALE, SCALE, SCALE * THICKNESS_SCALE);
+        m.scale(SCALE, SCALE, SCALE * zStretch);
         m.translate(-0.5F, -0.5F, -0.5F);
         return m;
+    }
+
+    /**
+     * Lage der runden Scheibe ({@link PlacedSolids.Shape#DISC}) an Boden, Wand oder Decke: die Modellmitte (8, 8, 8) im Ursprung
+     * wie bei den stehenden Teilen, die Unterseite (y = 0 des Modells) an der Auflage, das Etikett nach aussen. Dieselbe
+     * Rechnung fuer Renderer und Trefferform ({@link PlacedSmallParts.Ops}).
+     */
+    public static void discPlace(PlacedSmallParts.Ops ops, AttachFace face, Direction facing) {
+        float yRot = facing.toYRot();
+        switch (face) {
+            case FLOOR -> {
+                ops.translate(0.5F, 0.0F, 0.5F);
+                ops.rotateY(rad(180.0F - yRot));
+            }
+            case WALL -> {
+                ops.translate(0.5F, 0.5F, 0.5F);
+                ops.rotateY(rad(-yRot));
+                ops.translate(0.0F, 0.0F, -0.5F + GAP);
+                ops.rotateX(rad(90.0F));
+            }
+            case CEILING -> {
+                ops.translate(0.5F, 0.5F, 0.5F);
+                ops.rotateY(rad(-yRot));
+                ops.translate(0.0F, 0.5F - GAP, 0.0F);
+                ops.rotateX(rad(180.0F));
+            }
+        }
+        ops.translate(0.0F, 0.5F, 0.0F);
     }
 
     private static float rad(float degrees) {
@@ -96,6 +137,14 @@ public final class PlacedPlate {
 
     /** Trefferform der Platte mit diesem Item in dieser Lage (zwischengespeichert). */
     public static VoxelShape shape(Item item, AttachFace face, Direction facing) {
+        return shape(item, face, facing, false);
+    }
+
+    /**
+     * Wie {@link #shape(Item, AttachFace, Direction)}; Items mit 3D-Modell ({@link PlacedSolids}) haben dessen Form (2 px
+     * dicke Silhouette bzw. 1 px dicke runde Scheibe), ausser {@code flat}: der Hammer hat sie auf die flache Platte umgeschaltet.
+     */
+    public static VoxelShape shape(Item item, AttachFace face, Direction facing, boolean flat) {
         int index = face.ordinal() * 4 + facing.get2DDataValue();
         if (item == null) {
             VoxelShape cached = FULL_SHAPES[index];
@@ -105,18 +154,41 @@ public final class PlacedPlate {
             }
             return cached;
         }
-        VoxelShape[] shapes = SHAPES.computeIfAbsent(item, unused -> new VoxelShape[AttachFace.values().length * 4]);
-        VoxelShape cached = shapes[index];
+        PlacedSolids.Shape solid = flat ? null : PlacedSolids.shape(item);
+        int slots = AttachFace.values().length * 4;
+        VoxelShape[] shapes = SHAPES.computeIfAbsent(item, unused -> new VoxelShape[slots * 2]);
+        int at = solid == null ? index : slots + index;
+        VoxelShape cached = shapes[at];
         if (cached == null) {
-            cached = build(mask(item), face, facing);
-            shapes[index] = cached;
+            cached = solid == PlacedSolids.Shape.DISC ? buildDisc(face, facing) : build(mask(item), face, facing, solid != null);
+            shapes[at] = cached;
         }
         return cached;
     }
 
+    /** Die Form der runden Scheibe in dieser Lage. */
+    public static VoxelShape buildDisc(AttachFace face, Direction facing) {
+        Matrix4f m = new Matrix4f();
+        discPlace(new PlacedSmallParts.MatrixOps(m), face, facing);
+        m.translate(-0.5F, -0.5F, -0.5F);
+        VoxelShape shape = Shapes.empty();
+        for (float[] box : PlacedSolids.discBoxes()) {
+            shape = Shapes.or(shape, box(m, (8.0F + box[4] - box[2]) / 16.0F, box[0] / 16.0F, (8.0F + box[5] - box[3]) / 16.0F,
+                    (8.0F + box[4] + box[2]) / 16.0F, box[1] / 16.0F, (8.0F + box[5] + box[3]) / 16.0F));
+        }
+        return shape.optimize();
+    }
+
     /** Die Form aus einer Maske: je Zeile die Streifen deckender Pixel, gleiche Nachbarzeilen zusammengefasst. */
     public static VoxelShape build(short[] mask, AttachFace face, Direction facing) {
-        Matrix4f m = transform(face, facing);
+        return build(mask, face, facing, false);
+    }
+
+    /** Wie {@link #build(short[], AttachFace, Direction)}; {@code solid}: die 2 px dicke Silhouette des 3D-Modells. */
+    public static VoxelShape build(short[] mask, AttachFace face, Direction facing, boolean solid) {
+        Matrix4f m = solid ? transform(face, facing, PlacedSolids.MODEL_THICKNESS, 1.0F) : transform(face, facing);
+        float z0 = solid ? (8.0F - PlacedSolids.MODEL_THICKNESS / 2.0F) / 16.0F : 7.5F / 16.0F;
+        float z1 = solid ? (8.0F + PlacedSolids.MODEL_THICKNESS / 2.0F) / 16.0F : 8.5F / 16.0F;
         VoxelShape shape = Shapes.empty();
         int v = 0;
         while (v < 16) {
@@ -135,7 +207,7 @@ public final class PlacedPlate {
                 while (u1 < 16 && (row & (1 << (15 - u1))) != 0) {
                     u1++;
                 }
-                shape = Shapes.or(shape, box(m, u / 16.0F, (16 - end) / 16.0F, 7.5F / 16.0F, u1 / 16.0F, (16 - v) / 16.0F, 8.5F / 16.0F));
+                shape = Shapes.or(shape, box(m, u / 16.0F, (16 - end) / 16.0F, z0, u1 / 16.0F, (16 - v) / 16.0F, z1));
                 u = u1;
             }
             v = end;
@@ -179,6 +251,12 @@ public final class PlacedPlate {
             String hex = VANILLA.get(id.getPath());
             if (hex == null && id.getPath().endsWith("_armor_trim_smithing_template")) {
                 hex = TRIM;
+            }
+            if (hex == null && id.getPath().endsWith("_pottery_sherd")) {
+                hex = SHERD;
+            }
+            if (hex == null && id.getPath().startsWith("music_disc_")) {
+                hex = DISC;
             }
             return hex == null ? FULL : parse(hex);
         }

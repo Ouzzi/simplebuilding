@@ -119,6 +119,19 @@ public final class PlacedSmallParts {
             {{8.0F, 5.0F, 0.0F, 0.0F}, {8.0F, 11.0F, 0.0F, 0.0F}, {5.0F, 8.0F, 3.0F, 90.0F}, {11.0F, 8.0F, 3.0F, 90.0F}},
     };
 
+    /**
+     * Plattenstapel (nur Platten auf dem Fleck, Besitzer D5): je Anzahl die Plaetze {Pixel x, Pixel z, Hoehe in Pixeln, Drehung in
+     * Grad}. Jede Platte liegt genau {@link PlacedSolids#DISC_HEIGHT} ueber der vorigen, leicht versetzt und gedreht, damit es ein
+     * Haufen bleibt; die Platten haben keine Unterseite, es gibt also keine Flaeche, die mit der der Platte darunter um dieselbe Ebene
+     * kaempft. Radius 6 plus Versatz bleibt im Block.
+     */
+    private static final float[][][] DISC_STACK = {
+            {{8.0F, 8.0F, 0.0F, 0.0F}},
+            {{8.0F, 8.0F, 0.0F, 0.0F}, {8.6F, 7.6F, 1.0F, 11.0F}},
+            {{8.0F, 8.0F, 0.0F, 0.0F}, {8.6F, 7.6F, 1.0F, 11.0F}, {7.5F, 8.5F, 2.0F, -8.0F}},
+            {{8.0F, 8.0F, 0.0F, 0.0F}, {8.6F, 7.6F, 1.0F, 11.0F}, {7.5F, 8.5F, 2.0F, -8.0F}, {8.4F, 8.6F, 3.0F, 14.0F}},
+    };
+
     /** Barren mit eigenem 3D-Modell ({@code simplebuilding:placed_<id>}); andere Barren liegen als flache Platte. */
     public static final java.util.Set<String> MODELLED_INGOTS = java.util.Set.of("minecraft:copper_ingot", "minecraft:iron_ingot",
             "minecraft:gold_ingot", "minecraft:netherite_ingot", "simplelib:enderite_ingot");
@@ -183,21 +196,30 @@ public final class PlacedSmallParts {
         /** Ein 3D-Ziegel (Queue N55): ein Quader, stapelt sich wie ein Barren. */
         BRICK,
         /** Ein aufrecht stehender 3D-Edelstein (Diamant, Smaragd; Queue N55). */
-        GEM;
+        GEM,
+        /** Eine Vorlage oder Toepferscherbe als 2 px dicke Silhouette ({@link PlacedSolids.Shape#SLAB}), liegt wie eine Platte. */
+        SLAB,
+        /** Eine runde Schallplatte, 1 px dick ({@link PlacedSolids.Shape#DISC}); allein auf dem Fleck ein echter Stapel ({@link #DISC_STACK}). */
+        DISC;
 
         /** Steht aufrecht auf dem Boden (Blockmodell, Mitte im Ursprung) statt flach zu liegen. */
         public boolean standing() {
-            return this != PLATE;
+            return this != PLATE && this != SLAB;
         }
 
-        /** Liegt als Barren/Ziegel im Stapel ({@link #INGOT_STACK}), wenn nur solche auf dem Fleck sind. */
+        /** Liegt im Stapel ({@link #INGOT_STACK} bzw. {@link #DISC_STACK}), wenn nur solche der gleichen Familie auf dem Fleck sind. */
         public boolean stackable() {
-            return this == INGOT || this == BRICK;
+            return this == INGOT || this == BRICK || this == DISC;
+        }
+
+        /** Barren und Ziegel stapeln sich miteinander, Platten nur mit Platten. */
+        private int family() {
+            return this == DISC ? 2 : 1;
         }
 
         /** Hat ein 3D-Modell, das der Vorschlaghammer auf die flache Platte umschalten kann (Queue N55). */
         public boolean switchable() {
-            return this == INGOT || this == BRICK || this == GEM;
+            return this == INGOT || this == BRICK || this == GEM || this == SLAB || this == DISC;
         }
 
         /** Die Quader des stehenden Modells von {@code part} (Pixel, um x = z = 8). */
@@ -209,7 +231,8 @@ public final class PlacedSmallParts {
                 case INGOT -> INGOT_BOXES;
                 case BRICK -> BRICK_BOXES;
                 case GEM -> gemBoxes(BuiltInRegistries.ITEM.getKey(part.getItem()).toString());
-                case PLATE -> new float[0][];
+                case DISC -> PlacedSolids.discBoxes();
+                case PLATE, SLAB -> new float[0][];
             };
         }
     }
@@ -256,7 +279,7 @@ public final class PlacedSmallParts {
         return !stack.isEmpty() && MODELLED_GEMS.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
     }
 
-    /** Liegen nur Barren und Ziegel auf dem Fleck? Dann stapeln sie sich ({@link #INGOT_STACK}). */
+    /** Liegen nur Barren und Ziegel (oder nur Schallplatten) auf dem Fleck? Dann stapeln sie sich ({@link #INGOT_STACK}, {@link #DISC_STACK}). */
     public static boolean ingotStack(List<ItemStack> parts) {
         return ingotStack(parts, false);
     }
@@ -266,8 +289,10 @@ public final class PlacedSmallParts {
         if (parts.isEmpty() || flat) {
             return false;
         }
+        int family = kind(parts.get(0)).family();
         for (ItemStack part : parts) {
-            if (!kind(part).stackable()) {
+            Kind kind = kind(part);
+            if (!kind.stackable() || kind.family() != family) {
                 return false;
             }
         }
@@ -323,6 +348,10 @@ public final class PlacedSmallParts {
         }
         if (isModelledGem(stack)) {
             return Kind.GEM;
+        }
+        PlacedSolids.Shape solid = PlacedSolids.shape(stack);
+        if (solid != null) {
+            return solid == PlacedSolids.Shape.DISC ? Kind.DISC : Kind.SLAB;
         }
         return stack.is(Items.SEA_PICKLE) ? Kind.PICKLE : Kind.PLATE;
     }
@@ -628,7 +657,7 @@ public final class PlacedSmallParts {
      */
     public static void place(Ops ops, Direction facing, int count, int index, Kind kind, boolean ingotStack) {
         if (kind.stackable() && ingotStack) {
-            float[] spot = INGOT_STACK[Math.max(0, Math.min(MAX_PARTS, count) - 1)][Math.max(0, Math.min(index, count - 1))];
+            float[] spot = (kind == Kind.DISC ? DISC_STACK : INGOT_STACK)[Math.max(0, Math.min(MAX_PARTS, count) - 1)][Math.max(0, Math.min(index, count - 1))];
             ops.translate(0.5F, 0.0F, 0.5F);
             ops.rotateY(rad(180.0F - facing.toYRot()));
             ops.translate((spot[0] - 8.0F) / 16.0F, spot[2] / 16.0F, (spot[1] - 8.0F) / 16.0F);
@@ -645,9 +674,20 @@ public final class PlacedSmallParts {
         if (standing) {
             // Stehende Teile stehen immer auf dem Boden, in ihrer eigenen Zelle (ueberlappen nie).
             ops.translate(0.0F, 0.5F, 0.0F);
+            if (kind == Kind.DISC && count > 1) {
+                // Eine Platte neben anderen Teilen ist kleiner (Radius 4 px = jede Zelle), die Dicke bleibt.
+                ops.scale(PlacedSolids.DISC_PILE_SCALE, 1.0F, PlacedSolids.DISC_PILE_SCALE);
+            }
             return;
         }
         float scale = count <= 1 ? SINGLE_SCALE : PILE_SCALE;
+        if (kind == Kind.SLAB) {
+            // 3D-Silhouette: das Modell traegt seine Dicke (2 px bei 14/16, ca. 1,1 px bei 8/16), nur gleichmaessig skalieren.
+            ops.translate(0.0F, scale * PlacedSolids.MODEL_THICKNESS / 16.0F / 2.0F + PlacedPlate.GAP, 0.0F);
+            ops.rotateX(rad(-90.0F));
+            ops.scale(scale, scale, scale);
+            return;
+        }
         float thickness = scale * PlacedPlate.THICKNESS_SCALE / 16.0F;
         ops.translate(0.0F, thickness / 2.0F + PlacedPlate.GAP, 0.0F);
         ops.rotateX(rad(-90.0F));
@@ -660,9 +700,13 @@ public final class PlacedSmallParts {
      * ein Edelstein nimmt die Breite des breitesten ({@link #GEM_HALF}), unabhaengig vom Stein.
      */
     public static float[] footprint(Kind kind, int count) {
-        if (kind == Kind.PLATE) {
+        if (kind == Kind.PLATE || kind == Kind.SLAB) {
             float half = (count <= 1 ? SINGLE_SCALE : PILE_SCALE) * 8.0F;
             return new float[]{half, half};
+        }
+        if (kind == Kind.DISC) {
+            float radius = count <= 1 ? PlacedSolids.DISC_RADIUS : PlacedSolids.DISC_RADIUS * PlacedSolids.DISC_PILE_SCALE;
+            return new float[]{radius, radius};
         }
         if (kind == Kind.GEM) {
             return new float[]{GEM_HALF, GEM_HALF};
@@ -698,7 +742,8 @@ public final class PlacedSmallParts {
         float rot = 0.0F;
         float hx = fp[0];
         float hz = fp[1];
-        for (float t = 1.0F; t > 0.0F; t -= 0.25F) {
+        // Eine runde Platte bleibt ungedreht: ihre Trefferform sind Quader, gedreht schoeben deren Ecken ueber die Zelle.
+        for (float t = kind == Kind.DISC ? 0.0F : 1.0F; t > 0.0F; t -= 0.25F) {
             double a = Math.toRadians(cell[6] * t);
             float rx = (float) (fp[0] * Math.abs(Math.cos(a)) + fp[1] * Math.abs(Math.sin(a)));
             float rz = (float) (fp[0] * Math.abs(Math.sin(a)) + fp[1] * Math.abs(Math.cos(a)));
@@ -802,12 +847,16 @@ public final class PlacedSmallParts {
         if (kind.standing()) {
             for (float[] box : kind.boxes(part)) {
                 float halfZ = box.length > 3 ? box[3] : box[2];
-                shape = Shapes.or(shape, box(m, (8.0F - box[2]) / 16.0F, box[0] / 16.0F, (8.0F - halfZ) / 16.0F,
-                        (8.0F + box[2]) / 16.0F, box[1] / 16.0F, (8.0F + halfZ) / 16.0F));
+                float cx = box.length > 5 ? box[4] : 0.0F;
+                float cz = box.length > 5 ? box[5] : 0.0F;
+                shape = Shapes.or(shape, box(m, (8.0F + cx - box[2]) / 16.0F, box[0] / 16.0F, (8.0F + cz - halfZ) / 16.0F,
+                        (8.0F + cx + box[2]) / 16.0F, box[1] / 16.0F, (8.0F + cz + halfZ) / 16.0F));
             }
             return shape;
         }
         short[] mask = PlacedPlate.mask(part.getItem());
+        float z0 = kind == Kind.SLAB ? (8.0F - PlacedSolids.MODEL_THICKNESS / 2.0F) / 16.0F : 7.5F / 16.0F;
+        float z1 = kind == Kind.SLAB ? (8.0F + PlacedSolids.MODEL_THICKNESS / 2.0F) / 16.0F : 8.5F / 16.0F;
         int v = 0;
         while (v < 16) {
             int row = mask[v] & 0xFFFF;
@@ -825,7 +874,7 @@ public final class PlacedSmallParts {
                 while (u1 < 16 && (row & (1 << (15 - u1))) != 0) {
                     u1++;
                 }
-                shape = Shapes.or(shape, box(m, u / 16.0F, (16 - end) / 16.0F, 7.5F / 16.0F, u1 / 16.0F, (16 - v) / 16.0F, 8.5F / 16.0F));
+                shape = Shapes.or(shape, box(m, u / 16.0F, (16 - end) / 16.0F, z0, u1 / 16.0F, (16 - v) / 16.0F, z1));
                 u = u1;
             }
             v = end;

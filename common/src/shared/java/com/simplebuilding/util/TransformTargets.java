@@ -109,7 +109,7 @@ public final class TransformTargets {
         if (NetheriteBreakerPistonBlock.canRepairWith(state, stack)) return true;
         if (ShulkerShells.canUpgrade(level, pos, stack)) return true;
         if (DiscFlips.canFlip(level, pos, stack)) return true;
-        if (FlatToggles.canToggle(level, pos, stack)) return true;
+        if (FlatToggles.canToggle(level, pos, stack) || FlatToggles.canToggleTemplate(level, pos, stack, player)) return true;
         if (state.getBlock() instanceof CopperPressurePlateBlock plate) return plate.transformWith(state, stack).isPresent();
         if (state.is(Blocks.WATER_CAULDRON) && (OctantCauldronWash.isWashable(stack) || TieredShulkerBoxes.isWashable(stack))) return true;
         if (stack.is(Items.SHEARS) && state.getBlock() instanceof PumpkinBlock) return true;

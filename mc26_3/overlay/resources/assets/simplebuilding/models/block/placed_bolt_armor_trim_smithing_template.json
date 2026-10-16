@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/placed_slab_trim",
+  "textures": {
+    "item": "minecraft:item/bolt_armor_trim_smithing_template",
+    "particle": "minecraft:item/bolt_armor_trim_smithing_template"
+  }
+}
