@@ -53,21 +53,21 @@
     {
       "damage_per_hit": 4,
       "duration_factor": 2,
-      "from": "simplelib:reinforced_barrel",
+      "from": "simplecrucibles:reinforced_barrel",
       "material": "simplelib:netherite_nugget",
       "material_count": 2,
       "min_tool": "diamond",
       "tier": "netherite",
-      "to": "simplelib:netherite_barrel"
+      "to": "simplecrucibles:netherite_barrel"
     },
     {
       "damage_per_hit": 4,
-      "from": "simplelib:reinforced_crucible",
+      "from": "simplecrucibles:reinforced_crucible",
       "material": "simplelib:netherite_nugget",
       "material_count": 4,
       "min_tool": "diamond",
       "tier": "netherite",
-      "to": "simplelib:netherite_crucible"
+      "to": "simplecrucibles:netherite_crucible"
     }
   ]
 }

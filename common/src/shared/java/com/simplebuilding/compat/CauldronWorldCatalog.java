@@ -67,19 +67,19 @@ public final class CauldronWorldCatalog {
             return new ArrayList<>(out);
         }
         out.add(Items.CAULDRON);
-        addIfPresent(out, item("simplelib:reinforced_cauldron"));
+        addIfPresent(out, item("simplecrucibles:reinforced_cauldron"));
         out.addAll(hammers(0));
-        for (String id : List.of("simplelib:iron_crucible", "simplelib:reinforced_crucible", "simplelib:netherite_crucible",
-                "simplebuilding:enderite_crucible")) {
+        for (String id : List.of("simplecrucibles:iron_crucible", "simplecrucibles:reinforced_crucible", "simplecrucibles:netherite_crucible",
+                "simplecrucibles:enderite_crucible")) {
             addIfPresent(out, item(id));
         }
         return new ArrayList<>(out);
     }
 
     private static void crucibleBuild(List<Entry> out, List<Item> hammers) {
-        Item iron = item("simplelib:iron_crucible");
-        List<Item> walls = tagged("simplelib", "crucible_walls");
-        List<Item> handles = tagged("simplelib", "crucible_handles");
+        Item iron = item("simplecrucibles:iron_crucible");
+        List<Item> walls = tagged("simplecrucibles", "crucible_walls");
+        List<Item> handles = tagged("simplecrucibles", "crucible_handles");
         int strikes = CrucibleCompat.buildStrikes();
         int wallStrikes = CrucibleCompat.buildWallStrikes();
         if (iron == null || walls.isEmpty() || handles.isEmpty() || hammers.isEmpty() || strikes <= wallStrikes) {
@@ -95,9 +95,9 @@ public final class CauldronWorldCatalog {
     }
 
     private static void barrelAttach(List<Entry> out, List<Item> hammers) {
-        List<Item> barrels = items("simplelib:copper_barrel", "simplelib:reinforced_barrel", "simplebuilding:enderite_barrel");
-        List<Item> crucibles = items("simplelib:iron_crucible", "simplelib:reinforced_crucible", "simplelib:netherite_crucible",
-                "simplebuilding:enderite_crucible");
+        List<Item> barrels = items("simplecrucibles:copper_barrel", "simplecrucibles:reinforced_barrel", "simplecrucibles:enderite_barrel");
+        List<Item> crucibles = items("simplecrucibles:iron_crucible", "simplecrucibles:reinforced_crucible", "simplecrucibles:netherite_crucible",
+                "simplecrucibles:enderite_crucible");
         int strikes = CrucibleCompat.attachStrikes();
         if (barrels.isEmpty() || crucibles.isEmpty() || hammers.isEmpty() || strikes <= 0) {
             return;
@@ -118,8 +118,8 @@ public final class CauldronWorldCatalog {
      * category only covers SimpleBuilding's own blocks). Same notes as the cauldron.
      */
     private static void crucibleUpgrades(List<Entry> out) {
-        for (String id : List.of("simplelib:iron_crucible", "simplelib:reinforced_crucible", "simplelib:netherite_crucible",
-                "simplelib:copper_barrel", "simplelib:reinforced_barrel", "simplelib:netherite_barrel")) {
+        for (String id : List.of("simplecrucibles:iron_crucible", "simplecrucibles:reinforced_crucible", "simplecrucibles:netherite_crucible",
+                "simplecrucibles:copper_barrel", "simplecrucibles:reinforced_barrel", "simplecrucibles:netherite_barrel")) {
             Identifier key = Identifier.tryParse(id);
             if (key == null || !BuiltInRegistries.BLOCK.containsKey(key)) {
                 continue;

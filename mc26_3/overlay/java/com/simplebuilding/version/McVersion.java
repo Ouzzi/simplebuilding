@@ -121,6 +121,8 @@ public final class McVersion {
     public static final boolean OVENS_IN_SB = false;
     /** Namespace of the furnaces, their carts and recipes ({@link #OVENS_IN_SB}). */
     public static final String OVENS_NAMESPACE = "simpleovens";
+    /** Namespace of the crucibles, barrels and the reinforced cauldron: split stage 5: the required, bundled sub-mod Simple Crucibles ({@code simplecrucibles:*}, migrated through SimpleLib id moves); soul lava and the buckets stay SimpleBuilding's. */
+    public static final String CRUCIBLES_NAMESPACE = "simplecrucibles";
     /** Sulfur fire and copper fire (queue N33): burn on sulfur / copper blocks, sulfur fire gives nausea. */
     public static final boolean FIRES = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */

@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/cauldron",
+  "textures": {
+    "particle": "simplecrucibles:block/reinforced_cauldron_side",
+    "top": "simplecrucibles:block/reinforced_cauldron_top",
+    "bottom": "simplecrucibles:block/reinforced_cauldron_bottom",
+    "side": "simplecrucibles:block/reinforced_cauldron_side",
+    "inside": "simplecrucibles:block/reinforced_cauldron_inner"
+  }
+}

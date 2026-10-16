@@ -2843,8 +2843,6 @@
   "text.autoconfig.simplebuilding.option.server.speakers.maxChain.@Tooltip": "Amplifiers of the right kind that pass a\njukebox or note block on (chain), 0 to 64\n(0 = off). Server-side. Default: 16.",
   "jukebox_song.simplebuilding.voidline_track_3": "SimpleBuilding - Iron Sonata",
   "item.simplebuilding.music_disc_voidline_track_3": "Music Disc",
-  "block.simplebuilding.enderite_crucible": "Enderite Crucible",
-  "block.simplebuilding.enderite_barrel": "Enderite Barrel",
   "block.simplebuilding.soul_lava": "Soul Lava",
   "fluid.simplebuilding.soul_lava": "Soul Lava",
   "item.simplebuilding.soul_lava_bucket": "Soul Lava Bucket",

@@ -37,7 +37,7 @@ import snownee.jade.api.WailaPlugin;
 @WailaPlugin
 public class SimplebuildingJadePlugin implements IWailaPlugin {
     // Same two ids as BlockInfo.isModCauldron; not called from there because the 1.21.11 copy of BlockInfo lacks it.
-    private static final java.util.Set<String> NO_FLUID_CAULDRONS = java.util.Set.of("simplesandwiches:milk_cauldron", "simplelib:reinforced_cauldron");
+    private static final java.util.Set<String> NO_FLUID_CAULDRONS = java.util.Set.of("simplesandwiches:milk_cauldron", "simplecrucibles:reinforced_cauldron");
     private static final Map<BlockInfo.Topic, BlockInfoServerProvider> DATA = new EnumMap<>(BlockInfo.Topic.class);
     private static final Map<BlockInfo.Topic, BlockInfoClientProvider> PROVIDERS = new EnumMap<>(BlockInfo.Topic.class);
 

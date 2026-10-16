@@ -7,7 +7,7 @@ instead of a plain recolor (owner feedback "eigene Formen statt Recolors"):
   reinforced - iron with a cracked-diamond band and diamond rivets (SimpleBuilding's reinforced tier)
   netherite  - netherite-block ramp, a gold-trimmed band and gold rivets
 Handles (the two grips) are a separate 16x16 texture per tier. Output goes to
-modules/simplelib/shared/resources/assets/simplelib/textures/block/.
+modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block/.
 """
 import os
 import sys
@@ -15,8 +15,8 @@ from PIL import Image, ImageDraw
 
 V = sys.argv[1] if len(sys.argv) > 1 else 'build/vanilla-textures/'
 PREVIEW = sys.argv[2] if len(sys.argv) > 2 else None
-OUT = os.path.join(os.path.dirname(__file__), '..', '..', 'modules', 'simplelib', 'shared', 'resources',
-                   'assets', 'simplelib', 'textures', 'block')
+OUT = os.path.join(os.path.dirname(__file__), '..', '..', 'modules', 'simplecrucibles', 'shared', 'resources',
+                   'assets', 'simplecrucibles', 'textures', 'block')
 
 
 def load(name):

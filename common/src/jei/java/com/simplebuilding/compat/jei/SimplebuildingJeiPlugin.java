@@ -160,8 +160,8 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            for (String id : List.of("simplelib:iron_crucible", "simplelib:reinforced_crucible",
-                    "simplelib:netherite_crucible", "simplebuilding:enderite_crucible")) {
+            for (String id : List.of("simplecrucibles:iron_crucible", "simplecrucibles:reinforced_crucible",
+                    "simplecrucibles:netherite_crucible", "simplecrucibles:enderite_crucible")) {
                 Item item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.parse(id));
                 if (item != net.minecraft.world.item.Items.AIR) registration.addCraftingStation(CrucibleCategory.TYPE, item);
             }

@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import crucible_art_v2_2026_10_05 as v2  # noqa: E402
 
 PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/crucible-n11-vorschau.png')
-LIB_MODELS = v2.ROOT / 'modules/simplelib/generated/resources/assets/simplelib/models/block'
+LIB_MODELS = v2.ROOT / 'modules/simplecrucibles/generated/resources/assets/simplecrucibles/models/block'
 
 
 def shifted(model, dz, prefix):

@@ -187,7 +187,7 @@ public final class CrucibleTests {
         cauldron(helper, Blocks.CAULDRON, new String[0], java.util.List.of());
         cauldron(helper, Blocks.WATER_CAULDRON, new String[0], java.util.List.of());
         helper.assertTrue(com.simplebuilding.compat.BlockInfo.isModCauldron("simplesandwiches:milk_cauldron")
-                && com.simplebuilding.compat.BlockInfo.isModCauldron("simplelib:reinforced_cauldron")
+                && com.simplebuilding.compat.BlockInfo.isModCauldron("simplecrucibles:reinforced_cauldron")
                 && !com.simplebuilding.compat.BlockInfo.isModCauldron("minecraft:cauldron"), "Jade's fluid line is replaced for exactly the two mod cauldrons");
     }
 
@@ -224,35 +224,35 @@ public final class CrucibleTests {
         com.simplebuilding.compat.CauldronWorldCatalog.entries().forEach(entry -> entries.put(entry.id(), entry));
         boolean sandwiches = item("simplesandwiches:butter_block") != Items.AIR && item("simplesandwiches:cheese_block") != Items.AIR;
         var expected = new java.util.HashSet<>(java.util.Set.of("crucible_build", "barrel_attach", "cauldron_reinforce",
-                "hammer_upgrade/simplelib:iron_crucible", "hammer_upgrade/simplelib:reinforced_crucible", "hammer_upgrade/simplelib:netherite_crucible",
-                "hammer_upgrade/simplelib:copper_barrel", "hammer_upgrade/simplelib:reinforced_barrel", "hammer_upgrade/simplelib:netherite_barrel"));
+                "hammer_upgrade/simplecrucibles:iron_crucible", "hammer_upgrade/simplecrucibles:reinforced_crucible", "hammer_upgrade/simplecrucibles:netherite_crucible",
+                "hammer_upgrade/simplecrucibles:copper_barrel", "hammer_upgrade/simplecrucibles:reinforced_barrel", "hammer_upgrade/simplecrucibles:netherite_barrel"));
         if (sandwiches) expected.addAll(java.util.Set.of("milk_butter", "milk_cheese"));
         helper.assertTrue(entries.keySet().equals(expected), "catalog entries " + entries.keySet());
         // 2026-10-06: the crucible/barrel hammer upgrades are in JEI too (2 material, from the upgrade table).
-        var ironUp = entries.get("hammer_upgrade/simplelib:iron_crucible");
-        helper.assertTrue(ironUp.inputs().get(0).items().equals(java.util.List.of(item("simplelib:iron_crucible")))
+        var ironUp = entries.get("hammer_upgrade/simplecrucibles:iron_crucible");
+        helper.assertTrue(ironUp.inputs().get(0).items().equals(java.util.List.of(item("simplecrucibles:iron_crucible")))
                 && ironUp.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && ironUp.inputs().get(1).count() == 4
-                && ironUp.output().items().equals(java.util.List.of(item("simplelib:reinforced_crucible"))), "iron -> reinforced crucible entry");
+                && ironUp.output().items().equals(java.util.List.of(item("simplecrucibles:reinforced_crucible"))), "iron -> reinforced crucible entry");
 
         var build = entries.get("crucible_build");
         helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)) && build.inputs().get(0).count() == 1, "an empty cauldron (N51)");
         helper.assertTrue(build.inputs().get(1).count() == 12 && build.inputs().get(1).items().contains(Items.IRON_INGOT), "12 ingots for plates and rim (N51)");
         helper.assertTrue(build.inputs().get(2).count() == 4 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
                 && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "4 handle strikes: iron ingot or iron rod");
-        helper.assertTrue(build.output().items().equals(java.util.List.of(item("simplelib:iron_crucible"))), "the iron crucible");
+        helper.assertTrue(build.output().items().equals(java.util.List.of(item("simplecrucibles:iron_crucible"))), "the iron crucible");
         helper.assertTrue(build.tools().contains(ModItems.IRON_SLEDGEHAMMER) && build.tools().contains(ModItems.ENDERITE_SLEDGEHAMMER), "every sledgehammer");
         helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(16)) && noteArgs(build, 1).equals(java.util.List.of(12, 4)), "notes name 16 strikes, 12 plate/rim and 4 handle ingots");
 
         var barrel = entries.get("barrel_attach");
-        helper.assertTrue(barrel.inputs().get(0).items().contains(item("simplelib:copper_barrel"))
-                && barrel.inputs().get(0).items().contains(item("simplebuilding:enderite_barrel")), "barrels");
-        helper.assertTrue(barrel.inputs().get(1).items().contains(item("simplelib:iron_crucible")), "next to a crucible");
+        helper.assertTrue(barrel.inputs().get(0).items().contains(item("simplecrucibles:copper_barrel"))
+                && barrel.inputs().get(0).items().contains(item("simplecrucibles:enderite_barrel")), "barrels");
+        helper.assertTrue(barrel.inputs().get(1).items().contains(item("simplecrucibles:iron_crucible")), "next to a crucible");
         helper.assertTrue(noteArgs(barrel, 0).equals(java.util.List.of(6)) && noteArgs(barrel, 1).equals(java.util.List.of("6/12/18/30")), "notes name 6 strikes, 6/12/18/30 fields (N12c: as many as the crucible; enderite 30 since N37)");
 
         var cauldron = entries.get("cauldron_reinforce");
         helper.assertTrue(cauldron.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)), "a cauldron");
         helper.assertTrue(cauldron.inputs().get(1).items().equals(java.util.List.of(ModItems.CRACKED_DIAMOND)) && cauldron.inputs().get(1).count() == 8, "8 cracked diamonds");
-        helper.assertTrue(cauldron.output().items().equals(java.util.List.of(item("simplelib:reinforced_cauldron"))), "the reinforced cauldron");
+        helper.assertTrue(cauldron.output().items().equals(java.util.List.of(item("simplecrucibles:reinforced_cauldron"))), "the reinforced cauldron");
         helper.assertTrue(cauldron.tools().contains(ModItems.STONE_SLEDGEHAMMER), "every hammer works (rank 0)");
         helper.assertTrue(cauldron.durationTicks() == SledgehammerUpgrades.upgradeTicks(SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON)), "duration of the upgrade");
         helper.assertTrue(com.simplebuilding.compat.InWorldRecipeCatalog.build().entries().stream()
@@ -269,9 +269,9 @@ public final class CrucibleTests {
         }
 
         var catalysts = com.simplebuilding.compat.CauldronWorldCatalog.catalysts();
-        helper.assertTrue(catalysts.contains(Items.CAULDRON) && catalysts.contains(item("simplelib:reinforced_cauldron"))
-                && catalysts.contains(ModItems.DIAMOND_SLEDGEHAMMER) && catalysts.contains(item("simplebuilding:enderite_crucible"))
-                && catalysts.contains(item("simplelib:iron_crucible")), "catalysts: both cauldrons, the hammers, the crucibles");
+        helper.assertTrue(catalysts.contains(Items.CAULDRON) && catalysts.contains(item("simplecrucibles:reinforced_cauldron"))
+                && catalysts.contains(ModItems.DIAMOND_SLEDGEHAMMER) && catalysts.contains(item("simplecrucibles:enderite_crucible"))
+                && catalysts.contains(item("simplecrucibles:iron_crucible")), "catalysts: both cauldrons, the hammers, the crucibles");
         helper.succeed();
     }
 
@@ -322,7 +322,7 @@ public final class CrucibleTests {
     /** Owner N15: a barrel attached to the Enderite crucible holds the crucible's double stacks. */
     public static void aBarrelAttachedToTheEnderiteCrucibleHoldsItsDoubleStacks(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
-        Block barrel = BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplelib:copper_barrel"));
+        Block barrel = BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplecrucibles:copper_barrel"));
         BlockPos at = new BlockPos(2, 1, 2), beside = at.east();
         helper.setBlock(at, CrucibleCompat.enderiteCrucible());
         helper.setBlock(beside, barrel);
@@ -389,9 +389,9 @@ public final class CrucibleTests {
         ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
         ServerPlayer player = player(helper, hammer, new ItemStack(Items.IRON_INGOT, 8));
         helper.assertTrue(player.getOffhandItem().is(TagKey.create(Registries.ITEM,
-                Identifier.fromNamespaceAndPath("simplelib", "crucible_walls"))), "SimpleLib plate material (iron ingot) loaded");
+                Identifier.fromNamespaceAndPath("simplecrucibles", "crucible_walls"))), "SimpleLib plate material (iron ingot) loaded");
         helper.assertTrue(new ItemStack(ModItems.IRON_POLE).is(TagKey.create(Registries.ITEM,
-                Identifier.fromNamespaceAndPath("simplelib", "crucible_handles"))), "SimpleBuilding handle materials loaded");
+                Identifier.fromNamespaceAndPath("simplecrucibles", "crucible_handles"))), "SimpleBuilding handle materials loaded");
         Block blank = lib("crucible_blank");
         var stage = (net.minecraft.world.level.block.state.properties.IntegerProperty) blank.getStateDefinition().getProperty("stage");
         int strikes = CrucibleCompat.buildStrikes();
@@ -675,7 +675,7 @@ public final class CrucibleTests {
         helper.assertTrue("high".equals(CrucibleCompat.heatAt(level, helper.absolutePos(new BlockPos(4, 2, 1)))), "flowing: high");
         helper.setBlock(new BlockPos(6, 1, 1), CrucibleCompat.reinforcedCauldron("extreme"));
         helper.assertTrue("extreme".equals(CrucibleCompat.heatAt(level, helper.absolutePos(new BlockPos(6, 2, 1)))), "cauldron: extreme");
-        TagKey<Item> extreme = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("simplelib", "needs_extreme_heat"));
+        TagKey<Item> extreme = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("simplecrucibles", "needs_extreme_heat"));
         helper.assertTrue(new ItemStack(ModItems.LAYERED_RAW_ENDERITE).is(extreme) && new ItemStack(ModItems.CRACKED_DIAMOND).is(extreme),
                 "layered raw enderite and cracked diamond need extreme heat");
         helper.succeed();
@@ -1346,8 +1346,8 @@ public final class CrucibleTests {
 
     /** Every barrel with an attached model: namespace and path; enderite is only registered on 26.3. */
     private static String[][] barrels() {
-        return new String[][] {{"simplelib", "copper_barrel"}, {"simplelib", "reinforced_barrel"},
-                {"simplelib", "netherite_barrel"}, {"simplebuilding", "enderite_barrel"}};
+        return new String[][] {{"simplecrucibles", "copper_barrel"}, {"simplecrucibles", "reinforced_barrel"},
+                {"simplecrucibles", "netherite_barrel"}, {"simplecrucibles", "enderite_barrel"}};
     }
 
     private static Block barrelBlock(String[] barrel) {

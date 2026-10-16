@@ -59,7 +59,7 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
     public static final EnumProperty<Content> CONTENT = EnumProperty.create("content", Content.class);
     public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, STAGES - 1);
     public static final BooleanProperty REINFORCED = BooleanProperty.create("reinforced");
-    private static final Identifier REINFORCED_CAULDRON = Identifier.fromNamespaceAndPath("simplelib", "reinforced_cauldron");
+    private static final Identifier REINFORCED_CAULDRON = Identifier.fromNamespaceAndPath("simplecrucibles", "reinforced_cauldron");
 
     public enum Content implements StringRepresentable {
         MILK, BUTTER,

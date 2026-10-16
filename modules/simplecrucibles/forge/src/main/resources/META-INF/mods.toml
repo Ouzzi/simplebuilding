@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplecrucibles"
+version="${version}"
+displayName="Simple Crucibles"
+description="Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). Upgrades in the world with the axe on its own, with the sledgehammer in SimpleBuilding."
+[[dependencies.simplecrucibles]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplecrucibles]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplecrucibles]]
+modId="simplelib"
+mandatory=true
+versionRange="[0.2.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simplecrucibles]]
+modId="simplebuilding"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

@@ -13,7 +13,8 @@ window.WIKI_MODULES = [
     "requires": [
       "cloth-config",
       "simpleovens",
-      "simplemobheads"
+      "simplemobheads",
+      "simplecrucibles"
     ],
     "optional": [
       "jei",
@@ -85,7 +86,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "6b8aeaca3b9e"
+    "dataHash": "4a8dba404c9c"
   },
   {
     "id": "simpleriding",
@@ -281,7 +282,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplelib",
     "displayName": "SimpleLib",
-    "description": "Shared content bundled by SimpleBuilding and Simple Sandwiches: crucibles heated by the block below, and warm food.",
+    "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials, id moves, in-world upgrades and UI building blocks.",
     "version": "0.2.0",
     "minecraft": "26.3",
     "loaders": [
@@ -291,7 +292,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "50dff4477f87"
+    "dataHash": "3e08d42fee2f"
   },
   {
     "id": "simpleinterfaces",
@@ -707,5 +708,24 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "dataHash": "fa54f1fa9967"
+  },
+  {
+    "id": "simplecrucibles",
+    "displayName": "Simple Crucibles",
+    "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding.",
+    "version": "1.0.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "24cb6f60fb8e"
   }
 ];

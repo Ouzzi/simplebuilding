@@ -105,13 +105,6 @@ OUTPUTS = {
     'item/netherite_chest_raft_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/enderite_chest_boat_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/enderite_chest_raft_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'block/enderite_crucible_side.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'block/enderite_crucible_top.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'block/enderite_barrel_side.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'block/enderite_barrel_top.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'block/enderite_barrel_top_open.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'block/enderite_barrel_bottom.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'block/enderite_barrel_flange.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
     'item/copper_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
     'item/copper_water_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
     'item/copper_lava_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
@@ -150,10 +143,12 @@ MODULE_OUTPUTS = {
     'simpleblocks': {'block/cracked_red_nether_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_tuff_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_tuff_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_mud_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_mud_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_end_stone_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_end_stone_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_deepslate_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_deepslate_tiles.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_cinnabar_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_cinnabar_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_sulfur_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_sulfur_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)')},
     'simpleovens': {f'item/{tier}_furnace_minecart.png': ((16, 16), 'ovens_carts_2026_10_13.derived() - Vanilla minecart (N19)')
                     for tier in ('reinforced', 'netherite', 'enderite')},
+    'simplecrucibles': {f'block/enderite_{part}.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla cauldron/barrel/netherite (split stage 5)')
+                        for part in ('crucible_side', 'crucible_top', 'barrel_side', 'barrel_top', 'barrel_top_open', 'barrel_bottom', 'barrel_flange')},
     'simplebeacons': {'gui/container/strong_beacon.png': ((256, 288), 'strong_beacon_gui.derived() - Vanilla beacon GUI + 2 rows (T12)')},
 }
 MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures'), 'simpleovens': ('ovens_carts_2026_10_13',),
-                     'simplebeacons': ('strong_beacon_gui',), 'simpleblocks': ('missing_blocks_2026_10_16',)}
+                     'simplebeacons': ('strong_beacon_gui',), 'simpleblocks': ('missing_blocks_2026_10_16',), 'simplecrucibles': ('crucibles_derived_2026_10_16',)}
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03', 'soul_lava_2026_10_09', 'shulker_shell_textures',
@@ -211,6 +206,8 @@ def module_images(jar: Path, module: str) -> dict:
     if str(HERE) not in sys.path:
         sys.path.append(str(HERE))
     out = {}
+    if module == 'simplecrucibles':
+        extract_vanilla_textures(jar)  # the crucible art reads the Vanilla textures as files at import time
     for name in MODULE_GENERATORS[module]:
         out.update(importlib.import_module(name).derived(jar))
     assert set(out) == set(MODULE_OUTPUTS[module]), f'MODULE_OUTPUTS[{module}] and its generators disagree'
