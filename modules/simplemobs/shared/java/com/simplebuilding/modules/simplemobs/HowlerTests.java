@@ -388,14 +388,14 @@ final class HowlerTests {
             ServerLevel l = h.getLevel();
             floor(h);
             HowlerEntity howler = h.spawn(MobsRegistry.HOLLOW_HOWLER, 0, 1, 3);
-            h.assertTrue(!howler.quiet() && howler.getAmbientSound() == net.minecraft.sounds.SoundEvents.WARDEN_AMBIENT, "phase one: Warden ambient, not quiet");
+            h.assertTrue(!howler.quiet() && howler.getAmbientSound() == MobsSounds.HOWLER_AMBIENT, "phase one: own ambient, not quiet");
             howler.setHealth(howler.getMaxHealth() * 0.4f);
             h.runAfterDelay(6, () -> {
                 h.assertTrue(howler.phase() == HowlerLogic.Phase.ONE && howler.hushTicks() > 0 && howler.quiet() && howler.getAmbientSound() == null, "holds its breath before the phase change (silence)");
             });
             h.succeedWhen(() -> {
                 h.assertTrue(howler.phase() == HowlerLogic.Phase.HUNGER && !howler.quiet(), "hunger after the hush");
-                h.assertTrue(howler.getAmbientSound() == net.minecraft.sounds.SoundEvents.WARDEN_AGITATED, "hunger: agitated ambient");
+                h.assertTrue(howler.getAmbientSound() == MobsSounds.HOWLER_AMBIENT_HUNGER, "hunger: own hungry ambient");
                 howler.discard();
             });
         });

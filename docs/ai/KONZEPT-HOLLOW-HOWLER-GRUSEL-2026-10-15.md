@@ -101,3 +101,12 @@ Umfang: Phase 1 (A1-A7), Phase 2 (V1-V9), H3 Darkness-Puls nur Wut, H5 Kamerawac
 - Herz-Textur: nur Generator `howler_textures.py --heart-preview` + Vorschau in `docs/ai/previews/claude-howler-n63/`, nichts in `resources`.
 - Verifikation: Compile 3 Loader, `simplemobs:*howler*` auf Fabric+NeoForge, neue Tests `howler_heartbeat`, `howler_rage_pulse_rules`, `howler_phase_sounds`, `howler_rage_pulse`, `howler_no_pulse_before_rage`; Wiki/Guide/Tooltip-Checks.
 Abweichungen: Kopf-Dreh zur Störung nutzt `lookControl` auf dem Server (Kopf folgt mit Faktor 1,0) statt eigenem `disturbanceYaw`; kein Untertitel-Fix (Phase 3).
+
+## 8. Umsetzung H2 – Phase 3 eigene Sounds (claude-howler3, 2026-10-16)
+Ist-Zustand nach claude-howler-n63: Phase 1/2, H3, H5 sind drin (Vanilla-Sounds geschichtet, Herzschlag am Mob mit `HowlerLogic.heartbeatCycle`, Stille vor Phasenwechsel `quiet()`, Miniboss-Größe/Bossbar/Sculk-Jaws in Phase 2). Kein Eingriff in diese Logik: nur die Sound-Events werden getauscht, Takt/Stille/Pulse bleiben.
+- Generator `tools/sounds/make_howler_sounds.py` (numpy/scipy/soundfile, feste Seeds, nichts kopiert): 18 Mono-OGG (44,1 kHz) nach `assets/simplemobs/sounds/entity/hollow_howler/`. Spitze ca. -2 dBFS, Vanilla-nah.
+- Ereignisse (`MobsSounds`, `sounds.json`, Untertitel EN/DE `subtitles.simplemobs.entity.hollow_howler.*`): `heartbeat` (ein Schlag, Code spielt lub-dub; 45-Hz-Sub + 40/57-Hz-Schwebung), `ambient`/`ambient_hunger`/`ambient_rage` (je 2 Varianten: trockenes Knochenatmen -> nasses Rasseln mit Kieferklappern -> verzerrtes Knurren mit Sub-Oktave und Tremolo), `hurt` (3), `death`, `step` (3), `notice` (statt WARDEN_LISTENING), `sniff` (Suche), `roar` (Hunger-Wechsel, Ansturm, Biss-Ankündigung), `roar_rage` (Wut-Wechsel, längster Laut, leise Pseudo-Infraschall-Schicht).
+- Eingehängt in `HowlerEntity` (Ambient je Phase, Hurt ohne Skelett-Schicht, Death, Step, Herzschlag, Hören, Suche, Phasenwechsel-Roar). Angriffs-Ankündigungen (Sonic-Charge, Shrieker, Impact, Emerge) bleiben Vanilla, damit Spieler sie wiedererkennen; Untertitel dazu bleiben Warden/Vanilla.
+- Registrierung: Fabric über `MobsRegistry.registerAll`, NeoForge/Forge über `RegisterEvent` (`Registries.SOUND_EVENT`).
+- Prüfung: `tools/check_data.py` (Events = sounds.json, Dateien vorhanden, Untertitel in beiden Sprachen), Compile, `simplemobs:*howler*`.
+- Nicht prüfbar ohne Ohr: Klangwirkung (Besitzer hört `/tmp/claude-0/ash/howler3/`). Nachjustieren nur im Generator (Konstanten je Funktion), dann neu erzeugen.

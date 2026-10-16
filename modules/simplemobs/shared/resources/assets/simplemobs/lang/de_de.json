@@ -113,5 +113,16 @@
   "quests.simplemobs.start.title": "Willkommen bei Simple Mobs",
   "quests.simplemobs.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobs.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen."
+  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen.",
+  "subtitles.simplemobs.entity.hollow_howler.heartbeat": "Herz des Hollow Howlers schlägt",
+  "subtitles.simplemobs.entity.hollow_howler.ambient": "Hollow Howler atmet",
+  "subtitles.simplemobs.entity.hollow_howler.ambient_hunger": "Hollow Howler röchelt",
+  "subtitles.simplemobs.entity.hollow_howler.ambient_rage": "Hollow Howler knurrt",
+  "subtitles.simplemobs.entity.hollow_howler.hurt": "Hollow Howler wird verletzt",
+  "subtitles.simplemobs.entity.hollow_howler.death": "Hollow Howler stirbt",
+  "subtitles.simplemobs.entity.hollow_howler.step": "Hollow Howler geht",
+  "subtitles.simplemobs.entity.hollow_howler.notice": "Hollow Howler wird aufmerksam",
+  "subtitles.simplemobs.entity.hollow_howler.sniff": "Hollow Howler schnüffelt",
+  "subtitles.simplemobs.entity.hollow_howler.roar": "Hollow Howler brüllt",
+  "subtitles.simplemobs.entity.hollow_howler.roar_rage": "Hollow Howler tobt"
 }
