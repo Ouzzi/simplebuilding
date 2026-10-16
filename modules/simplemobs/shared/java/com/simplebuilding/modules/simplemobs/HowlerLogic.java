@@ -7,8 +7,19 @@ package com.simplebuilding.modules.simplemobs;
 public final class HowlerLogic {
     public enum Phase { ONE, HUNGER, RAGE }
 
-    /** Owner 12.10. (Nachtrag 46): a little stronger than the Warden (500 health, 0 armor, 30 melee, speed 0.3, knockback resistance 1). */
-    public static final double MAX_HEALTH = 550.0, ARMOR = 8.0, ATTACK = 20.0, SPEED = 0.3, KNOCKBACK_RESISTANCE = 1.0;
+    /**
+     * Miniboss (Nachtrag 68): a little stronger than the Warden (500 health, 0 armor, 30 melee, speed 0.3, knockback
+     * resistance 1). Health +20 % (600), melee +13 % (34), armor 8 (about 20 % less damage from a 10-damage hit, in
+     * exchange for the open-jaw weak spot x1.5), and 1.3 times its old size ({@link #SCALE}, hitbox and model together).
+     */
+    public static final double MAX_HEALTH = 600.0, ARMOR = 8.0, ATTACK = 34.0, SPEED = 0.3, KNOCKBACK_RESISTANCE = 1.0, SCALE = 1.3;
+    /** Vanilla Warden numbers, for comparison in the tests. */
+    public static final double WARDEN_HEALTH = 500.0, WARDEN_ATTACK = 30.0, WARDEN_ARMOR = 0.0;
+    /** Phase borders as health shares: hunger (phase 2) at 50 %, rage (phase 3) at 20 %. */
+    public static final float HUNGER_SHARE = 0.5f, RAGE_SHARE = 0.2f;
+    /** Phase 2+ sculk jaws: at most this many alive at once, one new every so many ticks, hunted players within this range. */
+    public static final int JAW_MAX = 6, JAW_INTERVAL_TICKS = 100;
+    public static final double JAW_RANGE = 24.0, JAW_NEAR_MIN = 1.5, JAW_NEAR_MAX = 3.5;
     public static final int XP = 50;
     /** Manifestation: 5 s from the horn call to the Howler. */
     public static final int MANIFEST_TICKS = 100;
@@ -44,7 +55,7 @@ public final class HowlerLogic {
     public static final int DARKNESS_TICKS = 80;
     public static final float SHRIEK_DAMAGE = 8.0f;
     public static final double SHRIEK_RADIUS = 10.0, SHRIEK_MIN_DISTANCE = 6.0;
-    public static final int TRAP_INTERVAL_TICKS = 300, TRAP_LIFETIME_TICKS = 400, TRAP_COUNT = 3;
+    public static final int TRAP_LIFETIME_TICKS = 400, TRAP_COUNT = 3;
     public static final int TRAIL_INTERVAL_TICKS = 60, TRAIL_MAX = 25;
     public static final int AFTERMATH_RADIUS = 2;
 
@@ -52,10 +63,28 @@ public final class HowlerLogic {
 
     public static Phase phase(float health, float max) {
         float f = max <= 0 ? 0 : health / max;
-        if (f <= 0.2f) return Phase.RAGE;
-        if (f <= 0.5f) return Phase.HUNGER;
+        if (f <= RAGE_SHARE) return Phase.RAGE;
+        if (f <= HUNGER_SHARE) return Phase.HUNGER;
         return Phase.ONE;
     }
+
+    /**
+     * Which player gets the next sculk jaw: {@code occupied[i]} says player i already has a jaw under the feet. The first
+     * free one (starting at {@code start}, so it rotates) gets it directly under the feet; if all are occupied the pick
+     * is {@code start} and the jaw goes next to the player. Returns the player index, or -1 for no players.
+     */
+    public static int jawTarget(boolean[] occupied, int start) {
+        int n = occupied.length;
+        if (n == 0) return -1;
+        for (int i = 0; i < n; i++) {
+            int k = Math.floorMod(start + i, n);
+            if (!occupied[k]) return k;
+        }
+        return Math.floorMod(start, n);
+    }
+
+    /** Whether the jaw lands under the player (true) or, with every player already covered, next to one. */
+    public static boolean jawUnderPlayer(boolean[] occupied, int target) { return target >= 0 && !occupied[target]; }
 
     /** Echo shriek cooldown: every 12 s, every 6 s in rage. */
     public static int shriekCooldown(Phase phase) { return phase == Phase.RAGE ? 120 : 240; }

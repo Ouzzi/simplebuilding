@@ -14,12 +14,15 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -76,8 +79,11 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     private final DynamicGameEventListener<VibrationSystem.Listener> dynamicListener;
     private final VibrationSystem.User vibrationUser;
     private VibrationSystem.Data vibrationData;
+    /** Miniboss bar (Nachtrag 68): notches on the phase borders (50 %, 20 %), color and name follow the phase. */
+    private final ServerBossEvent bossEvent = new ServerBossEvent(Mth.createInsecureUUID(this.random), this.getDisplayName(),
+            BossEvent.BossBarColor.BLUE, BossBars.overlayFor(HowlerLogic.HUNGER_SHARE, HowlerLogic.RAGE_SHARE));
 
-    private int biteCooldown, shriekCooldown = 60, trapCooldown = HowlerLogic.TRAP_INTERVAL_TICKS, trailTicks, trailPlaced;
+    private int biteCooldown, shriekCooldown = 60, trapCooldown = HowlerLogic.JAW_INTERVAL_TICKS, trailTicks, trailPlaced;
     private int vibrationCooldown, sinceHeard, idleTicks, searchTicks;
     private static final int SEARCH_TICKS = 120;
     private int shockwaveCooldown = 40, chargeCooldown = 100, tendrilCooldown = 80, patternGap;
@@ -96,6 +102,34 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         this.vibrationUser = new HowlerVibrationUser();
         this.vibrationData = new VibrationSystem.Data();
         this.dynamicListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
+        applyStats();
+    }
+
+    /** Config values for health, melee damage and size (the registered attributes carry the defaults). */
+    private void applyStats() {
+        setBase(Attributes.MAX_HEALTH, MobsConfig.howlerHealth);
+        setBase(Attributes.ATTACK_DAMAGE, MobsConfig.howlerAttack);
+        setBase(Attributes.SCALE, MobsConfig.howlerScalePercent / 100.0);
+        this.setHealth(this.getMaxHealth());
+        this.refreshDimensions();
+        bossEvent.setName(BossBars.title(this.getDisplayName(), true, BossBars.phaseName("howler", 1)));
+    }
+
+    private void setBase(Holder<net.minecraft.world.entity.ai.attributes.Attribute> attribute, double value) {
+        var instance = this.getAttribute(attribute);
+        if (instance != null && instance.getBaseValue() != value) instance.setBaseValue(value);
+    }
+
+    public ServerBossEvent bossEvent() { return bossEvent; }
+
+    /** Name, color and notches follow the phase; the bar shows within the configured range. */
+    private void syncBossBar(ServerLevel level) {
+        if (!MobsConfig.minibossBars) { bossEvent.removeAllPlayers(); return; }
+        HowlerLogic.Phase phase = phase();
+        BossEvent.BossBarColor color = switch (phase) { case ONE -> BossEvent.BossBarColor.BLUE; case HUNGER -> BossEvent.BossBarColor.YELLOW; case RAGE -> BossEvent.BossBarColor.RED; };
+        BossBars.apply(bossEvent, BossBars.title(this.getDisplayName(), true, BossBars.phaseName("howler", phase.ordinal() + 1)), color,
+                BossBars.overlayFor(HowlerLogic.HUNGER_SHARE, HowlerLogic.RAGE_SHARE), this.getHealth() / this.getMaxHealth());
+        BossBars.track(bossEvent, this, level, MobsConfig.bossBarRange);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -106,7 +140,8 @@ public class HowlerEntity extends Monster implements VibrationSystem {
                 .add(Attributes.MOVEMENT_SPEED, HowlerLogic.SPEED)
                 .add(Attributes.KNOCKBACK_RESISTANCE, HowlerLogic.KNOCKBACK_RESISTANCE)
                 .add(Attributes.FOLLOW_RANGE, 32.0)
-                .add(Attributes.STEP_HEIGHT, 1.0);
+                .add(Attributes.STEP_HEIGHT, 1.0)
+                .add(Attributes.SCALE, HowlerLogic.SCALE);
     }
 
     @Override
@@ -331,6 +366,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
     protected void customServerAiStep(ServerLevel level) {
         super.customServerAiStep(level);
         updatePhase();
+        syncBossBar(level);
         tickTraps(level);
         if (emerging()) { this.getNavigation().stop(); return; }
         if (vibrationCooldown > 0) vibrationCooldown--;
@@ -401,8 +437,8 @@ public class HowlerEntity extends Monster implements VibrationSystem {
             }
             case NONE -> {
                 if (phase != HowlerLogic.Phase.ONE && MobsConfig.howlerHunger && trapCooldown == 0 && patternGap == 0) {
-                    trapCooldown = HowlerLogic.TRAP_INTERVAL_TICKS;
-                    spitTraps(level, target);
+                    trapCooldown = MobsConfig.howlerJawInterval;
+                    spitTraps(level);
                 }
             }
         }
@@ -589,28 +625,69 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         }
     }
 
-    /** Spits three traps around the target: Simple Building's Sculk Jaws (20 s), else Vanilla sculk snares. */
-    public int spitTraps(ServerLevel level, LivingEntity target) {
-        Block jaw = BuiltInRegistries.BLOCK.getOptional(SB_JAW).orElse(null);
-        boolean blocks = jaw != null && griefing(level);
-        int placed = 0;
-        for (int i = 0; i < HowlerLogic.TRAP_COUNT; i++) {
-            double a = this.random.nextDouble() * Math.PI * 2, r = 1.5 + this.random.nextDouble() * 1.5;
-            BlockPos spot = BlockPos.containing(target.getX() + Math.cos(a) * r, target.getY(), target.getZ() + Math.sin(a) * r);
-            if (!level.getBlockState(spot).isAir() || !level.getBlockState(spot.below()).isFaceSturdy(level, spot.below(), Direction.UP)) continue;
-            Vec3 c = Vec3.atBottomCenterOf(spot);
-            level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, c.x, c.y + 0.1, c.z, 10, 0.3, 0.05, 0.3, 0.02);
-            if (blocks) {
-                level.setBlock(spot, jaw.defaultBlockState(), 3);
-                trapPos.add(spot.asLong());
-                trapUntil.add(level.getGameTime() + HowlerLogic.TRAP_LIFETIME_TICKS);
-            } else {
-                addTendril(level, spot);
-            }
-            placed++;
+    private static @Nullable Block jawBlock() { return BuiltInRegistries.BLOCK.getOptional(SB_JAW).orElse(null); }
+
+    /** Whether a jaw (placed block, or its Vanilla snare stand-in) already marks this spot. */
+    private boolean hasJaw(ServerLevel level, BlockPos pos) {
+        if (trapPos.contains(pos.asLong()) || snarePos.contains(pos.asLong())) return true;
+        Block jaw = jawBlock();
+        return jaw != null && level.getBlockState(pos).is(jaw);
+    }
+
+    /** A jaw can stand here: an empty block (not inside a solid one) on solid ground. */
+    private boolean jawSpotOk(ServerLevel level, BlockPos spot) {
+        return level.getBlockState(spot).isAir() && level.getBlockState(spot.below()).isFaceSturdy(level, spot.below(), Direction.UP);
+    }
+
+    /**
+     * Where the next sculk jaw goes (phase two and up): directly under a hunted player who has none there yet; when
+     * every player in range already stands on one (or cannot, in the air), at a random valid spot near one player.
+     * Null: nobody in range or no valid spot.
+     */
+    public @Nullable BlockPos planJaw(ServerLevel level) {
+        List<LivingEntity> prey = level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(HowlerLogic.JAW_RANGE),
+                e -> canHunt(e) && this.distanceTo(e) <= HowlerLogic.JAW_RANGE);
+        if (prey.isEmpty()) return null;
+        boolean[] occupied = new boolean[prey.size()];
+        for (int i = 0; i < occupied.length; i++) {
+            BlockPos under = prey.get(i).blockPosition();
+            occupied[i] = hasJaw(level, under) || !jawSpotOk(level, under);
         }
-        if (placed > 0) this.playSound(SoundEvents.SCULK_BLOCK_SPREAD, 1.5f, 0.6f);
-        return placed;
+        int target = HowlerLogic.jawTarget(occupied, this.random.nextInt(prey.size()));
+        LivingEntity p = prey.get(target);
+        if (HowlerLogic.jawUnderPlayer(occupied, target)) return p.blockPosition();
+        for (int tries = 0; tries < 16; tries++) {
+            double a = this.random.nextDouble() * Math.PI * 2, r = HowlerLogic.JAW_NEAR_MIN + this.random.nextDouble() * (HowlerLogic.JAW_NEAR_MAX - HowlerLogic.JAW_NEAR_MIN);
+            BlockPos base = BlockPos.containing(p.getX() + Math.cos(a) * r, p.getY(), p.getZ() + Math.sin(a) * r);
+            for (int dy : new int[] {0, -1, 1}) {
+                BlockPos spot = base.above(dy);
+                if (jawSpotOk(level, spot) && !hasJaw(level, spot)) return spot;
+            }
+        }
+        return null;
+    }
+
+    /** Spits one trap (Simple Building's Sculk Jaw for 20 s, else a Vanilla sculk snare) where {@link #planJaw} says, up to the configured cap. */
+    public int spitTraps(ServerLevel level) {
+        if (trapPos.size() + snarePos.size() >= MobsConfig.howlerJawMax) return 0;
+        BlockPos spot = planJaw(level);
+        if (spot == null) return 0;
+        placeJaw(level, spot);
+        return 1;
+    }
+
+    private void placeJaw(ServerLevel level, BlockPos spot) {
+        Block jaw = jawBlock();
+        Vec3 c = Vec3.atBottomCenterOf(spot);
+        level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, c.x, c.y + 0.1, c.z, 10, 0.3, 0.05, 0.3, 0.02);
+        if (jaw != null && griefing(level)) {
+            level.setBlock(spot, jaw.defaultBlockState(), 3);
+            trapPos.add(spot.asLong());
+            trapUntil.add(level.getGameTime() + HowlerLogic.TRAP_LIFETIME_TICKS);
+        } else {
+            addTendril(level, spot);
+        }
+        this.playSound(SoundEvents.SCULK_BLOCK_SPREAD, 1.5f, 0.6f);
     }
 
     /** Sculk tendrils: one mark under the target and the rest around it; they pulse 1.5 s, then erupt. */
@@ -690,6 +767,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
 
     @Override
     public void die(DamageSource source) {
+        bossEvent.removeAllPlayers();
         if (this.level() instanceof ServerLevel level) {
             for (long p : trapPos) removeTrap(level, BlockPos.of(p));
             trapPos.clear();
@@ -700,6 +778,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
 
     @Override
     public void remove(RemovalReason reason) {
+        bossEvent.removeAllPlayers();
         if (reason.shouldDestroy() && this.level() instanceof ServerLevel level) for (long p : trapPos) removeTrap(level, BlockPos.of(p));
         super.remove(reason);
     }

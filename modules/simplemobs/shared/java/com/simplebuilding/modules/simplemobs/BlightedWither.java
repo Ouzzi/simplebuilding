@@ -9,6 +9,8 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
+import com.simplebuilding.modules.simplemobs.mixin.WitherBossAccessor;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,6 +19,7 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -110,6 +113,17 @@ public class BlightedWither extends WitherBoss {
         // Vanilla heals 10 every 10 ticks while waking (enough for 300 from a third); scaled up it reaches full health.
         if (waking && this.tickCount % 10 == 0) this.heal(10.0F * (float) (stage().health() / 300.0 - 1.0));
         if (!waking) tickAbilities(level);
+        if (!waking && MobsConfig.minibossBars) syncBossBar();
+    }
+
+    /** The bar shows the three phases: notches at 50 % and 15 % (20 segments), a color and a name per phase. */
+    private void syncBossBar() {
+        int phase = phase();
+        ServerBossEvent bar = ((WitherBossAccessor) (Object) this).simplemobs$bossEvent();
+        BossEvent.BossBarColor color = phase == 1 ? BossEvent.BossBarColor.PURPLE : phase == 2 ? BossEvent.BossBarColor.PINK : BossEvent.BossBarColor.RED;
+        bar.setName(BossBars.title(this.getDisplayName(), false, BossBars.phaseName("wither", phase)));
+        bar.setColor(color);
+        bar.setOverlay(BossBars.overlayFor(WitherLogic.PHASE_2, WitherLogic.PHASE_3));
     }
 
     /** Phase changes and the announced special attacks; called every server tick once the Wither is awake. */

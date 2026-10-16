@@ -87,8 +87,8 @@ final class HowlerTests {
             h.assertTrue(BuiltInRegistries.POTION.containsKey(MobsRegistry.SILENCE_POTION_KEY.identifier())
                     && BuiltInRegistries.POTION.containsKey(MobsRegistry.LONG_SILENCE_POTION_KEY.identifier()), "silence potions");
             var attrs = HowlerEntity.createAttributes().build();
-            h.assertTrue(attrs.getBaseValue(Attributes.MAX_HEALTH) == 550.0, "550 health");
-            h.assertTrue(attrs.getBaseValue(Attributes.ATTACK_DAMAGE) == 20.0 && attrs.getBaseValue(Attributes.ARMOR) == 8.0, "bite 20, armor 8");
+            h.assertTrue(attrs.getBaseValue(Attributes.MAX_HEALTH) == 600.0, "600 health");
+            h.assertTrue(attrs.getBaseValue(Attributes.ATTACK_DAMAGE) == 34.0 && attrs.getBaseValue(Attributes.ARMOR) == 8.0, "bite 34, armor 8");
             // Nachtrag 46: a little stronger than the Warden
             var warden = net.minecraft.world.entity.monster.warden.Warden.createAttributes().build();
             h.assertTrue(attrs.getBaseValue(Attributes.MAX_HEALTH) > warden.getBaseValue(Attributes.MAX_HEALTH), "more health than the Warden");
@@ -429,7 +429,9 @@ final class HowlerTests {
             h.runAfterDelay(60, () -> {
                 MobsConfig.howlerPulseInterval = saved;
                 h.assertTrue(howler.phase() == HowlerLogic.Phase.HUNGER, "hunger phase");
-                h.assertFalse(prey.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "no pulse in hunger");
+                // The bite also gives Darkness (4 s) now that the bigger Howler reaches the stand-in; the pulse is the long, particle-less one.
+                var dark = prey.getEffect(net.minecraft.world.effect.MobEffects.DARKNESS);
+                h.assertTrue(dark == null || dark.getDuration() <= HowlerLogic.DARKNESS_TICKS, "no pulse in hunger");
                 howler.discard();
                 h.succeed();
             });

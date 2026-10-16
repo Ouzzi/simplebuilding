@@ -187,6 +187,7 @@ public final class MobsTests {
             h.succeed();
         });
         HowlerTests.addAll(MobsTests::add);
+        MinibossTests.addAll(MobsTests::add);
         DisguiseTests.addAll(MobsTests::add);
         EndNetherTests.addAll(MobsTests::add);
         FearTests.addAll(MobsTests::add);

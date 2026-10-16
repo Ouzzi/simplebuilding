@@ -62,6 +62,13 @@ public final class MobsConfig {
     /** Hollow Howler rage pulse (like the Warden): Darkness for hunted players nearby, on a heartbeat, only in the rage phase. */
     public static boolean howlerRagePulse = true;
     public static int howlerPulseInterval = HowlerLogic.PULSE_INTERVAL_TICKS, howlerPulseTicks = HowlerLogic.PULSE_DARKNESS_TICKS, howlerPulseRadius = HowlerLogic.PULSE_RADIUS;
+    /** Miniboss stats of the Hollow Howler (Nachtrag 68; Warden: 500 health, 0 armor, 30 attack): applied when it spawns. Size in percent. */
+    public static int howlerHealth = (int) HowlerLogic.MAX_HEALTH, howlerAttack = (int) HowlerLogic.ATTACK, howlerScalePercent = (int) Math.round(HowlerLogic.SCALE * 100);
+    /** Phase 2+ sculk jaws under the hunted players: at most {@code howlerJawMax} alive at once, one new every {@code howlerJawInterval} ticks. */
+    public static int howlerJawMax = HowlerLogic.JAW_MAX, howlerJawInterval = HowlerLogic.JAW_INTERVAL_TICKS;
+    /** Boss bars of the bosses and minibosses (phase notches, colors); the bar shows for players within this many blocks. */
+    public static boolean minibossBars = true;
+    public static int bossBarRange = 48;
     /** Client config {@code simplemobs-client.json}: "Reduce motion" turns off the camera shake of the Howler's shockwave and shriek. */
     public static final String CLIENT_FILE = "simplemobs-client.json";
     public static boolean reduceMotion = false;
@@ -123,6 +130,13 @@ public final class MobsConfig {
         howlerPulseInterval = Math.max(20, Math.min(1200, integer(json, "howlerPulseInterval", HowlerLogic.PULSE_INTERVAL_TICKS)));
         howlerPulseTicks = Math.max(20, Math.min(1200, integer(json, "howlerPulseTicks", HowlerLogic.PULSE_DARKNESS_TICKS)));
         howlerPulseRadius = Math.max(4, Math.min(64, integer(json, "howlerPulseRadius", HowlerLogic.PULSE_RADIUS)));
+        howlerHealth = Math.max(20, Math.min(10000, integer(json, "howlerHealth", (int) HowlerLogic.MAX_HEALTH)));
+        howlerAttack = Math.max(1, Math.min(500, integer(json, "howlerAttack", (int) HowlerLogic.ATTACK)));
+        howlerScalePercent = Math.max(50, Math.min(300, integer(json, "howlerScalePercent", (int) Math.round(HowlerLogic.SCALE * 100))));
+        howlerJawMax = Math.max(1, Math.min(30, integer(json, "howlerJawMax", HowlerLogic.JAW_MAX)));
+        howlerJawInterval = Math.max(20, Math.min(1200, integer(json, "howlerJawInterval", HowlerLogic.JAW_INTERVAL_TICKS)));
+        minibossBars = bool(json, "minibossBars", true);
+        bossBarRange = Math.max(8, Math.min(256, integer(json, "bossBarRange", 48)));
         howlerDespawnMinutes = Math.max(1, Math.min(1440, integer(json, "howlerDespawnMinutes", 10)));
         List<String> dims = new ArrayList<>();
         try {
@@ -171,6 +185,13 @@ public final class MobsConfig {
         o.addProperty("howlerPulseInterval", howlerPulseInterval);
         o.addProperty("howlerPulseTicks", howlerPulseTicks);
         o.addProperty("howlerPulseRadius", howlerPulseRadius);
+        o.addProperty("howlerHealth", howlerHealth);
+        o.addProperty("howlerAttack", howlerAttack);
+        o.addProperty("howlerScalePercent", howlerScalePercent);
+        o.addProperty("howlerJawMax", howlerJawMax);
+        o.addProperty("howlerJawInterval", howlerJawInterval);
+        o.addProperty("minibossBars", minibossBars);
+        o.addProperty("bossBarRange", bossBarRange);
         o.addProperty("howlerDespawnMinutes", howlerDespawnMinutes);
         JsonArray dims = new JsonArray();
         howlerAllowDimensions.forEach(dims::add);
