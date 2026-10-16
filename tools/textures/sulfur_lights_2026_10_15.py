@@ -1,206 +1,135 @@
-"""Sulfur torch, sulfur lantern and sulfur campfire textures (queue N58, follow-up of the sulfur fire).
+"""Sulfur torch, sulfur lantern and sulfur campfire textures (queue N58 / N67).
 
-All pixels are drawn here (no Vanilla input), so the PNGs are committed like the other hand-drawn textures. The look is
-the sulfur fire's yellow-green: a crystal lump on the torch, a bronze lantern with a sulfur crystal core, a campfire with
-a flickering yellow-green flame over logs whose cracks glow. New files only - no accepted texture changes.
+Owner N67: stay very close to Vanilla (torch, lantern, campfire), only the flame changes: the orange fire becomes the
+yellow-green sulfur flame (the ramp of the sulfur fire, fires_2026_10_11.py). The PNGs are Vanilla-derived: every
+flame pixel keeps the brightness rank it has in the Vanilla sprite, the iron frame / wood / stone stay Vanilla. They
+are built from the client jar by tools/textures/vanilla_derived.py and never committed (AGENTS.md rule 7). Small
+details of our own: sulfur crust specks on the torch stick, a sulfur-stained lantern base and campfire logs.
+Committed here: only the .mcmeta files (Vanilla timing).
 
 Run: python3.12 tools/textures/sulfur_lights_2026_10_15.py [--check] [--preview DIR]
+  --check    compares the .mcmeta files only (the PNGs are built)
+  --preview  8x sheet "Vanilla | new" (needs the client jar; do not commit, it contains Vanilla pixels)
 """
 from __future__ import annotations
 
-import math
+import io
 import sys
+import zipfile
 from pathlib import Path
 
+import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 TEX = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures'
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-# sulfur crystal ramp 1..5 (dark olive -> pale yellow) and bronze frame d,m,l,h; wood w,x,y
-PAL = {
-    '1': (84, 100, 10), '2': (140, 168, 18), '3': (194, 220, 40), '4': (234, 244, 100), '5': (252, 254, 180),
-    'd': (52, 40, 22), 'm': (98, 74, 34), 'l': (146, 112, 52), 'h': (190, 152, 78),
-    'w': (84, 58, 30), 'x': (116, 82, 42), 'y': (146, 106, 56),
-    'k': (34, 32, 22), 'g': (60, 56, 30),
-}
-
-
-def from_map(rows: list[str]) -> Image.Image:
-    im = Image.new('RGBA', (16, len(rows)), (0, 0, 0, 0))
-    for y, row in enumerate(rows):
-        for x, ch in enumerate(row.ljust(16, '.')[:16]):
-            if ch != '.':
-                im.putpixel((x, y), PAL[ch] + (255,))
-    return im
+# Sulfur flame ramp (position by Vanilla brightness) = the sulfur fire ramp.
+RAMP = [(0.00, (86, 84, 6)), (0.15, (104, 120, 10)), (0.40, (146, 180, 16)), (0.70, (190, 224, 34)),
+        (0.92, (240, 246, 90)), (1.00, (252, 252, 168))]
+LUM_RANGE = (0.30, 1.0)  # Vanilla flame brightness range (dark orange .. white)
+EMBER = (151, 77, 45)  # glowing crack edge of the Vanilla lit campfire log
 
 
-def stack(frames: list[Image.Image]) -> Image.Image:
-    out = Image.new('RGBA', (16, 16 * len(frames)), (0, 0, 0, 0))
-    for i, f in enumerate(frames):
-        out.paste(f, (0, 16 * i))
+def vanilla(jar, name: str) -> Image.Image:
+    with zipfile.ZipFile(jar) as z:
+        return Image.open(io.BytesIO(z.read(f'assets/minecraft/textures/{name}.png'))).convert('RGBA')
+
+
+def sulfur(rgb) -> tuple:
+    """Vanilla flame colour -> sulfur ramp colour with the same brightness rank."""
+    lum = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255
+    t = min(1.0, max(0.0, (lum - LUM_RANGE[0]) / (LUM_RANGE[1] - LUM_RANGE[0])))
+    xs = [x for x, _ in RAMP]
+    return tuple(int(round(float(np.interp(t, xs, [c[k] for _, c in RAMP])))) for k in range(3))
+
+
+def recolor(im: Image.Image, is_flame) -> Image.Image:
+    out = im.copy()
+    for y in range(im.height):
+        for x in range(im.width):
+            p = im.getpixel((x, y))
+            if p[3] and is_flame(x, y, p):
+                out.putpixel((x, y), sulfur(p[:3]) + (255,))
     return out
 
 
-# ---- torch: the model maps columns 7-8, rows 6-15 (head rows 6-8); crystal lump crusting down a wood stick ----
-TORCH = [
-    '................', '................', '................', '................', '................', '................',
-    '.......45.......',
-    '.......34.......',
-    '.......23.......',
-    '.......x2.......',
-    '.......y2.......',
-    '.......x3.......',
-    '.......yw.......',
-    '.......xw.......',
-    '.......yw.......',
-    '.......xw.......',
-]
-TORCH[11] = '.......xw.......'
-TORCH[12] = '.......y3.......'
+def warm(x, y, p) -> bool:
+    """Lantern glow: orange/yellow (the iron frame is blue-grey, blue > red)."""
+    return p[0] > p[2] + 20
 
 
-# ---- lantern: 3 animation frames, the Vanilla lantern UV layout (side 0-5 x 2-8, caps, top/bottom, chain links) ----
-def lantern_frame(shift: int) -> Image.Image:
-    core = ['3443', '2432', '3553', '2442', '1231']
-    ramp = '12345'
-
-    def tone(c):
-        return ramp[max(0, min(4, ramp.index(c) + shift))]
-
-    rows = [
-        '.dmmd...........',
-        '.mllm......dmd..',
-        'dhllhd.....m.m..',
-        'd' + ''.join(tone(c) for c in core[0]) + 'd.....m.m..',
-        'm' + ''.join(tone(c) for c in core[1]) + 'm.....dmd..',
-        'm' + ''.join(tone(c) for c in core[2]) + 'm..........',
-        'm' + ''.join(tone(c) for c in core[3]) + 'm.....m.m..',
-        'm' + ''.join(tone(c) for c in core[4]) + 'm.....dmd..',
-        'dlllld..........',
-        'dmllmd..........',
-        'mlhhlm.....dmd..',
-        'mlhhlm.....m.m..',
-        'mlhhlm..........',
-        'dmllmd..........',
-        '.dmmd...........',
-        '................',
-    ]
-    return from_map(rows)
+def blend(im: Image.Image, pts, t: float = 0.5) -> None:
+    """Sulfur-stain a few pixels of the sprite: mix the Vanilla colour with the mid sulfur tone."""
+    tone = sulfur((223, 162, 27))
+    for x, y in pts:
+        p = im.getpixel((x, y))
+        im.putpixel((x, y), tuple(int(round(p[k] * (1 - t) + tone[k] * t)) for k in range(3)) + (255,))
 
 
-LANTERN_ITEM = [
-    '................', '......dmd.......', '.....m...m......', '.....m...m......', '....dmmmmmd.....', '....mlhhhlm.....',
-    '....m34543d.....', '....m24542d.....', '....m35553d.....', '....m24442d.....', '....m12321d.....', '....dlllllm.....',
-    '.....dmmmd......', '................', '................', '................',
-]
-
-CAMPFIRE_ITEM = [
-    '................', '................', '.......3........', '......343.......', '.....24542......', '.....34543......', '....2345432.....', '....3455543.....',
-    '...234555432....', '...xyyyyyyyx....', '..xwwwwwwwwwx...', '.dxy2yyyy3yyxd..', '.dxwwwwwwwwwxd..', '..dxyyyyyyyxd...', '...ddddddddd....', '................',
-]
-
-
-def fire_frame(f: int, frames: int = 8) -> Image.Image:
-    """One flame frame: a tall centre tongue and two side tongues that sway with the frame."""
-    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
-    t = 2 * math.pi * f / frames
-    for x in range(16):
-        d = (x - 7.5 + 0.9 * math.sin(t)) / 3.9
-        h = 15.0 * math.exp(-d * d) * (0.78 + 0.22 * math.sin(2.1 * x + t * 1.0))
-        h += 2.2 * math.sin(1.7 * x + 2 * t) * (1 if abs(d) < 1.6 else 0)
-        h = 0 if h < 2.5 else min(15, h)
-        for y in range(16):
-            up = 15 - y  # height above the bottom row
-            if up >= h:
-                continue
-            rel = up / max(h, 1)
-            core = 1 - min(1.0, abs(x - 7.5 + 0.6 * math.sin(t)) / 3.2)
-            v = 0.55 * (1 - rel) + 0.55 * core * (1 - rel * 0.7)
-            idx = '1' if v < 0.22 else '2' if v < 0.42 else '3' if v < 0.64 else '4' if v < 0.86 else '5'
-            im.putpixel((x, y), PAL[idx] + (255,))
-    return im
+def derived(jar) -> dict:
+    """Vanilla-derived output for tools/textures/vanilla_derived.py: texture path -> image (never committed)."""
+    torch = recolor(vanilla(jar, 'block/torch'), lambda x, y, p: y <= 7)
+    blend(torch, [(8, 9), (7, 12), (8, 14)])  # sulfur crust on the stick
+    lantern = recolor(vanilla(jar, 'block/lantern'), warm)
+    for f in range(3):  # sulfur-stained iron rails (a few pixels of the frame rows of each frame)
+        blend(lantern, [(1, 16 * f + 8), (4, 16 * f + 8), (2, 16 * f + 2)], 0.35)
+    item_lantern = recolor(vanilla(jar, 'item/lantern'), warm)
+    cf = vanilla(jar, 'block/campfire_fire')
+    fire_rgb = {cf.getpixel((x, y))[:3] for x in range(cf.width) for y in range(cf.height) if cf.getpixel((x, y))[3]}
+    in_fire = lambda x, y, p: p[:3] in fire_rgb or p[:3] == EMBER  # noqa: E731
+    campfire_fire = recolor(vanilla(jar, 'block/campfire_fire'), in_fire)
+    log = recolor(vanilla(jar, 'block/campfire_log_lit'), in_fire)
+    item_campfire = recolor(vanilla(jar, 'item/campfire'), in_fire)
+    return {'block/sulfur_torch.png': torch, 'block/sulfur_lantern.png': lantern, 'item/sulfur_lantern.png': item_lantern,
+            'item/sulfur_campfire.png': item_campfire, 'block/sulfur_campfire_fire.png': campfire_fire,
+            'block/sulfur_campfire_log_lit.png': log}
 
 
-def log_frame(f: int) -> Image.Image:
-    """Charred bark (16x16, Vanilla campfire UV uses rows 0-8) with sulfur-glowing cracks that pulse per frame."""
-    im = Image.new('RGBA', (16, 16), PAL['k'] + (255,))
-    for y in range(16):
-        for x in range(16):
-            n = (x * 7 + y * 13 + (x // 3) * 5) % 11
-            col = PAL['g'] if n < 3 else PAL['k'] if n < 8 else PAL['w']
-            im.putpixel((x, y), col + (255,))
-    for y in (3, 7, 11, 14):
-        for x in range(16):
-            if (x + f + y) % 3 != 0 and (x * 5 + y) % 4 != 1:
-                tone = '3' if (x + f) % 5 == 0 else '2' if (x + y + f) % 3 else '1'
-                im.putpixel((x, y), PAL[tone] + (255,))
-    return im
-
-
-def build() -> dict[str, Image.Image]:
-    out = {
-        'block/sulfur_torch.png': from_map(TORCH),
-        'block/sulfur_lantern.png': stack([lantern_frame(s) for s in (0, 1, 0)]),
-        'item/sulfur_lantern.png': from_map(LANTERN_ITEM),
-        'item/sulfur_campfire.png': from_map(CAMPFIRE_ITEM),
-        'block/sulfur_campfire_fire.png': stack([fire_frame(i) for i in range(8)]),
-        'block/sulfur_campfire_log_lit.png': stack([log_frame(i) for i in range(4)]),
-    }
-    return out
-
-
+# Vanilla timing: lantern frametime 8, campfire fire frametime 2, lit log interpolated frametime 20.
 MCMETA = {
     'block/sulfur_lantern.png': '{\n  "animation": {\n    "frametime": 8\n  }\n}\n',
     'block/sulfur_campfire_fire.png': '{\n  "animation": {\n    "frametime": 2\n  }\n}\n',
-    'block/sulfur_campfire_log_lit.png': '{\n  "animation": {\n    "frametime": 4\n  }\n}\n',
+    'block/sulfur_campfire_log_lit.png': '{\n  "animation": {\n    "interpolate": true,\n    "frametime": 20\n  }\n}\n',
 }
 
-
-def png_bytes(im: Image.Image) -> bytes:
-    import io
-    b = io.BytesIO()
-    im.save(b, 'PNG')
-    return b.getvalue()
+# Vanilla sprite shown next to each new one in the preview (the torch flame, lantern and campfire pairs).
+PAIRS = {'block/sulfur_torch.png': 'block/torch', 'block/sulfur_lantern.png': 'block/lantern',
+         'item/sulfur_lantern.png': 'item/lantern', 'item/sulfur_campfire.png': 'item/campfire',
+         'block/sulfur_campfire_fire.png': 'block/campfire_fire', 'block/sulfur_campfire_log_lit.png': 'block/campfire_log_lit'}
 
 
-def preview(dst: Path, tex: dict[str, Image.Image]) -> None:
+def preview(dst: Path, jar) -> None:
+    """8x sheet, one row per sprite: Vanilla | new (first frame, then the other frames). Contains Vanilla pixels."""
     dst.mkdir(parents=True, exist_ok=True)
-    s = 12
-    sheet = Image.new('RGBA', (16 * s * 8 + 20, 16 * s * 4 + 40), (70, 70, 70, 255))
-
-    def put(im, x, y):
-        big = im.resize((im.width * s, im.height * s), Image.NEAREST)
-        sheet.paste(big, (x, y), big)
-
-    put(tex['block/sulfur_torch.png'], 4, 4)
-    put(tex['item/sulfur_lantern.png'], 16 * s + 12, 4)
-    put(tex['item/sulfur_campfire.png'], 32 * s + 20, 4)
-    lan = tex['block/sulfur_lantern.png']
-    for i in range(3):
-        put(lan.crop((0, 16 * i, 16, 16 * i + 16)), (48 + 16 * i) * s + 28 + 8 * i, 4)
-    fire = tex['block/sulfur_campfire_fire.png']
-    for i in range(8):
-        put(fire.crop((0, 16 * i, 16, 16 * i + 16)), 16 * s * i + 4, 16 * s + 16)
-    log = tex['block/sulfur_campfire_log_lit.png']
-    for i in range(4):
-        put(log.crop((0, 16 * i, 16, 16 * i + 16)), 16 * s * i + 4, 32 * s + 28)
-    sheet.save(dst / 'sulfur_lights_12x.png')
+    new = derived(jar)
+    k = 8
+    rows = []
+    for rel, van in PAIRS.items():
+        v = vanilla(jar, van)
+        frames = min(v.height // 16, 4)
+        rows.append((v, new[rel], frames))
+    w = max(2 * 16 * k * f + 16 * k for _, _, f in rows) + 40
+    sheet = Image.new('RGBA', (w, sum(16 * k + 16 for _ in rows) + 16), (60, 60, 60, 255))
+    y = 8
+    for v, n, frames in rows:
+        x = 8
+        for im in (v, n):
+            for f in range(frames):
+                c = im.crop((0, 16 * f, 16, 16 * f + 16)).resize((16 * k, 16 * k), Image.NEAREST)
+                sheet.paste(c, (x, y), c)
+                x += 16 * k + 4
+            x += 16 * k // 2
+        y += 16 * k + 16
+    sheet.save(dst / 'sulfur_lights_vanilla_vs_new_8x.png')
+    for rel, im in new.items():
+        im.resize((im.width * k, im.height * k), Image.NEAREST).save(dst / ('new_' + rel.replace('/', '_')))
 
 
 def main(argv: list[str]) -> int:
-    tex = build()
     check = '--check' in argv
     bad = 0
-    for rel, im in tex.items():
-        p = TEX / rel
-        if check:
-            if not p.exists() or png_bytes(Image.open(p).convert('RGBA')) != png_bytes(im):
-                print('stale:', rel)
-                bad += 1
-        else:
-            p.parent.mkdir(parents=True, exist_ok=True)
-            im.save(p)
     for rel, text in MCMETA.items():
         p = TEX / (rel + '.mcmeta')
         if check:
@@ -210,7 +139,11 @@ def main(argv: list[str]) -> int:
         else:
             p.write_text(text)
     if '--preview' in argv:
-        preview(Path(argv[argv.index('--preview') + 1]), tex)
+        import vanilla_derived
+        jar = vanilla_derived.find_jar()
+        if jar is None:
+            sys.exit('26.3 client jar not found')
+        preview(Path(argv[argv.index('--preview') + 1]), jar)
     return 1 if bad else 0
 
 

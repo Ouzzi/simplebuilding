@@ -488,3 +488,21 @@ wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_sulfur_bri
 modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/mossy_sulfur_bricks.png
 wiki/assets/textures/simpleblocks/block/mossy_sulfur_bricks.png
 wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/mossy_sulfur_bricks.png
+
+# Sulfur torch / lantern / campfire (N67): Vanilla-derived (sulfur_lights_2026_10_15.derived), built, never committed.
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/sulfur_torch.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/sulfur_lantern.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/item/sulfur_lantern.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/item/sulfur_campfire.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/sulfur_campfire_fire.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/sulfur_campfire_log_lit.png
+wiki/assets/textures/block/sulfur_torch.png
+wiki/assets/textures/block/sulfur_lantern.png
+wiki/assets/textures/item/sulfur_lantern.png
+wiki/assets/textures/item/sulfur_campfire.png
+wiki/assets/textures/block/sulfur_campfire_fire.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/sulfur_campfire_log_lit.png
+wiki/assets/textures/render/block/sulfur_torch.png
+wiki/assets/textures/render/block/sulfur_wall_torch.png
+wiki/assets/textures/render/block/sulfur_lantern.png
+wiki/assets/textures/render/block/sulfur_campfire.png
