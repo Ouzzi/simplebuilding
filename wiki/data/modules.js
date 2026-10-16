@@ -689,5 +689,22 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "dataHash": "97f1238cce93"
+  },
+  {
+    "id": "simpleblocks",
+    "displayName": "Simple Blocks",
+    "description": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. Works on its own with Vanilla.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "fa54f1fa9967"
   }
 ];
