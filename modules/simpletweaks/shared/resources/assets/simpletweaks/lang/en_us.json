@@ -1,4 +1,5 @@
 {
+  "itemgroup.simpletweaks.claims": "Simple Tweaks - Claims",
   "item.simpletweaks.claim_deed": "Claim Deed",
   "tooltip.simpletweaks.claim_deed.inactive": "Right-click: claims the chunk you stand in.",
   "config.simpletweaks.claims.tab": "Server Claims",

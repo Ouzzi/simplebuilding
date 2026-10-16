@@ -44,4 +44,16 @@ public final class MapsItems {
     }
 
     private MapsItems() {}
+
+    /** The module's own creative tab (items are also sorted into the Vanilla tabs, see the loader hooks). */
+    public static void registerTab() {
+        net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB,
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemaps", "maps"),
+                net.minecraft.world.item.CreativeModeTab.builder(net.minecraft.world.item.CreativeModeTab.Row.TOP, 0)
+                        .title(net.minecraft.network.chat.Component.translatable("itemgroup.simplemaps.maps"))
+                        .icon(() -> new net.minecraft.world.item.ItemStack(WAYFINDER_MAP))
+                        .displayItems((params, out) -> {
+                            tabStacks().forEach(out::accept);
+                        }).build());
+    }
 }

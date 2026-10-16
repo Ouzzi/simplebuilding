@@ -27,6 +27,7 @@ public final class BeaconsNeoForge {
             var key = event.getRegistryKey();
             if (key.equals(Registries.BLOCK)) BeaconsRegistry.registerBlocks();
             if (key.equals(Registries.ITEM)) BeaconsRegistry.registerItems();
+            if (key.equals(Registries.CREATIVE_MODE_TAB)) BeaconsRegistry.registerTab();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 BeaconsRegistry.registerBlockEntities(new BlockEntityType<>(StrongBeaconBlockEntity::new, Set.of(BeaconsRegistry.STRONG_BEACON), false),
                         new BlockEntityType<>(StrongConduitBlockEntity::new, Set.of(BeaconsRegistry.STRONG_CONDUIT), false));

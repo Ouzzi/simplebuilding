@@ -32,6 +32,7 @@ public final class FabricExample implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(FearServer::tick);
         WitherMobs.registerAll();
         com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
+        MobsRegistry.registerTab();
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FabricLoader.getInstance().getConfigDir());
         FabricDefaultAttributeRegistry.register(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes());
         FabricDefaultAttributeRegistry.register(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE));

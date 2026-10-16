@@ -2547,6 +2547,44 @@ public final class DataIntegrityTests {
         return ids;
     }
 
+    /**
+     * Across every namespace loaded in this run (SimpleBuilding and each sub-mod): every registered item stands in at
+     * least one creative tab after the tab contents were rebuilt the way the creative screen does it, and no tab of a
+     * non-Vanilla namespace offers the same stack twice. Items listed in {@link #ITEMS_NOT_IN_THE_CREATIVE_TAB} (and the
+     * spacer) are the only exceptions.
+     */
+    public static void everyRegisteredItemIsInSomeCreativeTab(GameTestHelper helper) {
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true,
+                helper.getLevel().registryAccess());
+        List<String> problems = new ArrayList<>();
+        Set<Item> offered = new HashSet<>();
+        for (Identifier tabId : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
+            CreativeModeTab tab = BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(
+                    net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.CREATIVE_MODE_TAB, tabId));
+            List<String> seen = new ArrayList<>();
+            for (ItemStack stack : tab.getDisplayItems()) {
+                offered.add(stack.getItem());
+                if (!"minecraft".equals(tabId.getNamespace())) {
+                    String key = BuiltInRegistries.ITEM.getKey(stack.getItem()) + stack.getComponentsPatch().toString();
+                    if (seen.contains(key)) {
+                        problems.add(tabId + " offers " + key + " twice");
+                    }
+                    seen.add(key);
+                }
+            }
+        }
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if ("minecraft".equals(id.getNamespace()) || ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath())) {
+                continue;
+            }
+            if (!offered.contains(BuiltInRegistries.ITEM.getValue(id))) {
+                problems.add(id + " is registered but stands in no creative tab");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "creative tab coverage: " + problems);
+        helper.succeed();
+    }
+
     public static void everyModItemIsInExactlyOneCreativeTab(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
 

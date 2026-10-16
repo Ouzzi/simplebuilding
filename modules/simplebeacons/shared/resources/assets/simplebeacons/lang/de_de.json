@@ -1,4 +1,5 @@
 {
+  "itemgroup.simplebeacons.beacons": "Simple Beacons",
   "item.simplebeacons.strong_upgrade_template": "Starke Aufwertungsvorlage",
   "item.simplebeacons.strong_upgrade_template.applies_to": "Leuchtfeuer, Aquisator",
   "item.simplebeacons.strong_upgrade_template.ingredients": "Netherstern",

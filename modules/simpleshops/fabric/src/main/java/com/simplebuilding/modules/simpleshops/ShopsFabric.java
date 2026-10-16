@@ -24,6 +24,7 @@ public final class ShopsFabric implements ModInitializer {
         ShopsRegistry.registerBlockEntities(new BlockEntityType<>(SalesBlockEntity::new, ShopsRegistry.salesBlocks()),
                 new BlockEntityType<>(DisplayCaseBlockEntity::new, ShopsRegistry.caseBlocks()));
         ShopsRegistry.registerMenus();
+        ShopsRegistry.registerTab();
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((dispatcher, registry, environment) ->
                 com.simpleshops.logic.ServerShopCommands.register(dispatcher, registry));
         ServerLifecycleEvents.SERVER_STARTED.register(ShopGuard::register);

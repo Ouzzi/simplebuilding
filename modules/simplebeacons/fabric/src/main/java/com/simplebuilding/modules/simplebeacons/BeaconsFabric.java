@@ -23,6 +23,7 @@ public final class BeaconsFabric implements ModInitializer {
         BeaconsRegistry.registerBlockEntities(new BlockEntityType<>(StrongBeaconBlockEntity::new, Set.of(BeaconsRegistry.STRONG_BEACON)),
                 new BlockEntityType<>(StrongConduitBlockEntity::new, Set.of(BeaconsRegistry.STRONG_CONDUIT)));
         BeaconsRegistry.registerMenus();
+        BeaconsRegistry.registerTab();
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(out -> {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleBeacons.MOD_ID)) return;
             var stacks = BeaconsRegistry.tabStacks();

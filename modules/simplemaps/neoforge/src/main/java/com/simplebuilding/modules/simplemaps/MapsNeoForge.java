@@ -34,6 +34,7 @@ public final class MapsNeoForge {
         bus.addListener((RegisterEvent event) -> {
             if (event.getRegistryKey().equals(Registries.DATA_COMPONENT_TYPE)) MapsComponents.register();
             if (event.getRegistryKey().equals(Registries.ITEM)) MapsItems.register();
+            if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MapsItems.registerTab();
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) MapsItems.tabStacks().forEach(event::accept);

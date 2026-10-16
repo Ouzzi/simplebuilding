@@ -90,6 +90,7 @@ public final class ShopsTests {
             h.succeed();
         });
         ALL.put("registered", h -> {
+            h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleShops.id("shops")), "own creative tab shops is registered");
             for (String id : List.of("sales_block", "display_case", "glow_display_case", "guide_book")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleShops.id(id)), "item missing: " + id);
             }

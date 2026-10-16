@@ -26,6 +26,7 @@ public final class MapsFabric implements ModInitializer {
         SimpleMaps.init(FabricLoader.getInstance().getConfigDir());
         MapsComponents.register();
         MapsItems.register();
+        MapsItems.registerTab();
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> out.insertAfter(Items.MAP, MapsItems.tabStacks(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         LootTableEvents.MODIFY.register((key, table, source, registries) -> MapsLoot.apply(key, table::withPool, registries));
         PayloadTypeRegistry.serverboundPlay().register(TileRequestPayload.TYPE, TileRequestPayload.CODEC);

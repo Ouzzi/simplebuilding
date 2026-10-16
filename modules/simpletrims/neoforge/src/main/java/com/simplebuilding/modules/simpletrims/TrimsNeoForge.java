@@ -26,6 +26,7 @@ public final class TrimsNeoForge {
             if (key.equals(Registries.DATA_COMPONENT_TYPE)) TrimsRegistry.registerComponents();
             if (key.equals(Registries.BLOCK)) TrimsRegistry.registerBlocks();
             if (key.equals(Registries.ITEM)) TrimsRegistry.registerItems();
+            if (key.equals(Registries.CREATIVE_MODE_TAB)) TrimsRegistry.registerTab();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 TrimsRegistry.registerBlockEntity(new BlockEntityType<>(PlacedTrimTemplateBlockEntity::new, Set.of(TrimsRegistry.PLACED_TEMPLATE), false));
             }

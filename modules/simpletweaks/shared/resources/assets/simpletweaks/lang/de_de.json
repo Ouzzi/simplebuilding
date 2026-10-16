@@ -1,4 +1,5 @@
 {
+  "itemgroup.simpletweaks.claims": "Simple Tweaks – Grundstücke",
   "item.simpletweaks.claim_deed": "Claim-Urkunde",
   "tooltip.simpletweaks.claim_deed.inactive": "Rechtsklick: beansprucht deinen Chunk.",
   "config.simpletweaks.claims.tab": "Server-Claims",

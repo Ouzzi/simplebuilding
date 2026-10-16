@@ -86,6 +86,10 @@ Eigenständig: Money, Riding, Models, Fun, Visuals, Sounds, Dimensions, Sandwich
 - **Pads und Tweaks** (aus Simple Tweaks übernommen): Spawn-/Elytra-/Trank-Pads in Stufen, Server-Optionen.
 - **Integration:** JEI/REI-Kategorien, Jade, Modpack-/Claim-Schnittstellen, Guide-Bücher, Kreativtabs mit Schalter
   „in Vanilla-Tabs einsortieren“.
+  Kreativtabs (N65): jedes Modul ab 3 Items hat einen eigenen Tab (neu: Simple Shops, Beacons, Trims, Maps, Mobs, Tweaks/Claims)
+  und zusätzlich passende Plätze in den Vanilla-Tabs; Module mit 1–2 Items (Dimensions, Dragon Fight, Mob Manners, Models, QoL,
+  Questionary, Respawn, Stats, Tools, Wanderers) stehen nur in Vanilla-Tabs. Test `CrossModGameTest#everyModuleItemIsInSomeCreativeTab`
+  (alle Module geladen): jedes Item in mind. einem Tab, keine Dubletten, Modul-Tab enthält alle Items seines Moduls.
 
 ### SimpleLib (gemeinsame Bibliothek)
 Schmelztiegel (Eisen/Verstärkt/Netherit, beheizt vom Block darunter, Axt-Weg ohne SB; In-World-Bau aus Kessel + 16 Eisenbarren

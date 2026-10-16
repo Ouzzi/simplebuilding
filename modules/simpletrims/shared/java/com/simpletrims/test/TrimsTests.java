@@ -119,6 +119,7 @@ public final class TrimsTests {
             h.succeed();
         });
         ALL.put("registered", h -> {
+            h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleTrims.id("trims")), "own creative tab trims is registered");
             for (String path : SimpleTrims.MOVED_ITEMS) {
                 Item item = BuiltInRegistries.ITEM.getValue(SimpleTrims.id(path));
                 h.assertTrue(item != Items.AIR && item instanceof net.minecraft.world.item.SmithingTemplateItem, path + " is a registered template");

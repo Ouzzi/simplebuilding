@@ -79,6 +79,7 @@ public final class BeaconsTests {
             h.succeed();
         });
         ALL.put("registered", h -> {
+            h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleBeacons.id("beacons")), "own creative tab beacons is registered");
             for (String id : List.of("strong_upgrade_template", "strong_beacon", "strong_conduit", "guide_book")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleBeacons.id(id)), "item missing: " + id);
             }

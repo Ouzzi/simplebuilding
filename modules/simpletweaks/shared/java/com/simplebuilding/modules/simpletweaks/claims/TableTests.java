@@ -62,6 +62,7 @@ public final class TableTests {
 
     /** Wire format bounds, block and item, and the visibility rules (pure). */
     public static void basics(GameTestHelper h) {
+        yes(h, net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpletweaks", "claims")), "Own creative tab claims is registered");
         yes(h, ClaimTableBlock.block() != net.minecraft.world.level.block.Blocks.AIR && ClaimTableBlock.item() != net.minecraft.world.item.Items.AIR, "Claim table block and item are registered");
         yes(h, TableVisibility.parse("all") == TableVisibility.ALL && TableVisibility.parse("owners_hidden") == TableVisibility.OWNERS_HIDDEN
                 && TableVisibility.parse("own") == TableVisibility.OWN && TableVisibility.parse("off") == TableVisibility.OFF && TableVisibility.parse("x") == null, "Visibility values");
