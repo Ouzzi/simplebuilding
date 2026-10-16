@@ -48,6 +48,7 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
     **Tooltip-Regel (Nachtrag 38):** Standard ist nur der Name. Eine Beschreibung ist nur erlaubt, wenn (a) die Bedienung nicht offensichtlich ist (Schleichen + Rechtsklick, Halten, Nebenhand) oder (b) ein Zustand/eine Zahl sonst nirgends sichtbar ist (Stufe, Reichweite, Ladung). Eine Zeile, höchstens ca. 40 Zeichen, höchstens 2 Zeilen je Item; keine Rezepte, keine Herleitungen, keine Werte, die ein Balken zeigt. Erklärungen gehören ins Guide-Buch (`tools/guide_book_pages.py`, `module_guides.py`), ins Wiki oder in die JEI-Info (`jei.*.info.*`). Config-Tooltips der Einstellungsseiten sind davon ausgenommen. Neue Tooltip-Zeilen brauchen EN+DE und laufen durch `tools/check_tooltip_text.py`.,
     Eimer (Kupfer, Enderit, Eisen, Keramik) zeichnen **nie** eine Haltbarkeitslinie: Abnutzung zeigt die Textur (Keramik: heil/angeschlagen/rissig/brüchig), Füllung der Name; der Enderit-Eimer zeigt im Tooltip nur seinen Titel.
 
+15. **Lesbarkeit (Besitzer 16.10.):** Bei jeder UI-Änderung prüfen, dass Text klar lesbar ist – Kontrast zum Hintergrund mindestens 4,5:1, nie dunkler Text mit dunklem Schatten auf Grau. Kontrastwerte im Bericht nennen; vorhandener Test `ui_text_contrast` muss grün bleiben.
 ## 4. Tests und Gate
 - Vollständiges Gate: `./gradlew.bat check -q` (enthält checkBalance, JadeProviderSplitTest, checkAtlases, checkWiki).
 - Server-Tests: `python tools/testrunner/run.py --targets fabric-263,neoforge-263 [--filter <muster>]`

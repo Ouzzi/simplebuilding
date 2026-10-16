@@ -258,6 +258,31 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] Gepanzerter Deceiver: etwas schwerer, doppelter Neben-Drop; Täuscherstoff ~50 %, nie doppelt. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 - [x] Täuschungstrank (friedlich/feindlich, verlängert/verstärkt) aus dem Neben-Drop. (claude-deceiver2, in claude-wave1 seit 0d9d0f121)
 
+## Nachtrag 68 (2026-10-16, Besitzer)
+Wayfinder-Karte (Feinschliff)
+- [ ] Wegpunkt-Name auf der Karte vertikal zentrieren, darf nicht auf dem Icon liegen.
+- [ ] Icons (auch 3D-Modelle wie Creeper-Kopf) füllen immer das ganze Quadrat aus, ohne abgeschnitten zu werden – alle Icons einheitlich groß; 1-px-Outline in Schwarz um das Icon; KEIN Hintergrund hinter dem Icon.
+- [ ] Knöpfe links und rechts: besseres Design, das mehr an den Rahmen erinnert.
+End-Biome (Antworten N1–N5 zum Konzept KONZEPT-END-WALD-NEBEL)
+- [ ] N1: Wald-Nebel von außen – A (Vegetationswand) + C (Partikel-Dunst) jetzt; B (Client-Nebelwand) ebenfalls nötig, weil N2 verlangt, dass man auch von oben nicht hineinsieht.
+- [x] N3: nur neue Chunks reichen. N5: Nebel so ok.
+- [ ] N4: Blätter noch überarbeiten – wirken nicht gewollt. Im Internet recherchieren, welche Blatt-Varianten es gibt (Vanilla, gute Ressourcenpakete/Mods), Liste der gut gemachten Designs anlegen und sich daran orientieren.
+- [ ] BUG: Stock-Varianten der End-Bäume sind verbuggt (prüfen und beheben).
+HUD-Overlay (Rückmeldung zur Version in Abnahme 16.10.)
+- [ ] Ecken: außen nur 2 px abgerundet, wirkt zu eckig → runder.
+- [ ] Text im Overlay wieder im alten Farbstil (wie vorher).
+Copper Light Pane
+- [ ] Genau wie die normale Light Pane (gleiche Farben/Funktion), nur leicht andere Textur, die die volle Farbe ausnutzt: schwaches Karomuster aus 100 % und 90 % Sättigung der Hauptfarbe mit etwas Noise.
+Minibosse
+- [ ] Hollow Howler größer machen; als Miniboss etwas stärker als der Warden.
+- [ ] Hollow Howler und „Knight“ sind Minibosse (Annahme: „Knight“ = Dread, der gepanzerte Ritter mit Kettenmorgenstern – beim Besitzer bestätigen).
+- [ ] Hollow Howler Phase 2 (wenig Leben): spawnt Sculk Jaws gezielt unter einem Spieler, falls dort noch keiner liegt; liegt schon unter allen Spielern einer, dann zufällig in der Nähe eines Spielers.
+- [ ] Bossleisten aller Bosse/Minibosse zeigen die lebensbasierten Phasen an (Markierungen/Abschnitte).
+Prinzip
+- [x] Lesbarkeit als Prinzip festgehalten (AGENTS.md Regel, Kontrast ≥ 4,5:1 bei jeder UI-Änderung).
+API
+- [x] Besitzer 16.10.: Anthropic-API vorerst NICHT mehr nutzen (Rest-Guthaben aufheben) – nur Claude-Agenten in der Sitzung, bis der Besitzer Bescheid gibt.
+
 ## Nachtrag 67 (2026-10-15, Besitzer-Feedback zu den Abnahme-Seiten)
 - [x] (oc-ui67) HUD-Overlay (Oktant/Messuhr/Resonanzstab): statt einfachem 1-px-Rand einen doppelten oder dreifachen Rand wie die übrigen Mod-Texturen/UIs; Ecken entsprechend stärker abgerundet (doppelt → 2 px Stufen, dreifach → eine Stufe mehr), jede Rand-Ebene läuft wie ein Mantel um die Ecke.
 - [x] 3D-Items Schritt 2 freigegeben – Schritt 3 Einbau; dabei sicherstellen, dass keine Flächen um „oben“ kämpfen (kein Z-Fighting, auch im Häufchen/Stapel).
