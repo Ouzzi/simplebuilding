@@ -33,7 +33,7 @@ public final class UiBookmarks {
      * colour, empty ones shaded and greyish, the hovered one lighter.
      */
     public static void ribbon(GuiGraphicsExtractor g, int x, int y, int w, int h, boolean left, UiPalette p, boolean filled, boolean hovered) {
-        int fill = hovered ? p.light() : filled ? p.fill() : UiPalette.mix(UiPalette.scale(p.fill(), 0.8), 0xFF8A8A8A, 0.25);
+        int fill = p.ribbonFill(filled, hovered);
         int top = UiPalette.mix(fill, 0xFFFFFFFF, 0.35), shade = UiPalette.scale(fill, 0.78), end = UiPalette.scale(fill, 0.86);
         // Offsets are measured from the inner end (0) to the outer end (w); mirrored for left ribbons.
         span(g, x, w, left, 0, w - 1, y, y + 1, UiBoxes.RIM);

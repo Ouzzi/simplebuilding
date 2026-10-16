@@ -11,6 +11,7 @@ import com.simplebuilding.modules.simpletweaks.deed.net.DeedNet;
 import com.simplebuilding.modules.simpletweaks.deed.net.DeedOpenPayload;
 import com.simplebuilding.modules.simpletweaks.deed.net.DeedResultPayload;
 import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,8 @@ import net.minecraft.util.Util;
  * previews: the code is checked again by the server on "Done" and any refusal comes back as error lines.
  */
 public final class DeedScreen extends Screen {
-    private static final int PAPER = 0xFFE2D3AA, INK_OK = 0xFF2E7D32, INK_ERROR = 0xFFB3261E, INK_SOFT = 0xFF6B5F45;
+    // N67: inks from SimpleLib's UiContrast - at least 4.5:1 on the inventory grey and on the paper (they were 3.0-4.4)
+    private static final int PAPER = 0xFFE2D3AA, INK_OK = UiContrast.INK_OK, INK_ERROR = UiContrast.INK_ERROR, INK_SOFT = UiContrast.INK_SOFT;
     private static final int TEXT = 0xFF404040, ROW_ERROR = 0x40C62828, ROW_H = 9, PAD = 4;
     private static final long COPIED_MS = 2000, PENDING_MS = 5000;
     private static final String[] LETTER_KEYS = {"B", "D", "U", "C", "R", "A", "M"};
@@ -232,10 +234,10 @@ public final class DeedScreen extends Screen {
         Rect c = layout.code;
         int w = c.w() - 2 * PAD;
         switch (data.mode()) {
-            case DeedOpenPayload.CLAIM -> g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.claim.text", data.chunkX(), data.chunkZ()), c.x() + PAD, c.y() + PAD, w, TEXT);
+            case DeedOpenPayload.CLAIM -> g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.claim.text", data.chunkX(), data.chunkZ()), c.x() + PAD, c.y() + PAD, w, TEXT, false);
             case DeedOpenPayload.READ -> drawRead(g, c, w);
             default -> {
-                if (helpOpen) g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.help.text"), c.x() + PAD, c.y() + PAD, w, TEXT);
+                if (helpOpen) g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.help.text"), c.x() + PAD, c.y() + PAD, w, TEXT, false);
                 else drawErrorRows(g);
                 drawStatus(g);
                 if (!data.online().isEmpty()) g.text(font, Component.translatable("simpletweaks.deed.online"), layout.chipRow.x(), layout.chipRow.y() + 5, label, false);
@@ -246,11 +248,11 @@ public final class DeedScreen extends Screen {
     private void drawRead(GuiGraphicsExtractor g, Rect c, int w) {
         int y = c.y() + PAD;
         if (!data.note().isEmpty()) {
-            g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.note." + data.note()), c.x() + PAD, y, w, INK_ERROR);
+            g.textWithWordWrap(font, Component.translatable("simpletweaks.deed.note." + data.note()), c.x() + PAD, y, w, INK_ERROR, false);
             return;
         }
         Component rights = data.rights() == 0 ? Component.translatable("simpletweaks.deed.read.none") : Component.translatable("simpletweaks.deed.read.rights", rightsText(data.rights()));
-        g.textWithWordWrap(font, rights, c.x() + PAD, y, w, TEXT);
+        g.textWithWordWrap(font, rights, c.x() + PAD, y, w, TEXT, false);
     }
 
     private static Component rightsText(int rights) {

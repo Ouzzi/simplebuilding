@@ -1,7 +1,6 @@
 package com.simplebuilding.client.gui;
 
 import com.simplebuilding.items.custom.OctantItem;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -65,7 +64,7 @@ public class RangefinderHudOverlay {
                         .setStyle(Style.EMPTY.withColor(HudPanel.COLOR_VALUE)));
             }
         } else {
-            lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos1").withStyle(ChatFormatting.GRAY));
+            lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos1").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
         }
 
         if (nbt.contains("Pos2")) {
@@ -76,7 +75,7 @@ public class RangefinderHudOverlay {
                         .setStyle(Style.EMPTY.withColor(HudPanel.COLOR_VALUE_DIM)));
             }
         } else if (pos1 != null) {
-            lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos2").withStyle(ChatFormatting.GRAY));
+            lines.add(Component.translatable("hud.simplebuilding.rangefinder.set_pos2").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
         }
 
         if (pos1 != null && pos2 != null) {
@@ -91,10 +90,10 @@ public class RangefinderHudOverlay {
                 lines.add(Component.translatable("hud.simplebuilding.rangefinder.distance", Math.max(dx, dz)).setStyle(Style.EMPTY.withColor(resultColor)));
             } else if (dy == 1) {
                 lines.add(Component.translatable("hud.simplebuilding.rangefinder.area", dx * dz).setStyle(Style.EMPTY.withColor(resultColor)));
-                lines.add(Component.literal("(" + dx + " x " + dz + ")").withStyle(ChatFormatting.GRAY));
+                lines.add(Component.literal("(" + dx + " x " + dz + ")").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
             } else {
                 lines.add(Component.translatable("hud.simplebuilding.rangefinder.volume", dx * dy * dz).setStyle(Style.EMPTY.withColor(resultColor)));
-                lines.add(Component.literal("(" + dx + " x " + dy + " x " + dz + ")").withStyle(ChatFormatting.GRAY));
+                lines.add(Component.literal("(" + dx + " x " + dy + " x " + dz + ")").setStyle(Style.EMPTY.withColor(HudPanel.COLOR_SECONDARY)));
             }
         }
 

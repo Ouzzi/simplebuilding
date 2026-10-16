@@ -82,6 +82,7 @@ public final class ClientTests {
                 new Entry("multi-block-breaking", MultiBlockBreakingClientTest::inWorld),
                 new Entry("air-jump", AirJumpClientTest::inWorld),
                 new Entry("hud-and-tooltip", HudAndTooltipClientTest::inWorld),
+                new Entry("hud-panels", HudPanelClientTest::inWorld),
                 new Entry("item-rendering", ItemRenderingClientTest::inWorld),
                 new Entry("mod-screens", ModScreensClientTest::inWorld),
                 new Entry("backpack", BackpackClientTest::inWorld),

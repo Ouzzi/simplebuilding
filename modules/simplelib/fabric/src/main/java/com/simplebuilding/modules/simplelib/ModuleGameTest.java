@@ -228,4 +228,9 @@ public final class ModuleGameTest {
     public void inventoryBrightnessTonesPalettes(GameTestHelper h) {
         LibTests.ALL.get("inventory_brightness_tones_palettes").accept(h);
     }
+
+    @GameTest
+    public void uiTextContrast(GameTestHelper h) {
+        LibTests.ALL.get("ui_text_contrast").accept(h);
+    }
 }
