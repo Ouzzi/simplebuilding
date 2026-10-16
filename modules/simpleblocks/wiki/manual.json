@@ -1,0 +1,168 @@
+{
+  "features": [
+    {
+      "id": "hushed_deepslate_tiles",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/hushed_deepslate_tiles.json",
+        "modules/simpleblocks/shared/resources/data/minecraft/tags/block/dampens_vibrations.json",
+        "modules/simpleblocks/shared/resources/data/minecraft/tags/block/occludes_vibration_signals.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:hushed_deepslate_tiles",
+        "simpleblocks:hushed_deepslate_tile_stairs",
+        "simpleblocks:hushed_deepslate_tile_slab",
+        "simpleblocks:hushed_deepslate_tile_wall"
+      ],
+      "en": {
+        "title": "Hushed Deepslate Tiles",
+        "summary": "Deepslate tiles that swallow vibrations like wool: a Sculk Sensor or Warden does not hear a vibration that passes through the block, and walking on it makes none.",
+        "details": [
+          "Recipe: four Deepslate Tiles and one Sculk make four Hushed Deepslate Tiles. Stairs, slab and wall come from the crafting table (6 / 6 / 6) or the stonecutter.",
+          "The blocks are in the Vanilla block tags dampens_vibrations and occludes_vibration_signals, the same tags wool is in. Use them to build quiet floors and walls around Sculk Sensors and redstone that listens.",
+          "They have the hardness, tool and sound of Deepslate Tiles."
+        ]
+      },
+      "de": {
+        "title": "Gedämpfte Tiefenschieferfliesen",
+        "summary": "Tiefenschieferfliesen, die Vibrationen wie Wolle schlucken: Ein Sculk-Sensor oder Warden hört keine Vibration, die durch den Block geht, und Laufen darauf erzeugt keine.",
+        "details": [
+          "Rezept: vier Tiefenschieferfliesen und ein Sculk ergeben vier Gedämpfte Tiefenschieferfliesen. Treppe, Stufe und Mauer gibt es an der Werkbank (6 / 6 / 6) oder am Steinmetz.",
+          "Die Blöcke stehen in den Vanilla-Block-Tags dampens_vibrations und occludes_vibration_signals, in denen auch Wolle steht. Damit baust du leise Böden und Wände um Sculk-Sensoren und lauschende Redstone-Schaltungen.",
+          "Sie haben Härte, Werkzeug und Klang der Tiefenschieferfliesen."
+        ]
+      }
+    },
+    {
+      "id": "sculk_deepslate",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksLoot.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/sculk_deepslate.json",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/sculk_deepslate.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:sculk_deepslate"
+      ],
+      "en": {
+        "title": "Sculk Deepslate",
+        "summary": "Deepslate with sculk veins. It is not generated in the world: craft it or find it in Ancient City chests.",
+        "details": [
+          "Recipe (shapeless): one Deepslate and one Sculk make two Sculk Deepslate.",
+          "Ancient City chests can hold two to six of them (one pool with weight 8 against 92 empty).",
+          "Mined without Silk Touch it drops Cobbled Deepslate and gives 1 to 2 experience; with Silk Touch it drops itself and gives none."
+        ]
+      },
+      "de": {
+        "title": "Sculk-Tiefenschiefer",
+        "summary": "Tiefenschiefer mit Sculk-Adern. Er wird nicht in der Welt erzeugt: herstellen oder in Truhen der Antiken Stadt finden.",
+        "details": [
+          "Rezept (formlos): ein Tiefenschiefer und ein Sculk ergeben zwei Sculk-Tiefenschiefer.",
+          "Truhen der Antiken Stadt können zwei bis sechs davon enthalten (ein Pool mit Gewicht 8 gegen 92 leer).",
+          "Ohne Behutsamkeit abgebaut droppt er Bruchtiefenschiefer und gibt 1 bis 2 Erfahrung; mit Behutsamkeit droppt er sich selbst und gibt keine."
+        ]
+      }
+    },
+    {
+      "id": "missing_shapes",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:calcite_stairs",
+        "simpleblocks:calcite_slab",
+        "simpleblocks:calcite_wall",
+        "simpleblocks:netherrack_stairs",
+        "simpleblocks:netherrack_slab",
+        "simpleblocks:netherrack_wall",
+        "simpleblocks:smooth_basalt_stairs",
+        "simpleblocks:smooth_basalt_slab",
+        "simpleblocks:smooth_basalt_wall",
+        "simpleblocks:cut_sandstone_stairs",
+        "simpleblocks:cut_sandstone_wall",
+        "simpleblocks:cut_red_sandstone_stairs",
+        "simpleblocks:cut_red_sandstone_wall",
+        "simpleblocks:smooth_sandstone_wall",
+        "simpleblocks:smooth_red_sandstone_wall"
+      ],
+      "en": {
+        "title": "Missing Stairs, Slabs and Walls",
+        "summary": "Stairs, slabs and walls Vanilla lacks: Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls.",
+        "details": [
+          "Crafting table: 6 stairs from 6 blocks, 6 slabs from 3, 6 walls from 6; stonecutter: one block makes one stair or wall, two slabs.",
+          "The models use the Vanilla block textures, so they match resource packs. Hardness and sound are those of the full block.",
+          "Only stairs, slabs and walls are added - no new brick sets."
+        ]
+      },
+      "de": {
+        "title": "Fehlende Treppen, Stufen und Mauern",
+        "summary": "Treppen, Stufen und Mauern, die Vanilla fehlen: Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein.",
+        "details": [
+          "Werkbank: 6 Treppen aus 6 Blöcken, 6 Stufen aus 3, 6 Mauern aus 6; Steinmetz: ein Block ergibt eine Treppe oder Mauer, zwei Stufen.",
+          "Die Modelle nutzen die Vanilla-Blocktexturen und passen daher zu Ressourcenpaketen. Härte und Klang sind die des Vollblocks.",
+          "Es kommen nur Treppen, Stufen und Mauern dazu - keine neuen Ziegelsets."
+        ]
+      }
+    },
+    {
+      "id": "cracked_and_mossy_bricks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+        "tools/textures/missing_blocks_2026_10_16.py",
+        "modules/simpleblocks/tools/generate_data.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+      ],
+      "related": [
+        "simpleblocks:cracked_red_nether_bricks",
+        "simpleblocks:cracked_tuff_bricks",
+        "simpleblocks:mossy_tuff_bricks",
+        "simpleblocks:cracked_mud_bricks",
+        "simpleblocks:mossy_mud_bricks",
+        "simpleblocks:cracked_end_stone_bricks",
+        "simpleblocks:mossy_end_stone_bricks",
+        "simpleblocks:mossy_deepslate_bricks",
+        "simpleblocks:mossy_deepslate_tiles",
+        "simpleblocks:cracked_cinnabar_bricks",
+        "simpleblocks:mossy_cinnabar_bricks",
+        "simpleblocks:cracked_sulfur_bricks",
+        "simpleblocks:mossy_sulfur_bricks"
+      ],
+      "en": {
+        "title": "Cracked and Mossy Bricks",
+        "summary": "Aged variants of Vanilla bricks that have none: cracked Red Nether, Tuff, Mud, End Stone, Cinnabar and Sulfur bricks; mossy Tuff, Mud, End Stone, Cinnabar and Sulfur bricks, mossy Deepslate Bricks and Tiles.",
+        "details": [
+          "Cracked: smelt the brick in a furnace, like Vanilla's cracked stone bricks. Mossy: the brick and a Moss Block, shapeless.",
+          "Full blocks only, with the properties of the brick they age.",
+          "Cinnabar and Sulfur bricks are Vanilla blocks of Minecraft 26.3."
+        ]
+      },
+      "de": {
+        "title": "Rissige und bemooste Ziegel",
+        "summary": "Gealterte Varianten von Vanilla-Ziegeln, die keine haben: rissige Rote Netherziegel sowie rissige Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel; bemooste Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel, bemooste Tiefenschieferziegel und -fliesen.",
+        "details": [
+          "Rissig: den Ziegel im Ofen schmelzen, wie Vanillas rissige Steinziegel. Bemoost: der Ziegel und ein Moosblock, formlos.",
+          "Nur Vollblöcke, mit den Eigenschaften des Ziegels, den sie altern.",
+          "Zinnober- und Schwefelziegel sind Vanilla-Blöcke von Minecraft 26.3."
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "simpleblocks:guide_book": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/guide/BlocksGuide.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+      }
+    }
+  }
+}

@@ -125,6 +125,13 @@ MODULES = [
                 "a restock every 1.5 days and goods that follow the village biome. Kill him and a new one comes after 7 days.",
                 "Ein Dorf-Wanderer je Dorf: ein Händler im Reisemantel mit Pferd an der Leine, alle 3 Tage neues Angebot, "
                 "alle 1,5 Tage Nachschub und Waren passend zum Dorfbiom. Wird er getötet, kommt nach 7 Tagen ein neuer.")),
+    dict(module="simpleblocks", ns="simpleblocks", package="com.simpleblocks.guide", cls="BlocksGuide", kind="item",
+         author="Simple Blocks", recipe="minecraft:brick",
+         name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),
+         intro=("The missing building blocks: Hushed Deepslate Tiles that swallow vibrations like wool, Sculk Deepslate, "
+                "the missing Vanilla stairs, slabs and walls and cracked and mossy bricks.",
+                "Die fehlenden Baublöcke: Gedämpfte Tiefenschieferfliesen, die Vibrationen wie Wolle schlucken, "
+                "Sculk-Tiefenschiefer, die fehlenden Vanilla-Treppen, -Stufen und -Mauern sowie rissige und bemooste Ziegel.")),
     dict(module="simplevisuals", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
          kind="client", author="Simple Visuals",
          intro=("Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. "

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleblocks",
+  "version": "${version}",
+  "name": "Simple Blocks",
+  "description": "Missing building blocks: Hushed Deepslate Tiles that dampen vibrations like wool, Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. Works on its own with Vanilla.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleblocks.BlocksFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleblocks.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simpleblocks:mossy_tuff_bricks"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

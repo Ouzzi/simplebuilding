@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleblocks:block/hushed_deepslate_tile_slab"
+    },
+    "type=double": {
+      "model": "simpleblocks:block/hushed_deepslate_tiles"
+    },
+    "type=top": {
+      "model": "simpleblocks:block/hushed_deepslate_tile_slab_top"
+    }
+  }
+}

@@ -445,3 +445,43 @@ wiki/assets/textures/sheets/simplebuilding/simplebeacons/gui/container/strong_be
 
 # Vorschau-Bilder mit Vanilla-Pixeln (tools/textures/placed_display_preview.py): nur lokal, nie einchecken (Regel 7)
 docs/ai/previews/oc-display-previews/*.png
+# Simple Blocks (N69): cracked/mossy bricks are Vanilla-derived (tools/textures/missing_blocks_2026_10_16.py, vanilla_derived.MODULE_OUTPUTS).
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cracked_red_nether_bricks.png
+wiki/assets/textures/simpleblocks/block/cracked_red_nether_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_red_nether_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cracked_tuff_bricks.png
+wiki/assets/textures/simpleblocks/block/cracked_tuff_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_tuff_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/mossy_tuff_bricks.png
+wiki/assets/textures/simpleblocks/block/mossy_tuff_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/mossy_tuff_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cracked_mud_bricks.png
+wiki/assets/textures/simpleblocks/block/cracked_mud_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_mud_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/mossy_mud_bricks.png
+wiki/assets/textures/simpleblocks/block/mossy_mud_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/mossy_mud_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cracked_end_stone_bricks.png
+wiki/assets/textures/simpleblocks/block/cracked_end_stone_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_end_stone_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/mossy_end_stone_bricks.png
+wiki/assets/textures/simpleblocks/block/mossy_end_stone_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/mossy_end_stone_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/mossy_deepslate_bricks.png
+wiki/assets/textures/simpleblocks/block/mossy_deepslate_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/mossy_deepslate_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/mossy_deepslate_tiles.png
+wiki/assets/textures/simpleblocks/block/mossy_deepslate_tiles.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/mossy_deepslate_tiles.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cracked_cinnabar_bricks.png
+wiki/assets/textures/simpleblocks/block/cracked_cinnabar_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_cinnabar_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/mossy_cinnabar_bricks.png
+wiki/assets/textures/simpleblocks/block/mossy_cinnabar_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/mossy_cinnabar_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/cracked_sulfur_bricks.png
+wiki/assets/textures/simpleblocks/block/cracked_sulfur_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/cracked_sulfur_bricks.png
+modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/mossy_sulfur_bricks.png
+wiki/assets/textures/simpleblocks/block/mossy_sulfur_bricks.png
+wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/mossy_sulfur_bricks.png
