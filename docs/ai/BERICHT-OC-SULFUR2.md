@@ -1,0 +1,9 @@
+# Bericht oc-sulfur2 (N67: Schwefel-Fackel/-Laterne/-Lagerfeuer)
+- Umsetzung: `tools/textures/sulfur_lights_2026_10_15.py` zeichnet nichts mehr selbst, sondern `derived(jar)`: Vanilla-Sprites (torch, lantern, campfire_fire, campfire_log_lit, item/lantern, item/campfire) werden pixelgenau übernommen; nur Flammenpixel (Fackelkopf y<=7, Laternenglut = Rot>Blau, Feuerfarben des Lagerfeuers + Glutrand) werden nach Helligkeitsrang auf die Schwefel-Rampe der Schwefelflamme umgefärbt. Eisen/Holz/Stein bleiben Vanilla.
+- Eigene Details (klein): Schwefelkruste (3 Pixel, 50 %) am Fackelstab; schwefel-angelaufene Laternenstreben (3 Pixel/Frame, 35 %).
+- Wandfackel nutzt dieselbe Textur (`sulfur_wall_torch`-Modell), Item-Fackel `block/sulfur_torch`. Modelle/Blockstates unverändert (Vanilla-Templates).
+- Build-Zeit: 6 PNGs in `vanilla_derived.OUTPUTS`/`OLDER_GENERATORS`, 4 Wiki-Renders in `WIKI_RENDERS`; PNGs, Wiki-Kopien, Sheet und Renders aus dem Index entfernt + `.gitignore`. Nur `.mcmeta` bleibt eingecheckt (jetzt Vanilla-Timing: Laterne 8, Feuer 2, Glutholz interpoliert 20 statt 4).
+- Vorschau (8x, Vanilla | neu, nicht eingecheckt): `/root/previews/oc-sulfur2/sulfur_lights_vanilla_vs_new_8x.png` (+ `new_*.png`).
+- Kontrast: reine Spiel-Texturen, keine UI/Text geändert; Flammenrampe 86,84,6 -> 252,252,168 (Schwefelfeuer-Rampe), Flamme/Eisenrahmen klar abgesetzt.
+- Tests: `check_missing_textures.py` 0 Fehler (mit UND ohne die 6 PNGs im Baum), `generate_textures.py --check` OK, `wiki/generate.py --all --check --strict` grün mit Jar und mit `GRADLE_USER_HOME=/nonexistent` (Platzhalter); `wiki/data/textures.js` neu erzeugt (anim/bytes entfallen wie bei den übrigen abgeleiteten Texturen).
+- Offen/nicht getestet: kein Client-Screenshot im Spiel; Wiki-Animationsinfo der 3 animierten Texturen fehlt (wie bei sulfur_fire).

@@ -125,6 +125,13 @@ OUTPUTS = {
     'item/copper_water_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
     'item/copper_lava_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
     'item/enderite_bucket.png': ((16, 320), 'crucible_art_v2_2026_10_05.derived()'),
+    # Sulfur torch / lantern / campfire (N67): Vanilla torch, lantern and campfire with the sulfur flame.
+    'block/sulfur_torch.png': ((16, 16), 'sulfur_lights_2026_10_15.derived()'),
+    'block/sulfur_lantern.png': ((16, 48), 'sulfur_lights_2026_10_15.derived()'),
+    'item/sulfur_lantern.png': ((16, 16), 'sulfur_lights_2026_10_15.derived()'),
+    'item/sulfur_campfire.png': ((16, 16), 'sulfur_lights_2026_10_15.derived()'),
+    'block/sulfur_campfire_fire.png': ((16, 128), 'sulfur_lights_2026_10_15.derived()'),
+    'block/sulfur_campfire_log_lit.png': ((16, 64), 'sulfur_lights_2026_10_15.derived()'),
 }
 # Module textures (namespace = module id, shipped by that module's own jars through gradle/module-vanilla-derived.gradle):
 # module -> {texture path under assets/<module>/textures/: (size, generator description)}.
@@ -144,7 +151,7 @@ MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures'), 'simpl
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03', 'soul_lava_2026_10_09', 'shulker_shell_textures',
                     'music_disc_textures', 'placed_egg_textures', 'standing_rods_2026_10_04', 'vehicles_2026_10_10',
-                    'crucible_art_v2_2026_10_05')
+                    'crucible_art_v2_2026_10_05', 'sulfur_lights_2026_10_15')
 # Probe file every usable jar contains.
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
 
@@ -231,7 +238,9 @@ WIKI_RENDERS = {'astral_vault': 128, 'nihil_vault': 128, 'enderite_barrel': 128,
                 'reinforced_chest_minecart': 128, 'reinforced_furnace_minecart': 128,
                 'reinforced_hopper_minecart': 128, 'block/astral_rail': 128, 'block/nihil_rail': 128,
                 'block/copper_fire': 128, 'block/sulfur_fire': 128, 'block/placed_egg': 128,
-                'block/potted_silent_dandelion': 128, 'block/silent_dandelion': 128, 'block/standing_rod': 128}
+                'block/potted_silent_dandelion': 128, 'block/silent_dandelion': 128, 'block/standing_rod': 128,
+                'block/sulfur_torch': 128, 'block/sulfur_wall_torch': 128, 'block/sulfur_lantern': 128,
+                'block/sulfur_campfire': 128}
 
 
 def placeholder_png(key: str, w: int, h: int) -> bytes:
