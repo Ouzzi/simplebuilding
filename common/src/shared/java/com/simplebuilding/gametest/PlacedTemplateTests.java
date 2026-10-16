@@ -80,8 +80,11 @@ public final class PlacedTemplateTests {
                     "the old plate with a trim template is still " + moved);
             helper.assertTrue(moved.getValue(PlacedTemplateBlock.FACE) == AttachFace.FLOOR && moved.getValue(PlacedTemplateBlock.FACING) == Direction.EAST,
                     "the migrated plate lost its position: " + moved);
-            helper.assertTrue(PlacedTemplates.templateAt(helper.getLevel(), helper.absolutePos(trim)).is(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE),
-                    "the migrated plate lost its template");
+            net.minecraft.world.level.block.entity.BlockEntity movedBe = helper.getLevel().getBlockEntity(helper.absolutePos(trim));
+            net.minecraft.nbt.Tag saved = movedBe == null ? null : movedBe.saveCustomOnly(helper.getLevel().registryAccess()).get("Template");
+            ItemStack kept = saved == null ? ItemStack.EMPTY : ItemStack.CODEC.parse(
+                    helper.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), saved).result().orElse(ItemStack.EMPTY);
+            helper.assertTrue(kept.is(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE), "the migrated plate lost its template: " + kept);
             helper.assertTrue(helper.getBlockState(keep).is(ModBlocks.PLACED_SMITHING_TEMPLATE), "the netherite upgrade plate moved too");
             helper.succeed();
         });
