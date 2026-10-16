@@ -66,6 +66,7 @@ public final class PlacedDisplay3dTests {
 
     private static InteractionResult place(GameTestHelper helper, ServerPlayer player, ItemStack stack, BlockPos on) {
         player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        player.setShiftKeyDown(true);
         BlockPos abs = helper.absolutePos(on);
         Vec3 hit = Vec3.atCenterOf(abs).add(0.0, 0.5, 0.0);
         return stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, new BlockHitResult(hit, Direction.UP, abs, false)));
