@@ -19,6 +19,7 @@ public final class ForgeExample {
         MobsConfig.load(FMLPaths.CONFIGDIR.get());
         var bus = context.getModBusGroup();
         RegisterEvent.getBus(bus).addListener(event -> {
+            event.register(Registries.SOUND_EVENT, r -> MobsSounds.forEach(r::register));
             event.register(Registries.ENTITY_TYPE, r -> {
                 r.register(MobsRegistry.DECEIVER_KEY, MobsRegistry.DECEIVER);
                 r.register(MobsRegistry.HOWLER_KEY, MobsRegistry.HOLLOW_HOWLER);

@@ -1,0 +1,75 @@
+{
+  "entity.hollow_howler.heartbeat": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/heartbeat"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.heartbeat"
+  },
+  "entity.hollow_howler.ambient": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/ambient1",
+      "simplemobs:entity/hollow_howler/ambient2"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.ambient"
+  },
+  "entity.hollow_howler.ambient_hunger": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/ambient_hunger1",
+      "simplemobs:entity/hollow_howler/ambient_hunger2"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.ambient_hunger"
+  },
+  "entity.hollow_howler.ambient_rage": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/ambient_rage1",
+      "simplemobs:entity/hollow_howler/ambient_rage2"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.ambient_rage"
+  },
+  "entity.hollow_howler.hurt": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/hurt1",
+      "simplemobs:entity/hollow_howler/hurt2",
+      "simplemobs:entity/hollow_howler/hurt3"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.hurt"
+  },
+  "entity.hollow_howler.death": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/death"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.death"
+  },
+  "entity.hollow_howler.step": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/step1",
+      "simplemobs:entity/hollow_howler/step2",
+      "simplemobs:entity/hollow_howler/step3"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.step"
+  },
+  "entity.hollow_howler.notice": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/notice"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.notice"
+  },
+  "entity.hollow_howler.sniff": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/sniff"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.sniff"
+  },
+  "entity.hollow_howler.roar": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/roar"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.roar"
+  },
+  "entity.hollow_howler.roar_rage": {
+    "sounds": [
+      "simplemobs:entity/hollow_howler/roar_rage"
+    ],
+    "subtitle": "subtitles.simplemobs.entity.hollow_howler.roar_rage"
+  }
+}

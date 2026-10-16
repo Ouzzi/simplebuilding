@@ -101,3 +101,13 @@ for name in ('potion_awkward_watcher_eye', 'potion_focus_redstone', 'potion_focu
     assert (MODULE / f'shared/resources/data/simplemobs/recipe/brewing/{name}.json').is_file(), name
 assert (MODULE / 'shared/resources/data/simplemobs/recipe/calm_amulet.json').is_file()
 print('simplemobs: bilingual names, loot and assets valid')
+# Hollow Howler voice: every MobsSounds event is in sounds.json with a subtitle in both languages and existing OGG files
+import re
+_snd = json.loads((MODULE / 'shared/resources/assets/simplemobs/sounds.json').read_text(encoding='utf-8'))
+_events = re.findall(r'make\("(entity\.hollow_howler\.[a-z_]+)"\)', (MODULE / 'shared/java/com/simplebuilding/modules/simplemobs/MobsSounds.java').read_text(encoding='utf-8'))
+assert _events and set(_events) == set(_snd), 'MobsSounds and sounds.json differ'
+for _name, _ev in _snd.items():
+    for _s in _ev['sounds']:
+        assert (MODULE / f"shared/resources/assets/simplemobs/sounds/{_s.split(':', 1)[1]}.ogg").is_file(), _s
+    for _locale in ('en_us', 'de_de'):
+        assert _ev['subtitle'] in json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{_locale}.json').read_text(encoding='utf-8')), _ev['subtitle']

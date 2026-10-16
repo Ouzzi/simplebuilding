@@ -113,5 +113,16 @@
   "quests.simplemobs.start.title": "Welcome to Simple Mobs",
   "quests.simplemobs.start.subtitle": "Your free guide",
   "quests.simplemobs.start.welcome.title": "A free guide",
-  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone."
+  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone.",
+  "subtitles.simplemobs.entity.hollow_howler.heartbeat": "Hollow Howler's heart beats",
+  "subtitles.simplemobs.entity.hollow_howler.ambient": "Hollow Howler breathes",
+  "subtitles.simplemobs.entity.hollow_howler.ambient_hunger": "Hollow Howler rasps",
+  "subtitles.simplemobs.entity.hollow_howler.ambient_rage": "Hollow Howler growls",
+  "subtitles.simplemobs.entity.hollow_howler.hurt": "Hollow Howler hurts",
+  "subtitles.simplemobs.entity.hollow_howler.death": "Hollow Howler dies",
+  "subtitles.simplemobs.entity.hollow_howler.step": "Hollow Howler steps",
+  "subtitles.simplemobs.entity.hollow_howler.notice": "Hollow Howler takes notice",
+  "subtitles.simplemobs.entity.hollow_howler.sniff": "Hollow Howler sniffs",
+  "subtitles.simplemobs.entity.hollow_howler.roar": "Hollow Howler roars",
+  "subtitles.simplemobs.entity.hollow_howler.roar_rage": "Hollow Howler bellows"
 }

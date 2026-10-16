@@ -99,6 +99,7 @@ public final class MobsRegistry {
 
     /** Fabric: direct registration. */
     public static void registerAll() {
+        MobsSounds.registerAll();
         Registry.register(BuiltInRegistries.ENTITY_TYPE, DECEIVER_KEY, DECEIVER);
         Registry.register(BuiltInRegistries.ENTITY_TYPE, HOWLER_KEY, HOLLOW_HOWLER);
         Registry.register(BuiltInRegistries.ENTITY_TYPE, RITUAL_KEY, HOWLER_RITUAL);

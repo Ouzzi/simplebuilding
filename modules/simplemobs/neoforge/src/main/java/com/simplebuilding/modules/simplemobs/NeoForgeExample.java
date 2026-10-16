@@ -21,7 +21,8 @@ public final class NeoForgeExample {
         MobsConfig.load(FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
-            event.register(Registries.ENTITY_TYPE, h -> {
+            event.register(Registries.SOUND_EVENT, h -> MobsSounds.forEach(h::register));
+event.register(Registries.ENTITY_TYPE, h -> {
                 h.register(MobsRegistry.DECEIVER_KEY, MobsRegistry.DECEIVER);
                 h.register(MobsRegistry.HOWLER_KEY, MobsRegistry.HOLLOW_HOWLER);
                 h.register(MobsRegistry.RITUAL_KEY, MobsRegistry.HOWLER_RITUAL);

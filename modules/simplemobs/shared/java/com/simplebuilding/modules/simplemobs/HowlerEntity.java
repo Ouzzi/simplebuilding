@@ -237,20 +237,19 @@ public class HowlerEntity extends Monster implements VibrationSystem {
 
     // ---- sounds -------------------------------------------------------------------------
 
-    /** Ambient by phase (a sparse breath every ~10 s, none while quiet); WARDEN_LISTENING is only the reaction to hearing something. */
+    /** Ambient by phase (own synthetic voice, a sparse breath every ~10 s, none while quiet); HOWLER_NOTICE is only the reaction to hearing something. */
     @Override public SoundEvent getAmbientSound() {
         if (quiet()) return null;
-        return switch (phase()) { case ONE -> SoundEvents.WARDEN_AMBIENT; case HUNGER -> SoundEvents.WARDEN_AGITATED; case RAGE -> SoundEvents.WARDEN_ANGRY; };
+        return switch (phase()) { case ONE -> MobsSounds.HOWLER_AMBIENT; case HUNGER -> MobsSounds.HOWLER_AMBIENT_HUNGER; case RAGE -> MobsSounds.HOWLER_AMBIENT_RAGE; };
     }
     @Override public int getAmbientSoundInterval() { return 200; }
-    @Override protected SoundEvent getHurtSound(DamageSource source) { return SoundEvents.WARDEN_HURT; }
-    @Override protected SoundEvent getDeathSound() { return SoundEvents.WARDEN_DEATH; }
+    @Override protected SoundEvent getHurtSound(DamageSource source) { return MobsSounds.HOWLER_HURT; }
+    @Override protected SoundEvent getDeathSound() { return MobsSounds.HOWLER_DEATH; }
     @Override public float getVoicePitch() { return 0.7f + this.random.nextFloat() * 0.1f; }
     /** Heavy, uneven steps: left firm, right softer (limp), every second step with a wet sculk squelch. */
     @Override protected void playStepSound(BlockPos pos, BlockState state) {
         boolean left = (stepCount++ & 1) == 0;
-        this.playSound(SoundEvents.WARDEN_STEP, left ? 1.0f : 0.7f, 0.75f);
-        if (!left) this.playSound(SoundEvents.SCULK_BLOCK_STEP, 0.8f, 0.6f);
+        this.playSound(MobsSounds.HOWLER_STEP, left ? 1.0f : 0.7f, (left ? 0.95f : 0.8f) + this.random.nextFloat() * 0.1f);
     }
     private int stepCount;
 
@@ -285,7 +284,6 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         boolean weak = jawsOpening();
         boolean hurt = super.hurtServer(level, source, HowlerLogic.damageTaken(damage, weak));
         if (hurt) {
-            this.playSound(SoundEvents.SKELETON_HURT, 0.35f, 0.5f);
             if (weak) this.playSound(SoundEvents.SCULK_CATALYST_HIT, 1.0f, 0.8f);
         }
         if (hurt && weak) level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, this.getX(), this.getY() + 2.1, this.getZ(), 8, 0.3, 0.2, 0.3, 0.05);
@@ -357,8 +355,8 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         if (quiet()) return;
         int cycle = HowlerLogic.heartbeatCycle(this.tickCount, this.getId(), phase);
         if (cycle == 0 || cycle == HowlerLogic.HEART_SECOND_BEAT_TICKS) {
-            float pitch = 0.6f + 0.1f * phase.ordinal() - (cycle == 0 ? 0.0f : 0.15f);
-            this.level().playLocalSound(this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.WARDEN_HEARTBEAT, SoundSource.HOSTILE, 2.5f, pitch, false);
+            float pitch = 0.9f + 0.1f * phase.ordinal() - (cycle == 0 ? 0.0f : 0.15f);
+            this.level().playLocalSound(this.getX(), this.getY() + 1.5, this.getZ(), MobsSounds.HOWLER_HEARTBEAT, SoundSource.HOSTILE, 2.5f, pitch, false);
         }
     }
 
@@ -406,9 +404,9 @@ public class HowlerEntity extends Monster implements VibrationSystem {
             if (searchTicks > 0) {
                 // A6: searching instead of giving up: sniffs, listens, turns the head toward the last spot.
                 searchTicks--;
-                if (searchTicks == SEARCH_TICKS - 5) this.playSound(SoundEvents.WARDEN_SNIFF, 1.5f, 0.6f);
-                if (searchTicks == SEARCH_TICKS / 2) this.playSound(SoundEvents.WARDEN_LISTENING, 1.5f, 0.6f);
-                if (searchTicks == 15) this.playSound(SoundEvents.WARDEN_SNIFF, 1.5f, 0.6f);
+                if (searchTicks == SEARCH_TICKS - 5) this.playSound(MobsSounds.HOWLER_SNIFF, 1.5f, 0.8f);
+                if (searchTicks == SEARCH_TICKS / 2) this.playSound(MobsSounds.HOWLER_NOTICE, 1.5f, 0.85f);
+                if (searchTicks == 15) this.playSound(MobsSounds.HOWLER_SNIFF, 1.5f, 0.8f);
             }
             if (disturbance != null) this.getLookControl().setLookAt(disturbance.getX() + 0.5, disturbance.getY() + 1.0, disturbance.getZ() + 0.5);
             if (attack() != HowlerLogic.Attack.NONE) endAttack();
@@ -433,7 +431,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         switch (HowlerLogic.choose(dist, reach(target), this.hasLineOfSight(target), patternGap, biteCooldown, shockwaveCooldown, shriekCooldown, chargeCooldown, tendrilCooldown)) {
             case BITE -> {
                 startBite();
-                this.playSound(SoundEvents.WARDEN_ROAR, 0.6f, 1.6f);
+                this.playSound(MobsSounds.HOWLER_ROAR, 0.6f, 1.6f);
             }
             case SHOCKWAVE -> startShockwave(level);
             case SHRIEK -> startShriek(level);
@@ -519,7 +517,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
                     }
                     return;
                 }
-                if (t == HowlerLogic.CHARGE_RUN_TICKS) this.playSound(SoundEvents.WARDEN_ROAR, 1.5f, 1.2f);
+                if (t == HowlerLogic.CHARGE_RUN_TICKS) this.playSound(MobsSounds.HOWLER_ROAR, 1.5f, 1.15f);
                 if (t <= 0 || chargeStep(level)) endAttack();
             }
             default -> endAttack();
@@ -583,7 +581,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         this.entityData.set(DATA_PHASE, phase.ordinal());
         var speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
         if (speed != null) speed.setBaseValue(HowlerLogic.SPEED * HowlerLogic.speedFactor(phase));
-        if (phase != HowlerLogic.Phase.ONE) this.playSound(SoundEvents.WARDEN_ROAR, 2.0f, phase == HowlerLogic.Phase.RAGE ? 0.6f : 0.8f);
+        if (phase != HowlerLogic.Phase.ONE) this.playSound(phase == HowlerLogic.Phase.RAGE ? MobsSounds.HOWLER_ROAR_RAGE : MobsSounds.HOWLER_ROAR, 2.5f, 1.0f);
     }
 
     /** The jaws snap shut: bite if still in reach (14 damage, Hard 21 via difficulty scaling, Darkness 4 s). */
@@ -813,7 +811,7 @@ public class HowlerEntity extends Monster implements VibrationSystem {
         vibrationCooldown = 20;
         if (this.level() instanceof ServerLevel level) level.broadcastEntityEvent(this, (byte) 61);
         this.playSound(SoundEvents.WARDEN_TENDRIL_CLICKS, 3.0f, 0.8f);
-        this.playSound(SoundEvents.WARDEN_LISTENING, 1.5f, 0.6f);
+        this.playSound(MobsSounds.HOWLER_NOTICE, 1.5f, 0.85f);
         if (projectileOwner == null && canHunt(source)) {
             hear((LivingEntity) source);
         } else if (this.getTarget() == null) {
