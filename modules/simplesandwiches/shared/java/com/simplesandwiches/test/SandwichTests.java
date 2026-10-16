@@ -900,16 +900,18 @@ public final class SandwichTests {
     /**
      * Split stage 3d: Simple Sandwiches requests no shared material, so alone it brings no Enderite into the world - the
      * items exist (SimpleLib registers them, worlds stay loadable) but no recipe makes them (checked by id, no SimpleLib import). With SimpleBuilding (which
-     * requests every material) they are there.
+     * requests every material) or Simple Crucibles (split stage 5: bundled in the jar, requests them for its Enderite stage) they are there.
      */
     static void noEnderiteWithoutRequester(GameTestHelper h) {
         boolean sb = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"));
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "iron_sledgehammer"))
+                || net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", "enderite_crucible"));
         var recipes = h.getLevel().getServer().getRecipeManager();
         for (String id : java.util.List.of("enderite_ingot_from_scrap", "enderite_scrap_from_blasting_layered_raw_enderite", "enderite_block")) {
             boolean present = recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
                     net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", id))).isPresent();
-            h.assertTrue(present == sb, "simplelib:" + id + " present=" + present + " with SimpleBuilding=" + sb);
+            h.assertTrue(present == sb, "simplelib:" + id + " present=" + present + " with a requester (SimpleBuilding or Simple Crucibles)=" + sb);
         }
         h.succeed();
     }
