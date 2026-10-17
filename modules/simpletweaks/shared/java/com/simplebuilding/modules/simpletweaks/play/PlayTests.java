@@ -73,7 +73,7 @@ public final class PlayTests {
         TESTS.put("pregen_spiral_and_generates", PlayTests::pregen);
     }
 
-    public static int maxTicks(String name) { return name.equals("pregen_spiral_and_generates") ? 12000 : 100; // game test servers tick unthrottled, chunk generation takes real seconds }
+    public static int maxTicks(String name) { return name.equals("pregen_spiral_and_generates") ? 12000 : 100; /* test servers tick unthrottled, chunk generation takes real seconds */ }
 
     static void yes(GameTestHelper h, boolean ok, String why) { h.assertTrue(ok, why); }
     static ServerPlayer player(GameTestHelper h, BlockPos rel) {
