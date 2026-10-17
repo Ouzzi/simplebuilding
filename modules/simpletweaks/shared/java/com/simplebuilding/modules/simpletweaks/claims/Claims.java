@@ -497,6 +497,18 @@ public final class Claims {
         }
         return true;
     }
+    /**
+     * Spreading effects (bone meal, sculk) reach a few blocks from their source: refused when a chunk touched by the
+     * box of the given radius around the target belongs to somebody else than the chunk of the origin.
+     */
+    public static boolean sameLand(ServerLevel level,BlockPos origin,BlockPos target,int radius){
+        var c=get(level.getServer());if(c==null||!on()||!c.config.enabled())return true;
+        if(!c.ready())return false;
+        String dim=level.dimension().identifier().toString();long from=ChunkPos.pack(origin);
+        for(int x=(target.getX()-radius)>>4;x<=(target.getX()+radius)>>4;x++)for(int z=(target.getZ()-radius)>>4;z<=(target.getZ()+radius)>>4;z++)
+            if(!c.sameOwner(dim,from,ChunkPos.pack(x,z)))return false;
+        return true;
+    }
     /** Land owner at a position: empty for wilderness or inactive claims, null while the ledger is locked. */
     public static Optional<UUID> owner(ServerLevel level,BlockPos pos){
         var c=get(level.getServer());if(c==null||!on()||!c.config.enabled())return Optional.empty();

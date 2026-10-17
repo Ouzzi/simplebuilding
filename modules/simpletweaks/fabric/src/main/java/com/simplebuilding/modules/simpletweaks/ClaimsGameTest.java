@@ -30,6 +30,9 @@ public final class ClaimsGameTest {
  @GameTest public void claimsVehicleBoats(GameTestHelper h) { ClaimTests.TESTS.get("claims_vehicle_boats").accept(h); }
  @GameTest public void claimsReviewVehicleContainers(GameTestHelper h) { ClaimTests.TESTS.get("claims_review_vehicle_containers").accept(h); }
  @GameTest public void claimsReviewGrowth(GameTestHelper h) { ClaimTests.TESTS.get("claims_review_growth").accept(h); }
+ @GameTest public void claimsReviewBonemeal(GameTestHelper h) { ClaimTests.TESTS.get("claims_review_bonemeal").accept(h); }
+ @GameTest public void claimsReviewSculk(GameTestHelper h) { ClaimTests.TESTS.get("claims_review_sculk").accept(h); }
+ @GameTest public void claimsReviewFrostWalker(GameTestHelper h) { ClaimTests.TESTS.get("claims_review_frost_walker").accept(h); }
  @GameTest public void claimsAutomationComposter(GameTestHelper h) { ClaimTests.TESTS.get("claims_automation_composter").accept(h); }
 
  @GameTest(environment="simpletweaks:claims_portal",maxTicks=400) public void claimsPortalFlow(GameTestHelper h) { ClaimTests.TESTS.get("claims_portal_flow").accept(h); }

@@ -64,4 +64,68 @@ final class ReviewClaimTests {
   });
   h.succeed();
  }
+
+ private static boolean bonemealOk(net.minecraft.server.level.ServerLevel level,BlockPos pos){
+  var state=level.getBlockState(pos);
+  return ((net.minecraft.world.level.block.BonemealableBlock)state.getBlock()).isValidBonemealTarget(level,pos,state,net.minecraft.world.level.block.BonemealSource.INTERACTION);
+ }
+ /** Bone meal on grass does not spread its flowers and grass over a claim border; crops and claim-internal use stay possible. */
+ static void bonemeal(GameTestHelper h) {
+  var level=h.getLevel();var east=ToolClaimTests.boundary(h);var near=east.west(2);var far=east.west(12);var inner=east.east(8);var crop=east.west();
+  for(var p:List.of(near,far,inner,crop)){
+   level.setBlock(p.below(),Blocks.DIRT.defaultBlockState(),2);level.setBlock(p,Blocks.AIR.defaultBlockState(),2);level.setBlock(p.above(),Blocks.AIR.defaultBlockState(),2);
+  }
+  level.setBlock(near,Blocks.GRASS_BLOCK.defaultBlockState(),2);level.setBlock(far,Blocks.GRASS_BLOCK.defaultBlockState(),2);level.setBlock(inner,Blocks.GRASS_BLOCK.defaultBlockState(),2);
+  level.setBlock(crop.below(),Blocks.FARMLAND.defaultBlockState(),2);level.setBlock(crop,Blocks.WHEAT.defaultBlockState(),2);
+  with(h,c->{
+   yes(h,bonemealOk(level,near),"Control: grass takes bone meal without claims");
+   var owner=player(h,east.east(8));
+   yes(h,c.create(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(east)),owner.getUUID(),100),"Bone meal claim fixture");
+   yes(h,!bonemealOk(level,near),"Grass 2 blocks from a foreign claim: refused");
+   yes(h,bonemealOk(level,far),"Grass far from the claim: allowed");
+   yes(h,bonemealOk(level,inner),"Grass deep inside the claim: allowed");
+   yes(h,bonemealOk(level,crop),"A crop next to the claim still takes bone meal (no spread)");
+  });
+  h.succeed();
+ }
+ /** A sculk charge from a catalyst outside a claim dies at the border instead of sculking foreign land. */
+ static void sculk(GameTestHelper h) {
+  var level=h.getLevel();var east=ToolClaimTests.boundary(h);var origin=east.west(6);
+  level.setBlock(east,Blocks.STONE.defaultBlockState(),2);level.setBlock(origin,Blocks.STONE.defaultBlockState(),2);
+  with(h,c->{
+   var spreader=net.minecraft.world.level.block.SculkSpreader.createLevelSpreader();
+   spreader.addCursors(east,10);spreader.updateCursors(level,origin,RandomSource.create(1),true);
+   yes(h,!spreader.getCursors().isEmpty(),"Control: a charge in wilderness survives an update");
+   var owner=player(h,east.east(8));
+   yes(h,c.create(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(east)),owner.getUUID(),100),"Sculk claim fixture");
+   spreader.clear();spreader.addCursors(east,10);spreader.updateCursors(level,origin,RandomSource.create(1),true);
+   yes(h,spreader.getCursors().isEmpty(),"A charge inside a foreign claim is discharged");
+   yes(h,!level.getBlockState(east.above()).is(Blocks.SCULK_VEIN),"No vein placed in the claim");
+   spreader.clear();spreader.addCursors(origin,10);spreader.updateCursors(level,origin,RandomSource.create(1),true);
+   yes(h,!spreader.getCursors().isEmpty(),"A charge on its own side keeps working");
+  });
+  h.succeed();
+ }
+ /** Frost Walker ice appears where the wearer may build, not on a foreign claim's water. */
+ static void frostWalker(GameTestHelper h) {
+  var level=h.getLevel();var east=ToolClaimTests.boundary(h);var edge=east.west();
+  for(int x=-3;x<=3;x++)for(int z=-3;z<=3;z++)level.setBlock(edge.offset(x,0,z),Blocks.WATER.defaultBlockState(),2);
+  var disk=new net.minecraft.world.item.enchantment.effects.ReplaceDisk(net.minecraft.world.item.enchantment.LevelBasedValue.constant(3),net.minecraft.world.item.enchantment.LevelBasedValue.constant(1),net.minecraft.core.Vec3i.ZERO,
+   Optional.of(net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate.matchesBlocks(Blocks.WATER)),
+   net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider.simple(Blocks.ICE),Optional.empty());
+  with(h,c->{
+   var stranger=player(h,edge.west(5));var owner=player(h,east.east(8));
+   disk.apply(level,1,null,stranger,Vec3.atCenterOf(edge));
+   yes(h,level.getBlockState(edge).is(Blocks.ICE),"Control: ice forms without claims");
+   for(int x=-3;x<=3;x++)for(int z=-3;z<=3;z++)level.setBlock(edge.offset(x,0,z),Blocks.WATER.defaultBlockState(),2);
+   yes(h,c.create(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(east)),owner.getUUID(),100),"Frost claim fixture");
+   disk.apply(level,1,null,stranger,Vec3.atCenterOf(edge));
+   yes(h,level.getBlockState(edge).is(Blocks.ICE),"Ice forms on wilderness water");
+   yes(h,level.getBlockState(east).is(Blocks.WATER)&&level.getBlockState(east.east()).is(Blocks.WATER),"Foreign claim water stays water for a stranger");
+   for(int x=-3;x<=3;x++)for(int z=-3;z<=3;z++)level.setBlock(edge.offset(x,0,z),Blocks.WATER.defaultBlockState(),2);
+   disk.apply(level,1,null,owner,Vec3.atCenterOf(edge));
+   yes(h,level.getBlockState(east).is(Blocks.ICE),"The claim owner freezes their own water");
+  });
+  h.succeed();
+ }
 }
