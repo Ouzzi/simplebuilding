@@ -23,6 +23,8 @@ public final class Mentions {
 
     /** Highlight mentions in {@code plain} among {@code online} (names by {@code nameOf}); null when nobody online is mentioned. */
     public static Result decorate(Collection<ServerPlayer> online, java.util.function.Function<ServerPlayer, String> nameOf, ServerPlayer sender, boolean everyoneAllowed, String plain) {
+        // T14: a vanished player is neither highlighted nor pinged (the message is public)
+        online = online.stream().filter(p -> p == sender || !com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.vanished(p)).toList();
         var m = MENTION.matcher(plain);
         var out = Component.empty();
         var mentioned = new LinkedHashSet<ServerPlayer>();
@@ -45,7 +47,7 @@ public final class Mentions {
     }
     public static Result decorate(MinecraftServer server, ServerPlayer sender, String plain) {
         boolean everyone = sender == null || PlayPerms.has(sender, Play.config().mentions().everyonePermission());
-        return decorate(server.getPlayerList().getPlayers().stream().filter(p -> p == sender || !com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.vanished(p)).toList(), p -> p.nameAndId().name(), sender, everyone, plain);
+        return decorate(server.getPlayerList().getPlayers(), p -> p.nameAndId().name(), sender, everyone, plain);
     }
 
     /** Called for every chat message before it is broadcast. */

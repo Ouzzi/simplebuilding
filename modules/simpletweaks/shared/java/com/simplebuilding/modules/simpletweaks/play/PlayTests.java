@@ -440,8 +440,8 @@ public final class PlayTests {
             yes(h, Leaderboard.top(server, "deaths", guestSource).stream().noneMatch(e -> e.id().equals(ghost.getUUID())), "T22: leaderboard leaves the vanished player out");
             yes(h, Leaderboard.top(server, "deaths", null).stream().noneMatch(e -> e.id().equals(ghost.getUUID())), "T22: sidebar leaves the vanished player out");
             yes(h, Leaderboard.top(server, "deaths", adminSource).stream().anyMatch(e -> e.id().equals(ghost.getUUID())), "T22: admins that may see it get the full list");
-            var mention = com.simplebuilding.modules.simpletweaks.play.chat.Mentions.decorate(server, guest, "@test-mock-player");
-            yes(h, mention != null && !mention.mentioned().contains(ghost) && mention.mentioned().contains(admin), "T6: a mention does not highlight or ping a vanished player");
+            var mention = com.simplebuilding.modules.simpletweaks.play.chat.Mentions.decorate(List.of(ghost, guest, admin), p -> "x", guest, false, "@x");
+            yes(h, mention != null && !mention.mentioned().contains(ghost) && mention.mentioned().contains(admin) && !mention.mentioned().contains(guest), "T6: a mention does not highlight or ping a vanished player");
         } finally {
             com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.set(ghost, false);
             server.getPlayerList().deop(admin.nameAndId());
