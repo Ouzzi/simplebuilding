@@ -705,7 +705,8 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "jei"
     ],
     "dataHash": "8098b8b9f4ab"
   },
