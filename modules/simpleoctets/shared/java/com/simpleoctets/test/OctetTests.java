@@ -62,7 +62,7 @@ public final class OctetTests {
         ALL.put("octets_mix_materials_in_one_cell", OctetTests::octetsMixMaterialsInOneCell);
         ALL.put("sneaking_breaks_only_the_looked_at_octet", OctetTests::sneakingBreaksOnlyTheLookedAtOctet);
         ALL.put("mixed_cell_persists_and_drops_every_material", OctetTests::mixedCellPersistsAndDropsEveryMaterial);
-        ALL.put("melon_slice_places_a_melon_octet", OctetTests::melonSlicePlacesAMelonOctet);
+        ALL.put("melon_slice_places_melon_octets", OctetTests::melonSlicePlacesMelonOctets);
         ALL.put("wood_and_wool_octets_burn", OctetTests::woodAndWoolOctetsBurn);
         ALL.put("discover_recipe_unlocks", com.simpleoctets.discover.OctetsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleoctets.discover.OctetsDiscover::behaviourHints);
@@ -138,23 +138,24 @@ public final class OctetTests {
             Identifier advancement = SimpleOctets.id("recipes/building_blocks/" + path);
             if (!advancement.equals(IdMoves.advancement(SimpleOctets.sb("recipes/building_blocks/" + path)))) problems.add("advancement " + path);
         }
-        // A mixed cell of an old world: block entity id simplebuilding:mixed_octet with its palette.
-        BlockState mixed = OctetCellBlock.withMask(OctetRegistry.MIXED_OCTET.defaultBlockState(), 0x03);
-        CompoundTag tag = new CompoundTag();
-        tag.putString("id", "simplebuilding:mixed_octet");
-        net.minecraft.nbt.ListTag palette = new net.minecraft.nbt.ListTag();
-        CompoundTag oak = new CompoundTag();
-        oak.putString("Name", "simplebuilding:oak_octet");
-        palette.add(oak);
-        CompoundTag stone = new CompoundTag();
-        stone.putString("Name", "simplebuilding:stone_octet");
-        palette.add(stone);
-        tag.put("Palette", palette);
-        tag.putIntArray("Octets", new int[] {0, 1, -1, -1, -1, -1, -1, -1});
+        // A mixed cell of an old world: the saved block entity with every simpleoctets: id written as simplebuilding: (as
+        // SimpleBuilding saved it before the move) loads with its materials.
+        BlockState[] parts = new BlockState[8];
+        parts[0] = material(Blocks.OAK_PLANKS);
+        parts[1] = material(Blocks.STONE);
+        OctetCells.set(h.getLevel(), h.absolutePos(CELL), parts, false, Block.UPDATE_ALL);
+        BlockState mixed = h.getBlockState(CELL);
+        CompoundTag saved = h.getLevel().getBlockEntity(h.absolutePos(CELL)).saveWithFullMetadata(h.getLevel().registryAccess());
+        CompoundTag tag;
+        try {
+            tag = net.minecraft.nbt.TagParser.parseCompoundFully(saved.toString().replace(SimpleOctets.MOD_ID + ":", SimpleOctets.SB_NAMESPACE + ":"));
+        } catch (Exception e) {
+            throw h.assertionException("old tag: " + e);
+        }
+        if (!tag.toString().contains("simplebuilding:oak_octet")) problems.add("old tag without old ids: " + tag);
         BlockEntity loaded = BlockEntity.loadStatic(h.absolutePos(CELL), mixed, tag, h.getLevel().registryAccess());
-        if (!(loaded instanceof MixedOctetBlockEntity be) || be.part(0) == null || !be.part(0).is(cell(Blocks.OAK_PLANKS))
-                || be.part(1) == null || !be.part(1).is(cell(Blocks.STONE))) {
-            problems.add("old mixed cell loads as " + loaded + (loaded instanceof MixedOctetBlockEntity be ? java.util.Arrays.toString(be.parts()) : ""));
+        if (!(loaded instanceof MixedOctetBlockEntity be) || be.part(0) != parts[0] || be.part(1) != parts[1]) {
+            problems.add("old mixed cell loads as " + loaded + (loaded instanceof MixedOctetBlockEntity be ? java.util.Arrays.toString(be.parts()) : "") + " from " + tag);
         }
         h.assertTrue(problems.isEmpty(), "migration: " + problems);
         h.succeed();
@@ -316,7 +317,7 @@ public final class OctetTests {
     }
 
     /** Sneak + right-click with a melon slice places a melon octet; without sneaking it is eaten; it drops its slice. */
-    static void melonSlicePlacesAMelonOctet(GameTestHelper h) {
+    static void melonSlicePlacesMelonOctets(GameTestHelper h) {
         h.setBlock(CELL.below(), Blocks.STONE);
         ServerPlayer player = mockPlayer(h);
         ItemStack slices = new ItemStack(Items.MELON_SLICE, 3);

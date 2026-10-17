@@ -57,8 +57,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
-    public void melonSlicePlacesAMelonOctet(GameTestHelper h) {
-        OctetTests.ALL.get("melon_slice_places_a_melon_octet").accept(h);
+    public void melonSlicePlacesMelonOctets(GameTestHelper h) {
+        OctetTests.ALL.get("melon_slice_places_melon_octets").accept(h);
     }
 
     @GameTest(structure = "simpleoctets:empty")
