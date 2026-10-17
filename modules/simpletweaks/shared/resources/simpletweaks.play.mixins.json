@@ -14,8 +14,7 @@
     "PlayGameRulesMixin",
     "PlayServerLevelMixin",
     "PlayOrbMixin",
-    "PlayLootMixin",
-    "PlayChunkCacheInvoker"
+    "PlayLootMixin"
   ],
   "injectors": {
     "defaultRequire": 1

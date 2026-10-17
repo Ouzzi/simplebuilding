@@ -23,6 +23,8 @@ public final class Votes {
     static final Map<String, Long> COOLDOWN = new HashMap<>();
     /** Tests: the action of a passed vote is replaced. */
     public static java.util.function.BiConsumer<MinecraftServer, String> action = Votes::apply;
+    /** Tests: the number of eligible players is replaced (the test server holds the mock players of other tests). */
+    public static java.util.function.ToIntFunction<MinecraftServer> eligibleCount = Votes::eligible;
 
     public static boolean active() { return Play.on() && Play.server() != null && Play.config().vote().enabled(); }
     public static Vote running() { return running; }
@@ -105,7 +107,7 @@ public final class Votes {
         if (running == null) return;
         int yes = 0;
         for (var id : running.yes()) { var p = server.getPlayerList().getPlayer(id); if (p != null && !p.isSpectator()) yes++; }
-        if (passes(yes, eligible(server), Play.config().vote().percent())) finish(server, true);
+        if (passes(yes, eligibleCount.applyAsInt(server), Play.config().vote().percent())) finish(server, true);
         else if (System.currentTimeMillis() >= running.until()) finish(server, false);
     }
     static void finish(MinecraftServer server, boolean passed) {
@@ -132,6 +134,6 @@ public final class Votes {
     }
     public static void left(ServerPlayer p) { if (running != null) { running.yes().remove(p.getUUID()); running.no().remove(p.getUUID()); } }
     /** Tests: no running vote, no cooldowns, the real action. */
-    public static void reset() { running = null; COOLDOWN.clear(); action = Votes::apply; }
+    public static void reset() { running = null; COOLDOWN.clear(); action = Votes::apply; eligibleCount = Votes::eligible; }
     private Votes() {}
 }

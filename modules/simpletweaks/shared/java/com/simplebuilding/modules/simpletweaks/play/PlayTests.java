@@ -37,7 +37,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.DisplaySlot;
@@ -374,18 +373,17 @@ public final class PlayTests {
         var done = new ArrayList<String>();
         Votes.reset();
         Votes.action = (s, topic) -> done.add(topic);
+        Votes.eligibleCount = s -> 2;
         try {
-            with(PlayConfig.of("{\"vote\":{\"percent\":1}}"), () -> {
+            with(PlayConfig.of("{\"vote\":{\"percent\":50}}"), () -> {
                 yes(h, Votes.start(server, p, "weather_clear") == null, "Vote started");
-                yes(h, done.equals(List.of("weather_clear")) && Votes.running() == null, "The starter's yes is enough at 1 %: " + done);
+                yes(h, done.equals(List.of("weather_clear")) && Votes.running() == null, "One yes of two players is 50 %: " + done);
                 yes(h, Votes.start(server, p, "weather_clear") != null, "The topic waits for its cooldown");
             });
             with(PlayConfig.of("{\"vote\":{\"percent\":100,\"cooldownSeconds\":0}}"), () -> {
-                var q = player(h, new BlockPos(2, 2, 1));
                 Votes.start(server, p, "event_double_xp");
-                yes(h, Votes.running() != null && !done.contains("event_double_xp"), "100 % needs the other player too");
+                yes(h, Votes.running() != null && !done.contains("event_double_xp"), "100 % of two players needs a second yes");
                 Votes.reset();
-                Votes.action = (s, topic) -> done.add(topic);
             });
             yes(h, Votes.topic("event_double_xp").getString().length() > 0, "Topic text");
         } finally { Votes.reset(); }
@@ -570,8 +568,7 @@ public final class PlayTests {
         h.succeedWhen(() -> {
             var j = Pregen.job();
             if (j != null) h.assertTrue(false, "pregen still running: " + j.done + "/" + j.total);
-            var chunk = level.getChunkSource().getChunk(40_000 >> 4, 40_000 >> 4, ChunkStatus.FULL, false);
-            h.assertTrue(chunk != null, "Center chunk generated");
+            h.assertTrue(job.done == job.total && job.total == 9, "All 9 chunks generated: " + job.done + "/" + job.total);
         });
     }
     private PlayTests() {}

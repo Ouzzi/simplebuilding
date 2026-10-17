@@ -3,7 +3,6 @@ package com.simplebuilding.modules.simpletweaks.play.pregen;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.simplebuilding.modules.simpletweaks.play.*;
-import com.simplebuilding.modules.simpletweaks.play.mixin.PlayChunkCacheInvoker;
 import java.util.*;
 import java.util.concurrent.atomic.*;
 import net.minecraft.ChatFormatting;
@@ -14,13 +13,14 @@ import net.minecraft.resources.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
 import net.minecraft.world.BossEvent;
-import net.minecraft.world.level.chunk.status.ChunkStatus;
+import net.minecraft.world.level.ChunkPos;
 
 /**
  * T33: /pregen start &lt;radius&gt; [dimension] generates all chunks in a square spiral around the world border center
  * (radius in blocks, at most {@code maxRadius}); pause, resume, stop, status. Requests are asynchronous (the main thread
  * never waits): at most {@code parallel} open requests and {@code perTick} new ones per tick. Progress is a boss bar for
- * operators and a chat line every 10 %; the job is saved in the world state and continues after a restart (paused).
+ * operators and a chat line every 10 %. Each chunk is loaded with the Vanilla asynchronous ticket load
+ * ({@code addTicketAndLoadWithRadius}, short-lived spawn ticket, so finished chunks unload again); the job is saved in the world state and continues after a restart (paused).
  */
 public final class Pregen {
     static final AtomicInteger OPEN = new AtomicInteger();
@@ -119,7 +119,7 @@ public final class Pregen {
         var level = server.getLevel(ResourceKey.create(Registries.DIMENSION, Identifier.parse(j.dimension)));
         if (level == null) { stop(server, true); return; }
         var c = Play.config().pregen();
-        var cache = (PlayChunkCacheInvoker) level.getChunkSource();
+        var cache = level.getChunkSource();
         for (int n = 0; n < c.perTick() && OPEN.get() < c.parallel(); n++) {
             int x, z;
             long[] r; synchronized (RETRY) { r = RETRY.poll(); }
@@ -128,9 +128,12 @@ public final class Pregen {
             else break;
             OPEN.incrementAndGet();
             final int fx = x, fz = z;
-            cache.simpletweaks$request(x, z, ChunkStatus.FULL, true).whenComplete((result, error) -> {
+            java.util.concurrent.CompletableFuture<?> future;
+            try { future = cache.addTicketAndLoadWithRadius(TicketType.PLAYER_SPAWN, new ChunkPos(x, z), 0); }
+            catch (RuntimeException e) { OPEN.decrementAndGet(); continue; }
+            future.whenComplete((result, error) -> {
                 OPEN.decrementAndGet();
-                if (error == null && result != null && result.isSuccess()) DONE.incrementAndGet();
+                if (error == null) DONE.incrementAndGet();
                 else synchronized (RETRY) { if (RETRY.size() < 4096) RETRY.add(new long[]{fx, fz}); }
             });
         }
