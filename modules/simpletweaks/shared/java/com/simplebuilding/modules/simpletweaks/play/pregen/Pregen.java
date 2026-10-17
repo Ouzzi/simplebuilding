@@ -130,11 +130,17 @@ public final class Pregen {
             final int fx = x, fz = z;
             java.util.concurrent.CompletableFuture<?> future;
             try { future = cache.addTicketAndLoadWithRadius(TicketType.PLAYER_SPAWN, new ChunkPos(x, z), 0); }
-            catch (RuntimeException e) { OPEN.decrementAndGet(); continue; }
+            catch (RuntimeException e) {
+                OPEN.decrementAndGet();
+                org.slf4j.LoggerFactory.getLogger("simpletweaks-play").warn("Pregen request for chunk {} {} failed, retried later", x, z, e);
+                synchronized (RETRY) { if (RETRY.size() < 4096) RETRY.add(new long[]{x, z}); }
+                break;
+            }
             future.whenComplete((result, error) -> {
                 OPEN.decrementAndGet();
                 if (error == null) DONE.incrementAndGet();
-                else synchronized (RETRY) { if (RETRY.size() < 4096) RETRY.add(new long[]{fx, fz}); }
+                else { org.slf4j.LoggerFactory.getLogger("simpletweaks-play").warn("Pregen chunk {} {} failed, retried later", fx, fz, error); }
+                if (error != null) synchronized (RETRY) { if (RETRY.size() < 4096) RETRY.add(new long[]{fx, fz}); }
             });
         }
         progress(server, j);
