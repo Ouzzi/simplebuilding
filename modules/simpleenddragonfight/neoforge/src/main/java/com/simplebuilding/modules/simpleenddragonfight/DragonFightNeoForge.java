@@ -19,6 +19,13 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 public final class DragonFightNeoForge {
     public DragonFightNeoForge(IEventBus bus, Dist dist) {
         DragonFightConfig.load(FMLPaths.CONFIGDIR.get());
+        bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e) -> {
+            if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.register();
+        });
+        bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e) -> {
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.stack(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
+        if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
             event.register(Registries.ENTITY_TYPE, h -> h.register(DragonFightRegistry.DRAGONMITE_KEY, DragonFightRegistry.DRAGONMITE));

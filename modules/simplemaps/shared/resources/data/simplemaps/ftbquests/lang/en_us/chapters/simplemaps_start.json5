@@ -1,0 +1,10 @@
+{
+	"chapter.08D731A5D6D5747B.title": "{\"translate\": \"quests.simplemaps.start.title\"}",
+	"chapter.08D731A5D6D5747B.chapter_subtitle": [
+		"{\"translate\": \"quests.simplemaps.start.subtitle\"}"
+	],
+	"quest.7999759137D40761.title": "{\"translate\": \"quests.simplemaps.start.welcome.title\"}",
+	"quest.7999759137D40761.quest_desc": [
+		"{\"translate\": \"quests.simplemaps.start.welcome.description\"}"
+	]
+}

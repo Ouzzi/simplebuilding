@@ -21,5 +21,16 @@
     "secret": [
       "Vom Drachen gerufene Mites lösen sich ohne Beute in Rauch auf, sobald ihr Drache stirbt."
     ]
+  },
+  "guide_book": {
+    "lore": [
+      "Eine versengte Seite vom letzten Kampf am Rand des Ends."
+    ],
+    "use": [
+      "Das Simple-Enddrachenkampf-Handbuch erklärt Skalierung, den schnelleren Drachen, Beschwörungen, die Eintrittsanimation und Drachenmilben. Herstellung formlos aus einem Buch und einer Enderperle."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+    ]
   }
 }

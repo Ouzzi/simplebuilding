@@ -1,0 +1,41 @@
+{
+	"id": "2AAA3D9D9EEE4023",
+	"order_index": 0,
+	"filename": "simpleenddragonfight_start",
+	"icon": {
+		"id": "simpleenddragonfight:guide_book"
+	},
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"progression_mode": "flexible",
+	"quests": [
+		{
+			"id": "71334C27F7B73CED",
+			"x": 0.0,
+			"y": 0.0,
+			"dependencies": [],
+			"tasks": [
+				{
+					"id": "6595FE6C69C4FDBA",
+					"type": "item",
+					"item": {
+						"id": "minecraft:crafting_table",
+						"count": 1
+					}
+				}
+			],
+			"rewards": [
+				{
+					"id": "7317D3441CC3A4DF",
+					"type": "item",
+					"item": {
+						"id": "simpleenddragonfight:guide_book",
+						"count": 1
+					}
+				}
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}

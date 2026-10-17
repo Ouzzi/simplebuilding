@@ -27,6 +27,8 @@ public final class DragonFightTests {
 
     private DragonFightTests() {}
 
+    static { add("guide_book", com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide::gameTest); }
+
     private static void add(String name, Consumer<GameTestHelper> body) { ALL.put(name, body); }
 
     private static boolean near(double a, double b) { return Math.abs(a - b) < 0.01; }

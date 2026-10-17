@@ -91,4 +91,5 @@ public final class ModuleGameTest {
     }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplemaps.discover.MapsDiscover.behaviourHints(h); }
+    @GameTest public void guideBook(GameTestHelper h) { com.simplebuilding.modules.simplemaps.guide.MapsGuide.gameTest(h); }
 }

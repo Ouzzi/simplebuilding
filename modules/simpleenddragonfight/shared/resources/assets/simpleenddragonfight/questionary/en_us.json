@@ -21,5 +21,16 @@
     "secret": [
       "Mites called by the dragon vanish in smoke, without drops, as soon as their dragon dies."
     ]
+  },
+  "guide_book": {
+    "lore": [
+      "A scorched page from the last fight at the edge of the End."
+    ],
+    "use": [
+      "The Simple End Dragon Fight Guide explains scaling, the faster dragon, summonings, the entry animation and dragonmites. Craft it shapeless from a book and an ender pearl."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
   }
 }

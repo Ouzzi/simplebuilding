@@ -31,5 +31,16 @@
     "secret": [
       "Schatzkisten der Endstädte enthalten sie zu 2 %. Eine Karte bindet sich an die Dimension ihrer ersten Benutzung und funktioniert sonst nirgends."
     ]
+  },
+  "guide_book": {
+    "lore": [
+      "Eine gefaltete Karte aller Wege, die du je gegangen bist."
+    ],
+    "use": [
+      "Das Simple-Maps-Handbuch erklärt Wegfinder-Karten, den Kartenbildschirm, Wegpunkte und Rahmen. Herstellung formlos aus einem Buch und einem Kompass."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+    ]
   }
 }

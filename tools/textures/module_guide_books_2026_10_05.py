@@ -46,6 +46,10 @@ BOOKS = {
     "simpleshops": ("simpleshops", ("#2a1a0c", "#40281a", "#b0824c", "#8e6234", "#6e4a26"), "#ffd23a", "Kassenholz, Muenzgold"),
     # 2026-10-15 (oc-simplestats)
     "simplestats": ("simplestats", ("#2e1608", "#4a2610", "#d68a50", "#b46a34", "#8e5026"), "#7ee8d0", "Kupfer, Patina-Tuerkis"),
+    # 2026-10-17 (b-stylefix2, ST-40)
+    "simplemaps": ("simplemaps", ("#2a2210", "#403418", "#d8c488", "#b8a064", "#8e7a48"), "#5ec8ff", "Pergament, Kompass-Blau"),
+    "simpletools": ("simpletools", ("#1e1e22", "#33333a", "#9a9aa6", "#74747f", "#585862"), "#ff7a2a", "Amboss-Grau, Lava-Orange"),
+    "simpleenddragonfight": ("simpleenddragonfight", ("#1a0e2a", "#2c1844", "#8a5cc8", "#6a40a6", "#502f84"), "#e060ff", "End-Violett, Drachenatem"),
 }
 
 

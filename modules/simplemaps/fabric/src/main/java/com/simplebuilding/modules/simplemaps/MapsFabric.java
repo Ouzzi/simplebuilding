@@ -28,6 +28,14 @@ public final class MapsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         SimpleMaps.init(FabricLoader.getInstance().getConfigDir());
+        com.simplebuilding.modules.simplemaps.guide.MapsGuide.register();
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
+            var book = java.util.List.of(com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack());
+            // Before the writable book: a tail append clashes with other mods' insertAfter at the tail.
+            if (out.getDisplayStacks().stream().anyMatch(s -> s.is(net.minecraft.world.item.Items.WRITABLE_BOOK))) out.insertBefore(net.minecraft.world.item.Items.WRITABLE_BOOK, book, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            else book.forEach(s -> out.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
+        if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simplemaps.guide.MapsGuide.installQuests(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
         MapsComponents.register();
         MapsItems.register();
         MapsItems.registerTab();

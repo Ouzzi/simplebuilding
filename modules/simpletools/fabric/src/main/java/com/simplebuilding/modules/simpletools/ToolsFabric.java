@@ -7,6 +7,14 @@ public final class ToolsFabric implements ModInitializer {
     public void onInitialize() {
         SimpleTools.configDir = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir();
         SimpleTools.load();
+        com.simplebuilding.modules.simpletools.guide.ToolsGuide.register();
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
+            var book = java.util.List.of(com.simplebuilding.modules.simpletools.guide.ToolsGuide.stack());
+            // Before the writable book: a tail append clashes with other mods' insertAfter at the tail.
+            if (out.getDisplayStacks().stream().anyMatch(s -> s.is(net.minecraft.world.item.Items.WRITABLE_BOOK))) out.insertBefore(net.minecraft.world.item.Items.WRITABLE_BOOK, book, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            else book.forEach(s -> out.accept(s, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        });
+        if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simpletools.guide.ToolsGuide.installQuests(SimpleTools.configDir);
         ToolsRegistry.registerBlocks();
         ToolsRegistry.registerItems();
         ToolsRegistry.registerMenus();

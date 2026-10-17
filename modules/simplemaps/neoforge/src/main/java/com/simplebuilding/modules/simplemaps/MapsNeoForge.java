@@ -34,6 +34,13 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 public final class MapsNeoForge {
     public MapsNeoForge(IEventBus bus, Dist dist) {
         SimpleMaps.init(FMLPaths.CONFIGDIR.get());
+        bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e) -> {
+            if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simplemaps.guide.MapsGuide.register();
+        });
+        bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e) -> {
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
+        if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simplemaps.guide.MapsGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
             if (event.getRegistryKey().equals(Registries.DATA_COMPONENT_TYPE)) MapsComponents.register();

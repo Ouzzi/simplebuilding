@@ -477,5 +477,6 @@ public final class MapsTests {
     static {
         ALL.put("discover_recipe_unlocks", com.simplemaps.discover.MapsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemaps.discover.MapsDiscover::behaviourHints);
+        ALL.put("guide_book", com.simplebuilding.modules.simplemaps.guide.MapsGuide::gameTest);
     }
 }

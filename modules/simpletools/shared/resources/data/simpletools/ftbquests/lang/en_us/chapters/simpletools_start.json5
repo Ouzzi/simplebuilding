@@ -1,0 +1,10 @@
+{
+	"chapter.2AD48F581C31C148.title": "{\"translate\": \"quests.simpletools.start.title\"}",
+	"chapter.2AD48F581C31C148.chapter_subtitle": [
+		"{\"translate\": \"quests.simpletools.start.subtitle\"}"
+	],
+	"quest.6F2439F8113ECB4D.title": "{\"translate\": \"quests.simpletools.start.welcome.title\"}",
+	"quest.6F2439F8113ECB4D.quest_desc": [
+		"{\"translate\": \"quests.simpletools.start.welcome.description\"}"
+	]
+}

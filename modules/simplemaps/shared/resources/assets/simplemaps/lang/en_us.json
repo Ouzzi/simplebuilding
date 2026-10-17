@@ -39,5 +39,22 @@
   "screen.simplemaps.face.down": "Bottom",
   "screen.simplemaps.tab.coords": "Show coordinates",
   "screen.simplemaps.tab.layers": "Layers (loaded chunks, shops, chunk loaders)",
-  "screen.simplemaps.layer.chunks": "Loaded chunks"
+  "screen.simplemaps.layer.chunks": "Loaded chunks",
+  "item.simplemaps.guide_book": "Simple Maps Guide",
+  "simplemaps.guide.page.1.title": "Simple Maps",
+  "simplemaps.guide.page.1": "Wayfinder Maps that show where you have been, a big map screen with waypoints, cartography and map displays on item frames.",
+  "simplemaps.guide.page.2.title": "Wayfinder maps",
+  "simplemaps.guide.page.2": "Endless maps, one per dimension: the plain map for the Overworld and other dimensions, a Nether map and an End map.",
+  "simplemaps.guide.page.3.title": "Map screen",
+  "simplemaps.guide.page.3": "Use the map to open it: drag to move, mouse wheel or +/− to zoom (1, 4, 8, 16 and 64 blocks per pixel).",
+  "simplemaps.guide.page.4.title": "Waypoints",
+  "simplemaps.guide.page.4": "Up to eight waypoints belong to the map itself; they show in the locator bar while the map is in the main or off hand.",
+  "simplemaps.guide.page.5.title": "Cartography table",
+  "simplemaps.guide.page.5": "Copy, extend and combine wayfinder maps at the cartography table; each can be switched off on the server.",
+  "simplemaps.guide.page.6.title": "Maps in item frames",
+  "simplemaps.guide.page.6": "A framed wayfinder map shows a stored view; right-click opens the map screen, and the frame shows where you scrolled to.",
+  "quests.simplemaps.start.title": "Welcome to Simple Maps",
+  "quests.simplemaps.start.subtitle": "Your free guide",
+  "quests.simplemaps.start.welcome.title": "A free guide",
+  "quests.simplemaps.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Maps Guide as a reward. You can also craft it from a book and a compass."
 }
