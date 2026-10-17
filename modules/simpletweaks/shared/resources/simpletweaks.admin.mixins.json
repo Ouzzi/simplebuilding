@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simpletweaks.admin.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "AdminServerMixin",
+    "AdminPlayerListMixin",
+    "AdminLeaveMixin",
+    "AdminPacketMixin",
+    "AdminGameModeMixin",
+    "AdminBlockItemMixin",
+    "AdminServerPlayerMixin",
+    "AdminLivingEntityMixin",
+    "AdminPlayerMixin",
+    "AdminGameEventMixin",
+    "AdminPickupMixin",
+    "AdminOrbMixin",
+    "AdminChunkMapAccessor",
+    "AdminTrackedEntityInvoker",
+    "AdminLagMixin",
+    "AdminLagEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
