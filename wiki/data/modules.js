@@ -695,7 +695,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleblocks",
     "displayName": "Simple Blocks",
-    "description": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. Works on its own with Vanilla.",
+    "description": "Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. The Shaping Saw cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -707,7 +707,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "5b6023516385"
+    "dataHash": "8098b8b9f4ab"
   },
   {
     "id": "simplecrucibles",
