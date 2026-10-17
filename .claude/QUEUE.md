@@ -26,6 +26,7 @@ Ursprungsabschnitt weiter unten; beim Erledigen dort `[x]` setzen und die Zeile 
 
 ### (B) Feststehend – als Nächstes bauen (Reihenfolge = Priorität)
 0. Claim-Urkunde (N54; Plan docs/ai/PLAN-CLAIM-URKUNDE-GUI-2026-10-13.md Fassung 2 freigegeben): Rechte-Code B/D/U/C/R/A/M, Claim-Tisch (Karte+Liste, Erweitern mit steigenden Kosten), Maps-Ebene Claims, Kopie in Werkbank; 4–5 Branches nacheinander
+0a. [x] (B, b-claimharden, 17.10.) Claims-Härtung Rest (Knochenmehl/Sculk/Frostläufer, Prüfung Feuer/Fluss/Drache/Wither/Enderman/Kolben): ClaimBonemealMixin (Spreader-Böden nur ohne fremde Chunks im Radius 4/8), ClaimSculkMixin (Ladung stirbt an Claimgrenze), ClaimFrostMixin (Eis nur wo Träger bauen darf), Claims.sameLand; Feuer/Fluss/Drache/Wither/Enderman/Kolben waren schon gehookt + getestet (Stage4/EnvironmentClaimTests). Gametests claims_review_bonemeal/sculk/frost_walker. -- Beleg: siehe Abschlussbericht, simpletweaks:*claims* 3 Loader + Standalone.
 1. Prinzip Entdeckbarkeit umsetzen, Stufe 1: Tooltip/Rezept-Freischaltung je Item + Test (N47; Konzept PRINZIPIEN-ENTDECKBARKEIT.md)
 2. Seelen-Lohe schießt Seelenfeuer-Kugeln (Soulfire Charge, Seelenbrand-Effekt) (N49)
 3. Geschnitztes Holz: Item-Modell an Block-Modell angleichen (N49)
