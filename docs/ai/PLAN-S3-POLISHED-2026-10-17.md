@@ -31,3 +31,11 @@ Branch `claude-s3-polished` (von `claude-wave1` 8b097d1bd), Sitzung A. Grundlage
 ## Verifikation (sb-test)
 Compile 26.3 fabric/neoforge/forge + 26.2 `:compileJava`; Tests SimpleLib fabric+neoforge, SB-Filter `end_brick`/`DataIntegrity`/
 `migration`, Standalone simplelib + simpleend; `checkModuleGuides checkModuleData checkWiki checkDiscover`.
+
+## Stand (17.10.)
+Umgesetzt wie geplant: `simplelib:polished_end_stone` (Gruppe `polished_end_stone`, SB fordert an), IdMoves für Item, Block,
+3 Rezepte + Rezept-Fortschritte; 26.3-Datagen, discover, Guides, Money-Links, Wiki neu (sb-test). Ergebnisse siehe unten.
+Ergebnisse sb-test (bf8378fa5): Compile 26.3 fabric/neoforge/forge + 26.2 `:compileJava` grün; `checkModuleGuides checkModuleData
+checkWiki checkDiscover` Exit 0; SimpleLib fabric 26/26, neoforge 26/26, Simple End standalone fabric 36/36;
+`data_integrity_game_test_*` fabric+neoforge 100/100; `migration*` 4/4. Nicht gelaufen: Forge-Tests, Client-Tests, volles Gate.
+Offen: Merge nach `claude-wave1` + Gate; Treppe/Stufe/Mauer des polierten Endsteins (neuer Wunsch, nicht Teil des Umzugs).
