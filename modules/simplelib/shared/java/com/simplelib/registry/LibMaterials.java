@@ -35,12 +35,14 @@ import net.minecraft.world.level.material.MapColor;
  * (blocks in the block event, items in the item event).
  */
 public final class LibMaterials {
-    /** Group -> ids (items; the two blocks have block items of the same id). */
+    /** Group -> ids (items; the blocks have block items of the same id). */
     public static final Map<String, List<String>> GROUPS = Map.of(
             "cracked_diamond", List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block"),
             "netherite_nugget", List.of("netherite_nugget"),
             "enderite", List.of("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot", "enderite_nugget", "enderite_block"),
-            "upgrade_templates", List.of("basic_upgrade_template", "enderite_upgrade_template"));
+            "upgrade_templates", List.of("basic_upgrade_template", "enderite_upgrade_template"),
+            // Module family stage 3 (rule 16): the building block several family mods share (Blocks, End, Enderite, Octets).
+            "polished_end_stone", List.of("polished_end_stone"));
 
     private static final Set<String> REQUESTED = ConcurrentHashMap.newKeySet();
     private static final Map<String, Block> BLOCKS = new LinkedHashMap<>();
@@ -62,6 +64,8 @@ public final class LibMaterials {
         block("cracked_diamond_block", BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).strength(7.0F, 14.0F));
         block("enderite_block", BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()
                 .strength(50.0f, 1200.0f).sound(SoundType.NETHERITE_BLOCK));
+        block("polished_end_stone", BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops()
+                .strength(3.0F, 9.0F).sound(SoundType.STONE));
     }
 
     public static synchronized void ensureItems() {
@@ -80,6 +84,7 @@ public final class LibMaterials {
         // The armor trim material (SimpleBuilding's) is added by that mod when the item's components are built.
         item("enderite_ingot", p -> new Item(p.fireResistant()));
         item("enderite_block", p -> new BlockItem(BLOCKS.get("enderite_block"), p.fireResistant().useBlockDescriptionPrefix()));
+        item("polished_end_stone", p -> new BlockItem(BLOCKS.get("polished_end_stone"), p.useBlockDescriptionPrefix()));
     }
 
     public static Item item(String id) {

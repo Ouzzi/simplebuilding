@@ -99,7 +99,7 @@ Warmes Essen (Komponente `simplelib:warm`, Tag `warmable_food`; die Tiegel selbs
 Modulaufteilung: `IdMoves` (ID-Umzüge), Datentyp `in_world_upgrades` mit Übergabe-Handlern und Tags
 `#simplelib:hammers`/`#simplelib:upgrade_tools`, `OctetCells` (Achtelzellen je Material). Gemeinsame Materialien
 (Stufe 3d, `simplelib:*`, früher SB): Diamantkiesel, Rissiger Diamant (+Block, Amboss-Zerschlagen), Netheritklumpen,
-Enderit-Grundmaterial (Fragment, Platten, Barren, Klumpen, Block), Basis-/Enderit-Aufwertungsvorlage, `c:`-Tags;
+Enderit-Grundmaterial (Fragment, Platten, Barren, Klumpen, Block), Basis-/Enderit-Aufwertungsvorlage, Polierter Endstein (Modulfamilie Stufe 3, gemeinsamer End-Baublock), `c:`-Tags;
 Rezepte/Zerschlagen nur, wenn eine Mod sie anfordert (`requestMaterial`, Condition `simplelib:material_requested`; SB fordert alle an).
 
 ### Simple Interfaces (früher Simple Containers, Sub-Mod von QoL, clientseitige Optik)

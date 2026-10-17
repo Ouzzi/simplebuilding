@@ -358,7 +358,6 @@
     "simplebuilding:polished_cinnabar_octet",
     "simplebuilding:polished_deepslate_octet",
     "simplebuilding:polished_diorite_octet",
-    "simplebuilding:polished_end_stone",
     "simplebuilding:polished_ender_quartz",
     "simplebuilding:polished_ender_quartz_block_octet",
     "simplebuilding:polished_ender_quartz_checker",
@@ -2656,9 +2655,6 @@
     {
       "id": "simplebuilding:polished_diorite_octet",
       "maxStackSize": 99
-    },
-    {
-      "id": "simplebuilding:polished_end_stone"
     },
     {
       "id": "simplebuilding:polished_ender_quartz"

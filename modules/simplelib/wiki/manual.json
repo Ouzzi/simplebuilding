@@ -30,7 +30,7 @@
       ],
       "en": {
         "title": "Shared materials",
-        "summary": "Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the enderite materials and the basic and enderite upgrade templates.",
+        "summary": "Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the enderite materials, the basic and enderite upgrade templates and polished end stone (shared building block of the family).",
         "details": [
           "SimpleLib always registers them, so worlds keep them whichever mod is missing. Their recipes and the anvil crushing only exist while a loaded mod asks for the material (with SimpleBuilding: all of them).",
           "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond.",
@@ -40,7 +40,7 @@
       },
       "de": {
         "title": "Gemeinsame Materialien",
-        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamantkiesel, Rissiger Diamant und sein Block, Netheritklumpen, die Enderit-Materialien und die Basis- und Enderit-Aufwertungsvorlage.",
+        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamantkiesel, Rissiger Diamant und sein Block, Netheritklumpen, die Enderit-Materialien, die Basis- und Enderit-Aufwertungsvorlage und Polierter Endstein (gemeinsamer Baublock der Familie).",
         "details": [
           "SimpleLib registriert sie immer, damit Welten sie behalten, egal welche Mod fehlt. Ihre Rezepte und das Amboss-Zerschlagen gibt es nur, solange eine geladene Mod das Material anfordert (mit SimpleBuilding: alle).",
           "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird.",
@@ -153,6 +153,14 @@
       },
       "de": {
         "summary": "Türkises Gegenstück der Netherwarze: auf Seelensand pflanzen, vier Wachstumsstufen, 2-4 je Ernte (Glück gibt mehr). In Bastionstruhen zu finden; mit Wasserflasche zum Wirren Trank gebraut, der Basis der Tränke der Simple-Mods."
+      }
+    },
+    "simplelib:polished_end_stone": {
+      "en": {
+        "summary": "Shared End building block (since the module family split in SimpleLib): four end stone bricks make four, or cut end stone / end stone bricks 1:1 in the stonecutter; base of the astral and nihil blocks. Old worlds convert simplebuilding:polished_end_stone automatically."
+      },
+      "de": {
+        "summary": "Gemeinsamer End-Baublock (seit der Modulfamilie in SimpleLib): vier Endsteinziegel ergeben vier, oder Endstein/Endsteinziegel 1:1 in der Steinsäge; Grundlage der Astral- und Nihil-Blöcke. Alte Welten wandeln simplebuilding:polished_end_stone automatisch um."
       }
     }
   }

@@ -13,14 +13,17 @@ import net.minecraft.world.level.block.Block;
  */
 public final class SharedMaterials {
     /** Every material group SimpleBuilding uses (all of them): their recipes and the anvil crushing stay on. */
-    public static final List<String> GROUPS = List.of("cracked_diamond", "netherite_nugget", "enderite", "upgrade_templates");
+    public static final List<String> GROUPS = List.of("cracked_diamond", "netherite_nugget", "enderite", "upgrade_templates",
+            "polished_end_stone");
 
     /** Item ids that moved from {@code simplebuilding:} to {@code simplelib:} (same paths). */
     public static final List<String> ITEMS = List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block", "netherite_nugget",
             "enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot", "enderite_block",
-            "basic_upgrade_template", "enderite_upgrade_template");
+            "basic_upgrade_template", "enderite_upgrade_template",
+            // Module family stage 3 (AGENTS rule 16): the shared End building block.
+            "polished_end_stone");
     /** Block ids that moved. */
-    public static final List<String> BLOCKS = List.of("cracked_diamond_block", "enderite_block");
+    public static final List<String> BLOCKS = List.of("cracked_diamond_block", "enderite_block", "polished_end_stone");
     /** Recipe ids that moved -> folder of their recipe advancement ({@code recipes/<folder>/<id>}, same path in SimpleLib). */
     public static final java.util.Map<String, String> RECIPES = java.util.Map.ofEntries(
             java.util.Map.entry("cracked_diamond", "misc"), java.util.Map.entry("diamond_from_blasting_cracked_diamond", "misc"),
@@ -30,7 +33,10 @@ public final class SharedMaterials {
             java.util.Map.entry("enderite_ingot_from_nugget", "misc"), java.util.Map.entry("layered_raw_enderite", "misc"),
             java.util.Map.entry("enderite_scrap_from_blasting_layered_raw_enderite", "misc"), java.util.Map.entry("enderite_ingot_from_scrap", "misc"),
             java.util.Map.entry("enderite_block", "decorations"), java.util.Map.entry("enderite_ingot", "building_blocks"),
-            java.util.Map.entry("enderite_upgrade_template", "misc"));
+            java.util.Map.entry("enderite_upgrade_template", "misc"),
+            java.util.Map.entry("polished_end_stone", "building_blocks"),
+            java.util.Map.entry("polished_end_stone_from_end_stone_stonecutting", "building_blocks"),
+            java.util.Map.entry("polished_end_stone_from_end_stone_bricks_stonecutting", "building_blocks"));
 
     private SharedMaterials() {
     }

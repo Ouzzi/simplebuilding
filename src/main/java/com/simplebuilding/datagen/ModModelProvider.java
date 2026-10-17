@@ -90,7 +90,7 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
 
-        blockStateModelGenerator.createTrivialCube(ModBlocks.POLISHED_END_STONE);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) blockStateModelGenerator.createTrivialCube(ModBlocks.POLISHED_END_STONE); // 26.3: SimpleLib's block
 
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.PURPUR_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.LAPIS_QUARTZ_CHECKER);

@@ -367,7 +367,8 @@ public class ModBlocks {
 
 
     // --- 1. DECORATION BLOCKS --- // todo add stonecutting and crafting recipie like vanilla
-    public static final Block POLISHED_END_STONE = registerBlock("polished_end_stone", unused -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops().strength(3.0F, 9.0F).sound(SoundType.STONE).setId(keyOf("polished_end_stone"))));
+    // 26.3: SimpleLib's block (module family stage 3, util/SharedMaterials); 26.2 registers its own.
+    public static final Block POLISHED_END_STONE = com.simplebuilding.util.SharedMaterials.block("polished_end_stone", () -> registerBlock("polished_end_stone", unused -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops().strength(3.0F, 9.0F).sound(SoundType.STONE).setId(keyOf("polished_end_stone")))));
 
     // Checker Blocks
     public static final Block PURPUR_QUARTZ_CHECKER = registerBlock("purpur_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK).setId(keyOf("purpur_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));

@@ -1,4 +1,16 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "simplelib:material_requested",
+      "material": "polished_end_stone"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplelib:material_requested",
+      "material": "polished_end_stone"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_end_stone_bricks": {
@@ -13,7 +25,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:polished_end_stone_from_end_stone_bricks_stonecutting"
+        "recipes": "simplelib:polished_end_stone_from_end_stone_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +38,7 @@
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:polished_end_stone_from_end_stone_bricks_stonecutting"
+      "simplelib:polished_end_stone_from_end_stone_bricks_stonecutting"
     ]
   }
 }

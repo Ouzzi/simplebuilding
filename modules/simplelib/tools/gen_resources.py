@@ -40,8 +40,10 @@ MATERIAL_GROUPS = {
     "netherite_nugget": ("netherite_nugget",),
     "enderite": ("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot", "enderite_nugget", "enderite_block"),
     "upgrade_templates": ("basic_upgrade_template", "enderite_upgrade_template"),
+    # Module family stage 3 (AGENTS rule 16): the shared building block of Blocks, End, Enderite and Octets.
+    "polished_end_stone": ("polished_end_stone",),
 }
-MATERIAL_BLOCKS = ("cracked_diamond_block", "enderite_block")
+MATERIAL_BLOCKS = ("cracked_diamond_block", "enderite_block", "polished_end_stone")
 
 
 def material_recipes():
@@ -96,6 +98,14 @@ def material_recipes():
         ("misc", "enderite_upgrade_template", "upgrade_templates",
          shaped({"A": v("diamond"), "E": v("end_stone"), "T": m("enderite_upgrade_template")}, ["ATA", "AEA", "AAA"],
                 m("enderite_upgrade_template"), 2), [m("enderite_upgrade_template")]),
+        # Polished end stone (SimpleBuilding's recipes before the move; Vanilla owns 2x2 end stone -> bricks, audit D-01).
+        ("building_blocks", "polished_end_stone", "polished_end_stone",
+         shaped({"S": v("end_stone_bricks")}, ["SS", "SS"], m("polished_end_stone"), 4, category="building"), [v("end_stone_bricks")]),
+        ("building_blocks", "polished_end_stone_from_end_stone_stonecutting", "polished_end_stone",
+         {"type": "minecraft:stonecutting", "ingredient": v("end_stone"), "result": {"id": m("polished_end_stone")}}, [v("end_stone")]),
+        ("building_blocks", "polished_end_stone_from_end_stone_bricks_stonecutting", "polished_end_stone",
+         {"type": "minecraft:stonecutting", "ingredient": v("end_stone_bricks"), "result": {"id": m("polished_end_stone")}},
+         [v("end_stone_bricks")]),
     ]
 
 
