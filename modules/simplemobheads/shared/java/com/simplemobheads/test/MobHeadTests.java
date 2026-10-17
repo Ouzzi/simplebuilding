@@ -265,6 +265,15 @@ public final class MobHeadTests {
                 .lookupOrThrow(Registries.CAT_VARIANT).getOrThrow(net.minecraft.world.entity.animal.feline.CatVariants.SIAMESE);
         cat.setComponent(DataComponents.CAT_VARIANT, siamese);
         expectVariant(helper, cat, "cat", "siamese");
+        // A royal-voiced cat drops a head that plays the royal meow on a note block; the classic voice keeps the base sound.
+        cat.setComponent(DataComponents.CAT_SOUND_VARIANT, level.registryAccess().lookupOrThrow(Registries.CAT_SOUND_VARIANT)
+                .getOrThrow(net.minecraft.world.entity.animal.feline.CatSoundVariants.ROYAL));
+        helper.assertTrue("minecraft:entity.cat_royal.ambient".equals(String.valueOf(drop(helper, cat, "cat").get(DataComponents.NOTE_BLOCK_SOUND))),
+                "a royal cat head plays " + drop(helper, cat, "cat").get(DataComponents.NOTE_BLOCK_SOUND));
+        cat.setComponent(DataComponents.CAT_SOUND_VARIANT, level.registryAccess().lookupOrThrow(Registries.CAT_SOUND_VARIANT)
+                .getOrThrow(net.minecraft.world.entity.animal.feline.CatSoundVariants.CLASSIC));
+        helper.assertTrue("minecraft:entity.cat.ambient".equals(String.valueOf(drop(helper, cat, "cat").get(DataComponents.NOTE_BLOCK_SOUND))),
+                "a classic cat head plays " + drop(helper, cat, "cat").get(DataComponents.NOTE_BLOCK_SOUND));
         var axolotl = helper.spawn(EntityTypes.AXOLOTL, new BlockPos(4, 2, 4));
         axolotl.setComponent(DataComponents.AXOLOTL_VARIANT, net.minecraft.world.entity.animal.axolotl.Axolotl.Variant.BLUE);
         expectVariant(helper, axolotl, "axolotl", "blue");

@@ -40,7 +40,7 @@ Branch `claude-beacons` (Basis `claude-wave1`). Grundlage: `docs/ai/KONZEPT-STRO
 ## Risiken
 - Forge/NeoForge-Paketpfad: `handleSetBeaconPacket` von Loadern gepatcht? (NeoForge-Quelle geprüft: unverändert.)
 - Fremde Beacon-Mixins treffen den neuen Bildschirm als `BeaconScreen`-Unterklasse – gewollt.
-- Conduit-Optik = Vanilla (Konzept-Rückfall Frage 5); getönter Renderer offen.
+- Conduit-Optik: Vanilla-Geometrie und -Texturen, Schale/Käfig/Wind sternblau getönt (`StrongConduitRenderer`, 17.10.; Besitzer-Abnahme der Farbe offen).
 
 ## Verifikation
 Compile 3 Loader; Gametests `simplebeacons:*` Modul + Standalone (Fabric/NeoForge/Forge-Modul-Target): Ebenen 5/6 + Abbruch, Reichweite/Dauer,
