@@ -118,6 +118,7 @@ Super-Mod für die QoL-Sub-Mods (Wetter, Interfaces, Loot, Mob-Manieren, Farming
 Legacy-Kompatibilität, serverautoritäre Claims (Standard an).
 
 - Server-Autorität (AGENTS.md 3.8): alle Stellschrauben serverseitig mit Obergrenzen.
+- Schutz (17.10.): Anti-X-Ray Standard an, jede andere Schutzfunktion eigener Schalter Standard aus; Prüfungen nur protokollieren (kein Auto-Bann) und Grenzen immer aus den echten Serverwerten des Spielers (Attribute, Werkzeug, Verzauberungen, unsere Mixins) ableiten, nie aus festen Vanilla-Zahlen – serverseitige Mod-Aktionen (Hammer-Fläche, Baustab, Blaupause) werden nie gemeldet.
 
 ### Simple Dimensions (`simpledimensions`)
 Konfigurierbare Dimensionen, Lichtbögen, sichere verknüpfte Portale.
