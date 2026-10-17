@@ -128,6 +128,10 @@ public final class AdminTests {
                 checked++;
             }
         }
+        var live = h.getLevel().getServer().getCommands().getDispatcher().getRoot();
+        var liveTweaks = live.getChild("tweaks");
+        var liveTwins = live.getChild("simpletweaks");
+        if (liveTweaks != null) for (var t : liveTweaks.getChildren()) yes(h, liveTwins != null && liveTwins.getChild(t.getName()) != null, "Live dispatcher: missing /simpletweaks " + t.getName());
         yes(h, checked >= 20, "Checked " + checked + " commands");
         yes(h, root.getChild("help") != null, "help exists");
         var weakList = com.simplebuilding.modules.simpletweaks.TweakCommands.allowed(d, weak);

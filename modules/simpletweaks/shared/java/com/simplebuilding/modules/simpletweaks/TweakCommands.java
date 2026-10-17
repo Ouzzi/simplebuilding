@@ -35,6 +35,12 @@ public final class TweakCommands {
         if (tweaks != null) for (var n : List.copyOf(tweaks.getChildren())) if (root.getChild(n.getName()) != n) root.addChild(n);
     }
 
+    /** Preferred for NEW commands: registers a top-level command and its /simpletweaks twin in one call. */
+    public static void add(CommandDispatcher<CommandSourceStack> d, com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> b) {
+        d.register(b);
+        alias(d, b.getLiteral());
+    }
+
     /** Sub-commands of /simpletweaks the source may use, sorted. */
     public static List<String> allowed(CommandDispatcher<CommandSourceStack> d, CommandSourceStack source) {
         var root = d.getRoot().getChild(ROOT);
