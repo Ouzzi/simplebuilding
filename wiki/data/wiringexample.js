@@ -36,7 +36,7 @@ window.WIKI_MODULE_DATA["wiringexample"] = {
       },
       "de": {
         "title": "Wiring Example",
-        "summary": "Ein minimales Beispielmodul registriert einen einfachen Token. Der Integrationsharness prueft das Einlagern und Entnehmen im verstaerkten SimpleBuilding-Trichter."
+        "summary": "Ein minimales Beispielmodul registriert einen einfachen Token. Der Integrationsharness prüft das Einlagern und Entnehmen im verstaerkten SimpleBuilding-Trichter."
       }
     }
   ],
@@ -57,7 +57,7 @@ window.WIKI_MODULE_DATA["wiringexample"] = {
           "summary": "A plain item used by the integration test. It has no custom behavior or creative tab and uses the Vanilla paper model."
         },
         "de": {
-          "summary": "Ein einfaches Item fuer den Integrationstest. Es hat kein eigenes Verhalten oder Kreativtab und verwendet das Vanilla-Papiermodell."
+          "summary": "Ein einfaches Item für den Integrationstest. Es hat kein eigenes Verhalten oder Kreativtab und verwendet das Vanilla-Papiermodell."
         }
       },
       "questionary": {

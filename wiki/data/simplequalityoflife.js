@@ -30,7 +30,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       },
       "de": {
         "title": "enableSimpleWeather",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Weather. Standard: true."
+        "summary": "Super-Mod-Schalter für die gebündelte Sub-Mod Simple Weather. Standard: true."
       }
     },
     {
@@ -44,7 +44,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       },
       "de": {
         "title": "enableSimpleInterfaces",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Interfaces (Simple-Stil fuer Vanilla-Behaelterfenster). Standard: true."
+        "summary": "Super-Mod-Schalter für die gebündelte Sub-Mod Simple Interfaces (Simple-Stil für Vanilla-Behälterfenster). Standard: true."
       }
     },
     {
@@ -58,7 +58,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       },
       "de": {
         "title": "enableSimpleLoot",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Loot. Standard: true."
+        "summary": "Super-Mod-Schalter für die gebündelte Sub-Mod Simple Loot. Standard: true."
       }
     },
     {
@@ -72,7 +72,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       },
       "de": {
         "title": "enableSimpleMobManners",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Mob Manners. Standard: true."
+        "summary": "Super-Mod-Schalter für die gebündelte Sub-Mod Simple Mob Manners. Standard: true."
       }
     },
     {
@@ -86,7 +86,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       },
       "de": {
         "title": "enableSimpleFarming",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Farming. Standard: true."
+        "summary": "Super-Mod-Schalter für die gebündelte Sub-Mod Simple Farming. Standard: true."
       }
     },
     {
@@ -100,7 +100,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       },
       "de": {
         "title": "enableSimpleTools",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Tools. Standard: true."
+        "summary": "Super-Mod-Schalter für die gebündelte Sub-Mod Simple Tools. Standard: true."
       }
     },
     {
@@ -114,7 +114,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       },
       "de": {
         "title": "enableSimpleMovement",
-        "summary": "Super-Mod-Schalter fuer die gebuendelte Sub-Mod Simple Movement. Standard: true."
+        "summary": "Super-Mod-Schalter für die gebündelte Sub-Mod Simple Movement. Standard: true."
       }
     },
     {
@@ -128,7 +128,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       },
       "de": {
         "title": "Befehle",
-        "summary": "Besitzerberechtigung: /simplequalityoflife submod <weather|interfaces|loot|mobmanners|farming|tools|movement> <true|false> schaltet eine gebuendelte Sub-Mod; die frueheren tweak-Befehle sind mit ihren Funktionen in die Sub-Mods gewandert (/simpleloot, /simplemobmanners, /simplefarming, /simpletools, /simplemovement). Speichern in config/simplequalityoflife.json."
+        "summary": "Besitzerberechtigung: /simplequalityoflife submod <weather|interfaces|loot|mobmanners|farming|tools|movement> <true|false> schaltet eine gebündelte Sub-Mod; die früheren tweak-Befehle sind mit ihren Funktionen in die Sub-Mods gewandert (/simpleloot, /simplemobmanners, /simplefarming, /simpletools, /simplemovement). Speichern in config/simplequalityoflife.json."
       }
     },
     {
