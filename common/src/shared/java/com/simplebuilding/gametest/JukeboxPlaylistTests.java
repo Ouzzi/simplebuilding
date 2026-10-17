@@ -255,6 +255,8 @@ public final class JukeboxPlaylistTests {
         boolean heard = MusicDiscTests.captured(sink, ClientboundLevelEventPacket.class).stream()
                 .anyMatch(e -> e.getType() == LevelEvent.SOUND_PLAY_JUKEBOX_SONG && e.getPos().equals(j) && e.getData() == song13);
         helper.assertTrue(heard, "the far listener did not get the start of the swapped-in disc");
+        // Nicht weiterspielen lassen: der Funk reicht sonst Verstärker der Nachbartests auf gleicher Hoehe.
+        helper.setBlock(jukeboxRel, Blocks.AIR);
         helper.succeed();
     }
 }
