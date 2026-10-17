@@ -344,7 +344,7 @@ public final class OctetTests {
                 problems.add("fire of " + BuiltInRegistries.BLOCK.getKey(cell));
             }
         }
-        if (fire.simpleoctets$getIgniteOdds(cell(Blocks.WHITE_WOOL).defaultBlockState()) <= 0) problems.add("wool octet does not burn");
+        if (fire.simpleoctets$getIgniteOdds(cell(BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("white_wool"))).defaultBlockState()) <= 0) problems.add("wool octet does not burn");
         if (fire.simpleoctets$getIgniteOdds(cell(Blocks.STONE).defaultBlockState()) > 0) problems.add("stone octet burns");
         h.assertTrue(problems.isEmpty(), "fire: " + problems);
         h.succeed();
