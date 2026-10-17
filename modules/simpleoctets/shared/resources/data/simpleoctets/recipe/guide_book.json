@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:stonecutter"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpleoctets:guide_book"
+  }
+}

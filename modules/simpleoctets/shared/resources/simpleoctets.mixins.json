@@ -6,7 +6,8 @@
   "mixins": [
     "FireBlockAccessor",
     "MelonSliceTooltipMixin",
-    "MelonSliceUseMixin"
+    "MelonSliceUseMixin",
+    "DiscoverTipMixin"
   ],
   "client": [],
   "server": [],

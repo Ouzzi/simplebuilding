@@ -157,6 +157,18 @@
     }
   ],
   "notes": {
+    "simpleoctets:guide_book": {
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/guide/OctetsGuide.java",
+        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + stonecutter. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Octets\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
+      }
+    },
     "simpleoctets:*_octet": {
       "sources": [
         "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
@@ -194,18 +206,6 @@
       },
       "de": {
         "summary": "Gemischte Achtelzelle: Achtel mehrerer Materialien in einem Block, das Material je Achtel im Block-Entity. Sie hat kein Item; sie entsteht, wenn ein fremdes Achtel in eine Zelle kommt."
-      }
-    },
-    "simpleoctets:guide_book": {
-      "sources": [
-        "modules/simpleoctets/shared/java/com/simpleoctets/guide/OctetsGuide.java",
-        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/guide_book.json"
-      ],
-      "en": {
-        "summary": "Guide to this mod, taken from this wiki, shown in your language. Shapeless recipe: book + stonecutter. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Octets\" gives one for free."
-      },
-      "de": {
-        "summary": "Handbuch zu dieser Mod aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
       }
     }
   }
