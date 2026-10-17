@@ -3,6 +3,14 @@
   "id": "simplecrucibles",
   "version": "${version}",
   "name": "Simple Crucibles",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). Upgrades in the world with the axe on its own, with the sledgehammer in SimpleBuilding.",
   "license": "CC0-1.0",
   "environment": "*",

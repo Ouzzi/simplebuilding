@@ -27,7 +27,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
     private static final Identifier CHEST = Identifier.withDefaultNamespace("textures/gui/container/generic_54.png");
-    private static final int FILL = 0xFFC6C6C6, TEXT = 0xFF404040, DIM_TEXT = 0xFF8B8B8B, PAUSE = 0xFF6E86B0, WARN = 0xFFB85A10;
+    private static final int FILL = 0xFFC6C6C6, TEXT = 0xFF404040, DIM_TEXT = 0xFF505050, PAUSE = 0xFF6E86B0, WARN = 0xFF8A3A00;
     private static final int PANEL_X = DeathVaultMenu.WIDTH + 4, PANEL_W = 130;
     private Button offer;
 

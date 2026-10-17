@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simpletrims"
 version="${version}"
 displayName="Simple Trims"
+description="Glowing, Emitting and Pulsating armor trim templates, placeable trim templates and trim upgrades (moved from SimpleBuilding, ids migrate). Axe on its own, sledgehammer with SimpleBuilding."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[dependencies.simpletrims]]
 modId="forge"
 mandatory=true

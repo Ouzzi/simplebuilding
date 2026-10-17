@@ -3,6 +3,14 @@
   "id": "simplequestionary",
   "version": "${version}",
   "name": "Simple Questionary",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "The Questionary Table: put any item in and read its lore, its use and a secret in an open book.",
   "license": "CC0-1.0",
   "environment": "*",

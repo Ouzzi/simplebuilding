@@ -299,7 +299,7 @@ def lang():
         for name, text in table.items():
             data[f'block.{NS}.{name}'] = text
             data[f'item.{NS}.{name}'] = text
-        data[f'itemGroup.{NS}'] = tab
+        data[f'itemgroup.{NS}.blocks'] = tab
         data[f'{NS}.testcentre.station'] = station
         out[locale] = data
         path = RES / f'assets/{NS}/lang/{locale}.json'

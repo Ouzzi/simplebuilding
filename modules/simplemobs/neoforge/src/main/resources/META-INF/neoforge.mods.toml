@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simplemobs"
 version="${version}"
 displayName="Simple Mobs"
+description="Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted Wither, Potion of Silence and the Biome Brush."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[mixins]]
 config="simplemobs.mixins.json"
 [[dependencies.simplemobs]]

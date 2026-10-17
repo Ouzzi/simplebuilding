@@ -37,7 +37,7 @@
   "text.autoconfig.simpleriding.option.safety.movementDistancePerTick": "Reitbewegungsgrenze",
   "text.autoconfig.simpleriding.option.safety.movementDistancePerTick.@Tooltip": "Maximale gesamte Client-Reitbewegung in\nBlöcken je Servertick; Bereich 0.5-4. Kleine\nGrenzen können schnelle Reittiere oder Fälle\nkorrigieren. Standard: 4.0.\nServereinstellung; Neustart erforderlich.",
   "text.autoconfig.simpleriding.option.safety.movementPacketsPerTick": "Reitpaketgrenze",
-  "text.autoconfig.simpleriding.option.safety.movementPacketsPerTick.@Tooltip": "Maximale Reitbewegungspakete je Servertick;\nBereich 1-20. Überzaehlige Pakete werden\nverweigert. Standard: 20. Servereinstellung;\nNeustart erforderlich.",
+  "text.autoconfig.simpleriding.option.safety.movementPacketsPerTick.@Tooltip": "Maximale Reitbewegungspakete je Servertick;\nBereich 1-20. Überzählige Pakete werden\nverweigert. Standard: 20. Servereinstellung;\nNeustart erforderlich.",
   "text.autoconfig.simpleriding.option.enchantments.swiftRide.nautilusSpeedMultiplier": "Nautilus-Geschwindigkeitsfaktor",
   "text.autoconfig.simpleriding.option.enchantments.swiftRide.nautilusSpeedMultiplier.@Tooltip": "Geschwindigkeitsbonus je Rückenwindstufe;\nBereich 0-1, zusätzlich durch Gesamtgrenze\nbegrenzt. Standard: 0.2. Servereinstellung;\nNeustart erforderlich.",
   "text.autoconfig.simpleriding.option.enchantments.horseJump.nautilusDashMultiplier": "Nautilus-Dash-Faktor",

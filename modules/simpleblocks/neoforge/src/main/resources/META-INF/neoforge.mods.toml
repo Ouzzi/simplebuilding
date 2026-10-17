@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simpleblocks"
 version="${version}"
 displayName="Simple Blocks"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Missing building blocks: Hushed Deepslate Tiles, Sculk Deepslate, missing Vanilla stairs, slabs and walls, cracked and mossy bricks. Works on its own with Vanilla."
 [[dependencies.simpleblocks]]
 modId="minecraft"

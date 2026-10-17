@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simplemovement"
 version="${version}"
 displayName="Simple Movement"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Movement switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone."
 [[dependencies.simplemovement]]
 modId="forge"

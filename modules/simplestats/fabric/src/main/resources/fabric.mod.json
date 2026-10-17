@@ -3,6 +3,14 @@
   "id": "simplestats",
   "version": "${version}",
   "name": "Simple Stats",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "environment": "*",
   "entrypoints": {
     "main": [

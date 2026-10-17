@@ -3,6 +3,15 @@
   "id": "simpletweaks",
   "version": "${version}",
   "name": "Simple Tweaks",
+  "description": "Legacy compatibility and server-authoritative claims, on by default.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "environment": "*",
   "entrypoints": {
     "main": [

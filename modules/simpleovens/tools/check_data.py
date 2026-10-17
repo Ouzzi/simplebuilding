@@ -26,7 +26,7 @@ for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
     need = sorted(used) + [f'{p}.{NS}.{b}' for b in BLOCKS for p in ('block', 'item', 'container')]
-    need += [f'{p}.{NS}.{c}' for c in CARTS for p in ('item', 'entity')] + [f'itemGroup.{NS}', f'{NS}.testcentre.station', f'item.{NS}.guide_book']
+    need += [f'{p}.{NS}.{c}' for c in CARTS for p in ('item', 'entity')] + [f'itemgroup.{NS}.ovens', f'{NS}.testcentre.station', f'item.{NS}.guide_book']
     for k in need:
         assert data.get(k), (locale, k)
     for k in (f'tooltip.{NS}.speed', f'tooltip.{NS}.experience'):

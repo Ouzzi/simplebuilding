@@ -3,6 +3,14 @@
   "id": "simplefarming",
   "version": "${version}",
   "name": "Simple Farming",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Farming switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
   "license": "CC0-1.0",
   "environment": "*",

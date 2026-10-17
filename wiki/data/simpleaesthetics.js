@@ -30,7 +30,7 @@ window.WIKI_MODULE_DATA["simpleaesthetics"] = {
         "summary": "Simple Aesthetics has no content of its own: it bundles Simple Visuals, Simple Sounds and Simple Models. config/simpleaesthetics.json holds one switch each (enableSimpleVisuals, enableSimpleSounds, enableSimpleModels, default true); off makes that sub-mod inert, its own settings stay in its own config. Every sub-mod is also playable alone."
       },
       "de": {
-        "title": "Super-Mod fuer Optik und Klang",
+        "title": "Super-Mod für Optik und Klang",
         "summary": "Simple Aesthetics hat keine eigenen Inhalte: Es buendelt Simple Visuals, Simple Sounds und Simple Models. config/simpleaesthetics.json hat je einen Schalter (enableSimpleVisuals, enableSimpleSounds, enableSimpleModels, Standard true); aus macht die Sub-Mod wirkungslos, ihre eigenen Einstellungen bleiben in ihrer eigenen Config. Jede Sub-Mod ist auch allein spielbar."
       }
     }

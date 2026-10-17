@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simplevisuals"
 version="${version}"
 displayName="Simple Visuals"
+description="Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[dependencies.simplevisuals]]
 modId="forge"
 mandatory=true

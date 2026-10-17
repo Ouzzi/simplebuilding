@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simpleenddragonfight"
 version="${version}"
 displayName="Simple End Dragon Fight"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Ender Dragon fight: +1 health bar per player, a faster dragon, entry animations and Dragonmites."
 [[mixins]]
 config="simpleenddragonfight.mixins.json"

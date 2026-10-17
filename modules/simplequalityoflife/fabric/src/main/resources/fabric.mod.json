@@ -3,6 +3,16 @@
   "id": "simplequalityoflife",
   "version": "${version}",
   "name": "Simple Quality of Life",
+  "description": "Super-mod: bundles Simple Weather, Simple Interfaces, Simple Loot, Simple Mob Manners, Simple Farming, Simple Tools and Simple Movement with one switch each; guide book and start quest.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {
     "main": [

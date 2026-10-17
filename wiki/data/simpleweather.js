@@ -30,7 +30,7 @@ window.WIKI_MODULE_DATA["simpleweather"] = {
       },
       "de": {
         "title": "Wetter abschalten",
-        "summary": "disableWeather (Standard false, Server) loescht Regen und Gewitter und stoppt den Wetterfortschritt."
+        "summary": "disableWeather (Standard false, Server) löscht Regen und Gewitter und stoppt den Wetterfortschritt."
       }
     },
     {
@@ -45,7 +45,7 @@ window.WIKI_MODULE_DATA["simpleweather"] = {
       },
       "de": {
         "title": "Regendichte",
-        "summary": "clientRainParticleDensity ist eine lokale Darstellungseinstellung, Standard 20, Grenze 0–100: duennt Regen in der Luft, Bodenpartikel und Regengeraeusche aus; Serverwetter bleibt davon unabhaengig."
+        "summary": "clientRainParticleDensity ist eine lokale Darstellungseinstellung, Standard 20, Grenze 0–100: dünnt Regen in der Luft, Bodenpartikel und Regengeräusche aus; Serverwetter bleibt davon unabhängig."
       }
     },
     {
@@ -60,7 +60,7 @@ window.WIKI_MODULE_DATA["simpleweather"] = {
       },
       "de": {
         "title": "Sub-Mod von Simple QoL",
-        "summary": "Allein spielbar (config/simpleweather.json). In Simple QoL gebuendelt, dort mit \"Simple Weather aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Wettereinstellungen einmalig uebernommen."
+        "summary": "Allein spielbar (config/simpleweather.json). In Simple QoL gebuendelt, dort mit \"Simple Weather aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Wettereinstellungen einmalig übernommen."
       }
     }
   ],

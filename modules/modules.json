@@ -1527,7 +1527,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Mobs",
-      "description": "Simple Mobs module.",
+      "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted Wither, Potion of Silence and the Biome Brush.",
       "loaders": [
         "fabric",
         "neoforge",

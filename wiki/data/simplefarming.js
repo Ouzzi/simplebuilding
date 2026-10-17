@@ -29,8 +29,8 @@ window.WIKI_MODULE_DATA["simplefarming"] = {
         "summary": "Feather Falling boots prevent trampling. This complements SimpleBuilding Breeze head protection. Enabled by preventFarmlandTrampleWithFeatherFalling, default true."
       },
       "de": {
-        "title": "Federfall schuetzt Ackerland",
-        "summary": "Federfallstiefel verhindern Zertrampeln. Dies ergaenzt den Breezekopf-Schutz aus SimpleBuilding. preventFarmlandTrampleWithFeatherFalling ist standardmaessig true."
+        "title": "Federfall schützt Ackerland",
+        "summary": "Federfallstiefel verhindern Zertrampeln. Dies ergänzt den Breezekopf-Schutz aus SimpleBuilding. preventFarmlandTrampleWithFeatherFalling ist standardmäßig true."
       }
     },
     {
@@ -44,7 +44,7 @@ window.WIKI_MODULE_DATA["simplefarming"] = {
       },
       "de": {
         "title": "Mit Hacke ernten und nachpflanzen",
-        "summary": "Hacke in der Haupthand erntet reifen Weizen, Karotten, Kartoffeln, Rote Bete, Netherwarzen und Kakao. Ein Samen stammt aus echter Beute; im Ueberleben kostet es eine Haltbarkeit. Server prueft Reichweite, Weltgrenze, Spawnschutz, Baurechte, Loader-Abbruch und vier Ticks Aktionspause."
+        "summary": "Hacke in der Haupthand erntet reifen Weizen, Karotten, Kartoffeln, Rote Bete, Netherwarzen und Kakao. Ein Samen stammt aus echter Beute; im Überleben kostet es eine Haltbarkeit. Server prüft Reichweite, Weltgrenze, Spawnschutz, Baurechte, Loader-Abbruch und vier Ticks Aktionspause."
       }
     },
     {
@@ -57,8 +57,8 @@ window.WIKI_MODULE_DATA["simplefarming"] = {
         "summary": "Sharpness III or higher on a sword or axe clears explicit small vegetation overlapping the attacked entity. Sneaking disables it. At most 27 positions within 4.5 blocks are considered; loader break vetoes and action cooldown apply. The matching vegetation outline is hidden."
       },
       "de": {
-        "title": "Schaerfe schneidet Pflanzen",
-        "summary": "Schaerfe III oder hoeher auf Schwert oder Axt entfernt kleine Pflanzen am angegriffenen Wesen. Schleichen deaktiviert es. Hoechstens 27 Positionen innerhalb 4.5 Bloecken; Loader-Abbruch und Aktionspause gelten. Passende Pflanzenumrisse werden verborgen."
+        "title": "Schärfe schneidet Pflanzen",
+        "summary": "Schärfe III oder höher auf Schwert oder Axt entfernt kleine Pflanzen am angegriffenen Wesen. Schleichen deaktiviert es. Höchstens 27 Positionen innerhalb 4.5 Blöcken; Loader-Abbruch und Aktionspause gelten. Passende Pflanzenumrisse werden verborgen."
       }
     },
     {
@@ -129,7 +129,7 @@ window.WIKI_MODULE_DATA["simplefarming"] = {
       },
       "de": {
         "title": "Sub-Mod von Simple QoL",
-        "summary": "Allein spielbar (config/simplefarming.json). In Simple QoL gebuendelt, dort mit \"Simple Farming aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig uebernommen."
+        "summary": "Allein spielbar (config/simplefarming.json). In Simple QoL gebuendelt, dort mit \"Simple Farming aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig übernommen."
       }
     }
   ],

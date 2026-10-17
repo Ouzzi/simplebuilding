@@ -3,6 +3,14 @@
   "id": "simplebeacons",
   "version": "${version}",
   "name": "Simple Beacons",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Strong Beacon (6 pyramid levels, 6 more effects), Strong Conduit (7x7x7 frame, 144 blocks under water) and the Strong Upgrade template. Works on its own with the axe; a hammer mod adds the sledgehammer.",
   "license": "CC0-1.0",
   "environment": "*",

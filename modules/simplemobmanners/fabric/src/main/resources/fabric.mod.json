@@ -3,6 +3,14 @@
   "id": "simplemobmanners",
   "version": "${version}",
   "name": "Simple Mob Manners",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Mob manners: muted mobs, named babies that stay young and piglins that accept gold trims and tools; a sub-mod of Simple QoL, also playable alone.",
   "license": "CC0-1.0",
   "environment": "*",
