@@ -156,7 +156,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         // Enderite Block -> Droppt sich selbst
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) dropSelf(ModBlocks.ENDERITE_BLOCK); // 26.3: SimpleLib's loot table
 
-        dropSelf(ModBlocks.POLISHED_END_STONE);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) dropSelf(ModBlocks.POLISHED_END_STONE); // 26.3: SimpleLib's loot table
         dropSelf(ModBlocks.PURPUR_QUARTZ_CHECKER);
         dropSelf(ModBlocks.LAPIS_QUARTZ_CHECKER);
         dropSelf(ModBlocks.BLACKSTONE_QUARTZ_CHECKER);

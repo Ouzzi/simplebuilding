@@ -176,7 +176,7 @@ public class ModItems {
 
     // Falls du eine Loop hast, gut. Sonst manuell:
 
-    public static final Item POLISHED_END_STONE = registerItem("polished_end_stone", s -> new BlockItem(ModBlocks.POLISHED_END_STONE, s));
+    public static final Item POLISHED_END_STONE = com.simplebuilding.util.SharedMaterials.item("polished_end_stone", () -> registerItem("polished_end_stone", s -> new BlockItem(ModBlocks.POLISHED_END_STONE, s)));
 
     public static final Item PURPUR_QUARTZ_CHECKER = registerItem("purpur_quartz_checker", s -> new BlockItem(ModBlocks.PURPUR_QUARTZ_CHECKER, s));
 
