@@ -2,6 +2,7 @@
 
 Diese Datei ist die einzige maßgebliche Regelsammlung. `CLAUDE.md` verweist nur hierher.
 Aktueller Stand und nächste Schritte: `docs/HANDOFF.md`. Warteschlange: `.claude/QUEUE.md`.
+**Prinzipien der ganzen Modfamilie (für alle Mods + je Mod): `docs/ai/PRINZIPIEN.md` – vor jeder Änderung lesen.**
 Besitzer spricht Deutsch. Antworten kurz, Ergebnis zuerst, Fragen an den Besitzer immer als Liste.
 
 ## 1. Projekt in einem Absatz
@@ -49,8 +50,11 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) i
     Eimer (Kupfer, Enderit, Eisen, Keramik) zeichnen **nie** eine Haltbarkeitslinie: Abnutzung zeigt die Textur (Keramik: heil/angeschlagen/rissig/brüchig), Füllung der Name; der Enderit-Eimer zeigt im Tooltip nur seinen Titel.
 
 15. **Lesbarkeit (Besitzer 16.10.):** Bei jeder UI-Änderung prüfen, dass Text klar lesbar ist – Kontrast zum Hintergrund mindestens 4,5:1, nie dunkler Text mit dunklem Schatten auf Grau. Kontrastwerte im Bericht nennen; vorhandener Test `ui_text_contrast` muss grün bleiben.
-16. **Baublöcke & Modulfamilie (Besitzer 16.10.):** Alle Baublöcke gehören zur SimpleBuilding-Familie – aufgeteilt in Sub-Mods unter dem Super-Mod SimpleBuilding: z. B. Simple Octets (kleine Blöcke), Simple Blocks (fehlende Block-Varianten), Simple End (End-Blöcke/-Holz) usw. Nie Baublöcke in fachfremde Mods. Blöcke/Teile, die mehrere Module brauchen (z. B. polierter Endstein), liegen in simplelib. Spätere Aufteilung auch in Simple Enderite, Simple Tools, Simple Gadgets – alles bleibt untereinander kompatibel; ist ein Modul geladen (z. B. Enderite), schalten sich die passenden Varianten anderer Module frei (z. B. Enderit-Werkzeuge).
+16. **Baublöcke & Modulfamilie (Besitzer 16.10.):** Alle Baublöcke gehören zur SimpleBuilding-Familie – aufgeteilt in Sub-Mods unter dem Super-Mod SimpleBuilding: z. B. Simple Octets (kleine Blöcke), Simple Blocks (fehlende Block-Varianten), Simple End (End-Blöcke/-Holz) usw. Nie Baublöcke in fachfremde Mods. **Verfeinert 17.10. (B1):** Simple Blocks enthält alle Baublöcke, die keinen anderen fachlichen Ort haben (Themen-Sub-Mods behalten ihre eigenen; Lager, Maschinen und Werkzeuge bleiben, wo sie sind); Liste: `docs/ai/INVENTAR-BAUBLOECKE-2026-10-17.md`. Blöcke/Teile, die mehrere Module brauchen (z. B. polierter Endstein), liegen in simplelib. Spätere Aufteilung auch in Simple Enderite, Simple Tools, Simple Gadgets – alles bleibt untereinander kompatibel; ist ein Modul geladen (z. B. Enderite), schalten sich die passenden Varianten anderer Module frei (z. B. Enderit-Werkzeuge).
 17. **Zwei Sitzungen parallel (Besitzer 16.10.):** Queue-Punkte vor Arbeitsbeginn mit `- [~] (A|B, <branch>, <Datum>)` beanspruchen und sofort pushen; fremd beanspruchte Punkte nicht anfassen; Details `docs/ai/ZWEI-SESSIONS.md`.
+18. **Octet-Regel (Besitzer 17.10., O1):** Jeder Block, der Treppen- oder Stufen-Varianten (stairs/slab) hat, bekommt auch einen Octet-Block (Achtelblock) – Vanilla-Blöcke, SimpleBuilding-Blöcke und alle Blöcke, denen Simple Blocks Treppe/Stufe gibt. Das Octet liefert `simpleoctets` (bei Fremdblöcken optionale Integration, nur bei geladenem Besitzer-Mod; jeder Mod bleibt allein spielbar). Neue Treppen/Stufen brauchen im selben Zug den Octet-Eintrag; Stand und Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md`.
+19. **Ein Kreativtab für Baublöcke (Besitzer 17.10.):** Simple Blocks und die Baublöcke von SimpleBuilding teilen **einen** Tab „Simple Blocks“; SimpleBuilding allein behält seinen eigenen. Plan: `docs/ai/INVENTAR-BAUBLOECKE-2026-10-17.md`.
+
 ## 4. Tests und Gate
 - Vollständiges Gate: `./gradlew.bat check -q` (enthält checkBalance, JadeProviderSplitTest, checkAtlases, checkWiki).
 - Server-Tests: `python tools/testrunner/run.py --targets fabric-263,neoforge-263 [--filter <muster>]`
@@ -119,6 +123,7 @@ Balancing-Multimod: Manifest-Pfade/Mod-Auswahl nutzen; Ablage `balance/<id>/`, S
 
 ## 11. AI workflow and continuity (added 2026-09-30)
 Voicebridge: `python tools/voicebridge/server.py` (8772), phone setup and safety: `docs/ai/VOICE-HANDS-FREE.md`; default read-only, file proposals require one spoken confirmation, never push/delete/free shell.
+Alle Prinzipien an einer Stelle (Teil 1 für alle Mods, Teil 2 je Mod): `docs/ai/PRINZIPIEN.md`.
 Modul-Unabhängigkeit (jedes Modul allein spielbar, fremde Inhalte nur bedingt): `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`.
 Rückports künftiger Vanilla-Features (je Version prüfen, ob Vanilla es schon hat → dann Mod-Teil aus; bei jedem Port erneut prüfen): `docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md`.
 Read `docs/ai/WORKFLOW.md` (roles, loop, traps), `docs/ai/LAPTOP-SETUP.md` (new machine) and `docs/ai/VOICE-HANDS-FREE.md` (voice plan). Helper: `python tools/ai/aitool.py` (`codex` = start a worker run in its own worktree, `status`, `gate [--integration] [--push]`, `sync-memory`, `merge-help`). Task briefs and the module-brief generator live in `docs/ai/briefs/`; the assistant's memory notes are mirrored in `docs/ai/memory/` (background facts, the code wins). Multi-mod rules: `docs/MULTIMOD.md`; modules are plugin-style (a new module touches only `modules/<id>/` and its manifest entry).

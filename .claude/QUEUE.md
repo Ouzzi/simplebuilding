@@ -8,6 +8,14 @@ Queue-Pflege (Besitzer 12.10.): Neue Nachträge OBEN anhängen (direkt unter „
 eintragen. Abschnitte ohne offene Punkte wandern monatlich unverändert nach `.claude/QUEUE-ARCHIV.md`
 (Reihenfolge erhalten; letzte Archivierung 2026-10-12).
 
+## Besitzer 17.10. – Prinzipien, Octet-Regel, Simple Blocks, ein Tab
+Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.19. Inventare: `docs/ai/INVENTAR-OCTETS-2026-10-17.md` (23 fehlende Octets),
+`docs/ai/INVENTAR-BAUBLOECKE-2026-10-17.md` (Verschiebe-Liste + Tab-Plan).
+- [ ] (a) Octet-Regel umsetzen **nach Merge von `claude-s6-octets`**: fehlende Octets laut Inventar (13 Vanilla-Bretter + `ashwood`/`duskwood`-Bretter, `cut_sandstone`, `cut_red_sandstone`, `smooth_stone`, `petrified_oak`; Naturstufen Erde/Gras/Sand/Kies nach Besitzer-Entscheidung) im Octet-Generator (Gruppe `planks`), Rezepte, Abdeckungstest „jeder Stair/Slab-Basisblock hat ein Octet oder eine begründete Ausnahme“, Wiki/Guide.
+- [ ] (b) Baublöcke ohne Fachort nach `simpleblocks` verschieben (neue Familienstufe, **nach den Octets**, vor Stufe 7): Schwerkraftblöcke, Naturstufen, Eis-/Schalen-Varianten, Froschlichter (15 Items), nach Entscheidung E-B1 auch Lichtscheiben und Schwefellichter (40); IdMoves/Aliase, Simple Blocks als Pflicht-Sub-Mod von SimpleBuilding. Liste: Baublock-Inventar.
+- [ ] (c) Ein Kreativtab für Simple Blocks + SimpleBuilding-Baublöcke: Stufe T1 (mit geladenem `simpleblocks` füllt SimpleBuilding seine Baublöcke in den Tab „Simple Blocks“ und registriert den eigenen nicht; Standalone behält ihn) sofort nach (a) möglich, T2 mit (b). Plan: Baublock-Inventar, Abschnitt „Plan: ein Kreativtab“.
+- [~] (A, claude-howler4, 17.10.) (d) Howler-Sounds überarbeiten.
+
 ## Offen – Überblick (Stand 2026-10-13)
 
 Besitzer 13.10.: Elytra-Reparatur erledigt (Werkbank-Rezept bleibt); Sprach-Bridge gestrichen; Modulaufteilung F1–F3 = Empfehlungen angenommen; Claims-Hauptschalter freigegeben (Default an nach Prüfung, claude-claims-on).
