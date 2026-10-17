@@ -222,3 +222,8 @@ sonst Start über eine Launcher-Instanz mit gleicher Ordnerstruktur).
 6. **Besitzer-PC:** Windows + welche GPU/CPU? Darf das Skript Mods von Modrinth laden und ≈ 45 min laufen? *Empfehlung: ja, einmal je Stufe.*
 7. **Version:** Messen auf 26.3 (unsere Linie), dein Pack ist 1.21.11 – einige Mods fehlen auf 26.3 (Noisium, voxy, Better Leaves). *Empfehlung: 26.3; 1.21.11 erst im Port-Run.*
 8. **Kleinkram-Bereiche** (IP-Ping, Telemetrie) hier oder in Simple Tweaks? Optik-Wünsche (Low On Fire, Smooth Gui, FOV-Grenze) nach Simple Visuals? *Empfehlung: Kleinkram hier, Optik nach Simple Visuals (eigener Queue-Punkt, nur auf Wunsch).*
+
+
+## 9. Besitzer-Antworten (17.10.2026)
+Alle Empfehlungen aus §8 übernommen (Super-Mod + 3 Sub-Mods; erst Fabric 26.3; Start O1/O7/S5a + IP-Ping/Telemetrie; spielverändernde Teile Standard aus; Schwelle ≥3 % Median, 1%-Low/Heap nicht schlechter, 2 Messreihen; Messung auf 26.3; Kleinkram hier, Optik nach Simple Visuals nur auf Wunsch).
+**Abweichung zu Frage 6:** Benchmarks laufen auf dem Server (sb-test), nicht am Besitzer-PC (Besitzer nicht immer verfügbar). Folge: CPU-/Server-Kennzahlen (MSPT, Heap, Startzeit, Chunk-Laden, Frame-Zeit unter Software-GL) sind aussagekräftig; reine GPU-Gewinne nur grob (llvmpipe) – im Bericht je Bereich als „GPU-gebunden, nur Tendenz“ markieren. Das PC-Skript bleibt optional.
