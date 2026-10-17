@@ -1970,9 +1970,9 @@ public final class DataIntegrityTests {
         RecipeManager recipeManager = level.getServer().getRecipeManager();
         Map<Identifier, RecipeHolder<?>> modRecipes = modRecipes(recipeManager);
         // 26.3: polished end stone and its recipes are SimpleLib's (module family stage 3); 26.2: MOD_ID.
-        String material = com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE;
+        String libNs = com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE;
         for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
-            if (material.equals(holder.id().identifier().getNamespace())) modRecipes.put(holder.id().identifier(), holder);
+            if (libNs.equals(holder.id().identifier().getNamespace())) modRecipes.put(holder.id().identifier(), holder);
         }
         List<String> problems = new ArrayList<>();
 
@@ -1981,7 +1981,7 @@ public final class DataIntegrityTests {
         Set<String> cuts = new TreeSet<>();
         for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
             if (!(holder.value() instanceof StonecutterRecipe) || !(MOD_ID.equals(holder.id().identifier().getNamespace())
-                    || material.equals(holder.id().identifier().getNamespace()))) {
+                    || libNs.equals(holder.id().identifier().getNamespace()))) {
                 continue;
             }
             for (RecipeDisplay display : holder.value().display()) {
@@ -2103,7 +2103,7 @@ public final class DataIntegrityTests {
         // takes the bricks and End Stone / its bricks are cut (audit D-01, no clash with vanilla).
         expectedCuts.add("end_stone -> 1 polished_end_stone");
         expectedCuts.add("end_stone_bricks -> 1 polished_end_stone");
-        assertShapedRecipe(helper, modRecipes, Identifier.fromNamespaceAndPath(material, "polished_end_stone"), ModItems.POLISHED_END_STONE, 4,
+        assertShapedRecipe(helper, modRecipes, Identifier.fromNamespaceAndPath(libNs, "polished_end_stone"), ModItems.POLISHED_END_STONE, 4,
                 new String[]{"##", "##"}, Map.of('#', Items.END_STONE_BRICKS), problems);
         Optional<RecipeHolder<CraftingRecipe>> endStoneSquare = recipeManager.getRecipeFor(RecipeType.CRAFTING,
                 grid(new String[]{"##", "##"}, Map.of('#', Items.END_STONE)), level);
