@@ -41,7 +41,7 @@ er schneidet Stein **und** Holz und alles, was Treppen-/Stufen-/Octet-Varianten 
 5. **Menü/Bildschirm**: wie Vanilla-Steinsäge (Eingabe, Ergebnisliste, Ergebnis), aber 6 × 4 sichtbare Ergebnisse,
    Scrollen (Rad + Leiste) und ein Suchfeld. Farben aus der vorhandenen INVENTORY-Palette (`UiPalette.INVENTORY` in
    simplelib: Fläche C6C6C6, Schrift 404040, Schatten 555555/373737, Slot 8B8B8B) – als Konstanten übernommen, weil
-   Simple Blocks ohne simplelib laufen muss; Kontrast Schrift 404040 auf C6C6C6 = 6,4:1 (Test).
+   Simple Blocks ohne simplelib laufen muss; Kontrast Schrift 404040 auf C6C6C6 = 6,1:1 (Test).
    Kachel-Sprites der Vanilla-Steinsäge (`container/stonecutter/recipe*`, nur referenziert, nichts kopiert).
 6. **Sync**: `SawRecipesPayload` (Server→Client, beim Beitreten und nach `/reload`), je Loader registriert; der Client
    nutzt genau die Serverliste, damit die Indizes der Knopf-Klicks passen.
