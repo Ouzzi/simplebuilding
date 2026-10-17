@@ -752,6 +752,6 @@ window.WIKI_MODULES = [
       "simpleend",
       "jei"
     ],
-    "dataHash": "71cdeadbf039"
+    "dataHash": "a0b7b01c1edd"
   }
 ];
