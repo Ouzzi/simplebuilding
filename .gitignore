@@ -72,6 +72,8 @@ wiki/assets/textures/sheets/simplebuilding/simplebuilding/entity/chest/astral_va
 wiki/assets/textures/sheets/simplebuilding/simplebuilding/entity/chest/nihil_vault.png
 docs/ai/previews/n41/r2/D*_blaze_book.png
 docs/ai/previews/n41/r3/D*_blaze_book.png
+# Vanilla-derived sounds (tools/sounds/vanilla_derived_sounds.py, Hollow Howler variant B, -PsbHowlerSounds=vanilla)
+# are only written to build/generated-resources/vanillaDerivedSounds (covered by build/); --flat previews stay outside the repo.
 # Module textures (vanilla_derived.MODULE_OUTPUTS, gradle/module-vanilla-derived.gradle): Shellker Shell (N48).
 modules/simplemobs/shared/resources/assets/simplemobs/textures/item/shellker_shell.png
 wiki/assets/textures/simplemobs/item/shellker_shell.png
