@@ -94,7 +94,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   context.waitTicks(5);context.takeScreenshot("simpletweaks-deaths");
   // German (longest button text) at GUI scale 2 and 3: every button stays inside the panel
   context.runOnClient(client->{client.options.languageCode="de_de";client.getLanguageManager().setSelected("de_de");client.reloadResourcePacks();});
-  context.waitFor(client->"Wiederherstellen".equals(net.minecraft.locale.Language.getInstance().getOrDefault("simpletweaks.admin.deaths.restore")),1200);
+  context.waitFor(client->client.gui.overlay()==null&&"Wiederherstellen".equals(net.minecraft.locale.Language.getInstance().getOrDefault("simpletweaks.admin.deaths.restore")),1200);context.waitTicks(10);
   world.getServer().runOnServer(server->{var p=server.getPlayerList().getPlayers().getFirst();p.closeContainer();com.simplebuilding.modules.simpletweaks.admin.invsee.Invsee.openDeaths(p,p.nameAndId(),0);});
   context.waitTicks(5);
   context.waitForScreen(com.simplebuilding.modules.simpletweaks.admin.invsee.client.InvseeScreen.class);
@@ -103,6 +103,6 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   context.runOnClient(client->{client.options.guiScale().set(3);client.resizeGui();client.gui.toastManager().clear();});
   context.waitTicks(5);context.takeScreenshot("simpletweaks-deaths-de-scale3");
   context.runOnClient(client->{client.options.guiScale().set(0);client.resizeGui();client.gui.setScreen(null);client.options.languageCode="en_us";client.getLanguageManager().setSelected("en_us");client.reloadResourcePacks();});
-  context.waitFor(client->"Restore all".equals(net.minecraft.locale.Language.getInstance().getOrDefault("simpletweaks.admin.deaths.restore")),1200);
+  context.waitFor(client->client.gui.overlay()==null&&"Restore all".equals(net.minecraft.locale.Language.getInstance().getOrDefault("simpletweaks.admin.deaths.restore")),1200);
  }
 }
