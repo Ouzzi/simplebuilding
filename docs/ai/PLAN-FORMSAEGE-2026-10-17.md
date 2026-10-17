@@ -75,5 +75,12 @@ er schneidet Stein **und** Holz und alles, was Treppen-/Stufen-/Octet-Varianten 
   `./gradlew -q checkModuleGuides checkModuleData checkWiki checkDiscover checkMultimod`.
 - Client-Smoke mit Screenshots (Block in der Welt, Säge-Bildschirm), falls der Harness es erlaubt.
 
-## Stand
-Siehe Abschlussbericht/Commit-Verlauf; Offenes in `memory/uebergabe-A.md` (17.10.).
+## Stand 17.10. (umgesetzt, Branch `claude-formsaege`)
+- Alles aus „Entwurf“ umgesetzt; Kontrast Schrift 404040 auf C6C6C6 = 6,1:1, Hinweistext E0E0E0 auf 373737 > 10:1 (Test `saw_ui_contrast`).
+- Geprüft auf sb-test: Compile 26.3 Fabric/NeoForge/Forge + 26.2 `:compileJava` grün; GameTests Simple Blocks 18/18 je Ziel
+  (Fabric- und NeoForge-Modul, Fabric- und NeoForge-Standalone); Client-Smoke 6/6 mit Screenshots des Säge-Bildschirms;
+  `checkModuleGuides checkModuleData checkWiki checkDiscover checkMultimod` grün; Wiki/Guides/Discover auf sb-test erzeugt.
+- Abweichungen: kein Jade-Plugin (Block hat keinen Zustand); keine Rezeptbuch-Einträge/Fortschritte für `sawing`
+  (die Säge hat kein Rezeptbuch); Forge ohne JEI und ohne Laufzeittest (nur Compile).
+- Offen: Besitzer wählt Name und Textur (Vorschau-Seite), Merge nach `claude-wave1`; Holz-Octets liegen in `claude-s6-octets`
+  noch als Steinsägen-Rezepte vor (erscheinen damit auch in der Säge) – ggf. später auf `simpleblocks:sawing` umstellen.
