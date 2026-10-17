@@ -930,6 +930,30 @@
         }
       },
       "texture": "assets/textures/simplewanderers/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A traveler's notebook for the one trader every village keeps."
+          ],
+          "use": [
+            "The Simple Wanderers Guide explains the Village Wanderer, his horse, his stock and the biome goods. Craft it shapeless from a book and a lead."
+          ],
+          "secret": [
+            "Its pages open in your language and nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Reisenotizbuch für den einen Händler, den jedes Dorf behält."
+          ],
+          "use": [
+            "Das Simple-Wanderers-Handbuch erklärt den Dorf-Wanderer, sein Pferd, sein Angebot und die Biomwaren. Herstellung formlos aus einem Buch und einer Leine."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simplewanderers:guide_book"
       ],
@@ -953,6 +977,30 @@
         }
       },
       "texture": "assets/textures/simplewanderers/item/village_wanderer_spawn_egg.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A trader in an ochre cloak, folded into an egg."
+          ],
+          "use": [
+            "Creative only. It spawns a Village Wanderer that belongs to no village: no record, no village seed, never counted. The wanderers of real villages appear on their own."
+          ],
+          "secret": [
+            "Use it to test offers or to place a trader by hand; the offers still follow the biome around him."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Händler im ockerfarbenen Mantel, zu einem Ei gefaltet."
+          ],
+          "use": [
+            "Nur im Kreativmodus. Es erschafft einen Dorf-Wanderer ohne Dorf: kein Eintrag, kein Dorf-Seed, wird nie mitgezählt. Die Wanderer echter Dörfer erscheinen von selbst."
+          ],
+          "secret": [
+            "Nutze es, um Angebote zu testen oder einen Händler von Hand zu setzen; das Angebot folgt trotzdem dem Biom um ihn."
+          ]
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     }

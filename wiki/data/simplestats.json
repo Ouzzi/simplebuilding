@@ -239,6 +239,30 @@
         }
       },
       "texture": "assets/textures/simplestats/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book that keeps count of everything your gear has done."
+          ],
+          "use": [
+            "The Simple Stats Guide explains the item statistics, the tooltip and the statistics screen. Craft it shapeless from a book and a piece of flint."
+          ],
+          "secret": [
+            "Its pages open in your language and nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch, das mitzählt, was deine Ausrüstung schon geleistet hat."
+          ],
+          "use": [
+            "Das Simple-Stats-Handbuch erklärt die Gegenstandsstatistik, den Tooltip und den Statistik-Bildschirm. Herstellung formlos aus einem Buch und einem Feuerstein."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simplestats:guide_book"
       ],

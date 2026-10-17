@@ -228,6 +228,50 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
       }
     },
     {
+      "id": "simplemaps:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemaps:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:compass"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:compass"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplemaps:nether_wayfinder_map",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -504,6 +548,54 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
       "usedIn": []
     },
     {
+      "id": "simplemaps:guide_book",
+      "name": {
+        "en_us": "Simple Maps Guide",
+        "de_de": "Simple-Maps-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemaps/shared/java/com/simplebuilding/modules/simplemaps/guide/MapsGuide.java",
+          "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
+        }
+      },
+      "texture": "assets/textures/simplemaps/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A folded chart of every road you have ever walked."
+          ],
+          "use": [
+            "The Simple Maps Guide explains Wayfinder Maps, the map screen, waypoints and item frames. Craft it shapeless from a book and a compass."
+          ],
+          "secret": [
+            "Its pages open in your language and nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine gefaltete Karte aller Wege, die du je gegangen bist."
+          ],
+          "use": [
+            "Das Simple-Maps-Handbuch erklärt Wegfinder-Karten, den Kartenbildschirm, Wegpunkte und Rahmen. Herstellung formlos aus einem Buch und einem Kompass."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplemaps:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemaps:nether_wayfinder_map",
       "name": {
         "en_us": "Nether Wayfinder Map",
@@ -616,12 +708,12 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
   "incompleteProse": {},
   "counts": {
     "features": 5,
-    "recipes": 3,
+    "recipes": 4,
     "lootTables": 0,
     "tags": 4,
     "advancements": 0,
     "enchantments": 0,
-    "items": 3,
+    "items": 4,
     "blocks": 0,
     "trades": 0,
     "config": 0,

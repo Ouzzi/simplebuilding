@@ -234,7 +234,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "e4698541d3a0"
+    "dataHash": "831001eca59d"
   },
   {
     "id": "simpledimensions",
@@ -259,7 +259,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
-    "dataHash": "acfb10bdb077"
+    "dataHash": "4d2fff5f6bf4"
   },
   {
     "id": "simplesandwiches",
@@ -330,7 +330,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "e18587033249"
+    "dataHash": "3bc84cfd9f3d"
   },
   {
     "id": "simpletrims",
@@ -426,7 +426,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "400f376f2936"
+    "dataHash": "40bd3198f4a5"
   },
   {
     "id": "simplefarming",
@@ -538,7 +538,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "8e7329c39870"
+    "dataHash": "5c8bd4f16cf9"
   },
   {
     "id": "simpleend",
@@ -555,7 +555,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "7365612661f2"
+    "dataHash": "6c2c72b1e8d7"
   },
   {
     "id": "simplerespawn",
@@ -673,7 +673,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simplemobheads"
     ],
-    "dataHash": "a290905d600e"
+    "dataHash": "34ebe8a6188b"
   },
   {
     "id": "simplestats",
@@ -690,7 +690,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "97f1238cce93"
+    "dataHash": "55fa0fabe222"
   },
   {
     "id": "simpleblocks",
@@ -707,7 +707,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "5b6023516385"
+    "dataHash": "62e6cdd63fc8"
   },
   {
     "id": "simplecrucibles",

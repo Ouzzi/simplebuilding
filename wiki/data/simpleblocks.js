@@ -2855,6 +2855,30 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A short book for the blocks Vanilla forgot to build."
+          ],
+          "use": [
+            "The Simple Blocks Guide explains the new blocks and the stairs, slabs and walls. Craft it shapeless from a book and a clay ball."
+          ],
+          "secret": [
+            "Its pages open in your language and nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein kurzes Buch für die Blöcke, die Vanilla vergessen hat."
+          ],
+          "use": [
+            "Das Simple-Blocks-Handbuch erklärt die neuen Blöcke und die Treppen, Stufen und Mauern. Herstellung formlos aus einem Buch und einem Tonklumpen."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleblocks:guide_book"
       ],
@@ -2959,6 +2983,30 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         }
       },
       "texture": "assets/textures/simpleblocks/block/blue_nether_bricks.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "The cold sibling of Red Nether Bricks."
+          ],
+          "use": [
+            "Place it as a building block. Stairs, slab and wall come from the crafting table or the stonecutter."
+          ],
+          "secret": [
+            "Mixed with Red and plain Nether Bricks it makes striped walls and floors."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Das kalte Geschwister der Roten Netherziegel."
+          ],
+          "use": [
+            "Setze ihn als Baublock. Treppe, Stufe und Mauer kommen vom Werktisch oder aus dem Steinschneider."
+          ],
+          "secret": [
+            "Mit roten und normalen Netherziegeln ergeben sich gestreifte Wände und Böden."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleblocks:blue_nether_bricks",
         "simpleblocks:blue_nether_bricks_without_simplelib"
@@ -3383,6 +3431,30 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         }
       },
       "texture": "assets/textures/simpleblocks/block/hushed_deepslate_tiles.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Deepslate tiles with a muffled soul: they keep a secret like wool does."
+          ],
+          "use": [
+            "Place it as a building block. A Sculk Sensor or a Warden does not hear a vibration that passes through it, and walking on it makes none."
+          ],
+          "secret": [
+            "Build a silent floor over a sculk trap or around an Ancient City and sneak through without a sound."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Tiefenschieferfliesen mit gedämpfter Seele: Sie bewahren ein Geheimnis wie Wolle."
+          ],
+          "use": [
+            "Setze ihn als Baublock. Ein Sculk-Sensor oder ein Wächter hört keine Vibration, die durch ihn läuft, und wer darauf geht, macht keine."
+          ],
+          "secret": [
+            "Baue einen stillen Boden über eine Sculk-Falle oder um eine Antike Stadt und schleiche lautlos hindurch."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleblocks:hushed_deepslate_tiles"
       ],
@@ -3662,6 +3734,30 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
         }
       },
       "texture": "assets/textures/simpleblocks/block/sculk_deepslate.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Deepslate with veins of sculk, dug out of the dark."
+          ],
+          "use": [
+            "Craft it, or find it in Ancient City chests; it is never generated in the world. It is a plain building block."
+          ],
+          "secret": [
+            "It sits well beside Sculk and Deepslate Tiles in a deep dark build."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Tiefenschiefer mit Sculk-Adern, aus dem Dunkel gegraben."
+          ],
+          "use": [
+            "Stelle ihn her oder finde ihn in Truhen Antiker Städte; er entsteht nie in der Welt. Er ist ein schlichter Baublock."
+          ],
+          "secret": [
+            "Er passt neben Sculk und Tiefenschieferfliesen in ein Deep-Dark-Bauwerk."
+          ]
+        }
+      },
       "craftedBy": [
         "simpleblocks:sculk_deepslate"
       ],
