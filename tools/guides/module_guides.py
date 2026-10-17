@@ -472,6 +472,7 @@ NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your languag
         "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:clay_ball": ("clay ball", "Tonklumpen"),
+    "minecraft:stonecutter": ("stonecutter", "Steinmetz"),
     "minecraft:emerald": ("emerald", "Smaragd"),
     "minecraft:lead": ("lead", "Leine"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
