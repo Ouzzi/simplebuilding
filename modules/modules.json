@@ -3213,7 +3213,8 @@
       ],
       "requires": [],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "jei"
       ],
       "checks": [
         "modules/simpleblocks/tools/check_data.py"
