@@ -57,71 +57,86 @@ def tdist(a, b):
 
 
 # ---------------------------------------------------------------- C1 crust
+def c1_seeds():
+    rnd = random.Random(31)
+    pts = []
+    while len(pts) < 7:   # irregular plates: random points on the torus, at least 4.6 px apart
+        p = (rnd.uniform(0, 16), rnd.uniform(0, 16))
+        if all(tdist(p, q) > 4.6 for q in pts):
+            pts.append(p)
+    return pts
+
+
 def c1_frame(f):
-    rnd = random.Random(1017)
-    seeds = [((gx * 16 / 3 + rnd.uniform(-1.3, 1.3)) % 16, (gy * 16 / 3 + rnd.uniform(-1.3, 1.3)) % 16)
-             for gx in range(3) for gy in range(3)]
+    seeds = c1_seeds()
     im = ground(171)
     for y in range(16):
         for x in range(16):
             d = sorted((tdist((x + .5, y + .5), s), i) for i, s in enumerate(seeds))
             gap = d[1][0] - d[0][0]
-            if gap < 1.05:   # seam
-                i = d[0][1] if d[0][1] < d[1][1] else d[1][1]
-                pulse = 0.5 + 0.5 * math.cos(math.tau * (f / FRAMES + i / 9 * 2))
-                im.putpixel((x, y), heat(0.38 + 0.4 * pulse - gap * 0.25))
-            elif gap < 1.9:   # scorched plate edge, a touch warmer than the ground
-                c = im.getpixel((x, y))
-                im.putpixel((x, y), mix(c, RIM, 0.45 if n41.hsh(x, y, 7) > 0.35 else 0.25))
+            if gap < 0.72:   # seam, thin
+                i = min(d[0][1], d[1][1]) * 7 + max(d[0][1], d[1][1])
+                pulse = 0.5 + 0.5 * math.cos(math.tau * (f / FRAMES + (i % 11) / 11))
+                im.putpixel((x, y), heat(0.34 + 0.42 * pulse - gap * 0.3))
+            elif gap < 1.45 and n41.hsh(x, y, 7) > 0.45:   # scorched plate edge, warmer than the ground
+                im.putpixel((x, y), mix(im.getpixel((x, y)), DEEP, 0.4))
     return im
 
 
 # ---------------------------------------------------------------- C2 flames
+TONGUES = [(2, 9), (6, 5), (9, 8), (13, 6)]   # centre x, height
+
+
 def c2_frame(f):
     im = ground(172)
-    base = 12   # hot band rows 12..14, tongues rise from it
-    tongues = [(1, 6), (4, 8), (7, 5), (10, 7), (13, 6)]   # x, rise
-    for x in range(16):
-        col = 0.5 + 0.5 * math.sin(math.tau * x / 16 * 2 + 0.7)
-        im.putpixel((x, 13), heat(0.45 + 0.3 * col))
-        im.putpixel((x, 12), heat(0.30 + 0.2 * col))
-        im.putpixel((x, 14), heat(0.25 + 0.15 * col))
-        im.putpixel((x, 15), mix(im.getpixel((x, 15)), RIM, 0.6))
-        im.putpixel((x, 11), mix(im.getpixel((x, 11)), RIM, 0.5 if (x + f) % 3 else 0.25))
-    for tx, rise in tongues:
-        sway = [0, 1, 0, -1][f % 4] if tx % 2 else [0, -1, 0, 1][f % 4]
-        h = rise + (1 if (f + tx) % 4 == 1 else 0)
+    for x in range(16):   # uneven heat band at the foot, not a straight line
+        j = n41.hsh(x, 3, 9)
+        im.putpixel((x, 13), heat(0.42 + 0.3 * j))
+        im.putpixel((x, 14), heat(0.22 + 0.2 * n41.hsh(x, 4, 9)))
+        if j > 0.5:
+            im.putpixel((x, 12), heat(0.28 + 0.2 * j))
+        im.putpixel((x, 15), mix(im.getpixel((x, 15)), RIM, 0.55))
+    for tx, h in TONGUES:
+        h += 1 if (f + tx) % 4 in (1, 2) else 0
+        sway = (0, 1, 0, -1)[(f + tx) % 4] * (1 if tx % 2 else -1)
         for k in range(h):
-            y = base - 1 - k
-            w = 1 if k > h * 0.55 else 2
-            cx = tx + (sway if k > 2 else 0) + (k // 4) * (1 if tx % 3 == 0 else 0)
-            lvl = 0.62 - k / (h + 1) * 0.5
-            for dx in range(w):
-                x = (cx + dx) % 16
-                im.putpixel((x, y), heat(lvl + (0.12 if dx == 0 else 0)))
-        # dark halo beside the tongue base
-        for dx in (-1, 2):
-            p = ((tx + dx) % 16, base - 1)
-            im.putpixel(p, mix(im.getpixel(p), RIM, 0.5))
+            y = 12 - k
+            frac = k / h
+            half = 1 if frac < 0.45 else 0   # 3 wide at the foot, 2 in the body, 1 at the tip
+            cx = tx + round(sway * frac * frac * 1.4)
+            xs = range(cx - half, cx + half + 1) if frac < 0.45 else ([cx, cx + 1] if frac < 0.75 else [cx])
+            for x in xs:
+                core = x == cx
+                im.putpixel((x % 16, y), heat(0.7 - frac * 0.55 + (0.1 if core else -0.08)))
+        for dx in (-2, 2):   # soot next to the foot
+            p = ((tx + dx) % 16, 12)
+            im.putpixel(p, mix(im.getpixel(p), RIM, 0.55))
     return im
 
 
 # ---------------------------------------------------------------- C3 embers
-GRAINS = [(2, 2, 0.0), (9, 1, 0.5), (13, 6, 0.25), (5, 8, 0.75), (10, 12, 0.1), (1, 13, 0.6)]
+# (x, y, phase): blaze-powder nuggets, 2x2; two sit close together like a small vein, the rest alone
+GRAINS = [(2, 2, 0.0), (4, 4, 0.35), (10, 1, 0.6), (12, 8, 0.2), (5, 10, 0.8), (13, 13, 0.45)]
+GLINTS = [(8, 6), (1, 8), (9, 13), (15, 3)]
 
 
 def c3_frame(f):
     im = ground(173)
     for gx, gy, ph in GRAINS:
         glow = 0.5 + 0.5 * math.cos(math.tau * (f / FRAMES + ph))
-        # halo: warmed ground around the grain
-        for dx, dy in ((-1, -1), (1, -1), (-1, 1), (1, 1), (-2, 0), (2, 0), (0, -2), (0, 2)):
+        for dx, dy in ((-1, 0), (-1, 1), (2, 0), (2, 1), (0, -1), (1, -1), (0, 2), (1, 2)):   # scorch ring
             p = ((gx + dx) % 16, (gy + dy) % 16)
-            if n41.hsh(*p, 11) > 0.35:
-                im.putpixel(p, mix(im.getpixel(p), DEEP, 0.25 + 0.3 * glow))
-        for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
-            im.putpixel(((gx + dx) % 16, (gy + dy) % 16), heat(0.28 + 0.4 * glow))
-        im.putpixel((gx, gy), heat(0.7 + 0.3 * glow))
+            if n41.hsh(*p, 11) > 0.3:
+                im.putpixel(p, mix(im.getpixel(p), DEEP, 0.3 + 0.35 * glow))
+        for dx, dy in ((0, 0), (1, 0), (0, 1), (1, 1)):
+            t = 0.38 + 0.25 * glow
+            if (dx, dy) == (0, 0):
+                t += 0.3
+            elif (dx, dy) == (1, 1):
+                t -= 0.12
+            im.putpixel(((gx + dx) % 16, (gy + dy) % 16), heat(t))
+    for gx, gy in GLINTS:
+        im.putpixel((gx, gy), heat(0.3 + 0.15 * (f % 2)))
     return im
 
 
