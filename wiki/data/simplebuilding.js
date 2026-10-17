@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 816,
+      "count": 815,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -35109,50 +35109,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:polished_end_stone",
-      "name": {
-        "en_us": "Polished End Stone",
-        "de_de": "Polierter Endstein"
-      },
-      "texture": "assets/textures/block/polished_end_stone.png",
-      "craftedBy": [
-        "simplebuilding:polished_end_stone",
-        "simplebuilding:polished_end_stone_from_end_stone_bricks_stonecutting",
-        "simplebuilding:polished_end_stone_from_end_stone_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:astral_end_stone",
-        "simplebuilding:nihil_end_stone"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/polished_end_stone.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "End stone with its rough edges taken off, ready to be dressed in color."
-          ],
-          "use": [
-            "Craft 4 End Stone Bricks in a square for 4, or cut it from end stone or end stone bricks in the stonecutter. It is the raw material of Astral and Nihil End Stone."
-          ],
-          "secret": [
-            "Put 8 around one Astralit Dust or Nihilit Shard and they take its color: that is how the coated end stones are made."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Endstein, dem man die rauen Kanten genommen hat, bereit für ein farbiges Gewand."
-          ],
-          "use": [
-            "4 Endsteinziegel im Quadrat ergeben 4, oder im Steinschneider aus Endstein oder Endsteinziegeln geschnitten. Er ist der Rohstoff von Astral- und Nihil-Endstein."
-          ],
-          "secret": [
-            "Setze 8 davon um einen Astralitstaub oder Nihilitsplitter, und sie nehmen dessen Farbe an: So entstehen die beschichteten Endsteine."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:polished_ender_quartz",
       "name": {
         "en_us": "Polished Ender Quartz",
@@ -69875,54 +69831,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:polished_end_stone",
-      "name": {
-        "en_us": "Polished End Stone",
-        "de_de": "Polierter Endstein"
-      },
-      "texture": "assets/textures/block/polished_end_stone.png",
-      "craftedBy": [
-        "simplebuilding:polished_end_stone",
-        "simplebuilding:polished_end_stone_from_end_stone_bricks_stonecutting",
-        "simplebuilding:polished_end_stone_from_end_stone_stonecutting"
-      ],
-      "usedIn": [
-        "simplebuilding:astral_end_stone",
-        "simplebuilding:nihil_end_stone"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/polished_end_stone.png",
-      "lootTable": "simplebuilding:blocks/polished_end_stone",
-      "drops": [
-        "simplebuilding:polished_end_stone"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "End stone with its rough edges taken off, ready to be dressed in color."
-          ],
-          "use": [
-            "Craft 4 End Stone Bricks in a square for 4, or cut it from end stone or end stone bricks in the stonecutter. It is the raw material of Astral and Nihil End Stone."
-          ],
-          "secret": [
-            "Put 8 around one Astralit Dust or Nihilit Shard and they take its color: that is how the coated end stones are made."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Endstein, dem man die rauen Kanten genommen hat, bereit für ein farbiges Gewand."
-          ],
-          "use": [
-            "4 Endsteinziegel im Quadrat ergeben 4, oder im Steinschneider aus Endstein oder Endsteinziegeln geschnitten. Er ist der Rohstoff von Astral- und Nihil-Endstein."
-          ],
-          "secret": [
-            "Setze 8 davon um einen Astralitstaub oder Nihilitsplitter, und sie nehmen dessen Farbe an: So entstehen die beschichteten Endsteine."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:polished_ender_quartz",
       "name": {
         "en_us": "Polished Ender Quartz",
@@ -80538,10 +80446,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:astral_end_stone",
         "count": 8
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/astral_end_stone.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_end_stone.json",
       "ingredients": [
         "simplebuilding:astralit_dust",
-        "simplebuilding:polished_end_stone"
+        "simplelib:polished_end_stone"
       ],
       "pattern": [
         "BBB",
@@ -80550,22 +80458,61 @@ window.WIKI_DATA = {
       ],
       "key": {
         "B": [
-          "simplebuilding:polished_end_stone"
+          "simplelib:polished_end_stone"
         ],
         "M": [
           "simplebuilding:astralit_dust"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "simplebuilding:astralit_dust",
+                "simplelib:polished_end_stone"
+              ],
+              "other": [
+                "simplebuilding:astralit_dust",
+                "simplebuilding:polished_end_stone"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "B": [
+                  "simplelib:polished_end_stone"
+                ],
+                "M": [
+                  "simplebuilding:astralit_dust"
+                ]
+              },
+              "other": {
+                "B": [
+                  "simplebuilding:polished_end_stone"
+                ],
+                "M": [
+                  "simplebuilding:astralit_dust"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/astral_end_stone.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 8
           },
           {
@@ -80971,7 +80918,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -81126,7 +81073,7 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -81346,7 +81293,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -81565,7 +81512,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -81784,7 +81731,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -82551,7 +82498,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -88822,7 +88769,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -89244,7 +89191,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -111641,10 +111588,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:nihil_end_stone",
         "count": 8
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/nihil_end_stone.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_end_stone.json",
       "ingredients": [
         "simplebuilding:nihilith_shard",
-        "simplebuilding:polished_end_stone"
+        "simplelib:polished_end_stone"
       ],
       "pattern": [
         "BBB",
@@ -111653,22 +111600,61 @@ window.WIKI_DATA = {
       ],
       "key": {
         "B": [
-          "simplebuilding:polished_end_stone"
+          "simplelib:polished_end_stone"
         ],
         "M": [
           "simplebuilding:nihilith_shard"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "simplebuilding:nihilith_shard",
+                "simplelib:polished_end_stone"
+              ],
+              "other": [
+                "simplebuilding:nihilith_shard",
+                "simplebuilding:polished_end_stone"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "B": [
+                  "simplelib:polished_end_stone"
+                ],
+                "M": [
+                  "simplebuilding:nihilith_shard"
+                ]
+              },
+              "other": {
+                "B": [
+                  "simplebuilding:polished_end_stone"
+                ],
+                "M": [
+                  "simplebuilding:nihilith_shard"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/nihil_end_stone.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 8,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 8
           },
           {
@@ -112160,7 +112146,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -112279,7 +112265,7 @@ window.WIKI_DATA = {
         "yield": 2,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -112499,7 +112485,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -112718,7 +112704,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -112937,7 +112923,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -113658,7 +113644,7 @@ window.WIKI_DATA = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:end_stone",
+            "id": "simplelib:polished_end_stone",
             "count": 1
           },
           {
@@ -118983,138 +118969,6 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:quartz",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:polished_end_stone",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:polished_end_stone",
-        "count": 4
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/polished_end_stone.json",
-      "ingredients": [
-        "minecraft:end_stone_bricks"
-      ],
-      "pattern": [
-        "SS",
-        "SS"
-      ],
-      "key": {
-        "S": [
-          "minecraft:end_stone_bricks"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:end_stone_bricks"
-              ],
-              "other": [
-                "minecraft:end_stone"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "S": [
-                  "minecraft:end_stone_bricks"
-                ]
-              },
-              "other": {
-                "S": [
-                  "minecraft:end_stone"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/polished_end_stone.json"
-        }
-      ],
-      "lines": [
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 4,
-        "materials": [
-          {
-            "id": "minecraft:end_stone",
-            "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:polished_end_stone_from_end_stone_bricks_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:polished_end_stone",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/polished_end_stone_from_end_stone_bricks_stonecutting.json",
-      "ingredients": [
-        "minecraft:end_stone_bricks"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:end_stone_bricks"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:end_stone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:polished_end_stone_from_end_stone_stonecutting",
-      "type": "minecraft:stonecutting",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:polished_end_stone",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/polished_end_stone_from_end_stone_stonecutting.json",
-      "ingredients": [
-        "minecraft:end_stone"
-      ],
-      "slots": {
-        "ingredient": [
-          "minecraft:end_stone"
-        ]
-      },
-      "lines": [
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:end_stone",
             "count": 1
           }
         ]
@@ -141302,6 +141156,38 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:astral_end_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_end_stone",
+        "count": 8
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/astral_end_stone.json",
+      "ingredients": [
+        "simplebuilding:astralit_dust",
+        "simplebuilding:polished_end_stone"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:polished_end_stone"
+        ],
+        "M": [
+          "simplebuilding:astralit_dust"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:backpack_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -143641,6 +143527,38 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:nihil_end_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_end_stone",
+        "count": 8
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/nihil_end_stone.json",
+      "ingredients": [
+        "simplebuilding:nihilith_shard",
+        "simplebuilding:polished_end_stone"
+      ],
+      "pattern": [
+        "BBB",
+        "BMB",
+        "BBB"
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:polished_end_stone"
+        ],
+        "M": [
+          "simplebuilding:nihilith_shard"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:octant",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -143746,6 +143664,76 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:polished_end_stone",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_end_stone",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_end_stone.json",
+      "ingredients": [
+        "minecraft:end_stone_bricks"
+      ],
+      "pattern": [
+        "SS",
+        "SS"
+      ],
+      "key": {
+        "S": [
+          "minecraft:end_stone_bricks"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:polished_end_stone_from_end_stone_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_end_stone",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_end_stone_from_end_stone_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:end_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone_bricks"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:polished_end_stone_from_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_end_stone",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_end_stone_from_end_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone"
+        ]
+      },
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -150837,24 +150825,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_astralit_wall.json"
-    },
-    {
-      "id": "simplebuilding:blocks/polished_end_stone",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:polished_end_stone"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_end_stone.json"
     },
     {
       "id": "simplebuilding:blocks/polished_ender_quartz",
@@ -184506,7 +184476,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:end/polished_off",
       "parent": "simplebuilding:end/root",
-      "icon": "simplebuilding:polished_end_stone",
+      "icon": "simplelib:polished_end_stone",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -184522,12 +184492,12 @@ window.WIKI_DATA = {
           "name": "polished_end_stone",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:polished_end_stone"
+            "simplelib:polished_end_stone"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/end/polished_off.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/end/polished_off.json"
     },
     {
       "id": "simplebuilding:end/quartz_fusion",
@@ -189646,10 +189616,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 774,
-    "blocks": 532,
-    "recipes": 1379,
-    "lootTables": 389,
+    "items": 773,
+    "blocks": 531,
+    "recipes": 1376,
+    "lootTables": 388,
     "trades": 20,
     "enchantments": 19,
     "tags": 58,

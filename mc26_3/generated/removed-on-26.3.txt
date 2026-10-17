@@ -22,6 +22,7 @@ assets/simplebuilding/blockstates/husk_wall_head.json
 assets/simplebuilding/blockstates/netherite_blast_furnace.json
 assets/simplebuilding/blockstates/netherite_furnace.json
 assets/simplebuilding/blockstates/netherite_smoker.json
+assets/simplebuilding/blockstates/polished_end_stone.json
 assets/simplebuilding/blockstates/reinforced_blast_furnace.json
 assets/simplebuilding/blockstates/reinforced_furnace.json
 assets/simplebuilding/blockstates/reinforced_smoker.json
@@ -71,6 +72,7 @@ assets/simplebuilding/items/netherite_blast_furnace.json
 assets/simplebuilding/items/netherite_furnace.json
 assets/simplebuilding/items/netherite_nugget.json
 assets/simplebuilding/items/netherite_smoker.json
+assets/simplebuilding/items/polished_end_stone.json
 assets/simplebuilding/items/pulsating_trim_template.json
 assets/simplebuilding/items/raw_enderite.json
 assets/simplebuilding/items/reinforced_blast_furnace.json
@@ -95,6 +97,7 @@ assets/simplebuilding/models/block/netherite_furnace.json
 assets/simplebuilding/models/block/netherite_furnace_on.json
 assets/simplebuilding/models/block/netherite_smoker.json
 assets/simplebuilding/models/block/netherite_smoker_on.json
+assets/simplebuilding/models/block/polished_end_stone.json
 assets/simplebuilding/models/block/reinforced_blast_furnace.json
 assets/simplebuilding/models/block/reinforced_blast_furnace_on.json
 assets/simplebuilding/models/block/reinforced_furnace.json
@@ -133,6 +136,9 @@ data/simplebuilding/advancement/hammer/full_radiance.json
 data/simplebuilding/advancement/hammer/glow_up.json
 data/simplebuilding/advancement/recipes/building_blocks/cracked_diamond_block.json
 data/simplebuilding/advancement/recipes/building_blocks/enderite_ingot.json
+data/simplebuilding/advancement/recipes/building_blocks/polished_end_stone.json
+data/simplebuilding/advancement/recipes/building_blocks/polished_end_stone_from_end_stone_bricks_stonecutting.json
+data/simplebuilding/advancement/recipes/building_blocks/polished_end_stone_from_end_stone_stonecutting.json
 data/simplebuilding/advancement/recipes/decorations/enderite_block.json
 data/simplebuilding/advancement/recipes/misc/backpack_dyed.json
 data/simplebuilding/advancement/recipes/misc/basic_upgrade_template.json
@@ -191,6 +197,7 @@ data/simplebuilding/loot_table/blocks/husk_head.json
 data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json
 data/simplebuilding/loot_table/blocks/netherite_furnace.json
 data/simplebuilding/loot_table/blocks/netherite_smoker.json
+data/simplebuilding/loot_table/blocks/polished_end_stone.json
 data/simplebuilding/loot_table/blocks/reinforced_blast_furnace.json
 data/simplebuilding/loot_table/blocks/reinforced_furnace.json
 data/simplebuilding/loot_table/blocks/reinforced_smoker.json
@@ -237,6 +244,9 @@ data/simplebuilding/recipe/netherite_bundle_dyed.json
 data/simplebuilding/recipe/netherite_ingot.json
 data/simplebuilding/recipe/netherite_nugget.json
 data/simplebuilding/recipe/netherite_quiver_dyed.json
+data/simplebuilding/recipe/polished_end_stone.json
+data/simplebuilding/recipe/polished_end_stone_from_end_stone_bricks_stonecutting.json
+data/simplebuilding/recipe/polished_end_stone_from_end_stone_stonecutting.json
 data/simplebuilding/recipe/pulsating_armor_upgrade_dummy.json
 data/simplebuilding/recipe/pulsating_trim_template.json
 data/simplebuilding/recipe/quiver_dyed.json
