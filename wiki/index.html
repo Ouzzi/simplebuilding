@@ -634,6 +634,38 @@ a.chip:hover { text-decoration: none; }
 }
 .row-focused { outline: 3px solid var(--accent, #d6a34b); outline-offset: -3px; background: rgba(214, 163, 75, .18); scroll-margin: 5rem; }
 .ob-shared, .ob-attempts { display: block; margin-top: .4rem; }
+.ts-box { margin-top: 1rem; }
+.ts-ed, .ts-eras { margin: .6rem 0; }
+.ts-ed > summary, .ts-eras > summary { cursor: pointer; color: var(--accent-strong); font-size: .9rem; }
+.ts-in { width: 6.5rem; max-width: 100%; padding: .3rem .4rem; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--panel); color: var(--text); font: inherit; }
+.ts-in.ts-bad { border-color: var(--danger-border); background: var(--danger-bg); color: var(--danger-text); }
+.ts-k { width: 4.5rem; }
+.ts-flag { font-size: .75rem; color: var(--muted); }
+.ts-name { text-align: left; font-weight: 500; }
+.ts-row { margin: .6rem 0; display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; }
+.ts-ln { display: block; margin-top: .25rem; }
+.ts-res th, .ts-res td { text-align: right; white-space: nowrap; }
+.ts-res th[scope="row"], .ts-res th:first-child { text-align: left; }
+.ts-chart { margin-top: .8rem; }
+.ts-svg { width: 100%; max-width: 640px; height: auto; display: block; background: var(--panel); border: 1px solid var(--border); border-radius: 6px; }
+.ts-grid { stroke: var(--border); stroke-width: 1; }
+.ts-ref { stroke: var(--border-strong); stroke-dasharray: 3 3; }
+.ts-t { fill: var(--muted); font-size: 11px; }
+.ts-ref-t { fill: var(--text); }
+.ts-curve { fill: none; stroke-width: 2.5; }
+.ts-s-t { stroke: var(--accent-strong); }
+.ts-s-n { stroke: var(--end); stroke-dasharray: 7 4; }
+.ts-curve.ts-s-n { stroke-dasharray: 7 4; }
+.ts-dot { fill: var(--panel); stroke-width: 2; stroke-dasharray: none; }
+.ts-f-t { fill: var(--accent-strong); }
+.ts-f-n { fill: var(--end); }
+.ts-mean { stroke: var(--panel); stroke-width: 1.5; }
+.ts-era { stroke-width: 1.5; opacity: .85; }
+.ts-era-t { fill: var(--text); font-size: 10px; }
+.ts-legend { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin-top: .4rem; font-size: .85rem; }
+.ts-key { display: inline-block; width: .9rem; height: .9rem; border-radius: 50%; margin-right: .3rem; vertical-align: -.1rem; }
+.ts-ksel select { margin-left: .4rem; padding: .25rem; background: var(--panel); color: var(--text); border: 1px solid var(--border-strong); border-radius: 4px; font: inherit; }
+.ts-route { margin-top: .6rem; }
 .ob-shared code { overflow-wrap: anywhere; }
 /* Texturen (?tab=textures) */
 .tx-bar select { height: 32px; padding: 0 .45rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); font: inherit; max-width: 16rem; }
@@ -857,6 +889,27 @@ en: {
   obAverage: 'Ø {0} items per chest', obAverageTable: 'Ø {0} items per subtable call', obAverageCatch: 'Ø {0} items per treasure catch',
   obShared: 'Shared pool — applies to each listed table:',
   obAttempts: 'Expected chest openings: first item {0}; sixth item {1}. Independent, equivalent chests; default settings. No travel time estimate.',
+  tsTitle: 'Time to obtain', tsOverviewTitle: 'Time to obtain, by item',
+  tsIntro: 'How long it takes depends on how often you open each chest type, and the wiki cannot know that. The rates are scenario inputs you can edit: "targeted" = you look for exactly this source, "normal play" = you come across it. Prefilled values are assumptions copied from the developer tool, not measurements. Results are statistics (mean, median, 90 % of cases) for independent openings with the default settings; they contain no travel, crafting or preparation time.',
+  tsEdit: 'Edit scenarios (rates per hour)', tsEditHint: 'Prefilled with assumptions from {0}. Your values stay in this browser only. Empty = no rate = no time.',
+  tsTable: 'Chest type', tsPerHour: 'openings per hour', tsScT: 'Targeted', tsScN: 'Normal play',
+  tsAssumed: 'assumption, adjustable', tsOwn: 'your value', tsEmptyFlag: 'empty: no time',
+  tsK1: 'Pieces wanted, first value', tsK2: 'second value',
+  tsEras: 'Era hours (optional)', tsErasHint: 'Hour at which you assume an era starts in each scenario. Empty = no line in the chart. These hours are your input, not derived from Minecraft.', tsEraCol: 'Era',
+  tsReset: 'Reset to assumptions', tsClear: 'Clear all rates',
+  tsPiece: '{0} pc.', tsStat: 'mean {0} · median {1} · 90 % {2}', tsMean: 'Mean', tsMedian: 'Median',
+  tsDay: 'd', tsNoRate: 'no rate entered for {0}: no time', tsNoHit: 'this source never gives the item',
+  tsScenario: 'Scenario', tsSources: 'Sources with a rate', tsOfN: '{0} of {1}', tsCombined: 'All sources with a rate',
+  tsGapNote: 'Without a rate, so left out:',
+  tsUnmodelled: 'Not modelled (no time shown): {0}.', tsUmMob: 'mob drops', tsUmEnch: 'enchanted books', tsUmTrade: 'trades (depend on restocks and price items)',
+  tsPrereq: 'Prerequisites from the data:', tsNoReq: 'no dimension, villager or brewing prerequisite found', tsNoReqShort: 'none found',
+  tsReq_nether: 'Nether', tsReq_end: 'End', tsReq_trial: 'trial chambers', tsReq_village: 'villager {0}', tsReq_brewing: 'recipe with brewing stand or potion',
+  tsEarliest: 'earliest route stage: "{0}"', tsBeforeBrew: 'before "{0}"', tsAfterBrew: 'at or after "{0}"',
+  tsRouteNote: 'A usual route, not forced by the game; seed and play style change it.',
+  tsChartTitle: 'Time to k pieces', tsKSel: 'Pieces', tsChartHint: 'Chance that the pieces are in hand by that time. Time axis is logarithmic. Dot on the curve = mean; dots on the 50 % and 90 % lines = median and 90 % quantile.',
+  tsChartAria: 'Chart: chance of having {1} piece(s) of {0} over time', tsAxisX: 'time (logarithmic)', tsLegend: 'large dot = mean, small dots = median and 90 %',
+  tsNoChart: 'No chart: no scenario has a rate for a source of this item.', tsPick: 'Chart for item',
+  tsColItem: 'Item', tsColReq: 'Earliest route stage', tsOverviewNote: 'Mean time per scenario and piece count; open the item for median, 90 % and the chart. Sorted by the first column of "Targeted". A dash means no rate entered.',
   focusMissing: 'Row not found: {0}', rowLink: 'Link to this row',
   kvOfferChance: 'Chance when evaluated',
   kvOfferChanceHint: '(a drawn offer only appears this often)',
@@ -1369,6 +1422,27 @@ de: {
   obAverage: 'Ø {0} Stück je Kiste', obAverageTable: 'Ø {0} Stück je Untertabellen-Aufruf', obAverageCatch: 'Ø {0} Stück je Schatzfang',
   obShared: 'Gemeinsamer Pool — gilt für jede genannte Tabelle:',
   obAttempts: 'Erwartete Kistenöffnungen: erstes Stück {0}; sechstes Stück {1}. Unabhängige, gleichartige Kisten; Standardeinstellungen. Keine Schätzung der Reisezeit.',
+  tsTitle: 'Beschaffungszeit', tsOverviewTitle: 'Beschaffungszeit je Item',
+  tsIntro: 'Wie lange es dauert, hängt davon ab, wie oft du welche Kistenart öffnest, und das kann das Wiki nicht wissen. Die Raten sind Szenario-Eingaben, die du ändern kannst: „gezielt“ = du suchst genau diese Quelle, „normales Spiel“ = du kommst nebenbei vorbei. Vorbelegte Werte sind Annahmen aus dem Entwicklerwerkzeug, keine Messungen. Die Ergebnisse sind Statistik (Mittelwert, Median, 90 % der Fälle) für unabhängige Öffnungen mit Standardeinstellungen; Reise-, Bau- und Vorbereitungszeit sind nicht enthalten.',
+  tsEdit: 'Szenarien bearbeiten (Raten je Stunde)', tsEditHint: 'Vorbelegt mit Annahmen aus {0}. Deine Werte bleiben nur in diesem Browser. Leer = keine Rate = keine Zeit.',
+  tsTable: 'Kistenart', tsPerHour: 'Öffnungen je Stunde', tsScT: 'Gezielt', tsScN: 'Normales Spiel',
+  tsAssumed: 'Annahme, anpassbar', tsOwn: 'dein Wert', tsEmptyFlag: 'leer: keine Zeit',
+  tsK1: 'Gewünschte Stückzahl, erster Wert', tsK2: 'zweiter Wert',
+  tsEras: 'Zeitalter-Stunden (optional)', tsErasHint: 'Stunde, ab der du in jedem Szenario ein Zeitalter annimmst. Leer = keine Linie im Diagramm. Diese Stunden sind deine Eingabe, nicht aus Minecraft abgeleitet.', tsEraCol: 'Zeitalter',
+  tsReset: 'Auf Annahmen zurücksetzen', tsClear: 'Alle Raten leeren',
+  tsPiece: '{0} Stk.', tsStat: 'Ø {0} · Median {1} · 90 % {2}', tsMean: 'Mittel', tsMedian: 'Median',
+  tsDay: 'd', tsNoRate: 'keine Rate für {0} eingegeben: keine Zeit', tsNoHit: 'diese Quelle liefert das Item nie',
+  tsScenario: 'Szenario', tsSources: 'Quellen mit Rate', tsOfN: '{0} von {1}', tsCombined: 'Alle Quellen mit Rate',
+  tsGapNote: 'Ohne Rate, deshalb nicht enthalten:',
+  tsUnmodelled: 'Nicht modelliert (keine Zeit angezeigt): {0}.', tsUmMob: 'Mob-Drops', tsUmEnch: 'verzauberte Bücher', tsUmTrade: 'Handel (hängt von Auffüllungen und Preis-Items ab)',
+  tsPrereq: 'Voraussetzungen aus den Daten:', tsNoReq: 'keine Dimension, Dorfbewohner- oder Brauvoraussetzung gefunden', tsNoReqShort: 'keine gefunden',
+  tsReq_nether: 'Nether', tsReq_end: 'End', tsReq_trial: 'Prüfungskammern', tsReq_village: 'Dorfbewohner {0}', tsReq_brewing: 'Rezept mit Braustand oder Trank',
+  tsEarliest: 'frühester Routenschritt: „{0}“', tsBeforeBrew: 'vor „{0}“', tsAfterBrew: 'bei oder nach „{0}“',
+  tsRouteNote: 'Eine übliche Spielroute, vom Spiel nicht erzwungen; Seed und Spielweise ändern sie.',
+  tsChartTitle: 'Zeit bis k Stück', tsKSel: 'Stückzahl', tsChartHint: 'Chance, dass die Stücke bis zu dieser Zeit da sind. Die Zeitachse ist logarithmisch. Punkt auf der Kurve = Mittelwert; Punkte auf der 50-%- und 90-%-Linie = Median und 90-%-Quantil.',
+  tsChartAria: 'Diagramm: Chance auf {1} Stück {0} im Zeitverlauf', tsAxisX: 'Zeit (logarithmisch)', tsLegend: 'großer Punkt = Mittelwert, kleine Punkte = Median und 90 %',
+  tsNoChart: 'Kein Diagramm: In keinem Szenario hat eine Quelle dieses Items eine Rate.', tsPick: 'Diagramm für Item',
+  tsColItem: 'Item', tsColReq: 'Frühester Routenschritt', tsOverviewNote: 'Mittlere Zeit je Szenario und Stückzahl; Median, 90 % und das Diagramm stehen auf der Item-Seite. Sortiert nach der ersten Spalte von „Gezielt“. Ein Strich heißt: keine Rate eingegeben.',
   focusMissing: 'Zeile nicht gefunden: {0}', rowLink: 'Link zu dieser Zeile',
   kvOfferChance: 'Chance bei Auswertung',
   kvOfferChanceHint: '(so oft erscheint ein gezogenes Angebot)',
@@ -2910,6 +2984,7 @@ function entryPage(id, kind) {
   var iwOut = IW.byOutput.get(id) || [];
   var srcs = OB.byItem.get(id) || [];
   h += obtainCard(id, e, isBlock, stations, byStation, dropsFrom, iwOut, srcs);
+  h += timeBox(id);
 
   /* 4. Alles Weitere, einklappbar. Abschnitte ohne Eintrag wandern gesammelt ans Ende. */
   var parts = [];
@@ -3720,6 +3795,7 @@ function buildObtain() {
     if (!OB.byTable.has(tk)) OB.byTable.set(tk, []); OB.byTable.get(tk).push(s);
   });
   OB.tags = isObj(o.enchantmentTags) ? o.enchantmentTags : {};
+  tsBuild();
 }
 function roman(n) { return ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'][n] || String(n); }
 function mobName(id) {
@@ -3733,6 +3809,347 @@ function srcCountText(s) { var c = arr(s.count); return c.length === 2 && (c[0] 
 function srcSortKey(s) { return (s.type === 'mob' ? 0 : 1) * 1000 - num(s.chance, 0); }
 function enchLevelText(s) { return s.enchantment ? displayName(s.enchantment) + ' ' + roman(num(s.level, 1)) : ''; }
 function configNote(s) { return s.configFlag ? ' · <a href="#/config/' + esc(s.configFlag) + '">' + esc(T('obOnlyWith', s.configFlag)) + '</a>' : ''; }
+/* ------------------------------------------------------------------ */
+/* Beschaffungszeit: Zeit bis zum k-ten Stueck                         */
+/* ------------------------------------------------------------------ */
+/* Ereignisraten (Oeffnungen je Stunde) sind Eingaben des Lesers (Szenarien "gezielt" und
+   "normal"); die Vorbelegung kopiert nur die Annahmen aus sbdev/params.py (D.obtain.scenario).
+   Rechnung wie wiki/obtain_time.py (dort erklaert, dort mit Referenzwerten getestet):
+   Treffer-Oeffnungen bilden einen Poisson-Strom, P(T_k > t) = sum_{n<k} Pois(n; lam t) P(H_1+..+H_n < k). */
+var TS_K = 24, TS_STORE = 'simplebuilding-wiki-scenario', TS_SC = ['t', 'n'];
+var TS = (function () {
+  var v = {};
+  try { v = JSON.parse(window.localStorage.getItem(TS_STORE) || '{}'); } catch (err) { v = {}; }
+  if (!isObj(v)) v = {};
+  function obj(x) { return isObj(x) ? x : {}; }
+  var k = Array.isArray(v.k) && v.k.length === 2 ? v.k : [1, 6];
+  return { k: k, t: obj(v.t), n: obj(v.n), ht: obj(v.ht), hn: obj(v.hn), pick: typeof v.pick === 'string' ? v.pick : '' };
+})();
+function tsSave() { try { window.localStorage.setItem(TS_STORE, JSON.stringify(TS)); } catch (err) { /* nur diese Sitzung */ } }
+function tsScen() { return D && isObj(D.obtain) && isObj(D.obtain.scenario) ? D.obtain.scenario : null; }
+function tsClampK(k) { k = Math.round(Number(k)); return isFinite(k) ? Math.min(TS_K, Math.max(1, k)) : 1; }
+function tsKs() { return [tsClampK(TS.k[0]), tsClampK(TS.k[1])]; }
+function tsParse(s) { s = String(s == null ? '' : s).trim().replace(',', '.'); if (s === '') return null; var n = Number(s); return isFinite(n) && n >= 0 ? n : null; }
+function tsDecimal(v) { var s = String(v); return LANG === 'de' ? s.replace('.', ',') : s; }
+/* Rate einer Tabelle im Szenario: { v: Zahl|null, assumed: aus params.py uebernommen, text: Feldinhalt } */
+function tsRate(sc, table) {
+  var own = TS[sc];
+  if (Object.prototype.hasOwnProperty.call(own, table)) return { v: tsParse(own[table]), assumed: false, text: String(own[table]) };
+  var d = tsScen(), r = d && isObj(d.rates) ? d.rates[table] : null, v = r ? r[sc === 't' ? 'targeted' : 'normal'] : null;
+  return { v: v == null ? null : v, assumed: v != null, text: v == null ? '' : tsDecimal(v) };
+}
+function tsHours(sc, id) { return tsParse((sc === 't' ? TS.ht : TS.hn)[id]); }
+
+/* --- Rechnung ---------------------------------------------------- */
+function tsConv(a, b, size) {
+  var out = new Array(size).fill(0);
+  for (var i = 0; i < a.length; i++) if (a[i]) for (var j = 0; j < b.length && i + j < size; j++) out[i + j] += a[i] * b[j];
+  return out;
+}
+/* [{rate, pmf}] -> { lam, h } oder null (keine Treffer / keine Rate) */
+function tsCombine(list) {
+  var lam = 0, jump = new Array(TS_K + 1).fill(0);
+  list.forEach(function (s) {
+    var hit = s.rate * (1 - s.pmf[0]);
+    if (s.rate > 0 && hit > 0) { lam += hit; for (var m = 1; m <= TS_K; m++) jump[m] += hit * s.pmf[m] / (1 - s.pmf[0]); }
+  });
+  if (!(lam > 0)) return null;
+  return { lam: lam, h: jump.map(function (x) { return x / lam; }) };
+}
+function tsCum(h, k) {
+  var g = [], power = [1].concat(new Array(k - 1).fill(0));
+  for (var n = 0; n < k; n++) { g.push(power.reduce(function (a, b) { return a + b; }, 0)); power = tsConv(power, h.slice(0, k), k); }
+  return g;
+}
+/* P(T_k > t) */
+function tsSurvival(c, k, t, g) {
+  g = g || tsCum(c.h, k);
+  var x = c.lam * t, p = Math.exp(-x), total = 0;
+  for (var n = 0; n < k; n++) { total += p * g[n]; p *= x / (n + 1); }
+  return total;
+}
+function tsQuant(c, k, target, g) {
+  var hi = 1 / c.lam, lo = 0;
+  while (tsSurvival(c, k, hi, g) > target) hi *= 2;
+  for (var i = 0; i < 100; i++) { var mid = (lo + hi) / 2; if (tsSurvival(c, k, mid, g) > target) lo = mid; else hi = mid; }
+  return (lo + hi) / 2;
+}
+function timeStats(c, k) {
+  var g = tsCum(c.h, k);
+  return { mean: g.reduce(function (a, b) { return a + b; }, 0) / c.lam, median: tsQuant(c, k, 0.5, g), q90: tsQuant(c, k, 0.1, g) };
+}
+
+/* --- Daten ------------------------------------------------------- */
+function tsBuild() {
+  OB.timeByItem = new Map();
+  arr(D && D.obtain && D.obtain.timeStreams).filter(isObj).forEach(function (s) {
+    if (!OB.timeByItem.has(s.item)) OB.timeByItem.set(s.item, []);
+    OB.timeByItem.get(s.item).push(s);
+  });
+}
+function tsStream(item, table) { return arr(OB.timeByItem && OB.timeByItem.get(item)).filter(function (s) { return s.table === table; })[0] || null; }
+function tsTableLabel(table) {
+  var s = arr(D.obtain.sources).filter(function (x) { return x.table === table; })[0];
+  return s ? srcLabel(s) : prettyFromId(table);
+}
+/* Strom + Szenario + k -> { stats|null, rate, why } */
+function tsOne(stream, sc, k) {
+  var r = tsRate(sc, stream.table);
+  if (r.v == null || !(r.v > 0)) return { stats: null, rate: r.v, why: T('tsNoRate', tsTableLabel(stream.table)) };
+  var c = tsCombine([{ rate: r.v, pmf: stream.pmf }]);
+  return c ? { stats: timeStats(c, k), rate: r.v, c: c } : { stats: null, rate: r.v, why: T('tsNoHit') };
+}
+function tsAll(item, sc) {
+  var used = [], missing = [];
+  arr(OB.timeByItem && OB.timeByItem.get(item)).forEach(function (s) {
+    var r = tsRate(sc, s.table);
+    if (r.v != null && r.v > 0) used.push({ rate: r.v, pmf: s.pmf, s: s }); else missing.push(s);
+  });
+  return { c: tsCombine(used), used: used, missing: missing };
+}
+function fmtDur(h) {
+  if (!isFinite(h)) return '–';
+  if (h < 1) return fmtStat(h * 60) + ' min';
+  if (h < 48) return fmtStat(h) + ' h';
+  return fmtStat(h / 24) + ' ' + T('tsDay');
+}
+function tsStatText(st) { return T('tsStat', fmtDur(st.mean), fmtDur(st.median), fmtDur(st.q90)); }
+function tsScName(sc) { return T(sc === 't' ? 'tsScT' : 'tsScN'); }
+
+/* --- Voraussetzungen und Zeitalter (belegt, keine Stundenlinie) --- */
+function tsEraIndex(id) { var e = tsScen() ? arr(tsScen().eras) : []; for (var i = 0; i < e.length; i++) if (e[i].id === id) return i; return -1; }
+function tsEraName(id) { var e = arr(tsScen() && tsScen().eras).filter(function (x) { return x.id === id; })[0]; return e ? (LANG === 'de' ? e.de : e.en) : id; }
+function tsBrewingRecipe(id) {
+  var e = IX.items.get(id) || IX.blocks.get(id);
+  return e ? strs(e.craftedBy).some(function (rid) {
+    var r = IX.recipes.get(rid);
+    return r && strs(r.ingredients).some(function (x) { return /^minecraft:(brewing_stand|(splash_|lingering_)?potion)$/.test(x); });
+  }) : false;
+}
+/* Liste von { tag, label, stage } aus den Quellen des Items, seinen Handeln und Rezeptzutaten */
+function tsPrereqs(id) {
+  var out = [], seen = {};
+  function add(tag, label) { if (!seen[tag]) { seen[tag] = 1; out.push({ tag: tag, label: label, stage: (tsScen().requireStage || {})[tag] }); } }
+  arr(OB.timeByItem && OB.timeByItem.get(id)).forEach(function (s) { arr(s.requires).forEach(function (r) { add(r, T('tsReq_' + r)); }); });
+  var e = IX.items.get(id) || IX.blocks.get(id);
+  if (e) strs(e.trades).forEach(function (tid) { var t = IX.trades.get(tid); if (t) add('village', T('tsReq_village', levelLabel(t.level))); });
+  if (tsBrewingRecipe(id)) add('brewing', T('tsReq_brewing'));
+  return out;
+}
+/* Fruehester Zeitalter-Schritt ueber die Quellen mit Zeitmodell (die am wenigsten anspruchsvolle zaehlt). */
+function tsRoute(id) {
+  var streams = arr(OB.timeByItem && OB.timeByItem.get(id)), best = null;
+  streams.forEach(function (s) {
+    var idx = -1, sid = '';
+    arr(s.requires).forEach(function (r) { var st = tsScen().requireStage[r], i = tsEraIndex(st); if (i > idx) { idx = i; sid = st; } });
+    if (best == null || idx < best.idx) best = { idx: idx, id: sid };
+  });
+  if (tsBrewingRecipe(id)) { var b = tsEraIndex('brewing'); if (best == null) best = { idx: b, id: 'brewing' }; else if (b > best.idx) best = { idx: b, id: 'brewing' }; }
+  return best;
+}
+function tsRouteText(id) {
+  var rt = tsRoute(id);
+  if (!rt) return '';
+  var b = tsEraIndex('brewing');
+  var h = rt.idx < 0 ? T('tsNoReq') : T('tsEarliest', tsEraName(rt.id));
+  return h + ' · ' + T(rt.idx < b ? 'tsBeforeBrew' : 'tsAfterBrew', tsEraName('brewing')) + '. ' + T('tsRouteNote');
+}
+
+/* --- Eingabemaske ------------------------------------------------ */
+function tsEditor(tables) {
+  var sc = tsScen();
+  if (!sc) return '';
+  var h = '<details class="ts-ed"><summary>' + esc(T('tsEdit')) + '</summary><p class="muted tiny">' + esc(T('tsEditHint', sc.origin)) + '</p>';
+  h += '<div class="table-wrap" tabindex="0" role="region" aria-label="' + esc(T('tsEdit')) + '"><table class="table ts-tab"><thead><tr><th>' + esc(T('tsTable')) + '</th>' +
+    TS_SC.map(function (s) { return '<th>' + esc(tsScName(s)) + ' (' + esc(T('tsPerHour')) + ')</th>'; }).join('') + '</tr></thead><tbody>';
+  tables.forEach(function (tb) {
+    h += '<tr><th scope="row" class="ts-name">' + esc(tsTableLabel(tb)) + '</th>';
+    TS_SC.forEach(function (s) {
+      var id = 'ts-' + s + '-' + tb.replace(/[^a-z0-9]/gi, '_');
+      h += '<td><input class="ts-in" id="' + id + '" type="text" inputmode="decimal" data-ts-in="' + s + '" data-table="' + esc(tb) + '" aria-label="' + esc(tsTableLabel(tb) + ', ' + tsScName(s) + ', ' + T('tsPerHour')) + '"> <span class="ts-flag" data-ts-flag="' + s + '|' + esc(tb) + '"></span></td>';
+    });
+    h += '</tr>';
+  });
+  h += '</tbody></table></div>';
+  h += '<div class="ts-row"><label>' + esc(T('tsK1')) + ' <input class="ts-in ts-k" type="number" min="1" max="' + TS_K + '" data-ts-k="0"></label> <label>' + esc(T('tsK2')) + ' <input class="ts-in ts-k" type="number" min="1" max="' + TS_K + '" data-ts-k="1"></label></div>';
+  h += '<details class="ts-eras"><summary>' + esc(T('tsEras')) + '</summary><p class="muted tiny">' + esc(T('tsErasHint')) + '</p><div class="table-wrap" tabindex="0" role="region" aria-label="' + esc(T('tsEras')) + '"><table class="table"><thead><tr><th>' + esc(T('tsEraCol')) + '</th>' +
+    TS_SC.map(function (s) { return '<th>' + esc(tsScName(s)) + ' (h)</th>'; }).join('') + '</tr></thead><tbody>';
+  arr(sc.eras).forEach(function (e) {
+    h += '<tr><th scope="row" class="ts-name">' + esc(LANG === 'de' ? e.de : e.en) + '</th>' + TS_SC.map(function (s) {
+      return '<td><input class="ts-in" type="text" inputmode="decimal" data-ts-era="' + s + '|' + esc(e.id) + '" aria-label="' + esc((LANG === 'de' ? e.de : e.en) + ', ' + tsScName(s) + ' (h)') + '"></td>';
+    }).join('') + '</tr>';
+  });
+  h += '</tbody></table></div></details>';
+  h += '<div class="ts-row"><button type="button" class="btn" data-ts-act="reset">' + esc(T('tsReset')) + '</button> <button type="button" class="btn" data-ts-act="clear">' + esc(T('tsClear')) + '</button></div></details>';
+  return h;
+}
+/* Felder und "Annahme"-Marken aus dem Zustand fuellen (nie ein Feld, das gerade getippt wird). */
+function tsSyncEditors() {
+  $main.querySelectorAll('[data-ts-in]').forEach(function (inp) {
+    var r = tsRate(inp.getAttribute('data-ts-in'), inp.getAttribute('data-table'));
+    if (document.activeElement !== inp) inp.value = r.text;
+    var flag = $main.querySelector('[data-ts-flag="' + inp.getAttribute('data-ts-in') + '|' + inp.getAttribute('data-table').replace(/"/g, '') + '"]');
+    if (flag) flag.textContent = r.assumed ? T('tsAssumed') : (r.v == null ? T('tsEmptyFlag') : T('tsOwn'));
+    inp.classList.toggle('ts-bad', r.v == null && String(r.text).trim() !== '');
+  });
+  $main.querySelectorAll('[data-ts-k]').forEach(function (inp) { if (document.activeElement !== inp) inp.value = tsKs()[Number(inp.getAttribute('data-ts-k'))]; });
+  $main.querySelectorAll('[data-ts-era]').forEach(function (inp) {
+    var p = inp.getAttribute('data-ts-era').split('|');
+    if (document.activeElement !== inp) inp.value = (p[0] === 't' ? TS.ht : TS.hn)[p[1]] || '';
+  });
+}
+
+/* --- Ausgabe ----------------------------------------------------- */
+function tsCell(res) { return res.stats ? esc(fmtDur(res.stats.mean)) + '</td><td>' + esc(fmtDur(res.stats.median)) + '</td><td>' + esc(fmtDur(res.stats.q90)) : '<span class="muted">–</span></td><td><span class="muted">–</span></td><td><span class="muted">–</span>'; }
+/* Eine Quelle (Karte): zwei Zeilen, je Szenario */
+function tsLine(item, table) {
+  var s = tsStream(item, table);
+  if (!s) return '';
+  var ks = tsKs(), parts = TS_SC.map(function (sc) {
+    var one = ks.map(function (k, i) { var r = tsOne(s, sc, k); return r.stats ? esc(T('tsPiece', k)) + ': ' + esc(tsStatText(r.stats)) : null; });
+    var gap = tsOne(s, sc, 1);
+    return '<span class="ts-ln"><b>' + esc(tsScName(sc)) + '</b> ' + (gap.stats ? one.join(' · ') : '<span class="muted">' + esc(gap.why) + '</span>') + '</span>';
+  });
+  return parts.join('');
+}
+function tsResultTable(item) {
+  var ks = tsKs(), sc = tsScen();
+  var h = '<div class="table-wrap" tabindex="0" role="region" aria-label="' + esc(T('tsCombined')) + '"><table class="table ts-res"><thead><tr><th rowspan="2">' + esc(T('tsScenario')) + '</th><th rowspan="2">' + esc(T('tsSources')) + '</th>' +
+    ks.map(function (k) { return '<th colspan="3">' + esc(T('tsPiece', k)) + '</th>'; }).join('') + '</tr><tr>' +
+    ks.map(function () { return '<th>' + esc(T('tsMean')) + '</th><th>' + esc(T('tsMedian')) + '</th><th>90 %</th>'; }).join('') + '</tr></thead><tbody>';
+  var gaps = [];
+  TS_SC.forEach(function (s) {
+    var a = tsAll(item, s), total = a.used.length + a.missing.length;
+    h += '<tr><th scope="row">' + esc(tsScName(s)) + '</th><td>' + esc(T('tsOfN', a.used.length, total)) + '</td>' +
+      ks.map(function (k) { return '<td>' + tsCell({ stats: a.c ? timeStats(a.c, k) : null }) + '</td>'; }).join('') + '</tr>';
+    if (a.missing.length) gaps.push('<b>' + esc(tsScName(s)) + '</b>: ' + esc(a.missing.map(function (m) { return tsTableLabel(m.table); }).join(', ')));
+  });
+  h += '</tbody></table></div>';
+  if (gaps.length) h += '<p class="muted tiny ts-gap">' + esc(T('tsGapNote')) + ' ' + gaps.join(' · ') + '</p>';
+  return h;
+}
+/* --- Diagramm ---------------------------------------------------- */
+function tsTick(h) { return h < 1 ? fmtStat(h * 60) + ' min' : h < 48 ? fmtStat(h) + ' h' : fmtStat(h / 24) + ' d'; }
+function tsChart(item, k) {
+  var W = 480, H = 300, L = 46, R = 12, Tp = 14, B = 44, pw = W - L - R, ph = H - Tp - B;
+  var curves = [], lo = Infinity, hi = 0;
+  TS_SC.forEach(function (sc) {
+    var a = tsAll(item, sc);
+    if (!a.c) return;
+    var g = tsCum(a.c.h, k), st = timeStats(a.c, k);
+    curves.push({ sc: sc, c: a.c, g: g, st: st });
+    lo = Math.min(lo, tsQuant(a.c, k, 0.99, g)); hi = Math.max(hi, tsQuant(a.c, k, 0.005, g));
+  });
+  if (!curves.length) return '<p class="muted ts-gap">' + esc(T('tsNoChart')) + '</p>';
+  var eras = [];
+  TS_SC.forEach(function (sc) { arr(tsScen().eras).forEach(function (e) { var hh = tsHours(sc, e.id); if (hh != null && hh > 0) eras.push({ sc: sc, h: hh, name: LANG === 'de' ? e.de : e.en }); }); });
+  eras.forEach(function (e) { lo = Math.min(lo, e.h / 1.3); hi = Math.max(hi, e.h * 1.3); });
+  lo = Math.max(lo / 1.3, 1e-6); hi = Math.max(hi * 1.1, lo * 10);
+  var l0 = Math.log(lo), l1 = Math.log(hi);
+  function X(t) { return L + (Math.log(t) - l0) / (l1 - l0) * pw; }
+  function Y(p) { return Tp + (1 - p) * ph; }
+  var s = '<svg class="ts-svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(T('tsChartAria', displayName(item), k)) + '"><title>' + esc(T('tsChartAria', displayName(item), k)) + '</title>';
+  [0, .25, .5, .75, .9, 1].forEach(function (p) {
+    s += '<line class="ts-grid' + (p === .5 || p === .9 ? ' ts-ref' : '') + '" x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(p).toFixed(1) + '" y2="' + Y(p).toFixed(1) + '"/><text class="ts-t" x="' + (L - 5) + '" y="' + (Y(p) + 4).toFixed(1) + '" text-anchor="end">' + Math.round(p * 100) + '%</text>';
+  });
+  s += '<text class="ts-t ts-ref-t" x="' + (W - R - 2) + '" y="' + (Y(.5) - 3).toFixed(1) + '" text-anchor="end">' + esc(T('tsMedian')) + '</text><text class="ts-t ts-ref-t" x="' + (W - R - 2) + '" y="' + (Y(.9) - 3).toFixed(1) + '" text-anchor="end">90 %</text>';
+  var span = Math.log10(hi / lo), ticks = [];
+  for (var e = Math.floor(Math.log10(lo)) - 1; e <= Math.ceil(Math.log10(hi)); e++) [1, 2, 5].forEach(function (m) { var t = m * Math.pow(10, e); if (t >= lo && t <= hi && (span <= 3 || m === 1)) ticks.push(t); });
+  ticks.forEach(function (t, i) {
+    s += '<line class="ts-grid" x1="' + X(t).toFixed(1) + '" x2="' + X(t).toFixed(1) + '" y1="' + Tp + '" y2="' + (Tp + ph) + '"/><text class="ts-t" x="' + X(t).toFixed(1) + '" y="' + (Tp + ph + 14) + '" text-anchor="middle">' + esc(tsTick(t)) + '</text>';
+  });
+  s += '<text class="ts-t" x="' + (L + pw / 2) + '" y="' + (H - 6) + '" text-anchor="middle">' + esc(T('tsAxisX')) + '</text>';
+  eras.forEach(function (e, i) {
+    var x = X(e.h).toFixed(1);
+    s += '<line class="ts-era ts-s-' + e.sc + '" x1="' + x + '" x2="' + x + '" y1="' + Tp + '" y2="' + (Tp + ph) + '"/><text class="ts-t ts-era-t" transform="translate(' + (Number(x) - 3) + ',' + (Tp + 4 + (i % 3) * 0) + ') rotate(-90)" text-anchor="end">' + esc(e.name + ' (' + tsScName(e.sc) + ')') + '</text>';
+  });
+  curves.forEach(function (cv) {
+    var pts = [];
+    for (var i = 0; i <= 120; i++) { var t = Math.exp(l0 + (l1 - l0) * i / 120); pts.push(X(t).toFixed(1) + ',' + Y(1 - tsSurvival(cv.c, k, t, cv.g)).toFixed(1)); }
+    s += '<polyline class="ts-curve ts-s-' + cv.sc + '" points="' + pts.join(' ') + '"/>';
+    [['mean', cv.st.mean]].forEach(function (m) {
+      var px = X(Math.min(Math.max(m[1], lo), hi)).toFixed(1), py = Y(1 - tsSurvival(cv.c, k, m[1], cv.g)).toFixed(1);
+      s += '<circle class="ts-mean ts-f-' + cv.sc + '" cx="' + px + '" cy="' + py + '" r="4.5"><title>' + esc(tsScName(cv.sc) + ': ' + T('tsMean') + ' ' + fmtDur(m[1])) + '</title></circle>';
+    });
+    [[.5, cv.st.median], [.9, cv.st.q90]].forEach(function (m) {
+      s += '<circle class="ts-dot ts-s-' + cv.sc + '" cx="' + X(m[1]).toFixed(1) + '" cy="' + Y(m[0]).toFixed(1) + '" r="3"><title>' + esc(tsScName(cv.sc) + ': ' + (m[0] === .5 ? T('tsMedian') : '90 %') + ' ' + fmtDur(m[1])) + '</title></circle>';
+    });
+  });
+  s += '</svg>';
+  var legend = '<div class="ts-legend">' + curves.map(function (cv) { return '<span><i class="ts-key ts-f-' + cv.sc + '"></i>' + esc(tsScName(cv.sc)) + '</span>'; }).join('') + '<span>' + esc(T('tsLegend')) + '</span></div>';
+  return s + legend;
+}
+function tsChartBox(item) {
+  var ks = tsKs(), pick = TS.pick === 'b' ? 1 : 0, k = ks[pick];
+  return '<div class="ts-chart"><h3>' + esc(T('tsChartTitle')) + '</h3><label class="ts-ksel">' + esc(T('tsKSel')) + ' <select data-ts-ksel>' +
+    ks.map(function (kk, i) { return '<option value="' + (i ? 'b' : 'a') + '"' + (i === pick ? ' selected' : '') + '>' + esc(T('tsPiece', kk)) + '</option>'; }).join('') + '</select></label>' +
+    '<p class="muted tiny">' + esc(T('tsChartHint')) + '</p>' + tsChart(item, k) + '</div>';
+}
+function tsItemOut(item) {
+  var h = tsResultTable(item) + tsChartBox(item);
+  var r = tsRouteText(item);
+  var pre = tsPrereqs(item);
+  if (pre.length || r) h += '<p class="ts-route"><b>' + esc(T('tsPrereq')) + '</b> ' + (pre.length ? esc(pre.map(function (p) { return p.label; }).join(', ')) : esc(T('tsNoReq'))) + (r ? '<br>' + esc(r) : '') + '</p>';
+  return h;
+}
+/* Abschnitt auf der Item-Seite */
+function timeBox(item) {
+  if (!tsScen() || !arr(OB.timeByItem && OB.timeByItem.get(item)).length) return '';
+  var tables = arr(OB.timeByItem.get(item)).map(function (s) { return s.table; });
+  var e = IX.items.get(item) || IX.blocks.get(item), srcs = OB.byItem.get(item) || [], modelled = tables.length;
+  var um = [];
+  if (srcs.some(function (s) { return s.type === 'mob'; })) um.push(T('tsUmMob'));
+  if (srcs.some(function (s) { return s.enchantment || s.randomEnchant; })) um.push(T('tsUmEnch'));
+  if (e && strs(e.trades).length) um.push(T('tsUmTrade'));
+  var h = '<section class="obtain ts-box" id="' + secAnchor('obtainTime') + '"><h2>' + esc(T('tsTitle')) + '</h2><p class="muted">' + esc(T('tsIntro')) + '</p>' + tsEditor(tables) +
+    '<div data-ts-out="item" data-item="' + esc(item) + '"></div>';
+  if (um.length) h += '<p class="muted tiny">' + esc(T('tsUnmodelled', um.join(', '))) + '</p>';
+  return h + '</section>';
+}
+/* Uebersicht (Seite "Loot"): dieselben Daten, alle Items */
+function tsOverview() {
+  var sc = tsScen();
+  if (!sc || !OB.timeByItem || !OB.timeByItem.size) return '';
+  var tables = [];
+  OB.timeByItem.forEach(function (list) { list.forEach(function (s) { if (tables.indexOf(s.table) < 0) tables.push(s.table); }); });
+  tables.sort(function (a, b) { return tsTableLabel(a).localeCompare(tsTableLabel(b)); });
+  var items = Array.from(OB.timeByItem.keys()).sort(function (a, b) { return displayName(a).localeCompare(displayName(b)); });
+  if (!items.some(function (i) { return i === TS.chartItem; })) TS.chartItem = items[0];
+  var h = '<section class="ts-box" id="ts-overview"><h2>' + esc(T('tsOverviewTitle')) + '</h2><p class="muted">' + esc(T('tsIntro')) + '</p>' + tsEditor(tables) +
+    '<div data-ts-out="overview"></div><div class="ts-chart"><label class="ts-ksel">' + esc(T('tsPick')) + ' <select data-ts-pick>' +
+    items.map(function (i) { return '<option value="' + esc(i) + '"' + (i === TS.chartItem ? ' selected' : '') + '>' + esc(displayName(i)) + '</option>'; }).join('') + '</select></label><div data-ts-out="chart"></div></div></section>';
+  return h;
+}
+function tsOverviewTable() {
+  var ks = tsKs(), rows = [];
+  OB.timeByItem.forEach(function (list, item) {
+    var res = TS_SC.map(function (sc) { var a = tsAll(item, sc); return ks.map(function (k) { return a.c ? timeStats(a.c, k) : null; }); });
+    rows.push({ item: item, res: res, key: res[0][0] ? res[0][0].mean : Infinity });
+  });
+  rows.sort(function (a, b) { return a.key - b.key || displayName(a.item).localeCompare(displayName(b.item)); });
+  var h = '<div class="table-wrap" tabindex="0" role="region" aria-label="' + esc(T('tsOverviewTitle')) + '"><table class="table ts-res"><thead><tr><th rowspan="2">' + esc(T('tsColItem')) + '</th><th rowspan="2">' + esc(T('tsColReq')) + '</th>' +
+    TS_SC.map(function (sc) { return '<th colspan="' + ks.length + '">' + esc(tsScName(sc) + ' · ' + T('tsMean')) + '</th>'; }).join('') + '</tr><tr>' +
+    TS_SC.map(function () { return ks.map(function (k) { return '<th>' + esc(T('tsPiece', k)) + '</th>'; }).join(''); }).join('') + '</tr></thead><tbody>';
+  rows.forEach(function (r) {
+    var rt = tsRoute(r.item);
+    h += '<tr><th scope="row"><a href="#/' + (IX.blocks.has(r.item) && !IX.items.has(r.item) ? 'blocks' : 'items') + '/' + esc(r.item) + '">' + esc(displayName(r.item)) + '</a></th><td>' + esc(rt ? (rt.idx < 0 ? T('tsNoReqShort') : tsEraName(rt.id)) : '') + '</td>' +
+      r.res.map(function (per) { return per.map(function (st) { return '<td>' + (st ? esc(fmtDur(st.mean)) : '<span class="muted">–</span>') + '</td>'; }).join(''); }).join('') + '</tr>';
+  });
+  return h + '</tbody></table></div><p class="muted tiny">' + esc(T('tsOverviewNote')) + '</p>';
+}
+/* Alle Ausgaben neu rechnen (Eingabe, Sprache, Seitenwechsel). */
+function tsRefresh() {
+  if (!tsScen()) return;
+  var ks = tsKs();
+  $main.querySelectorAll('[data-ts-out]').forEach(function (box) {
+    var kind = box.getAttribute('data-ts-out');
+    if (kind === 'item') box.innerHTML = tsItemOut(box.getAttribute('data-item'));
+    else if (kind === 'overview') box.innerHTML = tsOverviewTable();
+    else if (kind === 'chart') { var pick = TS.pick === 'b' ? 1 : 0; box.innerHTML = tsChartBox(TS.chartItem); }
+  });
+  $main.querySelectorAll('[data-ts-line]').forEach(function (el) { el.innerHTML = tsLine(el.getAttribute('data-item'), el.getAttribute('data-table')); });
+  tsSyncEditors();
+}
 /* Eine Quelle als Karte wie ein Rezept: Behaelter/Opfer (+ Ausloeser) -> Ergebnis, darunter Chance und Bedingung. */
 function sourceCard(s) {
   var focusId = [s.table, s.pool == null ? '' : s.pool, s.item, s.enchantment || '', s.level || '', s.victim || '', s.how || ''].join('/');
@@ -3755,6 +4172,7 @@ function sourceCard(s) {
     meta.push(esc(T(s.type === 'fishing' ? 'obPerCatch' : s.type === 'vault' ? 'obPerVault' : 'obPerChest', fmtNum(s.chance))));
     if (s.perChest != null) meta.push(esc(T(s.type === 'vault' ? 'obAverageTable' : s.type === 'fishing' ? 'obAverageCatch' : 'obAverage', fmtStat(s.perChest))));
     if (arr(s.sharedTables).length > 1) meta.push('<span class="ob-shared">' + esc(T('obShared')) + ' ' + s.sharedTables.map(function (t) { return '<code>' + esc(t) + '</code>'; }).join(', ') + '</span>');
+    if (tsStream(s.item, s.table) && !s.enchantment && !s.randomEnchant) meta.push('<span class="ob-attempts ts-time" data-ts-line data-item="' + esc(s.item) + '" data-table="' + esc(s.table) + '"></span>');
     if (s.expectedAttempts) meta.push('<span class="ob-attempts">' + esc(T('obAttempts', fmtStat(s.expectedAttempts.first), fmtStat(s.expectedAttempts.sixth))) + '</span>');
     if (srcCountText(s)) meta.push(esc(srcCountText(s)));
     if (s.randomEnchant) meta.push(esc(T('obRandomEnchant')));
@@ -3846,6 +4264,7 @@ function obtainOverview() {
   if (!groups.length) return '';
   groups.sort(function (a, b) { return (a[0].type === 'mob' ? 0 : 1) - (b[0].type === 'mob' ? 0 : 1) || srcLabel(a[0]).localeCompare(srcLabel(b[0])); });
   var h = '<p class="muted tiny">' + T('obOverviewIntro') + '</p>';
+  h += tsOverview();
   groups.forEach(function (g) {
     var s0 = g[0];
     var title = s0.type === 'mob' ? (s0.how === 'killed_by' ? T('obKilledTitle') : T('obChargedTitle')) : srcLabel(s0);
@@ -4764,6 +5183,7 @@ function render(opts) {
   if (r.section !== 'search' && document.activeElement !== $q) $q.value = '';
   $main.innerHTML = html + footerHtml();
   restoreListFilter();
+  tsRefresh();
   $main.querySelectorAll('.table-wrap').forEach(function (wrap) {
     wrap.tabIndex = 0;
     wrap.setAttribute('role', 'region');
@@ -4891,6 +5311,31 @@ function applyListFilter(inp) {
 $main.addEventListener('input', function (ev) {
   var inp = ev.target;
   if (inp && inp.hasAttribute && inp.hasAttribute('data-filter')) updateListFilter(inp);
+});
+
+$main.addEventListener('input', function (ev) {
+  var el = ev.target;
+  if (!el || !el.getAttribute) return;
+  var rate = el.getAttribute('data-ts-in'), k = el.getAttribute('data-ts-k'), era = el.getAttribute('data-ts-era');
+  if (rate) TS[rate][el.getAttribute('data-table')] = el.value;
+  else if (k != null) { var n = Math.round(Number(el.value)); if (isFinite(n) && n >= 1) TS.k[Number(k)] = Math.min(TS_K, n); else return; }
+  else if (era) { var p = era.split('|'); (p[0] === 't' ? TS.ht : TS.hn)[p[1]] = el.value; }
+  else return;
+  tsSave(); tsRefresh();
+});
+$main.addEventListener('change', function (ev) {
+  var el = ev.target;
+  if (!el || !el.hasAttribute) return;
+  if (el.hasAttribute('data-ts-ksel')) TS.pick = el.value; else if (el.hasAttribute('data-ts-pick')) TS.chartItem = el.value; else return;
+  tsSave(); tsRefresh();
+});
+$main.addEventListener('click', function (ev) {
+  var el = ev.target.closest ? ev.target.closest('[data-ts-act]') : null;
+  if (!el) return;
+  var act = el.getAttribute('data-ts-act');
+  if (act === 'reset') { TS.t = {}; TS.n = {}; TS.ht = {}; TS.hn = {}; TS.k = [1, 6]; }
+  else if (act === 'clear') { var tabs = {}; arr(D.obtain.timeStreams).forEach(function (s) { tabs[s.table] = ''; }); TS.t = Object.assign({}, tabs); TS.n = Object.assign({}, tabs); }
+  tsSave(); tsRefresh();
 });
 
 /* Schnellsuche: Treffer als Liste unter dem Feld, mit Pfeiltasten waehlbar.
