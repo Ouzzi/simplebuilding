@@ -636,3 +636,5 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [x] (`claude-mobmanners`) Simple Creatures umbenennen in „Simple Mob Manners“ (Besitzer-Wahl 12.10.), Id simplemobmanners, mit Namespace-/Config-Migration (simplecreatures → simplemobmanners), Zentrale/Wiki/Lang anpassen.
 
 - [x] Umsetzung N69: Hushed Deepslate Tiles (zuerst), Sculk Deepslate (nur herstellbar + Ancient-City-Loot), fehlende Treppe/Stufe/Mauer + rissig/bemoost laut Konzept §3/§6. (claude-missingblocks; Besitzer-Abnahme offen)
+### Besitzer 17.10. – Simple Tweaks als Server-Tweaks-Mod
+- [ ] Simple Tweaks um Server-Tweaks erweitern: Ideenliste (34 Punkte T1–T34) liegt dem Besitzer als Seite vor (https://claude.ai/artifact/EbuYc7eRm1QhdqaC4oAPfa); nach seiner Auswahl (ja/vielleicht/nein) planen und umsetzen, jede Idee mit eigenem Server-Config-Schalter.
