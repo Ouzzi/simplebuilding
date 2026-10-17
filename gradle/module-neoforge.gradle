@@ -75,6 +75,19 @@ afterEvaluate {
         }
     }
 }
+// SimpleBuilding 26.3 requires its sub-mod Simple Octets (split stage 6, nested in production): same as Simple Ovens below.
+afterEvaluate {
+    if (project.path == ':modules:simpleoctets:neoforge' || rootProject.findProject(':modules:simpleoctets:neoforge') == null) return
+    if (!neoForge.mods.any { it.name.startsWith('simplebuilding') }) return
+    if (neoForge.mods.findByName('simpleoctets') == null) {
+        neoForge.mods.create('simpleoctets') { sourceSet rootProject.project(':modules:simpleoctets:neoforge').sourceSets.main }
+    }
+    neoForge.runs.configureEach { run ->
+        if (run.loadedMods.get().any { it.name.startsWith('simplebuilding') }) {
+            run.loadedMods.set((run.loadedMods.get() + [neoForge.mods.simpleoctets]).unique())
+        }
+    }
+}
 // SimpleBuilding 26.3 requires its sub-mod Simple Crucibles (split stage 5, nested in production): same as Simple Ovens below.
 afterEvaluate {
     if (project.path == ':modules:simplecrucibles:neoforge' || rootProject.findProject(':modules:simplecrucibles:neoforge') == null) return

@@ -4,9 +4,9 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.CheckerOctetBlock;
 import com.simplebuilding.blocks.custom.OctetCellBlock;
 import com.simplebuilding.blocks.custom.OctetCells;
-import com.simplebuilding.blocks.entity.custom.MixedOctetBlockEntity;
 import com.simplebuilding.chess.ChessColor;
-import com.simplebuilding.util.MaterialOctets;
+import com.simplebuilding.util.LibServices;
+import com.simplebuilding.util.OctetRefs;
 import com.simplebuilding.version.McVersion;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * Queue N48 (docs/ai/PLAN-OCTETS-MIX-2026-10-13.md): mixed octet cells in the real client. A row of cells - an octet
  * checkerboard (lapis/quartz), stone below oak, wool colours, a partial mix and a pure cell for comparison - must reach
- * the client with their materials (block entity sync) and are drawn by the MixedOctetRenderer; two pictures. Clears the
+ * the client with their materials (block entity sync) and are drawn by Simple Octets' MixedOctetRenderer; two pictures. Clears the
  * row again.
  */
 public final class OctetMixClientTest {
@@ -30,7 +30,7 @@ public final class OctetMixClientTest {
     }
 
     private static BlockState material(Block full) {
-        return OctetCells.material(MaterialOctets.cellFor(full).defaultBlockState());
+        return OctetCells.material(LibServices.octetCellFor(full).defaultBlockState());
     }
 
     private static BlockState chess(ChessColor color) {
@@ -64,7 +64,7 @@ public final class OctetMixClientTest {
     }
 
     public static void inWorld(Script script) {
-        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) {
+        if (!McVersion.CHESS || OctetRefs.mixed() == null) {
             return;
         }
         TestScene.build(script, "minecraft:stone", "creative");
@@ -117,7 +117,7 @@ public final class OctetMixClientTest {
             return false;
         }
         BlockState state = level.getBlockState(pos);
-        if (OctetCells.single(expected) == null && !(level.getBlockEntity(pos) instanceof MixedOctetBlockEntity)) {
+        if (OctetCells.single(expected) == null && (level.getBlockEntity(pos) == null || !state.is(OctetRefs.mixed()))) {
             return false;
         }
         BlockState[] parts = OctetCells.parts(level, pos, state);

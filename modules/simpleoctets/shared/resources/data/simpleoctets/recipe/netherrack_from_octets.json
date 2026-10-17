@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:netherrack_octet",
+    "simpleoctets:netherrack_octet",
+    "simpleoctets:netherrack_octet",
+    "simpleoctets:netherrack_octet",
+    "simpleoctets:netherrack_octet",
+    "simpleoctets:netherrack_octet",
+    "simpleoctets:netherrack_octet",
+    "simpleoctets:netherrack_octet"
+  ],
+  "result": {
+    "id": "minecraft:netherrack"
+  }
+}

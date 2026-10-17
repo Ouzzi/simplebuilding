@@ -1,8 +1,0 @@
-{
-  "parent": "simplebuilding:item/octet/_sided",
-  "textures": {
-    "up": "simpleend:block/stripped_duskwood_log_top",
-    "down": "simpleend:block/stripped_duskwood_log_top",
-    "side": "simpleend:block/stripped_duskwood_log"
-  }
-}

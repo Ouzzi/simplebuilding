@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:smooth_sandstone_octet",
+    "simpleoctets:smooth_sandstone_octet",
+    "simpleoctets:smooth_sandstone_octet",
+    "simpleoctets:smooth_sandstone_octet",
+    "simpleoctets:smooth_sandstone_octet",
+    "simpleoctets:smooth_sandstone_octet",
+    "simpleoctets:smooth_sandstone_octet",
+    "simpleoctets:smooth_sandstone_octet"
+  ],
+  "result": {
+    "id": "minecraft:smooth_sandstone"
+  }
+}

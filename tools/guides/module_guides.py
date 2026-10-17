@@ -165,6 +165,13 @@ MODULES = [
                 "onto them, the reinforced cauldron and village field kitchens.",
                 "Eisen-, verstärkte, Netherit- und Enderit-Schmelztiegel, die ohne Brennstoff alle Plätze zugleich garen, Fässer, "
                 "die an sie andocken, der verstärkte Kessel und Dorf-Feldküchen.")),
+    dict(module="simpleoctets", ns="simpleoctets", package="com.simpleoctets.guide", cls="OctetsGuide", kind="item",
+         author="Simple Octets", recipe="minecraft:stonecutter",
+         name=("Simple Octets Guide", "Simple-Octets-Handbuch"),
+         intro=("Octets - half-block cubes of every wood, of every block with stairs and slabs and of the melon - cut in the "
+                "stonecutter, placed into the clicked corner and mixed in one cell.",
+                "Achtel - halbe Blockwürfel aus jedem Holz, jedem Block mit Treppe und Stufe und der Melone - im Steinmetz "
+                "geschnitten, in die angeklickte Ecke gesetzt und in einer Zelle gemischt.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),
@@ -218,6 +225,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:prismarine_shard": ("a prismarine shard", "einer Prismarinscherbe"),
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
     "minecraft:cauldron": ("a cauldron", "einem Kessel"),
+    "minecraft:stonecutter": ("a stonecutter", "einem Steinmetz"),
     "minecraft:emerald": ("an emerald", "einem Smaragd"),
     "minecraft:flint": ("a piece of flint", "einem Feuerstein"),
 }

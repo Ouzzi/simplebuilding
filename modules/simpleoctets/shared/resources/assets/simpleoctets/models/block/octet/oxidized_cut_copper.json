@@ -1,0 +1,6 @@
+{
+  "parent": "simpleoctets:block/octet_corner",
+  "textures": {
+    "all": "minecraft:block/oxidized_cut_copper"
+  }
+}

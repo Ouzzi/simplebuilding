@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:lime_concrete_octet",
+    "simpleoctets:lime_concrete_octet",
+    "simpleoctets:lime_concrete_octet",
+    "simpleoctets:lime_concrete_octet",
+    "simpleoctets:lime_concrete_octet",
+    "simpleoctets:lime_concrete_octet",
+    "simpleoctets:lime_concrete_octet",
+    "simpleoctets:lime_concrete_octet"
+  ],
+  "result": {
+    "id": "minecraft:lime_concrete"
+  }
+}

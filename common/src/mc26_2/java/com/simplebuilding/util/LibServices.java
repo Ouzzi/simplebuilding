@@ -1,7 +1,6 @@
 package com.simplebuilding.util;
 
 import com.google.gson.JsonElement;
-import com.simplebuilding.blocks.custom.MaterialOctetBlock;
 import com.simplebuilding.blocks.custom.TieredShulkerBoxBlock;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * 26.2 twin of the 26.3 bridge to the SimpleLib services (mc26_3/overlay/java): no SimpleLib on this line, so the
  * upgrade files stay in {@code sledgehammer_upgrades} and are read by {@code SledgehammerUpgradeData} itself, and
- * contents and octet cells use SimpleBuilding's own code.
+ * contents use SimpleBuilding's own code; 26.2 has no octets (Simple Octets, split stage 6).
  */
 public final class LibServices {
     public static final String UPGRADE_DIRECTORY = "sledgehammer_upgrades";
@@ -55,10 +54,14 @@ public final class LibServices {
     }
 
     public static @Nullable Block octetCellFor(@Nullable Block full) {
-        return full == null ? null : MaterialOctets.ownCells().get(full);
+        return null;
     }
 
     public static @Nullable Item octetPiece(@Nullable Block cell) {
-        return cell instanceof MaterialOctetBlock octet ? octet.piece() : null;
+        return null;
+    }
+
+    public static @Nullable Block octetBaseOf(@Nullable Block cell) {
+        return null;
     }
 }

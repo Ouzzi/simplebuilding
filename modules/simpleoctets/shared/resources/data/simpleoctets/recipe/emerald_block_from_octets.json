@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:emerald_block_octet",
+    "simpleoctets:emerald_block_octet",
+    "simpleoctets:emerald_block_octet",
+    "simpleoctets:emerald_block_octet",
+    "simpleoctets:emerald_block_octet",
+    "simpleoctets:emerald_block_octet",
+    "simpleoctets:emerald_block_octet",
+    "simpleoctets:emerald_block_octet"
+  ],
+  "result": {
+    "id": "minecraft:emerald_block"
+  }
+}

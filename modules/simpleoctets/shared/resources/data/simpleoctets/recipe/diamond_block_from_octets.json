@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:diamond_block_octet",
+    "simpleoctets:diamond_block_octet",
+    "simpleoctets:diamond_block_octet",
+    "simpleoctets:diamond_block_octet",
+    "simpleoctets:diamond_block_octet",
+    "simpleoctets:diamond_block_octet",
+    "simpleoctets:diamond_block_octet",
+    "simpleoctets:diamond_block_octet"
+  ],
+  "result": {
+    "id": "minecraft:diamond_block"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:bamboo_octet",
+    "simpleoctets:bamboo_octet",
+    "simpleoctets:bamboo_octet",
+    "simpleoctets:bamboo_octet",
+    "simpleoctets:bamboo_octet",
+    "simpleoctets:bamboo_octet",
+    "simpleoctets:bamboo_octet",
+    "simpleoctets:bamboo_octet"
+  ],
+  "result": {
+    "id": "minecraft:bamboo_planks"
+  }
+}

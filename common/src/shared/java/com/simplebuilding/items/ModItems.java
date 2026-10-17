@@ -208,35 +208,7 @@ public class ModItems {
         }
     }
 
-    /** Holz-Achtel (Queue Nachtrag 24): je Holzart ein Item, das ins Sub-Raster setzt wie die Schach-Achtel. */
-    public static final java.util.List<Item> WOOD_OCTETS = registerWoodOctets();
-
-    private static java.util.List<Item> registerWoodOctets() {
-        java.util.List<Item> out = new java.util.ArrayList<>();
-        for (net.minecraft.world.level.block.Block cell : ModBlocks.WOOD_OCTETS) {
-            String name = BuiltInRegistries.BLOCK.getKey(cell).getPath();
-            // Wie die Schach-Achtel bis 99 (Item-Stack-Limit beim Speichern, claude-q-storage).
-            out.add(registerItem(name, s -> new com.simplebuilding.items.custom.MaterialOctetItem(() -> cell,
-                    s.stacksTo(com.simplebuilding.items.custom.CheckerOctetItem.MAX_STACK))));
-        }
-        return java.util.List.copyOf(out);
-    }
-
-    /** Material-Achtel (Queue N19/N15): je Block mit Stufe und Treppe ein Item, Reihenfolge wie {@link ModBlocks#MATERIAL_OCTETS}. */
-    public static final java.util.List<Item> MATERIAL_OCTETS = registerMaterialOctets();
-
-    private static java.util.List<Item> registerMaterialOctets() {
-        java.util.List<Item> out = new java.util.ArrayList<>();
-        for (net.minecraft.world.level.block.Block cell : ModBlocks.MATERIAL_OCTETS) {
-            String name = BuiltInRegistries.BLOCK.getKey(cell).getPath();
-            // Netherit-Achtel wie der Netheritblock: UNCOMMON und feuerfest (Seltenheitsschema, DataIntegrityTests).
-            boolean netherite = name.startsWith("netherite_");
-            out.add(registerItem(name, s -> new com.simplebuilding.items.custom.MaterialOctetItem(() -> cell,
-                    netherite ? s.stacksTo(com.simplebuilding.items.custom.CheckerOctetItem.MAX_STACK).rarity(Rarity.UNCOMMON).fireResistant()
-                            : s.stacksTo(com.simplebuilding.items.custom.CheckerOctetItem.MAX_STACK))));
-        }
-        return java.util.List.copyOf(out);
-    }
+    // Holz- und Material-Achtel: Simple Octets (simpleoctets:, Stufe 6, util/OctetRefs).
 
     // Astralit-/Nihilith-Bausatz (siehe ModBlocks)
     public static final Item ASTRALIT_BRICKS = registerItem("astralit_bricks", s -> new BlockItem(ModBlocks.ASTRALIT_BRICKS, s));

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:prismarine_octet",
+    "simpleoctets:prismarine_octet",
+    "simpleoctets:prismarine_octet",
+    "simpleoctets:prismarine_octet",
+    "simpleoctets:prismarine_octet",
+    "simpleoctets:prismarine_octet",
+    "simpleoctets:prismarine_octet",
+    "simpleoctets:prismarine_octet"
+  ],
+  "result": {
+    "id": "minecraft:prismarine"
+  }
+}

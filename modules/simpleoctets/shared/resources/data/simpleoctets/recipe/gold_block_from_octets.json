@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:gold_block_octet",
+    "simpleoctets:gold_block_octet",
+    "simpleoctets:gold_block_octet",
+    "simpleoctets:gold_block_octet",
+    "simpleoctets:gold_block_octet",
+    "simpleoctets:gold_block_octet",
+    "simpleoctets:gold_block_octet",
+    "simpleoctets:gold_block_octet"
+  ],
+  "result": {
+    "id": "minecraft:gold_block"
+  }
+}

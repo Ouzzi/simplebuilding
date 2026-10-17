@@ -1,8 +1,0 @@
-{
-  "parent": "simplebuilding:item/octet/_sided",
-  "textures": {
-    "up": "minecraft:block/pale_oak_log_top",
-    "down": "minecraft:block/pale_oak_log_top",
-    "side": "minecraft:block/pale_oak_log"
-  }
-}

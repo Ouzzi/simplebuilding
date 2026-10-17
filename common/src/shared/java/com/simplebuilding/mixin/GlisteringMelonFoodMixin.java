@@ -11,17 +11,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Glitzernde Melonenscheibe essbar (Queue Nachtrag 24): bekommt beim Bauen ihrer Komponenten Nahrung und Verzehr
- * ({@link com.simplebuilding.util.MaterialOctets#GLISTERING_MELON_SLICE_FOOD}). Am Item-Modell erkannt wie in
+ * ({@link #GLISTERING_MELON_SLICE_FOOD}). Am Item-Modell erkannt wie in
  * simplefun {@code EnchantabilityMixin}; Brauen und Rezepte bleiben unberuehrt.
  */
 @Mixin(Item.Properties.class)
 public class GlisteringMelonFoodMixin {
+    /** Glitzernde Melonenscheibe: so viel wie eine Goldene Karotte (gleicher Goldpreis: 8 Goldnuggets). */
+    private static final net.minecraft.world.food.FoodProperties GLISTERING_MELON_SLICE_FOOD = new net.minecraft.world.food.FoodProperties.Builder()
+            .nutrition(6).saturationModifier(1.2F).build();
 
     @Inject(method = "finalizeInitializer", at = @At("HEAD"))
     private void simplebuilding$edibleGlisteringMelon(Component name, Identifier modelId,
                                                      CallbackInfoReturnable<DataComponentInitializers.Initializer<Item>> cir) {
         if (modelId.equals(Identifier.withDefaultNamespace("glistering_melon_slice"))) {
-            ((Item.Properties) (Object) this).food(com.simplebuilding.util.MaterialOctets.GLISTERING_MELON_SLICE_FOOD);
+            ((Item.Properties) (Object) this).food(GLISTERING_MELON_SLICE_FOOD);
         }
     }
 }

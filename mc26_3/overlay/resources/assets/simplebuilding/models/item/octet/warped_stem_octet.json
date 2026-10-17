@@ -1,8 +1,0 @@
-{
-  "parent": "simplebuilding:item/octet/_sided",
-  "textures": {
-    "up": "minecraft:block/warped_stem_top",
-    "down": "minecraft:block/warped_stem_top",
-    "side": "minecraft:block/warped_stem"
-  }
-}

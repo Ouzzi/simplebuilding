@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:spruce_octet",
+    "simpleoctets:spruce_octet",
+    "simpleoctets:spruce_octet",
+    "simpleoctets:spruce_octet",
+    "simpleoctets:spruce_octet",
+    "simpleoctets:spruce_octet",
+    "simpleoctets:spruce_octet",
+    "simpleoctets:spruce_octet"
+  ],
+  "result": {
+    "id": "minecraft:spruce_planks"
+  }
+}

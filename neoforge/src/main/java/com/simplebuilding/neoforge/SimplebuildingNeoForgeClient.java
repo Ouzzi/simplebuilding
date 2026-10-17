@@ -141,8 +141,6 @@ public final class SimplebuildingNeoForgeClient {
                 NeoForgeModRegistries.GOAT_HORN_HOLDER_BE.get(), com.simplebuilding.client.render.GoatHornHolderRenderer::new);
         if (NeoForgeModRegistries.CHESS_PIECES_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.CHESS_PIECES_BE.get(), com.simplebuilding.client.render.ChessPiecesRenderer::new);
-        if (NeoForgeModRegistries.MIXED_OCTET_BE != null) event.registerBlockEntityRenderer(
-                NeoForgeModRegistries.MIXED_OCTET_BE.get(), com.simplebuilding.client.render.MixedOctetRenderer::new);
         if (NeoForgeModRegistries.CRATE_BE != null) event.registerBlockEntityRenderer(
                 NeoForgeModRegistries.CRATE_BE.get(), com.simplebuilding.woodwork.client.CrateRenderer::new);
         if (NeoForgeModRegistries.HAMMOCK_BE != null) event.registerBlockEntityRenderer(

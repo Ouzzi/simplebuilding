@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:polished_deepslate_octet",
+    "simpleoctets:polished_deepslate_octet",
+    "simpleoctets:polished_deepslate_octet",
+    "simpleoctets:polished_deepslate_octet",
+    "simpleoctets:polished_deepslate_octet",
+    "simpleoctets:polished_deepslate_octet",
+    "simpleoctets:polished_deepslate_octet",
+    "simpleoctets:polished_deepslate_octet"
+  ],
+  "result": {
+    "id": "minecraft:polished_deepslate"
+  }
+}

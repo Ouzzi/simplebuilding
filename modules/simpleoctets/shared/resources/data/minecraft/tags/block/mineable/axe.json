@@ -1,0 +1,43 @@
+{
+  "values": [
+    "simpleoctets:oak_octet",
+    "simpleoctets:spruce_octet",
+    "simpleoctets:birch_octet",
+    "simpleoctets:jungle_octet",
+    "simpleoctets:acacia_octet",
+    "simpleoctets:dark_oak_octet",
+    "simpleoctets:mangrove_octet",
+    "simpleoctets:cherry_octet",
+    "simpleoctets:pale_oak_octet",
+    "simpleoctets:poplar_octet",
+    "simpleoctets:bamboo_octet",
+    "simpleoctets:crimson_octet",
+    "simpleoctets:warped_octet",
+    {
+      "id": "simpleoctets:ashwood_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:duskwood_octet",
+      "required": false
+    },
+    "simpleoctets:bamboo_mosaic_octet",
+    {
+      "id": "simpleoctets:ashwood_log_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:duskwood_log_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:stripped_ashwood_log_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:stripped_duskwood_log_octet",
+      "required": false
+    },
+    "simpleoctets:melon_octet"
+  ]
+}

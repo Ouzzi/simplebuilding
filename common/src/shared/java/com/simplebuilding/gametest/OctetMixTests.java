@@ -1,14 +1,12 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.MaterialOctetBlock;
-import com.simplebuilding.blocks.custom.MixedOctetBlock;
 import com.simplebuilding.blocks.custom.OctetCellBlock;
 import com.simplebuilding.blocks.custom.OctetCells;
-import com.simplebuilding.blocks.entity.custom.MixedOctetBlockEntity;
 import com.simplebuilding.chess.ChessColor;
 import com.simplebuilding.chess.ChessItems;
-import com.simplebuilding.util.MaterialOctets;
+import com.simplebuilding.util.LibServices;
+import com.simplebuilding.util.OctetRefs;
 import com.simplebuilding.version.McVersion;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,11 +41,11 @@ public final class OctetMixTests {
     }
 
     private static Block cell(Block full) {
-        return MaterialOctets.cellFor(full);
+        return LibServices.octetCellFor(full);
     }
 
     private static Item piece(Block full) {
-        return ((MaterialOctetBlock) cell(full)).piece();
+        return LibServices.octetPiece(cell(full));
     }
 
     private static BlockState material(Block full) {
@@ -80,7 +78,7 @@ public final class OctetMixTests {
 
     /** Octet items of three materials (oak, stone, a chess colour) fill one cell; taking them out turns it pure again. */
     public static void octetsMixMaterialsInOneCell(GameTestHelper helper) {
-        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        if (!McVersion.CHESS || OctetRefs.mixed() == null) { helper.succeed(); return; }
         helper.setBlock(CELL.below(), Blocks.STONE);
         ServerPlayer player = mockPlayer(helper);
         BlockPos pos = helper.absolutePos(CELL);
@@ -90,7 +88,7 @@ public final class OctetMixTests {
         placeOn(helper, player, piece(Blocks.STONE), 1, 0);
         placeOn(helper, player, ChessItems.octet(ChessColor.LAPIS), 0, 1);
         BlockState mixed = helper.getBlockState(CELL);
-        helper.assertTrue(mixed.is(ModBlocks.MIXED_OCTET), "three materials make a mixed cell: " + mixed);
+        helper.assertTrue(mixed.is(OctetRefs.mixed()), "three materials make a mixed cell: " + mixed);
         helper.assertValueEqual(OctetCellBlock.mask(mixed), bit(0, 0, 0) | bit(1, 0, 0) | bit(0, 0, 1), "mask of the mixed cell");
         BlockState[] parts = OctetCells.parts(helper.getLevel(), pos, mixed);
         helper.assertTrue(parts[OctetCellBlock.index(0, 0, 0)] == material(Blocks.OAK_PLANKS)
@@ -98,14 +96,14 @@ public final class OctetMixTests {
                 && parts[OctetCellBlock.index(0, 0, 1)] == lapis(), "materials per octet: " + java.util.Arrays.toString(parts));
         helper.assertTrue(mixed.getCollisionShape(helper.getLevel(), pos).bounds().maxY <= 0.5, "collision follows the octets");
         // an occupied octet refuses, whatever the material
-        helper.assertTrue(com.simplebuilding.items.custom.MaterialOctetItem.placed(helper.getLevel(), material(Blocks.STONE), pos,
+        helper.assertTrue(OctetCells.placed(helper.getLevel(), material(Blocks.STONE), pos,
                 OctetCellBlock.index(0, 0, 0), null) == null, "an occupied octet took a second one");
         // sneak + empty hand takes the clicked octet out (its own material)
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         player.setShiftKeyDown(true);
         takeOut(helper, player, 1, 0);
         helper.assertTrue(player.getInventory().contains(new ItemStack(piece(Blocks.STONE))), "the stone octet came back");
-        helper.assertTrue(helper.getBlockState(CELL).is(ModBlocks.MIXED_OCTET), "oak + lapis stay mixed");
+        helper.assertTrue(helper.getBlockState(CELL).is(OctetRefs.mixed()), "oak + lapis stay mixed");
         takeOut(helper, player, 0, 1);
         BlockState pure = helper.getBlockState(CELL);
         helper.assertTrue(pure.is(cell(Blocks.OAK_PLANKS)) && OctetCellBlock.mask(pure) == bit(0, 0, 0), "one material left is a pure cell again: " + pure);
@@ -122,7 +120,7 @@ public final class OctetMixTests {
 
     /** A sneaking survival player (real game mode) breaks only the octet it looks at; drops are exactly that octet. */
     public static void octetsBreakOnlyTheLookedAtOctet(GameTestHelper helper) {
-        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        if (!McVersion.CHESS || OctetRefs.mixed() == null) { helper.succeed(); return; }
         ServerLevel level = helper.getLevel();
         BlockPos pos = helper.absolutePos(CELL);
         BlockState[] parts = new BlockState[8];
@@ -130,7 +128,7 @@ public final class OctetMixTests {
             parts[i] = OctetCellBlock.y(i) == 0 ? material(Blocks.STONE) : material(Blocks.OAK_PLANKS);
         }
         OctetCells.set(level, pos, parts, false, Block.UPDATE_ALL);
-        helper.assertTrue(helper.getBlockState(CELL).is(ModBlocks.MIXED_OCTET), "stone below, oak above is mixed");
+        helper.assertTrue(helper.getBlockState(CELL).is(OctetRefs.mixed()), "stone below, oak above is mixed");
         ServerPlayer player = survivalPlayer(helper);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
         player.setShiftKeyDown(true);
@@ -157,7 +155,7 @@ public final class OctetMixTests {
 
     /** Owner 2026-10-13: breaking without sneaking takes the whole cell - every octet of every material drops. */
     public static void octetsNormalBreakTakesTheWholeCell(GameTestHelper helper) {
-        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        if (!McVersion.CHESS || OctetRefs.mixed() == null) { helper.succeed(); return; }
         BlockPos pos = helper.absolutePos(CELL);
         BlockState[] parts = new BlockState[8];
         for (int i = 0; i < 8; i++) {
@@ -186,7 +184,7 @@ public final class OctetMixTests {
      * sneaking it mines just the hit block - one octet of it.
      */
     public static void octetsSledgehammerFollowsTheSneakRule(GameTestHelper helper) {
-        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        if (!McVersion.CHESS || OctetRefs.mixed() == null) { helper.succeed(); return; }
         BlockState full = OctetCellBlock.withMask(cell(Blocks.STONE).defaultBlockState(), OctetCellBlock.FULL);
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
@@ -229,7 +227,7 @@ public final class OctetMixTests {
 
     /** Without a player (explosion, {@code Level#destroyBlock}) a mixed cell drops every octet of every material. */
     public static void octetsMixedCellDropsEveryMaterial(GameTestHelper helper) {
-        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        if (!McVersion.CHESS || OctetRefs.mixed() == null) { helper.succeed(); return; }
         BlockPos pos = helper.absolutePos(CELL);
         BlockState[] parts = new BlockState[8];
         parts[0] = material(Blocks.OAK_PLANKS);
@@ -251,25 +249,28 @@ public final class OctetMixTests {
      * scan keeps the pure cell of its most common material.
      */
     public static void octetsOldCellsMigrateAndMixedCellsPersist(GameTestHelper helper) {
-        if (!McVersion.CHESS || ModBlocks.MIXED_OCTET == null) { helper.succeed(); return; }
+        if (!McVersion.CHESS || OctetRefs.mixed() == null) { helper.succeed(); return; }
         ServerLevel level = helper.getLevel();
         BlockPos pos = helper.absolutePos(CELL);
         BlockState old = OctetCellBlock.withMask(cell(Blocks.OAK_PLANKS).defaultBlockState(), bit(0, 0, 0) | bit(1, 0, 0));
         helper.setBlock(CELL, old);
         helper.assertTrue(helper.getBlockState(CELL) == old && level.getBlockEntity(pos) == null, "an old pure cell loads unchanged");
-        BlockState[] parts = com.simplebuilding.items.custom.MaterialOctetItem.placed(level, lapis(), pos, OctetCellBlock.index(0, 1, 0), null);
+        BlockState[] parts = OctetCells.placed(level, lapis(), pos, OctetCellBlock.index(0, 1, 0), null);
         helper.assertTrue(parts != null, "a lapis octet fits into the old oak cell");
         OctetCells.set(level, pos, parts, false, Block.UPDATE_ALL);
         BlockState mixed = helper.getBlockState(CELL);
-        helper.assertTrue(mixed.is(ModBlocks.MIXED_OCTET), "old cell + foreign octet is mixed: " + mixed);
-        MixedOctetBlockEntity be = (MixedOctetBlockEntity) level.getBlockEntity(pos);
+        helper.assertTrue(mixed.is(OctetRefs.mixed()), "old cell + foreign octet is mixed: " + mixed);
+        BlockEntity be = level.getBlockEntity(pos);
         CompoundTag tag = be.saveWithFullMetadata(level.registryAccess());
         BlockEntity loaded = BlockEntity.loadStatic(pos, mixed, tag, level.registryAccess());
-        helper.assertTrue(loaded instanceof MixedOctetBlockEntity, "the mixed cell loads its block entity");
-        BlockState[] back = ((MixedOctetBlockEntity) loaded).parts();
+        helper.assertTrue(loaded != null && loaded.getType() == be.getType(), "the mixed cell loads its block entity");
+        // Split stage 6: the mixed cell is Simple Octets' (simpleoctets:mixed_octet); read it back through the cell API.
+        level.removeBlockEntity(pos);
+        level.setBlockEntity(loaded);
+        BlockState[] back = OctetCells.parts(level, pos, mixed);
         helper.assertTrue(back[OctetCellBlock.index(0, 0, 0)] == material(Blocks.OAK_PLANKS) && back[OctetCellBlock.index(1, 0, 0)] == material(Blocks.OAK_PLANKS)
                 && back[OctetCellBlock.index(0, 1, 0)] == lapis(), "materials after save and load: " + java.util.Arrays.toString(back) + " " + tag);
-        helper.assertValueEqual(mixed.getValue(MixedOctetBlock.LIGHT), 0, "lapis and oak do not glow");
+        helper.assertValueEqual(mixed.getLightEmission(), 0, "lapis and oak do not glow");
         BlockState scanned = OctetCells.portable(level, pos, mixed);
         helper.assertTrue(scanned.is(cell(Blocks.OAK_PLANKS)) && OctetCellBlock.mask(scanned) == OctetCellBlock.mask(mixed),
                 "a blueprint keeps the most common material with every octet: " + scanned);

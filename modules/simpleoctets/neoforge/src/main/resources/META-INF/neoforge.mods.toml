@@ -1,0 +1,35 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleoctets"
+version="${version}"
+displayName="Simple Octets"
+description="Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs, and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of SimpleBuilding carves them."
+[[dependencies.simpleoctets]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+[[dependencies.simpleoctets]]
+modId="simplelib"
+type="required"
+versionRange="[0.2.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simpleoctets]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpleoctets]]
+modId="simpleend"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config="simpleoctets.mixins.json"

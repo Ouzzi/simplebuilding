@@ -166,10 +166,7 @@ public final class DataIntegrityTests {
         // (placed by the piece items).
         blocks.add("checker_octet");
         blocks.add("chess_pieces");
-        // Queue Nachtrag 24: the melon octet cell is placed by the vanilla melon slice (sneak + right-click).
-        blocks.add("melon_octet");
-        // Queue N48: the mixed octet cell only appears when octets of different materials share a cell.
-        blocks.add("mixed_octet");
+        // Melon octet and mixed octet cell: Simple Octets' blocks since split stage 6 (its own checks).
         return Set.copyOf(blocks);
     }
 
@@ -204,21 +201,11 @@ public final class DataIntegrityTests {
             "sulfur_fire", "copper_fire",
             // chess: an octet cell drops its octets (CheckerOctetBlock#getDrops), a piece cell its pieces
             // (ChessPiecesBlock#getDrops)
-            "checker_octet", "chess_pieces",
-            // N48: a mixed octet cell drops the octets of its block entity (OctetCellBlock#getDrops)
-            "mixed_octet");
+            "checker_octet", "chess_pieces");
 
-    /** Material octet cells (Queue Nachtrag 24) drop their octets from the state (OctetCellBlock#getDrops). */
+    /** Material/wood/melon octet cells are Simple Octets' since split stage 6 (its own checks); kept as a named step. */
     private static Set<String> withMaterialOctets(String... names) {
-        Set<String> out = new java.util.HashSet<>(Set.of(names));
-        out.add("melon_octet");
-        for (String wood : ModBlocks.OCTET_WOODS) {
-            out.add(wood + "_octet");
-        }
-        for (com.simplebuilding.blocks.OctetMaterials.Material material : com.simplebuilding.blocks.OctetMaterials.ALL) {
-            out.add(material.key() + "_octet");
-        }
-        return Set.copyOf(out);
+        return Set.of(names);
     }
 
     /**
@@ -497,11 +484,6 @@ public final class DataIntegrityTests {
             }
             if (!itemPresent) {
                 problems.add(id + " has no item with a matching identifier");
-            } else if (BuiltInRegistries.ITEM.getValue(id) instanceof com.simplebuilding.items.custom.MaterialOctetItem octet) {
-                // wood octets: the item places one octet into its cell (sub-grid), not the whole block
-                if (octet.cell() != block) {
-                    problems.add(id + " has an octet item for " + BuiltInRegistries.BLOCK.getKey(octet.cell()));
-                }
             } else if (!(BuiltInRegistries.ITEM.getValue(id) instanceof BlockItem blockItem)) {
                 problems.add(id + " has an item with a matching identifier that is not a BlockItem");
             } else if (blockItem.getBlock() != block) {
@@ -1689,9 +1671,7 @@ public final class DataIntegrityTests {
         items.addAll(com.simplebuilding.chess.ChessItems.octets());
         items.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
         items.addAll(com.simplebuilding.chess.ChessItems.shapes());
-        // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
-        items.addAll(ModItems.WOOD_OCTETS);
-        items.addAll(ModItems.MATERIAL_OCTETS);
+        // Holz-/Material-Achtel: seit Stufe 6 Simple Octets' Items (dessen eigene Checks).
         items.addAll(ModItems.LIGHT_PANES);
         items.addAll(ModItems.SULFUR_LIGHTS);
         // Holzwerk (McVersion.WOODWORK): je Holzart in einer Schleife registriert (WoodBlocks).
@@ -1738,9 +1718,7 @@ public final class DataIntegrityTests {
             blocks.add(shapes.stairs());
             blocks.add(shapes.slab());
         }
-        // Holz-Achtel (Queue Nachtrag 24), in einer Schleife registriert.
-        blocks.addAll(ModBlocks.WOOD_OCTETS);
-        blocks.addAll(ModBlocks.MATERIAL_OCTETS);
+        // Holz-/Material-Achtel: seit Stufe 6 Simple Octets' Bloecke.
         // Light Panes (N57): the sixteen single colors are registered in a loop.
         blocks.addAll(ModBlocks.COLORED_LIGHT_PANES);
         blocks.addAll(ModBlocks.COPPER_COLORED_LIGHT_PANES); // N68
@@ -3258,9 +3236,7 @@ public final class DataIntegrityTests {
                 chess.add(new CreativeTabLayout.Row("chess_" + color.id() + "_flat", second));
             }
             expected.addAll(10, chess);
-            expected.add(10 + chess.size(), CreativeTabLayout.Row.of("wood_octets",
-                    ModItems.WOOD_OCTETS.toArray(new net.minecraft.world.level.ItemLike[0])));
-            expected.addAll(10 + chess.size() + 1, com.simplebuilding.items.ModItemGroupsContent.materialOctetRows());
+            // Holz- und Material-Achtel: eigener Tab von Simple Octets (Stufe 6).
         }
         if (McVersion.NATURE_VARIANTS) {
             // Naturvarianten (N24/N25) vor den Schwerkraftbloecken: vier Stufen; Eis und Nautilus; drei Froschlichter.

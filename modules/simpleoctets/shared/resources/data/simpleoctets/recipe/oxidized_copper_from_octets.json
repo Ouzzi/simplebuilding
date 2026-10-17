@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:oxidized_copper_octet",
+    "simpleoctets:oxidized_copper_octet",
+    "simpleoctets:oxidized_copper_octet",
+    "simpleoctets:oxidized_copper_octet",
+    "simpleoctets:oxidized_copper_octet",
+    "simpleoctets:oxidized_copper_octet",
+    "simpleoctets:oxidized_copper_octet",
+    "simpleoctets:oxidized_copper_octet"
+  ],
+  "result": {
+    "id": "minecraft:oxidized_copper"
+  }
+}

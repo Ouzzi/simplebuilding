@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simpleoctets:white_wool_octet",
+    "simpleoctets:white_wool_octet",
+    "simpleoctets:white_wool_octet",
+    "simpleoctets:white_wool_octet",
+    "simpleoctets:white_wool_octet",
+    "simpleoctets:white_wool_octet",
+    "simpleoctets:white_wool_octet",
+    "simpleoctets:white_wool_octet"
+  ],
+  "result": {
+    "id": "minecraft:white_wool"
+  }
+}
