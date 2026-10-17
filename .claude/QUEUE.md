@@ -312,7 +312,7 @@ End-Biome
 - [x] Nebel viel zu extrem (nur 10–20 Blöcke, man sieht nur Silhouetten anderer Inseln/Bäume, irritierend) → schöner/weniger extrem einstellen. (oc-end66)
 - [x] Biome (z. B. Dusk) zu klein – in ca. 1 Minute durchlaufen → größer, über mehrere Inseln, damit man sicher einem Hollow Watcher begegnen kann. (oc-end66)
 - [x] Hollow Watcher Spawn-Bedingung: kann (nicht muss) spawnen, wenn man länger als ~2 Minuten im Wald ist – Begegnung schon beim ersten Besuch möglich. (oc-end66)
-- [ ] Biom-interner Nebel von außen: von außerhalb soll man nicht in den Wald hineinsehen können (dicht und/oder Nebel) – erst KONZEPT, gemeinsam besprechen (Vanilla-Mechaniken prüfen). (oc-end66: Konzept fertig, Besitzer-Entscheidung offen – docs/ai/KONZEPT-END-WALD-NEBEL-2026-10-15.md)
+- [ ] Biom-interner Nebel von außen: von außerhalb soll man nicht in den Wald hineinsehen können (dicht und/oder Nebel) – erst KONZEPT, gemeinsam besprechen (Vanilla-Mechaniken prüfen). (oc-end66: Konzept fertig, Besitzer-Entscheidung offen – docs/ai/KONZEPT-END-WALD-NEBEL-2026-10-15.md) (Besitzer 17.10.: Variante A jetzt, B später nur falls A nicht reicht; Elytra-Sicht/Client-Config/nur-neue-Chunks nicht gewählt)
 End-Strukturen
 - [x] BUG: Im End-Schiffswrack liegt lila Wolle – nur End-Schiffsblöcke (End-Ship-Palette) erlaubt. (oc-end66)
 - [x] Loot der End-Schiffswracks: Verteilung erklären (Besitzer-Eindruck: entweder sehr schlecht – nur Chorus/Purpur – oder sehr gut); Wracks noch versteckter, dafür besserer Loot. (oc-end66)
@@ -393,7 +393,8 @@ Simple Shops – Server-Shop
 
 Rotator – zweite Funktion
 - [x] (oc-rotator) Rotator: platzierbaren Block in der Nebenhand + Rechtsklick auf einen Block tauscht den angeklickten Block gegen den aus der Nebenhand (abgebauter Block ins Inventar). Nur Blöcke, die ein Stein-Werkzeug abbauen kann (kein Obsidian o. ä.); wertvolle Blöcke wie Leuchtfeuer ausgeschlossen. Whitelist/Blacklist als Block-Tags bzw. Blocknamen in der Config (Liste hat Vorrang vor der Härte-Regel). Tausch kostet doppelte Haltbarkeit. Immer 1 s Ausholen (Wind-up-Animation), mit Effizienz V sofort; Zeit je nach Blockhärte leicht anpassen, damit Spitzhacke & Co. Vorteil behalten. Claims/Schutz beachten. (Namenspunkt bleibt offen, siehe nächste Zeile)
-- [ ] Rotator: besseren Namen vorschlagen (Besitzer wählt).
+- [~] (B, b-names, 17.10.) Rotator: besseren Namen vorschlagen (Besitzer wählt). (Besitzer 17.10.: Transposer / Transponierer; nur Anzeigename, Item-ID bleibt rotator)
+- [~] (B, b-names, 17.10.) Audit D-05: DE „Enderitklumpen“ → „Enderitnugget“ überall (Besitzer 17.10.).
 
 Hollow Watcher – Verhalten (Abgrenzung zum Creaking)
 - [x] Steht er hinter dem Spieler, streckt er die Hände über die Schultern des Spielers, sodass man sie im Bild sieht (Erschrecken); Hände markanter rendern.
@@ -418,7 +419,7 @@ Rückport (Prinzip: docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md)
 - [x] Generelles Prinzip notiert: Rückports vor Einbau und bei jedem Port je Version prüfen (AGENTS.md + docs/ai/PRINZIPIEN-VANILLA-RUECKPORTS.md).
 
 3D-Darstellung platzierter Items (Vorbild: Mod „Items Displayed“)
-- [ ] (Schritt 1 freigegeben 15.10., Antworten im Vorschlag §7; Schritt 2 Bilder fertig (oc-display-previews), Freigabe Besitzer offen) Platzierte Items (eigene 3D-Darstellung beim Hinlegen) mehr in Richtung „Items Displayed“ bringen; dem Besitzer gefallen dort besonders Armor Trims (Schmiedevorlagen), Pottery Sherds (Töpferscherben) und Music Discs (Schallplatten). Ablauf verbindlich in 3 Schritten: (1) erst TEXT-Vorschlag, was sich je Item-Art wie ändert → Besitzer-Freigabe; (2) dann gerenderte Vorher/Nachher-Bilder → Besitzer-Freigabe; (3) erst dann im Spiel einbauen. Abgenommene Texturen dabei nicht ändern, nur die 3D-Darstellung/Modelle.
+- [ ] (Schritt 1 freigegeben 15.10., Antworten im Vorschlag §7; Schritt 2 Bilder fertig (oc-display-previews), Freigabe Besitzer offen) Platzierte Items (eigene 3D-Darstellung beim Hinlegen) mehr in Richtung „Items Displayed“ bringen; dem Besitzer gefallen dort besonders Armor Trims (Schmiedevorlagen), Pottery Sherds (Töpferscherben) und Music Discs (Schallplatten). Ablauf verbindlich in 3 Schritten: (1) erst TEXT-Vorschlag, was sich je Item-Art wie ändert → Besitzer-Freigabe; (2) dann gerenderte Vorher/Nachher-Bilder → Besitzer-Freigabe; (3) erst dann im Spiel einbauen. Abgenommene Texturen dabei nicht ändern, nur die 3D-Darstellung/Modelle. (Besitzer 17.10.: Schritt 2 freigegeben → Schritt 3 Einbau)
 
 Quality of Life
 - [x] (oc-qol62) Sprungkraft (Jump Boost, egal ob Trank, Leuchtfeuer oder Befehl): solange der Effekt aktiv ist, Schritthöhe mindestens 1 Block (einen Block hochlaufen ohne Springen). Mit Step-Height-Verzauberung verträglich (Maximum, nicht addieren). Config-Schalter.
@@ -460,7 +461,7 @@ REGEL (Besitzer 15.10.): Keine alten, schon entschiedenen Textur-Vorschläge ern
 Quelle und Belege: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-14.md` (Stand claude-wave1 3cfba3c00, nur gelesen, nichts im Spiel geprüft). Datum in Klammern = Besitzer-Nachricht.
 Nicht notiert und nicht gebaut (D):
 - [x] (Besitzer 09.10.) Breiterer Eimer: Eimer mit größerer Öffnung als Vorschlag, dazu ein ganz neu gezeichneter breiterer Eimer (Vorschau 16-fach, alt neben neu); bisher nirgends notiert, kein Code. (Besitzer 15.10.: Eimer bleibt wie vorher, kein breiter Eimer)
-- [ ] (Besitzer 14.10.) Bild vom 14.10. 19:31 (vermutlich Ash-Wood-Texturwahl nach den KI-Prompts): Inhalt beim Besitzer erfragen, dann umsetzen.
+- [x] (Besitzer 14.10.) Bild vom 14.10. 19:31 (vermutlich Ash-Wood-Texturwahl nach den KI-Prompts): Inhalt beim Besitzer erfragen, dann umsetzen. (Besitzer 17.10.: egal, abgehakt)
 - [x] (B, b-forgestack, 17.10.) (Besitzer 10.10.) Mod-Audits: offene Befunde aus `AUDIT-DATEN-/AUDIT-MODULE-2026-10-11.md` abarbeiten (Forge-Standalone-Ziel M-05, leere Tags D-10, doppelte Lang-Kopien D-11, Forge-Stapelkappung Fass/Truhe). – Teil erledigt (oc-n58-small): M-05, D-10, D-11; Forge-Stapelkappung Fass/Truhe: KEIN Befund (b-forgestack: tiered_chest_game_test 17/17 auf Fabric+NeoForge+Forge, Crucibles-Modul 68/68 je Loader inkl. Enderit-Fass 128; Plan docs/ai/PLAN-B-FORGESTACK-2026-10-17.md).
 - [x] (Besitzer 09.10./11.10./14.10.) Dauerregeln dauerhaft in `docs/ai/WORKFLOW.md` festhalten: Entscheidungen immer als Auswahl, Textur-Abnahmen mit Link und als Webseite, Fremdanbieter/opencode bei leerem Kontingent, öffentliches Repo ohne interne IPs/Hosts. – erledigt (oc-n58-small, WORKFLOW.md „Standing owner rules“).
 - [x] (Besitzer 13.10.) Sammel-Dokument offener Entscheidungen (E1–E13, T1–T26, A1–A52; nur E8 beantwortet) liegt nur in der Memory (Übergabe 13.10. abends): Antworten des Besitzers einholen und hier eintragen. (Besitzer 15.10. beantwortet, siehe Nachtrag 61)
@@ -515,7 +516,7 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [x] (oc-bricks3d) Ziegel (Bricks) beim Platzieren wie Barren 3D legen; Diamanten und Smaragde bekommen ebenfalls eine 3D-Form. Mit dem Vorschlaghammer auf das platzierte 3D-Item hauen → 2D, nochmal → wieder 3D (nur unterstützte Items).
 - [x] (oc-crates) Crates: seitlich bis zu 9 verschiedene enthaltene Items anzeigen. Inhalt wie das Besitzer-Referenzbild rendern (Bild liegt in dieser Sitzung NICHT vor – beim Besitzer anfordern): jedes Item bekommt je nach Anzahl eine Schicht, die aussieht, als bestünde sie aus dem Item; max. 9 verschiedene Items je Crate; zuletzt eingelegtes Item liegt oben, ältere Schichten werden hochgeschoben.
 - [x] (oc-n55-small) Enchanter: am Buch-Button nicht die benötigten Level anzeigen (stehen schon oben), sondern wie viele Level abgezogen werden.
-- [ ] Blazing Obsidian ist immer noch nicht gut → Rework (Konzept/Textur/Verhalten) notiert.
+- [ ] Blazing Obsidian ist immer noch nicht gut → Rework (Konzept/Textur/Verhalten) notiert. (Besitzer 17.10.: stört Textur + Verhalten → Konzept mit Varianten, Texturvorschläge als Seite)
 - [x] (oc-n55-small) Notenblock-Verstärker funktioniert nicht – dasselbe Prinzip wie beim (funktionierenden) Jukebox-Verstärker anwenden.
 - [x] (oc-ashleaves) Aschholz-Blätter sollen wie Spinnennetze wirken (verlangsamen; Details beim Planen).
 - [x] (oc-blueprint-io) Blaupause: Import-/Export-Button für andere Bau-Formate („block languages“) – Modal mit Kopieren-Button (Export) bzw. Einfügen-Button (Import).
