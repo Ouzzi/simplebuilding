@@ -169,21 +169,6 @@
         "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
       }
     },
-    "simpleoctets:*_octet": {
-      "sources": [
-        "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
-        "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
-        "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
-        "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
-        "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
-      ],
-      "en": {
-        "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
-      },
-      "de": {
-        "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
-      }
-    },
     "simpleoctets:melon_octet": {
       "sources": [
         "modules/simpleoctets/shared/java/com/simpleoctets/MelonSlices.java",
@@ -206,6 +191,21 @@
       },
       "de": {
         "summary": "Gemischte Achtelzelle: Achtel mehrerer Materialien in einem Block, das Material je Achtel im Block-Entity. Sie hat kein Item; sie entsteht, wenn ein fremdes Achtel in eine Zelle kommt."
+      }
+    },
+    "simpleoctets:*_octet": {
+      "sources": [
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+        "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+      ],
+      "en": {
+        "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The stonecutter cuts 8 from the full block, 8 craft back into it."
+      },
+      "de": {
+        "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
       }
     }
   }

@@ -1,6 +1,0 @@
-{
-  "parent": "simpleoctets:item/octet",
-  "textures": {
-    "all": "simplebuilding:block/ender_quartz_block"
-  }
-}

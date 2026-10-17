@@ -39,10 +39,21 @@ for locale in ('en_us', 'de_de'):
         assert len(data[k]) <= 45, ('tooltip line too long', locale, k)
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 
+# Octets of another mod's block keep item definition + self-contained item model in that mod's jar (generator PARTNER_RES:
+# the 26.3 client bakes every items/*.json, a missing partner would leave missing textures in the client log).
+PARTNER_RES = {'simpleend': ROOT / 'modules/simpleend/shared/resources', 'simpleblocks': ROOT / 'modules/simpleblocks/shared/resources',
+               'simplebuilding': ROOT / 'mc26_3/overlay/resources'}
+cell_ns = {w + '_octet': 'simpleend' if w in ('ashwood', 'duskwood') else 'minecraft' for w in woods}
+cell_ns.update({m['key'] + '_octet': m['ns'] for m in materials})
 for c in cells:
     assert (ASSETS / f'blockstates/{c}.json').is_file(), ('blockstate', c)
-    assert (ASSETS / f'items/{c}.json').is_file(), ('item definition', c)
-    assert (ASSETS / f'models/item/octet/{c}.json').is_file(), ('item model', c)
+    item_assets = PARTNER_RES[cell_ns[c]] / f'assets/{NS}' if cell_ns[c] in PARTNER_RES else ASSETS
+    assert (item_assets / f'items/{c}.json').is_file(), ('item definition', c)
+    assert (item_assets / f'models/item/octet/{c}.json').is_file(), ('item model', c)
+    if item_assets != ASSETS:
+        assert not (ASSETS / f'items/{c}.json').exists(), ('partner item definition left in the module', c)
+        assert 'parent' not in json.loads((item_assets / f'models/item/octet/{c}.json').read_text(encoding='utf-8')) or \
+            not json.loads((item_assets / f'models/item/octet/{c}.json').read_text(encoding='utf-8'))['parent'].startswith(NS), c
     assert (ASSETS / f'models/block/octet/{c[:-6]}.json').is_file(), ('corner model', c)
 for b in ('melon_octet', 'mixed_octet'):
     assert (ASSETS / f'blockstates/{b}.json').is_file(), b

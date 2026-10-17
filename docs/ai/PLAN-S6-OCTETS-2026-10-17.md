@@ -111,3 +111,14 @@ Abweichungen (bewusst):
 - Melonenscheiben-Tooltip per Mixin auf `Item#appendHoverText` (Vanilla-Item), Glitzermelone als Nahrung bleibt SB.
 - Keine Config-Übernahme: SB hatte keine Achtel-Optionen. Kein Vanilla-abgeleitetes Bild (Modelle verweisen auf Texturen).
 - Vanilla-Stamm-Achtel bleiben in `mineable/pickaxe` (wie in SB; vermutlich Altfehler, offen notiert).
+
+### Nachtrag 18.10. (Fortsetzung nach Abbruch)
+
+- **Client-Log (30 Meldungen):** alles fehlende Partner-Texturen im Dev-Client (der lädt Simple End/Simple Blocks nicht):
+  22 SB-eigene (Kisten, Kessel, hohle Stämme, Boote, = wave1-Grundstand), 6 Achtel aus Simple-End-Material (vorher gleich unter
+  `simplebuilding:`), 2 neu durch die Simple-Blocks-Achtel. Ursache: der 26.3-Client backt jedes `items/*.json`, auch ohne
+  registriertes Item. **Lösung:** Item-Definition + eigenständiges Item-Modell (Vorlage eingebettet, kein Parent aus dem Modul)
+  jedes Partner-Achtels liegen im Jar des Partners (`modules/simpleend|simpleblocks/shared/resources`, SB `mc26_3/overlay/resources`,
+  Namespace weiter `simpleoctets`); Generator `PARTNER_RES`, `check_data.py` prüft den Ort. Blockstates/Eckmodelle bleiben im
+  Modul (nur für registrierte Blöcke geladen). Ziel: 0 Achtel-Meldungen, 22 SB-Grundstand bleiben.
+- **mixed_octet:** Lang-Schlüssel war da; die Wiki-Notiz griff aber den Glob `*_octet` zuerst → exakte Notizen stehen jetzt vor dem Glob.

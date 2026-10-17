@@ -48,6 +48,18 @@ WOODS = ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', '
          'bamboo', 'crimson', 'warped', 'ashwood', 'duskwood']
 # Simple End woods (registered only with Simple End, docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md): planks in its namespace.
 END_WOODS = ('ashwood', 'duskwood')
+# Octets of another mod's block: their item definition + a self-contained item model live in that mod's resources (still
+# namespace simpleoctets). The 26.3 client loads every items/*.json and bakes its model even when the item is not
+# registered, so without the partner its textures would be missing (client log faults); with it in the partner's jar they
+# only exist together with the textures. Blockstates/corner models stay here (only loaded for registered blocks).
+PARTNER_RES = {'simpleend': os.path.join(REPO, 'modules', 'simpleend', 'shared', 'resources'),
+               'simpleblocks': os.path.join(REPO, 'modules', 'simpleblocks', 'shared', 'resources'),
+               'simplebuilding': os.path.join(REPO, 'mc26_3', 'overlay', 'resources')}
+
+
+def item_assets_root(ns):
+    """assets/simpleoctets of the jar that carries the octet item of a base block in namespace ns."""
+    return os.path.join(PARTNER_RES[ns], 'assets', NS) if ns in PARTNER_RES else ASSETS
 
 
 def planks_tex(wood):
@@ -448,6 +460,33 @@ def data_files(mats):
     return files
 
 
+def sided_item_template():
+    return {'parent': 'minecraft:block/block', 'textures': {'particle': '#side'},
+            'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [0.9, 0.9, 0.9]}},
+            'elements': [{'from': [4, 4, 4], 'to': [12, 12, 12], 'faces': {
+                'north': {'texture': '#side'}, 'south': {'texture': '#side'}, 'east': {'texture': '#side'},
+                'west': {'texture': '#side'}, 'up': {'texture': '#up'}, 'down': {'texture': '#down'}}}]}
+
+
+def item(files, ns, cell, tex, template):
+    """Item definition + item model of one octet (template '' = item/octet, '/_sided' = item/octet/_sided). A partner's
+    octet gets the template inlined (no parent from this module: the partner may run without it)."""
+    root = item_assets_root(ns)
+    if root == ASSETS:
+        model = {'parent': f'{NS}:item/octet{template}', 'textures': tex}
+    else:
+        model = sided_item_template() if template else item_template()
+        model['textures'] = dict(model['textures'], **tex)
+    files[os.path.join(root, 'models', 'item', 'octet', cell + '.json')] = js(model)
+    files[os.path.join(root, 'items', cell + '.json')] = js(
+        {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/octet/{cell}'}})
+    if root != ASSETS:
+        STALE.extend(os.path.join(ASSETS, *rel) for rel in (('models', 'item', 'octet', cell + '.json'), ('items', cell + '.json')))
+
+
+STALE = []
+
+
 def outputs():
     files = {}
     a = lambda rel, data: files.__setitem__(os.path.join(ASSETS, *rel.split('/')), data)
@@ -457,9 +496,7 @@ def outputs():
         a(f'models/block/octet/{wood}.json', js({
             'parent': f'{NS}:block/octet_corner', 'textures': {'all': planks_tex(wood)}}))
         a(f'blockstates/{wood}_octet.json', js(multipart(f'{NS}:block/octet/{wood}')))
-        a(f'models/item/octet/{wood}_octet.json', js({
-            'parent': f'{NS}:item/octet', 'textures': {'all': planks_tex(wood)}}))
-        a(f'items/{wood}_octet.json', js({'model': {'type': 'minecraft:model', 'model': f'{NS}:item/octet/{wood}_octet'}}))
+        item(files, 'simpleend' if wood in END_WOODS else 'minecraft', f'{wood}_octet', {'all': planks_tex(wood)}, '')
     # Melon: the corner's outer faces (north, west, down) carry the rind, the three cut faces the flesh.
     outer = {'texture': '#side'}
     a('models/block/octet/melon_corner.json', js({
@@ -481,24 +518,16 @@ def outputs():
         print('Pillow missing: textures/block/melon_flesh.png left as it is', file=sys.stderr)
     mats = materials()
     a('models/block/octet/_corner_sided.json', js(sided_corner()))
-    a('models/item/octet/_sided.json', js({
-        'parent': 'minecraft:block/block', 'textures': {'particle': '#side'},
-        'display': {'gui': {'rotation': [30, 225, 0], 'translation': [0, 0, 0], 'scale': [0.9, 0.9, 0.9]}},
-        'elements': [{'from': [4, 4, 4], 'to': [12, 12, 12], 'faces': {
-            'north': {'texture': '#side'}, 'south': {'texture': '#side'}, 'east': {'texture': '#side'},
-            'west': {'texture': '#side'}, 'up': {'texture': '#up'}, 'down': {'texture': '#down'}}}]}))
+    a('models/item/octet/_sided.json', js(sided_item_template()))
     for m in mats:
         b = m['key']
         if 'all' in m['tex']:
             blk = {'parent': f'{NS}:block/octet_corner', 'textures': {'all': m['tex']['all']}}
-            itm = {'parent': f'{NS}:item/octet', 'textures': {'all': m['tex']['all']}}
         else:
             blk = {'parent': f'{NS}:block/octet/_corner_sided', 'textures': m['tex']}
-            itm = {'parent': f'{NS}:item/octet/_sided', 'textures': m['tex']}
         a(f'models/block/octet/{b}.json', js(blk))
         a(f'blockstates/{b}_octet.json', js(multipart(f'{NS}:block/octet/{b}')))
-        a(f'models/item/octet/{b}_octet.json', js(itm))
-        a(f'items/{b}_octet.json', js({'model': {'type': 'minecraft:model', 'model': f'{NS}:item/octet/{b}_octet'}}))
+        item(files, m['ns'], f'{b}_octet', m['tex'], '' if 'all' in m['tex'] else '/_sided')
     files[JAVA_LIST] = java_list(mats).encode('utf-8')
     files.update(data_files(mats))
     for lang_dir in LANG_DIRS:
@@ -598,7 +627,11 @@ def main():
         return
     check = '--check' in sys.argv
     files = outputs()
-    bad = []
+    bad = [p for p in STALE if os.path.exists(p)] if check else []
+    if not check:
+        for p in STALE:
+            if os.path.exists(p):
+                os.remove(p)
     for path, data in files.items():
         if check:
             try:

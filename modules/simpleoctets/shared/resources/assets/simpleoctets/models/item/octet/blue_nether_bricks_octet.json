@@ -1,6 +1,0 @@
-{
-  "parent": "simpleoctets:item/octet",
-  "textures": {
-    "all": "simpleblocks:block/blue_nether_bricks"
-  }
-}

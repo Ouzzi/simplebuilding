@@ -1,6 +1,0 @@
-{
-  "parent": "simpleoctets:item/octet",
-  "textures": {
-    "all": "simpleend:block/ashwood_planks"
-  }
-}
