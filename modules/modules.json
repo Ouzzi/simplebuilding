@@ -23,7 +23,8 @@
         "cloth-config",
         "simpleovens",
         "simplemobheads",
-        "simplecrucibles"
+        "simplecrucibles",
+        "simpleoctets"
       ],
       "optional": [
         "jei",
