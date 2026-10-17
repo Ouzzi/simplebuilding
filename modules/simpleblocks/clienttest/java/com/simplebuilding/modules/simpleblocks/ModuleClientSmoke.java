@@ -48,7 +48,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(40);
             context.takeScreenshot("simpleblocks-above");
             // Shaping Saw: in the world next to a stonecutter, then its screen with planks and with stone.
-            server.runCommand("execute as @a at @s run tp @s ~ ~-4 ~-4 0 12");
+            server.runCommand("execute as @a at @s run tp @s ~ ~ ~-4 0 12");
             server.runCommand("execute at @a run fill ~-12 ~ ~-2 ~12 ~6 ~12 minecraft:air");
             server.runCommand("execute at @a run setblock ~-1 ~ ~3 minecraft:stonecutter[facing=north]");
             server.runCommand("execute at @a run setblock ~1 ~ ~3 simpleblocks:shaping_saw[facing=north]");
