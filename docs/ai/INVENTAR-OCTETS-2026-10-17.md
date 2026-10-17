@@ -72,3 +72,6 @@ Eisen, Lapis, Netherit), alle Stämme/Hölzer, 16 Terrakotta-Farben, Melone. Sie
 
 ## Folgen für die Queue
 Siehe `.claude/QUEUE.md`, Block „Besitzer 17.10.“, Punkt (a): Umsetzung erst nach Merge von `claude-s6-octets`; Umfang 23 neue Octets (bzw. 19 ohne Naturstufen), eine Generator-Gruppe `planks`, Abdeckungstest, Rezepte, Wiki/Guide.
+
+
+**Besitzer 17.10.:** Naturstufen (Erde, Gras, Sand, Kies) bekommen KEINE Octets (Ausnahme von Regel 18). Damit fehlen noch 19 Familien: 15 Bretter-Arten + 4 Vanilla-Stufen-Familien.

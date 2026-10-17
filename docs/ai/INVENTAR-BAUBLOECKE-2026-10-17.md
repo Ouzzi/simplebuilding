@@ -28,8 +28,8 @@ Alles Übrige – reine Bau- und Dekoblöcke ohne Themenmodul – geht nach `sim
 | `froglights` | Scharlach-/Aqua-/Azur-Froschlicht | 3 | **simpleblocks** | Deko-Lichtblöcke, kein Themenmodul |
 | `traps` | Sculk-Kiefer | 1 | bleibt SB (später Simple Mobs) | Falle der Howler-Mechanik |
 | `storage_and_light` | rissiger Diamantblock, Enderit-Block, Baulicht | 3 | bleibt | Werkstoff-/Hammerkette bzw. Baugerät (Enderit → Simple Enderite) |
-| `light_panes*` | Lichtscheiben (normal, durchsichtig, Redstone, 16 Farben, Kupfer-Schalter) | 37 | **simpleblocks** (Entscheidung E-B1) | Deko-Beleuchtung; Redstone-Schalten ist Eigenschaft, kein Modul. Alternative: bleibt SB, weil Schaltlogik |
-| `sulfur_lights` | Schwefelfackel, -laterne, -lagerfeuer | 3 | **simpleblocks** (Entscheidung E-B1) | Deko-Licht; Schwefel ist Vanilla-Stoff in 26.3 |
+| `light_panes*` | Lichtscheiben (normal, durchsichtig, Redstone, 16 Farben, Kupfer-Schalter) | 37 | **bleibt SimpleBuilding** (Besitzer 17.10.: Redstone/Licht, kein Simple Blocks; Sub-Mod später prüfen) | Deko-Beleuchtung; Redstone-Schalten ist Eigenschaft, kein Modul. Alternative: bleibt SB, weil Schaltlogik |
+| `sulfur_lights` | Schwefelfackel, -laterne, -lagerfeuer | 3 | **bleibt SimpleBuilding** (Besitzer 17.10.: Feuer/Flamme, kein Simple Blocks) | Deko-Licht; Schwefel ist Vanilla-Stoff in 26.3 |
 | `woodwork_*` | Röhren, Platten, Kessel, Kiste, Schnitzholz je Holzart | 1 Zeile je Holzart | bleibt SB (später Simple Hammers) | Holzwerk-Plan, Schnitzen/Hammer; Kessel/Kiste sind Lager |
 
 Weitere einfache Blöcke in SB außerhalb des Tabs:
@@ -48,7 +48,7 @@ Weitere einfache Blöcke in SB außerhalb des Tabs:
   (37 Lichtscheiben, 3 Schwefellichter) = höchstens **55 Items**.
 - Nach `simpleoctets` (Stufe 6, schon geplant): 168 Achtel + gemischte Zelle + Melone.
 - Bleiben (mit Grund): End-Paletten 46, Schach, Holzwerk, Material/Baugeräte, Falle.
-- Offene Entscheidung E-B1: Lichtscheiben und Schwefellichter nach Simple Blocks (Empfehlung: ja, beide; sie haben kein Themenmodul).
+- Entschieden E-B1 (Besitzer 17.10.): Lichtscheiben und Schwefellichter bleiben in SimpleBuilding (eher Redstone/Feuer); ob später ein Sub-Mod, wird nachgearbeitet.
 
 ## Technik der Verschiebung (Plan für die neue Familienstufe)
 Vorbild Stufen 4/5/5b und 6: IdMoves (alte `simplebuilding:*`-Ids → `simpleblocks:*`, Welt-Migration per Datenfixer/Alias, Forge `addAlias`),

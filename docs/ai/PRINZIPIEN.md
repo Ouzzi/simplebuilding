@@ -27,7 +27,10 @@ Alle Baublöcke gehören zur SimpleBuilding-Familie, nie in fachfremde Mods. **S
 ### A4 Octet-Regel (O1, 17.10.)
 Jeder Block, der Treppen- oder Stufen-Varianten (stairs/slab) hat, bekommt auch einen Octet-Block (Achtelblock) – Vanilla-Blöcke, SimpleBuilding-Blöcke und alle Blöcke,
 denen Simple Blocks Treppe/Stufe gibt. Das Octet liefert `simpleoctets` (bei Fremdblöcken als optionale Integration, nur wenn der Besitzer-Mod geladen ist; jeder Mod bleibt allein spielbar).
-Neue Treppen/Stufen in irgendeinem Modul ohne Octet-Eintrag sind ein Fehler (Abdeckungstest). Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md`.
+**Ausnahme (Besitzer 17.10.):** Naturstufen (Erde, Gras, Sand, Kies) bekommen keine Octets. Neue Treppen/Stufen in irgendeinem Modul ohne Octet-Eintrag sind ein Fehler (Abdeckungstest). Lücken: `docs/ai/INVENTAR-OCTETS-2026-10-17.md`.
+
+### A4b Formsäge (Besitzer 17.10.)
+Alles, was Treppen-, Stufen- oder Octet-Varianten hat (Stein, Holz und Blöcke, die die Vanilla-Steinsäge nicht kann), lässt sich in der fortgeschrittenen Säge schneiden (Arbeitsname „Formsäge“, Simple Blocks). Neue Formen müssen dort auftauchen.
 
 ### A5 Vanilla-Rückports
 Künftige Vanilla-Features je Version prüfen: hat Vanilla es schon, ist der Mod-Teil aus; bei jedem Port erneut prüfen; Liste und Flags in der Datei.
