@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simplewanderers"
 version="${version}"
 displayName="Simple Wanderers"
+description="Village Wanderer: one Wandering Trader per village with a leashed horse, goods split from the traveling trader, a new stock every 3 days, a restock every 1.5 days and a range by village biome. Works on its own with Vanilla."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[dependencies.simplewanderers]]
 modId="forge"
 mandatory=true

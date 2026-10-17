@@ -3,6 +3,15 @@
   "id": "simplerespawn",
   "version": "${version}",
   "name": "Simple Respawn",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {
     "main": [

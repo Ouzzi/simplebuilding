@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simpleweather"
 version="${version}"
 displayName="Simple Weather"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Weather switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone."
 [[dependencies.simpleweather]]
 modId="minecraft"

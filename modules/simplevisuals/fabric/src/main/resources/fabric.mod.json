@@ -3,6 +3,16 @@
   "id": "simplevisuals",
   "version": "${version}",
   "name": "Simple Visuals",
+  "description": "Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {
     "main": [

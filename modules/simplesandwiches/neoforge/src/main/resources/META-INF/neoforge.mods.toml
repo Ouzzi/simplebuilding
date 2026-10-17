@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simplesandwiches"
 version="${version}"
 displayName="Simple Sandwiches"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Sandwiches built on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles."
 [[dependencies.simplesandwiches]]
 modId="minecraft"

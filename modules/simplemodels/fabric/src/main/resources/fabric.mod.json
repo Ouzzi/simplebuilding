@@ -3,6 +3,16 @@
   "id": "simplemodels",
   "version": "${version}",
   "name": "Simple Models",
+  "description": "Server-approved custom item models, anvil assignment, and a searchable model browser.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {
     "main": [

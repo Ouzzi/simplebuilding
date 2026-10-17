@@ -3,6 +3,16 @@
   "id": "simpledimension",
   "version": "${version}",
   "name": "Simple Dimensions",
+  "description": "Configurable dimensions, light arches, and safe linked portals.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {
     "main": [

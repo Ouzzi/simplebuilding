@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simpleriding"
 version="${version}"
 displayName="Simple Riding"
+description="Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[dependencies.simpleriding]]
 modId="forge"
 mandatory=true

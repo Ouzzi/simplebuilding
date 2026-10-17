@@ -3,6 +3,14 @@
   "id": "simpleloot",
   "version": "${version}",
   "name": "Simple Loot",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Loot switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
   "license": "CC0-1.0",
   "environment": "*",

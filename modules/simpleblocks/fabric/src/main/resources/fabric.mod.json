@@ -3,6 +3,14 @@
   "id": "simpleblocks",
   "version": "${version}",
   "name": "Simple Blocks",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Missing building blocks: Hushed Deepslate Tiles that dampen vibrations like wool, Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. Works on its own with Vanilla.",
   "license": "CC0-1.0",
   "environment": "*",

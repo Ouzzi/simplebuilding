@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simpleinterfaces"
 version="${version}"
 displayName="Simple Interfaces"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Restyle of the Vanilla container screens (a coloured box per block, drawn in code), linked containers and Easy Shulkers / Ender Chests; a sub-mod of Simple QoL, also playable alone."
 [[dependencies.simpleinterfaces]]
 modId="minecraft"

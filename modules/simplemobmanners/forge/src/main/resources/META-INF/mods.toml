@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simplemobmanners"
 version="${version}"
 displayName="Simple Mob Manners"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Mob manners: muted mobs, named babies that stay young and piglins that accept gold trims and tools; a sub-mod of Simple QoL, also playable alone."
 [[dependencies.simplemobmanners]]
 modId="forge"

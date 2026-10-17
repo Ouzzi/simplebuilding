@@ -3,6 +3,14 @@
   "id": "simplemaps",
   "version": "${version}",
   "name": "Simple Maps",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Wayfinder maps: endless maps per dimension with zoom, waypoints in the locator bar, framed views and cartography table upgrades.",
   "license": "CC0-1.0",
   "environment": "*",

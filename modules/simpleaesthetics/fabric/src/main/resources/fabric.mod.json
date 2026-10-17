@@ -3,6 +3,14 @@
   "id": "simpleaesthetics",
   "version": "${version}",
   "name": "Simple Aesthetics",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Super-mod: bundles Simple Visuals, Simple Sounds and Simple Models, with one on/off switch each.",
   "license": "CC0-1.0",
   "environment": "*",
