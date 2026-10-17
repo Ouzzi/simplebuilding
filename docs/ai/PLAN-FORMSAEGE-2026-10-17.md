@@ -97,3 +97,12 @@ er schneidet Stein **und** Holz und alles, was Treppen-/Stufen-/Octet-Varianten 
    auch im Axt-Weg 4 Nuggets), Ausrichtung bleibt, Werkzeug 1 Haltbarkeit. Abweichung: SimpleLibs `in_world_upgrades`
    nicht genutzt – braucht SimpleLib (Simple Blocks läuft ohne) und nimmt das Material aus der Nebenhand mit mehreren
    Schlägen, der Besitzer wollte die Nuggets aus dem Inventar. JEI-Infoseite auf Säge und Steinsäge, Wiki/Handbuch.
+
+## Nachtrag 2 Besitzer 17.10.: Octets und Holz exklusiv in der Formsäge (Folgearbeit)
+- Auf diesem Branch: alle Holz-Schnitte sind `simpleblocks:sawing` (keine neuen `minecraft:stonecutting`-Rezepte); die Säge
+  zeigt weiter alle Vanilla-Steinsägen-Rezepte. Regel in `docs/ai/PRINZIPIEN.md` A4b.
+- Folgearbeit nach dem Merge von `claude-s6-octets` (hier bewusst nicht angefasst): die Octet-Rezepte von `simpleoctets`
+  (heute `minecraft:stonecutting`, auch für Holz) werden `simpleblocks:sawing` mit Ladebedingung „simpleblocks geladen“
+  plus ein `minecraft:stonecutting`-Ersatz mit „simpleblocks nicht geladen“ (Simple Octets bleibt allein spielbar).
+  Gleiches gilt für die Octet-Steinsägen-Rezepte, die heute noch in SimpleBuilding liegen (in der Säge sichtbar als
+  „8×“ bei Brettern/Steinziegeln). Prüfen: GameTest „kein Octet/Holz-Rezept in der Steinsäge, wenn Simple Blocks geladen“.
