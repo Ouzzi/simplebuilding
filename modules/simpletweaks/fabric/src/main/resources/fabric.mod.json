@@ -23,7 +23,8 @@
     "fabric-gametest": [
       "com.simplebuilding.modules.simpletweaks.ModuleGameTest",
       "com.simplebuilding.modules.simpletweaks.ClaimsGameTest",
-      "com.simplebuilding.modules.simpletweaks.AdminGameTest"
+      "com.simplebuilding.modules.simpletweaks.AdminGameTest",
+      "com.simplebuilding.modules.simpletweaks.PlayGameTest"
     ]
   },
   "depends": {
@@ -36,11 +37,14 @@
   "mixins": [
     "simpletweaks.mixins.json",
     "simpletweaks.claims.mixins.json",
-    "simpletweaks.admin.mixins.json"
+    "simpletweaks.admin.mixins.json",
+    "simpletweaks.play.mixins.json"
   ],
   "license": "CC0-1.0",
   "suggests": {
     "simpledimension": "*",
-    "simplebuilding": "*"
+    "simplebuilding": "*",
+    "simplemoney": "*",
+    "simpleweather": "*"
   }
 }

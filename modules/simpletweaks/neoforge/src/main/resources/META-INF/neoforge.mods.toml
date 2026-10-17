@@ -35,8 +35,25 @@ config="simpletweaks.claims.mixins.json"
 [[mixins]]
 config="simpletweaks.admin.mixins.json"
 
+[[mixins]]
+config="simpletweaks.play.mixins.json"
+
 [[dependencies.simpletweaks]]
 modId="simpledimension"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simplemoney"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simpleweather"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"
