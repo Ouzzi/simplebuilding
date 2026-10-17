@@ -1,0 +1,64 @@
+// Hollow Howler voice, variant switch (concept docs/ai/KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md, section 9).
+// Default (no property): variant A, the synthesised .ogg files committed under shared/resources (make_howler_sounds.py).
+// -PsbHowlerSounds=vanilla (or SB_HOWLER_SOUNDS=vanilla): variant B, built from Vanilla sounds of the local Minecraft
+// asset store by tools/sounds/vanilla_derived_sounds.py into build/generated-resources/vanillaDerivedSounds (never
+// committed, AGENTS.md rule 7); processResources then drops the committed file of every name the generated root has,
+// so the jar carries exactly one copy. A missing Python (numpy, scipy, soundfile) or asset store logs a WARNING and
+// keeps variant A; -PsbVanillaDerivedStrict fails instead. -PsbPython / SB_PYTHON as in module-vanilla-derived.gradle.
+String vsMode = ((project.findProperty('sbHowlerSounds') ?: System.getenv('SB_HOWLER_SOUNDS') ?: 'synth') as String).trim()
+if (!(vsMode in ['synth', 'vanilla'])) throw new GradleException("sbHowlerSounds must be synth or vanilla, not '${vsMode}'")
+if (vsMode == 'vanilla') {
+    File vsScript = rootProject.file('tools/sounds/vanilla_derived_sounds.py')
+    File vsOut = layout.buildDirectory.dir('generated-resources/vanillaDerivedSounds').get().asFile
+    File vsShared = file('../shared/resources')
+    String vsPython = (project.findProperty('sbPython') ?: System.getenv('SB_PYTHON')) as String
+    boolean vsStrict = project.hasProperty('sbVanillaDerivedStrict')
+    boolean vsWindows = System.getProperty('os.name', '').toLowerCase(Locale.ROOT).contains('windows')
+    File vsGradleHome = gradle.gradleUserHomeDir
+    File vsRoot = rootProject.projectDir
+    String vsModule = project.parent.name
+    def vsTask = tasks.register('generateVanillaDerivedSounds') {
+        description = "Builds variant B of the ${vsModule} sounds (never committed) from the local Minecraft assets."
+        inputs.files(fileTree(vsScript.parentFile) { include '*.py' }).withPropertyName('generators')
+        inputs.property('python', vsPython ?: '')
+        outputs.dir(vsOut)
+        doLast {
+            project.delete(vsOut)
+            vsOut.mkdirs()
+            def fallback = { String why ->
+                if (vsStrict) throw new GradleException(why)
+                logger.warn("WARNING generateVanillaDerivedSounds (${vsModule}): ${why}\n-> variant A (committed synthesis) instead.")
+                project.delete(vsOut)
+                vsOut.mkdirs()
+            }
+            List<List<String>> candidates = vsPython ? [new File(vsPython).isFile() ? [vsPython] : (vsPython.trim().split(/\s+/) as List<String>)]
+                    : (vsWindows ? [['py', '-3']] : []) + [['python3.12'], ['python3'], ['python']]
+            def run = { List<String> cmd ->
+                try {
+                    ProcessBuilder pb = new ProcessBuilder(cmd).directory(vsRoot).redirectErrorStream(true)
+                    pb.environment().putAll(['GRADLE_USER_HOME': vsGradleHome.absolutePath, 'PYTHONUTF8': '1', 'PYTHONIOENCODING': 'utf-8'])
+                    Process p = pb.start()
+                    p.outputStream.close()
+                    String text = new String(p.inputStream.readAllBytes(), 'UTF-8')
+                    return [p.waitFor(), text]
+                } catch (IOException e) {
+                    return [-1, e.message ?: e.toString()]
+                }
+            }
+            List<String> py = candidates.find { c -> run(c + ['-c', 'import numpy, scipy, soundfile']).first() == 0 }
+            if (py == null) { fallback("no Python with numpy, scipy and soundfile among ${candidates*.join(' ')}"); return }
+            def (int code, String text) = run(py + ['-B', vsScript.absolutePath, '--out', vsOut.absolutePath, '--module', vsModule])
+            text.readLines().each { logger.lifecycle(it) }
+            if (code != 0) fallback("vanilla_derived_sounds.py failed (exit ${code}):\n${text.readLines().takeRight(25).join('\n')}")
+        }
+    }
+    sourceSets.main.resources.srcDir(vsTask)
+    String vsSharedPath = vsShared.canonicalPath + File.separator
+    // the committed variant-A file of each generated name leaves the jar (no duplicate entries); sourcesJar packs the
+    // resource srcDirs too
+    tasks.matching { it.name in ['processResources', 'sourcesJar'] }.configureEach {
+        exclude { FileTreeElement e ->
+            !e.directory && e.file.canonicalPath.startsWith(vsSharedPath) && new File(vsOut, e.relativePath.pathString).isFile()
+        }
+    }
+}

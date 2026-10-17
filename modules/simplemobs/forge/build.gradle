@@ -6,3 +6,5 @@ ext.forgeMixinConfigs = ['simplemobs.mixins.json', 'simplemobs.forge.mixins.json
 apply from: rootProject.file('gradle/module-forge.gradle')
 // Shellker Shell item texture is Vanilla-derived (built, never committed).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
+// Hollow Howler voice: variant A committed, variant B (Vanilla-derived) with -PsbHowlerSounds=vanilla.
+apply from: rootProject.file('gradle/module-vanilla-derived-sounds.gradle')
