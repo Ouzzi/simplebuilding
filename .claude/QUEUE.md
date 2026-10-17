@@ -15,6 +15,12 @@ Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.
 - [ ] (b) Baublöcke ohne Fachort nach `simpleblocks` verschieben (neue Familienstufe, **nach den Octets**, vor Stufe 7): Schwerkraftblöcke, Naturstufen, Eis-/Schalen-Varianten, Froschlichter (15 Items), nach Entscheidung E-B1 auch Lichtscheiben und Schwefellichter (40); IdMoves/Aliase, Simple Blocks als Pflicht-Sub-Mod von SimpleBuilding. Liste: Baublock-Inventar.
 - [ ] (c) Ein Kreativtab für Simple Blocks + SimpleBuilding-Baublöcke: Stufe T1 (mit geladenem `simpleblocks` füllt SimpleBuilding seine Baublöcke in den Tab „Simple Blocks“ und registriert den eigenen nicht; Standalone behält ihn) sofort nach (a) möglich, T2 mit (b). Plan: Baublock-Inventar, Abschnitt „Plan: ein Kreativtab“.
 - [~] (A, claude-howler4, 17.10.) (d) Howler-Sounds überarbeiten.
+- [x] (A, claude-optconcept, 17.10.) (e) Simple Optimization (`simpleoptimization`) – KONZEPT fertig: `docs/ai/KONZEPT-SIMPLE-OPTIMIZATION-2026-10-17.md` (Bereiche, Kompat-Mechanismus, Prioritätstabelle, Benchmark), Modpack-Liste `docs/ai/MODPACK-BESITZER-2026-10-17.md`. Offen: Besitzer-Review + Antworten auf §8 (Fragen 1–8).
+- [ ] (e1) Simple Optimization Stufe 1: Gerüst Super-Mod + Sub-Mods `simpleoptrender`/`simpleoptmemory`/`simpleoptserver` (Fabric 26.3), Bereichs-Tabelle, Mixin-Plugin mit Loader-Erkennung, Config, Status-Befehl; Benchmark-Harness `tools/bench/` (Mess-Mod, Bench-Welt, Kameraweg, results.json + report.html). Erst nach Besitzer-Review.
+- [ ] (e2) Simple Optimization Stufe 2: O1 Blätter-Culling, O7 Lichtkarten-Cache, S5a Sichtweite nach Serverlast + M1 IP-Ping, M2 Telemetrie; Kompat-Ziel mit Cull Leaves/More Culling/BadOptimizations/ServerCore.
+- [ ] (e3) Simple Optimization Stufe 3 (Besitzer): Benchmark auf Besitzer-PC (`py -3 tools\bench\run_bench.py --profile pc ...`), `priorities.json` füllen.
+- [ ] (e4) Simple Optimization Stufe 4/5: O3, O4, S1a, O9, S5b (Standard aus), Zielprüfung; danach L-Bereiche nur bei Messbedarf (Konzept §7).
+- [ ] (e5) Kompatibilitätstest Modpack des Besitzers: `docs/ai/MODPACK-BESITZER-2026-10-17.md` §6 K1–K23 (26.3-Fassungen auf sb-test, Rest im Port-Run 1.21.11/beim Besitzer).
 
 ## Offen – Überblick (Stand 2026-10-13)
 
@@ -644,3 +650,14 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [ ] (Besitzer 17.10., vielleicht) T12 Neue-Spieler-Schutz. Nein: T1 /home, T2 /tpa, T3 Warps, T29 End-Reset.
 - [x] (Besitzer 17.10.) Entscheidungen: Naturstufen (Erde, Gras, Sand, Kies) ohne Octets; Lichtscheiben + Schwefellichter bleiben in SimpleBuilding (kein Simple Blocks), Sub-Mod-Frage später.
 - [~] (A, claude-formsaege, 17.10.) Fortgeschrittene Säge („Formsäge“, Name zur Wahl) in Simple Blocks: ersetzt die Vanilla-Steinsäge in der Rolle, schneidet Stein UND Holz (fehlende Holz-Schnittrezepte) und alle Blöcke mit Treppen/Stufen/Octets, die die Steinsäge nicht kann; Rezept ähnlich Vanilla, aber abgehoben; Textur nah an Vanilla, Nutzen sichtbar – Varianten als Seite zur Wahl.
+
+### Besitzer 17.10. (spät)
+- [x] Admin-Fenster (Simple Tweaks /invsee, Todes-Sicherungen) abgenommen.
+- [x] Fehlende-Textur-Item aus Bild 2: Bild nicht nachlieferbar → abgehakt; stattdessen eigener Audit (nächster Punkt).
+- [ ] Textur-Audit per Client-Screenshots aller Kreativtabs + Inventar (fehlende Texturen/Modelle finden, z. B. Enderit-Truhe o. ä.); sicher kaputt: SimpleBuilding Color Brush (ColorBrushItem/BrushInkModelProperty) → fixen.
+- [ ] Polierter Endstein: Treppe, Stufe, Mauer (simplelib, bei der Materialgruppe) + Octet (simpleoctets) – nach Merge der Octets-Stufe.
+- [~] (A, claude-tweaks-cmd, 17.10.) Alle Simple-Tweaks-Befehle zusätzlich unter /simpletweaks <befehl> (+ /simpletweaks help).
+- [~] (A, claude-formsaege, 17.10.) Formsäge-Änderung: = Steinsäge retexturiert mit Kupfer-Highlights (Sockel + Sägeblatt), Rezept mit Kupfer; Upgrade einer platzierten Steinsäge: ohne SimpleBuilding mit Axt, mit SimpleBuilding mit Hammer + 4 Eisennuggets.
+- [ ] sb-test-Platte vergrößern (Besitzer auf suleiman: pct resize 103 rootfs +NG, wenn Speicher frei), sonst nur bereinigen.
+- [ ] (Besitzer 17.10.) Octets (Stein + Holz) und alle Holzvarianten EXKLUSIV in der Formsäge; Vanilla-Steinsäge bleibt Vanilla. Nach Merge der Octets-Stufe: Octet-Rezepte → simpleblocks:sawing, Fallback Steinsäge nur ohne Simple Blocks (Modul-Unabhängigkeit).
+- [~] (A, claude-tweaks-anticheat, 17.10.) Simple Tweaks Schutz: Anti-X-Ray (serverseitig Erze verschleiern, wirkt auch gegen X-Ray-Texturpakete) – Standard AN; Freecam-Regel „nicht durch Blöcke“ (Freecam fliegen erlaubt, Durchfliegen verboten, wenn Admin es einschaltet) – Standard AUS; weitere Schutzideen (z. B. Seed-Verschleierung) als Schalter, Standard AUS.
