@@ -30,6 +30,16 @@ public final class MapLayerSources {
         List<Marker> collect(Object level, int minX, int minZ, int maxX, int maxZ);
     }
 
+    /**
+     * Source that depends on who looks (visibility rules): {@link #collectFor} is what Simple Maps calls; the plain
+     * {@link #collect} stays for sources that show the same to everybody.
+     */
+    public interface ViewerCollector extends Collector {
+        @Override default List<Marker> collect(Object level, int minX, int minZ, int maxX, int maxZ) { return collectFor(level, null, minX, minZ, maxX, maxZ); }
+        /** {@code viewer}: UUID of the player whose map is filled, never null from Simple Maps. */
+        List<Marker> collectFor(Object level, java.util.UUID viewer, int minX, int minZ, int maxX, int maxZ);
+    }
+
     /** One registered source: owner namespace, id (unique), title key (for the map settings), collector. */
     public record Source(String owner, String id, String titleKey, Collector collector) {
         public Source {
@@ -48,6 +58,12 @@ public final class MapLayerSources {
     /** Adds (or replaces, keeping its place) the source {@code id}. */
     public static synchronized void register(String owner, String id, String titleKey, Collector collector) {
         SOURCES.put(id, new Source(owner, id, titleKey, collector));
+    }
+
+    /** Collects for one viewer: {@link ViewerCollector}s get the viewer, all others the plain call. */
+    public static List<Marker> collect(Source source, Object level, java.util.UUID viewer, int minX, int minZ, int maxX, int maxZ) {
+        return source.collector() instanceof ViewerCollector v ? v.collectFor(level, viewer, minX, minZ, maxX, maxZ)
+                : source.collector().collect(level, minX, minZ, maxX, maxZ);
     }
 
     /** The source with this id, or {@code null}. */

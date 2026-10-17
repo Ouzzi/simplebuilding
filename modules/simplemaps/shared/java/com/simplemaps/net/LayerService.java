@@ -77,7 +77,7 @@ public final class LayerService {
             if (source == null) continue;
             List<MapLayerSources.Marker> found;
             try {
-                found = source.collector().collect(level, p.minX(), p.minZ(), p.maxX(), p.maxZ());
+                found = MapLayerSources.collect(source, level, player.getUUID(), p.minX(), p.minZ(), p.maxX(), p.maxZ());
             } catch (RuntimeException e) {
                 SimpleMaps.LOG.warn("Map layer {} failed: {}", id, e.toString());
                 continue;
@@ -89,7 +89,7 @@ public final class LayerService {
                 for (String line : m.lines()) {
                     if (lines.size() < LayerDataPayload.MAX_LINES) lines.add(line.length() > LayerDataPayload.MAX_LINE ? line.substring(0, LayerDataPayload.MAX_LINE) : line);
                 }
-                markers.add(new LayerDataPayload.Marker(id, m.x(), m.z(), lines));
+                markers.add(new LayerDataPayload.Marker(id, m.x(), m.z(), m.kind().length() > LayerDataPayload.Marker.MAX_KIND ? "" : m.kind(), lines));
             }
         }
         SimpleMaps.toClient.accept(player, new LayerDataPayload(p.mapId(), new LayerDataPayload.Area(minCx, minCz, cw, ch), loaded, markers, available));

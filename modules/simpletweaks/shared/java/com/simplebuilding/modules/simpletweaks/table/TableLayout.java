@@ -11,6 +11,7 @@ import com.simplebuilding.modules.simpletweaks.deed.DeedLayout.Rect;
  * info (land n / max, dimension)
  * [ map (square) ]   [ owner list ]
  * hover line         [ ............ ]
+ *                    [ Expand land ]
  * [-][+][Mine]            [<][>][Close]
  * </pre>
  */
@@ -20,7 +21,7 @@ public final class TableLayout {
     /** Cells per side of the three zoom levels (radius 8, 16 and 32 chunks). */
     public static final int[] ZOOM = {16, 32, 64};
 
-    public final Rect panel, title, info, map, status, list, buttons;
+    public final Rect panel, title, info, map, status, list, buttons, expand;
     public final int width, height;
     private final int zoomW = SQUARE, modeW = 56, closeW = 50;
 
@@ -37,7 +38,9 @@ public final class TableLayout {
         int side = Math.max(16, Math.min(statusY - GAP - top, w - listW - GAP));
         map = new Rect(x, top, side, side);
         status = new Rect(x, statusY, side, STATUS_H);
-        list = new Rect(panel.right() - EDGE - listW, top, listW, buttonsY - GAP - top);
+        int listH = buttonsY - GAP - top - BUTTON_H - GAP;
+        list = new Rect(panel.right() - EDGE - listW, top, listW, listH);
+        expand = new Rect(list.x(), list.bottom() + GAP, listW, BUTTON_H);
     }
 
     /** As large as the screen allows up to {@value #MAX_W} x {@value #MAX_H}. */

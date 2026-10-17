@@ -115,7 +115,7 @@ public final class DeedService {
             }
         }
         return new DeedOpenPayload(mode, hand, ownerId, ownerName, code, claims.revision(ownerId), rights, claims.chunksOf(ownerId),
-                claims.config.maxClaimsPerPlayer(), claims.config.maxTrustedPlayers(), chunk.x(), chunk.z(), dimension, note, online, new ArrayList<>(known));
+                claims.budget(ownerId), claims.config.maxTrustedPlayers(), chunk.x(), chunk.z(), dimension, note, online, new ArrayList<>(known));
     }
 
     private static boolean plain(String name) {

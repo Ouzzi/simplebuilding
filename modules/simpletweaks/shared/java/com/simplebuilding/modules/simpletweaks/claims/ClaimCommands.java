@@ -34,6 +34,7 @@ public final class ClaimCommands {
                         .then(Commands.argument("rights",StringArgumentType.greedyString())
                                 .executes(c->trust(c.getSource(),StringArgumentType.getString(c,"player"),rights(StringArgumentType.getString(c,"rights")))))))
                 .then(Commands.literal("info").executes(c->info(c.getSource())))
+                .then(Commands.literal("budget").executes(c->budget(c.getSource())))
                 .then(Commands.literal("code").executes(c->code(c.getSource())))
                 .then(Commands.literal("untrust").then(Commands.argument("player",StringArgumentType.word())
                         .executes(c->trust(c.getSource(),StringArgumentType.getString(c,"player"),0))))
@@ -42,6 +43,9 @@ public final class ClaimCommands {
                 .then(Commands.literal("admin").requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
                         .executes(c->{c.getSource().sendSuccess(()->Component.translatable("command.simpletweaks.claim.stage","1–6"),false);return 1;})
                         .then(Commands.literal("unclaim").executes(c->result(c.getSource(),Claims.get(c.getSource().getServer()).unclaim(c.getSource().getPlayerOrException(),true))))
+                        .then(Commands.literal("budget").then(Commands.argument("player",StringArgumentType.word())
+                                .then(Commands.argument("chunks",com.mojang.brigadier.arguments.IntegerArgumentType.integer(1,ClaimConfig.MAX_CLAIMS))
+                                        .executes(c->setBudget(c.getSource(),resolve(c.getSource(),StringArgumentType.getString(c,"player")),com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(c,"chunks"))))))
                         .then(Commands.literal("listall").executes(c->list(c.getSource(),null)))
                         .then(Commands.literal("list").then(Commands.argument("player",StringArgumentType.word())
                                 .executes(c->list(c.getSource(),resolve(c.getSource(),StringArgumentType.getString(c,"player"))))))));
@@ -67,6 +71,20 @@ public final class ClaimCommands {
         if (!claims.view().containsKey(key)) { s.sendSuccess(()->Component.translatable("command.simpletweaks.claim.empty"),false);return 1; }
         int rights=claims.rights(key.dimension(),p.getUUID(),key.chunk());
         s.sendSuccess(()->Component.translatable("command.simpletweaks.claim.info",rights==0?"-":ClaimRights.letters(rights)),false);
+        return 1;
+    }
+    private static int budget(CommandSourceStack source) throws CommandSyntaxException {
+        var p=source.getPlayerOrException();var claims=Claims.get(source.getServer());
+        if (claims.locked()) return result(source,false);
+        var tier=claims.nextTier(p.getUUID());
+        Component next=tier==null?Component.translatable("command.simpletweaks.claim.budget.none"):Component.literal(tier.chunks()+" ("+tier.items().stream().map(i->i.count()+"x "+i.id()).collect(java.util.stream.Collectors.joining(", "))+(tier.levels()>0?", "+tier.levels()+" lvl":"")+")");
+        source.sendSuccess(()->Component.translatable("command.simpletweaks.claim.budget",claims.chunksOf(p.getUUID()),claims.budget(p.getUUID()),next),false);
+        return 1;
+    }
+    private static int setBudget(CommandSourceStack source,UUID owner,int chunks) {
+        var claims=Claims.get(source.getServer());
+        if (!claims.setBudget(owner,chunks)) return result(source,false);
+        source.sendSuccess(()->Component.translatable("command.simpletweaks.claim.budget.set",chunks),true);
         return 1;
     }
     /** The code of the sender's own land (read-only). */

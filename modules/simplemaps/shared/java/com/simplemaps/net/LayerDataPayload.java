@@ -22,10 +22,29 @@ public record LayerDataPayload(int mapId, Area area, byte[] loaded, List<Marker>
                 ByteBufCodecs.INT, Area::minCx, ByteBufCodecs.INT, Area::minCz, ByteBufCodecs.VAR_INT, Area::w, ByteBufCodecs.VAR_INT, Area::h, Area::new);
     }
 
-    public record Marker(String source, int x, int z, List<String> lines) {
+    /**
+     * {@code kind}: "" = a diamond at the point; {@code "area:RRGGBB:M:W"} = a filled strip of W chunks (W 1..128, from the
+     * chunk corner x, z towards +x, one chunk tall) in that color, M = 1 for the viewer's own land (see {@link #area}).
+     */
+    public record Marker(String source, int x, int z, String kind, List<String> lines) {
+        public static final int MAX_KIND = 32;
         static final StreamCodec<ByteBuf, Marker> CODEC = StreamCodec.composite(
                 ByteBufCodecs.stringUtf8(LayerRequestPayload.MAX_ID), Marker::source, ByteBufCodecs.INT, Marker::x, ByteBufCodecs.INT, Marker::z,
+                ByteBufCodecs.stringUtf8(MAX_KIND), Marker::kind,
                 ByteBufCodecs.stringUtf8(MAX_LINE).apply(ByteBufCodecs.list(MAX_LINES)), Marker::lines, Marker::new);
+
+        /** {@code {rgb, mine, chunks}} of an area kind, or null for a point marker or malformed data (never trusted). */
+        public int[] area() {
+            if (!kind.startsWith("area:")) return null;
+            String[] f = kind.split(":", -1);
+            if (f.length != 4 || f[1].length() != 6) return null;
+            try {
+                int w = Integer.parseInt(f[3]);
+                return w < 1 || w > MAX_SPAN_CHUNKS ? null : new int[]{Integer.parseInt(f[1], 16), f[2].equals("1") ? 1 : 0, w};
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
     }
 
     public record Source(String id, String titleKey) {

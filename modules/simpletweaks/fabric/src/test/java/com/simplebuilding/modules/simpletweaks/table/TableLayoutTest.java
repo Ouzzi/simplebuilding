@@ -34,10 +34,10 @@ class TableLayoutTest {
             var l = TableLayout.of(s[0], s[1]);
             String where = s[0] + "x" + s[1];
             if (s[0] >= TableLayout.MIN_W + 16 && s[1] >= TableLayout.MIN_H + 16) assertTrue(new Rect(0, 0, s[0], s[1]).contains(l.panel), where + ": panel on screen");
-            var parts = new ArrayList<>(List.of(l.title, l.info, l.map, l.status, l.list, l.buttons));
+            var parts = new ArrayList<>(List.of(l.title, l.info, l.map, l.status, l.list, l.buttons, l.expand));
             for (Rect r : parts) assertTrue(l.panel.contains(r), where + ": " + r + " inside the panel");
             // The button row sits below everything else; title/info stack; map and list stand side by side.
-            apart(where, List.of(l.title, l.info, l.map, l.list, l.buttons));
+            apart(where, List.of(l.title, l.info, l.map, l.list, l.buttons, l.expand));
             apart(where, List.of(l.status, l.list, l.buttons));
             assertTrue(l.map.bottom() <= l.status.y(), where + ": status under the map");
             assertEquals(l.map.w(), l.map.h(), where + ": square map");
