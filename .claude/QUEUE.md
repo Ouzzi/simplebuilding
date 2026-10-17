@@ -644,3 +644,12 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [ ] (Besitzer 17.10., vielleicht) T12 Neue-Spieler-Schutz. Nein: T1 /home, T2 /tpa, T3 Warps, T29 End-Reset.
 - [x] (Besitzer 17.10.) Entscheidungen: Naturstufen (Erde, Gras, Sand, Kies) ohne Octets; Lichtscheiben + Schwefellichter bleiben in SimpleBuilding (kein Simple Blocks), Sub-Mod-Frage später.
 - [~] (A, claude-formsaege, 17.10.) Fortgeschrittene Säge („Formsäge“, Name zur Wahl) in Simple Blocks: ersetzt die Vanilla-Steinsäge in der Rolle, schneidet Stein UND Holz (fehlende Holz-Schnittrezepte) und alle Blöcke mit Treppen/Stufen/Octets, die die Steinsäge nicht kann; Rezept ähnlich Vanilla, aber abgehoben; Textur nah an Vanilla, Nutzen sichtbar – Varianten als Seite zur Wahl.
+
+### Besitzer 17.10. (spät)
+- [x] Admin-Fenster (Simple Tweaks /invsee, Todes-Sicherungen) abgenommen.
+- [x] Fehlende-Textur-Item aus Bild 2: Bild nicht nachlieferbar → abgehakt; stattdessen eigener Audit (nächster Punkt).
+- [ ] Textur-Audit per Client-Screenshots aller Kreativtabs + Inventar (fehlende Texturen/Modelle finden, z. B. Enderit-Truhe o. ä.); sicher kaputt: SimpleBuilding Color Brush (ColorBrushItem/BrushInkModelProperty) → fixen.
+- [ ] Polierter Endstein: Treppe, Stufe, Mauer (simplelib, bei der Materialgruppe) + Octet (simpleoctets) – nach Merge der Octets-Stufe.
+- [~] (A, claude-tweaks-cmd, 17.10.) Alle Simple-Tweaks-Befehle zusätzlich unter /simpletweaks <befehl> (+ /simpletweaks help).
+- [~] (A, claude-formsaege, 17.10.) Formsäge-Änderung: = Steinsäge retexturiert mit Kupfer-Highlights (Sockel + Sägeblatt), Rezept mit Kupfer; Upgrade einer platzierten Steinsäge: ohne SimpleBuilding mit Axt, mit SimpleBuilding mit Hammer + 4 Eisennuggets.
+- [ ] sb-test-Platte vergrößern (Besitzer auf suleiman: pct resize 103 rootfs +NG, wenn Speicher frei), sonst nur bereinigen.
