@@ -51,12 +51,41 @@ public final class TweaksDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simpletweaks:admin_backups",
+            "simpletweaks:admin_block_log",
+            "simpletweaks:admin_death_backups",
+            "simpletweaks:admin_freeze",
+            "simpletweaks:admin_invsee",
+            "simpletweaks:admin_lag_finder",
+            "simpletweaks:admin_maintenance",
+            "simpletweaks:admin_restart",
+            "simpletweaks:admin_vanish",
             "simpletweaks:claim_deed",
             "simpletweaks:claim_table",
             "simpletweaks:claims",
             "simpletweaks:forge_support",
             "simpletweaks:guide_book",
-            "simpletweaks:legacy_compatibility");
+            "simpletweaks:legacy_compatibility",
+            "simpletweaks:play_afk",
+            "simpletweaks:play_border",
+            "simpletweaks:play_cleanup",
+            "simpletweaks:play_coords",
+            "simpletweaks:play_death_hint",
+            "simpletweaks:play_dragon_egg",
+            "simpletweaks:play_entity_limit",
+            "simpletweaks:play_events",
+            "simpletweaks:play_keep_inventory",
+            "simpletweaks:play_leaderboard",
+            "simpletweaks:play_login_reward",
+            "simpletweaks:play_mentions",
+            "simpletweaks:play_mob_griefing",
+            "simpletweaks:play_nether_roof",
+            "simpletweaks:play_phantoms",
+            "simpletweaks:play_playtime",
+            "simpletweaks:play_pregen",
+            "simpletweaks:play_pvp",
+            "simpletweaks:play_votes",
+            "simpletweaks:play_welcome");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
