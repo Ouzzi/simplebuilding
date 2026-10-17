@@ -27,7 +27,7 @@ for locale in ('en_us', 'de_de'):
     langs[locale] = data
     for name in g.BLOCKS:
         assert data.get(f'block.{NS}.{name}') and data.get(f'item.{NS}.{name}'), (locale, name)
-    for k in (f'itemGroup.{NS}', f'{NS}.testcentre.station', f'item.{NS}.guide_book'):
+    for k in (f'itemgroup.{NS}.blocks', f'{NS}.testcentre.station', f'item.{NS}.guide_book'):
         assert data.get(k), (locale, k)
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 

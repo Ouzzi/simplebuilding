@@ -1366,12 +1366,12 @@
         ]
       },
       "de": {
-        "title": "Geld-Verknuepfungen: Zusatzhandel",
-        "summary": "Ergaenzt reine Geld-Kaufangebote fuer geladene Mods, ohne deren alten Handel zu entfernen. Standard: aktiviert.",
+        "title": "Geld-Verknüpfungen: Zusatzhandel",
+        "summary": "Ergänzt reine Geld-Kaufangebote für geladene Mods, ohne deren alten Handel zu entfernen. Standard: aktiviert.",
         "details": [
           "Preis = clamp(ceil(Modellstunden x billsPerHour + Seltenheitsstufe x rarityStep + Rezeptplaetze x craftWeight), safetyFloor, 64). Standards: 1, 3, 1. Jeder Preis mindestens 8 Scheine. Ein Item je Kauf.",
-          "Servergrenzen: Vorrat Standard 2 (Cap 4), gemeinsames Spielerbudget 8 Kaeufe je 24000 vergangene Spielticks (Cap 16), Pause 100 Ticks (20-1200). Overworld-SavedData ueberlebt Logout, Dimensions-/Haendlerwechsel und Neustart. Tageszeitbefehle erneuern es nicht.",
-          "Keine verknuepften Rueckkaeufe, XP-Belohnungen oder Ruf-/Heldenrabatte. Bestehende Angebote behalten Preis/Vorrat bis zum Austausch; Aktivierung und Spielerbudget werden bei jedem Kauf geprueft. Servereinstellungen; Clientseite speichert lokalen Reload-/Neustartentwurf.",
+          "Servergrenzen: Vorrat Standard 2 (Cap 4), gemeinsames Spielerbudget 8 Käufe je 24000 vergangene Spielticks (Cap 16), Pause 100 Ticks (20-1200). Overworld-SavedData überlebt Logout, Dimensions-/Haendlerwechsel und Neustart. Tageszeitbefehle erneuern es nicht.",
+          "Keine verknüpften Rückkäufe, XP-Belohnungen oder Ruf-/Heldenrabatte. Bestehende Angebote behalten Preis/Vorrat bis zum Austausch; Aktivierung und Spielerbudget werden bei jedem Kauf geprüft. Servereinstellungen; Clientseite speichert lokalen Reload-/Neustartentwurf.",
           "Kerne nur beim fahrenden Haendler, nach Stufe zunehmend selten. Keine Steinmetz-Kerne. Kreativ-Platzhalter, Testmarke und alte wirkungslose Urkunde ausgeschlossen. Mods ohne eigene Items haben dokumentierte leere Tabellen."
         ]
       },
@@ -1611,7 +1611,7 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simplebuilding",
+        "title": "Verknüpfte Preisliste: simplebuilding",
         "summary": "218 Itempreise; Mod-Ladebedingung: simplebuilding.",
         "details": [
           "simplebuilding:amethyst_lens: Stufe 1, Stunden 6.7, Rezeptplaetze 9; 19 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
@@ -2286,7 +2286,7 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simplefun",
+        "title": "Verknüpfte Preisliste: simplefun",
         "summary": "1 Itempreise; Mod-Ladebedingung: simplefun.",
         "details": [
           "simplefun:brick_snowball: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1."
@@ -2398,7 +2398,7 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simplemobheads",
+        "title": "Verknüpfte Preisliste: simplemobheads",
         "summary": "89 Itempreise; Mod-Ladebedingung: simplemobheads.",
         "details": [
           "simplemobheads:blaze_head: Stufe 3, Stunden 15.0, Rezeptplaetze 0; 24 Scheine; wandering_trader 4; Vorrat 1; Chance 0.1.",
@@ -2686,10 +2686,10 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simplemodels",
+        "title": "Verknüpfte Preisliste: simplemodels",
         "summary": "0 Itempreise; Mod-Ladebedingung: simplemodels.",
         "details": [
-          "Keine eigenen Survival-Items fuer den Handel. {}"
+          "Keine eigenen Survival-Items für den Handel. {}"
         ]
       },
       "sources": [
@@ -2707,10 +2707,10 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simplequalityoflife",
+        "title": "Verknüpfte Preisliste: simplequalityoflife",
         "summary": "0 Itempreise; Mod-Ladebedingung: simplequalityoflife.",
         "details": [
-          "Keine eigenen Survival-Items fuer den Handel. {}"
+          "Keine eigenen Survival-Items für den Handel. {}"
         ]
       },
       "sources": [
@@ -2728,10 +2728,10 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simpleriding",
+        "title": "Verknüpfte Preisliste: simpleriding",
         "summary": "0 Itempreise; Mod-Ladebedingung: simpleriding.",
         "details": [
-          "Keine eigenen Survival-Items fuer den Handel. {}"
+          "Keine eigenen Survival-Items für den Handel. {}"
         ]
       },
       "sources": [
@@ -2749,10 +2749,10 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simplesounds",
+        "title": "Verknüpfte Preisliste: simplesounds",
         "summary": "0 Itempreise; Mod-Ladebedingung: simplesounds.",
         "details": [
-          "Keine eigenen Survival-Items fuer den Handel. {}"
+          "Keine eigenen Survival-Items für den Handel. {}"
         ]
       },
       "sources": [
@@ -2773,7 +2773,7 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simplecrucibles",
+        "title": "Verknüpfte Preisliste: simplecrucibles",
         "summary": "4 Itempreise; Mod-Ladebedingung: simplecrucibles.",
         "details": [
           "simplecrucibles:enderite_crucible: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -2814,7 +2814,7 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simpleovens",
+        "title": "Verknüpfte Preisliste: simpleovens",
         "summary": "9 Itempreise; Mod-Ladebedingung: simpleovens.",
         "details": [
           "simpleovens:enderite_blast_furnace: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -2864,7 +2864,7 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simpletrims",
+        "title": "Verknüpfte Preisliste: simpletrims",
         "summary": "3 Itempreise; Mod-Ladebedingung: simpletrims.",
         "details": [
           "simpletrims:emitting_trim_template: Stufe 0, Stunden 0.5, Rezeptplaetze 3; 8 Scheine; librarian 1; Vorrat 2; Chance 1.",
@@ -2894,10 +2894,10 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simpletweaks",
+        "title": "Verknüpfte Preisliste: simpletweaks",
         "summary": "0 Itempreise; Mod-Ladebedingung: simpletweaks.",
         "details": [
-          "Keine eigenen Survival-Items fuer den Handel. {'simpletweaks:claim_deed': 'Inert legacy/test item; no survival trade.'}"
+          "Keine eigenen Survival-Items für den Handel. {'simpletweaks:claim_deed': 'Inert legacy/test item; no survival trade.'}"
         ]
       },
       "sources": [
@@ -2915,10 +2915,10 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: simplevisuals",
+        "title": "Verknüpfte Preisliste: simplevisuals",
         "summary": "0 Itempreise; Mod-Ladebedingung: simplevisuals.",
         "details": [
-          "Keine eigenen Survival-Items fuer den Handel. {}"
+          "Keine eigenen Survival-Items für den Handel. {}"
         ]
       },
       "sources": [
@@ -2936,10 +2936,10 @@
         ]
       },
       "de": {
-        "title": "Verknuepfte Preisliste: wiringexample",
+        "title": "Verknüpfte Preisliste: wiringexample",
         "summary": "0 Itempreise; Mod-Ladebedingung: wiringexample.",
         "details": [
-          "Keine eigenen Survival-Items fuer den Handel. {'wiringexample:token': 'Integration-only token; no survival trade.'}"
+          "Keine eigenen Survival-Items für den Handel. {'wiringexample:token': 'Integration-only token; no survival trade.'}"
         ]
       },
       "sources": [

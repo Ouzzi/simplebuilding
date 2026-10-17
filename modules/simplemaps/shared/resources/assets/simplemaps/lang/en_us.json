@@ -27,7 +27,7 @@
   "screen.simplemaps.menu.configure": "Configure waypoint",
   "screen.simplemaps.menu.delete": "Delete waypoint",
   "screen.simplemaps.search": "Search blocks, items, heads",
-  "screen.simplemaps.tab.sync": "Synchronise zoom: the map in your hand takes this scale and the view centres on you. Shift+click: take the scale of the map in your hand",
+  "screen.simplemaps.tab.sync": "Synchronize zoom: the map in your hand takes this scale and the view centers on you. Shift+click: take the scale of the map in your hand",
   "screen.simplemaps.face.model": "3D model",
   "screen.simplemaps.face.side": "Side:",
   "screen.simplemaps.face.none": "Item icon",
