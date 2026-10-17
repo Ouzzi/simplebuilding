@@ -31,5 +31,12 @@ versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
 
+[[dependencies.simpleoctets]]
+modId="jei"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"
+
 [[mixins]]
 config="simpleoctets.mixins.json"
