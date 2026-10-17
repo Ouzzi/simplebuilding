@@ -66,6 +66,13 @@ def _fold(pmf: list[float]) -> list[float]:
     return out
 
 
+def _trim(pmf: list[float]) -> list[float]:
+    """Drop trailing zeros (index.html pads them again); keeps the data file small."""
+    while len(pmf) > 2 and pmf[-1] == 0:
+        pmf.pop()
+    return pmf
+
+
 def _requires(table: str) -> list[str]:
     return [tag for tag, needles in REQUIRES if any(n in table for n in needles)]
 
@@ -106,7 +113,7 @@ def build_streams(sources: list[dict], roll_distribution) -> list[dict]:
         first = group[0]
         streams.append({"item": item, "table": table, "type": first["type"], "label": first["label"],
                         "gated": bool(first.get("configFlag")), "requires": _requires(table),
-                        "pmf": [round(x, 12) for x in pmf]})
+                        "pmf": _trim([round(x, 12) for x in pmf])})
     streams.sort(key=lambda s: (s["item"], s["table"]))
     return streams
 

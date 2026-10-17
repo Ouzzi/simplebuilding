@@ -3884,6 +3884,7 @@ function tsBuild() {
   OB.timeByItem = new Map();
   arr(D && D.obtain && D.obtain.timeStreams).filter(isObj).forEach(function (s) {
     if (!OB.timeByItem.has(s.item)) OB.timeByItem.set(s.item, []);
+    s.pmf = arr(s.pmf).concat(new Array(TS_K + 1).fill(0)).slice(0, TS_K + 1);
     OB.timeByItem.get(s.item).push(s);
   });
 }
