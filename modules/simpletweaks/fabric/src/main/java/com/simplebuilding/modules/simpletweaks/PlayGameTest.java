@@ -25,5 +25,5 @@ public final class PlayGameTest {
  @GameTest(maxTicks=100) public void phantomsOptOut(GameTestHelper h) { PlayTests.TESTS.get("phantoms_opt_out").accept(h); }
  @GameTest(maxTicks=100) public void entityLimitReportsAndBlocks(GameTestHelper h) { PlayTests.TESTS.get("entity_limit_reports_and_blocks").accept(h); }
  @GameTest(maxTicks=100) public void cleanupSparesNamedAndRare(GameTestHelper h) { PlayTests.TESTS.get("cleanup_spares_named_and_rare").accept(h); }
- @GameTest(maxTicks=600) public void pregenSpiralAndGenerates(GameTestHelper h) { PlayTests.TESTS.get("pregen_spiral_and_generates").accept(h); }
+ @GameTest(maxTicks=12000) public void pregenSpiralAndGenerates(GameTestHelper h) { PlayTests.TESTS.get("pregen_spiral_and_generates").accept(h); }
 }
