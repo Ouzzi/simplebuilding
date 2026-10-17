@@ -73,7 +73,7 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 - [x] 4 `claude-split-s4-ovens`: Extraktion Ovens nach modules/simpleovens (claude-split-s4-ovens; offen: Merge nach wave1, SB-Config-Ofentempo ausblenden in Stufe 9)
 - [x] 5a `claude-split-s5-crucibles`: Tiegel/Fässer/verstärkter Kessel/Enderit-Stufen nach modules/simplecrucibles (IdMoves, Config-Übernahme, Guide, Wiki, Tests; offen: Merge nach wave1)
 - [x] (A, claude-s5b-crucibles, gemergt 17.10.) 5b Seelenlava, Eimer-Familie, JEI-/Jade-Seiten der Tiegel nach simplecrucibles (Plan: Stufe 5 Umsetzung, Abweichungen)
-- [ ] 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
+- [~] (A, claude-s6-octets, 17.10.) 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
 - [ ] 7 `claude-split-s7-hammers`: Hammers extrahieren (breiteste Kopplung)
 - [ ] 8 `claude-split-s8-storage`: Storage (~93 Klassen, 36 Blöcke) extrahieren
 - [ ] 9 `claude-split-s9-release`: Aufräumen, Wiki-Umzug, Versionen, Changelog, Brücken-Version, volles Gate
