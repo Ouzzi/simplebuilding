@@ -1,5 +1,7 @@
 package com.simplebuilding.modules.simplemodels.client;
 
+import com.simplelib.api.client.ui.UiBookmarks;
+import com.simplelib.api.client.ui.UiPalette;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Tooltip;
@@ -17,7 +19,6 @@ import net.minecraft.world.item.Items;
  */
 public final class ModelsTab extends AbstractButton {
     public static final int W = 24, H = 20, OUT = 20, DOWN = 6;
-    private static final int RIM = 0xFF1E1F23, LIGHT = 0xFFFFFFFF, SHADED = 0xFFA2A2A2;
     private final Runnable action;
     private final java.util.function.IntSupplier left, top;
 
@@ -35,18 +36,8 @@ public final class ModelsTab extends AbstractButton {
 
     @Override protected void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         place();
-        int x = getX(), y = getY(), w = width, h = height;
-        int body = isHoveredOrFocused() ? LIGHT : SHADED;
-        // Rounded outer (left) end: two stepped corner rows, rim all around, square inner end under the frame.
-        g.fill(x + 2, y, x + w, y + 1, RIM);
-        g.fill(x + 2, y + h - 1, x + w, y + h, RIM);
-        g.fill(x + 1, y + 1, x + 2, y + 2, RIM);
-        g.fill(x + 1, y + h - 2, x + 2, y + h - 1, RIM);
-        g.fill(x, y + 2, x + 1, y + h - 2, RIM);
-        g.fill(x + 1, y + 2, x + w, y + h - 2, body);
-        g.fill(x + 2, y + 1, x + w, y + 2, body);
-        g.fill(x + 2, y + h - 2, x + w, y + h - 1, body);
-        g.fill(x + 1, y + 2, x + w, y + 3, LIGHT);
+        UiBookmarks.tab(g, getX(), getY(), width, height, true, UiPalette.INVENTORY, false, isHoveredOrFocused());
+        int x = getX(), y = getY();
         g.item(new ItemStack(Items.NAME_TAG), x + 2, y + 2);
     }
 

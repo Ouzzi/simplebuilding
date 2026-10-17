@@ -5,3 +5,6 @@ dependencies { include project(':framework') }
 // JUnit for the pure model, row and layout classes (no game needed)
 dependencies { testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'; testRuntimeOnly 'org.junit.platform:junit-platform-launcher' }
 test { useJUnitPlatform() }
+
+// SimpleLib (box style, principle 6a) nested per principle 6a and compiled against; screens use com.simplelib.api.client.ui.
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

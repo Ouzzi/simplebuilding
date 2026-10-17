@@ -12,3 +12,7 @@ neoForge.runs {
         programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplestats:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
     }
 }
+
+// SimpleLib (box style, principle 6a) nested per jarJar and compiled against.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }

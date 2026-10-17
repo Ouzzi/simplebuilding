@@ -3,6 +3,8 @@ plugins {
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
 ext.forgeMixinConfigs = ['simpletools.mixins.json', 'simpletools.forge.mixins.json']
+// SimpleLib (box style) nested next to framework (principle 6a).
+ext.forgeBundleSimplelib = true
 apply from: rootProject.file('gradle/module-forge.gradle')
 ext.forgeNativeConfig = [id: 'simpletools', modId: 'simpletools', root: 'modules/simpletools/shared/java', screens: ['com/simplebuilding/modules/simpletools/ToolsScreen.java'], factory: 'com.simplebuilding.modules.simpletools.ToolsScreen.create(parent)']
 apply from: rootProject.file('gradle/forge-native-config.gradle')

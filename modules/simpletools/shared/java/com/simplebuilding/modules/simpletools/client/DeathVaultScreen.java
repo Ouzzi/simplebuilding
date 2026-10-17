@@ -4,6 +4,8 @@ import com.simplebuilding.modules.simpletools.vault.DeathLedger;
 import com.simplebuilding.modules.simpletools.vault.DeathVault;
 import com.simplebuilding.modules.simpletools.vault.DeathVaultMenu;
 import com.simplebuilding.modules.simpletools.vault.Fate;
+import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -104,13 +106,9 @@ public class DeathVaultScreen extends AbstractContainerScreen<DeathVaultMenu> {
         panel(g);
     }
 
-    /** Right panel in the chest colours: black rim, light top/left, dark bottom/right edge. */
+    /** Right panel in the SimpleLib box style (N12 frame), same inventory grey as the chest next to it. */
     private void panel(GuiGraphicsExtractor g) {
-        int x0 = leftPos + PANEL_X, y0 = topPos, x1 = x0 + PANEL_W, y1 = y0 + DeathVaultMenu.HEIGHT - 1;
-        g.fill(x0, y0, x1, y1, 0xFF000000);
-        g.fill(x0 + 1, y0 + 1, x1 - 1, y1 - 1, 0xFFFFFFFF);
-        g.fill(x0 + 3, y0 + 3, x1 - 1, y1 - 1, 0xFF555555);
-        g.fill(x0 + 3, y0 + 3, x1 - 3, y1 - 3, FILL);
+        UiBoxes.box(g, leftPos + PANEL_X, topPos, PANEL_W, DeathVaultMenu.HEIGHT - 1, UiPalette.INVENTORY, false);
     }
 
     // --- slots ---------------------------------------------------------------------------------------------------------
