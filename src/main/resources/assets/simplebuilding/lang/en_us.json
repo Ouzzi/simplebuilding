@@ -1617,7 +1617,7 @@
   "book.simplebuilding.gadgets.3.title": "Transposer",
   "book.simplebuilding.gadgets.3.text": "Turns logs, furnaces, pistons, hoppers, stairs and signs in place. Click near an edge to choose the direction; sneaking turns backwards.\nWith a block in the off hand, hold right-click to swap the clicked block for it.",
   "book.simplebuilding.gadgets.4.title": "Transposer Charge",
-  "book.simplebuilding.gadgets.4.text": "A turn costs 1 of 1024 charges, a swap 2; Unbreaking saves some. An empty Transposer never breaks.\nAt an anvil, 16 ender pearls refill it. Efficiency shortens the swap wind-up (V: instant). No Mending.",
+  "book.simplebuilding.gadgets.4.text": "A turn costs 1 of 1024 charges, a swap 2; Unbreaking saves some. Empty, it never breaks.\nAt an anvil, 16 ender pearls refill it. Efficiency shortens the swap wind-up (V: instant). No Mending.",
   "book.simplebuilding.gadgets.5.title": "Finding Ores",
   "book.simplebuilding.gadgets.5.text": "The %3$s points to the nearest ore of its mode: iron, gold, diamond, netherite, all, or a custom block.\nSneak and use to change the mode; sneak-click a block to make it the custom target.",
   "book.simplebuilding.gadgets.6.title": "Signal Strength",
