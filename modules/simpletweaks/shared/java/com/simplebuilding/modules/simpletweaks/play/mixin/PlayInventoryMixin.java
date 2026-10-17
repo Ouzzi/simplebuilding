@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 /**
  * Partial keep inventory (T27): the kept stacks leave the inventory at the first read of the slot list in {@code dropAll},
  * i.e. after every HEAD hook of other mods (Simple Tools Soulbound takes its stacks there first), and go back at the end.
+ * The read is the loop condition, so the hook fires on every pass; {@link KeepInventory#beforeDrops} acts on the first only.
  */
 @Mixin(Inventory.class)
 public abstract class PlayInventoryMixin {

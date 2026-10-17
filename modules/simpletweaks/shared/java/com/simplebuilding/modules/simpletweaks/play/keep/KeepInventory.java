@@ -27,8 +27,8 @@ public final class KeepInventory {
     /** The player whose {@code Player.dropEquipment} runs (only a death empties the inventory through T27). */
     private static final ThreadLocal<Player> DYING = new ThreadLocal<>();
 
-    public static void deathStart(Player p) { DYING.set(p); }
-    public static void deathEnd(Player p) { if (DYING.get() == p) DYING.remove(); }
+    public static void deathStart(Player p) { DYING.set(p); HELD.remove(); }
+    public static void deathEnd(Player p) { if (DYING.get() == p) DYING.remove(); HELD.remove(); }
     static void untag(Player p) { for (var t : List.copyOf(p.entityTags())) if (t.startsWith(TAG)) p.removeTag(t); }
 
     public static boolean active(ServerLevel level) {
@@ -52,7 +52,7 @@ public final class KeepInventory {
 
     /** Inside {@code Inventory.dropAll}, after the HEAD hooks of other mods: the kept stacks leave the inventory. */
     public static void beforeDrops(Player p) {
-        HELD.remove();
+        if (HELD.get() != null) return; // the hook sits in the loop condition: only the first pass takes the stacks
         if (!(p instanceof ServerPlayer) || DYING.get() != p || !(p.level() instanceof ServerLevel level) || !active(level)) return;
         var inv = p.getInventory();
         var held = new HashMap<Integer, ItemStack>();
