@@ -14,7 +14,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,6 +35,9 @@ public final class SawTests {
             new String[]{"jungle", "log", "wood"}, new String[]{"acacia", "log", "wood"}, new String[]{"dark_oak", "log", "wood"},
             new String[]{"mangrove", "log", "wood"}, new String[]{"cherry", "log", "wood"}, new String[]{"pale_oak", "log", "wood"},
             new String[]{"poplar", "log", "wood"}, new String[]{"crimson", "stem", "hyphae"}, new String[]{"warped", "stem", "hyphae"});
+
+    private static final TagKey<Item> STAIRS = TagKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.withDefaultNamespace("stairs"));
+    private static final TagKey<Item> SLABS = TagKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.withDefaultNamespace("slabs"));
 
     private SawTests() {}
 
@@ -145,7 +148,7 @@ public final class SawTests {
         int shapes = 0;
         for (Item it : BuiltInRegistries.ITEM) {
             ItemStack stack = new ItemStack(it);
-            if (!(stack.is(ItemTags.STAIRS) || stack.is(ItemTags.SLABS)) || !crafted.contains(it)) continue;
+            if (!(stack.is(STAIRS) || stack.is(SLABS)) || !crafted.contains(it)) continue;
             shapes++;
             if (!sawn.contains(it)) missing.add(BuiltInRegistries.ITEM.getKey(it).toString());
         }
@@ -162,16 +165,17 @@ public final class SawTests {
     private static void menuCuts(GameTestHelper h) {
         ServerPlayer player = h.makeMockServerPlayerInLevel();
         BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
+        Item woolStairs = item("minecraft:white_wool_stairs");
         ShapingSawMenu menu = new ShapingSawMenu(1, player.getInventory(), ContainerLevelAccess.create(h.getLevel(), pos));
-        menu.container.setItem(0, new ItemStack(Items.WHITE_WOOL, 2));
+        menu.container.setItem(0, new ItemStack(item("minecraft:white_wool"), 2));
         int index = -1;
-        for (int i = 0; i < menu.cuts().size(); i++) if (menu.cuts().get(i).result().item().value() == Items.WHITE_WOOL_STAIRS) index = i;
+        for (int i = 0; i < menu.cuts().size(); i++) if (menu.cuts().get(i).result().item().value() == woolStairs) index = i;
         h.assertTrue(index >= 0, "wool stairs offered, cuts " + menu.cuts().size());
         menu.clickMenuButton(player, index);
         ItemStack result = menu.getSlot(ShapingSawMenu.RESULT_SLOT).getItem();
-        h.assertTrue(result.is(Items.WHITE_WOOL_STAIRS) && result.getCount() == 1, "result slot: " + result);
+        h.assertTrue(result.is(woolStairs) && result.getCount() == 1, "result slot: " + result);
         menu.quickMoveStack(player, ShapingSawMenu.RESULT_SLOT);
-        h.assertTrue(player.getInventory().countItem(Items.WHITE_WOOL_STAIRS) >= 1, "stairs in the inventory");
+        h.assertTrue(player.getInventory().countItem(woolStairs) >= 1, "stairs in the inventory");
         h.assertTrue(menu.container.getItem(0).getCount() <= 1, "wool used: " + menu.container.getItem(0));
         menu.container.setItem(0, new ItemStack(Items.DIAMOND));
         h.assertTrue(menu.cuts().isEmpty(), "a diamond has no cuts");
