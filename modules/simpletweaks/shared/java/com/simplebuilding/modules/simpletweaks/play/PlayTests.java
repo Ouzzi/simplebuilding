@@ -501,6 +501,16 @@ public final class PlayTests {
         next.getInventory().clearContent();
         next.restoreFrom(p, false);
         yes(h, next.getInventory().getItem(0).is(Items.DIAMOND_SWORD) && next.getInventory().getItem(39).is(Items.IRON_HELMET) && next.getInventory().getItem(12).isEmpty(), "Kept stacks move to the respawned player");
+        yes(h, inv.getItem(0).isEmpty() && inv.getItem(39).isEmpty() && p.entityTags().stream().noneMatch(t -> t.startsWith("simpletweaks_kept:")),
+                "The dead player keeps no copy (moved, not copied)");
+        var twice = player(h, new BlockPos(3, 2, 1));
+        twice.getInventory().clearContent();
+        twice.restoreFrom(p, false);
+        yes(h, twice.getInventory().isEmpty(), "A second respawn from the same death gives nothing (no dupe)");
+        var plain = player(h, new BlockPos(1, 2, 3));
+        plain.getInventory().setItem(0, new ItemStack(Items.STICK));
+        plain.getInventory().dropAll();
+        yes(h, plain.getInventory().getItem(0).isEmpty(), "dropAll outside a death is untouched by T27");
         with(PlayConfig.of("{\"keepInventory\":{\"mode\":\"xp\"}}"), () -> {
             yes(h, !KeepInventory.keepsSlot(0) && KeepInventory.droppedXp(p, 70) == 0, "xp mode: items drop, experience stays");
             var again = player(h, new BlockPos(3, 2, 3));

@@ -37,6 +37,54 @@ public final class CrossModGameTest {
     }
 
     /**
+     * Death handling order with every module loaded (gate 9f0aa3003): Simple Tools Soulbound owns its stacks (taken out
+     * first, respawn copy with durability capped at 50), Simple Tweaks' partial keep inventory (T27, default hotbar + armor)
+     * keeps only what is left of its slots, the rest drops. Respawning moves everything once: the dead player keeps no copy
+     * and a second respawn from the same death gives nothing.
+     */
+    @GameTest(maxTicks = 100)
+    public void soulboundKeepInventoryAndVaultSideBySide(GameTestHelper helper) {
+        var level = helper.getLevel();
+        if (level.getGameRules().get(net.minecraft.world.level.gamerules.GameRules.KEEP_INVENTORY)) { helper.succeed(); return; }
+        var soulbound = level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                .get(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.ENCHANTMENT,
+                        Identifier.fromNamespaceAndPath("simpletools", "soulbound")));
+        helper.assertTrue(soulbound.isPresent(), "simpletools:soulbound registered");
+        var p = helper.makeMockServerPlayerInLevel();
+        p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        var at = helper.absoluteVec(new net.minecraft.world.phys.Vec3(2.5, 2, 2.5));
+        p.snapTo(at.x, at.y, at.z, 0, 0);
+        try {
+            var sword = new ItemStack(net.minecraft.world.item.Items.DIAMOND_SWORD);
+            sword.enchant(soulbound.get(), 1);
+            p.getInventory().setItem(3, sword);
+            p.getInventory().setItem(5, new ItemStack(net.minecraft.world.item.Items.DIRT, 10));
+            p.getInventory().setItem(12, new ItemStack(net.minecraft.world.item.Items.COBBLESTONE, 20));
+            p.setHealth(0.0F);
+            p.die(level.damageSources().genericKill());
+            var drops = level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, new net.minecraft.world.phys.AABB(p.blockPosition()).inflate(4));
+            helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(net.minecraft.world.item.Items.COBBLESTONE)), "main inventory dropped");
+            helper.assertTrue(drops.stream().noneMatch(e -> e.getItem().is(net.minecraft.world.item.Items.DIRT) || e.getItem().is(net.minecraft.world.item.Items.DIAMOND_SWORD)),
+                    "neither the Soulbound sword nor the kept hotbar dirt became an item entity: " + drops);
+            var fresh = (net.minecraft.server.level.ServerPlayer) helper.makeMockServerPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+            fresh.restoreFrom(p, false);
+            var back = fresh.getInventory().getItem(3);
+            helper.assertTrue(back.is(net.minecraft.world.item.Items.DIAMOND_SWORD) && back.getMaxDamage() - back.getDamageValue() == 50,
+                    "the sword comes back through Soulbound (durability capped at 50), not as an untouched T27 copy: " + back);
+            helper.assertTrue(fresh.getInventory().getItem(5).is(net.minecraft.world.item.Items.DIRT) && fresh.getInventory().getItem(5).getCount() == 10
+                    && fresh.getInventory().countItem(net.minecraft.world.item.Items.DIAMOND_SWORD) == 1, "T27 dirt back, exactly one sword");
+            helper.assertTrue(p.getInventory().isEmpty(), "the dead player keeps no copy");
+            var again = (net.minecraft.server.level.ServerPlayer) helper.makeMockServerPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+            again.restoreFrom(p, false);
+            helper.assertTrue(again.getInventory().isEmpty(), "a second respawn from the same death gives nothing");
+            drops.forEach(net.minecraft.world.entity.Entity::discard);
+        } finally {
+            level.getServer().getPlayerList().remove(p);
+        }
+        helper.succeed();
+    }
+
+    /**
      * Nachtrag 65: with every module loaded, each registered non-Vanilla item stands in at least one creative tab
      * (own module tab or SimpleBuilding / Vanilla tab) and no mod tab offers one stack twice. Legacy ids that
      * exist only so old worlds still load are the only exceptions.
