@@ -157,6 +157,482 @@
           "Native Forge-Aliase und Wrapper-Lookups lösen nur die bestehende Alt-ID-Allowlist auf. Gespeichert werden kanonische IDs; keine doppelten Spielmechaniken. Claims bleiben inaktiv. Forge-Client und echte hochgestufte Welten bleiben ungeprüft."
         ]
       }
+    },
+    {
+      "id": "play_coords",
+      "en": {
+        "title": "Share coordinates (T4)",
+        "summary": "/coords [message] shares your position with everybody, /coords to <player> [message] with one player.",
+        "details": [
+          "The coordinates are green and copy on click; the dimension is named.",
+          "An optional ping marker (end rod particles) shows the spot for pingSeconds (default 10); a cooldown (default 5 s) keeps chat calm.",
+          "Server setting coords.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Koordinaten teilen (T4)",
+        "summary": "/coords [Nachricht] teilt deine Position mit allen, /coords to <Spieler> [Nachricht] mit einem Spieler.",
+        "details": [
+          "Die Koordinaten sind grün und lassen sich anklicken und kopieren; die Dimension wird genannt.",
+          "Ein optionaler Ping (End-Stab-Partikel) zeigt die Stelle pingSeconds lang (Standard 10); eine Abklingzeit (Standard 5 s) hält den Chat ruhig.",
+          "Servereinstellung coords.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/coords/Coords.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_death_hint",
+      "en": {
+        "title": "Private death hint (T5)",
+        "summary": "After a real death only you get a line with place (copy on click), dimension, cause and how long your items stay (5 minutes while the area is loaded).",
+        "details": [
+          "With Simple Respawn a downed player is not dead yet: the hint comes with the real death.",
+          "With the Vanilla rule keep_inventory it says that nothing was dropped.",
+          "Server setting deathHint.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Privater Todes-Hinweis (T5)",
+        "summary": "Nach einem echten Tod bekommst nur du eine Zeile mit Ort (anklicken kopiert), Dimension, Ursache und wie lange deine Gegenstände liegen bleiben (5 Minuten, solange der Bereich geladen ist).",
+        "details": [
+          "Mit Simple Respawn ist ein Niedergeschlagener noch nicht tot: der Hinweis kommt mit dem echten Tod.",
+          "Mit der Vanilla-Regel keep_inventory heißt es, dass nichts fallen gelassen wurde.",
+          "Servereinstellung deathHint.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/death/DeathHint.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_mentions",
+      "en": {
+        "title": "Chat mentions (T6)",
+        "summary": "@Name in chat is highlighted in yellow for everybody, and the mentioned players hear a soft bell.",
+        "details": [
+          "Names are matched without case; the sender hears nothing. @everyone and @all ping everybody, only from operators of everyonePermission (default 2).",
+          "The highlight is the unsigned display content of the message (the Vanilla way of decorating chat); the signed text stays unchanged.",
+          "Server setting mentions.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Chat-Erwähnungen (T6)",
+        "summary": "@Name im Chat wird für alle gelb hervorgehoben, und die Erwähnten hören eine leise Glocke.",
+        "details": [
+          "Groß-/Kleinschreibung zählt nicht; der Absender hört nichts. @everyone und @all erreichen alle, nur von Operatoren ab everyonePermission (Standard 2).",
+          "Die Hervorhebung ist der unsignierte Anzeige-Inhalt der Nachricht (so dekoriert auch Vanilla den Chat); der signierte Text bleibt unverändert.",
+          "Servereinstellung mentions.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/chat/Mentions.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_playtime",
+      "en": {
+        "title": "/playtime and /seen (T7)",
+        "summary": "/playtime [player] shows the play time from the Vanilla statistics; /seen <player> says whether a player is online or how long ago they left.",
+        "details": [
+          "Offline players are read from their statistics file.",
+          "Leave times and names are kept in the world (simpletweaks/play-state.json).",
+          "Server setting playtime.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "/playtime und /seen (T7)",
+        "summary": "/playtime [Spieler] zeigt die Spielzeit aus der Vanilla-Statistik; /seen <Spieler> sagt, ob jemand online ist oder wie lange er schon weg ist.",
+        "details": [
+          "Offline-Spieler werden aus ihrer Statistikdatei gelesen.",
+          "Austrittszeiten und Namen liegen in der Welt (simpletweaks/play-state.json).",
+          "Servereinstellung playtime.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/seen/Playtime.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_mob_griefing",
+      "en": {
+        "title": "Mob griefing per mob (T8)",
+        "summary": "Listed mobs (blocked, default creeper, enderman, ghast, wither, ravager) cannot change blocks; all other mobs follow the Vanilla rule mob_griefing.",
+        "details": [
+          "While a listed mob ticks, the Vanilla rule reads false for it; projectiles count as their owner (ghast fireballs).",
+          "It only forbids: with mob_griefing off nothing changes. Vanilla 26.3 has no per-mob rule.",
+          "Server setting mobGriefing.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Mob-Griefing je Mob (T8)",
+        "summary": "Gelistete Mobs (blocked, Standard Creeper, Enderman, Ghast, Wither, Verwüster) verändern keine Blöcke; alle anderen folgen der Vanilla-Regel mob_griefing.",
+        "details": [
+          "Während ein gelisteter Mob tickt, liest die Vanilla-Regel für ihn false; Geschosse zählen als ihr Besitzer (Ghast-Feuerbälle).",
+          "Es verbietet nur: mit mob_griefing aus ändert sich nichts. Vanilla 26.3 hat keine Regel je Mob.",
+          "Servereinstellung mobGriefing.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/grief/MobGriefing.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_pvp",
+      "en": {
+        "title": "PvP per player (T9)",
+        "summary": "/pvp on|off (no argument: status). A player can hurt another only when both have PvP on.",
+        "details": [
+          "Everybody starts with PvP on as in Vanilla (defaultOn); arrows and tridents follow the same rule.",
+          "After switching, wait cooldownSeconds (default 30) before switching again.",
+          "Claims are checked first and keep precedence: personal PvP never allows damage a claim forbids. Server setting pvp.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "PvP je Spieler (T9)",
+        "summary": "/pvp on|off (ohne Argument: Status). Ein Spieler kann einen anderen nur verletzen, wenn beide PvP an haben.",
+        "details": [
+          "Alle starten wie in Vanilla mit PvP an (defaultOn); Pfeile und Dreizacke folgen derselben Regel.",
+          "Nach dem Umschalten cooldownSeconds (Standard 30) warten, bis es wieder geht.",
+          "Claims werden zuerst geprüft und haben Vorrang: persönliches PvP erlaubt nie Schaden, den ein Claim verbietet. Servereinstellung pvp.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/pvp/Pvp.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_welcome",
+      "en": {
+        "title": "Welcome and announcements (T19)",
+        "summary": "A welcome line for joining players ({player} is replaced), rotating tips every tipMinutes and own join/leave lines instead of the Vanilla ones.",
+        "details": [
+          "An empty join or leave line keeps the Vanilla one.",
+          "Server setting welcome.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Willkommen und Ankündigungen (T19)",
+        "summary": "Eine Willkommenszeile beim Beitritt ({player} wird ersetzt), wechselnde Tipps alle tipMinutes und eigene Beitritts-/Austrittszeilen statt der Vanilla-Zeilen.",
+        "details": [
+          "Eine leere Beitritts- oder Austrittszeile behält die Vanilla-Zeile.",
+          "Servereinstellung welcome.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/welcome/Welcome.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_login_reward",
+      "en": {
+        "title": "Daily login reward (T20)",
+        "summary": "The first join of a day gives the reward items; days in a row build a streak, a gap starts again at 1, and every bonusEvery days (default 7) there are bonus items.",
+        "details": [
+          "(with Simple Money) billsPerDay money bills per streak day, at most maxBills.",
+          "Server setting loginReward.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Tägliche Login-Belohnung (T20)",
+        "summary": "Der erste Beitritt eines Tages gibt die Belohnung; Tage in Folge bilden eine Serie, eine Lücke beginnt wieder bei 1, und alle bonusEvery Tage (Standard 7) gibt es Bonus-Gegenstände.",
+        "details": [
+          "(mit Simple Money) billsPerDay Geldscheine je Serientag, höchstens maxBills.",
+          "Servereinstellung loginReward.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/reward/LoginReward.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_events",
+      "en": {
+        "title": "Server events (T21)",
+        "summary": "Operators start events with /tweaks event start <double_xp|more_loot|blood_moon> [minutes], stop and status; one event at a time with a boss bar.",
+        "details": [
+          "Double XP multiplies every experience award (xpMultiplier, default 2). More loot rolls the loot table of mobs killed by players once more. Blood moon spawns extra monsters near survival players at night in the Overworld and ends at daybreak.",
+          "The automatic schedule (scheduleEnabled, lines like SAT 20:00 double_xp 60) is off by default; the command is on."
+        ]
+      },
+      "de": {
+        "title": "Server-Events (T21)",
+        "summary": "Operatoren starten Events mit /tweaks event start <double_xp|more_loot|blood_moon> [Minuten], stop und status; ein Event zur Zeit mit Bossleiste.",
+        "details": [
+          "Doppelte Erfahrung vervielfacht jede Erfahrung (xpMultiplier, Standard 2). Mehr Beute würfelt die Beutetabelle von Mobs, die Spieler töten, ein weiteres Mal. Der Blutmond lässt nachts in der Oberwelt zusätzliche Monster bei Überlebens-Spielern erscheinen und endet bei Tagesanbruch.",
+          "Der automatische Zeitplan (scheduleEnabled, Zeilen wie SAT 20:00 double_xp 60) ist standardmäßig aus; der Befehl ist an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/events/ServerEvents.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_leaderboard",
+      "en": {
+        "title": "Leaderboard (T22)",
+        "summary": "/leaderboard <playtime|deaths|kills|mined> lists the top 10 of every player known to the server.",
+        "details": [
+          "Values come from the Vanilla statistics (offline players from their files); blocks mined count all blocks.",
+          "The always-visible sidebar (sidebar, sidebarStat, refreshSeconds) is off by default; the command is on."
+        ]
+      },
+      "de": {
+        "title": "Bestenliste (T22)",
+        "summary": "/leaderboard <playtime|deaths|kills|mined> zeigt die besten 10 aller Spieler, die der Server kennt.",
+        "details": [
+          "Die Werte stammen aus der Vanilla-Statistik (Offline-Spieler aus ihren Dateien); abgebaute Blöcke zählen alle Blöcke.",
+          "Die ständige Seitenleiste (sidebar, sidebarStat, refreshSeconds) ist standardmäßig aus; der Befehl ist an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/top/Leaderboard.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_votes",
+      "en": {
+        "title": "Votes (T23)",
+        "summary": "/vote weather clear and /vote event <name> start a vote with clickable Yes/No; /vote yes|no counts.",
+        "details": [
+          "A vote passes once percent (default 50) % of the active players (not AFK, not spectating) said yes, otherwise it fails after seconds (default 30); each topic then waits cooldownSeconds (default 300).",
+          "The day/night vote (dayNight) is off by default. While Simple Weather switches weather off, the weather vote is refused.",
+          "Server setting vote.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Abstimmungen (T23)",
+        "summary": "/vote weather clear und /vote event <Name> starten eine Abstimmung mit anklickbarem Ja/Nein; /vote yes|no zählt.",
+        "details": [
+          "Angenommen ist sie, sobald percent (Standard 50) % der aktiven Spieler (nicht AFK, nicht Zuschauer) Ja gesagt haben, sonst scheitert sie nach seconds (Standard 30); danach wartet das Thema cooldownSeconds (Standard 300).",
+          "Die Tag/Nacht-Abstimmung (dayNight) ist standardmäßig aus. Schaltet Simple Weather das Wetter ab, wird die Wetter-Abstimmung abgelehnt.",
+          "Servereinstellung vote.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/vote/Votes.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_afk",
+      "en": {
+        "title": "AFK detection (T24)",
+        "summary": "After minutes (default 5) without any action, or with /afk, a player is AFK: grey with [AFK] in the tab list and not counted for sleeping.",
+        "details": [
+          "AFK players do not count for votes either. Any action ends it.",
+          "The kick after kickMinutes is off by default (Vanilla also has player-idle-timeout).",
+          "Server setting afk.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "AFK-Erkennung (T24)",
+        "summary": "Nach minutes (Standard 5) ohne Aktion oder mit /afk ist ein Spieler AFK: grau mit [AFK] in der Tab-Liste und zählt nicht fürs Schlafen.",
+        "details": [
+          "AFK-Spieler zählen auch nicht für Abstimmungen. Jede Aktion beendet es.",
+          "Der Kick nach kickMinutes ist standardmäßig aus (Vanilla hat auch player-idle-timeout).",
+          "Servereinstellung afk.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/afk/Afk.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_border",
+      "en": {
+        "title": "World border per dimension (T25)",
+        "summary": "Entries in border.dimensions (size and center per dimension) are applied to that dimension's world border at server start; /tweaks border lists all borders.",
+        "details": [
+          "Vanilla 26.3 already keeps one border per dimension, so nothing is duplicated; without entries nothing changes.",
+          "Server setting border.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Weltgrenze je Dimension (T25)",
+        "summary": "Einträge in border.dimensions (Größe und Mitte je Dimension) werden beim Serverstart auf die Weltgrenze dieser Dimension angewendet; /tweaks border listet alle Grenzen.",
+        "details": [
+          "Vanilla 26.3 hat schon eine Grenze je Dimension, deshalb wird nichts doppelt gebaut; ohne Einträge ändert sich nichts.",
+          "Servereinstellung border.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/border/Borders.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_nether_roof",
+      "en": {
+        "title": "Nether roof lock (T26)",
+        "summary": "Survival and adventure players above Y 127 in the Nether are put back below the roof (last place below it, or a free spot under it).",
+        "details": [
+          "Creative and spectator players and, with opBypass, operators of bypassPermission (default 2) may stay.",
+          "Server setting netherRoof.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Nether-Dach sperren (T26)",
+        "summary": "Überlebens- und Abenteuer-Spieler über Y 127 im Nether werden unter das Dach zurückgesetzt (letzte Stelle darunter oder ein freier Platz).",
+        "details": [
+          "Kreativ- und Zuschauer-Spieler und mit opBypass Operatoren ab bypassPermission (Standard 2) dürfen bleiben.",
+          "Servereinstellung netherRoof.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/roof/NetherRoof.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_keep_inventory",
+      "en": {
+        "title": "Partial keep inventory (T27)",
+        "summary": "While the Vanilla rule keep_inventory is off, part of the inventory stays on death: hotbar_armor (hotbar, armor, offhand), xp (experience) or custom (switches per part and keepXpPercent).",
+        "details": [
+          "Kept stacks go back to the player after respawning; curse of vanishing still destroys its items.",
+          "Server setting keepInventory.enabled, default on (mode hotbar_armor)."
+        ]
+      },
+      "de": {
+        "title": "Teil-Keep-Inventory (T27)",
+        "summary": "Solange die Vanilla-Regel keep_inventory aus ist, bleibt beim Tod ein Teil: hotbar_armor (Schnellleiste, Rüstung, Nebenhand), xp (Erfahrung) oder custom (Schalter je Teil und keepXpPercent).",
+        "details": [
+          "Behaltene Stapel bekommt der Spieler nach dem Respawn zurück; der Fluch des Verschwindens zerstört seine Gegenstände weiterhin.",
+          "Servereinstellung keepInventory.enabled, Standard an (Modus hotbar_armor)."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/keep/KeepInventory.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_dragon_egg",
+      "en": {
+        "title": "Dragon egg every fight (T28)",
+        "summary": "Every later dragon kill puts a new dragon egg on the exit portal; if an egg already lies there, it drops as an item.",
+        "details": [
+          "Vanilla gives the egg only after the first fight. Works the same with Simple End Dragon Fight.",
+          "Server setting dragonEgg.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Drachenei bei jedem Kampf (T28)",
+        "summary": "Jeder weitere Drachen-Kill legt ein neues Drachenei auf das Ausgangsportal; liegt dort schon eines, fällt es als Gegenstand.",
+        "details": [
+          "Vanilla gibt das Ei nur nach dem ersten Kampf. Funktioniert genauso mit Simple End Dragon Fight.",
+          "Servereinstellung dragonEgg.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/dragon/DragonEgg.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_phantoms",
+      "en": {
+        "title": "Phantoms per player (T30)",
+        "summary": "/phantoms off stops phantoms from spawning for you; /phantoms on brings them back.",
+        "details": [
+          "Everybody else keeps Vanilla phantoms; the rule spawn_phantoms still applies to all.",
+          "Server setting phantoms.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Phantome je Spieler (T30)",
+        "summary": "/phantoms off verhindert Phantome für dich; /phantoms on bringt sie zurück.",
+        "details": [
+          "Alle anderen behalten die Vanilla-Phantome; die Regel spawn_phantoms gilt weiter für alle.",
+          "Servereinstellung phantoms.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/phantoms/Phantoms.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_entity_limit",
+      "en": {
+        "title": "Mob limit per chunk (T31)",
+        "summary": "Every scanSeconds the mobs per chunk are counted; over perChunk (default 50) the claim owner or nearby players and operators get a message.",
+        "details": [
+          "With blockSpawns no new mob joins that chunk (breeding, spawners, natural spawns, also /summon) until it is under the limit; nothing is deleted.",
+          "Server setting entityLimit.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Mob-Grenze je Chunk (T31)",
+        "summary": "Alle scanSeconds werden die Mobs je Chunk gezählt; über perChunk (Standard 50) bekommen der Claim-Besitzer oder Spieler in der Nähe und Operatoren eine Nachricht.",
+        "details": [
+          "Mit blockSpawns kommt dort kein neuer Mob dazu (Zucht, Spawner, natürliches Spawnen, auch /summon), bis es wieder darunter ist; gelöscht wird nichts.",
+          "Servereinstellung entityLimit.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/crowd/EntityLimit.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_cleanup",
+      "en": {
+        "title": "Ground item cleanup (T32)",
+        "summary": "Every intervalMinutes (default 15) ground items are cleared after a chat countdown; /tweaks cleanup now starts it at once (operators).",
+        "details": [
+          "Only items lying longer than minAgeSeconds go; renamed items, items of exemptRarity (default rare) or rarer and the exempt list stay.",
+          "Server setting cleanup.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Bodengegenstände aufräumen (T32)",
+        "summary": "Alle intervalMinutes (Standard 15) werden Bodengegenstände nach einem Countdown im Chat entfernt; /tweaks cleanup now startet ihn sofort (Operatoren).",
+        "details": [
+          "Nur Gegenstände, die länger als minAgeSeconds liegen, verschwinden; umbenannte, solche ab exemptRarity (Standard selten) und die exempt-Liste bleiben.",
+          "Servereinstellung cleanup.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/cleanup/GroundCleanup.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_pregen",
+      "en": {
+        "title": "Chunk pregeneration (T33)",
+        "summary": "/pregen start <radius> [dimension] generates every chunk around the world border center; pause, resume, stop and status (operators of level 3).",
+        "details": [
+          "Requests run in the background with at most parallel (default 8) open at once; progress shows as a boss bar and every 10 % in chat.",
+          "The job is saved in the world and continues paused after a restart. Server setting pregen.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Chunk-Vorgenerierung (T33)",
+        "summary": "/pregen start <Radius> [Dimension] erzeugt jeden Chunk um die Mitte der Weltgrenze; pause, resume, stop und status (Operatoren ab Stufe 3).",
+        "details": [
+          "Die Aufträge laufen im Hintergrund, höchstens parallel (Standard 8) gleichzeitig; der Fortschritt steht als Bossleiste und alle 10 % im Chat.",
+          "Der Auftrag liegt in der Welt und geht nach einem Neustart pausiert weiter. Servereinstellung pregen.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/pregen/Pregen.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
     }
   ],
   "notes": {
