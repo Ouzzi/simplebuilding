@@ -59,7 +59,7 @@ public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee,
             motd = text(motd, "Maintenance - back soon");
         }
     }
-    /** T34 lag finder (off by default). */
+    /** T34 lag finder (on by default since owner 17.10.: it only samples while /lag runs). */
     public record Lag(boolean enabled, int permission, int defaultSeconds, int clockThreshold) {
         public Lag { permission = level(permission); defaultSeconds = Math.clamp(defaultSeconds, 1, 30); clockThreshold = Math.clamp(clockThreshold, 2, 1000); }
     }
@@ -73,7 +73,7 @@ public record AdminConfig(BlockLog blockLog, Deaths deathBackups, Invsee invsee,
             new Restart(true, 3, List.of(), List.of(15, 10, 5, 1), 0),
             new Backups(true, 3, 6, 5, "backups"),
             new Maintenance(true, 3, 2, List.of(), null, null, true),
-            new Lag(false, 2, 5, 8));
+            new Lag(true, 2, 5, 8));
 
     public AdminConfig {
         var d = DEFAULT;

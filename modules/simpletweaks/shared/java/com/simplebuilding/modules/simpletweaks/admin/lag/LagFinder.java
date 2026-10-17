@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 /**
- * T34 lag finder (off by default): /lag [seconds] samples tick time, time per block entity type and entity type,
+ * T34 lag finder (on by default, owner 17.10.: only acts while /lag runs): /lag [seconds] samples tick time, time per block entity type and entity type,
  * the most expensive chunks and redstone state changes per chunk (a possible redstone clock above
  * {@code clockThreshold} changes per second). Outside a sample the hooks cost one boolean check.
  */

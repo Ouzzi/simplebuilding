@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/** Lag finder (off by default, so these hooks are optional on every loader): block entity ticks, redstone changes. */
+/** Lag finder (hooks optional on every loader; they only act while /lag samples): block entity ticks, redstone changes. */
 @Mixin(Level.class)
 public abstract class AdminLagMixin {
     @WrapOperation(method = "tickBlockEntities", require = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/TickingBlockEntity;tick()V"))

@@ -350,17 +350,17 @@
     {
       "id": "admin_lag_finder",
       "en": {
-        "title": "Lag finder (off by default)",
+        "title": "Lag finder (on by default)",
         "summary": "/lag [seconds] (default 5, 1–30) measures tick time and TPS, time per block entity type and entity type, the most expensive chunks with their entity and block entity counts, and hints at possible redstone clocks.",
         "details": [
-          "A chunk counts as a possible redstone clock above clockThreshold (default 8) state changes of powered or power-carrying blocks per second. Outside a measurement the hooks cost one check. Operator level permission (default 2); turn it on with enabled in section lagFinder."
+          "A chunk counts as a possible redstone clock above clockThreshold (default 8) state changes of powered or power-carrying blocks per second. It only measures while /lag runs; outside a measurement the hooks cost one check. Operator level permission (default 2), section lagFinder."
         ]
       },
       "de": {
-        "title": "Lag-Finder (standardmäßig aus)",
+        "title": "Lag-Finder (standardmäßig an)",
         "summary": "/lag [Sekunden] (Standard 5, 1–30) misst Tickzeit und TPS, Zeit je Blockentity- und Entity-Typ, die teuersten Chunks mit ihrer Zahl an Entities und Blockentities und weist auf mögliche Redstone-Uhren hin.",
         "details": [
-          "Ein Chunk gilt als mögliche Redstone-Uhr ab clockThreshold (Standard 8) Zustandswechseln von geschalteten oder Strom führenden Blöcken je Sekunde. Außerhalb einer Messung kosten die Hooks eine Prüfung. OP-Stufe permission (Standard 2); einschalten mit enabled im Abschnitt lagFinder."
+          "Ein Chunk gilt als mögliche Redstone-Uhr ab clockThreshold (Standard 8) Zustandswechseln von geschalteten oder Strom führenden Blöcken je Sekunde. Gemessen wird nur, während /lag läuft; außerhalb einer Messung kosten die Hooks eine Prüfung. OP-Stufe permission (Standard 2), Abschnitt lagFinder."
         ]
       },
       "sources": [

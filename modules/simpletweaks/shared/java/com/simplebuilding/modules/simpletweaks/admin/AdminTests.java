@@ -86,7 +86,7 @@ public final class AdminTests {
     static void config(GameTestHelper h) {
         var d = AdminConfig.DEFAULT;
         yes(h, d.blockLog().enabled() && d.deathBackups().enabled() && d.invsee().enabled() && d.vanish().enabled() && d.freeze().enabled()
-                && d.restart().enabled() && d.backups().enabled() && d.maintenance().enabled() && !d.lagFinder().enabled(), "Owner defaults: T10 T11 T13-T18 on, T34 off");
+                && d.restart().enabled() && d.backups().enabled() && d.maintenance().enabled() && d.lagFinder().enabled(), "Owner defaults: T10 T11 T13-T18 and T34 on");
         yes(h, !new AdminState().maintenance, "Maintenance mode itself starts off");
         var b = new AdminConfig.BlockLog(true, 9, -3, 0, 0, 999);
         yes(h, b.permission() == 4 && b.rollbackPermission() == 0 && b.retentionDays() == 1 && b.rollbackMaxChanges() == 1 && b.flushSeconds() == 60, "Block log values are clamped");
@@ -96,9 +96,9 @@ public final class AdminTests {
             Path dir = Files.createTempDirectory("st-admin-config");
             Path file = dir.resolve("a.json");
             yes(h, AdminConfig.load(file).equals(AdminConfig.DEFAULT) && Files.isRegularFile(file), "A missing file is written with the defaults");
-            Files.writeString(file, "{\"lagFinder\":{\"enabled\":true},\"blockLog\":{\"retentionDays\":3},\"unknown\":1}");
+            Files.writeString(file, "{\"lagFinder\":{\"enabled\":false},\"blockLog\":{\"retentionDays\":3},\"unknown\":1}");
             var loaded = AdminConfig.load(file);
-            yes(h, loaded.lagFinder().enabled() && loaded.lagFinder().permission() == 2 && loaded.blockLog().retentionDays() == 3 && loaded.blockLog().enabled(), "Partial files merge onto the defaults");
+            yes(h, !loaded.lagFinder().enabled() && loaded.lagFinder().permission() == 2 && loaded.blockLog().retentionDays() == 3 && loaded.blockLog().enabled(), "Partial files merge onto the defaults");
             Files.writeString(file, "{broken");
             yes(h, AdminConfig.load(file).equals(AdminConfig.DEFAULT) && Files.readString(file).equals("{broken"), "A broken file is kept, defaults are used");
         } catch (java.io.IOException e) { throw new AssertionError(e); }
@@ -113,7 +113,7 @@ public final class AdminTests {
     }
     static void commands(GameTestHelper h) {
         var on = roots(AdminConfig.DEFAULT);
-        yes(h, on.containsAll(List.of("inspect", "invsee", "endersee", "vanish", "freeze", "unfreeze", "backup", "maintenance", "tweaks rollback", "tweaks deaths", "tweaks restart")) && !on.contains("lag"), "Default commands: " + on);
+        yes(h, on.containsAll(List.of("inspect", "invsee", "endersee", "vanish", "freeze", "unfreeze", "backup", "maintenance", "tweaks rollback", "tweaks deaths", "tweaks restart", "lag")), "Default commands: " + on);
         var d = AdminConfig.DEFAULT;
         var off = new AdminConfig(new AdminConfig.BlockLog(false, 2, 3, 14, 1, 5), new AdminConfig.Deaths(false, 3, 5), new AdminConfig.Invsee(false, 2, 2),
                 new AdminConfig.Vanish(false, 2, 2), new AdminConfig.Freeze(false, 2), new AdminConfig.Restart(false, 3, List.of(), List.of(), 0),

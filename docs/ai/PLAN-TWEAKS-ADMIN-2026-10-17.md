@@ -1,6 +1,7 @@
 # Plan: Simple Tweaks Teil 1 – Admin/Schutz (17.10.2026, Sitzung A, Branch `claude-tweaks-admin`)
 
 Auftrag: Queue-Punkt „Simple Tweaks Teil 1 Admin/Schutz“ (Besitzer-Auswahl 17.10.): T10, T11, T13–T18, T34.
+Nachtrag Besitzer 17.10.: Alles, was nur auf Befehl wirkt, ist standardmäßig an → T34 an (misst nur während /lag).
 Parallel-Branch `claude-tweaks-play` (Teil 2) erweitert dasselbe Modul – deshalb alles Neue unter eigenem Paket,
 eigener Config-Datei, eigenem Mixin-Config und eigener Test-Liste; Loader-Einstiege bekommen je **eine** Zeile.
 
@@ -103,11 +104,11 @@ eigener Config-Datei, eigenem Mixin-Config und eigener Test-Liste; Loader-Einsti
   Online-Nicht-Admins getrennt (`kickOnline`, Standard an).
 - Tests: Login-Prüfung, MOTD, Ein/Aus, Persistenz.
 
-## T34 Lag-Finder (Standard aus)
+## T34 Lag-Finder (Standard an – Besitzer 17.10.: Features, die nur per Befehl wirken, sind an)
 - `/lag [seconds]` (Stufe 2, Standard 5 s, 1–30): misst über das Fenster Tickzeit (MSPT/TPS), Zeit je Blockentity-Typ
   und Entity-Typ, Top-Chunks nach Entities/Blockentities, Redstone-Zustandswechsel je Chunk (Hinweis „mögliche
   Redstone-Uhr“ ab `clockThreshold` Wechseln/s). Messung nur während des Fensters (sonst ein Boolean-Check).
-- Tests: Messung liefert Chunks/Typen, Redstone-Uhr wird erkannt, aus = kein Befehl.
+- Tests: Messung liefert Chunks/Typen, Redstone-Uhr wird erkannt, Schalter aus = kein Befehl.
 
 ## Doku, Prüfungen
 - `modules/simpletweaks/wiki/manual.json`: je Feature ein Eintrag (EN/DE, Quellen); `docs/MODS-UND-FEATURES.md`.
@@ -119,6 +120,6 @@ eigener Config-Datei, eigenem Mixin-Config und eigener Test-Liste; Loader-Einsti
 
 ## Risiken
 - Mixin-Ziele unterscheiden sich je Loader (NeoForge/Forge patchen `ServerPlayer`, `PlayerList`, `Level`) → GameTests auf
-  allen drei Loadern; Lag-Mixins `require=0` (Feature aus).
+  allen drei Loadern; Lag-Mixins `require=0` (wirken nur während einer Messung).
 - Unsichtbarkeit ist kein Anti-Cheat (Paket-Ebene: Tracker + Tab-Liste + Status); Mods, die eigene Spielerlisten senden, sehen den Spieler.
 - Backups großer Welten kosten Plattenplatz (`keep`, `intervalHours`), Rollback lädt Chunks synchron.
