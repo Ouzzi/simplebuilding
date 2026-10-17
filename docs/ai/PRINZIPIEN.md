@@ -118,6 +118,7 @@ Super-Mod für die QoL-Sub-Mods (Wetter, Interfaces, Loot, Mob-Manieren, Farming
 Legacy-Kompatibilität, serverautoritäre Claims (Standard an).
 
 - Server-Autorität (AGENTS.md 3.8): alle Stellschrauben serverseitig mit Obergrenzen.
+- Befehle (Besitzer 17.10.): Alle Befehle auch unter `/simpletweaks <befehl>` (ein Wort, ohne Bindestrich; Redirect auf dieselben Knoten, gleiche Rechte). Neue Befehle in `TweakCommands.alias(...)` der Feature-Gruppe eintragen; `/simpletweaks help` listet nur erlaubte; Doku und Wiki nennen die `/simpletweaks`-Form.
 
 ### Simple Dimensions (`simpledimensions`)
 Konfigurierbare Dimensionen, Lichtbögen, sichere verknüpfte Portale.

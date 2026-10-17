@@ -35,6 +35,7 @@
   "config.simpletweaks.claims.dimensions.tooltip": "Allowlist for new claims; up to 32 dimension\nIDs. Existing claims in other dimensions\nremain protected. Entire chunks must be\ninside the world border.\nDefault: Overworld, Nether, End.",
   "config.simpletweaks.claims.dimensions.default": "Overworld, Nether, End",
   "config.simpletweaks.claims.dimensions.tab": "Server Claims",
+  "command.simpletweaks.help.header": "Simple Tweaks commands (every command also works as /simpletweaks <command>):",
   "command.simpletweaks.claim.locked": "Claims are locked because claim data could not be read or saved. Original files were preserved.",
   "command.simpletweaks.claim.empty": "This chunk is unclaimed.",
   "command.simpletweaks.claim.owner": "Claim owner: %s",

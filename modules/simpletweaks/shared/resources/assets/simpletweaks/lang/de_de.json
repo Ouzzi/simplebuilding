@@ -35,6 +35,7 @@
   "config.simpletweaks.claims.dimensions.tooltip": "Erlaubte Dimensionen für neue Claims; bis zu\n32 IDs. Bestehende Claims anderer Dimensionen\nbleiben geschützt. Ganze Chunks müssen\ninnerhalb der Weltgrenze liegen.\nStandard: Oberwelt, Nether, Ende.",
   "config.simpletweaks.claims.dimensions.default": "Oberwelt, Nether, Ende",
   "config.simpletweaks.claims.dimensions.tab": "Server-Claims",
+  "command.simpletweaks.help.header": "Simple-Tweaks-Befehle (jeder Befehl geht auch als /simpletweaks <Befehl>):",
   "command.simpletweaks.claim.locked": "Claims sind wegen eines Lade- oder Speicherfehlers gesperrt. Originaldateien wurden erhalten.",
   "command.simpletweaks.claim.empty": "Dieser Chunk ist nicht beansprucht.",
   "command.simpletweaks.claim.owner": "Claim-Besitzer: %s",
