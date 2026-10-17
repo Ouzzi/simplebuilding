@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import com.simplemobheads.MobHeads;
 import com.simplemobheads.data.HeadDef;
 import java.util.Set;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -33,6 +35,11 @@ public record CopyVariantFunction() implements LootItemFunction {
             return stack;
         }
         String variant = Variants.of(head, victim);
-        return variant.isEmpty() ? stack : MobHeads.stack(head, variant).copyWithCount(stack.getCount());
+        ItemStack out = variant.isEmpty() ? stack : MobHeads.stack(head, variant).copyWithCount(stack.getCount());
+        String sound = Variants.soundOf(head, victim);
+        if (!sound.isEmpty()) {
+            out.set(DataComponents.NOTE_BLOCK_SOUND, Identifier.parse(sound));
+        }
+        return out;
     }
 }

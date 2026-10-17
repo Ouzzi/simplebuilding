@@ -35,6 +35,24 @@ public final class Variants {
         return head.variantIds().contains(raw) ? raw : "";
     }
 
+    /**
+     * The note block sound of a mob's own sound set (cat royal, pig big/mini, wolf angry/big/cute/grumpy/puglin/sad, cow moody,
+     * chicken picky), or empty for the classic set and for mobs without one. Vanilla names the ambient events after the set
+     * ({@code entity.cat_royal.ambient}); a name the registry does not know leaves the base sound.
+     */
+    public static String soundOf(HeadDef head, Entity entity) {
+        String mob = head.mob().startsWith("minecraft:") ? head.mob().substring("minecraft:".length()) : "";
+        if (!java.util.Set.of("cat", "pig", "wolf", "cow", "chicken").contains(mob)) {
+            return "";
+        }
+        String set = component(entity, "minecraft:" + mob + "/sound_variant").replace("minecraft:", "");
+        if (set.isEmpty() || set.equals("classic")) {
+            return "";
+        }
+        Identifier sound = Identifier.parse("minecraft:entity." + mob + "_" + set + ".ambient");
+        return BuiltInRegistries.SOUND_EVENT.containsKey(sound) ? sound.toString() : "";
+    }
+
     @SuppressWarnings("unchecked")
     private static String component(Entity entity, String id) {
         DataComponentType<?> type = BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(Identifier.parse(id));
