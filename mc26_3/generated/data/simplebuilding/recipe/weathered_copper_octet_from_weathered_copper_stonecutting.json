@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:weathered_copper",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:weathered_copper_octet"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "simplebuilding:astralit_bricks",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:astralit_bricks_octet"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:black_terracotta",
-  "result": {
-    "count": 8,
-    "id": "simplebuilding:black_terracotta_octet"
-  }
-}
