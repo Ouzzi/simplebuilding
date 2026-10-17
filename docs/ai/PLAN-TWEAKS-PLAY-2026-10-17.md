@@ -89,3 +89,20 @@ Verhaltensänderung = wie vorgegeben.
   auf beiden Loadern; nur Aufrufe, die in allen Fassungen vorkommen (`isSpectator`, `GameRules.get`).
 - Chat-Markierung nutzt den unsignierten Zusatzinhalt (wie Vanilla-Dekoration); Clients mit „nur signierte“ Anzeige zeigen das Original.
 - Vorgenerierung großer Radien kostet Platz/Zeit (`maxRadius`, Pause).
+
+## Umsetzung und Abweichungen (17.10.)
+- T9: `defaultOn` = an (statt aus): sonst wäre PvP mit dem Standard-an-Schalter sofort serverweit aus; „beide an“ gilt unverändert.
+- T33: statt eines eigenen Tickets die Vanilla-Asynchronladung `ServerChunkCache#addTicketAndLoadWithRadius` mit dem kurzlebigen
+  Spawn-Ticket (`TicketType.PLAYER_SPAWN`, Radius 0): kein eigener Registry-Eintrag, fertige Chunks entladen von selbst.
+- T31: blockSpawns verweigert auch /summon in überfüllten Chunks (der Grund des Spawns ist loader-übergreifend nicht lesbar).
+- T5: Simple-Respawn-Integration ohne Code: der Hinweis hängt an `ServerPlayer.die` (Ende, Spieler wirklich tot).
+- T28: liegt schon ein Ei auf dem Podest, fällt das neue als Gegenstand (kein Stapeln).
+- AFK-Wechsel wird nur dem Spieler selbst gemeldet (keine Chat-Zeile an alle – verrät sonst unsichtbare Admins aus Teil 1).
+
+## Verifikation (sb-test)
+- Kompiliert: `:modules:simpletweaks:{fabric,neoforge,forge}:compileJava`, 26.2 `:compileJava`.
+- GameTests: `module-simpletweaks-{fabric,neoforge}-263` + Standalone Fabric/NeoForge: **alles gruen 420/420** (je 105, davon 22 `play_game_test_*`),
+  Lauf `2026-10-17T21-11-49Z-141e`.
+- Regeneriert auf sb-test (discover, module_guides, Money-Links, `wiki/generate.py --all`); `checkModuleGuides checkModuleData checkWiki checkDiscover checkMultimod` Exit 0.
+- Nicht geprüft: Forge-GameTests (nur kompiliert), Client-Sicht (graue Tab-Liste, Chat-Markierung, Bossleisten), volles Gate,
+  Blutmond-Spawns und Zeitplan im laufenden Spiel (nur Logik-Tests).
