@@ -51,6 +51,15 @@ public final class TweaksDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simpletweaks:admin_backups",
+            "simpletweaks:admin_block_log",
+            "simpletweaks:admin_death_backups",
+            "simpletweaks:admin_freeze",
+            "simpletweaks:admin_invsee",
+            "simpletweaks:admin_lag_finder",
+            "simpletweaks:admin_maintenance",
+            "simpletweaks:admin_restart",
+            "simpletweaks:admin_vanish",
             "simpletweaks:claim_deed",
             "simpletweaks:claim_table",
             "simpletweaks:claims",
