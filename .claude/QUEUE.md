@@ -653,3 +653,4 @@ Im Code vorhanden, aber bisher nirgends in der Queue notiert (D, hier nur nachge
 - [~] (A, claude-tweaks-cmd, 17.10.) Alle Simple-Tweaks-Befehle zusätzlich unter /simpletweaks <befehl> (+ /simpletweaks help).
 - [~] (A, claude-formsaege, 17.10.) Formsäge-Änderung: = Steinsäge retexturiert mit Kupfer-Highlights (Sockel + Sägeblatt), Rezept mit Kupfer; Upgrade einer platzierten Steinsäge: ohne SimpleBuilding mit Axt, mit SimpleBuilding mit Hammer + 4 Eisennuggets.
 - [ ] sb-test-Platte vergrößern (Besitzer auf suleiman: pct resize 103 rootfs +NG, wenn Speicher frei), sonst nur bereinigen.
+- [ ] (Besitzer 17.10.) Octets (Stein + Holz) und alle Holzvarianten EXKLUSIV in der Formsäge; Vanilla-Steinsäge bleibt Vanilla. Nach Merge der Octets-Stufe: Octet-Rezepte → simpleblocks:sawing, Fallback Steinsäge nur ohne Simple Blocks (Modul-Unabhängigkeit).
