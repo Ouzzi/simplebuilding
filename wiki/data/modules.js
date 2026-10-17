@@ -14,7 +14,8 @@ window.WIKI_MODULES = [
       "cloth-config",
       "simpleovens",
       "simplemobheads",
-      "simplecrucibles"
+      "simplecrucibles",
+      "simpleoctets"
     ],
     "optional": [
       "jei",
