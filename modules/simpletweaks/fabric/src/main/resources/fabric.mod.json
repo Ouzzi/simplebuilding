@@ -15,10 +15,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.simplebuilding.modules.simpletweaks.FabricSimpleTweaks"
+      "com.simplebuilding.modules.simpletweaks.TweaksFabric"
     ],
     "client": [
-      "com.simplebuilding.modules.simpletweaks.FabricSimpleTweaksClient"
+      "com.simplebuilding.modules.simpletweaks.TweaksFabricClient"
     ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpletweaks.ModuleGameTest",

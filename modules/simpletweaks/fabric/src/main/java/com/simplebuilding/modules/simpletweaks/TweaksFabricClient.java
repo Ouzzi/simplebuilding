@@ -6,7 +6,7 @@ import com.simplebuilding.modules.simpletweaks.deed.net.DeedResultPayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 /** Fabric client entry: the deed screen receivers and the sender of the editor's packets. */
-public final class FabricSimpleTweaksClient implements ClientModInitializer {
+public final class TweaksFabricClient implements ClientModInitializer {
     @Override public void onInitializeClient() {
         DeedNet.toServer=payload->{if(ClientPlayNetworking.canSend(payload.type()))ClientPlayNetworking.send(payload);};
         ClientPlayNetworking.registerGlobalReceiver(DeedOpenPayload.TYPE,(payload,context)->context.client().execute(()->DeedClient.open(payload)));

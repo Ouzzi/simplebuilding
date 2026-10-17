@@ -1,6 +1,6 @@
 package com.simplebuilding.modules.simpletweaks;
 import net.fabricmc.api.ModInitializer;
-public final class FabricSimpleTweaks implements ModInitializer {
+public final class TweaksFabric implements ModInitializer {
     @Override public void onInitialize() {
         LegacyDeed.registerComponents();
         LegacyDeed.registerBlocks();
@@ -15,7 +15,7 @@ public final class FabricSimpleTweaks implements ModInitializer {
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(com.simplebuilding.modules.simpletweaks.claims.Claims::stop);
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d,r,e)->com.simplebuilding.modules.simpletweaks.claims.ClaimCommands.register(d));
     }
-    /** Deed packets: edit/claim go to the server, open/result come back. The client side is {@link FabricSimpleTweaksClient}. */
+    /** Deed packets: edit/claim go to the server, open/result come back. The client side is {@link TweaksFabricClient}. */
     private static void registerDeedNetwork() {
         var registry=net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay();
         registry.register(com.simplebuilding.modules.simpletweaks.deed.net.DeedEditPayload.TYPE,com.simplebuilding.modules.simpletweaks.deed.net.DeedEditPayload.CODEC);
