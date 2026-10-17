@@ -110,6 +110,35 @@ public final class FearLogic {
         return c * c * (3.0F - 2.0F * c);
     }
 
+    /** Hollow Watcher freeze poses: {head roll, head pitch, body roll, right arm pitch, left arm pitch, arm spread}. */
+    public static final float[][] WATCHER_POSES = {
+            {0.12F, 0.0F, 0.0F, 0.0F, 0.0F, 0.06F},
+            {-0.35F, 0.15F, -0.08F, 0.0F, -0.45F, 0.1F},
+            {0.4F, -0.1F, 0.1F, -0.5F, 0.0F, 0.08F},
+            {0.0F, 0.35F, 0.05F, -0.3F, -0.3F, 0.2F},
+            {-0.2F, -0.2F, -0.1F, 0.15F, -0.6F, 0.05F},
+            {0.55F, 0.1F, 0.14F, -0.7F, 0.1F, 0.14F}};
+
+    /** Next freeze pose: always another one than {@code prev}, deterministic for the entity id and the freeze count. */
+    public static int nextWatcherPose(int prev, int entityId, int count) {
+        int mix = entityId * 31 + count * 17;
+        mix ^= mix >>> 7;
+        return (prev + 1 + Math.floorMod(mix, WATCHER_POSES.length - 1)) % WATCHER_POSES.length;
+    }
+
+    /** Stop-motion gait: the walk phase snaps to steps of {@code step} instead of running smoothly. */
+    public static float stopMotion(float pos, float step) { return (float) Math.floor(pos / step) * step; }
+
+    /** Walk leg pitch with a trailing leg: while the leg swings back it hangs behind the beat (drag). */
+    public static float legSwing(float phase, float speed) {
+        return ((float) Math.cos(phase) * 0.8F - 0.18F * Math.max(0.0F, (float) Math.sin(phase))) * speed;
+    }
+
+    /** Client ramp of a pose value towards its goal: up in {@code up} ticks, down in {@code down} ticks, never overshooting. */
+    public static float ramp(float cur, float goal, float up, float down) {
+        return goal > cur ? Math.min(goal, cur + 1.0F / up) : Math.max(goal, cur - 1.0F / down);
+    }
+
     /** Damped pendulum for the chain mace after an action ended: t = ticks since then, swings out and settles in about 12 ticks. */
     public static float chainPendulum(float t) {
         return t < 0.0F ? 0.0F : (float) (Math.exp(-0.25 * t) * Math.sin(0.8 * t));

@@ -33,10 +33,9 @@ public class WatcherRenderer extends MobRenderer<HollowWatcherEntity, WatcherRen
     @Override
     public void extractRenderState(HollowWatcherEntity entity, WatcherRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
-        int action = entity.action();
-        state.reach = action == HollowWatcherEntity.ACT_GRIP || action == HollowWatcherEntity.ACT_GRIP_WINDUP ? 1.0F
-                : action == HollowWatcherEntity.ACT_CLAW ? 0.7F : 0.0F;
-        state.scream = action == HollowWatcherEntity.ACT_SCREAM ? 1.0F : 0.0F;
+        state.reach = net.minecraft.util.Mth.lerp(partialTicks, entity.reachO, entity.reach);
+        state.scream = net.minecraft.util.Mth.lerp(partialTicks, entity.screamO, entity.scream);
+        state.pose = entity.poseIdx;
         state.frozen = entity.frozen();
         state.watched = entity.watched();
         state.triggered = entity.triggered();

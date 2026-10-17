@@ -11,6 +11,8 @@ public class WatcherRenderState extends LivingEntityRenderState {
     public float shoulder;
     /** 0 .. 1 eased: watched or frozen; the sway fades out instead of snapping to zero. */
     public float calm;
+    /** Index into FearLogic.WATCHER_POSES: the crooked pose it holds while watched or frozen. */
+    public int pose;
     /** Frozen by a spyglass look: pale, eyes dim. */
     public boolean frozen;
     /** Someone looks at it: it holds its pose, the eyes narrow. */

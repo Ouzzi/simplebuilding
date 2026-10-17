@@ -53,6 +53,10 @@ public class HollowWatcherEntity extends Monster {
 
     /** Client only: 0..1, eased while it is watched or frozen (the model stops its sway softly, no jump to 0). */
     public float calm, calmO;
+    /** Client only: eased reach/scream (ramp, no jump), freeze pose index and the count of freezes/looks so far. */
+    public float reach, reachO, scream, screamO;
+    public int poseIdx, poseCount;
+    private boolean wasStill;
     /** Server: the gaze zone of the player who looks closest to it (FearLogic.ZONE_*), and that player. */
     private int zone = FearLogic.ZONE_FREE;
     private @Nullable Player looker;
@@ -289,6 +293,14 @@ public class HollowWatcherEntity extends Monster {
             FearNet.report(this.level().getGameTime());
             calmO = calm;
             calm += ((watched() || frozen() ? 1.0f : 0.0f) - calm) * 0.2f;
+            boolean still = watched() || frozen();
+            if (still && !wasStill) poseIdx = FearLogic.nextWatcherPose(poseIdx, getId(), ++poseCount);
+            wasStill = still;
+            int act = action();
+            reachO = reach;
+            screamO = scream;
+            reach = FearLogic.ramp(reach, act == ACT_GRIP || act == ACT_GRIP_WINDUP ? 1.0f : act == ACT_CLAW ? 0.7f : 0.0f, 5.0f, 8.0f);
+            scream = FearLogic.ramp(scream, act == ACT_SCREAM ? 1.0f : 0.0f, 10.0f, 10.0f);
             if (frozen() && this.random.nextInt(2) == 0)
                 this.level().addParticle(ParticleTypes.SNOWFLAKE, this.getRandomX(0.6), this.getRandomY(), this.getRandomZ(0.6), 0, -0.02, 0);
             return;
