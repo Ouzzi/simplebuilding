@@ -106,3 +106,11 @@ er schneidet Stein **und** Holz und alles, was Treppen-/Stufen-/Octet-Varianten 
   plus ein `minecraft:stonecutting`-Ersatz mit „simpleblocks nicht geladen“ (Simple Octets bleibt allein spielbar).
   Gleiches gilt für die Octet-Steinsägen-Rezepte, die heute noch in SimpleBuilding liegen (in der Säge sichtbar als
   „8×“ bei Brettern/Steinziegeln). Prüfen: GameTest „kein Octet/Holz-Rezept in der Steinsäge, wenn Simple Blocks geladen“.
+
+## Prüfung Nachtrag (17.10. spät, nach Merge `claude-wave1` 05a9b6e8c)
+- sb-test: Compile 26.3 Fabric/NeoForge/Forge + 26.2 `:compileJava` grün; GameTests Simple Blocks 21/21 je Ziel
+  (Fabric/NeoForge Modul mit SimpleBuilding, Fabric/NeoForge Standalone ohne) = 84/84, darin `saw_upgrade_axe`,
+  `saw_upgrade_hammer` (echter Hammer mit SimpleBuilding, Ersatzwerkzeug standalone), `saw_upgrade_mode`; Client-Smoke 6/6.
+- Regeneriert (Datagen, discover, module_guides, generate_links, `wiki/generate.py --all`); `checkModuleGuides checkModuleData
+  checkWiki checkDiscover checkMultimod` exit 0. Vorschau `/tmp/claude-0/ash/formsaege.html` (nicht veröffentlicht).
+- Offen: Besitzer-Abnahme Textur/Upgrade, Merge nach `claude-wave1`, Octet-Folgearbeit (siehe Nachtrag 2), Forge-Laufzeit.
