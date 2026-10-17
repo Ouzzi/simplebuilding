@@ -112,7 +112,7 @@ final class ReviewClaimTests {
   for(int x=-3;x<=3;x++)for(int z=-3;z<=3;z++)level.setBlock(edge.offset(x,0,z),Blocks.WATER.defaultBlockState(),2);
   var disk=new net.minecraft.world.item.enchantment.effects.ReplaceDisk(net.minecraft.world.item.enchantment.LevelBasedValue.constant(3),net.minecraft.world.item.enchantment.LevelBasedValue.constant(1),net.minecraft.core.Vec3i.ZERO,
    Optional.of(net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate.matchesBlocks(Blocks.WATER)),
-   net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider.simple(Blocks.ICE),Optional.empty());
+   net.minecraft.core.Holder.direct(new net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider(Blocks.ICE.defaultBlockState())),Optional.empty());
   with(h,c->{
    var stranger=player(h,edge.west(5));var owner=player(h,east.east(8));
    disk.apply(level,1,null,stranger,Vec3.atCenterOf(edge));
