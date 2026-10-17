@@ -115,6 +115,7 @@ Super-Mod für die QoL-Sub-Mods (Wetter, Interfaces, Loot, Mob-Manieren, Farming
 - Jedes Sub-Mod ist allein spielbar und hat seinen eigenen `modules.json`-Eintrag; der Super-Mod bündelt sie nur (`requires`).
 
 ### Simple Tweaks (`simpletweaks`)
+- Standardwerte (Besitzer 17.10.): alles, was nur per Befehl ausgelöst wird, ist standardmäßig an; automatische Verhaltensänderungen nur, wenn der Besitzer es so festgelegt hat.
 Legacy-Kompatibilität, serverautoritäre Claims (Standard an).
 
 - Server-Autorität (AGENTS.md 3.8): alle Stellschrauben serverseitig mit Obergrenzen.

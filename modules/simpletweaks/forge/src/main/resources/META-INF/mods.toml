@@ -41,3 +41,17 @@ mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simplemoney"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simpleweather"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
