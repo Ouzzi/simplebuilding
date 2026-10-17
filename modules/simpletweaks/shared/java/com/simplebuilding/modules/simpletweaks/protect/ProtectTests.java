@@ -348,6 +348,7 @@ public final class ProtectTests {
     static void fastBreak(GameTestHelper h) {
         var level = h.getLevel();
         var p = player(h, new BlockPos(1, 2, 1), GameType.SURVIVAL);
+        p.setOnGround(true); // mock players are not ticked; in the air Vanilla divides the speed by 5
         var acc = (com.simplebuilding.modules.simpletweaks.protect.mixin.ProtectGameModeAccessor) p.gameMode;
         var stone = h.absolutePos(new BlockPos(2, 2, 2));
         var obsidian = h.absolutePos(new BlockPos(1, 2, 2));
@@ -388,6 +389,7 @@ public final class ProtectTests {
         var p = player(h, new BlockPos(2, 2, 2), GameType.SURVIVAL);
         p.snapTo(center.getX() + .5, center.getY() + 1, center.getZ() + .5, 0f, 90f); // looking down
         p.setShiftKeyDown(false);
+        p.setOnGround(true);
         p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(item.get()));
         var acc = (com.simplebuilding.modules.simpletweaks.protect.mixin.ProtectGameModeAccessor) p.gameMode;
         with(ProtectConfig.of(CHECKS_ON), () -> {

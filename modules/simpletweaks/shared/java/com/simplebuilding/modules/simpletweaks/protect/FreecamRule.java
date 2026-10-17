@@ -19,7 +19,7 @@ public final class FreecamRule {
     /** Sends the current rule; kicks when required and the client lacks Simple Tweaks. Returns whether the client got it. */
     public static boolean apply(ServerPlayer player) {
         var c = Protect.config().freecam();
-        if (!c.enabled()) { if (player.connection != null) DeedNet.send(player, new ProtectRulesPayload(false)); return false; }
+        if (!c.enabled()) return false; // nothing to send: clients start without the rule
         boolean got = player.connection != null && DeedNet.send(player, new ProtectRulesPayload(true));
         if (!got && c.requireClient()) kick.accept(player, kickReason(c));
         return got;
@@ -30,7 +30,11 @@ public final class FreecamRule {
     }
     /** After /tweaks protect reload: every online player gets the new rule. */
     public static void broadcast(net.minecraft.server.MinecraftServer server) {
-        for (var p : java.util.List.copyOf(server.getPlayerList().getPlayers())) apply(p);
+        boolean on = Protect.config().freecam().enabled();
+        for (var p : java.util.List.copyOf(server.getPlayerList().getPlayers())) {
+            if (on) apply(p);
+            else if (p.connection != null) DeedNet.send(p, new ProtectRulesPayload(false)); // the rule was switched off
+        }
     }
     private FreecamRule() {}
 }
