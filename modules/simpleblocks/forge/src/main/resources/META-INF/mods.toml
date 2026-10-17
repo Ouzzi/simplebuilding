@@ -5,7 +5,7 @@ license="CC0-1.0"
 modId="simpleblocks"
 version="${version}"
 displayName="Simple Blocks"
-description="Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. Works on its own with Vanilla."
+description="Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants. The Shaping Saw cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla."
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
 [[dependencies.simpleblocks]]

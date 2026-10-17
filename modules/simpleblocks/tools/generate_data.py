@@ -55,6 +55,57 @@ for kind, suffix in (('stairs', 'stairs'), ('slab', 'slab'), ('wall', 'wall')):
 AGED_BASE = dict(AGED)
 HUSHED_BLOCKS = [n for n in BLOCKS if n.startswith('hushed_')]
 
+# --- Shaping Saw (owner 17.10., principle A4b): the block and its sawing recipes -----------------------------------------
+SAW = 'shaping_saw'
+# Wood families: (namespace, wood, log word, wood word, mod condition or None). Ratios as at the crafting table and the
+# Vanilla stonecutter: planks -> 1 stairs / 2 slabs / 1 fence; any log or wood -> 4 planks; bark/strip shapes 1:1.
+WOODS = [('minecraft', w, 'log', 'wood', None) for w in
+         ('oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'poplar')]
+WOODS += [('minecraft', w, 'stem', 'hyphae', None) for w in ('crimson', 'warped')]
+WOODS += [('simpleend', w, 'log', 'wood', 'simpleend') for w in ('ashwood', 'duskwood')]
+WOOLS = ['white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple',
+         'blue', 'brown', 'green', 'red', 'black']
+# SimpleBuilding's natural slabs (no stonecutting recipe there; no octets, owner 17.10.).
+NATURAL_SLABS = [('dirt', 'minecraft:dirt'), ('grass', 'minecraft:grass_block'), ('sand', 'minecraft:sand'), ('gravel', 'minecraft:gravel')]
+
+
+def sawing_list():
+    """(recipe path, ingredient, result id, count, mod condition or None) of every sawing recipe."""
+    out = []
+
+    def cut(ingredient, result, count=1, mod=None):
+        src = ingredient.lstrip('#').split(':')[1]
+        out.append((f'sawing/{result.split(":")[1]}_from_{src}', ingredient, result, count, mod))
+
+    for ns, w, log, wood, mod in WOODS:
+        planks = f'{ns}:{w}_planks'
+        cut(planks, f'{ns}:{w}_stairs', 1, mod)
+        cut(planks, f'{ns}:{w}_slab', 2, mod)
+        cut(planks, f'{ns}:{w}_fence', 1, mod)
+        logs = [f'{ns}:{w}_{log}', f'{ns}:stripped_{w}_{log}', f'{ns}:{w}_{wood}', f'{ns}:stripped_{w}_{wood}']
+        for item in logs:
+            cut(item, planks, 4, mod)
+        cut(logs[0], logs[1], 1, mod)
+        cut(logs[0], logs[2], 1, mod)
+        cut(logs[1], logs[3], 1, mod)
+        cut(logs[2], logs[3], 1, mod)
+    # Bamboo: a block makes 2 planks (crafting table); the mosaic is one plank's worth.
+    for item in ('minecraft:bamboo_block', 'minecraft:stripped_bamboo_block'):
+        cut(item, 'minecraft:bamboo_planks', 2)
+    cut('minecraft:bamboo_block', 'minecraft:stripped_bamboo_block')
+    for result, count in (('bamboo_stairs', 1), ('bamboo_slab', 2), ('bamboo_fence', 1), ('bamboo_mosaic', 1)):
+        cut('minecraft:bamboo_planks', f'minecraft:{result}', count)
+    cut('minecraft:bamboo_mosaic', 'minecraft:bamboo_mosaic_stairs')
+    cut('minecraft:bamboo_mosaic', 'minecraft:bamboo_mosaic_slab', 2)
+    cut('#minecraft:planks', 'minecraft:stick', 2)
+    for color in WOOLS:
+        cut(f'minecraft:{color}_wool', f'minecraft:{color}_wool_stairs')
+        cut(f'minecraft:{color}_wool', f'minecraft:{color}_wool_slab', 2)
+    cut('minecraft:nether_bricks', 'minecraft:nether_brick_fence')
+    for name, base in NATURAL_SLABS:
+        cut(base, f'simplebuilding:{name}_slab', 2, 'simplebuilding')
+    return out
+
 # --- json helpers -----------------------------------------------------------------------------------------------------
 files = {}
 
@@ -127,6 +178,27 @@ def models_and_states():
                 put(f'assets/{NS}/models/block/{name}{suffix}.json', {'parent': f'minecraft:block/{parent}', 'textures': tex})
             put(f'assets/{NS}/blockstates/{name}.json', wall_state(name))
             put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}_inventory'}})
+    saw_model()
+
+
+def saw_model():
+    """The stonecutter's geometry (9 px table, blade across the middle) with the saw's own textures."""
+    t = f'{NS}:block/{SAW}'
+    put(f'assets/{NS}/models/block/{SAW}.json', {
+        'parent': 'minecraft:block/block',
+        'textures': {'particle': f'{t}_bottom', 'bottom': f'{t}_bottom', 'top': f'{t}_top', 'side': f'{t}_side', 'saw': f'{t}_saw'},
+        'elements': [
+            {'from': [0, 0, 0], 'to': [16, 9, 16], 'faces': {
+                'down': {'uv': [0, 0, 16, 16], 'texture': '#bottom', 'cullface': 'down'},
+                'up': {'uv': [0, 0, 16, 16], 'texture': '#top'},
+                **{side: {'uv': [0, 7, 16, 16], 'texture': '#side', 'cullface': side} for side in ('north', 'south', 'west', 'east')}}},
+            {'from': [1, 9, 8], 'to': [15, 16, 8], 'faces': {
+                'north': {'uv': [1, 9, 15, 16], 'texture': '#saw'},
+                'south': {'uv': [15, 9, 1, 16], 'texture': '#saw'}}}]})
+    y = {'north': 0, 'east': 90, 'south': 180, 'west': 270}
+    put(f'assets/{NS}/blockstates/{SAW}.json', {'variants': {f'facing={f}': ({'model': f'{NS}:block/{SAW}', 'y': y[f]} if y[f] else {'model': f'{NS}:block/{SAW}'})
+                                                         for f in ('east', 'north', 'south', 'west')}})
+    put(f'assets/{NS}/items/{SAW}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{SAW}'}})
 
 
 # --- recipes ----------------------------------------------------------------------------------------------------------
@@ -204,6 +276,15 @@ def recipes():
         else:
             recipe(f'{name}_from_moss_block', {'type': 'minecraft:crafting_shapeless', 'category': 'building',
                                                'ingredients': [brick, 'minecraft:moss_block'], 'result': result(name)}, 'minecraft:moss_block')
+    # Shaping Saw: like the stonecutter (iron over stone) but with wood beside the stone; or a stonecutter upgraded with copper and a plank.
+    recipe(SAW, {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'I': 'minecraft:iron_ingot', 'P': '#minecraft:planks', '#': 'minecraft:stone'},
+                 'pattern': [' I ', 'P#P'], 'result': result(SAW)}, 'minecraft:stone', 'decorations')
+    recipe(f'{SAW}_from_stonecutter', {'type': 'minecraft:crafting_shapeless', 'category': 'misc',
+                                       'ingredients': ['minecraft:stonecutter', 'minecraft:copper_ingot', '#minecraft:planks'], 'result': result(SAW)},
+           'minecraft:stonecutter', 'decorations')
+    for path, ingredient, out, count, mod in sawing_list():
+        res = {'id': out} if count == 1 else {'count': count, 'id': out}
+        put(f'data/{NS}/recipe/{path}.json', {**(mod_condition(mod) if mod else {}), 'type': f'{NS}:sawing', 'ingredient': ingredient, 'result': res})
 
 
 # --- loot and tags ----------------------------------------------------------------------------------------------------
@@ -223,6 +304,8 @@ def loot():
             data = {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
                                                           'entries': [{'type': 'minecraft:item', 'name': item}], 'rolls': 1}]}
         put(f'data/{NS}/loot_table/blocks/{name}.json', data)
+    put(f'data/{NS}/loot_table/blocks/{SAW}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
+                                                    'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{SAW}'}], 'rolls': 1}]})
 
 
 def tag(rel, ids):
@@ -231,7 +314,7 @@ def tag(rel, ids):
 
 def tags():
     ids = [f'{NS}:{n}' for n in BLOCKS]
-    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids)
+    tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'])
     tag('data/minecraft/tags/block/occludes_vibration_signals.json', [f'{NS}:{n}' for n in HUSHED_BLOCKS])
     tag('data/minecraft/tags/block/dampens_vibrations.json', [f'{NS}:{n}' for n in HUSHED_BLOCKS])
     for kind, tag_name in (('stairs', 'stairs'), ('slab', 'slabs'), ('wall', 'walls')):
@@ -291,6 +374,14 @@ def names():
     return en, de
 
 
+SAW_LANG = {
+    'en_us': dict(name='Shaping Saw', search='Search cuts', empty='Put stone, wood or wool in on the left',
+                  no_cuts='Nothing to cut from this item', no_match='No cut matches the search'),
+    'de_de': dict(name='Formsäge', search='Schnitte suchen', empty='Links Stein, Holz oder Wolle einlegen',
+                  no_cuts='Daraus lässt sich nichts schneiden', no_match='Kein Schnitt passt zur Suche'),
+}
+
+
 def lang():
     en, de = names()
     out = {}
@@ -299,6 +390,10 @@ def lang():
         for name, text in table.items():
             data[f'block.{NS}.{name}'] = text
             data[f'item.{NS}.{name}'] = text
+        saw = SAW_LANG[locale]
+        data[f'block.{NS}.{SAW}'] = data[f'item.{NS}.{SAW}'] = data[f'container.{NS}.{SAW}'] = data[f'jei.{NS}.category.sawing'] = saw['name']
+        for key in ('search', 'empty', 'no_cuts', 'no_match'):
+            data[f'container.{NS}.{SAW}.{key}'] = saw[key]
         data[f'itemgroup.{NS}.blocks'] = tab
         data[f'{NS}.testcentre.station'] = station
         out[locale] = data

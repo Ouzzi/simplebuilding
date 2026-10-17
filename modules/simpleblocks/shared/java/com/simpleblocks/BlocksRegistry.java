@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 37 blocks with their block items and one creative tab. Properties are copied from a
+ * Everything Simple Blocks registers: 37 blocks with their block items, the Shaping Saw ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
  * {@link #blocks}/{@link #items} in their matching registry event (Fabric: {@link #registerAll}).
@@ -107,6 +107,20 @@ public final class BlocksRegistry {
     /** Vanilla {@code Registry.register} works inside the matching registry event of every loader. */
     public static void registerBlocks() {
         BLOCKS.forEach((name, block) -> Registry.register(BuiltInRegistries.BLOCK, SimpleBlocks.id(name), block));
+        com.simpleblocks.saw.Sawing.registerBlock();
+    }
+
+    /** The Shaping Saw's menu, recipe type and serializer (principle A4b). */
+    public static void registerMenus() {
+        com.simpleblocks.saw.Sawing.registerMenu();
+    }
+
+    public static void registerRecipeTypes() {
+        com.simpleblocks.saw.Sawing.registerRecipeType();
+    }
+
+    public static void registerRecipeSerializers() {
+        com.simpleblocks.saw.Sawing.registerRecipeSerializer();
     }
 
     public static void registerItems() {
@@ -115,6 +129,7 @@ public final class BlocksRegistry {
             Item item = new BlockItem(block, new Item.Properties().setId(key).useBlockDescriptionPrefix());
             ITEMS.put(name, Registry.register(BuiltInRegistries.ITEM, key, item));
         });
+        com.simpleblocks.saw.Sawing.registerItem();
         com.simpleblocks.guide.BlocksGuide.register();
         SimpleBlocks.registerStation();
     }
@@ -131,6 +146,9 @@ public final class BlocksRegistry {
     public static void registerAll() {
         registerBlocks();
         registerItems();
+        registerMenus();
+        registerRecipeTypes();
+        registerRecipeSerializers();
         registerTab();
     }
 
@@ -138,6 +156,7 @@ public final class BlocksRegistry {
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleBlocks.on()) return out;
+        out.add(new ItemStack(com.simpleblocks.saw.Sawing.SAW_ITEM));
         ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
         out.add(com.simpleblocks.guide.BlocksGuide.stack());
         return out;

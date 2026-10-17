@@ -1,0 +1,8 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:oak_log",
+  "result": {
+    "count": 4,
+    "id": "minecraft:oak_planks"
+  }
+}

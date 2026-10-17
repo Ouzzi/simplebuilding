@@ -36,6 +36,7 @@
     "simpleblocks:blue_nether_bricks",
     "simpleblocks:blue_nether_brick_stairs",
     "simpleblocks:blue_nether_brick_slab",
-    "simpleblocks:blue_nether_brick_wall"
+    "simpleblocks:blue_nether_brick_wall",
+    "simpleblocks:shaping_saw"
   ]
 }

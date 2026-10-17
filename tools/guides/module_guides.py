@@ -129,9 +129,10 @@ MODULES = [
          author="Simple Blocks", recipe="minecraft:clay_ball",
          name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),
          intro=("The missing building blocks: Hushed Deepslate Tiles that swallow vibrations like wool, Sculk Deepslate, "
-                "the missing Vanilla stairs, slabs and walls and cracked and mossy bricks.",
+                "the missing Vanilla stairs, slabs and walls, cracked and mossy bricks and the Shaping Saw, which cuts stone and wood.",
                 "Die fehlenden Baublöcke: Gedämpfte Tiefenschieferfliesen, die Vibrationen wie Wolle schlucken, "
-                "Sculk-Tiefenschiefer, die fehlenden Vanilla-Treppen, -Stufen und -Mauern sowie rissige und bemooste Ziegel.")),
+                "Sculk-Tiefenschiefer, die fehlenden Vanilla-Treppen, -Stufen und -Mauern, rissige und bemooste Ziegel "
+                "und die Formsäge, die Stein und Holz schneidet.")),
     dict(module="simplevisuals", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
          kind="client", author="Simple Visuals",
          intro=("Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. "

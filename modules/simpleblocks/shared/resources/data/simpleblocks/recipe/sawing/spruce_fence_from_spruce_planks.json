@@ -1,0 +1,7 @@
+{
+  "type": "simpleblocks:sawing",
+  "ingredient": "minecraft:spruce_planks",
+  "result": {
+    "id": "minecraft:spruce_fence"
+  }
+}
