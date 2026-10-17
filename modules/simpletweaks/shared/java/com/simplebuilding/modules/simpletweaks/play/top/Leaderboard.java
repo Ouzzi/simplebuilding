@@ -25,10 +25,14 @@ public final class Leaderboard {
         for (var kind : StatBoard.KINDS) root.then(Commands.literal(kind).executes(x -> show(x.getSource(), kind)));
         d.register(root);
     }
+    /** Top 10 without vanished admins (T14) the viewer may not see; {@code viewer == null} = the public sidebar, which hides all of them. */
+    public static java.util.List<StatBoard.Entry> top(MinecraftServer server, String kind, CommandSourceStack viewer) {
+        return StatBoard.top(server, kind, 10, viewer == null ? com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish::vanished : id -> Play.hidden(id, viewer));
+    }
     static int show(CommandSourceStack source, String kind) {
         if (!active()) return 0;
         var server = source.getServer();
-        var top = StatBoard.top(server, kind, 10);
+        var top = top(server, kind, source);
         var out = PlayText.t("top.title", PlayText.t("top." + kind)).withStyle(ChatFormatting.GOLD);
         int rank = 1;
         for (var e : top) {
@@ -53,7 +57,7 @@ public final class Leaderboard {
         if (old != null) board.removeObjective(old);
         var obj = board.addObjective(OBJECTIVE, ObjectiveCriteria.DUMMY, PlayText.t("top." + c.sidebarStat()).withStyle(ChatFormatting.GOLD),
                 ObjectiveCriteria.RenderType.INTEGER, true, null);
-        for (var e : StatBoard.top(server, c.sidebarStat(), 10)) {
+        for (var e : top(server, c.sidebarStat(), null)) {
             long v = c.sidebarStat().equals("playtime") ? e.value() / 72000 : e.value();
             board.getOrCreatePlayerScore(ScoreHolder.forNameOnly(e.name()), obj).set((int) Math.min(Integer.MAX_VALUE, v));
         }

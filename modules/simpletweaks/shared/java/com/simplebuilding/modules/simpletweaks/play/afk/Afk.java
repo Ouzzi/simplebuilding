@@ -37,9 +37,15 @@ public final class Afk {
         if (on && manual) MANUAL.put(p.getUUID(), p.getLastActionTime()); else if (!on) MANUAL.remove(p.getUUID());
         if (!changed) return;
         var server = p.level().getServer();
-        server.getPlayerList().broadcastAll(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, p));
+        var packet = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, p);
+        for (var viewer : tabViewers(p)) viewer.connection.send(packet);
         p.sendSystemMessage(PlayText.t(on ? "afk.now" : "afk.back").withStyle(ChatFormatting.GRAY));
         p.level().updateSleepingPlayerList();
+    }
+    /** Players that get the changed tab list name of {@code p}: everybody who may see it (T14: not for vanished players). */
+    public static List<ServerPlayer> tabViewers(ServerPlayer p) {
+        return p.level().getServer().getPlayerList().getPlayers().stream()
+                .filter(v -> !com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.hidden(p, v)).toList();
     }
     /** The grey tab list name of an AFK player; null = keep the normal one. */
     public static Component tabName(ServerPlayer p, Component normal) {

@@ -84,5 +84,11 @@ public final class Play {
         Afk.left(player);
         Votes.left(player);
     }
+    /** T14 integration: is {@code id} a vanished admin that {@code viewer} (null or non-player = console/block, sees all) may not see? */
+    public static boolean hidden(java.util.UUID id, net.minecraft.commands.CommandSourceStack viewer) {
+        return com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.vanished(id)
+                && viewer != null && viewer.getEntity() instanceof ServerPlayer v && !v.getUUID().equals(id)
+                && !com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.sees(v);
+    }
     private Play() {}
 }

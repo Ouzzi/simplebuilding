@@ -45,7 +45,7 @@ public final class Mentions {
     }
     public static Result decorate(MinecraftServer server, ServerPlayer sender, String plain) {
         boolean everyone = sender == null || PlayPerms.has(sender, Play.config().mentions().everyonePermission());
-        return decorate(server.getPlayerList().getPlayers(), p -> p.nameAndId().name(), sender, everyone, plain);
+        return decorate(server.getPlayerList().getPlayers().stream().filter(p -> p == sender || !com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.vanished(p)).toList(), p -> p.nameAndId().name(), sender, everyone, plain);
     }
 
     /** Called for every chat message before it is broadcast. */

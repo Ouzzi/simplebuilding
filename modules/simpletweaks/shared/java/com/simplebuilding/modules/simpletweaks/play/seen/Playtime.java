@@ -49,13 +49,15 @@ public final class Playtime {
         var server = source.getServer();
         var id = resolve(server, name);
         if (id == null) { source.sendFailure(PlayText.t("unknown_player", name)); return 0; }
-        if (server.getPlayerList().getPlayer(id) != null) { source.sendSuccess(() -> PlayText.t("seen.online", StatBoard.name(server, id)), false); return 1; }
+        if (shownOnline(source, id)) { source.sendSuccess(() -> PlayText.t("seen.online", StatBoard.name(server, id)), false); return 1; }
         Long at = Play.state().lastSeen.get(id.toString());
         if (at == null) { source.sendFailure(PlayText.t("seen.never", name)); return 0; }
         source.sendSuccess(() -> PlayText.t("seen.ago", StatBoard.name(server, id), PlayText.duration(System.currentTimeMillis() - at).withStyle(ChatFormatting.GREEN)), false);
         return 1;
     }
 
+    /** Is {@code id} online and visible to the asker? A vanished admin counts as offline for everybody who may not see it (T14). */
+    public static boolean shownOnline(CommandSourceStack source, UUID id) { return source.getServer().getPlayerList().getPlayer(id) != null && !Play.hidden(id, source); }
     public static void joined(ServerPlayer p) { Play.state().names.put(p.getUUID().toString(), p.nameAndId().name()); }
     public static void left(ServerPlayer p) {
         var s = Play.state();

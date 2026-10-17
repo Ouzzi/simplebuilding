@@ -71,6 +71,7 @@ public final class PlayTests {
         TESTS.put("entity_limit_reports_and_blocks", PlayTests::crowd);
         TESTS.put("cleanup_spares_named_and_rare", PlayTests::cleanup);
         TESTS.put("pregen_spiral_and_generates", PlayTests::pregen);
+        TESTS.put("vanished_admins_stay_hidden", PlayTests::vanished);
     }
 
     public static int maxTicks(String name) { return name.equals("pregen_spiral_and_generates") ? 12000 : 100; /* test servers tick unthrottled, chunk generation takes real seconds */ }
@@ -408,6 +409,45 @@ public final class PlayTests {
             yes(h, Votes.eligible(h.getLevel().getServer()) >= 1, "Votes count active players");
         } finally { Afk.set(a, false, false); }
         yes(h, !Afk.afk(a), "Back from AFK");
+        h.succeed();
+    }
+
+    // ------------------------------------------------------------------ T14 x T19/T24/T7/T22/T6
+    static void vanished(GameTestHelper h) {
+        var server = h.getLevel().getServer();
+        var ghost = player(h, new BlockPos(1, 2, 1));
+        var guest = player(h, new BlockPos(2, 2, 1));
+        var admin = player(h, new BlockPos(3, 2, 1));
+        server.getPlayerList().op(admin.nameAndId(), Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), Optional.empty());
+        ghost.getStats().setValue(ghost, Stats.CUSTOM.get(Stats.DEATHS), 2_000_000);
+        com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.set(ghost, true);
+        try {
+            with(PlayConfig.of("{\"welcome\":{\"enabled\":true,\"joinMessage\":\"J {player}\",\"leaveMessage\":\"L {player}\"}}"), () -> {
+                yes(h, !Welcome.vanillaLine(ghost, true) && !Welcome.vanillaLine(ghost, false), "T19: no join/leave line for a vanished player");
+                yes(h, !Welcome.vanillaLine(guest, true), "T19: a visible player still gets the own line");
+            });
+            Afk.set(ghost, true, true);
+            try {
+                var viewers = Afk.tabViewers(ghost);
+                yes(h, !viewers.contains(guest) && viewers.contains(admin), "T24: tab list name update only to players who may see the vanished one");
+            } finally { Afk.set(ghost, false, false); }
+            var guestSource = guest.createCommandSourceStack();
+            var adminSource = admin.createCommandSourceStack();
+            yes(h, !com.simplebuilding.modules.simpletweaks.play.seen.Playtime.shownOnline(guestSource, ghost.getUUID()), "T7: /seen shows a vanished player as not online");
+            yes(h, com.simplebuilding.modules.simpletweaks.play.seen.Playtime.shownOnline(adminSource, ghost.getUUID()), "T7: admins that may see it still see it online");
+            yes(h, com.simplebuilding.modules.simpletweaks.play.seen.Playtime.shownOnline(server.createCommandSourceStack(), ghost.getUUID()), "T7: the console sees everybody");
+            yes(h, com.simplebuilding.modules.simpletweaks.play.seen.Playtime.shownOnline(guestSource, admin.getUUID()), "T7: visible players are online");
+            yes(h, Leaderboard.top(server, "deaths", guestSource).stream().noneMatch(e -> e.id().equals(ghost.getUUID())), "T22: leaderboard leaves the vanished player out");
+            yes(h, Leaderboard.top(server, "deaths", null).stream().noneMatch(e -> e.id().equals(ghost.getUUID())), "T22: sidebar leaves the vanished player out");
+            yes(h, Leaderboard.top(server, "deaths", adminSource).stream().anyMatch(e -> e.id().equals(ghost.getUUID())), "T22: admins that may see it get the full list");
+            var mention = com.simplebuilding.modules.simpletweaks.play.chat.Mentions.decorate(server, guest, "@test-mock-player");
+            yes(h, mention != null && !mention.mentioned().contains(ghost) && mention.mentioned().contains(admin), "T6: a mention does not highlight or ping a vanished player");
+        } finally {
+            com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.set(ghost, false);
+            server.getPlayerList().deop(admin.nameAndId());
+            ghost.getStats().setValue(ghost, Stats.CUSTOM.get(Stats.DEATHS), 0);
+        }
+        yes(h, Welcome.vanillaLine(ghost, true), "Visible again: Vanilla join line");
         h.succeed();
     }
 

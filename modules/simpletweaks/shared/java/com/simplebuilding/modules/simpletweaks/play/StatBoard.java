@@ -52,9 +52,11 @@ public final class StatBoard {
         return server.services().nameToIdCache().get(id).map(net.minecraft.server.players.NameAndId::name).orElse(id.toString().substring(0, 8));
     }
     /** The top {@code limit} players of one kind, highest first (ties by name). */
-    public static List<Entry> top(MinecraftServer server, String kind, int limit) {
+    public static List<Entry> top(MinecraftServer server, String kind, int limit) { return top(server, kind, limit, id -> false); }
+    /** Like {@link #top(MinecraftServer, String, int)} without the players {@code skip} accepts (vanished admins, T14). */
+    public static List<Entry> top(MinecraftServer server, String kind, int limit, java.util.function.Predicate<UUID> skip) {
         var list = new ArrayList<Entry>();
-        for (var id : known(server)) list.add(new Entry(id, name(server, id), value(counter(server, id), kind)));
+        for (var id : known(server)) if (!skip.test(id)) list.add(new Entry(id, name(server, id), value(counter(server, id), kind)));
         list.sort(Comparator.comparingLong(Entry::value).reversed().thenComparing(Entry::name));
         return list.subList(0, Math.min(limit, list.size()));
     }

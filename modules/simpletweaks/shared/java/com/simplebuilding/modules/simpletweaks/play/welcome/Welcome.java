@@ -39,6 +39,7 @@ public final class Welcome {
     }
     /** Replaces the Vanilla join/leave line? Then broadcasts the own one and returns false. */
     public static boolean vanillaLine(ServerPlayer p, boolean join) {
+        if (com.simplebuilding.modules.simpletweaks.admin.vanish.Vanish.vanished(p)) return false; // vanished: no join/leave line at all (T14)
         if (!active()) return true;
         var c = Play.config().welcome();
         var text = join ? c.joinMessage() : c.leaveMessage();
