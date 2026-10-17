@@ -121,7 +121,7 @@ public final class BlocksRegistry {
 
     public static void registerTab() {
         TAB = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, SimpleBlocks.id("blocks"), CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
-                .title(Component.translatable("itemGroup.simpleblocks"))
+                .title(Component.translatable("itemgroup.simpleblocks.blocks"))
                 .icon(() -> new ItemStack(HUSHED_DEEPSLATE_TILES))
                 .displayItems((parameters, output) -> tabStacks().forEach(output::accept))
                 .build());

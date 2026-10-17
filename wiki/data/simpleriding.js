@@ -566,9 +566,9 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
       },
       "de": {
         "title": "Reitpaketgrenze",
-        "summary": "safety.movementPacketsPerTick: Maximale Reitbewegungspakete je Servertick; Bereich 1-20. Überzaehlige Pakete werden verweigert. Standard: 20. Servereinstellung; Neustart erforderlich.",
+        "summary": "safety.movementPacketsPerTick: Maximale Reitbewegungspakete je Servertick; Bereich 1-20. Überzählige Pakete werden verweigert. Standard: 20. Servereinstellung; Neustart erforderlich.",
         "details": [
-          "safety.movementPacketsPerTick: Maximale Reitbewegungspakete je Servertick; Bereich 1-20. Überzaehlige Pakete werden verweigert. Standard: 20. Servereinstellung; Neustart erforderlich."
+          "safety.movementPacketsPerTick: Maximale Reitbewegungspakete je Servertick; Bereich 1-20. Überzählige Pakete werden verweigert. Standard: 20. Servereinstellung; Neustart erforderlich."
         ]
       }
     },

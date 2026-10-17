@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simplerespawn"
 version="${version}"
 displayName="Simple Respawn"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Downed instead of dead: a teammate can revive you before you bleed out (then 3 hearts, no food)."
 [[mixins]]
 config="simplerespawn.mixins.json"

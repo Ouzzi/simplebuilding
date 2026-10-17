@@ -80,8 +80,14 @@ public final class ClaimTests {
         TESTS.put("claims_deed_use",ClaimDeedTests::use);
         TESTS.put("claims_deed_edit",ClaimDeedTests::edit);
         TESTS.put("claims_deed_copy",ClaimDeedTests::copy);
+        TESTS.put("claims_review_vehicle_containers",ReviewClaimTests::vehicleContainers);
+        TESTS.put("claims_review_growth",ReviewClaimTests::growth);
         TESTS.put("claims_table_basics",TableTests::basics);
         TESTS.put("claims_table_service",TableTests::service);
+        TESTS.put("claims_expand_budget",ExpansionTests::budget);
+        TESTS.put("claims_expand",ExpansionTests::expand);
+        TESTS.put("claims_expand_table",ExpansionTests::tableExpand);
+        TESTS.put("claims_map_layer",ExpansionTests::mapLayer);
     }
     static void yes(GameTestHelper h,boolean condition,String why) { h.assertTrue(condition,why); }
     /** Principle 8: SimpleBuilding is an optional partner; checks of its tools/machines pass with a note when it is absent. */

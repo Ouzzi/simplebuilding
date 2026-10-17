@@ -3,6 +3,14 @@
   "id": "simplelib",
   "version": "${version}",
   "name": "SimpleLib",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Shared content of the Simple mods: crucibles with heat sources and warm food. Bundled by SimpleBuilding and Simple Sandwiches.",
   "license": "CC0-1.0",
   "environment": "*",

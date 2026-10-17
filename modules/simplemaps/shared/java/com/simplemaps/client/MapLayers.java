@@ -156,6 +156,18 @@ public final class MapLayers {
         }
         for (LayerDataPayload.Marker m : data.markers()) {
             if (!on(m.source())) continue;
+            int[] area = m.area();
+            if (area != null) {
+                int x0 = sx(m.x(), mapX, originX, bpp, mag), x1 = Math.max(x0 + 1, sx(m.x() + 16.0 * area[2], mapX, originX, bpp, mag));
+                int y0 = sx(m.z(), mapY, originZ, bpp, mag), y1 = Math.max(y0 + 1, sx(m.z() + 16.0, mapY, originZ, bpp, mag));
+                if (x1 < mapX || x0 > mapX + mapW || y1 < mapY || y0 > mapY + mapH) continue;
+                int rgb = area[0] & 0xFFFFFF;
+                g.fill(x0, y0, x1, y1, 0x50000000 | rgb);
+                int edge = 0xFF000000 | (area[1] == 1 ? 0xFFFFFF : rgb);
+                g.fill(x0, y0, x1, y0 + 1, edge); g.fill(x0, y1 - 1, x1, y1, edge);
+                if (area[1] == 1) { g.fill(x0, y0, x0 + 1, y1, edge); g.fill(x1 - 1, y0, x1, y1, edge); }
+                continue;
+            }
             int x = sx(m.x(), mapX, originX, bpp, mag) + mag / 2, y = sx(m.z(), mapY, originZ, bpp, mag) + mag / 2;
             if (x < mapX - 5 || x > mapX + mapW + 5 || y < mapY - 5 || y > mapY + mapH + 5) continue;
             int color = 0xFF000000 | Mth.hsvToRgb((m.source().hashCode() & 0xFFFF) / 65536.0F, 0.55F, 0.95F);
@@ -169,11 +181,15 @@ public final class MapLayers {
         if (data == null || data.mapId() != mapId) return;
         for (LayerDataPayload.Marker m : data.markers()) {
             if (!on(m.source())) continue;
+            int[] area = m.area();
             int x = sx(m.x(), mapX, originX, bpp, mag) + mag / 2, y = sx(m.z(), mapY, originZ, bpp, mag) + mag / 2;
-            if (Math.abs(x - mouseX) <= 4 && Math.abs(y - mouseY) <= 4) {
+            boolean over = area == null ? Math.abs(x - mouseX) <= 4 && Math.abs(y - mouseY) <= 4
+                    : mouseX >= sx(m.x(), mapX, originX, bpp, mag) && mouseX < sx(m.x() + 16.0 * area[2], mapX, originX, bpp, mag)
+                    && mouseY >= sx(m.z(), mapY, originZ, bpp, mag) && mouseY < sx(m.z() + 16.0, mapY, originZ, bpp, mag);
+            if (over) {
                 List<Component> lines = new ArrayList<>();
                 for (String line : m.lines()) lines.add(Component.literal(line));
-                lines.add(Component.literal(m.x() + ", " + m.z()));
+                if (area == null) lines.add(Component.literal(m.x() + ", " + m.z()));
                 g.setTooltipForNextFrame(font, lines, Optional.empty(), mouseX, mouseY);
                 return;
             }

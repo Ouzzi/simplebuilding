@@ -3,6 +3,16 @@
   "id": "simplesounds",
   "version": "${version}",
   "name": "Simple Sounds",
+  "description": "Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {
     "main": [

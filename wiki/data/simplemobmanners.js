@@ -30,7 +30,7 @@ window.WIKI_MODULE_DATA["simplemobmanners"] = {
       },
       "de": {
         "title": "Kreaturen stummschalten",
-        "summary": "mutedEntities waehlt Wesen-IDs. Namen mit _mute oder _shhh sind standardmaessig stumm. Listen erlauben maximal 64 verschiedene nichtleere Eintraege mit je 64 Zeichen. Vanilla-Stummzustand bleibt erhalten."
+        "summary": "mutedEntities wählt Wesen-IDs. Namen mit _mute oder _shhh sind standardmäßig stumm. Listen erlauben maximal 64 verschiedene nichtleere Einträge mit je 64 Zeichen. Vanilla-Stummzustand bleibt erhalten."
       }
     },
     {
@@ -57,8 +57,8 @@ window.WIKI_MODULE_DATA["simplemobmanners"] = {
         "summary": "Gold armor trims or a golden sword, spear, pickaxe, axe, shovel, or hoe in either hand count as safe equipment. The two switches default true. This does not prevent anger caused by attacking or opening containers."
       },
       "de": {
-        "title": "Goldausruestung fuer Piglins",
-        "summary": "Goldbesatz oder goldenes Schwert, Speer, Spitzhacke, Axt, Schaufel oder Hacke in einer Hand gelten als sichere Ausruestung. Beide Schalter standardmaessig true. Angriff oder Behaelteroeffnen kann weiterhin Wut ausloesen."
+        "title": "Goldausrüstung für Piglins",
+        "summary": "Goldbesatz oder goldenes Schwert, Speer, Spitzhacke, Axt, Schaufel oder Hacke in einer Hand gelten als sichere Ausrüstung. Beide Schalter standardmäßig true. Angriff oder das Öffnen von Behältern kann weiterhin Wut auslösen."
       }
     },
     {
@@ -73,7 +73,7 @@ window.WIKI_MODULE_DATA["simplemobmanners"] = {
       },
       "de": {
         "title": "Eimer mit Frosch",
-        "summary": "Ein Wassereimer auf einem Frosch faengt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurueck. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
+        "summary": "Ein Wassereimer auf einem Frosch fängt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurück. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
       }
     },
     {
@@ -157,7 +157,7 @@ window.WIKI_MODULE_DATA["simplemobmanners"] = {
       },
       "de": {
         "title": "Befehle",
-        "summary": "Besitzerberechtigung: /simplemobmanners muteSuffixes, babySuffixes und mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims und piglinsIgnoreGoldTools <true|false>. Speichern in config/simplemobmanners.json. Frueher Simple Creatures: /simplecreatures bleibt als Alias mit Hinweis, config/simplecreatures.json und der Super-Mod-Schalter werden einmalig uebernommen."
+        "summary": "Besitzerberechtigung: /simplemobmanners muteSuffixes, babySuffixes und mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims und piglinsIgnoreGoldTools <true|false>. Speichern in config/simplemobmanners.json. Früher Simple Creatures: /simplecreatures bleibt als Alias mit Hinweis, config/simplecreatures.json und der Super-Mod-Schalter werden einmalig übernommen."
       }
     },
     {
@@ -172,7 +172,7 @@ window.WIKI_MODULE_DATA["simplemobmanners"] = {
       },
       "de": {
         "title": "Sub-Mod von Simple QoL",
-        "summary": "Allein spielbar (config/simplemobmanners.json). In Simple QoL gebuendelt, dort mit \"Simple Mob Manners aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig uebernommen."
+        "summary": "Allein spielbar (config/simplemobmanners.json). In Simple QoL gebuendelt, dort mit \"Simple Mob Manners aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig übernommen."
       }
     }
   ],
@@ -195,7 +195,7 @@ window.WIKI_MODULE_DATA["simplemobmanners"] = {
         },
         "de": {
           "title": "Eimer mit Frosch",
-          "summary": "Ein Wassereimer auf einem Frosch faengt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurueck. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
+          "summary": "Ein Wassereimer auf einem Frosch fängt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurück. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
         }
       },
       "texture": "assets/textures/simplemobmanners/item/frog_bucket.png",

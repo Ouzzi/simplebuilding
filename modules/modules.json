@@ -862,7 +862,9 @@
       ],
       "optional": [
         "simpledimensions",
-        "simplebuilding"
+        "simplebuilding",
+        "simplemoney",
+        "simpleweather"
       ],
       "checks": [
         "modules/simpletweaks/tools/check_data.py"
@@ -871,7 +873,9 @@
         "namespace": "simpletweaks",
         "catalogues": [
           "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/ModuleGameTest.java",
-          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/ClaimsGameTest.java"
+          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/ClaimsGameTest.java",
+          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/AdminGameTest.java",
+          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/PlayGameTest.java"
         ],
         "requires": [
           "simpletweaks",
@@ -1528,7 +1532,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Mobs",
-      "description": "Simple Mobs module.",
+      "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted Wither, Potion of Silence and the Biome Brush.",
       "loaders": [
         "fabric",
         "neoforge",

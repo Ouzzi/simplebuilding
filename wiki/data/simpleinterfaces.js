@@ -627,9 +627,9 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
       },
       "de": {
         "title": "enableLinkedContainers",
-        "summary": "Serverschalter fuer verknuepfte Behaelter. Standard: true.",
+        "summary": "Serverschalter für verknüpfte Behälter. Standard: true.",
         "details": [
-          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird für die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
         ]
       }
     },
@@ -647,9 +647,9 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
       },
       "de": {
         "title": "linkedContainerRange",
-        "summary": "Servereinstellung, 8–128 Bloecke zwischen Spieler und vorgemerktem Behaelter. Standard: 64.",
+        "summary": "Servereinstellung, 8–128 Blöcke zwischen Spieler und vorgemerktem Behälter. Standard: 64.",
         "details": [
-          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird für die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
         ]
       }
     },
@@ -667,9 +667,9 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
       },
       "de": {
         "title": "enableEasyShulkers",
-        "summary": "Serverschalter fuer Shulkerkisten aus dem Inventar. Standard: true.",
+        "summary": "Serverschalter für Shulkerkisten aus dem Inventar. Standard: true.",
         "details": [
-          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird für die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
         ]
       }
     },
@@ -687,9 +687,9 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
       },
       "de": {
         "title": "enableEasyEnderChests",
-        "summary": "Serverschalter fuer Endertruhen aus dem Inventar. Standard: true.",
+        "summary": "Serverschalter für Endertruhen aus dem Inventar. Standard: true.",
         "details": [
-          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird für die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
         ]
       }
     },
@@ -707,10 +707,10 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
         ]
       },
       "de": {
-        "title": "Verknuepfte Behaelter",
-        "summary": "Schleichen + Rechtsklick mit leerer Haupthand merkt einen Behaelter vor (Doppeltruhe zaehlt als einer); Staubpartikel an der Hand zeigen die Vormerkung. Die naechste geoeffnete Truhe oder GUI (Werkbank, Ofen, Amboss …) zeigt den Behaelter darueber, mit gemeinsamem Inventar. Shift-Klick: vorgemerkt → zweites GUI, sonst Inventar; Inventar → zweites GUI, sonst vorgemerkter Behaelter. Die Vormerkung endet jenseits von linkedContainerRange (Standard 64, Bereich 8–128), in anderer Dimension, in ungeladenem Chunk, wenn der Block weg ist, bei Logout oder Tod oder mit erneutem Schleich-Rechtsklick darauf, mit Escape in der Welt (das Pausenmenue oeffnet beim naechsten Druck) und sobald du den vorgemerkten Behaelter selbst geoeffnet und wieder verlassen hast. Solange vorgemerkt, zeigt ein schlankes Banner rechts (Block und Name), welcher Behaelter es ist. Im Kreativmodus nutzen Inventar und Kreativ-Tabs die Vormerkung nie (eine Truhen-GUI zeigt sie weiter). Claims und Schloesser werden geprueft. Das Rezeptbuch zaehlt weiter nur das Inventar.",
+        "title": "Verknüpfte Behälter",
+        "summary": "Schleichen + Rechtsklick mit leerer Haupthand merkt einen Behälter vor (Doppeltruhe zählt als einer); Staubpartikel an der Hand zeigen die Vormerkung. Die nächste geöffnete Truhe oder GUI (Werkbank, Ofen, Amboss …) zeigt den Behälter darüber, mit gemeinsamem Inventar. Shift-Klick: vorgemerkt → zweites GUI, sonst Inventar; Inventar → zweites GUI, sonst vorgemerkter Behälter. Die Vormerkung endet jenseits von linkedContainerRange (Standard 64, Bereich 8–128), in anderer Dimension, in ungeladenem Chunk, wenn der Block weg ist, bei Logout oder Tod oder mit erneutem Schleich-Rechtsklick darauf, mit Escape in der Welt (das Pausenmenü öffnet beim nächsten Druck) und sobald du den vorgemerkten Behälter selbst geöffnet und wieder verlassen hast. Solange vorgemerkt, zeigt ein schlankes Banner rechts (Block und Name), welcher Behälter es ist. Im Kreativmodus nutzen Inventar und Kreativ-Tabs die Vormerkung nie (eine Truhen-GUI zeigt sie weiter). Claims und Schlösser werden geprüft. Das Rezeptbuch zählt weiter nur das Inventar.",
         "details": [
-          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird für die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
         ]
       }
     },
@@ -729,9 +729,9 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
       },
       "de": {
         "title": "Einfache Shulkerkisten und Endertruhen",
-        "summary": "Rechtsklick mit einer Shulkerkiste (jede Farbe, auch SimpleBuilding-Stufenkisten) oder Endertruhe in die Luft oder auf ihren eigenen Inventarplatz oeffnet sie, ohne sie zu platzieren. Das Item bleibt waehrenddessen in seinem Platz gesperrt; jede Aenderung wird sofort in die Kiste geschrieben. Shulkerkisten passen nicht hinein. Nicht aus dem Kreativ-Inventarreiter. Schalter: enableEasyShulkers und enableEasyEnderChests (Standard true).",
+        "summary": "Rechtsklick mit einer Shulkerkiste (jede Farbe, auch SimpleBuilding-Stufenkisten) oder Endertruhe in die Luft oder auf ihren eigenen Inventarplatz öffnet sie, ohne sie zu platzieren. Das Item bleibt währenddessen in seinem Platz gesperrt; jede Änderung wird sofort in die Kiste geschrieben. Shulkerkisten passen nicht hinein. Nicht aus dem Kreativ-Inventarreiter. Schalter: enableEasyShulkers und enableEasyEnderChests (Standard true).",
         "details": [
-          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird für die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
         ]
       }
     },
@@ -750,9 +750,9 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
       },
       "de": {
         "title": "Sub-Mod von Simple QoL",
-        "summary": "Allein spielbar. In Simple QoL gebuendelt, dort mit \"Simple Interfaces aktivieren\" abschaltbar (Vanilla-Bildschirme, keine verknuepften Behaelter, keine Easy Shulkers). Beim ersten Start werden die alten Simple-QoL-Behaelter-Einstellungen einmalig in config/simpleinterfaces-server.json uebernommen.",
+        "summary": "Allein spielbar. In Simple QoL gebuendelt, dort mit \"Simple Interfaces aktivieren\" abschaltbar (Vanilla-Bildschirme, keine verknüpften Behälter, keine Easy Shulkers). Beim ersten Start werden die alten Simple-QoL-Behälter-Einstellungen einmalig in config/simpleinterfaces-server.json übernommen.",
         "details": [
-          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird fuer die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
+          "Serverwert in config/simpleinterfaces-server.json (frueher Simple QoL), wird für die Vorhersage an Clients gesendet; der lokale Bildschirmstil bleibt in config/simpleinterfaces.json."
         ]
       }
     }

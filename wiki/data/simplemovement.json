@@ -29,7 +29,7 @@
       },
       "de": {
         "title": "Manuelles Kriechen",
-        "summary": "P oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Aenderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
+        "summary": "P oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Änderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
       }
     },
     {
@@ -43,7 +43,7 @@
       },
       "de": {
         "title": "Automatisch laufen",
-        "summary": "R schaltet normale Vorwaertseingabe nur bei Serverfreigabe enableAutowalk (Standard false). Bildschirm oeffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Aenderung. Kein Tempo- oder Reichweitenbonus. Die Tastenbelegungen fuer Autowalk und Kriechen aus Simple QoL werden einmalig uebernommen."
+        "summary": "R schaltet normale Vorwärtseingabe nur bei Serverfreigabe enableAutowalk (Standard false). Bildschirm öffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Änderung. Kein Tempo- oder Reichweitenbonus. Die Tastenbelegungen für Autowalk und Kriechen aus Simple QoL werden einmalig übernommen."
       }
     },
     {
@@ -57,7 +57,7 @@
       },
       "de": {
         "title": "Klettern und Rutschen",
-        "summary": "Klettertempo standardmaessig 0.4 Bloecke/Tick (0.2–0.4), Rutschtempo 0.8 (0.15–0.8). CAMERA verlangt Blick nach unten und Schleichen; ALWAYS Blick nach unten ohne Schleichen. Der Server weist ueberhoehte Bewegung auf kletterbaren Bloecken mit begrenztem Latenzspielraum ab."
+        "summary": "Klettertempo standardmäßig 0.4 Blöcke/Tick (0.2–0.4), Rutschtempo 0.8 (0.15–0.8). CAMERA verlangt Blick nach unten und Schleichen; ALWAYS Blick nach unten ohne Schleichen. Der Server weist überhöhte Bewegung auf kletterbaren Blöcken mit begrenztem Latenzspielraum ab."
       }
     },
     {
@@ -70,8 +70,8 @@
         "summary": "Frost Walker permits walking on powder snow. Enabled by frostWalkerWalkOnPowderSnow, default true."
       },
       "de": {
-        "title": "Eislaeufer auf Pulverschnee",
-        "summary": "Eislaeufer erlaubt das Gehen auf Pulverschnee. frostWalkerWalkOnPowderSnow ist standardmaessig true."
+        "title": "Eisläufer auf Pulverschnee",
+        "summary": "Eisläufer erlaubt das Gehen auf Pulverschnee. frostWalkerWalkOnPowderSnow ist standardmäßig true."
       }
     },
     {
@@ -85,7 +85,7 @@
       },
       "de": {
         "title": "Sprungkraft steigt Stufen",
-        "summary": "Solange Sprungkraft aktiv ist (Trank, Leuchtfeuer oder Befehl), wird das Attribut step_height auf mindestens 1 Block aufgefuellt, du laeufst also ohne Sprung einen ganzen Block hoch. Stiefel mit Stufenhoehe werden nicht addiert: der hoehere Wert gilt. Schalter jumpBoostStepUp, Standard true."
+        "summary": "Solange Sprungkraft aktiv ist (Trank, Leuchtfeuer oder Befehl), wird das Attribut step_height auf mindestens 1 Block aufgefüllt, du läufst also ohne Sprung einen ganzen Block hoch. Stiefel mit Stufenhöhe werden nicht addiert: der höhere Wert gilt. Schalter jumpBoostStepUp, Standard true."
       }
     },
     {
@@ -211,7 +211,7 @@
       },
       "de": {
         "title": "Befehle",
-        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplemovement autowalk und frostWalkerSnow <true|false> sowie ladderSpeed <0.2-0.4>; Speichern in config/simplemovement.json."
+        "summary": "/crawl ist für Spieler. Besitzerberechtigung: /simplemovement autowalk und frostWalkerSnow <true|false> sowie ladderSpeed <0.2-0.4>; Speichern in config/simplemovement.json."
       }
     },
     {
@@ -226,7 +226,7 @@
       },
       "de": {
         "title": "Sub-Mod von Simple QoL",
-        "summary": "Allein spielbar (config/simplemovement.json). In Simple QoL gebuendelt, dort mit \"Simple Movement aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig uebernommen."
+        "summary": "Allein spielbar (config/simplemovement.json). In Simple QoL gebuendelt, dort mit \"Simple Movement aktivieren\" abschaltbar. Beim ersten Start werden die alten Simple-QoL-Einstellungen dieser Sub-Mod einmalig übernommen."
       }
     },
     {

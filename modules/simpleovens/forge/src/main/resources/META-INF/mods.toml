@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simpleovens"
 version="${version}"
 displayName="Simple Ovens"
+description="Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer in SimpleBuilding."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[dependencies.simpleovens]]
 modId="forge"
 mandatory=true

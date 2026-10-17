@@ -29,10 +29,10 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
         ]
       },
       "de": {
-        "title": "Kompatibilitaet alter Welten",
-        "summary": "Eine exakte Liste verbindet alte Item-, Block-, Blockentitaets- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert.",
+        "title": "Kompatibilität alter Welten",
+        "summary": "Eine exakte Liste verbindet alte Item-, Block-, Blockentitäts- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert.",
         "details": [
-          "Eine exakte Liste verbindet alte Item-, Block-, Blockentitaets- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert."
+          "Eine exakte Liste verbindet alte Item-, Block-, Blockentitäts- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert."
         ]
       },
       "sources": [
@@ -128,7 +128,9 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
         "summary": "Craft paper and a Claim Deed over four planks into a Claim Table. Right-click it to see who claimed what around it: a chunk raster with one color per owner (your own land framed), three zoom levels, drag to pan, and an owner list beside it (chunks, only mine, click to center). Terrain is not shown; that is Simple Maps' job.",
         "details": [
           "The server decides what you see (config claimVisibility in simpletweaks-claims.json): all (default) shows every claim with its owner, owners_hidden shows outlines and names only where you hold rights, own shows only land you own or hold rights in, off shows nothing. Operators always see everything. Member lists, rights and codes of other people's land are never sent.",
-          "Packets are bounded: areas up to 64 x 64 chunks within 64 chunks of the table, at most 4 requests per second, only while you stand within 8 blocks of the table you opened; the dimension is always the table's. The owner list comes in pages of 50."
+          "Packets are bounded: areas up to 64 x 64 chunks within 64 chunks of the table, at most 4 requests per second, only while you stand within 8 blocks of the table you opened; the dimension is always the table's. The owner list comes in pages of 50.",
+          "Land expansion: you start with 4 chunks (config startChunks). The Expand land button at the table buys the next step from your inventory: a claim deed (empty or your own) must be with you, plus the step's materials and XP levels. Default steps: 6 chunks for 8 copper ingots and 1 level, 8 for 8 iron ingots and 2, 12 for 8 gold ingots and 3, 16 for 4 diamonds and 5, 24 for 8 diamonds and 8 emeralds and 8, 32 for 2 netherite ingots and 10, 48 for 4 netherite ingots and 15, 64 for a nether star and 20. The server limit maxClaimsPerPlayer still caps the land. Land you already hold is never taken away; unclaiming gives nothing back, the budget stays. /claim budget shows your budget and the next step, /claim admin budget <player> <n> sets one. expansionEnabled=false brings back the old fixed limit; expansionTiers is configurable.",
+          "With Simple Maps: a Claims layer on the wayfinder map (layers button) shows claims as colored strips on explored terrain, your own land framed; the same server visibility rules apply. Without Simple Maps nothing changes, and Simple Maps shows no Claims layer without Simple Tweaks."
         ]
       },
       "de": {
@@ -136,7 +138,9 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
         "summary": "Stelle aus Papier und einer Claim-Urkunde über vier Brettern einen Claim-Tisch her. Rechtsklick zeigt, wer in der Umgebung was beansprucht hat: ein Chunk-Raster mit einer Farbe je Besitzer (dein Land umrahmt), drei Zoomstufen, Ziehen zum Verschieben und daneben eine Besitzerliste (Chunks, nur meine, Klick zentriert). Gelände zeigt er nicht; das ist Sache von Simple Maps.",
         "details": [
           "Der Server entscheidet, was du siehst (Config claimVisibility in simpletweaks-claims.json): all (Standard) zeigt jeden Claim mit Besitzer, owners_hidden zeigt Umrisse und Namen nur dort, wo du Rechte hast, own zeigt nur eigenes Land und Land mit deinen Rechten, off zeigt nichts. Operatoren sehen immer alles. Mitgliederlisten, Rechte und Codes fremden Landes werden nie gesendet.",
-          "Die Pakete sind begrenzt: Bereiche bis 64 x 64 Chunks im Umkreis von 64 Chunks um den Tisch, höchstens 4 Anfragen pro Sekunde, nur solange du höchstens 8 Blöcke vom geöffneten Tisch entfernt stehst; die Dimension ist immer die des Tisches. Die Besitzerliste kommt in Seiten zu 50."
+          "Die Pakete sind begrenzt: Bereiche bis 64 x 64 Chunks im Umkreis von 64 Chunks um den Tisch, höchstens 4 Anfragen pro Sekunde, nur solange du höchstens 8 Blöcke vom geöffneten Tisch entfernt stehst; die Dimension ist immer die des Tisches. Die Besitzerliste kommt in Seiten zu 50.",
+          "Landerweiterung: Du startest mit 4 Chunks (Config startChunks). Der Knopf Land erweitern am Tisch kauft die nächste Stufe aus deinem Inventar: eine Claim-Urkunde (leer oder deine eigene) muss dabei sein, dazu Material und Erfahrungslevel der Stufe. Standardstufen: 6 Chunks für 8 Kupferbarren und 1 Level, 8 für 8 Eisenbarren und 2, 12 für 8 Goldbarren und 3, 16 für 4 Diamanten und 5, 24 für 8 Diamanten und 8 Smaragde und 8, 32 für 2 Netheritbarren und 10, 48 für 4 Netheritbarren und 15, 64 für einen Netherstern und 20. Die Server-Grenze maxClaimsPerPlayer deckelt das Land weiterhin. Land, das du schon hältst, wird nie weggenommen; Aufgeben erstattet nichts, das Budget bleibt. /claim budget zeigt Budget und nächste Stufe, /claim admin budget <Spieler> <n> setzt eines. expansionEnabled=false bringt die alte feste Grenze zurück; expansionTiers ist einstellbar.",
+          "Mit Simple Maps: Eine Claims-Ebene auf der Wayfinder-Karte (Ebenen-Knopf) zeigt Claims als farbige Streifen auf erkundetem Gelände, dein eigenes Land umrahmt; es gelten dieselben Sichtbarkeitsregeln des Servers. Ohne Simple Maps ändert sich nichts, und Simple Maps zeigt ohne Simple Tweaks keine Claims-Ebene."
         ]
       },
       "sources": [
@@ -148,7 +152,8 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/client/TableScreen.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/net/TableAreaPayload.java",
         "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_table.json",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimConfig.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimConfig.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/table/ClaimMapLayer.java"
       ]
     },
     {
@@ -171,6 +176,694 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
           "Native Forge-Aliase und Wrapper-Lookups lösen nur die bestehende Alt-ID-Allowlist auf. Gespeichert werden kanonische IDs; keine doppelten Spielmechaniken. Claims bleiben inaktiv. Forge-Client und echte hochgestufte Welten bleiben ungeprüft."
         ]
       }
+    },
+    {
+      "id": "admin_block_log",
+      "en": {
+        "title": "Block and container log (on by default)",
+        "summary": "Logs every block a player breaks or places and every item taken from or put into a container block, with player, time, position and dimension. /inspect shows the history of a clicked block, /tweaks rollback undoes a player's actions.",
+        "details": [
+          "Storage: append-only day files under <world>/simpletweaks/blocklog/<dimension>/<regionX>_<regionZ>/<date>.tsv; the region folder (512×512 blocks) is the position index, the day file the time index. The server thread only queues entries; one background thread writes them every flushSeconds (default 5, 1–60) and answers lookups. Day files older than retentionDays (default 14, 1–365) are deleted at start and once a day.",
+          "/inspect (operator level permission, default 2) toggles the inspect mode: a left or right click on a block shows its history, 7 lines per page (/inspect page <n>), and does not break or use the block. Broken blocks keep their block state and block entity data up to 32 KB.",
+          "/tweaks rollback <player> <time> [radius] (rollbackPermission, default 3): time like 30m, 2h, 1d or 1h30m; with a radius only the square around you in your dimension, without one every dimension. Newest first: placed blocks are removed while the same block is still there, broken blocks return onto air or replaceable blocks (with their contents), taken items go back into the container and deposited items are taken out. At most rollbackMaxChanges (default 20000) entries. Section blockLog in config/simpletweaks-admin.json."
+        ]
+      },
+      "de": {
+        "title": "Block- und Truhen-Protokoll (standardmäßig an)",
+        "summary": "Protokolliert jeden Block, den ein Spieler abbaut oder setzt, und jedes Item, das er aus einem Container-Block nimmt oder hineinlegt – mit Spieler, Zeit, Position und Dimension. /inspect zeigt den Verlauf eines angeklickten Blocks, /tweaks rollback macht die Aktionen eines Spielers rückgängig.",
+        "details": [
+          "Ablage: Tagesdateien zum Anhängen unter <welt>/simpletweaks/blocklog/<dimension>/<regionX>_<regionZ>/<datum>.tsv; der Regionsordner (512×512 Blöcke) ist der Positionsindex, die Tagesdatei der Zeitindex. Der Server-Thread reiht Einträge nur ein; ein eigener Thread schreibt sie alle flushSeconds (Standard 5, 1–60) und beantwortet Abfragen. Tagesdateien älter als retentionDays (Standard 14, 1–365) werden beim Start und einmal täglich gelöscht.",
+          "/inspect (OP-Stufe permission, Standard 2) schaltet den Prüfmodus: Links- oder Rechtsklick auf einen Block zeigt seinen Verlauf, 7 Zeilen je Seite (/inspect page <n>), ohne ihn abzubauen oder zu benutzen. Abgebaute Blöcke behalten Blockzustand und Blockentity-Daten bis 32 KB.",
+          "/tweaks rollback <Spieler> <Zeit> [Radius] (rollbackPermission, Standard 3): Zeit wie 30m, 2h, 1d oder 1h30m; mit Radius nur das Quadrat um dich in deiner Dimension, ohne Radius alle Dimensionen. Neueste zuerst: gesetzte Blöcke verschwinden, solange noch derselbe Block dort steht, abgebaute kommen auf Luft oder ersetzbare Blöcke zurück (mit Inhalt), genommene Items wandern zurück in den Container, hineingelegte wieder heraus. Höchstens rollbackMaxChanges (Standard 20000) Einträge. Abschnitt blockLog in config/simpletweaks-admin.json."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/BlockLog.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/BlockRecorder.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/Inspect.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/Rollback.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/BlockLogCommands.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_death_backups",
+      "en": {
+        "title": "Inventory backups on death (on by default)",
+        "summary": "Before a player drops anything on death, their inventory, armor, offhand, XP, time, cause and position are saved; the last keep deaths (default 5, 1–50) per player stay. /tweaks deaths <player> [n] opens them in the admin inventory screen.",
+        "details": [
+          "Stored in <world>/simpletweaks/deaths/<uuid>.dat. In the screen the arrows switch between backups (1 = newest), the info line shows number, time and level, the tooltip the cause and position.",
+          "Restore all replaces the player's inventory and XP, online or offline; the current inventory is saved as a new backup first, so a restore never destroys items. Single items can be taken out of a backup; the backup remembers that. Operator level permission (default 3), section deathBackups."
+        ]
+      },
+      "de": {
+        "title": "Inventar-Sicherung beim Tod (standardmäßig an)",
+        "summary": "Bevor ein Spieler beim Tod etwas fallen lässt, werden Inventar, Rüstung, Nebenhand, XP, Zeit, Ursache und Position gesichert; je Spieler bleiben die letzten keep Tode (Standard 5, 1–50). /tweaks deaths <Spieler> [n] öffnet sie in der Admin-Inventaransicht.",
+        "details": [
+          "Ablage in <welt>/simpletweaks/deaths/<uuid>.dat. In der Ansicht wechseln die Pfeile zwischen den Sicherungen (1 = neueste), die Infozeile zeigt Nummer, Zeit und Stufe, der Tooltip Ursache und Position.",
+          "„Wiederherstellen“ ersetzt Inventar und XP des Spielers, online oder offline; das aktuelle Inventar wird vorher als neue Sicherung abgelegt, ein Wiederherstellen vernichtet also nie Items. Einzelne Items lassen sich herausnehmen; die Sicherung merkt sich das. OP-Stufe permission (Standard 3), Abschnitt deathBackups."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/deaths/DeathBackups.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/invsee/Invsee.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_invsee",
+      "en": {
+        "title": "/invsee and /endersee (on by default)",
+        "summary": "Own admin screen in the SimpleLib box style: the target's armor, offhand, inventory and hotbar (or the ender chest) above your own inventory. Items can be taken and put live; offline players work too.",
+        "details": [
+          "Online targets are edited directly. Offline targets are read from <world>/players/data/<uuid>.dat (upgraded like Vanilla) and every change is written back at once (with .dat_old). When the target logs in, open offline views close before the data is loaded, so no item can exist twice.",
+          "Armor slots only take fitting equipment. Operator level permission (default 2) to look, editPermission (default 2) to change, otherwise read-only. Not on yourself. Text contrast 4.86:1 on the steel box and 7.74:1 on the inventory panel. Section invsee."
+        ]
+      },
+      "de": {
+        "title": "/invsee und /endersee (standardmäßig an)",
+        "summary": "Eigene Admin-Ansicht im SimpleLib-Kasten: Rüstung, Nebenhand, Inventar und Hotbar des Ziels (oder seine Endertruhe) über deinem eigenen Inventar. Items lassen sich live nehmen und hineinlegen; auch für Offline-Spieler.",
+        "details": [
+          "Online-Ziele werden direkt bearbeitet. Offline-Ziele werden aus <welt>/players/data/<uuid>.dat gelesen (wie Vanilla aktualisiert), jede Änderung wird sofort zurückgeschrieben (mit .dat_old). Loggt sich das Ziel ein, schließen offene Offline-Ansichten, bevor seine Daten geladen werden – kein Item kann doppelt entstehen.",
+          "Rüstungsplätze nehmen nur passende Ausrüstung. OP-Stufe permission (Standard 2) zum Ansehen, editPermission (Standard 2) zum Ändern, sonst nur Ansicht. Nicht bei dir selbst. Textkontrast 4,86:1 auf dem Stahlkasten, 7,74:1 auf dem Inventarfeld. Abschnitt invsee."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/invsee/Invsee.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/invsee/InvseeMenu.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/invsee/client/InvseeScreen.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/OfflineData.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_vanish",
+      "en": {
+        "title": "Vanish (on by default)",
+        "summary": "/vanish [player] makes an admin invisible to players below seePermission (default 2): not sent as an entity, left out of the tab list and the server list count and sample, no join or leave message.",
+        "details": [
+          "While vanished, mobs do not target you, you cause no game events (sculk sensors, shriekers, wardens) and you pick up neither items nor experience unless /vanish pickup is on. The state survives relogs and restarts (<world>/simpletweaks/admin-state.json). Operator level permission (default 2), section vanish."
+        ]
+      },
+      "de": {
+        "title": "Vanish (standardmäßig an)",
+        "summary": "/vanish [Spieler] macht einen Admin für Spieler unter seePermission (Standard 2) unsichtbar: nicht als Entity gesendet, nicht in der Tab-Liste und nicht in Anzahl und Liste der Serverliste, keine Beitritts- oder Austrittsnachricht.",
+        "details": [
+          "Unsichtbar wirst du von Mobs nicht angegriffen, löst keine Spiel-Ereignisse aus (Sculk-Sensoren, Kreischer, Wärter) und hebst weder Items noch Erfahrung auf, außer /vanish pickup ist an. Der Zustand bleibt über Relog und Neustart (<welt>/simpletweaks/admin-state.json). OP-Stufe permission (Standard 2), Abschnitt vanish."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/vanish/Vanish.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/vanish/Tracking.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminPacketMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminServerPlayerMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_freeze",
+      "en": {
+        "title": "Freeze (on by default)",
+        "summary": "/freeze <player> holds a player in place: every move is set back, and breaking, using, placing, attacking and the drop key are refused. A title and an action bar line tell them; /unfreeze <player> releases them.",
+        "details": [
+          "Nobody can freeze a player with a higher operator level or themselves. The state survives relogs. Operator level permission (default 2), section freeze."
+        ]
+      },
+      "de": {
+        "title": "Einfrieren (standardmäßig an)",
+        "summary": "/freeze <Spieler> hält einen Spieler fest: jede Bewegung wird zurückgesetzt, Abbauen, Benutzen, Setzen, Angreifen und die Wegwerftaste werden verweigert. Ein Titel und eine Aktionsleisten-Zeile sagen es ihm; /unfreeze <Spieler> gibt ihn frei.",
+        "details": [
+          "Spieler mit höherer OP-Stufe und sich selbst kann niemand einfrieren. Der Zustand bleibt über Relog. OP-Stufe permission (Standard 2), Abschnitt freeze."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/freeze/Freeze.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminGameModeMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_restart",
+      "en": {
+        "title": "Restart announcements (on by default)",
+        "summary": "Scheduled restart times (times, \"HH:mm\" in server time) and /tweaks restart <minutes> count down in chat at the warning minutes (default 15, 10, 5, 1) and at 30, 10…1 seconds, with a boss bar; at zero everything is saved and the server stops cleanly.",
+        "details": [
+          "The actual restart is done by the server wrapper; a non-zero exitCode (0–255, default 0) is passed on by dedicated servers. /tweaks restart shows the time left, /tweaks restart cancel stops the countdown. Operator level permission (default 3), section restart."
+        ]
+      },
+      "de": {
+        "title": "Neustart-Ankündigung (standardmäßig an)",
+        "summary": "Geplante Neustartzeiten (times, „HH:mm“ in Serverzeit) und /tweaks restart <Minuten> zählen im Chat zu den Warnminuten (Standard 15, 10, 5, 1) und bei 30, 10…1 Sekunden herunter, mit Bossleiste; bei null wird alles gespeichert und der Server sauber beendet.",
+        "details": [
+          "Den eigentlichen Neustart übernimmt der Server-Wrapper; einen exitCode ungleich 0 (0–255, Standard 0) geben dedizierte Server weiter. /tweaks restart zeigt die Restzeit, /tweaks restart cancel bricht ab. OP-Stufe permission (Standard 3), Abschnitt restart."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/restart/Restart.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_backups",
+      "en": {
+        "title": "Automatic world backups (on by default)",
+        "summary": "Every intervalHours (default 6, 1–168) and with /backup now the world is zipped like save-off, save-all flush, save-on: saving pauses, everything is flushed, a worker thread writes the archive, then saving resumes.",
+        "details": [
+          "Archives go to directory (default backups, next to the server) as <world>-<date>-<time>.zip, without session.lock and without the backup folder; the newest keep (default 5, 1–100) stay. Only one backup runs at a time; the first automatic one comes one interval after the first start. Operator level permission (default 3), section backups."
+        ]
+      },
+      "de": {
+        "title": "Automatische Welt-Backups (standardmäßig an)",
+        "summary": "Alle intervalHours (Standard 6, 1–168) und mit /backup now wird die Welt wie save-off, save-all flush, save-on gepackt: Speichern pausiert, alles wird geschrieben, ein eigener Thread erzeugt das Archiv, danach wird wieder gespeichert.",
+        "details": [
+          "Archive landen in directory (Standard backups, neben dem Server) als <welt>-<datum>-<zeit>.zip, ohne session.lock und ohne den Backup-Ordner; die neuesten keep (Standard 5, 1–100) bleiben. Es läuft immer nur ein Backup; das erste automatische kommt ein Intervall nach dem ersten Start. OP-Stufe permission (Standard 3), Abschnitt backups."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/backup/Backups.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_maintenance",
+      "en": {
+        "title": "Maintenance mode (switch on, mode off)",
+        "summary": "/maintenance on lets only operators of joinPermission (default 2) and the names or UUIDs in allowed join; everybody else gets kickMessage. The server list shows motd. /maintenance off ends it, /maintenance status tells.",
+        "details": [
+          "With kickOnline (default true) players who may not stay are disconnected when it turns on. The mode survives restarts. Operator level permission (default 3), section maintenance."
+        ]
+      },
+      "de": {
+        "title": "Wartungsmodus (Schalter an, Modus aus)",
+        "summary": "/maintenance on lässt nur Operatoren ab joinPermission (Standard 2) und die Namen oder UUIDs in allowed herein; alle anderen bekommen kickMessage. Die Serverliste zeigt motd. /maintenance off beendet ihn, /maintenance status sagt den Zustand.",
+        "details": [
+          "Mit kickOnline (Standard true) werden beim Einschalten alle getrennt, die nicht bleiben dürfen. Der Modus bleibt über Neustarts. OP-Stufe permission (Standard 3), Abschnitt maintenance."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/maintenance/Maintenance.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminPlayerListMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_lag_finder",
+      "en": {
+        "title": "Lag finder (on by default)",
+        "summary": "/lag [seconds] (default 5, 1–30) measures tick time and TPS, time per block entity type and entity type, the most expensive chunks with their entity and block entity counts, and hints at possible redstone clocks.",
+        "details": [
+          "A chunk counts as a possible redstone clock above clockThreshold (default 8) state changes of powered or power-carrying blocks per second. It only measures while /lag runs; outside a measurement the hooks cost one check. Operator level permission (default 2), section lagFinder."
+        ]
+      },
+      "de": {
+        "title": "Lag-Finder (standardmäßig an)",
+        "summary": "/lag [Sekunden] (Standard 5, 1–30) misst Tickzeit und TPS, Zeit je Blockentity- und Entity-Typ, die teuersten Chunks mit ihrer Zahl an Entities und Blockentities und weist auf mögliche Redstone-Uhren hin.",
+        "details": [
+          "Ein Chunk gilt als mögliche Redstone-Uhr ab clockThreshold (Standard 8) Zustandswechseln von geschalteten oder Strom führenden Blöcken je Sekunde. Gemessen wird nur, während /lag läuft; außerhalb einer Messung kosten die Hooks eine Prüfung. OP-Stufe permission (Standard 2), Abschnitt lagFinder."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/lag/LagFinder.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminLagMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminLagEntityMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "play_coords",
+      "en": {
+        "title": "Share coordinates (T4)",
+        "summary": "/coords [message] shares your position with everybody, /coords to <player> [message] with one player.",
+        "details": [
+          "The coordinates are green and copy on click; the dimension is named.",
+          "An optional ping marker (end rod particles) shows the spot for pingSeconds (default 10); a cooldown (default 5 s) keeps chat calm.",
+          "Server setting coords.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Koordinaten teilen (T4)",
+        "summary": "/coords [Nachricht] teilt deine Position mit allen, /coords to <Spieler> [Nachricht] mit einem Spieler.",
+        "details": [
+          "Die Koordinaten sind grün und lassen sich anklicken und kopieren; die Dimension wird genannt.",
+          "Ein optionaler Ping (End-Stab-Partikel) zeigt die Stelle pingSeconds lang (Standard 10); eine Abklingzeit (Standard 5 s) hält den Chat ruhig.",
+          "Servereinstellung coords.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/coords/Coords.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_death_hint",
+      "en": {
+        "title": "Private death hint (T5)",
+        "summary": "After a real death only you get a line with place (copy on click), dimension, cause and how long your items stay (5 minutes while the area is loaded).",
+        "details": [
+          "With Simple Respawn a downed player is not dead yet: the hint comes with the real death.",
+          "With the Vanilla rule keep_inventory it says that nothing was dropped.",
+          "Server setting deathHint.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Privater Todes-Hinweis (T5)",
+        "summary": "Nach einem echten Tod bekommst nur du eine Zeile mit Ort (anklicken kopiert), Dimension, Ursache und wie lange deine Gegenstände liegen bleiben (5 Minuten, solange der Bereich geladen ist).",
+        "details": [
+          "Mit Simple Respawn ist ein Niedergeschlagener noch nicht tot: der Hinweis kommt mit dem echten Tod.",
+          "Mit der Vanilla-Regel keep_inventory heißt es, dass nichts fallen gelassen wurde.",
+          "Servereinstellung deathHint.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/death/DeathHint.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_mentions",
+      "en": {
+        "title": "Chat mentions (T6)",
+        "summary": "@Name in chat is highlighted in yellow for everybody, and the mentioned players hear a soft bell.",
+        "details": [
+          "Names are matched without case; the sender hears nothing. @everyone and @all ping everybody, only from operators of everyonePermission (default 2).",
+          "The highlight is the unsigned display content of the message (the Vanilla way of decorating chat); the signed text stays unchanged.",
+          "Server setting mentions.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Chat-Erwähnungen (T6)",
+        "summary": "@Name im Chat wird für alle gelb hervorgehoben, und die Erwähnten hören eine leise Glocke.",
+        "details": [
+          "Groß-/Kleinschreibung zählt nicht; der Absender hört nichts. @everyone und @all erreichen alle, nur von Operatoren ab everyonePermission (Standard 2).",
+          "Die Hervorhebung ist der unsignierte Anzeige-Inhalt der Nachricht (so dekoriert auch Vanilla den Chat); der signierte Text bleibt unverändert.",
+          "Servereinstellung mentions.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/chat/Mentions.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_playtime",
+      "en": {
+        "title": "/playtime and /seen (T7)",
+        "summary": "/playtime [player] shows the play time from the Vanilla statistics; /seen <player> says whether a player is online or how long ago they left.",
+        "details": [
+          "Offline players are read from their statistics file.",
+          "Leave times and names are kept in the world (simpletweaks/play-state.json).",
+          "Server setting playtime.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "/playtime und /seen (T7)",
+        "summary": "/playtime [Spieler] zeigt die Spielzeit aus der Vanilla-Statistik; /seen <Spieler> sagt, ob jemand online ist oder wie lange er schon weg ist.",
+        "details": [
+          "Offline-Spieler werden aus ihrer Statistikdatei gelesen.",
+          "Austrittszeiten und Namen liegen in der Welt (simpletweaks/play-state.json).",
+          "Servereinstellung playtime.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/seen/Playtime.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_mob_griefing",
+      "en": {
+        "title": "Mob griefing per mob (T8)",
+        "summary": "Listed mobs (blocked, default creeper, enderman, ghast, wither, ravager) cannot change blocks; all other mobs follow the Vanilla rule mob_griefing.",
+        "details": [
+          "While a listed mob ticks, the Vanilla rule reads false for it; projectiles count as their owner (ghast fireballs).",
+          "It only forbids: with mob_griefing off nothing changes. Vanilla 26.3 has no per-mob rule.",
+          "Server setting mobGriefing.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Mob-Griefing je Mob (T8)",
+        "summary": "Gelistete Mobs (blocked, Standard Creeper, Enderman, Ghast, Wither, Verwüster) verändern keine Blöcke; alle anderen folgen der Vanilla-Regel mob_griefing.",
+        "details": [
+          "Während ein gelisteter Mob tickt, liest die Vanilla-Regel für ihn false; Geschosse zählen als ihr Besitzer (Ghast-Feuerbälle).",
+          "Es verbietet nur: mit mob_griefing aus ändert sich nichts. Vanilla 26.3 hat keine Regel je Mob.",
+          "Servereinstellung mobGriefing.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/grief/MobGriefing.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_pvp",
+      "en": {
+        "title": "PvP per player (T9)",
+        "summary": "/pvp on|off (no argument: status). A player can hurt another only when both have PvP on.",
+        "details": [
+          "Everybody starts with PvP on as in Vanilla (defaultOn); arrows and tridents follow the same rule.",
+          "After switching, wait cooldownSeconds (default 30) before switching again.",
+          "Claims are checked first and keep precedence: personal PvP never allows damage a claim forbids. Server setting pvp.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "PvP je Spieler (T9)",
+        "summary": "/pvp on|off (ohne Argument: Status). Ein Spieler kann einen anderen nur verletzen, wenn beide PvP an haben.",
+        "details": [
+          "Alle starten wie in Vanilla mit PvP an (defaultOn); Pfeile und Dreizacke folgen derselben Regel.",
+          "Nach dem Umschalten cooldownSeconds (Standard 30) warten, bis es wieder geht.",
+          "Claims werden zuerst geprüft und haben Vorrang: persönliches PvP erlaubt nie Schaden, den ein Claim verbietet. Servereinstellung pvp.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/pvp/Pvp.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_welcome",
+      "en": {
+        "title": "Welcome and announcements (T19)",
+        "summary": "A welcome line for joining players ({player} is replaced), rotating tips every tipMinutes and own join/leave lines instead of the Vanilla ones.",
+        "details": [
+          "An empty join or leave line keeps the Vanilla one.",
+          "Server setting welcome.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Willkommen und Ankündigungen (T19)",
+        "summary": "Eine Willkommenszeile beim Beitritt ({player} wird ersetzt), wechselnde Tipps alle tipMinutes und eigene Beitritts-/Austrittszeilen statt der Vanilla-Zeilen.",
+        "details": [
+          "Eine leere Beitritts- oder Austrittszeile behält die Vanilla-Zeile.",
+          "Servereinstellung welcome.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/welcome/Welcome.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_login_reward",
+      "en": {
+        "title": "Daily login reward (T20)",
+        "summary": "The first join of a day gives the reward items; days in a row build a streak, a gap starts again at 1, and every bonusEvery days (default 7) there are bonus items.",
+        "details": [
+          "(with Simple Money) billsPerDay money bills per streak day, at most maxBills.",
+          "Server setting loginReward.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Tägliche Login-Belohnung (T20)",
+        "summary": "Der erste Beitritt eines Tages gibt die Belohnung; Tage in Folge bilden eine Serie, eine Lücke beginnt wieder bei 1, und alle bonusEvery Tage (Standard 7) gibt es Bonus-Gegenstände.",
+        "details": [
+          "(mit Simple Money) billsPerDay Geldscheine je Serientag, höchstens maxBills.",
+          "Servereinstellung loginReward.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/reward/LoginReward.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_events",
+      "en": {
+        "title": "Server events (T21)",
+        "summary": "Operators start events with /tweaks event start <double_xp|more_loot|blood_moon> [minutes], stop and status; one event at a time with a boss bar.",
+        "details": [
+          "Double XP multiplies every experience award (xpMultiplier, default 2). More loot rolls the loot table of mobs killed by players once more. Blood moon spawns extra monsters near survival players at night in the Overworld and ends at daybreak.",
+          "The automatic schedule (scheduleEnabled, lines like SAT 20:00 double_xp 60) is off by default; the command is on."
+        ]
+      },
+      "de": {
+        "title": "Server-Events (T21)",
+        "summary": "Operatoren starten Events mit /tweaks event start <double_xp|more_loot|blood_moon> [Minuten], stop und status; ein Event zur Zeit mit Bossleiste.",
+        "details": [
+          "Doppelte Erfahrung vervielfacht jede Erfahrung (xpMultiplier, Standard 2). Mehr Beute würfelt die Beutetabelle von Mobs, die Spieler töten, ein weiteres Mal. Der Blutmond lässt nachts in der Oberwelt zusätzliche Monster bei Überlebens-Spielern erscheinen und endet bei Tagesanbruch.",
+          "Der automatische Zeitplan (scheduleEnabled, Zeilen wie SAT 20:00 double_xp 60) ist standardmäßig aus; der Befehl ist an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/events/ServerEvents.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_leaderboard",
+      "en": {
+        "title": "Leaderboard (T22)",
+        "summary": "/leaderboard <playtime|deaths|kills|mined> lists the top 10 of every player known to the server.",
+        "details": [
+          "Values come from the Vanilla statistics (offline players from their files); blocks mined count all blocks.",
+          "The always-visible sidebar (sidebar, sidebarStat, refreshSeconds) is off by default; the command is on."
+        ]
+      },
+      "de": {
+        "title": "Bestenliste (T22)",
+        "summary": "/leaderboard <playtime|deaths|kills|mined> zeigt die besten 10 aller Spieler, die der Server kennt.",
+        "details": [
+          "Die Werte stammen aus der Vanilla-Statistik (Offline-Spieler aus ihren Dateien); abgebaute Blöcke zählen alle Blöcke.",
+          "Die ständige Seitenleiste (sidebar, sidebarStat, refreshSeconds) ist standardmäßig aus; der Befehl ist an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/top/Leaderboard.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_votes",
+      "en": {
+        "title": "Votes (T23)",
+        "summary": "/vote weather clear and /vote event <name> start a vote with clickable Yes/No; /vote yes|no counts.",
+        "details": [
+          "A vote passes once percent (default 50) % of the active players (not AFK, not spectating) said yes, otherwise it fails after seconds (default 30); each topic then waits cooldownSeconds (default 300).",
+          "The day/night vote (dayNight) is off by default. While Simple Weather switches weather off, the weather vote is refused.",
+          "Server setting vote.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Abstimmungen (T23)",
+        "summary": "/vote weather clear und /vote event <Name> starten eine Abstimmung mit anklickbarem Ja/Nein; /vote yes|no zählt.",
+        "details": [
+          "Angenommen ist sie, sobald percent (Standard 50) % der aktiven Spieler (nicht AFK, nicht Zuschauer) Ja gesagt haben, sonst scheitert sie nach seconds (Standard 30); danach wartet das Thema cooldownSeconds (Standard 300).",
+          "Die Tag/Nacht-Abstimmung (dayNight) ist standardmäßig aus. Schaltet Simple Weather das Wetter ab, wird die Wetter-Abstimmung abgelehnt.",
+          "Servereinstellung vote.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/vote/Votes.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_afk",
+      "en": {
+        "title": "AFK detection (T24)",
+        "summary": "After minutes (default 5) without any action, or with /afk, a player is AFK: grey with [AFK] in the tab list and not counted for sleeping.",
+        "details": [
+          "AFK players do not count for votes either. Any action ends it.",
+          "The kick after kickMinutes is off by default (Vanilla also has player-idle-timeout).",
+          "Server setting afk.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "AFK-Erkennung (T24)",
+        "summary": "Nach minutes (Standard 5) ohne Aktion oder mit /afk ist ein Spieler AFK: grau mit [AFK] in der Tab-Liste und zählt nicht fürs Schlafen.",
+        "details": [
+          "AFK-Spieler zählen auch nicht für Abstimmungen. Jede Aktion beendet es.",
+          "Der Kick nach kickMinutes ist standardmäßig aus (Vanilla hat auch player-idle-timeout).",
+          "Servereinstellung afk.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/afk/Afk.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_border",
+      "en": {
+        "title": "World border per dimension (T25)",
+        "summary": "Entries in border.dimensions (size and center per dimension) are applied to that dimension's world border at server start; /tweaks border lists all borders.",
+        "details": [
+          "Vanilla 26.3 already keeps one border per dimension, so nothing is duplicated; without entries nothing changes.",
+          "Server setting border.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Weltgrenze je Dimension (T25)",
+        "summary": "Einträge in border.dimensions (Größe und Mitte je Dimension) werden beim Serverstart auf die Weltgrenze dieser Dimension angewendet; /tweaks border listet alle Grenzen.",
+        "details": [
+          "Vanilla 26.3 hat schon eine Grenze je Dimension, deshalb wird nichts doppelt gebaut; ohne Einträge ändert sich nichts.",
+          "Servereinstellung border.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/border/Borders.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_nether_roof",
+      "en": {
+        "title": "Nether roof lock (T26)",
+        "summary": "Survival and adventure players above Y 127 in the Nether are put back below the roof (last place below it, or a free spot under it).",
+        "details": [
+          "Creative and spectator players and, with opBypass, operators of bypassPermission (default 2) may stay.",
+          "Server setting netherRoof.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Nether-Dach sperren (T26)",
+        "summary": "Überlebens- und Abenteuer-Spieler über Y 127 im Nether werden unter das Dach zurückgesetzt (letzte Stelle darunter oder ein freier Platz).",
+        "details": [
+          "Kreativ- und Zuschauer-Spieler und mit opBypass Operatoren ab bypassPermission (Standard 2) dürfen bleiben.",
+          "Servereinstellung netherRoof.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/roof/NetherRoof.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_keep_inventory",
+      "en": {
+        "title": "Partial keep inventory (T27)",
+        "summary": "While the Vanilla rule keep_inventory is off, part of the inventory stays on death: hotbar_armor (hotbar, armor, offhand), xp (experience) or custom (switches per part and keepXpPercent).",
+        "details": [
+          "Kept stacks go back to the player after respawning; curse of vanishing still destroys its items.",
+          "Server setting keepInventory.enabled, default on (mode hotbar_armor)."
+        ]
+      },
+      "de": {
+        "title": "Teil-Keep-Inventory (T27)",
+        "summary": "Solange die Vanilla-Regel keep_inventory aus ist, bleibt beim Tod ein Teil: hotbar_armor (Schnellleiste, Rüstung, Nebenhand), xp (Erfahrung) oder custom (Schalter je Teil und keepXpPercent).",
+        "details": [
+          "Behaltene Stapel bekommt der Spieler nach dem Respawn zurück; der Fluch des Verschwindens zerstört seine Gegenstände weiterhin.",
+          "Servereinstellung keepInventory.enabled, Standard an (Modus hotbar_armor)."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/keep/KeepInventory.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_dragon_egg",
+      "en": {
+        "title": "Dragon egg every fight (T28)",
+        "summary": "Every later dragon kill puts a new dragon egg on the exit portal; if an egg already lies there, it drops as an item.",
+        "details": [
+          "Vanilla gives the egg only after the first fight. Works the same with Simple End Dragon Fight.",
+          "Server setting dragonEgg.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Drachenei bei jedem Kampf (T28)",
+        "summary": "Jeder weitere Drachen-Kill legt ein neues Drachenei auf das Ausgangsportal; liegt dort schon eines, fällt es als Gegenstand.",
+        "details": [
+          "Vanilla gibt das Ei nur nach dem ersten Kampf. Funktioniert genauso mit Simple End Dragon Fight.",
+          "Servereinstellung dragonEgg.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/dragon/DragonEgg.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_phantoms",
+      "en": {
+        "title": "Phantoms per player (T30)",
+        "summary": "/phantoms off stops phantoms from spawning for you; /phantoms on brings them back.",
+        "details": [
+          "Everybody else keeps Vanilla phantoms; the rule spawn_phantoms still applies to all.",
+          "Server setting phantoms.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Phantome je Spieler (T30)",
+        "summary": "/phantoms off verhindert Phantome für dich; /phantoms on bringt sie zurück.",
+        "details": [
+          "Alle anderen behalten die Vanilla-Phantome; die Regel spawn_phantoms gilt weiter für alle.",
+          "Servereinstellung phantoms.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/phantoms/Phantoms.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_entity_limit",
+      "en": {
+        "title": "Mob limit per chunk (T31)",
+        "summary": "Every scanSeconds the mobs per chunk are counted; over perChunk (default 50) the claim owner or nearby players and operators get a message.",
+        "details": [
+          "With blockSpawns no new mob joins that chunk (breeding, spawners, natural spawns, also /summon) until it is under the limit; nothing is deleted.",
+          "Server setting entityLimit.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Mob-Grenze je Chunk (T31)",
+        "summary": "Alle scanSeconds werden die Mobs je Chunk gezählt; über perChunk (Standard 50) bekommen der Claim-Besitzer oder Spieler in der Nähe und Operatoren eine Nachricht.",
+        "details": [
+          "Mit blockSpawns kommt dort kein neuer Mob dazu (Zucht, Spawner, natürliches Spawnen, auch /summon), bis es wieder darunter ist; gelöscht wird nichts.",
+          "Servereinstellung entityLimit.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/crowd/EntityLimit.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_cleanup",
+      "en": {
+        "title": "Ground item cleanup (T32)",
+        "summary": "Every intervalMinutes (default 15) ground items are cleared after a chat countdown; /tweaks cleanup now starts it at once (operators).",
+        "details": [
+          "Only items lying longer than minAgeSeconds go; renamed items, items of exemptRarity (default rare) or rarer and the exempt list stay.",
+          "Server setting cleanup.enabled, default off."
+        ]
+      },
+      "de": {
+        "title": "Bodengegenstände aufräumen (T32)",
+        "summary": "Alle intervalMinutes (Standard 15) werden Bodengegenstände nach einem Countdown im Chat entfernt; /tweaks cleanup now startet ihn sofort (Operatoren).",
+        "details": [
+          "Nur Gegenstände, die länger als minAgeSeconds liegen, verschwinden; umbenannte, solche ab exemptRarity (Standard selten) und die exempt-Liste bleiben.",
+          "Servereinstellung cleanup.enabled, Standard aus."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/cleanup/GroundCleanup.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
+    },
+    {
+      "id": "play_pregen",
+      "en": {
+        "title": "Chunk pregeneration (T33)",
+        "summary": "/pregen start <radius> [dimension] generates every chunk around the world border center; pause, resume, stop and status (operators of level 3).",
+        "details": [
+          "Requests run in the background with at most parallel (default 8) open at once; progress shows as a boss bar and every 10 % in chat.",
+          "The job is saved in the world and continues paused after a restart. Server setting pregen.enabled, default on."
+        ]
+      },
+      "de": {
+        "title": "Chunk-Vorgenerierung (T33)",
+        "summary": "/pregen start <Radius> [Dimension] erzeugt jeden Chunk um die Mitte der Weltgrenze; pause, resume, stop und status (Operatoren ab Stufe 3).",
+        "details": [
+          "Die Aufträge laufen im Hintergrund, höchstens parallel (Standard 8) gleichzeitig; der Fortschritt steht als Bossleiste und alle 10 % im Chat.",
+          "Der Auftrag liegt in der Welt und geht nach einem Neustart pausiert weiter. Servereinstellung pregen.enabled, Standard an."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/pregen/Pregen.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/play/PlayConfig.java"
+      ]
     }
   ],
   "recipes": [
@@ -514,10 +1207,10 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
           "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 15 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+          "summary": "Guide to this mod: 52 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 15 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+          "summary": "Handbuch zu dieser Mod: 52 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
         }
       },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",
@@ -592,7 +1285,7 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 5,
+    "features": 34,
     "recipes": 4,
     "lootTables": 1,
     "tags": 2,

@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simpletweaks"
 version="${version}"
 displayName="Simple Tweaks"
+description="Legacy compatibility and server-authoritative claims, on by default."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[dependencies.simpletweaks]]
 modId="minecraft"
 type="required"
@@ -29,8 +32,28 @@ config="simpletweaks.mixins.json"
 [[mixins]]
 config="simpletweaks.claims.mixins.json"
 
+[[mixins]]
+config="simpletweaks.admin.mixins.json"
+
+[[mixins]]
+config="simpletweaks.play.mixins.json"
+
 [[dependencies.simpletweaks]]
 modId="simpledimension"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simplemoney"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simpleweather"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"

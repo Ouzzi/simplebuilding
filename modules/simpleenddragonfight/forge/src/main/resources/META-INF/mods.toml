@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simpleenddragonfight"
 version="${version}"
 displayName="Simple End Dragon Fight"
+description="Ender Dragon fight: +1 health bar per player on the island, a faster dragon, entry animations and Dragonmites from half health."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[dependencies.simpleenddragonfight]]
 modId="forge"
 mandatory=true

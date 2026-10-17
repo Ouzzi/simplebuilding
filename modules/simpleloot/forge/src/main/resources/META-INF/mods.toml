@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simpleloot"
 version="${version}"
 displayName="Simple Loot"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Loot switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone."
 [[dependencies.simpleloot]]
 modId="forge"

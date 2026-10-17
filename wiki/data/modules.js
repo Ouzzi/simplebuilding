@@ -57,7 +57,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "f0135533e672"
+    "dataHash": "b1da0996bb98"
   },
   {
     "id": "simplemoney",
@@ -87,7 +87,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "be287e2648fd"
+    "dataHash": "f2afe38586da"
   },
   {
     "id": "simpleriding",
@@ -107,7 +107,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "0bd92118313a"
+    "dataHash": "4cbd76a67313"
   },
   {
     "id": "simplemodels",
@@ -215,7 +215,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "18667384d46e"
+    "dataHash": "f0fd7ab1a8e4"
   },
   {
     "id": "simpletweaks",
@@ -233,9 +233,11 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simpledimensions",
-      "simplebuilding"
+      "simplebuilding",
+      "simplemoney",
+      "simpleweather"
     ],
-    "dataHash": "e4698541d3a0"
+    "dataHash": "7e848fa048e2"
   },
   {
     "id": "simpledimensions",
@@ -260,7 +262,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
-    "dataHash": "d978d410cac0"
+    "dataHash": "4d2fff5f6bf4"
   },
   {
     "id": "simplesandwiches",
@@ -314,7 +316,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "c1d7bfa0d13c"
+    "dataHash": "2040069d3469"
   },
   {
     "id": "simplemaps",
@@ -356,7 +358,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplemobs",
     "displayName": "Simple Mobs",
-    "description": "Simple Mobs module.",
+    "description": "Hollow Howler and Hollow Watcher bosses, Shellker, Soulfire Blaze, Dread and Deceiver mobs, Blighted Wither, Potion of Silence and the Biome Brush.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -386,7 +388,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "499e87886520"
+    "dataHash": "bc9c18e432a3"
   },
   {
     "id": "simplemovement",
@@ -406,7 +408,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "917d57f60ece"
+    "dataHash": "63a7f7372029"
   },
   {
     "id": "simpletools",
@@ -427,7 +429,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "a0690c0c08d5"
+    "dataHash": "51d40af90050"
   },
   {
     "id": "simplefarming",
@@ -448,7 +450,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "5462cf9f9e6b"
+    "dataHash": "c881b63a533d"
   },
   {
     "id": "simplemobmanners",
@@ -468,7 +470,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "f6dd5f8ab460"
+    "dataHash": "564d3430f293"
   },
   {
     "id": "simpleloot",
@@ -488,7 +490,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "39b577a27d14"
+    "dataHash": "13210b0e0ad4"
   },
   {
     "id": "simplequestionary",
@@ -524,7 +526,7 @@ window.WIKI_MODULES = [
       "simplemodels"
     ],
     "optional": [],
-    "dataHash": "3f5707f1aac1"
+    "dataHash": "b443b496e486"
   },
   {
     "id": "simpleenddragonfight",
@@ -556,7 +558,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "7365612661f2"
+    "dataHash": "6c2c72b1e8d7"
   },
   {
     "id": "simplerespawn",

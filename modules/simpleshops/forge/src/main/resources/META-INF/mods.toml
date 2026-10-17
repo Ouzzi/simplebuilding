@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simpleshops"
 version="${version}"
 displayName="Simple Shops"
+description="Player shops: a Sales Block with a price (up to five exact price items) and a Display Case with up to five goods, one piece per trade. Protected from strangers, explosions, pistons and hoppers; no claim right needed to buy."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[dependencies.simpleshops]]
 modId="forge"
 mandatory=true

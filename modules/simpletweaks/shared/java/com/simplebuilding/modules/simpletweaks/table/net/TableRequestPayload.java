@@ -9,11 +9,11 @@ import net.minecraft.resources.Identifier;
 
 /**
  * Client to server, only while a claim table screen is open. {@code AREA}: a, b = min chunk x, z; c, d = width, height.
- * {@code LIST}: a = page (0-based), b = 1 for "only mine". The server re-checks the table, the distance, the sizes and
+ * {@code LIST}: a = page (0-based), b = 1 for "only mine". {@code EXPAND}: buy the next land step (nothing else is read). The server re-checks the table, the distance, the sizes and
  * the rate; the dimension is always the table's.
  */
 public record TableRequestPayload(BlockPos pos, int kind, int a, int b, int c, int d) implements CustomPacketPayload {
-    public static final int AREA = 0, LIST = 1;
+    public static final int AREA = 0, LIST = 1, EXPAND = 2;
     public static final Type<TableRequestPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath("simpletweaks", "table_request"));
     public static final StreamCodec<ByteBuf, TableRequestPayload> CODEC = StreamCodec.of(TableRequestPayload::write, TableRequestPayload::read);
 

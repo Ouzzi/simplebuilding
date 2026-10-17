@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simplelib"
 version="${version}"
 displayName="SimpleLib"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="Shared content of the Simple mods: crucibles with heat sources and warm food. Bundled by SimpleBuilding and Simple Sandwiches."
 [[dependencies.simplelib]]
 modId="minecraft"

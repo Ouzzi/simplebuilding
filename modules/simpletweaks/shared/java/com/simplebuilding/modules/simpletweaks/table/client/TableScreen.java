@@ -28,7 +28,7 @@ import net.minecraft.network.chat.CommonComponents;
 public final class TableScreen extends Screen {
     private static final int PAPER = 0xFFE2D3AA, INK_SOFT = UiContrast.INK_SOFT, TEXT = 0xFF404040, FREE = 0xFFC9B98A, GRID = 0x22000000, TABLE = 0xFF202020, MINE = 0xFFFFFFFF, MINE_TEXT = UiContrast.INK_OK;
 
-    private final TableOpenPayload data;
+    private TableOpenPayload data;
     private TableLayout layout;
     private int zoom = 1, centerX, centerZ, page;
     private boolean onlyMine, dragged;
@@ -36,7 +36,7 @@ public final class TableScreen extends Screen {
     private TableAreaPayload area;
     private byte[] cells;
     private TableListPayload list;
-    private Button prev, next, minus, plus, mineButton;
+    private Button prev, next, minus, plus, mineButton, expandButton;
 
     public TableScreen(TableOpenPayload data) {
         super(Component.translatable("simpletweaks.table.title"));
@@ -63,10 +63,45 @@ public final class TableScreen extends Screen {
         prev = button(Component.literal("<"), layout.prev(), b -> { if (page > 0) { page--; requestList(); } });
         next = button(Component.literal(">"), layout.next(), b -> { if (list != null && (page + 1) * TableListPayload.PAGE < list.total()) { page++; requestList(); } });
         button(CommonComponents.GUI_DONE, layout.close(), b -> onClose());
+        expandButton = button(Component.translatable("simpletweaks.table.expand"), layout.expand, b ->
+                DeedNet.toServer.accept(new TableRequestPayload(data.pos(), TableRequestPayload.EXPAND, 0, 0, 0, 0)));
+        showExpand();
         minus.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simpletweaks.table.zoom_out")));
         plus.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simpletweaks.table.zoom_in")));
         if (!off()) { requestArea(); requestList(); }
         else { for (var b : List.of(minus, plus, mineButton, prev, next)) b.active = false; }
+    }
+
+    /** Refreshed table data after a purchase: budget, next step; the map and the list stay as they are. */
+    public boolean refresh(TableOpenPayload fresh) {
+        if (!fresh.pos().equals(data.pos())) return false;
+        data = fresh; showExpand();
+        return true;
+    }
+
+    private static Component itemName(String id) {
+        var key = net.minecraft.resources.Identifier.tryParse(id);
+        if (key != null && net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(key))
+            return net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(key).getName(new net.minecraft.world.item.ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(key)));
+        return Component.literal(id);
+    }
+
+    /** The next step as text: "6 chunks: 8 Copper Ingot, 1 level". */
+    private Component nextStep() {
+        var costs = Component.empty();
+        for (var c : data.nextCosts()) costs.append(Component.literal(c.count() + "x ")).append(itemName(c.id())).append(Component.literal(", "));
+        costs.append(Component.translatable("simpletweaks.table.levels", data.nextLevels()));
+        return Component.translatable("simpletweaks.table.next", data.nextChunks(), costs);
+    }
+
+    private void showExpand() {
+        expandButton.active = data.state() == TableOpenPayload.BUY;
+        expandButton.setTooltip(net.minecraft.client.gui.components.Tooltip.create(switch (data.state()) {
+            case TableOpenPayload.BUY -> nextStep();
+            case TableOpenPayload.MAX -> Component.translatable("simpletweaks.table.expand.max");
+            case TableOpenPayload.LIMIT -> Component.translatable("simpletweaks.table.expand.limit");
+            default -> Component.translatable("simpletweaks.table.expand.off");
+        }));
     }
 
     private void zoom(int by) {
@@ -122,7 +157,9 @@ public final class TableScreen extends Screen {
         int label = UiPalette.derived(PAPER).label();
         g.text(font, font.plainSubstrByWidth(getTitle().getString(), layout.title.w()), layout.title.x(), layout.title.y(), label, false);
         Component land = Component.translatable("simpletweaks.table.land", data.ownChunks(), data.maxChunks());
+        if (data.state() == TableOpenPayload.BUY) land = Component.empty().append(land).append(Component.literal("  -  ")).append(nextStep());
         g.text(font, font.plainSubstrByWidth(land.getString(), layout.info.w()), layout.info.x(), layout.info.y(), INK_SOFT, false);
+
         if (off()) {
             g.textWithWordWrap(font, Component.translatable("simpletweaks.table.off"), layout.map.x() + 4, layout.map.y() + 4, layout.map.w() + layout.list.w(), TEXT, false);
             return;

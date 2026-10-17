@@ -5,6 +5,8 @@ license="CC0-1.0"
 modId="simpleend"
 version="${version}"
 displayName="Simple End"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 description="End wood (Ashwood, Duskwood), End grass and the Ash Valley and Dawnlands biomes; bundles Simple End Dragon Fight."
 [[mixins]]
 config="simpleend.mixins.json"

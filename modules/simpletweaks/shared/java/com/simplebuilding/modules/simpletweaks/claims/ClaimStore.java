@@ -45,6 +45,8 @@ public final class ClaimStore {
     private final Path path;
     private Map<Key,Claim> claims;
     private Map<UUID,Land> lands;
+    /** Land bought by expansion (owner to chunks); absent = never bought. Kept after unclaiming: the budget belongs to the player. */
+    private Map<UUID,Integer> budgets = Map.of();
     /** True while the file on disk is version 1: the first write keeps it as a backup. */
     private boolean fromV1;
     public ClaimStore(Path path, Map<String,Path> legacy) throws IOException {
@@ -70,6 +72,7 @@ public final class ClaimStore {
                 }
                 add(loaded, key, new Claim(owner));
             }
+            budgets = Map.copyOf(readBudgets(root));
             if (version == 1) { fromV1 = true; loadedLands.putAll(migrate(loaded, whitelists)); }
             else for (var entry : root.getAsJsonArray("lands")) {
                 var j = entry.getAsJsonObject();
@@ -107,6 +110,16 @@ public final class ClaimStore {
         }
         claims = Map.copyOf(loaded);
         lands = Map.copyOf(loadedLands);
+    }
+    private static Map<UUID,Integer> readBudgets(JsonObject root) throws IOException {
+        var out = new HashMap<UUID,Integer>();
+        if (!root.has("budgets")) return out;
+        for (var e : root.getAsJsonArray("budgets")) {
+            var j = e.getAsJsonObject();
+            int chunks = j.get("chunks").getAsBigDecimal().intValueExact();
+            if (chunks < 1 || chunks > ClaimConfig.MAX_CLAIMS || out.put(UUID.fromString(j.get("Owner").getAsString()), chunks) != null) throw new IOException("Invalid budget");
+        }
+        return out;
     }
     private static Rules rules(JsonObject j) throws IOException {
         int everyone = j.get("everyone").getAsBigDecimal().intValueExact();
@@ -173,6 +186,7 @@ public final class ClaimStore {
     }
     public Map<Key,Claim> view() { return claims; }
     public Map<UUID,Land> lands() { return lands; }
+    public Map<UUID,Integer> budgets() { return budgets; }
     /** Rights of an actor in a chunk: everything where nothing is claimed, everything for the owner, else the land rules. */
     public int rights(Key key, UUID actor) {
         var claim = claims.get(key);
@@ -182,7 +196,9 @@ public final class ClaimStore {
         return land == null ? 0 : land.rights(key, actor);
     }
     public void replace(Map<Key,Claim> next) throws IOException { replace(next, lands); }
-    public void replace(Map<Key,Claim> nextClaims, Map<UUID,Land> nextLands) throws IOException {
+    public void replace(Map<Key,Claim> nextClaims, Map<UUID,Land> nextLands) throws IOException { replace(nextClaims, nextLands, budgets); }
+    public void replace(Map<Key,Claim> nextClaims, Map<UUID,Land> nextLands, Map<UUID,Integer> nextBudgets) throws IOException {
+        if (nextBudgets.size() > ClaimConfig.MAX_GLOBAL) throw new IOException("Budget cap");
         if (nextClaims.size() > ClaimConfig.MAX_GLOBAL) throw new IOException("Claim cap");
         var snapshot = Map.copyOf(nextClaims);
         // Rules only live while the owner still owns land; a section only for a chunk the owner still owns.
@@ -213,6 +229,9 @@ public final class ClaimStore {
             row.add("sections",sections); landRows.add(row);
         });
         root.add("lands",landRows);
+        var budgetRows = new JsonArray();
+        nextBudgets.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> { var row = new JsonObject(); row.addProperty("Owner",e.getKey().toString()); row.addProperty("chunks",e.getValue()); budgetRows.add(row); });
+        root.add("budgets",budgetRows);
         if (fromV1 && Files.exists(path)) {
             // First v2 write: keep the v1 file next to the ledger, never overwrite an existing backup.
             Path backup = path.toAbsolutePath().resolveSibling(path.getFileName().toString().replaceFirst("(\\.json)?$",".v1.json"));
@@ -221,7 +240,7 @@ public final class ClaimStore {
         }
         atomicWrite(path, new Gson().toJson(root));
         fromV1 = false;
-        claims = snapshot; lands = Map.copyOf(landSnapshot); // Publish only after persistence succeeded.
+        claims = snapshot; lands = Map.copyOf(landSnapshot); budgets = Map.copyOf(nextBudgets); // Publish only after persistence succeeded.
     }
     private static void writeRules(JsonObject row, Rules rules) {
         row.addProperty("everyone",rules.everyone());

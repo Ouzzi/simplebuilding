@@ -3,6 +3,14 @@
   "id": "simplesandwiches",
   "version": "${version}",
   "name": "Simple Sandwiches",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
   "description": "Sandwiches built on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
   "license": "CC0-1.0",
   "environment": "*",

@@ -72,10 +72,27 @@ public final class TableService {
         String dimension = player.level().dimension().identifier().toString();
         var chunk = ChunkPos.containing(pos);
         var vis = visibility(player, claims);
-        boolean sent = DeedNet.send(player, new TableOpenPayload(pos.immutable(), vis.ordinal(), chunk.x(), chunk.z(),
-                claims.chunksOf(player.getUUID()), claims.config.maxClaimsPerPlayer(), dimension));
+        boolean sent = DeedNet.send(player, openPayload(claims, player, pos, vis, chunk, dimension));
         if (sent) SESSIONS.put(player.getUUID(), new Session(pos.immutable(), dimension));
         return sent;
+    }
+
+    /** The table's opening data including the player's land budget and the next expansion step. */
+    public static TableOpenPayload openPayload(Claims claims, ServerPlayer player, BlockPos pos, TableVisibility vis, ChunkPos chunk, String dimension) {
+        var id = player.getUUID();
+        int budget = claims.budget(id);
+        int state = TableOpenPayload.NONE, next = 0, levels = 0;
+        var costs = new ArrayList<TableOpenPayload.Cost>();
+        if (claims.config.expansionEnabled()) {
+            var tier = claims.config.expansionTiers().stream().filter(t -> t.chunks() > budget).findFirst().orElse(null);
+            if (tier == null) state = TableOpenPayload.MAX;
+            else if (tier.chunks() > claims.config.maxClaimsPerPlayer()) state = TableOpenPayload.LIMIT;
+            else {
+                state = TableOpenPayload.BUY; next = tier.chunks(); levels = tier.levels();
+                tier.items().forEach(c -> costs.add(new TableOpenPayload.Cost(c.id(), c.count())));
+            }
+        }
+        return new TableOpenPayload(pos.immutable(), vis.ordinal(), chunk.x(), chunk.z(), claims.chunksOf(id), budget, dimension, state, next, levels, costs);
     }
 
     /** One request from the open screen. Always bounded; anything wrong is dropped without an answer. */
@@ -87,6 +104,7 @@ public final class TableService {
         if (session == null || !session.pos().equals(req.pos()) || !usable(player, session.pos())
                 || !session.dimension().equals(player.level().dimension().identifier().toString())) return;
         var vis = visibility(player, claims);
+        if (req.kind() == TableRequestPayload.EXPAND) { expand(player, claims, session, vis); return; }
         if (vis == TableVisibility.OFF) return;
         boolean op = Claims.admin(player);
         if (req.kind() == TableRequestPayload.AREA) {
@@ -102,11 +120,19 @@ public final class TableService {
         }
     }
 
-    private static boolean involved(Claims claims, UUID me, String dimension, long chunk, UUID owner) {
+    /** Buys the next step; the answer is an action bar message plus the refreshed table data (new budget, next step). */
+    private static void expand(ServerPlayer player, Claims claims, Session session, TableVisibility vis) {
+        var result = claims.expand(player);
+        player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("message.simpletweaks.claim_table.expand." + result.name().toLowerCase(java.util.Locale.ROOT),
+                claims.budget(player.getUUID())), true);
+        DeedNet.send(player, openPayload(claims, player, session.pos(), vis, ChunkPos.containing(session.pos()), session.dimension()));
+    }
+
+    static boolean involved(Claims claims, UUID me, String dimension, long chunk, UUID owner) {
         return owner.equals(me) || claims.rights(dimension, me, chunk) != 0;
     }
 
-    private static String nameOf(net.minecraft.server.MinecraftServer server, UUID owner) {
+    static String nameOf(net.minecraft.server.MinecraftServer server, UUID owner) {
         String name = Claims.nameOf(server, owner);
         return name == null ? "?" : name.length() > 16 ? name.substring(0, 16) : name;
     }

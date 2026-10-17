@@ -32,7 +32,7 @@
   "item.simpleovens.reinforced_furnace": "Verstärkter Ofen",
   "item.simpleovens.reinforced_furnace_minecart": "Verstärkte Antriebslore",
   "item.simpleovens.reinforced_smoker": "Verstärkter Räucherofen",
-  "itemGroup.simpleovens": "Simple Ovens",
+  "itemgroup.simpleovens.ovens": "Simple Ovens",
   "simpleovens.testcentre.station": "Simple Ovens",
   "tooltip.simpleovens.experience": "Doppelte Erfahrung",
   "tooltip.simpleovens.speed": "Arbeitet %s× so schnell",

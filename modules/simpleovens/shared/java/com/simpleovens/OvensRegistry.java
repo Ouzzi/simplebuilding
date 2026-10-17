@@ -99,7 +99,7 @@ public final class OvensRegistry {
 
     public static void registerTab() {
         TAB = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, SimpleOvens.id("ovens"), CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
-                .title(Component.translatable("itemGroup.simpleovens"))
+                .title(Component.translatable("itemgroup.simpleovens.ovens"))
                 .icon(() -> new ItemStack(FURNACES.get(OvenTier.NETHERITE)))
                 .displayItems((parameters, output) -> tabStacks().forEach(output::accept))
                 .build());

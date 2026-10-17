@@ -5,6 +5,9 @@ license="CC0-1.0"
 modId="simpletweaks"
 version="${version}"
 displayName="Simple Tweaks"
+description="Legacy compatibility and server-authoritative claims, on by default."
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
 [[dependencies.simpletweaks]]
 modId="forge"
 mandatory=true
@@ -34,6 +37,20 @@ side="BOTH"
 
 [[dependencies.simpletweaks]]
 modId="simpledimension"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simplemoney"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simpleweather"
 mandatory=false
 versionRange="[0,)"
 ordering="NONE"

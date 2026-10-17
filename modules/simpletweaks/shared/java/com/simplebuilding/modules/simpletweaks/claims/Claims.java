@@ -44,6 +44,8 @@ public final class Claims {
             legacy.put(id.toString(), folder.resolve("data/simpletweaks_claims.dat"));
         }
         install(server,new Claims(settings(), root, legacy));
+        // Claims on the Simple Maps wayfinder map: a source of the framework, nobody imports Simple Maps.
+        if (settings().enabled()) com.simplebuilding.modules.simpletweaks.table.ClaimMapLayer.register();
     }
     static void install(MinecraftServer server, Claims claims) {
         com.simplebuilding.framework.api.Protection.unregister(server,"simpletweaks");
@@ -84,6 +86,8 @@ public final class Claims {
     /** Right an interaction with an entity needs: players any right, mobs and vehicles A, frames/stands/items C, the rest strict. */
     static int entityNeed(net.minecraft.world.entity.Entity target) {
         if (target instanceof net.minecraft.world.entity.player.Player) return ClaimRights.PRESENCE;
+        // Chest boats and chest/hopper minecarts hold items: a vehicle right alone must not open them.
+        if (target instanceof net.minecraft.world.entity.vehicle.ContainerEntity) return ClaimRights.ANIMALS | ClaimRights.CONTAINER;
         if (target instanceof net.minecraft.world.entity.Mob || target instanceof net.minecraft.world.entity.vehicle.VehicleEntity) return ClaimRights.ANIMALS;
         if (target instanceof net.minecraft.world.entity.decoration.ItemFrame || target instanceof net.minecraft.world.entity.decoration.ArmorStand
                 || target instanceof net.minecraft.world.entity.item.ItemEntity) return ClaimRights.CONTAINER;
@@ -182,7 +186,7 @@ public final class Claims {
     public boolean create(ClaimStore.Key key, UUID owner, long tick) {
         if (!ready() || !config.dimensions().contains(key.dimension())) return false;
         if (store.view().containsKey(key) || store.view().size()>=config.globalCap()
-                || store.view().values().stream().filter(c->c.owner().equals(owner)).count()>=config.maxClaimsPerPlayer()
+                || chunksOf(owner)>=budget(owner)
                 || !mutationReady(owner,tick)) return false;
         var next=new HashMap<>(store.view()); next.put(key,new ClaimStore.Claim(owner));
         if (!commit(next)) return false;
@@ -268,6 +272,70 @@ public final class Claims {
         var land=lands().get(owner);
         return (land==null?new ClaimStore.Land(owner,"",ClaimRights.Rules.EMPTY,Map.of()):land).hashCode();
     }
+    /** Land the player may hold now: bought expansion or the start size, never below what they hold, never above the server limit. */
+    public int budget(UUID owner) { return ready()?config.budgetOf(store.budgets().get(owner),chunksOf(owner)):0; }
+    /** Operator command: sets the stored budget (1..256); the effective one is still capped by the server limit. */
+    public boolean setBudget(UUID owner,int chunks) {
+        if (!ready() || chunks<1 || chunks>ClaimConfig.MAX_CLAIMS) return false;
+        var next=new HashMap<>(store.budgets());next.put(owner,chunks);
+        return commit(store.view(),store.lands(),next);
+    }
+    public enum Expand { OK, DISABLED, LOCKED, MAX, SERVER_LIMIT, NO_DEED, ITEMS, LEVELS, COOLDOWN, FAILED }
+    /** The next step the player could buy (null: none or expansion off), and why not if there is none. */
+    public ClaimConfig.Tier nextTier(UUID owner) { return ready()&&config.expansionEnabled()?config.nextTier(budget(owner)):null; }
+    private static boolean deedFor(ServerPlayer player) {
+        var inv=player.getInventory();
+        for (int i=0;i<inv.getContainerSize();i++) {
+            var stack=inv.getItem(i);
+            if (!stack.is(com.simplebuilding.modules.simpletweaks.deed.ClaimDeedItem.item())) continue;
+            var data=stack.get(com.simplebuilding.modules.simpletweaks.deed.DeedData.TYPE);
+            // Display component only: an empty deed or the player's own; never a deed that names someone else.
+            if (data==null || data.owner().equals(player.getUUID())) return true;
+        }
+        return false;
+    }
+    private static int count(ServerPlayer player,net.minecraft.world.item.Item item) {
+        var inv=player.getInventory();int n=0;
+        for (int i=0;i<inv.getContainerSize();i++) if (inv.getItem(i).is(item)) n+=inv.getItem(i).getCount();
+        return n;
+    }
+    /**
+     * Buys the next expansion step for the player's own land. The server decides everything: a deed of theirs in the
+     * inventory, the materials and XP levels of the configured step, the cooldown. The budget is written first; only when
+     * that is saved are materials and levels taken (a failed save costs nothing).
+     */
+    public Expand expand(ServerPlayer player) {
+        if (!config.enabled() || !config.expansionEnabled()) return Expand.DISABLED;
+        if (!ready()) return Expand.LOCKED;
+        UUID owner=player.getUUID();int budget=budget(owner);
+        var tier=config.expansionTiers().stream().filter(t->t.chunks()>budget).findFirst().orElse(null);
+        if (tier==null) return Expand.MAX;
+        if (tier.chunks()>config.maxClaimsPerPlayer()) return Expand.SERVER_LIMIT;
+        if (!deedFor(player)) return Expand.NO_DEED;
+        var items=new LinkedHashMap<net.minecraft.world.item.Item,Integer>();
+        for (var cost:tier.items()) {
+            var id=net.minecraft.resources.Identifier.tryParse(cost.id());
+            var item=id==null||!net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(id)?null:net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(id);
+            if (item==null) { LOG.warn("Expansion step to {} names an unknown item {}; it cannot be bought.",tier.chunks(),cost.id()); return Expand.ITEMS; }
+            items.merge(item,cost.count(),Integer::sum);
+        }
+        for (var e:items.entrySet()) if (count(player,e.getKey())<e.getValue()) return Expand.ITEMS;
+        if (player.experienceLevel<tier.levels()) return Expand.LEVELS;
+        long tick=player.level().getServer().overworld().getGameTime();
+        if (!mutationReady(owner,tick)) return Expand.COOLDOWN;
+        var next=new HashMap<>(store.budgets());next.put(owner,tier.chunks());
+        if (!commit(store.view(),store.lands(),next)) return Expand.FAILED;
+        cooldowns.put(owner,tick);
+        for (var e:items.entrySet()) {
+            int left=e.getValue();var inv=player.getInventory();
+            for (int i=0;i<inv.getContainerSize() && left>0;i++) {
+                var stack=inv.getItem(i);
+                if (stack.is(e.getKey())) { int take=Math.min(left,stack.getCount());stack.shrink(take);left-=take; }
+            }
+        }
+        if (tier.levels()>0) player.giveExperienceLevels(-tier.levels());
+        return Expand.OK;
+    }
     public boolean hasLand(UUID owner) { return view().values().stream().anyMatch(c->c.owner().equals(owner)); }
     public int chunksOf(UUID owner) { return (int)view().values().stream().filter(c->c.owner().equals(owner)).count(); }
     /** Name of a player for the editor: online first, then the local name cache (never a network lookup); null if unknown. */
@@ -335,8 +403,9 @@ public final class Claims {
         cooldowns.put(actor.getUUID(),tick);return true;
     }
     private boolean commit(Map<ClaimStore.Key,ClaimStore.Claim> next) { return commit(next,store.lands()); }
-    private boolean commit(Map<ClaimStore.Key,ClaimStore.Claim> next,Map<UUID,ClaimStore.Land> nextLands) {
-        try { store.replace(next,nextLands); return true; }
+    private boolean commit(Map<ClaimStore.Key,ClaimStore.Claim> next,Map<UUID,ClaimStore.Land> nextLands) { return commit(next,nextLands,store.budgets()); }
+    private boolean commit(Map<ClaimStore.Key,ClaimStore.Claim> next,Map<UUID,ClaimStore.Land> nextLands,Map<UUID,Integer> nextBudgets) {
+        try { store.replace(next,nextLands,nextBudgets); return true; }
         catch (Exception e) { failed=true; LOG.error("Claims are locked: atomic save failed; last saved data preserved.",e); return false; }
     }
     public static boolean anyEnabled(){return on() && SERVERS.values().stream().anyMatch(c->c.config.enabled());}
@@ -412,6 +481,21 @@ public final class Claims {
         if(who instanceof ServerPlayer player)return allowBlock(player,level,pos,Action.DESTROY);
         if(who==null||who instanceof net.minecraft.world.entity.monster.Enemy)return environmentBlock(level,pos);
         return transfer(level,who.blockPosition(),pos);
+    }
+    /**
+     * Trees and huge mushrooms grow up to 16 blocks away from the plant: growth is refused when a chunk within one
+     * chunk of the plant is claimed by somebody other than the owner of the plant's own chunk (wilderness owns nothing).
+     */
+    public static boolean growth(ServerLevel level,BlockPos pos){
+        var c=get(level.getServer());if(c==null||!on()||!c.config.enabled())return true;
+        if(!c.ready())return false;
+        String dim=level.dimension().identifier().toString();int cx=pos.getX()>>4,cz=pos.getZ()>>4;
+        var own=c.store.view().get(new ClaimStore.Key(dim,ChunkPos.pack(cx,cz)));
+        for(int dx=-1;dx<=1;dx++)for(int dz=-1;dz<=1;dz++){
+            var other=c.store.view().get(new ClaimStore.Key(dim,ChunkPos.pack(cx+dx,cz+dz)));
+            if(other!=null&&(own==null||!own.owner().equals(other.owner())))return false;
+        }
+        return true;
     }
     /** Land owner at a position: empty for wilderness or inactive claims, null while the ledger is locked. */
     public static Optional<UUID> owner(ServerLevel level,BlockPos pos){
