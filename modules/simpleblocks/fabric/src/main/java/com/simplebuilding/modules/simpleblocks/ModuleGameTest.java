@@ -95,4 +95,19 @@ public final class ModuleGameTest {
     public void sawUiContrast(GameTestHelper h) {
         BlocksTests.ALL.get("saw_ui_contrast").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawUpgradeAxe(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_upgrade_axe").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawUpgradeHammer(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_upgrade_hammer").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawUpgradeMode(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_upgrade_mode").accept(h);
+    }
 }

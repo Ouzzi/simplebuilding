@@ -15,6 +15,10 @@ public final class BlocksFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         BlocksRegistry.registerAll();
+        // Stonecutter -> Shaping Saw in the world: axe alone, hammer with SimpleBuilding; 4 iron nuggets.
+        com.simpleblocks.saw.SawUpgrade.hammerMode = FabricLoader.getInstance().isModLoaded("simplebuilding");
+        net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((player, level, hand, hit) ->
+                com.simpleblocks.saw.SawUpgrade.onUse(level, hit.getBlockPos(), player, hand) ? net.minecraft.world.InteractionResult.SUCCESS : net.minecraft.world.InteractionResult.PASS);
         // Shaping Saw: its recipe list goes to every client on join and after /reload (the client menu uses exactly this list).
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simpleblocks.saw.Sawing.Payload.TYPE, com.simpleblocks.saw.Sawing.Payload.CODEC);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register((player, joined) -> {

@@ -40,7 +40,7 @@
     "simpleblocks:smooth_red_sandstone_wall": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:smooth_sandstone_wall": "Crafted from its Vanilla base block; no trade.",
     "simpleblocks:guide_book": "Crafted from a book and a clay ball.",
-    "simpleblocks:shaping_saw": "A crafting station like the Vanilla stonecutter, crafted cheaply from iron, stone and planks; no trade."
+    "simpleblocks:shaping_saw": "A crafting station like the Vanilla stonecutter, crafted cheaply from copper, iron and stone; no trade."
   },
   "prices": []
 }

@@ -40,8 +40,11 @@ for feature in manual['features']:
 
 # Textures: the own ones are committed, the cracked/mossy bricks are Vanilla-derived (built, never committed).
 tex = RES / f'assets/{NS}/textures/block'
-for name in ('hushed_deepslate_tiles', 'sculk_deepslate', 'blue_nether_bricks', 'shaping_saw_top', 'shaping_saw_side', 'shaping_saw_bottom', 'shaping_saw_saw'):
+for name in ('hushed_deepslate_tiles', 'sculk_deepslate', 'blue_nether_bricks'):
     assert (tex / f'{name}.png').exists(), name
+sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
+import vanilla_derived  # noqa: E402
+assert {f'block/shaping_saw_{n}.png' for n in ('top', 'side', 'saw')} <= set(vanilla_derived.MODULE_OUTPUTS[NS]), 'saw textures are Vanilla-derived'
 assert (tex / 'shaping_saw_saw.png.mcmeta').exists(), 'saw blade animation'
 
 # Shaping Saw (A4b): Java ids match the generator; every wood family and every wool colour has its cuts; optional mods conditioned.

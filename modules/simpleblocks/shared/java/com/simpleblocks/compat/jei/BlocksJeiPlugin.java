@@ -32,6 +32,14 @@ public final class BlocksJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new SawCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
+    /** The in-world upgrade (stonecutter + axe or hammer + 4 iron nuggets) as an info page on both blocks. */
+    @Override
+    public void registerRecipes(mezz.jei.api.registration.IRecipeRegistration registration) {
+        registration.addItemStackInfo(java.util.List.of(new net.minecraft.world.item.ItemStack(Sawing.SAW_ITEM),
+                new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.STONECUTTER)),
+                net.minecraft.network.chat.Component.translatable("jei.simpleblocks.info.shaping_saw"));
+    }
+
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addCraftingStation(SawCategory.TYPE, Sawing.SAW_ITEM);

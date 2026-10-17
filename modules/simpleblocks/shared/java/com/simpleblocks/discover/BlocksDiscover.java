@@ -51,6 +51,7 @@ public final class BlocksDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "minecraft:stonecutter",
             "simpleblocks:*_slab",
             "simpleblocks:*_stairs",
             "simpleblocks:*_wall",

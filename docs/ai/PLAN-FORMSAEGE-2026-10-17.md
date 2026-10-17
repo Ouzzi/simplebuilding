@@ -84,3 +84,16 @@ er schneidet Stein **und** Holz und alles, was Treppen-/Stufen-/Octet-Varianten 
   (die Säge hat kein Rezeptbuch); Forge ohne JEI und ohne Laufzeittest (nur Compile).
 - Offen: Besitzer wählt Name und Textur (Vorschau-Seite), Merge nach `claude-wave1`; Holz-Octets liegen in `claude-s6-octets`
   noch als Steinsägen-Rezepte vor (erscheinen damit auch in der Säge) – ggf. später auf `simpleblocks:sawing` umstellen.
+
+## Nachtrag Besitzer 17.10. (umgesetzt)
+1. Aussehen: die Vanilla-Steinsäge, neu texturiert – gleiches Modell; Kupfer an Eckkappen, Schlitzenden, Rahmenkante und
+   Querleiste, das animierte Sägeblatt mit hellem Kupfer. Eine Textur statt A/B/C, beim Build aus Vanilla abgeleitet
+   (`tools/textures/shaping_saw_2026_10_17.py` in `vanilla_derived.MODULE_OUTPUTS['simpleblocks']`, `.gitignore`);
+   Unterseite = Vanilla-Textur direkt.
+2. Rezept: Steinsägen-Muster mit Kupfer – `CIC` / `###` (Kupfer-, Eisen-, Kupferbarren über 3 Stein). Das formlose
+   Aufwertungsrezept entfällt (ersetzt durch 3.).
+3. Aufwertung in der Welt (`SawUpgrade`): platzierte Steinsäge mit Axt (ohne SimpleBuilding) bzw. Hammer
+   `#simplelib:hammers` (mit SimpleBuilding) benutzen, 4 Eisennuggets aus dem Inventar werden verbraucht (Entscheidung:
+   auch im Axt-Weg 4 Nuggets), Ausrichtung bleibt, Werkzeug 1 Haltbarkeit. Abweichung: SimpleLibs `in_world_upgrades`
+   nicht genutzt – braucht SimpleLib (Simple Blocks läuft ohne) und nimmt das Material aus der Nebenhand mit mehreren
+   Schlägen, der Besitzer wollte die Nuggets aus dem Inventar. JEI-Infoseite auf Säge und Steinsäge, Wiki/Handbuch.

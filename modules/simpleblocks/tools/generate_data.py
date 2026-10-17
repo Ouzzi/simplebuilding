@@ -182,11 +182,11 @@ def models_and_states():
 
 
 def saw_model():
-    """The stonecutter's geometry (9 px table, blade across the middle) with the saw's own textures."""
+    """The stonecutter's model (9 px table, blade across the middle): own top/side/blade (Vanilla-derived, copper), Vanilla bottom."""
     t = f'{NS}:block/{SAW}'
     put(f'assets/{NS}/models/block/{SAW}.json', {
         'parent': 'minecraft:block/block',
-        'textures': {'particle': f'{t}_bottom', 'bottom': f'{t}_bottom', 'top': f'{t}_top', 'side': f'{t}_side', 'saw': f'{t}_saw'},
+        'textures': {'particle': 'minecraft:block/stonecutter_bottom', 'bottom': 'minecraft:block/stonecutter_bottom', 'top': f'{t}_top', 'side': f'{t}_side', 'saw': f'{t}_saw'},
         'elements': [
             {'from': [0, 0, 0], 'to': [16, 9, 16], 'faces': {
                 'down': {'uv': [0, 0, 16, 16], 'texture': '#bottom', 'cullface': 'down'},
@@ -276,12 +276,9 @@ def recipes():
         else:
             recipe(f'{name}_from_moss_block', {'type': 'minecraft:crafting_shapeless', 'category': 'building',
                                                'ingredients': [brick, 'minecraft:moss_block'], 'result': result(name)}, 'minecraft:moss_block')
-    # Shaping Saw: like the stonecutter (iron over stone) but with wood beside the stone; or a stonecutter upgraded with copper and a plank.
-    recipe(SAW, {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'I': 'minecraft:iron_ingot', 'P': '#minecraft:planks', '#': 'minecraft:stone'},
-                 'pattern': [' I ', 'P#P'], 'result': result(SAW)}, 'minecraft:stone', 'decorations')
-    recipe(f'{SAW}_from_stonecutter', {'type': 'minecraft:crafting_shapeless', 'category': 'misc',
-                                       'ingredients': ['minecraft:stonecutter', 'minecraft:copper_ingot', '#minecraft:planks'], 'result': result(SAW)},
-           'minecraft:stonecutter', 'decorations')
+    # Shaping Saw: the Vanilla stonecutter recipe (iron ingot over 3 stone) with a copper ingot on each side of the iron.
+    recipe(SAW, {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'C': 'minecraft:copper_ingot', 'I': 'minecraft:iron_ingot', '#': 'minecraft:stone'},
+                 'pattern': ['CIC', '###'], 'result': result(SAW)}, 'minecraft:copper_ingot', 'decorations')
     for path, ingredient, out, count, mod in sawing_list():
         res = {'id': out} if count == 1 else {'count': count, 'id': out}
         put(f'data/{NS}/recipe/{path}.json', {**(mod_condition(mod) if mod else {}), 'type': f'{NS}:sawing', 'ingredient': ingredient, 'result': res})
@@ -376,9 +373,13 @@ def names():
 
 SAW_LANG = {
     'en_us': dict(name='Shaping Saw', search='Search cuts', empty='Put stone, wood or wool in on the left',
-                  no_cuts='Nothing to cut from this item', no_match='No cut matches the search'),
+                  no_cuts='Nothing to cut from this item', no_match='No cut matches the search',
+                  info='Upgrade a placed stonecutter: use an axe on it (with SimpleBuilding a hammer instead) while you carry 4 iron nuggets. '
+                       'The nuggets are used up and the stonecutter becomes a Shaping Saw facing the same way.'),
     'de_de': dict(name='Formsäge', search='Schnitte suchen', empty='Links Stein, Holz oder Wolle einlegen',
-                  no_cuts='Daraus lässt sich nichts schneiden', no_match='Kein Schnitt passt zur Suche'),
+                  no_cuts='Daraus lässt sich nichts schneiden', no_match='Kein Schnitt passt zur Suche',
+                  info='Eine platzierte Steinsäge aufwerten: mit einer Axt (mit SimpleBuilding stattdessen mit einem Hammer) benutzen, '
+                       'während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung.'),
 }
 
 
@@ -392,6 +393,7 @@ def lang():
             data[f'item.{NS}.{name}'] = text
         saw = SAW_LANG[locale]
         data[f'block.{NS}.{SAW}'] = data[f'item.{NS}.{SAW}'] = data[f'container.{NS}.{SAW}'] = data[f'jei.{NS}.category.sawing'] = saw['name']
+        data[f'jei.{NS}.info.{SAW}'] = saw['info']
         for key in ('search', 'empty', 'no_cuts', 'no_match'):
             data[f'container.{NS}.{SAW}.{key}'] = saw[key]
         data[f'itemgroup.{NS}.blocks'] = tab

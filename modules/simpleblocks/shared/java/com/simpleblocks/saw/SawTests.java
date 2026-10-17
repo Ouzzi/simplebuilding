@@ -49,6 +49,9 @@ public final class SawTests {
         all.put("saw_menu_cuts", SawTests::menuCuts);
         all.put("saw_optional_mods", SawTests::optionalMods);
         all.put("saw_ui_contrast", SawTests::uiContrast);
+        all.put("saw_upgrade_axe", SawTests::upgradeAxe);
+        all.put("saw_upgrade_hammer", SawTests::upgradeHammer);
+        all.put("saw_upgrade_mode", SawTests::upgradeMode);
     }
 
     private static Item item(String id) {
@@ -82,11 +85,12 @@ public final class SawTests {
         h.assertTrue(h.getBlockState(pos).getBlock() instanceof ShapingSawBlock, "saw placed");
         h.assertTrue(h.getBlockState(pos).getMenuProvider(h.getLevel(), h.absolutePos(pos)) != null, "saw opens a menu");
         var level = h.getLevel();
-        for (String id : List.of("shaping_saw", "shaping_saw_from_stonecutter")) {
+        for (String id : List.of("shaping_saw")) {
             var holder = level.getServer().getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, SimpleBlocks.id(id)));
             h.assertTrue(holder.isPresent(), "crafting recipe " + id);
             var ctx = SlotDisplayContext.fromLevel(level);
             h.assertTrue(holder.get().value().display().stream().anyMatch(d -> d.result().resolveForFirstStack(ctx).is(Sawing.SAW_ITEM)), id + " makes the saw");
+            h.assertTrue(holder.get().value().placementInfo().ingredients().stream().anyMatch(i -> i.test(new ItemStack(Items.COPPER_INGOT))), id + " needs copper");
         }
         h.succeed();
     }
@@ -210,6 +214,74 @@ public final class SawTests {
         h.assertTrue(label >= SawPalette.MIN_CONTRAST, "label contrast " + label);
         h.assertTrue(hint >= SawPalette.MIN_CONTRAST, "hint contrast " + hint);
         h.assertTrue(field >= SawPalette.MIN_CONTRAST, "search contrast " + field);
+        h.succeed();
+    }
+
+    /** Places a stonecutter facing east and a survival player holding {@code tool} with {@code nuggets} iron nuggets. */
+    private static ServerPlayer upgradeScene(GameTestHelper h, BlockPos pos, ItemStack tool, int nuggets) {
+        h.setBlock(pos, net.minecraft.world.level.block.Blocks.STONECUTTER.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.StonecutterBlock.FACING, net.minecraft.core.Direction.EAST));
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.getInventory().clearContent();
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, tool);
+        if (nuggets > 0) player.getInventory().add(new ItemStack(Items.IRON_NUGGET, nuggets));
+        return player;
+    }
+
+    private static void checkPath(GameTestHelper h, boolean hammer, ItemStack tool, java.util.function.Predicate<ItemStack> rule, String name) {
+        ServerLevel level = h.getLevel();
+        var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
+        BlockPos rel = new BlockPos(3, 1, 3), pos = h.absolutePos(rel);
+        // Too few nuggets: nothing happens, nothing is used.
+        ServerPlayer poor = upgradeScene(h, rel, tool.copy(), SawUpgrade.NUGGETS - 1);
+        h.assertTrue(!SawUpgrade.tryUpgrade(level, pos, poor, hand, hammer, rule), name + ": refused with 3 nuggets");
+        h.assertTrue(h.getBlockState(rel).is(net.minecraft.world.level.block.Blocks.STONECUTTER) && poor.getInventory().countItem(Items.IRON_NUGGET) == 3, name + ": nothing used");
+        // Enough nuggets: the stonecutter becomes the saw facing the same way, 4 nuggets are used.
+        ServerPlayer player = upgradeScene(h, rel, tool.copy(), SawUpgrade.NUGGETS + 1);
+        h.assertTrue(SawUpgrade.tryUpgrade(level, pos, player, hand, hammer, rule), name + ": upgrade runs");
+        var state = h.getBlockState(rel);
+        h.assertTrue(state.is(Sawing.SAW) && state.getValue(net.minecraft.world.level.block.StonecutterBlock.FACING) == net.minecraft.core.Direction.EAST, name + ": saw, same facing: " + state);
+        h.assertTrue(player.getInventory().countItem(Items.IRON_NUGGET) == 1, name + ": 4 nuggets used, left " + player.getInventory().countItem(Items.IRON_NUGGET));
+        // A saw is not upgraded again.
+        h.assertTrue(!SawUpgrade.tryUpgrade(level, pos, player, hand, hammer, rule), name + ": no second upgrade");
+    }
+
+    /** Path without SimpleBuilding: an axe and 4 iron nuggets; a hammer-mode rule refuses the axe. */
+    private static void upgradeAxe(GameTestHelper h) {
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        h.assertTrue(SawUpgrade.toolFits(axe, false) && !SawUpgrade.toolFits(axe, true), "axe fits only the axe path");
+        h.assertTrue(!SawUpgrade.toolFits(new ItemStack(Items.IRON_PICKAXE), false), "a pickaxe is no axe");
+        checkPath(h, false, axe, t -> SawUpgrade.toolFits(t, false), "axe");
+        h.succeed();
+    }
+
+    /**
+     * Path with SimpleBuilding: a hammer ({@code #simplelib:hammers}) and 4 iron nuggets. With a hammer mod loaded a real
+     * hammer is used; standalone (no hammer exists) the same flow runs with a stand-in tool for the hammer rule.
+     */
+    private static void upgradeHammer(GameTestHelper h) {
+        ItemStack hammer = null;
+        for (Item it : BuiltInRegistries.ITEM) {
+            if (new ItemStack(it).is(SawUpgrade.HAMMERS)) {
+                hammer = new ItemStack(it);
+                break;
+            }
+        }
+        if (hammer != null) {
+            h.assertTrue(SawUpgrade.toolFits(hammer, true) && !SawUpgrade.toolFits(new ItemStack(Items.IRON_AXE), true), "hammer path takes the hammer, not the axe");
+            checkPath(h, true, hammer, t -> SawUpgrade.toolFits(t, true), "hammer");
+        } else {
+            ItemStack standIn = new ItemStack(Items.IRON_SHOVEL);
+            checkPath(h, true, standIn, t -> t.is(Items.IRON_SHOVEL), "hammer (stand-in, no hammer mod)");
+        }
+        h.succeed();
+    }
+
+    /** The loaders pick the hammer path exactly when SimpleBuilding is loaded. */
+    private static void upgradeMode(GameTestHelper h) {
+        boolean sb = BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals("simplebuilding"));
+        h.assertTrue(SawUpgrade.hammerMode == sb, "hammer mode " + SawUpgrade.hammerMode + " but SimpleBuilding loaded " + sb);
         h.succeed();
     }
 }
