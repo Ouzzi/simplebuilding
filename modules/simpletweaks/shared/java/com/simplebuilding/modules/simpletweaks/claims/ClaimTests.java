@@ -80,6 +80,8 @@ public final class ClaimTests {
         TESTS.put("claims_deed_use",ClaimDeedTests::use);
         TESTS.put("claims_deed_edit",ClaimDeedTests::edit);
         TESTS.put("claims_deed_copy",ClaimDeedTests::copy);
+        TESTS.put("claims_review_vehicle_containers",ReviewClaimTests::vehicleContainers);
+        TESTS.put("claims_review_growth",ReviewClaimTests::growth);
         TESTS.put("claims_table_basics",TableTests::basics);
         TESTS.put("claims_table_service",TableTests::service);
         TESTS.put("claims_expand_budget",ExpansionTests::budget);

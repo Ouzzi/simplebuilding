@@ -86,6 +86,8 @@ public final class Claims {
     /** Right an interaction with an entity needs: players any right, mobs and vehicles A, frames/stands/items C, the rest strict. */
     static int entityNeed(net.minecraft.world.entity.Entity target) {
         if (target instanceof net.minecraft.world.entity.player.Player) return ClaimRights.PRESENCE;
+        // Chest boats and chest/hopper minecarts hold items: a vehicle right alone must not open them.
+        if (target instanceof net.minecraft.world.entity.vehicle.ContainerEntity) return ClaimRights.ANIMALS | ClaimRights.CONTAINER;
         if (target instanceof net.minecraft.world.entity.Mob || target instanceof net.minecraft.world.entity.vehicle.VehicleEntity) return ClaimRights.ANIMALS;
         if (target instanceof net.minecraft.world.entity.decoration.ItemFrame || target instanceof net.minecraft.world.entity.decoration.ArmorStand
                 || target instanceof net.minecraft.world.entity.item.ItemEntity) return ClaimRights.CONTAINER;
@@ -479,6 +481,21 @@ public final class Claims {
         if(who instanceof ServerPlayer player)return allowBlock(player,level,pos,Action.DESTROY);
         if(who==null||who instanceof net.minecraft.world.entity.monster.Enemy)return environmentBlock(level,pos);
         return transfer(level,who.blockPosition(),pos);
+    }
+    /**
+     * Trees and huge mushrooms grow up to 16 blocks away from the plant: growth is refused when a chunk within one
+     * chunk of the plant is claimed by somebody other than the owner of the plant's own chunk (wilderness owns nothing).
+     */
+    public static boolean growth(ServerLevel level,BlockPos pos){
+        var c=get(level.getServer());if(c==null||!on()||!c.config.enabled())return true;
+        if(!c.ready())return false;
+        String dim=level.dimension().identifier().toString();int cx=pos.getX()>>4,cz=pos.getZ()>>4;
+        var own=c.store.view().get(new ClaimStore.Key(dim,ChunkPos.pack(cx,cz)));
+        for(int dx=-1;dx<=1;dx++)for(int dz=-1;dz<=1;dz++){
+            var other=c.store.view().get(new ClaimStore.Key(dim,ChunkPos.pack(cx+dx,cz+dz)));
+            if(other!=null&&(own==null||!own.owner().equals(other.owner())))return false;
+        }
+        return true;
     }
     /** Land owner at a position: empty for wilderness or inactive claims, null while the ledger is locked. */
     public static Optional<UUID> owner(ServerLevel level,BlockPos pos){
