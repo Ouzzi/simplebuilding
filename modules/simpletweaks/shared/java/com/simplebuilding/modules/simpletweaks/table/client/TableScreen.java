@@ -63,7 +63,7 @@ public final class TableScreen extends Screen {
         prev = button(Component.literal("<"), layout.prev(), b -> { if (page > 0) { page--; requestList(); } });
         next = button(Component.literal(">"), layout.next(), b -> { if (list != null && (page + 1) * TableListPayload.PAGE < list.total()) { page++; requestList(); } });
         button(CommonComponents.GUI_DONE, layout.close(), b -> onClose());
-        expandButton = button(Component.translatable("simpletweaks.table.expand"), layout.expand(), b ->
+        expandButton = button(Component.translatable("simpletweaks.table.expand"), layout.expand, b ->
                 DeedNet.toServer.accept(new TableRequestPayload(data.pos(), TableRequestPayload.EXPAND, 0, 0, 0, 0)));
         showExpand();
         minus.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simpletweaks.table.zoom_out")));
@@ -82,7 +82,7 @@ public final class TableScreen extends Screen {
     private static Component itemName(String id) {
         var key = net.minecraft.resources.Identifier.tryParse(id);
         if (key != null && net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(key))
-            return net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(key).getName();
+            return net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(key).getName(new net.minecraft.world.item.ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(key)));
         return Component.literal(id);
     }
 
