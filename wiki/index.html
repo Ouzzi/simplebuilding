@@ -4151,6 +4151,7 @@ function tsRefresh() {
   $main.querySelectorAll('[data-ts-line]').forEach(function (el) { el.innerHTML = tsLine(el.getAttribute('data-item'), el.getAttribute('data-table')); });
   tsSyncEditors();
 }
+window.__wikiTime = { tsCombine: tsCombine, timeStats: timeStats, tsAll: tsAll }; /* fuer wiki/tests/time_ui.cjs */
 /* Eine Quelle als Karte wie ein Rezept: Behaelter/Opfer (+ Ausloeser) -> Ergebnis, darunter Chance und Bedingung. */
 function sourceCard(s) {
   var focusId = [s.table, s.pool == null ? '' : s.pool, s.item, s.enchantment || '', s.level || '', s.victim || '', s.how || ''].join('/');

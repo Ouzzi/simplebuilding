@@ -35,6 +35,7 @@ const contrast = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y
         // JS maths against the Python reference values
         const ref = await page.evaluate(() => {
           const P = new Array(23).fill(0);
+          const { tsCombine, timeStats } = window.__wikiTime;
           const a = tsCombine([{ rate: 2, pmf: [.96, .04].concat(P) }]);
           const b = tsCombine([{ rate: 1, pmf: [.5, .3, .2].concat(P) }, { rate: .5, pmf: [.9, .1].concat(P) }]);
           return { a6: timeStats(a, 6), a1: timeStats(a, 1), b4: timeStats(b, 4) };
@@ -61,7 +62,7 @@ const contrast = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y
         ok(/–/.test(await out.locator('table.ts-res tbody tr').first().textContent()), 'zero rate gives a dash');
         // own value: 2/h -> Erlang values
         await tIn.fill('2');
-        const hours = await page.evaluate(id => { const s = tsAll(id, 't'); return timeStats(s.c, 6); }, ITEM);
+        const hours = await page.evaluate(id => { const w = window.__wikiTime, s = w.tsAll(id, 't'); return w.timeStats(s.c, 6); }, ITEM);
         near(hours.mean, 6 / (2 * 0.04), 1e-9); checks++;
         ok(/ ?h/.test(await out.locator('table.ts-res tbody tr').first().textContent()), 'recomputed');
         // era line only after input
