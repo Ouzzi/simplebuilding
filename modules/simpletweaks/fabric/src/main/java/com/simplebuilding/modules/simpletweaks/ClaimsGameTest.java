@@ -28,6 +28,8 @@ public final class ClaimsGameTest {
  @GameTest public void claimsGriefDoorsSilverfish(GameTestHelper h) { ClaimTests.TESTS.get("claims_grief_doors_silverfish").accept(h); }
  @GameTest public void claimsGriefTrample(GameTestHelper h) { ClaimTests.TESTS.get("claims_grief_trample").accept(h); }
  @GameTest public void claimsVehicleBoats(GameTestHelper h) { ClaimTests.TESTS.get("claims_vehicle_boats").accept(h); }
+ @GameTest public void claimsReviewVehicleContainers(GameTestHelper h) { ClaimTests.TESTS.get("claims_review_vehicle_containers").accept(h); }
+ @GameTest public void claimsReviewGrowth(GameTestHelper h) { ClaimTests.TESTS.get("claims_review_growth").accept(h); }
  @GameTest public void claimsAutomationComposter(GameTestHelper h) { ClaimTests.TESTS.get("claims_automation_composter").accept(h); }
 
  @GameTest(environment="simpletweaks:claims_portal",maxTicks=400) public void claimsPortalFlow(GameTestHelper h) { ClaimTests.TESTS.get("claims_portal_flow").accept(h); }

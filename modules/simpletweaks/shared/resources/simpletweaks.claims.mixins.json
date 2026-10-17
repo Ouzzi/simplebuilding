@@ -39,7 +39,9 @@
     "ClaimDragonMixin",
     "ClaimTrampleMixin",
     "ClaimTurtleEggMixin",
-    "ClaimBoatMixin"
+    "ClaimBoatMixin",
+"ClaimTreeMixin",
+"ClaimMushroomMixin"
   ],
   "injectors": {
     "defaultRequire": 1
