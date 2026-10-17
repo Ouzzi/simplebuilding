@@ -17,7 +17,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityType;
+
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
@@ -296,7 +296,7 @@ public final class ProtectTests {
             yes(h, HideHealth.filter(b, packet) == packet, "Own health is real");
             var dead = new ClientboundSetEntityDataPacket(b.getId(), List.of(SynchedEntityData.DataValue.create(id, 0f)));
             yes(h, HideHealth.filter(a, dead) == dead, "0 stays 0 (death animation)");
-            var pig = h.spawn(EntityType.PIG, new BlockPos(3, 2, 3));
+            var pig = h.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(3, 2, 3));
             var mob = new ClientboundSetEntityDataPacket(pig.getId(), List.of(SynchedEntityData.DataValue.create(id, 3f)));
             yes(h, HideHealth.filter(a, mob) == mob, "Mobs are unchanged");
             pig.discard();
@@ -335,7 +335,7 @@ public final class ProtectTests {
                 level.setBlock(h.absolutePos(new BlockPos(13, 3, 3)), Blocks.OAK_PLANKS.defaultBlockState(), 3); // what wands and blueprints do
             });
             yes(h, got.isEmpty() && level.getBlockState(far2).isAir(), "Server-side breaks and placements are never flagged: " + got);
-            var pig = h.spawn(EntityType.PIG, new BlockPos(16, 2, 1));
+            var pig = h.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(16, 2, 1));
             got = hits(() -> p.connection.handleAttack(new ServerboundAttackPacket(pig.getId())));
             yes(h, got.size() == 1 && got.get(0).kind() == ActionChecks.Kind.REACH_ENTITY, "An attack 15 blocks away is flagged: " + got);
             pig.discard();
