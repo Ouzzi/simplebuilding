@@ -10,10 +10,10 @@
         ]
       },
       "de": {
-        "title": "Kompatibilitaet alter Welten",
-        "summary": "Eine exakte Liste verbindet alte Item-, Block-, Blockentitaets- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert.",
+        "title": "Kompatibilität alter Welten",
+        "summary": "Eine exakte Liste verbindet alte Item-, Block-, Blockentitäts- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert.",
         "details": [
-          "Eine exakte Liste verbindet alte Item-, Block-, Blockentitaets- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert."
+          "Eine exakte Liste verbindet alte Item-, Block-, Blockentitäts- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert."
         ]
       },
       "sources": [

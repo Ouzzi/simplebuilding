@@ -192,7 +192,7 @@
       ],
       "en": {
         "title": "Death Vault",
-        "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). It shows what became of each item dropped at your last death, colour coded with a legend: still lying (green), picked up by you (blue) or by another player (red, the name shows on hover), burned in lava, fire or by a cactus (orange), despawned (gray), fallen into the void (purple), gone another way (yellow). A lying item has a bar like a durability bar: how much of its five minutes is left. If its chunk is not loaded the timer stands and the field shows a pause mark. Buying lost items back with an offering is a future feature: the code stays, option deathVaultRedeem is off by default."
+        "summary": "Crafted block (obsidian, eye of ender, soul sand or soul soil, chest). It shows what became of each item dropped at your last death, color coded with a legend: still lying (green), picked up by you (blue) or by another player (red, the name shows on hover), burned in lava, fire or by a cactus (orange), despawned (gray), fallen into the void (purple), gone another way (yellow). A lying item has a bar like a durability bar: how much of its five minutes is left. If its chunk is not loaded the timer stands and the field shows a pause mark. Buying lost items back with an offering is a future feature: the code stays, option deathVaultRedeem is off by default."
       },
       "de": {
         "title": "Todesgewölbe",
