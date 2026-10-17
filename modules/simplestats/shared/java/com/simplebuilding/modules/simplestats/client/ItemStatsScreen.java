@@ -9,6 +9,8 @@ import com.simplebuilding.modules.simplestats.data.StatRows;
 import com.simplebuilding.modules.simplestats.data.StatRows.Row;
 import com.simplebuilding.modules.simplestats.data.StatsLayout;
 import com.simplebuilding.modules.simplestats.data.StatsLayout.Rect;
+import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiPalette;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -30,7 +32,7 @@ import net.minecraft.world.item.ItemStack;
  * ({@link StatsLayout}, {@link StatRows}); this class only draws. It shows a snapshot of the item taken when it opened.
  */
 public final class ItemStatsScreen extends Screen {
-    private static final int BORDER = 0xFF000000, PANEL = 0xFFC6C6C6, LIST_BG = 0xFF373737, SECTION = 0xFFFFD75E, TEXT = 0xFFFFFFFF, VALUE = 0xFFB8E8B8,
+    private static final int LIST_BG = 0xFF373737, SECTION = 0xFFFFD75E, TEXT = 0xFFFFFFFF, VALUE = 0xFFB8E8B8,
             SOFT = 0xFFA0A0A0, BAR = 0x4455AA55, ROW_ALT = 0x18FFFFFF, THUMB = 0xFFE0E0E0, TRACK = 0xFF202020, TITLE = 0xFF404040;
 
     private final ItemStack stack;
@@ -76,11 +78,9 @@ public final class ItemStatsScreen extends Screen {
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
         Rect p = layout.panel;
-        g.fill(p.x() - 1, p.y() - 1, p.right() + 1, p.bottom() + 1, BORDER);
-        g.fill(p.x(), p.y(), p.right(), p.bottom(), PANEL);
+        UiBoxes.box(g, p.x(), p.y(), p.w(), p.h(), UiPalette.INVENTORY, false);
         Rect l = layout.list;
-        g.fill(l.x() - 1, l.y() - 1, l.right() + 1, l.bottom() + 1, BORDER);
-        g.fill(l.x(), l.y(), l.right(), l.bottom(), LIST_BG);
+        UiBoxes.insetColored(g, l.x(), l.y(), l.w(), l.h(), UiPalette.INVENTORY, LIST_BG);
     }
 
     @Override

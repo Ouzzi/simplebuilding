@@ -20,3 +20,7 @@ dependencies { implementation project(':common') }
 evaluationDependsOn(':mc26_3:neoforge')
 neoForge { mods { simplebuilding { sourceSet project(':mc26_3:neoforge').sourceSets.main } } }
 neoForge.runs.moduleIntegrationGameTest.loadedMods=[neoForge.mods.simpletools,neoForge.mods.simplebuilding]
+
+// SimpleLib (box style, principle 6a) nested per jarJar and compiled against.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }

@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplerespawn.client;
 
 import com.simplebuilding.modules.simplerespawn.SimpleRespawn;
 import com.simplebuilding.modules.simplerespawn.network.RespawnStatePayload;
+import com.simplelib.api.client.ui.UiBoxes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -44,10 +45,9 @@ public final class RespawnHud {
         }
     }
 
-    /** A plain progress bar: dark frame, green fill. */
+    /** Progress bar in the SimpleLib stair frame (rim, dark band), green fill. */
     static void bar(GuiGraphicsExtractor graphics, int x, int y, int width, float progress) {
-        graphics.fill(x - 1, y - 1, x + width + 1, y + 6, 0xFF000000);
-        graphics.fill(x, y, x + width, y + 5, 0xFF3A3A3A);
+        UiBoxes.stairFrame(graphics, x - 2, y - 2, width + 4, 9, new int[] {UiBoxes.RIM, 0xFF3A3A3A}, 0xFF3A3A3A);
         graphics.fill(x, y, x + Math.round(width * Math.max(0f, Math.min(1f, progress))), y + 5, 0xFF55DD55);
     }
 }

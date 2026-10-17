@@ -3,4 +3,6 @@ plugins {
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
 ext.forgeMixinConfigs = ['simplestats.mixins.json', 'simplestats.forge.mixins.json']
+// SimpleLib (box style) nested next to framework (principle 6a).
+ext.forgeBundleSimplelib = true
 apply from: rootProject.file('gradle/module-forge.gradle')

@@ -1,5 +1,7 @@
 package com.simplebuilding.modules.simplerespawn.client;
 
+import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
@@ -14,6 +16,9 @@ import net.minecraft.network.chat.Component;
  * Vanilla the buttons wake up after one second, so a held click does not give up by accident.
  */
 public final class DownedScreen extends Screen {
+    /** Dark red box colours; the lines on it are white, light grey and light green (>= 7:1). */
+    private static final UiPalette PANEL = UiPalette.derived(0xFF4A2424);
+
     private final List<Button> buttons = new ArrayList<>();
     private int delay;
 
@@ -63,6 +68,8 @@ public final class DownedScreen extends Screen {
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         super.extractRenderState(graphics, mouseX, mouseY, a);
         int mid = this.width / 2;
+        // Text box (SimpleLib box style, dark red): the white/grey lines sit on a flat dark face instead of the gradient.
+        UiBoxes.box(graphics, mid - 130, 78, 260, 48, PANEL, false);
         graphics.pose().pushMatrix();
         graphics.pose().scale(2f, 2f);
         graphics.centeredText(this.font, this.title, mid / 2, 30, 0xFFFFFFFF);
