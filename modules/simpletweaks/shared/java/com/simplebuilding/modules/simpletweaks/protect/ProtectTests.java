@@ -231,9 +231,9 @@ public final class ProtectTests {
                 s.setBlockState(x, y, z, (rnd.nextInt(100) < 3 ? ores.get(rnd.nextInt(ores.size())) : rnd.nextInt(100) < 4 ? Blocks.AIR : Blocks.STONE).defaultBlockState(), false);
         }
         with(ProtectConfig.DEFAULT, () -> {
-            AntiXray.bench(chunk, 3); // warm up
-            var t = AntiXray.bench(chunk, 20);
-            double vanilla = t[0] / 20 / 1e6, hidden = t[1] / 20 / 1e6;
+            AntiXray.bench(chunk, 40); // warm up (a running server has the code compiled)
+            var t = AntiXray.bench(chunk, 40);
+            double vanilla = t[0] / 40 / 1e6, hidden = t[1] / 40 / 1e6;
             org.slf4j.LoggerFactory.getLogger("simpletweaks-protect").info("Anti-x-ray bench: {} sections, Vanilla {} ms, obfuscated {} ms per chunk",
                     sections, String.format(Locale.ROOT, "%.3f", vanilla), String.format(Locale.ROOT, "%.3f", hidden));
             yes(h, hidden < 50, "Obfuscating an ore-rich chunk stays cheap: " + hidden + " ms");

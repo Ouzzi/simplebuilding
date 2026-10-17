@@ -34,7 +34,7 @@ public final class AntiXray {
     public static volatile BiConsumer<ServerLevel, BlockPos> reveal = (level, pos) -> level.getChunkSource().blockChanged(pos);
 
     /** Resolved lists of one dimension. */
-    record Rules(Set<Block> hidden, Set<Block> hosts, BlockState stone, BlockState deepslate, int maxY, BlockState[] fakes) {
+    record Rules(Set<Block> hidden, Set<Block> hosts, BlockState stone, BlockState deepslate, int maxY, BlockState[] fakes, Set<Block> deepOres) {
         boolean concealable(BlockState s) { return hidden.contains(s.getBlock()) || hosts.contains(s.getBlock()); }
     }
     private static final Map<ResourceKey<Level>, Optional<Rules>> RULES = new HashMap<>();
@@ -62,7 +62,9 @@ public final class AntiXray {
         var fakes = blocks(d.fakeOres().isEmpty() ? d.hidden() : d.fakeOres()).stream().map(Block::defaultBlockState).toArray(BlockState[]::new);
         hidden.remove(stone.getBlock());
         if (deep != null) hidden.remove(deep.getBlock());
-        return new Rules(hidden, hosts, stone, deep, d.maxY(), fakes);
+        var deepOres = new ReferenceOpenHashSet<Block>();
+        for (var b : hidden) if (BuiltInRegistries.BLOCK.getKey(b).getPath().contains("deepslate")) deepOres.add(b);
+        return new Rules(hidden, hosts, stone, deep, d.maxY(), fakes, deepOres);
     }
     private static Set<Block> blocks(List<String> entries) {
         var out = new ReferenceOpenHashSet<Block>();
@@ -123,6 +125,7 @@ public final class AntiXray {
         if (section.hasOnlyAir() || baseY > rules.maxY()) return null;
         if (!section.maybeHas(rules::concealable)) return null;
         LevelChunkSection copy = null;
+        double chance = rules.hosts().isEmpty() || rules.fakes().length == 0 ? -1 : Protect.config().antiXray().fakeOreChance();
         int baseX = chunk.getPos().getMinBlockX(), baseZ = chunk.getPos().getMinBlockZ();
         for (int y = 0; y < 16; y++) {
             int wy = baseY + y;
@@ -133,8 +136,8 @@ public final class AntiXray {
                 if (!hidden && !rules.hosts().contains(state.getBlock())) continue;
                 if (!enclosed(chunk, sections, index, x, y, z)) continue;
                 BlockState shown;
-                long hash = mix(baseX + x, wy, baseZ + z);
-                if (!rules.hosts().isEmpty() && rules.fakes().length > 0 && (hash >>> 11) * 0x1.0p-53 < Protect.config().antiXray().fakeOreChance())
+                long hash = chance < 0 ? 0 : mix(baseX + x, wy, baseZ + z);
+                if (chance > 0 && (hash >>> 11) * 0x1.0p-53 < chance)
                     shown = rules.fakes()[(int) Long.remainderUnsigned(hash, rules.fakes().length)];
                 else if (!hidden) continue;
                 else shown = host(rules, state, wy);
@@ -147,8 +150,7 @@ public final class AntiXray {
     }
     static BlockState host(Rules rules, BlockState ore, int y) {
         if (rules.deepslate() == null) return rules.stone();
-        var id = BuiltInRegistries.BLOCK.getKey(ore.getBlock()).getPath();
-        return id.contains("deepslate") || y < 0 ? rules.deepslate() : rules.stone();
+        return y < 0 || rules.deepOres().contains(ore.getBlock()) ? rules.deepslate() : rules.stone();
     }
     private static long mix(int x, int y, int z) {
         long h = x * 0x9E3779B97F4A7C15L ^ y * 0xC2B2AE3D27D4EB4FL ^ z * 0x165667B19E3779F9L;
@@ -156,9 +158,11 @@ public final class AntiXray {
         return h;
     }
 
+    private static final Direction[] DIRECTIONS = Direction.values();
+
     /** True when all six neighbours are solid render blocks (sections of this chunk first, loaded neighbour chunks otherwise). */
     private static boolean enclosed(LevelChunk chunk, LevelChunkSection[] sections, int index, int x, int y, int z) {
-        for (var d : Direction.values()) {
+        for (var d : DIRECTIONS) {
             var n = neighbour(chunk, sections, index, x + d.getStepX(), y + d.getStepY(), z + d.getStepZ());
             if (n == null || !n.isSolidRender()) return false;
         }
@@ -182,7 +186,7 @@ public final class AntiXray {
         var rules = rules(level);
         if (rules == null || pos.getY() > rules.maxY() + 1) return;
         var m = new BlockPos.MutableBlockPos();
-        for (var d : Direction.values()) {
+        for (var d : DIRECTIONS) {
             m.setWithOffset(pos, d);
             if (m.getY() > rules.maxY() || level.getChunkSource().getChunkNow(m.getX() >> 4, m.getZ() >> 4) == null) continue;
             if (rules.concealable(level.getBlockState(m))) reveal.accept(level, m.immutable());
