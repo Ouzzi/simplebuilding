@@ -55,3 +55,10 @@ Unittests prüfen Bernoulli-Grenzen, Original-JSON/Java-Belege und Handelsnachzi
 Browsertests prüfen Anzeige, Links und beide Sprachen. Offen bleiben gemessene
 Suchraten, Routen, Restock-/Ressourcenzeiten, Szenarien und deren Zeitalter-Annahmen;
 deshalb bleiben die beiden vollständigen Zeit-/Diagramm-Queue-Punkte offen.
+
+## Stand 2026-10-17 (b-wikitime)
+
+Das Zeitmodell ist umgesetzt, mit der Entscheidung, dass Raten Szenario-Eingaben des Lesers sind
+(Details und Grenzen: `docs/ai/PLAN-B-WIKITIME-2026-10-17.md`). Vorbelegt sind nur die in
+`sbdev/params.py` als Annahme gekennzeichneten Werte, in der Oberfläche als „Annahme, anpassbar“
+markiert; Zeitalter-Stunden sind leer und nur Nutzereingabe. Offen: Handel, Mob-Drops, Bücher.

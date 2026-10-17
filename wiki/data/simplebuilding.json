@@ -184137,6 +184137,1253 @@
         "simplebuilding:fast_chiseling",
         "simplebuilding:kinetic_protection"
       ]
+    },
+    "timeStreams": [
+      {
+        "item": "simplebuilding:astralit_dust",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.833333333333,
+          0.0,
+          0.033333333333,
+          0.033333333333,
+          0.033333333333,
+          0.033333333333,
+          0.033333333333
+        ]
+      },
+      {
+        "item": "simplebuilding:copper_chisel",
+        "table": "minecraft:chests/pillager_outpost",
+        "type": "chest",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.930272108844,
+          0.068027210884,
+          0.001700680272
+        ]
+      },
+      {
+        "item": "simplebuilding:diamond_chisel",
+        "table": "minecraft:chests/buried_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.904864283795,
+          0.091910776673,
+          0.003224939532
+        ]
+      },
+      {
+        "item": "simplebuilding:diamond_chisel",
+        "table": "minecraft:chests/igloo_chest",
+        "type": "chest",
+        "label": {
+          "en": "Igloo",
+          "de": "Iglu"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.85,
+          0.15
+        ]
+      },
+      {
+        "item": "simplebuilding:diamond_core",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "type": "vault",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "gated": true,
+        "requires": [
+          "trial"
+        ],
+        "pmf": [
+          0.9895,
+          0.0105
+        ]
+      },
+      {
+        "item": "simplebuilding:diamond_core",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "type": "vault",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "gated": true,
+        "requires": [
+          "trial"
+        ],
+        "pmf": [
+          0.9895,
+          0.0105
+        ]
+      },
+      {
+        "item": "simplebuilding:diamond_sledgehammer",
+        "table": "minecraft:chests/ancient_city",
+        "type": "chest",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.949167657551,
+          0.049940546968,
+          0.000891795482
+        ]
+      },
+      {
+        "item": "simplebuilding:enchanted_enderite_apple",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.983083310833,
+          0.016788290641,
+          0.000128031673,
+          3.66853e-07
+        ]
+      },
+      {
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/ancient_city",
+        "type": "chest",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.982857709076,
+          0.017043202537,
+          9.9088387e-05
+        ]
+      },
+      {
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/bastion_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.875,
+          0.125
+        ]
+      },
+      {
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "type": "vault",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "gated": true,
+        "requires": [
+          "trial"
+        ],
+        "pmf": [
+          0.990909090909,
+          0.009090909091
+        ]
+      },
+      {
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "type": "vault",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "gated": true,
+        "requires": [
+          "trial"
+        ],
+        "pmf": [
+          0.990909090909,
+          0.009090909091
+        ]
+      },
+      {
+        "item": "simplebuilding:enderite_apple",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.950015921417,
+          0.048841698558,
+          0.001132474995,
+          9.905029e-06
+        ]
+      },
+      {
+        "item": "simplebuilding:enderite_core",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.995,
+          0.005
+        ]
+      },
+      {
+        "item": "simplebuilding:gold_chisel",
+        "table": "minecraft:chests/buried_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.845023739138,
+          0.146018095494,
+          0.008958165368
+        ]
+      },
+      {
+        "item": "simplebuilding:gold_chisel",
+        "table": "minecraft:chests/ruined_portal",
+        "type": "chest",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.925,
+          0.075
+        ]
+      },
+      {
+        "item": "simplebuilding:gold_core",
+        "table": "minecraft:chests/bastion_other",
+        "type": "chest",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.9875,
+          0.0125
+        ]
+      },
+      {
+        "item": "simplebuilding:gold_core",
+        "table": "minecraft:chests/bastion_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.9875,
+          0.0125
+        ]
+      },
+      {
+        "item": "simplebuilding:gold_core",
+        "table": "minecraft:chests/nether_bridge",
+        "type": "chest",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.9835,
+          0.0165
+        ]
+      },
+      {
+        "item": "simplebuilding:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_other",
+        "type": "chest",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.901752370009,
+          0.094800344729,
+          0.003447285263
+        ]
+      },
+      {
+        "item": "simplebuilding:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.901752370009,
+          0.094800344729,
+          0.003447285263
+        ]
+      },
+      {
+        "item": "simplebuilding:iron_building_wand",
+        "table": "minecraft:chests/woodland_mansion",
+        "type": "chest",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.931466092131,
+          0.066892377142,
+          0.001641530727
+        ]
+      },
+      {
+        "item": "simplebuilding:iron_core",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "type": "chest",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.995,
+          0.005
+        ]
+      },
+      {
+        "item": "simplebuilding:iron_core",
+        "table": "minecraft:chests/woodland_mansion",
+        "type": "chest",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.985,
+          0.015
+        ]
+      },
+      {
+        "item": "simplebuilding:music_disc_brimstone",
+        "table": "minecraft:chests/bastion_other",
+        "type": "chest",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.96,
+          0.04
+        ]
+      },
+      {
+        "item": "simplebuilding:music_disc_daybreak",
+        "table": "minecraft:chests/ancient_city",
+        "type": "chest",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.975,
+          0.025
+        ]
+      },
+      {
+        "item": "simplebuilding:music_disc_driftwood",
+        "table": "minecraft:chests/woodland_mansion",
+        "type": "chest",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.95,
+          0.05
+        ]
+      },
+      {
+        "item": "simplebuilding:music_disc_voidline",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.96,
+          0.04
+        ]
+      },
+      {
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/ancient_city",
+        "type": "chest",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.965913594927,
+          0.033690051526,
+          0.000396353547
+        ]
+      },
+      {
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/bastion_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.75,
+          0.25
+        ]
+      },
+      {
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "type": "vault",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "gated": true,
+        "requires": [
+          "trial"
+        ],
+        "pmf": [
+          0.981818181818,
+          0.018181818182
+        ]
+      },
+      {
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "type": "vault",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "gated": true,
+        "requires": [
+          "trial"
+        ],
+        "pmf": [
+          0.981818181818,
+          0.018181818182
+        ]
+      },
+      {
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/bastion_other",
+        "type": "chest",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.901752370009,
+          0.047400172364,
+          0.04826199368,
+          0.001723642631,
+          0.000861821316
+        ]
+      },
+      {
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/bastion_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.901752370009,
+          0.047400172364,
+          0.04826199368,
+          0.001723642631,
+          0.000861821316
+        ]
+      },
+      {
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/nether_bridge",
+        "type": "chest",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.925049309665,
+          0.024326101249,
+          0.024545255314,
+          0.02476440938,
+          0.000657462196,
+          0.000438308131,
+          0.000219154065
+        ]
+      },
+      {
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/ruined_portal",
+        "type": "chest",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.95,
+          0.05
+        ]
+      },
+      {
+        "item": "simplebuilding:netherite_core",
+        "table": "minecraft:chests/bastion_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.94,
+          0.06
+        ]
+      },
+      {
+        "item": "simplebuilding:nihilith_shard",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.833333333333,
+          0.041666666667,
+          0.041666666667,
+          0.041666666667,
+          0.041666666667
+        ]
+      },
+      {
+        "item": "simplebuilding:octant",
+        "table": "minecraft:chests/pillager_outpost",
+        "type": "chest",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.964710884354,
+          0.034863945578,
+          0.000425170068
+        ]
+      },
+      {
+        "item": "simplebuilding:quiver",
+        "table": "minecraft:chests/pillager_outpost",
+        "type": "chest",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.913371598639,
+          0.083971088435,
+          0.002657312925
+        ]
+      },
+      {
+        "item": "simplebuilding:quiver",
+        "table": "minecraft:chests/woodland_mansion",
+        "type": "chest",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.948291782087,
+          0.050784856879,
+          0.000923361034
+        ]
+      },
+      {
+        "item": "simplebuilding:reinforced_bundle",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.916666666667,
+          0.083333333333
+        ]
+      },
+      {
+        "item": "simplebuilding:reinforced_bundle",
+        "table": "minecraft:chests/simple_dungeon",
+        "type": "chest",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.922133333333,
+          0.075733333333,
+          0.002133333333
+        ]
+      },
+      {
+        "item": "simplelib:basic_upgrade_template",
+        "table": "minecraft:chests/simple_dungeon",
+        "type": "chest",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.980133333333,
+          0.019733333333,
+          0.000133333333
+        ]
+      },
+      {
+        "item": "simplelib:diamond_pebble",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "type": "chest",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.880208333333,
+          0.038194444444,
+          0.038773148148,
+          0.039351851852,
+          0.001736111111,
+          0.001157407407,
+          0.000578703704
+        ]
+      },
+      {
+        "item": "simplelib:diamond_pebble",
+        "table": "minecraft:chests/ancient_city",
+        "type": "chest",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.900118906064,
+          0.0,
+          0.024078478002,
+          0.024078478002,
+          0.024301426873,
+          0.024524375743,
+          0.000668846611,
+          0.000891795482,
+          0.000668846611,
+          0.000445897741,
+          0.00022294887
+        ]
+      },
+      {
+        "item": "simplelib:diamond_pebble",
+        "table": "minecraft:chests/buried_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.845023739138,
+          0.0,
+          0.029203619099,
+          0.029203619099,
+          0.029561945714,
+          0.029920272328,
+          0.030278598943,
+          0.001433306459,
+          0.001791633074,
+          0.001433306459,
+          0.001074979844,
+          0.000716653229,
+          0.000358326615
+        ]
+      },
+      {
+        "item": "simplelib:diamond_pebble",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.895833333333,
+          0.026041666667,
+          0.026041666667,
+          0.026041666667,
+          0.026041666667
+        ]
+      },
+      {
+        "item": "simplelib:diamond_pebble",
+        "table": "minecraft:chests/simple_dungeon",
+        "type": "chest",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.9412,
+          0.0192,
+          0.019333333333,
+          0.019466666667,
+          0.0004,
+          0.000266666667,
+          0.000133333333
+        ]
+      },
+      {
+        "item": "simplelib:diamond_pebble",
+        "table": "minecraft:chests/trial_chambers/reward_common",
+        "type": "vault",
+        "label": {
+          "en": "Trial chamber vault",
+          "de": "Prüfungskammer-Tresor"
+        },
+        "gated": true,
+        "requires": [
+          "trial"
+        ],
+        "pmf": [
+          0.925,
+          0.0,
+          0.025,
+          0.025,
+          0.025
+        ]
+      },
+      {
+        "item": "simplelib:diamond_pebble",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "type": "vault",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "gated": true,
+        "requires": [
+          "trial"
+        ],
+        "pmf": [
+          0.925,
+          0.0,
+          0.025,
+          0.025,
+          0.025
+        ]
+      },
+      {
+        "item": "simplelib:diamond_pebble",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "type": "fishing",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.878787878788,
+          0.040404040404,
+          0.040404040404,
+          0.040404040404
+        ]
+      },
+      {
+        "item": "simplelib:enderite_nugget",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.833333333333,
+          0.0,
+          0.041666666667,
+          0.041666666667,
+          0.041666666667,
+          0.041666666667
+        ]
+      },
+      {
+        "item": "simplelib:enderite_scrap",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.85,
+          0.15
+        ]
+      },
+      {
+        "item": "simplelib:enderite_upgrade_template",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.7,
+          0.3
+        ]
+      },
+      {
+        "item": "simplelib:netherite_nugget",
+        "table": "minecraft:chests/ancient_city",
+        "type": "chest",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.932619896948,
+          0.021931562954,
+          0.022107720086,
+          0.022283877218,
+          0.000528471396,
+          0.000352314264,
+          0.000176157132
+        ]
+      },
+      {
+        "item": "simplelib:netherite_nugget",
+        "table": "minecraft:chests/bastion_other",
+        "type": "chest",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.810399310543,
+          0.043952887101,
+          0.044814708417,
+          0.045676529733,
+          0.046538351049,
+          0.003447285263,
+          0.002585463947,
+          0.001723642631,
+          0.000861821316
+        ]
+      },
+      {
+        "item": "simplelib:netherite_nugget",
+        "table": "minecraft:chests/bastion_treasure",
+        "type": "chest",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.810399310543,
+          0.043952887101,
+          0.044814708417,
+          0.045676529733,
+          0.046538351049,
+          0.003447285263,
+          0.002585463947,
+          0.001723642631,
+          0.000861821316
+        ]
+      },
+      {
+        "item": "simplelib:netherite_nugget",
+        "table": "minecraft:chests/nether_bridge",
+        "type": "chest",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "gated": true,
+        "requires": [
+          "nether"
+        ],
+        "pmf": [
+          0.854043392505,
+          0.046022353715,
+          0.046898969976,
+          0.047775586237,
+          0.002629848784,
+          0.001753232522,
+          0.000876616261
+        ]
+      },
+      {
+        "item": "simplelib:netherite_nugget",
+        "table": "minecraft:chests/ruined_portal",
+        "type": "chest",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "gated": true,
+        "requires": [],
+        "pmf": [
+          0.925,
+          0.0375,
+          0.0375
+        ]
+      },
+      {
+        "item": "simplelib:raw_enderite",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.888888888889,
+          0.055555555556,
+          0.055555555556
+        ]
+      }
+    ],
+    "scenario": {
+      "origin": "tools/devserver/sbdev/params.py",
+      "normalFactor": 0.22,
+      "rates": {
+        "minecraft:chests/woodland_mansion": {
+          "targeted": 8.0,
+          "why": "Waldanwesen: 1 Anwesen je 2,5 h (Erkunderkarte), ~20 Truhen (KERNE-SELTENHEIT 2)",
+          "normal": 1.76
+        },
+        "minecraft:chests/abandoned_mineshaft": {
+          "targeted": 6.0,
+          "why": "Verlassene Mine: ~6 Kistenloren je Stunde gezielt (KERNE-SELTENHEIT 5.3)",
+          "normal": 1.32
+        },
+        "minecraft:chests/bastion_other": {
+          "targeted": 6.0,
+          "why": "Bastion: 1,5 Bastionen/h, ~4 Truhen (KERNE-SELTENHEIT 2)",
+          "normal": 1.32
+        },
+        "minecraft:chests/bastion_treasure": {
+          "targeted": 0.375,
+          "why": "Bastion: jede 4. Bastion hat den Schatzraum (KERNE-SELTENHEIT 2)",
+          "normal": 0.0825
+        },
+        "minecraft:chests/nether_bridge": {
+          "targeted": 4.0,
+          "why": "Netherfestung: 1 Festung je 45 min, ~3 Truhen (KERNE-SELTENHEIT 2)",
+          "normal": 0.88
+        },
+        "minecraft:chests/trial_chambers/reward_rare": {
+          "targeted": 3.2,
+          "why": "Prüfungskammer: 1 Kammer je 1,5 h, ~6 Tresore (KERNE-SELTENHEIT 2)",
+          "normal": 0.704
+        },
+        "minecraft:chests/trial_chambers/reward_common": {
+          "targeted": 0.8,
+          "why": "Prüfungskammer: 1 Kammer je 1,5 h, ~6 Tresore (KERNE-SELTENHEIT 2)",
+          "normal": 0.176
+        },
+        "minecraft:chests/trial_chambers/reward_ominous": {
+          "targeted": 1.33,
+          "why": "Prüfungskammer: ~2 unheilvolle je Kammer (KERNE-SELTENHEIT 2)",
+          "normal": 0.2926
+        },
+        "minecraft:chests/end_city_treasure": {
+          "targeted": 15.0,
+          "why": "Endsiedlung: mit Elytren 1 Stadt je 20 min, ~5 Truhen (KERNE-SELTENHEIT 2)",
+          "normal": 3.3
+        },
+        "minecraft:chests/ancient_city": {
+          "targeted": 8.0,
+          "why": "Antike Stätte: geschätzt: 1 Stadt je 1,5 h, ~12 Truhen",
+          "normal": 1.76
+        },
+        "minecraft:chests/stronghold_library": {
+          "targeted": 1.0,
+          "why": "Festung (Bibliothek): geschätzt: 1 Festung je 2 h, 1-2 Bibliothekstruhen",
+          "normal": 0.22
+        },
+        "minecraft:chests/pillager_outpost": {
+          "targeted": 2.0,
+          "why": "Plünderer-Außenposten: geschätzt: 2 Außenposten je Stunde, 1 Truhe",
+          "normal": 0.44
+        },
+        "minecraft:chests/buried_treasure": {
+          "targeted": 1.0,
+          "why": "Vergrabener Schatz: geschätzt: 1 Schatzkarte je Stunde",
+          "normal": 0.22
+        },
+        "minecraft:chests/simple_dungeon": {
+          "targeted": 2.0,
+          "why": "Verlies: geschätzt: 1-2 Verliese je Stunde Höhlenerkundung",
+          "normal": 0.44
+        },
+        "minecraft:chests/shipwreck_treasure": {
+          "targeted": 1.5,
+          "why": "Schiffswrack: geschätzt: 1,5 Wracks je Stunde auf See",
+          "normal": 0.33
+        },
+        "minecraft:chests/igloo_chest": {
+          "targeted": 0.3,
+          "why": "Iglu: geschätzt: selten, nur Schneebiome",
+          "normal": 0.066
+        },
+        "minecraft:chests/ruined_portal": {
+          "targeted": 2.0,
+          "why": "Portalruine: geschätzt: 2 Ruinen je Stunde",
+          "normal": 0.44
+        },
+        "minecraft:gameplay/fishing/treasure": {
+          "targeted": 6.0,
+          "why": "Angeln: geschätzt: ~120 Fänge/h, ~5 % Schatz ohne Glück des Meeres",
+          "normal": 1.32
+        }
+      },
+      "eras": [
+        {
+          "id": "early",
+          "en": "Early game, first base",
+          "de": "Early Game, erste Basis"
+        },
+        {
+          "id": "village",
+          "en": "Village & trading",
+          "de": "Dorf & Handel"
+        },
+        {
+          "id": "diamond",
+          "en": "Diamond age, enchanting table",
+          "de": "Diamantzeit, Zaubertisch"
+        },
+        {
+          "id": "nether",
+          "en": "Entering the Nether",
+          "de": "Nether-Einstieg"
+        },
+        {
+          "id": "brewing",
+          "en": "Brewing stand & potions",
+          "de": "Braustand & Tränke"
+        },
+        {
+          "id": "trial",
+          "en": "Diamond armour, trial chambers",
+          "de": "Diamantrüstung, Prüfungskammern"
+        },
+        {
+          "id": "netherite",
+          "en": "Late game, netherite",
+          "de": "Late Game, Netherit"
+        },
+        {
+          "id": "dragon",
+          "en": "Ender dragon defeated",
+          "de": "Enderdrache besiegt"
+        },
+        {
+          "id": "endcities",
+          "en": "End cities & elytra",
+          "de": "End-Städte & Elytren"
+        },
+        {
+          "id": "wither",
+          "en": "Wither, beacon, big builds",
+          "de": "Wither, Beacon, Großbauten"
+        }
+      ],
+      "requireStage": {
+        "village": "village",
+        "nether": "nether",
+        "end": "endcities",
+        "trial": "trial",
+        "brewing": "brewing"
+      },
+      "kMax": 24
     }
   },
   "advancements": [

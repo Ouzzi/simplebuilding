@@ -45,6 +45,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import model_render  # noqa: E402  (neighbour module; draws the 3D icons when Pillow/numpy exist)
 import obtain_sources  # noqa: E402  (loot chests, fishing, vaults, mob drops)
+import obtain_time  # noqa: E402  (time to the k-th piece, scenario defaults)
 import base_materials  # noqa: E402  (raw materials of a recipe in total)
 import trade_sources  # noqa: E402
 import config_metadata  # noqa: E402
@@ -1735,7 +1736,11 @@ def collect_obtain(roots: dict, line: str, items, blocks, enchantments, check: b
             values = [v if isinstance(v, str) else v.get("id") for v in read_json(path).get("values", [])]
             ench_tags["minecraft:" + path.relative_to(tag_dir).with_suffix("").as_posix()] = sorted(
                 v for v in values if isinstance(v, str))
-    return {"sources": sources, "enchantmentTags": ench_tags}, problems
+    sys.path.insert(0, str(REPO / "tools" / "devserver"))
+    from sbdev import params as scenario_params  # noqa: E402  (rates already marked as assumptions there)
+    return {"sources": sources, "enchantmentTags": ench_tags,
+            "timeStreams": obtain_time.build_streams(sources, obtain_sources.roll_distribution),
+            "scenario": obtain_time.scenario_defaults(scenario_params)}, problems
 
 
 # ---------------------------------------------------------------------------
