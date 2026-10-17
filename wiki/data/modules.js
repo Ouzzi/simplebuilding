@@ -234,7 +234,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "497bba703582"
+    "dataHash": "e4698541d3a0"
   },
   {
     "id": "simpledimensions",
@@ -277,7 +277,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend"
     ],
-    "dataHash": "0d4c47ba6216"
+    "dataHash": "fc7348a0ab85"
   },
   {
     "id": "simplelib",
@@ -292,7 +292,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "f872c68df69d"
+    "dataHash": "285e682026d4"
   },
   {
     "id": "simpleinterfaces",
@@ -365,7 +365,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "eb105cab0a20"
+    "dataHash": "39b2f3ce7c8d"
   },
   {
     "id": "simpleweather",
@@ -426,7 +426,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "f37ff9406e4e"
+    "dataHash": "a0690c0c08d5"
   },
   {
     "id": "simplefarming",
@@ -504,7 +504,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "d835ecdff71a"
+    "dataHash": "6e84609aa395"
   },
   {
     "id": "simpleaesthetics",
@@ -555,7 +555,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "f9df17d51eef"
+    "dataHash": "7365612661f2"
   },
   {
     "id": "simplerespawn",
@@ -608,7 +608,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "0d806a09a723"
+    "dataHash": "f8786d77ec8c"
   },
   {
     "id": "simplemobheads",
@@ -707,7 +707,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "d6954b181ac8"
+    "dataHash": "5b6023516385"
   },
   {
     "id": "simplecrucibles",
@@ -724,8 +724,10 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "jei",
+      "jade"
     ],
-    "dataHash": "903ff501b0d3"
+    "dataHash": "f2758df74b0f"
   }
 ];
