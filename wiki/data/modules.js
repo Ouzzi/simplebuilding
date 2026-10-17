@@ -234,7 +234,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "e4698541d3a0"
+    "dataHash": "831001eca59d"
   },
   {
     "id": "simpledimensions",
@@ -259,7 +259,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
-    "dataHash": "acfb10bdb077"
+    "dataHash": "4d2fff5f6bf4"
   },
   {
     "id": "simplesandwiches",
@@ -426,7 +426,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "400f376f2936"
+    "dataHash": "51d40af90050"
   },
   {
     "id": "simplefarming",
@@ -555,7 +555,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "7365612661f2"
+    "dataHash": "6c2c72b1e8d7"
   },
   {
     "id": "simplerespawn",
