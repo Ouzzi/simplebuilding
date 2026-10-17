@@ -47,16 +47,18 @@ public final class InvseeScreen extends AbstractContainerScreen<InvseeMenu> {
     protected void init() {
         super.init();
         if (menu.kind != InvseeMenu.Kind.DEATHS) return;
-        int y = topPos + InvseeMenu.ARMOR_Y - 2;
-        var prev = addRenderableWidget(Button.builder(Component.literal("<"), b -> click(InvseeMenu.PREV)).bounds(leftPos + 134, y, 16, 12).build());
-        var next = addRenderableWidget(Button.builder(Component.literal(">"), b -> click(InvseeMenu.NEXT)).bounds(leftPos + 152, y, 16, 12).build());
+        // own row inside the panel (no overlap with the info line or the slots): < > on the left, Restore on the right,
+        // sized by the translated text, so long translations (DE "Wiederherstellen") still fit
+        int y = topPos + InvseeMenu.BUTTONS_Y, h = InvseeMenu.BUTTON_H;
+        var prev = addRenderableWidget(Button.builder(Component.literal("<"), b -> click(InvseeMenu.PREV)).bounds(leftPos + 8, y, 20, h).build());
+        var next = addRenderableWidget(Button.builder(Component.literal(">"), b -> click(InvseeMenu.NEXT)).bounds(leftPos + 30, y, 20, h).build());
         prev.active = index > 1; next.active = index < count;
-        // "newer"/"older": index 1 is the newest backup
+        // index 1 is the newest backup
         prev.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simpletweaks.admin.deaths.newer")));
         next.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simpletweaks.admin.deaths.older")));
-        int rowY = topPos + InvseeMenu.ARMOR_Y + InvseeMenu.DEATH_SHIFT;
-        var restore = addRenderableWidget(Button.builder(Component.translatable("simpletweaks.admin.deaths.restore"), b -> click(InvseeMenu.RESTORE))
-                .bounds(leftPos + 104, rowY - 1, 64, 18).build());
+        Component label = Component.translatable("simpletweaks.admin.deaths.restore");
+        int max = imageWidth - 8 - 56, w = Math.min(max, Math.max(60, font.width(label) + 12));
+        var restore = addRenderableWidget(Button.builder(label, b -> click(InvseeMenu.RESTORE)).bounds(leftPos + imageWidth - 8 - w, y, w, h).build());
         restore.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable("simpletweaks.admin.deaths.restore.tip")));
     }
     private void click(int id) {
@@ -77,13 +79,13 @@ public final class InvseeScreen extends AbstractContainerScreen<InvseeMenu> {
     protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         super.extractLabels(g, mouseX, mouseY);
         if (menu.kind == InvseeMenu.Kind.DEATHS && !info.isEmpty())
-            g.text(font, font.plainSubstrByWidth(info, 122), 8, InvseeMenu.ARMOR_Y, InvseeColors.LABEL, false);
+            g.text(font, font.plainSubstrByWidth(info, imageWidth - 16), 8, InvseeMenu.INFO_Y, InvseeColors.LABEL, false);
     }
 
     @Override
     protected void extractTooltip(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         super.extractTooltip(g, mouseX, mouseY);
-        if (cause != null && mouseX >= leftPos + 8 && mouseX < leftPos + 130 && mouseY >= topPos + InvseeMenu.ARMOR_Y - 1 && mouseY < topPos + InvseeMenu.ARMOR_Y + 9)
+        if (cause != null && mouseX >= leftPos + 8 && mouseX < leftPos + imageWidth - 8 && mouseY >= topPos + InvseeMenu.INFO_Y - 1 && mouseY < topPos + InvseeMenu.INFO_Y + 9)
             g.setTooltipForNextFrame(font.split(Component.literal(cause), 200), mouseX, mouseY);
     }
 }

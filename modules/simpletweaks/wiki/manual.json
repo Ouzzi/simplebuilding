@@ -202,7 +202,7 @@
         "summary": "Bevor ein Spieler beim Tod etwas fallen lässt, werden Inventar, Rüstung, Nebenhand, XP, Zeit, Ursache und Position gesichert; je Spieler bleiben die letzten keep Tode (Standard 5, 1–50). /tweaks deaths <Spieler> [n] öffnet sie in der Admin-Inventaransicht.",
         "details": [
           "Ablage in <welt>/simpletweaks/deaths/<uuid>.dat. In der Ansicht wechseln die Pfeile zwischen den Sicherungen (1 = neueste), die Infozeile zeigt Nummer, Zeit und Stufe, der Tooltip Ursache und Position.",
-          "„Alles zurück“ ersetzt Inventar und XP des Spielers, online oder offline; das aktuelle Inventar wird vorher als neue Sicherung abgelegt, ein Wiederherstellen vernichtet also nie Items. Einzelne Items lassen sich herausnehmen; die Sicherung merkt sich das. OP-Stufe permission (Standard 3), Abschnitt deathBackups."
+          "„Wiederherstellen“ ersetzt Inventar und XP des Spielers, online oder offline; das aktuelle Inventar wird vorher als neue Sicherung abgelegt, ein Wiederherstellen vernichtet also nie Items. Einzelne Items lassen sich herausnehmen; die Sicherung merkt sich das. OP-Stufe permission (Standard 3), Abschnitt deathBackups."
         ]
       },
       "sources": [

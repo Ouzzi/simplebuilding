@@ -155,7 +155,7 @@
   "simpletweaks.admin.deaths.info": "%s/%s · %s · Stufe %s",
   "simpletweaks.admin.deaths.newer": "Neuere Sicherung",
   "simpletweaks.admin.deaths.older": "Ältere Sicherung",
-  "simpletweaks.admin.deaths.restore": "Alles zurück",
+  "simpletweaks.admin.deaths.restore": "Wiederherstellen",
   "simpletweaks.admin.deaths.restore.tip": "Ersetzt Inventar und XP; das aktuelle Inventar wird als neue Sicherung behalten.",
   "simpletweaks.admin.deaths.restored": "Sicherung von %s wiederhergestellt.",
   "simpletweaks.admin.deaths.restore_failed": "Die Sicherung von %s konnte nicht wiederhergestellt werden.",

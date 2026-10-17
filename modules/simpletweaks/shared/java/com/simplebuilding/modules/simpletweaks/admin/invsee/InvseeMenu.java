@@ -17,12 +17,14 @@ public class InvseeMenu extends AbstractContainerMenu {
     public enum Kind { INVENTORY, ENDER, DEATHS }
     public static final int WIDTH = 176;
     /** Inventory layout: armor row y, main rows y, hotbar y, own inventory y. */
-    public static final int ARMOR_Y = 18, DEATH_SHIFT = 12, MAIN_Y = 40, HOTBAR_Y = 98, OWN_Y = 130;
+    public static final int ARMOR_Y = 18, DEATH_SHIFT = 26, MAIN_Y = 40, HOTBAR_Y = 98, OWN_Y = 124;
     public static final int ENDER_Y = 18, ENDER_OWN_Y = 86;
     /** Container slot numbers of the top row, left to right: head, chest, legs, feet, offhand. */
     static final int[] ARMOR_ROW = {39, 38, 37, 36, 40};
     static final EquipmentSlot[] ARMOR_SLOT = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET, null};
     public static final int PREV = 0, NEXT = 1, RESTORE = 2;
+    /** Death backups: info line and its own button row between the title and the slots (DEATH_SHIFT). */
+    public static final int INFO_Y = 18, BUTTONS_Y = 28, BUTTON_H = 14;
 
     public final Kind kind;
     final int top;
