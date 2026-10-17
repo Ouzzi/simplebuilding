@@ -387,5 +387,19 @@
   "quests.simpletweaks.start.title": "Willkommen bei Simple Tweaks",
   "quests.simpletweaks.start.subtitle": "Dein Handbuch gratis",
   "quests.simpletweaks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen."
+  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen.",
+  "simpletweaks.protect.on": "an",
+  "simpletweaks.protect.off": "aus",
+  "simpletweaks.protect.status.antixray": "Anti-X-Ray: %s, Modus %s, Dimensionen: %s",
+  "simpletweaks.protect.status.freecam": "Freecam-Regel (nicht durch Blöcke fliegen): %s, Simple Tweaks auf dem Client verlangen: %s",
+  "simpletweaks.protect.status.others": "Seed-Hash: %s, Gesundheit verbergen: %s, Aktionsprüfung: %s",
+  "simpletweaks.protect.reloaded": "Schutz-Einstellungen neu geladen.",
+  "simpletweaks.protect.bench.none": "Keine geladenen Chunks in deiner Nähe.",
+  "simpletweaks.protect.bench.result": "%s Chunks: Vanilla %s µs, mit Anti-X-Ray %s µs je Chunk-Paket.",
+  "simpletweaks.protect.checks.none": "Seit dem Serverstart keine Treffer der Aktionsprüfung.",
+  "simpletweaks.protect.checks.player": "%s: Block-Reichweite %s, Entity-Reichweite %s, Schnellabbau %s",
+  "simpletweaks.protect.checks.notify": "[Schutz] %s – %s: %s",
+  "simpletweaks.protect.checks.kind.reach_block": "Block außer Reichweite",
+  "simpletweaks.protect.checks.kind.reach_entity": "Entity außer Reichweite",
+  "simpletweaks.protect.checks.kind.fast_break": "Schnellabbau"
 }

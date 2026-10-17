@@ -38,6 +38,12 @@ config="simpletweaks.admin.mixins.json"
 [[mixins]]
 config="simpletweaks.play.mixins.json"
 
+[[mixins]]
+config="simpletweaks.protect.mixins.json"
+
+[[mixins]]
+config="simpletweaks.protect.client.mixins.json"
+
 [[dependencies.simpletweaks]]
 modId="simpledimension"
 type="optional"

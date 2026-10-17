@@ -24,7 +24,8 @@
       "com.simplebuilding.modules.simpletweaks.ModuleGameTest",
       "com.simplebuilding.modules.simpletweaks.ClaimsGameTest",
       "com.simplebuilding.modules.simpletweaks.AdminGameTest",
-      "com.simplebuilding.modules.simpletweaks.PlayGameTest"
+      "com.simplebuilding.modules.simpletweaks.PlayGameTest",
+      "com.simplebuilding.modules.simpletweaks.ProtectGameTest"
     ]
   },
   "depends": {
@@ -38,7 +39,9 @@
     "simpletweaks.mixins.json",
     "simpletweaks.claims.mixins.json",
     "simpletweaks.admin.mixins.json",
-    "simpletweaks.play.mixins.json"
+    "simpletweaks.play.mixins.json",
+    "simpletweaks.protect.mixins.json",
+    "simpletweaks.protect.client.mixins.json"
   ],
   "license": "CC0-1.0",
   "suggests": {

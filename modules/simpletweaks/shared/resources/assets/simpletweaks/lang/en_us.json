@@ -387,5 +387,19 @@
   "quests.simpletweaks.start.title": "Welcome to Simple Tweaks",
   "quests.simpletweaks.start.subtitle": "Your free guide",
   "quests.simpletweaks.start.welcome.title": "A free guide",
-  "quests.simpletweaks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tweaks Guide as a reward. You can also craft it from a book and paper."
+  "quests.simpletweaks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tweaks Guide as a reward. You can also craft it from a book and paper.",
+  "simpletweaks.protect.on": "on",
+  "simpletweaks.protect.off": "off",
+  "simpletweaks.protect.status.antixray": "Anti-X-Ray: %s, mode %s, dimensions: %s",
+  "simpletweaks.protect.status.freecam": "Freecam rule (no flying through blocks): %s, require Simple Tweaks on the client: %s",
+  "simpletweaks.protect.status.others": "Seed hash: %s, hidden health: %s, action checks: %s",
+  "simpletweaks.protect.reloaded": "Protection settings reloaded.",
+  "simpletweaks.protect.bench.none": "No loaded chunks around you.",
+  "simpletweaks.protect.bench.result": "%s chunks: Vanilla %s µs, with Anti-X-Ray %s µs per chunk packet.",
+  "simpletweaks.protect.checks.none": "No action check hits since the server start.",
+  "simpletweaks.protect.checks.player": "%s: block reach %s, entity reach %s, fast break %s",
+  "simpletweaks.protect.checks.notify": "[Protect] %s – %s: %s",
+  "simpletweaks.protect.checks.kind.reach_block": "block out of reach",
+  "simpletweaks.protect.checks.kind.reach_entity": "entity out of reach",
+  "simpletweaks.protect.checks.kind.fast_break": "fast break"
 }

@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simpletweaks.protect.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ProtectChunkSenderMixin",
+    "ProtectChunkDataMixin",
+    "ProtectLevelMixin",
+    "ProtectSpawnInfoMixin",
+    "ProtectPacketMixin",
+    "ProtectGameModeMixin",
+    "ProtectGameModeAccessor",
+    "ProtectGamePacketMixin",
+    "ProtectPlayerListMixin",
+    "ProtectLivingAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

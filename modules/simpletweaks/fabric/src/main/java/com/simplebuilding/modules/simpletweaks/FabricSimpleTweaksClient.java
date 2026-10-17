@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 public final class FabricSimpleTweaksClient implements ClientModInitializer {
     @Override public void onInitializeClient() {
         AdminFabricClient.init(); // admin screens
+        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpletweaks.protect.ProtectRulesPayload.TYPE,(payload,context)->context.client().execute(()->com.simplebuilding.modules.simpletweaks.protect.client.ProtectClient.rules(payload))); // protection rules (Freecam collision)
         DeedNet.toServer=payload->{if(ClientPlayNetworking.canSend(payload.type()))ClientPlayNetworking.send(payload);};
         ClientPlayNetworking.registerGlobalReceiver(DeedOpenPayload.TYPE,(payload,context)->context.client().execute(()->DeedClient.open(payload)));
         ClientPlayNetworking.registerGlobalReceiver(DeedResultPayload.TYPE,(payload,context)->context.client().execute(()->DeedClient.result(payload)));
