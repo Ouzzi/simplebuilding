@@ -529,6 +529,10 @@ public final class MusicDiscTests {
         for (int cx = lo.getX() >> 4; cx <= hi.getX() >> 4; cx++) {
             for (int cz = lo.getZ() >> 4; cz <= hi.getZ() >> 4; cz++) {
                 int fx = cx, fz = cz;
+                // Nur selbst erzwungene Chunks freigeben: die Testrahmen-Chunks der Nachbartests sind schon erzwungen.
+                if (helper.getLevel().getForceLoadedChunks().contains(net.minecraft.world.level.ChunkPos.pack(fx, fz))) {
+                    continue;
+                }
                 helper.getLevel().setChunkForced(fx, fz, true);
                 helper.runBeforeTestEnd(() -> helper.getLevel().setChunkForced(fx, fz, false));
             }

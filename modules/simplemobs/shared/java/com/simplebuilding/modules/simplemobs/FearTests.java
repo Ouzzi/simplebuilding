@@ -380,7 +380,8 @@ final class FearTests {
             h.assertTrue(watcher.hurtServer(h.getLevel(), h.getLevel().damageSources().generic(), 1.0f), "the hit lands");
             for (int i = 0; i < FearLogic.HIT_TELEPORT_TICKS + 2; i++) watcher.tick();
             h.assertTrue(watcher.position().distanceTo(start) > 1.0, "it blinked away");
-            h.assertTrue(watcher.getTarget() == far, "with two candidates the current target is skipped: the other one is chosen");
+            // The arena reaches into neighbouring tests, so their entities can be candidates too: assert the skip, not who wins.
+            h.assertTrue(watcher.getTarget() != null && watcher.getTarget() != near, "with two candidates the current target is skipped: another one is chosen");
             watcher.discard();
             near.discard();
             far.discard();

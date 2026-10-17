@@ -41,8 +41,8 @@ final class EndNetherTests {
         for (int cx = a.getX() >> 4; cx <= b.getX() >> 4; cx++) {
             for (int cz = a.getZ() >> 4; cz <= b.getZ() >> 4; cz++) {
                 int fx = cx, fz = cz;
-                l.setChunkForced(fx, fz, true);
-                h.runBeforeTestEnd(() -> l.setChunkForced(fx, fz, false));
+                ChunkHolds.hold(l, fx, fz);
+                h.runBeforeTestEnd(() -> ChunkHolds.release(l, fx, fz));
             }
         }
     }
