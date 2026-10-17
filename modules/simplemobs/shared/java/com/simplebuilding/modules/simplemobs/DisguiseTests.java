@@ -290,12 +290,12 @@ final class DisguiseTests {
             BlockPos lo = h.absolutePos(new BlockPos(-10, 0, -10)), hi = h.absolutePos(new BlockPos(30, 0, 30));
             List<ChunkPos> held = new ArrayList<>();
             for (int cx = lo.getX() >> 4; cx <= hi.getX() >> 4; cx++) for (int cz = lo.getZ() >> 4; cz <= hi.getZ() >> 4; cz++) {
-                level.setChunkForced(cx, cz, true);
+                ChunkHolds.hold(level, cx, cz);
                 held.add(new ChunkPos(cx, cz));
             }
             waitLoaded(h, level, held, 60, () -> {
-                try { doubleCap(h, level); } finally { for (ChunkPos c : held) level.setChunkForced(c.x(), c.z(), false); }
-            }, () -> { for (ChunkPos c : held) level.setChunkForced(c.x(), c.z(), false); });
+                try { doubleCap(h, level); } finally { for (ChunkPos c : held) ChunkHolds.release(level, c.x(), c.z()); }
+            }, () -> { for (ChunkPos c : held) ChunkHolds.release(level, c.x(), c.z()); });
         });
     }
 
