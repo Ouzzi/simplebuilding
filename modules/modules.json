@@ -870,7 +870,8 @@
         "namespace": "simpletweaks",
         "catalogues": [
           "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/ModuleGameTest.java",
-          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/ClaimsGameTest.java"
+          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/ClaimsGameTest.java",
+          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/AdminGameTest.java"
         ],
         "requires": [
           "simpletweaks",

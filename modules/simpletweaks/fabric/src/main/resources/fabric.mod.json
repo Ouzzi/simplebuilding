@@ -22,7 +22,8 @@
     ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpletweaks.ModuleGameTest",
-      "com.simplebuilding.modules.simpletweaks.ClaimsGameTest"
+      "com.simplebuilding.modules.simpletweaks.ClaimsGameTest",
+      "com.simplebuilding.modules.simpletweaks.AdminGameTest"
     ]
   },
   "depends": {
@@ -34,7 +35,8 @@
   },
   "mixins": [
     "simpletweaks.mixins.json",
-    "simpletweaks.claims.mixins.json"
+    "simpletweaks.claims.mixins.json",
+    "simpletweaks.admin.mixins.json"
   ],
   "license": "CC0-1.0",
   "suggests": {

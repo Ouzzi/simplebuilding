@@ -17,6 +17,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
    context.waitTicks(20);context.takeScreenshot("simpletweaks-world");
    context.runOnClient(client->{client.gui.setScreen(new net.minecraft.client.gui.screens.inventory.InventoryScreen(client.player));});context.waitTicks(10);context.takeScreenshot("simpletweaks-deed");
    deedEditor(context,world);
+   invsee(context,world);
   }
  }
  /** Claim deed (phase 2) end to end on a real client: sheet, claim, editor, error line, valid code, Done, ledger. */
@@ -62,6 +63,33 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   });
   context.waitForScreen(com.simplebuilding.modules.simpletweaks.deed.client.DeedScreen.class);
   context.waitTicks(3);context.takeScreenshot("simpletweaks-deed-read");
+  context.runOnClient(client->client.gui.setScreen(null));
+ }
+
+ /** Admin inventory screen (T13) and the death backup screen (T11) on a real client: screenshots for the owner's review. */
+ private static void invsee(ClientGameTestContext context,net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
+  world.getServer().runOnServer(server->{
+   var p=server.getPlayerList().getPlayers().getFirst();
+   server.getPlayerList().op(p.nameAndId(),java.util.Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.OWNER),java.util.Optional.empty());
+   var inv=p.getInventory();inv.clearContent();
+   inv.setItem(0,new ItemStack(net.minecraft.world.item.Items.DIAMOND_SWORD));inv.setItem(1,new ItemStack(net.minecraft.world.item.Items.BOW));inv.setItem(8,new ItemStack(net.minecraft.world.item.Items.BREAD,12));
+   inv.setItem(12,new ItemStack(net.minecraft.world.item.Items.TORCH,32));inv.setItem(20,new ItemStack(net.minecraft.world.item.Items.OAK_LOG,64));
+   inv.setItem(39,new ItemStack(net.minecraft.world.item.Items.IRON_HELMET));inv.setItem(38,new ItemStack(net.minecraft.world.item.Items.IRON_CHESTPLATE));inv.setItem(40,new ItemStack(net.minecraft.world.item.Items.SHIELD));
+   if(!com.simplebuilding.modules.simpletweaks.admin.invsee.Invsee.openInventory(p,p.nameAndId(),false))throw new AssertionError("The invsee screen opens");
+  });
+  context.waitForScreen(com.simplebuilding.modules.simpletweaks.admin.invsee.client.InvseeScreen.class);
+  context.waitTicks(5);context.takeScreenshot("simpletweaks-invsee");
+  world.getServer().runOnServer(server->{
+   var p=server.getPlayerList().getPlayers().getFirst();
+   com.simplebuilding.modules.simpletweaks.admin.deaths.DeathBackups.add(server,p.getUUID(),com.simplebuilding.modules.simpletweaks.admin.deaths.DeathBackups.snapshot(p,"Player was blown up by Creeper"));
+   p.getInventory().setItem(5,new ItemStack(net.minecraft.world.item.Items.ENDER_PEARL,8));
+   com.simplebuilding.modules.simpletweaks.admin.deaths.DeathBackups.add(server,p.getUUID(),com.simplebuilding.modules.simpletweaks.admin.deaths.DeathBackups.snapshot(p,"Player was slain by Zombie"));
+   p.closeContainer();
+   if(!com.simplebuilding.modules.simpletweaks.admin.invsee.Invsee.openDeaths(p,p.nameAndId(),0))throw new AssertionError("The death backup screen opens");
+  });
+  context.waitTicks(5);
+  context.waitForScreen(com.simplebuilding.modules.simpletweaks.admin.invsee.client.InvseeScreen.class);
+  context.waitTicks(5);context.takeScreenshot("simpletweaks-deaths");
   context.runOnClient(client->client.gui.setScreen(null));
  }
 }
