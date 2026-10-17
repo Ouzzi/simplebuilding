@@ -232,9 +232,11 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simpledimensions",
-      "simplebuilding"
+      "simplebuilding",
+      "simplemoney",
+      "simpleweather"
     ],
-    "dataHash": "4b9723143bae"
+    "dataHash": "7e848fa048e2"
   },
   {
     "id": "simpledimensions",
