@@ -92,3 +92,22 @@ Branch `claude-s6-octets` (von `claude-wave1` 369bcb4d1), Sitzung A. Grundlage: 
 Compile 26.3 fabric/neoforge/forge + 26.2 `:compileJava`; Checks `checkModuleGuides checkModuleData checkWiki checkDiscover
 checkMultimod`; SB-Filter `octet_mix`, `sledgehammer_octet`, `chess`, `data_integrity`, `migration` (fabric+neoforge);
 `module-simpleoctets-{fabric,neoforge}-263`, Standalone fabric+neoforge, Forge-Compile. Nicht geprüft (bewusst): Client-Sicht.
+
+## 6. Stand (17.10.) und Abweichungen
+
+Umgesetzt wie geplant: Modul `modules/simpleoctets` (1.0.0, Pflicht-Sub-Mod, gebündelt auf allen drei Loadern), 170 Zellen
+(15 Holz, 155 Material inkl. 2 neue aus Simple Blocks) + Melone + gemischte Zelle (BE `simpleoctets:mixed_octet`, Lang-Schlüssel
+`block.simpleoctets.mixed_octet` neu), 340 Rezepte + Freischaltungen per Generator, IdMoves für Blöcke/Items/BE/Rezepte/
+Advancements, Tab, Vanilla-Tab-Platzierung, JEI-Infoseiten, Handbuch, Discover, Testzentrale-Station, Wiki, Money-Tabelle,
+Schalter „Enable Simple Octets“, Standalone-Targets, 15 Modul-Tests. SB 26.3: dünne Unterklassen `OctetCellBlock`/`OctetCells`,
+26.2-Zwillinge, `util/OctetRefs`, Datagen ohne Achtel.
+
+Abweichungen (bewusst):
+- **Neue Achtel aus Simple Blocks** (`blue_nether_bricks_octet`, `hushed_deepslate_tiles_octet`, nur mit Simple Blocks): die
+  Besitzerregel „jeder Block mit Treppe und Stufe hat ein Achtel“ gilt für die Familie; zeigt die optionale Integration.
+- SB-Tests bleiben (auf Ids/`OctetRefs` umgestellt) statt umzuziehen; das Modul hat eigene Tests (allein lauffähig).
+- SB-Suchtab-Ketten setzen die Modul-Achtel weiter per Id (Reihenfolge der End-Paletten); das Modul setzt sie zusätzlich selbst
+  hinter die Stufe (beide überspringen schon vorhandene Stapel).
+- Melonenscheiben-Tooltip per Mixin auf `Item#appendHoverText` (Vanilla-Item), Glitzermelone als Nahrung bleibt SB.
+- Keine Config-Übernahme: SB hatte keine Achtel-Optionen. Kein Vanilla-abgeleitetes Bild (Modelle verweisen auf Texturen).
+- Vanilla-Stamm-Achtel bleiben in `mineable/pickaxe` (wie in SB; vermutlich Altfehler, offen notiert).

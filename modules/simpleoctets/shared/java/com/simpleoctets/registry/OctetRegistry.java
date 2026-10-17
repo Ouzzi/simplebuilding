@@ -138,6 +138,7 @@ public final class OctetRegistry {
     public static synchronized void registerItems() {
         if (items) return;
         items = true;
+        com.simpleoctets.guide.OctetsGuide.register();
         for (Block cell : WOOD_OCTETS) {
             WOOD_OCTET_ITEMS.add(item(BuiltInRegistries.BLOCK.getKey(cell).getPath(), s -> new MaterialOctetItem(() -> cell, s.stacksTo(MAX_STACK))));
         }
