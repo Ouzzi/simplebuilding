@@ -2,7 +2,7 @@ package com.simplebuilding.modules.simplequalityoflife;
 import com.simplequalityoflife.*;
 import net.fabricmc.api.ModInitializer;
 /** Super-mod entry: guide book, start quest, sub-mod switches and /simplequalityoflife; the features live in the bundled sub-mods. */
-public final class FabricExample implements ModInitializer {
+public final class QualityOfLifeFabric implements ModInitializer {
  public void onInitialize(){
   Simplequalityoflife.init();
   com.simplequalityoflife.guide.QolGuide.register();

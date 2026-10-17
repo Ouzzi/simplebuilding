@@ -6,7 +6,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.simplebuilding.modules.simpleriding.FabricExample"
+      "com.simplebuilding.modules.simpleriding.RidingFabric"
     ],
     "modmenu": [
       "com.simplebuilding.modules.simpleriding.RidingModMenu"

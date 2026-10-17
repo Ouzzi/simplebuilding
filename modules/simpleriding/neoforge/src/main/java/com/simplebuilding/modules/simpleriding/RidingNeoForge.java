@@ -2,8 +2,8 @@ package com.simplebuilding.modules.simpleriding;
 import com.simpleriding.*;
 import net.neoforged.fml.common.Mod;
 import net.minecraft.core.registries.Registries;
-@Mod("simpleriding") public final class NeoForgeExample {
- public NeoForgeExample(net.neoforged.bus.api.IEventBus bus){
+@Mod("simpleriding") public final class RidingNeoForge {
+ public RidingNeoForge(net.neoforged.bus.api.IEventBus bus){
   RidingNeoTests.register(bus);
   RidingNeoAttachments.register(bus);
   Riding.CONFIG=RidingConfig.load(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());

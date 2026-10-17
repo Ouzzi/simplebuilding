@@ -14,8 +14,8 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.RegisterEvent;
 
 @Mod("simplemobs")
-public final class ForgeExample {
-    public ForgeExample(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplemobs.forge.ModuleForgeTests.register(context.getModBusGroup());
+public final class MobsForge {
+    public MobsForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplemobs.forge.ModuleForgeTests.register(context.getModBusGroup());
         MobsConfig.load(FMLPaths.CONFIGDIR.get());
         var bus = context.getModBusGroup();
         RegisterEvent.getBus(bus).addListener(event -> {

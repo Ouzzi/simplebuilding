@@ -16,8 +16,8 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 @Mod("simplemobs")
-public final class NeoForgeExample {
-    public NeoForgeExample(IEventBus bus, Dist dist) {
+public final class MobsNeoForge {
+    public MobsNeoForge(IEventBus bus, Dist dist) {
         MobsConfig.load(FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {

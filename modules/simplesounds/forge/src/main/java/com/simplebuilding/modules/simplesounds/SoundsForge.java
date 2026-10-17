@@ -1,10 +1,11 @@
-package com.simplebuilding.modules.wiringexample;
+package com.simplebuilding.modules.simplesounds;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegisterEvent;
-@Mod("wiringexample")
-public final class ForgeExample {
-    public ForgeExample(FMLJavaModLoadingContext context) {
+@Mod("simplesounds")
+public final class SoundsForge {
+    public SoundsForge(FMLJavaModLoadingContext context) {
+        com.simplebuilding.modules.simplesounds.forge.ModuleForgeTests.register(context.getModBusGroup());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             if (event.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) ExampleItems.register();
         });

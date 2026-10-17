@@ -1,9 +1,8 @@
-package com.simplebuilding.modules.__MODID__;
+package com.simplebuilding.modules.wiringexample;
 import net.neoforged.fml.common.Mod;
-@Mod("__MODID__")
-public final class NeoForgeExample {
-    public NeoForgeExample(net.neoforged.bus.api.IEventBus bus) {
-        ModuleNeoTests.register(bus);
+@Mod("wiringexample")
+public final class WiringExampleNeoForge {
+    public WiringExampleNeoForge(net.neoforged.bus.api.IEventBus bus) {
         bus.addListener((net.neoforged.neoforge.registries.RegisterEvent event) -> {
             if (event.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) ExampleItems.register();
         });

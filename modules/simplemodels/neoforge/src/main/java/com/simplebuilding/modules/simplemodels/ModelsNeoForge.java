@@ -1,8 +1,8 @@
 package com.simplebuilding.modules.simplemodels;
 import net.neoforged.fml.common.Mod;
 @Mod("simplemodels")
-public final class NeoForgeExample {
-    public NeoForgeExample(net.neoforged.bus.api.IEventBus bus) {
+public final class ModelsNeoForge {
+    public ModelsNeoForge(net.neoforged.bus.api.IEventBus bus) {
         ModuleNeoTests.register(bus);
   bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)->{if(e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM))com.simplebuilding.modules.simplemodels.guide.ModelsGuide.register();});
   if(net.neoforged.fml.ModList.get().isLoaded("ftbquests"))com.simplebuilding.modules.simplemodels.guide.ModelsGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());

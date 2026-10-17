@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.simplebuilding.modules.simplesounds.FabricExample"
+      "com.simplebuilding.modules.simplesounds.SoundsFabric"
     ],
     "client": [
       "com.simplebuilding.modules.simplesounds.SoundsFabricClient"

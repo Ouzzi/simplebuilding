@@ -10,7 +10,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public final class FabricExample implements ModInitializer {
+public final class MobsFabric implements ModInitializer {
     @Override public void onInitialize() {
         MobsConfig.load(FabricLoader.getInstance().getConfigDir());
         MobsRegistry.registerAll();

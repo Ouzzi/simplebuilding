@@ -1,5 +1,5 @@
-package com.simplebuilding.modules.__MODID__;
+package com.simplebuilding.modules.simplesounds;
 import net.fabricmc.api.ModInitializer;
-public final class FabricExample implements ModInitializer {
+public final class SoundsFabric implements ModInitializer {
     @Override public void onInitialize() { ExampleItems.register(); }
 }

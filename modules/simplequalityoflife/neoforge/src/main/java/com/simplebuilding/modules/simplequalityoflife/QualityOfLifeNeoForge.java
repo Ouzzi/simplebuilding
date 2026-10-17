@@ -2,8 +2,8 @@ package com.simplebuilding.modules.simplequalityoflife;
 import com.simplequalityoflife.*;
 /** Super-mod entry: guide book, start quest, sub-mod switches and /simplequalityoflife; the features live in the bundled sub-mods. */
 @net.neoforged.fml.common.Mod("simplequalityoflife")
-public final class NeoForgeExample {
- public NeoForgeExample(net.neoforged.bus.api.IEventBus bus){
+public final class QualityOfLifeNeoForge {
+ public QualityOfLifeNeoForge(net.neoforged.bus.api.IEventBus bus){
   Simplequalityoflife.init();
   bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)->{if(e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM))com.simplequalityoflife.guide.QolGuide.register();});
   if(net.neoforged.fml.ModList.get().isLoaded("ftbquests"))com.simplequalityoflife.guide.QolGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());

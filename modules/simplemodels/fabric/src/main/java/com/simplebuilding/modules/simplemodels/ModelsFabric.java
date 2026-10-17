@@ -1,6 +1,6 @@
 package com.simplebuilding.modules.simplemodels;
 import net.fabricmc.api.ModInitializer;
-public final class FabricExample implements ModInitializer {
+public final class ModelsFabric implements ModInitializer {
     @Override public void onInitialize() {
   com.simplebuilding.modules.simplemodels.guide.ModelsGuide.register();
   if(net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests"))com.simplebuilding.modules.simplemodels.guide.ModelsGuide.installQuests(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());

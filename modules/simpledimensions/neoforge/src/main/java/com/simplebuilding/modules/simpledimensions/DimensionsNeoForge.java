@@ -4,8 +4,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 @Mod("simpledimension")
-public final class NeoForgeExample {
- public NeoForgeExample(net.neoforged.bus.api.IEventBus bus) {
+public final class DimensionsNeoForge {
+ public DimensionsNeoForge(net.neoforged.bus.api.IEventBus bus) {
   ModuleNeoTests.register(bus);
   if(net.neoforged.fml.ModList.get().isLoaded("ftbquests"))com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
   bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e)->{if(!e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)||!com.simplebuilding.framework.api.SubMods.enabled("simpledimension"))return;var book=new net.minecraft.world.item.ItemStack(com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.book());var anchor=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.WRITABLE_BOOK);/* before the writable book: a tail append clashes with other mods' insertAfter at the tail */if(e.getParentEntries().contains(anchor))e.insertBefore(anchor,book,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);else e.accept(book);});

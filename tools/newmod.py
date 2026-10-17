@@ -16,14 +16,15 @@ def create(mid, name, root=ROOT):
         raise ValueError(f'Already exists: {dest}')
     enabled = selection(root)
     template = root / 'tools/templates/module'
+    cls = ''.join(w.capitalize() for w in mid.removeprefix('simple').split('_')) or mid.capitalize()  # entry classes: <Cls>Fabric/<Cls>NeoForge/<Cls>Forge
     for template_file in template.rglob('*'):
         if template_file.is_file():
-            path = dest / template_file.relative_to(template).as_posix().replace('wiringexample', mid)
+            path = dest / template_file.relative_to(template).as_posix().replace('wiringexample', mid).replace('__CLASS__', cls)
             path.parent.mkdir(parents=True, exist_ok=True)
             if template_file.suffix == '.nbt':
                 path.write_bytes(template_file.read_bytes())
                 continue
-            path.write_text(template_file.read_text(encoding='utf-8').replace('__MODID__', mid)
+            path.write_text(template_file.read_text(encoding='utf-8').replace('__MODID__', mid).replace('__CLASS__', cls)
                             .replace('__DISPLAY_NAME__', name), encoding='utf-8')
     modules.append(dict(id=mid, name=name, version='0.1.0', minecraft='26.3', defaultEnabled=True,
                         displayName=name, description=f'{name} module.', loaders=['fabric','neoforge','forge'],
