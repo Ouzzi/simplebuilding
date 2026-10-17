@@ -68,4 +68,8 @@ public final class ClaimsGameTest {
  @GameTest public void claimsDeedCopy(GameTestHelper h) { ClaimTests.TESTS.get("claims_deed_copy").accept(h); }
  @GameTest public void claimsTableBasics(GameTestHelper h) { ClaimTests.TESTS.get("claims_table_basics").accept(h); }
  @GameTest public void claimsTableService(GameTestHelper h) { ClaimTests.TESTS.get("claims_table_service").accept(h); }
+ @GameTest public void claimsExpandBudget(GameTestHelper h) { ClaimTests.TESTS.get("claims_expand_budget").accept(h); }
+ @GameTest public void claimsExpand(GameTestHelper h) { ClaimTests.TESTS.get("claims_expand").accept(h); }
+ @GameTest public void claimsExpandTable(GameTestHelper h) { ClaimTests.TESTS.get("claims_expand_table").accept(h); }
+ @GameTest public void claimsMapLayer(GameTestHelper h) { ClaimTests.TESTS.get("claims_map_layer").accept(h); }
 }
