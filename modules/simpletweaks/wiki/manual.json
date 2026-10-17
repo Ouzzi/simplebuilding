@@ -157,6 +157,218 @@
           "Native Forge-Aliase und Wrapper-Lookups lösen nur die bestehende Alt-ID-Allowlist auf. Gespeichert werden kanonische IDs; keine doppelten Spielmechaniken. Claims bleiben inaktiv. Forge-Client und echte hochgestufte Welten bleiben ungeprüft."
         ]
       }
+    },
+    {
+      "id": "admin_block_log",
+      "en": {
+        "title": "Block and container log (on by default)",
+        "summary": "Logs every block a player breaks or places and every item taken from or put into a container block, with player, time, position and dimension. /inspect shows the history of a clicked block, /tweaks rollback undoes a player's actions.",
+        "details": [
+          "Storage: append-only day files under <world>/simpletweaks/blocklog/<dimension>/<regionX>_<regionZ>/<date>.tsv; the region folder (512×512 blocks) is the position index, the day file the time index. The server thread only queues entries; one background thread writes them every flushSeconds (default 5, 1–60) and answers lookups. Day files older than retentionDays (default 14, 1–365) are deleted at start and once a day.",
+          "/inspect (operator level permission, default 2) toggles the inspect mode: a left or right click on a block shows its history, 7 lines per page (/inspect page <n>), and does not break or use the block. Broken blocks keep their block state and block entity data up to 32 KB.",
+          "/tweaks rollback <player> <time> [radius] (rollbackPermission, default 3): time like 30m, 2h, 1d or 1h30m; with a radius only the square around you in your dimension, without one every dimension. Newest first: placed blocks are removed while the same block is still there, broken blocks return onto air or replaceable blocks (with their contents), taken items go back into the container and deposited items are taken out. At most rollbackMaxChanges (default 20000) entries. Section blockLog in config/simpletweaks-admin.json."
+        ]
+      },
+      "de": {
+        "title": "Block- und Truhen-Protokoll (standardmäßig an)",
+        "summary": "Protokolliert jeden Block, den ein Spieler abbaut oder setzt, und jedes Item, das er aus einem Container-Block nimmt oder hineinlegt – mit Spieler, Zeit, Position und Dimension. /inspect zeigt den Verlauf eines angeklickten Blocks, /tweaks rollback macht die Aktionen eines Spielers rückgängig.",
+        "details": [
+          "Ablage: Tagesdateien zum Anhängen unter <welt>/simpletweaks/blocklog/<dimension>/<regionX>_<regionZ>/<datum>.tsv; der Regionsordner (512×512 Blöcke) ist der Positionsindex, die Tagesdatei der Zeitindex. Der Server-Thread reiht Einträge nur ein; ein eigener Thread schreibt sie alle flushSeconds (Standard 5, 1–60) und beantwortet Abfragen. Tagesdateien älter als retentionDays (Standard 14, 1–365) werden beim Start und einmal täglich gelöscht.",
+          "/inspect (OP-Stufe permission, Standard 2) schaltet den Prüfmodus: Links- oder Rechtsklick auf einen Block zeigt seinen Verlauf, 7 Zeilen je Seite (/inspect page <n>), ohne ihn abzubauen oder zu benutzen. Abgebaute Blöcke behalten Blockzustand und Blockentity-Daten bis 32 KB.",
+          "/tweaks rollback <Spieler> <Zeit> [Radius] (rollbackPermission, Standard 3): Zeit wie 30m, 2h, 1d oder 1h30m; mit Radius nur das Quadrat um dich in deiner Dimension, ohne Radius alle Dimensionen. Neueste zuerst: gesetzte Blöcke verschwinden, solange noch derselbe Block dort steht, abgebaute kommen auf Luft oder ersetzbare Blöcke zurück (mit Inhalt), genommene Items wandern zurück in den Container, hineingelegte wieder heraus. Höchstens rollbackMaxChanges (Standard 20000) Einträge. Abschnitt blockLog in config/simpletweaks-admin.json."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/BlockLog.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/BlockRecorder.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/Inspect.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/Rollback.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/blocklog/BlockLogCommands.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_death_backups",
+      "en": {
+        "title": "Inventory backups on death (on by default)",
+        "summary": "Before a player drops anything on death, their inventory, armor, offhand, XP, time, cause and position are saved; the last keep deaths (default 5, 1–50) per player stay. /tweaks deaths <player> [n] opens them in the admin inventory screen.",
+        "details": [
+          "Stored in <world>/simpletweaks/deaths/<uuid>.dat. In the screen the arrows switch between backups (1 = newest), the info line shows number, time and level, the tooltip the cause and position.",
+          "Restore all replaces the player's inventory and XP, online or offline; the current inventory is saved as a new backup first, so a restore never destroys items. Single items can be taken out of a backup; the backup remembers that. Operator level permission (default 3), section deathBackups."
+        ]
+      },
+      "de": {
+        "title": "Inventar-Sicherung beim Tod (standardmäßig an)",
+        "summary": "Bevor ein Spieler beim Tod etwas fallen lässt, werden Inventar, Rüstung, Nebenhand, XP, Zeit, Ursache und Position gesichert; je Spieler bleiben die letzten keep Tode (Standard 5, 1–50). /tweaks deaths <Spieler> [n] öffnet sie in der Admin-Inventaransicht.",
+        "details": [
+          "Ablage in <welt>/simpletweaks/deaths/<uuid>.dat. In der Ansicht wechseln die Pfeile zwischen den Sicherungen (1 = neueste), die Infozeile zeigt Nummer, Zeit und Stufe, der Tooltip Ursache und Position.",
+          "„Alles zurück“ ersetzt Inventar und XP des Spielers, online oder offline; das aktuelle Inventar wird vorher als neue Sicherung abgelegt, ein Wiederherstellen vernichtet also nie Items. Einzelne Items lassen sich herausnehmen; die Sicherung merkt sich das. OP-Stufe permission (Standard 3), Abschnitt deathBackups."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/deaths/DeathBackups.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/invsee/Invsee.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_invsee",
+      "en": {
+        "title": "/invsee and /endersee (on by default)",
+        "summary": "Own admin screen in the SimpleLib box style: the target's armor, offhand, inventory and hotbar (or the ender chest) above your own inventory. Items can be taken and put live; offline players work too.",
+        "details": [
+          "Online targets are edited directly. Offline targets are read from <world>/players/data/<uuid>.dat (upgraded like Vanilla) and every change is written back at once (with .dat_old). When the target logs in, open offline views close before the data is loaded, so no item can exist twice.",
+          "Armor slots only take fitting equipment. Operator level permission (default 2) to look, editPermission (default 2) to change, otherwise read-only. Not on yourself. Text contrast 4.86:1 on the steel box and 7.74:1 on the inventory panel. Section invsee."
+        ]
+      },
+      "de": {
+        "title": "/invsee und /endersee (standardmäßig an)",
+        "summary": "Eigene Admin-Ansicht im SimpleLib-Kasten: Rüstung, Nebenhand, Inventar und Hotbar des Ziels (oder seine Endertruhe) über deinem eigenen Inventar. Items lassen sich live nehmen und hineinlegen; auch für Offline-Spieler.",
+        "details": [
+          "Online-Ziele werden direkt bearbeitet. Offline-Ziele werden aus <welt>/players/data/<uuid>.dat gelesen (wie Vanilla aktualisiert), jede Änderung wird sofort zurückgeschrieben (mit .dat_old). Loggt sich das Ziel ein, schließen offene Offline-Ansichten, bevor seine Daten geladen werden – kein Item kann doppelt entstehen.",
+          "Rüstungsplätze nehmen nur passende Ausrüstung. OP-Stufe permission (Standard 2) zum Ansehen, editPermission (Standard 2) zum Ändern, sonst nur Ansicht. Nicht bei dir selbst. Textkontrast 4,86:1 auf dem Stahlkasten, 7,74:1 auf dem Inventarfeld. Abschnitt invsee."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/invsee/Invsee.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/invsee/InvseeMenu.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/invsee/client/InvseeScreen.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/OfflineData.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_vanish",
+      "en": {
+        "title": "Vanish (on by default)",
+        "summary": "/vanish [player] makes an admin invisible to players below seePermission (default 2): not sent as an entity, left out of the tab list and the server list count and sample, no join or leave message.",
+        "details": [
+          "While vanished, mobs do not target you, you cause no game events (sculk sensors, shriekers, wardens) and you pick up neither items nor experience unless /vanish pickup is on. The state survives relogs and restarts (<world>/simpletweaks/admin-state.json). Operator level permission (default 2), section vanish."
+        ]
+      },
+      "de": {
+        "title": "Vanish (standardmäßig an)",
+        "summary": "/vanish [Spieler] macht einen Admin für Spieler unter seePermission (Standard 2) unsichtbar: nicht als Entity gesendet, nicht in der Tab-Liste und nicht in Anzahl und Liste der Serverliste, keine Beitritts- oder Austrittsnachricht.",
+        "details": [
+          "Unsichtbar wirst du von Mobs nicht angegriffen, löst keine Spiel-Ereignisse aus (Sculk-Sensoren, Kreischer, Wärter) und hebst weder Items noch Erfahrung auf, außer /vanish pickup ist an. Der Zustand bleibt über Relog und Neustart (<welt>/simpletweaks/admin-state.json). OP-Stufe permission (Standard 2), Abschnitt vanish."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/vanish/Vanish.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/vanish/Tracking.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminPacketMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminServerPlayerMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_freeze",
+      "en": {
+        "title": "Freeze (on by default)",
+        "summary": "/freeze <player> holds a player in place: every move is set back, and breaking, using, placing, attacking and the drop key are refused. A title and an action bar line tell them; /unfreeze <player> releases them.",
+        "details": [
+          "Nobody can freeze a player with a higher operator level or themselves. The state survives relogs. Operator level permission (default 2), section freeze."
+        ]
+      },
+      "de": {
+        "title": "Einfrieren (standardmäßig an)",
+        "summary": "/freeze <Spieler> hält einen Spieler fest: jede Bewegung wird zurückgesetzt, Abbauen, Benutzen, Setzen, Angreifen und die Wegwerftaste werden verweigert. Ein Titel und eine Aktionsleisten-Zeile sagen es ihm; /unfreeze <Spieler> gibt ihn frei.",
+        "details": [
+          "Spieler mit höherer OP-Stufe und sich selbst kann niemand einfrieren. Der Zustand bleibt über Relog. OP-Stufe permission (Standard 2), Abschnitt freeze."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/freeze/Freeze.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminGameModeMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_restart",
+      "en": {
+        "title": "Restart announcements (on by default)",
+        "summary": "Scheduled restart times (times, \"HH:mm\" in server time) and /tweaks restart <minutes> count down in chat at the warning minutes (default 15, 10, 5, 1) and at 30, 10…1 seconds, with a boss bar; at zero everything is saved and the server stops cleanly.",
+        "details": [
+          "The actual restart is done by the server wrapper; a non-zero exitCode (0–255, default 0) is passed on by dedicated servers. /tweaks restart shows the time left, /tweaks restart cancel stops the countdown. Operator level permission (default 3), section restart."
+        ]
+      },
+      "de": {
+        "title": "Neustart-Ankündigung (standardmäßig an)",
+        "summary": "Geplante Neustartzeiten (times, „HH:mm“ in Serverzeit) und /tweaks restart <Minuten> zählen im Chat zu den Warnminuten (Standard 15, 10, 5, 1) und bei 30, 10…1 Sekunden herunter, mit Bossleiste; bei null wird alles gespeichert und der Server sauber beendet.",
+        "details": [
+          "Den eigentlichen Neustart übernimmt der Server-Wrapper; einen exitCode ungleich 0 (0–255, Standard 0) geben dedizierte Server weiter. /tweaks restart zeigt die Restzeit, /tweaks restart cancel bricht ab. OP-Stufe permission (Standard 3), Abschnitt restart."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/restart/Restart.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_backups",
+      "en": {
+        "title": "Automatic world backups (on by default)",
+        "summary": "Every intervalHours (default 6, 1–168) and with /backup now the world is zipped like save-off, save-all flush, save-on: saving pauses, everything is flushed, a worker thread writes the archive, then saving resumes.",
+        "details": [
+          "Archives go to directory (default backups, next to the server) as <world>-<date>-<time>.zip, without session.lock and without the backup folder; the newest keep (default 5, 1–100) stay. Only one backup runs at a time; the first automatic one comes one interval after the first start. Operator level permission (default 3), section backups."
+        ]
+      },
+      "de": {
+        "title": "Automatische Welt-Backups (standardmäßig an)",
+        "summary": "Alle intervalHours (Standard 6, 1–168) und mit /backup now wird die Welt wie save-off, save-all flush, save-on gepackt: Speichern pausiert, alles wird geschrieben, ein eigener Thread erzeugt das Archiv, danach wird wieder gespeichert.",
+        "details": [
+          "Archive landen in directory (Standard backups, neben dem Server) als <welt>-<datum>-<zeit>.zip, ohne session.lock und ohne den Backup-Ordner; die neuesten keep (Standard 5, 1–100) bleiben. Es läuft immer nur ein Backup; das erste automatische kommt ein Intervall nach dem ersten Start. OP-Stufe permission (Standard 3), Abschnitt backups."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/backup/Backups.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_maintenance",
+      "en": {
+        "title": "Maintenance mode (switch on, mode off)",
+        "summary": "/maintenance on lets only operators of joinPermission (default 2) and the names or UUIDs in allowed join; everybody else gets kickMessage. The server list shows motd. /maintenance off ends it, /maintenance status tells.",
+        "details": [
+          "With kickOnline (default true) players who may not stay are disconnected when it turns on. The mode survives restarts. Operator level permission (default 3), section maintenance."
+        ]
+      },
+      "de": {
+        "title": "Wartungsmodus (Schalter an, Modus aus)",
+        "summary": "/maintenance on lässt nur Operatoren ab joinPermission (Standard 2) und die Namen oder UUIDs in allowed herein; alle anderen bekommen kickMessage. Die Serverliste zeigt motd. /maintenance off beendet ihn, /maintenance status sagt den Zustand.",
+        "details": [
+          "Mit kickOnline (Standard true) werden beim Einschalten alle getrennt, die nicht bleiben dürfen. Der Modus bleibt über Neustarts. OP-Stufe permission (Standard 3), Abschnitt maintenance."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/maintenance/Maintenance.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminPlayerListMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
+    },
+    {
+      "id": "admin_lag_finder",
+      "en": {
+        "title": "Lag finder (off by default)",
+        "summary": "/lag [seconds] (default 5, 1–30) measures tick time and TPS, time per block entity type and entity type, the most expensive chunks with their entity and block entity counts, and hints at possible redstone clocks.",
+        "details": [
+          "A chunk counts as a possible redstone clock above clockThreshold (default 8) state changes of powered or power-carrying blocks per second. Outside a measurement the hooks cost one check. Operator level permission (default 2); turn it on with enabled in section lagFinder."
+        ]
+      },
+      "de": {
+        "title": "Lag-Finder (standardmäßig aus)",
+        "summary": "/lag [Sekunden] (Standard 5, 1–30) misst Tickzeit und TPS, Zeit je Blockentity- und Entity-Typ, die teuersten Chunks mit ihrer Zahl an Entities und Blockentities und weist auf mögliche Redstone-Uhren hin.",
+        "details": [
+          "Ein Chunk gilt als mögliche Redstone-Uhr ab clockThreshold (Standard 8) Zustandswechseln von geschalteten oder Strom führenden Blöcken je Sekunde. Außerhalb einer Messung kosten die Hooks eine Prüfung. OP-Stufe permission (Standard 2); einschalten mit enabled im Abschnitt lagFinder."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/lag/LagFinder.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminLagMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/mixin/AdminLagEntityMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/admin/AdminConfig.java"
+      ]
     }
   ],
   "notes": {
