@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.simplebuilding.modules.simplequalityoflife.FabricExample"
+      "com.simplebuilding.modules.simplequalityoflife.QualityOfLifeFabric"
     ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simplequalityoflife.ModuleGameTest"

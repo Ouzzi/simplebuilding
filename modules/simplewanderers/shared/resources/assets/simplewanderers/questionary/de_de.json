@@ -1,0 +1,24 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein Reisenotizbuch für den einen Händler, den jedes Dorf behält."
+    ],
+    "use": [
+      "Das Simple-Wanderers-Handbuch erklärt den Dorf-Wanderer, sein Pferd, sein Angebot und die Biomwaren. Herstellung formlos aus einem Buch und einer Leine."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+    ]
+  },
+  "village_wanderer_spawn_egg": {
+    "lore": [
+      "Ein Händler im ockerfarbenen Mantel, zu einem Ei gefaltet."
+    ],
+    "use": [
+      "Nur im Kreativmodus. Es erschafft einen Dorf-Wanderer ohne Dorf: kein Eintrag, kein Dorf-Seed, wird nie mitgezählt. Die Wanderer echter Dörfer erscheinen von selbst."
+    ],
+    "secret": [
+      "Nutze es, um Angebote zu testen oder einen Händler von Hand zu setzen; das Angebot folgt trotzdem dem Biom um ihn."
+    ]
+  }
+}

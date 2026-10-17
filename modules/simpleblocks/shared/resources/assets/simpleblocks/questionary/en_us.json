@@ -1,0 +1,116 @@
+{
+  "guide_book": {
+    "lore": [
+      "A short book for the blocks Vanilla forgot to build."
+    ],
+    "use": [
+      "The Simple Blocks Guide explains the new blocks and the stairs, slabs and walls. Craft it shapeless from a book and a clay ball."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
+  },
+  "hushed_deepslate_tiles": {
+    "lore": [
+      "Deepslate tiles with a muffled soul: they keep a secret like wool does."
+    ],
+    "use": [
+      "Place it as a building block. A Sculk Sensor or a Warden does not hear a vibration that passes through it, and walking on it makes none."
+    ],
+    "secret": [
+      "Build a silent floor over a sculk trap or around an Ancient City and sneak through without a sound."
+    ]
+  },
+  "sculk_deepslate": {
+    "lore": [
+      "Deepslate with veins of sculk, dug out of the dark."
+    ],
+    "use": [
+      "Craft it, or find it in Ancient City chests; it is never generated in the world. It is a plain building block."
+    ],
+    "secret": [
+      "It sits well beside Sculk and Deepslate Tiles in a deep dark build."
+    ]
+  },
+  "blue_nether_bricks": {
+    "lore": [
+      "The cold sibling of Red Nether Bricks."
+    ],
+    "use": [
+      "Place it as a building block. Stairs, slab and wall come from the crafting table or the stonecutter."
+    ],
+    "secret": [
+      "Mixed with Red and plain Nether Bricks it makes striped walls and floors."
+    ]
+  },
+  "family:missing_stairs": {
+    "items": [
+      "regex:.*_stairs"
+    ],
+    "lore": [
+      "A stair Vanilla never made."
+    ],
+    "use": [
+      "Craft it from six blocks of its material, or cut it in the stonecutter."
+    ],
+    "secret": [
+      "It joins corners like every Vanilla stair."
+    ]
+  },
+  "family:missing_slab": {
+    "items": [
+      "regex:.*_slab"
+    ],
+    "lore": [
+      "A slab Vanilla never made."
+    ],
+    "use": [
+      "Craft a row of three blocks of its material for six slabs, or cut it in the stonecutter."
+    ],
+    "secret": [
+      "Two of them stacked make the full block again."
+    ]
+  },
+  "family:missing_wall": {
+    "items": [
+      "regex:.*_wall"
+    ],
+    "lore": [
+      "A wall Vanilla never made."
+    ],
+    "use": [
+      "Craft it from six blocks of its material, or cut it in the stonecutter."
+    ],
+    "secret": [
+      "It connects to fences, walls and solid blocks like every Vanilla wall."
+    ]
+  },
+  "family:cracked_bricks": {
+    "items": [
+      "regex:cracked_.*"
+    ],
+    "lore": [
+      "Bricks that have seen a few winters."
+    ],
+    "use": [
+      "Smelt the plain bricks in a furnace to get the cracked variant."
+    ],
+    "secret": [
+      "Break up a clean wall with a few cracked bricks and it looks old at once."
+    ]
+  },
+  "family:mossy_bricks": {
+    "items": [
+      "regex:mossy_.*"
+    ],
+    "lore": [
+      "Bricks the moss has already claimed."
+    ],
+    "use": [
+      "Craft the plain bricks together with a Moss Block."
+    ],
+    "secret": [
+      "Mossy and cracked bricks together make a convincing ruin."
+    ]
+  }
+}

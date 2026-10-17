@@ -131,5 +131,6 @@ public final class ToolsTests {
     static {
         ALL.put("discover_recipe_unlocks", com.simplebuilding.modules.simpletools.discover.ToolsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplebuilding.modules.simpletools.discover.ToolsDiscover::behaviourHints);
+        ALL.put("guide_book", com.simplebuilding.modules.simpletools.guide.ToolsGuide::gameTest);
     }
 }

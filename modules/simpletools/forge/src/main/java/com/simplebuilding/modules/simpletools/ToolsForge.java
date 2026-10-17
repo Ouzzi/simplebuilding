@@ -11,6 +11,13 @@ public final class ToolsForge {
         SimpleTools.configDir = net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get();
         SimpleTools.load();
         net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e -> {
+            if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simpletools.guide.ToolsGuide.register();
+        });
+        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)) e.getEntries().put(com.simplebuilding.modules.simpletools.guide.ToolsGuide.stack(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
+        if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simpletools.guide.ToolsGuide.installQuests(SimpleTools.configDir);
+        net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e -> {
             var key = e.getRegistryKey();
             if (key.equals(net.minecraft.core.registries.Registries.BLOCK)) ToolsRegistry.registerBlocks();
             if (key.equals(net.minecraft.core.registries.Registries.ITEM)) ToolsRegistry.registerItems();

@@ -150,6 +150,18 @@
     }
   ],
   "notes": {
+    "simpleenddragonfight:guide_book": {
+      "sources": [
+        "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/guide/DragonFightGuide.java",
+        "modules/simpleenddragonfight/shared/resources/data/simpleenddragonfight/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + ender pearl. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End Dragon Fight\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Enderperle. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End Dragon Fight\" eins."
+      }
+    },
     "simpleenddragonfight:dragon_chitin": {
       "en": {
         "summary": "Plate shed by Dragonmites during the dragon fight. A material for now - later for recipes."

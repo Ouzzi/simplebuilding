@@ -9,5 +9,16 @@
     "secret": [
       "A paused bar means the chunk is not loaded and the timer stands. Soulbound items never appear: they never left you."
     ]
+  },
+  "guide_book": {
+    "lore": [
+      "A tradesman's manual for gear that should outlast its owner."
+    ],
+    "use": [
+      "The Simple Tools Guide explains the lava-filled furnace, durability bonuses, Soulbound and the Death Vault. Craft it shapeless from a book and an anvil."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
   }
 }

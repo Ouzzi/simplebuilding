@@ -9,5 +9,16 @@
     "secret": [
       "Ein Pausen-Zeichen heißt: Der Chunk ist nicht geladen und der Timer steht. Seelengebundene Gegenstände stehen nie darin: Sie haben dich nie verlassen."
     ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein Handwerkerbuch für Ausrüstung, die ihren Besitzer überleben soll."
+    ],
+    "use": [
+      "Das Simple-Tools-Handbuch erklärt den lavagefüllten Ofen, Haltbarkeitsboni, Seelenbindung und den Todesvorrat. Herstellung formlos aus einem Buch und einem Amboss."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+    ]
   }
 }

@@ -168,7 +168,48 @@ window.WIKI_MODULE_DATA["simpleenddragonfight"] = {
       }
     }
   ],
-  "recipes": [],
+  "recipes": [
+    {
+      "id": "simpleenddragonfight:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleenddragonfight:guide_book",
+        "count": 1
+      },
+      "source": "modules/simpleenddragonfight/shared/resources/data/simpleenddragonfight/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:ender_pearl"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:ender_pearl"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
   "lootTables": [
     {
       "id": "simpleenddragonfight:entities/dragonmite",
@@ -278,6 +319,54 @@ window.WIKI_MODULE_DATA["simpleenddragonfight"] = {
       },
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simpleenddragonfight:guide_book",
+      "name": {
+        "en_us": "Simple End Dragon Fight Guide",
+        "de_de": "Simple-Enddrachenkampf-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenddragonfight/shared/java/com/simplebuilding/modules/simpleenddragonfight/guide/DragonFightGuide.java",
+          "modules/simpleenddragonfight/shared/resources/data/simpleenddragonfight/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + ender pearl. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End Dragon Fight\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Enderperle. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End Dragon Fight\" eins."
+        }
+      },
+      "texture": "assets/textures/simpleenddragonfight/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A scorched page from the last fight at the edge of the End."
+          ],
+          "use": [
+            "The Simple End Dragon Fight Guide explains scaling, the faster dragon, summonings, the entry animation and dragonmites. Craft it shapeless from a book and an ender pearl."
+          ],
+          "secret": [
+            "Its pages open in your language and nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine versengte Seite vom letzten Kampf am Rand des Ends."
+          ],
+          "use": [
+            "Das Simple-Enddrachenkampf-Handbuch erklärt Skalierung, den schnelleren Drachen, Beschwörungen, die Eintrittsanimation und Drachenmilben. Herstellung formlos aus einem Buch und einer Enderperle."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpleenddragonfight:guide_book"
+      ],
+      "usedIn": []
     }
   ],
   "blocks": [],
@@ -296,12 +385,12 @@ window.WIKI_MODULE_DATA["simpleenddragonfight"] = {
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 0,
+    "recipes": 1,
     "lootTables": 1,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 2,
+    "items": 3,
     "blocks": 0,
     "trades": 0,
     "config": 0,

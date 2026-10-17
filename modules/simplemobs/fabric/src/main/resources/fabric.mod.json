@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.simplebuilding.modules.simplemobs.FabricExample"
+      "com.simplebuilding.modules.simplemobs.MobsFabric"
     ],
     "client": [
       "com.simplebuilding.modules.simplemobs.FabricClientExample"

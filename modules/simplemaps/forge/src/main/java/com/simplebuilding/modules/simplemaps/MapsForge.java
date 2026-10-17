@@ -36,6 +36,13 @@ public final class MapsForge {
 
     public MapsForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplemaps.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleMaps.init(FMLPaths.CONFIGDIR.get());
+        net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e -> {
+            if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simplemaps.guide.MapsGuide.register();
+        });
+        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)) e.getEntries().put(com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
+        if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simplemaps.guide.MapsGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             if (event.getRegistryKey().equals(Registries.DATA_COMPONENT_TYPE)) MapsComponents.register();
             if (event.getRegistryKey().equals(Registries.ITEM)) MapsItems.register();

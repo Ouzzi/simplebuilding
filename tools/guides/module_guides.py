@@ -185,6 +185,21 @@ MODULES = [
                 "with an item-specific statistics screen.",
                 "Jedes Werkzeug, jede Waffe und jedes Rüstungsteil zählt eigene Blöcke, Kills, abgefangenen Schaden, Strecken "
                 "und Fänge, mit einem Statistik-Bildschirm je Gegenstand.")),
+    dict(module="simplemaps", ns="simplemaps", package="com.simplebuilding.modules.simplemaps.guide", cls="MapsGuide",
+         kind="item", author="Simple Maps", recipe="minecraft:compass",
+         name=("Simple Maps Guide", "Simple-Maps-Handbuch"),
+         intro=("Wayfinder Maps that show where you have been, a big map screen with waypoints, cartography and map displays on item frames.",
+                "Wegfinder-Karten, die zeigen, wo du gewesen bist, ein großer Kartenbildschirm mit Wegpunkten, Kartographie und Kartenanzeigen auf Rahmen.")),
+    dict(module="simpletools", ns="simpletools", package="com.simplebuilding.modules.simpletools.guide", cls="ToolsGuide",
+         kind="item", author="Simple Tools", recipe="minecraft:anvil",
+         name=("Simple Tools Guide", "Simple-Tools-Handbuch"),
+         intro=("Furnaces filled with lava, durability bonuses, cheaper anvil repairs, the Soulbound enchantment and the Death Vault.",
+                "Mit Lava gefüllte Öfen, Haltbarkeitsboni, günstigere Amboss-Reparaturen, die Verzauberung Seelenbindung und der Todesvorrat.")),
+    dict(module="simpleenddragonfight", ns="simpleenddragonfight", package="com.simplebuilding.modules.simpleenddragonfight.guide",
+         cls="DragonFightGuide", kind="item", author="Simple End Dragon Fight", recipe="minecraft:ender_pearl",
+         name=("Simple End Dragon Fight Guide", "Simple-Enddrachenkampf-Handbuch"),
+         intro=("A harder Ender Dragon fight: it scales with the players, flies faster, can be summoned again, enters with an animation and brings dragonmites.",
+                "Ein härterer Enderdrachenkampf: Er wächst mit den Spielern, fliegt schneller, lässt sich erneut beschwören, tritt mit einer Animation auf und bringt Drachenmilben mit.")),
 ]
 
 SETTINGS = ("Settings", "Einstellungen",
@@ -220,6 +235,9 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:cauldron": ("a cauldron", "einem Kessel"),
     "minecraft:emerald": ("an emerald", "einem Smaragd"),
     "minecraft:flint": ("a piece of flint", "einem Feuerstein"),
+    "minecraft:compass": ("a compass", "einem Kompass"),
+    "minecraft:anvil": ("an anvil", "einem Amboss"),
+    "minecraft:ender_pearl": ("an ender pearl", "einer Enderperle"),
 }
 
 
@@ -479,6 +497,8 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:charcoal": ("charcoal", "Holzkohle"),
     "minecraft:cauldron": ("cauldron", "Kessel"),
     "minecraft:flint": ("flint", "Feuerstein"),
+    "minecraft:compass": ("compass", "Kompass"), "minecraft:anvil": ("anvil", "Amboss"),
+    "minecraft:ender_pearl": ("ender pearl", "Enderperle"),
 }
 
 

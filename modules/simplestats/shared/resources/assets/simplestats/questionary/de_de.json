@@ -1,0 +1,13 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein kurzes Buch, das mitzählt, was deine Ausrüstung schon geleistet hat."
+    ],
+    "use": [
+      "Das Simple-Stats-Handbuch erklärt die Gegenstandsstatistik, den Tooltip und den Statistik-Bildschirm. Herstellung formlos aus einem Buch und einem Feuerstein."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+    ]
+  }
+}

@@ -437,6 +437,46 @@ window.WIKI_MODULE_DATA["simpletools"] = {
           "#minecraft:soul_fire_base_blocks"
         ]
       }
+    },
+    {
+      "id": "simpletools:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpletools:guide_book",
+        "count": 1
+      },
+      "source": "modules/simpletools/shared/resources/data/simpletools/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:anvil",
+        "minecraft:book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:anvil"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 31
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -512,7 +552,56 @@ window.WIKI_MODULE_DATA["simpletools"] = {
       }
     }
   ],
-  "items": [],
+  "items": [
+    {
+      "id": "simpletools:guide_book",
+      "name": {
+        "en_us": "Simple Tools Guide",
+        "de_de": "Simple-Tools-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/guide/ToolsGuide.java",
+          "modules/simpletools/shared/resources/data/simpletools/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 25 pages taken from this wiki, shown in your language. Shapeless recipe: book + anvil. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tools\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 25 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Amboss. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tools\" eins."
+        }
+      },
+      "texture": "assets/textures/simpletools/item/guide_book.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A tradesman's manual for gear that should outlast its owner."
+          ],
+          "use": [
+            "The Simple Tools Guide explains the lava-filled furnace, durability bonuses, Soulbound and the Death Vault. Craft it shapeless from a book and an anvil."
+          ],
+          "secret": [
+            "Its pages open in your language and nothing is consumed."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Handwerkerbuch für Ausrüstung, die ihren Besitzer überleben soll."
+          ],
+          "use": [
+            "Das Simple-Tools-Handbuch erklärt den lavagefüllten Ofen, Haltbarkeitsboni, Seelenbindung und den Todesvorrat. Herstellung formlos aus einem Buch und einem Amboss."
+          ],
+          "secret": [
+            "Seine Seiten öffnen sich in deiner Sprache, und nichts wird verbraucht."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpletools:guide_book"
+      ],
+      "usedIn": []
+    }
+  ],
   "blocks": [
     {
       "id": "simpletools:death_vault",
@@ -575,12 +664,12 @@ window.WIKI_MODULE_DATA["simpletools"] = {
   "incompleteProse": {},
   "counts": {
     "features": 24,
-    "recipes": 1,
+    "recipes": 2,
     "lootTables": 1,
     "tags": 1,
     "advancements": 0,
     "enchantments": 1,
-    "items": 0,
+    "items": 1,
     "blocks": 1,
     "trades": 0,
     "config": 0,

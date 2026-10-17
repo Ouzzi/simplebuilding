@@ -19,6 +19,13 @@ public final class DragonFightForge {
         var bus = context.getModBusGroup();
         com.simplebuilding.modules.simpleenddragonfight.forge.ModuleForgeTests.register(bus);
         DragonFightConfig.load(FMLPaths.CONFIGDIR.get());
+        net.minecraftforge.registries.RegisterEvent.getBus(bus).addListener(e -> {
+            if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.register();
+        });
+        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
+            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)) e.getEntries().put(com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.stack(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
+        if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(bus).addListener(event -> {
             event.register(Registries.ENTITY_TYPE, r -> r.register(DragonFightRegistry.DRAGONMITE_KEY, DragonFightRegistry.DRAGONMITE));
             event.register(Registries.ITEM, r -> {

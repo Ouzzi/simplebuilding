@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.simplebuilding.modules.simplevisuals.FabricExample"
+      "com.simplebuilding.modules.simplevisuals.VisualsFabric"
     ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simplevisuals.ModuleGameTest"

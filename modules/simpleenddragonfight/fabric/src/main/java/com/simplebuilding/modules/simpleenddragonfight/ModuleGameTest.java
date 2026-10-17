@@ -16,4 +16,5 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void summonCounter(GameTestHelper helper) { DragonFightTests.ALL.get("summon_counter").accept(helper); }
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void summonScaling(GameTestHelper helper) { DragonFightTests.ALL.get("summon_scaling").accept(helper); }
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void noSimplebuildingNeeded(GameTestHelper helper) { DragonFightTests.ALL.get("no_simplebuilding_needed").accept(helper); }
+    @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void guideBook(GameTestHelper helper) { DragonFightTests.ALL.get("guide_book").accept(helper); }
 }

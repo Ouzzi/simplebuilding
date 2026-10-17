@@ -31,5 +31,16 @@
     "secret": [
       "End city treasure chests hold it at 2%. A map binds to the dimension it was first used in, so it works nowhere else."
     ]
+  },
+  "guide_book": {
+    "lore": [
+      "A folded chart of every road you have ever walked."
+    ],
+    "use": [
+      "The Simple Maps Guide explains Wayfinder Maps, the map screen, waypoints and item frames. Craft it shapeless from a book and a compass."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
   }
 }
