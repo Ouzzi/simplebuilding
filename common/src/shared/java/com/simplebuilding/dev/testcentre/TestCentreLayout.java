@@ -81,9 +81,6 @@ public final class TestCentreLayout {
         if (com.simplebuilding.version.McVersion.CHESS) {
             excluded.put("simplebuilding:mixed_octet", "technischer Block ohne Item: entsteht, wenn Achtel verschiedener Materialien in einer Zelle landen (Station Schach/Achtel)");
         }
-        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            excluded.put("simplebuilding:soul_lava", "Fluessigkeitsblock wie Lava; die Station zeigt sie im verstaerkten Kessel, Eimer liegen in der Truhe");
-        }
         if (com.simplebuilding.version.McVersion.FIRES) {
             excluded.put("simplebuilding:sulfur_fire", "Feuer ohne Item: entsteht mit Feuerzeug auf Schwefelbloecken");
             excluded.put("simplebuilding:copper_fire", "Feuer ohne Item: entsteht mit Feuerzeug auf Kupferbloecken");

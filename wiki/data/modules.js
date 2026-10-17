@@ -86,7 +86,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "4a8dba404c9c"
+    "dataHash": "be287e2648fd"
   },
   {
     "id": "simpleriding",
@@ -234,7 +234,7 @@ window.WIKI_MODULES = [
       "simpledimensions",
       "simplebuilding"
     ],
-    "dataHash": "e4698541d3a0"
+    "dataHash": "497bba703582"
   },
   {
     "id": "simpledimensions",
@@ -277,7 +277,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend"
     ],
-    "dataHash": "fc7348a0ab85"
+    "dataHash": "0d4c47ba6216"
   },
   {
     "id": "simplelib",
@@ -292,7 +292,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "285e682026d4"
+    "dataHash": "f872c68df69d"
   },
   {
     "id": "simpleinterfaces",
@@ -365,7 +365,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "0c89f35c668f"
+    "dataHash": "eb105cab0a20"
   },
   {
     "id": "simpleweather",
@@ -426,7 +426,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
-    "dataHash": "a0690c0c08d5"
+    "dataHash": "f37ff9406e4e"
   },
   {
     "id": "simplefarming",
@@ -504,7 +504,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
-    "dataHash": "6e84609aa395"
+    "dataHash": "d835ecdff71a"
   },
   {
     "id": "simpleaesthetics",
@@ -555,7 +555,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
-    "dataHash": "7365612661f2"
+    "dataHash": "f9df17d51eef"
   },
   {
     "id": "simplerespawn",
@@ -608,7 +608,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "f8786d77ec8c"
+    "dataHash": "0d806a09a723"
   },
   {
     "id": "simplemobheads",
@@ -707,7 +707,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "5b6023516385"
+    "dataHash": "d6954b181ac8"
   },
   {
     "id": "simplecrucibles",
@@ -726,6 +726,6 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "a0302d9ea4e7"
+    "dataHash": "903ff501b0d3"
   }
 ];

@@ -18,6 +18,7 @@ public final class CrucibleRegistry {
                         .icon(() -> new ItemStack(CrucibleItems.IRON_CRUCIBLE))
                         .displayItems((params, out) -> {
                             tabStacks().forEach(out::accept);
+                            bucketStacks().forEach(out::accept);
                             if (SimpleCrucibles.on()) out.accept(com.simplecrucibles.guide.CruciblesGuide.stack());
                         })
                         .build());
@@ -34,6 +35,17 @@ public final class CrucibleRegistry {
         out.add(new ItemStack(CrucibleItems.NETHERITE_BARREL));
         out.add(new ItemStack(CrucibleItems.ENDERITE_BARREL));
         out.add(new ItemStack(CrucibleItems.REINFORCED_CAULDRON));
+        return out;
+    }
+
+    /**
+     * The buckets a creative player picks (split stage 5b): copper, soul lava, Enderite, milk, ceramic - without the worn
+     * ceramic stages and the full Enderite buckets (only reached by use). Vanilla's tools tab gets them after the powder
+     * snow bucket (per-mod switch); SimpleBuilding's functional tab lists them by id in its own row layout.
+     */
+    public static List<ItemStack> bucketStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        com.simplecrucibles.fluid.CrucibleFluids.creativeBuckets().forEach(item -> out.add(new ItemStack(item)));
         return out;
     }
 

@@ -32,7 +32,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
-TEX = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures'
+TEX = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures'  # split stage 5b: soul lava is Simple Crucibles'
 
 # Colour stops over the brightness rank (0 = coolest pixel of the whole animation, 1 = hottest). Round 3 (owner
 # 2026-10-09 evening: "geht ins Roetliche", keep it blue like soul fire): body and streaks from the Vanilla soul_fire

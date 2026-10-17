@@ -1397,9 +1397,7 @@ public class ModItems {
 
         Simplebuilding.LOGGER.info("Registering Mod Items for " + Simplebuilding.MOD_ID);
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            // Crucible P5: buckets, then plug SB into Simple Crucibles (hammer, buckets); the crucible items are the module's.
-            com.simplebuilding.fluid.ModFluids.registerItems();
-            com.simplebuilding.fluid.BucketDispensing.register();
+            // Plug SB into Simple Crucibles (hammer ways, soul scooper advancement); crucibles, soul lava and buckets are the module's (5/5b).
             com.simplebuilding.crucible.CrucibleCompat.init();
         }
         // Module split 3c: upgrade handlers and octet cells in SimpleLib (26.3; no-op on 26.2); 3d: shared materials requested.

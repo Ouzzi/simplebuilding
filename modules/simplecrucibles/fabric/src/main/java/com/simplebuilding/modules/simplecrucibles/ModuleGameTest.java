@@ -179,4 +179,161 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplecrucibles:empty") public void discoverRecipeUnlocks(GameTestHelper h) { com.simplecrucibles.discover.CruciblesDiscover.recipeUnlocks(h); }
     @GameTest(structure = "simplecrucibles:empty") public void discoverBehaviourHints(GameTestHelper h) { com.simplecrucibles.discover.CruciblesDiscover.behaviourHints(h); }
     @GameTest(structure = "simplecrucibles:empty") public void discoverFirstPickupTips(GameTestHelper h) { com.simplecrucibles.discover.CruciblesDiscover.firstPickupTips(h); }
+
+    // Split stage 5b: soul lava, buckets, JEI/Jade data (BucketTests).
+
+    @GameTest(structure = "simplecrucibles:empty", maxTicks = 300)
+    public void soulLavaFlowsTwoBlocksInTheOverworld(GameTestHelper h) {
+        CrucibleTests.ALL.get("soul_lava_flows_two_blocks_in_the_overworld").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void soulLavaIsNotReplaceable(GameTestHelper h) {
+        CrucibleTests.ALL.get("soul_lava_is_not_replaceable").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void waterTouchingSoulLavaTurnsToQuartzOrBlackstone(GameTestHelper h) {
+        CrucibleTests.ALL.get("water_touching_soul_lava_turns_to_quartz_or_blackstone").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void touchingSoulLavaBurnsLongerAndGivesSoulBurn(GameTestHelper h) {
+        CrucibleTests.ALL.get("touching_soul_lava_burns_longer_and_gives_soul_burn").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void fireResistanceOnlyBlocksSoulBurnDamage(GameTestHelper h) {
+        CrucibleTests.ALL.get("fire_resistance_only_blocks_soul_burn_damage").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void soulBurnBitesTwiceAsOftenOnColdGround(GameTestHelper h) {
+        CrucibleTests.ALL.get("soul_burn_bites_twice_as_often_on_cold_ground").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void copperBucketRules(GameTestHelper h) {
+        CrucibleTests.ALL.get("copper_bucket_rules").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void copperBucketFullyOxidizedScoopsNothing(GameTestHelper h) {
+        CrucibleTests.ALL.get("copper_bucket_fully_oxidized_scoops_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void ceramicBucketHoldsWaterAndBreaksAfterFourPours(GameTestHelper h) {
+        CrucibleTests.ALL.get("ceramic_bucket_holds_water_and_breaks_after_four_pours").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void modBucketsStayInTheHandWhenPouringAndScooping(GameTestHelper h) {
+        CrucibleTests.ALL.get("mod_buckets_stay_in_the_hand_when_pouring_and_scooping").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void enderiteBucketTakesMilkAndDrinksOneFilling(GameTestHelper h) {
+        CrucibleTests.ALL.get("enderite_bucket_takes_milk_and_drinks_one_filling").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void enderiteBucketHoldsTwoBucketsOfOneFluid(GameTestHelper h) {
+        CrucibleTests.ALL.get("enderite_bucket_holds_two_buckets_of_one_fluid").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty", maxTicks = 100)
+    public void enderiteBucketTwoBucketsInCauldronsAndDispensers(GameTestHelper h) {
+        CrucibleTests.ALL.get("enderite_bucket_two_buckets_in_cauldrons_and_dispensers").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void ceramicLavaBucketScoopsPoursAndWears(GameTestHelper h) {
+        CrucibleTests.ALL.get("ceramic_lava_bucket_scoops_pours_and_wears").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void copperBucketOxidizesOnlyInHotbarOrOffhand(GameTestHelper h) {
+        CrucibleTests.ALL.get("copper_bucket_oxidizes_only_in_hotbar_or_offhand").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void copperBucketWaxedWaterWeathersAtHalfPace(GameTestHelper h) {
+        CrucibleTests.ALL.get("copper_bucket_waxed_water_weathers_at_half_pace").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void copperBucketPlacedWeathersAndFrameCare(GameTestHelper h) {
+        CrucibleTests.ALL.get("copper_bucket_placed_weathers_and_frame_care").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void ceramicBucketWithLavaIsBrittleAndBreaksOnPour(GameTestHelper h) {
+        CrucibleTests.ALL.get("ceramic_bucket_with_lava_is_brittle_and_breaks_on_pour").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void ceramicBucketWearsThroughStagesAndKeepsItsFilling(GameTestHelper h) {
+        CrucibleTests.ALL.get("ceramic_bucket_wears_through_stages_and_keeps_its_filling").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void ironBucketBreaksOnSoulLavaEnderiteNever(GameTestHelper h) {
+        CrucibleTests.ALL.get("iron_bucket_breaks_on_soul_lava_enderite_never").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void reinforcedCauldronHoldsSoulLava(GameTestHelper h) {
+        CrucibleTests.ALL.get("reinforced_cauldron_holds_soul_lava").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void vanillaCauldronTakesCopperAndEnderiteBuckets(GameTestHelper h) {
+        CrucibleTests.ALL.get("vanilla_cauldron_takes_copper_and_enderite_buckets").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void jadeReportsHeatSlotsAndShortestRemainingTime(GameTestHelper h) {
+        CrucibleTests.ALL.get("jade_reports_heat_slots_and_shortest_remaining_time").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void recipeHeatAndCatalogMatchCookingRules(GameTestHelper h) {
+        CrucibleTests.ALL.get("recipe_heat_and_catalog_match_cooking_rules").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void soulLavaHeatsExtremeFlowingHigh(GameTestHelper h) {
+        CrucibleTests.ALL.get("soul_lava_heats_extreme_flowing_high").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName(GameTestHelper h) {
+        CrucibleTests.ALL.get("buckets_draw_no_bar_and_the_enderite_bucket_shows_only_its_name").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void registeredSoulLavaAndBuckets(GameTestHelper h) {
+        CrucibleTests.ALL.get("registered_soul_lava_and_buckets").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void migrationOfBucketsAndSoulLava(GameTestHelper h) {
+        CrucibleTests.ALL.get("migration_of_buckets_and_soul_lava").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void configSoulLavaBoundsAndTakeover(GameTestHelper h) {
+        CrucibleTests.ALL.get("config_soul_lava_bounds_and_takeover").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void jadeReinforcedCauldronLines(GameTestHelper h) {
+        CrucibleTests.ALL.get("jade_reinforced_cauldron_lines").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void jeiInfoPagesCoverTheFilledBuckets(GameTestHelper h) {
+        CrucibleTests.ALL.get("jei_info_pages_cover_the_filled_buckets").accept(h);
+    }
 }

@@ -25,10 +25,23 @@ public final class CruciblesNeoForge {
     public CruciblesNeoForge(IEventBus bus, Dist dist) {
         SimpleCrucibles.init(FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
+        // Split stage 5b: soul lava needs a NeoForge fluid type (swaps the fluid factory before registration).
+        CruciblesNeoSoulLava.install(bus);
         bus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
-            if (key.equals(Registries.BLOCK)) CrucibleBlocks.register();
-            if (key.equals(Registries.ITEM)) CrucibleItems.register();
+            if (key.equals(Registries.DATA_COMPONENT_TYPE)) com.simplecrucibles.registry.CrucibleComponents.register();
+            if (key.equals(Registries.MOB_EFFECT)) com.simplecrucibles.effect.CrucibleEffects.register();
+            if (key.equals(Registries.FLUID)) com.simplecrucibles.fluid.CrucibleFluids.registerFluids();
+            if (key.equals(Registries.BLOCK)) {
+                com.simplecrucibles.fluid.CrucibleFluids.registerFluids(); // no-op when the FLUID event came first
+                CrucibleBlocks.register();
+                com.simplecrucibles.fluid.CrucibleFluids.registerBlocks();
+            }
+            if (key.equals(Registries.ITEM)) {
+                CrucibleItems.register();
+                com.simplecrucibles.fluid.CrucibleFluids.registerItems();
+                com.simplecrucibles.fluid.BucketDispensing.register();
+            }
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 CrucibleBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(CrucibleBlocks.crucibles()), false) {
                     @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return CrucibleBlockEntities.isCrucible(state); }
@@ -41,6 +54,16 @@ public final class CruciblesNeoForge {
             if (key.equals(Registries.CREATIVE_MODE_TAB)) CrucibleRegistry.tab();
         });
         bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent event) -> {
+            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)
+                    && com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleCrucibles.MOD_ID)) {
+                // The buckets after Vanilla's powder snow bucket.
+                net.minecraft.world.item.ItemStack previous = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.POWDER_SNOW_BUCKET);
+                for (net.minecraft.world.item.ItemStack stack : CrucibleRegistry.bucketStacks()) {
+                    if (event.getParentEntries().contains(stack)) continue;
+                    event.insertAfter(previous, stack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    previous = stack;
+                }
+            }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleCrucibles.on()) {
                 event.accept(com.simplecrucibles.guide.CruciblesGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             }

@@ -4,7 +4,6 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.PlacedSmallPartsBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity;
 import com.simplebuilding.component.ModDataComponentTypes;
-import com.simplebuilding.fluid.ModFluids;
 import com.simplebuilding.util.PlacedSmallParts;
 import com.simplebuilding.version.McVersion;
 import java.util.ArrayList;
@@ -113,41 +112,6 @@ public final class WorldPolishTests {
         return player;
     }
 
-    /**
-     * No bucket draws a durability bar (a worn ceramic one shows its wear in the texture), and every Enderite bucket -
-     * empty, half, full, milk - has no tooltip line below its name.
-     */
-    public static void bucketsDrawNoBarAndTheEnderiteBucketShowsOnlyItsName(GameTestHelper helper) {
-        List<String> problems = new ArrayList<>();
-        ItemStack worn = stack(ModFluids.CERAMIC_WATER_BUCKET);
-        if (!worn.isEmpty()) {
-            worn.set(ModDataComponentTypes.CERAMIC_USES, 1);
-        }
-        for (ItemStack stack : List.of(worn, stack(ModFluids.CERAMIC_BUCKET), stack(ModFluids.COPPER_WATER_BUCKET),
-                stack(ModFluids.ENDERITE_WATER_BUCKET), stack(ModFluids.SOUL_LAVA_BUCKET))) {
-            if (!stack.isEmpty() && stack.isBarVisible()) {
-                problems.add(stack.getItem() + " draws a durability bar");
-            }
-        }
-        for (Item item : new Item[]{ModFluids.ENDERITE_BUCKET, ModFluids.ENDERITE_WATER_BUCKET, ModFluids.FULL_ENDERITE_WATER_BUCKET,
-                ModFluids.ENDERITE_LAVA_BUCKET, ModFluids.FULL_ENDERITE_LAVA_BUCKET, ModFluids.ENDERITE_SOUL_LAVA_BUCKET,
-                ModFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET, ModFluids.ENDERITE_MILK_BUCKET, ModFluids.FULL_ENDERITE_MILK_BUCKET}) {
-            if (item == null) {
-                continue;
-            }
-            ItemStack stack = new ItemStack(item);
-            List<Component> lines = new ArrayList<>();
-            item.appendHoverText(stack, Item.TooltipContext.of(helper.getLevel()), TooltipDisplay.DEFAULT, lines::add, TooltipFlag.NORMAL);
-            if (!lines.isEmpty()) {
-                problems.add(item + " has tooltip lines " + lines.stream().map(Component::getString).toList());
-            }
-            if (stack.isBarVisible()) {
-                problems.add(item + " draws a durability bar");
-            }
-        }
-        helper.assertTrue(problems.isEmpty(), String.join("; ", problems));
-        helper.succeed();
-    }
 
     private static ItemStack stack(Item item) {
         return item == null ? ItemStack.EMPTY : new ItemStack(item);

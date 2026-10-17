@@ -31,7 +31,7 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-ITEM = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures/item'
+ITEM = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/item'  # split stage 5b: the buckets are Simple Crucibles'
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from soul_lava_2026_10_09 import SOUL_FOR_LAVA  # noqa: E402
 

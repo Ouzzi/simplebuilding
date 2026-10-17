@@ -36,8 +36,9 @@ import snownee.jade.api.WailaPlugin;
  */
 @WailaPlugin
 public class SimplebuildingJadePlugin implements IWailaPlugin {
-    // Same two ids as BlockInfo.isModCauldron; not called from there because the 1.21.11 copy of BlockInfo lacks it.
-    private static final java.util.Set<String> NO_FLUID_CAULDRONS = java.util.Set.of("simplesandwiches:milk_cauldron", "simplecrucibles:reinforced_cauldron");
+    // Same id as BlockInfo.isModCauldron; not called from there because the 1.21.11 copy of BlockInfo lacks it. The
+    // reinforced cauldron and the crucibles have Simple Crucibles' own Jade plugin (split stage 5b).
+    private static final java.util.Set<String> NO_FLUID_CAULDRONS = java.util.Set.of("simplesandwiches:milk_cauldron");
     private static final Map<BlockInfo.Topic, BlockInfoServerProvider> DATA = new EnumMap<>(BlockInfo.Topic.class);
     private static final Map<BlockInfo.Topic, BlockInfoClientProvider> PROVIDERS = new EnumMap<>(BlockInfo.Topic.class);
 
@@ -52,11 +53,6 @@ public class SimplebuildingJadePlugin implements IWailaPlugin {
 
     @Override
     public void register(IWailaCommonRegistration registration) {
-        // The 1.21.11 copy also compiles this plugin, but has no crucible topic or bridge.
-        for (BlockInfo.Topic topic : BlockInfo.Topic.values()) {
-            if (topic.id().equals("crucible")) registration.registerBlockDataProvider(
-                    DATA.get(topic), net.minecraft.world.level.block.entity.BlockEntity.class);
-        }
         registration.registerBlockDataProvider(DATA.get(BlockInfo.Topic.OWNER), OwnedBlockEntity.class);
         BlockInfoServerProvider pads = DATA.get(BlockInfo.Topic.PAD_STATUS);
         registration.registerBlockDataProvider(pads, LaunchpadBlockEntity.class);
@@ -67,9 +63,6 @@ public class SimplebuildingJadePlugin implements IWailaPlugin {
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
-        for (BlockInfo.Topic topic : BlockInfo.Topic.values()) {
-            if (topic.id().equals("crucible")) registration.registerBlockComponent(PROVIDERS.get(topic), Block.class);
-        }
         // Server topics: the tooltip only shows what the server sent, so any block may ask.
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.OWNER), Block.class);
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.PAD_STATUS), Block.class);
@@ -81,11 +74,11 @@ public class SimplebuildingJadePlugin implements IWailaPlugin {
         // 1.21.11-Linie dieses Plugin mit ihrer eigenen Kopie des gemeinsamen Codes baut.
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.CHEST_SLOTS), net.minecraft.world.level.block.ShulkerBoxBlock.class);
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.FURNACE_SPEED), AbstractFurnaceBlock.class);
-        // Milk cauldron and reinforced cauldron: only by topic id, the 1.21.11 copy of BlockInfo has no such topic.
+        // Milk cauldron: only by topic id, the 1.21.11 copy of BlockInfo has no such topic.
         for (BlockInfo.Topic topic : BlockInfo.Topic.values()) {
             if (topic.id().equals("cauldron")) registration.registerBlockComponent(PROVIDERS.get(topic), AbstractCauldronBlock.class);
         }
-        // Jade's universal fluid line ("Empty 1B") is wrong for these two cauldrons: they hold no fluid.
+        // Jade's universal fluid line ("Empty 1B") is wrong for the milk cauldron: it holds no fluid.
         registration.addTooltipCollectedCallback((root, accessor) -> {
             if (accessor instanceof BlockAccessor block
                     && NO_FLUID_CAULDRONS.contains(BuiltInRegistries.BLOCK.getKey(block.getBlock()).toString())) {

@@ -159,8 +159,6 @@ public final class DataIntegrityTests {
                 "goat_horn_holder"));
         blocks.addAll(wallVariants().keySet());
         blocks.add("potted_silent_dandelion");
-        // Crucible P5: the soul lava fluid block (like vanilla lava, only a bucket form).
-        blocks.add("soul_lava");
         // Queue N33: sulfur fire and copper fire are fires (no item, no loot), placed by flint and steel.
         blocks.add("sulfur_fire");
         blocks.add("copper_fire");
@@ -202,8 +200,6 @@ public final class DataIntegrityTests {
             "standing_rod",
             // drops the horn and the held item stored in its block entity (GoatHornHolderBlock#getDrops)
             "goat_horn_holder",
-            // soul lava (Crucible P5): a fluid block like vanilla lava, removed only by scooping
-            "soul_lava",
             // fires drop nothing (N33)
             "sulfur_fire", "copper_fire",
             // chess: an octet cell drops its octets (CheckerOctetBlock#getDrops), a piece cell its pieces
@@ -309,7 +305,8 @@ public final class DataIntegrityTests {
             "fine_elytra_pad",
             // Ende der versteckten Easter-Kette ueber den Pad-Endstufen: bewusst nirgends angeboten.
             "funny_stick",
-            // Abgenutzte Keramik-Eimer (Besitzer N12b: Kreativtab nur sinnvolle Stufen): entstehen nur durch Benutzung.
+            // Abgenutzte Keramik-Eimer (Besitzer N12b: Kreativtab nur sinnvolle Stufen): entstehen nur durch Benutzung;
+            // seit Stufe 5b Simple Crucibles' Items (der Pfad gilt fuer jeden Namensraum).
             "chipped_ceramic_bucket", "chipped_ceramic_water_bucket", "chipped_ceramic_lava_bucket",
             "cracked_ceramic_bucket", "cracked_ceramic_water_bucket", "cracked_ceramic_lava_bucket",
             "brittle_ceramic_bucket", "brittle_ceramic_water_bucket", "brittle_ceramic_lava_bucket",
@@ -1687,10 +1684,7 @@ public final class DataIntegrityTests {
         }
         // Aus Simple Tweaks uebernommen, eigene Registrierung (com.simplebuilding.tweaks).
         items.addAll(com.simplebuilding.tweaks.item.TweaksItems.all());
-        // Crucible P5 (26.3): Eimer (ModFluids) und Enderit-Tiegel/-Fass (CrucibleCompat), zur Laufzeit registriert.
-        if (McVersion.CRUCIBLE) {
-            items.addAll(com.simplebuilding.fluid.ModFluids.buckets());
-        }
+        // Crucible P5: Eimer und Seelen-Lava sind seit Stufe 5b Simple Crucibles' Items (dessen eigene Checks).
         // Schach (McVersion.CHESS): Achtel, Figuren, Treppen und Stufen in Schleifen (ChessItems).
         items.addAll(com.simplebuilding.chess.ChessItems.octets());
         items.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
@@ -1730,9 +1724,6 @@ public final class DataIntegrityTests {
         }
         blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.all());
         blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.heads());
-        if (McVersion.CRUCIBLE) {
-            blocks.add(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BLOCK);
-        }
         if (McVersion.FIRES) {
             blocks.add(com.simplebuilding.blocks.custom.ThemedFireBlock.SULFUR_FIRE);
             blocks.add(com.simplebuilding.blocks.custom.ThemedFireBlock.COPPER_FIRE);
@@ -2757,7 +2748,9 @@ public final class DataIntegrityTests {
             // 26.3: the pad ingredients enderman/blaze/shulker head are Simple Mobheads' items (required sub-mod).
             boolean subModHead = McVersion.HEADS_IN_MOBHEADS && McVersion.HEAD_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace());
             if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)
-                    && !com.simplebuilding.util.SharedMaterials.isShared(item) && !subModHead && !ovenItemIds().contains(BuiltInRegistries.ITEM.getKey(item))) {
+                    && !com.simplebuilding.util.SharedMaterials.isShared(item) && !subModHead && !ovenItemIds().contains(BuiltInRegistries.ITEM.getKey(item))
+                    // Split stage 5b: Simple Crucibles' buckets keep their row in SimpleBuilding's functional tab (by id).
+                    && !com.simplebuilding.util.BucketRefs.buckets().contains(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
@@ -3119,14 +3112,14 @@ public final class DataIntegrityTests {
         if (McVersion.CRUCIBLE) {
             // Crucible P5: die Eimer (Kupfer, Seelen-Lava, Luecke, Enderit); die Tiegel liegen in Simple Crucibles' Tab (Stufe 5).
             expected.add(CreativeTabLayout.Row.of("buckets",
-                    com.simplebuilding.fluid.ModFluids.COPPER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, gap,
-                    com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
-            expected.add(CreativeTabLayout.Row.of("enderite_milk", com.simplebuilding.fluid.ModFluids.ENDERITE_MILK_BUCKET));
+                    com.simplebuilding.util.BucketRefs.item("copper_bucket"), com.simplebuilding.util.BucketRefs.item("copper_water_bucket"),
+                    com.simplebuilding.util.BucketRefs.item("copper_lava_bucket"), com.simplebuilding.util.BucketRefs.item("soul_lava_bucket"), gap,
+                    com.simplebuilding.util.BucketRefs.item("enderite_bucket"), com.simplebuilding.util.BucketRefs.item("enderite_water_bucket"),
+                    com.simplebuilding.util.BucketRefs.item("enderite_lava_bucket"), com.simplebuilding.util.BucketRefs.item("enderite_soul_lava_bucket")));
+            expected.add(CreativeTabLayout.Row.of("enderite_milk", com.simplebuilding.util.BucketRefs.item("enderite_milk_bucket")));
             expected.add(CreativeTabLayout.Row.of("ceramic_buckets",
-                    com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET));
+                    com.simplebuilding.util.BucketRefs.item("raw_ceramic_bucket"), com.simplebuilding.util.BucketRefs.item("ceramic_bucket"),
+                    com.simplebuilding.util.BucketRefs.item("ceramic_water_bucket"), com.simplebuilding.util.BucketRefs.item("ceramic_lava_bucket")));
         }
         if (McVersion.MUSIC_DISCS) {
             expected.add(CreativeTabLayout.Row.of("amplifiers", ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));

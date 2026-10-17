@@ -33,6 +33,8 @@ import shimmer_2026_10_06 as shimmer  # noqa: E402
 ROOT = p.ROOT
 LIB = p.LIB
 SB = p.SB
+# Split stage 5b: soul lava and the buckets are Simple Crucibles' textures (assets/simplecrucibles/textures).
+CRU = p.CRU
 LIB_MODELS = ROOT / 'modules/simplecrucibles/generated/resources/assets/simplecrucibles/models/block'
 PREVIEW = Path('C:/Users/o_o/code/minecraft-mods/previews/crucible-art-v3-vorschau.png')
 SB_CHESTS = ROOT / 'src/main/resources/assets/simplebuilding/textures/entity/chest'
@@ -583,10 +585,10 @@ def bucket_resources(copper_variant, enderite_variant):
                 img = copper_bucket_round7(stage, copper_variant, content)
             else:
                 img = copper_bucket(p.ramp(p.vanilla('block/' + name)), copper_variant, content)
-            out[SB / f'item/copper_{suffix}_{stage}.png'] = img
+            out[CRU / f'item/copper_{suffix}_{stage}.png'] = img
     # The filled Enderite buckets (full + half) come from enderite_bucket_fill_2026_10_09.py since N29.
-    out[SB / 'item/enderite_bucket.png'] = enderite_bucket_strip(enderite_variant)
-    out[SB / 'item/soul_lava_bucket.png'] = iron_soul_lava_bucket()
+    out[CRU / 'item/enderite_bucket.png'] = enderite_bucket_strip(enderite_variant)
+    out[CRU / 'item/soul_lava_bucket.png'] = iron_soul_lava_bucket()
     return out
 
 
@@ -755,7 +757,7 @@ def preview():
     rows.append(('Seelen-Lava B', [('still f0', big(soul_lava('still').crop((0, 0, 16, 16)), 10)),
                                    ('still f10', big(soul_lava('still').crop((0, 160, 16, 176)), 10)),
                                    ('fliessend f0', big(soul_lava('flow').crop((0, 0, 32, 32)), 5)),
-                                   ('alt still', big(p.load(SB / 'block/soul_lava_still.png').crop((0, 0, 16, 16)), 10))]))
+                                   ('alt still', big(p.load(CRU / 'block/soul_lava_still.png').crop((0, 0, 16, 16)), 10))]))
     for variant in ('D', 'E', 'F'):
         cells = [(f'Stufe {stage}', checker(big(copper_bucket_round7(stage, variant), 10))) for stage in range(4)]
         cells.append(('Wasser', checker(big(copper_bucket_round7(0, variant, 'water'), 10))))
@@ -775,14 +777,14 @@ def preview():
         cells = [(c or 'leer', checker(big(enderite_bucket(variant, c), 10))) for c in (None, 'water', 'lava', 'soul_lava')]
         cells.append(('Eisen Seele', checker(big(iron_soul_lava_bucket(), 10))))
         cells.append(('1x', checker(big(enderite_bucket(variant), 2))))
-        cells.append(('alt', checker(big(p.load(SB / 'item/enderite_bucket.png'), 10))))
+        cells.append(('alt', checker(big(p.load(CRU / 'item/enderite_bucket.png'), 10))))
         rows.append((f'Enderit-Eimer {variant}', cells))
     for content in (None, 'soul_lava'):
         strip = enderite_bucket_strip('A', content)
         rows.append((f'Enderit A Glanz {content or "leer"}', [(f'f{f}', checker(big(strip.crop((0, 16 * f, 16, 16 * f + 16)), 6)))
                                                              for f in range(0, 10)]))
     rows.append(('Vanilla', [('Eimer', checker(big(p.vanilla('item/bucket'), 10))),
-                             ('alt Kupfer', checker(big(p.load(SB / 'item/copper_bucket_0.png'), 10)))]))
+                             ('alt Kupfer', checker(big(p.load(CRU / 'item/copper_bucket_0.png'), 10)))]))
     names = 'v3 Besitzerwahl - Tiegel: Kessel-Modell (Fuss -2, Boden -1, Bauch voll, Hals -1 px) mit B Rippen / C Stufenbeschlag'
     sheet = label_sheet(rows, names + f' | eingebaut: Tiegel {CHOICE["crucible"]}, Kupfer-Eimer '
                         f'{CHOICE["copper_bucket"]}, Enderit-Eimer {CHOICE["enderite_bucket"]}')
@@ -824,26 +826,26 @@ def validate(path, img):
 
 def is_derived(path):
     """Vanilla-derived textures of this script are built, never committed (tools/textures/vanilla_derived.py): the
-    buckets in simplebuilding and the Enderite crucible/barrel faces in the simplecrucibles module (split stage 5). The
-    others (iron/reinforced/netherite tiers, copper barrel, reinforced cauldron item) stay committed until the build
-    ships derived textures for all of them. item/soul_lava_bucket.png is the same image soul_lava_2026_10_09.py builds,
-    so derived() leaves it out."""
-    return SB in path.parents or path in MODULE_DERIVED
+    Enderite crucible/barrel faces (split stage 5) and the copper/Enderite/soul lava buckets (stage 5b), all in the
+    simplecrucibles module. The others (iron/reinforced/netherite tiers, copper barrel, reinforced cauldron item) stay
+    committed until the build ships derived textures for all of them. item/soul_lava_bucket.png is the same image
+    soul_lava_2026_10_09.py builds, so derived_module() leaves it out."""
+    return path in MODULE_DERIVED or (path.parent == CRU / 'item' and 'bucket' in path.name)
 
 
 MODULE_DERIVED = {*crucible_paths('enderite').values(), *barrel_paths('enderite').values()}
 
 
 def derived(jar):
-    """Vanilla-derived output of simplebuilding for tools/textures/vanilla_derived.py: texture path -> image."""
-    # build/vanilla-textures (extracted by vanilla_derived.extract_vanilla_textures) must exist before this module is imported
-    return {path.relative_to(SB).as_posix(): img for path, img in resources().items()
-            if SB in path.parents and path.name != 'soul_lava_bucket.png'}
+    """Vanilla-derived output of simplebuilding: none since split stage 5b (kept for vanilla_derived.OLDER_GENERATORS callers)."""
+    return {}
 
 
 def derived_module(jar):
     """Vanilla-derived output of the simplecrucibles module: texture path under assets/simplecrucibles/textures -> image."""
-    return {path.relative_to(LIB.parent).as_posix(): img for path, img in resources().items() if path in MODULE_DERIVED}
+    # build/vanilla-textures (extracted by vanilla_derived.extract_vanilla_textures) must exist before this module is imported
+    return {path.relative_to(CRU).as_posix(): img for path, img in resources().items()
+            if is_derived(path) and path.name != 'soul_lava_bucket.png'}
 
 
 def main():

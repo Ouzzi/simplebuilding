@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 842,
+      "count": 816,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3702,43 +3702,28 @@ window.WIKI_DATA = {
       "id": "crucible_parts",
       "sources": [
         "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java",
-        "common/src/shared/java/com/simplebuilding/fluid/SoulLavaFluid.java",
-        "common/src/shared/java/com/simplebuilding/fluid/SoulLavaBlock.java",
-        "common/src/shared/java/com/simplebuilding/fluid/SoulLava.java",
-        "common/src/shared/java/com/simplebuilding/fluid/ModBucketItem.java",
-        "common/src/shared/java/com/simplebuilding/effect/SoulBurnEffect.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-        "mc26_3/overlay/java/com/simplebuilding/mixin/SoulLavaSpringMixin.java",
-        "mc26_3/overlay/java/com/simplebuilding/mixin/SoulLavaFortressMixin.java"
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
       ],
       "related": [
         "simplecrucibles:enderite_crucible",
         "simplecrucibles:enderite_barrel",
-        "simplebuilding:soul_lava_bucket",
-        "simplebuilding:copper_bucket",
-        "simplebuilding:enderite_bucket",
-        "simplebuilding:ceramic_bucket"
+        "simplecrucibles:soul_lava_bucket",
+        "simplecrucibles:enderite_bucket"
       ],
       "en": {
-        "title": "Crucibles, soul lava and buckets",
-        "summary": "SimpleBuilding's part of the Simple Crucibles crucibles: the sledgehammer ways, soul lava as extreme heat, copper and Enderite buckets.",
+        "title": "Crucibles with the sledgehammer",
+        "summary": "SimpleBuilding's part of the Simple Crucibles crucibles: the sledgehammer ways and the quartz crush. Soul lava, the buckets and the crucible JEI/Jade pages are Simple Crucibles' own.",
         "details": [
           "The Enderite crucible and barrel are Simple Crucibles'. The sledgehammer replaces its axe ways: building the iron crucible on an empty cauldron (16 strikes, one iron ingot each: 8 for the side plates, each first half then whole, 4 for the two handles - iron poles count -, 4 for the rim; every strike is its own visible stage, breaking it midway gives the cauldron and the ingots back; 2 durability per strike), attaching a barrel (6 strikes) and upgrading crucibles strike by strike: 12 blows, every third blow strikes one of 4 units in and shows it as a band of the new material (a crucible broken midway gives the units back; contents and an attached barrel stay): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer). Barrels go up at twice the cost of a furnace (2 material at the end, twice the strikes): copper to reinforced to netherite (netherite nuggets) to Enderite barrel. A cauldron becomes a reinforced cauldron with 8 cracked diamonds.",
-          "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. While it lasts, a faint dark-blue filter lies over the screen (besides the vanilla effect icon). It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
-          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks; it holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (a full one is named \"(Full)\"). The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) while carried in the hotbar or off hand or placed in the world (dropped, or in an item frame), not when pouring and not in the rest of the inventory or in containers; honeycomb waxes it (off hand while holding it, or on an item frame) and a waxed one does not weather, but filling it wears the wax: it then weathers at half pace until waxed again (an axe scrapes the wax or one stage off), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) takes water and lava, wears one stage per pour (shown as a bar) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. By default, a soul lava bucket burns 10 times as long as a lava bucket.",
-          "The sledgehammer crushes a quartz block into 4 quartz, one per strike (4 strikes).",
-          "Server config server.soulLava controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files. Jade shows heat, occupied slots and the shortest remaining time of a running slot, including tier speed and the two-block heat penalty. JEI shows the fastest cooking recipe per input and required heat, plus warming for tagged food without a cooking recipe; displayed time assumes an iron crucible at minimum heat without a distance penalty."
+          "The sledgehammer crushes a quartz block into 4 quartz, one per strike (4 strikes)."
         ]
       },
       "de": {
-        "title": "Schmelztiegel, Seelen-Lava und Eimer",
-        "summary": "SimpleBuildings Teil der Simple-Crucibles-Schmelztiegel: Vorschlaghammer-Wege, Seelen-Lava als extreme Hitze, Kupfer- und Enderit-Eimer.",
+        "title": "Schmelztiegel mit dem Vorschlaghammer",
+        "summary": "SimpleBuildings Teil der Simple-Crucibles-Schmelztiegel: Vorschlaghammer-Wege und Quarz-Zerschlagen. Seelen-Lava, die Eimer und die JEI-/Jade-Seiten der Tiegel gehören Simple Crucibles.",
         "details": [
           "Enderit-Schmelztiegel und -Fass gehören zu Simple Crucibles. Der Vorschlaghammer ersetzt dessen Axt-Wege: Bau des Eisen-Schmelztiegels auf einem leeren Kessel (16 Schläge, je ein Eisenbarren: 8 für die Seitenplatten, je erst halb, dann ganz, 4 für die zwei Griffe - Eisenstangen zählen auch -, 4 für den Rand; jeder Schlag ist eine eigene sichtbare Stufe, Abbau zwischendurch gibt Kessel und Barren zurück; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Tiegel Schlag für Schlag aufwerten: 12 Schläge, jeder dritte schlägt eine von 4 Einheiten ein und zeigt sie als Band des neuen Materials (Abbau zwischendurch gibt die Einheiten zurück; Inhalt und angedocktes Fass bleiben): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer). Fässer zum doppelten Preis eines Ofens (2 Material am Ende, doppelte Schläge): Kupfer- zu Verstärktem zu Netherit- (Netheritklumpen) zu Enderit-Fass. Ein Kessel wird mit 8 Rissigen Diamanten zum verstärkten Kessel.",
-          "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt zwei Minuten Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt; auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) kommt der Wurf alle 1,5 Sekunden. Solange er wirkt, liegt ein leichter dunkelblauer Filter über dem Bild (zusätzlich zum Vanilla-Effektsymbol). Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
-          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie; er fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (ein voller heißt „(voll)“). Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock), solange er in der Hotbar oder Nebenhand getragen wird oder in der Welt liegt (fallengelassen oder im Rahmen), nicht beim Ausgießen und nicht im übrigen Inventar oder in Behältern; eine Honigwabe wachst ihn (Nebenhand, während man ihn hält, oder am Rahmen), und ein gewachster verwittert nicht, doch Einfüllen greift das Wachs an: er verwittert dann halb so schnell, bis er wieder gewachst wird (eine Axt schabt das Wachs oder eine Stufe ab), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (als Balken sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer.",
-          "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz, einem je Schlag (4 Schläge).",
-          "Die Server-Config server.soulLava regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien. Jade zeigt Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept; die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag."
+          "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz, einem je Schlag (4 Schläge)."
         ]
       }
     },
@@ -8692,51 +8677,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:brittle_ceramic_bucket",
-      "name": {
-        "en_us": "Brittle Ceramic Bucket",
-        "de_de": "Brüchiger Keramik-Eimer"
-      },
-      "texture": "assets/textures/item/brittle_ceramic_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:brittle_ceramic_lava_bucket",
-      "name": {
-        "en_us": "Brittle Ceramic Lava Bucket",
-        "de_de": "Brüchiger Keramik-Lavaeimer"
-      },
-      "texture": "assets/textures/item/brittle_ceramic_lava_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:brittle_ceramic_water_bucket",
-      "name": {
-        "en_us": "Brittle Ceramic Water Bucket",
-        "de_de": "Brüchiger Keramik-Wassereimer"
-      },
-      "texture": "assets/textures/item/brittle_ceramic_water_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:brown_concrete_octet",
       "name": {
         "en_us": "Brown Concrete Octet",
@@ -9644,53 +9584,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:ceramic_bucket",
-      "name": {
-        "en_us": "Ceramic Bucket",
-        "de_de": "Keramik-Eimer"
-      },
-      "texture": "assets/textures/item/ceramic_bucket.png",
-      "craftedBy": [
-        "simplebuilding:ceramic_bucket_from_smelting_raw_ceramic_bucket"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:ceramic_lava_bucket",
-      "name": {
-        "en_us": "Ceramic Lava Bucket",
-        "de_de": "Keramik-Lavaeimer"
-      },
-      "texture": "assets/textures/item/ceramic_lava_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:ceramic_water_bucket",
-      "name": {
-        "en_us": "Ceramic Water Bucket",
-        "de_de": "Keramik-Wassereimer"
-      },
-      "texture": "assets/textures/item/ceramic_water_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:cherry_cauldron",
       "name": {
         "en_us": "Cherry Cauldron",
@@ -9940,51 +9833,6 @@ window.WIKI_DATA = {
             "Abbau mit der Axt; brennbare Hölzer brennen und dienen als Brennstoff (100 Ticks)."
           ]
         }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:chipped_ceramic_bucket",
-      "name": {
-        "en_us": "Chipped Ceramic Bucket",
-        "de_de": "Angeschlagener Keramik-Eimer"
-      },
-      "texture": "assets/textures/item/chipped_ceramic_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:chipped_ceramic_lava_bucket",
-      "name": {
-        "en_us": "Chipped Ceramic Lava Bucket",
-        "de_de": "Angeschlagener Keramik-Lavaeimer"
-      },
-      "texture": "assets/textures/item/chipped_ceramic_lava_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:chipped_ceramic_water_bucket",
-      "name": {
-        "en_us": "Chipped Ceramic Water Bucket",
-        "de_de": "Angeschlagener Keramik-Wassereimer"
-      },
-      "texture": "assets/textures/item/chipped_ceramic_water_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
       },
       "hasCustomBehaviour": false
     },
@@ -10695,23 +10543,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:copper_bucket",
-      "name": {
-        "en_us": "Copper Bucket",
-        "de_de": "Kupfer-Eimer"
-      },
-      "texture": "assets/textures/item/copper_bucket_0.png",
-      "craftedBy": [
-        "simplebuilding:copper_bucket"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:copper_building_wand",
       "name": {
         "en_us": "Copper Building Wand",
@@ -11303,21 +11134,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:copper_lava_bucket",
-      "name": {
-        "en_us": "Copper Lava Bucket",
-        "de_de": "Kupfer-Lavaeimer"
-      },
-      "texture": "assets/textures/item/copper_lava_bucket_0.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:copper_light_pane",
       "name": {
         "en_us": "Copper Light Pane",
@@ -11647,66 +11463,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:copper_water_bucket",
-      "name": {
-        "en_us": "Copper Water Bucket",
-        "de_de": "Kupfer-Wassereimer"
-      },
-      "texture": "assets/textures/item/copper_water_bucket_0.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:cracked_ceramic_bucket",
-      "name": {
-        "en_us": "Cracked Ceramic Bucket",
-        "de_de": "Rissiger Keramik-Eimer"
-      },
-      "texture": "assets/textures/item/cracked_ceramic_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:cracked_ceramic_lava_bucket",
-      "name": {
-        "en_us": "Cracked Ceramic Lava Bucket",
-        "de_de": "Rissiger Keramik-Lavaeimer"
-      },
-      "texture": "assets/textures/item/cracked_ceramic_lava_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:cracked_ceramic_water_bucket",
-      "name": {
-        "en_us": "Cracked Ceramic Water Bucket",
-        "de_de": "Rissiger Keramik-Wassereimer"
-      },
-      "texture": "assets/textures/item/cracked_ceramic_water_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:cracked_ice",
@@ -16730,23 +16486,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:enderite_bucket",
-      "name": {
-        "en_us": "Enderite Bucket",
-        "de_de": "Enderit-Eimer"
-      },
-      "texture": "assets/textures/item/enderite_bucket.png",
-      "craftedBy": [
-        "simplebuilding:enderite_bucket"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:enderite_building_wand",
       "name": {
         "en_us": "Enderite Building Wand",
@@ -18004,36 +17743,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:enderite_lava_bucket",
-      "name": {
-        "en_us": "Enderite Lava Bucket",
-        "de_de": "Enderit-Lavaeimer"
-      },
-      "texture": "assets/textures/item/enderite_lava_bucket_half.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_lava_bucket_full",
-      "name": {
-        "en_us": "Enderite Lava Bucket (Full)",
-        "de_de": "Enderit-Lavaeimer (voll)"
-      },
-      "texture": "assets/textures/item/enderite_lava_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:enderite_leggings",
       "name": {
         "en_us": "Enderite Leggings",
@@ -18048,36 +17757,6 @@ window.WIKI_DATA = {
       "properties": {
         "durability": 630,
         "enchantability": 18,
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_milk_bucket",
-      "name": {
-        "en_us": "Enderite Milk Bucket",
-        "de_de": "Enderit-Milcheimer"
-      },
-      "texture": "assets/textures/item/enderite_milk_bucket_half.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_milk_bucket_full",
-      "name": {
-        "en_us": "Enderite Milk Bucket (Full)",
-        "de_de": "Enderit-Milcheimer (voll)"
-      },
-      "texture": "assets/textures/item/enderite_milk_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
         "maxStackSize": 1
       },
       "hasCustomBehaviour": false
@@ -18928,36 +18607,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:enderite_soul_lava_bucket",
-      "name": {
-        "en_us": "Enderite Soul Lava Bucket",
-        "de_de": "Enderit-Seelen-Lava-Eimer"
-      },
-      "texture": "assets/textures/item/enderite_soul_lava_bucket_half.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_soul_lava_bucket_full",
-      "name": {
-        "en_us": "Enderite Soul Lava Bucket (Full)",
-        "de_de": "Enderit-Seelen-Lava-Eimer (voll)"
-      },
-      "texture": "assets/textures/item/enderite_soul_lava_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:enderite_spear",
       "name": {
         "en_us": "Enderite Spear",
@@ -19068,36 +18717,6 @@ window.WIKI_DATA = {
             "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
           ]
         }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_water_bucket",
-      "name": {
-        "en_us": "Enderite Water Bucket",
-        "de_de": "Enderit-Wassereimer"
-      },
-      "texture": "assets/textures/item/enderite_water_bucket_half.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_water_bucket_full",
-      "name": {
-        "en_us": "Enderite Water Bucket (Full)",
-        "de_de": "Enderit-Wassereimer (voll)"
-      },
-      "texture": "assets/textures/item/enderite_water_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
       },
       "hasCustomBehaviour": false
     },
@@ -40016,49 +39635,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:raw_ceramic_bucket",
-      "name": {
-        "en_us": "Raw Ceramic Bucket",
-        "de_de": "Roher Keramik-Eimer"
-      },
-      "texture": "assets/textures/item/raw_ceramic_bucket.png",
-      "craftedBy": [
-        "simplebuilding:raw_ceramic_bucket"
-      ],
-      "usedIn": [
-        "simplebuilding:ceramic_bucket_from_smelting_raw_ceramic_bucket"
-      ],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A bucket of wet clay, still deciding what it wants to be."
-          ],
-          "use": [
-            "Craft 5 clay balls in a V shape. A furnace fires it into a Ceramic Bucket."
-          ],
-          "secret": [
-            "It holds nothing until it is fired, and once fired it wears with every pour."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Eimer aus nassem Ton, der noch überlegt, was er werden will."
-          ],
-          "use": [
-            "5 Tonklumpen in V-Form herstellen. Ein Ofen brennt ihn zu einem Keramik-Eimer."
-          ],
-          "secret": [
-            "Er hält nichts, bevor er gebrannt ist, und gebrannt nutzt er sich mit jedem Gießen ab."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:red_concrete_octet",
       "name": {
         "en_us": "Red Concrete Octet",
@@ -44614,45 +44190,6 @@ window.WIKI_DATA = {
             "Melone: Schleichen + Rechtsklick mit einer Melonenscheibe auf einen Block setzt sie als Melonen-Achtel (ohne Schleichen wird gegessen). Die Zelle zeigt außen Schale und an den Schnittflächen Fruchtfleisch und droppt je Achtel eine Melonenscheibe; der schleichende Vorschlaghammer zerlegt einen Melonenblock in Melonen-Achtel.",
             "Material-Achtel (26.3, Queue N19/N15): jeder Block mit Treppe und Stufe - Stein, Ziegel, Sandstein, Tiefenschiefer, Tuff, Prismarin, Quarz, Kupfer, Wolle, Beton und die SimpleBuilding-Paletten, aber nicht Bretter und Schachfiguren - hat ein eigenes Achtel mit der Textur des Blocks (Stapel 99). Der Steinmetz schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder (formlos), der schleichende Vorschlaghammer lässt sie fallen, wenn er den Block, seine Treppe oder seine Stufe zerlegt. Im Kreativ-Tab liegen sie neben der Stufe, im SimpleBlocks-Tab nach Material gruppiert. Die Liste wird generiert (tools/textures/octets_2026_10_09.py).",
             "(mit Simple End) Aschholz- und Dämmerholz-Achtel (Bretter) und Achtel ihrer Stämme und entrindeten Stämme."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:soul_lava_bucket",
-      "name": {
-        "en_us": "Soul Lava Bucket",
-        "de_de": "Seelen-Lava-Eimer"
-      },
-      "texture": "assets/textures/item/soul_lava_bucket.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A bucket of the Nether's second fire, hot in a way lava is not."
-          ],
-          "use": [
-            "Scooped from soul lava with an iron bucket, which breaks when you pour it; an Enderite bucket survives. Soul lava burns twice as long as lava and gives Soul Burn for two minutes."
-          ],
-          "secret": [
-            "Soul lava never spreads far and nothing replaces it except creative players: only scooping the source removes it."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Eimer vom zweiten Feuer des Nethers, heiß auf eine Art, die Lava nicht ist."
-          ],
-          "use": [
-            "Mit einem Eisen-Eimer aus Seelenlava geschöpft; er bricht beim Ausgießen, ein Enderit-Eimer überlebt es. Seelenlava brennt doppelt so lang wie Lava und gibt zwei Minuten Seelenbrand."
-          ],
-          "secret": [
-            "Seelenlava fließt nie weit, und nichts ersetzt sie außer Kreativspielern: Nur das Schöpfen der Quelle entfernt sie."
           ]
         }
       },
@@ -74841,42 +74378,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:soul_lava",
-      "name": {
-        "en_us": "Soul Lava",
-        "de_de": "Seelen-Lava"
-      },
-      "texture": "assets/textures/block/soul_lava_still.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "Lava with a soul, which the Nether has kept a secret."
-          ],
-          "use": [
-            "Rare in the Nether: 0.5 percent of lava springs and the lava well of 10 percent of fortress entrances. It flows 2 blocks (5 in the Nether), slower than lava. Touching it burns twice as long and gives Soul Burn for two minutes."
-          ],
-          "secret": [
-            "Water meeting it turns a source into a quartz block and flowing water into blackstone. Only scooping the source removes it."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Lava mit Seele, die der Nether geheim gehalten hat."
-          ],
-          "use": [
-            "Selten im Nether: 0,5 Prozent der Lavaquellen und der Lavabrunnen von 10 Prozent der Festungseingänge. Sie fließt 2 Blöcke weit (5 im Nether), langsamer als Lava. Berührung brennt doppelt so lang und gibt zwei Minuten Seelenbrand."
-          ],
-          "secret": [
-            "Trifft Wasser darauf, wird eine Quelle zu Quarzblock und fließendes Wasser zu Schwarzstein. Nur das Schöpfen der Quelle entfernt sie."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:spawn_teleporter",
       "name": {
         "en_us": "Spawn Teleporter I",
@@ -88980,39 +88481,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:ceramic_bucket_from_smelting_raw_ceramic_bucket",
-      "type": "minecraft:smelting",
-      "category": null,
-      "group": "ceramic_bucket",
-      "result": {
-        "id": "simplebuilding:ceramic_bucket",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/ceramic_bucket_from_smelting_raw_ceramic_bucket.json",
-      "ingredients": [
-        "simplebuilding:raw_ceramic_bucket"
-      ],
-      "slots": {
-        "ingredient": [
-          "simplebuilding:raw_ceramic_bucket"
-        ]
-      },
-      "cookingtime": 200,
-      "experience": 0.3,
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:clay_ball",
-            "count": 3
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:cherry_cauldron",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -90670,41 +90138,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:copper_ingot",
             "count": 9
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:copper_bucket",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:copper_bucket",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/copper_bucket.json",
-      "ingredients": [
-        "minecraft:copper_ingot"
-      ],
-      "pattern": [
-        "C C",
-        " C "
-      ],
-      "key": {
-        "C": [
-          "minecraft:copper_ingot"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 3
           }
         ]
       }
@@ -97225,50 +96658,6 @@ window.WIKI_DATA = {
           {
             "id": "simplelib:enderite_upgrade_template",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:enderite_bucket",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_bucket",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_bucket.json",
-      "ingredients": [
-        "minecraft:bucket",
-        "simplelib:enderite_nugget"
-      ],
-      "pattern": [
-        "NNN",
-        "NBN",
-        "NNN"
-      ],
-      "key": {
-        "B": [
-          "minecraft:bucket"
-        ],
-        "N": [
-          "simplelib:enderite_nugget"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplelib:enderite_nugget",
-            "count": 8
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 3
           }
         ]
       }
@@ -125218,41 +124607,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:copper_ingot",
             "count": 0.111
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:raw_ceramic_bucket",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:raw_ceramic_bucket",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/raw_ceramic_bucket.json",
-      "ingredients": [
-        "minecraft:clay_ball"
-      ],
-      "pattern": [
-        "C C",
-        " C "
-      ],
-      "key": {
-        "C": [
-          "minecraft:clay_ball"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:clay_ball",
-            "count": 3
           }
         ]
       }
@@ -159583,10 +158937,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_bucket",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_building_wand",
           "required": true
         },
@@ -159659,23 +159009,7 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_lava_bucket_full",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_leggings",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_milk_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_milk_bucket_full",
           "required": true
         },
         {
@@ -159723,14 +159057,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_soul_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_soul_lava_bucket_full",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -159747,19 +159073,47 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_water_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_water_bucket_full",
-          "required": true
-        },
-        {
           "id": "simplecrucibles:enderite_barrel",
           "required": true
         },
         {
+          "id": "simplecrucibles:enderite_bucket",
+          "required": true
+        },
+        {
           "id": "simplecrucibles:enderite_crucible",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_lava_bucket",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_lava_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_milk_bucket",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_milk_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_soul_lava_bucket",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_soul_lava_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_water_bucket",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_water_bucket_full",
           "required": true
         },
         {
@@ -159822,10 +159176,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_bucket",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_building_wand",
           "required": true
         },
@@ -159898,23 +159248,7 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_lava_bucket_full",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_leggings",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_milk_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_milk_bucket_full",
           "required": true
         },
         {
@@ -159962,14 +159296,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_soul_lava_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_soul_lava_bucket_full",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -159983,14 +159309,6 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_trapped_chest",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_water_bucket",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_water_bucket_full",
           "required": true
         },
         {
@@ -160018,7 +159336,43 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplecrucibles:enderite_bucket",
+          "required": true
+        },
+        {
           "id": "simplecrucibles:enderite_crucible",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_lava_bucket",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_lava_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_milk_bucket",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_milk_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_soul_lava_bucket",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_soul_lava_bucket_full",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_water_bucket",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:enderite_water_bucket_full",
           "required": true
         },
         {
@@ -164043,259 +163397,6 @@ window.WIKI_DATA = {
       "labelDe": "Rüstung am Ständer tauschen",
       "tooltip": "Sneak + right-click with an empty\nhand, or right-click a powered armor\nstand: swaps all its armor with\nyours. Server-side. Default: on.",
       "tooltipDe": "Schleichen + Rechtsklick mit leerer\nHand oder Rechtsklick auf einen\nbestromten Rüstungsständer tauscht\nseine ganze Rüstung mit deiner.\nServerseitig. Standard: an."
-    },
-    {
-      "range": [
-        1.0,
-        4.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.flowOverworld",
-      "shortName": "flowOverworld",
-      "type": "int",
-      "default": "2",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Overworld Flow Distance",
-      "labelDe": "Fließweite Oberwelt",
-      "tooltip": "Server-side. Range: 1 to 4. Default: 2.",
-      "tooltipDe": "Serverseitig. Bereich: 1 bis 4. Standard: 2."
-    },
-    {
-      "range": [
-        1.0,
-        7.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.flowNether",
-      "shortName": "flowNether",
-      "type": "int",
-      "default": "5",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Nether Flow Distance",
-      "labelDe": "Fließweite Nether",
-      "tooltip": "Server-side. Range: 1 to 7. Default: 5.",
-      "tooltipDe": "Serverseitig. Bereich: 1 bis 7. Standard: 5."
-    },
-    {
-      "range": [
-        20.0,
-        200.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.tickDelayOverworld",
-      "shortName": "tickDelayOverworld",
-      "type": "int",
-      "default": "45",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Overworld Tick Delay",
-      "labelDe": "Fließverzögerung Oberwelt",
-      "tooltip": "Server-side. Range: 20 to 200. Default: 45.",
-      "tooltipDe": "Serverseitig. Bereich: 20 bis 200. Standard: 45."
-    },
-    {
-      "range": [
-        10.0,
-        200.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.tickDelayNether",
-      "shortName": "tickDelayNether",
-      "type": "int",
-      "default": "20",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Nether Tick Delay",
-      "labelDe": "Fließverzögerung Nether",
-      "tooltip": "Server-side. Range: 10 to 200. Default: 20.",
-      "tooltipDe": "Serverseitig. Bereich: 10 bis 200. Standard: 20."
-    },
-    {
-      "range": [
-        5.0,
-        60.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.burnSeconds",
-      "shortName": "burnSeconds",
-      "type": "int",
-      "default": "30",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Burn Duration (seconds)",
-      "labelDe": "Brenndauer (Sekunden)",
-      "tooltip": "Server-side. Range: 5 to 60. Default: 30.",
-      "tooltipDe": "Serverseitig. Bereich: 5 bis 60. Standard: 30."
-    },
-    {
-      "range": [
-        5.0,
-        300.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.soulBurnSeconds",
-      "shortName": "soulBurnSeconds",
-      "type": "int",
-      "default": "120",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Soul Burn Duration (seconds)",
-      "labelDe": "Seelenbranddauer (Sekunden)",
-      "tooltip": "Server-side. Range: 5 to 300. Default: 120.",
-      "tooltipDe": "Serverseitig. Bereich: 5 bis 300. Standard: 120."
-    },
-    {
-      "range": [
-        20.0,
-        200.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.soulBurnIntervalTicks",
-      "shortName": "soulBurnIntervalTicks",
-      "type": "int",
-      "default": "60",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Soul Burn Interval (ticks)",
-      "labelDe": "Seelenbrandintervall (Ticks)",
-      "tooltip": "Server-side. Range: 20 to 200. Default: 60.",
-      "tooltipDe": "Serverseitig. Bereich: 20 bis 200. Standard: 60."
-    },
-    {
-      "range": [
-        0.0,
-        1.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.soulBurnChance",
-      "shortName": "soulBurnChance",
-      "type": "double",
-      "default": "0.5",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Soul Burn Damage Chance",
-      "labelDe": "Seelenbrand-Schadenschance",
-      "tooltip": "Server-side. Range: 0.0 to 1.0. Default: 0.5.",
-      "tooltipDe": "Serverseitig. Bereich: 0.0 bis 1.0. Standard: 0.5."
-    },
-    {
-      "range": [
-        1.0,
-        20.0
-      ],
-      "side": "server",
-      "reload": "restart",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.fuelMultiplier",
-      "shortName": "fuelMultiplier",
-      "type": "int",
-      "default": "10",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Fuel Multiplier (restart required)",
-      "labelDe": "Brennstofffaktor (Neustart nötig)",
-      "tooltip": "Server-side. Range: 1 to 20. Multiplies 20,000 ticks. Requires restart and matching client/server config files. Default: 10.",
-      "tooltipDe": "Serverseitig. Bereich: 1 bis 20. Multipliziert 20.000 Ticks. Neustart und gleiche Config auf Client und Server nötig. Standard: 10."
-    },
-    {
-      "range": [
-        0.0,
-        0.05
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.springChance",
-      "shortName": "springChance",
-      "type": "double",
-      "default": "0.005",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Nether Spring Chance",
-      "labelDe": "Chance für Netherquellen",
-      "tooltip": "Server-side. Range: 0.0 to 0.05. Default: 0.005.",
-      "tooltipDe": "Serverseitig. Bereich: 0.0 bis 0.05. Standard: 0.005."
-    },
-    {
-      "range": [
-        0.0,
-        0.5
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.soulLava.fortressChance",
-      "shortName": "fortressChance",
-      "type": "double",
-      "default": "0.1",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Soul Lava",
-      "groupDe": "Seelen-Lava",
-      "label": "Fortress Well Chance",
-      "labelDe": "Chance für Festungsbrunnen",
-      "tooltip": "Server-side. Range: 0.0 to 0.5. Default: 0.1.",
-      "tooltipDe": "Serverseitig. Bereich: 0.0 bis 0.5. Standard: 0.1."
     },
     {
       "range": null,
@@ -186563,7 +185664,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:machines/bottomless_bucket",
       "parent": "simplebuilding:machines/soul_scooper",
-      "icon": "simplebuilding:enderite_bucket",
+      "icon": "simplecrucibles:enderite_bucket",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -186579,7 +185680,7 @@ window.WIKI_DATA = {
           "name": "enderite_bucket",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:enderite_bucket"
+            "simplecrucibles:enderite_bucket"
           ]
         }
       ],
@@ -186717,7 +185818,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:machines/soul_scooper",
       "parent": "simplebuilding:machines/hot_pot",
-      "icon": "simplebuilding:soul_lava_bucket",
+      "icon": "simplecrucibles:soul_lava_bucket",
       "frame": "goal",
       "hidden": false,
       "title": {
@@ -190545,14 +189646,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 800,
-    "blocks": 533,
-    "recipes": 1383,
+    "items": 774,
+    "blocks": 532,
+    "recipes": 1379,
     "lootTables": 389,
     "trades": 20,
     "enchantments": 19,
     "tags": 58,
-    "config": 244,
+    "config": 233,
     "inWorld": 491,
     "advancements": 116,
     "features": 51,

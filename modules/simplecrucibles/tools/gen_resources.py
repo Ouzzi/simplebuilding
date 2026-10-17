@@ -321,7 +321,8 @@ def files():
     out[f"{d}/tags/block/heat_source/medium.json"] = {"values": ["minecraft:campfire", "minecraft:soul_campfire", "minecraft:magma_block"]}
     out[f"{d}/tags/block/heat_source/high.json"] = {"values": ["minecraft:lava_cauldron"]}
     out[f"{d}/tags/block/heat_source/extreme.json"] = {"values": []}
-    out[f"{d}/tags/fluid/extreme_heat.json"] = {"values": []}
+    # Soul lava (split stage 5b: the module's own fluid, SimpleBuilding's before) is the extreme heat fluid.
+    out[f"{d}/tags/fluid/extreme_heat.json"] = {"values": [f"{NS}:soul_lava", f"{NS}:flowing_soul_lava"]}
     out[f"{d}/tags/item/needs_extreme_heat.json"] = {"values": ["minecraft:ancient_debris"]}
     out[f"{d}/tags/item/crucible_walls.json"] = {"values": ["minecraft:iron_ingot"]}
     out[f"{d}/tags/item/crucible_handles.json"] = {"values": ["minecraft:iron_ingot"]}

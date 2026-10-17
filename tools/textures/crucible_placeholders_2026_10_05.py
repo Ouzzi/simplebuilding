@@ -19,6 +19,8 @@ import copper_barrels_2026_10_05 as barrels
 sys.argv = saved_argv
 
 SB = ROOT / 'mc26_3/overlay/resources/assets/simplebuilding/textures'
+# Split stage 5b: soul lava, soul burn and the buckets are Simple Crucibles' textures.
+CRU = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures'
 LIB = ROOT / 'modules/simplecrucibles/shared/resources/assets/simplecrucibles/textures/block'
 PREVIEWS = ROOT / 'build/crucible-previews'
 
@@ -153,7 +155,7 @@ def resources():
     rows = []
     burn_reference = Image.new('RGBA', (18, 18))
     burn_reference.paste(vanilla('block/soul_fire_0').crop((0, 0, 16, 16)), (1, 1))
-    rows.append((SB / 'mob_effect/soul_burn.png', soul_burn(), burn_reference))
+    rows.append((CRU / 'mob_effect/soul_burn.png', soul_burn(), burn_reference))
     for part, img in reinforced_cauldron().items():
         rows.append((LIB / f'reinforced_cauldron_{part}.png', img, vanilla('block/cauldron_' + part)))
     return rows
@@ -227,7 +229,7 @@ def main():
             img.save(path)
     for kind in ('still', 'flow'):
         data = (V / f'block/lava_{kind}.png.mcmeta').read_bytes()
-        path = SB / f'block/soul_lava_{kind}.png.mcmeta'
+        path = CRU / f'block/soul_lava_{kind}.png.mcmeta'
         if check:
             # Git can check out text resources with CRLF on Windows.
             assert path.read_bytes().replace(b'\r\n', b'\n') == data.replace(b'\r\n', b'\n'), path

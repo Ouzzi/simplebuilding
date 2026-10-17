@@ -175,10 +175,11 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                 ItemLike crucibleIcon = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
                         Identifier.fromNamespaceAndPath("simplecrucibles", "iron_crucible"));
                 AdvancementHolder pot = feature("machines/hot_pot", reinforced, crucibleIcon, AdvancementType.TASK, ModTriggers.CRUCIBLE_BUILT);
-                AdvancementHolder soul = feature("machines/soul_scooper", pot, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET,
+                // Stufe 5b: Seelen-Lava und Eimer sind Simple Crucibles' Items (per Id); das Schoepfen meldet das Modul (CrucibleCompat).
+                AdvancementHolder soul = feature("machines/soul_scooper", pot, com.simplebuilding.util.BucketRefs.item("soul_lava_bucket"),
                         AdvancementType.GOAL, ModTriggers.SOUL_LAVA_SCOOPED);
-                node("machines/bottomless_bucket", soul, com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, AdvancementType.TASK,
-                        "enderite_bucket", any(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET));
+                node("machines/bottomless_bucket", soul, com.simplebuilding.util.BucketRefs.item("enderite_bucket"), AdvancementType.TASK,
+                        "enderite_bucket", any(com.simplebuilding.util.BucketRefs.item("enderite_bucket")));
             }
         }
 

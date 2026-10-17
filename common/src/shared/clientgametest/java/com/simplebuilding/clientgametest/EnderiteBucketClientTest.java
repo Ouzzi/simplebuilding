@@ -21,17 +21,17 @@ public final class EnderiteBucketClientTest {
 
     /** Hotbar slot, item id and the sprite its icon must draw. */
     private static final String[][] SHOWCASE = {
-            {"hotbar.0", "simplebuilding:enderite_bucket", "simplebuilding:item/enderite_bucket"},
-            {"hotbar.1", "simplebuilding:enderite_water_bucket", "simplebuilding:item/enderite_water_bucket_half"},
-            {"hotbar.2", "simplebuilding:enderite_water_bucket_full", "simplebuilding:item/enderite_water_bucket"},
-            {"hotbar.3", "simplebuilding:enderite_lava_bucket", "simplebuilding:item/enderite_lava_bucket_half"},
-            {"hotbar.4", "simplebuilding:enderite_lava_bucket_full", "simplebuilding:item/enderite_lava_bucket"},
-            {"hotbar.5", "simplebuilding:enderite_soul_lava_bucket", "simplebuilding:item/enderite_soul_lava_bucket_half"},
-            {"hotbar.6", "simplebuilding:enderite_soul_lava_bucket_full", "simplebuilding:item/enderite_soul_lava_bucket"},
+            {"hotbar.0", "simplecrucibles:enderite_bucket", "simplecrucibles:item/enderite_bucket"},
+            {"hotbar.1", "simplecrucibles:enderite_water_bucket", "simplecrucibles:item/enderite_water_bucket_half"},
+            {"hotbar.2", "simplecrucibles:enderite_water_bucket_full", "simplecrucibles:item/enderite_water_bucket"},
+            {"hotbar.3", "simplecrucibles:enderite_lava_bucket", "simplecrucibles:item/enderite_lava_bucket_half"},
+            {"hotbar.4", "simplecrucibles:enderite_lava_bucket_full", "simplecrucibles:item/enderite_lava_bucket"},
+            {"hotbar.5", "simplecrucibles:enderite_soul_lava_bucket", "simplecrucibles:item/enderite_soul_lava_bucket_half"},
+            {"hotbar.6", "simplecrucibles:enderite_soul_lava_bucket_full", "simplecrucibles:item/enderite_soul_lava_bucket"},
     };
 
     public static void inWorld(Script script) {
-        if (com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_WATER_BUCKET == null) return;
+        if (!com.simplebuilding.util.BucketRefs.present()) return;
         TestScene.build(script, "minecraft:stone", "creative");
         for (String[] piece : SHOWCASE) {
             script.command("item replace entity @a " + piece[0] + " with " + piece[1]);
@@ -51,8 +51,8 @@ public final class EnderiteBucketClientTest {
                     problems.append(SHOWCASE[slot][1]).append(" draws ").append(sprites).append("; ");
                 }
             }
-            requireLine(client, problems, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET, "Holds 1/2 buckets");
-            requireLine(client, problems, com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_LAVA_BUCKET, "Holds 2/2 buckets");
+            requireLine(client, problems, com.simplebuilding.util.BucketRefs.item("enderite_water_bucket"), "Holds 1/2 buckets");
+            requireLine(client, problems, com.simplebuilding.util.BucketRefs.item("enderite_lava_bucket_full"), "Holds 2/2 buckets");
             if (problems.length() > 0) throw new AssertionError("Enderite buckets: " + problems);
         });
         // Survival for the shot: in creative, InventoryScreen hands over to the creative inventory.

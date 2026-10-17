@@ -24,10 +24,23 @@ public final class CruciblesForge {
     public CruciblesForge(FMLJavaModLoadingContext context) {
         com.simplebuilding.modules.simplecrucibles.forge.ModuleForgeTests.register(context.getModBusGroup());
         SimpleCrucibles.init(FMLPaths.CONFIGDIR.get());
+        // Split stage 5b: soul lava needs a Forge fluid type (swaps the fluid factory before registration).
+        CruciblesForgeSoulLava.install(context.getModBusGroup());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
-            if (key.equals(Registries.BLOCK)) CrucibleBlocks.register();
-            if (key.equals(Registries.ITEM)) CrucibleItems.register();
+            // Forge unlocks one registry per event: every part in its own.
+            if (key.equals(Registries.DATA_COMPONENT_TYPE)) com.simplecrucibles.registry.CrucibleComponents.register();
+            if (key.equals(Registries.MOB_EFFECT)) com.simplecrucibles.effect.CrucibleEffects.register();
+            if (key.equals(Registries.FLUID)) com.simplecrucibles.fluid.CrucibleFluids.registerFluids();
+            if (key.equals(Registries.BLOCK)) {
+                CrucibleBlocks.register();
+                com.simplecrucibles.fluid.CrucibleFluids.registerBlocks();
+            }
+            if (key.equals(Registries.ITEM)) {
+                CrucibleItems.register();
+                com.simplecrucibles.fluid.CrucibleFluids.registerItems();
+                com.simplecrucibles.fluid.BucketDispensing.register();
+            }
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 CrucibleBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(CrucibleBlocks.crucibles())) {
                     @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return CrucibleBlockEntities.isCrucible(state); }
@@ -40,6 +53,18 @@ public final class CruciblesForge {
             if (key.equals(Registries.CREATIVE_MODE_TAB)) CrucibleRegistry.tab();
         });
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
+            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)
+                    && com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleCrucibles.MOD_ID)) {
+                // The buckets after Vanilla's powder snow bucket.
+                var entries = event.getEntries();
+                net.minecraft.world.item.ItemStack previous = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.POWDER_SNOW_BUCKET);
+                for (net.minecraft.world.item.ItemStack stack : CrucibleRegistry.bucketStacks()) {
+                    if (entries.contains(stack)) continue;
+                    if (entries.contains(previous)) entries.putAfter(previous, stack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    else entries.put(stack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    previous = stack;
+                }
+            }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleCrucibles.on()) {
                 event.getEntries().put(com.simplecrucibles.guide.CruciblesGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             }

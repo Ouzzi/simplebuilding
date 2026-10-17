@@ -2715,10 +2715,10 @@
       },
       "note": {
         "en": {
-          "summary": "Gunpowder, Soulfire Powder and coal or charcoal make 3. Works like a fire charge (lights fire, dispensers shoot it) but flies as the Soulfire Blaze's soul fireball: burns and gives Soul Burn when Simple Building is loaded."
+          "summary": "Gunpowder, Soulfire Powder and coal or charcoal make 3. Works like a fire charge (lights fire, dispensers shoot it) but flies as the Soulfire Blaze's soul fireball: burns and gives Soul Burn when Simple Crucibles is loaded."
         },
         "de": {
-          "summary": "Schießpulver, Seelenfeuer-Lohenstaub und Kohle oder Holzkohle ergeben 3. Wirkt wie eine Feuerkugel (entzündet Feuer, Dispenser verschießen sie), fliegt aber als Seelenfeuerball der Seelenfeuer-Lohe: brennt und gibt Seelenbrand, wenn Simple Building geladen ist."
+          "summary": "Schießpulver, Seelenfeuer-Lohenstaub und Kohle oder Holzkohle ergeben 3. Wirkt wie eine Feuerkugel (entzündet Feuer, Dispenser verschießen sie), fliegt aber als Seelenfeuerball der Seelenfeuer-Lohe: brennt und gibt Seelenbrand, wenn Simple Crucibles geladen ist."
         }
       },
       "texture": "assets/textures/simplemobs/item/soul_fire_charge.png",

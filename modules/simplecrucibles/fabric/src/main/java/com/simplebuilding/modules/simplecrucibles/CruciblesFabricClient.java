@@ -15,5 +15,11 @@ public final class CruciblesFabricClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(CrucibleBlockEntities.CRUCIBLE, CrucibleRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplecrucibles.client.ReinforcedCauldronTint.INSTANCE), com.simplecrucibles.registry.CrucibleBlocks.REINFORCED_CAULDRON);
+        // Split stage 5b: soul lava rendering (turquoise lava textures) and the soul burn screen filter.
+        net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry.register(com.simplecrucibles.fluid.CrucibleFluids.SOUL_LAVA,
+                com.simplecrucibles.fluid.CrucibleFluids.FLOWING_SOUL_LAVA, com.simplecrucibles.client.SoulLavaModel.unbaked());
+        net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.attachElementBefore(
+                net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements.CHAT, com.simplecrucibles.SimpleCrucibles.id("soul_burn_filter"),
+                (context, tickCounter) -> com.simplecrucibles.client.SoulBurnOverlay.render(context));
     }
 }

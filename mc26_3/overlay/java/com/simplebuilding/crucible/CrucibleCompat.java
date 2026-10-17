@@ -34,7 +34,8 @@ import org.jetbrains.annotations.Nullable;
  *   <li>Sledgehammer ways (principle 5a): building the iron crucible (2 durability per strike), attaching a
  *       barrel (6 strikes); upgrades run through the sledgehammer upgrade table
  *       ({@code SledgehammerUpgrades}). The Vanilla axe ways are switched off.</li>
- *   <li>Reinforced cauldron: soul lava as its extreme content, copper/enderite buckets.</li>
+ *   <li>Soul lava, its buckets and the copper/Enderite/ceramic buckets are the module's (split stage 5b); SimpleBuilding
+ *       only listens for scooping (advancement) and lends the buckets to its wooden cauldron ({@link #cauldronBucket}).</li>
  * </ul>
  */
 public final class CrucibleCompat {
@@ -43,15 +44,24 @@ public final class CrucibleCompat {
     /** Namespace of the crucibles (the module). */
     public static final String NAMESPACE = "simplecrucibles";
 
-    /** After registration: plug the sledgehammer and the buckets into Simple Crucibles (axe ways: LibServices.hammersReplaceAxes). */
+    /**
+     * After registration: plug the sledgehammer into Simple Crucibles (axe ways: LibServices.hammersReplaceAxes) and
+     * listen for soul lava scooping (advancement "Soul Scooper"). Soul lava and the buckets are the module's own since
+     * split stage 5b - it handles them on the reinforced cauldron itself.
+     */
     public static void init() {
         SimpleLibApi.registerToolUse(CrucibleCompat::hammerWants);
-        SimpleCruciblesApi.registerCauldronBucket(new SbCauldronBuckets());
-        SimpleCruciblesApi.setExtremeCauldronEffect(CrucibleCompat::soulLavaInside);
+        SimpleCruciblesApi.onSoulLavaScooped(player ->
+                com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.SOUL_LAVA_SCOOPED));
     }
 
-    private static void soulLavaInside(Level level, Entity entity) {
-        com.simplebuilding.fluid.SoulLava.touch(level, entity);
+    /**
+     * Simple Crucibles' copper, Enderite and ceramic buckets on SimpleBuilding's wooden cauldron, whose state is mapped to
+     * the matching Vanilla cauldron ({@code WoodenCauldronBlock#toVanilla}). Null when {@code stack} is no such bucket case.
+     */
+    public static @Nullable InteractionResult cauldronBucket(ItemStack stack, BlockState vanillaState, Level level, BlockPos pos,
+                                                             Player player, InteractionHand hand) {
+        return SimpleCruciblesApi.cauldronBucket(stack, vanillaState, level, pos, player, hand);
     }
 
     public static Identifier id(String path) {
@@ -176,50 +186,6 @@ public final class CrucibleCompat {
             return hit ? InteractionResult.SUCCESS : InteractionResult.FAIL;
         }
         return null;
-    }
-
-    /**
-     * SimpleBuilding's containers for the reinforced cauldron: soul lava is its "extreme" content (iron bucket
-     * breaks when pouring it, the Enderite bucket comes back), copper and Enderite buckets take and pour water
-     * and lava like everywhere else (copper breaks on lava, cannot take soul lava).
-     */
-    private static final class SbCauldronBuckets implements SimpleCruciblesApi.CauldronBucket {
-        @Override
-        public @Nullable String pours(ItemStack held) {
-            if (!(held.getItem() instanceof com.simplebuilding.fluid.ModBucketItem bucket)) return null;
-            net.minecraft.world.level.material.Fluid content = bucket.getContent();
-            if (content.isSame(com.simplebuilding.fluid.ModFluids.SOUL_LAVA)) return "extreme";
-            if (content.isSame(net.minecraft.world.level.material.Fluids.LAVA)) return "lava";
-            if (content.isSame(net.minecraft.world.level.material.Fluids.WATER)) return "water";
-            return null;
-        }
-
-        @Override
-        public ItemStack afterPour(ItemStack held) {
-            return held.getItem() instanceof com.simplebuilding.fluid.ModBucketItem bucket ? bucket.afterPour(held) : ItemStack.EMPTY;
-        }
-
-        @Override
-        public @Nullable ItemStack take(ItemStack held, String content) {
-            // Owner N21: a half Enderite bucket takes one more bucket of its own fluid and becomes full.
-            Item fuller = com.simplebuilding.fluid.ModFluids.fullEnderite(held.getItem());
-            if (fuller != null) return content.equals(pours(held)) ? com.simplebuilding.fluid.ModBucketItem.fill(held, fuller) : null;
-            com.simplebuilding.fluid.ModBucketItem.Kind kind;
-            if (held.is(net.minecraft.world.item.Items.BUCKET)) kind = com.simplebuilding.fluid.ModBucketItem.Kind.IRON;
-            else if (held.getItem() instanceof com.simplebuilding.fluid.ModBucketItem bucket
-                    && bucket.getContent() == net.minecraft.world.level.material.Fluids.EMPTY
-                    && com.simplebuilding.fluid.ModBucketItem.canScoop(held)) kind = bucket.kind();
-            else return null;
-            net.minecraft.world.level.material.Fluid fluid = switch (content) {
-                case "extreme" -> com.simplebuilding.fluid.ModFluids.SOUL_LAVA;
-                case "lava" -> kind == com.simplebuilding.fluid.ModBucketItem.Kind.IRON ? null : net.minecraft.world.level.material.Fluids.LAVA;
-                case "water" -> kind == com.simplebuilding.fluid.ModBucketItem.Kind.IRON ? null : net.minecraft.world.level.material.Fluids.WATER;
-                default -> null;
-            };
-            if (fluid == null) return null;
-            Item filled = com.simplebuilding.fluid.ModBucketItem.filled(kind, fluid);
-            return filled == null ? null : com.simplebuilding.fluid.ModBucketItem.fill(held, filled);
-        }
     }
 
     private CrucibleCompat() {}

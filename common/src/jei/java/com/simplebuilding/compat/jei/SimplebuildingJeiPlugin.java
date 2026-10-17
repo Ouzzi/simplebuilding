@@ -77,7 +77,6 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
         }
         registration.addRecipeCategories(new MobDropCategory(gui));
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            registration.addRecipeCategories(new CrucibleCategory(gui));
             registration.addRecipeCategories(new CauldronWorldCategory(gui, com.simplebuilding.compat.CauldronWorldCatalog.entries()));
         }
     }
@@ -132,14 +131,7 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
     @Override
     public void onRuntimeAvailable(IJeiRuntime runtime) {
         IRecipeManager recipes = runtime.getRecipeManager();
-        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            List<net.minecraft.world.item.crafting.AbstractCookingRecipe> cooking = new ArrayList<>();
-            recipes.createRecipeLookup(RecipeTypes.CAMPFIRE_COOKING).get().forEach(holder -> cooking.add(holder.value()));
-            recipes.createRecipeLookup(RecipeTypes.SMOKING).get().forEach(holder -> cooking.add(holder.value()));
-            recipes.createRecipeLookup(RecipeTypes.SMELTING).get().forEach(holder -> cooking.add(holder.value()));
-            recipes.createRecipeLookup(RecipeTypes.BLASTING).get().forEach(holder -> cooking.add(holder.value()));
-            recipes.addRecipes(CrucibleCategory.TYPE, com.simplebuilding.compat.CrucibleRecipeCatalog.build(cooking));
-        }
+        // The crucible category (cooking recipes per heat) is Simple Crucibles' own JEI plugin since split stage 5b.
         List<RecipeHolder<SmithingRecipe>> dummies = recipes.createRecipeLookup(RecipeTypes.SMITHING).get()
                 .filter(holder -> TrimUpgradeSmithingExtension.DUMMIES.contains(holder.id().identifier()))
                 .toList();
@@ -160,11 +152,6 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            for (String id : List.of("simplecrucibles:iron_crucible", "simplecrucibles:reinforced_crucible",
-                    "simplecrucibles:netherite_crucible", "simplecrucibles:enderite_crucible")) {
-                Item item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.parse(id));
-                if (item != net.minecraft.world.item.Items.AIR) registration.addCraftingStation(CrucibleCategory.TYPE, item);
-            }
             for (Item item : com.simplebuilding.compat.CauldronWorldCatalog.catalysts()) {
                 registration.addCraftingStation(CauldronWorldCategory.TYPE, item);
             }

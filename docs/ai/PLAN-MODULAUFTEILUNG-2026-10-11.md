@@ -512,6 +512,23 @@ _Umgesetzt (16.10., Stufe 5a):_ wie geplant, mit diesen Abweichungen/Grenzen:
 - Modul-Version 1.0.0; neue Tests: `CrucibleTests` (37 im Modul, 28 aus `LibTests` + Config-Grenzen/-Übernahme/-Quarantäne, Registrierung,
   Migration alter Ids, Upgrade-Handler).
 
+_Umgesetzt (16.10., Stufe 5b, Branch `claude-s5b-crucibles`, Plan `docs/ai/PLAN-S5B-2026-10-16.md`):_
+- Seelen-Lava (2 Fluids, Block, Seelenbrand-Effekt, Quellen-/Festungs-Mixins, Nebel, HUD-Filter, NeoForge-/Forge-FluidType) und
+  **alle 26 Eimer** (Kupfer, Keramik mit Stufen, Enderit halb/voll inkl. Milch, Seelen-Lava-Eimer; Komponenten `oxidation`,
+  `waxed`, `wax_worn`, `ceramic_uses`; Rezepte, Spender, Vanilla-/verstärkter Kessel) liegen in `simplecrucibles`. Entscheidung
+  Eimer-Familie: komplett mit, weil sie aus dem Tiegel-Plan stammen, `ModBucketItem` mit der Seelen-Lava teilen und ein
+  `BucketItem` seine Flüssigkeit beim Bau braucht (kein Ladereihenfolge-Risiko); Abweichung von der Tabelle im
+  Modulfamilien-Plan („Eimer“ bei SB). Seelen-Lava im Enderit-Eimer = 2 Füllungen (Besitzer).
+- IdMoves `simplebuilding:` -> `simplecrucibles:` für ITEM, BLOCK, FLUID, MOB_EFFECT, DATA_COMPONENT_TYPE, RECIPE + Rezept-Advancements.
+  Config-Gruppe `soulLava` in `simplecrucibles-server.json`, einmal aus `simplebuilding.json` (`server.soulLava`) übernommen;
+  SB-Cloth-Seite ohne Seelen-Lava.
+- JEI (Tiegel-Kategorie, Stationen, Infoseiten der Eimer/Enderit-Stufe) und Jade (Tiegel, verstärkter Kessel) als eigene Plugins
+  des Moduls (Forge ohne JEI/Jade). In SB bleiben die Vorschlaghammer-Wege, `CauldronWorldCategory` (Hammer + Milchkessel), das
+  Jade-Thema Milchkessel und die Advancements (Schöpfen über `SimpleCruciblesApi.onSoulLavaScooped`). SB findet Eimer per Id
+  (`util/BucketRefs`), der Holzkessel nutzt sie über `CrucibleCompat.cauldronBucket`.
+- Tests: 31 neue Modul-Tests (`BucketTests`: 26 aus SB `CrucibleTests`/`WorldPolishTests`, Registrierung, Migration, Config,
+  Jade-Kessel, JEI-Infoseiten); SB behält Hammer-/Katalog-Tests. Vanilla-abgeleitete Texturen in `MODULE_OUTPUTS['simplecrucibles']`.
+
 Summe ≈ 32 Agenten-Sitzungen. Stufen 1a–2 sind unabhängig voneinander parallelisierbar (verschiedene Dateien bis auf
 `modules.json` – additiv). Ab Stufe 3 strikt nacheinander (gemeinsame Registrierungsdateien).
 

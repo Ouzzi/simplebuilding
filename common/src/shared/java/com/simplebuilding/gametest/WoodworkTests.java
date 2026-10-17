@@ -201,7 +201,7 @@ public final class WoodworkTests {
 
     /** N34: copper, Enderite and ceramic buckets work on the wooden cauldron like on the Vanilla one (no item identity checks). */
     public static void woodenCauldronTakesCrucibleBuckets(GameTestHelper helper) {
-        if (!McVersion.WOODWORK) {
+        if (!McVersion.WOODWORK || !com.simplebuilding.util.BucketRefs.present()) {
             helper.succeed();
             return;
         }
@@ -219,38 +219,38 @@ public final class WoodworkTests {
         WoodenCauldronBlock.Content lava = WoodenCauldronBlock.Content.LAVA;
         WoodenCauldronBlock.Content empty = WoodenCauldronBlock.Content.EMPTY;
         // full Enderite water bucket: pours one of its two buckets (half stays), the half one takes it back (full again)
-        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_WATER_BUCKET), a);
+        useBlock(helper, player, new ItemStack(com.simplebuilding.util.BucketRefs.item("enderite_water_bucket_full")), a);
         check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == water && WoodenCauldronBlock.levelOf(helper.getBlockState(a)) == 3,
                 fails, "full Enderite water bucket fills the oak cauldron (" + helper.getBlockState(a) + ")");
-        check(player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET), fails, "half Enderite water bucket stays");
+        check(player.getMainHandItem().is(com.simplebuilding.util.BucketRefs.item("enderite_water_bucket")), fails, "half Enderite water bucket stays");
         useBlock(helper, player, player.getMainHandItem(), a);
         check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == empty
-                && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_WATER_BUCKET), fails,
+                && player.getMainHandItem().is(com.simplebuilding.util.BucketRefs.item("enderite_water_bucket_full")), fails,
                 "the half bucket takes the full cauldron and becomes full (" + player.getMainHandItem() + ")");
         // empty Enderite bucket scoops a full water cauldron; copper water bucket pours
-        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET), a);
-        check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == water && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.COPPER_BUCKET),
+        useBlock(helper, player, new ItemStack(com.simplebuilding.util.BucketRefs.item("copper_water_bucket")), a);
+        check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == water && player.getMainHandItem().is(com.simplebuilding.util.BucketRefs.item("copper_bucket")),
                 fails, "copper water bucket fills it, the empty copper bucket stays");
-        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET), a);
+        useBlock(helper, player, new ItemStack(com.simplebuilding.util.BucketRefs.item("enderite_bucket")), a);
         check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == empty
-                && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET), fails, "the empty Enderite bucket scoops it (half)");
+                && player.getMainHandItem().is(com.simplebuilding.util.BucketRefs.item("enderite_water_bucket")), fails, "the empty Enderite bucket scoops it (half)");
         // lava: full Enderite lava, copper lava breaks, ceramic lava
-        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_LAVA_BUCKET), b);
-        check(helper.getBlockState(b).getValue(WoodenCauldronBlock.CONTENT) == lava && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET),
+        useBlock(helper, player, new ItemStack(com.simplebuilding.util.BucketRefs.item("enderite_lava_bucket_full")), b);
+        check(helper.getBlockState(b).getValue(WoodenCauldronBlock.CONTENT) == lava && player.getMainHandItem().is(com.simplebuilding.util.BucketRefs.item("enderite_lava_bucket")),
                 fails, "full Enderite lava bucket fills the crimson cauldron (" + helper.getBlockState(b) + ")");
         useBlock(helper, player, player.getMainHandItem(), b);
         check(helper.getBlockState(b).getValue(WoodenCauldronBlock.CONTENT) == empty
-                && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_LAVA_BUCKET), fails, "the half lava bucket takes lava back");
-        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET), b);
+                && player.getMainHandItem().is(com.simplebuilding.util.BucketRefs.item("enderite_lava_bucket_full")), fails, "the half lava bucket takes lava back");
+        useBlock(helper, player, new ItemStack(com.simplebuilding.util.BucketRefs.item("copper_lava_bucket")), b);
         check(helper.getBlockState(b).getValue(WoodenCauldronBlock.CONTENT) == lava && player.getMainHandItem().isEmpty(), fails,
                 "copper lava bucket pours and breaks (" + player.getMainHandItem() + ")");
-        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET), b);
+        useBlock(helper, player, new ItemStack(com.simplebuilding.util.BucketRefs.item("enderite_bucket")), b);
         check(helper.getBlockState(b).getValue(WoodenCauldronBlock.CONTENT) == empty
-                && player.getMainHandItem().is(com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET), fails, "the empty Enderite bucket scoops lava (half)");
-        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET), c);
+                && player.getMainHandItem().is(com.simplebuilding.util.BucketRefs.item("enderite_lava_bucket")), fails, "the empty Enderite bucket scoops lava (half)");
+        useBlock(helper, player, new ItemStack(com.simplebuilding.util.BucketRefs.item("ceramic_lava_bucket")), c);
         check(helper.getBlockState(c).getValue(WoodenCauldronBlock.CONTENT) == lava, fails, "ceramic lava bucket pours");
         // soul lava never goes into a wooden cauldron
-        useBlock(helper, player, new ItemStack(com.simplebuilding.fluid.ModFluids.FULL_ENDERITE_SOUL_LAVA_BUCKET), a);
+        useBlock(helper, player, new ItemStack(com.simplebuilding.util.BucketRefs.item("enderite_soul_lava_bucket_full")), a);
         check(helper.getBlockState(a).getValue(WoodenCauldronBlock.CONTENT) == empty, fails, "soul lava is refused");
         finish(helper, fails);
     }

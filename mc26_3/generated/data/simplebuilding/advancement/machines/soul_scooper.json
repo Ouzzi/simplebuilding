@@ -14,7 +14,7 @@
     },
     "frame": "goal",
     "icon": {
-      "id": "simplebuilding:soul_lava_bucket"
+      "id": "simplecrucibles:soul_lava_bucket"
     },
     "title": {
       "translate": "advancements.simplebuilding.machines.soul_scooper.title"

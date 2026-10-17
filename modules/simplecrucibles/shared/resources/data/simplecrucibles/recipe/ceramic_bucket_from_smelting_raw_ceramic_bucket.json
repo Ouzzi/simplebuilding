@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.3,
+  "group": "ceramic_bucket",
+  "ingredient": "simplecrucibles:raw_ceramic_bucket",
+  "result": {
+    "id": "simplecrucibles:ceramic_bucket"
+  }
+}

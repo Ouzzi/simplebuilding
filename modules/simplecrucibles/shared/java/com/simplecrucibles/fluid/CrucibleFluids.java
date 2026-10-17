@@ -1,0 +1,215 @@
+package com.simplecrucibles.fluid;
+
+import com.simplecrucibles.SimpleCrucibles;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.MapColor;
+
+/**
+ * Soul lava and the crucible buckets (split stage 5b: SimpleBuilding's before, ids {@code simplebuilding:*} migrate
+ * through {@code SimpleCrucibles.registerIdMoves}). Fluids register in the FLUID phase ({@link #registerFluids}, Forge
+ * unlocks one registry per event), the block with the blocks, the buckets with the items. NeoForge/Forge replace
+ * {@link #factory} before registration with subclasses that carry their fluid type.
+ */
+public final class CrucibleFluids {
+    /** Creates the two soul lava fluids; loaders with fluid types swap it for their subclasses. */
+    public interface Factory {
+        FlowingFluid source();
+
+        FlowingFluid flowing();
+    }
+
+    public static Factory factory = new Factory() {
+        @Override
+        public FlowingFluid source() {
+            return new SoulLavaFluid.Source();
+        }
+
+        @Override
+        public FlowingFluid flowing() {
+            return new SoulLavaFluid.Flowing();
+        }
+    };
+
+    public static FlowingFluid SOUL_LAVA;
+    public static FlowingFluid FLOWING_SOUL_LAVA;
+    public static Block SOUL_LAVA_BLOCK;
+    public static Item SOUL_LAVA_BUCKET;
+    public static Item COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET;
+    public static Item ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET;
+    /**
+     * Owner N21/N28: an Enderite bucket holds two buckets of one fluid. The items above hold one (half), these two
+     * (full). Own items rather than a fill component, so fuel, crafting remainder, dispenser behaviour, item model
+     * and tags stay per item like everywhere in Vanilla.
+     */
+    public static Item FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET;
+    /** Queue N32: milk in the Enderite bucket, half (1/2) and full (2/2); see {@link EnderiteMilkBucketItem}. */
+    public static Item ENDERITE_MILK_BUCKET, FULL_ENDERITE_MILK_BUCKET;
+    /** Ceramic bucket: 3 clay -> raw, fired in a furnace or crucible; water and lava, 4 pours. */
+    public static Item RAW_CERAMIC_BUCKET, CERAMIC_BUCKET, CERAMIC_WATER_BUCKET, CERAMIC_LAVA_BUCKET;
+    /** One item per wear stage (intact, chipped, cracked, brittle) and filling; index = stage. */
+    public static final Item[] CERAMIC_EMPTY = new Item[CrucibleBucketItem.CERAMIC_STAGES], CERAMIC_WATER = new Item[CrucibleBucketItem.CERAMIC_STAGES],
+            CERAMIC_LAVA = new Item[CrucibleBucketItem.CERAMIC_STAGES];
+    /** Name prefix of each ceramic wear stage. */
+    public static final String[] CERAMIC_STAGE_NAMES = {"", "chipped_", "cracked_", "brittle_"};
+
+    public static void registerFluids() {
+        if (SOUL_LAVA != null) return;
+        FLOWING_SOUL_LAVA = Registry.register(BuiltInRegistries.FLUID, id("flowing_soul_lava"), factory.flowing());
+        SOUL_LAVA = Registry.register(BuiltInRegistries.FLUID, id("soul_lava"), factory.source());
+    }
+
+    public static void registerBlocks() {
+        if (SOUL_LAVA_BLOCK != null) return;
+        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, id("soul_lava"));
+        // Lava's properties without replaceable(): nothing builds into it but creative players (SoulLavaBlock).
+        SOUL_LAVA_BLOCK = Registry.register(BuiltInRegistries.BLOCK, key, new SoulLavaBlock(SOUL_LAVA, BlockBehaviour.Properties.of()
+                .mapColor(MapColor.COLOR_CYAN).noCollision().randomTicks().strength(100.0F).lightLevel(state -> 15)
+                .pushReaction(net.minecraft.world.level.material.PushReaction.IMMOVEABLE).noLootTable().liquid().sound(SoundType.EMPTY).setId(key)));
+    }
+
+    public static void registerItems() {
+        if (SOUL_LAVA_BUCKET != null) return;
+        int lava = SoulLava.LAVA_FUEL_TICKS;
+        SOUL_LAVA_BUCKET = item("soul_lava_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.IRON, SOUL_LAVA,
+                fuel(p.stacksTo(1), SoulLava.fuelTicks())));
+        COPPER_BUCKET = item("copper_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.COPPER, Fluids.EMPTY, p.stacksTo(16)));
+        COPPER_WATER_BUCKET = item("copper_water_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.COPPER, Fluids.WATER,
+                p.stacksTo(1).craftRemainder(COPPER_BUCKET)));
+        COPPER_LAVA_BUCKET = item("copper_lava_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.COPPER, Fluids.LAVA,
+                fuel(p.stacksTo(1), lava)));
+        ENDERITE_BUCKET = item("enderite_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.ENDERITE, Fluids.EMPTY,
+                p.stacksTo(16).fireResistant().rarity(Rarity.EPIC)));
+        ENDERITE_WATER_BUCKET = item("enderite_water_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.ENDERITE, Fluids.WATER,
+                p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET)));
+        ENDERITE_LAVA_BUCKET = item("enderite_lava_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.ENDERITE, Fluids.LAVA,
+                fuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), lava)));
+        ENDERITE_SOUL_LAVA_BUCKET = item("enderite_soul_lava_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.ENDERITE, SOUL_LAVA,
+                fuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), SoulLava.fuelTicks())));
+        // Full (two buckets): burning or crafting one bucket away leaves the half bucket of the same fluid.
+        FULL_ENDERITE_WATER_BUCKET = item("enderite_water_bucket_full", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.ENDERITE, Fluids.WATER,
+                p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_WATER_BUCKET)));
+        FULL_ENDERITE_LAVA_BUCKET = item("enderite_lava_bucket_full", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.ENDERITE, Fluids.LAVA,
+                fuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_LAVA_BUCKET), lava)));
+        FULL_ENDERITE_SOUL_LAVA_BUCKET = item("enderite_soul_lava_bucket_full", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.ENDERITE, SOUL_LAVA,
+                fuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_SOUL_LAVA_BUCKET), SoulLava.fuelTicks())));
+        // Milk (N32): drinking or crafting with it leaves the next smaller bucket (usingConvertsTo as Vanilla's milk bucket).
+        ENDERITE_MILK_BUCKET = item("enderite_milk_bucket", p -> new EnderiteMilkBucketItem(false, p.stacksTo(1).fireResistant().rarity(Rarity.EPIC)
+                .craftRemainder(ENDERITE_BUCKET).component(net.minecraft.core.component.DataComponents.CONSUMABLE,
+                        net.minecraft.world.item.component.Consumables.MILK_BUCKET).usingConvertsTo(ENDERITE_BUCKET)));
+        FULL_ENDERITE_MILK_BUCKET = item("enderite_milk_bucket_full", p -> new EnderiteMilkBucketItem(true, p.stacksTo(1).fireResistant().rarity(Rarity.EPIC)
+                .craftRemainder(ENDERITE_MILK_BUCKET).component(net.minecraft.core.component.DataComponents.CONSUMABLE,
+                        net.minecraft.world.item.component.Consumables.MILK_BUCKET).usingConvertsTo(ENDERITE_MILK_BUCKET)));
+        // No crafting remainder on the ceramic water bucket: a fresh bucket back would repair it for free.
+        RAW_CERAMIC_BUCKET = item("raw_ceramic_bucket", p -> new Item(p.stacksTo(16)));
+        // Wear stages as items (like the copper bucket's oxidation, but visible in the name), no durability.
+        // Lava (owner N12) is fuel like a lava bucket, but leaves no remainder - the clay bucket burns up with its lava
+        // (a fresh empty bucket back would also undo its wear).
+        for (int stage = 0; stage < CrucibleBucketItem.CERAMIC_STAGES; stage++) {
+            int s = stage;
+            String prefix = CERAMIC_STAGE_NAMES[stage];
+            CERAMIC_EMPTY[stage] = item(prefix + "ceramic_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.CERAMIC, Fluids.EMPTY, s, p.stacksTo(16)));
+            CERAMIC_WATER[stage] = item(prefix + "ceramic_water_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.CERAMIC, Fluids.WATER, s, p.stacksTo(1)));
+            CERAMIC_LAVA[stage] = item(prefix + "ceramic_lava_bucket", p -> new CrucibleBucketItem(CrucibleBucketItem.Kind.CERAMIC, Fluids.LAVA, s,
+                    fuel(p.stacksTo(1), lava)));
+        }
+        CERAMIC_BUCKET = CERAMIC_EMPTY[0];
+        CERAMIC_WATER_BUCKET = CERAMIC_WATER[0];
+        CERAMIC_LAVA_BUCKET = CERAMIC_LAVA[0];
+    }
+
+    /** All bucket items of this file in creative-tab order, the raw ceramic bucket included (empty before registration). */
+    public static java.util.List<Item> buckets() {
+        if (SOUL_LAVA_BUCKET == null) return java.util.List.of();
+        return java.util.List.of(COPPER_BUCKET, COPPER_WATER_BUCKET, COPPER_LAVA_BUCKET, SOUL_LAVA_BUCKET,
+                ENDERITE_BUCKET, ENDERITE_WATER_BUCKET, ENDERITE_LAVA_BUCKET, ENDERITE_SOUL_LAVA_BUCKET, ENDERITE_MILK_BUCKET,
+                RAW_CERAMIC_BUCKET, CERAMIC_EMPTY[0], CERAMIC_WATER[0], CERAMIC_LAVA[0],
+                CERAMIC_EMPTY[1], CERAMIC_WATER[1], CERAMIC_LAVA[1], CERAMIC_EMPTY[2], CERAMIC_WATER[2], CERAMIC_LAVA[2],
+                CERAMIC_EMPTY[3], CERAMIC_WATER[3], CERAMIC_LAVA[3],
+                FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET, FULL_ENDERITE_MILK_BUCKET);
+    }
+
+    /** The full Enderite buckets (two buckets each): only reached by scooping twice, so not in the creative tab. */
+    public static java.util.List<Item> fullEnderiteBuckets() {
+        if (FULL_ENDERITE_WATER_BUCKET == null) return java.util.List.of();
+        return java.util.List.of(FULL_ENDERITE_WATER_BUCKET, FULL_ENDERITE_LAVA_BUCKET, FULL_ENDERITE_SOUL_LAVA_BUCKET, FULL_ENDERITE_MILK_BUCKET);
+    }
+
+    /** Half Enderite bucket (one bucket) -> the full one of the same fluid; null for anything else. */
+    public static @org.jspecify.annotations.Nullable Item fullEnderite(Item half) {
+        if (half == null || FULL_ENDERITE_WATER_BUCKET == null) return null;
+        if (half == ENDERITE_WATER_BUCKET) return FULL_ENDERITE_WATER_BUCKET;
+        if (half == ENDERITE_LAVA_BUCKET) return FULL_ENDERITE_LAVA_BUCKET;
+        if (half == ENDERITE_SOUL_LAVA_BUCKET) return FULL_ENDERITE_SOUL_LAVA_BUCKET;
+        return null;
+    }
+
+    /** Full Enderite bucket (two buckets) -> the half one of the same fluid; null for anything else. */
+    public static @org.jspecify.annotations.Nullable Item halfEnderite(Item full) {
+        if (full == null || FULL_ENDERITE_WATER_BUCKET == null) return null;
+        if (full == FULL_ENDERITE_WATER_BUCKET) return ENDERITE_WATER_BUCKET;
+        if (full == FULL_ENDERITE_LAVA_BUCKET) return ENDERITE_LAVA_BUCKET;
+        if (full == FULL_ENDERITE_SOUL_LAVA_BUCKET) return ENDERITE_SOUL_LAVA_BUCKET;
+        return null;
+    }
+
+    /** The ceramic bucket of wear {@code stage} holding {@code content} (empty, water, lava), or null. */
+    public static @org.jspecify.annotations.Nullable Item ceramic(Fluid content, int stage) {
+        if (CERAMIC_EMPTY[0] == null || stage < 0 || stage >= CrucibleBucketItem.CERAMIC_STAGES) return null;
+        if (content == Fluids.EMPTY) return CERAMIC_EMPTY[stage];
+        if (content.isSame(Fluids.WATER)) return CERAMIC_WATER[stage];
+        if (content.isSame(Fluids.LAVA)) return CERAMIC_LAVA[stage];
+        return null;
+    }
+
+    /** {@link #buckets()} without the worn ceramic stages and the full Enderite buckets: what the creative and search tabs offer. */
+    public static java.util.List<Item> creativeBuckets() {
+        java.util.List<Item> worn = wornCeramicBuckets();
+        java.util.List<Item> full = fullEnderiteBuckets();
+        return buckets().stream().filter(item -> !worn.contains(item) && !full.contains(item)).toList();
+    }
+
+    /** The worn ceramic buckets (stage 1..3, every filling): only reached by pouring, so not in the creative tab. */
+    public static java.util.List<Item> wornCeramicBuckets() {
+        if (CERAMIC_EMPTY[0] == null) return java.util.List.of();
+        java.util.List<Item> out = new java.util.ArrayList<>();
+        for (int stage = 1; stage < CrucibleBucketItem.CERAMIC_STAGES; stage++) {
+            out.add(CERAMIC_EMPTY[stage]);
+            out.add(CERAMIC_WATER[stage]);
+            out.add(CERAMIC_LAVA[stage]);
+        }
+        return out;
+    }
+
+    /** Furnace fuel of an item: the cooking_fuel component with a fixed burn time. */
+    private static Item.Properties fuel(Item.Properties properties, int ticks) {
+        return properties.component(net.minecraft.core.component.DataComponents.COOKING_FUEL,
+                new net.minecraft.world.item.component.CookingFuel(new net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt.Constant(ticks),
+                        new net.minecraft.world.level.storage.loot.providers.number.floats.ResolvableFloat.Constant(1.0F)));
+    }
+
+    private static Item item(String name, Function<Item.Properties, Item> factory) {
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, id(name));
+        return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(new Item.Properties().setId(key)));
+    }
+
+    public static Identifier id(String name) {
+        return SimpleCrucibles.id(name);
+    }
+
+    private CrucibleFluids() {}
+}

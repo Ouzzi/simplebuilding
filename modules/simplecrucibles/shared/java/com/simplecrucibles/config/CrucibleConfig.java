@@ -11,7 +11,9 @@ import java.nio.file.Path;
  * Server config {@code config/simplecrucibles-server.json}. Every value is clamped to its hard bounds when loaded,
  * so an edited file can never exceed them; missing keys use the defaults and the file is rewritten with the clamped
  * values. Split stage 5: the options used to live in {@code simplelib-server.json}; the first start without an own
- * file takes them over from there once (SimpleLib keeps unknown keys, so they are still present).
+ * file takes them over from there once (SimpleLib keeps unknown keys, so they are still present). Split stage 5b: the
+ * group {@code soulLava} was SimpleBuilding's {@code server.soulLava} in {@code simplebuilding.json}; while the own file
+ * has no such group it is taken over from there once ({@link #takeOverSoulLava}).
  */
 public final class CrucibleConfig {
     public static final int MAX_SPEED = 16;
@@ -41,10 +43,62 @@ public final class CrucibleConfig {
     /** Damage per hit while standing in a crucible at high heat or more, like magma (owner N11 P6; 0 = off). */
     public static double crucibleBurnDamage = BURN_DAMAGE_DEFAULT;
 
+    /** Soul lava (split stage 5b, was SimpleBuilding's server.soulLava): flow, burning, soul burn, world generation, bucket fuel. */
+    public static final class SoulLavaConfig {
+        public int flowOverworld = 2;
+        public int flowNether = 5;
+        public int tickDelayOverworld = 45;
+        public int tickDelayNether = 20;
+        public int burnSeconds = 30;
+        public int soulBurnSeconds = 120;
+        public int soulBurnIntervalTicks = 60;
+        public double soulBurnChance = 0.5;
+        /** Registration-time value: restart and matching client/server files required. */
+        public int fuelMultiplier = 10;
+        public double springChance = 0.005;
+        public double fortressChance = 0.1;
+
+        /** Reads and clamps every value (hard bounds as in SimpleBuilding before 5b). */
+        void apply(JsonObject o) {
+            SoulLavaConfig d = new SoulLavaConfig();
+            flowOverworld = clamp(getInt(o, "flowOverworld", d.flowOverworld), 1, 4);
+            flowNether = clamp(getInt(o, "flowNether", d.flowNether), 1, 7);
+            tickDelayOverworld = clamp(getInt(o, "tickDelayOverworld", d.tickDelayOverworld), 20, 200);
+            tickDelayNether = clamp(getInt(o, "tickDelayNether", d.tickDelayNether), 10, 200);
+            burnSeconds = clamp(getInt(o, "burnSeconds", d.burnSeconds), 5, 60);
+            soulBurnSeconds = clamp(getInt(o, "soulBurnSeconds", d.soulBurnSeconds), 5, 300);
+            soulBurnIntervalTicks = clamp(getInt(o, "soulBurnIntervalTicks", d.soulBurnIntervalTicks), 20, 200);
+            soulBurnChance = clamp(getDouble(o, "soulBurnChance", d.soulBurnChance), 0.0, 1.0);
+            fuelMultiplier = clamp(getInt(o, "fuelMultiplier", d.fuelMultiplier), 1, 20);
+            springChance = clamp(getDouble(o, "springChance", d.springChance), 0.0, 0.05);
+            fortressChance = clamp(getDouble(o, "fortressChance", d.fortressChance), 0.0, 0.5);
+        }
+
+        JsonObject toJson() {
+            JsonObject o = new JsonObject();
+            o.addProperty("flowOverworld", flowOverworld);
+            o.addProperty("flowNether", flowNether);
+            o.addProperty("tickDelayOverworld", tickDelayOverworld);
+            o.addProperty("tickDelayNether", tickDelayNether);
+            o.addProperty("burnSeconds", burnSeconds);
+            o.addProperty("soulBurnSeconds", soulBurnSeconds);
+            o.addProperty("soulBurnIntervalTicks", soulBurnIntervalTicks);
+            o.addProperty("soulBurnChance", soulBurnChance);
+            o.addProperty("fuelMultiplier", fuelMultiplier);
+            o.addProperty("springChance", springChance);
+            o.addProperty("fortressChance", fortressChance);
+            return o;
+        }
+    }
+
+    public static final SoulLavaConfig soulLava = new SoulLavaConfig();
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String FILE = "simplecrucibles-server.json";
     /** SimpleLib's file the options came from before split stage 5. */
     public static final String OLD_FILE = "simplelib-server.json";
+    /** SimpleBuilding's config, whose {@code server.soulLava} group came here with split stage 5b. */
+    public static final String SB_FILE = "simplebuilding.json";
 
     public static void load(Path dir) {
         JsonObject json = new JsonObject();
@@ -56,6 +110,13 @@ public final class CrucibleConfig {
         }
         JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), SimpleCrucibles.LOG::warn);
         if (read != null) json = read;
+        if (dir != null && !json.has("soulLava")) {
+            JsonObject taken = readSoulLava(dir.resolve(SB_FILE));
+            if (taken != null) {
+                json.add("soulLava", taken);
+                SimpleCrucibles.LOG.info("Took over the soul lava options from {} (split stage 5b)", SB_FILE);
+            }
+        }
         apply(json);
         if (file != null) {
             try {
@@ -65,6 +126,30 @@ public final class CrucibleConfig {
                 SimpleCrucibles.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }
         }
+    }
+
+    /** {@code server.soulLava} of SimpleBuilding's config file, or null (no file, no group, unreadable). */
+    private static JsonObject readSoulLava(Path sbFile) {
+        try {
+            if (!Files.isRegularFile(sbFile)) return null;
+            return takeOverSoulLava(GSON.fromJson(Files.readString(sbFile), JsonObject.class));
+        } catch (Exception e) {
+            SimpleCrucibles.LOG.warn("Could not read {}: {}", SB_FILE, e.toString());
+            return null;
+        }
+    }
+
+    /** The soul lava group of SimpleBuilding's config ({@code server.soulLava}), or null. Public for the migration test. */
+    public static JsonObject takeOverSoulLava(JsonObject sbConfig) {
+        if (sbConfig == null || !sbConfig.has("server") || !sbConfig.get("server").isJsonObject()) return null;
+        JsonObject server = sbConfig.getAsJsonObject("server");
+        if (!server.has("soulLava") || !server.get("soulLava").isJsonObject()) return null;
+        JsonObject out = new JsonObject();
+        JsonObject old = server.getAsJsonObject("soulLava");
+        for (String key : soulLava.toJson().keySet()) {
+            if (old.has(key)) out.add(key, old.get(key).deepCopy());
+        }
+        return out.isEmpty() ? null : out;
     }
 
     /** The crucible options of SimpleLib's old file (the migration of split stage 5). Public for the migration test. */
@@ -94,6 +179,7 @@ public final class CrucibleConfig {
         heatRecheckTicks = clamp(getInt(json, "heatRecheckTicks", RECHECK_DEFAULT), RECHECK_MIN, RECHECK_MAX);
         villageKitchenWeight = clamp(getInt(json, "villageKitchenWeight", VILLAGE_WEIGHT_DEFAULT), 0, VILLAGE_WEIGHT_MAX);
         crucibleBurnDamage = clamp(getDouble(json, "crucibleBurnDamage", BURN_DAMAGE_DEFAULT), 0.0, BURN_DAMAGE_MAX);
+        soulLava.apply(json.has("soulLava") && json.get("soulLava").isJsonObject() ? json.getAsJsonObject("soulLava") : new JsonObject());
     }
 
     public static JsonObject toJson() {
@@ -113,6 +199,7 @@ public final class CrucibleConfig {
         o.addProperty("heatRecheckTicks", heatRecheckTicks);
         o.addProperty("villageKitchenWeight", villageKitchenWeight);
         o.addProperty("crucibleBurnDamage", crucibleBurnDamage);
+        o.add("soulLava", soulLava.toJson());
         return o;
     }
 

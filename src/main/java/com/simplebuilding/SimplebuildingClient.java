@@ -121,11 +121,6 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_SHULKER_BOX_BE, com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
         // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
-        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            // Crucible P5: soul lava rendering (turquoise lava textures).
-            net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry.register(com.simplebuilding.fluid.ModFluids.SOUL_LAVA,
-                    com.simplebuilding.fluid.ModFluids.FLOWING_SOUL_LAVA, com.simplebuilding.client.render.SoulLavaModel.unbaked());
-        }
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
@@ -203,12 +198,7 @@ public class SimplebuildingClient implements ClientModInitializer {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud"),
                 (context, tickCounter) -> SpeedometerHudOverlay.render(context)
         );
-        // Seelenbrand-Vollbildfilter, Nachtrag 11 P1 (2026-10-06): eigene Schicht neben den Anzeigen der Mod.
-        HudElementRegistry.attachElementBefore(
-                VanillaHudElements.CHAT,
-                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "soul_burn_filter"),
-                (context, tickCounter) -> SoulBurnOverlay.render(context)
-        );
+        // Seelenbrand-Vollbildfilter: Simple Crucibles' eigene Schicht (Stufe 5b).
         // The air jump cooldown bar is no HUD element: it takes vanilla's contextual bar slot
         // (HudContextualBarMixin, all loaders), 2026-09-29.
         LevelRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, outlineRenderState) ->

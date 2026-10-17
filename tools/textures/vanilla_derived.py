@@ -54,9 +54,6 @@ OUTPUTS = {
     'block/copper_fire_0.png': ((16, 512), 'fires_2026_10_11.derived()'),
     'block/copper_fire_1.png': ((16, 512), 'fires_2026_10_11.derived()'),
     'block/silent_dandelion.png': ((16, 16), 'silent_dandelion_2026_10_03.derived()'),
-    'block/soul_lava_still.png': ((16, 320), 'soul_lava_2026_10_09.derived()'),
-    'block/soul_lava_flow.png': ((32, 512), 'soul_lava_2026_10_09.derived()'),
-    'item/soul_lava_bucket.png': ((16, 16), 'soul_lava_2026_10_09.derived()'),
     'item/reinforced_shulker_shell.png': ((16, 16), 'shulker_shell_textures.derived()'),
     'item/netherite_shulker_shell.png': ((16, 16), 'shulker_shell_textures.derived()'),
     'item/enderite_shulker_shell.png': ((16, 16), 'shulker_shell_textures.derived()'),
@@ -105,19 +102,6 @@ OUTPUTS = {
     'item/netherite_chest_raft_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/enderite_chest_boat_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
     'item/enderite_chest_raft_overlay.png': ((16, 16), 'vehicles_2026_10_10.derived()'),
-    'item/copper_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_water_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_lava_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_bucket_1.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_water_bucket_1.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_lava_bucket_1.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_bucket_2.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_water_bucket_2.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_lava_bucket_2.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_water_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/copper_lava_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived()'),
-    'item/enderite_bucket.png': ((16, 320), 'crucible_art_v2_2026_10_05.derived()'),
     # Top views of the placed discs (Item display 3D, placed_display_3d_2026_10_16.py): 22 Vanilla + 16 mod discs.
     **{f'block/placed_disc_music_disc_{d}.png': ((16, 16), 'placed_display_3d_2026_10_16.derived() - disc top view')
        for d in ('11', '13', '5', 'blocks', 'bounce', 'cat', 'chirp', 'creator', 'creator_music_box', 'far', 'lava_chicken',
@@ -143,17 +127,17 @@ MODULE_OUTPUTS = {
     'simpleblocks': {'block/cracked_red_nether_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_tuff_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_tuff_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_mud_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_mud_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_end_stone_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_end_stone_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_deepslate_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_deepslate_tiles.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_cinnabar_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_cinnabar_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/cracked_sulfur_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)'), 'block/mossy_sulfur_bricks.png': ((16, 16), 'missing_blocks_2026_10_16.derived() - Vanilla brick + cracks/moss (N69)')},
     'simpleovens': {f'item/{tier}_furnace_minecart.png': ((16, 16), 'ovens_carts_2026_10_13.derived() - Vanilla minecart (N19)')
                     for tier in ('reinforced', 'netherite', 'enderite')},
-    'simplecrucibles': {f'block/enderite_{part}.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla cauldron/barrel/netherite (split stage 5)')
-                        for part in ('crucible_side', 'crucible_top', 'barrel_side', 'barrel_top', 'barrel_top_open', 'barrel_bottom', 'barrel_flange')},
+    # simplecrucibles: one line (gradle/module-vanilla-derived.gradle reads its placeholder sizes from it).
+    'simplecrucibles': {'block/enderite_crucible_side.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla cauldron/barrel/netherite (split stage 5)'), 'block/enderite_crucible_top.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla cauldron/barrel/netherite (split stage 5)'), 'block/enderite_barrel_side.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla cauldron/barrel/netherite (split stage 5)'), 'block/enderite_barrel_top.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla cauldron/barrel/netherite (split stage 5)'), 'block/enderite_barrel_top_open.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla cauldron/barrel/netherite (split stage 5)'), 'block/enderite_barrel_bottom.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla cauldron/barrel/netherite (split stage 5)'), 'block/enderite_barrel_flange.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla cauldron/barrel/netherite (split stage 5)'), 'block/soul_lava_still.png': ((16, 320), 'soul_lava_2026_10_09.derived() - Vanilla lava recolour (split stage 5b)'), 'block/soul_lava_flow.png': ((32, 512), 'soul_lava_2026_10_09.derived() - Vanilla lava recolour (split stage 5b)'), 'item/soul_lava_bucket.png': ((16, 16), 'soul_lava_2026_10_09.derived() - Vanilla lava bucket recolour (split stage 5b)'), 'item/copper_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_water_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_lava_bucket_0.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_bucket_1.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_water_bucket_1.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_lava_bucket_1.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_bucket_2.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_water_bucket_2.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_lava_bucket_2.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_water_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/copper_lava_bucket_3.png': ((16, 16), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)'), 'item/enderite_bucket.png': ((16, 320), 'crucible_art_v2_2026_10_05.derived_module() - Vanilla bucket (split stage 5b)')},
     'simplebeacons': {'gui/container/strong_beacon.png': ((256, 288), 'strong_beacon_gui.derived() - Vanilla beacon GUI + 2 rows (T12)')},
 }
 MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures'), 'simpleovens': ('ovens_carts_2026_10_13',),
-                     'simplebeacons': ('strong_beacon_gui',), 'simpleblocks': ('missing_blocks_2026_10_16',), 'simplecrucibles': ('crucibles_derived_2026_10_16',)}
+                     'simplebeacons': ('strong_beacon_gui',), 'simpleblocks': ('missing_blocks_2026_10_16',), 'simplecrucibles': ('crucibles_derived_2026_10_16', 'soul_lava_2026_10_09')}
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
-                    'fires_2026_10_11', 'silent_dandelion_2026_10_03', 'soul_lava_2026_10_09', 'shulker_shell_textures',
+                    'fires_2026_10_11', 'silent_dandelion_2026_10_03', 'shulker_shell_textures',
                     'music_disc_textures', 'placed_egg_textures', 'standing_rods_2026_10_04', 'vehicles_2026_10_10',
-                    'crucible_art_v2_2026_10_05', 'placed_display_3d_2026_10_16', 'sulfur_lights_2026_10_15')
+                    'placed_display_3d_2026_10_16', 'sulfur_lights_2026_10_15')
 # Probe file every usable jar contains.
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
 

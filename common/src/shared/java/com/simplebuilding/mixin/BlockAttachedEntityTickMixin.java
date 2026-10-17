@@ -34,11 +34,6 @@ public class BlockAttachedEntityTickMixin {
                 DynamicLightHandler.tickGlowMotes(frame, () -> GlowingTrimUtils.getEmissionLevel(frame.getItem()));
             } else {
                 DynamicLightHandler.tickItemFrame(frame);
-                // Nachtrag 60: a copper bucket in a frame weathers like a carried one.
-                if (com.simplebuilding.fluid.ModBucketItem.isCopper(frame.getItem())) {
-                    ItemStack weathered = com.simplebuilding.fluid.ModBucketItem.weatherPlaced(frame.getItem(), frame.getRandom());
-                    if (weathered != null) frame.setItem(weathered);
-                }
             }
         }
     }

@@ -114,7 +114,6 @@ public final class ConfigOptions {
             "enableSimpleShops",
             "enableSimpleWanderers",
             "enableSimpleBlocks",
-            "server.soulLava.fuelMultiplier",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

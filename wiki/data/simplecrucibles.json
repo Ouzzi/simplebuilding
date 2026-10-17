@@ -75,18 +75,85 @@
       "id": "reinforced_cauldron",
       "en": {
         "title": "Reinforced cauldron",
-        "summary": "A cauldron for water, lava, powder snow and - with SimpleBuilding - soul lava; lava in it heats a crucible like a lava source.",
+        "summary": "A cauldron for water, lava, powder snow and soul lava; lava in it heats a crucible like a lava source.",
         "details": [
           "Without SimpleBuilding: hold an axe, put 8 diamonds in the off hand and use it on a cauldron five times. With SimpleBuilding the sledgehammer and 8 cracked diamonds replace the axe and the diamonds.",
-          "It works like a Vanilla cauldron and uses the same interactions: buckets, bottles in three levels, washing dyed items and banners, rain, snow and dripstone, and what other mods add to the cauldron (milk from Simple Sandwiches turns it into a reinforced milk cauldron that becomes this cauldron again when emptied). Copper and Enderite buckets (SimpleBuilding) take only a full cauldron. As a crucible heat source it counts like its content: lava high, soul lava extreme. A normal cauldron does not take soul lava."
+          "It works like a Vanilla cauldron and uses the same interactions: buckets, bottles in three levels, washing dyed items and banners, rain, snow and dripstone, and what other mods add to the cauldron (milk from Simple Sandwiches turns it into a reinforced milk cauldron that becomes this cauldron again when emptied). Copper, Enderite and ceramic buckets take only a full cauldron; soul lava goes in and out with the iron or Enderite bucket. As a crucible heat source it counts like its content: lava high, soul lava extreme. A normal cauldron does not take soul lava."
         ]
       },
       "de": {
         "title": "Verstärkter Kessel",
-        "summary": "Ein Kessel für Wasser, Lava, Pulverschnee und - mit SimpleBuilding - Seelen-Lava; Lava darin heizt einen Schmelztiegel wie eine Lavaquelle.",
+        "summary": "Ein Kessel für Wasser, Lava, Pulverschnee und Seelen-Lava; Lava darin heizt einen Schmelztiegel wie eine Lavaquelle.",
         "details": [
           "Ohne SimpleBuilding: eine Axt halten, 8 Diamanten in die Nebenhand und fünfmal auf einen Kessel anwenden. Mit SimpleBuilding ersetzen Vorschlaghammer und 8 Rissige Diamanten Axt und Diamanten.",
-          "Er funktioniert wie ein Vanilla-Kessel und nutzt dieselben Interaktionen: Eimer, Flaschen in drei Stufen, Waschen gefärbter Gegenstände und Banner, Regen, Schnee und Tropfstein sowie alles, was andere Mods dem Kessel hinzufügen (Milch aus Simple Sandwiches macht ihn zum verstärkten Milchkessel, der beim Leeren wieder dieser Kessel wird). Kupfer- und Enderit-Eimer (SimpleBuilding) nehmen nur aus einem vollen Kessel. Als Hitzequelle eines Schmelztiegels zählt er wie sein Inhalt: Lava hoch, Seelen-Lava extrem. Ein normaler Kessel nimmt keine Seelen-Lava."
+          "Er funktioniert wie ein Vanilla-Kessel und nutzt dieselben Interaktionen: Eimer, Flaschen in drei Stufen, Waschen gefärbter Gegenstände und Banner, Regen, Schnee und Tropfstein sowie alles, was andere Mods dem Kessel hinzufügen (Milch aus Simple Sandwiches macht ihn zum verstärkten Milchkessel, der beim Leeren wieder dieser Kessel wird). Kupfer-, Enderit- und Keramik-Eimer nehmen nur aus einem vollen Kessel; Seelen-Lava kommt mit dem Eisen- oder Enderit-Eimer hinein und heraus. Als Hitzequelle eines Schmelztiegels zählt er wie sein Inhalt: Lava hoch, Seelen-Lava extrem. Ein normaler Kessel nimmt keine Seelen-Lava."
+        ]
+      }
+    },
+    {
+      "id": "soul_lava",
+      "sources": [
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/SoulLavaFluid.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/SoulLavaBlock.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/SoulLava.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/effect/SoulBurnEffect.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/mixin/SoulLavaSpringMixin.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/mixin/SoulLavaFortressMixin.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/config/CrucibleConfig.java"
+      ],
+      "related": [
+        "simplecrucibles:soul_lava_bucket",
+        "simplecrucibles:reinforced_cauldron"
+      ],
+      "en": {
+        "title": "Soul lava",
+        "summary": "A rare Nether fluid and the only extreme heat source: it flows short and slow, is never replaced, and gives Seelenbrand (soul burn). Split stage 5b: was SimpleBuilding's, old worlds migrate.",
+        "details": [
+          "Soul lava defaults: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for two minutes: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts; on cold ground (water, ice or snow under the feet) the roll comes every 1.5 seconds instead. While it lasts, a faint dark-blue filter lies over the screen (besides the vanilla effect icon). It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
+          "Server config simplecrucibles-server.json, group soulLava (until split stage 5b SimpleBuilding's server.soulLava, taken over once), controls flow, delays, burn and soul burn, world generation chances and bucket fuel within hard limits. Fuel changes require a restart and matching client/server files.",
+          "With Jade, a crucible shows its heat, occupied slots and the shortest remaining time of a running slot, including tier speed and the two-block heat penalty, and the reinforced cauldron its content and fill level. JEI shows the fastest cooking recipe per input and required heat, plus warming for tagged food without a cooking recipe (the displayed time assumes an iron crucible at minimum heat without a distance penalty), and info pages for the filled, worn and full buckets."
+        ]
+      },
+      "de": {
+        "title": "Seelen-Lava",
+        "summary": "Eine seltene Nether-Flüssigkeit und die einzige extreme Hitzequelle: fließt kurz und langsam, wird nie ersetzt und gibt Seelenbrand. Aufteilungsstufe 5b: gehörte SimpleBuilding, alte Welten werden übernommen.",
+        "details": [
+          "Seelen-Lava mit Standardwerten: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt zwei Minuten Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt; auf kaltem Grund (Wasser, Eis oder Schnee unter den Füßen) kommt der Wurf alle 1,5 Sekunden. Solange er wirkt, liegt ein leichter dunkelblauer Filter über dem Bild (zusätzlich zum Vanilla-Effektsymbol). Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
+          "Die Server-Config simplecrucibles-server.json, Gruppe soulLava (bis Aufteilungsstufe 5b SimpleBuildings server.soulLava, einmal übernommen), regelt Fließweite, Verzögerungen, Brand und Seelenbrand, Weltgenerierungschancen und Eimer-Brennstoff innerhalb harter Grenzen. Brennstoffänderungen brauchen einen Neustart und gleiche Client-/Server-Dateien.",
+          "Mit Jade zeigt ein Schmelztiegel Hitze, belegte Plätze und die kürzeste Restzeit eines laufenden Platzes einschließlich Stufentempo und Hitzeabschlag bei zwei Blöcken Abstand, der verstärkte Kessel Inhalt und Füllstand. JEI zeigt je Eingabe und nötiger Hitze das schnellste Kochrezept sowie Aufwärmen für markiertes Essen ohne Kochrezept (die angezeigte Zeit gilt für einen Eisen-Tiegel bei Mindesthitze ohne Abstandsabschlag) und Infoseiten für gefüllte, abgenutzte und volle Eimer."
+        ]
+      }
+    },
+    {
+      "id": "buckets",
+      "sources": [
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/CrucibleBucketItem.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/CrucibleFluids.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/EnderiteMilkBucketItem.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/CauldronBuckets.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/BucketDispensing.java",
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/fluid/ReinforcedCauldronBuckets.java"
+      ],
+      "related": [
+        "simplecrucibles:copper_bucket",
+        "simplecrucibles:enderite_bucket",
+        "simplecrucibles:ceramic_bucket",
+        "simplecrucibles:raw_ceramic_bucket",
+        "simplecrucibles:soul_lava_bucket",
+        "simplecrucibles:enderite_milk_bucket"
+      ],
+      "en": {
+        "title": "Copper, Enderite and ceramic buckets",
+        "summary": "Buckets for the crucible's fluids: the iron bucket breaks on soul lava, the Enderite bucket holds two buckets and never breaks, copper oxidizes, ceramic wears. Split stage 5b: were SimpleBuilding's, old worlds migrate.",
+        "details": [
+          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks; it holds two buckets of one fluid: use only scoops while there is room, a full one pours one bucket on use, and sneak + use pours one bucket at any fill (a full one is named \"(Full)\"). The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes slowly (about like a copper block) while carried in the hotbar or off hand or placed in the world (dropped, or in an item frame), not when pouring and not in the rest of the inventory or in containers; honeycomb waxes it (off hand while holding it, or on an item frame) and a waxed one does not weather, but filling it wears the wax: it then weathers at half pace until waxed again (an axe scrapes the wax or one stage off), pours water only as a flowing block and breaks when pouring lava; fully oxidized (stage 3) it scoops nothing until an axe scrapes it back. The ceramic bucket (3 clay balls shaped like a bucket give a raw ceramic bucket, fired in a furnace or crucible) takes water and lava, wears one stage per pour (shown as a bar) and breaks after four pours; scooping does not wear it. Taking lava makes it brittle at once: it breaks when the lava is poured. By default, a soul lava bucket burns 10 times as long as a lava bucket."
+        ]
+      },
+      "de": {
+        "title": "Kupfer-, Enderit- und Keramik-Eimer",
+        "summary": "Eimer für die Flüssigkeiten des Tiegels: der Eisen-Eimer zerbricht an Seelen-Lava, der Enderit-Eimer fasst zwei Eimer und zerbricht nie, Kupfer oxidiert, Keramik nutzt sich ab. Aufteilungsstufe 5b: gehörten SimpleBuilding, alte Welten werden übernommen.",
+        "details": [
+          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie; er fasst zwei Eimer derselben Flüssigkeit: Benutzen schöpft nur, solange Platz ist, ein voller gießt beim Benutzen einen Eimer aus, und Schleichen + Benutzen gießt bei jedem Füllstand einen Eimer aus (ein voller heißt „(voll)“). Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert langsam (etwa wie ein Kupferblock), solange er in der Hotbar oder Nebenhand getragen wird oder in der Welt liegt (fallengelassen oder im Rahmen), nicht beim Ausgießen und nicht im übrigen Inventar oder in Behältern; eine Honigwabe wachst ihn (Nebenhand, während man ihn hält, oder am Rahmen), und ein gewachster verwittert nicht, doch Einfüllen greift das Wachs an: er verwittert dann halb so schnell, bis er wieder gewachst wird (eine Axt schabt das Wachs oder eine Stufe ab), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava; voll oxidiert (Stufe 3) schöpft er nichts mehr, bis eine Axt ihn zurückschabt. Der Keramik-Eimer (3 Tonklumpen in Eimer-Form ergeben einen rohen Keramik-Eimer, gebrannt im Ofen oder Schmelztiegel) nimmt Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab (als Balken sichtbar) und zerbricht nach vier Ausgießvorgängen; Schöpfen nutzt ihn nicht ab. Mit Lava wird er sofort spröde und zerbricht beim Ausgießen der Lava. Mit Standardwerten brennt ein Seelen-Lava-Eimer 10-mal so lange wie ein Lavaeimer."
         ]
       }
     },
@@ -121,6 +188,36 @@
     }
   ],
   "recipes": [
+    {
+      "id": "simplecrucibles:ceramic_bucket_from_smelting_raw_ceramic_bucket",
+      "type": "minecraft:smelting",
+      "category": null,
+      "group": "ceramic_bucket",
+      "result": {
+        "id": "simplecrucibles:ceramic_bucket",
+        "count": 1
+      },
+      "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/recipe/ceramic_bucket_from_smelting_raw_ceramic_bucket.json",
+      "ingredients": [
+        "simplecrucibles:raw_ceramic_bucket"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplecrucibles:raw_ceramic_bucket"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.3,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 3
+          }
+        ]
+      }
+    },
     {
       "id": "simplecrucibles:copper_barrel",
       "type": "minecraft:crafting_shaped",
@@ -163,6 +260,79 @@
       }
     },
     {
+      "id": "simplecrucibles:copper_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplecrucibles:copper_bucket",
+        "count": 1
+      },
+      "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/recipe/copper_bucket.json",
+      "ingredients": [
+        "minecraft:copper_ingot"
+      ],
+      "pattern": [
+        "C C",
+        " C "
+      ],
+      "key": {
+        "C": [
+          "minecraft:copper_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplecrucibles:enderite_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplecrucibles:enderite_bucket",
+        "count": 1
+      },
+      "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/recipe/enderite_bucket.json",
+      "ingredients": [
+        "minecraft:bucket",
+        "simplelib:enderite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "B": [
+          "minecraft:bucket"
+        ],
+        "N": [
+          "simplelib:enderite_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplelib:enderite_nugget",
+            "count": 8
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simplecrucibles:guide_book",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -198,6 +368,38 @@
           {
             "id": "minecraft:leather",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplecrucibles:raw_ceramic_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplecrucibles:raw_ceramic_bucket",
+        "count": 1
+      },
+      "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/recipe/raw_ceramic_bucket.json",
+      "ingredients": [
+        "minecraft:clay_ball"
+      ],
+      "pattern": [
+        "C C",
+        " C "
+      ],
+      "key": {
+        "C": [
+          "minecraft:clay_ball"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:clay_ball",
+            "count": 3
           }
         ]
       }
@@ -468,7 +670,16 @@
     {
       "id": "simplecrucibles:fluid/extreme_heat",
       "replace": false,
-      "values": [],
+      "values": [
+        {
+          "id": "simplecrucibles:soul_lava",
+          "required": true
+        },
+        {
+          "id": "simplecrucibles:flowing_soul_lava",
+          "required": true
+        }
+      ],
       "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/tags/fluid/extreme_heat.json"
     },
     {
@@ -561,6 +772,437 @@
   "enchantments": [],
   "items": [
     {
+      "id": "simplecrucibles:brittle_ceramic_bucket",
+      "name": {
+        "en_us": "Brittle Ceramic Bucket",
+        "de_de": "Brüchiger Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/brittle_ceramic_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:brittle_ceramic_lava_bucket",
+      "name": {
+        "en_us": "Brittle Ceramic Lava Bucket",
+        "de_de": "Brüchiger Keramik-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/brittle_ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:brittle_ceramic_water_bucket",
+      "name": {
+        "en_us": "Brittle Ceramic Water Bucket",
+        "de_de": "Brüchiger Keramik-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/brittle_ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:ceramic_bucket",
+      "name": {
+        "en_us": "Ceramic Bucket",
+        "de_de": "Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/ceramic_bucket.png",
+      "craftedBy": [
+        "simplecrucibles:ceramic_bucket_from_smelting_raw_ceramic_bucket"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:ceramic_lava_bucket",
+      "name": {
+        "en_us": "Ceramic Lava Bucket",
+        "de_de": "Keramik-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:ceramic_water_bucket",
+      "name": {
+        "en_us": "Ceramic Water Bucket",
+        "de_de": "Keramik-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:chipped_ceramic_bucket",
+      "name": {
+        "en_us": "Chipped Ceramic Bucket",
+        "de_de": "Angeschlagener Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/chipped_ceramic_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:chipped_ceramic_lava_bucket",
+      "name": {
+        "en_us": "Chipped Ceramic Lava Bucket",
+        "de_de": "Angeschlagener Keramik-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/chipped_ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:chipped_ceramic_water_bucket",
+      "name": {
+        "en_us": "Chipped Ceramic Water Bucket",
+        "de_de": "Angeschlagener Keramik-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/chipped_ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:copper_bucket",
+      "name": {
+        "en_us": "Copper Bucket",
+        "de_de": "Kupfer-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Copper bucket: water and lava, never soul lava; oxidizes while carried, wax and axe care for it (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Kupfer-Eimer: Wasser und Lava, nie Seelen-Lava; oxidiert beim Tragen, Wachs und Axt pflegen ihn (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [
+        "simplecrucibles:copper_bucket"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:copper_lava_bucket",
+      "name": {
+        "en_us": "Copper Lava Bucket",
+        "de_de": "Kupfer-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Copper bucket: water and lava, never soul lava; oxidizes while carried, wax and axe care for it (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Kupfer-Eimer: Wasser und Lava, nie Seelen-Lava; oxidiert beim Tragen, Wachs und Axt pflegen ihn (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:copper_water_bucket",
+      "name": {
+        "en_us": "Copper Water Bucket",
+        "de_de": "Kupfer-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Copper bucket: water and lava, never soul lava; oxidizes while carried, wax and axe care for it (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Kupfer-Eimer: Wasser und Lava, nie Seelen-Lava; oxidiert beim Tragen, Wachs und Axt pflegen ihn (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:cracked_ceramic_bucket",
+      "name": {
+        "en_us": "Cracked Ceramic Bucket",
+        "de_de": "Rissiger Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/cracked_ceramic_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:cracked_ceramic_lava_bucket",
+      "name": {
+        "en_us": "Cracked Ceramic Lava Bucket",
+        "de_de": "Rissiger Keramik-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/cracked_ceramic_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:cracked_ceramic_water_bucket",
+      "name": {
+        "en_us": "Cracked Ceramic Water Bucket",
+        "de_de": "Rissiger Keramik-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/cracked_ceramic_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:enderite_bucket",
+      "name": {
+        "en_us": "Enderite Bucket",
+        "de_de": "Enderit-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/enderite_bucket.png",
+      "craftedBy": [
+        "simplecrucibles:enderite_bucket"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:enderite_lava_bucket",
+      "name": {
+        "en_us": "Enderite Lava Bucket",
+        "de_de": "Enderit-Lavaeimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/enderite_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:enderite_lava_bucket_full",
+      "name": {
+        "en_us": "Enderite Lava Bucket (Full)",
+        "de_de": "Enderit-Lavaeimer (voll)"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:enderite_milk_bucket",
+      "name": {
+        "en_us": "Enderite Milk Bucket",
+        "de_de": "Enderit-Milcheimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/enderite_milk_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:enderite_milk_bucket_full",
+      "name": {
+        "en_us": "Enderite Milk Bucket (Full)",
+        "de_de": "Enderit-Milcheimer (voll)"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:enderite_soul_lava_bucket",
+      "name": {
+        "en_us": "Enderite Soul Lava Bucket",
+        "de_de": "Enderit-Seelen-Lava-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/enderite_soul_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:enderite_soul_lava_bucket_full",
+      "name": {
+        "en_us": "Enderite Soul Lava Bucket (Full)",
+        "de_de": "Enderit-Seelen-Lava-Eimer (voll)"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:enderite_water_bucket",
+      "name": {
+        "en_us": "Enderite Water Bucket",
+        "de_de": "Enderit-Wassereimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/enderite_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:enderite_water_bucket_full",
+      "name": {
+        "en_us": "Enderite Water Bucket (Full)",
+        "de_de": "Enderit-Wassereimer (voll)"
+      },
+      "note": {
+        "en": {
+          "summary": "Enderite bucket: water, lava, soul lava and milk, two buckets of one fluid, never breaks (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Enderit-Eimer: Wasser, Lava, Seelen-Lava und Milch, zwei Eimer derselben Flüssigkeit, zerbricht nie (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplecrucibles:guide_book",
       "name": {
         "en_us": "Simple Crucibles Guide",
@@ -582,6 +1224,46 @@
       "craftedBy": [
         "simplecrucibles:guide_book"
       ],
+      "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:raw_ceramic_bucket",
+      "name": {
+        "en_us": "Raw Ceramic Bucket",
+        "de_de": "Roher Keramik-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "Ceramic bucket: fired clay for water and lava, wears one stage per pour and breaks after four (see Copper, Enderite and ceramic buckets)."
+        },
+        "de": {
+          "summary": "Keramik-Eimer: gebrannter Ton für Wasser und Lava, nutzt sich je Ausgießen um eine Stufe ab und zerbricht nach vier (siehe Kupfer-, Enderit- und Keramik-Eimer)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/raw_ceramic_bucket.png",
+      "craftedBy": [
+        "simplecrucibles:raw_ceramic_bucket"
+      ],
+      "usedIn": [
+        "simplecrucibles:ceramic_bucket_from_smelting_raw_ceramic_bucket"
+      ]
+    },
+    {
+      "id": "simplecrucibles:soul_lava_bucket",
+      "name": {
+        "en_us": "Soul Lava Bucket",
+        "de_de": "Seelen-Lava-Eimer"
+      },
+      "note": {
+        "en": {
+          "summary": "An iron bucket of soul lava: scooped from a soul lava source, breaks when poured; burns 10 times as long as a lava bucket (see Soul lava)."
+        },
+        "de": {
+          "summary": "Ein Eisen-Eimer mit Seelen-Lava: aus einer Seelen-Lava-Quelle geschöpft, zerbricht beim Ausgießen; brennt 10-mal so lange wie ein Lavaeimer (siehe Seelen-Lava)."
+        }
+      },
+      "texture": "assets/textures/simplecrucibles/item/soul_lava_bucket.png",
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -924,10 +1606,10 @@
       },
       "note": {
         "en": {
-          "summary": "A Vanilla cauldron that also holds (with SimpleBuilding) soul lava; heats a crucible like its content (see Reinforced cauldron)."
+          "summary": "A Vanilla cauldron that also holds soul lava; heats a crucible like its content (see Reinforced cauldron)."
         },
         "de": {
-          "summary": "Ein Vanilla-Kessel, der (mit SimpleBuilding) auch Seelen-Lava fasst; heizt einen Schmelztiegel wie sein Inhalt (siehe Verstärkter Kessel)."
+          "summary": "Ein Vanilla-Kessel, der auch Seelen-Lava fasst; heizt einen Schmelztiegel wie sein Inhalt (siehe Verstärkter Kessel)."
         }
       },
       "questionary": {
@@ -997,6 +1679,23 @@
       },
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simplecrucibles:soul_lava",
+      "name": {
+        "en_us": "Soul Lava",
+        "de_de": "Seelen-Lava"
+      },
+      "note": {
+        "en": {
+          "summary": "Soul lava as a block: only a bucket form, like lava (see Soul lava)."
+        },
+        "de": {
+          "summary": "Seelen-Lava als Block: nur in Eimer-Form, wie Lava (siehe Seelen-Lava)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -1013,14 +1712,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 4,
-    "recipes": 2,
+    "features": 6,
+    "recipes": 6,
     "lootTables": 11,
     "tags": 11,
     "advancements": 0,
     "enchantments": 0,
-    "items": 1,
-    "blocks": 10,
+    "items": 27,
+    "blocks": 11,
     "trades": 0,
     "config": 0,
     "quests": 0,

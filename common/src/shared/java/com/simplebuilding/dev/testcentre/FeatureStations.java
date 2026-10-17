@@ -659,17 +659,18 @@ public final class FeatureStations {
         chest.add(new ItemStack(ModItems.CRACKED_DIAMOND, 16));
         chest.add(new ItemStack(ModItems.NETHERITE_NUGGET, 4));
         chest.add(new ItemStack(ModItems.ENDERITE_NUGGET, 4));
-        for (Item bucket : com.simplebuilding.fluid.ModFluids.buckets()) { // 6 + 21 Eimer = 27, eine Truhe voll
-            if (com.simplebuilding.fluid.ModFluids.fullEnderiteBuckets().contains(bucket)) continue; // volle: zweimal schoepfen
-            if (bucket == com.simplebuilding.fluid.ModFluids.ENDERITE_MILK_BUCKET) continue; // halber Milcheimer: im Fass (Chest voll)
+        // Split stage 5b: the buckets are Simple Crucibles' (by id, BucketRefs); 6 + 21 = 27, one chest full.
+        for (Item bucket : com.simplebuilding.util.BucketRefs.buckets()) {
+            if (com.simplebuilding.util.BucketRefs.fullEnderiteBuckets().contains(bucket)) continue; // volle: zweimal schoepfen
+            if (bucket == com.simplebuilding.util.BucketRefs.item("enderite_milk_bucket")) continue; // halber Milcheimer: im Fass (Chest voll)
             chest.add(new ItemStack(bucket));
         }
         c.contents(1, 0, 1, chest);
         // Volle Enderit-Eimer (N21, 2 Eimer) passen nicht mehr in die Truhe: eigenes Fass daneben.
         c.place(3, 0, 1, Blocks.BARREL);
         List<ItemStack> full = new ArrayList<>();
-        for (Item bucket : com.simplebuilding.fluid.ModFluids.fullEnderiteBuckets()) full.add(new ItemStack(bucket));
-        full.add(new ItemStack(com.simplebuilding.fluid.ModFluids.ENDERITE_MILK_BUCKET));
+        for (Item bucket : com.simplebuilding.util.BucketRefs.fullEnderiteBuckets()) full.add(new ItemStack(bucket));
+        full.add(new ItemStack(com.simplebuilding.util.BucketRefs.item("enderite_milk_bucket")));
         c.contents(3, 0, 1, full);
         c.title(0, 3, wallZ, TcText.t("section.crucible", "Crucibles"), TcText.t("section.crucible.sub", "soul lava, buckets, hammer"));
         c.wallSign(2, 2, wallZ, TcText.bold(TcText.t("crucible.extreme", "Extreme heat")),

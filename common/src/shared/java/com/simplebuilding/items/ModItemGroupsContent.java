@@ -570,17 +570,17 @@ public final class ModItemGroupsContent {
             rows.add(CreativeTabLayout.Row.of("hammocks", ModItems.HAMMOCKS.toArray(net.minecraft.world.level.ItemLike[]::new)));
         }
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            // Crucible P5 (2026-10-05): Eimer. Nur SB-Items in SB-Tabs: Tiegel, Faesser und Kessel (auch die Enderit-Stufe seit Stufe 5)
-            // stehen im eigenen Tab von Simple Crucibles, das sie zusaetzlich in SBs Funktions-Tab einsortiert.
-            rows.add(CreativeTabLayout.Row.of("buckets", com.simplebuilding.fluid.ModFluids.COPPER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, CreativeTabLayout.GAP,
-                    com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
-            rows.add(CreativeTabLayout.Row.of("enderite_milk", com.simplebuilding.fluid.ModFluids.ENDERITE_MILK_BUCKET));
+            // Crucible P5 (2026-10-05): Eimer - seit Stufe 5b Simple Crucibles' Items, hier per Id (BucketRefs), damit SBs
+            // Funktions-Tab sein Reihen-Layout behaelt. Tiegel, Faesser und Kessel sortiert Simple Crucibles selbst in diesen Tab ein.
+            rows.add(CreativeTabLayout.Row.of("buckets", com.simplebuilding.util.BucketRefs.item("copper_bucket"), com.simplebuilding.util.BucketRefs.item("copper_water_bucket"),
+                    com.simplebuilding.util.BucketRefs.item("copper_lava_bucket"), com.simplebuilding.util.BucketRefs.item("soul_lava_bucket"), CreativeTabLayout.GAP,
+                    com.simplebuilding.util.BucketRefs.item("enderite_bucket"), com.simplebuilding.util.BucketRefs.item("enderite_water_bucket"),
+                    com.simplebuilding.util.BucketRefs.item("enderite_lava_bucket"), com.simplebuilding.util.BucketRefs.item("enderite_soul_lava_bucket")));
+            rows.add(CreativeTabLayout.Row.of("enderite_milk", com.simplebuilding.util.BucketRefs.item("enderite_milk_bucket")));
             // Keramik-Eimer (Nachtrag 11): roh, gebrannt, mit Wasser, mit Lava (N12).
-            rows.add(CreativeTabLayout.Row.of("ceramic_buckets", com.simplebuilding.fluid.ModFluids.RAW_CERAMIC_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.CERAMIC_BUCKET, com.simplebuilding.fluid.ModFluids.CERAMIC_WATER_BUCKET,
-                    com.simplebuilding.fluid.ModFluids.CERAMIC_LAVA_BUCKET));
+            rows.add(CreativeTabLayout.Row.of("ceramic_buckets", com.simplebuilding.util.BucketRefs.item("raw_ceramic_bucket"),
+                    com.simplebuilding.util.BucketRefs.item("ceramic_bucket"), com.simplebuilding.util.BucketRefs.item("ceramic_water_bucket"),
+                    com.simplebuilding.util.BucketRefs.item("ceramic_lava_bucket")));
         }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher (2026-10-03): Astralit (Plattenspieler), Nihilit (Notenblock).

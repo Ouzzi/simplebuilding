@@ -10,7 +10,6 @@
     "LevelEventHandlerSpeakerMixin",
     "SoundEngineAmplifierMixin",
     "ChannelAmplifierMixin",
-    "SoulLavaFogMixin",
     "AvatarRendererMixin",
     "HammockLivingRendererMixin",
     "HammockRenderStateMixin",
