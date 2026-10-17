@@ -861,7 +861,9 @@
       ],
       "optional": [
         "simpledimensions",
-        "simplebuilding"
+        "simplebuilding",
+        "simplemoney",
+        "simpleweather"
       ],
       "checks": [
         "modules/simpletweaks/tools/check_data.py"

@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simpletweaks.play.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "PlayServerMixin",
+    "PlayPlayerListMixin",
+    "PlayLeaveMixin",
+    "PlayServerPlayerMixin",
+    "PlayPlayerMixin",
+    "PlaySleepStatusMixin",
+    "PlayPhantomMixin",
+    "PlayDragonFightMixin",
+    "PlayGameRulesMixin",
+    "PlayServerLevelMixin",
+    "PlayOrbMixin",
+    "PlayLootMixin",
+    "PlayChunkCacheInvoker"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
