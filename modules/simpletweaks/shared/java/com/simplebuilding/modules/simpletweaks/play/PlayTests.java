@@ -93,7 +93,7 @@ public final class PlayTests {
     static boolean hasClick(Component c, Class<?> type) {
         if (c.getStyle().getClickEvent() != null && type.isInstance(c.getStyle().getClickEvent())) return true;
         for (var s : c.getSiblings()) if (hasClick(s, type)) return true;
-        if (c.getContents() instanceof TranslatableContents t) for (var a : t.getArgs()) if (a instanceof Component ac && hasClick(ac, type)) return true;
+        if (c.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t) for (var a : t.getArgs()) if (a instanceof Component ac && hasClick(ac, type)) return true;
         return false;
     }
     static final String ALL_OFF;
